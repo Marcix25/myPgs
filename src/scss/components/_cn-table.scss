@@ -1,0 +1,59 @@
+[pgs~="table"] {
+
+    &:is(table),
+    table {
+        --table-title-background: var(--border-color);
+        --table-title-color: var(--color-black);
+    
+        --table-row-background-even: var(--border-box-transparent);
+        --table-row-background-odd: var(--border-box);
+        --table-row-color: var(--color-black);
+
+        --table-row-hover-background: var(--color-secondary);
+        --table-row-hover-color: var(--color-blackFixed);
+        
+        width: 100%;
+        max-width: 100%; // Limita la larghezza della tabella al contenitore
+        table-layout: auto; // Cambiato da fixed ad auto per migliorare la flessibilità del layout
+        border-collapse: collapse;
+        color: var(--color-text);
+        border-radius: var(--border-radius-input);
+        border: var(--border-complete-hover);
+        overflow: hidden;
+
+        th,
+        td {
+            padding: 12px;
+            border: var(--border-complete-hover);
+            text-align: left;
+            min-width: 100px;
+        }
+
+        th {
+            background-color: var(--table-title-background);
+            color: var(--table-title-color);
+            font-weight: bold;
+        }
+
+        tr {
+            color: var(--table-row-color);
+
+            &:nth-child(even) {
+                background-color: var(--table-row-background-even);
+            }
+
+            &:nth-child(odd) {
+                background-color: var(--table-row-background-odd);
+            }
+
+            &:hover {
+                background-color: var(--table-row-hover-background);
+                color: var(--table-row-hover-color);
+            }
+        }
+
+        td {
+            color: var(--color-text);
+        }
+    }
+}

@@ -1,0 +1,120 @@
+html:has(dialog[open]) {
+    overflow: hidden;
+    position: relative;
+    scrollbar-gutter: stable;
+    cursor: pointer;
+}
+
+//= MODAL
+[pgs~="modal"] {
+
+    //#OPTION
+    //== CONTAINER ID    
+    &[pgs-option~="containerID[]"] {}
+}
+
+//= DIALOG
+dialog[pgs~="modal-dialog"] {
+    --modal-backdrop: var(--backdrop);
+    --modal-background: var(--color-box);
+    --modal-color: var(--color-black);
+    border: none;
+    min-width: 100%;
+    min-height: 100svh;
+    padding-inline: var(--padding-page);
+    padding-bottom: var(--padding);
+    padding-top: var(--page-top);
+    background: var(--modal-backdrop);
+    transition: opacity 600ms ease;
+    margin: 0;
+    opacity: 1;
+    transition-behavior: allow-discrete;
+
+    &::backdrop {
+        // height: 0;
+        // display: none;
+    }
+
+    @at-root dialog:not(:has([pgs~="modal-dialog-content"])) {
+        cursor: pointer;
+    }
+
+    //- big-mobile 
+    @media (max-width: $big-mobile) {
+        padding-inline: 0;
+    }
+
+    //=== CONTENT
+    [pgs~="modal-dialog-content"] {
+        @include sectionNoPadding();
+        padding: 0;
+        cursor: auto;
+        container-type: inline-size;
+        background: var(--modal-background);
+        color: var(--modal-color);
+        border-radius: var(--border-radius);
+        position: relative;
+
+        >* {
+            padding: var(--padding);
+        }
+
+        //==== HEADER
+        [pgs~="modal-dialog-content-header"] {
+            @include flexRow();
+            border-bottom: var(--border-complete);
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+            z-index: 1;
+
+            [pgs~="modal-close"] {
+                margin-left: auto;
+            }
+        }
+
+        //=== SCROLL
+        &:has([pgs~="modal-dialog-content-scroll"]) {
+            max-height: calc(90svh - var(--heightOfHeader));
+            overflow: hidden;
+
+            [pgs~="modal-dialog-content-scroll"] {
+                overflow: auto;
+                max-height: 100%;
+            }
+        }
+    }
+
+    //== CLOSE
+    >[pgs~="modal-close"] {
+        position: fixed !important;
+        right: var(--padding-page);
+        top: calc(var(--heightOfHeader) + var(--padding));
+        z-index: 1;
+
+        @at-root dialog:not(:has(>[pgs~="modal-close"])) {
+            padding-top: var(--padding-page);
+        }
+    }
+
+    //#OPTION
+    
+    //== RIGHT
+    &[pgs-option~="right"] {
+        [pgs~="modal-dialog-content"] {
+            margin-left: auto;
+            margin-right: unset;
+            width: min(400px, 100%);
+            min-width: unset;
+        }
+    }
+
+    //== TOP LEVEL
+    &:not([pgs-option~="topLevel"]) {
+        height: 100svh;
+        top: 0;
+        overflow-y: auto;
+        padding-top: calc(var(--heightOfHeader) + var(--padding));
+        z-index: 90;
+        position: fixed;
+        inset: 0;
+    }
+}

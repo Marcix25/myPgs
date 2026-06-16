@@ -1,0 +1,34 @@
+$percentage-light: 78%;
+$percentage-dark: 60%;
+
+@mixin color-softAndLight() {
+    //== soft
+    --color-primary-soft: light-dark(color-mix(in srgb, var(--color-primary), var(--color-white) #{$percentage-light}), color-mix(in srgb, var(--color-primary), var(--color-white) #{$percentage-dark}));
+    --color-secondary-soft: light-dark(color-mix(in srgb, var(--color-secondary), var(--color-white) #{$percentage-light}), color-mix(in srgb, var(--color-secondary), var(--color-white) #{$percentage-dark}));
+    --color-quaternary-soft: light-dark(color-mix(in srgb, var(--color-quaternary), var(--color-white) #{$percentage-light}), color-mix(in srgb, var(--color-quaternary), var(--color-white) #{$percentage-dark}));
+    --color-tertiary-soft: light-dark(color-mix(in srgb, var(--color-tertiary), var(--color-white) #{$percentage-light}), color-mix(in srgb, var(--color-tertiary), var(--color-white) #{$percentage-dark}));
+    //==light
+    --color-primary-light: color-mix(in srgb, var(--color-primary), var(--color-whiteFixed) #{$percentage-light});
+    --color-secondary-light: color-mix(in srgb, var(--color-secondary), var(--color-whiteFixed) #{$percentage-light});
+    --color-quaternary-light: color-mix(in srgb, var(--color-quaternary), var(--color-whiteFixed) #{$percentage-light});
+    --color-tertiary-light: color-mix(in srgb, var(--color-tertiary), var(--color-whiteFixed) #{$percentage-light});
+}
+
+@mixin color-strongAndDark() {
+    //== strong    
+    --color-primary-strong: light-dark(color-mix(in srgb, var(--color-primary), var(--color-black) #{$percentage-dark}), color-mix(in srgb, var(--color-primary), var(--color-black) #{$percentage-light}));
+    --color-secondary-strong: light-dark(color-mix(in srgb, var(--color-secondary), var(--color-black) #{$percentage-dark}), color-mix(in srgb, var(--color-secondary), var(--color-black) #{$percentage-light}));
+    --color-quaternary-strong: light-dark(color-mix(in srgb, var(--color-quaternary), var(--color-black) #{$percentage-dark}), color-mix(in srgb, var(--color-quaternary), var(--color-black) #{$percentage-light}));
+    --color-tertiary-strong: light-dark(color-mix(in srgb, var(--color-tertiary), var(--color-black) #{$percentage-dark}), color-mix(in srgb, var(--color-tertiary), var(--color-black) #{$percentage-light}));
+    //== dark
+    --color-primary-dark: color-mix(in srgb, var(--color-primary), var(--color-blackFixed) #{$percentage-dark});
+    --color-secondary-dark: color-mix(in srgb, var(--color-secondary), var(--color-blackFixed) #{$percentage-dark});
+    --color-quaternary-dark: color-mix(in srgb, var(--color-quaternary), var(--color-blackFixed) #{$percentage-dark});
+    --color-tertiary-dark: color-mix(in srgb, var(--color-tertiary), var(--color-blackFixed) #{$percentage-dark});
+}
+
+@mixin color-status-background() {
+    --color-success-background: color-mix(in srgb, var(--color-success) 20%, var(--color-white) 80%);
+    --color-warning-background: color-mix(in srgb, var(--color-warning) 20%, var(--color-white) 80%);
+    --color-error-background: color-mix(in srgb, var(--color-error) 20%, var(--color-white) 80%);
+}

@@ -1,0 +1,38 @@
+//+ MIXIN
+// = SETTINGS 
+:root {
+    --font: 'Urbanist', sans-serif;
+    --font-titoli: var(--font);
+    --padding: 30px;
+    --padding-2: calc(var(--padding)/2);
+    --padding-page: 5vw;
+    --border-radius: 4.5rem;
+    --border-radius-external: calc(var(--border-radius) + var(--padding));
+    --border-radius-input: 2.25rem;
+    --border: 1.5px solid;
+    --border-color: light-dark(#ebebeb, #353535);
+    --border-complete: var(--border) var(--border-color);
+    --border-complete-hover: var(--border) var(--color-white);
+    --box-shadow: 0px 0px 38px 0px #0000000d;
+    --text-shadow: 0px 0px 50px #000000;
+    --backdrop: #0000003e;
+    --blur: blur(20px);
+    --page-top: 20svh;
+    --page-width: 1280px;
+    --page-space: clamp(var(--padding-page), calc((100% - var(--section-width)) / 2 + var(--padding-page)), 100%);
+    --gap-texts: 1.0rem;
+    --gap-elements: 4.0rem;
+    --gap-sections: calc(1.0rem + 15svh);
+    --heightOfHeader: 13.3rem; ///preload fittizio
+    --fa-primary-color: var(--color-icon-primary);
+    --fa-primary-opacity: 1;
+    --fa-secondary-color: var(--color-icon-sceondary);
+    --fa-secondary-opacity: 1;
+    --fa-size: inherit;
+    --focus-visible: 3px solid var(--color-link);
+
+    //- mobile 
+    @media (max-width: $mobile) {
+        --gap-sections: calc(7.3rem + 8svh);
+    }
+}

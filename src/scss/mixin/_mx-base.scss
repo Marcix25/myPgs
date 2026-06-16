@@ -1,0 +1,126 @@
+//= TEXTAREA
+@mixin textarea() {
+    align-items: flex-start;
+    @include flexColumn();
+    @include list;
+
+    hr{
+        align-self: stretch;
+    }
+
+    h1,
+    h3,
+    h2 {
+        margin-top: 25px;
+    }
+}
+
+//= LISTA
+@mixin list() {
+
+    :is(ul),
+    &:is(ul) {
+        list-style: disc;
+
+        >li {
+            list-style-type: disc;
+
+            >ul>li {
+                list-style: circle;
+                margin-top: var(--gap-texts);
+
+                ul>li {
+                    list-style: "-";
+                }
+            }
+        }
+    }
+
+    :is(ol),
+    &:is(ol) {
+        list-style: decimal;
+
+        li {
+            list-style-type: decimal;
+        }
+    }
+
+    li {
+        display: list-item;
+        padding-left: 5px;
+        margin-left: 21px;
+        margin-top: calc(var(--gap-texts)/2);
+        color: var(--color-text);
+        // &:nth-child(1) {
+        //     margin-top: calc(var(--gap-texts)/2);
+        // }
+    }
+}
+
+//= HEADING
+@mixin heading($size, $marginTop: true) {
+    font-family: var(--font-titoli);
+    --heading-size: #{$size};
+    color: var(--color-black);
+    margin-bottom: calc(var(--heading-size)/4);
+    font-size: var(--heading-size);
+    min-width: 0;
+    font-weight: 900;
+    overflow-wrap: anywhere;
+    
+    @if($marginTop){
+        margin-top: calc(var(--heading-size)/4);
+    }
+
+    // text-box: trim-both cap alphabetic;
+    @media (max-width: $tablet) {
+        font-size: clamp(1.6rem, var(--heading-size) / 3 + 8vw, var(--heading-size));
+    }
+
+    @media (max-width: $mobile) {
+        font-size: clamp(1.6rem, var(--heading-size) / 3 + 5vw, var(--heading-size));
+    }
+
+    @media (max-width: $watch) {
+        font-size: clamp(1.6rem, var(--heading-size) / 3 + 2.5vw, var(--heading-size));
+    }
+
+    //-( tablet 
+    @container (max-width: #{$tablet}) {
+        :is(h1, h2, h3, h4, h5, h6) {
+            line-height: 1.1;
+        }
+    }
+}
+
+
+@mixin h1(){
+    @include heading($h1,false);
+}
+
+@mixin h2(){
+    @include heading($h2, false);
+}
+
+@mixin h3(){
+    @include heading($h3);
+}
+
+@mixin h4(){
+    @include heading($h4);
+}
+
+@mixin h5(){
+    @include heading($h5);
+}
+
+//= ICON SVG
+@mixin iconSvgBase64($url, $size: 2.0rem, $color: var(--color-primary-strong)) {
+    content: "";
+    display: inline-block;
+    width: $size;
+    height: $size;
+    background-color: $color;
+    -webkit-mask: $url center/contain no-repeat;
+    mask: $url center/contain no-repeat;
+}

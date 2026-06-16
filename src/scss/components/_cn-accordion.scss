@@ -1,0 +1,91 @@
+//# ACCORDION
+[pgs~=accordion] {
+    padding: 0 !important;
+    flex-direction: column !important;
+    display: block !important;
+    width: 100% !important;
+    position: relative;
+    user-select: unset !important;
+
+    &:not([pgs-state~=open]) {
+        @include button(true);
+        --button-background: var(--color-box);
+        --button-size: var(--padding-2);
+    }
+
+    //= BUTTON
+    [pgs~="accordion-button"] {
+        padding: var(--button-padding);
+        cursor: pointer;
+        @include flexRow;
+        appearance: none;
+        border: 0;
+        background: transparent;
+        flex-wrap: nowrap;
+        box-shadow: none;
+        outline: none;
+        font: inherit;
+        color: inherit;
+        line-height: inherit;
+        text-align: inherit;
+        border-radius: var(--border-radius-input);
+        width: 100%;
+        $url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512'%3E%3Cpath d='M371.515%20229.055L219.516%20373.033C211.797%20380.344%20201.891%20384%20192%20384S172.203%20380.344%20164.484%20373.033L12.485%20229.055C-3.546%20213.87%20-4.233%20188.561%2010.97%20172.532C26.157%20156.472%2051.485%20155.785%2067.516%20171.001L192%20288.921L316.484%20171.001C332.499%20155.754%20357.827%20156.441%20373.03%20172.532C388.233%20188.561%20387.546%20213.87%20371.515%20229.055Z'/%3E%3C/svg%3E");
+
+        &::after {
+            @include iconSvgBase64($url);
+            margin-left: auto;
+        }
+    }
+
+    //= CONTENT
+    [pgs~="accordion-content"] {
+        padding-left: var(--button-padding);
+        @include flexColumn();
+        visibility: hidden;
+        opacity: 0;
+        max-height: 0;
+        top: 20px;
+        left: 0;
+        width: 100%;
+        font-weight: normal;
+        transition: padding 500ms, opacity 1000ms;
+        overflow: hidden;
+    }
+
+    //= OPEN
+    &[pgs-state~=open] {
+        @include button(false);
+        --button-background: var(--color-box);
+        --button-size: var(--padding-2);
+        margin-top: var(--padding);
+
+        [pgs~="accordion-button"] {
+            padding-inline: var(--padding);
+            padding-top: var(--padding);
+
+            &::after {
+                rotate: 180deg;
+            }
+
+            >i {
+                padding: .5rem;
+                background: color-mix(in srgb, var(--fa-primary-color) 5%, var(--color-white) 95%);
+                border-radius: .8rem;
+                display: table;
+                position: absolute;
+                top: calc(var(--padding) * -1);
+                left: var(--padding);
+                font-size: 40px;
+            }
+        }
+
+        [pgs~="accordion-content"] {
+            padding: calc(var(--button-size) * 2);
+            padding-top: var(--button-size);
+            visibility: visible;
+            opacity: 1;
+            max-height: unset;
+        }
+    }
+}

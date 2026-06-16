@@ -1,0 +1,180 @@
+//= checkboxBackground 
+@mixin checkboxBackground() {
+    position: relative;
+    isolation: isolate;
+    @include checkbox();
+    color: var(--color-text);
+    padding: var(--padding-2);
+    border-radius: var(--border-radius-input);
+    align-items: center;
+    gap: var(--gap-texts);
+    background-color: var(--color-box-transparent);
+
+    label {
+        margin-bottom: 0 !important;
+    }
+
+    //== checked
+    &:has(input:checked) {
+        background-color: var(--color-primary-soft);
+        color: var(--color-black);
+
+        i {
+            --fa-primary-color: var(--color-black);
+            --fa-secondary-color: var(--color-black);
+            color: var(--color-black);
+            opacity: 1;
+        }
+    }
+}
+
+//= TWOSTATE 
+@mixin twoState() {
+    position: relative;
+    isolation: isolate;
+    --button-background-active: var(--color-primary-strong);
+    --button-color-active: var(--color-white);
+
+    //== label
+    label {
+        @include button();
+        flex-wrap: wrap;
+        display: flex !important;
+        cursor: pointer;
+
+        i {
+            color: var(--color-black);
+            opacity: 0.4;
+            min-width: 1.4rem;
+            transition: 300ms;
+        }
+
+        &:hover {
+            i {
+                opacity: 1;
+            }
+        }
+    }
+
+    //== checked
+    &:has(input:checked) label {
+        --button-background: var(--button-background-active);
+        
+        @supports not (color: contrast-color(red)) {
+            --button-color: var(--button-color-active);
+        }
+
+        i {
+            --fa-secondary-opacity: 0.6;
+            opacity: 1;
+        }
+    }
+
+    input {
+        opacity: 0;
+        z-index: -1;
+        position: absolute;
+        appearance: none;
+    }
+}
+
+//= TOGGLE 
+@mixin toggle() {
+    --toggle-size: var(--border-radius-input);
+    --toggle-color-thumb: var(--color-white);
+    --toggle-color-rail: #cbcbcb;
+    --toggle-color-rail-checked: var(--color-primary);
+    $space: 2px;
+    isolation: isolate;
+    display: flex;
+    gap: var(--gap-texts);
+    margin-bottom: var(--gap-texts);
+
+    label {
+        cursor: pointer;
+    }
+
+    //== rail & thumb
+    input {
+        position: relative;
+        appearance: none;
+        margin-left: auto;
+        cursor: pointer;
+        min-width: calc(var(--toggle-size) * 2);
+
+        &::after,
+        &::before {
+            content: "";
+            position: relative;
+            transform: unset;
+            top: unset;
+            margin-left: auto;
+            transition: all 250ms;
+            display: block;
+            border-radius: var(--border-radius-input);
+            order: 1;
+        }
+
+        //=== rail
+        &::before {
+            background: var(--toggle-color-rail);
+            width: calc(var(--toggle-size) * 2);
+            min-width: calc(var(--toggle-size) * 2);
+            height: var(--toggle-size);
+            flex-shrink: 2;
+        }
+
+        //=== thumb
+        &::after {
+            content: "";
+            opacity: 1;
+            background-color: var(--toggle-color-thumb);
+            height: calc(var(--toggle-size) - ($space * 2));
+            width: calc(var(--toggle-size) + $space);
+            top: $space;
+            left: $space;
+            z-index: 1;
+            position: absolute;
+        }
+
+        //== HOVER
+        &:hover::after {
+            scale: 1.4;
+            background-color: color-mix(in srgb, var(--toggle-color-thumb) 25%, transparent 75%);
+            outline: 1.5px solid var(--color-primary);
+        }
+
+        //== CHECKED
+        &:checked {
+            &::before {
+                background: var(--color-primary);
+            }
+
+            &::after {
+                left: unset;
+                right: $space;
+            }
+        }
+
+        //== FOCUS
+        &:focus-visible::after {
+            outline: 3px solid var(--color-link) !important;
+        }
+    }
+}
+
+//= Buttons
+@mixin chips() {
+    display: flex;
+    gap: .1rem;
+    padding: .4rem;
+    outline: var(--border-complete);
+    width: fit-content;
+    border-radius: var(--border-radius-input);
+    background-color: var(--color-box-transparent);
+
+    label {
+        outline: unset;
+        --button-background: trasparent;
+    }
+}

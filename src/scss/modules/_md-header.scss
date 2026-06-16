@@ -1,0 +1,143 @@
+[pgs~="header"] {
+    --header-padding-inline: 30px;
+    --header-padding-block: 10px;
+    --header-gap: var(--gap-elements);
+    --header-borderRadius: var(--border-radius-input);
+    --header-size: 4.4rem;
+    --header-background: transparent;
+    --header-color: var(--color-black);
+    --header-color-hover: var(--color-black);
+    z-index: 100;
+    position: fixed;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background: var(--header-background);
+    color: var(--header-color);
+    transition: padding 300ms, transform 300ms, background-color 1000ms;
+
+    //= HEADER TOP
+    [pgs~="header-element"] {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--header-gap);
+        width: 100%;
+        padding-block: var(--header-padding-block);
+        padding-inline: var(--header-padding-inline);
+        color: var(--header-color);
+        pointer-events: auto;
+        
+        //== ALL
+        >* {
+            display: contents;
+        }
+
+        [pgs~=button],
+        [pgs~=buttonIcon] {
+            @include button_header();
+        }
+
+        [pgs~="header-element-onlyMobile"] {
+            display: none;
+            gap: var(--header-gap);
+        }
+
+        //== HAMBURGER 
+        [pgs~="header-element-hamburger"] {
+            display: none;
+
+            [pgs~="header-element-hamburger-button"] {
+                flex-direction: column;
+                gap: 5px;
+                justify-content: center;
+                aspect-ratio: 1;
+
+                &::before,
+                &::after {
+                    content: "";
+                    width: 20px;
+                    height: 0;
+                    border: 2px solid var(--header-color);
+                    display: block;
+                    border-radius: 20px;
+                    transition: transform 300ms;
+                    position: relative;
+                }
+
+                //=== OPEN
+                &[aria-expanded="true"] {
+                    gap: 0px;
+
+                    &::before {
+                        transform: rotate(45deg);
+                    }
+
+                    &::after {
+                        transform: rotate(-45deg) translate(3px, -2px);
+                    }
+                }
+            }
+        }
+    }
+
+    //= DIALOG 
+    dialog[pgs~="modal-dialogpopover"],
+    dialog[pgs~="modal-dialog"] {
+        padding: 2rem;
+        padding-top: calc(var(--heightOfHeader) + var(--padding));
+        --modal-background: color-mix(in srgb, var(--color-primary-soft) 50%, var(--color-white) 50%);
+
+        dialog[pgs~="modal-dialog-content"] {}
+
+        &[open] {
+            display: flex;
+            flex-direction: column;
+            gap: var(--gap-elements);
+            z-index: -1;
+            overflow: auto;
+            max-height: 100svh;
+        }
+    }
+
+    //- mobile 
+    &[data-header-mobileActive=true] {
+        --header-gap: var(--gap-texts);
+
+        [pgs~="header-element-onlyDesktop"] {
+            display: none !important;
+        }
+
+        [pgs~="header-element-onlyMobile"] {
+            display: flex !important;
+            margin-left: auto;
+            align-items: center;
+        }
+
+        [pgs~="header-element-hamburger"] {
+            display: flex !important;
+        }
+    }
+
+    //- mobile 
+    @media (max-width: $mobile) {
+        [pgs~="header-element"] {
+            padding-inline: var(--header-padding-block);
+        }
+    }
+
+    //= LINK ADMIN WORDPRESS
+    .wordpressMyMenu {
+        display: flex;
+        gap: var(--gap-texts);
+
+        a {
+            --button-background: #3a70ac;
+            // --button-color: var(--color-whiteFixed);
+            padding: var(--button-size);
+            max-width: max-content;
+        }
+    }
+}

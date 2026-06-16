@@ -1,0 +1,147 @@
+//= MAIN 
+@mixin main($direction: column, $gap: var(--gap-sections)) {
+    display: flex;
+    flex-direction: $direction;
+    gap: $gap;
+    align-items: flex-start;
+    min-height: 100svh;
+    isolation: isolate;
+    padding-block: var(--page-top);
+    width: 100%;
+}
+
+//= SECTION 
+@mixin section {
+    --section-width: calc(var(--page-width) + (var(--padding-page) * 2));
+    margin-inline: auto;
+    max-width: var(--section-width);
+    padding-inline: var(--padding-page);
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-elements);
+}
+
+@mixin sectionSpecifity-child($child) {
+    --section-width: calc(var(--page-width) + (var(--padding-page) * 2));
+    width: 100%;
+
+    #{$child} {
+        container-type: inline-size;
+        margin-inline: auto;
+        max-width: var(--section-width);
+        padding-inline: var(--padding-page);
+        position: relative;
+        width: 100%;
+
+        #{$child} {
+            padding-inline: 0;
+        }
+    }
+}
+
+@mixin sectionMax() {
+    --section-width: calc(var(--page-width) + (var(--padding-page) * 2));
+    position: relative;
+    width: 100%;
+    padding-inline: var(--padding-page);
+    padding-block: calc((var(--gap-sections) /2));
+    margin-block: calc((var(--gap-sections) /2) * -1);
+
+    >* {
+        container-type: inline-size;
+        width: 100%;
+        max-width: calc(var(--section-width) - var(--padding-page)*2);
+        margin-inline: auto;
+    }
+}
+
+@mixin sectionFull() {
+    padding: var(--padding-page);
+    position: relative;
+    width: 100%;
+
+    >* {
+        container-type: inline-size;
+        width: 100%;
+    }
+}
+
+@mixin sectionNoPadding {
+    --section-width: var(--page-width);
+    margin-inline: auto;
+    max-width: var(--section-width);
+    width: 100%;
+    display: flex;
+    position: relative;
+    gap: var(--gap-texts);
+    flex-direction: column;
+    // //+ tablet 
+    // @media (min-width: $tablet) {
+    //     padding: var(--padding);
+    // }
+}
+
+//=  ASIDE 
+//== SECTION ASIDE
+@mixin sectionAside {
+    @include sectionNoPadding();
+}
+
+//== CONTAINER ASIDE
+@mixin containerAside() {
+    --aside-width: 400px;
+    width: 100%;
+    max-width: calc(var(--section-width) + var(--aside-width));
+
+    //+ tablet 
+    @media (min-width: $tablet) {
+        padding-inline: var(--padding-page);
+        margin-inline: auto;
+        @include flexRowElements();
+        flex-wrap: nowrap;
+    }
+
+    //- tablet 
+    @media (max-width: $tablet) {
+        @include flexColumnElements();
+        padding-inline: var(--padding-page);
+    }
+}
+
+//== ASIDE 
+@mixin aside($sticky: false) {
+    @include flexColumn;
+    align-items: flex-start;
+    isolation: isolate;
+    border-radius: var(--border-radius);
+    width: 100%;
+
+    @if($sticky ==true) {
+        position: sticky;
+        top: var(--page-top);
+    }
+
+    >* {
+        width: 100%;
+    }
+
+    @at-root body:has(header[data-header-scroll=true]) #{&} {
+
+        //+ tablet 
+        @media (min-width: $tablet) {
+            top: 10svh !important;
+        }
+    }
+
+    //+ tablet 
+    @media (min-width: $tablet) {
+        max-width: var(--aside-width, 400px);
+    }
+
+    //- tablet 
+    @media (max-width: $tablet) {
+        position: static;
+    }
+}

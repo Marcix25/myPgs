@@ -1,0 +1,198 @@
+[pgs~="slides"] {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    container-type: inline-size;
+    align-items: center;
+    isolation: isolate;
+    height: max-content;
+    --slide-width: calc(var(--page-width) /2.3);
+    --slide-width-tablet: 100%;
+    --slide-shadow-color: var(--color-background);
+    --slide-shadow-width: 100px;
+
+    //option for suggestions
+    &[pgs-option~=singleScroll],
+    &[pgs-option~=notScrollAnimation] {}
+
+    //+( tablet 
+    @container (min-width: #{$tablet}) {
+        &[pgs-option~=shadowDesktop] {
+
+            //== shadow
+            &::after,
+            &::before {
+                content: "";
+                height: 100%;
+                width: var(--slide-shadow-width);
+                z-index: 3;
+                position: absolute;
+                transition: opacity 200ms;
+                pointer-events: none;
+                opacity: 1;
+            }
+
+            &::before {
+                left: 0;
+                background: linear-gradient(90deg, var(--slide-shadow-color), transparent);
+            }
+
+            &::after {
+                right: 0;
+                background: linear-gradient(90deg, transparent, var(--slide-shadow-color));
+            }
+
+            // &:has([pgs~="slides-container"] .view) {
+
+            //     &::before,
+            //     &::after {
+            //         opacity: 1;
+            //     }
+            // }
+
+            &:has([pgs~="slides-container"] li:first-child.view) {
+                &::before {
+                    opacity: 0;
+                }
+            }
+
+            &:has([pgs~="slides-container"] li:last-child.view) {
+                &::after {
+                    opacity: 0;
+                }
+            }
+        }
+    }
+
+    //= CONTAINER SLIDES (ul)
+    [pgs~="slides-container"] {
+        display: flex;
+        width: 100%;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        position: relative;
+        user-select: none;
+        padding: 3px;
+        gap: var(--gap-texts);
+
+        &::-webkit-scrollbar {
+            height: 0;
+            display: none;
+        }
+
+        //== li
+        >* {
+            scroll-snap-align: center;
+            scroll-snap-stop: always;
+            position: relative;
+            opacity: 1;
+            margin-inline: auto;
+            min-width: var(--slide-width);
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--border-radius-input);
+
+            >* {
+                scale: var(--visible-percent);
+            }
+        }
+
+        //-( tablet 
+        @container (max-width: #{$tablet}) {
+            >* {
+                min-width: var(--slide-width-tablet);
+            }
+        }
+    }
+
+    //= ARROW
+    [pgs~="slides-prec"],
+    [pgs~="slides-next"] {
+        position: absolute;
+        z-index: 4;
+        --button-background: var(--color-box);
+        padding: var(--gap-texts);
+        aspect-ratio: 1;
+        top: 50%;
+        translate: 0 -50%;
+
+        &:is([pgs~="slides-prec"]) {
+            left: 0;
+            margin-left: 0.5rem;
+        }
+
+        &:is([pgs~="slides-next"]) {
+            right: 0;
+            margin-right: 0.5rem;
+        }
+
+        //- tablet 
+        @media (max-width: $tablet) {
+            &:is([pgs~="slides-prec"]) {
+                left: 10px;
+                margin: 0;
+            }
+
+            &:is([pgs~="slides-next"]) {
+                right: 10px;
+                margin: 0;
+            }
+        }
+    }
+
+    //= DOTS
+    [pgs~="slides-dots"] {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 80%;
+        gap: 0.5rem;
+        margin-top: 1px;
+        max-width: max-content;
+        background-color: var(--color-box);
+        padding: 0.6rem;
+        z-index: 3;
+        border-radius: var(--border-radius);
+        transition: all 100ms;
+        translate: 0px calc(50%);
+        position: absolute;
+        bottom: 0;
+        border: var(--border-complete);
+
+        &:hover {
+            padding: 1.2rem;
+            z-index: 1;
+
+            >* {
+                padding: 1.2rem;
+                width: 1.2rem;
+                height: 1.2rem;
+            }
+        }
+
+        >* {
+            padding: 0.6rem;
+            width: 0.6rem;
+            height: 0.6rem;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            background-color: var(--color-primary-soft);
+            transition: all 100ms;
+            margin-block: auto;
+
+            &.active {
+                background-color: var(--color-primary);
+                // scale: 1.2;
+                // margin: 0.3rem;
+            }
+
+            &:hover {
+                background-color: var(--color-secondary);
+            }
+        }
+    }
+}

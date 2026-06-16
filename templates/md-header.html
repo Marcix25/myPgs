@@ -1,0 +1,43 @@
+<header pgs="header">
+	<div pgs="header-element">
+		<div pgs="header-element-alwaysOn">
+		</div>
+
+		<div pgs="header-element-onlyDesktop">
+		</div>
+
+		<div pgs="header-element-onlyMobile">
+		</div>
+
+		<div pgs="header-element-alwaysOnLast">
+		</div>
+
+		<div pgs="header-element-hamburger modal" pgs-option="containerPGS[header] ">
+
+			<button pgs="buttonIcon modal-button modal-close header-element-hamburger-button" type="button" title="menu">
+				<span pgs="header-element-hamburger-row"></span>
+				<span pgs="header-element-hamburger-row"></span>
+			</button>
+
+			<dialog pgs="header-mobile-dialog" pgs-option="right ">
+				<div pgs="modal-dialog-content header-mobile-content">
+				</div>
+			</dialog>
+		</div>
+	</div>
+
+	<!-- //# HEADER BOTTOM -->
+
+	<script>
+		if (localStorage.getItem("screenIsDarkMode") === "true") {
+			document.body.classList.add("darkmode");
+			document.querySelector(":root").setAttribute("data-darkmode", "true");
+			document.body.setAttribute("data-darkmode", "true");
+		}
+
+		if (window.innerWidth < 600) {
+			document.querySelector("header").setAttribute("data-header-mobileActive", "true");
+			document.querySelector("[pgs~=header-element]").setAttribute("data-header-mobileActive", "true");
+		}
+	</script>
+</header>

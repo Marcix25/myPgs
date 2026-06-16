@@ -1,0 +1,23 @@
+//# MENU
+[pgs~=menuHorizontal] {
+    @include menu(row);
+
+    li.menu-item-has-children {
+        @include menu(column);
+    }
+}
+[pgs~=menuHorizontalNotHeader] {
+    @include menu(row, false);
+
+    li.menu-item-has-children {
+        @include menu(column);
+    }
+}
+
+[pgs~=menuVertical] {
+    @include menu(column)
+}
+
+[pgs~=menuFooter] {
+    @include menuFooter()
+}

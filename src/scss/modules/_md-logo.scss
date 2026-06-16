@@ -1,0 +1,51 @@
+//# LOGO 
+[pgs~="logo"] {
+    display: flex;
+    min-width: max-content;
+    --logo-height: var(--header-size, 6.0rem);
+    --logo-finter: invert(1) hue-rotate(180deg) brightness(1.5);
+
+    //== DARKMODE
+    @at-root [data-darkmode=true] #{&}[pgs~="logo-darkmode"] [pgs~="logo-image"] {
+        filter: var(--logo-finter);
+    }
+    
+    //== FIXED DARKMODE
+    &[pgs~="logo-darkmodeFixed"][pgs~="logo-darkmode"] [pgs~="logo-image"] {
+        filter: var(--logo-finter);
+    }
+    
+
+    //- tablet 
+    @media (max-width: $tablet) {
+        min-width: var(--logo-height);
+    }
+
+    //= LOGO
+    >*:not([pgs~="logo-text"]) {
+        height: var(--logo-height);
+        object-fit: contain;
+        object-position: left;
+        align-items: center;
+        width: initial;
+
+        lottie-player,
+        object {
+            max-width: var(--logo-height);
+        }
+    }
+
+    //= SENZA LOGO
+    &:has([pgs~="logo-text"]) {
+        display: flex;
+        align-items: center;
+        filter: unset !important;
+
+        [pgs~="logo-text"] {
+            font-family: var(--font-titoli);
+            font-size: 20px;
+            font-weight: 600;
+            text-wrap: nowrap;
+        }
+    }
+}

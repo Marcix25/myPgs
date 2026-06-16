@@ -1,0 +1,186 @@
+@function ourContrastColor($backgorundReferenze) {
+    @return contrast-color(color-mix(in srgb, $backgorundReferenze 77%, black));
+}
+
+//+ VAR
+@mixin _var-button-color($background, $for: null, $colorNotContrast: var(--color-black)) {
+    --button-background#{$for}: #{$background};
+    --button-color#{$for}: #{ourContrastColor(var(--button-background#{$for}))
+}
+
+;
+@supports not (color: contrast-color(red)) {
+    --button-color#{$for}: #{$colorNotContrast};
+}
+
+color: var(--button-color#{$for});
+background: var(--button-background#{$for});
+
+i {
+    color: var(--button-color#{$for});
+    --fa-primary-color: var(--button-color#{$for});
+    --fa-secondary-color: var(--button-color#{$for});
+}
+}
+
+//= BUTTON
+@mixin button($hover: true, $onlyIcon: false, $strong: false) {
+    --button-border: var(--border-complete);
+    --button-size: 1.5rem;
+    --button-icon-size: 2.0rem;
+    --button-padding: var(--button-size);
+    @include _var-button-color(var(--color-box));
+    font-family: var(--font);
+    font-size: 1.6rem;
+    font-weight: 600;
+    text-decoration: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    border: none;
+    outline: var(--button-border);
+    border-radius: var(--border-radius-input);
+    display: flex;
+    gap: calc(var(--button-size)/2);
+    align-items: center;
+    padding: var(--button-padding);
+    width: max-content;
+
+    i {
+        --fa-secondary-opacity: 0.5;
+        --fa-size: var(--button-icon-size);
+    }
+
+    &:disabled {
+        opacity: 0.2;
+        cursor: not-allowed;
+    }
+
+    //== onlyIcon
+    @if($onlyIcon ==true) {
+        aspect-ratio: 1;
+    }
+
+    @else {
+        &:has(i) {
+            --button-padding: var(--button-size) calc(var(--button-size) + var(--button-size)/2) var(--button-size) var(--button-size);
+        }
+
+        &:not(:has(i)) {
+            --button-padding: var(--button-size) calc(var(--button-size) * 2);
+        }
+    }
+
+    //== hover 
+    @if ($hover ==true) {
+        @include buttonHover();
+    }
+
+    @else {
+        transition: all 200ms;
+        cursor: inherit;
+    }
+
+    //== strong 
+    @if ($strong ==true) {
+        @include _var-button-color(var(--color-primary), "-strong", var(--color-whiteFixed));
+    }
+
+    //== current 
+    &[aria-current="page"]:not(:hover, :focus-visible) {
+        @include _var-button-color(var(--color-primary), "-current", var(--color-whiteFixed));
+    }
+}
+
+//= Button HOVER
+@mixin buttonHover() {
+    transition: all 200ms;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:not(:disabled) {
+        @media (hover: hover) and (pointer: fine) {
+
+            &:focus-visible,
+            &:hover {
+                $n: .25rem;
+                $-n: -$n;
+                box-shadow: $-n $n 0px var(--color-black);
+                transform: translate($n, $-n);
+                @include _var-button-color(var(--color-primary-soft), "-hover");
+                outline-color: transparent;
+
+                i {
+                    --fa-secondary-opacity: 0.5;
+                }
+            }
+        }
+    }
+
+    &:hover {
+        text-decoration: none;
+    }
+
+    &:active {
+        box-shadow: 0 0 0 var(--color-black);
+        transform: translate(0, 0);
+    }
+}
+
+//= Button mini
+@mixin buttonMini($hover: true) {
+    @include button($hover, true);
+    --button-size: 0.5rem;
+    display: inline-flex;
+    aspect-ratio: unset;
+}
+
+//== Button BIG
+@mixin buttonBig($hover: true) {
+    @include button($hover);
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: var(--button-size);
+    border-radius: var(--border-radius);
+    aspect-ratio: 1;
+    text-align: center;
+    height: 100%;
+
+    &:not(:has(i)) {
+        padding-inline: var(--padding);
+    }
+
+    i {
+        font-size: 6.5rem;
+        z-index: 1;
+    }
+}
+
+//= Button CLOSE 
+@mixin buttonClose {
+    @include button(true, true);
+    --button-background: var(--color-error-background);
+    --button-color: var(--color-error);
+    --button-size: 1rem;
+    --button-icon-size: 1.3rem;
+    aspect-ratio: 1;
+    height: max-content;
+
+    &:hover {}
+
+    i {
+        color: var(--color-error);
+    }
+}
+
+//= button header
+@mixin button_header() {
+    --button-size: 1.2rem;
+    --button-border: unset;
+    overflow-wrap: break-word;
+    height: calc(var(--button-size) * 4);
+    // height: var(--header-size);
+}

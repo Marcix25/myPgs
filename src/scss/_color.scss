@@ -1,0 +1,56 @@
+//= COLOR
+//== LIGHTMODE & DARKMODE
+:root {
+    color-scheme: light;
+
+    &[data-darkmode=true] {
+        color-scheme: dark;
+    }
+}
+
+// == Primary colors
+:root {
+    --color-primary: #5c7d6f;
+    --color-secondary: #3d5f4f;
+    --color-tertiary: #8fb082;
+    --color-quaternary: #10201c;
+}
+
+// == Base colors
+:root {
+    --color-white: light-dark(#FFFFFF, #000000);
+    --color-black: light-dark(#000000, #FFFFFF);
+    --color-white-transparent: color-mix(in srgb, var(--color-white) 50%, transparent 100%);
+    --color-black-transparent: color-mix(in srgb, var(--color-black) 50%, transparent 100%);
+    
+    --color-text: light-dark(#4a4a4a, #e3e3e3);
+
+    --color-box: light-dark(#F8F8F8, #3A3A3A);
+    --color-boxDark: light-dark(#3A3A3A, #F8F8F8);
+    --color-box-transparent: light-dark(color-mix(in srgb, #eeeeee 50%, transparent 50%), color-mix(in srgb, #3A3A3A 50%, transparent 50%));
+    --color-boxDark-transparent: light-dark(color-mix(in srgb, #3A3A3A 50%, transparent 50%), color-mix(in srgb, #eeeeee 50%, transparent 50%));
+
+    --color-linkBackgorud: light-dark(#a0dbff, #002a44);
+    --color-background: light-dark(#ffffff, #080808);
+    --color-whiteFixed: #FFFFFF;
+    --color-blackFixed: #000000;
+    --color-link: #009EFF;
+    --color-error: #ff6161;
+    --color-warning: #ffa900;
+    --color-success: #4ab94a;
+    --color-gray: #a4a4a4;
+    --color-icon-primary: var(--color-primary);
+    --color-icon-sceondary: var(--color-primary-soft);
+    --menu-dropdown-background: var(--color-box);
+    @include color-strongAndDark();
+    @include color-softAndLight();
+    @include color-status-background();
+}
+
+// :root {
+//     //== SVG
+//     // --svg-color-1: var(--color-primary) & var(--color-primary);
+//     // --svg-color-2: var(--color-secondary) & var(--color-secondary);
+//     // --svg-color-3: var(--color-tertiary) & var(--color-tertiary);
+//     // --svg-color-4: var(--color-quaternary) & var(--color-quaternary);
+// }

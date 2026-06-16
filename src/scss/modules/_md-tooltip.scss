@@ -1,0 +1,16 @@
+[pgs~="tooltip"][pgs~="dropdown"] {
+    --dropdown-position-right: center;
+    --dropdown-maxwidth: 400px;
+
+    [pgs~="tooltip-button"][pgs~="dropdown-button"] {
+        --button-background: var(--color-black);
+
+        i {
+            --fa-size: .9rem;
+        }
+    }
+
+    [pgs~="tooltip-content"][pgs~="dropdown-content"]:popover-open {
+        padding: 15px;
+    }
+}

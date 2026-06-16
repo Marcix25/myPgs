@@ -1,0 +1,68 @@
+//= SEARCH BAR
+form[pgs~="searchbar"] {
+    position: relative;
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
+    margin-inline: auto;
+    @include button_header();
+    padding: 0;
+    gap: 0;
+
+    //+ mobile 
+    @media (min-width: $mobile) {
+        min-width: 21.4rem;
+    }
+
+    button {
+        outline: none;
+        border: none;
+        background: none;
+        padding-left: var(--button-size);
+        aspect-ratio: 1;
+        height: 100%;
+        border-radius: var(--border-radius-input);
+        cursor: pointer;
+    }
+
+    input {
+        cursor: text !important;
+        border: 0;
+        padding: var(--button-size);
+        margin: 2px;
+        margin-left: 0;
+        font-family: var(--font);
+        font-weight: 600;
+        font-size: 1.6rem;
+        border-radius: var(--border-radius-input);
+        height: 100%;
+        width: 100%;
+        min-width: 21.4rem;
+        background-color: transparent;
+        color: ourContrastColor(var(--button-background));
+        
+        &::placeholder {
+            color: ourContrastColor(var(--button-background));
+            opacity: .6;
+        }
+
+        &:focus-visible {
+            outline: unset;
+        }
+    }
+
+    &:has(input:focus-visible){
+        outline: var(--focus-visible);
+    }
+
+    @at-root dialog #{&} {
+        margin-inline: auto;
+        max-width: calc(100% - var(--padding-page) * 2);
+        height: max-content;
+        background-color: var(--color-white);
+
+        input {
+            padding-block: 20px;
+        }
+    }
+}

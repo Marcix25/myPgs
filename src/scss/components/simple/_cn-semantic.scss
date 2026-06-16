@@ -1,0 +1,36 @@
+//# SEMANTIC
+[pgs~=main] {
+    @include main;
+}
+
+[pgs~=aside] {
+    @include aside;
+}
+
+[pgs~=containerAside] {
+    @include containerAside;
+}
+
+[pgs~=sectionAside] {
+    @include sectionNoPadding;
+}
+
+[pgs~=sectionNoPadding] {
+    @include sectionNoPadding;
+}
+
+[pgs~=section] {
+    @include section;
+}
+
+[pgs~=sectionSpecificity] {
+    @include sectionSpecifity-child('[pgs~=sectionSpecificity-child]');
+}
+
+[pgs~=sectionMax] {
+    @include sectionMax;
+}
+
+[pgs~=sectionFull] {
+    @include sectionFull;
+}

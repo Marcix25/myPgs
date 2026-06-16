@@ -1,0 +1,36 @@
+//+ devices 
+$watch: 315px;
+$mobile: 430px;
+$big-mobile: 615px;
+$tablet: 800px;
+$big-tablet: 900px;
+$laptop: 1100px;
+
+@function fibonacci($n) {
+    $sequence: 0 1;
+    @for $_ from 1 through $n {
+        $new: nth($sequence, length($sequence)) + nth($sequence, length($sequence) - 1);
+        $sequence: append($sequence, $new);
+    }
+    @return nth($sequence, length($sequence));
+}
+
+$base-fibonacci-size: 0.05rem;
+$h1: fibonacci(11) * $base-fibonacci-size; // 7.12rem
+$h2: fibonacci(10) * $base-fibonacci-size; // 4.4rem
+$h3: fibonacci(9) * $base-fibonacci-size;  // 2.72rem
+$h4: fibonacci(8) * $base-fibonacci-size;  // 1.68rem
+$h5: fibonacci(8) * $base-fibonacci-size;  // 1.68rem
+
+//= IMPORT ADVANCED
+@import "mx-base";
+@import "mx-responsive";
+@import "mx-menu";
+@import "mx-form";
+@import "mx-form-addon";
+@import "mx-button";
+@import "mx-color";
+@import "mx-semantic";
+@import "mx-card";
+
+ 

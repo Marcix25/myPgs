@@ -1,0 +1,512 @@
+//=FORM
+//== INPUT 
+@mixin input($padding: 15px) {
+    --input-padding: #{$padding};
+    appearance: none;
+    border: var(--border-complete);
+    background-color: var(--color-white);
+    border-radius: var(--border-radius-input);
+    color: var(--color-text);
+    padding: var(--input-padding);
+    font-size: 1.6rem;
+    width: 100%;
+    margin-bottom: var(--gap-texts);
+    letter-spacing: 0.03em;
+    font-family: var(--font);
+
+    &::placeholder {
+        color: var(--color-black);
+        opacity: 20%;
+        font-weight: 500;
+    }
+
+    &:hover {
+        outline: solid var(--color-primary);
+    }
+}
+
+//== LABEL 
+@mixin label($borderadius: 1.0rem 1.0rem 0 0, $left: var(--border-radius-input)) {
+    --label-borderadius: #{$borderadius};
+    --label-left: #{$left};
+    --label-padding: 0.7rem 1.2rem;
+    --label-color: var(--color-black);
+    --label-background: var(--border-color);
+    position: relative;
+    font-weight: 600;
+    display: inline-block;
+    width: fit-content;
+    cursor: pointer;
+    left: var(--label-left);
+    color: var(--label-color);
+    padding: var(--label-padding);
+    border-radius: var(--label-borderadius);
+    background-color: var(--label-background);
+
+    i {
+        font-size: 1.6rem;
+        margin-right: .7rem;
+    }
+}
+
+//== REQUIRED 
+@mixin required() {
+    position: relative;
+
+    [pgs~=required-here],
+    &:not(:has([pgs~=required-here])) {
+        &::after {
+            content: "*";
+            color: var(--color-error);
+            transform: translate(20px, 0px);
+            position: absolute;
+            font-size: 40px;
+            bottom: -8px;
+            font-weight: 600;
+            right: 0px;
+        }
+    }
+
+    [pgs~=required-here] {
+        &::after {
+            position: relative;
+        }
+    }
+}
+
+//== DISABLED
+@mixin disabled() {
+    opacity: 0.5;
+    cursor: not-allowed !important;
+}
+
+//== DISABLED
+@mixin file() {
+    width: 100%;
+    // margin-bottom: var(--gap-texts);
+    background-color: var(--color-white);
+    padding: var(--gap-texts);
+    border-radius: calc( var(--border-radius-input) + var(--gap-texts));
+
+    &::file-selector-button {
+        @include button(false);
+        width: 40%;
+        margin-bottom: var(--gap-texts);
+        margin-right: var(--gap-texts);
+    }
+
+    &::file-selector-button:hover {
+        background-color: var(--color-primary);
+        color: var(--color-white);
+    }
+}
+
+//== RANGE 
+@mixin rage() {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    --range-size: calc(var(--border-radius-input));
+    width: 100%;
+    height: var(--range-size);
+    background: linear-gradient(90deg, var(--color-box-transparent), var(--color-primary));
+    outline: none;
+    transition: background 0.3s;
+    border-radius: var(--border-radius-input);
+    z-index: 1;
+    position: relative;
+
+    //=== thumb
+    &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: calc(var(--range-size) * 1.5);
+        height: calc(var(--range-size) * 1.2);
+        border-radius: var(--border-radius-input);
+        background: var(--color-white);
+        outline: inset 1px var(--color-primary);
+        cursor: pointer;
+        transition: transform 0.2s;
+
+        &:hover {
+            scale: 1.2;
+            background: var(--color-box-transparent);
+        }
+    }
+
+    //=== rail
+    &::-moz-range-thumb {
+        -moz-appearance: none;
+        appearance: none;
+        width: calc(var(--range-size) * 1.5);
+        height: calc(var(--range-size) * 1.2);
+        border-radius: var(--border-radius-input);
+        background: var(--color-white);
+        outline: inset 1px var(--color-primary);
+        cursor: pointer;
+        transition: transform 0.2s;
+
+        &:hover {
+            transform: scale(1.2);
+            background: var(--color-box-transparent);
+        }
+    }
+
+    //=== focus
+    &:focus-visible::-webkit-slider-thumb {
+        outline: 3px solid var(--color-link) !important;
+        background-color: var(--color-link) !important;
+        scale: 1.2;
+    }
+
+    //=== disabled
+    &:disabled {
+        @include disabled();
+    }
+}
+
+@mixin checkbox() {
+    --checkbox-size: 2.0rem;
+    --checkbox-check-color: var(--color-primary);
+    --checkbox-box-background: var(--color-white);
+    --checkbox-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath fill='inerit' d='M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.2 0z'/%3E%3C/svg%3E");
+    position: relative;
+    display: flex;
+
+    &:is(label),
+    label {
+        user-select: none;
+        color: var(--color-black);
+        position: relative;
+        width: auto;
+        display: block;
+        text-align: left;
+        line-height: var(--checkbox-size);
+        margin-bottom: var(--gap-texts);
+        width: fit-content;
+        cursor: pointer;
+        display: flex;
+
+        //=== Disabled
+        &:has(input:disabled) {
+            opacity: 0.5;
+        }
+
+        //=== Focus
+        &:has(input[type=checkbox]:required) {
+            @include required();
+        }
+    }
+
+    //== ICON & BOX
+    input {
+        appearance: none;
+        position: relative;
+        width: var(--checkbox-size);
+        min-width: var(--checkbox-size);
+        height: var(--checkbox-size);
+        margin-right: var(--gap-texts);
+        cursor: pointer;
+
+        //=== BOX SQUARE
+        &::before {
+            content: "";
+            position: absolute;
+            width: var(--checkbox-size);
+            height: var(--checkbox-size);
+            outline: solid var(--color-boxDark) 0.1rem;
+            background: var(--checkbox-box-background);
+            color: var(--color-primary-soft);
+        }
+
+        //=== ICON CHECK
+        &::after {
+            position: absolute;
+            line-height: var(--checkbox-size);
+            text-align: center;
+            opacity: 0;
+            color: var(--checkbox-check-color);
+        }
+
+        //=== Checked
+        &:checked::after {
+            opacity: 1;
+        }
+
+        //=== Focus
+        &:focus-visible::before {
+            outline: 3px solid var(--color-link) !important;
+        }
+
+        //=== Checkbox
+        &[type=checkbox] {
+            &::after {
+                top: -1.7rem;
+                left: -0.5rem;
+                @include iconSvgBase64(var(--checkbox-icon), calc(2rem + var(--checkbox-size)), var(--checkbox-check-color));
+            }
+
+            &::before {
+                border-radius: 0.3rem;
+            }
+        }
+
+        //=== Radio
+        &[type=radio] {
+            &::after {
+                $size: 0.4rem;
+                content: "";
+                top: $size / 2;
+                left: $size / 2;
+                display: inline-block;
+                width: calc(var(--checkbox-size) - $size);
+                height: calc(var(--checkbox-size) - $size);
+                background-color: var(--checkbox-check-color);
+                border-radius: 50%;
+            }
+
+            &::before {
+                border-radius: 50%;
+            }
+        }
+    }
+
+    a {
+        text-decoration: underline;
+        color: var(--color-link);
+    }
+}
+
+//== SELECT 
+@mixin select() {
+    @include input();
+    overflow: auto;
+    appearance: none;
+    cursor: pointer;
+
+    option {
+        padding: var(--gap-texts);
+        border-radius: calc(var(--border-radius-input) - var(--input-padding));
+        background-color: transparent;
+        cursor: pointer;
+
+        &:checked {
+            background-color: var(--color-primary);
+            color: var(--color-whiteFixed);
+            font-weight: 600;
+        }
+
+        &:hover {
+            background-color: var(--color-primary-soft);
+        }
+
+        &:checked:hover {
+            background-color: var(--color-primary-dark);
+        }
+    }
+}
+
+@mixin formTextarea() {
+    resize: vertical;
+    @include input();
+    height: 120px;
+    min-height: 100px;
+    border-bottom-right-radius: 40px;
+    appearance: none;
+}
+
+@mixin inputcolor() {
+    $size: 50px;
+    $padding: 5px;
+    @include input(0);
+    block-size: $size;
+    inline-size: calc($size * 4);
+    margin-right: auto;
+    display: flex;
+
+    &::-webkit-color-swatch-wrapper {
+        padding: $padding;
+    }
+
+    &::-webkit-color-swatch {
+        border: var(--border-complete);
+        border-radius: calc(var(--border-radius-input) - $padding);
+        cursor: pointer;
+    }
+}
+
+@mixin legend() {
+    @include label(1.0rem, 0);
+    --label-color: var(--color-black);
+    --label-background: var(--color-box);
+    margin-bottom: var(--gap-texts);
+}
+
+//= FORM 
+@mixin form() {
+
+    //=== LABEL
+    label {
+        &:not(:has([pgs~="label-unset"], +input[type=checkbox], +input[type=radio])) {
+            &:has(+input, +select, +textarea) {
+                @include label();
+            }
+        }
+
+        &:has(+[hidden]) {
+            display: none !important;
+        }
+    }
+
+    //=== INPUT
+    input {
+        &:not([pgs~="input-unset"], [type=checkbox], [type=file], [type=radio], [type=range]) {
+            @include input();
+        }
+
+        &[type="password"] {
+            font-family: initial;
+            font-size: calc(1.74rem);
+        }
+
+        &[type="file"] {
+            min-height: 5.3rem;
+        }
+
+        &[type=search],
+        &[type=number],
+        &[type=datetime-local],
+        &[type=date],
+        &[type=month],
+        &[type=week],
+        &[type=time] {
+            width: clamp(50px, 100%, 300px);
+            display: flex;
+
+            &::-webkit-calendar-picker-indicator {
+                order: -1;
+                margin: 0;
+                margin-right: var(--gap-texts);
+                font-size: 1.5em;
+                background-color: var(--border-color);
+                border-radius: var(--input-padding);
+                padding: 10px;
+                margin: -10px;
+                margin-right: 10px;
+                cursor: pointer;
+            }
+        }
+    }
+
+    //==== LEGEND
+    legend {
+        @include legend();
+    }
+
+    //==== CHECKBOX
+    label:has(input[type=checkbox]):not([pgs~="toggle"]),
+    label:has(input[type=radio]):not([pgs~="toggle"]) {
+        @include checkbox();
+    }
+
+    //=== TEXTAREA
+    textarea {
+        @include formTextarea()
+    }
+
+    //=== RAGE
+    input[type=range] {
+        @include rage();
+    }
+
+    //=== COLOR
+    input[type=color] {
+        @include inputcolor();
+    }
+
+    //=== RAGE
+    select {
+        @include select();
+    }
+
+    //===BUTTON 
+    button[type="submit"] {
+        @include button(true, false, true)
+    }
+
+    //===FIELDSET 
+    fieldset {
+        border: unset;
+
+        &[required] legend {
+            @include required();
+        }
+    }
+
+    //=== REQUIRED
+    label:has(+ input[required]:not([type="checkbox"], [type="radio"]), +select[required], +textarea[required]),
+    fieldset:has(input[type="checkbox"][required], input[type="radio"][required]) legend {
+        @include required();
+    }
+
+    //=== DISABLED
+    input[disabled],
+    input[disabled]:is([type="checkbox"], [type="radio"])+label,
+    label:has(+ input[disabled]:not([type="checkbox"], [type="radio"])),
+    label:has(+ :is(textarea[disabled], select[disabled])),
+    label.disabled,
+    .disabled {
+        @include disabled();
+    }
+
+    //=== EYE 
+    input[type="password"]::-ms-reveal,
+    input[type="password"]::-ms-clear,
+    input[type="password"]::-webkit-textfield-decoration-container,
+    input[type="password"]::-webkit-credentials-auto-fill-button,
+    input[type="password"]::-webkit-password-toggle {
+        display: none;
+    }
+
+    input[type="file"] {
+        @include file();
+    }
+}
+
+//== formError
+@mixin formError() {
+
+    //=== ERROR
+    &[data-form-status="error"] {
+        [data-form-field-status="error"] {
+            &:not([type=checkbox], [type=radio]) {
+                outline: solid 3px var(--color-error) !important;
+
+                &::before {
+                    content: "Questo campo è obbligatorio";
+                    color: var(--color-error);
+                    font-weight: 500;
+                    font-size: 1.7rem;
+                }
+            }
+        }
+
+        // button[type=submit] {
+        //     --button-background: var(--color-error);
+        // }
+        label:has(+[data-form-field-status="error"], [data-form-field-status="error"]) {
+            &:has(input[type=checkbox]) {
+                background-color: var(--color-error) !important;
+                padding: 6px;
+                margin-left: -6px;
+                border-radius: 10px;
+            }
+        }
+
+        fieldset:has(input[type=radio][data-form-field-status="error"]) {
+            legend {
+                --label-background: var(--color-error) !important;
+            }
+        }
+    }
+}

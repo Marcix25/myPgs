@@ -1,0 +1,77 @@
+@mixin card-insideImg() {
+    $cardImgPadding: calc(var(--card-padding) * -1);
+    border-radius: var(--border-radius);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    margin: $cardImgPadding;
+    padding: var(--card-padding-img);
+    width: calc((var(--card-padding) * 2) + 100%);
+    margin-bottom: 0;
+}
+
+@mixin card() {
+    --card-padding: var(--padding);
+    height: 100%;
+
+    &:not(:has(>a)) {
+        --card-background: var(--color-box-transparent);
+        --card-padding-img: 0;
+        padding: var(--card-padding);
+        background: var(--card-background);
+        border-radius: var(--border-radius);
+        // box-shadow: var(--box-shadow);
+    }
+
+    >a {
+        --card-background: var(--color-white);
+        --card-padding-img: .3rem;
+        @include buttonHover();
+        height: 100%;
+        padding: var(--card-padding);
+        background: var(--card-background);
+        border-radius: var(--border-radius);
+        outline: var(--border-complete);
+    }
+
+    >object,
+    >img,
+    >a>object,
+    >a>img {
+        @include card-insideImg();
+    }
+}
+
+@mixin boxtext() {
+    @include flexColumn();
+    --boxtext-background: light-dark(color-mix(in srgb, var(--color-background) 100%, transparent 10%), color-mix(in srgb, var(--color-background) 50%, transparent 50%));
+    background: var(--boxtext-background);
+    padding: 1.5rem;
+    margin-inline: calc(-1.5rem / 2);
+    width: unset;
+    border-radius: var(--border-radius-input);
+
+    //- mobile 
+    @media (max-width: $mobile) {
+        margin-inline: 0;
+    }
+
+    &:has(.fa-solid),
+    &:has(.fa-duotone) {
+        --boxtext-background: var(--color-primary-soft);
+
+        i {
+            --fa-primary-color: var(--color-primary-soft);
+            --fa-secondary-color: var(--color-primary);
+            --fa-secondary-opacity: 1;
+        }
+    }
+
+    &:has(.fa-triangle-exclamation) {
+        --boxtext-background: var(--color-warning-background);
+
+        i {
+            --fa-primary-color: var(--color-black);
+            --fa-secondary-color: var(--color-warning);
+        }
+    }
+}

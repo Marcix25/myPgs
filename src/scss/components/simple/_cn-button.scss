@@ -1,0 +1,28 @@
+//# BUTTON
+[pgs~=button] {
+    @include button()
+}
+
+[pgs~=buttonNohover] {
+    @include button(false)
+}
+
+[pgs~=buttonIcon] {
+    @include button(true, true);
+}
+
+[pgs~=buttonStrong] {
+    @include button(true, false, true)
+}
+
+[pgs~=buttonMini] {
+    @include buttonMini();
+}
+
+[pgs~=buttonBig] {
+    @include buttonBig()
+}
+
+[pgs~=buttonClose] {
+    @include buttonClose();
+}
