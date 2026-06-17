@@ -1,4 +1,4 @@
-import { pgs_dropdown } from "./_cn-dropdown";
+import { pgs_dropdown } from "./_dropdown";
 
 //= DROP DOWN MENU
 export function PGS_menu() {

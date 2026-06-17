@@ -1,25 +1,7 @@
 const STORAGE_KEY = 'pgs_cookie_preferences_v1';
 const focusableSelectors = 'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-function ensureFooterCookieButton(root) {
-    const footerLegalContent = document.querySelector('[pgs~="footer-legal-content"]');
-    if (!footerLegalContent) return;
-
-    const existingButton = footerLegalContent.querySelector('[data-cookie-action="open"]');
-    if (existingButton) return;
-
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'cookie-consent_manage';
-    button.setAttribute('pgs', 'button');
-    button.setAttribute('data-cookie-action', 'open');
-    button.setAttribute('aria-haspopup', 'dialog');
-    button.setAttribute('aria-controls', root.id || 'cookie-consent');
-    button.innerHTML = '<i class="fa-solid fa-cookie-bite" aria-hidden="true"></i><span>Preferenze cookie</span>';
-
-    footerLegalContent.prepend(button);
-}
-
+//+ 
 function safeJsonParse(value) {
     try {
         return value ? JSON.parse(value) : null;
@@ -29,6 +11,7 @@ function safeJsonParse(value) {
     }
 }
 
+//+ 
 function readPreferences() {
     try {
         return safeJsonParse(localStorage.getItem(STORAGE_KEY));
@@ -37,6 +20,7 @@ function readPreferences() {
     }
 }
 
+//+ 
 function savePreferences(prefs) {
     try {
         localStorage.setItem(
@@ -48,6 +32,7 @@ function savePreferences(prefs) {
     }
 }
 
+//+ 
 function bootstrapGtag() {
     window.dataLayer = window.dataLayer || [];
     window.gtag = window.gtag || function gtag() {
@@ -55,6 +40,7 @@ function bootstrapGtag() {
     };
 }
 
+//+ 
 function loadGoogleAnalytics(measurementId) {
     if (!measurementId || window.__PGS_gaLoaded) return;
     window.__PGS_gaLoaded = true;
@@ -71,6 +57,7 @@ function loadGoogleAnalytics(measurementId) {
     });
 }
 
+//+ 
 function applyAnalyticsConsent({ allowAnalytics, measurementId }) {
     bootstrapGtag();
     if (allowAnalytics) {
@@ -81,25 +68,55 @@ function applyAnalyticsConsent({ allowAnalytics, measurementId }) {
     }
 }
 
-function cookieConsent() {
-    const root = document.querySelector('.cookie-consent');
+//+
+function setPgsFlag(element, token, enabled) {
+    if (!(element instanceof HTMLElement) || !token) return;
+    const current = (element.getAttribute('pgs') || '').split(/\s+/).filter(Boolean);
+    const next = enabled ? [...new Set([...current, token])] : current.filter((item) => item !== token);
+    if (next.length > 0) {
+        element.setAttribute('pgs', next.join(' '));
+    } else {
+        element.removeAttribute('pgs');
+    }
+}
+
+//+
+function assignCookieRuntimeAttributes({ root, analyticsToggle, acceptAllButton, rejectButton, openButtons }) {
+    root.dataset.cookieComponent = 'consent';
+    analyticsToggle?.setAttribute('data-cookie-toggle', 'analytics');
+    acceptAllButton?.setAttribute('data-cookie-action', 'accept');
+    rejectButton?.setAttribute('data-cookie-action', 'reject');
+
+    root.querySelector('[pgs~="cookieConsent-featureEssential"]')?.setAttribute('data-cookie-feature', 'essential');
+    root.querySelector('[pgs~="cookieConsent-featureAnalytics"]')?.setAttribute('data-cookie-feature', 'analytics');
+
+    openButtons.forEach((button) => {
+        button.setAttribute('data-cookie-action', 'open');
+    });
+}
+
+//= CookieConsent
+document.addEventListener('DOMContentLoaded', function () {
+    const root = pgs(document).querySelector('cookieConsent');
     if (!root) return;
 
-    ensureFooterCookieButton(root);
-
-    const analyticsToggle = root.querySelector('[data-cookie-toggle="analytics"]');
-    const acceptAllButton = root.querySelector('[data-cookie-action="accept"]');
-    const rejectButton = root.querySelector('[data-cookie-action="reject"]');
-    const openButtons = document.querySelectorAll('[data-cookie-action="open"]');
+    const analyticsToggle = root.querySelector('[pgs~="cookieConsent-toggleAnalytics"]');
+    const acceptAllButton = root.querySelector('[pgs~="cookieConsent-actionAccept"]');
+    const rejectButton = root.querySelector('[pgs~="cookieConsent-actionReject"]');
+    const openButtons = document.querySelectorAll('[pgs~="cookieConsent-actionOpen"]');
     const measurementId = (root.dataset.gaId || '').trim();
     const prefersGa = measurementId.length > 0;
     let lastFocusedElement = null;
+
+    assignCookieRuntimeAttributes({ root, analyticsToggle, acceptAllButton, rejectButton, openButtons });
 
     if (analyticsToggle) {
         analyticsToggle.disabled = !prefersGa;
         if (!prefersGa) {
             analyticsToggle.checked = false;
-            root.setAttribute('data-ga-unavailable', 'true');
+            setPgsFlag(root, 'cookieConsent-gaUnavailable', true);
+        } else {
+            setPgsFlag(root, 'cookieConsent-gaUnavailable', false);
         }
     }
 
@@ -109,7 +126,7 @@ function cookieConsent() {
     function setBannerVisibility(show) {
         root.hidden = !show;
         root.setAttribute('aria-hidden', String(!show));
-        document.body.classList.toggle('cookie-consent-open', show);
+        document.body.classList.toggle('cookieConsent-open', show);
         if (show) {
             lastFocusedElement = document.activeElement;
             setTimeout(() => {
@@ -130,7 +147,8 @@ function cookieConsent() {
 
     function persistAndApply(allowAnalytics) {
         savePreferences({ analytics: allowAnalytics });
-        root.setAttribute('data-state', allowAnalytics ? 'accepted' : 'declined');
+        setPgsFlag(root, 'cookieConsent-accepted', !!allowAnalytics);
+        setPgsFlag(root, 'cookieConsent-declined', !allowAnalytics);
         applyAnalyticsConsent({ allowAnalytics: !!allowAnalytics, measurementId });
     }
 
@@ -188,6 +206,4 @@ function cookieConsent() {
     } else {
         setBannerVisibility(true);
     }
-}
-
-document.addEventListener('DOMContentLoaded', cookieConsent);
+});

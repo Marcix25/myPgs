@@ -1,11 +1,7 @@
-//# RESPONSIVE
-//== CONTAINER
-[pgs~=container] {
-    container-type: inline-size;
-}
 
-//== FLEX
-//=== FLEX COLUMN
+//= FLEX 
+
+//== FLEX COLUMN
 [pgs~=flexColumn] {
     @include flexColumn();
 }
@@ -22,7 +18,7 @@
     @include flexColumnSections();
 }
 
-//=== FLEX ROW
+//== FLEX ROW
 [pgs~=flexRow] {
     @include flexRow();
 }
@@ -39,7 +35,7 @@
     @include flexRowSection();
 }
 
-//=== responsive flex
+//== responsive flex
 @for $i from 1 through 10 {
     [pgs~=flex-#{$i}] {
         @include rFlex($i);
@@ -48,28 +44,4 @@
     [pgs~=flex-#{$i}-m2e] {
         @include rFlex($i, true);
     }
-}
-
-//== GRID
-@for $i from 1 through 10 {
-    [pgs~=grid-#{$i}] {
-        @include rGrid($i);
-    }
-
-    [pgs~=grid-#{$i}-m2e] {
-        @include rGrid($i, true);
-    }
-}
-
-//== GAP
-[pgs~=gapTexts] {
-    gap: var(--gap-texts);
-}
-
-[pgs~=gapElements]{
-    gap: var(--gap-elements);
-}
-
-[pgs~=gapSections] {
-    gap: var(--gap-sections);
 }

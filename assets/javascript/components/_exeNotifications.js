@@ -1,4 +1,4 @@
-import { PGS_notification, PGS_toast } from "../components/_cn-notifications.js";
+import { PGS_notification, PGS_toast } from "../functions/_notifications.js";
 
 function escapeHtml(value) {
     return String(value ?? "");

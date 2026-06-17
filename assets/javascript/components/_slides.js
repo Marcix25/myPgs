@@ -1,4 +1,4 @@
-import { PGS_scrollHorizontal } from "../functions/_fn-scrollY"
+import { PGS_scrollHorizontal } from "../functions/_scrollY"
 const API = new WeakMap();
 
 class PGS_Slides {
