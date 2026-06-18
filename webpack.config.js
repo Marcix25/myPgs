@@ -13,7 +13,6 @@ const entryJs = {
 
 const entryScss = {
     index: "./assets/scss/index.scss",
-    woocommerce: "./assets/scss/woocommerce.scss",
 };
 
 

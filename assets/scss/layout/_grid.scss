@@ -1,0 +1,11 @@
+//== GRID
+@for $i from 1 through 10 {
+    [pgs~=grid-#{$i}] {
+        @include rGrid($i);
+    }
+
+    [pgs~=grid-#{$i}-m2e] {
+        @include rGrid($i, true);
+    }
+}
+

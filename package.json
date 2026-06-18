@@ -4,10 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack --watch --config-name theme:js --config-name theme:js:min --config-name theme:scss --config-name theme:scss:min",
-    "start:woocommerce": "webpack --watch --config-name woocommerce:scss --config-name woocommerce:scss:min",
-    "build:theme": "webpack --config-name theme:js --config-name theme:js:min --config-name theme:scss --config-name theme:scss:min",
-    "build:woocommerce": "webpack --config-name woocommerce:scss --config-name woocommerce:scss:min",
+    "start": "webpack",
     "syncmaster": "git fetch origin && git checkout dev && git pull --rebase origin dev && git rebase origin/master && git push --force-with-lease origin dev && git checkout master && git pull --ff-only origin master && git merge --ff-only dev && git push origin master && git checkout dev"
   },
   "keywords": [],
