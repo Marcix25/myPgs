@@ -22,7 +22,6 @@ const entryScss = {
 
 //== CONFIG
 const config = {
-    watch: true,
     stats: {
         all: false,
         errors: true,

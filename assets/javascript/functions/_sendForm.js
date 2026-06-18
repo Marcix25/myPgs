@@ -1,4 +1,4 @@
-import { PGS_toast } from "../components/_cn-notifications.js";
+import { PGS_toast } from "../functions/_notifications.js";
 export async function PGS_sendForm(
     append = {
         formAppend: [

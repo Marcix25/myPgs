@@ -1,19 +1,28 @@
 {
-  "name": "pgs_theme",
-  "version": "2.0.2",
-  "description": "",
-  "main": "index.js",
+  "name": "mypgs",
+  "version": "1.0.0",
+  "description": "MyPGS frontend theme and UI behaviors, with bundled JavaScript and CSS assets.",
+  "main": "./dist/javascript/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/javascript/index.js",
+    "./style.css": "./dist/css/index.css",
+    "./style.min.css": "./dist/css/index.min.css"
+  },
+  "style": "./dist/css/index.css",
   "scripts": {
-    "start": "webpack",
+    "start": "webpack --watch",
+    "build": "webpack --config webpack.config.js",
     "syncmaster": "git fetch origin && git checkout dev && git pull --rebase origin dev && git rebase origin/master && git push --force-with-lease origin dev && git checkout master && git pull --ff-only origin master && git merge --ff-only dev && git push origin master && git checkout dev"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "theme",
+    "css",
+    "ui",
+    "frontend",
+    "components"
+  ],
   "license": "ISC",
-  "dependencies": {
-    "commander": "^13.1.0",
-    "gsap": "^3.12.7"
-  },
   "devDependencies": {
     "css-loader": "^7.1.2",
     "mini-css-extract-plugin": "^2.9.2",
