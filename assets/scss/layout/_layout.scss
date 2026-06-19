@@ -39,16 +39,3 @@
 [pgs~=container] {
     container-type: inline-size;
 }
-
-//== GAP
-[pgs~=gapTexts] {
-    gap: var(--gap-texts);
-}
-
-[pgs~=gapElements]{
-    gap: var(--gap-elements);
-}
-
-[pgs~=gapSections] {
-    gap: var(--gap-sections);
-}
