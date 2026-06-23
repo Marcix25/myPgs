@@ -1,12 +1,10 @@
 //+ MIXIN
 @import "./mixin/mixin.scss";
-
 /*
 |--------------------------------------------------------------------------
 | Base
 |--------------------------------------------------------------------------
 */
-
 @import "base/variables";
 @import "base/color";
 @import "base/reset";
@@ -15,50 +13,49 @@
 @import "base/heading";
 @import "base/general";
 
-
 /*
 |--------------------------------------------------------------------------
 | Layout
 |--------------------------------------------------------------------------
 */
-
-@import "layout/layout";
-@import "layout/flex";
-@import "layout/grid";
-@import "layout/pageShell";
-@import "layout/gap";
-
-
+[pgs~=initP] {
+    @import "layout/layout";
+    @import "layout/flex";
+    @import "layout/grid";
+    @import "layout/pageShell";
+    @import "layout/gap";
+}
 
 /*
 |--------------------------------------------------------------------------
 | Components
 |--------------------------------------------------------------------------
 */
-
-@import "components/button";
-@import "components/form";
-@import "components/menu";
-@import "components/accordion";
-@import "components/breadcumbs";
-@import "components/dropdown";
-@import "components/modals";
-@import "components/slides";
-@import "components/steps";
-@import "components/table";
-@import "components/stepTabs";
-@import "components/notification";
-@import "components/tooltip";
-@import "components/searchbar";
-@import "components/logo";
-
+[pgs~=initP] {
+    @import "components/button";
+    @import "components/form";
+    @import "components/menu";
+    @import "components/accordion";
+    @import "components/breadcumbs";
+    @import "components/dropdown";
+    @import "components/modals";
+    @import "components/slides";
+    @import "components/steps";
+    @import "components/table";
+    @import "components/stepTabs";
+    @import "components/notification";
+    @import "components/tooltip";
+    @import "components/searchbar";
+    @import "components/logo";
+}
 
 /*
 |--------------------------------------------------------------------------
 | Patterns
 |--------------------------------------------------------------------------
 */
-
-@import "patterns/header";
-@import "patterns/footer";
-@import "patterns/cookieConsent";
+[pgs~=initP] {
+    @import "patterns/header";
+    @import "patterns/footer";
+    @import "patterns/cookieConsent";
+}

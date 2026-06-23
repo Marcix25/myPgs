@@ -11,6 +11,10 @@
     --button-background#{$for}: #{$background};
     color: var(--button-color#{$for});
     background: var(--button-background#{$for});
+    
+    &:is(a) {
+        color: var(--button-color#{$for});
+    }
 
     i {
         color: var(--button-color#{$for});
@@ -70,7 +74,7 @@
 
     @else {
         $button-right: calc(var(--button-size) * 2);
-        $button-left: calc(var(--button-size) * 1.6);
+        $button-left: calc(var(--button-size) * 1.4);
 
         &:has(i) {
             --button-padding-right: #{$button-right};

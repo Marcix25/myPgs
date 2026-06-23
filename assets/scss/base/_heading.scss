@@ -1,20 +1,22 @@
 //# HEADING
-[pgs~=h1] {
-    @include h1();
-}
+[pgs~=initP] {
+    [pgs~=h1] {
+        @include h1();
+    }
 
-[pgs~=h2] {
-    @include h2();
-}
+    [pgs~=h2] {
+        @include h2();
+    }
 
-[pgs~=h3] {
-    @include h3();
-}
+    [pgs~=h3] {
+        @include h3();
+    }
 
-[pgs~=h4] {
-    @include h4();
-}
+    [pgs~=h4] {
+        @include h4();
+    }
 
-[pgs~=h5] {
-    @include h5();
+    [pgs~=h5] {
+        @include h5();
+    }
 }

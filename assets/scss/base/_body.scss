@@ -113,9 +113,10 @@
     a {
         text-decoration: none;
         overflow-wrap: anywhere;
+        color: var(--color-black);
 
         &:hover {
-            color: color-mix(in srgb, var(--color-link) 100%, var(--color-whiteFixed) 50%);
+            color: color-mix(in srgb, var(--color-link) 100%, var(--color-white) 50%);
             text-decoration: underline;
         }
 

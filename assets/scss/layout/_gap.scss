@@ -10,3 +10,6 @@
 [pgs~=gapSections] {
     gap: var(--gap-sections);
 }
+[pgs~=nowrap] {
+    flex-wrap: nowrap;
+}

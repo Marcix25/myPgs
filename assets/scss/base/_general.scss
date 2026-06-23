@@ -1,58 +1,61 @@
 //# GENERAL
-[pgs~=card],
-[pgs~=cardImg] {
-    @include card();
+[pgs~=initP] {
 
-    [pgs~=card-img] {
-        @include card-insideImg();
+    [pgs~=card],
+    [pgs~=cardImg] {
+        @include card();
+
+        [pgs~=card-img] {
+            @include card-insideImg();
+        }
     }
-}
 
-[pgs~=boxtext] {
-    @include boxtext();
-}
+    [pgs~=boxtext] {
+        @include boxtext();
+    }
 
-[pgs~=darkmode] {
-    color-scheme: dark;
-}
+    [pgs~=darkmode] {
+        color-scheme: dark;
+    }
 
-[pgs~=lightmode] {
-    color-scheme: light;
-}
+    [pgs~=lightmode] {
+        color-scheme: light;
+    }
 
-[pgs~=imgCover] {
-    object-fit: cover;
-}
+    [pgs~=imgCover] {
+        object-fit: cover;
+    }
 
-[pgs~=imgContain] {
-    object-fit: contain;
-}
+    [pgs~=imgContain] {
+        object-fit: contain;
+    }
 
-[pgs~=borderRadius] {
-    border-radius: var(--border-radius);
-}
+    [pgs~=borderRadius] {
+        border-radius: var(--border-radius);
+    }
 
-[pgs~=borderRadiusInput] {
-    border-radius: var(--border-radius-input);
-}
+    [pgs~=borderRadiusInput] {
+        border-radius: var(--border-radius-input);
+    }
 
-[pgs~=borderRadiusExternal] {
-    border-radius: var(--border-radius-external);
-}
+    [pgs~=borderRadiusExternal] {
+        border-radius: var(--border-radius-external);
+    }
 
-[pgs~=blur] {
-    backdrop-filter: var(--blur);
-}
+    [pgs~=blur] {
+        backdrop-filter: var(--blur);
+    }
 
-[pgs~=appearanceNone] {
-    all: unset;
-    appearance: none;
-}
+    [pgs~=appearanceNone] {
+        all: unset;
+        appearance: none;
+    }
 
-[pgs~=pointer] {
-    cursor: pointer;
-}
+    [pgs~=pointer] {
+        cursor: pointer;
+    }
 
-[pgs~=hidden] {
-    display: none !important;
+    [pgs~=hidden] {
+        display: none !important;
+    }
 }
