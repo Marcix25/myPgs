@@ -43,13 +43,11 @@
             }
 
             // &:has([pgs~="slides-container"] .view) {
-
             //     &::before,
             //     &::after {
             //         opacity: 1;
             //     }
             // }
-
             &:has([pgs~="slides-container"] li:first-child.view) {
                 &::before {
                     opacity: 0;
@@ -114,8 +112,6 @@
         position: absolute;
         z-index: 4;
         --button-background: var(--color-box);
-        padding: var(--gap-texts);
-        aspect-ratio: 1;
         top: 50%;
         translate: 0 -50%;
 
@@ -140,6 +136,11 @@
                 right: 10px;
                 margin: 0;
             }
+        }
+
+        //- mobile 
+        @media (max-width: $mobile) {
+            display: none;
         }
     }
 

@@ -152,15 +152,30 @@ function pgs(root) {
             return api;
         };
 
-        api.toggle = function (value) {
+        api.toggle = function (value, force) {
             const v = String(value).trim();
             if (!v) return false;
-
             const current = read();
-            if (current.includes(v)) {
+            const exists = current.includes(v);
+
+            if (force !== undefined) {
+                if (force && !exists) {
+                    current.push(v);
+                    write(current);
+                }
+
+                if (!force && exists) {
+                    write(current.filter(x => x !== v));
+                }
+
+                return !!force;
+            }
+
+            if (exists) {
                 write(current.filter(x => x !== v));
                 return false;
             }
+            
             current.push(v);
             write(current);
             return true;
@@ -1013,8 +1028,8 @@ class PGS_Slides {
 
         //== PULSANTI
         if (!pgs(EL).querySelector('slides-prec') && !pgs(EL).querySelector('slides-next')) {
-            EL.insertAdjacentHTML("afterbegin", `<button pgs="slides-prec button" type="button" class="precButton" aria-label="slide precedente"> <span> <i class="fa-solid fa-arrow-left"></i></span></button>`);
-            EL.insertAdjacentHTML("beforeend", `<button pgs="slides-next button" type="button" class="nextButton" aria-label="prossima slide"> <span> <i class="fa-solid fa-arrow-right"></i></span></button>`);
+            EL.insertAdjacentHTML("afterbegin", `<button pgs="slides-prec buttonIcon" type="button" class="precButton" aria-label="slide precedente"> <span> <i class="fa-solid fa-arrow-left"></i></span></button>`);
+            EL.insertAdjacentHTML("beforeend", `<button pgs="slides-next buttonIcon" type="button" class="nextButton" aria-label="prossima slide"> <span> <i class="fa-solid fa-arrow-right"></i></span></button>`);
         }
 
         //== DOTS
@@ -1072,7 +1087,7 @@ class PGS_Slides {
             const isView = visiblePercent >= 0.98;
 
             //== SCROLL ANIMATION
-            if (!pgs(LI.target).option.contains('notScrollAnimation')) {
+            if (!pgs(LI.target).option.contains('notScrollAnimation') && LI.target.firstElementChild) {
                 LI.target.firstElementChild.style.setProperty('--visible-percent', `${visiblePercent}`);
             };
 
@@ -1168,6 +1183,179 @@ function PGS_slides_api(selector) {
 
 /***/ },
 
+/***/ "./assets/javascript/components/_stepTabs.js"
+/*!***************************************************!*\
+  !*** ./assets/javascript/components/_stepTabs.js ***!
+  \***************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_stepTabs: () => (/* binding */ PGS_stepTabs),
+/* harmony export */   PGS_tabs_api: () => (/* binding */ PGS_tabs_api)
+/* harmony export */ });
+const API = new WeakMap();
+PGS_stepTabs()
+
+function PGS_stepTabs() {
+    pgs(document).querySelectorAll("stepTabs").forEach(tabsWizard => {
+        if (tabsWizard.dataset.stepTabsInitialized === "true") return;
+        tabsWizard.dataset.stepTabsInitialized = "true";
+
+        //= SELECTOR
+        const prev = pgs(tabsWizard).querySelector("stepTabs-prev")
+        const next = pgs(tabsWizard).querySelector("stepTabs-next")
+        const restart = pgs(tabsWizard).querySelector("stepTabs-restart")
+        const dots = pgs(tabsWizard).querySelector("stepTabs-dots")
+        const tabsContainer = pgs(tabsWizard).querySelector("stepTabs-container");
+        const allTab = pgs(tabsContainer).querySelectorAll("tab");
+
+        //= SETTING
+        const total = allTab.length;
+        const defaultTabLocked = Array.from(allTab).filter(tab => pgs(tab).state.contains("is-locked"))        
+        let current = 0;
+        if (prev) prev.disabled = true;
+        let isRendering = false;
+
+        if (!tabsContainer || total === 0) return;
+
+        //- CREAZIONE DOTS
+        const tabDots = [];
+        if (dots) {
+            dots.innerHTML = "";
+
+            allTab.forEach((tab, index) => {
+                const iconClass = tab.getAttribute("data-tab-icon") || "fa-circle";
+                const dot = document.createElement("button");
+                dot.type = "button";
+                pgs(dot).add("stepTabs-dots-dot");
+                dot.setAttribute("data-step", index);
+                dot.innerHTML = `<i class="fa-solid ${iconClass}"></i>`;
+
+                dot.addEventListener("click", () => {
+                    if (pgs(dot).state.contains("is-completed")) {
+                        goTo(index, true);
+                    }
+                });
+
+                dots.appendChild(dot);
+                tabDots.push(dot);
+            });
+        }
+
+        //+ DOTS
+        function updateDots() {
+            tabDots.forEach((dot, i) => {
+                setState(dot, "is-active", i === current);
+                setState(dot, "is-completed", i < current);
+            });
+        }
+
+        //+ STATE
+        function setState(element, state, active) {
+            if (!element) return;
+            const hasState = pgs(element).state.contains(state);
+            if (active === hasState) return;
+            pgs(element).state.toggle(state, active);
+        }
+
+        //+ CONTROLS
+        function updateControls() {
+            const tab = allTab[current];
+            if (prev) prev.disabled = current === 0;
+            if (next) next.disabled = current === total - 1 || pgs(tab).state.contains("is-locked");
+        }
+
+        //+ Step
+        function goTo(index, scroll = true) {
+            current = Math.min(Math.max(index, 0), total - 1);
+            const tab = allTab[current]
+
+            isRendering = true;
+            allTab.forEach((tab, i) => setState(tab, "is-active", i === current));
+            updateControls();
+            updateDots();
+            isRendering = false;
+
+            if (scroll && !tabsWizard.closest("dialog")) {
+                tab?.focus();
+                tabsWizard?.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+
+            tabsWizard.dispatchEvent(new CustomEvent('stepTabs:change', { detail: { current, total } }));
+        }
+
+        //+ restart
+        function restartTab() {
+            goTo(0);
+            defaultTabLocked.forEach(tab => pgs(tab).state.add("is-locked"));
+        }
+
+        //= INIT
+        goTo(0, false);
+
+        //= data-tab-locked
+        const observer = new MutationObserver(() => {
+            if (isRendering) return;
+            updateControls();
+        });
+        allTab?.forEach(tabEl => observer.observe(tabEl, { attributes: true, attributeFilter: ["pgs-state"], }));
+
+        //= Click su Avanti/Indietro
+        prev?.addEventListener("click", e => goTo(current - 1));
+        next?.addEventListener("click", e => {
+            updateControls();
+            if (next.disabled) return;
+            goTo(current + 1);
+        });
+        restart?.addEventListener("click", e => restartTab(), { capture: true });
+
+        //-(API) 
+        // tabsWizard.addEventListener("stepTabs:reset", () => restartTab());
+        API.set(tabsWizard, {
+            restart: restartTab,
+            goTo,
+            next: () => goTo(current + 1),
+            prev: () => goTo(current - 1),
+            toggleLock: (step, lock = true) => typeof step === "number" && allTab[step] && (pgs(allTab[step]).state.toggle("is-locked", lock), goTo(current)),
+            getCurrent: () => current,
+            getState: () => ({ current, total }),
+        });
+    });
+}
+
+function PGS_tabs_api(selector) {
+    return API.get(selector);
+}
+
+/* 
+    / EXAMPLE
+    // vai allo step 2
+    w.dispatchEvent(new CustomEvent("stepTabs:go", { detail: { step: 2 } }));
+    
+    // next
+    w.dispatchEvent(new CustomEvent("stepTabs:next"));
+    
+    // prev
+    w.dispatchEvent(new CustomEvent("stepTabs:prev"));
+    
+    // reset a 0 senza relock
+    w.dispatchEvent(new CustomEvent("stepTabs:reset"));
+    
+    // lock step 3
+    w.dispatchEvent(new CustomEvent("stepTabs:toggle-lock", { detail: { step: 3, lock: true } }));
+    
+    // unlock step 3
+    w.dispatchEvent(new CustomEvent("stepTabs:toggle-lock", { detail: { step: 3, lock: false } }));
+    
+    // leggi stato
+    w.dispatchEvent(new CustomEvent("stepTabs:get", { detail: { reply: (state) => console.log(state) } }));
+*/
+
+
+/***/ },
+
 /***/ "./assets/javascript/components/_steps.js"
 /*!************************************************!*\
   !*** ./assets/javascript/components/_steps.js ***!
@@ -1206,156 +1394,6 @@ function PGS_ol() {
 
 //# INIT PGS_ol
 PGS_ol()
-
-/***/ },
-
-/***/ "./assets/javascript/components/_tabs.js"
-/*!***********************************************!*\
-  !*** ./assets/javascript/components/_tabs.js ***!
-  \***********************************************/
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PGS_tabs: () => (/* binding */ PGS_tabs),
-/* harmony export */   PGS_tabs_api: () => (/* binding */ PGS_tabs_api)
-/* harmony export */ });
-const API = new WeakMap();
-PGS_tabs()
-
-function PGS_tabs() {
-    pgs(document).querySelectorAll("tabs").forEach(tabsWizard => {
-
-        //= INIT
-        // if (tabsWizard.getAttribute("data-initialize") == "true") return;
-        // tabsWizard.setAttribute("data-initialize", "true");
-
-        //= SELECTOR
-        const prev = pgs(tabsWizard).querySelector("tabs-prev")
-        const next = pgs(tabsWizard).querySelector("tabs-next")
-        const restart = pgs(tabsWizard).querySelector("tabs-restart")
-        const dots = pgs(tabsWizard).querySelector("tabs-dots")
-        const tabsContainer = pgs(tabsWizard).querySelector("tabs-container");
-        const allTab = pgs(tabsContainer).querySelectorAll("tab");
-
-        //= SETTING
-        const total = allTab.length;
-        const defaultTabLocked = Array.from(allTab).filter(tab => tab.getAttribute("data-tab-locked") === "true")
-        let current = 0;
-        prev.disabled = true;
-
-        //- CREAZIONE DOTS
-        const tabDots = [];
-        if (dots) {
-            dots.innerHTML = "";
-
-            allTab.forEach((tab, index) => {
-
-                const iconClass = tab.getAttribute("data-tab-icon") || "fa-circle";
-
-                const dot = document.createElement("button");
-                dot.type = "button";
-                dot.className = "tab-dot";
-                dot.setAttribute("data-step", index);
-                dot.innerHTML = `<i class="fa-solid ${iconClass}"></i>`;
-
-                dot.addEventListener("click", () => {
-                    if (dot.classList.contains("is-completed")) {
-                        goTo(index, true);
-                    }
-                });
-
-                dots.appendChild(dot);
-                tabDots.push(dot);
-            });
-        }
-
-        //+ DOTS
-        function updateDots() {
-            tabDots.forEach((dot, i) => {
-                dot.classList.toggle("is-active", i === current);
-                dot.classList.toggle("is-completed", i < current);
-            });
-        }
-
-        //+ Step
-        function goTo(index) {
-            current = Math.min(Math.max(index, 0), total - 1);
-            const tab = allTab[current]
-
-            prev.disabled = (current === 0);
-            next.disabled = (current === total - 1 || tab.getAttribute("data-tab-locked") === "true");
-
-            allTab.forEach((tab, i) => tab.classList.toggle("is-active", i === current));
-            tab?.focus();
-            tabsWizard?.scrollIntoView({ behavior: "smooth", block: "start" });
-            updateDots();
-            tabsWizard.dispatchEvent(new CustomEvent('tabs:change', { detail: { current, total } }));
-        }
-
-        //+ restart
-        function restartTab() {
-            goTo(0);
-            defaultTabLocked.forEach(tab => tab.setAttribute("data-tab-locked", "true"));
-        }
-
-        //= INIT
-        goTo(0);
-
-        //= data-tab-locked
-        const observer = new MutationObserver(() => goTo(current));
-        allTab?.forEach(tabEl => observer.observe(tabEl, { attributes: true, attributeFilter: ["data-tab-locked"], }));
-
-
-        //= Click su Avanti/Indietro
-        prev?.addEventListener("click", e => goTo(current - 1));
-        next?.addEventListener("click", e => goTo(current + 1));
-        restart?.addEventListener("click", e => restartTab(), { capture: true });
-
-        //-(API) 
-        // tabsWizard.addEventListener("tabs:reset", () => restartTab());
-        API.set(tabsWizard, {
-            restart: restartTab,
-            goTo,
-            next: () => goTo(current + 1),
-            prev: () => goTo(current - 1),
-            toggleLock: (step, lock = true) => typeof step === "number" && allTab[step] && (allTab[step].setAttribute("data-tab-locked", lock.toString()), goTo(current)),
-            getCurrent: () => current,
-            getState: () => ({ current, total }),
-        });
-    });
-}
-
-function PGS_tabs_api(selector) {
-    return API.get(selector);
-}
-
-
-/* 
-    / EXAMPLE
-    // vai allo step 2
-    w.dispatchEvent(new CustomEvent("tabs:go", { detail: { step: 2 } }));
-    
-    // next
-    w.dispatchEvent(new CustomEvent("tabs:next"));
-    
-    // prev
-    w.dispatchEvent(new CustomEvent("tabs:prev"));
-    
-    // reset a 0 senza relock
-    w.dispatchEvent(new CustomEvent("tabs:reset"));
-    
-    // lock step 3
-    w.dispatchEvent(new CustomEvent("tabs:toggle-lock", { detail: { step: 3, lock: true } }));
-    
-    // unlock step 3
-    w.dispatchEvent(new CustomEvent("tabs:toggle-lock", { detail: { step: 3, lock: false } }));
-    
-    // leggi stato
-    w.dispatchEvent(new CustomEvent("tabs:get", { detail: { reply: (state) => console.log(state) } }));
-*/
-
 
 /***/ },
 
@@ -2002,7 +2040,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_modals_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_modals.js */ "./assets/javascript/components/_modals.js");
 /* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
 /* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
-/* harmony import */ var _components_tabs_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_tabs.js */ "./assets/javascript/components/_tabs.js");
+/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
 /* harmony import */ var _patterns_header_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./patterns/_header.js */ "./assets/javascript/patterns/_header.js");
 /* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
 /* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_12__);

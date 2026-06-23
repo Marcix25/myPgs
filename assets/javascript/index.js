@@ -13,7 +13,7 @@ import "./components/_menu.js"
 import "./components/_modals.js";
 import "./components/_slides.js"
 import "./components/_steps.js";
-import "./components/_tabs.js";
+import "./components/_stepTabs.js";
 
 //= patterns 
 import "./patterns/_header.js";

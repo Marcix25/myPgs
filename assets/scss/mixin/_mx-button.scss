@@ -1,26 +1,22 @@
-@function ourContrastColor($backgorundReferenze) {
-    @return contrast-color(color-mix(in srgb, $backgorundReferenze 77%, black));
-}
-
 //+ VAR
 @mixin _var-button-color($background, $for: null, $colorNotContrast: var(--color-black)) {
+    @supports (color: contrast-color(red)) {
+        --button-color#{$for}: contrast-color(color-mix(in srgb, var(--button-background#{$for}) 77%, black));
+    }
+
+    @supports not (color: contrast-color(red)) {
+        --button-color#{$for}: #{$colorNotContrast};
+    }
+
     --button-background#{$for}: #{$background};
-    --button-color#{$for}: #{ourContrastColor(var(--button-background#{$for}))
-}
-
-;
-@supports not (color: contrast-color(red)) {
-    --button-color#{$for}: #{$colorNotContrast};
-}
-
-color: var(--button-color#{$for});
-background: var(--button-background#{$for});
-
-i {
     color: var(--button-color#{$for});
-    --fa-primary-color: var(--button-color#{$for});
-    --fa-secondary-color: var(--button-color#{$for});
-}
+    background: var(--button-background#{$for});
+
+    i {
+        color: var(--button-color#{$for});
+        --fa-primary-color: var(--button-color#{$for});
+        --fa-secondary-color: var(--button-color#{$for});
+    }
 }
 
 //= BUTTON
@@ -28,7 +24,12 @@ i {
     --button-border: var(--border-complete);
     --button-size: 1.5rem;
     --button-icon-size: 2.0rem;
-    --button-padding: var(--button-size);
+    --button-padding-block: var(--button-size);
+    --button-padding-left: calc(var(--button-size) * 2);
+    --button-padding-right: calc(var(--button-size) * 2);
+    --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
+    --fa-secondary-opacity: 0.5;
+    --fa-size: var(--button-icon-size);
     @include _var-button-color(var(--color-box));
     font-family: var(--font);
     font-size: 1.6rem;
@@ -45,29 +46,40 @@ i {
     align-items: center;
     padding: var(--button-padding);
     width: max-content;
-
-    i {
-        --fa-secondary-opacity: 0.5;
-        --fa-size: var(--button-icon-size);
-    }
-
-    &:disabled {
-        opacity: 0.2;
-        cursor: not-allowed;
-    }
+    height: max-content;
+    margin-block: auto;
 
     //== onlyIcon
     @if($onlyIcon ==true) {
+        flex: 0 0;
         aspect-ratio: 1;
+        border-radius: 50%;
+        justify-content: center;
+        align-items: center;
+        --button-padding: var(--button-padding-block);
+
+        i {
+            display: inline-grid;
+            place-items: center;
+            inline-size: calc(var(--button-icon-size) - -2px);
+            block-size: var(--button-icon-size);
+            line-height: 1;
+            aspect-ratio: 1;
+        }
     }
 
     @else {
+        $button-right: calc(var(--button-size) * 2);
+        $button-left: calc(var(--button-size) * 1.6);
+
         &:has(i) {
-            --button-padding: var(--button-size) calc(var(--button-size) + var(--button-size)/2) var(--button-size) var(--button-size);
+            --button-padding-right: #{$button-right};
+            --button-padding-left: #{$button-left};
         }
 
-        &:not(:has(i)) {
-            --button-padding: var(--button-size) calc(var(--button-size) * 2);
+        &[pgs-option~="buttonReverse"]:has(i) {
+            --button-padding-right: #{$button-left};
+            --button-padding-left: #{$button-right};
         }
     }
 
@@ -89,6 +101,11 @@ i {
     //== current 
     &[aria-current="page"]:not(:hover, :focus-visible) {
         @include _var-button-color(var(--color-primary), "-current", var(--color-whiteFixed));
+    }
+
+    &:disabled {
+        opacity: 0.2;
+        cursor: not-allowed;
     }
 }
 
@@ -133,6 +150,8 @@ i {
     --button-size: 0.5rem;
     display: inline-flex;
     aspect-ratio: unset;
+    margin-block: auto;
+    aspect-ratio: 1;
 }
 
 //== Button BIG

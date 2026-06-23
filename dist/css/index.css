@@ -155,7 +155,7 @@
 }
 
 [pgs~=bodyImg] i {
-  line-height: 1.2 !important;
+  line-height: 1.2;
   font-size: var(--fa-size);
   transition: color 300ms;
 }
@@ -564,8 +564,13 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   [pgs~=cardImg] > a:not(:disabled):hover {
     box-shadow: -0.25rem 0.25rem 0px var(--color-black);
     transform: translate(0.25rem, -0.25rem);
-    --button-background-hover: var(--color-primary-soft);
-    --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black)) ;
+  }
+  @supports (color: contrast-color(red)) {
+    [pgs~=card] > a:not(:disabled):focus-visible, [pgs~=card] > a:not(:disabled):hover,
+    [pgs~=cardImg] > a:not(:disabled):focus-visible,
+    [pgs~=cardImg] > a:not(:disabled):hover {
+      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
+    }
   }
   @supports not (color: contrast-color(red)) {
     [pgs~=card] > a:not(:disabled):focus-visible, [pgs~=card] > a:not(:disabled):hover,
@@ -577,6 +582,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   [pgs~=card] > a:not(:disabled):focus-visible, [pgs~=card] > a:not(:disabled):hover,
   [pgs~=cardImg] > a:not(:disabled):focus-visible,
   [pgs~=cardImg] > a:not(:disabled):hover {
+    --button-background-hover: var(--color-primary-soft);
     color: var(--button-color-hover);
     background: var(--button-background-hover);
   }
@@ -2508,9 +2514,17 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
   --button-icon-size: 2.0rem;
-  --button-padding: var(--button-size);
-  --button-background: var(--color-box);
-  --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black)) ;
+  --button-padding-block: var(--button-size);
+  --button-padding-left: calc(var(--button-size) * 2);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
+  --fa-secondary-opacity: 0.5;
+  --fa-size: var(--button-icon-size);
+}
+@supports (color: contrast-color(red)) {
+  [pgs~=button] {
+    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=button] {
@@ -2518,6 +2532,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=button] {
+  --button-background: var(--color-box);
   color: var(--button-color);
   background: var(--button-background);
 }
@@ -2542,20 +2557,16 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   align-items: center;
   padding: var(--button-padding);
   width: max-content;
-}
-[pgs~=button] i {
-  --fa-secondary-opacity: 0.5;
-  --fa-size: var(--button-icon-size);
-}
-[pgs~=button]:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
+  height: max-content;
+  margin-block: auto;
 }
 [pgs~=button]:has(i) {
-  --button-padding: var(--button-size) calc(var(--button-size) + var(--button-size)/2) var(--button-size) var(--button-size);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding-left: calc(var(--button-size) * 1.6);
 }
-[pgs~=button]:not(:has(i)) {
-  --button-padding: var(--button-size) calc(var(--button-size) * 2);
+[pgs~=button][pgs-option~=buttonReverse]:has(i) {
+  --button-padding-right: calc(var(--button-size) * 1.6);
+  --button-padding-left: calc(var(--button-size) * 2);
 }
 [pgs~=button] {
   transition: all 200ms;
@@ -2566,8 +2577,11 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   [pgs~=button]:not(:disabled):focus-visible, [pgs~=button]:not(:disabled):hover {
     box-shadow: -0.25rem 0.25rem 0px var(--color-black);
     transform: translate(0.25rem, -0.25rem);
-    --button-background-hover: var(--color-primary-soft);
-    --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black)) ;
+  }
+  @supports (color: contrast-color(red)) {
+    [pgs~=button]:not(:disabled):focus-visible, [pgs~=button]:not(:disabled):hover {
+      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
+    }
   }
   @supports not (color: contrast-color(red)) {
     [pgs~=button]:not(:disabled):focus-visible, [pgs~=button]:not(:disabled):hover {
@@ -2575,6 +2589,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
     }
   }
   [pgs~=button]:not(:disabled):focus-visible, [pgs~=button]:not(:disabled):hover {
+    --button-background-hover: var(--color-primary-soft);
     color: var(--button-color-hover);
     background: var(--button-background-hover);
   }
@@ -2597,9 +2612,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   box-shadow: 0 0 0 var(--color-black);
   transform: translate(0, 0);
 }
-[pgs~=button][aria-current=page]:not(:hover, :focus-visible) {
-  --button-background-current: var(--color-primary);
-  --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black)) ;
+@supports (color: contrast-color(red)) {
+  [pgs~=button][aria-current=page]:not(:hover, :focus-visible) {
+    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=button][aria-current=page]:not(:hover, :focus-visible) {
@@ -2607,6 +2623,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=button][aria-current=page]:not(:hover, :focus-visible) {
+  --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
 }
@@ -2615,14 +2632,26 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
 }
+[pgs~=button]:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
 
 [pgs~=buttonNohover] {
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
   --button-icon-size: 2.0rem;
-  --button-padding: var(--button-size);
-  --button-background: var(--color-box);
-  --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black)) ;
+  --button-padding-block: var(--button-size);
+  --button-padding-left: calc(var(--button-size) * 2);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
+  --fa-secondary-opacity: 0.5;
+  --fa-size: var(--button-icon-size);
+}
+@supports (color: contrast-color(red)) {
+  [pgs~=buttonNohover] {
+    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=buttonNohover] {
@@ -2630,6 +2659,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=buttonNohover] {
+  --button-background: var(--color-box);
   color: var(--button-color);
   background: var(--button-background);
 }
@@ -2654,28 +2684,25 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   align-items: center;
   padding: var(--button-padding);
   width: max-content;
-}
-[pgs~=buttonNohover] i {
-  --fa-secondary-opacity: 0.5;
-  --fa-size: var(--button-icon-size);
-}
-[pgs~=buttonNohover]:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
+  height: max-content;
+  margin-block: auto;
 }
 [pgs~=buttonNohover]:has(i) {
-  --button-padding: var(--button-size) calc(var(--button-size) + var(--button-size)/2) var(--button-size) var(--button-size);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding-left: calc(var(--button-size) * 1.6);
 }
-[pgs~=buttonNohover]:not(:has(i)) {
-  --button-padding: var(--button-size) calc(var(--button-size) * 2);
+[pgs~=buttonNohover][pgs-option~=buttonReverse]:has(i) {
+  --button-padding-right: calc(var(--button-size) * 1.6);
+  --button-padding-left: calc(var(--button-size) * 2);
 }
 [pgs~=buttonNohover] {
   transition: all 200ms;
   cursor: inherit;
 }
-[pgs~=buttonNohover][aria-current=page]:not(:hover, :focus-visible) {
-  --button-background-current: var(--color-primary);
-  --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black)) ;
+@supports (color: contrast-color(red)) {
+  [pgs~=buttonNohover][aria-current=page]:not(:hover, :focus-visible) {
+    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=buttonNohover][aria-current=page]:not(:hover, :focus-visible) {
@@ -2683,6 +2710,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=buttonNohover][aria-current=page]:not(:hover, :focus-visible) {
+  --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
 }
@@ -2691,14 +2719,26 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
 }
+[pgs~=buttonNohover]:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
 
 [pgs~=buttonIcon] {
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
   --button-icon-size: 2.0rem;
-  --button-padding: var(--button-size);
-  --button-background: var(--color-box);
-  --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black)) ;
+  --button-padding-block: var(--button-size);
+  --button-padding-left: calc(var(--button-size) * 2);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
+  --fa-secondary-opacity: 0.5;
+  --fa-size: var(--button-icon-size);
+}
+@supports (color: contrast-color(red)) {
+  [pgs~=buttonIcon] {
+    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=buttonIcon] {
@@ -2706,6 +2746,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=buttonIcon] {
+  --button-background: var(--color-box);
   color: var(--button-color);
   background: var(--button-background);
 }
@@ -2730,17 +2771,24 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   align-items: center;
   padding: var(--button-padding);
   width: max-content;
+  height: max-content;
+  margin-block: auto;
+  flex: 0 0;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  --button-padding: var(--button-padding-block);
 }
 [pgs~=buttonIcon] i {
-  --fa-secondary-opacity: 0.5;
-  --fa-size: var(--button-icon-size);
-}
-[pgs~=buttonIcon]:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
+  display: inline-grid;
+  place-items: center;
+  inline-size: calc(var(--button-icon-size) + 2px);
+  block-size: var(--button-icon-size);
+  line-height: 1;
+  aspect-ratio: 1;
 }
 [pgs~=buttonIcon] {
-  aspect-ratio: 1;
   transition: all 200ms;
   cursor: pointer;
   text-decoration: none;
@@ -2749,8 +2797,11 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   [pgs~=buttonIcon]:not(:disabled):focus-visible, [pgs~=buttonIcon]:not(:disabled):hover {
     box-shadow: -0.25rem 0.25rem 0px var(--color-black);
     transform: translate(0.25rem, -0.25rem);
-    --button-background-hover: var(--color-primary-soft);
-    --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black)) ;
+  }
+  @supports (color: contrast-color(red)) {
+    [pgs~=buttonIcon]:not(:disabled):focus-visible, [pgs~=buttonIcon]:not(:disabled):hover {
+      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
+    }
   }
   @supports not (color: contrast-color(red)) {
     [pgs~=buttonIcon]:not(:disabled):focus-visible, [pgs~=buttonIcon]:not(:disabled):hover {
@@ -2758,6 +2809,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
     }
   }
   [pgs~=buttonIcon]:not(:disabled):focus-visible, [pgs~=buttonIcon]:not(:disabled):hover {
+    --button-background-hover: var(--color-primary-soft);
     color: var(--button-color-hover);
     background: var(--button-background-hover);
   }
@@ -2780,9 +2832,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   box-shadow: 0 0 0 var(--color-black);
   transform: translate(0, 0);
 }
-[pgs~=buttonIcon][aria-current=page]:not(:hover, :focus-visible) {
-  --button-background-current: var(--color-primary);
-  --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black)) ;
+@supports (color: contrast-color(red)) {
+  [pgs~=buttonIcon][aria-current=page]:not(:hover, :focus-visible) {
+    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=buttonIcon][aria-current=page]:not(:hover, :focus-visible) {
@@ -2790,6 +2843,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=buttonIcon][aria-current=page]:not(:hover, :focus-visible) {
+  --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
 }
@@ -2798,14 +2852,26 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
 }
+[pgs~=buttonIcon]:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
 
 [pgs~=buttonStrong] {
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
   --button-icon-size: 2.0rem;
-  --button-padding: var(--button-size);
-  --button-background: var(--color-box);
-  --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black)) ;
+  --button-padding-block: var(--button-size);
+  --button-padding-left: calc(var(--button-size) * 2);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
+  --fa-secondary-opacity: 0.5;
+  --fa-size: var(--button-icon-size);
+}
+@supports (color: contrast-color(red)) {
+  [pgs~=buttonStrong] {
+    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=buttonStrong] {
@@ -2813,6 +2879,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=buttonStrong] {
+  --button-background: var(--color-box);
   color: var(--button-color);
   background: var(--button-background);
 }
@@ -2837,20 +2904,16 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   align-items: center;
   padding: var(--button-padding);
   width: max-content;
-}
-[pgs~=buttonStrong] i {
-  --fa-secondary-opacity: 0.5;
-  --fa-size: var(--button-icon-size);
-}
-[pgs~=buttonStrong]:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
+  height: max-content;
+  margin-block: auto;
 }
 [pgs~=buttonStrong]:has(i) {
-  --button-padding: var(--button-size) calc(var(--button-size) + var(--button-size)/2) var(--button-size) var(--button-size);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding-left: calc(var(--button-size) * 1.6);
 }
-[pgs~=buttonStrong]:not(:has(i)) {
-  --button-padding: var(--button-size) calc(var(--button-size) * 2);
+[pgs~=buttonStrong][pgs-option~=buttonReverse]:has(i) {
+  --button-padding-right: calc(var(--button-size) * 1.6);
+  --button-padding-left: calc(var(--button-size) * 2);
 }
 [pgs~=buttonStrong] {
   transition: all 200ms;
@@ -2861,8 +2924,11 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   [pgs~=buttonStrong]:not(:disabled):focus-visible, [pgs~=buttonStrong]:not(:disabled):hover {
     box-shadow: -0.25rem 0.25rem 0px var(--color-black);
     transform: translate(0.25rem, -0.25rem);
-    --button-background-hover: var(--color-primary-soft);
-    --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black)) ;
+  }
+  @supports (color: contrast-color(red)) {
+    [pgs~=buttonStrong]:not(:disabled):focus-visible, [pgs~=buttonStrong]:not(:disabled):hover {
+      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
+    }
   }
   @supports not (color: contrast-color(red)) {
     [pgs~=buttonStrong]:not(:disabled):focus-visible, [pgs~=buttonStrong]:not(:disabled):hover {
@@ -2870,6 +2936,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
     }
   }
   [pgs~=buttonStrong]:not(:disabled):focus-visible, [pgs~=buttonStrong]:not(:disabled):hover {
+    --button-background-hover: var(--color-primary-soft);
     color: var(--button-color-hover);
     background: var(--button-background-hover);
   }
@@ -2892,9 +2959,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   box-shadow: 0 0 0 var(--color-black);
   transform: translate(0, 0);
 }
-[pgs~=buttonStrong] {
-  --button-background-strong: var(--color-primary);
-  --button-color-strong: contrast-color(color-mix(in srgb, var(--button-background-strong) 77%, black)) ;
+@supports (color: contrast-color(red)) {
+  [pgs~=buttonStrong] {
+    --button-color-strong: contrast-color(color-mix(in srgb, var(--button-background-strong) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=buttonStrong] {
@@ -2902,6 +2970,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=buttonStrong] {
+  --button-background-strong: var(--color-primary);
   color: var(--button-color-strong);
   background: var(--button-background-strong);
 }
@@ -2910,9 +2979,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   --fa-primary-color: var(--button-color-strong);
   --fa-secondary-color: var(--button-color-strong);
 }
-[pgs~=buttonStrong][aria-current=page]:not(:hover, :focus-visible) {
-  --button-background-current: var(--color-primary);
-  --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black)) ;
+@supports (color: contrast-color(red)) {
+  [pgs~=buttonStrong][aria-current=page]:not(:hover, :focus-visible) {
+    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=buttonStrong][aria-current=page]:not(:hover, :focus-visible) {
@@ -2920,6 +2990,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=buttonStrong][aria-current=page]:not(:hover, :focus-visible) {
+  --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
 }
@@ -2928,14 +2999,26 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
 }
+[pgs~=buttonStrong]:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
 
 [pgs~=buttonMini] {
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
   --button-icon-size: 2.0rem;
-  --button-padding: var(--button-size);
-  --button-background: var(--color-box);
-  --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black)) ;
+  --button-padding-block: var(--button-size);
+  --button-padding-left: calc(var(--button-size) * 2);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
+  --fa-secondary-opacity: 0.5;
+  --fa-size: var(--button-icon-size);
+}
+@supports (color: contrast-color(red)) {
+  [pgs~=buttonMini] {
+    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=buttonMini] {
@@ -2943,6 +3026,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=buttonMini] {
+  --button-background: var(--color-box);
   color: var(--button-color);
   background: var(--button-background);
 }
@@ -2967,17 +3051,24 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   align-items: center;
   padding: var(--button-padding);
   width: max-content;
+  height: max-content;
+  margin-block: auto;
+  flex: 0 0;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  --button-padding: var(--button-padding-block);
 }
 [pgs~=buttonMini] i {
-  --fa-secondary-opacity: 0.5;
-  --fa-size: var(--button-icon-size);
-}
-[pgs~=buttonMini]:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
+  display: inline-grid;
+  place-items: center;
+  inline-size: calc(var(--button-icon-size) + 2px);
+  block-size: var(--button-icon-size);
+  line-height: 1;
+  aspect-ratio: 1;
 }
 [pgs~=buttonMini] {
-  aspect-ratio: 1;
   transition: all 200ms;
   cursor: pointer;
   text-decoration: none;
@@ -2986,8 +3077,11 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   [pgs~=buttonMini]:not(:disabled):focus-visible, [pgs~=buttonMini]:not(:disabled):hover {
     box-shadow: -0.25rem 0.25rem 0px var(--color-black);
     transform: translate(0.25rem, -0.25rem);
-    --button-background-hover: var(--color-primary-soft);
-    --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black)) ;
+  }
+  @supports (color: contrast-color(red)) {
+    [pgs~=buttonMini]:not(:disabled):focus-visible, [pgs~=buttonMini]:not(:disabled):hover {
+      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
+    }
   }
   @supports not (color: contrast-color(red)) {
     [pgs~=buttonMini]:not(:disabled):focus-visible, [pgs~=buttonMini]:not(:disabled):hover {
@@ -2995,6 +3089,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
     }
   }
   [pgs~=buttonMini]:not(:disabled):focus-visible, [pgs~=buttonMini]:not(:disabled):hover {
+    --button-background-hover: var(--color-primary-soft);
     color: var(--button-color-hover);
     background: var(--button-background-hover);
   }
@@ -3017,9 +3112,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   box-shadow: 0 0 0 var(--color-black);
   transform: translate(0, 0);
 }
-[pgs~=buttonMini][aria-current=page]:not(:hover, :focus-visible) {
-  --button-background-current: var(--color-primary);
-  --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black)) ;
+@supports (color: contrast-color(red)) {
+  [pgs~=buttonMini][aria-current=page]:not(:hover, :focus-visible) {
+    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=buttonMini][aria-current=page]:not(:hover, :focus-visible) {
@@ -3027,6 +3123,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=buttonMini][aria-current=page]:not(:hover, :focus-visible) {
+  --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
 }
@@ -3035,19 +3132,33 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
 }
+[pgs~=buttonMini]:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
 [pgs~=buttonMini] {
   --button-size: 0.5rem;
   display: inline-flex;
   aspect-ratio: unset;
+  margin-block: auto;
+  aspect-ratio: 1;
 }
 
 [pgs~=buttonBig] {
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
   --button-icon-size: 2.0rem;
-  --button-padding: var(--button-size);
-  --button-background: var(--color-box);
-  --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black)) ;
+  --button-padding-block: var(--button-size);
+  --button-padding-left: calc(var(--button-size) * 2);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
+  --fa-secondary-opacity: 0.5;
+  --fa-size: var(--button-icon-size);
+}
+@supports (color: contrast-color(red)) {
+  [pgs~=buttonBig] {
+    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=buttonBig] {
@@ -3055,6 +3166,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=buttonBig] {
+  --button-background: var(--color-box);
   color: var(--button-color);
   background: var(--button-background);
 }
@@ -3079,20 +3191,16 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   align-items: center;
   padding: var(--button-padding);
   width: max-content;
-}
-[pgs~=buttonBig] i {
-  --fa-secondary-opacity: 0.5;
-  --fa-size: var(--button-icon-size);
-}
-[pgs~=buttonBig]:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
+  height: max-content;
+  margin-block: auto;
 }
 [pgs~=buttonBig]:has(i) {
-  --button-padding: var(--button-size) calc(var(--button-size) + var(--button-size)/2) var(--button-size) var(--button-size);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding-left: calc(var(--button-size) * 1.6);
 }
-[pgs~=buttonBig]:not(:has(i)) {
-  --button-padding: var(--button-size) calc(var(--button-size) * 2);
+[pgs~=buttonBig][pgs-option~=buttonReverse]:has(i) {
+  --button-padding-right: calc(var(--button-size) * 1.6);
+  --button-padding-left: calc(var(--button-size) * 2);
 }
 [pgs~=buttonBig] {
   transition: all 200ms;
@@ -3103,8 +3211,11 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   [pgs~=buttonBig]:not(:disabled):focus-visible, [pgs~=buttonBig]:not(:disabled):hover {
     box-shadow: -0.25rem 0.25rem 0px var(--color-black);
     transform: translate(0.25rem, -0.25rem);
-    --button-background-hover: var(--color-primary-soft);
-    --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black)) ;
+  }
+  @supports (color: contrast-color(red)) {
+    [pgs~=buttonBig]:not(:disabled):focus-visible, [pgs~=buttonBig]:not(:disabled):hover {
+      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
+    }
   }
   @supports not (color: contrast-color(red)) {
     [pgs~=buttonBig]:not(:disabled):focus-visible, [pgs~=buttonBig]:not(:disabled):hover {
@@ -3112,6 +3223,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
     }
   }
   [pgs~=buttonBig]:not(:disabled):focus-visible, [pgs~=buttonBig]:not(:disabled):hover {
+    --button-background-hover: var(--color-primary-soft);
     color: var(--button-color-hover);
     background: var(--button-background-hover);
   }
@@ -3134,9 +3246,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   box-shadow: 0 0 0 var(--color-black);
   transform: translate(0, 0);
 }
-[pgs~=buttonBig][aria-current=page]:not(:hover, :focus-visible) {
-  --button-background-current: var(--color-primary);
-  --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black)) ;
+@supports (color: contrast-color(red)) {
+  [pgs~=buttonBig][aria-current=page]:not(:hover, :focus-visible) {
+    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=buttonBig][aria-current=page]:not(:hover, :focus-visible) {
@@ -3144,6 +3257,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=buttonBig][aria-current=page]:not(:hover, :focus-visible) {
+  --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
 }
@@ -3151,6 +3265,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   color: var(--button-color-current);
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
+}
+[pgs~=buttonBig]:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
 }
 [pgs~=buttonBig] {
   position: relative;
@@ -3176,9 +3294,17 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
   --button-icon-size: 2.0rem;
-  --button-padding: var(--button-size);
-  --button-background: var(--color-box);
-  --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black)) ;
+  --button-padding-block: var(--button-size);
+  --button-padding-left: calc(var(--button-size) * 2);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
+  --fa-secondary-opacity: 0.5;
+  --fa-size: var(--button-icon-size);
+}
+@supports (color: contrast-color(red)) {
+  [pgs~=buttonClose] {
+    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=buttonClose] {
@@ -3186,6 +3312,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=buttonClose] {
+  --button-background: var(--color-box);
   color: var(--button-color);
   background: var(--button-background);
 }
@@ -3210,17 +3337,24 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   align-items: center;
   padding: var(--button-padding);
   width: max-content;
+  height: max-content;
+  margin-block: auto;
+  flex: 0 0;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  --button-padding: var(--button-padding-block);
 }
 [pgs~=buttonClose] i {
-  --fa-secondary-opacity: 0.5;
-  --fa-size: var(--button-icon-size);
-}
-[pgs~=buttonClose]:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
+  display: inline-grid;
+  place-items: center;
+  inline-size: calc(var(--button-icon-size) + 2px);
+  block-size: var(--button-icon-size);
+  line-height: 1;
+  aspect-ratio: 1;
 }
 [pgs~=buttonClose] {
-  aspect-ratio: 1;
   transition: all 200ms;
   cursor: pointer;
   text-decoration: none;
@@ -3229,8 +3363,11 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   [pgs~=buttonClose]:not(:disabled):focus-visible, [pgs~=buttonClose]:not(:disabled):hover {
     box-shadow: -0.25rem 0.25rem 0px var(--color-black);
     transform: translate(0.25rem, -0.25rem);
-    --button-background-hover: var(--color-primary-soft);
-    --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black)) ;
+  }
+  @supports (color: contrast-color(red)) {
+    [pgs~=buttonClose]:not(:disabled):focus-visible, [pgs~=buttonClose]:not(:disabled):hover {
+      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
+    }
   }
   @supports not (color: contrast-color(red)) {
     [pgs~=buttonClose]:not(:disabled):focus-visible, [pgs~=buttonClose]:not(:disabled):hover {
@@ -3238,6 +3375,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
     }
   }
   [pgs~=buttonClose]:not(:disabled):focus-visible, [pgs~=buttonClose]:not(:disabled):hover {
+    --button-background-hover: var(--color-primary-soft);
     color: var(--button-color-hover);
     background: var(--button-background-hover);
   }
@@ -3260,9 +3398,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   box-shadow: 0 0 0 var(--color-black);
   transform: translate(0, 0);
 }
-[pgs~=buttonClose][aria-current=page]:not(:hover, :focus-visible) {
-  --button-background-current: var(--color-primary);
-  --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black)) ;
+@supports (color: contrast-color(red)) {
+  [pgs~=buttonClose][aria-current=page]:not(:hover, :focus-visible) {
+    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=buttonClose][aria-current=page]:not(:hover, :focus-visible) {
@@ -3270,6 +3409,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=buttonClose][aria-current=page]:not(:hover, :focus-visible) {
+  --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
 }
@@ -3277,6 +3417,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   color: var(--button-color-current);
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
+}
+[pgs~=buttonClose]:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
 }
 [pgs~=buttonClose] {
   --button-background: var(--color-error-background);
@@ -3607,9 +3751,17 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
   --button-icon-size: 2.0rem;
-  --button-padding: var(--button-size);
-  --button-background: var(--color-box);
-  --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black)) ;
+  --button-padding-block: var(--button-size);
+  --button-padding-left: calc(var(--button-size) * 2);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
+  --fa-secondary-opacity: 0.5;
+  --fa-size: var(--button-icon-size);
+}
+@supports (color: contrast-color(red)) {
+  [pgs~=twoState] label {
+    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=twoState] label {
@@ -3617,6 +3769,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=twoState] label {
+  --button-background: var(--color-box);
   color: var(--button-color);
   background: var(--button-background);
 }
@@ -3641,20 +3794,16 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   align-items: center;
   padding: var(--button-padding);
   width: max-content;
-}
-[pgs~=twoState] label i {
-  --fa-secondary-opacity: 0.5;
-  --fa-size: var(--button-icon-size);
-}
-[pgs~=twoState] label:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
+  height: max-content;
+  margin-block: auto;
 }
 [pgs~=twoState] label:has(i) {
-  --button-padding: var(--button-size) calc(var(--button-size) + var(--button-size)/2) var(--button-size) var(--button-size);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding-left: calc(var(--button-size) * 1.6);
 }
-[pgs~=twoState] label:not(:has(i)) {
-  --button-padding: var(--button-size) calc(var(--button-size) * 2);
+[pgs~=twoState] label[pgs-option~=buttonReverse]:has(i) {
+  --button-padding-right: calc(var(--button-size) * 1.6);
+  --button-padding-left: calc(var(--button-size) * 2);
 }
 [pgs~=twoState] label {
   transition: all 200ms;
@@ -3665,8 +3814,11 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   [pgs~=twoState] label:not(:disabled):focus-visible, [pgs~=twoState] label:not(:disabled):hover {
     box-shadow: -0.25rem 0.25rem 0px var(--color-black);
     transform: translate(0.25rem, -0.25rem);
-    --button-background-hover: var(--color-primary-soft);
-    --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black)) ;
+  }
+  @supports (color: contrast-color(red)) {
+    [pgs~=twoState] label:not(:disabled):focus-visible, [pgs~=twoState] label:not(:disabled):hover {
+      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
+    }
   }
   @supports not (color: contrast-color(red)) {
     [pgs~=twoState] label:not(:disabled):focus-visible, [pgs~=twoState] label:not(:disabled):hover {
@@ -3674,6 +3826,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
     }
   }
   [pgs~=twoState] label:not(:disabled):focus-visible, [pgs~=twoState] label:not(:disabled):hover {
+    --button-background-hover: var(--color-primary-soft);
     color: var(--button-color-hover);
     background: var(--button-background-hover);
   }
@@ -3696,9 +3849,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   box-shadow: 0 0 0 var(--color-black);
   transform: translate(0, 0);
 }
-[pgs~=twoState] label[aria-current=page]:not(:hover, :focus-visible) {
-  --button-background-current: var(--color-primary);
-  --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black)) ;
+@supports (color: contrast-color(red)) {
+  [pgs~=twoState] label[aria-current=page]:not(:hover, :focus-visible) {
+    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=twoState] label[aria-current=page]:not(:hover, :focus-visible) {
@@ -3706,6 +3860,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=twoState] label[aria-current=page]:not(:hover, :focus-visible) {
+  --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
 }
@@ -3713,6 +3868,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   color: var(--button-color-current);
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
+}
+[pgs~=twoState] label:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
 }
 [pgs~=twoState] label {
   flex-wrap: wrap;
@@ -4350,9 +4509,17 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
   --button-icon-size: 2.0rem;
-  --button-padding: var(--button-size);
-  --button-background: var(--color-box);
-  --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black)) ;
+  --button-padding-block: var(--button-size);
+  --button-padding-left: calc(var(--button-size) * 2);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
+  --fa-secondary-opacity: 0.5;
+  --fa-size: var(--button-icon-size);
+}
+@supports (color: contrast-color(red)) {
+  [pgs~=form] button[type=submit] {
+    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=form] button[type=submit] {
@@ -4360,6 +4527,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=form] button[type=submit] {
+  --button-background: var(--color-box);
   color: var(--button-color);
   background: var(--button-background);
 }
@@ -4384,20 +4552,16 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   align-items: center;
   padding: var(--button-padding);
   width: max-content;
-}
-[pgs~=form] button[type=submit] i {
-  --fa-secondary-opacity: 0.5;
-  --fa-size: var(--button-icon-size);
-}
-[pgs~=form] button[type=submit]:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
+  height: max-content;
+  margin-block: auto;
 }
 [pgs~=form] button[type=submit]:has(i) {
-  --button-padding: var(--button-size) calc(var(--button-size) + var(--button-size)/2) var(--button-size) var(--button-size);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding-left: calc(var(--button-size) * 1.6);
 }
-[pgs~=form] button[type=submit]:not(:has(i)) {
-  --button-padding: var(--button-size) calc(var(--button-size) * 2);
+[pgs~=form] button[type=submit][pgs-option~=buttonReverse]:has(i) {
+  --button-padding-right: calc(var(--button-size) * 1.6);
+  --button-padding-left: calc(var(--button-size) * 2);
 }
 [pgs~=form] button[type=submit] {
   transition: all 200ms;
@@ -4408,8 +4572,11 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   [pgs~=form] button[type=submit]:not(:disabled):focus-visible, [pgs~=form] button[type=submit]:not(:disabled):hover {
     box-shadow: -0.25rem 0.25rem 0px var(--color-black);
     transform: translate(0.25rem, -0.25rem);
-    --button-background-hover: var(--color-primary-soft);
-    --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black)) ;
+  }
+  @supports (color: contrast-color(red)) {
+    [pgs~=form] button[type=submit]:not(:disabled):focus-visible, [pgs~=form] button[type=submit]:not(:disabled):hover {
+      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
+    }
   }
   @supports not (color: contrast-color(red)) {
     [pgs~=form] button[type=submit]:not(:disabled):focus-visible, [pgs~=form] button[type=submit]:not(:disabled):hover {
@@ -4417,6 +4584,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
     }
   }
   [pgs~=form] button[type=submit]:not(:disabled):focus-visible, [pgs~=form] button[type=submit]:not(:disabled):hover {
+    --button-background-hover: var(--color-primary-soft);
     color: var(--button-color-hover);
     background: var(--button-background-hover);
   }
@@ -4439,9 +4607,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   box-shadow: 0 0 0 var(--color-black);
   transform: translate(0, 0);
 }
-[pgs~=form] button[type=submit] {
-  --button-background-strong: var(--color-primary);
-  --button-color-strong: contrast-color(color-mix(in srgb, var(--button-background-strong) 77%, black)) ;
+@supports (color: contrast-color(red)) {
+  [pgs~=form] button[type=submit] {
+    --button-color-strong: contrast-color(color-mix(in srgb, var(--button-background-strong) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=form] button[type=submit] {
@@ -4449,6 +4618,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=form] button[type=submit] {
+  --button-background-strong: var(--color-primary);
   color: var(--button-color-strong);
   background: var(--button-background-strong);
 }
@@ -4457,9 +4627,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   --fa-primary-color: var(--button-color-strong);
   --fa-secondary-color: var(--button-color-strong);
 }
-[pgs~=form] button[type=submit][aria-current=page]:not(:hover, :focus-visible) {
-  --button-background-current: var(--color-primary);
-  --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black)) ;
+@supports (color: contrast-color(red)) {
+  [pgs~=form] button[type=submit][aria-current=page]:not(:hover, :focus-visible) {
+    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=form] button[type=submit][aria-current=page]:not(:hover, :focus-visible) {
@@ -4467,6 +4638,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=form] button[type=submit][aria-current=page]:not(:hover, :focus-visible) {
+  --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
 }
@@ -4474,6 +4646,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   color: var(--button-color-current);
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
+}
+[pgs~=form] button[type=submit]:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
 }
 [pgs~=form] fieldset {
   border: unset;
@@ -4540,9 +4716,17 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
   --button-icon-size: 2.0rem;
-  --button-padding: var(--button-size);
-  --button-background: var(--color-box);
-  --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black)) ;
+  --button-padding-block: var(--button-size);
+  --button-padding-left: calc(var(--button-size) * 2);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
+  --fa-secondary-opacity: 0.5;
+  --fa-size: var(--button-icon-size);
+}
+@supports (color: contrast-color(red)) {
+  [pgs~=form] input[type=file]::file-selector-button {
+    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=form] input[type=file]::file-selector-button {
@@ -4550,6 +4734,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=form] input[type=file]::file-selector-button {
+  --button-background: var(--color-box);
   color: var(--button-color);
   background: var(--button-background);
 }
@@ -4574,28 +4759,25 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   align-items: center;
   padding: var(--button-padding);
   width: max-content;
-}
-[pgs~=form] input[type=file]::file-selector-button i {
-  --fa-secondary-opacity: 0.5;
-  --fa-size: var(--button-icon-size);
-}
-[pgs~=form] input[type=file]::file-selector-button:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
+  height: max-content;
+  margin-block: auto;
 }
 [pgs~=form] input[type=file]::file-selector-button:has(i) {
-  --button-padding: var(--button-size) calc(var(--button-size) + var(--button-size)/2) var(--button-size) var(--button-size);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding-left: calc(var(--button-size) * 1.6);
 }
-[pgs~=form] input[type=file]::file-selector-button:not(:has(i)) {
-  --button-padding: var(--button-size) calc(var(--button-size) * 2);
+[pgs~=form] input[type=file]::file-selector-button[pgs-option~=buttonReverse]:has(i) {
+  --button-padding-right: calc(var(--button-size) * 1.6);
+  --button-padding-left: calc(var(--button-size) * 2);
 }
 [pgs~=form] input[type=file]::file-selector-button {
   transition: all 200ms;
   cursor: inherit;
 }
-[pgs~=form] input[type=file]::file-selector-button[aria-current=page]:not(:hover, :focus-visible) {
-  --button-background-current: var(--color-primary);
-  --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black)) ;
+@supports (color: contrast-color(red)) {
+  [pgs~=form] input[type=file]::file-selector-button[aria-current=page]:not(:hover, :focus-visible) {
+    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=form] input[type=file]::file-selector-button[aria-current=page]:not(:hover, :focus-visible) {
@@ -4603,6 +4785,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=form] input[type=file]::file-selector-button[aria-current=page]:not(:hover, :focus-visible) {
+  --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
 }
@@ -4610,6 +4793,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   color: var(--button-color-current);
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
+}
+[pgs~=form] input[type=file]::file-selector-button:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
 }
 [pgs~=form] input[type=file]::file-selector-button {
   width: 40%;
@@ -4656,9 +4843,17 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
   --button-icon-size: 2.0rem;
-  --button-padding: var(--button-size);
-  --button-background: var(--color-box);
-  --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black)) ;
+  --button-padding-block: var(--button-size);
+  --button-padding-left: calc(var(--button-size) * 2);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
+  --fa-secondary-opacity: 0.5;
+  --fa-size: var(--button-icon-size);
+}
+@supports (color: contrast-color(red)) {
+  [pgs~=menuHorizontal] > ul > li > a {
+    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=menuHorizontal] > ul > li > a {
@@ -4666,6 +4861,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=menuHorizontal] > ul > li > a {
+  --button-background: var(--color-box);
   color: var(--button-color);
   background: var(--button-background);
 }
@@ -4690,20 +4886,16 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   align-items: center;
   padding: var(--button-padding);
   width: max-content;
-}
-[pgs~=menuHorizontal] > ul > li > a i {
-  --fa-secondary-opacity: 0.5;
-  --fa-size: var(--button-icon-size);
-}
-[pgs~=menuHorizontal] > ul > li > a:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
+  height: max-content;
+  margin-block: auto;
 }
 [pgs~=menuHorizontal] > ul > li > a:has(i) {
-  --button-padding: var(--button-size) calc(var(--button-size) + var(--button-size)/2) var(--button-size) var(--button-size);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding-left: calc(var(--button-size) * 1.6);
 }
-[pgs~=menuHorizontal] > ul > li > a:not(:has(i)) {
-  --button-padding: var(--button-size) calc(var(--button-size) * 2);
+[pgs~=menuHorizontal] > ul > li > a[pgs-option~=buttonReverse]:has(i) {
+  --button-padding-right: calc(var(--button-size) * 1.6);
+  --button-padding-left: calc(var(--button-size) * 2);
 }
 [pgs~=menuHorizontal] > ul > li > a {
   transition: all 200ms;
@@ -4714,8 +4906,11 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   [pgs~=menuHorizontal] > ul > li > a:not(:disabled):focus-visible, [pgs~=menuHorizontal] > ul > li > a:not(:disabled):hover {
     box-shadow: -0.25rem 0.25rem 0px var(--color-black);
     transform: translate(0.25rem, -0.25rem);
-    --button-background-hover: var(--color-primary-soft);
-    --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black)) ;
+  }
+  @supports (color: contrast-color(red)) {
+    [pgs~=menuHorizontal] > ul > li > a:not(:disabled):focus-visible, [pgs~=menuHorizontal] > ul > li > a:not(:disabled):hover {
+      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
+    }
   }
   @supports not (color: contrast-color(red)) {
     [pgs~=menuHorizontal] > ul > li > a:not(:disabled):focus-visible, [pgs~=menuHorizontal] > ul > li > a:not(:disabled):hover {
@@ -4723,6 +4918,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
     }
   }
   [pgs~=menuHorizontal] > ul > li > a:not(:disabled):focus-visible, [pgs~=menuHorizontal] > ul > li > a:not(:disabled):hover {
+    --button-background-hover: var(--color-primary-soft);
     color: var(--button-color-hover);
     background: var(--button-background-hover);
   }
@@ -4745,9 +4941,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   box-shadow: 0 0 0 var(--color-black);
   transform: translate(0, 0);
 }
-[pgs~=menuHorizontal] > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
-  --button-background-current: var(--color-primary);
-  --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black)) ;
+@supports (color: contrast-color(red)) {
+  [pgs~=menuHorizontal] > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
+    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=menuHorizontal] > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
@@ -4755,6 +4952,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=menuHorizontal] > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
+  --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
 }
@@ -4762,6 +4960,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   color: var(--button-color-current);
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
+}
+[pgs~=menuHorizontal] > ul > li > a:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
 }
 [pgs~=menuHorizontal] > ul > li > a {
   --button-size: 1.2rem;
@@ -4791,7 +4993,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=menuHorizontal] ul > li.menu-item-has-children ul.sub-menu:not([popover]) li a {
   min-width: 100% !important;
 }
-[pgs~=menuHorizontal] ul > li.menu-item-has-children ul.sub-menu[pgs-state=open] {
+[pgs~=menuHorizontal] ul > li.menu-item-has-children ul.sub-menu[pgs-state~=open] {
   display: flex;
 }
 [pgs~=menuHorizontal] ul > li.menu-item-has-children button.icon-down {
@@ -4823,9 +5025,17 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
   --button-icon-size: 2.0rem;
-  --button-padding: var(--button-size);
-  --button-background: var(--color-box);
-  --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black)) ;
+  --button-padding-block: var(--button-size);
+  --button-padding-left: calc(var(--button-size) * 2);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
+  --fa-secondary-opacity: 0.5;
+  --fa-size: var(--button-icon-size);
+}
+@supports (color: contrast-color(red)) {
+  [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a {
+    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a {
@@ -4833,6 +5043,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a {
+  --button-background: var(--color-box);
   color: var(--button-color);
   background: var(--button-background);
 }
@@ -4857,20 +5068,16 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   align-items: center;
   padding: var(--button-padding);
   width: max-content;
-}
-[pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a i {
-  --fa-secondary-opacity: 0.5;
-  --fa-size: var(--button-icon-size);
-}
-[pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
+  height: max-content;
+  margin-block: auto;
 }
 [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:has(i) {
-  --button-padding: var(--button-size) calc(var(--button-size) + var(--button-size)/2) var(--button-size) var(--button-size);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding-left: calc(var(--button-size) * 1.6);
 }
-[pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:not(:has(i)) {
-  --button-padding: var(--button-size) calc(var(--button-size) * 2);
+[pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a[pgs-option~=buttonReverse]:has(i) {
+  --button-padding-right: calc(var(--button-size) * 1.6);
+  --button-padding-left: calc(var(--button-size) * 2);
 }
 [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a {
   transition: all 200ms;
@@ -4881,8 +5088,11 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:not(:disabled):focus-visible, [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:not(:disabled):hover {
     box-shadow: -0.25rem 0.25rem 0px var(--color-black);
     transform: translate(0.25rem, -0.25rem);
-    --button-background-hover: var(--color-primary-soft);
-    --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black)) ;
+  }
+  @supports (color: contrast-color(red)) {
+    [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:not(:disabled):focus-visible, [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:not(:disabled):hover {
+      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
+    }
   }
   @supports not (color: contrast-color(red)) {
     [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:not(:disabled):focus-visible, [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:not(:disabled):hover {
@@ -4890,6 +5100,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
     }
   }
   [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:not(:disabled):focus-visible, [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:not(:disabled):hover {
+    --button-background-hover: var(--color-primary-soft);
     color: var(--button-color-hover);
     background: var(--button-background-hover);
   }
@@ -4912,9 +5123,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   box-shadow: 0 0 0 var(--color-black);
   transform: translate(0, 0);
 }
-[pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
-  --button-background-current: var(--color-primary);
-  --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black)) ;
+@supports (color: contrast-color(red)) {
+  [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
+    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
@@ -4922,6 +5134,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
+  --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
 }
@@ -4929,6 +5142,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   color: var(--button-color-current);
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
+}
+[pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
 }
 [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a {
   --button-size: 1.2rem;
@@ -4998,9 +5215,17 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
   --button-icon-size: 2.0rem;
-  --button-padding: var(--button-size);
-  --button-background: var(--color-box);
-  --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black)) ;
+  --button-padding-block: var(--button-size);
+  --button-padding-left: calc(var(--button-size) * 2);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
+  --fa-secondary-opacity: 0.5;
+  --fa-size: var(--button-icon-size);
+}
+@supports (color: contrast-color(red)) {
+  [pgs~=menuHorizontalNotHeader] > ul > li > a {
+    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=menuHorizontalNotHeader] > ul > li > a {
@@ -5008,6 +5233,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=menuHorizontalNotHeader] > ul > li > a {
+  --button-background: var(--color-box);
   color: var(--button-color);
   background: var(--button-background);
 }
@@ -5032,20 +5258,16 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   align-items: center;
   padding: var(--button-padding);
   width: max-content;
-}
-[pgs~=menuHorizontalNotHeader] > ul > li > a i {
-  --fa-secondary-opacity: 0.5;
-  --fa-size: var(--button-icon-size);
-}
-[pgs~=menuHorizontalNotHeader] > ul > li > a:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
+  height: max-content;
+  margin-block: auto;
 }
 [pgs~=menuHorizontalNotHeader] > ul > li > a:has(i) {
-  --button-padding: var(--button-size) calc(var(--button-size) + var(--button-size)/2) var(--button-size) var(--button-size);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding-left: calc(var(--button-size) * 1.6);
 }
-[pgs~=menuHorizontalNotHeader] > ul > li > a:not(:has(i)) {
-  --button-padding: var(--button-size) calc(var(--button-size) * 2);
+[pgs~=menuHorizontalNotHeader] > ul > li > a[pgs-option~=buttonReverse]:has(i) {
+  --button-padding-right: calc(var(--button-size) * 1.6);
+  --button-padding-left: calc(var(--button-size) * 2);
 }
 [pgs~=menuHorizontalNotHeader] > ul > li > a {
   transition: all 200ms;
@@ -5056,8 +5278,11 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   [pgs~=menuHorizontalNotHeader] > ul > li > a:not(:disabled):focus-visible, [pgs~=menuHorizontalNotHeader] > ul > li > a:not(:disabled):hover {
     box-shadow: -0.25rem 0.25rem 0px var(--color-black);
     transform: translate(0.25rem, -0.25rem);
-    --button-background-hover: var(--color-primary-soft);
-    --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black)) ;
+  }
+  @supports (color: contrast-color(red)) {
+    [pgs~=menuHorizontalNotHeader] > ul > li > a:not(:disabled):focus-visible, [pgs~=menuHorizontalNotHeader] > ul > li > a:not(:disabled):hover {
+      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
+    }
   }
   @supports not (color: contrast-color(red)) {
     [pgs~=menuHorizontalNotHeader] > ul > li > a:not(:disabled):focus-visible, [pgs~=menuHorizontalNotHeader] > ul > li > a:not(:disabled):hover {
@@ -5065,6 +5290,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
     }
   }
   [pgs~=menuHorizontalNotHeader] > ul > li > a:not(:disabled):focus-visible, [pgs~=menuHorizontalNotHeader] > ul > li > a:not(:disabled):hover {
+    --button-background-hover: var(--color-primary-soft);
     color: var(--button-color-hover);
     background: var(--button-background-hover);
   }
@@ -5087,9 +5313,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   box-shadow: 0 0 0 var(--color-black);
   transform: translate(0, 0);
 }
-[pgs~=menuHorizontalNotHeader] > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
-  --button-background-current: var(--color-primary);
-  --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black)) ;
+@supports (color: contrast-color(red)) {
+  [pgs~=menuHorizontalNotHeader] > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
+    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=menuHorizontalNotHeader] > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
@@ -5097,6 +5324,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=menuHorizontalNotHeader] > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
+  --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
 }
@@ -5104,6 +5332,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   color: var(--button-color-current);
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
+}
+[pgs~=menuHorizontalNotHeader] > ul > li > a:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
 }
 [pgs~=menuHorizontalNotHeader] > ul > li > a span {
   line-height: 1.6;
@@ -5127,7 +5359,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=menuHorizontalNotHeader] ul > li.menu-item-has-children ul.sub-menu:not([popover]) li a {
   min-width: 100% !important;
 }
-[pgs~=menuHorizontalNotHeader] ul > li.menu-item-has-children ul.sub-menu[pgs-state=open] {
+[pgs~=menuHorizontalNotHeader] ul > li.menu-item-has-children ul.sub-menu[pgs-state~=open] {
   display: flex;
 }
 [pgs~=menuHorizontalNotHeader] ul > li.menu-item-has-children button.icon-down {
@@ -5159,9 +5391,17 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
   --button-icon-size: 2.0rem;
-  --button-padding: var(--button-size);
-  --button-background: var(--color-box);
-  --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black)) ;
+  --button-padding-block: var(--button-size);
+  --button-padding-left: calc(var(--button-size) * 2);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
+  --fa-secondary-opacity: 0.5;
+  --fa-size: var(--button-icon-size);
+}
+@supports (color: contrast-color(red)) {
+  [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a {
+    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a {
@@ -5169,6 +5409,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a {
+  --button-background: var(--color-box);
   color: var(--button-color);
   background: var(--button-background);
 }
@@ -5193,20 +5434,16 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   align-items: center;
   padding: var(--button-padding);
   width: max-content;
-}
-[pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a i {
-  --fa-secondary-opacity: 0.5;
-  --fa-size: var(--button-icon-size);
-}
-[pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
+  height: max-content;
+  margin-block: auto;
 }
 [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:has(i) {
-  --button-padding: var(--button-size) calc(var(--button-size) + var(--button-size)/2) var(--button-size) var(--button-size);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding-left: calc(var(--button-size) * 1.6);
 }
-[pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:not(:has(i)) {
-  --button-padding: var(--button-size) calc(var(--button-size) * 2);
+[pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a[pgs-option~=buttonReverse]:has(i) {
+  --button-padding-right: calc(var(--button-size) * 1.6);
+  --button-padding-left: calc(var(--button-size) * 2);
 }
 [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a {
   transition: all 200ms;
@@ -5217,8 +5454,11 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:not(:disabled):focus-visible, [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:not(:disabled):hover {
     box-shadow: -0.25rem 0.25rem 0px var(--color-black);
     transform: translate(0.25rem, -0.25rem);
-    --button-background-hover: var(--color-primary-soft);
-    --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black)) ;
+  }
+  @supports (color: contrast-color(red)) {
+    [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:not(:disabled):focus-visible, [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:not(:disabled):hover {
+      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
+    }
   }
   @supports not (color: contrast-color(red)) {
     [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:not(:disabled):focus-visible, [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:not(:disabled):hover {
@@ -5226,6 +5466,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
     }
   }
   [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:not(:disabled):focus-visible, [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:not(:disabled):hover {
+    --button-background-hover: var(--color-primary-soft);
     color: var(--button-color-hover);
     background: var(--button-background-hover);
   }
@@ -5248,9 +5489,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   box-shadow: 0 0 0 var(--color-black);
   transform: translate(0, 0);
 }
-[pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
-  --button-background-current: var(--color-primary);
-  --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black)) ;
+@supports (color: contrast-color(red)) {
+  [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
+    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
@@ -5258,6 +5500,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
+  --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
 }
@@ -5265,6 +5508,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   color: var(--button-color-current);
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
+}
+[pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
 }
 [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a {
   --button-size: 1.2rem;
@@ -5334,9 +5581,17 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
   --button-icon-size: 2.0rem;
-  --button-padding: var(--button-size);
-  --button-background: var(--color-box);
-  --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black)) ;
+  --button-padding-block: var(--button-size);
+  --button-padding-left: calc(var(--button-size) * 2);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
+  --fa-secondary-opacity: 0.5;
+  --fa-size: var(--button-icon-size);
+}
+@supports (color: contrast-color(red)) {
+  [pgs~=menuVertical] > ul > li > a {
+    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=menuVertical] > ul > li > a {
@@ -5344,6 +5599,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=menuVertical] > ul > li > a {
+  --button-background: var(--color-box);
   color: var(--button-color);
   background: var(--button-background);
 }
@@ -5368,20 +5624,16 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   align-items: center;
   padding: var(--button-padding);
   width: max-content;
-}
-[pgs~=menuVertical] > ul > li > a i {
-  --fa-secondary-opacity: 0.5;
-  --fa-size: var(--button-icon-size);
-}
-[pgs~=menuVertical] > ul > li > a:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
+  height: max-content;
+  margin-block: auto;
 }
 [pgs~=menuVertical] > ul > li > a:has(i) {
-  --button-padding: var(--button-size) calc(var(--button-size) + var(--button-size)/2) var(--button-size) var(--button-size);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding-left: calc(var(--button-size) * 1.6);
 }
-[pgs~=menuVertical] > ul > li > a:not(:has(i)) {
-  --button-padding: var(--button-size) calc(var(--button-size) * 2);
+[pgs~=menuVertical] > ul > li > a[pgs-option~=buttonReverse]:has(i) {
+  --button-padding-right: calc(var(--button-size) * 1.6);
+  --button-padding-left: calc(var(--button-size) * 2);
 }
 [pgs~=menuVertical] > ul > li > a {
   transition: all 200ms;
@@ -5392,8 +5644,11 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   [pgs~=menuVertical] > ul > li > a:not(:disabled):focus-visible, [pgs~=menuVertical] > ul > li > a:not(:disabled):hover {
     box-shadow: -0.25rem 0.25rem 0px var(--color-black);
     transform: translate(0.25rem, -0.25rem);
-    --button-background-hover: var(--color-primary-soft);
-    --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black)) ;
+  }
+  @supports (color: contrast-color(red)) {
+    [pgs~=menuVertical] > ul > li > a:not(:disabled):focus-visible, [pgs~=menuVertical] > ul > li > a:not(:disabled):hover {
+      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
+    }
   }
   @supports not (color: contrast-color(red)) {
     [pgs~=menuVertical] > ul > li > a:not(:disabled):focus-visible, [pgs~=menuVertical] > ul > li > a:not(:disabled):hover {
@@ -5401,6 +5656,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
     }
   }
   [pgs~=menuVertical] > ul > li > a:not(:disabled):focus-visible, [pgs~=menuVertical] > ul > li > a:not(:disabled):hover {
+    --button-background-hover: var(--color-primary-soft);
     color: var(--button-color-hover);
     background: var(--button-background-hover);
   }
@@ -5423,9 +5679,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   box-shadow: 0 0 0 var(--color-black);
   transform: translate(0, 0);
 }
-[pgs~=menuVertical] > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
-  --button-background-current: var(--color-primary);
-  --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black)) ;
+@supports (color: contrast-color(red)) {
+  [pgs~=menuVertical] > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
+    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=menuVertical] > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
@@ -5433,6 +5690,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=menuVertical] > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
+  --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
 }
@@ -5440,6 +5698,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   color: var(--button-color-current);
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
+}
+[pgs~=menuVertical] > ul > li > a:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
 }
 [pgs~=menuVertical] > ul > li > a {
   --button-size: 1.2rem;
@@ -5515,9 +5777,17 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
   --button-icon-size: 2.0rem;
-  --button-padding: var(--button-size);
-  --button-background: var(--color-box);
-  --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black)) ;
+  --button-padding-block: var(--button-size);
+  --button-padding-left: calc(var(--button-size) * 2);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
+  --fa-secondary-opacity: 0.5;
+  --fa-size: var(--button-icon-size);
+}
+@supports (color: contrast-color(red)) {
+  [pgs~=accordion]:not([pgs-state~=open]) {
+    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=accordion]:not([pgs-state~=open]) {
@@ -5525,6 +5795,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=accordion]:not([pgs-state~=open]) {
+  --button-background: var(--color-box);
   color: var(--button-color);
   background: var(--button-background);
 }
@@ -5549,20 +5820,16 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   align-items: center;
   padding: var(--button-padding);
   width: max-content;
-}
-[pgs~=accordion]:not([pgs-state~=open]) i {
-  --fa-secondary-opacity: 0.5;
-  --fa-size: var(--button-icon-size);
-}
-[pgs~=accordion]:not([pgs-state~=open]):disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
+  height: max-content;
+  margin-block: auto;
 }
 [pgs~=accordion]:not([pgs-state~=open]):has(i) {
-  --button-padding: var(--button-size) calc(var(--button-size) + var(--button-size)/2) var(--button-size) var(--button-size);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding-left: calc(var(--button-size) * 1.6);
 }
-[pgs~=accordion]:not([pgs-state~=open]):not(:has(i)) {
-  --button-padding: var(--button-size) calc(var(--button-size) * 2);
+[pgs~=accordion]:not([pgs-state~=open])[pgs-option~=buttonReverse]:has(i) {
+  --button-padding-right: calc(var(--button-size) * 1.6);
+  --button-padding-left: calc(var(--button-size) * 2);
 }
 [pgs~=accordion]:not([pgs-state~=open]) {
   transition: all 200ms;
@@ -5573,8 +5840,11 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):focus-visible, [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):hover {
     box-shadow: -0.25rem 0.25rem 0px var(--color-black);
     transform: translate(0.25rem, -0.25rem);
-    --button-background-hover: var(--color-primary-soft);
-    --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black)) ;
+  }
+  @supports (color: contrast-color(red)) {
+    [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):focus-visible, [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):hover {
+      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
+    }
   }
   @supports not (color: contrast-color(red)) {
     [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):focus-visible, [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):hover {
@@ -5582,6 +5852,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
     }
   }
   [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):focus-visible, [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):hover {
+    --button-background-hover: var(--color-primary-soft);
     color: var(--button-color-hover);
     background: var(--button-background-hover);
   }
@@ -5604,9 +5875,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   box-shadow: 0 0 0 var(--color-black);
   transform: translate(0, 0);
 }
-[pgs~=accordion]:not([pgs-state~=open])[aria-current=page]:not(:hover, :focus-visible) {
-  --button-background-current: var(--color-primary);
-  --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black)) ;
+@supports (color: contrast-color(red)) {
+  [pgs~=accordion]:not([pgs-state~=open])[aria-current=page]:not(:hover, :focus-visible) {
+    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=accordion]:not([pgs-state~=open])[aria-current=page]:not(:hover, :focus-visible) {
@@ -5614,6 +5886,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=accordion]:not([pgs-state~=open])[aria-current=page]:not(:hover, :focus-visible) {
+  --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
 }
@@ -5621,6 +5894,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   color: var(--button-color-current);
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
+}
+[pgs~=accordion]:not([pgs-state~=open]):disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
 }
 [pgs~=accordion]:not([pgs-state~=open]) {
   --button-background: var(--color-box);
@@ -5644,6 +5921,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   line-height: inherit;
   text-align: inherit;
   border-radius: var(--border-radius-input);
+  align-items: center;
   width: 100%;
 }
 [pgs~=accordion] [pgs~=accordion-button]::after {
@@ -5675,9 +5953,17 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
   --button-icon-size: 2.0rem;
-  --button-padding: var(--button-size);
-  --button-background: var(--color-box);
-  --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black)) ;
+  --button-padding-block: var(--button-size);
+  --button-padding-left: calc(var(--button-size) * 2);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
+  --fa-secondary-opacity: 0.5;
+  --fa-size: var(--button-icon-size);
+}
+@supports (color: contrast-color(red)) {
+  [pgs~=accordion][pgs-state~=open] {
+    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=accordion][pgs-state~=open] {
@@ -5685,6 +5971,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=accordion][pgs-state~=open] {
+  --button-background: var(--color-box);
   color: var(--button-color);
   background: var(--button-background);
 }
@@ -5709,28 +5996,25 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   align-items: center;
   padding: var(--button-padding);
   width: max-content;
-}
-[pgs~=accordion][pgs-state~=open] i {
-  --fa-secondary-opacity: 0.5;
-  --fa-size: var(--button-icon-size);
-}
-[pgs~=accordion][pgs-state~=open]:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
+  height: max-content;
+  margin-block: auto;
 }
 [pgs~=accordion][pgs-state~=open]:has(i) {
-  --button-padding: var(--button-size) calc(var(--button-size) + var(--button-size)/2) var(--button-size) var(--button-size);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding-left: calc(var(--button-size) * 1.6);
 }
-[pgs~=accordion][pgs-state~=open]:not(:has(i)) {
-  --button-padding: var(--button-size) calc(var(--button-size) * 2);
+[pgs~=accordion][pgs-state~=open][pgs-option~=buttonReverse]:has(i) {
+  --button-padding-right: calc(var(--button-size) * 1.6);
+  --button-padding-left: calc(var(--button-size) * 2);
 }
 [pgs~=accordion][pgs-state~=open] {
   transition: all 200ms;
   cursor: inherit;
 }
-[pgs~=accordion][pgs-state~=open][aria-current=page]:not(:hover, :focus-visible) {
-  --button-background-current: var(--color-primary);
-  --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black)) ;
+@supports (color: contrast-color(red)) {
+  [pgs~=accordion][pgs-state~=open][aria-current=page]:not(:hover, :focus-visible) {
+    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
+  }
 }
 @supports not (color: contrast-color(red)) {
   [pgs~=accordion][pgs-state~=open][aria-current=page]:not(:hover, :focus-visible) {
@@ -5738,6 +6022,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=accordion][pgs-state~=open][aria-current=page]:not(:hover, :focus-visible) {
+  --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
 }
@@ -5745,6 +6030,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   color: var(--button-color-current);
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
+}
+[pgs~=accordion][pgs-state~=open]:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
 }
 [pgs~=accordion][pgs-state~=open] {
   --button-background: var(--color-box);
@@ -6084,8 +6373,6 @@ dialog[pgs~=modal-dialog]:not([pgs-option~=topLevel]) {
   position: absolute;
   z-index: 4;
   --button-background: var(--color-box);
-  padding: var(--gap-texts);
-  aspect-ratio: 1;
   top: 50%;
   translate: 0 -50%;
 }
@@ -6109,6 +6396,12 @@ dialog[pgs~=modal-dialog]:not([pgs-option~=topLevel]) {
   [pgs~=slides] [pgs~=slides-next]:is([pgs~=slides-next]) {
     right: 10px;
     margin: 0;
+  }
+}
+@media (max-width: 430px) {
+  [pgs~=slides] [pgs~=slides-prec],
+  [pgs~=slides] [pgs~=slides-next] {
+    display: none;
   }
 }
 [pgs~=slides] [pgs~=slides-dots] {
@@ -6164,8 +6457,9 @@ ol[pgs~=steps] [pgs~=steps-step] {
   align-items: start;
   position: relative;
   --steps-circle-size: 50px;
-  --steps-line-size: 4px;
-  --steps-line-color: var(--color-primary-soft);
+  --steps-circle-color: var(--color-primary-soft);
+  --steps-line-size: 2px;
+  --steps-line-color: var(--color-gray);
 }
 ol[pgs~=steps] [pgs~=steps-step] [pgs~=steps-step-content] {
   display: flex;
@@ -6179,7 +6473,7 @@ ol[pgs~=steps] [pgs~=steps-step] [pgs~=steps-step-content] {
 ol[pgs~=steps] [pgs~=steps-step] [pgs~=steps-step-circle] {
   min-width: var(--steps-circle-size);
   aspect-ratio: 1;
-  background: var(--color-primary-soft);
+  background: var(--steps-circle-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -6277,7 +6571,7 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   --table-row-background-even: var(--border-box-transparent);
   --table-row-background-odd: var(--border-box);
   --table-row-color: var(--color-black);
-  --table-row-hover-background: var(--color-secondary);
+  --table-row-hover-background: var(--color-secondary-soft);
   --table-row-hover-color: var(--color-blackFixed);
   width: 100%;
   max-width: 100%;
@@ -6325,18 +6619,17 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   color: var(--color-text);
 }
 
-[pgs~=tabs] [pgs~=tabs-container] [pgs~=tab] {
+[pgs~=stepTabs] [pgs~=stepTabs-container] [pgs~=tab] {
   display: none;
 }
-[pgs~=tabs] [pgs~=tabs-container] [pgs~=tab].is-active {
+[pgs~=stepTabs] [pgs~=stepTabs-container] [pgs~=tab][pgs-state~=is-active] {
   display: flex;
 }
-[pgs~=tabs] [pgs~=tabs-next] {
+[pgs~=stepTabs] [pgs~=stepTabs-next] {
   --button-background: var(--color-primary);
-  color: var(--color-whiteFixed);
-  --button-padding: var(--button-size) var(--button-size) var(--button-size) calc(var(--button-size) + var(--button-size) / 2);
+  --button-color: var(--color-whiteFixed);
 }
-[pgs~=tabs] [pgs~=tabs-dots] {
+[pgs~=stepTabs] [pgs~=stepTabs-dots] {
   display: flex;
   gap: var(--gap-texts);
   justify-content: space-between;
@@ -6346,7 +6639,7 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   margin-block: var(--gap-texts);
   isolation: isolate;
 }
-[pgs~=tabs] [pgs~=tabs-dots]::before {
+[pgs~=stepTabs] [pgs~=stepTabs-dots]::before {
   content: "";
   width: 100%;
   border-bottom: var(--border-complete);
@@ -6354,29 +6647,111 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   top: 50%;
   z-index: -1;
 }
-[pgs~=tabs] [pgs~=tabs-dots] .tab-dot {
-  padding: 12px;
-  border-radius: 50%;
-  aspect-ratio: 1;
+[pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot] {
+  --button-border: var(--border-complete);
+  --button-size: 1.5rem;
+  --button-icon-size: 2.0rem;
+  --button-padding-block: var(--button-size);
+  --button-padding-left: calc(var(--button-size) * 2);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
+  --fa-secondary-opacity: 0.5;
+  --fa-size: var(--button-icon-size);
+}
+@supports (color: contrast-color(red)) {
+  [pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot] {
+    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
+  }
+}
+@supports not (color: contrast-color(red)) {
+  [pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot] {
+    --button-color: var(--color-black);
+  }
+}
+[pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot] {
+  --button-background: var(--color-box);
+  color: var(--button-color);
+  background: var(--button-background);
+}
+[pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot] i {
+  color: var(--button-color);
+  --fa-primary-color: var(--button-color);
+  --fa-secondary-color: var(--button-color);
+}
+[pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot] {
+  font-family: var(--font);
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-decoration: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
   border: none;
-  background: light-dark(var(--color-background), var(--color-box-transparent));
-  transition: all 0.2s ease;
+  outline: var(--button-border);
+  border-radius: var(--border-radius-input);
+  display: flex;
+  gap: calc(var(--button-size) / 2);
+  align-items: center;
+  padding: var(--button-padding);
+  width: max-content;
+  height: max-content;
+  margin-block: auto;
+  flex: 0 0;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  --button-padding: var(--button-padding-block);
 }
-[pgs~=tabs] [pgs~=tabs-dots] .tab-dot i {
-  --fa-size: 2.2rem;
-  --fa-primary-color: var(--color-black);
-  --fa-secondary-color: var(--color-black);
-  color: var(--color-black);
+[pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot] i {
+  display: inline-grid;
+  place-items: center;
+  inline-size: calc(var(--button-icon-size) + 2px);
+  block-size: var(--button-icon-size);
+  line-height: 1;
+  aspect-ratio: 1;
 }
-[pgs~=tabs] [pgs~=tabs-dots] .tab-dot.is-completed {
+[pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot] {
+  transition: all 200ms;
+  cursor: inherit;
+}
+@supports (color: contrast-color(red)) {
+  [pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot][aria-current=page]:not(:hover, :focus-visible) {
+    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
+  }
+}
+@supports not (color: contrast-color(red)) {
+  [pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot][aria-current=page]:not(:hover, :focus-visible) {
+    --button-color-current: var(--color-whiteFixed);
+  }
+}
+[pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot][aria-current=page]:not(:hover, :focus-visible) {
+  --button-background-current: var(--color-primary);
+  color: var(--button-color-current);
+  background: var(--button-background-current);
+}
+[pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot][aria-current=page]:not(:hover, :focus-visible) i {
+  color: var(--button-color-current);
+  --fa-primary-color: var(--button-color-current);
+  --fa-secondary-color: var(--button-color-current);
+}
+[pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot]:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+[pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot] {
+  border-radius: 50%;
+  --fa-size: 1.8rem;
+}
+[pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot][pgs-state~=is-completed] {
   cursor: pointer;
   background: var(--color-primary-soft);
 }
-[pgs~=tabs] [pgs~=tabs-dots] .tab-dot.is-active {
+[pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot][pgs-state~=is-active] {
   background: var(--color-primary);
   scale: 1.2;
 }
-[pgs~=tabs] [pgs~=tabs-dots] .tab-dot.is-active i {
+[pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot][pgs-state~=is-active] i {
   --fa-primary-color: var(--color-whiteFixed);
   --fa-secondary-color: var(--color-whiteFixed);
   color: var(--color-whiteFixed);
@@ -6508,26 +6883,26 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
 [pgs~=toast] [pgs~=notification-element]:hover button {
   opacity: 1;
 }
-[pgs~=notification] [pgs-state=success],
-[pgs~=toast] [pgs-state=success] {
+[pgs~=notification] [pgs-state~=success],
+[pgs~=toast] [pgs-state~=success] {
   --notification-background: var(--color-success-background);
   --notification-background-timer: color-mix(in srgb, var(--color-success-background) 70%, var(--color-white) 30%);
   --notification-shadow: var(--color-success);
 }
-[pgs~=notification] [pgs-state=error],
-[pgs~=toast] [pgs-state=error] {
+[pgs~=notification] [pgs-state~=error],
+[pgs~=toast] [pgs-state~=error] {
   --notification-background: var(--color-error-background);
   --notification-background-timer: color-mix(in srgb, var(--color-error-background) 70%, var(--color-white) 30%);
   --notification-shadow: var(--color-error);
 }
-[pgs~=notification] [pgs-state=warning],
-[pgs~=toast] [pgs-state=warning] {
+[pgs~=notification] [pgs-state~=warning],
+[pgs~=toast] [pgs-state~=warning] {
   --notification-background: var(--color-warning-background);
   --notification-background-timer: color-mix(in srgb, var(--color-warning-background) 70%, var(--color-white) 30%);
   --notification-shadow: var(--color-warning);
 }
-[pgs~=notification] [pgs-state=info],
-[pgs~=toast] [pgs-state=info] {
+[pgs~=notification] [pgs-state~=info],
+[pgs~=toast] [pgs-state~=info] {
   --notification-background: var(--color-box);
 }
 
@@ -6552,9 +6927,6 @@ body:has(header[data-header-scroll=true]) [pgs~=toast] {
   --dropdown-maxwidth: 400px;
 }
 [pgs~=tooltip][pgs~=dropdown] [pgs~=tooltip-button][pgs~=dropdown-button] {
-  --button-background: var(--color-black);
-}
-[pgs~=tooltip][pgs~=dropdown] [pgs~=tooltip-button][pgs~=dropdown-button] i {
   --fa-size: .9rem;
 }
 [pgs~=tooltip][pgs~=dropdown] [pgs~=tooltip-content][pgs~=dropdown-content]:popover-open {

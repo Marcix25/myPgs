@@ -39,10 +39,10 @@
         width: 100%;
         min-width: 21.4rem;
         background-color: transparent;
-        color: ourContrastColor(var(--button-background));
+        color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
         
         &::placeholder {
-            color: ourContrastColor(var(--button-background));
+            color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
             opacity: .6;
         }
 

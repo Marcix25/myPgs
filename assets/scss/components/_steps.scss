@@ -7,8 +7,9 @@ ol[pgs~="steps"] {
         align-items: start;
         position: relative;
         --steps-circle-size: 50px;
-        --steps-line-size: 4px;
-        --steps-line-color: var(--color-primary-soft);
+        --steps-circle-color: var(--color-primary-soft);
+        --steps-line-size: 2px;
+        --steps-line-color: var(--color-gray);
 
         //== CONTENT
         [pgs~=steps-step-content] {
@@ -23,7 +24,7 @@ ol[pgs~="steps"] {
         [pgs~=steps-step-circle] {
             min-width: var(--steps-circle-size);
             aspect-ratio: 1;
-            background: var(--color-primary-soft);
+            background: var(--steps-circle-color);
             display: flex;
             align-items: center;
             justify-content: center;

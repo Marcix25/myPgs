@@ -59,7 +59,7 @@
                         }
                     }
 
-                    &[pgs-state=open] {
+                    &[pgs-state~=open] {
                         display: flex;
                     }
                 }

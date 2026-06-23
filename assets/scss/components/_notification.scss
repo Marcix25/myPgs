@@ -161,25 +161,25 @@
         }
     }
 
-    [pgs-state="success"] {
+    [pgs-state~="success"] {
         --notification-background: var(--color-success-background);
         --notification-background-timer: color-mix(in srgb, var(--color-success-background) 70%, var(--color-white) 30%);
         --notification-shadow: var(--color-success);
     }
 
-    [pgs-state="error"] {
+    [pgs-state~="error"] {
         --notification-background: var(--color-error-background);
         --notification-background-timer: color-mix(in srgb, var(--color-error-background) 70%, var(--color-white) 30%);
         --notification-shadow: var(--color-error);
     }
 
-    [pgs-state="warning"] {
+    [pgs-state~="warning"] {
         --notification-background: var(--color-warning-background);
         --notification-background-timer: color-mix(in srgb, var(--color-warning-background) 70%, var(--color-white) 30%);
         --notification-shadow: var(--color-warning);
     }
 
-    [pgs-state="info"] {
+    [pgs-state~="info"] {
         --notification-background: var(--color-box);
     }
 }

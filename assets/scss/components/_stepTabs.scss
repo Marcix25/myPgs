@@ -1,0 +1,58 @@
+[pgs~=stepTabs] {
+    [pgs~=stepTabs-container] {
+        [pgs~=tab] {
+            display: none;
+
+            &[pgs-state~=is-active] {
+                display: flex;
+            }
+        }
+    }
+
+    [pgs~=stepTabs-next] {
+        --button-background: var(--color-primary);
+        --button-color: var(--color-whiteFixed);
+    }
+
+    [pgs~=stepTabs-dots] {
+        display: flex;
+        gap: var(--gap-texts);
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        margin-inline: 10%;
+        margin-block: var(--gap-texts);
+        isolation: isolate;
+
+        &::before {
+            content: "";
+            width: 100%;
+            border-bottom: var(--border-complete);
+            position: absolute;
+            top: 50%;
+            z-index: -1;
+        }
+
+        [pgs~=stepTabs-dots-dot] {
+            @include button(false, true);
+            border-radius: 50%;
+            --fa-size: 1.8rem;
+
+            &[pgs-state~=is-completed] {
+                cursor: pointer;
+                background: var(--color-primary-soft);
+            }
+
+            &[pgs-state~=is-active] {
+                background: var(--color-primary);
+                scale: 1.2;
+
+                i {
+                    --fa-primary-color: var(--color-whiteFixed);
+                    --fa-secondary-color: var(--color-whiteFixed);
+                    color: var(--color-whiteFixed);
+                }
+            }
+        }
+    }
+}

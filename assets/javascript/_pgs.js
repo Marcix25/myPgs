@@ -138,15 +138,30 @@ export function pgs(root) {
             return api;
         };
 
-        api.toggle = function (value) {
+        api.toggle = function (value, force) {
             const v = String(value).trim();
             if (!v) return false;
-
             const current = read();
-            if (current.includes(v)) {
+            const exists = current.includes(v);
+
+            if (force !== undefined) {
+                if (force && !exists) {
+                    current.push(v);
+                    write(current);
+                }
+
+                if (!force && exists) {
+                    write(current.filter(x => x !== v));
+                }
+
+                return !!force;
+            }
+
+            if (exists) {
                 write(current.filter(x => x !== v));
                 return false;
             }
+            
             current.push(v);
             write(current);
             return true;

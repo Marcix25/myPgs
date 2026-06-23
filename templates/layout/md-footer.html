@@ -1,10 +1,29 @@
 <footer pgs="footer">
+    <button pgs="button toggleDarkmode" type="button" aria-label="Cambia tema">
+        <i class="fa-solid fa-moon"></i>
+    </button>
+
     <section pgs="footer-top section">
         <div pgs="footer-top-content flex-3">
-            <div><h2>Menu1</h2></div>
-            <div><h2>Menu2</h2></div>
+            <div pgs="footer-brand">
+                <a aria-label="Logo" pgs="logo" href="/">
+                    <span pgs="logo-text">MyPGS</span>
+                </a>
+                <p pgs="footer-brand-motto">Componenti frontend riutilizzabili.</p>
+            </div>
+
+            <div pgs="footer-content">
+                <h2>Menu</h2>
+                <nav pgs="menuFooter" aria-label="Menu footer">
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/contatti">Contatti</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </section>
+
     <section pgs="footer-legal section">
         <div pgs="footer-legal-content">
             <p><a href="">Privacy Policy</a></p>

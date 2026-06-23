@@ -30,8 +30,8 @@ class PGS_Slides {
 
         //== PULSANTI
         if (!pgs(EL).querySelector('slides-prec') && !pgs(EL).querySelector('slides-next')) {
-            EL.insertAdjacentHTML("afterbegin", `<button pgs="slides-prec button" type="button" class="precButton" aria-label="slide precedente"> <span> <i class="fa-solid fa-arrow-left"></i></span></button>`);
-            EL.insertAdjacentHTML("beforeend", `<button pgs="slides-next button" type="button" class="nextButton" aria-label="prossima slide"> <span> <i class="fa-solid fa-arrow-right"></i></span></button>`);
+            EL.insertAdjacentHTML("afterbegin", `<button pgs="slides-prec buttonIcon" type="button" class="precButton" aria-label="slide precedente"> <span> <i class="fa-solid fa-arrow-left"></i></span></button>`);
+            EL.insertAdjacentHTML("beforeend", `<button pgs="slides-next buttonIcon" type="button" class="nextButton" aria-label="prossima slide"> <span> <i class="fa-solid fa-arrow-right"></i></span></button>`);
         }
 
         //== DOTS
@@ -89,7 +89,7 @@ class PGS_Slides {
             const isView = visiblePercent >= 0.98;
 
             //== SCROLL ANIMATION
-            if (!pgs(LI.target).option.contains('notScrollAnimation')) {
+            if (!pgs(LI.target).option.contains('notScrollAnimation') && LI.target.firstElementChild) {
                 LI.target.firstElementChild.style.setProperty('--visible-percent', `${visiblePercent}`);
             };
 
