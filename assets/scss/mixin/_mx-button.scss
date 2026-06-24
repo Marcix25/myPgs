@@ -11,7 +11,7 @@
     --button-background#{$for}: #{$background};
     color: var(--button-color#{$for});
     background: var(--button-background#{$for});
-    
+
     &:is(a) {
         color: var(--button-color#{$for});
     }
@@ -46,11 +46,11 @@
     outline: var(--button-border);
     border-radius: var(--border-radius-input);
     display: flex;
-    gap: calc(var(--button-size)/2);
+    gap: calc(var(--button-size)/1.5);
     align-items: center;
     padding: var(--button-padding);
-    width: max-content;
     height: max-content;
+    width: max-content;
     margin-block: auto;
 
     //== onlyIcon
@@ -74,7 +74,7 @@
 
     @else {
         $button-right: calc(var(--button-size) * 2);
-        $button-left: calc(var(--button-size) * 1.4);
+        $button-left: calc(var(--button-size) * 1.5);
 
         &:has(i) {
             --button-padding-right: #{$button-right};
@@ -158,7 +158,7 @@
     aspect-ratio: 1;
 }
 
-//== Button BIG
+//= Button BIG
 @mixin buttonBig($hover: true) {
     @include button($hover);
     position: relative;
@@ -183,20 +183,20 @@
 }
 
 //= Button CLOSE 
-@mixin buttonClose {
+@mixin buttonClose($important: false) {
     @include button(true, true);
-    --button-background: var(--color-error-background);
-    --button-color: var(--color-error);
+    --button-background: var(--color-primary-soft);
     --button-size: 1rem;
     --button-icon-size: 1.3rem;
     aspect-ratio: 1;
     height: max-content;
 
-    &:hover {}
-
-    i {
-        color: var(--color-error);
+    @if($important ==true) {
+        --button-background: var(--color-error-background);
+        --button-color: var(--color-error);
     }
+
+    &:hover {}
 }
 
 //= button header

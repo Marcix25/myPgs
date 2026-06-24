@@ -2488,19 +2488,19 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   outline: var(--button-border);
   border-radius: var(--border-radius-input);
   display: flex;
-  gap: calc(var(--button-size) / 2);
+  gap: calc(var(--button-size) / 1.5);
   align-items: center;
   padding: var(--button-padding);
-  width: max-content;
   height: max-content;
+  width: max-content;
   margin-block: auto;
 }
 [pgs~=initP] [pgs~=button]:has(i) {
   --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.4);
+  --button-padding-left: calc(var(--button-size) * 1.5);
 }
 [pgs~=initP] [pgs~=button][pgs-option~=buttonReverse]:has(i) {
-  --button-padding-right: calc(var(--button-size) * 1.4);
+  --button-padding-right: calc(var(--button-size) * 1.5);
   --button-padding-left: calc(var(--button-size) * 2);
 }
 [pgs~=initP] [pgs~=button] {
@@ -2623,19 +2623,19 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   outline: var(--button-border);
   border-radius: var(--border-radius-input);
   display: flex;
-  gap: calc(var(--button-size) / 2);
+  gap: calc(var(--button-size) / 1.5);
   align-items: center;
   padding: var(--button-padding);
-  width: max-content;
   height: max-content;
+  width: max-content;
   margin-block: auto;
 }
 [pgs~=initP] [pgs~=buttonNohover]:has(i) {
   --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.4);
+  --button-padding-left: calc(var(--button-size) * 1.5);
 }
 [pgs~=initP] [pgs~=buttonNohover][pgs-option~=buttonReverse]:has(i) {
-  --button-padding-right: calc(var(--button-size) * 1.4);
+  --button-padding-right: calc(var(--button-size) * 1.5);
   --button-padding-left: calc(var(--button-size) * 2);
 }
 [pgs~=initP] [pgs~=buttonNohover] {
@@ -2715,11 +2715,11 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   outline: var(--button-border);
   border-radius: var(--border-radius-input);
   display: flex;
-  gap: calc(var(--button-size) / 2);
+  gap: calc(var(--button-size) / 1.5);
   align-items: center;
   padding: var(--button-padding);
-  width: max-content;
   height: max-content;
+  width: max-content;
   margin-block: auto;
   flex: 0 0;
   aspect-ratio: 1;
@@ -2856,19 +2856,19 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   outline: var(--button-border);
   border-radius: var(--border-radius-input);
   display: flex;
-  gap: calc(var(--button-size) / 2);
+  gap: calc(var(--button-size) / 1.5);
   align-items: center;
   padding: var(--button-padding);
-  width: max-content;
   height: max-content;
+  width: max-content;
   margin-block: auto;
 }
 [pgs~=initP] [pgs~=buttonStrong]:has(i) {
   --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.4);
+  --button-padding-left: calc(var(--button-size) * 1.5);
 }
 [pgs~=initP] [pgs~=buttonStrong][pgs-option~=buttonReverse]:has(i) {
-  --button-padding-right: calc(var(--button-size) * 1.4);
+  --button-padding-right: calc(var(--button-size) * 1.5);
   --button-padding-left: calc(var(--button-size) * 2);
 }
 [pgs~=initP] [pgs~=buttonStrong] {
@@ -3014,11 +3014,11 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   outline: var(--button-border);
   border-radius: var(--border-radius-input);
   display: flex;
-  gap: calc(var(--button-size) / 2);
+  gap: calc(var(--button-size) / 1.5);
   align-items: center;
   padding: var(--button-padding);
-  width: max-content;
   height: max-content;
+  width: max-content;
   margin-block: auto;
   flex: 0 0;
   aspect-ratio: 1;
@@ -3162,19 +3162,19 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   outline: var(--button-border);
   border-radius: var(--border-radius-input);
   display: flex;
-  gap: calc(var(--button-size) / 2);
+  gap: calc(var(--button-size) / 1.5);
   align-items: center;
   padding: var(--button-padding);
-  width: max-content;
   height: max-content;
+  width: max-content;
   margin-block: auto;
 }
 [pgs~=initP] [pgs~=buttonBig]:has(i) {
   --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.4);
+  --button-padding-left: calc(var(--button-size) * 1.5);
 }
 [pgs~=initP] [pgs~=buttonBig][pgs-option~=buttonReverse]:has(i) {
-  --button-padding-right: calc(var(--button-size) * 1.4);
+  --button-padding-right: calc(var(--button-size) * 1.5);
   --button-padding-left: calc(var(--button-size) * 2);
 }
 [pgs~=initP] [pgs~=buttonBig] {
@@ -3316,11 +3316,11 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   outline: var(--button-border);
   border-radius: var(--border-radius-input);
   display: flex;
-  gap: calc(var(--button-size) / 2);
+  gap: calc(var(--button-size) / 1.5);
   align-items: center;
   padding: var(--button-padding);
-  width: max-content;
   height: max-content;
+  width: max-content;
   margin-block: auto;
   flex: 0 0;
   aspect-ratio: 1;
@@ -3412,15 +3412,11 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   cursor: not-allowed;
 }
 [pgs~=initP] [pgs~=buttonClose] {
-  --button-background: var(--color-error-background);
-  --button-color: var(--color-error);
+  --button-background: var(--color-primary-soft);
   --button-size: 1rem;
   --button-icon-size: 1.3rem;
   aspect-ratio: 1;
   height: max-content;
-}
-[pgs~=initP] [pgs~=buttonClose] i {
-  color: var(--color-error);
 }
 [pgs~=initP] [pgs~=textarea] {
   align-items: flex-start;
@@ -3774,19 +3770,19 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   outline: var(--button-border);
   border-radius: var(--border-radius-input);
   display: flex;
-  gap: calc(var(--button-size) / 2);
+  gap: calc(var(--button-size) / 1.5);
   align-items: center;
   padding: var(--button-padding);
-  width: max-content;
   height: max-content;
+  width: max-content;
   margin-block: auto;
 }
 [pgs~=initP] [pgs~=twoState] label:has(i) {
   --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.4);
+  --button-padding-left: calc(var(--button-size) * 1.5);
 }
 [pgs~=initP] [pgs~=twoState] label[pgs-option~=buttonReverse]:has(i) {
-  --button-padding-right: calc(var(--button-size) * 1.4);
+  --button-padding-right: calc(var(--button-size) * 1.5);
   --button-padding-left: calc(var(--button-size) * 2);
 }
 [pgs~=initP] [pgs~=twoState] label {
@@ -4537,19 +4533,19 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   outline: var(--button-border);
   border-radius: var(--border-radius-input);
   display: flex;
-  gap: calc(var(--button-size) / 2);
+  gap: calc(var(--button-size) / 1.5);
   align-items: center;
   padding: var(--button-padding);
-  width: max-content;
   height: max-content;
+  width: max-content;
   margin-block: auto;
 }
 [pgs~=initP] [pgs~=form] button[type=submit]:has(i) {
   --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.4);
+  --button-padding-left: calc(var(--button-size) * 1.5);
 }
 [pgs~=initP] [pgs~=form] button[type=submit][pgs-option~=buttonReverse]:has(i) {
-  --button-padding-right: calc(var(--button-size) * 1.4);
+  --button-padding-right: calc(var(--button-size) * 1.5);
   --button-padding-left: calc(var(--button-size) * 2);
 }
 [pgs~=initP] [pgs~=form] button[type=submit] {
@@ -4756,19 +4752,19 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   outline: var(--button-border);
   border-radius: var(--border-radius-input);
   display: flex;
-  gap: calc(var(--button-size) / 2);
+  gap: calc(var(--button-size) / 1.5);
   align-items: center;
   padding: var(--button-padding);
-  width: max-content;
   height: max-content;
+  width: max-content;
   margin-block: auto;
 }
 [pgs~=initP] [pgs~=form] input[type=file]::file-selector-button:has(i) {
   --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.4);
+  --button-padding-left: calc(var(--button-size) * 1.5);
 }
 [pgs~=initP] [pgs~=form] input[type=file]::file-selector-button[pgs-option~=buttonReverse]:has(i) {
-  --button-padding-right: calc(var(--button-size) * 1.4);
+  --button-padding-right: calc(var(--button-size) * 1.5);
   --button-padding-left: calc(var(--button-size) * 2);
 }
 [pgs~=initP] [pgs~=form] input[type=file]::file-selector-button {
@@ -4887,19 +4883,19 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   outline: var(--button-border);
   border-radius: var(--border-radius-input);
   display: flex;
-  gap: calc(var(--button-size) / 2);
+  gap: calc(var(--button-size) / 1.5);
   align-items: center;
   padding: var(--button-padding);
-  width: max-content;
   height: max-content;
+  width: max-content;
   margin-block: auto;
 }
 [pgs~=initP] [pgs~=menuHorizontal] > ul > li > a:has(i) {
   --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.4);
+  --button-padding-left: calc(var(--button-size) * 1.5);
 }
 [pgs~=initP] [pgs~=menuHorizontal] > ul > li > a[pgs-option~=buttonReverse]:has(i) {
-  --button-padding-right: calc(var(--button-size) * 1.4);
+  --button-padding-right: calc(var(--button-size) * 1.5);
   --button-padding-left: calc(var(--button-size) * 2);
 }
 [pgs~=initP] [pgs~=menuHorizontal] > ul > li > a {
@@ -5078,19 +5074,19 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   outline: var(--button-border);
   border-radius: var(--border-radius-input);
   display: flex;
-  gap: calc(var(--button-size) / 2);
+  gap: calc(var(--button-size) / 1.5);
   align-items: center;
   padding: var(--button-padding);
-  width: max-content;
   height: max-content;
+  width: max-content;
   margin-block: auto;
 }
 [pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:has(i) {
   --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.4);
+  --button-padding-left: calc(var(--button-size) * 1.5);
 }
 [pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a[pgs-option~=buttonReverse]:has(i) {
-  --button-padding-right: calc(var(--button-size) * 1.4);
+  --button-padding-right: calc(var(--button-size) * 1.5);
   --button-padding-left: calc(var(--button-size) * 2);
 }
 [pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a {
@@ -5276,19 +5272,19 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   outline: var(--button-border);
   border-radius: var(--border-radius-input);
   display: flex;
-  gap: calc(var(--button-size) / 2);
+  gap: calc(var(--button-size) / 1.5);
   align-items: center;
   padding: var(--button-padding);
-  width: max-content;
   height: max-content;
+  width: max-content;
   margin-block: auto;
 }
 [pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a:has(i) {
   --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.4);
+  --button-padding-left: calc(var(--button-size) * 1.5);
 }
 [pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a[pgs-option~=buttonReverse]:has(i) {
-  --button-padding-right: calc(var(--button-size) * 1.4);
+  --button-padding-right: calc(var(--button-size) * 1.5);
   --button-padding-left: calc(var(--button-size) * 2);
 }
 [pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a {
@@ -5461,19 +5457,19 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   outline: var(--button-border);
   border-radius: var(--border-radius-input);
   display: flex;
-  gap: calc(var(--button-size) / 2);
+  gap: calc(var(--button-size) / 1.5);
   align-items: center;
   padding: var(--button-padding);
-  width: max-content;
   height: max-content;
+  width: max-content;
   margin-block: auto;
 }
 [pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:has(i) {
   --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.4);
+  --button-padding-left: calc(var(--button-size) * 1.5);
 }
 [pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a[pgs-option~=buttonReverse]:has(i) {
-  --button-padding-right: calc(var(--button-size) * 1.4);
+  --button-padding-right: calc(var(--button-size) * 1.5);
   --button-padding-left: calc(var(--button-size) * 2);
 }
 [pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a {
@@ -5659,19 +5655,19 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   outline: var(--button-border);
   border-radius: var(--border-radius-input);
   display: flex;
-  gap: calc(var(--button-size) / 2);
+  gap: calc(var(--button-size) / 1.5);
   align-items: center;
   padding: var(--button-padding);
-  width: max-content;
   height: max-content;
+  width: max-content;
   margin-block: auto;
 }
 [pgs~=initP] [pgs~=menuVertical] > ul > li > a:has(i) {
   --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.4);
+  --button-padding-left: calc(var(--button-size) * 1.5);
 }
 [pgs~=initP] [pgs~=menuVertical] > ul > li > a[pgs-option~=buttonReverse]:has(i) {
-  --button-padding-right: calc(var(--button-size) * 1.4);
+  --button-padding-right: calc(var(--button-size) * 1.5);
   --button-padding-left: calc(var(--button-size) * 2);
 }
 [pgs~=initP] [pgs~=menuVertical] > ul > li > a {
@@ -5862,19 +5858,19 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   outline: var(--button-border);
   border-radius: var(--border-radius-input);
   display: flex;
-  gap: calc(var(--button-size) / 2);
+  gap: calc(var(--button-size) / 1.5);
   align-items: center;
   padding: var(--button-padding);
-  width: max-content;
   height: max-content;
+  width: max-content;
   margin-block: auto;
 }
 [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):has(i) {
   --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.4);
+  --button-padding-left: calc(var(--button-size) * 1.5);
 }
 [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open])[pgs-option~=buttonReverse]:has(i) {
-  --button-padding-right: calc(var(--button-size) * 1.4);
+  --button-padding-right: calc(var(--button-size) * 1.5);
   --button-padding-left: calc(var(--button-size) * 2);
 }
 [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]) {
@@ -6047,19 +6043,19 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   outline: var(--button-border);
   border-radius: var(--border-radius-input);
   display: flex;
-  gap: calc(var(--button-size) / 2);
+  gap: calc(var(--button-size) / 1.5);
   align-items: center;
   padding: var(--button-padding);
-  width: max-content;
   height: max-content;
+  width: max-content;
   margin-block: auto;
 }
 [pgs~=initP] [pgs~=accordion][pgs-state~=open]:has(i) {
   --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.4);
+  --button-padding-left: calc(var(--button-size) * 1.5);
 }
 [pgs~=initP] [pgs~=accordion][pgs-state~=open][pgs-option~=buttonReverse]:has(i) {
-  --button-padding-right: calc(var(--button-size) * 1.4);
+  --button-padding-right: calc(var(--button-size) * 1.5);
   --button-padding-left: calc(var(--button-size) * 2);
 }
 [pgs~=initP] [pgs~=accordion][pgs-state~=open] {
@@ -6171,11 +6167,18 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   position: relative;
   display: inline-block;
 }
+[pgs~=initP] [pgs~=dropdown][pgs-state~=open] [pgs~=dropdown-content] {
+  transition: opacity 0.3s ease;
+  opacity: 1;
+  pointer-events: auto;
+}
+[pgs~=initP] [pgs~=dropdown][pgs-state~=open] [pgs~=dropdown-content]::backdrop {
+  background: var(--backdrop);
+}
 [pgs~=initP] [pgs~=dropdown] [pgs~=dropdown-content] {
-  visibility: hidden;
+  display: flex;
   opacity: 0;
-  max-height: 0;
-  transition: opacity 200ms ease-in-out, visibility 200ms ease-in-out, max-height 100ms ease-in-out;
+  pointer-events: none;
   transition-behavior: allow-discrete;
   border: none;
   border-radius: calc(var(--border-radius-input) + var(--dropdown-padding));
@@ -6186,10 +6189,11 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   background: var(--dropdown-background);
   overflow: initial;
   z-index: -1;
+  margin-top: var(--dropdown-offset);
+  padding: var(--dropdown-padding);
   display: flex;
   gap: var(--gap-texts);
   flex-direction: column;
-  height: 0;
 }
 [pgs~=initP] [pgs~=dropdown] [pgs~=dropdown-content]::before {
   content: "";
@@ -6203,17 +6207,6 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   pointer-events: none;
   z-index: 0;
 }
-[pgs~=initP] [pgs~=dropdown] [pgs~=dropdown-content]:popover-open {
-  margin-top: var(--dropdown-offset);
-  padding: var(--dropdown-padding);
-  visibility: visible;
-  opacity: 1;
-  max-height: max-content;
-  height: unset;
-}
-[pgs~=initP] [pgs~=dropdown] [pgs~=dropdown-content]:popover-open::backdrop {
-  background: var(--backdrop);
-}
 @supports not ((anchor-name: var(--dropdown-anchor)) and (position-anchor: var(--dropdown-anchor)) and (position-area: bottom) and (top: anchor(bottom))) {
   [pgs~=initP] [pgs~=dropdown] [pgs~=dropdown-content] {
     position: fixed;
@@ -6223,9 +6216,6 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
     right: auto;
     max-height: var(--dropdown-fallback-max-height);
     overflow: visible;
-  }
-  [pgs~=initP] [pgs~=dropdown] [pgs~=dropdown-content]:popover-open {
-    margin-top: 0;
   }
 }
 @supports (anchor-name: var(--dropdown-anchor)) and (position-anchor: var(--dropdown-anchor)) and (position-area: bottom) and (top: anchor(bottom)) {
@@ -6742,11 +6732,11 @@ dialog:not(:has(> [pgs~=modal-close])) {
   outline: var(--button-border);
   border-radius: var(--border-radius-input);
   display: flex;
-  gap: calc(var(--button-size) / 2);
+  gap: calc(var(--button-size) / 1.5);
   align-items: center;
   padding: var(--button-padding);
-  width: max-content;
   height: max-content;
+  width: max-content;
   margin-block: auto;
   flex: 0 0;
   aspect-ratio: 1;
@@ -6978,12 +6968,20 @@ body:has(header[data-header-scroll=true]) [pgs~=initP] [pgs~=toast] {
 [pgs~=initP] [pgs~=tooltip][pgs~=dropdown] {
   --dropdown-position-right: center;
   --dropdown-maxwidth: 400px;
+  --dropdown-padding: 15px;
 }
 [pgs~=initP] [pgs~=tooltip][pgs~=dropdown] [pgs~=tooltip-button][pgs~=dropdown-button] {
   --fa-size: .9rem;
 }
 [pgs~=initP] [pgs~=tooltip][pgs~=dropdown] [pgs~=tooltip-content][pgs~=dropdown-content]:popover-open {
-  padding: 15px;
+  position: fixed;
+  position-anchor: unset;
+  position-area: unset;
+  inset: auto;
+  top: var(--dropdown-fallback-top);
+  left: var(--dropdown-fallback-left);
+  right: auto;
+  margin-top: 0;
 }
 [pgs~=initP] [pgs~=searchbar] {
   position: relative;

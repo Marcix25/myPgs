@@ -45,3 +45,7 @@ pre {
         display: block;
     }
 }
+
+[pgs~=buttonBig]{
+    max-width: 300px;
+}

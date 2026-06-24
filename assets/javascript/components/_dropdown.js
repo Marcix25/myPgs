@@ -34,9 +34,10 @@ export function pgs_dropdown() {
             CSS.supports("position-anchor: --dropdown-anchor") &&
             CSS.supports("position-area: bottom") &&
             CSS.supports("top: anchor(bottom)");
+        const USE_FALLBACK_POSITIONING = pgs(DROPDOWN).contains("tooltip") || !HAS_ANCHOR_POSITIONING;
 
         const updatePopoverPosition = () => {
-            if (HAS_ANCHOR_POSITIONING) return;
+            if (!USE_FALLBACK_POSITIONING) return;
 
             const buttonRect = BUTTON.getBoundingClientRect();
             const style = getComputedStyle(DROPDOWN);
@@ -71,7 +72,7 @@ export function pgs_dropdown() {
         };
 
         BUTTON.addEventListener("click", e => {
-            if (HAS_ANCHOR_POSITIONING) return;
+            if (!USE_FALLBACK_POSITIONING) return;
 
             e.preventDefault();
             if (CONTENT.matches(":popover-open")) {

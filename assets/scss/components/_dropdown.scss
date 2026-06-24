@@ -14,15 +14,25 @@
     position: relative;
     display: inline-block;
 
+    &[pgs-state~=open] {
+        [pgs~="dropdown-content"] {
+            transition: opacity .3s ease;
+            opacity: 1;
+            pointer-events: auto;
+
+            &::backdrop {
+                background: var(--backdrop);
+            }
+        }
+    }
+
     //= CONTENT
     [pgs~="dropdown-content"] {
-        visibility: hidden;
+        // start view
+        display: flex;
         opacity: 0;
-        max-height: 0;
-        transition:
-            opacity 200ms ease-in-out,
-            visibility 200ms ease-in-out,
-            max-height 100ms ease-in-out;
+        pointer-events: none;
+        // end view
         transition-behavior: allow-discrete;
         border: none;
         border-radius: calc(var(--border-radius-input) + var(--dropdown-padding));
@@ -33,9 +43,9 @@
         background: var(--dropdown-background);
         overflow: initial;
         z-index: -1;
-        // overflow: clip;
+        margin-top: var(--dropdown-offset);
+        padding: var(--dropdown-padding);
         @include flexColumn;
-        height: 0;
 
         &::before {
             content: "";
@@ -49,19 +59,6 @@
             pointer-events: none;
             z-index: 0;
         }
-
-        &:popover-open {
-            margin-top: var(--dropdown-offset);
-            padding: var(--dropdown-padding);
-            visibility: visible;
-            opacity: 1;
-            max-height: max-content;
-            height: unset;
-
-            &::backdrop {
-                background: var(--backdrop);
-            }
-        }
     }
 
     //-(LEGACY (default fallback)
@@ -74,10 +71,6 @@
             right: auto;
             max-height: var(--dropdown-fallback-max-height);
             overflow: visible;
-
-            &:popover-open {
-                margin-top: 0;
-            }
         }
     }
 

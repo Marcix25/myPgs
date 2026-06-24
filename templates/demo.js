@@ -7,6 +7,8 @@ if (localStorage.getItem("screenIsDarkMode") === "true") {
 
 
 const templateFiles = [
+    "components/md-tooltip.html",
+    "components/md-modal.html",
     "components/md-stepTabs.html",
     "layout/md-header.html",
     "components/md-accordion.html",
@@ -17,12 +19,10 @@ const templateFiles = [
     "components/md-form.html",
     "components/md-logo.html",
     "components/md-menu.html",
-    "components/md-modal.html",
     "components/md-searchbar.html",
     "components/md-slides.html",
     "components/md-steps.html",
     "components/md-table.html",
-    "components/md-tooltip.html",
     "layout/md-body.html",
     "layout/md-cookieConsent.html",
     "layout/md-section.html",
