@@ -1227,7 +1227,7 @@ function PGS_stepTabs() {
             dots.innerHTML = "";
 
             allTab.forEach((tab, index) => {
-                const iconClass = tab.getAttribute("data-tab-icon") || "fa-circle";
+                const iconClass = pgs(tab).option.getValueBrackets("tabIcon") || "fa-circle";
                 const dot = document.createElement("button");
                 dot.type = "button";
                 pgs(dot).add("stepTabs-dots-dot");
