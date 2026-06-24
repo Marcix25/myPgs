@@ -1,7 +1,9 @@
 //# MODAL
-PGS_modal()
-export function PGS_modal(selector = "modal") {
+const API = new WeakMap();
+
+export function PGS_modal_init(selector = "modal") {
     pgs(document).querySelectorAll(selector).forEach(MODAL => {
+        if (API.has(MODAL)) return;
 
         const BUTTON_OPEN = pgs(MODAL).querySelector("modal-button");        
         const DIALOG = MODAL.querySelector("dialog");
@@ -54,9 +56,14 @@ export function PGS_modal(selector = "modal") {
         //+ FN OPEN 
         function openModal(e) {
             e?.stopImmediatePropagation();
+            if (DIALOG.open) {
+                closeModal(e);
+                return;
+            }
+
             if (!DIALOG.open) document.querySelectorAll("dialog[open]").forEach((dlg) => dlg.close());
             statusModal(true);
-            DIALOG.open ? closeModal(e) : topLevel ? DIALOG.showModal() : DIALOG.show();
+            topLevel ? DIALOG.showModal() : DIALOG.show();
             // modalCustomEvents('modal:open', { event: e });
             MODAL.dispatchEvent(new CustomEvent('modal:open'));
             DIALOG.dispatchEvent(new CustomEvent('modal:open'));
@@ -70,6 +77,14 @@ export function PGS_modal(selector = "modal") {
             // modalCustomEvents('modal:close', { event: e });
             MODAL.dispatchEvent(new CustomEvent('modal:close'));
             DIALOG.dispatchEvent(new CustomEvent('modal:close'));
+        }
+
+        function forceOpen(e) {
+            if (!DIALOG.open) openModal(e);
+        }
+
+        function forceClose(e) {
+            if (DIALOG.open) closeModal(e);
         }
 
         //+ fn OPEN ON HISTORY
@@ -117,7 +132,28 @@ export function PGS_modal(selector = "modal") {
                 } catch (_) { }
             });
         }
+
+        API.set(MODAL, {
+            element: MODAL,
+            button: BUTTON_OPEN,
+            dialog: DIALOG,
+            closeButton: BUTTON_CLOSE,
+            open: forceOpen,
+            close: forceClose,
+            toggle: openModal,
+            refresh: () => {
+                PGS_modal_init(selector);
+                return API.get(MODAL);
+            },
+            isOpen: () => DIALOG.open,
+        });
     });
 }
 
 //# INIT PGS_modal
+PGS_modal_init()
+
+//# API
+export function PGS_modal_api(selector) {
+    return API.get(selector);
+}

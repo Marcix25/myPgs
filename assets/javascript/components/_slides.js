@@ -162,10 +162,13 @@ class PGS_Slides {
                 const last = children[children.length - 1];
                 return last?.classList.contains("view") || false;
             },
+            refresh: () => {
+                PGS_slides_init(this.selector.parentNode || document);
+                return API.get(this.selector);
+            },
         });
     }
 }
-PGS_slides_init();
 
 //# INIT 
 export function PGS_slides_init(root = document) {
@@ -176,6 +179,8 @@ export function PGS_slides_init(root = document) {
         instance.execute();
     });
 }
+
+PGS_slides_init();
 
 //# API 
 export function PGS_slides_api(selector) {

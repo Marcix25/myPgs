@@ -1,6 +1,8 @@
+const API = new WeakMap();
 
-export function PGS_ol() {
-    pgs(document).querySelectorAll("steps").forEach(steps => {
+export function PGS_steps_init(root = document) {
+    pgs(root).querySelectorAll("steps").forEach(steps => {
+        if (API.has(steps)) return;
 
         pgs(steps).querySelectorAll("steps-step").forEach((li, index) => {
             
@@ -16,12 +18,31 @@ export function PGS_ol() {
             }
             
             //= line
-            const line = document.createElement("span");
-            pgs(line).add("steps-step-line")
-            li.insertAdjacentElement("afterbegin", line);
+            if (!pgs(li).querySelector("steps-step-line")) {
+                const line = document.createElement("span");
+                pgs(line).add("steps-step-line")
+                li.insertAdjacentElement("afterbegin", line);
+            }
+        });
+
+        API.set(steps, {
+            element: steps,
+            steps: () => Array.from(pgs(steps).querySelectorAll("steps-step")),
+            getStep: (index) => pgs(steps).querySelectorAll("steps-step")[index],
+            getTotal: () => pgs(steps).querySelectorAll("steps-step").length,
+            refresh: () => {
+                API.delete(steps);
+                PGS_ol(steps.parentNode || document);
+                return API.get(steps);
+            },
         });
     });
 }
 
 //# INIT PGS_ol
-PGS_ol()
+PGS_steps_init()
+
+//# API
+export function PGS_steps_api(selector) {
+    return API.get(selector);
+}

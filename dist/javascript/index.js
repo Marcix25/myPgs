@@ -432,85 +432,124 @@ document.addEventListener('DOMContentLoaded', () => {
 /*!****************************************************!*\
   !*** ./assets/javascript/components/_accordion.js ***!
   \****************************************************/
-() {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-//= ACCORDION 
-const allAccordion = pgs(document).querySelectorAll("accordion")
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_accordion_api: () => (/* binding */ PGS_accordion_api),
+/* harmony export */   PGS_accordion_init: () => (/* binding */ PGS_accordion_init)
+/* harmony export */ });
+//= ACCORDION
+const API = new WeakMap();
 
-allAccordion.forEach((accordion, index) => {
+function PGS_accordion_init(root = document) {
+    pgs(root).querySelectorAll("accordion").forEach((accordion, index) => {
+        if (API.has(accordion)) return;
 
-    const BUTTON = pgs(accordion).querySelector("accordion-button");
-    const CONTENT = pgs(accordion).querySelector("accordion-content");
+        const BUTTON = pgs(accordion).querySelector("accordion-button");
+        const CONTENT = pgs(accordion).querySelector("accordion-content");
+        if (!BUTTON || !CONTENT) return;
 
-    //== ID univoci per aria-controls / aria-labelledby
-    const ID = index + 1;
-    const btnId = `acc-btn-${ID}`;
-    const panelId = `acc-panel-${ID}`;
+        //== ID univoci per aria-controls / aria-labelledby
+        const ID = index + 1;
+        const btnId = `acc-btn-${ID}`;
+        const panelId = `acc-panel-${ID}`;
 
-    //== Stato iniziale
-    const isOpenInit = pgs(accordion).state.contains("open");
+        //== Stato iniziale
+        const isOpenInit = pgs(accordion).state.contains("open");
 
-    //== Accessibilità (setup una volta)
-    BUTTON.setAttribute("role", "button");
-    BUTTON.setAttribute("tabindex", "0");
-    BUTTON.setAttribute("id", btnId);
-    BUTTON.setAttribute("aria-controls", panelId);
+        //== Accessibilità (setup una volta)
+        BUTTON.setAttribute("role", "button");
+        BUTTON.setAttribute("tabindex", "0");
+        BUTTON.setAttribute("id", btnId);
+        BUTTON.setAttribute("aria-controls", panelId);
 
-    CONTENT.setAttribute("id", panelId);
-    CONTENT.setAttribute("role", "region");
-    CONTENT.setAttribute("aria-labelledby", btnId);
+        CONTENT.setAttribute("id", panelId);
+        CONTENT.setAttribute("role", "region");
+        CONTENT.setAttribute("aria-labelledby", btnId);
 
-    //+ Accessibility (applica stato aperto/chiuso)
-    function accordionAccessibility(isOpen, button, content) {
-        const text = (button?.textContent || "").trim().replace(/\s+/g, " ");
-        button.setAttribute("aria-label", `${isOpen ? "Chiudi" : "Apri"} ${text || "sezione"}`);
-        button.setAttribute("aria-expanded", String(isOpen));
-        content.hidden = !isOpen;
-    }
-
-    //+ Chiudi tutti gli altri
-    function closeOltherAccordion() {
-        for (const otherLi of allAccordion) {
-            if (otherLi === accordion) continue;
-
-            const otherBtn = pgs(otherLi).querySelector("accordion-button");
-            const otherContent = pgs(otherLi).querySelector("accordion-content");
-            if (!otherBtn || !otherContent) continue;
-
-            pgs(otherLi).state().remove("open");
-            accordionAccessibility(false, otherBtn, otherContent);
+        //+ Accessibility (applica stato aperto/chiuso)
+        function accordionAccessibility(isOpen, button, content) {
+            const text = (button?.textContent || "").trim().replace(/\s+/g, " ");
+            button.setAttribute("aria-label", `${isOpen ? "Chiudi" : "Apri"} ${text || "sezione"}`);
+            button.setAttribute("aria-expanded", String(isOpen));
+            content.hidden = !isOpen;
         }
-    }
 
-    //+ FN ACCORDION
-    function accordionFunction() {
-        const isOpen = pgs(accordion).state.contains("open");
-        const nowOpen = !isOpen;
+        //+ Chiudi tutti gli altri
+        function closeOltherAccordion() {
+            for (const otherLi of pgs(document).querySelectorAll("accordion")) {
+                if (otherLi === accordion) continue;
 
-        pgs(accordion).state.toggle("open", nowOpen);
-        accordionAccessibility(nowOpen, BUTTON, CONTENT);
+                const otherBtn = pgs(otherLi).querySelector("accordion-button");
+                const otherContent = pgs(otherLi).querySelector("accordion-content");
+                if (!otherBtn || !otherContent) continue;
 
-        closeOltherAccordion();
-
-        //== scroll to view
-        if (nowOpen) setTimeout(() => accordion.scrollIntoView({ block: "nearest", inline: "nearest" }), 100);
-    }
-
-    // applica stato iniziale
-    accordionAccessibility(isOpenInit, BUTTON, CONTENT);
-
-    //- Eventi
-    BUTTON.addEventListener("click", accordionFunction);
-
-    //- Tastiera: Enter / Space
-    BUTTON.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            accordionFunction();
+                pgs(otherLi).state().remove("open");
+                accordionAccessibility(false, otherBtn, otherContent);
+            }
         }
+
+        //+ FN ACCORDION
+        function accordionFunction() {
+            const isOpen = pgs(accordion).state.contains("open");
+            const nowOpen = !isOpen;
+
+            pgs(accordion).state.toggle("open", nowOpen);
+            accordionAccessibility(nowOpen, BUTTON, CONTENT);
+
+            closeOltherAccordion();
+
+            //== scroll to view
+            if (nowOpen) setTimeout(() => accordion.scrollIntoView({ block: "nearest", inline: "nearest" }), 100);
+        }
+
+        function open() {
+            if (!pgs(accordion).state.contains("open")) accordionFunction();
+        }
+
+        function close() {
+            if (pgs(accordion).state.contains("open")) accordionFunction();
+        }
+
+        // applica stato iniziale
+        accordionAccessibility(isOpenInit, BUTTON, CONTENT);
+
+        //- Eventi
+        BUTTON.addEventListener("click", accordionFunction);
+
+        //- Tastiera: Enter / Space
+        BUTTON.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                accordionFunction();
+            }
+        });
+
+        API.set(accordion, {
+            element: accordion,
+            button: BUTTON,
+            content: CONTENT,
+            open,
+            close,
+            toggle: accordionFunction,
+            refresh: () => {
+                PGS_accordion_init(accordion.parentNode || document);
+                return API.get(accordion);
+            },
+            isOpen: () => pgs(accordion).state.contains("open"),
+        });
     });
+}
 
-});
+//# INIT
+PGS_accordion_init();
+
+//# API
+function PGS_accordion_api(selector) {
+    return API.get(selector);
+}
 
 
 /***/ },
@@ -524,11 +563,16 @@ allAccordion.forEach((accordion, index) => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   pgs_dropdown: () => (/* binding */ pgs_dropdown)
+/* harmony export */   PGS_dropdown_api: () => (/* binding */ PGS_dropdown_api),
+/* harmony export */   PGS_dropdown_init: () => (/* binding */ PGS_dropdown_init)
 /* harmony export */ });
 // + dropdown (Popover API)
-function pgs_dropdown() {
-    pgs(document).querySelectorAll("dropdown").forEach((DROPDOWN, index) => {
+const API = new WeakMap();
+
+function PGS_dropdown_init(root = document) {
+    pgs(root).querySelectorAll("dropdown").forEach((DROPDOWN, index) => {
+        if (API.has(DROPDOWN)) return;
+
         const BUTTON = pgs(DROPDOWN).querySelector("dropdown-button");
         const CONTENT = pgs(DROPDOWN).querySelector("dropdown-content");
 
@@ -629,111 +673,45 @@ function pgs_dropdown() {
         window.addEventListener("scroll", () => {
             if (CONTENT.matches(":popover-open")) updatePopoverPosition();
         }, true);
+
+        function open() {
+            if (CONTENT.matches(":popover-open")) return;
+            updatePopoverPosition();
+            CONTENT.showPopover();
+        }
+
+        function close() {
+            if (!CONTENT.matches(":popover-open")) return;
+            CONTENT.hidePopover();
+        }
+
+        function toggle() {
+            CONTENT.matches(":popover-open") ? close() : open();
+        }
+
+        API.set(DROPDOWN, {
+            element: DROPDOWN,
+            button: BUTTON,
+            content: CONTENT,
+            open,
+            close,
+            toggle,
+            updatePosition: updatePopoverPosition,
+            refresh: () => {
+                PGS_dropdown_init(DROPDOWN.parentNode || document);
+                return API.get(DROPDOWN);
+            },
+            isOpen: () => CONTENT.matches(":popover-open"),
+        });
     });
 }
 
 // # INIT
-pgs_dropdown();
+PGS_dropdown_init();
 
-
-/***/ },
-
-/***/ "./assets/javascript/components/_exeNotifications.js"
-/*!***********************************************************!*\
-  !*** ./assets/javascript/components/_exeNotifications.js ***!
-  \***********************************************************/
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PGS_md_notification: () => (/* binding */ PGS_md_notification)
-/* harmony export */ });
-/* harmony import */ var _functions_notifications_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functions/_notifications.js */ "./assets/javascript/functions/_notifications.js");
-
-
-function escapeHtml(value) {
-    return String(value ?? "");
-}
-
-function getDuration(notification) {
-    const rawDuration = notification.duration;
-    const duration = Number.parseInt(rawDuration, 10);
-
-    return Number.isNaN(duration) ? 5000 : duration;
-}
-
-function getNotificationApi(notification) {
-    const element = String(notification.element || "notification").trim();
-
-    return element === "toast" ? _functions_notifications_js__WEBPACK_IMPORTED_MODULE_0__.PGS_toast : _functions_notifications_js__WEBPACK_IMPORTED_MODULE_0__.PGS_notification;
-}
-
-function getNotificationType(notification, api) {
-    const type = String(notification.type || "info").trim();
-
-    return typeof api[type] === "function" ? type : "info";
-}
-
-function getNotificationData(root) {
-    try {
-        return JSON.parse(root.dataset.notification || "{}");
-    } catch (error) {
-        console.warn("PGS notification: dati non validi", error);
-        return {};
-    }
-}
-
-function getNotificationContent(title, content) {
-    const safeContent = escapeHtml(content);
-    const safeTitle = escapeHtml(title);
-
-    if (!safeTitle) return safeContent;
-    if (!safeContent) return `<span pgs="notification-element-title">${safeTitle}</span>`;
-
-    return `
-        <span pgs="notification-element-title">${safeTitle}</span>
-        <br>
-        <span pgs="notification-element-content">${safeContent}</span>
-    `;
-}
-
-function PGS_md_notification(root) {
-    if (!root || root.dataset.initialize === "true") return;
-    root.dataset.initialize = "true";
-
-    const notification = getNotificationData(root);
-    const title = String(notification.title || "").trim();
-    const content = String(notification.message || "").trim();
-    if (!title && !content) {
-        root.remove();
-        return;
-    }
-
-    const link = notification.link || null;
-    const icon = notification.icon || undefined;
-    const duration = getDuration(notification);
-    const api = getNotificationApi(notification);
-    const type = getNotificationType(notification, api);
-    const formattedContent = getNotificationContent(title, content);
-
-    if (api === _functions_notifications_js__WEBPACK_IMPORTED_MODULE_0__.PGS_toast) {
-        api[type](formattedContent, duration, icon);
-    } else {
-        api[type](formattedContent, link, duration, icon);
-    }
-
-    root.remove();
-}
-
-function initMdNotifications() {
-    pgs(document).querySelectorAll("notificationTrigger").forEach(PGS_md_notification);
-}
-
-if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initMdNotifications);
-} else {
-    initMdNotifications();
+// # API
+function PGS_dropdown_api(selector) {
+    return API.get(selector);
 }
 
 
@@ -748,19 +726,24 @@ if (document.readyState === "loading") {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PGS_menu: () => (/* binding */ PGS_menu)
+/* harmony export */   PGS_menu_api: () => (/* binding */ PGS_menu_api),
+/* harmony export */   PGS_menu_init: () => (/* binding */ PGS_menu_init)
 /* harmony export */ });
 /* harmony import */ var _dropdown__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_dropdown */ "./assets/javascript/components/_dropdown.js");
 
 
-//= DROP DOWN MENU
-function PGS_menu() {
+const API = new WeakMap();
 
-    pgs(document).querySelectorAll('menu-horizontal').forEach(MENU => {
+//= DROP DOWN MENU
+function PGS_menu_init(root = document) {
+
+    pgs(root).querySelectorAll('menu-horizontal').forEach(MENU => {
+        if (API.has(MENU)) return;
 
         MENU.querySelectorAll('nav > ul > li.menu-item-has-children').forEach(li => {
             if (li.querySelector("ul")) {
                 const ul = li.querySelector("ul");
+                if (pgs(li).querySelector("dropdown-button")) return;
 
                 const button = document.createElement("button");
                 button.className = "icon-down";
@@ -775,14 +758,28 @@ function PGS_menu() {
                 pgs(ul).add("menu-vertical")
             }
         });
+
+        API.set(MENU, {
+            element: MENU,
+            type: "horizontal",
+            items: () => Array.from(MENU.querySelectorAll('nav > ul > li')),
+            submenus: () => Array.from(MENU.querySelectorAll('.menu-item-has-children > ul')),
+            dropdowns: () => Array.from(MENU.querySelectorAll('.menu-item-has-children')).map(_dropdown__WEBPACK_IMPORTED_MODULE_0__.PGS_dropdown_api).filter(Boolean),
+            refresh: () => {
+                PGS_menu_init(MENU.parentNode || document);
+                return API.get(MENU);
+            },
+        });
     });
 
-    pgs(document).querySelectorAll('menu-vertical').forEach(MENU => {
+    pgs(root).querySelectorAll('menu-vertical').forEach(MENU => {
+        if (API.has(MENU)) return;
 
         MENU.querySelectorAll('.menu-item-has-children').forEach((li, index) => {
             const ul = li.querySelector("ul");
 
             if (!ul) return
+            if (li.querySelector(":scope > button")) return;
 
             const button = document.createElement("button");
             button.className = "icon-down buttonIcon";
@@ -817,6 +814,42 @@ function PGS_menu() {
             });
         });
 
+        function submenu(index) {
+            return MENU.querySelectorAll('.menu-item-has-children > ul')[index];
+        }
+
+        function setSubmenu(index, open) {
+            const ul = submenu(index);
+            const button = ul?.parentElement?.querySelector(":scope > button");
+            if (!ul || !button) return;
+
+            pgs(ul).state.toggle("open", open);
+            button.setAttribute("aria-expanded", String(open));
+            button.setAttribute("aria-label", open ? "Chiudi sottomenu" : "Apri sottomenu");
+        }
+
+        API.set(MENU, {
+            element: MENU,
+            type: "vertical",
+            items: () => Array.from(MENU.querySelectorAll(':scope > li')),
+            submenus: () => Array.from(MENU.querySelectorAll('.menu-item-has-children > ul')),
+            openSubmenu: (index) => setSubmenu(index, true),
+            closeSubmenu: (index) => setSubmenu(index, false),
+            toggleSubmenu: (index) => {
+                const ul = submenu(index);
+                if (!ul) return;
+                setSubmenu(index, !pgs(ul).state.contains("open"));
+            },
+            isSubmenuOpen: (index) => {
+                const ul = submenu(index);
+                return ul ? pgs(ul).state.contains("open") : false;
+            },
+            refresh: () => {
+                PGS_menu_init(MENU.parentNode || document);
+                return API.get(MENU);
+            },
+        });
+
         // pgs(document).querySelectorAll('menu-vertical').forEach(MENU => {
 
         //     MENU.querySelectorAll('.menu-item-has-children').forEach(li => {
@@ -838,11 +871,17 @@ function PGS_menu() {
         //     });
         // });
     });
-    (0,_dropdown__WEBPACK_IMPORTED_MODULE_0__.pgs_dropdown)()
+    (0,_dropdown__WEBPACK_IMPORTED_MODULE_0__.PGS_dropdown_init)()
 }
 
 //# INIT PGS_menu
-PGS_menu()
+PGS_menu_init()
+
+//# API
+function PGS_menu_api(selector) {
+    return API.get(selector);
+}
+
 
 /***/ },
 
@@ -855,12 +894,15 @@ PGS_menu()
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PGS_modal: () => (/* binding */ PGS_modal)
+/* harmony export */   PGS_modal_api: () => (/* binding */ PGS_modal_api),
+/* harmony export */   PGS_modal_init: () => (/* binding */ PGS_modal_init)
 /* harmony export */ });
 //# MODAL
-PGS_modal()
-function PGS_modal(selector = "modal") {
+const API = new WeakMap();
+
+function PGS_modal_init(selector = "modal") {
     pgs(document).querySelectorAll(selector).forEach(MODAL => {
+        if (API.has(MODAL)) return;
 
         const BUTTON_OPEN = pgs(MODAL).querySelector("modal-button");        
         const DIALOG = MODAL.querySelector("dialog");
@@ -913,9 +955,14 @@ function PGS_modal(selector = "modal") {
         //+ FN OPEN 
         function openModal(e) {
             e?.stopImmediatePropagation();
+            if (DIALOG.open) {
+                closeModal(e);
+                return;
+            }
+
             if (!DIALOG.open) document.querySelectorAll("dialog[open]").forEach((dlg) => dlg.close());
             statusModal(true);
-            DIALOG.open ? closeModal(e) : topLevel ? DIALOG.showModal() : DIALOG.show();
+            topLevel ? DIALOG.showModal() : DIALOG.show();
             // modalCustomEvents('modal:open', { event: e });
             MODAL.dispatchEvent(new CustomEvent('modal:open'));
             DIALOG.dispatchEvent(new CustomEvent('modal:open'));
@@ -929,6 +976,14 @@ function PGS_modal(selector = "modal") {
             // modalCustomEvents('modal:close', { event: e });
             MODAL.dispatchEvent(new CustomEvent('modal:close'));
             DIALOG.dispatchEvent(new CustomEvent('modal:close'));
+        }
+
+        function forceOpen(e) {
+            if (!DIALOG.open) openModal(e);
+        }
+
+        function forceClose(e) {
+            if (DIALOG.open) closeModal(e);
         }
 
         //+ fn OPEN ON HISTORY
@@ -976,11 +1031,207 @@ function PGS_modal(selector = "modal") {
                 } catch (_) { }
             });
         }
+
+        API.set(MODAL, {
+            element: MODAL,
+            button: BUTTON_OPEN,
+            dialog: DIALOG,
+            closeButton: BUTTON_CLOSE,
+            open: forceOpen,
+            close: forceClose,
+            toggle: openModal,
+            refresh: () => {
+                PGS_modal_init(selector);
+                return API.get(MODAL);
+            },
+            isOpen: () => DIALOG.open,
+        });
     });
 }
 
 //# INIT PGS_modal
+PGS_modal_init()
 
+//# API
+function PGS_modal_api(selector) {
+    return API.get(selector);
+}
+
+
+/***/ },
+
+/***/ "./assets/javascript/components/_notifications.js"
+/*!********************************************************!*\
+  !*** ./assets/javascript/components/_notifications.js ***!
+  \********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_notification: () => (/* binding */ PGS_notification),
+/* harmony export */   PGS_notificationTrigger_init: () => (/* binding */ PGS_notificationTrigger_init),
+/* harmony export */   PGS_toast: () => (/* binding */ PGS_toast)
+/* harmony export */ });
+//# PGS_notification
+const fn_notification = {
+    _escapeHtml(value) {
+        return String(value ?? "");
+    },
+
+    _getDuration(notification) {
+        const rawDuration = notification.duration;
+        const duration = Number.parseInt(rawDuration, 10);
+
+        return Number.isNaN(duration) ? 5000 : duration;
+    },
+
+    _getApi(notification) {
+        const element = String(notification.element || "notification").trim();
+
+        return element === "toast" ? PGS_toast : PGS_notification;
+    },
+
+    _getType(notification, api) {
+        const type = String(notification.type || "info").trim();
+
+        return typeof api[type] === "function" ? type : "info";
+    },
+
+    _getData(root) {
+        try {
+            return JSON.parse(root.dataset.notification || "{}");
+        } catch (error) {
+            console.warn("PGS notification: dati non validi", error);
+            return {};
+        }
+    },
+
+    _getContent(title, content) {
+        const safeContent = this._escapeHtml(content);
+        const safeTitle = this._escapeHtml(title);
+
+        if (!safeTitle) return safeContent;
+        if (!safeContent) return `<span pgs="notification-element-title">${safeTitle}</span>`;
+
+        return `
+            <span pgs="notification-element-title">${safeTitle}</span>
+            <br>
+            <span pgs="notification-element-content">${safeContent}</span>
+        `;
+    },
+
+    initNotification(type, containerToken, icon, text, timeout, methodDelete = "replace", link = null) {
+        let containerNotification = pgs(document).querySelector(containerToken);
+
+        //== Create Container
+        if (!containerNotification) {
+            const newContainer = document.createElement("div");
+            pgs(newContainer).add(containerToken);
+            newContainer.setAttribute("aria-live", "polite");
+            newContainer.setAttribute("aria-relevant", "additions");
+            document.body.appendChild(newContainer);
+            containerNotification = newContainer;
+        }
+
+        //== Create Notification
+        const notification = document.createElement(link ? "a" : "div");
+        if (methodDelete == "replace") containerNotification.innerHTML = "";
+        if (link) notification.href = link;
+        if (timeout > 0) notification.style.setProperty("--notification-timeout", timeout + "ms");
+        pgs(notification).state.add(type);
+        pgs(notification).add("notification-element");
+        notification.setAttribute("role", type == "error" ? "alert" : "status")
+        notification.innerHTML = `${icon} <p>${text}</p>`;
+        containerNotification.appendChild(notification);
+
+
+        //+ Animation delete 
+        function deleteNotification() {
+            methodDelete == "stack" ? notification.style.translate = "120%" : notification.style.opacity = "0";
+            setTimeout(() => notification.remove(), 300);
+        }
+
+        //== Timeout delete
+        if (timeout > 0) setTimeout(() => { deleteNotification() }, timeout);
+
+        //== button delete
+        const btnDelete = document.createElement("button");
+        btnDelete.type = "button";
+        btnDelete.ariaLabel = "Rimuovi notifica";
+        btnDelete.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+        btnDelete.setAttribute("pgs", "buttonClose");
+        notification.insertAdjacentElement("afterbegin", btnDelete);
+
+        //== event
+        btnDelete.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation()
+            deleteNotification(e); // Esegue la tua funzione
+        });
+    },
+
+    deleteAll(containerToken) {
+        let containerNotification = pgs(document).querySelector(containerToken);
+        if (containerNotification) containerNotification.innerHTML = "";
+    },
+
+    execute(root) {
+        if (!root || root.dataset.initialize === "true") return;
+
+        root.dataset.initialize = "true";
+
+        const notification = this._getData(root);
+        const title = String(notification.title || "").trim();
+        const content = String(notification.message || "").trim();
+
+        if (!title && !content) {
+            root.remove();
+            return;
+        }
+
+        const link = notification.link || null;
+        const icon = notification.icon || undefined;
+        const duration = this._getDuration(notification);
+        const api = this._getApi(notification);
+        const type = this._getType(notification, api);
+        const formattedContent = this._getContent(title, content);
+
+        if (api === PGS_toast) api[type](formattedContent, duration, icon);
+        else api[type](formattedContent, link, duration, icon);
+
+        root.remove();
+    },
+
+    init(root = document) {
+        pgs(root).querySelectorAll("notificationTrigger").forEach(element => this.execute(element));
+    }
+};
+
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", () => PGS_notificationTrigger_init());
+else PGS_notificationTrigger_init();
+
+//# EXPORT 
+let PGS_notification = {
+    error: (text = "Errore", link = null, timeout = 0, icon = '<i class="fa-solid fa-octagon-xmark"></i>') => fn_notification.initNotification("error", "notification", icon, text, timeout, "stack", link),
+    success: (text = "Aggiornato", link = null, timeout = 0, icon = '<i class="fa-solid fa-check"></i>') => fn_notification.initNotification("success", "notification", icon, text, timeout, "stack", link),
+    info: (text = "Aggiornamento", link = null, timeout = 0, icon = '<i class="fa-solid fa-circle-info"></i>',) => fn_notification.initNotification("info", "notification", icon, text, timeout, "stack", link),
+    warning: (text = "Attenzione", link = null, timeout = 0, icon = '<i class="fa-solid fa-triangle-exclamation"></i>') => fn_notification.initNotification("warning", "notification", icon, text, timeout, "stack", link),
+    deleteAllNotification: () => fn_notification.deleteAll("notification")
+}
+
+let PGS_toast = {
+    error: (text = "Errore", timeout = 4000, icon = '<i class="fa-solid fa-octagon-xmark"></i>',) => fn_notification.initNotification("error", "toast", icon, text, timeout),
+    success: (text = "Aggiornato", timeout = 4000, icon = '<i class="fa-solid fa-check"></i>',) => fn_notification.initNotification("success", "toast", icon, text, timeout),
+    info: (text = "Aggiornamento", timeout = 0, icon = '<i class="fa-solid fa-circle-info"></i>',) => fn_notification.initNotification("info", "toast", icon, text, timeout),
+    warning: (text = "Attenzione", timeout = 4000, icon = '<i class="fa-solid fa-triangle-exclamation"></i>',) => fn_notification.initNotification("warning", "toast", icon, text, timeout),
+    deleteTost: () => fn_notification.deleteAll("toast")
+}
+
+function PGS_notificationTrigger_init(root = document) {
+    return fn_notification.init(root);
+}
 
 /***/ },
 
@@ -1161,10 +1412,13 @@ class PGS_Slides {
                 const last = children[children.length - 1];
                 return last?.classList.contains("view") || false;
             },
+            refresh: () => {
+                PGS_slides_init(this.selector.parentNode || document);
+                return API.get(this.selector);
+            },
         });
     }
 }
-PGS_slides_init();
 
 //# INIT 
 function PGS_slides_init(root = document) {
@@ -1175,6 +1429,8 @@ function PGS_slides_init(root = document) {
         instance.execute();
     });
 }
+
+PGS_slides_init();
 
 //# API 
 function PGS_slides_api(selector) {
@@ -1193,14 +1449,13 @@ function PGS_slides_api(selector) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PGS_stepTabs: () => (/* binding */ PGS_stepTabs),
-/* harmony export */   PGS_tabs_api: () => (/* binding */ PGS_tabs_api)
+/* harmony export */   PGS_stepTabs_api: () => (/* binding */ PGS_stepTabs_api),
+/* harmony export */   PGS_stepTabs_init: () => (/* binding */ PGS_stepTabs_init)
 /* harmony export */ });
 const API = new WeakMap();
-PGS_stepTabs()
 
-function PGS_stepTabs() {
-    pgs(document).querySelectorAll("stepTabs").forEach(tabsWizard => {
+function PGS_stepTabs_init(root = document) {
+    pgs(root).querySelectorAll("stepTabs").forEach(tabsWizard => {
         if (tabsWizard.dataset.stepTabsInitialized === "true") return;
         tabsWizard.dataset.stepTabsInitialized = "true";
 
@@ -1315,18 +1570,26 @@ function PGS_stepTabs() {
         //-(API) 
         // tabsWizard.addEventListener("stepTabs:reset", () => restartTab());
         API.set(tabsWizard, {
+            element: tabsWizard,
+            container: tabsContainer,
             restart: restartTab,
             goTo,
             next: () => goTo(current + 1),
             prev: () => goTo(current - 1),
             toggleLock: (step, lock = true) => typeof step === "number" && allTab[step] && (pgs(allTab[step]).state.toggle("is-locked", lock), goTo(current)),
+            refresh: () => {
+                PGS_stepTabs_init(tabsWizard.parentNode || document);
+                return API.get(tabsWizard);
+            },
             getCurrent: () => current,
             getState: () => ({ current, total }),
         });
     });
 }
 
-function PGS_tabs_api(selector) {
+PGS_stepTabs_init()
+
+function PGS_stepTabs_api(selector) {
     return API.get(selector);
 }
 
@@ -1366,11 +1629,14 @@ function PGS_tabs_api(selector) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PGS_ol: () => (/* binding */ PGS_ol)
+/* harmony export */   PGS_steps_api: () => (/* binding */ PGS_steps_api),
+/* harmony export */   PGS_steps_init: () => (/* binding */ PGS_steps_init)
 /* harmony export */ });
+const API = new WeakMap();
 
-function PGS_ol() {
-    pgs(document).querySelectorAll("steps").forEach(steps => {
+function PGS_steps_init(root = document) {
+    pgs(root).querySelectorAll("steps").forEach(steps => {
+        if (API.has(steps)) return;
 
         pgs(steps).querySelectorAll("steps-step").forEach((li, index) => {
             
@@ -1386,104 +1652,35 @@ function PGS_ol() {
             }
             
             //= line
-            const line = document.createElement("span");
-            pgs(line).add("steps-step-line")
-            li.insertAdjacentElement("afterbegin", line);
+            if (!pgs(li).querySelector("steps-step-line")) {
+                const line = document.createElement("span");
+                pgs(line).add("steps-step-line")
+                li.insertAdjacentElement("afterbegin", line);
+            }
+        });
+
+        API.set(steps, {
+            element: steps,
+            steps: () => Array.from(pgs(steps).querySelectorAll("steps-step")),
+            getStep: (index) => pgs(steps).querySelectorAll("steps-step")[index],
+            getTotal: () => pgs(steps).querySelectorAll("steps-step").length,
+            refresh: () => {
+                API.delete(steps);
+                PGS_ol(steps.parentNode || document);
+                return API.get(steps);
+            },
         });
     });
 }
 
 //# INIT PGS_ol
-PGS_ol()
+PGS_steps_init()
 
-/***/ },
-
-/***/ "./assets/javascript/functions/_notifications.js"
-/*!*******************************************************!*\
-  !*** ./assets/javascript/functions/_notifications.js ***!
-  \*******************************************************/
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PGS_notification: () => (/* binding */ PGS_notification),
-/* harmony export */   PGS_toast: () => (/* binding */ PGS_toast)
-/* harmony export */ });
-//# PGS_notification
-function initNotification(type, containerToken, icon, text, timeout, methodDelete = "replace", link = null) {
-    let containerNotification = pgs(document).querySelector(containerToken);
-
-    //== Create Container
-    if (!containerNotification) {
-        const newContainer = document.createElement("div");
-        pgs(newContainer).add(containerToken);
-        newContainer.setAttribute("aria-live", "polite");
-        newContainer.setAttribute("aria-relevant", "additions");
-        document.body.appendChild(newContainer);
-        containerNotification = newContainer;
-    }
-
-    //== Create Notification
-    const notification = document.createElement(link ? "a" : "div");
-    if (methodDelete == "replace") containerNotification.innerHTML = "";
-    if (link) notification.href = link;
-    if (timeout > 0) notification.style.setProperty("--notification-timeout", timeout + "ms");
-    pgs(notification).state.add(type);
-    pgs(notification).add("notification-element");
-    notification.setAttribute("role", type == "error" ? "alert" : "status")
-    notification.innerHTML = `${icon} <p>${text}</p>`;
-    containerNotification.appendChild(notification);
-
-
-    //+ Animation delete 
-    function deleteNotification() {
-        methodDelete == "stack" ? notification.style.translate = "120%" : notification.style.opacity = "0";
-        setTimeout(() => notification.remove(), 300);
-    }
-
-    //== Timeout delete
-    if (timeout > 0) setTimeout(() => { deleteNotification() }, timeout);
-
-    //== button delete
-    const btnDelete = document.createElement("button");
-    btnDelete.type = "button";
-    btnDelete.ariaLabel = "Rimuovi notifica";
-    btnDelete.innerHTML = '<i class="fa-solid fa-xmark"></i>';
-    btnDelete.setAttribute("pgs", "buttonClose");
-    notification.insertAdjacentElement("afterbegin", btnDelete);
-
-    //== event
-    btnDelete.addEventListener("click", function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        e.stopImmediatePropagation()
-        deleteNotification(e); // Esegue la tua funzione
-    });
+//# API
+function PGS_steps_api(selector) {
+    return API.get(selector);
 }
 
-function deleteALl(containerToken) {
-    let containerNotification = pgs(document).querySelector(containerToken);
-    if (containerNotification) containerNotification.innerHTML = "";
-}
-
-
-
-let PGS_notification = {
-    error: (text = "Errore", link = null, timeout = 0, icon = '<i class="fa-solid fa-octagon-xmark"></i>') => initNotification("error", "notification", icon, text, timeout, "stack", link),
-    success: (text = "Aggiornato", link = null, timeout = 0, icon = '<i class="fa-solid fa-check"></i>') => initNotification("success", "notification", icon, text, timeout, "stack", link),
-    info: (text = "Aggiornamento", link = null, timeout = 0, icon = '<i class="fa-solid fa-circle-info"></i>',) => initNotification("info", "notification", icon, text, timeout, "stack", link),
-    warning: (text = "Attenzione", link = null, timeout = 0, icon = '<i class="fa-solid fa-triangle-exclamation"></i>') => initNotification("warning", "notification", icon, text, timeout, "stack", link),
-    deleteAllNotification: () => deleteALl("notification")
-}
-
-let PGS_toast = {
-    error: (text = "Errore", timeout = 4000, icon = '<i class="fa-solid fa-octagon-xmark"></i>',) => initNotification("error", "toast", icon, text, timeout),
-    success: (text = "Aggiornato", timeout = 4000, icon = '<i class="fa-solid fa-check"></i>',) => initNotification("success", "toast", icon, text, timeout),
-    info: (text = "Aggiornamento", timeout = 0, icon = '<i class="fa-solid fa-circle-info"></i>',) => initNotification("info", "toast", icon, text, timeout),
-    warning: (text = "Attenzione", timeout = 4000, icon = '<i class="fa-solid fa-triangle-exclamation"></i>',) => initNotification("warning", "toast", icon, text, timeout),
-    deleteTost: () => deleteALl("toast")
-}
 
 /***/ },
 
@@ -1802,13 +1999,8 @@ document.addEventListener('DOMContentLoaded', function () {
 /*!***********************************************!*\
   !*** ./assets/javascript/patterns/_header.js ***!
   \***********************************************/
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+() {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PGS_header: () => (/* binding */ PGS_header)
-/* harmony export */ });
 //# HEADER
 const header = pgs(document).querySelector("header");
 const headerElements = pgs(header).querySelectorAll("header-element");
@@ -2034,15 +2226,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _base_object_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./base/_object.js */ "./assets/javascript/base/_object.js");
 /* harmony import */ var _base_object_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_base_object_js__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _components_accordion_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/_accordion.js */ "./assets/javascript/components/_accordion.js");
-/* harmony import */ var _components_accordion_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_accordion_js__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _components_dropdown_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/_dropdown.js */ "./assets/javascript/components/_dropdown.js");
-/* harmony import */ var _components_exeNotifications_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/_exeNotifications.js */ "./assets/javascript/components/_exeNotifications.js");
-/* harmony import */ var _components_menu_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/_menu.js */ "./assets/javascript/components/_menu.js");
-/* harmony import */ var _components_modals_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_modals.js */ "./assets/javascript/components/_modals.js");
-/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
-/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
-/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
+/* harmony import */ var _components_menu_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/_menu.js */ "./assets/javascript/components/_menu.js");
+/* harmony import */ var _components_modals_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/_modals.js */ "./assets/javascript/components/_modals.js");
+/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
+/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
+/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
+/* harmony import */ var _components_notifications_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_notifications.js */ "./assets/javascript/components/_notifications.js");
 /* harmony import */ var _patterns_header_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./patterns/_header.js */ "./assets/javascript/patterns/_header.js");
+/* harmony import */ var _patterns_header_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_patterns_header_js__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
 /* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_12__);
 //= PGS
@@ -2062,7 +2254,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-//= patterns 
+//= PATTERNS 
 
 
 

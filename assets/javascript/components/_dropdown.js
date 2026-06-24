@@ -1,6 +1,10 @@
 // + dropdown (Popover API)
-export function pgs_dropdown() {
-    pgs(document).querySelectorAll("dropdown").forEach((DROPDOWN, index) => {
+const API = new WeakMap();
+
+export function PGS_dropdown_init(root = document) {
+    pgs(root).querySelectorAll("dropdown").forEach((DROPDOWN, index) => {
+        if (API.has(DROPDOWN)) return;
+
         const BUTTON = pgs(DROPDOWN).querySelector("dropdown-button");
         const CONTENT = pgs(DROPDOWN).querySelector("dropdown-content");
 
@@ -101,8 +105,43 @@ export function pgs_dropdown() {
         window.addEventListener("scroll", () => {
             if (CONTENT.matches(":popover-open")) updatePopoverPosition();
         }, true);
+
+        function open() {
+            if (CONTENT.matches(":popover-open")) return;
+            updatePopoverPosition();
+            CONTENT.showPopover();
+        }
+
+        function close() {
+            if (!CONTENT.matches(":popover-open")) return;
+            CONTENT.hidePopover();
+        }
+
+        function toggle() {
+            CONTENT.matches(":popover-open") ? close() : open();
+        }
+
+        API.set(DROPDOWN, {
+            element: DROPDOWN,
+            button: BUTTON,
+            content: CONTENT,
+            open,
+            close,
+            toggle,
+            updatePosition: updatePopoverPosition,
+            refresh: () => {
+                PGS_dropdown_init(DROPDOWN.parentNode || document);
+                return API.get(DROPDOWN);
+            },
+            isOpen: () => CONTENT.matches(":popover-open"),
+        });
     });
 }
 
 // # INIT
-pgs_dropdown();
+PGS_dropdown_init();
+
+// # API
+export function PGS_dropdown_api(selector) {
+    return API.get(selector);
+}

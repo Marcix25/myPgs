@@ -1,4 +1,4 @@
-import { PGS_toast } from "../functions/_notifications.js";
+import { PGS_toast } from "../components/_notifications.js";
 
 
 export class PGS_formValidate {

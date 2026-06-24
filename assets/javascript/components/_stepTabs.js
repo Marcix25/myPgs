@@ -1,8 +1,7 @@
 const API = new WeakMap();
-PGS_stepTabs()
 
-export function PGS_stepTabs() {
-    pgs(document).querySelectorAll("stepTabs").forEach(tabsWizard => {
+export function PGS_stepTabs_init(root = document) {
+    pgs(root).querySelectorAll("stepTabs").forEach(tabsWizard => {
         if (tabsWizard.dataset.stepTabsInitialized === "true") return;
         tabsWizard.dataset.stepTabsInitialized = "true";
 
@@ -117,18 +116,26 @@ export function PGS_stepTabs() {
         //-(API) 
         // tabsWizard.addEventListener("stepTabs:reset", () => restartTab());
         API.set(tabsWizard, {
+            element: tabsWizard,
+            container: tabsContainer,
             restart: restartTab,
             goTo,
             next: () => goTo(current + 1),
             prev: () => goTo(current - 1),
             toggleLock: (step, lock = true) => typeof step === "number" && allTab[step] && (pgs(allTab[step]).state.toggle("is-locked", lock), goTo(current)),
+            refresh: () => {
+                PGS_stepTabs_init(tabsWizard.parentNode || document);
+                return API.get(tabsWizard);
+            },
             getCurrent: () => current,
             getState: () => ({ current, total }),
         });
     });
 }
 
-export function PGS_tabs_api(selector) {
+PGS_stepTabs_init()
+
+export function PGS_stepTabs_api(selector) {
     return API.get(selector);
 }
 

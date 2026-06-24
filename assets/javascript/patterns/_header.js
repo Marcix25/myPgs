@@ -4,7 +4,7 @@ const headerElements = pgs(header).querySelectorAll("header-element");
 headerElements.forEach(element => PGS_header(element));
 
 //= HEADER
-export function PGS_header(selectHeader) {
+function PGS_header(selectHeader) {
 
     //= INIT
     if (selectHeader.getAttribute("data-initialize") == "true") return;
