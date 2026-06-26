@@ -11,7 +11,7 @@ import { PGS_steps } from "./components/_steps.js";
 import { PGS_formValidate } from "./functions/_formValidate.js";
 import { PGS_scrollHorizontal } from "./functions/_scrollY.js";
 
-pgs.registerImport(
+pgs.registerImport({
     PGS_accordion,
     PGS_dropdown,
     PGS_menu,
@@ -22,4 +22,4 @@ pgs.registerImport(
     PGS_steps,
     PGS_formValidate,
     PGS_scrollHorizontal,
-);
+});

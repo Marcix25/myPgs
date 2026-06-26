@@ -226,17 +226,25 @@ export function pgs(root) {
 
 const PGS_IMPORTS = {};
 
+function registerImportModule(name, module) {
+    const key = String(name || "").trim().replace(/^pgs[_-\s]*/i, "").toLowerCase();
+
+    if (!key) throw new TypeError("pgs.registerImport(...modules): ogni modulo deve avere name o PGS_name");
+
+    PGS_IMPORTS[key] = {
+        name,
+        module
+    };
+}
+
 pgs.registerImport = function (...modules) {
-    modules.flat().forEach(module => {
-        const name = module?.PGS_name || module?.name;
-        const key = String(name || "").trim().replace(/^pgs[_-\s]*/i, "").toLowerCase();
+    modules.flat().forEach(item => {
+        if (item && typeof item === "object" && !item.PGS_name && !item.name) {
+            Object.entries(item).forEach(([name, module]) => registerImportModule(name, module));
+            return;
+        }
 
-        if (!key) throw new TypeError("pgs.registerImport(...modules): ogni modulo deve avere name o PGS_name");
-
-        PGS_IMPORTS[key] = {
-            name,
-            module
-        };
+        registerImportModule(item?.PGS_name || item?.name, item);
     });
 
     return pgs;

@@ -33,18 +33,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerImport(
-    _components_accordion_js__WEBPACK_IMPORTED_MODULE_1__.PGS_accordion,
-    _components_dropdown_js__WEBPACK_IMPORTED_MODULE_2__.PGS_dropdown,
-    _components_menu_js__WEBPACK_IMPORTED_MODULE_3__.PGS_menu,
-    _components_modals_js__WEBPACK_IMPORTED_MODULE_4__.PGS_modal,
-    _components_notifications_js__WEBPACK_IMPORTED_MODULE_5__.PGS_notification,
-    _components_slides_js__WEBPACK_IMPORTED_MODULE_6__.PGS_slides,
-    _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_7__.PGS_stepTabs,
-    _components_steps_js__WEBPACK_IMPORTED_MODULE_8__.PGS_steps,
-    _functions_formValidate_js__WEBPACK_IMPORTED_MODULE_9__.PGS_formValidate,
-    _functions_scrollY_js__WEBPACK_IMPORTED_MODULE_10__.PGS_scrollHorizontal,
-);
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerImport({
+    PGS_accordion: _components_accordion_js__WEBPACK_IMPORTED_MODULE_1__.PGS_accordion,
+    PGS_dropdown: _components_dropdown_js__WEBPACK_IMPORTED_MODULE_2__.PGS_dropdown,
+    PGS_menu: _components_menu_js__WEBPACK_IMPORTED_MODULE_3__.PGS_menu,
+    PGS_modal: _components_modals_js__WEBPACK_IMPORTED_MODULE_4__.PGS_modal,
+    PGS_notification: _components_notifications_js__WEBPACK_IMPORTED_MODULE_5__.PGS_notification,
+    PGS_slides: _components_slides_js__WEBPACK_IMPORTED_MODULE_6__.PGS_slides,
+    PGS_stepTabs: _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_7__.PGS_stepTabs,
+    PGS_steps: _components_steps_js__WEBPACK_IMPORTED_MODULE_8__.PGS_steps,
+    PGS_formValidate: _functions_formValidate_js__WEBPACK_IMPORTED_MODULE_9__.PGS_formValidate,
+    PGS_scrollHorizontal: _functions_scrollY_js__WEBPACK_IMPORTED_MODULE_10__.PGS_scrollHorizontal,
+});
 
 
 /***/ },
@@ -288,17 +288,25 @@ function pgs(root) {
 
 const PGS_IMPORTS = {};
 
+function registerImportModule(name, module) {
+    const key = String(name || "").trim().replace(/^pgs[_-\s]*/i, "").toLowerCase();
+
+    if (!key) throw new TypeError("pgs.registerImport(...modules): ogni modulo deve avere name o PGS_name");
+
+    PGS_IMPORTS[key] = {
+        name,
+        module
+    };
+}
+
 pgs.registerImport = function (...modules) {
-    modules.flat().forEach(module => {
-        const name = module?.PGS_name || module?.name;
-        const key = String(name || "").trim().replace(/^pgs[_-\s]*/i, "").toLowerCase();
+    modules.flat().forEach(item => {
+        if (item && typeof item === "object" && !item.PGS_name && !item.name) {
+            Object.entries(item).forEach(([name, module]) => registerImportModule(name, module));
+            return;
+        }
 
-        if (!key) throw new TypeError("pgs.registerImport(...modules): ogni modulo deve avere name o PGS_name");
-
-        PGS_IMPORTS[key] = {
-            name,
-            module
-        };
+        registerImportModule(item?.PGS_name || item?.name, item);
     });
 
     return pgs;
