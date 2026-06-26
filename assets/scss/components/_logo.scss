@@ -6,7 +6,7 @@
     --logo-finter: invert(1) hue-rotate(180deg) brightness(1.5);
 
     //== DARKMODE
-    @at-root [data-darkmode=true] #{&}[pgs~="logo-darkmode"] [pgs~="logo-image"] {
+    @at-root [data-darkmode=true] [pgs~="logo-darkmode"] [pgs~="logo-image"] {
         filter: var(--logo-finter);
     }
     

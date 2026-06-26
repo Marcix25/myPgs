@@ -1,5 +1,4 @@
 //# pageShell
-
 [pgs~="pageShell"] {
     --pageShell-aside-left-width: 400px;
     --pageShell-aside-right-width: 400px;
@@ -11,12 +10,7 @@
     --pageShell-aside-sticky-bottom: var(--pageShell-gap);
     --pageShell-aside-count: 0;
     --pageShell-gap-count: 0;
-    --pageShell-max-width: calc(
-        var(--pageShell-content-max-width) +
-        var(--pageShell-aside-width-total) +
-        (var(--pageShell-gap) * var(--pageShell-gap-count))
-    );
-
+    --pageShell-max-width: calc(var(--pageShell-content-max-width) + var(--pageShell-aside-width-total) + (var(--pageShell-gap) * var(--pageShell-gap-count)));
     display: grid;
     grid-template-columns: minmax(0, var(--pageShell-content-max-width));
     grid-template-areas: "content";
@@ -33,8 +27,7 @@
         --pageShell-aside-count: 1;
         --pageShell-gap-count: 1;
         grid-template-columns:
-            var(--pageShell-aside-left-width)
-            minmax(var(--pageShell-content-min-width), var(--pageShell-content-max-width));
+            var(--pageShell-aside-left-width) minmax(var(--pageShell-content-min-width), var(--pageShell-content-max-width));
         grid-template-areas: "aside-left content";
     }
 
@@ -43,8 +36,7 @@
         --pageShell-aside-count: 1;
         --pageShell-gap-count: 1;
         grid-template-columns:
-            minmax(var(--pageShell-content-min-width), var(--pageShell-content-max-width))
-            var(--pageShell-aside-right-width);
+            minmax(var(--pageShell-content-min-width), var(--pageShell-content-max-width)) var(--pageShell-aside-right-width);
         grid-template-areas: "content aside-right";
     }
 
@@ -53,16 +45,15 @@
         --pageShell-aside-count: 2;
         --pageShell-gap-count: 2;
         grid-template-columns:
-            var(--pageShell-aside-left-width)
-            minmax(var(--pageShell-content-min-width), var(--pageShell-content-max-width))
-            var(--pageShell-aside-right-width);
+            var(--pageShell-aside-left-width) minmax(var(--pageShell-content-min-width), var(--pageShell-content-max-width)) var(--pageShell-aside-right-width);
         grid-template-areas: "aside-left content aside-right";
     }
-    
+
     [pgs~="pageShell-content"] {
         grid-area: content;
         width: 100%;
         min-width: 0;
+        padding-block: var(--page-top);
     }
 
     [pgs~="pageShell-asideLeft"],
@@ -71,13 +62,16 @@
         align-items: flex-start;
         isolation: isolate;
         position: sticky;
-        top: var(--pageShell-aside-sticky-top);
+        // top: var(--pageShell-aside-sticky-top);
+        top: 0;
         width: 100%;
-        max-height: calc(100svh - var(--pageShell-aside-sticky-top) - var(--pageShell-aside-sticky-bottom));
+        max-height: 100svh;
         overflow-y: auto;
         overscroll-behavior: contain;
         scrollbar-gutter: stable;
         scrollbar-width: none;
+        padding-block: var(--page-top);
+        padding-bottom: var(--padding-2);
 
         &::-webkit-scrollbar {
             display: none;
@@ -87,7 +81,6 @@
             width: 100%;
         }
     }
-
 
     [pgs~="pageShell-asideLeft"] {
         grid-area: aside-left;
@@ -119,7 +112,7 @@
     }
 
     //- laptop 
-    @media (max-width: $laptop){
+    @media (max-width: $laptop) {
         &:has(> [pgs~="pageShell-asideLeft"]):has(> [pgs~="pageShell-asideRight"]) {
             grid-template-columns: minmax(0, var(--pageShell-content-max-width));
             grid-template-areas:
@@ -153,11 +146,13 @@
     }
 
     @media (max-width: $tablet) {
+
         [pgs~="pageShell-asideLeft"],
         [pgs~="pageShell-asideRight"],
         [pgs~="pageShell-content"] {
             width: 100%;
             max-width: none;
+            padding-block: unset;
         }
 
         [pgs~="pageShell-asideLeft"],

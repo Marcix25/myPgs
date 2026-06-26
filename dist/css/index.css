@@ -2299,11 +2299,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   --pageShell-aside-sticky-bottom: var(--pageShell-gap);
   --pageShell-aside-count: 0;
   --pageShell-gap-count: 0;
-  --pageShell-max-width: calc(
-      var(--pageShell-content-max-width) +
-      var(--pageShell-aside-width-total) +
-      (var(--pageShell-gap) * var(--pageShell-gap-count))
-  );
+  --pageShell-max-width: calc(var(--pageShell-content-max-width) + var(--pageShell-aside-width-total) + (var(--pageShell-gap) * var(--pageShell-gap-count)));
   display: grid;
   grid-template-columns: minmax(0, var(--pageShell-content-max-width));
   grid-template-areas: "content";
@@ -2340,6 +2336,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   grid-area: content;
   width: 100%;
   min-width: 0;
+  padding-block: var(--page-top);
 }
 [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideLeft],
 [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideRight] {
@@ -2349,13 +2346,15 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   align-items: flex-start;
   isolation: isolate;
   position: sticky;
-  top: var(--pageShell-aside-sticky-top);
+  top: 0;
   width: 100%;
-  max-height: calc(100svh - var(--pageShell-aside-sticky-top) - var(--pageShell-aside-sticky-bottom));
+  max-height: 100svh;
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-gutter: stable;
   scrollbar-width: none;
+  padding-block: var(--page-top);
+  padding-bottom: var(--padding-2);
 }
 [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideLeft]::-webkit-scrollbar,
 [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideRight]::-webkit-scrollbar {
@@ -2415,6 +2414,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-content] {
     width: 100%;
     max-width: none;
+    padding-block: unset;
   }
   [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideLeft],
   [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideRight] {
@@ -7053,7 +7053,7 @@ dialog [pgs~=initP] [pgs~=searchbar] input {
   --logo-height: var(--header-size, 6.0rem);
   --logo-finter: invert(1) hue-rotate(180deg) brightness(1.5);
 }
-[data-darkmode=true] [pgs~=initP] [pgs~=logo][pgs~=logo-darkmode] [pgs~=logo-image] {
+[data-darkmode=true] [pgs~=logo-darkmode] [pgs~=logo-image] {
   filter: var(--logo-finter);
 }
 

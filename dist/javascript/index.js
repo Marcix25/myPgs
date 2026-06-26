@@ -19,9 +19,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
 /* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
 /* harmony import */ var _functions_formValidate_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./functions/_formValidate.js */ "./assets/javascript/functions/_formValidate.js");
-/* harmony import */ var _functions_sendForm_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./functions/_sendForm.js */ "./assets/javascript/functions/_sendForm.js");
-/* harmony import */ var _functions_scrollY_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./functions/_scrollY.js */ "./assets/javascript/functions/_scrollY.js");
-
+/* harmony import */ var _functions_scrollY_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./functions/_scrollY.js */ "./assets/javascript/functions/_scrollY.js");
 
 
 
@@ -45,8 +43,7 @@ _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerImport(
     _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_7__.PGS_stepTabs,
     _components_steps_js__WEBPACK_IMPORTED_MODULE_8__.PGS_steps,
     _functions_formValidate_js__WEBPACK_IMPORTED_MODULE_9__.PGS_formValidate,
-    _functions_scrollY_js__WEBPACK_IMPORTED_MODULE_11__.PGS_scrollHorizontal,
-    _functions_sendForm_js__WEBPACK_IMPORTED_MODULE_10__.PGS_sendForm
+    _functions_scrollY_js__WEBPACK_IMPORTED_MODULE_10__.PGS_scrollHorizontal,
 );
 
 
@@ -2135,84 +2132,6 @@ function PGS_scrollHorizontal(querySelector, dataSpeed) {
         //== rotella giù => destra
         el.scrollLeft += delta * speed;
     }, { passive: false });
-}
-
-
-/***/ },
-
-/***/ "./assets/javascript/functions/_sendForm.js"
-/*!**************************************************!*\
-  !*** ./assets/javascript/functions/_sendForm.js ***!
-  \**************************************************/
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PGS_sendForm: () => (/* binding */ PGS_sendForm)
-/* harmony export */ });
-/* harmony import */ var _components_notifications_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/_notifications.js */ "./assets/javascript/components/_notifications.js");
-
-
-async function PGS_sendForm(
-    append = {
-        formAppend: [
-            { name: "", value: "" }
-        ],
-        wpnonce: {
-            name: "",
-            value: ""
-        },
-        action: ""
-    },
-    tost = {
-        succesText: "Inviato con succeso",
-        errorGenericText: "Si è verificato un errore",
-        infoText: "Invio in corso..."
-    },
-    log = true
-) {
-    _components_notifications_js__WEBPACK_IMPORTED_MODULE_0__.PGS_notification.toast.info(tost.infoText, -1);
-
-    const formData = new FormData();
-
-    formData.append(append.wpnonce.name, append.wpnonce.value);
-    formData.append("action", append.action);
-    append.formAppend.forEach(item => formData.append(item.name, item.value));
-
-    let status;
-
-    try {
-        const response = await fetch("/wp-admin/admin-ajax.php", {
-            method: "POST",
-            body: formData
-        });
-
-        if (!response.ok) {
-            _components_notifications_js__WEBPACK_IMPORTED_MODULE_0__.PGS_notification.toast.error(`Errore: ${response.status}`);
-            status = { success: false, data: [], response };
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const result = await response.json();
-
-        if (result.success) {
-            status = result;
-            _components_notifications_js__WEBPACK_IMPORTED_MODULE_0__.PGS_notification.toast.success(tost.succesText);
-        } else {
-            status = result;
-            _components_notifications_js__WEBPACK_IMPORTED_MODULE_0__.PGS_notification.toast.error(result.data ? result.data.message : "Errore sconosciuto");
-            console.error(result);
-        }
-    } catch (error) {
-        status = status ? status : { success: false, data: [] };
-        _components_notifications_js__WEBPACK_IMPORTED_MODULE_0__.PGS_notification.toast.error(tost.errorGenericText || "Si è verificato un errore nella richiesta.");
-        console.error("Errore:", error);
-    }
-
-    if (log) console.log("Status:", status);
-    if (log) console.log("formData:", Array.from(formData.entries()));
-    return status;
 }
 
 
