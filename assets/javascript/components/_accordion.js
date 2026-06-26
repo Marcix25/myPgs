@@ -108,3 +108,9 @@ PGS_accordion_init();
 export function PGS_accordion_api(selector) {
     return API.get(selector);
 }
+
+export const PGS_accordion = {
+    PGS_name: "PGS_accordion",
+    init: PGS_accordion_init,
+    api: PGS_accordion_api
+};

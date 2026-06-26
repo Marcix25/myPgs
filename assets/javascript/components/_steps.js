@@ -32,7 +32,7 @@ export function PGS_steps_init(root = document) {
             getTotal: () => pgs(steps).querySelectorAll("steps-step").length,
             refresh: () => {
                 API.delete(steps);
-                PGS_ol(steps.parentNode || document);
+                PGS_steps_init(steps.parentNode || document);
                 return API.get(steps);
             },
         });
@@ -46,3 +46,9 @@ PGS_steps_init()
 export function PGS_steps_api(selector) {
     return API.get(selector);
 }
+
+export const PGS_steps = {
+    PGS_name: "PGS_steps",
+    init: PGS_steps_init,
+    api: PGS_steps_api
+};

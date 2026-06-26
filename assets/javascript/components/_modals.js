@@ -157,3 +157,9 @@ PGS_modal_init()
 export function PGS_modal_api(selector) {
     return API.get(selector);
 }
+
+export const PGS_modal = {
+    PGS_name: "PGS_modal",
+    init: PGS_modal_init,
+    api: PGS_modal_api
+};

@@ -149,3 +149,9 @@ PGS_menu_init()
 export function PGS_menu_api(selector) {
     return API.get(selector);
 }
+
+export const PGS_menu = {
+    PGS_name: "PGS_menu",
+    init: PGS_menu_init,
+    api: PGS_menu_api
+};

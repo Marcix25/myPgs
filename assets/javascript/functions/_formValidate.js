@@ -1,4 +1,4 @@
-import { PGS_toast } from "../components/_notifications.js";
+import { PGS_notification } from "../components/_notifications.js";
 
 
 export class PGS_formValidate {
@@ -15,8 +15,8 @@ export class PGS_formValidate {
 
         let message = field.getAttribute("data-form-field-message");
 
-        if (i == 0 && message) PGS_toast.error(message);
-        else if (i == 0) PGS_toast.error("Compila tutti i campi!");
+        if (i == 0 && message) PGS_notification.toast.error(message);
+        else if (i == 0) PGS_notification.toast.error("Compila tutti i campi!");
     }
 
     //+ REMOVE
@@ -202,7 +202,7 @@ export class PGS_formValidate {
     }
 
     ifSuccess(text = "Inviato con successo") {
-        if (this.validate() == true) PGS_toast.success(text)
+        if (this.validate() == true) PGS_notification.toast.success(text)
     }
 
     // + -------------------------
@@ -214,4 +214,3 @@ export class PGS_formValidate {
         return this;
     }
 }
-

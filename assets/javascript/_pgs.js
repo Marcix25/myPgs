@@ -224,6 +224,34 @@ export function pgs(root) {
     return api;
 }
 
+const PGS_IMPORTS = {};
+
+pgs.registerImport = function (...modules) {
+    modules.flat().forEach(module => {
+        const name = module?.PGS_name || module?.name;
+        const key = String(name || "").trim().replace(/^pgs[_-\s]*/i, "").toLowerCase();
+
+        if (!key) throw new TypeError("pgs.registerImport(...modules): ogni modulo deve avere name o PGS_name");
+
+        PGS_IMPORTS[key] = {
+            name,
+            module
+        };
+    });
+
+    return pgs;
+};
+
+pgs.import = function (...names) {
+    return names.flat().reduce((imports, name) => {
+        const key = String(name || "").trim().replace(/^pgs[_-\s]*/i, "").toLowerCase();
+        const item = PGS_IMPORTS[key];
+
+        if (!item) throw new Error(`pgs.import(): modulo "${name}" non registrato`);
+
+        imports[item.name] = item.module;
+        return imports;
+    }, {});
+};
+
 globalThis.pgs ??= pgs;
-
-

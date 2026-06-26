@@ -145,3 +145,9 @@ PGS_dropdown_init();
 export function PGS_dropdown_api(selector) {
     return API.get(selector);
 }
+
+export const PGS_dropdown = {
+    PGS_name: "PGS_dropdown",
+    init: PGS_dropdown_init,
+    api: PGS_dropdown_api
+};

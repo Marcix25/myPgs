@@ -1,5 +1,6 @@
 //= PGS
-import "./_pgs.js";
+import { pgs } from "./_pgs.js";
+export { pgs } from "./_pgs.js";
 
 //= BASE
 import "./base/_darkmode.js";
@@ -14,6 +15,9 @@ import "./components/_slides.js"
 import "./components/_steps.js";
 import "./components/_stepTabs.js";
 import "./components/_notifications.js";
+
+//= IMPORT REGISTRY
+import "./_imports.js";
 
 //= PATTERNS 
 import "./patterns/_header.js";

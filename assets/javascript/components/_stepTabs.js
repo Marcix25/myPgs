@@ -139,6 +139,12 @@ export function PGS_stepTabs_api(selector) {
     return API.get(selector);
 }
 
+export const PGS_stepTabs = {
+    PGS_name: "PGS_stepTabs",
+    init: PGS_stepTabs_init,
+    api: PGS_stepTabs_api
+};
+
 /* 
     / EXAMPLE
     // vai allo step 2

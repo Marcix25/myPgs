@@ -44,6 +44,8 @@ declare global {
     (root: Document): PgsDocumentApi;
     (root: Element): PgsElementApi;
     (root: Document | Element): PgsApi;
+    registerImport(...modules: unknown[]): PgsFunction;
+    import(...names: string[]): Record<string, any>;
   }
 
   interface PgsBag extends PgsElementApi {}
@@ -51,4 +53,6 @@ declare global {
   var pgs: PgsFunction;
 }
 
-export {};
+export function pgs(root: Document): PgsDocumentApi;
+export function pgs(root: Element): PgsElementApi;
+export function pgs(root: Document | Element): PgsApi;

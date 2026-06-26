@@ -1,6 +1,57 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./assets/javascript/_imports.js"
+/*!***************************************!*\
+  !*** ./assets/javascript/_imports.js ***!
+  \***************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _components_accordion_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/_accordion.js */ "./assets/javascript/components/_accordion.js");
+/* harmony import */ var _components_dropdown_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/_dropdown.js */ "./assets/javascript/components/_dropdown.js");
+/* harmony import */ var _components_menu_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/_menu.js */ "./assets/javascript/components/_menu.js");
+/* harmony import */ var _components_modals_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/_modals.js */ "./assets/javascript/components/_modals.js");
+/* harmony import */ var _components_notifications_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/_notifications.js */ "./assets/javascript/components/_notifications.js");
+/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
+/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
+/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
+/* harmony import */ var _functions_formValidate_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./functions/_formValidate.js */ "./assets/javascript/functions/_formValidate.js");
+/* harmony import */ var _functions_sendForm_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./functions/_sendForm.js */ "./assets/javascript/functions/_sendForm.js");
+/* harmony import */ var _functions_scrollY_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./functions/_scrollY.js */ "./assets/javascript/functions/_scrollY.js");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerImport(
+    _components_accordion_js__WEBPACK_IMPORTED_MODULE_1__.PGS_accordion,
+    _components_dropdown_js__WEBPACK_IMPORTED_MODULE_2__.PGS_dropdown,
+    _components_menu_js__WEBPACK_IMPORTED_MODULE_3__.PGS_menu,
+    _components_modals_js__WEBPACK_IMPORTED_MODULE_4__.PGS_modal,
+    _components_notifications_js__WEBPACK_IMPORTED_MODULE_5__.PGS_notification,
+    _components_slides_js__WEBPACK_IMPORTED_MODULE_6__.PGS_slides,
+    _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_7__.PGS_stepTabs,
+    _components_steps_js__WEBPACK_IMPORTED_MODULE_8__.PGS_steps,
+    _functions_formValidate_js__WEBPACK_IMPORTED_MODULE_9__.PGS_formValidate,
+    _functions_scrollY_js__WEBPACK_IMPORTED_MODULE_11__.PGS_scrollHorizontal,
+    _functions_sendForm_js__WEBPACK_IMPORTED_MODULE_10__.PGS_sendForm
+);
+
+
+/***/ },
+
 /***/ "./assets/javascript/_pgs.js"
 /*!***********************************!*\
   !*** ./assets/javascript/_pgs.js ***!
@@ -238,9 +289,37 @@ function pgs(root) {
     return api;
 }
 
+const PGS_IMPORTS = {};
+
+pgs.registerImport = function (...modules) {
+    modules.flat().forEach(module => {
+        const name = module?.PGS_name || module?.name;
+        const key = String(name || "").trim().replace(/^pgs[_-\s]*/i, "").toLowerCase();
+
+        if (!key) throw new TypeError("pgs.registerImport(...modules): ogni modulo deve avere name o PGS_name");
+
+        PGS_IMPORTS[key] = {
+            name,
+            module
+        };
+    });
+
+    return pgs;
+};
+
+pgs.import = function (...names) {
+    return names.flat().reduce((imports, name) => {
+        const key = String(name || "").trim().replace(/^pgs[_-\s]*/i, "").toLowerCase();
+        const item = PGS_IMPORTS[key];
+
+        if (!item) throw new Error(`pgs.import(): modulo "${name}" non registrato`);
+
+        imports[item.name] = item.module;
+        return imports;
+    }, {});
+};
+
 globalThis.pgs ??= pgs;
-
-
 
 
 /***/ },
@@ -437,6 +516,7 @@ document.addEventListener('DOMContentLoaded', () => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_accordion: () => (/* binding */ PGS_accordion),
 /* harmony export */   PGS_accordion_api: () => (/* binding */ PGS_accordion_api),
 /* harmony export */   PGS_accordion_init: () => (/* binding */ PGS_accordion_init)
 /* harmony export */ });
@@ -551,6 +631,12 @@ function PGS_accordion_api(selector) {
     return API.get(selector);
 }
 
+const PGS_accordion = {
+    PGS_name: "PGS_accordion",
+    init: PGS_accordion_init,
+    api: PGS_accordion_api
+};
+
 
 /***/ },
 
@@ -563,6 +649,7 @@ function PGS_accordion_api(selector) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_dropdown: () => (/* binding */ PGS_dropdown),
 /* harmony export */   PGS_dropdown_api: () => (/* binding */ PGS_dropdown_api),
 /* harmony export */   PGS_dropdown_init: () => (/* binding */ PGS_dropdown_init)
 /* harmony export */ });
@@ -714,6 +801,12 @@ function PGS_dropdown_api(selector) {
     return API.get(selector);
 }
 
+const PGS_dropdown = {
+    PGS_name: "PGS_dropdown",
+    init: PGS_dropdown_init,
+    api: PGS_dropdown_api
+};
+
 
 /***/ },
 
@@ -726,6 +819,7 @@ function PGS_dropdown_api(selector) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_menu: () => (/* binding */ PGS_menu),
 /* harmony export */   PGS_menu_api: () => (/* binding */ PGS_menu_api),
 /* harmony export */   PGS_menu_init: () => (/* binding */ PGS_menu_init)
 /* harmony export */ });
@@ -882,6 +976,12 @@ function PGS_menu_api(selector) {
     return API.get(selector);
 }
 
+const PGS_menu = {
+    PGS_name: "PGS_menu",
+    init: PGS_menu_init,
+    api: PGS_menu_api
+};
+
 
 /***/ },
 
@@ -894,6 +994,7 @@ function PGS_menu_api(selector) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_modal: () => (/* binding */ PGS_modal),
 /* harmony export */   PGS_modal_api: () => (/* binding */ PGS_modal_api),
 /* harmony export */   PGS_modal_init: () => (/* binding */ PGS_modal_init)
 /* harmony export */ });
@@ -1057,6 +1158,12 @@ function PGS_modal_api(selector) {
     return API.get(selector);
 }
 
+const PGS_modal = {
+    PGS_name: "PGS_modal",
+    init: PGS_modal_init,
+    api: PGS_modal_api
+};
+
 
 /***/ },
 
@@ -1070,10 +1177,9 @@ function PGS_modal_api(selector) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_notification: () => (/* binding */ PGS_notification),
-/* harmony export */   PGS_notificationTrigger_init: () => (/* binding */ PGS_notificationTrigger_init),
-/* harmony export */   PGS_toast: () => (/* binding */ PGS_toast)
+/* harmony export */   PGS_notificationTrigger_init: () => (/* binding */ PGS_notificationTrigger_init)
 /* harmony export */ });
-//# PGS_notification
+//= PGS_notification
 const fn_notification = {
     _escapeHtml(value) {
         return String(value ?? "");
@@ -1089,7 +1195,7 @@ const fn_notification = {
     _getApi(notification) {
         const element = String(notification.element || "notification").trim();
 
-        return element === "toast" ? PGS_toast : PGS_notification;
+        return element === "toast" ? PGS_notification.toast : PGS_notification.alert;
     },
 
     _getType(notification, api) {
@@ -1164,6 +1270,7 @@ const fn_notification = {
         notification.insertAdjacentElement("afterbegin", btnDelete);
 
         //== event
+
         btnDelete.addEventListener("click", function (e) {
             e.preventDefault();
             e.stopPropagation();
@@ -1177,61 +1284,65 @@ const fn_notification = {
         if (containerNotification) containerNotification.innerHTML = "";
     },
 
-    execute(root) {
-        if (!root || root.dataset.initialize === "true") return;
+    trigger(root = document) {
+        pgs(root).querySelectorAll("notificationTrigger").forEach(element => {
+            if (!element || element.dataset.initialize === "true") return;
 
-        root.dataset.initialize = "true";
+            element.dataset.initialize = "true";
 
-        const notification = this._getData(root);
-        const title = String(notification.title || "").trim();
-        const content = String(notification.message || "").trim();
+            const notification = this._getData(element);
+            const title = String(notification.title || "").trim();
+            const content = String(notification.message || "").trim();
 
-        if (!title && !content) {
-            root.remove();
-            return;
-        }
+            if (!title && !content) {
+                element.remove();
+                return;
+            }
 
-        const link = notification.link || null;
-        const icon = notification.icon || undefined;
-        const duration = this._getDuration(notification);
-        const api = this._getApi(notification);
-        const type = this._getType(notification, api);
-        const formattedContent = this._getContent(title, content);
+            const link = notification.link || null;
+            const icon = notification.icon || undefined;
+            const duration = this._getDuration(notification);
+            const api = this._getApi(notification);
+            const type = this._getType(notification, api);
+            const formattedContent = this._getContent(title, content);
 
-        if (api === PGS_toast) api[type](formattedContent, duration, icon);
-        else api[type](formattedContent, link, duration, icon);
+            if (api === PGS_notification.toast) api[type](formattedContent, duration, icon);
+            else api[type](formattedContent, link, duration, icon);
 
-        root.remove();
-    },
-
-    init(root = document) {
-        pgs(root).querySelectorAll("notificationTrigger").forEach(element => this.execute(element));
+            element.remove();
+        });
     }
 };
 
+//# EXPORT 
+function PGS_notificationTrigger_init(root = document) {
+    return fn_notification.trigger(root);
+}
+
+const PGS_notification = {
+    PGS_name: "PGS_notification",
+    trigger: PGS_notificationTrigger_init,
+    alert: {
+        error: (text = "Errore", link = null, timeout = 0, icon = '<i class="fa-solid fa-octagon-xmark"></i>') => fn_notification.initNotification("error", "notification", icon, text, timeout, "stack", link),
+        success: (text = "Aggiornato", link = null, timeout = 0, icon = '<i class="fa-solid fa-check"></i>') => fn_notification.initNotification("success", "notification", icon, text, timeout, "stack", link),
+        info: (text = "Aggiornamento", link = null, timeout = 0, icon = '<i class="fa-solid fa-circle-info"></i>',) => fn_notification.initNotification("info", "notification", icon, text, timeout, "stack", link),
+        warning: (text = "Attenzione", link = null, timeout = 0, icon = '<i class="fa-solid fa-triangle-exclamation"></i>') => fn_notification.initNotification("warning", "notification", icon, text, timeout, "stack", link),
+        deleteAll: () => fn_notification.deleteAll("notification")
+    },
+    toast: {
+        error: (text = "Errore", timeout = 4000, icon = '<i class="fa-solid fa-octagon-xmark"></i>',) => fn_notification.initNotification("error", "toast", icon, text, timeout),
+        success: (text = "Aggiornato", timeout = 4000, icon = '<i class="fa-solid fa-check"></i>',) => fn_notification.initNotification("success", "toast", icon, text, timeout),
+        info: (text = "Aggiornamento", timeout = 0, icon = '<i class="fa-solid fa-circle-info"></i>',) => fn_notification.initNotification("info", "toast", icon, text, timeout),
+        warning: (text = "Attenzione", timeout = 4000, icon = '<i class="fa-solid fa-triangle-exclamation"></i>',) => fn_notification.initNotification("warning", "toast", icon, text, timeout),
+        deleteAll: () => fn_notification.deleteAll("toast")
+    }
+};
+
+
+//= EXECUTE 
 if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", () => PGS_notificationTrigger_init());
 else PGS_notificationTrigger_init();
 
-//# EXPORT 
-let PGS_notification = {
-    error: (text = "Errore", link = null, timeout = 0, icon = '<i class="fa-solid fa-octagon-xmark"></i>') => fn_notification.initNotification("error", "notification", icon, text, timeout, "stack", link),
-    success: (text = "Aggiornato", link = null, timeout = 0, icon = '<i class="fa-solid fa-check"></i>') => fn_notification.initNotification("success", "notification", icon, text, timeout, "stack", link),
-    info: (text = "Aggiornamento", link = null, timeout = 0, icon = '<i class="fa-solid fa-circle-info"></i>',) => fn_notification.initNotification("info", "notification", icon, text, timeout, "stack", link),
-    warning: (text = "Attenzione", link = null, timeout = 0, icon = '<i class="fa-solid fa-triangle-exclamation"></i>') => fn_notification.initNotification("warning", "notification", icon, text, timeout, "stack", link),
-    deleteAllNotification: () => fn_notification.deleteAll("notification")
-}
-
-let PGS_toast = {
-    error: (text = "Errore", timeout = 4000, icon = '<i class="fa-solid fa-octagon-xmark"></i>',) => fn_notification.initNotification("error", "toast", icon, text, timeout),
-    success: (text = "Aggiornato", timeout = 4000, icon = '<i class="fa-solid fa-check"></i>',) => fn_notification.initNotification("success", "toast", icon, text, timeout),
-    info: (text = "Aggiornamento", timeout = 0, icon = '<i class="fa-solid fa-circle-info"></i>',) => fn_notification.initNotification("info", "toast", icon, text, timeout),
-    warning: (text = "Attenzione", timeout = 4000, icon = '<i class="fa-solid fa-triangle-exclamation"></i>',) => fn_notification.initNotification("warning", "toast", icon, text, timeout),
-    deleteTost: () => fn_notification.deleteAll("toast")
-}
-
-function PGS_notificationTrigger_init(root = document) {
-    return fn_notification.init(root);
-}
 
 /***/ },
 
@@ -1244,6 +1355,7 @@ function PGS_notificationTrigger_init(root = document) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_slides: () => (/* binding */ PGS_slides),
 /* harmony export */   PGS_slides_api: () => (/* binding */ PGS_slides_api),
 /* harmony export */   PGS_slides_init: () => (/* binding */ PGS_slides_init)
 /* harmony export */ });
@@ -1437,6 +1549,12 @@ function PGS_slides_api(selector) {
     return API.get(selector);
 }
 
+const PGS_slides = {
+    PGS_name: "PGS_slides",
+    init: PGS_slides_init,
+    api: PGS_slides_api
+};
+
 
 /***/ },
 
@@ -1449,6 +1567,7 @@ function PGS_slides_api(selector) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_stepTabs: () => (/* binding */ PGS_stepTabs),
 /* harmony export */   PGS_stepTabs_api: () => (/* binding */ PGS_stepTabs_api),
 /* harmony export */   PGS_stepTabs_init: () => (/* binding */ PGS_stepTabs_init)
 /* harmony export */ });
@@ -1593,6 +1712,12 @@ function PGS_stepTabs_api(selector) {
     return API.get(selector);
 }
 
+const PGS_stepTabs = {
+    PGS_name: "PGS_stepTabs",
+    init: PGS_stepTabs_init,
+    api: PGS_stepTabs_api
+};
+
 /* 
     / EXAMPLE
     // vai allo step 2
@@ -1629,6 +1754,7 @@ function PGS_stepTabs_api(selector) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_steps: () => (/* binding */ PGS_steps),
 /* harmony export */   PGS_steps_api: () => (/* binding */ PGS_steps_api),
 /* harmony export */   PGS_steps_init: () => (/* binding */ PGS_steps_init)
 /* harmony export */ });
@@ -1666,7 +1792,7 @@ function PGS_steps_init(root = document) {
             getTotal: () => pgs(steps).querySelectorAll("steps-step").length,
             refresh: () => {
                 API.delete(steps);
-                PGS_ol(steps.parentNode || document);
+                PGS_steps_init(steps.parentNode || document);
                 return API.get(steps);
             },
         });
@@ -1679,6 +1805,244 @@ PGS_steps_init()
 //# API
 function PGS_steps_api(selector) {
     return API.get(selector);
+}
+
+const PGS_steps = {
+    PGS_name: "PGS_steps",
+    init: PGS_steps_init,
+    api: PGS_steps_api
+};
+
+
+/***/ },
+
+/***/ "./assets/javascript/functions/_formValidate.js"
+/*!******************************************************!*\
+  !*** ./assets/javascript/functions/_formValidate.js ***!
+  \******************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_formValidate: () => (/* binding */ PGS_formValidate)
+/* harmony export */ });
+/* harmony import */ var _components_notifications_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/_notifications.js */ "./assets/javascript/components/_notifications.js");
+
+
+
+class PGS_formValidate {
+    constructor({ form } = {}) {
+        this.container = form;
+        this._rules = [];
+        // pgs(this.container).add("formError"); 
+    }
+
+    //+ ADD
+    addError(field, i) {
+        field.setAttribute("data-form-field-status", "error");
+        if (i == 0) field.scrollIntoView();
+
+        let message = field.getAttribute("data-form-field-message");
+
+        if (i == 0 && message) _components_notifications_js__WEBPACK_IMPORTED_MODULE_0__.PGS_notification.toast.error(message);
+        else if (i == 0) _components_notifications_js__WEBPACK_IMPORTED_MODULE_0__.PGS_notification.toast.error("Compila tutti i campi!");
+    }
+
+    //+ REMOVE
+    removeError(field) {
+        field.setAttribute("data-form-field-status", "");
+    }
+
+    #removeErrorOnClick(allFields) {
+        allFields.forEach(element => {
+            element.addEventListener("click", e => this.removeError(element))
+        });
+    }
+
+    // + --------------------------
+    // + Helpers                   
+    // + --------------------------
+    help = {
+        // supporta sia required nativo, sia data-required="true"
+        isRequired(field) {
+            if (!field) return false;
+
+            const required = field.required === true || field?.dataset?.required === "true" || field?.getAttribute('aria-required') == "true";
+            return required && !field.hidden; // solo attributo/proprietà "hidden"
+        },
+        // input (non speciali), textarea
+        isEmptyTextLike(field) { return !String(field?.value ?? "").trim(); },
+        // select: vuoto se value == "" o null
+        isEmptySelect(field) { return !String(field?.value ?? "").trim(); },
+        // recupera name in modo sicuro
+        getGroupName(field) { return field?.name || field?.getAttribute?.("name") || ""; }
+    };
+
+
+    // + --------------------------
+    // + input + altri elementi.   
+    // + --------------------------
+    #inputValue(container) {
+
+        //++ add rule
+        const ruleInvalidFields = [];
+        for (const rule of this._rules) {
+            const res = rule(container);
+
+            // la rule può tornare:
+            // • null/undefined => ok
+            // • un elemento => invalido
+            // • un array di elementi => invalidi
+            if (!res) continue;
+
+            if (Array.isArray(res)) ruleInvalidFields.push(...res);
+            else ruleInvalidFields.push(res);
+        }
+
+        //== INPUT 
+        // "testuali" (esclude hidden/disabled/checkbox/radio/file come nel tuo snippet)
+        const textInputs = Array.from(container.querySelectorAll("input")).filter((input) => {
+            if (input.disabled) return false;
+            if (input.type === "hidden") return false;
+            if (input.type === "checkbox" || input.type === "radio" || input.type === "file") return false;
+
+            // valida solo se required (o data-required="true")
+            if (!this.help.isRequired(input)) return false;
+
+            return this.help.isEmptyTextLike(input);
+        });
+
+        //== TEXTAREA 
+        // required vuote
+        const textareas = Array.from(container.querySelectorAll("textarea")).filter((ta) => {
+            if (ta.disabled) return false;
+            if (!this.help.isRequired(ta)) return false;
+            return this.help.isEmptyTextLike(ta);
+        });
+
+        //== SELECT 
+        // required vuoti
+        const selects = Array.from(container.querySelectorAll("select")).filter((sel) => {
+            if (sel.disabled) return false;
+            if (!this.help.isRequired(sel)) return false;
+            return this.help.isEmptySelect(sel);
+        });
+
+        //== RADIO 
+        // required: se in un gruppo required non ce n'è uno checked => errore sul "primo" radio del gruppo
+        const radios = Array.from(container.querySelectorAll('input[type="radio"]')).filter((r) => !r.disabled);
+        const requiredRadioGroups = new Map(); // name -> [elements]
+        for (const r of radios) {
+            if (!this.help.isRequired(r)) continue;
+            const name = this.help.getGroupName(r);
+            if (!name) continue;
+            if (!requiredRadioGroups.has(name)) requiredRadioGroups.set(name, []);
+            requiredRadioGroups.get(name).push(r);
+        }
+        const radioGroupErrors = [];
+        for (const [name, group] of requiredRadioGroups.entries()) {
+            const anyChecked = group.some((r) => r.checked);
+            if (!anyChecked) {
+                // scegli dove mettere l'errore: tipicamente sul primo radio del gruppo
+                radioGroupErrors.push(group[0]);
+            }
+        }
+
+        //== CHECKBOX 
+        // required: può essere singola checkbox required (checked obbligatorio)
+        // oppure gruppo di checkbox (stesso name) con almeno una selezionata
+        const checkboxes = Array.from(container.querySelectorAll('input[type="checkbox"]')).filter((c) => !c.disabled);
+        const requiredCheckboxSingles = [];
+        const requiredCheckboxGroups = new Map(); // name -> [elements]
+        for (const c of checkboxes) {
+            if (!this.help.isRequired(c)) continue;
+
+            const name = this.help.getGroupName(c);
+            if (!name) {
+                // checkbox senza name: trattala come singola required
+                if (!c.checked) requiredCheckboxSingles.push(c);
+                continue;
+            }
+
+            // se vuoi trattare come gruppo, raggruppa per name
+            if (!requiredCheckboxGroups.has(name)) requiredCheckboxGroups.set(name, []);
+            requiredCheckboxGroups.get(name).push(c);
+        }
+        const checkboxGroupErrors = [];
+        for (const [name, group] of requiredCheckboxGroups.entries()) {
+            // se è un gruppo (>=2) richiedi almeno una spuntata
+            // se è 1 sola, si comporta come singola
+            const anyChecked = group.some((c) => c.checked);
+            if (!anyChecked) checkboxGroupErrors.push(group[0]);
+        }
+
+        //== FILE 
+        // required: se vuoi includerlo
+        const fileInputs = Array.from(container.querySelectorAll('input[type="file"]')).filter((f) => {
+            if (f.disabled) return false;
+            if (!this.help.isRequired(f)) return false;
+            return !(f.files && f.files.length > 0);
+        });
+
+        //== risultato finale: tutti i campi da marcare come errore
+        const invalidFields = [
+            textInputs,
+            textareas,
+            selects,
+            radioGroupErrors,
+            requiredCheckboxSingles,
+            checkboxGroupErrors,
+            fileInputs,
+            ruleInvalidFields
+        ];
+
+        return invalidFields.flat();
+    }
+
+    // + -------------------------
+    // + VALIDATE                 
+    // + -------------------------
+    validate() {
+        const invalid = this.#inputValue(this.container);
+        const allFields = this.container.querySelectorAll("input, textarea, select")
+
+        //== pulizia/aggiornamento errori: 
+        // prima rimuovo errori dai campi "non più invalidi"
+        Array.from(allFields).filter((el) => !el.disabled);
+
+        //== per radio/checkbox in gruppo: 
+        // rimuovi l'errore solo sull'elemento che lo ospita (qui: se presente)
+        for (const el of allFields) { if (!invalid.includes(el)) this.removeError(el); }
+
+        //== aggiungo errori dove serve
+        invalid.forEach((el, i) => this.addError(el, i))
+
+        //== rimuove l'errore al click
+        this.#removeErrorOnClick(allFields)
+
+        //== status form
+        if (invalid.length) {
+            this.container.setAttribute("data-form-status", "error");
+            return false;
+        } else {
+            this.container.setAttribute("data-form-status", "success");
+            return true;
+        }
+    }
+
+    ifSuccess(text = "Inviato con successo") {
+        if (this.validate() == true) _components_notifications_js__WEBPACK_IMPORTED_MODULE_0__.PGS_notification.toast.success(text)
+    }
+
+    // + -------------------------
+    // + ADD RULE                 
+    // + -------------------------
+    addNewRule(container) {
+        if (typeof container !== "function") throw new Error("Rule must be a function");
+        this._rules.push(container);
+        return this;
+    }
 }
 
 
@@ -1771,6 +2135,84 @@ function PGS_scrollHorizontal(querySelector, dataSpeed) {
         //== rotella giù => destra
         el.scrollLeft += delta * speed;
     }, { passive: false });
+}
+
+
+/***/ },
+
+/***/ "./assets/javascript/functions/_sendForm.js"
+/*!**************************************************!*\
+  !*** ./assets/javascript/functions/_sendForm.js ***!
+  \**************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_sendForm: () => (/* binding */ PGS_sendForm)
+/* harmony export */ });
+/* harmony import */ var _components_notifications_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/_notifications.js */ "./assets/javascript/components/_notifications.js");
+
+
+async function PGS_sendForm(
+    append = {
+        formAppend: [
+            { name: "", value: "" }
+        ],
+        wpnonce: {
+            name: "",
+            value: ""
+        },
+        action: ""
+    },
+    tost = {
+        succesText: "Inviato con succeso",
+        errorGenericText: "Si è verificato un errore",
+        infoText: "Invio in corso..."
+    },
+    log = true
+) {
+    _components_notifications_js__WEBPACK_IMPORTED_MODULE_0__.PGS_notification.toast.info(tost.infoText, -1);
+
+    const formData = new FormData();
+
+    formData.append(append.wpnonce.name, append.wpnonce.value);
+    formData.append("action", append.action);
+    append.formAppend.forEach(item => formData.append(item.name, item.value));
+
+    let status;
+
+    try {
+        const response = await fetch("/wp-admin/admin-ajax.php", {
+            method: "POST",
+            body: formData
+        });
+
+        if (!response.ok) {
+            _components_notifications_js__WEBPACK_IMPORTED_MODULE_0__.PGS_notification.toast.error(`Errore: ${response.status}`);
+            status = { success: false, data: [], response };
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+
+        if (result.success) {
+            status = result;
+            _components_notifications_js__WEBPACK_IMPORTED_MODULE_0__.PGS_notification.toast.success(tost.succesText);
+        } else {
+            status = result;
+            _components_notifications_js__WEBPACK_IMPORTED_MODULE_0__.PGS_notification.toast.error(result.data ? result.data.message : "Errore sconosciuto");
+            console.error(result);
+        }
+    } catch (error) {
+        status = status ? status : { success: false, data: [] };
+        _components_notifications_js__WEBPACK_IMPORTED_MODULE_0__.PGS_notification.toast.error(tost.errorGenericText || "Si è verificato un errore nella richiesta.");
+        console.error("Errore:", error);
+    }
+
+    if (log) console.log("Status:", status);
+    if (log) console.log("formData:", Array.from(formData.entries()));
+    return status;
 }
 
 
@@ -2220,6 +2662,9 @@ var __webpack_exports__ = {};
   !*** ./assets/javascript/index.js ***!
   \************************************/
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   pgs: () => (/* reexport safe */ _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)
+/* harmony export */ });
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_pgs.js */ "./assets/javascript/_pgs.js");
 /* harmony import */ var _base_darkmode_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./base/_darkmode.js */ "./assets/javascript/base/_darkmode.js");
 /* harmony import */ var _base_darkmode_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_base_darkmode_js__WEBPACK_IMPORTED_MODULE_1__);
@@ -2233,11 +2678,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
 /* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
 /* harmony import */ var _components_notifications_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_notifications.js */ "./assets/javascript/components/_notifications.js");
-/* harmony import */ var _patterns_header_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./patterns/_header.js */ "./assets/javascript/patterns/_header.js");
-/* harmony import */ var _patterns_header_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_patterns_header_js__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
-/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _imports_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./_imports.js */ "./assets/javascript/_imports.js");
+/* harmony import */ var _patterns_header_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./patterns/_header.js */ "./assets/javascript/patterns/_header.js");
+/* harmony import */ var _patterns_header_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_patterns_header_js__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
+/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_13__);
 //= PGS
+
 
 
 //= BASE
@@ -2254,8 +2701,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-//= PATTERNS 
+//= IMPORT REGISTRY
 
+
+//= PATTERNS 
 
 
 })();
