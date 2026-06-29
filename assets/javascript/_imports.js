@@ -23,3 +23,16 @@ pgs.registerImport({
     PGS_formValidate,
     PGS_scrollHorizontal,
 });
+
+pgs.registerModules({
+    accordion: PGS_accordion,
+    dropdown: PGS_dropdown,
+    menu: PGS_menu,
+    modal: PGS_modal,
+    notification: PGS_notification,
+    slides: PGS_slides,
+    stepTabs: PGS_stepTabs,
+    steps: PGS_steps,
+    formValidate: PGS_formValidate,
+    scrollHorizontal: PGS_scrollHorizontal,
+});

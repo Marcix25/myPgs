@@ -31,7 +31,6 @@ declare global {
     value: string | null;
     state: PgsStateApi;
     option: PgsOptionApi;
-    modules: PgsOptionApi;
   }
 
   interface PgsDocumentApi extends PgsQueryableApi {
@@ -45,7 +44,19 @@ declare global {
     (root: Element): PgsElementApi;
     (root: Document | Element): PgsApi;
     registerImport(...modules: unknown[]): PgsFunction;
+    registerModules(modules: Record<string, any>): PgsFunction;
     import(...names: string[]): Record<string, any>;
+    accordion?: any;
+    dropdown?: any;
+    menu?: any;
+    modal?: any;
+    notification?: any;
+    slides?: any;
+    stepTabs?: any;
+    steps?: any;
+    formValidate?: any;
+    scrollHorizontal?: any;
+    [moduleName: string]: any;
   }
 
   interface PgsBag extends PgsElementApi {}

@@ -220,7 +220,6 @@ export function pgs(root) {
     const api = createBasePgs();
     api.state = createState("pgs-state");
     api.option = createOption("pgs-option");
-    api.modules = createOption("pgs-modules");
     return api;
 }
 
@@ -245,6 +244,22 @@ pgs.registerImport = function (...modules) {
         }
 
         registerImportModule(item?.PGS_name || item?.name, item);
+    });
+
+    return pgs;
+};
+
+pgs.registerModules = function (modules = {}) {
+    Object.entries(modules).forEach(([name, module]) => {
+        const key = String(name || "").trim();
+        if (!key) return;
+
+        const hasOwn = Object.prototype.hasOwnProperty.call(pgs, key);
+        if (hasOwn && pgs[key] !== module) {
+            throw new Error(`pgs.registerModules(): "${key}" e' gia' definito su pgs`);
+        }
+
+        pgs[key] = module;
     });
 
     return pgs;
