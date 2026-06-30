@@ -7,7 +7,7 @@
 		</div>
 
 		<div pgs="header-element-onlyDesktop">
-			<nav pgs="menuHorizontal" aria-label="Menu principale">
+			<nav pgs="menu" pgs-option="horizontal" aria-label="Menu principale">
 				<ul>
 					<li><a href="/">Home</a></li>
 					<li><a href="#componenti">Componenti</a></li>
@@ -27,14 +27,11 @@
 
 		<div pgs="header-element-hamburger modal" pgs-option="containerPGS[header] ">
 
-			<button pgs="buttonIcon modal-button header-element-hamburger-button" type="button" title="Menu">
-				<span pgs="header-element-hamburger-row"></span>
-				<span pgs="header-element-hamburger-row"></span>
-			</button>
+			<button pgs="buttonIcon modal-button modal-close header-element-hamburger-button" type="button"></button>
 
-			<dialog pgs="header-mobile-dialog" pgs-option="right ">
-				<div pgs="modal-dialog-content header-mobile-content">
-					<nav pgs="menuVertical" aria-label="Menu mobile">
+			<dialog pgs="modal-dialog" pgs-option="right">
+				<div pgs="modal-dialog-content">
+					<nav pgs="menu"  pgs-option="vertical" aria-label="Menu mobile">
 						<ul>
 							<li><a href="/">Home</a></li>
 							<li><a href="#componenti">Componenti</a></li>

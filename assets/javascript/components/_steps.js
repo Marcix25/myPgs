@@ -48,7 +48,6 @@ export function PGS_steps_api(selector) {
 }
 
 export const PGS_steps = {
-    PGS_name: "PGS_steps",
     init: PGS_steps_init,
     api: PGS_steps_api
 };

@@ -11,19 +11,6 @@ import { PGS_steps } from "./components/_steps.js";
 import { PGS_formValidate } from "./functions/_formValidate.js";
 import { PGS_scrollHorizontal } from "./functions/_scrollY.js";
 
-pgs.registerImport({
-    PGS_accordion,
-    PGS_dropdown,
-    PGS_menu,
-    PGS_modal,
-    PGS_notification,
-    PGS_slides,
-    PGS_stepTabs,
-    PGS_steps,
-    PGS_formValidate,
-    PGS_scrollHorizontal,
-});
-
 pgs.registerModules({
     accordion: PGS_accordion,
     dropdown: PGS_dropdown,
@@ -36,3 +23,17 @@ pgs.registerModules({
     formValidate: PGS_formValidate,
     scrollHorizontal: PGS_scrollHorizontal,
 });
+
+// pgs.registerImport({
+//     PGS_accordion,
+//     PGS_dropdown,
+//     PGS_menu,
+//     PGS_modal,
+//     PGS_notification,
+//     PGS_slides,
+//     PGS_stepTabs,
+//     PGS_steps,
+//     PGS_formValidate,
+//     PGS_scrollHorizontal,
+// });
+

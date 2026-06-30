@@ -1,3 +1,7 @@
+body{
+    --color-background: light-dark(#f1ffef, #101010);
+}
+
 .primary-menu {
     overflow: auto;
 }
@@ -48,4 +52,18 @@ pre {
 
 [pgs~=buttonBig]{
     max-width: 300px;
+}
+
+#templates-demo-before{
+    position: relative;
+    z-index: 2;
+}
+
+#templates-demo-main{
+    position: relative;
+    z-index: 1;
+}
+
+#templates-demo-after{
+    position: relative;
 }

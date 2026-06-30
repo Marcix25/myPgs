@@ -139,7 +139,6 @@ export function PGS_notificationTrigger_init(root = document) {
 }
 
 export const PGS_notification = {
-    PGS_name: "PGS_notification",
     trigger: PGS_notificationTrigger_init,
     alert: {
         error: (text = "Errore", link = null, timeout = 0, icon = '<i class="fa-solid fa-octagon-xmark"></i>') => fn_notification.initNotification("error", "notification", icon, text, timeout, "stack", link),

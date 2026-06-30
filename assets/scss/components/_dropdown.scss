@@ -1,99 +1,36 @@
-//# DROPDOWN 
+//# DROPDOWN
 [pgs~="dropdown"] {
     --dropdown-position: bottom center;
-    --dropdown-offset: 10px;
-    --dropdown-padding: 10px;
-    --dropdown-maxwidth: min(500px, 50vw);
     --dropdown-background: var(--color-box);
     --dropdown-color: var(--color-black);
-    --dropdown-fallback-top: 0px;
-    --dropdown-fallback-left: 0px;
-    --dropdown-fallback-max-height: none;
-    --dropdown-arrow-size: 12px;
-    --dropdown-arrow-left: 50%;
+    --dropdown-border: var(--border-complete);
+    --dropdown-padding: 1rem;
+    --dropdown-inline-size: max-content;
+    --dropdown-max-inline-size: min(400px, calc(100vw - 16px));
+    --dropdown-left: 0px;
+    --dropdown-top: 0px;
+    --dropdown-display: block;
     position: relative;
-    display: inline-block;
 
-    &[pgs-state~=open] {
-        [pgs~="dropdown-content"] {
-            transition: opacity .3s ease;
-            opacity: 1;
-            pointer-events: auto;
-
-            &::backdrop {
-                background: var(--backdrop);
-            }
-        }
+    &:not([pgs-state~="open"])>[pgs~="dropdown-content"] {
+        display: none;
     }
 
-    //= CONTENT
-    [pgs~="dropdown-content"] {
-        // start view
-        display: flex;
-        opacity: 0;
-        pointer-events: none;
-        // end view
-        transition-behavior: allow-discrete;
-        border: none;
-        border-radius: calc(var(--border-radius-input) + var(--dropdown-padding));
-        box-sizing: border-box;
-        width: max-content;
-        max-width: min(var(--dropdown-maxwidth), calc(100vw - 16px));
-        color: var(--dropdown-color);
-        background: var(--dropdown-background);
-        overflow: initial;
-        z-index: -1;
-        margin-top: var(--dropdown-offset);
+    &[pgs-state~="open"]>[pgs~="dropdown-content"] {
+        display: var(--dropdown-display);
+    }
+
+    >[pgs~="dropdown-content"] {
+        position: fixed;
+        inset: var(--dropdown-top) auto auto var(--dropdown-left);
+        z-index: 1000;
+        inline-size: var(--dropdown-inline-size);
+        max-inline-size: var(--dropdown-max-inline-size);
+        overflow: auto;
         padding: var(--dropdown-padding);
-        @include flexColumn;
-
-        &::before {
-            content: "";
-            position: absolute;
-            top: calc(var(--dropdown-arrow-size) / -2);
-            left: var(--dropdown-arrow-left);
-            width: var(--dropdown-arrow-size);
-            height: var(--dropdown-arrow-size);
-            background: var(--dropdown-background);
-            transform: translateX(-50%) rotate(45deg);
-            pointer-events: none;
-            z-index: 0;
-        }
-    }
-
-    //-(LEGACY (default fallback)
-    @supports not ((anchor-name: var(--dropdown-anchor)) and (position-anchor: var(--dropdown-anchor)) and (position-area: bottom) and (top: anchor(bottom))) {
-        [pgs~="dropdown-content"] {
-            position: fixed;
-            inset: auto;
-            top: var(--dropdown-fallback-top);
-            left: var(--dropdown-fallback-left);
-            right: auto;
-            max-height: var(--dropdown-fallback-max-height);
-            overflow: visible;
-        }
-    }
-
-    //+( MODERN (Anchor Positioning)
-    @supports (anchor-name: var(--dropdown-anchor)) and (position-anchor: var(--dropdown-anchor)) and (position-area: bottom) and (top: anchor(bottom)) {
-        [pgs~="dropdown-button"] {
-            anchor-name: var(--dropdown-anchor);
-        }
-
-        [pgs~="dropdown-content"] {
-            position: fixed;
-            position-anchor: var(--dropdown-anchor);
-            inset: auto;
-            top: 0;
-            right: 0;
-
-            @supports (top: anchor(bottom)) {
-                top: anchor(bottom);
-            }
-
-            @supports (position-area: bottom) {
-                position-area: var(--dropdown-position);
-            }
-        }
+        border: var(--dropdown-border);
+        border-radius: calc(var(--border-radius-input) + var(--dropdown-padding));
+        background: var(--dropdown-background);
+        color: var(--dropdown-color);
     }
 }

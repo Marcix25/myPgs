@@ -101,23 +101,28 @@
   --color-error-background: color-mix(in srgb, var(--color-error) 20%, var(--color-white) 80%);
 }
 
-* {
+[pgs~=htmlBase] {
+  scroll-behavior: smooth;
+  font-size: 62.5%;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   scroll-margin-top: calc(var(--heightOfHeader) + 5vh);
 }
-
-:root {
+[pgs~=htmlBase] * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-margin-top: calc(var(--heightOfHeader) + 5vh);
+}
+[pgs~=htmlBase]:root,
+[pgs~=htmlBase] :root {
   interpolate-size: allow-keywords;
 }
-
 @view-transition {
-  navigation: auto;
-}
-[pgs~=htmlBase] {
-  scroll-behavior: smooth;
-  font-size: 62.5%;
+  [pgs~=htmlBase] {
+    navigation: auto;
+  }
 }
 
 [pgs~=bodyBase] {
@@ -729,68 +734,6 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   isolation: isolate;
   padding-block: var(--page-top);
   width: 100%;
-}
-[pgs~=initP] [pgs~=aside] {
-  display: flex;
-  gap: var(--gap-texts);
-  flex-direction: column;
-  align-items: flex-start;
-  isolation: isolate;
-  border-radius: var(--border-radius);
-  width: 100%;
-}
-[pgs~=initP] [pgs~=aside] > * {
-  width: 100%;
-}
-@media (min-width: 800px) {
-  body:has(header[data-header-scroll=true]) [pgs~=initP] [pgs~=aside] {
-    top: 10svh !important;
-  }
-}
-
-@media (min-width: 800px) {
-  [pgs~=initP] [pgs~=aside] {
-    max-width: var(--aside-width, 400px);
-  }
-}
-@media (max-width: 800px) {
-  [pgs~=initP] [pgs~=aside] {
-    position: static;
-  }
-}
-[pgs~=initP] [pgs~=containerAside] {
-  --aside-width: 400px;
-  width: 100%;
-  max-width: calc(var(--section-width) + var(--aside-width));
-}
-@media (min-width: 800px) {
-  [pgs~=initP] [pgs~=containerAside] {
-    padding-inline: var(--padding-page);
-    margin-inline: auto;
-    display: flex;
-    gap: var(--gap-elements);
-    flex-direction: row;
-    flex-wrap: wrap;
-    flex-wrap: nowrap;
-  }
-}
-@media (max-width: 800px) {
-  [pgs~=initP] [pgs~=containerAside] {
-    display: flex;
-    gap: var(--gap-elements);
-    flex-direction: column;
-    padding-inline: var(--padding-page);
-  }
-}
-[pgs~=initP] [pgs~=sectionAside] {
-  --section-width: var(--page-width);
-  margin-inline: auto;
-  max-width: var(--section-width);
-  width: 100%;
-  display: flex;
-  position: relative;
-  gap: var(--gap-texts);
-  flex-direction: column;
 }
 [pgs~=initP] [pgs~=sectionNoPadding] {
   --section-width: var(--page-width);
@@ -2289,54 +2232,28 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=initP] [pgs~=pageShell] {
-  --pageShell-aside-left-width: 400px;
-  --pageShell-aside-right-width: 400px;
-  --pageShell-aside-width-total: 0px;
-  --pageShell-content-min-width: 500px;
-  --pageShell-content-max-width: var(--page-width);
+  --pageShell-aside-sticky-top: 0;
+  --pageShell-asideLeft-width: 300px;
+  --pageShell-asideRight-width: 300px;
+  --pageShell-content-width: 500px;
   --pageShell-gap: var(--gap-elements);
-  --pageShell-aside-sticky-top: 10svh;
-  --pageShell-aside-sticky-bottom: var(--pageShell-gap);
-  --pageShell-aside-count: 0;
-  --pageShell-gap-count: 0;
-  --pageShell-max-width: calc(var(--pageShell-content-max-width) + var(--pageShell-aside-width-total) + (var(--pageShell-gap) * var(--pageShell-gap-count)));
-  display: grid;
-  grid-template-columns: minmax(0, var(--pageShell-content-max-width));
-  grid-template-areas: "content";
+  display: flex;
+  flex-wrap: wrap;
   gap: var(--pageShell-gap);
-  padding-inline: var(--padding-page);
   margin-inline: auto;
   align-items: start;
   justify-content: center;
   width: 100%;
-  max-width: calc(var(--pageShell-max-width) + var(--padding-page) * 2);
-}
-[pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]) {
-  --pageShell-aside-width-total: var(--pageShell-aside-left-width);
-  --pageShell-aside-count: 1;
-  --pageShell-gap-count: 1;
-  grid-template-columns: var(--pageShell-aside-left-width) minmax(var(--pageShell-content-min-width), var(--pageShell-content-max-width));
-  grid-template-areas: "aside-left content";
-}
-[pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideRight]) {
-  --pageShell-aside-width-total: var(--pageShell-aside-right-width);
-  --pageShell-aside-count: 1;
-  --pageShell-gap-count: 1;
-  grid-template-columns: minmax(var(--pageShell-content-min-width), var(--pageShell-content-max-width)) var(--pageShell-aside-right-width);
-  grid-template-areas: "content aside-right";
-}
-[pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]):has(> [pgs~=pageShell-asideRight]) {
-  --pageShell-aside-width-total: calc(var(--pageShell-aside-left-width) + var(--pageShell-aside-right-width));
-  --pageShell-aside-count: 2;
-  --pageShell-gap-count: 2;
-  grid-template-columns: var(--pageShell-aside-left-width) minmax(var(--pageShell-content-min-width), var(--pageShell-content-max-width)) var(--pageShell-aside-right-width);
-  grid-template-areas: "aside-left content aside-right";
+  max-width: calc(var(--page-width) + var(--padding-page) * 2);
+  padding-bottom: var(--page-top);
+  padding-inline: var(--padding-page);
 }
 [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-content] {
-  grid-area: content;
-  width: 100%;
-  min-width: 0;
-  padding-block: var(--page-top);
+  flex: 999 1 var(--pageShell-content-width);
+  min-width: min(100%, var(--pageShell-content-width));
+  width: min(100%, var(--page-width));
+  max-width: var(--page-width);
+  padding-top: var(--page-top);
 }
 [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideLeft],
 [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideRight] {
@@ -2346,15 +2263,14 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   align-items: flex-start;
   isolation: isolate;
   position: sticky;
-  top: 0;
+  top: var(--pageShell-aside-sticky-top);
   width: 100%;
   max-height: 100svh;
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-gutter: stable;
   scrollbar-width: none;
-  padding-block: var(--page-top);
-  padding-bottom: var(--padding-2);
+  padding-top: var(--page-top);
 }
 [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideLeft]::-webkit-scrollbar,
 [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideRight]::-webkit-scrollbar {
@@ -2364,64 +2280,64 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideRight] > * {
   width: 100%;
 }
-[pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideLeft] {
-  grid-area: aside-left;
-  max-width: var(--pageShell-aside-left-width);
+[pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideLeft]:is([pgs~=pageShell-asideLeft]),
+[pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideRight]:is([pgs~=pageShell-asideLeft]) {
+  flex: 1 1 var(--pageShell-asideLeft-width);
+  min-width: min(100%, var(--pageShell-asideLeft-width));
+  max-width: var(--pageShell-asideLeft-width);
 }
-[pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideRight] {
-  grid-area: aside-right;
-  max-width: var(--pageShell-aside-right-width);
+[pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideLeft]:is([pgs~=pageShell-asideRight]),
+[pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideRight]:is([pgs~=pageShell-asideRight]) {
+  flex: 1 1 var(--pageShell-asideRight-width);
+  min-width: min(100%, var(--pageShell-asideRight-width));
+  max-width: var(--pageShell-asideRight-width);
 }
-@media (max-width: 1500px) {
-  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]):has(> [pgs~=pageShell-asideRight]) {
-    grid-template-columns: minmax(0, var(--pageShell-content-max-width));
-    grid-template-areas: "aside-left" "content" "aside-right";
+[pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]) {
+  max-width: calc(var(--page-width) + var(--pageShell-asideLeft-width) + var(--pageShell-gap) + var(--padding-page) * 2);
+}
+[pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideRight]) {
+  max-width: calc(var(--page-width) + var(--pageShell-asideRight-width) + var(--pageShell-gap) + var(--padding-page) * 2);
+}
+[pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]):has(> [pgs~=pageShell-asideRight]) {
+  max-width: calc(var(--page-width) + var(--pageShell-asideLeft-width) + var(--pageShell-asideRight-width) + var(--pageShell-gap) * 2 + var(--padding-page) * 2);
+}
+[pgs~=initP] [pgs~=pageShell] {
+  container-type: inline-size;
+}
+@container (max-width: calc(300px + 500px + 4rem)) {
+  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]) [pgs~=pageShell-content] {
+    padding-top: 0;
+    min-width: 100%;
   }
-  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]):has(> [pgs~=pageShell-asideRight]) [pgs~=pageShell-asideLeft],
+}
+@container (max-width: calc(500px + 300px + 4rem)) {
+  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideRight]) [pgs~=pageShell-asideRight] {
+    padding-top: 0;
+    min-width: 100%;
+  }
+}
+@container (max-width: calc(300px + 500px + 300px + (4rem * 2))) {
   [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]):has(> [pgs~=pageShell-asideRight]) [pgs~=pageShell-asideRight] {
-    position: relative;
-    top: auto;
-    max-height: none;
-    max-width: none;
-    overflow: visible;
+    padding-top: 0;
+    min-width: 100%;
   }
 }
-@media (max-width: 1100px) {
-  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]):has(> [pgs~=pageShell-asideRight]) {
-    grid-template-columns: minmax(0, var(--pageShell-content-max-width));
-    grid-template-areas: "aside-left" "content" "aside-right";
-  }
-  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]):not(:has(> [pgs~=pageShell-asideRight])) {
-    grid-template-columns: minmax(0, var(--pageShell-content-max-width));
-    grid-template-areas: "aside-left" "content";
-  }
-  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideRight]):not(:has(> [pgs~=pageShell-asideLeft])) {
-    grid-template-columns: minmax(0, var(--pageShell-content-max-width));
-    grid-template-areas: "content" "aside-right";
-  }
-  [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideLeft],
-  [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideRight] {
-    position: relative;
-    top: auto;
-    max-height: none;
-    max-width: none;
-    overflow: visible;
+@container (max-width: calc(300px + 500px + 4rem)) {
+  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]):has(> [pgs~=pageShell-asideRight]) [pgs~=pageShell-content],
+  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]):has(> [pgs~=pageShell-asideRight]) [pgs~=pageShell-asideRight] {
+    padding-top: 0;
+    min-width: 100%;
   }
 }
-@media (max-width: 800px) {
-  [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideLeft],
-  [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideRight],
-  [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-content] {
-    width: 100%;
-    max-width: none;
-    padding-block: unset;
+@container (max-width: 500px) {
+  [pgs~=initP] [pgs~=pageShell] {
+    padding-top: var(--page-top);
   }
+  [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-content],
   [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideLeft],
   [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideRight] {
-    position: relative;
-    top: auto;
-    max-height: none;
-    overflow: visible;
+    padding-top: 0;
+    min-width: 100% !important;
   }
 }
 [pgs~=initP] [pgs~=gapTexts] {
@@ -2435,6 +2351,9 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 }
 [pgs~=initP] [pgs~=nowrap] {
   flex-wrap: nowrap;
+}
+[pgs~=initP] [pgs~=wrap] {
+  flex-wrap: wrap;
 }
 
 /*
@@ -4687,9 +4606,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=initP] [pgs~=form] input[disabled],
 [pgs~=initP] [pgs~=form] input[disabled]:is([type=checkbox], [type=radio]) + label,
 [pgs~=initP] [pgs~=form] label:has(+ input[disabled]:not([type=checkbox], [type=radio])),
-[pgs~=initP] [pgs~=form] label:has(+ :is(textarea[disabled], select[disabled])),
-[pgs~=initP] [pgs~=form] label.disabled,
-[pgs~=initP] [pgs~=form] .disabled {
+[pgs~=initP] [pgs~=form] label:has(+ :is(textarea[disabled], select[disabled])) {
   opacity: 0.5;
   cursor: not-allowed !important;
 }
@@ -4825,17 +4742,18 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=initP] [pgs~=formError][data-form-status=error] fieldset:has(input[type=radio][data-form-field-status=error]) legend {
   --label-background: var(--color-error) !important;
 }
-[pgs~=initP] [pgs~=menuHorizontal] > ul {
+[pgs~=initP] [pgs~=menu] ul {
   display: flex;
   font-weight: 600;
   align-items: center;
-  flex-direction: row;
   column-gap: var(--gap-texts);
   row-gap: 1rem;
-  isolation: isolate;
   flex-wrap: nowrap;
 }
-[pgs~=initP] [pgs~=menuHorizontal] > ul > li > a {
+[pgs~=initP] [pgs~=menu] ul ul {
+  display: none;
+}
+[pgs~=initP] [pgs~=menu] ul > li > a {
   flex-grow: 1;
   min-width: fit-content;
   --button-border: var(--border-complete);
@@ -4849,29 +4767,29 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   --fa-size: var(--button-icon-size);
 }
 @supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=menuHorizontal] > ul > li > a {
+  [pgs~=initP] [pgs~=menu] ul > li > a {
     --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
   }
 }
 @supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=menuHorizontal] > ul > li > a {
+  [pgs~=initP] [pgs~=menu] ul > li > a {
     --button-color: var(--color-black);
   }
 }
-[pgs~=initP] [pgs~=menuHorizontal] > ul > li > a {
+[pgs~=initP] [pgs~=menu] ul > li > a {
   --button-background: var(--color-box);
   color: var(--button-color);
   background: var(--button-background);
 }
-[pgs~=initP] [pgs~=menuHorizontal] > ul > li > a:is(a) {
+[pgs~=initP] [pgs~=menu] ul > li > a:is(a) {
   color: var(--button-color);
 }
-[pgs~=initP] [pgs~=menuHorizontal] > ul > li > a i {
+[pgs~=initP] [pgs~=menu] ul > li > a i {
   color: var(--button-color);
   --fa-primary-color: var(--button-color);
   --fa-secondary-color: var(--button-color);
 }
-[pgs~=initP] [pgs~=menuHorizontal] > ul > li > a {
+[pgs~=initP] [pgs~=menu] ul > li > a {
   font-family: var(--font);
   font-size: 1.6rem;
   font-weight: 600;
@@ -4890,910 +4808,165 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   width: max-content;
   margin-block: auto;
 }
-[pgs~=initP] [pgs~=menuHorizontal] > ul > li > a:has(i) {
+[pgs~=initP] [pgs~=menu] ul > li > a:has(i) {
   --button-padding-right: calc(var(--button-size) * 2);
   --button-padding-left: calc(var(--button-size) * 1.5);
 }
-[pgs~=initP] [pgs~=menuHorizontal] > ul > li > a[pgs-option~=buttonReverse]:has(i) {
+[pgs~=initP] [pgs~=menu] ul > li > a[pgs-option~=buttonReverse]:has(i) {
   --button-padding-right: calc(var(--button-size) * 1.5);
   --button-padding-left: calc(var(--button-size) * 2);
 }
-[pgs~=initP] [pgs~=menuHorizontal] > ul > li > a {
+[pgs~=initP] [pgs~=menu] ul > li > a {
   transition: all 200ms;
   cursor: pointer;
   text-decoration: none;
 }
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=initP] [pgs~=menuHorizontal] > ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menuHorizontal] > ul > li > a:not(:disabled):hover {
+  [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):hover {
     box-shadow: -0.25rem 0.25rem 0px var(--color-black);
     transform: translate(0.25rem, -0.25rem);
   }
   @supports (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=menuHorizontal] > ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menuHorizontal] > ul > li > a:not(:disabled):hover {
+    [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):hover {
       --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
     }
   }
   @supports not (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=menuHorizontal] > ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menuHorizontal] > ul > li > a:not(:disabled):hover {
+    [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):hover {
       --button-color-hover: var(--color-black);
     }
   }
-  [pgs~=initP] [pgs~=menuHorizontal] > ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menuHorizontal] > ul > li > a:not(:disabled):hover {
+  [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):hover {
     --button-background-hover: var(--color-primary-soft);
     color: var(--button-color-hover);
     background: var(--button-background-hover);
   }
-  [pgs~=initP] [pgs~=menuHorizontal] > ul > li > a:not(:disabled):focus-visible:is(a), [pgs~=initP] [pgs~=menuHorizontal] > ul > li > a:not(:disabled):hover:is(a) {
+  [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):focus-visible:is(a), [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):hover:is(a) {
     color: var(--button-color-hover);
   }
-  [pgs~=initP] [pgs~=menuHorizontal] > ul > li > a:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=menuHorizontal] > ul > li > a:not(:disabled):hover i {
+  [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):hover i {
     color: var(--button-color-hover);
     --fa-primary-color: var(--button-color-hover);
     --fa-secondary-color: var(--button-color-hover);
   }
-  [pgs~=initP] [pgs~=menuHorizontal] > ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menuHorizontal] > ul > li > a:not(:disabled):hover {
+  [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):hover {
     outline-color: transparent;
   }
-  [pgs~=initP] [pgs~=menuHorizontal] > ul > li > a:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=menuHorizontal] > ul > li > a:not(:disabled):hover i {
+  [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):hover i {
     --fa-secondary-opacity: 0.5;
   }
 }
-[pgs~=initP] [pgs~=menuHorizontal] > ul > li > a:is(a):hover {
+[pgs~=initP] [pgs~=menu] ul > li > a:is(a):hover {
   text-decoration: none;
 }
-[pgs~=initP] [pgs~=menuHorizontal] > ul > li > a:active {
+[pgs~=initP] [pgs~=menu] ul > li > a:active {
   box-shadow: 0 0 0 var(--color-black);
   transform: translate(0, 0);
 }
 @supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=menuHorizontal] > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
+  [pgs~=initP] [pgs~=menu] ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
     --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
   }
 }
 @supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=menuHorizontal] > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
+  [pgs~=initP] [pgs~=menu] ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
     --button-color-current: var(--color-whiteFixed);
   }
 }
-[pgs~=initP] [pgs~=menuHorizontal] > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
+[pgs~=initP] [pgs~=menu] ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
   --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
 }
-[pgs~=initP] [pgs~=menuHorizontal] > ul > li > a[aria-current=page]:not(:hover, :focus-visible):is(a) {
+[pgs~=initP] [pgs~=menu] ul > li > a[aria-current=page]:not(:hover, :focus-visible):is(a) {
   color: var(--button-color-current);
 }
-[pgs~=initP] [pgs~=menuHorizontal] > ul > li > a[aria-current=page]:not(:hover, :focus-visible) i {
+[pgs~=initP] [pgs~=menu] ul > li > a[aria-current=page]:not(:hover, :focus-visible) i {
   color: var(--button-color-current);
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
 }
-[pgs~=initP] [pgs~=menuHorizontal] > ul > li > a:disabled {
+[pgs~=initP] [pgs~=menu] ul > li > a:disabled {
   opacity: 0.2;
   cursor: not-allowed;
 }
-[pgs~=initP] [pgs~=menuHorizontal] > ul > li > a {
-  --button-size: 1.2rem;
-  --button-border: unset;
-  overflow-wrap: break-word;
-  height: calc(var(--button-size) * 4);
-}
-[pgs~=initP] [pgs~=menuHorizontal] > ul > li > a span {
+[pgs~=initP] [pgs~=menu] ul > li > a > span {
   line-height: 1.6;
   flex-grow: 1;
 }
-[pgs~=initP] [pgs~=menuHorizontal] ul > li > a {
-  width: max-content;
+[pgs~=initP] [pgs~=menu] ul > li li {
+  width: -webkit-fill-available;
 }
-[pgs~=initP] [pgs~=menuHorizontal] ul > li.menu-item-has-children {
-  display: flex;
-  gap: 0.2rem;
-  flex-wrap: nowrap;
-  isolation: isolate;
-}
-[pgs~=initP] [pgs~=menuHorizontal] ul > li.menu-item-has-children > a {
-  border-radius: var(--border-radius-input);
-}
-[pgs~=initP] [pgs~=menuHorizontal] ul > li.menu-item-has-children ul.sub-menu:not([popover]) {
-  display: none;
-}
-[pgs~=initP] [pgs~=menuHorizontal] ul > li.menu-item-has-children ul.sub-menu:not([popover]) li a {
-  min-width: 100% !important;
-}
-[pgs~=initP] [pgs~=menuHorizontal] ul > li.menu-item-has-children ul.sub-menu[pgs-state~=open] {
-  display: flex;
-}
-[pgs~=initP] [pgs~=menuHorizontal] ul > li.menu-item-has-children button.icon-down {
+[pgs~=initP] [pgs~=menu] [pgs~=menu-buttonIcon] {
   --button-size: 0.9rem;
   margin-right: -15px;
   margin-block: auto;
-  scale: 0.9;
-  height: min-content;
+  width: 40px;
+  aspect-ratio: 1;
+  padding: 0;
+  justify-content: center;
   cursor: pointer;
   translate: -15px;
-  z-index: -1;
 }
-[pgs~=initP] [pgs~=menuHorizontal] ul > li.menu-item-has-children button.icon-down[aria-expanded=true] span {
+[pgs~=initP] [pgs~=menu] [pgs~=menu-buttonIcon][aria-expanded=true] span {
   rotate: 180deg;
 }
-[pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul {
-  display: flex;
-  font-weight: 600;
-  align-items: center;
-  flex-direction: column;
-  column-gap: var(--gap-texts);
-  row-gap: 1rem;
-  isolation: isolate;
-  flex-wrap: nowrap;
-}
-[pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a {
-  flex-grow: 1;
-  min-width: fit-content;
-  --button-border: var(--border-complete);
-  --button-size: 1.5rem;
-  --button-icon-size: 2.0rem;
-  --button-padding-block: var(--button-size);
-  --button-padding-left: calc(var(--button-size) * 2);
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
-  --fa-secondary-opacity: 0.5;
-  --fa-size: var(--button-icon-size);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a {
-    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a {
-    --button-color: var(--color-black);
-  }
-}
-[pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a {
-  --button-background: var(--color-box);
-  color: var(--button-color);
-  background: var(--button-background);
-}
-[pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:is(a) {
-  color: var(--button-color);
-}
-[pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a i {
-  color: var(--button-color);
-  --fa-primary-color: var(--button-color);
-  --fa-secondary-color: var(--button-color);
-}
-[pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a {
-  font-family: var(--font);
-  font-size: 1.6rem;
-  font-weight: 600;
-  text-decoration: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
-  border: none;
-  outline: var(--button-border);
-  border-radius: var(--border-radius-input);
-  display: flex;
-  gap: calc(var(--button-size) / 1.5);
-  align-items: center;
-  padding: var(--button-padding);
-  height: max-content;
-  width: max-content;
-  margin-block: auto;
-}
-[pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:has(i) {
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.5);
-}
-[pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a[pgs-option~=buttonReverse]:has(i) {
-  --button-padding-right: calc(var(--button-size) * 1.5);
-  --button-padding-left: calc(var(--button-size) * 2);
-}
-[pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a {
-  transition: all 200ms;
-  cursor: pointer;
-  text-decoration: none;
-}
-@media (hover: hover) and (pointer: fine) {
-  [pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:not(:disabled):hover {
-    box-shadow: -0.25rem 0.25rem 0px var(--color-black);
-    transform: translate(0.25rem, -0.25rem);
-  }
-  @supports (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:not(:disabled):hover {
-      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
-    }
-  }
-  @supports not (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:not(:disabled):hover {
-      --button-color-hover: var(--color-black);
-    }
-  }
-  [pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:not(:disabled):hover {
-    --button-background-hover: var(--color-primary-soft);
-    color: var(--button-color-hover);
-    background: var(--button-background-hover);
-  }
-  [pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:not(:disabled):focus-visible:is(a), [pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:not(:disabled):hover:is(a) {
-    color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:not(:disabled):hover i {
-    color: var(--button-color-hover);
-    --fa-primary-color: var(--button-color-hover);
-    --fa-secondary-color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:not(:disabled):hover {
-    outline-color: transparent;
-  }
-  [pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:not(:disabled):hover i {
-    --fa-secondary-opacity: 0.5;
-  }
-}
-[pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:is(a):hover {
-  text-decoration: none;
-}
-[pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:active {
-  box-shadow: 0 0 0 var(--color-black);
-  transform: translate(0, 0);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: var(--color-whiteFixed);
-  }
-}
-[pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
-  --button-background-current: var(--color-primary);
-  color: var(--button-color-current);
-  background: var(--button-background-current);
-}
-[pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a[aria-current=page]:not(:hover, :focus-visible):is(a) {
-  color: var(--button-color-current);
-}
-[pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a[aria-current=page]:not(:hover, :focus-visible) i {
-  color: var(--button-color-current);
-  --fa-primary-color: var(--button-color-current);
-  --fa-secondary-color: var(--button-color-current);
-}
-[pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
-}
-[pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a {
-  --button-size: 1.2rem;
-  --button-border: unset;
-  overflow-wrap: break-word;
-  height: calc(var(--button-size) * 4);
-}
-[pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children > ul > li > a span {
-  line-height: 1.6;
-  flex-grow: 1;
-}
-[pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children ul li {
-  width: -webkit-fill-available;
-}
-[pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children ul li > a {
-  width: 100%;
-  padding: 1.5rem;
-  --button-background: transaprent;
-}
-[pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children ul > li:has(ul.sub-menu) {
-  display: flex;
-  gap: var(--gap-texts);
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-}
-[pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children ul > li:has(ul.sub-menu) button.icon-down {
-  --button-background: var(--color-boxDark);
-  --button-color: var(--color-white);
-  max-height: max-content;
-  justify-content: center;
-}
-[pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children ul > li:has(ul.sub-menu) button.icon-down span {
+[pgs~=initP] [pgs~=menu] [pgs~=menu-buttonIcon] span {
   transition: all 300ms;
 }
-[pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children ul > li:has(ul.sub-menu) button.icon-down[aria-expanded=true] span {
-  rotate: 180deg;
-}
-[pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children ul > li:has(ul.sub-menu) a {
-  max-width: calc(90% - var(--gap-texts));
-}
-[pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children ul > li:has(ul.sub-menu) > ul {
-  flex-basis: 100%;
-}
-[pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children ul > li:has(ul.sub-menu) > ul.sub-menu:not([pgs-state~=open]) {
-  display: none;
-}
-[pgs~=initP] [pgs~=menuHorizontal] li.menu-item-has-children ul > li:has(ul.sub-menu) > ul.sub-menu[pgs-state~=open] {
-  padding-left: 2rem;
-  margin-left: 2rem;
-  border-left: solid 2px var(--color-gray);
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul {
-  display: flex;
-  font-weight: 600;
-  align-items: center;
+[pgs~=initP] [pgs~=menu][pgs-option~=horizontal] > ul {
   flex-direction: row;
-  column-gap: var(--gap-texts);
-  row-gap: 1rem;
-  isolation: isolate;
-  flex-wrap: nowrap;
 }
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a {
-  flex-grow: 1;
-  min-width: fit-content;
-  --button-border: var(--border-complete);
-  --button-size: 1.5rem;
-  --button-icon-size: 2.0rem;
-  --button-padding-block: var(--button-size);
-  --button-padding-left: calc(var(--button-size) * 2);
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
-  --fa-secondary-opacity: 0.5;
-  --fa-size: var(--button-icon-size);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a {
-    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a {
-    --button-color: var(--color-black);
-  }
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a {
-  --button-background: var(--color-box);
-  color: var(--button-color);
-  background: var(--button-background);
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a:is(a) {
-  color: var(--button-color);
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a i {
-  color: var(--button-color);
-  --fa-primary-color: var(--button-color);
-  --fa-secondary-color: var(--button-color);
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a {
-  font-family: var(--font);
-  font-size: 1.6rem;
-  font-weight: 600;
-  text-decoration: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
-  border: none;
-  outline: var(--button-border);
-  border-radius: var(--border-radius-input);
-  display: flex;
-  gap: calc(var(--button-size) / 1.5);
-  align-items: center;
-  padding: var(--button-padding);
-  height: max-content;
-  width: max-content;
-  margin-block: auto;
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a:has(i) {
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.5);
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a[pgs-option~=buttonReverse]:has(i) {
-  --button-padding-right: calc(var(--button-size) * 1.5);
-  --button-padding-left: calc(var(--button-size) * 2);
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a {
-  transition: all 200ms;
-  cursor: pointer;
-  text-decoration: none;
-}
-@media (hover: hover) and (pointer: fine) {
-  [pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a:not(:disabled):hover {
-    box-shadow: -0.25rem 0.25rem 0px var(--color-black);
-    transform: translate(0.25rem, -0.25rem);
-  }
-  @supports (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a:not(:disabled):hover {
-      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
-    }
-  }
-  @supports not (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a:not(:disabled):hover {
-      --button-color-hover: var(--color-black);
-    }
-  }
-  [pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a:not(:disabled):hover {
-    --button-background-hover: var(--color-primary-soft);
-    color: var(--button-color-hover);
-    background: var(--button-background-hover);
-  }
-  [pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a:not(:disabled):focus-visible:is(a), [pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a:not(:disabled):hover:is(a) {
-    color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a:not(:disabled):hover i {
-    color: var(--button-color-hover);
-    --fa-primary-color: var(--button-color-hover);
-    --fa-secondary-color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a:not(:disabled):hover {
-    outline-color: transparent;
-  }
-  [pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a:not(:disabled):hover i {
-    --fa-secondary-opacity: 0.5;
-  }
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a:is(a):hover {
-  text-decoration: none;
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a:active {
-  box-shadow: 0 0 0 var(--color-black);
-  transform: translate(0, 0);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: var(--color-whiteFixed);
-  }
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
-  --button-background-current: var(--color-primary);
-  color: var(--button-color-current);
-  background: var(--button-background-current);
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a[aria-current=page]:not(:hover, :focus-visible):is(a) {
-  color: var(--button-color-current);
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a[aria-current=page]:not(:hover, :focus-visible) i {
-  color: var(--button-color-current);
-  --fa-primary-color: var(--button-color-current);
-  --fa-secondary-color: var(--button-color-current);
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] > ul > li > a span {
-  line-height: 1.6;
-  flex-grow: 1;
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] ul > li > a {
+[pgs~=initP] [pgs~=menu][pgs-option~=horizontal] > ul > li > a {
   width: max-content;
 }
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] ul > li.menu-item-has-children {
+[pgs~=initP] [pgs~=menu][pgs-option~=horizontal] > ul > li:has(ul) {
+  --dropdown-display: flex;
   display: flex;
   gap: 0.2rem;
   flex-wrap: nowrap;
-  isolation: isolate;
 }
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] ul > li.menu-item-has-children > a {
+[pgs~=initP] [pgs~=menu][pgs-option~=horizontal] > ul > li:has(ul) > a {
   border-radius: var(--border-radius-input);
 }
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] ul > li.menu-item-has-children ul.sub-menu:not([popover]) {
-  display: none;
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] ul > li.menu-item-has-children ul.sub-menu:not([popover]) li a {
+[pgs~=initP] [pgs~=menu][pgs-option~=horizontal] > ul > li:has(ul) ul li a {
   min-width: 100% !important;
 }
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] ul > li.menu-item-has-children ul.sub-menu[pgs-state~=open] {
+[pgs~=initP] [pgs~=menu][pgs-option~=horizontal] > ul > li:has(ul)[pgs-state~=open] > ul {
   display: flex;
 }
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] ul > li.menu-item-has-children button.icon-down {
-  --button-size: 0.9rem;
-  margin-right: -15px;
-  margin-block: auto;
-  scale: 0.9;
-  height: min-content;
-  cursor: pointer;
-  translate: -15px;
-  z-index: -1;
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] ul > li.menu-item-has-children button.icon-down[aria-expanded=true] span {
-  rotate: 180deg;
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul {
-  display: flex;
-  font-weight: 600;
-  align-items: center;
+[pgs~=initP] [pgs~=menu] ul :is(ul), [pgs~=initP] [pgs~=menu][pgs-option~=vertical] :is(ul), [pgs~=initP] [pgs~=menu]:not([pgs-option~=horizontal]) :is(ul) {
   flex-direction: column;
-  column-gap: var(--gap-texts);
-  row-gap: 1rem;
-  isolation: isolate;
-  flex-wrap: nowrap;
 }
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a {
-  flex-grow: 1;
-  min-width: fit-content;
-  --button-border: var(--border-complete);
-  --button-size: 1.5rem;
-  --button-icon-size: 2.0rem;
-  --button-padding-block: var(--button-size);
-  --button-padding-left: calc(var(--button-size) * 2);
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
-  --fa-secondary-opacity: 0.5;
-  --fa-size: var(--button-icon-size);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a {
-    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a {
-    --button-color: var(--color-black);
-  }
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a {
-  --button-background: var(--color-box);
-  color: var(--button-color);
-  background: var(--button-background);
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:is(a) {
-  color: var(--button-color);
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a i {
-  color: var(--button-color);
-  --fa-primary-color: var(--button-color);
-  --fa-secondary-color: var(--button-color);
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a {
-  font-family: var(--font);
-  font-size: 1.6rem;
-  font-weight: 600;
-  text-decoration: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
-  border: none;
-  outline: var(--button-border);
-  border-radius: var(--border-radius-input);
-  display: flex;
-  gap: calc(var(--button-size) / 1.5);
-  align-items: center;
-  padding: var(--button-padding);
-  height: max-content;
-  width: max-content;
-  margin-block: auto;
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:has(i) {
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.5);
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a[pgs-option~=buttonReverse]:has(i) {
-  --button-padding-right: calc(var(--button-size) * 1.5);
-  --button-padding-left: calc(var(--button-size) * 2);
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a {
-  transition: all 200ms;
-  cursor: pointer;
-  text-decoration: none;
-}
-@media (hover: hover) and (pointer: fine) {
-  [pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:not(:disabled):hover {
-    box-shadow: -0.25rem 0.25rem 0px var(--color-black);
-    transform: translate(0.25rem, -0.25rem);
-  }
-  @supports (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:not(:disabled):hover {
-      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
-    }
-  }
-  @supports not (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:not(:disabled):hover {
-      --button-color-hover: var(--color-black);
-    }
-  }
-  [pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:not(:disabled):hover {
-    --button-background-hover: var(--color-primary-soft);
-    color: var(--button-color-hover);
-    background: var(--button-background-hover);
-  }
-  [pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:not(:disabled):focus-visible:is(a), [pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:not(:disabled):hover:is(a) {
-    color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:not(:disabled):hover i {
-    color: var(--button-color-hover);
-    --fa-primary-color: var(--button-color-hover);
-    --fa-secondary-color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:not(:disabled):hover {
-    outline-color: transparent;
-  }
-  [pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:not(:disabled):hover i {
-    --fa-secondary-opacity: 0.5;
-  }
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:is(a):hover {
-  text-decoration: none;
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:active {
-  box-shadow: 0 0 0 var(--color-black);
-  transform: translate(0, 0);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: var(--color-whiteFixed);
-  }
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
-  --button-background-current: var(--color-primary);
-  color: var(--button-color-current);
-  background: var(--button-background-current);
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a[aria-current=page]:not(:hover, :focus-visible):is(a) {
-  color: var(--button-color-current);
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a[aria-current=page]:not(:hover, :focus-visible) i {
-  color: var(--button-color-current);
-  --fa-primary-color: var(--button-color-current);
-  --fa-secondary-color: var(--button-color-current);
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a {
-  --button-size: 1.2rem;
-  --button-border: unset;
-  overflow-wrap: break-word;
-  height: calc(var(--button-size) * 4);
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children > ul > li > a span {
-  line-height: 1.6;
-  flex-grow: 1;
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children ul li {
-  width: -webkit-fill-available;
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children ul li > a {
+[pgs~=initP] [pgs~=menu] ul :is(ul) li, [pgs~=initP] [pgs~=menu][pgs-option~=vertical] :is(ul) li, [pgs~=initP] [pgs~=menu]:not([pgs-option~=horizontal]) :is(ul) li {
   width: 100%;
-  padding: 1.5rem;
-  --button-background: transaprent;
 }
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children ul > li:has(ul.sub-menu) {
+[pgs~=initP] [pgs~=menu] ul :is(ul) li > a, [pgs~=initP] [pgs~=menu][pgs-option~=vertical] :is(ul) li > a, [pgs~=initP] [pgs~=menu]:not([pgs-option~=horizontal]) :is(ul) li > a {
+  width: 100%;
+}
+[pgs~=initP] [pgs~=menu] ul :is(ul) > li:has(ul), [pgs~=initP] [pgs~=menu][pgs-option~=vertical] :is(ul) > li:has(ul), [pgs~=initP] [pgs~=menu]:not([pgs-option~=horizontal]) :is(ul) > li:has(ul) {
   display: flex;
   gap: var(--gap-texts);
   flex-direction: row;
   flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
+  position: relative;
 }
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children ul > li:has(ul.sub-menu) button.icon-down {
-  --button-background: var(--color-boxDark);
-  --button-color: var(--color-white);
-  max-height: max-content;
-  justify-content: center;
+[pgs~=initP] [pgs~=menu] ul :is(ul) > li:has(ul) > a, [pgs~=initP] [pgs~=menu][pgs-option~=vertical] :is(ul) > li:has(ul) > a, [pgs~=initP] [pgs~=menu]:not([pgs-option~=horizontal]) :is(ul) > li:has(ul) > a {
+  max-width: calc(100% - var(--gap-texts) - 40px);
 }
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children ul > li:has(ul.sub-menu) button.icon-down span {
-  transition: all 300ms;
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children ul > li:has(ul.sub-menu) button.icon-down[aria-expanded=true] span {
-  rotate: 180deg;
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children ul > li:has(ul.sub-menu) a {
-  max-width: calc(90% - var(--gap-texts));
-}
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children ul > li:has(ul.sub-menu) > ul {
+[pgs~=initP] [pgs~=menu] ul :is(ul) > li:has(ul) > ul, [pgs~=initP] [pgs~=menu][pgs-option~=vertical] :is(ul) > li:has(ul) > ul, [pgs~=initP] [pgs~=menu]:not([pgs-option~=horizontal]) :is(ul) > li:has(ul) > ul {
   flex-basis: 100%;
 }
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children ul > li:has(ul.sub-menu) > ul.sub-menu:not([pgs-state~=open]) {
+[pgs~=initP] [pgs~=menu] ul :is(ul) > li:has(ul):not([pgs-state~=open]) ul, [pgs~=initP] [pgs~=menu][pgs-option~=vertical] :is(ul) > li:has(ul):not([pgs-state~=open]) ul, [pgs~=initP] [pgs~=menu]:not([pgs-option~=horizontal]) :is(ul) > li:has(ul):not([pgs-state~=open]) ul {
   display: none;
 }
-[pgs~=initP] [pgs~=menuHorizontalNotHeader] li.menu-item-has-children ul > li:has(ul.sub-menu) > ul.sub-menu[pgs-state~=open] {
-  padding-left: 2rem;
-  margin-left: 2rem;
-  border-left: solid 2px var(--color-gray);
-}
-[pgs~=initP] [pgs~=menuVertical] > ul {
-  display: flex;
-  font-weight: 600;
-  align-items: center;
-  flex-direction: column;
-  column-gap: var(--gap-texts);
-  row-gap: 1rem;
-  isolation: isolate;
-  flex-wrap: nowrap;
-}
-[pgs~=initP] [pgs~=menuVertical] > ul > li > a {
-  flex-grow: 1;
-  min-width: fit-content;
-  --button-border: var(--border-complete);
-  --button-size: 1.5rem;
-  --button-icon-size: 2.0rem;
-  --button-padding-block: var(--button-size);
-  --button-padding-left: calc(var(--button-size) * 2);
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
-  --fa-secondary-opacity: 0.5;
-  --fa-size: var(--button-icon-size);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=menuVertical] > ul > li > a {
-    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=menuVertical] > ul > li > a {
-    --button-color: var(--color-black);
-  }
-}
-[pgs~=initP] [pgs~=menuVertical] > ul > li > a {
-  --button-background: var(--color-box);
-  color: var(--button-color);
-  background: var(--button-background);
-}
-[pgs~=initP] [pgs~=menuVertical] > ul > li > a:is(a) {
-  color: var(--button-color);
-}
-[pgs~=initP] [pgs~=menuVertical] > ul > li > a i {
-  color: var(--button-color);
-  --fa-primary-color: var(--button-color);
-  --fa-secondary-color: var(--button-color);
-}
-[pgs~=initP] [pgs~=menuVertical] > ul > li > a {
-  font-family: var(--font);
-  font-size: 1.6rem;
-  font-weight: 600;
-  text-decoration: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
-  border: none;
-  outline: var(--button-border);
-  border-radius: var(--border-radius-input);
-  display: flex;
-  gap: calc(var(--button-size) / 1.5);
-  align-items: center;
-  padding: var(--button-padding);
-  height: max-content;
-  width: max-content;
-  margin-block: auto;
-}
-[pgs~=initP] [pgs~=menuVertical] > ul > li > a:has(i) {
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.5);
-}
-[pgs~=initP] [pgs~=menuVertical] > ul > li > a[pgs-option~=buttonReverse]:has(i) {
-  --button-padding-right: calc(var(--button-size) * 1.5);
-  --button-padding-left: calc(var(--button-size) * 2);
-}
-[pgs~=initP] [pgs~=menuVertical] > ul > li > a {
-  transition: all 200ms;
-  cursor: pointer;
-  text-decoration: none;
-}
-@media (hover: hover) and (pointer: fine) {
-  [pgs~=initP] [pgs~=menuVertical] > ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menuVertical] > ul > li > a:not(:disabled):hover {
-    box-shadow: -0.25rem 0.25rem 0px var(--color-black);
-    transform: translate(0.25rem, -0.25rem);
-  }
-  @supports (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=menuVertical] > ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menuVertical] > ul > li > a:not(:disabled):hover {
-      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
-    }
-  }
-  @supports not (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=menuVertical] > ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menuVertical] > ul > li > a:not(:disabled):hover {
-      --button-color-hover: var(--color-black);
-    }
-  }
-  [pgs~=initP] [pgs~=menuVertical] > ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menuVertical] > ul > li > a:not(:disabled):hover {
-    --button-background-hover: var(--color-primary-soft);
-    color: var(--button-color-hover);
-    background: var(--button-background-hover);
-  }
-  [pgs~=initP] [pgs~=menuVertical] > ul > li > a:not(:disabled):focus-visible:is(a), [pgs~=initP] [pgs~=menuVertical] > ul > li > a:not(:disabled):hover:is(a) {
-    color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=menuVertical] > ul > li > a:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=menuVertical] > ul > li > a:not(:disabled):hover i {
-    color: var(--button-color-hover);
-    --fa-primary-color: var(--button-color-hover);
-    --fa-secondary-color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=menuVertical] > ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menuVertical] > ul > li > a:not(:disabled):hover {
-    outline-color: transparent;
-  }
-  [pgs~=initP] [pgs~=menuVertical] > ul > li > a:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=menuVertical] > ul > li > a:not(:disabled):hover i {
-    --fa-secondary-opacity: 0.5;
-  }
-}
-[pgs~=initP] [pgs~=menuVertical] > ul > li > a:is(a):hover {
-  text-decoration: none;
-}
-[pgs~=initP] [pgs~=menuVertical] > ul > li > a:active {
-  box-shadow: 0 0 0 var(--color-black);
-  transform: translate(0, 0);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=menuVertical] > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=menuVertical] > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: var(--color-whiteFixed);
-  }
-}
-[pgs~=initP] [pgs~=menuVertical] > ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
-  --button-background-current: var(--color-primary);
-  color: var(--button-color-current);
-  background: var(--button-background-current);
-}
-[pgs~=initP] [pgs~=menuVertical] > ul > li > a[aria-current=page]:not(:hover, :focus-visible):is(a) {
-  color: var(--button-color-current);
-}
-[pgs~=initP] [pgs~=menuVertical] > ul > li > a[aria-current=page]:not(:hover, :focus-visible) i {
-  color: var(--button-color-current);
-  --fa-primary-color: var(--button-color-current);
-  --fa-secondary-color: var(--button-color-current);
-}
-[pgs~=initP] [pgs~=menuVertical] > ul > li > a:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
-}
-[pgs~=initP] [pgs~=menuVertical] > ul > li > a {
+[pgs~=initP] [pgs~=menu][pgs-option~=menuHeader] > ul > li > a {
   --button-size: 1.2rem;
   --button-border: unset;
   overflow-wrap: break-word;
   height: calc(var(--button-size) * 4);
-}
-[pgs~=initP] [pgs~=menuVertical] > ul > li > a span {
-  line-height: 1.6;
-  flex-grow: 1;
-}
-[pgs~=initP] [pgs~=menuVertical] ul li {
-  width: -webkit-fill-available;
-}
-[pgs~=initP] [pgs~=menuVertical] ul li > a {
-  width: 100%;
-  padding: 1.5rem;
-  --button-background: transaprent;
-}
-[pgs~=initP] [pgs~=menuVertical] ul > li:has(ul.sub-menu) {
-  display: flex;
-  gap: var(--gap-texts);
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-}
-[pgs~=initP] [pgs~=menuVertical] ul > li:has(ul.sub-menu) button.icon-down {
-  --button-background: var(--color-boxDark);
-  --button-color: var(--color-white);
-  max-height: max-content;
-  justify-content: center;
-}
-[pgs~=initP] [pgs~=menuVertical] ul > li:has(ul.sub-menu) button.icon-down span {
-  transition: all 300ms;
-}
-[pgs~=initP] [pgs~=menuVertical] ul > li:has(ul.sub-menu) button.icon-down[aria-expanded=true] span {
-  rotate: 180deg;
-}
-[pgs~=initP] [pgs~=menuVertical] ul > li:has(ul.sub-menu) a {
-  max-width: calc(90% - var(--gap-texts));
-}
-[pgs~=initP] [pgs~=menuVertical] ul > li:has(ul.sub-menu) > ul {
-  flex-basis: 100%;
-}
-[pgs~=initP] [pgs~=menuVertical] ul > li:has(ul.sub-menu) > ul.sub-menu:not([pgs-state~=open]) {
-  display: none;
-}
-[pgs~=initP] [pgs~=menuVertical] ul > li:has(ul.sub-menu) > ul.sub-menu[pgs-state~=open] {
-  padding-left: 2rem;
-  margin-left: 2rem;
-  border-left: solid 2px var(--color-gray);
 }
 [pgs~=initP] [pgs~=menuFooter] ul {
   display: flex;
@@ -6154,91 +5327,35 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 }
 [pgs~=initP] [pgs~=dropdown] {
   --dropdown-position: bottom center;
-  --dropdown-offset: 10px;
-  --dropdown-padding: 10px;
-  --dropdown-maxwidth: min(500px, 50vw);
   --dropdown-background: var(--color-box);
   --dropdown-color: var(--color-black);
-  --dropdown-fallback-top: 0px;
-  --dropdown-fallback-left: 0px;
-  --dropdown-fallback-max-height: none;
-  --dropdown-arrow-size: 12px;
-  --dropdown-arrow-left: 50%;
+  --dropdown-border: var(--border-complete);
+  --dropdown-padding: 1rem;
+  --dropdown-inline-size: max-content;
+  --dropdown-max-inline-size: min(400px, calc(100vw - 16px));
+  --dropdown-left: 0px;
+  --dropdown-top: 0px;
+  --dropdown-display: block;
   position: relative;
-  display: inline-block;
 }
-[pgs~=initP] [pgs~=dropdown][pgs-state~=open] [pgs~=dropdown-content] {
-  transition: opacity 0.3s ease;
-  opacity: 1;
-  pointer-events: auto;
+[pgs~=initP] [pgs~=dropdown]:not([pgs-state~=open]) > [pgs~=dropdown-content] {
+  display: none;
 }
-[pgs~=initP] [pgs~=dropdown][pgs-state~=open] [pgs~=dropdown-content]::backdrop {
-  background: var(--backdrop);
+[pgs~=initP] [pgs~=dropdown][pgs-state~=open] > [pgs~=dropdown-content] {
+  display: var(--dropdown-display);
 }
-[pgs~=initP] [pgs~=dropdown] [pgs~=dropdown-content] {
-  display: flex;
-  opacity: 0;
-  pointer-events: none;
-  transition-behavior: allow-discrete;
-  border: none;
-  border-radius: calc(var(--border-radius-input) + var(--dropdown-padding));
-  box-sizing: border-box;
-  width: max-content;
-  max-width: min(var(--dropdown-maxwidth), 100vw - 16px);
-  color: var(--dropdown-color);
-  background: var(--dropdown-background);
-  overflow: initial;
-  z-index: -1;
-  margin-top: var(--dropdown-offset);
+[pgs~=initP] [pgs~=dropdown] > [pgs~=dropdown-content] {
+  position: fixed;
+  inset: var(--dropdown-top) auto auto var(--dropdown-left);
+  z-index: 1000;
+  inline-size: var(--dropdown-inline-size);
+  max-inline-size: var(--dropdown-max-inline-size);
+  overflow: auto;
   padding: var(--dropdown-padding);
-  display: flex;
-  gap: var(--gap-texts);
-  flex-direction: column;
-}
-[pgs~=initP] [pgs~=dropdown] [pgs~=dropdown-content]::before {
-  content: "";
-  position: absolute;
-  top: calc(var(--dropdown-arrow-size) / -2);
-  left: var(--dropdown-arrow-left);
-  width: var(--dropdown-arrow-size);
-  height: var(--dropdown-arrow-size);
+  border: var(--dropdown-border);
+  border-radius: calc(var(--border-radius-input) + var(--dropdown-padding));
   background: var(--dropdown-background);
-  transform: translateX(-50%) rotate(45deg);
-  pointer-events: none;
-  z-index: 0;
-}
-@supports not ((anchor-name: var(--dropdown-anchor)) and (position-anchor: var(--dropdown-anchor)) and (position-area: bottom) and (top: anchor(bottom))) {
-  [pgs~=initP] [pgs~=dropdown] [pgs~=dropdown-content] {
-    position: fixed;
-    inset: auto;
-    top: var(--dropdown-fallback-top);
-    left: var(--dropdown-fallback-left);
-    right: auto;
-    max-height: var(--dropdown-fallback-max-height);
-    overflow: visible;
-  }
-}
-@supports (anchor-name: var(--dropdown-anchor)) and (position-anchor: var(--dropdown-anchor)) and (position-area: bottom) and (top: anchor(bottom)) {
-  [pgs~=initP] [pgs~=dropdown] [pgs~=dropdown-button] {
-    anchor-name: var(--dropdown-anchor);
-  }
-  [pgs~=initP] [pgs~=dropdown] [pgs~=dropdown-content] {
-    position: fixed;
-    position-anchor: var(--dropdown-anchor);
-    inset: auto;
-    top: 0;
-    right: 0;
-  }
-  @supports (top: anchor(bottom)) {
-    [pgs~=initP] [pgs~=dropdown] [pgs~=dropdown-content] {
-      top: anchor(bottom);
-    }
-  }
-  @supports (position-area: bottom) {
-    [pgs~=initP] [pgs~=dropdown] [pgs~=dropdown-content] {
-      position-area: var(--dropdown-position);
-    }
-  }
+  color: var(--dropdown-color);
 }
 [pgs~=initP] html:has(dialog[open]) {
   overflow: hidden;
@@ -6973,16 +6090,6 @@ body:has(header[data-header-scroll=true]) [pgs~=initP] [pgs~=toast] {
 [pgs~=initP] [pgs~=tooltip][pgs~=dropdown] [pgs~=tooltip-button][pgs~=dropdown-button] {
   --fa-size: .9rem;
 }
-[pgs~=initP] [pgs~=tooltip][pgs~=dropdown] [pgs~=tooltip-content][pgs~=dropdown-content]:popover-open {
-  position: fixed;
-  position-anchor: unset;
-  position-area: unset;
-  inset: auto;
-  top: var(--dropdown-fallback-top);
-  left: var(--dropdown-fallback-left);
-  right: auto;
-  margin-top: 0;
-}
 [pgs~=initP] [pgs~=searchbar] {
   position: relative;
   flex: 1;
@@ -7146,25 +6253,37 @@ dialog [pgs~=initP] [pgs~=searchbar] input {
   gap: 5px;
   justify-content: center;
   aspect-ratio: 1;
+  position: relative;
 }
 [pgs~=initP] [pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button]::before, [pgs~=initP] [pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button]::after {
   content: "";
   width: 20px;
-  height: 0;
-  border: 2px solid var(--header-color);
+  height: 4px;
+  background-color: var(--header-color);
   display: block;
   border-radius: 20px;
   transition: transform 300ms;
   position: relative;
 }
+[pgs~=initP] [pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button]::before {
+  opacity: 0.6;
+}
 [pgs~=initP] [pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button][aria-expanded=true] {
   gap: 0px;
 }
+[pgs~=initP] [pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button][aria-expanded=true]::before, [pgs~=initP] [pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button][aria-expanded=true]::after {
+  position: absolute;
+  inset: 0;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+}
 [pgs~=initP] [pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button][aria-expanded=true]::before {
-  transform: rotate(45deg);
+  transform: rotate(-45deg);
+  opacity: 0.6;
 }
 [pgs~=initP] [pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button][aria-expanded=true]::after {
-  transform: rotate(-45deg) translate(3px, -2px);
+  transform: rotate(45deg);
 }
 [pgs~=initP] [pgs~=header] dialog[pgs~=modal-dialogpopover],
 [pgs~=initP] [pgs~=header] dialog[pgs~=modal-dialog] {
@@ -7199,15 +6318,6 @@ dialog [pgs~=initP] [pgs~=searchbar] input {
   [pgs~=initP] [pgs~=header] [pgs~=header-element] {
     padding-inline: var(--header-padding-block);
   }
-}
-[pgs~=initP] [pgs~=header] .wordpressMyMenu {
-  display: flex;
-  gap: var(--gap-texts);
-}
-[pgs~=initP] [pgs~=header] .wordpressMyMenu a {
-  --button-background: #3a70ac;
-  padding: var(--button-size);
-  max-width: max-content;
 }
 [pgs~=initP] [pgs~=footer] {
   --footer-color: var(--color-whiteFixed);

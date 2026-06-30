@@ -1,59 +1,32 @@
 //# pageShell
+$aside-size: 300px;
+$content-size: 500px;
+$pageShell-test-gap: 4rem;
+
 [pgs~="pageShell"] {
-    --pageShell-aside-left-width: 400px;
-    --pageShell-aside-right-width: 400px;
-    --pageShell-aside-width-total: 0px;
-    --pageShell-content-min-width: 500px;
-    --pageShell-content-max-width: var(--page-width);
+    --pageShell-aside-sticky-top: 0;
+    --pageShell-asideLeft-width: 300px;
+    --pageShell-asideRight-width: 300px;
+    --pageShell-content-width: 500px;
     --pageShell-gap: var(--gap-elements);
-    --pageShell-aside-sticky-top: 10svh;
-    --pageShell-aside-sticky-bottom: var(--pageShell-gap);
-    --pageShell-aside-count: 0;
-    --pageShell-gap-count: 0;
-    --pageShell-max-width: calc(var(--pageShell-content-max-width) + var(--pageShell-aside-width-total) + (var(--pageShell-gap) * var(--pageShell-gap-count)));
-    display: grid;
-    grid-template-columns: minmax(0, var(--pageShell-content-max-width));
-    grid-template-areas: "content";
+    display: flex;
+    flex-wrap: wrap;
     gap: var(--pageShell-gap);
-    padding-inline: var(--padding-page);
     margin-inline: auto;
     align-items: start;
     justify-content: center;
     width: 100%;
-    max-width: calc(var(--pageShell-max-width) + (var(--padding-page) * 2));
-
-    &:has(> [pgs~="pageShell-asideLeft"]) {
-        --pageShell-aside-width-total: var(--pageShell-aside-left-width);
-        --pageShell-aside-count: 1;
-        --pageShell-gap-count: 1;
-        grid-template-columns:
-            var(--pageShell-aside-left-width) minmax(var(--pageShell-content-min-width), var(--pageShell-content-max-width));
-        grid-template-areas: "aside-left content";
-    }
-
-    &:has(> [pgs~="pageShell-asideRight"]) {
-        --pageShell-aside-width-total: var(--pageShell-aside-right-width);
-        --pageShell-aside-count: 1;
-        --pageShell-gap-count: 1;
-        grid-template-columns:
-            minmax(var(--pageShell-content-min-width), var(--pageShell-content-max-width)) var(--pageShell-aside-right-width);
-        grid-template-areas: "content aside-right";
-    }
-
-    &:has(> [pgs~="pageShell-asideLeft"]):has(> [pgs~="pageShell-asideRight"]) {
-        --pageShell-aside-width-total: calc(var(--pageShell-aside-left-width) + var(--pageShell-aside-right-width));
-        --pageShell-aside-count: 2;
-        --pageShell-gap-count: 2;
-        grid-template-columns:
-            var(--pageShell-aside-left-width) minmax(var(--pageShell-content-min-width), var(--pageShell-content-max-width)) var(--pageShell-aside-right-width);
-        grid-template-areas: "aside-left content aside-right";
-    }
+    max-width: calc(var(--page-width) + (var(--padding-page) * 2));
+    padding-bottom: var(--page-top);
+    padding-inline: var(--padding-page);
+    
 
     [pgs~="pageShell-content"] {
-        grid-area: content;
-        width: 100%;
-        min-width: 0;
-        padding-block: var(--page-top);
+        flex: 999 1 var(--pageShell-content-width);
+        min-width: min(100%, var(--pageShell-content-width));
+        width: min(100%, var(--page-width));
+        max-width: var(--page-width);
+        padding-top: var(--page-top);
     }
 
     [pgs~="pageShell-asideLeft"],
@@ -62,16 +35,14 @@
         align-items: flex-start;
         isolation: isolate;
         position: sticky;
-        // top: var(--pageShell-aside-sticky-top);
-        top: 0;
+        top: var(--pageShell-aside-sticky-top);
         width: 100%;
         max-height: 100svh;
         overflow-y: auto;
         overscroll-behavior: contain;
         scrollbar-gutter: stable;
         scrollbar-width: none;
-        padding-block: var(--page-top);
-        padding-bottom: var(--padding-2);
+        padding-top: var(--page-top);
 
         &::-webkit-scrollbar {
             display: none;
@@ -80,87 +51,81 @@
         >* {
             width: 100%;
         }
+
+        &:is([pgs~="pageShell-asideLeft"]) {
+            flex: 1 1 var(--pageShell-asideLeft-width);
+            min-width: min(100%, var(--pageShell-asideLeft-width));
+            max-width: var(--pageShell-asideLeft-width);
+        }
+
+        &:is([pgs~="pageShell-asideRight"]) {
+            flex: 1 1 var(--pageShell-asideRight-width);
+            min-width: min(100%, var(--pageShell-asideRight-width));
+            max-width: var(--pageShell-asideRight-width);
+        }
     }
 
-    [pgs~="pageShell-asideLeft"] {
-        grid-area: aside-left;
-        max-width: var(--pageShell-aside-left-width);
+    &:has(> [pgs~="pageShell-asideLeft"]) {
+        max-width: calc(var(--page-width) + var(--pageShell-asideLeft-width) + var(--pageShell-gap) + (var(--padding-page) * 2));
     }
 
-    [pgs~="pageShell-asideRight"] {
-        grid-area: aside-right;
-        max-width: var(--pageShell-aside-right-width);
+    &:has(> [pgs~="pageShell-asideRight"]) {
+        max-width: calc(var(--page-width) + var(--pageShell-asideRight-width) + var(--pageShell-gap) + (var(--padding-page) * 2));
     }
 
-    @media (max-width: 1500px) {
-        &:has(> [pgs~="pageShell-asideLeft"]):has(> [pgs~="pageShell-asideRight"]) {
-            grid-template-columns: minmax(0, var(--pageShell-content-max-width));
-            grid-template-areas:
-                "aside-left"
-                "content"
-                "aside-right";
+    &:has(> [pgs~="pageShell-asideLeft"]):has(> [pgs~="pageShell-asideRight"]) {
+        max-width: calc(var(--page-width) + var(--pageShell-asideLeft-width) + var(--pageShell-asideRight-width) + (var(--pageShell-gap) * 2) + (var(--padding-page) * 2));
+    }
+}
 
-            [pgs~="pageShell-asideLeft"],
-            [pgs~="pageShell-asideRight"] {
-                position: relative;
-                top: auto;
-                max-height: none;
-                max-width: none;
-                overflow: visible;
+[pgs~="pageShell"] {
+    container-type: inline-size;
+
+    // Test: padding-top solo sugli elementi che restano nella prima riga.
+    &:has(> [pgs~="pageShell-asideLeft"]) {
+        @container (max-width: calc(#{$aside-size} + #{$content-size} + #{$pageShell-test-gap})) {
+            [pgs~="pageShell-content"] {
+                padding-top: 0;
+                min-width: 100%;
             }
         }
     }
 
-    //- laptop 
-    @media (max-width: $laptop) {
-        &:has(> [pgs~="pageShell-asideLeft"]):has(> [pgs~="pageShell-asideRight"]) {
-            grid-template-columns: minmax(0, var(--pageShell-content-max-width));
-            grid-template-areas:
-                "aside-left"
-                "content"
-                "aside-right";
-        }
-
-        &:has(> [pgs~="pageShell-asideLeft"]):not(:has(> [pgs~="pageShell-asideRight"])) {
-            grid-template-columns: minmax(0, var(--pageShell-content-max-width));
-            grid-template-areas:
-                "aside-left"
-                "content";
-        }
-
-        &:has(> [pgs~="pageShell-asideRight"]):not(:has(> [pgs~="pageShell-asideLeft"])) {
-            grid-template-columns: minmax(0, var(--pageShell-content-max-width));
-            grid-template-areas:
-                "content"
-                "aside-right";
-        }
-
-        [pgs~="pageShell-asideLeft"],
-        [pgs~="pageShell-asideRight"] {
-            position: relative;
-            top: auto;
-            max-height: none;
-            max-width: none;
-            overflow: visible;
+    &:has(> [pgs~="pageShell-asideRight"]) {
+        @container (max-width: calc(#{$content-size} + #{$aside-size} + #{$pageShell-test-gap})) {
+            [pgs~="pageShell-asideRight"] {
+                padding-top: 0;
+                min-width: 100%;
+            }
         }
     }
 
-    @media (max-width: $tablet) {
-
-        [pgs~="pageShell-asideLeft"],
-        [pgs~="pageShell-asideRight"],
-        [pgs~="pageShell-content"] {
-            width: 100%;
-            max-width: none;
-            padding-block: unset;
+    &:has(> [pgs~="pageShell-asideLeft"]):has(> [pgs~="pageShell-asideRight"]) {
+        @container (max-width: calc(#{$aside-size} + #{$content-size} + #{$aside-size} + (#{$pageShell-test-gap} * 2))) {
+            [pgs~="pageShell-asideRight"] {
+                padding-top: 0;
+                min-width: 100%;
+            }
         }
 
+        @container (max-width: calc(#{$aside-size} + #{$content-size} + #{$pageShell-test-gap})) {
+
+            [pgs~="pageShell-content"],
+            [pgs~="pageShell-asideRight"] {
+                padding-top: 0;
+                min-width: 100%;
+            }
+        }
+    }
+
+    @container (max-width: #{$content-size}) {
+        padding-top: var(--page-top);
+
+        [pgs~="pageShell-content"],
         [pgs~="pageShell-asideLeft"],
         [pgs~="pageShell-asideRight"] {
-            position: relative;
-            top: auto;
-            max-height: none;
-            overflow: visible;
+            padding-top: 0;
+            min-width: 100%!important;
         }
     }
 }

@@ -453,9 +453,7 @@
     input[disabled],
     input[disabled]:is([type="checkbox"], [type="radio"])+label,
     label:has(+ input[disabled]:not([type="checkbox"], [type="radio"])),
-    label:has(+ :is(textarea[disabled], select[disabled])),
-    label.disabled,
-    .disabled {
+    label:has(+ :is(textarea[disabled], select[disabled])) {
         @include disabled();
     }
 

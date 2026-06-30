@@ -7,35 +7,35 @@ if (localStorage.getItem("screenIsDarkMode") === "true") {
 
 
 const templateFiles = [
-    "components/md-tooltip.html",
-    "components/md-modal.html",
-    "components/md-stepTabs.html",
-    "layout/md-header.html",
-    "components/md-accordion.html",
-    "components/md-breadcumbs.html",
-    "components/md-button.html",
-    "components/md-card.html",
-    "components/md-dropdown.html",
-    "components/md-form.html",
-    "components/md-logo.html",
-    "components/md-menu.html",
-    "components/md-searchbar.html",
-    "components/md-slides.html",
-    "components/md-steps.html",
-    "components/md-table.html",
-    "layout/md-body.html",
-    "layout/md-cookieConsent.html",
-    "layout/md-section.html",
-    "layout/md-pageShell.html",
-    "layout/md-footer.html",
-    "components/md-notification.html",
+    "layout/header.html",
+    "components/menu.html",
+    "layout/pageShell.html",
+    "components/tooltip.html",
+    "components/modal.html",
+    "components/stepTabs.html",
+    "components/accordion.html",
+    "components/breadcumbs.html",
+    "components/button.html",
+    "components/card.html",
+    "components/dropdown.html",
+    "components/tooltip.html",
+    "components/form.html",
+    "components/logo.html",
+    "components/searchbar.html",
+    "components/slides.html",
+    "components/steps.html",
+    "components/table.html",
+    "components/notification.html",
+    "layout/body.html",
+    "layout/cookieConsent.html",
+    "layout/section.html",
+    "layout/footer.html",
 ];
 
 function getTemplateTitle(path) {
     return path
         .replace(".html", "")
         .replace("/", " / ")
-        .replace("md-", "");
 }
 
 function renderSourceTemplate(section, html) {
@@ -54,27 +54,16 @@ function renderTemplate(section, path, html) {
 }
 
 function renderLayout(root, path, html) {
-    if (path === "layout/md-body.html") {
-        const section = document.createElement("section");
-        section.setAttribute("pgs", "section flexColumnElements");
-        section.dataset.template = path;
-
-        const title = document.createElement("h2");
-        title.textContent = getTemplateTitle(path);
-        section.append(title);
-        renderSourceTemplate(section, html);
-        root.append(section);
-        return;
-    }
-
     const template = document.createElement("template");
     template.innerHTML = html.trim();
     root.append(template.content.cloneNode(true));
 }
 
-function getLayoutRoot(path, beforeRoot, afterRoot) {
-    if (path === "layout/md-header.html") return beforeRoot;
-    return afterRoot;
+function renderTitle(section, path) {
+    const title = document.createElement("p");
+    title.classList.add("template-title");
+    title.innerHTML = "<strong>" + getTemplateTitle(path) + "</strong>";
+    section.append(title);
 }
 
 async function loadTemplate(path) {
@@ -92,19 +81,19 @@ function loadPgsJavascript() {
 }
 
 async function bootDemo() {
-    const componentsRoot = document.getElementById("templates-demo-components");
-    const layoutsBeforeRoot = document.getElementById("templates-demo-layouts-before");
-    const layoutsRoot = document.getElementById("templates-demo-layouts");
+    const BEEFORE = document.getElementById("templates-demo-before");
+    const MAIN = document.getElementById("templates-demo-main");
+    const AFTER = document.getElementById("templates-demo-after");
 
     for (const path of templateFiles) {
-        const isLayout = path.startsWith("layout/");
+        const isHeader = path === "layout/header.html";
+        const isfooter = path === "layout/footer.html";
+        const isBody = path === "layout/body.html";
 
-        if (isLayout) {
-            const layoutRoot = getLayoutRoot(path, layoutsBeforeRoot, layoutsRoot);
-
+        if (isHeader || isfooter) {
             try {
                 const html = await loadTemplate(path);
-                renderLayout(layoutRoot, path, html);
+                renderLayout(isHeader ? BEEFORE : AFTER, path, html);
             } catch (error) {
                 const message = document.createElement("p");
                 message.textContent = `Template non caricato: ${error.message}`;
@@ -117,11 +106,15 @@ async function bootDemo() {
         const section = document.createElement("section");
         section.setAttribute("pgs", "section flexColumnElements");
         section.dataset.template = path;
+        renderTitle(section, path);
 
-        const title = document.createElement("p");
-        title.classList.add("template-title");
-        title.innerHTML = "<strong>" + getTemplateTitle(path) + "</strong>";
-        section.append(title);
+        if (isBody) {
+            const html = await loadTemplate(path);
+            renderSourceTemplate(section, html);
+            MAIN.append(section);
+
+            continue
+        }
 
         try {
             const html = await loadTemplate(path);
@@ -132,7 +125,13 @@ async function bootDemo() {
             section.append(message);
         }
 
-        componentsRoot.append(section);
+        MAIN.append(section);
+
+        if (path == "layout/section.html" || path == "layout/pageShell.html") {
+            section.style.display = "contents";
+            
+            Array.from(section.children).forEach(c => c.style.width = "100%");
+        }
     }
 
     loadPgsJavascript();

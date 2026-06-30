@@ -33,18 +33,32 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerImport({
-    PGS_accordion: _components_accordion_js__WEBPACK_IMPORTED_MODULE_1__.PGS_accordion,
-    PGS_dropdown: _components_dropdown_js__WEBPACK_IMPORTED_MODULE_2__.PGS_dropdown,
-    PGS_menu: _components_menu_js__WEBPACK_IMPORTED_MODULE_3__.PGS_menu,
-    PGS_modal: _components_modals_js__WEBPACK_IMPORTED_MODULE_4__.PGS_modal,
-    PGS_notification: _components_notifications_js__WEBPACK_IMPORTED_MODULE_5__.PGS_notification,
-    PGS_slides: _components_slides_js__WEBPACK_IMPORTED_MODULE_6__.PGS_slides,
-    PGS_stepTabs: _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_7__.PGS_stepTabs,
-    PGS_steps: _components_steps_js__WEBPACK_IMPORTED_MODULE_8__.PGS_steps,
-    PGS_formValidate: _functions_formValidate_js__WEBPACK_IMPORTED_MODULE_9__.PGS_formValidate,
-    PGS_scrollHorizontal: _functions_scrollY_js__WEBPACK_IMPORTED_MODULE_10__.PGS_scrollHorizontal,
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
+    accordion: _components_accordion_js__WEBPACK_IMPORTED_MODULE_1__.PGS_accordion,
+    dropdown: _components_dropdown_js__WEBPACK_IMPORTED_MODULE_2__.PGS_dropdown,
+    menu: _components_menu_js__WEBPACK_IMPORTED_MODULE_3__.PGS_menu,
+    modal: _components_modals_js__WEBPACK_IMPORTED_MODULE_4__.PGS_modal,
+    notification: _components_notifications_js__WEBPACK_IMPORTED_MODULE_5__.PGS_notification,
+    slides: _components_slides_js__WEBPACK_IMPORTED_MODULE_6__.PGS_slides,
+    stepTabs: _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_7__.PGS_stepTabs,
+    steps: _components_steps_js__WEBPACK_IMPORTED_MODULE_8__.PGS_steps,
+    formValidate: _functions_formValidate_js__WEBPACK_IMPORTED_MODULE_9__.PGS_formValidate,
+    scrollHorizontal: _functions_scrollY_js__WEBPACK_IMPORTED_MODULE_10__.PGS_scrollHorizontal,
 });
+
+// pgs.registerImport({
+//     PGS_accordion,
+//     PGS_dropdown,
+//     PGS_menu,
+//     PGS_modal,
+//     PGS_notification,
+//     PGS_slides,
+//     PGS_stepTabs,
+//     PGS_steps,
+//     PGS_formValidate,
+//     PGS_scrollHorizontal,
+// });
+
 
 
 /***/ },
@@ -282,7 +296,6 @@ function pgs(root) {
     const api = createBasePgs();
     api.state = createState("pgs-state");
     api.option = createOption("pgs-option");
-    api.modules = createOption("pgs-modules");
     return api;
 }
 
@@ -307,6 +320,22 @@ pgs.registerImport = function (...modules) {
         }
 
         registerImportModule(item?.PGS_name || item?.name, item);
+    });
+
+    return pgs;
+};
+
+pgs.registerModules = function (modules = {}) {
+    Object.entries(modules).forEach(([name, module]) => {
+        const key = String(name || "").trim();
+        if (!key) return;
+
+        const hasOwn = Object.prototype.hasOwnProperty.call(pgs, key);
+        if (hasOwn && pgs[key] !== module) {
+            throw new Error(`pgs.registerModules(): "${key}" e' gia' definito su pgs`);
+        }
+
+        pgs[key] = module;
     });
 
     return pgs;
@@ -527,17 +556,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 //= ACCORDION
 const API = new WeakMap();
+let accordionId = 0;
+
+function nextAccordionId() {
+    accordionId += 1;
+    return accordionId;
+}
+
+function directPgsChild(element, token) {
+    return Array.from(element.children).find(child => pgs(child).contains(token));
+}
 
 function PGS_accordion_init(root = document) {
-    pgs(root).querySelectorAll("accordion").forEach((accordion, index) => {
+    pgs(root).querySelectorAll("accordion").forEach((accordion) => {
         if (API.has(accordion)) return;
 
-        const BUTTON = pgs(accordion).querySelector("accordion-button");
-        const CONTENT = pgs(accordion).querySelector("accordion-content");
+        const BUTTON = directPgsChild(accordion, "accordion-button");
+        const CONTENT = directPgsChild(accordion, "accordion-content");
         if (!BUTTON || !CONTENT) return;
 
         //== ID univoci per aria-controls / aria-labelledby
-        const ID = index + 1;
+        const ID = nextAccordionId();
         const btnId = `acc-btn-${ID}`;
         const panelId = `acc-panel-${ID}`;
 
@@ -547,12 +586,12 @@ function PGS_accordion_init(root = document) {
         //== Accessibilità (setup una volta)
         BUTTON.setAttribute("role", "button");
         BUTTON.setAttribute("tabindex", "0");
-        BUTTON.setAttribute("id", btnId);
-        BUTTON.setAttribute("aria-controls", panelId);
+        if (!BUTTON.id) BUTTON.setAttribute("id", btnId);
 
-        CONTENT.setAttribute("id", panelId);
+        if (!CONTENT.id) CONTENT.setAttribute("id", panelId);
+        BUTTON.setAttribute("aria-controls", CONTENT.id);
         CONTENT.setAttribute("role", "region");
-        CONTENT.setAttribute("aria-labelledby", btnId);
+        CONTENT.setAttribute("aria-labelledby", BUTTON.id);
 
         //+ Accessibility (applica stato aperto/chiuso)
         function accordionAccessibility(isOpen, button, content) {
@@ -637,7 +676,6 @@ function PGS_accordion_api(selector) {
 }
 
 const PGS_accordion = {
-    PGS_name: "PGS_accordion",
     init: PGS_accordion_init,
     api: PGS_accordion_api
 };
@@ -654,149 +692,202 @@ const PGS_accordion = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PGS_dropdown: () => (/* binding */ PGS_dropdown),
-/* harmony export */   PGS_dropdown_api: () => (/* binding */ PGS_dropdown_api),
-/* harmony export */   PGS_dropdown_init: () => (/* binding */ PGS_dropdown_init)
+/* harmony export */   PGS_dropdown: () => (/* binding */ PGS_dropdown)
 /* harmony export */ });
-// + dropdown (Popover API)
+// + dropdown
 const API = new WeakMap();
+const OPEN_DROPDOWNS = new Set();
+const VIEWPORT_GAP = 8;
+let dropdownId = 0;
+
+function nextDropdownId() {
+    dropdownId += 1;
+    return dropdownId;
+}
+
+function isDropdownContent(element) {
+    return element instanceof Element && pgs(element).contains("dropdown-content");
+}
+
+function getDropdownTrigger(dropdown, content) {
+    const children = Array.from(dropdown.children).filter(child => child !== content);
+    const dropdownButton = children.find(child => pgs(child).contains("dropdown-button"));
+
+    return dropdownButton || children.find(child => !isDropdownContent(child)) || dropdown;
+}
+
+function getDropdownContent(dropdown) {
+    return Array.from(dropdown.children).find(isDropdownContent) || pgs(dropdown).querySelector("dropdown-content");
+}
+
+function getDropdowns(root) {
+    const dropdowns = root instanceof Element && pgs(root).contains("dropdown") ? [root] : [];
+    dropdowns.push(...pgs(root).querySelectorAll("dropdown"));
+    return dropdowns;
+}
+
+function getDropdownPosition(dropdown) {
+    const raw = getComputedStyle(dropdown).getPropertyValue("--dropdown-position").trim().toLowerCase();
+    const parts = raw.split(/\s+/).filter(Boolean);
+    const side = parts.find(part => ["top", "right", "bottom", "left"].includes(part)) || "bottom";
+    const align = parts.find(part => ["top", "right", "bottom", "left", "center"].includes(part) && part !== side) || "center";
+
+    return { side, align };
+}
+
+function clamp(value, min, max) {
+    return Math.min(Math.max(value, min), max);
+}
+
+function updateDropdownPosition(dropdown) {
+    const data = API.get(dropdown);
+    if (!data || !data.isOpen()) return;
+
+    const { trigger, content } = data;
+    const { side, align } = getDropdownPosition(dropdown);
+    const triggerRect = trigger.getBoundingClientRect();
+    const contentRect = content.getBoundingClientRect();
+    const viewportWidth = document.documentElement.clientWidth;
+    const maxLeft = Math.max(VIEWPORT_GAP, viewportWidth - contentRect.width - VIEWPORT_GAP);
+    let left = triggerRect.left + (triggerRect.width - contentRect.width) / 2;
+    let top = triggerRect.bottom + VIEWPORT_GAP;
+
+    if (side === "top" || side === "bottom") {
+        top = side === "top"
+            ? triggerRect.top - contentRect.height - VIEWPORT_GAP
+            : triggerRect.bottom + VIEWPORT_GAP;
+
+        if (align === "left") left = triggerRect.left;
+        if (align === "right") left = triggerRect.right - contentRect.width;
+    }
+
+    if (side === "left" || side === "right") {
+        left = side === "left"
+            ? triggerRect.left - contentRect.width - VIEWPORT_GAP
+            : triggerRect.right + VIEWPORT_GAP;
+        top = triggerRect.top + (triggerRect.height - contentRect.height) / 2;
+
+        if (align === "top") top = triggerRect.top;
+        if (align === "bottom") top = triggerRect.bottom - contentRect.height;
+    }
+
+    if (side === "left" && left < VIEWPORT_GAP) {
+        left = triggerRect.right + VIEWPORT_GAP;
+    }
+
+    if (side === "right" && left + contentRect.width > viewportWidth - VIEWPORT_GAP) {
+        left = triggerRect.left - contentRect.width - VIEWPORT_GAP;
+    }
+
+    left = clamp(left, VIEWPORT_GAP, maxLeft);
+
+    content.style.setProperty("--dropdown-left", `${Math.round(left)}px`);
+    content.style.setProperty("--dropdown-top", `${Math.round(top)}px`);
+}
+
+function updateOpenDropdowns() {
+    OPEN_DROPDOWNS.forEach(updateDropdownPosition);
+}
+
+function closeDropdown(dropdown) {
+    const data = API.get(dropdown);
+    if (!data || !data.isOpen()) return;
+
+    pgs(dropdown).state.remove("open");
+    data.trigger.setAttribute("aria-expanded", "false");
+    OPEN_DROPDOWNS.delete(dropdown);
+}
+
+function openDropdown(dropdown) {
+    const data = API.get(dropdown);
+    if (!data || data.isOpen()) return;
+
+    OPEN_DROPDOWNS.forEach(item => {
+        if (item !== dropdown) closeDropdown(item);
+    });
+
+    pgs(dropdown).state.add("open");
+    data.trigger.setAttribute("aria-expanded", "true");
+    OPEN_DROPDOWNS.add(dropdown);
+    updateDropdownPosition(dropdown);
+}
+
+function toggleDropdown(dropdown) {
+    const data = API.get(dropdown);
+    if (!data) return;
+
+    if (data.isOpen()) closeDropdown(dropdown);
+    else openDropdown(dropdown);
+}
+
+function isInsideAnyDropdown(target) {
+    return Array.from(OPEN_DROPDOWNS).some(dropdown => dropdown.contains(target));
+}
 
 function PGS_dropdown_init(root = document) {
-    pgs(root).querySelectorAll("dropdown").forEach((DROPDOWN, index) => {
+    getDropdowns(root).forEach((DROPDOWN) => {
         if (API.has(DROPDOWN)) return;
 
-        const BUTTON = pgs(DROPDOWN).querySelector("dropdown-button");
-        const CONTENT = pgs(DROPDOWN).querySelector("dropdown-content");
+        const CONTENT = getDropdownContent(DROPDOWN);
+        if (!CONTENT) return;
 
-        if (!BUTTON || !CONTENT) return;
+        const TRIGGER = getDropdownTrigger(DROPDOWN, CONTENT);
+        const id = nextDropdownId();
 
-        // = INIT
-        if (DROPDOWN.getAttribute("data-initialize") === "true") return;
-        DROPDOWN.setAttribute("data-initialize", "true");
+        if (!TRIGGER.id) TRIGGER.id = `dropdown-btn-${id}`;
+        if (!CONTENT.id) CONTENT.id = `dropdown-panel-${id}`;
 
-        // == CSS dropdown-anchor
-        const ANCHOR_NAME = `--dropdown-anchor-${index}`;
-        DROPDOWN.style.setProperty("--dropdown-anchor", ANCHOR_NAME);
-
-        // == IDs + ACCESSIBILITY
-        if (!BUTTON.id) BUTTON.id = `dropdown-btn-${index}`;
-        if (!CONTENT.id) CONTENT.id = `dropdown-panel-${index}`;
-        BUTTON.setAttribute("type", "button");
-        BUTTON.setAttribute("aria-haspopup", "true");
-        BUTTON.setAttribute("aria-controls", CONTENT.id);
-        BUTTON.setAttribute("aria-expanded", "false");
-        CONTENT.setAttribute("aria-labelledby", BUTTON.id);
-
-        // == POPVER SETUP 
-        if (!CONTENT.hasAttribute("popover")) CONTENT.setAttribute("popover", "auto");
-        BUTTON.setAttribute("popovertarget", CONTENT.id);
-        BUTTON.setAttribute("popovertargetaction", "toggle");
-
-        //-( Safari / legacy fallback: popover is in the top layer, so fixed coords are viewport-based.
-        const HAS_ANCHOR_POSITIONING =
-            CSS.supports("anchor-name: --dropdown-anchor") &&
-            CSS.supports("position-anchor: --dropdown-anchor") &&
-            CSS.supports("position-area: bottom") &&
-            CSS.supports("top: anchor(bottom)");
-        const USE_FALLBACK_POSITIONING = pgs(DROPDOWN).contains("tooltip") || !HAS_ANCHOR_POSITIONING;
-
-        const updatePopoverPosition = () => {
-            if (!USE_FALLBACK_POSITIONING) return;
-
-            const buttonRect = BUTTON.getBoundingClientRect();
-            const style = getComputedStyle(DROPDOWN);
-            const offset = parseFloat(style.getPropertyValue("--dropdown-offset")) || 10;
-            const padding = parseFloat(style.getPropertyValue("--dropdown-padding")) || 0;
-            const arrowSize = parseFloat(style.getPropertyValue("--dropdown-arrow-size")) || 12;
-            const viewportGap = 8;
-            const viewportWidth = window.innerWidth;
-            const maxWidth = viewportWidth - viewportGap * 2;
-            const contentStyle = getComputedStyle(CONTENT);
-            const cssMaxWidth = parseFloat(contentStyle.maxWidth);
-            const dropdownMaxWidth = Number.isFinite(cssMaxWidth) ? Math.min(cssMaxWidth, maxWidth) : maxWidth;
-            const contentWidth = Math.min(
-                Math.max(CONTENT.scrollWidth + padding * 2, buttonRect.width),
-                dropdownMaxWidth
-            );
-            const top = buttonRect.bottom + offset;
-            const centeredLeft = buttonRect.left + buttonRect.width / 2 - contentWidth / 2;
-            const left = Math.min(
-                Math.max(centeredLeft, viewportGap),
-                viewportWidth - contentWidth - viewportGap
-            );
-            const buttonCenter = buttonRect.left + buttonRect.width / 2;
-            const arrowLeft = Math.min(
-                Math.max(buttonCenter - left, padding + arrowSize),
-                contentWidth - padding - arrowSize
-            );
-
-            DROPDOWN.style.setProperty("--dropdown-fallback-top", `${top}px`);
-            DROPDOWN.style.setProperty("--dropdown-fallback-left", `${left}px`);
-            DROPDOWN.style.setProperty("--dropdown-arrow-left", `${arrowLeft}px`);
-        };
-
-        BUTTON.addEventListener("click", e => {
-            if (!USE_FALLBACK_POSITIONING) return;
-
-            e.preventDefault();
-            if (CONTENT.matches(":popover-open")) {
-                CONTENT.hidePopover();
-                return;
-            }
-
-            updatePopoverPosition();
-            CONTENT.showPopover();
-        });
-
-        // == sync ARIA + data-open quando apre/chiude
-        CONTENT.addEventListener("toggle", e => {
-            const open = CONTENT.matches(":popover-open");
-            BUTTON.setAttribute("aria-expanded", open ? "true" : "false");
-            pgs(DROPDOWN).state.toggle("open", open);
-            if (open) {
-                updatePopoverPosition();
-                CONTENT.querySelector('a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])')?.focus();
-            }
-        });
-
-        window.addEventListener("resize", () => {
-            if (CONTENT.matches(":popover-open")) updatePopoverPosition();
-        });
-        window.addEventListener("scroll", () => {
-            if (CONTENT.matches(":popover-open")) updatePopoverPosition();
-        }, true);
-
-        function open() {
-            if (CONTENT.matches(":popover-open")) return;
-            updatePopoverPosition();
-            CONTENT.showPopover();
+        if (TRIGGER.matches("button") && !TRIGGER.hasAttribute("type")) {
+            TRIGGER.setAttribute("type", "button");
         }
 
-        function close() {
-            if (!CONTENT.matches(":popover-open")) return;
-            CONTENT.hidePopover();
-        }
+        TRIGGER.setAttribute("aria-haspopup", "true");
+        TRIGGER.setAttribute("aria-controls", CONTENT.id);
+        TRIGGER.setAttribute("aria-expanded", String(pgs(DROPDOWN).state.contains("open")));
+        CONTENT.setAttribute("aria-labelledby", TRIGGER.id);
 
-        function toggle() {
-            CONTENT.matches(":popover-open") ? close() : open();
-        }
-
-        API.set(DROPDOWN, {
+        const data = {
             element: DROPDOWN,
-            button: BUTTON,
+            trigger: TRIGGER,
             content: CONTENT,
-            open,
-            close,
-            toggle,
-            updatePosition: updatePopoverPosition,
+            open: () => openDropdown(DROPDOWN),
+            close: () => closeDropdown(DROPDOWN),
+            toggle: () => toggleDropdown(DROPDOWN),
             refresh: () => {
                 PGS_dropdown_init(DROPDOWN.parentNode || document);
+                updateDropdownPosition(DROPDOWN);
                 return API.get(DROPDOWN);
             },
-            isOpen: () => CONTENT.matches(":popover-open"),
+            isOpen: () => pgs(DROPDOWN).state.contains("open")
+        };
+
+        TRIGGER.addEventListener("click", (event) => {
+            if (isDropdownContent(event.target)) return;
+            event.preventDefault();
+            event.stopPropagation();
+            toggleDropdown(DROPDOWN);
         });
+
+        CONTENT.addEventListener("click", event => event.stopPropagation());
+        API.set(DROPDOWN, data);
+
+        if (data.isOpen()) OPEN_DROPDOWNS.add(DROPDOWN);
+        updateDropdownPosition(DROPDOWN);
     });
 }
+
+document.addEventListener("click", (event) => {
+    if (isInsideAnyDropdown(event.target)) return;
+    OPEN_DROPDOWNS.forEach(closeDropdown);
+});
+
+document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    OPEN_DROPDOWNS.forEach(closeDropdown);
+});
+
+window.addEventListener("resize", updateOpenDropdowns);
+window.addEventListener("scroll", updateOpenDropdowns, true);
 
 // # INIT
 PGS_dropdown_init();
@@ -807,7 +898,6 @@ function PGS_dropdown_api(selector) {
 }
 
 const PGS_dropdown = {
-    PGS_name: "PGS_dropdown",
     init: PGS_dropdown_init,
     api: PGS_dropdown_api
 };
@@ -824,9 +914,7 @@ const PGS_dropdown = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PGS_menu: () => (/* binding */ PGS_menu),
-/* harmony export */   PGS_menu_api: () => (/* binding */ PGS_menu_api),
-/* harmony export */   PGS_menu_init: () => (/* binding */ PGS_menu_init)
+/* harmony export */   PGS_menu: () => (/* binding */ PGS_menu)
 /* harmony export */ });
 /* harmony import */ var _dropdown__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_dropdown */ "./assets/javascript/components/_dropdown.js");
 
@@ -836,153 +924,52 @@ const API = new WeakMap();
 //= DROP DOWN MENU
 function PGS_menu_init(root = document) {
 
-    pgs(root).querySelectorAll('menu-horizontal').forEach(MENU => {
+    pgs(root).querySelectorAll('menu').forEach(MENU => {
         if (API.has(MENU)) return;
 
-        MENU.querySelectorAll('nav > ul > li.menu-item-has-children').forEach(li => {
-            if (li.querySelector("ul")) {
-                const ul = li.querySelector("ul");
-                if (pgs(li).querySelector("dropdown-button")) return;
+        MENU.querySelectorAll('li').forEach(li => {
+            const ul = li.querySelector("ul");
+
+            if (ul) {
 
                 const button = document.createElement("button");
-                button.className = "icon-down";
                 button.type = "button";
                 button.innerHTML = "<span>&#9207;</span>";
+                pgs(button).add("menu-buttonIcon");
                 li.querySelector("a").insertAdjacentElement("afterend", button);
 
                 pgs(li).add("dropdown")
                 pgs(button).add("dropdown-button")
                 pgs(button).add("buttonNohover")
                 pgs(ul).add("dropdown-content")
-                pgs(ul).add("menu-vertical")
+
             }
         });
 
         API.set(MENU, {
             element: MENU,
             type: "horizontal",
-            items: () => Array.from(MENU.querySelectorAll('nav > ul > li')),
-            submenus: () => Array.from(MENU.querySelectorAll('.menu-item-has-children > ul')),
-            dropdowns: () => Array.from(MENU.querySelectorAll('.menu-item-has-children')).map(_dropdown__WEBPACK_IMPORTED_MODULE_0__.PGS_dropdown_api).filter(Boolean),
+            // items: () => Array.from(MENU.querySelectorAll('nav > ul > li')),
+            // submenus: () => Array.from(MENU.querySelectorAll('.menu-item-has-children > ul')),
+            // dropdowns: () => Array.from(MENU.querySelectorAll('.menu-item-has-children')).map(PGS_dropdown_api).filter(Boolean),
             refresh: () => {
                 PGS_menu_init(MENU.parentNode || document);
                 return API.get(MENU);
             },
         });
+        _dropdown__WEBPACK_IMPORTED_MODULE_0__.PGS_dropdown.init(MENU);
     });
 
-    pgs(root).querySelectorAll('menu-vertical').forEach(MENU => {
-        if (API.has(MENU)) return;
-
-        MENU.querySelectorAll('.menu-item-has-children').forEach((li, index) => {
-            const ul = li.querySelector("ul");
-
-            if (!ul) return
-            if (li.querySelector(":scope > button")) return;
-
-            const button = document.createElement("button");
-            button.className = "icon-down buttonIcon";
-            button.type = "button";
-
-            // ID unico per aria-controls
-            const submenuId = `vertical-submenu-${index}`;
-            ul.id = submenuId;
-
-            // Stato iniziale
-            pgs(button).add("buttonIcon")
-            button.setAttribute("aria-expanded", "false");
-            button.setAttribute("aria-controls", submenuId);
-            button.setAttribute("aria-label", "Apri sottomenu");
-            button.innerHTML = "<span aria-hidden='true'>&#9207;</span>";
-            li.querySelector("a").insertAdjacentElement("afterend", button);
-
-            function toggleMenu() {
-                // const isOpena = ul.classList.toggle("open");
-                const isOpen = pgs(ul).state.toggle("open");
-                button.setAttribute("aria-expanded", isOpen);
-                button.setAttribute("aria-label", isOpen ? "Chiudi sottomenu" : "Apri sottomenu");
-            };
-
-            // Click
-            button.addEventListener("click", toggleMenu);
-            button.addEventListener("keydown", (e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    toggleMenu();
-                }
-            });
-        });
-
-        function submenu(index) {
-            return MENU.querySelectorAll('.menu-item-has-children > ul')[index];
-        }
-
-        function setSubmenu(index, open) {
-            const ul = submenu(index);
-            const button = ul?.parentElement?.querySelector(":scope > button");
-            if (!ul || !button) return;
-
-            pgs(ul).state.toggle("open", open);
-            button.setAttribute("aria-expanded", String(open));
-            button.setAttribute("aria-label", open ? "Chiudi sottomenu" : "Apri sottomenu");
-        }
-
-        API.set(MENU, {
-            element: MENU,
-            type: "vertical",
-            items: () => Array.from(MENU.querySelectorAll(':scope > li')),
-            submenus: () => Array.from(MENU.querySelectorAll('.menu-item-has-children > ul')),
-            openSubmenu: (index) => setSubmenu(index, true),
-            closeSubmenu: (index) => setSubmenu(index, false),
-            toggleSubmenu: (index) => {
-                const ul = submenu(index);
-                if (!ul) return;
-                setSubmenu(index, !pgs(ul).state.contains("open"));
-            },
-            isSubmenuOpen: (index) => {
-                const ul = submenu(index);
-                return ul ? pgs(ul).state.contains("open") : false;
-            },
-            refresh: () => {
-                PGS_menu_init(MENU.parentNode || document);
-                return API.get(MENU);
-            },
-        });
-
-        // pgs(document).querySelectorAll('menu-vertical').forEach(MENU => {
-
-        //     MENU.querySelectorAll('.menu-item-has-children').forEach(li => {
-        //         if (li.querySelector("ul")) {
-        //             const ul = li.querySelector("ul");
-
-        //             const button = document.createElement("button");
-        //             button.className = "icon-down";
-        //             button.type = "button";
-        //             button.innerHTML = "<span>&#9207;</span>";
-        //             li.querySelector("a").insertAdjacentElement("afterend", button);
-
-
-        //             pgs(button).add("buttonIcon")
-        //             button.addEventListener("click", () => {
-        //                 ul.classList.toggle("open")
-        //             })
-        //         }
-        //     });
-        // });
-    });
-    (0,_dropdown__WEBPACK_IMPORTED_MODULE_0__.PGS_dropdown_init)()
 }
 
-//# INIT PGS_menu
 PGS_menu_init()
 
-//# API
 function PGS_menu_api(selector) {
     return API.get(selector);
 }
 
+//# EXPORT
 const PGS_menu = {
-    PGS_name: "PGS_menu",
     init: PGS_menu_init,
     api: PGS_menu_api
 };
@@ -1164,7 +1151,6 @@ function PGS_modal_api(selector) {
 }
 
 const PGS_modal = {
-    PGS_name: "PGS_modal",
     init: PGS_modal_init,
     api: PGS_modal_api
 };
@@ -1325,7 +1311,6 @@ function PGS_notificationTrigger_init(root = document) {
 }
 
 const PGS_notification = {
-    PGS_name: "PGS_notification",
     trigger: PGS_notificationTrigger_init,
     alert: {
         error: (text = "Errore", link = null, timeout = 0, icon = '<i class="fa-solid fa-octagon-xmark"></i>') => fn_notification.initNotification("error", "notification", icon, text, timeout, "stack", link),
@@ -1555,7 +1540,6 @@ function PGS_slides_api(selector) {
 }
 
 const PGS_slides = {
-    PGS_name: "PGS_slides",
     init: PGS_slides_init,
     api: PGS_slides_api
 };
@@ -1718,7 +1702,6 @@ function PGS_stepTabs_api(selector) {
 }
 
 const PGS_stepTabs = {
-    PGS_name: "PGS_stepTabs",
     init: PGS_stepTabs_init,
     api: PGS_stepTabs_api
 };
@@ -1813,7 +1796,6 @@ function PGS_steps_api(selector) {
 }
 
 const PGS_steps = {
-    PGS_name: "PGS_steps",
     init: PGS_steps_init,
     api: PGS_steps_api
 };
@@ -2510,17 +2492,17 @@ if (window.innerWidth < 600) {
 /******/ 	});
 /************************************************************************/
 /******/ 	// The module cache
-/******/ 	var __webpack_module_cache__ = {};
+/******/ 	const __webpack_module_cache__ = {};
 /******/ 	
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		const cachedModule = __webpack_module_cache__[moduleId];
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 		const module = __webpack_module_cache__[moduleId] = {
 /******/ 			// no module.id needed
 /******/ 			// no module.loaded needed
 /******/ 			exports: {}
@@ -2529,7 +2511,7 @@ if (window.innerWidth < 600) {
 /******/ 		// Execute the module function
 /******/ 		if (!(moduleId in __webpack_modules__)) {
 /******/ 			delete __webpack_module_cache__[moduleId];
-/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			const e = new Error("Cannot find module '" + moduleId + "'");
 /******/ 			e.code = 'MODULE_NOT_FOUND';
 /******/ 			throw e;
 /******/ 		}
@@ -2544,7 +2526,7 @@ if (window.innerWidth < 600) {
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
 /******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
+/******/ 			const getter = module && module.__esModule ?
 /******/ 				() => (module['default']) :
 /******/ 				() => (module);
 /******/ 			__webpack_require__.d(getter, { a: getter });
@@ -2554,11 +2536,26 @@ if (window.innerWidth < 600) {
 /******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
+/******/ 		// define getter/value functions for harmony exports
 /******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 			if(Array.isArray(definition)) {
+/******/ 				var i = 0;
+/******/ 				while(i < definition.length) {
+/******/ 					var key = definition[i++];
+/******/ 					var binding = definition[i++];
+/******/ 					if(!__webpack_require__.o(exports, key)) {
+/******/ 						if(binding === 0) {
+/******/ 							Object.defineProperty(exports, key, { enumerable: true, value: definition[i++] });
+/******/ 						} else {
+/******/ 							Object.defineProperty(exports, key, { enumerable: true, get: binding });
+/******/ 						}
+/******/ 					} else if(binding === 0) { i++; }
+/******/ 				}
+/******/ 			} else {
+/******/ 				for(var key in definition) {
+/******/ 					if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 						Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 					}
 /******/ 				}
 /******/ 			}
 /******/ 		};
@@ -2573,7 +2570,7 @@ if (window.innerWidth < 600) {
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
 /******/ 		__webpack_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			if(Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
@@ -2581,7 +2578,7 @@ if (window.innerWidth < 600) {
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-var __webpack_exports__ = {};
+let __webpack_exports__ = {};
 // This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
 (() => {
 "use strict";

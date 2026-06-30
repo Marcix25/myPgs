@@ -8,14 +8,7 @@
         --fa-size: .9rem;
     }
 
-    [pgs~="tooltip-content"][pgs~="dropdown-content"]:popover-open {
-        position: fixed;
-        position-anchor: unset;
-        position-area: unset;
-        inset: auto;
-        top: var(--dropdown-fallback-top);
-        left: var(--dropdown-fallback-left);
-        right: auto;
-        margin-top: 0;
+    [pgs~="tooltip-content"][pgs~="dropdown-content"]{
+
     }
 }

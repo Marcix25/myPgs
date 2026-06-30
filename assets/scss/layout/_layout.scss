@@ -3,18 +3,6 @@
     @include main;
 }
 
-[pgs~=aside] {
-    @include aside;
-}
-
-[pgs~=containerAside] {
-    @include containerAside;
-}
-
-[pgs~=sectionAside] {
-    @include sectionNoPadding;
-}
-
 [pgs~=sectionNoPadding] {
     @include sectionNoPadding;
 }

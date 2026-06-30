@@ -1,4 +1,26 @@
 [pgs~="htmlBase"] {
     scroll-behavior: smooth;
     font-size: 62.5%;
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-margin-top: calc(var(--heightOfHeader) + 5vh);
+
+    // Reset properties 
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        scroll-margin-top: calc(var(--heightOfHeader) + 5vh);
+    }
+
+    &:root,
+    :root {
+        interpolate-size: allow-keywords;
+    }
+
+    @view-transition {
+        navigation: auto;
+    }
 }

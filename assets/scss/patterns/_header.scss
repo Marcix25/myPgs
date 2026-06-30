@@ -29,7 +29,7 @@
         padding-inline: var(--header-padding-inline);
         color: var(--header-color);
         pointer-events: auto;
-        
+
         //== ALL
         >* {
             display: contents;
@@ -54,29 +54,44 @@
                 gap: 5px;
                 justify-content: center;
                 aspect-ratio: 1;
+                position: relative;
 
                 &::before,
                 &::after {
                     content: "";
                     width: 20px;
-                    height: 0;
-                    border: 2px solid var(--header-color);
+                    height: 4px;
+                    background-color: var(--header-color);
                     display: block;
                     border-radius: 20px;
                     transition: transform 300ms;
                     position: relative;
                 }
 
+                &::before {
+                    opacity: 0.6;
+                }
+
                 //=== OPEN
                 &[aria-expanded="true"] {
                     gap: 0px;
 
+                    &::before,
+                    &::after {
+                        position: absolute;
+                        inset: 0;
+                        top: 50%;
+                        left: 50%;
+                        translate: -50% -50%;
+                    }
+
                     &::before {
-                        transform: rotate(45deg);
+                        transform: rotate(-45deg);
+                        opacity: 0.6;
                     }
 
                     &::after {
-                        transform: rotate(-45deg) translate(3px, -2px);
+                        transform: rotate(45deg);
                     }
                 }
             }
@@ -125,19 +140,6 @@
     @media (max-width: $mobile) {
         [pgs~="header-element"] {
             padding-inline: var(--header-padding-block);
-        }
-    }
-
-    //= LINK ADMIN WORDPRESS
-    .wordpressMyMenu {
-        display: flex;
-        gap: var(--gap-texts);
-
-        a {
-            --button-background: #3a70ac;
-            // --button-color: var(--color-whiteFixed);
-            padding: var(--button-size);
-            max-width: max-content;
         }
     }
 }

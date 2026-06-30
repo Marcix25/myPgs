@@ -1,0 +1,55 @@
+<div pgs="modal" pgs-option="containerID[modal-container]">
+    <button pgs="modal-button button" type="button">
+        <i class="fa-solid fa-window-maximize"></i> Apri modale
+    </button>
+
+    <dialog>
+        <div pgs="modal-dialog-content">
+            <div pgs="modal-dialog-content-header">
+                <h3>Modale di esempio</h3>
+            </div>
+
+            <div pgs="modal-dialog-content-scroll">
+                <p>Contenuto della modale. Il bottone di chiusura viene aggiunto automaticamente se non presente.</p>
+            </div>
+        </div>
+    </dialog>
+</div>
+
+<div pgs="modal" pgs-option="containerID[modal-container]">
+    <button pgs="modal-button button" type="button">
+        <i class="fa-solid fa-window-maximize"></i> Apri modale right
+    </button>
+
+    <dialog pgs-option="right">
+        <div pgs="modal-dialog-content">
+            <div pgs="modal-dialog-content-header">
+                <h3>Modale laterale</h3>
+            </div>
+
+            <div pgs="modal-dialog-content-scroll">
+                <p>Contenuto della modale con <code>pgs-option="right"</code>.</p>
+            </div>
+        </div>
+    </dialog>
+</div>
+
+<div pgs="modal">
+    <button pgs="modal-button button" type="button">
+        <i class="fa-solid fa-window-maximize"></i> Apri modale top level
+    </button>
+
+    <dialog pgs-option="topLevel">
+        <div pgs="modal-dialog-content">
+            <div pgs="modal-dialog-content-header">
+                <h3>Modale top level</h3>
+            </div>
+
+            <div pgs="modal-dialog-content-scroll">
+                <p>Contenuto della modale con <code>pgs-option="topLevel"</code>.</p>
+            </div>
+        </div>
+    </dialog>
+</div>
+
+<div id="modal-container"></div>

@@ -3,13 +3,19 @@
     gap: var(--gap-texts);
 }
 
-[pgs~=gapElements]{
+[pgs~=gapElements] {
     gap: var(--gap-elements);
 }
 
 [pgs~=gapSections] {
     gap: var(--gap-sections);
 }
+
+//# wrap
 [pgs~=nowrap] {
     flex-wrap: nowrap;
+}
+
+[pgs~=wrap] {
+    flex-wrap: wrap;
 }

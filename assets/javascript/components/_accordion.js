@@ -1,16 +1,26 @@
 //= ACCORDION
 const API = new WeakMap();
+let accordionId = 0;
+
+function nextAccordionId() {
+    accordionId += 1;
+    return accordionId;
+}
+
+function directPgsChild(element, token) {
+    return Array.from(element.children).find(child => pgs(child).contains(token));
+}
 
 export function PGS_accordion_init(root = document) {
-    pgs(root).querySelectorAll("accordion").forEach((accordion, index) => {
+    pgs(root).querySelectorAll("accordion").forEach((accordion) => {
         if (API.has(accordion)) return;
 
-        const BUTTON = pgs(accordion).querySelector("accordion-button");
-        const CONTENT = pgs(accordion).querySelector("accordion-content");
+        const BUTTON = directPgsChild(accordion, "accordion-button");
+        const CONTENT = directPgsChild(accordion, "accordion-content");
         if (!BUTTON || !CONTENT) return;
 
         //== ID univoci per aria-controls / aria-labelledby
-        const ID = index + 1;
+        const ID = nextAccordionId();
         const btnId = `acc-btn-${ID}`;
         const panelId = `acc-panel-${ID}`;
 
@@ -20,12 +30,12 @@ export function PGS_accordion_init(root = document) {
         //== Accessibilità (setup una volta)
         BUTTON.setAttribute("role", "button");
         BUTTON.setAttribute("tabindex", "0");
-        BUTTON.setAttribute("id", btnId);
-        BUTTON.setAttribute("aria-controls", panelId);
+        if (!BUTTON.id) BUTTON.setAttribute("id", btnId);
 
-        CONTENT.setAttribute("id", panelId);
+        if (!CONTENT.id) CONTENT.setAttribute("id", panelId);
+        BUTTON.setAttribute("aria-controls", CONTENT.id);
         CONTENT.setAttribute("role", "region");
-        CONTENT.setAttribute("aria-labelledby", btnId);
+        CONTENT.setAttribute("aria-labelledby", BUTTON.id);
 
         //+ Accessibility (applica stato aperto/chiuso)
         function accordionAccessibility(isOpen, button, content) {
@@ -110,7 +120,6 @@ export function PGS_accordion_api(selector) {
 }
 
 export const PGS_accordion = {
-    PGS_name: "PGS_accordion",
     init: PGS_accordion_init,
     api: PGS_accordion_api
 };

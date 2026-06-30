@@ -188,7 +188,6 @@ export function PGS_slides_api(selector) {
 }
 
 export const PGS_slides = {
-    PGS_name: "PGS_slides",
     init: PGS_slides_init,
     api: PGS_slides_api
 };

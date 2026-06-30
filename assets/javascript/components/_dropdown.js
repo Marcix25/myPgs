@@ -1,153 +1,207 @@
-// + dropdown (Popover API)
+// + dropdown
 const API = new WeakMap();
+const OPEN_DROPDOWNS = new Set();
+const VIEWPORT_GAP = 8;
+let dropdownId = 0;
 
-export function PGS_dropdown_init(root = document) {
-    pgs(root).querySelectorAll("dropdown").forEach((DROPDOWN, index) => {
+function nextDropdownId() {
+    dropdownId += 1;
+    return dropdownId;
+}
+
+function isDropdownContent(element) {
+    return element instanceof Element && pgs(element).contains("dropdown-content");
+}
+
+function getDropdownTrigger(dropdown, content) {
+    const children = Array.from(dropdown.children).filter(child => child !== content);
+    const dropdownButton = children.find(child => pgs(child).contains("dropdown-button"));
+
+    return dropdownButton || children.find(child => !isDropdownContent(child)) || dropdown;
+}
+
+function getDropdownContent(dropdown) {
+    return Array.from(dropdown.children).find(isDropdownContent) || pgs(dropdown).querySelector("dropdown-content");
+}
+
+function getDropdowns(root) {
+    const dropdowns = root instanceof Element && pgs(root).contains("dropdown") ? [root] : [];
+    dropdowns.push(...pgs(root).querySelectorAll("dropdown"));
+    return dropdowns;
+}
+
+function getDropdownPosition(dropdown) {
+    const raw = getComputedStyle(dropdown).getPropertyValue("--dropdown-position").trim().toLowerCase();
+    const parts = raw.split(/\s+/).filter(Boolean);
+    const side = parts.find(part => ["top", "right", "bottom", "left"].includes(part)) || "bottom";
+    const align = parts.find(part => ["top", "right", "bottom", "left", "center"].includes(part) && part !== side) || "center";
+
+    return { side, align };
+}
+
+function clamp(value, min, max) {
+    return Math.min(Math.max(value, min), max);
+}
+
+function updateDropdownPosition(dropdown) {
+    const data = API.get(dropdown);
+    if (!data || !data.isOpen()) return;
+
+    const { trigger, content } = data;
+    const { side, align } = getDropdownPosition(dropdown);
+    const triggerRect = trigger.getBoundingClientRect();
+    const contentRect = content.getBoundingClientRect();
+    const viewportWidth = document.documentElement.clientWidth;
+    const maxLeft = Math.max(VIEWPORT_GAP, viewportWidth - contentRect.width - VIEWPORT_GAP);
+    let left = triggerRect.left + (triggerRect.width - contentRect.width) / 2;
+    let top = triggerRect.bottom + VIEWPORT_GAP;
+
+    if (side === "top" || side === "bottom") {
+        top = side === "top"
+            ? triggerRect.top - contentRect.height - VIEWPORT_GAP
+            : triggerRect.bottom + VIEWPORT_GAP;
+
+        if (align === "left") left = triggerRect.left;
+        if (align === "right") left = triggerRect.right - contentRect.width;
+    }
+
+    if (side === "left" || side === "right") {
+        left = side === "left"
+            ? triggerRect.left - contentRect.width - VIEWPORT_GAP
+            : triggerRect.right + VIEWPORT_GAP;
+        top = triggerRect.top + (triggerRect.height - contentRect.height) / 2;
+
+        if (align === "top") top = triggerRect.top;
+        if (align === "bottom") top = triggerRect.bottom - contentRect.height;
+    }
+
+    if (side === "left" && left < VIEWPORT_GAP) {
+        left = triggerRect.right + VIEWPORT_GAP;
+    }
+
+    if (side === "right" && left + contentRect.width > viewportWidth - VIEWPORT_GAP) {
+        left = triggerRect.left - contentRect.width - VIEWPORT_GAP;
+    }
+
+    left = clamp(left, VIEWPORT_GAP, maxLeft);
+
+    content.style.setProperty("--dropdown-left", `${Math.round(left)}px`);
+    content.style.setProperty("--dropdown-top", `${Math.round(top)}px`);
+}
+
+function updateOpenDropdowns() {
+    OPEN_DROPDOWNS.forEach(updateDropdownPosition);
+}
+
+function closeDropdown(dropdown) {
+    const data = API.get(dropdown);
+    if (!data || !data.isOpen()) return;
+
+    pgs(dropdown).state.remove("open");
+    data.trigger.setAttribute("aria-expanded", "false");
+    OPEN_DROPDOWNS.delete(dropdown);
+}
+
+function openDropdown(dropdown) {
+    const data = API.get(dropdown);
+    if (!data || data.isOpen()) return;
+
+    OPEN_DROPDOWNS.forEach(item => {
+        if (item !== dropdown) closeDropdown(item);
+    });
+
+    pgs(dropdown).state.add("open");
+    data.trigger.setAttribute("aria-expanded", "true");
+    OPEN_DROPDOWNS.add(dropdown);
+    updateDropdownPosition(dropdown);
+}
+
+function toggleDropdown(dropdown) {
+    const data = API.get(dropdown);
+    if (!data) return;
+
+    if (data.isOpen()) closeDropdown(dropdown);
+    else openDropdown(dropdown);
+}
+
+function isInsideAnyDropdown(target) {
+    return Array.from(OPEN_DROPDOWNS).some(dropdown => dropdown.contains(target));
+}
+
+function PGS_dropdown_init(root = document) {
+    getDropdowns(root).forEach((DROPDOWN) => {
         if (API.has(DROPDOWN)) return;
 
-        const BUTTON = pgs(DROPDOWN).querySelector("dropdown-button");
-        const CONTENT = pgs(DROPDOWN).querySelector("dropdown-content");
+        const CONTENT = getDropdownContent(DROPDOWN);
+        if (!CONTENT) return;
 
-        if (!BUTTON || !CONTENT) return;
+        const TRIGGER = getDropdownTrigger(DROPDOWN, CONTENT);
+        const id = nextDropdownId();
 
-        // = INIT
-        if (DROPDOWN.getAttribute("data-initialize") === "true") return;
-        DROPDOWN.setAttribute("data-initialize", "true");
+        if (!TRIGGER.id) TRIGGER.id = `dropdown-btn-${id}`;
+        if (!CONTENT.id) CONTENT.id = `dropdown-panel-${id}`;
 
-        // == CSS dropdown-anchor
-        const ANCHOR_NAME = `--dropdown-anchor-${index}`;
-        DROPDOWN.style.setProperty("--dropdown-anchor", ANCHOR_NAME);
-
-        // == IDs + ACCESSIBILITY
-        if (!BUTTON.id) BUTTON.id = `dropdown-btn-${index}`;
-        if (!CONTENT.id) CONTENT.id = `dropdown-panel-${index}`;
-        BUTTON.setAttribute("type", "button");
-        BUTTON.setAttribute("aria-haspopup", "true");
-        BUTTON.setAttribute("aria-controls", CONTENT.id);
-        BUTTON.setAttribute("aria-expanded", "false");
-        CONTENT.setAttribute("aria-labelledby", BUTTON.id);
-
-        // == POPVER SETUP 
-        if (!CONTENT.hasAttribute("popover")) CONTENT.setAttribute("popover", "auto");
-        BUTTON.setAttribute("popovertarget", CONTENT.id);
-        BUTTON.setAttribute("popovertargetaction", "toggle");
-
-        //-( Safari / legacy fallback: popover is in the top layer, so fixed coords are viewport-based.
-        const HAS_ANCHOR_POSITIONING =
-            CSS.supports("anchor-name: --dropdown-anchor") &&
-            CSS.supports("position-anchor: --dropdown-anchor") &&
-            CSS.supports("position-area: bottom") &&
-            CSS.supports("top: anchor(bottom)");
-        const USE_FALLBACK_POSITIONING = pgs(DROPDOWN).contains("tooltip") || !HAS_ANCHOR_POSITIONING;
-
-        const updatePopoverPosition = () => {
-            if (!USE_FALLBACK_POSITIONING) return;
-
-            const buttonRect = BUTTON.getBoundingClientRect();
-            const style = getComputedStyle(DROPDOWN);
-            const offset = parseFloat(style.getPropertyValue("--dropdown-offset")) || 10;
-            const padding = parseFloat(style.getPropertyValue("--dropdown-padding")) || 0;
-            const arrowSize = parseFloat(style.getPropertyValue("--dropdown-arrow-size")) || 12;
-            const viewportGap = 8;
-            const viewportWidth = window.innerWidth;
-            const maxWidth = viewportWidth - viewportGap * 2;
-            const contentStyle = getComputedStyle(CONTENT);
-            const cssMaxWidth = parseFloat(contentStyle.maxWidth);
-            const dropdownMaxWidth = Number.isFinite(cssMaxWidth) ? Math.min(cssMaxWidth, maxWidth) : maxWidth;
-            const contentWidth = Math.min(
-                Math.max(CONTENT.scrollWidth + padding * 2, buttonRect.width),
-                dropdownMaxWidth
-            );
-            const top = buttonRect.bottom + offset;
-            const centeredLeft = buttonRect.left + buttonRect.width / 2 - contentWidth / 2;
-            const left = Math.min(
-                Math.max(centeredLeft, viewportGap),
-                viewportWidth - contentWidth - viewportGap
-            );
-            const buttonCenter = buttonRect.left + buttonRect.width / 2;
-            const arrowLeft = Math.min(
-                Math.max(buttonCenter - left, padding + arrowSize),
-                contentWidth - padding - arrowSize
-            );
-
-            DROPDOWN.style.setProperty("--dropdown-fallback-top", `${top}px`);
-            DROPDOWN.style.setProperty("--dropdown-fallback-left", `${left}px`);
-            DROPDOWN.style.setProperty("--dropdown-arrow-left", `${arrowLeft}px`);
-        };
-
-        BUTTON.addEventListener("click", e => {
-            if (!USE_FALLBACK_POSITIONING) return;
-
-            e.preventDefault();
-            if (CONTENT.matches(":popover-open")) {
-                CONTENT.hidePopover();
-                return;
-            }
-
-            updatePopoverPosition();
-            CONTENT.showPopover();
-        });
-
-        // == sync ARIA + data-open quando apre/chiude
-        CONTENT.addEventListener("toggle", e => {
-            const open = CONTENT.matches(":popover-open");
-            BUTTON.setAttribute("aria-expanded", open ? "true" : "false");
-            pgs(DROPDOWN).state.toggle("open", open);
-            if (open) {
-                updatePopoverPosition();
-                CONTENT.querySelector('a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])')?.focus();
-            }
-        });
-
-        window.addEventListener("resize", () => {
-            if (CONTENT.matches(":popover-open")) updatePopoverPosition();
-        });
-        window.addEventListener("scroll", () => {
-            if (CONTENT.matches(":popover-open")) updatePopoverPosition();
-        }, true);
-
-        function open() {
-            if (CONTENT.matches(":popover-open")) return;
-            updatePopoverPosition();
-            CONTENT.showPopover();
+        if (TRIGGER.matches("button") && !TRIGGER.hasAttribute("type")) {
+            TRIGGER.setAttribute("type", "button");
         }
 
-        function close() {
-            if (!CONTENT.matches(":popover-open")) return;
-            CONTENT.hidePopover();
-        }
+        TRIGGER.setAttribute("aria-haspopup", "true");
+        TRIGGER.setAttribute("aria-controls", CONTENT.id);
+        TRIGGER.setAttribute("aria-expanded", String(pgs(DROPDOWN).state.contains("open")));
+        CONTENT.setAttribute("aria-labelledby", TRIGGER.id);
 
-        function toggle() {
-            CONTENT.matches(":popover-open") ? close() : open();
-        }
-
-        API.set(DROPDOWN, {
+        const data = {
             element: DROPDOWN,
-            button: BUTTON,
+            trigger: TRIGGER,
             content: CONTENT,
-            open,
-            close,
-            toggle,
-            updatePosition: updatePopoverPosition,
+            open: () => openDropdown(DROPDOWN),
+            close: () => closeDropdown(DROPDOWN),
+            toggle: () => toggleDropdown(DROPDOWN),
             refresh: () => {
                 PGS_dropdown_init(DROPDOWN.parentNode || document);
+                updateDropdownPosition(DROPDOWN);
                 return API.get(DROPDOWN);
             },
-            isOpen: () => CONTENT.matches(":popover-open"),
+            isOpen: () => pgs(DROPDOWN).state.contains("open")
+        };
+
+        TRIGGER.addEventListener("click", (event) => {
+            if (isDropdownContent(event.target)) return;
+            event.preventDefault();
+            event.stopPropagation();
+            toggleDropdown(DROPDOWN);
         });
+
+        CONTENT.addEventListener("click", event => event.stopPropagation());
+        API.set(DROPDOWN, data);
+
+        if (data.isOpen()) OPEN_DROPDOWNS.add(DROPDOWN);
+        updateDropdownPosition(DROPDOWN);
     });
 }
+
+document.addEventListener("click", (event) => {
+    if (isInsideAnyDropdown(event.target)) return;
+    OPEN_DROPDOWNS.forEach(closeDropdown);
+});
+
+document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    OPEN_DROPDOWNS.forEach(closeDropdown);
+});
+
+window.addEventListener("resize", updateOpenDropdowns);
+window.addEventListener("scroll", updateOpenDropdowns, true);
 
 // # INIT
 PGS_dropdown_init();
 
 // # API
-export function PGS_dropdown_api(selector) {
+function PGS_dropdown_api(selector) {
     return API.get(selector);
 }
 
 export const PGS_dropdown = {
-    PGS_name: "PGS_dropdown",
     init: PGS_dropdown_init,
     api: PGS_dropdown_api
 };
