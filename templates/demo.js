@@ -7,9 +7,15 @@ if (localStorage.getItem("screenIsDarkMode") === "true") {
 
 
 const templateFiles = [
-    "layout/header.html",
-    "components/menu.html",
+    "layout/body.html",
+    "layout/section.html",
+    "layout/flex.html",
+    "layout/grid.html",
     "layout/pageShell.html",
+    "patterns/cookieConsent.html",
+    "patterns/header.html",
+    "patterns/footer.html",
+    "components/menu.html",
     "components/tooltip.html",
     "components/modal.html",
     "components/stepTabs.html",
@@ -26,10 +32,6 @@ const templateFiles = [
     "components/steps.html",
     "components/table.html",
     "components/notification.html",
-    "layout/body.html",
-    "layout/cookieConsent.html",
-    "layout/section.html",
-    "layout/footer.html",
 ];
 
 function getTemplateTitle(path) {
@@ -86,8 +88,8 @@ async function bootDemo() {
     const AFTER = document.getElementById("templates-demo-after");
 
     for (const path of templateFiles) {
-        const isHeader = path === "layout/header.html";
-        const isfooter = path === "layout/footer.html";
+        const isHeader = path === "patterns/header.html";
+        const isfooter = path === "patterns/footer.html";
         const isBody = path === "layout/body.html";
 
         if (isHeader || isfooter) {
@@ -129,7 +131,7 @@ async function bootDemo() {
 
         if (path == "layout/section.html" || path == "layout/pageShell.html") {
             section.style.display = "contents";
-            
+
             Array.from(section.children).forEach(c => c.style.width = "100%");
         }
     }

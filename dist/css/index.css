@@ -2247,8 +2247,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   max-width: calc(var(--page-width) + var(--padding-page) * 2);
   padding-bottom: var(--page-top);
   padding-inline: var(--padding-page);
+  container-type: inline-size;
 }
 [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-content] {
+  grid-area: content;
   flex: 999 1 var(--pageShell-content-width);
   min-width: min(100%, var(--pageShell-content-width));
   width: min(100%, var(--page-width));
@@ -2282,12 +2284,14 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 }
 [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideLeft]:is([pgs~=pageShell-asideLeft]),
 [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideRight]:is([pgs~=pageShell-asideLeft]) {
+  grid-area: asideLeft;
   flex: 1 1 var(--pageShell-asideLeft-width);
   min-width: min(100%, var(--pageShell-asideLeft-width));
   max-width: var(--pageShell-asideLeft-width);
 }
 [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideLeft]:is([pgs~=pageShell-asideRight]),
 [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideRight]:is([pgs~=pageShell-asideRight]) {
+  grid-area: asideRight;
   flex: 1 1 var(--pageShell-asideRight-width);
   min-width: min(100%, var(--pageShell-asideRight-width));
   max-width: var(--pageShell-asideRight-width);
@@ -2301,10 +2305,16 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]):has(> [pgs~=pageShell-asideRight]) {
   max-width: calc(var(--page-width) + var(--pageShell-asideLeft-width) + var(--pageShell-asideRight-width) + var(--pageShell-gap) * 2 + var(--padding-page) * 2);
 }
-[pgs~=initP] [pgs~=pageShell] {
-  container-type: inline-size;
-}
 @container (max-width: calc(300px + 500px + 4rem)) {
+  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]) [pgs~=pageShell-asideLeft] {
+    position: relative;
+    top: auto;
+    max-height: none;
+    overflow: visible;
+    scrollbar-gutter: auto;
+    width: 100%;
+    min-width: 100%;
+  }
   [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]) [pgs~=pageShell-content] {
     padding-top: 0;
     min-width: 100%;
@@ -2312,17 +2322,50 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 }
 @container (max-width: calc(500px + 300px + 4rem)) {
   [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideRight]) [pgs~=pageShell-asideRight] {
+    position: relative;
+    top: auto;
+    max-height: none;
+    overflow: visible;
+    scrollbar-gutter: auto;
+    width: 100%;
+    min-width: 100%;
     padding-top: 0;
     min-width: 100%;
   }
 }
 @container (max-width: calc(300px + 500px + 300px + (4rem * 2))) {
+  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]):has(> [pgs~=pageShell-asideRight]) {
+    display: grid;
+    grid-template-columns: minmax(0, var(--pageShell-asideLeft-width)) minmax(var(--pageShell-content-width), var(--page-width));
+    grid-template-areas: "asideLeft content" "asideLeft asideRight";
+    justify-content: center;
+  }
   [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]):has(> [pgs~=pageShell-asideRight]) [pgs~=pageShell-asideRight] {
-    padding-top: 0;
+    position: relative;
+    top: auto;
+    max-height: none;
+    overflow: visible;
+    scrollbar-gutter: auto;
+    width: 100%;
     min-width: 100%;
+    padding-top: 0;
+    min-width: min(100%, var(--pageShell-asideRight-width));
   }
 }
 @container (max-width: calc(300px + 500px + 4rem)) {
+  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]):has(> [pgs~=pageShell-asideRight]) {
+    display: flex;
+  }
+  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]):has(> [pgs~=pageShell-asideRight]) [pgs~=pageShell-asideLeft],
+  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]):has(> [pgs~=pageShell-asideRight]) [pgs~=pageShell-asideRight] {
+    position: relative;
+    top: auto;
+    max-height: none;
+    overflow: visible;
+    scrollbar-gutter: auto;
+    width: 100%;
+    min-width: 100%;
+  }
   [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]):has(> [pgs~=pageShell-asideRight]) [pgs~=pageShell-content],
   [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]):has(> [pgs~=pageShell-asideRight]) [pgs~=pageShell-asideRight] {
     padding-top: 0;
@@ -2338,6 +2381,16 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideRight] {
     padding-top: 0;
     min-width: 100% !important;
+  }
+  [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideLeft],
+  [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideRight] {
+    position: relative;
+    top: auto;
+    max-height: none;
+    overflow: visible;
+    scrollbar-gutter: auto;
+    width: 100%;
+    min-width: 100%;
   }
 }
 [pgs~=initP] [pgs~=gapTexts] {
@@ -4968,15 +5021,6 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   overflow-wrap: break-word;
   height: calc(var(--button-size) * 4);
 }
-[pgs~=initP] [pgs~=menuFooter] ul {
-  display: flex;
-  gap: var(--gap-texts);
-  flex-direction: column;
-}
-[pgs~=initP] [pgs~=menuFooter] ul li a {
-  color: var(--color-text);
-  font-weight: 600;
-}
 [pgs~=initP] [pgs~=accordion] {
   padding: 0 !important;
   flex-direction: column !important;
@@ -5326,7 +5370,6 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   align-items: center;
 }
 [pgs~=initP] [pgs~=dropdown] {
-  --dropdown-position: bottom center;
   --dropdown-background: var(--color-box);
   --dropdown-color: var(--color-black);
   --dropdown-border: var(--border-complete);
@@ -5404,6 +5447,7 @@ dialog:not(:has([pgs~=modal-dialog-content])) {
   color: var(--modal-color);
   border-radius: var(--border-radius);
   position: relative;
+  gap: 0;
 }
 [pgs~=initP] dialog[pgs~=modal-dialog] [pgs~=modal-dialog-content] > * {
   padding: var(--padding);
@@ -5412,7 +5456,8 @@ dialog:not(:has([pgs~=modal-dialog-content])) {
   display: flex;
   gap: var(--gap-texts);
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  padding-bottom: calc(var(--padding) / 2);
   border-bottom: var(--border-complete);
   border-radius: var(--border-radius) var(--border-radius) 0 0;
   z-index: 1;
@@ -5425,6 +5470,7 @@ dialog:not(:has([pgs~=modal-dialog-content])) {
   overflow: hidden;
 }
 [pgs~=initP] dialog[pgs~=modal-dialog] [pgs~=modal-dialog-content]:has([pgs~=modal-dialog-content-scroll]) [pgs~=modal-dialog-content-scroll] {
+  padding-top: calc(var(--padding) / 2);
   overflow: auto;
   max-height: 100%;
 }
@@ -5438,6 +5484,12 @@ dialog:not(:has(> [pgs~=modal-close])) {
   padding-top: var(--padding-page);
 }
 
+[pgs~=initP] dialog[pgs~=modal-dialog][pgs-option~=left] [pgs~=modal-dialog-content] {
+  margin-left: unset;
+  margin-right: auto;
+  width: min(400px, 100%);
+  min-width: unset;
+}
 [pgs~=initP] dialog[pgs~=modal-dialog][pgs-option~=right] [pgs~=modal-dialog-content] {
   margin-left: auto;
   margin-right: unset;
@@ -5934,11 +5986,11 @@ dialog:not(:has(> [pgs~=modal-close])) {
   --notification-background: var(--color-box);
   --notification-background-timer: color-mix(in srgb, var(--color-box) 95%, var(--color-black) 5%);
   --notification-color: unset;
-  --notification-shadow: unset;
+  --notification-shadow-color: unset;
+  --notification-shadow-perc: 0px 0px 150px 20px;
   --notification-timeout: unset;
   display: flex;
   gap: var(--gap-texts);
-  border: var(--border-complete);
   background: var(--notification-background);
   flex-direction: row;
   opacity: 1;
@@ -5946,7 +5998,7 @@ dialog:not(:has(> [pgs~=modal-close])) {
   overflow: hidden;
   transition: all 280ms;
   align-items: center;
-  box-shadow: 0px 0px 200px 20px var(--notification-shadow);
+  box-shadow: var(--notification-shadow-perc) var(--notification-shadow-color);
   border-radius: var(--border-radius-input);
   max-width: 90vw;
   margin-inline: auto;
@@ -6002,8 +6054,8 @@ dialog:not(:has(> [pgs~=modal-close])) {
 [pgs~=initP] [pgs~=notification] [pgs~=notification-element] > i,
 [pgs~=initP] [pgs~=toast] [pgs~=notification-element] p,
 [pgs~=initP] [pgs~=toast] [pgs~=notification-element] > i {
-  --fa-primary-color: var(--notification-shadow);
-  --fa-secondary-color: color-mix(in srgb, var(--notification-shadow) 50%, var(--color-white) 50%);
+  --fa-primary-color: var(--notification-shadow-color);
+  --fa-secondary-color: color-mix(in srgb, var(--notification-shadow-color) 50%, var(--color-white) 50%);
   color: var(--notification-color);
   margin-right: 5px;
   z-index: 1;
@@ -6013,7 +6065,7 @@ dialog:not(:has(> [pgs~=modal-close])) {
 [pgs~=initP] [pgs~=notification] [pgs~=notification-element] > i:is(i),
 [pgs~=initP] [pgs~=toast] [pgs~=notification-element] p:is(i),
 [pgs~=initP] [pgs~=toast] [pgs~=notification-element] > i:is(i) {
-  color: var(--notification-shadow);
+  color: var(--notification-shadow-color);
   font-size: 2.5rem;
 }
 [pgs~=initP] [pgs~=notification] [pgs~=notification-element] button,
@@ -6032,6 +6084,7 @@ dialog:not(:has(> [pgs~=modal-close])) {
 [pgs~=initP] [pgs~=notification] [pgs~=notification-element]:is(a),
 [pgs~=initP] [pgs~=toast] [pgs~=notification-element]:is(a) {
   border-color: var(--color-primary-soft);
+  border: var(--border);
 }
 [pgs~=initP] [pgs~=notification] [pgs~=notification-element]:is(a):hover,
 [pgs~=initP] [pgs~=toast] [pgs~=notification-element]:is(a):hover {
@@ -6048,19 +6101,19 @@ dialog:not(:has(> [pgs~=modal-close])) {
 [pgs~=initP] [pgs~=toast] [pgs-state~=success] {
   --notification-background: var(--color-success-background);
   --notification-background-timer: color-mix(in srgb, var(--color-success-background) 70%, var(--color-white) 30%);
-  --notification-shadow: var(--color-success);
+  --notification-shadow-color: var(--color-success);
 }
 [pgs~=initP] [pgs~=notification] [pgs-state~=error],
 [pgs~=initP] [pgs~=toast] [pgs-state~=error] {
   --notification-background: var(--color-error-background);
   --notification-background-timer: color-mix(in srgb, var(--color-error-background) 70%, var(--color-white) 30%);
-  --notification-shadow: var(--color-error);
+  --notification-shadow-color: var(--color-error);
 }
 [pgs~=initP] [pgs~=notification] [pgs-state~=warning],
 [pgs~=initP] [pgs~=toast] [pgs-state~=warning] {
   --notification-background: var(--color-warning-background);
   --notification-background-timer: color-mix(in srgb, var(--color-warning-background) 70%, var(--color-white) 30%);
-  --notification-shadow: var(--color-warning);
+  --notification-shadow-color: var(--color-warning);
 }
 [pgs~=initP] [pgs~=notification] [pgs-state~=info],
 [pgs~=initP] [pgs~=toast] [pgs-state~=info] {
@@ -6330,6 +6383,7 @@ dialog [pgs~=initP] [pgs~=searchbar] input {
   container-type: inline-size;
   color-scheme: dark;
   position: relative;
+  isolation: isolate;
 }
 [pgs~=initP] [pgs~=footer] [pgs~=toggleDarkmode] {
   position: absolute;

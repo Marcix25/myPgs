@@ -134,17 +134,4 @@
     }
 }
 
-[pgs~=menuFooter] {
-    ul {
-        @include flexColumn();
-
-        li {
-            a {
-                color: var(--color-text);
-                font-weight: 600;
-            }
-        }
-    }
-}
-
 //

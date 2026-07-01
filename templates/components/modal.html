@@ -34,19 +34,42 @@
     </dialog>
 </div>
 
+<div pgs="modal" pgs-option="containerID[modal-container]">
+    <button pgs="modal-button button" type="button">
+        <i class="fa-solid fa-window-maximize"></i> Apri modale left
+    </button>
+
+    <dialog pgs-option="left">
+        <div pgs="modal-dialog-content">
+            <div pgs="modal-dialog-content-header">
+                <h3>Modale laterale sinistra</h3>
+            </div>
+
+            <div pgs="modal-dialog-content-scroll">
+                <p>Contenuto della modale con <code>pgs-option="left"</code>.</p>
+            </div>
+        </div>
+    </dialog>
+</div>
+
 <div pgs="modal">
     <button pgs="modal-button button" type="button">
-        <i class="fa-solid fa-window-maximize"></i> Apri modale top level
+        <i class="fa-solid fa-floppy-disk"></i> Conferma salvataggio
     </button>
 
     <dialog pgs-option="topLevel">
         <div pgs="modal-dialog-content">
             <div pgs="modal-dialog-content-header">
-                <h3>Modale top level</h3>
+                <h3>Salvare le modifiche?</h3>
             </div>
 
-            <div pgs="modal-dialog-content-scroll">
-                <p>Contenuto della modale con <code>pgs-option="topLevel"</code>.</p>
+            <div pgs="modal-dialog-content-scroll flexColumnElements">
+                <p>Hai modifiche non salvate. Conferma per applicarle oppure annulla per tornare alla pagina.</p>
+
+                <div pgs="flexRow">
+                    <button pgs="button modal-close" type="button">Annulla</button>
+                    <button pgs="buttonStrong" type="button">Salva modifiche</button>
+                </div>
             </div>
         </div>
     </dialog>

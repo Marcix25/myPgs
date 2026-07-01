@@ -96,7 +96,7 @@ function assignCookieRuntimeAttributes({ root, analyticsToggle, acceptAllButton,
 }
 
 //= CookieConsent
-document.addEventListener('DOMContentLoaded', function () {
+function initCookieConsent() {
     const root = pgs(document).querySelector('cookieConsent');
     if (!root) return;
 
@@ -206,4 +206,10 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         setBannerVisibility(true);
     }
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCookieConsent);
+} else {
+    initCookieConsent();
+}

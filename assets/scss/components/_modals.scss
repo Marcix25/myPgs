@@ -54,6 +54,7 @@ dialog[pgs~="modal-dialog"] {
         color: var(--modal-color);
         border-radius: var(--border-radius);
         position: relative;
+        gap: 0;
 
         >* {
             padding: var(--padding);
@@ -61,7 +62,8 @@ dialog[pgs~="modal-dialog"] {
 
         //==== HEADER
         [pgs~="modal-dialog-content-header"] {
-            @include flexRow();
+            @include flexRow(nowrap);
+            padding-bottom: calc(var(--padding) / 2);
             border-bottom: var(--border-complete);
             border-radius: var(--border-radius) var(--border-radius) 0 0;
             z-index: 1;
@@ -75,8 +77,9 @@ dialog[pgs~="modal-dialog"] {
         &:has([pgs~="modal-dialog-content-scroll"]) {
             max-height: calc(90svh - var(--heightOfHeader));
             overflow: hidden;
-
+            
             [pgs~="modal-dialog-content-scroll"] {
+                padding-top: calc(var(--padding) / 2);
                 overflow: auto;
                 max-height: 100%;
             }
@@ -96,7 +99,16 @@ dialog[pgs~="modal-dialog"] {
     }
 
     //#OPTION
-    
+    //== LEFT
+    &[pgs-option~="left"] {
+        [pgs~="modal-dialog-content"] {
+            margin-left: unset;
+            margin-right: auto;
+            width: min(400px, 100%);
+            min-width: unset;
+        }
+    }
+
     //== RIGHT
     &[pgs-option~="right"] {
         [pgs~="modal-dialog-content"] {

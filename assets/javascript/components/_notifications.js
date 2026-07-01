@@ -141,14 +141,14 @@ export function PGS_notificationTrigger_init(root = document) {
 export const PGS_notification = {
     trigger: PGS_notificationTrigger_init,
     alert: {
-        error: (text = "Errore", link = null, timeout = 0, icon = '<i class="fa-solid fa-octagon-xmark"></i>') => fn_notification.initNotification("error", "notification", icon, text, timeout, "stack", link),
+        error: (text = "Errore", link = null, timeout = 0, icon = '<i class="fa-solid fa-circle-xmark"></i>') => fn_notification.initNotification("error", "notification", icon, text, timeout, "stack", link),
         success: (text = "Aggiornato", link = null, timeout = 0, icon = '<i class="fa-solid fa-check"></i>') => fn_notification.initNotification("success", "notification", icon, text, timeout, "stack", link),
         info: (text = "Aggiornamento", link = null, timeout = 0, icon = '<i class="fa-solid fa-circle-info"></i>',) => fn_notification.initNotification("info", "notification", icon, text, timeout, "stack", link),
         warning: (text = "Attenzione", link = null, timeout = 0, icon = '<i class="fa-solid fa-triangle-exclamation"></i>') => fn_notification.initNotification("warning", "notification", icon, text, timeout, "stack", link),
         deleteAll: () => fn_notification.deleteAll("notification")
     },
     toast: {
-        error: (text = "Errore", timeout = 4000, icon = '<i class="fa-solid fa-octagon-xmark"></i>',) => fn_notification.initNotification("error", "toast", icon, text, timeout),
+        error: (text = "Errore", timeout = 4000, icon = '<i class="fa-solid fa-circle-xmark"></i>',) => fn_notification.initNotification("error", "toast", icon, text, timeout),
         success: (text = "Aggiornato", timeout = 4000, icon = '<i class="fa-solid fa-check"></i>',) => fn_notification.initNotification("success", "toast", icon, text, timeout),
         info: (text = "Aggiornamento", timeout = 0, icon = '<i class="fa-solid fa-circle-info"></i>',) => fn_notification.initNotification("info", "toast", icon, text, timeout),
         warning: (text = "Attenzione", timeout = 4000, icon = '<i class="fa-solid fa-triangle-exclamation"></i>',) => fn_notification.initNotification("warning", "toast", icon, text, timeout),

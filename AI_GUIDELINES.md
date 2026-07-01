@@ -1,41 +1,41 @@
-# AI Guidelines per `mypgs`
+# AI Guidelines for `mypgs`
 
-Questa guida serve a qualsiasi AI/Codex che inizializza o modifica un progetto basato sulla libreria NPM `mypgs`. Prima di scrivere CSS, JavaScript o markup custom, controlla sempre se `mypgs` offre gia' token `pgs`, componenti, layout, mixin, variabili o API adatte.
+This guide is for any AI/Codex agent that initializes or modifies a project based on the `mypgs` NPM library. Before writing custom CSS, JavaScript, or markup, always check whether `mypgs` already provides suitable `pgs` tokens, components, layouts, mixins, variables, or APIs.
 
-## 1. Panoramica della libreria
+## 1. Library Overview
 
-`mypgs` e' una libreria frontend condivisa per costruire interfacce coerenti tramite:
+`mypgs` is a shared frontend library for building consistent interfaces through:
 
-- attributi HTML `pgs` come contratto tra markup, SCSS e JavaScript;
-- SCSS sorgenti con base, layout, componenti, pattern, variabili CSS e mixin;
-- moduli JavaScript per comportamenti ricorrenti come accordion, dropdown, menu, modali, slides, steps, step tabs, notifiche, header, cookie consent e dark mode;
-- template HTML di esempio in `templates/`;
-- asset compilati in `dist/`.
+- HTML `pgs` attributes as the contract between markup, SCSS, and JavaScript;
+- SCSS sources with base styles, layouts, components, patterns, CSS variables, and mixins;
+- JavaScript modules for recurring behaviors such as accordions, dropdowns, menus, modals, slides, steps, step tabs, notifications, header, cookie consent, and dark mode;
+- example HTML templates in `templates/`;
+- compiled assets in `dist/`.
 
-Risolve il problema di riscrivere ogni volta layout, bottoni, form, modali, menu, tabs, spacing, stati e interazioni base. Va usata come base del design system perche' centralizza naming, spaziature, colori, radius, ombre, comportamenti accessibili e pattern riutilizzabili.
+It solves the problem of rewriting layouts, buttons, forms, modals, menus, tabs, spacing, states, and base interactions every time. It should be used as the design system foundation because it centralizes naming, spacing, colors, radii, shadows, accessible behaviors, and reusable patterns.
 
-Preferisci `mypgs` rispetto a CSS/JS custom quando:
+Prefer `mypgs` over custom CSS/JS when:
 
-- devi creare layout standard, sezioni, container, griglie, flex o page shell;
-- ti servono componenti gia' presenti nella libreria;
-- devi aggiungere stati, opzioni o comportamenti gia' gestiti dagli attributi `pgs`, `pgs-state`, `pgs-option`;
-- la richiesta riguarda coerenza visiva, velocita' di sviluppo o riuso.
+- you need standard layouts, sections, containers, grids, flex utilities, or a page shell;
+- you need components that already exist in the library;
+- you need to add states, options, or behaviors already handled by the `pgs`, `pgs-state`, and `pgs-option` attributes;
+- the request is about visual consistency, development speed, or reuse.
 
-Scrivi codice custom solo quando il pattern non esiste, oppure quando stai aggiungendo una nuova funzionalita' riutilizzabile alla libreria.
+Write custom code only when the pattern does not exist, or when you are adding a new reusable feature to the library.
 
-## 2. Regole generali di utilizzo
+## 2. General Usage Rules
 
-- Usa `mypgs` come prima scelta per layout, componenti, helper, variabili, utility e pattern disponibili.
-- Non ricreare da zero componenti gia' presenti: bottoni, form, dropdown, modal, menu, slides, accordion, steps, stepTabs, notification, tooltip, table, searchbar, logo, header, footer, cookie consent.
-- Non duplicare logiche gia' gestite dai moduli JS di `mypgs`, come apertura/chiusura modal, stato accordion, dropdown con Popover API, step tabs, notifiche o validazione form.
-- Mantieni coerenza tra token `pgs` nel markup, selettori SCSS e query JS.
-- Preferisci composizione di token `pgs` a nuove classi CSS.
-- Le classi sono accettabili per integrazioni esterne o dettagli locali, ma non devono sostituire token PGS esistenti.
-- Mantieni markup semantico e accessibile: la libreria aggiunge molti attributi ARIA, ma la struttura base deve restare corretta.
+- Use `mypgs` as the first choice for layouts, components, helpers, variables, utilities, and available patterns.
+- Do not recreate existing components from scratch: buttons, forms, dropdowns, modals, menus, slides, accordions, steps, stepTabs, notifications, tooltips, tables, searchbars, logos, headers, footers, and cookie consent.
+- Do not duplicate logic already handled by the `mypgs` JS modules, such as modal open/close, accordion state, Popover API dropdowns, step tabs, notifications, or form validation.
+- Keep `pgs` tokens in markup, SCSS selectors, and JS queries consistent.
+- Prefer composing `pgs` tokens over adding new CSS classes.
+- Classes are acceptable for external integrations or local details, but they must not replace existing PGS tokens.
+- Keep markup semantic and accessible: the library adds many ARIA attributes, but the base structure still needs to be correct.
 
-## 3. Analisi dei file esistenti
+## 3. Existing File Analysis
 
-File analizzati:
+Files analyzed:
 
 - `README.md`
 - `package.json`
@@ -71,64 +71,66 @@ File analizzati:
 - `templates/components/*`
 - `templates/layout/*`
 
-Pattern trovati:
+Patterns found:
 
-- `pgs` e' l'attributo principale: i token sono separati da spazi, per esempio `pgs="button modal-button"`.
-- `assets/scss/index.scss` importa base, layout, componenti e pattern; layout/componenti/pattern sono quasi tutti sotto `[pgs~=initP]`.
-- Il markup principale deve abilitare la libreria con `htmlBase initP` e il body con token base:
+- `pgs` is the main attribute: tokens are separated by spaces, for example `pgs="button modal-button"`.
+- `assets/scss/index.scss` imports base, layout, components, and patterns; layouts/components/patterns are almost all scoped under `[pgs~=initP]`.
+- The main markup must enable the library with `htmlBase initP`, and the body with base body tokens:
 
 ```html
 <html lang="it" pgs="htmlBase initP">
 <body pgs="bodyBase bodyImg bodyText bodyHeading">
 ```
 
-- I componenti usano un token radice e token figli con prefisso coerente:
+- Components use a root token and child tokens with a consistent prefix:
 
 ```html
 <div pgs="accordion">
-  <button pgs="accordion-button" type="button">Titolo</button>
-  <div pgs="accordion-content">Contenuto</div>
+  <button pgs="accordion-button" type="button">Title</button>
+  <div pgs="accordion-content">Content</div>
 </div>
 ```
 
-- Gli stati runtime usano `pgs-state`, per esempio `open`, `is-active`, `is-completed`, `is-locked`, `success`, `error`, `warning`, `info`.
-- Le opzioni configurabili usano `pgs-option`, con token semplici o valori tra parentesi quadre:
+- Runtime states use `pgs-state`, for example `open`, `is-active`, `is-completed`, `is-locked`, `success`, `error`, `warning`, and `info`.
+- Configurable options use `pgs-option`, with simple tokens or values inside square brackets:
 
 ```html
 <div pgs="slides" pgs-option="singleScroll shadowDesktop"></div>
 <div pgs="modal" pgs-option="containerID[modal-container]"></div>
+<span pgs="dropdown" pgs-option="position[top left]"></span>
 <section pgs="tab" pgs-option="tabIcon[fa-user]"></section>
 ```
 
-- Il naming e' prevalentemente camelCase nei token composti (`menuHorizontal`, `buttonStrong`, `flexColumnElements`) e kebab-like per sotto-elementi collegati al componente (`accordion-button`, `modal-dialog-content`, `cookieConsent-actionAccept`).
-- I moduli JS esportano oggetti con `PGS_name`, `init` e/o `api`; `_imports.js` li registra con `pgs.registerImport` per l'import legacy e con `pgs.registerModules` per l'accesso diretto `pgs.*`.
+- Naming is mostly camelCase for compound tokens (`menuHorizontal`, `buttonStrong`, `flexColumnElements`) and kebab-like for component sub-elements (`accordion-button`, `modal-dialog-content`, `cookieConsent-actionAccept`).
+- JS modules export objects with `PGS_name`, `init`, and/or `api`; `_imports.js` registers them with `pgs.registerImport` for the legacy import API and with `pgs.registerModules` for direct `pgs.*` access.
 
-## 4. Linee guida SCSS
+## 4. SCSS Guidelines
 
-Import consigliati in un progetto che consuma la libreria:
+Recommended imports in a project that consumes the library:
 
 ```scss
 @import "../../node_modules/mypgs/assets/scss/mixin/mixin.scss";
 @import "../../node_modules/mypgs/assets/scss/index.scss";
 ```
 
-Se servono solo i mixin:
+If you only need the mixins:
 
 ```scss
 @import "../../node_modules/mypgs/assets/scss/mixin/mixin.scss";
 ```
 
-Uso diretto del CSS compilato:
+Direct usage of the compiled CSS:
 
 ```js
 import "mypgs/style.css";
 ```
 
-Regole SCSS:
+SCSS rules:
 
-- Usa le custom properties gia' definite, per esempio `--color-primary`, `--color-box`, `--color-text`, `--padding`, `--padding-page`, `--gap-texts`, `--gap-elements`, `--gap-sections`, `--border-radius`, `--border-radius-input`, `--border-complete`, `--box-shadow`, `--focus-visible`.
-- Usa mixin e token esistenti invece di riscrivere layout: `flexColumn`, `flexRow`, `grid-*`, `section`, `container`, `card`, `button`, `form`.
-- Preferisci override tramite custom properties sul componente:
+- Use the existing custom properties, for example `--color-primary`, `--color-box`, `--color-text`, `--padding`, `--padding-page`, `--gap-texts`, `--gap-elements`, `--gap-sections`, `--border-radius`, `--border-radius-input`, `--border-complete`, `--box-shadow`, and `--focus-visible`.
+- Use existing mixins and tokens instead of rewriting layouts: `flexColumn`, `flexRow`, `grid-*`, `section`, `container`, `card`, `button`, `form`.
+- Configure dropdown placement with `pgs-option="position[side align]"`, for example `position[top left]`, `position[bottom right]`, or `position[left center]`; do not use a SCSS/CSS custom property for dropdown placement.
+- Prefer overrides through custom properties on the component:
 
 ```scss
 #dropdownMenuPrimary { //[pgs~="dropdown"]
@@ -138,12 +140,12 @@ Regole SCSS:
 }
 ```
 
-- Evita override aggressivi di `padding`, `gap`, `display`, `position` e `overflow` se sono gia' gestiti dal design system.
-- Puoi personalizzare colori, border-radius, bordi, ombre e dettagli visuali mantenendo coerenza con i token.
-- Se servono nuovi stili riutilizzabili, aggiungili in modo modulare nel gruppo corretto: `base`, `layout`, `components`, `patterns` o `mixin`.
-- Se aggiungi un nuovo componente PGS, mantieni lo stesso contratto: token radice, token figli, eventuali stati in `pgs-state`, eventuali opzioni in `pgs-option`.
+- Avoid aggressive overrides of `padding`, `gap`, `display`, `position`, and `overflow` when they are already handled by the design system.
+- You may customize colors, border-radius, borders, shadows, and visual details while keeping token consistency.
+- If new reusable styles are needed, add them modularly in the correct group: `base`, `layout`, `components`, `patterns`, or `mixin`.
+- If you add a new PGS component, keep the same contract: root token, child tokens, optional states in `pgs-state`, optional options in `pgs-option`.
 
-Consigliato:
+Recommended:
 
 ```scss
 #products .pricing-card {
@@ -152,7 +154,7 @@ Consigliato:
   }
 ```
 
-Oppure ma meno cosnigliato:
+Allowed, but less recommended:
 
 ```scss
 [pgs~="card"].pricing-card {
@@ -161,7 +163,7 @@ Oppure ma meno cosnigliato:
 }
 ```
 
-Da evitare:
+Avoid:
 
 ```scss
 .pricing-card {
@@ -171,23 +173,23 @@ Da evitare:
 }
 ```
 
-## 5. Linee guida JS/TS
+## 5. JS/TS Guidelines
 
-Import base:
+Base import:
 
 ```js
 import "mypgs";
 ```
 
-Oppure, se serve accedere all'helper:
+Or, if you need to access the helper:
 
 ```js
 import { pgs } from "mypgs";
 ```
 
-L'entrypoint inizializza automaticamente helper globale `pgs`, dark mode, object SVG handling, accordion, dropdown, menu, modali, slides, steps, stepTabs, notifiche, header e cookie consent.
+The entrypoint automatically initializes the global `pgs` helper, dark mode, SVG object handling, accordion, dropdown, menu, modals, slides, steps, stepTabs, notifications, header, and cookie consent.
 
-Helper `pgs` disponibile:
+Available `pgs` helper:
 
 ```js
 const modal = pgs(document).querySelector("modal");
@@ -201,20 +203,20 @@ pgs(modal).option.contains("history");
 pgs(modal).option.getValueBrackets("containerID");
 ```
 
-Registro moduli legacy:
+Legacy module registry:
 
 ```js
 const { PGS_modal, PGS_notification } = pgs.import("modal", "notification");
 ```
 
-Accesso diretto consigliato:
+Recommended direct access:
 
 ```js
-pgs.notification.toast.success("Salvato");
+pgs.notification.toast.success("Saved");
 pgs.modal.api(modalEl)?.open();
 ```
 
-In `assets/javascript/_imports.js` ci sono due registri:
+`assets/javascript/_imports.js` contains two registries:
 
 ```js
 pgs.registerImport({
@@ -226,10 +228,10 @@ pgs.registerModules({
 });
 ```
 
-- `pgs.registerImport` mantiene compatibile `pgs.import("PGS_notification")` e `pgs.import("notification")`.
-- `pgs.registerModules` espone il modulo direttamente su `pgs`, per esempio `pgs.notification`.
+- `pgs.registerImport` keeps `pgs.import("PGS_notification")` and `pgs.import("notification")` compatible.
+- `pgs.registerModules` exposes the module directly on `pgs`, for example `pgs.notification`.
 
-Prima di usare un modulo, verifica che sia registrato in `assets/javascript/_imports.js`. I moduli registrati nel codice analizzato sono:
+Before using a module, verify that it is registered in `assets/javascript/_imports.js`. The modules registered in the analyzed code are:
 
 - `PGS_accordion`
 - `PGS_dropdown`
@@ -242,7 +244,7 @@ Prima di usare un modulo, verifica che sia registrato in `assets/javascript/_imp
 - `PGS_formValidate`
 - `PGS_scrollHorizontal`
 
-Shortcut dirette disponibili se `mypgs` e' stato caricato:
+Direct shortcuts available when `mypgs` has been loaded:
 
 - `pgs.accordion`
 - `pgs.dropdown`
@@ -255,16 +257,16 @@ Shortcut dirette disponibili se `mypgs` e' stato caricato:
 - `pgs.formValidate`
 - `pgs.scrollHorizontal`
 
-Regole JS/TS:
+JS/TS rules:
 
-- Preferisci le API e gli init esistenti prima di scrivere nuove funzioni.
-- Non duplicare helper gia' presenti (`pgs`, `PGS_scrollHorizontal`, `PGS_formValidate`, notifiche).
-- Le inizializzazioni devono accettare un root quando possibile, come `PGS_accordion_init(root = document)`.
-- Usa `WeakMap` per API di istanze se aggiungi componenti, come fanno accordion, dropdown, menu, modali, slides, steps e stepTabs.
-- Mantieni eventi e stati coerenti: gli stati visuali vanno in `pgs-state`, non in classi arbitrarie.
-- Non affidarti a classi `.open` per componenti PGS se il componente usa `pgs-state~="open"`.
+- Prefer existing APIs and init functions before writing new functions.
+- Do not duplicate existing helpers (`pgs`, `PGS_scrollHorizontal`, `PGS_formValidate`, notifications).
+- Initialization functions should accept a root when possible, such as `PGS_accordion_init(root = document)`.
+- Use `WeakMap` for instance APIs if you add components, as accordion, dropdown, menu, modals, slides, steps, and stepTabs do.
+- Keep events and states consistent: visual states belong in `pgs-state`, not arbitrary classes.
+- Do not rely on `.open` classes for PGS components when the component uses `pgs-state~="open"`.
 
-Esempio API esistente:
+Existing API example:
 
 ```js
 const modalEl = pgs(document).querySelector("modal");
@@ -272,85 +274,95 @@ const modalEl = pgs(document).querySelector("modal");
 pgs.modal.api(modalEl)?.open();
 ```
 
-## 6. Componenti e markup
+## 6. Components and Markup
 
-Usa i template in `templates/components/` e `templates/layout/` come riferimento prima di creare markup nuovo.
+Use the templates in `templates/components/` and `templates/layout/` as references before creating new markup.
 
-Layout consigliati:
+Recommended layouts:
 
 ```html
 <main pgs="main">
   <section pgs="section flexColumnElements">
     <div pgs="flexColumnTexts">
-      <h2>Titolo</h2>
-      <p>Contenuto.</p>
+      <h2>Title</h2>
+      <p>Content.</p>
     </div>
   </section>
 </main>
 ```
 
-Griglie e card:
+Grids and cards:
 
 ```html
 <section pgs="sectionFull flexColumnElements">
   <div pgs="grid-3">
     <article pgs="card flexColumnTexts">
-      <h3>Colonna uno</h3>
-      <p>Contenuto.</p>
+      <h3>Column one</h3>
+      <p>Content.</p>
     </article>
   </div>
 </section>
 ```
 
-Bottoni:
+Buttons:
 
 ```html
 <button pgs="button" type="button" pgs-option="buttonReverse">
-  Avanti
+  Next
   <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
 </button>
 
-<button pgs="buttonIcon" type="button" aria-label="Impostazioni">
+<button pgs="buttonIcon" type="button" aria-label="Settings">
   <i class="fa-solid fa-gear" aria-hidden="true"></i>
 </button>
 ```
 
-Form:
+Forms:
 
 ```html
 <form pgs="form" action="#" method="post">
   <label pgs="label" for="form-email">Email</label>
-  <input id="form-email" pgs="input" type="email" name="email" required data-form-field-message="Inserisci una email valida">
-  <button pgs="buttonStrong" type="submit">Invia</button>
+  <input id="form-email" pgs="input" type="email" name="email" required data-form-field-message="Enter a valid email">
+  <button pgs="buttonStrong" type="submit">Send</button>
 </form>
 ```
 
-Dropdown:
+Dropdowns:
 
 ```html
 <span pgs="dropdown">
   <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
-    Apri menu
+    Open menu
     <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
   </button>
   <div pgs="dropdown-content">
-    <nav aria-label="Menu dropdown"></nav>
+    <nav aria-label="Dropdown menu"></nav>
+  </div>
+</span>
+
+<span pgs="dropdown" pgs-option="position[top left]">
+  <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
+    Open top-left menu
+    <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+  </button>
+  <div pgs="dropdown-content">
+    <nav aria-label="Dropdown menu"></nav>
   </div>
 </span>
 ```
 
-Modal:
+Modals:
 
 ```html
 <div pgs="modal" pgs-option="containerID[modal-container]">
-  <button pgs="modal-button button" type="button">Apri modale</button>
+  <button pgs="modal-button button" type="button">Open modal</button>
   <dialog>
     <div pgs="modal-dialog-content">
       <div pgs="modal-dialog-content-header">
-        <h3>Modale di esempio</h3>
+        <h3>Example modal</h3>
       </div>
       <div pgs="modal-dialog-content-scroll">
-        <p>Contenuto della modale.</p>
+        <p>Modal content.</p>
       </div>
     </div>
   </dialog>
@@ -367,7 +379,7 @@ Slides:
       <article pgs="card flexColumn">
         <img pgs="card-img imgCover" src="image.jpg" alt="">
         <div pgs="flexColumnTexts">
-          <h3>Slide uno</h3>
+          <h3>Slide one</h3>
         </div>
       </article>
     </li>
@@ -379,92 +391,92 @@ Step tabs:
 
 ```html
 <div pgs="stepTabs flexColumnElements">
-  <div pgs="stepTabs-dots" aria-label="Avanzamento"></div>
+  <div pgs="stepTabs-dots" aria-label="Progress"></div>
   <div pgs="stepTabs-container">
     <section pgs="tab flexColumnTexts" tabindex="-1" pgs-option="tabIcon[fa-user]"></section>
   </div>
   <div pgs="flexRow">
-    <button pgs="stepTabs-prev button" type="button">Indietro</button>
-    <button pgs="stepTabs-next button" pgs-option="buttonReverse" type="button">Avanti</button>
+    <button pgs="stepTabs-prev button" type="button">Back</button>
+    <button pgs="stepTabs-next button" pgs-option="buttonReverse" type="button">Next</button>
   </div>
 </div>
 ```
 
-Notifiche:
+Notifications:
 
 ```html
 <div pgs="notification" aria-live="polite"></div>
 <div pgs="toast" aria-live="polite"></div>
 
 <div pgs="hidden notificationTrigger" data-notification='{
-  "title":"Titolo",
-  "message":"Messaggio",
+  "title":"Title",
+  "message":"Message",
   "element":"notification",
   "type":"info",
   "duration":"-1"
 }'></div>
 ```
 
-Menu:
+Menus:
 
 ```html
-<nav pgs="menuHorizontal" aria-label="Menu principale">
+<nav pgs="menuHorizontal" aria-label="Main menu">
   <ul>
     <li class="menu-item"><a href="/">Home</a></li>
     <li class="menu-item menu-item-has-children">
-      <a href="/servizi">Servizi</a>
+      <a href="/services">Services</a>
       <ul class="sub-menu">
-        <li class="menu-item"><a href="/servizi/uno">Servizio uno</a></li>
+        <li class="menu-item"><a href="/services/one">Service one</a></li>
       </ul>
     </li>
   </ul>
 </nav>
 ```
 
-Per estendere un componente:
+To extend a component:
 
-- conserva token radice e figli obbligatori;
-- aggiungi un token `pgs` specifico o una classe locale solo per la variante;
-- configura tramite custom properties o `pgs-option`;
-- non rimuovere elementi che il JS cerca con `pgs(...).querySelector(...)`.
+- keep the required root and child tokens;
+- add a specific `pgs` token or a local class only for the variant;
+- configure through custom properties or `pgs-option`;
+- do not remove elements that JS looks up with `pgs(...).querySelector(...)`.
 
-## 7. Cosa NON fare
+## 7. What NOT To Do
 
-- Non sostituire `mypgs` con soluzioni custom senza un motivo tecnico chiaro.
-- Non hardcodare colori se esistono variabili o custom properties, usa semre var(--color-primary) ecc...
-- Non creare componenti duplicati per bottoni, form, modali, dropdown, slides, tabs, notifiche o menu.
-- Non duplicare logiche di apertura, chiusura, stato o accessibilita' gia' gestite dai moduli.
-- Non rendere il codice piu' complesso del necessario.
-- Non inventare API: se un metodo non e' presente in `assets/javascript/*` o nelle `.d.ts`, va verificato o aggiunto esplicitamente.
+- Do not replace `mypgs` with custom solutions without a clear technical reason.
+- Do not hardcode colors if variables or custom properties exist; always use `var(--color-primary)`, etc.
+- Do not create duplicate components for buttons, forms, modals, dropdowns, slides, tabs, notifications, or menus.
+- Do not duplicate open, close, state, or accessibility logic already handled by the modules.
+- Do not make the code more complex than necessary.
+- Do not invent APIs: if a method is not present in `assets/javascript/*` or in the `.d.ts` files, it must be verified or explicitly added.
 
-## 8. Esempi pratici
+## 8. Practical Examples
 
-Import consigliato in un progetto:
+Recommended import in a project:
 
 ```js
 import "mypgs";
 import "mypgs/style.css";
 ```
 
-Import SCSS sorgente:
+Source SCSS import:
 
 ```scss
 @import "../../node_modules/mypgs/assets/scss/mixin/mixin.scss";
 @import "../../node_modules/mypgs/assets/scss/index.scss";
 ```
 
-Consigliato: usare token layout PGS.
+Recommended: use PGS layout tokens.
 
 ```html
 <section pgs="section flexColumnElements">
   <div pgs="flexColumnTexts">
     <h2>Dashboard</h2>
-    <p>Contenuto principale.</p>
+    <p>Main content.</p>
   </div>
 </section>
 ```
 
-Da evitare: layout custom equivalente.
+Avoid: equivalent custom layout.
 
 ```html
 <section class="my-section">
@@ -474,7 +486,7 @@ Da evitare: layout custom equivalente.
 </section>
 ```
 
-Consigliato: personalizzare un bottone con variabili.
+Recommended: customize a button with variables.
 
 ```scss
 #danger-action {
@@ -483,7 +495,7 @@ Consigliato: personalizzare un bottone con variabili.
 }
 ```
 
-Da evitare: riscrivere tutto il bottone.
+Avoid: rewriting the whole button.
 
 ```scss
 .danger-action {
@@ -495,55 +507,55 @@ Da evitare: riscrivere tutto il bottone.
 }
 ```
 
-Consigliato: stato PGS.
+Recommended: PGS state.
 
 ```js
 const accordion = pgs(document).querySelector("accordion");
 pgs(accordion).state.toggle("open", true);
 ```
 
-Da evitare: classe parallela non letta dalla libreria.
+Avoid: parallel class not read by the library.
 
 ```js
 accordion.classList.add("open");
 ```
 
-Consigliato: usare API notifiche registrata su `pgs`.
+Recommended: use the notification API registered on `pgs`.
 
 ```js
-pgs.notification.toast.success("Salvato");
+pgs.notification.toast.success("Saved");
 ```
 
-Da evitare: creare un sistema toast separato.
+Avoid: creating a separate toast system.
 
 ```js
-document.body.insertAdjacentHTML("beforeend", "<div class='toast-ok'>Salvato</div>");
+document.body.insertAdjacentHTML("beforeend", "<div class='toast-ok'>Saved</div>");
 ```
 
-## 9. Regole per nuove feature
+## 9. Rules for New Features
 
-Prima di sviluppare una nuova feature:
+Before developing a new feature:
 
-- controlla `README.md`, `templates/`, `assets/scss/` e `assets/javascript/`;
-- cerca token o API esistenti con `rg "nomeFeature|pgs-token"`;
-- verifica se `mypgs` offre gia' componenti, helper, mixin o variabili adatti;
-- usa naming coerente con i pattern esistenti;
-- separa struttura HTML, stile SCSS e logica JS;
-- scrivi codice semplice, modulare e mantenibile;
-- aggiorna questa guida se introduci un pattern importante.
+- check `README.md`, `templates/`, `assets/scss/`, and `assets/javascript/`;
+- search for existing tokens or APIs with `rg "featureName|pgs-token"`;
+- verify whether `mypgs` already provides suitable components, helpers, mixins, or variables;
+- use naming consistent with the existing project;
+- clearly separate HTML structure, SCSS styling, and JS logic;
+- write simple, modular, maintainable code;
+- update this guide if you introduce an important new pattern.
 
-Per un nuovo componente riutilizzabile:
+For a new reusable component:
 
-- crea SCSS in `assets/scss/components/` o `assets/scss/patterns/`;
-- importa il file da `assets/scss/index.scss` nel blocco corretto;
-- crea JS in `assets/javascript/components/` o `assets/javascript/patterns/` solo se serve comportamento;
-- esporta un oggetto con `PGS_name` se il modulo deve essere recuperabile via registro;
-- registralo in `assets/javascript/_imports.js` con `pgs.registerImport` se deve restare importabile con `pgs.import`;
-- registralo anche con `pgs.registerModules` se deve essere disponibile come `pgs.nomeModulo`;
-- aggiungi un template in `templates/components/` o `templates/layout/`;
-- aggiorna `README.md` e questa guida se cambia il modo d'uso.
+- create SCSS in `assets/scss/components/` or `assets/scss/patterns/`;
+- import the file from `assets/scss/index.scss` in the correct block;
+- create JS in `assets/javascript/components/` or `assets/javascript/patterns/` only if behavior is needed;
+- export an object with `PGS_name` if the module must be retrievable through the registry;
+- register it in `assets/javascript/_imports.js` with `pgs.registerImport` if it must remain importable with `pgs.import`;
+- also register it with `pgs.registerModules` if it must be available as `pgs.moduleName`;
+- add a template in `templates/components/` or `templates/layout/`;
+- update `README.md` and this guide if the usage changes.
 
-Esempio per un nuovo modulo:
+Example for a new module:
 
 ```js
 import { PGS_myNewComponent } from "./components/_myNewComponent.js";
@@ -557,15 +569,15 @@ pgs.registerModules({
 });
 ```
 
-## 10. Checklist rapida per AI
+## 10. Quick AI Checklist
 
-- Ho controllato se esiste gia' un token `pgs` o un componente adatto?
-- Ho consultato `templates/` per copiare il markup corretto?
-- Ho abilitato `htmlBase initP` e i token base del body quando serve tutta la libreria?
-- Sto usando variabili CSS e mixin PGS invece di valori hardcoded?
-- Sto usando `pgs-state` per stati runtime e `pgs-option` per configurazioni?
-- Sto evitando classi custom quando un token PGS e' sufficiente?
-- Ho verificato le API JS nel sorgente o nelle dichiarazioni TypeScript?
-- Ho mantenuto separati markup, stile e logica?
-- Ho evitato modifiche dirette a `dist/` come sorgente primaria?
-- Se ho introdotto un nuovo pattern, ho aggiornato questa guida?
+- Did I check whether a suitable `pgs` token or component already exists?
+- Did I consult `templates/` to copy the correct markup?
+- Did I enable `htmlBase initP` and the base body tokens when the full library is needed?
+- Am I using PGS CSS variables and mixins instead of hardcoded values?
+- Am I using `pgs-state` for runtime states and `pgs-option` for configuration?
+- Am I avoiding custom classes when a PGS token is enough?
+- Did I verify JS APIs in the source or TypeScript declarations?
+- Did I keep markup, style, and logic separate?
+- Did I avoid direct edits to `dist/` as the source of truth?
+- If I introduced a new pattern, did I update this guide?

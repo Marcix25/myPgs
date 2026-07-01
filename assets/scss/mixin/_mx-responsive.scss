@@ -19,11 +19,11 @@
 }
 
 //== row
-@mixin flexRow() {
+@mixin flexRow($wrap: wrap) {
     display: flex;
     gap: var(--gap-texts);
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: $wrap;
 }
 
 @mixin flexRowElements() {

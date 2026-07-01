@@ -30,8 +30,10 @@ function getDropdowns(root) {
     return dropdowns;
 }
 
-function getDropdownPosition(dropdown) {
-    const raw = getComputedStyle(dropdown).getPropertyValue("--dropdown-position").trim().toLowerCase();
+function getposition(dropdown) {
+    const option = pgs(dropdown).option;
+    const optionValue = option.getValueBrackets("position");
+    const raw = (optionValue || "bottom center").trim().toLowerCase();
     const parts = raw.split(/\s+/).filter(Boolean);
     const side = parts.find(part => ["top", "right", "bottom", "left"].includes(part)) || "bottom";
     const align = parts.find(part => ["top", "right", "bottom", "left", "center"].includes(part) && part !== side) || "center";
@@ -43,12 +45,12 @@ function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
 }
 
-function updateDropdownPosition(dropdown) {
+function updateposition(dropdown) {
     const data = API.get(dropdown);
     if (!data || !data.isOpen()) return;
 
     const { trigger, content } = data;
-    const { side, align } = getDropdownPosition(dropdown);
+    const { side, align } = getposition(dropdown);
     const triggerRect = trigger.getBoundingClientRect();
     const contentRect = content.getBoundingClientRect();
     const viewportWidth = document.documentElement.clientWidth;
@@ -90,7 +92,7 @@ function updateDropdownPosition(dropdown) {
 }
 
 function updateOpenDropdowns() {
-    OPEN_DROPDOWNS.forEach(updateDropdownPosition);
+    OPEN_DROPDOWNS.forEach(updateposition);
 }
 
 function closeDropdown(dropdown) {
@@ -113,7 +115,7 @@ function openDropdown(dropdown) {
     pgs(dropdown).state.add("open");
     data.trigger.setAttribute("aria-expanded", "true");
     OPEN_DROPDOWNS.add(dropdown);
-    updateDropdownPosition(dropdown);
+    updateposition(dropdown);
 }
 
 function toggleDropdown(dropdown) {
@@ -159,7 +161,7 @@ function PGS_dropdown_init(root = document) {
             toggle: () => toggleDropdown(DROPDOWN),
             refresh: () => {
                 PGS_dropdown_init(DROPDOWN.parentNode || document);
-                updateDropdownPosition(DROPDOWN);
+                updateposition(DROPDOWN);
                 return API.get(DROPDOWN);
             },
             isOpen: () => pgs(DROPDOWN).state.contains("open")
@@ -176,7 +178,7 @@ function PGS_dropdown_init(root = document) {
         API.set(DROPDOWN, data);
 
         if (data.isOpen()) OPEN_DROPDOWNS.add(DROPDOWN);
-        updateDropdownPosition(DROPDOWN);
+        updateposition(DROPDOWN);
     });
 }
 

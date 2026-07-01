@@ -9,6 +9,7 @@
     container-type: inline-size;
     color-scheme: dark;
     position: relative;
+    isolation: isolate;
 
     //= DARKMODE
     [pgs~="toggleDarkmode"] {

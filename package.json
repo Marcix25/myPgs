@@ -1,6 +1,6 @@
 {
     "name": "mypgs",
-    "version": "1.3.2",
+    "version": "1.3.3",
     "description": "MyPGS frontend theme and UI behaviors, with bundled JavaScript and CSS assets.",
     "main": "./dist/javascript/index.js",
     "module": "./assets/javascript/index.js",
