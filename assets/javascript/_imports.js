@@ -24,16 +24,3 @@ pgs.registerModules({
     scrollHorizontal: PGS_scrollHorizontal,
 });
 
-// pgs.registerImport({
-//     PGS_accordion,
-//     PGS_dropdown,
-//     PGS_menu,
-//     PGS_modal,
-//     PGS_notification,
-//     PGS_slides,
-//     PGS_stepTabs,
-//     PGS_steps,
-//     PGS_formValidate,
-//     PGS_scrollHorizontal,
-// });
-

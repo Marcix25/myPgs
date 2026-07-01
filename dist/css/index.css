@@ -2233,8 +2233,8 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 }
 [pgs~=initP] [pgs~=pageShell] {
   --pageShell-aside-sticky-top: 0;
-  --pageShell-asideLeft-width: 300px;
-  --pageShell-asideRight-width: 300px;
+  --pageShell-asideLeft-width: 400px;
+  --pageShell-asideRight-width: 400px;
   --pageShell-content-width: 500px;
   --pageShell-gap: var(--gap-elements);
   display: flex;
@@ -2305,7 +2305,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]):has(> [pgs~=pageShell-asideRight]) {
   max-width: calc(var(--page-width) + var(--pageShell-asideLeft-width) + var(--pageShell-asideRight-width) + var(--pageShell-gap) * 2 + var(--padding-page) * 2);
 }
-@container (max-width: calc(300px + 500px + 4rem)) {
+@container (max-width: calc(400px + 500px + 4rem)) {
   [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]) [pgs~=pageShell-asideLeft] {
     position: relative;
     top: auto;
@@ -2320,7 +2320,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
     min-width: 100%;
   }
 }
-@container (max-width: calc(500px + 300px + 4rem)) {
+@container (max-width: calc(500px + 400px + 4rem)) {
   [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideRight]) [pgs~=pageShell-asideRight] {
     position: relative;
     top: auto;
@@ -2333,10 +2333,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
     min-width: 100%;
   }
 }
-@container (max-width: calc(300px + 500px + 300px + (4rem * 2))) {
+@container (max-width: calc(400px + 500px + 400px + (4rem * 2))) {
   [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]):has(> [pgs~=pageShell-asideRight]) {
     display: grid;
-    grid-template-columns: minmax(0, var(--pageShell-asideLeft-width)) minmax(var(--pageShell-content-width), var(--page-width));
+    grid-template-columns: var(--pageShell-asideLeft-width) minmax(0, var(--page-width));
     grid-template-areas: "asideLeft content" "asideLeft asideRight";
     justify-content: center;
   }
@@ -2352,7 +2352,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
     min-width: min(100%, var(--pageShell-asideRight-width));
   }
 }
-@container (max-width: calc(300px + 500px + 4rem)) {
+@container (max-width: calc(400px + 500px + 4rem)) {
   [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]):has(> [pgs~=pageShell-asideRight]) {
     display: flex;
   }

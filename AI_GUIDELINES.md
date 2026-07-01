@@ -37,9 +37,6 @@ Write custom code only when the pattern does not exist, or when you are adding a
 
 Files analyzed:
 
-- `README.md`
-- `package.json`
-- `webpack.config.js`
 - `assets/javascript/_pgs.js`
 - `assets/javascript/index.js`
 - `assets/javascript/_imports.js`
@@ -65,44 +62,22 @@ Files analyzed:
 - `assets/scss/components/*`
 - `assets/scss/patterns/*`
 - `assets/scss/mixin/*`
-- `templates/demo.html`
-- `templates/demo.js`
-- `templates/demo.css`
 - `templates/components/*`
 - `templates/layout/*`
+- `templates/patterns/*`
 
 Patterns found:
 
 - `pgs` is the main attribute: tokens are separated by spaces, for example `pgs="button modal-button"`.
 - `assets/scss/index.scss` imports base, layout, components, and patterns; layouts/components/patterns are almost all scoped under `[pgs~=initP]`.
-- The main markup must enable the library with `htmlBase initP`, and the body with base body tokens:
-
-```html
-<html lang="it" pgs="htmlBase initP">
-<body pgs="bodyBase bodyImg bodyText bodyHeading">
-```
-
-- Components use a root token and child tokens with a consistent prefix:
-
-```html
-<div pgs="accordion">
-  <button pgs="accordion-button" type="button">Title</button>
-  <div pgs="accordion-content">Content</div>
-</div>
-```
+- The main markup must enable the library with `htmlBase initP`, and the body with base body tokens. Use `templates/demo.html` and `templates/layout/body.html` as the canonical references.
+- Components use a root token and child tokens with a consistent prefix. Use `templates/components/` as the canonical markup source.
 
 - Runtime states use `pgs-state`, for example `open`, `is-active`, `is-completed`, `is-locked`, `success`, `error`, `warning`, and `info`.
-- Configurable options use `pgs-option`, with simple tokens or values inside square brackets:
-
-```html
-<div pgs="slides" pgs-option="singleScroll shadowDesktop"></div>
-<div pgs="modal" pgs-option="containerID[modal-container]"></div>
-<span pgs="dropdown" pgs-option="position[top left]"></span>
-<section pgs="tab" pgs-option="tabIcon[fa-user]"></section>
-```
+- Configurable options use `pgs-option`, with simple tokens or values inside square brackets. Prefer copying the current option syntax from the relevant template rather than duplicating examples in this guide.
 
 - Naming is mostly camelCase for compound tokens (`menuHorizontal`, `buttonStrong`, `flexColumnElements`) and kebab-like for component sub-elements (`accordion-button`, `modal-dialog-content`, `cookieConsent-actionAccept`).
-- JS modules export objects with `PGS_name`, `init`, and/or `api`; `_imports.js` registers them with `pgs.registerImport` for the legacy import API and with `pgs.registerModules` for direct `pgs.*` access.
+- JS modules export objects with `init` and/or `api`; `_imports.js` registers them with `pgs.registerModules` for direct `pgs.*` access.
 
 ## 4. SCSS Guidelines
 
@@ -148,25 +123,27 @@ SCSS rules:
 Recommended:
 
 ```scss
-#products .pricing-card {
+#products .products-card {
     --card-background: var(--color-box);
     --button-background: var(--color-primary);
+    border-radius: var(--border-radius)
   }
 ```
 
 Allowed, but less recommended:
 
 ```scss
-[pgs~="card"].pricing-card {
-  --card-background: var(--color-box);
-  --button-background: var(--color-primary);
+[pgs~="card"].products-card {
+    --card-background: var(--color-box);
+    --button-background: var(--color-primary);
+    border-radius: var(--border-radius)
 }
 ```
 
 Avoid:
 
 ```scss
-.pricing-card {
+.products-card {
   padding: 37px;
   border-radius: 19px;
   background: #f8f8f8;
@@ -203,12 +180,6 @@ pgs(modal).option.contains("history");
 pgs(modal).option.getValueBrackets("containerID");
 ```
 
-Legacy module registry:
-
-```js
-const { PGS_modal, PGS_notification } = pgs.import("modal", "notification");
-```
-
 Recommended direct access:
 
 ```js
@@ -216,52 +187,23 @@ pgs.notification.toast.success("Saved");
 pgs.modal.api(modalEl)?.open();
 ```
 
-`assets/javascript/_imports.js` contains two registries:
+`assets/javascript/_imports.js` registers modules with `pgs.registerModules`:
 
 ```js
-pgs.registerImport({
-    PGS_notification,
-});
-
 pgs.registerModules({
     notification: PGS_notification,
 });
 ```
 
-- `pgs.registerImport` keeps `pgs.import("PGS_notification")` and `pgs.import("notification")` compatible.
 - `pgs.registerModules` exposes the module directly on `pgs`, for example `pgs.notification`.
 
-Before using a module, verify that it is registered in `assets/javascript/_imports.js`. The modules registered in the analyzed code are:
-
-- `PGS_accordion`
-- `PGS_dropdown`
-- `PGS_menu`
-- `PGS_modal`
-- `PGS_notification`
-- `PGS_slides`
-- `PGS_stepTabs`
-- `PGS_steps`
-- `PGS_formValidate`
-- `PGS_scrollHorizontal`
-
-Direct shortcuts available when `mypgs` has been loaded:
-
-- `pgs.accordion`
-- `pgs.dropdown`
-- `pgs.menu`
-- `pgs.modal`
-- `pgs.notification`
-- `pgs.slides`
-- `pgs.stepTabs`
-- `pgs.steps`
-- `pgs.formValidate`
-- `pgs.scrollHorizontal`
+Before using a module shortcut, verify the current key in `assets/javascript/_imports.js`. If `_imports.js` registers `{ notification: PGS_notification }`, the public shortcut is `pgs.notification`. Do not rely on a hardcoded shortcut list in this guide.
 
 JS/TS rules:
 
 - Prefer existing APIs and init functions before writing new functions.
-- Do not duplicate existing helpers (`pgs`, `PGS_scrollHorizontal`, `PGS_formValidate`, notifications).
-- Initialization functions should accept a root when possible, such as `PGS_accordion_init(root = document)`.
+- Do not duplicate existing helpers, modules, or services exposed through `pgs.*`.
+- Initialization functions should accept a root when possible.
 - Use `WeakMap` for instance APIs if you add components, as accordion, dropdown, menu, modals, slides, steps, and stepTabs do.
 - Keep events and states consistent: visual states belong in `pgs-state`, not arbitrary classes.
 - Do not rely on `.open` classes for PGS components when the component uses `pgs-state~="open"`.
@@ -276,162 +218,16 @@ pgs.modal.api(modalEl)?.open();
 
 ## 6. Components and Markup
 
-Use the templates in `templates/components/` and `templates/layout/` as references before creating new markup.
+Use the templates as the single source of truth for component and layout markup. Do not copy full HTML examples into this guide; this avoids drift when templates change.
 
-Recommended layouts:
+Canonical template references:
 
-```html
-<main pgs="main">
-  <section pgs="section flexColumnElements">
-    <div pgs="flexColumnTexts">
-      <h2>Title</h2>
-      <p>Content.</p>
-    </div>
-  </section>
-</main>
-```
+- Layouts: `templates/layout/body.html`, `templates/layout/flex.html`, `templates/layout/grid.html`, `templates/layout/pageShell.html`, `templates/layout/section.html`
+- Components: `templates/components/accordion.html`, `templates/components/breadcumbs.html`, `templates/components/button.html`, `templates/components/card.html`, `templates/components/dropdown.html`, `templates/components/form.html`, `templates/components/logo.html`, `templates/components/menu.html`, `templates/components/modal.html`, `templates/components/notification.html`, `templates/components/searchbar.html`, `templates/components/slides.html`, `templates/components/stepTabs.html`, `templates/components/steps.html`, `templates/components/table.html`, `templates/components/tooltip.html`
+- Patterns: `templates/patterns/cookieConsent.html`, `templates/patterns/footer.html`, `templates/patterns/header.html`
+- Complete demo assembly. DO NOT use this for inspiration. It is only used to show all the modules: `templates/demo.html`
 
-Grids and cards:
-
-```html
-<section pgs="sectionFull flexColumnElements">
-  <div pgs="grid-3">
-    <article pgs="card flexColumnTexts">
-      <h3>Column one</h3>
-      <p>Content.</p>
-    </article>
-  </div>
-</section>
-```
-
-Buttons:
-
-```html
-<button pgs="button" type="button" pgs-option="buttonReverse">
-  Next
-  <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-</button>
-
-<button pgs="buttonIcon" type="button" aria-label="Settings">
-  <i class="fa-solid fa-gear" aria-hidden="true"></i>
-</button>
-```
-
-Forms:
-
-```html
-<form pgs="form" action="#" method="post">
-  <label pgs="label" for="form-email">Email</label>
-  <input id="form-email" pgs="input" type="email" name="email" required data-form-field-message="Enter a valid email">
-  <button pgs="buttonStrong" type="submit">Send</button>
-</form>
-```
-
-Dropdowns:
-
-```html
-<span pgs="dropdown">
-  <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
-    Open menu
-    <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-  </button>
-  <div pgs="dropdown-content">
-    <nav aria-label="Dropdown menu"></nav>
-  </div>
-</span>
-
-<span pgs="dropdown" pgs-option="position[top left]">
-  <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
-    Open top-left menu
-    <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-  </button>
-  <div pgs="dropdown-content">
-    <nav aria-label="Dropdown menu"></nav>
-  </div>
-</span>
-```
-
-Modals:
-
-```html
-<div pgs="modal" pgs-option="containerID[modal-container]">
-  <button pgs="modal-button button" type="button">Open modal</button>
-  <dialog>
-    <div pgs="modal-dialog-content">
-      <div pgs="modal-dialog-content-header">
-        <h3>Example modal</h3>
-      </div>
-      <div pgs="modal-dialog-content-scroll">
-        <p>Modal content.</p>
-      </div>
-    </div>
-  </dialog>
-</div>
-<div id="modal-container"></div>
-```
-
-Slides:
-
-```html
-<div pgs="slides" pgs-option="singleScroll shadowDesktop">
-  <ul pgs="slides-container">
-    <li>
-      <article pgs="card flexColumn">
-        <img pgs="card-img imgCover" src="image.jpg" alt="">
-        <div pgs="flexColumnTexts">
-          <h3>Slide one</h3>
-        </div>
-      </article>
-    </li>
-  </ul>
-</div>
-```
-
-Step tabs:
-
-```html
-<div pgs="stepTabs flexColumnElements">
-  <div pgs="stepTabs-dots" aria-label="Progress"></div>
-  <div pgs="stepTabs-container">
-    <section pgs="tab flexColumnTexts" tabindex="-1" pgs-option="tabIcon[fa-user]"></section>
-  </div>
-  <div pgs="flexRow">
-    <button pgs="stepTabs-prev button" type="button">Back</button>
-    <button pgs="stepTabs-next button" pgs-option="buttonReverse" type="button">Next</button>
-  </div>
-</div>
-```
-
-Notifications:
-
-```html
-<div pgs="notification" aria-live="polite"></div>
-<div pgs="toast" aria-live="polite"></div>
-
-<div pgs="hidden notificationTrigger" data-notification='{
-  "title":"Title",
-  "message":"Message",
-  "element":"notification",
-  "type":"info",
-  "duration":"-1"
-}'></div>
-```
-
-Menus:
-
-```html
-<nav pgs="menuHorizontal" aria-label="Main menu">
-  <ul>
-    <li class="menu-item"><a href="/">Home</a></li>
-    <li class="menu-item menu-item-has-children">
-      <a href="/services">Services</a>
-      <ul class="sub-menu">
-        <li class="menu-item"><a href="/services/one">Service one</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-```
+Before creating markup, open the relevant template and reuse its current structure, tokens, ARIA attributes, and `pgs-option` syntax.
 
 To extend a component:
 
@@ -465,26 +261,9 @@ Source SCSS import:
 @import "../../node_modules/mypgs/assets/scss/index.scss";
 ```
 
-Recommended: use PGS layout tokens.
+Recommended: use PGS layout tokens from `templates/layout/`.
 
-```html
-<section pgs="section flexColumnElements">
-  <div pgs="flexColumnTexts">
-    <h2>Dashboard</h2>
-    <p>Main content.</p>
-  </div>
-</section>
-```
-
-Avoid: equivalent custom layout.
-
-```html
-<section class="my-section">
-  <div class="my-container">
-    <h2>Dashboard</h2>
-  </div>
-</section>
-```
+Avoid: equivalent custom layout with ad hoc classes when a PGS layout token already exists.
 
 Recommended: customize a button with variables.
 
@@ -526,11 +305,7 @@ Recommended: use the notification API registered on `pgs`.
 pgs.notification.toast.success("Saved");
 ```
 
-Avoid: creating a separate toast system.
-
-```js
-document.body.insertAdjacentHTML("beforeend", "<div class='toast-ok'>Saved</div>");
-```
+Avoid: creating a separate toast system outside `pgs.notification`.
 
 ## 9. Rules for New Features
 
@@ -549,9 +324,8 @@ For a new reusable component:
 - create SCSS in `assets/scss/components/` or `assets/scss/patterns/`;
 - import the file from `assets/scss/index.scss` in the correct block;
 - create JS in `assets/javascript/components/` or `assets/javascript/patterns/` only if behavior is needed;
-- export an object with `PGS_name` if the module must be retrievable through the registry;
-- register it in `assets/javascript/_imports.js` with `pgs.registerImport` if it must remain importable with `pgs.import`;
-- also register it with `pgs.registerModules` if it must be available as `pgs.moduleName`;
+- export an object with `init` and/or `api` when the module needs a public API;
+- register it in `assets/javascript/_imports.js` with `pgs.registerModules` if it must be available as `pgs.moduleName`;
 - add a template in `templates/components/` or `templates/layout/`;
 - update `README.md` and this guide if the usage changes.
 
@@ -559,10 +333,6 @@ Example for a new module:
 
 ```js
 import { PGS_myNewComponent } from "./components/_myNewComponent.js";
-
-pgs.registerImport({
-    PGS_myNewComponent,
-});
 
 pgs.registerModules({
     myNewComponent: PGS_myNewComponent,

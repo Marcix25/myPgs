@@ -1,5 +1,5 @@
 //# pageShell
-$aside-size: 300px;
+$aside-size: 400px;
 $content-size: 500px;
 $pageShell-test-gap: 4rem;
 
@@ -15,8 +15,8 @@ $pageShell-test-gap: 4rem;
 
 [pgs~="pageShell"] {
     --pageShell-aside-sticky-top: 0;
-    --pageShell-asideLeft-width: 300px;
-    --pageShell-asideRight-width: 300px;
+    --pageShell-asideLeft-width: #{$aside-size};
+    --pageShell-asideRight-width: #{$aside-size};
     --pageShell-content-width: 500px;
     --pageShell-gap: var(--gap-elements);
     display: flex;
@@ -118,7 +118,7 @@ $pageShell-test-gap: 4rem;
     &:has(> [pgs~="pageShell-asideLeft"]):has(> [pgs~="pageShell-asideRight"]) {
         @container (max-width: calc(#{$aside-size} + #{$content-size} + #{$aside-size} + (#{$pageShell-test-gap} * 2))) {
             display: grid;
-            grid-template-columns: minmax(0, var(--pageShell-asideLeft-width)) minmax(var(--pageShell-content-width), var(--page-width));
+            grid-template-columns: var(--pageShell-asideLeft-width) minmax(0, var(--page-width));
             grid-template-areas:
                 "asideLeft content"
                 "asideLeft asideRight";
