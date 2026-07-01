@@ -83,16 +83,28 @@
 //== DISABLED
 @mixin file() {
     width: 100%;
-    // margin-bottom: var(--gap-texts);
     background-color: var(--color-white);
     padding: var(--gap-texts);
-    border-radius: calc( var(--border-radius-input) + var(--gap-texts));
+    border-radius: calc(var(--border-radius-input) + var(--gap-texts));
 
     &::file-selector-button {
-        @include button(false);
+        --button-background: var(--color-box);
+        --button-color: var(--color-black);
+
         width: 40%;
         margin-bottom: var(--gap-texts);
         margin-right: var(--gap-texts);
+        border: none;
+        outline: var(--border-complete);
+        border-radius: var(--border-radius-input);
+        padding: 1.5rem 3rem;
+        font-family: var(--font);
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: var(--button-color);
+        background: var(--button-background);
+        cursor: pointer;
+        transition: all 200ms;
     }
 
     &::file-selector-button:hover {

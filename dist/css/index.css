@@ -4677,101 +4677,22 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   border-radius: calc(var(--border-radius-input) + var(--gap-texts));
 }
 [pgs~=initP] [pgs~=form] input[type=file]::file-selector-button {
-  --button-border: var(--border-complete);
-  --button-size: 1.5rem;
-  --button-icon-size: 2.0rem;
-  --button-padding-block: var(--button-size);
-  --button-padding-left: calc(var(--button-size) * 2);
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
-  --fa-secondary-opacity: 0.5;
-  --fa-size: var(--button-icon-size);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=form] input[type=file]::file-selector-button {
-    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=form] input[type=file]::file-selector-button {
-    --button-color: var(--color-black);
-  }
-}
-[pgs~=initP] [pgs~=form] input[type=file]::file-selector-button {
   --button-background: var(--color-box);
-  color: var(--button-color);
-  background: var(--button-background);
-}
-[pgs~=initP] [pgs~=form] input[type=file]::file-selector-button:is(a) {
-  color: var(--button-color);
-}
-[pgs~=initP] [pgs~=form] input[type=file]::file-selector-button i {
-  color: var(--button-color);
-  --fa-primary-color: var(--button-color);
-  --fa-secondary-color: var(--button-color);
-}
-[pgs~=initP] [pgs~=form] input[type=file]::file-selector-button {
-  font-family: var(--font);
-  font-size: 1.6rem;
-  font-weight: 600;
-  text-decoration: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
-  border: none;
-  outline: var(--button-border);
-  border-radius: var(--border-radius-input);
-  display: flex;
-  gap: calc(var(--button-size) / 1.5);
-  align-items: center;
-  padding: var(--button-padding);
-  height: max-content;
-  width: max-content;
-  margin-block: auto;
-}
-[pgs~=initP] [pgs~=form] input[type=file]::file-selector-button:has(i) {
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.5);
-}
-[pgs~=initP] [pgs~=form] input[type=file]::file-selector-button[pgs-option~=buttonReverse]:has(i) {
-  --button-padding-right: calc(var(--button-size) * 1.5);
-  --button-padding-left: calc(var(--button-size) * 2);
-}
-[pgs~=initP] [pgs~=form] input[type=file]::file-selector-button {
-  transition: all 200ms;
-  cursor: inherit;
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=form] input[type=file]::file-selector-button[aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=form] input[type=file]::file-selector-button[aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: var(--color-whiteFixed);
-  }
-}
-[pgs~=initP] [pgs~=form] input[type=file]::file-selector-button[aria-current=page]:not(:hover, :focus-visible) {
-  --button-background-current: var(--color-primary);
-  color: var(--button-color-current);
-  background: var(--button-background-current);
-}
-[pgs~=initP] [pgs~=form] input[type=file]::file-selector-button[aria-current=page]:not(:hover, :focus-visible):is(a) {
-  color: var(--button-color-current);
-}
-[pgs~=initP] [pgs~=form] input[type=file]::file-selector-button[aria-current=page]:not(:hover, :focus-visible) i {
-  color: var(--button-color-current);
-  --fa-primary-color: var(--button-color-current);
-  --fa-secondary-color: var(--button-color-current);
-}
-[pgs~=initP] [pgs~=form] input[type=file]::file-selector-button:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
-}
-[pgs~=initP] [pgs~=form] input[type=file]::file-selector-button {
+  --button-color: var(--color-black);
   width: 40%;
   margin-bottom: var(--gap-texts);
   margin-right: var(--gap-texts);
+  border: none;
+  outline: var(--border-complete);
+  border-radius: var(--border-radius-input);
+  padding: 1.5rem 3rem;
+  font-family: var(--font);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--button-color);
+  background: var(--button-background);
+  cursor: pointer;
+  transition: all 200ms;
 }
 [pgs~=initP] [pgs~=form] input[type=file]::file-selector-button:hover {
   background-color: var(--color-primary);

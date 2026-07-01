@@ -46,19 +46,6 @@ _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
     scrollHorizontal: _functions_scrollY_js__WEBPACK_IMPORTED_MODULE_10__.PGS_scrollHorizontal,
 });
 
-// pgs.registerImport({
-//     PGS_accordion,
-//     PGS_dropdown,
-//     PGS_menu,
-//     PGS_modal,
-//     PGS_notification,
-//     PGS_slides,
-//     PGS_stepTabs,
-//     PGS_steps,
-//     PGS_formValidate,
-//     PGS_scrollHorizontal,
-// });
-
 
 
 /***/ },
