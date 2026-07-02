@@ -118,7 +118,7 @@
     }
 
     //- mobile 
-    &[data-header-mobileActive=true] {
+    &[pgs-state~="mobileActive"] {
         --header-gap: var(--gap-texts);
 
         [pgs~="header-element-onlyDesktop"] {

@@ -95,7 +95,7 @@
 
 
 @mixin h1(){
-    @include heading($h1,false);
+    @include heading($h1, false);
 }
 
 @mixin h2(){

@@ -6274,18 +6274,18 @@ dialog [pgs~=initP] [pgs~=searchbar] input {
   overflow: auto;
   max-height: 100svh;
 }
-[pgs~=initP] [pgs~=header][data-header-mobileActive=true] {
+[pgs~=initP] [pgs~=header][pgs-state~=mobileActive] {
   --header-gap: var(--gap-texts);
 }
-[pgs~=initP] [pgs~=header][data-header-mobileActive=true] [pgs~=header-element-onlyDesktop] {
+[pgs~=initP] [pgs~=header][pgs-state~=mobileActive] [pgs~=header-element-onlyDesktop] {
   display: none !important;
 }
-[pgs~=initP] [pgs~=header][data-header-mobileActive=true] [pgs~=header-element-onlyMobile] {
+[pgs~=initP] [pgs~=header][pgs-state~=mobileActive] [pgs~=header-element-onlyMobile] {
   display: flex !important;
   margin-left: auto;
   align-items: center;
 }
-[pgs~=initP] [pgs~=header][data-header-mobileActive=true] [pgs~=header-element-hamburger] {
+[pgs~=initP] [pgs~=header][pgs-state~=mobileActive] [pgs~=header-element-hamburger] {
   display: flex !important;
 }
 @media (max-width: 430px) {
@@ -6513,7 +6513,7 @@ dialog [pgs~=initP] [pgs~=searchbar] input {
 }
 [pgs~=initP] [pgs~=cookieConsent] [pgs~=cookieConsent-panel] [pgs~=cookieConsent-panel-badge] {
   font-size: 1.35rem;
-  border-radius: 999px;
+  border-radius: 99px;
   padding: 0.25rem 0.75rem;
   background: var(--color-success-background);
   color: var(--color-success);

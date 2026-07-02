@@ -6,21 +6,29 @@ $tablet: 800px;
 $big-tablet: 900px;
 $laptop: 1100px;
 
+@use "sass:list";
+
 @function fibonacci($n) {
     $sequence: 0 1;
+
     @for $_ from 1 through $n {
-        $new: nth($sequence, length($sequence)) + nth($sequence, length($sequence) - 1);
-        $sequence: append($sequence, $new);
+        $last: list.nth($sequence, list.length($sequence));
+        $previous: list.nth($sequence, list.length($sequence) - 1);
+        $new: $last + $previous;
+
+        $sequence: list.append($sequence, $new);
     }
-    @return nth($sequence, length($sequence));
+
+    @return list.nth($sequence, list.length($sequence));
 }
 
 $base-fibonacci-size: 0.05rem;
-$h1: fibonacci(11) * $base-fibonacci-size; // 7.12rem
-$h2: fibonacci(10) * $base-fibonacci-size; // 4.4rem
-$h3: fibonacci(9) * $base-fibonacci-size;  // 2.72rem
-$h4: fibonacci(8) * $base-fibonacci-size;  // 1.68rem
-$h5: fibonacci(8) * $base-fibonacci-size;  // 1.68rem
+
+$h1: fibonacci(11) * $base-fibonacci-size; // 7.2rem
+$h2: fibonacci(10) * $base-fibonacci-size; // 4.45rem
+$h3: fibonacci(9) * $base-fibonacci-size;  // 2.75rem
+$h4: fibonacci(8) * $base-fibonacci-size;  // 1.7rem
+$h5: fibonacci(8) * $base-fibonacci-size;  // 1.7rem
 
 //= IMPORT ADVANCED
 @import "mx-base";

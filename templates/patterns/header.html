@@ -53,8 +53,8 @@
 		}
 
 		if (window.innerWidth < 600) {
-			document.querySelector("header").setAttribute("data-header-mobileActive", "true");
-			document.querySelector("[pgs~=header-element]").setAttribute("data-header-mobileActive", "true");
+			pgs(document.querySelector("header")).state.add("mobileActive");
+			pgs(document.querySelector("[pgs~=header-element]")).state.add("mobileActive");
 		}
 	</script>
 </header>

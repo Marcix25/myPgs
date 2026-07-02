@@ -281,7 +281,7 @@ Avoid: rewriting the whole button.
   display: inline-flex;
   gap: 12px;
   padding: 14px 22px;
-  border-radius: 999px;
+  border-radius: 99px;
   background: #ff6161;
 }
 ```
