@@ -1,43 +1,11 @@
-//+ devices 
-$watch: 315px;
-$mobile: 430px;
-$big-mobile: 615px;
-$tablet: 800px;
-$big-tablet: 900px;
-$laptop: 1100px;
-
-@use "sass:list";
-
-@function fibonacci($n) {
-    $sequence: 0 1;
-
-    @for $_ from 1 through $n {
-        $last: list.nth($sequence, list.length($sequence));
-        $previous: list.nth($sequence, list.length($sequence) - 1);
-        $new: $last + $previous;
-
-        $sequence: list.append($sequence, $new);
-    }
-
-    @return list.nth($sequence, list.length($sequence));
-}
-
-$base-fibonacci-size: 0.05rem;
-
-$h1: fibonacci(11) * $base-fibonacci-size; // 7.2rem
-$h2: fibonacci(10) * $base-fibonacci-size; // 4.45rem
-$h3: fibonacci(9) * $base-fibonacci-size;  // 2.75rem
-$h4: fibonacci(8) * $base-fibonacci-size;  // 1.7rem
-$h5: fibonacci(8) * $base-fibonacci-size;  // 1.7rem
-
-//= IMPORT ADVANCED
-@import "mx-base";
-@import "mx-responsive";
-@import "mx-form";
-@import "mx-form-addon";
-@import "mx-button";
-@import "mx-color";
-@import "mx-semantic";
-@import "mx-card";
+@forward "settings";
+@forward "mx-base";
+@forward "mx-responsive";
+@forward "mx-form";
+@forward "mx-form-addon";
+@forward "mx-button";
+@forward "mx-color";
+@forward "mx-semantic";
+@forward "mx-card";
 
  

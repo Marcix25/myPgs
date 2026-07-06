@@ -1,3 +1,5 @@
+@use "../mixin/mixin" as *;
+
 html:has(dialog[open]) {
     overflow: hidden;
     position: relative;

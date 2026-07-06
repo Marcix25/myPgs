@@ -1,16 +1,16 @@
-//+ MIXIN
-@import "./mixin/mixin.scss";
+@use "sass:meta";
+@use "./mixin/mixin" as *;
 /*
 |--------------------------------------------------------------------------
 | Base
 |--------------------------------------------------------------------------
 */
-@import "base/variables";
-@import "base/color";
-@import "base/html";
-@import "base/body";
-@import "base/heading";
-@import "base/general";
+@include meta.load-css("base/variables");
+@include meta.load-css("base/color");
+@include meta.load-css("base/html");
+@include meta.load-css("base/body");
+@include meta.load-css("base/heading");
+@include meta.load-css("base/general");
 
 /*
 |--------------------------------------------------------------------------
@@ -18,11 +18,11 @@
 |--------------------------------------------------------------------------
 */
 [pgs~=initP] {
-    @import "layout/layout";
-    @import "layout/flex";
-    @import "layout/grid";
-    @import "layout/pageShell";
-    @import "layout/gap";
+    @include meta.load-css("layout/layout");
+    @include meta.load-css("layout/flex");
+    @include meta.load-css("layout/grid");
+    @include meta.load-css("layout/pageShell");
+    @include meta.load-css("layout/gap");
 }
 
 /*
@@ -31,21 +31,21 @@
 |--------------------------------------------------------------------------
 */
 [pgs~=initP] {
-    @import "components/button";
-    @import "components/form";
-    @import "components/menu";
-    @import "components/accordion";
-    @import "components/breadcumbs";
-    @import "components/dropdown";
-    @import "components/modals";
-    @import "components/slides";
-    @import "components/steps";
-    @import "components/table";
-    @import "components/stepTabs";
-    @import "components/notification";
-    @import "components/tooltip";
-    @import "components/searchbar";
-    @import "components/logo";
+    @include meta.load-css("components/button");
+    @include meta.load-css("components/form");
+    @include meta.load-css("components/menu");
+    @include meta.load-css("components/accordion");
+    @include meta.load-css("components/breadcumbs");
+    @include meta.load-css("components/dropdown");
+    @include meta.load-css("components/modals");
+    @include meta.load-css("components/slides");
+    @include meta.load-css("components/steps");
+    @include meta.load-css("components/table");
+    @include meta.load-css("components/stepTabs");
+    @include meta.load-css("components/notification");
+    @include meta.load-css("components/tooltip");
+    @include meta.load-css("components/searchbar");
+    @include meta.load-css("components/logo");
 }
 
 /*
@@ -54,7 +54,7 @@
 |--------------------------------------------------------------------------
 */
 [pgs~=initP] {
-    @import "patterns/header";
-    @import "patterns/footer";
-    @import "patterns/cookieConsent";
+    @include meta.load-css("patterns/header");
+    @include meta.load-css("patterns/footer");
+    @include meta.load-css("patterns/cookieConsent");
 }

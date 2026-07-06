@@ -1,3 +1,5 @@
+@use "../mixin/mixin" as *;
+
 //# SEMANTIC
 [pgs~=main] {
     @include main;

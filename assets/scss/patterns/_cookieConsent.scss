@@ -1,3 +1,5 @@
+@use "../mixin/mixin" as *;
+
 [pgs~=cookieConsent] {
     --cookie-bg: var(--color-box);
     --cookie-color: var(--color-black);

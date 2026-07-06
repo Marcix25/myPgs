@@ -1,3 +1,6 @@
+@use "settings" as *;
+@use "mx-responsive" as *;
+
 //= TEXTAREA
 @mixin textarea() {
     align-items: flex-start;

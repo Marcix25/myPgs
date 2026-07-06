@@ -38,15 +38,16 @@
   --focus-visible: 3px solid var(--color-link);
   --heightOfHeader: 13.3rem;
 }
+
 @media (max-width: 430px) {
   :root {
     --gap-sections: calc(7.3rem + 8svh);
   }
 }
-
 :root {
   color-scheme: light;
 }
+
 :root[data-darkmode=true] {
   color-scheme: dark;
 }
@@ -109,64 +110,74 @@
   box-sizing: border-box;
   scroll-margin-top: calc(var(--heightOfHeader) + 5vh);
 }
+
 [pgs~=htmlBase] * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   scroll-margin-top: calc(var(--heightOfHeader) + 5vh);
 }
+
 [pgs~=htmlBase]:root,
 [pgs~=htmlBase] :root {
   interpolate-size: allow-keywords;
 }
+
 @view-transition {
   [pgs~=htmlBase] {
     navigation: auto;
   }
 }
-
 [pgs~=bodyBase] {
   background-color: var(--color-background);
   position: relative;
 }
+
 [pgs~=bodyBase] section {
   container-type: inline-size;
   width: 100%;
 }
+
 [pgs~=bodyBase] aside {
   container-type: inline-size;
   width: 100%;
 }
+
 [pgs~=bodyBase] ul {
   list-style: none;
   color: var(--color-black);
 }
+
 [pgs~=bodyBase] hr {
   margin: var(--gap-texts);
   border-style: solid;
   border-color: var(--color-primary-soft);
 }
+
 [pgs~=bodyBase] ::selection {
   background: var(--color-secondary);
   color: var(--color-whiteFixed);
 }
+
 [pgs~=bodyBase] :focus-visible {
   outline: 0px solid;
 }
+
 @media (hover: hover) and (pointer: none) {
   [pgs~=bodyBase] :focus-visible {
     outline: var(--focus-visible);
   }
 }
-
 [pgs~=bodyImg] i {
   line-height: 1.2;
   font-size: var(--fa-size);
   transition: color 300ms;
 }
+
 [pgs~=bodyImg] i::before, [pgs~=bodyImg] i::after {
   transition: color 300ms;
 }
+
 [pgs~=bodyImg] img,
 [pgs~=bodyImg] object,
 [pgs~=bodyImg] lottie-player {
@@ -179,6 +190,7 @@
   color-scheme: light;
   transition: opacity 200ms;
 }
+
 body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   width: 100%;
   height: auto;
@@ -187,9 +199,11 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=bodyImg] svg {
   fill: currentColor;
 }
+
 [pgs~=bodyImg] body:not(.object-loaded) :is(object[type="image/svg+xml"], lottie-player) {
   opacity: 0;
 }
+
 [pgs~=bodyImg] picture {
   display: block;
   height: 100%;
@@ -204,27 +218,33 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   font-optical-sizing: auto;
   font-style: normal;
 }
+
 [pgs~=bodyText] span {
   overflow-wrap: anywhere;
 }
+
 [pgs~=bodyText] p {
   color: var(--color-text);
   line-height: 1.5;
   overflow-wrap: anywhere;
 }
+
 [pgs~=bodyText] p a {
   color: var(--color-link);
   text-decoration: underline;
 }
+
 [pgs~=bodyText] a {
   text-decoration: none;
   overflow-wrap: anywhere;
   color: var(--color-black);
 }
+
 [pgs~=bodyText] a:hover {
   color: color-mix(in srgb, var(--color-link) 100%, var(--color-white) 50%);
   text-decoration: underline;
 }
+
 [pgs~=bodyText] a img,
 [pgs~=bodyText] a object,
 [pgs~=bodyText] a lottie-player {
@@ -241,6 +261,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   font-weight: 900;
   overflow-wrap: anywhere;
 }
+
 @media (max-width: 800px) {
   [pgs~=bodyHeading] h1 {
     font-size: clamp(1.6rem, var(--heading-size) / 3 + 8vw, var(--heading-size));
@@ -271,6 +292,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   font-weight: 900;
   overflow-wrap: anywhere;
 }
+
 @media (max-width: 800px) {
   [pgs~=bodyHeading] h2 {
     font-size: clamp(1.6rem, var(--heading-size) / 3 + 8vw, var(--heading-size));
@@ -302,6 +324,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   overflow-wrap: anywhere;
   margin-top: calc(var(--heading-size) / 4);
 }
+
 @media (max-width: 800px) {
   [pgs~=bodyHeading] h3 {
     font-size: clamp(1.6rem, var(--heading-size) / 3 + 8vw, var(--heading-size));
@@ -333,6 +356,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   overflow-wrap: anywhere;
   margin-top: calc(var(--heading-size) / 4);
 }
+
 @media (max-width: 800px) {
   [pgs~=bodyHeading] h4 {
     font-size: clamp(1.6rem, var(--heading-size) / 3 + 8vw, var(--heading-size));
@@ -364,6 +388,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   overflow-wrap: anywhere;
   margin-top: calc(var(--heading-size) / 4);
 }
+
 @media (max-width: 800px) {
   [pgs~=bodyHeading] h5 {
     font-size: clamp(1.6rem, var(--heading-size) / 3 + 8vw, var(--heading-size));
@@ -384,7 +409,6 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
     line-height: 1.1;
   }
 }
-
 [pgs~=initP] [pgs~=h1] {
   font-family: var(--font-titoli);
   --heading-size: 7.2rem;
@@ -395,6 +419,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   font-weight: 900;
   overflow-wrap: anywhere;
 }
+
 @media (max-width: 800px) {
   [pgs~=initP] [pgs~=h1] {
     font-size: clamp(1.6rem, var(--heading-size) / 3 + 8vw, var(--heading-size));
@@ -425,6 +450,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   font-weight: 900;
   overflow-wrap: anywhere;
 }
+
 @media (max-width: 800px) {
   [pgs~=initP] [pgs~=h2] {
     font-size: clamp(1.6rem, var(--heading-size) / 3 + 8vw, var(--heading-size));
@@ -456,6 +482,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   overflow-wrap: anywhere;
   margin-top: calc(var(--heading-size) / 4);
 }
+
 @media (max-width: 800px) {
   [pgs~=initP] [pgs~=h3] {
     font-size: clamp(1.6rem, var(--heading-size) / 3 + 8vw, var(--heading-size));
@@ -487,6 +514,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   overflow-wrap: anywhere;
   margin-top: calc(var(--heading-size) / 4);
 }
+
 @media (max-width: 800px) {
   [pgs~=initP] [pgs~=h4] {
     font-size: clamp(1.6rem, var(--heading-size) / 3 + 8vw, var(--heading-size));
@@ -518,6 +546,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   overflow-wrap: anywhere;
   margin-top: calc(var(--heading-size) / 4);
 }
+
 @media (max-width: 800px) {
   [pgs~=initP] [pgs~=h5] {
     font-size: clamp(1.6rem, var(--heading-size) / 3 + 8vw, var(--heading-size));
@@ -538,12 +567,12 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
     line-height: 1.1;
   }
 }
-
 [pgs~=initP] [pgs~=card],
 [pgs~=initP] [pgs~=cardImg] {
   --card-padding: var(--padding);
   height: 100%;
 }
+
 [pgs~=initP] [pgs~=card]:not(:has(> a)),
 [pgs~=initP] [pgs~=cardImg]:not(:has(> a)) {
   --card-background: var(--color-box-transparent);
@@ -552,6 +581,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   background: var(--card-background);
   border-radius: var(--border-radius);
 }
+
 [pgs~=initP] [pgs~=card] > a,
 [pgs~=initP] [pgs~=cardImg] > a {
   --card-background: var(--color-white);
@@ -560,6 +590,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   cursor: pointer;
   text-decoration: none;
 }
+
 @media (hover: hover) and (pointer: fine) {
   [pgs~=initP] [pgs~=card] > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=card] > a:not(:disabled):hover,
   [pgs~=initP] [pgs~=cardImg] > a:not(:disabled):focus-visible,
@@ -615,11 +646,13 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=initP] [pgs~=cardImg] > a:is(a):hover {
   text-decoration: none;
 }
+
 [pgs~=initP] [pgs~=card] > a:active,
 [pgs~=initP] [pgs~=cardImg] > a:active {
   box-shadow: 0 0 0 var(--color-black);
   transform: translate(0, 0);
 }
+
 [pgs~=initP] [pgs~=card] > a,
 [pgs~=initP] [pgs~=cardImg] > a {
   height: 100%;
@@ -628,6 +661,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   border-radius: var(--border-radius);
   outline: var(--border-complete);
 }
+
 [pgs~=initP] [pgs~=card] > object,
 [pgs~=initP] [pgs~=card] > img,
 [pgs~=initP] [pgs~=card] > a > object,
@@ -644,6 +678,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   width: calc(var(--card-padding) * 2 + 100%);
   margin-bottom: 0;
 }
+
 [pgs~=initP] [pgs~=card] [pgs~=card-img],
 [pgs~=initP] [pgs~=cardImg] [pgs~=card-img] {
   border-radius: var(--border-radius);
@@ -654,6 +689,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   width: calc(var(--card-padding) * 2 + 100%);
   margin-bottom: 0;
 }
+
 [pgs~=initP] [pgs~=boxtext] {
   display: flex;
   gap: var(--gap-texts);
@@ -665,6 +701,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   width: unset;
   border-radius: var(--border-radius-input);
 }
+
 @media (max-width: 430px) {
   [pgs~=initP] [pgs~=boxtext] {
     margin-inline: 0;
@@ -673,49 +710,63 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=initP] [pgs~=boxtext]:has(.fa-solid), [pgs~=initP] [pgs~=boxtext]:has(.fa-duotone) {
   --boxtext-background: var(--color-primary-soft);
 }
+
 [pgs~=initP] [pgs~=boxtext]:has(.fa-solid) i, [pgs~=initP] [pgs~=boxtext]:has(.fa-duotone) i {
   --fa-primary-color: var(--color-primary-soft);
   --fa-secondary-color: var(--color-primary);
   --fa-secondary-opacity: 1;
 }
+
 [pgs~=initP] [pgs~=boxtext]:has(.fa-triangle-exclamation) {
   --boxtext-background: var(--color-warning-background);
 }
+
 [pgs~=initP] [pgs~=boxtext]:has(.fa-triangle-exclamation) i {
   --fa-primary-color: var(--color-black);
   --fa-secondary-color: var(--color-warning);
 }
+
 [pgs~=initP] [pgs~=darkmode] {
   color-scheme: dark;
 }
+
 [pgs~=initP] [pgs~=lightmode] {
   color-scheme: light;
 }
+
 [pgs~=initP] [pgs~=imgCover] {
   object-fit: cover;
 }
+
 [pgs~=initP] [pgs~=imgContain] {
   object-fit: contain;
 }
+
 [pgs~=initP] [pgs~=borderRadius] {
   border-radius: var(--border-radius);
 }
+
 [pgs~=initP] [pgs~=borderRadiusInput] {
   border-radius: var(--border-radius-input);
 }
+
 [pgs~=initP] [pgs~=borderRadiusExternal] {
   border-radius: var(--border-radius-external);
 }
+
 [pgs~=initP] [pgs~=blur] {
   backdrop-filter: var(--blur);
 }
+
 [pgs~=initP] [pgs~=appearanceNone] {
   all: unset;
   appearance: none;
 }
+
 [pgs~=initP] [pgs~=pointer] {
   cursor: pointer;
 }
+
 [pgs~=initP] [pgs~=hidden] {
   display: none !important;
 }
@@ -5343,10 +5394,9 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   opacity: 1;
   transition-behavior: allow-discrete;
 }
-dialog:not(:has([pgs~=modal-dialog-content])) {
+[pgs~=initP] dialog:not(:has([pgs~=modal-dialog-content])) {
   cursor: pointer;
 }
-
 @media (max-width: 615px) {
   [pgs~=initP] dialog[pgs~=modal-dialog] {
     padding-inline: 0;
@@ -5401,10 +5451,9 @@ dialog:not(:has([pgs~=modal-dialog-content])) {
   top: calc(var(--heightOfHeader) + var(--padding));
   z-index: 1;
 }
-dialog:not(:has(> [pgs~=modal-close])) {
+[pgs~=initP] dialog:not(:has(> [pgs~=modal-close])) {
   padding-top: var(--padding-page);
 }
-
 [pgs~=initP] dialog[pgs~=modal-dialog][pgs-option~=left] [pgs~=modal-dialog-content] {
   margin-left: unset;
   margin-right: auto;
@@ -6044,18 +6093,16 @@ dialog:not(:has(> [pgs~=modal-close])) {
   top: calc(var(--heightOfHeader) + 10px);
   right: 10px;
 }
-body:has(header[data-header-scroll=true]) [pgs~=initP] [pgs~=notification] {
+[pgs~=initP] body:has(header[data-header-scroll=true]) [pgs~=notification] {
   top: 0;
 }
-
 [pgs~=initP] [pgs~=toast] {
   inset-inline: 0;
   top: calc(var(--heightOfHeader) + 10px);
 }
-body:has(header[data-header-scroll=true]) [pgs~=initP] [pgs~=toast] {
+[pgs~=initP] body:has(header[data-header-scroll=true]) [pgs~=toast] {
   top: 10px;
 }
-
 [pgs~=initP] [pgs~=tooltip][pgs~=dropdown] {
   --dropdown-position-right: center;
   --dropdown-maxwidth: 400px;
@@ -6118,26 +6165,24 @@ body:has(header[data-header-scroll=true]) [pgs~=initP] [pgs~=toast] {
 [pgs~=initP] [pgs~=searchbar]:has(input:focus-visible) {
   outline: var(--focus-visible);
 }
-dialog [pgs~=initP] [pgs~=searchbar] {
+[pgs~=initP] dialog [pgs~=searchbar] {
   margin-inline: auto;
   max-width: calc(100% - var(--padding-page) * 2);
   height: max-content;
   background-color: var(--color-white);
 }
-dialog [pgs~=initP] [pgs~=searchbar] input {
+[pgs~=initP] dialog [pgs~=searchbar] input {
   padding-block: 20px;
 }
-
 [pgs~=initP] [pgs~=logo] {
   display: flex;
   min-width: max-content;
   --logo-height: var(--header-size, 6.0rem);
   --logo-finter: invert(1) hue-rotate(180deg) brightness(1.5);
 }
-[data-darkmode=true] [pgs~=logo-darkmode] [pgs~=logo-image] {
+[pgs~=initP] [data-darkmode=true] [pgs~=logo-darkmode] [pgs~=logo-image] {
   filter: var(--logo-finter);
 }
-
 [pgs~=initP] [pgs~=logo][pgs~=logo-darkmodeFixed][pgs~=logo-darkmode] [pgs~=logo-image] {
   filter: var(--logo-finter);
 }
@@ -6261,9 +6306,14 @@ dialog [pgs~=initP] [pgs~=searchbar] input {
 }
 [pgs~=initP] [pgs~=header] dialog[pgs~=modal-dialogpopover],
 [pgs~=initP] [pgs~=header] dialog[pgs~=modal-dialog] {
-  padding: 2rem;
-  padding-top: calc(var(--heightOfHeader) + var(--padding));
+  padding-top: var(--heightOfHeader);
+  padding-inline: 5px;
   --modal-background: color-mix(in srgb, var(--color-primary-soft) 50%, var(--color-white) 50%);
+}
+[pgs~=initP] [pgs~=header] dialog[pgs~=modal-dialogpopover] [pgs~=modal-dialog-content] nav,
+[pgs~=initP] [pgs~=header] dialog[pgs~=modal-dialog] [pgs~=modal-dialog-content] nav {
+  padding: var(--padding-2);
+  border-radius: var(--padding-2);
 }
 [pgs~=initP] [pgs~=header] dialog[pgs~=modal-dialogpopover][open],
 [pgs~=initP] [pgs~=header] dialog[pgs~=modal-dialog][open] {

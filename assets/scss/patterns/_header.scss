@@ -1,3 +1,5 @@
+@use "../mixin/mixin" as *;
+
 [pgs~="header"] {
     --header-padding-inline: 30px;
     --header-padding-block: 10px;
@@ -101,11 +103,17 @@
     //= DIALOG 
     dialog[pgs~="modal-dialogpopover"],
     dialog[pgs~="modal-dialog"] {
-        padding: 2rem;
-        padding-top: calc(var(--heightOfHeader) + var(--padding));
+        // padding: 2rem;
+        padding-top: var(--heightOfHeader);
+        padding-inline: 5px;
         --modal-background: color-mix(in srgb, var(--color-primary-soft) 50%, var(--color-white) 50%);
 
-        dialog[pgs~="modal-dialog-content"] {}
+        [pgs~="modal-dialog-content"] {
+            nav {
+                padding: var(--padding-2);
+                border-radius: var(--padding-2);
+            }
+        }
 
         &[open] {
             display: flex;

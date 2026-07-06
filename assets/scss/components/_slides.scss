@@ -1,3 +1,5 @@
+@use "../mixin/mixin" as *;
+
 [pgs~="slides"] {
     display: flex;
     flex-direction: column;

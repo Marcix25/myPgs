@@ -1,3 +1,7 @@
+@use "settings" as *;
+@use "mx-button" as *;
+@use "mx-responsive" as *;
+
 @mixin card-insideImg() {
     $cardImgPadding: calc(var(--card-padding) * -1);
     border-radius: var(--border-radius);

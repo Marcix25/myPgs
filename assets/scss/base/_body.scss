@@ -1,3 +1,5 @@
+@use "../mixin/mixin" as *;
+
 //== BASE
 [pgs~="bodyBase"] {
     background-color: var(--color-background);

@@ -1,3 +1,5 @@
+@use "../mixin/mixin" as *;
+
 //# FORM
 [pgs~=textarea] {
     @include textarea();

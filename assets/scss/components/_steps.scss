@@ -1,3 +1,5 @@
+@use "../mixin/mixin" as *;
+
 ol[pgs~="steps"] {
     color: var(--color-black);
 
