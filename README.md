@@ -56,14 +56,15 @@ Markup minimo consigliato:
 Se il progetto vuole compilare un CSS unico, importa gli SCSS sorgenti:
 
 ```scss
-@import "../../node_modules/mypgs/assets/scss/mixin/mixin.scss";
-@import "../../node_modules/mypgs/assets/scss/index.scss";
+@use "sass:meta";
+@use "../../node_modules/mypgs/assets/scss/mixin/mixin.scss" as * ;
+@include meta.load-css("../../node_modules/mypgs/assets/scss/index.scss");
 ```
 
 Se servono solo i mixin:
 
 ```scss
-@import "../../node_modules/mypgs/assets/scss/mixin/mixin.scss";
+@use "../../node_modules/mypgs/assets/scss/mixin/mixin.scss" as * ;
 ```
 
 La libreria espone molte custom properties da preferire agli hardcode, per esempio:
@@ -228,173 +229,7 @@ pgs.modal.api(modalEl)?.open();
 
 ## Componenti e markup
 
-I template completi sono in `templates/components/` e `templates/layout/`. Usa quei file come sorgente di riferimento prima di creare markup nuovo.
-
-### Layout
-
-```html
-<main pgs="main">
-  <section pgs="section flexColumnElements">
-    <div pgs="flexColumnTexts">
-      <h2>Titolo</h2>
-      <p>Contenuto.</p>
-    </div>
-  </section>
-</main>
-```
-
-```html
-<section pgs="sectionFull flexColumnElements">
-  <div pgs="grid-3">
-    <article pgs="card flexColumnTexts">
-      <h3>Colonna uno</h3>
-      <p>Contenuto.</p>
-    </article>
-  </div>
-</section>
-```
-
-### Bottoni
-
-```html
-<button pgs="button" type="button">Base</button>
-<button pgs="buttonStrong" type="button">Primario</button>
-<button pgs="buttonIcon" type="button" aria-label="Impostazioni">
-  <i class="fa-solid fa-gear" aria-hidden="true"></i>
-</button>
-```
-
-### Accordion
-
-```html
-<div pgs="accordion">
-  <button pgs="accordion-button" type="button">Domanda</button>
-  <div pgs="accordion-content">Risposta</div>
-</div>
-```
-
-### Dropdown
-
-```html
-<span pgs="dropdown">
-  <button pgs="dropdown-button button" type="button">Apri menu</button>
-  <div pgs="dropdown-content">
-    <nav aria-label="Menu dropdown"></nav>
-  </div>
-</span>
-```
-
-### Modal
-
-```html
-<div pgs="modal" pgs-option="containerID[modal-container]">
-  <button pgs="modal-button button" type="button">Apri modale</button>
-  <dialog>
-    <div pgs="modal-dialog-content">
-      <div pgs="modal-dialog-content-header">
-        <h3>Modale</h3>
-      </div>
-      <div pgs="modal-dialog-content-scroll">
-        <p>Contenuto della modale.</p>
-      </div>
-    </div>
-  </dialog>
-</div>
-<div id="modal-container"></div>
-```
-
-### Slides
-
-```html
-<div pgs="slides" pgs-option="singleScroll shadowDesktop">
-  <ul pgs="slides-container">
-    <li>
-      <article pgs="card flexColumn">
-        <img pgs="card-img imgCover" src="image.jpg" alt="">
-        <div pgs="flexColumnTexts">
-          <h3>Slide uno</h3>
-        </div>
-      </article>
-    </li>
-  </ul>
-</div>
-```
-
-### Step tabs
-
-```html
-<div pgs="stepTabs flexColumnElements">
-  <div pgs="stepTabs-dots" aria-label="Avanzamento"></div>
-  <div pgs="stepTabs-container">
-    <section pgs="tab flexColumnTexts" tabindex="-1" pgs-option="tabIcon[fa-user]"></section>
-  </div>
-  <div pgs="flexRow">
-    <button pgs="stepTabs-prev button" type="button">Indietro</button>
-    <button pgs="stepTabs-next button" pgs-option="buttonReverse" type="button">Avanti</button>
-  </div>
-</div>
-```
-
-### Form
-
-```html
-<form pgs="form" action="#" method="post">
-  <label pgs="label" for="form-email">Email</label>
-  <input id="form-email" pgs="input" type="email" name="email" required data-form-field-message="Inserisci una email valida">
-  <button pgs="buttonStrong" type="submit">Invia</button>
-</form>
-```
-
-Validazione programmatica:
-
-```js
-const form = document.querySelector("form");
-const validator = new pgs.formValidate({ form });
-
-if (validator.validate()) {
-  pgs.notification.toast.success("Inviato con successo");
-}
-```
-
-### Notifiche
-
-```html
-<div pgs="notification" aria-live="polite"></div>
-<div pgs="toast" aria-live="polite"></div>
-```
-
-```js
-pgs.notification.toast.success("Salvato");
-pgs.notification.alert.error("Errore", null, 0);
-```
-
-Trigger da markup:
-
-```html
-<div pgs="hidden notificationTrigger" data-notification='{
-  "title":"Titolo",
-  "message":"Messaggio",
-  "element":"notification",
-  "type":"info",
-  "duration":"-1"
-}'></div>
-```
-
-### Menu
-
-```html
-<nav pgs="menuHorizontal" aria-label="Menu principale">
-  <ul>
-    <li class="menu-item"><a href="/">Home</a></li>
-    <li class="menu-item menu-item-has-children">
-      <a href="/servizi">Servizi</a>
-      <ul class="sub-menu">
-        <li class="menu-item"><a href="/servizi/uno">Servizio uno</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-```
+I template completi sono in `templates/html/components/`, `templates/html/patterns/` e `templates/html/layout/`. Usa quei file come sorgente di riferimento prima di creare markup nuovo.
 
 ## Componenti disponibili
 
@@ -484,8 +319,9 @@ import "mypgs/style.css";
 Uso sorgente SCSS:
 
 ```scss
-@import "../../node_modules/mypgs/assets/scss/mixin/mixin.scss";
-@import "../../node_modules/mypgs/assets/scss/index.scss";
+@use "sass:meta";
+@use "../../node_modules/mypgs/assets/scss/mixin/mixin.scss" as * ;
+@include meta.load-css("../../node_modules/mypgs/assets/scss/index.scss");
 ```
 
 ## Sviluppo

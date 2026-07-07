@@ -62,16 +62,16 @@ Files analyzed:
 - `assets/scss/components/*`
 - `assets/scss/patterns/*`
 - `assets/scss/mixin/*`
-- `templates/components/*`
-- `templates/layout/*`
-- `templates/patterns/*`
+- `templates/html/components/*`
+- `templates/html/layout/*`
+- `templates/html/patterns/*`
 
 Patterns found:
 
 - `pgs` is the main attribute: tokens are separated by spaces, for example `pgs="button modal-button"`.
 - `assets/scss/index.scss` imports base, layout, components, and patterns; layouts/components/patterns are almost all scoped under `[pgs~=initP]`.
-- The main markup must enable the library with `htmlBase initP`, and the body with base body tokens. Use `templates/demo.html` and `templates/layout/body.html` as the canonical references.
-- Components use a root token and child tokens with a consistent prefix. Use `templates/components/` as the canonical markup source.
+- The main markup must enable the library with `htmlBase initP`, and the body with base body tokens. Use `templates/demo.html` and `templates/html/layout/body.html` as the canonical references.
+- Components use a root token and child tokens with a consistent prefix. Use `templates/html/components/` as the canonical markup source.
 
 - Runtime states use `pgs-state`, for example `open`, `is-active`, `is-completed`, `is-locked`, `success`, `error`, `warning`, and `info`.
 - Configurable options use `pgs-option`, with simple tokens or values inside square brackets. Prefer copying the current option syntax from the relevant template rather than duplicating examples in this guide.
@@ -84,14 +84,15 @@ Patterns found:
 Recommended imports in a project that consumes the library:
 
 ```scss
-@import "../../node_modules/mypgs/assets/scss/mixin/mixin.scss";
-@import "../../node_modules/mypgs/assets/scss/index.scss";
+@use "sass:meta";
+@use "../../node_modules/mypgs/assets/scss/mixin/mixin.scss" as * ;
+@include meta.load-css("../../node_modules/mypgs/assets/scss/index.scss");
 ```
 
 If you only need the mixins:
 
 ```scss
-@import "../../node_modules/mypgs/assets/scss/mixin/mixin.scss";
+@use "../../node_modules/mypgs/assets/scss/mixin/mixin.scss" as * ;
 ```
 
 Direct usage of the compiled CSS:
@@ -222,9 +223,9 @@ Use the templates as the single source of truth for component and layout markup.
 
 Canonical template references:
 
-- Layouts: `templates/layout/body.html`, `templates/layout/flex.html`, `templates/layout/grid.html`, `templates/layout/pageShell.html`, `templates/layout/section.html`
-- Components: `templates/components/accordion.html`, `templates/components/breadcumbs.html`, `templates/components/button.html`, `templates/components/card.html`, `templates/components/dropdown.html`, `templates/components/form.html`, `templates/components/logo.html`, `templates/components/menu.html`, `templates/components/modal.html`, `templates/components/notification.html`, `templates/components/searchbar.html`, `templates/components/slides.html`, `templates/components/stepTabs.html`, `templates/components/steps.html`, `templates/components/table.html`, `templates/components/tooltip.html`
-- Patterns: `templates/patterns/cookieConsent.html`, `templates/patterns/footer.html`, `templates/patterns/header.html`
+- Layouts: `templates/html/layout/body.html`, `templates/html/layout/flex.html`, `templates/html/layout/grid.html`, `templates/html/layout/pageShell.html`, `templates/html/layout/section.html`
+- Components: `templates/html/components/accordion.html`, `templates/html/components/breadcumbs.html`, `templates/html/components/button.html`, `templates/html/components/card.html`, `templates/html/components/dropdown.html`, `templates/html/components/form.html`, `templates/html/components/logo.html`, `templates/html/components/menu.html`, `templates/html/components/modal.html`, `templates/html/components/notification.html`, `templates/html/components/searchbar.html`, `templates/html/components/slides.html`, `templates/html/components/stepTabs.html`, `templates/html/components/steps.html`, `templates/html/components/table.html`, `templates/html/components/tooltip.html`
+- Patterns: `templates/html/patterns/cookieConsent.html`, `templates/html/patterns/footer.html`, `templates/html/patterns/header.html`
 - Complete demo assembly. DO NOT use this for inspiration. It is only used to show all the modules: `templates/demo.html`
 
 Before creating markup, open the relevant template and reuse its current structure, tokens, ARIA attributes, and `pgs-option` syntax.
@@ -257,11 +258,12 @@ import "mypgs/style.css";
 Source SCSS import:
 
 ```scss
-@import "../../node_modules/mypgs/assets/scss/mixin/mixin.scss";
-@import "../../node_modules/mypgs/assets/scss/index.scss";
+@use "sass:meta";
+@use "../../node_modules/mypgs/assets/scss/mixin/mixin.scss" as * ;
+@include meta.load-css("../../node_modules/mypgs/assets/scss/index.scss");
 ```
 
-Recommended: use PGS layout tokens from `templates/layout/`.
+Recommended: use PGS layout tokens from `templates/html/layout/`.
 
 Avoid: equivalent custom layout with ad hoc classes when a PGS layout token already exists.
 
@@ -326,7 +328,7 @@ For a new reusable component:
 - create JS in `assets/javascript/components/` or `assets/javascript/patterns/` only if behavior is needed;
 - export an object with `init` and/or `api` when the module needs a public API;
 - register it in `assets/javascript/_imports.js` with `pgs.registerModules` if it must be available as `pgs.moduleName`;
-- add a template in `templates/components/` or `templates/layout/`;
+- add a template in `templates/html/components/` or `templates/html/layout/`;
 - update `README.md` and this guide if the usage changes.
 
 Example for a new module:

@@ -1,0 +1,40 @@
+export default function StepTabs() {
+    return (
+        <div pgs="stepTabs flexColumnElements">
+            <div pgs="stepTabs-dots" aria-label="Avanzamento"></div>
+
+            <div pgs="stepTabs-container">
+                <section pgs="tab flexColumnTexts" tabIndex="-1" pgs-option="tabIcon[fa-user]">
+                    <h3>Dati personali</h3>
+                    <p>Contenuto del primo tab.</p>
+                </section>
+
+                <section pgs="tab flexColumnTexts" tabIndex="-1" pgs-option="tabIcon[fa-list-check]">
+                    <h3>Preferenze</h3>
+                    <p>Contenuto del secondo tab.</p>
+                </section>
+
+                <section pgs="tab flexColumnTexts" tabIndex="-1" pgs-option="tabIcon[fa-check]">
+                    <h3>Conferma</h3>
+                    <p>Contenuto del terzo tab.</p>
+                </section>
+            </div>
+
+            <div pgs="flexRow">
+                <button pgs="stepTabs-prev button" type="button">
+                    <i className="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                    Indietro
+                </button>
+
+                <button pgs="stepTabs-restart button" type="button">
+                    Ricomincia
+                </button>
+
+                <button pgs="stepTabs-next button" pgs-option="buttonReverse" type="button">
+                    Avanti
+                    <i className="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    );
+}

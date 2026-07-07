@@ -1,0 +1,27 @@
+export default function Accordion() {
+    return (
+        <ul pgs="grid-1 gapTexts">
+            <li pgs="accordion">
+                <button pgs="accordion-button" type="button">
+                    <i className="fa-solid fa-circle-question" aria-hidden="true"></i>
+                    <span>Domanda frequente</span>
+                </button>
+
+                <div pgs="accordion-content" hidden>
+                    <p>Risposta di esempio con contenuto testuale riutilizzabile.</p>
+                </div>
+            </li>
+
+            <li pgs="accordion">
+                <button pgs="accordion-button" type="button">
+                    <i className="fa-solid fa-circle-info" aria-hidden="true"></i>
+                    <span>Seconda sezione</span>
+                </button>
+
+                <div pgs="accordion-content" hidden>
+                    <p>Altro contenuto del pannello accordion.</p>
+                </div>
+            </li>
+        </ul>
+    );
+}

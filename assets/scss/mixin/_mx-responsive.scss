@@ -1,3 +1,4 @@
+@use "sass:math";
 @use "settings" as *;
 
 //= FLEX 
@@ -52,7 +53,7 @@
 
 //= FLEX
 @function _basis($ratio, $gap, $columns) {
-    $cols: ceil($columns * $ratio);
+    $cols: math.ceil($columns * $ratio);
     @return calc((100% - ($gap * ($cols - 1))) / $cols);
 }
 
@@ -196,17 +197,17 @@
 
         //-( laptop 
         @container (max-width: #{$laptop}) {
-            grid-template-columns: repeat(ceil($columns * 0.75), 1fr); // 75% delle colonne originali
+            grid-template-columns: repeat(math.ceil($columns * 0.75), 1fr); // 75% delle colonne originali
         }
 
         //-( big-tablet 
         @container (max-width: #{$big-tablet}) {
-            grid-template-columns: repeat(ceil($columns * 0.5), 1fr); // 50% delle colonne originali
+            grid-template-columns: repeat(math.ceil($columns * 0.5), 1fr); // 50% delle colonne originali
         }
 
         //-( tablet 
         @container (max-width: #{$tablet}) {
-            grid-template-columns: repeat(ceil($columns * 0.33), 1fr); // 33% delle colonne originali
+            grid-template-columns: repeat(math.ceil($columns * 0.33), 1fr); // 33% delle colonne originali
         }
     }
 
@@ -214,17 +215,17 @@
 
         //-( laptop 
         @container (max-width: #{$laptop}) {
-            grid-template-columns: repeat(ceil($columns * 0.75), 1fr); // 75% delle colonne originali
+            grid-template-columns: repeat(math.ceil($columns * 0.75), 1fr); // 75% delle colonne originali
         }
 
         //-( big-tablet 
         @container (max-width: #{$big-tablet}) {
-            grid-template-columns: repeat(ceil($columns * 0.5), 1fr); // 50% delle colonne originali
+            grid-template-columns: repeat(math.ceil($columns * 0.5), 1fr); // 50% delle colonne originali
         }
 
         //-( tablet 
         @container (max-width: #{$tablet}) {
-            grid-template-columns: repeat(ceil($columns * 0.33), 1fr); // 33% delle colonne originali
+            grid-template-columns: repeat(math.ceil($columns * 0.33), 1fr); // 33% delle colonne originali
         }
     }
 
@@ -261,17 +262,17 @@
 
     //-( da 1500px
     @container (max-width: #{$start}) {
-        grid-template-columns: repeat(ceil($columns * 0.75), 1fr);
+        grid-template-columns: repeat(math.ceil($columns * 0.75), 1fr);
     }
 
     //-( circa tablet landscape
     @container (max-width: #{calc($start * 0.75)}) {
-        grid-template-columns: repeat(ceil($columns * 0.5), 1fr);
+        grid-template-columns: repeat(math.ceil($columns * 0.5), 1fr);
     }
 
     //-( tablet
     @container (max-width: #{calc($start * 0.5)}) {
-        grid-template-columns: repeat(ceil($columns * 0.33), 1fr);
+        grid-template-columns: repeat(math.ceil($columns * 0.33), 1fr);
     }
 
     //-( mobile

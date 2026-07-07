@@ -1,0 +1,84 @@
+export default function Modal() {
+    return (
+        <>
+            <div pgs="modal" pgs-option="containerID[modal-container]">
+                <button pgs="modal-button button" type="button">
+                    <i className="fa-solid fa-window-maximize"></i> Apri modale
+                </button>
+
+                <dialog>
+                    <div pgs="modal-dialog-content">
+                        <div pgs="modal-dialog-content-header">
+                            <h3>Modale di esempio</h3>
+                        </div>
+
+                        <div pgs="modal-dialog-content-scroll">
+                            <p>Contenuto della modale. Il bottone di chiusura viene aggiunto automaticamente se non presente.</p>
+                        </div>
+                    </div>
+                </dialog>
+            </div>
+
+            <div pgs="modal" pgs-option="containerID[modal-container]">
+                <button pgs="modal-button button" type="button">
+                    <i className="fa-solid fa-window-maximize"></i> Apri modale right
+                </button>
+
+                <dialog pgs-option="right">
+                    <div pgs="modal-dialog-content">
+                        <div pgs="modal-dialog-content-header">
+                            <h3>Modale laterale</h3>
+                        </div>
+
+                        <div pgs="modal-dialog-content-scroll">
+                            <p>Contenuto della modale con <code>pgs-option=&quot;right&quot;</code>.</p>
+                        </div>
+                    </div>
+                </dialog>
+            </div>
+
+            <div pgs="modal" pgs-option="containerID[modal-container]">
+                <button pgs="modal-button button" type="button">
+                    <i className="fa-solid fa-window-maximize"></i> Apri modale left
+                </button>
+
+                <dialog pgs-option="left">
+                    <div pgs="modal-dialog-content">
+                        <div pgs="modal-dialog-content-header">
+                            <h3>Modale laterale sinistra</h3>
+                        </div>
+
+                        <div pgs="modal-dialog-content-scroll">
+                            <p>Contenuto della modale con <code>pgs-option=&quot;left&quot;</code>.</p>
+                        </div>
+                    </div>
+                </dialog>
+            </div>
+
+            <div pgs="modal">
+                <button pgs="modal-button button" type="button">
+                    <i className="fa-solid fa-floppy-disk"></i> Conferma salvataggio
+                </button>
+
+                <dialog pgs-option="topLevel">
+                    <div pgs="modal-dialog-content">
+                        <div pgs="modal-dialog-content-header">
+                            <h3>Salvare le modifiche?</h3>
+                        </div>
+
+                        <div pgs="modal-dialog-content-scroll flexColumnElements">
+                            <p>Hai modifiche non salvate. Conferma per applicarle oppure annulla per tornare alla pagina.</p>
+
+                            <div pgs="flexRow">
+                                <button pgs="button modal-close" type="button">Annulla</button>
+                                <button pgs="buttonStrong" type="button">Salva modifiche</button>
+                            </div>
+                        </div>
+                    </div>
+                </dialog>
+            </div>
+
+            <div id="modal-container"></div>
+        </>
+    );
+}
