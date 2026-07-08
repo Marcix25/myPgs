@@ -24,7 +24,7 @@
   --text-shadow: 0px 0px 50px #000000;
   --backdrop: #0000003e;
   --blur: blur(20px);
-  --page-top: 20svh;
+  --page-top: calc(var(--heightOfHeaderScroll) + (var(--gap-elements)*2));
   --page-width: 1280px;
   --page-space: clamp(var(--padding-page), calc((100% - var(--section-width)) / 2 + var(--padding-page)), 100%);
   --gap-texts: 1.0rem;
@@ -2284,8 +2284,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 }
 [pgs~=initP] [pgs~=pageShell] {
   --pageShell-aside-sticky-top: 0;
-  --pageShell-asideLeft-width: 400px;
-  --pageShell-asideRight-width: 400px;
+  --pageShell-aside-width: 400px;
   --pageShell-content-width: 500px;
   --pageShell-gap: var(--gap-elements);
   display: flex;
@@ -2296,7 +2295,6 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   justify-content: center;
   width: 100%;
   max-width: calc(var(--page-width) + var(--padding-page) * 2);
-  padding-bottom: var(--page-top);
   padding-inline: var(--padding-page);
   container-type: inline-size;
 }
@@ -2307,9 +2305,9 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   width: min(100%, var(--page-width));
   max-width: var(--page-width);
   padding-top: var(--page-top);
+  padding-bottom: var(--gap-elements);
 }
-[pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideLeft],
-[pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideRight] {
+[pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-aside] {
   display: flex;
   gap: var(--gap-texts);
   flex-direction: column;
@@ -2324,101 +2322,136 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   scrollbar-gutter: stable;
   scrollbar-width: none;
   padding-top: var(--page-top);
+  padding-bottom: var(--gap-elements);
+  flex: 1 1 var(--pageShell-aside-width);
+  min-width: min(100%, var(--pageShell-aside-width));
+  max-width: var(--pageShell-aside-width);
 }
-[pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideLeft]::-webkit-scrollbar,
-[pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideRight]::-webkit-scrollbar {
+[pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-aside]::-webkit-scrollbar {
   display: none;
 }
-[pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideLeft] > *,
-[pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideRight] > * {
+[pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-aside] > * {
   width: 100%;
 }
-[pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideLeft]:is([pgs~=pageShell-asideLeft]),
-[pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideRight]:is([pgs~=pageShell-asideLeft]) {
+[pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-aside]:has(+ [pgs~=pageShell-content]) {
   grid-area: asideLeft;
-  flex: 1 1 var(--pageShell-asideLeft-width);
-  min-width: min(100%, var(--pageShell-asideLeft-width));
-  max-width: var(--pageShell-asideLeft-width);
 }
-[pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideLeft]:is([pgs~=pageShell-asideRight]),
-[pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideRight]:is([pgs~=pageShell-asideRight]) {
+[pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-aside] [pgs~=pageShell-aside-scroll] {
+  display: flex;
+  gap: var(--gap-texts);
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  scrollbar-width: none;
+  padding-top: var(--page-top);
+  padding-bottom: calc(var(--gap-elements) * 2);
+}
+[pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-aside] [pgs~=pageShell-aside-scroll]::-webkit-scrollbar {
+  display: none;
+}
+[pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-aside] [pgs~=pageShell-aside-scroll] > * {
+  width: 100%;
+}
+[pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-aside]:has([pgs~=pageShell-aside-scroll]) {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+[pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-aside]:has([pgs~=pageShell-aside-scroll])::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: calc(var(--gap-elements) * 2);
+  background: linear-gradient(0deg, var(--color-background) 25%, transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+[pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-content] + [pgs~=pageShell-aside] {
   grid-area: asideRight;
-  flex: 1 1 var(--pageShell-asideRight-width);
-  min-width: min(100%, var(--pageShell-asideRight-width));
-  max-width: var(--pageShell-asideRight-width);
 }
-[pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]) {
-  max-width: calc(var(--page-width) + var(--pageShell-asideLeft-width) + var(--pageShell-gap) + var(--padding-page) * 2);
+[pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-aside]) {
+  max-width: calc(var(--page-width) + var(--pageShell-aside-width) + var(--pageShell-gap) + var(--padding-page) * 2);
 }
-[pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideRight]) {
-  max-width: calc(var(--page-width) + var(--pageShell-asideRight-width) + var(--pageShell-gap) + var(--padding-page) * 2);
-}
-[pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]):has(> [pgs~=pageShell-asideRight]) {
-  max-width: calc(var(--page-width) + var(--pageShell-asideLeft-width) + var(--pageShell-asideRight-width) + var(--pageShell-gap) * 2 + var(--padding-page) * 2);
+[pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-aside] ~ [pgs~=pageShell-aside]) {
+  max-width: calc(var(--page-width) + var(--pageShell-aside-width) * 2 + var(--pageShell-gap) * 2 + var(--padding-page) * 2);
 }
 @container (max-width: calc(400px + 500px + 4rem)) {
-  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]) [pgs~=pageShell-asideLeft] {
+  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-aside]) [pgs~=pageShell-aside] {
     position: relative;
     top: auto;
     max-height: none;
-    overflow: visible;
-    scrollbar-gutter: auto;
     width: 100%;
     min-width: 100%;
   }
-  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]) [pgs~=pageShell-content] {
+  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-aside]) [pgs~=pageShell-aside] [pgs~=pageShell-aside] {
+    scrollbar-gutter: auto;
+    overflow: visible;
+  }
+  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-aside]) [pgs~=pageShell-content] {
     padding-top: 0;
     min-width: 100%;
   }
 }
 @container (max-width: calc(500px + 400px + 4rem)) {
-  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideRight]) [pgs~=pageShell-asideRight] {
+  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content] + [pgs~=pageShell-aside] {
     position: relative;
     top: auto;
     max-height: none;
-    overflow: visible;
-    scrollbar-gutter: auto;
     width: 100%;
     min-width: 100%;
+  }
+  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content] + [pgs~=pageShell-aside] [pgs~=pageShell-aside] {
+    scrollbar-gutter: auto;
+    overflow: visible;
+  }
+  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content] + [pgs~=pageShell-aside] {
     padding-top: 0;
     min-width: 100%;
   }
 }
 @container (max-width: calc(400px + 500px + 400px + (4rem * 2))) {
-  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]):has(> [pgs~=pageShell-asideRight]) {
+  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) {
     display: grid;
-    grid-template-columns: var(--pageShell-asideLeft-width) minmax(0, var(--page-width));
+    grid-template-columns: var(--pageShell-aside-width) minmax(0, var(--page-width));
     grid-template-areas: "asideLeft content" "asideLeft asideRight";
     justify-content: center;
   }
-  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]):has(> [pgs~=pageShell-asideRight]) [pgs~=pageShell-asideRight] {
+  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content] + [pgs~=pageShell-aside] {
     position: relative;
     top: auto;
     max-height: none;
-    overflow: visible;
-    scrollbar-gutter: auto;
     width: 100%;
     min-width: 100%;
+  }
+  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content] + [pgs~=pageShell-aside] [pgs~=pageShell-aside] {
+    scrollbar-gutter: auto;
+    overflow: visible;
+  }
+  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content] + [pgs~=pageShell-aside] {
     padding-top: 0;
-    min-width: min(100%, var(--pageShell-asideRight-width));
+    min-width: min(100%, var(--pageShell-aside-width));
   }
 }
 @container (max-width: calc(400px + 500px + 4rem)) {
-  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]):has(> [pgs~=pageShell-asideRight]) {
+  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) {
     display: flex;
   }
-  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]):has(> [pgs~=pageShell-asideRight]) [pgs~=pageShell-asideLeft],
-  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]):has(> [pgs~=pageShell-asideRight]) [pgs~=pageShell-asideRight] {
+  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-aside] {
     position: relative;
     top: auto;
     max-height: none;
-    overflow: visible;
-    scrollbar-gutter: auto;
     width: 100%;
     min-width: 100%;
   }
-  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]):has(> [pgs~=pageShell-asideRight]) [pgs~=pageShell-content],
-  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-asideLeft]):has(> [pgs~=pageShell-asideRight]) [pgs~=pageShell-asideRight] {
+  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-aside] [pgs~=pageShell-aside] {
+    scrollbar-gutter: auto;
+    overflow: visible;
+  }
+  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content],
+  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content] + [pgs~=pageShell-aside] {
     padding-top: 0;
     min-width: 100%;
   }
@@ -2428,20 +2461,20 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
     padding-top: var(--page-top);
   }
   [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-content],
-  [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideLeft],
-  [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideRight] {
+  [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-aside] {
     padding-top: 0;
     min-width: 100% !important;
   }
-  [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideLeft],
-  [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-asideRight] {
+  [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-aside] {
     position: relative;
     top: auto;
     max-height: none;
-    overflow: visible;
-    scrollbar-gutter: auto;
     width: 100%;
     min-width: 100%;
+  }
+  [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-aside] [pgs~=pageShell-aside] {
+    scrollbar-gutter: auto;
+    overflow: visible;
   }
 }
 [pgs~=initP] [pgs~=gapTexts] {
@@ -5940,6 +5973,134 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   --fa-secondary-color: var(--color-whiteFixed);
   color: var(--color-whiteFixed);
 }
+[pgs~=initP] [pgs~=summary] {
+  --summary-fade-size: 4rem;
+  --summary-fade-background: var(--color-background);
+  --summary-content-max-height: 5.7rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-texts);
+  isolation: isolate;
+}
+[pgs~=initP] [pgs~=summary] [pgs~=summary-content] {
+  max-height: var(--summary-content-max-height, none);
+  overflow: hidden;
+  transition: max-height 300ms ease;
+}
+[pgs~=initP] [pgs~=summary][pgs-state~=overflow]:not([pgs-state~=open]) [pgs~=summary-content] {
+  position: relative;
+}
+[pgs~=initP] [pgs~=summary][pgs-state~=overflow]:not([pgs-state~=open]) [pgs~=summary-content]::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: var(--summary-fade-size);
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, var(--summary-fade-background));
+}
+[pgs~=initP] [pgs~=summary]:has([pgs~=summary-button][hidden]) [pgs~=summary-content] {
+  max-height: unset;
+}
+[pgs~=initP] [pgs~=summary] [pgs~=summary-button] {
+  padding: 5px;
+  cursor: pointer;
+  background-color: transparent;
+  border: unset;
+  margin-top: calc(var(--gap-texts) * -1);
+  z-index: 1;
+  color: var(--color-primary-strong);
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: 1.6rem;
+}
+[pgs~=initP] [pgs~=summary] [pgs~=summary-button][hidden] {
+  display: none !important;
+}
+[pgs~=initP] [pgs~=badge],
+[pgs~=initP] [pgs~=badgePrimary],
+[pgs~=initP] [pgs~=badgeStrong],
+[pgs~=initP] [pgs~=badgeSuccess],
+[pgs~=initP] [pgs~=badgeWarning],
+[pgs~=initP] [pgs~=badgeError],
+[pgs~=initP] [pgs~=badgeInfo],
+[pgs~=initP] [pgs~=badgeNeutral],
+[pgs~=initP] [pgs~=badgeDot] {
+  --badge-background: var(--color-box);
+  --badge-color: var(--color-black);
+  --badge-size: 1.25rem;
+  --badge-icon-size: 1.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--badge-size) / 2);
+  width: max-content;
+  max-width: 100%;
+  min-height: calc(var(--badge-size) * 2.2);
+  padding: calc(var(--badge-size) / 2) var(--badge-size);
+  border-radius: var(--border-radius-input);
+  background: var(--badge-background);
+  color: var(--badge-color);
+  font-size: var(--badge-size);
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow-wrap: normal;
+}
+[pgs~=initP] [pgs~=badge] i,
+[pgs~=initP] [pgs~=badgePrimary] i,
+[pgs~=initP] [pgs~=badgeStrong] i,
+[pgs~=initP] [pgs~=badgeSuccess] i,
+[pgs~=initP] [pgs~=badgeWarning] i,
+[pgs~=initP] [pgs~=badgeError] i,
+[pgs~=initP] [pgs~=badgeInfo] i,
+[pgs~=initP] [pgs~=badgeNeutral] i,
+[pgs~=initP] [pgs~=badgeDot] i {
+  color: var(--badge-color);
+  font-size: var(--badge-icon-size);
+  --fa-size: var(--badge-icon-size);
+  --fa-primary-color: var(--badge-color);
+  --fa-secondary-color: var(--badge-color);
+  --fa-secondary-opacity: 0.5;
+}
+[pgs~=initP] [pgs~=badgePrimary] {
+  --badge-background: var(--color-primary-soft);
+  --badge-color: var(--color-primary-strong);
+}
+[pgs~=initP] [pgs~=badgeStrong] {
+  --badge-background: var(--color-primary);
+  --badge-color: var(--color-whiteFixed);
+}
+[pgs~=initP] [pgs~=badgeSuccess] {
+  --badge-background: var(--color-success-background);
+  --badge-color: var(--color-success);
+}
+[pgs~=initP] [pgs~=badgeWarning] {
+  --badge-background: var(--color-warning-background);
+  --badge-color: var(--color-warning);
+}
+[pgs~=initP] [pgs~=badgeError] {
+  --badge-background: var(--color-error-background);
+  --badge-color: var(--color-error);
+}
+[pgs~=initP] [pgs~=badgeInfo] {
+  --badge-background: var(--color-linkBackgorud);
+  --badge-color: var(--color-link);
+}
+[pgs~=initP] [pgs~=badgeNeutral] {
+  --badge-background: var(--color-box-transparent);
+  --badge-color: var(--color-text);
+}
+[pgs~=initP] [pgs~=badgeDot]::before {
+  content: "";
+  display: block;
+  inline-size: 0.65em;
+  block-size: 0.65em;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: currentColor;
+}
 [pgs~=initP] [pgs~=notification],
 [pgs~=initP] [pgs~=toast] {
   display: flex;
@@ -6310,10 +6471,9 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   padding-inline: 5px;
   --modal-background: color-mix(in srgb, var(--color-primary-soft) 50%, var(--color-white) 50%);
 }
-[pgs~=initP] [pgs~=header] dialog[pgs~=modal-dialogpopover] [pgs~=modal-dialog-content] nav,
-[pgs~=initP] [pgs~=header] dialog[pgs~=modal-dialog] [pgs~=modal-dialog-content] nav {
-  padding: var(--padding-2);
-  border-radius: var(--padding-2);
+[pgs~=initP] [pgs~=header] dialog[pgs~=modal-dialogpopover] [pgs~=modal-dialog-content] nav a,
+[pgs~=initP] [pgs~=header] dialog[pgs~=modal-dialog] [pgs~=modal-dialog-content] nav a {
+  --button-background: var(--modal-background);
 }
 [pgs~=initP] [pgs~=header] dialog[pgs~=modal-dialogpopover][open],
 [pgs~=initP] [pgs~=header] dialog[pgs~=modal-dialog][open] {

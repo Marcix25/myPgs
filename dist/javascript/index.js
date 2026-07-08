@@ -18,8 +18,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
 /* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
 /* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
-/* harmony import */ var _functions_formValidate_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./functions/_formValidate.js */ "./assets/javascript/functions/_formValidate.js");
-/* harmony import */ var _functions_scrollY_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./functions/_scrollY.js */ "./assets/javascript/functions/_scrollY.js");
+/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
+/* harmony import */ var _functions_formValidate_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./functions/_formValidate.js */ "./assets/javascript/functions/_formValidate.js");
+/* harmony import */ var _functions_scrollY_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./functions/_scrollY.js */ "./assets/javascript/functions/_scrollY.js");
+
 
 
 
@@ -42,10 +44,10 @@ _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
     slides: _components_slides_js__WEBPACK_IMPORTED_MODULE_6__.PGS_slides,
     stepTabs: _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_7__.PGS_stepTabs,
     steps: _components_steps_js__WEBPACK_IMPORTED_MODULE_8__.PGS_steps,
-    formValidate: _functions_formValidate_js__WEBPACK_IMPORTED_MODULE_9__.PGS_formValidate,
-    scrollHorizontal: _functions_scrollY_js__WEBPACK_IMPORTED_MODULE_10__.PGS_scrollHorizontal,
+    summary: _components_summary_js__WEBPACK_IMPORTED_MODULE_9__.PGS_summary,
+    formValidate: _functions_formValidate_js__WEBPACK_IMPORTED_MODULE_10__.PGS_formValidate,
+    scrollHorizontal: _functions_scrollY_js__WEBPACK_IMPORTED_MODULE_11__.PGS_scrollHorizontal,
 });
-
 
 
 /***/ },
@@ -1792,6 +1794,128 @@ const PGS_steps = {
 
 /***/ },
 
+/***/ "./assets/javascript/components/_summary.js"
+/*!**************************************************!*\
+  !*** ./assets/javascript/components/_summary.js ***!
+  \**************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_summary: () => (/* binding */ PGS_summary),
+/* harmony export */   PGS_summary_api: () => (/* binding */ PGS_summary_api),
+/* harmony export */   PGS_summary_init: () => (/* binding */ PGS_summary_init)
+/* harmony export */ });
+//= SUMMARY
+const API = new WeakMap();
+let summaryId = 0;
+
+function nextSummaryId() {
+    summaryId += 1;
+    return summaryId;
+}
+
+function getLineHeight(element) {
+    const style = window.getComputedStyle(element);
+    const lineHeight = parseFloat(style.lineHeight);
+    if (Number.isFinite(lineHeight)) return lineHeight;
+
+    const fontSize = parseFloat(style.fontSize);
+    return Number.isFinite(fontSize) ? fontSize * 1.2 : 0;
+}
+
+function directPgsChild(element, token) {
+    return Array.from(element.children).find(child => pgs(child).contains(token));
+}
+
+function PGS_summary_init(root = document) {
+    pgs(root).querySelectorAll("summary").forEach((summary) => {
+        if (API.has(summary)) return;
+
+        const content = directPgsChild(summary, "summary-content");
+        const button = directPgsChild(summary, "summary-button");
+        if (!content || !button) return;
+
+        const id = nextSummaryId();
+        const contentId = content.id || `summary-content-${id}`;
+        content.id = contentId;
+
+        button.type ||= "button";
+        button.setAttribute("aria-controls", content.id);
+
+        function isOpen() {
+            return pgs(summary).state.contains("open");
+        }
+
+        function getCollapsedHeight() {
+            return getLineHeight(content) * 3;
+        }
+
+        function isOverflowing() {
+            return content.scrollHeight > Math.ceil(getCollapsedHeight()) + 1;
+        }
+
+        function setExpanded(expanded) {
+            const overflow = isOverflowing();
+
+            pgs(summary).state.toggle("overflow", overflow);
+            pgs(summary).state.toggle("open", expanded && overflow);
+
+            button.hidden = !overflow;
+            button.setAttribute("aria-hidden", String(!overflow));
+            button.setAttribute("aria-expanded", String(expanded && overflow));
+            button.textContent = expanded && overflow ? "Mostra meno" : "Mostra di più";
+
+            const nextHeight = expanded && overflow ? content.scrollHeight : getCollapsedHeight();
+            content.style.setProperty("--summary-content-max-height", `${nextHeight}px`);
+        }
+
+        function refresh() {
+            const wasOpen = isOpen();
+            content.style.setProperty("--summary-content-max-height", "none");
+            setExpanded(wasOpen);
+        }
+
+        function toggle() {
+            setExpanded(!isOpen());
+        }
+
+        button.addEventListener("click", toggle);
+        window.addEventListener("resize", refresh, { passive: true });
+
+        refresh();
+        requestAnimationFrame(refresh);
+
+        API.set(summary, {
+            element: summary,
+            content,
+            button,
+            open: () => setExpanded(true),
+            close: () => setExpanded(false),
+            toggle,
+            refresh,
+            isOpen,
+        });
+    });
+}
+
+//# INIT
+PGS_summary_init();
+
+//# API
+function PGS_summary_api(selector) {
+    return API.get(selector);
+}
+
+const PGS_summary = {
+    init: PGS_summary_init,
+    api: PGS_summary_api
+};
+
+
+/***/ },
+
 /***/ "./assets/javascript/functions/_formValidate.js"
 /*!******************************************************!*\
   !*** ./assets/javascript/functions/_formValidate.js ***!
@@ -2352,11 +2476,11 @@ const header = pgs(document).querySelector("header");
 
 //= HEADER
 function PGS_header(selectHeader = document) {
-    
+
     if (!header) return;
 
     const headerElements = pgs(header).querySelectorAll("header-element");
-    
+
     if (!headerElements.length) return;
 
     headerElements.forEach(selectHeader => {
@@ -2436,12 +2560,11 @@ function headerHeight() {
     if (!header) return;
     const wordPressBar = window.getComputedStyle(document.documentElement).marginTop ?? 0;
     const headerHeight = header.offsetHeight
-
-    const body = document.querySelector("body");
     const height = headerHeight + parseInt(wordPressBar);
     const scrollHeight = document.querySelector("header").getAttribute("data-header-scroll") === "true" ? 0 : height;
-    body.style.setProperty('--heightOfHeader', `${height}px`);
-    body.style.setProperty('--heightOfHeaderScroll', `${scrollHeight}px`);
+
+    document.documentElement.style.setProperty("--heightOfHeader", `${height}px`);
+    document.documentElement.style.setProperty("--heightOfHeaderScroll", `${scrollHeight}px`);
 }
 headerHeight()
 window.addEventListener("resize", headerHeight);
@@ -2595,12 +2718,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
 /* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
 /* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
-/* harmony import */ var _components_notifications_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_notifications.js */ "./assets/javascript/components/_notifications.js");
-/* harmony import */ var _imports_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./_imports.js */ "./assets/javascript/_imports.js");
-/* harmony import */ var _patterns_header_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./patterns/_header.js */ "./assets/javascript/patterns/_header.js");
-/* harmony import */ var _patterns_header_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_patterns_header_js__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
-/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
+/* harmony import */ var _components_notifications_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/_notifications.js */ "./assets/javascript/components/_notifications.js");
+/* harmony import */ var _imports_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./_imports.js */ "./assets/javascript/_imports.js");
+/* harmony import */ var _patterns_header_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./patterns/_header.js */ "./assets/javascript/patterns/_header.js");
+/* harmony import */ var _patterns_header_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_patterns_header_js__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
+/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_14__);
 //= PGS
 
 
@@ -2619,10 +2743,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 //= IMPORT REGISTRY
 
 
 //= PATTERNS 
+
 
 
 })();

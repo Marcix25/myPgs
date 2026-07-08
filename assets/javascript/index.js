@@ -14,6 +14,7 @@ import "./components/_modals.js";
 import "./components/_slides.js"
 import "./components/_steps.js";
 import "./components/_stepTabs.js";
+import "./components/_summary.js";
 import "./components/_notifications.js";
 
 //= IMPORT REGISTRY

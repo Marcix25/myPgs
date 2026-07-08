@@ -1,10 +1,12 @@
 const contentText = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum? Eveniet, sit, excepturi iusto porro eos temporibus illum non ut sunt ex aut earum neque. Iure harum similique autem commodi ratione enim quisquam soluta rem, eius dolor officiis necessitatibus voluptatibus obcaecati vel sint iusto. Eligendi reiciendis aut error rem? Hic aliquid tenetur porro itaque quaerat excepturi consequatur veniam, et alias molestiae, eius odio quae maiores suscipit iure voluptatibus sed dolor facere ipsa quod libero necessitatibus, placeat natus. Doloribus esse nobis culpa ab ut dolorem id expedita nesciunt necessitatibus ipsam natus accusantium eius eveniet eum, distinctio quos modi perspiciatis earum sequi nostrum consequatur quibusdam? Blanditiis iusto possimus officia odio animi repudiandae? Repellendus autem ut soluta facere accusamus magni aut architecto cumque cupiditate. Nostrum officiis, tenetur consequuntur quaerat alias animi debitis? Quae quas placeat iure alias totam quaerat fugit recusandae sed, earum ipsa nihil molestiae quam odit itaque, odio asperiores, mollitia porro ratione tempora laboriosam. Incidunt aliquam nobis sunt ut molestiae nam animi placeat neque vero ratione? Eaque?";
 
-function Aside({ side }) {
+function Aside() {
     return (
-        <aside pgs={`pageShell-aside${side}`}>
-            <div pgs="flexColumnTexts">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab modi ut sunt est illum accusantium dolores eum aut cum itaque.</p>
+        <aside pgs="pageShell-aside">
+            <div pgs="pageShell-aside-scroll">
+                <div pgs="flexColumnTexts">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab modi ut sunt est illum accusantium dolores eum aut cum itaque.</p>
+                </div>
             </div>
         </aside>
     );
@@ -25,19 +27,19 @@ export default function PageShell() {
     return (
         <>
             <div pgs="pageShell">
-                <Aside side="Left" />
+                <Aside />
                 <MainContent />
-                <Aside side="Right" />
+                <Aside />
             </div>
 
             <div pgs="pageShell">
-                <Aside side="Left" />
+                <Aside />
                 <MainContent />
             </div>
 
             <div pgs="pageShell">
                 <MainContent />
-                <Aside side="Right" />
+                <Aside />
             </div>
 
             <div pgs="pageShell">

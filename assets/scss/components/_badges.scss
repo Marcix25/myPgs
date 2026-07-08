@@ -1,0 +1,93 @@
+@use "../mixin/mixin" as *;
+
+@mixin _badge() {
+    --badge-background: var(--color-box);
+    --badge-color: var(--color-black);
+    --badge-size: 1.25rem;
+    --badge-icon-size: 1.4rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: calc(var(--badge-size) / 2);
+    width: max-content;
+    max-width: 100%;
+    min-height: calc(var(--badge-size) * 2.2);
+    padding: calc(var(--badge-size) / 2) var(--badge-size);
+    border-radius: var(--border-radius-input);
+    background: var(--badge-background);
+    color: var(--badge-color);
+    font-size: var(--badge-size);
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow-wrap: normal;
+
+    i {
+        color: var(--badge-color);
+        font-size: var(--badge-icon-size);
+        --fa-size: var(--badge-icon-size);
+        --fa-primary-color: var(--badge-color);
+        --fa-secondary-color: var(--badge-color);
+        --fa-secondary-opacity: 0.5;
+    }
+}
+
+[pgs~="badge"],
+[pgs~="badgePrimary"],
+[pgs~="badgeStrong"],
+[pgs~="badgeSuccess"],
+[pgs~="badgeWarning"],
+[pgs~="badgeError"],
+[pgs~="badgeInfo"],
+[pgs~="badgeNeutral"],
+[pgs~="badgeDot"] {
+    @include _badge();
+}
+
+[pgs~="badgePrimary"] {
+    --badge-background: var(--color-primary-soft);
+    --badge-color: var(--color-primary-strong);
+}
+
+[pgs~="badgeStrong"] {
+    --badge-background: var(--color-primary);
+    --badge-color: var(--color-whiteFixed);
+}
+
+[pgs~="badgeSuccess"] {
+    --badge-background: var(--color-success-background);
+    --badge-color: var(--color-success);
+}
+
+[pgs~="badgeWarning"] {
+    --badge-background: var(--color-warning-background);
+    --badge-color: var(--color-warning);
+}
+
+[pgs~="badgeError"] {
+    --badge-background: var(--color-error-background);
+    --badge-color: var(--color-error);
+}
+
+[pgs~="badgeInfo"] {
+    --badge-background: var(--color-linkBackgorud);
+    --badge-color: var(--color-link);
+}
+
+[pgs~="badgeNeutral"] {
+    --badge-background: var(--color-box-transparent);
+    --badge-color: var(--color-text);
+}
+
+[pgs~="badgeDot"] {
+    &::before {
+        content: "";
+        display: block;
+        inline-size: 0.65em;
+        block-size: 0.65em;
+        flex: 0 0 auto;
+        border-radius: 50%;
+        background: currentColor;
+    }
+}

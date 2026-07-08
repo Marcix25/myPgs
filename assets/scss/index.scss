@@ -42,6 +42,8 @@
     @include meta.load-css("components/steps");
     @include meta.load-css("components/table");
     @include meta.load-css("components/stepTabs");
+    @include meta.load-css("components/summary");
+    @include meta.load-css("components/badges");
     @include meta.load-css("components/notification");
     @include meta.load-css("components/tooltip");
     @include meta.load-css("components/searchbar");

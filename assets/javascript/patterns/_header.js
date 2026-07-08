@@ -3,11 +3,11 @@ const header = pgs(document).querySelector("header");
 
 //= HEADER
 function PGS_header(selectHeader = document) {
-    
+
     if (!header) return;
 
     const headerElements = pgs(header).querySelectorAll("header-element");
-    
+
     if (!headerElements.length) return;
 
     headerElements.forEach(selectHeader => {
@@ -87,12 +87,11 @@ function headerHeight() {
     if (!header) return;
     const wordPressBar = window.getComputedStyle(document.documentElement).marginTop ?? 0;
     const headerHeight = header.offsetHeight
-
-    const body = document.querySelector("body");
     const height = headerHeight + parseInt(wordPressBar);
     const scrollHeight = document.querySelector("header").getAttribute("data-header-scroll") === "true" ? 0 : height;
-    body.style.setProperty('--heightOfHeader', `${height}px`);
-    body.style.setProperty('--heightOfHeaderScroll', `${scrollHeight}px`);
+
+    document.documentElement.style.setProperty("--heightOfHeader", `${height}px`);
+    document.documentElement.style.setProperty("--heightOfHeaderScroll", `${scrollHeight}px`);
 }
 headerHeight()
 window.addEventListener("resize", headerHeight);

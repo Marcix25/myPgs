@@ -110,8 +110,12 @@
 
         [pgs~="modal-dialog-content"] {
             nav {
-                padding: var(--padding-2);
-                border-radius: var(--padding-2);
+
+                // padding: var(--padding-2);
+                // border-radius: var(--padding-2);
+                a {
+                    --button-background: var(--modal-background);
+                }
             }
         }
 

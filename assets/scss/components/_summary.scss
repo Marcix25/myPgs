@@ -1,0 +1,56 @@
+@use "../mixin/mixin" as *;
+
+[pgs~="summary"] {
+    --summary-fade-size: 4rem;
+    --summary-fade-background: var(--color-background);
+    --summary-content-max-height: 5.7rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-texts);
+    isolation: isolate;
+
+    [pgs~="summary-content"] {
+        max-height: var(--summary-content-max-height, none);
+        overflow: hidden;
+        transition: max-height 300ms ease;
+    }
+
+    &[pgs-state~="overflow"]:not([pgs-state~="open"]) {
+        [pgs~="summary-content"] {
+            position: relative;
+
+            &::after {
+                content: "";
+                position: absolute;
+                inset: auto 0 0;
+                height: var(--summary-fade-size);
+                pointer-events: none;
+                background: linear-gradient(to bottom, transparent, var(--summary-fade-background));
+            }
+        }
+    }
+
+    &:has([pgs~="summary-button"][hidden]) {
+        [pgs~="summary-content"]{
+            max-height: unset;
+        }
+    }
+
+    [pgs~="summary-button"] {
+        padding: 5px;
+        cursor: pointer;
+        background-color: transparent;
+        border: unset;
+        margin-top: calc(var(--gap-texts) * -1);
+        z-index: 1;
+        color: var(--color-primary-strong);
+        font-family: var(--font);
+        font-weight: 600;
+        font-size: 1.6rem;
+
+        &[hidden] {
+            display: none !important;
+        }
+    }
+}

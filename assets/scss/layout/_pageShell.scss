@@ -1,5 +1,4 @@
 @use "../mixin/mixin" as *;
-
 //# pageShell
 $aside-size: 400px;
 $content-size: 500px;
@@ -9,16 +8,18 @@ $pageShell-test-gap: 4rem;
     position: relative;
     top: auto;
     max-height: none;
-    overflow: visible;
-    scrollbar-gutter: auto;
     width: 100%;
     min-width: 100%;
+
+    [pgs~="pageShell-aside"] {
+        scrollbar-gutter: auto;
+        overflow: visible;
+    }
 }
 
 [pgs~="pageShell"] {
     --pageShell-aside-sticky-top: 0;
-    --pageShell-asideLeft-width: #{$aside-size};
-    --pageShell-asideRight-width: #{$aside-size};
+    --pageShell-aside-width: #{$aside-size};
     --pageShell-content-width: 500px;
     --pageShell-gap: var(--gap-elements);
     display: flex;
@@ -29,7 +30,6 @@ $pageShell-test-gap: 4rem;
     justify-content: center;
     width: 100%;
     max-width: calc(var(--page-width) + (var(--padding-page) * 2));
-    padding-bottom: var(--page-top);
     padding-inline: var(--padding-page);
     container-type: inline-size;
 
@@ -40,10 +40,10 @@ $pageShell-test-gap: 4rem;
         width: min(100%, var(--page-width));
         max-width: var(--page-width);
         padding-top: var(--page-top);
+        padding-bottom: var(--gap-elements);
     }
 
-    [pgs~="pageShell-asideLeft"],
-    [pgs~="pageShell-asideRight"] {
+    [pgs~="pageShell-aside"] {
         @include flexColumn;
         align-items: flex-start;
         isolation: isolate;
@@ -56,6 +56,10 @@ $pageShell-test-gap: 4rem;
         scrollbar-gutter: stable;
         scrollbar-width: none;
         padding-top: var(--page-top);
+        padding-bottom: var(--gap-elements);
+        flex: 1 1 var(--pageShell-aside-width);
+        min-width: min(100%, var(--pageShell-aside-width));
+        max-width: var(--pageShell-aside-width);
 
         &::-webkit-scrollbar {
             display: none;
@@ -65,38 +69,63 @@ $pageShell-test-gap: 4rem;
             width: 100%;
         }
 
-        &:is([pgs~="pageShell-asideLeft"]) {
+        &:has(+ [pgs~="pageShell-content"]) {
             grid-area: asideLeft;
-            flex: 1 1 var(--pageShell-asideLeft-width);
-            min-width: min(100%, var(--pageShell-asideLeft-width));
-            max-width: var(--pageShell-asideLeft-width);
         }
 
-        &:is([pgs~="pageShell-asideRight"]) {
-            grid-area: asideRight;
-            flex: 1 1 var(--pageShell-asideRight-width);
-            min-width: min(100%, var(--pageShell-asideRight-width));
-            max-width: var(--pageShell-asideRight-width);
+        [pgs~="pageShell-aside-scroll"] {
+            @include flexColumn;
+            align-items: flex-start;
+            width: 100%;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            scrollbar-gutter: stable;
+            scrollbar-width: none;
+            padding-top: var(--page-top);
+            padding-bottom: calc(var(--gap-elements)*2);
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            >* {
+                width: 100%;
+            }
+        }
+
+        &:has([pgs~="pageShell-aside-scroll"]) {
+            padding-top: 0;
+            padding-bottom: 0;
+
+            &::after {
+                content: "";
+                position: absolute;
+                inset-inline: 0;
+                bottom: 0;
+                height: calc(var(--gap-elements)*2);
+                background: linear-gradient(0deg, var(--color-background) 25%, transparent);
+                pointer-events: none;
+                z-index: 1;
+            }
         }
     }
 
-    &:has(> [pgs~="pageShell-asideLeft"]) {
-        max-width: calc(var(--page-width) + var(--pageShell-asideLeft-width) + var(--pageShell-gap) + (var(--padding-page) * 2));
+    [pgs~="pageShell-content"]+[pgs~="pageShell-aside"] {
+        grid-area: asideRight;
     }
 
-    &:has(> [pgs~="pageShell-asideRight"]) {
-        max-width: calc(var(--page-width) + var(--pageShell-asideRight-width) + var(--pageShell-gap) + (var(--padding-page) * 2));
+    &:has(> [pgs~="pageShell-aside"]) {
+        max-width: calc(var(--page-width) + var(--pageShell-aside-width) + var(--pageShell-gap) + (var(--padding-page) * 2));
     }
 
-    &:has(> [pgs~="pageShell-asideLeft"]):has(> [pgs~="pageShell-asideRight"]) {
-        max-width: calc(var(--page-width) + var(--pageShell-asideLeft-width) + var(--pageShell-asideRight-width) + (var(--pageShell-gap) * 2) + (var(--padding-page) * 2));
+    &:has(> [pgs~="pageShell-aside"] ~ [pgs~="pageShell-aside"]) {
+        max-width: calc(var(--page-width) + (var(--pageShell-aside-width) * 2) + (var(--pageShell-gap) * 2) + (var(--padding-page) * 2));
     }
 
     //== RESPONSIVE ==//
-
-    &:has(> [pgs~="pageShell-asideLeft"]) {
+    &:has(> [pgs~="pageShell-aside"]) {
         @container (max-width: calc(#{$aside-size} + #{$content-size} + #{$pageShell-test-gap})) {
-            [pgs~="pageShell-asideLeft"] {
+            [pgs~="pageShell-aside"] {
                 @include pageShell-aside-flow;
             }
 
@@ -107,9 +136,9 @@ $pageShell-test-gap: 4rem;
         }
     }
 
-    &:has(> [pgs~="pageShell-asideRight"]) {
+    &:has(> [pgs~="pageShell-content"] + [pgs~="pageShell-aside"]) {
         @container (max-width: calc(#{$content-size} + #{$aside-size} + #{$pageShell-test-gap})) {
-            [pgs~="pageShell-asideRight"] {
+            [pgs~="pageShell-content"]+[pgs~="pageShell-aside"] {
                 @include pageShell-aside-flow;
                 padding-top: 0;
                 min-width: 100%;
@@ -117,32 +146,31 @@ $pageShell-test-gap: 4rem;
         }
     }
 
-    &:has(> [pgs~="pageShell-asideLeft"]):has(> [pgs~="pageShell-asideRight"]) {
+    &:has(> [pgs~="pageShell-aside"]):has(> [pgs~="pageShell-content"] + [pgs~="pageShell-aside"]) {
         @container (max-width: calc(#{$aside-size} + #{$content-size} + #{$aside-size} + (#{$pageShell-test-gap} * 2))) {
             display: grid;
-            grid-template-columns: var(--pageShell-asideLeft-width) minmax(0, var(--page-width));
+            grid-template-columns: var(--pageShell-aside-width) minmax(0, var(--page-width));
             grid-template-areas:
                 "asideLeft content"
                 "asideLeft asideRight";
             justify-content: center;
 
-            [pgs~="pageShell-asideRight"] {
+            [pgs~="pageShell-content"]+[pgs~="pageShell-aside"] {
                 @include pageShell-aside-flow;
                 padding-top: 0;
-                min-width: min(100%, var(--pageShell-asideRight-width));
+                min-width: min(100%, var(--pageShell-aside-width));
             }
         }
 
         @container (max-width: calc(#{$aside-size} + #{$content-size} + #{$pageShell-test-gap})) {
             display: flex;
 
-            [pgs~="pageShell-asideLeft"],
-            [pgs~="pageShell-asideRight"] {
+            [pgs~="pageShell-aside"] {
                 @include pageShell-aside-flow;
             }
 
             [pgs~="pageShell-content"],
-            [pgs~="pageShell-asideRight"] {
+            [pgs~="pageShell-content"]+[pgs~="pageShell-aside"] {
                 padding-top: 0;
                 min-width: 100%;
             }
@@ -153,14 +181,12 @@ $pageShell-test-gap: 4rem;
         padding-top: var(--page-top);
 
         [pgs~="pageShell-content"],
-        [pgs~="pageShell-asideLeft"],
-        [pgs~="pageShell-asideRight"] {
+        [pgs~="pageShell-aside"] {
             padding-top: 0;
             min-width: 100% !important;
         }
 
-        [pgs~="pageShell-asideLeft"],
-        [pgs~="pageShell-asideRight"] {
+        [pgs~="pageShell-aside"] {
             @include pageShell-aside-flow;
         }
     }

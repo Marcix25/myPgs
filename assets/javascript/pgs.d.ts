@@ -54,6 +54,7 @@ declare global {
     slides?: any;
     stepTabs?: any;
     steps?: any;
+    summary?: any;
     formValidate?: any;
     scrollHorizontal?: any;
     [moduleName: string]: any;

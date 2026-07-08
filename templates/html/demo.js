@@ -7,19 +7,13 @@ if (localStorage.getItem("screenIsDarkMode") === "true") {
 
 
 const templateFiles = [
-    "layout/body.html",
-    "layout/section.html",
-    "layout/flex.html",
-    "layout/grid.html",
-    "layout/pageShell.html",
-    "patterns/cookieConsent.html",
-    "patterns/header.html",
-    "patterns/footer.html",
+    "components/summary.html",
     "components/menu.html",
     "components/tooltip.html",
     "components/modal.html",
     "components/stepTabs.html",
     "components/accordion.html",
+    "components/badges.html",
     "components/breadcumbs.html",
     "components/button.html",
     "components/card.html",
@@ -32,6 +26,14 @@ const templateFiles = [
     "components/steps.html",
     "components/table.html",
     "components/notification.html",
+    "layout/body.html",
+    "layout/section.html",
+    "layout/flex.html",
+    "layout/grid.html",
+    "layout/pageShell.html",
+    "patterns/cookieConsent.html",
+    "patterns/header.html",
+    "patterns/footer.html",
 ];
 
 function getTemplateTitle(path) {
@@ -78,7 +80,7 @@ async function loadTemplate(path) {
 
 function loadPgsJavascript() {
     const script = document.createElement("script");
-    script.src = "../dist/javascript/index.js";
+    script.src = "../../dist/javascript/index.js";
     document.body.append(script);
 }
 
