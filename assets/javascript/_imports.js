@@ -1,5 +1,6 @@
 import { pgs } from "./_pgs.js";
 
+import { PGS_svg } from "./base/_svg.js";
 import { PGS_accordion } from "./components/_accordion.js";
 import { PGS_dropdown } from "./components/_dropdown.js";
 import { PGS_menu } from "./components/_menu.js";
@@ -13,6 +14,7 @@ import { PGS_formValidate } from "./functions/_formValidate.js";
 import { PGS_scrollHorizontal } from "./functions/_scrollY.js";
 
 pgs.registerModules({
+    svg: PGS_svg,
     accordion: PGS_accordion,
     dropdown: PGS_dropdown,
     menu: PGS_menu,

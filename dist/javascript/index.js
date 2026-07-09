@@ -10,17 +10,19 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_pgs.js */ "./assets/javascript/_pgs.js");
-/* harmony import */ var _components_accordion_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/_accordion.js */ "./assets/javascript/components/_accordion.js");
-/* harmony import */ var _components_dropdown_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/_dropdown.js */ "./assets/javascript/components/_dropdown.js");
-/* harmony import */ var _components_menu_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/_menu.js */ "./assets/javascript/components/_menu.js");
-/* harmony import */ var _components_modals_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/_modals.js */ "./assets/javascript/components/_modals.js");
-/* harmony import */ var _components_notifications_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/_notifications.js */ "./assets/javascript/components/_notifications.js");
-/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
-/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
-/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
-/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
-/* harmony import */ var _functions_formValidate_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./functions/_formValidate.js */ "./assets/javascript/functions/_formValidate.js");
-/* harmony import */ var _functions_scrollY_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./functions/_scrollY.js */ "./assets/javascript/functions/_scrollY.js");
+/* harmony import */ var _base_svg_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./base/_svg.js */ "./assets/javascript/base/_svg.js");
+/* harmony import */ var _components_accordion_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/_accordion.js */ "./assets/javascript/components/_accordion.js");
+/* harmony import */ var _components_dropdown_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/_dropdown.js */ "./assets/javascript/components/_dropdown.js");
+/* harmony import */ var _components_menu_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/_menu.js */ "./assets/javascript/components/_menu.js");
+/* harmony import */ var _components_modals_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/_modals.js */ "./assets/javascript/components/_modals.js");
+/* harmony import */ var _components_notifications_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/_notifications.js */ "./assets/javascript/components/_notifications.js");
+/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
+/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
+/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
+/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
+/* harmony import */ var _functions_formValidate_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./functions/_formValidate.js */ "./assets/javascript/functions/_formValidate.js");
+/* harmony import */ var _functions_scrollY_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./functions/_scrollY.js */ "./assets/javascript/functions/_scrollY.js");
+
 
 
 
@@ -36,17 +38,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
-    accordion: _components_accordion_js__WEBPACK_IMPORTED_MODULE_1__.PGS_accordion,
-    dropdown: _components_dropdown_js__WEBPACK_IMPORTED_MODULE_2__.PGS_dropdown,
-    menu: _components_menu_js__WEBPACK_IMPORTED_MODULE_3__.PGS_menu,
-    modal: _components_modals_js__WEBPACK_IMPORTED_MODULE_4__.PGS_modal,
-    notification: _components_notifications_js__WEBPACK_IMPORTED_MODULE_5__.PGS_notification,
-    slides: _components_slides_js__WEBPACK_IMPORTED_MODULE_6__.PGS_slides,
-    stepTabs: _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_7__.PGS_stepTabs,
-    steps: _components_steps_js__WEBPACK_IMPORTED_MODULE_8__.PGS_steps,
-    summary: _components_summary_js__WEBPACK_IMPORTED_MODULE_9__.PGS_summary,
-    formValidate: _functions_formValidate_js__WEBPACK_IMPORTED_MODULE_10__.PGS_formValidate,
-    scrollHorizontal: _functions_scrollY_js__WEBPACK_IMPORTED_MODULE_11__.PGS_scrollHorizontal,
+    svg: _base_svg_js__WEBPACK_IMPORTED_MODULE_1__.PGS_svg,
+    accordion: _components_accordion_js__WEBPACK_IMPORTED_MODULE_2__.PGS_accordion,
+    dropdown: _components_dropdown_js__WEBPACK_IMPORTED_MODULE_3__.PGS_dropdown,
+    menu: _components_menu_js__WEBPACK_IMPORTED_MODULE_4__.PGS_menu,
+    modal: _components_modals_js__WEBPACK_IMPORTED_MODULE_5__.PGS_modal,
+    notification: _components_notifications_js__WEBPACK_IMPORTED_MODULE_6__.PGS_notification,
+    slides: _components_slides_js__WEBPACK_IMPORTED_MODULE_7__.PGS_slides,
+    stepTabs: _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_8__.PGS_stepTabs,
+    steps: _components_steps_js__WEBPACK_IMPORTED_MODULE_9__.PGS_steps,
+    summary: _components_summary_js__WEBPACK_IMPORTED_MODULE_10__.PGS_summary,
+    formValidate: _functions_formValidate_js__WEBPACK_IMPORTED_MODULE_11__.PGS_formValidate,
+    scrollHorizontal: _functions_scrollY_js__WEBPACK_IMPORTED_MODULE_12__.PGS_scrollHorizontal,
 });
 
 
@@ -355,124 +358,43 @@ globalThis.pgs ??= pgs;
 
 //# DARKMODE
 
+const EVENT_SVG_CHANGE_COLOR = "pgs:svg:changeColor";
 
-//= CHANGE COLOR SVG & LOTTIE
-//+ SEARCH COLOR 
-function searchColor(type = "svg") {
-    const ROOT = getComputedStyle(document.documentElement);
-    const colors = []
-    for (let I = 0; I < 20; I++) {
-        const color = ROOT.getPropertyValue('--' + type + '-color-' + I).toLocaleLowerCase().split("&");
-        if (!color[0] == "" && !color[1] == "") {
-            let lightDark = [color[0], color[1]]
-            colors.push(lightDark)
-        }
-    }
-    return colors;
-}
-const colors_svg_lottie = [searchColor("svg"), searchColor("lottie")];
-
-
-//+ change COLORS
-function darkmodeColorSVG() {
-    function changecolor(svgDoc, type = "svg") {
-        let isDarkMode = (document.documentElement.getAttribute("data-darkmode") === "true") ? false : true;
-
-        svgDoc.querySelectorAll('[fill], [stroke]').forEach(fillStroke => {
-
-            for (const colors of colors_svg_lottie) {
-                for (const color of colors) {
-                    let OLD = (color[0] || '').replace(/\s/g, '');
-                    let NEW = (color[1] || '').replace(/\s/g, '');
-
-                    ["fill", "stroke"].forEach(attr => {
-                        const current = fillStroke.getAttribute(attr);
-
-                        fillStroke.style.transition = "fill 0.5s ease, stroke 0.5s ease";
-
-                        if (!isDarkMode) {
-                            if (current == OLD) fillStroke.setAttribute(attr, NEW)
-                        } else {
-                            if (current == NEW) fillStroke.setAttribute(attr, OLD)
-                        }
-                    });
-                }
-            }
-        });
-    }
-
-    //== OBJECTS
-    const objects = document.querySelectorAll('object[type="image/svg+xml"]');
-    objects.forEach(obj => {
-
-        //=== ALL FILL / STROKE
-        obj.addEventListener("load", () => {
-            const svgDoc = obj.contentDocument;
-            if (svgDoc) changecolor(svgDoc, "svg")
-        });
-
-        //=== In caso l'object sia già caricato
-        if (obj.contentDocument) {
-            const event = new Event("load");
-            obj.dispatchEvent(event);
-        }
-    });
-
-    //== LOTTIE
-    const lottiePlayers = document.querySelectorAll('lottie-player');
-    lottiePlayers.forEach(lottiePlayer => {
-
-        //=== ALL FILL / STROKE
-        lottiePlayer.addEventListener("load", () => {
-            const svg = lottiePlayer.shadowRoot.querySelector('svg');
-            if (svg) changecolor(svg, "lottie")
-        });
-
-        //=== In caso lottie sia già caricato
-        if (lottiePlayer.shadowRoot) {
-            const event = new Event("load");
-            lottiePlayer.dispatchEvent(event);
-        }
-    });
-}
-
-
-
-//= BUTTON DARKMODE 
-//+ CHANGE ICON AND SVG 
-let toggleDarkmode = pgs(document).querySelectorAll("toggleDarkmode");
-if (localStorage.getItem("screenIsDarkMode") === "true") {
-    document.body.classList.add("darkmode");
-    document.querySelector(":root").setAttribute("data-darkmode", "true");
-    document.body.setAttribute("data-darkmode", "true");
-}
-
-function change(selector, isDarkMode) {
+//+ CHANGE ICON
+function changeIcon(selector, isDarkMode) {
     selector.forEach(button => {
         const ICON = button.querySelector("i");
         if (!ICON) return;
+
         ICON.classList.toggle("fa-moon", !isDarkMode);
         ICON.classList.toggle("fa-sun", isDarkMode);
     });
-    darkmodeColorSVG();
 }
 
-toggleDarkmode.forEach(button => {
+//+ SET STATUS
+function setDarkmodeStatus(toggle = false, button) {
+    let isDarkMode = localStorage.getItem("screenIsDarkMode") === "true";
 
-    //== EXECUTE IMMEDIATELY
-    let isDarkMode = document.documentElement.getAttribute("data-darkmode") === "true";
-    change(toggleDarkmode, isDarkMode);
-
-    //== CLICK BUTTON 
-    button.addEventListener("click", () => {
-        let isDarkMode = (document.documentElement.getAttribute("data-darkmode") === "true") ? false : true;
+    if (toggle) {
+        isDarkMode = !isDarkMode;
         localStorage.setItem("screenIsDarkMode", isDarkMode);
+    }
 
-        document.body.classList.toggle("darkmode", isDarkMode);
-        document.body.setAttribute("data-darkmode", isDarkMode);
-        document.querySelector(":root").setAttribute("data-darkmode", isDarkMode);
-        change(toggleDarkmode, isDarkMode);
-    });
+    document.documentElement.setAttribute("data-darkmode", isDarkMode);
+
+    changeIcon(button, isDarkMode);
+    document.dispatchEvent(new CustomEvent(EVENT_SVG_CHANGE_COLOR, { detail: { isDarkMode } }));
+}
+
+
+
+//= INIT
+const toggleDarkmode = pgs(document).querySelectorAll("toggleDarkmode");
+setDarkmodeStatus(false, toggleDarkmode);
+
+//= BUTTON DARKMODE
+toggleDarkmode.forEach(button => {
+    button.addEventListener("click", () => setDarkmodeStatus(true, toggleDarkmode));
 });
 
 
@@ -526,6 +448,124 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.body.classList.add("object-loaded");
 });
+
+
+/***/ },
+
+/***/ "./assets/javascript/base/_svg.js"
+/*!****************************************!*\
+  !*** ./assets/javascript/base/_svg.js ***!
+  \****************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_svg: () => (/* binding */ PGS_svg)
+/* harmony export */ });
+//# SVG & LOTTIE COLORS
+
+const svgColors = {
+    eventChangeColor: "pgs:svg:changeColor",
+    watchedObjects: new WeakSet(),
+    watchedLotties: new WeakSet(),
+
+    _normalizeColor: (color = "") => {
+        return color.replace(/\s/g, "").toLocaleLowerCase();
+    },
+
+    _getCurrentDarkmode: () => {
+        return document.documentElement.getAttribute("data-darkmode") === "true";
+    },
+
+    searchColor(type = "svg") {
+        const ROOT = getComputedStyle(document.documentElement);
+        const colors = [];
+
+        for (let I = 0; I < 20; I++) {
+            const color = ROOT.getPropertyValue("--" + type + "-color-" + I).toLocaleLowerCase().split("&").map(value => value.trim());
+            if (color[0] && color[1]) colors.push([color[0], color[1]]);
+        }
+
+        return colors;
+    },
+
+    _changeColor(svgDoc, isDarkMode, colors) {
+        if (!svgDoc) return;
+
+        svgDoc.querySelectorAll("[fill], [stroke]").forEach(fillStroke => {
+            for (const color of colors) {
+                const OLD = svgColors._normalizeColor(color[0]);
+                const NEW = svgColors._normalizeColor(color[1]);
+
+                ["fill", "stroke"].forEach(attr => {
+                    const current = svgColors._normalizeColor(fillStroke.getAttribute(attr) || "");
+                    if (!current) return;
+
+                    fillStroke.style.transition = "fill 0.5s ease, stroke 0.5s ease";
+
+                    if (isDarkMode && current === OLD) fillStroke.setAttribute(attr, NEW);
+                    if (!isDarkMode && current === NEW) fillStroke.setAttribute(attr, OLD);
+                });
+            }
+        });
+    },
+
+    _getLottieSvg(lottiePlayer) {
+        return lottiePlayer.shadowRoot?.querySelector("svg") || null;
+    },
+
+    init() {
+        document.addEventListener(svgColors.eventChangeColor, event => {
+            svgColors.applyColorsSVG(event.detail?.isDarkMode ?? svgColors._getCurrentDarkmode());
+            svgColors.applyColorsLottie(event.detail?.isDarkMode ?? svgColors._getCurrentDarkmode());
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            svgColors.applyColorsSVG();
+            svgColors.applyColorsLottie();
+        });
+    },
+
+    applyColorsSVG(isDarkMode = svgColors._getCurrentDarkmode()) {
+        const colorsSvg = svgColors.searchColor("svg");
+
+        if (!pgs(document).querySelector("svgChangeColor")) return;
+
+        document.querySelectorAll('object[type="image/svg+xml"]').forEach(obj => {
+            if (!svgColors.watchedObjects.has(obj)) {
+                obj.addEventListener("load", () => svgColors._changeColor(obj.contentDocument, svgColors._getCurrentDarkmode(), svgColors.searchColor("svg")));
+                svgColors.watchedObjects.add(obj);
+            }
+
+            if (obj.contentDocument) svgColors._changeColor(obj.contentDocument, isDarkMode, colorsSvg);
+        });
+
+    },
+
+    applyColorsLottie(isDarkMode = svgColors._getCurrentDarkmode()) {
+        const colorsLottie = svgColors.searchColor("lottie");
+
+        if (!pgs(document).querySelector("lottieChangeColor")) return;
+
+        document.querySelectorAll("lottie-player").forEach(lottiePlayer => {
+            if (!svgColors.watchedLotties.has(lottiePlayer)) {
+                lottiePlayer.addEventListener("load", () => svgColors._changeColor(svgColors._getLottieSvg(lottiePlayer), svgColors._getCurrentDarkmode(), svgColors.searchColor("lottie")));
+                svgColors.watchedLotties.add(lottiePlayer);
+            }
+
+            if (lottiePlayer.shadowRoot) svgColors._changeColor(svgColors._getLottieSvg(lottiePlayer), isDarkMode, colorsLottie);
+        });
+    },
+};
+
+svgColors.init();
+
+const PGS_svg = {
+    eventChangeColor: svgColors.eventChangeColor,
+    applyColorsSVG: isDarkMode => svgColors.applyColorsSVG(isDarkMode),
+    applyColorsLottie: isDarkMode => svgColors.applyColorsLottie(isDarkMode),
+};
 
 
 /***/ },
@@ -2707,29 +2747,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   pgs: () => (/* reexport safe */ _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)
 /* harmony export */ });
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_pgs.js */ "./assets/javascript/_pgs.js");
-/* harmony import */ var _base_darkmode_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./base/_darkmode.js */ "./assets/javascript/base/_darkmode.js");
-/* harmony import */ var _base_darkmode_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_base_darkmode_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _base_object_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./base/_object.js */ "./assets/javascript/base/_object.js");
-/* harmony import */ var _base_object_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_base_object_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _components_accordion_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/_accordion.js */ "./assets/javascript/components/_accordion.js");
-/* harmony import */ var _components_dropdown_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/_dropdown.js */ "./assets/javascript/components/_dropdown.js");
-/* harmony import */ var _components_menu_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/_menu.js */ "./assets/javascript/components/_menu.js");
-/* harmony import */ var _components_modals_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/_modals.js */ "./assets/javascript/components/_modals.js");
-/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
-/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
-/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
-/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
-/* harmony import */ var _components_notifications_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/_notifications.js */ "./assets/javascript/components/_notifications.js");
-/* harmony import */ var _imports_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./_imports.js */ "./assets/javascript/_imports.js");
-/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./layout/_header.js */ "./assets/javascript/layout/_header.js");
-/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_layout_header_js__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
-/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var _base_svg_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./base/_svg.js */ "./assets/javascript/base/_svg.js");
+/* harmony import */ var _base_darkmode_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./base/_darkmode.js */ "./assets/javascript/base/_darkmode.js");
+/* harmony import */ var _base_darkmode_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_base_darkmode_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _base_object_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./base/_object.js */ "./assets/javascript/base/_object.js");
+/* harmony import */ var _base_object_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_base_object_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _components_accordion_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/_accordion.js */ "./assets/javascript/components/_accordion.js");
+/* harmony import */ var _components_dropdown_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/_dropdown.js */ "./assets/javascript/components/_dropdown.js");
+/* harmony import */ var _components_menu_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/_menu.js */ "./assets/javascript/components/_menu.js");
+/* harmony import */ var _components_modals_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_modals.js */ "./assets/javascript/components/_modals.js");
+/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
+/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
+/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
+/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
+/* harmony import */ var _components_notifications_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/_notifications.js */ "./assets/javascript/components/_notifications.js");
+/* harmony import */ var _imports_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./_imports.js */ "./assets/javascript/_imports.js");
+/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./layout/_header.js */ "./assets/javascript/layout/_header.js");
+/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_layout_header_js__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
+/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_15__);
 //= PGS
 
 
 
 //= BASE
+
 
 
 

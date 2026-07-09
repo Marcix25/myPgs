@@ -1,6 +1,6 @@
 
 if (localStorage.getItem("screenIsDarkMode") === "true") {
-    document.body.classList.add("darkmode");
+    ;
     document.querySelector(":root").setAttribute("data-darkmode", "true");
     document.body.setAttribute("data-darkmode", "true");
 }

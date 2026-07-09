@@ -3,6 +3,7 @@ import { pgs } from "./_pgs.js";
 export { pgs } from "./_pgs.js";
 
 //= BASE
+import "./base/_svg.js";
 import "./base/_darkmode.js";
 import "./base/_object.js";
 
