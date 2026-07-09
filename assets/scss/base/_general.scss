@@ -1,63 +1,51 @@
 @use "../mixin/mixin" as *;
 
 //# GENERAL
-[pgs~=initP] {
+[pgs~=boxtext] {
+    @include boxtext();
+}
 
-    [pgs~=card],
-    [pgs~=cardImg] {
-        @include card();
+[pgs~=darkmode] {
+    color-scheme: dark;
+}
 
-        [pgs~=card-img] {
-            @include card-insideImg();
-        }
-    }
+[pgs~=lightmode] {
+    color-scheme: light;
+}
 
-    [pgs~=boxtext] {
-        @include boxtext();
-    }
+[pgs~=imgCover] {
+    object-fit: cover;
+}
 
-    [pgs~=darkmode] {
-        color-scheme: dark;
-    }
+[pgs~=imgContain] {
+    object-fit: contain;
+}
 
-    [pgs~=lightmode] {
-        color-scheme: light;
-    }
+[pgs~=borderRadius] {
+    border-radius: var(--border-radius);
+}
 
-    [pgs~=imgCover] {
-        object-fit: cover;
-    }
+[pgs~=borderRadiusInput] {
+    border-radius: var(--border-radius-input);
+}
 
-    [pgs~=imgContain] {
-        object-fit: contain;
-    }
+[pgs~=borderRadiusExternal] {
+    border-radius: var(--border-radius-external);
+}
 
-    [pgs~=borderRadius] {
-        border-radius: var(--border-radius);
-    }
+[pgs~=blur] {
+    backdrop-filter: var(--blur);
+}
 
-    [pgs~=borderRadiusInput] {
-        border-radius: var(--border-radius-input);
-    }
+[pgs~=appearanceNone] {
+    all: unset;
+    appearance: none;
+}
 
-    [pgs~=borderRadiusExternal] {
-        border-radius: var(--border-radius-external);
-    }
+[pgs~=pointer] {
+    cursor: pointer;
+}
 
-    [pgs~=blur] {
-        backdrop-filter: var(--blur);
-    }
-
-    [pgs~=appearanceNone] {
-        all: unset;
-        appearance: none;
-    }
-
-    [pgs~=pointer] {
-        cursor: pointer;
-    }
-
-    [pgs~=hidden] {
-        display: none !important;
-    }
+[pgs~=hidden] {
+    display: none !important;
 }

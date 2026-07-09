@@ -9,8 +9,11 @@
 @include meta.load-css("base/color");
 @include meta.load-css("base/html");
 @include meta.load-css("base/body");
-@include meta.load-css("base/heading");
-@include meta.load-css("base/general");
+
+[pgs~=initP] {
+    @include meta.load-css("base/heading");
+    @include meta.load-css("base/general");
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +36,7 @@
 |--------------------------------------------------------------------------
 */
 [pgs~=initP] {
+    @include meta.load-css("components/card");
     @include meta.load-css("components/button");
     @include meta.load-css("components/form");
     @include meta.load-css("components/menu");

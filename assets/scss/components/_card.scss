@@ -1,0 +1,10 @@
+@use "../mixin/mixin" as *;
+
+[pgs~=card],
+[pgs~=cardImg] {
+    @include card();
+
+    [pgs~=card-img] {
+        @include card-insideImg();
+    }
+}
