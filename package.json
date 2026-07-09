@@ -1,6 +1,6 @@
 {
     "name": "mypgs",
-    "version": "1.4.1",
+    "version": "1.5.0",
     "description": "MyPGS frontend theme and UI behaviors, with bundled JavaScript and CSS assets.",
     "main": "./dist/javascript/index.js",
     "module": "./assets/javascript/index.js",
@@ -13,7 +13,16 @@
         },
         "./style.css": "./dist/css/index.css",
         "./style.min.css": "./dist/css/index.min.css",
-        "./vite-plugin-pgs": "./plugins/vite-plugin-pgs.js"
+        "./react": {
+            "types": "./react.d.ts",
+            "import": "./react.js",
+            "default": "./react.js"
+        },
+        "./vite-plugin-pgs": {
+            "types": "./plugins/vite-plugin-pgs.d.ts",
+            "import": "./plugins/vite-plugin-pgs.js",
+            "default": "./plugins/vite-plugin-pgs.js"
+        }
     },
     "style": "./dist/css/index.css",
     "scripts": {

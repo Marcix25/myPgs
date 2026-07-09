@@ -1,12 +1,17 @@
 export default function pgsVite() {
     return {
         name: "vite-plugin-pgs-html",
+        enforce: "pre",
 
         transform(code, id) {
             if (!/\.(jsx|tsx)$/.test(id)) return null;
 
+            const nextCode = code.replace(/\bpgsHtml(\s*)=/g, "pgs$1=");
+
+            if (nextCode === code) return null;
+
             return {
-                code: code.replace(/\bpgsHtml=/g, "pgs="),
+                code: nextCode,
                 map: null,
             };
         },

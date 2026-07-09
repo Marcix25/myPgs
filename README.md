@@ -39,6 +39,21 @@ import { pgs } from "mypgs";
 import "mypgs/style.css";
 ```
 
+In progetti React/TSX con Vite, abilita i tipi JSX e il plugin che converte `pgsHtml` in `pgs`:
+
+```ts
+import "mypgs/react";
+```
+
+```ts
+import react from "@vitejs/plugin-react";
+import pgsVite from "mypgs/vite-plugin-pgs";
+
+export default {
+  plugins: [pgsVite(), react()],
+};
+```
+
 Markup minimo consigliato:
 
 ```html
@@ -305,7 +320,17 @@ Il pacchetto espone:
     "default": "./dist/javascript/index.js"
   },
   "./style.css": "./dist/css/index.css",
-  "./style.min.css": "./dist/css/index.min.css"
+  "./style.min.css": "./dist/css/index.min.css",
+  "./react": {
+    "types": "./react.d.ts",
+    "import": "./react.js",
+    "default": "./react.js"
+  },
+  "./vite-plugin-pgs": {
+    "types": "./plugins/vite-plugin-pgs.d.ts",
+    "import": "./plugins/vite-plugin-pgs.js",
+    "default": "./plugins/vite-plugin-pgs.js"
+  }
 }
 ```
 

@@ -3,3 +3,5 @@ modules
 *.tgz
 .DS_Store
 **/.DS_Store
+.agents
+.codex
