@@ -31,15 +31,13 @@ const templateFiles = [
     "layout/flex.html",
     "layout/grid.html",
     "layout/pageShell.html",
+    "layout/footer.html",
+    "layout/header.html",
     "patterns/cookieConsent.html",
-    "patterns/header.html",
-    "patterns/footer.html",
 ];
 
 function getTemplateTitle(path) {
-    return path
-        .replace(".html", "")
-        .replace("/", " / ")
+    return path.replace(".html", "").replace("/", " / ")
 }
 
 function renderSourceTemplate(section, html) {
@@ -72,9 +70,7 @@ function renderTitle(section, path) {
 
 async function loadTemplate(path) {
     const response = await fetch(path);
-    if (!response.ok) {
-        throw new Error(`${path}: ${response.status}`);
-    }
+    if (!response.ok) throw new Error(`${path}: ${response.status}`);
     return response.text();
 }
 
@@ -90,8 +86,8 @@ async function bootDemo() {
     const AFTER = document.getElementById("templates-demo-after");
 
     for (const path of templateFiles) {
-        const isHeader = path === "patterns/header.html";
-        const isfooter = path === "patterns/footer.html";
+        const isHeader = path === "layout/header.html";
+        const isfooter = path === "layout/footer.html";
         const isBody = path === "layout/body.html";
 
         if (isHeader || isfooter) {
@@ -103,7 +99,6 @@ async function bootDemo() {
                 message.textContent = `Template non caricato: ${error.message}`;
                 layoutRoot.append(message);
             }
-
             continue;
         }
 
@@ -116,7 +111,6 @@ async function bootDemo() {
             const html = await loadTemplate(path);
             renderSourceTemplate(section, html);
             MAIN.append(section);
-
             continue
         }
 
@@ -133,7 +127,6 @@ async function bootDemo() {
 
         if (path == "layout/section.html" || path == "layout/pageShell.html") {
             section.style.display = "contents";
-
             Array.from(section.children).forEach(c => c.style.width = "100%");
         }
     }

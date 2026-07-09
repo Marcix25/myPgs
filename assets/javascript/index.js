@@ -20,6 +20,8 @@ import "./components/_notifications.js";
 //= IMPORT REGISTRY
 import "./_imports.js";
 
+//= LAYOUT 
+import "./layout/_header.js";
+
 //= PATTERNS 
-import "./patterns/_header.js";
 import "./patterns/_cookieConsent.js";

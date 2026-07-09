@@ -61,6 +61,12 @@ declare global {
 
   interface PgsBag extends PgsElementApi {}
 
+  namespace React {
+    interface HTMLAttributes<T> {
+      pgsHtml?: string;
+    }
+  }
+
   var pgs: PgsFunction;
 }
 
