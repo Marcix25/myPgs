@@ -48,6 +48,7 @@ Importando `mypgs`, l'entrypoint inizializza:
 - steps
 - step tabs
 - notifiche
+- search con suggerimenti opzionali
 - header
 - cookie consent
 
@@ -68,6 +69,7 @@ pgs.registerModules({
   menu: PGS_menu,
   modal: PGS_modal,
   notification: PGS_notification,
+  search: PGS_search,
   slides: PGS_slides,
   stepTabs: PGS_stepTabs,
   steps: PGS_steps,
@@ -92,6 +94,7 @@ Shortcut disponibili dopo `import "mypgs"`:
 - `pgs.menu`
 - `pgs.modal`
 - `pgs.notification`
+- `pgs.search`
 - `pgs.slides`
 - `pgs.stepTabs`
 - `pgs.steps`

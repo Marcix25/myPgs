@@ -49,6 +49,7 @@ $pageShell-test-gap: 4rem;
         isolation: isolate;
         position: sticky;
         top: var(--pageShell-aside-sticky-top);
+        transition: top 0.3s ease;
         width: 100%;
         max-height: 100svh;
         overflow-y: auto;

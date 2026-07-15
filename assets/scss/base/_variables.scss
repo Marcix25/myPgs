@@ -19,7 +19,8 @@
     --text-shadow: 0px 0px 50px #000000;
     --backdrop: #0000003e;
     --blur: blur(20px);
-    --page-top: calc(var(--heightOfHeaderScroll) + (var(--gap-elements)*2));
+    --page-top: calc(var(--heightOfHeader) + (var(--gap-elements)*2));
+    --page-topScroll: calc(var(--heightOfHeaderScroll) + (var(--gap-elements)*2));
     --page-width: 1280px;
     --page-space: clamp(var(--padding-page), calc((100% - var(--section-width)) / 2 + var(--padding-page)), 100%);
     --gap-texts: 1.0rem;
@@ -32,7 +33,8 @@
     --fa-size: inherit;
     --focus-visible: 3px solid var(--color-link);
     
-    --heightOfHeader: 13.3rem; ///preload fittizio
+    --heightOfHeader: 6.8rem; ///preload fittizio
+    --heightOfHeaderScroll: 6.8rem; ///preload fittizio
 
     //- mobile 
     @media (max-width: $mobile) {

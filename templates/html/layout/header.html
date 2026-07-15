@@ -46,15 +46,21 @@
 	<!-- //# HEADER BOTTOM -->
 
 	<script>
+		const addPgsState = (element, state) => {
+			if (!element) return;
+
+			const states = element.getAttribute("pgs-state")?.split(/\s+/) ?? [];
+			element.setAttribute("pgs-state", [...new Set([...states, state])].join(" "));
+		};
+
 		if (localStorage.getItem("screenIsDarkMode") === "true") {
-			;
-			document.querySelector(":root").setAttribute("data-darkmode", "true");
-			document.body.setAttribute("data-darkmode", "true");
+			addPgsState(document.documentElement, "darkmode");
+			addPgsState(document.body, "darkmode");
 		}
 
 		if (window.innerWidth < 600) {
-			pgs(document.querySelector("header")).state.add("mobileActive");
-			pgs(document.querySelector("[pgs~=header-element]")).state.add("mobileActive");
+			addPgsState(document.querySelector("header"), "mobileActive");
+			addPgsState(document.querySelector("[pgs~=header-element]"), "mobileActive");
 		}
 	</script>
 </header>

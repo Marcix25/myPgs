@@ -24,7 +24,8 @@
   --text-shadow: 0px 0px 50px #000000;
   --backdrop: #0000003e;
   --blur: blur(20px);
-  --page-top: calc(var(--heightOfHeaderScroll) + (var(--gap-elements)*2));
+  --page-top: calc(var(--heightOfHeader) + (var(--gap-elements)*2));
+  --page-topScroll: calc(var(--heightOfHeaderScroll) + (var(--gap-elements)*2));
   --page-width: 1280px;
   --page-space: clamp(var(--padding-page), calc((100% - var(--section-width)) / 2 + var(--padding-page)), 100%);
   --gap-texts: 1.0rem;
@@ -36,7 +37,8 @@
   --fa-secondary-opacity: 1;
   --fa-size: inherit;
   --focus-visible: 3px solid var(--color-link);
-  --heightOfHeader: 13.3rem;
+  --heightOfHeader: 6.8rem;
+  --heightOfHeaderScroll: 6.8rem;
 }
 
 @media (max-width: 430px) {
@@ -48,7 +50,7 @@
   color-scheme: light;
 }
 
-:root[data-darkmode=true] {
+:root[pgs-state~=darkmode] {
   color-scheme: dark;
 }
 
@@ -62,10 +64,10 @@
   --color-white-transparent: color-mix(in srgb, var(--color-white) 50%, transparent 100%);
   --color-black-transparent: color-mix(in srgb, var(--color-black) 50%, transparent 100%);
   --color-text: light-dark(#4a4a4a, #e3e3e3);
-  --color-box: light-dark(#F8F8F8, #3A3A3A);
-  --color-boxDark: light-dark(#3A3A3A, #F8F8F8);
-  --color-box-transparent: light-dark(color-mix(in srgb, #eeeeee 50%, transparent 50%), color-mix(in srgb, #3A3A3A 50%, transparent 50%));
-  --color-boxDark-transparent: light-dark(color-mix(in srgb, #3A3A3A 50%, transparent 50%), color-mix(in srgb, #eeeeee 50%, transparent 50%));
+  --color-box: light-dark(#F8F8F8, #222121);
+  --color-boxDark: light-dark(#222121, #F8F8F8);
+  --color-box-transparent: light-dark(color-mix(in srgb, #eeeeee 50%, transparent 50%), color-mix(in srgb, #222121 50%, transparent 50%));
+  --color-boxDark-transparent: light-dark(color-mix(in srgb, #222121 50%, transparent 50%), color-mix(in srgb, #eeeeee 50%, transparent 50%));
   --color-linkBackgorud: light-dark(#a0dbff, #002a44);
   --color-background: light-dark(#ffffff, #080808);
   --color-whiteFixed: #FFFFFF;
@@ -2169,6 +2171,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   isolation: isolate;
   position: sticky;
   top: var(--pageShell-aside-sticky-top);
+  transition: top 0.3s ease;
   width: 100%;
   max-height: 100svh;
   overflow-y: auto;
@@ -5044,9 +5047,6 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   row-gap: 1rem;
   flex-wrap: nowrap;
 }
-[pgs~=initP] [pgs~=menu] ul ul {
-  display: none;
-}
 [pgs~=initP] [pgs~=menu] ul > li > a {
   flex-grow: 1;
   min-width: fit-content;
@@ -5191,6 +5191,17 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=initP] [pgs~=menu] ul > li li {
   width: -webkit-fill-available;
 }
+[pgs~=initP] [pgs~=menu] ul > li[pgs-state~=open] > ul {
+  display: flex;
+}
+[pgs~=initP] [pgs~=menu] ul ul {
+  display: none;
+  flex-direction: column;
+  gap: var(--gap-texts);
+  --dropdown-borderRadius: calc(var(--border-radius-input) + var(--dropdown-padding));
+  --dropdown-background: var(--color-box-transparent);
+  --dropdown-display: flex;
+}
 [pgs~=initP] [pgs~=menu] [pgs~=menu-buttonIcon] {
   --button-size: 0.9rem;
   margin-right: -15px;
@@ -5201,6 +5212,9 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   justify-content: center;
   cursor: pointer;
   translate: -15px;
+}
+[pgs~=initP] [pgs~=menu] [pgs~=menu-buttonIcon][aria-expanded=true] {
+  --button-background: var(--color-primary);
 }
 [pgs~=initP] [pgs~=menu] [pgs~=menu-buttonIcon][aria-expanded=true] span {
   rotate: 180deg;
@@ -5215,19 +5229,9 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   width: max-content;
 }
 [pgs~=initP] [pgs~=menu][pgs-option~=horizontal] > ul > li:has(ul) {
-  --dropdown-display: flex;
   display: flex;
   gap: 0.2rem;
   flex-wrap: nowrap;
-}
-[pgs~=initP] [pgs~=menu][pgs-option~=horizontal] > ul > li:has(ul) > a {
-  border-radius: var(--border-radius-input);
-}
-[pgs~=initP] [pgs~=menu][pgs-option~=horizontal] > ul > li:has(ul) ul li a {
-  min-width: 100% !important;
-}
-[pgs~=initP] [pgs~=menu][pgs-option~=horizontal] > ul > li:has(ul)[pgs-state~=open] > ul {
-  display: flex;
 }
 [pgs~=initP] [pgs~=menu] ul :is(ul), [pgs~=initP] [pgs~=menu][pgs-option~=vertical] :is(ul), [pgs~=initP] [pgs~=menu]:not([pgs-option~=horizontal]) :is(ul) {
   flex-direction: column;
@@ -5246,9 +5250,6 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   flex-wrap: nowrap;
   align-items: center;
   position: relative;
-}
-[pgs~=initP] [pgs~=menu] ul :is(ul) > li:has(ul) > a, [pgs~=initP] [pgs~=menu][pgs-option~=vertical] :is(ul) > li:has(ul) > a, [pgs~=initP] [pgs~=menu]:not([pgs-option~=horizontal]) :is(ul) > li:has(ul) > a {
-  max-width: calc(100% - var(--gap-texts) - 40px);
 }
 [pgs~=initP] [pgs~=menu] ul :is(ul) > li:has(ul) > ul, [pgs~=initP] [pgs~=menu][pgs-option~=vertical] :is(ul) > li:has(ul) > ul, [pgs~=initP] [pgs~=menu]:not([pgs-option~=horizontal]) :is(ul) > li:has(ul) > ul {
   flex-basis: 100%;
@@ -5614,6 +5615,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   --dropdown-background: var(--color-box);
   --dropdown-color: var(--color-black);
   --dropdown-border: var(--border-complete);
+  --dropdown-borderRadius: var(--dropdown-padding);
   --dropdown-padding: 1rem;
   --dropdown-inline-size: max-content;
   --dropdown-max-inline-size: min(400px, calc(100vw - 16px));
@@ -5637,7 +5639,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   overflow: auto;
   padding: var(--dropdown-padding);
   border: var(--dropdown-border);
-  border-radius: calc(var(--border-radius-input) + var(--dropdown-padding));
+  border-radius: var(--dropdown-borderRadius);
   background: var(--dropdown-background);
   color: var(--dropdown-color);
 }
@@ -5722,6 +5724,13 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 }
 [pgs~=initP] dialog:not(:has(> [pgs~=modal-close])) {
   padding-top: var(--padding-page);
+}
+[pgs~=initP] dialog[pgs~=modal-dialog][pgs-option~=topLevel] {
+  align-items: center;
+  padding-inline: 1rem;
+}
+[pgs~=initP] dialog[pgs~=modal-dialog][pgs-option~=topLevel] [pgs~=modal-dialog-content] {
+  width: min(600px, 100%);
 }
 [pgs~=initP] dialog[pgs~=modal-dialog][pgs-option~=left] [pgs~=modal-dialog-content] {
   margin-left: unset;
@@ -6508,67 +6517,127 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=initP] [pgs~=tooltip][pgs~=dropdown] [pgs~=tooltip-button][pgs~=dropdown-button] {
   --fa-size: .9rem;
 }
-[pgs~=initP] [pgs~=searchbar] {
+[pgs~=initP] [pgs~=search] {
+  --search-suggestions-background: var(--color-box);
+  --search-suggestions-color: var(--color-text);
+  --search-suggestions-border: var(--border-complete);
+  --search-suggestions-borderRadius: var(--border-radius-input);
+  --search-suggestions-box-shadow: var(--box-shadow);
+  --search-suggestions-gap: 0;
+  --search-suggestions-max-height: 32rem;
+  --search-suggestions-offset: .5rem;
+  --search-suggestions-padding: .5rem;
+  --search-suggestions-item-padding: 1rem;
+  --search-suggestions-item-selected-background: var(--color-primary);
+  --search-suggestions-item-selected-color: var(--color-whiteFixed);
   position: relative;
+  display: flex;
+  gap: var(--gap-texts);
+  flex-direction: row;
+  flex-wrap: nowrap;
   flex: 1;
   width: 100%;
-  overflow: hidden;
+  overflow: visible;
   margin-inline: auto;
+  padding: 0;
   --button-size: 1.2rem;
   --button-border: unset;
   overflow-wrap: break-word;
   height: calc(var(--button-size) * 4);
-  padding: 0;
-  gap: 0;
 }
 @media (min-width: 430px) {
-  [pgs~=initP] [pgs~=searchbar] {
+  [pgs~=initP] [pgs~=search] {
     min-width: 21.4rem;
   }
 }
-[pgs~=initP] [pgs~=searchbar] button {
-  outline: none;
-  border: none;
-  background: none;
-  padding-left: var(--button-size);
-  aspect-ratio: 1;
+[pgs~=initP] [pgs~=search] button {
   height: 100%;
+  padding-left: var(--button-size);
+  border: none;
   border-radius: var(--border-radius-input);
+  outline: none;
+  background: none;
   cursor: pointer;
 }
-[pgs~=initP] [pgs~=searchbar] input {
-  cursor: text !important;
-  border: 0;
-  padding: var(--button-size);
-  margin: 2px;
-  margin-left: 0;
-  font-family: var(--font);
-  font-weight: 600;
-  font-size: 1.6rem;
-  border-radius: var(--border-radius-input);
-  height: 100%;
+[pgs~=initP] [pgs~=search] input {
   width: 100%;
   min-width: 21.4rem;
+  height: 100%;
+  padding: var(--button-size);
+  padding-left: 0;
+  margin: 2px;
+  margin-left: 0;
+  border: 0;
+  border-radius: var(--border-radius-input);
   background-color: transparent;
   color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
+  font-family: var(--font);
+  font-size: 1.6rem;
+  font-weight: 600;
+  cursor: text !important;
 }
-[pgs~=initP] [pgs~=searchbar] input::placeholder {
+[pgs~=initP] [pgs~=search] input::placeholder {
   color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
   opacity: 0.6;
 }
-[pgs~=initP] [pgs~=searchbar] input:focus-visible {
+[pgs~=initP] [pgs~=search] input:focus-visible {
   outline: unset;
 }
-[pgs~=initP] [pgs~=searchbar]:has(input:focus-visible) {
+[pgs~=initP] [pgs~=search]:has(input:focus-visible) {
   outline: var(--focus-visible);
 }
-[pgs~=initP] dialog [pgs~=searchbar] {
-  margin-inline: auto;
+[pgs~=initP] [pgs~=search]:not([pgs-state~=open]) > [pgs~=search-suggestions] {
+  display: none;
+}
+[pgs~=initP] [pgs~=search][pgs-state~=open] > [pgs~=search-suggestions] {
+  display: flex;
+}
+[pgs~=initP] [pgs~=search] > [pgs~=search-suggestions] {
+  position: absolute;
+  inset: calc(100% + var(--search-suggestions-offset)) 0 auto;
+  z-index: 1000;
+  flex-direction: column;
+  gap: var(--search-suggestions-gap);
+  max-height: var(--search-suggestions-max-height);
+  overflow-y: auto;
+  padding: var(--search-suggestions-padding);
+  margin: 0;
+  list-style: none;
+  border: var(--search-suggestions-border);
+  border-radius: calc(var(--search-suggestions-borderRadius) + var(--search-suggestions-padding));
+  background: var(--search-suggestions-background);
+  color: var(--search-suggestions-color);
+  box-shadow: var(--search-suggestions-box-shadow);
+}
+[pgs~=initP] [pgs~=search] > [pgs~=search-suggestions] [pgs~=search-suggestions-item] {
+  padding: var(--search-suggestions-item-padding);
+  border-radius: var(--search-suggestions-borderRadius);
+  cursor: pointer;
+  flex-wrap: nowrap;
+}
+[pgs~=initP] [pgs~=search] > [pgs~=search-suggestions] [pgs~=search-suggestions-item][aria-selected=true], [pgs~=initP] [pgs~=search] > [pgs~=search-suggestions] [pgs~=search-suggestions-item]:hover {
+  background: var(--search-suggestions-item-selected-background);
+  color: var(--search-suggestions-item-selected-color);
+}
+[pgs~=initP] [pgs~=search] > [pgs~=search-suggestions] [pgs~=search-suggestions-item][aria-disabled=true] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+[pgs~=initP] [pgs~=search] > [pgs~=search-suggestions]:has([pgs~=search-suggestions-item]:hover) [pgs~=search-suggestions-item][aria-selected=true] {
+  background: var(--search-suggestions-background);
+  color: var(--search-suggestions-color);
+}
+[pgs~=initP] [pgs~=search] > [pgs~=search-suggestions]:has([pgs~=search-suggestions-item]:hover) [pgs~=search-suggestions-item][aria-selected=true]:hover {
+  background: var(--search-suggestions-item-selected-background);
+  color: var(--search-suggestions-item-selected-color);
+}
+[pgs~=initP] dialog [pgs~=search] {
   max-width: calc(100% - var(--padding-page) * 2);
   height: max-content;
+  margin-inline: auto;
   background-color: var(--color-white);
 }
-[pgs~=initP] dialog [pgs~=searchbar] input {
+[pgs~=initP] dialog [pgs~=search] input {
   padding-block: 20px;
 }
 [pgs~=initP] [pgs~=logo] {
@@ -6577,10 +6646,10 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   --logo-height: var(--header-size, 6.0rem);
   --logo-finter: invert(1) hue-rotate(180deg) brightness(1.5);
 }
-[pgs~=initP] [data-darkmode=true] [pgs~=logo-darkmode] [pgs~=logo-image] {
+[pgs~=initP] [pgs-state~=darkmode] [pgs~=logo][pgs-option~=logoDarkmode] [pgs~=logo-image] {
   filter: var(--logo-finter);
 }
-[pgs~=initP] [pgs~=logo][pgs~=logo-darkmodeFixed][pgs~=logo-darkmode] [pgs~=logo-image] {
+[pgs~=initP] [pgs~=logo][pgs-option~=logoDarkmodeFixed] [pgs~=logo-image] {
   filter: var(--logo-finter);
 }
 @media (max-width: 800px) {

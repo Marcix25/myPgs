@@ -10,10 +10,6 @@
         row-gap: 1.0rem;
         flex-wrap: nowrap;
 
-        ul {
-            display: none;
-        }
-
         //== Content
         >li {
             >a {
@@ -30,6 +26,20 @@
             li {
                 width: -webkit-fill-available;
             }
+
+            &[pgs-state~=open]>ul {
+                display: flex;
+            }
+        }
+
+        //== submenu
+        ul {
+            display: none;
+            flex-direction: column;
+            gap: var(--gap-texts);
+            --dropdown-borderRadius: calc(var(--border-radius-input) + var(--dropdown-padding));
+            --dropdown-background: var(--color-box-transparent);
+            --dropdown-display: flex;
         }
     }
 
@@ -45,8 +55,12 @@
         cursor: pointer;
         translate: -15px;
 
-        &[aria-expanded="true"] span {
-            rotate: 180deg;
+        &[aria-expanded="true"] {
+            --button-background: var(--color-primary);
+
+            span {
+                rotate: 180deg;
+            }
         }
 
         span {
@@ -67,25 +81,9 @@
 
             //=== Sub menu
             >li:has(ul) {
-                --dropdown-display: flex;
                 display: flex;
                 gap: 0.2rem;
                 flex-wrap: nowrap;
-
-                >a {
-                    border-radius: var(--border-radius-input);
-                    // box-shadow: var(--box-shadow);
-                }
-
-                ul {
-                    li a {
-                        min-width: 100% !important;
-                    }
-                }
-
-                &[pgs-state~=open]>ul {
-                    display: flex;
-                }
             }
         }
     }
@@ -112,13 +110,8 @@
                 align-items: center;
                 position: relative;
 
-                >a {
-                    max-width: calc(100% - var(--gap-texts) - 40px);
-                }
-
                 >ul {
                     flex-basis: 100%;
-                    // --dropdown-maxwidth: 100%;
                 }
 
                 &:not([pgs-state~=open]) ul {

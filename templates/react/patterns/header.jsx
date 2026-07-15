@@ -2,16 +2,22 @@ import { useEffect } from "react";
 
 export default function Header() {
     useEffect(() => {
-        if (localStorage.getItem("screenIsDarkMode") === "true") {
-            ;
-            document.querySelector(":root")?.setAttribute("data-darkmode", "true");
-            document.body.setAttribute("data-darkmode", "true");
-        }
+		const addPgsState = (element, state) => {
+			if (!element) return;
 
-        if (window.innerWidth < 600 && window.pgs) {
-            window.pgs(document.querySelector("header")).state.add("mobileActive");
-            window.pgs(document.querySelector("[pgs~=header-element]")).state.add("mobileActive");
-        }
+			const states = element.getAttribute("pgs-state")?.split(/\s+/) ?? [];
+			element.setAttribute("pgs-state", [...new Set([...states, state])].join(" "));
+		};
+
+		if (localStorage.getItem("screenIsDarkMode") === "true") {
+			addPgsState(document.documentElement, "darkmode");
+			addPgsState(document.body, "darkmode");
+		}
+
+		if (window.innerWidth < 600) {
+			addPgsState(document.querySelector("header"), "mobileActive");
+			addPgsState(document.querySelector("[pgs~=header-element]"), "mobileActive");
+		}
     }, []);
 
     return (

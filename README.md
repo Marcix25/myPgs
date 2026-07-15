@@ -2,7 +2,7 @@
 
 `mypgs` e' una libreria frontend condivisa per costruire interfacce coerenti tramite attributi `pgs`, SCSS sorgenti, componenti UI e comportamenti JavaScript riutilizzabili.
 
-La libreria nasce come base di design system: layout, spacing, colori, bottoni, form, menu, modali, dropdown, slides, notifiche e pattern ricorrenti vengono definiti una volta sola e riusati nei progetti.
+La libreria nasce come base di design system: layout, spacing, colori, bottoni, form, menu, modali, dropdown, ricerca con suggerimenti, slides, notifiche e pattern ricorrenti vengono definiti una volta sola e riusati nei progetti.
 
 ## Cosa contiene
 

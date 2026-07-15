@@ -22,7 +22,10 @@ function setDarkmodeStatus(toggle = false, button) {
         localStorage.setItem("screenIsDarkMode", isDarkMode);
     }
 
-    document.documentElement.setAttribute("data-darkmode", isDarkMode);
+    // SET
+    pgs(document.documentElement).state.toggle("darkmode", isDarkMode);
+    pgs(document.body).state.toggle("darkmode", isDarkMode);
+    // END SET
 
     changeIcon(button, isDarkMode);
     document.dispatchEvent(new CustomEvent(EVENT_SVG_CHANGE_COLOR, { detail: { isDarkMode } }));

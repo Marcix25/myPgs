@@ -10,7 +10,7 @@ const svgColors = {
     },
 
     _getCurrentDarkmode: () => {
-        return document.documentElement.getAttribute("data-darkmode") === "true";
+        return pgs(document.documentElement).state.contains("darkmode");
     },
 
     searchColor(type = "svg") {
@@ -79,13 +79,13 @@ const svgColors = {
     },
 
     applyColorsLottie(isDarkMode = svgColors._getCurrentDarkmode()) {
-        const colorsLottie = svgColors.searchColor("lottie");
+        const colorsLottie = svgColors.searchColor("svg");
 
         if (!pgs(document).querySelector("lottieChangeColor")) return;
 
         document.querySelectorAll("lottie-player").forEach(lottiePlayer => {
             if (!svgColors.watchedLotties.has(lottiePlayer)) {
-                lottiePlayer.addEventListener("load", () => svgColors._changeColor(svgColors._getLottieSvg(lottiePlayer), svgColors._getCurrentDarkmode(), svgColors.searchColor("lottie")));
+                lottiePlayer.addEventListener("load", () => svgColors._changeColor(svgColors._getLottieSvg(lottiePlayer), svgColors._getCurrentDarkmode(), svgColors.searchColor("svg")));
                 svgColors.watchedLotties.add(lottiePlayer);
             }
 

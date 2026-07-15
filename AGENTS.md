@@ -8,7 +8,7 @@ This guide is for any AI/Codex agent that initializes or modifies a project base
 
 - HTML `pgs` attributes as the contract between markup, SCSS, and JavaScript;
 - SCSS sources with base styles, layouts, components, patterns, CSS variables, and mixins;
-- JavaScript modules for recurring behaviors such as accordions, dropdowns, menus, modals, slides, steps, step tabs, notifications, header, cookie consent, and dark mode;
+- JavaScript modules for recurring behaviors such as accordions, dropdowns, menus, modals, search suggestions, slides, steps, step tabs, notifications, header, cookie consent, and dark mode;
 - example HTML templates in `templates/`;
 - compiled assets in `dist/`.
 
@@ -26,7 +26,7 @@ Write custom code only when the pattern does not exist, or when you are adding a
 ## 2. General Usage Rules
 
 - Use `mypgs` as the first choice for layouts, components, helpers, variables, utilities, and available patterns.
-- Do not recreate existing components from scratch: buttons, forms, dropdowns, modals, menus, slides, accordions, steps, stepTabs, notifications, tooltips, tables, searchbars, logos, headers, footers, and cookie consent.
+- Do not recreate existing components from scratch: buttons, forms, dropdowns, modals, menus, slides, accordions, steps, stepTabs, notifications, tooltips, tables, search, logos, headers, footers, and cookie consent.
 - Do not duplicate logic already handled by the `mypgs` JS modules, such as modal open/close, accordion state, Popover API dropdowns, step tabs, notifications, or form validation.
 - Keep `pgs` tokens in markup, SCSS selectors, and JS queries consistent.
 - Prefer composing `pgs` tokens over adding new CSS classes.
@@ -52,6 +52,7 @@ Files analyzed:
 - `assets/javascript/components/_steps.js`
 - `assets/javascript/components/_stepTabs.js`
 - `assets/javascript/components/_notifications.js`
+- `assets/javascript/components/_search.js`
 - `assets/javascript/functions/_formValidate.js`
 - `assets/javascript/functions/_scrollY.js`
 - `assets/javascript/patterns/_header.js`
@@ -74,6 +75,7 @@ Patterns found:
 - Components use a root token and child tokens with a consistent prefix. Use `templates/html/components/` as the canonical markup source.
 
 - Runtime states use `pgs-state`, for example `open`, `is-active`, `is-completed`, `is-locked`, `success`, `error`, `warning`, and `info`.
+- La ricerca componibile usa esclusivamente `pgs="search"` come root grafico e comportamentale e il figlio opzionale `pgs="search-suggestions"`. La sorgente dati si configura tramite `pgs.search.api(element)?.configure({ source })` e deve restare indipendente dal backend.
 - Configurable options use `pgs-option`, with simple tokens or values inside square brackets. Prefer copying the current option syntax from the relevant template rather than duplicating examples in this guide.
 
 - Naming is mostly camelCase for compound tokens (`menuHorizontal`, `buttonStrong`, `flexColumnElements`) and kebab-like for component sub-elements (`accordion-button`, `modal-dialog-content`, `cookieConsent-actionAccept`).
@@ -186,6 +188,7 @@ Recommended direct access:
 ```js
 pgs.notification.toast.success("Saved");
 pgs.modal.api(modalEl)?.open();
+pgs.search.api(searchEl)?.setSource(async ({ query, signal }) => []);
 ```
 
 `assets/javascript/_imports.js` registers modules with `pgs.registerModules`:
@@ -224,7 +227,7 @@ Use the templates as the single source of truth for component and layout markup.
 Canonical template references:
 
 - Layouts: `templates/html/layout/body.html`, `templates/html/layout/flex.html`, `templates/html/layout/grid.html`, `templates/html/layout/pageShell.html`, `templates/html/layout/section.html`
-- Components: `templates/html/components/accordion.html`, `templates/html/components/breadcumbs.html`, `templates/html/components/button.html`, `templates/html/components/card.html`, `templates/html/components/dropdown.html`, `templates/html/components/form.html`, `templates/html/components/logo.html`, `templates/html/components/menu.html`, `templates/html/components/modal.html`, `templates/html/components/notification.html`, `templates/html/components/searchbar.html`, `templates/html/components/slides.html`, `templates/html/components/stepTabs.html`, `templates/html/components/steps.html`, `templates/html/components/table.html`, `templates/html/components/tooltip.html`
+- Components: `templates/html/components/accordion.html`, `templates/html/components/breadcumbs.html`, `templates/html/components/button.html`, `templates/html/components/card.html`, `templates/html/components/dropdown.html`, `templates/html/components/form.html`, `templates/html/components/logo.html`, `templates/html/components/menu.html`, `templates/html/components/modal.html`, `templates/html/components/notification.html`, `templates/html/components/search.html`, `templates/html/components/slides.html`, `templates/html/components/stepTabs.html`, `templates/html/components/steps.html`, `templates/html/components/table.html`, `templates/html/components/tooltip.html`
 - Patterns: `templates/html/patterns/cookieConsent.html`, `templates/html/patterns/footer.html`, `templates/html/patterns/header.html`
 - Complete demo assembly. DO NOT use this for inspiration. It is only used to show all the modules: `templates/demo.html`
 

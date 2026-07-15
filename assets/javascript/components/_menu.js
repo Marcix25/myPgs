@@ -20,6 +20,7 @@ function PGS_menu_init(root = document) {
                 li.querySelector("a").insertAdjacentElement("afterend", button);
 
                 pgs(li).add("dropdown")
+                pgs(li).option.setValueBrackets("position", "bottom right")
                 pgs(button).add("dropdown-button")
                 pgs(button).add("buttonNohover")
                 pgs(ul).add("dropdown-content")
@@ -30,9 +31,6 @@ function PGS_menu_init(root = document) {
         API.set(MENU, {
             element: MENU,
             type: "horizontal",
-            // items: () => Array.from(MENU.querySelectorAll('nav > ul > li')),
-            // submenus: () => Array.from(MENU.querySelectorAll('.menu-item-has-children > ul')),
-            // dropdowns: () => Array.from(MENU.querySelectorAll('.menu-item-has-children')).map(PGS_dropdown_api).filter(Boolean),
             refresh: () => {
                 PGS_menu_init(MENU.parentNode || document);
                 return API.get(MENU);

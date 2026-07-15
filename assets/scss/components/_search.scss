@@ -1,0 +1,134 @@
+@use "../mixin/mixin" as *;
+
+[pgs~="search"] {
+    --search-suggestions-background: var(--color-box);
+    --search-suggestions-color: var(--color-text);
+    --search-suggestions-border: var(--border-complete);
+    --search-suggestions-borderRadius: var(--border-radius-input);
+    --search-suggestions-box-shadow: var(--box-shadow);
+    --search-suggestions-gap: 0;
+    --search-suggestions-max-height: 32rem;
+    --search-suggestions-offset: .5rem;
+    --search-suggestions-padding: .5rem;
+    --search-suggestions-item-padding: 1rem;
+    --search-suggestions-item-selected-background: var(--color-primary);
+    --search-suggestions-item-selected-color: var(--color-whiteFixed);
+    position: relative;
+    @include flexRow(nowrap);
+    flex: 1;
+    width: 100%;
+    overflow: visible;
+    margin-inline: auto;
+    padding: 0;
+    @include button_header();
+
+    @media (min-width: $mobile) {
+        min-width: 21.4rem;
+    }
+
+    button {
+        height: 100%;
+        padding-left: var(--button-size);
+        border: none;
+        border-radius: var(--border-radius-input);
+        outline: none;
+        background: none;
+        cursor: pointer;
+    }
+
+    input {
+        width: 100%;
+        min-width: 21.4rem;
+        height: 100%;
+        padding: var(--button-size);
+        padding-left: 0;
+        margin: 2px;
+        margin-left: 0;
+        border: 0;
+        border-radius: var(--border-radius-input);
+        background-color: transparent;
+        color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
+        font-family: var(--font);
+        font-size: 1.6rem;
+        font-weight: 600;
+        cursor: text !important;
+
+        &::placeholder {
+            color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
+            opacity: .6;
+        }
+
+        &:focus-visible {
+            outline: unset;
+        }
+    }
+
+    &:has(input:focus-visible) {
+        outline: var(--focus-visible);
+    }
+
+    &:not([pgs-state~="open"])>[pgs~="search-suggestions"] {
+        display: none;
+    }
+
+    &[pgs-state~="open"]>[pgs~="search-suggestions"] {
+        display: flex;
+    }
+
+    >[pgs~="search-suggestions"] {
+        position: absolute;
+        inset: calc(100% + var(--search-suggestions-offset)) 0 auto;
+        z-index: 1000;
+        flex-direction: column;
+        gap: var(--search-suggestions-gap);
+        max-height: var(--search-suggestions-max-height);
+        overflow-y: auto;
+        padding: var(--search-suggestions-padding);
+        margin: 0;
+        list-style: none;
+        border: var(--search-suggestions-border);
+        border-radius: calc(var(--search-suggestions-borderRadius) + var(--search-suggestions-padding));
+        background: var(--search-suggestions-background);
+        color: var(--search-suggestions-color);
+        box-shadow: var(--search-suggestions-box-shadow);
+
+        [pgs~="search-suggestions-item"] {
+            padding: var(--search-suggestions-item-padding);
+            border-radius: var(--search-suggestions-borderRadius);
+            cursor: pointer;
+            flex-wrap: nowrap;
+
+            &[aria-selected="true"],
+            &:hover {
+                background: var(--search-suggestions-item-selected-background);
+                color: var(--search-suggestions-item-selected-color);
+            }
+
+            &[aria-disabled="true"] {
+                cursor: not-allowed;
+                opacity: .5;
+            }
+        }
+
+        &:has([pgs~="search-suggestions-item"]:hover) [pgs~="search-suggestions-item"][aria-selected="true"] {
+            background: var(--search-suggestions-background);
+            color: var(--search-suggestions-color);
+
+            &:hover {
+                background: var(--search-suggestions-item-selected-background);
+                color: var(--search-suggestions-item-selected-color);
+            }
+        }
+    }
+
+    @at-root dialog #{&} {
+        max-width: calc(100% - var(--padding-page) * 2);
+        height: max-content;
+        margin-inline: auto;
+        background-color: var(--color-white);
+
+        input {
+            padding-block: 20px;
+        }
+    }
+}

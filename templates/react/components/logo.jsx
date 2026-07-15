@@ -1,6 +1,6 @@
 export default function Logo() {
     return (
-        <a aria-label="Logo" pgs="logo logo-darkmode" href="/">
+        <a aria-label="Logo" pgs="logo" pgs-option="logoDarkmode" href="/">
             <img pgs="logo-image" src="https://placehold.co/240x80?text=MyPGS" alt="MyPGS" />
         </a>
     );

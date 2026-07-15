@@ -3,6 +3,7 @@
     --dropdown-background: var(--color-box);
     --dropdown-color: var(--color-black);
     --dropdown-border: var(--border-complete);
+    --dropdown-borderRadius: var(--dropdown-padding);
     --dropdown-padding: 1rem;
     --dropdown-inline-size: max-content;
     --dropdown-max-inline-size: min(400px, calc(100vw - 16px));
@@ -28,7 +29,7 @@
         overflow: auto;
         padding: var(--dropdown-padding);
         border: var(--dropdown-border);
-        border-radius: calc(var(--border-radius-input) + var(--dropdown-padding));
+        border-radius:  var(--dropdown-borderRadius);
         background: var(--dropdown-background);
         color: var(--dropdown-color);
     }

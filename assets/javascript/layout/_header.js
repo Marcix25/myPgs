@@ -93,9 +93,32 @@ function headerHeight() {
     document.documentElement.style.setProperty("--heightOfHeader", `${height}px`);
     document.documentElement.style.setProperty("--heightOfHeaderScroll", `${scrollHeight}px`);
 }
-headerHeight()
-window.addEventListener("resize", headerHeight);
-window.addEventListener("scroll", headerHeight);
+
+// Il modulo può essere caricato nel footer: rimanda il primo calcolo al frame
+// successivo, quando il browser ha già composto l'header, senza aspettare il
+// caricamento completo della pagina.
+let headerHeightRafId = 0;
+function scheduleHeaderHeight() {
+    if (headerHeightRafId) return;
+
+    headerHeightRafId = requestAnimationFrame(() => {
+        headerHeightRafId = 0;
+        headerHeight();
+    });
+}
+
+if (header) {
+    const headerHeightObserver = new ResizeObserver(scheduleHeaderHeight);
+    headerHeightObserver.observe(header);
+
+    // Un font web può modificare la larghezza del menu e quindi l'altezza
+    // dell'header, anche dopo il primo frame.
+    document.fonts?.ready?.then(scheduleHeaderHeight);
+}
+
+scheduleHeaderHeight();
+window.addEventListener("resize", scheduleHeaderHeight);
+window.addEventListener("scroll", scheduleHeaderHeight, { passive: true });
 
 
 
@@ -124,8 +147,4 @@ window.addEventListener("scroll", () => {
     lastScrollY = currentScrollY;
 
 });
-
-
-
-
 

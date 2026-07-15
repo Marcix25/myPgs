@@ -6,6 +6,7 @@ import { PGS_dropdown } from "./components/_dropdown.js";
 import { PGS_menu } from "./components/_menu.js";
 import { PGS_modal } from "./components/_modals.js";
 import { PGS_notification } from "./components/_notifications.js";
+import { PGS_search } from "./components/_search.js";
 import { PGS_slides } from "./components/_slides.js";
 import { PGS_stepTabs } from "./components/_stepTabs.js";
 import { PGS_steps } from "./components/_steps.js";
@@ -20,6 +21,7 @@ pgs.registerModules({
     menu: PGS_menu,
     modal: PGS_modal,
     notification: PGS_notification,
+    search: PGS_search,
     slides: PGS_slides,
     stepTabs: PGS_stepTabs,
     steps: PGS_steps,

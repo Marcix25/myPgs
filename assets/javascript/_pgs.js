@@ -185,9 +185,55 @@ export function pgs(root) {
     function createOption(attribute) {
         if (!canAttr) return undefined;
 
+        const read = () => (root.getAttribute(attribute) || "").match(/[^\s[\]]+(?:\[[^\]]*\])?/g) || [];
+        const write = values => root.setAttribute(attribute, values.join(" "));
+        const getKey = value => String(value).trim().match(/^[^\s[\]]+/)?.[0] || "";
+        const getValues = values => values
+            .flat()
+            .flatMap(value => String(value).match(/[^\s[\]]+(?:\[[^\]]*\])?/g) || [])
+            .filter(Boolean);
+
         function api() {
             return api;
         }
+
+        api.add = function (...values) {
+            const current = read();
+
+            getValues(values).forEach(value => {
+                if (!current.includes(value)) current.push(value);
+            });
+
+            write(current);
+            return api;
+        };
+
+        api.remove = function (...values) {
+            const keys = getValues(values).map(getKey).filter(Boolean);
+            write(read().filter(value => !keys.includes(getKey(value))));
+            return api;
+        };
+
+        api.toggle = function (value, force) {
+            const key = getKey(value);
+            if (!key) return false;
+
+            const exists = api.contains(key);
+
+            if (force !== undefined) {
+                if (force && !exists) api.add(value);
+                if (!force && exists) api.remove(key);
+                return !!force;
+            }
+
+            if (exists) {
+                api.remove(key);
+                return false;
+            }
+
+            api.add(value);
+            return true;
+        };
 
         api.contains = function (key) {
             const source = root.getAttribute(attribute) || "";
@@ -206,6 +252,18 @@ export function pgs(root) {
             );
 
             return match ? match[1] : undefined;
+        };
+
+        api.setValueBrackets = function (key, value = "") {
+            const optionKey = getKey(key);
+            if (!optionKey) return api;
+
+            const option = `${optionKey}[${String(value).trim()}]`;
+            const options = read().filter(item => getKey(item) !== optionKey);
+
+            options.push(option);
+            write(options);
+            return api;
         };
 
         Object.defineProperty(api, "value", {

@@ -1,11 +1,4 @@
 
-if (localStorage.getItem("screenIsDarkMode") === "true") {
-    ;
-    document.querySelector(":root").setAttribute("data-darkmode", "true");
-    document.body.setAttribute("data-darkmode", "true");
-}
-
-
 const templateFiles = [
     "components/summary.html",
     "components/menu.html",
@@ -21,7 +14,7 @@ const templateFiles = [
     "components/tooltip.html",
     "components/form.html",
     "components/logo.html",
-    "components/searchbar.html",
+    "components/search.html",
     "components/slides.html",
     "components/steps.html",
     "components/table.html",

@@ -79,7 +79,7 @@ dialog[pgs~="modal-dialog"] {
         &:has([pgs~="modal-dialog-content-scroll"]) {
             max-height: calc(90svh - var(--heightOfHeader));
             overflow: hidden;
-            
+
             [pgs~="modal-dialog-content-scroll"] {
                 padding-top: calc(var(--padding) / 2);
                 overflow: auto;
@@ -101,6 +101,16 @@ dialog[pgs~="modal-dialog"] {
     }
 
     //#OPTION
+    //== topLevel
+    &[pgs-option~="topLevel"] {
+        align-items: center;
+        padding-inline: 1rem;
+
+        [pgs~="modal-dialog-content"] {
+            width: min(600px, 100%);
+        }
+    }
+
     //== LEFT
     &[pgs-option~="left"] {
         [pgs~="modal-dialog-content"] {
