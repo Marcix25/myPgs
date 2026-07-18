@@ -7,7 +7,9 @@ const path = require("path");
 
 const PROJECT_ROOT = path.resolve(__dirname, "..");
 const TEMPLATE_ROOT = path.join(PROJECT_ROOT, "templates", "html");
-const DOCS_ROOT = path.join(PROJECT_ROOT, "docs", "components");
+const DOCS_ROOT = path.join(PROJECT_ROOT, "docs");
+const MANAGED_DOC_DIRECTORIES = ["components", "layout", "patterns"]
+    .map(directory => path.join(DOCS_ROOT, directory));
 const SOURCE_ROOTS = [
     path.join(PROJECT_ROOT, "assets", "javascript"),
     path.join(PROJECT_ROOT, "assets", "scss"),
@@ -24,6 +26,11 @@ function toPosix(value) {
 
 function relativeToProject(value) {
     return toPosix(path.relative(PROJECT_ROOT, value));
+}
+
+function getOutputPath(template) {
+    const relativeTemplate = path.relative(TEMPLATE_ROOT, template);
+    return path.join(DOCS_ROOT, relativeTemplate.replace(/\.html$/i, ".md"));
 }
 
 function normalizeEol(value) {
@@ -449,16 +456,16 @@ function printErrors(errors) {
 function main() {
     const templates = walkFiles(TEMPLATE_ROOT, file => path.extname(file).toLowerCase() === ".html");
     const errors = [];
-    const basenames = new Map();
+    const outputPaths = new Map();
 
     templates.forEach(template => {
-        const basename = path.basename(template, ".html");
-        if (!basenames.has(basename)) basenames.set(basename, []);
-        basenames.get(basename).push(template);
+        const output = toPosix(path.relative(DOCS_ROOT, getOutputPath(template))).toLowerCase();
+        if (!outputPaths.has(output)) outputPaths.set(output, []);
+        outputPaths.get(output).push(template);
     });
-    basenames.forEach((files, basename) => {
+    outputPaths.forEach((files, output) => {
         if (files.length < 2) return;
-        errors.push(createError(relativeToProject(files[0]), `Collisione del basename "${basename}" tra: ${files.map(relativeToProject).join(", ")}.`, "Rinomina uno dei template: docs/components usa una struttura piatta."));
+        errors.push(createError(relativeToProject(files[0]), `Collisione del percorso di output "docs/${output}" tra: ${files.map(relativeToProject).join(", ")}.`, "Rinomina uno dei template per ottenere percorsi Markdown distinti."));
     });
 
     const sources = loadSources();
@@ -476,14 +483,14 @@ function main() {
         return;
     }
 
-    fs.mkdirSync(DOCS_ROOT, { recursive: true });
     const expected = new Set();
     const counts = { created: 0, updated: 0, unchanged: 0, removed: 0 };
 
     parsedTemplates.forEach(({ template, parsed }) => {
-        const output = path.join(DOCS_ROOT, `${path.basename(template, ".html")}.md`);
+        const output = getOutputPath(template);
         const content = renderMarkdown(template, parsed.data, parsed.markup);
         expected.add(path.resolve(output));
+        fs.mkdirSync(path.dirname(output), { recursive: true });
 
         if (!fs.existsSync(output)) {
             fs.writeFileSync(output, content, "utf8");
@@ -504,14 +511,16 @@ function main() {
         console.log(`[AGGIORNATO] ${relativeToProject(output)}`);
     });
 
-    walkFiles(DOCS_ROOT, file => path.extname(file).toLowerCase() === ".md").forEach(file => {
+    MANAGED_DOC_DIRECTORIES
+        .flatMap(directory => walkFiles(directory, file => path.extname(file).toLowerCase() === ".md"))
+        .forEach(file => {
         if (expected.has(path.resolve(file))) return;
         const firstLine = normalizeEol(fs.readFileSync(file, "utf8")).split("\n", 1)[0];
         if (!GENERATED_MARKER.test(firstLine)) return;
         fs.unlinkSync(file);
         counts.removed += 1;
         console.log(`[RIMOSSO] ${relativeToProject(file)}`);
-    });
+        });
 
     console.log("");
     console.log(`Riepilogo: ${templates.length} template validati; ${counts.created} creati; ${counts.updated} aggiornati; ${counts.unchanged} invariati; ${counts.removed} obsoleti rimossi.`);

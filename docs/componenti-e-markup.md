@@ -27,18 +27,17 @@ Componenti:
 
 Layout:
 
-- [`body`](components/body.md)
-- `main`
-- [`section`](components/section.md)
-- [`header`](components/header.md)
-- [`footer`](components/footer.md)
-- [`pageShell`](components/pageShell.md)
-- [`flex`](components/flex.md)
-- [`grid`](components/grid.md)
+- [`body`](layout/body.md)
+- [`section`](layout/section.md)
+- [`header`](layout/header.md)
+- [`footer`](layout/footer.md)
+- [`pageShell`](layout/pageShell.md)
+- [`flex`](layout/flex.md)
+- [`grid`](layout/grid.md)
 
 Pattern:
 
-- [`cookieConsent`](components/cookieConsent.md)
+- [`cookieConsent`](patterns/cookieConsent.md)
 
 ## Search con suggerimenti
 
