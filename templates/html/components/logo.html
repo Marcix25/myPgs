@@ -1,3 +1,22 @@
+/**
+ * @title Logo
+ * @description Componente per mostrare un logo grafico o testuale, con supporto alle varianti dell'immagine legate al tema scuro.
+ *
+ * @pgs
+ * - logo: identifica il collegamento contenitore del marchio.
+ * - logo-image: identifica l'immagine grafica del logo.
+ * - logo-text: identifica la variante testuale del marchio.
+ *
+ * @pgs-option
+ * - logoDarkmode: inverte l'immagine del logo quando lo stato globale darkmode è attivo.
+ * - logoDarkmodeFixed: mantiene applicata l'inversione dell'immagine indipendentemente dal tema corrente.
+ *
+ * @pgs-state
+ * - darkmode: stato globale applicato al documento che attiva la variante logoDarkmode.
+ *
+ * @return Esempi HTML del logo grafico sensibile al tema e del logo testuale.
+ */
+
 <a aria-label="Logo" pgs="logo" pgs-option="logoDarkmode" href="/">
     <img pgs="logo-image" src="https://placehold.co/240x80?text=MyPGS" alt="MyPGS">
 </a>

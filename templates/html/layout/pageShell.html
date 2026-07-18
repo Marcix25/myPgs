@@ -1,3 +1,20 @@
+/**
+ * @title Page Shell
+ * @description Layout di pagina responsive che combina un contenuto principale con zero, una o due barre laterali scorrevoli, adattandone larghezza e posizione.
+ *
+ * @pgs
+ * - pageShell: identifica il contenitore che calcola la composizione di main e aside.
+ * - pageShell-aside: identifica una barra laterale posizionabile prima o dopo il contenuto.
+ * - pageShell-aside-scroll: identifica l'area interna che può restare visibile durante lo scorrimento.
+ * - pageShell-content: identifica il contenuto principale della pagina.
+ *
+ * @related
+ * - flexColumnTexts: organizza i testi contenuti nelle barre laterali.
+ * - flexColumnElements: organizza verticalmente gli elementi delle sezioni principali.
+ *
+ * @return Quattro configurazioni HTML di page shell con due, una o nessuna barra laterale.
+ */
+
 <div pgs="pageShell">
     <aside pgs="pageShell-aside">
         <div pgs="pageShell-aside-scroll">

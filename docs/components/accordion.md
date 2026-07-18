@@ -1,0 +1,52 @@
+<!-- File generato automaticamente da templates/html/components/accordion.html. Modificare templates/html/components/accordion.html e rieseguire npm run docs:generate. -->
+
+# Accordion
+
+Componente interattivo che espande un pannello alla volta, sincronizzando visibilità, attributi ARIA e navigazione da tastiera.
+
+## PGS
+
+- `accordion`: identifica ogni elemento espandibile inizializzato dal modulo JavaScript.
+- `accordion-button`: identifica il controllo che apre o chiude il pannello associato.
+- `accordion-content`: identifica il pannello di contenuto gestito tramite l'attributo hidden.
+
+## PGS States
+
+- `open`: indica l'elemento accordion attualmente aperto e visibile.
+
+## Elementi correlati
+
+- `grid-1`: dispone gli elementi accordion in una griglia a colonna singola.
+- `gapTexts`: applica la spaziatura testuale tra gli elementi della lista.
+
+## Output
+
+Lista HTML di elementi accordion accessibili con pulsante e pannello associato.
+
+## Esempio
+
+```html
+<ul pgs="grid-1 gapTexts">
+    <li pgs="accordion" >
+        <button pgs="accordion-button" type="button">
+            <i class="fa-solid fa-circle-question" aria-hidden="true"></i>
+            <span>Domanda frequente</span>
+        </button>
+
+        <div pgs="accordion-content" hidden>
+            <p>Risposta di esempio con contenuto testuale riutilizzabile.</p>
+        </div>
+    </li>
+
+    <li pgs="accordion" >
+        <button pgs="accordion-button" type="button">
+            <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+            <span>Seconda sezione</span>
+        </button>
+
+        <div pgs="accordion-content" hidden>
+            <p>Altro contenuto del pannello accordion.</p>
+        </div>
+    </li>
+</ul>
+```

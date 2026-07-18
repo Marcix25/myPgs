@@ -1,3 +1,19 @@
+/**
+ * @title Summary
+ * @description Componente che limita inizialmente un testo lungo a tre righe e mostra il controllo di espansione solo quando il contenuto eccede tale altezza.
+ *
+ * @pgs
+ * - summary: identifica il root inizializzato dal modulo summary.
+ * - summary-content: identifica il contenuto misurato e ridimensionato.
+ * - summary-button: identifica il controllo per mostrare più o meno contenuto.
+ *
+ * @pgs-state
+ * - overflow: indica che il contenuto supera l'altezza contratta e richiede il controllo.
+ * - open: indica che tutto il contenuto è espanso e visibile.
+ *
+ * @return Struttura HTML con contenuto espandibile e pulsante sincronizzato tramite ARIA.
+ */
+
 <div pgs="summary">
     <div pgs="summary-content">
         <p>

@@ -1,0 +1,70 @@
+<!-- File generato automaticamente da templates/html/components/notification.html. Modificare templates/html/components/notification.html e rieseguire npm run docs:generate. -->
+
+# Notification
+
+Sistema di notifiche persistenti o toast temporanei, generati dall'API oppure da configurazioni JSON dichiarative data-notification.
+
+## PGS
+
+- `notification`: identifica il contenitore delle notifiche impilate.
+- `toast`: identifica il contenitore dei messaggi temporanei sostitutivi.
+- `notificationTrigger`: identifica una configurazione dichiarativa elaborata e rimossa all'inizializzazione.
+- `notification-element`: identifica ogni messaggio creato dinamicamente.
+- `notification-element-title`: identifica il titolo generato del messaggio.
+- `notification-element-content`: identifica il contenuto generato del messaggio.
+
+## PGS States
+
+- `success`: applica la variante positiva al messaggio generato.
+- `error`: applica la variante di errore e il ruolo alert.
+- `warning`: applica la variante di avviso.
+- `info`: applica la variante informativa predefinita.
+
+## Elementi correlati
+
+- `hidden`: nasconde i trigger dichiarativi prima che vengano elaborati.
+- `buttonClose`: identifica il pulsante di rimozione aggiunto a ogni messaggio.
+
+## Output
+
+Contenitori notification e toast con esempi di configurazione JSON per la generazione dei messaggi.
+
+## Esempio
+
+```html
+<div pgs="notification" aria-live="polite"></div>
+<div pgs="toast" aria-live="polite"></div>
+
+<div pgs="hidden notificationTrigger" data-notification='{
+        "title":"Titolo",
+        "message":"Messaggio",
+        "element":"notification",
+        "type":"info",
+        "icon":null,
+        "duration":"-1",
+        "link":null
+    }'>
+</div>
+<div pgs="hidden notificationTrigger" data-notification='{
+        "title":"Benvetuto",
+        "message":"Messaggio",
+        "element":"toast",
+        "type":"info",
+        "icon":null,
+        "duration":"3000",
+        "link":null
+    }'>
+</div>
+<!-- 
+    <div pgs="hidden notificationTrigger" data-notification='{
+        "title":"Titolo",
+        "message":"Messaggio",
+        "element":"notification | toast",
+        "type":"info | success | warning | error",
+        "icon":"null | <i class=\"fa-solid fa-rocket\"></i>",
+        "duration":"-1 | 0 | 4000 | 5000",
+        "link":"null | /pagina/"
+    }'>
+</div>
+-->
+```

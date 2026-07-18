@@ -1,3 +1,28 @@
+/**
+ * @title Notification
+ * @description Sistema di notifiche persistenti o toast temporanei, generati dall'API oppure da configurazioni JSON dichiarative data-notification.
+ *
+ * @pgs
+ * - notification: identifica il contenitore delle notifiche impilate.
+ * - toast: identifica il contenitore dei messaggi temporanei sostitutivi.
+ * - notificationTrigger: identifica una configurazione dichiarativa elaborata e rimossa all'inizializzazione.
+ * - notification-element: identifica ogni messaggio creato dinamicamente.
+ * - notification-element-title: identifica il titolo generato del messaggio.
+ * - notification-element-content: identifica il contenuto generato del messaggio.
+ *
+ * @pgs-state
+ * - success: applica la variante positiva al messaggio generato.
+ * - error: applica la variante di errore e il ruolo alert.
+ * - warning: applica la variante di avviso.
+ * - info: applica la variante informativa predefinita.
+ *
+ * @related
+ * - hidden: nasconde i trigger dichiarativi prima che vengano elaborati.
+ * - buttonClose: identifica il pulsante di rimozione aggiunto a ogni messaggio.
+ *
+ * @return Contenitori notification e toast con esempi di configurazione JSON per la generazione dei messaggi.
+ */
+
 <div pgs="notification" aria-live="polite"></div>
 <div pgs="toast" aria-live="polite"></div>
 

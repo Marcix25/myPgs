@@ -6,39 +6,39 @@ I template completi sono in `templates/`. Usa quei file come sorgente di riferim
 
 Componenti:
 
-- `accordion`
-- `badges`
-- `breadcrumb`
-- `button`
-- `card`
-- `dropdown`
-- `form`
-- `logo`
-- `menu`
-- `modal`
-- `notification`
-- `search` (`search-suggestions` opzionale)
-- `slides`
-- `steps`
-- `stepTabs`
-- `summary`
-- `table`
-- `tooltip`
+- [`accordion`](components/accordion.md)
+- [`badges`](components/badges.md)
+- [`breadcrumb`](components/breadcumbs.md)
+- [`button`](components/button.md)
+- [`card`](components/card.md)
+- [`dropdown`](components/dropdown.md)
+- [`form`](components/form.md)
+- [`logo`](components/logo.md)
+- [`menu`](components/menu.md)
+- [`modal`](components/modal.md)
+- [`notification`](components/notification.md)
+- [`search`](components/search.md) (`search-suggestions` opzionale)
+- [`slides`](components/slides.md)
+- [`steps`](components/steps.md)
+- [`stepTabs`](components/stepTabs.md)
+- [`summary`](components/summary.md)
+- [`table`](components/table.md)
+- [`tooltip`](components/tooltip.md)
 
 Layout:
 
-- `body`
+- [`body`](components/body.md)
 - `main`
-- `section`
-- `header`
-- `footer`
-- `pageShell`
-- `flex`
-- `grid`
+- [`section`](components/section.md)
+- [`header`](components/header.md)
+- [`footer`](components/footer.md)
+- [`pageShell`](components/pageShell.md)
+- [`flex`](components/flex.md)
+- [`grid`](components/grid.md)
 
 Pattern:
 
-- `cookieConsent`
+- [`cookieConsent`](components/cookieConsent.md)
 
 ## Search con suggerimenti
 

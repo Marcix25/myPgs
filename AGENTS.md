@@ -71,7 +71,7 @@ Patterns found:
 
 - `pgs` is the main attribute: tokens are separated by spaces, for example `pgs="button modal-button"`.
 - `assets/scss/index.scss` imports base, layout, components, and patterns; layouts/components/patterns are almost all scoped under `[pgs~=initP]`.
-- The main markup must enable the library with `htmlBase initP`, and the body with base body tokens. Use `templates/demo.html` and `templates/html/layout/body.html` as the canonical references.
+- The main markup must enable the library with `htmlBase initP`, and the body with base body tokens. Use `demo/demo.html` and `templates/html/layout/body.html` as the canonical references.
 - Components use a root token and child tokens with a consistent prefix. Use `templates/html/components/` as the canonical markup source.
 
 - Runtime states use `pgs-state`, for example `open`, `is-active`, `is-completed`, `is-locked`, `success`, `error`, `warning`, and `info`.
@@ -229,7 +229,7 @@ Canonical template references:
 - Layouts: `templates/html/layout/body.html`, `templates/html/layout/flex.html`, `templates/html/layout/grid.html`, `templates/html/layout/pageShell.html`, `templates/html/layout/section.html`
 - Components: `templates/html/components/accordion.html`, `templates/html/components/breadcumbs.html`, `templates/html/components/button.html`, `templates/html/components/card.html`, `templates/html/components/dropdown.html`, `templates/html/components/form.html`, `templates/html/components/logo.html`, `templates/html/components/menu.html`, `templates/html/components/modal.html`, `templates/html/components/notification.html`, `templates/html/components/search.html`, `templates/html/components/slides.html`, `templates/html/components/stepTabs.html`, `templates/html/components/steps.html`, `templates/html/components/table.html`, `templates/html/components/tooltip.html`
 - Patterns: `templates/html/patterns/cookieConsent.html`, `templates/html/patterns/footer.html`, `templates/html/patterns/header.html`
-- Complete demo assembly. DO NOT use this for inspiration. It is only used to show all the modules: `templates/demo.html`
+- Complete demo assembly. DO NOT use this for inspiration. It is only used to show all the modules: `demo/demo.html`
 
 Before creating markup, open the relevant template and reuse its current structure, tokens, ARIA attributes, and `pgs-option` syntax.
 

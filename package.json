@@ -1,6 +1,6 @@
 {
     "name": "mypgs",
-    "version": "1.6.0",
+    "version": "1.6.1",
     "description": "MyPGS frontend theme and UI behaviors, with bundled JavaScript and CSS assets.",
     "main": "./dist/javascript/index.js",
     "module": "./assets/javascript/index.js",
@@ -21,6 +21,7 @@
     },
     "style": "./dist/css/index.css",
     "scripts": {
+        "docs:generate": "node scripts/generate-component-docs.js",
         "start": "webpack",
         "start watch": "webpack --watch",
         "syncmaster-forzato": "git fetch origin && git checkout dev && git pull --rebase origin dev && git rebase origin/master && git push --force-with-lease origin dev && git checkout master && git pull --ff-only origin master && git merge --ff-only dev && git push origin master && git checkout dev",

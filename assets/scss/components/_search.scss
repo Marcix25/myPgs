@@ -5,9 +5,9 @@
     --search-suggestions-color: var(--color-text);
     --search-suggestions-border: var(--border-complete);
     --search-suggestions-borderRadius: var(--border-radius-input);
-    --search-suggestions-box-shadow: var(--box-shadow);
+    --search-suggestions-boxShadow: var(--box-shadow);
     --search-suggestions-gap: 0;
-    --search-suggestions-max-height: 32rem;
+    --search-suggestions-maxHeight: 32rem;
     --search-suggestions-offset: .5rem;
     --search-suggestions-padding: .5rem;
     --search-suggestions-item-padding: 1rem;
@@ -15,12 +15,12 @@
     --search-suggestions-item-selected-color: var(--color-whiteFixed);
     position: relative;
     @include flexRow(nowrap);
+    @include button_header();
     flex: 1;
     width: 100%;
     overflow: visible;
     margin-inline: auto;
     padding: 0;
-    @include button_header();
 
     @media (min-width: $mobile) {
         min-width: 21.4rem;
@@ -67,30 +67,33 @@
         outline: var(--focus-visible);
     }
 
-    &:not([pgs-state~="open"])>[pgs~="search-suggestions"] {
+    @mixin _color($varColor) {
+        background: var(#{$varColor}-background);
+        color: var(#{$varColor}-color);
+
+        i {
+            color: var(#{$varColor}-color);
+            --fa-primary-color: var(#{$varColor}-color);
+            --fa-secondary-color: var(#{$varColor}-color);
+        }
+    }
+
+    [pgs~="search-suggestions"] {
         display: none;
-    }
-
-    &[pgs-state~="open"]>[pgs~="search-suggestions"] {
-        display: flex;
-    }
-
-    >[pgs~="search-suggestions"] {
         position: absolute;
         inset: calc(100% + var(--search-suggestions-offset)) 0 auto;
         z-index: 1000;
         flex-direction: column;
         gap: var(--search-suggestions-gap);
-        max-height: var(--search-suggestions-max-height);
+        max-height: var(--search-suggestions-maxHeight);
         overflow-y: auto;
         padding: var(--search-suggestions-padding);
         margin: 0;
         list-style: none;
         border: var(--search-suggestions-border);
         border-radius: calc(var(--search-suggestions-borderRadius) + var(--search-suggestions-padding));
-        background: var(--search-suggestions-background);
-        color: var(--search-suggestions-color);
-        box-shadow: var(--search-suggestions-box-shadow);
+        box-shadow: var(--search-suggestions-boxShadow);
+        @include _color(--search-suggestions);
 
         [pgs~="search-suggestions-item"] {
             padding: var(--search-suggestions-item-padding);
@@ -100,8 +103,7 @@
 
             &[aria-selected="true"],
             &:hover {
-                background: var(--search-suggestions-item-selected-background);
-                color: var(--search-suggestions-item-selected-color);
+                @include _color(--search-suggestions-item-selected);
             }
 
             &[aria-disabled="true"] {
@@ -110,15 +112,19 @@
             }
         }
 
-        &:has([pgs~="search-suggestions-item"]:hover) [pgs~="search-suggestions-item"][aria-selected="true"] {
-            background: var(--search-suggestions-background);
-            color: var(--search-suggestions-color);
+        &:has([pgs~="search-suggestions-item"]:hover) {
+            [pgs~="search-suggestions-item"][aria-selected="true"] {
+                @include _color(--search-suggestions);
 
-            &:hover {
-                background: var(--search-suggestions-item-selected-background);
-                color: var(--search-suggestions-item-selected-color);
+                &:hover {
+                    @include _color(--search-suggestions-item-selected);
+                }
             }
         }
+    }
+
+    &[pgs-state~="open"] [pgs~="search-suggestions"] {
+        display: flex;
     }
 
     @at-root dialog #{&} {

@@ -5,7 +5,7 @@ let searchId = 0;
 const DEFAULT_OPTIONS = {
     minLength: 2,
     debounce: 200,
-    limit: 8,
+    limit: 6,
     submitOnSelect: false,
     searchOnFocus: true,
     source: null,

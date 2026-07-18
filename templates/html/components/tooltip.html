@@ -1,3 +1,27 @@
+/**
+ * @title Tooltip
+ * @description Variante compatta del dropdown che mostra un breve pannello informativo controllato da un pulsante a icona.
+ *
+ * @pgs
+ * - tooltip: identifica il root della variante tooltip.
+ * - tooltip-button: identifica il controllo specifico del tooltip.
+ * - tooltip-content: identifica il contenuto informativo del tooltip.
+ *
+ * @pgs-option
+ * - position: può essere applicata al root condiviso con sintassi position[lato allineamento] per modificare la posizione ereditata dal dropdown.
+ *
+ * @pgs-state
+ * - open: viene gestito dal modulo dropdown sul root per mostrare o nascondere il tooltip.
+ *
+ * @related
+ * - dropdown: fornisce apertura, chiusura e posizionamento del tooltip.
+ * - dropdown-button: collega il pulsante al comportamento dropdown.
+ * - dropdown-content: collega il pannello al comportamento dropdown.
+ * - buttonMini: presenta il controllo come pulsante a icona di dimensione minima.
+ *
+ * @return Tooltip HTML composto tramite i token condivisi del dropdown.
+ */
+
 <span pgs="dropdown tooltip">
     <button pgs="dropdown-button buttonMini tooltip-button" title="open-tooltip" type="button">
         <i class="fa-solid fa-info"></i>

@@ -1,0 +1,116 @@
+<!-- File generato automaticamente da templates/html/layout/grid.html. Modificare templates/html/layout/grid.html e rieseguire npm run docs:generate. -->
+
+# Grid
+
+Esempi di griglie responsive che distribuiscono da due a sei colonne mantenendo gap e ridimensionamento coerenti con il design system.
+
+## PGS
+
+- `grid-2`: crea una griglia responsive fino a due colonne.
+- `grid-3`: crea una griglia responsive fino a tre colonne.
+- `grid-4`: crea una griglia responsive fino a quattro colonne.
+- `grid-6`: crea una griglia responsive fino a sei colonne.
+
+## Elementi correlati
+
+- `container`: definisce il contesto contenitore dell'introduzione.
+- `flexColumnTexts`: organizza e distanzia i testi introduttivi e delle card.
+- `card`: rende visibili le celle dimostrative delle griglie.
+
+## Output
+
+Raccolta HTML delle griglie responsive a due, tre, quattro e sei colonne.
+
+## Esempio
+
+```html
+<div pgs="container flexColumnTexts">
+    <strong>Sezione standard</strong>
+    <p>Contenuto centrato dentro una sezione MyPGS.</p>
+</div>
+
+
+<div pgs="grid-2">
+    <article pgs="card flexColumnTexts">
+        <strong>Colonna uno</strong>
+        <p>Contenuto della prima colonna.</p>
+    </article>
+
+    <article pgs="card flexColumnTexts">
+        <strong>Colonna due</strong>
+        <p>Contenuto della seconda colonna.</p>
+    </article>
+</div>
+
+
+<div pgs="grid-3">
+    <article pgs="card flexColumnTexts">
+        <strong>Colonna uno</strong>
+        <p>Contenuto della prima colonna.</p>
+    </article>
+
+    <article pgs="card flexColumnTexts">
+        <strong>Colonna due</strong>
+        <p>Contenuto della seconda colonna.</p>
+    </article>
+
+    <article pgs="card flexColumnTexts">
+        <strong>Colonna tre</strong>
+        <p>Contenuto della terza colonna.</p>
+    </article>
+</div>
+
+
+<div pgs="grid-4">
+    <article pgs="card flexColumnTexts">
+        <strong>Colonna uno</strong>
+        <p>Contenuto della prima colonna.</p>
+    </article>
+
+    <article pgs="card flexColumnTexts">
+        <strong>Colonna due</strong>
+        <p>Contenuto della seconda colonna.</p>
+    </article>
+
+    <article pgs="card flexColumnTexts">
+        <strong>Colonna tre</strong>
+        <p>Contenuto della terza colonna.</p>
+    </article>
+    <article pgs="card flexColumnTexts">
+        <strong>Colonna quattro</strong>
+        <p>Contenuto della quarta colonna.</p>
+    </article>
+</div>
+
+<div pgs="grid-6">
+    <article pgs="card flexColumnTexts">
+        <strong>Colonna uno</strong>
+        <p>Contenuto della prima colonna.</p>
+    </article>
+
+    <article pgs="card flexColumnTexts">
+        <strong>Colonna due</strong>
+        <p>Contenuto della seconda colonna.</p>
+    </article>
+
+    <article pgs="card flexColumnTexts">
+        <strong>Colonna tre</strong>
+        <p>Contenuto della terza colonna.</p>
+    </article>
+
+    <article pgs="card flexColumnTexts">
+        <strong>Colonna quattro</strong>
+        <p>Contenuto della quarta colonna.</p>
+    </article>
+
+    <article pgs="card flexColumnTexts">
+        <strong>Colonna cinque</strong>
+        <p>Contenuto della quinta colonna.</p>
+    </article>
+
+    <article pgs="card flexColumnTexts">
+        <strong>Colonna sei</strong>
+        <p>Contenuto della sesta colonna.</p>
+    </article>
+</div
+```

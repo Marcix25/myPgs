@@ -1,0 +1,71 @@
+<!-- File generato automaticamente da templates/html/components/slides.html. Modificare templates/html/components/slides.html e rieseguire npm run docs:generate. -->
+
+# Slides
+
+Carosello orizzontale che osserva gli elementi visibili e crea automaticamente controlli precedente, successivo e indicatori di posizione.
+
+## PGS
+
+- `slides`: identifica il root inizializzato dal modulo slides.
+- `slides-container`: identifica la lista orizzontale degli elementi scorrevoli.
+- `slides-prec`: identifica il pulsante precedente creato dinamicamente.
+- `slides-next`: identifica il pulsante successivo creato dinamicamente.
+- `slides-dots`: identifica il contenitore degli indicatori creato dinamicamente.
+
+## PGS Options
+
+- `singleScroll`: usa un solo elemento visibile come riferimento per la navigazione precedente e successiva.
+- `shadowDesktop`: abilita l'ombreggiatura laterale del carosello sui layout desktop.
+- `notScrollAnimation`: applicata a un elemento li disabilita l'animazione visiva basata sulla percentuale di visibilità.
+- `notScrollWithMouse`: sul root disabilita la gestione dello scorrimento orizzontale tramite mouse.
+
+## Elementi correlati
+
+- `card`: usa card come contenuto dimostrativo di ogni slide.
+- `card-img`: identifica l'immagine delle card dimostrative.
+- `imgCover`: adatta le immagini allo spazio disponibile.
+- `flexColumn`: organizza verticalmente ogni card.
+- `flexColumnTexts`: applica la spaziatura ai testi delle card.
+- `buttonIcon`: viene applicato ai controlli precedente e successivo generati.
+
+## Output
+
+Lista di slide basate su card, completata a runtime con pulsanti e indicatori.
+
+## Esempio
+
+```html
+<div pgs="slides" pgs-option="singleScroll shadowDesktop">
+    <ul pgs="slides-container">
+        <li>
+            <article pgs="card flexColumn">
+                <img pgs="card-img imgCover" src="https://placehold.co/800x500?text=Slide+1" alt="Slide 1">
+                <div pgs="flexColumnTexts">
+                    <h3>Slide uno</h3>
+                    <p>Contenuto della prima slide.</p>
+                </div>
+            </article>
+        </li>
+
+        <li>
+            <article pgs="card flexColumn">
+                <img pgs="card-img imgCover" src="https://placehold.co/800x500?text=Slide+2" alt="Slide 2">
+                <div pgs="flexColumnTexts">
+                    <h3>Slide due</h3>
+                    <p>Contenuto della seconda slide.</p>
+                </div>
+            </article>
+        </li>
+
+        <li>
+            <article pgs="card flexColumn">
+                <img pgs="card-img imgCover" src="https://placehold.co/800x500?text=Slide+3" alt="Slide 3">
+                <div pgs="flexColumnTexts">
+                    <h3>Slide tre</h3>
+                    <p>Contenuto della terza slide.</p>
+                </div>
+            </article>
+        </li>
+    </ul>
+</div>
+```

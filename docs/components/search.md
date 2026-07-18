@@ -1,0 +1,74 @@
+<!-- File generato automaticamente da templates/html/components/search.html. Modificare templates/html/components/search.html e rieseguire npm run docs:generate. -->
+
+# Search
+
+Ricerca componibile con suggerimenti asincroni o locali, navigazione da tastiera, selezione, annullamento richieste e attributi ARIA gestiti dal modulo search.
+
+## PGS
+
+- `search`: identifica il form inizializzato come ricerca con suggerimenti.
+- `search-suggestions`: identifica la lista opzionale che riceve i risultati.
+- `search-suggestions-item`: identifica ogni risultato creato dinamicamente nella lista.
+- `search-modal`: identifica la variante di ricerca inserita in una modale per dispositivi mobili.
+- `search-mobile`: identifica il contenitore interno della ricerca mobile.
+
+## PGS Options
+
+- `containerPGS`: sul wrapper modal usa containerPGS[header] per spostare il dialog nell'header.
+
+## PGS States
+
+- `open`: sul root search indica che la lista dei suggerimenti è aperta.
+- `loading`: sul root search indica una sorgente dati in caricamento.
+- `error`: sul root search indica che il recupero dei suggerimenti è fallito.
+- `selected`: sul risultato generato indica l'elemento attivo durante la navigazione.
+
+## Elementi correlati
+
+- `buttonNohover`: applica al form l'aspetto compatto condiviso con i controlli button.
+- `modal`: fornisce il contenitore e il comportamento della variante mobile.
+- `modal-button`: apre la ricerca mobile.
+- `modal-close`: chiude la ricerca mobile.
+- `buttonIcon`: presenta apertura e chiusura come pulsanti a icona.
+- `flexRow`: organizza il contenuto della variante mobile e gli elementi dei suggerimenti generati.
+- `section`: applica la spaziatura di sezione alla ricerca mobile.
+
+## Output
+
+Form di ricerca autonomo e variante mobile integrata in una modal.
+
+## Esempio
+
+```html
+<form pgs="buttonNohover search" autocomplete="off" action="" method="get">
+    <button type="submit" title="Cerca"><i class="fa-solid fa-search"></i></button>
+    <input type="search" name="s" placeholder="Cerca" value="">
+    <ul pgs="search-suggestions"></ul>
+</form>
+
+<div pgs="modal search-modal" pgs-option="containerPGS[header]">
+
+    <button type="button" pgs="modal-button buttonIcon" title="Cerca">
+        <i class="fa-solid fa-search"></i>
+    </button>
+
+    <dialog>
+        <div pgs="flexRow section search-mobile">
+
+            <form pgs="buttonNohover search" autocomplete="off" action="/" method="get">
+                <button type="submit" title="Cerca">
+                    <i class="fa-solid fa-search"></i>
+                </button>
+
+                <input type="search" name="s" placeholder="Cerca" value="">
+                <ul pgs="search-suggestions"></ul>
+            </form>
+
+            <button type="button" pgs="modal-close buttonIcon">
+                <i class="fa-solid fa-close"></i>
+            </button>
+
+        </div>
+    </dialog>
+</div>
+```

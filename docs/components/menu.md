@@ -1,0 +1,84 @@
+<!-- File generato automaticamente da templates/html/components/menu.html. Modificare templates/html/components/menu.html e rieseguire npm run docs:generate. -->
+
+# Menu
+
+Navigazione orizzontale o verticale che trasforma le voci con sottomenu in dropdown accessibili e inizializzati automaticamente.
+
+## PGS
+
+- `menu`: identifica il contenitore di navigazione elaborato dal modulo menu.
+- `menu-buttonIcon`: identifica il controllo creato dinamicamente accanto alle voci con sottomenu.
+
+## PGS Options
+
+- `horizontal`: dispone il menu e i suoi elementi in orizzontale.
+- `vertical`: dispone il menu e i suoi elementi in verticale.
+- `menuHeader`: adatta spaziature e comportamento del menu quando è inserito nell'header.
+- `position`: viene impostata come position[bottom right] sui dropdown creati per i sottomenu.
+
+## PGS States
+
+- `open`: indica il sottomenu trasformato in dropdown attualmente aperto.
+
+## Elementi correlati
+
+- `dropdown`: viene aggiunto dinamicamente alle voci che contengono una lista annidata.
+- `dropdown-button`: identifica il controllo dinamico del sottomenu.
+- `buttonNohover`: neutralizza lo stile hover del controllo dinamico.
+- `dropdown-content`: identifica la lista annidata mostrata come pannello dropdown.
+
+## Output
+
+Due strutture nav complete per le varianti orizzontale e verticale del menu.
+
+## Esempio
+
+```html
+<nav pgs="menu" pgs-option="horizontal" aria-label="Menu orizzontale">
+    <ul>
+        <li>
+            <a href="/" aria-current="page">
+                <i class="fa-solid fa-house" aria-hidden="true"></i>
+                <span>Home</span>
+            </a>
+        </li>
+        <li>
+            <a href="/servizi">
+                <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+                <span>Servizi</span>
+            </a>
+            <ul>
+                <li><a href="/servizi/uno">Servizio uno</a></li>
+                <li><a href="/servizi/due">Servizio due</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+<nav pgs="menu" pgs-option="vertical" aria-label="Menu verticale">
+    <ul>
+        <li>
+            <a href="/" aria-current="page">
+                <i class="fa-solid fa-house" aria-hidden="true"></i>
+                <span>Home</span>
+            </a>
+        </li>
+        <li>
+            <a href="/servizi">
+                <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+                <span>Servizi</span>
+            </a>
+            <ul>
+                <li><a href="/servizi/uno">Servizio uno</a></li>
+                <li><a href="/servizi/due">Servizio due</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="/about">
+                <i class="fa-solid fa-info-circle" aria-hidden="true"></i>
+                <span>about</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+```

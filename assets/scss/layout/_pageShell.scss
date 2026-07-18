@@ -18,9 +18,12 @@ $pageShell-test-gap: 4rem;
 }
 
 [pgs~="pageShell"] {
-    --pageShell-aside-sticky-top: 0;
+    --pageShell-width: calc(var(--pageShell-content-width) + (var(--padding-page) * 2));
+    --pageShell-content-width: var(--page-width);
     --pageShell-aside-width: #{$aside-size};
-    --pageShell-content-width: 500px;
+    --pageShell-aside-sticky-top: 0;
+    --pageShell-paddingInline: var(--padding-page);
+    --pageShell-paddingTop: var(--page-top);
     --pageShell-gap: var(--gap-elements);
     display: flex;
     flex-wrap: wrap;
@@ -29,17 +32,17 @@ $pageShell-test-gap: 4rem;
     align-items: start;
     justify-content: center;
     width: 100%;
-    max-width: calc(var(--page-width) + (var(--padding-page) * 2));
-    padding-inline: var(--padding-page);
+    max-width: var(--pageShell-width);
+    padding-inline: var(--pageShell-paddingInline);
     container-type: inline-size;
 
     [pgs~="pageShell-content"] {
         grid-area: content;
-        flex: 999 1 var(--pageShell-content-width);
-        min-width: min(100%, var(--pageShell-content-width));
-        width: min(100%, var(--page-width));
-        max-width: var(--page-width);
-        padding-top: var(--page-top);
+        flex: 999 1 $content-size;
+        min-width: min(100%, $content-size);
+        width: min(100%, var(--pageShell-content-width));
+        max-width: var(--pageShell-content-width);
+        padding-top: var(--pageShell-paddingTop);
         padding-bottom: var(--gap-elements);
     }
 
@@ -56,7 +59,7 @@ $pageShell-test-gap: 4rem;
         overscroll-behavior: contain;
         scrollbar-gutter: stable;
         scrollbar-width: none;
-        padding-top: var(--page-top);
+        padding-top: var(--pageShell-paddingTop);
         padding-bottom: var(--gap-elements);
         flex: 1 1 var(--pageShell-aside-width);
         min-width: min(100%, var(--pageShell-aside-width));
@@ -82,7 +85,7 @@ $pageShell-test-gap: 4rem;
             overscroll-behavior: contain;
             scrollbar-gutter: stable;
             scrollbar-width: none;
-            padding-top: var(--page-top);
+            padding-top: var(--pageShell-paddingTop);
             padding-bottom: calc(var(--gap-elements)*2);
 
             &::-webkit-scrollbar {
@@ -116,11 +119,11 @@ $pageShell-test-gap: 4rem;
     }
 
     &:has(> [pgs~="pageShell-aside"]) {
-        max-width: calc(var(--page-width) + var(--pageShell-aside-width) + var(--pageShell-gap) + (var(--padding-page) * 2));
+        --pageShell-width: calc(var(--pageShell-content-width) + var(--pageShell-aside-width) + var(--pageShell-gap) + (var(--padding-page) * 2));
     }
 
     &:has(> [pgs~="pageShell-aside"] ~ [pgs~="pageShell-aside"]) {
-        max-width: calc(var(--page-width) + (var(--pageShell-aside-width) * 2) + (var(--pageShell-gap) * 2) + (var(--padding-page) * 2));
+        --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-aside-width) * 2) + (var(--pageShell-gap) * 2) + (var(--padding-page) * 2));
     }
 
     //== RESPONSIVE ==//
@@ -150,7 +153,7 @@ $pageShell-test-gap: 4rem;
     &:has(> [pgs~="pageShell-aside"]):has(> [pgs~="pageShell-content"] + [pgs~="pageShell-aside"]) {
         @container (max-width: calc(#{$aside-size} + #{$content-size} + #{$aside-size} + (#{$pageShell-test-gap} * 2))) {
             display: grid;
-            grid-template-columns: var(--pageShell-aside-width) minmax(0, var(--page-width));
+            grid-template-columns: var(--pageShell-aside-width) minmax(0, var(--pageShell-content-width));
             grid-template-areas:
                 "asideLeft content"
                 "asideLeft asideRight";
@@ -179,7 +182,7 @@ $pageShell-test-gap: 4rem;
     }
 
     @container (max-width: #{$content-size}) {
-        padding-top: var(--page-top);
+        padding-top: var(--pageShell-paddingTop);
 
         [pgs~="pageShell-content"],
         [pgs~="pageShell-aside"] {

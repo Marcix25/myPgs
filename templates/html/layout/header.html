@@ -1,3 +1,42 @@
+/**
+ * @title Header
+ * @description Intestazione responsive che misura lo spazio disponibile, alterna contenuti desktop e mobile e integra menu, tema scuro e navigazione modale.
+ *
+ * @pgs
+ * - header: identifica l'intestazione principale osservata dal modulo JavaScript.
+ * - header-element: identifica il gruppo interno misurato per determinare il passaggio alla modalità mobile.
+ * - header-element-alwaysOn: identifica l'area iniziale sempre visibile.
+ * - header-element-onlyDesktop: identifica i contenuti mostrati soltanto quando il menu desktop è attivo.
+ * - header-element-onlyMobile: identifica i contenuti mostrati soltanto in modalità mobile.
+ * - header-element-alwaysOnLast: identifica l'area finale sempre visibile.
+ * - header-element-hamburger: identifica il gruppo della navigazione mobile.
+ * - header-element-hamburger-button: identifica il controllo hamburger specifico dell'header.
+ *
+ * @pgs-option
+ * - horizontal: dispone orizzontalmente il menu desktop correlato.
+ * - vertical: dispone verticalmente il menu mobile correlato.
+ * - menuHeader: adatta entrambi i menu al contesto dell'header.
+ * - containerPGS: sul wrapper modal usa containerPGS[header] per spostare il dialog nell'intestazione.
+ * - right: sul dialog della navigazione mobile presenta il contenuto dal lato destro.
+ *
+ * @pgs-state
+ * - mobileActive: viene applicato a header e header-element quando larghezza o viewport richiedono la navigazione mobile.
+ *
+ * @related
+ * - logo: inserisce il marchio nell'area iniziale.
+ * - logo-text: usa la variante testuale del logo.
+ * - menu: fornisce la navigazione desktop e mobile.
+ * - buttonIcon: presenta i controlli tema e hamburger come pulsanti a icona.
+ * - toggleDarkmode: collega il controllo al gestore globale del tema.
+ * - modal: fornisce apertura e chiusura della navigazione mobile.
+ * - modal-button: apre il pannello mobile.
+ * - modal-close: chiude il pannello mobile e condivide il controllo hamburger.
+ * - modal-dialog: identifica il dialog della navigazione mobile.
+ * - modal-dialog-content: identifica il pannello interno della navigazione mobile.
+ *
+ * @return Header HTML completo con navigazione desktop e pannello mobile laterale.
+ */
+
 <header pgs="header">
 	<div pgs="header-element">
 		<div pgs="header-element-alwaysOn">

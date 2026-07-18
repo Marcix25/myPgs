@@ -1,3 +1,31 @@
+/**
+ * @title Slides
+ * @description Carosello orizzontale che osserva gli elementi visibili e crea automaticamente controlli precedente, successivo e indicatori di posizione.
+ *
+ * @pgs
+ * - slides: identifica il root inizializzato dal modulo slides.
+ * - slides-container: identifica la lista orizzontale degli elementi scorrevoli.
+ * - slides-prec: identifica il pulsante precedente creato dinamicamente.
+ * - slides-next: identifica il pulsante successivo creato dinamicamente.
+ * - slides-dots: identifica il contenitore degli indicatori creato dinamicamente.
+ *
+ * @pgs-option
+ * - singleScroll: usa un solo elemento visibile come riferimento per la navigazione precedente e successiva.
+ * - shadowDesktop: abilita l'ombreggiatura laterale del carosello sui layout desktop.
+ * - notScrollAnimation: applicata a un elemento li disabilita l'animazione visiva basata sulla percentuale di visibilità.
+ * - notScrollWithMouse: sul root disabilita la gestione dello scorrimento orizzontale tramite mouse.
+ *
+ * @related
+ * - card: usa card come contenuto dimostrativo di ogni slide.
+ * - card-img: identifica l'immagine delle card dimostrative.
+ * - imgCover: adatta le immagini allo spazio disponibile.
+ * - flexColumn: organizza verticalmente ogni card.
+ * - flexColumnTexts: applica la spaziatura ai testi delle card.
+ * - buttonIcon: viene applicato ai controlli precedente e successivo generati.
+ *
+ * @return Lista di slide basate su card, completata a runtime con pulsanti e indicatori.
+ */
+
 <div pgs="slides" pgs-option="singleScroll shadowDesktop">
     <ul pgs="slides-container">
         <li>

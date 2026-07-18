@@ -1,0 +1,67 @@
+<!-- File generato automaticamente da templates/html/components/badges.html. Modificare templates/html/components/badges.html e rieseguire npm run docs:generate. -->
+
+# Badge
+
+Raccolta di indicatori compatti per mostrare categorie, priorità e stati visivi con varianti cromatiche coerenti.
+
+## PGS
+
+- `badge`: identifica la variante base del badge.
+- `badgePrimary`: applica la variante con colore primario.
+- `badgeStrong`: applica la variante ad alto contrasto.
+- `badgeSuccess`: rappresenta un esito positivo.
+- `badgeDot`: aggiunge un indicatore puntiforme al badge.
+- `badgeWarning`: rappresenta un avviso.
+- `badgeError`: rappresenta un errore.
+- `badgeInfo`: rappresenta un'informazione.
+- `badgeNeutral`: applica la variante neutra.
+
+## Elementi correlati
+
+- `flexRow`: dispone i badge orizzontalmente consentendo il ritorno a capo.
+
+## Output
+
+Esempi HTML delle varianti badge disponibili.
+
+## Esempio
+
+```html
+<div pgs="flexRow">
+    <span pgs="badge">
+        Base
+    </span>
+
+    <span pgs="badgePrimary">
+        Primary
+    </span>
+
+    <span pgs="badgeStrong">
+        Strong
+    </span>
+
+    <span pgs="badgeSuccess badgeDot">
+        Attivo
+    </span>
+
+    <span pgs="badgeWarning">
+        <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+        Attenzione
+    </span>
+
+    <span pgs="badgeError">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        Errore
+    </span>
+
+    <span pgs="badgeInfo">
+        <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+        Info
+    </span>
+
+    <span pgs="badgeNeutral" href="#">
+        Neutrale
+    </span>
+
+</div>
+```

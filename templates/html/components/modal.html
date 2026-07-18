@@ -1,3 +1,36 @@
+/**
+ * @title Modal
+ * @description Componente che collega un pulsante a un dialog nativo, ne gestisce apertura e chiusura e può spostarlo in un contenitore configurato.
+ *
+ * @pgs
+ * - modal: identifica il contenitore logico inizializzato dal modulo modal.
+ * - modal-button: identifica il controllo di apertura della finestra.
+ * - dialog: token aggiunto dinamicamente all'elemento dialog inizializzato.
+ * - modal-dialog: identifica il dialog nativo dopo l'inizializzazione JavaScript.
+ * - modal-dialog-content: identifica il contenitore visivo della finestra.
+ * - modal-dialog-content-header: identifica l'intestazione che può ricevere il pulsante di chiusura automatico.
+ * - modal-dialog-content-scroll: identifica l'area interna scorrevole.
+ * - modal-close: identifica un controllo che chiude la finestra.
+ *
+ * @pgs-option
+ * - containerID: sul root usa containerID[id] per spostare il dialog nell'elemento con l'id indicato.
+ * - containerPGS: sul root usa containerPGS[token] per spostare il dialog nel primo elemento con quel token pgs.
+ * - disableBackdropClose: sul root impedisce la chiusura tramite click sul backdrop.
+ * - history: sul root sincronizza l'apertura con il parametro modal nella cronologia del browser e richiede un id sul pulsante.
+ * - topLevel: sul dialog mantiene la finestra nel componente e usa showModal per una modale top-level.
+ * - left: sul dialog posiziona e anima il contenuto dal lato sinistro.
+ * - right: sul dialog posiziona e anima il contenuto dal lato destro.
+ *
+ * @related
+ * - button: presenta i controlli di apertura, chiusura e annullamento come pulsanti standard.
+ * - buttonStrong: presenta l'azione di conferma con maggiore enfasi.
+ * - buttonClose: viene aggiunto automaticamente al controllo di chiusura quando manca nel markup.
+ * - flexColumnElements: organizza verticalmente il contenuto della modale di conferma.
+ * - flexRow: dispone affiancate le azioni della modale di conferma.
+ *
+ * @return Quattro esempi basati su dialog nativo e un contenitore opzionale usato da containerID.
+ */
+
 <div pgs="modal" pgs-option="containerID[modal-container]">
     <button pgs="modal-button button" type="button">
         <i class="fa-solid fa-window-maximize"></i> Apri modale

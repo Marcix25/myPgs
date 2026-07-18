@@ -1,0 +1,50 @@
+<!-- File generato automaticamente da templates/html/components/card.html. Modificare templates/html/components/card.html e rieseguire npm run docs:generate. -->
+
+# Card
+
+Contenitore riutilizzabile per raggruppare immagine, titolo, testo e azioni in anteprime o raccolte responsive.
+
+## PGS
+
+- `card`: identifica il contenitore principale della scheda.
+- `card-img`: identifica l'immagine principale della card.
+
+## Elementi correlati
+
+- `flex-2`: dispone le card in un layout responsive a due elementi.
+- `flexColumn`: organizza verticalmente il contenuto della card o del relativo link.
+- `imgCover`: adatta l'immagine riempiendo l'area disponibile.
+- `flexColumnTexts`: applica la spaziatura verticale ai contenuti testuali.
+- `button`: presenta il collegamento finale come pulsante standard.
+
+## Output
+
+Due strutture HTML di card, una con azione separata e una interamente cliccabile.
+
+## Esempio
+
+```html
+<div pgs="flex-2">
+
+    <article pgs="card flexColumn">
+        <img pgs="card-img imgCover" src="https://placehold.co/800x500" alt="Immagine segnaposto">
+        
+        <div pgs="flexColumnTexts">
+            <h3>Card riutilizzabile</h3>
+            <p>Contenuto descrittivo della card, adatto a liste, anteprime e griglie.</p>
+            <a pgs="button" href="#">Leggi di piu</a>
+        </div>
+    </article>
+    
+    <article pgs="card">
+        <a pgs="flexColumn" href="">
+            <img pgs="card-img imgCover" src="https://placehold.co/800x500" alt="Immagine segnaposto">
+            
+            <div pgs="flexColumnTexts">
+                <h3>Card riutilizzabile</h3>
+                <p>Contenuto descrittivo della card, adatto a liste, anteprime e griglie.</p>
+            </div>
+        </a>
+    </article>
+</div>
+```

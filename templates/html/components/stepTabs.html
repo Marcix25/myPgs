@@ -1,3 +1,35 @@
+/**
+ * @title Step Tabs
+ * @description Procedura guidata a schede con avanzamento sequenziale, indicatori generati, controlli di navigazione e possibilità di bloccare uno step.
+ *
+ * @pgs
+ * - stepTabs: identifica il root della procedura guidata.
+ * - stepTabs-dots: identifica il contenitore degli indicatori di avanzamento.
+ * - stepTabs-dots-dot: identifica ogni indicatore creato dinamicamente.
+ * - stepTabs-container: contiene nell'ordine tutte le schede della procedura.
+ * - tab: identifica una singola scheda navigabile.
+ * - stepTabs-prev: identifica il controllo per tornare allo step precedente.
+ * - stepTabs-restart: identifica il controllo che riavvia la procedura dal primo step.
+ * - stepTabs-next: identifica il controllo per avanzare allo step successivo.
+ *
+ * @pgs-option
+ * - tabIcon: su ogni tab usa tabIcon[classe] con una singola classe Font Awesome per l'indicatore corrispondente; il fallback è fa-circle.
+ * - buttonReverse: inverte testo e icona sul pulsante successivo e appartiene al componente button.
+ *
+ * @pgs-state
+ * - is-active: identifica la scheda corrente e il relativo indicatore.
+ * - is-completed: identifica gli indicatori degli step già completati e nuovamente selezionabili.
+ * - is-locked: applicato a un tab impedisce di avanzare finché lo step resta bloccato.
+ *
+ * @related
+ * - flexColumnElements: organizza verticalmente le aree principali del componente.
+ * - flexColumnTexts: organizza il contenuto testuale di ogni tab.
+ * - flexRow: dispone sulla stessa riga i controlli di navigazione.
+ * - button: applica lo stile standard ai controlli precedente, riavvio e successivo.
+ *
+ * @return Procedura HTML a tre schede con indicatori e controlli di navigazione.
+ */
+
 <div pgs="stepTabs flexColumnElements">
     <div pgs="stepTabs-dots" aria-label="Avanzamento"></div>
 
