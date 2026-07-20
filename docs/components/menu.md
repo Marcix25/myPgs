@@ -20,6 +20,12 @@ Navigazione orizzontale o verticale che trasforma le voci con sottomenu in dropd
 
 - `open`: indica il sottomenu trasformato in dropdown attualmente aperto.
 
+## API JavaScript
+
+- `pgs.menu.init(root)`: inizializza i menu non ancora registrati dentro Document o Element indicato e prepara i sottomenu.
+- `pgs.menu.api(element)`: restituisce l'istanza associata a un root menu inizializzato.
+- `instance.refresh()`: riesegue l'inizializzazione nel contenitore del menu e restituisce l'istanza.
+
 ## Elementi correlati
 
 - `dropdown`: viene aggiunto dinamicamente alle voci che contengono una lista annidata.

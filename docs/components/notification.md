@@ -2,16 +2,20 @@
 
 # Notification
 
-Sistema di notifiche persistenti o toast temporanei, generati dall'API oppure da configurazioni JSON dichiarative data-notification.
+Sistema di notifiche persistenti o toast temporanei, generati dall'API oppure da una configurazione JSON dichiarativa contenuta nell'opzione notification.
 
 ## PGS
 
-- `notification`: identifica il contenitore delle notifiche impilate.
-- `toast`: identifica il contenitore dei messaggi temporanei sostitutivi.
+- `notification`: identifica il contenitore delle notifiche, sia persistenti sia temporanee.
 - `notificationTrigger`: identifica una configurazione dichiarativa elaborata e rimossa all'inizializzazione.
 - `notification-element`: identifica ogni messaggio creato dinamicamente.
 - `notification-element-title`: identifica il titolo generato del messaggio.
 - `notification-element-content`: identifica il contenuto generato del messaggio.
+
+## PGS Options
+
+- `toast`: sul contenitore notification abilita il posizionamento centrale e la sostituzione del messaggio temporaneo corrente.
+- `notification`: contiene un oggetto JSON con title, message, element, type, icon, duration e link usando la sintassi notification[{...}].
 
 ## PGS States
 
@@ -20,6 +24,20 @@ Sistema di notifiche persistenti o toast temporanei, generati dall'API oppure da
 - `warning`: applica la variante di avviso.
 - `info`: applica la variante informativa predefinita.
 
+## API JavaScript
+
+- `pgs.notification.trigger(root)`: elabora e rimuove i notificationTrigger dichiarativi presenti nel contesto indicato.
+- `pgs.notification.alert.error(text, link, timeout, icon)`: crea una notifica persistente di errore, opzionalmente cliccabile e temporizzata.
+- `pgs.notification.alert.success(text, link, timeout, icon)`: crea una notifica persistente di successo.
+- `pgs.notification.alert.info(text, link, timeout, icon)`: crea una notifica persistente informativa.
+- `pgs.notification.alert.warning(text, link, timeout, icon)`: crea una notifica persistente di avviso.
+- `pgs.notification.alert.deleteAll()`: rimuove tutte le notifiche persistenti.
+- `pgs.notification.toast.error(text, timeout, icon)`: crea un toast di errore sostituendo quello eventualmente presente.
+- `pgs.notification.toast.success(text, timeout, icon)`: crea un toast di successo.
+- `pgs.notification.toast.info(text, timeout, icon)`: crea un toast informativo.
+- `pgs.notification.toast.warning(text, timeout, icon)`: crea un toast di avviso.
+- `pgs.notification.toast.deleteAll()`: rimuove il toast corrente.
+
 ## Elementi correlati
 
 - `hidden`: nasconde i trigger dichiarativi prima che vengano elaborati.
@@ -27,44 +45,37 @@ Sistema di notifiche persistenti o toast temporanei, generati dall'API oppure da
 
 ## Output
 
-Contenitori notification e toast con esempi di configurazione JSON per la generazione dei messaggi.
+Due contenitori notification, uno persistente e uno configurato con l'opzione toast, con trigger dichiarativi configurati tramite pgs-option.
 
 ## Esempio
 
 ```html
 <div pgs="notification" aria-live="polite"></div>
-<div pgs="toast" aria-live="polite"></div>
+<div pgs="notification" pgs-option="toast" aria-live="polite"></div>
 
-<div pgs="hidden notificationTrigger" data-notification='{
-        "title":"Titolo",
-        "message":"Messaggio",
-        "element":"notification",
-        "type":"info",
-        "icon":null,
-        "duration":"-1",
-        "link":null
-    }'>
-</div>
-<div pgs="hidden notificationTrigger" data-notification='{
-        "title":"Benvetuto",
-        "message":"Messaggio",
-        "element":"toast",
-        "type":"info",
-        "icon":null,
-        "duration":"3000",
-        "link":null
-    }'>
-</div>
+<div pgs="hidden notificationTrigger" pgs-option='notification[{
+            "title": "Titolo",
+            "message": "Messaggio",
+            "element": "notification",
+            "type": "info",
+            "icon": null,
+            "duration": "-1",
+            "link": null
+        }]'></div>
+
+<div pgs="hidden notificationTrigger" pgs-option='notification[{
+            "title": "Benvenuto",
+            "message": "Messaggio",
+            "element": "toast",
+            "type": "info",
+            "icon": null,
+            "duration": "3000",
+            "link": null
+        }]'></div>
 <!-- 
-    <div pgs="hidden notificationTrigger" data-notification='{
-        "title":"Titolo",
-        "message":"Messaggio",
-        "element":"notification | toast",
-        "type":"info | success | warning | error",
-        "icon":"null | <i class=\"fa-solid fa-rocket\"></i>",
-        "duration":"-1 | 0 | 4000 | 5000",
-        "link":"null | /pagina/"
-    }'>
-</div>
+    <div
+        pgs="hidden notificationTrigger"
+        pgs-option='notification[{"title":"Titolo","message":"Messaggio","element":"notification","type":"info","icon":"<i class=\"fa-solid fa-rocket\"></i>","duration":"4000","link":"/pagina/"}]'>
+    </div>
 -->
 ```

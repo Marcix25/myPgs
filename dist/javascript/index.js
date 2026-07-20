@@ -643,9 +643,7 @@ const PGS_svg = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PGS_accordion: () => (/* binding */ PGS_accordion),
-/* harmony export */   PGS_accordion_api: () => (/* binding */ PGS_accordion_api),
-/* harmony export */   PGS_accordion_init: () => (/* binding */ PGS_accordion_init)
+/* harmony export */   PGS_accordion: () => (/* binding */ PGS_accordion)
 /* harmony export */ });
 //= ACCORDION
 const API = new WeakMap();
@@ -1079,168 +1077,189 @@ const PGS_menu = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PGS_modal: () => (/* binding */ PGS_modal),
-/* harmony export */   PGS_modal_api: () => (/* binding */ PGS_modal_api),
-/* harmony export */   PGS_modal_init: () => (/* binding */ PGS_modal_init)
+/* harmony export */   PGS_modal: () => (/* binding */ PGS_modal)
 /* harmony export */ });
 //# MODAL
 const API = new WeakMap();
 
-function PGS_modal_init(selector = "modal") {
-    pgs(document).querySelectorAll(selector).forEach(MODAL => {
-        if (API.has(MODAL)) return;
+function getModals(root) {
+    const modals = root instanceof Element && pgs(root).contains("modal") ? [root] : [];
+    modals.push(...pgs(root).querySelectorAll("modal"));
+    return modals;
+}
 
-        const BUTTON_OPEN = pgs(MODAL).querySelector("modal-button");        
-        const DIALOG = MODAL.querySelector("dialog");
-        if (!BUTTON_OPEN || !DIALOG) return;
+function initializeModal(MODAL, existingDialog = null) {
+    if (API.has(MODAL)) return;
 
-        //== SELECTOR
-        const DOMButtonClose = '<button pgs="buttonClose modal-close" type="button" tabindex="0" aria-label="Chiudi"><i class="fa-solid fa-close"></i></button>';
-        const modalContentHeader = pgs(MODAL)?.querySelector("modal-dialog-content-header")
-        
-        
-        //== OPTION ATTRIBUTES MODAL
-        const disableBackdropClose = pgs(MODAL).option.contains("disableBackdropClose")
-        const data_history = pgs(MODAL).option.contains("history");
-        const data_container = pgs(MODAL).option.getValueBrackets("containerID");
-        const data_containerPGS = pgs(MODAL).option.getValueBrackets("containerPGS");
-        
-        //== OPTION ATTRIBUTES DIALOG
-        const topLevel = pgs(DIALOG).option.contains("topLevel")
+    const BUTTON_OPEN = pgs(MODAL).querySelector("modal-button");
+    const DIALOG = existingDialog || MODAL.querySelector("dialog");
+    if (!BUTTON_OPEN || !DIALOG) return;
+    const eventController = new AbortController();
+    const { signal } = eventController;
+    let historyObserver = null;
+    let historyTimeout = null;
 
-        
-        //== BUTTON CLOSE
-        if (pgs(MODAL).querySelector("modal-close")) null
-        else if (modalContentHeader) modalContentHeader.insertAdjacentHTML("beforeend", DOMButtonClose)
-        else DIALOG.insertAdjacentHTML("beforeend", DOMButtonClose)
-        const BUTTON_CLOSE = pgs(MODAL).querySelector("modal-close")
+    //== SELECTOR
+    const DOMButtonClose = '<button pgs="buttonClose modal-close" type="button" tabindex="0" aria-label="Chiudi"><i class="fa-solid fa-close"></i></button>';
+    const modalContentHeader = pgs(DIALOG).querySelector("modal-dialog-content-header");
 
 
-        //== SET
-        pgs(DIALOG).add("dialog modal-dialog");
+    //== OPTION ATTRIBUTES MODAL
+    const disableBackdropClose = pgs(MODAL).option.contains("disableBackdropClose");
+    const data_history = pgs(MODAL).option.contains("history");
+    const data_container = pgs(MODAL).option.getValueBrackets("containerID");
+    const data_containerPGS = pgs(MODAL).option.getValueBrackets("containerPGS");
 
-        //== BUTTON OPEN
-        BUTTON_OPEN.setAttribute("role", "button");
-        BUTTON_OPEN.setAttribute("aria-label", "apri modale");
+    //== OPTION ATTRIBUTES DIALOG
+    const topLevel = pgs(DIALOG).option.contains("topLevel");
 
 
-        //== POSITION
-        if(!topLevel){           
-            if (data_container) document.querySelector("#" + data_container)?.append(DIALOG);
-            else if (data_containerPGS) pgs(document).querySelector(data_containerPGS)?.append(DIALOG);
-            else document.body.append(DIALOG);
+    //== BUTTON CLOSE
+    if (!pgs(DIALOG).querySelector("modal-close") && !pgs(MODAL).querySelector("modal-close")) {
+        if (modalContentHeader) modalContentHeader.insertAdjacentHTML("beforeend", DOMButtonClose);
+        else DIALOG.insertAdjacentHTML("beforeend", DOMButtonClose);
+    }
+    const BUTTON_CLOSE = pgs(DIALOG).querySelector("modal-close") || pgs(MODAL).querySelector("modal-close");
+
+
+    //== SET
+    pgs(DIALOG).add("dialog modal-dialog");
+
+    //== BUTTON OPEN
+    BUTTON_OPEN.setAttribute("role", "button");
+    BUTTON_OPEN.setAttribute("aria-label", "apri modale");
+
+
+    //== POSITION
+    if (topLevel && !MODAL.contains(DIALOG)) MODAL.append(DIALOG);
+    else if (!topLevel) {
+        if (data_container) document.querySelector("#" + data_container)?.append(DIALOG);
+        else if (data_containerPGS) pgs(document).querySelector(data_containerPGS)?.append(DIALOG);
+        else document.body.append(DIALOG);
+    }
+
+
+    //+ FN STATUS
+    function statusModal(status = true) {
+        BUTTON_OPEN?.setAttribute("aria-expanded", status);
+        DIALOG?.setAttribute("aria-expanded", status);
+    }
+
+    //+ FN OPEN
+    function openModal(e) {
+        e?.stopImmediatePropagation();
+        if (DIALOG.open) {
+            closeModal(e);
+            return;
         }
 
+        if (!DIALOG.open) document.querySelectorAll("dialog[open]").forEach((dlg) => dlg.close());
+        statusModal(true);
+        topLevel ? DIALOG.showModal() : DIALOG.show();
+        // modalCustomEvents('modal:open', { event: e });
+        MODAL.dispatchEvent(new CustomEvent('modal:open'));
+        DIALOG.dispatchEvent(new CustomEvent('modal:open'));
+    }
 
-        //+ FN STATUS 
-        function statusModal(status = true) {
-            BUTTON_OPEN?.setAttribute("aria-expanded", status);
-            DIALOG?.setAttribute("aria-expanded", status);
-        }
+    //+ FN CLOSE
+    function closeModal(e) {
+        e?.stopImmediatePropagation()
+        statusModal(false);
+        DIALOG.close();
+        // modalCustomEvents('modal:close', { event: e });
+        MODAL.dispatchEvent(new CustomEvent('modal:close'));
+        DIALOG.dispatchEvent(new CustomEvent('modal:close'));
+    }
 
-        //+ FN OPEN 
-        function openModal(e) {
-            e?.stopImmediatePropagation();
-            if (DIALOG.open) {
-                closeModal(e);
-                return;
-            }
+    function forceOpen(e) {
+        if (!DIALOG.open) openModal(e);
+    }
 
-            if (!DIALOG.open) document.querySelectorAll("dialog[open]").forEach((dlg) => dlg.close());
-            statusModal(true);
-            topLevel ? DIALOG.showModal() : DIALOG.show();
-            // modalCustomEvents('modal:open', { event: e });
-            MODAL.dispatchEvent(new CustomEvent('modal:open'));
-            DIALOG.dispatchEvent(new CustomEvent('modal:open'));
-        }
+    function forceClose(e) {
+        if (DIALOG.open) closeModal(e);
+    }
 
-        //+ FN CLOSE 
-        function closeModal(e) {
-            e?.stopImmediatePropagation()
-            statusModal(false);
-            DIALOG.close();
-            // modalCustomEvents('modal:close', { event: e });
-            MODAL.dispatchEvent(new CustomEvent('modal:close'));
-            DIALOG.dispatchEvent(new CustomEvent('modal:close'));
-        }
-
-        function forceOpen(e) {
-            if (!DIALOG.open) openModal(e);
-        }
-
-        function forceClose(e) {
-            if (DIALOG.open) closeModal(e);
-        }
-
-        //+ fn OPEN ON HISTORY
-        function openModalOnHistory() {
-            const params = new URLSearchParams(window.location.search);
-            if (params.get('modal') !== BUTTON_OPEN.id) return;
-            document.getElementById(BUTTON_OPEN.id)?.scrollIntoView({ behavior: 'smooth' });
-            openModal();
-        }
+    //+ fn OPEN ON HISTORY
+    function openModalOnHistory() {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('modal') !== BUTTON_OPEN.id) return;
+        document.getElementById(BUTTON_OPEN.id)?.scrollIntoView({ behavior: 'smooth' });
+        openModal();
+    }
 
 
-        //= OPEN 
-        BUTTON_OPEN.addEventListener("click", (e) => openModal(e));
-        BUTTON_OPEN.addEventListener("keypress", (e) => !DIALOG.open && (e.key === "Enter" || e.key === " ") && openModal(e));
-        
-        //= CLOSE 
-        DIALOG.addEventListener("close", () => statusModal(false));
-        DIALOG.addEventListener("click", e => { if (e.target == DIALOG && !disableBackdropClose) closeModal(e) });
-        BUTTON_CLOSE?.addEventListener("click", e => closeModal(e));
-        
-        //= UPDATE HISTORY
-        if (data_history && BUTTON_OPEN.id) {
-            setTimeout(openModalOnHistory, 1);
+    //= OPEN
+    BUTTON_OPEN.addEventListener("click", (e) => openModal(e), { signal });
+    BUTTON_OPEN.addEventListener("keypress", (e) => !DIALOG.open && (e.key === "Enter" || e.key === " ") && openModal(e), { signal });
 
-            //== Aggiorna URL quando cambia l'attributo "open" del dialog
-            const obs = new MutationObserver(() => {
-                let isOpen = DIALOG.hasAttribute("open");
-                try {
-                    const url = new URL(window.location.href);
-                    const params = new URLSearchParams(url.search);
-                    isOpen ? params.set('modal', BUTTON_OPEN.id) : params.delete('modal');
-                    url.search = params.toString() ? `?${params.toString()}` : "";
-                    window.history.pushState({ modal: BUTTON_OPEN.id, open: isOpen }, "", url);
-                } catch (_) { }
-            });
-            obs.observe(DIALOG, { attributes: true, attributeFilter: ["open"] });
+    //= CLOSE
+    DIALOG.addEventListener("close", () => statusModal(false), { signal });
+    DIALOG.addEventListener("click", e => { if (e.target == DIALOG && !disableBackdropClose) closeModal(e) }, { signal });
+    BUTTON_CLOSE?.addEventListener("click", e => closeModal(e), { signal });
 
-            //== Gestisce back/forward del browser per aprire/chiudere il dialog coerentemente
-            window.addEventListener("popstate", () => {
-                try {
-                    const params = new URLSearchParams(window.location.search);
-                    const shouldOpen = params.get('modal') === BUTTON_OPEN.id;
-                    if (shouldOpen && !DIALOG.open) DIALOG.showModal();
-                    if (!shouldOpen && DIALOG.open) closeModal()
-                } catch (_) { }
-            });
-        }
+    //= UPDATE HISTORY
+    if (data_history && BUTTON_OPEN.id) {
+        historyTimeout = window.setTimeout(openModalOnHistory, 1);
 
-        API.set(MODAL, {
-            element: MODAL,
-            button: BUTTON_OPEN,
-            dialog: DIALOG,
-            closeButton: BUTTON_CLOSE,
-            open: forceOpen,
-            close: forceClose,
-            toggle: openModal,
-            refresh: () => {
-                PGS_modal_init(selector);
-                return API.get(MODAL);
-            },
-            isOpen: () => DIALOG.open,
+        //== Aggiorna URL quando cambia l'attributo "open" del dialog
+        historyObserver = new MutationObserver(() => {
+            let isOpen = DIALOG.hasAttribute("open");
+            try {
+                const url = new URL(window.location.href);
+                const params = new URLSearchParams(url.search);
+                isOpen ? params.set('modal', BUTTON_OPEN.id) : params.delete('modal');
+                url.search = params.toString() ? `?${params.toString()}` : "";
+                window.history.pushState({ modal: BUTTON_OPEN.id, open: isOpen }, "", url);
+            } catch (_) { }
         });
+        historyObserver.observe(DIALOG, { attributes: true, attributeFilter: ["open"] });
+
+        //== Gestisce back/forward del browser per aprire/chiudere il dialog coerentemente
+        window.addEventListener("popstate", () => {
+            try {
+                const params = new URLSearchParams(window.location.search);
+                const shouldOpen = params.get('modal') === BUTTON_OPEN.id;
+                if (shouldOpen && !DIALOG.open) DIALOG.showModal();
+                if (!shouldOpen && DIALOG.open) closeModal()
+            } catch (_) { }
+        }, { signal });
+    }
+
+    function destroy() {
+        eventController.abort();
+        historyObserver?.disconnect();
+        if (historyTimeout !== null) window.clearTimeout(historyTimeout);
+        API.delete(MODAL);
+    }
+
+    API.set(MODAL, {
+        element: MODAL,
+        button: BUTTON_OPEN,
+        dialog: DIALOG,
+        closeButton: BUTTON_CLOSE,
+        open: forceOpen,
+        close: forceClose,
+        toggle: openModal,
+        refresh: () => {
+            const nextDialog = MODAL.querySelector("dialog") || DIALOG;
+            destroy();
+            initializeModal(MODAL, nextDialog);
+            return API.get(MODAL);
+        },
+        isOpen: () => DIALOG.open,
     });
+}
+
+function PGS_modal_init(root = document) {
+    getModals(root).forEach(MODAL => initializeModal(MODAL));
 }
 
 //# INIT PGS_modal
 PGS_modal_init()
 
 //# API
-function PGS_modal_api(selector) {
-    return API.get(selector);
+function PGS_modal_api(element) {
+    return API.get(element);
 }
 
 const PGS_modal = {
@@ -1260,8 +1279,7 @@ const PGS_modal = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PGS_notification: () => (/* binding */ PGS_notification),
-/* harmony export */   PGS_notificationTrigger_init: () => (/* binding */ PGS_notificationTrigger_init)
+/* harmony export */   PGS_notification: () => (/* binding */ PGS_notification)
 /* harmony export */ });
 //= PGS_notification
 const fn_notification = {
@@ -1289,10 +1307,12 @@ const fn_notification = {
     },
 
     _getData(root) {
+        const rawNotification = pgs(root).option.getValueBrackets("notification") || "{}";
+
         try {
-            return JSON.parse(root.dataset.notification || "{}");
+            return JSON.parse(rawNotification);
         } catch (error) {
-            console.warn("PGS notification: dati non validi", error);
+            console.warn("PGS notification: configurazione JSON non valida", error);
             return {};
         }
     },
@@ -1311,13 +1331,21 @@ const fn_notification = {
         `;
     },
 
-    initNotification(type, containerToken, icon, text, timeout, methodDelete = "replace", link = null) {
-        let containerNotification = pgs(document).querySelector(containerToken);
+    _getContainer(containerType) {
+        return Array.from(pgs(document).querySelectorAll("notification")).find(container => {
+            const isToast = pgs(container).option.contains("toast");
+            return containerType === "toast" ? isToast : !isToast;
+        });
+    },
+
+    initNotification(type, containerType, icon, text, timeout, methodDelete = "replace", link = null) {
+        let containerNotification = this._getContainer(containerType);
 
         //== Create Container
         if (!containerNotification) {
             const newContainer = document.createElement("div");
-            pgs(newContainer).add(containerToken);
+            pgs(newContainer).add("notification");
+            if (containerType === "toast") pgs(newContainer).option.add("toast");
             newContainer.setAttribute("aria-live", "polite");
             newContainer.setAttribute("aria-relevant", "additions");
             document.body.appendChild(newContainer);
@@ -1363,8 +1391,8 @@ const fn_notification = {
         });
     },
 
-    deleteAll(containerToken) {
-        let containerNotification = pgs(document).querySelector(containerToken);
+    deleteAll(containerType) {
+        let containerNotification = this._getContainer(containerType);
         if (containerNotification) containerNotification.innerHTML = "";
     },
 
@@ -1398,7 +1426,7 @@ const fn_notification = {
     }
 };
 
-//# EXPORT 
+//# TRIGGER
 function PGS_notificationTrigger_init(root = document) {
     return fn_notification.trigger(root);
 }
@@ -1438,8 +1466,7 @@ else PGS_notificationTrigger_init();
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PGS_search: () => (/* binding */ PGS_search),
-/* harmony export */   PGS_search_api: () => (/* binding */ PGS_search_api)
+/* harmony export */   PGS_search: () => (/* binding */ PGS_search)
 /* harmony export */ });
 const API = new WeakMap();
 const OPEN_SEARCHES = new Set();
@@ -1845,18 +1872,22 @@ const PGS_search = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PGS_slides: () => (/* binding */ PGS_slides),
-/* harmony export */   PGS_slides_api: () => (/* binding */ PGS_slides_api),
-/* harmony export */   PGS_slides_init: () => (/* binding */ PGS_slides_init)
+/* harmony export */   PGS_slides: () => (/* binding */ PGS_slides)
 /* harmony export */ });
-/* harmony import */ var _functions_scrollY__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functions/_scrollY */ "./assets/javascript/functions/_scrollY.js");
+/* harmony import */ var _functions_scrollY_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functions/_scrollY.js */ "./assets/javascript/functions/_scrollY.js");
 
 const API = new WeakMap();
 
+function getSlides(root) {
+    const slides = root instanceof Element && pgs(root).contains("slides") ? [root] : [];
+    slides.push(...pgs(root).querySelectorAll("slides"));
+    return slides;
+}
+
 class PGS_Slides {
     //- CONSTRUCTOR
-    constructor({ selector, viewRatio = 0.97, optionIntersectionObserver = {}, scrollOptions = {} } = {}) {
-        this.selector = selector;
+    constructor({ element, viewRatio = 0.97, optionIntersectionObserver = {}, scrollOptions = {} } = {}) {
+        this.element = element;
         this.viewRatio = viewRatio;
 
         this.optionIntersectionObserver = {
@@ -1873,28 +1904,36 @@ class PGS_Slides {
             ...scrollOptions,
         };
 
-        this.container = this.selector ? pgs(this.selector).querySelector("slides-container") : null;
+        this.container = this.element ? pgs(this.element).querySelector("slides-container") : null;
     }
     
     //+ CREATE BUTTON 
     #createButtonsAndDots() {
-        const EL = this.selector
+        const EL = this.element;
 
         //== PULSANTI
-        if (!pgs(EL).querySelector('slides-prec') && !pgs(EL).querySelector('slides-next')) {
+        if (!pgs(EL).querySelector('slides-prec')) {
             EL.insertAdjacentHTML("afterbegin", `<button pgs="slides-prec buttonIcon" type="button" class="precButton" aria-label="slide precedente"> <span> <i class="fa-solid fa-arrow-left"></i></span></button>`);
+        }
+        if (!pgs(EL).querySelector('slides-next')) {
             EL.insertAdjacentHTML("beforeend", `<button pgs="slides-next buttonIcon" type="button" class="nextButton" aria-label="prossima slide"> <span> <i class="fa-solid fa-arrow-right"></i></span></button>`);
         }
 
         //== DOTS
         if (!pgs(EL).querySelector('slides-dots')) {
             EL.insertAdjacentHTML("beforeend", `<div pgs="slides-dots" class="slides-dots"></div>`);
-
-            Array.from(this.container.children).forEach(() => {
-                pgs(EL).querySelector('slides-dots')
-                    .insertAdjacentHTML("beforeend", `<button type="button" class="slide-dot" aria-label="vai alla prossima slide"></button>`);
-            });
         }
+
+        const dotsContainer = pgs(EL).querySelector('slides-dots');
+        while (dotsContainer.children.length < this.container.children.length) {
+            dotsContainer.insertAdjacentHTML("beforeend", `<button type="button" class="slide-dot"></button>`);
+        }
+        while (dotsContainer.children.length > this.container.children.length) {
+            dotsContainer.lastElementChild.remove();
+        }
+        Array.from(dotsContainer.children).forEach((dot, index) => {
+            dot.setAttribute("aria-label", `vai alla slide ${index + 1}`);
+        });
     }
 
     //+ PREV 
@@ -1903,7 +1942,7 @@ class PGS_Slides {
         let current;
         
 
-        if (pgs(this.selector).option.contains('singleScroll')) current = currents[currents.length - 1];
+        if (pgs(this.element).option.contains('singleScroll')) current = currents[currents.length - 1];
         else current = currents[0];
 
         const prev = current?.previousElementSibling;
@@ -1919,19 +1958,17 @@ class PGS_Slides {
 
         
         
-        if (pgs(this.selector).option.contains('singleScroll')) current = currents[0];
+        if (pgs(this.element).option.contains('singleScroll')) current = currents[0];
         else current = currents[currents.length - 1];
         
         const next = current?.nextElementSibling;
-        console.log(current, next);
-
         next?.scrollIntoView(this.scrollOptions);
         next?.focus({ preventScroll: true });
     }
 
     //+ GO TO NUMBER SLIDE 
     #goToNumberSlide(index) {
-        this.container.children[index].scrollIntoView(this.scrollOptions)
+        this.container.children[index]?.scrollIntoView(this.scrollOptions);
     }
 
     //+ CALLBACK
@@ -1970,8 +2007,10 @@ class PGS_Slides {
 
     //= EXECUTE
     execute() {
-        const slides = this.selector;
-        if (!this.container) return
+        const slides = this.element;
+        if (!this.container) return;
+        const eventController = new AbortController();
+        const { signal } = eventController;
 
         //== elements
         this.#createButtonsAndDots();
@@ -1983,12 +2022,14 @@ class PGS_Slides {
         const notScrollWithMouse = pgs(slides).option.contains('notScrollWithMouse');
 
         //== scroll
-        if (!notScrollWithMouse) (0,_functions_scrollY__WEBPACK_IMPORTED_MODULE_0__.PGS_scrollHorizontal)(this.container, 5);
+        const removeHorizontalScroll = notScrollWithMouse
+            ? null
+            : (0,_functions_scrollY_js__WEBPACK_IMPORTED_MODULE_0__.PGS_scrollHorizontal)(this.container, 5);
 
         //==Listener: DOT, PREC, NEXT
-        dots.forEach((dot, index) => dot.addEventListener("click", e => this.#goToNumberSlide(index)));
-        precButton.addEventListener("click", e => this.#previousSlide(), { passive: true });
-        nextButton.addEventListener("click", e => this.#nextSlide(), { passive: true });
+        dots.forEach((dot, index) => dot.addEventListener("click", () => this.#goToNumberSlide(index), { signal }));
+        precButton.addEventListener("click", () => this.#previousSlide(), { passive: true, signal });
+        nextButton.addEventListener("click", () => this.#nextSlide(), { passive: true, signal });
 
         //== observer
         const observer = new IntersectionObserver(
@@ -1998,9 +2039,18 @@ class PGS_Slides {
         Array.from(this.container.children).forEach(allLi => observer.observe(allLi));
 
 
+        let api;
+        const destroy = () => {
+            if (API.get(this.element) !== api) return;
+            eventController.abort();
+            observer.disconnect();
+            removeHorizontalScroll?.();
+            API.delete(this.element);
+        };
+
         //- API
-        API.set(this.selector, {
-            element: this.selector,
+        api = {
+            element: this.element,
             container: this.container,
             previous: () => this.#previousSlide(),
             next: () => this.#nextSlide(),
@@ -2015,19 +2065,28 @@ class PGS_Slides {
                 return last?.classList.contains("view") || false;
             },
             refresh: () => {
-                PGS_slides_init(this.selector.parentNode || document);
-                return API.get(this.selector);
+                if (API.get(this.element) !== api) return API.get(this.element);
+                destroy();
+                const instance = new PGS_Slides({
+                    element: this.element,
+                    viewRatio: this.viewRatio,
+                    optionIntersectionObserver: this.optionIntersectionObserver,
+                    scrollOptions: this.scrollOptions,
+                });
+                instance.execute();
+                return API.get(this.element);
             },
-        });
+        };
+        API.set(this.element, api);
     }
 }
 
 //# INIT 
 function PGS_slides_init(root = document) {
-    pgs(root).querySelectorAll("slides").forEach(el => {
-        if (API.has(el)) return;
+    getSlides(root).forEach(element => {
+        if (API.has(element)) return;
 
-        const instance = new PGS_Slides({ selector: el });
+        const instance = new PGS_Slides({ element });
         instance.execute();
     });
 }
@@ -2035,8 +2094,8 @@ function PGS_slides_init(root = document) {
 PGS_slides_init();
 
 //# API 
-function PGS_slides_api(selector) {
-    return API.get(selector);
+function PGS_slides_api(element) {
+    return API.get(element);
 }
 
 const PGS_slides = {
@@ -2056,9 +2115,7 @@ const PGS_slides = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PGS_stepTabs: () => (/* binding */ PGS_stepTabs),
-/* harmony export */   PGS_stepTabs_api: () => (/* binding */ PGS_stepTabs_api),
-/* harmony export */   PGS_stepTabs_init: () => (/* binding */ PGS_stepTabs_init)
+/* harmony export */   PGS_stepTabs: () => (/* binding */ PGS_stepTabs)
 /* harmony export */ });
 const API = new WeakMap();
 
@@ -2094,7 +2151,7 @@ function PGS_stepTabs_init(root = document) {
                 const dot = document.createElement("button");
                 dot.type = "button";
                 pgs(dot).add("stepTabs-dots-dot");
-                dot.setAttribute("data-step", index);
+                pgs(dot).option.setValueBrackets("step", index);
                 dot.innerHTML = `<i class="fa-solid ${iconClass}"></i>`;
 
                 dot.addEventListener("click", () => {
@@ -2159,7 +2216,7 @@ function PGS_stepTabs_init(root = document) {
         //= INIT
         goTo(0, false);
 
-        //= data-tab-locked
+        //= tab-locked
         const observer = new MutationObserver(() => {
             if (isRendering) return;
             updateControls();
@@ -2242,9 +2299,7 @@ const PGS_stepTabs = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PGS_steps: () => (/* binding */ PGS_steps),
-/* harmony export */   PGS_steps_api: () => (/* binding */ PGS_steps_api),
-/* harmony export */   PGS_steps_init: () => (/* binding */ PGS_steps_init)
+/* harmony export */   PGS_steps: () => (/* binding */ PGS_steps)
 /* harmony export */ });
 const API = new WeakMap();
 
@@ -2312,9 +2367,7 @@ const PGS_steps = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PGS_summary: () => (/* binding */ PGS_summary),
-/* harmony export */   PGS_summary_api: () => (/* binding */ PGS_summary_api),
-/* harmony export */   PGS_summary_init: () => (/* binding */ PGS_summary_init)
+/* harmony export */   PGS_summary: () => (/* binding */ PGS_summary)
 /* harmony export */ });
 //= SUMMARY
 const API = new WeakMap();
@@ -2436,44 +2489,48 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_formValidate: () => (/* binding */ PGS_formValidate)
 /* harmony export */ });
-/* harmony import */ var _components_notifications_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/_notifications.js */ "./assets/javascript/components/_notifications.js");
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _components_notifications_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_notifications.js */ "./assets/javascript/components/_notifications.js");
+
 
 
 
 class PGS_formValidate {
-    constructor({ form } = {}) {
+    #message = {};
+    #insideValidatedCallback = false;
+
+    constructor(form, options = {}) {
+        if (!options || typeof options !== "object" || Array.isArray(options)) {
+            throw new TypeError("options must be an object");
+        }
+
         this.container = form;
         this._rules = [];
-        // pgs(this.container).add("formError"); 
+        this.message = {
+            fieldError: "Please complete this field.",
+            fieldsError: "Please complete all required fields.",
+            success: "Submitted successfully."
+        };
+
+        if (options.message !== undefined) this.message = options.message;
+        this.container?.setAttribute("novalidate", "");
     }
 
-    //+ ADD
-    addError(field, i) {
-        field.setAttribute("data-form-field-status", "error");
-        if (i == 0) field.scrollIntoView();
-
-        let message = field.getAttribute("data-form-field-message");
-
-        if (i == 0 && message) _components_notifications_js__WEBPACK_IMPORTED_MODULE_0__.PGS_notification.toast.error(message);
-        else if (i == 0) _components_notifications_js__WEBPACK_IMPORTED_MODULE_0__.PGS_notification.toast.error("Compila tutti i campi!");
+    get message() {
+        return { ...this.#message };
     }
 
-    //+ REMOVE
-    removeError(field) {
-        field.setAttribute("data-form-field-status", "");
+    set message(value) {
+        if (!value || typeof value !== "object" || Array.isArray(value)) {
+            throw new TypeError("message must be an object");
+        }
+
+        this.#message = { ...this.#message, ...value };
     }
 
-    #removeErrorOnClick(allFields) {
-        allFields.forEach(element => {
-            element.addEventListener("click", e => this.removeError(element))
-        });
-    }
-
-    // + --------------------------
-    // + Helpers                   
-    // + --------------------------
-    help = {
-        // supporta sia required nativo, sia data-required="true"
+    // - Helpers
+    #help = {
+        // supporta sia required nativo
         isRequired(field) {
             if (!field) return false;
 
@@ -2516,26 +2573,26 @@ class PGS_formValidate {
             if (input.type === "hidden") return false;
             if (input.type === "checkbox" || input.type === "radio" || input.type === "file") return false;
 
-            // valida solo se required (o data-required="true")
-            if (!this.help.isRequired(input)) return false;
+            // valida solo se required
+            if (!this.#help.isRequired(input)) return false;
 
-            return this.help.isEmptyTextLike(input);
+            return this.#help.isEmptyTextLike(input);
         });
 
         //== TEXTAREA 
         // required vuote
         const textareas = Array.from(container.querySelectorAll("textarea")).filter((ta) => {
             if (ta.disabled) return false;
-            if (!this.help.isRequired(ta)) return false;
-            return this.help.isEmptyTextLike(ta);
+            if (!this.#help.isRequired(ta)) return false;
+            return this.#help.isEmptyTextLike(ta);
         });
 
         //== SELECT 
         // required vuoti
         const selects = Array.from(container.querySelectorAll("select")).filter((sel) => {
             if (sel.disabled) return false;
-            if (!this.help.isRequired(sel)) return false;
-            return this.help.isEmptySelect(sel);
+            if (!this.#help.isRequired(sel)) return false;
+            return this.#help.isEmptySelect(sel);
         });
 
         //== RADIO 
@@ -2543,8 +2600,8 @@ class PGS_formValidate {
         const radios = Array.from(container.querySelectorAll('input[type="radio"]')).filter((r) => !r.disabled);
         const requiredRadioGroups = new Map(); // name -> [elements]
         for (const r of radios) {
-            if (!this.help.isRequired(r)) continue;
-            const name = this.help.getGroupName(r);
+            if (!this.#help.isRequired(r)) continue;
+            const name = this.#help.getGroupName(r);
             if (!name) continue;
             if (!requiredRadioGroups.has(name)) requiredRadioGroups.set(name, []);
             requiredRadioGroups.get(name).push(r);
@@ -2565,9 +2622,9 @@ class PGS_formValidate {
         const requiredCheckboxSingles = [];
         const requiredCheckboxGroups = new Map(); // name -> [elements]
         for (const c of checkboxes) {
-            if (!this.help.isRequired(c)) continue;
+            if (!this.#help.isRequired(c)) continue;
 
-            const name = this.help.getGroupName(c);
+            const name = this.#help.getGroupName(c);
             if (!name) {
                 // checkbox senza name: trattala come singola required
                 if (!c.checked) requiredCheckboxSingles.push(c);
@@ -2590,7 +2647,7 @@ class PGS_formValidate {
         // required: se vuoi includerlo
         const fileInputs = Array.from(container.querySelectorAll('input[type="file"]')).filter((f) => {
             if (f.disabled) return false;
-            if (!this.help.isRequired(f)) return false;
+            if (!this.#help.isRequired(f)) return false;
             return !(f.files && f.files.length > 0);
         });
 
@@ -2606,12 +2663,37 @@ class PGS_formValidate {
             ruleInvalidFields
         ];
 
-        return invalidFields.flat();
+        return [...new Set(invalidFields.flat())];
     }
 
-    // + -------------------------
-    // + VALIDATE                 
-    // + -------------------------
+    //+ ADD
+    addFieldError(field, i = 0, total = 1) {
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(field).option.add("error");
+        if (i === 0) field.scrollIntoView();
+
+        if (i !== 0) return;
+
+        if (total > 1) {
+            _components_notifications_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.toast.error(this.message.fieldsError);
+            return;
+        }
+
+        const message = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(field).option.getValueBrackets("message");
+        _components_notifications_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.toast.error(message || this.message.fieldError);
+    }
+
+    //+ REMOVE
+    removeFieldError(field) {
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(field).option.remove("error");
+    }
+
+    // + SUCCESS
+    success(text = this.message.success) {
+        if (this.#insideValidatedCallback || this.validate() === true) _components_notifications_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.toast.success(text)
+    }
+
+
+    // + VALIDATE
     validate() {
         const invalid = this.#inputValue(this.container);
         const allFields = this.container.querySelectorAll("input, textarea, select")
@@ -2622,34 +2704,50 @@ class PGS_formValidate {
 
         //== per radio/checkbox in gruppo: 
         // rimuovi l'errore solo sull'elemento che lo ospita (qui: se presente)
-        for (const el of allFields) { if (!invalid.includes(el)) this.removeError(el); }
+        for (const el of allFields) { if (!invalid.includes(el)) this.removeFieldError(el); }
 
         //== aggiungo errori dove serve
-        invalid.forEach((el, i) => this.addError(el, i))
+        invalid.forEach((el, i) => this.addFieldError(el, i, invalid.length))
 
         //== rimuove l'errore al click
-        this.#removeErrorOnClick(allFields)
+        allFields.forEach(element => element.addEventListener("click", e => this.removeFieldError(element)));
 
         //== status form
         if (invalid.length) {
-            this.container.setAttribute("data-form-status", "error");
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.container).option.remove("success").add("error");
             return false;
         } else {
-            this.container.setAttribute("data-form-status", "success");
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.container).option.remove("error").add("success");
             return true;
         }
     }
 
-    ifSuccess(text = "Inviato con successo") {
-        if (this.validate() == true) _components_notifications_js__WEBPACK_IMPORTED_MODULE_0__.PGS_notification.toast.success(text)
+    // + EVENT VALIDATOR
+    validator(callback, eventName = "submit") {
+        if (typeof callback !== "function") throw new TypeError("callback must be a function");
+        if (typeof eventName !== "string" || !eventName.trim()) throw new TypeError("eventName must be a non-empty string");
+
+        this.container.addEventListener(eventName, event => {
+            event.preventDefault();
+            if (!this.validate()) return;
+
+            this.#insideValidatedCallback = true;
+
+            try {
+                this.success();
+                callback(event);
+            } finally {
+                this.#insideValidatedCallback = false;
+            }
+        });
+
+        return this;
     }
 
-    // + -------------------------
-    // + ADD RULE                 
-    // + -------------------------
-    addNewRule(container) {
-        if (typeof container !== "function") throw new Error("Rule must be a function");
-        this._rules.push(container);
+    // + ADD RULE
+    addNewRule(rule) {
+        if (typeof rule !== "function") throw new Error("Rule must be a function");
+        this._rules.push(rule);
         return this;
     }
 }
@@ -2668,7 +2766,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_scrollHorizontal: () => (/* binding */ PGS_scrollHorizontal)
 /* harmony export */ });
-function PGS_scrollHorizontal(querySelector, dataSpeed) {
+function PGS_scrollHorizontal(element, speed) {
     // Se hai più contenitori, selezionali tutti:
     // Semplice "singleton" per stimare se la sorgente è trackpad
     const TrackpadDetector = (() => {
@@ -2710,10 +2808,7 @@ function PGS_scrollHorizontal(querySelector, dataSpeed) {
 
     //= Scorrimento orizzontale con rotella (evita il trackpad)
     
-    let el = querySelector
-    el.addEventListener('wheel', (e) => {
-        const speed = dataSpeed;
-
+    const onWheel = (e) => {
         //== lascia lo scroll naturale del trackpad
         if (TrackpadDetector.update(e)) return;
 
@@ -2724,11 +2819,11 @@ function PGS_scrollHorizontal(querySelector, dataSpeed) {
         //== Converti delta in px per lo shift orizzontale
         let delta = e.deltaY;
         if (e.deltaMode === 1) delta *= 16;
-        else if (e.deltaMode === 2) delta *= el.clientHeight;
+        else if (e.deltaMode === 2) delta *= element.clientHeight;
 
         //== Verifica se il contenitore può ancora scrollare orizzontalmente
-        const atStart = el.scrollLeft <= 0;
-        const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 1;
+        const atStart = element.scrollLeft <= 0;
+        const atEnd = element.scrollLeft + element.clientWidth >= element.scrollWidth - 1;
         const scrollingRight = delta > 0;
         const scrollingLeft = delta < 0;
         const canScrollHoriz =
@@ -2742,8 +2837,11 @@ function PGS_scrollHorizontal(querySelector, dataSpeed) {
         e.preventDefault();
 
         //== rotella giù => destra
-        el.scrollLeft += delta * speed;
-    }, { passive: false });
+        element.scrollLeft += delta * speed;
+    };
+
+    element.addEventListener('wheel', onWheel, { passive: false });
+    return () => element.removeEventListener('wheel', onWheel);
 }
 
 

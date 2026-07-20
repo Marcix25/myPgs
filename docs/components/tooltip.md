@@ -18,6 +18,16 @@ Variante compatta del dropdown che mostra un breve pannello informativo controll
 
 - `open`: viene gestito dal modulo dropdown sul root per mostrare o nascondere il tooltip.
 
+## API JavaScript
+
+- `pgs.dropdown.init(root)`: inizializza il tooltip perché il suo root condivide il token dropdown.
+- `pgs.dropdown.api(element)`: restituisce l'istanza dropdown associata al root del tooltip.
+- `instance.open()`: apre il contenuto informativo.
+- `instance.close()`: chiude il contenuto informativo.
+- `instance.toggle()`: inverte la visibilità del tooltip.
+- `instance.refresh()`: reinizializza il contesto e ricalcola il posizionamento.
+- `instance.isOpen()`: restituisce true quando il tooltip è aperto.
+
 ## Elementi correlati
 
 - `dropdown`: fornisce apertura, chiusura e posizionamento del tooltip.

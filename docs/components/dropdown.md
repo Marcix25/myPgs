@@ -19,6 +19,16 @@ Componente a comparsa che associa un controllo a un contenuto posizionato rispet
 
 - `open`: indica che il dropdown è aperto e che il contenuto è visibile.
 
+## API JavaScript
+
+- `pgs.dropdown.init(root)`: inizializza i dropdown non ancora registrati dentro Document o Element indicato.
+- `pgs.dropdown.api(element)`: restituisce l'istanza associata a un root dropdown inizializzato.
+- `instance.open()`: apre il dropdown, chiudendo eventuali altri dropdown aperti.
+- `instance.close()`: chiude il dropdown corrente.
+- `instance.toggle()`: inverte lo stato aperto o chiuso.
+- `instance.refresh()`: reinizializza il contesto e ricalcola il posizionamento del contenuto.
+- `instance.isOpen()`: restituisce true quando il dropdown è aperto.
+
 ## Elementi correlati
 
 - `flexRow`: dispone i diversi esempi di posizionamento sulla stessa riga flessibile.

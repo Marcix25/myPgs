@@ -486,17 +486,17 @@
     }
 }
 
-//== formError
-@mixin formError() {
+//== formValidate
+@mixin formValidate() {
 
     //=== ERROR
-    &[data-form-status="error"] {
-        [data-form-field-status="error"] {
+    &[pgs-option~="error"] {
+        [pgs-option~="error"] {
             &:not([type=checkbox], [type=radio]) {
                 outline: solid 3px var(--color-error) !important;
 
                 &::before {
-                    content: "Questo campo è obbligatorio";
+                    content: "This field is required";
                     color: var(--color-error);
                     font-weight: 500;
                     font-size: 1.7rem;
@@ -507,7 +507,7 @@
         // button[type=submit] {
         //     --button-background: var(--color-error);
         // }
-        label:has(+[data-form-field-status="error"], [data-form-field-status="error"]) {
+        label:has(+[pgs-option~="error"], [pgs-option~="error"]) {
             &:has(input[type=checkbox]) {
                 background-color: var(--color-error) !important;
                 padding: 6px;
@@ -516,7 +516,7 @@
             }
         }
 
-        fieldset:has(input[type=radio][data-form-field-status="error"]) {
+        fieldset:has(input[type=radio][pgs-option~="error"]) {
             legend {
                 --label-background: var(--color-error) !important;
             }

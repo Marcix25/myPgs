@@ -1,7 +1,6 @@
 /*!*****************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./assets/scss/index.scss ***!
   \*****************************************************************************************************************/
-@charset "UTF-8";
 /*
 |--------------------------------------------------------------------------
 | Base
@@ -24,8 +23,8 @@
   --text-shadow: 0px 0px 50px #000000;
   --backdrop: #0000003e;
   --blur: blur(20px);
-  --page-top: calc(var(--heightOfHeader) + (var(--gap-elements)*2));
-  --page-topScroll: calc(var(--heightOfHeaderScroll) + (var(--gap-elements)*2));
+  --page-top: calc(var(--heightOfHeader) + var(--heightOfHeader));
+  --page-topScroll: calc(var(--heightOfHeaderScroll) + var(--heightOfHeader));
   --page-width: 1280px;
   --page-space: clamp(var(--padding-page), calc((100% - var(--section-width)) / 2 + var(--padding-page)), 100%);
   --gap-texts: 1.0rem;
@@ -107,14 +106,14 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  scroll-margin-top: calc(var(--heightOfHeader) + 5vh);
+  scroll-margin-top: var(--page-topScroll);
 }
 
 [pgs~=htmlBase] * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  scroll-margin-top: calc(var(--heightOfHeader) + 5vh);
+  scroll-margin-top: var(--page-topScroll);
 }
 
 [pgs~=htmlBase]:root,
@@ -5024,22 +5023,22 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   background-color: var(--color-primary);
   color: var(--color-white);
 }
-[pgs~=initP] [pgs~=formError][data-form-status=error] [data-form-field-status=error]:not([type=checkbox], [type=radio]) {
+[pgs~=initP] [pgs~=formValidate][pgs-option~=error] [pgs-option~=error]:not([type=checkbox], [type=radio]) {
   outline: solid 3px var(--color-error) !important;
 }
-[pgs~=initP] [pgs~=formError][data-form-status=error] [data-form-field-status=error]:not([type=checkbox], [type=radio])::before {
-  content: "Questo campo è obbligatorio";
+[pgs~=initP] [pgs~=formValidate][pgs-option~=error] [pgs-option~=error]:not([type=checkbox], [type=radio])::before {
+  content: "This field is required";
   color: var(--color-error);
   font-weight: 500;
   font-size: 1.7rem;
 }
-[pgs~=initP] [pgs~=formError][data-form-status=error] label:has(+ [data-form-field-status=error], [data-form-field-status=error]):has(input[type=checkbox]) {
+[pgs~=initP] [pgs~=formValidate][pgs-option~=error] label:has(+ [pgs-option~=error], [pgs-option~=error]):has(input[type=checkbox]) {
   background-color: var(--color-error) !important;
   padding: 6px;
   margin-left: -6px;
   border-radius: 10px;
 }
-[pgs~=initP] [pgs~=formError][data-form-status=error] fieldset:has(input[type=radio][data-form-field-status=error]) legend {
+[pgs~=initP] [pgs~=formValidate][pgs-option~=error] fieldset:has(input[type=radio][pgs-option~=error]) legend {
   --label-background: var(--color-error) !important;
 }
 [pgs~=initP] [pgs~=menu] ul {
@@ -6349,8 +6348,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   border-radius: 50%;
   background: currentColor;
 }
-[pgs~=initP] [pgs~=notification],
-[pgs~=initP] [pgs~=toast] {
+[pgs~=initP] [pgs~=notification] {
   display: flex;
   flex-direction: column;
   gap: var(--gap-texts);
@@ -6360,8 +6358,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   isolation: isolate;
   max-height: 80vh;
 }
-[pgs~=initP] [pgs~=notification] [pgs~=notification-element],
-[pgs~=initP] [pgs~=toast] [pgs~=notification-element] {
+[pgs~=initP] [pgs~=notification] [pgs~=notification-element] {
   --notification-background: var(--color-box);
   --notification-background-timer: color-mix(in srgb, var(--color-box) 95%, var(--color-black) 5%);
   --notification-color: unset;
@@ -6386,22 +6383,18 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   position: relative;
 }
 @media (max-width: 430px) {
-  [pgs~=initP] [pgs~=notification] [pgs~=notification-element],
-  [pgs~=initP] [pgs~=toast] [pgs~=notification-element] {
+  [pgs~=initP] [pgs~=notification] [pgs~=notification-element] {
     padding: calc(var(--padding) / 1.5);
   }
 }
-[pgs~=initP] [pgs~=notification] [pgs~=notification-element] [pgs~=notification-element-title],
-[pgs~=initP] [pgs~=toast] [pgs~=notification-element] [pgs~=notification-element-title] {
+[pgs~=initP] [pgs~=notification] [pgs~=notification-element] [pgs~=notification-element-title] {
   font-weight: 700;
 }
-[pgs~=initP] [pgs~=notification] [pgs~=notification-element] [pgs~=notification-element-content],
-[pgs~=initP] [pgs~=toast] [pgs~=notification-element] [pgs~=notification-element-content] {
+[pgs~=initP] [pgs~=notification] [pgs~=notification-element] [pgs~=notification-element-content] {
   font-weight: 400;
   font-size: 1.4rem;
 }
-[pgs~=initP] [pgs~=notification] [pgs~=notification-element]::before,
-[pgs~=initP] [pgs~=toast] [pgs~=notification-element]::before {
+[pgs~=initP] [pgs~=notification] [pgs~=notification-element]::before {
   content: "";
   width: 0%;
   height: 100%;
@@ -6430,9 +6423,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   }
 }
 [pgs~=initP] [pgs~=notification] [pgs~=notification-element] p,
-[pgs~=initP] [pgs~=notification] [pgs~=notification-element] > i,
-[pgs~=initP] [pgs~=toast] [pgs~=notification-element] p,
-[pgs~=initP] [pgs~=toast] [pgs~=notification-element] > i {
+[pgs~=initP] [pgs~=notification] [pgs~=notification-element] > i {
   --fa-primary-color: var(--notification-shadow-color);
   --fa-secondary-color: color-mix(in srgb, var(--notification-shadow-color) 50%, var(--color-white) 50%);
   color: var(--notification-color);
@@ -6441,14 +6432,11 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   line-height: unset;
 }
 [pgs~=initP] [pgs~=notification] [pgs~=notification-element] p:is(i),
-[pgs~=initP] [pgs~=notification] [pgs~=notification-element] > i:is(i),
-[pgs~=initP] [pgs~=toast] [pgs~=notification-element] p:is(i),
-[pgs~=initP] [pgs~=toast] [pgs~=notification-element] > i:is(i) {
+[pgs~=initP] [pgs~=notification] [pgs~=notification-element] > i:is(i) {
   color: var(--notification-shadow-color);
   font-size: 2.5rem;
 }
-[pgs~=initP] [pgs~=notification] [pgs~=notification-element] button,
-[pgs~=initP] [pgs~=toast] [pgs~=notification-element] button {
+[pgs~=initP] [pgs~=notification] [pgs~=notification-element] button {
   opacity: 0;
   position: absolute;
   right: 2px;
@@ -6456,61 +6444,46 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   scale: 0.75;
   z-index: 1;
 }
-[pgs~=initP] [pgs~=notification] [pgs~=notification-element] button:focus,
-[pgs~=initP] [pgs~=toast] [pgs~=notification-element] button:focus {
+[pgs~=initP] [pgs~=notification] [pgs~=notification-element] button:focus {
   opacity: 1;
 }
-[pgs~=initP] [pgs~=notification] [pgs~=notification-element]:is(a),
-[pgs~=initP] [pgs~=toast] [pgs~=notification-element]:is(a) {
+[pgs~=initP] [pgs~=notification] [pgs~=notification-element]:is(a) {
   border-color: var(--color-primary-soft);
   border: var(--border);
 }
-[pgs~=initP] [pgs~=notification] [pgs~=notification-element]:is(a):hover,
-[pgs~=initP] [pgs~=toast] [pgs~=notification-element]:is(a):hover {
+[pgs~=initP] [pgs~=notification] [pgs~=notification-element]:is(a):hover {
   background-color: var(--color-white);
   text-decoration: none;
   color: var(--color-black);
 }
-[pgs~=initP] [pgs~=notification] [pgs~=notification-element]:focus-visible button, [pgs~=initP] [pgs~=notification] [pgs~=notification-element]:hover button,
-[pgs~=initP] [pgs~=toast] [pgs~=notification-element]:focus-visible button,
-[pgs~=initP] [pgs~=toast] [pgs~=notification-element]:hover button {
+[pgs~=initP] [pgs~=notification] [pgs~=notification-element]:focus-visible button, [pgs~=initP] [pgs~=notification] [pgs~=notification-element]:hover button {
   opacity: 1;
 }
-[pgs~=initP] [pgs~=notification] [pgs-state~=success],
-[pgs~=initP] [pgs~=toast] [pgs-state~=success] {
+[pgs~=initP] [pgs~=notification] [pgs-state~=success] {
   --notification-background: var(--color-success-background);
   --notification-background-timer: color-mix(in srgb, var(--color-success-background) 70%, var(--color-white) 30%);
   --notification-shadow-color: var(--color-success);
 }
-[pgs~=initP] [pgs~=notification] [pgs-state~=error],
-[pgs~=initP] [pgs~=toast] [pgs-state~=error] {
+[pgs~=initP] [pgs~=notification] [pgs-state~=error] {
   --notification-background: var(--color-error-background);
   --notification-background-timer: color-mix(in srgb, var(--color-error-background) 70%, var(--color-white) 30%);
   --notification-shadow-color: var(--color-error);
 }
-[pgs~=initP] [pgs~=notification] [pgs-state~=warning],
-[pgs~=initP] [pgs~=toast] [pgs-state~=warning] {
+[pgs~=initP] [pgs~=notification] [pgs-state~=warning] {
   --notification-background: var(--color-warning-background);
   --notification-background-timer: color-mix(in srgb, var(--color-warning-background) 70%, var(--color-white) 30%);
   --notification-shadow-color: var(--color-warning);
 }
-[pgs~=initP] [pgs~=notification] [pgs-state~=info],
-[pgs~=initP] [pgs~=toast] [pgs-state~=info] {
+[pgs~=initP] [pgs~=notification] [pgs-state~=info] {
   --notification-background: var(--color-box);
 }
-[pgs~=initP] [pgs~=notification] {
-  top: calc(var(--heightOfHeader) + 10px);
-  right: 10px;
+[pgs~=initP] [pgs~=notification]:not([pgs-option~=toast]) {
+  top: calc(var(--heightOfHeaderScroll) + 1rem);
+  right: 1rem;
 }
-[pgs~=initP] body:has(header[data-header-scroll=true]) [pgs~=notification] {
-  top: 0;
-}
-[pgs~=initP] [pgs~=toast] {
+[pgs~=initP] [pgs~=notification][pgs-option~=toast] {
   inset-inline: 0;
-  top: calc(var(--heightOfHeader) + 10px);
-}
-[pgs~=initP] body:has(header[data-header-scroll=true]) [pgs~=toast] {
-  top: 10px;
+  top: calc(var(--heightOfHeaderScroll) + 1rem);
 }
 [pgs~=initP] [pgs~=tooltip][pgs~=dropdown] {
   --dropdown-position-right: center;

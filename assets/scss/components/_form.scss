@@ -50,6 +50,6 @@
     @include form();
 }
 
-[pgs~=formError] {
-    @include formError();
+[pgs~=formValidate] {
+    @include formValidate();
 }

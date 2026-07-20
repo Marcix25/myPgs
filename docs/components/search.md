@@ -23,6 +23,25 @@ Ricerca componibile con suggerimenti asincroni o locali, navigazione da tastiera
 - `error`: sul root search indica che il recupero dei suggerimenti è fallito.
 - `selected`: sul risultato generato indica l'elemento attivo durante la navigazione.
 
+## API JavaScript
+
+- `pgs.search.init(root)`: inizializza le ricerche non ancora registrate dentro Document o Element indicato.
+- `pgs.search.api(element)`: restituisce l'istanza associata a un form search inizializzato.
+- `instance.configure(options)`: aggiorna minLength, debounce, limit, submitOnSelect, searchOnFocus, source e onSelect e restituisce l'istanza.
+- `instance.setSource(source)`: configura una sorgente array o funzione asincrona per i suggerimenti.
+- `instance.search(query)`: esegue subito la ricerca e restituisce una Promise con i suggerimenti normalizzati.
+- `instance.open()`: apre la lista quando sono disponibili risultati.
+- `instance.close()`: chiude la lista e azzera la selezione attiva.
+- `instance.clear()`: rimuove risultati e selezione e chiude la lista.
+- `instance.cancel()`: annulla debounce e richiesta attiva.
+- `instance.select(index, submit)`: seleziona un risultato, emette pgs:search:select e può inviare il form.
+- `instance.refresh()`: ripete la ricerca usando il valore corrente dell'input.
+- `instance.destroy()`: rimuove listener, annulla le operazioni e scollega l'istanza.
+- `instance.items()`: restituisce una copia dei suggerimenti correnti.
+- `instance.isOpen()`: restituisce true quando la lista dei suggerimenti è aperta.
+- `instance.isLoading()`: restituisce true durante il caricamento della sorgente.
+- `instance.setActiveIndex(index)`: imposta il suggerimento attivo e aggiorna selezione e attributi ARIA.
+
 ## Elementi correlati
 
 - `buttonNohover`: applica al form l'aspetto compatto condiviso con i controlli button.
@@ -35,7 +54,7 @@ Ricerca componibile con suggerimenti asincroni o locali, navigazione da tastiera
 
 ## Output
 
-Form di ricerca autonomo e variante mobile integrata in una modal.
+Form di ricerca autonomo, variante mobile integrata in una modal e script di esempio con sorgente locale.
 
 ## Esempio
 
@@ -71,4 +90,28 @@ Form di ricerca autonomo e variante mobile integrata in una modal.
         </div>
     </dialog>
 </div>
+
+<script type="module">
+    import { pgs } from "mypgs";
+
+    const components = [
+        { label: "Accordion", value: "/componenti/accordion", data: { category: "component" } },
+        { label: "Dropdown", value: "/componenti/dropdown", data: { category: "component" } },
+        { label: "Modal", value: "/componenti/modal", data: { category: "component" } },
+        { label: "Search", value: "/componenti/search", data: { category: "component" } },
+        { label: "Page Shell", value: "/layout/page-shell", data: { category: "layout" } },
+    ];
+
+    pgs(document).querySelectorAll("search").forEach(search => {
+        pgs.search.api(search)?.configure({
+            minLength: 1,
+            debounce: 150,
+            limit: 5,
+            source: components,
+            onSelect: ({ item, value }) => {
+                console.log(`Selezionato ${item.label}: ${value}`);
+            },
+        });
+    });
+</script>
 ```

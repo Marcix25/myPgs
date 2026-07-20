@@ -5,14 +5,14 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    scroll-margin-top: calc(var(--heightOfHeader) + 5vh);
+    scroll-margin-top: var(--page-topScroll);
 
     // Reset properties 
     * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        scroll-margin-top: calc(var(--heightOfHeader) + 5vh);
+        scroll-margin-top: var(--page-topScroll);
     }
 
     &:root,

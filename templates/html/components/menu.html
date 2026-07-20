@@ -1,3 +1,4 @@
+<!--
 /**
  * @title Menu
  * @description Navigazione orizzontale o verticale che trasforma le voci con sottomenu in dropdown accessibili e inizializzati automaticamente.
@@ -15,6 +16,11 @@
  * @pgs-state
  * - open: indica il sottomenu trasformato in dropdown attualmente aperto.
  *
+ * @api
+ * - pgs.menu.init(root): inizializza i menu non ancora registrati dentro Document o Element indicato e prepara i sottomenu.
+ * - pgs.menu.api(element): restituisce l'istanza associata a un root menu inizializzato.
+ * - instance.refresh(): riesegue l'inizializzazione nel contenitore del menu e restituisce l'istanza.
+ *
  * @related
  * - dropdown: viene aggiunto dinamicamente alle voci che contengono una lista annidata.
  * - dropdown-button: identifica il controllo dinamico del sottomenu.
@@ -23,6 +29,7 @@
  *
  * @return Due strutture nav complete per le varianti orizzontale e verticale del menu.
  */
+-->
 
 <nav pgs="menu" pgs-option="horizontal" aria-label="Menu orizzontale">
     <ul>

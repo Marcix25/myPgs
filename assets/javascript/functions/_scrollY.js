@@ -1,4 +1,4 @@
-export function PGS_scrollHorizontal(querySelector, dataSpeed) {
+export function PGS_scrollHorizontal(element, speed) {
     // Se hai più contenitori, selezionali tutti:
     // Semplice "singleton" per stimare se la sorgente è trackpad
     const TrackpadDetector = (() => {
@@ -40,10 +40,7 @@ export function PGS_scrollHorizontal(querySelector, dataSpeed) {
 
     //= Scorrimento orizzontale con rotella (evita il trackpad)
     
-    let el = querySelector
-    el.addEventListener('wheel', (e) => {
-        const speed = dataSpeed;
-
+    const onWheel = (e) => {
         //== lascia lo scroll naturale del trackpad
         if (TrackpadDetector.update(e)) return;
 
@@ -54,11 +51,11 @@ export function PGS_scrollHorizontal(querySelector, dataSpeed) {
         //== Converti delta in px per lo shift orizzontale
         let delta = e.deltaY;
         if (e.deltaMode === 1) delta *= 16;
-        else if (e.deltaMode === 2) delta *= el.clientHeight;
+        else if (e.deltaMode === 2) delta *= element.clientHeight;
 
         //== Verifica se il contenitore può ancora scrollare orizzontalmente
-        const atStart = el.scrollLeft <= 0;
-        const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 1;
+        const atStart = element.scrollLeft <= 0;
+        const atEnd = element.scrollLeft + element.clientWidth >= element.scrollWidth - 1;
         const scrollingRight = delta > 0;
         const scrollingLeft = delta < 0;
         const canScrollHoriz =
@@ -72,6 +69,9 @@ export function PGS_scrollHorizontal(querySelector, dataSpeed) {
         e.preventDefault();
 
         //== rotella giù => destra
-        el.scrollLeft += delta * speed;
-    }, { passive: false });
+        element.scrollLeft += delta * speed;
+    };
+
+    element.addEventListener('wheel', onWheel, { passive: false });
+    return () => element.removeEventListener('wheel', onWheel);
 }

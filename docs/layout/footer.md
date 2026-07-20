@@ -12,7 +12,6 @@ Piè di pagina completo con controllo tema, area di brand, navigazione, contenut
 - `footer-brand`: identifica il gruppo dedicato al marchio.
 - `footer-brand-motto`: identifica il testo descrittivo associato al marchio.
 - `footer-content`: identifica una colonna informativa del footer.
-- `menuFooter`: identifica la navigazione specifica del piè di pagina.
 - `footer-legal`: identifica la sezione inferiore dedicata alle informazioni legali.
 - `footer-legal-content`: identifica il contenuto della sezione legale.
 
@@ -49,7 +48,7 @@ Struttura HTML completa del footer con brand, menu e area legale.
 
             <div pgs="footer-content">
                 <h2>Menu</h2>
-                <nav pgs="menuFooter" aria-label="Menu footer">
+                <nav aria-label="Menu footer">
                     <ul>
                         <li><a href="/">Home</a></li>
                         <li><a href="/contatti">Contatti</a></li>

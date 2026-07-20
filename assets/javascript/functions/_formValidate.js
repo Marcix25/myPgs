@@ -1,40 +1,43 @@
+import { pgs } from "../_pgs.js";
 import { PGS_notification } from "../components/_notifications.js";
 
 
 export class PGS_formValidate {
-    constructor({ form } = {}) {
+    #message = {};
+    #insideValidatedCallback = false;
+
+    constructor(form, options = {}) {
+        if (!options || typeof options !== "object" || Array.isArray(options)) {
+            throw new TypeError("options must be an object");
+        }
+
         this.container = form;
         this._rules = [];
-        // pgs(this.container).add("formError"); 
+        this.message = {
+            fieldError: "Please complete this field.",
+            fieldsError: "Please complete all required fields.",
+            success: "Submitted successfully."
+        };
+
+        if (options.message !== undefined) this.message = options.message;
+        this.container?.setAttribute("novalidate", "");
     }
 
-    //+ ADD
-    addError(field, i) {
-        field.setAttribute("data-form-field-status", "error");
-        if (i == 0) field.scrollIntoView();
-
-        let message = field.getAttribute("data-form-field-message");
-
-        if (i == 0 && message) PGS_notification.toast.error(message);
-        else if (i == 0) PGS_notification.toast.error("Compila tutti i campi!");
+    get message() {
+        return { ...this.#message };
     }
 
-    //+ REMOVE
-    removeError(field) {
-        field.setAttribute("data-form-field-status", "");
+    set message(value) {
+        if (!value || typeof value !== "object" || Array.isArray(value)) {
+            throw new TypeError("message must be an object");
+        }
+
+        this.#message = { ...this.#message, ...value };
     }
 
-    #removeErrorOnClick(allFields) {
-        allFields.forEach(element => {
-            element.addEventListener("click", e => this.removeError(element))
-        });
-    }
-
-    // + --------------------------
-    // + Helpers                   
-    // + --------------------------
-    help = {
-        // supporta sia required nativo, sia data-required="true"
+    // - Helpers
+    #help = {
+        // supporta sia required nativo
         isRequired(field) {
             if (!field) return false;
 
@@ -77,26 +80,26 @@ export class PGS_formValidate {
             if (input.type === "hidden") return false;
             if (input.type === "checkbox" || input.type === "radio" || input.type === "file") return false;
 
-            // valida solo se required (o data-required="true")
-            if (!this.help.isRequired(input)) return false;
+            // valida solo se required
+            if (!this.#help.isRequired(input)) return false;
 
-            return this.help.isEmptyTextLike(input);
+            return this.#help.isEmptyTextLike(input);
         });
 
         //== TEXTAREA 
         // required vuote
         const textareas = Array.from(container.querySelectorAll("textarea")).filter((ta) => {
             if (ta.disabled) return false;
-            if (!this.help.isRequired(ta)) return false;
-            return this.help.isEmptyTextLike(ta);
+            if (!this.#help.isRequired(ta)) return false;
+            return this.#help.isEmptyTextLike(ta);
         });
 
         //== SELECT 
         // required vuoti
         const selects = Array.from(container.querySelectorAll("select")).filter((sel) => {
             if (sel.disabled) return false;
-            if (!this.help.isRequired(sel)) return false;
-            return this.help.isEmptySelect(sel);
+            if (!this.#help.isRequired(sel)) return false;
+            return this.#help.isEmptySelect(sel);
         });
 
         //== RADIO 
@@ -104,8 +107,8 @@ export class PGS_formValidate {
         const radios = Array.from(container.querySelectorAll('input[type="radio"]')).filter((r) => !r.disabled);
         const requiredRadioGroups = new Map(); // name -> [elements]
         for (const r of radios) {
-            if (!this.help.isRequired(r)) continue;
-            const name = this.help.getGroupName(r);
+            if (!this.#help.isRequired(r)) continue;
+            const name = this.#help.getGroupName(r);
             if (!name) continue;
             if (!requiredRadioGroups.has(name)) requiredRadioGroups.set(name, []);
             requiredRadioGroups.get(name).push(r);
@@ -126,9 +129,9 @@ export class PGS_formValidate {
         const requiredCheckboxSingles = [];
         const requiredCheckboxGroups = new Map(); // name -> [elements]
         for (const c of checkboxes) {
-            if (!this.help.isRequired(c)) continue;
+            if (!this.#help.isRequired(c)) continue;
 
-            const name = this.help.getGroupName(c);
+            const name = this.#help.getGroupName(c);
             if (!name) {
                 // checkbox senza name: trattala come singola required
                 if (!c.checked) requiredCheckboxSingles.push(c);
@@ -151,7 +154,7 @@ export class PGS_formValidate {
         // required: se vuoi includerlo
         const fileInputs = Array.from(container.querySelectorAll('input[type="file"]')).filter((f) => {
             if (f.disabled) return false;
-            if (!this.help.isRequired(f)) return false;
+            if (!this.#help.isRequired(f)) return false;
             return !(f.files && f.files.length > 0);
         });
 
@@ -167,12 +170,37 @@ export class PGS_formValidate {
             ruleInvalidFields
         ];
 
-        return invalidFields.flat();
+        return [...new Set(invalidFields.flat())];
     }
 
-    // + -------------------------
-    // + VALIDATE                 
-    // + -------------------------
+    //+ ADD
+    addFieldError(field, i = 0, total = 1) {
+        pgs(field).option.add("error");
+        if (i === 0) field.scrollIntoView();
+
+        if (i !== 0) return;
+
+        if (total > 1) {
+            PGS_notification.toast.error(this.message.fieldsError);
+            return;
+        }
+
+        const message = pgs(field).option.getValueBrackets("message");
+        PGS_notification.toast.error(message || this.message.fieldError);
+    }
+
+    //+ REMOVE
+    removeFieldError(field) {
+        pgs(field).option.remove("error");
+    }
+
+    // + SUCCESS
+    success(text = this.message.success) {
+        if (this.#insideValidatedCallback || this.validate() === true) PGS_notification.toast.success(text)
+    }
+
+
+    // + VALIDATE
     validate() {
         const invalid = this.#inputValue(this.container);
         const allFields = this.container.querySelectorAll("input, textarea, select")
@@ -183,34 +211,50 @@ export class PGS_formValidate {
 
         //== per radio/checkbox in gruppo: 
         // rimuovi l'errore solo sull'elemento che lo ospita (qui: se presente)
-        for (const el of allFields) { if (!invalid.includes(el)) this.removeError(el); }
+        for (const el of allFields) { if (!invalid.includes(el)) this.removeFieldError(el); }
 
         //== aggiungo errori dove serve
-        invalid.forEach((el, i) => this.addError(el, i))
+        invalid.forEach((el, i) => this.addFieldError(el, i, invalid.length))
 
         //== rimuove l'errore al click
-        this.#removeErrorOnClick(allFields)
+        allFields.forEach(element => element.addEventListener("click", e => this.removeFieldError(element)));
 
         //== status form
         if (invalid.length) {
-            this.container.setAttribute("data-form-status", "error");
+            pgs(this.container).option.remove("success").add("error");
             return false;
         } else {
-            this.container.setAttribute("data-form-status", "success");
+            pgs(this.container).option.remove("error").add("success");
             return true;
         }
     }
 
-    ifSuccess(text = "Inviato con successo") {
-        if (this.validate() == true) PGS_notification.toast.success(text)
+    // + EVENT VALIDATOR
+    validator(callback, eventName = "submit") {
+        if (typeof callback !== "function") throw new TypeError("callback must be a function");
+        if (typeof eventName !== "string" || !eventName.trim()) throw new TypeError("eventName must be a non-empty string");
+
+        this.container.addEventListener(eventName, event => {
+            event.preventDefault();
+            if (!this.validate()) return;
+
+            this.#insideValidatedCallback = true;
+
+            try {
+                this.success();
+                callback(event);
+            } finally {
+                this.#insideValidatedCallback = false;
+            }
+        });
+
+        return this;
     }
 
-    // + -------------------------
-    // + ADD RULE                 
-    // + -------------------------
-    addNewRule(container) {
-        if (typeof container !== "function") throw new Error("Rule must be a function");
-        this._rules.push(container);
+    // + ADD RULE
+    addNewRule(rule) {
+        if (typeof rule !== "function") throw new Error("Rule must be a function");
+        this._rules.push(rule);
         return this;
     }
 }

@@ -24,10 +24,12 @@ const fn_notification = {
     },
 
     _getData(root) {
+        const rawNotification = pgs(root).option.getValueBrackets("notification") || "{}";
+
         try {
-            return JSON.parse(root.dataset.notification || "{}");
+            return JSON.parse(rawNotification);
         } catch (error) {
-            console.warn("PGS notification: dati non validi", error);
+            console.warn("PGS notification: configurazione JSON non valida", error);
             return {};
         }
     },
@@ -46,13 +48,21 @@ const fn_notification = {
         `;
     },
 
-    initNotification(type, containerToken, icon, text, timeout, methodDelete = "replace", link = null) {
-        let containerNotification = pgs(document).querySelector(containerToken);
+    _getContainer(containerType) {
+        return Array.from(pgs(document).querySelectorAll("notification")).find(container => {
+            const isToast = pgs(container).option.contains("toast");
+            return containerType === "toast" ? isToast : !isToast;
+        });
+    },
+
+    initNotification(type, containerType, icon, text, timeout, methodDelete = "replace", link = null) {
+        let containerNotification = this._getContainer(containerType);
 
         //== Create Container
         if (!containerNotification) {
             const newContainer = document.createElement("div");
-            pgs(newContainer).add(containerToken);
+            pgs(newContainer).add("notification");
+            if (containerType === "toast") pgs(newContainer).option.add("toast");
             newContainer.setAttribute("aria-live", "polite");
             newContainer.setAttribute("aria-relevant", "additions");
             document.body.appendChild(newContainer);
@@ -98,8 +108,8 @@ const fn_notification = {
         });
     },
 
-    deleteAll(containerToken) {
-        let containerNotification = pgs(document).querySelector(containerToken);
+    deleteAll(containerType) {
+        let containerNotification = this._getContainer(containerType);
         if (containerNotification) containerNotification.innerHTML = "";
     },
 
@@ -133,8 +143,8 @@ const fn_notification = {
     }
 };
 
-//# EXPORT 
-export function PGS_notificationTrigger_init(root = document) {
+//# TRIGGER
+function PGS_notificationTrigger_init(root = document) {
     return fn_notification.trigger(root);
 }
 

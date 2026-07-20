@@ -381,7 +381,7 @@ document.addEventListener("pointerdown", event => {
 
 PGS_search_init();
 
-export function PGS_search_api(selector) {
+function PGS_search_api(selector) {
     return API.get(selector);
 }
 

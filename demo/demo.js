@@ -3,6 +3,7 @@
 //= demo Renderer HTML
 const demoRenderer = {
     templateFiles: [
+        "components/form.html",
         "components/search.html",
         "components/summary.html",
         "components/menu.html",
@@ -16,9 +17,7 @@ const demoRenderer = {
         "components/card.html",
         "components/dropdown.html",
         "components/tooltip.html",
-        "components/form.html",
         "components/logo.html",
-
         "components/slides.html",
         "components/steps.html",
         "components/table.html",
@@ -35,6 +34,10 @@ const demoRenderer = {
 
     getTemplateTitle(path) {
         return path.replace(".html", "").replace("/", " / ");
+    },
+
+    stripTemplateDocumentation(html) {
+        return html.replace(/^\uFEFF?<!--[\t\r\n ]*\/\*\*[\s\S]*?\*\/[\t\r\n ]*-->[\t\r\n ]*/, "");
     },
 
     renderSourceTemplate(section, html) {
@@ -68,7 +71,7 @@ const demoRenderer = {
     async loadTemplate(path) {
         const response = await fetch(`../templates/html/${path}`);
         if (!response.ok) throw new Error(`${path}: ${response.status}`);
-        return response.text();
+        return this.stripTemplateDocumentation(await response.text());
     },
 
     loadPgsJavascript() {
@@ -98,7 +101,7 @@ const demoRenderer = {
                 } catch (error) {
                     const message = document.createElement("p");
                     message.textContent = `Template non caricato: ${error.message}`;
-                    layoutRoot.append(message);
+                    (isHeader ? BEEFORE : AFTER).append(message);
                 }
                 continue;
             }
@@ -139,6 +142,7 @@ const demoRenderer = {
             //+ ADD FUNCTION
             await this.loadPgsJavascript();
             configureSearchDemo();
+            configureFormDemo();
         } catch (error) {
             console.error("Demo PGS non inizializzata.", error);
         }
@@ -147,10 +151,12 @@ const demoRenderer = {
 
 //= Search Demo
 function configureSearchDemo() {
-    if (!pgs.search) return;
+    const pgsApi = globalThis.pgs;
+    const section = document.querySelector('[data-template="components/search.html"]');
+    if (!pgsApi?.search || !section) return;
 
-    pgs(document).querySelectorAll("search").forEach(search => {
-        pgs.search.api(search)?.configure({
+    pgsApi(section).querySelectorAll("search").forEach(search => {
+        pgsApi.search.api(search)?.configure({
             minLength: 2,
             debounce: 250,
             source: async ({ query, signal, limit }) => {
@@ -193,6 +199,42 @@ function configureSearchDemo() {
     link.textContent = "Wikipedia OpenSearch";
     note.append(link, ". Prova a scrivere prodotti di o come fare.");
     section.append(note);
+}
+
+//= Form Demo
+function configureFormDemo() {
+    const pgsApi = globalThis.pgs;
+    const section = document.querySelector('[data-template="components/form.html"]');
+    const form = section?.querySelector('[pgs~="form"]');
+    if (!form) return;
+
+    const password = form.querySelector('input[name="password"]');
+    const confirmPassword = form.querySelector('input[name="confirmPassword"]');
+    if (!password || !confirmPassword) return;
+
+    const formValidate = new pgsApi.formValidate(form, {
+        message: {
+            fieldError: "Completa questo campo",
+            fieldsError: "Completa tutti i campi obbligatori",
+            success: "Inviato con successo"
+        }
+    });
+
+    //== new roules
+    formValidate.addNewRule(() => {
+        if (password.value && confirmPassword.value && password.value !== confirmPassword.value) {
+            pgsApi(confirmPassword).option.setValueBrackets("message", "Le password non coincidono");
+            return [confirmPassword, password];
+        }
+    });
+
+    //== validate
+    formValidate.validator(event => {
+        const values = Object.fromEntries(new FormData(form));
+
+        //// Sostituisci questo log con l'invio dei dati al tuo backend.
+        console.log(values);
+    }, "submit");
 }
 
 demoRenderer.boot();

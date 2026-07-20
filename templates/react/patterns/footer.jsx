@@ -16,7 +16,7 @@ export default function Footer() {
 
                     <div pgs="footer-content">
                         <h2>Menu</h2>
-                        <nav pgs="menuFooter" aria-label="Menu footer">
+                        <nav aria-label="Menu footer">
                             <ul>
                                 <li><a href="/">Home</a></li>
                                 <li><a href="/contatti">Contatti</a></li>

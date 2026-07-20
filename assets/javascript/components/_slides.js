@@ -1,10 +1,16 @@
-import { PGS_scrollHorizontal } from "../functions/_scrollY"
+import { PGS_scrollHorizontal } from "../functions/_scrollY.js";
 const API = new WeakMap();
+
+function getSlides(root) {
+    const slides = root instanceof Element && pgs(root).contains("slides") ? [root] : [];
+    slides.push(...pgs(root).querySelectorAll("slides"));
+    return slides;
+}
 
 class PGS_Slides {
     //- CONSTRUCTOR
-    constructor({ selector, viewRatio = 0.97, optionIntersectionObserver = {}, scrollOptions = {} } = {}) {
-        this.selector = selector;
+    constructor({ element, viewRatio = 0.97, optionIntersectionObserver = {}, scrollOptions = {} } = {}) {
+        this.element = element;
         this.viewRatio = viewRatio;
 
         this.optionIntersectionObserver = {
@@ -21,28 +27,36 @@ class PGS_Slides {
             ...scrollOptions,
         };
 
-        this.container = this.selector ? pgs(this.selector).querySelector("slides-container") : null;
+        this.container = this.element ? pgs(this.element).querySelector("slides-container") : null;
     }
     
     //+ CREATE BUTTON 
     #createButtonsAndDots() {
-        const EL = this.selector
+        const EL = this.element;
 
         //== PULSANTI
-        if (!pgs(EL).querySelector('slides-prec') && !pgs(EL).querySelector('slides-next')) {
+        if (!pgs(EL).querySelector('slides-prec')) {
             EL.insertAdjacentHTML("afterbegin", `<button pgs="slides-prec buttonIcon" type="button" class="precButton" aria-label="slide precedente"> <span> <i class="fa-solid fa-arrow-left"></i></span></button>`);
+        }
+        if (!pgs(EL).querySelector('slides-next')) {
             EL.insertAdjacentHTML("beforeend", `<button pgs="slides-next buttonIcon" type="button" class="nextButton" aria-label="prossima slide"> <span> <i class="fa-solid fa-arrow-right"></i></span></button>`);
         }
 
         //== DOTS
         if (!pgs(EL).querySelector('slides-dots')) {
             EL.insertAdjacentHTML("beforeend", `<div pgs="slides-dots" class="slides-dots"></div>`);
-
-            Array.from(this.container.children).forEach(() => {
-                pgs(EL).querySelector('slides-dots')
-                    .insertAdjacentHTML("beforeend", `<button type="button" class="slide-dot" aria-label="vai alla prossima slide"></button>`);
-            });
         }
+
+        const dotsContainer = pgs(EL).querySelector('slides-dots');
+        while (dotsContainer.children.length < this.container.children.length) {
+            dotsContainer.insertAdjacentHTML("beforeend", `<button type="button" class="slide-dot"></button>`);
+        }
+        while (dotsContainer.children.length > this.container.children.length) {
+            dotsContainer.lastElementChild.remove();
+        }
+        Array.from(dotsContainer.children).forEach((dot, index) => {
+            dot.setAttribute("aria-label", `vai alla slide ${index + 1}`);
+        });
     }
 
     //+ PREV 
@@ -51,7 +65,7 @@ class PGS_Slides {
         let current;
         
 
-        if (pgs(this.selector).option.contains('singleScroll')) current = currents[currents.length - 1];
+        if (pgs(this.element).option.contains('singleScroll')) current = currents[currents.length - 1];
         else current = currents[0];
 
         const prev = current?.previousElementSibling;
@@ -67,19 +81,17 @@ class PGS_Slides {
 
         
         
-        if (pgs(this.selector).option.contains('singleScroll')) current = currents[0];
+        if (pgs(this.element).option.contains('singleScroll')) current = currents[0];
         else current = currents[currents.length - 1];
         
         const next = current?.nextElementSibling;
-        console.log(current, next);
-
         next?.scrollIntoView(this.scrollOptions);
         next?.focus({ preventScroll: true });
     }
 
     //+ GO TO NUMBER SLIDE 
     #goToNumberSlide(index) {
-        this.container.children[index].scrollIntoView(this.scrollOptions)
+        this.container.children[index]?.scrollIntoView(this.scrollOptions);
     }
 
     //+ CALLBACK
@@ -118,8 +130,10 @@ class PGS_Slides {
 
     //= EXECUTE
     execute() {
-        const slides = this.selector;
-        if (!this.container) return
+        const slides = this.element;
+        if (!this.container) return;
+        const eventController = new AbortController();
+        const { signal } = eventController;
 
         //== elements
         this.#createButtonsAndDots();
@@ -131,12 +145,14 @@ class PGS_Slides {
         const notScrollWithMouse = pgs(slides).option.contains('notScrollWithMouse');
 
         //== scroll
-        if (!notScrollWithMouse) PGS_scrollHorizontal(this.container, 5);
+        const removeHorizontalScroll = notScrollWithMouse
+            ? null
+            : PGS_scrollHorizontal(this.container, 5);
 
         //==Listener: DOT, PREC, NEXT
-        dots.forEach((dot, index) => dot.addEventListener("click", e => this.#goToNumberSlide(index)));
-        precButton.addEventListener("click", e => this.#previousSlide(), { passive: true });
-        nextButton.addEventListener("click", e => this.#nextSlide(), { passive: true });
+        dots.forEach((dot, index) => dot.addEventListener("click", () => this.#goToNumberSlide(index), { signal }));
+        precButton.addEventListener("click", () => this.#previousSlide(), { passive: true, signal });
+        nextButton.addEventListener("click", () => this.#nextSlide(), { passive: true, signal });
 
         //== observer
         const observer = new IntersectionObserver(
@@ -146,9 +162,18 @@ class PGS_Slides {
         Array.from(this.container.children).forEach(allLi => observer.observe(allLi));
 
 
+        let api;
+        const destroy = () => {
+            if (API.get(this.element) !== api) return;
+            eventController.abort();
+            observer.disconnect();
+            removeHorizontalScroll?.();
+            API.delete(this.element);
+        };
+
         //- API
-        API.set(this.selector, {
-            element: this.selector,
+        api = {
+            element: this.element,
             container: this.container,
             previous: () => this.#previousSlide(),
             next: () => this.#nextSlide(),
@@ -163,19 +188,28 @@ class PGS_Slides {
                 return last?.classList.contains("view") || false;
             },
             refresh: () => {
-                PGS_slides_init(this.selector.parentNode || document);
-                return API.get(this.selector);
+                if (API.get(this.element) !== api) return API.get(this.element);
+                destroy();
+                const instance = new PGS_Slides({
+                    element: this.element,
+                    viewRatio: this.viewRatio,
+                    optionIntersectionObserver: this.optionIntersectionObserver,
+                    scrollOptions: this.scrollOptions,
+                });
+                instance.execute();
+                return API.get(this.element);
             },
-        });
+        };
+        API.set(this.element, api);
     }
 }
 
 //# INIT 
-export function PGS_slides_init(root = document) {
-    pgs(root).querySelectorAll("slides").forEach(el => {
-        if (API.has(el)) return;
+function PGS_slides_init(root = document) {
+    getSlides(root).forEach(element => {
+        if (API.has(element)) return;
 
-        const instance = new PGS_Slides({ selector: el });
+        const instance = new PGS_Slides({ element });
         instance.execute();
     });
 }
@@ -183,8 +217,8 @@ export function PGS_slides_init(root = document) {
 PGS_slides_init();
 
 //# API 
-export function PGS_slides_api(selector) {
-    return API.get(selector);
+function PGS_slides_api(element) {
+    return API.get(element);
 }
 
 export const PGS_slides = {

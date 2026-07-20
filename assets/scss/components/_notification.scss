@@ -3,34 +3,7 @@
 //= NOTIFICATION GROUP / TRIGGER
 [pgs~="notificationTrigger"] {}
 
-//= NOTIFICATION STYLE
-@mixin notification($position: center) {
-    @if ($position ==center) {
-        inset-inline: 0;
-        top: calc(var(--heightOfHeader) + 10px);
-
-        @at-root body:has(header[data-header-scroll="true"]) #{&} {
-            top: 10px;
-        }
-    }
-
-    @else if($position ==right) {
-        top: calc(var(--heightOfHeader) + 10px);
-        right: 10px;
-
-        @at-root body:has(header[data-header-scroll="true"]) #{&} {
-            top: 0;
-        }
-    }
-
-    @else if($position ==bottom) {
-        bottom: 10px;
-        right: 10px;
-    }
-}
-
-[pgs~="notification"],
-[pgs~="toast"] {
+[pgs~="notification"] {
     display: flex;
     flex-direction: column;
     gap: var(--gap-texts);
@@ -183,10 +156,30 @@
     }
 }
 
-[pgs~="notification"] {
+//= NOTIFICATION STYLE
+@mixin notification($position: center) {
+    $size: 1.0rem;
+
+    @if ($position ==center) {
+        inset-inline: 0;
+        top: calc(var(--heightOfHeaderScroll) + $size);
+    }
+
+    @else if($position ==right) {
+        top: calc(var(--heightOfHeaderScroll) + $size);
+        right: $size;
+    }
+
+    @else if($position ==bottom) {
+        inset-inline: 0;
+        bottom: $size;
+    }
+}
+
+[pgs~="notification"]:not([pgs-option~="toast"]) {
     @include notification(right);
 }
 
-[pgs~="toast"] {
+[pgs~="notification"][pgs-option~="toast"] {
     @include notification(center);
 }

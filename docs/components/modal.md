@@ -25,6 +25,16 @@ Componente che collega un pulsante a un dialog nativo, ne gestisce apertura e ch
 - `left`: sul dialog posiziona e anima il contenuto dal lato sinistro.
 - `right`: sul dialog posiziona e anima il contenuto dal lato destro.
 
+## API JavaScript
+
+- `pgs.modal.init(root)`: inizializza le modali presenti nel Document o Element indicato; il valore predefinito è document.
+- `pgs.modal.api(element)`: restituisce l'istanza associata a un root modal inizializzato.
+- `instance.open()`: apre la finestra se non è già aperta.
+- `instance.close()`: chiude la finestra se è aperta.
+- `instance.toggle()`: apre la finestra oppure la chiude quando è già aperta.
+- `instance.refresh()`: rilegge opzioni e collegamenti della modale, sostituisce listener e observer precedenti e restituisce la nuova API.
+- `instance.isOpen()`: restituisce true quando l'elemento dialog possiede lo stato nativo open.
+
 ## Elementi correlati
 
 - `button`: presenta i controlli di apertura, chiusura e annullamento come pulsanti standard.

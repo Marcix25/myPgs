@@ -15,6 +15,16 @@ Componente che limita inizialmente un testo lungo a tre righe e mostra il contro
 - `overflow`: indica che il contenuto supera l'altezza contratta e richiede il controllo.
 - `open`: indica che tutto il contenuto è espanso e visibile.
 
+## API JavaScript
+
+- `pgs.summary.init(root)`: inizializza i summary non ancora registrati dentro Document o Element indicato.
+- `pgs.summary.api(element)`: restituisce l'istanza associata a un root summary inizializzato.
+- `instance.open()`: espande il contenuto quando supera l'altezza contratta.
+- `instance.close()`: richiude il contenuto alla dimensione prevista.
+- `instance.toggle()`: inverte lo stato espanso o contratto.
+- `instance.refresh()`: ricalcola overflow e altezza conservando lo stato corrente.
+- `instance.isOpen()`: restituisce true quando il contenuto è espanso.
+
 ## Output
 
 Struttura HTML con contenuto espandibile e pulsante sincronizzato tramite ARIA.

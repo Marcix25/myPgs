@@ -1,6 +1,6 @@
 const API = new WeakMap();
 
-export function PGS_steps_init(root = document) {
+function PGS_steps_init(root = document) {
     pgs(root).querySelectorAll("steps").forEach(steps => {
         if (API.has(steps)) return;
 
@@ -43,7 +43,7 @@ export function PGS_steps_init(root = document) {
 PGS_steps_init()
 
 //# API
-export function PGS_steps_api(selector) {
+function PGS_steps_api(selector) {
     return API.get(selector);
 }
 

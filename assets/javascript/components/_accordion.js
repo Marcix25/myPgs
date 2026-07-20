@@ -11,7 +11,7 @@ function directPgsChild(element, token) {
     return Array.from(element.children).find(child => pgs(child).contains(token));
 }
 
-export function PGS_accordion_init(root = document) {
+function PGS_accordion_init(root = document) {
     pgs(root).querySelectorAll("accordion").forEach((accordion) => {
         if (API.has(accordion)) return;
 
@@ -115,7 +115,7 @@ export function PGS_accordion_init(root = document) {
 PGS_accordion_init();
 
 //# API
-export function PGS_accordion_api(selector) {
+function PGS_accordion_api(selector) {
     return API.get(selector);
 }
 

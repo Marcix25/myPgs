@@ -12,6 +12,15 @@ Elenco ordinato di passaggi che presenta numero, contenuto e linea di collegamen
 - `steps-step-content`: identifica il contenuto testuale del passaggio.
 - `steps-step-line`: identifica la linea di collegamento aggiunta dinamicamente a ogni passaggio.
 
+## API JavaScript
+
+- `pgs.steps.init(root)`: inizializza le liste steps non ancora registrate dentro Document o Element indicato.
+- `pgs.steps.api(element)`: restituisce l'istanza associata a un root steps inizializzato.
+- `instance.steps()`: restituisce un array con tutti gli elementi steps-step.
+- `instance.getStep(index)`: restituisce lo step corrispondente all'indice indicato.
+- `instance.getTotal()`: restituisce il numero totale di step.
+- `instance.refresh()`: reinizializza la lista, ricrea gli elementi mancanti e restituisce la nuova istanza.
+
 ## Output
 
 Lista ordinata HTML di passaggi numerati completata dal modulo JavaScript.

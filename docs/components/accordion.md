@@ -14,10 +14,19 @@ Componente interattivo che espande un pannello alla volta, sincronizzando visibi
 
 - `open`: indica l'elemento accordion attualmente aperto e visibile.
 
+## API JavaScript
+
+- `pgs.accordion.init(root)`: inizializza gli accordion non ancora registrati dentro Document o Element indicato.
+- `pgs.accordion.api(element)`: restituisce l'istanza associata a un root accordion inizializzato.
+- `instance.open()`: apre il pannello e chiude gli altri accordion presenti nella pagina.
+- `instance.close()`: chiude il pannello corrente.
+- `instance.toggle()`: inverte lo stato aperto o chiuso del pannello.
+- `instance.refresh()`: riesegue l'inizializzazione nel contenitore dell'accordion e restituisce l'istanza.
+- `instance.isOpen()`: restituisce true quando lo stato open è attivo.
+
 ## Elementi correlati
 
-- `grid-1`: dispone gli elementi accordion in una griglia a colonna singola.
-- `gapTexts`: applica la spaziatura testuale tra gli elementi della lista.
+- `flexColumnTexts`: applica la spaziatura testuale tra gli elementi della lista.
 
 ## Output
 
@@ -26,8 +35,8 @@ Lista HTML di elementi accordion accessibili con pulsante e pannello associato.
 ## Esempio
 
 ```html
-<ul pgs="grid-1 gapTexts">
-    <li pgs="accordion" >
+<ul pgs="flexColumnTexts">
+    <li pgs="accordion">
         <button pgs="accordion-button" type="button">
             <i class="fa-solid fa-circle-question" aria-hidden="true"></i>
             <span>Domanda frequente</span>
@@ -38,7 +47,7 @@ Lista HTML di elementi accordion accessibili con pulsante e pannello associato.
         </div>
     </li>
 
-    <li pgs="accordion" >
+    <li pgs="accordion">
         <button pgs="accordion-button" type="button">
             <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
             <span>Seconda sezione</span>

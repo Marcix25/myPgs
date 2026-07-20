@@ -19,6 +19,20 @@ Carosello orizzontale che osserva gli elementi visibili e crea automaticamente c
 - `notScrollAnimation`: applicata a un elemento li disabilita l'animazione visiva basata sulla percentuale di visibilità.
 - `notScrollWithMouse`: sul root disabilita la gestione dello scorrimento orizzontale tramite mouse.
 
+## API JavaScript
+
+- `pgs.slides.init(root)`: inizializza il root stesso quando è un carosello e tutti i caroselli discendenti non ancora registrati; il valore predefinito è document.
+- `pgs.slides.api(element)`: restituisce l'istanza associata a un root slides inizializzato.
+- `instance.previous()`: porta in vista la slide precedente.
+- `instance.next()`: porta in vista la slide successiva.
+- `instance.goTo(index)`: porta in vista la slide con l'indice indicato.
+- `instance.getCurrentIndexes()`: restituisce gli indici delle slide attualmente visibili.
+- `instance.getCurrentElements()`: restituisce gli elementi slide attualmente visibili.
+- `instance.getTotal()`: restituisce il numero totale di slide.
+- `instance.isAtStart()`: restituisce true quando la prima slide è visibile.
+- `instance.isAtEnd()`: restituisce true quando l'ultima slide è visibile.
+- `instance.refresh()`: sincronizza controlli e dots, sostituisce listener e observer precedenti e restituisce la nuova API.
+
 ## Elementi correlati
 
 - `card`: usa card come contenuto dimostrativo di ogni slide.

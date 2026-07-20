@@ -18,6 +18,7 @@ Procedura guidata a schede con avanzamento sequenziale, indicatori generati, con
 ## PGS Options
 
 - `tabIcon`: su ogni tab usa tabIcon[classe] con una singola classe Font Awesome per l'indicatore corrispondente; il fallback è fa-circle.
+- `step`: viene applicata a ogni indicatore generato con la sintassi step[indice] per conservarne l'indice zero-based.
 - `buttonReverse`: inverte testo e icona sul pulsante successivo e appartiene al componente button.
 
 ## PGS States
@@ -25,6 +26,19 @@ Procedura guidata a schede con avanzamento sequenziale, indicatori generati, con
 - `is-active`: identifica la scheda corrente e il relativo indicatore.
 - `is-completed`: identifica gli indicatori degli step già completati e nuovamente selezionabili.
 - `is-locked`: applicato a un tab impedisce di avanzare finché lo step resta bloccato.
+
+## API JavaScript
+
+- `pgs.stepTabs.init(root)`: inizializza le procedure non ancora registrate dentro Document o Element indicato.
+- `pgs.stepTabs.api(element)`: restituisce l'istanza associata a un root stepTabs inizializzato.
+- `instance.restart()`: torna al primo tab e ripristina i blocchi dichiarati inizialmente.
+- `instance.goTo(index, scroll)`: attiva il tab indicato, aggiorna controlli e indicatori e opzionalmente scorre al componente.
+- `instance.next()`: attiva il tab successivo entro i limiti disponibili.
+- `instance.prev()`: attiva il tab precedente entro i limiti disponibili.
+- `instance.toggleLock(index, lock)`: aggiunge o rimuove is-locked dal tab indicato e aggiorna i controlli.
+- `instance.refresh()`: riesegue l'inizializzazione nel contenitore della procedura e restituisce l'istanza.
+- `instance.getCurrent()`: restituisce l'indice del tab corrente.
+- `instance.getState()`: restituisce un oggetto con indice corrente e numero totale di tab.
 
 ## Elementi correlati
 

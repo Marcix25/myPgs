@@ -20,7 +20,7 @@ function directPgsChild(element, token) {
     return Array.from(element.children).find(child => pgs(child).contains(token));
 }
 
-export function PGS_summary_init(root = document) {
+function PGS_summary_init(root = document) {
     pgs(root).querySelectorAll("summary").forEach((summary) => {
         if (API.has(summary)) return;
 
@@ -95,7 +95,7 @@ export function PGS_summary_init(root = document) {
 PGS_summary_init();
 
 //# API
-export function PGS_summary_api(selector) {
+function PGS_summary_api(selector) {
     return API.get(selector);
 }
 

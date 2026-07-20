@@ -1,6 +1,6 @@
 const API = new WeakMap();
 
-export function PGS_stepTabs_init(root = document) {
+function PGS_stepTabs_init(root = document) {
     pgs(root).querySelectorAll("stepTabs").forEach(tabsWizard => {
         if (tabsWizard.dataset.stepTabsInitialized === "true") return;
         tabsWizard.dataset.stepTabsInitialized = "true";
@@ -32,7 +32,7 @@ export function PGS_stepTabs_init(root = document) {
                 const dot = document.createElement("button");
                 dot.type = "button";
                 pgs(dot).add("stepTabs-dots-dot");
-                dot.setAttribute("data-step", index);
+                pgs(dot).option.setValueBrackets("step", index);
                 dot.innerHTML = `<i class="fa-solid ${iconClass}"></i>`;
 
                 dot.addEventListener("click", () => {
@@ -97,7 +97,7 @@ export function PGS_stepTabs_init(root = document) {
         //= INIT
         goTo(0, false);
 
-        //= data-tab-locked
+        //= tab-locked
         const observer = new MutationObserver(() => {
             if (isRendering) return;
             updateControls();
@@ -135,7 +135,7 @@ export function PGS_stepTabs_init(root = document) {
 
 PGS_stepTabs_init()
 
-export function PGS_stepTabs_api(selector) {
+function PGS_stepTabs_api(selector) {
     return API.get(selector);
 }
 

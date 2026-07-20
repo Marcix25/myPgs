@@ -15,8 +15,8 @@ const SOURCE_ROOTS = [
     path.join(PROJECT_ROOT, "assets", "scss"),
 ];
 
-const TAG_ORDER = ["title", "description", "pgs", "pgs-option", "pgs-state", "related", "return"];
-const LIST_TAGS = new Set(["pgs", "pgs-option", "pgs-state", "related"]);
+const TAG_ORDER = ["title", "description", "pgs", "pgs-option", "pgs-state", "api", "related", "return"];
+const LIST_TAGS = new Set(["pgs", "pgs-option", "pgs-state", "api", "related"]);
 const REQUIRED_TAGS = ["title", "description", "pgs"];
 const GENERATED_MARKER = /^<!-- File generato automaticamente da (templates\/html\/.+\.html)\. Modificare \1 e rieseguire npm run docs:generate\. -->$/;
 
@@ -66,10 +66,11 @@ function parseDocumentationBlock(file, source) {
     const content = hasBom ? source.slice(1) : source;
     const blockPattern = /\/\*\*[\s\S]*?\*\//g;
     const taggedBlocks = [...content.matchAll(blockPattern)]
-        .filter(match => /@(title|description|pgs(?:-option|-state)?|related|return)\b/.test(match[0]));
+        .filter(match => /@(title|description|pgs(?:-option|-state)?|api|related|return)\b/.test(match[0]));
+    const initialHtmlComment = content.match(/^<!--[\t\r\n ]*(\/\*\*[\s\S]*?\*\/)[\t\r\n ]*-->/);
 
     if (taggedBlocks.length === 0) {
-        errors.push(createError(relativeFile, "Commento strutturato iniziale mancante.", "Aggiungi un blocco /** ... */ come primo contenuto del file."));
+        errors.push(createError(relativeFile, "Commento strutturato iniziale mancante.", "Aggiungi un blocco <!-- /** ... */ --> come primo contenuto del file."));
         return { errors };
     }
 
@@ -78,8 +79,13 @@ function parseDocumentationBlock(file, source) {
     }
 
     const first = taggedBlocks[0];
-    if (first.index !== 0) {
-        errors.push(createError(relativeFile, "Il commento strutturato non è posizionato all'inizio del file.", "Sposta il blocco prima di qualsiasi markup o spazio vuoto."));
+    const hasValidHtmlWrapper = initialHtmlComment && initialHtmlComment[1] === first[0];
+    if (!hasValidHtmlWrapper) {
+        errors.push(createError(
+            relativeFile,
+            "Il commento strutturato non è un commento HTML iniziale valido.",
+            "Posizionalo all'inizio e racchiudi il blocco /** ... */ tra <!-- e -->, così il browser non lo mostra nella pagina.",
+        ));
     }
 
     const lines = normalizeEol(first[0]).split("\n");
@@ -104,6 +110,7 @@ function parseDocumentationBlock(file, source) {
         pgs: [],
         "pgs-option": [],
         "pgs-state": [],
+        api: [],
         related: [],
         return: "",
     };
@@ -188,13 +195,14 @@ function parseDocumentationBlock(file, source) {
         }
     });
 
-    const markupStart = first.index + first[0].length;
+    const documentationContainer = hasValidHtmlWrapper ? initialHtmlComment[0] : first[0];
+    const markupStart = hasValidHtmlWrapper ? documentationContainer.length : first.index + documentationContainer.length;
     const markup = normalizeEol(content.slice(markupStart)).trim();
     if (!markup) {
         errors.push(createError(relativeFile, "Contenuto HTML mancante sotto il commento.", "Mantieni l'esempio HTML ufficiale dopo il blocco di documentazione."));
     }
 
-    return { errors, data, markup, block: first[0], hasBom };
+    return { errors, data, markup, block: documentationContainer, hasBom };
 }
 
 function tokenizeOptions(value) {
@@ -291,11 +299,11 @@ function extractSourceFacts(sources) {
     sources.forEach(source => {
         const content = source.content;
         const optionPatterns = [
-            /\.option\.(?:contains|getValueBrackets|setValueBrackets)\(\s*["']([^"']+)["']/g,
+            /\.option\.(?:contains|getValueBrackets|setValueBrackets)\(\s*["']([^"']+)["']\s*(?=[,)])/g,
             /pgs-option\s*[~*^$|]?=\s*["']([^"'\[\]\s]+)(?:\[[^\]]*\])?["']/g,
         ];
         const statePatterns = [
-            /\.state\.(?:add|remove|toggle|contains)\(\s*["']([^"']+)["']/g,
+            /\.state\.(?:add|remove|toggle|contains)\(\s*["']([^"']+)["']\s*(?=[,)])/g,
             /pgs-state\s*[~*^$|]?=\s*["']([^"'\s]+)["']/g,
         ];
 
@@ -410,6 +418,20 @@ function validateTemplate(template, parsed, sources, allSourceContent) {
         }
     });
 
+    documentation.api.forEach(item => {
+        const signature = item.key.match(/^(?:new\s+)?((?:pgs|instance)(?:\.[A-Za-z_$][\w$]*)+)\([^)]*\)$/);
+        if (!signature) {
+            errors.push(createError(file, `Firma API non valida: "${item.key}".`, "Usa una firma chiamabile, per esempio pgs.modal.api(element) oppure instance.open().", "@api", item.key));
+            return;
+        }
+
+        const identifiers = signature[1].split(".");
+        const implementationName = identifiers.at(-1);
+        if (!containsExactToken(allSourceContent, implementationName)) {
+            errors.push(createError(file, `API documentata non trovata nei sorgenti: "${item.key}".`, "Correggi la firma oppure rimuovi il metodo non esposto.", "@api", item.key));
+        }
+    });
+
     return errors;
 }
 
@@ -425,6 +447,7 @@ function renderMarkdown(template, documentation, markup) {
         ["PGS", documentation.pgs],
         ["PGS Options", documentation["pgs-option"]],
         ["PGS States", documentation["pgs-state"]],
+        ["API JavaScript", documentation.api],
         ["Elementi correlati", documentation.related],
     ];
 

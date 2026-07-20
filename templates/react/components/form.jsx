@@ -1,15 +1,15 @@
 export default function Form() {
     return (
-        <form pgs="form" action="#" method="post">
+        <form pgs="form formValidate" action="#" method="post">
             <label pgs="label" htmlFor="form-name">
                 Nome
             </label>
-            <input id="form-name" pgs="input" type="text" name="name" placeholder="Mario Rossi" required data-form-field-message="Inserisci il nome" />
+            <input id="form-name" pgs="input" pgs-option="message[Inserisci il nome]" type="text" name="name" placeholder="Mario Rossi" required />
 
             <label pgs="label" htmlFor="form-email">
                 Email
             </label>
-            <input id="form-email" pgs="input" type="email" name="email" placeholder="nome@example.com" required data-form-field-message="Inserisci una email valida" />
+            <input id="form-email" pgs="input" pgs-option="message[Inserisci una email valida]" type="email" name="email" placeholder="nome@example.com" required />
 
             <label pgs="label" htmlFor="form-message">
                 Messaggio
