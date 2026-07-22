@@ -1,50 +1,50 @@
-<!-- File generato automaticamente da templates/html/layout/header.html. Modificare templates/html/layout/header.html e rieseguire npm run docs:generate. -->
+<!-- Automatically generated from templates/html/layout/header.html. Edit templates/html/layout/header.html and run npm run docs:generate again. -->
 
 # Header
 
-Intestazione responsive che misura lo spazio disponibile, alterna contenuti desktop e mobile e integra menu, tema scuro e navigazione modale.
+Responsive header that measures available space, switches between desktop and mobile content, and integrates menus, dark mode, and modal navigation.
 
 ## PGS
 
-- `header`: identifica l'intestazione principale osservata dal modulo JavaScript.
-- `header-element`: identifica il gruppo interno misurato per determinare il passaggio alla modalità mobile.
-- `header-element-alwaysOn`: identifica l'area iniziale sempre visibile.
-- `header-element-onlyDesktop`: identifica i contenuti mostrati soltanto quando il menu desktop è attivo.
-- `header-element-onlyMobile`: identifica i contenuti mostrati soltanto in modalità mobile.
-- `header-element-alwaysOnLast`: identifica l'area finale sempre visibile.
-- `header-element-hamburger`: identifica il gruppo della navigazione mobile.
-- `header-element-hamburger-button`: identifica il controllo hamburger specifico dell'header.
+- `header`: identifies the main header observed by the JavaScript module.
+- `header-element`: identifies the inner group measured to determine the switch to mobile mode.
+- `header-element-alwaysOn`: identifies the initial area that is always visible.
+- `header-element-onlyDesktop`: identifies content shown only while the desktop menu is active.
+- `header-element-onlyMobile`: identifies content shown only in mobile mode.
+- `header-element-alwaysOnLast`: identifies the final area that is always visible.
+- `header-element-hamburger`: identifies the mobile navigation group.
+- `header-element-hamburger-button`: identifies the header-specific hamburger control.
 
 ## PGS Options
 
-- `horizontal`: dispone orizzontalmente il menu desktop correlato.
-- `vertical`: dispone verticalmente il menu mobile correlato.
-- `menuHeader`: adatta entrambi i menu al contesto dell'header.
-- `containerPGS`: sul wrapper modal usa containerPGS[header] per spostare il dialog nell'intestazione.
-- `right`: sul dialog della navigazione mobile presenta il contenuto dal lato destro.
+- `horizontal`: arranges the related desktop menu horizontally.
+- `vertical`: arranges the related mobile menu vertically.
+- `menuHeader`: adapts both menus to the header context.
+- `containerPGS`: uses containerPGS[header] on the modal wrapper to move the dialog into the header.
+- `right`: presents the mobile navigation dialog content from the right side.
 
 ## PGS States
 
-- `mobileActive`: viene applicato a header e header-element quando larghezza o viewport richiedono la navigazione mobile.
+- `mobileActive`: is applied to header and header-element when their width or the viewport requires mobile navigation.
 
-## Elementi correlati
+## Related elements
 
-- `logo`: inserisce il marchio nell'area iniziale.
-- `logo-text`: usa la variante testuale del logo.
-- `menu`: fornisce la navigazione desktop e mobile.
-- `buttonIcon`: presenta i controlli tema e hamburger come pulsanti a icona.
-- `toggleDarkmode`: collega il controllo al gestore globale del tema.
-- `modal`: fornisce apertura e chiusura della navigazione mobile.
-- `modal-button`: apre il pannello mobile.
-- `modal-close`: chiude il pannello mobile e condivide il controllo hamburger.
-- `modal-dialog`: identifica il dialog della navigazione mobile.
-- `modal-dialog-content`: identifica il pannello interno della navigazione mobile.
+- `logo`: inserts the brand into the initial area.
+- `logo-text`: uses the text variant of the logo.
+- `menu`: provides desktop and mobile navigation.
+- `buttonIcon`: presents theme and hamburger controls as icon buttons.
+- `toggleDarkmode`: connects the control to the global theme handler.
+- `modal`: provides opening and closing behavior for mobile navigation.
+- `modal-button`: opens the mobile panel.
+- `modal-close`: closes the mobile panel and shares the hamburger control.
+- `modal-dialog`: identifies the mobile navigation dialog.
+- `modal-dialog-content`: identifies the inner mobile navigation panel.
 
 ## Output
 
-Header HTML completo con navigazione desktop e pannello mobile laterale.
+Complete header HTML with desktop navigation and a side mobile panel.
 
-## Esempio
+## Example
 
 ```html
 <header pgs="header">
@@ -56,10 +56,10 @@ Header HTML completo con navigazione desktop e pannello mobile laterale.
 		</div>
 
 		<div pgs="header-element-onlyDesktop">
-			<nav pgs="menu" pgs-option="horizontal menuHeader" aria-label="Menu principale">
+			<nav pgs="menu" pgs-option="horizontal menuHeader" aria-label="Main menu">
 				<ul>
 					<li><a href="/">Home</a></li>
-					<li><a href="#componenti">Componenti</a></li>
+					<li><a href="#components">Components</a></li>
 					<li><a href="#layout">Layout</a></li>
 				</ul>
 			</nav>
@@ -69,7 +69,7 @@ Header HTML completo con navigazione desktop e pannello mobile laterale.
 		</div>
 
 		<div pgs="header-element-alwaysOnLast">
-			<button pgs="buttonIcon toggleDarkmode" type="button" aria-label="Cambia tema">
+			<button pgs="buttonIcon toggleDarkmode" type="button" aria-label="Change theme">
 				<i class="fa-solid fa-moon"></i>
 			</button>
 		</div>
@@ -80,10 +80,10 @@ Header HTML completo con navigazione desktop e pannello mobile laterale.
 
 			<dialog pgs="modal-dialog" pgs-option="right">
 				<div pgs="modal-dialog-content">
-					<nav pgs="menu" pgs-option="vertical menuHeader" aria-label="Menu mobile">
+					<nav pgs="menu" pgs-option="vertical menuHeader" aria-label="Mobile menu">
 						<ul>
 							<li><a href="/">Home</a></li>
-							<li><a href="#componenti">Componenti</a></li>
+							<li><a href="#components">Components</a></li>
 							<li><a href="#layout">Layout</a></li>
 						</ul>
 					</nav>

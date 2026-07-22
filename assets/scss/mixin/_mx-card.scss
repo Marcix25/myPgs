@@ -1,10 +1,11 @@
 @use "settings" as *;
 @use "mx-button" as *;
+@use "mx-hover" as *;
 @use "mx-responsive" as *;
 
 @mixin card-insideImg() {
     $cardImgPadding: calc(var(--card-padding) * -1);
-    border-radius: var(--border-radius);
+    border-radius: var(--card-borderRadius);
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     margin: $cardImgPadding;
@@ -14,26 +15,27 @@
 }
 
 @mixin card() {
-    --card-padding: var(--padding);
+    --card-padding: var(--padding-2);
+    --card-borderRadius: calc(var(--border-radius-input) + var(--card-padding));
+    --card-background: var(--color-box-transparent);
+    --card-padding-img: 0;
     height: 100%;
 
     &:not(:has(>a)) {
-        --card-background: var(--color-box-transparent);
-        --card-padding-img: 0;
         padding: var(--card-padding);
         background: var(--card-background);
-        border-radius: var(--border-radius);
+        border-radius: var(--card-borderRadius);
         // box-shadow: var(--box-shadow);
     }
 
     >a {
         --card-background: var(--color-white);
-        --card-padding-img: .3rem;
-        @include buttonHover();
+        @include hover();
         height: 100%;
         padding: var(--card-padding);
+        padding-bottom: calc(var(--card-padding) * 2);
         background: var(--card-background);
-        border-radius: var(--border-radius);
+        border-radius: var(--card-borderRadius);
         outline: var(--border-complete);
     }
 

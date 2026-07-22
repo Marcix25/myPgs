@@ -5,25 +5,25 @@ export default function StepTabs() {
 
             <div pgs="stepTabs-container">
                 <section pgs="tab flexColumnTexts" tabIndex="-1" pgs-option="tabIcon[fa-user]">
-                    <h3>Dati personali</h3>
-                    <p>Contenuto del primo tab.</p>
+                    <h3>Personal details</h3>
+                    <p>First tab content.</p>
                 </section>
 
                 <section pgs="tab flexColumnTexts" tabIndex="-1" pgs-option="tabIcon[fa-list-check]">
-                    <h3>Preferenze</h3>
-                    <p>Contenuto del secondo tab.</p>
+                    <h3>Preferences</h3>
+                    <p>Second tab content.</p>
                 </section>
 
                 <section pgs="tab flexColumnTexts" tabIndex="-1" pgs-option="tabIcon[fa-check]">
-                    <h3>Conferma</h3>
-                    <p>Contenuto del terzo tab.</p>
+                    <h3>Confirmation</h3>
+                    <p>Third tab content.</p>
                 </section>
             </div>
 
             <div pgs="flexRow">
                 <button pgs="stepTabs-prev button" type="button">
                     <i className="fa-solid fa-arrow-left" aria-hidden="true"></i>
-                    Indietro
+                    Back
                 </button>
 
                 <button pgs="stepTabs-restart button" type="button">
@@ -31,7 +31,7 @@ export default function StepTabs() {
                 </button>
 
                 <button pgs="stepTabs-next button" pgs-option="buttonReverse" type="button">
-                    Avanti
+                    Next
                     <i className="fa-solid fa-arrow-right" aria-hidden="true"></i>
                 </button>
             </div>

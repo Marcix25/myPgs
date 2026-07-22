@@ -3,17 +3,17 @@ export default function Modal() {
         <>
             <div pgs="modal" pgs-option="containerID[modal-container]">
                 <button pgs="modal-button button" type="button">
-                    <i className="fa-solid fa-window-maximize"></i> Apri modale
+                    <i className="fa-solid fa-window-maximize"></i> Open modal
                 </button>
 
                 <dialog>
                     <div pgs="modal-dialog-content">
                         <div pgs="modal-dialog-content-header">
-                            <h3>Modale di esempio</h3>
+                            <h3>Example modal</h3>
                         </div>
 
                         <div pgs="modal-dialog-content-scroll">
-                            <p>Contenuto della modale. Il bottone di chiusura viene aggiunto automaticamente se non presente.</p>
+                            <p>Modal content. The close button is added automatically when missing.</p>
                         </div>
                     </div>
                 </dialog>
@@ -21,17 +21,17 @@ export default function Modal() {
 
             <div pgs="modal" pgs-option="containerID[modal-container]">
                 <button pgs="modal-button button" type="button">
-                    <i className="fa-solid fa-window-maximize"></i> Apri modale right
+                    <i className="fa-solid fa-window-maximize"></i> Open modal right
                 </button>
 
                 <dialog pgs-option="right">
                     <div pgs="modal-dialog-content">
                         <div pgs="modal-dialog-content-header">
-                            <h3>Modale laterale</h3>
+                            <h3>Side modal</h3>
                         </div>
 
                         <div pgs="modal-dialog-content-scroll">
-                            <p>Contenuto della modale con <code>pgs-option=&quot;right&quot;</code>.</p>
+                            <p>Modal content with <code>pgs-option=&quot;right&quot;</code>.</p>
                         </div>
                     </div>
                 </dialog>
@@ -39,17 +39,17 @@ export default function Modal() {
 
             <div pgs="modal" pgs-option="containerID[modal-container]">
                 <button pgs="modal-button button" type="button">
-                    <i className="fa-solid fa-window-maximize"></i> Apri modale left
+                    <i className="fa-solid fa-window-maximize"></i> Open modal left
                 </button>
 
                 <dialog pgs-option="left">
                     <div pgs="modal-dialog-content">
                         <div pgs="modal-dialog-content-header">
-                            <h3>Modale laterale sinistra</h3>
+                            <h3>Left-side modal</h3>
                         </div>
 
                         <div pgs="modal-dialog-content-scroll">
-                            <p>Contenuto della modale con <code>pgs-option=&quot;left&quot;</code>.</p>
+                            <p>Modal content with <code>pgs-option=&quot;left&quot;</code>.</p>
                         </div>
                     </div>
                 </dialog>
@@ -57,21 +57,21 @@ export default function Modal() {
 
             <div pgs="modal">
                 <button pgs="modal-button button" type="button">
-                    <i className="fa-solid fa-floppy-disk"></i> Conferma salvataggio
+                    <i className="fa-solid fa-floppy-disk"></i> Confirmation salvataggio
                 </button>
 
                 <dialog pgs-option="topLevel">
                     <div pgs="modal-dialog-content">
                         <div pgs="modal-dialog-content-header">
-                            <h3>Salvare le modifiche?</h3>
+                            <h3>Save changes?</h3>
                         </div>
 
                         <div pgs="modal-dialog-content-scroll flexColumnElements">
-                            <p>Hai modifiche non salvate. Conferma per applicarle oppure annulla per tornare alla pagina.</p>
+                            <p>You have unsaved changes. Confirm to apply them or cancel to return to the page.</p>
 
                             <div pgs="flexRow">
-                                <button pgs="button modal-close" type="button">Annulla</button>
-                                <button pgs="buttonStrong" type="button">Salva modifiche</button>
+                                <button pgs="button modal-close" type="button">Cancel</button>
+                                <button pgs="buttonStrong" type="button">Save changes</button>
                             </div>
                         </div>
                     </div>

@@ -18,7 +18,7 @@ const SOURCE_ROOTS = [
 const TAG_ORDER = ["title", "description", "pgs", "pgs-option", "pgs-state", "api", "related", "return"];
 const LIST_TAGS = new Set(["pgs", "pgs-option", "pgs-state", "api", "related"]);
 const REQUIRED_TAGS = ["title", "description", "pgs"];
-const GENERATED_MARKER = /^<!-- File generato automaticamente da (templates\/html\/.+\.html)\. Modificare \1 e rieseguire npm run docs:generate\. -->$/;
+const GENERATED_MARKER = /^<!-- (?:Automatically generated from (templates\/html\/.+\.html)\. Edit \1 and run npm run docs:generate again\.|File generato automaticamente da (templates\/html\/.+\.html)\. Modificare \2 e rieseguire npm run docs:generate\.) -->$/;
 
 function toPosix(value) {
     return value.split(path.sep).join("/");
@@ -441,14 +441,14 @@ function renderList(items) {
 
 function renderMarkdown(template, documentation, markup) {
     const relativeTemplate = relativeToProject(template);
-    const marker = `<!-- File generato automaticamente da ${relativeTemplate}. Modificare ${relativeTemplate} e rieseguire npm run docs:generate. -->`;
+    const marker = `<!-- Automatically generated from ${relativeTemplate}. Edit ${relativeTemplate} and run npm run docs:generate again. -->`;
     const sections = [marker, "", `# ${documentation.title}`, "", documentation.description];
     const sectionMap = [
         ["PGS", documentation.pgs],
         ["PGS Options", documentation["pgs-option"]],
         ["PGS States", documentation["pgs-state"]],
-        ["API JavaScript", documentation.api],
-        ["Elementi correlati", documentation.related],
+        ["JavaScript API", documentation.api],
+        ["Related elements", documentation.related],
     ];
 
     sectionMap.forEach(([title, items]) => {
@@ -460,7 +460,7 @@ function renderMarkdown(template, documentation, markup) {
 
     const runs = [...markup.matchAll(/`+/g)].map(match => match[0].length);
     const fence = "`".repeat(Math.max(3, (runs.length ? Math.max(...runs) : 0) + 1));
-    sections.push("", "## Esempio", "", `${fence}html`, markup, fence, "");
+    sections.push("", "## Example", "", `${fence}html`, markup, fence, "");
     return sections.join("\n");
 }
 

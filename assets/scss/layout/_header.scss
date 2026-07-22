@@ -74,6 +74,14 @@
                     opacity: 0.6;
                 }
 
+                &:hover {
+
+                    &::before,
+                    &::after {
+                        background-color: var(--color-white);
+                    }
+                }
+
                 //=== OPEN
                 &[aria-expanded="true"] {
                     gap: 0px;

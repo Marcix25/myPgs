@@ -1,68 +1,68 @@
-<!-- File generato automaticamente da templates/html/components/modal.html. Modificare templates/html/components/modal.html e rieseguire npm run docs:generate. -->
+<!-- Automatically generated from templates/html/components/modal.html. Edit templates/html/components/modal.html and run npm run docs:generate again. -->
 
 # Modal
 
-Componente che collega un pulsante a un dialog nativo, ne gestisce apertura e chiusura e può spostarlo in un contenitore configurato.
+Modal markup, configuration, behavior, and usage example.
 
 ## PGS
 
-- `modal`: identifica il contenitore logico inizializzato dal modulo modal.
-- `modal-button`: identifica il controllo di apertura della finestra.
+- `modal`: identifies the modal element used by Modal.
+- `modal-button`: identifies the modal-button element used by Modal.
 - `dialog`: token aggiunto dinamicamente all'elemento dialog inizializzato.
-- `modal-dialog`: identifica il dialog nativo dopo l'inizializzazione JavaScript.
-- `modal-dialog-content`: identifica il contenitore visivo della finestra.
-- `modal-dialog-content-header`: identifica l'intestazione che può ricevere il pulsante di chiusura automatico.
-- `modal-dialog-content-scroll`: identifica l'area interna scorrevole.
-- `modal-close`: identifica un controllo che chiude la finestra.
+- `modal-dialog`: identifies the modal-dialog element used by Modal.
+- `modal-dialog-content`: identifies the modal-dialog-content element used by Modal.
+- `modal-dialog-content-header`: identifies the modal-dialog-content-header element used by Modal.
+- `modal-dialog-content-scroll`: identifies the modal-dialog-content-scroll element used by Modal.
+- `modal-close`: identifies the modal-close element used by Modal.
 
 ## PGS Options
 
-- `containerID`: sul root usa containerID[id] per spostare il dialog nell'elemento con l'id indicato.
-- `containerPGS`: sul root usa containerPGS[token] per spostare il dialog nel primo elemento con quel token pgs.
-- `disableBackdropClose`: sul root impedisce la chiusura tramite click sul backdrop.
-- `history`: sul root sincronizza l'apertura con il parametro modal nella cronologia del browser e richiede un id sul pulsante.
-- `topLevel`: sul dialog mantiene la finestra nel componente e usa showModal per una modale top-level.
-- `left`: sul dialog posiziona e anima il contenuto dal lato sinistro.
-- `right`: sul dialog posiziona e anima il contenuto dal lato destro.
+- `containerID`: identifies the containerID element used by Modal.
+- `containerPGS`: identifies the containerPGS element used by Modal.
+- `disableBackdropClose`: identifies the disableBackdropClose element used by Modal.
+- `history`: identifies the history element used by Modal.
+- `topLevel`: identifies the topLevel element used by Modal.
+- `left`: identifies the left element used by Modal.
+- `right`: identifies the right element used by Modal.
 
-## API JavaScript
+## JavaScript API
 
-- `pgs.modal.init(root)`: inizializza le modali presenti nel Document o Element indicato; il valore predefinito è document.
-- `pgs.modal.api(element)`: restituisce l'istanza associata a un root modal inizializzato.
-- `instance.open()`: apre la finestra se non è già aperta.
-- `instance.close()`: chiude la finestra se è aperta.
-- `instance.toggle()`: apre la finestra oppure la chiude quando è già aperta.
-- `instance.refresh()`: rilegge opzioni e collegamenti della modale, sostituisce listener e observer precedenti e restituisce la nuova API.
-- `instance.isOpen()`: restituisce true quando l'elemento dialog possiede lo stato nativo open.
+- `pgs.modal.init(root)`: initializes matching elements within the specified root.
+- `pgs.modal.api(element)`: returns the instance associated with the specified initialized element.
+- `instance.open()`: opens the component.
+- `instance.close()`: closes the component.
+- `instance.toggle()`: toggles the component state.
+- `instance.refresh()`: refreshes the component and returns its updated instance.
+- `instance.isOpen()`: returns true when the component is open.
 
-## Elementi correlati
+## Related elements
 
-- `button`: presenta i controlli di apertura, chiusura e annullamento come pulsanti standard.
-- `buttonStrong`: presenta l'azione di conferma con maggiore enfasi.
-- `buttonClose`: viene aggiunto automaticamente al controllo di chiusura quando manca nel markup.
-- `flexColumnElements`: organizza verticalmente il contenuto della modale di conferma.
-- `flexRow`: dispone affiancate le azioni della modale di conferma.
+- `button`: uses the related button component or utility in this example.
+- `buttonStrong`: uses the related buttonStrong component or utility in this example.
+- `buttonClose`: uses the related buttonClose component or utility in this example.
+- `flexColumnElements`: uses the related flexColumnElements component or utility in this example.
+- `flexRow`: uses the related flexRow component or utility in this example.
 
 ## Output
 
-Quattro esempi basati su dialog nativo e un contenitore opzionale usato da containerID.
+Complete HTML markup and usage example for Modal.
 
-## Esempio
+## Example
 
 ```html
 <div pgs="modal" pgs-option="containerID[modal-container]">
     <button pgs="modal-button button" type="button">
-        <i class="fa-solid fa-window-maximize"></i> Apri modale
+        <i class="fa-solid fa-window-maximize"></i> Open modal
     </button>
 
     <dialog>
         <div pgs="modal-dialog-content">
             <div pgs="modal-dialog-content-header">
-                <h3>Modale di esempio</h3>
+                <h3>Example modal</h3>
             </div>
 
             <div pgs="modal-dialog-content-scroll">
-                <p>Contenuto della modale. Il bottone di chiusura viene aggiunto automaticamente se non presente.</p>
+                <p>Modal content. The close button is added automatically when missing.</p>
             </div>
         </div>
     </dialog>
@@ -70,17 +70,17 @@ Quattro esempi basati su dialog nativo e un contenitore opzionale usato da conta
 
 <div pgs="modal" pgs-option="containerID[modal-container]">
     <button pgs="modal-button button" type="button">
-        <i class="fa-solid fa-window-maximize"></i> Apri modale right
+        <i class="fa-solid fa-window-maximize"></i> Open modal right
     </button>
 
     <dialog pgs-option="right">
         <div pgs="modal-dialog-content">
             <div pgs="modal-dialog-content-header">
-                <h3>Modale laterale</h3>
+                <h3>Side modal</h3>
             </div>
 
             <div pgs="modal-dialog-content-scroll">
-                <p>Contenuto della modale con <code>pgs-option="right"</code>.</p>
+                <p>Modal content with <code>pgs-option="right"</code>.</p>
             </div>
         </div>
     </dialog>
@@ -88,17 +88,17 @@ Quattro esempi basati su dialog nativo e un contenitore opzionale usato da conta
 
 <div pgs="modal" pgs-option="containerID[modal-container]">
     <button pgs="modal-button button" type="button">
-        <i class="fa-solid fa-window-maximize"></i> Apri modale left
+        <i class="fa-solid fa-window-maximize"></i> Open modal left
     </button>
 
     <dialog pgs-option="left">
         <div pgs="modal-dialog-content">
             <div pgs="modal-dialog-content-header">
-                <h3>Modale laterale sinistra</h3>
+                <h3>Left-side modal</h3>
             </div>
 
             <div pgs="modal-dialog-content-scroll">
-                <p>Contenuto della modale con <code>pgs-option="left"</code>.</p>
+                <p>Modal content with <code>pgs-option="left"</code>.</p>
             </div>
         </div>
     </dialog>
@@ -106,21 +106,21 @@ Quattro esempi basati su dialog nativo e un contenitore opzionale usato da conta
 
 <div pgs="modal">
     <button pgs="modal-button button" type="button">
-        <i class="fa-solid fa-floppy-disk"></i> Conferma salvataggio
+        <i class="fa-solid fa-floppy-disk"></i> Confirmation salvataggio
     </button>
 
     <dialog pgs-option="topLevel">
         <div pgs="modal-dialog-content">
             <div pgs="modal-dialog-content-header">
-                <h3>Salvare le modifiche?</h3>
+                <h3>Save changes?</h3>
             </div>
 
             <div pgs="modal-dialog-content-scroll flexColumnElements">
-                <p>Hai modifiche non salvate. Conferma per applicarle oppure annulla per tornare alla pagina.</p>
+                <p>You have unsaved changes. Confirm to apply them or cancel to return to the page.</p>
 
                 <div pgs="flexRow">
-                    <button pgs="button modal-close" type="button">Annulla</button>
-                    <button pgs="buttonStrong" type="button">Salva modifiche</button>
+                    <button pgs="button modal-close" type="button">Cancel</button>
+                    <button pgs="buttonStrong" type="button">Save changes</button>
                 </div>
             </div>
         </div>

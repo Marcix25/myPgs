@@ -4,22 +4,22 @@ export default function Accordion() {
             <li pgs="accordion">
                 <button pgs="accordion-button" type="button">
                     <i className="fa-solid fa-circle-question" aria-hidden="true"></i>
-                    <span>Domanda frequente</span>
+                    <span>Frequently asked question</span>
                 </button>
 
                 <div pgs="accordion-content" hidden>
-                    <p>Risposta di esempio con contenuto testuale riutilizzabile.</p>
+                    <p>Example answer with reusable text content.</p>
                 </div>
             </li>
 
             <li pgs="accordion">
                 <button pgs="accordion-button" type="button">
                     <i className="fa-solid fa-circle-info" aria-hidden="true"></i>
-                    <span>Seconda sezione</span>
+                    <span>Second section</span>
                 </button>
 
                 <div pgs="accordion-content" hidden>
-                    <p>Altro contenuto del pannello accordion.</p>
+                    <p>Additional accordion panel content.</p>
                 </div>
             </li>
         </ul>

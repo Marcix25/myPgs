@@ -1,10 +1,10 @@
 const columns = [
-    ["Colonna uno", "Contenuto della prima colonna."],
-    ["Colonna due", "Contenuto della seconda colonna."],
-    ["Colonna tre", "Contenuto della terza colonna."],
-    ["Colonna quattro", "Contenuto della quarta colonna."],
-    ["Colonna cinque", "Contenuto della quinta colonna."],
-    ["Colonna sei", "Contenuto della sesta colonna."],
+    ["Column one", "First column content."],
+    ["Column two", "Second column content."],
+    ["Column three", "Third column content."],
+    ["Column four", "Fourth column content."],
+    ["Column five", "Fifth column content."],
+    ["Column six", "Sixth column content."],
 ];
 
 function ColumnCard({ title, text }) {
@@ -20,8 +20,8 @@ export default function Flex() {
     return (
         <>
             <div pgs="container flexColumnTexts">
-                <strong>Sezione standard</strong>
-                <p>Contenuto centrato dentro una sezione MyPGS.</p>
+                <strong>Standard section</strong>
+                <p>Centered content inside a MyPGS section.</p>
             </div>
 
             {[2, 3, 4, 6].map((count) => (

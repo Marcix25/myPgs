@@ -1,73 +1,73 @@
-<!-- File generato automaticamente da templates/html/components/search.html. Modificare templates/html/components/search.html e rieseguire npm run docs:generate. -->
+<!-- Automatically generated from templates/html/components/search.html. Edit templates/html/components/search.html and run npm run docs:generate again. -->
 
 # Search
 
-Ricerca componibile con suggerimenti asincroni o locali, navigazione da tastiera, selezione, annullamento richieste e attributi ARIA gestiti dal modulo search.
+Search markup, configuration, behavior, and usage example.
 
 ## PGS
 
-- `search`: identifica il form inizializzato come ricerca con suggerimenti.
-- `search-suggestions`: identifica la lista opzionale che riceve i risultati.
-- `search-suggestions-item`: identifica ogni risultato creato dinamicamente nella lista.
-- `search-modal`: identifica la variante di ricerca inserita in una modale per dispositivi mobili.
-- `search-mobile`: identifica il contenitore interno della ricerca mobile.
+- `search`: identifies the search element used by Search.
+- `search-suggestions`: identifies the search-suggestions element used by Search.
+- `search-suggestions-item`: identifies the search-suggestions-item element used by Search.
+- `search-modal`: identifies the search-modal element used by Search.
+- `search-mobile`: identifies the search-mobile element used by Search.
 
 ## PGS Options
 
-- `containerPGS`: sul wrapper modal usa containerPGS[header] per spostare il dialog nell'header.
+- `containerPGS`: identifies the containerPGS element used by Search.
 
 ## PGS States
 
-- `open`: sul root search indica che la lista dei suggerimenti è aperta.
-- `loading`: sul root search indica una sorgente dati in caricamento.
-- `error`: sul root search indica che il recupero dei suggerimenti è fallito.
-- `selected`: sul risultato generato indica l'elemento attivo durante la navigazione.
+- `open`: identifies the open element used by Search.
+- `loading`: identifies the loading element used by Search.
+- `error`: identifies the error element used by Search.
+- `selected`: identifies the selected element used by Search.
 
-## API JavaScript
+## JavaScript API
 
-- `pgs.search.init(root)`: inizializza le ricerche non ancora registrate dentro Document o Element indicato.
-- `pgs.search.api(element)`: restituisce l'istanza associata a un form search inizializzato.
-- `instance.configure(options)`: aggiorna minLength, debounce, limit, submitOnSelect, searchOnFocus, source e onSelect e restituisce l'istanza.
-- `instance.setSource(source)`: configura una sorgente array o funzione asincrona per i suggerimenti.
-- `instance.search(query)`: esegue subito la ricerca e restituisce una Promise con i suggerimenti normalizzati.
-- `instance.open()`: apre la lista quando sono disponibili risultati.
-- `instance.close()`: chiude la lista e azzera la selezione attiva.
-- `instance.clear()`: rimuove risultati e selezione e chiude la lista.
+- `pgs.search.init(root)`: initializes matching elements within the specified root.
+- `pgs.search.api(element)`: returns the instance associated with the specified initialized element.
+- `instance.configure(options)`: provides the documented operation through the component public API.
+- `instance.setSource(source)`: provides the documented operation through the component public API.
+- `instance.search(query)`: provides the documented operation through the component public API.
+- `instance.open()`: opens the component.
+- `instance.close()`: closes the component.
+- `instance.clear()`: provides the documented operation through the component public API.
 - `instance.cancel()`: annulla debounce e richiesta attiva.
-- `instance.select(index, submit)`: seleziona un risultato, emette pgs:search:select e può inviare il form.
-- `instance.refresh()`: ripete la ricerca usando il valore corrente dell'input.
-- `instance.destroy()`: rimuove listener, annulla le operazioni e scollega l'istanza.
-- `instance.items()`: restituisce una copia dei suggerimenti correnti.
-- `instance.isOpen()`: restituisce true quando la lista dei suggerimenti è aperta.
-- `instance.isLoading()`: restituisce true durante il caricamento della sorgente.
-- `instance.setActiveIndex(index)`: imposta il suggerimento attivo e aggiorna selezione e attributi ARIA.
+- `instance.select(index, submit)`: provides the documented operation through the component public API.
+- `instance.refresh()`: refreshes the component and returns its updated instance.
+- `instance.destroy()`: removes listeners and releases the component instance.
+- `instance.items()`: provides the documented operation through the component public API.
+- `instance.isOpen()`: returns true when the component is open.
+- `instance.isLoading()`: returns true while the component is loading.
+- `instance.setActiveIndex(index)`: provides the documented operation through the component public API.
 
-## Elementi correlati
+## Related elements
 
-- `buttonNohover`: applica al form l'aspetto compatto condiviso con i controlli button.
-- `modal`: fornisce il contenitore e il comportamento della variante mobile.
-- `modal-button`: apre la ricerca mobile.
-- `modal-close`: chiude la ricerca mobile.
-- `buttonIcon`: presenta apertura e chiusura come pulsanti a icona.
-- `flexRow`: organizza il contenuto della variante mobile e gli elementi dei suggerimenti generati.
-- `section`: applica la spaziatura di sezione alla ricerca mobile.
+- `buttonNohover`: uses the related buttonNohover component or utility in this example.
+- `modal`: uses the related modal component or utility in this example.
+- `modal-button`: uses the related modal-button component or utility in this example.
+- `modal-close`: uses the related modal-close component or utility in this example.
+- `buttonIcon`: uses the related buttonIcon component or utility in this example.
+- `flexRow`: uses the related flexRow component or utility in this example.
+- `section`: uses the related section component or utility in this example.
 
 ## Output
 
-Form di ricerca autonomo, variante mobile integrata in una modal e script di esempio con sorgente locale.
+Complete HTML markup and usage example for Search.
 
-## Esempio
+## Example
 
 ```html
 <form pgs="buttonNohover search" autocomplete="off" action="" method="get">
-    <button type="submit" title="Cerca"><i class="fa-solid fa-search"></i></button>
-    <input type="search" name="s" placeholder="Cerca" value="">
+    <button type="submit" title="Search"><i class="fa-solid fa-search"></i></button>
+    <input type="search" name="s" placeholder="Search" value="">
     <ul pgs="search-suggestions"></ul>
 </form>
 
 <div pgs="modal search-modal" pgs-option="containerPGS[header]">
 
-    <button type="button" pgs="modal-button buttonIcon" title="Cerca">
+    <button type="button" pgs="modal-button buttonIcon" title="Search">
         <i class="fa-solid fa-search"></i>
     </button>
 
@@ -75,17 +75,18 @@ Form di ricerca autonomo, variante mobile integrata in una modal e script di ese
         <div pgs="flexRow section search-mobile">
 
             <form pgs="buttonNohover search" autocomplete="off" action="/" method="get">
-                <button type="submit" title="Cerca">
+                <button type="submit" title="Search">
                     <i class="fa-solid fa-search"></i>
                 </button>
 
-                <input type="search" name="s" placeholder="Cerca" value="">
+                <input type="search" name="s" placeholder="Search" value="">
                 <ul pgs="search-suggestions"></ul>
+
+                <button type="button" pgs="modal-close buttonIcon">
+                    <i class="fa-solid fa-close"></i>
+                </button>
             </form>
 
-            <button type="button" pgs="modal-close buttonIcon">
-                <i class="fa-solid fa-close"></i>
-            </button>
 
         </div>
     </dialog>

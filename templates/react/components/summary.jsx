@@ -3,15 +3,15 @@ export default function Summary() {
         <div pgs="summary">
             <div pgs="summary-content">
                 <p>
-                    Questo testo dimostrativo e' abbastanza lungo da occupare piu righe e mostrare il comportamento del componente summary. Il contenuto puo includere testo, link e altri elementi inline senza richiedere markup aggiuntivo.
+                    This demonstration text is long enough to span multiple lines and show the summary component behavior. Content can include text, links, and other inline elements without requiring additional markup.
                 </p>
                 <p>
-                    Quando il contenuto supera tre righe viene mostrato un pulsante per espandere o richiudere l'area visibile.
+                    When content exceeds three lines, a button is shown to expand or collapse the visible area.
                 </p>
             </div>
 
             <button pgs="summary-button" type="button">
-                Mostra di più
+                Show more
             </button>
         </div>
     );

@@ -93,7 +93,6 @@
     &::file-selector-button {
         --button-background: var(--color-box);
         --button-color: var(--color-black);
-
         width: 40%;
         margin-bottom: var(--gap-texts);
         margin-right: var(--gap-texts);
@@ -232,6 +231,7 @@
             outline: solid var(--color-boxDark) 0.1rem;
             background: var(--checkbox-box-background);
             color: var(--color-primary-soft);
+            transform: translateX(0.3rem);
         }
 
         //=== ICON CHECK
@@ -241,6 +241,7 @@
             text-align: center;
             opacity: 0;
             color: var(--checkbox-check-color);
+            transform: translateX(0.25rem);
         }
 
         //=== Checked
@@ -504,9 +505,6 @@
             }
         }
 
-        // button[type=submit] {
-        //     --button-background: var(--color-error);
-        // }
         label:has(+[pgs-option~="error"], [pgs-option~="error"]) {
             &:has(input[type=checkbox]) {
                 background-color: var(--color-error) !important;

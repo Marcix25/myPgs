@@ -1,6 +1,6 @@
 const notificationData = {
-    title: "Titolo",
-    message: "Messaggio",
+    title: "Title",
+    message: "Message",
     element: "notification",
     type: "info",
     icon: null,
@@ -10,7 +10,7 @@ const notificationData = {
 
 const toastData = {
     title: "Benvenuto",
-    message: "Messaggio",
+    message: "Message",
     element: "toast",
     type: "info",
     icon: null,

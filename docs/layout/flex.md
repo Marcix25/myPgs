@@ -1,116 +1,116 @@
-<!-- File generato automaticamente da templates/html/layout/flex.html. Modificare templates/html/layout/flex.html e rieseguire npm run docs:generate. -->
+<!-- Automatically generated from templates/html/layout/flex.html. Edit templates/html/layout/flex.html and run npm run docs:generate again. -->
 
 # Flex
 
-Esempi di layout flex responsive che distribuiscono da due a sei elementi per riga adattando automaticamente la disposizione allo spazio disponibile.
+Flex markup, configuration, behavior, and usage example.
 
 ## PGS
 
-- `flex-2`: crea una distribuzione responsive fino a due elementi per riga.
-- `flex-3`: crea una distribuzione responsive fino a tre elementi per riga.
-- `flex-4`: crea una distribuzione responsive fino a quattro elementi per riga.
-- `flex-6`: crea una distribuzione responsive fino a sei elementi per riga.
+- `flex-2`: identifies the flex-2 element used by Flex.
+- `flex-3`: identifies the flex-3 element used by Flex.
+- `flex-4`: identifies the flex-4 element used by Flex.
+- `flex-6`: identifies the flex-6 element used by Flex.
 
-## Elementi correlati
+## Related elements
 
-- `container`: definisce il contesto contenitore dell'introduzione.
-- `flexColumnTexts`: organizza verticalmente e distanzia testi e contenuti delle card.
-- `card`: rende visibili le celle dimostrative del layout flex.
+- `container`: defines the container context for the introduction.
+- `flexColumnTexts`: vertically organizes and spaces card text and content.
+- `card`: makes the demonstration cells of the flex layout visible.
 
 ## Output
 
-Raccolta HTML dei layout flex responsive a due, tre, quattro e sei elementi.
+HTML collection of responsive flex layouts with two, three, four, and six items.
 
-## Esempio
+## Example
 
 ```html
 <div pgs="container flexColumnTexts">
-    <strong>Sezione standard</strong>
-    <p>Contenuto centrato dentro una sezione MyPGS.</p>
+    <strong>Standard section</strong>
+    <p>Centered content inside a MyPGS section.</p>
 </div>
 
 
 <div pgs="flex-2">
     <article pgs="card flexColumnTexts">
-        <strong>Colonna uno</strong>
-        <p>Contenuto della prima colonna.</p>
+        <strong>Column one</strong>
+        <p>First column content.</p>
     </article>
 
     <article pgs="card flexColumnTexts">
-        <strong>Colonna due</strong>
-        <p>Contenuto della seconda colonna.</p>
+        <strong>Column two</strong>
+        <p>Second column content.</p>
     </article>
 </div>
 
 
 <div pgs="flex-3">
     <article pgs="card flexColumnTexts">
-        <strong>Colonna uno</strong>
-        <p>Contenuto della prima colonna.</p>
+        <strong>Column one</strong>
+        <p>First column content.</p>
     </article>
 
     <article pgs="card flexColumnTexts">
-        <strong>Colonna due</strong>
-        <p>Contenuto della seconda colonna.</p>
+        <strong>Column two</strong>
+        <p>Second column content.</p>
     </article>
 
     <article pgs="card flexColumnTexts">
-        <strong>Colonna tre</strong>
-        <p>Contenuto della terza colonna.</p>
+        <strong>Column three</strong>
+        <p>Third column content.</p>
     </article>
 </div>
 
 
 <div pgs="flex-4">
     <article pgs="card flexColumnTexts">
-        <strong>Colonna uno</strong>
-        <p>Contenuto della prima colonna.</p>
+        <strong>Column one</strong>
+        <p>First column content.</p>
     </article>
 
     <article pgs="card flexColumnTexts">
-        <strong>Colonna due</strong>
-        <p>Contenuto della seconda colonna.</p>
+        <strong>Column two</strong>
+        <p>Second column content.</p>
     </article>
 
     <article pgs="card flexColumnTexts">
-        <strong>Colonna tre</strong>
-        <p>Contenuto della terza colonna.</p>
+        <strong>Column three</strong>
+        <p>Third column content.</p>
     </article>
     <article pgs="card flexColumnTexts">
-        <strong>Colonna quattro</strong>
-        <p>Contenuto della quarta colonna.</p>
+        <strong>Column four</strong>
+        <p>Fourth column content.</p>
     </article>
 </div>
 
 <div pgs="flex-6">
     <article pgs="card flexColumnTexts">
-        <strong>Colonna uno</strong>
-        <p>Contenuto della prima colonna.</p>
+        <strong>Column one</strong>
+        <p>First column content.</p>
     </article>
 
     <article pgs="card flexColumnTexts">
-        <strong>Colonna due</strong>
-        <p>Contenuto della seconda colonna.</p>
+        <strong>Column two</strong>
+        <p>Second column content.</p>
     </article>
 
     <article pgs="card flexColumnTexts">
-        <strong>Colonna tre</strong>
-        <p>Contenuto della terza colonna.</p>
+        <strong>Column three</strong>
+        <p>Third column content.</p>
     </article>
 
     <article pgs="card flexColumnTexts">
-        <strong>Colonna quattro</strong>
-        <p>Contenuto della quarta colonna.</p>
+        <strong>Column four</strong>
+        <p>Fourth column content.</p>
     </article>
 
     <article pgs="card flexColumnTexts">
-        <strong>Colonna cinque</strong>
-        <p>Contenuto della quinta colonna.</p>
+        <strong>Column five</strong>
+        <p>Fifth column content.</p>
     </article>
 
     <article pgs="card flexColumnTexts">
-        <strong>Colonna sei</strong>
-        <p>Contenuto della sesta colonna.</p>
+        <strong>Column six</strong>
+        <p>Sixth column content.</p>
     </article>
 </div
 ```

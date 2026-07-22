@@ -4,7 +4,7 @@ export default function Table() {
             <table>
                 <thead>
                     <tr>
-                        <th>Nome</th>
+                        <th>Name</th>
                         <th>Stato</th>
                         <th>Data</th>
                     </tr>
@@ -13,7 +13,7 @@ export default function Table() {
                 <tbody>
                     <tr>
                         <td>Elemento uno</td>
-                        <td>Attivo</td>
+                        <td>Active</td>
                         <td>2026-01-01</td>
                     </tr>
                     <tr>

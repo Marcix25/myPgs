@@ -1,49 +1,49 @@
-<!-- File generato automaticamente da templates/html/components/summary.html. Modificare templates/html/components/summary.html e rieseguire npm run docs:generate. -->
+<!-- Automatically generated from templates/html/components/summary.html. Edit templates/html/components/summary.html and run npm run docs:generate again. -->
 
 # Summary
 
-Componente che limita inizialmente un testo lungo a tre righe e mostra il controllo di espansione solo quando il contenuto eccede tale altezza.
+Summary markup, configuration, behavior, and usage example.
 
 ## PGS
 
-- `summary`: identifica il root inizializzato dal modulo summary.
-- `summary-content`: identifica il contenuto misurato e ridimensionato.
-- `summary-button`: identifica il controllo per mostrare più o meno contenuto.
+- `summary`: identifies the summary element used by Summary.
+- `summary-content`: identifies the summary-content element used by Summary.
+- `summary-button`: identifies the summary-button element used by Summary.
 
 ## PGS States
 
-- `overflow`: indica che il contenuto supera l'altezza contratta e richiede il controllo.
-- `open`: indica che tutto il contenuto è espanso e visibile.
+- `overflow`: identifies the overflow element used by Summary.
+- `open`: identifies the open element used by Summary.
 
-## API JavaScript
+## JavaScript API
 
-- `pgs.summary.init(root)`: inizializza i summary non ancora registrati dentro Document o Element indicato.
-- `pgs.summary.api(element)`: restituisce l'istanza associata a un root summary inizializzato.
-- `instance.open()`: espande il contenuto quando supera l'altezza contratta.
-- `instance.close()`: richiude il contenuto alla dimensione prevista.
-- `instance.toggle()`: inverte lo stato espanso o contratto.
-- `instance.refresh()`: ricalcola overflow e altezza conservando lo stato corrente.
-- `instance.isOpen()`: restituisce true quando il contenuto è espanso.
+- `pgs.summary.init(root)`: initializes matching elements within the specified root.
+- `pgs.summary.api(element)`: returns the instance associated with the specified initialized element.
+- `instance.open()`: opens the component.
+- `instance.close()`: closes the component.
+- `instance.toggle()`: toggles the component state.
+- `instance.refresh()`: refreshes the component and returns its updated instance.
+- `instance.isOpen()`: returns true when the component is open.
 
 ## Output
 
-Struttura HTML con contenuto espandibile e pulsante sincronizzato tramite ARIA.
+Complete HTML markup and usage example for Summary.
 
-## Esempio
+## Example
 
 ```html
 <div pgs="summary">
     <div pgs="summary-content">
         <p>
-            Questo testo dimostrativo e' abbastanza lungo da occupare piu righe e mostrare il comportamento del componente summary. Il contenuto puo includere testo, link e altri elementi inline senza richiedere markup aggiuntivo.
+            This demonstration text is long enough to span multiple lines and show the summary component behavior. Content can include text, links, and other inline elements without requiring additional markup.
         </p>
         <p>
-            Quando il contenuto supera tre righe viene mostrato un pulsante per espandere o richiudere l'area visibile.
+            When content exceeds three lines, a button is shown to expand or collapse the visible area.
         </p>
     </div>
 
     <button pgs="summary-button" type="button">
-        Mostra di più
+        Show more
     </button>
 </div>
 ```

@@ -2244,10 +2244,14 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
     max-height: none;
     width: 100%;
     min-width: 100%;
+    overflow: visible;
+    overscroll-behavior: auto;
+    scrollbar-gutter: auto;
   }
-  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-aside]) [pgs~=pageShell-aside] [pgs~=pageShell-aside] {
+  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-aside]) [pgs~=pageShell-aside] [pgs~=pageShell-aside-scroll] {
     scrollbar-gutter: auto;
     overflow: visible;
+    overscroll-behavior: auto;
   }
   [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-aside]) [pgs~=pageShell-content] {
     padding-top: 0;
@@ -2261,10 +2265,14 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
     max-height: none;
     width: 100%;
     min-width: 100%;
+    overflow: visible;
+    overscroll-behavior: auto;
+    scrollbar-gutter: auto;
   }
-  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content] + [pgs~=pageShell-aside] [pgs~=pageShell-aside] {
+  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content] + [pgs~=pageShell-aside] [pgs~=pageShell-aside-scroll] {
     scrollbar-gutter: auto;
     overflow: visible;
+    overscroll-behavior: auto;
   }
   [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content] + [pgs~=pageShell-aside] {
     padding-top: 0;
@@ -2284,10 +2292,14 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
     max-height: none;
     width: 100%;
     min-width: 100%;
+    overflow: visible;
+    overscroll-behavior: auto;
+    scrollbar-gutter: auto;
   }
-  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content] + [pgs~=pageShell-aside] [pgs~=pageShell-aside] {
+  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content] + [pgs~=pageShell-aside] [pgs~=pageShell-aside-scroll] {
     scrollbar-gutter: auto;
     overflow: visible;
+    overscroll-behavior: auto;
   }
   [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content] + [pgs~=pageShell-aside] {
     padding-top: 0;
@@ -2304,10 +2316,14 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
     max-height: none;
     width: 100%;
     min-width: 100%;
+    overflow: visible;
+    overscroll-behavior: auto;
+    scrollbar-gutter: auto;
   }
-  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-aside] [pgs~=pageShell-aside] {
+  [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-aside] [pgs~=pageShell-aside-scroll] {
     scrollbar-gutter: auto;
     overflow: visible;
+    overscroll-behavior: auto;
   }
   [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content],
   [pgs~=initP] [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content] + [pgs~=pageShell-aside] {
@@ -2330,10 +2346,14 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
     max-height: none;
     width: 100%;
     min-width: 100%;
+    overflow: visible;
+    overscroll-behavior: auto;
+    scrollbar-gutter: auto;
   }
-  [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-aside] [pgs~=pageShell-aside] {
+  [pgs~=initP] [pgs~=pageShell] [pgs~=pageShell-aside] [pgs~=pageShell-aside-scroll] {
     scrollbar-gutter: auto;
     overflow: visible;
+    overscroll-behavior: auto;
   }
 }
 [pgs~=initP] [pgs~=gapTexts] {
@@ -2419,6 +2439,9 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=initP] [pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button]::before {
   opacity: 0.6;
 }
+[pgs~=initP] [pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button]:hover::before, [pgs~=initP] [pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button]:hover::after {
+  background-color: var(--color-white);
+}
 [pgs~=initP] [pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button][aria-expanded=true] {
   gap: 0px;
 }
@@ -2493,8 +2516,6 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   top: 0;
   translate: 0 -50%;
   z-index: 1;
-  --button-background: var(--color-primary);
-  --button-color: var(--color-whiteFixed);
 }
 [pgs~=initP] [pgs~=footer] [pgs~=toggleDarkmode]:has(i.fa-sun)::after {
   content: "Attiva Light Mode";
@@ -2626,91 +2647,84 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 */
 [pgs~=initP] [pgs~=card],
 [pgs~=initP] [pgs~=cardImg] {
-  --card-padding: var(--padding);
+  --card-padding: var(--padding-2);
+  --card-borderRadius: calc(var(--border-radius-input) + var(--card-padding));
+  --card-background: var(--color-box-transparent);
+  --card-padding-img: 0;
   height: 100%;
 }
 [pgs~=initP] [pgs~=card]:not(:has(> a)),
 [pgs~=initP] [pgs~=cardImg]:not(:has(> a)) {
-  --card-background: var(--color-box-transparent);
-  --card-padding-img: 0;
   padding: var(--card-padding);
   background: var(--card-background);
-  border-radius: var(--border-radius);
+  border-radius: var(--card-borderRadius);
 }
 [pgs~=initP] [pgs~=card] > a,
 [pgs~=initP] [pgs~=cardImg] > a {
   --card-background: var(--color-white);
-  --card-padding-img: .3rem;
   transition: all 200ms;
   cursor: pointer;
   text-decoration: none;
+  --hover-shadow-color: var(--color-primary);
+  --hover-shadow-displacement: 0.25rem;
 }
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=initP] [pgs~=card] > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=card] > a:not(:disabled):hover,
-  [pgs~=initP] [pgs~=cardImg] > a:not(:disabled):focus-visible,
-  [pgs~=initP] [pgs~=cardImg] > a:not(:disabled):hover {
-    box-shadow: -0.25rem 0.25rem 0px var(--color-black);
-    transform: translate(0.25rem, -0.25rem);
+  [pgs~=initP] [pgs~=card] > a:not(:disabled):not([pgs-option~=buttonStyle-2]):focus-visible, [pgs~=initP] [pgs~=card] > a:not(:disabled):not([pgs-option~=buttonStyle-2]):hover,
+  [pgs~=initP] [pgs~=cardImg] > a:not(:disabled):not([pgs-option~=buttonStyle-2]):focus-visible,
+  [pgs~=initP] [pgs~=cardImg] > a:not(:disabled):not([pgs-option~=buttonStyle-2]):hover {
+    box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
+    --hover-color: var(--color-white);
+    --hover-background: var(--color-primary-strong);
+    color: var(--hover-color);
+    --fa-primary-color: var(--hover-color);
+    --fa-secondary-color: var(--hover-color);
+    background: var(--hover-background);
   }
-  @supports (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=card] > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=card] > a:not(:disabled):hover,
-    [pgs~=initP] [pgs~=cardImg] > a:not(:disabled):focus-visible,
-    [pgs~=initP] [pgs~=cardImg] > a:not(:disabled):hover {
-      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
-    }
+  [pgs~=initP] [pgs~=card] > a:not(:disabled):not([pgs-option~=buttonStyle-2]):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=initP] [pgs~=card] > a:not(:disabled):not([pgs-option~=buttonStyle-2]):hover :is(h1, h2, h3, h4, h5, h6, p),
+  [pgs~=initP] [pgs~=cardImg] > a:not(:disabled):not([pgs-option~=buttonStyle-2]):focus-visible :is(h1, h2, h3, h4, h5, h6, p),
+  [pgs~=initP] [pgs~=cardImg] > a:not(:disabled):not([pgs-option~=buttonStyle-2]):hover :is(h1, h2, h3, h4, h5, h6, p) {
+    color: var(--hover-color);
   }
-  @supports not (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=card] > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=card] > a:not(:disabled):hover,
-    [pgs~=initP] [pgs~=cardImg] > a:not(:disabled):focus-visible,
-    [pgs~=initP] [pgs~=cardImg] > a:not(:disabled):hover {
-      --button-color-hover: var(--color-black);
-    }
-  }
-  [pgs~=initP] [pgs~=card] > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=card] > a:not(:disabled):hover,
-  [pgs~=initP] [pgs~=cardImg] > a:not(:disabled):focus-visible,
-  [pgs~=initP] [pgs~=cardImg] > a:not(:disabled):hover {
-    --button-background-hover: var(--color-primary-soft);
-    color: var(--button-color-hover);
-    background: var(--button-background-hover);
-  }
-  [pgs~=initP] [pgs~=card] > a:not(:disabled):focus-visible:is(a), [pgs~=initP] [pgs~=card] > a:not(:disabled):hover:is(a),
-  [pgs~=initP] [pgs~=cardImg] > a:not(:disabled):focus-visible:is(a),
-  [pgs~=initP] [pgs~=cardImg] > a:not(:disabled):hover:is(a) {
-    color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=card] > a:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=card] > a:not(:disabled):hover i,
-  [pgs~=initP] [pgs~=cardImg] > a:not(:disabled):focus-visible i,
-  [pgs~=initP] [pgs~=cardImg] > a:not(:disabled):hover i {
-    color: var(--button-color-hover);
-    --fa-primary-color: var(--button-color-hover);
-    --fa-secondary-color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=card] > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=card] > a:not(:disabled):hover,
-  [pgs~=initP] [pgs~=cardImg] > a:not(:disabled):focus-visible,
-  [pgs~=initP] [pgs~=cardImg] > a:not(:disabled):hover {
+}
+@media (hover: hover) and (pointer: fine) {
+  [pgs~=initP] [pgs~=card] > a:not(:disabled)[pgs-option~=buttonStyle-2]:focus-visible, [pgs~=initP] [pgs~=card] > a:not(:disabled)[pgs-option~=buttonStyle-2]:hover,
+  [pgs~=initP] [pgs~=cardImg] > a:not(:disabled)[pgs-option~=buttonStyle-2]:focus-visible,
+  [pgs~=initP] [pgs~=cardImg] > a:not(:disabled)[pgs-option~=buttonStyle-2]:hover {
+    box-shadow: calc(var(--hover-shadow-displacement) * -1) var(--hover-shadow-displacement) 0 var(--color-black);
+    transform: translate(var(--hover-shadow-displacement), calc(var(--hover-shadow-displacement) * -1));
     outline-color: transparent;
+    --hover-color: var(--color-white);
+    --hover-background: var(--color-primary-strong);
+    color: var(--hover-color);
+    --fa-primary-color: var(--hover-color);
+    --fa-secondary-color: var(--hover-color);
+    background: var(--hover-background);
   }
-  [pgs~=initP] [pgs~=card] > a:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=card] > a:not(:disabled):hover i,
-  [pgs~=initP] [pgs~=cardImg] > a:not(:disabled):focus-visible i,
-  [pgs~=initP] [pgs~=cardImg] > a:not(:disabled):hover i {
-    --fa-secondary-opacity: 0.5;
+  [pgs~=initP] [pgs~=card] > a:not(:disabled)[pgs-option~=buttonStyle-2]:focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=initP] [pgs~=card] > a:not(:disabled)[pgs-option~=buttonStyle-2]:hover :is(h1, h2, h3, h4, h5, h6, p),
+  [pgs~=initP] [pgs~=cardImg] > a:not(:disabled)[pgs-option~=buttonStyle-2]:focus-visible :is(h1, h2, h3, h4, h5, h6, p),
+  [pgs~=initP] [pgs~=cardImg] > a:not(:disabled)[pgs-option~=buttonStyle-2]:hover :is(h1, h2, h3, h4, h5, h6, p) {
+    color: var(--hover-color);
   }
+}
+[pgs~=initP] [pgs~=card] > a:not(:disabled):hover,
+[pgs~=initP] [pgs~=cardImg] > a:not(:disabled):hover {
+  --fa-secondary-opacity: 0.5;
+  --hover-color: var(--color-whiteFixed);
+  color: var(--hover-color);
+  --fa-primary-color: var(--hover-color);
+  --fa-secondary-color: var(--hover-color);
 }
 [pgs~=initP] [pgs~=card] > a:is(a):hover,
 [pgs~=initP] [pgs~=cardImg] > a:is(a):hover {
   text-decoration: none;
 }
-[pgs~=initP] [pgs~=card] > a:active,
-[pgs~=initP] [pgs~=cardImg] > a:active {
-  box-shadow: 0 0 0 var(--color-black);
-  transform: translate(0, 0);
-}
 [pgs~=initP] [pgs~=card] > a,
 [pgs~=initP] [pgs~=cardImg] > a {
   height: 100%;
   padding: var(--card-padding);
+  padding-bottom: calc(var(--card-padding) * 2);
   background: var(--card-background);
-  border-radius: var(--border-radius);
+  border-radius: var(--card-borderRadius);
   outline: var(--border-complete);
 }
 [pgs~=initP] [pgs~=card] > object,
@@ -2721,7 +2735,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=initP] [pgs~=cardImg] > img,
 [pgs~=initP] [pgs~=cardImg] > a > object,
 [pgs~=initP] [pgs~=cardImg] > a > img {
-  border-radius: var(--border-radius);
+  border-radius: var(--card-borderRadius);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   margin: calc(var(--card-padding) * -1);
@@ -2731,7 +2745,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 }
 [pgs~=initP] [pgs~=card] [pgs~=card-img],
 [pgs~=initP] [pgs~=cardImg] [pgs~=card-img] {
-  border-radius: var(--border-radius);
+  border-radius: var(--card-borderRadius);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   margin: calc(var(--card-padding) * -1);
@@ -2742,38 +2756,13 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=initP] [pgs~=button] {
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
-  --button-icon-size: 2.0rem;
+  --button-icon-size: 2rem;
   --button-padding-block: var(--button-size);
   --button-padding-left: calc(var(--button-size) * 2);
   --button-padding-right: calc(var(--button-size) * 2);
   --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
   --fa-secondary-opacity: 0.5;
   --fa-size: var(--button-icon-size);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=button] {
-    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=button] {
-    --button-color: var(--color-black);
-  }
-}
-[pgs~=initP] [pgs~=button] {
-  --button-background: var(--color-box);
-  color: var(--button-color);
-  background: var(--button-background);
-}
-[pgs~=initP] [pgs~=button]:is(a) {
-  color: var(--button-color);
-}
-[pgs~=initP] [pgs~=button] i {
-  color: var(--button-color);
-  --fa-primary-color: var(--button-color);
-  --fa-secondary-color: var(--button-color);
-}
-[pgs~=initP] [pgs~=button] {
   font-family: var(--font);
   font-size: 1.6rem;
   font-weight: 600;
@@ -2804,69 +2793,70 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   transition: all 200ms;
   cursor: pointer;
   text-decoration: none;
+  --hover-shadow-color: var(--color-primary);
+  --hover-shadow-displacement: 0.25rem;
 }
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=initP] [pgs~=button]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=button]:not(:disabled):hover {
-    box-shadow: -0.25rem 0.25rem 0px var(--color-black);
-    transform: translate(0.25rem, -0.25rem);
+  [pgs~=initP] [pgs~=button]:not(:disabled):not([pgs-option~=buttonStyle-2]):focus-visible, [pgs~=initP] [pgs~=button]:not(:disabled):not([pgs-option~=buttonStyle-2]):hover {
+    box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
+    --hover-color: var(--color-white);
+    --hover-background: var(--color-primary-strong);
+    color: var(--hover-color);
+    --fa-primary-color: var(--hover-color);
+    --fa-secondary-color: var(--hover-color);
+    background: var(--hover-background);
   }
-  @supports (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=button]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=button]:not(:disabled):hover {
-      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
-    }
+  [pgs~=initP] [pgs~=button]:not(:disabled):not([pgs-option~=buttonStyle-2]):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=initP] [pgs~=button]:not(:disabled):not([pgs-option~=buttonStyle-2]):hover :is(h1, h2, h3, h4, h5, h6, p) {
+    color: var(--hover-color);
   }
-  @supports not (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=button]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=button]:not(:disabled):hover {
-      --button-color-hover: var(--color-black);
-    }
-  }
-  [pgs~=initP] [pgs~=button]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=button]:not(:disabled):hover {
-    --button-background-hover: var(--color-primary-soft);
-    color: var(--button-color-hover);
-    background: var(--button-background-hover);
-  }
-  [pgs~=initP] [pgs~=button]:not(:disabled):focus-visible:is(a), [pgs~=initP] [pgs~=button]:not(:disabled):hover:is(a) {
-    color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=button]:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=button]:not(:disabled):hover i {
-    color: var(--button-color-hover);
-    --fa-primary-color: var(--button-color-hover);
-    --fa-secondary-color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=button]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=button]:not(:disabled):hover {
+}
+@media (hover: hover) and (pointer: fine) {
+  [pgs~=initP] [pgs~=button]:not(:disabled)[pgs-option~=buttonStyle-2]:focus-visible, [pgs~=initP] [pgs~=button]:not(:disabled)[pgs-option~=buttonStyle-2]:hover {
+    box-shadow: calc(var(--hover-shadow-displacement) * -1) var(--hover-shadow-displacement) 0 var(--color-black);
+    transform: translate(var(--hover-shadow-displacement), calc(var(--hover-shadow-displacement) * -1));
     outline-color: transparent;
+    --hover-color: var(--color-white);
+    --hover-background: var(--color-primary-strong);
+    color: var(--hover-color);
+    --fa-primary-color: var(--hover-color);
+    --fa-secondary-color: var(--hover-color);
+    background: var(--hover-background);
   }
-  [pgs~=initP] [pgs~=button]:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=button]:not(:disabled):hover i {
-    --fa-secondary-opacity: 0.5;
+  [pgs~=initP] [pgs~=button]:not(:disabled)[pgs-option~=buttonStyle-2]:focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=initP] [pgs~=button]:not(:disabled)[pgs-option~=buttonStyle-2]:hover :is(h1, h2, h3, h4, h5, h6, p) {
+    color: var(--hover-color);
   }
+}
+[pgs~=initP] [pgs~=button]:not(:disabled):hover {
+  --fa-secondary-opacity: 0.5;
+  --hover-color: var(--color-whiteFixed);
+  color: var(--hover-color);
+  --fa-primary-color: var(--hover-color);
+  --fa-secondary-color: var(--hover-color);
 }
 [pgs~=initP] [pgs~=button]:is(a):hover {
   text-decoration: none;
 }
-[pgs~=initP] [pgs~=button]:active {
-  box-shadow: 0 0 0 var(--color-black);
-  transform: translate(0, 0);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=button][aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=button][aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: var(--color-whiteFixed);
-  }
+[pgs~=initP] [pgs~=button] {
+  --button-color: var(--color-black);
+  --button-color-strong: var(--color-whiteFixed);
+  --button-color-current: var(--color-whiteFixed);
+  --button-background: var(--color-box);
+  --button-background-strong: var(--color-primary);
+  --button-background-current: var(--color-primary);
+  color: var(--button-color);
+  background: var(--button-background);
+  --fa-primary-color: var(--button-color);
+  --fa-secondary-color: var(--button-color);
 }
 [pgs~=initP] [pgs~=button][aria-current=page]:not(:hover, :focus-visible) {
+  --button-color: var(--color-black);
+  --button-color-strong: var(--color-whiteFixed);
+  --button-color-current: var(--color-whiteFixed);
+  --button-background: var(--color-box);
+  --button-background-strong: var(--color-primary);
   --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
-}
-[pgs~=initP] [pgs~=button][aria-current=page]:not(:hover, :focus-visible):is(a) {
-  color: var(--button-color-current);
-}
-[pgs~=initP] [pgs~=button][aria-current=page]:not(:hover, :focus-visible) i {
-  color: var(--button-color-current);
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
 }
@@ -2877,38 +2867,13 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=initP] [pgs~=buttonNohover] {
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
-  --button-icon-size: 2.0rem;
+  --button-icon-size: 2rem;
   --button-padding-block: var(--button-size);
   --button-padding-left: calc(var(--button-size) * 2);
   --button-padding-right: calc(var(--button-size) * 2);
   --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
   --fa-secondary-opacity: 0.5;
   --fa-size: var(--button-icon-size);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=buttonNohover] {
-    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=buttonNohover] {
-    --button-color: var(--color-black);
-  }
-}
-[pgs~=initP] [pgs~=buttonNohover] {
-  --button-background: var(--color-box);
-  color: var(--button-color);
-  background: var(--button-background);
-}
-[pgs~=initP] [pgs~=buttonNohover]:is(a) {
-  color: var(--button-color);
-}
-[pgs~=initP] [pgs~=buttonNohover] i {
-  color: var(--button-color);
-  --fa-primary-color: var(--button-color);
-  --fa-secondary-color: var(--button-color);
-}
-[pgs~=initP] [pgs~=buttonNohover] {
   font-family: var(--font);
   font-size: 1.6rem;
   font-weight: 600;
@@ -2938,27 +2903,26 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=initP] [pgs~=buttonNohover] {
   transition: all 200ms;
   cursor: inherit;
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=buttonNohover][aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=buttonNohover][aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: var(--color-whiteFixed);
-  }
+  --button-color: var(--color-black);
+  --button-color-strong: var(--color-whiteFixed);
+  --button-color-current: var(--color-whiteFixed);
+  --button-background: var(--color-box);
+  --button-background-strong: var(--color-primary);
+  --button-background-current: var(--color-primary);
+  color: var(--button-color);
+  background: var(--button-background);
+  --fa-primary-color: var(--button-color);
+  --fa-secondary-color: var(--button-color);
 }
 [pgs~=initP] [pgs~=buttonNohover][aria-current=page]:not(:hover, :focus-visible) {
+  --button-color: var(--color-black);
+  --button-color-strong: var(--color-whiteFixed);
+  --button-color-current: var(--color-whiteFixed);
+  --button-background: var(--color-box);
+  --button-background-strong: var(--color-primary);
   --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
-}
-[pgs~=initP] [pgs~=buttonNohover][aria-current=page]:not(:hover, :focus-visible):is(a) {
-  color: var(--button-color-current);
-}
-[pgs~=initP] [pgs~=buttonNohover][aria-current=page]:not(:hover, :focus-visible) i {
-  color: var(--button-color-current);
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
 }
@@ -2969,38 +2933,13 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=initP] [pgs~=buttonIcon] {
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
-  --button-icon-size: 2.0rem;
+  --button-icon-size: 2rem;
   --button-padding-block: var(--button-size);
   --button-padding-left: calc(var(--button-size) * 2);
   --button-padding-right: calc(var(--button-size) * 2);
   --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
   --fa-secondary-opacity: 0.5;
   --fa-size: var(--button-icon-size);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=buttonIcon] {
-    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=buttonIcon] {
-    --button-color: var(--color-black);
-  }
-}
-[pgs~=initP] [pgs~=buttonIcon] {
-  --button-background: var(--color-box);
-  color: var(--button-color);
-  background: var(--button-background);
-}
-[pgs~=initP] [pgs~=buttonIcon]:is(a) {
-  color: var(--button-color);
-}
-[pgs~=initP] [pgs~=buttonIcon] i {
-  color: var(--button-color);
-  --fa-primary-color: var(--button-color);
-  --fa-secondary-color: var(--button-color);
-}
-[pgs~=initP] [pgs~=buttonIcon] {
   font-family: var(--font);
   font-size: 1.6rem;
   font-weight: 600;
@@ -3018,12 +2957,12 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   height: max-content;
   width: max-content;
   margin-block: auto;
+  --button-padding: var(--button-padding-block);
   flex: 0 0;
   aspect-ratio: 1;
   border-radius: 50%;
   justify-content: center;
   align-items: center;
-  --button-padding: var(--button-padding-block);
 }
 [pgs~=initP] [pgs~=buttonIcon] i {
   display: inline-grid;
@@ -3037,69 +2976,70 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   transition: all 200ms;
   cursor: pointer;
   text-decoration: none;
+  --hover-shadow-color: var(--color-primary);
+  --hover-shadow-displacement: 0.25rem;
 }
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=initP] [pgs~=buttonIcon]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=buttonIcon]:not(:disabled):hover {
-    box-shadow: -0.25rem 0.25rem 0px var(--color-black);
-    transform: translate(0.25rem, -0.25rem);
+  [pgs~=initP] [pgs~=buttonIcon]:not(:disabled):not([pgs-option~=buttonStyle-2]):focus-visible, [pgs~=initP] [pgs~=buttonIcon]:not(:disabled):not([pgs-option~=buttonStyle-2]):hover {
+    box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
+    --hover-color: var(--color-white);
+    --hover-background: var(--color-primary-strong);
+    color: var(--hover-color);
+    --fa-primary-color: var(--hover-color);
+    --fa-secondary-color: var(--hover-color);
+    background: var(--hover-background);
   }
-  @supports (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=buttonIcon]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=buttonIcon]:not(:disabled):hover {
-      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
-    }
+  [pgs~=initP] [pgs~=buttonIcon]:not(:disabled):not([pgs-option~=buttonStyle-2]):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=initP] [pgs~=buttonIcon]:not(:disabled):not([pgs-option~=buttonStyle-2]):hover :is(h1, h2, h3, h4, h5, h6, p) {
+    color: var(--hover-color);
   }
-  @supports not (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=buttonIcon]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=buttonIcon]:not(:disabled):hover {
-      --button-color-hover: var(--color-black);
-    }
-  }
-  [pgs~=initP] [pgs~=buttonIcon]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=buttonIcon]:not(:disabled):hover {
-    --button-background-hover: var(--color-primary-soft);
-    color: var(--button-color-hover);
-    background: var(--button-background-hover);
-  }
-  [pgs~=initP] [pgs~=buttonIcon]:not(:disabled):focus-visible:is(a), [pgs~=initP] [pgs~=buttonIcon]:not(:disabled):hover:is(a) {
-    color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=buttonIcon]:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=buttonIcon]:not(:disabled):hover i {
-    color: var(--button-color-hover);
-    --fa-primary-color: var(--button-color-hover);
-    --fa-secondary-color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=buttonIcon]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=buttonIcon]:not(:disabled):hover {
+}
+@media (hover: hover) and (pointer: fine) {
+  [pgs~=initP] [pgs~=buttonIcon]:not(:disabled)[pgs-option~=buttonStyle-2]:focus-visible, [pgs~=initP] [pgs~=buttonIcon]:not(:disabled)[pgs-option~=buttonStyle-2]:hover {
+    box-shadow: calc(var(--hover-shadow-displacement) * -1) var(--hover-shadow-displacement) 0 var(--color-black);
+    transform: translate(var(--hover-shadow-displacement), calc(var(--hover-shadow-displacement) * -1));
     outline-color: transparent;
+    --hover-color: var(--color-white);
+    --hover-background: var(--color-primary-strong);
+    color: var(--hover-color);
+    --fa-primary-color: var(--hover-color);
+    --fa-secondary-color: var(--hover-color);
+    background: var(--hover-background);
   }
-  [pgs~=initP] [pgs~=buttonIcon]:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=buttonIcon]:not(:disabled):hover i {
-    --fa-secondary-opacity: 0.5;
+  [pgs~=initP] [pgs~=buttonIcon]:not(:disabled)[pgs-option~=buttonStyle-2]:focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=initP] [pgs~=buttonIcon]:not(:disabled)[pgs-option~=buttonStyle-2]:hover :is(h1, h2, h3, h4, h5, h6, p) {
+    color: var(--hover-color);
   }
+}
+[pgs~=initP] [pgs~=buttonIcon]:not(:disabled):hover {
+  --fa-secondary-opacity: 0.5;
+  --hover-color: var(--color-whiteFixed);
+  color: var(--hover-color);
+  --fa-primary-color: var(--hover-color);
+  --fa-secondary-color: var(--hover-color);
 }
 [pgs~=initP] [pgs~=buttonIcon]:is(a):hover {
   text-decoration: none;
 }
-[pgs~=initP] [pgs~=buttonIcon]:active {
-  box-shadow: 0 0 0 var(--color-black);
-  transform: translate(0, 0);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=buttonIcon][aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=buttonIcon][aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: var(--color-whiteFixed);
-  }
+[pgs~=initP] [pgs~=buttonIcon] {
+  --button-color: var(--color-black);
+  --button-color-strong: var(--color-whiteFixed);
+  --button-color-current: var(--color-whiteFixed);
+  --button-background: var(--color-box);
+  --button-background-strong: var(--color-primary);
+  --button-background-current: var(--color-primary);
+  color: var(--button-color);
+  background: var(--button-background);
+  --fa-primary-color: var(--button-color);
+  --fa-secondary-color: var(--button-color);
 }
 [pgs~=initP] [pgs~=buttonIcon][aria-current=page]:not(:hover, :focus-visible) {
+  --button-color: var(--color-black);
+  --button-color-strong: var(--color-whiteFixed);
+  --button-color-current: var(--color-whiteFixed);
+  --button-background: var(--color-box);
+  --button-background-strong: var(--color-primary);
   --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
-}
-[pgs~=initP] [pgs~=buttonIcon][aria-current=page]:not(:hover, :focus-visible):is(a) {
-  color: var(--button-color-current);
-}
-[pgs~=initP] [pgs~=buttonIcon][aria-current=page]:not(:hover, :focus-visible) i {
-  color: var(--button-color-current);
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
 }
@@ -3110,38 +3050,13 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=initP] [pgs~=buttonStrong] {
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
-  --button-icon-size: 2.0rem;
+  --button-icon-size: 2rem;
   --button-padding-block: var(--button-size);
   --button-padding-left: calc(var(--button-size) * 2);
   --button-padding-right: calc(var(--button-size) * 2);
   --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
   --fa-secondary-opacity: 0.5;
   --fa-size: var(--button-icon-size);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=buttonStrong] {
-    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=buttonStrong] {
-    --button-color: var(--color-black);
-  }
-}
-[pgs~=initP] [pgs~=buttonStrong] {
-  --button-background: var(--color-box);
-  color: var(--button-color);
-  background: var(--button-background);
-}
-[pgs~=initP] [pgs~=buttonStrong]:is(a) {
-  color: var(--button-color);
-}
-[pgs~=initP] [pgs~=buttonStrong] i {
-  color: var(--button-color);
-  --fa-primary-color: var(--button-color);
-  --fa-secondary-color: var(--button-color);
-}
-[pgs~=initP] [pgs~=buttonStrong] {
   font-family: var(--font);
   font-size: 1.6rem;
   font-weight: 600;
@@ -3172,92 +3087,70 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   transition: all 200ms;
   cursor: pointer;
   text-decoration: none;
+  --hover-shadow-color: var(--color-primary);
+  --hover-shadow-displacement: 0.25rem;
 }
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=initP] [pgs~=buttonStrong]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=buttonStrong]:not(:disabled):hover {
-    box-shadow: -0.25rem 0.25rem 0px var(--color-black);
-    transform: translate(0.25rem, -0.25rem);
+  [pgs~=initP] [pgs~=buttonStrong]:not(:disabled):not([pgs-option~=buttonStyle-2]):focus-visible, [pgs~=initP] [pgs~=buttonStrong]:not(:disabled):not([pgs-option~=buttonStyle-2]):hover {
+    box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
+    --hover-color: var(--color-white);
+    --hover-background: var(--color-primary-strong);
+    color: var(--hover-color);
+    --fa-primary-color: var(--hover-color);
+    --fa-secondary-color: var(--hover-color);
+    background: var(--hover-background);
   }
-  @supports (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=buttonStrong]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=buttonStrong]:not(:disabled):hover {
-      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
-    }
+  [pgs~=initP] [pgs~=buttonStrong]:not(:disabled):not([pgs-option~=buttonStyle-2]):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=initP] [pgs~=buttonStrong]:not(:disabled):not([pgs-option~=buttonStyle-2]):hover :is(h1, h2, h3, h4, h5, h6, p) {
+    color: var(--hover-color);
   }
-  @supports not (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=buttonStrong]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=buttonStrong]:not(:disabled):hover {
-      --button-color-hover: var(--color-black);
-    }
-  }
-  [pgs~=initP] [pgs~=buttonStrong]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=buttonStrong]:not(:disabled):hover {
-    --button-background-hover: var(--color-primary-soft);
-    color: var(--button-color-hover);
-    background: var(--button-background-hover);
-  }
-  [pgs~=initP] [pgs~=buttonStrong]:not(:disabled):focus-visible:is(a), [pgs~=initP] [pgs~=buttonStrong]:not(:disabled):hover:is(a) {
-    color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=buttonStrong]:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=buttonStrong]:not(:disabled):hover i {
-    color: var(--button-color-hover);
-    --fa-primary-color: var(--button-color-hover);
-    --fa-secondary-color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=buttonStrong]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=buttonStrong]:not(:disabled):hover {
+}
+@media (hover: hover) and (pointer: fine) {
+  [pgs~=initP] [pgs~=buttonStrong]:not(:disabled)[pgs-option~=buttonStyle-2]:focus-visible, [pgs~=initP] [pgs~=buttonStrong]:not(:disabled)[pgs-option~=buttonStyle-2]:hover {
+    box-shadow: calc(var(--hover-shadow-displacement) * -1) var(--hover-shadow-displacement) 0 var(--color-black);
+    transform: translate(var(--hover-shadow-displacement), calc(var(--hover-shadow-displacement) * -1));
     outline-color: transparent;
+    --hover-color: var(--color-white);
+    --hover-background: var(--color-primary-strong);
+    color: var(--hover-color);
+    --fa-primary-color: var(--hover-color);
+    --fa-secondary-color: var(--hover-color);
+    background: var(--hover-background);
   }
-  [pgs~=initP] [pgs~=buttonStrong]:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=buttonStrong]:not(:disabled):hover i {
-    --fa-secondary-opacity: 0.5;
+  [pgs~=initP] [pgs~=buttonStrong]:not(:disabled)[pgs-option~=buttonStyle-2]:focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=initP] [pgs~=buttonStrong]:not(:disabled)[pgs-option~=buttonStyle-2]:hover :is(h1, h2, h3, h4, h5, h6, p) {
+    color: var(--hover-color);
   }
+}
+[pgs~=initP] [pgs~=buttonStrong]:not(:disabled):hover {
+  --fa-secondary-opacity: 0.5;
+  --hover-color: var(--color-whiteFixed);
+  color: var(--hover-color);
+  --fa-primary-color: var(--hover-color);
+  --fa-secondary-color: var(--hover-color);
 }
 [pgs~=initP] [pgs~=buttonStrong]:is(a):hover {
   text-decoration: none;
 }
-[pgs~=initP] [pgs~=buttonStrong]:active {
-  box-shadow: 0 0 0 var(--color-black);
-  transform: translate(0, 0);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=buttonStrong] {
-    --button-color-strong: contrast-color(color-mix(in srgb, var(--button-background-strong) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=buttonStrong] {
-    --button-color-strong: var(--color-whiteFixed);
-  }
-}
 [pgs~=initP] [pgs~=buttonStrong] {
+  --button-color: var(--color-black);
+  --button-color-strong: var(--color-whiteFixed);
+  --button-color-current: var(--color-whiteFixed);
+  --button-background: var(--color-box);
   --button-background-strong: var(--color-primary);
+  --button-background-current: var(--color-primary);
   color: var(--button-color-strong);
   background: var(--button-background-strong);
-}
-[pgs~=initP] [pgs~=buttonStrong]:is(a) {
-  color: var(--button-color-strong);
-}
-[pgs~=initP] [pgs~=buttonStrong] i {
-  color: var(--button-color-strong);
   --fa-primary-color: var(--button-color-strong);
   --fa-secondary-color: var(--button-color-strong);
 }
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=buttonStrong][aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=buttonStrong][aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: var(--color-whiteFixed);
-  }
-}
 [pgs~=initP] [pgs~=buttonStrong][aria-current=page]:not(:hover, :focus-visible) {
+  --button-color: var(--color-black);
+  --button-color-strong: var(--color-whiteFixed);
+  --button-color-current: var(--color-whiteFixed);
+  --button-background: var(--color-box);
+  --button-background-strong: var(--color-primary);
   --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
-}
-[pgs~=initP] [pgs~=buttonStrong][aria-current=page]:not(:hover, :focus-visible):is(a) {
-  color: var(--button-color-current);
-}
-[pgs~=initP] [pgs~=buttonStrong][aria-current=page]:not(:hover, :focus-visible) i {
-  color: var(--button-color-current);
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
 }
@@ -3268,38 +3161,13 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=initP] [pgs~=buttonMini] {
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
-  --button-icon-size: 2.0rem;
+  --button-icon-size: 2rem;
   --button-padding-block: var(--button-size);
   --button-padding-left: calc(var(--button-size) * 2);
   --button-padding-right: calc(var(--button-size) * 2);
   --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
   --fa-secondary-opacity: 0.5;
   --fa-size: var(--button-icon-size);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=buttonMini] {
-    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=buttonMini] {
-    --button-color: var(--color-black);
-  }
-}
-[pgs~=initP] [pgs~=buttonMini] {
-  --button-background: var(--color-box);
-  color: var(--button-color);
-  background: var(--button-background);
-}
-[pgs~=initP] [pgs~=buttonMini]:is(a) {
-  color: var(--button-color);
-}
-[pgs~=initP] [pgs~=buttonMini] i {
-  color: var(--button-color);
-  --fa-primary-color: var(--button-color);
-  --fa-secondary-color: var(--button-color);
-}
-[pgs~=initP] [pgs~=buttonMini] {
   font-family: var(--font);
   font-size: 1.6rem;
   font-weight: 600;
@@ -3317,12 +3185,12 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   height: max-content;
   width: max-content;
   margin-block: auto;
+  --button-padding: var(--button-padding-block);
   flex: 0 0;
   aspect-ratio: 1;
   border-radius: 50%;
   justify-content: center;
   align-items: center;
-  --button-padding: var(--button-padding-block);
 }
 [pgs~=initP] [pgs~=buttonMini] i {
   display: inline-grid;
@@ -3336,69 +3204,70 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   transition: all 200ms;
   cursor: pointer;
   text-decoration: none;
+  --hover-shadow-color: var(--color-primary);
+  --hover-shadow-displacement: 0.25rem;
 }
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=initP] [pgs~=buttonMini]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=buttonMini]:not(:disabled):hover {
-    box-shadow: -0.25rem 0.25rem 0px var(--color-black);
-    transform: translate(0.25rem, -0.25rem);
+  [pgs~=initP] [pgs~=buttonMini]:not(:disabled):not([pgs-option~=buttonStyle-2]):focus-visible, [pgs~=initP] [pgs~=buttonMini]:not(:disabled):not([pgs-option~=buttonStyle-2]):hover {
+    box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
+    --hover-color: var(--color-white);
+    --hover-background: var(--color-primary-strong);
+    color: var(--hover-color);
+    --fa-primary-color: var(--hover-color);
+    --fa-secondary-color: var(--hover-color);
+    background: var(--hover-background);
   }
-  @supports (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=buttonMini]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=buttonMini]:not(:disabled):hover {
-      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
-    }
+  [pgs~=initP] [pgs~=buttonMini]:not(:disabled):not([pgs-option~=buttonStyle-2]):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=initP] [pgs~=buttonMini]:not(:disabled):not([pgs-option~=buttonStyle-2]):hover :is(h1, h2, h3, h4, h5, h6, p) {
+    color: var(--hover-color);
   }
-  @supports not (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=buttonMini]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=buttonMini]:not(:disabled):hover {
-      --button-color-hover: var(--color-black);
-    }
-  }
-  [pgs~=initP] [pgs~=buttonMini]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=buttonMini]:not(:disabled):hover {
-    --button-background-hover: var(--color-primary-soft);
-    color: var(--button-color-hover);
-    background: var(--button-background-hover);
-  }
-  [pgs~=initP] [pgs~=buttonMini]:not(:disabled):focus-visible:is(a), [pgs~=initP] [pgs~=buttonMini]:not(:disabled):hover:is(a) {
-    color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=buttonMini]:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=buttonMini]:not(:disabled):hover i {
-    color: var(--button-color-hover);
-    --fa-primary-color: var(--button-color-hover);
-    --fa-secondary-color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=buttonMini]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=buttonMini]:not(:disabled):hover {
+}
+@media (hover: hover) and (pointer: fine) {
+  [pgs~=initP] [pgs~=buttonMini]:not(:disabled)[pgs-option~=buttonStyle-2]:focus-visible, [pgs~=initP] [pgs~=buttonMini]:not(:disabled)[pgs-option~=buttonStyle-2]:hover {
+    box-shadow: calc(var(--hover-shadow-displacement) * -1) var(--hover-shadow-displacement) 0 var(--color-black);
+    transform: translate(var(--hover-shadow-displacement), calc(var(--hover-shadow-displacement) * -1));
     outline-color: transparent;
+    --hover-color: var(--color-white);
+    --hover-background: var(--color-primary-strong);
+    color: var(--hover-color);
+    --fa-primary-color: var(--hover-color);
+    --fa-secondary-color: var(--hover-color);
+    background: var(--hover-background);
   }
-  [pgs~=initP] [pgs~=buttonMini]:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=buttonMini]:not(:disabled):hover i {
-    --fa-secondary-opacity: 0.5;
+  [pgs~=initP] [pgs~=buttonMini]:not(:disabled)[pgs-option~=buttonStyle-2]:focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=initP] [pgs~=buttonMini]:not(:disabled)[pgs-option~=buttonStyle-2]:hover :is(h1, h2, h3, h4, h5, h6, p) {
+    color: var(--hover-color);
   }
+}
+[pgs~=initP] [pgs~=buttonMini]:not(:disabled):hover {
+  --fa-secondary-opacity: 0.5;
+  --hover-color: var(--color-whiteFixed);
+  color: var(--hover-color);
+  --fa-primary-color: var(--hover-color);
+  --fa-secondary-color: var(--hover-color);
 }
 [pgs~=initP] [pgs~=buttonMini]:is(a):hover {
   text-decoration: none;
 }
-[pgs~=initP] [pgs~=buttonMini]:active {
-  box-shadow: 0 0 0 var(--color-black);
-  transform: translate(0, 0);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=buttonMini][aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=buttonMini][aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: var(--color-whiteFixed);
-  }
+[pgs~=initP] [pgs~=buttonMini] {
+  --button-color: var(--color-black);
+  --button-color-strong: var(--color-whiteFixed);
+  --button-color-current: var(--color-whiteFixed);
+  --button-background: var(--color-box);
+  --button-background-strong: var(--color-primary);
+  --button-background-current: var(--color-primary);
+  color: var(--button-color);
+  background: var(--button-background);
+  --fa-primary-color: var(--button-color);
+  --fa-secondary-color: var(--button-color);
 }
 [pgs~=initP] [pgs~=buttonMini][aria-current=page]:not(:hover, :focus-visible) {
+  --button-color: var(--color-black);
+  --button-color-strong: var(--color-whiteFixed);
+  --button-color-current: var(--color-whiteFixed);
+  --button-background: var(--color-box);
+  --button-background-strong: var(--color-primary);
   --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
-}
-[pgs~=initP] [pgs~=buttonMini][aria-current=page]:not(:hover, :focus-visible):is(a) {
-  color: var(--button-color-current);
-}
-[pgs~=initP] [pgs~=buttonMini][aria-current=page]:not(:hover, :focus-visible) i {
-  color: var(--button-color-current);
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
 }
@@ -3416,38 +3285,13 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=initP] [pgs~=buttonBig] {
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
-  --button-icon-size: 2.0rem;
+  --button-icon-size: 2rem;
   --button-padding-block: var(--button-size);
   --button-padding-left: calc(var(--button-size) * 2);
   --button-padding-right: calc(var(--button-size) * 2);
   --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
   --fa-secondary-opacity: 0.5;
   --fa-size: var(--button-icon-size);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=buttonBig] {
-    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=buttonBig] {
-    --button-color: var(--color-black);
-  }
-}
-[pgs~=initP] [pgs~=buttonBig] {
-  --button-background: var(--color-box);
-  color: var(--button-color);
-  background: var(--button-background);
-}
-[pgs~=initP] [pgs~=buttonBig]:is(a) {
-  color: var(--button-color);
-}
-[pgs~=initP] [pgs~=buttonBig] i {
-  color: var(--button-color);
-  --fa-primary-color: var(--button-color);
-  --fa-secondary-color: var(--button-color);
-}
-[pgs~=initP] [pgs~=buttonBig] {
   font-family: var(--font);
   font-size: 1.6rem;
   font-weight: 600;
@@ -3478,69 +3322,70 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   transition: all 200ms;
   cursor: pointer;
   text-decoration: none;
+  --hover-shadow-color: var(--color-primary);
+  --hover-shadow-displacement: 0.25rem;
 }
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=initP] [pgs~=buttonBig]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=buttonBig]:not(:disabled):hover {
-    box-shadow: -0.25rem 0.25rem 0px var(--color-black);
-    transform: translate(0.25rem, -0.25rem);
+  [pgs~=initP] [pgs~=buttonBig]:not(:disabled):not([pgs-option~=buttonStyle-2]):focus-visible, [pgs~=initP] [pgs~=buttonBig]:not(:disabled):not([pgs-option~=buttonStyle-2]):hover {
+    box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
+    --hover-color: var(--color-white);
+    --hover-background: var(--color-primary-strong);
+    color: var(--hover-color);
+    --fa-primary-color: var(--hover-color);
+    --fa-secondary-color: var(--hover-color);
+    background: var(--hover-background);
   }
-  @supports (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=buttonBig]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=buttonBig]:not(:disabled):hover {
-      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
-    }
+  [pgs~=initP] [pgs~=buttonBig]:not(:disabled):not([pgs-option~=buttonStyle-2]):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=initP] [pgs~=buttonBig]:not(:disabled):not([pgs-option~=buttonStyle-2]):hover :is(h1, h2, h3, h4, h5, h6, p) {
+    color: var(--hover-color);
   }
-  @supports not (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=buttonBig]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=buttonBig]:not(:disabled):hover {
-      --button-color-hover: var(--color-black);
-    }
-  }
-  [pgs~=initP] [pgs~=buttonBig]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=buttonBig]:not(:disabled):hover {
-    --button-background-hover: var(--color-primary-soft);
-    color: var(--button-color-hover);
-    background: var(--button-background-hover);
-  }
-  [pgs~=initP] [pgs~=buttonBig]:not(:disabled):focus-visible:is(a), [pgs~=initP] [pgs~=buttonBig]:not(:disabled):hover:is(a) {
-    color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=buttonBig]:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=buttonBig]:not(:disabled):hover i {
-    color: var(--button-color-hover);
-    --fa-primary-color: var(--button-color-hover);
-    --fa-secondary-color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=buttonBig]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=buttonBig]:not(:disabled):hover {
+}
+@media (hover: hover) and (pointer: fine) {
+  [pgs~=initP] [pgs~=buttonBig]:not(:disabled)[pgs-option~=buttonStyle-2]:focus-visible, [pgs~=initP] [pgs~=buttonBig]:not(:disabled)[pgs-option~=buttonStyle-2]:hover {
+    box-shadow: calc(var(--hover-shadow-displacement) * -1) var(--hover-shadow-displacement) 0 var(--color-black);
+    transform: translate(var(--hover-shadow-displacement), calc(var(--hover-shadow-displacement) * -1));
     outline-color: transparent;
+    --hover-color: var(--color-white);
+    --hover-background: var(--color-primary-strong);
+    color: var(--hover-color);
+    --fa-primary-color: var(--hover-color);
+    --fa-secondary-color: var(--hover-color);
+    background: var(--hover-background);
   }
-  [pgs~=initP] [pgs~=buttonBig]:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=buttonBig]:not(:disabled):hover i {
-    --fa-secondary-opacity: 0.5;
+  [pgs~=initP] [pgs~=buttonBig]:not(:disabled)[pgs-option~=buttonStyle-2]:focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=initP] [pgs~=buttonBig]:not(:disabled)[pgs-option~=buttonStyle-2]:hover :is(h1, h2, h3, h4, h5, h6, p) {
+    color: var(--hover-color);
   }
+}
+[pgs~=initP] [pgs~=buttonBig]:not(:disabled):hover {
+  --fa-secondary-opacity: 0.5;
+  --hover-color: var(--color-whiteFixed);
+  color: var(--hover-color);
+  --fa-primary-color: var(--hover-color);
+  --fa-secondary-color: var(--hover-color);
 }
 [pgs~=initP] [pgs~=buttonBig]:is(a):hover {
   text-decoration: none;
 }
-[pgs~=initP] [pgs~=buttonBig]:active {
-  box-shadow: 0 0 0 var(--color-black);
-  transform: translate(0, 0);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=buttonBig][aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=buttonBig][aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: var(--color-whiteFixed);
-  }
+[pgs~=initP] [pgs~=buttonBig] {
+  --button-color: var(--color-black);
+  --button-color-strong: var(--color-whiteFixed);
+  --button-color-current: var(--color-whiteFixed);
+  --button-background: var(--color-box);
+  --button-background-strong: var(--color-primary);
+  --button-background-current: var(--color-primary);
+  color: var(--button-color);
+  background: var(--button-background);
+  --fa-primary-color: var(--button-color);
+  --fa-secondary-color: var(--button-color);
 }
 [pgs~=initP] [pgs~=buttonBig][aria-current=page]:not(:hover, :focus-visible) {
+  --button-color: var(--color-black);
+  --button-color-strong: var(--color-whiteFixed);
+  --button-color-current: var(--color-whiteFixed);
+  --button-background: var(--color-box);
+  --button-background-strong: var(--color-primary);
   --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
-}
-[pgs~=initP] [pgs~=buttonBig][aria-current=page]:not(:hover, :focus-visible):is(a) {
-  color: var(--button-color-current);
-}
-[pgs~=initP] [pgs~=buttonBig][aria-current=page]:not(:hover, :focus-visible) i {
-  color: var(--button-color-current);
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
 }
@@ -3570,38 +3415,13 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=initP] [pgs~=buttonClose] {
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
-  --button-icon-size: 2.0rem;
+  --button-icon-size: 2rem;
   --button-padding-block: var(--button-size);
   --button-padding-left: calc(var(--button-size) * 2);
   --button-padding-right: calc(var(--button-size) * 2);
   --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
   --fa-secondary-opacity: 0.5;
   --fa-size: var(--button-icon-size);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=buttonClose] {
-    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=buttonClose] {
-    --button-color: var(--color-black);
-  }
-}
-[pgs~=initP] [pgs~=buttonClose] {
-  --button-background: var(--color-box);
-  color: var(--button-color);
-  background: var(--button-background);
-}
-[pgs~=initP] [pgs~=buttonClose]:is(a) {
-  color: var(--button-color);
-}
-[pgs~=initP] [pgs~=buttonClose] i {
-  color: var(--button-color);
-  --fa-primary-color: var(--button-color);
-  --fa-secondary-color: var(--button-color);
-}
-[pgs~=initP] [pgs~=buttonClose] {
   font-family: var(--font);
   font-size: 1.6rem;
   font-weight: 600;
@@ -3619,12 +3439,12 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   height: max-content;
   width: max-content;
   margin-block: auto;
+  --button-padding: var(--button-padding-block);
   flex: 0 0;
   aspect-ratio: 1;
   border-radius: 50%;
   justify-content: center;
   align-items: center;
-  --button-padding: var(--button-padding-block);
 }
 [pgs~=initP] [pgs~=buttonClose] i {
   display: inline-grid;
@@ -3638,69 +3458,70 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   transition: all 200ms;
   cursor: pointer;
   text-decoration: none;
+  --hover-shadow-color: var(--color-primary);
+  --hover-shadow-displacement: 0.25rem;
 }
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=initP] [pgs~=buttonClose]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=buttonClose]:not(:disabled):hover {
-    box-shadow: -0.25rem 0.25rem 0px var(--color-black);
-    transform: translate(0.25rem, -0.25rem);
+  [pgs~=initP] [pgs~=buttonClose]:not(:disabled):not([pgs-option~=buttonStyle-2]):focus-visible, [pgs~=initP] [pgs~=buttonClose]:not(:disabled):not([pgs-option~=buttonStyle-2]):hover {
+    box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
+    --hover-color: var(--color-white);
+    --hover-background: var(--color-primary-strong);
+    color: var(--hover-color);
+    --fa-primary-color: var(--hover-color);
+    --fa-secondary-color: var(--hover-color);
+    background: var(--hover-background);
   }
-  @supports (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=buttonClose]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=buttonClose]:not(:disabled):hover {
-      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
-    }
+  [pgs~=initP] [pgs~=buttonClose]:not(:disabled):not([pgs-option~=buttonStyle-2]):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=initP] [pgs~=buttonClose]:not(:disabled):not([pgs-option~=buttonStyle-2]):hover :is(h1, h2, h3, h4, h5, h6, p) {
+    color: var(--hover-color);
   }
-  @supports not (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=buttonClose]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=buttonClose]:not(:disabled):hover {
-      --button-color-hover: var(--color-black);
-    }
-  }
-  [pgs~=initP] [pgs~=buttonClose]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=buttonClose]:not(:disabled):hover {
-    --button-background-hover: var(--color-primary-soft);
-    color: var(--button-color-hover);
-    background: var(--button-background-hover);
-  }
-  [pgs~=initP] [pgs~=buttonClose]:not(:disabled):focus-visible:is(a), [pgs~=initP] [pgs~=buttonClose]:not(:disabled):hover:is(a) {
-    color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=buttonClose]:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=buttonClose]:not(:disabled):hover i {
-    color: var(--button-color-hover);
-    --fa-primary-color: var(--button-color-hover);
-    --fa-secondary-color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=buttonClose]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=buttonClose]:not(:disabled):hover {
+}
+@media (hover: hover) and (pointer: fine) {
+  [pgs~=initP] [pgs~=buttonClose]:not(:disabled)[pgs-option~=buttonStyle-2]:focus-visible, [pgs~=initP] [pgs~=buttonClose]:not(:disabled)[pgs-option~=buttonStyle-2]:hover {
+    box-shadow: calc(var(--hover-shadow-displacement) * -1) var(--hover-shadow-displacement) 0 var(--color-black);
+    transform: translate(var(--hover-shadow-displacement), calc(var(--hover-shadow-displacement) * -1));
     outline-color: transparent;
+    --hover-color: var(--color-white);
+    --hover-background: var(--color-primary-strong);
+    color: var(--hover-color);
+    --fa-primary-color: var(--hover-color);
+    --fa-secondary-color: var(--hover-color);
+    background: var(--hover-background);
   }
-  [pgs~=initP] [pgs~=buttonClose]:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=buttonClose]:not(:disabled):hover i {
-    --fa-secondary-opacity: 0.5;
+  [pgs~=initP] [pgs~=buttonClose]:not(:disabled)[pgs-option~=buttonStyle-2]:focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=initP] [pgs~=buttonClose]:not(:disabled)[pgs-option~=buttonStyle-2]:hover :is(h1, h2, h3, h4, h5, h6, p) {
+    color: var(--hover-color);
   }
+}
+[pgs~=initP] [pgs~=buttonClose]:not(:disabled):hover {
+  --fa-secondary-opacity: 0.5;
+  --hover-color: var(--color-whiteFixed);
+  color: var(--hover-color);
+  --fa-primary-color: var(--hover-color);
+  --fa-secondary-color: var(--hover-color);
 }
 [pgs~=initP] [pgs~=buttonClose]:is(a):hover {
   text-decoration: none;
 }
-[pgs~=initP] [pgs~=buttonClose]:active {
-  box-shadow: 0 0 0 var(--color-black);
-  transform: translate(0, 0);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=buttonClose][aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=buttonClose][aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: var(--color-whiteFixed);
-  }
+[pgs~=initP] [pgs~=buttonClose] {
+  --button-color: var(--color-black);
+  --button-color-strong: var(--color-whiteFixed);
+  --button-color-current: var(--color-whiteFixed);
+  --button-background: var(--color-box);
+  --button-background-strong: var(--color-primary);
+  --button-background-current: var(--color-primary);
+  color: var(--button-color);
+  background: var(--button-background);
+  --fa-primary-color: var(--button-color);
+  --fa-secondary-color: var(--button-color);
 }
 [pgs~=initP] [pgs~=buttonClose][aria-current=page]:not(:hover, :focus-visible) {
+  --button-color: var(--color-black);
+  --button-color-strong: var(--color-whiteFixed);
+  --button-color-current: var(--color-whiteFixed);
+  --button-background: var(--color-box);
+  --button-background-strong: var(--color-primary);
   --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
-}
-[pgs~=initP] [pgs~=buttonClose][aria-current=page]:not(:hover, :focus-visible):is(a) {
-  color: var(--button-color-current);
-}
-[pgs~=initP] [pgs~=buttonClose][aria-current=page]:not(:hover, :focus-visible) i {
-  color: var(--button-color-current);
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
 }
@@ -3884,387 +3705,6 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=initP] [pgs~=select] option:checked:hover {
   background-color: var(--color-primary-dark);
 }
-[pgs~=initP] [pgs~=checkboxBackground] {
-  position: relative;
-  isolation: isolate;
-  --checkbox-size: 2.0rem;
-  --checkbox-check-color: var(--color-primary);
-  --checkbox-box-background: var(--color-white);
-  --checkbox-icon: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 448 512%27%3E%3Cpath fill=%27inerit%27 d=%27M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.2 0z%27/%3E%3C/svg%3E");
-  position: relative;
-  display: flex;
-}
-[pgs~=initP] [pgs~=checkboxBackground]:is(label),
-[pgs~=initP] [pgs~=checkboxBackground] label {
-  user-select: none;
-  color: var(--color-black);
-  position: relative;
-  width: auto;
-  display: block;
-  text-align: left;
-  line-height: var(--checkbox-size);
-  margin-bottom: var(--gap-texts);
-  width: fit-content;
-  cursor: pointer;
-  display: flex;
-}
-[pgs~=initP] [pgs~=checkboxBackground]:is(label):has(input:disabled),
-[pgs~=initP] [pgs~=checkboxBackground] label:has(input:disabled) {
-  opacity: 0.5;
-}
-[pgs~=initP] [pgs~=checkboxBackground]:is(label):has(input[type=checkbox]:required),
-[pgs~=initP] [pgs~=checkboxBackground] label:has(input[type=checkbox]:required) {
-  position: relative;
-}
-[pgs~=initP] [pgs~=checkboxBackground]:is(label):has(input[type=checkbox]:required) [pgs~=required-here]::after, [pgs~=initP] [pgs~=checkboxBackground]:is(label):has(input[type=checkbox]:required):not(:has([pgs~=required-here]))::after,
-[pgs~=initP] [pgs~=checkboxBackground] label:has(input[type=checkbox]:required) [pgs~=required-here]::after,
-[pgs~=initP] [pgs~=checkboxBackground] label:has(input[type=checkbox]:required):not(:has([pgs~=required-here]))::after {
-  content: "*";
-  color: var(--color-error);
-  transform: translate(20px, 0px);
-  position: absolute;
-  font-size: 40px;
-  bottom: -8px;
-  font-weight: 600;
-  right: 0px;
-}
-[pgs~=initP] [pgs~=checkboxBackground]:is(label):has(input[type=checkbox]:required) [pgs~=required-here]::after,
-[pgs~=initP] [pgs~=checkboxBackground] label:has(input[type=checkbox]:required) [pgs~=required-here]::after {
-  position: relative;
-}
-[pgs~=initP] [pgs~=checkboxBackground] input {
-  appearance: none;
-  position: relative;
-  width: var(--checkbox-size);
-  min-width: var(--checkbox-size);
-  height: var(--checkbox-size);
-  margin-right: var(--gap-texts);
-  cursor: pointer;
-}
-[pgs~=initP] [pgs~=checkboxBackground] input::before {
-  content: "";
-  position: absolute;
-  width: var(--checkbox-size);
-  height: var(--checkbox-size);
-  outline: solid var(--color-boxDark) 0.1rem;
-  background: var(--checkbox-box-background);
-  color: var(--color-primary-soft);
-}
-[pgs~=initP] [pgs~=checkboxBackground] input::after {
-  position: absolute;
-  line-height: var(--checkbox-size);
-  text-align: center;
-  opacity: 0;
-  color: var(--checkbox-check-color);
-}
-[pgs~=initP] [pgs~=checkboxBackground] input:checked::after {
-  opacity: 1;
-}
-[pgs~=initP] [pgs~=checkboxBackground] input:focus-visible::before {
-  outline: 3px solid var(--color-link) !important;
-}
-[pgs~=initP] [pgs~=checkboxBackground] input[type=checkbox]::after {
-  top: -1.7rem;
-  left: -0.5rem;
-  content: "";
-  display: inline-block;
-  width: calc(2rem + var(--checkbox-size));
-  height: calc(2rem + var(--checkbox-size));
-  background-color: var(--checkbox-check-color);
-  -webkit-mask: var(--checkbox-icon) center/contain no-repeat;
-  mask: var(--checkbox-icon) center/contain no-repeat;
-}
-[pgs~=initP] [pgs~=checkboxBackground] input[type=checkbox]::before {
-  border-radius: 0.3rem;
-}
-[pgs~=initP] [pgs~=checkboxBackground] input[type=radio]::after {
-  content: "";
-  top: 0.2rem;
-  left: 0.2rem;
-  display: inline-block;
-  width: calc(var(--checkbox-size) - 0.4rem);
-  height: calc(var(--checkbox-size) - 0.4rem);
-  background-color: var(--checkbox-check-color);
-  border-radius: 50%;
-}
-[pgs~=initP] [pgs~=checkboxBackground] input[type=radio]::before {
-  border-radius: 50%;
-}
-[pgs~=initP] [pgs~=checkboxBackground] a {
-  text-decoration: underline;
-  color: var(--color-link);
-}
-[pgs~=initP] [pgs~=checkboxBackground] {
-  color: var(--color-text);
-  padding: var(--padding-2);
-  border-radius: var(--border-radius-input);
-  align-items: center;
-  gap: var(--gap-texts);
-  background-color: var(--color-box-transparent);
-}
-[pgs~=initP] [pgs~=checkboxBackground] label {
-  margin-bottom: 0 !important;
-}
-[pgs~=initP] [pgs~=checkboxBackground]:has(input:checked) {
-  background-color: var(--color-primary-soft);
-  color: var(--color-black);
-}
-[pgs~=initP] [pgs~=checkboxBackground]:has(input:checked) i {
-  --fa-primary-color: var(--color-black);
-  --fa-secondary-color: var(--color-black);
-  color: var(--color-black);
-  opacity: 1;
-}
-[pgs~=initP] [pgs~=twoState] {
-  position: relative;
-  isolation: isolate;
-  --button-background-active: var(--color-primary-strong);
-  --button-color-active: var(--color-white);
-}
-[pgs~=initP] [pgs~=twoState] label {
-  --button-border: var(--border-complete);
-  --button-size: 1.5rem;
-  --button-icon-size: 2.0rem;
-  --button-padding-block: var(--button-size);
-  --button-padding-left: calc(var(--button-size) * 2);
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
-  --fa-secondary-opacity: 0.5;
-  --fa-size: var(--button-icon-size);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=twoState] label {
-    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=twoState] label {
-    --button-color: var(--color-black);
-  }
-}
-[pgs~=initP] [pgs~=twoState] label {
-  --button-background: var(--color-box);
-  color: var(--button-color);
-  background: var(--button-background);
-}
-[pgs~=initP] [pgs~=twoState] label:is(a) {
-  color: var(--button-color);
-}
-[pgs~=initP] [pgs~=twoState] label i {
-  color: var(--button-color);
-  --fa-primary-color: var(--button-color);
-  --fa-secondary-color: var(--button-color);
-}
-[pgs~=initP] [pgs~=twoState] label {
-  font-family: var(--font);
-  font-size: 1.6rem;
-  font-weight: 600;
-  text-decoration: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
-  border: none;
-  outline: var(--button-border);
-  border-radius: var(--border-radius-input);
-  display: flex;
-  gap: calc(var(--button-size) / 1.5);
-  align-items: center;
-  padding: var(--button-padding);
-  height: max-content;
-  width: max-content;
-  margin-block: auto;
-}
-[pgs~=initP] [pgs~=twoState] label:has(i) {
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.5);
-}
-[pgs~=initP] [pgs~=twoState] label[pgs-option~=buttonReverse]:has(i) {
-  --button-padding-right: calc(var(--button-size) * 1.5);
-  --button-padding-left: calc(var(--button-size) * 2);
-}
-[pgs~=initP] [pgs~=twoState] label {
-  transition: all 200ms;
-  cursor: pointer;
-  text-decoration: none;
-}
-@media (hover: hover) and (pointer: fine) {
-  [pgs~=initP] [pgs~=twoState] label:not(:disabled):focus-visible, [pgs~=initP] [pgs~=twoState] label:not(:disabled):hover {
-    box-shadow: -0.25rem 0.25rem 0px var(--color-black);
-    transform: translate(0.25rem, -0.25rem);
-  }
-  @supports (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=twoState] label:not(:disabled):focus-visible, [pgs~=initP] [pgs~=twoState] label:not(:disabled):hover {
-      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
-    }
-  }
-  @supports not (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=twoState] label:not(:disabled):focus-visible, [pgs~=initP] [pgs~=twoState] label:not(:disabled):hover {
-      --button-color-hover: var(--color-black);
-    }
-  }
-  [pgs~=initP] [pgs~=twoState] label:not(:disabled):focus-visible, [pgs~=initP] [pgs~=twoState] label:not(:disabled):hover {
-    --button-background-hover: var(--color-primary-soft);
-    color: var(--button-color-hover);
-    background: var(--button-background-hover);
-  }
-  [pgs~=initP] [pgs~=twoState] label:not(:disabled):focus-visible:is(a), [pgs~=initP] [pgs~=twoState] label:not(:disabled):hover:is(a) {
-    color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=twoState] label:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=twoState] label:not(:disabled):hover i {
-    color: var(--button-color-hover);
-    --fa-primary-color: var(--button-color-hover);
-    --fa-secondary-color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=twoState] label:not(:disabled):focus-visible, [pgs~=initP] [pgs~=twoState] label:not(:disabled):hover {
-    outline-color: transparent;
-  }
-  [pgs~=initP] [pgs~=twoState] label:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=twoState] label:not(:disabled):hover i {
-    --fa-secondary-opacity: 0.5;
-  }
-}
-[pgs~=initP] [pgs~=twoState] label:is(a):hover {
-  text-decoration: none;
-}
-[pgs~=initP] [pgs~=twoState] label:active {
-  box-shadow: 0 0 0 var(--color-black);
-  transform: translate(0, 0);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=twoState] label[aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=twoState] label[aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: var(--color-whiteFixed);
-  }
-}
-[pgs~=initP] [pgs~=twoState] label[aria-current=page]:not(:hover, :focus-visible) {
-  --button-background-current: var(--color-primary);
-  color: var(--button-color-current);
-  background: var(--button-background-current);
-}
-[pgs~=initP] [pgs~=twoState] label[aria-current=page]:not(:hover, :focus-visible):is(a) {
-  color: var(--button-color-current);
-}
-[pgs~=initP] [pgs~=twoState] label[aria-current=page]:not(:hover, :focus-visible) i {
-  color: var(--button-color-current);
-  --fa-primary-color: var(--button-color-current);
-  --fa-secondary-color: var(--button-color-current);
-}
-[pgs~=initP] [pgs~=twoState] label:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
-}
-[pgs~=initP] [pgs~=twoState] label {
-  flex-wrap: wrap;
-  display: flex !important;
-  cursor: pointer;
-}
-[pgs~=initP] [pgs~=twoState] label i {
-  color: var(--color-black);
-  opacity: 0.4;
-  min-width: 1.4rem;
-  transition: 300ms;
-}
-[pgs~=initP] [pgs~=twoState] label:hover i {
-  opacity: 1;
-}
-[pgs~=initP] [pgs~=twoState]:has(input:checked) label {
-  --button-background: var(--button-background-active);
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=twoState]:has(input:checked) label {
-    --button-color: var(--button-color-active);
-  }
-}
-[pgs~=initP] [pgs~=twoState]:has(input:checked) label i {
-  --fa-secondary-opacity: 0.6;
-  opacity: 1;
-}
-[pgs~=initP] [pgs~=twoState] input {
-  opacity: 0;
-  z-index: -1;
-  position: absolute;
-  appearance: none;
-}
-[pgs~=initP] [pgs~=toggle] {
-  --toggle-size: var(--border-radius-input);
-  --toggle-color-thumb: var(--color-white);
-  --toggle-color-rail: #cbcbcb;
-  --toggle-color-rail-checked: var(--color-primary);
-  isolation: isolate;
-  display: flex;
-  gap: var(--gap-texts);
-  margin-bottom: var(--gap-texts);
-}
-[pgs~=initP] [pgs~=toggle] label {
-  cursor: pointer;
-}
-[pgs~=initP] [pgs~=toggle] input {
-  position: relative;
-  appearance: none;
-  margin-left: auto;
-  cursor: pointer;
-  min-width: calc(var(--toggle-size) * 2);
-}
-[pgs~=initP] [pgs~=toggle] input::after, [pgs~=initP] [pgs~=toggle] input::before {
-  content: "";
-  position: relative;
-  transform: unset;
-  top: unset;
-  margin-left: auto;
-  transition: all 250ms;
-  display: block;
-  border-radius: var(--border-radius-input);
-  order: 1;
-}
-[pgs~=initP] [pgs~=toggle] input::before {
-  background: var(--toggle-color-rail);
-  width: calc(var(--toggle-size) * 2);
-  min-width: calc(var(--toggle-size) * 2);
-  height: var(--toggle-size);
-  flex-shrink: 2;
-}
-[pgs~=initP] [pgs~=toggle] input::after {
-  content: "";
-  opacity: 1;
-  background-color: var(--toggle-color-thumb);
-  height: calc(var(--toggle-size) - 4px);
-  width: calc(var(--toggle-size) + 2px);
-  top: 2px;
-  left: 2px;
-  z-index: 1;
-  position: absolute;
-}
-[pgs~=initP] [pgs~=toggle] input:hover::after {
-  scale: 1.4;
-  background-color: color-mix(in srgb, var(--toggle-color-thumb) 25%, transparent 75%);
-  outline: 1.5px solid var(--color-primary);
-}
-[pgs~=initP] [pgs~=toggle] input:checked::before {
-  background: var(--color-primary);
-}
-[pgs~=initP] [pgs~=toggle] input:checked::after {
-  left: unset;
-  right: 2px;
-}
-[pgs~=initP] [pgs~=toggle] input:focus-visible::after {
-  outline: 3px solid var(--color-link) !important;
-}
-[pgs~=initP] [pgs~=chips] {
-  display: flex;
-  gap: 0.1rem;
-  padding: 0.4rem;
-  outline: var(--border-complete);
-  width: fit-content;
-  border-radius: var(--border-radius-input);
-  background-color: var(--color-box-transparent);
-}
-[pgs~=initP] [pgs~=chips] label {
-  outline: unset;
-  --button-background: trasparent;
-}
 [pgs~=initP] [pgs~=radio],
 [pgs~=initP] [pgs~=checkbox] {
   --checkbox-size: 2.0rem;
@@ -4343,6 +3783,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   outline: solid var(--color-boxDark) 0.1rem;
   background: var(--checkbox-box-background);
   color: var(--color-primary-soft);
+  transform: translateX(0.3rem);
 }
 [pgs~=initP] [pgs~=radio] input::after,
 [pgs~=initP] [pgs~=checkbox] input::after {
@@ -4351,6 +3792,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   text-align: center;
   opacity: 0;
   color: var(--checkbox-check-color);
+  transform: translateX(0.25rem);
 }
 [pgs~=initP] [pgs~=radio] input:checked::after,
 [pgs~=initP] [pgs~=checkbox] input:checked::after {
@@ -4569,6 +4011,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   outline: solid var(--color-boxDark) 0.1rem;
   background: var(--checkbox-box-background);
   color: var(--color-primary-soft);
+  transform: translateX(0.3rem);
 }
 [pgs~=initP] [pgs~=form] label:has(input[type=checkbox]):not([pgs~=toggle]) input::after,
 [pgs~=initP] [pgs~=form] label:has(input[type=radio]):not([pgs~=toggle]) input::after {
@@ -4577,6 +4020,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   text-align: center;
   opacity: 0;
   color: var(--checkbox-check-color);
+  transform: translateX(0.25rem);
 }
 [pgs~=initP] [pgs~=form] label:has(input[type=checkbox]):not([pgs~=toggle]) input:checked::after,
 [pgs~=initP] [pgs~=form] label:has(input[type=radio]):not([pgs~=toggle]) input:checked::after {
@@ -4787,38 +4231,13 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=initP] [pgs~=form] button[type=submit] {
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
-  --button-icon-size: 2.0rem;
+  --button-icon-size: 2rem;
   --button-padding-block: var(--button-size);
   --button-padding-left: calc(var(--button-size) * 2);
   --button-padding-right: calc(var(--button-size) * 2);
   --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
   --fa-secondary-opacity: 0.5;
   --fa-size: var(--button-icon-size);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=form] button[type=submit] {
-    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=form] button[type=submit] {
-    --button-color: var(--color-black);
-  }
-}
-[pgs~=initP] [pgs~=form] button[type=submit] {
-  --button-background: var(--color-box);
-  color: var(--button-color);
-  background: var(--button-background);
-}
-[pgs~=initP] [pgs~=form] button[type=submit]:is(a) {
-  color: var(--button-color);
-}
-[pgs~=initP] [pgs~=form] button[type=submit] i {
-  color: var(--button-color);
-  --fa-primary-color: var(--button-color);
-  --fa-secondary-color: var(--button-color);
-}
-[pgs~=initP] [pgs~=form] button[type=submit] {
   font-family: var(--font);
   font-size: 1.6rem;
   font-weight: 600;
@@ -4849,92 +4268,70 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   transition: all 200ms;
   cursor: pointer;
   text-decoration: none;
+  --hover-shadow-color: var(--color-primary);
+  --hover-shadow-displacement: 0.25rem;
 }
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=initP] [pgs~=form] button[type=submit]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=form] button[type=submit]:not(:disabled):hover {
-    box-shadow: -0.25rem 0.25rem 0px var(--color-black);
-    transform: translate(0.25rem, -0.25rem);
+  [pgs~=initP] [pgs~=form] button[type=submit]:not(:disabled):not([pgs-option~=buttonStyle-2]):focus-visible, [pgs~=initP] [pgs~=form] button[type=submit]:not(:disabled):not([pgs-option~=buttonStyle-2]):hover {
+    box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
+    --hover-color: var(--color-white);
+    --hover-background: var(--color-primary-strong);
+    color: var(--hover-color);
+    --fa-primary-color: var(--hover-color);
+    --fa-secondary-color: var(--hover-color);
+    background: var(--hover-background);
   }
-  @supports (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=form] button[type=submit]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=form] button[type=submit]:not(:disabled):hover {
-      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
-    }
+  [pgs~=initP] [pgs~=form] button[type=submit]:not(:disabled):not([pgs-option~=buttonStyle-2]):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=initP] [pgs~=form] button[type=submit]:not(:disabled):not([pgs-option~=buttonStyle-2]):hover :is(h1, h2, h3, h4, h5, h6, p) {
+    color: var(--hover-color);
   }
-  @supports not (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=form] button[type=submit]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=form] button[type=submit]:not(:disabled):hover {
-      --button-color-hover: var(--color-black);
-    }
-  }
-  [pgs~=initP] [pgs~=form] button[type=submit]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=form] button[type=submit]:not(:disabled):hover {
-    --button-background-hover: var(--color-primary-soft);
-    color: var(--button-color-hover);
-    background: var(--button-background-hover);
-  }
-  [pgs~=initP] [pgs~=form] button[type=submit]:not(:disabled):focus-visible:is(a), [pgs~=initP] [pgs~=form] button[type=submit]:not(:disabled):hover:is(a) {
-    color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=form] button[type=submit]:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=form] button[type=submit]:not(:disabled):hover i {
-    color: var(--button-color-hover);
-    --fa-primary-color: var(--button-color-hover);
-    --fa-secondary-color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=form] button[type=submit]:not(:disabled):focus-visible, [pgs~=initP] [pgs~=form] button[type=submit]:not(:disabled):hover {
+}
+@media (hover: hover) and (pointer: fine) {
+  [pgs~=initP] [pgs~=form] button[type=submit]:not(:disabled)[pgs-option~=buttonStyle-2]:focus-visible, [pgs~=initP] [pgs~=form] button[type=submit]:not(:disabled)[pgs-option~=buttonStyle-2]:hover {
+    box-shadow: calc(var(--hover-shadow-displacement) * -1) var(--hover-shadow-displacement) 0 var(--color-black);
+    transform: translate(var(--hover-shadow-displacement), calc(var(--hover-shadow-displacement) * -1));
     outline-color: transparent;
+    --hover-color: var(--color-white);
+    --hover-background: var(--color-primary-strong);
+    color: var(--hover-color);
+    --fa-primary-color: var(--hover-color);
+    --fa-secondary-color: var(--hover-color);
+    background: var(--hover-background);
   }
-  [pgs~=initP] [pgs~=form] button[type=submit]:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=form] button[type=submit]:not(:disabled):hover i {
-    --fa-secondary-opacity: 0.5;
+  [pgs~=initP] [pgs~=form] button[type=submit]:not(:disabled)[pgs-option~=buttonStyle-2]:focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=initP] [pgs~=form] button[type=submit]:not(:disabled)[pgs-option~=buttonStyle-2]:hover :is(h1, h2, h3, h4, h5, h6, p) {
+    color: var(--hover-color);
   }
+}
+[pgs~=initP] [pgs~=form] button[type=submit]:not(:disabled):hover {
+  --fa-secondary-opacity: 0.5;
+  --hover-color: var(--color-whiteFixed);
+  color: var(--hover-color);
+  --fa-primary-color: var(--hover-color);
+  --fa-secondary-color: var(--hover-color);
 }
 [pgs~=initP] [pgs~=form] button[type=submit]:is(a):hover {
   text-decoration: none;
 }
-[pgs~=initP] [pgs~=form] button[type=submit]:active {
-  box-shadow: 0 0 0 var(--color-black);
-  transform: translate(0, 0);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=form] button[type=submit] {
-    --button-color-strong: contrast-color(color-mix(in srgb, var(--button-background-strong) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=form] button[type=submit] {
-    --button-color-strong: var(--color-whiteFixed);
-  }
-}
 [pgs~=initP] [pgs~=form] button[type=submit] {
+  --button-color: var(--color-black);
+  --button-color-strong: var(--color-whiteFixed);
+  --button-color-current: var(--color-whiteFixed);
+  --button-background: var(--color-box);
   --button-background-strong: var(--color-primary);
+  --button-background-current: var(--color-primary);
   color: var(--button-color-strong);
   background: var(--button-background-strong);
-}
-[pgs~=initP] [pgs~=form] button[type=submit]:is(a) {
-  color: var(--button-color-strong);
-}
-[pgs~=initP] [pgs~=form] button[type=submit] i {
-  color: var(--button-color-strong);
   --fa-primary-color: var(--button-color-strong);
   --fa-secondary-color: var(--button-color-strong);
 }
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=form] button[type=submit][aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=form] button[type=submit][aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: var(--color-whiteFixed);
-  }
-}
 [pgs~=initP] [pgs~=form] button[type=submit][aria-current=page]:not(:hover, :focus-visible) {
+  --button-color: var(--color-black);
+  --button-color-strong: var(--color-whiteFixed);
+  --button-color-current: var(--color-whiteFixed);
+  --button-background: var(--color-box);
+  --button-background-strong: var(--color-primary);
   --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
-}
-[pgs~=initP] [pgs~=form] button[type=submit][aria-current=page]:not(:hover, :focus-visible):is(a) {
-  color: var(--button-color-current);
-}
-[pgs~=initP] [pgs~=form] button[type=submit][aria-current=page]:not(:hover, :focus-visible) i {
-  color: var(--button-color-current);
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
 }
@@ -5041,6 +4438,359 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=initP] [pgs~=formValidate][pgs-option~=error] fieldset:has(input[type=radio][pgs-option~=error]) legend {
   --label-background: var(--color-error) !important;
 }
+[pgs~=initP] [pgs~=checkboxBackground] {
+  position: relative;
+  isolation: isolate;
+  --checkbox-size: 2.0rem;
+  --checkbox-check-color: var(--color-primary);
+  --checkbox-box-background: var(--color-white);
+  --checkbox-icon: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 448 512%27%3E%3Cpath fill=%27inerit%27 d=%27M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.2 0z%27/%3E%3C/svg%3E");
+  position: relative;
+  display: flex;
+}
+[pgs~=initP] [pgs~=checkboxBackground]:is(label),
+[pgs~=initP] [pgs~=checkboxBackground] label {
+  user-select: none;
+  color: var(--color-black);
+  position: relative;
+  width: auto;
+  display: block;
+  text-align: left;
+  line-height: var(--checkbox-size);
+  margin-bottom: var(--gap-texts);
+  width: fit-content;
+  cursor: pointer;
+  display: flex;
+}
+[pgs~=initP] [pgs~=checkboxBackground]:is(label):has(input:disabled),
+[pgs~=initP] [pgs~=checkboxBackground] label:has(input:disabled) {
+  opacity: 0.5;
+}
+[pgs~=initP] [pgs~=checkboxBackground]:is(label):has(input[type=checkbox]:required),
+[pgs~=initP] [pgs~=checkboxBackground] label:has(input[type=checkbox]:required) {
+  position: relative;
+}
+[pgs~=initP] [pgs~=checkboxBackground]:is(label):has(input[type=checkbox]:required) [pgs~=required-here]::after, [pgs~=initP] [pgs~=checkboxBackground]:is(label):has(input[type=checkbox]:required):not(:has([pgs~=required-here]))::after,
+[pgs~=initP] [pgs~=checkboxBackground] label:has(input[type=checkbox]:required) [pgs~=required-here]::after,
+[pgs~=initP] [pgs~=checkboxBackground] label:has(input[type=checkbox]:required):not(:has([pgs~=required-here]))::after {
+  content: "*";
+  color: var(--color-error);
+  transform: translate(20px, 0px);
+  position: absolute;
+  font-size: 40px;
+  bottom: -8px;
+  font-weight: 600;
+  right: 0px;
+}
+[pgs~=initP] [pgs~=checkboxBackground]:is(label):has(input[type=checkbox]:required) [pgs~=required-here]::after,
+[pgs~=initP] [pgs~=checkboxBackground] label:has(input[type=checkbox]:required) [pgs~=required-here]::after {
+  position: relative;
+}
+[pgs~=initP] [pgs~=checkboxBackground] input {
+  appearance: none;
+  position: relative;
+  width: var(--checkbox-size);
+  min-width: var(--checkbox-size);
+  height: var(--checkbox-size);
+  margin-right: var(--gap-texts);
+  cursor: pointer;
+}
+[pgs~=initP] [pgs~=checkboxBackground] input::before {
+  content: "";
+  position: absolute;
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
+  outline: solid var(--color-boxDark) 0.1rem;
+  background: var(--checkbox-box-background);
+  color: var(--color-primary-soft);
+  transform: translateX(0.3rem);
+}
+[pgs~=initP] [pgs~=checkboxBackground] input::after {
+  position: absolute;
+  line-height: var(--checkbox-size);
+  text-align: center;
+  opacity: 0;
+  color: var(--checkbox-check-color);
+  transform: translateX(0.25rem);
+}
+[pgs~=initP] [pgs~=checkboxBackground] input:checked::after {
+  opacity: 1;
+}
+[pgs~=initP] [pgs~=checkboxBackground] input:focus-visible::before {
+  outline: 3px solid var(--color-link) !important;
+}
+[pgs~=initP] [pgs~=checkboxBackground] input[type=checkbox]::after {
+  top: -1.7rem;
+  left: -0.5rem;
+  content: "";
+  display: inline-block;
+  width: calc(2rem + var(--checkbox-size));
+  height: calc(2rem + var(--checkbox-size));
+  background-color: var(--checkbox-check-color);
+  -webkit-mask: var(--checkbox-icon) center/contain no-repeat;
+  mask: var(--checkbox-icon) center/contain no-repeat;
+}
+[pgs~=initP] [pgs~=checkboxBackground] input[type=checkbox]::before {
+  border-radius: 0.3rem;
+}
+[pgs~=initP] [pgs~=checkboxBackground] input[type=radio]::after {
+  content: "";
+  top: 0.2rem;
+  left: 0.2rem;
+  display: inline-block;
+  width: calc(var(--checkbox-size) - 0.4rem);
+  height: calc(var(--checkbox-size) - 0.4rem);
+  background-color: var(--checkbox-check-color);
+  border-radius: 50%;
+}
+[pgs~=initP] [pgs~=checkboxBackground] input[type=radio]::before {
+  border-radius: 50%;
+}
+[pgs~=initP] [pgs~=checkboxBackground] a {
+  text-decoration: underline;
+  color: var(--color-link);
+}
+[pgs~=initP] [pgs~=checkboxBackground] {
+  color: var(--color-text);
+  padding: var(--padding-2);
+  border-radius: var(--border-radius-input);
+  align-items: center;
+  gap: var(--gap-texts);
+  background-color: var(--color-box-transparent);
+}
+[pgs~=initP] [pgs~=checkboxBackground] label {
+  margin-bottom: 0 !important;
+}
+[pgs~=initP] [pgs~=checkboxBackground]:has(input:checked) {
+  background-color: var(--color-primary-soft);
+}
+[pgs~=initP] [pgs~=checkboxBackground]:has(input:checked) i {
+  opacity: 1;
+}
+[pgs~=initP] [pgs~=twoState] {
+  position: relative;
+  isolation: isolate;
+  --button-background-active: var(--color-primary);
+  --button-color-active: var(--color-white);
+  --button-border: var(--border-complete);
+  --button-size: 1.5rem;
+  --button-icon-size: 2rem;
+  --button-padding-block: var(--button-size);
+  --button-padding-left: calc(var(--button-size) * 2);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
+  --fa-secondary-opacity: 0.5;
+  --fa-size: var(--button-icon-size);
+  font-family: var(--font);
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-decoration: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  border: none;
+  outline: var(--button-border);
+  border-radius: var(--border-radius-input);
+  display: flex;
+  gap: calc(var(--button-size) / 1.5);
+  align-items: center;
+  padding: var(--button-padding);
+  height: max-content;
+  width: max-content;
+  margin-block: auto;
+}
+[pgs~=initP] [pgs~=twoState]:has(i) {
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding-left: calc(var(--button-size) * 1.5);
+}
+[pgs~=initP] [pgs~=twoState][pgs-option~=buttonReverse]:has(i) {
+  --button-padding-right: calc(var(--button-size) * 1.5);
+  --button-padding-left: calc(var(--button-size) * 2);
+}
+[pgs~=initP] [pgs~=twoState] {
+  transition: all 200ms;
+  cursor: pointer;
+  text-decoration: none;
+  --hover-shadow-color: var(--color-primary);
+  --hover-shadow-displacement: 0.25rem;
+}
+@media (hover: hover) and (pointer: fine) {
+  [pgs~=initP] [pgs~=twoState]:not(:disabled):not([pgs-option~=buttonStyle-2]):focus-visible, [pgs~=initP] [pgs~=twoState]:not(:disabled):not([pgs-option~=buttonStyle-2]):hover {
+    box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
+    --hover-color: var(--color-white);
+    --hover-background: var(--color-primary-strong);
+    color: var(--hover-color);
+    --fa-primary-color: var(--hover-color);
+    --fa-secondary-color: var(--hover-color);
+    background: var(--hover-background);
+  }
+  [pgs~=initP] [pgs~=twoState]:not(:disabled):not([pgs-option~=buttonStyle-2]):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=initP] [pgs~=twoState]:not(:disabled):not([pgs-option~=buttonStyle-2]):hover :is(h1, h2, h3, h4, h5, h6, p) {
+    color: var(--hover-color);
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  [pgs~=initP] [pgs~=twoState]:not(:disabled)[pgs-option~=buttonStyle-2]:focus-visible, [pgs~=initP] [pgs~=twoState]:not(:disabled)[pgs-option~=buttonStyle-2]:hover {
+    box-shadow: calc(var(--hover-shadow-displacement) * -1) var(--hover-shadow-displacement) 0 var(--color-black);
+    transform: translate(var(--hover-shadow-displacement), calc(var(--hover-shadow-displacement) * -1));
+    outline-color: transparent;
+    --hover-color: var(--color-white);
+    --hover-background: var(--color-primary-strong);
+    color: var(--hover-color);
+    --fa-primary-color: var(--hover-color);
+    --fa-secondary-color: var(--hover-color);
+    background: var(--hover-background);
+  }
+  [pgs~=initP] [pgs~=twoState]:not(:disabled)[pgs-option~=buttonStyle-2]:focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=initP] [pgs~=twoState]:not(:disabled)[pgs-option~=buttonStyle-2]:hover :is(h1, h2, h3, h4, h5, h6, p) {
+    color: var(--hover-color);
+  }
+}
+[pgs~=initP] [pgs~=twoState]:not(:disabled):hover {
+  --fa-secondary-opacity: 0.5;
+  --hover-color: var(--color-whiteFixed);
+  color: var(--hover-color);
+  --fa-primary-color: var(--hover-color);
+  --fa-secondary-color: var(--hover-color);
+}
+[pgs~=initP] [pgs~=twoState]:is(a):hover {
+  text-decoration: none;
+}
+[pgs~=initP] [pgs~=twoState] {
+  --button-color: var(--color-black);
+  --button-color-strong: var(--color-whiteFixed);
+  --button-color-current: var(--color-whiteFixed);
+  --button-background: var(--color-box);
+  --button-background-strong: var(--color-primary);
+  --button-background-current: var(--color-primary);
+  color: var(--button-color);
+  background: var(--button-background);
+  --fa-primary-color: var(--button-color);
+  --fa-secondary-color: var(--button-color);
+}
+[pgs~=initP] [pgs~=twoState][aria-current=page]:not(:hover, :focus-visible) {
+  --button-color: var(--color-black);
+  --button-color-strong: var(--color-whiteFixed);
+  --button-color-current: var(--color-whiteFixed);
+  --button-background: var(--color-box);
+  --button-background-strong: var(--color-primary);
+  --button-background-current: var(--color-primary);
+  color: var(--button-color-current);
+  background: var(--button-background-current);
+  --fa-primary-color: var(--button-color-current);
+  --fa-secondary-color: var(--button-color-current);
+}
+[pgs~=initP] [pgs~=twoState]:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+[pgs~=initP] [pgs~=twoState] {
+  flex-wrap: wrap;
+  display: flex !important;
+  cursor: pointer;
+}
+[pgs~=initP] [pgs~=twoState] i {
+  opacity: 0.4;
+  min-width: 1.4rem;
+  transition: 300ms;
+}
+[pgs~=initP] [pgs~=twoState]:hover i {
+  opacity: 1;
+}
+[pgs~=initP] [pgs~=twoState]:has(input:checked) {
+  --button-background: var(--button-background-active);
+  --button-color: var(--button-color-active);
+}
+@supports not (color: contrast-color(red)) {
+  [pgs~=initP] [pgs~=twoState]:has(input:checked) {
+    --button-color: var(--button-color-active);
+  }
+}
+[pgs~=initP] [pgs~=twoState]:has(input:checked) i {
+  --fa-secondary-opacity: 0.6;
+  opacity: 1;
+}
+[pgs~=initP] [pgs~=twoState] input {
+  opacity: 0;
+  z-index: -1;
+  position: absolute;
+  appearance: none;
+}
+[pgs~=initP] [pgs~=toggle] {
+  --toggle-size: var(--border-radius-input);
+  --toggle-color-thumb: var(--color-white);
+  --toggle-color-rail: #cbcbcb;
+  --toggle-color-rail-checked: var(--color-primary);
+  isolation: isolate;
+  display: flex;
+  gap: var(--gap-texts);
+  margin-bottom: var(--gap-texts);
+}
+[pgs~=initP] [pgs~=toggle] label {
+  cursor: pointer;
+}
+[pgs~=initP] [pgs~=toggle] input {
+  position: relative;
+  appearance: none;
+  margin-left: auto;
+  cursor: pointer;
+  min-width: calc(var(--toggle-size) * 2);
+}
+[pgs~=initP] [pgs~=toggle] input::after, [pgs~=initP] [pgs~=toggle] input::before {
+  content: "";
+  position: relative;
+  transform: unset;
+  top: unset;
+  margin-left: auto;
+  transition: all 250ms;
+  display: block;
+  border-radius: var(--border-radius-input);
+  order: 1;
+}
+[pgs~=initP] [pgs~=toggle] input::before {
+  background: var(--toggle-color-rail);
+  width: calc(var(--toggle-size) * 2);
+  min-width: calc(var(--toggle-size) * 2);
+  height: var(--toggle-size);
+  flex-shrink: 2;
+}
+[pgs~=initP] [pgs~=toggle] input::after {
+  content: "";
+  opacity: 1;
+  background-color: var(--toggle-color-thumb);
+  height: calc(var(--toggle-size) - 4px);
+  width: calc(var(--toggle-size) + 2px);
+  top: 2px;
+  left: 2px;
+  z-index: 1;
+  position: absolute;
+}
+[pgs~=initP] [pgs~=toggle] input:hover::after {
+  scale: 1.4;
+  background-color: color-mix(in srgb, var(--toggle-color-thumb) 25%, transparent 75%);
+  outline: 1.5px solid var(--color-primary);
+}
+[pgs~=initP] [pgs~=toggle] input:checked::before {
+  background: var(--color-primary);
+}
+[pgs~=initP] [pgs~=toggle] input:checked::after {
+  left: unset;
+  right: 2px;
+}
+[pgs~=initP] [pgs~=toggle] input:focus-visible::after {
+  outline: 3px solid var(--color-link) !important;
+}
+[pgs~=initP] [pgs~=chips] {
+  display: flex;
+  gap: 0.1rem;
+  padding: 0.4rem;
+  outline: var(--border-complete);
+  width: fit-content;
+  border-radius: var(--border-radius-input);
+  background-color: var(--color-box-transparent);
+}
+[pgs~=initP] [pgs~=chips] label {
+  outline: unset;
+  --button-background: var(--color-box-transparent);
+}
 [pgs~=initP] [pgs~=menu] ul {
   display: flex;
   font-weight: 600;
@@ -5054,38 +4804,13 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   min-width: fit-content;
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
-  --button-icon-size: 2.0rem;
+  --button-icon-size: 2rem;
   --button-padding-block: var(--button-size);
   --button-padding-left: calc(var(--button-size) * 2);
   --button-padding-right: calc(var(--button-size) * 2);
   --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
   --fa-secondary-opacity: 0.5;
   --fa-size: var(--button-icon-size);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=menu] ul > li > a {
-    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=menu] ul > li > a {
-    --button-color: var(--color-black);
-  }
-}
-[pgs~=initP] [pgs~=menu] ul > li > a {
-  --button-background: var(--color-box);
-  color: var(--button-color);
-  background: var(--button-background);
-}
-[pgs~=initP] [pgs~=menu] ul > li > a:is(a) {
-  color: var(--button-color);
-}
-[pgs~=initP] [pgs~=menu] ul > li > a i {
-  color: var(--button-color);
-  --fa-primary-color: var(--button-color);
-  --fa-secondary-color: var(--button-color);
-}
-[pgs~=initP] [pgs~=menu] ul > li > a {
   font-family: var(--font);
   font-size: 1.6rem;
   font-weight: 600;
@@ -5116,69 +4841,70 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   transition: all 200ms;
   cursor: pointer;
   text-decoration: none;
+  --hover-shadow-color: var(--color-primary);
+  --hover-shadow-displacement: 0.25rem;
 }
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):hover {
-    box-shadow: -0.25rem 0.25rem 0px var(--color-black);
-    transform: translate(0.25rem, -0.25rem);
+  [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):not([pgs-option~=buttonStyle-2]):focus-visible, [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):not([pgs-option~=buttonStyle-2]):hover {
+    box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
+    --hover-color: var(--color-white);
+    --hover-background: var(--color-primary-strong);
+    color: var(--hover-color);
+    --fa-primary-color: var(--hover-color);
+    --fa-secondary-color: var(--hover-color);
+    background: var(--hover-background);
   }
-  @supports (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):hover {
-      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
-    }
+  [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):not([pgs-option~=buttonStyle-2]):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):not([pgs-option~=buttonStyle-2]):hover :is(h1, h2, h3, h4, h5, h6, p) {
+    color: var(--hover-color);
   }
-  @supports not (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):hover {
-      --button-color-hover: var(--color-black);
-    }
-  }
-  [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):hover {
-    --button-background-hover: var(--color-primary-soft);
-    color: var(--button-color-hover);
-    background: var(--button-background-hover);
-  }
-  [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):focus-visible:is(a), [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):hover:is(a) {
-    color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):hover i {
-    color: var(--button-color-hover);
-    --fa-primary-color: var(--button-color-hover);
-    --fa-secondary-color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):focus-visible, [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):hover {
+}
+@media (hover: hover) and (pointer: fine) {
+  [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled)[pgs-option~=buttonStyle-2]:focus-visible, [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled)[pgs-option~=buttonStyle-2]:hover {
+    box-shadow: calc(var(--hover-shadow-displacement) * -1) var(--hover-shadow-displacement) 0 var(--color-black);
+    transform: translate(var(--hover-shadow-displacement), calc(var(--hover-shadow-displacement) * -1));
     outline-color: transparent;
+    --hover-color: var(--color-white);
+    --hover-background: var(--color-primary-strong);
+    color: var(--hover-color);
+    --fa-primary-color: var(--hover-color);
+    --fa-secondary-color: var(--hover-color);
+    background: var(--hover-background);
   }
-  [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):focus-visible i, [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):hover i {
-    --fa-secondary-opacity: 0.5;
+  [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled)[pgs-option~=buttonStyle-2]:focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled)[pgs-option~=buttonStyle-2]:hover :is(h1, h2, h3, h4, h5, h6, p) {
+    color: var(--hover-color);
   }
+}
+[pgs~=initP] [pgs~=menu] ul > li > a:not(:disabled):hover {
+  --fa-secondary-opacity: 0.5;
+  --hover-color: var(--color-whiteFixed);
+  color: var(--hover-color);
+  --fa-primary-color: var(--hover-color);
+  --fa-secondary-color: var(--hover-color);
 }
 [pgs~=initP] [pgs~=menu] ul > li > a:is(a):hover {
   text-decoration: none;
 }
-[pgs~=initP] [pgs~=menu] ul > li > a:active {
-  box-shadow: 0 0 0 var(--color-black);
-  transform: translate(0, 0);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=menu] ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=menu] ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: var(--color-whiteFixed);
-  }
+[pgs~=initP] [pgs~=menu] ul > li > a {
+  --button-color: var(--color-black);
+  --button-color-strong: var(--color-whiteFixed);
+  --button-color-current: var(--color-whiteFixed);
+  --button-background: var(--color-box);
+  --button-background-strong: var(--color-primary);
+  --button-background-current: var(--color-primary);
+  color: var(--button-color);
+  background: var(--button-background);
+  --fa-primary-color: var(--button-color);
+  --fa-secondary-color: var(--button-color);
 }
 [pgs~=initP] [pgs~=menu] ul > li > a[aria-current=page]:not(:hover, :focus-visible) {
+  --button-color: var(--color-black);
+  --button-color-strong: var(--color-whiteFixed);
+  --button-color-current: var(--color-whiteFixed);
+  --button-background: var(--color-box);
+  --button-background-strong: var(--color-primary);
   --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
-}
-[pgs~=initP] [pgs~=menu] ul > li > a[aria-current=page]:not(:hover, :focus-visible):is(a) {
-  color: var(--button-color-current);
-}
-[pgs~=initP] [pgs~=menu] ul > li > a[aria-current=page]:not(:hover, :focus-visible) i {
-  color: var(--button-color-current);
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
 }
@@ -5276,38 +5002,13 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]) {
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
-  --button-icon-size: 2.0rem;
+  --button-icon-size: 2rem;
   --button-padding-block: var(--button-size);
   --button-padding-left: calc(var(--button-size) * 2);
   --button-padding-right: calc(var(--button-size) * 2);
   --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
   --fa-secondary-opacity: 0.5;
   --fa-size: var(--button-icon-size);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]) {
-    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]) {
-    --button-color: var(--color-black);
-  }
-}
-[pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]) {
-  --button-background: var(--color-box);
-  color: var(--button-color);
-  background: var(--button-background);
-}
-[pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):is(a) {
-  color: var(--button-color);
-}
-[pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]) i {
-  color: var(--button-color);
-  --fa-primary-color: var(--button-color);
-  --fa-secondary-color: var(--button-color);
-}
-[pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]) {
   font-family: var(--font);
   font-size: 1.6rem;
   font-weight: 600;
@@ -5338,69 +5039,70 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   transition: all 200ms;
   cursor: pointer;
   text-decoration: none;
+  --hover-shadow-color: var(--color-primary);
+  --hover-shadow-displacement: 0.25rem;
 }
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):focus-visible, [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):hover {
-    box-shadow: -0.25rem 0.25rem 0px var(--color-black);
-    transform: translate(0.25rem, -0.25rem);
+  [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):not([pgs-option~=buttonStyle-2]):focus-visible, [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):not([pgs-option~=buttonStyle-2]):hover {
+    box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
+    --hover-color: var(--color-white);
+    --hover-background: var(--color-primary-strong);
+    color: var(--hover-color);
+    --fa-primary-color: var(--hover-color);
+    --fa-secondary-color: var(--hover-color);
+    background: var(--hover-background);
   }
-  @supports (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):focus-visible, [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):hover {
-      --button-color-hover: contrast-color(color-mix(in srgb, var(--button-background-hover) 77%, black));
-    }
+  [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):not([pgs-option~=buttonStyle-2]):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):not([pgs-option~=buttonStyle-2]):hover :is(h1, h2, h3, h4, h5, h6, p) {
+    color: var(--hover-color);
   }
-  @supports not (color: contrast-color(red)) {
-    [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):focus-visible, [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):hover {
-      --button-color-hover: var(--color-black);
-    }
-  }
-  [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):focus-visible, [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):hover {
-    --button-background-hover: var(--color-primary-soft);
-    color: var(--button-color-hover);
-    background: var(--button-background-hover);
-  }
-  [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):focus-visible:is(a), [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):hover:is(a) {
-    color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):focus-visible i, [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):hover i {
-    color: var(--button-color-hover);
-    --fa-primary-color: var(--button-color-hover);
-    --fa-secondary-color: var(--button-color-hover);
-  }
-  [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):focus-visible, [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):hover {
+}
+@media (hover: hover) and (pointer: fine) {
+  [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):not(:disabled)[pgs-option~=buttonStyle-2]:focus-visible, [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):not(:disabled)[pgs-option~=buttonStyle-2]:hover {
+    box-shadow: calc(var(--hover-shadow-displacement) * -1) var(--hover-shadow-displacement) 0 var(--color-black);
+    transform: translate(var(--hover-shadow-displacement), calc(var(--hover-shadow-displacement) * -1));
     outline-color: transparent;
+    --hover-color: var(--color-white);
+    --hover-background: var(--color-primary-strong);
+    color: var(--hover-color);
+    --fa-primary-color: var(--hover-color);
+    --fa-secondary-color: var(--hover-color);
+    background: var(--hover-background);
   }
-  [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):focus-visible i, [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):hover i {
-    --fa-secondary-opacity: 0.5;
+  [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):not(:disabled)[pgs-option~=buttonStyle-2]:focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):not(:disabled)[pgs-option~=buttonStyle-2]:hover :is(h1, h2, h3, h4, h5, h6, p) {
+    color: var(--hover-color);
   }
+}
+[pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):not(:disabled):hover {
+  --fa-secondary-opacity: 0.5;
+  --hover-color: var(--color-whiteFixed);
+  color: var(--hover-color);
+  --fa-primary-color: var(--hover-color);
+  --fa-secondary-color: var(--hover-color);
 }
 [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):is(a):hover {
   text-decoration: none;
 }
-[pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]):active {
-  box-shadow: 0 0 0 var(--color-black);
-  transform: translate(0, 0);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open])[aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open])[aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: var(--color-whiteFixed);
-  }
+[pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]) {
+  --button-color: var(--color-black);
+  --button-color-strong: var(--color-whiteFixed);
+  --button-color-current: var(--color-whiteFixed);
+  --button-background: var(--color-box);
+  --button-background-strong: var(--color-primary);
+  --button-background-current: var(--color-primary);
+  color: var(--button-color);
+  background: var(--button-background);
+  --fa-primary-color: var(--button-color);
+  --fa-secondary-color: var(--button-color);
 }
 [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open])[aria-current=page]:not(:hover, :focus-visible) {
+  --button-color: var(--color-black);
+  --button-color-strong: var(--color-whiteFixed);
+  --button-color-current: var(--color-whiteFixed);
+  --button-background: var(--color-box);
+  --button-background-strong: var(--color-primary);
   --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
-}
-[pgs~=initP] [pgs~=accordion]:not([pgs-state~=open])[aria-current=page]:not(:hover, :focus-visible):is(a) {
-  color: var(--button-color-current);
-}
-[pgs~=initP] [pgs~=accordion]:not([pgs-state~=open])[aria-current=page]:not(:hover, :focus-visible) i {
-  color: var(--button-color-current);
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
 }
@@ -5409,7 +5111,6 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   cursor: not-allowed;
 }
 [pgs~=initP] [pgs~=accordion]:not([pgs-state~=open]) {
-  --button-background: var(--color-box);
   --button-size: var(--padding-2);
 }
 [pgs~=initP] [pgs~=accordion] [pgs~=accordion-button] {
@@ -5461,38 +5162,13 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=initP] [pgs~=accordion][pgs-state~=open] {
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
-  --button-icon-size: 2.0rem;
+  --button-icon-size: 2rem;
   --button-padding-block: var(--button-size);
   --button-padding-left: calc(var(--button-size) * 2);
   --button-padding-right: calc(var(--button-size) * 2);
   --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
   --fa-secondary-opacity: 0.5;
   --fa-size: var(--button-icon-size);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=accordion][pgs-state~=open] {
-    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=accordion][pgs-state~=open] {
-    --button-color: var(--color-black);
-  }
-}
-[pgs~=initP] [pgs~=accordion][pgs-state~=open] {
-  --button-background: var(--color-box);
-  color: var(--button-color);
-  background: var(--button-background);
-}
-[pgs~=initP] [pgs~=accordion][pgs-state~=open]:is(a) {
-  color: var(--button-color);
-}
-[pgs~=initP] [pgs~=accordion][pgs-state~=open] i {
-  color: var(--button-color);
-  --fa-primary-color: var(--button-color);
-  --fa-secondary-color: var(--button-color);
-}
-[pgs~=initP] [pgs~=accordion][pgs-state~=open] {
   font-family: var(--font);
   font-size: 1.6rem;
   font-weight: 600;
@@ -5522,27 +5198,26 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=initP] [pgs~=accordion][pgs-state~=open] {
   transition: all 200ms;
   cursor: inherit;
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=accordion][pgs-state~=open][aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=accordion][pgs-state~=open][aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: var(--color-whiteFixed);
-  }
+  --button-color: var(--color-black);
+  --button-color-strong: var(--color-whiteFixed);
+  --button-color-current: var(--color-whiteFixed);
+  --button-background: var(--color-box);
+  --button-background-strong: var(--color-primary);
+  --button-background-current: var(--color-primary);
+  color: var(--button-color);
+  background: var(--button-background);
+  --fa-primary-color: var(--button-color);
+  --fa-secondary-color: var(--button-color);
 }
 [pgs~=initP] [pgs~=accordion][pgs-state~=open][aria-current=page]:not(:hover, :focus-visible) {
+  --button-color: var(--color-black);
+  --button-color-strong: var(--color-whiteFixed);
+  --button-color-current: var(--color-whiteFixed);
+  --button-background: var(--color-box);
+  --button-background-strong: var(--color-primary);
   --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
-}
-[pgs~=initP] [pgs~=accordion][pgs-state~=open][aria-current=page]:not(:hover, :focus-visible):is(a) {
-  color: var(--button-color-current);
-}
-[pgs~=initP] [pgs~=accordion][pgs-state~=open][aria-current=page]:not(:hover, :focus-visible) i {
-  color: var(--button-color-current);
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
 }
@@ -5551,7 +5226,6 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   cursor: not-allowed;
 }
 [pgs~=initP] [pgs~=accordion][pgs-state~=open] {
-  --button-background: var(--color-box);
   --button-size: var(--padding-2);
   margin-top: var(--padding);
 }
@@ -5655,6 +5329,8 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   --modal-backdrop: var(--backdrop);
   --modal-background: var(--color-box);
   --modal-color: var(--color-black);
+  --modal-padding: var(--padding);
+  --modal-borderRadius: var(--border-radius);
   border: none;
   min-width: 100%;
   min-height: 100svh;
@@ -5689,12 +5365,12 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   container-type: inline-size;
   background: var(--modal-background);
   color: var(--modal-color);
-  border-radius: var(--border-radius);
+  border-radius: var(--modal-borderRadius);
   position: relative;
   gap: 0;
 }
 [pgs~=initP] dialog[pgs~=modal-dialog] [pgs~=modal-dialog-content] > * {
-  padding: var(--padding);
+  padding: var(--modal-padding);
 }
 [pgs~=initP] dialog[pgs~=modal-dialog] [pgs~=modal-dialog-content] [pgs~=modal-dialog-content-header] {
   display: flex;
@@ -5703,7 +5379,7 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   flex-wrap: nowrap;
   padding-bottom: calc(var(--padding) / 2);
   border-bottom: var(--border-complete);
-  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  border-radius: var(--modal-borderRadius) var(--modal-borderRadius) 0 0;
   z-index: 1;
 }
 [pgs~=initP] dialog[pgs~=modal-dialog] [pgs~=modal-dialog-content] [pgs~=modal-dialog-content-header] [pgs~=modal-close] {
@@ -5834,7 +5510,6 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=initP] [pgs~=slides] [pgs~=slides-next] {
   position: absolute;
   z-index: 4;
-  --button-background: var(--color-box);
   top: 50%;
   translate: 0 -50%;
 }
@@ -6108,38 +5783,13 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=initP] [pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot] {
   --button-border: var(--border-complete);
   --button-size: 1.5rem;
-  --button-icon-size: 2.0rem;
+  --button-icon-size: 2rem;
   --button-padding-block: var(--button-size);
   --button-padding-left: calc(var(--button-size) * 2);
   --button-padding-right: calc(var(--button-size) * 2);
   --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
   --fa-secondary-opacity: 0.5;
   --fa-size: var(--button-icon-size);
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot] {
-    --button-color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot] {
-    --button-color: var(--color-black);
-  }
-}
-[pgs~=initP] [pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot] {
-  --button-background: var(--color-box);
-  color: var(--button-color);
-  background: var(--button-background);
-}
-[pgs~=initP] [pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot]:is(a) {
-  color: var(--button-color);
-}
-[pgs~=initP] [pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot] i {
-  color: var(--button-color);
-  --fa-primary-color: var(--button-color);
-  --fa-secondary-color: var(--button-color);
-}
-[pgs~=initP] [pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot] {
   font-family: var(--font);
   font-size: 1.6rem;
   font-weight: 600;
@@ -6157,12 +5807,12 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   height: max-content;
   width: max-content;
   margin-block: auto;
+  --button-padding: var(--button-padding-block);
   flex: 0 0;
   aspect-ratio: 1;
   border-radius: 50%;
   justify-content: center;
   align-items: center;
-  --button-padding: var(--button-padding-block);
 }
 [pgs~=initP] [pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot] i {
   display: inline-grid;
@@ -6175,27 +5825,26 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
 [pgs~=initP] [pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot] {
   transition: all 200ms;
   cursor: inherit;
-}
-@supports (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot][aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: contrast-color(color-mix(in srgb, var(--button-background-current) 77%, black));
-  }
-}
-@supports not (color: contrast-color(red)) {
-  [pgs~=initP] [pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot][aria-current=page]:not(:hover, :focus-visible) {
-    --button-color-current: var(--color-whiteFixed);
-  }
+  --button-color: var(--color-black);
+  --button-color-strong: var(--color-whiteFixed);
+  --button-color-current: var(--color-whiteFixed);
+  --button-background: var(--color-box);
+  --button-background-strong: var(--color-primary);
+  --button-background-current: var(--color-primary);
+  color: var(--button-color);
+  background: var(--button-background);
+  --fa-primary-color: var(--button-color);
+  --fa-secondary-color: var(--button-color);
 }
 [pgs~=initP] [pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot][aria-current=page]:not(:hover, :focus-visible) {
+  --button-color: var(--color-black);
+  --button-color-strong: var(--color-whiteFixed);
+  --button-color-current: var(--color-whiteFixed);
+  --button-background: var(--color-box);
+  --button-background-strong: var(--color-primary);
   --button-background-current: var(--color-primary);
   color: var(--button-color-current);
   background: var(--button-background-current);
-}
-[pgs~=initP] [pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot][aria-current=page]:not(:hover, :focus-visible):is(a) {
-  color: var(--button-color-current);
-}
-[pgs~=initP] [pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=stepTabs-dots-dot][aria-current=page]:not(:hover, :focus-visible) i {
-  color: var(--button-color-current);
   --fa-primary-color: var(--button-color-current);
   --fa-secondary-color: var(--button-color-current);
 }
@@ -6631,8 +6280,8 @@ body [pgs~=bodyImg] img, [pgs~=bodyImg] object, [pgs~=bodyImg] lottie-player {
   margin-inline: auto;
   background-color: var(--color-white);
 }
-[pgs~=initP] dialog [pgs~=search] input {
-  padding-block: 20px;
+[pgs~=initP] dialog [pgs~=search] [pgs~=modal-close] {
+  padding: var(--button-size);
 }
 [pgs~=initP] [pgs~=logo] {
   display: flex;

@@ -20,6 +20,8 @@ dialog[pgs~="modal-dialog"] {
     --modal-backdrop: var(--backdrop);
     --modal-background: var(--color-box);
     --modal-color: var(--color-black);
+    --modal-padding: var(--padding);
+    --modal-borderRadius: var(--border-radius);
     border: none;
     min-width: 100%;
     min-height: 100svh;
@@ -54,12 +56,12 @@ dialog[pgs~="modal-dialog"] {
         container-type: inline-size;
         background: var(--modal-background);
         color: var(--modal-color);
-        border-radius: var(--border-radius);
+        border-radius: var(--modal-borderRadius);
         position: relative;
         gap: 0;
 
         >* {
-            padding: var(--padding);
+            padding: var(--modal-padding);
         }
 
         //==== HEADER
@@ -67,7 +69,7 @@ dialog[pgs~="modal-dialog"] {
             @include flexRow(nowrap);
             padding-bottom: calc(var(--padding) / 2);
             border-bottom: var(--border-complete);
-            border-radius: var(--border-radius) var(--border-radius) 0 0;
+            border-radius: var(--modal-borderRadius) var(--modal-borderRadius) 0 0;
             z-index: 1;
 
             [pgs~="modal-close"] {

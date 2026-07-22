@@ -1,39 +1,39 @@
-<!-- File generato automaticamente da templates/html/layout/footer.html. Modificare templates/html/layout/footer.html e rieseguire npm run docs:generate. -->
+<!-- Automatically generated from templates/html/layout/footer.html. Edit templates/html/layout/footer.html and run npm run docs:generate again. -->
 
 # Footer
 
-Piè di pagina completo con controllo tema, area di brand, navigazione, contenuti informativi e collegamento alle preferenze cookie.
+Complete footer with theme control, brand area, navigation, informational content, and a link to cookie preferences.
 
 ## PGS
 
-- `footer`: identifica il contenitore principale del piè di pagina.
-- `footer-top`: identifica la sezione superiore con brand e contenuti.
-- `footer-top-content`: identifica il layout interno responsive della sezione superiore.
-- `footer-brand`: identifica il gruppo dedicato al marchio.
-- `footer-brand-motto`: identifica il testo descrittivo associato al marchio.
-- `footer-content`: identifica una colonna informativa del footer.
-- `footer-legal`: identifica la sezione inferiore dedicata alle informazioni legali.
-- `footer-legal-content`: identifica il contenuto della sezione legale.
+- `footer`: identifies the main footer container.
+- `footer-top`: identifies the upper section containing the brand and content.
+- `footer-top-content`: identifies the responsive inner layout of the upper section.
+- `footer-brand`: identifies the group dedicated to the brand.
+- `footer-brand-motto`: identifies the descriptive text associated with the brand.
+- `footer-content`: identifies an informational footer column.
+- `footer-legal`: identifies the lower section dedicated to legal information.
+- `footer-legal-content`: identifies the content of the legal section.
 
-## Elementi correlati
+## Related elements
 
-- `button`: presenta i controlli del tema e delle preferenze cookie come pulsanti.
-- `toggleDarkmode`: collega il controllo al gestore globale del tema chiaro o scuro.
-- `section`: applica alle aree superiore e legale la struttura condivisa delle sezioni.
-- `flex-3`: distribuisce in modo responsive le colonne della parte superiore.
-- `logo`: inserisce il marchio nel footer.
-- `logo-text`: usa la variante testuale del logo.
-- `cookieConsent-actionOpen`: apre il pannello delle preferenze del pattern Cookie Consent.
+- `button`: presents theme and cookie preference controls as buttons.
+- `toggleDarkmode`: connects the control to the global light or dark theme handler.
+- `section`: applies the shared section structure to the upper and legal areas.
+- `flex-3`: distributes the upper columns responsively.
+- `logo`: inserts the brand into the footer.
+- `logo-text`: uses the text variant of the logo.
+- `cookieConsent-actionOpen`: opens the Cookie Consent preference panel.
 
 ## Output
 
-Struttura HTML completa del footer con brand, menu e area legale.
+Complete footer HTML structure with brand, menu, and legal area.
 
-## Esempio
+## Example
 
 ```html
 <footer pgs="footer">
-    <button pgs="button toggleDarkmode" type="button" aria-label="Cambia tema">
+    <button pgs="button toggleDarkmode" type="button" aria-label="Change theme">
         <i class="fa-solid fa-moon"></i>
     </button>
 
@@ -60,11 +60,11 @@ Struttura HTML completa del footer con brand, menu e area legale.
 
     <section pgs="footer-legal section">
         <div pgs="footer-legal-content">
-            <button type="button" pgs="button cookieConsent-actionOpen">Preferenze cookie</button>
+            <button type="button" pgs="button cookieConsent-actionOpen">Cookie preferences</button>
             <p><a href="">Privacy Policy</a></p>
             <p><a href="">Cookie Policy</a></p>
             <p><a href="">Termini e Condizioni</a></p>
-            <p>© 2026 MyPgs. Nessun diritto riservato.</p>
+            <p>© 2026 MyPgs. No rights reserved.</p>
         </div>
     </section>
 </footer>

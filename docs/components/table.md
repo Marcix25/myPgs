@@ -1,25 +1,25 @@
-<!-- File generato automaticamente da templates/html/components/table.html. Modificare templates/html/components/table.html e rieseguire npm run docs:generate. -->
+<!-- Automatically generated from templates/html/components/table.html. Edit templates/html/components/table.html and run npm run docs:generate again. -->
 
 # Table
 
-Contenitore responsive per una tabella semantica con intestazioni e righe di dati coerenti con gli stili del design system.
+Responsive container for a semantic table with headers and data rows consistent with the design system styles.
 
 ## PGS
 
-- `table`: identifica il wrapper che gestisce presentazione e scorrimento della tabella nativa.
+- `table`: identifies the wrapper that manages presentation and scrolling for the native table.
 
 ## Output
 
-Tabella HTML completa racchiusa nel contenitore PGS dedicato.
+Complete HTML table wrapped in the dedicated PGS container.
 
-## Esempio
+## Example
 
 ```html
 <div pgs="table">
     <table>
         <thead>
             <tr>
-                <th>Nome</th>
+                <th>Name</th>
                 <th>Stato</th>
                 <th>Data</th>
             </tr>
@@ -28,7 +28,7 @@ Tabella HTML completa racchiusa nel contenitore PGS dedicato.
         <tbody>
             <tr>
                 <td>Elemento uno</td>
-                <td>Attivo</td>
+                <td>Active</td>
                 <td>2026-01-01</td>
             </tr>
             <tr>

@@ -1,31 +1,31 @@
-<!-- File generato automaticamente da templates/html/components/steps.html. Modificare templates/html/components/steps.html e rieseguire npm run docs:generate. -->
+<!-- Automatically generated from templates/html/components/steps.html. Edit templates/html/components/steps.html and run npm run docs:generate again. -->
 
 # Steps
 
-Elenco ordinato di passaggi che presenta numero, contenuto e linea di collegamento, aggiungendo a runtime gli elementi strutturali mancanti.
+Ordered list of steps showing a number, content, and connecting line, with missing structural elements added at runtime.
 
 ## PGS
 
-- `steps`: identifica la lista ordinata inizializzata dal modulo steps.
-- `steps-step`: identifica ogni passaggio della sequenza.
-- `steps-step-circle`: identifica l'indicatore numerico, creato automaticamente se assente.
-- `steps-step-content`: identifica il contenuto testuale del passaggio.
-- `steps-step-line`: identifica la linea di collegamento aggiunta dinamicamente a ogni passaggio.
+- `steps`: identifies the ordered list initialized by the steps module.
+- `steps-step`: identifies each step in the sequence.
+- `steps-step-circle`: identifies the numeric indicator, which is created automatically when missing.
+- `steps-step-content`: identifies the text content of the step.
+- `steps-step-line`: identifies the connecting line dynamically added to each step.
 
-## API JavaScript
+## JavaScript API
 
-- `pgs.steps.init(root)`: inizializza le liste steps non ancora registrate dentro Document o Element indicato.
-- `pgs.steps.api(element)`: restituisce l'istanza associata a un root steps inizializzato.
-- `instance.steps()`: restituisce un array con tutti gli elementi steps-step.
-- `instance.getStep(index)`: restituisce lo step corrispondente all'indice indicato.
-- `instance.getTotal()`: restituisce il numero totale di step.
-- `instance.refresh()`: reinizializza la lista, ricrea gli elementi mancanti e restituisce la nuova istanza.
+- `pgs.steps.init(root)`: initializes unregistered step lists within the specified Document or Element.
+- `pgs.steps.api(element)`: returns the instance associated with an initialized steps root.
+- `instance.steps()`: returns an array containing every steps-step element.
+- `instance.getStep(index)`: returns the step at the specified index.
+- `instance.getTotal()`: returns the total number of steps.
+- `instance.refresh()`: reinitializes the list, recreates missing elements, and returns the new instance.
 
 ## Output
 
-Lista ordinata HTML di passaggi numerati completata dal modulo JavaScript.
+Ordered HTML list of numbered steps completed by the JavaScript module.
 
-## Esempio
+## Example
 
 ```html
 <ol pgs="steps">

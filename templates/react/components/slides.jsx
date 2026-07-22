@@ -1,7 +1,7 @@
 const slides = [
-    ["Slide uno", "Contenuto della prima slide.", "https://placehold.co/800x500?text=Slide+1", "Slide 1"],
-    ["Slide due", "Contenuto della seconda slide.", "https://placehold.co/800x500?text=Slide+2", "Slide 2"],
-    ["Slide tre", "Contenuto della terza slide.", "https://placehold.co/800x500?text=Slide+3", "Slide 3"],
+    ["Slide uno", "First slide content.", "https://placehold.co/800x500?text=Slide+1", "Slide 1"],
+    ["Slide due", "Second slide content.", "https://placehold.co/800x500?text=Slide+2", "Slide 2"],
+    ["Slide tre", "Third slide content.", "https://placehold.co/800x500?text=Slide+3", "Slide 3"],
 ];
 
 export default function Slides() {

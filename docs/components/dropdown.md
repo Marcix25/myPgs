@@ -1,44 +1,44 @@
-<!-- File generato automaticamente da templates/html/components/dropdown.html. Modificare templates/html/components/dropdown.html e rieseguire npm run docs:generate. -->
+<!-- Automatically generated from templates/html/components/dropdown.html. Edit templates/html/components/dropdown.html and run npm run docs:generate again. -->
 
 # Dropdown
 
-Componente a comparsa che associa un controllo a un contenuto posizionato rispetto al trigger e gestisce apertura, chiusura, click esterno ed Escape.
+Popup component that connects a control to content positioned relative to its trigger and handles opening, closing, outside clicks, and Escape.
 
 ## PGS
 
-- `dropdown`: identifica il contenitore inizializzato dal modulo dropdown.
-- `dropdown-button`: identifica il controllo che apre o chiude il contenuto.
-- `dropdown-content`: identifica il pannello posizionato rispetto al controllo.
+- `dropdown`: identifies the container initialized by the dropdown module.
+- `dropdown-button`: identifies the control that opens or closes the content.
+- `dropdown-content`: identifies the panel positioned relative to the control.
 
 ## PGS Options
 
-- `position`: configura il root come position[lato allineamento]; lato accetta top, right, bottom o left e l'allineamento compatibile accetta top, right, bottom, left o center. Il valore predefinito è bottom center.
-- `buttonReverse`: inverte testo e icona sui pulsanti di esempio e appartiene al componente button.
+- `position`: configures the root as position[side alignment]; side accepts top, right, bottom, or left, while compatible alignment values are top, right, bottom, left, or center. The default is bottom center.
+- `buttonReverse`: reverses text and icon on the example buttons and belongs to the button component.
 
 ## PGS States
 
-- `open`: indica che il dropdown è aperto e che il contenuto è visibile.
+- `open`: indicates that the dropdown is open and its content is visible.
 
-## API JavaScript
+## JavaScript API
 
-- `pgs.dropdown.init(root)`: inizializza i dropdown non ancora registrati dentro Document o Element indicato.
-- `pgs.dropdown.api(element)`: restituisce l'istanza associata a un root dropdown inizializzato.
-- `instance.open()`: apre il dropdown, chiudendo eventuali altri dropdown aperti.
-- `instance.close()`: chiude il dropdown corrente.
-- `instance.toggle()`: inverte lo stato aperto o chiuso.
-- `instance.refresh()`: reinizializza il contesto e ricalcola il posizionamento del contenuto.
-- `instance.isOpen()`: restituisce true quando il dropdown è aperto.
+- `pgs.dropdown.init(root)`: initializes unregistered dropdowns within the specified Document or Element.
+- `pgs.dropdown.api(element)`: returns the instance associated with an initialized dropdown root.
+- `instance.open()`: opens the dropdown and closes any other open dropdowns.
+- `instance.close()`: closes the current dropdown.
+- `instance.toggle()`: toggles between the open and closed states.
+- `instance.refresh()`: reinitializes the context and recalculates content positioning.
+- `instance.isOpen()`: returns true when the dropdown is open.
 
-## Elementi correlati
+## Related elements
 
-- `flexRow`: dispone i diversi esempi di posizionamento sulla stessa riga flessibile.
-- `button`: applica lo stile standard ai controlli del dropdown.
+- `flexRow`: arranges the placement examples on the same flexible row.
+- `button`: applies standard styling to dropdown controls.
 
 ## Output
 
-Serie di dropdown HTML che dimostra le direzioni di posizionamento supportate.
+Series of HTML dropdowns demonstrating the supported placement directions.
 
-## Esempio
+## Example
 
 ```html
 <div pgs="flexRow">
@@ -50,7 +50,7 @@ Serie di dropdown HTML che dimostra le direzioni di posizionamento supportate.
         </button>
 
         <div pgs="dropdown-content">
-            Contenuto bottom center
+            bottom center content
         </div>
     </span>
 
@@ -61,7 +61,7 @@ Serie di dropdown HTML che dimostra le direzioni di posizionamento supportate.
         </button>
 
         <div pgs="dropdown-content">
-            Contenuto top left
+            top left content
         </div>
     </span>
 
@@ -72,7 +72,7 @@ Serie di dropdown HTML che dimostra le direzioni di posizionamento supportate.
         </button>
 
         <div pgs="dropdown-content">
-            Contenuto top center
+            top center content
         </div>
     </span>
 
@@ -83,7 +83,7 @@ Serie di dropdown HTML che dimostra le direzioni di posizionamento supportate.
         </button>
 
         <div pgs="dropdown-content">
-            Contenuto top right
+            top right content
         </div>
     </span>
 
@@ -94,7 +94,7 @@ Serie di dropdown HTML che dimostra le direzioni di posizionamento supportate.
         </button>
 
         <div pgs="dropdown-content">
-            Contenuto bottom left
+            bottom left content
         </div>
     </span>
 
@@ -105,7 +105,7 @@ Serie di dropdown HTML che dimostra le direzioni di posizionamento supportate.
         </button>
 
         <div pgs="dropdown-content">
-            Contenuto bottom right
+            bottom right content
         </div>
     </span>
 
@@ -116,7 +116,7 @@ Serie di dropdown HTML che dimostra le direzioni di posizionamento supportate.
         </button>
 
         <div pgs="dropdown-content">
-            Contenuto left center
+            left center content
         </div>
     </span>
 
@@ -127,7 +127,7 @@ Serie di dropdown HTML che dimostra le direzioni di posizionamento supportate.
         </button>
 
         <div pgs="dropdown-content">
-            Contenuto right center
+            right center content
         </div>
     </span>
 

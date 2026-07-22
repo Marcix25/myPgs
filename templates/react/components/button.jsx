@@ -7,7 +7,7 @@ export default function Button() {
             </a>
 
             <button pgs="button" type="button" pgs-option="buttonReverse">
-                Avanti
+                Next
                 <i className="fa-solid fa-arrow-right" aria-hidden="true"></i>
             </button>
 
@@ -16,17 +16,17 @@ export default function Button() {
                 Submit
             </button>
 
-            <button pgs="buttonIcon" type="button" aria-label="Impostazioni">
+            <button pgs="buttonIcon" type="button" aria-label="Settings">
                 <i className="fa-solid fa-gear" aria-hidden="true"></i>
             </button>
 
-            <button pgs="buttonMini" type="button" aria-label="Informazioni">
+            <button pgs="buttonMini" type="button" aria-label="Information">
                 <i className="fa-solid fa-info" aria-hidden="true"></i>
             </button>
 
-            <button pgs="buttonBig" type="button" aria-label="Bottone grande">
+            <button pgs="buttonBig" type="button" aria-label="Large button">
                 <i className="fa-solid fa-rocket" aria-hidden="true"></i>
-                Bottone grande
+                Large button
             </button>
         </div>
     );

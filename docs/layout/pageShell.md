@@ -1,26 +1,26 @@
-<!-- File generato automaticamente da templates/html/layout/pageShell.html. Modificare templates/html/layout/pageShell.html e rieseguire npm run docs:generate. -->
+<!-- Automatically generated from templates/html/layout/pageShell.html. Edit templates/html/layout/pageShell.html and run npm run docs:generate again. -->
 
 # Page Shell
 
-Layout di pagina responsive che combina un contenuto principale con zero, una o due barre laterali scorrevoli, adattandone larghezza e posizione.
+Responsive page layout that combines main content with zero, one, or two scrollable sidebars and adapts their width and position.
 
 ## PGS
 
-- `pageShell`: identifica il contenitore che calcola la composizione di main e aside.
-- `pageShell-aside`: identifica una barra laterale posizionabile prima o dopo il contenuto.
-- `pageShell-aside-scroll`: identifica l'area interna che può restare visibile durante lo scorrimento.
-- `pageShell-content`: identifica il contenuto principale della pagina.
+- `pageShell`: identifies the container that calculates the main and aside composition.
+- `pageShell-aside`: identifies a sidebar that can be placed before or after the content.
+- `pageShell-aside-scroll`: identifies the inner area that can remain visible while scrolling.
+- `pageShell-content`: identifies the main page content.
 
-## Elementi correlati
+## Related elements
 
-- `flexColumnTexts`: organizza i testi contenuti nelle barre laterali.
-- `flexColumnElements`: organizza verticalmente gli elementi delle sezioni principali.
+- `flexColumnTexts`: organizes text contained in the sidebars.
+- `flexColumnElements`: vertically organizes elements in the main sections.
 
 ## Output
 
-Quattro configurazioni HTML di page shell con due, una o nessuna barra laterale.
+Four page-shell HTML configurations with two, one, or no sidebars.
 
-## Esempio
+## Example
 
 ```html
 <div pgs="pageShell">

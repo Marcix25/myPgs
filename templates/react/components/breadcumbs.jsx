@@ -18,7 +18,7 @@ export default function Breadcumbs() {
 
                 <li pgs="breadcrumb-item">
                     <span aria-current="page">
-                        Articolo di prova
+                        Sample article
                     </span>
                 </li>
             </ul>

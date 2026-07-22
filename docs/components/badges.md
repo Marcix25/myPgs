@@ -1,30 +1,30 @@
-<!-- File generato automaticamente da templates/html/components/badges.html. Modificare templates/html/components/badges.html e rieseguire npm run docs:generate. -->
+<!-- Automatically generated from templates/html/components/badges.html. Edit templates/html/components/badges.html and run npm run docs:generate again. -->
 
 # Badge
 
-Raccolta di indicatori compatti per mostrare categorie, priorità e stati visivi con varianti cromatiche coerenti.
+Collection of compact indicators for displaying categories, priorities, and visual states with consistent color variants.
 
 ## PGS
 
-- `badge`: identifica la variante base del badge.
-- `badgePrimary`: applica la variante con colore primario.
-- `badgeStrong`: applica la variante ad alto contrasto.
-- `badgeSuccess`: rappresenta un esito positivo.
-- `badgeDot`: aggiunge un indicatore puntiforme al badge.
-- `badgeWarning`: rappresenta un avviso.
-- `badgeError`: rappresenta un errore.
-- `badgeInfo`: rappresenta un'informazione.
-- `badgeNeutral`: applica la variante neutra.
+- `badge`: identifies the base badge variant.
+- `badgePrimary`: applies the primary color variant.
+- `badgeStrong`: applies the high-contrast variant.
+- `badgeSuccess`: represents a successful result.
+- `badgeDot`: adds a dot indicator to the badge.
+- `badgeWarning`: represents a warning.
+- `badgeError`: represents an error.
+- `badgeInfo`: represents informational content.
+- `badgeNeutral`: applies the neutral variant.
 
-## Elementi correlati
+## Related elements
 
-- `flexRow`: dispone i badge orizzontalmente consentendo il ritorno a capo.
+- `flexRow`: arranges badges horizontally and allows them to wrap.
 
 ## Output
 
-Esempi HTML delle varianti badge disponibili.
+HTML examples of the available badge variants.
 
-## Esempio
+## Example
 
 ```html
 <div pgs="flexRow">
@@ -41,17 +41,17 @@ Esempi HTML delle varianti badge disponibili.
     </span>
 
     <span pgs="badgeSuccess badgeDot">
-        Attivo
+        Active
     </span>
 
     <span pgs="badgeWarning">
         <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
-        Attenzione
+        Warning
     </span>
 
     <span pgs="badgeError">
         <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-        Errore
+        Error
     </span>
 
     <span pgs="badgeInfo">
@@ -60,7 +60,7 @@ Esempi HTML delle varianti badge disponibili.
     </span>
 
     <span pgs="badgeNeutral" href="#">
-        Neutrale
+        Neutral
     </span>
 
 </div>

@@ -1,6 +1,6 @@
-# Utilizzo CSS/SCSS
+# CSS/SCSS usage
 
-La libreria espone molte custom properties da preferire agli hardcode, per esempio:
+The library exposes many custom properties that should be preferred to hardcoded values, for example:
 
 ```scss
 :root {
@@ -13,7 +13,7 @@ La libreria espone molte custom properties da preferire agli hardcode, per esemp
 }
 ```
 
-Override consigliato:
+Recommended override:
 
 ```scss
 #danger-action {
@@ -22,15 +22,15 @@ Override consigliato:
 }
 ```
 
-Evita di riscrivere da zero padding, gap, border-radius o colori se esiste gia' una variabile o un token PGS adatto.
+Avoid rewriting padding, gaps, border radii, or colors from scratch when a suitable variable or PGS token already exists.
 
-## Il sistema `pgs`
+## The `pgs` system
 
-Il markup usa token separati da spazio dentro l'attributo `pgs`:
+Markup uses space-separated tokens inside the `pgs` attribute:
 
 ```html
-<button pgs="button buttonStrong" type="button">Salva</button>
+<button pgs="button buttonStrong" type="button">Save</button>
 <section pgs="section flexColumnElements"></section>
 ```
 
-Gli stessi token collegano HTML, SCSS e JavaScript.
+The same tokens connect HTML, SCSS, and JavaScript.

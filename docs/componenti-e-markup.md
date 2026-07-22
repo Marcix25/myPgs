@@ -1,6 +1,6 @@
-# Componenti e markup
+# Components and markup
 
-I template completi sono in `templates/`. Usa quei file come sorgente di riferimento prima di creare markup nuovo.
+Complete templates are available in `templates/`. Use those files as the reference source before creating new markup.
 
 ## Componenti disponibili
 
@@ -13,6 +13,7 @@ Componenti:
 - [`card`](components/card.md)
 - [`dropdown`](components/dropdown.md)
 - [`form`](components/form.md)
+- [`formAddon`](components/formAddon.md)
 - [`logo`](components/logo.md)
 - [`menu`](components/menu.md)
 - [`modal`](components/modal.md)
@@ -39,7 +40,7 @@ Pattern:
 
 - [`cookieConsent`](patterns/cookieConsent.md)
 
-## Search con suggerimenti
+## Search with suggestions
 
 `search` include sia lo stile sia il comportamento di ricerca e usa `search-suggestions` come lista opzionale:
 
@@ -51,7 +52,7 @@ Pattern:
 </form>
 ```
 
-Il progetto fornisce la sorgente dati; `mypgs` non dipende da endpoint o formati backend specifici:
+The project provides the data source; `mypgs` does not depend on specific backend endpoints or formats:
 
 ```js
 const form = pgs(document).querySelector("search");
@@ -75,7 +76,7 @@ pgs.search.api(form)?.configure({
 
 La sorgente puo' essere anche un array locale di stringhe o oggetti. Il componente gestisce debounce, annullamento richieste, risposte fuori ordine, tastiera, selezione, click esterno, stati `open`, `loading` ed `error` e attributi ARIA. Gli eventi `pgs:search:select` e `pgs:search:error` sono emessi sul root `search`.
 
-## Altri elementi senza template
+## Other elements without templates
 
 Base:
 

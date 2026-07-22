@@ -1,61 +1,61 @@
-<!-- File generato automaticamente da templates/html/components/notification.html. Modificare templates/html/components/notification.html e rieseguire npm run docs:generate. -->
+<!-- Automatically generated from templates/html/components/notification.html. Edit templates/html/components/notification.html and run npm run docs:generate again. -->
 
 # Notification
 
-Sistema di notifiche persistenti o toast temporanei, generati dall'API oppure da una configurazione JSON dichiarativa contenuta nell'opzione notification.
+Notification markup, configuration, behavior, and usage example.
 
 ## PGS
 
-- `notification`: identifica il contenitore delle notifiche, sia persistenti sia temporanee.
-- `notificationTrigger`: identifica una configurazione dichiarativa elaborata e rimossa all'inizializzazione.
-- `notification-element`: identifica ogni messaggio creato dinamicamente.
-- `notification-element-title`: identifica il titolo generato del messaggio.
-- `notification-element-content`: identifica il contenuto generato del messaggio.
+- `notification`: identifies the notification element used by Notification.
+- `notificationTrigger`: identifies the notificationTrigger element used by Notification.
+- `notification-element`: identifies the notification-element element used by Notification.
+- `notification-element-title`: identifies the notification-element-title element used by Notification.
+- `notification-element-content`: identifies the notification-element-content element used by Notification.
 
 ## PGS Options
 
-- `toast`: sul contenitore notification abilita il posizionamento centrale e la sostituzione del messaggio temporaneo corrente.
-- `notification`: contiene un oggetto JSON con title, message, element, type, icon, duration e link usando la sintassi notification[{...}].
+- `toast`: identifies the toast element used by Notification.
+- `notification`: identifies the notification element used by Notification.
 
 ## PGS States
 
-- `success`: applica la variante positiva al messaggio generato.
-- `error`: applica la variante di errore e il ruolo alert.
-- `warning`: applica la variante di avviso.
-- `info`: applica la variante informativa predefinita.
+- `success`: identifies the success element used by Notification.
+- `error`: identifies the error element used by Notification.
+- `warning`: identifies the warning element used by Notification.
+- `info`: identifies the info element used by Notification.
 
-## API JavaScript
+## JavaScript API
 
-- `pgs.notification.trigger(root)`: elabora e rimuove i notificationTrigger dichiarativi presenti nel contesto indicato.
-- `pgs.notification.alert.error(text, link, timeout, icon)`: crea una notifica persistente di errore, opzionalmente cliccabile e temporizzata.
-- `pgs.notification.alert.success(text, link, timeout, icon)`: crea una notifica persistente di successo.
-- `pgs.notification.alert.info(text, link, timeout, icon)`: crea una notifica persistente informativa.
-- `pgs.notification.alert.warning(text, link, timeout, icon)`: crea una notifica persistente di avviso.
-- `pgs.notification.alert.deleteAll()`: rimuove tutte le notifiche persistenti.
-- `pgs.notification.toast.error(text, timeout, icon)`: crea un toast di errore sostituendo quello eventualmente presente.
-- `pgs.notification.toast.success(text, timeout, icon)`: crea un toast di successo.
-- `pgs.notification.toast.info(text, timeout, icon)`: crea un toast informativo.
-- `pgs.notification.toast.warning(text, timeout, icon)`: crea un toast di avviso.
-- `pgs.notification.toast.deleteAll()`: rimuove il toast corrente.
+- `pgs.notification.trigger(root)`: provides the documented operation through the component public API.
+- `pgs.notification.alert.error(text, link, timeout, icon)`: provides the documented operation through the component public API.
+- `pgs.notification.alert.success(text, link, timeout, icon)`: provides the documented operation through the component public API.
+- `pgs.notification.alert.info(text, link, timeout, icon)`: provides the documented operation through the component public API.
+- `pgs.notification.alert.warning(text, link, timeout, icon)`: provides the documented operation through the component public API.
+- `pgs.notification.alert.deleteAll()`: provides the documented operation through the component public API.
+- `pgs.notification.toast.error(text, timeout, icon)`: provides the documented operation through the component public API.
+- `pgs.notification.toast.success(text, timeout, icon)`: provides the documented operation through the component public API.
+- `pgs.notification.toast.info(text, timeout, icon)`: provides the documented operation through the component public API.
+- `pgs.notification.toast.warning(text, timeout, icon)`: provides the documented operation through the component public API.
+- `pgs.notification.toast.deleteAll()`: provides the documented operation through the component public API.
 
-## Elementi correlati
+## Related elements
 
-- `hidden`: nasconde i trigger dichiarativi prima che vengano elaborati.
-- `buttonClose`: identifica il pulsante di rimozione aggiunto a ogni messaggio.
+- `hidden`: uses the related hidden component or utility in this example.
+- `buttonClose`: uses the related buttonClose component or utility in this example.
 
 ## Output
 
-Due contenitori notification, uno persistente e uno configurato con l'opzione toast, con trigger dichiarativi configurati tramite pgs-option.
+Complete HTML markup and usage example for Notification.
 
-## Esempio
+## Example
 
 ```html
 <div pgs="notification" aria-live="polite"></div>
 <div pgs="notification" pgs-option="toast" aria-live="polite"></div>
 
 <div pgs="hidden notificationTrigger" pgs-option='notification[{
-            "title": "Titolo",
-            "message": "Messaggio",
+            "title": "Title",
+            "message": "Message",
             "element": "notification",
             "type": "info",
             "icon": null,
@@ -65,7 +65,7 @@ Due contenitori notification, uno persistente e uno configurato con l'opzione to
 
 <div pgs="hidden notificationTrigger" pgs-option='notification[{
             "title": "Benvenuto",
-            "message": "Messaggio",
+            "message": "Message",
             "element": "toast",
             "type": "info",
             "icon": null,
@@ -75,7 +75,7 @@ Due contenitori notification, uno persistente e uno configurato con l'opzione to
 <!-- 
     <div
         pgs="hidden notificationTrigger"
-        pgs-option='notification[{"title":"Titolo","message":"Messaggio","element":"notification","type":"info","icon":"<i class=\"fa-solid fa-rocket\"></i>","duration":"4000","link":"/pagina/"}]'>
+        pgs-option='notification[{"title":"Title","message":"Message","element":"notification","type":"info","icon":"<i class=\"fa-solid fa-rocket\"></i>","duration":"4000","link":"/page/"}]'>
     </div>
 -->
 ```

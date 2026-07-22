@@ -30,7 +30,7 @@ export default function Header() {
                 </div>
 
                 <div pgs="header-element-onlyDesktop">
-                    <nav pgs="menu" pgs-option="horizontal menuHeader" aria-label="Menu principale">
+                    <nav pgs="menu" pgs-option="horizontal menuHeader" aria-label="Main menu">
                         <ul>
                             <li><a href="/">Home</a></li>
                             <li><a href="#componenti">Componenti</a></li>
@@ -42,7 +42,7 @@ export default function Header() {
                 <div pgs="header-element-onlyMobile"></div>
 
                 <div pgs="header-element-alwaysOnLast">
-                    <button pgs="buttonIcon toggleDarkmode" type="button" aria-label="Cambia tema">
+                    <button pgs="buttonIcon toggleDarkmode" type="button" aria-label="Change theme">
                         <i className="fa-solid fa-moon"></i>
                     </button>
                 </div>
@@ -52,7 +52,7 @@ export default function Header() {
 
                     <dialog pgs="modal-dialog" pgs-option="right">
                         <div pgs="modal-dialog-content">
-                            <nav pgs="menu" pgs-option="vertical menuHeader" aria-label="Menu mobile">
+                            <nav pgs="menu" pgs-option="vertical menuHeader" aria-label="Mobile menu">
                                 <ul>
                                     <li><a href="/">Home</a></li>
                                     <li><a href="#componenti">Componenti</a></li>

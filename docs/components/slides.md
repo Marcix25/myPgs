@@ -1,52 +1,52 @@
-<!-- File generato automaticamente da templates/html/components/slides.html. Modificare templates/html/components/slides.html e rieseguire npm run docs:generate. -->
+<!-- Automatically generated from templates/html/components/slides.html. Edit templates/html/components/slides.html and run npm run docs:generate again. -->
 
 # Slides
 
-Carosello orizzontale che osserva gli elementi visibili e crea automaticamente controlli precedente, successivo e indicatori di posizione.
+Slides markup, configuration, behavior, and usage example.
 
 ## PGS
 
-- `slides`: identifica il root inizializzato dal modulo slides.
-- `slides-container`: identifica la lista orizzontale degli elementi scorrevoli.
-- `slides-prec`: identifica il pulsante precedente creato dinamicamente.
-- `slides-next`: identifica il pulsante successivo creato dinamicamente.
-- `slides-dots`: identifica il contenitore degli indicatori creato dinamicamente.
+- `slides`: identifies the slides element used by Slides.
+- `slides-container`: identifies the slides-container element used by Slides.
+- `slides-prec`: identifies the slides-prec element used by Slides.
+- `slides-next`: identifies the slides-next element used by Slides.
+- `slides-dots`: identifies the slides-dots element used by Slides.
 
 ## PGS Options
 
-- `singleScroll`: usa un solo elemento visibile come riferimento per la navigazione precedente e successiva.
-- `shadowDesktop`: abilita l'ombreggiatura laterale del carosello sui layout desktop.
-- `notScrollAnimation`: applicata a un elemento li disabilita l'animazione visiva basata sulla percentuale di visibilità.
-- `notScrollWithMouse`: sul root disabilita la gestione dello scorrimento orizzontale tramite mouse.
+- `singleScroll`: identifies the singleScroll element used by Slides.
+- `shadowDesktop`: identifies the shadowDesktop element used by Slides.
+- `notScrollAnimation`: identifies the notScrollAnimation element used by Slides.
+- `notScrollWithMouse`: identifies the notScrollWithMouse element used by Slides.
 
-## API JavaScript
+## JavaScript API
 
-- `pgs.slides.init(root)`: inizializza il root stesso quando è un carosello e tutti i caroselli discendenti non ancora registrati; il valore predefinito è document.
-- `pgs.slides.api(element)`: restituisce l'istanza associata a un root slides inizializzato.
-- `instance.previous()`: porta in vista la slide precedente.
-- `instance.next()`: porta in vista la slide successiva.
-- `instance.goTo(index)`: porta in vista la slide con l'indice indicato.
-- `instance.getCurrentIndexes()`: restituisce gli indici delle slide attualmente visibili.
-- `instance.getCurrentElements()`: restituisce gli elementi slide attualmente visibili.
-- `instance.getTotal()`: restituisce il numero totale di slide.
-- `instance.isAtStart()`: restituisce true quando la prima slide è visibile.
-- `instance.isAtEnd()`: restituisce true quando l'ultima slide è visibile.
-- `instance.refresh()`: sincronizza controlli e dots, sostituisce listener e observer precedenti e restituisce la nuova API.
+- `pgs.slides.init(root)`: initializes matching elements within the specified root.
+- `pgs.slides.api(element)`: returns the instance associated with the specified initialized element.
+- `instance.previous()`: moves to the previous item.
+- `instance.next()`: moves to the next item.
+- `instance.goTo(index)`: provides the documented operation through the component public API.
+- `instance.getCurrentIndexes()`: provides the documented operation through the component public API.
+- `instance.getCurrentElements()`: provides the documented operation through the component public API.
+- `instance.getTotal()`: returns the total number of items.
+- `instance.isAtStart()`: provides the documented operation through the component public API.
+- `instance.isAtEnd()`: provides the documented operation through the component public API.
+- `instance.refresh()`: refreshes the component and returns its updated instance.
 
-## Elementi correlati
+## Related elements
 
-- `card`: usa card come contenuto dimostrativo di ogni slide.
-- `card-img`: identifica l'immagine delle card dimostrative.
-- `imgCover`: adatta le immagini allo spazio disponibile.
-- `flexColumn`: organizza verticalmente ogni card.
-- `flexColumnTexts`: applica la spaziatura ai testi delle card.
-- `buttonIcon`: viene applicato ai controlli precedente e successivo generati.
+- `card`: uses the related card component or utility in this example.
+- `card-img`: uses the related card-img component or utility in this example.
+- `imgCover`: uses the related imgCover component or utility in this example.
+- `flexColumn`: uses the related flexColumn component or utility in this example.
+- `flexColumnTexts`: uses the related flexColumnTexts component or utility in this example.
+- `buttonIcon`: uses the related buttonIcon component or utility in this example.
 
 ## Output
 
-Lista di slide basate su card, completata a runtime con pulsanti e indicatori.
+Complete HTML markup and usage example for Slides.
 
-## Esempio
+## Example
 
 ```html
 <div pgs="slides" pgs-option="singleScroll shadowDesktop">
@@ -56,7 +56,7 @@ Lista di slide basate su card, completata a runtime con pulsanti e indicatori.
                 <img pgs="card-img imgCover" src="https://placehold.co/800x500?text=Slide+1" alt="Slide 1">
                 <div pgs="flexColumnTexts">
                     <h3>Slide uno</h3>
-                    <p>Contenuto della prima slide.</p>
+                    <p>First slide content.</p>
                 </div>
             </article>
         </li>
@@ -66,7 +66,7 @@ Lista di slide basate su card, completata a runtime con pulsanti e indicatori.
                 <img pgs="card-img imgCover" src="https://placehold.co/800x500?text=Slide+2" alt="Slide 2">
                 <div pgs="flexColumnTexts">
                     <h3>Slide due</h3>
-                    <p>Contenuto della seconda slide.</p>
+                    <p>Second slide content.</p>
                 </div>
             </article>
         </li>
@@ -76,7 +76,7 @@ Lista di slide basate su card, completata a runtime con pulsanti e indicatori.
                 <img pgs="card-img imgCover" src="https://placehold.co/800x500?text=Slide+3" alt="Slide 3">
                 <div pgs="flexColumnTexts">
                     <h3>Slide tre</h3>
-                    <p>Contenuto della terza slide.</p>
+                    <p>Third slide content.</p>
                 </div>
             </article>
         </li>

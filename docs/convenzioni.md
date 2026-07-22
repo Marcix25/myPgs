@@ -1,12 +1,12 @@
-# Convenzioni
+# Conventions
 
-- Usa `pgs` come prima scelta per markup, layout, componenti e comportamenti.
-- Mantieni coerenti i token tra template, SCSS e JS.
-- Usa `pgs-state` per stati runtime.
-- Usa `pgs-option` per opzioni dichiarative.
-- Preferisci custom properties e mixin a CSS hardcoded.
-- Non duplicare componenti gia' presenti nella libreria.
-- Non inventare API: verifica i sorgenti in `assets/javascript/`.
-- Mantieni in `mypgs` solo stili e comportamenti riutilizzabili.
-- Mantieni nel progetto finale le personalizzazioni specifiche del progetto.
-- Aggiorna `AGENTS.md` quando introduci pattern importanti.
+- Use `pgs` as the first choice for markup, layouts, components, and behaviors.
+- Keep tokens consistent across templates, SCSS, and JavaScript.
+- Use `pgs-state` for runtime states.
+- Use `pgs-option` for declarative options.
+- Prefer custom properties and mixins to hardcoded CSS.
+- Do not duplicate components that already exist in the library.
+- Do not invent APIs: verify the sources in `assets/javascript/`.
+- Keep only reusable styles and behaviors in `mypgs`.
+- Keep project-specific customizations in the consuming project.
+- Update `AGENTS.md` when introducing important patterns.

@@ -1,0 +1,75 @@
+@mixin _hoverColor() {
+    $color: var(--color-primary-strong);
+    $colorTxtSafari: var(--color-white);
+    --hover-color: #{$colorTxtSafari};
+    --hover-background: #{$color};
+    color: var(--hover-color);
+    --fa-primary-color: var(--hover-color);
+    --fa-secondary-color: var(--hover-color);
+    background: var(--hover-background);
+
+    :is(h1, h2, h3, h4, h5, h6, p) {
+        color: var(--hover-color);
+    }
+}
+
+//+ HOVER
+@mixin _hoverContent1() {
+    @media (hover: hover) and (pointer: fine) {
+
+        &:focus-visible,
+        &:hover {
+            box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
+            // outline-color: var(--color-primary);
+            @include _hoverColor();
+        }
+    }
+}
+
+@mixin _hoverContent2() {
+    @media (hover: hover) and (pointer: fine) {
+
+        &:focus-visible,
+        &:hover {
+            $n: var(--hover-shadow-displacement);
+            $-n: calc(var(--hover-shadow-displacement) * -1);
+            box-shadow: $-n $n 0 var(--color-black);
+            transform: translate($n, $-n);
+            outline-color: transparent;
+            @include _hoverColor();
+        }
+    }
+}
+
+//= HOVER
+@mixin hover() {
+    transition: all 200ms;
+    cursor: pointer;
+    text-decoration: none;
+    --hover-shadow-color: var(--color-primary);
+    --hover-shadow-displacement: 0.25rem;
+    $color: var(--color-primary-strong);
+    $colorTxtSafari: var(--color-whiteFixed);
+
+    &:not(:disabled) {
+        &:not([pgs-option~=buttonStyle-2]) {
+            @include _hoverContent1();
+        }
+
+        &[pgs-option~=buttonStyle-2] {
+            @include _hoverContent2();
+        }
+
+        &:hover {
+            --fa-secondary-opacity: 0.5;
+            --hover-color: var(--color-whiteFixed);
+            color: var(--hover-color);
+            --fa-primary-color: var(--hover-color);
+            --fa-secondary-color: var(--hover-color);
+        }
+    }
+
+    &:is(a):hover {
+        text-decoration: none;
+    }
+}

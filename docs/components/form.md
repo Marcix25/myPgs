@@ -1,79 +1,102 @@
-<!-- File generato automaticamente da templates/html/components/form.html. Modificare templates/html/components/form.html e rieseguire npm run docs:generate. -->
+<!-- Automatically generated from templates/html/components/form.html. Edit templates/html/components/form.html and run npm run docs:generate again. -->
 
 # Form
 
-Struttura di modulo con etichette, campi testuali, textarea e controllo toggle compatibile con i vincoli HTML e con regole personalizzate di PGS_formValidate.
+Form structure with labels, text fields, a textarea, a checkbox, and a radio group compatible with HTML constraints and custom PGS_formValidate rules.
 
 ## PGS
 
-- `form`: identifica il contenitore del modulo e applica il layout dei campi.
-- `formValidate`: abilita gli stili associati agli stati di validazione gestiti dalla utility JavaScript.
-- `label`: identifica le etichette associate ai controlli.
-- `input`: applica lo stile condiviso agli input testuali.
-- `textarea`: applica lo stile condiviso all'area di testo.
-- `toggle`: presenta una checkbox come controllo a due stati.
+- `form`: identifies the form container and applies the field layout.
+- `formValidate`: enables styles associated with validation states managed by the JavaScript utility.
+- `label`: identifies labels associated with controls.
+- `input`: applies shared styling to text inputs.
+- `textarea`: applies shared styling to the text area.
+- `radio`: styles a group of native radio inputs while preserving their shared name and selection behavior.
 
 ## PGS Options
 
-- `message`: definisce il messaggio specifico del campo con la sintassi message[Testo del messaggio].
-- `error`: viene applicata a runtime al form e ai campi che non superano la validazione.
-- `success`: viene applicata a runtime al form quando la validazione ha esito positivo.
+- `message`: defines a field-specific message with the syntax message[Message text].
+- `error`: is applied at runtime to the form and fields that fail validation.
+- `success`: is applied at runtime to the form after successful validation.
 
-## API JavaScript
+## JavaScript API
 
-- `new pgs.formValidate(form, options)`: crea una utility associata direttamente al form, aggiunge automaticamente novalidate e accetta fieldError, fieldsError e success in options.message; i messaggi restano modificabili tramite instance.message.
-- `instance.validator(callback, eventName)`: intercetta l'evento indicato, previene il comportamento predefinito, valida il form, mostra il messaggio di successo e richiama callback solo quando è valido; eventName usa submit come valore predefinito.
-- `instance.validate()`: valida i campi required, aggiorna gli attributi di stato e restituisce true o false.
-- `instance.success(text)`: valida il form e mostra un toast positivo quando non sono presenti errori.
-- `instance.addNewRule(rule)`: aggiunge una funzione che restituisce uno o più campi non validi; validate applica automaticamente addFieldError a ciascun campo.
-- `instance.addFieldError(field, index, total)`: marca un campo come non valido; mostra il messaggio specifico per un solo errore o un messaggio riepilogativo per più errori.
-- `instance.removeFieldError(field)`: rimuove lo stato di errore dal campo indicato.
+- `new pgs.formValidate(form, options)`: creates a utility associated directly with the form, automatically adds novalidate, and accepts fieldError, fieldsError, and success in options.message; messages remain editable through instance.message.
+- `instance.validator(callback, eventName)`: intercepts the specified event, prevents its default behavior, validates the form, shows the success message, and invokes callback only when valid; eventName defaults to submit.
+- `instance.validate()`: validates required fields, updates state attributes, and returns true or false.
+- `instance.success(text)`: validates the form and shows a success toast when there are no errors.
+- `instance.addNewRule(rule)`: adds a function that returns one or more invalid fields; validate automatically applies addFieldError to each field.
+- `instance.addFieldError(field, index, total)`: marks a field as invalid; shows the specific message for one error or a summary message for multiple errors.
+- `instance.removeFieldError(field)`: removes the error state from the specified field.
 
-## Elementi correlati
+## Related elements
 
-- `buttonStrong`: presenta l'invio del modulo come azione primaria.
+- `buttonStrong`: presents form submission as the primary action.
+- `flexColumnTexts`: spaces text elements in the radio group.
 
 ## Output
 
-Modulo HTML completo con campi required e script di esempio per una regola personalizzata, la validazione e il messaggio di successo.
+Complete HTML form with required fields and an example script for a custom rule, validation, and a success message.
 
-## Esempio
+## Example
 
 ```html
 <form pgs="form formValidate" action="#" method="post">
     <label pgs="label" for="form-name">
-        Nome
+        Name
     </label>
-    <input id="form-name" pgs="input" pgs-option="message[Inserisci il nome]" type="text" name="name" placeholder="Mario Rossi" required>
+    <input id="form-name" pgs="input" pgs-option="message[Enter your name]" type="text" name="name" placeholder="John Smith" required>
 
     <label pgs="label" for="form-email">
         Email
     </label>
-    <input id="form-email" pgs="input" pgs-option="message[Inserisci una email valida]" type="email" name="email" placeholder="nome@example.com" required>
+    <input id="form-email" pgs="input" pgs-option="message[Enter a valid email address]" type="email" name="email" placeholder="name@example.com" required>
 
     <label pgs="label" for="form-password">
         Password
     </label>
-    <input id="form-password" pgs="input" pgs-option="message[Inserisci una password]" type="password" name="password" autocomplete="new-password" required>
+    <input id="form-password" pgs="input" pgs-option="message[Enter a password]" type="password" name="password" autocomplete="new-password" required>
 
     <label pgs="label" for="form-confirm-password">
-        Conferma password
+        Confirm password
     </label>
-    <input id="form-confirm-password" pgs="input" pgs-option="message[Conferma la password]" type="password" name="confirmPassword" autocomplete="new-password" required>
+    <input id="form-confirm-password" pgs="input" pgs-option="message[Confirm your password]" type="password" name="confirmPassword" autocomplete="new-password" required>
 
     <label pgs="label" for="form-message">
-        Messaggio
+        Message
     </label>
-    <textarea id="form-message" pgs="textarea" name="message" rows="5" placeholder="Scrivi il messaggio" required></textarea>
+    <textarea id="form-message" pgs="textarea" name="message" rows="5" placeholder="Write your message" required></textarea>
 
-    <label pgs="toggle">
-        <span>Accetto la privacy policy</span>
+    <br>
+    <fieldset pgs="radio flexColumnTexts">
+        <legend>Preferred contact method</legend>
+
+        <label>
+            <input type="radio" name="contactMethod" value="email" pgs-option="message[Choose a contact method]" required>
+            <span>Email</span>
+        </label>
+
+        <label>
+            <input type="radio" name="contactMethod" value="phone">
+            <span>Phone</span>
+        </label>
+
+        <label>
+            <input type="radio" name="contactMethod" value="message">
+            <span>Direct message</span>
+        </label>
+    </fieldset>
+    <br>
+
+    <label>
         <input type="checkbox" name="privacy" required>
+        <span>I accept the privacy policy</span>
     </label>
+    <br>
 
     <button pgs="buttonStrong" type="submit">
         <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
-        Invia
+        Submit
     </button>
 </form>
 
@@ -88,16 +111,16 @@ Modulo HTML completo con campi required e script di esempio per una regola perso
 
     const formValidate = new pgs.formValidate(form, {
         message: {
-            fieldError: "Completa questo campo",
-            fieldsError: "Completa tutti i campi obbligatori",
-            success: "Inviato con successo"
+            fieldError: "Please complete this field",
+            fieldsError: "Please complete all required fields",
+            success: "Submitted successfully"
         }
     });
 
     //== new roules
     formValidate.addNewRule(() => {
         if (password.value && confirmPassword.value && password.value !== confirmPassword.value) {
-            pgs(confirmPassword).option.setValueBrackets("message", "Le password non coincidono");
+            pgs(confirmPassword).option.setValueBrackets("message", "Passwords do not match");
             return [confirmPassword, password];
         }
     });
@@ -106,7 +129,7 @@ Modulo HTML completo con campi required e script di esempio per una regola perso
     formValidate.validator(event => {
         const values = Object.fromEntries(new FormData(form));
 
-        // Sostituisci questo log con l'invio dei dati al tuo backend.
+        // Replace this log with a request to your backend.
         console.log(values);
     }, "submit");
 </script>

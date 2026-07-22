@@ -1,7 +1,7 @@
 export default function Footer() {
     return (
         <footer pgs="footer">
-            <button pgs="button toggleDarkmode" type="button" aria-label="Cambia tema">
+            <button pgs="button toggleDarkmode" type="button" aria-label="Change theme">
                 <i className="fa-solid fa-moon"></i>
             </button>
 
@@ -28,11 +28,11 @@ export default function Footer() {
 
             <section pgs="footer-legal section">
                 <div pgs="footer-legal-content">
-                    <button type="button" pgs="button cookieConsent-actionOpen">Preferenze cookie</button>
+                    <button type="button" pgs="button cookieConsent-actionOpen">Cookie preferences</button>
                     <p><a href="">Privacy Policy</a></p>
                     <p><a href="">Cookie Policy</a></p>
                     <p><a href="">Termini e Condizioni</a></p>
-                    <p>© 2026 MyPgs. Nessun diritto riservato.</p>
+                    <p>© 2026 MyPgs. No rights reserved.</p>
                 </div>
             </section>
         </footer>

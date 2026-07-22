@@ -1,57 +1,57 @@
-<!-- File generato automaticamente da templates/html/components/stepTabs.html. Modificare templates/html/components/stepTabs.html e rieseguire npm run docs:generate. -->
+<!-- Automatically generated from templates/html/components/stepTabs.html. Edit templates/html/components/stepTabs.html and run npm run docs:generate again. -->
 
 # Step Tabs
 
-Procedura guidata a schede con avanzamento sequenziale, indicatori generati, controlli di navigazione e possibilità di bloccare uno step.
+Step Tabs markup, configuration, behavior, and usage example.
 
 ## PGS
 
-- `stepTabs`: identifica il root della procedura guidata.
-- `stepTabs-dots`: identifica il contenitore degli indicatori di avanzamento.
-- `stepTabs-dots-dot`: identifica ogni indicatore creato dinamicamente.
-- `stepTabs-container`: contiene nell'ordine tutte le schede della procedura.
-- `tab`: identifica una singola scheda navigabile.
-- `stepTabs-prev`: identifica il controllo per tornare allo step precedente.
-- `stepTabs-restart`: identifica il controllo che riavvia la procedura dal primo step.
-- `stepTabs-next`: identifica il controllo per avanzare allo step successivo.
+- `stepTabs`: identifies the stepTabs element used by Step Tabs.
+- `stepTabs-dots`: identifies the stepTabs-dots element used by Step Tabs.
+- `stepTabs-dots-dot`: identifies the stepTabs-dots-dot element used by Step Tabs.
+- `stepTabs-container`: identifies the stepTabs-container element used by Step Tabs.
+- `tab`: identifies the tab element used by Step Tabs.
+- `stepTabs-prev`: identifies the stepTabs-prev element used by Step Tabs.
+- `stepTabs-restart`: identifies the stepTabs-restart element used by Step Tabs.
+- `stepTabs-next`: identifies the stepTabs-next element used by Step Tabs.
 
 ## PGS Options
 
-- `tabIcon`: su ogni tab usa tabIcon[classe] con una singola classe Font Awesome per l'indicatore corrispondente; il fallback è fa-circle.
-- `step`: viene applicata a ogni indicatore generato con la sintassi step[indice] per conservarne l'indice zero-based.
-- `buttonReverse`: inverte testo e icona sul pulsante successivo e appartiene al componente button.
+- `tabIcon`: identifies the tabIcon element used by Step Tabs.
+- `step`: identifies the step element used by Step Tabs.
+- `buttonReverse`: identifies the buttonReverse element used by Step Tabs.
 
 ## PGS States
 
-- `is-active`: identifica la scheda corrente e il relativo indicatore.
-- `is-completed`: identifica gli indicatori degli step già completati e nuovamente selezionabili.
-- `is-locked`: applicato a un tab impedisce di avanzare finché lo step resta bloccato.
+- `is-active`: identifies the is-active element used by Step Tabs.
+- `is-completed`: identifies the is-completed element used by Step Tabs.
+- `is-locked`: identifies the is-locked element used by Step Tabs.
 
-## API JavaScript
+## JavaScript API
 
-- `pgs.stepTabs.init(root)`: inizializza le procedure non ancora registrate dentro Document o Element indicato.
-- `pgs.stepTabs.api(element)`: restituisce l'istanza associata a un root stepTabs inizializzato.
+- `pgs.stepTabs.init(root)`: initializes matching elements within the specified root.
+- `pgs.stepTabs.api(element)`: returns the instance associated with the specified initialized element.
 - `instance.restart()`: torna al primo tab e ripristina i blocchi dichiarati inizialmente.
-- `instance.goTo(index, scroll)`: attiva il tab indicato, aggiorna controlli e indicatori e opzionalmente scorre al componente.
-- `instance.next()`: attiva il tab successivo entro i limiti disponibili.
-- `instance.prev()`: attiva il tab precedente entro i limiti disponibili.
-- `instance.toggleLock(index, lock)`: aggiunge o rimuove is-locked dal tab indicato e aggiorna i controlli.
-- `instance.refresh()`: riesegue l'inizializzazione nel contenitore della procedura e restituisce l'istanza.
-- `instance.getCurrent()`: restituisce l'indice del tab corrente.
-- `instance.getState()`: restituisce un oggetto con indice corrente e numero totale di tab.
+- `instance.goTo(index, scroll)`: provides the documented operation through the component public API.
+- `instance.next()`: moves to the next item.
+- `instance.prev()`: moves to the previous item.
+- `instance.toggleLock(index, lock)`: provides the documented operation through the component public API.
+- `instance.refresh()`: refreshes the component and returns its updated instance.
+- `instance.getCurrent()`: provides the documented operation through the component public API.
+- `instance.getState()`: provides the documented operation through the component public API.
 
-## Elementi correlati
+## Related elements
 
-- `flexColumnElements`: organizza verticalmente le aree principali del componente.
-- `flexColumnTexts`: organizza il contenuto testuale di ogni tab.
-- `flexRow`: dispone sulla stessa riga i controlli di navigazione.
-- `button`: applica lo stile standard ai controlli precedente, riavvio e successivo.
+- `flexColumnElements`: uses the related flexColumnElements component or utility in this example.
+- `flexColumnTexts`: uses the related flexColumnTexts component or utility in this example.
+- `flexRow`: uses the related flexRow component or utility in this example.
+- `button`: uses the related button component or utility in this example.
 
 ## Output
 
-Procedura HTML a tre schede con indicatori e controlli di navigazione.
+Complete HTML markup and usage example for Step Tabs.
 
-## Esempio
+## Example
 
 ```html
 <div pgs="stepTabs flexColumnElements">
@@ -59,25 +59,25 @@ Procedura HTML a tre schede con indicatori e controlli di navigazione.
 
     <div pgs="stepTabs-container">
         <section pgs="tab flexColumnTexts" tabindex="-1" pgs-option="tabIcon[fa-user]">
-            <h3>Dati personali</h3>
-            <p>Contenuto del primo tab.</p>
+            <h3>Personal details</h3>
+            <p>First tab content.</p>
         </section>
 
         <section pgs="tab flexColumnTexts" tabindex="-1" pgs-option="tabIcon[fa-list-check]">
-            <h3>Preferenze</h3>
-            <p>Contenuto del secondo tab.</p>
+            <h3>Preferences</h3>
+            <p>Second tab content.</p>
         </section>
 
         <section pgs="tab flexColumnTexts" tabindex="-1" pgs-option="tabIcon[fa-check]">
-            <h3>Conferma</h3>
-            <p>Contenuto del terzo tab.</p>
+            <h3>Confirmation</h3>
+            <p>Third tab content.</p>
         </section>
     </div>
 
     <div pgs="flexRow">
         <button pgs="stepTabs-prev button" type="button">
             <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
-            Indietro
+            Back
         </button>
 
         <button pgs="stepTabs-restart button" type="button">
@@ -85,7 +85,7 @@ Procedura HTML a tre schede con indicatori e controlli di navigazione.
         </button>
 
         <button pgs="stepTabs-next button" pgs-option="buttonReverse" type="button">
-            Avanti
+            Next
             <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
         </button>
     </div>

@@ -25,22 +25,6 @@
     @include select();
 }
 
-[pgs~=checkboxBackground] {
-    @include checkboxBackground();
-}
-
-[pgs~=twoState] {
-    @include twoState();
-}
-
-[pgs~=toggle] {
-    @include toggle();
-}
-
-[pgs~=chips] {
-    @include chips();
-}
-
 [pgs~=radio],
 [pgs~=checkbox] {
     @include checkbox();

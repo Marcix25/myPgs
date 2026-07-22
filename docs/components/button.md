@@ -1,30 +1,30 @@
-<!-- File generato automaticamente da templates/html/components/button.html. Modificare templates/html/components/button.html e rieseguire npm run docs:generate. -->
+<!-- Automatically generated from templates/html/components/button.html. Edit templates/html/components/button.html and run npm run docs:generate again. -->
 
 # Button
 
-Varianti di pulsante e collegamento d'azione con dimensioni, enfasi e composizione icona-testo definite dal design system.
+Button and action-link variants with sizes, emphasis, and icon-text composition defined by the design system.
 
 ## PGS
 
-- `button`: identifica il pulsante standard utilizzabile anche su elementi a.
-- `buttonStrong`: applica la variante con maggiore enfasi visiva.
-- `buttonIcon`: identifica un pulsante compatto composto principalmente da un'icona.
-- `buttonMini`: applica la variante di dimensione minima.
-- `buttonBig`: applica la variante di dimensione ampia.
+- `button`: identifies the standard button, which can also be used on anchor elements.
+- `buttonStrong`: applies the variant with stronger visual emphasis.
+- `buttonIcon`: identifies a compact button composed primarily of an icon.
+- `buttonMini`: applies the smallest size variant.
+- `buttonBig`: applies the large size variant.
 
 ## PGS Options
 
-- `buttonReverse`: inverte l'ordine visivo di testo e icona sul pulsante a cui è applicata.
+- `buttonReverse`: reverses the visual order of the text and icon on the button.
 
-## Elementi correlati
+## Related elements
 
-- `flexRow`: dispone gli esempi di pulsante su una riga flessibile.
+- `flexRow`: arranges the button examples in a flexible row.
 
 ## Output
 
-Raccolta HTML delle principali varianti di button.
+HTML collection of the main button variants.
 
-## Esempio
+## Example
 
 ```html
 <div pgs="flexRow">
@@ -34,7 +34,7 @@ Raccolta HTML delle principali varianti di button.
     </a>
 
     <button pgs="button" type="button" pgs-option="buttonReverse">
-        Avanti
+        Next
         <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
     </button>
 
@@ -43,17 +43,17 @@ Raccolta HTML delle principali varianti di button.
         Submit
     </button>
 
-    <button pgs="buttonIcon" type="button" aria-label="Impostazioni">
+    <button pgs="buttonIcon" type="button" aria-label="Settings">
         <i class="fa-solid fa-gear" aria-hidden="true"></i>
     </button>
 
-    <button pgs="buttonMini" type="button" aria-label="Informazioni">
+    <button pgs="buttonMini" type="button" aria-label="Information">
         <i class="fa-solid fa-info" aria-hidden="true"></i>
     </button>
 
-    <button pgs="buttonBig" type="button" aria-label="Bottone grande">
+    <button pgs="buttonBig" type="button" aria-label="Large button">
         <i class="fa-solid fa-rocket" aria-hidden="true"></i>
-        Bottone grande
+        Large button
     </button>
 </div>
 ```

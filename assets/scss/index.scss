@@ -39,6 +39,7 @@
     @include meta.load-css("components/card");
     @include meta.load-css("components/button");
     @include meta.load-css("components/form");
+    @include meta.load-css("components/formAddon");
     @include meta.load-css("components/menu");
     @include meta.load-css("components/accordion");
     @include meta.load-css("components/breadcumbs");

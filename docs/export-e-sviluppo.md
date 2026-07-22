@@ -36,7 +36,7 @@ Uso sorgente SCSS:
 
 ## Sviluppo
 
-Build una tantum:
+One-time build:
 
 ```bash
 npm run start
@@ -54,7 +54,7 @@ Creare un pacchetto locale:
 npm pack
 ```
 
-Flusso consigliato quando modifichi la libreria:
+Recommended workflow when modifying the library:
 
 1. modifica i sorgenti in `assets/`;
 2. aggiorna template o documentazione se cambia il modo d'uso;
@@ -67,7 +67,7 @@ Nota: se la build Webpack fallisce, non modificare manualmente `dist/javascript`
 
 ## Aggiungere un nuovo modulo
 
-Esempio componente:
+Component example:
 
 ```js
 export function PGS_myComponent_init(root = document) {

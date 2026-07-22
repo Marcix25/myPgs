@@ -1,27 +1,27 @@
-<!-- File generato automaticamente da templates/html/layout/body.html. Modificare templates/html/layout/body.html e rieseguire npm run docs:generate. -->
+<!-- Automatically generated from templates/html/layout/body.html. Edit templates/html/layout/body.html and run npm run docs:generate again. -->
 
 # Body
 
-Documento HTML di base che abilita MyPGS, configura i metadati essenziali e applica al body le varianti condivise di sfondo, testo e titoli.
+Base HTML document that enables MyPGS, configures essential metadata, and applies shared background, text, and heading variants to the body.
 
 ## PGS
 
-- `htmlBase`: applica le regole fondamentali all'elemento html.
-- `initP`: abilita gli stili di layout, componenti e pattern racchiusi nel namespace MyPGS.
-- `bodyBase`: applica struttura e spaziatura di base al body.
-- `bodyImg`: abilita le regole condivise per le immagini contenute nella pagina.
-- `bodyText`: abilita tipografia e spaziatura del testo.
-- `bodyHeading`: abilita la gerarchia tipografica dei titoli.
+- `htmlBase`: applies the fundamental rules to the html element.
+- `initP`: enables layout, component, and pattern styles scoped to the MyPGS namespace.
+- `bodyBase`: applies the base structure and spacing to the body.
+- `bodyImg`: enables shared rules for images contained in the page.
+- `bodyText`: enables text typography and spacing.
+- `bodyHeading`: enables the typographic heading hierarchy.
 
 ## PGS States
 
-- `darkmode`: viene applicato dinamicamente a html e body per attivare il tema scuro.
+- `darkmode`: is applied dynamically to html and body to activate the dark theme.
 
 ## Output
 
-Scheletro HTML completo necessario per inizializzare la libreria MyPGS.
+Complete HTML skeleton required to initialize the MyPGS library.
 
-## Esempio
+## Example
 
 ```html
 <!DOCTYPE html>

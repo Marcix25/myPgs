@@ -133,8 +133,8 @@
         margin-inline: auto;
         background-color: var(--color-white);
 
-        input {
-            padding-block: 20px;
+        [pgs~="modal-close"]{
+            padding: var(--button-size);
         }
     }
 }

@@ -1,60 +1,60 @@
-<!-- File generato automaticamente da templates/html/components/accordion.html. Modificare templates/html/components/accordion.html e rieseguire npm run docs:generate. -->
+<!-- Automatically generated from templates/html/components/accordion.html. Edit templates/html/components/accordion.html and run npm run docs:generate again. -->
 
 # Accordion
 
-Componente interattivo che espande un pannello alla volta, sincronizzando visibilità, attributi ARIA e navigazione da tastiera.
+Interactive component that expands one panel at a time while synchronizing visibility, ARIA attributes, and keyboard navigation.
 
 ## PGS
 
-- `accordion`: identifica ogni elemento espandibile inizializzato dal modulo JavaScript.
-- `accordion-button`: identifica il controllo che apre o chiude il pannello associato.
-- `accordion-content`: identifica il pannello di contenuto gestito tramite l'attributo hidden.
+- `accordion`: identifies each expandable element initialized by the JavaScript module.
+- `accordion-button`: identifies the control that opens or closes the associated panel.
+- `accordion-content`: identifies the content panel managed through the hidden attribute.
 
 ## PGS States
 
-- `open`: indica l'elemento accordion attualmente aperto e visibile.
+- `open`: indicates the accordion element that is currently open and visible.
 
-## API JavaScript
+## JavaScript API
 
-- `pgs.accordion.init(root)`: inizializza gli accordion non ancora registrati dentro Document o Element indicato.
-- `pgs.accordion.api(element)`: restituisce l'istanza associata a un root accordion inizializzato.
-- `instance.open()`: apre il pannello e chiude gli altri accordion presenti nella pagina.
-- `instance.close()`: chiude il pannello corrente.
-- `instance.toggle()`: inverte lo stato aperto o chiuso del pannello.
-- `instance.refresh()`: riesegue l'inizializzazione nel contenitore dell'accordion e restituisce l'istanza.
-- `instance.isOpen()`: restituisce true quando lo stato open è attivo.
+- `pgs.accordion.init(root)`: initializes unregistered accordions within the specified Document or Element.
+- `pgs.accordion.api(element)`: returns the instance associated with an initialized accordion root.
+- `instance.open()`: opens the panel and closes any other accordions on the page.
+- `instance.close()`: closes the current panel.
+- `instance.toggle()`: toggles the panel between its open and closed states.
+- `instance.refresh()`: reruns initialization within the accordion container and returns the instance.
+- `instance.isOpen()`: returns true when the open state is active.
 
-## Elementi correlati
+## Related elements
 
-- `flexColumnTexts`: applica la spaziatura testuale tra gli elementi della lista.
+- `flexColumnTexts`: applies text spacing between the list items.
 
 ## Output
 
-Lista HTML di elementi accordion accessibili con pulsante e pannello associato.
+HTML list of accessible accordion items with an associated button and panel.
 
-## Esempio
+## Example
 
 ```html
 <ul pgs="flexColumnTexts">
     <li pgs="accordion">
         <button pgs="accordion-button" type="button">
             <i class="fa-solid fa-circle-question" aria-hidden="true"></i>
-            <span>Domanda frequente</span>
+            <span>Frequently asked question</span>
         </button>
 
         <div pgs="accordion-content" hidden>
-            <p>Risposta di esempio con contenuto testuale riutilizzabile.</p>
+            <p>Example answer with reusable text content.</p>
         </div>
     </li>
 
     <li pgs="accordion">
         <button pgs="accordion-button" type="button">
             <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
-            <span>Seconda sezione</span>
+            <span>Second section</span>
         </button>
 
         <div pgs="accordion-content" hidden>
-            <p>Altro contenuto del pannello accordion.</p>
+            <p>Additional accordion panel content.</p>
         </div>
     </li>
 </ul>

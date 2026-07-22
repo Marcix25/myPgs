@@ -20,12 +20,12 @@
     //== checked
     &:has(input:checked) {
         background-color: var(--color-primary-soft);
-        color: var(--color-black);
 
+        // color: var(--color-black);
         i {
-            --fa-primary-color: var(--color-black);
-            --fa-secondary-color: var(--color-black);
-            color: var(--color-black);
+            // --fa-primary-color: var(--color-black);
+            // --fa-secondary-color: var(--color-black);
+            // color: var(--color-black);
             opacity: 1;
         }
     }
@@ -33,36 +33,33 @@
 
 //= TWOSTATE 
 @mixin twoState() {
+    //== label
     position: relative;
     isolation: isolate;
-    --button-background-active: var(--color-primary-strong);
+    --button-background-active: var(--color-primary);
     --button-color-active: var(--color-white);
+    @include button();
+    flex-wrap: wrap;
+    display: flex !important;
+    cursor: pointer;
 
-    //== label
-    label {
-        @include button();
-        flex-wrap: wrap;
-        display: flex !important;
-        cursor: pointer;
+    i {
+        opacity: 0.4;
+        min-width: 1.4rem;
+        transition: 300ms;
+    }
 
+    &:hover {
         i {
-            color: var(--color-black);
-            opacity: 0.4;
-            min-width: 1.4rem;
-            transition: 300ms;
-        }
-
-        &:hover {
-            i {
-                opacity: 1;
-            }
+            opacity: 1;
         }
     }
 
     //== checked
-    &:has(input:checked) label {
+    &:has(input:checked) {
         --button-background: var(--button-background-active);
-        
+        --button-color: var(--button-color-active);
+
         @supports not (color: contrast-color(red)) {
             --button-color: var(--button-color-active);
         }
@@ -178,6 +175,6 @@
 
     label {
         outline: unset;
-        --button-background: trasparent;
+        --button-background: var(--color-box-transparent);
     }
 }

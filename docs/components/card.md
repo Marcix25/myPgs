@@ -1,48 +1,48 @@
-<!-- File generato automaticamente da templates/html/components/card.html. Modificare templates/html/components/card.html e rieseguire npm run docs:generate. -->
+<!-- Automatically generated from templates/html/components/card.html. Edit templates/html/components/card.html and run npm run docs:generate again. -->
 
 # Card
 
-Contenitore riutilizzabile per raggruppare immagine, titolo, testo e azioni in anteprime o raccolte responsive.
+Reusable container for grouping an image, title, text, and actions in responsive previews or collections.
 
 ## PGS
 
-- `card`: identifica il contenitore principale della scheda.
-- `card-img`: identifica l'immagine principale della card.
+- `card`: identifies the main card container.
+- `card-img`: identifies the main card image.
 
-## Elementi correlati
+## Related elements
 
-- `flex-2`: dispone le card in un layout responsive a due elementi.
-- `flexColumn`: organizza verticalmente il contenuto della card o del relativo link.
-- `imgCover`: adatta l'immagine riempiendo l'area disponibile.
-- `flexColumnTexts`: applica la spaziatura verticale ai contenuti testuali.
-- `button`: presenta il collegamento finale come pulsante standard.
+- `flex-2`: arranges the cards in a responsive two-item layout.
+- `flexColumn`: organizes the card or link content vertically.
+- `imgCover`: scales the image to fill the available area.
+- `flexColumnTexts`: applies vertical spacing to text content.
+- `button`: presents the final link as a standard button.
 
 ## Output
 
-Due strutture HTML di card, una con azione separata e una interamente cliccabile.
+Two card HTML structures, one with a separate action and one that is fully clickable.
 
-## Esempio
+## Example
 
 ```html
 <div pgs="flex-2">
 
     <article pgs="card flexColumn">
-        <img pgs="card-img imgCover" src="https://placehold.co/800x500" alt="Immagine segnaposto">
+        <img pgs="card-img imgCover" src="https://placehold.co/800x500" alt="Placeholder image">
         
         <div pgs="flexColumnTexts">
-            <h3>Card riutilizzabile</h3>
-            <p>Contenuto descrittivo della card, adatto a liste, anteprime e griglie.</p>
-            <a pgs="button" href="#">Leggi di piu</a>
+            <h3>Reusable card</h3>
+            <p>Descriptive card content suitable for lists, previews, and grids.</p>
+            <a pgs="button" href="#">Read more</a>
         </div>
     </article>
     
     <article pgs="card">
         <a pgs="flexColumn" href="">
-            <img pgs="card-img imgCover" src="https://placehold.co/800x500" alt="Immagine segnaposto">
+            <img pgs="card-img imgCover" src="https://placehold.co/800x500" alt="Placeholder image">
             
             <div pgs="flexColumnTexts">
-                <h3>Card riutilizzabile</h3>
-                <p>Contenuto descrittivo della card, adatto a liste, anteprime e griglie.</p>
+                <h3>Reusable card</h3>
+                <p>Descriptive card content suitable for lists, previews, and grids.</p>
             </div>
         </a>
     </article>

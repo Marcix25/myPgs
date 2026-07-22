@@ -1,11 +1,11 @@
 export default function Card() {
     return (
         <article pgs="card flexColumn">
-            <img pgs="card-img imgCover" src="https://placehold.co/800x500" alt="Immagine segnaposto" />
+            <img pgs="card-img imgCover" src="https://placehold.co/800x500" alt="Placeholder image" />
 
             <div pgs="flexColumnTexts">
                 <h3>Card riutilizzabile</h3>
-                <p>Contenuto descrittivo della card, adatto a liste, anteprime e griglie.</p>
+                <p>Descriptive card content suitable for lists, previews, and grids.</p>
                 <a pgs="button" href="#">Leggi di piu</a>
             </div>
         </article>
@@ -15,11 +15,11 @@ export default function CardLink() {
     return (
         <article pgs="card">
             <a pgs="flexColumn" href="">
-                <img pgs="card-img imgCover" src="https://placehold.co/800x500" alt="Immagine segnaposto" />
+                <img pgs="card-img imgCover" src="https://placehold.co/800x500" alt="Placeholder image" />
 
                 <div pgs="flexColumnTexts">
                     <h3>Card riutilizzabile</h3>
-                    <p>Contenuto descrittivo della card, adatto a liste, anteprime e griglie.</p>
+                    <p>Descriptive card content suitable for lists, previews, and grids.</p>
                 </div>
             </a>
         </article>

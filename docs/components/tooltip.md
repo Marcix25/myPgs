@@ -1,45 +1,45 @@
-<!-- File generato automaticamente da templates/html/components/tooltip.html. Modificare templates/html/components/tooltip.html e rieseguire npm run docs:generate. -->
+<!-- Automatically generated from templates/html/components/tooltip.html. Edit templates/html/components/tooltip.html and run npm run docs:generate again. -->
 
 # Tooltip
 
-Variante compatta del dropdown che mostra un breve pannello informativo controllato da un pulsante a icona.
+Tooltip markup, configuration, behavior, and usage example.
 
 ## PGS
 
-- `tooltip`: identifica il root della variante tooltip.
-- `tooltip-button`: identifica il controllo specifico del tooltip.
-- `tooltip-content`: identifica il contenuto informativo del tooltip.
+- `tooltip`: identifies the tooltip element used by Tooltip.
+- `tooltip-button`: identifies the tooltip-button element used by Tooltip.
+- `tooltip-content`: identifies the tooltip-content element used by Tooltip.
 
 ## PGS Options
 
-- `position`: può essere applicata al root condiviso con sintassi position[lato allineamento] per modificare la posizione ereditata dal dropdown.
+- `position`: identifies the position element used by Tooltip.
 
 ## PGS States
 
-- `open`: viene gestito dal modulo dropdown sul root per mostrare o nascondere il tooltip.
+- `open`: identifies the open element used by Tooltip.
 
-## API JavaScript
+## JavaScript API
 
-- `pgs.dropdown.init(root)`: inizializza il tooltip perché il suo root condivide il token dropdown.
-- `pgs.dropdown.api(element)`: restituisce l'istanza dropdown associata al root del tooltip.
-- `instance.open()`: apre il contenuto informativo.
-- `instance.close()`: chiude il contenuto informativo.
-- `instance.toggle()`: inverte la visibilità del tooltip.
-- `instance.refresh()`: reinizializza il contesto e ricalcola il posizionamento.
-- `instance.isOpen()`: restituisce true quando il tooltip è aperto.
+- `pgs.dropdown.init(root)`: initializes matching elements within the specified root.
+- `pgs.dropdown.api(element)`: returns the instance associated with the specified initialized element.
+- `instance.open()`: opens the component.
+- `instance.close()`: closes the component.
+- `instance.toggle()`: toggles the component state.
+- `instance.refresh()`: refreshes the component and returns its updated instance.
+- `instance.isOpen()`: returns true when the component is open.
 
-## Elementi correlati
+## Related elements
 
-- `dropdown`: fornisce apertura, chiusura e posizionamento del tooltip.
-- `dropdown-button`: collega il pulsante al comportamento dropdown.
-- `dropdown-content`: collega il pannello al comportamento dropdown.
-- `buttonMini`: presenta il controllo come pulsante a icona di dimensione minima.
+- `dropdown`: uses the related dropdown component or utility in this example.
+- `dropdown-button`: uses the related dropdown-button component or utility in this example.
+- `dropdown-content`: uses the related dropdown-content component or utility in this example.
+- `buttonMini`: uses the related buttonMini component or utility in this example.
 
 ## Output
 
-Tooltip HTML composto tramite i token condivisi del dropdown.
+Complete HTML markup and usage example for Tooltip.
 
-## Esempio
+## Example
 
 ```html
 <span pgs="dropdown tooltip">

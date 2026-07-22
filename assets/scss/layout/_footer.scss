@@ -20,8 +20,6 @@
         top: 0;
         translate: 0 -50%;
         z-index: 1;
-        --button-background: var(--color-primary);
-        --button-color: var(--color-whiteFixed);
 
         &:has(i.fa-sun) {
             &::after {

@@ -1,43 +1,43 @@
-<!-- File generato automaticamente da templates/html/components/menu.html. Modificare templates/html/components/menu.html e rieseguire npm run docs:generate. -->
+<!-- Automatically generated from templates/html/components/menu.html. Edit templates/html/components/menu.html and run npm run docs:generate again. -->
 
 # Menu
 
-Navigazione orizzontale o verticale che trasforma le voci con sottomenu in dropdown accessibili e inizializzati automaticamente.
+Menu markup, configuration, behavior, and usage example.
 
 ## PGS
 
-- `menu`: identifica il contenitore di navigazione elaborato dal modulo menu.
-- `menu-buttonIcon`: identifica il controllo creato dinamicamente accanto alle voci con sottomenu.
+- `menu`: identifies the menu element used by Menu.
+- `menu-buttonIcon`: identifies the menu-buttonIcon element used by Menu.
 
 ## PGS Options
 
-- `horizontal`: dispone il menu e i suoi elementi in orizzontale.
-- `vertical`: dispone il menu e i suoi elementi in verticale.
-- `menuHeader`: adatta spaziature e comportamento del menu quando è inserito nell'header.
-- `position`: viene impostata come position[bottom right] sui dropdown creati per i sottomenu.
+- `horizontal`: identifies the horizontal element used by Menu.
+- `vertical`: identifies the vertical element used by Menu.
+- `menuHeader`: identifies the menuHeader element used by Menu.
+- `position`: identifies the position element used by Menu.
 
 ## PGS States
 
-- `open`: indica il sottomenu trasformato in dropdown attualmente aperto.
+- `open`: identifies the open element used by Menu.
 
-## API JavaScript
+## JavaScript API
 
-- `pgs.menu.init(root)`: inizializza i menu non ancora registrati dentro Document o Element indicato e prepara i sottomenu.
-- `pgs.menu.api(element)`: restituisce l'istanza associata a un root menu inizializzato.
-- `instance.refresh()`: riesegue l'inizializzazione nel contenitore del menu e restituisce l'istanza.
+- `pgs.menu.init(root)`: initializes matching elements within the specified root.
+- `pgs.menu.api(element)`: returns the instance associated with the specified initialized element.
+- `instance.refresh()`: refreshes the component and returns its updated instance.
 
-## Elementi correlati
+## Related elements
 
-- `dropdown`: viene aggiunto dinamicamente alle voci che contengono una lista annidata.
-- `dropdown-button`: identifica il controllo dinamico del sottomenu.
-- `buttonNohover`: neutralizza lo stile hover del controllo dinamico.
-- `dropdown-content`: identifica la lista annidata mostrata come pannello dropdown.
+- `dropdown`: uses the related dropdown component or utility in this example.
+- `dropdown-button`: uses the related dropdown-button component or utility in this example.
+- `buttonNohover`: uses the related buttonNohover component or utility in this example.
+- `dropdown-content`: uses the related dropdown-content component or utility in this example.
 
 ## Output
 
-Due strutture nav complete per le varianti orizzontale e verticale del menu.
+Complete HTML markup and usage example for Menu.
 
-## Esempio
+## Example
 
 ```html
 <nav pgs="menu" pgs-option="horizontal" aria-label="Menu orizzontale">

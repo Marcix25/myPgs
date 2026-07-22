@@ -12,9 +12,9 @@ export default function Form() {
             <input id="form-email" pgs="input" pgs-option="message[Inserisci una email valida]" type="email" name="email" placeholder="nome@example.com" required />
 
             <label pgs="label" htmlFor="form-message">
-                Messaggio
+                Message
             </label>
-            <textarea id="form-message" pgs="textarea" name="message" rows="5" placeholder="Scrivi il messaggio"></textarea>
+            <textarea id="form-message" pgs="textarea" name="message" rows="5" placeholder="Write your message"></textarea>
 
             <label pgs="toggle">
                 <span>Accetto la privacy policy</span>

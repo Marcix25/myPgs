@@ -1,20 +1,20 @@
-<!-- File generato automaticamente da templates/html/components/breadcumbs.html. Modificare templates/html/components/breadcumbs.html e rieseguire npm run docs:generate. -->
+<!-- Automatically generated from templates/html/components/breadcumbs.html. Edit templates/html/components/breadcumbs.html and run npm run docs:generate again. -->
 
 # Breadcrumb
 
-Navigazione gerarchica che mostra il percorso della pagina corrente con collegamenti, separatori e indicazione semantica dell'elemento attivo.
+Hierarchical navigation that shows the current page path with links, separators, and a semantic indication of the active item.
 
 ## PGS
 
-- `breadcrumb`: identifica la lista principale del percorso di navigazione.
-- `breadcrumb-item`: identifica ogni livello del percorso.
-- `breadcrumb-item-separator`: identifica il separatore decorativo nascosto alle tecnologie assistive.
+- `breadcrumb`: identifies the main navigation path list.
+- `breadcrumb-item`: identifies each level in the path.
+- `breadcrumb-item-separator`: identifies the decorative separator hidden from assistive technologies.
 
 ## Output
 
-Struttura HTML semantica di una breadcrumb racchiusa in un elemento nav.
+Semantic breadcrumb HTML structure wrapped in a nav element.
 
-## Esempio
+## Example
 
 ```html
 <nav aria-label="Breadcrumb">
@@ -35,7 +35,7 @@ Struttura HTML semantica di una breadcrumb racchiusa in un elemento nav.
 
         <li pgs="breadcrumb-item">
             <span aria-current="page">
-                Articolo di prova
+                Sample article
             </span>
         </li>
     </ul>

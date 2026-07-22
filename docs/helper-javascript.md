@@ -1,4 +1,4 @@
-# Helper JavaScript
+# JavaScript helper
 
 `pgs(root)` permette di cercare e modificare token PGS senza scrivere selettori manuali:
 
@@ -18,7 +18,7 @@ Ricerca disponibile su `Document` ed `Element`:
 - `pgs(root).querySelector(token)`: restituisce il primo discendente che contiene il token `pgs` richiesto.
 - `pgs(root).querySelectorAll(token)`: restituisce tutti i discendenti corrispondenti; accetta anche un array o token separati da virgola.
 
-Manipolazione disponibile quando `root` è un `Element`:
+Manipulation available when `root` è un `Element`:
 
 - `pgs(element).add(...tokens)`: aggiunge token evitando duplicati e restituisce l'helper.
 - `pgs(element).remove(...tokens)`: rimuove i token indicati e restituisce l'helper.
@@ -55,14 +55,14 @@ pgs(modal).option.getValueBrackets("containerID");
 - `option.setValueBrackets(key, value)`: imposta o sostituisce una singola opzione parametrizzata.
 - `option.value`: legge o sostituisce l'intero attributo `pgs-option`.
 
-Esempio markup con opzioni:
+Example markup with options:
 
 ```html
 <div pgs="modal" pgs-option="containerID[modal-container]"></div>
 <div pgs="slides" pgs-option="singleScroll shadowDesktop"></div>
 ```
 
-## JavaScript inizializzato automaticamente
+## Automatically initialized JavaScript
 
 Importando `mypgs`, l'entrypoint inizializza:
 
@@ -118,7 +118,7 @@ pgs.dropdown.api(dropdownEl)?.close();
 pgs.slides.api(slidesEl)?.next();
 ```
 
-Shortcut disponibili dopo `import "mypgs"`:
+Shortcuts available after `import "mypgs"`:
 
 - `pgs.svg`
 - `pgs.accordion`
@@ -134,7 +134,7 @@ Shortcut disponibili dopo `import "mypgs"`:
 - `pgs.formValidate`
 - `pgs.scrollHorizontal`
 
-## Riferimento API per componente
+## Component API reference
 
 Le firme, i parametri e la funzione di ogni metodo sono generati dai commenti nei template:
 
@@ -160,7 +160,7 @@ I componenti non elencati non espongono attualmente un'API JavaScript specifica.
 - `pgs.svg.applyColorsLottie(isDarkMode)`: aggiorna i colori degli SVG interni ai player Lottie marcati con `lottieChangeColor`.
 - `pgs.svg.eventChangeColor`: contiene il nome dell'evento `pgs:svg:changeColor` ascoltato dal modulo SVG.
 
-## Struttura dei moduli componente
+## Component module structure
 
 I componenti con istanze seguono questo schema:
 

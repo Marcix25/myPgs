@@ -1,21 +1,21 @@
 <!--
 /**
  * @title Logo
- * @description Componente per mostrare un logo grafico o testuale, con supporto alle varianti dell'immagine legate al tema scuro.
+ * @description Component for displaying a graphical or text logo, with image variants that support dark mode.
  *
  * @pgs
- * - logo: identifica il collegamento contenitore del marchio.
- * - logo-image: identifica l'immagine grafica del logo.
- * - logo-text: identifica la variante testuale del marchio.
+ * - logo: identifies the brand link container.
+ * - logo-image: identifies the graphical logo image.
+ * - logo-text: identifies the text-based brand variant.
  *
  * @pgs-option
- * - logoDarkmode: inverte l'immagine del logo quando lo stato globale darkmode è attivo.
- * - logoDarkmodeFixed: mantiene applicata l'inversione dell'immagine indipendentemente dal tema corrente.
+ * - logoDarkmode: inverts the logo image when the global darkmode state is active.
+ * - logoDarkmodeFixed: keeps the image inversion enabled regardless of the current theme.
  *
  * @pgs-state
- * - darkmode: stato globale applicato al documento che attiva la variante logoDarkmode.
+ * - darkmode: global document state that activates the logoDarkmode variant.
  *
- * @return Esempi HTML del logo grafico sensibile al tema e del logo testuale.
+ * @return HTML examples of the theme-aware graphical logo and the text logo.
  */
 -->
 
@@ -23,6 +23,6 @@
     <img pgs="logo-image" src="https://placehold.co/240x80?text=MyPGS" alt="MyPGS">
 </a>
 
-<a aria-label="Logo testuale" pgs="logo" href="/">
+<a aria-label="Text logo" pgs="logo" href="/">
     <span pgs="logo-text">MyPGS</span>
 </a>

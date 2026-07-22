@@ -4,6 +4,7 @@
 const demoRenderer = {
     templateFiles: [
         "components/form.html",
+        "components/formAddon.html",
         "components/search.html",
         "components/summary.html",
         "components/menu.html",
@@ -214,9 +215,9 @@ function configureFormDemo() {
 
     const formValidate = new pgsApi.formValidate(form, {
         message: {
-            fieldError: "Completa questo campo",
-            fieldsError: "Completa tutti i campi obbligatori",
-            success: "Inviato con successo"
+            fieldError: "Please complete this field",
+            fieldsError: "Please complete all required fields",
+            success: "Sent successfully"
         }
     });
 
