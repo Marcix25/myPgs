@@ -1,5 +1,6 @@
 @use "mx-button" as *;
 @use "mx-form" as *;
+@use "mx-responsive" as *;
 
 //= checkboxBackground 
 @mixin checkboxBackground() {
@@ -28,53 +29,6 @@
             // color: var(--color-black);
             opacity: 1;
         }
-    }
-}
-
-//= TWOSTATE 
-@mixin twoState() {
-    //== label
-    position: relative;
-    isolation: isolate;
-    --button-background-active: var(--color-primary);
-    --button-color-active: var(--color-white);
-    @include button();
-    flex-wrap: wrap;
-    display: flex !important;
-    cursor: pointer;
-
-    i {
-        opacity: 0.4;
-        min-width: 1.4rem;
-        transition: 300ms;
-    }
-
-    &:hover {
-        i {
-            opacity: 1;
-        }
-    }
-
-    //== checked
-    &:has(input:checked) {
-        --button-background: var(--button-background-active);
-        --button-color: var(--button-color-active);
-
-        @supports not (color: contrast-color(red)) {
-            --button-color: var(--button-color-active);
-        }
-
-        i {
-            --fa-secondary-opacity: 0.6;
-            opacity: 1;
-        }
-    }
-
-    input {
-        opacity: 0;
-        z-index: -1;
-        position: absolute;
-        appearance: none;
     }
 }
 
@@ -163,18 +117,106 @@
     }
 }
 
-//= Buttons
+//= TWOSTATE
+@mixin twoState($ifHover: true) {
+    //== label
+    position: relative;
+    isolation: isolate;
+    @include buttonBase();
+    @include buttonContent();
+
+    @if($ifHover) {
+        @include buttonHover();
+    }
+
+    flex-wrap: wrap;
+    display: flex !important;
+    cursor: pointer;
+
+    i {
+        opacity: 0.4;
+        min-width: 1.4rem;
+    }
+
+    &:hover {
+        i {
+            opacity: 1;
+        }
+    }
+
+    //== checked
+    &:has(input:checked) {
+        --button-background: var(--button-background-active);
+        --button-color: var(--button-color-active);
+
+        i {
+            --fa-secondary-opacity: 0.6;
+            opacity: 1;
+        }
+    }
+
+    input {
+        opacity: 0;
+        z-index: -1;
+        position: absolute;
+        appearance: none;
+    }
+}
+
+@mixin chip() {
+    @include twoState(false);
+    --button-size: 1rem;
+
+    &:has(input:checked) {
+        &:not(:has(i)) {
+
+            &::after,
+            &::before {
+                display: grid;
+                place-items: center;
+                width: 1.5rem;
+                height: 1.5rem;
+                border-radius: 50%;
+                font-size: 1.5rem;
+                line-height: 1;
+                font-weight: bold;
+                color: var(--color-blackFixed);
+                background-color: var(--color-whiteFixed);
+                padding: 0.2rem;
+                cursor: pointer;
+            }
+        }
+    }
+
+    //== checkbox
+    &:has(input[type=checkbox]:checked) {
+        &:not(:has(i)) {
+            padding-right: var(--button-size);
+
+            &::after {
+                content: "×";
+            }
+        }
+    }
+
+    //== radio
+    &:has(input[type=radio]:checked) {
+        &:not(:has(i)) {
+            padding-left: var(--button-size);
+
+            &::before {
+                content: "";
+            }
+        }
+    }
+}
+
+//= CHIPS
 @mixin chips() {
-    display: flex;
-    gap: .1rem;
-    padding: .4rem;
-    outline: var(--border-complete);
-    width: fit-content;
-    border-radius: var(--border-radius-input);
-    background-color: var(--color-box-transparent);
+    border: unset;
+    @include flexRow();
 
     label {
-        outline: unset;
-        --button-background: var(--color-box-transparent);
+        @include chip();
     }
 }

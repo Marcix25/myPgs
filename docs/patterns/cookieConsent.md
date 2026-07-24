@@ -1,4 +1,4 @@
-<!-- Automatically generated from templates/html/patterns/cookieConsent.html. Edit templates/html/patterns/cookieConsent.html and run npm run docs:generate again. -->
+<!-- Automatically generated from reference/html/patterns/cookieConsent.html. Edit reference/html/patterns/cookieConsent.html and run npm run docs:generate again. -->
 
 # Cookie Consent
 
@@ -19,6 +19,10 @@ Accessible pattern for collecting and storing analytics cookie consent, applying
 - `cookieConsent-accepted`: runtime token applied to the root when analytics is allowed.
 - `cookieConsent-declined`: runtime token applied to the root when analytics is not allowed.
 
+## PGS Options
+
+- `buttonStrong`: presents full acceptance as the primary action.
+
 ## Related elements
 
 - `flexColumn`: vertically organizes the preference panel.
@@ -26,7 +30,6 @@ Accessible pattern for collecting and storing analytics cookie consent, applying
 - `nowrap`: prevents wrapping in the essential-cookie row.
 - `toggle`: presents analytics consent as a switch.
 - `button`: presents the selection action with standard styling.
-- `buttonStrong`: presents full acceptance as the primary action.
 
 ## Output
 
@@ -81,7 +84,7 @@ Consent panel HTML with essential and analytics preferences, actions, and access
             <i class="fa-solid fa-duotone fa-sliders"></i>Selected only
         </button>
 
-        <button type="button" pgs="buttonStrong cookieConsent-actionAccept">
+        <button type="button" pgs="button cookieConsent-actionAccept" pgs-option="buttonStrong">
             <i class="fa-solid fa-check"></i> Accept all
         </button>
     </div>

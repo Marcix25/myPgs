@@ -95,7 +95,8 @@ const fn_notification = {
         btnDelete.type = "button";
         btnDelete.ariaLabel = "Rimuovi notifica";
         btnDelete.innerHTML = '<i class="fa-solid fa-xmark"></i>';
-        btnDelete.setAttribute("pgs", "buttonClose");
+        btnDelete.setAttribute("pgs", "button");
+        btnDelete.setAttribute("pgs-option", "buttonClose");
         notification.insertAdjacentElement("afterbegin", btnDelete);
 
         //== event

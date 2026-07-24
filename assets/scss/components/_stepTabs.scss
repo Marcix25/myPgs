@@ -36,7 +36,8 @@
         }
 
         [pgs~=stepTabs-dots-dot] {
-            @include button(false, true);
+            @include buttonBase();
+            @include buttonIcon();
             border-radius: 50%;
             --fa-size: 1.8rem;
 

@@ -1034,7 +1034,8 @@ function PGS_menu_init(root = document) {
                 pgs(li).add("dropdown")
                 pgs(li).option.setValueBrackets("position", "bottom right")
                 pgs(button).add("dropdown-button")
-                pgs(button).add("buttonNohover")
+                pgs(button).add("button")
+                pgs(button).option.add("buttonNohover")
                 pgs(ul).add("dropdown-content")
 
             }
@@ -1100,7 +1101,7 @@ function initializeModal(MODAL, existingDialog = null) {
     let historyTimeout = null;
 
     //== SELECTOR
-    const DOMButtonClose = '<button pgs="buttonClose modal-close" type="button" tabindex="0" aria-label="Chiudi"><i class="fa-solid fa-close"></i></button>';
+    const DOMButtonClose = '<button pgs="button modal-close" pgs-option="buttonClose" type="button" tabindex="0" aria-label="Chiudi"><i class="fa-solid fa-close"></i></button>';
     const modalContentHeader = pgs(DIALOG).querySelector("modal-dialog-content-header");
 
 
@@ -1378,7 +1379,8 @@ const fn_notification = {
         btnDelete.type = "button";
         btnDelete.ariaLabel = "Rimuovi notifica";
         btnDelete.innerHTML = '<i class="fa-solid fa-xmark"></i>';
-        btnDelete.setAttribute("pgs", "buttonClose");
+        btnDelete.setAttribute("pgs", "button");
+        btnDelete.setAttribute("pgs-option", "buttonClose");
         notification.insertAdjacentElement("afterbegin", btnDelete);
 
         //== event
@@ -1913,10 +1915,10 @@ class PGS_Slides {
 
         //== PULSANTI
         if (!pgs(EL).querySelector('slides-prec')) {
-            EL.insertAdjacentHTML("afterbegin", `<button pgs="slides-prec buttonIcon" type="button" class="precButton" aria-label="slide precedente"> <span> <i class="fa-solid fa-arrow-left"></i></span></button>`);
+            EL.insertAdjacentHTML("afterbegin", `<button pgs="slides-prec button" pgs-option="buttonIcon" type="button" class="precButton" aria-label="slide precedente"> <span> <i class="fa-solid fa-arrow-left"></i></span></button>`);
         }
         if (!pgs(EL).querySelector('slides-next')) {
-            EL.insertAdjacentHTML("beforeend", `<button pgs="slides-next buttonIcon" type="button" class="nextButton" aria-label="prossima slide"> <span> <i class="fa-solid fa-arrow-right"></i></span></button>`);
+            EL.insertAdjacentHTML("beforeend", `<button pgs="slides-next button" pgs-option="buttonIcon" type="button" class="nextButton" aria-label="prossima slide"> <span> <i class="fa-solid fa-arrow-right"></i></span></button>`);
         }
 
         //== DOTS

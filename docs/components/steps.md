@@ -1,4 +1,4 @@
-<!-- Automatically generated from templates/html/components/steps.html. Edit templates/html/components/steps.html and run npm run docs:generate again. -->
+<!-- Automatically generated from reference/html/components/steps.html. Edit reference/html/components/steps.html and run npm run docs:generate again. -->
 
 # Steps
 

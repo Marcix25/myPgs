@@ -37,8 +37,7 @@
             display: contents;
         }
 
-        [pgs~=button],
-        [pgs~=buttonIcon] {
+        [pgs~=button] {
             @include button_header();
         }
 
@@ -114,6 +113,7 @@
         // padding: 2rem;
         padding-top: var(--heightOfHeader);
         padding-inline: 5px;
+        --modal-padding: 10px;
         --modal-background: color-mix(in srgb, var(--color-primary-soft) 50%, var(--color-white) 50%);
 
         [pgs~="modal-dialog-content"] {

@@ -1,0 +1,71 @@
+@use "../mixin/mixin" as *;
+
+[pgs~="alert"] {
+    --alert-accent: var(--color-primary);
+    --alert-background: var(--color-primary-soft);
+    --alert-color: var(--color-text);
+    --alert-title-color: var(--alert-accent);
+    --alert-padding: var(--padding-2);
+    --alert-gap: var(--gap-texts);
+    --alert-border-size: 0.4rem;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+    gap: var(--alert-gap);
+    width: 100%;
+    padding: var(--alert-padding);
+    border: var(--border-complete);
+    border-inline-start: var(--alert-border-size) solid var(--alert-accent);
+    border-radius: var(--border-radius-input);
+    background: var(--alert-background);
+    color: var(--alert-color);
+
+    [pgs~="alert-icon"] {
+        display: grid;
+        place-items: center;
+        min-inline-size: 2.4rem;
+        min-block-size: 2.4rem;
+        color: var(--alert-accent);
+        font-size: 2rem;
+        line-height: 1;
+        --fa-size: 2rem;
+        --fa-primary-color: var(--alert-accent);
+        --fa-secondary-color: var(--alert-accent);
+        --fa-secondary-opacity: 0.5;
+    }
+
+    [pgs~="alert-content"] {
+        @include flexColumn(calc(var(--alert-gap) / 2));
+        min-width: 0;
+    }
+
+    [pgs~="alert-title"] {
+        color: var(--alert-title-color);
+        font-weight: 800;
+        line-height: 1.2;
+    }
+
+    p {
+        color: var(--alert-color);
+    }
+
+    &[pgs-state~="info"] {
+        --alert-accent: var(--color-link);
+        --alert-background: var(--color-linkBackgorud);
+    }
+
+    &[pgs-state~="success"] {
+        --alert-accent: var(--color-success);
+        --alert-background: var(--color-success-background);
+    }
+
+    &[pgs-state~="warning"] {
+        --alert-accent: var(--color-warning);
+        --alert-background: var(--color-warning-background);
+    }
+
+    &[pgs-state~="error"] {
+        --alert-accent: var(--color-error);
+        --alert-background: var(--color-error-background);
+    }
+}

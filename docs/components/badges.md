@@ -1,4 +1,4 @@
-<!-- Automatically generated from templates/html/components/badges.html. Edit templates/html/components/badges.html and run npm run docs:generate again. -->
+<!-- Automatically generated from reference/html/components/badges.html. Edit reference/html/components/badges.html and run npm run docs:generate again. -->
 
 # Badge
 
@@ -7,6 +7,9 @@ Collection of compact indicators for displaying categories, priorities, and visu
 ## PGS
 
 - `badge`: identifies the base badge variant.
+
+## PGS Options
+
 - `badgePrimary`: applies the primary color variant.
 - `badgeStrong`: applies the high-contrast variant.
 - `badgeSuccess`: represents a successful result.
@@ -32,34 +35,34 @@ HTML examples of the available badge variants.
         Base
     </span>
 
-    <span pgs="badgePrimary">
+    <span pgs="badge" pgs-option="badgePrimary">
         Primary
     </span>
 
-    <span pgs="badgeStrong">
+    <span pgs="badge" pgs-option="badgeStrong">
         Strong
     </span>
 
-    <span pgs="badgeSuccess badgeDot">
+    <span pgs="badge" pgs-option="badgeSuccess badgeDot">
         Active
     </span>
 
-    <span pgs="badgeWarning">
+    <span pgs="badge" pgs-option="badgeWarning">
         <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
         Warning
     </span>
 
-    <span pgs="badgeError">
+    <span pgs="badge" pgs-option="badgeError">
         <i class="fa-solid fa-xmark" aria-hidden="true"></i>
         Error
     </span>
 
-    <span pgs="badgeInfo">
+    <span pgs="badge" pgs-option="badgeInfo">
         <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
         Info
     </span>
 
-    <span pgs="badgeNeutral" href="#">
+    <span pgs="badge" pgs-option="badgeNeutral">
         Neutral
     </span>
 

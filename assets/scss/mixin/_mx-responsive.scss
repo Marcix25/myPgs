@@ -3,44 +3,18 @@
 
 //= FLEX 
 //== column
-@mixin flexColumn() {
+@mixin flexColumn($gap: var(--gap-texts)) {
     display: flex;
-    gap: var(--gap-texts);
-    flex-direction: column;
-}
-
-@mixin flexColumnElements() {
-    display: flex;
-    gap: var(--gap-elements);
-    flex-direction: column;
-}
-
-@mixin flexColumnSections() {
-    display: flex;
-    gap: var(--gap-sections);
+    gap: $gap;
     flex-direction: column;
 }
 
 //== row
-@mixin flexRow($wrap: wrap) {
+@mixin flexRow($wrap: wrap, $gap: var(--gap-texts)) {
     display: flex;
-    gap: var(--gap-texts);
+    gap: $gap;
     flex-direction: row;
     flex-wrap: $wrap;
-}
-
-@mixin flexRowElements() {
-    display: flex;
-    gap: var(--gap-elements);
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
-@mixin flexRowSection() {
-    display: flex;
-    gap: var(--gap-sections);
-    flex-direction: row;
-    flex-wrap: wrap;
 }
 
 //== center
@@ -51,23 +25,16 @@
     justify-content: center;
 }
 
-//= FLEX
+//++ basis
 @function _basis($ratio, $gap, $columns) {
     $cols: math.ceil($columns * $ratio);
     @return calc((100% - ($gap * ($cols - 1))) / $cols);
 }
 
-//== responsive flex
-@mixin rFlex(
-    $columns: 4, 
-    $mobileTwoElements: false, 
-    $gap: var(--gap-elements)) 
-    {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 100%;
-    gap: $gap;
+//== Column
+@mixin columnFlex($columns: 4) {
+    --flex-gap: var(--gap-elements);
+    $gap: var(--flex-gap);
 
     >* {
         flex: 1 0;
@@ -97,15 +64,13 @@
 
     //-( mobile: 1 o 2 colonne
     @container (max-width: #{$mobile}) {
-        @if $mobileTwoElements {
-            >* {
-                flex-basis:#{_basis(0.33, $gap, $columns)};
-            }
+        >* {
+            flex-basis:#{_basis(0.15, $gap, $columns)};
         }
 
-        @else {
+        &[pgs-option~=m2e] {
             >* {
-                flex-basis:#{_basis(0.15, $gap, $columns)};
+                flex-basis:#{_basis(0.33, $gap, $columns)};
             }
         }
     }
@@ -118,79 +83,10 @@
     }
 }
 
-//== adaptive flex
-@mixin aFlex(
-    $columns: 4,
-    $start: var(--page-width),
-    $mobileTwoElements: false,
-    $gap: var(--gap-elements)) 
-    {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 100%;
-    gap: $gap;
-
-    >* {
-        flex: 1 0;
-        flex-basis: #{_basis(1, $gap, $columns)};
-    }
-
-    // ↓ da start (es. 1500px): ratio = 0.75
-    @container (max-width: #{$start}) {
-        >* {
-            flex-basis: #{_basis(0.75, $gap, $columns)};
-        }
-    }
-
-    // ↓ ~ 75% di start: ratio = 0.5
-    @container (max-width: #{calc($start * 0.75)}) {
-        >* {
-            flex-basis: #{_basis(0.5, $gap, $columns)};
-        }
-    }
-
-    // ↓ ~ 50% di start: ratio = 0.33
-    @container (max-width: #{calc($start * 0.5)}) {
-        >* {
-            flex-basis: #{_basis(0.33, $gap, $columns)};
-        }
-    }
-
-    // ↓ ~ 33% di start: mobile (1 o 2 colonne)
-    @container (max-width: #{calc($start * 0.33)}) {
-        @if $mobileTwoElements ==true {
-            >* {
-                flex-basis: #{_basis(0.33, $gap, $columns)};
-            }
-        }
-
-        @else {
-            >* {
-                flex-basis: #{_basis(0.15, $gap, $columns)};
-            }
-        }
-    }
-
-    // ↓ ~ 20% di start: mobile small / watch (sempre 1 colonna)
-    @container (max-width: #{calc($start * 0.2)}) {
-        >* {
-            flex-basis: #{_basis(0.15, $gap, $columns)};
-        }
-    }
-}
-
 //= GRID 
-//== responsive grid
-@mixin rGrid(
-    $columns: 4, 
-    $mobileTwoElements: false, 
-    $gap: var(--gap-elements)) 
-    {
-    display: grid;
-    width: 100%;
+//== column
+@mixin columnGrid($columns: 4) {
     grid-template-columns: repeat($columns, 1fr);
-    gap: $gap;
 
     /// dispari
     @if $columns % 2==1 {
@@ -234,9 +130,8 @@
         grid-template-columns: 1fr; // 1 colonna
     }
 
-    @if $mobileTwoElements ==true {
-
-        //-( mobile 
+    //-( mobile m2e
+    &[pgs-option~=m2e] {
         @container (max-width: #{$mobile}) {
             grid-template-columns: 1fr 1fr; // 2 colonne su mobile
         }
@@ -248,109 +143,94 @@
     }
 }
 
+//= ADAPTIVE
+//== adaptive flex
+@mixin _columnAdaptiveFlex($columns: 4) {
+    --adaptiveFlex-width: var(--page-width);
+    --adaptiveFlex-gap: var(--gap-elements);
+    $gap: var(--adaptiveFlex-gap);
+
+    >* {
+        flex: 1 0;
+        flex-basis: #{_basis(1, $gap, $columns)};
+    }
+
+    // ↓ da start (es. 1500px): ratio = 0.75
+    @container (max-width: #{var(--adaptiveFlex-width)}) {
+        >* {
+            flex-basis: #{_basis(0.75, $gap, $columns)};
+        }
+    }
+
+    // ↓ ~ 75% di start: ratio = 0.5
+    @container (max-width: #{calc(var(--adaptiveFlex-width) * 0.75)}) {
+        >* {
+            flex-basis: #{_basis(0.5, $gap, $columns)};
+        }
+    }
+
+    // ↓ ~ 50% di start: ratio = 0.33
+    @container (max-width: #{calc(var(--adaptiveFlex-width) * 0.5)}) {
+        >* {
+            flex-basis: #{_basis(0.33, $gap, $columns)};
+        }
+    }
+
+    // ↓ ~ 33% di start: mobile (1 o 2 colonne)
+    @container (max-width: #{calc(var(--adaptiveFlex-width) * 0.33)}) {
+        >* {
+            flex-basis: #{_basis(0.15, $gap, $columns)};
+        }
+
+        &[pgs-option~=m2e] {
+            >* {
+                flex-basis: #{_basis(0.33, $gap, $columns)};
+            }
+        }
+    }
+
+    // ↓ ~ 20% di start: mobile small / watch (sempre 1 colonna)
+    @container (max-width: #{calc(var(--adaptiveFlex-width) * 0.2)}) {
+        >* {
+            flex-basis: #{_basis(0.15, $gap, $columns)};
+        }
+    }
+}
+
 //== adaptive Grid
-@mixin aGrid(
-    $columns: 4,
-    $start: var(--page-width),
-    $mobileTwoElements: false,
-    $gap: var(--gap-elements)) 
-    {
-    display: grid;
-    width: 100%;
+@mixin _columnAdaptiveGrid($columns: 4) {
+    --adaptiveGrid-width: var(--page-width);
     grid-template-columns: repeat($columns, 1fr);
-    gap: $gap;
 
     //-( da 1500px
-    @container (max-width: #{$start}) {
+    @container (max-width: #{var(--adaptiveGrid-width)}) {
         grid-template-columns: repeat(math.ceil($columns * 0.75), 1fr);
     }
 
     //-( circa tablet landscape
-    @container (max-width: #{calc($start * 0.75)}) {
+    @container (max-width: #{calc(var(--adaptiveGrid-width) * 0.75)}) {
         grid-template-columns: repeat(math.ceil($columns * 0.5), 1fr);
     }
 
     //-( tablet
-    @container (max-width: #{calc($start * 0.5)}) {
+    @container (max-width: #{calc(var(--adaptiveGrid-width) * 0.5)}) {
         grid-template-columns: repeat(math.ceil($columns * 0.33), 1fr);
     }
 
     //-( mobile
-    @container (max-width: #{calc($start * 0.33)}) {
+    @container (max-width: #{calc(var(--adaptiveGrid-width) * 0.33)}) {
         grid-template-columns: 1fr;
     }
 
-    @if $mobileTwoElements ==true {
-        @container (max-width: #{calc($start * 0.33)}) {
+    //-( mobile m2e
+    &[pgs-option~=m2e] {
+        @container (max-width: #{calc(var(--adaptiveGrid-width) * 0.33)}) {
             grid-template-columns: 1fr 1fr;
         }
     }
 
     //-( mobile small / watch
-    @container (max-width: #{calc($start * 0.2)}) {
+    @container (max-width: #{calc(var(--adaptiveGrid-width) * 0.2)}) {
         grid-template-columns: 1fr;
     }
 }
-
-// //- laptop 
-// @media (max-width: $laptop) {
-//     * {
-//         outline: red solid 0.1px
-//     }
-// }
-
-// //- tablet 
-// @media (max-width: $tablet) {
-//     * {
-//         outline: green solid 0.1px
-//     }
-// }
-
-// //- mobile 
-// @media (max-width: $mobile) {
-//     * {
-//         outline: blue solid 0.1px
-//     }
-// }
-
-// //- mobile small
-// @media (max-width: $watch) {
-//     * {
-//         outline: yellow solid 0.1px
-//     }
-// }
-
-// //-( laptop 
-// @container (max-width: #{$laptop}) {
-//     * {
-//         outline: purple solid 0.1px
-//     }
-// }
-
-// //-( big-tablet 
-// @container (max-width: #{$big-tablet}) {
-//     * {
-//         outline: orange solid 0.1px
-//     }
-// }
-
-// //-( tablet 
-// @container (max-width: #{$tablet}) {
-//     * {
-//         outline: pink solid 0.1px
-//     }
-// }
-
-// //-( mobile 
-// @container (max-width: #{$mobile}) {
-//     * {
-//         outline: brown solid 0.1px
-//     }
-// }
-
-// //-( mobile small
-// @container (max-width: #{$watch}) {
-//     * {
-//         outline: gray solid 0.1px
-//     }
-// }

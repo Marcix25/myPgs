@@ -1,0 +1,123 @@
+<!--
+/**
+ * @title Modal
+ * @description Modal markup, configuration, behavior, and usage example.
+ *
+ * @pgs
+ * - modal: identifies the modal element used by Modal.
+ * - modal-button: identifies the modal-button element used by Modal.
+ * - dialog: token aggiunto dinamicamente all'elemento dialog inizializzato.
+ * - modal-dialog: identifies the modal-dialog element used by Modal.
+ * - modal-dialog-content: identifies the modal-dialog-content element used by Modal.
+ * - modal-dialog-content-header: identifies the modal-dialog-content-header element used by Modal.
+ * - modal-dialog-content-scroll: identifies the modal-dialog-content-scroll element used by Modal.
+ * - modal-close: identifies the modal-close element used by Modal.
+ *
+ * @pgs-option
+ * - containerID: identifies the containerID element used by Modal.
+ * - containerPGS: identifies the containerPGS element used by Modal.
+ * - disableBackdropClose: identifies the disableBackdropClose element used by Modal.
+ * - history: identifies the history element used by Modal.
+ * - topLevel: identifies the topLevel element used by Modal.
+ * - left: identifies the left element used by Modal.
+ * - right: identifies the right element used by Modal.
+ * - buttonStrong: applies stronger emphasis to the save action.
+ * - buttonClose: styles the close action generated at runtime.
+ *
+ * @api
+ * - pgs.modal.init(root): initializes matching elements within the specified root.
+ * - pgs.modal.api(element): returns the instance associated with the specified initialized element.
+ * - instance.open(): opens the component.
+ * - instance.close(): closes the component.
+ * - instance.toggle(): toggles the component state.
+ * - instance.refresh(): refreshes the component and returns its updated instance.
+ * - instance.isOpen(): returns true when the component is open.
+ *
+ * @related
+ * - button: uses the related button component or utility in this example.
+ * - flexColumn: vertically organizes modal content.
+ * - gapElements: applies element spacing to modal content.
+ * - flexRow: uses the related flexRow component or utility in this example.
+ *
+ * @return Complete HTML markup and usage example for Modal.
+ */
+-->
+
+<div pgs="modal" pgs-option="containerID[modal-container]">
+    <button pgs="modal-button button" type="button">
+        <i class="fa-solid fa-window-maximize"></i> Open modal
+    </button>
+
+    <dialog>
+        <div pgs="modal-dialog-content">
+            <div pgs="modal-dialog-content-header">
+                <h3>Example modal</h3>
+            </div>
+
+            <div pgs="modal-dialog-content-scroll">
+                <p>Modal content. The close button is added automatically when missing.</p>
+            </div>
+        </div>
+    </dialog>
+</div>
+
+<div pgs="modal" pgs-option="containerID[modal-container]">
+    <button pgs="modal-button button" type="button">
+        <i class="fa-solid fa-window-maximize"></i> Open modal right
+    </button>
+
+    <dialog pgs-option="right">
+        <div pgs="modal-dialog-content">
+            <div pgs="modal-dialog-content-header">
+                <h3>Side modal</h3>
+            </div>
+
+            <div pgs="modal-dialog-content-scroll">
+                <p>Modal content with <code>pgs-option="right"</code>.</p>
+            </div>
+        </div>
+    </dialog>
+</div>
+
+<div pgs="modal" pgs-option="containerID[modal-container]">
+    <button pgs="modal-button button" type="button">
+        <i class="fa-solid fa-window-maximize"></i> Open modal left
+    </button>
+
+    <dialog pgs-option="left">
+        <div pgs="modal-dialog-content">
+            <div pgs="modal-dialog-content-header">
+                <h3>Left-side modal</h3>
+            </div>
+
+            <div pgs="modal-dialog-content-scroll">
+                <p>Modal content with <code>pgs-option="left"</code>.</p>
+            </div>
+        </div>
+    </dialog>
+</div>
+
+<div pgs="modal">
+    <button pgs="modal-button button" type="button">
+        <i class="fa-solid fa-floppy-disk"></i> Confirmation salvataggio
+    </button>
+
+    <dialog pgs-option="topLevel">
+        <div pgs="modal-dialog-content">
+            <div pgs="modal-dialog-content-header">
+                <h3>Save changes?</h3>
+            </div>
+
+            <div pgs="modal-dialog-content-scroll flexColumn gapElements">
+                <p>You have unsaved changes. Confirm to apply them or cancel to return to the page.</p>
+
+                <div pgs="flexRow">
+                    <button pgs="button modal-close" type="button">Cancel</button>
+                    <button pgs="button" pgs-option="buttonStrong" type="button">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </dialog>
+</div>
+
+<div id="modal-container"></div>

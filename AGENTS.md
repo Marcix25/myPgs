@@ -9,7 +9,7 @@ This guide is for any AI/Codex agent that initializes or modifies a project base
 - HTML `pgs` attributes as the contract between markup, SCSS, and JavaScript;
 - SCSS sources with base styles, layouts, components, patterns, CSS variables, and mixins;
 - JavaScript modules for recurring behaviors such as accordions, dropdowns, menus, modals, search suggestions, slides, steps, step tabs, notifications, header, cookie consent, and dark mode;
-- example HTML templates in `templates/`;
+- canonical HTML and React references in `reference/`;
 - compiled assets in `dist/`.
 
 It solves the problem of rewriting layouts, buttons, forms, modals, menus, tabs, spacing, states, and base interactions every time. It should be used as the design system foundation because it centralizes naming, spacing, colors, radii, shadows, accessible behaviors, and reusable patterns.
@@ -26,7 +26,7 @@ Write custom code only when the pattern does not exist, or when you are adding a
 ## 2. General Usage Rules
 
 - Use `mypgs` as the first choice for layouts, components, helpers, variables, utilities, and available patterns.
-- Do not recreate existing components from scratch: buttons, forms, dropdowns, modals, menus, slides, accordions, steps, stepTabs, notifications, tooltips, tables, search, logos, headers, footers, and cookie consent.
+- Do not recreate existing components from scratch: alerts, buttons, forms, dropdowns, modals, menus, slides, accordions, steps, stepTabs, notifications, tooltips, tables, search, logos, headers, footers, and cookie consent.
 - Do not duplicate logic already handled by the `mypgs` JS modules, such as modal open/close, accordion state, Popover API dropdowns, step tabs, notifications, or form validation.
 - Keep `pgs` tokens in markup, SCSS selectors, and JS queries consistent.
 - Prefer composing `pgs` tokens over adding new CSS classes.
@@ -63,22 +63,22 @@ Files analyzed:
 - `assets/scss/components/*`
 - `assets/scss/patterns/*`
 - `assets/scss/mixin/*`
-- `templates/html/components/*`
-- `templates/html/layout/*`
-- `templates/html/patterns/*`
+- `reference/html/components/*`
+- `reference/html/layout/*`
+- `reference/html/patterns/*`
 
 Patterns found:
 
 - `pgs` is the main attribute: tokens are separated by spaces, for example `pgs="button modal-button"`.
 - `assets/scss/index.scss` imports base, layout, components, and patterns; layouts/components/patterns are almost all scoped under `[pgs~=initP]`.
-- The main markup must enable the library with `htmlBase initP`, and the body with base body tokens. Use `demo/demo.html` and `templates/html/layout/body.html` as the canonical references.
-- Components use a root token and child tokens with a consistent prefix. Use `templates/html/components/` as the canonical markup source.
+- The main markup must enable the library with `htmlBase initP`, and the body with base body tokens. Use `demo/demo.html` and `reference/html/layout/body.html` as the canonical references.
+- Components use a root token and child tokens with a consistent prefix. Use `reference/html/components/` as the canonical markup source.
 
 - Runtime states use `pgs-state`, for example `open`, `is-active`, `is-completed`, `is-locked`, `success`, `error`, `warning`, and `info`.
 - La ricerca componibile usa esclusivamente `pgs="search"` come root grafico e comportamentale e il figlio opzionale `pgs="search-suggestions"`. La sorgente dati si configura tramite `pgs.search.api(element)?.configure({ source })` e deve restare indipendente dal backend.
-- Configurable options use `pgs-option`, with simple tokens or values inside square brackets. Prefer copying the current option syntax from the relevant template rather than duplicating examples in this guide.
+- Configurable options use `pgs-option`, with simple tokens or values inside square brackets. Prefer copying the current option syntax from the relevant reference file rather than duplicating examples in this guide.
 
-- Naming is mostly camelCase for compound tokens (`menuHorizontal`, `buttonStrong`, `flexColumnElements`) and kebab-like for component sub-elements (`accordion-button`, `modal-dialog-content`, `cookieConsent-actionAccept`).
+- Naming is mostly camelCase for compound tokens (`menuHorizontal`, `buttonStrong`, `flexColumn gapElements`) and kebab-like for component sub-elements (`accordion-button`, `modal-dialog-content`, `cookieConsent-actionAccept`).
 - JS modules export objects with `init` and/or `api`; `_imports.js` registers them with `pgs.registerModules` for direct `pgs.*` access.
 
 ## 4. SCSS Guidelines
@@ -106,7 +106,8 @@ import "mypgs/style.css";
 SCSS rules:
 
 - Use the existing custom properties, for example `--color-primary`, `--color-box`, `--color-text`, `--padding`, `--padding-page`, `--gap-texts`, `--gap-elements`, `--gap-sections`, `--border-radius`, `--border-radius-input`, `--border-complete`, `--box-shadow`, and `--focus-visible`.
-- Use existing mixins and tokens instead of rewriting layouts: `flexColumn`, `flexRow`, `grid-*`, `section`, `container`, `card`, `button`, `form`.
+- Use existing mixins and tokens instead of rewriting layouts: `flexColumn`, `flexRow`, `grid` with `pgs-option="column-N"`, `section`, `container`, `card`, `button`, `form`.
+- Compose buttons explicitly with `buttonBase`, either `buttonContent` or `buttonIcon`, either `buttonHover` or `buttonNohover`, and any required variant such as `buttonStrong`, `buttonMini`, `buttonBig`, or `buttonClose`. Variant mixins do not include the base button styles.
 - Configure dropdown placement with `pgs-option="position[side align]"`, for example `position[top left]`, `position[bottom right]`, or `position[left center]`; do not use a SCSS/CSS custom property for dropdown placement.
 - Prefer overrides through custom properties on the component:
 
@@ -222,16 +223,16 @@ pgs.modal.api(modalEl)?.open();
 
 ## 6. Components and Markup
 
-Use the templates as the single source of truth for component and layout markup. Do not copy full HTML examples into this guide; this avoids drift when templates change.
+Use the reference files as the single source of truth for component and layout markup. Do not copy full HTML examples into this guide; this avoids drift when references change.
 
-Canonical template references:
+Canonical reference files:
 
-- Layouts: `templates/html/layout/body.html`, `templates/html/layout/flex.html`, `templates/html/layout/grid.html`, `templates/html/layout/pageShell.html`, `templates/html/layout/section.html`
-- Components: `templates/html/components/accordion.html`, `templates/html/components/breadcumbs.html`, `templates/html/components/button.html`, `templates/html/components/card.html`, `templates/html/components/dropdown.html`, `templates/html/components/form.html`, `templates/html/components/logo.html`, `templates/html/components/menu.html`, `templates/html/components/modal.html`, `templates/html/components/notification.html`, `templates/html/components/search.html`, `templates/html/components/slides.html`, `templates/html/components/stepTabs.html`, `templates/html/components/steps.html`, `templates/html/components/table.html`, `templates/html/components/tooltip.html`
-- Patterns: `templates/html/patterns/cookieConsent.html`, `templates/html/patterns/footer.html`, `templates/html/patterns/header.html`
+- Layouts: `reference/html/layout/body.html`, `reference/html/layout/responsive.html`, `reference/html/layout/pageShell.html`, `reference/html/layout/section.html`
+- Components: `reference/html/components/accordion.html`, `reference/html/components/alerts.html`, `reference/html/components/breadcumbs.html`, `reference/html/components/button.html`, `reference/html/components/card.html`, `reference/html/components/dropdown.html`, `reference/html/components/form.html`, `reference/html/components/logo.html`, `reference/html/components/menu.html`, `reference/html/components/modal.html`, `reference/html/components/notification.html`, `reference/html/components/search.html`, `reference/html/components/slides.html`, `reference/html/components/stepTabs.html`, `reference/html/components/steps.html`, `reference/html/components/table.html`, `reference/html/components/tooltip.html`
+- Patterns: `reference/html/patterns/cookieConsent.html`, `reference/html/patterns/footer.html`, `reference/html/patterns/header.html`
 - Complete demo assembly. DO NOT use this for inspiration. It is only used to show all the modules: `demo/demo.html`
 
-Before creating markup, open the relevant template and reuse its current structure, tokens, ARIA attributes, and `pgs-option` syntax.
+Before creating markup, open the relevant reference file and reuse its current structure, tokens, ARIA attributes, and `pgs-option` syntax.
 
 To extend a component:
 
@@ -244,7 +245,7 @@ To extend a component:
 
 - Do not replace `mypgs` with custom solutions without a clear technical reason.
 - Do not hardcode colors if variables or custom properties exist; always use `var(--color-primary)`, etc.
-- Do not create duplicate components for buttons, forms, modals, dropdowns, slides, tabs, notifications, or menus.
+- Do not create duplicate components for alerts, buttons, forms, modals, dropdowns, slides, tabs, notifications, or menus.
 - Do not duplicate open, close, state, or accessibility logic already handled by the modules.
 - Do not make the code more complex than necessary.
 - Do not invent APIs: if a method is not present in `assets/javascript/*` or in the `.d.ts` files, it must be verified or explicitly added.
@@ -266,7 +267,7 @@ Source SCSS import:
 @include meta.load-css("../../node_modules/mypgs/assets/scss/index.scss");
 ```
 
-Recommended: use PGS layout tokens from `templates/html/layout/`.
+Recommended: use PGS layout tokens from `reference/html/layout/`.
 
 Avoid: equivalent custom layout with ad hoc classes when a PGS layout token already exists.
 
@@ -316,7 +317,7 @@ Avoid: creating a separate toast system outside `pgs.notification`.
 
 Before developing a new feature:
 
-- check `README.md`, `templates/`, `assets/scss/`, and `assets/javascript/`;
+- check `README.md`, `reference/`, `assets/scss/`, and `assets/javascript/`;
 - search for existing tokens or APIs with `rg "featureName|pgs-token"`;
 - verify whether `mypgs` already provides suitable components, helpers, mixins, or variables;
 - use naming consistent with the existing project;
@@ -331,7 +332,7 @@ For a new reusable component:
 - create JS in `assets/javascript/components/` or `assets/javascript/patterns/` only if behavior is needed;
 - export an object with `init` and/or `api` when the module needs a public API;
 - register it in `assets/javascript/_imports.js` with `pgs.registerModules` if it must be available as `pgs.moduleName`;
-- add a template in `templates/html/components/` or `templates/html/layout/`;
+- add a reference file in `reference/html/components/` or `reference/html/layout/`;
 - update `README.md` and this guide if the usage changes.
 
 Example for a new module:
@@ -347,7 +348,7 @@ pgs.registerModules({
 ## 10. Quick AI Checklist
 
 - Did I check whether a suitable `pgs` token or component already exists?
-- Did I consult `templates/` to copy the correct markup?
+- Did I consult `reference/` to copy the correct markup?
 - Did I enable `htmlBase initP` and the base body tokens when the full library is needed?
 - Am I using PGS CSS variables and mixins instead of hardcoded values?
 - Am I using `pgs-state` for runtime states and `pgs-option` for configuration?

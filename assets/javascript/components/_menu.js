@@ -22,7 +22,8 @@ function PGS_menu_init(root = document) {
                 pgs(li).add("dropdown")
                 pgs(li).option.setValueBrackets("position", "bottom right")
                 pgs(button).add("dropdown-button")
-                pgs(button).add("buttonNohover")
+                pgs(button).add("button")
+                pgs(button).option.add("buttonNohover")
                 pgs(ul).add("dropdown-content")
 
             }

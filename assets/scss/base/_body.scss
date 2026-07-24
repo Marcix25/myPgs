@@ -47,12 +47,12 @@
     i {
         line-height: 1.2;
         font-size: var(--fa-size);
-        transition: color 300ms;
+        // transition: color 300ms;
 
-        &::before,
-        &::after {
-            transition: color 300ms;
-        }
+        // &::before,
+        // &::after {
+        //   transition: color 300ms;
+        // }
     }
 
     img,

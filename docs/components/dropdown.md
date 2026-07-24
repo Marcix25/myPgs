@@ -1,4 +1,4 @@
-<!-- Automatically generated from templates/html/components/dropdown.html. Edit templates/html/components/dropdown.html and run npm run docs:generate again. -->
+<!-- Automatically generated from reference/html/components/dropdown.html. Edit reference/html/components/dropdown.html and run npm run docs:generate again. -->
 
 # Dropdown
 

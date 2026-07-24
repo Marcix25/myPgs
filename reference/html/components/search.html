@@ -1,0 +1,109 @@
+<!--
+/**
+ * @title Search
+ * @description Search markup, configuration, behavior, and usage example.
+ *
+ * @pgs
+ * - search: identifies the search element used by Search.
+ * - search-suggestions: identifies the search-suggestions element used by Search.
+ * - search-suggestions-item: identifies the search-suggestions-item element used by Search.
+ * - search-modal: identifies the search-modal element used by Search.
+ * - search-mobile: identifies the search-mobile element used by Search.
+ *
+ * @pgs-option
+ * - containerPGS: identifies the containerPGS element used by Search.
+ * - buttonNohover: disables hover behavior on the search container.
+ * - buttonIcon: presents search and close actions as icon buttons.
+ *
+ * @pgs-state
+ * - open: identifies the open element used by Search.
+ * - loading: identifies the loading element used by Search.
+ * - error: identifies the error element used by Search.
+ * - selected: identifies the selected element used by Search.
+ *
+ * @api
+ * - pgs.search.init(root): initializes matching elements within the specified root.
+ * - pgs.search.api(element): returns the instance associated with the specified initialized element.
+ * - instance.configure(options): provides the documented operation through the component public API.
+ * - instance.setSource(source): provides the documented operation through the component public API.
+ * - instance.search(query): provides the documented operation through the component public API.
+ * - instance.open(): opens the component.
+ * - instance.close(): closes the component.
+ * - instance.clear(): provides the documented operation through the component public API.
+ * - instance.cancel(): annulla debounce e richiesta attiva.
+ * - instance.select(index, submit): provides the documented operation through the component public API.
+ * - instance.refresh(): refreshes the component and returns its updated instance.
+ * - instance.destroy(): removes listeners and releases the component instance.
+ * - instance.items(): provides the documented operation through the component public API.
+ * - instance.isOpen(): returns true when the component is open.
+ * - instance.isLoading(): returns true while the component is loading.
+ * - instance.setActiveIndex(index): provides the documented operation through the component public API.
+ *
+ * @related
+ * - button: provides the base styling for search controls.
+ * - modal: uses the related modal component or utility in this example.
+ * - modal-button: uses the related modal-button component or utility in this example.
+ * - modal-close: uses the related modal-close component or utility in this example.
+ * - flexRow: uses the related flexRow component or utility in this example.
+ * - section: uses the related section component or utility in this example.
+ *
+ * @return Complete HTML markup and usage example for Search.
+ */
+-->
+
+<form pgs="button search" pgs-option="buttonNohover" autocomplete="off" action="" method="get">
+    <button type="submit" title="Search"><i class="fa-solid fa-search"></i></button>
+    <input type="search" name="s" placeholder="Search" value="">
+    <ul pgs="search-suggestions"></ul>
+</form>
+
+<div pgs="modal search-modal" pgs-option="containerPGS[header]">
+
+    <button type="button" pgs="modal-button button" pgs-option="buttonIcon" title="Search">
+        <i class="fa-solid fa-search"></i>
+    </button>
+
+    <dialog>
+        <div pgs="flexRow section search-mobile">
+
+            <form pgs="button search" pgs-option="buttonNohover" autocomplete="off" action="/" method="get">
+                <button type="submit" title="Search">
+                    <i class="fa-solid fa-search"></i>
+                </button>
+
+                <input type="search" name="s" placeholder="Search" value="">
+                <ul pgs="search-suggestions"></ul>
+
+                <button type="button" pgs="modal-close button" pgs-option="buttonIcon">
+                    <i class="fa-solid fa-close"></i>
+                </button>
+            </form>
+
+
+        </div>
+    </dialog>
+</div>
+
+<script type="module">
+    import { pgs } from "mypgs";
+
+    const components = [
+        { label: "Accordion", value: "/componenti/accordion", data: { category: "component" } },
+        { label: "Dropdown", value: "/componenti/dropdown", data: { category: "component" } },
+        { label: "Modal", value: "/componenti/modal", data: { category: "component" } },
+        { label: "Search", value: "/componenti/search", data: { category: "component" } },
+        { label: "Page Shell", value: "/layout/page-shell", data: { category: "layout" } },
+    ];
+
+    pgs(document).querySelectorAll("search").forEach(search => {
+        pgs.search.api(search)?.configure({
+            minLength: 1,
+            debounce: 150,
+            limit: 5,
+            source: components,
+            onSelect: ({ item, value }) => {
+                console.log(`Selezionato ${item.label}: ${value}`);
+            },
+        });
+    });
+</script>

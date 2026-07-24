@@ -1,4 +1,4 @@
-<!-- Automatically generated from templates/html/layout/header.html. Edit templates/html/layout/header.html and run npm run docs:generate again. -->
+<!-- Automatically generated from reference/html/layout/header.html. Edit reference/html/layout/header.html and run npm run docs:generate again. -->
 
 # Header
 
@@ -22,6 +22,7 @@ Responsive header that measures available space, switches between desktop and mo
 - `menuHeader`: adapts both menus to the header context.
 - `containerPGS`: uses containerPGS[header] on the modal wrapper to move the dialog into the header.
 - `right`: presents the mobile navigation dialog content from the right side.
+- `buttonIcon`: presents theme and hamburger controls as icon buttons.
 
 ## PGS States
 
@@ -29,10 +30,10 @@ Responsive header that measures available space, switches between desktop and mo
 
 ## Related elements
 
+- `button`: provides the base styling for header controls.
 - `logo`: inserts the brand into the initial area.
 - `logo-text`: uses the text variant of the logo.
 - `menu`: provides desktop and mobile navigation.
-- `buttonIcon`: presents theme and hamburger controls as icon buttons.
 - `toggleDarkmode`: connects the control to the global theme handler.
 - `modal`: provides opening and closing behavior for mobile navigation.
 - `modal-button`: opens the mobile panel.
@@ -69,14 +70,14 @@ Complete header HTML with desktop navigation and a side mobile panel.
 		</div>
 
 		<div pgs="header-element-alwaysOnLast">
-			<button pgs="buttonIcon toggleDarkmode" type="button" aria-label="Change theme">
+			<button pgs="button toggleDarkmode" pgs-option="buttonIcon" type="button" aria-label="Change theme">
 				<i class="fa-solid fa-moon"></i>
 			</button>
 		</div>
 
 		<div pgs="header-element-hamburger modal" pgs-option="containerPGS[header] ">
 
-			<button pgs="buttonIcon modal-button modal-close header-element-hamburger-button" type="button"></button>
+			<button pgs="button modal-button modal-close header-element-hamburger-button" pgs-option="buttonIcon" type="button"></button>
 
 			<dialog pgs="modal-dialog" pgs-option="right">
 				<div pgs="modal-dialog-content">

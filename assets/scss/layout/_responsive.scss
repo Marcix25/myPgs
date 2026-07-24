@@ -1,0 +1,63 @@
+@use "../mixin/mixin" as *;
+
+//# RESPONSIVE
+//= FLEX
+//== FLEX COLUMN
+[pgs~=flexColumn] {
+    @include flexColumn();
+}
+
+//== FLEX ROW
+[pgs~=flexRow] {
+    @include flexRow();
+}
+
+//== COLUMN
+[pgs~=flexColumn],
+[pgs~=flexRow] {
+    
+    @for $i from 1 through 8 {
+        &[pgs-option~=column-#{$i}] {
+            width: 100%;
+            flex-wrap: wrap;
+            flex-direction: row;
+            @include columnFlex($i);
+        }
+    }
+}
+
+//= GRID
+//== COLUMN
+[pgs~=grid] {
+    display: grid;
+    gap: var(--gap-elements);
+    width: 100%;
+
+    @for $i from 1 through 8 {
+        &[pgs-option~=column-#{$i}] {
+            @include columnGrid($i);
+        }
+    }
+}
+
+//= GAP
+[pgs~=gapTexts] {
+    gap: var(--gap-texts);
+}
+
+[pgs~=gapElements] {
+    gap: var(--gap-elements);
+}
+
+[pgs~=gapSections] {
+    gap: var(--gap-sections);
+}
+
+//= WRAP
+[pgs~=nowrap] {
+    flex-wrap: nowrap;
+}
+
+[pgs~=wrap] {
+    flex-wrap: wrap;
+}

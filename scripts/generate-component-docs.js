@@ -6,7 +6,7 @@ const fs = require("fs");
 const path = require("path");
 
 const PROJECT_ROOT = path.resolve(__dirname, "..");
-const TEMPLATE_ROOT = path.join(PROJECT_ROOT, "templates", "html");
+const REFERENCE_ROOT = path.join(PROJECT_ROOT, "reference", "html");
 const DOCS_ROOT = path.join(PROJECT_ROOT, "docs");
 const MANAGED_DOC_DIRECTORIES = ["components", "layout", "patterns"]
     .map(directory => path.join(DOCS_ROOT, directory));
@@ -18,7 +18,7 @@ const SOURCE_ROOTS = [
 const TAG_ORDER = ["title", "description", "pgs", "pgs-option", "pgs-state", "api", "related", "return"];
 const LIST_TAGS = new Set(["pgs", "pgs-option", "pgs-state", "api", "related"]);
 const REQUIRED_TAGS = ["title", "description", "pgs"];
-const GENERATED_MARKER = /^<!-- (?:Automatically generated from (templates\/html\/.+\.html)\. Edit \1 and run npm run docs:generate again\.|File generato automaticamente da (templates\/html\/.+\.html)\. Modificare \2 e rieseguire npm run docs:generate\.) -->$/;
+const GENERATED_MARKER = /^<!-- (?:Automatically generated from ((?:reference|templates)\/html\/.+\.html)\. Edit \1 and run npm run docs:generate again\.|File generato automaticamente da ((?:reference|templates)\/html\/.+\.html)\. Modificare \2 e rieseguire npm run docs:generate\.) -->$/;
 
 function toPosix(value) {
     return value.split(path.sep).join("/");
@@ -29,7 +29,7 @@ function relativeToProject(value) {
 }
 
 function getOutputPath(template) {
-    const relativeTemplate = path.relative(TEMPLATE_ROOT, template);
+    const relativeTemplate = path.relative(REFERENCE_ROOT, template);
     return path.join(DOCS_ROOT, relativeTemplate.replace(/\.html$/i, ".md"));
 }
 
@@ -477,11 +477,11 @@ function printErrors(errors) {
 }
 
 function main() {
-    const templates = walkFiles(TEMPLATE_ROOT, file => path.extname(file).toLowerCase() === ".html");
+    const references = walkFiles(REFERENCE_ROOT, file => path.extname(file).toLowerCase() === ".html");
     const errors = [];
     const outputPaths = new Map();
 
-    templates.forEach(template => {
+    references.forEach(template => {
         const output = toPosix(path.relative(DOCS_ROOT, getOutputPath(template))).toLowerCase();
         if (!outputPaths.has(output)) outputPaths.set(output, []);
         outputPaths.get(output).push(template);
@@ -493,7 +493,7 @@ function main() {
 
     const sources = loadSources();
     const allSourceContent = sources.map(source => source.content).join("\n");
-    const parsedTemplates = templates.map(template => {
+    const parsedReferences = references.map(template => {
         const source = fs.readFileSync(template, "utf8");
         const parsed = parseDocumentationBlock(template, source);
         errors.push(...validateTemplate(template, parsed, sources, allSourceContent));
@@ -509,7 +509,7 @@ function main() {
     const expected = new Set();
     const counts = { created: 0, updated: 0, unchanged: 0, removed: 0 };
 
-    parsedTemplates.forEach(({ template, parsed }) => {
+    parsedReferences.forEach(({ template, parsed }) => {
         const output = getOutputPath(template);
         const content = renderMarkdown(template, parsed.data, parsed.markup);
         expected.add(path.resolve(output));
@@ -546,7 +546,7 @@ function main() {
         });
 
     console.log("");
-    console.log(`Riepilogo: ${templates.length} template validati; ${counts.created} creati; ${counts.updated} aggiornati; ${counts.unchanged} invariati; ${counts.removed} obsoleti rimossi.`);
+    console.log(`Riepilogo: ${references.length} riferimenti HTML validati; ${counts.created} creati; ${counts.updated} aggiornati; ${counts.unchanged} invariati; ${counts.removed} obsoleti rimossi.`);
 }
 
 try {

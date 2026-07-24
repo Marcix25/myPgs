@@ -1,4 +1,4 @@
-<!-- Automatically generated from templates/html/layout/footer.html. Edit templates/html/layout/footer.html and run npm run docs:generate again. -->
+<!-- Automatically generated from reference/html/layout/footer.html. Edit reference/html/layout/footer.html and run npm run docs:generate again. -->
 
 # Footer
 
@@ -15,12 +15,16 @@ Complete footer with theme control, brand area, navigation, informational conten
 - `footer-legal`: identifies the lower section dedicated to legal information.
 - `footer-legal-content`: identifies the content of the legal section.
 
+## PGS Options
+
+- `column-3`: configures the footer flex layout with three columns.
+
 ## Related elements
 
 - `button`: presents theme and cookie preference controls as buttons.
 - `toggleDarkmode`: connects the control to the global light or dark theme handler.
 - `section`: applies the shared section structure to the upper and legal areas.
-- `flex-3`: distributes the upper columns responsively.
+- `flexRow`: distributes the upper columns responsively.
 - `logo`: inserts the brand into the footer.
 - `logo-text`: uses the text variant of the logo.
 - `cookieConsent-actionOpen`: opens the Cookie Consent preference panel.
@@ -38,7 +42,7 @@ Complete footer HTML structure with brand, menu, and legal area.
     </button>
 
     <section pgs="footer-top section">
-        <div pgs="footer-top-content flex-3">
+        <div pgs="footer-top-content flexRow" pgs-option="column-3">
             <div pgs="footer-brand">
                 <a aria-label="Logo" pgs="logo" href="/">
                     <span pgs="logo-text">MyPGS</span>

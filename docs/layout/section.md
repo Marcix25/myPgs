@@ -1,4 +1,4 @@
-<!-- Automatically generated from templates/html/layout/section.html. Edit templates/html/layout/section.html and run npm run docs:generate again. -->
+<!-- Automatically generated from reference/html/layout/section.html. Edit reference/html/layout/section.html and run npm run docs:generate again. -->
 
 # Section
 
@@ -15,9 +15,9 @@ Section variants that control width, padding, and specific content treatment whi
 
 ## Related elements
 
-- `flexColumnSections`: vertically spaces all sections in the example.
-- `flexColumnElements`: vertically organizes the main elements of each section.
-- `flexColumnTexts`: organizes and spaces inner content.
+- `flexColumn`: vertically organizes sections and inner content.
+- `gapSections`: applies section spacing to the outer collection.
+- `gapElements`: applies element spacing inside each section.
 - `card-img`: reuses card image treatment in the demonstration sections.
 - `imgCover`: scales images to the section width.
 
@@ -28,40 +28,40 @@ HTML collection of the available section variants.
 ## Example
 
 ```html
-<div pgs="flexColumnSections">
-    <section pgs="section flexColumnElements">
-        <div pgs="flexColumnTexts">
+<div pgs="flexColumn gapSections">
+    <section pgs="section flexColumn gapElements">
+        <div pgs="flexColumn">
             <strong>Standard section</strong>
             <p>Centered content inside a MyPGS section.</p>
         </div>
     </section>
 
-    <section pgs="sectionFull flexColumnElements">
-        <div pgs="flexColumnTexts">
+    <section pgs="sectionFull flexColumn gapElements">
+        <div pgs="flexColumn">
             <strong>Full-width section</strong>
             <p>Centered content inside a MyPGS section.</p>
         </div>
     </section>
 
-    <section pgs="sectionSpecificity flexColumnElements">
-        <div pgs="flexColumnTexts">
+    <section pgs="sectionSpecificity flexColumn gapElements">
+        <div pgs="flexColumn">
             <img pgs="card-img imgCover" src="https://placehold.co/800x200?text=Hero" alt="Placeholder image">
         </div>
-        <div pgs="sectionSpecificity-child flexColumnTexts">
+        <div pgs="sectionSpecificity-child flexColumn">
             <strong>Specificity-child section</strong>
             <p>Centered content inside a MyPGS section.</p>
         </div>
     </section>
 
-    <section pgs="sectionMax flexColumnElements" style="background-color: var(--color-primary-soft)">
-        <div pgs="flexColumnTexts">
+    <section pgs="sectionMax flexColumn gapElements" style="background-color: var(--color-primary-soft)">
+        <div pgs="flexColumn">
             <strong>Max-width section</strong>
             <p>Centered content inside a MyPGS section.</p>
         </div>
     </section>
 
-    <section pgs="sectionNoPadding flexColumnElements">
-        <div pgs="flexColumnTexts">
+    <section pgs="sectionNoPadding flexColumn gapElements">
+        <div pgs="flexColumn">
             <img pgs="card-img imgCover" src="https://placehold.co/800x500?text=HI!" alt="Placeholder image">
         </div>
     </section>

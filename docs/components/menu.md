@@ -1,4 +1,4 @@
-<!-- Automatically generated from templates/html/components/menu.html. Edit templates/html/components/menu.html and run npm run docs:generate again. -->
+<!-- Automatically generated from reference/html/components/menu.html. Edit reference/html/components/menu.html and run npm run docs:generate again. -->
 
 # Menu
 
@@ -15,6 +15,7 @@ Menu markup, configuration, behavior, and usage example.
 - `vertical`: identifies the vertical element used by Menu.
 - `menuHeader`: identifies the menuHeader element used by Menu.
 - `position`: identifies the position element used by Menu.
+- `buttonNohover`: disables hover behavior on menu buttons generated at runtime.
 
 ## PGS States
 
@@ -30,7 +31,6 @@ Menu markup, configuration, behavior, and usage example.
 
 - `dropdown`: uses the related dropdown component or utility in this example.
 - `dropdown-button`: uses the related dropdown-button component or utility in this example.
-- `buttonNohover`: uses the related buttonNohover component or utility in this example.
 - `dropdown-content`: uses the related dropdown-content component or utility in this example.
 
 ## Output

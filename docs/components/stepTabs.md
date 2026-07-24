@@ -1,4 +1,4 @@
-<!-- Automatically generated from templates/html/components/stepTabs.html. Edit templates/html/components/stepTabs.html and run npm run docs:generate again. -->
+<!-- Automatically generated from reference/html/components/stepTabs.html. Edit reference/html/components/stepTabs.html and run npm run docs:generate again. -->
 
 # Step Tabs
 
@@ -42,8 +42,8 @@ Step Tabs markup, configuration, behavior, and usage example.
 
 ## Related elements
 
-- `flexColumnElements`: uses the related flexColumnElements component or utility in this example.
-- `flexColumnTexts`: uses the related flexColumnTexts component or utility in this example.
+- `flexColumn`: uses the related flexColumn component or utility in this example.
+- `gapElements`: applies element spacing to the step tab container.
 - `flexRow`: uses the related flexRow component or utility in this example.
 - `button`: uses the related button component or utility in this example.
 
@@ -54,21 +54,21 @@ Complete HTML markup and usage example for Step Tabs.
 ## Example
 
 ```html
-<div pgs="stepTabs flexColumnElements">
+<div pgs="stepTabs flexColumn gapElements">
     <div pgs="stepTabs-dots" aria-label="Avanzamento"></div>
 
     <div pgs="stepTabs-container">
-        <section pgs="tab flexColumnTexts" tabindex="-1" pgs-option="tabIcon[fa-user]">
+        <section pgs="tab flexColumn" tabindex="-1" pgs-option="tabIcon[fa-user]">
             <h3>Personal details</h3>
             <p>First tab content.</p>
         </section>
 
-        <section pgs="tab flexColumnTexts" tabindex="-1" pgs-option="tabIcon[fa-list-check]">
+        <section pgs="tab flexColumn" tabindex="-1" pgs-option="tabIcon[fa-list-check]">
             <h3>Preferences</h3>
             <p>Second tab content.</p>
         </section>
 
-        <section pgs="tab flexColumnTexts" tabindex="-1" pgs-option="tabIcon[fa-check]">
+        <section pgs="tab flexColumn" tabindex="-1" pgs-option="tabIcon[fa-check]">
             <h3>Confirmation</h3>
             <p>Third tab content.</p>
         </section>

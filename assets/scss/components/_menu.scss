@@ -2,6 +2,16 @@
 
 //# MENU
 [pgs~=menu] {
+    // Menu colours inherit the button theme by default.  A consumer can set the
+    // --menu-* variables on this element to theme menus independently.
+    --menu-color: var(--color-black);
+    --menu-background: var(--color-box);
+    --menu-color-current: var(--color-whiteFixed);
+    --menu-background-current: var(--color-primary);
+    --menu-color-strong: var(--color-whiteFixed);
+    --menu-background-strong: var(--color-primary);
+    --menu-border: var(--border-complete);
+
     ul {
         display: flex;
         font-weight: 600;
@@ -15,11 +25,24 @@
             >a {
                 flex-grow: 1;
                 min-width: fit-content;
-                @include button();
+                @include buttonBase();
+                @include buttonHover();
+                @include buttonContent();
+                --button-color: var(--menu-color);
+                --button-color-strong: var(--menu-color-strong);
+                --button-color-current: var(--menu-color-current);
+                --button-background: var(--menu-background);
+                --button-background-strong: var(--menu-background-strong);
+                --button-background-current: var(--menu-background-current);
+                --button-border: var(--menu-border);
 
                 >span {
-                    line-height: 1.6;
+                    line-height: 1;
                     flex-grow: 1;
+                }
+
+                &:hover {
+                    z-index: -1;
                 }
             }
 
@@ -56,7 +79,7 @@
         translate: -15px;
 
         &[aria-expanded="true"] {
-            --button-background: var(--color-primary);
+            --button-background: var(--menu-background-current);
 
             span {
                 rotate: 180deg;

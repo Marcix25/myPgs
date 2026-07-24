@@ -16,3 +16,7 @@
 [pgs~=chips] {
     @include chips();
 }
+
+[pgs~=chip] {
+    @include chip();
+}

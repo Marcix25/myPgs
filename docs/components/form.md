@@ -1,4 +1,4 @@
-<!-- Automatically generated from templates/html/components/form.html. Edit templates/html/components/form.html and run npm run docs:generate again. -->
+<!-- Automatically generated from reference/html/components/form.html. Edit reference/html/components/form.html and run npm run docs:generate again. -->
 
 # Form
 
@@ -18,6 +18,7 @@ Form structure with labels, text fields, a textarea, a checkbox, and a radio gro
 - `message`: defines a field-specific message with the syntax message[Message text].
 - `error`: is applied at runtime to the form and fields that fail validation.
 - `success`: is applied at runtime to the form after successful validation.
+- `buttonStrong`: presents form submission as the primary action.
 
 ## JavaScript API
 
@@ -31,8 +32,8 @@ Form structure with labels, text fields, a textarea, a checkbox, and a radio gro
 
 ## Related elements
 
-- `buttonStrong`: presents form submission as the primary action.
-- `flexColumnTexts`: spaces text elements in the radio group.
+- `button`: provides the base styling for the primary submit action.
+- `flexColumn`: spaces text elements in the radio group.
 
 ## Output
 
@@ -68,7 +69,7 @@ Complete HTML form with required fields and an example script for a custom rule,
     <textarea id="form-message" pgs="textarea" name="message" rows="5" placeholder="Write your message" required></textarea>
 
     <br>
-    <fieldset pgs="radio flexColumnTexts">
+    <fieldset pgs="radio flexColumn">
         <legend>Preferred contact method</legend>
 
         <label>
@@ -94,7 +95,7 @@ Complete HTML form with required fields and an example script for a custom rule,
     </label>
     <br>
 
-    <button pgs="buttonStrong" type="submit">
+    <button pgs="button" pgs-option="buttonStrong" type="submit">
         <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
         Submit
     </button>

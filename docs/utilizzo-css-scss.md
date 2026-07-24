@@ -24,13 +24,37 @@ Recommended override:
 
 Avoid rewriting padding, gaps, border radii, or colors from scratch when a suitable variable or PGS token already exists.
 
+## Button mixins
+
+Button styling is split into small mixins so each consumer can include only the behavior it needs. A standard button is composed explicitly:
+
+```scss
+.action {
+  @include buttonBase();
+  @include buttonContent();
+  @include buttonHover();
+}
+```
+
+Use `buttonIcon` instead of `buttonContent` for icon-only controls, and `buttonNohover` instead of `buttonHover` when pointer interaction must remain neutral:
+
+```scss
+.icon-action {
+  @include buttonBase();
+  @include buttonIcon();
+  @include buttonNohover();
+}
+```
+
+`buttonStrong`, `buttonMini`, `buttonBig`, and `buttonClose` contain only their variant declarations and must be added after the required base, content/icon, and interaction mixins. This explicit composition is also the preferred pattern for components such as menus, accordions, forms, and step tabs.
+
 ## The `pgs` system
 
 Markup uses space-separated tokens inside the `pgs` attribute:
 
 ```html
-<button pgs="button buttonStrong" type="button">Save</button>
-<section pgs="section flexColumnElements"></section>
+<button pgs="button" pgs-option="buttonStrong" type="button">Save</button>
+<section pgs="section flexColumn gapElements"></section>
 ```
 
 The same tokens connect HTML, SCSS, and JavaScript.

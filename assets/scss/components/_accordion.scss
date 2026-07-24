@@ -8,11 +8,8 @@
     width: 100% !important;
     position: relative;
     user-select: unset !important;
-
-    &:not([pgs-state~=open]) {
-        @include button(true);
-        --button-size: var(--padding-2);
-    }
+    @include buttonBase();
+    @include buttonContent();
 
     //= BUTTON
     [pgs~="accordion-button"] {
@@ -55,9 +52,14 @@
         overflow: hidden;
     }
 
-    //= OPEN
+    //= OPEN - NOT OPEN
+    &:not([pgs-state~=open]) {
+        @include buttonHover();
+        --button-size: var(--padding-2);
+    }
+
     &[pgs-state~=open] {
-        @include button(false);
+        @include buttonNohover();
         --button-size: var(--padding-2);
         margin-top: var(--padding);
 

@@ -1,0 +1,83 @@
+<!--
+/**
+ * @title Step Tabs
+ * @description Step Tabs markup, configuration, behavior, and usage example.
+ *
+ * @pgs
+ * - stepTabs: identifies the stepTabs element used by Step Tabs.
+ * - stepTabs-dots: identifies the stepTabs-dots element used by Step Tabs.
+ * - stepTabs-dots-dot: identifies the stepTabs-dots-dot element used by Step Tabs.
+ * - stepTabs-container: identifies the stepTabs-container element used by Step Tabs.
+ * - tab: identifies the tab element used by Step Tabs.
+ * - stepTabs-prev: identifies the stepTabs-prev element used by Step Tabs.
+ * - stepTabs-restart: identifies the stepTabs-restart element used by Step Tabs.
+ * - stepTabs-next: identifies the stepTabs-next element used by Step Tabs.
+ *
+ * @pgs-option
+ * - tabIcon: identifies the tabIcon element used by Step Tabs.
+ * - step: identifies the step element used by Step Tabs.
+ * - buttonReverse: identifies the buttonReverse element used by Step Tabs.
+ *
+ * @pgs-state
+ * - is-active: identifies the is-active element used by Step Tabs.
+ * - is-completed: identifies the is-completed element used by Step Tabs.
+ * - is-locked: identifies the is-locked element used by Step Tabs.
+ *
+ * @api
+ * - pgs.stepTabs.init(root): initializes matching elements within the specified root.
+ * - pgs.stepTabs.api(element): returns the instance associated with the specified initialized element.
+ * - instance.restart(): torna al primo tab e ripristina i blocchi dichiarati inizialmente.
+ * - instance.goTo(index, scroll): provides the documented operation through the component public API.
+ * - instance.next(): moves to the next item.
+ * - instance.prev(): moves to the previous item.
+ * - instance.toggleLock(index, lock): provides the documented operation through the component public API.
+ * - instance.refresh(): refreshes the component and returns its updated instance.
+ * - instance.getCurrent(): provides the documented operation through the component public API.
+ * - instance.getState(): provides the documented operation through the component public API.
+ *
+ * @related
+ * - flexColumn: uses the related flexColumn component or utility in this example.
+ * - gapElements: applies element spacing to the step tab container.
+ * - flexRow: uses the related flexRow component or utility in this example.
+ * - button: uses the related button component or utility in this example.
+ *
+ * @return Complete HTML markup and usage example for Step Tabs.
+ */
+-->
+
+<div pgs="stepTabs flexColumn gapElements">
+    <div pgs="stepTabs-dots" aria-label="Avanzamento"></div>
+
+    <div pgs="stepTabs-container">
+        <section pgs="tab flexColumn" tabindex="-1" pgs-option="tabIcon[fa-user]">
+            <h3>Personal details</h3>
+            <p>First tab content.</p>
+        </section>
+
+        <section pgs="tab flexColumn" tabindex="-1" pgs-option="tabIcon[fa-list-check]">
+            <h3>Preferences</h3>
+            <p>Second tab content.</p>
+        </section>
+
+        <section pgs="tab flexColumn" tabindex="-1" pgs-option="tabIcon[fa-check]">
+            <h3>Confirmation</h3>
+            <p>Third tab content.</p>
+        </section>
+    </div>
+
+    <div pgs="flexRow">
+        <button pgs="stepTabs-prev button" type="button">
+            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+            Back
+        </button>
+
+        <button pgs="stepTabs-restart button" type="button">
+            Ricomincia
+        </button>
+
+        <button pgs="stepTabs-next button" pgs-option="buttonReverse" type="button">
+            Next
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </button>
+    </div>
+</div>

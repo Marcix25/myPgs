@@ -1,4 +1,4 @@
-<!-- Automatically generated from templates/html/components/breadcumbs.html. Edit templates/html/components/breadcumbs.html and run npm run docs:generate again. -->
+<!-- Automatically generated from reference/html/components/breadcumbs.html. Edit reference/html/components/breadcumbs.html and run npm run docs:generate again. -->
 
 # Breadcrumb
 

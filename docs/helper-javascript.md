@@ -136,7 +136,7 @@ Shortcuts available after `import "mypgs"`:
 
 ## Component API reference
 
-Le firme, i parametri e la funzione di ogni metodo sono generati dai commenti nei template:
+Le firme, i parametri e la funzione di ogni metodo sono generati dai commenti nei riferimenti HTML:
 
 - [Accordion](components/accordion.md#api-javascript)
 - [Dropdown](components/dropdown.md#api-javascript)

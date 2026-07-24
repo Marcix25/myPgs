@@ -2,29 +2,37 @@
 
 //# BUTTON
 [pgs~=button] {
-    @include button()
-}
+    @include buttonBase();
 
-[pgs~=buttonNohover] {
-    @include button(false)
-}
+    &:not([pgs-option~=buttonIcon], [pgs-option~=buttonMini], [pgs-option~=buttonClose]) {
+        @include buttonContent();
+    }
 
-[pgs~=buttonIcon] {
-    @include button(true, true);
-}
+    &:is([pgs-option~=buttonIcon], [pgs-option~=buttonMini], [pgs-option~=buttonClose]) {
+        @include buttonIcon();
+    }
 
-[pgs~=buttonStrong] {
-    @include button(true, false, true)
-}
+    &:not([pgs-option~=buttonNohover]) {
+        @include buttonHover();
+    }
 
-[pgs~=buttonMini] {
-    @include buttonMini();
-}
+    &[pgs-option~=buttonNohover] {
+        @include buttonNohover();
+    }
 
-[pgs~=buttonBig] {
-    @include buttonBig()
-}
+    &[pgs-option~=buttonStrong] {
+        @include buttonStrong();
+    }
 
-[pgs~=buttonClose] {
-    @include buttonClose();
+    &[pgs-option~=buttonMini] {
+        @include buttonMini();
+    }
+
+    &[pgs-option~=buttonBig] {
+        @include buttonBig();
+    }
+
+    &[pgs-option~=buttonClose] {
+        @include buttonClose();
+    }
 }

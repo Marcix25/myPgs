@@ -1,4 +1,4 @@
-<!-- Automatically generated from templates/html/components/tooltip.html. Edit templates/html/components/tooltip.html and run npm run docs:generate again. -->
+<!-- Automatically generated from reference/html/components/tooltip.html. Edit reference/html/components/tooltip.html and run npm run docs:generate again. -->
 
 # Tooltip
 
@@ -13,6 +13,7 @@ Tooltip markup, configuration, behavior, and usage example.
 ## PGS Options
 
 - `position`: identifies the position element used by Tooltip.
+- `buttonMini`: applies the smallest button variant to the tooltip trigger.
 
 ## PGS States
 
@@ -30,10 +31,10 @@ Tooltip markup, configuration, behavior, and usage example.
 
 ## Related elements
 
+- `button`: provides the base styling for the tooltip trigger.
 - `dropdown`: uses the related dropdown component or utility in this example.
 - `dropdown-button`: uses the related dropdown-button component or utility in this example.
 - `dropdown-content`: uses the related dropdown-content component or utility in this example.
-- `buttonMini`: uses the related buttonMini component or utility in this example.
 
 ## Output
 
@@ -43,7 +44,7 @@ Complete HTML markup and usage example for Tooltip.
 
 ```html
 <span pgs="dropdown tooltip">
-    <button pgs="dropdown-button buttonMini tooltip-button" title="open-tooltip" type="button">
+    <button pgs="dropdown-button button tooltip-button" pgs-option="buttonMini" title="open-tooltip" type="button">
         <i class="fa-solid fa-info"></i>
     </button>
     <div pgs="dropdown-content tooltip-content">

@@ -1,4 +1,4 @@
-<!-- Automatically generated from templates/html/components/logo.html. Edit templates/html/components/logo.html and run npm run docs:generate again. -->
+<!-- Automatically generated from reference/html/components/logo.html. Edit reference/html/components/logo.html and run npm run docs:generate again. -->
 
 # Logo
 

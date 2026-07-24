@@ -1,4 +1,4 @@
-<!-- Automatically generated from templates/html/components/summary.html. Edit templates/html/components/summary.html and run npm run docs:generate again. -->
+<!-- Automatically generated from reference/html/components/summary.html. Edit reference/html/components/summary.html and run npm run docs:generate again. -->
 
 # Summary
 

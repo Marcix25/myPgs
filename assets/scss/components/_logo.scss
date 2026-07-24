@@ -8,15 +8,14 @@
     --logo-finter: invert(1) hue-rotate(180deg) brightness(1.5);
 
     //== DARKMODE
-    @at-root [pgs-state~=darkmode] #{&}[pgs-option~="logoDarkmode"] [pgs~="logo-image"] {
+    &:is(body[pgs-state~="darkmode"] [pgs-option~="logoDarkmode"]) [pgs~="logo-image"] {
         filter: var(--logo-finter);
     }
-    
+
     //== FIXED DARKMODE
     &[pgs-option~="logoDarkmodeFixed"] [pgs~="logo-image"] {
         filter: var(--logo-finter);
     }
-    
 
     //- tablet 
     @media (max-width: $tablet) {

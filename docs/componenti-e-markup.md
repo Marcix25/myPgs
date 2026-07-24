@@ -1,12 +1,13 @@
 # Components and markup
 
-Complete templates are available in `templates/`. Use those files as the reference source before creating new markup.
+Canonical component and layout examples are available in `reference/`. Use those files as the reference source before creating new markup.
 
 ## Componenti disponibili
 
 Componenti:
 
 - [`accordion`](components/accordion.md)
+- [`alerts`](components/alerts.md)
 - [`badges`](components/badges.md)
 - [`breadcrumb`](components/breadcumbs.md)
 - [`button`](components/button.md)
@@ -33,8 +34,7 @@ Layout:
 - [`header`](layout/header.md)
 - [`footer`](layout/footer.md)
 - [`pageShell`](layout/pageShell.md)
-- [`flex`](layout/flex.md)
-- [`grid`](layout/grid.md)
+- [`responsive`](layout/responsive.md)
 
 Pattern:
 
@@ -45,7 +45,7 @@ Pattern:
 `search` include sia lo stile sia il comportamento di ricerca e usa `search-suggestions` come lista opzionale:
 
 ```html
-<form pgs="buttonNohover search" autocomplete="off">
+<form pgs="button search" pgs-option="buttonNohover" autocomplete="off">
   <button type="submit">Cerca</button>
   <input type="search" name="s" placeholder="Cerca">
   <ul pgs="search-suggestions"></ul>
@@ -76,7 +76,7 @@ pgs.search.api(form)?.configure({
 
 La sorgente puo' essere anche un array locale di stringhe o oggetti. Il componente gestisce debounce, annullamento richieste, risposte fuori ordine, tastiera, selezione, click esterno, stati `open`, `loading` ed `error` e attributi ARIA. Gli eventi `pgs:search:select` e `pgs:search:error` sono emessi sul root `search`.
 
-## Other elements without templates
+## Other elements without reference files
 
 Base:
 

@@ -1,4 +1,4 @@
-<!-- Automatically generated from templates/html/components/accordion.html. Edit templates/html/components/accordion.html and run npm run docs:generate again. -->
+<!-- Automatically generated from reference/html/components/accordion.html. Edit reference/html/components/accordion.html and run npm run docs:generate again. -->
 
 # Accordion
 
@@ -26,7 +26,7 @@ Interactive component that expands one panel at a time while synchronizing visib
 
 ## Related elements
 
-- `flexColumnTexts`: applies text spacing between the list items.
+- `flexColumn`: applies text spacing between the list items.
 
 ## Output
 
@@ -35,7 +35,7 @@ HTML list of accessible accordion items with an associated button and panel.
 ## Example
 
 ```html
-<ul pgs="flexColumnTexts">
+<ul pgs="flexColumn">
     <li pgs="accordion">
         <button pgs="accordion-button" type="button">
             <i class="fa-solid fa-circle-question" aria-hidden="true"></i>

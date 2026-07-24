@@ -3,19 +3,18 @@
 @use "mx-hover" as *;
 @use "mx-responsive" as *;
 
-@mixin card-insideImg() {
-    $cardImgPadding: calc(var(--card-padding) * -1);
-    border-radius: var(--card-borderRadius);
+@mixin cardAndWell-insideImg($for) {
+    border-radius: var(--#{$for}-borderRadius);
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-    margin: $cardImgPadding;
-    padding: var(--card-padding-img);
-    width: calc((var(--card-padding) * 2) + 100%);
+    margin: calc(var(--#{$for}-padding) * -1);
+    padding: var(--#{$for}-padding-img);
+    width: calc((var(--#{$for}-padding) * 2) + 100%);
     margin-bottom: 0;
 }
 
 @mixin card() {
-    --card-padding: var(--padding-2);
+    --card-padding: var(--padding);
     --card-borderRadius: calc(var(--border-radius-input) + var(--card-padding));
     --card-background: var(--color-box-transparent);
     --card-padding-img: 0;
@@ -25,7 +24,6 @@
         padding: var(--card-padding);
         background: var(--card-background);
         border-radius: var(--card-borderRadius);
-        // box-shadow: var(--box-shadow);
     }
 
     >a {
@@ -43,41 +41,40 @@
     >img,
     >a>object,
     >a>img {
-        @include card-insideImg();
+        @include cardAndWell-insideImg("card");
     }
 }
 
-@mixin boxtext() {
+@mixin well() {
     @include flexColumn();
-    --boxtext-background: light-dark(color-mix(in srgb, var(--color-background) 100%, transparent 10%), color-mix(in srgb, var(--color-background) 50%, transparent 50%));
-    background: var(--boxtext-background);
-    padding: 1.5rem;
-    margin-inline: calc(-1.5rem / 2);
-    width: unset;
-    border-radius: var(--border-radius-input);
+    --well-padding: var(--padding-2);
+    --well-borderRadius: calc(var(--border-radius-input) + var(--well-padding));
+    --well-background: var(--color-box-transparent);
+    --well-padding-img: 0;
 
-    //- mobile 
-    @media (max-width: $mobile) {
-        margin-inline: 0;
+    //-new
+
+    &:not(:has(>a)) {
+        padding: var(--well-padding);
+        background: var(--well-background);
+        border-radius: var(--well-borderRadius);
     }
 
-    &:has(.fa-solid),
-    &:has(.fa-duotone) {
-        --boxtext-background: var(--color-primary-soft);
-
-        i {
-            --fa-primary-color: var(--color-primary-soft);
-            --fa-secondary-color: var(--color-primary);
-            --fa-secondary-opacity: 1;
-        }
+    >a {
+        --well-background: var(--color-white);
+        @include hover();
+        height: 100%;
+        padding: var(--well-padding);
+        padding-bottom: calc(var(--well-padding) * 2);
+        background: var(--well-background);
+        border-radius: var(--well-borderRadius);
+        outline: var(--border-complete);
     }
 
-    &:has(.fa-triangle-exclamation) {
-        --boxtext-background: var(--color-warning-background);
-
-        i {
-            --fa-primary-color: var(--color-black);
-            --fa-secondary-color: var(--color-warning);
-        }
+    >object,
+    >img,
+    >a>object,
+    >a>img {
+        @include cardAndWell-insideImg("well");
     }
 }

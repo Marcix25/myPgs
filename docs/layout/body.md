@@ -1,4 +1,4 @@
-<!-- Automatically generated from templates/html/layout/body.html. Edit templates/html/layout/body.html and run npm run docs:generate again. -->
+<!-- Automatically generated from reference/html/layout/body.html. Edit reference/html/layout/body.html and run npm run docs:generate again. -->
 
 # Body
 

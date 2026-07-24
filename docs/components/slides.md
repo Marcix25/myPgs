@@ -1,4 +1,4 @@
-<!-- Automatically generated from templates/html/components/slides.html. Edit templates/html/components/slides.html and run npm run docs:generate again. -->
+<!-- Automatically generated from reference/html/components/slides.html. Edit reference/html/components/slides.html and run npm run docs:generate again. -->
 
 # Slides
 
@@ -18,6 +18,7 @@ Slides markup, configuration, behavior, and usage example.
 - `shadowDesktop`: identifies the shadowDesktop element used by Slides.
 - `notScrollAnimation`: identifies the notScrollAnimation element used by Slides.
 - `notScrollWithMouse`: identifies the notScrollWithMouse element used by Slides.
+- `buttonIcon`: styles the previous and next actions generated at runtime.
 
 ## JavaScript API
 
@@ -39,8 +40,6 @@ Slides markup, configuration, behavior, and usage example.
 - `card-img`: uses the related card-img component or utility in this example.
 - `imgCover`: uses the related imgCover component or utility in this example.
 - `flexColumn`: uses the related flexColumn component or utility in this example.
-- `flexColumnTexts`: uses the related flexColumnTexts component or utility in this example.
-- `buttonIcon`: uses the related buttonIcon component or utility in this example.
 
 ## Output
 
@@ -54,7 +53,7 @@ Complete HTML markup and usage example for Slides.
         <li>
             <article pgs="card flexColumn">
                 <img pgs="card-img imgCover" src="https://placehold.co/800x500?text=Slide+1" alt="Slide 1">
-                <div pgs="flexColumnTexts">
+                <div pgs="flexColumn">
                     <h3>Slide uno</h3>
                     <p>First slide content.</p>
                 </div>
@@ -64,7 +63,7 @@ Complete HTML markup and usage example for Slides.
         <li>
             <article pgs="card flexColumn">
                 <img pgs="card-img imgCover" src="https://placehold.co/800x500?text=Slide+2" alt="Slide 2">
-                <div pgs="flexColumnTexts">
+                <div pgs="flexColumn">
                     <h3>Slide due</h3>
                     <p>Second slide content.</p>
                 </div>
@@ -74,7 +73,7 @@ Complete HTML markup and usage example for Slides.
         <li>
             <article pgs="card flexColumn">
                 <img pgs="card-img imgCover" src="https://placehold.co/800x500?text=Slide+3" alt="Slide 3">
-                <div pgs="flexColumnTexts">
+                <div pgs="flexColumn">
                     <h3>Slide tre</h3>
                     <p>Third slide content.</p>
                 </div>

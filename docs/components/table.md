@@ -1,4 +1,4 @@
-<!-- Automatically generated from templates/html/components/table.html. Edit templates/html/components/table.html and run npm run docs:generate again. -->
+<!-- Automatically generated from reference/html/components/table.html. Edit reference/html/components/table.html and run npm run docs:generate again. -->
 
 # Table
 

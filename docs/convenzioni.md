@@ -1,7 +1,7 @@
 # Conventions
 
 - Use `pgs` as the first choice for markup, layouts, components, and behaviors.
-- Keep tokens consistent across templates, SCSS, and JavaScript.
+- Keep tokens consistent across references, SCSS, and JavaScript.
 - Use `pgs-state` for runtime states.
 - Use `pgs-option` for declarative options.
 - Prefer custom properties and mixins to hardcoded CSS.

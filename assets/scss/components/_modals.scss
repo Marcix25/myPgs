@@ -21,7 +21,7 @@ dialog[pgs~="modal-dialog"] {
     --modal-background: var(--color-box);
     --modal-color: var(--color-black);
     --modal-padding: var(--padding);
-    --modal-borderRadius: var(--border-radius);
+    --modal-borderRadius: calc(var(--border-radius-input) + var(--modal-padding));
     border: none;
     min-width: 100%;
     min-height: 100svh;
@@ -138,7 +138,7 @@ dialog[pgs~="modal-dialog"] {
         height: 100svh;
         top: 0;
         overflow-y: auto;
-        padding-top: calc(var(--heightOfHeader) + var(--padding));
+        padding-top: calc(var(--heightOfHeader) + var(--gap-texts));
         z-index: 90;
         position: fixed;
         inset: 0;

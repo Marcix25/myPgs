@@ -1,5 +1,8 @@
 body{
     --color-background: light-dark(#f1ffef, #101010);
+    &.is-loading{
+        display: none;
+    }
 }
 
 .primary-menu {
@@ -15,7 +18,7 @@ pre {
     }
 }
 
-.template-title {
+.reference-title {
     color: var(--color-primary);
     display: flex;
     align-items: center;
@@ -50,20 +53,20 @@ pre {
     }
 }
 
-[pgs~=buttonBig]{
+[pgs~=button][pgs-option~=buttonBig]{
     max-width: 300px;
 }
 
-#templates-demo-before{
+#reference-demo-before{
     position: relative;
     z-index: 2;
 }
 
-#templates-demo-main{
+#reference-demo-main{
     position: relative;
     z-index: 1;
 }
 
-#templates-demo-after{
+#reference-demo-after{
     position: relative;
 }

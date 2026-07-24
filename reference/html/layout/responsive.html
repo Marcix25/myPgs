@@ -1,0 +1,83 @@
+<!--
+/**
+ * @title Responsive
+ * @description Responsive flex and grid layouts with configurable columns, spacing utilities, and wrapping controls.
+ *
+ * @pgs
+ * - flex: creates a responsive flex layout.
+ * - grid: creates a responsive grid layout.
+ * - flexColumn: stacks text inside each demonstration cell.
+ * - flexRow: arranges the gap demonstration items horizontally.
+ * - gapTexts: applies the text spacing token.
+ * - gapElements: applies the element spacing token.
+ * - gapSections: applies the section spacing token.
+ * - wrap: allows flex items to wrap.
+ * - nowrap: prevents flex items from wrapping.
+ * - box: makes the demonstration cells visible.
+ *
+ * @pgs-option
+ * - column-2: configures the flex example with two columns; column values from 1 through 8 are supported.
+ * - column-4: configures the grid example with four columns; column values from 1 through 8 are supported.
+ * - m2e: keeps two elements per row at the mobile breakpoint, returning to one column on watch-sized containers.
+ *
+ * @return Flex, grid, and gap examples in that order, using the current responsive layout API.
+ */
+-->
+
+<div pgs="flexColumn gapSections">
+    <section>
+        <strong>Flex</strong>
+        <div pgs="flexRow" pgs-option="column-2 m2e">
+            <article pgs="box flexColumn">
+                <strong>Column one</strong>
+                <p>First flex column.</p>
+            </article>
+            <article pgs="box flexColumn">
+                <strong>Column two</strong>
+                <p>Second flex column.</p>
+            </article>
+            <article pgs="box flexColumn">
+                <strong>Column three</strong>
+                <p>Third flex column.</p>
+            </article>
+        </div>
+    </section>
+
+    <section>
+        <strong>Grid</strong>
+        <div pgs="grid" pgs-option="column-4 m2e">
+            <article pgs="box flexColumn">
+                <strong>Column one</strong>
+                <p>First grid column.</p>
+            </article>
+            <article pgs="box flexColumn">
+                <strong>Column two</strong>
+                <p>Second grid column.</p>
+            </article>
+            <article pgs="box flexColumn">
+                <strong>Column three</strong>
+                <p>Third grid column.</p>
+            </article>
+            <article pgs="box flexColumn">
+                <strong>Column four</strong>
+                <p>Third grid column.</p>
+            </article>
+        </div>
+    </section>
+
+    <section pgs="flexRow">
+        <strong>Gap</strong>
+        <div pgs="flexRow gapTexts wrap">
+            <span pgs="box">Text gap</span>
+            <span pgs="box">Text gap</span>
+        </div>
+        <div pgs="flexRow gapElements wrap">
+            <span pgs="box">Element gap</span>
+            <span pgs="box">Element gap</span>
+        </div>
+        <div pgs="flexRow gapSections nowrap">
+            <span pgs="box">Section gap</span>
+            <span pgs="box">Section gap</span>
+        </div>
+    </section>
+</div>

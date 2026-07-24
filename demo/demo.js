@@ -1,10 +1,10 @@
 //# DEMO PAGE
 
-//= demo Renderer HTML
+//= Reference Renderer HTML
 const demoRenderer = {
-    templateFiles: [
-        "components/form.html",
+    referenceFiles: [
         "components/formAddon.html",
+        "components/form.html",
         "components/search.html",
         "components/summary.html",
         "components/menu.html",
@@ -12,6 +12,7 @@ const demoRenderer = {
         "components/modal.html",
         "components/stepTabs.html",
         "components/accordion.html",
+        "components/alerts.html",
         "components/badges.html",
         "components/breadcumbs.html",
         "components/button.html",
@@ -25,23 +26,22 @@ const demoRenderer = {
         "components/notification.html",
         "patterns/cookieConsent.html",
         "layout/body.html",
-        "layout/flex.html",
-        "layout/grid.html",
+        "layout/responsive.html",
         "layout/footer.html",
         "layout/header.html",
         "layout/section.html",
         "layout/pageShell.html",
     ],
 
-    getTemplateTitle(path) {
+    getReferenceTitle(path) {
         return path.replace(".html", "").replace("/", " / ");
     },
 
-    stripTemplateDocumentation(html) {
+    stripReferenceDocumentation(html) {
         return html.replace(/^\uFEFF?<!--[\t\r\n ]*\/\*\*[\s\S]*?\*\/[\t\r\n ]*-->[\t\r\n ]*/, "");
     },
 
-    renderSourceTemplate(section, html) {
+    renderSourceReference(section, html) {
         const pre = document.createElement("pre");
         const code = document.createElement("code");
         code.textContent = html.trim();
@@ -49,9 +49,9 @@ const demoRenderer = {
         section.append(pre);
     },
 
-    renderTemplate(section, path, html) {
+    renderReference(section, path, html) {
         const content = document.createElement("div");
-        content.setAttribute("pgs", "container flexColumnElements");
+        content.setAttribute("pgs", "container flexColumn gapElements");
         content.innerHTML = html;
         section.append(content);
     },
@@ -64,15 +64,15 @@ const demoRenderer = {
 
     renderTitle(section, path) {
         const title = document.createElement("p");
-        title.classList.add("template-title");
-        title.innerHTML = "<strong>" + this.getTemplateTitle(path) + "</strong>";
+        title.classList.add("reference-title");
+        title.innerHTML = "<strong>" + this.getReferenceTitle(path) + "</strong>";
         section.append(title);
     },
 
-    async loadTemplate(path) {
-        const response = await fetch(`../templates/html/${path}`);
+    async loadReference(path) {
+        const response = await fetch(`../reference/html/${path}`);
         if (!response.ok) throw new Error(`${path}: ${response.status}`);
-        return this.stripTemplateDocumentation(await response.text());
+        return this.stripReferenceDocumentation(await response.text());
     },
 
     loadPgsJavascript() {
@@ -86,22 +86,22 @@ const demoRenderer = {
     },
 
     async boot() {
-        const BEEFORE = document.getElementById("templates-demo-before");
-        const MAIN = document.getElementById("templates-demo-main");
-        const AFTER = document.getElementById("templates-demo-after");
+        const BEEFORE = document.getElementById("reference-demo-before");
+        const MAIN = document.getElementById("reference-demo-main");
+        const AFTER = document.getElementById("reference-demo-after");
 
-        for (const path of this.templateFiles) {
+        for (const path of this.referenceFiles) {
             const isHeader = path === "layout/header.html";
             const isfooter = path === "layout/footer.html";
             const isBody = path === "layout/body.html";
 
             if (isHeader || isfooter) {
                 try {
-                    const html = await this.loadTemplate(path);
+                    const html = await this.loadReference(path);
                     this.renderLayout(isHeader ? BEEFORE : AFTER, path, html);
                 } catch (error) {
                     const message = document.createElement("p");
-                    message.textContent = `Template non caricato: ${error.message}`;
+                    message.textContent = `Riferimento non caricato: ${error.message}`;
                     (isHeader ? BEEFORE : AFTER).append(message);
                 }
                 continue;
@@ -111,24 +111,24 @@ const demoRenderer = {
             const isSection = path !== "layout/section.html" && path !== "layout/pageShell.html"
             isSection ? section = document.createElement("section") : section = document.createElement("div");
 
-            if (isSection) section.setAttribute("pgs", "section flexColumnElements");
+            if (isSection) section.setAttribute("pgs", "section flexColumn gapElements");
 
-            section.dataset.template = path;
+            section.dataset.reference = path;
             this.renderTitle(section, path);
 
             if (isBody) {
-                const html = await this.loadTemplate(path);
-                this.renderSourceTemplate(section, html);
+                const html = await this.loadReference(path);
+                this.renderSourceReference(section, html);
                 MAIN.append(section);
                 continue;
             }
 
             try {
-                const html = await this.loadTemplate(path);
-                this.renderTemplate(section, path, html);
+                const html = await this.loadReference(path);
+                this.renderReference(section, path, html);
             } catch (error) {
                 const message = document.createElement("p");
-                message.textContent = `Template non caricato: ${error.message}`;
+                message.textContent = `Riferimento non caricato: ${error.message}`;
                 section.append(message);
             }
 
@@ -140,10 +140,12 @@ const demoRenderer = {
         }
 
         try {
-            //+ ADD FUNCTION
+            //# CORE
             await this.loadPgsJavascript();
             configureSearchDemo();
             configureFormDemo();
+            document.body.classList.remove('is-loading');
+            //# end CORE
         } catch (error) {
             console.error("Demo PGS non inizializzata.", error);
         }
@@ -153,10 +155,10 @@ const demoRenderer = {
 //= Search Demo
 function configureSearchDemo() {
     const pgsApi = globalThis.pgs;
-    const section = document.querySelector('[data-template="components/search.html"]');
+    const section = document.querySelector('[data-reference="components/search.html"]');
     if (!pgsApi?.search || !section) return;
 
-    pgsApi(section).querySelectorAll("search").forEach(search => {
+    pgsApi(document).querySelectorAll("search").forEach(search => {
         pgsApi.search.api(search)?.configure({
             minLength: 2,
             debounce: 250,
@@ -205,7 +207,7 @@ function configureSearchDemo() {
 //= Form Demo
 function configureFormDemo() {
     const pgsApi = globalThis.pgs;
-    const section = document.querySelector('[data-template="components/form.html"]');
+    const section = document.querySelector('[data-reference="components/form.html"]');
     const form = section?.querySelector('[pgs~="form"]');
     if (!form) return;
 

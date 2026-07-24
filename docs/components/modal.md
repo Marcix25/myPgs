@@ -1,4 +1,4 @@
-<!-- Automatically generated from templates/html/components/modal.html. Edit templates/html/components/modal.html and run npm run docs:generate again. -->
+<!-- Automatically generated from reference/html/components/modal.html. Edit reference/html/components/modal.html and run npm run docs:generate again. -->
 
 # Modal
 
@@ -24,6 +24,8 @@ Modal markup, configuration, behavior, and usage example.
 - `topLevel`: identifies the topLevel element used by Modal.
 - `left`: identifies the left element used by Modal.
 - `right`: identifies the right element used by Modal.
+- `buttonStrong`: applies stronger emphasis to the save action.
+- `buttonClose`: styles the close action generated at runtime.
 
 ## JavaScript API
 
@@ -38,9 +40,8 @@ Modal markup, configuration, behavior, and usage example.
 ## Related elements
 
 - `button`: uses the related button component or utility in this example.
-- `buttonStrong`: uses the related buttonStrong component or utility in this example.
-- `buttonClose`: uses the related buttonClose component or utility in this example.
-- `flexColumnElements`: uses the related flexColumnElements component or utility in this example.
+- `flexColumn`: vertically organizes modal content.
+- `gapElements`: applies element spacing to modal content.
 - `flexRow`: uses the related flexRow component or utility in this example.
 
 ## Output
@@ -115,12 +116,12 @@ Complete HTML markup and usage example for Modal.
                 <h3>Save changes?</h3>
             </div>
 
-            <div pgs="modal-dialog-content-scroll flexColumnElements">
+            <div pgs="modal-dialog-content-scroll flexColumn gapElements">
                 <p>You have unsaved changes. Confirm to apply them or cancel to return to the page.</p>
 
                 <div pgs="flexRow">
                     <button pgs="button modal-close" type="button">Cancel</button>
-                    <button pgs="buttonStrong" type="button">Save changes</button>
+                    <button pgs="button" pgs-option="buttonStrong" type="button">Save changes</button>
                 </div>
             </div>
         </div>

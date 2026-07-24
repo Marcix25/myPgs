@@ -1,36 +1,12 @@
 @use "../mixin/mixin" as *;
 
 //# GENERAL
-[pgs~=boxtext] {
-    @include boxtext();
-}
-
 [pgs~=darkmode] {
     color-scheme: dark;
 }
 
 [pgs~=lightmode] {
     color-scheme: light;
-}
-
-[pgs~=imgCover] {
-    object-fit: cover;
-}
-
-[pgs~=imgContain] {
-    object-fit: contain;
-}
-
-[pgs~=borderRadius] {
-    border-radius: var(--border-radius);
-}
-
-[pgs~=borderRadiusInput] {
-    border-radius: var(--border-radius-input);
-}
-
-[pgs~=borderRadiusExternal] {
-    border-radius: var(--border-radius-external);
 }
 
 [pgs~=blur] {
@@ -48,4 +24,37 @@
 
 [pgs~=hidden] {
     display: none !important;
+}
+
+//= IMG
+[pgs~=imgCover] {
+    object-fit: cover;
+}
+
+[pgs~=imgContain] {
+    object-fit: contain;
+}
+
+//= BORDER RADIUS
+[pgs~=borderRadius] {
+    border-radius: var(--border-radius);
+}
+
+[pgs~=borderRadiusInput] {
+    border-radius: var(--border-radius-input);
+}
+
+[pgs~=borderRadiusExternal] {
+    border-radius: var(--border-radius-external);
+}
+
+//= HOVER
+[pgs~=hover] {
+    @include hover();
+
+    &:not(:disabled):hover {
+        [pgs~=hover-text] {
+            color: var(--hover-color);
+        }
+    }
 }

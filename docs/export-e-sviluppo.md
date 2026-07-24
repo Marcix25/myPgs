@@ -57,7 +57,7 @@ npm pack
 Recommended workflow when modifying the library:
 
 1. modifica i sorgenti in `assets/`;
-2. aggiorna template o documentazione se cambia il modo d'uso;
+2. aggiorna i riferimenti o la documentazione se cambia il modo d'uso;
 3. ricompila con `npm run start`;
 4. verifica `dist/`;
 5. crea il pacchetto con `npm pack`;

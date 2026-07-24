@@ -363,7 +363,7 @@
 
     //=== LABEL
     label {
-        &:not(:has([pgs~="label-unset"], +input[type=checkbox], +input[type=radio])) {
+        &:not(:has([pgs~="labelUnset"], +input[type=checkbox], +input[type=radio])) {
             &:has(+input, +select, +textarea) {
                 @include label();
             }
@@ -376,7 +376,7 @@
 
     //=== INPUT
     input {
-        &:not([pgs~="input-unset"], [type=checkbox], [type=file], [type=radio], [type=range]) {
+        &:not([pgs~=inputUnset], [type=checkbox], [type=file], [type=radio], [type=range]) {
             @include input();
         }
 
@@ -420,8 +420,10 @@
     }
 
     //==== CHECKBOX
-    label:has(input[type=checkbox]):not([pgs~="toggle"]),
-    label:has(input[type=radio]):not([pgs~="toggle"]) {
+    $not-checkbox: '[pgs~=toggle], [pgs~=twoState], [pgs~=chip], [pgs~=chips] label';
+
+    label:has(input[type=checkbox]):not(#{$not-checkbox}),
+    label:has(input[type=radio]):not(#{$not-checkbox}) {
         @include checkbox();
     }
 
@@ -447,7 +449,10 @@
 
     //===BUTTON 
     button[type="submit"] {
-        @include button(true, false, true)
+        @include buttonBase();
+        @include buttonContent();
+        @include buttonStrong();
+        @include buttonHover();
     }
 
     //===FIELDSET 

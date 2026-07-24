@@ -61,7 +61,7 @@
 }
 
 //= HEADING
-@mixin heading($size, $marginTop: true) {
+@mixin heading($size) {
     font-family: var(--font-titoli);
     --heading-size: #{$size};
     color: var(--color-black);
@@ -70,12 +70,8 @@
     min-width: 0;
     font-weight: 900;
     overflow-wrap: anywhere;
-    
-    @if($marginTop){
-        margin-top: calc(var(--heading-size)/4);
-    }
-
     // text-box: trim-both cap alphabetic;
+
     @media (max-width: $tablet) {
         font-size: clamp(1.6rem, var(--heading-size) / 3 + 8vw, var(--heading-size));
     }
@@ -98,11 +94,11 @@
 
 
 @mixin h1(){
-    @include heading($h1, false);
+    @include heading($h1);
 }
 
 @mixin h2(){
-    @include heading($h2, false);
+    @include heading($h2);
 }
 
 @mixin h3(){

@@ -2,13 +2,13 @@
 
 `mypgs` is a shared frontend library for building consistent interfaces through `pgs` attributes, SCSS sources, UI components, and reusable JavaScript behaviors.
 
-The library provides a design-system foundation: layouts, spacing, colors, buttons, forms, menus, modals, dropdowns, suggestion search, slides, notifications, and recurring patterns are defined once and reused across projects.
+The library provides a design-system foundation: layouts, spacing, colors, buttons, forms, alerts, menus, modals, dropdowns, suggestion search, slides, notifications, and recurring patterns are defined once and reused across projects.
 
 ## What it includes
 
 - `assets/scss/`: SCSS sources divided into base, layouts, components, patterns, and mixins.
 - `assets/javascript/`: the `pgs` helper, JavaScript components, functions, and patterns.
-- `templates/`: ready-to-use HTML examples for components and layouts.
+- `reference/`: canonical HTML and React references for components, layouts, and patterns.
 - `dist/css/`: compiled CSS.
 - `dist/javascript/`: compiled JavaScript bundle.
 - `dist/index.d.ts`: TypeScript declarations exported by the package.

@@ -1,4 +1,4 @@
-<!-- Automatically generated from templates/html/components/search.html. Edit templates/html/components/search.html and run npm run docs:generate again. -->
+<!-- Automatically generated from reference/html/components/search.html. Edit reference/html/components/search.html and run npm run docs:generate again. -->
 
 # Search
 
@@ -15,6 +15,8 @@ Search markup, configuration, behavior, and usage example.
 ## PGS Options
 
 - `containerPGS`: identifies the containerPGS element used by Search.
+- `buttonNohover`: disables hover behavior on the search container.
+- `buttonIcon`: presents search and close actions as icon buttons.
 
 ## PGS States
 
@@ -44,11 +46,10 @@ Search markup, configuration, behavior, and usage example.
 
 ## Related elements
 
-- `buttonNohover`: uses the related buttonNohover component or utility in this example.
+- `button`: provides the base styling for search controls.
 - `modal`: uses the related modal component or utility in this example.
 - `modal-button`: uses the related modal-button component or utility in this example.
 - `modal-close`: uses the related modal-close component or utility in this example.
-- `buttonIcon`: uses the related buttonIcon component or utility in this example.
 - `flexRow`: uses the related flexRow component or utility in this example.
 - `section`: uses the related section component or utility in this example.
 
@@ -59,7 +60,7 @@ Complete HTML markup and usage example for Search.
 ## Example
 
 ```html
-<form pgs="buttonNohover search" autocomplete="off" action="" method="get">
+<form pgs="button search" pgs-option="buttonNohover" autocomplete="off" action="" method="get">
     <button type="submit" title="Search"><i class="fa-solid fa-search"></i></button>
     <input type="search" name="s" placeholder="Search" value="">
     <ul pgs="search-suggestions"></ul>
@@ -67,14 +68,14 @@ Complete HTML markup and usage example for Search.
 
 <div pgs="modal search-modal" pgs-option="containerPGS[header]">
 
-    <button type="button" pgs="modal-button buttonIcon" title="Search">
+    <button type="button" pgs="modal-button button" pgs-option="buttonIcon" title="Search">
         <i class="fa-solid fa-search"></i>
     </button>
 
     <dialog>
         <div pgs="flexRow section search-mobile">
 
-            <form pgs="buttonNohover search" autocomplete="off" action="/" method="get">
+            <form pgs="button search" pgs-option="buttonNohover" autocomplete="off" action="/" method="get">
                 <button type="submit" title="Search">
                     <i class="fa-solid fa-search"></i>
                 </button>
@@ -82,7 +83,7 @@ Complete HTML markup and usage example for Search.
                 <input type="search" name="s" placeholder="Search" value="">
                 <ul pgs="search-suggestions"></ul>
 
-                <button type="button" pgs="modal-close buttonIcon">
+                <button type="button" pgs="modal-close button" pgs-option="buttonIcon">
                     <i class="fa-solid fa-close"></i>
                 </button>
             </form>

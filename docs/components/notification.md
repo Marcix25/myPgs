@@ -1,4 +1,4 @@
-<!-- Automatically generated from templates/html/components/notification.html. Edit templates/html/components/notification.html and run npm run docs:generate again. -->
+<!-- Automatically generated from reference/html/components/notification.html. Edit reference/html/components/notification.html and run npm run docs:generate again. -->
 
 # Notification
 
@@ -16,6 +16,7 @@ Notification markup, configuration, behavior, and usage example.
 
 - `toast`: identifies the toast element used by Notification.
 - `notification`: identifies the notification element used by Notification.
+- `buttonClose`: styles the dismiss action generated at runtime.
 
 ## PGS States
 
@@ -41,7 +42,6 @@ Notification markup, configuration, behavior, and usage example.
 ## Related elements
 
 - `hidden`: uses the related hidden component or utility in this example.
-- `buttonClose`: uses the related buttonClose component or utility in this example.
 
 ## Output
 
