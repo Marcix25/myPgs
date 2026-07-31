@@ -3,6 +3,9 @@
 //= Reference Renderer HTML
 const demoRenderer = {
     referenceFiles: [
+        "components/card.html",
+        "components/slides.html",
+        "components/button.html",
         "components/formAddon.html",
         "components/form.html",
         "components/search.html",
@@ -15,18 +18,16 @@ const demoRenderer = {
         "components/alerts.html",
         "components/badges.html",
         "components/breadcumbs.html",
-        "components/button.html",
-        "components/card.html",
         "components/dropdown.html",
         "components/tooltip.html",
         "components/logo.html",
-        "components/slides.html",
         "components/steps.html",
         "components/table.html",
         "components/notification.html",
         "patterns/cookieConsent.html",
         "layout/body.html",
         "layout/responsive.html",
+        "layout/spacing.html",
         "layout/footer.html",
         "layout/header.html",
         "layout/section.html",
@@ -211,10 +212,6 @@ function configureFormDemo() {
     const form = section?.querySelector('[pgs~="form"]');
     if (!form) return;
 
-    const password = form.querySelector('input[name="password"]');
-    const confirmPassword = form.querySelector('input[name="confirmPassword"]');
-    if (!password || !confirmPassword) return;
-
     const formValidate = new pgsApi.formValidate(form, {
         message: {
             fieldError: "Please complete this field",
@@ -225,6 +222,9 @@ function configureFormDemo() {
 
     //== new roules
     formValidate.addNewRule(() => {
+        const password = form.querySelector('input[name="password"]');
+        const confirmPassword = form.querySelector('input[name="confirmPassword"]');
+        if (!password || !confirmPassword) return;
         if (password.value && confirmPassword.value && password.value !== confirmPassword.value) {
             pgsApi(confirmPassword).option.setValueBrackets("message", "Le password non coincidono");
             return [confirmPassword, password];

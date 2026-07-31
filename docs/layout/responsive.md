@@ -2,17 +2,13 @@
 
 # Responsive
 
-Responsive flex and grid layouts with configurable columns, spacing utilities, and wrapping controls.
+Responsive flex and grid layouts with configurable columns and wrapping controls.
 
 ## PGS
 
-- `flex`: creates a responsive flex layout.
 - `grid`: creates a responsive grid layout.
 - `flexColumn`: stacks text inside each demonstration cell.
-- `flexRow`: arranges the gap demonstration items horizontally.
-- `gapTexts`: applies the text spacing token.
-- `gapElements`: applies the element spacing token.
-- `gapSections`: applies the section spacing token.
+- `flexRow`: creates a responsive flex layout.
 - `wrap`: allows flex items to wrap.
 - `nowrap`: prevents flex items from wrapping.
 - `box`: makes the demonstration cells visible.
@@ -23,9 +19,14 @@ Responsive flex and grid layouts with configurable columns, spacing utilities, a
 - `column-4`: configures the grid example with four columns; column values from 1 through 8 are supported.
 - `m2e`: keeps two elements per row at the mobile breakpoint, returning to one column on watch-sized containers.
 
+## Related elements
+
+- `gapTexts`: separates nearby items in the examples.
+- `gapSections`: separates the main example sections.
+
 ## Output
 
-Flex, grid, and gap examples in that order, using the current responsive layout API.
+Flex, grid, and wrapping examples using the current responsive layout API.
 
 ## Example
 
@@ -71,19 +72,16 @@ Flex, grid, and gap examples in that order, using the current responsive layout 
         </div>
     </section>
 
-    <section pgs="flexRow">
-        <strong>Gap</strong>
+    <section pgs="flexColumn gapTexts">
+        <strong>Wrap</strong>
         <div pgs="flexRow gapTexts wrap">
-            <span pgs="box">Text gap</span>
-            <span pgs="box">Text gap</span>
+            <span pgs="box">Wrapping item</span>
+            <span pgs="box">Wrapping item</span>
+            <span pgs="box">Wrapping item</span>
         </div>
-        <div pgs="flexRow gapElements wrap">
-            <span pgs="box">Element gap</span>
-            <span pgs="box">Element gap</span>
-        </div>
-        <div pgs="flexRow gapSections nowrap">
-            <span pgs="box">Section gap</span>
-            <span pgs="box">Section gap</span>
+        <div pgs="flexRow gapTexts nowrap">
+            <span pgs="box">Non-wrapping item</span>
+            <span pgs="box">Non-wrapping item</span>
         </div>
     </section>
 </div>

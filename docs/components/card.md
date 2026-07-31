@@ -1,53 +1,90 @@
 <!-- Automatically generated from reference/html/components/card.html. Edit reference/html/components/card.html and run npm run docs:generate again. -->
 
-# Card
+# Card and Box
 
-Reusable container for grouping an image, title, text, and actions in responsive previews or collections.
+Reusable surfaces for presenting structured card content or grouping simpler content inside a box.
 
 ## PGS
 
 - `card`: identifies the main card container.
 - `card-img`: identifies the main card image.
+- `card-content`: groups the text and actions of a card.
+- `box`: identifies a lightweight content container or clickable surface.
 
 ## PGS Options
 
-- `column-2`: configures the related flex layout with two columns.
+- `cardHorizontal`: switches intrinsically between a horizontal 40/60 layout and a stacked layout according to the card's available width.
+- `cardMini`: reduces the card content padding.
+- `boxMini`: reduces the box padding.
+- `column-2`: displays two examples per row when enough space is available.
 
 ## Related elements
 
-- `flexRow`: arranges the cards in a responsive layout.
-- `flexColumn`: organizes the card or link content vertically.
-- `imgCover`: scales the image to fill the available area.
-- `button`: presents the final link as a standard button.
+- `flexRow`: arranges the examples in responsive rows.
+- `button`: presents the card action as a standard button.
+- `marginTop`: separates the card action from the preceding text.
 
 ## Output
 
-Two card HTML structures, one with a separate action and one that is fully clickable.
+Standard, clickable, horizontal, and compact cards followed by standard, compact, and clickable boxes.
 
 ## Example
 
 ```html
 <div pgs="flexRow" pgs-option="column-2">
+    <article pgs="card">
+        <img pgs="card-img" src="https://placehold.co/800x500" alt="Placeholder image">
 
-    <article pgs="card flexColumn">
-        <img pgs="card-img imgCover" src="https://placehold.co/800x500" alt="Placeholder image">
-        
-        <div pgs="flexColumn">
-            <h3>Reusable card</h3>
+        <div pgs="card-content">
+            <h3>Standard card</h3>
             <p>Descriptive card content suitable for lists, previews, and grids.</p>
-            <a pgs="button" href="#">Read more</a>
+            <a pgs="button marginTop" href="#">Read more</a>
         </div>
     </article>
-    
+
     <article pgs="card">
-        <a pgs="flexColumn" href="">
-            <img pgs="card-img imgCover" src="https://placehold.co/800x500" alt="Placeholder image">
-            
-            <div pgs="flexColumn">
-                <h3>Reusable card</h3>
-                <p>Descriptive card content suitable for lists, previews, and grids.</p>
+        <a href="#">
+            <img pgs="card-img" src="https://placehold.co/800x500" alt="Placeholder image">
+
+            <div pgs="card-content">
+                <h3>Clickable card</h3>
+                <p>The complete card surface behaves as a link.</p>
             </div>
         </a>
     </article>
+
+    <article pgs="card" pgs-option="cardHorizontal">
+        <img pgs="card-img" src="https://placehold.co/800x500" alt="Placeholder image">
+
+        <div pgs="card-content">
+            <h3>Horizontal card</h3>
+            <p>This card switches intrinsically between horizontal and stacked layouts.</p>
+        </div>
+    </article>
+
+    <article pgs="card" pgs-option="cardMini">
+        <div pgs="card-content">
+            <h3>Compact card</h3>
+            <p>The compact option reduces the content padding.</p>
+        </div>
+    </article>
+</div>
+
+
+<div pgs="flexRow" pgs-option="column-2">
+    <div pgs="box">
+        <h3>Standard box</h3>
+        <p>Lightweight content grouped inside a neutral surface.</p>
+    </div>
+
+    <div pgs="box" pgs-option="boxMini">
+        <h3>Compact box</h3>
+        <p>The compact option reduces the internal spacing.</p>
+    </div>
+
+    <a pgs="box" href="#">
+        <h3>Clickable box</h3>
+        <p>The complete box surface behaves as a link.</p>
+    </a>
 </div>
 ```

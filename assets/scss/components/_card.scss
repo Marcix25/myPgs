@@ -1,15 +1,8 @@
 @use "../mixin/mixin" as *;
 
-[pgs~=card]{
+[pgs~=card] {
     @include card();
-
-    [pgs~=card-img] {
-        @include cardAndWell-insideImg("card");
-    }
 }
-[pgs~=well] {
-    @include well();
-    [pgs~=card-img] {
-        @include cardAndWell-insideImg("box");
-    }
+[pgs~=box] {
+    @include box();
 }

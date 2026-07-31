@@ -35,6 +35,7 @@ Layout:
 - [`footer`](layout/footer.md)
 - [`pageShell`](layout/pageShell.md)
 - [`responsive`](layout/responsive.md)
+- [`spacing`](layout/spacing.md)
 
 Pattern:
 

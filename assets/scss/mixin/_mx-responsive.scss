@@ -62,8 +62,8 @@
         }
     }
 
-    //-( mobile: 1 o 2 colonne
-    @container (max-width: #{$mobile}) {
+    //-( big-mobile: 1 o 2 colonne
+    @container (max-width: #{$big-mobile}) {
         >* {
             flex-basis:#{_basis(0.15, $gap, $columns)};
         }
@@ -125,14 +125,14 @@
         }
     }
 
-    //-( mobile 
-    @container (max-width: #{$mobile}) {
+    //-( big mobile
+    @container (max-width: #{$big-mobile}) {
         grid-template-columns: 1fr; // 1 colonna
     }
 
-    //-( mobile m2e
+    //-( big mobile m2e
     &[pgs-option~=m2e] {
-        @container (max-width: #{$mobile}) {
+        @container (max-width: #{$big-mobile}) {
             grid-template-columns: 1fr 1fr; // 2 colonne su mobile
         }
     }

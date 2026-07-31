@@ -31,12 +31,12 @@ const alerts = [
 
 export default function Alerts() {
     return (
-        <div pgs="flexColumn gapElements">
+        <div pgs="alertContainer flexColumn gapElements">
             {alerts.map(({ state, role, icon, title, message }) => (
                 <div key={state} pgs="alert" pgs-state={state} role={role}>
                     <i pgs="alert-icon" className={`fa-solid ${icon}`} aria-hidden="true"></i>
                     <div pgs="alert-content">
-                        <strong pgs="alert-title">{title}</strong>
+                        <strong pgs="alert-content-title">{title}</strong>
                         <p>{message}</p>
                     </div>
                 </div>

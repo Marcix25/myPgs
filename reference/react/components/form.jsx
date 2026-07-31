@@ -1,6 +1,11 @@
 export default function Form() {
     return (
-        <form pgs="form formValidate" action="#" method="post">
+        <form
+            pgs="form"
+            pgs-option="fieldErrorTitle[Controlla il modulo] fieldError[Completa questo campo] fieldsError[Completa tutti i campi obbligatori] successTitle[Inviato] success[Modulo inviato correttamente]"
+            action="#"
+            method="post"
+        >
             <label pgs="label" htmlFor="form-name">
                 Nome
             </label>

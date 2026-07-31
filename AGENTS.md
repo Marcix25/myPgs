@@ -53,8 +53,8 @@ Files analyzed:
 - `assets/javascript/components/_stepTabs.js`
 - `assets/javascript/components/_notifications.js`
 - `assets/javascript/components/_search.js`
-- `assets/javascript/functions/_formValidate.js`
-- `assets/javascript/functions/_scrollY.js`
+- `assets/javascript/helper/_formValidate.js`
+- `assets/javascript/helper/_scrollY.js`
 - `assets/javascript/patterns/_header.js`
 - `assets/javascript/patterns/_cookieConsent.js`
 - `assets/scss/index.scss`
@@ -187,7 +187,7 @@ pgs(modal).option.getValueBrackets("containerID");
 Recommended direct access:
 
 ```js
-pgs.notification.toast.success("Saved");
+pgs.notification.toast.success({ title: "Saved" });
 pgs.modal.api(modalEl)?.open();
 pgs.search.api(searchEl)?.setSource(async ({ query, signal }) => []);
 ```
@@ -308,7 +308,7 @@ accordion.classList.add("open");
 Recommended: use the notification API registered on `pgs`.
 
 ```js
-pgs.notification.toast.success("Saved");
+pgs.notification.toast.success({ title: "Saved" });
 ```
 
 Avoid: creating a separate toast system outside `pgs.notification`.

@@ -46,7 +46,7 @@ Use `buttonIcon` instead of `buttonContent` for icon-only controls, and `buttonN
 }
 ```
 
-`buttonStrong`, `buttonMini`, `buttonBig`, and `buttonClose` contain only their variant declarations and must be added after the required base, content/icon, and interaction mixins. This explicit composition is also the preferred pattern for components such as menus, accordions, forms, and step tabs.
+`buttonStrong`, `buttonMini`, `buttonBig`, `buttonClose`, and `buttonTransparent` contain only their variant declarations and must be added after the required base, content/icon, and interaction mixins. This explicit composition is also the preferred pattern for components such as menus, accordions, forms, and step tabs.
 
 ## The `pgs` system
 

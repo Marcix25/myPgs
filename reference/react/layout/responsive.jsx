@@ -41,19 +41,16 @@ export default function Responsive() {
                 </div>
             </section>
 
-            <section pgs="flexRow">
-                <strong>Gap</strong>
+            <section pgs="flexColumn gapTexts">
+                <strong>Wrap</strong>
                 <div pgs="flexRow gapTexts wrap">
-                    <span pgs="box">Text gap</span>
-                    <span pgs="box">Text gap</span>
+                    <span pgs="box">Wrapping item</span>
+                    <span pgs="box">Wrapping item</span>
+                    <span pgs="box">Wrapping item</span>
                 </div>
-                <div pgs="flexRow gapElements wrap">
-                    <span pgs="box">Element gap</span>
-                    <span pgs="box">Element gap</span>
-                </div>
-                <div pgs="flexRow gapSections nowrap">
-                    <span pgs="box">Section gap</span>
-                    <span pgs="box">Section gap</span>
+                <div pgs="flexRow gapTexts nowrap">
+                    <span pgs="box">Non-wrapping item</span>
+                    <span pgs="box">Non-wrapping item</span>
                 </div>
             </section>
         </div>

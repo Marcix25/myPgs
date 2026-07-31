@@ -19,7 +19,7 @@
     --text-shadow: 0px 0px 50px #00000060;
     --backdrop: #0000003e;
     --blur: blur(20px);
-    --page-top: calc(var(--heightOfHeader) + var(--heightOfHeader));
+    --page-top: calc(var(--heightOfHeader) + 10lvh);
     --page-topScroll: calc(var(--heightOfHeaderScroll) + var(--heightOfHeader));
     --page-width: 1280px;
     --page-space: clamp(var(--padding-page), calc((100% - var(--section-width)) / 2 + var(--padding-page)), 100%);

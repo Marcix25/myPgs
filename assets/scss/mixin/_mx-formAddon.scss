@@ -4,31 +4,27 @@
 
 //= checkboxBackground 
 @mixin checkboxBackground() {
+    --checkboxBackground-color: var(--color-text);
+    --checkboxBackground-padding: var(--padding-2);
+    --checkboxBackground-borderRadius: var(--border-radius-input);
+    --checkboxBackground-background: var(--color-box-transparent);
+    --checkboxBackground-background-checked: var(--color-primary-soft);
+    @include checkbox();
     position: relative;
     isolation: isolate;
-    @include checkbox();
-    color: var(--color-text);
-    padding: var(--padding-2);
-    border-radius: var(--border-radius-input);
-    align-items: center;
-    gap: var(--gap-texts);
-    background-color: var(--color-box-transparent);
+    color: var(--checkboxBackground-color);
+    padding: var(--checkboxBackground-padding);
+    border-radius: var(--checkboxBackground-borderRadius);
+    background-color: var(--checkboxBackground-background);
+    margin-bottom: 0;
 
-    label {
-        margin-bottom: 0 !important;
+    input {
+        margin-right: var(--checkboxBackground-padding);
     }
 
     //== checked
     &:has(input:checked) {
-        background-color: var(--color-primary-soft);
-
-        // color: var(--color-black);
-        i {
-            // --fa-primary-color: var(--color-black);
-            // --fa-secondary-color: var(--color-black);
-            // color: var(--color-black);
-            opacity: 1;
-        }
+        background-color: var(--checkboxBackground-background-checked);
     }
 }
 

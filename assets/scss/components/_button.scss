@@ -4,11 +4,11 @@
 [pgs~=button] {
     @include buttonBase();
 
-    &:not([pgs-option~=buttonIcon], [pgs-option~=buttonMini], [pgs-option~=buttonClose]) {
+    &:where(:not([pgs-option~=buttonIcon], [pgs-option~=buttonMini], [pgs-option~=buttonClose])) {
         @include buttonContent();
     }
 
-    &:is([pgs-option~=buttonIcon], [pgs-option~=buttonMini], [pgs-option~=buttonClose]) {
+    &:where(:is([pgs-option~=buttonIcon], [pgs-option~=buttonMini], [pgs-option~=buttonClose])) {
         @include buttonIcon();
     }
 
@@ -34,5 +34,9 @@
 
     &[pgs-option~=buttonClose] {
         @include buttonClose();
+    }
+
+    &[pgs-option~=buttonTransparent] {
+        @include buttonTransparent();
     }
 }

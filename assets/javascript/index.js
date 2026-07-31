@@ -9,6 +9,7 @@ import "./base/_object.js";
 
 //= CN 
 import "./components/_accordion.js";
+import "./components/_alerts.js";
 import "./components/_dropdown.js";
 import "./components/_menu.js"
 import "./components/_modals.js";

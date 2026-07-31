@@ -15,6 +15,7 @@
 
     //option for suggestions
     &[pgs-option~=singleScroll],
+    &[pgs-option~=shadowDesktop],
     &[pgs-option~=notScrollAnimation] {}
 
     //+( tablet 
@@ -44,12 +45,6 @@
                 background: linear-gradient(90deg, transparent, var(--slide-shadow-color));
             }
 
-            // &:has([pgs~="slides-container"] .view) {
-            //     &::before,
-            //     &::after {
-            //         opacity: 1;
-            //     }
-            // }
             &:has([pgs~="slides-container"] li:first-child.view) {
                 &::before {
                     opacity: 0;
@@ -83,26 +78,22 @@
             display: none;
         }
 
-        //== li
-        >* {
+        //== slide
+        [pgs~="slides-container-slide"] {
             scroll-snap-align: center;
             scroll-snap-stop: always;
             position: relative;
-            opacity: 1;
             margin-inline: auto;
             min-width: var(--slide-width);
             max-width: 100%;
             height: auto;
-            border-radius: var(--border-radius-input);
 
             >* {
                 scale: var(--visible-percent);
             }
-        }
 
-        //-( tablet 
-        @container (max-width: #{$tablet}) {
-            >* {
+            //-( tablet
+            @container (max-width: #{$tablet}) {
                 min-width: var(--slide-width-tablet);
             }
         }
@@ -118,29 +109,25 @@
 
         &:is([pgs~="slides-prec"]) {
             left: 0;
-            margin-left: 0.5rem;
         }
 
         &:is([pgs~="slides-next"]) {
             right: 0;
-            margin-right: 0.5rem;
         }
 
-        //- tablet 
-        @media (max-width: $tablet) {
+        //-( tablet
+        @container (max-width: $tablet) {
             &:is([pgs~="slides-prec"]) {
-                left: 10px;
-                margin: 0;
+                left: calc(var(--padding-page) * -1 + 4px );
             }
 
             &:is([pgs~="slides-next"]) {
-                right: 10px;
-                margin: 0;
+                right: calc(var(--padding-page) * -1 + 4px );
             }
         }
 
-        //- mobile 
-        @media (max-width: $mobile) {
+        //-( mobile
+        @container (max-width: $mobile) {
             display: none;
         }
     }

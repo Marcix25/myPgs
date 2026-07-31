@@ -1,7 +1,6 @@
 [pgs~="htmlBase"] {
     scroll-behavior: smooth;
     font-size: 62.5%;
-
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -20,7 +19,8 @@
         interpolate-size: allow-keywords;
     }
 
-    @view-transition {
-        navigation: auto;
-    }
+}
+
+@view-transition {
+    navigation: auto;
 }

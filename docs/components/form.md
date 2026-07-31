@@ -7,7 +7,7 @@ Form structure with labels, text fields, a textarea, a checkbox, and a radio gro
 ## PGS
 
 - `form`: identifies the form container and applies the field layout.
-- `formValidate`: enables styles associated with validation states managed by the JavaScript utility.
+- `formValidate`: is added automatically by PGS_formValidate and enables its validation-state styles.
 - `label`: identifies labels associated with controls.
 - `input`: applies shared styling to text inputs.
 - `textarea`: applies shared styling to the text area.
@@ -16,22 +16,34 @@ Form structure with labels, text fields, a textarea, a checkbox, and a radio gro
 ## PGS Options
 
 - `message`: defines a field-specific message with the syntax message[Message text].
-- `error`: is applied at runtime to the form and fields that fail validation.
-- `success`: is applied at runtime to the form after successful validation.
+- `messageTitle`: defines a field-specific alert title with the syntax messageTitle[Title text].
+- `fieldErrorTitle`: defines the fallback title for validation errors on the form.
+- `fieldError`: defines the fallback description for one invalid field.
+- `fieldsError`: defines the summary shown when multiple fields are invalid.
+- `successTitle`: defines the validation success title.
+- `success`: defines the validation success description.
 - `buttonStrong`: presents form submission as the primary action.
+
+## PGS States
+
+- `errorForm`: is applied at runtime to a form that fails validation.
+- `errorField`: is applied at runtime to each field that fails validation.
+- `success`: is applied at runtime to the form after successful validation.
 
 ## JavaScript API
 
-- `new pgs.formValidate(form, options)`: creates a utility associated directly with the form, automatically adds novalidate, and accepts fieldError, fieldsError, and success in options.message; messages remain editable through instance.message.
-- `instance.validator(callback, eventName)`: intercepts the specified event, prevents its default behavior, validates the form, shows the success message, and invokes callback only when valid; eventName defaults to submit.
+- `new pgs.formValidate(form, options)`: creates a utility associated directly with the form, adds novalidate, and completes missing form message options from options.message and then from library defaults; existing pgs-option values are preserved.
+- `instance.validator(callback, eventName)`: intercepts the specified event, clears previous temporary field errors, validates the form, shows the success message, and invokes callback only when valid; eventName defaults to submit.
 - `instance.validate()`: validates required fields, updates state attributes, and returns true or false.
-- `instance.success(text)`: validates the form and shows a success toast when there are no errors.
-- `instance.addNewRule(rule)`: adds a function that returns one or more invalid fields; validate automatically applies addFieldError to each field.
-- `instance.addFieldError(field, index, total)`: marks a field as invalid; shows the specific message for one error or a summary message for multiple errors.
-- `instance.removeFieldError(field)`: removes the error state from the specified field.
+- `instance.success(description, title)`: validates the form and shows a success alert or toast when there are no errors.
+- `instance.addNewRule(rule)`: adds a function that returns one or more invalid fields; validate automatically marks each returned field as invalid.
+- `instance.temporaryFieldError.set(field, options)`: registers a temporary field error and validates the form; options accepts title and message, or it can be the message string.
+- `instance.temporaryFieldError.remove(field)`: removes a temporary error and its visual state from one field.
+- `instance.temporaryFieldError.clear()`: removes all temporary field errors and their visual states.
 
 ## Related elements
 
+- `alertContainer`: is found or created automatically by the alert API when form validation uses inline alerts.
 - `button`: provides the base styling for the primary submit action.
 - `flexColumn`: spaces text elements in the radio group.
 
@@ -42,7 +54,13 @@ Complete HTML form with required fields and an example script for a custom rule,
 ## Example
 
 ```html
-<form pgs="form formValidate" action="#" method="post">
+<form
+    pgs="form"
+    pgs-option="fieldErrorTitle[Check the form] fieldError[Complete this field] fieldsError[Complete all required fields] successTitle[Submitted] success[Submitted successfully]"
+    action="#"
+    method="post"
+>
+
     <label pgs="label" for="form-name">
         Name
     </label>
@@ -69,11 +87,11 @@ Complete HTML form with required fields and an example script for a custom rule,
     <textarea id="form-message" pgs="textarea" name="message" rows="5" placeholder="Write your message" required></textarea>
 
     <br>
-    <fieldset pgs="radio flexColumn">
+    <fieldset pgs="radio flexColumn" pgs-option="message[Choose a contact method]">
         <legend>Preferred contact method</legend>
 
         <label>
-            <input type="radio" name="contactMethod" value="email" pgs-option="message[Choose a contact method]" required>
+            <input type="radio" name="contactMethod" value="email" required>
             <span>Email</span>
         </label>
 
@@ -111,11 +129,7 @@ Complete HTML form with required fields and an example script for a custom rule,
     if (!password || !confirmPassword) return;
 
     const formValidate = new pgs.formValidate(form, {
-        message: {
-            fieldError: "Please complete this field",
-            fieldsError: "Please complete all required fields",
-            success: "Submitted successfully"
-        }
+        typeNotice: "alert"
     });
 
     //== new roules

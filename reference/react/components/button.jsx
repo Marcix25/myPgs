@@ -6,7 +6,7 @@ export default function Button() {
                 About
             </a>
 
-            <button pgs="button" type="button" pgs-option="buttonReverse">
+            <button pgs="button" type="button" pgs-option="buttonReverse" disabled>
                 Next
                 <i className="fa-solid fa-arrow-right" aria-hidden="true"></i>
             </button>
@@ -27,6 +27,11 @@ export default function Button() {
             <button pgs="button" pgs-option="buttonBig" type="button" aria-label="Large button">
                 <i className="fa-solid fa-rocket" aria-hidden="true"></i>
                 Large button
+            </button>
+
+            <button pgs="button" pgs-option="buttonTransparent" type="button">
+                <i className="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                Transparent
             </button>
         </div>
     );

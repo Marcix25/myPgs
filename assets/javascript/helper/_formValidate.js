@@ -1,9 +1,17 @@
 import { pgs } from "../_pgs.js";
 import { PGS_notification } from "../components/_notifications.js";
+import { PGS_alert } from "../components/_alerts.js";
 
 
 export class PGS_formValidate {
-    #message = {};
+    #messageDefaults = {
+        fieldErrorTitle: "Error!",
+        fieldError: "Please complete this field.",
+        fieldsError: "Please complete all required fields.",
+        successTitle: "Submitted",
+        success: "Submitted successfully."
+    };
+    #temporaryFieldErrors = new Map();
     #insideValidatedCallback = false;
 
     constructor(form, options = {}) {
@@ -13,27 +21,82 @@ export class PGS_formValidate {
 
         this.container = form;
         this._rules = [];
-        this.message = {
-            fieldError: "Please complete this field.",
-            fieldsError: "Please complete all required fields.",
-            success: "Submitted successfully."
-        };
+        this.typeNotice = options.typeNotice === "toast" ? "toast" : "alert";
+        this.showSuccessOnValidate = options.showSuccessOnValidate !== false;
+        this.alertContainer = options.alertContainer;
 
-        if (options.message !== undefined) this.message = options.message;
+        pgs(this.container).add("formValidate");
+        this.#initializeMessages(options.message);
         this.container?.setAttribute("novalidate", "");
     }
 
-    get message() {
-        return { ...this.#message };
-    }
-
-    set message(value) {
+    #validateMessages(value) {
+        if (value === undefined) return;
         if (!value || typeof value !== "object" || Array.isArray(value)) {
             throw new TypeError("message must be an object");
         }
 
-        this.#message = { ...this.#message, ...value };
+        Object.entries(value).forEach(([key, message]) => {
+            if (!(key in this.#messageDefaults)) {
+                throw new TypeError(`Unknown form message option: ${key}`);
+            }
+            if (message !== undefined && typeof message !== "string") {
+                throw new TypeError(`Form message option ${key} must be a string`);
+            }
+        });
     }
+
+    #initializeMessages(value = {}) {
+        this.#validateMessages(value);
+
+        const formOptions = pgs(this.container).option;
+        const initialMessages = {
+            ...this.#messageDefaults,
+            ...Object.fromEntries(
+                Object.entries(value).filter(([, message]) => message !== undefined)
+            )
+        };
+
+        Object.entries(initialMessages).forEach(([key, message]) => {
+            if (!formOptions.contains(key)) formOptions.setValueBrackets(key, message);
+        });
+    }
+
+    #getMessage(key) {
+        return pgs(this.container).option.getValueBrackets(key);
+    }
+
+    temporaryFieldError = {
+        set: (field, options = {}) => {
+            if (!field || typeof field.matches !== "function" || !this.container.contains(field)) {
+                throw new TypeError("field must be an element contained in the form");
+            }
+
+            if (typeof options === "string") options = { message: options };
+            if (!options || typeof options !== "object" || Array.isArray(options)) {
+                throw new TypeError("temporaryFieldError options must be an object or a string");
+            }
+
+            this.#temporaryFieldErrors.set(field, {
+                title: options.title || "",
+                message: options.message || ""
+            });
+            this.validate();
+            return this.temporaryFieldError;
+        },
+
+        remove: (field) => {
+            this.#removeFieldError(field);
+            return this.temporaryFieldError;
+        },
+
+        clear: () => {
+            [...this.#temporaryFieldErrors.keys()].forEach(field => {
+                this.#removeFieldError(field);
+            });
+            return this.temporaryFieldError;
+        }
+    };
 
     // - Helpers
     #help = {
@@ -110,15 +173,15 @@ export class PGS_formValidate {
             if (!this.#help.isRequired(r)) continue;
             const name = this.#help.getGroupName(r);
             if (!name) continue;
-            if (!requiredRadioGroups.has(name)) requiredRadioGroups.set(name, []);
-            requiredRadioGroups.get(name).push(r);
+            if (!requiredRadioGroups.has(name)) {
+                requiredRadioGroups.set(name, radios.filter(radio => this.#help.getGroupName(radio) === name));
+            }
         }
         const radioGroupErrors = [];
         for (const [name, group] of requiredRadioGroups.entries()) {
             const anyChecked = group.some((r) => r.checked);
             if (!anyChecked) {
-                // scegli dove mettere l'errore: tipicamente sul primo radio del gruppo
-                radioGroupErrors.push(group[0]);
+                radioGroupErrors.push(group[0].closest("fieldset") || group[0]);
             }
         }
 
@@ -147,7 +210,10 @@ export class PGS_formValidate {
             // se è un gruppo (>=2) richiedi almeno una spuntata
             // se è 1 sola, si comporta come singola
             const anyChecked = group.some((c) => c.checked);
-            if (!anyChecked) checkboxGroupErrors.push(group[0]);
+            if (!anyChecked) {
+                const fieldset = group.length > 1 ? group[0].closest("fieldset") : null;
+                checkboxGroupErrors.push(fieldset || group[0]);
+            }
         }
 
         //== FILE 
@@ -167,36 +233,71 @@ export class PGS_formValidate {
             requiredCheckboxSingles,
             checkboxGroupErrors,
             fileInputs,
-            ruleInvalidFields
+            ruleInvalidFields,
+            [...this.#temporaryFieldErrors.keys()]
         ];
 
         return [...new Set(invalidFields.flat())];
     }
 
     //+ ADD
-    addFieldError(field, i = 0, total = 1) {
-        pgs(field).option.add("error");
-        if (i === 0) field.scrollIntoView();
+    #addFieldError(field, i = 0, total = 1) {
+        pgs(field).state.add("errorField");
 
+        if (i === 0) field.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
         if (i !== 0) return;
 
-        if (total > 1) {
-            PGS_notification.toast.error(this.message.fieldsError);
-            return;
-        }
+        const messageSource = field.matches("fieldset")
+            ? field.querySelector('[pgs-option*="message["], [pgs-option*="messageTitle["]')
+            : field;
+        const source = messageSource || field;
+        const temporaryError = this.#temporaryFieldErrors.get(field);
+        const fieldTitle = pgs(source).option.getValueBrackets("messageTitle");
+        const fieldMessage = pgs(source).option.getValueBrackets("message");
+        const title = temporaryError?.title || fieldTitle || this.#getMessage("fieldErrorTitle");
+        const description = total > 1
+            ? this.#getMessage("fieldsError")
+            : temporaryError?.message || fieldMessage || this.#getMessage("fieldError");
 
-        const message = pgs(field).option.getValueBrackets("message");
-        PGS_notification.toast.error(message || this.message.fieldError);
+        if (this.typeNotice == "alert") {
+            PGS_alert.error({
+                title: title,
+                description: description,
+                root: this.container,
+                container: this.alertContainer
+            });
+        } else {
+            PGS_notification.toast.error({
+                title: title,
+                description: description
+            });
+        }
     }
 
     //+ REMOVE
-    removeFieldError(field) {
-        pgs(field).option.remove("error");
+    #removeFieldError(field) {
+        this.#temporaryFieldErrors.delete(field);
+        pgs(field).state.remove("errorField");
     }
 
     // + SUCCESS
-    success(text = this.message.success) {
-        if (this.#insideValidatedCallback || this.validate() === true) PGS_notification.toast.success(text)
+    success(description = this.#getMessage("success"), title = this.#getMessage("successTitle")) {
+        if (this.#insideValidatedCallback || this.validate() === true) {
+
+            if (this.typeNotice == "alert") {
+                PGS_alert.success({
+                    title,
+                    description,
+                    root: this.container,
+                    container: this.alertContainer
+                });
+            } else {
+                PGS_notification.toast.success({
+                    title,
+                    description
+                });
+            }
+        }
     }
 
 
@@ -205,43 +306,44 @@ export class PGS_formValidate {
         const invalid = this.#inputValue(this.container);
         const allFields = this.container.querySelectorAll("input, textarea, select")
 
-        //== pulizia/aggiornamento errori: 
-        // prima rimuovo errori dai campi "non più invalidi"
-        Array.from(allFields).filter((el) => !el.disabled);
-
-        //== per radio/checkbox in gruppo: 
-        // rimuovi l'errore solo sull'elemento che lo ospita (qui: se presente)
-        for (const el of allFields) { if (!invalid.includes(el)) this.removeFieldError(el); }
+        //== pulizia/aggiornamento errori
+        this.container.querySelectorAll('[pgs-state~="errorField"]').forEach(element => {
+            if (!invalid.includes(element)) this.#removeFieldError(element);
+        });
 
         //== aggiungo errori dove serve
-        invalid.forEach((el, i) => this.addFieldError(el, i, invalid.length))
+        invalid.forEach((el, i) => this.#addFieldError(el, i, invalid.length))
 
         //== rimuove l'errore al click
-        allFields.forEach(element => element.addEventListener("click", e => this.removeFieldError(element)));
+        allFields.forEach(element => element.addEventListener("click", () => {
+            const errorTarget = element.closest('fieldset[pgs-state~="errorField"]') || element;
+            this.#removeFieldError(errorTarget);
+        }));
 
         //== status form
         if (invalid.length) {
-            pgs(this.container).option.remove("success").add("error");
+            pgs(this.container).state.remove("success").add("errorForm");
             return false;
         } else {
-            pgs(this.container).option.remove("error").add("success");
+            pgs(this.container).state.remove("errorForm").add("success");
             return true;
         }
     }
 
-    // + EVENT VALIDATOR
+    //= EVENT VALIDATOR
     validator(callback, eventName = "submit") {
         if (typeof callback !== "function") throw new TypeError("callback must be a function");
         if (typeof eventName !== "string" || !eventName.trim()) throw new TypeError("eventName must be a non-empty string");
 
         this.container.addEventListener(eventName, event => {
             event.preventDefault();
+            this.temporaryFieldError.clear();
             if (!this.validate()) return;
 
             this.#insideValidatedCallback = true;
 
             try {
-                this.success();
+                if (this.showSuccessOnValidate) this.success();
                 callback(event);
             } finally {
                 this.#insideValidatedCallback = false;
@@ -251,7 +353,7 @@ export class PGS_formValidate {
         return this;
     }
 
-    // + ADD RULE
+    //= ADD RULE
     addNewRule(rule) {
         if (typeof rule !== "function") throw new Error("Rule must be a function");
         this._rules.push(rule);

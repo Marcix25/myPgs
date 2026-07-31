@@ -1,5 +1,6 @@
 @use "mx-base" as *;
 @use "mx-button" as *;
+@use "mx-responsive" as *;
 
 //=FORM
 //== INPUT 
@@ -183,11 +184,12 @@
     --checkbox-size: 2.0rem;
     --checkbox-check-color: var(--color-primary);
     --checkbox-box-background: var(--color-white);
+    --checkbox-padding-inline: var(--gap-texts);
     --checkbox-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath fill='inerit' d='M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.2 0z'/%3E%3C/svg%3E");
     position: relative;
     display: flex;
 
-    &:is(label),
+    &:where(label),
     label {
         user-select: none;
         color: var(--color-black);
@@ -200,7 +202,9 @@
         width: fit-content;
         cursor: pointer;
         display: flex;
+        padding-inline: var(--checkbox-padding-inline);
 
+        // transform: translateX(0.3rem);
         //=== Disabled
         &:has(input:disabled) {
             opacity: 0.5;
@@ -221,6 +225,7 @@
         height: var(--checkbox-size);
         margin-right: var(--gap-texts);
         cursor: pointer;
+        @include center();
 
         //=== BOX SQUARE
         &::before {
@@ -231,7 +236,6 @@
             outline: solid var(--color-boxDark) 0.1rem;
             background: var(--checkbox-box-background);
             color: var(--color-primary-soft);
-            transform: translateX(0.3rem);
         }
 
         //=== ICON CHECK
@@ -258,7 +262,7 @@
         &[type=checkbox] {
             &::after {
                 top: -1.7rem;
-                left: -0.5rem;
+                left: -0.8rem;
                 @include iconSvgBase64(var(--checkbox-icon), calc(2rem + var(--checkbox-size)), var(--checkbox-check-color));
             }
 
@@ -269,20 +273,21 @@
 
         //=== Radio
         &[type=radio] {
-            &::after {
-                $size: 0.4rem;
-                content: "";
-                top: calc($size / 2);
-                left: calc($size / 2);
-                display: inline-block;
-                width: calc(var(--checkbox-size) - $size);
-                height: calc(var(--checkbox-size) - $size);
-                background-color: var(--checkbox-check-color);
+            &::before {
                 border-radius: 50%;
             }
 
-            &::before {
+            &::after {
+                display: none;
+            }
+
+            &:checked::before {
+                background-color: var(--checkbox-check-color);
                 border-radius: 50%;
+                width: calc(var(--checkbox-size) - (3px * 2));
+                height: calc(var(--checkbox-size) - (3px * 2));
+                outline: solid 1px var(--color-black);
+                border: solid 3px var(--color-white);
             }
         }
     }
@@ -420,7 +425,7 @@
     }
 
     //==== CHECKBOX
-    $not-checkbox: '[pgs~=toggle], [pgs~=twoState], [pgs~=chip], [pgs~=chips] label';
+    $not-checkbox: '[pgs~=toggle], [pgs~=twoState], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label';
 
     label:has(input[type=checkbox]):not(#{$not-checkbox}),
     label:has(input[type=radio]):not(#{$not-checkbox}) {
@@ -494,34 +499,41 @@
 
 //== formValidate
 @mixin formValidate() {
+    --formValidate-outline: solid 3px var(--color-error);
 
     //=== ERROR
-    &[pgs-option~="error"] {
-        [pgs-option~="error"] {
-            &:not([type=checkbox], [type=radio]) {
-                outline: solid 3px var(--color-error) !important;
+    &[pgs-state~=errorForm] {
+        [pgs-state~="errorField"]:not([type=checkbox], [type=radio]) {
+            outline: var(--formValidate-outline);
+            color: var(--color-error);
+        }
 
+        label:has(+[pgs-state~=errorField], [pgs-state~=errorField]) {
+            &:has(input[type=checkbox]) {
+                padding-block: 8px;
+                border-radius: 10px;
+                outline: var(--formValidate-outline);
+            }
+
+            :is(input[type=radio], input[type=checkbox]) {
                 &::before {
-                    content: "This field is required";
-                    color: var(--color-error);
-                    font-weight: 500;
-                    font-size: 1.7rem;
+                    outline: var(--formValidate-outline);
                 }
             }
         }
 
-        label:has(+[pgs-option~="error"], [pgs-option~="error"]) {
-            &:has(input[type=checkbox]) {
-                background-color: var(--color-error) !important;
-                padding: 6px;
-                margin-left: -6px;
-                border-radius: 10px;
-            }
-        }
+        fieldset[pgs-state~=errorField] {
+            border-radius: 10px;
 
-        fieldset:has(input[type=radio][pgs-option~="error"]) {
+            :is(input[type=radio], input[type=checkbox]) {
+                &::before {
+                    outline: var(--formValidate-outline);
+                }
+            }
+
             legend {
-                --label-background: var(--color-error) !important;
+                --label-background: var(--color-error-background);
+                --label-color: var(--color-error);
             }
         }
     }

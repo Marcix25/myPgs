@@ -5,15 +5,15 @@
  *
  * @pgs
  * - notification: identifies the notification element used by Notification.
- * - notificationTrigger: identifies the notificationTrigger element used by Notification.
+ * - notificationTrigger: creates one or more notifications from comma-separated JSON objects.
  * - notification-element: identifies the notification-element element used by Notification.
- * - notification-element-title: identifies the notification-element-title element used by Notification.
- * - notification-element-content: identifies the notification-element-content element used by Notification.
+ * - notification-element-content: contains the icon, title, and description.
+ * - notification-element-icon: contains the icon displayed to the left of the text.
+ * - notification-element-buttons: contains the link and dismiss actions below the content.
  *
  * @pgs-option
  * - toast: identifies the toast element used by Notification.
  * - notification: identifies the notification element used by Notification.
- * - buttonClose: styles the dismiss action generated at runtime.
  *
  * @pgs-state
  * - success: identifies the success element used by Notification.
@@ -23,15 +23,15 @@
  *
  * @api
  * - pgs.notification.trigger(root): provides the documented operation through the component public API.
- * - pgs.notification.alert.error(text, link, timeout, icon): provides the documented operation through the component public API.
- * - pgs.notification.alert.success(text, link, timeout, icon): provides the documented operation through the component public API.
- * - pgs.notification.alert.info(text, link, timeout, icon): provides the documented operation through the component public API.
- * - pgs.notification.alert.warning(text, link, timeout, icon): provides the documented operation through the component public API.
+ * - pgs.notification.alert.error(optionsOrTitle): accepts a title string or options with element, title, description, timeout, icon, link, linkTitle, and closeTitle.
+ * - pgs.notification.alert.success(optionsOrTitle): accepts a title string or options with element, title, description, timeout, icon, link, linkTitle, and closeTitle.
+ * - pgs.notification.alert.info(optionsOrTitle): accepts a title string or options with element, title, description, timeout, icon, link, linkTitle, and closeTitle.
+ * - pgs.notification.alert.warning(optionsOrTitle): accepts a title string or options with element, title, description, timeout, icon, link, linkTitle, and closeTitle.
  * - pgs.notification.alert.deleteAll(): provides the documented operation through the component public API.
- * - pgs.notification.toast.error(text, timeout, icon): provides the documented operation through the component public API.
- * - pgs.notification.toast.success(text, timeout, icon): provides the documented operation through the component public API.
- * - pgs.notification.toast.info(text, timeout, icon): provides the documented operation through the component public API.
- * - pgs.notification.toast.warning(text, timeout, icon): provides the documented operation through the component public API.
+ * - pgs.notification.toast.error(optionsOrTitle): accepts a title string or options with element, title, description, timeout, icon, link, linkTitle, and closeTitle.
+ * - pgs.notification.toast.success(optionsOrTitle): accepts a title string or options with element, title, description, timeout, icon, link, linkTitle, and closeTitle.
+ * - pgs.notification.toast.info(optionsOrTitle): accepts a title string or options with element, title, description, timeout, icon, link, linkTitle, and closeTitle.
+ * - pgs.notification.toast.warning(optionsOrTitle): accepts a title string or options with element, title, description, timeout, icon, link, linkTitle, and closeTitle.
  * - pgs.notification.toast.deleteAll(): provides the documented operation through the component public API.
  *
  * @related
@@ -44,28 +44,28 @@
 <div pgs="notification" aria-live="polite"></div>
 <div pgs="notification" pgs-option="toast" aria-live="polite"></div>
 
-<div pgs="hidden notificationTrigger" pgs-option='notification[{
-            "title": "Title",
-            "message": "Message",
+<div pgs="hidden notificationTrigger" pgs-option='notification[
+        {
+            "title": "Identifies the success",
+            "message": "identifies the notification element used by Notification.",
             "element": "notification",
             "type": "info",
             "icon": null,
             "duration": "-1",
-            "link": null
-        }]'></div>
+            "link": "/page/",
+            "title-link": "Open",
+            "title-close": "Close"
+        }
+]'></div>
 
 <div pgs="hidden notificationTrigger" pgs-option='notification[{
             "title": "Benvenuto",
             "message": "Message",
             "element": "toast",
-            "type": "info",
+            "type": "success",
             "icon": null,
-            "duration": "3000",
-            "link": null
+            "duration": "7000",
+            "link": null,
+            "title-link": "Open",
+            "title-close": "Close"
         }]'></div>
-<!-- 
-    <div
-        pgs="hidden notificationTrigger"
-        pgs-option='notification[{"title":"Title","message":"Message","element":"notification","type":"info","icon":"<i class=\"fa-solid fa-rocket\"></i>","duration":"4000","link":"/page/"}]'>
-    </div>
--->

@@ -1,18 +1,55 @@
 //= PGS_notification
 const fn_notification = {
+    _defaults: {
+        element: "notification",
+        link: null,
+        timeout: 0,
+        description: "",
+        linkTitle: "Open",
+        closeTitle: "Close",
+        type: {
+            error: {
+                title: "Errore",
+                icon: '<i class="fa-solid fa-circle-xmark"></i>'
+            },
+            success: {
+                title: "Aggiornato",
+                icon: '<i class="fa-solid fa-circle-check"></i>'
+            },
+            info: {
+                title: "Aggiornamento",
+                icon: '<i class="fa-solid fa-circle-info"></i>'
+            },
+            warning: {
+                title: "Attenzione",
+                icon: '<i class="fa-solid fa-triangle-exclamation"></i>'
+            }
+        }
+    },
+
     _escapeHtml(value) {
-        return String(value ?? "");
+        return String(value ?? "")
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+    },
+
+    _formatText(value) {
+        return this._escapeHtml(value)
+            .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+            .replace(/\r?\n/g, "<br>");
     },
 
     _getDuration(notification) {
         const rawDuration = notification.duration;
         const duration = Number.parseInt(rawDuration, 10);
-
-        return Number.isNaN(duration) ? 5000 : duration;
+        return Number.isNaN(duration) ? undefined : duration;
     },
 
     _getApi(notification) {
-        const element = String(notification.element || "notification").trim();
+        const element = String(notification.element || this._defaults.element).trim();
 
         return element === "toast" ? PGS_notification.toast : PGS_notification.alert;
     },
@@ -27,42 +64,83 @@ const fn_notification = {
         const rawNotification = pgs(root).option.getValueBrackets("notification") || "{}";
 
         try {
-            return JSON.parse(rawNotification);
+            const notifications = JSON.parse(`[${rawNotification}]`);
+
+            if (notifications.some(notification => !notification || typeof notification !== "object" || Array.isArray(notification))) {
+                throw new TypeError("Each notification must be a JSON object");
+            }
+
+            return notifications;
         } catch (error) {
-            console.warn("PGS notification: configurazione JSON non valida", error);
-            return {};
+            console.warn("PGS notification: Invalid JSON configuration", error);
+            return [];
         }
     },
 
-    _getContent(title, content) {
-        const safeContent = this._escapeHtml(content);
-        const safeTitle = this._escapeHtml(title);
+    _getContent(title, description) {
+        const safeDescription = this._formatText(description);
+        const safeTitle = this._formatText(title);
 
-        if (!safeTitle) return safeContent;
-        if (!safeContent) return `<span pgs="notification-element-title">${safeTitle}</span>`;
+        if (!safeTitle) return `<span>${safeDescription}</span>`;
+        if (!safeDescription) return `<strong>${safeTitle}</strong>`;
 
         return `
-            <span pgs="notification-element-title">${safeTitle}</span>
-            <br>
-            <span pgs="notification-element-content">${safeContent}</span>
+            <strong>${safeTitle}</strong>
+            <span>${safeDescription}</span>
         `;
     },
 
-    _getContainer(containerType) {
+    _getContainer(element) {
         return Array.from(pgs(document).querySelectorAll("notification")).find(container => {
             const isToast = pgs(container).option.contains("toast");
-            return containerType === "toast" ? isToast : !isToast;
+            return element === "toast" ? isToast : !isToast;
         });
     },
 
-    initNotification(type, containerType, icon, text, timeout, methodDelete = "replace", link = null) {
-        let containerNotification = this._getContainer(containerType);
+    show(type, options = {}, element = this._defaults.element) {
+        if (typeof options === "string") options = { title: options };
+
+        if (!options || typeof options !== "object" || Array.isArray(options)) {
+            throw new TypeError("PGS notification: options deve essere un oggetto o una stringa");
+        }
+
+        const { type: typeDefaults, ...defaults } = this._defaults;
+        const definedOptions = Object.fromEntries(
+            Object.entries(options).filter(([, value]) => value !== undefined)
+        );
+        const resolvedElement = definedOptions.element || element;
+        const config = {
+            ...defaults,
+            ...typeDefaults[type],
+            ...definedOptions,
+            type,
+            element: resolvedElement,
+            timeout: definedOptions.timeout ?? (resolvedElement === "toast" ? 4000 : defaults.timeout)
+        };
+
+        return this.initNotification(config);
+    },
+
+    initNotification({
+        type,
+        element,
+        title,
+        icon,
+        description,
+        timeout,
+        link,
+        linkTitle,
+        closeTitle
+    }) {
+        let containerNotification = this._getContainer(element);
+        const methodDelete = element === "toast" ? "replace" : "stack";
+        const text = this._getContent(title, description);
 
         //== Create Container
         if (!containerNotification) {
             const newContainer = document.createElement("div");
             pgs(newContainer).add("notification");
-            if (containerType === "toast") pgs(newContainer).option.add("toast");
+            if (element === "toast") pgs(newContainer).option.add("toast");
             newContainer.setAttribute("aria-live", "polite");
             newContainer.setAttribute("aria-relevant", "additions");
             document.body.appendChild(newContainer);
@@ -70,14 +148,34 @@ const fn_notification = {
         }
 
         //== Create Notification
-        const notification = document.createElement(link ? "a" : "div");
+        const notification = document.createElement("div");
         if (methodDelete == "replace") containerNotification.innerHTML = "";
-        if (link) notification.href = link;
         if (timeout > 0) notification.style.setProperty("--notification-timeout", timeout + "ms");
         pgs(notification).state.add(type);
         pgs(notification).add("notification-element");
-        notification.setAttribute("role", type == "error" ? "alert" : "status")
-        notification.innerHTML = `${icon} <p>${text}</p>`;
+        notification.setAttribute("role", type == "error" ? "alert" : "status");
+        notification.innerHTML = `
+            <div pgs="notification-element-content">
+                <div pgs="notification-element-icon">${icon}</div>
+                <p>${text}</p>
+            </div>
+            <div pgs="notification-element-buttons">
+                <button type="button" pgs="button notification-element-buttons-delete">${closeTitle}</button>
+            </div>
+        `;
+
+        const notificationButtons = pgs(notification).querySelector("notification-element-buttons");
+        const btnDelete = pgs(notification).querySelector("notification-element-buttons-delete");
+        btnDelete.ariaLabel = closeTitle === "Close" ? "Close notification" : closeTitle;
+
+        if (link) {
+            const notificationLink = document.createElement("a");
+            notificationLink.href = link;
+            notificationLink.textContent = linkTitle;
+            pgs(notificationLink).add("button");
+            notificationButtons.insertAdjacentElement("afterbegin", notificationLink);
+        }
+
         containerNotification.appendChild(notification);
 
 
@@ -90,17 +188,7 @@ const fn_notification = {
         //== Timeout delete
         if (timeout > 0) setTimeout(() => { deleteNotification() }, timeout);
 
-        //== button delete
-        const btnDelete = document.createElement("button");
-        btnDelete.type = "button";
-        btnDelete.ariaLabel = "Rimuovi notifica";
-        btnDelete.innerHTML = '<i class="fa-solid fa-xmark"></i>';
-        btnDelete.setAttribute("pgs", "button");
-        btnDelete.setAttribute("pgs-option", "buttonClose");
-        notification.insertAdjacentElement("afterbegin", btnDelete);
-
         //== event
-
         btnDelete.addEventListener("click", function (e) {
             e.preventDefault();
             e.stopPropagation();
@@ -109,8 +197,8 @@ const fn_notification = {
         });
     },
 
-    deleteAll(containerType) {
-        let containerNotification = this._getContainer(containerType);
+    deleteAll(element = this._defaults.element) {
+        let containerNotification = this._getContainer(element);
         if (containerNotification) containerNotification.innerHTML = "";
     },
 
@@ -120,24 +208,30 @@ const fn_notification = {
 
             element.dataset.initialize = "true";
 
-            const notification = this._getData(element);
-            const title = String(notification.title || "").trim();
-            const content = String(notification.message || "").trim();
+            this._getData(element).forEach(notification => {
+                const title = String(notification.title || "").trim();
+                const description = String(notification.message || "").trim();
+                const linkTitle = String(notification["title-link"] || this._defaults.linkTitle).trim();
+                const closeTitle = String(notification["title-close"] || this._defaults.closeTitle).trim();
 
-            if (!title && !content) {
-                element.remove();
-                return;
-            }
+                if (!title && !description) return;
 
-            const link = notification.link || null;
-            const icon = notification.icon || undefined;
-            const duration = this._getDuration(notification);
-            const api = this._getApi(notification);
-            const type = this._getType(notification, api);
-            const formattedContent = this._getContent(title, content);
+                const link = notification.link || this._defaults.link;
+                const icon = notification.icon || undefined;
+                const duration = this._getDuration(notification);
+                const api = this._getApi(notification);
+                const type = this._getType(notification, api);
 
-            if (api === PGS_notification.toast) api[type](formattedContent, duration, icon);
-            else api[type](formattedContent, link, duration, icon);
+                api[type]({
+                    title,
+                    description,
+                    timeout: duration,
+                    icon,
+                    link,
+                    linkTitle,
+                    closeTitle
+                });
+            });
 
             element.remove();
         });
@@ -152,17 +246,17 @@ function PGS_notificationTrigger_init(root = document) {
 export const PGS_notification = {
     trigger: PGS_notificationTrigger_init,
     alert: {
-        error: (text = "Errore", link = null, timeout = 0, icon = '<i class="fa-solid fa-circle-xmark"></i>') => fn_notification.initNotification("error", "notification", icon, text, timeout, "stack", link),
-        success: (text = "Aggiornato", link = null, timeout = 0, icon = '<i class="fa-solid fa-check"></i>') => fn_notification.initNotification("success", "notification", icon, text, timeout, "stack", link),
-        info: (text = "Aggiornamento", link = null, timeout = 0, icon = '<i class="fa-solid fa-circle-info"></i>',) => fn_notification.initNotification("info", "notification", icon, text, timeout, "stack", link),
-        warning: (text = "Attenzione", link = null, timeout = 0, icon = '<i class="fa-solid fa-triangle-exclamation"></i>') => fn_notification.initNotification("warning", "notification", icon, text, timeout, "stack", link),
-        deleteAll: () => fn_notification.deleteAll("notification")
+        error: (options = {}) => fn_notification.show("error", options),
+        success: (options = {}) => fn_notification.show("success", options),
+        info: (options = {}) => fn_notification.show("info", options),
+        warning: (options = {}) => fn_notification.show("warning", options),
+        deleteAll: () => fn_notification.deleteAll()
     },
     toast: {
-        error: (text = "Errore", timeout = 4000, icon = '<i class="fa-solid fa-circle-xmark"></i>',) => fn_notification.initNotification("error", "toast", icon, text, timeout),
-        success: (text = "Aggiornato", timeout = 4000, icon = '<i class="fa-solid fa-check"></i>',) => fn_notification.initNotification("success", "toast", icon, text, timeout),
-        info: (text = "Aggiornamento", timeout = 0, icon = '<i class="fa-solid fa-circle-info"></i>',) => fn_notification.initNotification("info", "toast", icon, text, timeout),
-        warning: (text = "Attenzione", timeout = 4000, icon = '<i class="fa-solid fa-triangle-exclamation"></i>',) => fn_notification.initNotification("warning", "toast", icon, text, timeout),
+        error: (options = {}) => fn_notification.show("error", options, "toast"),
+        success: (options = {}) => fn_notification.show("success", options, "toast"),
+        info: (options = {}) => fn_notification.show("info", options, "toast"),
+        warning: (options = {}) => fn_notification.show("warning", options, "toast"),
         deleteAll: () => fn_notification.deleteAll("toast")
     }
 };

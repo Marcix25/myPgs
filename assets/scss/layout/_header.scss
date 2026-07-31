@@ -6,7 +6,7 @@
     --header-gap: var(--gap-elements);
     --header-borderRadius: var(--border-radius-input);
     --header-size: 4.4rem;
-    --header-background: transparent;
+    --header-background: var(--color-white-transparent);
     --header-color: var(--color-black);
     --header-color-hover: var(--color-black);
     z-index: 100;

@@ -1,81 +1,58 @@
 @mixin _hoverColor() {
+    --hover-color: var(--color-whiteFixed);
     --hover-background: var(--color-primary-strong);
     --hover-color: var(--color-white);
-    background: var(--hover-background);
-    color: var(--hover-color);
+    --hover-shadow-color: var(--hover-background);
     --fa-primary-color: var(--hover-color);
     --fa-secondary-color: var(--hover-color);
+    --fa-secondary-opacity: 0.5;
+    background: var(--hover-background);
+    color: var(--hover-color);
+    outline-color: var(--hover-background);
 
-    &:not(:disabled) {
-        :is(h1, h2, h3, h4, h5, h6, p) {
-            color: var(--hover-color);
-        }
-
-        [pgs~=hover-text] {
-            color: var(--hover-color);
-        }
-
+    :is(h1, h2, h3, h4, h5, h6, p) {
         color: var(--hover-color);
-        --fa-secondary-opacity: 0.5;
-        --fa-primary-color: var(--hover-color);
-        --fa-secondary-color: var(--hover-color);
+    }
+
+    [pgs~=hover-text] {
+        color: var(--hover-color);
     }
 }
 
 //+ HOVER
 @mixin _hoverContent1() {
-    @media (hover: hover) and (pointer: fine) {
-
-        &:focus-visible,
-        &:hover {
-            box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
-            outline-width: 0;
-            @include _hoverColor();
-        }
-    }
-}
-
-@mixin _hoverContent2() {
-    @media (hover: hover) and (pointer: fine) {
-
-        &:focus-visible,
-        &:hover {
-            $n: var(--hover-shadow-displacement);
-            $-n: calc(var(--hover-shadow-displacement) * -1);
-            box-shadow: $-n $n 0 var(--color-black);
-            transform: translate($n, $-n);
-            outline-color: transparent;
-            @include _hoverColor();
-        }
-    }
+    box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
+    @include _hoverColor();
 }
 
 //= HOVER
 @mixin hover() {
-    transition: all 200ms;
-    cursor: pointer;
-    text-decoration: none;
-    --hover-color: var(--color-whiteFixed);
-    --hover-shadow-color: var(--color-primary);
-    --hover-shadow-displacement: 0.25rem;
-    $color: var(--color-primary-strong);
-    $colorTxtSafari: var(--color-whiteFixed);
+    $transition: unset 0ms;
 
-    * {
-        transition: all 200ms;
-    }
-
-    &:not(:disabled) {
-        &:not([pgs-option~=buttonStyle-2]) {
-            @include _hoverContent1();
-        }
-
-        &[pgs-option~=buttonStyle-2] {
-            @include _hoverContent2();
-        }
-    }
-
-    &:is(a):hover {
+    &:where(:not(:disabled)) {
+        transition: $transition;
+        cursor: pointer;
         text-decoration: none;
+        $color: var(--color-primary-strong);
+        $colorTxtSafari: var(--color-whiteFixed);
+
+
+        @media (hover: hover) and (pointer: fine) {
+
+            &:focus-visible,
+            &:hover {
+                @include _hoverContent1();
+            }
+        }
+
+        * {
+            transition: $transition;
+            text-decoration: none;
+
+            &::before,
+            &::after {
+                transition: $transition;
+            }
+        }
     }
 }

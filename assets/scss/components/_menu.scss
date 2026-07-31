@@ -11,13 +11,15 @@
     --menu-color-strong: var(--color-whiteFixed);
     --menu-background-strong: var(--color-primary);
     --menu-border: var(--border-complete);
+    --menu-gap-column: var(--gap-texts);
+    --menu-gap-row: 1.0rem;
 
     ul {
         display: flex;
         font-weight: 600;
         align-items: center;
-        column-gap: var(--gap-texts);
-        row-gap: 1.0rem;
+        column-gap: var(--menu-gap-column);
+        row-gap: var(--menu-gap-row);
         flex-wrap: nowrap;
 
         //== Content
@@ -28,6 +30,7 @@
                 @include buttonBase();
                 @include buttonHover();
                 @include buttonContent();
+                @include buttonCurrent();
                 --button-color: var(--menu-color);
                 --button-color-strong: var(--menu-color-strong);
                 --button-color-current: var(--menu-color-current);
@@ -39,10 +42,6 @@
                 >span {
                     line-height: 1;
                     flex-grow: 1;
-                }
-
-                &:hover {
-                    z-index: -1;
                 }
             }
 

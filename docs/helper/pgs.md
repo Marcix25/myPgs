@@ -112,7 +112,7 @@ pgs.registerModules({
 Uso consigliato:
 
 ```js
-pgs.notification.toast.success("Salvato");
+pgs.notification.toast.success({ title: "Salvato" });
 pgs.modal.api(modalEl)?.open();
 pgs.dropdown.api(dropdownEl)?.close();
 pgs.slides.api(slidesEl)?.next();
@@ -138,18 +138,18 @@ Shortcuts available after `import "mypgs"`:
 
 Le firme, i parametri e la funzione di ogni metodo sono generati dai commenti nei riferimenti HTML:
 
-- [Accordion](components/accordion.md#api-javascript)
-- [Dropdown](components/dropdown.md#api-javascript)
-- [Form validation](components/form.md#api-javascript)
-- [Menu](components/menu.md#api-javascript)
-- [Modal](components/modal.md#api-javascript)
-- [Notification](components/notification.md#api-javascript)
-- [Search](components/search.md#api-javascript)
-- [Slides](components/slides.md#api-javascript)
-- [Step Tabs](components/stepTabs.md#api-javascript)
-- [Steps](components/steps.md#api-javascript)
-- [Summary](components/summary.md#api-javascript)
-- [Tooltip tramite Dropdown](components/tooltip.md#api-javascript)
+- [Accordion](../components/accordion.md#api-javascript)
+- [Dropdown](../components/dropdown.md#api-javascript)
+- [Form validation](../components/form.md#api-javascript)
+- [Menu](../components/menu.md#api-javascript)
+- [Modal](../components/modal.md#api-javascript)
+- [Notification](../components/notification.md#api-javascript)
+- [Search](../components/search.md#api-javascript)
+- [Slides](../components/slides.md#api-javascript)
+- [Step Tabs](../components/stepTabs.md#api-javascript)
+- [Steps](../components/steps.md#api-javascript)
+- [Summary](../components/summary.md#api-javascript)
+- [Tooltip tramite Dropdown](../components/tooltip.md#api-javascript)
 
 I componenti non elencati non espongono attualmente un'API JavaScript specifica.
 

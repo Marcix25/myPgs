@@ -37,6 +37,23 @@ HTML examples of the checkboxBackground, twoState, toggle, and chips form contro
                 Receive important account updates.
             </span>
         </label>
+
+        <fieldset pgs="flexRow">
+            <label pgs="checkboxBackground">
+                <input type="radio" name="plan" value="basic" checked>
+                Basic
+            </label>
+
+            <label pgs="checkboxBackground">
+                <input type="radio" name="plan" value="pro">
+                Pro
+            </label>
+
+            <label pgs="checkboxBackground">
+                <input type="radio" name="plan" value="enterprise">
+                Enterprise
+            </label>
+        </fieldset>
     </section>
 
     <section pgs="flexColumn">
@@ -78,36 +95,38 @@ HTML examples of the checkboxBackground, twoState, toggle, and chips form contro
         <fieldset pgs="chips">
             <legend>Chip checkbox</legend>
             <label>
-                <input type="checkbox" name="plan" value="basic" checked>
-                Basic
+                <input type="checkbox" name="plan" value="red" checked>
+                Red
             </label>
 
             <label>
-                <input type="checkbox" name="plan" value="pro">
-                Pro
+                <input type="checkbox" name="plan" value="blue">
+                Blue
             </label>
 
             <label>
-                <input type="checkbox" name="plan" value="enterprise">
-                Enterprise
+                <input type="checkbox" name="plan" value="green">
+                Green
             </label>
         </fieldset>
 
         <fieldset pgs="chips">
             <legend>Chips radio</legend>
             <label>
-                <input type="radio" name="characters" value="basic" checked>
+                <input type="radio" name="characters" value="Crow" checked>
                 <i class="fa-solid fa-crow"></i>
                 Crow
             </label>
 
             <label>
-                <i class="fa-solid fa-dove"></i> <input type="radio" name="characters" value="pro">
+                <input type="radio" name="characters" value="Dove">
+                <i class="fa-solid fa-dove"></i>
                 Dove
             </label>
 
             <label>
-                <i class="fa-solid fa-dragon"></i> <input type="radio" name="characters" value="enterprise">
+                <input type="radio" name="characters" value="dragon">
+                <i class="fa-solid fa-dragon"></i>
                 dragon
             </label>
         </fieldset>

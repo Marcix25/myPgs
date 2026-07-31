@@ -6,6 +6,7 @@
  * @pgs
  * - slides: identifies the slides element used by Slides.
  * - slides-container: identifies the slides-container element used by Slides.
+ * - slides-container-slide: identifies each direct slide item.
  * - slides-prec: identifies the slides-prec element used by Slides.
  * - slides-next: identifies the slides-next element used by Slides.
  * - slides-dots: identifies the slides-dots element used by Slides.
@@ -33,8 +34,8 @@
  * @related
  * - card: uses the related card component or utility in this example.
  * - card-img: uses the related card-img component or utility in this example.
+ * - card-content: groups the textual content of each slide card.
  * - imgCover: uses the related imgCover component or utility in this example.
- * - flexColumn: uses the related flexColumn component or utility in this example.
  *
  * @return Complete HTML markup and usage example for Slides.
  */
@@ -42,30 +43,30 @@
 
 <div pgs="slides" pgs-option="singleScroll shadowDesktop">
     <ul pgs="slides-container">
-        <li>
-            <article pgs="card flexColumn">
+        <li pgs="slides-container-slide">
+            <article pgs="card">
                 <img pgs="card-img imgCover" src="https://placehold.co/800x500?text=Slide+1" alt="Slide 1">
-                <div pgs="flexColumn">
+                <div pgs="card-content">
                     <h3>Slide uno</h3>
                     <p>First slide content.</p>
                 </div>
             </article>
         </li>
 
-        <li>
-            <article pgs="card flexColumn">
+        <li pgs="slides-container-slide">
+            <article pgs="card">
                 <img pgs="card-img imgCover" src="https://placehold.co/800x500?text=Slide+2" alt="Slide 2">
-                <div pgs="flexColumn">
+                <div pgs="card-content">
                     <h3>Slide due</h3>
                     <p>Second slide content.</p>
                 </div>
             </article>
         </li>
 
-        <li>
-            <article pgs="card flexColumn">
+        <li pgs="slides-container-slide">
+            <article pgs="card">
                 <img pgs="card-img imgCover" src="https://placehold.co/800x500?text=Slide+3" alt="Slide 3">
-                <div pgs="flexColumn">
+                <div pgs="card-content">
                     <h3>Slide tre</h3>
                     <p>Third slide content.</p>
                 </div>

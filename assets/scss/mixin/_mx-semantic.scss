@@ -1,12 +1,16 @@
 //= MAIN 
-@mixin main($direction: column, $gap: var(--gap-sections)) {
+@mixin main() {
+    --main-padding-top: var(--page-top);
+    --main-padding-bottom: var(--page-bottom);
+    --main-gap: var(--gap-sections);
     display: flex;
-    flex-direction: $direction;
-    gap: $gap;
+    flex-direction: column;
+    gap: var(--main-gap);
     align-items: flex-start;
     min-height: 100svh;
     isolation: isolate;
-    padding-block: var(--page-top);
+    padding-top: var(--main-padding-top);
+    padding-bottom: var(--main-padding-bottom);
     width: 100%;
 }
 
@@ -77,11 +81,4 @@
     position: relative;
     gap: var(--gap-texts);
     flex-direction: column;
-    // //+ tablet 
-    // @media (min-width: $tablet) {
-    //     padding: var(--padding);
-    // }
 }
-
-
-

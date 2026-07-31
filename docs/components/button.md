@@ -15,6 +15,7 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `buttonIcon`: identifies a compact button composed primarily of an icon.
 - `buttonMini`: applies the smallest size variant.
 - `buttonBig`: applies the large size variant.
+- `buttonTransparent`: removes the default background and outline while preserving the button layout and hover behavior.
 
 ## Related elements
 
@@ -33,7 +34,7 @@ HTML collection of the main button variants.
         About
     </a>
 
-    <button pgs="button" type="button" pgs-option="buttonReverse">
+    <button pgs="button" type="button" pgs-option="buttonReverse" disabled>
         Next
         <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
     </button>
@@ -52,8 +53,13 @@ HTML collection of the main button variants.
     </button>
 
     <button pgs="button" pgs-option="buttonBig" type="button" aria-label="Large button">
-        <i class="fa-solid fa-rocket" aria-hidden="true"></i>
-        Large button
+        <i class="fa-duotone fa-solid fa-fire"></i>
+        Large
+    </button>
+
+    <button pgs="button" pgs-option="buttonTransparent" type="button">
+        <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+        Transparent
     </button>
 </div>
 ```

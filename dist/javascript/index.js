@@ -12,17 +12,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_pgs.js */ "./assets/javascript/_pgs.js");
 /* harmony import */ var _base_svg_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./base/_svg.js */ "./assets/javascript/base/_svg.js");
 /* harmony import */ var _components_accordion_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/_accordion.js */ "./assets/javascript/components/_accordion.js");
-/* harmony import */ var _components_dropdown_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/_dropdown.js */ "./assets/javascript/components/_dropdown.js");
-/* harmony import */ var _components_menu_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/_menu.js */ "./assets/javascript/components/_menu.js");
-/* harmony import */ var _components_modals_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/_modals.js */ "./assets/javascript/components/_modals.js");
-/* harmony import */ var _components_notifications_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/_notifications.js */ "./assets/javascript/components/_notifications.js");
-/* harmony import */ var _components_search_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_search.js */ "./assets/javascript/components/_search.js");
-/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
-/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
-/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
-/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
-/* harmony import */ var _functions_formValidate_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./functions/_formValidate.js */ "./assets/javascript/functions/_formValidate.js");
-/* harmony import */ var _functions_scrollY_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./functions/_scrollY.js */ "./assets/javascript/functions/_scrollY.js");
+/* harmony import */ var _components_alerts_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/_alerts.js */ "./assets/javascript/components/_alerts.js");
+/* harmony import */ var _components_dropdown_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/_dropdown.js */ "./assets/javascript/components/_dropdown.js");
+/* harmony import */ var _components_menu_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/_menu.js */ "./assets/javascript/components/_menu.js");
+/* harmony import */ var _components_modals_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/_modals.js */ "./assets/javascript/components/_modals.js");
+/* harmony import */ var _components_notifications_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_notifications.js */ "./assets/javascript/components/_notifications.js");
+/* harmony import */ var _components_search_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_search.js */ "./assets/javascript/components/_search.js");
+/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
+/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
+/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
+/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
+/* harmony import */ var _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./helper/_formValidate.js */ "./assets/javascript/helper/_formValidate.js");
+/* harmony import */ var _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./helper/_scrollY.js */ "./assets/javascript/helper/_scrollY.js");
+
 
 
 
@@ -42,17 +44,18 @@ __webpack_require__.r(__webpack_exports__);
 _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
     svg: _base_svg_js__WEBPACK_IMPORTED_MODULE_1__.PGS_svg,
     accordion: _components_accordion_js__WEBPACK_IMPORTED_MODULE_2__.PGS_accordion,
-    dropdown: _components_dropdown_js__WEBPACK_IMPORTED_MODULE_3__.PGS_dropdown,
-    menu: _components_menu_js__WEBPACK_IMPORTED_MODULE_4__.PGS_menu,
-    modal: _components_modals_js__WEBPACK_IMPORTED_MODULE_5__.PGS_modal,
-    notification: _components_notifications_js__WEBPACK_IMPORTED_MODULE_6__.PGS_notification,
-    search: _components_search_js__WEBPACK_IMPORTED_MODULE_7__.PGS_search,
-    slides: _components_slides_js__WEBPACK_IMPORTED_MODULE_8__.PGS_slides,
-    stepTabs: _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_9__.PGS_stepTabs,
-    steps: _components_steps_js__WEBPACK_IMPORTED_MODULE_10__.PGS_steps,
-    summary: _components_summary_js__WEBPACK_IMPORTED_MODULE_11__.PGS_summary,
-    formValidate: _functions_formValidate_js__WEBPACK_IMPORTED_MODULE_12__.PGS_formValidate,
-    scrollHorizontal: _functions_scrollY_js__WEBPACK_IMPORTED_MODULE_13__.PGS_scrollHorizontal,
+    alert: _components_alerts_js__WEBPACK_IMPORTED_MODULE_3__.PGS_alert,
+    dropdown: _components_dropdown_js__WEBPACK_IMPORTED_MODULE_4__.PGS_dropdown,
+    menu: _components_menu_js__WEBPACK_IMPORTED_MODULE_5__.PGS_menu,
+    modal: _components_modals_js__WEBPACK_IMPORTED_MODULE_6__.PGS_modal,
+    notification: _components_notifications_js__WEBPACK_IMPORTED_MODULE_7__.PGS_notification,
+    search: _components_search_js__WEBPACK_IMPORTED_MODULE_8__.PGS_search,
+    slides: _components_slides_js__WEBPACK_IMPORTED_MODULE_9__.PGS_slides,
+    stepTabs: _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_10__.PGS_stepTabs,
+    steps: _components_steps_js__WEBPACK_IMPORTED_MODULE_11__.PGS_steps,
+    summary: _components_summary_js__WEBPACK_IMPORTED_MODULE_12__.PGS_summary,
+    formValidate: _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_13__.PGS_formValidate,
+    scrollHorizontal: _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_14__.PGS_scrollHorizontal,
 });
 
 
@@ -774,6 +777,130 @@ const PGS_accordion = {
 
 /***/ },
 
+/***/ "./assets/javascript/components/_alerts.js"
+/*!*************************************************!*\
+  !*** ./assets/javascript/components/_alerts.js ***!
+  \*************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_alert: () => (/* binding */ PGS_alert)
+/* harmony export */ });
+//= PGS_alert
+const fn_alert = {
+    _defaults: {
+        description: "",
+        type: {
+            error: {
+                title: "Errore",
+                icon: '<i class="fa-solid fa-circle-xmark"></i>'
+            },
+            success: {
+                title: "Aggiornato",
+                icon: '<i class="fa-solid fa-circle-check"></i>'
+            },
+            info: {
+                title: "Aggiornamento",
+                icon: '<i class="fa-solid fa-circle-info"></i>'
+            },
+            warning: {
+                title: "Attenzione",
+                icon: '<i class="fa-solid fa-triangle-exclamation"></i>'
+            }
+        }
+    },
+
+    _escapeHtml(value) {
+        return String(value ?? "")
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+    },
+
+    _getContainer(root = document, configuredContainer) {
+        if (!(root instanceof Document) && !(root instanceof Element)) {
+            throw new TypeError("PGS alert: root deve essere un Document o un Element");
+        }
+
+        let container = configuredContainer;
+        if (typeof container === "string") container = root.querySelector(container);
+        if (!container) container = pgs(root).querySelector("alertContainer");
+
+        if (container && (!(container instanceof Element) || container === root || !root.contains(container))) {
+            throw new TypeError("PGS alert: container deve essere un elemento contenuto in root");
+        }
+
+        if (!container) {
+            container = document.createElement("div");
+            const parent = root instanceof Document ? root.body : root;
+            const submit = parent.querySelector('[type="submit"]');
+
+            if (submit) submit.insertAdjacentElement("beforebegin", container);
+            else parent.prepend(container);
+        }
+
+        pgs(container).add("alertContainer");
+        return container;
+    },
+
+    create(type, options = {}) {
+        const typeDefaults = this._defaults.type[type] || this._defaults.type.info;
+        const definedOptions = Object.fromEntries(
+            Object.entries(options).filter(([, value]) => value !== undefined)
+        );
+        const config = {
+            description: this._defaults.description,
+            ...typeDefaults,
+            ...definedOptions
+        };
+        const alert = document.createElement("div");
+        const title = this._escapeHtml(config.title);
+        const description = this._escapeHtml(config.description);
+
+        pgs(alert).add("alert");
+        pgs(alert).state.add(type);
+        alert.setAttribute("role", type === "error" || type === "warning" ? "alert" : "status");
+        alert.innerHTML = `
+            <div pgs="alert-icon" aria-hidden="true">${config.icon}</div>
+            <div pgs="alert-content">
+                <strong pgs="alert-content-title">${title}</strong>
+                ${description ? `<p>${description}</p>` : ""}
+            </div>
+        `;
+
+        return alert;
+    },
+
+    show(type, options = {}) {
+        if (!options || typeof options !== "object" || Array.isArray(options)) {
+            throw new TypeError("PGS alert: options deve essere un oggetto");
+        }
+
+        const { root, container, ...contentOptions } = options;
+        const alert = this.create(type, contentOptions);
+
+        if (root !== undefined || container !== undefined) {
+            this._getContainer(root, container).replaceChildren(alert);
+        }
+
+        return alert;
+    }
+};
+
+const PGS_alert = {
+    error: (options = {}) => fn_alert.show("error", options),
+    success: (options = {}) => fn_alert.show("success", options),
+    info: (options = {}) => fn_alert.show("info", options),
+    warning: (options = {}) => fn_alert.show("warning", options)
+};
+
+
+/***/ },
+
 /***/ "./assets/javascript/components/_dropdown.js"
 /*!***************************************************!*\
   !*** ./assets/javascript/components/_dropdown.js ***!
@@ -1284,19 +1411,56 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 //= PGS_notification
 const fn_notification = {
+    _defaults: {
+        element: "notification",
+        link: null,
+        timeout: 0,
+        description: "",
+        linkTitle: "Open",
+        closeTitle: "Close",
+        type: {
+            error: {
+                title: "Errore",
+                icon: '<i class="fa-solid fa-circle-xmark"></i>'
+            },
+            success: {
+                title: "Aggiornato",
+                icon: '<i class="fa-solid fa-circle-check"></i>'
+            },
+            info: {
+                title: "Aggiornamento",
+                icon: '<i class="fa-solid fa-circle-info"></i>'
+            },
+            warning: {
+                title: "Attenzione",
+                icon: '<i class="fa-solid fa-triangle-exclamation"></i>'
+            }
+        }
+    },
+
     _escapeHtml(value) {
-        return String(value ?? "");
+        return String(value ?? "")
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+    },
+
+    _formatText(value) {
+        return this._escapeHtml(value)
+            .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+            .replace(/\r?\n/g, "<br>");
     },
 
     _getDuration(notification) {
         const rawDuration = notification.duration;
         const duration = Number.parseInt(rawDuration, 10);
-
-        return Number.isNaN(duration) ? 5000 : duration;
+        return Number.isNaN(duration) ? undefined : duration;
     },
 
     _getApi(notification) {
-        const element = String(notification.element || "notification").trim();
+        const element = String(notification.element || this._defaults.element).trim();
 
         return element === "toast" ? PGS_notification.toast : PGS_notification.alert;
     },
@@ -1311,42 +1475,83 @@ const fn_notification = {
         const rawNotification = pgs(root).option.getValueBrackets("notification") || "{}";
 
         try {
-            return JSON.parse(rawNotification);
+            const notifications = JSON.parse(`[${rawNotification}]`);
+
+            if (notifications.some(notification => !notification || typeof notification !== "object" || Array.isArray(notification))) {
+                throw new TypeError("Each notification must be a JSON object");
+            }
+
+            return notifications;
         } catch (error) {
-            console.warn("PGS notification: configurazione JSON non valida", error);
-            return {};
+            console.warn("PGS notification: Invalid JSON configuration", error);
+            return [];
         }
     },
 
-    _getContent(title, content) {
-        const safeContent = this._escapeHtml(content);
-        const safeTitle = this._escapeHtml(title);
+    _getContent(title, description) {
+        const safeDescription = this._formatText(description);
+        const safeTitle = this._formatText(title);
 
-        if (!safeTitle) return safeContent;
-        if (!safeContent) return `<span pgs="notification-element-title">${safeTitle}</span>`;
+        if (!safeTitle) return `<span>${safeDescription}</span>`;
+        if (!safeDescription) return `<strong>${safeTitle}</strong>`;
 
         return `
-            <span pgs="notification-element-title">${safeTitle}</span>
-            <br>
-            <span pgs="notification-element-content">${safeContent}</span>
+            <strong>${safeTitle}</strong>
+            <span>${safeDescription}</span>
         `;
     },
 
-    _getContainer(containerType) {
+    _getContainer(element) {
         return Array.from(pgs(document).querySelectorAll("notification")).find(container => {
             const isToast = pgs(container).option.contains("toast");
-            return containerType === "toast" ? isToast : !isToast;
+            return element === "toast" ? isToast : !isToast;
         });
     },
 
-    initNotification(type, containerType, icon, text, timeout, methodDelete = "replace", link = null) {
-        let containerNotification = this._getContainer(containerType);
+    show(type, options = {}, element = this._defaults.element) {
+        if (typeof options === "string") options = { title: options };
+
+        if (!options || typeof options !== "object" || Array.isArray(options)) {
+            throw new TypeError("PGS notification: options deve essere un oggetto o una stringa");
+        }
+
+        const { type: typeDefaults, ...defaults } = this._defaults;
+        const definedOptions = Object.fromEntries(
+            Object.entries(options).filter(([, value]) => value !== undefined)
+        );
+        const resolvedElement = definedOptions.element || element;
+        const config = {
+            ...defaults,
+            ...typeDefaults[type],
+            ...definedOptions,
+            type,
+            element: resolvedElement,
+            timeout: definedOptions.timeout ?? (resolvedElement === "toast" ? 4000 : defaults.timeout)
+        };
+
+        return this.initNotification(config);
+    },
+
+    initNotification({
+        type,
+        element,
+        title,
+        icon,
+        description,
+        timeout,
+        link,
+        linkTitle,
+        closeTitle
+    }) {
+        let containerNotification = this._getContainer(element);
+        const methodDelete = element === "toast" ? "replace" : "stack";
+        const text = this._getContent(title, description);
 
         //== Create Container
         if (!containerNotification) {
             const newContainer = document.createElement("div");
             pgs(newContainer).add("notification");
-            if (containerType === "toast") pgs(newContainer).option.add("toast");
+            if (element === "toast") pgs(newContainer).option.add("toast");
             newContainer.setAttribute("aria-live", "polite");
             newContainer.setAttribute("aria-relevant", "additions");
             document.body.appendChild(newContainer);
@@ -1354,14 +1559,34 @@ const fn_notification = {
         }
 
         //== Create Notification
-        const notification = document.createElement(link ? "a" : "div");
+        const notification = document.createElement("div");
         if (methodDelete == "replace") containerNotification.innerHTML = "";
-        if (link) notification.href = link;
         if (timeout > 0) notification.style.setProperty("--notification-timeout", timeout + "ms");
         pgs(notification).state.add(type);
         pgs(notification).add("notification-element");
-        notification.setAttribute("role", type == "error" ? "alert" : "status")
-        notification.innerHTML = `${icon} <p>${text}</p>`;
+        notification.setAttribute("role", type == "error" ? "alert" : "status");
+        notification.innerHTML = `
+            <div pgs="notification-element-content">
+                <div pgs="notification-element-icon">${icon}</div>
+                <p>${text}</p>
+            </div>
+            <div pgs="notification-element-buttons">
+                <button type="button" pgs="button notification-element-buttons-delete">${closeTitle}</button>
+            </div>
+        `;
+
+        const notificationButtons = pgs(notification).querySelector("notification-element-buttons");
+        const btnDelete = pgs(notification).querySelector("notification-element-buttons-delete");
+        btnDelete.ariaLabel = closeTitle === "Close" ? "Close notification" : closeTitle;
+
+        if (link) {
+            const notificationLink = document.createElement("a");
+            notificationLink.href = link;
+            notificationLink.textContent = linkTitle;
+            pgs(notificationLink).add("button");
+            notificationButtons.insertAdjacentElement("afterbegin", notificationLink);
+        }
+
         containerNotification.appendChild(notification);
 
 
@@ -1374,17 +1599,7 @@ const fn_notification = {
         //== Timeout delete
         if (timeout > 0) setTimeout(() => { deleteNotification() }, timeout);
 
-        //== button delete
-        const btnDelete = document.createElement("button");
-        btnDelete.type = "button";
-        btnDelete.ariaLabel = "Rimuovi notifica";
-        btnDelete.innerHTML = '<i class="fa-solid fa-xmark"></i>';
-        btnDelete.setAttribute("pgs", "button");
-        btnDelete.setAttribute("pgs-option", "buttonClose");
-        notification.insertAdjacentElement("afterbegin", btnDelete);
-
         //== event
-
         btnDelete.addEventListener("click", function (e) {
             e.preventDefault();
             e.stopPropagation();
@@ -1393,8 +1608,8 @@ const fn_notification = {
         });
     },
 
-    deleteAll(containerType) {
-        let containerNotification = this._getContainer(containerType);
+    deleteAll(element = this._defaults.element) {
+        let containerNotification = this._getContainer(element);
         if (containerNotification) containerNotification.innerHTML = "";
     },
 
@@ -1404,24 +1619,30 @@ const fn_notification = {
 
             element.dataset.initialize = "true";
 
-            const notification = this._getData(element);
-            const title = String(notification.title || "").trim();
-            const content = String(notification.message || "").trim();
+            this._getData(element).forEach(notification => {
+                const title = String(notification.title || "").trim();
+                const description = String(notification.message || "").trim();
+                const linkTitle = String(notification["title-link"] || this._defaults.linkTitle).trim();
+                const closeTitle = String(notification["title-close"] || this._defaults.closeTitle).trim();
 
-            if (!title && !content) {
-                element.remove();
-                return;
-            }
+                if (!title && !description) return;
 
-            const link = notification.link || null;
-            const icon = notification.icon || undefined;
-            const duration = this._getDuration(notification);
-            const api = this._getApi(notification);
-            const type = this._getType(notification, api);
-            const formattedContent = this._getContent(title, content);
+                const link = notification.link || this._defaults.link;
+                const icon = notification.icon || undefined;
+                const duration = this._getDuration(notification);
+                const api = this._getApi(notification);
+                const type = this._getType(notification, api);
 
-            if (api === PGS_notification.toast) api[type](formattedContent, duration, icon);
-            else api[type](formattedContent, link, duration, icon);
+                api[type]({
+                    title,
+                    description,
+                    timeout: duration,
+                    icon,
+                    link,
+                    linkTitle,
+                    closeTitle
+                });
+            });
 
             element.remove();
         });
@@ -1436,17 +1657,17 @@ function PGS_notificationTrigger_init(root = document) {
 const PGS_notification = {
     trigger: PGS_notificationTrigger_init,
     alert: {
-        error: (text = "Errore", link = null, timeout = 0, icon = '<i class="fa-solid fa-circle-xmark"></i>') => fn_notification.initNotification("error", "notification", icon, text, timeout, "stack", link),
-        success: (text = "Aggiornato", link = null, timeout = 0, icon = '<i class="fa-solid fa-check"></i>') => fn_notification.initNotification("success", "notification", icon, text, timeout, "stack", link),
-        info: (text = "Aggiornamento", link = null, timeout = 0, icon = '<i class="fa-solid fa-circle-info"></i>',) => fn_notification.initNotification("info", "notification", icon, text, timeout, "stack", link),
-        warning: (text = "Attenzione", link = null, timeout = 0, icon = '<i class="fa-solid fa-triangle-exclamation"></i>') => fn_notification.initNotification("warning", "notification", icon, text, timeout, "stack", link),
-        deleteAll: () => fn_notification.deleteAll("notification")
+        error: (options = {}) => fn_notification.show("error", options),
+        success: (options = {}) => fn_notification.show("success", options),
+        info: (options = {}) => fn_notification.show("info", options),
+        warning: (options = {}) => fn_notification.show("warning", options),
+        deleteAll: () => fn_notification.deleteAll()
     },
     toast: {
-        error: (text = "Errore", timeout = 4000, icon = '<i class="fa-solid fa-circle-xmark"></i>',) => fn_notification.initNotification("error", "toast", icon, text, timeout),
-        success: (text = "Aggiornato", timeout = 4000, icon = '<i class="fa-solid fa-check"></i>',) => fn_notification.initNotification("success", "toast", icon, text, timeout),
-        info: (text = "Aggiornamento", timeout = 0, icon = '<i class="fa-solid fa-circle-info"></i>',) => fn_notification.initNotification("info", "toast", icon, text, timeout),
-        warning: (text = "Attenzione", timeout = 4000, icon = '<i class="fa-solid fa-triangle-exclamation"></i>',) => fn_notification.initNotification("warning", "toast", icon, text, timeout),
+        error: (options = {}) => fn_notification.show("error", options, "toast"),
+        success: (options = {}) => fn_notification.show("success", options, "toast"),
+        info: (options = {}) => fn_notification.show("info", options, "toast"),
+        warning: (options = {}) => fn_notification.show("warning", options, "toast"),
         deleteAll: () => fn_notification.deleteAll("toast")
     }
 };
@@ -1876,7 +2097,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_slides: () => (/* binding */ PGS_slides)
 /* harmony export */ });
-/* harmony import */ var _functions_scrollY_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functions/_scrollY.js */ "./assets/javascript/functions/_scrollY.js");
+/* harmony import */ var _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_scrollY.js */ "./assets/javascript/helper/_scrollY.js");
 
 const API = new WeakMap();
 
@@ -2026,7 +2247,7 @@ class PGS_Slides {
         //== scroll
         const removeHorizontalScroll = notScrollWithMouse
             ? null
-            : (0,_functions_scrollY_js__WEBPACK_IMPORTED_MODULE_0__.PGS_scrollHorizontal)(this.container, 5);
+            : (0,_helper_scrollY_js__WEBPACK_IMPORTED_MODULE_0__.PGS_scrollHorizontal)(this.container, 5);
 
         //==Listener: DOT, PREC, NEXT
         dots.forEach((dot, index) => dot.addEventListener("click", () => this.#goToNumberSlide(index), { signal }));
@@ -2480,10 +2701,10 @@ const PGS_summary = {
 
 /***/ },
 
-/***/ "./assets/javascript/functions/_formValidate.js"
-/*!******************************************************!*\
-  !*** ./assets/javascript/functions/_formValidate.js ***!
-  \******************************************************/
+/***/ "./assets/javascript/helper/_formValidate.js"
+/*!***************************************************!*\
+  !*** ./assets/javascript/helper/_formValidate.js ***!
+  \***************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2493,12 +2714,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
 /* harmony import */ var _components_notifications_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_notifications.js */ "./assets/javascript/components/_notifications.js");
+/* harmony import */ var _components_alerts_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/_alerts.js */ "./assets/javascript/components/_alerts.js");
+
 
 
 
 
 class PGS_formValidate {
-    #message = {};
+    #messageDefaults = {
+        fieldErrorTitle: "Error!",
+        fieldError: "Please complete this field.",
+        fieldsError: "Please complete all required fields.",
+        successTitle: "Submitted",
+        success: "Submitted successfully."
+    };
+    #temporaryFieldErrors = new Map();
     #insideValidatedCallback = false;
 
     constructor(form, options = {}) {
@@ -2508,27 +2738,82 @@ class PGS_formValidate {
 
         this.container = form;
         this._rules = [];
-        this.message = {
-            fieldError: "Please complete this field.",
-            fieldsError: "Please complete all required fields.",
-            success: "Submitted successfully."
-        };
+        this.typeNotice = options.typeNotice === "toast" ? "toast" : "alert";
+        this.showSuccessOnValidate = options.showSuccessOnValidate !== false;
+        this.alertContainer = options.alertContainer;
 
-        if (options.message !== undefined) this.message = options.message;
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.container).add("formValidate");
+        this.#initializeMessages(options.message);
         this.container?.setAttribute("novalidate", "");
     }
 
-    get message() {
-        return { ...this.#message };
-    }
-
-    set message(value) {
+    #validateMessages(value) {
+        if (value === undefined) return;
         if (!value || typeof value !== "object" || Array.isArray(value)) {
             throw new TypeError("message must be an object");
         }
 
-        this.#message = { ...this.#message, ...value };
+        Object.entries(value).forEach(([key, message]) => {
+            if (!(key in this.#messageDefaults)) {
+                throw new TypeError(`Unknown form message option: ${key}`);
+            }
+            if (message !== undefined && typeof message !== "string") {
+                throw new TypeError(`Form message option ${key} must be a string`);
+            }
+        });
     }
+
+    #initializeMessages(value = {}) {
+        this.#validateMessages(value);
+
+        const formOptions = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.container).option;
+        const initialMessages = {
+            ...this.#messageDefaults,
+            ...Object.fromEntries(
+                Object.entries(value).filter(([, message]) => message !== undefined)
+            )
+        };
+
+        Object.entries(initialMessages).forEach(([key, message]) => {
+            if (!formOptions.contains(key)) formOptions.setValueBrackets(key, message);
+        });
+    }
+
+    #getMessage(key) {
+        return (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.container).option.getValueBrackets(key);
+    }
+
+    temporaryFieldError = {
+        set: (field, options = {}) => {
+            if (!field || typeof field.matches !== "function" || !this.container.contains(field)) {
+                throw new TypeError("field must be an element contained in the form");
+            }
+
+            if (typeof options === "string") options = { message: options };
+            if (!options || typeof options !== "object" || Array.isArray(options)) {
+                throw new TypeError("temporaryFieldError options must be an object or a string");
+            }
+
+            this.#temporaryFieldErrors.set(field, {
+                title: options.title || "",
+                message: options.message || ""
+            });
+            this.validate();
+            return this.temporaryFieldError;
+        },
+
+        remove: (field) => {
+            this.#removeFieldError(field);
+            return this.temporaryFieldError;
+        },
+
+        clear: () => {
+            [...this.#temporaryFieldErrors.keys()].forEach(field => {
+                this.#removeFieldError(field);
+            });
+            return this.temporaryFieldError;
+        }
+    };
 
     // - Helpers
     #help = {
@@ -2605,15 +2890,15 @@ class PGS_formValidate {
             if (!this.#help.isRequired(r)) continue;
             const name = this.#help.getGroupName(r);
             if (!name) continue;
-            if (!requiredRadioGroups.has(name)) requiredRadioGroups.set(name, []);
-            requiredRadioGroups.get(name).push(r);
+            if (!requiredRadioGroups.has(name)) {
+                requiredRadioGroups.set(name, radios.filter(radio => this.#help.getGroupName(radio) === name));
+            }
         }
         const radioGroupErrors = [];
         for (const [name, group] of requiredRadioGroups.entries()) {
             const anyChecked = group.some((r) => r.checked);
             if (!anyChecked) {
-                // scegli dove mettere l'errore: tipicamente sul primo radio del gruppo
-                radioGroupErrors.push(group[0]);
+                radioGroupErrors.push(group[0].closest("fieldset") || group[0]);
             }
         }
 
@@ -2642,7 +2927,10 @@ class PGS_formValidate {
             // se è un gruppo (>=2) richiedi almeno una spuntata
             // se è 1 sola, si comporta come singola
             const anyChecked = group.some((c) => c.checked);
-            if (!anyChecked) checkboxGroupErrors.push(group[0]);
+            if (!anyChecked) {
+                const fieldset = group.length > 1 ? group[0].closest("fieldset") : null;
+                checkboxGroupErrors.push(fieldset || group[0]);
+            }
         }
 
         //== FILE 
@@ -2662,36 +2950,71 @@ class PGS_formValidate {
             requiredCheckboxSingles,
             checkboxGroupErrors,
             fileInputs,
-            ruleInvalidFields
+            ruleInvalidFields,
+            [...this.#temporaryFieldErrors.keys()]
         ];
 
         return [...new Set(invalidFields.flat())];
     }
 
     //+ ADD
-    addFieldError(field, i = 0, total = 1) {
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(field).option.add("error");
-        if (i === 0) field.scrollIntoView();
+    #addFieldError(field, i = 0, total = 1) {
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(field).state.add("errorField");
 
+        if (i === 0) field.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
         if (i !== 0) return;
 
-        if (total > 1) {
-            _components_notifications_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.toast.error(this.message.fieldsError);
-            return;
-        }
+        const messageSource = field.matches("fieldset")
+            ? field.querySelector('[pgs-option*="message["], [pgs-option*="messageTitle["]')
+            : field;
+        const source = messageSource || field;
+        const temporaryError = this.#temporaryFieldErrors.get(field);
+        const fieldTitle = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(source).option.getValueBrackets("messageTitle");
+        const fieldMessage = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(source).option.getValueBrackets("message");
+        const title = temporaryError?.title || fieldTitle || this.#getMessage("fieldErrorTitle");
+        const description = total > 1
+            ? this.#getMessage("fieldsError")
+            : temporaryError?.message || fieldMessage || this.#getMessage("fieldError");
 
-        const message = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(field).option.getValueBrackets("message");
-        _components_notifications_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.toast.error(message || this.message.fieldError);
+        if (this.typeNotice == "alert") {
+            _components_alerts_js__WEBPACK_IMPORTED_MODULE_2__.PGS_alert.error({
+                title: title,
+                description: description,
+                root: this.container,
+                container: this.alertContainer
+            });
+        } else {
+            _components_notifications_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.toast.error({
+                title: title,
+                description: description
+            });
+        }
     }
 
     //+ REMOVE
-    removeFieldError(field) {
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(field).option.remove("error");
+    #removeFieldError(field) {
+        this.#temporaryFieldErrors.delete(field);
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(field).state.remove("errorField");
     }
 
     // + SUCCESS
-    success(text = this.message.success) {
-        if (this.#insideValidatedCallback || this.validate() === true) _components_notifications_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.toast.success(text)
+    success(description = this.#getMessage("success"), title = this.#getMessage("successTitle")) {
+        if (this.#insideValidatedCallback || this.validate() === true) {
+
+            if (this.typeNotice == "alert") {
+                _components_alerts_js__WEBPACK_IMPORTED_MODULE_2__.PGS_alert.success({
+                    title,
+                    description,
+                    root: this.container,
+                    container: this.alertContainer
+                });
+            } else {
+                _components_notifications_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.toast.success({
+                    title,
+                    description
+                });
+            }
+        }
     }
 
 
@@ -2700,43 +3023,44 @@ class PGS_formValidate {
         const invalid = this.#inputValue(this.container);
         const allFields = this.container.querySelectorAll("input, textarea, select")
 
-        //== pulizia/aggiornamento errori: 
-        // prima rimuovo errori dai campi "non più invalidi"
-        Array.from(allFields).filter((el) => !el.disabled);
-
-        //== per radio/checkbox in gruppo: 
-        // rimuovi l'errore solo sull'elemento che lo ospita (qui: se presente)
-        for (const el of allFields) { if (!invalid.includes(el)) this.removeFieldError(el); }
+        //== pulizia/aggiornamento errori
+        this.container.querySelectorAll('[pgs-state~="errorField"]').forEach(element => {
+            if (!invalid.includes(element)) this.#removeFieldError(element);
+        });
 
         //== aggiungo errori dove serve
-        invalid.forEach((el, i) => this.addFieldError(el, i, invalid.length))
+        invalid.forEach((el, i) => this.#addFieldError(el, i, invalid.length))
 
         //== rimuove l'errore al click
-        allFields.forEach(element => element.addEventListener("click", e => this.removeFieldError(element)));
+        allFields.forEach(element => element.addEventListener("click", () => {
+            const errorTarget = element.closest('fieldset[pgs-state~="errorField"]') || element;
+            this.#removeFieldError(errorTarget);
+        }));
 
         //== status form
         if (invalid.length) {
-            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.container).option.remove("success").add("error");
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.container).state.remove("success").add("errorForm");
             return false;
         } else {
-            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.container).option.remove("error").add("success");
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.container).state.remove("errorForm").add("success");
             return true;
         }
     }
 
-    // + EVENT VALIDATOR
+    //= EVENT VALIDATOR
     validator(callback, eventName = "submit") {
         if (typeof callback !== "function") throw new TypeError("callback must be a function");
         if (typeof eventName !== "string" || !eventName.trim()) throw new TypeError("eventName must be a non-empty string");
 
         this.container.addEventListener(eventName, event => {
             event.preventDefault();
+            this.temporaryFieldError.clear();
             if (!this.validate()) return;
 
             this.#insideValidatedCallback = true;
 
             try {
-                this.success();
+                if (this.showSuccessOnValidate) this.success();
                 callback(event);
             } finally {
                 this.#insideValidatedCallback = false;
@@ -2746,7 +3070,7 @@ class PGS_formValidate {
         return this;
     }
 
-    // + ADD RULE
+    //= ADD RULE
     addNewRule(rule) {
         if (typeof rule !== "function") throw new Error("Rule must be a function");
         this._rules.push(rule);
@@ -2757,10 +3081,10 @@ class PGS_formValidate {
 
 /***/ },
 
-/***/ "./assets/javascript/functions/_scrollY.js"
-/*!*************************************************!*\
-  !*** ./assets/javascript/functions/_scrollY.js ***!
-  \*************************************************/
+/***/ "./assets/javascript/helper/_scrollY.js"
+/*!**********************************************!*\
+  !*** ./assets/javascript/helper/_scrollY.js ***!
+  \**********************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3344,20 +3668,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _base_object_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./base/_object.js */ "./assets/javascript/base/_object.js");
 /* harmony import */ var _base_object_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_base_object_js__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _components_accordion_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/_accordion.js */ "./assets/javascript/components/_accordion.js");
-/* harmony import */ var _components_dropdown_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/_dropdown.js */ "./assets/javascript/components/_dropdown.js");
-/* harmony import */ var _components_menu_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/_menu.js */ "./assets/javascript/components/_menu.js");
-/* harmony import */ var _components_modals_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_modals.js */ "./assets/javascript/components/_modals.js");
-/* harmony import */ var _components_search_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_search.js */ "./assets/javascript/components/_search.js");
-/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
-/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
-/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
-/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
-/* harmony import */ var _components_notifications_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/_notifications.js */ "./assets/javascript/components/_notifications.js");
-/* harmony import */ var _imports_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./_imports.js */ "./assets/javascript/_imports.js");
-/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./layout/_header.js */ "./assets/javascript/layout/_header.js");
-/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_layout_header_js__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
-/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var _components_alerts_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/_alerts.js */ "./assets/javascript/components/_alerts.js");
+/* harmony import */ var _components_dropdown_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/_dropdown.js */ "./assets/javascript/components/_dropdown.js");
+/* harmony import */ var _components_menu_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_menu.js */ "./assets/javascript/components/_menu.js");
+/* harmony import */ var _components_modals_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_modals.js */ "./assets/javascript/components/_modals.js");
+/* harmony import */ var _components_search_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_search.js */ "./assets/javascript/components/_search.js");
+/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
+/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
+/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
+/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
+/* harmony import */ var _components_notifications_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/_notifications.js */ "./assets/javascript/components/_notifications.js");
+/* harmony import */ var _imports_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./_imports.js */ "./assets/javascript/_imports.js");
+/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./layout/_header.js */ "./assets/javascript/layout/_header.js");
+/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_layout_header_js__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
+/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_17__);
 //= PGS
 
 
@@ -3368,6 +3693,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 //= CN 
+
 
 
 

@@ -7,7 +7,7 @@ The library provides a design-system foundation: layouts, spacing, colors, butto
 ## What it includes
 
 - `assets/scss/`: SCSS sources divided into base, layouts, components, patterns, and mixins.
-- `assets/javascript/`: the `pgs` helper, JavaScript components, functions, and patterns.
+- `assets/javascript/`: the `pgs` helper, JavaScript components, helpers, and patterns.
 - `reference/`: canonical HTML and React references for components, layouts, and patterns.
 - `dist/css/`: compiled CSS.
 - `dist/javascript/`: compiled JavaScript bundle.
@@ -80,7 +80,7 @@ To import only the mixins:
 ## Documentation
 
 - [CSS/SCSS usage](docs/utilizzo-css-scss.md)
-- [JavaScript helper](docs/helper-javascript.md)
+- [JavaScript helpers](docs/helper/README.md)
 - [Components and markup](docs/componenti-e-markup.md)
 - [npm exports and development](docs/export-e-sviluppo.md)
 - [Conventions](docs/convenzioni.md)

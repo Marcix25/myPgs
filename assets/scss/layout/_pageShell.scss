@@ -26,8 +26,8 @@ $pageShell-test-gap: 4rem;
     --pageShell-content-width: var(--page-width);
     --pageShell-aside-width: #{$aside-size};
     --pageShell-aside-sticky-top: 0;
-    --pageShell-paddingInline: var(--padding-page);
-    --pageShell-paddingTop: var(--page-top);
+    --pageShell-padding-inline: var(--padding-page);
+    --pageShell-padding-top: var(--page-top);
     --pageShell-gap: var(--gap-elements);
     display: flex;
     flex-wrap: wrap;
@@ -37,7 +37,7 @@ $pageShell-test-gap: 4rem;
     justify-content: center;
     width: 100%;
     max-width: var(--pageShell-width);
-    padding-inline: var(--pageShell-paddingInline);
+    padding-inline: var(--pageShell-padding-inline);
     container-type: inline-size;
 
     [pgs~="pageShell-content"] {
@@ -46,13 +46,11 @@ $pageShell-test-gap: 4rem;
         min-width: min(100%, $content-size);
         width: min(100%, var(--pageShell-content-width));
         max-width: var(--pageShell-content-width);
-        padding-top: var(--pageShell-paddingTop);
+        padding-top: var(--pageShell-padding-top);
         padding-bottom: var(--gap-elements);
     }
 
     [pgs~="pageShell-aside"] {
-        @include flexColumn;
-        align-items: flex-start;
         isolation: isolate;
         position: sticky;
         top: var(--pageShell-aside-sticky-top);
@@ -63,7 +61,7 @@ $pageShell-test-gap: 4rem;
         overscroll-behavior: contain;
         scrollbar-gutter: stable;
         scrollbar-width: none;
-        padding-top: var(--pageShell-paddingTop);
+        padding-top: var(--pageShell-padding-top);
         padding-bottom: var(--gap-elements);
         flex: 1 1 var(--pageShell-aside-width);
         min-width: min(100%, var(--pageShell-aside-width));
@@ -82,14 +80,12 @@ $pageShell-test-gap: 4rem;
         }
 
         [pgs~="pageShell-aside-scroll"] {
-            @include flexColumn;
-            align-items: flex-start;
             width: 100%;
             overflow-y: auto;
             overscroll-behavior: contain;
             scrollbar-gutter: stable;
             scrollbar-width: none;
-            padding-top: var(--pageShell-paddingTop);
+            padding-top: var(--pageShell-padding-top);
             padding-bottom: calc(var(--gap-elements)*2);
 
             &::-webkit-scrollbar {
@@ -186,7 +182,7 @@ $pageShell-test-gap: 4rem;
     }
 
     @container (max-width: #{$content-size}) {
-        padding-top: var(--pageShell-paddingTop);
+        padding-top: var(--pageShell-padding-top);
 
         [pgs~="pageShell-content"],
         [pgs~="pageShell-aside"] {

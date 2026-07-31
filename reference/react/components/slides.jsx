@@ -9,10 +9,10 @@ export default function Slides() {
         <div pgs="slides" pgs-option="singleScroll shadowDesktop">
             <ul pgs="slides-container">
                 {slides.map(([title, text, src, alt]) => (
-                    <li key={title}>
+                    <li key={title} pgs="slides-container-slide">
                         <article pgs="card flexColumn">
                             <img pgs="card-img imgCover" src={src} alt={alt} />
-                            <div pgs="flexColumn">
+                            <div pgs="card-content">
                                 <h3>{title}</h3>
                                 <p>{text}</p>
                             </div>
