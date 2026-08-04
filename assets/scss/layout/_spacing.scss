@@ -1,16 +1,20 @@
 //# SPACING
 //= GAP
+[pgs-option~=gapTexts],
 [pgs~=gapTexts] {
     gap: var(--gap-texts);
 }
 
+[pgs-option~=gapElements],
 [pgs~=gapElements] {
     gap: var(--gap-elements);
 }
 
+[pgs-option~=gapSections],
 [pgs~=gapSections] {
     gap: var(--gap-sections);
 }
+[pgs-option~=gapNone],
 [pgs~=gapNone] {
     gap: unset;
 }
@@ -34,6 +38,10 @@
 
     &[pgs-option~=marginSections] {
         --margin-size: var(--gap-sections);
+    }
+
+    &[pgs-option~=marginAuto] {
+        --margin-size: auto;
     }
 }
 

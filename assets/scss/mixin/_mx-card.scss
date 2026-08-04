@@ -3,35 +3,50 @@
 @use "mx-hover" as *;
 @use "mx-responsive" as *;
 
-@mixin _cardContent() {
+//= CARD
+//-- selectorLinkAndNot
+@mixin _selectorLinkAndNot {
+    &:where(a),
+    &:where(:not(:has(> a:first-child))),
+    > a:first-child {
+        @content;
+    }
+}
 
-    &:is(a),
-    &:not(:has(>a)),
-    >a {
+//-- selectorLink
+@mixin _selectorLink {
+
+    &:where(a),
+    >a:first-child {
+        @content;
+    }
+}
+
+//== content
+@mixin _cardContent() {
+    @include _selectorLinkAndNot {
         padding: 0;
         overflow: hidden;
+
+        > :is(object, img) {
+            display: block;
+            padding: var(--card-img-padding);
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            height: auto;
+            margin: 0;
+            object-fit: cover;
+        }
     }
 
-    >object,
-    >img,
-    >a>object,
-    >a>img {
-        display: block;
-        padding: var(--card-img-padding);
-        width: 100%;
-        max-width: 100%;
-        min-width: 0;
-        height: auto;
-        margin: 0;
-        object-fit: cover;
-    }
-
-    [pgs~=card-content] {
+    [pgs~="card-content"] {
         min-width: 0;
         padding: var(--card-padding);
     }
 }
 
+//== content legacy
 @mixin _cardContentLegacy() {
     --card-img-base: calc(var(--card-padding) * -1);
     --card-img-margin-right: var(--card-img-base);
@@ -39,65 +54,54 @@
     --card-img-margin-top: var(--card-img-base);
     --card-img-margin-bottom: var(--card-padding);
 
-    &:is(a),
-    &:not(:has(>a)),
-    >a {
+    @include _selectorLinkAndNot {
         padding: var(--card-padding);
+
+        > :is(object, img) {
+            display: block;
+            padding: var(--card-img-padding);
+            width: calc((var(--card-padding) * 2) + 100%);
+            max-width: none;
+            height: auto;
+            margin:
+                var(--card-img-margin-top) var(--card-img-margin-right) var(--card-img-margin-bottom) var(--card-img-margin-left);
+            border-radius: var(--card-borderRadius);
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
     }
 
-    >object,
-    >img,
-    >a>object,
-    >a>img {
-        display: block;
-        padding: var(--card-img-padding);
-        width: calc((var(--card-padding) * 2) + 100%);
-        max-width: none;
-        height: auto;
-        margin: var(--card-img-margin-top) var(--card-img-margin-right) var(--card-img-margin-bottom) var(--card-img-margin-left);
-        border-radius: var(--card-borderRadius);
-        border-bottom-right-radius: 0;
-        border-bottom-left-radius: 0;
-    }
-
-    &:where([pgs-option~=cardMini]) {
+    &:where([pgs-option~="cardMini"]) {
         --card-padding: var(--padding-2);
     }
 }
 
+//== content horizontal
 @mixin _cardContentHorizontal() {
 
     //- cardHorizontal
-    &[pgs-option~=cardHorizontal] {
-
-        &:is(a),
-        &:not(:has(>a)),
-        >a {
+    &[pgs-option~="cardHorizontal"] {
+        @include _selectorLinkAndNot {
             flex-flow: row wrap;
-        }
 
-        [pgs~=card-content],
-        >object,
-        >img,
-        >a>object,
-        >a>img {
-            flex-basis: calc((var(--card-horizontal-breakpoint) - 100%) * 999);
-        }
+            > :is(object, img),
+            [pgs~="card-content"] {
+                flex-basis: calc((var(--card-horizontal-breakpoint) - 100%) * 999);
+            }
 
-        [pgs~=card-content] {
-            flex-grow: var(--card-horizontal-content-grow);
-        }
+            [pgs~="card-content"] {
+                flex-grow: var(--card-horizontal-content-grow);
+            }
 
-        >object,
-        >img,
-        >a>object,
-        >a>img {
-            flex-grow: var(--card-horizontal-img-grow);
-            min-height: var(--card-horizontal-img-minHeight);
+            > :is(object, img) {
+                flex-grow: var(--card-horizontal-img-grow);
+                min-height: var(--card-horizontal-img-minHeight);
+            }
         }
     }
 }
 
+//== card
 @mixin card() {
     --card-padding: var(--padding);
     --card-borderRadius: calc(var(--border-radius-input) + var(--card-padding));
@@ -108,9 +112,7 @@
     --card-horizontal-content-grow: 3;
     --card-horizontal-img-minHeight: 300px;
 
-    &:is(a),
-    &:not(:has(>a)),
-    >a {
+    @include _selectorLinkAndNot {
         display: flex;
         flex-direction: column;
         height: 100%;
@@ -118,43 +120,40 @@
         border-radius: var(--card-borderRadius);
     }
 
-    &:is(a),
-    >a {
+    @include _selectorLink {
         --card-background: var(--color-white);
         @include hover();
         outline: var(--border-complete);
     }
 
+    //- not card Legacy
     &:where(:not([pgs-option~=cardLegacy])) {
         @include _cardContent();
     }
 
-    //- cardLegacy
+    //- card Legacy
     &[pgs-option~=cardLegacy] {
         @include _cardContentLegacy();
     }
 
-    //- cardHorizontal
+    //- card Horizontal
     &[pgs-option~=cardHorizontal] {
         @include _cardContentHorizontal();
     }
 
-    //- cardmini
+    //- card Mini
     &[pgs-option~=cardMini] {
-        [pgs~=card-content] {
-            --card-padding: var(--padding-2);
-        }
+        --card-padding: var(--padding-2);
     }
 }
 
+//= BOX
 @mixin box() {
     --box-padding: var(--padding);
     --box-borderRadius: calc(var(--border-radius-input) + var(--box-padding));
     --box-background: var(--color-box-transparent);
 
-    &:not(:has(>a)),
-    &:is(a),
-    >a {
+    @include _selectorLinkAndNot {
         display: flex;
         flex-direction: column;
         height: 100%;
@@ -163,14 +162,13 @@
         border-radius: var(--box-borderRadius);
     }
 
-    &:is(a),
-    >a {
+    @include _selectorLink {
         --box-background: var(--color-white);
         @include hover();
         outline: var(--border-complete);
     }
 
-    //- boxmini
+    //- boxMini
     &[pgs-option~=boxMini] {
         --box-padding: var(--padding-2);
     }

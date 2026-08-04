@@ -1,0 +1,156 @@
+# Using `mypgs` in an External Project
+
+This guide is for AI/Codex agents working in a project that consumes the `mypgs` NPM package. It explains how to use the library without modifying its source.
+
+## 1. Purpose
+
+`mypgs` is a frontend design-system library built around:
+
+- HTML `pgs` attributes shared by markup, SCSS, and JavaScript;
+- reusable layouts, components, patterns, CSS variables, and SCSS mixins;
+- JavaScript behaviors for accordions, alerts, dropdowns, menus, modals, notifications, search, slides, steps, step tabs, form validation, headers, cookie consent, and dark mode;
+- canonical HTML and React examples in the package `reference/` directory;
+- compiled CSS and JavaScript in `dist/`.
+
+Use `mypgs` as the design-system foundation instead of recreating standard layouts, components, states, spacing, and interactions locally.
+
+## 2. Consumer Rules
+
+- Prefer existing `mypgs` layouts, components, helpers, variables, utilities, and patterns.
+- Do not recreate components already supplied by the library.
+- Do not duplicate behavior already handled by a `pgs.*` module.
+- Prefer composing `pgs` tokens over adding custom classes.
+- Classes are acceptable for external integrations and project-specific details, but must not replace existing PGS tokens.
+- Configure components through `pgs-option` and CSS custom properties before overriding their internal layout.
+- Use `pgs-state` for runtime state and `pgs-option` for configuration.
+- Keep base markup semantic even when the library adds ARIA attributes at runtime.
+
+Write custom CSS or JavaScript only when the required pattern does not exist in `mypgs` or is genuinely specific to the consuming project.
+
+## 3. Public Conventions
+
+- `pgs` tokens are separated by spaces, for example `pgs="button modal-button"`.
+- Compound tokens normally use camelCase, such as `menuHorizontal`, `buttonStrong`, `flexColumn`, and `gapElements`.
+- Component child tokens normally use a component prefix, such as `accordion-button`, `modal-dialog-content`, and `cookieConsent-actionAccept`.
+- Runtime states belong in `pgs-state`, for example `open`, `is-active`, `is-completed`, `is-locked`, `success`, `errorForm`, and `errorField`.
+- Options belong in `pgs-option` and may contain bracket values. Copy their exact syntax from the relevant reference instead of guessing it.
+- Composable search uses `pgs="search"` as its visual and behavioral root and optionally `pgs="search-suggestions"`. Configure its source through `pgs.search.api(element)?.configure({ source })` and keep it backend-independent.
+
+The complete page must enable the library through the current tokens shown in `reference/html/layout/body.html`. Do not infer the root markup from the demo.
+
+## 4. Imports
+
+JavaScript and compiled CSS:
+
+```js
+import "mypgs";
+import "mypgs/style.css";
+```
+
+Import the helper when direct access is required:
+
+```js
+import { pgs } from "mypgs";
+```
+
+Load the SCSS source and public mixins:
+
+```scss
+@use "sass:meta";
+@use "../../node_modules/mypgs/assets/scss/mixin/mixin.scss" as *;
+
+@include meta.load-css("../../node_modules/mypgs/assets/scss/index.scss");
+```
+
+Import only the mixins when the project does not need the library stylesheet source:
+
+```scss
+@use "../../node_modules/mypgs/assets/scss/mixin/mixin.scss" as *;
+```
+
+## 5. SCSS Usage
+
+- Reuse existing properties such as `--color-primary`, `--color-box`, `--color-text`, `--padding`, `--padding-page`, `--gap-texts`, `--gap-elements`, `--gap-sections`, `--border-radius`, `--border-radius-input`, `--border-complete`, `--box-shadow`, and `--focus-visible`.
+- Use existing layout and component mixins instead of rewriting them.
+- Compose custom buttons with `buttonBase`, either `buttonContent` or `buttonIcon`, either `buttonHover` or `buttonNohover`, and the required variants. Variant mixins do not include the base styles.
+- Configure dropdown placement with `pgs-option="position[side align]"`, for example `position[top left]`, `position[bottom right]`, or `position[left center]`.
+- Avoid overriding `display`, `position`, `overflow`, `padding`, and `gap` when the component already manages them.
+- Prefer component-level custom properties for project customization.
+
+Recommended:
+
+```scss
+#products .products-card {
+    --card-background: var(--color-box);
+    --button-background: var(--color-primary);
+    border-radius: var(--border-radius);
+}
+```
+
+Avoid:
+
+```scss
+.products-card {
+    padding: 37px;
+    border-radius: 19px;
+    background: #f8f8f8;
+}
+```
+
+## 6. JavaScript Usage
+
+The package entrypoint initializes the registered base behaviors, components, and patterns. Prefer their public APIs over local implementations.
+
+```js
+const modal = pgs(document).querySelector("modal");
+
+pgs(modal).add("custom-token");
+pgs(modal).state.add("open");
+pgs(modal).option.contains("history");
+pgs(modal).option.getValueBrackets("containerID");
+```
+
+Use registered modules directly:
+
+```js
+pgs.notification.toast.success({ title: "Saved" });
+pgs.modal.api(modal)?.open();
+pgs.search.api(searchElement)?.setSource(async ({ query, signal }) => []);
+```
+
+- Verify the current public shortcut before using `pgs.moduleName`.
+- Do not duplicate initialization, open/close, state, notification, form-validation, or accessibility logic.
+- Do not use parallel `.open` classes when a component reads `pgs-state~="open"`.
+- Do not call methods that are absent from the installed version's source or TypeScript declarations.
+
+## 7. Markup and References
+
+The installed package's `reference/html/` files are the single source of truth for markup. Before creating or changing a component:
+
+1. Open the relevant reference file.
+2. Copy its current root and child tokens.
+3. Preserve semantic elements and ARIA attributes.
+4. Copy the exact `pgs-option` syntax.
+5. Do not remove elements queried by the component's JavaScript.
+
+Use layout references from `reference/html/layout/`, component references from `reference/html/components/`, and pattern references from `reference/html/patterns/`.
+
+`demo/demo.html` is only a complete assembly of the modules and must not be used as the canonical component reference.
+
+## 8. Consumer Checklist
+
+- Did I check whether `mypgs` already provides the requested feature?
+- Did I open the relevant canonical HTML reference?
+- Did I use `pgs-state` for runtime state and `pgs-option` for configuration?
+- Did I use library variables and mixins instead of hardcoded replacements?
+- Did I avoid duplicating a registered JavaScript behavior?
+- Did I verify APIs against the installed package version?
+- Did I keep project-specific code outside the library package?
+
+## Documentation
+
+- [CSS/SCSS usage](docs/utilizzo-css-scss.md)
+- [JavaScript helpers](docs/helper/README.md)
+- [Components and markup](docs/componenti-e-markup.md)
+- [npm exports and development](docs/export-e-sviluppo.md)
+- [Conventions](docs/convenzioni.md)

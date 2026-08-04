@@ -1,7 +1,7 @@
 //= MAIN 
 @mixin main() {
     --main-padding-top: var(--page-top);
-    --main-padding-bottom: var(--page-bottom);
+    --main-padding-bottom: var(--page-top);
     --main-gap: var(--gap-sections);
     display: flex;
     flex-direction: column;

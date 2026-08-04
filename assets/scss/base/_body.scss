@@ -1,7 +1,7 @@
 @use "../mixin/mixin" as *;
 
 //== BASE
-[pgs~="bodyBase"] {
+:where([pgs~="bodyBase"]) {
     background-color: var(--color-background);
     position: relative;
 
@@ -43,16 +43,10 @@
 }
 
 //== IMG
-[pgs~="bodyImg"] {
+:where([pgs~="bodyImg"]) {
     i {
         line-height: 1.2;
         font-size: var(--fa-size);
-        // transition: color 300ms;
-
-        // &::before,
-        // &::after {
-        //   transition: color 300ms;
-        // }
     }
 
     img,
@@ -88,7 +82,7 @@
 }
 
 //== TEXT
-[pgs~="bodyText"] {
+:where([pgs~="bodyText"]) {
     letter-spacing: 0.4px;
     color: var(--color-black);
     font-family: var(--font);
@@ -130,7 +124,7 @@
 }
 
 //== heading
-[pgs~="bodyHeading"] {
+:where([pgs~="bodyHeading"]) {
     h1 {
         @include h1();
     }

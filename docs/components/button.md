@@ -7,6 +7,7 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 ## PGS
 
 - `button`: identifies the standard button, which can also be used on anchor elements.
+- `icon`: displays a standalone icon inside a circular surface.
 
 ## PGS Options
 
@@ -16,6 +17,9 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `buttonMini`: applies the smallest size variant.
 - `buttonBig`: applies the large size variant.
 - `buttonTransparent`: removes the default background and outline while preserving the button layout and hover behavior.
+- `buttonSecondary`: replaces the primary button accent with the secondary color palette.
+- `buttonTertiary`: replaces the primary button accent with the tertiary color palette.
+- `buttonQuaternary`: replaces the primary button accent with the quaternary color palette.
 
 ## Related elements
 
@@ -23,7 +27,7 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 
 ## Output
 
-HTML collection of the main button variants.
+HTML collection of the main button variants and the standalone icon surface.
 
 ## Example
 
@@ -61,5 +65,21 @@ HTML collection of the main button variants.
         <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
         Transparent
     </button>
+
+    <button pgs="button" pgs-option="buttonStrong buttonSecondary" type="button">
+        Secondary
+    </button>
+
+    <button pgs="button" pgs-option="buttonStrong buttonTertiary" type="button">
+        Tertiary
+    </button>
+
+    <button pgs="button" pgs-option="buttonStrong buttonQuaternary" type="button">
+        Quaternary
+    </button>
+
+    <span pgs="icon" aria-hidden="true">
+        <i class="fa-solid fa-star"></i>
+    </span>
 </div>
 ```

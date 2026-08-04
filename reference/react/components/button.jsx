@@ -33,6 +33,22 @@ export default function Button() {
                 <i className="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
                 Transparent
             </button>
+
+            <button pgs="button" pgs-option="buttonStrong buttonSecondary" type="button">
+                Secondary
+            </button>
+
+            <button pgs="button" pgs-option="buttonStrong buttonTertiary" type="button">
+                Tertiary
+            </button>
+
+            <button pgs="button" pgs-option="buttonStrong buttonQuaternary" type="button">
+                Quaternary
+            </button>
+
+            <span pgs="icon" aria-hidden="true">
+                <i className="fa-solid fa-star"></i>
+            </span>
         </div>
     );
 }

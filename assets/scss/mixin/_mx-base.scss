@@ -7,7 +7,7 @@
     @include flexColumn();
     @include list;
 
-    hr{
+    hr {
         align-self: stretch;
     }
 
@@ -65,12 +65,12 @@
     font-family: var(--font-titoli);
     --heading-size: #{$size};
     color: var(--color-black);
-    margin-bottom: calc(var(--heading-size)/4);
+    margin-bottom: calc(var(--heading-size)/8);
     font-size: var(--heading-size);
     min-width: 0;
     font-weight: 900;
-    overflow-wrap: anywhere;
     // text-box: trim-both cap alphabetic;
+    overflow-wrap: anywhere;
 
     @media (max-width: $tablet) {
         font-size: clamp(1.6rem, var(--heading-size) / 3 + 8vw, var(--heading-size));
@@ -92,24 +92,23 @@
     }
 }
 
-
-@mixin h1(){
+@mixin h1() {
     @include heading($h1);
 }
 
-@mixin h2(){
+@mixin h2() {
     @include heading($h2);
 }
 
-@mixin h3(){
+@mixin h3() {
     @include heading($h3);
 }
 
-@mixin h4(){
+@mixin h4() {
     @include heading($h4);
 }
 
-@mixin h5(){
+@mixin h5() {
     @include heading($h5);
 }
 

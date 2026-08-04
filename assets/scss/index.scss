@@ -9,59 +9,47 @@
 @include meta.load-css("base/color");
 @include meta.load-css("base/html");
 @include meta.load-css("base/body");
-
-[pgs~=initP] {
-    @include meta.load-css("base/heading");
-    @include meta.load-css("base/general");
-}
-
+@include meta.load-css("base/heading");
+@include meta.load-css("base/general");
 /*
 |--------------------------------------------------------------------------
 | Layout
 |--------------------------------------------------------------------------
 */
-[pgs~=initP] {
-    @include meta.load-css("layout/layout");
-    @include meta.load-css("layout/responsive");
-    @include meta.load-css("layout/spacing");
-    @include meta.load-css("layout/pageShell");
-    @include meta.load-css("layout/header");
-    @include meta.load-css("layout/footer");
-}
-
+@include meta.load-css("layout/layout");
+@include meta.load-css("layout/responsive");
+@include meta.load-css("layout/spacing");
+@include meta.load-css("layout/pageShell");
+@include meta.load-css("layout/header");
+@include meta.load-css("layout/footer");
 /*
 |--------------------------------------------------------------------------
 | Components
 |--------------------------------------------------------------------------
 */
-[pgs~=initP] {
-    @include meta.load-css("components/card");
-    @include meta.load-css("components/button");
-    @include meta.load-css("components/form");
-    @include meta.load-css("components/formAddon");
-    @include meta.load-css("components/menu");
-    @include meta.load-css("components/accordion");
-    @include meta.load-css("components/breadcumbs");
-    @include meta.load-css("components/dropdown");
-    @include meta.load-css("components/modals");
-    @include meta.load-css("components/slides");
-    @include meta.load-css("components/steps");
-    @include meta.load-css("components/table");
-    @include meta.load-css("components/stepTabs");
-    @include meta.load-css("components/summary");
-    @include meta.load-css("components/badges");
-    @include meta.load-css("components/alerts");
-    @include meta.load-css("components/notification");
-    @include meta.load-css("components/tooltip");
-    @include meta.load-css("components/search");
-    @include meta.load-css("components/logo");
-}
-
+@include meta.load-css("components/card");
+@include meta.load-css("components/button");
+@include meta.load-css("components/form");
+@include meta.load-css("components/formAddon");
+@include meta.load-css("components/menu");
+@include meta.load-css("components/accordion");
+@include meta.load-css("components/breadcumbs");
+@include meta.load-css("components/dropdown");
+@include meta.load-css("components/modals");
+@include meta.load-css("components/slides");
+@include meta.load-css("components/steps");
+@include meta.load-css("components/table");
+@include meta.load-css("components/stepTabs");
+@include meta.load-css("components/summary");
+@include meta.load-css("components/badges");
+@include meta.load-css("components/alerts");
+@include meta.load-css("components/notification");
+@include meta.load-css("components/tooltip");
+@include meta.load-css("components/search");
+@include meta.load-css("components/logo");
 /*
 |--------------------------------------------------------------------------
 | Patterns
 |--------------------------------------------------------------------------
 */
-[pgs~=initP] {
-    @include meta.load-css("patterns/cookieConsent");
-}
+@include meta.load-css("patterns/cookieConsent");

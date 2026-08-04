@@ -2,44 +2,47 @@
 
 //= COLOR
 //== LIGHTMODE & DARKMODE
-:root {
-    color-scheme: light;
+:where([pgs~=htmlBase]) {
 
-    &[pgs-state~=darkmode] {
-        color-scheme: dark;
-    }
+    &:root {
+        color-scheme: light;
 
-    // == Primary colors
-    --color-primary: #5c7d6f;
-    --color-secondary: #3d5f4f;
-    --color-tertiary: #8fb082;
-    --color-quaternary: #10201c;
+        &[pgs-state~=darkmode] {
+            color-scheme: dark;
+        }
     
-    // == Base colors
-    --color-white: light-dark(#FFFFFF, #000000);
-    --color-black: light-dark(#000000, #FFFFFF);
-    --color-white-transparent: color-mix(in srgb, var(--color-white) 50%, transparent 100%);
-    --color-black-transparent: color-mix(in srgb, var(--color-black) 50%, transparent 100%);
-    --color-text: light-dark(#4a4a4a, #e3e3e3);
-    --color-box: light-dark(#F8F8F8, #222121);
-    --color-boxDark: light-dark(#222121, #F8F8F8);
-    --color-box-transparent: light-dark(color-mix(in srgb, #eeeeee 50%, transparent 50%), color-mix(in srgb, #222121 50%, transparent 50%));
-    --color-boxDark-transparent: light-dark(color-mix(in srgb, #222121 50%, transparent 50%), color-mix(in srgb, #eeeeee 50%, transparent 50%));
-    --color-linkBackgorud: light-dark(#c1e7ff, #002a44);
-    --color-background: light-dark(#ffffff, #080808);
-    --color-whiteFixed: #FFFFFF;
-    --color-blackFixed: #000000;
-    --color-link: #009EFF;
-    --color-error: #ff6161;
-    --color-warning: #ffa900;
-    --color-success: #4ab94a;
-    --color-gray: #a4a4a4;
-    --color-icon-primary: var(--color-primary);
-    --color-icon-sceondary: var(--color-primary-soft);
-    --menu-dropdown-background: var(--color-box);
-    @include color-strongAndDark();
-    @include color-softAndLight();
-    @include color-status-background();
+        // == Primary colors
+        --color-primary: #5c7d6f;
+        --color-secondary: #3d5f4f;
+        --color-tertiary: #8fb082;
+        --color-quaternary: #10201c;
+
+        // == Base colors
+        --color-white: light-dark(#FFFFFF, #000000);
+        --color-black: light-dark(#000000, #FFFFFF);
+        --color-white-transparent: color-mix(in srgb, var(--color-white) 50%, transparent 100%);
+        --color-black-transparent: color-mix(in srgb, var(--color-black) 50%, transparent 100%);
+        --color-text: light-dark(#4a4a4a, #e3e3e3);
+        --color-box: light-dark(#F8F8F8, #222121);
+        --color-boxDark: light-dark(#222121, #F8F8F8);
+        --color-box-transparent: light-dark(color-mix(in srgb, #eeeeee 50%, transparent 50%), color-mix(in srgb, #222121 50%, transparent 50%));
+        --color-boxDark-transparent: light-dark(color-mix(in srgb, #222121 50%, transparent 50%), color-mix(in srgb, #eeeeee 50%, transparent 50%));
+        --color-linkBackground: light-dark(#c1e7ff, #002a44);
+        --color-background: light-dark(#ffffff, #080808);
+        --color-whiteFixed: #FFFFFF;
+        --color-blackFixed: #000000;
+        --color-link: #009EFF;
+        --color-error: #ff6161;
+        --color-warning: #ffa900;
+        --color-success: #4ab94a;
+        --color-gray: #a4a4a4;
+        --color-icon-primary: var(--color-primary);
+        --color-icon-secondary: var(--color-primary-soft);
+        --menu-dropdown-background: var(--color-box);
+        @include color-strongAndDark();
+        @include color-softAndLight();
+        @include color-status-background();
+    }
 }
 
 // :root {

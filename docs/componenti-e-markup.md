@@ -82,7 +82,6 @@ La sorgente puo' essere anche un array locale di stringhe o oggetti. Il componen
 Base:
 
 - `htmlBase`
-- `initP`
 - `heading`
 - `boxtext`
 - `darkmode-lightmode`

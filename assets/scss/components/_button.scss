@@ -1,6 +1,6 @@
 @use "../mixin/mixin" as *;
 
-//# BUTTON
+//= BUTTON
 [pgs~=button] {
     @include buttonBase();
 
@@ -39,4 +39,33 @@
     &[pgs-option~=buttonTransparent] {
         @include buttonTransparent();
     }
+
+    &[pgs-option~=buttonSecondary] {
+        --button-primaryColor: var(--color-secondary);
+
+        &:hover {
+            --hover-primaryColor: var(--color-secondary-strong);
+        }
+    }
+
+    &[pgs-option~=buttonTertiary] {
+        --button-primaryColor: var(--color-tertiary);
+
+        &:hover {
+            --hover-primaryColor: var(--color-tertiary-strong);
+        }
+    }
+
+    &[pgs-option~=buttonQuaternary] {
+        --button-primaryColor: var(--color-quaternary);
+
+        &:hover {
+            --hover-primaryColor: var(--color-quaternary-strong);
+        }
+    }
+}
+
+//= ICON
+[pgs~=icon] {
+    @include icon();
 }

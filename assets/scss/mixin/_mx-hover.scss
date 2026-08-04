@@ -1,6 +1,7 @@
 @mixin _hoverColor() {
+    --hover-primaryColor: var(--color-primary-strong);
     --hover-color: var(--color-whiteFixed);
-    --hover-background: var(--color-primary-strong);
+    --hover-background: var(--hover-primaryColor);
     --hover-color: var(--color-white);
     --hover-shadow-color: var(--hover-background);
     --fa-primary-color: var(--hover-color);
@@ -35,7 +36,6 @@
         text-decoration: none;
         $color: var(--color-primary-strong);
         $colorTxtSafari: var(--color-whiteFixed);
-
 
         @media (hover: hover) and (pointer: fine) {
 

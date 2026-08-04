@@ -7,7 +7,6 @@ Base HTML document that enables MyPGS, configures essential metadata, and applie
 ## PGS
 
 - `htmlBase`: applies the fundamental rules to the html element.
-- `initP`: enables layout, component, and pattern styles scoped to the MyPGS namespace.
 - `bodyBase`: applies the base structure and spacing to the body.
 - `bodyImg`: enables shared rules for images contained in the page.
 - `bodyText`: enables text typography and spacing.
@@ -25,7 +24,7 @@ Complete HTML skeleton required to initialize the MyPGS library.
 
 ```html
 <!DOCTYPE html>
-<html lang="it-IT" pgs="htmlBase initP">
+<html lang="it-IT" pgs="htmlBase">
 
 <head>
 	<meta charset="UTF-8">

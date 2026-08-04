@@ -1,6 +1,7 @@
 //+ VAR
 @use "mx-hover" as *;
 
+//= BUTTON
 //+ BUTTON COLOR
 @mixin _buttonColor($for: "") {
     color: var(--button-color#{$for});
@@ -9,8 +10,9 @@
     --fa-secondary-color: var(--button-color#{$for});
 }
 
-//= BUTTON BASE
+//== BUTTON BASE
 @mixin buttonBase() {
+    --button-primaryColor: var(--color-primary);
     /// color
     --button-color: var(--color-black);
     --button-color-strong: var(--color-whiteFixed);
@@ -18,9 +20,9 @@
     --button-color-active: var(--color-whiteFixed);
     /// background
     --button-background: var(--color-box);
-    --button-background-strong: var(--color-primary);
-    --button-background-current: var(--color-primary);
-    --button-background-active: var(--color-primary);
+    --button-background-strong: var(--button-primaryColor);
+    --button-background-current: var(--button-primaryColor);
+    --button-background-active: var(--button-primaryColor);
     /// size
     --button-size: 1.5rem;
     --button-icon-size: 2rem;
@@ -51,7 +53,6 @@
     padding: var(--button-padding);
     height: var(--button-height);
     // width: max-content;
-
     //x da controllare
     width: fit-content;
 
@@ -61,8 +62,8 @@
     }
 }
 
-//= BUTTON CONTENT - ICON
-//== BUTTON CONTENT
+//== BUTTON CONTENT - ICON
+//=== BUTTON CONTENT
 @mixin buttonContent() {
     $button-right: calc(var(--button-size) * 2);
     $button-left: calc(var(--button-size) * 1.5);
@@ -78,7 +79,7 @@
     }
 }
 
-//== BUTTON ICON
+//=== BUTTON ICON
 @mixin buttonIcon() {
     --button-padding: var(--button-padding-block);
     --button-borderRadius: 50%;
@@ -97,38 +98,38 @@
     }
 }
 
-//= BUTTON HOVER - NOHOVER
-//== BUTTON HOVER
+//== BUTTON HOVER - NOHOVER
+//=== BUTTON HOVER
 @mixin buttonHover() {
     @include hover();
 }
 
-//== BUTTON NOT HOVER
+//=== BUTTON NOT HOVER
 @mixin buttonNohover() {
     transition: all 200ms;
     cursor: inherit;
 }
 
-//= CURRENT
+//== CURRENT
 @mixin buttonCurrent($tag: '[aria-current=page]') {
     &:where(#{$tag}:not(:hover, :focus-visible)) {
         @include _buttonColor("-current");
     }
 }
 
-//= BUTTON STRONG
+//== BUTTON STRONG
 @mixin buttonStrong() {
     @include _buttonColor("-strong");
 }
 
-//= BUTTON MINI
+//== BUTTON MINI
 @mixin buttonMini() {
     --button-size: 0.5rem;
     display: inline-flex;
     aspect-ratio: 1;
 }
 
-//= BUTTON BIG
+//== BUTTON BIG
 @mixin buttonBig() {
     --button-padding-right: var(--padding);
     --button-padding-left: var(--padding);
@@ -141,7 +142,7 @@
     text-align: center;
 }
 
-//= BUTTON CLOSE
+//== BUTTON CLOSE
 @mixin buttonClose($isRed: false) {
     --button-background: var(--color-primary-soft);
     --button-size: 1rem;
@@ -155,7 +156,7 @@
     }
 }
 
-//= BUTTON HEADER
+//== BUTTON HEADER
 @mixin button_header() {
     --button-size: 1.2rem;
     --button-border: unset;
@@ -163,7 +164,7 @@
     height: calc(var(--button-size) * 4);
 }
 
-//= BUTTON TRANSPARENT
+//== BUTTON TRANSPARENT
 @mixin buttonTransparent() {
     $color: var(--color-primary);
     --button-border: unset;
@@ -183,4 +184,29 @@
             --hover-color: #{$color};
         }
     }
+}
+
+//= ICON
+@mixin icon() {
+    --icon-size: var(--fa-size);
+    --icon-padding: .5rem;
+    --icon-background: var(--color-white-transparent);
+    border-radius: 50%;
+    display: flex;
+    aspect-ratio: 1;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--icon-background);
+    padding: var(--icon-padding);
+    width: calc(var(--icon-size, 1.6rem) * 3);
+
+    i {
+        display: inline-grid;
+        place-items: center;
+        block-size: var(--icon-size);
+        line-height: 1;
+        aspect-ratio: 1;
+    }
+
+    justify-content: center;
 }

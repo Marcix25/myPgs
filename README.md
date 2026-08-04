@@ -67,10 +67,8 @@ To import only the mixins:
 
 ### Markup
 
-`initP` is required: every SCSS layout, component, and pattern is scoped under `[pgs~=initP]`.
-
 ```html
-<html lang="en" pgs="htmlBase initP">
+<html lang="en" pgs="htmlBase">
   <body pgs="bodyBase bodyImg bodyText bodyHeading">
     <main pgs="main"></main>
   </body>
