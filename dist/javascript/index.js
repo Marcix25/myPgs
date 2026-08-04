@@ -418,7 +418,12 @@ globalThis.pgs ??= pgs;
 /*!*********************************************!*\
   !*** ./assets/javascript/base/_darkmode.js ***!
   \*********************************************/
-() {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+
 
 //# DARKMODE
 
@@ -436,7 +441,7 @@ function changeIcon(selector, isDarkMode) {
 }
 
 //+ SET STATUS
-function setDarkmodeStatus(toggle = false, button) {
+function setDarkmodeStatus(toggle = false, button = []) {
     let isDarkMode = localStorage.getItem("screenIsDarkMode") === "true";
 
     if (toggle) {
@@ -446,7 +451,7 @@ function setDarkmodeStatus(toggle = false, button) {
 
     // SET
     pgs(document.documentElement).state.toggle("darkmode", isDarkMode);
-    pgs(document.body).state.toggle("darkmode", isDarkMode);
+    if (document.body) pgs(document.body).state.toggle("darkmode", isDarkMode);
     // END SET
 
     changeIcon(button, isDarkMode);
@@ -456,13 +461,20 @@ function setDarkmodeStatus(toggle = false, button) {
 
 
 //= INIT
-const toggleDarkmode = pgs(document).querySelectorAll("toggleDarkmode");
-setDarkmodeStatus(false, toggleDarkmode);
+// Applica subito il tema alla radice quando il bundle viene caricato nel head.
+setDarkmodeStatus();
 
-//= BUTTON DARKMODE
-toggleDarkmode.forEach(button => {
-    button.addEventListener("click", () => setDarkmodeStatus(true, toggleDarkmode));
-});
+function initDarkmode() {
+    const toggleDarkmode = pgs(document).querySelectorAll("toggleDarkmode");
+    setDarkmodeStatus(false, toggleDarkmode);
+
+    //== BUTTON DARKMODE
+    toggleDarkmode.forEach(button => {
+        button.addEventListener("click", () => setDarkmodeStatus(true, toggleDarkmode));
+    });
+}
+
+(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(initDarkmode);
 
 
 /***/ },
@@ -471,9 +483,14 @@ toggleDarkmode.forEach(button => {
 /*!*******************************************!*\
   !*** ./assets/javascript/base/_object.js ***!
   \*******************************************/
-() {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-document.addEventListener('DOMContentLoaded', () => {
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+
+
+(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(() => {
     const objects = document.querySelectorAll('object[type="image/svg+xml"]');
 
     objects.forEach(obj => {
@@ -530,6 +547,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_svg: () => (/* binding */ PGS_svg)
 /* harmony export */ });
+/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+
+
 //# SVG & LOTTIE COLORS
 
 const svgColors = {
@@ -588,7 +608,7 @@ const svgColors = {
             svgColors.applyColorsLottie(event.detail?.isDarkMode ?? svgColors._getCurrentDarkmode());
         });
 
-        document.addEventListener("DOMContentLoaded", () => {
+        (0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(() => {
             svgColors.applyColorsSVG();
             svgColors.applyColorsLottie();
         });
@@ -648,6 +668,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_accordion: () => (/* binding */ PGS_accordion)
 /* harmony export */ });
+/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+
+
 //= ACCORDION
 const API = new WeakMap();
 let accordionId = 0;
@@ -762,7 +785,7 @@ function PGS_accordion_init(root = document) {
 }
 
 //# INIT
-PGS_accordion_init();
+(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(PGS_accordion_init);
 
 //# API
 function PGS_accordion_api(selector) {
@@ -912,6 +935,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_dropdown: () => (/* binding */ PGS_dropdown)
 /* harmony export */ });
+/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+
+
 // + dropdown
 const API = new WeakMap();
 const OPEN_DROPDOWNS = new Set();
@@ -1110,7 +1136,7 @@ window.addEventListener("resize", updateOpenDropdowns);
 window.addEventListener("scroll", updateOpenDropdowns, true);
 
 // # INIT
-PGS_dropdown_init();
+(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(PGS_dropdown_init);
 
 // # API
 function PGS_dropdown_api(selector) {
@@ -1137,6 +1163,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_menu: () => (/* binding */ PGS_menu)
 /* harmony export */ });
 /* harmony import */ var _dropdown__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_dropdown */ "./assets/javascript/components/_dropdown.js");
+/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+
 
 
 const API = new WeakMap();
@@ -1181,7 +1209,7 @@ function PGS_menu_init(root = document) {
 
 }
 
-PGS_menu_init()
+(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(PGS_menu_init);
 
 function PGS_menu_api(selector) {
     return API.get(selector);
@@ -1207,6 +1235,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_modal: () => (/* binding */ PGS_modal)
 /* harmony export */ });
+/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+
+
 //# MODAL
 const API = new WeakMap();
 
@@ -1383,7 +1414,7 @@ function PGS_modal_init(root = document) {
 }
 
 //# INIT PGS_modal
-PGS_modal_init()
+(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(PGS_modal_init);
 
 //# API
 function PGS_modal_api(element) {
@@ -1409,6 +1440,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_notification: () => (/* binding */ PGS_notification)
 /* harmony export */ });
+/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+
+
 //= PGS_notification
 const fn_notification = {
     _defaults: {
@@ -1673,9 +1707,8 @@ const PGS_notification = {
 };
 
 
-//= EXECUTE 
-if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", () => PGS_notificationTrigger_init());
-else PGS_notificationTrigger_init();
+//= EXECUTE
+(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(PGS_notificationTrigger_init);
 
 
 /***/ },
@@ -1691,6 +1724,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_search: () => (/* binding */ PGS_search)
 /* harmony export */ });
+/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+
+
 const API = new WeakMap();
 const OPEN_SEARCHES = new Set();
 let searchId = 0;
@@ -2072,7 +2108,7 @@ document.addEventListener("pointerdown", event => {
     });
 });
 
-PGS_search_init();
+(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(PGS_search_init);
 
 function PGS_search_api(selector) {
     return API.get(selector);
@@ -2098,6 +2134,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_slides: () => (/* binding */ PGS_slides)
 /* harmony export */ });
 /* harmony import */ var _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_scrollY.js */ "./assets/javascript/helper/_scrollY.js");
+/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+
 
 const API = new WeakMap();
 
@@ -2314,7 +2352,7 @@ function PGS_slides_init(root = document) {
     });
 }
 
-PGS_slides_init();
+(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(PGS_slides_init);
 
 //# API 
 function PGS_slides_api(element) {
@@ -2340,6 +2378,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_stepTabs: () => (/* binding */ PGS_stepTabs)
 /* harmony export */ });
+/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+
+
 const API = new WeakMap();
 
 function PGS_stepTabs_init(root = document) {
@@ -2475,7 +2516,7 @@ function PGS_stepTabs_init(root = document) {
     });
 }
 
-PGS_stepTabs_init()
+(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(PGS_stepTabs_init);
 
 function PGS_stepTabs_api(selector) {
     return API.get(selector);
@@ -2524,6 +2565,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_steps: () => (/* binding */ PGS_steps)
 /* harmony export */ });
+/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+
+
 const API = new WeakMap();
 
 function PGS_steps_init(root = document) {
@@ -2566,7 +2610,7 @@ function PGS_steps_init(root = document) {
 }
 
 //# INIT PGS_ol
-PGS_steps_init()
+(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(PGS_steps_init);
 
 //# API
 function PGS_steps_api(selector) {
@@ -2592,6 +2636,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_summary: () => (/* binding */ PGS_summary)
 /* harmony export */ });
+/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+
+
 //= SUMMARY
 const API = new WeakMap();
 let summaryId = 0;
@@ -2686,7 +2733,7 @@ function PGS_summary_init(root = document) {
 }
 
 //# INIT
-PGS_summary_init();
+(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(PGS_summary_init);
 
 //# API
 function PGS_summary_api(selector) {
@@ -3081,6 +3128,29 @@ class PGS_formValidate {
 
 /***/ },
 
+/***/ "./assets/javascript/helper/_onDocumentReady.js"
+/*!******************************************************!*\
+  !*** ./assets/javascript/helper/_onDocumentReady.js ***!
+  \******************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_onDocumentReady: () => (/* binding */ PGS_onDocumentReady)
+/* harmony export */ });
+function PGS_onDocumentReady(callback) {
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", () => callback(), { once: true });
+        return;
+    }
+
+    callback();
+}
+
+
+/***/ },
+
 /***/ "./assets/javascript/helper/_scrollY.js"
 /*!**********************************************!*\
   !*** ./assets/javascript/helper/_scrollY.js ***!
@@ -3179,11 +3249,12 @@ function PGS_scrollHorizontal(element, speed) {
   \*********************************************/
 () {
 
-//# HEADER
-const header = pgs(document).querySelector("header");
+
+
+
 
 //= HEADER
-function PGS_header(selectHeader = document) {
+function initHeader_Resize(header) {
 
     if (!header) return;
 
@@ -3191,8 +3262,8 @@ function PGS_header(selectHeader = document) {
 
     if (!headerElements.length) console.log('For the header to work correctly, insert "header-element" under "header"');
     if (!headerElements.length) return;
-    
-    
+
+    const selectHeader = document
 
     headerElements.forEach(selectHeader => {
 
@@ -3263,75 +3334,109 @@ function PGS_header(selectHeader = document) {
         if (window.innerWidth > 768) header.style.transform = "translateY(0)";
     });
 }
-PGS_header();
 
 
 //= HEADER HEIGHT
-function headerHeight() {
+function initHeader_Height(header) {
     if (!header) return;
-    const wordPressBar = window.getComputedStyle(document.documentElement).marginTop ?? 0;
-    const headerHeight = header.offsetHeight
-    const height = headerHeight + parseInt(wordPressBar);
-    const scrollHeight = document.querySelector("header").getAttribute("data-header-scroll") === "true" ? 0 : height;
 
-    document.documentElement.style.setProperty("--heightOfHeader", `${height}px`);
-    document.documentElement.style.setProperty("--heightOfHeaderScroll", `${scrollHeight}px`);
-}
+    let headerHeightRafId = 0;
 
-// Il modulo può essere caricato nel footer: rimanda il primo calcolo al frame
-// successivo, quando il browser ha già composto l'header, senza aspettare il
-// caricamento completo della pagina.
-let headerHeightRafId = 0;
-function scheduleHeaderHeight() {
-    if (headerHeightRafId) return;
+    //+ GET HEADER HEIGHT ELEMENT
+    function getHeaderHeightElement(header) {
+        const isMobileBottom = window.getComputedStyle(header).getPropertyValue("--header-mobile-bottom-active").trim() === "1";
+        return isMobileBottom ? pgs(header).querySelector("header-element") || header : header;
+    }
 
-    headerHeightRafId = requestAnimationFrame(() => {
-        headerHeightRafId = 0;
-        headerHeight();
-    });
-}
+    function headerHeight() {
+        const wordPressBar = parseInt(window.getComputedStyle(document.documentElement).marginTop, 10) || 0;
+        const height = getHeaderHeightElement(header).offsetHeight + wordPressBar;
+        const scrollHeight = header.getAttribute("data-header-scroll") === "true" ? 0 : height;
 
-if (header) {
+        document.documentElement.style.setProperty("--heightOfHeader", `${height}px`);
+        document.documentElement.style.setProperty("--heightOfHeaderScroll", `${scrollHeight}px`);
+    }
+
+    function scheduleHeaderHeight() {
+        if (headerHeightRafId) return;
+        headerHeightRafId = requestAnimationFrame(() => {
+            headerHeightRafId = 0;
+            headerHeight();
+        });
+    }
+
     const headerHeightObserver = new ResizeObserver(scheduleHeaderHeight);
     headerHeightObserver.observe(header);
+    pgs(header).querySelectorAll("header-element").forEach(element => headerHeightObserver.observe(element));
 
-    // Un font web può modificare la larghezza del menu e quindi l'altezza
-    // dell'header, anche dopo il primo frame.
     document.fonts?.ready?.then(scheduleHeaderHeight);
+
+    scheduleHeaderHeight();
+    window.addEventListener("resize", scheduleHeaderHeight);
+    window.addEventListener("scroll", scheduleHeaderHeight, { passive: true });
 }
 
-scheduleHeaderHeight();
-window.addEventListener("resize", scheduleHeaderHeight);
-window.addEventListener("scroll", scheduleHeaderHeight, { passive: true });
 
 
 
 
 //= SCROLL
-// Nasconde l'header quando si scorre verso il basso e lo mostra quando si scorre verso l'alto su dispositivi con larghezza fino a 900px.
-let lastScrollY = window.scrollY;
-window.addEventListener("scroll", () => {
-    if (!header) return;
-    let currentScrollY = window.scrollY;
+// Nasconde l'header quando si scorre verso il basso e lo mostra quando si scorre verso l'alto su dispositivi con altezza fino a 900px.
+function initHeader_Scroll(header) {
+    let lastScrollY = window.scrollY;
+    window.addEventListener("scroll", () => {
+        if (!header) return;
+        let currentScrollY = window.scrollY;
 
-    if (window.innerHeight <= 900) {
-        if (currentScrollY >= 80) {
-            if (currentScrollY > lastScrollY) {
-                header.style.transform = "translateY(-100%)";
-                header.setAttribute("data-header-scroll", true)
+        if (window.innerHeight <= 900) {
+            if (currentScrollY >= 80) {
+                if (currentScrollY > lastScrollY) {
+                    header.style.transform = "translateY(-100%)";
+                    header.setAttribute("data-header-scroll", true)
+                } else {
+                    header.style.transform = "translateY(0px)";
+                    header.setAttribute("data-header-scroll", false)
+                }
             } else {
-                header.style.transform = "translateY(0px)";
+                header.style.transform = "translateY(0)"; // Mostra sempre l'header se il scroll è inferiore a 80px
                 header.setAttribute("data-header-scroll", false)
             }
-        } else {
-            header.style.transform = "translateY(0)"; // Mostra sempre l'header se il scroll è inferiore a 80px
-            header.setAttribute("data-header-scroll", false)
         }
-    }
-    lastScrollY = currentScrollY;
+        lastScrollY = currentScrollY;
+    });
+}
 
-});
 
+//# INIT
+function initHeader(header) {
+    initHeader_Resize(header);
+    initHeader_Height(header);
+    initHeader_Scroll(header);
+}
+
+function getReadyHeader() {
+    const header = pgs(document).querySelector("header");
+    return header && pgs(header).querySelector("header-element") ? header : null;
+}
+
+const readyHeader = getReadyHeader();
+
+if (readyHeader) {
+    initHeader(readyHeader);
+} else {
+    const headerObserver = new MutationObserver(() => {
+        const header = getReadyHeader();
+        if (!header) return;
+
+        headerObserver.disconnect();
+        initHeader(header);
+    });
+
+    headerObserver.observe(document.documentElement, {
+        childList: true,
+        subtree: true
+    });
+}
 
 
 /***/ },
@@ -3340,7 +3445,12 @@ window.addEventListener("scroll", () => {
 /*!******************************************************!*\
   !*** ./assets/javascript/patterns/_cookieConsent.js ***!
   \******************************************************/
-() {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+
 
 const STORAGE_KEY = 'pgs_cookie_preferences_v1';
 const focusableSelectors = 'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
@@ -3552,11 +3662,7 @@ function initCookieConsent() {
     }
 }
 
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initCookieConsent);
-} else {
-    initCookieConsent();
-}
+(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(initCookieConsent);
 
 
 /***/ }
@@ -3663,26 +3769,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_pgs.js */ "./assets/javascript/_pgs.js");
 /* harmony import */ var _base_darkmode_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./base/_darkmode.js */ "./assets/javascript/base/_darkmode.js");
-/* harmony import */ var _base_darkmode_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_base_darkmode_js__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _base_svg_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./base/_svg.js */ "./assets/javascript/base/_svg.js");
 /* harmony import */ var _base_object_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./base/_object.js */ "./assets/javascript/base/_object.js");
-/* harmony import */ var _base_object_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_base_object_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _components_accordion_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/_accordion.js */ "./assets/javascript/components/_accordion.js");
-/* harmony import */ var _components_alerts_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/_alerts.js */ "./assets/javascript/components/_alerts.js");
-/* harmony import */ var _components_dropdown_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/_dropdown.js */ "./assets/javascript/components/_dropdown.js");
-/* harmony import */ var _components_menu_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_menu.js */ "./assets/javascript/components/_menu.js");
-/* harmony import */ var _components_modals_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_modals.js */ "./assets/javascript/components/_modals.js");
-/* harmony import */ var _components_search_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_search.js */ "./assets/javascript/components/_search.js");
-/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
-/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
-/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
-/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
-/* harmony import */ var _components_notifications_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/_notifications.js */ "./assets/javascript/components/_notifications.js");
-/* harmony import */ var _imports_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./_imports.js */ "./assets/javascript/_imports.js");
-/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./layout/_header.js */ "./assets/javascript/layout/_header.js");
-/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_layout_header_js__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./layout/_header.js */ "./assets/javascript/layout/_header.js");
+/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_layout_header_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _components_accordion_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/_accordion.js */ "./assets/javascript/components/_accordion.js");
+/* harmony import */ var _components_alerts_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/_alerts.js */ "./assets/javascript/components/_alerts.js");
+/* harmony import */ var _components_dropdown_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_dropdown.js */ "./assets/javascript/components/_dropdown.js");
+/* harmony import */ var _components_menu_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_menu.js */ "./assets/javascript/components/_menu.js");
+/* harmony import */ var _components_modals_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_modals.js */ "./assets/javascript/components/_modals.js");
+/* harmony import */ var _components_search_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_search.js */ "./assets/javascript/components/_search.js");
+/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
+/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
+/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
+/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
+/* harmony import */ var _components_notifications_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/_notifications.js */ "./assets/javascript/components/_notifications.js");
+/* harmony import */ var _imports_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./_imports.js */ "./assets/javascript/_imports.js");
 /* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
-/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_17__);
 //= PGS
 
 
@@ -3692,7 +3795,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-//= CN 
+//= HEADER
+
+
+//= COMPONENTS
 
 
 
@@ -3705,13 +3811,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-//= IMPORT REGISTRY
+//+ IMPORT REGISTRY
 
 
-//= LAYOUT 
-
-
-//= PATTERNS 
+//= PATTERNS
 
 
 })();

@@ -1,3 +1,5 @@
+import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
+
 const API = new WeakMap();
 const OPEN_SEARCHES = new Set();
 let searchId = 0;
@@ -379,7 +381,7 @@ document.addEventListener("pointerdown", event => {
     });
 });
 
-PGS_search_init();
+PGS_onDocumentReady(PGS_search_init);
 
 function PGS_search_api(selector) {
     return API.get(selector);

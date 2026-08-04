@@ -1,3 +1,5 @@
+import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
+
 //= ACCORDION
 const API = new WeakMap();
 let accordionId = 0;
@@ -112,7 +114,7 @@ function PGS_accordion_init(root = document) {
 }
 
 //# INIT
-PGS_accordion_init();
+PGS_onDocumentReady(PGS_accordion_init);
 
 //# API
 function PGS_accordion_api(selector) {

@@ -1,3 +1,5 @@
+import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
+
 //# DARKMODE
 
 const EVENT_SVG_CHANGE_COLOR = "pgs:svg:changeColor";
@@ -14,7 +16,7 @@ function changeIcon(selector, isDarkMode) {
 }
 
 //+ SET STATUS
-function setDarkmodeStatus(toggle = false, button) {
+function setDarkmodeStatus(toggle = false, button = []) {
     let isDarkMode = localStorage.getItem("screenIsDarkMode") === "true";
 
     if (toggle) {
@@ -24,7 +26,7 @@ function setDarkmodeStatus(toggle = false, button) {
 
     // SET
     pgs(document.documentElement).state.toggle("darkmode", isDarkMode);
-    pgs(document.body).state.toggle("darkmode", isDarkMode);
+    if (document.body) pgs(document.body).state.toggle("darkmode", isDarkMode);
     // END SET
 
     changeIcon(button, isDarkMode);
@@ -34,10 +36,17 @@ function setDarkmodeStatus(toggle = false, button) {
 
 
 //= INIT
-const toggleDarkmode = pgs(document).querySelectorAll("toggleDarkmode");
-setDarkmodeStatus(false, toggleDarkmode);
+// Applica subito il tema alla radice quando il bundle viene caricato nel head.
+setDarkmodeStatus();
 
-//= BUTTON DARKMODE
-toggleDarkmode.forEach(button => {
-    button.addEventListener("click", () => setDarkmodeStatus(true, toggleDarkmode));
-});
+function initDarkmode() {
+    const toggleDarkmode = pgs(document).querySelectorAll("toggleDarkmode");
+    setDarkmodeStatus(false, toggleDarkmode);
+
+    //== BUTTON DARKMODE
+    toggleDarkmode.forEach(button => {
+        button.addEventListener("click", () => setDarkmodeStatus(true, toggleDarkmode));
+    });
+}
+
+PGS_onDocumentReady(initDarkmode);

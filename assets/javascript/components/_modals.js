@@ -1,3 +1,5 @@
+import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
+
 //# MODAL
 const API = new WeakMap();
 
@@ -174,7 +176,7 @@ function PGS_modal_init(root = document) {
 }
 
 //# INIT PGS_modal
-PGS_modal_init()
+PGS_onDocumentReady(PGS_modal_init);
 
 //# API
 function PGS_modal_api(element) {

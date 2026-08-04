@@ -1,3 +1,5 @@
+import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
+
 // + dropdown
 const API = new WeakMap();
 const OPEN_DROPDOWNS = new Set();
@@ -196,7 +198,7 @@ window.addEventListener("resize", updateOpenDropdowns);
 window.addEventListener("scroll", updateOpenDropdowns, true);
 
 // # INIT
-PGS_dropdown_init();
+PGS_onDocumentReady(PGS_dropdown_init);
 
 // # API
 function PGS_dropdown_api(selector) {

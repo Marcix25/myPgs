@@ -5,13 +5,13 @@
     // Menu colours inherit the button theme by default.  A consumer can set the
     // --menu-* variables on this element to theme menus independently.
     --menu-color: var(--color-black);
-    --menu-background: var(--color-box);
     --menu-color-current: var(--color-whiteFixed);
-    --menu-background-current: var(--color-primary);
     --menu-color-strong: var(--color-whiteFixed);
+    --menu-background: transparent;
+    --menu-background-current: var(--color-primary);
     --menu-background-strong: var(--color-primary);
     --menu-border: var(--border-complete);
-    --menu-gap-column: var(--gap-texts);
+    --menu-gap-column: 0;
     --menu-gap-row: 1.0rem;
 
     ul {
@@ -147,6 +147,16 @@
     &[pgs-option~=menuHeader] {
         >ul>li>a {
             @include button_header();
+        }
+    }
+
+    //== icon only current
+    &[pgs-option~=menuIconOnlyCurrent] {
+        a:not([aria-current]:not([aria-current="false"])) {
+            --button-padding-left: var(--button-padding-right);
+            >i {
+                display: none;
+            }
         }
     }
 }

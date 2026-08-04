@@ -9,6 +9,7 @@
     --header-background: var(--color-white-transparent);
     --header-color: var(--color-black);
     --header-color-hover: var(--color-black);
+    --header-mobile-bottom-active: 0;
     z-index: 100;
     position: fixed;
     isolation: isolate;
@@ -156,10 +157,32 @@
         }
     }
 
-    //- mobile 
+    //- mobile
     @media (max-width: $mobile) {
         [pgs~="header-element"] {
             padding-inline: var(--header-padding-block);
+        }
+
+        //== bottom
+        &[pgs-option~="mobileBottom"] {
+            --header-mobile-bottom-active: 1;
+            background: transparent;
+            transform: none !important;
+
+            [pgs~="header-element"] {
+                position: fixed;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: var(--header-background);
+                transition: padding 300ms, background-color 1000ms;
+            }
+
+            dialog[pgs~="modal-dialogpopover"],
+            dialog[pgs~="modal-dialog"] {
+                padding-top: var(--gap-texts);
+                padding-bottom: var(--heightOfHeader);
+            }
         }
     }
 }

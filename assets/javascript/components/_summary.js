@@ -1,3 +1,5 @@
+import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
+
 //= SUMMARY
 const API = new WeakMap();
 let summaryId = 0;
@@ -92,7 +94,7 @@ function PGS_summary_init(root = document) {
 }
 
 //# INIT
-PGS_summary_init();
+PGS_onDocumentReady(PGS_summary_init);
 
 //# API
 function PGS_summary_api(selector) {

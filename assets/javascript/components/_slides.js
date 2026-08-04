@@ -1,4 +1,5 @@
 import { PGS_scrollHorizontal } from "../helper/_scrollY.js";
+import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
 const API = new WeakMap();
 
 function getSlides(root) {
@@ -214,7 +215,7 @@ function PGS_slides_init(root = document) {
     });
 }
 
-PGS_slides_init();
+PGS_onDocumentReady(PGS_slides_init);
 
 //# API 
 function PGS_slides_api(element) {

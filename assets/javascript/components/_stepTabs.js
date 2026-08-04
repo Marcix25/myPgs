@@ -1,3 +1,5 @@
+import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
+
 const API = new WeakMap();
 
 function PGS_stepTabs_init(root = document) {
@@ -133,7 +135,7 @@ function PGS_stepTabs_init(root = document) {
     });
 }
 
-PGS_stepTabs_init()
+PGS_onDocumentReady(PGS_stepTabs_init);
 
 function PGS_stepTabs_api(selector) {
     return API.get(selector);

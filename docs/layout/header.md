@@ -17,6 +17,7 @@ Responsive header that measures available space, switches between desktop and mo
 
 ## PGS Options
 
+- `mobileBottom`: moves header-element to the bottom of the viewport at the mobile breakpoint.
 - `horizontal`: arranges the related desktop menu horizontally.
 - `vertical`: arranges the related mobile menu vertically.
 - `menuHeader`: adapts both menus to the header context.
@@ -48,7 +49,7 @@ Complete header HTML with desktop navigation and a side mobile panel.
 ## Example
 
 ```html
-<header pgs="header">
+<header pgs="header" pgs-option="mobileBottom">
 	<div pgs="header-element">
 		<div pgs="header-element-alwaysOn">
 			<a aria-label="Logo" pgs="logo" href="/">

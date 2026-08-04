@@ -30,7 +30,7 @@ export default function MenuHorizontal() {
 export default function MenuVertical() {
     return (
 
-        <nav pgs="menu" pgs-option="vertical" aria-label="Menu verticale">
+        <nav pgs="menu" pgs-option="vertical menuIconOnlyCurrent" aria-label="Menu verticale">
             {menuItems}
         </nav>
     );

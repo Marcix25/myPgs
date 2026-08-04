@@ -1,3 +1,5 @@
+import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
+
 //# SVG & LOTTIE COLORS
 
 const svgColors = {
@@ -56,7 +58,7 @@ const svgColors = {
             svgColors.applyColorsLottie(event.detail?.isDarkMode ?? svgColors._getCurrentDarkmode());
         });
 
-        document.addEventListener("DOMContentLoaded", () => {
+        PGS_onDocumentReady(() => {
             svgColors.applyColorsSVG();
             svgColors.applyColorsLottie();
         });
