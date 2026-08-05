@@ -1,3 +1,5 @@
+import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
+
 //= PGS_notification
 const fn_notification = {
     _defaults: {
@@ -244,6 +246,7 @@ function PGS_notificationTrigger_init(root = document) {
 }
 
 export const PGS_notification = {
+    init: PGS_notificationTrigger_init,
     trigger: PGS_notificationTrigger_init,
     alert: {
         error: (options = {}) => fn_notification.show("error", options),
@@ -262,6 +265,5 @@ export const PGS_notification = {
 };
 
 
-//= EXECUTE 
-if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", () => PGS_notificationTrigger_init());
-else PGS_notificationTrigger_init();
+//= EXECUTE
+PGS_onDocumentReady(PGS_notificationTrigger_init);

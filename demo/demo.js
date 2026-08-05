@@ -3,6 +3,7 @@
 //= Reference Renderer HTML
 const demoRenderer = {
     referenceFiles: [
+        "layout/header.html",
         "components/card.html",
         "components/slides.html",
         "components/button.html",
@@ -28,10 +29,9 @@ const demoRenderer = {
         "layout/body.html",
         "layout/responsive.html",
         "layout/spacing.html",
-        "layout/footer.html",
-        "layout/header.html",
         "layout/section.html",
         "layout/pageShell.html",
+        "layout/footer.html",
     ],
 
     getReferenceTitle(path) {
@@ -76,14 +76,10 @@ const demoRenderer = {
         return this.stripReferenceDocumentation(await response.text());
     },
 
-    loadPgsJavascript() {
-        return new Promise((resolve, reject) => {
-            const script = document.createElement("script");
-            script.src = "../dist/javascript/index.js";
-            script.addEventListener("load", resolve, { once: true });
-            script.addEventListener("error", () => reject(new Error("Bundle PGS non caricato")), { once: true });
-            document.body.append(script);
-        });
+    initPgsJavascript() {
+        const pgsApi = globalThis.pgs;
+        if (!pgsApi) throw new Error("Bundle PGS non caricato");
+        pgsApi.init(document);
     },
 
     async boot() {
@@ -142,7 +138,7 @@ const demoRenderer = {
 
         try {
             //# CORE
-            await this.loadPgsJavascript();
+            this.initPgsJavascript();
             configureSearchDemo();
             configureFormDemo();
             document.body.classList.remove('is-loading');

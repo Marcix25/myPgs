@@ -1,4 +1,5 @@
 import { PGS_dropdown } from "./_dropdown";
+import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
 
 const API = new WeakMap();
 
@@ -42,7 +43,7 @@ function PGS_menu_init(root = document) {
 
 }
 
-PGS_menu_init()
+PGS_onDocumentReady(PGS_menu_init);
 
 function PGS_menu_api(selector) {
     return API.get(selector);

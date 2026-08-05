@@ -118,6 +118,12 @@ pgs.modal.api(modal)?.open();
 pgs.search.api(searchElement)?.setSource(async ({ query, signal }) => []);
 ```
 
+Quando JavaScript, JSX o una richiesta asincrona aggiungono nuovo markup, inizializza il relativo contenitore:
+
+```js
+pgs.init(container);
+```
+
 - Verify the current public shortcut before using `pgs.moduleName`.
 - Do not duplicate initialization, open/close, state, notification, form-validation, or accessibility logic.
 - Do not use parallel `.open` classes when a component reads `pgs-state~="open"`.

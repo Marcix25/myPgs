@@ -1,3 +1,5 @@
+import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
+
 const API = new WeakMap();
 
 function PGS_steps_init(root = document) {
@@ -40,7 +42,7 @@ function PGS_steps_init(root = document) {
 }
 
 //# INIT PGS_ol
-PGS_steps_init()
+PGS_onDocumentReady(PGS_steps_init);
 
 //# API
 function PGS_steps_api(selector) {

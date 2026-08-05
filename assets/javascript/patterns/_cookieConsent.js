@@ -1,3 +1,5 @@
+import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
+
 const STORAGE_KEY = 'pgs_cookie_preferences_v1';
 const focusableSelectors = 'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
@@ -208,8 +210,4 @@ function initCookieConsent() {
     }
 }
 
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initCookieConsent);
-} else {
-    initCookieConsent();
-}
+PGS_onDocumentReady(initCookieConsent);

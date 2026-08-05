@@ -14,6 +14,7 @@ Menu markup, configuration, behavior, and usage example.
 - `horizontal`: identifies the horizontal element used by Menu.
 - `vertical`: identifies the vertical element used by Menu.
 - `menuHeader`: identifies the menuHeader element used by Menu.
+- `menuIconOnlyCurrent`: displays link icons only when the link has an active aria-current value.
 - `position`: identifies the position element used by Menu.
 - `buttonNohover`: disables hover behavior on menu buttons generated at runtime.
 
@@ -61,7 +62,7 @@ Complete HTML markup and usage example for Menu.
     </ul>
 </nav>
 
-<nav pgs="menu" pgs-option="vertical" aria-label="Menu verticale">
+<nav pgs="menu" pgs-option="vertical menuIconOnlyCurrent" aria-label="Menu verticale">
     <ul>
         <li>
             <a href="/" aria-current="page">

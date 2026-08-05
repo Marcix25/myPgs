@@ -115,6 +115,7 @@ declare global {
     registerImport(...modules: unknown[]): PgsFunction;
     registerModules(modules: Record<string, any>): PgsFunction;
     import(...names: string[]): Record<string, any>;
+    init(root?: Document | Element): Document | Element;
     accordion?: any;
     dropdown?: any;
     menu?: any;

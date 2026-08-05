@@ -1,4 +1,6 @@
-document.addEventListener('DOMContentLoaded', () => {
+import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
+
+PGS_onDocumentReady(() => {
     const objects = document.querySelectorAll('object[type="image/svg+xml"]');
 
     objects.forEach(obj => {

@@ -1792,6 +1792,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --header-background: var(--color-white-transparent);
   --header-color: var(--color-black);
   --header-color-hover: var(--color-black);
+  --header-mobile-bottom-active: 0;
   z-index: 100;
   position: fixed;
   isolation: isolate;
@@ -1928,6 +1929,24 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 @media (max-width: 430px) {
   [pgs~=header] [pgs~=header-element] {
     padding-inline: var(--header-padding-block);
+  }
+  [pgs~=header][pgs-option~=mobileBottom] {
+    --header-mobile-bottom-active: 1;
+    background: transparent;
+    transform: none !important;
+  }
+  [pgs~=header][pgs-option~=mobileBottom] [pgs~=header-element] {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: var(--header-background);
+    transition: padding 300ms, background-color 1000ms;
+  }
+  [pgs~=header][pgs-option~=mobileBottom] dialog[pgs~=modal-dialogpopover],
+  [pgs~=header][pgs-option~=mobileBottom] dialog[pgs~=modal-dialog] {
+    padding-top: var(--gap-texts);
+    padding-bottom: var(--heightOfHeader);
   }
 }
 [pgs~=footer] {
@@ -2542,6 +2561,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   background-color: var(--icon-background);
   padding: var(--icon-padding);
   width: calc(var(--icon-size, 1.6rem) * 3);
+  justify-content: center;
 }
 
 [pgs~=icon] i {
@@ -2550,10 +2570,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   block-size: var(--icon-size);
   line-height: 1;
   aspect-ratio: 1;
-}
-
-[pgs~=icon] {
-  justify-content: center;
 }
 
 [pgs~=textarea] {
@@ -4213,13 +4229,13 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=menu] {
   --menu-color: var(--color-black);
-  --menu-background: var(--color-box);
   --menu-color-current: var(--color-whiteFixed);
-  --menu-background-current: var(--color-primary);
   --menu-color-strong: var(--color-whiteFixed);
+  --menu-background: transparent;
+  --menu-background-current: var(--color-primary);
   --menu-background-strong: var(--color-primary);
   --menu-border: var(--border-complete);
-  --menu-gap-column: var(--gap-texts);
+  --menu-gap-column: 0;
   --menu-gap-row: 1.0rem;
 }
 
@@ -4441,6 +4457,14 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --button-border: unset;
   overflow-wrap: break-word;
   height: calc(var(--button-size) * 4);
+}
+
+[pgs~=menu][pgs-option~=menuIconOnlyCurrent] a:not([aria-current]:not([aria-current=false])) {
+  --button-padding-left: var(--button-padding-right);
+}
+
+[pgs~=menu][pgs-option~=menuIconOnlyCurrent] a:not([aria-current]:not([aria-current=false])) > i {
+  display: none;
 }
 
 [pgs~=accordion] {
@@ -5845,7 +5869,7 @@ dialog [pgs~=search] [pgs~=modal-close] {
   --logo-finter: invert(1) hue-rotate(180deg) brightness(1.5);
 }
 
-[pgs~=logo]:is(body[pgs-state~=darkmode] [pgs-option~=logoDarkmode]) [pgs~=logo-image] {
+[pgs~=logo]:is([pgs-state~=darkmode] [pgs-option~=logoDarkmode]) [pgs~=logo-image] {
   filter: var(--logo-finter);
 }
 

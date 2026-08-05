@@ -27,6 +27,7 @@ Notification markup, configuration, behavior, and usage example.
 
 ## JavaScript API
 
+- `pgs.notification.init(root)`: initializes notification triggers inside the provided document or element.
 - `pgs.notification.trigger(root)`: provides the documented operation through the component public API.
 - `pgs.notification.alert.error(optionsOrTitle)`: accepts a title string or options with element, title, description, timeout, icon, link, linkTitle, and closeTitle.
 - `pgs.notification.alert.success(optionsOrTitle)`: accepts a title string or options with element, title, description, timeout, icon, link, linkTitle, and closeTitle.

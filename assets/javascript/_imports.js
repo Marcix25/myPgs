@@ -13,9 +13,11 @@ import { PGS_stepTabs } from "./components/_stepTabs.js";
 import { PGS_steps } from "./components/_steps.js";
 import { PGS_summary } from "./components/_summary.js";
 import { PGS_formValidate } from "./helper/_formValidate.js";
+import { PGS_init } from "./helper/_init.js";
 import { PGS_scrollHorizontal } from "./helper/_scrollY.js";
 
 pgs.registerModules({
+    init: PGS_init,
     svg: PGS_svg,
     accordion: PGS_accordion,
     alert: PGS_alert,

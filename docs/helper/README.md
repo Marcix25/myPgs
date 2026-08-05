@@ -15,6 +15,7 @@ import { pgs } from "mypgs";
 ## Helper disponibili
 
 - [`pgs(root)`](pgs.md): ricerca e modifica token, stati e opzioni PGS.
+- [`pgs.init(root)`](init.md): inizializza automaticamente i componenti aggiunti tramite JavaScript, JSX o richieste asincrone.
 - [`pgs.formValidate`](formValidate.md): validazione dei form, messaggi, regole personalizzate ed errori esterni.
 - [`pgs.scrollHorizontal`](scrollHorizontal.md): converte lo scroll verticale della rotella in scorrimento orizzontale quando il contenitore può scorrere.
 

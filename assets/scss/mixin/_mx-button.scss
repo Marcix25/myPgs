@@ -199,6 +199,7 @@
     background-color: var(--icon-background);
     padding: var(--icon-padding);
     width: calc(var(--icon-size, 1.6rem) * 3);
+    justify-content: center;
 
     i {
         display: inline-grid;
@@ -208,5 +209,4 @@
         aspect-ratio: 1;
     }
 
-    justify-content: center;
 }
