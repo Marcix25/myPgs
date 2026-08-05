@@ -79,22 +79,7 @@ const demoRenderer = {
     initPgsJavascript() {
         const pgsApi = globalThis.pgs;
         if (!pgsApi) throw new Error("Bundle PGS non caricato");
-
-        [
-            "accordion",
-            "dropdown",
-            "menu",
-            "modal",
-            "search",
-            "slides",
-            "stepTabs",
-            "steps",
-            "summary"
-        ].forEach(module => pgsApi[module]?.init?.(document));
-
-        pgsApi.notification?.trigger?.(document);
-        pgsApi.svg?.applyColorsSVG?.();
-        pgsApi.svg?.applyColorsLottie?.();
+        pgsApi.init(document);
     },
 
     async boot() {

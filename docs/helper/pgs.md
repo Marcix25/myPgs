@@ -93,6 +93,7 @@ Serve per usare i moduli direttamente da `pgs`:
 
 ```js
 pgs.registerModules({
+  init: PGS_init,
   svg: PGS_svg,
   accordion: PGS_accordion,
   dropdown: PGS_dropdown,
@@ -120,6 +121,7 @@ pgs.slides.api(slidesEl)?.next();
 
 Shortcuts available after `import "mypgs"`:
 
+- `pgs.init`
 - `pgs.svg`
 - `pgs.accordion`
 - `pgs.dropdown`
@@ -155,7 +157,9 @@ I componenti non elencati non espongono attualmente un'API JavaScript specifica.
 
 ## Utility JavaScript pubbliche
 
+- `pgs.init(root)`: rileva automaticamente i moduli registrati che espongono `init(root)` e inizializza il markup aggiunto dinamicamente.
 - `pgs.scrollHorizontal(element, speed)`: converte lo scroll verticale della rotella in scorrimento orizzontale quando il contenitore può ancora muoversi nella direzione richiesta e restituisce una funzione che rimuove il listener.
+- `pgs.svg.init()`: aggiorna insieme i colori degli SVG e dei player Lottie presenti nella pagina.
 - `pgs.svg.applyColorsSVG(isDarkMode)`: aggiorna i colori degli SVG caricati tramite `object` e marcati con `svgChangeColor`.
 - `pgs.svg.applyColorsLottie(isDarkMode)`: aggiorna i colori degli SVG interni ai player Lottie marcati con `lottieChangeColor`.
 - `pgs.svg.eventChangeColor`: contiene il nome dell'evento `pgs:svg:changeColor` ascoltato dal modulo SVG.

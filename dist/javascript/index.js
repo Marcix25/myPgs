@@ -23,7 +23,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
 /* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
 /* harmony import */ var _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./helper/_formValidate.js */ "./assets/javascript/helper/_formValidate.js");
-/* harmony import */ var _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./helper/_scrollY.js */ "./assets/javascript/helper/_scrollY.js");
+/* harmony import */ var _helper_init_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./helper/_init.js */ "./assets/javascript/helper/_init.js");
+/* harmony import */ var _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./helper/_scrollY.js */ "./assets/javascript/helper/_scrollY.js");
+
 
 
 
@@ -42,6 +44,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
+    init: _helper_init_js__WEBPACK_IMPORTED_MODULE_14__.PGS_init,
     svg: _base_svg_js__WEBPACK_IMPORTED_MODULE_1__.PGS_svg,
     accordion: _components_accordion_js__WEBPACK_IMPORTED_MODULE_2__.PGS_accordion,
     alert: _components_alerts_js__WEBPACK_IMPORTED_MODULE_3__.PGS_alert,
@@ -55,7 +58,7 @@ _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
     steps: _components_steps_js__WEBPACK_IMPORTED_MODULE_11__.PGS_steps,
     summary: _components_summary_js__WEBPACK_IMPORTED_MODULE_12__.PGS_summary,
     formValidate: _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_13__.PGS_formValidate,
-    scrollHorizontal: _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_14__.PGS_scrollHorizontal,
+    scrollHorizontal: _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_15__.PGS_scrollHorizontal,
 });
 
 
@@ -608,10 +611,7 @@ const svgColors = {
             svgColors.applyColorsLottie(event.detail?.isDarkMode ?? svgColors._getCurrentDarkmode());
         });
 
-        (0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(() => {
-            svgColors.applyColorsSVG();
-            svgColors.applyColorsLottie();
-        });
+        (0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(PGS_svg_init);
     },
 
     applyColorsSVG(isDarkMode = svgColors._getCurrentDarkmode()) {
@@ -646,9 +646,15 @@ const svgColors = {
     },
 };
 
+function PGS_svg_init() {
+    svgColors.applyColorsSVG();
+    svgColors.applyColorsLottie();
+}
+
 svgColors.init();
 
 const PGS_svg = {
+    init: PGS_svg_init,
     eventChangeColor: svgColors.eventChangeColor,
     applyColorsSVG: isDarkMode => svgColors.applyColorsSVG(isDarkMode),
     applyColorsLottie: isDarkMode => svgColors.applyColorsLottie(isDarkMode),
@@ -1689,6 +1695,7 @@ function PGS_notificationTrigger_init(root = document) {
 }
 
 const PGS_notification = {
+    init: PGS_notificationTrigger_init,
     trigger: PGS_notificationTrigger_init,
     alert: {
         error: (options = {}) => fn_notification.show("error", options),
@@ -3123,6 +3130,41 @@ class PGS_formValidate {
         this._rules.push(rule);
         return this;
     }
+}
+
+
+/***/ },
+
+/***/ "./assets/javascript/helper/_init.js"
+/*!*******************************************!*\
+  !*** ./assets/javascript/helper/_init.js ***!
+  \*******************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_init: () => (/* binding */ PGS_init)
+/* harmony export */ });
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+
+
+function PGS_init(root = document) {
+    if (!(root instanceof Document || root instanceof Element)) {
+        throw new TypeError("pgs.init(): root deve essere un Document o un Element");
+    }
+
+    const initialized = new Set();
+
+    Object.values(_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs).forEach(module => {
+        const init = module?.init;
+        if (typeof init !== "function" || initialized.has(init)) return;
+
+        initialized.add(init);
+        init(root);
+    });
+
+    return root;
 }
 
 

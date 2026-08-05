@@ -58,10 +58,7 @@ const svgColors = {
             svgColors.applyColorsLottie(event.detail?.isDarkMode ?? svgColors._getCurrentDarkmode());
         });
 
-        PGS_onDocumentReady(() => {
-            svgColors.applyColorsSVG();
-            svgColors.applyColorsLottie();
-        });
+        PGS_onDocumentReady(PGS_svg_init);
     },
 
     applyColorsSVG(isDarkMode = svgColors._getCurrentDarkmode()) {
@@ -96,9 +93,15 @@ const svgColors = {
     },
 };
 
+function PGS_svg_init() {
+    svgColors.applyColorsSVG();
+    svgColors.applyColorsLottie();
+}
+
 svgColors.init();
 
 export const PGS_svg = {
+    init: PGS_svg_init,
     eventChangeColor: svgColors.eventChangeColor,
     applyColorsSVG: isDarkMode => svgColors.applyColorsSVG(isDarkMode),
     applyColorsLottie: isDarkMode => svgColors.applyColorsLottie(isDarkMode),

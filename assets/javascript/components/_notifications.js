@@ -246,6 +246,7 @@ function PGS_notificationTrigger_init(root = document) {
 }
 
 export const PGS_notification = {
+    init: PGS_notificationTrigger_init,
     trigger: PGS_notificationTrigger_init,
     alert: {
         error: (options = {}) => fn_notification.show("error", options),
