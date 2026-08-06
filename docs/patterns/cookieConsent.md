@@ -23,6 +23,10 @@ Accessible pattern for collecting and storing analytics cookie consent, applying
 
 - `buttonStrong`: presents full acceptance as the primary action.
 
+## JavaScript API
+
+- `pgs.cookieConsent.init(root)`: initializes the cookie consent pattern inside the provided document or element.
+
 ## Related elements
 
 - `flexColumn`: vertically organizes the preference panel.

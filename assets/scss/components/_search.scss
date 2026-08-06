@@ -38,7 +38,7 @@
 
     input {
         width: 100%;
-        min-width: 21.4rem;
+        min-width: auto;
         height: 100%;
         padding: var(--button-size);
         padding-left: 0;
@@ -52,6 +52,11 @@
         font-size: 1.6rem;
         font-weight: 600;
         cursor: text !important;
+
+        //- mobile
+        @media (max-width: $mobile) {
+            min-width: 21.4rem;
+        }
 
         &::placeholder {
             color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
@@ -133,7 +138,7 @@
         margin-inline: auto;
         background-color: var(--color-white);
 
-        [pgs~="modal-close"]{
+        [pgs~="modal-close"] {
             padding: var(--button-size);
         }
     }

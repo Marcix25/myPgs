@@ -108,6 +108,31 @@ declare global {
     api(selector: Element): PgsSearchInstance | undefined;
   }
 
+  interface PgsSummaryMessageOptions {
+    showLess?: string;
+    showMore?: string;
+  }
+
+  interface PgsSummaryOptions {
+    message?: PgsSummaryMessageOptions;
+  }
+
+  interface PgsSummaryInstance {
+    element: Element;
+    content: Element;
+    button: Element;
+    open(): void;
+    close(): void;
+    toggle(): void;
+    refresh(): void;
+    isOpen(): boolean;
+  }
+
+  interface PgsSummaryModule {
+    init(root?: Document | Element, options?: PgsSummaryOptions): void;
+    api(selector: Element): PgsSummaryInstance | undefined;
+  }
+
   interface PgsFunction {
     (root: Document): PgsDocumentApi;
     (root: Element): PgsElementApi;
@@ -116,12 +141,15 @@ declare global {
     registerModules(modules: Record<string, any>): PgsFunction;
     import(...names: string[]): Record<string, any>;
     init(root?: Document | Element): Document | Element;
+    cookieConsent?: any;
+    darkmode?: any;
     accordion?: any;
     dropdown?: any;
     menu?: any;
     modal?: any;
     notification?: any;
     search?: PgsSearchModule;
+    summary?: PgsSummaryModule;
     slides?: any;
     stepTabs?: any;
     steps?: any;

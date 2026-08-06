@@ -101,6 +101,10 @@ function closeDropdown(dropdown) {
     const data = API.get(dropdown);
     if (!data || !data.isOpen()) return;
 
+    Array.from(OPEN_DROPDOWNS)
+        .filter(item => item !== dropdown && dropdown.contains(item))
+        .forEach(closeDropdown);
+
     pgs(dropdown).state.remove("open");
     data.trigger.setAttribute("aria-expanded", "false");
     OPEN_DROPDOWNS.delete(dropdown);
@@ -110,8 +114,9 @@ function openDropdown(dropdown) {
     const data = API.get(dropdown);
     if (!data || data.isOpen()) return;
 
-    OPEN_DROPDOWNS.forEach(item => {
-        if (item !== dropdown) closeDropdown(item);
+    Array.from(OPEN_DROPDOWNS).forEach(item => {
+        const isAncestor = item !== dropdown && item.contains(dropdown);
+        if (item !== dropdown && !isAncestor) closeDropdown(item);
     });
 
     pgs(dropdown).state.add("open");

@@ -2,13 +2,13 @@
 
 # Page Shell
 
-Responsive page layout that combines main content with zero, one, or two scrollable sidebars and adapts their width and position.
+Responsive page layout that combines main content with zero, one or two sidebars and adapts their width, position and scrolling behavior.
 
 ## PGS
 
 - `pageShell`: identifies the container that calculates the main and aside composition.
 - `pageShell-aside`: identifies a sidebar that can be placed before or after the content.
-- `pageShell-aside-scroll`: identifies the inner area that can remain visible while scrolling.
+- `pageShell-aside-scroll`: enables sticky positioning and contained vertical scrolling for its sidebar.
 - `pageShell-content`: identifies the main page content.
 
 ## Related elements

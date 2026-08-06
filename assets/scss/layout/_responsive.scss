@@ -16,7 +16,7 @@
 [pgs~=flexColumn],
 [pgs~=flexRow] {
     
-    @for $i from 1 through 8 {
+    @for $i from 2 through 8 {
         &[pgs-option~=column-#{$i}] {
             width: 100%;
             flex-wrap: wrap;
@@ -33,7 +33,7 @@
     gap: var(--gap-elements);
     width: 100%;
 
-    @for $i from 1 through 8 {
+    @for $i from 2 through 8 {
         &[pgs-option~=column-#{$i}] {
             @include columnGrid($i);
         }

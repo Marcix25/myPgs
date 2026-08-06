@@ -30,10 +30,15 @@
 @mixin hover() {
     $transition: unset 0ms;
 
-    &:where(:not(:disabled)) {
-        transition: $transition;
-        cursor: pointer;
+    &:where(:disabled, [disabled]) {
         text-decoration: none;
+        cursor: default;
+    }
+
+    &:where(:not(:disabled, [disabled])) {
+        transition: $transition;
+        text-decoration: none;
+        cursor: pointer;
         $color: var(--color-primary-strong);
         $colorTxtSafari: var(--color-whiteFixed);
 

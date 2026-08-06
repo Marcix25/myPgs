@@ -115,7 +115,7 @@
     @include _selectorLinkAndNot {
         display: flex;
         flex-direction: column;
-        height: 100%;
+        // height: 100%;
         background: var(--card-background);
         border-radius: var(--card-borderRadius);
     }
@@ -156,7 +156,7 @@
     @include _selectorLinkAndNot {
         display: flex;
         flex-direction: column;
-        height: 100%;
+        // height: 100%;
         padding: var(--box-padding);
         background: var(--box-background);
         border-radius: var(--box-borderRadius);

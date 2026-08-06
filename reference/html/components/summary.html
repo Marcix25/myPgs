@@ -8,12 +8,16 @@
  * - summary-content: identifies the summary-content element used by Summary.
  * - summary-button: identifies the summary-button element used by Summary.
  *
+ * @pgs-option
+ * - showMore: defines the collapsed button text through `showMore[...]`.
+ * - showLess: defines the expanded button text through `showLess[...]`.
+ *
  * @pgs-state
  * - overflow: identifies the overflow element used by Summary.
  * - open: identifies the open element used by Summary.
  *
  * @api
- * - pgs.summary.init(root): initializes matching elements within the specified root.
+ * - pgs.summary.init(root, options): initializes matching elements; missing `pgs-option` texts use `options.message.showMore` and `options.message.showLess`, then the English library defaults.
  * - pgs.summary.api(element): returns the instance associated with the specified initialized element.
  * - instance.open(): opens the component.
  * - instance.close(): closes the component.
@@ -25,7 +29,7 @@
  */
 -->
 
-<div pgs="summary">
+<div pgs="summary" pgs-option="showMore[Show more] showLess[Show less]">
     <div pgs="summary-content">
         <p>
             This demonstration text is long enough to span multiple lines and show the summary component behavior. Content can include text, links, and other inline elements without requiring additional markup.

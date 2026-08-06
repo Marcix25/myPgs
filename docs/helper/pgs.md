@@ -94,6 +94,8 @@ Serve per usare i moduli direttamente da `pgs`:
 ```js
 pgs.registerModules({
   init: PGS_init,
+  cookieConsent: PGS_cookieConsent,
+  darkmode: PGS_darkmode,
   svg: PGS_svg,
   accordion: PGS_accordion,
   dropdown: PGS_dropdown,
@@ -122,6 +124,8 @@ pgs.slides.api(slidesEl)?.next();
 Shortcuts available after `import "mypgs"`:
 
 - `pgs.init`
+- `pgs.cookieConsent`
+- `pgs.darkmode`
 - `pgs.svg`
 - `pgs.accordion`
 - `pgs.dropdown`
@@ -158,6 +162,8 @@ I componenti non elencati non espongono attualmente un'API JavaScript specifica.
 ## Utility JavaScript pubbliche
 
 - `pgs.init(root)`: rileva automaticamente i moduli registrati che espongono `init(root)` e inizializza il markup aggiunto dinamicamente.
+- `pgs.cookieConsent.init(root)`: inizializza il pattern cookie consent presente nel `Document` o `Element` indicato senza duplicare i listener.
+- `pgs.darkmode.init(root)`: inizializza i controlli `toggleDarkmode` presenti nel `Document` o `Element` indicato senza duplicare i listener già applicati.
 - `pgs.scrollHorizontal(element, speed)`: converte lo scroll verticale della rotella in scorrimento orizzontale quando il contenitore può ancora muoversi nella direzione richiesta e restituisce una funzione che rimuove il listener.
 - `pgs.svg.init()`: aggiorna insieme i colori degli SVG e dei player Lottie presenti nella pagina.
 - `pgs.svg.applyColorsSVG(isDarkMode)`: aggiorna i colori degli SVG caricati tramite `object` e marcati con `svgChangeColor`.

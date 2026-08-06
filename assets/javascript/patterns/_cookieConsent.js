@@ -2,6 +2,7 @@ import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
 
 const STORAGE_KEY = 'pgs_cookie_preferences_v1';
 const focusableSelectors = 'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
+const INITIALIZED_COOKIE_CONSENTS = new WeakSet();
 
 //+ 
 function safeJsonParse(value) {
@@ -98,9 +99,12 @@ function assignCookieRuntimeAttributes({ root, analyticsToggle, acceptAllButton,
 }
 
 //= CookieConsent
-function initCookieConsent() {
-    const root = pgs(document).querySelector('cookieConsent');
-    if (!root) return;
+function initCookieConsent(selectRoot = document) {
+    const root = selectRoot instanceof Element && pgs(selectRoot).contains('cookieConsent')
+        ? selectRoot
+        : pgs(selectRoot).querySelector('cookieConsent');
+    if (!root || INITIALIZED_COOKIE_CONSENTS.has(root)) return;
+    INITIALIZED_COOKIE_CONSENTS.add(root);
 
     const analyticsToggle = root.querySelector('[pgs~="cookieConsent-toggleAnalytics"]');
     const acceptAllButton = root.querySelector('[pgs~="cookieConsent-actionAccept"]');
@@ -211,3 +215,7 @@ function initCookieConsent() {
 }
 
 PGS_onDocumentReady(initCookieConsent);
+
+export const PGS_cookieConsent = {
+    init: initCookieConsent
+};

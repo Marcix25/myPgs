@@ -1,5 +1,6 @@
 import { pgs } from "./_pgs.js";
 
+import { PGS_darkmode } from "./base/_darkmode.js";
 import { PGS_svg } from "./base/_svg.js";
 import { PGS_accordion } from "./components/_accordion.js";
 import { PGS_alert } from "./components/_alerts.js";
@@ -15,9 +16,12 @@ import { PGS_summary } from "./components/_summary.js";
 import { PGS_formValidate } from "./helper/_formValidate.js";
 import { PGS_init } from "./helper/_init.js";
 import { PGS_scrollHorizontal } from "./helper/_scrollY.js";
+import { PGS_cookieConsent } from "./patterns/_cookieConsent.js";
 
 pgs.registerModules({
     init: PGS_init,
+    cookieConsent: PGS_cookieConsent,
+    darkmode: PGS_darkmode,
     svg: PGS_svg,
     accordion: PGS_accordion,
     alert: PGS_alert,

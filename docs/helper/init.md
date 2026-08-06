@@ -2,7 +2,7 @@
 
 `pgs.init(root)` inizializza i componenti MyPGS aggiunti dopo il caricamento iniziale della pagina, per esempio tramite JavaScript, JSX, AJAX o un renderer client-side.
 
-L'helper rileva automaticamente tutti i moduli registrati su `pgs` che espongono un metodo `init(root)`, incluse notifiche e gestione dei colori SVG/Lottie. Non contiene una lista di componenti o eccezioni specifiche.
+L'helper rileva automaticamente tutti i moduli registrati su `pgs` che espongono un metodo `init(root)`, inclusi dark mode, Cookie Consent, notifiche e gestione dei colori SVG/Lottie. Non contiene una lista di componenti o eccezioni specifiche.
 
 ## JavaScript
 

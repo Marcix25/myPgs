@@ -10,6 +10,11 @@ Summary markup, configuration, behavior, and usage example.
 - `summary-content`: identifies the summary-content element used by Summary.
 - `summary-button`: identifies the summary-button element used by Summary.
 
+## PGS Options
+
+- `showMore`: defines the collapsed button text through `showMore[...]`.
+- `showLess`: defines the expanded button text through `showLess[...]`.
+
 ## PGS States
 
 - `overflow`: identifies the overflow element used by Summary.
@@ -17,7 +22,7 @@ Summary markup, configuration, behavior, and usage example.
 
 ## JavaScript API
 
-- `pgs.summary.init(root)`: initializes matching elements within the specified root.
+- `pgs.summary.init(root, options)`: initializes matching elements; missing `pgs-option` texts use `options.message.showMore` and `options.message.showLess`, then the English library defaults.
 - `pgs.summary.api(element)`: returns the instance associated with the specified initialized element.
 - `instance.open()`: opens the component.
 - `instance.close()`: closes the component.
@@ -32,7 +37,7 @@ Complete HTML markup and usage example for Summary.
 ## Example
 
 ```html
-<div pgs="summary">
+<div pgs="summary" pgs-option="showMore[Show more] showLess[Show less]">
     <div pgs="summary-content">
         <p>
             This demonstration text is long enough to span multiple lines and show the summary component behavior. Content can include text, links, and other inline elements without requiring additional markup.

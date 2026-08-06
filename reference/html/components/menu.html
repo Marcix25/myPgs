@@ -1,7 +1,7 @@
 <!--
 /**
  * @title Menu
- * @description Menu markup, configuration, behavior, and usage example.
+ * @description Menu markup with horizontal, vertical and recursively nested navigation examples.
  *
  * @pgs
  * - menu: identifies the menu element used by Menu.
@@ -12,6 +12,7 @@
  * - vertical: identifies the vertical element used by Menu.
  * - menuHeader: identifies the menuHeader element used by Menu.
  * - menuIconOnlyCurrent: displays link icons only when the link has an active aria-current value.
+ * - menuShort: compacts adjacent menu links by overlapping their horizontal spacing.
  * - position: identifies the position element used by Menu.
  * - buttonNohover: disables hover behavior on menu buttons generated at runtime.
  *
@@ -28,7 +29,7 @@
  * - dropdown-button: uses the related dropdown-button component or utility in this example.
  * - dropdown-content: uses the related dropdown-content component or utility in this example.
  *
- * @return Complete HTML markup and usage example for Menu.
+ * @return Horizontal and vertical menu examples, including recursively nested submenus.
  */
 -->
 
@@ -76,6 +77,16 @@
                 <i class="fa-solid fa-info-circle" aria-hidden="true"></i>
                 <span>about</span>
             </a>
+            <ul>
+                <li><a href="/servizi/uno">Servizio uno</a></li>
+                <li>
+                    <a href="/servizi/due">Servizio due</a>
+                    <ul>
+                        <li><a href="/servizi/uno">Servizio uno</a></li>
+                        <li><a href="/servizi/due">Servizio due</a></li>
+                    </ul>
+                </li>
+            </ul>
         </li>
     </ul>
 </nav>

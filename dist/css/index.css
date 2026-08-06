@@ -227,7 +227,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   color: var(--color-black);
 }
 
-:where([pgs~=bodyText]) a:hover {
+:where([pgs~=bodyText]) a:where(:hover) {
   color: color-mix(in srgb, var(--color-link) 100%, var(--color-white) 50%);
   text-decoration: underline;
 }
@@ -593,14 +593,19 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   border-radius: var(--border-radius-external);
 }
 
-[pgs~=hover]:where(:not(:disabled)) {
-  transition: unset 0ms;
-  cursor: pointer;
+[pgs~=hover]:where(:disabled, [disabled]) {
   text-decoration: none;
+  cursor: default;
+}
+
+[pgs~=hover]:where(:not(:disabled, [disabled])) {
+  transition: unset 0ms;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=hover]:where(:not(:disabled)):focus-visible, [pgs~=hover]:where(:not(:disabled)):hover {
+  [pgs~=hover]:where(:not(:disabled, [disabled])):focus-visible, [pgs~=hover]:where(:not(:disabled, [disabled])):hover {
     box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
     --hover-primaryColor: var(--color-primary-strong);
     --hover-color: var(--color-whiteFixed);
@@ -614,19 +619,19 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     color: var(--hover-color);
     outline-color: var(--hover-background);
   }
-  [pgs~=hover]:where(:not(:disabled)):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=hover]:where(:not(:disabled)):hover :is(h1, h2, h3, h4, h5, h6, p) {
+  [pgs~=hover]:where(:not(:disabled, [disabled])):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=hover]:where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
     color: var(--hover-color);
   }
-  [pgs~=hover]:where(:not(:disabled)):focus-visible [pgs~=hover-text], [pgs~=hover]:where(:not(:disabled)):hover [pgs~=hover-text] {
+  [pgs~=hover]:where(:not(:disabled, [disabled])):focus-visible [pgs~=hover-text], [pgs~=hover]:where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
     color: var(--hover-color);
   }
 }
-[pgs~=hover]:where(:not(:disabled)) * {
+[pgs~=hover]:where(:not(:disabled, [disabled])) * {
   transition: unset 0ms;
   text-decoration: none;
 }
 
-[pgs~=hover]:where(:not(:disabled)) *::before, [pgs~=hover]:where(:not(:disabled)) *::after {
+[pgs~=hover]:where(:not(:disabled, [disabled])) *::before, [pgs~=hover]:where(:not(:disabled, [disabled])) *::after {
   transition: unset 0ms;
 }
 
@@ -739,54 +744,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   flex-wrap: wrap;
 }
 
-[pgs~=flexColumn][pgs-option~=column-1],
-[pgs~=flexRow][pgs-option~=column-1] {
-  width: 100%;
-  flex-wrap: wrap;
-  flex-direction: row;
-  --flex-gap: var(--gap-elements);
-}
-
-[pgs~=flexColumn][pgs-option~=column-1] > *,
-[pgs~=flexRow][pgs-option~=column-1] > * {
-  flex: 1 0;
-  flex-basis: calc((100% - var(--flex-gap) * 0) / 1);
-}
-
-@container (max-width: 1100px) {
-  [pgs~=flexColumn][pgs-option~=column-1] > *,
-  [pgs~=flexRow][pgs-option~=column-1] > * {
-    flex-basis: calc((100% - var(--flex-gap) * 0) / 1);
-  }
-}
-@container (max-width: 900px) {
-  [pgs~=flexColumn][pgs-option~=column-1] > *,
-  [pgs~=flexRow][pgs-option~=column-1] > * {
-    flex-basis: calc((100% - var(--flex-gap) * 0) / 1);
-  }
-}
-@container (max-width: 800px) {
-  [pgs~=flexColumn][pgs-option~=column-1] > *,
-  [pgs~=flexRow][pgs-option~=column-1] > * {
-    flex-basis: calc((100% - var(--flex-gap) * 0) / 1);
-  }
-}
-@container (max-width: 615px) {
-  [pgs~=flexColumn][pgs-option~=column-1] > *,
-  [pgs~=flexRow][pgs-option~=column-1] > * {
-    flex-basis: calc((100% - var(--flex-gap) * 0) / 1);
-  }
-  [pgs~=flexColumn][pgs-option~=column-1][pgs-option~=m2e] > *,
-  [pgs~=flexRow][pgs-option~=column-1][pgs-option~=m2e] > * {
-    flex-basis: calc((100% - var(--flex-gap) * 0) / 1);
-  }
-}
-@container (max-width: 315px) {
-  [pgs~=flexColumn][pgs-option~=column-1] > *,
-  [pgs~=flexRow][pgs-option~=column-1] > * {
-    flex-basis: calc((100% - var(--flex-gap) * 0) / 1);
-  }
-}
 [pgs~=flexColumn][pgs-option~=column-2],
 [pgs~=flexRow][pgs-option~=column-2] {
   width: 100%;
@@ -1129,40 +1086,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   width: 100%;
 }
 
-[pgs~=grid][pgs-option~=column-1] {
-  grid-template-columns: repeat(1, 1fr);
-}
-
-@container (max-width: 1100px) {
-  [pgs~=grid][pgs-option~=column-1] {
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
-@container (max-width: 900px) {
-  [pgs~=grid][pgs-option~=column-1] {
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
-@container (max-width: 800px) {
-  [pgs~=grid][pgs-option~=column-1] {
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
-@container (max-width: 615px) {
-  [pgs~=grid][pgs-option~=column-1] {
-    grid-template-columns: 1fr;
-  }
-}
-@container (max-width: 615px) {
-  [pgs~=grid][pgs-option~=column-1][pgs-option~=m2e] {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-@container (max-width: 315px) {
-  [pgs~=grid][pgs-option~=column-1] {
-    grid-template-columns: 1fr;
-  }
-}
 [pgs~=grid][pgs-option~=column-2] {
   grid-template-columns: repeat(2, 1fr);
 }
@@ -1590,15 +1513,9 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=pageShell] [pgs~=pageShell-aside] {
   isolation: isolate;
-  position: sticky;
-  top: var(--pageShell-aside-sticky-top);
   transition: top 0.3s ease;
   width: 100%;
   max-height: 100svh;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  scrollbar-gutter: stable;
-  scrollbar-width: none;
   padding-top: var(--pageShell-padding-top);
   padding-bottom: var(--gap-elements);
   flex: 1 1 var(--pageShell-aside-width);
@@ -1614,13 +1531,8 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   width: 100%;
 }
 
-[pgs~=pageShell] [pgs~=pageShell-aside]:has(+ [pgs~=pageShell-content]) {
-  grid-area: asideLeft;
-}
-
 [pgs~=pageShell] [pgs~=pageShell-aside] [pgs~=pageShell-aside-scroll] {
   width: 100%;
-  overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-gutter: stable;
   scrollbar-width: none;
@@ -1637,8 +1549,9 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 [pgs~=pageShell] [pgs~=pageShell-aside]:has([pgs~=pageShell-aside-scroll]) {
-  padding-top: 0;
-  padding-bottom: 0;
+  position: sticky;
+  top: var(--pageShell-aside-sticky-top);
+  padding-block: 0;
 }
 
 [pgs~=pageShell] [pgs~=pageShell-aside]:has([pgs~=pageShell-aside-scroll])::after {
@@ -1650,6 +1563,10 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   background: linear-gradient(0deg, var(--color-background) 25%, transparent);
   pointer-events: none;
   z-index: 1;
+}
+
+[pgs~=pageShell] [pgs~=pageShell-aside]:has(+ [pgs~=pageShell-content]) {
+  grid-area: asideLeft;
 }
 
 [pgs~=pageShell] [pgs~=pageShell-content] + [pgs~=pageShell-aside] {
@@ -1671,13 +1588,10 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     max-height: none;
     width: 100%;
     min-width: 100%;
-    overflow: visible;
-    overscroll-behavior: auto;
-    scrollbar-gutter: auto;
   }
   [pgs~=pageShell]:has(> [pgs~=pageShell-aside]) [pgs~=pageShell-aside] [pgs~=pageShell-aside-scroll] {
+    overflow-y: auto;
     scrollbar-gutter: auto;
-    overflow: visible;
     overscroll-behavior: auto;
   }
   [pgs~=pageShell]:has(> [pgs~=pageShell-aside]) [pgs~=pageShell-content] {
@@ -1692,18 +1606,14 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     max-height: none;
     width: 100%;
     min-width: 100%;
-    overflow: visible;
-    overscroll-behavior: auto;
-    scrollbar-gutter: auto;
   }
   [pgs~=pageShell]:has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content] + [pgs~=pageShell-aside] [pgs~=pageShell-aside-scroll] {
+    overflow-y: auto;
     scrollbar-gutter: auto;
-    overflow: visible;
     overscroll-behavior: auto;
   }
   [pgs~=pageShell]:has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content] + [pgs~=pageShell-aside] {
     padding-top: 0;
-    min-width: 100%;
   }
 }
 @container (max-width: calc(400px + 500px + 400px + (4rem * 2))) {
@@ -1719,13 +1629,10 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     max-height: none;
     width: 100%;
     min-width: 100%;
-    overflow: visible;
-    overscroll-behavior: auto;
-    scrollbar-gutter: auto;
   }
   [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content] + [pgs~=pageShell-aside] [pgs~=pageShell-aside-scroll] {
+    overflow-y: auto;
     scrollbar-gutter: auto;
-    overflow: visible;
     overscroll-behavior: auto;
   }
   [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content] + [pgs~=pageShell-aside] {
@@ -1743,13 +1650,10 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     max-height: none;
     width: 100%;
     min-width: 100%;
-    overflow: visible;
-    overscroll-behavior: auto;
-    scrollbar-gutter: auto;
   }
   [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-aside] [pgs~=pageShell-aside-scroll] {
+    overflow-y: auto;
     scrollbar-gutter: auto;
-    overflow: visible;
     overscroll-behavior: auto;
   }
   [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content],
@@ -1773,13 +1677,10 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     max-height: none;
     width: 100%;
     min-width: 100%;
-    overflow: visible;
-    overscroll-behavior: auto;
-    scrollbar-gutter: auto;
   }
   [pgs~=pageShell] [pgs~=pageShell-aside] [pgs~=pageShell-aside-scroll] {
+    overflow-y: auto;
     scrollbar-gutter: auto;
-    overflow: visible;
     overscroll-behavior: auto;
   }
 }
@@ -1861,7 +1762,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 [pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button]:hover::before, [pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button]:hover::after {
-  background-color: var(--color-white);
+  background-color: var(--hover-color);
 }
 
 [pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button][aria-expanded=true] {
@@ -2137,7 +2038,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=card] > a:first-child {
   display: flex;
   flex-direction: column;
-  height: 100%;
   background: var(--card-background);
   border-radius: var(--card-borderRadius);
 }
@@ -2147,17 +2047,23 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --card-background: var(--color-white);
 }
 
-[pgs~=card]:where(a):where(:not(:disabled)),
-[pgs~=card] > a:first-child:where(:not(:disabled)) {
-  transition: unset 0ms;
-  cursor: pointer;
+[pgs~=card]:where(a):where(:disabled, [disabled]),
+[pgs~=card] > a:first-child:where(:disabled, [disabled]) {
   text-decoration: none;
+  cursor: default;
+}
+
+[pgs~=card]:where(a):where(:not(:disabled, [disabled])),
+[pgs~=card] > a:first-child:where(:not(:disabled, [disabled])) {
+  transition: unset 0ms;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=card]:where(a):where(:not(:disabled)):focus-visible, [pgs~=card]:where(a):where(:not(:disabled)):hover,
-  [pgs~=card] > a:first-child:where(:not(:disabled)):focus-visible,
-  [pgs~=card] > a:first-child:where(:not(:disabled)):hover {
+  [pgs~=card]:where(a):where(:not(:disabled, [disabled])):focus-visible, [pgs~=card]:where(a):where(:not(:disabled, [disabled])):hover,
+  [pgs~=card] > a:first-child:where(:not(:disabled, [disabled])):focus-visible,
+  [pgs~=card] > a:first-child:where(:not(:disabled, [disabled])):hover {
     box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
     --hover-primaryColor: var(--color-primary-strong);
     --hover-color: var(--color-whiteFixed);
@@ -2171,26 +2077,26 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     color: var(--hover-color);
     outline-color: var(--hover-background);
   }
-  [pgs~=card]:where(a):where(:not(:disabled)):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=card]:where(a):where(:not(:disabled)):hover :is(h1, h2, h3, h4, h5, h6, p),
-  [pgs~=card] > a:first-child:where(:not(:disabled)):focus-visible :is(h1, h2, h3, h4, h5, h6, p),
-  [pgs~=card] > a:first-child:where(:not(:disabled)):hover :is(h1, h2, h3, h4, h5, h6, p) {
+  [pgs~=card]:where(a):where(:not(:disabled, [disabled])):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=card]:where(a):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p),
+  [pgs~=card] > a:first-child:where(:not(:disabled, [disabled])):focus-visible :is(h1, h2, h3, h4, h5, h6, p),
+  [pgs~=card] > a:first-child:where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
     color: var(--hover-color);
   }
-  [pgs~=card]:where(a):where(:not(:disabled)):focus-visible [pgs~=hover-text], [pgs~=card]:where(a):where(:not(:disabled)):hover [pgs~=hover-text],
-  [pgs~=card] > a:first-child:where(:not(:disabled)):focus-visible [pgs~=hover-text],
-  [pgs~=card] > a:first-child:where(:not(:disabled)):hover [pgs~=hover-text] {
+  [pgs~=card]:where(a):where(:not(:disabled, [disabled])):focus-visible [pgs~=hover-text], [pgs~=card]:where(a):where(:not(:disabled, [disabled])):hover [pgs~=hover-text],
+  [pgs~=card] > a:first-child:where(:not(:disabled, [disabled])):focus-visible [pgs~=hover-text],
+  [pgs~=card] > a:first-child:where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
     color: var(--hover-color);
   }
 }
-[pgs~=card]:where(a):where(:not(:disabled)) *,
-[pgs~=card] > a:first-child:where(:not(:disabled)) * {
+[pgs~=card]:where(a):where(:not(:disabled, [disabled])) *,
+[pgs~=card] > a:first-child:where(:not(:disabled, [disabled])) * {
   transition: unset 0ms;
   text-decoration: none;
 }
 
-[pgs~=card]:where(a):where(:not(:disabled)) *::before, [pgs~=card]:where(a):where(:not(:disabled)) *::after,
-[pgs~=card] > a:first-child:where(:not(:disabled)) *::before,
-[pgs~=card] > a:first-child:where(:not(:disabled)) *::after {
+[pgs~=card]:where(a):where(:not(:disabled, [disabled])) *::before, [pgs~=card]:where(a):where(:not(:disabled, [disabled])) *::after,
+[pgs~=card] > a:first-child:where(:not(:disabled, [disabled])) *::before,
+[pgs~=card] > a:first-child:where(:not(:disabled, [disabled])) *::after {
   transition: unset 0ms;
 }
 
@@ -2290,7 +2196,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=box] > a:first-child {
   display: flex;
   flex-direction: column;
-  height: 100%;
   padding: var(--box-padding);
   background: var(--box-background);
   border-radius: var(--box-borderRadius);
@@ -2301,17 +2206,23 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --box-background: var(--color-white);
 }
 
-[pgs~=box]:where(a):where(:not(:disabled)),
-[pgs~=box] > a:first-child:where(:not(:disabled)) {
-  transition: unset 0ms;
-  cursor: pointer;
+[pgs~=box]:where(a):where(:disabled, [disabled]),
+[pgs~=box] > a:first-child:where(:disabled, [disabled]) {
   text-decoration: none;
+  cursor: default;
+}
+
+[pgs~=box]:where(a):where(:not(:disabled, [disabled])),
+[pgs~=box] > a:first-child:where(:not(:disabled, [disabled])) {
+  transition: unset 0ms;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=box]:where(a):where(:not(:disabled)):focus-visible, [pgs~=box]:where(a):where(:not(:disabled)):hover,
-  [pgs~=box] > a:first-child:where(:not(:disabled)):focus-visible,
-  [pgs~=box] > a:first-child:where(:not(:disabled)):hover {
+  [pgs~=box]:where(a):where(:not(:disabled, [disabled])):focus-visible, [pgs~=box]:where(a):where(:not(:disabled, [disabled])):hover,
+  [pgs~=box] > a:first-child:where(:not(:disabled, [disabled])):focus-visible,
+  [pgs~=box] > a:first-child:where(:not(:disabled, [disabled])):hover {
     box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
     --hover-primaryColor: var(--color-primary-strong);
     --hover-color: var(--color-whiteFixed);
@@ -2325,26 +2236,26 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     color: var(--hover-color);
     outline-color: var(--hover-background);
   }
-  [pgs~=box]:where(a):where(:not(:disabled)):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=box]:where(a):where(:not(:disabled)):hover :is(h1, h2, h3, h4, h5, h6, p),
-  [pgs~=box] > a:first-child:where(:not(:disabled)):focus-visible :is(h1, h2, h3, h4, h5, h6, p),
-  [pgs~=box] > a:first-child:where(:not(:disabled)):hover :is(h1, h2, h3, h4, h5, h6, p) {
+  [pgs~=box]:where(a):where(:not(:disabled, [disabled])):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=box]:where(a):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p),
+  [pgs~=box] > a:first-child:where(:not(:disabled, [disabled])):focus-visible :is(h1, h2, h3, h4, h5, h6, p),
+  [pgs~=box] > a:first-child:where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
     color: var(--hover-color);
   }
-  [pgs~=box]:where(a):where(:not(:disabled)):focus-visible [pgs~=hover-text], [pgs~=box]:where(a):where(:not(:disabled)):hover [pgs~=hover-text],
-  [pgs~=box] > a:first-child:where(:not(:disabled)):focus-visible [pgs~=hover-text],
-  [pgs~=box] > a:first-child:where(:not(:disabled)):hover [pgs~=hover-text] {
+  [pgs~=box]:where(a):where(:not(:disabled, [disabled])):focus-visible [pgs~=hover-text], [pgs~=box]:where(a):where(:not(:disabled, [disabled])):hover [pgs~=hover-text],
+  [pgs~=box] > a:first-child:where(:not(:disabled, [disabled])):focus-visible [pgs~=hover-text],
+  [pgs~=box] > a:first-child:where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
     color: var(--hover-color);
   }
 }
-[pgs~=box]:where(a):where(:not(:disabled)) *,
-[pgs~=box] > a:first-child:where(:not(:disabled)) * {
+[pgs~=box]:where(a):where(:not(:disabled, [disabled])) *,
+[pgs~=box] > a:first-child:where(:not(:disabled, [disabled])) * {
   transition: unset 0ms;
   text-decoration: none;
 }
 
-[pgs~=box]:where(a):where(:not(:disabled)) *::before, [pgs~=box]:where(a):where(:not(:disabled)) *::after,
-[pgs~=box] > a:first-child:where(:not(:disabled)) *::before,
-[pgs~=box] > a:first-child:where(:not(:disabled)) *::after {
+[pgs~=box]:where(a):where(:not(:disabled, [disabled])) *::before, [pgs~=box]:where(a):where(:not(:disabled, [disabled])) *::after,
+[pgs~=box] > a:first-child:where(:not(:disabled, [disabled])) *::before,
+[pgs~=box] > a:first-child:where(:not(:disabled, [disabled])) *::after {
   transition: unset 0ms;
 }
 
@@ -2393,7 +2304,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   outline: var(--button-border);
   border-radius: var(--button-borderRadius);
   display: flex;
-  gap: calc(var(--button-size) / 1.5);
+  gap: calc(var(--button-size) / 2);
   align-items: center;
   padding: var(--button-padding);
   height: var(--button-height);
@@ -2433,14 +2344,19 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   aspect-ratio: 1;
 }
 
-[pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled)) {
-  transition: unset 0ms;
-  cursor: pointer;
+[pgs~=button]:not([pgs-option~=buttonNohover]):where(:disabled, [disabled]) {
   text-decoration: none;
+  cursor: default;
+}
+
+[pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])) {
+  transition: unset 0ms;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled)):focus-visible, [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled)):hover {
+  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):focus-visible, [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):hover {
     box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
     --hover-primaryColor: var(--color-primary-strong);
     --hover-color: var(--color-whiteFixed);
@@ -2454,19 +2370,19 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     color: var(--hover-color);
     outline-color: var(--hover-background);
   }
-  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled)):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled)):hover :is(h1, h2, h3, h4, h5, h6, p) {
+  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
     color: var(--hover-color);
   }
-  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled)):focus-visible [pgs~=hover-text], [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled)):hover [pgs~=hover-text] {
+  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):focus-visible [pgs~=hover-text], [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
     color: var(--hover-color);
   }
 }
-[pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled)) * {
+[pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])) * {
   transition: unset 0ms;
   text-decoration: none;
 }
 
-[pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled)) *::before, [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled)) *::after {
+[pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])) *::before, [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])) *::after {
   transition: unset 0ms;
 }
 
@@ -3415,7 +3331,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   outline: var(--button-border);
   border-radius: var(--button-borderRadius);
   display: flex;
-  gap: calc(var(--button-size) / 1.5);
+  gap: calc(var(--button-size) / 2);
   align-items: center;
   padding: var(--button-padding);
   height: var(--button-height);
@@ -3444,14 +3360,19 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --fa-secondary-color: var(--button-color-strong);
 }
 
-[pgs~=form] button[type=submit]:where(:not(:disabled)) {
-  transition: unset 0ms;
-  cursor: pointer;
+[pgs~=form] button[type=submit]:where(:disabled, [disabled]) {
   text-decoration: none;
+  cursor: default;
+}
+
+[pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])) {
+  transition: unset 0ms;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=form] button[type=submit]:where(:not(:disabled)):focus-visible, [pgs~=form] button[type=submit]:where(:not(:disabled)):hover {
+  [pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])):focus-visible, [pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])):hover {
     box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
     --hover-primaryColor: var(--color-primary-strong);
     --hover-color: var(--color-whiteFixed);
@@ -3465,19 +3386,19 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     color: var(--hover-color);
     outline-color: var(--hover-background);
   }
-  [pgs~=form] button[type=submit]:where(:not(:disabled)):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=form] button[type=submit]:where(:not(:disabled)):hover :is(h1, h2, h3, h4, h5, h6, p) {
+  [pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
     color: var(--hover-color);
   }
-  [pgs~=form] button[type=submit]:where(:not(:disabled)):focus-visible [pgs~=hover-text], [pgs~=form] button[type=submit]:where(:not(:disabled)):hover [pgs~=hover-text] {
+  [pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])):focus-visible [pgs~=hover-text], [pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
     color: var(--hover-color);
   }
 }
-[pgs~=form] button[type=submit]:where(:not(:disabled)) * {
+[pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])) * {
   transition: unset 0ms;
   text-decoration: none;
 }
 
-[pgs~=form] button[type=submit]:where(:not(:disabled)) *::before, [pgs~=form] button[type=submit]:where(:not(:disabled)) *::after {
+[pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])) *::before, [pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])) *::after {
   transition: unset 0ms;
 }
 
@@ -3800,7 +3721,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   outline: var(--button-border);
   border-radius: var(--button-borderRadius);
   display: flex;
-  gap: calc(var(--button-size) / 1.5);
+  gap: calc(var(--button-size) / 2);
   align-items: center;
   padding: var(--button-padding);
   height: var(--button-height);
@@ -3822,14 +3743,19 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --button-padding-left: calc(var(--button-size) * 2);
 }
 
-[pgs~=twoState]:where(:not(:disabled)) {
-  transition: unset 0ms;
-  cursor: pointer;
+[pgs~=twoState]:where(:disabled, [disabled]) {
   text-decoration: none;
+  cursor: default;
+}
+
+[pgs~=twoState]:where(:not(:disabled, [disabled])) {
+  transition: unset 0ms;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=twoState]:where(:not(:disabled)):focus-visible, [pgs~=twoState]:where(:not(:disabled)):hover {
+  [pgs~=twoState]:where(:not(:disabled, [disabled])):focus-visible, [pgs~=twoState]:where(:not(:disabled, [disabled])):hover {
     box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
     --hover-primaryColor: var(--color-primary-strong);
     --hover-color: var(--color-whiteFixed);
@@ -3843,19 +3769,19 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     color: var(--hover-color);
     outline-color: var(--hover-background);
   }
-  [pgs~=twoState]:where(:not(:disabled)):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=twoState]:where(:not(:disabled)):hover :is(h1, h2, h3, h4, h5, h6, p) {
+  [pgs~=twoState]:where(:not(:disabled, [disabled])):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=twoState]:where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
     color: var(--hover-color);
   }
-  [pgs~=twoState]:where(:not(:disabled)):focus-visible [pgs~=hover-text], [pgs~=twoState]:where(:not(:disabled)):hover [pgs~=hover-text] {
+  [pgs~=twoState]:where(:not(:disabled, [disabled])):focus-visible [pgs~=hover-text], [pgs~=twoState]:where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
     color: var(--hover-color);
   }
 }
-[pgs~=twoState]:where(:not(:disabled)) * {
+[pgs~=twoState]:where(:not(:disabled, [disabled])) * {
   transition: unset 0ms;
   text-decoration: none;
 }
 
-[pgs~=twoState]:where(:not(:disabled)) *::before, [pgs~=twoState]:where(:not(:disabled)) *::after {
+[pgs~=twoState]:where(:not(:disabled, [disabled])) *::before, [pgs~=twoState]:where(:not(:disabled, [disabled])) *::after {
   transition: unset 0ms;
 }
 
@@ -4011,7 +3937,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   outline: var(--button-border);
   border-radius: var(--button-borderRadius);
   display: flex;
-  gap: calc(var(--button-size) / 1.5);
+  gap: calc(var(--button-size) / 2);
   align-items: center;
   padding: var(--button-padding);
   height: var(--button-height);
@@ -4138,7 +4064,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   outline: var(--button-border);
   border-radius: var(--button-borderRadius);
   display: flex;
-  gap: calc(var(--button-size) / 1.5);
+  gap: calc(var(--button-size) / 2);
   align-items: center;
   padding: var(--button-padding);
   height: var(--button-height);
@@ -4235,7 +4161,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --menu-background-current: var(--color-primary);
   --menu-background-strong: var(--color-primary);
   --menu-border: var(--border-complete);
-  --menu-gap-column: 0;
+  --menu-gap-column: 2px;
   --menu-gap-row: 1.0rem;
 }
 
@@ -4286,7 +4212,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   outline: var(--button-border);
   border-radius: var(--button-borderRadius);
   display: flex;
-  gap: calc(var(--button-size) / 1.5);
+  gap: calc(var(--button-size) / 2);
   align-items: center;
   padding: var(--button-padding);
   height: var(--button-height);
@@ -4298,14 +4224,19 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   cursor: not-allowed;
 }
 
-[pgs~=menu] ul > li > a:where(:not(:disabled)) {
-  transition: unset 0ms;
-  cursor: pointer;
+[pgs~=menu] ul > li > a:where(:disabled, [disabled]) {
   text-decoration: none;
+  cursor: default;
+}
+
+[pgs~=menu] ul > li > a:where(:not(:disabled, [disabled])) {
+  transition: unset 0ms;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=menu] ul > li > a:where(:not(:disabled)):focus-visible, [pgs~=menu] ul > li > a:where(:not(:disabled)):hover {
+  [pgs~=menu] ul > li > a:where(:not(:disabled, [disabled])):focus-visible, [pgs~=menu] ul > li > a:where(:not(:disabled, [disabled])):hover {
     box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
     --hover-primaryColor: var(--color-primary-strong);
     --hover-color: var(--color-whiteFixed);
@@ -4319,19 +4250,19 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     color: var(--hover-color);
     outline-color: var(--hover-background);
   }
-  [pgs~=menu] ul > li > a:where(:not(:disabled)):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=menu] ul > li > a:where(:not(:disabled)):hover :is(h1, h2, h3, h4, h5, h6, p) {
+  [pgs~=menu] ul > li > a:where(:not(:disabled, [disabled])):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=menu] ul > li > a:where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
     color: var(--hover-color);
   }
-  [pgs~=menu] ul > li > a:where(:not(:disabled)):focus-visible [pgs~=hover-text], [pgs~=menu] ul > li > a:where(:not(:disabled)):hover [pgs~=hover-text] {
+  [pgs~=menu] ul > li > a:where(:not(:disabled, [disabled])):focus-visible [pgs~=hover-text], [pgs~=menu] ul > li > a:where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
     color: var(--hover-color);
   }
 }
-[pgs~=menu] ul > li > a:where(:not(:disabled)) * {
+[pgs~=menu] ul > li > a:where(:not(:disabled, [disabled])) * {
   transition: unset 0ms;
   text-decoration: none;
 }
 
-[pgs~=menu] ul > li > a:where(:not(:disabled)) *::before, [pgs~=menu] ul > li > a:where(:not(:disabled)) *::after {
+[pgs~=menu] ul > li > a:where(:not(:disabled, [disabled])) *::before, [pgs~=menu] ul > li > a:where(:not(:disabled, [disabled])) *::after {
   transition: unset 0ms;
 }
 
@@ -4467,6 +4398,30 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   display: none;
 }
 
+[pgs~=menu][pgs-option~=menuShort] > ul > li:first-child a {
+  margin-left: 0px;
+}
+
+[pgs~=menu][pgs-option~=menuShort] > ul > li:last-child a {
+  margin-right: 0px;
+}
+
+[pgs~=menu][pgs-option~=menuShort] > ul > li a {
+  margin-right: calc(var(--button-padding-block) * -1);
+  --button-background-current: var(--color-primary-soft);
+  --button-color-current: var(--color-primary-strong);
+}
+
+[pgs~=menu][pgs-option~=menuShort] > ul > li a[aria-current=page] {
+  z-index: 1;
+  position: relative;
+}
+
+[pgs~=menu][pgs-option~=menuShort] > ul > li a:hover {
+  z-index: 2;
+  position: relative;
+}
+
 [pgs~=accordion] {
   padding: 0 !important;
   flex-direction: column !important;
@@ -4509,7 +4464,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   outline: var(--button-border);
   border-radius: var(--button-borderRadius);
   display: flex;
-  gap: calc(var(--button-size) / 1.5);
+  gap: calc(var(--button-size) / 2);
   align-items: center;
   padding: var(--button-padding);
   height: var(--button-height);
@@ -4580,14 +4535,19 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   overflow: hidden;
 }
 
-[pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled)) {
-  transition: unset 0ms;
-  cursor: pointer;
+[pgs~=accordion]:not([pgs-state~=open]):where(:disabled, [disabled]) {
   text-decoration: none;
+  cursor: default;
+}
+
+[pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])) {
+  transition: unset 0ms;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled)):focus-visible, [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled)):hover {
+  [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])):focus-visible, [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])):hover {
     box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
     --hover-primaryColor: var(--color-primary-strong);
     --hover-color: var(--color-whiteFixed);
@@ -4601,19 +4561,19 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     color: var(--hover-color);
     outline-color: var(--hover-background);
   }
-  [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled)):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled)):hover :is(h1, h2, h3, h4, h5, h6, p) {
+  [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
     color: var(--hover-color);
   }
-  [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled)):focus-visible [pgs~=hover-text], [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled)):hover [pgs~=hover-text] {
+  [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])):focus-visible [pgs~=hover-text], [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
     color: var(--hover-color);
   }
 }
-[pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled)) * {
+[pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])) * {
   transition: unset 0ms;
   text-decoration: none;
 }
 
-[pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled)) *::before, [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled)) *::after {
+[pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])) *::before, [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])) *::after {
   transition: unset 0ms;
 }
 
@@ -5285,7 +5245,7 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   outline: var(--button-border);
   border-radius: var(--button-borderRadius);
   display: flex;
-  gap: calc(var(--button-size) / 1.5);
+  gap: calc(var(--button-size) / 2);
   align-items: center;
   padding: var(--button-padding);
   height: var(--button-height);
@@ -5748,7 +5708,7 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
 
 [pgs~=search] input {
   width: 100%;
-  min-width: 21.4rem;
+  min-width: auto;
   height: 100%;
   padding: var(--button-size);
   padding-left: 0;
@@ -5764,6 +5724,11 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   cursor: text !important;
 }
 
+@media (max-width: 430px) {
+  [pgs~=search] input {
+    min-width: 21.4rem;
+  }
+}
 [pgs~=search] input::placeholder {
   color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
   opacity: 0.6;

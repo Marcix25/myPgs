@@ -1,6 +1,6 @@
 export default function Accordion() {
     return (
-        <ul pgs="grid gapTexts" pgs-option="column-1">
+        <ul pgs="grid gapTexts">
             <li pgs="accordion">
                 <button pgs="accordion-button" type="button">
                     <i className="fa-solid fa-circle-question" aria-hidden="true"></i>

@@ -10,21 +10,25 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_pgs.js */ "./assets/javascript/_pgs.js");
-/* harmony import */ var _base_svg_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./base/_svg.js */ "./assets/javascript/base/_svg.js");
-/* harmony import */ var _components_accordion_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/_accordion.js */ "./assets/javascript/components/_accordion.js");
-/* harmony import */ var _components_alerts_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/_alerts.js */ "./assets/javascript/components/_alerts.js");
-/* harmony import */ var _components_dropdown_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/_dropdown.js */ "./assets/javascript/components/_dropdown.js");
-/* harmony import */ var _components_menu_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/_menu.js */ "./assets/javascript/components/_menu.js");
-/* harmony import */ var _components_modals_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/_modals.js */ "./assets/javascript/components/_modals.js");
-/* harmony import */ var _components_notifications_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_notifications.js */ "./assets/javascript/components/_notifications.js");
-/* harmony import */ var _components_search_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_search.js */ "./assets/javascript/components/_search.js");
-/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
-/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
-/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
-/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
-/* harmony import */ var _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./helper/_formValidate.js */ "./assets/javascript/helper/_formValidate.js");
-/* harmony import */ var _helper_init_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./helper/_init.js */ "./assets/javascript/helper/_init.js");
-/* harmony import */ var _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./helper/_scrollY.js */ "./assets/javascript/helper/_scrollY.js");
+/* harmony import */ var _base_darkmode_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./base/_darkmode.js */ "./assets/javascript/base/_darkmode.js");
+/* harmony import */ var _base_svg_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./base/_svg.js */ "./assets/javascript/base/_svg.js");
+/* harmony import */ var _components_accordion_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/_accordion.js */ "./assets/javascript/components/_accordion.js");
+/* harmony import */ var _components_alerts_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/_alerts.js */ "./assets/javascript/components/_alerts.js");
+/* harmony import */ var _components_dropdown_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/_dropdown.js */ "./assets/javascript/components/_dropdown.js");
+/* harmony import */ var _components_menu_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/_menu.js */ "./assets/javascript/components/_menu.js");
+/* harmony import */ var _components_modals_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_modals.js */ "./assets/javascript/components/_modals.js");
+/* harmony import */ var _components_notifications_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_notifications.js */ "./assets/javascript/components/_notifications.js");
+/* harmony import */ var _components_search_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_search.js */ "./assets/javascript/components/_search.js");
+/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
+/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
+/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
+/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
+/* harmony import */ var _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./helper/_formValidate.js */ "./assets/javascript/helper/_formValidate.js");
+/* harmony import */ var _helper_init_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./helper/_init.js */ "./assets/javascript/helper/_init.js");
+/* harmony import */ var _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./helper/_scrollY.js */ "./assets/javascript/helper/_scrollY.js");
+/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
+
+
 
 
 
@@ -44,21 +48,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
-    init: _helper_init_js__WEBPACK_IMPORTED_MODULE_14__.PGS_init,
-    svg: _base_svg_js__WEBPACK_IMPORTED_MODULE_1__.PGS_svg,
-    accordion: _components_accordion_js__WEBPACK_IMPORTED_MODULE_2__.PGS_accordion,
-    alert: _components_alerts_js__WEBPACK_IMPORTED_MODULE_3__.PGS_alert,
-    dropdown: _components_dropdown_js__WEBPACK_IMPORTED_MODULE_4__.PGS_dropdown,
-    menu: _components_menu_js__WEBPACK_IMPORTED_MODULE_5__.PGS_menu,
-    modal: _components_modals_js__WEBPACK_IMPORTED_MODULE_6__.PGS_modal,
-    notification: _components_notifications_js__WEBPACK_IMPORTED_MODULE_7__.PGS_notification,
-    search: _components_search_js__WEBPACK_IMPORTED_MODULE_8__.PGS_search,
-    slides: _components_slides_js__WEBPACK_IMPORTED_MODULE_9__.PGS_slides,
-    stepTabs: _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_10__.PGS_stepTabs,
-    steps: _components_steps_js__WEBPACK_IMPORTED_MODULE_11__.PGS_steps,
-    summary: _components_summary_js__WEBPACK_IMPORTED_MODULE_12__.PGS_summary,
-    formValidate: _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_13__.PGS_formValidate,
-    scrollHorizontal: _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_15__.PGS_scrollHorizontal,
+    init: _helper_init_js__WEBPACK_IMPORTED_MODULE_15__.PGS_init,
+    cookieConsent: _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_17__.PGS_cookieConsent,
+    darkmode: _base_darkmode_js__WEBPACK_IMPORTED_MODULE_1__.PGS_darkmode,
+    svg: _base_svg_js__WEBPACK_IMPORTED_MODULE_2__.PGS_svg,
+    accordion: _components_accordion_js__WEBPACK_IMPORTED_MODULE_3__.PGS_accordion,
+    alert: _components_alerts_js__WEBPACK_IMPORTED_MODULE_4__.PGS_alert,
+    dropdown: _components_dropdown_js__WEBPACK_IMPORTED_MODULE_5__.PGS_dropdown,
+    menu: _components_menu_js__WEBPACK_IMPORTED_MODULE_6__.PGS_menu,
+    modal: _components_modals_js__WEBPACK_IMPORTED_MODULE_7__.PGS_modal,
+    notification: _components_notifications_js__WEBPACK_IMPORTED_MODULE_8__.PGS_notification,
+    search: _components_search_js__WEBPACK_IMPORTED_MODULE_9__.PGS_search,
+    slides: _components_slides_js__WEBPACK_IMPORTED_MODULE_10__.PGS_slides,
+    stepTabs: _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_11__.PGS_stepTabs,
+    steps: _components_steps_js__WEBPACK_IMPORTED_MODULE_12__.PGS_steps,
+    summary: _components_summary_js__WEBPACK_IMPORTED_MODULE_13__.PGS_summary,
+    formValidate: _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_14__.PGS_formValidate,
+    scrollHorizontal: _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_16__.PGS_scrollHorizontal,
 });
 
 
@@ -425,12 +431,16 @@ globalThis.pgs ??= pgs;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_darkmode: () => (/* binding */ PGS_darkmode)
+/* harmony export */ });
 /* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
 
 
 //# DARKMODE
 
 const EVENT_SVG_CHANGE_COLOR = "pgs:svg:changeColor";
+const INITIALIZED_BUTTONS = new WeakSet();
 
 //+ CHANGE ICON
 function changeIcon(selector, isDarkMode) {
@@ -467,17 +477,28 @@ function setDarkmodeStatus(toggle = false, button = []) {
 // Applica subito il tema alla radice quando il bundle viene caricato nel head.
 setDarkmodeStatus();
 
-function initDarkmode() {
-    const toggleDarkmode = pgs(document).querySelectorAll("toggleDarkmode");
-    setDarkmodeStatus(false, toggleDarkmode);
+function initDarkmode(root = document) {
+    const toggleDarkmode = [
+        ...(root instanceof Element && pgs(root).contains("toggleDarkmode") ? [root] : []),
+        ...pgs(root).querySelectorAll("toggleDarkmode")
+    ];
+    setDarkmodeStatus(false, pgs(document).querySelectorAll("toggleDarkmode"));
 
     //== BUTTON DARKMODE
     toggleDarkmode.forEach(button => {
-        button.addEventListener("click", () => setDarkmodeStatus(true, toggleDarkmode));
+        if (INITIALIZED_BUTTONS.has(button)) return;
+        INITIALIZED_BUTTONS.add(button);
+        button.addEventListener("click", () => {
+            setDarkmodeStatus(true, pgs(document).querySelectorAll("toggleDarkmode"));
+        });
     });
 }
 
 (0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(initDarkmode);
+
+const PGS_darkmode = {
+    init: initDarkmode
+};
 
 
 /***/ },
@@ -1045,6 +1066,10 @@ function closeDropdown(dropdown) {
     const data = API.get(dropdown);
     if (!data || !data.isOpen()) return;
 
+    Array.from(OPEN_DROPDOWNS)
+        .filter(item => item !== dropdown && dropdown.contains(item))
+        .forEach(closeDropdown);
+
     pgs(dropdown).state.remove("open");
     data.trigger.setAttribute("aria-expanded", "false");
     OPEN_DROPDOWNS.delete(dropdown);
@@ -1054,8 +1079,9 @@ function openDropdown(dropdown) {
     const data = API.get(dropdown);
     if (!data || data.isOpen()) return;
 
-    OPEN_DROPDOWNS.forEach(item => {
-        if (item !== dropdown) closeDropdown(item);
+    Array.from(OPEN_DROPDOWNS).forEach(item => {
+        const isAncestor = item !== dropdown && item.contains(dropdown);
+        if (item !== dropdown && !isAncestor) closeDropdown(item);
     });
 
     pgs(dropdown).state.add("open");
@@ -1460,19 +1486,19 @@ const fn_notification = {
         closeTitle: "Close",
         type: {
             error: {
-                title: "Errore",
+                title: "Error",
                 icon: '<i class="fa-solid fa-circle-xmark"></i>'
             },
             success: {
-                title: "Aggiornato",
+                title: "Success",
                 icon: '<i class="fa-solid fa-circle-check"></i>'
             },
             info: {
-                title: "Aggiornamento",
+                title: "Information",
                 icon: '<i class="fa-solid fa-circle-info"></i>'
             },
             warning: {
-                title: "Attenzione",
+                title: "Warning",
                 icon: '<i class="fa-solid fa-triangle-exclamation"></i>'
             }
         }
@@ -1552,7 +1578,7 @@ const fn_notification = {
         if (typeof options === "string") options = { title: options };
 
         if (!options || typeof options !== "object" || Array.isArray(options)) {
-            throw new TypeError("PGS notification: options deve essere un oggetto o una stringa");
+            throw new TypeError("PGS notification: options must be an object or a string");
         }
 
         const { type: typeDefaults, ...defaults } = this._defaults;
@@ -2649,6 +2675,10 @@ __webpack_require__.r(__webpack_exports__);
 //= SUMMARY
 const API = new WeakMap();
 let summaryId = 0;
+const MESSAGE_DEFAULTS = {
+    showLess: "Show less",
+    showMore: "Show more"
+};
 
 function nextSummaryId() {
     summaryId += 1;
@@ -2668,13 +2698,55 @@ function directPgsChild(element, token) {
     return Array.from(element.children).find(child => pgs(child).contains(token));
 }
 
-function PGS_summary_init(root = document) {
+function validateMessages(value) {
+    if (value === undefined) return;
+    if (!value || typeof value !== "object" || Array.isArray(value)) {
+        throw new TypeError("message must be an object");
+    }
+
+    Object.entries(value).forEach(([key, message]) => {
+        if (!(key in MESSAGE_DEFAULTS)) {
+            throw new TypeError(`Unknown summary message option: ${key}`);
+        }
+        if (message !== undefined && typeof message !== "string") {
+            throw new TypeError(`Summary message option ${key} must be a string`);
+        }
+    });
+}
+
+function getInitialMessages(value = {}) {
+    validateMessages(value);
+
+    return {
+        ...MESSAGE_DEFAULTS,
+        ...Object.fromEntries(
+            Object.entries(value).filter(([, message]) => message !== undefined)
+        )
+    };
+}
+
+function initializeMessages(summary, messages) {
+    const summaryOptions = pgs(summary).option;
+    Object.entries(messages).forEach(([key, message]) => {
+        if (!summaryOptions.contains(key)) summaryOptions.setValueBrackets(key, message);
+    });
+}
+
+function PGS_summary_init(root = document, options = {}) {
+    if (!options || typeof options !== "object" || Array.isArray(options)) {
+        throw new TypeError("options must be an object");
+    }
+
+    const initialMessages = getInitialMessages(options.message);
+
     pgs(root).querySelectorAll("summary").forEach((summary) => {
         if (API.has(summary)) return;
 
         const content = directPgsChild(summary, "summary-content");
         const button = directPgsChild(summary, "summary-button");
         if (!content || !button) return;
+
+        initializeMessages(summary, initialMessages);
 
         const id = nextSummaryId();
         const contentId = content.id || `summary-content-${id}`;
@@ -2704,7 +2776,9 @@ function PGS_summary_init(root = document) {
             button.hidden = !overflow;
             button.setAttribute("aria-hidden", String(!overflow));
             button.setAttribute("aria-expanded", String(expanded && overflow));
-            button.textContent = expanded && overflow ? "Mostra meno" : "Mostra di più";
+            button.textContent = pgs(summary).option.getValueBrackets(
+                expanded && overflow ? "showLess" : "showMore"
+            );
 
             const nextHeight = expanded && overflow ? content.scrollHeight : getCollapsedHeight();
             content.style.setProperty("--summary-content-max-height", `${nextHeight}px`);
@@ -3491,11 +3565,15 @@ if (readyHeader) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_cookieConsent: () => (/* binding */ PGS_cookieConsent)
+/* harmony export */ });
 /* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
 
 
 const STORAGE_KEY = 'pgs_cookie_preferences_v1';
 const focusableSelectors = 'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
+const INITIALIZED_COOKIE_CONSENTS = new WeakSet();
 
 //+ 
 function safeJsonParse(value) {
@@ -3592,9 +3670,12 @@ function assignCookieRuntimeAttributes({ root, analyticsToggle, acceptAllButton,
 }
 
 //= CookieConsent
-function initCookieConsent() {
-    const root = pgs(document).querySelector('cookieConsent');
-    if (!root) return;
+function initCookieConsent(selectRoot = document) {
+    const root = selectRoot instanceof Element && pgs(selectRoot).contains('cookieConsent')
+        ? selectRoot
+        : pgs(selectRoot).querySelector('cookieConsent');
+    if (!root || INITIALIZED_COOKIE_CONSENTS.has(root)) return;
+    INITIALIZED_COOKIE_CONSENTS.add(root);
 
     const analyticsToggle = root.querySelector('[pgs~="cookieConsent-toggleAnalytics"]');
     const acceptAllButton = root.querySelector('[pgs~="cookieConsent-actionAccept"]');
@@ -3705,6 +3786,10 @@ function initCookieConsent() {
 }
 
 (0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(initCookieConsent);
+
+const PGS_cookieConsent = {
+    init: initCookieConsent
+};
 
 
 /***/ }
