@@ -11,19 +11,19 @@ const fn_notification = {
         closeTitle: "Close",
         type: {
             error: {
-                title: "Errore",
+                title: "Error",
                 icon: '<i class="fa-solid fa-circle-xmark"></i>'
             },
             success: {
-                title: "Aggiornato",
+                title: "Success",
                 icon: '<i class="fa-solid fa-circle-check"></i>'
             },
             info: {
-                title: "Aggiornamento",
+                title: "Information",
                 icon: '<i class="fa-solid fa-circle-info"></i>'
             },
             warning: {
-                title: "Attenzione",
+                title: "Warning",
                 icon: '<i class="fa-solid fa-triangle-exclamation"></i>'
             }
         }
@@ -103,7 +103,7 @@ const fn_notification = {
         if (typeof options === "string") options = { title: options };
 
         if (!options || typeof options !== "object" || Array.isArray(options)) {
-            throw new TypeError("PGS notification: options deve essere un oggetto o una stringa");
+            throw new TypeError("PGS notification: options must be an object or a string");
         }
 
         const { type: typeDefaults, ...defaults } = this._defaults;

@@ -2,7 +2,7 @@
 
 # Menu
 
-Menu markup, configuration, behavior, and usage example.
+Menu markup with horizontal, vertical and recursively nested navigation examples.
 
 ## PGS
 
@@ -15,6 +15,7 @@ Menu markup, configuration, behavior, and usage example.
 - `vertical`: identifies the vertical element used by Menu.
 - `menuHeader`: identifies the menuHeader element used by Menu.
 - `menuIconOnlyCurrent`: displays link icons only when the link has an active aria-current value.
+- `menuShort`: compacts adjacent menu links by overlapping their horizontal spacing.
 - `position`: identifies the position element used by Menu.
 - `buttonNohover`: disables hover behavior on menu buttons generated at runtime.
 
@@ -36,7 +37,7 @@ Menu markup, configuration, behavior, and usage example.
 
 ## Output
 
-Complete HTML markup and usage example for Menu.
+Horizontal and vertical menu examples, including recursively nested submenus.
 
 ## Example
 
@@ -85,6 +86,16 @@ Complete HTML markup and usage example for Menu.
                 <i class="fa-solid fa-info-circle" aria-hidden="true"></i>
                 <span>about</span>
             </a>
+            <ul>
+                <li><a href="/servizi/uno">Servizio uno</a></li>
+                <li>
+                    <a href="/servizi/due">Servizio due</a>
+                    <ul>
+                        <li><a href="/servizi/uno">Servizio uno</a></li>
+                        <li><a href="/servizi/due">Servizio due</a></li>
+                    </ul>
+                </li>
+            </ul>
         </li>
     </ul>
 </nav>

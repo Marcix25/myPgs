@@ -48,12 +48,12 @@
     outline: var(--button-border);
     border-radius: var(--button-borderRadius);
     display: flex;
-    gap: calc(var(--button-size) / 1.5);
+    gap: calc(var(--button-size) / 2);
     align-items: center;
     padding: var(--button-padding);
     height: var(--button-height);
-    // width: max-content;
     //x da controllare
+    // width: max-content;
     width: fit-content;
 
     &:disabled {

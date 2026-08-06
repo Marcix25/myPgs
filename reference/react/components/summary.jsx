@@ -1,6 +1,6 @@
 export default function Summary() {
     return (
-        <div pgs="summary">
+        <div pgs="summary" pgs-option="showMore[Show more] showLess[Show less]">
             <div pgs="summary-content">
                 <p>
                     This demonstration text is long enough to span multiple lines and show the summary component behavior. Content can include text, links, and other inline elements without requiring additional markup.

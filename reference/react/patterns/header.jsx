@@ -1,25 +1,4 @@
-import { useEffect } from "react";
-
 export default function Header() {
-    useEffect(() => {
-		const addPgsState = (element, state) => {
-			if (!element) return;
-
-			const states = element.getAttribute("pgs-state")?.split(/\s+/) ?? [];
-			element.setAttribute("pgs-state", [...new Set([...states, state])].join(" "));
-		};
-
-		if (localStorage.getItem("screenIsDarkMode") === "true") {
-			addPgsState(document.documentElement, "darkmode");
-			addPgsState(document.body, "darkmode");
-		}
-
-		if (window.innerWidth < 600) {
-			addPgsState(document.querySelector("header"), "mobileActive");
-			addPgsState(document.querySelector("[pgs~=header-element]"), "mobileActive");
-		}
-    }, []);
-
     return (
         <header pgs="header">
             <div pgs="header-element">
@@ -30,7 +9,7 @@ export default function Header() {
                 </div>
 
                 <div pgs="header-element-onlyDesktop">
-                    <nav pgs="menu" pgs-option="horizontal menuHeader" aria-label="Main menu">
+                    <nav pgs="menu" pgs-option="horizontal menuHeader menuShort" aria-label="Main menu">
                         <ul>
                             <li><a href="/">Home</a></li>
                             <li><a href="#componenti">Componenti</a></li>

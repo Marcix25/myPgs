@@ -21,6 +21,7 @@ Responsive header that measures available space, switches between desktop and mo
 - `horizontal`: arranges the related desktop menu horizontally.
 - `vertical`: arranges the related mobile menu vertically.
 - `menuHeader`: adapts both menus to the header context.
+- `menuShort`: compacts adjacent desktop menu links by overlapping their horizontal spacing.
 - `containerPGS`: uses containerPGS[header] on the modal wrapper to move the dialog into the header.
 - `right`: presents the mobile navigation dialog content from the right side.
 - `buttonIcon`: presents theme and hamburger controls as icon buttons.
@@ -49,7 +50,7 @@ Complete header HTML with desktop navigation and a side mobile panel.
 ## Example
 
 ```html
-<header pgs="header" pgs-option="mobileBottom">
+<header pgs="header">
 	<div pgs="header-element">
 		<div pgs="header-element-alwaysOn">
 			<a aria-label="Logo" pgs="logo" href="/">
@@ -58,7 +59,7 @@ Complete header HTML with desktop navigation and a side mobile panel.
 		</div>
 
 		<div pgs="header-element-onlyDesktop">
-			<nav pgs="menu" pgs-option="horizontal menuHeader" aria-label="Main menu">
+			<nav pgs="menu" pgs-option="horizontal menuHeader menuShort" aria-label="Main menu">
 				<ul>
 					<li><a href="/">Home</a></li>
 					<li><a href="#components">Components</a></li>
@@ -93,26 +94,5 @@ Complete header HTML with desktop navigation and a side mobile panel.
 			</dialog>
 		</div>
 	</div>
-
-	<!-- //# HEADER BOTTOM -->
-
-	<script>
-		const addPgsState = (element, state) => {
-			if (!element) return;
-
-			const states = element.getAttribute("pgs-state")?.split(/\s+/) ?? [];
-			element.setAttribute("pgs-state", [...new Set([...states, state])].join(" "));
-		};
-
-		if (localStorage.getItem("screenIsDarkMode") === "true") {
-			addPgsState(document.documentElement, "darkmode");
-			addPgsState(document.body, "darkmode");
-		}
-
-		if (window.innerWidth < 600) {
-			addPgsState(document.querySelector("header"), "mobileActive");
-			addPgsState(document.querySelector("[pgs~=header-element]"), "mobileActive");
-		}
-	</script>
 </header>
 ```

@@ -3,6 +3,7 @@ import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
 //# DARKMODE
 
 const EVENT_SVG_CHANGE_COLOR = "pgs:svg:changeColor";
+const INITIALIZED_BUTTONS = new WeakSet();
 
 //+ CHANGE ICON
 function changeIcon(selector, isDarkMode) {
@@ -39,14 +40,25 @@ function setDarkmodeStatus(toggle = false, button = []) {
 // Applica subito il tema alla radice quando il bundle viene caricato nel head.
 setDarkmodeStatus();
 
-function initDarkmode() {
-    const toggleDarkmode = pgs(document).querySelectorAll("toggleDarkmode");
-    setDarkmodeStatus(false, toggleDarkmode);
+function initDarkmode(root = document) {
+    const toggleDarkmode = [
+        ...(root instanceof Element && pgs(root).contains("toggleDarkmode") ? [root] : []),
+        ...pgs(root).querySelectorAll("toggleDarkmode")
+    ];
+    setDarkmodeStatus(false, pgs(document).querySelectorAll("toggleDarkmode"));
 
     //== BUTTON DARKMODE
     toggleDarkmode.forEach(button => {
-        button.addEventListener("click", () => setDarkmodeStatus(true, toggleDarkmode));
+        if (INITIALIZED_BUTTONS.has(button)) return;
+        INITIALIZED_BUTTONS.add(button);
+        button.addEventListener("click", () => {
+            setDarkmodeStatus(true, pgs(document).querySelectorAll("toggleDarkmode"));
+        });
     });
 }
 
 PGS_onDocumentReady(initDarkmode);
+
+export const PGS_darkmode = {
+    init: initDarkmode
+};

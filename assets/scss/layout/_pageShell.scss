@@ -10,13 +10,10 @@ $pageShell-test-gap: 4rem;
     max-height: none;
     width: 100%;
     min-width: 100%;
-    overflow: visible;
-    overscroll-behavior: auto;
-    scrollbar-gutter: auto;
 
     [pgs~="pageShell-aside-scroll"] {
+        overflow-y: auto;
         scrollbar-gutter: auto;
-        overflow: visible;
         overscroll-behavior: auto;
     }
 }
@@ -52,15 +49,9 @@ $pageShell-test-gap: 4rem;
 
     [pgs~="pageShell-aside"] {
         isolation: isolate;
-        position: sticky;
-        top: var(--pageShell-aside-sticky-top);
         transition: top 0.3s ease;
         width: 100%;
         max-height: 100svh;
-        overflow-y: auto;
-        overscroll-behavior: contain;
-        scrollbar-gutter: stable;
-        scrollbar-width: none;
         padding-top: var(--pageShell-padding-top);
         padding-bottom: var(--gap-elements);
         flex: 1 1 var(--pageShell-aside-width);
@@ -75,13 +66,8 @@ $pageShell-test-gap: 4rem;
             width: 100%;
         }
 
-        &:has(+ [pgs~="pageShell-content"]) {
-            grid-area: asideLeft;
-        }
-
         [pgs~="pageShell-aside-scroll"] {
             width: 100%;
-            overflow-y: auto;
             overscroll-behavior: contain;
             scrollbar-gutter: stable;
             scrollbar-width: none;
@@ -98,8 +84,9 @@ $pageShell-test-gap: 4rem;
         }
 
         &:has([pgs~="pageShell-aside-scroll"]) {
-            padding-top: 0;
-            padding-bottom: 0;
+            position: sticky;
+            top: var(--pageShell-aside-sticky-top);
+            padding-block: 0;
 
             &::after {
                 content: "";
@@ -111,6 +98,10 @@ $pageShell-test-gap: 4rem;
                 pointer-events: none;
                 z-index: 1;
             }
+        }
+
+        &:has(+ [pgs~="pageShell-content"]) {
+            grid-area: asideLeft;
         }
     }
 
@@ -126,7 +117,7 @@ $pageShell-test-gap: 4rem;
         --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-aside-width) * 2) + (var(--pageShell-gap) * 2) + (var(--padding-page) * 2));
     }
 
-    //== RESPONSIVE ==//
+    //==- RESPONSIVE ==//
     &:has(> [pgs~="pageShell-aside"]) {
         @container (max-width: calc(#{$aside-size} + #{$content-size} + #{$pageShell-test-gap})) {
             [pgs~="pageShell-aside"] {
@@ -145,7 +136,6 @@ $pageShell-test-gap: 4rem;
             [pgs~="pageShell-content"]+[pgs~="pageShell-aside"] {
                 @include pageShell-aside-flow;
                 padding-top: 0;
-                min-width: 100%;
             }
         }
     }

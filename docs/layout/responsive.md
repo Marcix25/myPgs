@@ -15,8 +15,8 @@ Responsive flex and grid layouts with configurable columns and wrapping controls
 
 ## PGS Options
 
-- `column-2`: configures the flex example with two columns; column values from 1 through 8 are supported.
-- `column-4`: configures the grid example with four columns; column values from 1 through 8 are supported.
+- `column-2`: configures the flex example with two columns; column values from 2 through 8 are supported.
+- `column-4`: configures the grid example with four columns; column values from 2 through 8 are supported.
 - `m2e`: keeps two elements per row at the mobile breakpoint, returning to one column on watch-sized containers.
 
 ## Related elements
