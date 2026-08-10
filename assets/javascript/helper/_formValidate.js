@@ -1,5 +1,5 @@
 import { pgs } from "../_pgs.js";
-import { PGS_notification } from "../components/_notifications.js";
+import { PGS_toast } from "../components/_toast.js";
 import { PGS_alert } from "../components/_alerts.js";
 
 
@@ -267,7 +267,7 @@ export class PGS_formValidate {
                 container: this.alertContainer
             });
         } else {
-            PGS_notification.toast.error({
+            PGS_toast.error({
                 title: title,
                 description: description
             });
@@ -292,7 +292,7 @@ export class PGS_formValidate {
                     container: this.alertContainer
                 });
             } else {
-                PGS_notification.toast.success({
+                PGS_toast.success({
                     title,
                     description
                 });

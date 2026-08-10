@@ -1,0 +1,152 @@
+@use "../mixin/mixin" as *;
+
+//= TOAST GROUP / TRIGGER
+[pgs~="toastLoad"] {}
+
+[pgs~="toast"] {
+    $size: 1.0rem;
+    --toast-background: var(--color-box);
+    --toast-background-timer: color-mix(in srgb, var(--color-box) 95%, var(--color-black) 5%);
+    --toast-color: unset;
+    --toast-shadow-color: unset;
+    --notification-timeout: unset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    z-index: 98;
+    isolation: isolate;
+    inset-inline: 0;
+    top: calc(var(--heightOfHeaderScroll) + $size);
+
+    [pgs~=toast-element] {
+        display: flex;
+        gap: var(--padding-2);
+        background: var(--toast-background);
+        flex-direction: column;
+        opacity: 1;
+        font-weight: 600;
+        overflow: hidden;
+        transition: all 280ms;
+        align-items: stretch;
+        box-shadow: 0px 0px 100px 0px var(--toast-shadow-color);
+        border-radius: var(--border-radius-input);
+        max-width: 90vw;
+        min-width: min(200px, 50vw);
+        height: max-content;
+        padding: var(--padding-2);
+        position: relative;
+        border: var(--border-complete);
+
+        //- mobile
+        @media (max-width: $mobile) {
+            padding: calc(var(--padding)/ 1.5);
+        }
+
+        [pgs~=toast-element-content] {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            gap: var(--padding-2);
+            min-width: 0;
+            z-index: 1;
+
+            [pgs~=toast-element-icon] {
+                --fa-primary-color: var(--toast-shadow-color);
+                --fa-secondary-color: color-mix(in srgb, var(--toast-shadow-color) 50%, var(--color-white) 50%);
+                --fa-size: 3.5rem;
+                flex: 0 0 auto;
+                color: var(--toast-shadow-color);
+            }
+
+            p {
+                display: flex;
+                flex: 1 1 auto;
+                flex-direction: column;
+                gap: calc(var(--gap-texts) / 2);
+                margin: 0;
+                color: var(--toast-color);
+                line-height: unset;
+
+                span {
+                    font-size: 1.4rem;
+                    font-weight: 400;
+                }
+            }
+        }
+
+        [pgs~=toast-element-buttons] {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            gap: var(--gap-texts);
+            z-index: 1;
+            flex-wrap: wrap;
+
+            :is(a, button, input) {
+                --button-size: .7rem;
+                --hover-shadow-color: unset;
+                --hover-background: var(--color-white);
+                --hover-color: var(--color-black);
+                flex: 1;
+                justify-content: center;
+                font-size: small;
+            }
+        }
+
+        &::before {
+            content: "";
+            width: 0%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: var(--toast-background-timer);
+            border-top-left-radius: var(--border-radius-input);
+            border-bottom-left-radius: var(--border-radius-input);
+            animation: toast-timeline var(--notification-timeout) linear;
+        }
+
+        @keyframes toast-timeline {
+            0% {
+                width: 100%;
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                width: 0%;
+                opacity: 0;
+            }
+        }
+    }
+
+    [pgs-state~="success"] {
+        --toast-background: var(--color-success-background);
+        --toast-background-timer: color-mix(in srgb, var(--color-success-background) 70%, var(--color-white) 30%);
+        --toast-shadow-color: var(--color-success);
+    }
+
+    [pgs-state~="error"] {
+        --toast-background: var(--color-error-background);
+        --toast-background-timer: color-mix(in srgb, var(--color-error-background) 70%, var(--color-white) 30%);
+        --toast-shadow-color: var(--color-error);
+    }
+
+    [pgs-state~="warning"] {
+        --toast-background: var(--color-warning-background);
+        --toast-background-timer: color-mix(in srgb, var(--color-warning-background) 70%, var(--color-white) 30%);
+        --toast-shadow-color: var(--color-warning);
+    }
+
+    [pgs-state~="info"] {
+        --toast-background: var(--color-box);
+    }
+}

@@ -205,13 +205,69 @@ function parseDocumentationBlock(file, source) {
     return { errors, data, markup, block: documentationContainer, hasBom };
 }
 
+//+ index of the "]" matching the "[" at openIndex, counting nested brackets and ignoring any "[" / "]" inside a JSON string (respects \" escapes)
+function findMatchingBracket(source, openIndex) {
+    let depth = 0;
+    let inString = false;
+    let escaped = false;
+
+    for (let i = openIndex; i < source.length; i++) {
+        const char = source[i];
+
+        if (escaped) {
+            escaped = false;
+            continue;
+        }
+
+        if (inString) {
+            if (char === "\\") escaped = true;
+            else if (char === "\"") inString = false;
+            continue;
+        }
+
+        if (char === "\"") inString = true;
+        else if (char === "[") depth++;
+        else if (char === "]") {
+            depth--;
+            if (depth === 0) return i;
+        }
+    }
+
+    return -1;
+}
+
+//+ mirrors assets/javascript/_pgs.js tokenizeOptionValue: keeps "key[...]" whole even when the payload has its own [...]
 function tokenizeOptions(value) {
-    return value.match(/[^\s[\]]+(?:\[[^\]]*\])?/g) || [];
+    const tokens = [];
+    let i = 0;
+
+    while (i < value.length) {
+        while (i < value.length && /\s/.test(value[i])) i++;
+        if (i >= value.length) break;
+
+        const start = i;
+        while (i < value.length && !/\s/.test(value[i]) && value[i] !== "[") i++;
+
+        if (i < value.length && value[i] === "[") {
+            const close = findMatchingBracket(value, i);
+            i = close === -1 ? value.length : close + 1;
+        }
+
+        if (i > start) tokens.push(value.slice(start, i));
+    }
+
+    return tokens;
 }
 
 function splitOption(value) {
-    const match = value.match(/^([^\s[\]]+)(?:\[([^\]]*)\])?$/);
-    return match ? { key: match[1], payload: match[2] } : { key: "", payload: undefined };
+    const openIndex = value.indexOf("[");
+    if (openIndex === -1) return /^[^\s[\]]+$/.test(value) ? { key: value, payload: undefined } : { key: "", payload: undefined };
+
+    const key = value.slice(0, openIndex);
+    const closeIndex = findMatchingBracket(value, openIndex);
+    if (!key || closeIndex !== value.length - 1) return { key: "", payload: undefined };
+
+    return { key, payload: value.slice(openIndex + 1, closeIndex) };
 }
 
 function extractAttributes(markup) {
@@ -439,6 +495,28 @@ function renderList(items) {
     return items.map(item => `- \`${item.key}\`: ${item.description}`).join("\n");
 }
 
+//+ dedents a block by the smallest leading whitespace found among its non-empty lines
+function dedent(text) {
+    const lines = text.replace(/^\n/, "").replace(/\s+$/, "").split("\n");
+    const indents = lines.filter(line => line.trim().length > 0).map(line => line.match(/^\s*/)[0].length);
+    const minIndent = indents.length ? Math.min(...indents) : 0;
+    return lines.map(line => line.slice(minIndent)).join("\n");
+}
+
+//+ pulls a <script type="..."> reference block out of the markup so it can render as its own titled section
+function extractScriptBlock(markup, typeValue) {
+    const safeType = escapeRegExp(typeValue);
+    const pattern = new RegExp(`<script\\b[^>]*\\btype\\s*=\\s*["']${safeType}["'][^>]*>([\\s\\S]*?)<\\/script>`, "i");
+    const match = markup.match(pattern);
+    if (!match) return { content: null, markup };
+
+    const cleanedMarkup = (markup.slice(0, match.index) + markup.slice(match.index + match[0].length))
+        .replace(/\n{3,}/g, "\n\n")
+        .trim();
+
+    return { content: dedent(match[1]), markup: cleanedMarkup };
+}
+
 function renderMarkdown(template, documentation, markup) {
     const relativeTemplate = relativeToProject(template);
     const marker = `<!-- Automatically generated from ${relativeTemplate}. Edit ${relativeTemplate} and run npm run docs:generate again. -->`;
@@ -458,9 +536,15 @@ function renderMarkdown(template, documentation, markup) {
 
     if (documentation.return) sections.push("", "## Output", "", documentation.return);
 
-    const runs = [...markup.matchAll(/`+/g)].map(match => match[0].length);
+    const { content: jsonSchema, markup: markupAfterJson } = extractScriptBlock(markup, "application/json");
+    const { content: jsUsage, markup: cleanedMarkup } = extractScriptBlock(markupAfterJson, "text/x-example-js");
+
+    if (jsonSchema) sections.push("", "## JSON Schema", "", "```json", jsonSchema, "```", "");
+    if (jsUsage) sections.push("", "## JavaScript Usage", "", "```js", jsUsage, "```", "");
+
+    const runs = [...cleanedMarkup.matchAll(/`+/g)].map(match => match[0].length);
     const fence = "`".repeat(Math.max(3, (runs.length ? Math.max(...runs) : 0) + 1));
-    sections.push("", "## Example", "", `${fence}html`, markup, fence, "");
+    sections.push("", "## Example", "", `${fence}html`, cleanedMarkup, fence, "");
     return sections.join("\n");
 }
 

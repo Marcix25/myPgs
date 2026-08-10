@@ -1,3 +1,57 @@
+//+ index of the "]" matching the "[" at openIndex, counting nested brackets and ignoring any "[" / "]" inside a JSON string (respects \" escapes)
+function findMatchingBracket(source, openIndex) {
+    let depth = 0;
+    let inString = false;
+    let escaped = false;
+
+    for (let i = openIndex; i < source.length; i++) {
+        const char = source[i];
+
+        if (escaped) {
+            escaped = false;
+            continue;
+        }
+
+        if (inString) {
+            if (char === "\\") escaped = true;
+            else if (char === "\"") inString = false;
+            continue;
+        }
+
+        if (char === "\"") inString = true;
+        else if (char === "[") depth++;
+        else if (char === "]") {
+            depth--;
+            if (depth === 0) return i;
+        }
+    }
+
+    return -1;
+}
+
+//+ splits a pgs-option value into tokens, keeping "key[...]" whole even when the payload contains its own [...] (e.g. a JSON array)
+function tokenizeOptionValue(source) {
+    const tokens = [];
+    let i = 0;
+
+    while (i < source.length) {
+        while (i < source.length && /\s/.test(source[i])) i++;
+        if (i >= source.length) break;
+
+        const start = i;
+        while (i < source.length && !/\s/.test(source[i]) && source[i] !== "[") i++;
+
+        if (i < source.length && source[i] === "[") {
+            const close = findMatchingBracket(source, i);
+            i = close === -1 ? source.length : close + 1;
+        }
+
+        if (i > start) tokens.push(source.slice(start, i));
+    }
+
+    return tokens;
+}
+
 /**
  * @param {Element | Document} root
 */
@@ -185,12 +239,12 @@ export function pgs(root) {
     function createOption(attribute) {
         if (!canAttr) return undefined;
 
-        const read = () => (root.getAttribute(attribute) || "").match(/[^\s[\]]+(?:\[[^\]]*\])?/g) || [];
+        const read = () => tokenizeOptionValue(root.getAttribute(attribute) || "");
         const write = values => root.setAttribute(attribute, values.join(" "));
         const getKey = value => String(value).trim().match(/^[^\s[\]]+/)?.[0] || "";
         const getValues = values => values
             .flat()
-            .flatMap(value => String(value).match(/[^\s[\]]+(?:\[[^\]]*\])?/g) || [])
+            .flatMap(value => tokenizeOptionValue(String(value)))
             .filter(Boolean);
 
         function api() {
@@ -236,22 +290,20 @@ export function pgs(root) {
         };
 
         api.contains = function (key) {
-            const source = root.getAttribute(attribute) || "";
-            const safeKey = String(key).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-
-            return new RegExp(`(?:^|\\s)${safeKey}(?:\\[[^\\]]*\\])?(?=\\s|$)`)
-                .test(source);
+            const safeKey = String(key).trim();
+            return read().some(token => getKey(token) === safeKey);
         };
 
         api.getValueBrackets = function (key) {
-            const source = root.getAttribute(attribute) || "";
-            const safeKey = String(key).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+            const safeKey = String(key).trim();
+            const token = read().find(item => getKey(item) === safeKey);
+            if (!token) return undefined;
 
-            const match = source.match(
-                new RegExp(`(?:^|\\s)${safeKey}\\[([^\\]]*)\\]`)
-            );
+            const openIndex = token.indexOf("[");
+            const closeIndex = openIndex === -1 ? -1 : findMatchingBracket(token, openIndex);
+            if (closeIndex === -1) return undefined;
 
-            return match ? match[1] : undefined;
+            return token.slice(openIndex + 1, closeIndex);
         };
 
         api.setValueBrackets = function (key, value = "") {

@@ -1,0 +1,106 @@
+<!-- Automatically generated from reference/html/components/toast.html. Edit reference/html/components/toast.html and run npm run docs:generate again. -->
+
+# Toast
+
+Toast markup, configuration, behavior, and usage example. An ephemeral, auto-dismissing message shown one at a time (e.g. "saved", "error"). Split from Notification, which is a persistent, manually-dismissed panel. Full JSON field list is under @pgs-option "toast"; full JS options list is under each @api method below. Note three JSON keys that are renamed in the JS options: message becomes description, title-link becomes linkTitle, and title-close becomes closeTitle.
+
+## PGS
+
+- `toast`: identifies the toast element used by Toast.
+- `toastLoad`: creates one toast from a JSON object on page load; see @pgs-option "toast" for every accepted field.
+- `toastExe`: creates one toast from a JSON object each time the element is clicked; same fields as toastLoad.
+- `toast-element`: identifies the toast-element element used by Toast.
+- `toast-element-content`: contains the icon, title, and description.
+- `toast-element-icon`: contains the icon displayed to the left of the text.
+- `toast-element-buttons`: contains the link and dismiss actions below the content.
+
+## PGS Options
+
+- `toast`: JSON object read by toastLoad/toastExe on page load or click; a new toast replaces whatever is currently shown — see the full field reference, with every optional field and its default, in the commented example below.
+
+## PGS States
+
+- `success`: identifies the success element used by Toast.
+- `error`: identifies the error element used by Toast.
+- `warning`: identifies the warning element used by Toast.
+- `info`: identifies the info element used by Toast.
+
+## JavaScript API
+
+- `pgs.toast.init(root)`: scans root for toastLoad and toastExe and initializes them; runs automatically on page load and again via pgs.init(root) for content added later.
+- `pgs.toast.trigger(root)`: alias of pgs.toast.init(root).
+- `pgs.toast.error(optionsOrTitle)`: a title string, or an options object — see the full field reference in the commented example below.
+- `pgs.toast.success(optionsOrTitle)`: a title string, or an options object — see the full field reference in the commented example below.
+- `pgs.toast.info(optionsOrTitle)`: a title string, or an options object — see the full field reference in the commented example below.
+- `pgs.toast.warning(optionsOrTitle)`: a title string, or an options object — see the full field reference in the commented example below.
+- `pgs.toast.deleteAll()`: removes the currently shown toast, if any.
+
+## Related elements
+
+- `hidden`: uses the related hidden component or utility in this example.
+- `button`: uses the related button component or utility in this example.
+
+## Output
+
+Complete HTML markup and usage example for Toast.
+
+## JSON Schema
+
+```json
+toast[{
+    "title": "",
+    "message": "",
+    "type": "info",
+    "icon": null,
+    "duration": 4000,
+    "link": null,
+    "title-link": "Apri",
+    "title-close": "Chiudi"
+}]
+```
+
+
+## JavaScript Usage
+
+```js
+pgs.toast.success({
+    title: "",
+    description: "",
+    icon: null,
+    timeout: 4000,
+    link: null,
+    linkTitle: "Apri",
+    closeTitle: "Chiudi"
+});
+```
+
+
+## Example
+
+```html
+<!-- <div pgs="toast" aria-live="polite"></div> -->
+
+<div pgs="hidden toastLoad" pgs-option='
+    toast[{
+        "title": "Benvenuto",
+        "message": "Message",
+        "type": "success",
+        "icon": null,
+        "duration": "70000",
+        "link": null,
+        "title-link": "Open",
+        "title-close": "Close"
+    }]
+'></div>
+
+<button pgs="button toastExe" pgs-option='toast[{
+    "title": "Benvenuto",
+    "message": "Message",
+    "type": "success",
+    "icon": null,
+    "duration": "7000",
+    "link": null,
+    "title-link": "Open",
+    "title-close": "Close"
+}]'><i class="fa-duotone fa-solid fa-bread-slice-butter"></i> Trigger Toast</button>
+```

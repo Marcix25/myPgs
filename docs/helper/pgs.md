@@ -102,6 +102,7 @@ pgs.registerModules({
   menu: PGS_menu,
   modal: PGS_modal,
   notification: PGS_notification,
+  toast: PGS_toast,
   search: PGS_search,
   slides: PGS_slides,
   stepTabs: PGS_stepTabs,
@@ -115,7 +116,7 @@ pgs.registerModules({
 Uso consigliato:
 
 ```js
-pgs.notification.toast.success({ title: "Salvato" });
+pgs.toast.success({ title: "Salvato" });
 pgs.modal.api(modalEl)?.open();
 pgs.dropdown.api(dropdownEl)?.close();
 pgs.slides.api(slidesEl)?.next();
@@ -132,6 +133,7 @@ Shortcuts available after `import "mypgs"`:
 - `pgs.menu`
 - `pgs.modal`
 - `pgs.notification`
+- `pgs.toast`
 - `pgs.search`
 - `pgs.slides`
 - `pgs.stepTabs`
@@ -150,6 +152,7 @@ Le firme, i parametri e la funzione di ogni metodo sono generati dai commenti ne
 - [Menu](../components/menu.md#api-javascript)
 - [Modal](../components/modal.md#api-javascript)
 - [Notification](../components/notification.md#api-javascript)
+- [Toast](../components/toast.md#api-javascript)
 - [Search](../components/search.md#api-javascript)
 - [Slides](../components/slides.md#api-javascript)
 - [Step Tabs](../components/stepTabs.md#api-javascript)
@@ -193,7 +196,52 @@ pgs.modal.init();
 pgs.modal.api(modalEl)?.open();
 ```
 
-`PGS_notification` e' un caso diverso: funziona piu' come service/helper e espone `alert`, `toast` e `trigger`.
+`PGS_notification` e `PGS_toast` sono un caso diverso: funzionano più come service/helper che come istanze, non hanno `api(element)`, e vanno usati tramite `pgs.notification.*`/`pgs.toast.*` (vedi sotto). La forma pre-split `pgs.notification.alert.*`/`pgs.notification.toast.*` resta ancora disponibile ma solo per retrocompatibilità: nel codice nuovo usa direttamente `pgs.notification.*` per il pannello persistente e `pgs.toast.*` per il messaggio effimero.
+
+### Notification e Toast
+
+`pgs.notification` è un pannello persistente di messaggi, apribile/chiudibile con `notificationBell`, con dismissione solo manuale. `pgs.toast` è un messaggio effimero mostrato uno alla volta, con auto-dismissione dopo `timeout`. Sono due moduli indipendenti: vedi [Notification](../components/notification.md) e [Toast](../components/toast.md) per il markup dichiarativo completo.
+
+```js
+pgs.notification.success({
+    title: "Salvato",
+    description: "Le modifiche sono state salvate.",
+    buttons: [
+        { title: "Vai al profilo", link: "/profilo" },
+        { id: "yes", title: "Si" },
+        { id: "no", title: "No" },
+        { id: "close", title: "Chiudi", close: true }
+    ]
+});
+
+pgs.toast.success({ title: "Salvato" });
+```
+
+Ogni voce di `buttons` (solo su `pgs.notification`, `pgs.toast` non lo supporta) accetta:
+
+- `id` (opzionale): usato nell'evento `buttonClick`; se assente viene generato automaticamente.
+- `title` (obbligatorio): testo del bottone.
+- `link` (opzionale): se presente il bottone è un `<a href>` che naviga normalmente; se assente è un `<button>` senza navigazione.
+- `close` (opzionale, default `true`): se non impostato a `false`, il click chiude anche la notifica. Il bottone di chiusura predefinito (`closeTitle`) resta sempre presente indipendentemente da `buttons`.
+- `optionButton` (opzionale): stringa applicata come `pgs-option` sul bottone generato, per riusare stili/comportamenti esistenti (es. `"optionButton": "buttonIcon"`).
+
+Eventi disponibili (bubbling, delegabili anche su `document`):
+
+```js
+document.addEventListener("pgs:notification:buttonClick", (event) => {
+    const { id, buttonId, link } = event.detail;
+    if (buttonId === "yes" || buttonId === "no") {
+        // invia la risposta al server...
+    }
+    // event.preventDefault() blocca la navigazione del link (se presente)
+    // finché non hai finito il tuo codice asincrono.
+});
+
+document.addEventListener("pgs:notification:close", (event) => { /* event.detail.id */ });
+document.addEventListener("pgs:notification:deleteAll", (event) => { /* event.detail.ids */ });
+```
+
+Passa un `id` tuo in `options.id` per correlare la notifica con la tua logica, altrimenti ne viene generato uno automaticamente. `pgs.notification.deleteAll()` rimuove tutte le notifiche del pannello e dispara `pgs:notification:deleteAll`.
 
 ## Registro ed estensione
 

@@ -1,19 +1,23 @@
 <!--
 /**
  * @title Notification
- * @description Notification markup, configuration, behavior, and usage example.
+ * @description Notification markup, configuration, behavior, and usage example. A persistent, manually-dismissed panel of messages. Author only the modal wrapping notificationBell (no dialog inside it); the first time it is needed, pgs.notification generates the dialog and re-initializes that modal automatically. It lives inside a modal dialog (see Modal) opened and closed by notificationBell — opening any other dialog on the page (e.g. the mobile menu) closes it automatically, and vice versa. Split from Toast, which is ephemeral and auto-dismissing. Full JSON field list is under @pgs-option "notification"; full JS options list is under each @api method below. Note two JSON keys that are renamed in the JS options: message becomes description, and title-close becomes closeTitle. Three custom events are dispatched: pgs:notification:buttonClick on a buttons[] element when clicked (detail: id, buttonId, type, title, description, link; cancelable — call event.preventDefault() to stop a link's navigation and finish async work first), pgs:notification:close on the notification element right before it is removed (detail: id, type, title, description), and pgs:notification:deleteAll on the panel when deleteAll() runs (detail: ids).
  *
  * @pgs
- * - notification: identifies the notification element used by Notification.
- * - notificationTrigger: creates one or more notifications from comma-separated JSON objects.
- * - notification-element: identifies the notification-element element used by Notification.
- * - notification-element-content: contains the icon, title, and description.
- * - notification-element-icon: contains the icon displayed to the left of the text.
- * - notification-element-buttons: contains the link and dismiss actions below the content.
+ * - notifications: identifies the scrollable list of notifications inside the dialog.
+ * - notificationLoad: creates one or more notifications from comma-separated JSON objects on page load; see @pgs-option "notification" for every accepted field.
+ * - notificationBell: opens/closes the notification dialog each time it is clicked; also the modal-button for the surrounding modal.
+ * - notificationBell-counter: displays the current count of notifications-element elements inside notificationBell.
+ * - notifications-element: identifies a single notification inside the panel.
+ * - notifications-element-content: contains the icon, title, and description.
+ * - notifications-element-icon: contains the icon displayed to the left of the text.
+ * - notifications-element-buttons: contains the extra action buttons and the dismiss action below the content.
+ * - notifications-empty: shown inside the panel whenever it holds no notifications; its text comes from the internal emptyMessage default.
  *
  * @pgs-option
- * - toast: identifies the toast element used by Notification.
- * - notification: identifies the notification element used by Notification.
+ * - notification: JSON object (or several, comma-separated) read by notificationLoad on page load — see the full field reference, with every optional field and its default, in the commented example below.
+ * - buttonIcon: presents notificationBell as an icon button.
+ * - right: slides the notification dialog in from the right; see Modal for other positions.
  *
  * @pgs-state
  * - success: identifies the success element used by Notification.
@@ -22,52 +26,89 @@
  * - info: identifies the info element used by Notification.
  *
  * @api
- * - pgs.notification.init(root): initializes notification triggers inside the provided document or element.
- * - pgs.notification.trigger(root): provides the documented operation through the component public API.
- * - pgs.notification.alert.error(optionsOrTitle): accepts a title string or options with element, title, description, timeout, icon, link, linkTitle, and closeTitle.
- * - pgs.notification.alert.success(optionsOrTitle): accepts a title string or options with element, title, description, timeout, icon, link, linkTitle, and closeTitle.
- * - pgs.notification.alert.info(optionsOrTitle): accepts a title string or options with element, title, description, timeout, icon, link, linkTitle, and closeTitle.
- * - pgs.notification.alert.warning(optionsOrTitle): accepts a title string or options with element, title, description, timeout, icon, link, linkTitle, and closeTitle.
- * - pgs.notification.alert.deleteAll(): provides the documented operation through the component public API.
- * - pgs.notification.toast.error(optionsOrTitle): accepts a title string or options with element, title, description, timeout, icon, link, linkTitle, and closeTitle.
- * - pgs.notification.toast.success(optionsOrTitle): accepts a title string or options with element, title, description, timeout, icon, link, linkTitle, and closeTitle.
- * - pgs.notification.toast.info(optionsOrTitle): accepts a title string or options with element, title, description, timeout, icon, link, linkTitle, and closeTitle.
- * - pgs.notification.toast.warning(optionsOrTitle): accepts a title string or options with element, title, description, timeout, icon, link, linkTitle, and closeTitle.
- * - pgs.notification.toast.deleteAll(): provides the documented operation through the component public API.
+ * - pgs.notification.init(root): scans root for notificationLoad and initializes them (including the bell counter); runs automatically on page load and again via pgs.init(root) for content added later. Opening/closing the dialog itself is handled by pgs.modal (see Modal).
+ * - pgs.notification.trigger(root): alias of pgs.notification.init(root).
+ * - pgs.notification.error(optionsOrTitle): a title string, or an options object — see the full field reference in the commented example below.
+ * - pgs.notification.success(optionsOrTitle): a title string, or an options object — see the full field reference in the commented example below.
+ * - pgs.notification.info(optionsOrTitle): a title string, or an options object — see the full field reference in the commented example below.
+ * - pgs.notification.warning(optionsOrTitle): a title string, or an options object — see the full field reference in the commented example below.
+ * - pgs.notification.deleteAll(): removes every notification from the panel and dispatches pgs:notification:deleteAll (detail: ids) on the panel element.
  *
  * @related
  * - hidden: uses the related hidden component or utility in this example.
+ * - button: uses the related button component or utility in this example.
+ * - modal: wraps notificationBell; pgs.notification generates the dialog inside it and provides open/close/toggle behavior shared with every other dialog on the page.
+ * - modal-button: identifies notificationBell as the control that opens the dialog.
+ * - modal-dialog-content: identifies the JS-generated styled content area inside the dialog, wrapping notifications.
  *
  * @return Complete HTML markup and usage example for Notification.
  */
 -->
 
-<div pgs="notification" aria-live="polite"></div>
-<div pgs="notification" pgs-option="toast" aria-live="polite"></div>
+<button pgs="modal-button button notificationBell" pgs-option="buttonIcon" aria-label="Apri notifiche">
+    <i class="fa-duotone fa-solid fa-bell"></i>
+    <span pgs="notificationBell-counter"></span>
+</button>
 
-<div pgs="hidden notificationTrigger" pgs-option='
+
+<div pgs="hidden notificationLoad" pgs-option='notification[{
+    "title": "Profile approved",
+    "message": "Your profile has been reviewed and approved.",
+    "type": "success",
+    "icon": null,
+    "buttons": [{ "title": "Open", "link": "/page/" }]
+}]'></div>
+
+<div pgs="hidden notificationLoad" pgs-option='notification[{
+    "title": "Something went wrong",
+    "message": "Please try again later.",
+    "type": "error",
+    "icon": null,
+    "buttons": [{ "title": "Retry", "link": "#" }]
+}]'></div>
+
+<div pgs="hidden notificationLoad" pgs-option='notification[{
+    "title": "Your profile is incomplete",
+    "message": "Complete your profile to unlock all features.",
+    "type": "warning",
+    "icon": null,
+    "buttons": [{ "title": "Complete profile", "link": "#" }]
+}]'></div>
+
+<div pgs="hidden notificationLoad" pgs-option='notification[{
+    "title": "Are you enjoying the portal?",
+    "message": "Your feedback helps us improve.",
+    "type": "info",
+    "icon": null,
+    "buttons": [
+        { "id": "yes", "title": "Yes" },
+        { "id": "no", "title": "No" }
+    ]
+}]'></div>
+
+<script type="application/json">
     notification[{
-        "title": "Identifies the success",
-        "message": "identifies the notification element used by Notification.",
-        "element": "notification",
+        "id": null,
+        "title": "",
+        "message": "",
         "type": "info",
         "icon": null,
-        "duration": "-1",
-        "link": "/page/",
-        "title-link": "Open",
-        "title-close": "Close"
+        "title-close": "Chiudi",
+        "buttons": [
+            { "id": null, "title": "", "link": null, "close": true, "optionButton": null }
+        ]
     }]
-'></div>
-<div pgs="hidden notificationTrigger" pgs-option='
-    notification[{
-        "title": "Benvenuto",
-        "message": "Message",
-        "element": "toast",
-        "type": "success",
-        "icon": null,
-        "duration": "7000",
-        "link": null,
-        "title-link": "Open",
-        "title-close": "Close"
-    }]
-'></div>
+</script>
+
+<script type="text/x-example-js">
+    pgs.notification.success({
+        id: undefined,
+        title: "",
+        description: "",
+        icon: null,
+        closeTitle: "Chiudi",
+        buttons: [
+            { id: undefined, title: "", link: undefined, close: true, optionButton: undefined }
+        ]
+    });
+</script>

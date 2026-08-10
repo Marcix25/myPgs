@@ -21,7 +21,9 @@ import "./components/_slides.js";
 import "./components/_steps.js";
 import "./components/_stepTabs.js";
 import "./components/_summary.js";
-import "./components/_notifications.js";
+import "./components/_toast.js";
+import "./components/_notification.js";
+import "./components/_legacyNotification.js";
 
 //+ IMPORT REGISTRY
 import "./_imports.js";
