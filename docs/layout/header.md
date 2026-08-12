@@ -82,7 +82,7 @@ Complete header HTML with desktop navigation and a side mobile panel.
 					<i class="fa-solid fa-moon"></i>
 				</button>
 				<div pgs="modal" pgs-option="containerPGS[header] ">
-					<button pgs="modal-button button notificationBell" pgs-option="buttonIcon" aria-label="Apri notifiche">
+					<button pgs="modal-button modal-close button notificationBell" pgs-option="buttonIcon" aria-label="Apri notifiche">
 						<i class="fa-duotone fa-solid fa-bell"></i>
 						<span pgs="notificationBell-counter"></span>
 					</button>

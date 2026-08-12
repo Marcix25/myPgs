@@ -14,7 +14,7 @@ function initializeModal(MODAL, existingDialog = null) {
 
     const BUTTON_OPEN = pgs(MODAL).querySelector("modal-button");
     const DIALOG = existingDialog || MODAL.querySelector("dialog");
-    if (!BUTTON_OPEN || !DIALOG) return;
+    if (!DIALOG) return;
     const eventController = new AbortController();
     const { signal } = eventController;
     let historyObserver = null;
@@ -47,8 +47,8 @@ function initializeModal(MODAL, existingDialog = null) {
     pgs(DIALOG).add("dialog modal-dialog");
 
     //== BUTTON OPEN
-    BUTTON_OPEN.setAttribute("role", "button");
-    BUTTON_OPEN.setAttribute("aria-label", "apri modale");
+    BUTTON_OPEN?.setAttribute("role", "button");
+    BUTTON_OPEN?.setAttribute("aria-label", "apri modale");
 
 
     //== POSITION
@@ -103,15 +103,15 @@ function initializeModal(MODAL, existingDialog = null) {
     //+ fn OPEN ON HISTORY
     function openModalOnHistory() {
         const params = new URLSearchParams(window.location.search);
-        if (params.get('modal') !== BUTTON_OPEN.id) return;
+        if (params.get('modal') !== BUTTON_OPEN?.id) return;
         document.getElementById(BUTTON_OPEN.id)?.scrollIntoView({ behavior: 'smooth' });
         openModal();
     }
 
 
     //= OPEN
-    BUTTON_OPEN.addEventListener("click", (e) => openModal(e), { signal });
-    BUTTON_OPEN.addEventListener("keypress", (e) => !DIALOG.open && (e.key === "Enter" || e.key === " ") && openModal(e), { signal });
+    BUTTON_OPEN?.addEventListener("click", (e) => openModal(e), { signal });
+    BUTTON_OPEN?.addEventListener("keypress", (e) => !DIALOG.open && (e.key === "Enter" || e.key === " ") && openModal(e), { signal });
 
     //= CLOSE
     DIALOG.addEventListener("close", () => statusModal(false), { signal });
@@ -119,7 +119,7 @@ function initializeModal(MODAL, existingDialog = null) {
     BUTTON_CLOSE?.addEventListener("click", e => closeModal(e), { signal });
 
     //= UPDATE HISTORY
-    if (data_history && BUTTON_OPEN.id) {
+    if (data_history && BUTTON_OPEN?.id) {
         historyTimeout = window.setTimeout(openModalOnHistory, 1);
 
         //== Aggiorna URL quando cambia l'attributo "open" del dialog

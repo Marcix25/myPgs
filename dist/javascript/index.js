@@ -53,7 +53,6 @@ __webpack_require__.r(__webpack_exports__);
 
 _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
     init: _helper_init_js__WEBPACK_IMPORTED_MODULE_17__.PGS_init,
-    cookieConsent: _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_19__.PGS_cookieConsent,
     darkmode: _base_darkmode_js__WEBPACK_IMPORTED_MODULE_1__.PGS_darkmode,
     svg: _base_svg_js__WEBPACK_IMPORTED_MODULE_2__.PGS_svg,
     accordion: _components_accordion_js__WEBPACK_IMPORTED_MODULE_3__.PGS_accordion,
@@ -61,6 +60,7 @@ _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
     dropdown: _components_dropdown_js__WEBPACK_IMPORTED_MODULE_5__.PGS_dropdown,
     menu: _components_menu_js__WEBPACK_IMPORTED_MODULE_6__.PGS_menu,
     modal: _components_modals_js__WEBPACK_IMPORTED_MODULE_7__.PGS_modal,
+    cookieConsent: _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_19__.PGS_cookieConsent,
     notification: _components_notification_js__WEBPACK_IMPORTED_MODULE_8__.PGS_notification,
     toast: _components_toast_js__WEBPACK_IMPORTED_MODULE_10__.PGS_toast,
     legacyNotification: _components_legacyNotification_js__WEBPACK_IMPORTED_MODULE_9__.PGS_notificationLegacy,
@@ -1475,7 +1475,7 @@ function initializeModal(MODAL, existingDialog = null) {
 
     const BUTTON_OPEN = pgs(MODAL).querySelector("modal-button");
     const DIALOG = existingDialog || MODAL.querySelector("dialog");
-    if (!BUTTON_OPEN || !DIALOG) return;
+    if (!DIALOG) return;
     const eventController = new AbortController();
     const { signal } = eventController;
     let historyObserver = null;
@@ -1508,8 +1508,8 @@ function initializeModal(MODAL, existingDialog = null) {
     pgs(DIALOG).add("dialog modal-dialog");
 
     //== BUTTON OPEN
-    BUTTON_OPEN.setAttribute("role", "button");
-    BUTTON_OPEN.setAttribute("aria-label", "apri modale");
+    BUTTON_OPEN?.setAttribute("role", "button");
+    BUTTON_OPEN?.setAttribute("aria-label", "apri modale");
 
 
     //== POSITION
@@ -1564,15 +1564,15 @@ function initializeModal(MODAL, existingDialog = null) {
     //+ fn OPEN ON HISTORY
     function openModalOnHistory() {
         const params = new URLSearchParams(window.location.search);
-        if (params.get('modal') !== BUTTON_OPEN.id) return;
+        if (params.get('modal') !== BUTTON_OPEN?.id) return;
         document.getElementById(BUTTON_OPEN.id)?.scrollIntoView({ behavior: 'smooth' });
         openModal();
     }
 
 
     //= OPEN
-    BUTTON_OPEN.addEventListener("click", (e) => openModal(e), { signal });
-    BUTTON_OPEN.addEventListener("keypress", (e) => !DIALOG.open && (e.key === "Enter" || e.key === " ") && openModal(e), { signal });
+    BUTTON_OPEN?.addEventListener("click", (e) => openModal(e), { signal });
+    BUTTON_OPEN?.addEventListener("keypress", (e) => !DIALOG.open && (e.key === "Enter" || e.key === " ") && openModal(e), { signal });
 
     //= CLOSE
     DIALOG.addEventListener("close", () => statusModal(false), { signal });
@@ -1580,7 +1580,7 @@ function initializeModal(MODAL, existingDialog = null) {
     BUTTON_CLOSE?.addEventListener("click", e => closeModal(e), { signal });
 
     //= UPDATE HISTORY
-    if (data_history && BUTTON_OPEN.id) {
+    if (data_history && BUTTON_OPEN?.id) {
         historyTimeout = window.setTimeout(openModalOnHistory, 1);
 
         //== Aggiorna URL quando cambia l'attributo "open" del dialog
@@ -4087,10 +4087,44 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const STORAGE_KEY = 'pgs_cookie_preferences_v1';
-const focusableSelectors = 'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
 const INITIALIZED_COOKIE_CONSENTS = new WeakSet();
 
-//+ 
+const DEFAULTS = {
+    titleIntro: "Cookies and privacy",
+    titleHeading: "Your privacy comes first",
+    description: "We use essential cookies to provide the service and, with your consent, analytics cookies from **Google Analytics** to measure traffic anonymously and improve our content.\nYou can change your choice at any time.",
+    privacyPolicyUrl: "/privacy-policy/",
+    cookiePolicyUrl: "/cookie-policy/",
+    panelAriaLabel: "Cookie preferences",
+    essentialTitle: "Essential cookies",
+    essentialDescription: "Always active to ensure the website works correctly.",
+    essentialBadge: "Active",
+    analyticsTitle: "Analytics",
+    analyticsDescription: "Browsing data collected in aggregate form for anonymous statistics.",
+    analyticsAriaLabel: "Enable Google Analytics",
+    titleReject: "Selected only",
+    titleAccept: "Accept all",
+    gaId: ""
+};
+
+//+
+function escapeHtml(value) {
+    return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+//+
+function formatText(value) {
+    return escapeHtml(value)
+        .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+        .replace(/\r?\n/g, "<br>");
+}
+
+//+
 function safeJsonParse(value) {
     try {
         return value ? JSON.parse(value) : null;
@@ -4100,7 +4134,7 @@ function safeJsonParse(value) {
     }
 }
 
-//+ 
+//+
 function readPreferences() {
     try {
         return safeJsonParse(localStorage.getItem(STORAGE_KEY));
@@ -4109,7 +4143,7 @@ function readPreferences() {
     }
 }
 
-//+ 
+//+
 function savePreferences(prefs) {
     try {
         localStorage.setItem(
@@ -4121,7 +4155,7 @@ function savePreferences(prefs) {
     }
 }
 
-//+ 
+//+
 function bootstrapGtag() {
     window.dataLayer = window.dataLayer || [];
     window.gtag = window.gtag || function gtag() {
@@ -4129,7 +4163,7 @@ function bootstrapGtag() {
     };
 }
 
-//+ 
+//+
 function loadGoogleAnalytics(measurementId) {
     if (!measurementId || window.__PGS_gaLoaded) return;
     window.__PGS_gaLoaded = true;
@@ -4146,7 +4180,7 @@ function loadGoogleAnalytics(measurementId) {
     });
 }
 
-//+ 
+//+
 function applyAnalyticsConsent({ allowAnalytics, measurementId }) {
     bootstrapGtag();
     if (allowAnalytics) {
@@ -4169,6 +4203,75 @@ function setPgsFlag(element, token, enabled) {
     }
 }
 
+//+ reads the JSON config off the marker element and builds the whole modal + dialog + content from it,
+//+ so the consuming site never has to hand-author the banner markup — see @pgs-option "cookieConsent".
+function buildCookieConsent(marker) {
+    const config = { ...DEFAULTS, ...(safeJsonParse(pgs(marker).option.getValueBrackets('cookieConsent') || '{}') || {}) };
+
+    const root = document.createElement('div');
+    pgs(root).add('modal', 'cookieConsent');
+
+    root.innerHTML = `
+        <dialog pgs-option="topLevel">
+            <div pgs="modal-dialog-content">
+                <div pgs="flexColumn">
+                    <p><i class="fa-duotone fa-solid fa-cookie-bite"></i> ${formatText(config.titleIntro)} <br></p>
+                    <h2>${formatText(config.titleHeading)}</h2>
+
+                    <p>${formatText(config.description)}</p>
+
+                    <p>
+                        <a href="${escapeHtml(config.privacyPolicyUrl)}" target="_blank" rel="noopener">Privacy Policy</a> -
+                        <a href="${escapeHtml(config.cookiePolicyUrl)}" target="_blank" rel="noopener">Cookie Policy</a>
+                    </p>
+                </div>
+
+                <div pgs="cookieConsent-panel flexColumn" role="group" aria-label="${escapeHtml(config.panelAriaLabel)}">
+                    <div pgs="flexRow nowrap cookieConsent-panel-featureEssential">
+                        <div>
+                            <p>
+                                <strong>${formatText(config.essentialTitle)}</strong>
+                                <br>
+                                <small>${formatText(config.essentialDescription)}</small>
+                            </p>
+                        </div>
+
+                        <span pgs="cookieConsent-panel-badge badge" pgs-option="badgeSuccess">${formatText(config.essentialBadge)}</span>
+                    </div>
+
+                    <div pgs="flexRow cookieConsent-panel-featureAnalytics">
+                        <label pgs="toggle">
+                            <p>
+                                <strong>${formatText(config.analyticsTitle)}</strong>
+                                <br>
+                                <small>${formatText(config.analyticsDescription)}</small>
+                            </p>
+
+                            <input type="checkbox" pgs="cookieConsent-panel-toggleAnalytics" aria-label="${escapeHtml(config.analyticsAriaLabel)}">
+                        </label>
+                    </div>
+                    <div pgs="flexRow">
+                        <button type="button" pgs="button cookieConsent-actionReject">
+                            <i class="fa-solid fa-duotone fa-sliders"></i> ${formatText(config.titleReject)}
+                        </button>
+    
+                        <button type="button" pgs="button cookieConsent-actionAccept" pgs-option="buttonStrong">
+                            <i class="fa-solid fa-check"></i> ${formatText(config.titleAccept)}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </dialog>
+    `;
+
+    root.id = marker.id || 'cookieConsent';
+    root.dataset.gaId = config.gaId;
+    document.body.appendChild(root);
+    marker.remove();
+
+    return root;
+}
+
 //+
 function assignCookieRuntimeAttributes({ root, analyticsToggle, acceptAllButton, rejectButton, openButtons }) {
     root.dataset.cookieComponent = 'consent';
@@ -4176,8 +4279,8 @@ function assignCookieRuntimeAttributes({ root, analyticsToggle, acceptAllButton,
     acceptAllButton?.setAttribute('data-cookie-action', 'accept');
     rejectButton?.setAttribute('data-cookie-action', 'reject');
 
-    root.querySelector('[pgs~="cookieConsent-featureEssential"]')?.setAttribute('data-cookie-feature', 'essential');
-    root.querySelector('[pgs~="cookieConsent-featureAnalytics"]')?.setAttribute('data-cookie-feature', 'analytics');
+    root.querySelector('[pgs~="cookieConsent-panel-featureEssential"]')?.setAttribute('data-cookie-feature', 'essential');
+    root.querySelector('[pgs~="cookieConsent-panel-featureAnalytics"]')?.setAttribute('data-cookie-feature', 'analytics');
 
     openButtons.forEach((button) => {
         button.setAttribute('data-cookie-action', 'open');
@@ -4185,20 +4288,28 @@ function assignCookieRuntimeAttributes({ root, analyticsToggle, acceptAllButton,
 }
 
 //= CookieConsent
+//+ open/close, backdrop, focus trap, ESC-to-close, and focus restore are all handled by the native <dialog>
+//+ through pgs.modal; this pattern only owns the JSON-driven markup generation and the consent business logic.
 function initCookieConsent(selectRoot = document) {
-    const root = selectRoot instanceof Element && pgs(selectRoot).contains('cookieConsent')
+    const marker = selectRoot instanceof Element && pgs(selectRoot).contains('cookieConsent')
         ? selectRoot
         : pgs(selectRoot).querySelector('cookieConsent');
-    if (!root || INITIALIZED_COOKIE_CONSENTS.has(root)) return;
-    INITIALIZED_COOKIE_CONSENTS.add(root);
+    if (!marker || INITIALIZED_COOKIE_CONSENTS.has(marker)) return;
+    INITIALIZED_COOKIE_CONSENTS.add(marker);
 
-    const analyticsToggle = root.querySelector('[pgs~="cookieConsent-toggleAnalytics"]');
+    const root = buildCookieConsent(marker);
+
+    //+ initializes the modal here too (idempotent) so this doesn't depend on pgs.registerModules() order.
+    globalThis.pgs?.modal?.init(root);
+    const modal = globalThis.pgs?.modal?.api(root);
+    if (!modal) return;
+
+    const analyticsToggle = root.querySelector('[pgs~="cookieConsent-panel-toggleAnalytics"]');
     const acceptAllButton = root.querySelector('[pgs~="cookieConsent-actionAccept"]');
     const rejectButton = root.querySelector('[pgs~="cookieConsent-actionReject"]');
     const openButtons = document.querySelectorAll('[pgs~="cookieConsent-actionOpen"]');
     const measurementId = (root.dataset.gaId || '').trim();
     const prefersGa = measurementId.length > 0;
-    let lastFocusedElement = null;
 
     assignCookieRuntimeAttributes({ root, analyticsToggle, acceptAllButton, rejectButton, openButtons });
 
@@ -4215,28 +4326,6 @@ function initCookieConsent(selectRoot = document) {
     bootstrapGtag();
     window.gtag('consent', 'default', { analytics_storage: 'denied' });
 
-    function setBannerVisibility(show) {
-        root.hidden = !show;
-        root.setAttribute('aria-hidden', String(!show));
-        document.body.classList.toggle('cookieConsent-open', show);
-        if (show) {
-            lastFocusedElement = document.activeElement;
-            setTimeout(() => {
-                root.focus();
-            }, 0);
-        } else if (lastFocusedElement instanceof HTMLElement) {
-            lastFocusedElement.focus({ preventScroll: true });
-        }
-    }
-
-    function closeBanner() {
-        setBannerVisibility(false);
-    }
-
-    function openBanner() {
-        setBannerVisibility(true);
-    }
-
     function persistAndApply(allowAnalytics) {
         savePreferences({ analytics: allowAnalytics });
         setPgsFlag(root, 'cookieConsent-accepted', !!allowAnalytics);
@@ -4247,14 +4336,14 @@ function initCookieConsent(selectRoot = document) {
     acceptAllButton?.addEventListener('click', () => {
         if (analyticsToggle && prefersGa) analyticsToggle.checked = true;
         persistAndApply(!!prefersGa);
-        closeBanner();
+        modal.close();
     });
 
     rejectButton?.addEventListener('click', () => {
         const allowAnalytics = analyticsToggle ? analyticsToggle.checked && prefersGa : false;
         if (!allowAnalytics && analyticsToggle) analyticsToggle.checked = false;
         persistAndApply(allowAnalytics);
-        closeBanner();
+        modal.close();
     });
 
     analyticsToggle?.addEventListener('change', (event) => {
@@ -4263,30 +4352,10 @@ function initCookieConsent(selectRoot = document) {
         }
     });
 
-    root.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') {
-            event.preventDefault();
-            closeBanner();
-        } else if (event.key === 'Tab') {
-            const focusables = root.querySelectorAll(focusableSelectors);
-            if (focusables.length === 0) return;
-            const first = focusables[0];
-            const last = focusables[focusables.length - 1];
-            if (!event.shiftKey && document.activeElement === last) {
-                event.preventDefault();
-                first.focus();
-            }
-            if (event.shiftKey && document.activeElement === first) {
-                event.preventDefault();
-                last.focus();
-            }
-        }
-    });
-
     openButtons.forEach((button) => {
         button.addEventListener('click', (event) => {
             event.preventDefault();
-            openBanner();
+            modal.open();
         });
     });
 
@@ -4294,9 +4363,8 @@ function initCookieConsent(selectRoot = document) {
     if (savedPrefs && typeof savedPrefs.analytics === 'boolean') {
         if (analyticsToggle) analyticsToggle.checked = !!savedPrefs.analytics && prefersGa;
         persistAndApply(savedPrefs.analytics && prefersGa);
-        closeBanner();
     } else {
-        setBannerVisibility(true);
+        modal.open();
     }
 }
 

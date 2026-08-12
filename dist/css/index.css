@@ -6010,19 +6010,9 @@ dialog [pgs~=search] [pgs~=modal-close] {
   --cookie-bg: var(--color-box);
   --cookie-color: var(--color-black);
   --cookie-border: var(--border-complete);
-  position: fixed;
-  inset: auto 24px 24px auto;
-  width: min(480px, 100vw - 32px);
-  z-index: 999;
-  padding: var(--padding-2, 2rem);
-  border-radius: var(--border-radius, 16px);
-  border: var(--cookie-border);
-  background: var(--cookie-bg);
-  color: var(--cookie-color);
-  box-shadow: 0 25px 55px rgba(14, 32, 58, 0.25);
   display: flex;
   flex-direction: column;
-  gap: var(--gap-section, 1.25rem);
+  gap: var(--gap-);
   transition: transform 0.35s ease, opacity 0.35s ease;
 }
 
@@ -6082,28 +6072,31 @@ dialog [pgs~=search] [pgs~=modal-close] {
   align-items: center;
 }
 
+[pgs~=cookieConsent] [pgs~=modal-close] {
+  display: none;
+}
+
 [pgs~=cookieConsent] [pgs~=cookieConsent-panel] {
   border: var(--border-complete);
-  border-radius: var(--border-radius-input, 16px);
-  padding: var(--padding-2, 1.5rem);
+  border-radius: calc(var(--modal-borderRadius) - var(--gap-texts));
   background-color: var(--color-primary-soft, rgba(0, 0, 0, 0.02));
-  margin-top: var(--gap-texts);
+  margin-inline: var(--gap-texts);
+  margin-bottom: var(--gap-texts);
 }
 
 [pgs~=cookieConsent] [pgs~=cookieConsent-panel] [pgs~=cookieConsent-panel-badge] {
   font-size: 1.35rem;
-  border-radius: 99px;
-  padding: 0.25rem 0.75rem;
-  background: var(--color-success-background);
-  color: var(--color-success);
-  font-weight: 600;
   overflow-wrap: normal;
   width: max-content;
   height: max-content;
   margin-left: auto;
 }
 
-[pgs~=cookieConsent][pgs~=cookieConsent-gaUnavailable] [pgs~=cookieConsent-featureAnalytics] label {
+[pgs~=cookieConsent] [pgs~=cookieConsent-panel-featureAnalytics] label {
+  width: 100%;
+}
+
+[pgs~=cookieConsent][pgs~=cookieConsent-gaUnavailable] [pgs~=cookieConsent-panel-featureAnalytics] label {
   opacity: 0.5;
   cursor: not-allowed;
 }

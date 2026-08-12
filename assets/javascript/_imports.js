@@ -22,7 +22,6 @@ import { PGS_cookieConsent } from "./patterns/_cookieConsent.js";
 
 pgs.registerModules({
     init: PGS_init,
-    cookieConsent: PGS_cookieConsent,
     darkmode: PGS_darkmode,
     svg: PGS_svg,
     accordion: PGS_accordion,
@@ -30,6 +29,7 @@ pgs.registerModules({
     dropdown: PGS_dropdown,
     menu: PGS_menu,
     modal: PGS_modal,
+    cookieConsent: PGS_cookieConsent,
     notification: PGS_notification,
     toast: PGS_toast,
     legacyNotification: PGS_notificationLegacy,

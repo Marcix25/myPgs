@@ -87,6 +87,8 @@ I componenti inizializzati usano `WeakMap` interne per esporre API di istanza.
 
 I moduli principali sono registrati in `assets/javascript/_imports.js` in due modi.
 
+`pgs.init(root)` inizializza i moduli registrati nell'ordine in cui compaiono in `registerModules(...)`: se un modulo usa l'API di un altro durante il proprio `init` (es. `cookieConsent` che chiama `pgs.modal.api(...)`), quello richiesto va elencato prima.
+
 ### Registro diretto
 
 Serve per usare i moduli direttamente da `pgs`:
@@ -94,13 +96,13 @@ Serve per usare i moduli direttamente da `pgs`:
 ```js
 pgs.registerModules({
   init: PGS_init,
-  cookieConsent: PGS_cookieConsent,
   darkmode: PGS_darkmode,
   svg: PGS_svg,
   accordion: PGS_accordion,
   dropdown: PGS_dropdown,
   menu: PGS_menu,
   modal: PGS_modal,
+  cookieConsent: PGS_cookieConsent,
   notification: PGS_notification,
   toast: PGS_toast,
   search: PGS_search,
@@ -201,6 +203,19 @@ pgs.modal.api(modalEl)?.open();
 ### Notification e Toast
 
 `pgs.notification` è un pannello persistente di messaggi, apribile/chiudibile con `notificationBell`, con dismissione solo manuale. `pgs.toast` è un messaggio effimero mostrato uno alla volta, con auto-dismissione dopo `timeout`. Sono due moduli indipendenti: vedi [Notification](../components/notification.md) e [Toast](../components/toast.md) per il markup dichiarativo completo.
+
+Il pannello di `pgs.notification` vive dentro una `<dialog>` gestita da `pgs.modal`. Basta autorare il wrapper con la campanella, senza dialog dentro:
+
+```html
+<div pgs="modal">
+    <button pgs="modal-button button notificationBell" pgs-option="buttonIcon" aria-label="Apri notifiche">
+        <i class="fa-duotone fa-solid fa-bell"></i>
+        <span pgs="notificationBell-counter"></span>
+    </button>
+</div>
+```
+
+Alla prima notifica, `pgs.notification` genera da solo `<dialog pgs-option="right"><div pgs="modal-dialog-content"><div pgs="notifications"></div></div></dialog>` dentro quel wrapper e richiama `pgs.modal.init()` per attivarlo — apertura/chiusura/il chiudersi quando apri un altro dialog sulla pagina sono gestiti interamente da `pgs.modal`, non da `pgs.notification`. `pgs.toast` non usa nessun dialog/modal: resta un div fisso indipendente come prima.
 
 ```js
 pgs.notification.success({

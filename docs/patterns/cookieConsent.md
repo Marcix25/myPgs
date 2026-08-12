@@ -2,16 +2,16 @@
 
 # Cookie Consent
 
-Accessible pattern for collecting and storing analytics cookie consent, applying preferences, and loading Google Analytics only when authorized.
+Accessible pattern for collecting and storing analytics cookie consent, applying preferences, and loading Google Analytics only when authorized. Author only a hidden marker element with a JSON config — pgs.cookieConsent generates the whole modal, dialog, and content from it (see the full field reference in the commented example below), then removes the marker. It lives inside a modal dialog (see Modal): open/close, backdrop, focus trap, ESC-to-close, and focus restore are all handled natively by the dialog through pgs.modal. It has no modal-button of its own — it opens itself on load when no valid saved preference exists, and can be reopened later from anywhere on the page through cookieConsent-actionOpen (e.g. a footer link).
 
 ## PGS
 
-- `cookieConsent`: identifies the main panel initialized by the JavaScript pattern.
+- `cookieConsent`: identifies the hidden JSON marker read on page load; pgs.cookieConsent replaces it with the generated modal wrapper carrying the same token.
 - `cookieConsent-panel`: identifies the configurable preference group.
-- `cookieConsent-featureEssential`: identifies the row of always-active essential cookies.
+- `cookieConsent-panel-featureEssential`: identifies the row of always-active essential cookies.
 - `cookieConsent-panel-badge`: identifies the essential-cookie status indicator.
-- `cookieConsent-featureAnalytics`: identifies the optional analytics-cookie row.
-- `cookieConsent-toggleAnalytics`: identifies the control that enables analytics consent.
+- `cookieConsent-panel-featureAnalytics`: identifies the optional analytics-cookie row.
+- `cookieConsent-panel-toggleAnalytics`: identifies the control that enables analytics consent.
 - `cookieConsent-actionReject`: applies selected preferences without automatically accepting analytics.
 - `cookieConsent-actionAccept`: accepts all available cookies.
 - `cookieConsent-actionOpen`: identifies external controls that reopen the preference panel.
@@ -21,76 +21,67 @@ Accessible pattern for collecting and storing analytics cookie consent, applying
 
 ## PGS Options
 
+- `cookieConsent`: JSON object read from the hidden marker on page load — see the full field reference, with every optional field and its default, in the commented example below.
 - `buttonStrong`: presents full acceptance as the primary action.
+- `topLevel`: centers the dialog with a backdrop instead of positioning it inline; see Modal.
+- `badgeSuccess`: presents the essential-cookie badge with the success color; see Badges.
 
 ## JavaScript API
 
-- `pgs.cookieConsent.init(root)`: initializes the cookie consent pattern inside the provided document or element.
+- `pgs.cookieConsent.init(root)`: reads the JSON marker inside the provided document or element, generates the pattern from it, and initializes it.
 
 ## Related elements
 
-- `flexColumn`: vertically organizes the preference panel.
+- `flexColumn`: vertically organizes the JS-generated dialog content and the preference panel.
+- `gapElements`: applies element spacing to the JS-generated dialog content.
 - `flexRow`: arranges panel rows and actions.
 - `nowrap`: prevents wrapping in the essential-cookie row.
 - `toggle`: presents analytics consent as a switch.
-- `button`: presents the selection action with standard styling.
+- `button`: presents the selection actions with standard styling.
+- `badge`: presents the essential-cookie status indicator; see Badges.
+- `modal`: wraps cookieConsent and the dialog, providing open/close behavior shared with every other dialog on the page.
+- `modal-dialog-content`: identifies the JS-generated styled content area inside the dialog.
+- `hidden`: uses the related hidden component or utility in this example.
 
 ## Output
 
 Consent panel HTML with essential and analytics preferences, actions, and accessible attributes.
 
+## JSON Schema
+
+```json
+cookieConsent[{
+    "titleIntro": "Cookies and privacy",
+    "titleHeading": "Your privacy comes first",
+    "description": "",
+    "privacyPolicyUrl": "/privacy-policy/",
+    "cookiePolicyUrl": "/cookie-policy/",
+    "panelAriaLabel": "Cookie preferences",
+    "essentialTitle": "Essential cookies",
+    "essentialDescription": "Always active to ensure the website works correctly.",
+    "essentialBadge": "Active",
+    "analyticsTitle": "Analytics",
+    "analyticsDescription": "Browsing data collected in aggregate form for anonymous statistics.",
+    "analyticsAriaLabel": "Enable Google Analytics",
+    "titleReject": "Selected only",
+    "titleAccept": "Accept all",
+    "gaId": ""
+}]
+```
+
+
 ## Example
 
 ```html
-<section id="pgs-cookieConsent" pgs="cookieConsent" role="dialog" aria-modal="true" data-ga-id="G-XXXXXXXXXX" hidden tabindex="-1">
-    <p><i class="fa-duotone fa-solid fa-cookie-bite"></i> Cookies and privacy <br></p>
-    <h2>Your privacy comes first</h2>
+<div pgs="hidden cookieConsent" pgs-option='cookieConsent[{
+    "titleHeading": "Your privacy comes first",
+    "description": "We use essential cookies to provide the service and, with your consent, analytics cookies from **Google Analytics** to measure traffic anonymously and improve our content.\nYou can change your choice at any time.",
+    "privacyPolicyUrl": "/privacy-policy/",
+    "cookiePolicyUrl": "/cookie-policy/",
+    "gaId": "G-XXXXXXXXXX"
+}]'></div>
 
-    <p>
-        We use essential cookies to provide the service and, with your consent, analytics cookies from
-        <strong>Google Analytics</strong> to measure traffic anonymously and improve our content.
-        You can change your choice at any time.
-    </p>
-
-    <p>
-        <a href="/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a> -
-        <a href="/cookie-policy/" target="_blank" rel="noopener">Cookie Policy</a>
-    </p>
-
-    <div pgs="cookieConsent-panel flexColumn" role="group" aria-label="Cookie preferences">
-        <div pgs="flexRow nowrap cookieConsent-featureEssential">
-            <div>
-                <p>
-                    <strong>Essential cookies</strong>
-                    <br>
-                    <small>Always active to ensure the website works correctly.</small>
-                </p>
-            </div>
-
-            <span pgs="cookieConsent-panel-badge">Active</span>
-        </div>
-
-        <div pgs="flexRow cookieConsent-featureAnalytics">
-            <label pgs="toggle">
-                <p>
-                    <strong>Analytics</strong>
-                    <br>
-                    <small>Browsing data collected in aggregate form for anonymous statistics.</small>
-                </p>
-
-                <input type="checkbox" pgs="cookieConsent-toggleAnalytics" aria-label="Enable Google Analytics">
-            </label>
-        </div>
-    </div>
-
-    <div pgs="flexRow">
-        <button type="button" pgs="button cookieConsent-actionReject">
-            <i class="fa-solid fa-duotone fa-sliders"></i>Selected only
-        </button>
-
-        <button type="button" pgs="button cookieConsent-actionAccept" pgs-option="buttonStrong">
-            <i class="fa-solid fa-check"></i> Accept all
-        </button>
-    </div>
-</section>
+<button type="button" pgs="button cookieConsent-actionOpen" aria-haspopup="dialog">
+    <i class="fa-solid fa-cookie-bite"></i> Cookie preferences
+</button>
 ```
