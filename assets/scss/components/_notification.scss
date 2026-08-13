@@ -1,57 +1,84 @@
 @use "../mixin/mixin" as *;
 
 //= NOTIFICATION GROUP / TRIGGER
-[pgs~="notificationTrigger"] {}
+[pgs~="notificationLoad"] {}
 
-[pgs~="notification"] {
+[pgs~="notificationBell"] {
+    position: relative;
+
+    [pgs~="notificationBell-counter"] {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2px;
+        min-width: 20px;
+        aspect-ratio: 1;
+        font-size: 1rem;
+        font-weight: 700;
+        line-height: 1;
+        color: var(--color-error-background);
+        background: var(--color-error);
+        border-radius: 50%;
+        position: absolute;
+        right: -5px;
+        top: -5px;
+
+        &:empty {
+            display: none;
+        }
+    }
+}
+
+//+ positioning, backdrop, sizing, and scrolling come from the modal wrapping notificationBell + this dialog (see _modals.scss)
+[pgs~="notifications"] {
     --notification-background: var(--color-box);
-    --notification-background-timer: color-mix(in srgb, var(--color-box) 95%, var(--color-black) 5%);
     --notification-color: unset;
     --notification-shadow-color: unset;
-    --notification-shadow-perc: 0px 0px 100px 0px;
-    --notification-timeout: unset;
     display: flex;
     flex-direction: column;
     gap: var(--gap-texts);
-    height: min-content;
-    position: fixed;
-    z-index: 99;
-    isolation: isolate;
-    max-height: 80vh;
+    scrollbar-color: var(--color-black) transparent;
+    --modal-padding: 10px;
 
-    [pgs~=notification-element] {
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    [pgs~=notifications-empty] {
+        margin: 0;
+        padding: var(--padding-2);
+        color: var(--color-white);
+        border-radius: var(--border-radius-input);
+        font-size: small;
+        text-align: center;
+        background-color: var(--color-black-transparent);
+    }
+
+    [pgs~=notifications-element] {
         display: flex;
-        gap: var(--padding-2);
         background: var(--notification-background);
         flex-direction: column;
         opacity: 1;
         font-weight: 600;
         overflow: hidden;
-        transition: all 280ms;
         align-items: stretch;
-        box-shadow: var(--notification-shadow-perc) var(--notification-shadow-color);
         border-radius: var(--border-radius-input);
-        max-width: 90vw;
-        min-width: min(200px, 50vw);
+        width: 100%;
         height: max-content;
-        padding: var(--padding-2);
+        flex-shrink: 0;
         position: relative;
         border: var(--border-complete);
 
-        //- mobile 
-        @media (max-width: $mobile) {
-            padding: calc(var(--padding)/ 1.5);
-        }
-
-        [pgs~=notification-element-content] {
+        [pgs~=notifications-element-content] {
             display: flex;
             align-items: center;
             flex-direction: row;
             gap: var(--padding-2);
             min-width: 0;
             z-index: 1;
+            padding: var(--padding-2);
 
-            [pgs~=notification-element-icon] {
+            [pgs~=notifications-element-icon] {
                 --fa-primary-color: var(--notification-shadow-color);
                 --fa-secondary-color: color-mix(in srgb, var(--notification-shadow-color) 50%, var(--color-white) 50%);
                 --fa-size: 3.5rem;
@@ -75,13 +102,15 @@
             }
         }
 
-        [pgs~=notification-element-buttons] {
+        [pgs~=notifications-element-buttons] {
             display: flex;
             align-items: center;
             flex-direction: row;
             gap: var(--gap-texts);
             z-index: 1;
             flex-wrap: wrap;
+            padding: var(--padding-2);
+            background-color: light-dark(#f2f2f287, #0c0c0c7e);
 
             :is(a, button, input) {
                 --button-size: .7rem;
@@ -91,79 +120,27 @@
                 flex: 1;
                 justify-content: center;
                 font-size: small;
-            }
-        }
-
-        &::before {
-            content: "";
-            width: 0%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            background-color: var(--notification-background-timer);
-            border-top-left-radius: var(--border-radius-input);
-            border-bottom-left-radius: var(--border-radius-input);
-            animation: timeline var(--notification-timeout) linear;
-        }
-
-        @keyframes timeline {
-            0% {
-                width: 100%;
-                opacity: 0;
-            }
-
-            10% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 1;
-            }
-
-            100% {
-                width: 0%;
-                opacity: 0;
+                min-width: max-content;
             }
         }
     }
 
     [pgs-state~="success"] {
         --notification-background: var(--color-success-background);
-        --notification-background-timer: color-mix(in srgb, var(--color-success-background) 70%, var(--color-white) 30%);
         --notification-shadow-color: var(--color-success);
     }
 
     [pgs-state~="error"] {
         --notification-background: var(--color-error-background);
-        --notification-background-timer: color-mix(in srgb, var(--color-error-background) 70%, var(--color-white) 30%);
         --notification-shadow-color: var(--color-error);
     }
 
     [pgs-state~="warning"] {
         --notification-background: var(--color-warning-background);
-        --notification-background-timer: color-mix(in srgb, var(--color-warning-background) 70%, var(--color-white) 30%);
         --notification-shadow-color: var(--color-warning);
     }
 
     [pgs-state~="info"] {
         --notification-background: var(--color-box);
     }
-}
-
-//= NOTIFICATION STYLE
-@mixin notification($position: center) {}
-
-[pgs~="notification"]:not([pgs-option~="toast"]) {
-    $size: 1.0rem;
-    top: calc(var(--heightOfHeaderScroll) + $size);
-    --notification-shadow-perc: unset;
-    right: $size;
-}
-
-[pgs~="notification"][pgs-option~="toast"] {
-    $size: 1.0rem;
-    inset-inline: 0;
-    align-items: center;
-    top: calc(var(--heightOfHeaderScroll) + $size);
 }

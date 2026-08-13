@@ -17,16 +17,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_dropdown_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/_dropdown.js */ "./assets/javascript/components/_dropdown.js");
 /* harmony import */ var _components_menu_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/_menu.js */ "./assets/javascript/components/_menu.js");
 /* harmony import */ var _components_modals_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_modals.js */ "./assets/javascript/components/_modals.js");
-/* harmony import */ var _components_notifications_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_notifications.js */ "./assets/javascript/components/_notifications.js");
-/* harmony import */ var _components_search_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_search.js */ "./assets/javascript/components/_search.js");
-/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
-/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
-/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
-/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
-/* harmony import */ var _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./helper/_formValidate.js */ "./assets/javascript/helper/_formValidate.js");
-/* harmony import */ var _helper_init_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./helper/_init.js */ "./assets/javascript/helper/_init.js");
-/* harmony import */ var _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./helper/_scrollY.js */ "./assets/javascript/helper/_scrollY.js");
-/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
+/* harmony import */ var _components_notification_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_notification.js */ "./assets/javascript/components/_notification.js");
+/* harmony import */ var _components_legacyNotification_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_legacyNotification.js */ "./assets/javascript/components/_legacyNotification.js");
+/* harmony import */ var _components_toast_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_toast.js */ "./assets/javascript/components/_toast.js");
+/* harmony import */ var _components_search_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/_search.js */ "./assets/javascript/components/_search.js");
+/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
+/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
+/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
+/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
+/* harmony import */ var _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./helper/_formValidate.js */ "./assets/javascript/helper/_formValidate.js");
+/* harmony import */ var _helper_init_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./helper/_init.js */ "./assets/javascript/helper/_init.js");
+/* harmony import */ var _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./helper/_scrollY.js */ "./assets/javascript/helper/_scrollY.js");
+/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
+
+
 
 
 
@@ -48,8 +52,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
-    init: _helper_init_js__WEBPACK_IMPORTED_MODULE_15__.PGS_init,
-    cookieConsent: _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_17__.PGS_cookieConsent,
+    init: _helper_init_js__WEBPACK_IMPORTED_MODULE_17__.PGS_init,
     darkmode: _base_darkmode_js__WEBPACK_IMPORTED_MODULE_1__.PGS_darkmode,
     svg: _base_svg_js__WEBPACK_IMPORTED_MODULE_2__.PGS_svg,
     accordion: _components_accordion_js__WEBPACK_IMPORTED_MODULE_3__.PGS_accordion,
@@ -57,14 +60,17 @@ _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
     dropdown: _components_dropdown_js__WEBPACK_IMPORTED_MODULE_5__.PGS_dropdown,
     menu: _components_menu_js__WEBPACK_IMPORTED_MODULE_6__.PGS_menu,
     modal: _components_modals_js__WEBPACK_IMPORTED_MODULE_7__.PGS_modal,
-    notification: _components_notifications_js__WEBPACK_IMPORTED_MODULE_8__.PGS_notification,
-    search: _components_search_js__WEBPACK_IMPORTED_MODULE_9__.PGS_search,
-    slides: _components_slides_js__WEBPACK_IMPORTED_MODULE_10__.PGS_slides,
-    stepTabs: _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_11__.PGS_stepTabs,
-    steps: _components_steps_js__WEBPACK_IMPORTED_MODULE_12__.PGS_steps,
-    summary: _components_summary_js__WEBPACK_IMPORTED_MODULE_13__.PGS_summary,
-    formValidate: _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_14__.PGS_formValidate,
-    scrollHorizontal: _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_16__.PGS_scrollHorizontal,
+    cookieConsent: _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_19__.PGS_cookieConsent,
+    notification: _components_notification_js__WEBPACK_IMPORTED_MODULE_8__.PGS_notification,
+    toast: _components_toast_js__WEBPACK_IMPORTED_MODULE_10__.PGS_toast,
+    legacyNotification: _components_legacyNotification_js__WEBPACK_IMPORTED_MODULE_9__.PGS_notificationLegacy,
+    search: _components_search_js__WEBPACK_IMPORTED_MODULE_11__.PGS_search,
+    slides: _components_slides_js__WEBPACK_IMPORTED_MODULE_12__.PGS_slides,
+    stepTabs: _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_13__.PGS_stepTabs,
+    steps: _components_steps_js__WEBPACK_IMPORTED_MODULE_14__.PGS_steps,
+    summary: _components_summary_js__WEBPACK_IMPORTED_MODULE_15__.PGS_summary,
+    formValidate: _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_16__.PGS_formValidate,
+    scrollHorizontal: _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_18__.PGS_scrollHorizontal,
 });
 
 
@@ -81,6 +87,60 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   pgs: () => (/* binding */ pgs)
 /* harmony export */ });
+//+ index of the "]" matching the "[" at openIndex, counting nested brackets and ignoring any "[" / "]" inside a JSON string (respects \" escapes)
+function findMatchingBracket(source, openIndex) {
+    let depth = 0;
+    let inString = false;
+    let escaped = false;
+
+    for (let i = openIndex; i < source.length; i++) {
+        const char = source[i];
+
+        if (escaped) {
+            escaped = false;
+            continue;
+        }
+
+        if (inString) {
+            if (char === "\\") escaped = true;
+            else if (char === "\"") inString = false;
+            continue;
+        }
+
+        if (char === "\"") inString = true;
+        else if (char === "[") depth++;
+        else if (char === "]") {
+            depth--;
+            if (depth === 0) return i;
+        }
+    }
+
+    return -1;
+}
+
+//+ splits a pgs-option value into tokens, keeping "key[...]" whole even when the payload contains its own [...] (e.g. a JSON array)
+function tokenizeOptionValue(source) {
+    const tokens = [];
+    let i = 0;
+
+    while (i < source.length) {
+        while (i < source.length && /\s/.test(source[i])) i++;
+        if (i >= source.length) break;
+
+        const start = i;
+        while (i < source.length && !/\s/.test(source[i]) && source[i] !== "[") i++;
+
+        if (i < source.length && source[i] === "[") {
+            const close = findMatchingBracket(source, i);
+            i = close === -1 ? source.length : close + 1;
+        }
+
+        if (i > start) tokens.push(source.slice(start, i));
+    }
+
+    return tokens;
+}
+
 /**
  * @param {Element | Document} root
 */
@@ -268,12 +328,12 @@ function pgs(root) {
     function createOption(attribute) {
         if (!canAttr) return undefined;
 
-        const read = () => (root.getAttribute(attribute) || "").match(/[^\s[\]]+(?:\[[^\]]*\])?/g) || [];
+        const read = () => tokenizeOptionValue(root.getAttribute(attribute) || "");
         const write = values => root.setAttribute(attribute, values.join(" "));
         const getKey = value => String(value).trim().match(/^[^\s[\]]+/)?.[0] || "";
         const getValues = values => values
             .flat()
-            .flatMap(value => String(value).match(/[^\s[\]]+(?:\[[^\]]*\])?/g) || [])
+            .flatMap(value => tokenizeOptionValue(String(value)))
             .filter(Boolean);
 
         function api() {
@@ -319,22 +379,20 @@ function pgs(root) {
         };
 
         api.contains = function (key) {
-            const source = root.getAttribute(attribute) || "";
-            const safeKey = String(key).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-
-            return new RegExp(`(?:^|\\s)${safeKey}(?:\\[[^\\]]*\\])?(?=\\s|$)`)
-                .test(source);
+            const safeKey = String(key).trim();
+            return read().some(token => getKey(token) === safeKey);
         };
 
         api.getValueBrackets = function (key) {
-            const source = root.getAttribute(attribute) || "";
-            const safeKey = String(key).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+            const safeKey = String(key).trim();
+            const token = read().find(item => getKey(item) === safeKey);
+            if (!token) return undefined;
 
-            const match = source.match(
-                new RegExp(`(?:^|\\s)${safeKey}\\[([^\\]]*)\\]`)
-            );
+            const openIndex = token.indexOf("[");
+            const closeIndex = openIndex === -1 ? -1 : findMatchingBracket(token, openIndex);
+            if (closeIndex === -1) return undefined;
 
-            return match ? match[1] : undefined;
+            return token.slice(openIndex + 1, closeIndex);
         };
 
         api.setValueBrackets = function (key, value = "") {
@@ -1183,6 +1241,139 @@ const PGS_dropdown = {
 
 /***/ },
 
+/***/ "./assets/javascript/components/_legacyNotification.js"
+/*!*************************************************************!*\
+  !*** ./assets/javascript/components/_legacyNotification.js ***!
+  \*************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_notificationLegacy: () => (/* binding */ PGS_notificationLegacy)
+/* harmony export */ });
+/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+/* harmony import */ var _notification_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_notification.js */ "./assets/javascript/components/_notification.js");
+/* harmony import */ var _toast_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_toast.js */ "./assets/javascript/components/_toast.js");
+
+
+
+
+//= PGS_notificationLegacy
+//+ the only place that still understands the pre-split markup: <div pgs="hidden notificationTrigger" pgs-option='notification[{"element":"toast",...}]'>
+//+ generated for example by PGS_md_notification() (PGS_theme/modules/md-notification.php), routes each entry to PGS_notification or PGS_toast by its "element" field.
+const fn_legacy = {
+    _defaults: {
+        link: null,
+        linkTitle: "Open",
+        closeTitle: "Close"
+    },
+
+    _getApi(notification) {
+        return String(notification.element || "").trim() === "toast" ? _toast_js__WEBPACK_IMPORTED_MODULE_2__.PGS_toast : _notification_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification;
+    },
+
+    _getType(notification, api) {
+        const type = String(notification.type || "info").trim();
+        return typeof api[type] === "function" ? type : "info";
+    },
+
+    _getDuration(notification) {
+        const rawDuration = notification.duration;
+        const duration = Number.parseInt(rawDuration, 10);
+        return Number.isNaN(duration) ? undefined : duration;
+    },
+
+    _getData(root) {
+        const rawNotification = pgs(root).option.getValueBrackets("notification") || "{}";
+
+        try {
+            const notifications = JSON.parse(`[${rawNotification}]`);
+
+            if (notifications.some(notification => !notification || typeof notification !== "object" || Array.isArray(notification))) {
+                throw new TypeError("Each notification must be a JSON object");
+            }
+
+            return notifications;
+        } catch (error) {
+            console.warn("PGS notification (legacy notificationTrigger): Invalid JSON configuration", error);
+            return [];
+        }
+    },
+
+    trigger(root = document) {
+        pgs(root).querySelectorAll("notificationTrigger").forEach(element => {
+            if (!element || element.dataset.initialize === "true") return;
+
+            element.dataset.initialize = "true";
+
+            this._getData(element).forEach(notification => {
+                const title = String(notification.title || "").trim();
+                const description = String(notification.message || "").trim();
+                const linkTitle = String(notification["title-link"] || this._defaults.linkTitle).trim();
+                const closeTitle = String(notification["title-close"] || this._defaults.closeTitle).trim();
+
+                if (!title && !description) return;
+
+                const link = notification.link || this._defaults.link;
+                const icon = notification.icon || undefined;
+                const duration = this._getDuration(notification);
+                const api = this._getApi(notification);
+                const type = this._getType(notification, api);
+                const isToast = api === _toast_js__WEBPACK_IMPORTED_MODULE_2__.PGS_toast;
+
+                api[type]({
+                    title,
+                    description,
+                    icon,
+                    closeTitle,
+                    //+ PGS_toast still understands link/linkTitle/timeout directly; PGS_notification only understands buttons.
+                    ...(isToast
+                        ? { timeout: duration, link, linkTitle }
+                        : { buttons: link ? [{ title: linkTitle, link }] : [] })
+                });
+            });
+
+            element.remove();
+        });
+    }
+};
+
+//# TRIGGER
+function PGS_notificationLegacy_init(root = document) {
+    fn_legacy.trigger(root);
+}
+
+const PGS_notificationLegacy = {
+    init: PGS_notificationLegacy_init,
+    trigger: PGS_notificationLegacy_init
+};
+
+//+ pre-split API shape: pgs.notification.alert.*/pgs.notification.toast.* — grafted onto the live PGS_notification
+//+ object from the outside, so _notification.js itself never has to know this shape existed.
+_notification_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.alert = {
+    error: _notification_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.error,
+    success: _notification_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.success,
+    info: _notification_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.info,
+    warning: _notification_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.warning,
+    deleteAll: _notification_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.deleteAll
+};
+
+_notification_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.toast = {
+    error: _toast_js__WEBPACK_IMPORTED_MODULE_2__.PGS_toast.error,
+    success: _toast_js__WEBPACK_IMPORTED_MODULE_2__.PGS_toast.success,
+    info: _toast_js__WEBPACK_IMPORTED_MODULE_2__.PGS_toast.info,
+    warning: _toast_js__WEBPACK_IMPORTED_MODULE_2__.PGS_toast.warning,
+    deleteAll: _toast_js__WEBPACK_IMPORTED_MODULE_2__.PGS_toast.deleteAll
+};
+
+
+//= EXECUTE
+(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(PGS_notificationLegacy_init);
+
+
+/***/ },
+
 /***/ "./assets/javascript/components/_menu.js"
 /*!***********************************************!*\
   !*** ./assets/javascript/components/_menu.js ***!
@@ -1284,7 +1475,7 @@ function initializeModal(MODAL, existingDialog = null) {
 
     const BUTTON_OPEN = pgs(MODAL).querySelector("modal-button");
     const DIALOG = existingDialog || MODAL.querySelector("dialog");
-    if (!BUTTON_OPEN || !DIALOG) return;
+    if (!DIALOG) return;
     const eventController = new AbortController();
     const { signal } = eventController;
     let historyObserver = null;
@@ -1317,8 +1508,8 @@ function initializeModal(MODAL, existingDialog = null) {
     pgs(DIALOG).add("dialog modal-dialog");
 
     //== BUTTON OPEN
-    BUTTON_OPEN.setAttribute("role", "button");
-    BUTTON_OPEN.setAttribute("aria-label", "apri modale");
+    BUTTON_OPEN?.setAttribute("role", "button");
+    BUTTON_OPEN?.setAttribute("aria-label", "apri modale");
 
 
     //== POSITION
@@ -1373,15 +1564,15 @@ function initializeModal(MODAL, existingDialog = null) {
     //+ fn OPEN ON HISTORY
     function openModalOnHistory() {
         const params = new URLSearchParams(window.location.search);
-        if (params.get('modal') !== BUTTON_OPEN.id) return;
+        if (params.get('modal') !== BUTTON_OPEN?.id) return;
         document.getElementById(BUTTON_OPEN.id)?.scrollIntoView({ behavior: 'smooth' });
         openModal();
     }
 
 
     //= OPEN
-    BUTTON_OPEN.addEventListener("click", (e) => openModal(e), { signal });
-    BUTTON_OPEN.addEventListener("keypress", (e) => !DIALOG.open && (e.key === "Enter" || e.key === " ") && openModal(e), { signal });
+    BUTTON_OPEN?.addEventListener("click", (e) => openModal(e), { signal });
+    BUTTON_OPEN?.addEventListener("keypress", (e) => !DIALOG.open && (e.key === "Enter" || e.key === " ") && openModal(e), { signal });
 
     //= CLOSE
     DIALOG.addEventListener("close", () => statusModal(false), { signal });
@@ -1389,7 +1580,7 @@ function initializeModal(MODAL, existingDialog = null) {
     BUTTON_CLOSE?.addEventListener("click", e => closeModal(e), { signal });
 
     //= UPDATE HISTORY
-    if (data_history && BUTTON_OPEN.id) {
+    if (data_history && BUTTON_OPEN?.id) {
         historyTimeout = window.setTimeout(openModalOnHistory, 1);
 
         //== Aggiorna URL quando cambia l'attributo "open" del dialog
@@ -1461,10 +1652,10 @@ const PGS_modal = {
 
 /***/ },
 
-/***/ "./assets/javascript/components/_notifications.js"
-/*!********************************************************!*\
-  !*** ./assets/javascript/components/_notifications.js ***!
-  \********************************************************/
+/***/ "./assets/javascript/components/_notification.js"
+/*!*******************************************************!*\
+  !*** ./assets/javascript/components/_notification.js ***!
+  \*******************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1477,13 +1668,13 @@ __webpack_require__.r(__webpack_exports__);
 
 //= PGS_notification
 const fn_notification = {
+    _uid: 0,
     _defaults: {
-        element: "notification",
-        link: null,
-        timeout: 0,
+        id: null,
+        buttons: [],
         description: "",
-        linkTitle: "Open",
         closeTitle: "Close",
+        emptyMessage: "No notifications",
         type: {
             error: {
                 title: "Error",
@@ -1505,36 +1696,16 @@ const fn_notification = {
     },
 
     _escapeHtml(value) {
-        return String(value ?? "")
-            .replaceAll("&", "&amp;")
-            .replaceAll("<", "&lt;")
-            .replaceAll(">", "&gt;")
-            .replaceAll('"', "&quot;")
-            .replaceAll("'", "&#039;");
+        return String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
     },
 
     _formatText(value) {
-        return this._escapeHtml(value)
-            .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-            .replace(/\r?\n/g, "<br>");
+        return this._escapeHtml(value).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\r?\n/g, "<br>");
     },
 
-    _getDuration(notification) {
-        const rawDuration = notification.duration;
-        const duration = Number.parseInt(rawDuration, 10);
-        return Number.isNaN(duration) ? undefined : duration;
-    },
-
-    _getApi(notification) {
-        const element = String(notification.element || this._defaults.element).trim();
-
-        return element === "toast" ? PGS_notification.toast : PGS_notification.alert;
-    },
-
-    _getType(notification, api) {
+    _getType(notification) {
         const type = String(notification.type || "info").trim();
-
-        return typeof api[type] === "function" ? type : "info";
+        return typeof PGS_notification[type] === "function" ? type : "info";
     },
 
     _getData(root) {
@@ -1567,14 +1738,25 @@ const fn_notification = {
         `;
     },
 
-    _getContainer(element) {
-        return Array.from(pgs(document).querySelectorAll("notification")).find(container => {
-            const isToast = pgs(container).option.contains("toast");
-            return element === "toast" ? isToast : !isToast;
-        });
+    _getContainer() {
+        return pgs(document).querySelector("notifications");
     },
 
-    show(type, options = {}, element = this._defaults.element) {
+    _getOrCreateContainer() {
+        let containerNotification = this._getContainer();
+
+        if (!containerNotification) {
+            containerNotification = document.createElement("div");
+            pgs(containerNotification).add("notifications");
+            containerNotification.setAttribute("aria-live", "polite");
+            containerNotification.setAttribute("aria-relevant", "additions");
+            document.body.appendChild(containerNotification);
+        }
+
+        return containerNotification;
+    },
+
+    show(type, options = {}) {
         if (typeof options === "string") options = { title: options };
 
         if (!options || typeof options !== "object" || Array.isArray(options)) {
@@ -1585,14 +1767,11 @@ const fn_notification = {
         const definedOptions = Object.fromEntries(
             Object.entries(options).filter(([, value]) => value !== undefined)
         );
-        const resolvedElement = definedOptions.element || element;
         const config = {
             ...defaults,
             ...typeDefaults[type],
             ...definedOptions,
-            type,
-            element: resolvedElement,
-            timeout: definedOptions.timeout ?? (resolvedElement === "toast" ? 4000 : defaults.timeout)
+            type
         };
 
         return this.initNotification(config);
@@ -1600,148 +1779,209 @@ const fn_notification = {
 
     initNotification({
         type,
-        element,
+        id,
         title,
         icon,
         description,
-        timeout,
-        link,
-        linkTitle,
+        buttons,
         closeTitle
     }) {
-        let containerNotification = this._getContainer(element);
-        const methodDelete = element === "toast" ? "replace" : "stack";
+        const containerNotification = this._getOrCreateContainer();
         const text = this._getContent(title, description);
-
-        //== Create Container
-        if (!containerNotification) {
-            const newContainer = document.createElement("div");
-            pgs(newContainer).add("notification");
-            if (element === "toast") pgs(newContainer).option.add("toast");
-            newContainer.setAttribute("aria-live", "polite");
-            newContainer.setAttribute("aria-relevant", "additions");
-            document.body.appendChild(newContainer);
-            containerNotification = newContainer;
-        }
+        const notificationId = id ?? `notification-${++this._uid}`;
 
         //== Create Notification
         const notification = document.createElement("div");
-        if (methodDelete == "replace") containerNotification.innerHTML = "";
-        if (timeout > 0) notification.style.setProperty("--notification-timeout", timeout + "ms");
+        notification.dataset.notificationId = notificationId;
         pgs(notification).state.add(type);
-        pgs(notification).add("notification-element");
+        pgs(notification).add("notifications-element");
         notification.setAttribute("role", type == "error" ? "alert" : "status");
         notification.innerHTML = `
-            <div pgs="notification-element-content">
-                <div pgs="notification-element-icon">${icon}</div>
+            <div pgs="notifications-element-content">
+                <div pgs="notifications-element-icon">${icon}</div>
                 <p>${text}</p>
             </div>
-            <div pgs="notification-element-buttons">
-                <button type="button" pgs="button notification-element-buttons-delete">${closeTitle}</button>
+            <div pgs="notifications-element-buttons">
+                <button type="button" pgs="button notifications-element-buttons-delete">${closeTitle}</button>
             </div>
         `;
 
-        const notificationButtons = pgs(notification).querySelector("notification-element-buttons");
-        const btnDelete = pgs(notification).querySelector("notification-element-buttons-delete");
+        const notificationButtons = pgs(notification).querySelector("notifications-element-buttons");
+        const btnDelete = pgs(notification).querySelector("notifications-element-buttons-delete");
         btnDelete.ariaLabel = closeTitle === "Close" ? "Close notification" : closeTitle;
 
-        if (link) {
-            const notificationLink = document.createElement("a");
-            notificationLink.href = link;
-            notificationLink.textContent = linkTitle;
-            pgs(notificationLink).add("button");
-            notificationButtons.insertAdjacentElement("afterbegin", notificationLink);
+        //+ Animation delete
+        function deleteNotification() {
+            notification.style.translate = "120%";
+            setTimeout(() => {
+                notification.dispatchEvent(new CustomEvent("pgs:notification:close", {
+                    bubbles: true,
+                    detail: { id: notificationId, type, title, description }
+                }));
+                notification.remove();
+                fn_notification._updateBellCounter();
+            }, 300);
         }
+
+        (buttons || []).forEach((button, index) => {
+            const buttonId = button.id ?? `${notificationId}-button-${index + 1}`;
+            const buttonElement = button.link ? document.createElement("a") : document.createElement("button");
+            if (button.link) buttonElement.href = button.link;
+            else buttonElement.type = "button";
+            buttonElement.textContent = button.title;
+            pgs(buttonElement).add("button");
+            if (button.optionButton) pgs(buttonElement).option.add(button.optionButton);
+
+            buttonElement.addEventListener("click", (e) => {
+                const proceed = buttonElement.dispatchEvent(new CustomEvent("pgs:notification:buttonClick", {
+                    bubbles: true,
+                    cancelable: true,
+                    detail: { id: notificationId, buttonId, type, title, description, link: button.link }
+                }));
+
+                if (button.link && !proceed) e.preventDefault();
+                if (button.close !== false) deleteNotification();
+            });
+
+            notificationButtons.insertBefore(buttonElement, btnDelete);
+        });
 
         containerNotification.appendChild(notification);
-
-
-        //+ Animation delete 
-        function deleteNotification() {
-            methodDelete == "stack" ? notification.style.translate = "120%" : notification.style.opacity = "0";
-            setTimeout(() => notification.remove(), 300);
-        }
-
-        //== Timeout delete
-        if (timeout > 0) setTimeout(() => { deleteNotification() }, timeout);
+        this._updateBellCounter();
 
         //== event
         btnDelete.addEventListener("click", function (e) {
             e.preventDefault();
             e.stopPropagation();
             e.stopImmediatePropagation()
-            deleteNotification(e); // Esegue la tua funzione
+            deleteNotification();
         });
     },
 
-    deleteAll(element = this._defaults.element) {
-        let containerNotification = this._getContainer(element);
-        if (containerNotification) containerNotification.innerHTML = "";
+    deleteAll() {
+        const containerNotification = this._getContainer();
+
+        if (containerNotification) {
+            const ids = Array.from(pgs(containerNotification).querySelectorAll("notifications-element"))
+                .map(element => element.dataset.notificationId);
+
+            containerNotification.innerHTML = "";
+            containerNotification.dispatchEvent(new CustomEvent("pgs:notification:deleteAll", {
+                bubbles: true,
+                detail: { ids }
+            }));
+        }
+
+        this._updateBellCounter();
     },
 
-    trigger(root = document) {
-        pgs(root).querySelectorAll("notificationTrigger").forEach(element => {
+    _updateBellCounter() {
+        const container = this._getContainer();
+        const count = container ? pgs(container).querySelectorAll("notifications-element").length : 0;
+
+        pgs(document).querySelectorAll("notificationBell-counter").forEach(counter => {
+            counter.textContent = count > 0 ? count : "";
+        });
+
+        if (!container) return;
+
+        let emptyMessage = pgs(container).querySelector("notifications-empty");
+
+        if (count === 0) {
+            if (!emptyMessage) {
+                emptyMessage = document.createElement("p");
+                pgs(emptyMessage).add("notifications-empty");
+                container.appendChild(emptyMessage);
+            }
+            emptyMessage.textContent = this._defaults.emptyMessage;
+        } else {
+            emptyMessage?.remove();
+        }
+    },
+
+    _dispatch(element) {
+        this._getData(element).forEach(notification => {
+            const title = String(notification.title || "").trim();
+            const description = String(notification.message || "").trim();
+            const closeTitle = String(notification["title-close"] || this._defaults.closeTitle).trim();
+
+            if (!title && !description) return;
+
+            const icon = notification.icon || undefined;
+            const id = notification.id || this._defaults.id;
+            const buttons = Array.isArray(notification.buttons) ? notification.buttons : this._defaults.buttons;
+            const type = this._getType(notification);
+
+            PGS_notification[type]({
+                title,
+                description,
+                icon,
+                buttons,
+                closeTitle,
+                id
+            });
+        });
+    },
+
+    load(root = document) {
+        pgs(root).querySelectorAll("notificationLoad").forEach(element => {
             if (!element || element.dataset.initialize === "true") return;
 
             element.dataset.initialize = "true";
-
-            this._getData(element).forEach(notification => {
-                const title = String(notification.title || "").trim();
-                const description = String(notification.message || "").trim();
-                const linkTitle = String(notification["title-link"] || this._defaults.linkTitle).trim();
-                const closeTitle = String(notification["title-close"] || this._defaults.closeTitle).trim();
-
-                if (!title && !description) return;
-
-                const link = notification.link || this._defaults.link;
-                const icon = notification.icon || undefined;
-                const duration = this._getDuration(notification);
-                const api = this._getApi(notification);
-                const type = this._getType(notification, api);
-
-                api[type]({
-                    title,
-                    description,
-                    timeout: duration,
-                    icon,
-                    link,
-                    linkTitle,
-                    closeTitle
-                });
-            });
-
+            this._dispatch(element);
             element.remove();
         });
+    },
+
+    //+ generates <dialog pgs-option="right"><div pgs="modal-dialog-content"><div pgs="notifications"></div></div></dialog>
+    //+ inside the modal wrapping notificationBell, then asks pgs.modal to (re)initialize it.
+    _ensureDialog(root = document) {
+        let created = false;
+
+        pgs(root).querySelectorAll("notificationBell").forEach(bell => {
+            const modalWrapper = bell.closest("[pgs~='modal']");
+            if (!modalWrapper || modalWrapper.querySelector("dialog")) return;
+
+            const dialog = document.createElement("dialog");
+            pgs(dialog).option.add("right");
+
+            const content = document.createElement("div");
+            pgs(content).add("modal-dialog-content");
+
+            const list = document.createElement("div");
+            pgs(list).add("notifications");
+
+            content.appendChild(list);
+            dialog.appendChild(content);
+            modalWrapper.appendChild(dialog);
+            created = true;
+        });
+
+        if (created) globalThis.pgs?.modal?.init(document);
     }
 };
 
 //# TRIGGER
-function PGS_notificationTrigger_init(root = document) {
-    return fn_notification.trigger(root);
+//+ opening/closing the panel is handled entirely by the modal wrapping notificationBell + the dialog; see reference markup.
+function PGS_notificationLoad_init(root = document) {
+    fn_notification._ensureDialog(root);
+    fn_notification.load(root);
+    fn_notification._updateBellCounter();
 }
 
 const PGS_notification = {
-    init: PGS_notificationTrigger_init,
-    trigger: PGS_notificationTrigger_init,
-    alert: {
-        error: (options = {}) => fn_notification.show("error", options),
-        success: (options = {}) => fn_notification.show("success", options),
-        info: (options = {}) => fn_notification.show("info", options),
-        warning: (options = {}) => fn_notification.show("warning", options),
-        deleteAll: () => fn_notification.deleteAll()
-    },
-    toast: {
-        error: (options = {}) => fn_notification.show("error", options, "toast"),
-        success: (options = {}) => fn_notification.show("success", options, "toast"),
-        info: (options = {}) => fn_notification.show("info", options, "toast"),
-        warning: (options = {}) => fn_notification.show("warning", options, "toast"),
-        deleteAll: () => fn_notification.deleteAll("toast")
-    }
+    init: PGS_notificationLoad_init,
+    trigger: PGS_notificationLoad_init,
+    error: (options = {}) => fn_notification.show("error", options),
+    success: (options = {}) => fn_notification.show("success", options),
+    info: (options = {}) => fn_notification.show("info", options),
+    warning: (options = {}) => fn_notification.show("warning", options),
+    deleteAll: () => fn_notification.deleteAll()
 };
 
 
 //= EXECUTE
-(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(PGS_notificationTrigger_init);
+(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(PGS_notificationLoad_init);
 
 
 /***/ },
@@ -2829,6 +3069,281 @@ const PGS_summary = {
 
 /***/ },
 
+/***/ "./assets/javascript/components/_toast.js"
+/*!************************************************!*\
+  !*** ./assets/javascript/components/_toast.js ***!
+  \************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_toast: () => (/* binding */ PGS_toast)
+/* harmony export */ });
+/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+
+
+//= PGS_toast
+const fn_toast = {
+    _defaults: {
+        element: "toast",
+        link: null,
+        timeout: 4000,
+        description: "",
+        linkTitle: "Open",
+        closeTitle: "Close",
+        type: {
+            error: {
+                title: "Error",
+                icon: '<i class="fa-solid fa-circle-xmark"></i>'
+            },
+            success: {
+                title: "Success",
+                icon: '<i class="fa-solid fa-circle-check"></i>'
+            },
+            info: {
+                title: "Information",
+                icon: '<i class="fa-solid fa-circle-info"></i>'
+            },
+            warning: {
+                title: "Warning",
+                icon: '<i class="fa-solid fa-triangle-exclamation"></i>'
+            }
+        }
+    },
+
+    _escapeHtml(value) {
+        return String(value ?? "")
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+    },
+
+    _formatText(value) {
+        return this._escapeHtml(value)
+            .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+            .replace(/\r?\n/g, "<br>");
+    },
+
+    _getDuration(toast) {
+        const rawDuration = toast.duration;
+        const duration = Number.parseInt(rawDuration, 10);
+        return Number.isNaN(duration) ? undefined : duration;
+    },
+
+    _getType(toast) {
+        const type = String(toast.type || "info").trim();
+        return typeof PGS_toast[type] === "function" ? type : "info";
+    },
+
+    _getData(root) {
+        const rawToast = pgs(root).option.getValueBrackets("toast") || "{}";
+
+        try {
+            const toasts = JSON.parse(`[${rawToast}]`);
+
+            if (toasts.some(toast => !toast || typeof toast !== "object" || Array.isArray(toast))) {
+                throw new TypeError("Each toast must be a JSON object");
+            }
+
+            return toasts;
+        } catch (error) {
+            console.warn("PGS toast: Invalid JSON configuration", error);
+            return [];
+        }
+    },
+
+    _getContent(title, description) {
+        const safeDescription = this._formatText(description);
+        const safeTitle = this._formatText(title);
+
+        if (!safeTitle) return `<span>${safeDescription}</span>`;
+        if (!safeDescription) return `<strong>${safeTitle}</strong>`;
+
+        return `
+            <strong>${safeTitle}</strong>
+            <span>${safeDescription}</span>
+        `;
+    },
+
+    _getContainer() {
+        return pgs(document).querySelector("toast");
+    },
+
+    _getOrCreateContainer() {
+        let containerToast = this._getContainer();
+
+        if (!containerToast) {
+            containerToast = document.createElement("div");
+            pgs(containerToast).add("toast");
+            containerToast.setAttribute("aria-live", "polite");
+            containerToast.setAttribute("aria-relevant", "additions");
+            document.body.appendChild(containerToast);
+        }
+
+        return containerToast;
+    },
+
+    show(type, options = {}) {
+        if (typeof options === "string") options = { title: options };
+
+        if (!options || typeof options !== "object" || Array.isArray(options)) {
+            throw new TypeError("PGS toast: options must be an object or a string");
+        }
+
+        const { type: typeDefaults, ...defaults } = this._defaults;
+        const definedOptions = Object.fromEntries(
+            Object.entries(options).filter(([, value]) => value !== undefined)
+        );
+        const config = {
+            ...defaults,
+            ...typeDefaults[type],
+            ...definedOptions,
+            type,
+            timeout: definedOptions.timeout ?? defaults.timeout
+        };
+
+        return this.initToast(config);
+    },
+
+    initToast({
+        type,
+        title,
+        icon,
+        description,
+        timeout,
+        link,
+        linkTitle,
+        closeTitle
+    }) {
+        const containerToast = this._getOrCreateContainer();
+        const text = this._getContent(title, description);
+
+        //== Create Toast
+        containerToast.innerHTML = "";
+        const toast = document.createElement("div");
+        if (timeout > 0) toast.style.setProperty("--notification-timeout", timeout + "ms");
+        pgs(toast).state.add(type);
+        pgs(toast).add("toast-element");
+        toast.setAttribute("role", type == "error" ? "alert" : "status");
+        toast.innerHTML = `
+            <div pgs="toast-element-content">
+                <div pgs="toast-element-icon">${icon}</div>
+                <p>${text}</p>
+            </div>
+            <div pgs="toast-element-buttons">
+                <button type="button" pgs="button toast-element-buttons-delete">${closeTitle}</button>
+            </div>
+        `;
+
+        const toastButtons = pgs(toast).querySelector("toast-element-buttons");
+        const btnDelete = pgs(toast).querySelector("toast-element-buttons-delete");
+        btnDelete.ariaLabel = closeTitle === "Close" ? "Close notification" : closeTitle;
+
+        if (link) {
+            const toastLink = document.createElement("a");
+            toastLink.href = link;
+            toastLink.textContent = linkTitle;
+            pgs(toastLink).add("button");
+            toastButtons.insertAdjacentElement("afterbegin", toastLink);
+        }
+
+        containerToast.appendChild(toast);
+
+        //+ Animation delete
+        function deleteToast() {
+            toast.style.opacity = "0";
+            setTimeout(() => toast.remove(), 300);
+        }
+
+        //== Timeout delete
+        if (timeout > 0) setTimeout(() => { deleteToast() }, timeout);
+
+        //== event
+        btnDelete.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation()
+            deleteToast(e);
+        });
+    },
+
+    deleteAll() {
+        const containerToast = this._getContainer();
+        if (containerToast) containerToast.innerHTML = "";
+    },
+
+    _dispatch(element) {
+        this._getData(element).forEach(toast => {
+            const title = String(toast.title || "").trim();
+            const description = String(toast.message || "").trim();
+            const linkTitle = String(toast["title-link"] || this._defaults.linkTitle).trim();
+            const closeTitle = String(toast["title-close"] || this._defaults.closeTitle).trim();
+
+            if (!title && !description) return;
+
+            const link = toast.link || this._defaults.link;
+            const icon = toast.icon || undefined;
+            const duration = this._getDuration(toast);
+            const type = this._getType(toast);
+
+            PGS_toast[type]({
+                title,
+                description,
+                timeout: duration,
+                icon,
+                link,
+                linkTitle,
+                closeTitle
+            });
+        });
+    },
+
+    trigger(root = document) {
+        pgs(root).querySelectorAll("toastLoad").forEach(element => {
+            if (!element || element.dataset.initialize === "true") return;
+
+            element.dataset.initialize = "true";
+            this._dispatch(element);
+            element.remove();
+        });
+    },
+
+    execute(root = document) {
+        pgs(root).querySelectorAll("toastExe").forEach(element => {
+            if (!element || element.dataset.initialize === "true") return;
+
+            element.dataset.initialize = "true";
+            element.addEventListener("click", () => this._dispatch(element));
+        });
+    }
+};
+
+//# TRIGGER
+function PGS_toastLoad_init(root = document) {
+    fn_toast.trigger(root);
+    fn_toast.execute(root);
+}
+
+const PGS_toast = {
+    init: PGS_toastLoad_init,
+    trigger: PGS_toastLoad_init,
+    error: (options = {}) => fn_toast.show("error", options),
+    success: (options = {}) => fn_toast.show("success", options),
+    info: (options = {}) => fn_toast.show("info", options),
+    warning: (options = {}) => fn_toast.show("warning", options),
+    deleteAll: () => fn_toast.deleteAll()
+};
+
+
+//= EXECUTE
+(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(PGS_toastLoad_init);
+
+
+/***/ },
+
 /***/ "./assets/javascript/helper/_formValidate.js"
 /*!***************************************************!*\
   !*** ./assets/javascript/helper/_formValidate.js ***!
@@ -2841,7 +3356,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_formValidate: () => (/* binding */ PGS_formValidate)
 /* harmony export */ });
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
-/* harmony import */ var _components_notifications_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_notifications.js */ "./assets/javascript/components/_notifications.js");
+/* harmony import */ var _components_toast_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_toast.js */ "./assets/javascript/components/_toast.js");
 /* harmony import */ var _components_alerts_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/_alerts.js */ "./assets/javascript/components/_alerts.js");
 
 
@@ -3112,7 +3627,7 @@ class PGS_formValidate {
                 container: this.alertContainer
             });
         } else {
-            _components_notifications_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.toast.error({
+            _components_toast_js__WEBPACK_IMPORTED_MODULE_1__.PGS_toast.error({
                 title: title,
                 description: description
             });
@@ -3137,7 +3652,7 @@ class PGS_formValidate {
                     container: this.alertContainer
                 });
             } else {
-                _components_notifications_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.toast.success({
+                _components_toast_js__WEBPACK_IMPORTED_MODULE_1__.PGS_toast.success({
                     title,
                     description
                 });
@@ -3572,10 +4087,44 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const STORAGE_KEY = 'pgs_cookie_preferences_v1';
-const focusableSelectors = 'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
 const INITIALIZED_COOKIE_CONSENTS = new WeakSet();
 
-//+ 
+const DEFAULTS = {
+    titleIntro: "Cookies and privacy",
+    titleHeading: "Your privacy comes first",
+    description: "We use essential cookies to provide the service and, with your consent, analytics cookies from **Google Analytics** to measure traffic anonymously and improve our content.\nYou can change your choice at any time.",
+    privacyPolicyUrl: "/privacy-policy/",
+    cookiePolicyUrl: "/cookie-policy/",
+    panelAriaLabel: "Cookie preferences",
+    essentialTitle: "Essential cookies",
+    essentialDescription: "Always active to ensure the website works correctly.",
+    essentialBadge: "Active",
+    analyticsTitle: "Analytics",
+    analyticsDescription: "Browsing data collected in aggregate form for anonymous statistics.",
+    analyticsAriaLabel: "Enable Google Analytics",
+    titleReject: "Selected only",
+    titleAccept: "Accept all",
+    gaId: ""
+};
+
+//+
+function escapeHtml(value) {
+    return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+//+
+function formatText(value) {
+    return escapeHtml(value)
+        .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+        .replace(/\r?\n/g, "<br>");
+}
+
+//+
 function safeJsonParse(value) {
     try {
         return value ? JSON.parse(value) : null;
@@ -3585,7 +4134,7 @@ function safeJsonParse(value) {
     }
 }
 
-//+ 
+//+
 function readPreferences() {
     try {
         return safeJsonParse(localStorage.getItem(STORAGE_KEY));
@@ -3594,7 +4143,7 @@ function readPreferences() {
     }
 }
 
-//+ 
+//+
 function savePreferences(prefs) {
     try {
         localStorage.setItem(
@@ -3606,7 +4155,7 @@ function savePreferences(prefs) {
     }
 }
 
-//+ 
+//+
 function bootstrapGtag() {
     window.dataLayer = window.dataLayer || [];
     window.gtag = window.gtag || function gtag() {
@@ -3614,7 +4163,7 @@ function bootstrapGtag() {
     };
 }
 
-//+ 
+//+
 function loadGoogleAnalytics(measurementId) {
     if (!measurementId || window.__PGS_gaLoaded) return;
     window.__PGS_gaLoaded = true;
@@ -3631,7 +4180,7 @@ function loadGoogleAnalytics(measurementId) {
     });
 }
 
-//+ 
+//+
 function applyAnalyticsConsent({ allowAnalytics, measurementId }) {
     bootstrapGtag();
     if (allowAnalytics) {
@@ -3654,6 +4203,75 @@ function setPgsFlag(element, token, enabled) {
     }
 }
 
+//+ reads the JSON config off the marker element and builds the whole modal + dialog + content from it,
+//+ so the consuming site never has to hand-author the banner markup — see @pgs-option "cookieConsent".
+function buildCookieConsent(marker) {
+    const config = { ...DEFAULTS, ...(safeJsonParse(pgs(marker).option.getValueBrackets('cookieConsent') || '{}') || {}) };
+
+    const root = document.createElement('div');
+    pgs(root).add('modal', 'cookieConsent');
+
+    root.innerHTML = `
+        <dialog pgs-option="topLevel">
+            <div pgs="modal-dialog-content">
+                <div pgs="flexColumn">
+                    <p><i class="fa-duotone fa-solid fa-cookie-bite"></i> ${formatText(config.titleIntro)} <br></p>
+                    <h2>${formatText(config.titleHeading)}</h2>
+
+                    <p>${formatText(config.description)}</p>
+
+                    <p>
+                        <a href="${escapeHtml(config.privacyPolicyUrl)}" target="_blank" rel="noopener">Privacy Policy</a> -
+                        <a href="${escapeHtml(config.cookiePolicyUrl)}" target="_blank" rel="noopener">Cookie Policy</a>
+                    </p>
+                </div>
+
+                <div pgs="cookieConsent-panel flexColumn" role="group" aria-label="${escapeHtml(config.panelAriaLabel)}">
+                    <div pgs="flexRow nowrap cookieConsent-panel-featureEssential">
+                        <div>
+                            <p>
+                                <strong>${formatText(config.essentialTitle)}</strong>
+                                <br>
+                                <small>${formatText(config.essentialDescription)}</small>
+                            </p>
+                        </div>
+
+                        <span pgs="cookieConsent-panel-badge badge" pgs-option="badgeSuccess">${formatText(config.essentialBadge)}</span>
+                    </div>
+
+                    <div pgs="flexRow cookieConsent-panel-featureAnalytics">
+                        <label pgs="toggle">
+                            <p>
+                                <strong>${formatText(config.analyticsTitle)}</strong>
+                                <br>
+                                <small>${formatText(config.analyticsDescription)}</small>
+                            </p>
+
+                            <input type="checkbox" pgs="cookieConsent-panel-toggleAnalytics" aria-label="${escapeHtml(config.analyticsAriaLabel)}">
+                        </label>
+                    </div>
+                    <div pgs="flexRow">
+                        <button type="button" pgs="button cookieConsent-actionReject">
+                            <i class="fa-solid fa-duotone fa-sliders"></i> ${formatText(config.titleReject)}
+                        </button>
+    
+                        <button type="button" pgs="button cookieConsent-actionAccept" pgs-option="buttonStrong">
+                            <i class="fa-solid fa-check"></i> ${formatText(config.titleAccept)}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </dialog>
+    `;
+
+    root.id = marker.id || 'cookieConsent';
+    root.dataset.gaId = config.gaId;
+    document.body.appendChild(root);
+    marker.remove();
+
+    return root;
+}
+
 //+
 function assignCookieRuntimeAttributes({ root, analyticsToggle, acceptAllButton, rejectButton, openButtons }) {
     root.dataset.cookieComponent = 'consent';
@@ -3661,8 +4279,8 @@ function assignCookieRuntimeAttributes({ root, analyticsToggle, acceptAllButton,
     acceptAllButton?.setAttribute('data-cookie-action', 'accept');
     rejectButton?.setAttribute('data-cookie-action', 'reject');
 
-    root.querySelector('[pgs~="cookieConsent-featureEssential"]')?.setAttribute('data-cookie-feature', 'essential');
-    root.querySelector('[pgs~="cookieConsent-featureAnalytics"]')?.setAttribute('data-cookie-feature', 'analytics');
+    root.querySelector('[pgs~="cookieConsent-panel-featureEssential"]')?.setAttribute('data-cookie-feature', 'essential');
+    root.querySelector('[pgs~="cookieConsent-panel-featureAnalytics"]')?.setAttribute('data-cookie-feature', 'analytics');
 
     openButtons.forEach((button) => {
         button.setAttribute('data-cookie-action', 'open');
@@ -3670,20 +4288,28 @@ function assignCookieRuntimeAttributes({ root, analyticsToggle, acceptAllButton,
 }
 
 //= CookieConsent
+//+ open/close, backdrop, focus trap, ESC-to-close, and focus restore are all handled by the native <dialog>
+//+ through pgs.modal; this pattern only owns the JSON-driven markup generation and the consent business logic.
 function initCookieConsent(selectRoot = document) {
-    const root = selectRoot instanceof Element && pgs(selectRoot).contains('cookieConsent')
+    const marker = selectRoot instanceof Element && pgs(selectRoot).contains('cookieConsent')
         ? selectRoot
         : pgs(selectRoot).querySelector('cookieConsent');
-    if (!root || INITIALIZED_COOKIE_CONSENTS.has(root)) return;
-    INITIALIZED_COOKIE_CONSENTS.add(root);
+    if (!marker || INITIALIZED_COOKIE_CONSENTS.has(marker)) return;
+    INITIALIZED_COOKIE_CONSENTS.add(marker);
 
-    const analyticsToggle = root.querySelector('[pgs~="cookieConsent-toggleAnalytics"]');
+    const root = buildCookieConsent(marker);
+
+    //+ initializes the modal here too (idempotent) so this doesn't depend on pgs.registerModules() order.
+    globalThis.pgs?.modal?.init(root);
+    const modal = globalThis.pgs?.modal?.api(root);
+    if (!modal) return;
+
+    const analyticsToggle = root.querySelector('[pgs~="cookieConsent-panel-toggleAnalytics"]');
     const acceptAllButton = root.querySelector('[pgs~="cookieConsent-actionAccept"]');
     const rejectButton = root.querySelector('[pgs~="cookieConsent-actionReject"]');
     const openButtons = document.querySelectorAll('[pgs~="cookieConsent-actionOpen"]');
     const measurementId = (root.dataset.gaId || '').trim();
     const prefersGa = measurementId.length > 0;
-    let lastFocusedElement = null;
 
     assignCookieRuntimeAttributes({ root, analyticsToggle, acceptAllButton, rejectButton, openButtons });
 
@@ -3700,28 +4326,6 @@ function initCookieConsent(selectRoot = document) {
     bootstrapGtag();
     window.gtag('consent', 'default', { analytics_storage: 'denied' });
 
-    function setBannerVisibility(show) {
-        root.hidden = !show;
-        root.setAttribute('aria-hidden', String(!show));
-        document.body.classList.toggle('cookieConsent-open', show);
-        if (show) {
-            lastFocusedElement = document.activeElement;
-            setTimeout(() => {
-                root.focus();
-            }, 0);
-        } else if (lastFocusedElement instanceof HTMLElement) {
-            lastFocusedElement.focus({ preventScroll: true });
-        }
-    }
-
-    function closeBanner() {
-        setBannerVisibility(false);
-    }
-
-    function openBanner() {
-        setBannerVisibility(true);
-    }
-
     function persistAndApply(allowAnalytics) {
         savePreferences({ analytics: allowAnalytics });
         setPgsFlag(root, 'cookieConsent-accepted', !!allowAnalytics);
@@ -3732,14 +4336,14 @@ function initCookieConsent(selectRoot = document) {
     acceptAllButton?.addEventListener('click', () => {
         if (analyticsToggle && prefersGa) analyticsToggle.checked = true;
         persistAndApply(!!prefersGa);
-        closeBanner();
+        modal.close();
     });
 
     rejectButton?.addEventListener('click', () => {
         const allowAnalytics = analyticsToggle ? analyticsToggle.checked && prefersGa : false;
         if (!allowAnalytics && analyticsToggle) analyticsToggle.checked = false;
         persistAndApply(allowAnalytics);
-        closeBanner();
+        modal.close();
     });
 
     analyticsToggle?.addEventListener('change', (event) => {
@@ -3748,30 +4352,10 @@ function initCookieConsent(selectRoot = document) {
         }
     });
 
-    root.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') {
-            event.preventDefault();
-            closeBanner();
-        } else if (event.key === 'Tab') {
-            const focusables = root.querySelectorAll(focusableSelectors);
-            if (focusables.length === 0) return;
-            const first = focusables[0];
-            const last = focusables[focusables.length - 1];
-            if (!event.shiftKey && document.activeElement === last) {
-                event.preventDefault();
-                first.focus();
-            }
-            if (event.shiftKey && document.activeElement === first) {
-                event.preventDefault();
-                last.focus();
-            }
-        }
-    });
-
     openButtons.forEach((button) => {
         button.addEventListener('click', (event) => {
             event.preventDefault();
-            openBanner();
+            modal.open();
         });
     });
 
@@ -3779,9 +4363,8 @@ function initCookieConsent(selectRoot = document) {
     if (savedPrefs && typeof savedPrefs.analytics === 'boolean') {
         if (analyticsToggle) analyticsToggle.checked = !!savedPrefs.analytics && prefersGa;
         persistAndApply(savedPrefs.analytics && prefersGa);
-        closeBanner();
     } else {
-        setBannerVisibility(true);
+        modal.open();
     }
 }
 
@@ -3910,9 +4493,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
 /* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
 /* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
-/* harmony import */ var _components_notifications_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/_notifications.js */ "./assets/javascript/components/_notifications.js");
-/* harmony import */ var _imports_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./_imports.js */ "./assets/javascript/_imports.js");
-/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
+/* harmony import */ var _components_toast_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/_toast.js */ "./assets/javascript/components/_toast.js");
+/* harmony import */ var _components_notification_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/_notification.js */ "./assets/javascript/components/_notification.js");
+/* harmony import */ var _components_legacyNotification_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/_legacyNotification.js */ "./assets/javascript/components/_legacyNotification.js");
+/* harmony import */ var _imports_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./_imports.js */ "./assets/javascript/_imports.js");
+/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
 //= PGS
 
 
@@ -3926,6 +4511,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 //= COMPONENTS
+
+
 
 
 

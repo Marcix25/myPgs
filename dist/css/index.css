@@ -5496,34 +5496,174 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   --alert-background: var(--color-error-background);
 }
 
-[pgs~=notification] {
+[pgs~=notificationBell] {
+  position: relative;
+}
+
+[pgs~=notificationBell] [pgs~=notificationBell-counter] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  min-width: 20px;
+  aspect-ratio: 1;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-error-background);
+  background: var(--color-error);
+  border-radius: 50%;
+  position: absolute;
+  right: -5px;
+  top: -5px;
+}
+
+[pgs~=notificationBell] [pgs~=notificationBell-counter]:empty {
+  display: none;
+}
+
+[pgs~=notifications] {
   --notification-background: var(--color-box);
-  --notification-background-timer: color-mix(in srgb, var(--color-box) 95%, var(--color-black) 5%);
   --notification-color: unset;
   --notification-shadow-color: unset;
-  --notification-shadow-perc: 0px 0px 100px 0px;
-  --notification-timeout: unset;
   display: flex;
   flex-direction: column;
   gap: var(--gap-texts);
-  height: min-content;
-  position: fixed;
-  z-index: 99;
-  isolation: isolate;
-  max-height: 80vh;
+  scrollbar-color: var(--color-black) transparent;
+  --modal-padding: 10px;
 }
 
-[pgs~=notification] [pgs~=notification-element] {
+[pgs~=notifications]::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+[pgs~=notifications] [pgs~=notifications-empty] {
+  margin: 0;
+  padding: var(--padding-2);
+  color: var(--color-white);
+  border-radius: var(--border-radius-input);
+  font-size: small;
+  text-align: center;
+  background-color: var(--color-black-transparent);
+}
+
+[pgs~=notifications] [pgs~=notifications-element] {
+  display: flex;
+  background: var(--notification-background);
+  flex-direction: column;
+  opacity: 1;
+  font-weight: 600;
+  overflow: hidden;
+  align-items: stretch;
+  border-radius: var(--border-radius-input);
+  width: 100%;
+  height: max-content;
+  flex-shrink: 0;
+  position: relative;
+  border: var(--border-complete);
+}
+
+[pgs~=notifications] [pgs~=notifications-element] [pgs~=notifications-element-content] {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: var(--padding-2);
+  min-width: 0;
+  z-index: 1;
+  padding: var(--padding-2);
+}
+
+[pgs~=notifications] [pgs~=notifications-element] [pgs~=notifications-element-content] [pgs~=notifications-element-icon] {
+  --fa-primary-color: var(--notification-shadow-color);
+  --fa-secondary-color: color-mix(in srgb, var(--notification-shadow-color) 50%, var(--color-white) 50%);
+  --fa-size: 3.5rem;
+  flex: 0 0 auto;
+  color: var(--notification-shadow-color);
+}
+
+[pgs~=notifications] [pgs~=notifications-element] [pgs~=notifications-element-content] p {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: calc(var(--gap-texts) / 2);
+  margin: 0;
+  color: var(--notification-color);
+  line-height: unset;
+}
+
+[pgs~=notifications] [pgs~=notifications-element] [pgs~=notifications-element-content] p span {
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+[pgs~=notifications] [pgs~=notifications-element] [pgs~=notifications-element-buttons] {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: var(--gap-texts);
+  z-index: 1;
+  flex-wrap: wrap;
+  padding: var(--padding-2);
+  background-color: light-dark(rgba(242, 242, 242, 0.5294117647), rgba(12, 12, 12, 0.4941176471));
+}
+
+[pgs~=notifications] [pgs~=notifications-element] [pgs~=notifications-element-buttons] :is(a, button, input) {
+  --button-size: .7rem;
+  --hover-shadow-color: unset;
+  --hover-background: var(--color-white);
+  --hover-color: var(--color-black);
+  flex: 1;
+  justify-content: center;
+  font-size: small;
+  min-width: max-content;
+}
+
+[pgs~=notifications] [pgs-state~=success] {
+  --notification-background: var(--color-success-background);
+  --notification-shadow-color: var(--color-success);
+}
+
+[pgs~=notifications] [pgs-state~=error] {
+  --notification-background: var(--color-error-background);
+  --notification-shadow-color: var(--color-error);
+}
+
+[pgs~=notifications] [pgs-state~=warning] {
+  --notification-background: var(--color-warning-background);
+  --notification-shadow-color: var(--color-warning);
+}
+
+[pgs~=notifications] [pgs-state~=info] {
+  --notification-background: var(--color-box);
+}
+
+[pgs~=toast] {
+  --toast-background: var(--color-box);
+  --toast-background-timer: color-mix(in srgb, var(--color-box) 95%, var(--color-black) 5%);
+  --toast-color: unset;
+  --toast-shadow-color: unset;
+  --notification-timeout: unset;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  z-index: 98;
+  isolation: isolate;
+  inset-inline: 0;
+  top: calc(var(--heightOfHeaderScroll) + 1rem);
+}
+
+[pgs~=toast] [pgs~=toast-element] {
   display: flex;
   gap: var(--padding-2);
-  background: var(--notification-background);
+  background: var(--toast-background);
   flex-direction: column;
   opacity: 1;
   font-weight: 600;
   overflow: hidden;
   transition: all 280ms;
   align-items: stretch;
-  box-shadow: var(--notification-shadow-perc) var(--notification-shadow-color);
+  box-shadow: 0px 0px 100px 0px var(--toast-shadow-color);
   border-radius: var(--border-radius-input);
   max-width: 90vw;
   min-width: min(200px, 50vw);
@@ -5534,11 +5674,11 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
 }
 
 @media (max-width: 430px) {
-  [pgs~=notification] [pgs~=notification-element] {
+  [pgs~=toast] [pgs~=toast-element] {
     padding: calc(var(--padding) / 1.5);
   }
 }
-[pgs~=notification] [pgs~=notification-element] [pgs~=notification-element-content] {
+[pgs~=toast] [pgs~=toast-element] [pgs~=toast-element-content] {
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -5547,30 +5687,30 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   z-index: 1;
 }
 
-[pgs~=notification] [pgs~=notification-element] [pgs~=notification-element-content] [pgs~=notification-element-icon] {
-  --fa-primary-color: var(--notification-shadow-color);
-  --fa-secondary-color: color-mix(in srgb, var(--notification-shadow-color) 50%, var(--color-white) 50%);
+[pgs~=toast] [pgs~=toast-element] [pgs~=toast-element-content] [pgs~=toast-element-icon] {
+  --fa-primary-color: var(--toast-shadow-color);
+  --fa-secondary-color: color-mix(in srgb, var(--toast-shadow-color) 50%, var(--color-white) 50%);
   --fa-size: 3.5rem;
   flex: 0 0 auto;
-  color: var(--notification-shadow-color);
+  color: var(--toast-shadow-color);
 }
 
-[pgs~=notification] [pgs~=notification-element] [pgs~=notification-element-content] p {
+[pgs~=toast] [pgs~=toast-element] [pgs~=toast-element-content] p {
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
   gap: calc(var(--gap-texts) / 2);
   margin: 0;
-  color: var(--notification-color);
+  color: var(--toast-color);
   line-height: unset;
 }
 
-[pgs~=notification] [pgs~=notification-element] [pgs~=notification-element-content] p span {
+[pgs~=toast] [pgs~=toast-element] [pgs~=toast-element-content] p span {
   font-size: 1.4rem;
   font-weight: 400;
 }
 
-[pgs~=notification] [pgs~=notification-element] [pgs~=notification-element-buttons] {
+[pgs~=toast] [pgs~=toast-element] [pgs~=toast-element-buttons] {
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -5579,7 +5719,7 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   flex-wrap: wrap;
 }
 
-[pgs~=notification] [pgs~=notification-element] [pgs~=notification-element-buttons] :is(a, button, input) {
+[pgs~=toast] [pgs~=toast-element] [pgs~=toast-element-buttons] :is(a, button, input) {
   --button-size: .7rem;
   --hover-shadow-color: unset;
   --hover-background: var(--color-white);
@@ -5589,20 +5729,20 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   font-size: small;
 }
 
-[pgs~=notification] [pgs~=notification-element]::before {
+[pgs~=toast] [pgs~=toast-element]::before {
   content: "";
   width: 0%;
   height: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  background-color: var(--notification-background-timer);
+  background-color: var(--toast-background-timer);
   border-top-left-radius: var(--border-radius-input);
   border-bottom-left-radius: var(--border-radius-input);
-  animation: timeline var(--notification-timeout) linear;
+  animation: toast-timeline var(--notification-timeout) linear;
 }
 
-@keyframes timeline {
+@keyframes toast-timeline {
   0% {
     width: 100%;
     opacity: 0;
@@ -5618,38 +5758,26 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
     opacity: 0;
   }
 }
-[pgs~=notification] [pgs-state~=success] {
-  --notification-background: var(--color-success-background);
-  --notification-background-timer: color-mix(in srgb, var(--color-success-background) 70%, var(--color-white) 30%);
-  --notification-shadow-color: var(--color-success);
+[pgs~=toast] [pgs-state~=success] {
+  --toast-background: var(--color-success-background);
+  --toast-background-timer: color-mix(in srgb, var(--color-success-background) 70%, var(--color-white) 30%);
+  --toast-shadow-color: var(--color-success);
 }
 
-[pgs~=notification] [pgs-state~=error] {
-  --notification-background: var(--color-error-background);
-  --notification-background-timer: color-mix(in srgb, var(--color-error-background) 70%, var(--color-white) 30%);
-  --notification-shadow-color: var(--color-error);
+[pgs~=toast] [pgs-state~=error] {
+  --toast-background: var(--color-error-background);
+  --toast-background-timer: color-mix(in srgb, var(--color-error-background) 70%, var(--color-white) 30%);
+  --toast-shadow-color: var(--color-error);
 }
 
-[pgs~=notification] [pgs-state~=warning] {
-  --notification-background: var(--color-warning-background);
-  --notification-background-timer: color-mix(in srgb, var(--color-warning-background) 70%, var(--color-white) 30%);
-  --notification-shadow-color: var(--color-warning);
+[pgs~=toast] [pgs-state~=warning] {
+  --toast-background: var(--color-warning-background);
+  --toast-background-timer: color-mix(in srgb, var(--color-warning-background) 70%, var(--color-white) 30%);
+  --toast-shadow-color: var(--color-warning);
 }
 
-[pgs~=notification] [pgs-state~=info] {
-  --notification-background: var(--color-box);
-}
-
-[pgs~=notification]:not([pgs-option~=toast]) {
-  top: calc(var(--heightOfHeaderScroll) + 1rem);
-  --notification-shadow-perc: unset;
-  right: 1rem;
-}
-
-[pgs~=notification][pgs-option~=toast] {
-  inset-inline: 0;
-  align-items: center;
-  top: calc(var(--heightOfHeaderScroll) + 1rem);
+[pgs~=toast] [pgs-state~=info] {
+  --toast-background: var(--color-box);
 }
 
 [pgs~=tooltip][pgs~=dropdown] {
@@ -5882,19 +6010,9 @@ dialog [pgs~=search] [pgs~=modal-close] {
   --cookie-bg: var(--color-box);
   --cookie-color: var(--color-black);
   --cookie-border: var(--border-complete);
-  position: fixed;
-  inset: auto 24px 24px auto;
-  width: min(480px, 100vw - 32px);
-  z-index: 999;
-  padding: var(--padding-2, 2rem);
-  border-radius: var(--border-radius, 16px);
-  border: var(--cookie-border);
-  background: var(--cookie-bg);
-  color: var(--cookie-color);
-  box-shadow: 0 25px 55px rgba(14, 32, 58, 0.25);
   display: flex;
   flex-direction: column;
-  gap: var(--gap-section, 1.25rem);
+  gap: var(--gap-);
   transition: transform 0.35s ease, opacity 0.35s ease;
 }
 
@@ -5954,28 +6072,31 @@ dialog [pgs~=search] [pgs~=modal-close] {
   align-items: center;
 }
 
+[pgs~=cookieConsent] [pgs~=modal-close] {
+  display: none;
+}
+
 [pgs~=cookieConsent] [pgs~=cookieConsent-panel] {
   border: var(--border-complete);
-  border-radius: var(--border-radius-input, 16px);
-  padding: var(--padding-2, 1.5rem);
+  border-radius: calc(var(--modal-borderRadius) - var(--gap-texts));
   background-color: var(--color-primary-soft, rgba(0, 0, 0, 0.02));
-  margin-top: var(--gap-texts);
+  margin-inline: var(--gap-texts);
+  margin-bottom: var(--gap-texts);
 }
 
 [pgs~=cookieConsent] [pgs~=cookieConsent-panel] [pgs~=cookieConsent-panel-badge] {
   font-size: 1.35rem;
-  border-radius: 99px;
-  padding: 0.25rem 0.75rem;
-  background: var(--color-success-background);
-  color: var(--color-success);
-  font-weight: 600;
   overflow-wrap: normal;
   width: max-content;
   height: max-content;
   margin-left: auto;
 }
 
-[pgs~=cookieConsent][pgs~=cookieConsent-gaUnavailable] [pgs~=cookieConsent-featureAnalytics] label {
+[pgs~=cookieConsent] [pgs~=cookieConsent-panel-featureAnalytics] label {
+  width: 100%;
+}
+
+[pgs~=cookieConsent][pgs~=cookieConsent-gaUnavailable] [pgs~=cookieConsent-panel-featureAnalytics] label {
   opacity: 0.5;
   cursor: not-allowed;
 }
