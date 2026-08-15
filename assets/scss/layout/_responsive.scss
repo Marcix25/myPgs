@@ -15,7 +15,6 @@
 //== COLUMN
 [pgs~=flexColumn],
 [pgs~=flexRow] {
-    
     @for $i from 2 through 8 {
         &[pgs-option~=column-#{$i}] {
             width: 100%;
@@ -40,7 +39,146 @@
     }
 }
 
-//= WRAP
+[pgs~=flexColumn],
+[pgs~=flexRow],
+[pgs~=grid] {
+
+    //= WRAP
+    &[pgs-option~=nowrap] {
+        flex-wrap: nowrap;
+    }
+
+    &[pgs-option~=wrap] {
+        flex-wrap: wrap;
+    }
+
+    //= GAP
+    &[pgs-option~=gapTexts] {
+        gap: var(--gap-texts);
+    }
+
+    &[pgs-option~=gapElements] {
+        gap: var(--gap-elements);
+    }
+
+    &[pgs-option~=gapSections] {
+        gap: var(--gap-sections);
+    }
+
+    &[pgs-option~=gapNone] {
+        gap: unset;
+    }
+
+    //= ALIGN ITEMS
+    &[pgs-option~=itemStart] {
+        align-items: start;
+    }
+
+    &[pgs-option~=itemCenter] {
+        align-items: center;
+    }
+
+    &[pgs-option~=itemEnd] {
+        align-items: end;
+    }
+
+    &[pgs-option~=itemStretch] {
+        align-items: stretch;
+    }
+
+    &[pgs-option~=itemBaseline] {
+        align-items: baseline;
+    }
+
+    //= JUSTIFY CONTENT
+    &[pgs-option~=justifyStart] {
+        justify-content: start;
+    }
+
+    &[pgs-option~=justifyCenter] {
+        justify-content: center;
+    }
+
+    &[pgs-option~=justifyEnd] {
+        justify-content: end;
+    }
+
+    &[pgs-option~=justifyBetween] {
+        justify-content: space-between;
+    }
+
+    &[pgs-option~=justifyAround] {
+        justify-content: space-around;
+    }
+
+    &[pgs-option~=justifyEvenly] {
+        justify-content: space-evenly;
+    }
+
+    //= ALIGN CONTENT
+    &[pgs-option~=contentStart] {
+        align-content: start;
+    }
+
+    &[pgs-option~=contentCenter] {
+        align-content: center;
+    }
+
+    &[pgs-option~=contentEnd] {
+        align-content: end;
+    }
+
+    &[pgs-option~=contentBetween] {
+        align-content: space-between;
+    }
+
+    &[pgs-option~=contentAround] {
+        align-content: space-around;
+    }
+
+    &[pgs-option~=contentEvenly] {
+        align-content: space-evenly;
+    }
+}
+
+//= SELF ALIGN (on the child of a flex or grid container)
+[pgs-option~=selfStart] {
+    align-self: start;
+}
+
+[pgs-option~=selfCenter] {
+    align-self: center;
+}
+
+[pgs-option~=selfEnd] {
+    align-self: end;
+}
+
+[pgs-option~=selfStretch] {
+    align-self: stretch;
+}
+
+[pgs-option~=selfBaseline] {
+    align-self: baseline;
+}
+
+//x retro compatibility
+[pgs~=gapTexts] {
+    gap: var(--gap-texts);
+}
+
+[pgs~=gapElements] {
+    gap: var(--gap-elements);
+}
+
+[pgs~=gapSections] {
+    gap: var(--gap-sections);
+}
+
+[pgs~=gapNone] {
+    gap: unset;
+}
+
 [pgs~=nowrap] {
     flex-wrap: nowrap;
 }
