@@ -22,7 +22,7 @@ function Column({ title, text }) {
 
 export default function Responsive() {
     return (
-        <div pgs="flexColumn gapSections">
+        <div pgs="flexColumn" pgs-option="gapSections">
             <section>
                 <strong>Flex</strong>
                 <div pgs="flexRow" pgs-option="column-2 m2e">
@@ -41,16 +41,25 @@ export default function Responsive() {
                 </div>
             </section>
 
-            <section pgs="flexColumn gapTexts">
+            <section pgs="flexColumn" pgs-option="gapTexts">
                 <strong>Wrap</strong>
-                <div pgs="flexRow gapTexts wrap">
+                <div pgs="flexRow" pgs-option="gapTexts wrap">
                     <span pgs="box">Wrapping item</span>
                     <span pgs="box">Wrapping item</span>
                     <span pgs="box">Wrapping item</span>
                 </div>
-                <div pgs="flexRow gapTexts nowrap">
+                <div pgs="flexRow" pgs-option="gapTexts nowrap">
                     <span pgs="box">Non-wrapping item</span>
                     <span pgs="box">Non-wrapping item</span>
+                </div>
+            </section>
+
+            <section pgs="flexColumn" pgs-option="gapTexts">
+                <strong>Alignment</strong>
+                <div pgs="flexRow" pgs-option="gapTexts itemCenter justifyBetween contentCenter">
+                    <span pgs="box">Short item</span>
+                    <span pgs="box">Taller item<br />with two lines</span>
+                    <span pgs="box" pgs-option="selfEnd">Self-aligned item</span>
                 </div>
             </section>
         </div>
