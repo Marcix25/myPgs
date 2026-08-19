@@ -63,6 +63,8 @@ Standard, clickable, horizontal, and compact cards followed by standard, compact
     </article>
 
     <article pgs="card" pgs-option="cardMini">
+        <img pgs="card-img" src="https://placehold.net/600x400.png" alt="Placeholder image">
+
         <div pgs="card-content">
             <h3>Compact card</h3>
             <p>The compact option reduces the content padding.</p>

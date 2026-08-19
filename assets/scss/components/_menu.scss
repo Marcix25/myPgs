@@ -60,7 +60,7 @@
             flex-direction: column;
             gap: var(--gap-texts);
             --dropdown-borderRadius: calc(var(--border-radius-input) + var(--dropdown-padding));
-            --dropdown-background: var(--color-box-transparent);
+            --dropdown-background: var(--color-box);
             --dropdown-display: flex;
         }
     }
