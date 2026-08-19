@@ -6,7 +6,6 @@
 |--------------------------------------------------------------------------
 */
 @include meta.load-css("base/variables");
-@include meta.load-css("base/color");
 @include meta.load-css("base/html");
 @include meta.load-css("base/body");
 @include meta.load-css("base/heading");
@@ -18,6 +17,7 @@
 */
 @include meta.load-css("layout/layout");
 @include meta.load-css("layout/responsive");
+@include meta.load-css("layout/utilities");
 @include meta.load-css("layout/spacing");
 @include meta.load-css("layout/pageShell");
 @include meta.load-css("layout/header");
@@ -54,3 +54,4 @@
 |--------------------------------------------------------------------------
 */
 @include meta.load-css("patterns/cookieConsent");
+@include meta.load-css("base/color");

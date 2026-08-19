@@ -1,54 +1,213 @@
 @use "../mixin/mixin" as *;
 
-//= COLOR
-//== LIGHTMODE & DARKMODE
-:where([pgs~=htmlBase]) {
+//# COLOR 
 
-    &:root {
-        color-scheme: light;
+//= BACKGROUND COLORS 
+[pgs~=bgWhite] { background-color: var(--color-white); }
 
-        &[pgs-state~=darkmode] {
-            color-scheme: dark;
-        }
-    
-        // == Primary colors
-        --color-primary: #5c7d6f;
-        --color-secondary: #3d5f4f;
-        --color-tertiary: #8fb082;
-        --color-quaternary: #10201c;
+[pgs~=bgBlack] { background-color: var(--color-black); }
 
-        // == Base colors
-        --color-white: light-dark(#FFFFFF, #000000);
-        --color-black: light-dark(#000000, #FFFFFF);
-        --color-white-transparent: color-mix(in srgb, var(--color-white) 50%, transparent 100%);
-        --color-black-transparent: color-mix(in srgb, var(--color-black) 50%, transparent 100%);
-        --color-text: light-dark(#4a4a4a, #e3e3e3);
-        --color-box: light-dark(#F8F8F8, #222121);
-        --color-boxDark: light-dark(#222121, #F8F8F8);
-        --color-box-transparent: light-dark(color-mix(in srgb, #eeeeee 50%, transparent 50%), color-mix(in srgb, #222121 50%, transparent 50%));
-        --color-boxDark-transparent: light-dark(color-mix(in srgb, #222121 50%, transparent 50%), color-mix(in srgb, #eeeeee 50%, transparent 50%));
-        --color-linkBackground: light-dark(#c1e7ff, #002a44);
-        --color-background: light-dark(#ffffff, #080808);
-        --color-whiteFixed: #FFFFFF;
-        --color-blackFixed: #000000;
-        --color-link: #009EFF;
-        --color-error: #ff6161;
-        --color-warning: #ffa900;
-        --color-success: #4ab94a;
-        --color-gray: #a4a4a4;
-        --color-icon-primary: var(--color-primary);
-        --color-icon-secondary: var(--color-primary-soft);
-        --menu-dropdown-background: var(--color-box);
-        @include color-strongAndDark();
-        @include color-softAndLight();
-        @include color-status-background();
-    }
-}
+[pgs~=bgWhiteTransparent] { background-color: var(--color-white-transparent); }
 
-// :root {
-//     //== SVG
-//     // --svg-color-1: var(--color-primary) & var(--color-primary);
-//     // --svg-color-2: var(--color-secondary) & var(--color-secondary);
-//     // --svg-color-3: var(--color-tertiary) & var(--color-tertiary);
-//     // --svg-color-4: var(--color-quaternary) & var(--color-quaternary);
-// }
+[pgs~=bgBlackTransparent] { background-color: var(--color-black-transparent); }
+
+[pgs~=bgText] { background-color: var(--color-text); }
+
+[pgs~=bgBox] { background-color: var(--color-box); }
+
+[pgs~=bgBoxDark] { background-color: var(--color-boxDark); }
+
+[pgs~=bgBoxTransparent] { background-color: var(--color-box-transparent); }
+
+[pgs~=bgBoxDarkTransparent] { background-color: var(--color-boxDark-transparent); }
+
+[pgs~=bglink-soft] { background-color: var(--color-link-soft); }
+
+[pgs~=bgBackground] { background-color: var(--color-background); }
+
+[pgs~=bgWhiteFixed] { background-color: var(--color-whiteFixed); }
+
+[pgs~=bgBlackFixed] { background-color: var(--color-blackFixed); }
+
+[pgs~=bgLink] { background-color: var(--color-link); }
+
+[pgs~=bgGray] { background-color: var(--color-gray); }
+
+//== PRIMARY VARIANTS
+[pgs~=bgPrimary] { background-color: var(--color-primary); }
+
+[pgs~=bgPrimarySoft] { background-color: var(--color-primary-soft); }
+
+[pgs~=bgPrimaryLight] { background-color: var(--color-primary-light); }
+
+[pgs~=bgPrimaryStrong] { background-color: var(--color-primary-strong); }
+
+[pgs~=bgPrimaryDark] { background-color: var(--color-primary-dark); }
+
+//== SECONDARY VARIANTS
+[pgs~=bgSecondary] { background-color: var(--color-secondary); }
+
+[pgs~=bgSecondarySoft] { background-color: var(--color-secondary-soft); }
+
+[pgs~=bgSecondaryLight] { background-color: var(--color-secondary-light); }
+
+[pgs~=bgSecondaryStrong] { background-color: var(--color-secondary-strong); }
+
+[pgs~=bgSecondaryDark] { background-color: var(--color-secondary-dark); }
+
+//== TERTIARY VARIANTS
+[pgs~=bgTertiary] { background-color: var(--color-tertiary); }
+
+[pgs~=bgTertiarySoft] { background-color: var(--color-tertiary-soft); }
+
+[pgs~=bgTertiaryLight] { background-color: var(--color-tertiary-light); }
+
+[pgs~=bgTertiaryStrong] { background-color: var(--color-tertiary-strong); }
+
+[pgs~=bgTertiaryDark] { background-color: var(--color-tertiary-dark); }
+
+//== QUATERNARY VARIANTS
+[pgs~=bgQuaternary] { background-color: var(--color-quaternary); }
+
+[pgs~=bgQuaternarySoft] { background-color: var(--color-quaternary-soft); }
+
+[pgs~=bgQuaternaryLight] { background-color: var(--color-quaternary-light); }
+
+[pgs~=bgQuaternaryStrong] { background-color: var(--color-quaternary-strong); }
+
+[pgs~=bgQuaternaryDark] { background-color: var(--color-quaternary-dark); }
+
+//== STATUS
+[pgs~=bgInfo] { background-color: var(--color-info); }
+
+[pgs~=bgError] { background-color: var(--color-error); }
+
+[pgs~=bgWarning] { background-color: var(--color-warning); }
+
+[pgs~=bgSuccess] { background-color: var(--color-success); }
+
+//== STATUS BACKGROUNDS
+[pgs~=bgInfoSoft] { background-color: var(--color-info-soft); }
+
+[pgs~=bgErrorSoft] { background-color: var(--color-error-soft); }
+
+[pgs~=bgWarningSoft] { background-color: var(--color-warning-soft); }
+
+[pgs~=bgSuccessSoft] { background-color: var(--color-success-soft); }
+
+//= TEXT COLORS
+[pgs~=colorWhite] { color: var(--color-white); }
+
+[pgs~=colorBlack] { color: var(--color-black); }
+
+[pgs~=colorGray] { color: var(--color-gray); }
+
+[pgs~=colorText] { color: var(--color-text); }
+
+[pgs~=colorBox] { color: var(--color-box); }
+
+[pgs~=colorBoxDark] { color: var(--color-boxDark); }
+
+[pgs~=colorLinkSoft] { color: var(--color-link-soft); }
+
+[pgs~=colorWhiteFixed] { color: var(--color-whiteFixed); }
+
+[pgs~=colorBlackFixed] { color: var(--color-blackFixed); }
+
+[pgs~=colorLink] { color: var(--color-link); }
+
+//== PRIMARY VARIANTS
+[pgs~=colorPrimary] { color: var(--color-primary); }
+
+[pgs~=colorPrimarySoft] { color: var(--color-primary-soft); }
+
+[pgs~=colorPrimaryLight] { color: var(--color-primary-light); }
+
+[pgs~=colorPrimaryStrong] { color: var(--color-primary-strong); }
+
+[pgs~=colorPrimaryDark] { color: var(--color-primary-dark); }
+
+//== SECONDARY VARIANTS
+[pgs~=colorSecondary] { color: var(--color-secondary); }
+
+[pgs~=colorSecondarySoft] { color: var(--color-secondary-soft); }
+
+[pgs~=colorSecondaryLight] { color: var(--color-secondary-light); }
+
+[pgs~=colorSecondaryStrong] { color: var(--color-secondary-strong); }
+
+[pgs~=colorSecondaryDark] { color: var(--color-secondary-dark); }
+
+//== TERTIARY VARIANTS
+[pgs~=colorTertiary] { color: var(--color-tertiary); }
+
+[pgs~=colorTertiarySoft] { color: var(--color-tertiary-soft); }
+
+[pgs~=colorTertiaryLight] { color: var(--color-tertiary-light); }
+
+[pgs~=colorTertiaryStrong] { color: var(--color-tertiary-strong); }
+
+[pgs~=colorTertiaryDark] { color: var(--color-tertiary-dark); }
+
+//== QUATERNARY VARIANTS
+[pgs~=colorQuaternary] { color: var(--color-quaternary); }
+
+[pgs~=colorQuaternarySoft] { color: var(--color-quaternary-soft); }
+
+[pgs~=colorQuaternaryLight] { color: var(--color-quaternary-light); }
+
+[pgs~=colorQuaternaryStrong] { color: var(--color-quaternary-strong); }
+
+[pgs~=colorQuaternaryDark] { color: var(--color-quaternary-dark); }
+
+//== STATUS
+[pgs~=colorInfo] { color: var(--color-info); }
+
+[pgs~=colorError] { color: var(--color-error); }
+
+[pgs~=colorWarning] { color: var(--color-warning); }
+
+[pgs~=colorSuccess] { color: var(--color-success); }
+
+//== STATUS BACKGROUNDS
+[pgs~=colorInfoSoft] { color: var(--color-info-soft); }
+
+[pgs~=colorErrorSoft] { color: var(--color-error-soft); }
+
+[pgs~=colorWarningSoft] { color: var(--color-warning-soft); }
+
+[pgs~=colorSuccessSoft] { color: var(--color-success-soft); }
+
+//== ICON COLORS
+[pgs~=iconColorPrimary] { color: var(--color-icon-primary); }
+
+[pgs~=iconColorSecondary] { color: var(--color-icon-secondary); }
+
+//= BORDER COLORS
+[pgs~=brPrimary] { border-color: var(--color-primary); }
+
+[pgs~=brSecondary] { border-color: var(--color-secondary); }
+
+[pgs~=brTertiary] { border-color: var(--color-tertiary); }
+
+[pgs~=brQuaternary] { border-color: var(--color-quaternary); }
+
+[pgs~=brWhite] { border-color: var(--color-white); }
+
+[pgs~=brBlack] { border-color: var(--color-black); }
+
+[pgs~=brBox] { border-color: var(--color-box); }
+
+[pgs~=brBoxDark] { border-color: var(--color-boxDark); }
+
+[pgs~=brLink] { border-color: var(--color-link); }
+
+[pgs~=brInfo] { border-color: var(--color-info); }
+
+[pgs~=brError] { border-color: var(--color-error); }
+
+[pgs~=brWarning] { border-color: var(--color-warning); }
+
+[pgs~=brSuccess] { border-color: var(--color-success); }
+
+[pgs~=brGray] { border-color: var(--color-gray); }

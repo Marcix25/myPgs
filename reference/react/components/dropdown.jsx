@@ -1,5 +1,6 @@
 const dropdowns = [
     ["Bottom center", "bottom center content"],
+    ["Hover", "hover content", "dropdownHover"],
     ["Top left", "top left content", "position[top left]"],
     ["Top center", "top center content", "position[top center]"],
     ["Top right", "top right content", "position[top right]"],

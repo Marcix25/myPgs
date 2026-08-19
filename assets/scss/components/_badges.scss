@@ -47,23 +47,23 @@
     }
 
     &[pgs-option~="badgeSuccess"] {
-        --badge-background: var(--color-success-background);
+        --badge-background: var(--color-success-soft);
         --badge-color: var(--color-success);
     }
 
     &[pgs-option~="badgeWarning"] {
-        --badge-background: var(--color-warning-background);
+        --badge-background: var(--color-warning-soft);
         --badge-color: var(--color-warning);
     }
 
     &[pgs-option~="badgeError"] {
-        --badge-background: var(--color-error-background);
+        --badge-background: var(--color-error-soft);
         --badge-color: var(--color-error);
     }
 
     &[pgs-option~="badgeInfo"] {
-        --badge-background: var(--color-linkBackground);
-        --badge-color: var(--color-link);
+        --badge-background: var(--color-info-soft);
+        --badge-color: var(--color-info);
     }
 
     &[pgs-option~="badgeNeutral"] {

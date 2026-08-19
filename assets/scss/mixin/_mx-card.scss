@@ -3,12 +3,13 @@
 @use "mx-hover" as *;
 @use "mx-responsive" as *;
 
-//= CARD
+//# CARD
 //-- selectorLinkAndNot
 @mixin _selectorLinkAndNot {
+
     &:where(a),
     &:where(:not(:has(> a:first-child))),
-    > a:first-child {
+    >a:first-child {
         @content;
     }
 }
@@ -27,6 +28,7 @@
     @include _selectorLinkAndNot {
         padding: 0;
         overflow: hidden;
+        flex-basis: 100%;
 
         > :is(object, img) {
             display: block;
@@ -101,7 +103,7 @@
     }
 }
 
-//== card
+//= card
 @mixin card() {
     --card-padding: var(--padding);
     --card-borderRadius: calc(var(--border-radius-input) + var(--card-padding));
@@ -111,11 +113,11 @@
     --card-horizontal-img-grow: 2;
     --card-horizontal-content-grow: 3;
     --card-horizontal-img-minHeight: 300px;
+    display: flex;
 
     @include _selectorLinkAndNot {
         display: flex;
         flex-direction: column;
-        // height: 100%;
         background: var(--card-background);
         border-radius: var(--card-borderRadius);
     }
@@ -147,6 +149,7 @@
     }
 }
 
+//# BOX
 //= BOX
 @mixin box() {
     --box-padding: var(--padding);
@@ -154,9 +157,6 @@
     --box-background: var(--color-box-transparent);
 
     @include _selectorLinkAndNot {
-        display: flex;
-        flex-direction: column;
-        // height: 100%;
         padding: var(--box-padding);
         background: var(--box-background);
         border-radius: var(--box-borderRadius);
@@ -171,5 +171,6 @@
     //- boxMini
     &[pgs-option~=boxMini] {
         --box-padding: var(--padding-2);
+        --box-borderRadius: var(--border-radius-input);
     }
 }

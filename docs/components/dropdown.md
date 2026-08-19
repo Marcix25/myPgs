@@ -12,6 +12,7 @@ Popup component that connects a control to content positioned relative to its tr
 
 ## PGS Options
 
+- `dropdownHover`: opens the dropdown when the pointer enters its trigger and closes it after the pointer leaves; click and keyboard activation remain available.
 - `position`: configures the root as position[side alignment]; side accepts top, right, bottom, or left, while compatible alignment values are top, right, bottom, left, or center. The default is bottom center.
 - `buttonReverse`: reverses text and icon on the example buttons and belongs to the button component.
 
@@ -51,6 +52,17 @@ Series of HTML dropdowns demonstrating the supported placement directions.
 
         <div pgs="dropdown-content">
             bottom center content
+        </div>
+    </span>
+
+    <span pgs="dropdown" pgs-option="dropdownHover">
+        <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
+            Hover
+            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+        </button>
+
+        <div pgs="dropdown-content">
+            hover content
         </div>
     </span>
 

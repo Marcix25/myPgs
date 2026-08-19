@@ -2,7 +2,7 @@
 
 [pgs~=stepTabs] {
     [pgs~=stepTabs-container] {
-        [pgs~=tab] {
+        [pgs~=stepTabs-container-tab] {
             display: none;
 
             &[pgs-state~=is-active] {

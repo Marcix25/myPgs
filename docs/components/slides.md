@@ -53,7 +53,7 @@ Complete HTML markup and usage example for Slides.
     <ul pgs="slides-container">
         <li pgs="slides-container-slide">
             <article pgs="card">
-                <img pgs="card-img imgCover" src="https://placehold.co/800x500?text=Slide+1" alt="Slide 1">
+                <img pgs="card-img imgCover" src="https://placehold.net/600x400.png" alt="Slide 1">
                 <div pgs="card-content">
                     <h3>Slide uno</h3>
                     <p>First slide content.</p>
@@ -63,7 +63,7 @@ Complete HTML markup and usage example for Slides.
 
         <li pgs="slides-container-slide">
             <article pgs="card">
-                <img pgs="card-img imgCover" src="https://placehold.co/800x500?text=Slide+2" alt="Slide 2">
+                <img pgs="card-img imgCover" src="https://placehold.net/600x400.png" alt="Slide 2">
                 <div pgs="card-content">
                     <h3>Slide due</h3>
                     <p>Second slide content.</p>
@@ -73,7 +73,7 @@ Complete HTML markup and usage example for Slides.
 
         <li pgs="slides-container-slide">
             <article pgs="card">
-                <img pgs="card-img imgCover" src="https://placehold.co/800x500?text=Slide+3" alt="Slide 3">
+                <img pgs="card-img imgCover" src="https://placehold.net/600x400.png" alt="Slide 3">
                 <div pgs="card-content">
                     <h3>Slide tre</h3>
                     <p>Third slide content.</p>

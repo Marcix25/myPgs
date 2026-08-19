@@ -4,6 +4,7 @@
 const demoRenderer = {
     referenceFiles: [
         "layout/header.html",
+        "base/color.html",
         "components/notification.html",
         "components/card.html",
         "components/slides.html",

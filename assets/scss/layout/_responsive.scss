@@ -2,6 +2,11 @@
 
 //# RESPONSIVE
 //= FLEX
+//== FLEX
+[pgs~=flex] {
+    @include flexRow();
+}
+
 //== FLEX COLUMN
 [pgs~=flexColumn] {
     @include flexColumn();
@@ -14,8 +19,18 @@
 
 //== COLUMN
 [pgs~=flexColumn],
-[pgs~=flexRow] {
-    @for $i from 2 through 8 {
+[pgs~=flexRow],
+[pgs~=flex] {
+    $maxColumns: 8;
+
+    &[pgs-option*="column-"] {
+        width: 100%;
+        flex-wrap: wrap;
+        flex-direction: row;
+        @include columnFlex($maxColumns);
+    }
+
+    @for $i from 2 through $maxColumns {
         &[pgs-option~=column-#{$i}] {
             width: 100%;
             flex-wrap: wrap;
@@ -25,25 +40,12 @@
     }
 }
 
-//= GRID
-//== COLUMN
-[pgs~=grid] {
-    display: grid;
-    gap: var(--gap-elements);
-    width: 100%;
-
-    @for $i from 2 through 8 {
-        &[pgs-option~=column-#{$i}] {
-            @include columnGrid($i);
-        }
-    }
-}
-
+//== FLEX OPTIONS
 [pgs~=flexColumn],
 [pgs~=flexRow],
-[pgs~=grid] {
+[pgs~=flex] {
 
-    //= WRAP
+    //=== WRAP
     &[pgs-option~=nowrap] {
         flex-wrap: nowrap;
     }
@@ -52,7 +54,84 @@
         flex-wrap: wrap;
     }
 
-    //= GAP
+    &[pgs-option~=inlineFlex] {
+        display: inline-flex;
+    }
+
+    &[pgs-option~=flexCenter] {
+        align-items: center;
+        justify-content: center;
+    }
+
+    &[pgs-option~=flexColumn] {
+        flex-direction: column
+    }
+
+    &[pgs-option~=flexRow] {
+        flex-direction: row
+    }
+
+    &[pgs-option~=flexColumnReverse] {
+        flex-direction: column-reverse
+    }
+
+    &[pgs-option~=flexRowReverse] {
+        flex-direction: row-reverse
+    }
+
+    //=== FLEX CHILD
+    [pgs~=flex-flexInitial] {
+        flex: 0 1 auto;
+    }
+
+    [pgs~=flex-flexNone] {
+        flex: none;
+    }
+
+    [pgs~=flex-flex1] {
+        flex: 1 1 0%;
+    }
+
+    [pgs~=flex-flexFull] {
+        flex: 0 0 100%;
+    }
+
+    [pgs~=flex-flexOrderFirst] {
+        order: -1;
+    }
+
+    [pgs~=flex-flexOrderLast] {
+        order: 999;
+    }
+}
+
+
+//= GRID
+//== COLUMN
+[pgs~=grid] {
+    $maxColumns: 8;
+    display: grid;
+    gap: var(--gap-elements);
+    width: 100%;
+
+    &[pgs-option*="column-"] {
+        @include columnGrid($maxColumns);
+    }
+
+    @for $i from 2 through $maxColumns {
+        &[pgs-option~=column-#{$i}] {
+            @include columnGrid($i);
+        }
+    }
+}
+
+//= FLEX & GRID
+[pgs~=flexColumn],
+[pgs~=flexRow],
+[pgs~=flex],
+[pgs~=grid] {
+
+    //== GAP
     &[pgs-option~=gapTexts] {
         gap: var(--gap-texts);
     }
@@ -69,7 +148,7 @@
         gap: unset;
     }
 
-    //= ALIGN ITEMS
+    //== ALIGN ITEMS
     &[pgs-option~=itemStart] {
         align-items: start;
     }
@@ -90,7 +169,7 @@
         align-items: baseline;
     }
 
-    //= JUSTIFY CONTENT
+    //== JUSTIFY CONTENT
     &[pgs-option~=justifyStart] {
         justify-content: start;
     }
@@ -115,7 +194,7 @@
         justify-content: space-evenly;
     }
 
-    //= ALIGN CONTENT
+    //== ALIGN CONTENT
     &[pgs-option~=contentStart] {
         align-content: start;
     }
@@ -141,7 +220,7 @@
     }
 }
 
-//= SELF ALIGN (on the child of a flex or grid container)
+//== SELF ALIGN (on the child of a flex or grid container)
 [pgs-option~=selfStart] {
     align-self: start;
 }
@@ -163,6 +242,7 @@
 }
 
 //x retro compatibility
+
 [pgs~=gapTexts] {
     gap: var(--gap-texts);
 }

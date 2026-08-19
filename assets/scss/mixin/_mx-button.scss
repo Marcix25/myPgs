@@ -151,7 +151,7 @@
     height: max-content;
 
     @if($isRed ==true) {
-        --button-background: var(--color-error-background);
+        --button-background: var(--color-error-soft);
         --button-color: var(--color-error);
     }
 }

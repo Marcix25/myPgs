@@ -79,7 +79,7 @@ dialog[pgs~="modal-dialog"] {
 
         //=== SCROLL
         &:has([pgs~="modal-dialog-content-scroll"]) {
-            max-height: calc(90svh - var(--heightOfHeader));
+            max-height: calc(90svh - var(--heightOfHeaderScroll));
             overflow: hidden;
 
             [pgs~="modal-dialog-content-scroll"] {
@@ -94,7 +94,7 @@ dialog[pgs~="modal-dialog"] {
     >[pgs~="modal-close"] {
         position: fixed !important;
         right: var(--padding-page);
-        top: calc(var(--heightOfHeader) + var(--padding));
+        top: calc(var(--heightOfHeaderScroll) + var(--padding));
         z-index: 1;
 
         @at-root dialog:not(:has(>[pgs~="modal-close"])) {
@@ -138,7 +138,7 @@ dialog[pgs~="modal-dialog"] {
         height: 100svh;
         top: 0;
         overflow-y: auto;
-        padding-top: calc(var(--heightOfHeader) + var(--gap-texts));
+        padding-top: calc(var(--heightOfHeaderScroll) + var(--gap-texts));
         z-index: 90;
         position: fixed;
         inset: 0;

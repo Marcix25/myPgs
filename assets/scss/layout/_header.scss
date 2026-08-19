@@ -16,13 +16,13 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    pointer-events: auto;
-    background: var(--header-background);
-    color: var(--header-color);
-    transition: padding 300ms, transform 300ms, background-color 1000ms;
-
+    // pointer-events: auto;
+    
     //= HEADER TOP
     [pgs~="header-element"] {
+        background: var(--header-background);
+        color: var(--header-color);
+        transition: padding 300ms, transform 300ms, background-color 1000ms;
         display: flex;
         align-items: center;
         justify-content: space-between;

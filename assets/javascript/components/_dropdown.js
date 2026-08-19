@@ -174,6 +174,7 @@ function PGS_dropdown_init(root = document) {
             isOpen: () => pgs(DROPDOWN).state.contains("open")
         };
 
+        //== click behavior
         TRIGGER.addEventListener("click", (event) => {
             if (isDropdownContent(event.target)) return;
             event.preventDefault();
@@ -181,26 +182,45 @@ function PGS_dropdown_init(root = document) {
             toggleDropdown(DROPDOWN);
         });
 
+        //== Hover behavior
+        if (pgs(DROPDOWN).option.contains("dropdownHover")) {
+            let hoverCloseTimeout;
+            const clearHoverCloseTimeout = () => {
+                window.clearTimeout(hoverCloseTimeout);
+            };
+
+            TRIGGER.addEventListener("mouseenter", () => {
+                clearHoverCloseTimeout();
+                if (!API.get(DROPDOWN)?.isOpen()) openDropdown(DROPDOWN);
+            });
+
+            CONTENT.addEventListener("mouseenter", clearHoverCloseTimeout);
+            DROPDOWN.addEventListener("mouseleave", () => {
+                hoverCloseTimeout = window.setTimeout(() => closeDropdown(DROPDOWN), 120);
+            });
+        }
+
         CONTENT.addEventListener("click", event => event.stopPropagation());
         API.set(DROPDOWN, data);
 
         if (data.isOpen()) OPEN_DROPDOWNS.add(DROPDOWN);
         updateposition(DROPDOWN);
     });
+    
+    document.addEventListener("click", (event) => {
+        if (isInsideAnyDropdown(event.target)) return;
+        OPEN_DROPDOWNS.forEach(closeDropdown);
+    });
+    
+    document.addEventListener("keydown", (event) => {
+        if (event.key !== "Escape") return;
+        OPEN_DROPDOWNS.forEach(closeDropdown);
+    });
+    
+    window.addEventListener("resize", updateOpenDropdowns);
+    window.addEventListener("scroll", updateOpenDropdowns, true);
 }
 
-document.addEventListener("click", (event) => {
-    if (isInsideAnyDropdown(event.target)) return;
-    OPEN_DROPDOWNS.forEach(closeDropdown);
-});
-
-document.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape") return;
-    OPEN_DROPDOWNS.forEach(closeDropdown);
-});
-
-window.addEventListener("resize", updateOpenDropdowns);
-window.addEventListener("scroll", updateOpenDropdowns, true);
 
 // # INIT
 PGS_onDocumentReady(PGS_dropdown_init);

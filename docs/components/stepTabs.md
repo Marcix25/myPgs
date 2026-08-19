@@ -10,7 +10,7 @@ Step Tabs markup, configuration, behavior, and usage example.
 - `stepTabs-dots`: identifies the stepTabs-dots element used by Step Tabs.
 - `stepTabs-dots-dot`: identifies the stepTabs-dots-dot element used by Step Tabs.
 - `stepTabs-container`: identifies the stepTabs-container element used by Step Tabs.
-- `tab`: identifies the tab element used by Step Tabs.
+- `stepTabs-container-tab`: identifies a panel within the Step Tabs container.
 - `stepTabs-prev`: identifies the stepTabs-prev element used by Step Tabs.
 - `stepTabs-restart`: identifies the stepTabs-restart element used by Step Tabs.
 - `stepTabs-next`: identifies the stepTabs-next element used by Step Tabs.
@@ -58,17 +58,17 @@ Complete HTML markup and usage example for Step Tabs.
     <div pgs="stepTabs-dots" aria-label="Avanzamento"></div>
 
     <div pgs="stepTabs-container">
-        <section pgs="tab flexColumn" tabindex="-1" pgs-option="tabIcon[fa-user]">
+        <section pgs="stepTabs-container-tab flexColumn" tabindex="-1" pgs-option="tabIcon[fa-user]">
             <h3>Personal details</h3>
             <p>First tab content.</p>
         </section>
 
-        <section pgs="tab flexColumn" tabindex="-1" pgs-option="tabIcon[fa-list-check]">
+        <section pgs="stepTabs-container-tab flexColumn" tabindex="-1" pgs-option="tabIcon[fa-list-check]">
             <h3>Preferences</h3>
             <p>Second tab content.</p>
         </section>
 
-        <section pgs="tab flexColumn" tabindex="-1" pgs-option="tabIcon[fa-check]">
+        <section pgs="stepTabs-container-tab flexColumn" tabindex="-1" pgs-option="tabIcon[fa-check]">
             <h3>Confirmation</h3>
             <p>Third tab content.</p>
         </section>

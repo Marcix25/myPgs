@@ -13,7 +13,7 @@ function PGS_stepTabs_init(root = document) {
         const restart = pgs(tabsWizard).querySelector("stepTabs-restart")
         const dots = pgs(tabsWizard).querySelector("stepTabs-dots")
         const tabsContainer = pgs(tabsWizard).querySelector("stepTabs-container");
-        const allTab = pgs(tabsContainer).querySelectorAll("tab");
+        const allTab = pgs(tabsContainer).querySelectorAll("stepTabs-container-tab");
 
         //= SETTING
         const total = allTab.length;
