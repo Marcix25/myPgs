@@ -68,6 +68,7 @@
         flex-shrink: 0;
         position: relative;
         border: var(--border-complete);
+        transition: translate 280ms ease;
 
         [pgs~=notifications-element-content] {
             display: flex;

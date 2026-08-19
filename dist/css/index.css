@@ -793,6 +793,19 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   flex-wrap: wrap;
 }
 
+[pgs~=flexColumn] {
+  display: flex;
+  gap: var(--gap-texts);
+  flex-direction: column;
+}
+
+[pgs~=flexRow] {
+  display: flex;
+  gap: var(--gap-texts);
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 [pgs~=flexColumn][pgs-option*=column-],
 [pgs~=flexRow][pgs-option*=column-],
 [pgs~=flex][pgs-option*=column-] {
@@ -1769,19 +1782,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs-option~=selfBaseline] {
   align-self: baseline;
-}
-
-[pgs~=flexColumn] {
-  display: flex;
-  gap: var(--gap-texts);
-  flex-direction: column;
-}
-
-[pgs~=flexRow] {
-  display: flex;
-  gap: var(--gap-texts);
-  flex-direction: row;
-  flex-wrap: wrap;
 }
 
 [pgs~=gapTexts] {
@@ -4845,7 +4845,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   flex-direction: column;
   gap: var(--gap-texts);
   --dropdown-borderRadius: calc(var(--border-radius-input) + var(--dropdown-padding));
-  --dropdown-background: var(--color-box-transparent);
+  --dropdown-background: var(--color-box);
   --dropdown-display: flex;
 }
 
@@ -6096,6 +6096,7 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   flex-shrink: 0;
   position: relative;
   border: var(--border-complete);
+  transition: translate 280ms ease;
 }
 
 [pgs~=notifications] [pgs~=notifications-element] [pgs~=notifications-element-content] {
