@@ -12,6 +12,9 @@
     --dropdown-display: block;
     position: relative;
 
+    [pgs-option=dropdownHover],
+    [pgs-option="position[]"]{}
+
     &:not([pgs-state~="open"])>[pgs~="dropdown-content"] {
         display: none;
     }

@@ -1,0 +1,406 @@
+<!--
+/**
+ * @title Colors
+ * @description Interactive palette of the current MyPGS background and text color utilities.
+ *
+ * @pgs
+ * - dropdown: provides the interactive container for each background color tooltip.
+ * - tooltip: applies the tooltip presentation to the dropdown.
+ * - dropdown-button: identifies the control that opens a color tooltip.
+ * - tooltip-button: identifies the tooltip trigger.
+ * - dropdown-content: identifies the content panel of a color tooltip.
+ * - tooltip-content: applies the tooltip content presentation.
+ *
+ * @pgs-option
+ * - boxMini: applies the compact box presentation to each palette group.
+ * - buttonIcon: makes each background color trigger a compact circular button.
+ * - dropdownHover: opens each background color tooltip while its circle is hovered.
+ * - gapElements: spaces the background and text color groups.
+ * - gapTexts: spaces individual palette entries.
+ * - wrap: lets palette entries wrap on narrow viewports.
+ *
+ * @related
+ * - box: makes each palette group visible.
+ * - button: supplies the shared button base used by background color triggers.
+ * - flex-flexFull: makes palette headings occupy a full flex row.
+ * - bgPrimary: applies --color-primary as a background.
+ * - bgSecondary: applies --color-secondary as a background.
+ * - bgTertiary: applies --color-tertiary as a background.
+ * - bgQuaternary: applies --color-quaternary as a background.
+ * - bgWhite: applies --color-white as a background.
+ * - bgBlack: applies --color-black as a background.
+ * - bgWhiteTransparent: applies --color-white-transparent as a background.
+ * - bgBlackTransparent: applies --color-black-transparent as a background.
+ * - bgText: applies --color-text as a background.
+ * - bgBox: applies --color-box as a background.
+ * - bgBoxDark: applies --color-boxDark as a background.
+ * - bgBoxTransparent: applies --color-box-transparent as a background.
+ * - bgBoxDarkTransparent: applies --color-boxDark-transparent as a background.
+ * - bglink-soft: applies --color-link-soft as a background.
+ * - bgBackground: applies --color-background as a background.
+ * - bgWhiteFixed: applies --color-whiteFixed as a background.
+ * - bgBlackFixed: applies --color-blackFixed as a background.
+ * - bgLink: applies --color-link as a background.
+ * - bgInfo: applies --color-info as a background.
+ * - bgInfoSoft: applies --color-info-soft as a background.
+ * - bgError: applies --color-error as a background.
+ * - bgWarning: applies --color-warning as a background.
+ * - bgSuccess: applies --color-success as a background.
+ * - bgGray: applies --color-gray as a background.
+ * - bgPrimarySoft: applies --color-primary-soft as a background.
+ * - bgPrimaryLight: applies --color-primary-light as a background.
+ * - bgPrimaryStrong: applies --color-primary-strong as a background.
+ * - bgPrimaryDark: applies --color-primary-dark as a background.
+ * - bgSecondarySoft: applies --color-secondary-soft as a background.
+ * - bgSecondaryLight: applies --color-secondary-light as a background.
+ * - bgSecondaryStrong: applies --color-secondary-strong as a background.
+ * - bgSecondaryDark: applies --color-secondary-dark as a background.
+ * - bgTertiarySoft: applies --color-tertiary-soft as a background.
+ * - bgTertiaryLight: applies --color-tertiary-light as a background.
+ * - bgTertiaryStrong: applies --color-tertiary-strong as a background.
+ * - bgTertiaryDark: applies --color-tertiary-dark as a background.
+ * - bgQuaternarySoft: applies --color-quaternary-soft as a background.
+ * - bgQuaternaryLight: applies --color-quaternary-light as a background.
+ * - bgQuaternaryStrong: applies --color-quaternary-strong as a background.
+ * - bgQuaternaryDark: applies --color-quaternary-dark as a background.
+ * - bgSuccessSoft: applies --color-success-soft as a background.
+ * - bgWarningSoft: applies --color-warning-soft as a background.
+ * - bgErrorSoft: applies --color-error-soft as a background.
+ * - colorPrimary: applies --color-primary to text.
+ * - colorSecondary: applies --color-secondary to text.
+ * - colorTertiary: applies --color-tertiary to text.
+ * - colorQuaternary: applies --color-quaternary to text.
+ * - colorPrimarySoft: applies --color-primary-soft to text.
+ * - colorPrimaryLight: applies --color-primary-light to text.
+ * - colorPrimaryStrong: applies --color-primary-strong to text.
+ * - colorPrimaryDark: applies --color-primary-dark to text.
+ * - colorSecondarySoft: applies --color-secondary-soft to text.
+ * - colorSecondaryLight: applies --color-secondary-light to text.
+ * - colorSecondaryStrong: applies --color-secondary-strong to text.
+ * - colorSecondaryDark: applies --color-secondary-dark to text.
+ * - colorTertiarySoft: applies --color-tertiary-soft to text.
+ * - colorTertiaryLight: applies --color-tertiary-light to text.
+ * - colorTertiaryStrong: applies --color-tertiary-strong to text.
+ * - colorTertiaryDark: applies --color-tertiary-dark to text.
+ * - colorQuaternarySoft: applies --color-quaternary-soft to text.
+ * - colorQuaternaryLight: applies --color-quaternary-light to text.
+ * - colorQuaternaryStrong: applies --color-quaternary-strong to text.
+ * - colorQuaternaryDark: applies --color-quaternary-dark to text.
+ * - colorWhite: applies --color-white to text.
+ * - colorBlack: applies --color-black to text.
+ * - colorText: applies --color-text to text.
+ * - colorBox: applies --color-box to text.
+ * - colorBoxDark: applies --color-boxDark to text.
+ * - colorLinkSoft: applies --color-link-soft to text.
+ * - colorWhiteFixed: applies --color-whiteFixed to text.
+ * - colorBlackFixed: applies --color-blackFixed to text.
+ * - colorLink: applies --color-link to text.
+ * - colorInfo: applies --color-info to text.
+ * - colorInfoSoft: applies --color-info-soft to text.
+ * - colorError: applies --color-error to text.
+ * - colorWarning: applies --color-warning to text.
+ * - colorSuccess: applies --color-success to text.
+ * - colorGray: applies --color-gray to text.
+ * - colorSuccessSoft: applies --color-success-soft to text.
+ * - colorWarningSoft: applies --color-warning-soft to text.
+ * - colorErrorSoft: applies --color-error-soft to text.
+ * - iconColorPrimary: applies --color-icon-primary to text.
+ * - iconColorSecondary: applies --color-icon-secondary to text.
+ * - flexColumn: stacks palette groups vertically.
+ * - flexRow: arranges palette entries in flexible rows.
+ *
+ * @return A complete interactive reference for MyPGS background and text color utilities.
+ */
+-->
+
+<main pgs="flexColumn" pgs-option="gapElements">
+    <section pgs="flexRow">
+        <strong pgs="flex-flexFull">Background colors</strong>
+
+        <div pgs="flexColumn box" pgs-option="boxMini">
+            <p>Primary colors</p>
+            <div pgs="flexRow" pgs-option="gapTexts wrap">
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-primary" pgs="dropdown-button button tooltip-button bgPrimary" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgPrimary</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-secondary" pgs="dropdown-button button tooltip-button bgSecondary" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgSecondary</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-tertiary" pgs="dropdown-button button tooltip-button bgTertiary" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgTertiary</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-quaternary" pgs="dropdown-button button tooltip-button bgQuaternary" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgQuaternary</span>
+                </span>
+            </div>
+        </div>
+
+        <div pgs="flexColumn box" pgs-option="boxMini">
+            <p>Primary variants</p>
+            <div pgs="flexRow" pgs-option="gapTexts wrap">
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-primary-soft" pgs="dropdown-button button tooltip-button bgPrimarySoft" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgPrimarySoft</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-primary-light" pgs="dropdown-button button tooltip-button bgPrimaryLight" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgPrimaryLight</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-primary-strong" pgs="dropdown-button button tooltip-button bgPrimaryStrong" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgPrimaryStrong</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-primary-dark" pgs="dropdown-button button tooltip-button bgPrimaryDark" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgPrimaryDark</span>
+                </span>
+            </div>
+        </div>
+
+        <div pgs="flexColumn box" pgs-option="boxMini">
+            <p>Secondary variants</p>
+            <div pgs="flexRow" pgs-option="gapTexts wrap">
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-secondary-soft" pgs="dropdown-button button tooltip-button bgSecondarySoft" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgSecondarySoft</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-secondary-light" pgs="dropdown-button button tooltip-button bgSecondaryLight" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgSecondaryLight</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-secondary-strong" pgs="dropdown-button button tooltip-button bgSecondaryStrong" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgSecondaryStrong</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-secondary-dark" pgs="dropdown-button button tooltip-button bgSecondaryDark" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgSecondaryDark</span>
+                </span>
+            </div>
+        </div>
+
+        <div pgs="flexColumn box" pgs-option="boxMini">
+            <p>Tertiary variants</p>
+            <div pgs="flexRow" pgs-option="gapTexts wrap">
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-tertiary-soft" pgs="dropdown-button button tooltip-button bgTertiarySoft" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgTertiarySoft</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-tertiary-light" pgs="dropdown-button button tooltip-button bgTertiaryLight" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgTertiaryLight</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-tertiary-strong" pgs="dropdown-button button tooltip-button bgTertiaryStrong" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgTertiaryStrong</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-tertiary-dark" pgs="dropdown-button button tooltip-button bgTertiaryDark" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgTertiaryDark</span>
+                </span>
+            </div>
+        </div>
+
+        <div pgs="flexColumn box" pgs-option="boxMini">
+            <p>Quaternary variants</p>
+            <div pgs="flexRow" pgs-option="gapTexts wrap">
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-quaternary-soft" pgs="dropdown-button button tooltip-button bgQuaternarySoft" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgQuaternarySoft</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-quaternary-light" pgs="dropdown-button button tooltip-button bgQuaternaryLight" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgQuaternaryLight</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-quaternary-strong" pgs="dropdown-button button tooltip-button bgQuaternaryStrong" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgQuaternaryStrong</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-quaternary-dark" pgs="dropdown-button button tooltip-button bgQuaternaryDark" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgQuaternaryDark</span>
+                </span>
+            </div>
+        </div>
+
+        <div pgs="flexColumn box" pgs-option="boxMini">
+            <p>Base colors</p>
+            <div pgs="flexRow" pgs-option="gapTexts wrap">
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-link" pgs="dropdown-button button tooltip-button bgLink" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgLink</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-link-soft" pgs="dropdown-button button tooltip-button bglink-soft" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bglink-soft</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-background" pgs="dropdown-button button tooltip-button bgBackground" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgBackground</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-gray" pgs="dropdown-button button tooltip-button bgGray" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgGray</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-text" pgs="dropdown-button button tooltip-button bgText" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgText</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-box" pgs="dropdown-button button tooltip-button bgBox" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgBox</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-boxDark" pgs="dropdown-button button tooltip-button bgBoxDark" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgBoxDark</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-box-transparent" pgs="dropdown-button button tooltip-button bgBoxTransparent" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgBoxTransparent</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-boxDark-transparent" pgs="dropdown-button button tooltip-button bgBoxDarkTransparent" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgBoxDarkTransparent</span>
+                </span>
+            </div>
+        </div>
+
+        <div pgs="flexColumn box" pgs-option="boxMini">
+            <p>White colors</p>
+            <div pgs="flexRow" pgs-option="gapTexts wrap">
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-white" pgs="dropdown-button button tooltip-button bgWhite" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgWhite</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-whiteFixed" pgs="dropdown-button button tooltip-button bgWhiteFixed" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgWhiteFixed</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-white-transparent" pgs="dropdown-button button tooltip-button bgWhiteTransparent" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgWhiteTransparent</span>
+                </span>
+            </div>
+        </div>
+
+        <div pgs="flexColumn box" pgs-option="boxMini">
+            <p>Black colors</p>
+            <div pgs="flexRow" pgs-option="gapTexts wrap">
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-black" pgs="dropdown-button button tooltip-button bgBlack" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgBlack</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-blackFixed" pgs="dropdown-button button tooltip-button bgBlackFixed" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgBlackFixed</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-black-transparent" pgs="dropdown-button button tooltip-button bgBlackTransparent" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgBlackTransparent</span>
+                </span>
+            </div>
+        </div>
+
+        <div pgs="flexColumn box" pgs-option="boxMini">
+            <p>Status</p>
+            <div pgs="flexRow" pgs-option="gapTexts wrap">
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-info" pgs="dropdown-button button tooltip-button bgInfo" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgInfo</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-error" pgs="dropdown-button button tooltip-button bgError" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgError</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-warning" pgs="dropdown-button button tooltip-button bgWarning" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgWarning</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-success" pgs="dropdown-button button tooltip-button bgSuccess" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgSuccess</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-info-soft" pgs="dropdown-button button tooltip-button bgInfoSoft" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgInfoSoft</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-error-soft" pgs="dropdown-button button tooltip-button bgErrorSoft" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgErrorSoft</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-warning-soft" pgs="dropdown-button button tooltip-button bgWarningSoft" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgWarningSoft</span>
+                </span>
+                <span pgs="dropdown tooltip" pgs-option="dropdownHover">
+                    <button aria-label="--color-success-soft" pgs="dropdown-button button tooltip-button bgSuccessSoft" pgs-option="buttonIcon" type="button"></button>
+                    <span pgs="dropdown-content tooltip-content">bgSuccessSoft</span>
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <section pgs="flexColumn">
+        <strong pgs="flex-flexFull">Text colors</strong>
+        <div pgs="flexRow box bgWhite" pgs-option="gapTexts wrap boxMini">
+            <strong pgs="flex-flexFull">Color</strong>
+            <span pgs="colorPrimary">colorPrimary</span>
+            <span pgs="colorSecondary">colorSecondary</span>
+            <span pgs="colorTertiary">colorTertiary</span>
+            <span pgs="colorQuaternary">colorQuaternary</span>
+            <span pgs="colorPrimaryStrong">colorPrimaryStrong</span>
+            <span pgs="colorSecondaryStrong">colorSecondaryStrong</span>
+            <span pgs="colorTertiaryStrong">colorTertiaryStrong</span>
+            <span pgs="colorQuaternaryStrong">colorQuaternaryStrong</span>
+            <span pgs="colorBlack">colorBlack</span>
+            <span pgs="colorText">colorText</span>
+            <span pgs="colorLink">colorLink</span>
+            <span pgs="colorInfo">colorInfo</span>
+            <span pgs="colorError">colorError</span>
+            <span pgs="colorWarning">colorWarning</span>
+            <span pgs="colorSuccess">colorSuccess</span>
+            <span pgs="colorGray">colorGray</span>
+            <span pgs="colorBoxDark">colorBoxDark</span>
+            <span pgs="iconColorPrimary">iconColorPrimary</span>
+            <span pgs="iconColorSecondary">iconColorSecondary</span>
+        </div>
+        
+        <div pgs="flexRow box bgBlack" pgs-option="gapTexts wrap boxMini">
+            <strong pgs="colorWhite flex-flexFull">Color for dark</strong>
+            <span pgs="colorPrimarySoft">colorPrimarySoft</span>
+            <span pgs="colorSecondarySoft">colorSecondarySoft</span>
+            <span pgs="colorTertiarySoft">colorTertiarySoft</span>
+            <span pgs="colorQuaternarySoft">colorQuaternarySoft</span>
+            <span pgs="colorLinkSoft">colorLinkSoft</span>
+            <span pgs="colorWhite">colorWhite</span>
+            <span pgs="colorInfoSoft">colorInfoSoft</span>
+            <span pgs="colorSuccessSoft">colorSuccessSoft</span>
+            <span pgs="colorWarningSoft">colorWarningSoft</span>
+            <span pgs="colorErrorSoft">colorErrorSoft</span>
+            <span pgs="colorBox">colorBox</span>
+        </div>
+        
+        <div pgs="flexRow box bgWhiteFixed" pgs-option="gapTexts wrap boxMini">
+            <strong pgs="colorBlackFixed flex-flexFull">Color for light</strong>
+            <span pgs="colorPrimaryDark">colorPrimaryDark</span>
+            <span pgs="colorSecondaryDark">colorSecondaryDark</span>
+            <span pgs="colorTertiaryDark">colorTertiaryDark</span>
+            <span pgs="colorQuaternaryDark">colorQuaternaryDark</span>
+            <span pgs="colorBlackFixed">colorBlackFixed</span>
+        </div>
+
+        <div pgs="flexRow box bgBlackFixed" pgs-option="gapTexts wrap boxMini">
+            <strong pgs="colorWhiteFixed flex-flexFull">Color for dark</strong>
+            <span pgs="colorPrimaryLight">colorPrimaryLight</span>
+            <span pgs="colorSecondaryLight">colorSecondaryLight</span>
+            <span pgs="colorTertiaryLight">colorTertiaryLight</span>
+            <span pgs="colorQuaternaryLight">colorQuaternaryLight</span>
+            <span pgs="colorWhiteFixed">colorWhiteFixed</span>
+        </div>
+        
+    </section>
+</main>

@@ -13,7 +13,7 @@ const gridColumns = [
 
 function Column({ title, text }) {
     return (
-        <article pgs="box flexColumn">
+        <article pgs="box flex" pgs-option="flexColumn">
             <strong>{title}</strong>
             <p>{text}</p>
         </article>
@@ -22,10 +22,10 @@ function Column({ title, text }) {
 
 export default function Responsive() {
     return (
-        <div pgs="flexColumn" pgs-option="gapSections">
+        <div pgs="flex" pgs-option="flexColumn gapSections">
             <section>
                 <strong>Flex</strong>
-                <div pgs="flexRow" pgs-option="column-2 m2e">
+                <div pgs="flex" pgs-option="flexRow column-2 m2e">
                     {flexColumns.map(([title, text]) => (
                         <Column key={title} title={title} text={text} />
                     ))}
@@ -41,25 +41,49 @@ export default function Responsive() {
                 </div>
             </section>
 
-            <section pgs="flexColumn" pgs-option="gapTexts">
+            <section pgs="flex" pgs-option="flexColumn gapTexts">
                 <strong>Wrap</strong>
-                <div pgs="flexRow" pgs-option="gapTexts wrap">
+                <div pgs="flex" pgs-option="flexRow gapTexts wrap">
                     <span pgs="box">Wrapping item</span>
                     <span pgs="box">Wrapping item</span>
                     <span pgs="box">Wrapping item</span>
                 </div>
-                <div pgs="flexRow" pgs-option="gapTexts nowrap">
+                <div pgs="flex" pgs-option="flexRow gapTexts nowrap">
                     <span pgs="box">Non-wrapping item</span>
                     <span pgs="box">Non-wrapping item</span>
                 </div>
             </section>
 
-            <section pgs="flexColumn" pgs-option="gapTexts">
+            <section pgs="flex" pgs-option="flexColumn gapTexts">
+                <strong>Direction</strong>
+                <div pgs="flex" pgs-option="flexRowReverse gapTexts">
+                    <span pgs="box">First in markup</span>
+                    <span pgs="box">Second in markup</span>
+                </div>
+                <div pgs="flex" pgs-option="flexColumnReverse gapTexts">
+                    <span pgs="box">First in markup</span>
+                    <span pgs="box">Second in markup</span>
+                </div>
+            </section>
+
+            <section pgs="flex" pgs-option="flexColumn gapTexts">
                 <strong>Alignment</strong>
-                <div pgs="flexRow" pgs-option="gapTexts itemCenter justifyBetween contentCenter">
+                <div pgs="flex" pgs-option="flexRow gapTexts itemCenter justifyBetween contentCenter">
                     <span pgs="box">Short item</span>
                     <span pgs="box">Taller item<br />with two lines</span>
                     <span pgs="box" pgs-option="selfEnd">Self-aligned item</span>
+                </div>
+            </section>
+
+            <section pgs="flex" pgs-option="flexColumn gapTexts">
+                <strong>Flex children</strong>
+                <div pgs="flex" pgs-option="flexRow gapTexts wrap">
+                    <span pgs="box flex-flexInitial">Initial</span>
+                    <span pgs="box flex-flexNone">None</span>
+                    <span pgs="box flex-flex1">Grow</span>
+                    <span pgs="box flex-flexFull">Full width</span>
+                    <span pgs="box flex-flexOrderLast">Last</span>
+                    <span pgs="box flex-flexOrderFirst">First</span>
                 </div>
             </section>
         </div>

@@ -1,0 +1,7 @@
+//= SVG Change Color 
+html:has([pgs~="svgChangeColor"]) {
+    &:root {
+        --svg-color-1: white & black;
+        --svg-color-2: black & white;
+    }
+}

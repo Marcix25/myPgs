@@ -133,6 +133,8 @@ function initHeader_Height(header) {
 // Nasconde l'header quando si scorre verso il basso e lo mostra quando si scorre verso l'alto su dispositivi con altezza fino a 900px.
 function initHeader_Scroll(header) {
     let lastScrollY = window.scrollY;
+    const headerElements = pgs(header).querySelectorAll("header-element");
+
     window.addEventListener("scroll", () => {
         if (!header) return;
         let currentScrollY = window.scrollY;
@@ -140,14 +142,14 @@ function initHeader_Scroll(header) {
         if (window.innerHeight <= 900) {
             if (currentScrollY >= 80) {
                 if (currentScrollY > lastScrollY) {
-                    header.style.transform = "translateY(-100%)";
+                    headerElements.forEach(element => element.style.transform = "translateY(-100%)");
                     header.setAttribute("data-header-scroll", true)
                 } else {
-                    header.style.transform = "translateY(0px)";
+                    headerElements.forEach(element => element.style.transform = "translateY(0px)");
                     header.setAttribute("data-header-scroll", false)
                 }
             } else {
-                header.style.transform = "translateY(0)"; // Mostra sempre l'header se il scroll è inferiore a 80px
+                headerElements.forEach(element => element.style.transform = "translateY(0)");
                 header.setAttribute("data-header-scroll", false)
             }
         }

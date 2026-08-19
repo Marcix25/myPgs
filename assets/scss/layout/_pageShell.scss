@@ -1,7 +1,7 @@
 @use "../mixin/mixin" as *;
 //# pageShell
-$aside-size: 400px;
-$content-size: 500px;
+$aside-size: 300px;
+$content-size: 600px;
 $pageShell-test-gap: 4rem;
 
 @mixin pageShell-aside-flow() {
@@ -109,11 +109,11 @@ $pageShell-test-gap: 4rem;
         grid-area: asideRight;
     }
 
-    &:has(> [pgs~="pageShell-aside"]) {
+    &:where(:has(> [pgs~="pageShell-aside"])) {
         --pageShell-width: calc(var(--pageShell-content-width) + var(--pageShell-aside-width) + var(--pageShell-gap) + (var(--padding-page) * 2));
     }
 
-    &:has(> [pgs~="pageShell-aside"] ~ [pgs~="pageShell-aside"]) {
+    &:where(:has(> [pgs~="pageShell-aside"] ~ [pgs~="pageShell-aside"])) {
         --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-aside-width) * 2) + (var(--pageShell-gap) * 2) + (var(--padding-page) * 2));
     }
 
@@ -182,6 +182,18 @@ $pageShell-test-gap: 4rem;
 
         [pgs~="pageShell-aside"] {
             @include pageShell-aside-flow;
+        }
+    }
+
+    //+ OPTION 
+    
+    //++ shellFullPage 
+    &[pgs-option~="shellFullPage"] {
+        --pageShell-width: 100%;
+        --pageShell-padding-inline: var(--padding);
+
+        [pgs~="pageShell-content"] {
+            margin-inline: auto;
         }
     }
 }

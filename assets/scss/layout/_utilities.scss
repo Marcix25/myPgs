@@ -1,0 +1,76 @@
+//# LAYOUT, CONTENT & INTERACTION UTILITIES
+
+//= DISPLAY & FLEX ITEMS
+[pgs~=block] {
+    display: block;
+}
+
+[pgs~=minWidth0] {
+    min-width: 0;
+}
+
+
+//= POSITION
+[pgs~=positionRelative] {
+    position: relative;
+}
+
+[pgs~=positionAbsolute] {
+    position: absolute;
+}
+
+[pgs~=positionSticky] {
+    position: sticky;
+}
+
+//= OVERFLOW & TEXT
+[pgs~=overflowAuto] {
+    overflow: auto;
+}
+
+[pgs~=overflowXAuto] {
+    overflow-x: auto;
+}
+
+[pgs~=overflowHidden] {
+    overflow: hidden;
+}
+
+[pgs~=truncate] {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+//= ASPECT RATIO
+[pgs~=aspectSquare] {
+    aspect-ratio: 1 / 1;
+}
+
+[pgs~=aspectVideo] {
+    aspect-ratio: 16 / 9;
+}
+
+//= INTERACTION
+[pgs~=selectNone] {
+    -webkit-user-select:none;
+    user-select: none;
+}
+
+[pgs~=selectText] {
+    -webkit-user-select:text;
+    user-select: text;
+}
+
+[pgs~=pointerEventsNone] {
+    pointer-events: none;
+}
+
+[pgs~=pointerEventsAuto] {
+    pointer-events: auto;
+}
+
+[pgs~=cursorNotAllowed] {
+    cursor: not-allowed;
+}

@@ -4,17 +4,17 @@ export default function StepTabs() {
             <div pgs="stepTabs-dots" aria-label="Avanzamento"></div>
 
             <div pgs="stepTabs-container">
-                <section pgs="tab flexColumn" tabIndex="-1" pgs-option="tabIcon[fa-user]">
+                <section pgs="stepTabs-container-tab flexColumn" tabIndex="-1" pgs-option="tabIcon[fa-user]">
                     <h3>Personal details</h3>
                     <p>First tab content.</p>
                 </section>
 
-                <section pgs="tab flexColumn" tabIndex="-1" pgs-option="tabIcon[fa-list-check]">
+                <section pgs="stepTabs-container-tab flexColumn" tabIndex="-1" pgs-option="tabIcon[fa-list-check]">
                     <h3>Preferences</h3>
                     <p>Second tab content.</p>
                 </section>
 
-                <section pgs="tab flexColumn" tabIndex="-1" pgs-option="tabIcon[fa-check]">
+                <section pgs="stepTabs-container-tab flexColumn" tabIndex="-1" pgs-option="tabIcon[fa-check]">
                     <h3>Confirmation</h3>
                     <p>Third tab content.</p>
                 </section>

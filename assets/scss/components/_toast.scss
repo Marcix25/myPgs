@@ -129,24 +129,26 @@
     }
 
     [pgs-state~="success"] {
-        --toast-background: var(--color-success-background);
-        --toast-background-timer: color-mix(in srgb, var(--color-success-background) 70%, var(--color-white) 30%);
+        --toast-background: var(--color-success-soft);
+        --toast-background-timer: color-mix(in srgb, var(--color-success-soft) 70%, var(--color-white) 30%);
         --toast-shadow-color: var(--color-success);
     }
 
     [pgs-state~="error"] {
-        --toast-background: var(--color-error-background);
-        --toast-background-timer: color-mix(in srgb, var(--color-error-background) 70%, var(--color-white) 30%);
+        --toast-background: var(--color-error-soft);
+        --toast-background-timer: color-mix(in srgb, var(--color-error-soft) 70%, var(--color-white) 30%);
         --toast-shadow-color: var(--color-error);
     }
 
     [pgs-state~="warning"] {
-        --toast-background: var(--color-warning-background);
-        --toast-background-timer: color-mix(in srgb, var(--color-warning-background) 70%, var(--color-white) 30%);
+        --toast-background: var(--color-warning-soft);
+        --toast-background-timer: color-mix(in srgb, var(--color-warning-soft) 70%, var(--color-white) 30%);
         --toast-shadow-color: var(--color-warning);
     }
 
     [pgs-state~="info"] {
-        --toast-background: var(--color-box);
+        --toast-background: var(--color-info-soft);
+        --toast-background-timer: color-mix(in srgb, var(--color-info-soft) 70%, var(--color-white) 30%);
+        --toast-shadow-color: var(--color-info);
     }
 }

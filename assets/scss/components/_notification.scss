@@ -16,7 +16,7 @@
         font-size: 1rem;
         font-weight: 700;
         line-height: 1;
-        color: var(--color-error-background);
+        color: var(--color-error-soft);
         background: var(--color-error);
         border-radius: 50%;
         position: absolute;
@@ -126,21 +126,22 @@
     }
 
     [pgs-state~="success"] {
-        --notification-background: var(--color-success-background);
+        --notification-background: var(--color-success-soft);
         --notification-shadow-color: var(--color-success);
     }
 
     [pgs-state~="error"] {
-        --notification-background: var(--color-error-background);
+        --notification-background: var(--color-error-soft);
         --notification-shadow-color: var(--color-error);
     }
 
     [pgs-state~="warning"] {
-        --notification-background: var(--color-warning-background);
+        --notification-background: var(--color-warning-soft);
         --notification-shadow-color: var(--color-warning);
     }
 
     [pgs-state~="info"] {
-        --notification-background: var(--color-box);
+        --notification-background: var(--color-info-soft);
+        --notification-shadow-color: var(--color-info);
     }
 }

@@ -33,7 +33,7 @@ Standard, clickable, horizontal, and compact cards followed by standard, compact
 ```html
 <div pgs="flexRow" pgs-option="column-2">
     <article pgs="card">
-        <img pgs="card-img" src="https://placehold.co/800x500" alt="Placeholder image">
+        <img pgs="card-img" src="https://placehold.net/600x400.png" alt="Placeholder image">
 
         <div pgs="card-content">
             <h3>Standard card</h3>
@@ -44,7 +44,7 @@ Standard, clickable, horizontal, and compact cards followed by standard, compact
 
     <article pgs="card">
         <a href="#">
-            <img pgs="card-img" src="https://placehold.co/800x500" alt="Placeholder image">
+            <img pgs="card-img" src="https://placehold.net/600x400.png" alt="Placeholder image">
 
             <div pgs="card-content">
                 <h3>Clickable card</h3>
@@ -54,7 +54,7 @@ Standard, clickable, horizontal, and compact cards followed by standard, compact
     </article>
 
     <article pgs="card" pgs-option="cardHorizontal">
-        <img pgs="card-img" src="https://placehold.co/800x500" alt="Placeholder image">
+        <img pgs="card-img" src="https://placehold.net/600x400.png" alt="Placeholder image">
 
         <div pgs="card-content">
             <h3>Horizontal card</h3>
@@ -70,6 +70,23 @@ Standard, clickable, horizontal, and compact cards followed by standard, compact
     </article>
 </div>
 
+
+<div pgs="flexRow" pgs-option="column-2">
+    <div pgs="box">
+        <h3>Standard box</h3>
+        <p>Lightweight content grouped inside a neutral surface.</p>
+    </div>
+
+    <div pgs="box" pgs-option="boxMini">
+        <h3>Compact box</h3>
+        <p>The compact option reduces the internal spacing.</p>
+    </div>
+
+    <a pgs="box" href="#">
+        <h3>Clickable box</h3>
+        <p>The complete box surface behaves as a link.</p>
+    </a>
+</div>
 
 <div pgs="flexRow" pgs-option="column-2">
     <div pgs="box">
