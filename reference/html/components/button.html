@@ -25,53 +25,57 @@
  */
 -->
 
-<div pgs="flexRow">
-    <a pgs="button" href="#">
+<div pgs="flexRow" demo="component">
+    <a pgs="button" href="#" demo="item" demo-title="Link button" demo-description="Anchor element styled as a standard button, combining an icon with text.">
         <i class="fa-duotone fa-solid fa-store"></i>
         About
     </a>
 
-    <button pgs="button" type="button" pgs-option="buttonReverse" disabled>
+    <button pgs="button" type="button" disabled demo="item" demo-title="disabled order" demo-description="button disabled">
+        Disabled
+    </button>
+
+    <button pgs="button" type="button" pgs-option="buttonReverse" demo="item" demo-title="Reversed order" demo-description="Places the icon after the text using buttonReverse.">
         Next
         <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
     </button>
 
-    <button pgs="button" pgs-option="buttonStrong" type="button">
+    <button pgs="button" pgs-option="buttonStrong" type="button" demo="item" demo-title="Strong emphasis" demo-description="Applies the higher-emphasis buttonStrong variant.">
         <i class="fa-solid fa-check" aria-hidden="true"></i>
         Submit
     </button>
 
-    <button pgs="button" pgs-option="buttonIcon" type="button" aria-label="Settings">
+    <button pgs="button" pgs-option="buttonIcon" type="button" aria-label="Settings" demo="item" demo-title="Icon only" demo-description="Compact icon-only button using buttonIcon.">
         <i class="fa-solid fa-gear" aria-hidden="true"></i>
     </button>
 
-    <button pgs="button" pgs-option="buttonMini" type="button" aria-label="Information">
+    <button pgs="button" pgs-option="buttonMini" type="button" aria-label="Information" demo="item" demo-title="Mini size" demo-description="Smallest button size using buttonMini.">
         <i class="fa-solid fa-info" aria-hidden="true"></i>
     </button>
 
-    <button pgs="button" pgs-option="buttonBig" type="button" aria-label="Large button">
+    <button pgs="button" pgs-option="buttonBig" type="button" aria-label="Large button" demo="item" demo-title="Large size" demo-description="Largest button size using buttonBig, combined with an icon.">
         <i class="fa-duotone fa-solid fa-fire"></i>
         Large
     </button>
 
-    <button pgs="button" pgs-option="buttonTransparent" type="button">
+    <button pgs="button" pgs-option="buttonTransparent" type="button" demo="item" demo-title="Transparent" demo-description="Removes the default background and outline while keeping the button layout using buttonTransparent.">
         <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
         Transparent
     </button>
 
-    <button pgs="button" pgs-option="buttonStrong buttonSecondary" type="button">
+    <button pgs="button" pgs-option="buttonStrong buttonSecondary" type="button" demo="item" demo-title="Secondary color" demo-description="Strong button using the secondary color palette.">
         Secondary
     </button>
 
-    <button pgs="button" pgs-option="buttonStrong buttonTertiary" type="button">
+    <button pgs="button" pgs-option="buttonStrong buttonTertiary" type="button" demo="item" demo-title="Tertiary color" demo-description="Strong button using the tertiary color palette.">
         Tertiary
     </button>
 
-    <button pgs="button" pgs-option="buttonStrong buttonQuaternary" type="button">
+    <button pgs="button" pgs-option="buttonStrong buttonQuaternary" type="button" demo="item" demo-title="Quaternary color" demo-description="Strong button using the quaternary color palette.">
         Quaternary
     </button>
 
-    <span pgs="icon" aria-hidden="true">
+    <span pgs="icon" aria-hidden="true" demo="item" demo-title="Standalone icon" demo-description="A single icon displayed alone inside a circular surface.">
         <i class="fa-solid fa-star"></i>
     </span>
 </div>

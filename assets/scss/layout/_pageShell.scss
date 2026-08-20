@@ -141,7 +141,8 @@ $pageShell-test-gap: 4rem;
         }
     }
 
-    &:has(> [pgs~="pageShell-aside"]):has(> [pgs~="pageShell-content"] + [pgs~="pageShell-aside"]) {
+    
+    &:has(> [pgs~="pageShell-aside"] + [pgs~="pageShell-content"]):has(> [pgs~="pageShell-content"] + [pgs~="pageShell-aside"]) {
         @container (max-width: calc(#{$aside-size} + #{$content-size} + #{$aside-size} + (#{$pageShell-test-gap} * 2))) {
             display: grid;
             grid-template-columns: var(--pageShell-aside-width) minmax(0, var(--pageShell-content-width));

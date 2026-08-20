@@ -145,3 +145,10 @@ body {
 #reference-demo-after {
     position: relative;
 }
+
+
+#asideScroll {
+    margin-inline: calc(var(--padding) * -1);
+    padding-inline: var(--padding);
+    width: calc(100% + var(--padding) * 2);
+}

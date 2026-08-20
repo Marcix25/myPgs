@@ -62,13 +62,13 @@ Complete HTML markup and usage example for Search.
 ## Example
 
 ```html
-<form pgs="button search" pgs-option="buttonNohover" autocomplete="off" action="" method="get">
+<form pgs="button search" pgs-option="buttonNohover" autocomplete="off" action="" method="get" demo="component" demo-title="Inline search" demo-description="Search field with live suggestions embedded directly in the page.">
     <button type="submit" title="Search"><i class="fa-solid fa-search"></i></button>
     <input type="search" name="s" placeholder="Search" value="">
     <ul pgs="search-suggestions"></ul>
 </form>
 
-<div pgs="modal search-modal" pgs-option="containerPGS[header]">
+<div pgs="modal search-modal" pgs-option="containerPGS[header]" demo="component" demo-title="Mobile search overlay" demo-description="Search opened from an icon button inside a full-width modal, intended for the mobile navigation.">
 
     <button type="button" pgs="modal-button button" pgs-option="buttonIcon" title="Search">
         <i class="fa-solid fa-search"></i>
@@ -89,7 +89,6 @@ Complete HTML markup and usage example for Search.
                     <i class="fa-solid fa-close"></i>
                 </button>
             </form>
-
 
         </div>
     </dialog>

@@ -270,13 +270,34 @@ function splitOption(value) {
     return { key, payload: value.slice(openIndex + 1, closeIndex) };
 }
 
-//+ demo="component" wrappers are grouping-only and never rendered in the docs Example section (see extractDemoItems),
-//+ so their own pgs/pgs-option/pgs-state attributes shouldn't force a documentation requirement
+//+ a demo="component" wrapper is grouping-only (and never rendered in the docs Example section, see
+//+ extractDemoItems) ONLY when it actually contains demo="item" children — in that case its own
+//+ pgs/pgs-option/pgs-state attributes are incidental layout and shouldn't force a doc requirement.
+//+ When there are no demo="item" children, the component element itself becomes the rendered item, so
+//+ its own attributes are the real subject and must be left alone.
 function stripComponentWrapperAttributes(markup) {
-    return markup.replace(/<([a-zA-Z][a-zA-Z0-9-]*)\b([^>]*\bdemo\s*=\s*["']component["'][^>]*)>/g, (full, tagName, attrs) => {
-        const cleanedAttrs = attrs.replace(/\s+pgs(?:-option|-state)?\s*=\s*("[^"]*"|'[^']*')/g, "");
-        return `<${tagName}${cleanedAttrs}>`;
-    });
+    const openTagPattern = /<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*\bdemo\s*=\s*["']component["'][^>]*>/g;
+    let result = "";
+    let lastIndex = 0;
+    let match;
+
+    while ((match = openTagPattern.exec(markup))) {
+        const tagName = match[1];
+        const openTag = match[0];
+        const openTagEnd = match.index + openTag.length;
+        const end = findMatchingCloseTag(markup, tagName, openTagEnd);
+        const innerContent = end === -1 ? "" : markup.slice(openTagEnd, end);
+        const hasItems = /\bdemo\s*=\s*["']item["']/.test(innerContent);
+
+        result += markup.slice(lastIndex, match.index);
+        result += hasItems ? openTag.replace(/\s+pgs(?:-option|-state)?\s*=\s*("[^"]*"|'[^']*')/g, "") : openTag;
+
+        lastIndex = openTagEnd;
+        openTagPattern.lastIndex = openTagEnd;
+    }
+
+    result += markup.slice(lastIndex);
+    return result;
 }
 
 function extractAttributes(markup) {
@@ -552,6 +573,30 @@ function findMatchingCloseTag(markup, tagName, fromIndex) {
     return -1;
 }
 
+//+ removes every demo="disabled" element (whole subtree) from the rendered "## Example" output — test-only
+//+ markup that shouldn't appear in the generated docs, even though it stays in the file and still counts
+//+ for @pgs/@pgs-option/@related validation (which runs on the untouched markup, not this output)
+function stripDisabledElements(markup) {
+    const openTagPattern = /<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*\bdemo\s*=\s*["']disabled["'][^>]*>/g;
+    let result = "";
+    let lastIndex = 0;
+    let match;
+
+    while ((match = openTagPattern.exec(markup))) {
+        const tagName = match[1];
+        const openTagEnd = match.index + match[0].length;
+        const end = findMatchingCloseTag(markup, tagName, openTagEnd);
+        const removeEnd = end === -1 ? openTagEnd : end;
+
+        result += markup.slice(lastIndex, match.index);
+        lastIndex = removeEnd;
+        openTagPattern.lastIndex = removeEnd;
+    }
+
+    result += markup.slice(lastIndex);
+    return result.replace(/\n{3,}/g, "\n\n").trim();
+}
+
 //+ pulls out every demo="item" element with its demo-title/demo-description, stripping those attributes from the returned markup
 function extractDemoItems(markup) {
     const openTagPattern = /<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*\bdemo\s*=\s*["']item["'][^>]*>/g;
@@ -644,8 +689,10 @@ function renderMarkdown(template, documentation, markup) {
     if (jsonSchema) sections.push("", "## JSON Schema", "", "```json", jsonSchema, "```", "");
     if (jsUsage) sections.push("", "## JavaScript Usage", "", "```js", jsUsage, "```", "");
 
-    const demoItems = extractDemoItems(cleanedMarkup);
-    sections.push("", "## Example", "");
+    const exampleMarkup = stripDisabledElements(cleanedMarkup);
+    const demoItems = extractDemoItems(exampleMarkup);
+
+    if (demoItems.length > 0 || exampleMarkup) sections.push("", "## Example", "");
 
     if (demoItems.length > 0) {
         demoItems.forEach((item, index) => {
@@ -656,9 +703,9 @@ function renderMarkdown(template, documentation, markup) {
             sections.push(`${itemFence}html`, item.markup, itemFence);
         });
         sections.push("");
-    } else {
-        const fence = fenceFor(cleanedMarkup);
-        sections.push(`${fence}html`, cleanedMarkup, fence, "");
+    } else if (exampleMarkup) {
+        const fence = fenceFor(exampleMarkup);
+        sections.push(`${fence}html`, exampleMarkup, fence, "");
     }
 
     return sections.join("\n");

@@ -33,55 +33,127 @@ HTML collection of the main button variants and the standalone icon surface.
 
 ## Example
 
+### Link button
+
+Anchor element styled as a standard button, combining an icon with text.
+
 ```html
-<div pgs="flexRow">
-    <a pgs="button" href="#">
-        <i class="fa-duotone fa-solid fa-store"></i>
-        About
-    </a>
+<a pgs="button" href="#">
+    <i class="fa-duotone fa-solid fa-store"></i>
+    About
+</a>
+```
 
-    <button pgs="button" type="button" pgs-option="buttonReverse" disabled>
-        Next
-        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-    </button>
+### disabled order
 
-    <button pgs="button" pgs-option="buttonStrong" type="button">
-        <i class="fa-solid fa-check" aria-hidden="true"></i>
-        Submit
-    </button>
+button disabled
 
-    <button pgs="button" pgs-option="buttonIcon" type="button" aria-label="Settings">
-        <i class="fa-solid fa-gear" aria-hidden="true"></i>
-    </button>
+```html
+<button pgs="button" type="button" disabled>
+    Disabled
+</button>
+```
 
-    <button pgs="button" pgs-option="buttonMini" type="button" aria-label="Information">
-        <i class="fa-solid fa-info" aria-hidden="true"></i>
-    </button>
+### Reversed order
 
-    <button pgs="button" pgs-option="buttonBig" type="button" aria-label="Large button">
-        <i class="fa-duotone fa-solid fa-fire"></i>
-        Large
-    </button>
+Places the icon after the text using buttonReverse.
 
-    <button pgs="button" pgs-option="buttonTransparent" type="button">
-        <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
-        Transparent
-    </button>
+```html
+<button pgs="button" type="button" pgs-option="buttonReverse">
+    Next
+    <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+</button>
+```
 
-    <button pgs="button" pgs-option="buttonStrong buttonSecondary" type="button">
-        Secondary
-    </button>
+### Strong emphasis
 
-    <button pgs="button" pgs-option="buttonStrong buttonTertiary" type="button">
-        Tertiary
-    </button>
+Applies the higher-emphasis buttonStrong variant.
 
-    <button pgs="button" pgs-option="buttonStrong buttonQuaternary" type="button">
-        Quaternary
-    </button>
+```html
+<button pgs="button" pgs-option="buttonStrong" type="button">
+    <i class="fa-solid fa-check" aria-hidden="true"></i>
+    Submit
+</button>
+```
 
-    <span pgs="icon" aria-hidden="true">
-        <i class="fa-solid fa-star"></i>
-    </span>
-</div>
+### Icon only
+
+Compact icon-only button using buttonIcon.
+
+```html
+<button pgs="button" pgs-option="buttonIcon" type="button" aria-label="Settings">
+    <i class="fa-solid fa-gear" aria-hidden="true"></i>
+</button>
+```
+
+### Mini size
+
+Smallest button size using buttonMini.
+
+```html
+<button pgs="button" pgs-option="buttonMini" type="button" aria-label="Information">
+    <i class="fa-solid fa-info" aria-hidden="true"></i>
+</button>
+```
+
+### Large size
+
+Largest button size using buttonBig, combined with an icon.
+
+```html
+<button pgs="button" pgs-option="buttonBig" type="button" aria-label="Large button">
+    <i class="fa-duotone fa-solid fa-fire"></i>
+    Large
+</button>
+```
+
+### Transparent
+
+Removes the default background and outline while keeping the button layout using buttonTransparent.
+
+```html
+<button pgs="button" pgs-option="buttonTransparent" type="button">
+    <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+    Transparent
+</button>
+```
+
+### Secondary color
+
+Strong button using the secondary color palette.
+
+```html
+<button pgs="button" pgs-option="buttonStrong buttonSecondary" type="button">
+    Secondary
+</button>
+```
+
+### Tertiary color
+
+Strong button using the tertiary color palette.
+
+```html
+<button pgs="button" pgs-option="buttonStrong buttonTertiary" type="button">
+    Tertiary
+</button>
+```
+
+### Quaternary color
+
+Strong button using the quaternary color palette.
+
+```html
+<button pgs="button" pgs-option="buttonStrong buttonQuaternary" type="button">
+    Quaternary
+</button>
+```
+
+### Standalone icon
+
+A single icon displayed alone inside a circular surface.
+
+```html
+<span pgs="icon" aria-hidden="true">
+    <i class="fa-solid fa-star"></i>
+</span>
 ```

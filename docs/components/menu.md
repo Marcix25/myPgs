@@ -44,7 +44,7 @@ Horizontal and vertical menu examples, including recursively nested submenus.
 ## Example
 
 ```html
-<nav pgs="menu" pgs-option="horizontal" aria-label="Menu orizzontale">
+<nav pgs="menu" pgs-option="horizontal" aria-label="Menu orizzontale" demo="component" demo-title="Horizontal menu" demo-description="Top-level navigation arranged horizontally, with one nested submenu.">
     <ul>
         <li>
             <a href="/" aria-current="page">
@@ -65,7 +65,7 @@ Horizontal and vertical menu examples, including recursively nested submenus.
     </ul>
 </nav>
 
-<nav pgs="menu" pgs-option="vertical menuIconOnlyCurrent" aria-label="Menu verticale">
+<nav pgs="menu" pgs-option="vertical menuIconOnlyCurrent" aria-label="Menu verticale" demo="component" demo-title="Vertical menu" demo-description="Vertical navigation with recursively nested submenus, showing icons only on the active link.">
     <ul>
         <li>
             <a href="/" aria-current="page">

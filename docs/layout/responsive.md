@@ -66,92 +66,124 @@ Flex, grid, wrapping, and alignment examples using the current responsive layout
 
 ## Example
 
+### Flex layout
+
+Three-column flex layout using column-2 with m2e to collapse to two columns per row on mobile.
+
 ```html
-<div pgs="flex" pgs-option="flexColumn gapSections">
-    <section>
-        <strong>Flex</strong>
-        <div pgs="flex" pgs-option="flexRow column-2 m2e">
-            <article pgs="box flex" pgs-option="flexColumn">
-                <strong>Column one</strong>
-                <p>First flex column.</p>
-            </article>
-            <article pgs="box flex" pgs-option="flexColumn">
-                <strong>Column two</strong>
-                <p>Second flex column.</p>
-            </article>
-            <article pgs="box flex" pgs-option="flexColumn">
-                <strong>Column three</strong>
-                <p>Third flex column.</p>
-            </article>
-        </div>
-    </section>
+<section>
+    <strong>Flex</strong>
+    <div pgs="flex" pgs-option="flexRow column-2 m2e">
+        <article pgs="box flex" pgs-option="flexColumn">
+            <strong>Column one</strong>
+            <p>First flex column.</p>
+        </article>
+        <article pgs="box flex" pgs-option="flexColumn">
+            <strong>Column two</strong>
+            <p>Second flex column.</p>
+        </article>
+        <article pgs="box flex" pgs-option="flexColumn">
+            <strong>Column three</strong>
+            <p>Third flex column.</p>
+        </article>
+    </div>
+</section>
+```
 
-    <section>
-        <strong>Grid</strong>
-        <div pgs="grid" pgs-option="column-4 m2e">
-            <article pgs="box flex" pgs-option="flexColumn">
-                <strong>Column one</strong>
-                <p>First grid column.</p>
-            </article>
-            <article pgs="box flex" pgs-option="flexColumn">
-                <strong>Column two</strong>
-                <p>Second grid column.</p>
-            </article>
-            <article pgs="box flex" pgs-option="flexColumn">
-                <strong>Column three</strong>
-                <p>Third grid column.</p>
-            </article>
-            <article pgs="box flex" pgs-option="flexColumn">
-                <strong>Column four</strong>
-                <p>Third grid column.</p>
-            </article>
-        </div>
-    </section>
+### Grid layout
 
-    <section pgs="flex" pgs-option="flexColumn gapTexts">
-        <strong>Wrap</strong>
-        <div pgs="flex" pgs-option="flexRow gapTexts wrap">
-            <span pgs="box">Wrapping item</span>
-            <span pgs="box">Wrapping item</span>
-            <span pgs="box">Wrapping item</span>
-        </div>
-        <div pgs="flex" pgs-option="flexRow gapTexts nowrap">
-            <span pgs="box">Non-wrapping item</span>
-            <span pgs="box">Non-wrapping item</span>
-        </div>
-    </section>
+Four-column grid layout using column-4 with m2e to collapse to two columns per row on mobile.
 
-    <section pgs="flex" pgs-option="flexColumn gapTexts">
-        <strong>Direction</strong>
-        <div pgs="flex" pgs-option="flexRowReverse gapTexts">
-            <span pgs="box">First in markup</span>
-            <span pgs="box">Second in markup</span>
-        </div>
-        <div pgs="flex" pgs-option="flexColumnReverse gapTexts">
-            <span pgs="box">First in markup</span>
-            <span pgs="box">Second in markup</span>
-        </div>
-    </section>
+```html
+<section>
+    <strong>Grid</strong>
+    <div pgs="grid" pgs-option="column-4 m2e">
+        <article pgs="box flex" pgs-option="flexColumn">
+            <strong>Column one</strong>
+            <p>First grid column.</p>
+        </article>
+        <article pgs="box flex" pgs-option="flexColumn">
+            <strong>Column two</strong>
+            <p>Second grid column.</p>
+        </article>
+        <article pgs="box flex" pgs-option="flexColumn">
+            <strong>Column three</strong>
+            <p>Third grid column.</p>
+        </article>
+        <article pgs="box flex" pgs-option="flexColumn">
+            <strong>Column four</strong>
+            <p>Third grid column.</p>
+        </article>
+    </div>
+</section>
+```
 
-    <section pgs="flex" pgs-option="flexColumn gapTexts">
-        <strong>Alignment</strong>
-        <div pgs="flex" pgs-option="flexRow gapTexts itemCenter justifyBetween contentCenter">
-            <span pgs="box">Short item</span>
-            <span pgs="box">Taller item<br>with two lines</span>
-            <span pgs="box" pgs-option="selfEnd">Self-aligned item</span>
-        </div>
-    </section>
+### Wrap
 
-    <section pgs="flex" pgs-option="flexColumn gapTexts">
-        <strong>Flex children</strong>
-        <div pgs="flex" pgs-option="flexRow gapTexts wrap">
-            <span pgs="box flex-flexInitial">Initial</span>
-            <span pgs="box flex-flexNone">None</span>
-            <span pgs="box flex-flex1">Grow</span>
-            <span pgs="box flex-flexFull">Full width</span>
-            <span pgs="box flex-flexOrderLast">Last</span>
-            <span pgs="box flex-flexOrderFirst">First</span>
-        </div>
-    </section>
-</div>
+Flex items wrapping onto multiple rows versus staying on a single non-wrapping row.
+
+```html
+<section pgs="flex" pgs-option="flexColumn gapTexts">
+    <strong>Wrap</strong>
+    <div pgs="flex" pgs-option="flexRow gapTexts wrap">
+        <span pgs="box">Wrapping item</span>
+        <span pgs="box">Wrapping item</span>
+        <span pgs="box">Wrapping item</span>
+    </div>
+    <div pgs="flex" pgs-option="flexRow gapTexts nowrap">
+        <span pgs="box">Non-wrapping item</span>
+        <span pgs="box">Non-wrapping item</span>
+    </div>
+</section>
+```
+
+### Direction
+
+Reversing the visual order of flex items on the row axis and on the column axis.
+
+```html
+<section pgs="flex" pgs-option="flexColumn gapTexts">
+    <strong>Direction</strong>
+    <div pgs="flex" pgs-option="flexRowReverse gapTexts">
+        <span pgs="box">First in markup</span>
+        <span pgs="box">Second in markup</span>
+    </div>
+    <div pgs="flex" pgs-option="flexColumnReverse gapTexts">
+        <span pgs="box">First in markup</span>
+        <span pgs="box">Second in markup</span>
+    </div>
+</section>
+```
+
+### Alignment
+
+Aligning and justifying flex items, including overriding a single child's alignment with selfEnd.
+
+```html
+<section pgs="flex" pgs-option="flexColumn gapTexts">
+    <strong>Alignment</strong>
+    <div pgs="flex" pgs-option="flexRow gapTexts itemCenter justifyBetween contentCenter">
+        <span pgs="box">Short item</span>
+        <span pgs="box">Taller item<br>with two lines</span>
+        <span pgs="box" pgs-option="selfEnd">Self-aligned item</span>
+    </div>
+</section>
+```
+
+### Flex children
+
+Sizing behavior of individual flex children: initial, none, grow, full width, and reordering.
+
+```html
+<section pgs="flex" pgs-option="flexColumn gapTexts">
+    <strong>Flex children</strong>
+    <div pgs="flex" pgs-option="flexRow gapTexts wrap">
+        <span pgs="box flex-flexInitial">Initial</span>
+        <span pgs="box flex-flexNone">None</span>
+        <span pgs="box flex-flex1">Grow</span>
+        <span pgs="box flex-flexFull">Full width</span>
+        <span pgs="box flex-flexOrderLast">Last</span>
+        <span pgs="box flex-flexOrderFirst">First</span>
+    </div>
+</section>
 ```

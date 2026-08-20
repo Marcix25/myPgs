@@ -31,42 +31,85 @@ HTML examples of the available badge variants.
 
 ## Example
 
+### Base
+
+Default badge variant with no color emphasis.
+
 ```html
-<div pgs="flexRow">
-    <span pgs="badge">
-        Base
-    </span>
+<span pgs="badge">
+    Base
+</span>
+```
 
-    <span pgs="badge" pgs-option="badgePrimary">
-        Primary
-    </span>
+### Primary
 
-    <span pgs="badge" pgs-option="badgeStrong">
-        Strong
-    </span>
+Badge using the primary color variant.
 
-    <span pgs="badge" pgs-option="badgeSuccess badgeDot">
-        Active
-    </span>
+```html
+<span pgs="badge" pgs-option="badgePrimary">
+    Primary
+</span>
+```
 
-    <span pgs="badge" pgs-option="badgeWarning">
-        <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
-        Warning
-    </span>
+### Strong
 
-    <span pgs="badge" pgs-option="badgeError">
-        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-        Error
-    </span>
+High-contrast badge variant.
 
-    <span pgs="badge" pgs-option="badgeInfo">
-        <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
-        Info
-    </span>
+```html
+<span pgs="badge" pgs-option="badgeStrong">
+    Strong
+</span>
+```
 
-    <span pgs="badge" pgs-option="badgeNeutral">
-        Neutral
-    </span>
+### Active
 
-</div>
+Success badge combined with a dot indicator.
+
+```html
+<span pgs="badge" pgs-option="badgeSuccess badgeDot">
+    Active
+</span>
+```
+
+### Warning
+
+Badge representing a warning, paired with an icon.
+
+```html
+<span pgs="badge" pgs-option="badgeWarning">
+    <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+    Warning
+</span>
+```
+
+### Error
+
+Badge representing an error, paired with an icon.
+
+```html
+<span pgs="badge" pgs-option="badgeError">
+    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+    Error
+</span>
+```
+
+### Info
+
+Badge representing informational content, paired with an icon.
+
+```html
+<span pgs="badge" pgs-option="badgeInfo">
+    <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+    Info
+</span>
+```
+
+### Neutral
+
+Neutral badge variant with muted colors.
+
+```html
+<span pgs="badge" pgs-option="badgeNeutral">
+    Neutral
+</span>
 ```

@@ -46,107 +46,155 @@ Series of HTML dropdowns demonstrating the supported placement directions.
 
 ## Example
 
+### Bottom center
+
+Default dropdown placement, opened below and centered on its trigger.
+
 ```html
-<div pgs="flexRow">
+<span pgs="dropdown">
+    <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
+        Bottom center
+        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+    </button>
 
-    <span pgs="dropdown">
-        <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
-            Bottom center
-            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-        </button>
+    <div pgs="dropdown-content">
+        bottom center content
+    </div>
+</span>
+```
 
-        <div pgs="dropdown-content">
-            bottom center content
-        </div>
-    </span>
+### Hover
 
-    <span pgs="dropdown" pgs-option="dropdownHover">
-        <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
-            Hover
-            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-        </button>
+Opens when the pointer enters the trigger and closes after it leaves.
 
-        <div pgs="dropdown-content">
-            hover content
-        </div>
-    </span>
+```html
+<span pgs="dropdown" pgs-option="dropdownHover">
+    <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
+        Hover
+        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+    </button>
 
-    <span pgs="dropdown" pgs-option="position[top left]">
-        <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
-            Top left
-            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-        </button>
+    <div pgs="dropdown-content">
+        hover content
+    </div>
+</span>
+```
 
-        <div pgs="dropdown-content">
-            top left content
-        </div>
-    </span>
+### Top left
 
-    <span pgs="dropdown" pgs-option="position[top center]">
-        <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
-            Top center
-            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-        </button>
+Dropdown content positioned above the trigger, aligned to the left.
 
-        <div pgs="dropdown-content">
-            top center content
-        </div>
-    </span>
+```html
+<span pgs="dropdown" pgs-option="position[top left]">
+    <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
+        Top left
+        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+    </button>
 
-    <span pgs="dropdown" pgs-option="position[top right]">
-        <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
-            Top right
-            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-        </button>
+    <div pgs="dropdown-content">
+        top left content
+    </div>
+</span>
+```
 
-        <div pgs="dropdown-content">
-            top right content
-        </div>
-    </span>
+### Top center
 
-    <span pgs="dropdown" pgs-option="position[bottom left]">
-        <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
-            Bottom left
-            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-        </button>
+Dropdown content positioned above the trigger, centered.
 
-        <div pgs="dropdown-content">
-            bottom left content
-        </div>
-    </span>
+```html
+<span pgs="dropdown" pgs-option="position[top center]">
+    <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
+        Top center
+        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+    </button>
 
-    <span pgs="dropdown" pgs-option="position[bottom right]">
-        <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
-            Bottom right
-            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-        </button>
+    <div pgs="dropdown-content">
+        top center content
+    </div>
+</span>
+```
 
-        <div pgs="dropdown-content">
-            bottom right content
-        </div>
-    </span>
+### Top right
 
-    <span pgs="dropdown" pgs-option="position[left center]">
-        <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
-            Left center
-            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-        </button>
+Dropdown content positioned above the trigger, aligned to the right.
 
-        <div pgs="dropdown-content">
-            left center content
-        </div>
-    </span>
+```html
+<span pgs="dropdown" pgs-option="position[top right]">
+    <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
+        Top right
+        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+    </button>
 
-    <span pgs="dropdown" pgs-option="position[right center]">
-        <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
-            Right center
-            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-        </button>
+    <div pgs="dropdown-content">
+        top right content
+    </div>
+</span>
+```
 
-        <div pgs="dropdown-content">
-            right center content
-        </div>
-    </span>
+### Bottom left
 
-</div>
+Dropdown content positioned below the trigger, aligned to the left.
+
+```html
+<span pgs="dropdown" pgs-option="position[bottom left]">
+    <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
+        Bottom left
+        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+    </button>
+
+    <div pgs="dropdown-content">
+        bottom left content
+    </div>
+</span>
+```
+
+### Bottom right
+
+Dropdown content positioned below the trigger, aligned to the right.
+
+```html
+<span pgs="dropdown" pgs-option="position[bottom right]">
+    <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
+        Bottom right
+        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+    </button>
+
+    <div pgs="dropdown-content">
+        bottom right content
+    </div>
+</span>
+```
+
+### Left center
+
+Dropdown content positioned to the left of the trigger, vertically centered.
+
+```html
+<span pgs="dropdown" pgs-option="position[left center]">
+    <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
+        Left center
+        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+    </button>
+
+    <div pgs="dropdown-content">
+        left center content
+    </div>
+</span>
+```
+
+### Right center
+
+Dropdown content positioned to the right of the trigger, vertically centered.
+
+```html
+<span pgs="dropdown" pgs-option="position[right center]">
+    <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
+        Right center
+        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+    </button>
+
+    <div pgs="dropdown-content">
+        right center content
+    </div>
+</span>
 ```

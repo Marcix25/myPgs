@@ -368,7 +368,7 @@
 
     //=== LABEL
     label {
-        &:not(:has([pgs~="labelUnset"], +input[type=checkbox], +input[type=radio])) {
+        &:not(:has([pgs~="label"], [pgs~="labelUnset"], +input[type=checkbox], +input[type=radio])) {
             &:has(+input, +select, +textarea) {
                 @include label();
             }
@@ -470,16 +470,27 @@
     }
 
     //=== REQUIRED
-    label:has(+ input[required]:not([type="checkbox"], [type="radio"]), +select[required], +textarea[required]),
+    label:has(+ input[required]:not([type="checkbox"], [type="radio"]),
+        + select[required],
+        + textarea[required],
+        > input[required]:not([type="checkbox"], [type="radio"]),
+        > select[required],
+        > textarea[required]),
     fieldset:has(input[type="checkbox"][required], input[type="radio"][required]) legend {
-        @include required();
+        &:not(:has([pgs~="label"])) {
+            @include required();
+        }
+
+        [pgs~=label] {
+            @include required();
+        }
     }
 
     //=== DISABLED
     input[disabled],
     input[disabled]:is([type="checkbox"], [type="radio"])+label,
-    label:has(+ input[disabled]:not([type="checkbox"], [type="radio"])),
-    label:has(+ :is(textarea[disabled], select[disabled])) {
+    label:has(+ input[disabled]:not([type="checkbox"], [type="radio"]), > input[disabled]:not([type="checkbox"], [type="radio"])),
+    label:has(+ :is(textarea[disabled], select[disabled]), > :is(textarea[disabled], select[disabled])) {
         @include disabled();
     }
 

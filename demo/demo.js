@@ -99,6 +99,17 @@ const demoRenderer = {
         return path.split("/").pop().replace(/\.html$/, "");
     },
 
+    //= removes every demo="disabled" element (whole subtree) from a markup string — used only to build
+    //= the "Example HTML" code text; the live preview always renders the untouched original markup
+    stripDisabled(markup) {
+        const template = document.createElement("template");
+        template.innerHTML = markup;
+        template.content.querySelectorAll('[demo="disabled"]').forEach(el => el.remove());
+        const wrapper = document.createElement("div");
+        wrapper.append(template.content);
+        return wrapper.innerHTML.trim();
+    },
+
     parseDocumentation(html) {
         //== not anchored to the very start: some local dev servers (live-reload, etc.) inject a
         //== script/comment before the fetched fragment, which would otherwise break a ^-anchored match
@@ -215,12 +226,20 @@ const demoRenderer = {
 
         this.renderDemoHeading(group, node.getAttribute("demo-title"), node.getAttribute("demo-description"), "h2");
 
-        const clone = this.stripDemoAttributes(node.cloneNode(true));
+        //== the live preview always renders the full item, untouched by demo="disabled"
         const preview = document.createElement("div");
         preview.setAttribute("pgs", "container flexColumn gapElements");
-        preview.append(clone);
+        preview.append(this.stripDemoAttributes(node.cloneNode(true)));
         group.append(preview);
-        this.renderExampleSource(group, clone.outerHTML.trim());
+
+        //== "Example HTML" is the only thing demo="disabled" affects: skip it entirely when the
+        //== item's own root is disabled, otherwise strip just the disabled descendants from the code
+        if (node.getAttribute("demo") !== "disabled") {
+            const codeClone = node.cloneNode(true);
+            codeClone.querySelectorAll('[demo="disabled"]').forEach(el => el.remove());
+            this.stripDemoAttributes(codeClone);
+            this.renderExampleSource(group, codeClone.outerHTML.trim());
+        }
 
         section.append(group);
     },
@@ -228,13 +247,19 @@ const demoRenderer = {
     //= Splits markup tagged with demo="component"/demo="item" into one live-preview + code pair per item,
     //= falling back to a single whole-markup pair for reference files that don't use those tags yet.
     renderExamplePairs(section, path, markup) {
+        if (!markup.trim()) return;
+
         const template = document.createElement("template");
         template.innerHTML = markup;
 
         const components = Array.from(template.content.querySelectorAll('[demo="component"]'));
         if (!components.length) {
+            //== the live preview always renders the full original markup; demo="disabled" only
+            //== affects the "Example HTML" code block below it, never what actually runs in the demo
             this.renderReference(section, path, markup);
-            this.renderExampleSource(section, markup);
+
+            const codeMarkup = this.stripDisabled(markup);
+            if (codeMarkup) this.renderExampleSource(section, codeMarkup);
             return;
         }
 
@@ -482,7 +507,8 @@ const demoRenderer = {
                 this.renderDocumentation(section, data, markup);
 
                 if (isBody) {
-                    this.renderExampleSource(section, markup);
+                    const cleanedMarkup = this.stripDisabled(markup);
+                    if (cleanedMarkup) this.renderExampleSource(section, cleanedMarkup);
                 } else {
                     this.renderExamplePairs(section, path, markup);
                 }

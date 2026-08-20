@@ -62,37 +62,38 @@ Complete HTML form with required fields and an example script for a custom rule,
 ## Example
 
 ```html
-<form
-    pgs="form"
-    pgs-option="fieldErrorTitle[Check the form] fieldError[Complete this field] fieldsError[Complete all required fields] successTitle[Submitted] success[Submitted successfully]"
-    action="#"
-    method="post"
->
+<form pgs="form" pgs-option="fieldErrorTitle[Check the form] fieldError[Complete this field] fieldsError[Complete all required fields] successTitle[Submitted] success[Submitted successfully]" action="#" method="post">
 
-    <label pgs="label" for="form-name">
-        Name
+    <label>
+        <span pgs="label">Name</span>
+        <input pgs="input" pgs-option="message[Enter your name]" type="text" name="name" placeholder="John Smith" required>
     </label>
-    <input id="form-name" pgs="input" pgs-option="message[Enter your name]" type="text" name="name" placeholder="John Smith" required>
 
-    <label pgs="label" for="form-email">
-        Email
+    <label>
+        <span pgs="label">Email</span>
+        <input pgs="input" pgs-option="message[Enter a valid email address]" type="email" name="email" placeholder="name@example.com" required>
     </label>
-    <input id="form-email" pgs="input" pgs-option="message[Enter a valid email address]" type="email" name="email" placeholder="name@example.com" required>
+    
+    
+    <label>
+        <span pgs="label">Password</span>
+        <input pgs="input" pgs-option="message[Enter a password]" type="password" name="password" autocomplete="new-password" required>
+    </label>
+    
+    <label>
+        <span pgs="label">Confirm password</span>
+        <input pgs="input" pgs-option="message[Confirm your password]" type="password" name="confirmPassword" autocomplete="new-password" required>
+    </label>
+    
+    <label>
+        <span pgs="label">Age</span>
+        <input pgs="input" type="number" name="age" placeholder="Enter your age" >
+    </label>
 
-    <label pgs="label" for="form-password">
-        Password
+    <label>
+        <span pgs="label">Message</span>
+        <textarea pgs="textarea" name="message" rows="5" placeholder="Write your message" required></textarea>
     </label>
-    <input id="form-password" pgs="input" pgs-option="message[Enter a password]" type="password" name="password" autocomplete="new-password" required>
-
-    <label pgs="label" for="form-confirm-password">
-        Confirm password
-    </label>
-    <input id="form-confirm-password" pgs="input" pgs-option="message[Confirm your password]" type="password" name="confirmPassword" autocomplete="new-password" required>
-
-    <label pgs="label" for="form-message">
-        Message
-    </label>
-    <textarea id="form-message" pgs="textarea" name="message" rows="5" placeholder="Write your message" required></textarea>
 
     <br>
     <fieldset pgs="radio flexColumn" pgs-option="message[Choose a contact method]">

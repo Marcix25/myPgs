@@ -20,8 +20,8 @@
  */
 -->
 
-<form pgs="form flexColumn gapElements">
-    <section pgs="flexColumn">
+<form pgs="form flexColumn gapElements" demo="component">
+    <section pgs="flexColumn" demo="item" demo-title="Checkbox with background" demo-description="A single checkbox presented as a selectable container, with the checked state highlighted.">
         <strong>Checkbox with background</strong>
 
         <label pgs="checkboxBackground">
@@ -31,6 +31,10 @@
                 Receive important account updates.
             </span>
         </label>
+    </section>
+
+    <section pgs="flexColumn" demo="item" demo-title="Radio group with background" demo-description="Radio inputs sharing the same name and presented as selectable containers, so only one can be checked.">
+        <strong>Radio group with background</strong>
 
         <fieldset pgs="flexRow">
             <label pgs="checkboxBackground">
@@ -50,7 +54,7 @@
         </fieldset>
     </section>
 
-    <section pgs="flexColumn">
+    <section pgs="flexColumn" demo="item" demo-title="Two-state control" demo-description="Checkbox label styled as a button whose appearance changes when selected.">
         <strong>Two-state controls</strong>
 
         <label pgs="twoState">
@@ -60,7 +64,7 @@
         </label>
     </section>
 
-    <section pgs="flexColumn">
+    <section pgs="flexColumn" demo="item" demo-title="Toggle" demo-description="Checkbox presented as a switch with a rail and movable thumb.">
         <strong>Toggle</strong>
 
         <label pgs="toggle">
@@ -69,7 +73,7 @@
         </label>
     </section>
 
-    <section pgs="flexColumn">
+    <section pgs="flexColumn" demo="item" demo-title="Chips checkbox" demo-description="Individual checkbox options presented as compact selectable chip buttons.">
         <strong>Chips checkbox</strong>
         <div pgs="flexRow" role="group" aria-label="Chip actions">
             <label pgs="chip">
@@ -86,7 +90,7 @@
     </section>
 
     <section pgs="flexColumn gapElements">
-        <fieldset pgs="chips">
+        <fieldset pgs="chips" demo="item" demo-title="Chips group (checkbox)" demo-description="Multiple checkbox chips grouped into a compact segmented selector.">
             <legend>Chip checkbox</legend>
             <label>
                 <input type="checkbox" name="plan" value="red" checked>
@@ -104,7 +108,7 @@
             </label>
         </fieldset>
 
-        <fieldset pgs="chips">
+        <fieldset pgs="chips" demo="item" demo-title="Chips group (radio)" demo-description="Multiple radio chips grouped into a compact segmented selector, each paired with an icon.">
             <legend>Chips radio</legend>
             <label>
                 <input type="radio" name="characters" value="Crow" checked>

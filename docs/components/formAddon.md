@@ -27,111 +27,151 @@ HTML examples of the checkboxBackground, twoState, toggle, and chips form contro
 
 ## Example
 
+### Checkbox with background
+
+A single checkbox presented as a selectable container, with the checked state highlighted.
+
 ```html
-<form pgs="form flexColumn gapElements">
-    <section pgs="flexColumn">
-        <strong>Checkbox with background</strong>
+<section pgs="flexColumn">
+    <strong>Checkbox with background</strong>
+
+    <label pgs="checkboxBackground">
+        <input type="checkbox" name="notifications" value="enabled">
+        <span>
+            <strong>Enable notifications</strong><br>
+            Receive important account updates.
+        </span>
+    </label>
+</section>
+```
+
+### Radio group with background
+
+Radio inputs sharing the same name and presented as selectable containers, so only one can be checked.
+
+```html
+<section pgs="flexColumn">
+    <strong>Radio group with background</strong>
+
+    <fieldset pgs="flexRow">
+        <label pgs="checkboxBackground">
+            <input type="radio" name="plan" value="basic" checked>
+            Basic
+        </label>
 
         <label pgs="checkboxBackground">
-            <input type="checkbox" name="notifications" value="enabled">
-            <span>
-                <strong>Enable notifications</strong><br>
-                Receive important account updates.
-            </span>
+            <input type="radio" name="plan" value="pro">
+            Pro
         </label>
 
-        <fieldset pgs="flexRow">
-            <label pgs="checkboxBackground">
-                <input type="radio" name="plan" value="basic" checked>
-                Basic
-            </label>
-
-            <label pgs="checkboxBackground">
-                <input type="radio" name="plan" value="pro">
-                Pro
-            </label>
-
-            <label pgs="checkboxBackground">
-                <input type="radio" name="plan" value="enterprise">
-                Enterprise
-            </label>
-        </fieldset>
-    </section>
-
-    <section pgs="flexColumn">
-        <strong>Two-state controls</strong>
-
-        <label pgs="twoState">
-            <input type="checkbox" name="favorite" value="yes">
-            <i class="fa-solid fa-star" aria-hidden="true"></i>
-            Add to favorites
+        <label pgs="checkboxBackground">
+            <input type="radio" name="plan" value="enterprise">
+            Enterprise
         </label>
-    </section>
+    </fieldset>
+</section>
+```
 
-    <section pgs="flexColumn">
-        <strong>Toggle</strong>
+### Two-state control
 
-        <label pgs="toggle">
-            <span>Enable Wi-Fi</span>
-            <input type="checkbox" name="darkMode" value="enabled">
+Checkbox label styled as a button whose appearance changes when selected.
+
+```html
+<section pgs="flexColumn">
+    <strong>Two-state controls</strong>
+
+    <label pgs="twoState">
+        <input type="checkbox" name="favorite" value="yes">
+        <i class="fa-solid fa-star" aria-hidden="true"></i>
+        Add to favorites
+    </label>
+</section>
+```
+
+### Toggle
+
+Checkbox presented as a switch with a rail and movable thumb.
+
+```html
+<section pgs="flexColumn">
+    <strong>Toggle</strong>
+
+    <label pgs="toggle">
+        <span>Enable Wi-Fi</span>
+        <input type="checkbox" name="darkMode" value="enabled">
+    </label>
+</section>
+```
+
+### Chips checkbox
+
+Individual checkbox options presented as compact selectable chip buttons.
+
+```html
+<section pgs="flexColumn">
+    <strong>Chips checkbox</strong>
+    <div pgs="flexRow" role="group" aria-label="Chip actions">
+        <label pgs="chip">
+            <input type="checkbox" name="like" value="basic">
+            <i class="fa-solid fa-heart"></i>
+            Like
         </label>
-    </section>
+        <label pgs="chip">
+            <input type="checkbox" name="share" value="basic">
+            <i class="fa-solid fa-share"></i>
+            Share
+        </label>
+    </div>
+</section>
+```
 
-    <section pgs="flexColumn">
-        <strong>Chips checkbox</strong>
-        <div pgs="flexRow" role="group" aria-label="Chip actions">
-            <label pgs="chip">
-                <input type="checkbox" name="like" value="basic">
-                <i class="fa-solid fa-heart"></i>
-                Like
-            </label>
-            <label pgs="chip">
-                <input type="checkbox" name="share" value="basic">
-                <i class="fa-solid fa-share"></i>
-                Share
-            </label>
-        </div>
-    </section>
+### Chips group (checkbox)
 
-    <section pgs="flexColumn gapElements">
-        <fieldset pgs="chips">
-            <legend>Chip checkbox</legend>
-            <label>
-                <input type="checkbox" name="plan" value="red" checked>
-                Red
-            </label>
+Multiple checkbox chips grouped into a compact segmented selector.
 
-            <label>
-                <input type="checkbox" name="plan" value="blue">
-                Blue
-            </label>
+```html
+<fieldset pgs="chips">
+    <legend>Chip checkbox</legend>
+    <label>
+        <input type="checkbox" name="plan" value="red" checked>
+        Red
+    </label>
 
-            <label>
-                <input type="checkbox" name="plan" value="green">
-                Green
-            </label>
-        </fieldset>
+    <label>
+        <input type="checkbox" name="plan" value="blue">
+        Blue
+    </label>
 
-        <fieldset pgs="chips">
-            <legend>Chips radio</legend>
-            <label>
-                <input type="radio" name="characters" value="Crow" checked>
-                <i class="fa-solid fa-crow"></i>
-                Crow
-            </label>
+    <label>
+        <input type="checkbox" name="plan" value="green">
+        Green
+    </label>
+</fieldset>
+```
 
-            <label>
-                <input type="radio" name="characters" value="Dove">
-                <i class="fa-solid fa-dove"></i>
-                Dove
-            </label>
+### Chips group (radio)
 
-            <label>
-                <input type="radio" name="characters" value="dragon">
-                <i class="fa-solid fa-dragon"></i>
-                dragon
-            </label>
-        </fieldset>
-    </section>
-</form>
+Multiple radio chips grouped into a compact segmented selector, each paired with an icon.
+
+```html
+<fieldset pgs="chips">
+    <legend>Chips radio</legend>
+    <label>
+        <input type="radio" name="characters" value="Crow" checked>
+        <i class="fa-solid fa-crow"></i>
+        Crow
+    </label>
+
+    <label>
+        <input type="radio" name="characters" value="Dove">
+        <i class="fa-solid fa-dove"></i>
+        Dove
+    </label>
+
+    <label>
+        <input type="radio" name="characters" value="dragon">
+        <i class="fa-solid fa-dragon"></i>
+        dragon
+    </label>
+</fieldset>
 ```

@@ -2179,47 +2179,47 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   }
 }
 @container (max-width: calc(300px + 600px + 300px + (4rem * 2))) {
-  [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) {
+  [pgs~=pageShell]:has(> [pgs~=pageShell-aside] + [pgs~=pageShell-content]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) {
     display: grid;
     grid-template-columns: var(--pageShell-aside-width) minmax(0, var(--pageShell-content-width));
     grid-template-areas: "asideLeft content" "asideLeft asideRight";
     justify-content: center;
   }
-  [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content] + [pgs~=pageShell-aside] {
+  [pgs~=pageShell]:has(> [pgs~=pageShell-aside] + [pgs~=pageShell-content]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content] + [pgs~=pageShell-aside] {
     position: relative;
     top: auto;
     max-height: none;
     width: 100%;
     min-width: 100%;
   }
-  [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content] + [pgs~=pageShell-aside] [pgs~=pageShell-aside-scroll] {
+  [pgs~=pageShell]:has(> [pgs~=pageShell-aside] + [pgs~=pageShell-content]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content] + [pgs~=pageShell-aside] [pgs~=pageShell-aside-scroll] {
     overflow-y: auto;
     scrollbar-gutter: auto;
     overscroll-behavior: auto;
   }
-  [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content] + [pgs~=pageShell-aside] {
+  [pgs~=pageShell]:has(> [pgs~=pageShell-aside] + [pgs~=pageShell-content]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content] + [pgs~=pageShell-aside] {
     padding-top: 0;
     min-width: min(100%, var(--pageShell-aside-width));
   }
 }
 @container (max-width: calc(300px + 600px + 4rem)) {
-  [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) {
+  [pgs~=pageShell]:has(> [pgs~=pageShell-aside] + [pgs~=pageShell-content]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) {
     display: flex;
   }
-  [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-aside] {
+  [pgs~=pageShell]:has(> [pgs~=pageShell-aside] + [pgs~=pageShell-content]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-aside] {
     position: relative;
     top: auto;
     max-height: none;
     width: 100%;
     min-width: 100%;
   }
-  [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-aside] [pgs~=pageShell-aside-scroll] {
+  [pgs~=pageShell]:has(> [pgs~=pageShell-aside] + [pgs~=pageShell-content]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-aside] [pgs~=pageShell-aside-scroll] {
     overflow-y: auto;
     scrollbar-gutter: auto;
     overscroll-behavior: auto;
   }
-  [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content],
-  [pgs~=pageShell]:has(> [pgs~=pageShell-aside]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content] + [pgs~=pageShell-aside] {
+  [pgs~=pageShell]:has(> [pgs~=pageShell-aside] + [pgs~=pageShell-content]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content],
+  [pgs~=pageShell]:has(> [pgs~=pageShell-aside] + [pgs~=pageShell-content]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content] + [pgs~=pageShell-aside] {
     padding-top: 0;
     min-width: 100%;
   }
@@ -3410,7 +3410,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   color: var(--color-link);
 }
 
-[pgs~=form] label:not(:has([pgs~=labelUnset], + input[type=checkbox], + input[type=radio])):has(+ input, + select, + textarea) {
+[pgs~=form] label:not(:has([pgs~=label], [pgs~=labelUnset], + input[type=checkbox], + input[type=radio])):has(+ input, + select, + textarea) {
   --label-borderadius: 1rem 1rem 0 0;
   --label-left: var(--border-radius-input);
   --label-padding: 0.7rem 1.2rem;
@@ -3428,7 +3428,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   background-color: var(--label-background);
 }
 
-[pgs~=form] label:not(:has([pgs~=labelUnset], + input[type=checkbox], + input[type=radio])):has(+ input, + select, + textarea) i {
+[pgs~=form] label:not(:has([pgs~=label], [pgs~=labelUnset], + input[type=checkbox], + input[type=radio])):has(+ input, + select, + textarea) i {
   font-size: 1.6rem;
   margin-right: 0.7rem;
 }
@@ -3992,14 +3992,29 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   position: relative;
 }
 
-[pgs~=form] label:has(+ input[required]:not([type=checkbox], [type=radio]), + select[required], + textarea[required]),
-[pgs~=form] fieldset:has(input[type=checkbox][required], input[type=radio][required]) legend {
+[pgs~=form] label:has(+ input[required]:not([type=checkbox], [type=radio]),
++ select[required],
++ textarea[required],
+> input[required]:not([type=checkbox], [type=radio]),
+> select[required],
+> textarea[required]):not(:has([pgs~=label])),
+[pgs~=form] fieldset:has(input[type=checkbox][required], input[type=radio][required]) legend:not(:has([pgs~=label])) {
   position: relative;
 }
 
-[pgs~=form] label:has(+ input[required]:not([type=checkbox], [type=radio]), + select[required], + textarea[required]) [pgs~=required-here]::after, [pgs~=form] label:has(+ input[required]:not([type=checkbox], [type=radio]), + select[required], + textarea[required]):not(:has([pgs~=required-here]))::after,
-[pgs~=form] fieldset:has(input[type=checkbox][required], input[type=radio][required]) legend [pgs~=required-here]::after,
-[pgs~=form] fieldset:has(input[type=checkbox][required], input[type=radio][required]) legend:not(:has([pgs~=required-here]))::after {
+[pgs~=form] label:has(+ input[required]:not([type=checkbox], [type=radio]),
++ select[required],
++ textarea[required],
+> input[required]:not([type=checkbox], [type=radio]),
+> select[required],
+> textarea[required]):not(:has([pgs~=label])) [pgs~=required-here]::after, [pgs~=form] label:has(+ input[required]:not([type=checkbox], [type=radio]),
++ select[required],
++ textarea[required],
+> input[required]:not([type=checkbox], [type=radio]),
+> select[required],
+> textarea[required]):not(:has([pgs~=label])):not(:has([pgs~=required-here]))::after,
+[pgs~=form] fieldset:has(input[type=checkbox][required], input[type=radio][required]) legend:not(:has([pgs~=label])) [pgs~=required-here]::after,
+[pgs~=form] fieldset:has(input[type=checkbox][required], input[type=radio][required]) legend:not(:has([pgs~=label])):not(:has([pgs~=required-here]))::after {
   content: "*";
   color: var(--color-error);
   transform: translate(20px, 0px);
@@ -4010,15 +4025,63 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   right: 0px;
 }
 
-[pgs~=form] label:has(+ input[required]:not([type=checkbox], [type=radio]), + select[required], + textarea[required]) [pgs~=required-here]::after,
-[pgs~=form] fieldset:has(input[type=checkbox][required], input[type=radio][required]) legend [pgs~=required-here]::after {
+[pgs~=form] label:has(+ input[required]:not([type=checkbox], [type=radio]),
++ select[required],
++ textarea[required],
+> input[required]:not([type=checkbox], [type=radio]),
+> select[required],
+> textarea[required]):not(:has([pgs~=label])) [pgs~=required-here]::after,
+[pgs~=form] fieldset:has(input[type=checkbox][required], input[type=radio][required]) legend:not(:has([pgs~=label])) [pgs~=required-here]::after {
+  position: relative;
+}
+
+[pgs~=form] label:has(+ input[required]:not([type=checkbox], [type=radio]),
++ select[required],
++ textarea[required],
+> input[required]:not([type=checkbox], [type=radio]),
+> select[required],
+> textarea[required]) [pgs~=label],
+[pgs~=form] fieldset:has(input[type=checkbox][required], input[type=radio][required]) legend [pgs~=label] {
+  position: relative;
+}
+
+[pgs~=form] label:has(+ input[required]:not([type=checkbox], [type=radio]),
++ select[required],
++ textarea[required],
+> input[required]:not([type=checkbox], [type=radio]),
+> select[required],
+> textarea[required]) [pgs~=label] [pgs~=required-here]::after, [pgs~=form] label:has(+ input[required]:not([type=checkbox], [type=radio]),
++ select[required],
++ textarea[required],
+> input[required]:not([type=checkbox], [type=radio]),
+> select[required],
+> textarea[required]) [pgs~=label]:not(:has([pgs~=required-here]))::after,
+[pgs~=form] fieldset:has(input[type=checkbox][required], input[type=radio][required]) legend [pgs~=label] [pgs~=required-here]::after,
+[pgs~=form] fieldset:has(input[type=checkbox][required], input[type=radio][required]) legend [pgs~=label]:not(:has([pgs~=required-here]))::after {
+  content: "*";
+  color: var(--color-error);
+  transform: translate(20px, 0px);
+  position: absolute;
+  font-size: 40px;
+  bottom: -8px;
+  font-weight: 600;
+  right: 0px;
+}
+
+[pgs~=form] label:has(+ input[required]:not([type=checkbox], [type=radio]),
++ select[required],
++ textarea[required],
+> input[required]:not([type=checkbox], [type=radio]),
+> select[required],
+> textarea[required]) [pgs~=label] [pgs~=required-here]::after,
+[pgs~=form] fieldset:has(input[type=checkbox][required], input[type=radio][required]) legend [pgs~=label] [pgs~=required-here]::after {
   position: relative;
 }
 
 [pgs~=form] input[disabled],
 [pgs~=form] input[disabled]:is([type=checkbox], [type=radio]) + label,
-[pgs~=form] label:has(+ input[disabled]:not([type=checkbox], [type=radio])),
-[pgs~=form] label:has(+ :is(textarea[disabled], select[disabled])) {
+[pgs~=form] label:has(+ input[disabled]:not([type=checkbox], [type=radio]), > input[disabled]:not([type=checkbox], [type=radio])),
+[pgs~=form] label:has(+ :is(textarea[disabled], select[disabled]), > :is(textarea[disabled], select[disabled])) {
   opacity: 0.5;
   cursor: not-allowed !important;
 }
@@ -5546,7 +5609,7 @@ dialog[pgs~=modal-dialog]:not([pgs-option~=topLevel]) {
   background-color: var(--color-secondary);
 }
 
-[pgs~=slides][pgs-option=slideScale] [pgs~=slides-container] [pgs~=slides-container-slide] > * {
+[pgs~=slides][pgs-option=slideAnimationScale] [pgs~=slides-container] [pgs~=slides-container-slide] > * {
   scale: var(--visible-percent);
 }
 
