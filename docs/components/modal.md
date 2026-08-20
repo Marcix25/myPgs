@@ -24,7 +24,6 @@ Modal markup, configuration, behavior, and usage example.
 - `topLevel`: identifies the topLevel element used by Modal.
 - `left`: identifies the left element used by Modal.
 - `right`: identifies the right element used by Modal.
-- `buttonStrong`: applies stronger emphasis to the save action.
 - `buttonClose`: styles the close action generated at runtime.
 
 ## JavaScript API
@@ -39,10 +38,16 @@ Modal markup, configuration, behavior, and usage example.
 
 ## Related elements
 
+### PGS
+
 - `button`: uses the related button component or utility in this example.
 - `flexColumn`: vertically organizes modal content.
 - `gapElements`: applies element spacing to modal content.
 - `flexRow`: uses the related flexRow component or utility in this example.
+
+### PGS Options
+
+- `buttonStrong`: applies stronger emphasis to the save action.
 
 ## Output
 

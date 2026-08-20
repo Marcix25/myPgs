@@ -14,7 +14,6 @@ Popup component that connects a control to content positioned relative to its tr
 
 - `dropdownHover`: opens the dropdown when the pointer enters its trigger and closes it after the pointer leaves; click and keyboard activation remain available.
 - `position`: configures the root as position[side alignment]; side accepts top, right, bottom, or left, while compatible alignment values are top, right, bottom, left, or center. The default is bottom center.
-- `buttonReverse`: reverses text and icon on the example buttons and belongs to the button component.
 
 ## PGS States
 
@@ -32,8 +31,14 @@ Popup component that connects a control to content positioned relative to its tr
 
 ## Related elements
 
+### PGS
+
 - `flexRow`: arranges the placement examples on the same flexible row.
 - `button`: applies standard styling to dropdown controls.
+
+### PGS Options
+
+- `buttonReverse`: reverses text and icon on the example buttons and belongs to the button component.
 
 ## Output
 

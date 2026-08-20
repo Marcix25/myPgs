@@ -32,16 +32,21 @@ Accessible pattern for collecting and storing analytics cookie consent, applying
 
 ## Related elements
 
+### PGS
+
+- `button`: presents the selection actions with standard styling.
+- `hidden`: uses the related hidden component or utility in this example.
+
+### Other
+
 - `flexColumn`: vertically organizes the JS-generated dialog content and the preference panel.
 - `gapElements`: applies element spacing to the JS-generated dialog content.
 - `flexRow`: arranges panel rows and actions.
 - `nowrap`: prevents wrapping in the essential-cookie row.
 - `toggle`: presents analytics consent as a switch.
-- `button`: presents the selection actions with standard styling.
 - `badge`: presents the essential-cookie status indicator; see Badges.
 - `modal`: wraps cookieConsent and the dialog, providing open/close behavior shared with every other dialog on the page.
 - `modal-dialog-content`: identifies the JS-generated styled content area inside the dialog.
-- `hidden`: uses the related hidden component or utility in this example.
 
 ## Output
 

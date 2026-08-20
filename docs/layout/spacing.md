@@ -6,9 +6,6 @@ Gap, margin, and padding utilities based on the shared MyPGS spacing scales.
 
 ## PGS
 
-- `gapTexts`: applies the text spacing token between child elements.
-- `gapElements`: applies the element spacing token between child elements.
-- `gapSections`: applies the section spacing token between child elements.
 - `marginLeft`: applies configurable spacing to the left of an element.
 - `marginRight`: applies configurable spacing to the right of an element.
 - `marginBottom`: applies configurable spacing below an element.
@@ -33,11 +30,16 @@ Gap, margin, and padding utilities based on the shared MyPGS spacing scales.
 
 ## Related elements
 
+### PGS
+
 - `flexColumn`: arranges the spacing groups vertically.
 - `flexRow`: arranges the gap examples horizontally.
 - `wrap`: allows the gap examples to wrap.
 - `nowrap`: prevents the section gap example from wrapping.
 - `box`: makes the gap examples visible.
+- `gapTexts`: applies the text spacing token between child elements.
+- `gapElements`: applies the element spacing token between child elements.
+- `gapSections`: applies the section spacing token between child elements.
 
 ## Output
 

@@ -15,11 +15,9 @@ Complete footer with theme control, brand area, navigation, informational conten
 - `footer-legal`: identifies the lower section dedicated to legal information.
 - `footer-legal-content`: identifies the content of the legal section.
 
-## PGS Options
-
-- `column-3`: configures the footer flex layout with three columns.
-
 ## Related elements
+
+### PGS
 
 - `button`: presents theme and cookie preference controls as buttons.
 - `toggleDarkmode`: connects the control to the global light or dark theme handler.
@@ -28,6 +26,10 @@ Complete footer with theme control, brand area, navigation, informational conten
 - `logo`: inserts the brand into the footer.
 - `logo-text`: uses the text variant of the logo.
 - `cookieConsent-actionOpen`: opens the Cookie Consent preference panel.
+
+### PGS Options
+
+- `column-3`: configures the footer flex layout with three columns.
 
 ## Output
 

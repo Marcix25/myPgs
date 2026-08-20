@@ -2532,9 +2532,7 @@ class PGS_Slides {
             const isView = visiblePercent >= 0.98;
 
             //== SCROLL ANIMATION
-            if (!pgs(LI.target).option.contains('notScrollAnimation') && LI.target.firstElementChild) {
-                LI.target.firstElementChild.style.setProperty('--visible-percent', `${visiblePercent}`);
-            };
+            if (LI.target.firstElementChild) LI.target.firstElementChild.style.setProperty('--visible-percent', `${visiblePercent}`);
 
             //== VIEW & NOT-VIEW 
             LI.target.classList.toggle("view", isView);

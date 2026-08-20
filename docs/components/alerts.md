@@ -28,7 +28,12 @@ Inline feedback messages for contextual information, successful operations, warn
 
 ## Related elements
 
+### PGS
+
 - `flexColumn`: arranges the static alert examples vertically.
+
+### Other
+
 - `notification`: provides dynamic floating alerts and toast messages.
 
 ## Output

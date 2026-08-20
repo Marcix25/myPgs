@@ -8,23 +8,9 @@ Focused layout, content, interaction, accessibility, and semantic-color utilitie
 
 - `aspectSquare`: gives an element a 1:1 aspect ratio.
 - `aspectVideo`: gives an element a 16:9 aspect ratio.
-- `bgInfo`: applies the semantic info color as the background.
-- `bgInfoBackground`: applies the semantic info background color.
 - `block`: displays an element as a block.
-- `box`: makes demonstration cells visible.
-- `brInfo`: applies the semantic info color as the border color.
-- `clInfo`: applies the semantic info color to text.
-- `clInfoBackground`: applies the semantic info background color to text.
 - `cursorNotAllowed`: shows the unavailable cursor.
-- `flexColumn`: stacks demonstration groups vertically.
-- `flex-flex1`: lets a flex item grow and shrink to occupy available space.
-- `flex-flexNone`: prevents a flex item from growing or shrinking.
-- `flex-flexOrderFirst`: places a flex item before its siblings.
-- `flex-flexOrderLast`: places a flex item after its siblings.
-- `flexRow`: arranges demonstration items in a row.
-- `focusRing`: shows the shared focus ring when keyboard focus is visible.
 - `minWidth0`: allows flex or grid content to shrink below its intrinsic width.
-- `motionReduce`: removes non-essential animation and transitions when reduced motion is preferred.
 - `overflowAuto`: adds scrolling only when content overflows.
 - `overflowHidden`: clips overflowing content.
 - `overflowXAuto`: adds horizontal scrolling only when required.
@@ -35,18 +21,35 @@ Focused layout, content, interaction, accessibility, and semantic-color utilitie
 - `positionSticky`: keeps an element sticky when offsets are supplied by the surrounding layout.
 - `selectNone`: prevents text selection.
 - `selectText`: enables text selection.
-- `skipLink`: creates a link that is revealed only when keyboard-focused.
 - `truncate`: limits text to one line and adds an ellipsis when it overflows.
+
+## Related elements
+
+### PGS
+
+- `box`: makes demonstration cells visible.
+- `bgInfo`: applies the semantic info color as the background.
+- `brInfo`: applies the semantic info color as the border color.
+- `colorInfo`: applies the semantic info color to text.
+- `flexColumn`: stacks demonstration groups vertically.
+- `flex-flex1`: lets a flex item grow and shrink to occupy available space.
+- `flex-flexNone`: prevents a flex item from growing or shrinking.
+- `flex-flexOrderFirst`: places a flex item before its siblings.
+- `flex-flexOrderLast`: places a flex item after its siblings.
+- `flexRow`: arranges demonstration items in a row.
+- `focusRing`: shows the shared focus ring when keyboard focus is visible.
+- `motionReduce`: removes non-essential animation and transitions when reduced motion is preferred.
+- `skipLink`: creates a link that is revealed only when keyboard-focused.
 - `visuallyHidden`: hides content visually while keeping it available to assistive technology.
 - `visuallyHiddenFocusable`: hides content until it or one of its children receives focus.
 
-## PGS Options
+### PGS Options
 
-- `flexCenter`: centers items on both axes in a flex container.
 - `gapSections`: separates the demonstration sections.
 - `gapTexts`: separates items within each demonstration group.
-- `inlineFlex`: displays a flex container inline.
 - `wrap`: allows the layout examples to wrap onto multiple rows.
+- `flexCenter`: centers items on both axes in a flex container.
+- `inlineFlex`: displays a flex container inline.
 
 ## Output
 
@@ -97,8 +100,8 @@ Examples of the standalone MyPGS utility API.
         <span pgs="visuallyHidden">Screen-reader-only description.</span>
         <a pgs="visuallyHiddenFocusable" href="#utility-content">Visible while focused</a>
         <span pgs="motionReduce">Motion is reduced for users who request it.</span>
-        <span pgs="bgInfo clInfoBackground brInfo">Info background</span>
-        <span pgs="bgInfoBackground clInfo">Info text</span>
+        <span pgs="bgInfo brInfo">Info background</span>
+        <span pgs="colorInfo">Info text</span>
     </section>
 </main>
 ```

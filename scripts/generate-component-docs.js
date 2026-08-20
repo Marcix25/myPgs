@@ -270,6 +270,15 @@ function splitOption(value) {
     return { key, payload: value.slice(openIndex + 1, closeIndex) };
 }
 
+//+ demo="component" wrappers are grouping-only and never rendered in the docs Example section (see extractDemoItems),
+//+ so their own pgs/pgs-option/pgs-state attributes shouldn't force a documentation requirement
+function stripComponentWrapperAttributes(markup) {
+    return markup.replace(/<([a-zA-Z][a-zA-Z0-9-]*)\b([^>]*\bdemo\s*=\s*["']component["'][^>]*)>/g, (full, tagName, attrs) => {
+        const cleanedAttrs = attrs.replace(/\s+pgs(?:-option|-state)?\s*=\s*("[^"]*"|'[^']*')/g, "");
+        return `<${tagName}${cleanedAttrs}>`;
+    });
+}
+
 function extractAttributes(markup) {
     const activeMarkup = markup.replace(/<!--[\s\S]*?-->/g, "");
     const result = { pgs: [], options: [], states: [] };
@@ -399,7 +408,7 @@ function validateTemplate(template, parsed, sources, allSourceContent) {
 
     const file = relativeToProject(template);
     const documentation = parsed.data;
-    const attributes = extractAttributes(parsed.markup);
+    const attributes = extractAttributes(stripComponentWrapperAttributes(parsed.markup));
     const documentedPgs = new Set(documentation.pgs.map(item => item.key));
     const documentedRelated = new Set(documentation.related.map(item => item.key));
     const documentedOptions = new Set(documentation["pgs-option"].map(item => item.key));
@@ -420,7 +429,8 @@ function validateTemplate(template, parsed, sources, allSourceContent) {
     });
 
     [...documentedPgs, ...documentedRelated].forEach(token => {
-        if (!attributes.pgs.includes(token) && !containsExactToken(allSourceContent, token)) {
+        const usedAsOption = attributes.options.some(value => splitOption(value).key === token);
+        if (!attributes.pgs.includes(token) && !usedAsOption && !containsExactToken(allSourceContent, token)) {
             errors.push(createError(file, `Valore documentato non trovato nel template, JavaScript o SCSS: "${token}".`, "Correggi il nome oppure rimuovi la voce non implementata.", documentedPgs.has(token) ? "@pgs" : "@related", token));
         }
     });
@@ -431,8 +441,8 @@ function validateTemplate(template, parsed, sources, allSourceContent) {
             errors.push(createError(file, `Valore pgs-option non valido: "${rawOption}".`, "Correggi la sintassi dell'attributo pgs-option.", "@pgs-option", rawOption));
             return;
         }
-        if (!documentedOptions.has(option.key)) {
-            errors.push(createError(file, `Valore pgs-option non documentato: "${option.key}".`, "Aggiungi la chiave alla sezione @pgs-option.", "@pgs-option", option.key));
+        if (!documentedOptions.has(option.key) && !documentedRelated.has(option.key)) {
+            errors.push(createError(file, `Valore pgs-option non documentato: "${option.key}".`, "Aggiungi la chiave alla sezione @pgs-option oppure a @related.", "@pgs-option", option.key));
         }
         if (["containerID", "containerPGS", "tabIcon"].includes(option.key) && (!option.payload || !option.payload.trim())) {
             errors.push(createError(file, `Payload mancante per pgs-option "${option.key}".`, `Usa ${option.key}[valore] con un valore non vuoto.`, "@pgs-option", option.key));
@@ -517,6 +527,97 @@ function extractScriptBlock(markup, typeValue) {
     return { content: dedent(match[1]), markup: cleanedMarkup };
 }
 
+function stripDemoAttributesFromMarkup(html) {
+    return html.replace(/\s+demo(?:-title|-description)?\s*=\s*("[^"]*"|'[^']*')/g, "");
+}
+
+//+ finds the index right after the closing tag matching an opening tag of tagName starting at fromIndex,
+//+ counting nested occurrences of that same tag name (ignores every other tag, including void elements like <img>)
+function findMatchingCloseTag(markup, tagName, fromIndex) {
+    const tagPattern = new RegExp(`<(\\/?)${tagName}\\b[^>]*>`, "gi");
+    tagPattern.lastIndex = fromIndex;
+    let depth = 1;
+    let match;
+
+    while ((match = tagPattern.exec(markup))) {
+        if (match[1]) {
+            depth--;
+            if (depth === 0) return match.index + match[0].length;
+        } else if (!match[0].endsWith("/>")) {
+            depth++;
+        }
+        tagPattern.lastIndex = match.index + match[0].length;
+    }
+
+    return -1;
+}
+
+//+ pulls out every demo="item" element with its demo-title/demo-description, stripping those attributes from the returned markup
+function extractDemoItems(markup) {
+    const openTagPattern = /<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*\bdemo\s*=\s*["']item["'][^>]*>/g;
+    const items = [];
+    let match;
+
+    while ((match = openTagPattern.exec(markup))) {
+        const tagName = match[1];
+        const openTagEnd = match.index + match[0].length;
+        const end = findMatchingCloseTag(markup, tagName, openTagEnd);
+        if (end === -1) {
+            openTagPattern.lastIndex = openTagEnd;
+            continue;
+        }
+
+        const titleMatch = match[0].match(/\bdemo-title\s*=\s*(["'])((?:(?!\1).)*)\1/);
+        const descriptionMatch = match[0].match(/\bdemo-description\s*=\s*(["'])((?:(?!\1).)*)\1/);
+
+        const lineStart = markup.lastIndexOf("\n", match.index) + 1;
+        const baseIndent = markup.slice(lineStart, match.index).match(/^[ \t]*$/) ? markup.slice(lineStart, match.index) : "";
+        const outer = markup.slice(match.index, end);
+        const dedented = baseIndent ? outer.replace(new RegExp(`^${escapeRegExp(baseIndent)}`, "gm"), "") : outer;
+
+        items.push({
+            title: titleMatch ? titleMatch[2] : "",
+            description: descriptionMatch ? descriptionMatch[2] : "",
+            markup: stripDemoAttributesFromMarkup(dedented).trim(),
+        });
+
+        openTagPattern.lastIndex = end;
+    }
+
+    return items;
+}
+
+function fenceFor(text) {
+    const runs = [...text.matchAll(/`+/g)].map(run => run[0].length);
+    return "`".repeat(Math.max(3, (runs.length ? Math.max(...runs) : 0) + 1));
+}
+
+//+ related elements can be borrowed from any of the three attribute kinds (pgs/pgs-option/pgs-state);
+//+ split them into labeled subgroups by how they're actually used in this template's markup, so a
+//+ reader can tell which attribute to put each one in without re-checking the source
+function renderRelatedSection(items, markup) {
+    const attributes = extractAttributes(markup);
+    const isOption = key => attributes.options.some(value => splitOption(value).key === key);
+    const isState = key => attributes.states.includes(key);
+    const isPgs = key => attributes.pgs.includes(key);
+
+    const groups = [
+        ["PGS", items.filter(item => isPgs(item.key))],
+        ["PGS Options", items.filter(item => !isPgs(item.key) && isOption(item.key))],
+        ["PGS States", items.filter(item => !isPgs(item.key) && !isOption(item.key) && isState(item.key))],
+    ];
+    const grouped = new Set(groups.flatMap(([, groupItems]) => groupItems));
+    const ungrouped = items.filter(item => !grouped.has(item));
+
+    const lines = ["", "## Related elements"];
+    groups.forEach(([label, groupItems]) => {
+        if (!groupItems.length) return;
+        lines.push("", `### ${label}`, "", renderList(groupItems));
+    });
+    if (ungrouped.length) lines.push("", "### Other", "", renderList(ungrouped));
+    return lines;
+}
+
 function renderMarkdown(template, documentation, markup) {
     const relativeTemplate = relativeToProject(template);
     const marker = `<!-- Automatically generated from ${relativeTemplate}. Edit ${relativeTemplate} and run npm run docs:generate again. -->`;
@@ -526,13 +627,14 @@ function renderMarkdown(template, documentation, markup) {
         ["PGS Options", documentation["pgs-option"]],
         ["PGS States", documentation["pgs-state"]],
         ["JavaScript API", documentation.api],
-        ["Related elements", documentation.related],
     ];
 
     sectionMap.forEach(([title, items]) => {
         if (items.length === 0) return;
         sections.push("", `## ${title}`, "", renderList(items));
     });
+
+    if (documentation.related.length) sections.push(...renderRelatedSection(documentation.related, markup));
 
     if (documentation.return) sections.push("", "## Output", "", documentation.return);
 
@@ -542,9 +644,23 @@ function renderMarkdown(template, documentation, markup) {
     if (jsonSchema) sections.push("", "## JSON Schema", "", "```json", jsonSchema, "```", "");
     if (jsUsage) sections.push("", "## JavaScript Usage", "", "```js", jsUsage, "```", "");
 
-    const runs = [...cleanedMarkup.matchAll(/`+/g)].map(match => match[0].length);
-    const fence = "`".repeat(Math.max(3, (runs.length ? Math.max(...runs) : 0) + 1));
-    sections.push("", "## Example", "", `${fence}html`, cleanedMarkup, fence, "");
+    const demoItems = extractDemoItems(cleanedMarkup);
+    sections.push("", "## Example", "");
+
+    if (demoItems.length > 0) {
+        demoItems.forEach((item, index) => {
+            if (index > 0) sections.push("");
+            if (item.title) sections.push(`### ${item.title}`, "");
+            if (item.description) sections.push(item.description, "");
+            const itemFence = fenceFor(item.markup);
+            sections.push(`${itemFence}html`, item.markup, itemFence);
+        });
+        sections.push("");
+    } else {
+        const fence = fenceFor(cleanedMarkup);
+        sections.push(`${fence}html`, cleanedMarkup, fence, "");
+    }
+
     return sections.join("\n");
 }
 

@@ -19,7 +19,6 @@ Step Tabs markup, configuration, behavior, and usage example.
 
 - `tabIcon`: identifies the tabIcon element used by Step Tabs.
 - `step`: identifies the step element used by Step Tabs.
-- `buttonReverse`: identifies the buttonReverse element used by Step Tabs.
 
 ## PGS States
 
@@ -42,10 +41,16 @@ Step Tabs markup, configuration, behavior, and usage example.
 
 ## Related elements
 
+### PGS
+
 - `flexColumn`: uses the related flexColumn component or utility in this example.
 - `gapElements`: applies element spacing to the step tab container.
 - `flexRow`: uses the related flexRow component or utility in this example.
 - `button`: uses the related button component or utility in this example.
+
+### PGS Options
+
+- `buttonReverse`: reverses text and icon on the example buttons and belongs to the button component.
 
 ## Output
 

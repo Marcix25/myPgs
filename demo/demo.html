@@ -16,7 +16,14 @@
 
 <body class="is-loadingOLD" pgs="bodyBase bodyImg bodyText bodyHeading">
     <div id="reference-demo-before"></div>
-    <main id="reference-demo-main" pgs="main"></main>
+    <div pgs="pageShell" pgs-option="shellFullPage">
+        <aside pgs="pageShell-aside ">
+            <div pgs="pageShell-aside-scroll">
+                <div id="reference-demo-nav" pgs="flexColumn gapElements"></div>
+            </div>
+        </aside>
+        <main id="reference-demo-main" pgs="pageShell-content"></main>
+    </div>
     <div id="reference-demo-after"></div>
     <script src="./demo.js"></script>
 </body>

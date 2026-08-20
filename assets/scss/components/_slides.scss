@@ -15,8 +15,7 @@
 
     //option for suggestions
     &[pgs-option~=singleScroll],
-    &[pgs-option~=shadowDesktop],
-    &[pgs-option~=notScrollAnimation] {}
+    &[pgs-option~=shadowDesktop]{}
 
     //+( tablet 
     @container (min-width: #{$tablet}) {
@@ -182,7 +181,7 @@
         }
     }
 
-    &[pgs-option=slideScale] {
+    &[pgs-option=slideAnimationScale] {
         [pgs~="slides-container"] {
             [pgs~="slides-container-slide"] {
                 >* {

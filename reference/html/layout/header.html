@@ -15,13 +15,6 @@
  *
  * @pgs-option
  * - mobileBottom: moves header-element to the bottom of the viewport at the mobile breakpoint.
- * - horizontal: arranges the related desktop menu horizontally.
- * - vertical: arranges the related mobile menu vertically.
- * - menuHeader: adapts both menus to the header context.
- * - menuShort: compacts adjacent desktop menu links by overlapping their horizontal spacing.
- * - containerPGS: uses containerPGS[header] on the modal wrapper to move the dialog into the header.
- * - right: presents the mobile navigation dialog content from the right side.
- * - buttonIcon: presents theme and hamburger controls as icon buttons.
  *
  * @pgs-state
  * - mobileActive: is applied to header and header-element when their width or the viewport requires mobile navigation.
@@ -33,6 +26,14 @@
  * - menu: provides desktop and mobile navigation.
  * - flexRow: uses the related flexRow component or utility in this example.
  * - nowrap: uses the related nowrap component or utility in this example.
+ * - blur: applies a backdrop blur behind header-element for a frosted-glass effect.
+ * - horizontal: arranges the related desktop menu horizontally.
+ * - vertical: arranges the related mobile menu vertically.
+ * - menuHeader: adapts both menus to the header context.
+ * - menuShort: compacts adjacent desktop menu links by overlapping their horizontal spacing.
+ * - containerPGS: uses containerPGS[header] on the modal wrapper to move the dialog into the header.
+ * - right: presents the mobile navigation dialog content from the right side.
+ * - buttonIcon: presents theme and hamburger controls as icon buttons.
  * - notificationBell: opens and closes the notification panel from the header.
  * - notificationBell-counter: displays the current notification count on the bell.
  * - toggleDarkmode: connects the control to the global theme handler.
@@ -48,7 +49,7 @@
 -->
 
 <header pgs="header">
-	<div pgs="header-element">
+	<div pgs="header-element blur">
 		<div pgs="header-element-alwaysOn">
 			<a aria-label="Logo" pgs="logo" href="/">
 				<span pgs="logo-text">MyPGS</span>
@@ -59,7 +60,9 @@
 			<nav pgs="menu" pgs-option="horizontal menuHeader menuShort" aria-label="Main menu">
 				<ul>
 					<li><a href="/">Home</a></li>
+					<li><a href="#base">Base</a></li>
 					<li><a href="#components">Components</a></li>
+					<li><a href="#patterns">Patterns</a></li>
 					<li><a href="#layout">Layout</a></li>
 				</ul>
 			</nav>
@@ -74,7 +77,7 @@
 					<i class="fa-solid fa-moon"></i>
 				</button>
 				<div pgs="modal" pgs-option="containerPGS[header] ">
-					<button pgs="modal-button modal-close button notificationBell" pgs-option="buttonIcon" aria-label="Apri notifiche">
+					<button type="button" pgs="modal-button modal-close button notificationBell" pgs-option="buttonIcon" aria-label="Apri notifiche">
 						<i class="fa-duotone fa-solid fa-bell"></i>
 						<span pgs="notificationBell-counter"></span>
 					</button>
@@ -84,15 +87,16 @@
 
 		<div pgs="header-element-hamburger modal" pgs-option="containerPGS[header]">
 
-			<button pgs="button modal-button modal-close header-element-hamburger-button" pgs-option="buttonIcon" type="button"></button>
-
+			<button pgs="button modal-button modal-close header-element-hamburger-button" pgs-option="buttonIcon" type="button" title="menu"></button>
 
 			<dialog pgs="modal-dialog" pgs-option="right">
 				<div pgs="modal-dialog-content">
 					<nav pgs="menu" pgs-option="vertical menuHeader" aria-label="Mobile menu">
 						<ul>
 							<li><a href="/">Home</a></li>
+							<li><a href="#base">Base</a></li>
 							<li><a href="#components">Components</a></li>
+							<li><a href="#patterns">Patterns</a></li>
 							<li><a href="#layout">Layout</a></li>
 						</ul>
 					</nav>

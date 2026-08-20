@@ -23,6 +23,8 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 
 ## Related elements
 
+### PGS
+
 - `flexRow`: arranges the button examples in a flexible row.
 
 ## Output

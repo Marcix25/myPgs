@@ -50,6 +50,8 @@ Responsive flex and grid layouts with configurable columns, gap, wrapping, and a
 
 ## Related elements
 
+### PGS
+
 - `box`: makes the demonstration cells visible.
 - `flex-flexInitial`: uses the flex initial sizing behavior on a flex child.
 - `flex-flexNone`: prevents a flex child from growing or shrinking.

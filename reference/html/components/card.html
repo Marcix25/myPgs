@@ -13,10 +13,8 @@
  * - cardHorizontal: switches intrinsically between a horizontal 40/60 layout and a stacked layout according to the card's available width.
  * - cardMini: reduces the card content padding.
  * - boxMini: reduces the box padding.
- * - column-2: displays two examples per row when enough space is available.
  *
  * @related
- * - flexRow: arranges the examples in responsive rows.
  * - button: presents the card action as a standard button.
  * - marginTop: separates the card action from the preceding text.
  *
@@ -25,8 +23,8 @@
 -->
 
 
-<div pgs="flexRow" pgs-option="column-2">
-    <article pgs="card">
+<div pgs="flexRow" pgs-option="column-2" demo="component">
+    <article pgs="card" demo="item" demo-title="Standard card" demo-description="Descriptive card content suitable for lists, previews, and grids.">
         <img pgs="card-img" src="https://placehold.net/600x400.png" alt="Placeholder image">
 
         <div pgs="card-content">
@@ -36,7 +34,7 @@
         </div>
     </article>
 
-    <article pgs="card">
+    <article pgs="card" demo="item" demo-title="Clickable card" demo-description="The complete card surface behaves as a link.">
         <a href="#">
             <img pgs="card-img" src="https://placehold.net/600x400.png" alt="Placeholder image">
 
@@ -47,7 +45,7 @@
         </a>
     </article>
 
-    <article pgs="card" pgs-option="cardHorizontal">
+    <article pgs="card" pgs-option="cardHorizontal" demo="item" demo-title="Horizontal card" demo-description="This card switches intrinsically between horizontal and stacked layouts.">
         <img pgs="card-img" src="https://placehold.net/600x400.png" alt="Placeholder image">
 
         <div pgs="card-content">
@@ -56,7 +54,7 @@
         </div>
     </article>
 
-    <article pgs="card" pgs-option="cardMini">
+    <article pgs="card" pgs-option="cardMini" demo="item" demo-title="Compact card" demo-description="The compact option reduces the content padding.">
         <img pgs="card-img" src="https://placehold.net/600x400.png" alt="Placeholder image">
 
         <div pgs="card-content">
@@ -67,36 +65,20 @@
 </div>
 
 
-<div pgs="flexRow" pgs-option="column-2">
-    <div pgs="box">
+<div pgs="flexRow" pgs-option="column-3" demo="component">
+    <div pgs="box" demo="item" demo-title="Standard box" demo-description="Lightweight content grouped inside a neutral surface.">
         <h3>Standard box</h3>
         <p>Lightweight content grouped inside a neutral surface.</p>
     </div>
 
-    <div pgs="box" pgs-option="boxMini">
+    <a pgs="box" href="#" demo="item" demo-title="Clickable box" demo-description="The complete box surface behaves as a link.">
+        <h3>Clickable box</h3>
+        <p>The complete box surface behaves as a link.</p>
+    </a>
+
+    <div pgs="box" pgs-option="boxMini" demo="item" demo-title="Compact box" demo-description="The compact option reduces the internal spacing.">
         <h3>Compact box</h3>
         <p>The compact option reduces the internal spacing.</p>
     </div>
 
-    <a pgs="box" href="#">
-        <h3>Clickable box</h3>
-        <p>The complete box surface behaves as a link.</p>
-    </a>
-</div>
-
-<div pgs="flexRow" pgs-option="column-2">
-    <div pgs="box">
-        <h3>Standard box</h3>
-        <p>Lightweight content grouped inside a neutral surface.</p>
-    </div>
-
-    <div pgs="box" pgs-option="boxMini">
-        <h3>Compact box</h3>
-        <p>The compact option reduces the internal spacing.</p>
-    </div>
-
-    <a pgs="box" href="#">
-        <h3>Clickable box</h3>
-        <p>The complete box surface behaves as a link.</p>
-    </a>
 </div>

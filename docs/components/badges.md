@@ -21,6 +21,8 @@ Collection of compact indicators for displaying categories, priorities, and visu
 
 ## Related elements
 
+### PGS
+
 - `flexRow`: arranges badges horizontally and allows them to wrap.
 
 ## Output

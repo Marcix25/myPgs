@@ -17,6 +17,8 @@ Responsive page layout that combines main content with zero, one or two sidebars
 
 ## Related elements
 
+### PGS
+
 - `flexColumn`: organizes text contained in the sidebars.
 - `gapElements`: applies element spacing in the main sections.
 

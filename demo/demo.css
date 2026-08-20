@@ -1,5 +1,5 @@
 body {
-    --color-background: light-dark(#f1ffef, #101010);
+    /* --color-background: light-dark(#f1ffef, #101010); */
     display: block;
     opacity: 1;
     transition: opacity 500ms, display 500ms allow-discrete;
@@ -18,13 +18,79 @@ body {
     overflow: auto;
 }
 
-pre {
-    display: flex;
+/* [pgs~="..."] utility rules set display:flex/grid, which otherwise beats the native [hidden] rule at equal specificity */
+#reference-demo-main [data-panel][hidden] {
+    display: none;
+}
 
-    code {
-        overflow: auto;
-        width: 100%;
+.exampleSource {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: #101114;
+    color: #f5f5f5;
+    border-radius: 24px;
+    padding: 28px 32px;
+
+    pre {
+        display: block;
+        margin: 0;
+        overflow-x: auto;
+
+        code {
+            width: auto;
+            overflow: visible;
+            color: inherit;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            white-space: pre;
+        }
     }
+}
+
+.exampleSource-title {
+    color: #f5f5f5;
+    font-size: 1.15rem;
+}
+
+.exampleSource-copy {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.12);
+    color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 150ms;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.22);
+    }
+}
+
+.docBlock-heading {
+    margin: 0;
+}
+
+.docBlock-subheading {
+    margin: 0;
+    font-size: 0.95em;
+    color: var(--color-tertiary-strong, currentColor);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.docBlock code {
+    background: var(--color-tertiary-soft);
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
 .reference-title {

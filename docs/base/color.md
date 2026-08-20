@@ -6,27 +6,6 @@ Interactive palette of the current MyPGS background and text color utilities.
 
 ## PGS
 
-- `dropdown`: provides the interactive container for each background color tooltip.
-- `tooltip`: applies the tooltip presentation to the dropdown.
-- `dropdown-button`: identifies the control that opens a color tooltip.
-- `tooltip-button`: identifies the tooltip trigger.
-- `dropdown-content`: identifies the content panel of a color tooltip.
-- `tooltip-content`: applies the tooltip content presentation.
-
-## PGS Options
-
-- `boxMini`: applies the compact box presentation to each palette group.
-- `buttonIcon`: makes each background color trigger a compact circular button.
-- `dropdownHover`: opens each background color tooltip while its circle is hovered.
-- `gapElements`: spaces the background and text color groups.
-- `gapTexts`: spaces individual palette entries.
-- `wrap`: lets palette entries wrap on narrow viewports.
-
-## Related elements
-
-- `box`: makes each palette group visible.
-- `button`: supplies the shared button base used by background color triggers.
-- `flex-flexFull`: makes palette headings occupy a full flex row.
 - `bgPrimary`: applies --color-primary as a background.
 - `bgSecondary`: applies --color-secondary as a background.
 - `bgTertiary`: applies --color-tertiary as a background.
@@ -110,8 +89,31 @@ Interactive palette of the current MyPGS background and text color utilities.
 - `colorErrorSoft`: applies --color-error-soft to text.
 - `iconColorPrimary`: applies --color-icon-primary to text.
 - `iconColorSecondary`: applies --color-icon-secondary to text.
+
+## Related elements
+
+### PGS
+
+- `dropdown`: provides the interactive container for each background color tooltip.
+- `tooltip`: applies the tooltip presentation to the dropdown.
+- `dropdown-button`: identifies the control that opens a color tooltip.
+- `tooltip-button`: identifies the tooltip trigger.
+- `dropdown-content`: identifies the content panel of a color tooltip.
+- `tooltip-content`: applies the tooltip content presentation.
+- `box`: makes each palette group visible.
+- `button`: supplies the shared button base used by background color triggers.
+- `flex-flexFull`: makes palette headings occupy a full flex row.
 - `flexColumn`: stacks palette groups vertically.
 - `flexRow`: arranges palette entries in flexible rows.
+
+### PGS Options
+
+- `boxMini`: applies the compact box presentation to each palette group.
+- `buttonIcon`: makes each background color trigger a compact circular button.
+- `dropdownHover`: opens each background color tooltip while its circle is hovered.
+- `gapElements`: spaces the background and text color groups.
+- `gapTexts`: spaces individual palette entries.
+- `wrap`: lets palette entries wrap on narrow viewports.
 
 ## Output
 

@@ -10,11 +10,6 @@ Tooltip markup, configuration, behavior, and usage example.
 - `tooltip-button`: identifies the tooltip-button element used by Tooltip.
 - `tooltip-content`: identifies the tooltip-content element used by Tooltip.
 
-## PGS Options
-
-- `position`: identifies the position element used by Tooltip.
-- `buttonMini`: applies the smallest button variant to the tooltip trigger.
-
 ## PGS States
 
 - `open`: identifies the open element used by Tooltip.
@@ -31,10 +26,20 @@ Tooltip markup, configuration, behavior, and usage example.
 
 ## Related elements
 
+### PGS
+
 - `button`: provides the base styling for the tooltip trigger.
 - `dropdown`: uses the related dropdown component or utility in this example.
 - `dropdown-button`: uses the related dropdown-button component or utility in this example.
 - `dropdown-content`: uses the related dropdown-content component or utility in this example.
+
+### PGS Options
+
+- `buttonMini`: applies the smallest button variant to the tooltip trigger.
+
+### Other
+
+- `position`: identifies the position element used by Tooltip.
 
 ## Output
 

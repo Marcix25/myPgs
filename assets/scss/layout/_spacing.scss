@@ -1,6 +1,4 @@
 //# SPACING
-
-
 //= MARGIN
 [pgs~=marginLeft],
 [pgs~=marginRight],
@@ -8,7 +6,15 @@
 [pgs~=marginTop],
 [pgs~=marginInline],
 [pgs~=marginBlock] {
-    --margin-size: var(--gap-texts);
+    --margin-size: var(--padding);
+
+    &[pgs-option~=margin2] {
+        --margin-size: var(--padding-2);
+    }
+
+    &[pgs-option~=marginPage] {
+        --margin-size: var(--padding-page);
+    }
 
     &[pgs-option~=marginTexts] {
         --margin-size: var(--gap-texts);
@@ -58,7 +64,15 @@
 [pgs~=paddingTop],
 [pgs~=paddingInline],
 [pgs~=paddingBlock] {
-    --padding-size: var(--gap-texts);
+    --padding-size: var(--padding);
+
+    &[pgs-option~=padding2] {
+        --padding-size: var(--padding-2);
+    }
+
+    &[pgs-option~=paddingPage] {
+        --padding-size: var(--padding-page);
+    }
 
     &[pgs-option~=paddingTexts] {
         --padding-size: var(--gap-texts);

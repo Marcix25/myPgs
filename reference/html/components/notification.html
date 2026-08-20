@@ -16,8 +16,6 @@
  *
  * @pgs-option
  * - notification: JSON object (or several, comma-separated) read by notificationLoad on page load — see the full field reference, with every optional field and its default, in the commented example below.
- * - buttonIcon: presents notificationBell as an icon button.
- * - right: slides the notification dialog in from the right; see Modal for other positions.
  *
  * @pgs-state
  * - success: identifies the success element used by Notification.
@@ -40,6 +38,8 @@
  * - modal: wraps notificationBell; pgs.notification generates the dialog inside it and provides open/close/toggle behavior shared with every other dialog on the page.
  * - modal-button: identifies notificationBell as the control that opens the dialog.
  * - modal-dialog-content: identifies the JS-generated styled content area inside the dialog, wrapping notifications.
+ * - buttonIcon: presents notificationBell as an icon button.
+ * - right: slides the notification dialog in from the right; see Modal for other positions.
  *
  * @return Complete HTML markup and usage example for Notification.
  */

@@ -26,6 +26,8 @@ Interactive component that expands one panel at a time while synchronizing visib
 
 ## Related elements
 
+### PGS
+
 - `flexColumn`: applies text spacing between the list items.
 
 ## Output

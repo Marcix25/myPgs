@@ -12,12 +12,6 @@ Search markup, configuration, behavior, and usage example.
 - `search-modal`: identifies the search-modal element used by Search.
 - `search-mobile`: identifies the search-mobile element used by Search.
 
-## PGS Options
-
-- `containerPGS`: identifies the containerPGS element used by Search.
-- `buttonNohover`: disables hover behavior on the search container.
-- `buttonIcon`: presents search and close actions as icon buttons.
-
 ## PGS States
 
 - `open`: identifies the open element used by Search.
@@ -46,12 +40,20 @@ Search markup, configuration, behavior, and usage example.
 
 ## Related elements
 
+### PGS
+
 - `button`: provides the base styling for search controls.
 - `modal`: uses the related modal component or utility in this example.
 - `modal-button`: uses the related modal-button component or utility in this example.
 - `modal-close`: uses the related modal-close component or utility in this example.
 - `flexRow`: uses the related flexRow component or utility in this example.
 - `section`: uses the related section component or utility in this example.
+
+### PGS Options
+
+- `containerPGS`: identifies the containerPGS element used by Search.
+- `buttonNohover`: disables hover behavior on the search container.
+- `buttonIcon`: presents search and close actions as icon buttons.
 
 ## Output
 

@@ -6,7 +6,6 @@ Base HTML document that enables MyPGS, configures essential metadata, and applie
 
 ## PGS
 
-- `htmlBase`: applies the fundamental rules to the html element.
 - `bodyBase`: applies the base structure and spacing to the body.
 - `bodyImg`: enables shared rules for images contained in the page.
 - `bodyText`: enables text typography and spacing.
@@ -15,6 +14,12 @@ Base HTML document that enables MyPGS, configures essential metadata, and applie
 ## PGS States
 
 - `darkmode`: is applied dynamically to html and body to activate the dark theme.
+
+## Related elements
+
+### PGS
+
+- `htmlBase`: applies the base rules to the surrounding html element.
 
 ## Output
 

@@ -4,6 +4,11 @@ Canonical component and layout examples are available in `reference/`. Use those
 
 ## Componenti disponibili
 
+Base:
+
+- [`html`](base/html.md)
+- [`color`](base/color.md)
+
 Componenti:
 
 - [`accordion`](components/accordion.md)
@@ -81,7 +86,6 @@ La sorgente puo' essere anche un array locale di stringhe o oggetti. Il componen
 
 Base:
 
-- `htmlBase`
 - `heading`
 - `boxtext`
 - `darkmode-lightmode`

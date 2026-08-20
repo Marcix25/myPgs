@@ -37,6 +37,8 @@ Toast markup, configuration, behavior, and usage example. An ephemeral, auto-dis
 
 ## Related elements
 
+### PGS
+
 - `hidden`: uses the related hidden component or utility in this example.
 - `button`: uses the related button component or utility in this example.
 

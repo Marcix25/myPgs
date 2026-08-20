@@ -17,7 +17,7 @@ Slides markup, configuration, behavior, and usage example.
 
 - `singleScroll`: identifies the singleScroll element used by Slides.
 - `shadowDesktop`: identifies the shadowDesktop element used by Slides.
-- `notScrollAnimation`: identifies the notScrollAnimation element used by Slides.
+- `slideAnimationScale`: scales each slide by its scroll visibility using the --visible-percent custom property.
 - `notScrollWithMouse`: identifies the notScrollWithMouse element used by Slides.
 - `buttonIcon`: styles the previous and next actions generated at runtime.
 
@@ -36,6 +36,8 @@ Slides markup, configuration, behavior, and usage example.
 - `instance.refresh()`: refreshes the component and returns its updated instance.
 
 ## Related elements
+
+### PGS
 
 - `card`: uses the related card component or utility in this example.
 - `card-img`: uses the related card-img component or utility in this example.

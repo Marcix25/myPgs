@@ -57,6 +57,7 @@ $pageShell-test-gap: 4rem;
         flex: 1 1 var(--pageShell-aside-width);
         min-width: min(100%, var(--pageShell-aside-width));
         max-width: var(--pageShell-aside-width);
+        display: flex;
 
         &::-webkit-scrollbar {
             display: none;
@@ -186,7 +187,6 @@ $pageShell-test-gap: 4rem;
     }
 
     //+ OPTION 
-    
     //++ shellFullPage 
     &[pgs-option~="shellFullPage"] {
         --pageShell-width: 100%;

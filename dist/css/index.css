@@ -1883,7 +1883,25 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=marginTop],
 [pgs~=marginInline],
 [pgs~=marginBlock] {
-  --margin-size: var(--gap-texts);
+  --margin-size: var(--padding);
+}
+
+[pgs~=marginLeft][pgs-option~=margin2],
+[pgs~=marginRight][pgs-option~=margin2],
+[pgs~=marginBottom][pgs-option~=margin2],
+[pgs~=marginTop][pgs-option~=margin2],
+[pgs~=marginInline][pgs-option~=margin2],
+[pgs~=marginBlock][pgs-option~=margin2] {
+  --margin-size: var(--padding-2);
+}
+
+[pgs~=marginLeft][pgs-option~=marginPage],
+[pgs~=marginRight][pgs-option~=marginPage],
+[pgs~=marginBottom][pgs-option~=marginPage],
+[pgs~=marginTop][pgs-option~=marginPage],
+[pgs~=marginInline][pgs-option~=marginPage],
+[pgs~=marginBlock][pgs-option~=marginPage] {
+  --margin-size: var(--padding-page);
 }
 
 [pgs~=marginLeft][pgs-option~=marginTexts],
@@ -1952,7 +1970,25 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=paddingTop],
 [pgs~=paddingInline],
 [pgs~=paddingBlock] {
-  --padding-size: var(--gap-texts);
+  --padding-size: var(--padding);
+}
+
+[pgs~=paddingLeft][pgs-option~=padding2],
+[pgs~=paddingRight][pgs-option~=padding2],
+[pgs~=paddingBottom][pgs-option~=padding2],
+[pgs~=paddingTop][pgs-option~=padding2],
+[pgs~=paddingInline][pgs-option~=padding2],
+[pgs~=paddingBlock][pgs-option~=padding2] {
+  --padding-size: var(--padding-2);
+}
+
+[pgs~=paddingLeft][pgs-option~=paddingPage],
+[pgs~=paddingRight][pgs-option~=paddingPage],
+[pgs~=paddingBottom][pgs-option~=paddingPage],
+[pgs~=paddingTop][pgs-option~=paddingPage],
+[pgs~=paddingInline][pgs-option~=paddingPage],
+[pgs~=paddingBlock][pgs-option~=paddingPage] {
+  --padding-size: var(--padding-page);
 }
 
 [pgs~=paddingLeft][pgs-option~=paddingTexts],
@@ -2046,6 +2082,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   flex: 1 1 var(--pageShell-aside-width);
   min-width: min(100%, var(--pageShell-aside-width));
   max-width: var(--pageShell-aside-width);
+  display: flex;
 }
 
 [pgs~=pageShell] [pgs~=pageShell-aside]::-webkit-scrollbar {
@@ -2321,15 +2358,11 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=header] dialog[pgs~=modal-dialogpopover],
 [pgs~=header] dialog[pgs~=modal-dialog] {
-  padding-top: var(--heightOfHeader);
-  padding-inline: 5px;
+  padding-inline: 10px;
+  -webkit-backdrop-filter: var(--blur);
+  backdrop-filter: var(--blur);
   --modal-padding: 10px;
-  --modal-background: color-mix(in srgb, var(--color-primary-soft) 50%, var(--color-white) 50%);
-}
-
-[pgs~=header] dialog[pgs~=modal-dialogpopover] [pgs~=modal-dialog-content] nav a,
-[pgs~=header] dialog[pgs~=modal-dialog] [pgs~=modal-dialog-content] nav a {
-  --button-background: var(--modal-background);
+  --modal-background: var(--header-background);
 }
 
 [pgs~=header] dialog[pgs~=modal-dialogpopover][open],

@@ -19,8 +19,6 @@ Notification markup, configuration, behavior, and usage example. A persistent, m
 ## PGS Options
 
 - `notification`: JSON object (or several, comma-separated) read by notificationLoad on page load — see the full field reference, with every optional field and its default, in the commented example below.
-- `buttonIcon`: presents notificationBell as an icon button.
-- `right`: slides the notification dialog in from the right; see Modal for other positions.
 
 ## PGS States
 
@@ -41,11 +39,21 @@ Notification markup, configuration, behavior, and usage example. A persistent, m
 
 ## Related elements
 
+### PGS
+
 - `hidden`: uses the related hidden component or utility in this example.
 - `button`: uses the related button component or utility in this example.
-- `modal`: wraps notificationBell; pgs.notification generates the dialog inside it and provides open/close/toggle behavior shared with every other dialog on the page.
 - `modal-button`: identifies notificationBell as the control that opens the dialog.
+
+### PGS Options
+
+- `buttonIcon`: presents notificationBell as an icon button.
+
+### Other
+
+- `modal`: wraps notificationBell; pgs.notification generates the dialog inside it and provides open/close/toggle behavior shared with every other dialog on the page.
 - `modal-dialog-content`: identifies the JS-generated styled content area inside the dialog, wrapping notifications.
+- `right`: slides the notification dialog in from the right; see Modal for other positions.
 
 ## Output
 

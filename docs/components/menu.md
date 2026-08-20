@@ -17,7 +17,6 @@ Menu markup with horizontal, vertical and recursively nested navigation examples
 - `menuIconOnlyCurrent`: displays link icons only when the link has an active aria-current value.
 - `menuShort`: compacts adjacent menu links by overlapping their horizontal spacing.
 - `position`: identifies the position element used by Menu.
-- `buttonNohover`: disables hover behavior on menu buttons generated at runtime.
 
 ## PGS States
 
@@ -31,9 +30,12 @@ Menu markup with horizontal, vertical and recursively nested navigation examples
 
 ## Related elements
 
+### Other
+
 - `dropdown`: uses the related dropdown component or utility in this example.
 - `dropdown-button`: uses the related dropdown-button component or utility in this example.
 - `dropdown-content`: uses the related dropdown-content component or utility in this example.
+- `buttonNohover`: disables hover behavior on menu buttons generated at runtime.
 
 ## Output
 

@@ -22,7 +22,6 @@ Form structure with labels, text fields, a textarea, a checkbox, and a radio gro
 - `fieldsError`: defines the summary shown when multiple fields are invalid.
 - `successTitle`: defines the validation success title.
 - `success`: defines the validation success description.
-- `buttonStrong`: presents form submission as the primary action.
 
 ## PGS States
 
@@ -43,9 +42,18 @@ Form structure with labels, text fields, a textarea, a checkbox, and a radio gro
 
 ## Related elements
 
-- `alertContainer`: is found or created automatically by the alert API when form validation uses inline alerts.
+### PGS
+
 - `button`: provides the base styling for the primary submit action.
 - `flexColumn`: spaces text elements in the radio group.
+
+### PGS Options
+
+- `buttonStrong`: presents form submission as the primary action.
+
+### Other
+
+- `alertContainer`: is found or created automatically by the alert API when form validation uses inline alerts.
 
 ## Output
 

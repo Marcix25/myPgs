@@ -16,8 +16,8 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+
     // pointer-events: auto;
-    
     //= HEADER TOP
     [pgs~="header-element"] {
         background: var(--header-background);
@@ -75,6 +75,7 @@
                 }
 
                 &:hover {
+
                     &::before,
                     &::after {
                         background-color: var(--hover-color);
@@ -110,22 +111,11 @@
     //= DIALOG 
     dialog[pgs~="modal-dialogpopover"],
     dialog[pgs~="modal-dialog"] {
-        // padding: 2rem;
-        padding-top: var(--heightOfHeader);
-        padding-inline: 5px;
+        padding-inline: 10px;
+        -webkit-backdrop-filter: var(--blur);
+        backdrop-filter: var(--blur);
         --modal-padding: 10px;
-        --modal-background: color-mix(in srgb, var(--color-primary-soft) 50%, var(--color-white) 50%);
-
-        [pgs~="modal-dialog-content"] {
-            nav {
-
-                // padding: var(--padding-2);
-                // border-radius: var(--padding-2);
-                a {
-                    --button-background: var(--modal-background);
-                }
-            }
-        }
+        --modal-background: var(--header-background);
 
         &[open] {
             display: flex;

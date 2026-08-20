@@ -15,6 +15,8 @@ Section variants that control width, padding, and specific content treatment whi
 
 ## Related elements
 
+### PGS
+
 - `flexColumn`: vertically organizes sections and inner content.
 - `gapSections`: applies section spacing to the outer collection.
 - `gapElements`: applies element spacing inside each section.
