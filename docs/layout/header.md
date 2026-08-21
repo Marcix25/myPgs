@@ -18,6 +18,7 @@ Responsive header that measures available space, switches between desktop and mo
 ## PGS Options
 
 - `mobileBottom`: moves header-element to the bottom of the viewport at the mobile breakpoint.
+- `headerScroll`: hides the header while scrolling down and shows it again while scrolling up.
 
 ## PGS States
 

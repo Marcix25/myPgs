@@ -4035,6 +4035,7 @@ function initHeader_Height(header) {
 // Nasconde l'header quando si scorre verso il basso e lo mostra quando si scorre verso l'alto su dispositivi con altezza fino a 900px.
 function initHeader_Scroll(header) {
     let lastScrollY = window.scrollY;
+    if (!header || !pgs(header).option.contains("headerScroll")) return;
     const headerElements = pgs(header).querySelectorAll("header-element");
 
     window.addEventListener("scroll", () => {

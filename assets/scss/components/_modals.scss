@@ -1,17 +1,15 @@
 @use "../mixin/mixin" as *;
 
 html:has(dialog[open]) {
-    overflow: hidden;
-    position: relative;
-    scrollbar-gutter: stable;
+    // overflow: hidden;
+    // position: relative;
+    // scrollbar-gutter: stable;
     cursor: pointer;
 }
-
 //= MODAL
 [pgs~="modal"] {
 
     //#OPTION
-    //== CONTAINER ID    
     &[pgs-option~="containerID[]"] {}
 }
 
@@ -33,6 +31,7 @@ dialog[pgs~="modal-dialog"] {
     margin: 0;
     opacity: 1;
     transition-behavior: allow-discrete;
+    overscroll-behavior: contain;
 
     &::backdrop {
         // height: 0;
@@ -85,6 +84,7 @@ dialog[pgs~="modal-dialog"] {
             [pgs~="modal-dialog-content-scroll"] {
                 padding-top: calc(var(--padding) / 2);
                 overflow: auto;
+                overscroll-behavior: contain;
                 max-height: 100%;
             }
         }
@@ -143,4 +143,6 @@ dialog[pgs~="modal-dialog"] {
         position: fixed;
         inset: 0;
     }
+
+    [pgs="modal-button"]{}
 }

@@ -140,6 +140,14 @@ body {
 #reference-demo-main {
     position: relative;
     z-index: 1;
+    
+    [pgs~=pageShell] {
+        --pageShell-padding-inline: 0;
+        --pageShell-padding-top: 0;
+        border: solid 0.1px;
+        resize: horizontal;
+        overflow: auto;
+    }
 }
 
 #reference-demo-after {
@@ -148,7 +156,7 @@ body {
 
 
 #asideScroll {
-    margin-inline: calc(var(--padding) * -1);
-    padding-inline: var(--padding);
-    width: calc(100% + var(--padding) * 2);
+    margin-inline: calc(var(--padding-2) * -1);
+    padding-inline: var(--padding-2);
+    /* width: calc(100% + var(--padding-2) * 2); */
 }

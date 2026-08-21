@@ -264,8 +264,14 @@ const demoRenderer = {
         }
 
         components.forEach(component => {
-            this.renderDemoHeading(section, component.getAttribute("demo-title"), component.getAttribute("demo-description"), "h3");
             const items = Array.from(component.querySelectorAll('[demo="item"]'));
+
+            //== with no items the component is its own item, and renderDemoItem already prints
+            //== that node's title and description: printing them here too would duplicate them
+            if (items.length) {
+                this.renderDemoHeading(section, component.getAttribute("demo-title"), component.getAttribute("demo-description"), "h3");
+            }
+
             (items.length ? items : [component]).forEach(node => this.renderDemoItem(section, node));
         });
     },
