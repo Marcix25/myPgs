@@ -50,7 +50,6 @@ const DEFAULT_ENTRY_ICON = "fa-square";
 //= Reference Renderer HTML
 const demoRenderer = {
     referenceFiles: [
-        "layout/header.html",
         "base/html.html",
         "base/color.html",
         "components/notification.html",
@@ -75,6 +74,7 @@ const demoRenderer = {
         "components/table.html",
         "patterns/cookieConsent.html",
         "layout/body.html",
+        "layout/header.html",
         "layout/responsive.html",
         "layout/spacing.html",
         "layout/section.html",
@@ -276,12 +276,6 @@ const demoRenderer = {
         });
     },
 
-    renderLayout(root, path, html) {
-        const template = document.createElement("template");
-        template.innerHTML = html.trim();
-        root.append(template.content.cloneNode(true));
-    },
-
     renderHeader(section, title, description) {
         const header = document.createElement("div");
         header.setAttribute("pgs", "flexColumn gapTexts");
@@ -467,29 +461,14 @@ const demoRenderer = {
     },
 
     async boot() {
-        const BEEFORE = document.getElementById("reference-demo-before");
         const MAIN = document.getElementById("reference-demo-main");
-        const AFTER = document.getElementById("reference-demo-after");
         const NAV = document.getElementById("reference-demo-nav");
         const menuEntries = [];
 
+        //== header and footer are written straight into demo.html, so here they are just
+        //== two more reference panels: they show up in the nav like every other layout
         for (const path of this.referenceFiles) {
-            const isHeader = path === "layout/header.html";
-            const isfooter = path === "layout/footer.html";
             const isBody = path === "layout/body.html";
-
-            if (isHeader || isfooter) {
-                try {
-                    const html = await this.loadReference(path);
-                    const { markup } = this.parseDocumentation(html);
-                    this.renderLayout(isHeader ? BEEFORE : AFTER, path, markup);
-                } catch (error) {
-                    const message = document.createElement("p");
-                    message.textContent = `Riferimento non caricato: ${error.message}`;
-                    (isHeader ? BEEFORE : AFTER).append(message);
-                }
-                continue;
-            }
 
             const panel = document.createElement("div");
             panel.dataset.panel = path;

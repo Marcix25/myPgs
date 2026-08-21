@@ -1,5 +1,18 @@
 @use "../mixin/mixin" as *;
 
+//+ registered so the fade width can be animated: a plain custom property would jump
+@property --slides-maskStart {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 0px;
+}
+
+@property --slides-maskEnd {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 0px;
+}
+
 [pgs~="slides"] {
     display: flex;
     flex-direction: column;
@@ -10,50 +23,35 @@
     height: max-content;
     --slide-width: calc(var(--page-width) /2.3);
     --slide-width-tablet: 100%;
-    --slide-shadow-color: var(--color-background);
-    --slide-shadow-width: 100px;
+    --slides-sizeMaskImage: 40px;
 
     //option for suggestions
     &[pgs-option~=singleScroll],
     &[pgs-option~=shadowDesktop]{}
 
-    //+( tablet 
+    //+( tablet
     @container (min-width: #{$tablet}) {
+        /*  fades the slides out at the edges by masking the scroller instead of painting
+            a gradient over it, so it no longer depends on the page background matching.
+            The fade only appears on the side that still has slides to reach: on the
+            extremes the stop stays at 0 and the edge stays sharp. */
         &[pgs-option~=shadowDesktop] {
-
-            //== shadow
-            &::after,
-            &::before {
-                content: "";
-                height: 100%;
-                width: var(--slide-shadow-width);
-                z-index: 3;
-                position: absolute;
-                transition: opacity 200ms;
-                pointer-events: none;
-                opacity: 1;
+            [pgs~="slides-container"] {
+                --slides-maskStart: 0px;
+                --slides-maskEnd: 0px;
+                transition: --slides-maskStart 200ms, --slides-maskEnd 200ms;
+                -webkit-mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart), black calc(100% - var(--slides-maskEnd)), transparent 100%);
+                mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart), black calc(100% - var(--slides-maskEnd)), transparent 100%);
             }
 
-            &::before {
-                left: 0;
-                background: linear-gradient(90deg, var(--slide-shadow-color), transparent);
+            //== fade on the left until the first slide is reached
+            &:not(:has([pgs~="slides-container"] li:first-child.view)) [pgs~="slides-container"] {
+                --slides-maskStart: var(--slides-sizeMaskImage);
             }
 
-            &::after {
-                right: 0;
-                background: linear-gradient(90deg, transparent, var(--slide-shadow-color));
-            }
-
-            &:has([pgs~="slides-container"] li:first-child.view) {
-                &::before {
-                    opacity: 0;
-                }
-            }
-
-            &:has([pgs~="slides-container"] li:last-child.view) {
-                &::after {
-                    opacity: 0;
-                }
+            //== fade on the right until the last slide is reached
+            &:not(:has([pgs~="slides-container"] li:last-child.view)) [pgs~="slides-container"] {
+                --slides-maskEnd: var(--slides-sizeMaskImage);
             }
         }
     }

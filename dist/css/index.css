@@ -2174,6 +2174,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --pageShell-padding-top: calc(var(--page-top) - var(--pageShell-margin-top) - var(--pageShell-sizeMaskImage));
   --pageShell-padding-bottom: var(--gap-elements);
   --pageShell-gap: var(--gap-elements);
+  --pageShell-aside-top: var(--heightOfHeader);
   display: grid;
   grid-template-columns: 1fr;
   grid-template-areas: "content";
@@ -2360,7 +2361,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=pageShell][pgs-option~=shellAsideScroll] [pgs~=pageShell-aside] {
   position: sticky;
-  top: var(--heightOfHeader);
+  top: var(--pageShell-aside-top);
   max-height: calc(100svh - var(--pageShell-padding-top));
   overflow-y: auto;
   scrollbar-color: transparent transparent;
@@ -2391,7 +2392,8 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --header-background: var(--color-white-transparent);
   --header-color: var(--color-black);
   --header-color-hover: var(--color-black);
-  --header-mobile-bottom-active: 0;
+  --header-compactBottom-active: 0;
+  --header-compact-breakpoint: 600px;
   z-index: 100;
   position: fixed;
   isolation: isolate;
@@ -2427,7 +2429,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   height: calc(var(--button-size) * 4);
 }
 
-[pgs~=header] [pgs~=header-element] [pgs~=header-element-onlyMobile] {
+[pgs~=header] [pgs~=header-element] [pgs~=header-element-onlyCompact] {
   display: none;
   gap: var(--header-gap);
 }
@@ -2503,47 +2505,80 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   max-height: 100svh;
 }
 
-[pgs~=header][pgs-state~=mobileActive] {
+[pgs~=header] {
+  /*  forces the compact layout at a breakpoint even when the content would still fit,
+      so a wide header can be compact on purpose. Only the value is declared here: the
+      JavaScript reads --header-compact-breakpoint and adds the compact state below it.
+      headerCompact[600] takes over with its own pixel value. */
+}
+
+[pgs~=header][pgs-option~=headerCompactWatch] {
+  --header-compact-breakpoint: 315px;
+}
+
+[pgs~=header][pgs-option~=headerCompactMobile] {
+  --header-compact-breakpoint: 430px;
+}
+
+[pgs~=header][pgs-option~=headerCompactBigMobile] {
+  --header-compact-breakpoint: 615px;
+}
+
+[pgs~=header][pgs-option~=headerCompactTablet] {
+  --header-compact-breakpoint: 800px;
+}
+
+[pgs~=header][pgs-option~=headerCompactBigTablet] {
+  --header-compact-breakpoint: 900px;
+}
+
+[pgs~=header][pgs-option~=headerCompactLaptop] {
+  --header-compact-breakpoint: 1100px;
+}
+
+[pgs~=header][pgs-state~=compact] {
   --header-gap: var(--gap-texts);
 }
 
-[pgs~=header][pgs-state~=mobileActive] [pgs~=header-element-onlyDesktop] {
+[pgs~=header][pgs-state~=compact] [pgs~=header-element] {
+  padding-inline: var(--header-padding-block);
+}
+
+[pgs~=header][pgs-state~=compact] [pgs~=header-element-onlyFull] {
   display: none !important;
 }
 
-[pgs~=header][pgs-state~=mobileActive] [pgs~=header-element-onlyMobile] {
+[pgs~=header][pgs-state~=compact] [pgs~=header-element-onlyCompact] {
   display: flex !important;
   margin-left: auto;
   align-items: center;
 }
 
-[pgs~=header][pgs-state~=mobileActive] [pgs~=header-element-hamburger] {
+[pgs~=header][pgs-state~=compact] [pgs~=header-element-hamburger] {
   display: flex !important;
 }
 
-@media (max-width: 430px) {
-  [pgs~=header] [pgs~=header-element] {
-    padding-inline: var(--header-padding-block);
-  }
-  [pgs~=header][pgs-option~=mobileBottom] {
-    --header-mobile-bottom-active: 1;
-    background: transparent;
-    transform: none !important;
-  }
-  [pgs~=header][pgs-option~=mobileBottom] [pgs~=header-element] {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: var(--header-background);
-    transition: padding 300ms, background-color 1000ms;
-  }
-  [pgs~=header][pgs-option~=mobileBottom] dialog[pgs~=modal-dialogpopover],
-  [pgs~=header][pgs-option~=mobileBottom] dialog[pgs~=modal-dialog] {
-    padding-top: var(--gap-texts);
-    padding-bottom: var(--heightOfHeader);
-  }
+[pgs~=header][pgs-state~=compact][pgs-option~=compactBottom] {
+  --header-compactBottom-active: 1;
+  background: transparent;
+  transform: none !important;
 }
+
+[pgs~=header][pgs-state~=compact][pgs-option~=compactBottom] [pgs~=header-element] {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: var(--header-background);
+  transition: padding 300ms, background-color 1000ms;
+}
+
+[pgs~=header][pgs-state~=compact][pgs-option~=compactBottom] dialog[pgs~=modal-dialogpopover],
+[pgs~=header][pgs-state~=compact][pgs-option~=compactBottom] dialog[pgs~=modal-dialog] {
+  padding-top: var(--gap-texts);
+  padding-bottom: var(--heightOfHeader);
+}
+
 [pgs~=footer] {
   --footer-color: var(--color-whiteFixed);
   --footer-background: var(--color-blackFixed);
@@ -5581,6 +5616,16 @@ dialog[pgs~=modal-dialog]:not([pgs-option~=topLevel]) {
   inset: 0;
 }
 
+@property --slides-maskStart {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+@property --slides-maskEnd {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
 [pgs~=slides] {
   display: flex;
   flex-direction: column;
@@ -5591,34 +5636,28 @@ dialog[pgs~=modal-dialog]:not([pgs-option~=topLevel]) {
   height: max-content;
   --slide-width: calc(var(--page-width) /2.3);
   --slide-width-tablet: 100%;
-  --slide-shadow-color: var(--color-background);
-  --slide-shadow-width: 100px;
+  --slides-sizeMaskImage: 40px;
 }
 
 @container (min-width: 800px) {
-  [pgs~=slides][pgs-option~=shadowDesktop]::after, [pgs~=slides][pgs-option~=shadowDesktop]::before {
-    content: "";
-    height: 100%;
-    width: var(--slide-shadow-width);
-    z-index: 3;
-    position: absolute;
-    transition: opacity 200ms;
-    pointer-events: none;
-    opacity: 1;
+  [pgs~=slides] {
+    /*  fades the slides out at the edges by masking the scroller instead of painting
+        a gradient over it, so it no longer depends on the page background matching.
+        The fade only appears on the side that still has slides to reach: on the
+        extremes the stop stays at 0 and the edge stays sharp. */
   }
-  [pgs~=slides][pgs-option~=shadowDesktop]::before {
-    left: 0;
-    background: linear-gradient(90deg, var(--slide-shadow-color), transparent);
+  [pgs~=slides][pgs-option~=shadowDesktop] [pgs~=slides-container] {
+    --slides-maskStart: 0px;
+    --slides-maskEnd: 0px;
+    transition: --slides-maskStart 200ms, --slides-maskEnd 200ms;
+    -webkit-mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart), black calc(100% - var(--slides-maskEnd)), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart), black calc(100% - var(--slides-maskEnd)), transparent 100%);
   }
-  [pgs~=slides][pgs-option~=shadowDesktop]::after {
-    right: 0;
-    background: linear-gradient(90deg, transparent, var(--slide-shadow-color));
+  [pgs~=slides][pgs-option~=shadowDesktop]:not(:has([pgs~=slides-container] li:first-child.view)) [pgs~=slides-container] {
+    --slides-maskStart: var(--slides-sizeMaskImage);
   }
-  [pgs~=slides][pgs-option~=shadowDesktop]:has([pgs~=slides-container] li:first-child.view)::before {
-    opacity: 0;
-  }
-  [pgs~=slides][pgs-option~=shadowDesktop]:has([pgs~=slides-container] li:last-child.view)::after {
-    opacity: 0;
+  [pgs~=slides][pgs-option~=shadowDesktop]:not(:has([pgs~=slides-container] li:last-child.view)) [pgs~=slides-container] {
+    --slides-maskEnd: var(--slides-sizeMaskImage);
   }
 }
 [pgs~=slides] [pgs~=slides-container] {

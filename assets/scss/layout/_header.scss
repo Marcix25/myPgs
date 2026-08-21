@@ -9,7 +9,8 @@
     --header-background: var(--color-white-transparent);
     --header-color: var(--color-black);
     --header-color-hover: var(--color-black);
-    --header-mobile-bottom-active: 0;
+    --header-compactBottom-active: 0;
+    --header-compact-breakpoint: 600px;
     z-index: 100;
     position: fixed;
     isolation: isolate;
@@ -43,7 +44,7 @@
             @include button_header();
         }
 
-        [pgs~="header-element-onlyMobile"] {
+        [pgs~="header-element-onlyCompact"] {
             display: none;
             gap: var(--header-gap);
         }
@@ -128,15 +129,48 @@
         }
     }
 
-    //- mobile 
-    &[pgs-state~="mobileActive"] {
+    //+ OPTION
+    /*  forces the compact layout at a breakpoint even when the content would still fit,
+        so a wide header can be compact on purpose. Only the value is declared here: the
+        JavaScript reads --header-compact-breakpoint and adds the compact state below it.
+        headerCompact[600] takes over with its own pixel value. */
+    &[pgs-option~="headerCompactWatch"] {
+        --header-compact-breakpoint: #{$watch};
+    }
+
+    &[pgs-option~="headerCompactMobile"] {
+        --header-compact-breakpoint: #{$mobile};
+    }
+
+    &[pgs-option~="headerCompactBigMobile"] {
+        --header-compact-breakpoint: #{$big-mobile};
+    }
+
+    &[pgs-option~="headerCompactTablet"] {
+        --header-compact-breakpoint: #{$tablet};
+    }
+
+    &[pgs-option~="headerCompactBigTablet"] {
+        --header-compact-breakpoint: #{$big-tablet};
+    }
+
+    &[pgs-option~="headerCompactLaptop"] {
+        --header-compact-breakpoint: #{$laptop};
+    }
+
+    //- compact
+    &[pgs-state~="compact"] {
         --header-gap: var(--gap-texts);
 
-        [pgs~="header-element-onlyDesktop"] {
+        [pgs~="header-element"] {
+            padding-inline: var(--header-padding-block);
+        }
+
+        [pgs~="header-element-onlyFull"] {
             display: none !important;
         }
 
-        [pgs~="header-element-onlyMobile"] {
+        [pgs~="header-element-onlyCompact"] {
             display: flex !important;
             margin-left: auto;
             align-items: center;
@@ -145,17 +179,10 @@
         [pgs~="header-element-hamburger"] {
             display: flex !important;
         }
-    }
 
-    //- mobile
-    @media (max-width: $mobile) {
-        [pgs~="header-element"] {
-            padding-inline: var(--header-padding-block);
-        }
-
-        //== bottom
-        &[pgs-option~="mobileBottom"] {
-            --header-mobile-bottom-active: 1;
+        //== bottom: follows the compact state, so it honours the chosen breakpoint
+        &[pgs-option~="compactBottom"] {
+            --header-compactBottom-active: 1;
             background: transparent;
             transform: none !important;
 

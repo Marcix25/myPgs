@@ -8,7 +8,7 @@ export default function Header() {
                     </a>
                 </div>
 
-                <div pgs="header-element-onlyDesktop">
+                <div pgs="header-element-onlyFull">
                     <nav pgs="menu" pgs-option="horizontal menuHeader menuShort" aria-label="Main menu">
                         <ul>
                             <li><a href="/">Home</a></li>
@@ -18,7 +18,7 @@ export default function Header() {
                     </nav>
                 </div>
 
-                <div pgs="header-element-onlyMobile"></div>
+                <div pgs="header-element-onlyCompact"></div>
 
                 <div pgs="header-element-alwaysOnLast">
                     <button pgs="button toggleDarkmode" pgs-option="buttonIcon" type="button" aria-label="Change theme">

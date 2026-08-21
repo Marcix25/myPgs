@@ -38,7 +38,7 @@ Complete footer HTML structure with brand, menu, and legal area.
 ## Example
 
 ```html
-<footer pgs="footer">
+<footer pgs="footer" demo="component" demo-title="Footer" demo-description="Brand and navigation columns in the upper section, legal links and cookie preferences in the lower one.">
     <button pgs="button toggleDarkmode" type="button" aria-label="Change theme">
         <i class="fa-solid fa-moon"></i>
     </button>

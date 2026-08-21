@@ -22,7 +22,7 @@
     // content
     --pageShell-content-width: var(--page-width);
     --pageShell-content-min-width: var(--page-width);
-    //aside
+    // aside
     --pageShell-aside-width: 250px;
     //
     --pageShell-minWidth: 600px;
@@ -33,6 +33,9 @@
     --pageShell-padding-top: calc(var(--page-top) - var(--pageShell-margin-top) - var(--pageShell-sizeMaskImage));
     --pageShell-padding-bottom: var(--gap-elements);
     --pageShell-gap: var(--gap-elements);
+    // scroll 
+    --pageShell-aside-top: var(--heightOfHeader);
+
     display: grid;
     grid-template-columns: 1fr;
     grid-template-areas: "content";
@@ -228,7 +231,7 @@
     &[pgs-option~="shellAsideScroll"] {
         [pgs~="pageShell-aside"] {
             position: sticky;
-            top: var(--heightOfHeader);
+            top: var(--pageShell-aside-top);
             max-height: calc(100svh - var(--pageShell-padding-top));
             overflow-y: auto;
             // overscroll-behavior: contain;

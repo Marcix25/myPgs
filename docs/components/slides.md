@@ -16,7 +16,7 @@ Slides markup, configuration, behavior, and usage example.
 ## PGS Options
 
 - `singleScroll`: identifies the singleScroll element used by Slides.
-- `shadowDesktop`: identifies the shadowDesktop element used by Slides.
+- `shadowDesktop`: fades the slides out at the edges from the tablet width up, only on the side that still has slides to reach.
 - `slideAnimationScale`: scales each slide by its scroll visibility using the --visible-percent custom property.
 - `notScrollWithMouse`: identifies the notScrollWithMouse element used by Slides.
 - `buttonIcon`: styles the previous and next actions generated at runtime.

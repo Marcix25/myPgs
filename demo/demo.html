@@ -15,14 +15,108 @@
 </head>
 
 <body class="is-loadingOLD" pgs="bodyBase bodyImg bodyText bodyHeading">
-    <div id="reference-demo-before"></div>
+    <div id="reference-demo-before">
+        <header pgs="header">
+            <div pgs="header-element blur">
+                <div pgs="header-element-alwaysOn">
+                    <a aria-label="Logo" pgs="logo" href="/">
+                        <span pgs="logo-text">MyPGS</span>
+                    </a>
+                </div>
+
+                <div pgs="header-element-onlyFull">
+                    <nav pgs="menu" pgs-option="horizontal menuHeader menuShort" aria-label="Main menu">
+                        <ul>
+                            <li><a href="#base">Base</a></li>
+                            <li><a href="#components">Components</a></li>
+                            <li><a href="#patterns">Patterns</a></li>
+                            <li><a href="#layout">Layout</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div pgs="header-element-onlyCompact">
+                </div>
+
+                <div pgs="header-element-alwaysOnLast">
+                    <div pgs="flexRow nowrap">
+                        <button pgs="button toggleDarkmode" pgs-option="buttonIcon" type="button" aria-label="Change theme">
+                            <i class="fa-solid fa-moon"></i>
+                        </button>
+                        <div pgs="modal" pgs-option="containerPGS[header]">
+                            <button type="button" pgs="modal-button modal-close button notificationBell" pgs-option="buttonIcon" aria-label="Open notifications">
+                                <i class="fa-duotone fa-solid fa-bell"></i>
+                                <span pgs="notificationBell-counter"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div pgs="header-element-hamburger modal" pgs-option="containerPGS[header]">
+
+                    <button pgs="button modal-button modal-close header-element-hamburger-button" pgs-option="buttonIcon" type="button" title="menu"></button>
+
+                    <dialog pgs="modal-dialog" pgs-option="right">
+                        <div pgs="modal-dialog-content">
+                            <nav pgs="menu" pgs-option="vertical menuHeader" aria-label="Compact menu">
+                                <ul>
+                                    <li><a href="#base">Base</a></li>
+                                    <li><a href="#components">Components</a></li>
+                                    <li><a href="#patterns">Patterns</a></li>
+                                    <li><a href="#layout">Layout</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </dialog>
+                </div>
+            </div>
+        </header>
+    </div>
     <div pgs="pageShell" pgs-option="shellFullPage shellAsideScroll">
         <aside pgs="pageShell-aside hideContainerDownBigTablet" id="asideScroll">
             <div pgs="flexColumn gapElements" id="reference-demo-nav"></div>
         </aside>
         <main id="reference-demo-main" pgs="pageShell-content marginBottom" pgs-option="marginSections"></main>
     </div>
-    <div id="reference-demo-after"></div>
+    <div id="reference-demo-after">
+        <footer pgs="footer">
+            <button pgs="button toggleDarkmode" type="button" aria-label="Change theme">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+
+            <section pgs="footer-top section">
+                <div pgs="footer-top-content flexRow" pgs-option="column-3">
+                    <div pgs="footer-brand">
+                        <a aria-label="Logo" pgs="logo" href="/">
+                            <span pgs="logo-text">MyPGS</span>
+                        </a>
+                        <p pgs="footer-brand-motto">Componenti frontend riutilizzabili.</p>
+                    </div>
+
+                    <div pgs="footer-content">
+                        <h2>Reference</h2>
+                        <nav aria-label="Footer menu">
+                            <ul>
+                                <li><a href="#base">Base</a></li>
+                                <li><a href="#components">Components</a></li>
+                                <li><a href="#layout">Layout</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </section>
+
+            <section pgs="footer-legal section">
+                <div pgs="footer-legal-content">
+                    <button type="button" pgs="button cookieConsent-actionOpen">Cookie preferences</button>
+                    <p><a href="">Privacy Policy</a></p>
+                    <p><a href="">Cookie Policy</a></p>
+                    <p><a href="">Termini e Condizioni</a></p>
+                    <p>© 2026 MyPgs. No rights reserved.</p>
+                </div>
+            </section>
+        </footer>
+    </div>
     <script src="./demo.js"></script>
 </body>
 
