@@ -1,9 +1,5 @@
 @use "../mixin/mixin" as *;
 //# pageShell
-$aside-size: 300px;
-$content-size: 600px;
-$pageShell-test-gap: 4rem;
-
 @mixin pageShell-aside-flow() {
     position: relative;
     top: auto;
@@ -18,11 +14,17 @@ $pageShell-test-gap: 4rem;
     }
 }
 
+//= PAGE SHELL
 [pgs~="pageShell"] {
-    --pageShell-width: calc(var(--pageShell-content-width) + (var(--padding-page) * 2));
+    // content
     --pageShell-content-width: var(--page-width);
-    --pageShell-aside-width: #{$aside-size};
+    --pageShell-content-min-width: var(--page-width);
+    //aside
+    --pageShell-aside-width: 250px;
     --pageShell-aside-sticky-top: 0;
+    //
+    --pageShell-minWidth: 600px;
+    --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-padding-inline) * 2));
     --pageShell-padding-inline: var(--padding-page);
     --pageShell-padding-top: var(--page-top);
     --pageShell-gap: var(--gap-elements);
@@ -33,20 +35,30 @@ $pageShell-test-gap: 4rem;
     align-items: start;
     justify-content: center;
     width: 100%;
-    max-width: var(--pageShell-width);
     padding-inline: var(--pageShell-padding-inline);
     container-type: inline-size;
+    max-width: var(--pageShell-width);
 
+    &:where(:has(> [pgs~="pageShell-aside"])) {
+        --pageShell-width: calc(var(--pageShell-content-width) + var(--pageShell-aside-width) + var(--pageShell-gap) + (var(--pageShell-padding-inline) * 2));
+    }
+
+    &:where(:has(> [pgs~="pageShell-aside"] ~ [pgs~="pageShell-aside"])) {
+        --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-aside-width) * 2) + (var(--pageShell-gap) * 2) + (var(--pageShell-padding-inline) * 2));
+    }
+
+    //== content 
     [pgs~="pageShell-content"] {
         grid-area: content;
-        flex: 999 1 $content-size;
-        min-width: min(100%, $content-size);
+        flex: 999 1 var(--pageShell-minWidth);
+        min-width: min(100%, var(--pageShell-minWidth));
         width: min(100%, var(--pageShell-content-width));
         max-width: var(--pageShell-content-width);
         padding-top: var(--pageShell-padding-top);
         padding-bottom: var(--gap-elements);
     }
 
+    //== aside
     [pgs~="pageShell-aside"] {
         isolation: isolate;
         transition: top 0.3s ease;
@@ -106,21 +118,14 @@ $pageShell-test-gap: 4rem;
         }
     }
 
+    //== aside right
     [pgs~="pageShell-content"]+[pgs~="pageShell-aside"] {
         grid-area: asideRight;
     }
 
-    &:where(:has(> [pgs~="pageShell-aside"])) {
-        --pageShell-width: calc(var(--pageShell-content-width) + var(--pageShell-aside-width) + var(--pageShell-gap) + (var(--padding-page) * 2));
-    }
-
-    &:where(:has(> [pgs~="pageShell-aside"] ~ [pgs~="pageShell-aside"])) {
-        --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-aside-width) * 2) + (var(--pageShell-gap) * 2) + (var(--padding-page) * 2));
-    }
-
     //==- RESPONSIVE ==//
     &:has(> [pgs~="pageShell-aside"]) {
-        @container (max-width: calc(#{$aside-size} + #{$content-size} + #{$pageShell-test-gap})) {
+        @container (max-width: #{$big-tablet}) {
             [pgs~="pageShell-aside"] {
                 @include pageShell-aside-flow;
             }
@@ -133,7 +138,7 @@ $pageShell-test-gap: 4rem;
     }
 
     &:has(> [pgs~="pageShell-content"] + [pgs~="pageShell-aside"]) {
-        @container (max-width: calc(#{$content-size} + #{$aside-size} + #{$pageShell-test-gap})) {
+        @container (max-width: #{$big-tablet}) {
             [pgs~="pageShell-content"]+[pgs~="pageShell-aside"] {
                 @include pageShell-aside-flow;
                 padding-top: 0;
@@ -141,9 +146,8 @@ $pageShell-test-gap: 4rem;
         }
     }
 
-    
     &:has(> [pgs~="pageShell-aside"] + [pgs~="pageShell-content"]):has(> [pgs~="pageShell-content"] + [pgs~="pageShell-aside"]) {
-        @container (max-width: calc(#{$aside-size} + #{$content-size} + #{$aside-size} + (#{$pageShell-test-gap} * 2))) {
+        @container (max-width: #{$laptop}) {
             display: grid;
             grid-template-columns: var(--pageShell-aside-width) minmax(0, var(--pageShell-content-width));
             grid-template-areas:
@@ -158,7 +162,7 @@ $pageShell-test-gap: 4rem;
             }
         }
 
-        @container (max-width: calc(#{$aside-size} + #{$content-size} + #{$pageShell-test-gap})) {
+        @container (max-width: #{$big-tablet}) {
             display: flex;
 
             [pgs~="pageShell-aside"] {
@@ -173,7 +177,7 @@ $pageShell-test-gap: 4rem;
         }
     }
 
-    @container (max-width: #{$content-size}) {
+    @container (max-width: #{$big-mobile}) {
         padding-top: var(--pageShell-padding-top);
 
         [pgs~="pageShell-content"],

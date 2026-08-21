@@ -2163,10 +2163,12 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 [pgs~=pageShell] {
-  --pageShell-width: calc(var(--pageShell-content-width) + (var(--padding-page) * 2));
   --pageShell-content-width: var(--page-width);
-  --pageShell-aside-width: 300px;
+  --pageShell-content-min-width: var(--page-width);
+  --pageShell-aside-width: 250px;
   --pageShell-aside-sticky-top: 0;
+  --pageShell-minWidth: 600px;
+  --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-padding-inline) * 2));
   --pageShell-padding-inline: var(--padding-page);
   --pageShell-padding-top: var(--page-top);
   --pageShell-gap: var(--gap-elements);
@@ -2177,15 +2179,23 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   align-items: start;
   justify-content: center;
   width: 100%;
-  max-width: var(--pageShell-width);
   padding-inline: var(--pageShell-padding-inline);
   container-type: inline-size;
+  max-width: var(--pageShell-width);
+}
+
+[pgs~=pageShell]:where(:has(> [pgs~=pageShell-aside])) {
+  --pageShell-width: calc(var(--pageShell-content-width) + var(--pageShell-aside-width) + var(--pageShell-gap) + (var(--pageShell-padding-inline) * 2));
+}
+
+[pgs~=pageShell]:where(:has(> [pgs~=pageShell-aside] ~ [pgs~=pageShell-aside])) {
+  --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-aside-width) * 2) + (var(--pageShell-gap) * 2) + (var(--pageShell-padding-inline) * 2));
 }
 
 [pgs~=pageShell] [pgs~=pageShell-content] {
   grid-area: content;
-  flex: 999 1 600px;
-  min-width: min(100%, 600px);
+  flex: 999 1 var(--pageShell-minWidth);
+  min-width: min(100%, var(--pageShell-minWidth));
   width: min(100%, var(--pageShell-content-width));
   max-width: var(--pageShell-content-width);
   padding-top: var(--pageShell-padding-top);
@@ -2255,15 +2265,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   grid-area: asideRight;
 }
 
-[pgs~=pageShell]:where(:has(> [pgs~=pageShell-aside])) {
-  --pageShell-width: calc(var(--pageShell-content-width) + var(--pageShell-aside-width) + var(--pageShell-gap) + (var(--padding-page) * 2));
-}
-
-[pgs~=pageShell]:where(:has(> [pgs~=pageShell-aside] ~ [pgs~=pageShell-aside])) {
-  --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-aside-width) * 2) + (var(--pageShell-gap) * 2) + (var(--padding-page) * 2));
-}
-
-@container (max-width: calc(300px + 600px + 4rem)) {
+@container (max-width: 900px) {
   [pgs~=pageShell]:has(> [pgs~=pageShell-aside]) [pgs~=pageShell-aside] {
     position: relative;
     top: auto;
@@ -2281,7 +2283,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     min-width: 100%;
   }
 }
-@container (max-width: calc(600px + 300px + 4rem)) {
+@container (max-width: 900px) {
   [pgs~=pageShell]:has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) [pgs~=pageShell-content] + [pgs~=pageShell-aside] {
     position: relative;
     top: auto;
@@ -2298,7 +2300,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     padding-top: 0;
   }
 }
-@container (max-width: calc(300px + 600px + 300px + (4rem * 2))) {
+@container (max-width: 1100px) {
   [pgs~=pageShell]:has(> [pgs~=pageShell-aside] + [pgs~=pageShell-content]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) {
     display: grid;
     grid-template-columns: var(--pageShell-aside-width) minmax(0, var(--pageShell-content-width));
@@ -2322,7 +2324,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     min-width: min(100%, var(--pageShell-aside-width));
   }
 }
-@container (max-width: calc(300px + 600px + 4rem)) {
+@container (max-width: 900px) {
   [pgs~=pageShell]:has(> [pgs~=pageShell-aside] + [pgs~=pageShell-content]):has(> [pgs~=pageShell-content] + [pgs~=pageShell-aside]) {
     display: flex;
   }
@@ -2344,7 +2346,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     min-width: 100%;
   }
 }
-@container (max-width: 600px) {
+@container (max-width: 615px) {
   [pgs~=pageShell] {
     padding-top: var(--pageShell-padding-top);
   }
