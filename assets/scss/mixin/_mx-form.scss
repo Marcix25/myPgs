@@ -191,6 +191,7 @@
 
     &:where(label),
     label {
+        -webkit-user-select: none;
         user-select: none;
         color: var(--color-black);
         position: relative;
@@ -368,13 +369,14 @@
 
     //=== LABEL
     label {
-        &:not(:has([pgs~="label"], [pgs~="labelUnset"], +input[type=checkbox], +input[type=radio])) {
+        &:not(:has([pgs~=label], [pgs~=labelUnset], +input[type=checkbox], +input[type=radio])) {
             &:has(+input, +select, +textarea) {
                 @include label();
             }
         }
 
-        &:has(+[hidden]) {
+        &:has(+[hidden], [pgs~=hidden]),
+        &:has([hidden], [pgs~=hidden]) {
             display: none !important;
         }
     }
@@ -477,7 +479,7 @@
         > select[required],
         > textarea[required]),
     fieldset:has(input[type="checkbox"][required], input[type="radio"][required]) legend {
-        &:not(:has([pgs~="label"])) {
+        &:not(:has([pgs~=label])) {
             @include required();
         }
 
@@ -514,7 +516,7 @@
 
     //=== ERROR
     &[pgs-state~=errorForm] {
-        [pgs-state~="errorField"]:not([type=checkbox], [type=radio]) {
+        [pgs-state~=errorField]:not([type=checkbox], [type=radio]) {
             outline: var(--formValidate-outline);
             color: var(--color-error);
         }

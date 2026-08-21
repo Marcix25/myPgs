@@ -26,6 +26,7 @@
         >li {
             >a {
                 flex-grow: 1;
+                min-width: -webkit-fill-available;
                 min-width: fit-content;
                 @include buttonBase();
                 @include buttonHover();

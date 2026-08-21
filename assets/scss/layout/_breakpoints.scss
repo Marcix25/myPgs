@@ -1,0 +1,151 @@
+@use "../mixin/mixin" as *;
+
+//# RESPONSIVE VISIBILITY
+//- MEDIA MAX
+
+@media (max-width: $watch) {
+    [pgs~="hideMediaDownWatch"] {
+        display: none !important;
+    }
+}
+
+@media (max-width: $mobile) {
+    [pgs~="hideMediaDownMobile"] {
+        display: none !important;
+    }
+}
+
+@media (max-width: $big-mobile) {
+    [pgs~="hideMediaDownBigMobile"] {
+        display: none !important;
+    }
+}
+
+@media (max-width: $tablet) {
+    [pgs~="hideMediaDownTablet"] {
+        display: none !important;
+    }
+}
+
+@media (max-width: $big-tablet) {
+    [pgs~="hideMediaDownBigTablet"] {
+        display: none !important;
+    }
+}
+
+@media (max-width: $laptop) {
+    [pgs~="hideMediaDownLaptop"] {
+        display: none !important;
+    }
+}
+
+//+ MEDIA MIN
+@media (min-width: $watch) {
+    [pgs~="hideMediaUpWatch"] {
+        display: none !important;
+    }
+}
+
+@media (min-width: $mobile) {
+    [pgs~="hideMediaUpMobile"] {
+        display: none !important;
+    }
+}
+
+@media (min-width: $big-mobile) {
+    [pgs~="hideMediaUpBigMobile"] {
+        display: none !important;
+    }
+}
+
+@media (min-width: $tablet) {
+    [pgs~="hideMediaUpTablet"] {
+        display: none !important;
+    }
+}
+
+@media (min-width: $big-tablet) {
+    [pgs~="hideMediaUpBigTablet"] {
+        display: none !important;
+    }
+}
+
+@media (min-width: $laptop) {
+    [pgs~="hideMediaUpLaptop"] {
+        display: none !important;
+    }
+}
+
+//-( CONTAINER MAX
+@container (max-width: #{$watch}) {
+    [pgs~="hideContainerDownWatch"] {
+        display: none !important;
+    }
+}
+
+@container (max-width: #{$mobile}) {
+    [pgs~="hideContainerDownMobile"] {
+        display: none !important;
+    }
+}
+
+@container (max-width: #{$big-mobile}) {
+    [pgs~="hideContainerDownBigMobile"] {
+        display: none !important;
+    }
+}
+
+@container (max-width: #{$tablet}) {
+    [pgs~="hideContainerDownTablet"] {
+        display: none !important;
+    }
+}
+
+@container (max-width: #{$big-tablet}) {
+    [pgs~="hideContainerDownBigTablet"] {
+        display: none !important;
+    }
+}
+
+@container (max-width: #{$laptop}) {
+    [pgs~="hideContainerDownLaptop"] {
+        display: none !important;
+    }
+}
+
+//+( CONTAINER MIN
+@container (min-width: #{$watch}) {
+    [pgs~="hideContainerUpWatch"] {
+        display: none !important;
+    }
+}
+
+@container (min-width: #{$mobile}) {
+    [pgs~="hideContainerUpMobile"] {
+        display: none !important;
+    }
+}
+
+@container (min-width: #{$big-mobile}) {
+    [pgs~="hideContainerUpBigMobile"] {
+        display: none !important;
+    }
+}
+
+@container (min-width: #{$tablet}) {
+    [pgs~="hideContainerUpTablet"] {
+        display: none !important;
+    }
+}
+
+@container (min-width: #{$big-tablet}) {
+    [pgs~="hideContainerUpBigTablet"] {
+        display: none !important;
+    }
+}
+
+@container (min-width: #{$laptop}) {
+    [pgs~="hideContainerUpLaptop"] {
+        display: none !important;
+    }
+}

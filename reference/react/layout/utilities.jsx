@@ -38,6 +38,15 @@ export default function Utilities() {
                 </section>
 
                 <section pgs="flexColumn" pgs-option="gapTexts">
+                    <strong>Responsive visibility</strong>
+                    <p>Use <code>hideMediaDown*</code> and <code>hideMediaUp*</code> for viewport queries. Use <code>hideContainerDown*</code> and <code>hideContainerUp*</code> inside an ancestor with <code>pgs="container"</code>.</p>
+                    <span pgs="box hideMediaDownMobile">Visible above the mobile viewport breakpoint.</span>
+                    <div pgs="container">
+                        <span pgs="box hideContainerDownMobile">Visible when this container is wider than the mobile breakpoint.</span>
+                    </div>
+                </section>
+
+                <section pgs="flexColumn" pgs-option="gapTexts">
                     <strong>Accessibility and color</strong>
                     <button type="button" pgs="focusRing">Keyboard focus ring</button>
                     <span pgs="visuallyHidden">Screen-reader-only description.</span>

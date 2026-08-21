@@ -1808,6 +1808,126 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   flex-wrap: wrap;
 }
 
+@media (max-width: 315px) {
+  [pgs~=hideMediaDownWatch] {
+    display: none !important;
+  }
+}
+@media (max-width: 430px) {
+  [pgs~=hideMediaDownMobile] {
+    display: none !important;
+  }
+}
+@media (max-width: 615px) {
+  [pgs~=hideMediaDownBigMobile] {
+    display: none !important;
+  }
+}
+@media (max-width: 800px) {
+  [pgs~=hideMediaDownTablet] {
+    display: none !important;
+  }
+}
+@media (max-width: 900px) {
+  [pgs~=hideMediaDownBigTablet] {
+    display: none !important;
+  }
+}
+@media (max-width: 1100px) {
+  [pgs~=hideMediaDownLaptop] {
+    display: none !important;
+  }
+}
+@media (min-width: 315px) {
+  [pgs~=hideMediaUpWatch] {
+    display: none !important;
+  }
+}
+@media (min-width: 430px) {
+  [pgs~=hideMediaUpMobile] {
+    display: none !important;
+  }
+}
+@media (min-width: 615px) {
+  [pgs~=hideMediaUpBigMobile] {
+    display: none !important;
+  }
+}
+@media (min-width: 800px) {
+  [pgs~=hideMediaUpTablet] {
+    display: none !important;
+  }
+}
+@media (min-width: 900px) {
+  [pgs~=hideMediaUpBigTablet] {
+    display: none !important;
+  }
+}
+@media (min-width: 1100px) {
+  [pgs~=hideMediaUpLaptop] {
+    display: none !important;
+  }
+}
+@container (max-width: 315px) {
+  [pgs~=hideContainerDownWatch] {
+    display: none !important;
+  }
+}
+@container (max-width: 430px) {
+  [pgs~=hideContainerDownMobile] {
+    display: none !important;
+  }
+}
+@container (max-width: 615px) {
+  [pgs~=hideContainerDownBigMobile] {
+    display: none !important;
+  }
+}
+@container (max-width: 800px) {
+  [pgs~=hideContainerDownTablet] {
+    display: none !important;
+  }
+}
+@container (max-width: 900px) {
+  [pgs~=hideContainerDownBigTablet] {
+    display: none !important;
+  }
+}
+@container (max-width: 1100px) {
+  [pgs~=hideContainerDownLaptop] {
+    display: none !important;
+  }
+}
+@container (min-width: 315px) {
+  [pgs~=hideContainerUpWatch] {
+    display: none !important;
+  }
+}
+@container (min-width: 430px) {
+  [pgs~=hideContainerUpMobile] {
+    display: none !important;
+  }
+}
+@container (min-width: 615px) {
+  [pgs~=hideContainerUpBigMobile] {
+    display: none !important;
+  }
+}
+@container (min-width: 800px) {
+  [pgs~=hideContainerUpTablet] {
+    display: none !important;
+  }
+}
+@container (min-width: 900px) {
+  [pgs~=hideContainerUpBigTablet] {
+    display: none !important;
+  }
+}
+@container (min-width: 1100px) {
+  [pgs~=hideContainerUpLaptop] {
+    display: none !important;
+  }
+}
 [pgs~=block] {
   display: block;
 }
@@ -3268,6 +3388,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=radio] label,
 [pgs~=checkbox]:where(label),
 [pgs~=checkbox] label {
+  -webkit-user-select: none;
   user-select: none;
   color: var(--color-black);
   position: relative;
@@ -3433,7 +3554,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   margin-right: 0.7rem;
 }
 
-[pgs~=form] label:has(+ [hidden]) {
+[pgs~=form] label:has(+ [hidden], [pgs~=hidden]), [pgs~=form] label:has([hidden], [pgs~=hidden]) {
   display: none !important;
 }
 
@@ -3533,6 +3654,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=form] label:has(input[type=checkbox]):not([pgs~=toggle], [pgs~=twoState], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label,
 [pgs~=form] label:has(input[type=radio]):not([pgs~=toggle], [pgs~=twoState], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label),
 [pgs~=form] label:has(input[type=radio]):not([pgs~=toggle], [pgs~=twoState], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label {
+  -webkit-user-select: none;
   user-select: none;
   color: var(--color-black);
   position: relative;
@@ -4174,6 +4296,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=checkboxBackground]:where(label),
 [pgs~=checkboxBackground] label {
+  -webkit-user-select: none;
   user-select: none;
   color: var(--color-black);
   position: relative;
@@ -4806,6 +4929,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=menu] ul > li > a {
   flex-grow: 1;
+  min-width: -webkit-fill-available;
   min-width: fit-content;
   --button-primaryColor: var(--color-primary);
   --button-color: var(--color-black);
