@@ -16,8 +16,10 @@ const CATEGORY_LABELS = {
     patterns: "Pattern",
 };
 const ENTRY_ICONS = {
-    "base/html.html": "fa-code",
+    "base/general.html": "fa-sliders",
+    "base/heading.html": "fa-heading",
     "base/color.html": "fa-palette",
+    "base/svg.html": "fa-bezier-curve",
     "components/notification.html": "fa-bell",
     "components/card.html": "fa-id-card",
     "components/slides.html": "fa-images",
@@ -38,10 +40,12 @@ const ENTRY_ICONS = {
     "components/logo.html": "fa-star",
     "components/steps.html": "fa-shoe-prints",
     "components/table.html": "fa-table",
+    "components/toast.html": "fa-bread-slice",
     "patterns/cookieConsent.html": "fa-cookie-bite",
-    "layout/body.html": "fa-file-code",
+    "base/body.html": "fa-file-code",
     "layout/responsive.html": "fa-mobile-screen",
     "layout/spacing.html": "fa-ruler",
+    "layout/utilities.html": "fa-wrench",
     "layout/section.html": "fa-table-cells",
     "layout/pageShell.html": "fa-table-columns",
 };
@@ -50,8 +54,11 @@ const DEFAULT_ENTRY_ICON = "fa-square";
 //= Reference Renderer HTML
 const demoRenderer = {
     referenceFiles: [
-        "base/html.html",
+        "base/body.html",
+        "base/general.html",
+        "base/heading.html",
         "base/color.html",
+        "base/svg.html",
         "components/notification.html",
         "components/card.html",
         "components/slides.html",
@@ -72,11 +79,12 @@ const demoRenderer = {
         "components/logo.html",
         "components/steps.html",
         "components/table.html",
+        "components/toast.html",
         "patterns/cookieConsent.html",
-        "layout/body.html",
         "layout/header.html",
         "layout/responsive.html",
         "layout/spacing.html",
+        "layout/utilities.html",
         "layout/section.html",
         "layout/pageShell.html",
         "layout/footer.html",
@@ -97,6 +105,37 @@ const demoRenderer = {
 
     getEntryLabel(path) {
         return path.split("/").pop().replace(/\.html$/, "");
+    },
+
+    //= dedents a block by the smallest leading whitespace found among its non-empty lines
+    //= (browser-side port of scripts/generate-component-docs.js)
+    dedent(text) {
+        const lines = text.replace(/^\n/, "").replace(/\s+$/, "").split("\n");
+        const indents = lines.filter(line => line.trim().length > 0).map(line => line.match(/^\s*/)[0].length);
+        const minIndent = indents.length ? Math.min(...indents) : 0;
+        return lines.map(line => line.slice(minIndent)).join("\n");
+    },
+
+    //= pulls a <script type="..."> reference block out of the markup so it can render as its own
+    //= titled section, exactly like the generated markdown does
+    extractScriptBlock(markup, typeValue) {
+        const safeType = typeValue.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        const pattern = new RegExp(`<script\\b[^>]*\\btype\\s*=\\s*["']${safeType}["'][^>]*>([\\s\\S]*?)<\\/script>`, "i");
+        const match = markup.match(pattern);
+        if (!match) return { content: null, markup };
+
+        const cleanedMarkup = (markup.slice(0, match.index) + markup.slice(match.index + match[0].length))
+            .replace(/\n{3,}/g, "\n\n")
+            .trim();
+
+        return { content: this.dedent(match[1]), markup: cleanedMarkup };
+    },
+
+    //= a whole page skeleton cannot survive innerHTML: the parser drops <!DOCTYPE>, <html> and
+    //= <head> and hoists their content into the wrapper. Those files are shown as source only,
+    //= printed verbatim, so the markup the reader copies is the one actually written in the file.
+    isDocumentMarkup(markup) {
+        return /<!DOCTYPE\s|<html[\s>]/i.test(markup);
     },
 
     //= removes every demo="disabled" element (whole subtree) from a markup string — used only to build
@@ -146,13 +185,13 @@ const demoRenderer = {
         return { data, markup: html.slice(match.index + match[0].length).trim() };
     },
 
-    renderExampleSource(section, markup) {
+    renderExampleSource(section, markup, title = "Example HTML") {
         const wrapper = document.createElement("div");
         wrapper.className = "exampleSource";
 
         const heading = document.createElement("strong");
         heading.className = "exampleSource-title";
-        heading.textContent = "Example HTML";
+        heading.textContent = title;
 
         const copyButton = document.createElement("button");
         copyButton.type = "button";
@@ -380,6 +419,37 @@ const demoRenderer = {
         if (doc.children.length) section.append(doc);
     },
 
+
+    //== the demo renders page-level layouts (header.html) inside the main area, so their modals
+    //== would resolve containerPGS[header] against the *real* page header and move their dialog
+    //== in there, hijacking the header's own bell and hamburger: keep those dialogs local instead.
+    isolateDemoModals(root) {
+        root.querySelectorAll('[pgs~="modal"]').forEach(modal => {
+            const option = modal.getAttribute("pgs-option");
+            if (!option || !option.includes("containerPGS")) return;
+
+            const cleaned = option.replace(/containerPGS\[[^\]]*\]/g, "").replace(/\s+/g, " ").trim();
+            if (cleaned) modal.setAttribute("pgs-option", cleaned);
+            else modal.removeAttribute("pgs-option");
+        });
+
+        //== a second notificationBell would build a second panel competing for the single shared
+        //== "notifications" container, so strip its modal role: the real header bell answers for it.
+        root.querySelectorAll('[pgs~="notificationBell"]').forEach(bell => {
+            this.removeToken(bell.closest('[pgs~="modal"]'), "pgs", "modal");
+            this.removeToken(bell, "pgs", "modal-button");
+            this.removeToken(bell, "pgs", "modal-close");
+        });
+    },
+
+    removeToken(element, attribute, token) {
+        if (!element) return;
+
+        const value = (element.getAttribute(attribute) || "").split(/\s+/).filter(item => item && item !== token).join(" ");
+        if (value) element.setAttribute(attribute, value);
+        else element.removeAttribute(attribute);
+    },
+
     renderNav(nav, entries) {
         const groups = new Map();
         entries.forEach(entry => {
@@ -428,7 +498,7 @@ const demoRenderer = {
         const NAV = document.getElementById("reference-demo-nav");
         const MAIN = document.getElementById("reference-demo-main");
 
-        const activate = path => {
+        const activate = (path, resetScroll = true) => {
             const panel = MAIN.querySelector(`[data-panel="${CSS.escape(path)}"]`);
             if (!panel) return;
 
@@ -437,6 +507,11 @@ const demoRenderer = {
                 if (link.dataset.panelLink === path) link.setAttribute("aria-current", "page");
                 else link.removeAttribute("aria-current");
             });
+
+            //== only the window scrolls (the aside owns its own overflow via shellAsideScroll), and
+            //== switching panel is a page change, not a jump inside one: start it from the top, the
+            //== way a real navigation would, instead of inheriting the previous panel's offset.
+            if (resetScroll) window.scrollTo({ top: 0, behavior: "instant" });
         };
 
         window.addEventListener("hashchange", () => {
@@ -444,14 +519,20 @@ const demoRenderer = {
             if (entry) activate(entry.path);
         });
 
+        //== the deep link on load is honoured by boot(), which scrolls to the requested heading once
+        //== every panel is mounted: resetting here would undo it.
         const initialEntry = entries.find(item => this.getSlug(item.path) === location.hash.slice(1)) || entries[0];
-        if (initialEntry) activate(initialEntry.path);
+        if (initialEntry) activate(initialEntry.path, false);
     },
 
     async loadReference(path) {
         const response = await fetch(`../reference/html/${path}`);
         if (!response.ok) throw new Error(`${path}: ${response.status}`);
-        return response.text();
+
+        //== dev servers with live reload inject their own script into every file they serve
+        //== (VS Code Live Preview does), which would then show up inside the examples
+        return (await response.text())
+            .replace(/[\t ]*<script\b[^>]*(?:___vscode_livepreview_injected_script|livereload|browser-sync)[^>]*>\s*<\/script>\n?/gi, "");
     },
 
     initPgsJavascript() {
@@ -468,7 +549,6 @@ const demoRenderer = {
         //== header and footer are written straight into demo.html, so here they are just
         //== two more reference panels: they show up in the nav like every other layout
         for (const path of this.referenceFiles) {
-            const isBody = path === "layout/body.html";
 
             const panel = document.createElement("div");
             panel.dataset.panel = path;
@@ -479,7 +559,7 @@ const demoRenderer = {
             const isSection = path !== "layout/section.html" && path !== "layout/pageShell.html"
             isSection ? section = document.createElement("section") : section = document.createElement("div");
 
-            if (isSection) section.setAttribute("pgs", "flexColumn gapSections");
+            if (isSection) section.setAttribute("pgs", "flexColumn gapElements");
 
             section.dataset.reference = path;
             let title = this.getReferenceTitle(path);
@@ -491,11 +571,18 @@ const demoRenderer = {
                 this.renderHeader(section, title, data?.description);
                 this.renderDocumentation(section, data, markup);
 
-                if (isBody) {
-                    const cleanedMarkup = this.stripDisabled(markup);
-                    if (cleanedMarkup) this.renderExampleSource(section, cleanedMarkup);
+                //== the reference script blocks get their own titled section and leave the markup,
+                //== in the same order the generated markdown uses: schema, usage, then the example
+                const { content: jsonSchema, markup: afterJson } = this.extractScriptBlock(markup, "application/json");
+                const { content: jsUsage, markup: exampleMarkup } = this.extractScriptBlock(afterJson, "text/x-example-js");
+
+                if (jsonSchema) this.renderExampleSource(section, jsonSchema, "JSON Schema");
+                if (jsUsage) this.renderExampleSource(section, jsUsage, "JavaScript Usage");
+
+                if (this.isDocumentMarkup(exampleMarkup)) {
+                    this.renderExampleSource(section, exampleMarkup.trim());
                 } else {
-                    this.renderExamplePairs(section, path, markup);
+                    this.renderExamplePairs(section, path, exampleMarkup);
                 }
             } catch (error) {
                 this.renderHeader(section, title);
@@ -519,6 +606,7 @@ const demoRenderer = {
 
         try {
             //# CORE
+            this.isolateDemoModals(MAIN);
             this.initPgsJavascript();
             configureSearchDemo();
             configureFormDemo();
@@ -629,11 +717,13 @@ function configureNotificationDemo() {
     const section = document.querySelector('[data-reference="components/notification.html"]');
     if (!pgsApi?.notification || !section) return;
 
-    //== the reference example's bell has no modal wrapper of its own (two separate dialogs would
-    //== fight over the single shared "notifications" container) — clicking it clicks the real header bell.
-    const referenceBell = section.querySelector('[pgs~="notificationBell"]');
+    //== isolateDemoModals stripped the modal role off every bell rendered in the main area, because
+    //== two panels would fight over the single shared "notifications" container: the real header bell
+    //== owns the only panel, so clicking a demo bell clicks that one.
     const headerBell = document.querySelector('#reference-demo-before [pgs~="notificationBell"]');
-    referenceBell?.addEventListener("click", () => headerBell?.click());
+    document.querySelectorAll('#reference-demo-main [pgs~="notificationBell"]').forEach(bell => {
+        bell.addEventListener("click", () => headerBell?.click());
+    });
 
     //== catch every button click regardless of how the notification was created (JS call or markup)
     document.addEventListener("pgs:notification:buttonClick", (event) => {

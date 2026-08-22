@@ -1962,6 +1962,12 @@ const fn_notification = {
             const modalWrapper = bell.closest("[pgs~='modal']");
             if (!modalWrapper || modalWrapper.querySelector("dialog")) return;
 
+            //== containerID/containerPGS move the dialog out of the wrapper, so on a later
+            //== pgs.init() the wrapper looks empty again: without this marker every re-init
+            //== would mint another empty panel and the bell would end up opening one of those.
+            if (modalWrapper.dataset.notificationDialog === "true") return;
+            modalWrapper.dataset.notificationDialog = "true";
+
             const dialog = document.createElement("dialog");
             pgs(dialog).option.add("right");
 

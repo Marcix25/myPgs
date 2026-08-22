@@ -10,10 +10,6 @@ Tooltip markup, configuration, behavior, and usage example.
 - `tooltip-button`: identifies the tooltip-button element used by Tooltip.
 - `tooltip-content`: identifies the tooltip-content element used by Tooltip.
 
-## PGS States
-
-- `open`: identifies the open element used by Tooltip.
-
 ## JavaScript API
 
 - `pgs.dropdown.init(root)`: initializes matching elements within the specified root.
@@ -40,6 +36,7 @@ Tooltip markup, configuration, behavior, and usage example.
 ### Other
 
 - `position`: identifies the position element used by Tooltip.
+- `open`: is applied by the dropdown behaviour while the tooltip is visible.
 
 ## Output
 

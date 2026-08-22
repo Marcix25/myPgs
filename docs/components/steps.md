@@ -11,6 +11,7 @@ Ordered list of steps showing a number, content, and connecting line, with missi
 - `steps-step-circle`: identifies the numeric indicator, which is created automatically when missing.
 - `steps-step-content`: identifies the text content of the step.
 - `steps-step-line`: identifies the connecting line dynamically added to each step.
+- `list`: styles a plain list with the shared marker and spacing, without the step sequence.
 
 ## JavaScript API
 
@@ -53,4 +54,10 @@ Ordered HTML list of numbered steps completed by the JavaScript module.
         </div>
     </li>
 </ol>
+
+<ul pgs="list">
+    <li>Plain list item</li>
+    <li>Second item</li>
+    <li>Third item</li>
+</ul>
 ```

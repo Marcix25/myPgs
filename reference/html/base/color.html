@@ -87,6 +87,34 @@
  * - colorErrorSoft: applies --color-error-soft to text.
  * - iconColorPrimary: applies --color-icon-primary to text.
  * - iconColorSecondary: applies --color-icon-secondary to text.
+ * - brPrimary: applies --color-primary to the border.
+ * - brSecondary: applies --color-secondary to the border.
+ * - brTertiary: applies --color-tertiary to the border.
+ * - brQuaternary: applies --color-quaternary to the border.
+ * - brWhite: applies --color-white to the border.
+ * - brBlack: applies --color-black to the border.
+ * - brBox: applies --color-box to the border.
+ * - brBoxDark: applies --color-boxDark to the border.
+ * - brLink: applies --color-link to the border.
+ * - brGray: applies --color-gray to the border.
+ * - brInfo: applies --color-info to the border.
+ * - brSuccess: applies --color-success to the border.
+ * - brWarning: applies --color-warning to the border.
+ * - brError: applies --color-error to the border.
+ * - olPrimary: applies --color-primary to the outline.
+ * - olSecondary: applies --color-secondary to the outline.
+ * - olTertiary: applies --color-tertiary to the outline.
+ * - olQuaternary: applies --color-quaternary to the outline.
+ * - olWhite: applies --color-white to the outline.
+ * - olBlack: applies --color-black to the outline.
+ * - olBox: applies --color-box to the outline.
+ * - olBoxDark: applies --color-boxDark to the outline.
+ * - olLink: applies --color-link to the outline.
+ * - olGray: applies --color-gray to the outline.
+ * - olInfo: applies --color-info to the outline.
+ * - olSuccess: applies --color-success to the outline.
+ * - olWarning: applies --color-warning to the outline.
+ * - olError: applies --color-error to the outline.
  *
  * @related
  * - dropdown: provides the interactive container for each background color tooltip.
@@ -96,6 +124,8 @@
  * - dropdown-content: identifies the content panel of a color tooltip.
  * - tooltip-content: applies the tooltip content presentation.
  * - box: makes each palette group visible.
+ * - border: draws the border that the br* utilities recolour; without it there is nothing to colour.
+ * - outline: draws the outline that the ol* utilities recolour; it sits outside the box and takes no space.
  * - button: supplies the shared button base used by background color triggers.
  * - flex-flexFull: makes palette headings occupy a full flex row.
  * - boxMini: applies the compact box presentation to each palette group.
@@ -399,6 +429,46 @@
             <span pgs="colorQuaternaryLight">colorQuaternaryLight</span>
             <span pgs="colorWhiteFixed">colorWhiteFixed</span>
         </div>
-        
+
+    </section>
+
+    <section pgs="flexColumn">
+        <strong pgs="flex-flexFull">Border colors</strong>
+        <div pgs="flexRow" pgs-option="gapTexts wrap">
+            <span pgs="box border brPrimary" pgs-option="boxMini">brPrimary</span>
+            <span pgs="box border brSecondary" pgs-option="boxMini">brSecondary</span>
+            <span pgs="box border brTertiary" pgs-option="boxMini">brTertiary</span>
+            <span pgs="box border brQuaternary" pgs-option="boxMini">brQuaternary</span>
+            <span pgs="box border brWhite" pgs-option="boxMini">brWhite</span>
+            <span pgs="box border brBlack" pgs-option="boxMini">brBlack</span>
+            <span pgs="box border brBox" pgs-option="boxMini">brBox</span>
+            <span pgs="box border brBoxDark" pgs-option="boxMini">brBoxDark</span>
+            <span pgs="box border brLink" pgs-option="boxMini">brLink</span>
+            <span pgs="box border brGray" pgs-option="boxMini">brGray</span>
+            <span pgs="box border brInfo" pgs-option="boxMini">brInfo</span>
+            <span pgs="box border brSuccess" pgs-option="boxMini">brSuccess</span>
+            <span pgs="box border brWarning" pgs-option="boxMini">brWarning</span>
+            <span pgs="box border brError" pgs-option="boxMini">brError</span>
+        </div>
+    </section>
+
+    <section pgs="flexColumn">
+        <strong pgs="flex-flexFull">Outline colors</strong>
+        <div pgs="flexRow" pgs-option="gapTexts wrap">
+            <span pgs="box outline olPrimary" pgs-option="boxMini">olPrimary</span>
+            <span pgs="box outline olSecondary" pgs-option="boxMini">olSecondary</span>
+            <span pgs="box outline olTertiary" pgs-option="boxMini">olTertiary</span>
+            <span pgs="box outline olQuaternary" pgs-option="boxMini">olQuaternary</span>
+            <span pgs="box outline olWhite" pgs-option="boxMini">olWhite</span>
+            <span pgs="box outline olBlack" pgs-option="boxMini">olBlack</span>
+            <span pgs="box outline olBox" pgs-option="boxMini">olBox</span>
+            <span pgs="box outline olBoxDark" pgs-option="boxMini">olBoxDark</span>
+            <span pgs="box outline olLink" pgs-option="boxMini">olLink</span>
+            <span pgs="box outline olGray" pgs-option="boxMini">olGray</span>
+            <span pgs="box outline olInfo" pgs-option="boxMini">olInfo</span>
+            <span pgs="box outline olSuccess" pgs-option="boxMini">olSuccess</span>
+            <span pgs="box outline olWarning" pgs-option="boxMini">olWarning</span>
+            <span pgs="box outline olError" pgs-option="boxMini">olError</span>
+        </div>
     </section>
 </main>

@@ -24,9 +24,14 @@ Gap, margin, and padding utilities based on the shared MyPGS spacing scales.
 - `marginTexts`: uses the text spacing scale and is the default for margin utilities.
 - `marginElements`: uses the element spacing scale for margin utilities.
 - `marginSections`: uses the section spacing scale for margin utilities.
+- `margin2`: uses the double padding token for margin utilities.
+- `marginPage`: uses the page padding token for margin utilities.
+- `marginAuto`: sets the margin to auto, to centre an element or push it away.
 - `paddingTexts`: uses the text spacing scale and is the default for padding utilities.
 - `paddingElements`: uses the element spacing scale for padding utilities.
 - `paddingSections`: uses the section spacing scale for padding utilities.
+- `padding2`: uses the double padding token for padding utilities.
+- `paddingPage`: uses the page padding token for padding utilities.
 
 ## Related elements
 
@@ -82,6 +87,21 @@ Configurable margin utilities on every side and axis, each paired with a spacing
     <p pgs="marginTop" pgs-option="marginTexts">Text spacing above.</p>
     <p pgs="marginInline" pgs-option="marginElements">Element spacing on the inline axis.</p>
     <p pgs="marginBlock" pgs-option="marginSections">Section spacing on the block axis.</p>
+</section>
+```
+
+### Scales
+
+Besides the three text, element and section scales, the padding tokens and marginAuto are available on the same utilities.
+
+```html
+<section pgs="flexColumn gapTexts">
+    <strong>Scales</strong>
+    <p pgs="marginLeft" pgs-option="margin2">Double padding on the left.</p>
+    <p pgs="marginLeft" pgs-option="marginPage">Page padding on the left.</p>
+    <p pgs="paddingInline" pgs-option="padding2">Double padding on the inline axis.</p>
+    <p pgs="paddingInline" pgs-option="paddingPage">Page padding on the inline axis.</p>
+    <p pgs="box marginInline" pgs-option="marginAuto">Centred by marginAuto.</p>
 </section>
 ```
 

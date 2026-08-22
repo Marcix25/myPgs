@@ -36,7 +36,7 @@ Write custom CSS or JavaScript only when the required pattern does not exist in 
 - Options belong in `pgs-option` and may contain bracket values. Copy their exact syntax from the relevant reference instead of guessing it.
 - Composable search uses `pgs="search"` as its visual and behavioral root and optionally `pgs="search-suggestions"`. Configure its source through `pgs.search.api(element)?.configure({ source })` and keep it backend-independent.
 
-The complete page must enable the library through the current tokens shown in `reference/html/layout/body.html`. Do not infer the root markup from the demo.
+The complete page must enable the library through the current tokens shown in `reference/html/base/body.html`. Do not infer the root markup from the demo.
 
 ## 4. Imports
 

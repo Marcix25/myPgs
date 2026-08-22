@@ -89,6 +89,34 @@ Interactive palette of the current MyPGS background and text color utilities.
 - `colorErrorSoft`: applies --color-error-soft to text.
 - `iconColorPrimary`: applies --color-icon-primary to text.
 - `iconColorSecondary`: applies --color-icon-secondary to text.
+- `brPrimary`: applies --color-primary to the border.
+- `brSecondary`: applies --color-secondary to the border.
+- `brTertiary`: applies --color-tertiary to the border.
+- `brQuaternary`: applies --color-quaternary to the border.
+- `brWhite`: applies --color-white to the border.
+- `brBlack`: applies --color-black to the border.
+- `brBox`: applies --color-box to the border.
+- `brBoxDark`: applies --color-boxDark to the border.
+- `brLink`: applies --color-link to the border.
+- `brGray`: applies --color-gray to the border.
+- `brInfo`: applies --color-info to the border.
+- `brSuccess`: applies --color-success to the border.
+- `brWarning`: applies --color-warning to the border.
+- `brError`: applies --color-error to the border.
+- `olPrimary`: applies --color-primary to the outline.
+- `olSecondary`: applies --color-secondary to the outline.
+- `olTertiary`: applies --color-tertiary to the outline.
+- `olQuaternary`: applies --color-quaternary to the outline.
+- `olWhite`: applies --color-white to the outline.
+- `olBlack`: applies --color-black to the outline.
+- `olBox`: applies --color-box to the outline.
+- `olBoxDark`: applies --color-boxDark to the outline.
+- `olLink`: applies --color-link to the outline.
+- `olGray`: applies --color-gray to the outline.
+- `olInfo`: applies --color-info to the outline.
+- `olSuccess`: applies --color-success to the outline.
+- `olWarning`: applies --color-warning to the outline.
+- `olError`: applies --color-error to the outline.
 
 ## Related elements
 
@@ -101,6 +129,8 @@ Interactive palette of the current MyPGS background and text color utilities.
 - `dropdown-content`: identifies the content panel of a color tooltip.
 - `tooltip-content`: applies the tooltip content presentation.
 - `box`: makes each palette group visible.
+- `border`: draws the border that the br* utilities recolour; without it there is nothing to colour.
+- `outline`: draws the outline that the ol* utilities recolour; it sits outside the box and takes no space.
 - `button`: supplies the shared button base used by background color triggers.
 - `flex-flexFull`: makes palette headings occupy a full flex row.
 - `flexColumn`: stacks palette groups vertically.

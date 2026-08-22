@@ -6,6 +6,7 @@ Section variants that control width, padding, and specific content treatment whi
 
 ## PGS
 
+- `main`: identifies the main page area that stacks the sections, spacing them apart and filling the viewport height.
 - `section`: identifies the standard section with centered content.
 - `sectionFull`: identifies a section that spans the full available width.
 - `sectionSpecificity`: identifies a section that applies a specific structure to its child.
@@ -18,10 +19,13 @@ Section variants that control width, padding, and specific content treatment whi
 ### PGS
 
 - `flexColumn`: vertically organizes sections and inner content.
-- `gapSections`: applies section spacing to the outer collection.
 - `gapElements`: applies element spacing inside each section.
 - `card-img`: reuses card image treatment in the demonstration sections.
 - `imgCover`: scales images to the section width.
+
+### Other
+
+- `gapSections`: applies section spacing to the outer collection.
 
 ## Output
 

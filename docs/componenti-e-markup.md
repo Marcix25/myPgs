@@ -6,7 +6,6 @@ Canonical component and layout examples are available in `reference/`. Use those
 
 Base:
 
-- [`html`](base/html.md)
 - [`color`](base/color.md)
 
 Componenti:
@@ -34,7 +33,7 @@ Componenti:
 
 Layout:
 
-- [`body`](layout/body.md)
+- [`body`](base/body.md)
 - [`section`](layout/section.md)
 - [`header`](layout/header.md)
 - [`footer`](layout/footer.md)

@@ -4,6 +4,7 @@
  * @description Section variants that control width, padding, and specific content treatment while preserving shared vertical spacing.
  *
  * @pgs
+ * - main: identifies the main page area that stacks the sections, spacing them apart and filling the viewport height.
  * - section: identifies the standard section with centered content.
  * - sectionFull: identifies a section that spans the full available width.
  * - sectionSpecificity: identifies a section that applies a specific structure to its child.
@@ -22,7 +23,7 @@
  */
 -->
 
-<div pgs="flexColumn gapSections" demo="component">
+<main pgs="main" demo="component">
     <section pgs="section flexColumn gapElements" demo="item" demo-title="Standard section" demo-description="Default section width and padding with centered content.">
         <div pgs="flexColumn">
             <strong>Standard section</strong>
@@ -59,4 +60,4 @@
             <img pgs="card-img imgCover" src="https://placehold.co/800x500?text=HI!" alt="Placeholder image">
         </div>
     </section>
-</div>
+</main>

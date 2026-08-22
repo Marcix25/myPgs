@@ -1,5 +1,28 @@
 @use "../mixin/mixin" as *;
 
+//== HTML
+:where([pgs~="htmlBase"]) {
+    scroll-behavior: smooth;
+    font-size: 62.5%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-margin-top: var(--page-topScroll);
+    interpolate-size: allow-keywords;
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        scroll-margin-top: var(--page-topScroll);
+    }
+}
+
+
+@view-transition {
+    navigation: auto;
+}
+
 //== BASE
 :where([pgs~="bodyBase"]) {
     background-color: var(--color-background);

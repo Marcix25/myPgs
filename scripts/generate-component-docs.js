@@ -8,7 +8,7 @@ const path = require("path");
 const PROJECT_ROOT = path.resolve(__dirname, "..");
 const REFERENCE_ROOT = path.join(PROJECT_ROOT, "reference", "html");
 const DOCS_ROOT = path.join(PROJECT_ROOT, "docs");
-const MANAGED_DOC_DIRECTORIES = ["components", "layout", "patterns"]
+const MANAGED_DOC_DIRECTORIES = ["base", "components", "layout", "patterns"]
     .map(directory => path.join(DOCS_ROOT, directory));
 const SOURCE_ROOTS = [
     path.join(PROJECT_ROOT, "assets", "javascript"),

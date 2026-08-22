@@ -12,6 +12,10 @@ Form structure with labels, text fields, a textarea, a checkbox, and a radio gro
 - `input`: applies shared styling to text inputs.
 - `textarea`: applies shared styling to the text area.
 - `radio`: styles a group of native radio inputs while preserving their shared name and selection behavior.
+- `checkbox`: styles a group of native checkbox inputs, sharing the presentation of the radio group.
+- `select`: applies shared styling to a native select.
+- `legend`: applies the group heading styling to the legend of a fieldset.
+- `required`: marks a label as required without relying on the control's own required attribute.
 
 ## PGS Options
 
@@ -100,9 +104,18 @@ Complete HTML form with required fields and an example script for a custom rule,
         <textarea pgs="textarea" name="message" rows="5" placeholder="Write your message" required></textarea>
     </label>
 
+    <label>
+        <span pgs="label required">Country</span>
+        <select pgs="select" name="country">
+            <option value="">Choose a country</option>
+            <option value="it">Italy</option>
+            <option value="fr">France</option>
+        </select>
+    </label>
+
     <br>
     <fieldset pgs="radio flexColumn" pgs-option="message[Choose a contact method]">
-        <legend>Preferred contact method</legend>
+        <legend pgs="legend">Preferred contact method</legend>
 
         <label>
             <input type="radio" name="contactMethod" value="email" required>
@@ -117,6 +130,21 @@ Complete HTML form with required fields and an example script for a custom rule,
         <label>
             <input type="radio" name="contactMethod" value="message">
             <span>Direct message</span>
+        </label>
+    </fieldset>
+    <br>
+
+    <fieldset pgs="checkbox flexColumn" pgs-option="message[Choose at least one topic]">
+        <legend pgs="legend">Topics</legend>
+
+        <label>
+            <input type="checkbox" name="topics" value="news">
+            <span>News</span>
+        </label>
+
+        <label>
+            <input type="checkbox" name="topics" value="offers">
+            <span>Offers</span>
         </label>
     </fieldset>
     <br>

@@ -211,3 +211,31 @@
 [pgs~=brSuccess] { border-color: var(--color-success); }
 
 [pgs~=brGray] { border-color: var(--color-gray); }
+//= OUTLINE COLORS
+[pgs~=olPrimary] { outline-color: var(--color-primary); }
+
+[pgs~=olSecondary] { outline-color: var(--color-secondary); }
+
+[pgs~=olTertiary] { outline-color: var(--color-tertiary); }
+
+[pgs~=olQuaternary] { outline-color: var(--color-quaternary); }
+
+[pgs~=olWhite] { outline-color: var(--color-white); }
+
+[pgs~=olBlack] { outline-color: var(--color-black); }
+
+[pgs~=olBox] { outline-color: var(--color-box); }
+
+[pgs~=olBoxDark] { outline-color: var(--color-boxDark); }
+
+[pgs~=olLink] { outline-color: var(--color-link); }
+
+[pgs~=olInfo] { outline-color: var(--color-info); }
+
+[pgs~=olError] { outline-color: var(--color-error); }
+
+[pgs~=olWarning] { outline-color: var(--color-warning); }
+
+[pgs~=olSuccess] { outline-color: var(--color-success); }
+
+[pgs~=olGray] { outline-color: var(--color-gray); }

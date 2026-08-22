@@ -636,6 +636,14 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   object-fit: contain;
 }
 
+[pgs~=border] {
+  border: var(--border-complete);
+}
+
+[pgs~=outline] {
+  outline: var(--border-complete);
+}
+
 [pgs~=borderRadius] {
   border-radius: var(--border-radius);
 }
@@ -2364,6 +2372,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   top: var(--pageShell-aside-top);
   max-height: calc(100svh - var(--pageShell-padding-top));
   overflow-y: auto;
+  margin-top: calc(var(--pageShell-padding-top) * -1);
   scrollbar-color: transparent transparent;
   -webkit-mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-sizeMaskImage), black calc(100% - var(--pageShell-sizeMaskImage)), transparent 100%);
   mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-sizeMaskImage), black calc(100% - var(--pageShell-sizeMaskImage)), transparent 100%);
@@ -2376,6 +2385,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 @container (max-width: 900px) {
   [pgs~=pageShell][pgs-option~=shellAsideScroll] [pgs~=pageShell-aside] {
     position: relative;
+    margin-top: 0;
     top: auto;
     max-height: none;
     overflow-y: visible;
@@ -7292,6 +7302,62 @@ dialog [pgs~=search] [pgs~=modal-close] {
 
 [pgs~=brGray] {
   border-color: var(--color-gray);
+}
+
+[pgs~=olPrimary] {
+  outline-color: var(--color-primary);
+}
+
+[pgs~=olSecondary] {
+  outline-color: var(--color-secondary);
+}
+
+[pgs~=olTertiary] {
+  outline-color: var(--color-tertiary);
+}
+
+[pgs~=olQuaternary] {
+  outline-color: var(--color-quaternary);
+}
+
+[pgs~=olWhite] {
+  outline-color: var(--color-white);
+}
+
+[pgs~=olBlack] {
+  outline-color: var(--color-black);
+}
+
+[pgs~=olBox] {
+  outline-color: var(--color-box);
+}
+
+[pgs~=olBoxDark] {
+  outline-color: var(--color-boxDark);
+}
+
+[pgs~=olLink] {
+  outline-color: var(--color-link);
+}
+
+[pgs~=olInfo] {
+  outline-color: var(--color-info);
+}
+
+[pgs~=olError] {
+  outline-color: var(--color-error);
+}
+
+[pgs~=olWarning] {
+  outline-color: var(--color-warning);
+}
+
+[pgs~=olSuccess] {
+  outline-color: var(--color-success);
+}
+
+[pgs~=olGray] {
+  outline-color: var(--color-gray);
 }
 
 /*# sourceMappingURL=index.css.map*/

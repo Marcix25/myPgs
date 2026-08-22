@@ -88,7 +88,7 @@ pgs.toast.success({
         "message": "Message",
         "type": "success",
         "icon": null,
-        "duration": "70000",
+        "duration": "3000",
         "link": null,
         "title-link": "Open",
         "title-close": "Close"

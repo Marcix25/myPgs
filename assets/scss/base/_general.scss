@@ -88,6 +88,19 @@
     object-fit: contain;
 }
 
+//= BORDER
+//== draws the shared border, so the br* colour utilities have something to recolour
+[pgs~=border] {
+    border: var(--border-complete);
+}
+
+//= OUTLINE
+//== same line drawn outside the box, so it takes no space in the layout: the ol* colour
+//== utilities recolour this one
+[pgs~=outline] {
+    outline: var(--border-complete);
+}
+
 //= BORDER RADIUS
 [pgs~=borderRadius] {
     border-radius: var(--border-radius);

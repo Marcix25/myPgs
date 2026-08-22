@@ -1,11 +1,12 @@
-<!-- Automatically generated from reference/html/layout/body.html. Edit reference/html/layout/body.html and run npm run docs:generate again. -->
+<!-- Automatically generated from reference/html/base/body.html. Edit reference/html/base/body.html and run npm run docs:generate again. -->
 
-# Body
+# Html and Body
 
-Base HTML document that enables MyPGS, configures essential metadata, and applies shared background, text, and heading variants to the body.
+Base HTML document that enables MyPGS: the root rules and the shared custom property scope on the html element, the essential metadata, and the background, image, text and heading variants on the body.
 
 ## PGS
 
+- `htmlBase`: applies the fundamental rules and the CSS custom property scope to the html element.
 - `bodyBase`: applies the base structure and spacing to the body.
 - `bodyImg`: enables shared rules for images contained in the page.
 - `bodyText`: enables text typography and spacing.
@@ -14,12 +15,6 @@ Base HTML document that enables MyPGS, configures essential metadata, and applie
 ## PGS States
 
 - `darkmode`: is applied dynamically to html and body to activate the dark theme.
-
-## Related elements
-
-### PGS
-
-- `htmlBase`: applies the base rules to the surrounding html element.
 
 ## Output
 
@@ -34,12 +29,19 @@ Complete HTML skeleton required to initialize the MyPGS library.
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>MyPGS</title>
 
 	<!-- Colori Browsers -->
 	<meta name="theme-color" content="">
 	<meta name="apple-mobile-web-app-status-bar-color" content="">
 
+	<script src="../dist/javascript/index.js"></script>
+	<link rel="stylesheet" href="../dist/css/index.css">
 </head>
 
-<body pgs="bodyBase bodyImg bodyText bodyHeading" >
+<body pgs="bodyBase bodyImg bodyText bodyHeading">
+
+</body>
+
+</html>
 ```
