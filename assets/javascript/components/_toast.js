@@ -143,20 +143,20 @@ const fn_toast = {
         const toast = document.createElement("div");
         if (timeout > 0) toast.style.setProperty("--notification-timeout", timeout + "ms");
         pgs(toast).state.add(type);
-        pgs(toast).add("toast-element");
+        pgs(toast).add("_toast-element");
         toast.setAttribute("role", type == "error" ? "alert" : "status");
         toast.innerHTML = `
-            <div pgs="toast-element-content">
-                <div pgs="toast-element-icon">${icon}</div>
+            <div pgs="_toast-element-content">
+                <div pgs="_toast-element-icon">${icon}</div>
                 <p>${text}</p>
             </div>
-            <div pgs="toast-element-buttons">
-                <button type="button" pgs="button toast-element-buttons-delete">${closeTitle}</button>
+            <div pgs="_toast-element-buttons">
+                <button type="button" pgs="button _toast-element-buttons-delete">${closeTitle}</button>
             </div>
         `;
 
-        const toastButtons = pgs(toast).querySelector("toast-element-buttons");
-        const btnDelete = pgs(toast).querySelector("toast-element-buttons-delete");
+        const toastButtons = pgs(toast).querySelector("_toast-element-buttons");
+        const btnDelete = pgs(toast).querySelector("_toast-element-buttons-delete");
         btnDelete.ariaLabel = closeTitle === "Close" ? "Close notification" : closeTitle;
 
         if (link) {

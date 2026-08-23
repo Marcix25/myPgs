@@ -3,6 +3,9 @@
 [pgs~=stepTabs] {
     [pgs~=stepTabs-container] {
         [pgs~=stepTabs-container-tab] {
+            //option for suggestions
+            &[pgs-option~="tabIcon[]"] {}
+
             display: none;
 
             &[pgs-state~=is-active] {
@@ -15,6 +18,10 @@
         --button-background: var(--color-primary);
         --button-color: var(--color-whiteFixed);
     }
+
+    //read by the JavaScript only, declared here so editors suggest it: styling comes from the button component
+    [pgs~=stepTabs-prev],
+    [pgs~=stepTabs-restart] {}
 
     [pgs~=stepTabs-dots] {
         display: flex;
@@ -35,7 +42,7 @@
             z-index: -1;
         }
 
-        [pgs~=stepTabs-dots-dot] {
+        [pgs~=_stepTabs-dots-dot] {
             @include buttonBase();
             @include buttonIcon();
             border-radius: 50%;

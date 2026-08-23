@@ -15,8 +15,8 @@ const SOURCE_ROOTS = [
     path.join(PROJECT_ROOT, "assets", "scss"),
 ];
 
-const TAG_ORDER = ["title", "description", "pgs", "pgs-option", "pgs-state", "api", "related", "return"];
-const LIST_TAGS = new Set(["pgs", "pgs-option", "pgs-state", "api", "related"]);
+const TAG_ORDER = ["title", "description", "pgs", "pgs-generated", "pgs-option", "pgs-state", "api", "related", "return"];
+const LIST_TAGS = new Set(["pgs", "pgs-generated", "pgs-option", "pgs-state", "api", "related"]);
 const REQUIRED_TAGS = ["title", "description", "pgs"];
 const GENERATED_MARKER = /^<!-- (?:Automatically generated from ((?:reference|templates)\/html\/.+\.html)\. Edit \1 and run npm run docs:generate again\.|File generato automaticamente da ((?:reference|templates)\/html\/.+\.html)\. Modificare \2 e rieseguire npm run docs:generate\.) -->$/;
 
@@ -108,6 +108,7 @@ function parseDocumentationBlock(file, source) {
         title: "",
         description: "",
         pgs: [],
+        "pgs-generated": [],
         "pgs-option": [],
         "pgs-state": [],
         api: [],
@@ -367,20 +368,52 @@ function associateSources(template, documentation, sources) {
     const singularBasename = singularName(basename);
     const primaryTokens = documentation.pgs.map(item => item.key);
 
-    const nameMatches = sources.filter(source => {
-        const singularSource = singularName(source.name);
-        return source.name === basename
-            || singularSource === singularBasename
-            || source.name.startsWith(basename)
-            || basename.startsWith(source.name);
-    });
+    //== an exact (or singular) name match is the reference's own source, so prefix matches are
+    //== only a fallback: without this, form.scss counts as a source of formAddon.html merely
+    //== because "formaddon" starts with "form", and every option added to one is demanded of both
+    const exactMatches = sources.filter(source =>
+        source.name === basename || singularName(source.name) === singularBasename);
+
+    if (exactMatches.length > 0) return exactMatches;
+
+    const nameMatches = sources.filter(source =>
+        source.name.startsWith(basename) || basename.startsWith(source.name));
 
     if (nameMatches.length > 0) return nameMatches;
     return sources.filter(source => primaryTokens.some(token => containsPgsReference(source.content, token)));
 }
 
+//== a token the JavaScript writes onto an element it builds: pgs().add(), markup assembled as a
+//== string, or a direct setAttribute. Reading a token (querySelector) is deliberately not counted,
+//== because that is how the library finds markup the author wrote.
+function extractEmittedPgs(source) {
+    if (!source.file.endsWith(".js")) return [];
+
+    const emitted = new Set();
+    const patterns = [
+        /pgs\([^)]*\)\s*\.\s*add\(([^)]*)\)/g,
+        /setAttribute\(\s*["']pgs["']\s*,\s*(["'][^"']+["'])/g,
+    ];
+
+    patterns.forEach(pattern => {
+        for (const match of source.content.matchAll(pattern)) {
+            for (const token of match[1].matchAll(/["']([A-Za-z_][\w-]*(?:\s+[A-Za-z_][\w-]*)*)["']/g)) {
+                token[1].split(/\s+/).forEach(value => emitted.add(value));
+            }
+        }
+    });
+
+    for (const match of source.content.matchAll(/\bpgs\s*=\s*\\?["']([^"'\\`$]+)/g)) {
+        match[1].split(/\s+/).forEach(value => {
+            if (/^[A-Za-z_][\w-]*$/.test(value)) emitted.add(value);
+        });
+    }
+
+    return [...emitted];
+}
+
 function extractSourceFacts(sources) {
-    const facts = { options: new Set(), states: new Set() };
+    const facts = { options: new Set(), states: new Set(), emitted: new Set() };
 
     sources.forEach(source => {
         const content = source.content;
@@ -399,6 +432,7 @@ function extractSourceFacts(sources) {
         statePatterns.forEach(pattern => {
             for (const match of content.matchAll(pattern)) facts.states.add(match[1]);
         });
+        extractEmittedPgs(source).forEach(token => facts.emitted.add(token));
     });
 
     facts.options.delete("");
@@ -430,7 +464,11 @@ function validateTemplate(template, parsed, sources, allSourceContent) {
     const file = relativeToProject(template);
     const documentation = parsed.data;
     const attributes = extractAttributes(stripComponentWrapperAttributes(parsed.markup));
+    //== the wrapper's own pgs is stripped from the rendered example, but the author still wrote it,
+    //== so the "is this authored?" question has to be asked of the template as written
+    const authoredPgs = new Set(extractAttributes(parsed.markup).pgs);
     const documentedPgs = new Set(documentation.pgs.map(item => item.key));
+    const documentedGenerated = new Set(documentation["pgs-generated"].map(item => item.key));
     const documentedRelated = new Set(documentation.related.map(item => item.key));
     const documentedOptions = new Set(documentation["pgs-option"].map(item => item.key));
     const documentedStates = new Set(documentation["pgs-state"].map(item => item.key));
@@ -438,18 +476,45 @@ function validateTemplate(template, parsed, sources, allSourceContent) {
     const associatedFacts = extractSourceFacts(associatedSources);
 
     attributes.pgs.forEach(token => {
-        if (!documentedPgs.has(token) && !documentedRelated.has(token)) {
+        if (!documentedPgs.has(token) && !documentedGenerated.has(token) && !documentedRelated.has(token)) {
             errors.push(createError(file, `Valore pgs non documentato: "${token}".`, "Aggiungilo a @pgs oppure a @related.", "@pgs", token));
         }
     });
 
+    //== the underscore is the visible half of the convention: it may only mark markup the library
+    //== builds, and it has to agree with the declaration
+    [...documentedPgs, ...documentedRelated].forEach(token => {
+        if (!token.startsWith("_")) return;
+
+        errors.push(createError(file, `Il valore "${token}" inizia con "_" ma non è in @pgs-generated.`, "L'underscore marca solo il markup costruito dalla libreria: spostalo in @pgs-generated oppure togli il prefisso.", documentedPgs.has(token) ? "@pgs" : "@related", token));
+    });
+
+    //== the declaration has to keep matching the JavaScript, otherwise the tag rots into a comment
+    documentedGenerated.forEach(token => {
+        if (!associatedFacts.emitted.has(token)) {
+            errors.push(createError(file, `Il valore @pgs-generated "${token}" non è generato dal JavaScript.`, "Spostalo in @pgs se ora si scrive a mano, oppure correggi il nome.", "@pgs-generated", token));
+        }
+    });
+
+    //== a token the JavaScript builds and no example writes by hand is not authorable markup:
+    //== either it belongs in @pgs-generated, or the example should show how to write it
+    associatedFacts.emitted.forEach(token => {
+        if (!documentedPgs.has(token) || authoredPgs.has(token)) return;
+
+        errors.push(createError(file, `Il valore @pgs "${token}" è generato dal JavaScript e non compare nell'esempio.`, "Spostalo in @pgs-generated, oppure scrivilo nell'esempio se si può comporre a mano.", "@pgs", token));
+    });
+
     documentedPgs.forEach(token => {
+        if (documentedGenerated.has(token)) {
+            errors.push(createError(file, `Il valore "${token}" compare sia in @pgs sia in @pgs-generated.`, "Documentalo in una sola sezione.", "@pgs", token));
+        }
+
         if (documentedRelated.has(token)) {
             errors.push(createError(file, `Il valore "${token}" compare sia in @pgs sia in @related.`, "Documentalo in una sola sezione.", "@pgs", token));
         }
     });
 
-    [...documentedPgs, ...documentedRelated].forEach(token => {
+    [...documentedPgs, ...documentedGenerated, ...documentedRelated].forEach(token => {
         const usedAsOption = attributes.options.some(value => splitOption(value).key === token);
         if (!attributes.pgs.includes(token) && !usedAsOption && !containsExactToken(allSourceContent, token)) {
             errors.push(createError(file, `Valore documentato non trovato nel template, JavaScript o SCSS: "${token}".`, "Correggi il nome oppure rimuovi la voce non implementata.", documentedPgs.has(token) ? "@pgs" : "@related", token));
@@ -669,6 +734,7 @@ function renderMarkdown(template, documentation, markup) {
     const sections = [marker, "", `# ${documentation.title}`, "", documentation.description];
     const sectionMap = [
         ["PGS", documentation.pgs],
+        ["PGS generated by JavaScript", documentation["pgs-generated"]],
         ["PGS Options", documentation["pgs-option"]],
         ["PGS States", documentation["pgs-state"]],
         ["JavaScript API", documentation.api],

@@ -1,5 +1,8 @@
 @use "../mixin/mixin" as *;
 
+//declared here so editors suggest it: mark your own wrapper to say where the alerts go, or the JavaScript creates one before the submit button
+[pgs~="alertContainer"] {}
+
 [pgs~="alert"] {
     --alert-accent: var(--color-primary);
     --alert-background: var(--color-primary-soft);

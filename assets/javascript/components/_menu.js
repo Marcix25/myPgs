@@ -17,7 +17,7 @@ function PGS_menu_init(root = document) {
                 const button = document.createElement("button");
                 button.type = "button";
                 button.innerHTML = "<span>&#9207;</span>";
-                pgs(button).add("menu-buttonIcon");
+                pgs(button).add("_menu-buttonIcon");
                 li.querySelector("a").insertAdjacentElement("afterend", button);
 
                 pgs(li).add("dropdown")

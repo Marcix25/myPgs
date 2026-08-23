@@ -158,6 +158,11 @@
         --header-compact-breakpoint: #{$laptop};
     }
 
+    //option for suggestions: headerCompact[600] carries its own pixel value, and
+    //headerScroll is read by the JavaScript only
+    &[pgs-option~="headerCompact[]"],
+    &[pgs-option~="headerScroll"] {}
+
     //- compact
     &[pgs-state~="compact"] {
         --header-gap: var(--gap-texts);

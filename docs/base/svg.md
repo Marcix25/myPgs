@@ -7,6 +7,7 @@ Recolours external SVG and Lottie files when the theme changes, swapping each de
 ## PGS
 
 - `svgChangeColor`: marks the file to recolour; its presence in the page also enables the whole recolouring pass.
+- `lottieChangeColor`: the same marker for a Lottie player, recoloured from the --lottie-color-N pairs instead of --svg-color-N.
 
 ## PGS States
 

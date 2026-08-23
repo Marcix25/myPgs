@@ -4,13 +4,16 @@
  * @description Toast markup, configuration, behavior, and usage example. An ephemeral, auto-dismissing message shown one at a time (e.g. "saved", "error"). Split from Notification, which is a persistent, manually-dismissed panel. Full JSON field list is under @pgs-option "toast"; full JS options list is under each @api method below. Note three JSON keys that are renamed in the JS options: message becomes description, title-link becomes linkTitle, and title-close becomes closeTitle.
  *
  * @pgs
- * - toast: identifies the toast element used by Toast.
  * - toastLoad: creates one toast from a JSON object on page load; see @pgs-option "toast" for every accepted field.
  * - toastExe: creates one toast from a JSON object each time the element is clicked; same fields as toastLoad.
- * - toast-element: identifies the toast-element element used by Toast.
- * - toast-element-content: contains the icon, title, and description.
- * - toast-element-icon: contains the icon displayed to the left of the text.
- * - toast-element-buttons: contains the link and dismiss actions below the content.
+ *
+ * @pgs-generated
+ * - toast: the container the toasts are shown in, created at the end of the body when the page has none; you may write it yourself to place it elsewhere, but leave it empty because its content is replaced at every toast.
+ * - _toast-element: a single toast inside the container, replacing whatever was there before.
+ * - _toast-element-content: contains the icon, title, and description.
+ * - _toast-element-icon: contains the icon displayed to the left of the text.
+ * - _toast-element-buttons: contains the link and dismiss actions below the content.
+ * - _toast-element-buttons-delete: identifies the dismiss button generated inside that row; its label comes from the title-close field.
  *
  * @pgs-option
  * - toast: JSON object read by toastLoad/toastExe on page load or click; a new toast replaces whatever is currently shown — see the full field reference, with every optional field and its default, in the commented example below.

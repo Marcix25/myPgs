@@ -4,15 +4,19 @@
  * @description Notification markup, configuration, behavior, and usage example. A persistent, manually-dismissed panel of messages. Author only the modal wrapping notificationBell (no dialog inside it); the first time it is needed, pgs.notification generates the dialog and re-initializes that modal automatically. It lives inside a modal dialog (see Modal) opened and closed by notificationBell — opening any other dialog on the page (e.g. the mobile menu) closes it automatically, and vice versa. Split from Toast, which is ephemeral and auto-dismissing. Full JSON field list is under @pgs-option "notification"; full JS options list is under each @api method below. Note two JSON keys that are renamed in the JS options: message becomes description, and title-close becomes closeTitle. Three custom events are dispatched: pgs:notification:buttonClick on a buttons[] element when clicked (detail: id, buttonId, type, title, description, link; cancelable — call event.preventDefault() to stop a link's navigation and finish async work first), pgs:notification:close on the notification element right before it is removed (detail: id, type, title, description), and pgs:notification:deleteAll on the panel when deleteAll() runs (detail: ids).
  *
  * @pgs
- * - notifications: identifies the scrollable list of notifications inside the dialog.
  * - notificationLoad: creates one or more notifications from comma-separated JSON objects on page load; see @pgs-option "notification" for every accepted field.
+ * - notificationTrigger: the pre-split marker kept for backward compatibility, superseded by notificationLoad; it reads the same notification option and additionally accepts an "element" field to route the payload to a toast.
  * - notificationBell: opens/closes the notification dialog each time it is clicked; also the modal-button for the surrounding modal.
- * - notificationBell-counter: displays the current count of notifications-element elements inside notificationBell.
- * - notifications-element: identifies a single notification inside the panel.
- * - notifications-element-content: contains the icon, title, and description.
- * - notifications-element-icon: contains the icon displayed to the left of the text.
- * - notifications-element-buttons: contains the extra action buttons and the dismiss action below the content.
- * - notifications-empty: shown inside the panel whenever it holds no notifications; its text comes from the internal emptyMessage default.
+ * - notificationBell-counter: displays the current count of _notifications-element elements inside notificationBell.
+ *
+ * @pgs-generated
+ * - notifications: the scrollable list of notifications, created inside the generated dialog together with it.
+ * - _notifications-element: identifies a single notification inside the panel.
+ * - _notifications-element-content: contains the icon, title, and description.
+ * - _notifications-element-icon: contains the icon displayed to the left of the text.
+ * - _notifications-element-buttons: contains the extra action buttons and the dismiss action below the content.
+ * - _notifications-element-buttons-delete: identifies the dismiss button generated inside that row; its label comes from the closeTitle option.
+ * - _notifications-empty: shown inside the panel whenever it holds no notifications; its text comes from the internal emptyMessage default.
  *
  * @pgs-option
  * - notification: JSON object (or several, comma-separated) read by notificationLoad on page load — see the full field reference, with every optional field and its default, in the commented example below.

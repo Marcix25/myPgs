@@ -128,20 +128,20 @@ const fn_notification = {
         const notification = document.createElement("div");
         notification.dataset.notificationId = notificationId;
         pgs(notification).state.add(type);
-        pgs(notification).add("notifications-element");
+        pgs(notification).add("_notifications-element");
         notification.setAttribute("role", type == "error" ? "alert" : "status");
         notification.innerHTML = `
-            <div pgs="notifications-element-content">
-                <div pgs="notifications-element-icon">${icon}</div>
+            <div pgs="_notifications-element-content">
+                <div pgs="_notifications-element-icon">${icon}</div>
                 <p>${text}</p>
             </div>
-            <div pgs="notifications-element-buttons">
-                <button type="button" pgs="button notifications-element-buttons-delete">${closeTitle}</button>
+            <div pgs="_notifications-element-buttons">
+                <button type="button" pgs="button _notifications-element-buttons-delete">${closeTitle}</button>
             </div>
         `;
 
-        const notificationButtons = pgs(notification).querySelector("notifications-element-buttons");
-        const btnDelete = pgs(notification).querySelector("notifications-element-buttons-delete");
+        const notificationButtons = pgs(notification).querySelector("_notifications-element-buttons");
+        const btnDelete = pgs(notification).querySelector("_notifications-element-buttons-delete");
         btnDelete.ariaLabel = closeTitle === "Close" ? "Close notification" : closeTitle;
 
         //+ Animation delete
@@ -196,7 +196,7 @@ const fn_notification = {
         const containerNotification = this._getContainer();
 
         if (containerNotification) {
-            const ids = Array.from(pgs(containerNotification).querySelectorAll("notifications-element"))
+            const ids = Array.from(pgs(containerNotification).querySelectorAll("_notifications-element"))
                 .map(element => element.dataset.notificationId);
 
             containerNotification.innerHTML = "";
@@ -211,7 +211,7 @@ const fn_notification = {
 
     _updateBellCounter() {
         const container = this._getContainer();
-        const count = container ? pgs(container).querySelectorAll("notifications-element").length : 0;
+        const count = container ? pgs(container).querySelectorAll("_notifications-element").length : 0;
 
         pgs(document).querySelectorAll("notificationBell-counter").forEach(counter => {
             counter.textContent = count > 0 ? count : "";
@@ -219,12 +219,12 @@ const fn_notification = {
 
         if (!container) return;
 
-        let emptyMessage = pgs(container).querySelector("notifications-empty");
+        let emptyMessage = pgs(container).querySelector("_notifications-empty");
 
         if (count === 0) {
             if (!emptyMessage) {
                 emptyMessage = document.createElement("p");
-                pgs(emptyMessage).add("notifications-empty");
+                pgs(emptyMessage).add("_notifications-empty");
                 container.appendChild(emptyMessage);
             }
             emptyMessage.textContent = this._defaults.emptyMessage;

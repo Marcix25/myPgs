@@ -37,3 +37,10 @@
 [pgs~=formValidate] {
     @include formValidate();
 }
+
+[pgs~=formValidate] {
+    //option for suggestions: set on the field that fails, or on a descendant of the
+    //fieldset that does, to override its default error title and text
+    [pgs-option~="messageTitle[]"],
+    [pgs-option~="message[]"] {}
+}

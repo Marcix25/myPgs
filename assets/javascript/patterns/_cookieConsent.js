@@ -140,8 +140,8 @@ function buildCookieConsent(marker) {
                     </p>
                 </div>
 
-                <div pgs="cookieConsent-panel flexColumn" role="group" aria-label="${escapeHtml(config.panelAriaLabel)}">
-                    <div pgs="flexRow nowrap cookieConsent-panel-featureEssential">
+                <div pgs="_cookieConsent-panel flexColumn" role="group" aria-label="${escapeHtml(config.panelAriaLabel)}">
+                    <div pgs="flexRow nowrap _cookieConsent-panel-featureEssential">
                         <div>
                             <p>
                                 <strong>${formatText(config.essentialTitle)}</strong>
@@ -150,10 +150,10 @@ function buildCookieConsent(marker) {
                             </p>
                         </div>
 
-                        <span pgs="cookieConsent-panel-badge badge" pgs-option="badgeSuccess">${formatText(config.essentialBadge)}</span>
+                        <span pgs="_cookieConsent-panel-badge badge" pgs-option="badgeSuccess">${formatText(config.essentialBadge)}</span>
                     </div>
 
-                    <div pgs="flexRow cookieConsent-panel-featureAnalytics">
+                    <div pgs="flexRow _cookieConsent-panel-featureAnalytics">
                         <label pgs="toggle">
                             <p>
                                 <strong>${formatText(config.analyticsTitle)}</strong>
@@ -161,15 +161,15 @@ function buildCookieConsent(marker) {
                                 <small>${formatText(config.analyticsDescription)}</small>
                             </p>
 
-                            <input type="checkbox" pgs="cookieConsent-panel-toggleAnalytics" aria-label="${escapeHtml(config.analyticsAriaLabel)}">
+                            <input type="checkbox" pgs="_cookieConsent-panel-toggleAnalytics" aria-label="${escapeHtml(config.analyticsAriaLabel)}">
                         </label>
                     </div>
                     <div pgs="flexRow">
-                        <button type="button" pgs="button cookieConsent-actionReject">
+                        <button type="button" pgs="button _cookieConsent-actionReject">
                             <i class="fa-solid fa-duotone fa-sliders"></i> ${formatText(config.titleReject)}
                         </button>
     
-                        <button type="button" pgs="button cookieConsent-actionAccept" pgs-option="buttonStrong">
+                        <button type="button" pgs="button _cookieConsent-actionAccept" pgs-option="buttonStrong">
                             <i class="fa-solid fa-check"></i> ${formatText(config.titleAccept)}
                         </button>
                     </div>
@@ -193,8 +193,8 @@ function assignCookieRuntimeAttributes({ root, analyticsToggle, acceptAllButton,
     acceptAllButton?.setAttribute('data-cookie-action', 'accept');
     rejectButton?.setAttribute('data-cookie-action', 'reject');
 
-    root.querySelector('[pgs~="cookieConsent-panel-featureEssential"]')?.setAttribute('data-cookie-feature', 'essential');
-    root.querySelector('[pgs~="cookieConsent-panel-featureAnalytics"]')?.setAttribute('data-cookie-feature', 'analytics');
+    root.querySelector('[pgs~="_cookieConsent-panel-featureEssential"]')?.setAttribute('data-cookie-feature', 'essential');
+    root.querySelector('[pgs~="_cookieConsent-panel-featureAnalytics"]')?.setAttribute('data-cookie-feature', 'analytics');
 
     openButtons.forEach((button) => {
         button.setAttribute('data-cookie-action', 'open');
@@ -218,9 +218,9 @@ function initCookieConsent(selectRoot = document) {
     const modal = globalThis.pgs?.modal?.api(root);
     if (!modal) return;
 
-    const analyticsToggle = root.querySelector('[pgs~="cookieConsent-panel-toggleAnalytics"]');
-    const acceptAllButton = root.querySelector('[pgs~="cookieConsent-actionAccept"]');
-    const rejectButton = root.querySelector('[pgs~="cookieConsent-actionReject"]');
+    const analyticsToggle = root.querySelector('[pgs~="_cookieConsent-panel-toggleAnalytics"]');
+    const acceptAllButton = root.querySelector('[pgs~="_cookieConsent-actionAccept"]');
+    const rejectButton = root.querySelector('[pgs~="_cookieConsent-actionReject"]');
     const openButtons = document.querySelectorAll('[pgs~="cookieConsent-actionOpen"]');
     const measurementId = (root.dataset.gaId || '').trim();
     const prefersGa = measurementId.length > 0;

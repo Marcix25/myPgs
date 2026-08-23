@@ -10,7 +10,11 @@ html:has(dialog[open]) {
 [pgs~="modal"] {
 
     //#OPTION
-    &[pgs-option~="containerID[]"] {}
+    //== read by the JavaScript only: declared here so editors suggest them
+    &[pgs-option~="containerID[]"],
+    &[pgs-option~="containerPGS[]"],
+    &[pgs-option~="disableBackdropClose"],
+    &[pgs-option~="history"] {}
 }
 
 //= DIALOG

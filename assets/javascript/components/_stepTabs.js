@@ -33,8 +33,7 @@ function PGS_stepTabs_init(root = document) {
                 const iconClass = pgs(tab).option.getValueBrackets("tabIcon") || "fa-circle";
                 const dot = document.createElement("button");
                 dot.type = "button";
-                pgs(dot).add("stepTabs-dots-dot");
-                pgs(dot).option.setValueBrackets("step", index);
+                pgs(dot).add("_stepTabs-dots-dot");
                 dot.innerHTML = `<i class="fa-solid ${iconClass}"></i>`;
 
                 dot.addEventListener("click", () => {

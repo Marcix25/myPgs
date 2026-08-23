@@ -1,6 +1,9 @@
 @use "../mixin/mixin" as *;
 
 [pgs~=cookieConsent] {
+    //option for suggestions
+    &[pgs-option~="cookieConsent[]"] {}
+
     --cookie-bg: var(--color-box);
     --cookie-color: var(--color-black);
     --cookie-border: var(--border-complete);
@@ -69,7 +72,7 @@
         display: none;
     }
 
-    [pgs~=cookieConsent-panel] {
+    [pgs~=_cookieConsent-panel] {
         border: var(--border-complete);
         border-radius: calc(var(--modal-borderRadius) - var(--gap-texts));
         background-color: var(--color-primary-soft, rgba(0, 0, 0, 0.02));
@@ -77,7 +80,7 @@
         margin-bottom: var(--gap-texts);
 
 
-        [pgs~=cookieConsent-panel-badge] {
+        [pgs~=_cookieConsent-panel-badge] {
             font-size: 1.35rem;
             overflow-wrap: normal;
             width: max-content;
@@ -86,11 +89,11 @@
         }
     }
 
-    [pgs~=cookieConsent-panel-featureAnalytics] label {
+    [pgs~=_cookieConsent-panel-featureAnalytics] label {
         width: 100%;
     }
 
-    &[pgs~=cookieConsent-gaUnavailable] [pgs~=cookieConsent-panel-featureAnalytics] label {
+    &[pgs~=cookieConsent-gaUnavailable] [pgs~=_cookieConsent-panel-featureAnalytics] label {
         opacity: 0.5;
         cursor: not-allowed;
     }

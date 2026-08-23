@@ -1426,7 +1426,7 @@ function PGS_menu_init(root = document) {
                 const button = document.createElement("button");
                 button.type = "button";
                 button.innerHTML = "<span>&#9207;</span>";
-                pgs(button).add("menu-buttonIcon");
+                pgs(button).add("_menu-buttonIcon");
                 li.querySelector("a").insertAdjacentElement("afterend", button);
 
                 pgs(li).add("dropdown")
@@ -1814,20 +1814,20 @@ const fn_notification = {
         const notification = document.createElement("div");
         notification.dataset.notificationId = notificationId;
         pgs(notification).state.add(type);
-        pgs(notification).add("notifications-element");
+        pgs(notification).add("_notifications-element");
         notification.setAttribute("role", type == "error" ? "alert" : "status");
         notification.innerHTML = `
-            <div pgs="notifications-element-content">
-                <div pgs="notifications-element-icon">${icon}</div>
+            <div pgs="_notifications-element-content">
+                <div pgs="_notifications-element-icon">${icon}</div>
                 <p>${text}</p>
             </div>
-            <div pgs="notifications-element-buttons">
-                <button type="button" pgs="button notifications-element-buttons-delete">${closeTitle}</button>
+            <div pgs="_notifications-element-buttons">
+                <button type="button" pgs="button _notifications-element-buttons-delete">${closeTitle}</button>
             </div>
         `;
 
-        const notificationButtons = pgs(notification).querySelector("notifications-element-buttons");
-        const btnDelete = pgs(notification).querySelector("notifications-element-buttons-delete");
+        const notificationButtons = pgs(notification).querySelector("_notifications-element-buttons");
+        const btnDelete = pgs(notification).querySelector("_notifications-element-buttons-delete");
         btnDelete.ariaLabel = closeTitle === "Close" ? "Close notification" : closeTitle;
 
         //+ Animation delete
@@ -1882,7 +1882,7 @@ const fn_notification = {
         const containerNotification = this._getContainer();
 
         if (containerNotification) {
-            const ids = Array.from(pgs(containerNotification).querySelectorAll("notifications-element"))
+            const ids = Array.from(pgs(containerNotification).querySelectorAll("_notifications-element"))
                 .map(element => element.dataset.notificationId);
 
             containerNotification.innerHTML = "";
@@ -1897,7 +1897,7 @@ const fn_notification = {
 
     _updateBellCounter() {
         const container = this._getContainer();
-        const count = container ? pgs(container).querySelectorAll("notifications-element").length : 0;
+        const count = container ? pgs(container).querySelectorAll("_notifications-element").length : 0;
 
         pgs(document).querySelectorAll("notificationBell-counter").forEach(counter => {
             counter.textContent = count > 0 ? count : "";
@@ -1905,12 +1905,12 @@ const fn_notification = {
 
         if (!container) return;
 
-        let emptyMessage = pgs(container).querySelector("notifications-empty");
+        let emptyMessage = pgs(container).querySelector("_notifications-empty");
 
         if (count === 0) {
             if (!emptyMessage) {
                 emptyMessage = document.createElement("p");
-                pgs(emptyMessage).add("notifications-empty");
+                pgs(emptyMessage).add("_notifications-empty");
                 container.appendChild(emptyMessage);
             }
             emptyMessage.textContent = this._defaults.emptyMessage;
@@ -2145,7 +2145,7 @@ function PGS_search_init(root = document) {
 
         function setActiveIndex(index) {
             activeIndex = index;
-            const elements = Array.from(list.querySelectorAll('[pgs~="search-suggestions-item"]'));
+            const elements = Array.from(list.querySelectorAll('[pgs~="_search-suggestions-item"]'));
 
             elements.forEach((element, itemIndex) => {
                 const selected = itemIndex === activeIndex;
@@ -2200,7 +2200,7 @@ function PGS_search_init(root = document) {
             const fragment = document.createDocumentFragment();
             items.forEach((item, index) => {
                 const option = document.createElement("li");
-                pgs(option).add("search-suggestions-item");
+                pgs(option).add("_search-suggestions-item");
                 pgs(option).add("flexRow");
                 option.id = `${list.id}-option-${index}`;
                 option.dataset.index = String(index);
@@ -2350,7 +2350,7 @@ function PGS_search_init(root = document) {
         }
 
         function onListPointerDown(event) {
-            const option = event.target.closest('[pgs~="search-suggestions-item"]');
+            const option = event.target.closest('[pgs~="_search-suggestions-item"]');
             if (!option || !list.contains(option)) return;
             event.preventDefault();
             select(Number.parseInt(option.dataset.index, 10));
@@ -2713,8 +2713,7 @@ function PGS_stepTabs_init(root = document) {
                 const iconClass = pgs(tab).option.getValueBrackets("tabIcon") || "fa-circle";
                 const dot = document.createElement("button");
                 dot.type = "button";
-                pgs(dot).add("stepTabs-dots-dot");
-                pgs(dot).option.setValueBrackets("step", index);
+                pgs(dot).add("_stepTabs-dots-dot");
                 dot.innerHTML = `<i class="fa-solid ${iconClass}"></i>`;
 
                 dot.addEventListener("click", () => {
@@ -3252,20 +3251,20 @@ const fn_toast = {
         const toast = document.createElement("div");
         if (timeout > 0) toast.style.setProperty("--notification-timeout", timeout + "ms");
         pgs(toast).state.add(type);
-        pgs(toast).add("toast-element");
+        pgs(toast).add("_toast-element");
         toast.setAttribute("role", type == "error" ? "alert" : "status");
         toast.innerHTML = `
-            <div pgs="toast-element-content">
-                <div pgs="toast-element-icon">${icon}</div>
+            <div pgs="_toast-element-content">
+                <div pgs="_toast-element-icon">${icon}</div>
                 <p>${text}</p>
             </div>
-            <div pgs="toast-element-buttons">
-                <button type="button" pgs="button toast-element-buttons-delete">${closeTitle}</button>
+            <div pgs="_toast-element-buttons">
+                <button type="button" pgs="button _toast-element-buttons-delete">${closeTitle}</button>
             </div>
         `;
 
-        const toastButtons = pgs(toast).querySelector("toast-element-buttons");
-        const btnDelete = pgs(toast).querySelector("toast-element-buttons-delete");
+        const toastButtons = pgs(toast).querySelector("_toast-element-buttons");
+        const btnDelete = pgs(toast).querySelector("_toast-element-buttons-delete");
         btnDelete.ariaLabel = closeTitle === "Close" ? "Close notification" : closeTitle;
 
         if (link) {
@@ -4269,8 +4268,8 @@ function buildCookieConsent(marker) {
                     </p>
                 </div>
 
-                <div pgs="cookieConsent-panel flexColumn" role="group" aria-label="${escapeHtml(config.panelAriaLabel)}">
-                    <div pgs="flexRow nowrap cookieConsent-panel-featureEssential">
+                <div pgs="_cookieConsent-panel flexColumn" role="group" aria-label="${escapeHtml(config.panelAriaLabel)}">
+                    <div pgs="flexRow nowrap _cookieConsent-panel-featureEssential">
                         <div>
                             <p>
                                 <strong>${formatText(config.essentialTitle)}</strong>
@@ -4279,10 +4278,10 @@ function buildCookieConsent(marker) {
                             </p>
                         </div>
 
-                        <span pgs="cookieConsent-panel-badge badge" pgs-option="badgeSuccess">${formatText(config.essentialBadge)}</span>
+                        <span pgs="_cookieConsent-panel-badge badge" pgs-option="badgeSuccess">${formatText(config.essentialBadge)}</span>
                     </div>
 
-                    <div pgs="flexRow cookieConsent-panel-featureAnalytics">
+                    <div pgs="flexRow _cookieConsent-panel-featureAnalytics">
                         <label pgs="toggle">
                             <p>
                                 <strong>${formatText(config.analyticsTitle)}</strong>
@@ -4290,15 +4289,15 @@ function buildCookieConsent(marker) {
                                 <small>${formatText(config.analyticsDescription)}</small>
                             </p>
 
-                            <input type="checkbox" pgs="cookieConsent-panel-toggleAnalytics" aria-label="${escapeHtml(config.analyticsAriaLabel)}">
+                            <input type="checkbox" pgs="_cookieConsent-panel-toggleAnalytics" aria-label="${escapeHtml(config.analyticsAriaLabel)}">
                         </label>
                     </div>
                     <div pgs="flexRow">
-                        <button type="button" pgs="button cookieConsent-actionReject">
+                        <button type="button" pgs="button _cookieConsent-actionReject">
                             <i class="fa-solid fa-duotone fa-sliders"></i> ${formatText(config.titleReject)}
                         </button>
     
-                        <button type="button" pgs="button cookieConsent-actionAccept" pgs-option="buttonStrong">
+                        <button type="button" pgs="button _cookieConsent-actionAccept" pgs-option="buttonStrong">
                             <i class="fa-solid fa-check"></i> ${formatText(config.titleAccept)}
                         </button>
                     </div>
@@ -4322,8 +4321,8 @@ function assignCookieRuntimeAttributes({ root, analyticsToggle, acceptAllButton,
     acceptAllButton?.setAttribute('data-cookie-action', 'accept');
     rejectButton?.setAttribute('data-cookie-action', 'reject');
 
-    root.querySelector('[pgs~="cookieConsent-panel-featureEssential"]')?.setAttribute('data-cookie-feature', 'essential');
-    root.querySelector('[pgs~="cookieConsent-panel-featureAnalytics"]')?.setAttribute('data-cookie-feature', 'analytics');
+    root.querySelector('[pgs~="_cookieConsent-panel-featureEssential"]')?.setAttribute('data-cookie-feature', 'essential');
+    root.querySelector('[pgs~="_cookieConsent-panel-featureAnalytics"]')?.setAttribute('data-cookie-feature', 'analytics');
 
     openButtons.forEach((button) => {
         button.setAttribute('data-cookie-action', 'open');
@@ -4347,9 +4346,9 @@ function initCookieConsent(selectRoot = document) {
     const modal = globalThis.pgs?.modal?.api(root);
     if (!modal) return;
 
-    const analyticsToggle = root.querySelector('[pgs~="cookieConsent-panel-toggleAnalytics"]');
-    const acceptAllButton = root.querySelector('[pgs~="cookieConsent-actionAccept"]');
-    const rejectButton = root.querySelector('[pgs~="cookieConsent-actionReject"]');
+    const analyticsToggle = root.querySelector('[pgs~="_cookieConsent-panel-toggleAnalytics"]');
+    const acceptAllButton = root.querySelector('[pgs~="_cookieConsent-actionAccept"]');
+    const rejectButton = root.querySelector('[pgs~="_cookieConsent-actionReject"]');
     const openButtons = document.querySelectorAll('[pgs~="cookieConsent-actionOpen"]');
     const measurementId = (root.dataset.gaId || '').trim();
     const prefersGa = measurementId.length > 0;

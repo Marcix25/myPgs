@@ -119,7 +119,7 @@ function PGS_search_init(root = document) {
 
         function setActiveIndex(index) {
             activeIndex = index;
-            const elements = Array.from(list.querySelectorAll('[pgs~="search-suggestions-item"]'));
+            const elements = Array.from(list.querySelectorAll('[pgs~="_search-suggestions-item"]'));
 
             elements.forEach((element, itemIndex) => {
                 const selected = itemIndex === activeIndex;
@@ -174,7 +174,7 @@ function PGS_search_init(root = document) {
             const fragment = document.createDocumentFragment();
             items.forEach((item, index) => {
                 const option = document.createElement("li");
-                pgs(option).add("search-suggestions-item");
+                pgs(option).add("_search-suggestions-item");
                 pgs(option).add("flexRow");
                 option.id = `${list.id}-option-${index}`;
                 option.dataset.index = String(index);
@@ -324,7 +324,7 @@ function PGS_search_init(root = document) {
         }
 
         function onListPointerDown(event) {
-            const option = event.target.closest('[pgs~="search-suggestions-item"]');
+            const option = event.target.closest('[pgs~="_search-suggestions-item"]');
             if (!option || !list.contains(option)) return;
             event.preventDefault();
             select(Number.parseInt(option.dataset.index, 10));

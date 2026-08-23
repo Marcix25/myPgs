@@ -100,7 +100,7 @@
         box-shadow: var(--search-suggestions-boxShadow);
         @include _color(--search-suggestions);
 
-        [pgs~="search-suggestions-item"] {
+        [pgs~="_search-suggestions-item"] {
             padding: var(--search-suggestions-item-padding);
             border-radius: var(--search-suggestions-borderRadius);
             cursor: pointer;
@@ -117,8 +117,8 @@
             }
         }
 
-        &:has([pgs~="search-suggestions-item"]:hover) {
-            [pgs~="search-suggestions-item"][aria-selected="true"] {
+        &:has([pgs~="_search-suggestions-item"]:hover) {
+            [pgs~="_search-suggestions-item"][aria-selected="true"] {
                 @include _color(--search-suggestions);
 
                 &:hover {
