@@ -19,6 +19,7 @@ const ENTRY_ICONS = {
     "base/general.html": "fa-sliders",
     "base/heading.html": "fa-heading",
     "base/color.html": "fa-palette",
+    "base/darkmode.html": "fa-moon",
     "base/svg.html": "fa-bezier-curve",
     "components/notification.html": "fa-bell",
     "components/card.html": "fa-id-card",
@@ -44,6 +45,7 @@ const ENTRY_ICONS = {
     "patterns/cookieConsent.html": "fa-cookie-bite",
     "base/body.html": "fa-file-code",
     "layout/responsive.html": "fa-mobile-screen",
+    "layout/breakpoints.html": "fa-mobile-screen",
     "layout/spacing.html": "fa-ruler",
     "layout/utilities.html": "fa-wrench",
     "layout/section.html": "fa-table-cells",
@@ -58,6 +60,7 @@ const demoRenderer = {
         "base/general.html",
         "base/heading.html",
         "base/color.html",
+        "base/darkmode.html",
         "base/svg.html",
         "components/notification.html",
         "components/card.html",
@@ -83,6 +86,7 @@ const demoRenderer = {
         "patterns/cookieConsent.html",
         "layout/header.html",
         "layout/responsive.html",
+        "layout/breakpoints.html",
         "layout/spacing.html",
         "layout/utilities.html",
         "layout/section.html",
@@ -720,7 +724,8 @@ function configureNotificationDemo() {
     //== isolateDemoModals stripped the modal role off every bell rendered in the main area, because
     //== two panels would fight over the single shared "notifications" container: the real header bell
     //== owns the only panel, so clicking a demo bell clicks that one.
-    const headerBell = document.querySelector('#reference-demo-before [pgs~="notificationBell"]');
+    const headerBell = Array.from(document.querySelectorAll('[pgs~="notificationBell"]'))
+        .find(bell => !bell.closest("#reference-demo-main"));
     document.querySelectorAll('#reference-demo-main [pgs~="notificationBell"]').forEach(bell => {
         bell.addEventListener("click", () => headerBell?.click());
     });

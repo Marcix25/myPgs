@@ -29,7 +29,7 @@
     }
 }
 
-//+ positioning, backdrop, sizing, and scrolling come from the modal wrapping notificationBell + this dialog (see _modals.scss)
+//+ positioning, backdrop, sizing, and scrolling come from the modal wrapping notificationBell + this dialog (see _modal.scss)
 [pgs~="notifications"] {
     --notification-background: var(--color-box);
     --notification-color: unset;

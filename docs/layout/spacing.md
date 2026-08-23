@@ -2,7 +2,7 @@
 
 # Spacing
 
-Gap, margin, and padding utilities based on the shared MyPGS spacing scales.
+Margin and padding utilities based on the shared MyPGS spacing scales. The gap utilities live in Responsive instead, because they only take effect on a flex or grid container.
 
 ## PGS
 
@@ -38,41 +38,15 @@ Gap, margin, and padding utilities based on the shared MyPGS spacing scales.
 ### PGS
 
 - `flexColumn`: arranges the spacing groups vertically.
-- `flexRow`: arranges the gap examples horizontally.
-- `wrap`: allows the gap examples to wrap.
-- `nowrap`: prevents the section gap example from wrapping.
-- `box`: makes the gap examples visible.
-- `gapTexts`: applies the text spacing token between child elements.
-- `gapElements`: applies the element spacing token between child elements.
-- `gapSections`: applies the section spacing token between child elements.
+- `box`: makes the centred example visible, so marginAuto is actually observable.
+- `gapTexts`: separates the examples inside a group.
+- `gapSections`: separates the groups.
 
 ## Output
 
-Gap, margin, and padding usage examples using all available directions and spacing scales.
+Margin and padding usage examples using all available directions and spacing scales.
 
 ## Example
-
-### Gap
-
-Text, element, and section gap tokens applied between flex children.
-
-```html
-<section pgs="flexColumn gapTexts">
-    <strong>Gap</strong>
-    <div pgs="flexRow gapTexts wrap">
-        <span pgs="box">Text gap</span>
-        <span pgs="box">Text gap</span>
-    </div>
-    <div pgs="flexRow gapElements wrap">
-        <span pgs="box">Element gap</span>
-        <span pgs="box">Element gap</span>
-    </div>
-    <div pgs="flexRow gapSections nowrap">
-        <span pgs="box">Section gap</span>
-        <span pgs="box">Section gap</span>
-    </div>
-</section>
-```
 
 ### Margin
 

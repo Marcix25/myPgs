@@ -1,0 +1,67 @@
+<!--
+/**
+ * @title Breakpoints
+ * @description Responsive visibility utilities built on the shared breakpoint scale: watch 315px, mobile 430px, big mobile 615px, tablet 800px, big tablet 900px and laptop 1100px. Each breakpoint comes in four utilities, crossing the two queries with the two directions: Media reads the viewport, Container reads the nearest ancestor marked with pgs="container", Down hides at or below the width, Up hides from the width upwards.
+ *
+ * @pgs
+ * - hideMediaDownWatch: hides an element when the viewport is 315px wide or narrower.
+ * - hideMediaDownMobile: hides an element when the viewport is 430px wide or narrower.
+ * - hideMediaDownBigMobile: hides an element when the viewport is 615px wide or narrower.
+ * - hideMediaDownTablet: hides an element when the viewport is 800px wide or narrower.
+ * - hideMediaDownBigTablet: hides an element when the viewport is 900px wide or narrower.
+ * - hideMediaDownLaptop: hides an element when the viewport is 1100px wide or narrower.
+ * - hideMediaUpWatch: hides an element when the viewport is at least 315px wide.
+ * - hideMediaUpMobile: hides an element when the viewport is at least 430px wide.
+ * - hideMediaUpBigMobile: hides an element when the viewport is at least 615px wide.
+ * - hideMediaUpTablet: hides an element when the viewport is at least 800px wide.
+ * - hideMediaUpBigTablet: hides an element when the viewport is at least 900px wide.
+ * - hideMediaUpLaptop: hides an element when the viewport is at least 1100px wide.
+ * - hideContainerDownWatch: hides an element when its nearest container is 315px wide or narrower.
+ * - hideContainerDownMobile: hides an element when its nearest container is 430px wide or narrower.
+ * - hideContainerDownBigMobile: hides an element when its nearest container is 615px wide or narrower.
+ * - hideContainerDownTablet: hides an element when its nearest container is 800px wide or narrower.
+ * - hideContainerDownBigTablet: hides an element when its nearest container is 900px wide or narrower.
+ * - hideContainerDownLaptop: hides an element when its nearest container is 1100px wide or narrower.
+ * - hideContainerUpWatch: hides an element when its nearest container is at least 315px wide.
+ * - hideContainerUpMobile: hides an element when its nearest container is at least 430px wide.
+ * - hideContainerUpBigMobile: hides an element when its nearest container is at least 615px wide.
+ * - hideContainerUpTablet: hides an element when its nearest container is at least 800px wide.
+ * - hideContainerUpBigTablet: hides an element when its nearest container is at least 900px wide.
+ * - hideContainerUpLaptop: hides an element when its nearest container is at least 1100px wide.
+ *
+ * @related
+ * - container: establishes the inline-size container the hideContainer* utilities are measured against; without it they fall back to the nearest container in the page, or never match at all.
+ * - flexColumn: stacks the groups vertically.
+ * - flexRow: arranges the examples in a row.
+ * - box: makes each example visible as a surface.
+ * - wrap: allows the examples to wrap onto several rows.
+ * - gapTexts: separates the examples inside a group.
+ * - gapSections: separates the groups.
+ *
+ * @return One example per query type, resizing with the viewport and with a local container.
+ */
+-->
+
+<div pgs="flexColumn" pgs-option="gapSections" demo="component">
+
+    <section pgs="flexColumn" pgs-option="gapTexts" demo="item" demo-title="Viewport visibility" demo-description="hideMediaDown* and hideMediaUp* read the viewport width, so they answer to the browser window whatever the element is nested in. Resize the window to see them appear and disappear.">
+        <div pgs="flexRow" pgs-option="gapTexts wrap">
+            <span pgs="box hideMediaDownMobile">hideMediaDownMobile</span>
+            <span pgs="box hideMediaDownTablet">hideMediaDownTablet</span>
+            <span pgs="box hideMediaUpTablet">hideMediaUpTablet</span>
+            <span pgs="box hideMediaUpLaptop">hideMediaUpLaptop</span>
+        </div>
+    </section>
+
+    <section pgs="flexColumn" pgs-option="gapTexts" demo="item" demo-title="Container visibility" demo-description="hideContainerDown* and hideContainerUp* read the width of the nearest ancestor marked pgs=&quot;container&quot;, so the same element reacts to the space it actually sits in rather than to the window. Mark that ancestor, or nothing will ever match.">
+        <div pgs="container">
+            <div pgs="flexRow" pgs-option="gapTexts wrap">
+                <span pgs="box hideContainerDownMobile">hideContainerDownMobile</span>
+                <span pgs="box hideContainerDownTablet">hideContainerDownTablet</span>
+                <span pgs="box hideContainerUpTablet">hideContainerUpTablet</span>
+                <span pgs="box hideContainerUpLaptop">hideContainerUpLaptop</span>
+            </div>
+        </div>
+    </section>
+
+</div>

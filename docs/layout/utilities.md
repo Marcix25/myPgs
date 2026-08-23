@@ -2,7 +2,7 @@
 
 # Utilities
 
-Focused layout, content, interaction, responsive visibility, accessibility, and semantic-color utilities.
+Focused layout, content, interaction, accessibility, and semantic-color utilities. Responsive visibility lives in Breakpoints.
 
 ## PGS
 
@@ -10,30 +10,6 @@ Focused layout, content, interaction, responsive visibility, accessibility, and 
 - `aspectVideo`: gives an element a 16:9 aspect ratio.
 - `block`: displays an element as a block.
 - `cursorNotAllowed`: shows the unavailable cursor.
-- `hideContainerDownWatch`: hides an element when its nearest container is 315px wide or narrower.
-- `hideContainerDownMobile`: hides an element when its nearest container is 430px wide or narrower.
-- `hideContainerDownBigMobile`: hides an element when its nearest container is 615px wide or narrower.
-- `hideContainerDownTablet`: hides an element when its nearest container is 800px wide or narrower.
-- `hideContainerDownBigTablet`: hides an element when its nearest container is 900px wide or narrower.
-- `hideContainerDownLaptop`: hides an element when its nearest container is 1100px wide or narrower.
-- `hideContainerUpWatch`: hides an element when its nearest container is at least 315px wide.
-- `hideContainerUpMobile`: hides an element when its nearest container is at least 430px wide.
-- `hideContainerUpBigMobile`: hides an element when its nearest container is at least 615px wide.
-- `hideContainerUpTablet`: hides an element when its nearest container is at least 800px wide.
-- `hideContainerUpBigTablet`: hides an element when its nearest container is at least 900px wide.
-- `hideContainerUpLaptop`: hides an element when its nearest container is at least 1100px wide.
-- `hideMediaDownWatch`: hides an element when the viewport is 315px wide or narrower.
-- `hideMediaDownMobile`: hides an element when the viewport is 430px wide or narrower.
-- `hideMediaDownBigMobile`: hides an element when the viewport is 615px wide or narrower.
-- `hideMediaDownTablet`: hides an element when the viewport is 800px wide or narrower.
-- `hideMediaDownBigTablet`: hides an element when the viewport is 900px wide or narrower.
-- `hideMediaDownLaptop`: hides an element when the viewport is 1100px wide or narrower.
-- `hideMediaUpWatch`: hides an element when the viewport is at least 315px wide.
-- `hideMediaUpMobile`: hides an element when the viewport is at least 430px wide.
-- `hideMediaUpBigMobile`: hides an element when the viewport is at least 615px wide.
-- `hideMediaUpTablet`: hides an element when the viewport is at least 800px wide.
-- `hideMediaUpBigTablet`: hides an element when the viewport is at least 900px wide.
-- `hideMediaUpLaptop`: hides an element when the viewport is at least 1100px wide.
 - `minWidth0`: allows flex or grid content to shrink below its intrinsic width.
 - `overflowAuto`: adds scrolling only when content overflows.
 - `overflowHidden`: clips overflowing content.
@@ -66,7 +42,6 @@ Focused layout, content, interaction, responsive visibility, accessibility, and 
 - `skipLink`: creates a link that is revealed only when keyboard-focused.
 - `visuallyHidden`: hides content visually while keeping it available to assistive technology.
 - `visuallyHiddenFocusable`: hides content until it or one of its children receives focus.
-- `container`: establishes an inline-size container for container-query utilities.
 
 ### PGS Options
 
@@ -75,6 +50,10 @@ Focused layout, content, interaction, responsive visibility, accessibility, and 
 - `wrap`: allows the layout examples to wrap onto multiple rows.
 - `flexCenter`: centers items on both axes in a flex container.
 - `inlineFlex`: displays a flex container inline.
+
+### Other
+
+- `container`: establishes an inline-size container; see Breakpoints for the hideContainer* utilities measured against it.
 
 ## Output
 
@@ -117,15 +96,6 @@ Examples of the standalone MyPGS utility API.
         <span pgs="pointerEventsNone">Pointer events disabled</span>
         <span pgs="pointerEventsAuto">Pointer events enabled</span>
         <button type="button" pgs="cursorNotAllowed">Unavailable action</button>
-    </section>
-
-    <section pgs="flexColumn" pgs-option="gapTexts">
-        <strong>Responsive visibility</strong>
-        <p>Use <code>hideMediaDown*</code> and <code>hideMediaUp*</code> for viewport queries. Use <code>hideContainerDown*</code> and <code>hideContainerUp*</code> inside an ancestor with <code>pgs="container"</code>.</p>
-        <span pgs="box hideMediaDownMobile">Visible above the mobile viewport breakpoint.</span>
-        <div pgs="container">
-            <span pgs="box hideContainerDownMobile">Visible when this container is wider than the mobile breakpoint.</span>
-        </div>
     </section>
 
     <section pgs="flexColumn" pgs-option="gapTexts">

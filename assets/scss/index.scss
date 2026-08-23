@@ -14,7 +14,7 @@
 | Layout
 |--------------------------------------------------------------------------
 */
-@include meta.load-css("layout/layout");
+@include meta.load-css("layout/section");
 @include meta.load-css("layout/responsive");
 @include meta.load-css("layout/breakpoints");
 @include meta.load-css("layout/utilities");
@@ -35,7 +35,7 @@
 @include meta.load-css("components/accordion");
 @include meta.load-css("components/breadcumbs");
 @include meta.load-css("components/dropdown");
-@include meta.load-css("components/modals");
+@include meta.load-css("components/modal");
 @include meta.load-css("components/slides");
 @include meta.load-css("components/steps");
 @include meta.load-css("components/table");

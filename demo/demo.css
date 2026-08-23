@@ -132,11 +132,6 @@ body {
     max-width: 300px;
 }
 
-#reference-demo-before {
-    position: relative;
-    z-index: 2;
-}
-
 #reference-demo-main {
     position: relative;
     z-index: 1;
@@ -156,10 +151,6 @@ body {
         position: relative;
         z-index: 0;
     }
-}
-
-#reference-demo-after {
-    position: relative;
 }
 
 

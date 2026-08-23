@@ -6,7 +6,7 @@ import { PGS_accordion } from "./components/_accordion.js";
 import { PGS_alert } from "./components/_alerts.js";
 import { PGS_dropdown } from "./components/_dropdown.js";
 import { PGS_menu } from "./components/_menu.js";
-import { PGS_modal } from "./components/_modals.js";
+import { PGS_modal } from "./components/_modal.js";
 import { PGS_notification } from "./components/_notification.js";
 import { PGS_notificationLegacy } from "./components/_legacyNotification.js";
 import { PGS_toast } from "./components/_toast.js";

@@ -15,7 +15,7 @@ import "./components/_accordion.js";
 import "./components/_alerts.js";
 import "./components/_dropdown.js";
 import "./components/_menu.js";
-import "./components/_modals.js";
+import "./components/_modal.js";
 import "./components/_search.js";
 import "./components/_slides.js";
 import "./components/_steps.js";

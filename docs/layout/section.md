@@ -13,6 +13,7 @@ Section variants that control width, padding, and specific content treatment whi
 - `sectionSpecificity-child`: identifies child content managed by the sectionSpecificity variant.
 - `sectionMax`: identifies a section with an extended maximum width.
 - `sectionNoPadding`: identifies a section without standard padding.
+- `container`: turns any element into an inline-size query container, so the utilities that measure their surroundings have something to measure; see Breakpoints and Responsive.
 
 ## Related elements
 
@@ -22,6 +23,8 @@ Section variants that control width, padding, and specific content treatment whi
 - `gapElements`: applies element spacing inside each section.
 - `card-img`: reuses card image treatment in the demonstration sections.
 - `imgCover`: scales images to the section width.
+- `hideContainerDownTablet`: hides its element while the surrounding container is at most 800px wide; see Breakpoints for the whole family.
+- `box`: makes the container example visible as a surface.
 
 ### Other
 
@@ -71,6 +74,18 @@ Section applying a specific structure to its child element using sectionSpecific
     <div pgs="sectionSpecificity-child flexColumn">
         <strong>Specificity-child section</strong>
         <p>Centered content inside a MyPGS section.</p>
+    </div>
+</section>
+```
+
+### Query container
+
+container is what the hideContainer* utilities and every container query measure themselves against. Without it the nearest marked ancestor is used instead, and the element reacts to the wrong width.
+
+```html
+<section pgs="section flexColumn gapElements">
+    <div pgs="container">
+        <span pgs="box hideContainerDownTablet">Hidden while this container is at most 800px wide.</span>
     </div>
 </section>
 ```
