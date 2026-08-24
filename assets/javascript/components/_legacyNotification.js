@@ -22,7 +22,7 @@ const fn_legacy = {
     },
 
     _getDuration(notification) {
-        const rawDuration = notification.duration;
+        const rawDuration = notification.timeout ?? notification.duration;
         const duration = Number.parseInt(rawDuration, 10);
         return Number.isNaN(duration) ? undefined : duration;
     },
@@ -52,9 +52,9 @@ const fn_legacy = {
 
             this._getData(element).forEach(notification => {
                 const title = String(notification.title || "").trim();
-                const description = String(notification.message || "").trim();
-                const linkTitle = String(notification["title-link"] || this._defaults.linkTitle).trim();
-                const closeTitle = String(notification["title-close"] || this._defaults.closeTitle).trim();
+                const description = String(notification.description ?? notification.message ?? "").trim();
+                const linkTitle = String(notification.linkTitle || notification["title-link"] || this._defaults.linkTitle).trim();
+                const closeTitle = String(notification.closeTitle || notification["title-close"] || this._defaults.closeTitle).trim();
 
                 if (!title && !description) return;
 

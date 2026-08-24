@@ -236,8 +236,8 @@ const fn_notification = {
     _dispatch(element) {
         this._getData(element).forEach(notification => {
             const title = String(notification.title || "").trim();
-            const description = String(notification.message || "").trim();
-            const closeTitle = String(notification["title-close"] || this._defaults.closeTitle).trim();
+            const description = String(notification.description ?? notification.message ?? "").trim();
+            const closeTitle = String(notification.closeTitle || notification["title-close"] || this._defaults.closeTitle).trim();
 
             if (!title && !description) return;
 

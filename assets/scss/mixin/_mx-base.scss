@@ -61,14 +61,14 @@
 }
 
 //= HEADING
-@mixin heading($size) {
+@mixin heading($size, $weight: 900) {
     font-family: var(--font-titoli);
     --heading-size: #{$size};
     color: var(--color-black);
     margin-bottom: calc(var(--heading-size)/8);
     font-size: var(--heading-size);
     min-width: 0;
-    font-weight: 900;
+    font-weight: $weight;
     // text-box: trim-both cap alphabetic;
     overflow-wrap: anywhere;
 
@@ -109,7 +109,7 @@
 }
 
 @mixin h5() {
-    @include heading($h5);
+    @include heading(calc($h5 - 0.1rem), 700);
 }
 
 //= ICON SVG

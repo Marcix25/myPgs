@@ -2,7 +2,7 @@
 
 # Toast
 
-Toast markup, configuration, behavior, and usage example. An ephemeral, auto-dismissing message shown one at a time (e.g. "saved", "error"). Split from Notification, which is a persistent, manually-dismissed panel. Full JSON field list is under @pgs-option "toast"; full JS options list is under each @api method below. Note three JSON keys that are renamed in the JS options: message becomes description, title-link becomes linkTitle, and title-close becomes closeTitle.
+Toast markup, configuration, behavior, and usage example. An ephemeral, auto-dismissing message shown one at a time (e.g. "saved", "error"). Split from Notification, which is a persistent, manually-dismissed panel. Full JSON field list is under @pgs-option "toast"; full JS options list is under each @api method below. The JSON form and the JS options now use the same names; the previous message, title-link, title-close and duration keys are still accepted as aliases.
 
 ## PGS
 
@@ -20,7 +20,7 @@ Toast markup, configuration, behavior, and usage example. An ephemeral, auto-dis
 
 ## PGS Options
 
-- `toast`: JSON object read by toastLoad/toastExe on page load or click; a new toast replaces whatever is currently shown — see the full field reference, with every optional field and its default, in the commented example below.
+- `toast`: JSON object read by toastLoad/toastExe on page load or click; a new toast replaces whatever is currently shown — every field, with its accepted values and its default, is annotated in the reference below.
 
 ## PGS States
 
@@ -50,19 +50,19 @@ Toast markup, configuration, behavior, and usage example. An ephemeral, auto-dis
 
 Complete HTML markup and usage example for Toast.
 
-## JSON Schema
+## PGS Option fields
 
-```json
-toast[{
-    "title": "",
-    "message": "",
-    "type": "info",
-    "icon": null,
-    "duration": 4000,
-    "link": null,
-    "title-link": "Apri",
-    "title-close": "Chiudi"
-}]
+```html
+pgs-option='toast[{
+    "title": "",            // omitted falls back to the title of the type
+    "description": "",      // plain text under the title; a newline becomes a line break
+    "type": "info",         // error | success | warning | info, and anything else falls back to info
+    "icon": null,           // HTML string; null uses the icon of the type
+    "timeout": 4000,        // milliseconds before it dismisses itself; a value that is not a number is ignored
+    "link": null,           // shows the link button and navigates there
+    "linkTitle": "Open",    // label of the link button, only used when link is set
+    "closeTitle": "Close"   // label of the dismiss button
+}]'
 ```
 
 
@@ -75,8 +75,8 @@ pgs.toast.success({
     icon: null,
     timeout: 4000,
     link: null,
-    linkTitle: "Apri",
-    closeTitle: "Chiudi"
+    linkTitle: "Open",
+    closeTitle: "Close"
 });
 ```
 
@@ -89,24 +89,24 @@ pgs.toast.success({
 <div pgs="hidden toastLoad" pgs-option='
     toast[{
         "title": "Benvenuto",
-        "message": "Message",
+        "description": "Message",
         "type": "success",
         "icon": null,
-        "duration": "3000",
+        "timeout": "3000",
         "link": null,
-        "title-link": "Open",
-        "title-close": "Close"
+        "linkTitle": "Open",
+        "closeTitle": "Close"
     }]
 '></div>
 
 <button pgs="button toastExe" pgs-option='toast[{
     "title": "Benvenuto",
-    "message": "Message",
+    "description": "Message",
     "type": "success",
     "icon": null,
-    "duration": "7000",
+    "timeout": "7000",
     "link": null,
-    "title-link": "Open",
-    "title-close": "Close"
+    "linkTitle": "Open",
+    "closeTitle": "Close"
 }]'><i class="fa-duotone fa-solid fa-bread-slice-butter"></i> Trigger Toast</button>
 ```

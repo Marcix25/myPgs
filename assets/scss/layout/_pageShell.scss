@@ -44,6 +44,7 @@
     align-items: start;
     justify-content: center;
     width: 100%;
+    position: relative;
     padding-inline: var(--pageShell-padding-inline);
     padding-bottom: var(--pageShell-padding-bottom);
     padding-top: var(--pageShell-padding-top);
@@ -231,7 +232,7 @@
         [pgs~="pageShell-aside"] {
             position: sticky;
             top: var(--pageShell-aside-top);
-            max-height: calc(100svh - var(--pageShell-padding-top));
+            max-height: calc(100svh - var(--pageShell-aside-top));
             overflow-y: auto;
             margin-top: calc(var(--pageShell-padding-top) * -1);
             // overscroll-behavior: contain;

@@ -124,18 +124,16 @@ Four-column grid layout using column-4 with m2e to collapse to two columns per r
 Flex items wrapping onto multiple rows versus staying on a single non-wrapping row.
 
 ```html
-<section pgs="flex" pgs-option="flexColumn gapTexts">
-    <strong>Wrap</strong>
-    <div pgs="flex" pgs-option="flexRow gapTexts wrap">
-        <span pgs="box">Wrapping item</span>
-        <span pgs="box">Wrapping item</span>
-        <span pgs="box">Wrapping item</span>
-    </div>
-    <div pgs="flex" pgs-option="flexRow gapTexts nowrap">
-        <span pgs="box">Non-wrapping item</span>
-        <span pgs="box">Non-wrapping item</span>
-    </div>
-</section>
+<strong>Wrap</strong>
+<div pgs="flex" pgs-option="flexRow gapTexts wrap">
+    <span pgs="box">Wrapping item</span>
+    <span pgs="box">Wrapping item</span>
+    <span pgs="box">Wrapping item</span>
+</div>
+<div pgs="flex" pgs-option="flexRow gapTexts nowrap">
+    <span pgs="box">Non-wrapping item</span>
+    <span pgs="box">Non-wrapping item</span>
+</div>
 ```
 
 ### Direction
@@ -143,17 +141,15 @@ Flex items wrapping onto multiple rows versus staying on a single non-wrapping r
 Reversing the visual order of flex items on the row axis and on the column axis.
 
 ```html
-<section pgs="flex" pgs-option="flexColumn gapTexts">
-    <strong>Direction</strong>
-    <div pgs="flex" pgs-option="flexRowReverse gapTexts">
-        <span pgs="box">First in markup</span>
-        <span pgs="box">Second in markup</span>
-    </div>
-    <div pgs="flex" pgs-option="flexColumnReverse gapTexts">
-        <span pgs="box">First in markup</span>
-        <span pgs="box">Second in markup</span>
-    </div>
-</section>
+<strong>Direction</strong>
+<div pgs="flex" pgs-option="flexRowReverse gapTexts">
+    <span pgs="box">First in markup</span>
+    <span pgs="box">Second in markup</span>
+</div>
+<div pgs="flex" pgs-option="flexColumnReverse gapTexts">
+    <span pgs="box">First in markup</span>
+    <span pgs="box">Second in markup</span>
+</div>
 ```
 
 ### Alignment
@@ -161,14 +157,12 @@ Reversing the visual order of flex items on the row axis and on the column axis.
 Aligning and justifying flex items, including overriding a single child's alignment with selfEnd.
 
 ```html
-<section pgs="flex" pgs-option="flexColumn gapTexts">
-    <strong>Alignment</strong>
-    <div pgs="flex" pgs-option="flexRow gapTexts itemCenter justifyBetween contentCenter">
-        <span pgs="box">Short item</span>
-        <span pgs="box">Taller item<br>with two lines</span>
-        <span pgs="box" pgs-option="selfEnd">Self-aligned item</span>
-    </div>
-</section>
+<strong>Alignment</strong>
+<div pgs="flex" pgs-option="flexRow gapTexts itemCenter justifyBetween contentCenter">
+    <span pgs="box">Short item</span>
+    <span pgs="box">Taller item<br>with two lines</span>
+    <span pgs="box" pgs-option="selfEnd">Self-aligned item</span>
+</div>
 ```
 
 ### Flex children
@@ -176,15 +170,13 @@ Aligning and justifying flex items, including overriding a single child's alignm
 Sizing behavior of individual flex children: initial, none, grow, full width, and reordering.
 
 ```html
-<section pgs="flex" pgs-option="flexColumn gapTexts">
-    <strong>Flex children</strong>
-    <div pgs="flex" pgs-option="flexRow gapTexts wrap">
-        <span pgs="box flex-flexInitial">Initial</span>
-        <span pgs="box flex-flexNone">None</span>
-        <span pgs="box flex-flex1">Grow</span>
-        <span pgs="box flex-flexFull">Full width</span>
-        <span pgs="box flex-flexOrderLast">Last</span>
-        <span pgs="box flex-flexOrderFirst">First</span>
-    </div>
-</section>
+<strong>Flex children</strong>
+<div pgs="flex" pgs-option="flexRow gapTexts wrap">
+    <span pgs="box flex-flexInitial">Initial</span>
+    <span pgs="box flex-flexNone">None</span>
+    <span pgs="box flex-flex1">Grow</span>
+    <span pgs="box flex-flexFull">Full width</span>
+    <span pgs="box flex-flexOrderLast">Last</span>
+    <span pgs="box flex-flexOrderFirst">First</span>
+</div>
 ```

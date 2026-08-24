@@ -614,7 +614,24 @@ function extractScriptBlock(markup, typeValue) {
 }
 
 function stripDemoAttributesFromMarkup(html) {
-    return html.replace(/\s+demo(?:-title|-description)?\s*=\s*("[^"]*"|'[^']*')/g, "");
+    return html.replace(/\s+demo(?:-title|-description|-preview|-code)?\s*=\s*("[^"]*"|'[^']*')/g, "");
+}
+
+//+ an element that only groups the example for the demo is not part of the example: demo-code="children"
+//+ keeps it in the live preview but prints what is inside it instead of itself, as deep as it is repeated
+function unwrapScaffold(markup) {
+    let current = markup.trim();
+
+    while (true) {
+        const opening = current.match(/^<(\w+)([^>]*)>/);
+        if (!opening || !/\bdemo-code\s*=\s*(["'])children\1/.test(opening[2])) return current;
+
+        const end = findMatchingCloseTag(current, opening[1], opening[0].length);
+        if (end === -1) return current;
+
+        const closing = current.lastIndexOf("<", end - 1);
+        current = dedent(current.slice(opening[0].length, closing));
+    }
 }
 
 //+ finds the index right after the closing tag matching an opening tag of tagName starting at fromIndex,
@@ -688,7 +705,7 @@ function extractDemoItems(markup) {
         items.push({
             title: titleMatch ? titleMatch[2] : "",
             description: descriptionMatch ? descriptionMatch[2] : "",
-            markup: stripDemoAttributesFromMarkup(dedented).trim(),
+            markup: stripDemoAttributesFromMarkup(unwrapScaffold(dedented)).trim(),
         });
 
         openTagPattern.lastIndex = end;
@@ -752,7 +769,8 @@ function renderMarkdown(template, documentation, markup) {
     const { content: jsonSchema, markup: markupAfterJson } = extractScriptBlock(markup, "application/json");
     const { content: jsUsage, markup: cleanedMarkup } = extractScriptBlock(markupAfterJson, "text/x-example-js");
 
-    if (jsonSchema) sections.push("", "## JSON Schema", "", "```json", jsonSchema, "```", "");
+    //== the payload is the value of a pgs-option attribute, so print it as one
+    if (jsonSchema) sections.push("", "## PGS Option fields", "", "```html", `pgs-option='${jsonSchema}'`, "```", "");
     if (jsUsage) sections.push("", "## JavaScript Usage", "", "```js", jsUsage, "```", "");
 
     const exampleMarkup = stripDisabledElements(cleanedMarkup);

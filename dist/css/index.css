@@ -368,12 +368,12 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 :where([pgs~=bodyHeading]) h5 {
   font-family: var(--font-titoli);
-  --heading-size: 1.7rem;
+  --heading-size: 1.6rem;
   color: var(--color-black);
   margin-bottom: calc(var(--heading-size) / 8);
   font-size: var(--heading-size);
   min-width: 0;
-  font-weight: 900;
+  font-weight: 700;
   overflow-wrap: anywhere;
 }
 
@@ -523,12 +523,12 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 [pgs~=h5] {
   font-family: var(--font-titoli);
-  --heading-size: 1.7rem;
+  --heading-size: 1.6rem;
   color: var(--color-black);
   margin-bottom: calc(var(--heading-size) / 8);
   font-size: var(--heading-size);
   min-width: 0;
-  font-weight: 900;
+  font-weight: 700;
   overflow-wrap: anywhere;
 }
 
@@ -2192,6 +2192,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   align-items: start;
   justify-content: center;
   width: 100%;
+  position: relative;
   padding-inline: var(--pageShell-padding-inline);
   padding-bottom: var(--pageShell-padding-bottom);
   padding-top: var(--pageShell-padding-top);
@@ -2370,7 +2371,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=pageShell][pgs-option~=shellAsideScroll] [pgs~=pageShell-aside] {
   position: sticky;
   top: var(--pageShell-aside-top);
-  max-height: calc(100svh - var(--pageShell-padding-top));
+  max-height: calc(100svh - var(--pageShell-aside-top));
   overflow-y: auto;
   margin-top: calc(var(--pageShell-padding-top) * -1);
   scrollbar-color: transparent transparent;
@@ -5602,11 +5603,19 @@ dialog[pgs~=modal-dialog][pgs-option~=topLevel] [pgs~=modal-dialog-content] {
   width: min(600px, 100%);
 }
 
+dialog[pgs~=modal-dialog][pgs-option~=left] {
+  padding-inline: var(--gap-texts);
+}
+
 dialog[pgs~=modal-dialog][pgs-option~=left] [pgs~=modal-dialog-content] {
   margin-left: unset;
   margin-right: auto;
   width: min(400px, 100%);
   min-width: unset;
+}
+
+dialog[pgs~=modal-dialog][pgs-option~=right] {
+  padding-inline: var(--gap-texts);
 }
 
 dialog[pgs~=modal-dialog][pgs-option~=right] [pgs~=modal-dialog-content] {

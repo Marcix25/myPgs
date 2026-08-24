@@ -2,7 +2,7 @@
 
 # Search
 
-Search markup, configuration, behavior, and usage example.
+Search markup, configuration, behavior, and usage example. Two custom events bubble from the search root: pgs:search:select when a suggestion is chosen (detail: item, index, value, input, element) and pgs:search:error when the source rejects (detail: error, query), which also adds the error state. An aborted request is not an error and dispatches nothing.
 
 ## PGS
 

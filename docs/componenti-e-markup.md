@@ -6,7 +6,12 @@ Canonical component and layout examples are available in `reference/`. Use those
 
 Base:
 
+- [`body`](base/body.md)
+- [`general`](base/general.md)
+- [`heading`](base/heading.md)
 - [`color`](base/color.md)
+- [`darkmode`](base/darkmode.md)
+- [`svg`](base/svg.md)
 
 Componenti:
 
@@ -29,65 +34,28 @@ Componenti:
 - [`stepTabs`](components/stepTabs.md)
 - [`summary`](components/summary.md)
 - [`table`](components/table.md)
+- [`toast`](components/toast.md)
 - [`tooltip`](components/tooltip.md)
 
 Layout:
 
-- [`body`](base/body.md)
 - [`section`](layout/section.md)
 - [`header`](layout/header.md)
 - [`footer`](layout/footer.md)
 - [`pageShell`](layout/pageShell.md)
 - [`responsive`](layout/responsive.md)
+- [`breakpoints`](layout/breakpoints.md)
 - [`spacing`](layout/spacing.md)
+- [`utilities`](layout/utilities.md)
 
 Pattern:
 
 - [`cookieConsent`](patterns/cookieConsent.md)
 
-## Search with suggestions
+Helper JavaScript:
 
-`search` include sia lo stile sia il comportamento di ricerca e usa `search-suggestions` come lista opzionale:
-
-```html
-<form pgs="button search" pgs-option="buttonNohover" autocomplete="off">
-  <button type="submit">Cerca</button>
-  <input type="search" name="s" placeholder="Cerca">
-  <ul pgs="search-suggestions"></ul>
-</form>
-```
-
-The project provides the data source; `mypgs` does not depend on specific backend endpoints or formats:
-
-```js
-const form = pgs(document).querySelector("search");
-
-pgs.search.api(form)?.configure({
-  minLength: 2,
-  debounce: 200,
-  limit: 8,
-  source: async ({ query, signal, limit }) => {
-    const response = await fetch(`/api/suggestions?q=${encodeURIComponent(query)}&limit=${limit}`, { signal });
-    const payload = await response.json();
-
-    return payload.items.map(item => ({
-      label: item.title,
-      value: item.value,
-      data: item,
-    }));
-  },
-});
-```
-
-La sorgente puo' essere anche un array locale di stringhe o oggetti. Il componente gestisce debounce, annullamento richieste, risposte fuori ordine, tastiera, selezione, click esterno, stati `open`, `loading` ed `error` e attributi ARIA. Gli eventi `pgs:search:select` e `pgs:search:error` sono emessi sul root `search`.
-
-## Other elements without reference files
-
-Base:
-
-- `heading`
-- `boxtext`
-- `darkmode-lightmode`
-- `img`
-- `borderRadius`
-- `olther`
+- [`README`](helper/README.md)
+- [`pgs`](helper/pgs.md)
+- [`init`](helper/init.md)
+- [`formValidate`](helper/formValidate.md)
+- [`scrollHorizontal`](helper/scrollHorizontal.md)

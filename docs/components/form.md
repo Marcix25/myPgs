@@ -91,12 +91,12 @@ Complete HTML form with required fields and an example script for a custom rule,
     
     <label>
         <span pgs="label">Age</span>
-        <input pgs="input" type="number" name="age" placeholder="Enter your age" >
+        <input pgs="input" type="number" name="age" placeholder="Enter your age">
     </label>
     
     <label>
         <span pgs="label">Disabled </span>
-        <input disabled pgs="input" type="text" name="Disabled" placeholder="Disabled" >
+        <input disabled pgs="input" type="text" name="Disabled" placeholder="Disabled">
     </label>
 
     <label>

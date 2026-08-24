@@ -45,7 +45,7 @@ const fn_toast = {
     },
 
     _getDuration(toast) {
-        const rawDuration = toast.duration;
+        const rawDuration = toast.timeout ?? toast.duration;
         const duration = Number.parseInt(rawDuration, 10);
         return Number.isNaN(duration) ? undefined : duration;
     },
@@ -195,9 +195,9 @@ const fn_toast = {
     _dispatch(element) {
         this._getData(element).forEach(toast => {
             const title = String(toast.title || "").trim();
-            const description = String(toast.message || "").trim();
-            const linkTitle = String(toast["title-link"] || this._defaults.linkTitle).trim();
-            const closeTitle = String(toast["title-close"] || this._defaults.closeTitle).trim();
+            const description = String(toast.description ?? toast.message ?? "").trim();
+            const linkTitle = String(toast.linkTitle || toast["title-link"] || this._defaults.linkTitle).trim();
+            const closeTitle = String(toast.closeTitle || toast["title-close"] || this._defaults.closeTitle).trim();
 
             if (!title && !description) return;
 

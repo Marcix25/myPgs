@@ -57,14 +57,12 @@ One example per query type, resizing with the viewport and with a local containe
 hideMediaDown* and hideMediaUp* read the viewport width, so they answer to the browser window whatever the element is nested in. Resize the window to see them appear and disappear.
 
 ```html
-<section pgs="flexColumn" pgs-option="gapTexts">
-    <div pgs="flexRow" pgs-option="gapTexts wrap">
-        <span pgs="box hideMediaDownMobile">hideMediaDownMobile</span>
-        <span pgs="box hideMediaDownTablet">hideMediaDownTablet</span>
-        <span pgs="box hideMediaUpTablet">hideMediaUpTablet</span>
-        <span pgs="box hideMediaUpLaptop">hideMediaUpLaptop</span>
-    </div>
-</section>
+<div pgs="flexRow" pgs-option="gapTexts wrap">
+    <span pgs="box hideMediaDownMobile">hideMediaDownMobile</span>
+    <span pgs="box hideMediaDownTablet">hideMediaDownTablet</span>
+    <span pgs="box hideMediaUpTablet">hideMediaUpTablet</span>
+    <span pgs="box hideMediaUpLaptop">hideMediaUpLaptop</span>
+</div>
 ```
 
 ### Container visibility
@@ -72,14 +70,12 @@ hideMediaDown* and hideMediaUp* read the viewport width, so they answer to the b
 hideContainerDown* and hideContainerUp* read the width of the nearest ancestor marked pgs=&quot;container&quot;, so the same element reacts to the space it actually sits in rather than to the window. Mark that ancestor, or nothing will ever match.
 
 ```html
-<section pgs="flexColumn" pgs-option="gapTexts">
-    <div pgs="container">
-        <div pgs="flexRow" pgs-option="gapTexts wrap">
-            <span pgs="box hideContainerDownMobile">hideContainerDownMobile</span>
-            <span pgs="box hideContainerDownTablet">hideContainerDownTablet</span>
-            <span pgs="box hideContainerUpTablet">hideContainerUpTablet</span>
-            <span pgs="box hideContainerUpLaptop">hideContainerUpLaptop</span>
-        </div>
+<div pgs="container">
+    <div pgs="flexRow" pgs-option="gapTexts wrap">
+        <span pgs="box hideContainerDownMobile">hideContainerDownMobile</span>
+        <span pgs="box hideContainerDownTablet">hideContainerDownTablet</span>
+        <span pgs="box hideContainerUpTablet">hideContainerUpTablet</span>
+        <span pgs="box hideContainerUpLaptop">hideContainerUpLaptop</span>
     </div>
-</section>
+</div>
 ```

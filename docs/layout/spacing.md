@@ -53,15 +53,13 @@ Margin and padding usage examples using all available directions and spacing sca
 Configurable margin utilities on every side and axis, each paired with a spacing scale option.
 
 ```html
-<section pgs="flexColumn gapTexts">
-    <strong>Margin</strong>
-    <p pgs="marginLeft" pgs-option="marginTexts">Text spacing on the left.</p>
-    <p pgs="marginRight" pgs-option="marginElements">Element spacing on the right.</p>
-    <p pgs="marginBottom" pgs-option="marginSections">Section spacing below.</p>
-    <p pgs="marginTop" pgs-option="marginTexts">Text spacing above.</p>
-    <p pgs="marginInline" pgs-option="marginElements">Element spacing on the inline axis.</p>
-    <p pgs="marginBlock" pgs-option="marginSections">Section spacing on the block axis.</p>
-</section>
+<strong>Margin</strong>
+<p pgs="marginLeft" pgs-option="marginTexts">Text spacing on the left.</p>
+<p pgs="marginRight" pgs-option="marginElements">Element spacing on the right.</p>
+<p pgs="marginBottom" pgs-option="marginSections">Section spacing below.</p>
+<p pgs="marginTop" pgs-option="marginTexts">Text spacing above.</p>
+<p pgs="marginInline" pgs-option="marginElements">Element spacing on the inline axis.</p>
+<p pgs="marginBlock" pgs-option="marginSections">Section spacing on the block axis.</p>
 ```
 
 ### Scales
@@ -69,14 +67,12 @@ Configurable margin utilities on every side and axis, each paired with a spacing
 Besides the three text, element and section scales, the padding tokens and marginAuto are available on the same utilities.
 
 ```html
-<section pgs="flexColumn gapTexts">
-    <strong>Scales</strong>
-    <p pgs="marginLeft" pgs-option="margin2">Double padding on the left.</p>
-    <p pgs="marginLeft" pgs-option="marginPage">Page padding on the left.</p>
-    <p pgs="paddingInline" pgs-option="padding2">Double padding on the inline axis.</p>
-    <p pgs="paddingInline" pgs-option="paddingPage">Page padding on the inline axis.</p>
-    <p pgs="box marginInline" pgs-option="marginAuto">Centred by marginAuto.</p>
-</section>
+<strong>Scales</strong>
+<p pgs="marginLeft" pgs-option="margin2">Double padding on the left.</p>
+<p pgs="marginLeft" pgs-option="marginPage">Page padding on the left.</p>
+<p pgs="paddingInline" pgs-option="padding2">Double padding on the inline axis.</p>
+<p pgs="paddingInline" pgs-option="paddingPage">Page padding on the inline axis.</p>
+<p pgs="box marginInline" pgs-option="marginAuto">Centred by marginAuto.</p>
 ```
 
 ### Padding
@@ -84,13 +80,11 @@ Besides the three text, element and section scales, the padding tokens and margi
 Configurable padding utilities on every side and axis, each paired with a spacing scale option.
 
 ```html
-<section pgs="flexColumn gapTexts">
-    <strong>Padding</strong>
-    <p pgs="paddingLeft" pgs-option="paddingTexts">Text spacing on the left.</p>
-    <p pgs="paddingRight" pgs-option="paddingElements">Element spacing on the right.</p>
-    <p pgs="paddingBottom" pgs-option="paddingSections">Section spacing below.</p>
-    <p pgs="paddingTop" pgs-option="paddingTexts">Text spacing above.</p>
-    <p pgs="paddingInline" pgs-option="paddingElements">Element spacing on the inline axis.</p>
-    <p pgs="paddingBlock" pgs-option="paddingSections">Section spacing on the block axis.</p>
-</section>
+<strong>Padding</strong>
+<p pgs="paddingLeft" pgs-option="paddingTexts">Text spacing on the left.</p>
+<p pgs="paddingRight" pgs-option="paddingElements">Element spacing on the right.</p>
+<p pgs="paddingBottom" pgs-option="paddingSections">Section spacing below.</p>
+<p pgs="paddingTop" pgs-option="paddingTexts">Text spacing above.</p>
+<p pgs="paddingInline" pgs-option="paddingElements">Element spacing on the inline axis.</p>
+<p pgs="paddingBlock" pgs-option="paddingSections">Section spacing on the block axis.</p>
 ```

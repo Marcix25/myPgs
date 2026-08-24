@@ -6,6 +6,7 @@ html:has(dialog[open]) {
     // scrollbar-gutter: stable;
     cursor: pointer;
 }
+
 //= MODAL
 [pgs~="modal"] {
 
@@ -16,6 +17,9 @@ html:has(dialog[open]) {
     &[pgs-option~="disableBackdropClose"],
     &[pgs-option~="history"] {}
 }
+
+//= MODAL BUTTON
+[pgs="modal-button"] {}
 
 //= DIALOG
 dialog[pgs~="modal-dialog"] {
@@ -119,6 +123,8 @@ dialog[pgs~="modal-dialog"] {
 
     //== LEFT
     &[pgs-option~="left"] {
+        padding-inline: var(--gap-texts);
+
         [pgs~="modal-dialog-content"] {
             margin-left: unset;
             margin-right: auto;
@@ -129,6 +135,8 @@ dialog[pgs~="modal-dialog"] {
 
     //== RIGHT
     &[pgs-option~="right"] {
+        padding-inline: var(--gap-texts);
+
         [pgs~="modal-dialog-content"] {
             margin-left: auto;
             margin-right: unset;
@@ -147,6 +155,4 @@ dialog[pgs~="modal-dialog"] {
         position: fixed;
         inset: 0;
     }
-
-    [pgs="modal-button"]{}
 }

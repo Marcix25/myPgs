@@ -28,7 +28,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    background: #101114;
+    background: #2b2b2bb0;
     color: #f5f5f5;
     border-radius: 24px;
     padding: 28px 32px;
@@ -37,13 +37,42 @@ body {
         display: block;
         margin: 0;
         overflow-x: auto;
+        scrollbar-color: #2b2b2bb0 transparent;
+        scrollbar-width: thin;
+        scroll-padding: 10px;
 
         code {
             width: auto;
             overflow: visible;
-            color: inherit;
+            color: #e6e3e2;
             font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
             white-space: pre;
+        }
+    }
+}
+
+/* the three block kinds sit next to each other in the same panel, so each gets its own tint:
+   same family, enough separation to tell at a glance which one you are reading */
+.exampleSource[data-kind="json"] {
+    background: #091334;
+
+    pre {
+        scrollbar-color: #13286b transparent;
+
+        code {
+            color: #cdc7c4;
+        }
+    }
+}
+
+.exampleSource[data-kind="js"] {
+    background: #434200;
+
+    pre {
+        scrollbar-color: #706e00 transparent;
+
+        code {
+            color: #cdc7c4;
         }
     }
 }
@@ -55,10 +84,10 @@ body {
 
 .exampleSource-copy {
     position: absolute;
-    top: 24px;
-    right: 24px;
-    width: 40px;
-    height: 40px;
+    top: 20px;
+    right: 20px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     border: none;
     background: rgba(255, 255, 255, 0.12);

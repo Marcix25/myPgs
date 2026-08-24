@@ -20,7 +20,7 @@
  * - _cookieConsent-actionAccept: accepts all available cookies.
  *
  * @pgs-option
- * - cookieConsent: JSON object read from the hidden marker on page load — see the full field reference, with every optional field and its default, in the commented example below.
+ * - cookieConsent: JSON object read from the hidden marker on page load — every field, with its accepted values and its default, is annotated in the reference below.
  * - buttonStrong: presents full acceptance as the primary action.
  * - topLevel: centers the dialog with a backdrop instead of positioning it inline; see Modal.
  * - badgeSuccess: presents the essential-cookie badge with the success color; see Badges.
@@ -58,20 +58,21 @@
 
 <script type="application/json">
 cookieConsent[{
-    "titleIntro": "Cookies and privacy",
-    "titleHeading": "Your privacy comes first",
-    "description": "",
-    "privacyPolicyUrl": "/privacy-policy/",
-    "cookiePolicyUrl": "/cookie-policy/",
-    "panelAriaLabel": "Cookie preferences",
-    "essentialTitle": "Essential cookies",
+    // every field is optional and falls back to the value shown here, which is the library default
+    "titleIntro": "Cookies and privacy",            // small heading above the title
+    "titleHeading": "Your privacy comes first",     // title of the banner
+    "description": "",                              // body text; **double asterisks** turn bold and a newline becomes a line break
+    "privacyPolicyUrl": "/privacy-policy/",         // target of the Privacy Policy link
+    "cookiePolicyUrl": "/cookie-policy/",           // target of the Cookie Policy link
+    "panelAriaLabel": "Cookie preferences",         // accessible name of the preference group
+    "essentialTitle": "Essential cookies",          // title of the always-active row
     "essentialDescription": "Always active to ensure the website works correctly.",
-    "essentialBadge": "Active",
-    "analyticsTitle": "Analytics",
+    "essentialBadge": "Active",                     // text of the badge on that row
+    "analyticsTitle": "Analytics",                  // title of the optional row
     "analyticsDescription": "Browsing data collected in aggregate form for anonymous statistics.",
-    "analyticsAriaLabel": "Enable Google Analytics",
-    "titleReject": "Selected only",
-    "titleAccept": "Accept all",
-    "gaId": ""
+    "analyticsAriaLabel": "Enable Google Analytics",// accessible name of the toggle
+    "titleReject": "Selected only",                 // label of the button that saves the current choice
+    "titleAccept": "Accept all",                    // label of the button that accepts everything
+    "gaId": ""                                      // GA4 measurement ID; empty adds cookieConsent-gaUnavailable to the root
 }]
 </script>

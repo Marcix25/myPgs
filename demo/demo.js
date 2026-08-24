@@ -190,9 +190,10 @@ const demoRenderer = {
         return { data, markup: html.slice(match.index + match[0].length).trim() };
     },
 
-    renderExampleSource(section, markup, title = "Example HTML") {
+    renderExampleSource(section, markup, title = "Example HTML", kind = "html") {
         const wrapper = document.createElement("div");
         wrapper.className = "exampleSource";
+        wrapper.dataset.kind = kind;
 
         const heading = document.createElement("strong");
         heading.className = "exampleSource-title";
@@ -239,7 +240,7 @@ const demoRenderer = {
     },
 
     stripDemoAttributes(node) {
-        ["demo", "demo-title", "demo-description"].forEach(attribute => {
+        ["demo", "demo-title", "demo-description", "demo-preview", "demo-code"].forEach(attribute => {
             node.removeAttribute(attribute);
             node.querySelectorAll(`[${attribute}]`).forEach(el => el.removeAttribute(attribute));
         });
@@ -270,9 +271,13 @@ const demoRenderer = {
 
         this.renderDemoHeading(group, node.getAttribute("demo-title"), node.getAttribute("demo-description"), "h2");
 
-        //== the live preview always renders the full item, untouched by demo="disabled"
+        //== demo-preview="none" is the mirror of demo="disabled": markup that only carries a payload
+        //== is consumed on init (notificationLoad, toastLoad) and would leave an empty box behind.
+        //== It still has to reach the DOM though, because that copy is what the library reads and
+        //== turns into the real notification, so drop the styled box and keep the node out of sight.
+        const showPreview = node.getAttribute("demo-preview") !== "none";
         const preview = document.createElement("div");
-        preview.setAttribute("pgs", "container flexColumn gapElements");
+        preview.setAttribute("pgs", showPreview ? "container flexColumn gapElements" : "hidden");
         preview.append(this.stripDemoAttributes(node.cloneNode(true)));
         group.append(preview);
 
@@ -281,11 +286,92 @@ const demoRenderer = {
         if (node.getAttribute("demo") !== "disabled") {
             const codeClone = node.cloneNode(true);
             codeClone.querySelectorAll('[demo="disabled"]').forEach(el => el.remove());
-            this.stripDemoAttributes(codeClone);
-            this.renderExampleSource(group, codeClone.outerHTML.trim());
+
+            this.renderExampleSource(group, this.codeFor(codeClone));
         }
 
         section.append(group);
+    },
+
+    //== the HTML serializer always writes a boolean attribute as attr="", while the source has it
+    //== bare; an empty value is meaningful on any other attribute (alt="", value=""), so only these
+    //== may be shortened
+    BOOLEAN_ATTRIBUTES: [
+        "allowfullscreen", "async", "autofocus", "autoplay", "checked", "controls", "default", "defer",
+        "disabled", "formnovalidate", "hidden", "inert", "ismap", "itemscope", "loop", "multiple",
+        "muted", "novalidate", "open", "playsinline", "readonly", "required", "reversed", "selected",
+    ],
+
+    //== an element that only groups the example for the demo is not part of the example: it must
+    //== stay in the live preview but never reach the code someone copies, so demo-code="children"
+    //== prints what is inside it instead of itself, as deep as the marker is repeated. Taking the
+    //== inner markup rather than rebuilding it from the children keeps the author's own spacing,
+    //== which is what the markdown generator prints.
+    codeFor(element) {
+        if (element.getAttribute("demo-code") !== "children") {
+            this.stripDemoAttributes(element);
+            return this.serializeForDisplay(element);
+        }
+
+        element.querySelectorAll('[demo-code="children"]').forEach(inner => inner.replaceWith(...inner.childNodes));
+        this.stripDemoAttributes(element);
+        return this.dedentAll(this.unnormalizeSerialized(element.innerHTML)).trim();
+    },
+
+    //== unwrapping moves every line up by the same amount, unlike a serialized node whose first
+    //== line already sits at column zero
+    dedentAll(text) {
+        const lines = text.replace(/^\n/, "").replace(/\s+$/, "").split("\n");
+        const indents = lines.filter(line => line.trim()).map(line => line.match(/^[ \t]*/)[0].length);
+        const base = indents.length ? Math.min(...indents) : 0;
+
+        return lines.map(line => line.slice(base)).join("\n");
+    },
+
+    //= Undoes what the HTML serializer normalises, so a round-tripped node reads as its author wrote it.
+    unnormalizeSerialized(html) {
+        const boolean = new RegExp(`(\\s(?:${this.BOOLEAN_ATTRIBUTES.join("|")}))=""`, "gi");
+
+        //== a bare > in text is legal and common, and the serializer escapes it; &lt; and &amp; are
+        //== left alone because there the escaped form is what the author typed
+        return this.restoreSingleQuotedAttributes(html).replace(boolean, "$1").replace(/&gt;/g, ">");
+    },
+
+    //= Same, plus the dedent a single node needs because outerHTML keeps the source indentation.
+    serializeForDisplay(node) {
+        return this.dedentSerialized(this.unnormalizeSerialized(node.outerHTML.trim()));
+    },
+
+    //== outerHTML drops the node's own leading whitespace but keeps the source indentation on every
+    //== line after it, so the children and the closing tag come out one level too deep. Remove the
+    //== indentation the element itself had, which is the deepest prefix all those lines share, the
+    //== same result the markdown generator gets by reading the indent straight from the source.
+    dedentSerialized(html) {
+        const lines = html.split("\n");
+        if (lines.length < 2) return html;
+
+        const indents = lines.slice(1).filter(line => line.trim()).map(line => line.match(/^[ \t]*/)[0]);
+        if (!indents.length) return html;
+
+        const base = indents.reduce((common, indent) => {
+            let length = 0;
+            while (length < common.length && length < indent.length && common[length] === indent[length]) length++;
+            return common.slice(0, length);
+        });
+
+        if (!base) return html;
+
+        return lines.map((line, index) => index && line.startsWith(base) ? line.slice(base.length) : line).join("\n");
+    },
+
+    //== outerHTML always double-quotes attributes, so a JSON payload authored as
+    //== pgs-option='notification[{"a": 1}]' comes back with every inner quote escaped to &quot;.
+    //== Reading it back is what the markdown generator prints, so restore the single-quoted form.
+    restoreSingleQuotedAttributes(html) {
+        return html.replace(/(\s[\w-]+)="([^"]*&quot;[^"]*)"/g, (match, attribute, value) => {
+            const decoded = value.replace(/&quot;/g, '"');
+            return decoded.includes("'") ? match : `${attribute}='${decoded}'`;
+        });
     },
 
     //= Splits markup tagged with demo="component"/demo="item" into one live-preview + code pair per item,
@@ -303,7 +389,7 @@ const demoRenderer = {
             this.renderReference(section, path, markup);
 
             const codeMarkup = this.stripDisabled(markup);
-            if (codeMarkup) this.renderExampleSource(section, codeMarkup);
+            if (codeMarkup) this.renderExampleSource(section, this.unnormalizeSerialized(codeMarkup));
             return;
         }
 
@@ -582,8 +668,10 @@ const demoRenderer = {
                 const { content: jsonSchema, markup: afterJson } = this.extractScriptBlock(markup, "application/json");
                 const { content: jsUsage, markup: exampleMarkup } = this.extractScriptBlock(afterJson, "text/x-example-js");
 
-                if (jsonSchema) this.renderExampleSource(section, jsonSchema, "JSON Schema");
-                if (jsUsage) this.renderExampleSource(section, jsUsage, "JavaScript Usage");
+                //== the payload is the value of a pgs-option attribute, and printing it bare left no
+                //== trace of that: wrapping it says where it goes and makes the copy button usable
+                if (jsonSchema) this.renderExampleSource(section, `pgs-option='${jsonSchema}'`, "PGS Option fields", "json");
+                if (jsUsage) this.renderExampleSource(section, jsUsage, "JavaScript Usage", "js");
 
                 if (this.isDocumentMarkup(exampleMarkup)) {
                     this.renderExampleSource(section, exampleMarkup.trim());

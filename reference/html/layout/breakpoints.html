@@ -44,7 +44,7 @@
 
 <div pgs="flexColumn" pgs-option="gapSections" demo="component">
 
-    <section pgs="flexColumn" pgs-option="gapTexts" demo="item" demo-title="Viewport visibility" demo-description="hideMediaDown* and hideMediaUp* read the viewport width, so they answer to the browser window whatever the element is nested in. Resize the window to see them appear and disappear.">
+    <section pgs="flexColumn" pgs-option="gapTexts" demo="item" demo-code="children" demo-title="Viewport visibility" demo-description="hideMediaDown* and hideMediaUp* read the viewport width, so they answer to the browser window whatever the element is nested in. Resize the window to see them appear and disappear.">
         <div pgs="flexRow" pgs-option="gapTexts wrap">
             <span pgs="box hideMediaDownMobile">hideMediaDownMobile</span>
             <span pgs="box hideMediaDownTablet">hideMediaDownTablet</span>
@@ -53,7 +53,7 @@
         </div>
     </section>
 
-    <section pgs="flexColumn" pgs-option="gapTexts" demo="item" demo-title="Container visibility" demo-description="hideContainerDown* and hideContainerUp* read the width of the nearest ancestor marked pgs=&quot;container&quot;, so the same element reacts to the space it actually sits in rather than to the window. Mark that ancestor, or nothing will ever match.">
+    <section pgs="flexColumn" pgs-option="gapTexts" demo="item" demo-code="children" demo-title="Container visibility" demo-description="hideContainerDown* and hideContainerUp* read the width of the nearest ancestor marked pgs=&quot;container&quot;, so the same element reacts to the space it actually sits in rather than to the window. Mark that ancestor, or nothing will ever match.">
         <div pgs="container">
             <div pgs="flexRow" pgs-option="gapTexts wrap">
                 <span pgs="box hideContainerDownMobile">hideContainerDownMobile</span>

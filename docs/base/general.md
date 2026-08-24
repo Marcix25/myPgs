@@ -49,14 +49,12 @@ One example per utility, grouped by radius, shadow, interaction, images and colo
 The same line drawn two ways: border takes space in the layout, outline sits outside the box and takes none. Pair them with a br* or ol* utility from Colors to recolour them.
 
 ```html
-<section pgs="flexColumn" pgs-option="gapTexts">
-    <div pgs="flexRow" pgs-option="gapTexts">
-        <span pgs="box border">border</span>
-        <span pgs="box border brPrimary">border + brPrimary</span>
-        <span pgs="box border brError">border + brError</span>
-        <span pgs="box outline olPrimary">outline + olPrimary</span>
-    </div>
-</section>
+<div pgs="flexRow" pgs-option="gapTexts">
+    <span pgs="box border">border</span>
+    <span pgs="box border brPrimary">border + brPrimary</span>
+    <span pgs="box border brError">border + brError</span>
+    <span pgs="box outline olPrimary">outline + olPrimary</span>
+</div>
 ```
 
 ### Border radius
@@ -64,13 +62,11 @@ The same line drawn two ways: border takes space in the layout, outline sits out
 Three radius tokens: the standard one, the smaller one used by form controls and the wider one for outer containers.
 
 ```html
-<section pgs="flexColumn" pgs-option="gapTexts">
-    <div pgs="flexRow" pgs-option="gapTexts">
-        <span pgs="box border borderRadius">borderRadius</span>
-        <span pgs="box border borderRadiusInput">borderRadiusInput</span>
-        <span pgs="box border borderRadiusExternal">borderRadiusExternal</span>
-    </div>
-</section>
+<div pgs="flexRow" pgs-option="gapTexts">
+    <span pgs="box border borderRadius">borderRadius</span>
+    <span pgs="box border borderRadiusInput">borderRadiusInput</span>
+    <span pgs="box border borderRadiusExternal">borderRadiusExternal</span>
+</div>
 ```
 
 ### Shadow
@@ -78,12 +74,10 @@ Three radius tokens: the standard one, the smaller one used by form controls and
 The shared shadow tokens, one for a surface and one for text.
 
 ```html
-<section pgs="flexColumn" pgs-option="gapTexts">
-    <div pgs="flexRow" pgs-option="gapTexts">
-        <span pgs="box boxShadow">boxShadow</span>
-        <strong pgs="textShadow">textShadow</strong>
-    </div>
-</section>
+<div pgs="flexRow" pgs-option="gapTexts">
+    <span pgs="box boxShadow">boxShadow</span>
+    <strong pgs="textShadow">textShadow</strong>
+</div>
 ```
 
 ### Interaction
@@ -91,17 +85,15 @@ The shared shadow tokens, one for a surface and one for text.
 Pointer cursor on a non-control surface, the shared hover treatment, and a full reset to build a control from scratch.
 
 ```html
-<section pgs="flexColumn" pgs-option="gapTexts">
-    <div pgs="flexRow" pgs-option="gapTexts">
-        <span pgs="box pointer">pointer</span>
+<div pgs="flexRow" pgs-option="gapTexts">
+    <span pgs="box pointer">pointer</span>
 
-        <a pgs="box hover" href="#">
-            <strong pgs="hover-text">hover + hover-text</strong>
-        </a>
+    <a pgs="box hover" href="#">
+        <strong pgs="hover-text">hover + hover-text</strong>
+    </a>
 
-        <button pgs="appearanceNone pointer" type="button">appearanceNone</button>
-    </div>
-</section>
+    <button pgs="appearanceNone pointer" type="button">appearanceNone</button>
+</div>
 ```
 
 ### Image fitting
@@ -109,12 +101,10 @@ Pointer cursor on a non-control surface, the shared hover treatment, and a full 
 imgContain keeps the whole image inside the box, imgCover crops it to fill the box.
 
 ```html
-<section pgs="flexColumn" pgs-option="gapTexts">
-    <div pgs="flexRow" pgs-option="gapTexts">
-        <img pgs="imgContain borderRadius" src="https://placehold.co/600x300?text=imgContain" alt="Contained image" style="width: 220px; height: 140px;">
-        <img pgs="imgCover borderRadius" src="https://placehold.co/600x300?text=imgCover" alt="Cropped image" style="width: 220px; height: 140px;">
-    </div>
-</section>
+<div pgs="flexRow" pgs-option="gapTexts">
+    <img pgs="imgContain borderRadius" src="https://placehold.co/600x300?text=imgContain" alt="Contained image" style="width: 220px; height: 140px;">
+    <img pgs="imgCover borderRadius" src="https://placehold.co/600x300?text=imgCover" alt="Cropped image" style="width: 220px; height: 140px;">
+</div>
 ```
 
 ### Forced colour scheme
@@ -122,10 +112,8 @@ imgContain keeps the whole image inside the box, imgCover crops it to fill the b
 Pins a subtree to one colour scheme, ignoring the current page theme.
 
 ```html
-<section pgs="flexColumn" pgs-option="gapTexts">
-    <div pgs="flexRow" pgs-option="gapTexts">
-        <div pgs="box lightmode">lightmode</div>
-        <div pgs="box darkmode">darkmode</div>
-    </div>
-</section>
+<div pgs="flexRow" pgs-option="gapTexts">
+    <div pgs="box lightmode">lightmode</div>
+    <div pgs="box darkmode">darkmode</div>
+</div>
 ```
