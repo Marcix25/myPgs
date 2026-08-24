@@ -369,6 +369,8 @@
 
     //=== LABEL
     label {
+        display: block;
+
         &:not(:has([pgs~=label], [pgs~=labelUnset], +input[type=checkbox], +input[type=radio])) {
             &:has(+input, +select, +textarea) {
                 @include label();

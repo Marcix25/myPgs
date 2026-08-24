@@ -27,13 +27,13 @@ Complete HTML table wrapped in the dedicated PGS container.
 
         <tbody>
             <tr>
-                <td>Elemento uno</td>
+                <td>First item</td>
                 <td>Active</td>
                 <td>2026-01-01</td>
             </tr>
             <tr>
-                <td>Elemento due</td>
-                <td>Bozza</td>
+                <td>Second item</td>
+                <td>Draft</td>
                 <td>2026-02-01</td>
             </tr>
         </tbody>

@@ -12,12 +12,12 @@
 
 //== BUTTON BASE
 @mixin buttonBase() {
-    --button-primaryColor: var(--color-primary);
+    --button-primaryColor: var(--color-primary-strong);
     /// color
     --button-color: var(--color-black);
-    --button-color-strong: var(--color-whiteFixed);
-    --button-color-current: var(--color-whiteFixed);
-    --button-color-active: var(--color-whiteFixed);
+    --button-color-strong: var(--color-white);
+    --button-color-current: var(--color-white);
+    --button-color-active: var(--color-white);
     /// background
     --button-background: var(--color-box);
     --button-background-strong: var(--button-primaryColor);

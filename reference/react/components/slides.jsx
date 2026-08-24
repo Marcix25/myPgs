@@ -1,6 +1,6 @@
 const slides = [
-    ["Slide uno", "First slide content.", "https://placehold.co/800x500?text=Slide+1", "Slide 1"],
-    ["Slide due", "Second slide content.", "https://placehold.co/800x500?text=Slide+2", "Slide 2"],
+    ["First slide", "First slide content.", "https://placehold.co/800x500?text=Slide+1", "Slide 1"],
+    ["Second slide", "Second slide content.", "https://placehold.co/800x500?text=Slide+2", "Slide 2"],
     ["Slide tre", "Third slide content.", "https://placehold.co/800x500?text=Slide+3", "Slide 3"],
 ];
 

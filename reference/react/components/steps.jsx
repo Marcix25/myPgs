@@ -1,7 +1,7 @@
 const steps = [
-    ["1", "Primo step", "Descrizione del primo passaggio."],
-    ["2", "Secondo step", "Descrizione del secondo passaggio."],
-    ["3", "Terzo step", "Descrizione del terzo passaggio."],
+    ["1", "First step", "What happens in the first step."],
+    ["2", "Second step", "What happens in the second step."],
+    ["3", "Third step", "What happens in the third step."],
 ];
 
 export default function Steps() {

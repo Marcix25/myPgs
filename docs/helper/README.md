@@ -1,22 +1,22 @@
 # JavaScript helpers
 
-Gli helper raccolgono comportamenti riutilizzabili che non rappresentano componenti autonomi. Sono registrati su `pgs` dall'entrypoint della libreria e possono essere utilizzati dopo:
+Helpers collect reusable behaviour that is not a component of its own. They are registered on `pgs` by the library entrypoint and are available after:
 
 ```js
 import "mypgs";
 ```
 
-Per accedere anche alla funzione `pgs(root)`:
+To reach the `pgs(root)` function as well:
 
 ```js
 import { pgs } from "mypgs";
 ```
 
-## Helper disponibili
+## Available helpers
 
-- [`pgs(root)`](pgs.md): ricerca e modifica token, stati e opzioni PGS.
-- [`pgs.init(root)`](init.md): inizializza automaticamente i componenti aggiunti tramite JavaScript, JSX o richieste asincrone.
-- [`pgs.formValidate`](formValidate.md): validazione dei form, messaggi, regole personalizzate ed errori esterni.
-- [`pgs.scrollHorizontal`](scrollHorizontal.md): converte lo scroll verticale della rotella in scorrimento orizzontale quando il contenitore può scorrere.
+- [`pgs(root)`](pgs.md): finds and edits PGS tokens, states and options.
+- [`pgs.init(root)`](init.md): initializes components added through JavaScript, JSX or an asynchronous request.
+- [`pgs.formValidate`](formValidate.md): form validation, messages, custom rules and external errors.
+- [`pgs.scrollHorizontal`](scrollHorizontal.md): turns vertical wheel movement into horizontal scrolling while the container can still scroll.
 
-I sorgenti degli helper si trovano in `assets/javascript/helper/`.
+The helper sources live in `assets/javascript/helper/`.

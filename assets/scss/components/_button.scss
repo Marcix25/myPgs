@@ -41,7 +41,7 @@
     }
 
     &[pgs-option~=buttonSecondary] {
-        --button-primaryColor: var(--color-secondary);
+        --button-primaryColor: var(--color-secondary-strong);
 
         &:hover {
             --hover-primaryColor: var(--color-secondary-strong);
@@ -49,7 +49,7 @@
     }
 
     &[pgs-option~=buttonTertiary] {
-        --button-primaryColor: var(--color-tertiary);
+        --button-primaryColor: var(--color-tertiary-strong);
 
         &:hover {
             --hover-primaryColor: var(--color-tertiary-strong);
@@ -57,7 +57,7 @@
     }
 
     &[pgs-option~=buttonQuaternary] {
-        --button-primaryColor: var(--color-quaternary);
+        --button-primaryColor: var(--color-quaternary-strong);
 
         &:hover {
             --hover-primaryColor: var(--color-quaternary-strong);

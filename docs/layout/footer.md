@@ -57,7 +57,7 @@ Complete footer HTML structure with brand, menu, and legal area.
                 <nav aria-label="Menu footer">
                     <ul>
                         <li><a href="/">Home</a></li>
-                        <li><a href="/contatti">Contatti</a></li>
+                        <li><a href="/contatti">Contacts</a></li>
                     </ul>
                 </nav>
             </div>

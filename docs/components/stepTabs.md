@@ -32,7 +32,7 @@ Step Tabs markup, configuration, behavior, and usage example.
 
 - `pgs.stepTabs.init(root)`: initializes matching elements within the specified root.
 - `pgs.stepTabs.api(element)`: returns the instance associated with the specified initialized element.
-- `instance.restart()`: torna al primo tab e ripristina i blocchi dichiarati inizialmente.
+- `instance.restart()`: returns to the first tab and restores the locks declared in the markup.
 - `instance.goTo(index, scroll)`: provides the documented operation through the component public API.
 - `instance.next()`: moves to the next item.
 - `instance.prev()`: moves to the previous item.

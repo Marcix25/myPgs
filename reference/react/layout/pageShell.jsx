@@ -15,7 +15,7 @@ function Aside() {
 function MainContent() {
     return (
         <main pgs="pageShell-content">
-            <section pgs="flexColumn gapElements" id="sezione-uno">
+            <section pgs="flexColumn gapElements" id="section-one">
                 <strong>Lorem ipsum</strong>
                 <p>{contentText}</p>
             </section>

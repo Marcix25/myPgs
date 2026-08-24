@@ -1,6 +1,6 @@
 # JavaScript helper
 
-`pgs(root)` permette di cercare e modificare token PGS senza scrivere selettori manuali:
+`pgs(root)` finds and edits PGS tokens without writing selectors by hand:
 
 ```js
 const modal = pgs(document).querySelector("modal");
@@ -11,22 +11,22 @@ pgs(modal).remove("custom-token");
 pgs(modal).toggle("custom-token", true);
 ```
 
-## API dell'helper `pgs`
+## The `pgs` helper API
 
-Ricerca disponibile su `Document` ed `Element`:
+Search, available on `Document` and `Element`:
 
-- `pgs(root).querySelector(token)`: restituisce il primo discendente che contiene il token `pgs` richiesto.
-- `pgs(root).querySelectorAll(token)`: restituisce tutti i discendenti corrispondenti; accetta anche un array o token separati da virgola.
+- `pgs(root).querySelector(token)`: returns the first descendant carrying the requested `pgs` token.
+- `pgs(root).querySelectorAll(token)`: returns every matching descendant; also accepts an array or comma-separated tokens.
 
-Manipulation available when `root` è un `Element`:
+Manipulation, available when `root` is an `Element`:
 
-- `pgs(element).add(...tokens)`: aggiunge token evitando duplicati e restituisce l'helper.
-- `pgs(element).remove(...tokens)`: rimuove i token indicati e restituisce l'helper.
-- `pgs(element).toggle(token, force)`: inverte o forza la presenza del token e restituisce lo stato risultante.
-- `pgs(element).contains(token)`: verifica la presenza esatta del token.
-- `pgs(element).value`: legge o sostituisce il valore completo dell'attributo `pgs`.
+- `pgs(element).add(...tokens)`: adds tokens without duplicating them and returns the helper.
+- `pgs(element).remove(...tokens)`: removes the given tokens and returns the helper.
+- `pgs(element).toggle(token, force)`: flips or forces the token and returns the resulting state.
+- `pgs(element).contains(token)`: checks for the exact token.
+- `pgs(element).value`: reads or replaces the whole `pgs` attribute.
 
-Stati runtime:
+Runtime states:
 
 ```js
 pgs(modal).state.add("open");
@@ -34,26 +34,26 @@ pgs(modal).state.toggle("open", false);
 pgs(modal).state.contains("open");
 ```
 
-- `state.add(...states)` oppure `state(...states)`: aggiunge uno o più stati.
-- `state.remove(...states)`: rimuove gli stati indicati.
-- `state.toggle(state, force)`: inverte o forza uno stato e restituisce il risultato.
-- `state.contains(state)`: verifica se lo stato è presente.
-- `state.value`: legge o sostituisce l'intero attributo `pgs-state`.
+- `state.add(...states)`, or `state(...states)`: adds one or more states.
+- `state.remove(...states)`: removes the given states.
+- `state.toggle(state, force)`: flips or forces a state and returns the result.
+- `state.contains(state)`: checks whether the state is present.
+- `state.value`: reads or replaces the whole `pgs-state` attribute.
 
-Opzioni:
+Options:
 
 ```js
 pgs(modal).option.contains("history");
 pgs(modal).option.getValueBrackets("containerID");
 ```
 
-- `option.add(...options)`: aggiunge opzioni semplici o parametrizzate.
-- `option.remove(...keys)`: rimuove le opzioni usando la relativa chiave.
-- `option.toggle(option, force)`: inverte o forza un'opzione.
-- `option.contains(key)`: verifica la presenza di una chiave anche quando possiede un payload.
-- `option.getValueBrackets(key)`: restituisce il contenuto tra parentesi quadre oppure `undefined`.
-- `option.setValueBrackets(key, value)`: imposta o sostituisce una singola opzione parametrizzata.
-- `option.value`: legge o sostituisce l'intero attributo `pgs-option`.
+- `option.add(...options)`: adds plain or parameterized options.
+- `option.remove(...keys)`: removes options by their key.
+- `option.toggle(option, force)`: flips or forces an option.
+- `option.contains(key)`: checks for a key even when it carries a payload.
+- `option.getValueBrackets(key)`: returns what is inside the square brackets, or `undefined`.
+- `option.setValueBrackets(key, value)`: sets or replaces a single parameterized option.
+- `option.value`: reads or replaces the whole `pgs-option` attribute.
 
 Example markup with options:
 
@@ -64,34 +64,34 @@ Example markup with options:
 
 ## Automatically initialized JavaScript
 
-Importando `mypgs`, l'entrypoint inizializza:
+Importing `mypgs` initializes:
 
-- helper globale `pgs`
+- the global `pgs` helper
 - dark mode
-- gestione object SVG
+- SVG object handling
 - accordion
 - dropdown
 - menu
-- modali
+- modals
 - slides
 - steps
 - step tabs
-- notifiche
-- search con suggerimenti opzionali
+- notifications
+- search with optional suggestions
 - header
 - cookie consent
 
-I componenti inizializzati usano `WeakMap` interne per esporre API di istanza.
+Components with instances use internal `WeakMap`s to expose their instance API.
 
-## API dei moduli
+## Module API
 
-I moduli principali sono registrati in `assets/javascript/_imports.js` in due modi.
+The main modules are registered in `assets/javascript/_imports.js` in two ways.
 
-`pgs.init(root)` inizializza i moduli registrati nell'ordine in cui compaiono in `registerModules(...)`: se un modulo usa l'API di un altro durante il proprio `init` (es. `cookieConsent` che chiama `pgs.modal.api(...)`), quello richiesto va elencato prima.
+`pgs.init(root)` initializes the registered modules in the order they appear in `registerModules(...)`: when a module uses another one's API during its own `init` (for example `cookieConsent` calling `pgs.modal.api(...)`), the one it needs has to be listed first.
 
-### Registro diretto
+### Direct registry
 
-Serve per usare i moduli direttamente da `pgs`:
+This is what makes the modules reachable straight from `pgs`:
 
 ```js
 pgs.registerModules({
@@ -115,10 +115,10 @@ pgs.registerModules({
 });
 ```
 
-Uso consigliato:
+Recommended usage:
 
 ```js
-pgs.toast.success({ title: "Salvato" });
+pgs.toast.success({ title: "Saved" });
 pgs.modal.api(modalEl)?.open();
 pgs.dropdown.api(dropdownEl)?.close();
 pgs.slides.api(slidesEl)?.next();
@@ -146,38 +146,38 @@ Shortcuts available after `import "mypgs"`:
 
 ## Component API reference
 
-Le firme, i parametri e la funzione di ogni metodo sono generati dai commenti nei riferimenti HTML:
+The signature, the parameters and the purpose of every method are generated from the comments in the HTML references:
 
-- [Accordion](../components/accordion.md#api-javascript)
-- [Dropdown](../components/dropdown.md#api-javascript)
-- [Form validation](../components/form.md#api-javascript)
-- [Menu](../components/menu.md#api-javascript)
-- [Modal](../components/modal.md#api-javascript)
-- [Notification](../components/notification.md#api-javascript)
-- [Toast](../components/toast.md#api-javascript)
-- [Search](../components/search.md#api-javascript)
-- [Slides](../components/slides.md#api-javascript)
-- [Step Tabs](../components/stepTabs.md#api-javascript)
-- [Steps](../components/steps.md#api-javascript)
-- [Summary](../components/summary.md#api-javascript)
-- [Tooltip tramite Dropdown](../components/tooltip.md#api-javascript)
+- [Accordion](../components/accordion.md#javascript-api)
+- [Dropdown](../components/dropdown.md#javascript-api)
+- [Form validation](../components/form.md#javascript-api)
+- [Menu](../components/menu.md#javascript-api)
+- [Modal](../components/modal.md#javascript-api)
+- [Notification](../components/notification.md#javascript-api)
+- [Toast](../components/toast.md#javascript-api)
+- [Search](../components/search.md#javascript-api)
+- [Slides](../components/slides.md#javascript-api)
+- [Step Tabs](../components/stepTabs.md#javascript-api)
+- [Steps](../components/steps.md#javascript-api)
+- [Summary](../components/summary.md#javascript-api)
+- [Tooltip, through Dropdown](../components/tooltip.md#javascript-api)
 
-I componenti non elencati non espongono attualmente un'API JavaScript specifica.
+The components that are not listed expose no JavaScript API of their own.
 
-## Utility JavaScript pubbliche
+## Public JavaScript utilities
 
-- `pgs.init(root)`: rileva automaticamente i moduli registrati che espongono `init(root)` e inizializza il markup aggiunto dinamicamente.
-- `pgs.cookieConsent.init(root)`: inizializza il pattern cookie consent presente nel `Document` o `Element` indicato senza duplicare i listener.
-- `pgs.darkmode.init(root)`: inizializza i controlli `toggleDarkmode` presenti nel `Document` o `Element` indicato senza duplicare i listener già applicati.
-- `pgs.scrollHorizontal(element, speed)`: converte lo scroll verticale della rotella in scorrimento orizzontale quando il contenitore può ancora muoversi nella direzione richiesta e restituisce una funzione che rimuove il listener.
-- `pgs.svg.init()`: aggiorna insieme i colori degli SVG e dei player Lottie presenti nella pagina.
-- `pgs.svg.applyColorsSVG(isDarkMode)`: aggiorna i colori degli SVG caricati tramite `object` e marcati con `svgChangeColor`.
-- `pgs.svg.applyColorsLottie(isDarkMode)`: aggiorna i colori degli SVG interni ai player Lottie marcati con `lottieChangeColor`.
-- `pgs.svg.eventChangeColor`: contiene il nome dell'evento `pgs:svg:changeColor` ascoltato dal modulo SVG.
+- `pgs.init(root)`: finds the registered modules that expose `init(root)` and initializes markup added dynamically.
+- `pgs.cookieConsent.init(root)`: initializes the cookie consent pattern inside the given `Document` or `Element` without duplicating listeners.
+- `pgs.darkmode.init(root)`: initializes the `toggleDarkmode` controls inside the given `Document` or `Element` without duplicating listeners already applied.
+- `pgs.scrollHorizontal(element, speed)`: turns vertical wheel movement into horizontal scrolling while the container can still move in the requested direction, and returns a function that removes the listener.
+- `pgs.svg.init()`: refreshes the colours of the SVG files and the Lottie players on the page together.
+- `pgs.svg.applyColorsSVG(isDarkMode)`: refreshes the colours of the SVG files loaded through `object` and marked with `svgChangeColor`.
+- `pgs.svg.applyColorsLottie(isDarkMode)`: refreshes the colours of the SVG inside the Lottie players marked with `lottieChangeColor`.
+- `pgs.svg.eventChangeColor`: holds the name of the `pgs:svg:changeColor` event the SVG module listens for.
 
 ## Component module structure
 
-I componenti con istanze seguono questo schema:
+Components with instances follow this shape:
 
 ```js
 export const PGS_modal = {
@@ -186,80 +186,80 @@ export const PGS_modal = {
 };
 ```
 
-Le funzioni `PGS_modal_init` e `PGS_modal_api` restano interne al modulo: l'unico export del file è `PGS_modal`. Lo stesso criterio vale per gli altri componenti.
+`PGS_modal_init` and `PGS_modal_api` stay internal to the module: the only export of the file is `PGS_modal`. The same applies to the other components.
 
-- `init`: inizializza o reinizializza il markup nel `Document` o `Element` ricevuto; senza argomenti usa `document`.
-- `api`: recupera l'API di una singola istanza gia' inizializzata.
+- `init`: initializes or re-initializes the markup in the `Document` or `Element` it receives; with no argument it uses `document`.
+- `api`: returns the API of a single already-initialized instance.
 
-Esempio:
+Example:
 
 ```js
 pgs.modal.init();
 pgs.modal.api(modalEl)?.open();
 ```
 
-`PGS_notification` e `PGS_toast` sono un caso diverso: funzionano più come service/helper che come istanze, non hanno `api(element)`, e vanno usati tramite `pgs.notification.*`/`pgs.toast.*` (vedi sotto). La forma pre-split `pgs.notification.alert.*`/`pgs.notification.toast.*` resta ancora disponibile ma solo per retrocompatibilità: nel codice nuovo usa direttamente `pgs.notification.*` per il pannello persistente e `pgs.toast.*` per il messaggio effimero.
+`PGS_notification` and `PGS_toast` are a different case: they behave more like services than instances, they have no `api(element)`, and they are used through `pgs.notification.*` and `pgs.toast.*` (see below). The pre-split form `pgs.notification.alert.*` / `pgs.notification.toast.*` still works, but only for backward compatibility: in new code use `pgs.notification.*` for the persistent panel and `pgs.toast.*` for the ephemeral message.
 
-### Notification e Toast
+### Notification and Toast
 
-`pgs.notification` è un pannello persistente di messaggi, apribile/chiudibile con `notificationBell`, con dismissione solo manuale. `pgs.toast` è un messaggio effimero mostrato uno alla volta, con auto-dismissione dopo `timeout`. Sono due moduli indipendenti: vedi [Notification](../components/notification.md) e [Toast](../components/toast.md) per il markup dichiarativo completo.
+`pgs.notification` is a persistent panel of messages, opened and closed with `notificationBell` and dismissed only by hand. `pgs.toast` is an ephemeral message shown one at a time, dismissing itself after `timeout`. They are two independent modules: see [Notification](../components/notification.md) and [Toast](../components/toast.md) for the complete declarative markup.
 
-Il pannello di `pgs.notification` vive dentro una `<dialog>` gestita da `pgs.modal`. Basta autorare il wrapper con la campanella, senza dialog dentro:
+The `pgs.notification` panel lives inside a `<dialog>` managed by `pgs.modal`. Author only the wrapper with the bell, with no dialog inside it:
 
 ```html
 <div pgs="modal">
-    <button pgs="modal-button button notificationBell" pgs-option="buttonIcon" aria-label="Apri notifiche">
+    <button pgs="modal-button button notificationBell" pgs-option="buttonIcon" aria-label="Open notifications">
         <i class="fa-duotone fa-solid fa-bell"></i>
         <span pgs="notificationBell-counter"></span>
     </button>
 </div>
 ```
 
-Alla prima notifica, `pgs.notification` genera da solo `<dialog pgs-option="right"><div pgs="modal-dialog-content"><div pgs="notifications"></div></div></dialog>` dentro quel wrapper e richiama `pgs.modal.init()` per attivarlo — apertura/chiusura/il chiudersi quando apri un altro dialog sulla pagina sono gestiti interamente da `pgs.modal`, non da `pgs.notification`. `pgs.toast` non usa nessun dialog/modal: resta un div fisso indipendente come prima.
+At the first notification, `pgs.notification` generates `<dialog pgs-option="right"><div pgs="modal-dialog-content"><div pgs="notifications"></div></div></dialog>` inside that wrapper on its own and calls `pgs.modal.init()` to activate it — opening, closing and closing when another dialog opens on the page are handled entirely by `pgs.modal`, not by `pgs.notification`. `pgs.toast` uses no dialog and no modal: it stays an independent fixed container as before.
 
 ```js
 pgs.notification.success({
-    title: "Salvato",
-    description: "Le modifiche sono state salvate.",
+    title: "Saved",
+    description: "Your changes have been saved.",
     buttons: [
-        { title: "Vai al profilo", link: "/profilo" },
-        { id: "yes", title: "Si" },
+        { title: "Go to profile", link: "/profile" },
+        { id: "yes", title: "Yes" },
         { id: "no", title: "No" },
-        { id: "close", title: "Chiudi", close: true }
+        { id: "close", title: "Close", close: true }
     ]
 });
 
-pgs.toast.success({ title: "Salvato" });
+pgs.toast.success({ title: "Saved" });
 ```
 
-Ogni voce di `buttons` (solo su `pgs.notification`, `pgs.toast` non lo supporta) accetta:
+Every entry of `buttons` (only on `pgs.notification`, `pgs.toast` does not support it) accepts:
 
-- `id` (opzionale): usato nell'evento `buttonClick`; se assente viene generato automaticamente.
-- `title` (obbligatorio): testo del bottone.
-- `link` (opzionale): se presente il bottone è un `<a href>` che naviga normalmente; se assente è un `<button>` senza navigazione.
-- `close` (opzionale, default `true`): se non impostato a `false`, il click chiude anche la notifica. Il bottone di chiusura predefinito (`closeTitle`) resta sempre presente indipendentemente da `buttons`.
-- `optionButton` (opzionale): stringa applicata come `pgs-option` sul bottone generato, per riusare stili/comportamenti esistenti (es. `"optionButton": "buttonIcon"`).
+- `id` (optional): reported in the `buttonClick` event; generated automatically when absent.
+- `title` (required): the text of the button.
+- `link` (optional): when present the button is an `<a href>` that navigates normally; when absent it is a `<button>` that does not.
+- `close` (optional, defaults to `true`): unless set to `false`, the click also dismisses the notification. The default dismiss button (`closeTitle`) is always present, whatever `buttons` holds.
+- `optionButton` (optional): a string applied as `pgs-option` on the generated button, to reuse existing styles and behaviour, for example `"optionButton": "buttonIcon"`.
 
-Eventi disponibili (bubbling, delegabili anche su `document`):
+Available events, all bubbling, so they can be delegated on `document`:
 
 ```js
 document.addEventListener("pgs:notification:buttonClick", (event) => {
     const { id, buttonId, link } = event.detail;
     if (buttonId === "yes" || buttonId === "no") {
-        // invia la risposta al server...
+        // send the answer to the server...
     }
-    // event.preventDefault() blocca la navigazione del link (se presente)
-    // finché non hai finito il tuo codice asincrono.
+    // event.preventDefault() holds back the link navigation, if there is one,
+    // until your asynchronous work has finished.
 });
 
 document.addEventListener("pgs:notification:close", (event) => { /* event.detail.id */ });
 document.addEventListener("pgs:notification:deleteAll", (event) => { /* event.detail.ids */ });
 ```
 
-Passa un `id` tuo in `options.id` per correlare la notifica con la tua logica, altrimenti ne viene generato uno automaticamente. `pgs.notification.deleteAll()` rimuove tutte le notifiche del pannello e dispara `pgs:notification:deleteAll`.
+Pass your own `id` in `options.id` to correlate a notification with your own logic, otherwise one is generated. `pgs.notification.deleteAll()` removes every notification from the panel and dispatches `pgs:notification:deleteAll`.
 
-## Registro ed estensione
+## Registry and extension
 
-- `pgs.registerModules(modules)`: espone un oggetto di moduli direttamente come proprietà di `pgs` e impedisce sovrascritture incompatibili.
-- `pgs.registerImport(...modules)`: registra moduli nel registro nominato usato dalle integrazioni avanzate.
-- `pgs.import(...names)`: recupera dal registro i moduli richiesti e genera un errore per i nomi non registrati.
+- `pgs.registerModules(modules)`: exposes an object of modules directly as properties of `pgs` and refuses incompatible overwrites.
+- `pgs.registerImport(...modules)`: registers modules in the named registry used by advanced integrations.
+- `pgs.import(...names)`: returns the requested modules from the registry and throws for names that are not registered.

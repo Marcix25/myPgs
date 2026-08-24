@@ -60,7 +60,7 @@ Complete HTML markup and usage example for Slides.
             <article pgs="card">
                 <img pgs="card-img imgCover" src="https://placehold.net/600x400.png" alt="Slide 1">
                 <div pgs="card-content">
-                    <h3>Slide uno</h3>
+                    <h3>First slide</h3>
                     <p>First slide content.</p>
                 </div>
             </article>
@@ -70,7 +70,7 @@ Complete HTML markup and usage example for Slides.
             <article pgs="card">
                 <img pgs="card-img imgCover" src="https://placehold.net/600x400.png" alt="Slide 2">
                 <div pgs="card-content">
-                    <h3>Slide due</h3>
+                    <h3>Second slide</h3>
                     <p>Second slide content.</p>
                 </div>
             </article>

@@ -1,8 +1,8 @@
-# Inizializzazione di contenuti dinamici
+# Initializing dynamic content
 
-`pgs.init(root)` inizializza i componenti MyPGS aggiunti dopo il caricamento iniziale della pagina, per esempio tramite JavaScript, JSX, AJAX o un renderer client-side.
+`pgs.init(root)` initializes the MyPGS components added after the initial page load, for example through JavaScript, JSX, AJAX or a client-side renderer.
 
-L'helper rileva automaticamente tutti i moduli registrati su `pgs` che espongono un metodo `init(root)`, inclusi dark mode, Cookie Consent, notifiche e gestione dei colori SVG/Lottie. Non contiene una lista di componenti o eccezioni specifiche.
+The helper picks up every module registered on `pgs` that exposes an `init(root)` method, dark mode, Cookie Consent, notifications and the SVG/Lottie colour handling included. It holds no list of components and no special cases.
 
 ## JavaScript
 
@@ -24,8 +24,8 @@ export function MyComponent() {
         pgs.init(root.current);
     }, []);
 
-    return <div ref={root}>{/* markup MyPGS */}</div>;
+    return <div ref={root}>{/* MyPGS markup */}</div>;
 }
 ```
 
-Passa il contenitore del markup appena creato invece di `document`, così la ricerca rimane limitata al sottoalbero interessato.
+Pass the container of the markup you just created instead of `document`, so the search stays inside the subtree that changed.

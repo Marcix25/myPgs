@@ -77,8 +77,8 @@ To import only the mixins:
 
 ## Documentation
 
-- [CSS/SCSS usage](docs/utilizzo-css-scss.md)
+- [CSS/SCSS usage](docs/css-scss-usage.md)
 - [JavaScript helpers](docs/helper/README.md)
-- [Components and markup](docs/componenti-e-markup.md)
-- [npm exports and development](docs/export-e-sviluppo.md)
-- [Conventions](docs/convenzioni.md)
+- [Components and markup](docs/components-and-markup.md)
+- [npm exports and development](docs/npm-export-and-development.md)
+- [Conventions](docs/conventions.md)

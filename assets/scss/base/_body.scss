@@ -18,7 +18,6 @@
     }
 }
 
-
 @view-transition {
     navigation: auto;
 }
@@ -47,6 +46,10 @@
         margin: var(--gap-texts);
         border-style: solid;
         border-color: var(--color-primary-soft);
+    }
+
+    fieldset {
+        border: unset;
     }
 
     ::selection {

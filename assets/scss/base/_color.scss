@@ -95,95 +95,95 @@
 
 [pgs~=bgSuccessSoft] { background-color: var(--color-success-soft); }
 
-//= TEXT COLORS
-[pgs~=colorWhite] { color: var(--color-white); }
+//= TEXT COLORS 
+[pgs~=txtWhite] { color: var(--color-white); }
 
-[pgs~=colorBlack] { color: var(--color-black); }
+[pgs~=txtBlack] { color: var(--color-black); }
 
-[pgs~=colorGray] { color: var(--color-gray); }
+[pgs~=txtGray] { color: var(--color-gray); }
 
-[pgs~=colorText] { color: var(--color-text); }
+[pgs~=txtText] { color: var(--color-text); }
 
-[pgs~=colorBox] { color: var(--color-box); }
+[pgs~=txtBox] { color: var(--color-box); }
 
-[pgs~=colorBoxDark] { color: var(--color-boxDark); }
+[pgs~=txtBoxDark] { color: var(--color-boxDark); }
 
-[pgs~=colorLinkSoft] { color: var(--color-link-soft); }
+[pgs~=txtLinkSoft] { color: var(--color-link-soft); }
 
-[pgs~=colorWhiteFixed] { color: var(--color-whiteFixed); }
+[pgs~=txtWhiteFixed] { color: var(--color-whiteFixed); }
 
-[pgs~=colorBlackFixed] { color: var(--color-blackFixed); }
+[pgs~=txtBlackFixed] { color: var(--color-blackFixed); }
 
-[pgs~=colorLink] { color: var(--color-link); }
+[pgs~=txtLink] { color: var(--color-link); }
 
 //== PRIMARY VARIANTS
-[pgs~=colorPrimary] { color: var(--color-primary); }
+[pgs~=txtPrimary] { color: var(--color-primary); }
 
-[pgs~=colorPrimarySoft] { color: var(--color-primary-soft); }
+[pgs~=txtPrimarySoft] { color: var(--color-primary-soft); }
 
-[pgs~=colorPrimaryLight] { color: var(--color-primary-light); }
+[pgs~=txtPrimaryLight] { color: var(--color-primary-light); }
 
-[pgs~=colorPrimaryStrong] { color: var(--color-primary-strong); }
+[pgs~=txtPrimaryStrong] { color: var(--color-primary-strong); }
 
-[pgs~=colorPrimaryDark] { color: var(--color-primary-dark); }
+[pgs~=txtPrimaryDark] { color: var(--color-primary-dark); }
 
 //== SECONDARY VARIANTS
-[pgs~=colorSecondary] { color: var(--color-secondary); }
+[pgs~=txtSecondary] { color: var(--color-secondary); }
 
-[pgs~=colorSecondarySoft] { color: var(--color-secondary-soft); }
+[pgs~=txtSecondarySoft] { color: var(--color-secondary-soft); }
 
-[pgs~=colorSecondaryLight] { color: var(--color-secondary-light); }
+[pgs~=txtSecondaryLight] { color: var(--color-secondary-light); }
 
-[pgs~=colorSecondaryStrong] { color: var(--color-secondary-strong); }
+[pgs~=txtSecondaryStrong] { color: var(--color-secondary-strong); }
 
-[pgs~=colorSecondaryDark] { color: var(--color-secondary-dark); }
+[pgs~=txtSecondaryDark] { color: var(--color-secondary-dark); }
 
 //== TERTIARY VARIANTS
-[pgs~=colorTertiary] { color: var(--color-tertiary); }
+[pgs~=txtTertiary] { color: var(--color-tertiary); }
 
-[pgs~=colorTertiarySoft] { color: var(--color-tertiary-soft); }
+[pgs~=txtTertiarySoft] { color: var(--color-tertiary-soft); }
 
-[pgs~=colorTertiaryLight] { color: var(--color-tertiary-light); }
+[pgs~=txtTertiaryLight] { color: var(--color-tertiary-light); }
 
-[pgs~=colorTertiaryStrong] { color: var(--color-tertiary-strong); }
+[pgs~=txtTertiaryStrong] { color: var(--color-tertiary-strong); }
 
-[pgs~=colorTertiaryDark] { color: var(--color-tertiary-dark); }
+[pgs~=txtTertiaryDark] { color: var(--color-tertiary-dark); }
 
 //== QUATERNARY VARIANTS
-[pgs~=colorQuaternary] { color: var(--color-quaternary); }
+[pgs~=txtQuaternary] { color: var(--color-quaternary); }
 
-[pgs~=colorQuaternarySoft] { color: var(--color-quaternary-soft); }
+[pgs~=txtQuaternarySoft] { color: var(--color-quaternary-soft); }
 
-[pgs~=colorQuaternaryLight] { color: var(--color-quaternary-light); }
+[pgs~=txtQuaternaryLight] { color: var(--color-quaternary-light); }
 
-[pgs~=colorQuaternaryStrong] { color: var(--color-quaternary-strong); }
+[pgs~=txtQuaternaryStrong] { color: var(--color-quaternary-strong); }
 
-[pgs~=colorQuaternaryDark] { color: var(--color-quaternary-dark); }
+[pgs~=txtQuaternaryDark] { color: var(--color-quaternary-dark); }
 
 //== STATUS
-[pgs~=colorInfo] { color: var(--color-info); }
+[pgs~=txtInfo] { color: var(--color-info); }
 
-[pgs~=colorError] { color: var(--color-error); }
+[pgs~=txtError] { color: var(--color-error); }
 
-[pgs~=colorWarning] { color: var(--color-warning); }
+[pgs~=txtWarning] { color: var(--color-warning); }
 
-[pgs~=colorSuccess] { color: var(--color-success); }
+[pgs~=txtSuccess] { color: var(--color-success); }
 
 //== STATUS BACKGROUNDS
-[pgs~=colorInfoSoft] { color: var(--color-info-soft); }
+[pgs~=txtInfoSoft] { color: var(--color-info-soft); }
 
-[pgs~=colorErrorSoft] { color: var(--color-error-soft); }
+[pgs~=txtErrorSoft] { color: var(--color-error-soft); }
 
-[pgs~=colorWarningSoft] { color: var(--color-warning-soft); }
+[pgs~=txtWarningSoft] { color: var(--color-warning-soft); }
 
-[pgs~=colorSuccessSoft] { color: var(--color-success-soft); }
+[pgs~=txtSuccessSoft] { color: var(--color-success-soft); }
 
-//== ICON COLORS
+//= ICON COLORS 
 [pgs~=iconColorPrimary] { color: var(--color-icon-primary); }
 
 [pgs~=iconColorSecondary] { color: var(--color-icon-secondary); }
 
-//= BORDER COLORS
+//= BORDER COLORS 
 [pgs~=brPrimary] { border-color: var(--color-primary); }
 
 [pgs~=brSecondary] { border-color: var(--color-secondary); }
@@ -211,7 +211,8 @@
 [pgs~=brSuccess] { border-color: var(--color-success); }
 
 [pgs~=brGray] { border-color: var(--color-gray); }
-//= OUTLINE COLORS
+
+//= OUTLINE COLORS 
 [pgs~=olPrimary] { outline-color: var(--color-primary); }
 
 [pgs~=olSecondary] { outline-color: var(--color-secondary); }

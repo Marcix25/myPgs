@@ -300,7 +300,47 @@
     "border": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-option": [
+            "borderThick",
+            "borderThicker",
+            "borderThin"
+        ]
+    },
+    "borderBlock": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": [
+            "borderThick",
+            "borderThicker",
+            "borderThin"
+        ]
+    },
+    "borderBottom": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": [
+            "borderThick",
+            "borderThicker",
+            "borderThin"
+        ]
+    },
+    "borderInline": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": [
+            "borderThick",
+            "borderThicker",
+            "borderThin"
+        ]
+    },
+    "borderLeft": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": [
+            "borderThick",
+            "borderThicker",
+            "borderThin"
+        ]
     },
     "borderRadius": {
         "pgs": [],
@@ -316,6 +356,24 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-option": []
+    },
+    "borderRight": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": [
+            "borderThick",
+            "borderThicker",
+            "borderThin"
+        ]
+    },
+    "borderTop": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": [
+            "borderThick",
+            "borderThicker",
+            "borderThin"
+        ]
     },
     "box": {
         "pgs": [],
@@ -457,196 +515,6 @@
         "pgs-option": [
             "buttonReverse"
         ]
-    },
-    "colorBlack": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorBlackFixed": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorBox": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorBoxDark": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorError": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorErrorSoft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorGray": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorInfo": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorInfoSoft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorLink": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorLinkSoft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorPrimary": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorPrimaryDark": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorPrimaryLight": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorPrimarySoft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorPrimaryStrong": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorQuaternary": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorQuaternaryDark": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorQuaternaryLight": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorQuaternarySoft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorQuaternaryStrong": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorSecondary": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorSecondaryDark": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorSecondaryLight": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorSecondarySoft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorSecondaryStrong": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorSuccess": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorSuccessSoft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorTertiary": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorTertiaryDark": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorTertiaryLight": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorTertiarySoft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorTertiaryStrong": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorText": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorWarning": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorWarningSoft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorWhite": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "colorWhiteFixed": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
     },
     "container": {
         "pgs": [],
@@ -1178,6 +1046,19 @@
         "pgs-generated": [],
         "pgs-option": []
     },
+    "margin": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": [
+            "margin2",
+            "marginAuto",
+            "marginElements",
+            "marginPage",
+            "marginSections",
+            "marginTexts",
+            "marginUnset"
+        ]
+    },
     "marginBlock": {
         "pgs": [],
         "pgs-generated": [],
@@ -1187,7 +1068,8 @@
             "marginElements",
             "marginPage",
             "marginSections",
-            "marginTexts"
+            "marginTexts",
+            "marginUnset"
         ]
     },
     "marginBottom": {
@@ -1199,7 +1081,8 @@
             "marginElements",
             "marginPage",
             "marginSections",
-            "marginTexts"
+            "marginTexts",
+            "marginUnset"
         ]
     },
     "marginInline": {
@@ -1211,7 +1094,8 @@
             "marginElements",
             "marginPage",
             "marginSections",
-            "marginTexts"
+            "marginTexts",
+            "marginUnset"
         ]
     },
     "marginLeft": {
@@ -1223,7 +1107,8 @@
             "marginElements",
             "marginPage",
             "marginSections",
-            "marginTexts"
+            "marginTexts",
+            "marginUnset"
         ]
     },
     "marginRight": {
@@ -1235,7 +1120,8 @@
             "marginElements",
             "marginPage",
             "marginSections",
-            "marginTexts"
+            "marginTexts",
+            "marginUnset"
         ]
     },
     "marginTop": {
@@ -1247,7 +1133,8 @@
             "marginElements",
             "marginPage",
             "marginSections",
-            "marginTexts"
+            "marginTexts",
+            "marginUnset"
         ]
     },
     "menu": {
@@ -1409,7 +1296,11 @@
     "outline": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-option": [
+            "outlineThick",
+            "outlineThicker",
+            "outlineThin"
+        ]
     },
     "overflowAuto": {
         "pgs": [],
@@ -1426,6 +1317,18 @@
         "pgs-generated": [],
         "pgs-option": []
     },
+    "padding": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": [
+            "padding2",
+            "paddingElements",
+            "paddingPage",
+            "paddingSections",
+            "paddingTexts",
+            "paddingUnset"
+        ]
+    },
     "paddingBlock": {
         "pgs": [],
         "pgs-generated": [],
@@ -1434,7 +1337,8 @@
             "paddingElements",
             "paddingPage",
             "paddingSections",
-            "paddingTexts"
+            "paddingTexts",
+            "paddingUnset"
         ]
     },
     "paddingBottom": {
@@ -1445,7 +1349,8 @@
             "paddingElements",
             "paddingPage",
             "paddingSections",
-            "paddingTexts"
+            "paddingTexts",
+            "paddingUnset"
         ]
     },
     "paddingInline": {
@@ -1456,7 +1361,8 @@
             "paddingElements",
             "paddingPage",
             "paddingSections",
-            "paddingTexts"
+            "paddingTexts",
+            "paddingUnset"
         ]
     },
     "paddingLeft": {
@@ -1467,7 +1373,8 @@
             "paddingElements",
             "paddingPage",
             "paddingSections",
-            "paddingTexts"
+            "paddingTexts",
+            "paddingUnset"
         ]
     },
     "paddingRight": {
@@ -1478,7 +1385,8 @@
             "paddingElements",
             "paddingPage",
             "paddingSections",
-            "paddingTexts"
+            "paddingTexts",
+            "paddingUnset"
         ]
     },
     "paddingTop": {
@@ -1489,7 +1397,8 @@
             "paddingElements",
             "paddingPage",
             "paddingSections",
-            "paddingTexts"
+            "paddingTexts",
+            "paddingUnset"
         ]
     },
     "pageShell": {
@@ -1727,6 +1636,196 @@
         "pgs-option": [
             "buttonReverse"
         ]
+    },
+    "txtBlack": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtBlackFixed": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtBox": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtBoxDark": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtError": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtErrorSoft": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtGray": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtInfo": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtInfoSoft": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtLink": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtLinkSoft": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtPrimary": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtPrimaryDark": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtPrimaryLight": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtPrimarySoft": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtPrimaryStrong": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtQuaternary": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtQuaternaryDark": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtQuaternaryLight": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtQuaternarySoft": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtQuaternaryStrong": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtSecondary": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtSecondaryDark": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtSecondaryLight": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtSecondarySoft": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtSecondaryStrong": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtSuccess": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtSuccessSoft": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtTertiary": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtTertiaryDark": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtTertiaryLight": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtTertiarySoft": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtTertiaryStrong": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtText": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtWarning": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtWarningSoft": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtWhite": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtWhiteFixed": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
     },
     "visuallyHidden": {
         "pgs": [],

@@ -11,12 +11,16 @@ const LIST_TAG_LABELS = {
     api: "API",
     related: "Related elements",
 };
+const WELCOME_ENTRY = { path: "welcome", title: "Welcome" };
+
 const CATEGORY_LABELS = {
-    components: "Componenti",
+    base: "Base",
+    components: "Components",
     layout: "Layout",
-    patterns: "Pattern",
+    patterns: "Patterns",
 };
 const ENTRY_ICONS = {
+    "welcome": "fa-house",
     "base/general.html": "fa-sliders",
     "base/heading.html": "fa-heading",
     "base/color.html": "fa-palette",
@@ -109,6 +113,8 @@ const demoRenderer = {
     },
 
     getEntryLabel(path) {
+        if (path === WELCOME_ENTRY.path) return WELCOME_ENTRY.title;
+
         return path.split("/").pop().replace(/\.html$/, "");
     },
 
@@ -269,7 +275,7 @@ const demoRenderer = {
         const group = document.createElement("div");
         group.setAttribute("pgs", "flexColumn gapElements");
 
-        this.renderDemoHeading(group, node.getAttribute("demo-title"), node.getAttribute("demo-description"), "h2");
+        this.renderDemoHeading(group, node.getAttribute("demo-title"), node.getAttribute("demo-description"), "h3");
 
         //== demo-preview="none" is the mirror of demo="disabled": markup that only carries a payload
         //== is consumed on init (notificationLoad, toastLoad) and would leave an empty box behind.
@@ -399,7 +405,7 @@ const demoRenderer = {
             //== with no items the component is its own item, and renderDemoItem already prints
             //== that node's title and description: printing them here too would duplicate them
             if (items.length) {
-                this.renderDemoHeading(section, component.getAttribute("demo-title"), component.getAttribute("demo-description"), "h3");
+                this.renderDemoHeading(section, component.getAttribute("demo-title"), component.getAttribute("demo-description"), "h2");
             }
 
             (items.length ? items : [component]).forEach(node => this.renderDemoItem(section, node));
@@ -542,52 +548,67 @@ const demoRenderer = {
         else element.removeAttribute(attribute);
     },
 
-    renderNav(nav, entries) {
+    renderNav(nav, entries, withHeadingIds = true) {
         const groups = new Map();
+        const ungrouped = [];
+
         entries.forEach(entry => {
+            if (!entry.path.includes("/")) return ungrouped.push(entry);
+
             const prefix = entry.path.split("/")[0];
             if (!groups.has(prefix)) groups.set(prefix, []);
             groups.get(prefix).push(entry);
         });
 
+        //== the landing entry belongs to no folder, so it gets no category heading
+        if (ungrouped.length) this.renderNavMenu(nav, ungrouped);
+
         groups.forEach((items, prefix) => {
             const category = CATEGORY_LABELS[prefix] || prefix;
 
             const heading = document.createElement("p");
-            heading.id = prefix;
+            if (withHeadingIds) heading.id = prefix;
             heading.innerHTML = `<strong>${category}</strong>`;
             nav.append(heading);
 
-            const menu = document.createElement("nav");
-            menu.setAttribute("pgs", "menu");
-            menu.setAttribute("pgs-option", "vertical menuHeader");
-            menu.setAttribute("aria-label", `Menu ${category}`);
-
-            const list = document.createElement("ul");
-            items.forEach(({ path }) => {
-                const li = document.createElement("li");
-                const a = document.createElement("a");
-                a.href = `#${this.getSlug(path)}`;
-                a.dataset.panelLink = path;
-
-                const icon = document.createElement("i");
-                icon.className = `fa-solid ${ENTRY_ICONS[path] || DEFAULT_ENTRY_ICON}`;
-                icon.setAttribute("aria-hidden", "true");
-
-                const span = document.createElement("span");
-                span.textContent = this.getEntryLabel(path);
-
-                a.append(icon, span);
-                li.append(a);
-                list.append(li);
-            });
-            menu.append(list);
-            nav.append(menu);
+            this.renderNavMenu(nav, items, category);
         });
     },
 
+    renderNavMenu(nav, items, category) {
+        const menu = document.createElement("nav");
+        menu.setAttribute("pgs", "menu");
+        menu.setAttribute("pgs-option", "vertical menuHeader");
+        menu.setAttribute("aria-label", category ? `Menu ${category}` : "Menu");
+
+        const list = document.createElement("ul");
+        list.setAttribute("pgs", "borderLeft padding");
+        list.setAttribute("pgs-option", "paddingTexts");
+
+        items.forEach(({ path }) => {
+            const li = document.createElement("li");
+            const a = document.createElement("a");
+            a.href = `#${this.getSlug(path)}`;
+            a.dataset.panelLink = path;
+
+            const icon = document.createElement("i");
+            icon.className = `fa-solid ${ENTRY_ICONS[path] || DEFAULT_ENTRY_ICON}`;
+            icon.setAttribute("aria-hidden", "true");
+
+            const span = document.createElement("span");
+            span.textContent = this.getEntryLabel(path);
+
+            a.append(icon, span);
+            li.append(a);
+            list.append(li);
+        });
+
+        menu.append(list);
+        nav.append(menu);
+    },
+
     setupNavigation(entries) {
-        const NAV = document.getElementById("reference-demo-nav");
+        const NAVS = Array.from(document.querySelectorAll(".reference-demo-nav"));
         const MAIN = document.getElementById("reference-demo-main");
 
         const activate = (path, resetScroll = true) => {
@@ -595,10 +616,14 @@ const demoRenderer = {
             if (!panel) return;
 
             MAIN.querySelectorAll("[data-panel]").forEach(el => { el.hidden = el !== panel; });
-            NAV.querySelectorAll("a[data-panel-link]").forEach(link => {
+            NAVS.forEach(nav => nav.querySelectorAll("a[data-panel-link]").forEach(link => {
                 if (link.dataset.panelLink === path) link.setAttribute("aria-current", "page");
                 else link.removeAttribute("aria-current");
-            });
+            }));
+
+            //== picking an entry from the copy inside the compact menu has to dismiss it, or the
+            //== dialog stays open over the panel it just navigated to
+            NAVS.forEach(nav => nav.closest("dialog[open]")?.close());
 
             //== only the window scrolls (the aside owns its own overflow via shellAsideScroll), and
             //== switching panel is a page change, not a jump inside one: start it from the top, the
@@ -635,8 +660,22 @@ const demoRenderer = {
 
     async boot() {
         const MAIN = document.getElementById("reference-demo-main");
-        const NAV = document.getElementById("reference-demo-nav");
+        const NAVS = Array.from(document.querySelectorAll(".reference-demo-nav"));
         const menuEntries = [];
+
+        //== the demo opens on something that explains the library, not on a reference: the panel is
+        //== cloned from the template in demo.html so the prose stays in markup
+        const welcome = document.getElementById("reference-demo-welcome");
+        if (welcome) {
+            const panel = document.createElement("div");
+            panel.dataset.panel = WELCOME_ENTRY.path;
+            panel.hidden = true;
+            panel.setAttribute("pgs", "flexColumn gapElements");
+            panel.append(welcome.content.cloneNode(true));
+
+            MAIN.append(panel);
+            menuEntries.push(WELCOME_ENTRY);
+        }
 
         //== header and footer are written straight into demo.html, so here they are just
         //== two more reference panels: they show up in the nav like every other layout
@@ -695,7 +734,10 @@ const demoRenderer = {
             menuEntries.push({ path, title });
         }
 
-        this.renderNav(NAV, menuEntries);
+        //== the category headings carry the ids the header links jump to, so they belong to the copy
+        //== that is always on screen: inside a closed dialog the anchor would resolve to nothing
+        const anchored = NAVS.find(nav => !nav.closest("dialog")) || NAVS[0];
+        NAVS.forEach(nav => this.renderNav(nav, menuEntries, nav === anchored));
         this.setupNavigation(menuEntries);
 
         try {

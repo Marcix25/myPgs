@@ -2,8 +2,6 @@
 
 Canonical component and layout examples are available in `reference/`. Use those files as the reference source before creating new markup.
 
-## Componenti disponibili
-
 Base:
 
 - [`body`](base/body.md)
@@ -13,7 +11,7 @@ Base:
 - [`darkmode`](base/darkmode.md)
 - [`svg`](base/svg.md)
 
-Componenti:
+Components:
 
 - [`accordion`](components/accordion.md)
 - [`alerts`](components/alerts.md)
@@ -28,7 +26,7 @@ Componenti:
 - [`menu`](components/menu.md)
 - [`modal`](components/modal.md)
 - [`notification`](components/notification.md)
-- [`search`](components/search.md) (`search-suggestions` opzionale)
+- [`search`](components/search.md)
 - [`slides`](components/slides.md)
 - [`steps`](components/steps.md)
 - [`stepTabs`](components/stepTabs.md)
@@ -48,11 +46,11 @@ Layout:
 - [`spacing`](layout/spacing.md)
 - [`utilities`](layout/utilities.md)
 
-Pattern:
+Patterns:
 
 - [`cookieConsent`](patterns/cookieConsent.md)
 
-Helper JavaScript:
+JavaScript helpers:
 
 - [`README`](helper/README.md)
 - [`pgs`](helper/pgs.md)

@@ -1,5 +1,6 @@
 //# SPACING
 //= MARGIN
+[pgs~=margin],
 [pgs~=marginLeft],
 [pgs~=marginRight],
 [pgs~=marginBottom],
@@ -31,6 +32,14 @@
     &[pgs-option~=marginAuto] {
         --margin-size: auto;
     }
+
+    &[pgs-option~=marginUnset] {
+        --margin-size: unset;
+    }
+}
+
+[pgs~=margin] {
+    margin: var(--margin-size);
 }
 
 [pgs~=marginLeft] {
@@ -58,6 +67,7 @@
 }
 
 //= PADDING
+[pgs~=padding],
 [pgs~=paddingLeft],
 [pgs~=paddingRight],
 [pgs~=paddingBottom],
@@ -85,6 +95,14 @@
     &[pgs-option~=paddingSections] {
         --padding-size: var(--gap-sections);
     }
+
+    &[pgs-option~=paddingUnset] {
+        --padding-size: unset;
+    }
+}
+
+[pgs~=padding] {
+    padding: var(--padding-size);
 }
 
 [pgs~=paddingLeft] {

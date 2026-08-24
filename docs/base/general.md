@@ -6,7 +6,13 @@ Standalone utilities for radius, shadow, cursor, image fitting, hover colour and
 
 ## PGS
 
-- `border`: draws the shared border, and is what the br* colour utilities recolour.
+- `border`: draws the shared border on every side, and is what the br* colour utilities recolour.
+- `borderTop`: draws it above only.
+- `borderRight`: draws it on the right only.
+- `borderBottom`: draws it below only.
+- `borderLeft`: draws it on the left only.
+- `borderInline`: draws it on both sides of the inline axis.
+- `borderBlock`: draws it on both sides of the block axis.
 - `outline`: draws the same line outside the box, taking no space in the layout; the ol* colour utilities recolour it.
 - `borderRadius`: applies the standard radius token to any surface.
 - `borderRadiusInput`: applies the smaller radius used by form controls.
@@ -21,6 +27,15 @@ Standalone utilities for radius, shadow, cursor, image fitting, hover colour and
 - `lightmode`: forces the light colour scheme on a subtree, whatever the page theme is.
 - `darkmode`: forces the dark colour scheme on a subtree, whatever the page theme is.
 
+## PGS Options
+
+- `borderThin`: draws the border at 1px instead of the default 1.5px.
+- `borderThick`: draws the border at 3px.
+- `borderThicker`: draws the border at 4.5px.
+- `outlineThin`: draws the outline at 1px instead of the default 1.5px.
+- `outlineThick`: draws the outline at 3px.
+- `outlineThicker`: draws the outline at 4.5px.
+
 ## Related elements
 
 ### PGS
@@ -28,6 +43,7 @@ Standalone utilities for radius, shadow, cursor, image fitting, hover colour and
 - `flexColumn`: stacks the utility groups vertically.
 - `flexRow`: arranges the examples in a row.
 - `box`: makes each example visible as a surface.
+- `bgWhiteFixed`: holds the same light background whatever the page theme is, so the two forced schemes read against one ground.
 - `brPrimary`: recolours the border with the primary colour; see Colors for the whole br* family.
 - `brError`: recolours the border with the error colour.
 - `olPrimary`: recolours the outline with the primary colour; see Colors for the whole ol* family.
@@ -35,6 +51,7 @@ Standalone utilities for radius, shadow, cursor, image fitting, hover colour and
 
 ### PGS Options
 
+- `wrap`: lets the border examples flow onto a second row.
 - `gapTexts`: spaces the examples inside a group.
 - `gapSections`: separates the groups.
 
@@ -46,14 +63,32 @@ One example per utility, grouped by radius, shadow, interaction, images and colo
 
 ### Border and outline
 
-The same line drawn two ways: border takes space in the layout, outline sits outside the box and takes none. Pair them with a br* or ol* utility from Colors to recolour them.
+The same line drawn two ways: border takes space in the layout, outline sits outside the box and takes none. Border also comes one side at a time, named like the margin and padding utilities; outline has no per-side form, because CSS draws it as a single ring. Pair them with a br* or ol* utility from Colors to recolour them, and with a thickness option to change the line: border and outline have one family each, so an element carrying both needs both.
 
 ```html
-<div pgs="flexRow" pgs-option="gapTexts">
+<div pgs="flexRow" pgs-option="gapTexts wrap">
     <span pgs="box border">border</span>
     <span pgs="box border brPrimary">border + brPrimary</span>
     <span pgs="box border brError">border + brError</span>
     <span pgs="box outline olPrimary">outline + olPrimary</span>
+</div>
+
+<div pgs="flexRow" pgs-option="gapTexts wrap">
+    <span pgs="box border" pgs-option="borderThin">borderThin</span>
+    <span pgs="box border" pgs-option="borderThick">borderThick</span>
+    <span pgs="box border" pgs-option="borderThicker">borderThicker</span>
+    <span pgs="box outline" pgs-option="outlineThin">outlineThin</span>
+    <span pgs="box outline" pgs-option="outlineThick">outlineThick</span>
+    <span pgs="box outline" pgs-option="outlineThicker">outlineThicker</span>
+</div>
+
+<div pgs="flexRow" pgs-option="gapTexts wrap">
+    <span pgs="box borderTop brPrimary">borderTop</span>
+    <span pgs="box borderRight brPrimary">borderRight</span>
+    <span pgs="box borderBottom brPrimary">borderBottom</span>
+    <span pgs="box borderLeft brPrimary">borderLeft</span>
+    <span pgs="box borderInline brPrimary">borderInline</span>
+    <span pgs="box borderBlock brPrimary">borderBlock</span>
 </div>
 ```
 
@@ -112,8 +147,12 @@ imgContain keeps the whole image inside the box, imgCover crops it to fill the b
 Pins a subtree to one colour scheme, ignoring the current page theme.
 
 ```html
-<div pgs="flexRow" pgs-option="gapTexts">
-    <div pgs="box lightmode">lightmode</div>
-    <div pgs="box darkmode">darkmode</div>
+<div pgs="flexRow bgWhiteFixed" pgs-option="gapTexts">
+    <div pgs="box lightmode">
+        <p>lightmode</p>
+    </div>
+    <div pgs="box darkmode">
+        <p>darkmode</p>
+    </div>
 </div>
 ```

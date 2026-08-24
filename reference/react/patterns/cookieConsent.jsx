@@ -9,12 +9,12 @@ export default function CookieConsent({
     return (
         <div id="cookieConsent" pgs="cookieConsent" role="dialog" aria-modal="true" data-ga-id={gaMeasurementId} hidden tabIndex="-1">
             <p><i className="fa-duotone fa-solid fa-cookie-bite"></i> Cookies and privacy <br /></p>
-            <h2>La tua privacy prima di tutto</h2>
+            <h2>Your privacy comes first</h2>
 
             <p>
                 We use essential cookies to provide the service and, with your consent, analytics cookies from
-                <strong>Google Analytics</strong> per misurare in modo anonimo il traffico e migliorare i contenuti.
-                Puoi modificare la scelta in qualsiasi momento.
+                <strong>Google Analytics</strong> to measure traffic anonymously and improve our content.
+                You can change your choice at any time.
             </p>
 
             <p>

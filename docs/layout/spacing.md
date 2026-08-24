@@ -6,12 +6,14 @@ Margin and padding utilities based on the shared MyPGS spacing scales. The gap u
 
 ## PGS
 
+- `margin`: applies configurable spacing on every side of an element.
 - `marginLeft`: applies configurable spacing to the left of an element.
 - `marginRight`: applies configurable spacing to the right of an element.
 - `marginBottom`: applies configurable spacing below an element.
 - `marginTop`: applies configurable spacing above an element.
 - `marginInline`: applies configurable spacing on the inline axis.
 - `marginBlock`: applies configurable spacing on the block axis.
+- `padding`: applies configurable inner spacing on every side of an element.
 - `paddingLeft`: applies configurable inner spacing to the left of an element.
 - `paddingRight`: applies configurable inner spacing to the right of an element.
 - `paddingBottom`: applies configurable inner spacing below an element.
@@ -27,11 +29,13 @@ Margin and padding utilities based on the shared MyPGS spacing scales. The gap u
 - `margin2`: uses the double padding token for margin utilities.
 - `marginPage`: uses the page padding token for margin utilities.
 - `marginAuto`: sets the margin to auto, to centre an element or push it away.
+- `marginUnset`: resets the margin to its initial value, to drop the spacing on one element without dropping the utility.
 - `paddingTexts`: uses the text spacing scale and is the default for padding utilities.
 - `paddingElements`: uses the element spacing scale for padding utilities.
 - `paddingSections`: uses the section spacing scale for padding utilities.
 - `padding2`: uses the double padding token for padding utilities.
 - `paddingPage`: uses the page padding token for padding utilities.
+- `paddingUnset`: resets the padding to its initial value, to drop the spacing on one element without dropping the utility.
 
 ## Related elements
 
@@ -60,6 +64,8 @@ Configurable margin utilities on every side and axis, each paired with a spacing
 <p pgs="marginTop" pgs-option="marginTexts">Text spacing above.</p>
 <p pgs="marginInline" pgs-option="marginElements">Element spacing on the inline axis.</p>
 <p pgs="marginBlock" pgs-option="marginSections">Section spacing on the block axis.</p>
+<p pgs="margin" pgs-option="marginElements">Element spacing on every side.</p>
+<p pgs="margin" pgs-option="marginUnset">No margin at all.</p>
 ```
 
 ### Scales
@@ -87,4 +93,6 @@ Configurable padding utilities on every side and axis, each paired with a spacin
 <p pgs="paddingTop" pgs-option="paddingTexts">Text spacing above.</p>
 <p pgs="paddingInline" pgs-option="paddingElements">Element spacing on the inline axis.</p>
 <p pgs="paddingBlock" pgs-option="paddingSections">Section spacing on the block axis.</p>
+<p pgs="box padding" pgs-option="paddingElements">Element spacing on every side.</p>
+<p pgs="box padding" pgs-option="paddingUnset">No padding at all.</p>
 ```

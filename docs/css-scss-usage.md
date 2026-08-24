@@ -10,6 +10,10 @@ The library exposes many custom properties that should be preferred to hardcoded
   --gap-elements: 4rem;
   --border-radius: 4.5rem;
   --border-radius-input: 2.25rem;
+  --border-width: 1.5px;
+  --border-color: #ebebeb;
+  --outline-width: var(--border-width);
+  --outline-color: var(--border-color);
 }
 ```
 

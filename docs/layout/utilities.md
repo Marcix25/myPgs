@@ -30,7 +30,7 @@ Focused layout, content, interaction, accessibility, and semantic-color utilitie
 - `box`: makes demonstration cells visible.
 - `bgInfo`: applies the semantic info color as the background.
 - `brInfo`: applies the semantic info color as the border color.
-- `colorInfo`: applies the semantic info color to text.
+- `txtInfo`: applies the semantic info color to text.
 - `flexColumn`: stacks demonstration groups vertically.
 - `flex-flex1`: lets a flex item grow and shrink to occupy available space.
 - `flex-flexNone`: prevents a flex item from growing or shrinking.
@@ -105,7 +105,7 @@ Examples of the standalone MyPGS utility API.
         <a pgs="visuallyHiddenFocusable" href="#utility-content">Visible while focused</a>
         <span pgs="motionReduce">Motion is reduced for users who request it.</span>
         <span pgs="bgInfo brInfo">Info background</span>
-        <span pgs="colorInfo">Info text</span>
+        <span pgs="txtInfo">Info text</span>
     </section>
 </main>
 ```

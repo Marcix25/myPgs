@@ -9,13 +9,13 @@ const homeItem = (
 
 const servicesItem = (
     <li>
-        <a href="/servizi">
+        <a href="/services">
             <i className="fa-solid fa-layer-group" aria-hidden="true"></i>
-            <span>Servizi</span>
+            <span>Services</span>
         </a>
         <ul>
-            <li><a href="/servizi/uno">Servizio uno</a></li>
-            <li><a href="/servizi/due">Servizio due</a></li>
+            <li><a href="/services/one">First service</a></li>
+            <li><a href="/services/two">Second service</a></li>
         </ul>
     </li>
 );
@@ -43,12 +43,12 @@ function MenuVertical() {
                         <span>about</span>
                     </a>
                     <ul>
-                        <li><a href="/servizi/uno">Servizio uno</a></li>
+                        <li><a href="/services/one">First service</a></li>
                         <li>
-                            <a href="/servizi/due">Servizio due</a>
+                            <a href="/services/two">Second service</a>
                             <ul>
-                                <li><a href="/servizi/uno">Servizio uno</a></li>
-                                <li><a href="/servizi/due">Servizio due</a></li>
+                                <li><a href="/services/one">First service</a></li>
+                                <li><a href="/services/two">Second service</a></li>
                             </ul>
                         </li>
                     </ul>

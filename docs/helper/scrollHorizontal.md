@@ -1,19 +1,19 @@
 # Horizontal scroll helper
 
-`pgs.scrollHorizontal(element, speed)` converte il movimento verticale della rotella in scorrimento orizzontale solamente quando il contenitore può ancora muoversi nella direzione richiesta.
+`pgs.scrollHorizontal(element, speed)` turns vertical wheel movement into horizontal scrolling, but only while the container can still move in the requested direction.
 
 ```js
 const container = document.querySelector(".horizontal-list");
 const removeScroll = pgs.scrollHorizontal(container, 1);
 ```
 
-L'helper:
+The helper:
 
-- lascia invariato lo scorrimento dei trackpad;
-- ignora lo zoom con `Ctrl`;
-- non sostituisce uno scorrimento orizzontale nativo;
-- lascia scorrere la pagina quando il contenitore raggiunge l'inizio o la fine;
-- restituisce una funzione per rimuovere il listener.
+- leaves trackpad scrolling untouched;
+- ignores zooming with `Ctrl`;
+- does not replace a native horizontal scroll;
+- lets the page scroll once the container reaches its start or its end;
+- returns a function that removes the listener.
 
 ```js
 removeScroll();

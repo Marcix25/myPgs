@@ -1,6 +1,6 @@
-# Export npm
+# npm export and development
 
-Il pacchetto espone:
+The package exposes:
 
 ```json
 {
@@ -48,7 +48,7 @@ Build in watch mode:
 npm run "start watch"
 ```
 
-Creare un pacchetto locale:
+Creating a local package:
 
 ```bash
 npm pack
@@ -56,16 +56,16 @@ npm pack
 
 Recommended workflow when modifying the library:
 
-1. modifica i sorgenti in `assets/`;
-2. aggiorna i riferimenti o la documentazione se cambia il modo d'uso;
-3. ricompila con `npm run start`;
-4. verifica `dist/`;
-5. crea il pacchetto con `npm pack`;
-6. installa il `.tgz` nel progetto che consuma la libreria.
+1. edit the sources in `assets/`;
+2. update the references or the documentation when the public usage changes;
+3. rebuild with `npm run start`;
+4. check `dist/`;
+5. create the package with `npm pack`;
+6. install the `.tgz` in the project that consumes the library.
 
-Nota: se la build Webpack fallisce, non modificare manualmente `dist/javascript` come sorgente primaria. Sistema la toolchain e rigenera gli asset compilati.
+Note: when the Webpack build fails, do not edit `dist/javascript` by hand as the primary source. Fix the toolchain and regenerate the compiled assets.
 
-## Aggiungere un nuovo modulo
+## Adding a new module
 
 Component example:
 
