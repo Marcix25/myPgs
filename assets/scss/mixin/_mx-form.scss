@@ -456,14 +456,6 @@
         @include select();
     }
 
-    //===BUTTON 
-    button[type="submit"] {
-        @include buttonBase();
-        @include buttonContent();
-        @include buttonStrong();
-        @include buttonHover();
-    }
-
     //===FIELDSET 
     fieldset {
         border: unset;
@@ -509,6 +501,13 @@
 
     input[type="file"] {
         @include file();
+    }
+
+    //===BUTTON 
+    :where(button[type="submit"]) {
+        @include buttonBase();
+        @include buttonContent();
+        @include buttonHover();
     }
 }
 

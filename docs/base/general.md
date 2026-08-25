@@ -47,11 +47,12 @@ Standalone utilities for radius, shadow, cursor, image fitting, hover colour and
 - `brPrimary`: recolours the border with the primary colour; see Colors for the whole br* family.
 - `brError`: recolours the border with the error colour.
 - `olPrimary`: recolours the outline with the primary colour; see Colors for the whole ol* family.
+- `olError`: recolours the outline with the error colour.
 - `imgCover`: crops the image to fill its box, the counterpart of imgContain.
 
 ### PGS Options
 
-- `wrap`: lets the border examples flow onto a second row.
+- `wrap`: lets the border and outline examples flow onto a second row.
 - `gapTexts`: spaces the examples inside a group.
 - `gapSections`: separates the groups.
 
@@ -61,25 +62,21 @@ One example per utility, grouped by radius, shadow, interaction, images and colo
 
 ## Example
 
-### Border and outline
+### Border
 
-The same line drawn two ways: border takes space in the layout, outline sits outside the box and takes none. Border also comes one side at a time, named like the margin and padding utilities; outline has no per-side form, because CSS draws it as a single ring. Pair them with a br* or ol* utility from Colors to recolour them, and with a thickness option to change the line: border and outline have one family each, so an element carrying both needs both.
+A line drawn on the edge of the box, taking its space in the layout. It comes one side at a time as well, named like the margin and padding utilities. Recolour it with a br* utility from Colors, and change its weight with a thickness option.
 
 ```html
 <div pgs="flexRow" pgs-option="gapTexts wrap">
     <span pgs="box border">border</span>
     <span pgs="box border brPrimary">border + brPrimary</span>
     <span pgs="box border brError">border + brError</span>
-    <span pgs="box outline olPrimary">outline + olPrimary</span>
 </div>
 
 <div pgs="flexRow" pgs-option="gapTexts wrap">
     <span pgs="box border" pgs-option="borderThin">borderThin</span>
     <span pgs="box border" pgs-option="borderThick">borderThick</span>
     <span pgs="box border" pgs-option="borderThicker">borderThicker</span>
-    <span pgs="box outline" pgs-option="outlineThin">outlineThin</span>
-    <span pgs="box outline" pgs-option="outlineThick">outlineThick</span>
-    <span pgs="box outline" pgs-option="outlineThicker">outlineThicker</span>
 </div>
 
 <div pgs="flexRow" pgs-option="gapTexts wrap">
@@ -89,6 +86,24 @@ The same line drawn two ways: border takes space in the layout, outline sits out
     <span pgs="box borderLeft brPrimary">borderLeft</span>
     <span pgs="box borderInline brPrimary">borderInline</span>
     <span pgs="box borderBlock brPrimary">borderBlock</span>
+</div>
+```
+
+### Outline
+
+The same line drawn outside the box, so it takes no space and never moves what sits around it. CSS draws it as a single ring, which is why there is no per-side form. It has its own colour utilities, ol*, and its own thickness options: an element carrying both a border and an outline needs one from each family.
+
+```html
+<div pgs="flexRow" pgs-option="gapTexts wrap">
+    <span pgs="box outline">outline</span>
+    <span pgs="box outline olPrimary">outline + olPrimary</span>
+    <span pgs="box outline olError">outline + olError</span>
+</div>
+
+<div pgs="flexRow" pgs-option="gapTexts wrap">
+    <span pgs="box outline" pgs-option="outlineThin">outlineThin</span>
+    <span pgs="box outline" pgs-option="outlineThick">outlineThick</span>
+    <span pgs="box outline" pgs-option="outlineThicker">outlineThicker</span>
 </div>
 ```
 

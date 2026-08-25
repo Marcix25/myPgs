@@ -2744,6 +2744,8 @@ function PGS_stepTabs_init(root = document) {
                 const dot = document.createElement("button");
                 dot.type = "button";
                 pgs(dot).add("_stepTabs-dots-dot");
+                pgs(dot).add("button");
+                pgs(dot).option.add("buttonIcon buttonNohover");
                 dot.innerHTML = `<i class="fa-solid ${iconClass}"></i>`;
 
                 dot.addEventListener("click", () => {

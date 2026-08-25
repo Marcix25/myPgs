@@ -196,7 +196,7 @@ body {
 
     a {
         &[aria-current="page"] {
-            --button-border-width: 0 0 0 2px;
+            --button-border-width: 0 0 0 4px;
             --button-border-color: var(--button-primaryColor);
             --button-borderRadius: 0px;
             transform: translateX(-2px);

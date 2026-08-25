@@ -159,6 +159,7 @@ Complete HTML form with required fields and an example script for a custom rule,
         <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
         Submit
     </button>
+
 </form>
 
 <script type="module">

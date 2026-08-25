@@ -3137,238 +3137,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --box-borderRadius: var(--border-radius-input);
 }
 
-[pgs~=button] {
-  --button-primaryColor: var(--color-primary-strong);
-  --button-color: var(--color-black);
-  --button-color-strong: var(--color-white);
-  --button-color-current: var(--color-white);
-  --button-color-active: var(--color-white);
-  --button-background: var(--color-box);
-  --button-background-strong: var(--button-primaryColor);
-  --button-background-current: var(--button-primaryColor);
-  --button-background-active: var(--button-primaryColor);
-  --button-size: 1.5rem;
-  --button-icon-size: 2rem;
-  --button-padding-block: var(--button-size);
-  --button-padding-left: calc(var(--button-size) * 2);
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
-  --button-height: max-content;
-  --button-border-width: var(--border-width);
-  --button-border-style: var(--border-style);
-  --button-border-color: var(--border-color);
-  --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
-  --button-borderRadius: var(--border-radius-input);
-  color: var(--button-color);
-  background: var(--button-background);
-  --fa-primary-color: var(--button-color);
-  --fa-secondary-color: var(--button-color);
-  --fa-secondary-opacity: 0.5;
-  --fa-size: var(--button-icon-size);
-  font-family: var(--font);
-  font-size: 1.6rem;
-  font-weight: 600;
-  text-decoration: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
-  border-width: var(--button-border-width);
-  border-style: var(--button-border-style);
-  border-color: var(--button-border-color);
-  border-radius: var(--button-borderRadius);
-  display: flex;
-  gap: calc(var(--button-size) / 2);
-  align-items: center;
-  padding: var(--button-padding);
-  height: var(--button-height);
-  width: fit-content;
-}
-
-[pgs~=button]:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
-}
-
-[pgs~=button]:where([aria-current=page]) {
-  color: var(--button-color-current);
-  background: var(--button-background-current);
-  --fa-primary-color: var(--button-color-current);
-  --fa-secondary-color: var(--button-color-current);
-}
-
-[pgs~=button]:where(:not([pgs-option~=buttonIcon])):where(:has(i)) {
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.5);
-}
-
-[pgs~=button]:where(:not([pgs-option~=buttonIcon])):where([pgs-option~=buttonReverse]:has(i)) {
-  --button-padding-right: calc(var(--button-size) * 1.5);
-  --button-padding-left: calc(var(--button-size) * 2);
-}
-
-[pgs~=button]:where(:is([pgs-option~=buttonIcon])) {
-  --button-padding: var(--button-padding-block);
-  --button-borderRadius: 50%;
-  flex: 0 0;
-  aspect-ratio: 1;
-  justify-content: center;
-  align-items: center;
-}
-
-[pgs~=button]:where(:is([pgs-option~=buttonIcon])) i {
-  display: inline-grid;
-  place-items: center;
-  inline-size: calc(var(--button-icon-size) + 2px);
-  block-size: var(--button-icon-size);
-  line-height: 1;
-  aspect-ratio: 1;
-}
-
-[pgs~=button]:not([pgs-option~=buttonNohover]) {
-  --hover-primaryColor: var(--color-primary-strong);
-  --hover-color: var(--color-whiteFixed);
-  --hover-background: var(--hover-primaryColor);
-  --hover-color: var(--color-white);
-  --hover-shadow-color: var(--hover-background);
-  --fa-primary-color: var(--hover-color);
-  --fa-secondary-color: var(--hover-color);
-  --fa-secondary-opacity: 0.5;
-}
-
-[pgs~=button]:not([pgs-option~=buttonNohover]):where(:disabled, [disabled]) {
-  text-decoration: none;
-  cursor: default;
-}
-
-[pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])) {
-  transition: unset 0ms;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):hover {
-    box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
-    background: var(--hover-background);
-    color: var(--hover-color);
-    outline-color: var(--hover-background);
-  }
-  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
-    color: var(--hover-color);
-  }
-  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
-    color: var(--hover-color);
-  }
-}
-[pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])) * {
-  transition: unset 0ms;
-  text-decoration: none;
-}
-
-[pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])) *::before, [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])) *::after {
-  transition: unset 0ms;
-}
-
-[pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):focus-visible {
-  outline: var(--focus-visible);
-  outline-offset: 3px;
-}
-
-[pgs~=button][pgs-option~=buttonNohover] {
-  transition: all 200ms;
-  cursor: inherit;
-}
-
-[pgs~=button][pgs-option~=buttonStrong] {
-  color: var(--button-color-strong);
-  background: var(--button-background-strong);
-  --fa-primary-color: var(--button-color-strong);
-  --fa-secondary-color: var(--button-color-strong);
-}
-
-[pgs~=button][pgs-option~=buttonMini] {
-  --button-size: 1.2rem;
-  --button-padding: var(--button-padding-block);
-  display: inline-flex;
-}
-
-[pgs~=button][pgs-option~=buttonBig] {
-  --button-padding-right: var(--padding);
-  --button-padding-left: var(--padding);
-  --button-height: 100%;
-  --button-icon-size: 2em;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  aspect-ratio: 1;
-  text-align: center;
-}
-
-[pgs~=button][pgs-option~=buttonText] {
-  --button-border-width: 0;
-  --button-background: transparent;
-}
-
-[pgs~=button][pgs-option~=buttonTransparent] {
-  --button-border-width: 0;
-  --button-background: transparent;
-  --button-background-strong: transparent;
-  --button-background-current: transparent;
-  --button-background-active: transparent;
-  --hover-background: transparent;
-  --button-color-strong: var(--button-primaryColor);
-  --button-color-current: var(--button-primaryColor);
-  --button-color-active: var(--button-primaryColor);
-  --hover-color: var(--button-primaryColor);
-}
-
-[pgs~=button][pgs-option~=buttonSecondary] {
-  --button-primaryColor: var(--color-secondary-strong);
-}
-
-[pgs~=button][pgs-option~=buttonSecondary]:hover {
-  --hover-primaryColor: var(--color-secondary-strong);
-}
-
-[pgs~=button][pgs-option~=buttonTertiary] {
-  --button-primaryColor: var(--color-tertiary-strong);
-}
-
-[pgs~=button][pgs-option~=buttonTertiary]:hover {
-  --hover-primaryColor: var(--color-tertiary-strong);
-}
-
-[pgs~=button][pgs-option~=buttonQuaternary] {
-  --button-primaryColor: var(--color-quaternary-strong);
-}
-
-[pgs~=button][pgs-option~=buttonQuaternary]:hover {
-  --hover-primaryColor: var(--color-quaternary-strong);
-}
-
-[pgs~=icon] {
-  --icon-size: var(--fa-size);
-  --icon-padding: .5rem;
-  --icon-background: var(--color-white-transparent);
-  border-radius: 50%;
-  display: flex;
-  aspect-ratio: 1;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--icon-background);
-  padding: var(--icon-padding);
-  width: calc(var(--icon-size, 1.6rem) * 3);
-  justify-content: center;
-}
-
-[pgs~=icon] i {
-  display: inline-grid;
-  place-items: center;
-  block-size: var(--icon-size);
-  line-height: 1;
-  aspect-ratio: 1;
-}
-
 [pgs~=textarea] {
   align-items: flex-start;
   display: flex;
@@ -4182,129 +3950,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   background-color: var(--color-primary-dark);
 }
 
-[pgs~=form] button[type=submit] {
-  --button-primaryColor: var(--color-primary-strong);
-  --button-color: var(--color-black);
-  --button-color-strong: var(--color-white);
-  --button-color-current: var(--color-white);
-  --button-color-active: var(--color-white);
-  --button-background: var(--color-box);
-  --button-background-strong: var(--button-primaryColor);
-  --button-background-current: var(--button-primaryColor);
-  --button-background-active: var(--button-primaryColor);
-  --button-size: 1.5rem;
-  --button-icon-size: 2rem;
-  --button-padding-block: var(--button-size);
-  --button-padding-left: calc(var(--button-size) * 2);
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
-  --button-height: max-content;
-  --button-border-width: var(--border-width);
-  --button-border-style: var(--border-style);
-  --button-border-color: var(--border-color);
-  --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
-  --button-borderRadius: var(--border-radius-input);
-  color: var(--button-color);
-  background: var(--button-background);
-  --fa-primary-color: var(--button-color);
-  --fa-secondary-color: var(--button-color);
-  --fa-secondary-opacity: 0.5;
-  --fa-size: var(--button-icon-size);
-  font-family: var(--font);
-  font-size: 1.6rem;
-  font-weight: 600;
-  text-decoration: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
-  border-width: var(--button-border-width);
-  border-style: var(--button-border-style);
-  border-color: var(--button-border-color);
-  border-radius: var(--button-borderRadius);
-  display: flex;
-  gap: calc(var(--button-size) / 2);
-  align-items: center;
-  padding: var(--button-padding);
-  height: var(--button-height);
-  width: fit-content;
-}
-
-[pgs~=form] button[type=submit]:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
-}
-
-[pgs~=form] button[type=submit]:where([aria-current=page]) {
-  color: var(--button-color-current);
-  background: var(--button-background-current);
-  --fa-primary-color: var(--button-color-current);
-  --fa-secondary-color: var(--button-color-current);
-}
-
-[pgs~=form] button[type=submit]:where(:has(i)) {
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.5);
-}
-
-[pgs~=form] button[type=submit]:where([pgs-option~=buttonReverse]:has(i)) {
-  --button-padding-right: calc(var(--button-size) * 1.5);
-  --button-padding-left: calc(var(--button-size) * 2);
-}
-
-[pgs~=form] button[type=submit] {
-  color: var(--button-color-strong);
-  background: var(--button-background-strong);
-  --fa-primary-color: var(--button-color-strong);
-  --fa-secondary-color: var(--button-color-strong);
-  --hover-primaryColor: var(--color-primary-strong);
-  --hover-color: var(--color-whiteFixed);
-  --hover-background: var(--hover-primaryColor);
-  --hover-color: var(--color-white);
-  --hover-shadow-color: var(--hover-background);
-  --fa-primary-color: var(--hover-color);
-  --fa-secondary-color: var(--hover-color);
-  --fa-secondary-opacity: 0.5;
-}
-
-[pgs~=form] button[type=submit]:where(:disabled, [disabled]) {
-  text-decoration: none;
-  cursor: default;
-}
-
-[pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])) {
-  transition: unset 0ms;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  [pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])):hover {
-    box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
-    background: var(--hover-background);
-    color: var(--hover-color);
-    outline-color: var(--hover-background);
-  }
-  [pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
-    color: var(--hover-color);
-  }
-  [pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
-    color: var(--hover-color);
-  }
-}
-[pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])) * {
-  transition: unset 0ms;
-  text-decoration: none;
-}
-
-[pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])) *::before, [pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])) *::after {
-  transition: unset 0ms;
-}
-
-[pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])):focus-visible {
-  outline: var(--focus-visible);
-  outline-offset: 3px;
-}
-
 [pgs~=form] fieldset {
   border: unset;
 }
@@ -4461,6 +4106,125 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   color: var(--color-white);
 }
 
+[pgs~=form] :where(button[type=submit]) {
+  --button-primaryColor: var(--color-primary-strong);
+  --button-color: var(--color-black);
+  --button-color-strong: var(--color-white);
+  --button-color-current: var(--color-white);
+  --button-color-active: var(--color-white);
+  --button-background: var(--color-box);
+  --button-background-strong: var(--button-primaryColor);
+  --button-background-current: var(--button-primaryColor);
+  --button-background-active: var(--button-primaryColor);
+  --button-size: 1.5rem;
+  --button-icon-size: 2rem;
+  --button-padding-block: var(--button-size);
+  --button-padding-left: calc(var(--button-size) * 2);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
+  --button-height: max-content;
+  --button-border-width: var(--border-width);
+  --button-border-style: var(--border-style);
+  --button-border-color: var(--border-color);
+  --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
+  --button-borderRadius: var(--border-radius-input);
+  color: var(--button-color);
+  background: var(--button-background);
+  --fa-primary-color: var(--button-color);
+  --fa-secondary-color: var(--button-color);
+  --fa-secondary-opacity: 0.5;
+  --fa-size: var(--button-icon-size);
+  font-family: var(--font);
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-decoration: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  border-width: var(--button-border-width);
+  border-style: var(--button-border-style);
+  border-color: var(--button-border-color);
+  border-radius: var(--button-borderRadius);
+  display: flex;
+  gap: calc(var(--button-size) / 2);
+  align-items: center;
+  padding: var(--button-padding);
+  height: var(--button-height);
+  width: fit-content;
+}
+
+[pgs~=form] :where(button[type=submit]):disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
+[pgs~=form] :where(button[type=submit]):where([aria-current=page]) {
+  color: var(--button-color-current);
+  background: var(--button-background-current);
+  --fa-primary-color: var(--button-color-current);
+  --fa-secondary-color: var(--button-color-current);
+}
+
+[pgs~=form] :where(button[type=submit]):where(:has(i)) {
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding-left: calc(var(--button-size) * 1.5);
+}
+
+[pgs~=form] :where(button[type=submit]):where([pgs-option~=buttonReverse]:has(i)) {
+  --button-padding-right: calc(var(--button-size) * 1.5);
+  --button-padding-left: calc(var(--button-size) * 2);
+}
+
+[pgs~=form] :where(button[type=submit]) {
+  --hover-primaryColor: var(--color-primary-strong);
+  --hover-color: var(--color-whiteFixed);
+  --hover-background: var(--hover-primaryColor);
+  --hover-color: var(--color-white);
+  --hover-shadow-color: var(--hover-background);
+  --fa-primary-color: var(--hover-color);
+  --fa-secondary-color: var(--hover-color);
+  --fa-secondary-opacity: 0.5;
+}
+
+[pgs~=form] :where(button[type=submit]):where(:disabled, [disabled]) {
+  text-decoration: none;
+  cursor: default;
+}
+
+[pgs~=form] :where(button[type=submit]):where(:not(:disabled, [disabled])) {
+  transition: unset 0ms;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [pgs~=form] :where(button[type=submit]):where(:not(:disabled, [disabled])):hover {
+    box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
+    background: var(--hover-background);
+    color: var(--hover-color);
+    outline-color: var(--hover-background);
+  }
+  [pgs~=form] :where(button[type=submit]):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
+    color: var(--hover-color);
+  }
+  [pgs~=form] :where(button[type=submit]):where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
+    color: var(--hover-color);
+  }
+}
+[pgs~=form] :where(button[type=submit]):where(:not(:disabled, [disabled])) * {
+  transition: unset 0ms;
+  text-decoration: none;
+}
+
+[pgs~=form] :where(button[type=submit]):where(:not(:disabled, [disabled])) *::before, [pgs~=form] :where(button[type=submit]):where(:not(:disabled, [disabled])) *::after {
+  transition: unset 0ms;
+}
+
+[pgs~=form] :where(button[type=submit]):where(:not(:disabled, [disabled])):focus-visible {
+  outline: var(--focus-visible);
+  outline-offset: 3px;
+}
+
 [pgs~=formValidate] {
   --formValidate-outline: solid 3px var(--color-error);
 }
@@ -4491,6 +4255,238 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=formValidate][pgs-state~=errorForm] fieldset[pgs-state~=errorField] legend {
   --label-background: var(--color-error-soft);
   --label-color: var(--color-error);
+}
+
+[pgs~=button] {
+  --button-primaryColor: var(--color-primary-strong);
+  --button-color: var(--color-black);
+  --button-color-strong: var(--color-white);
+  --button-color-current: var(--color-white);
+  --button-color-active: var(--color-white);
+  --button-background: var(--color-box);
+  --button-background-strong: var(--button-primaryColor);
+  --button-background-current: var(--button-primaryColor);
+  --button-background-active: var(--button-primaryColor);
+  --button-size: 1.5rem;
+  --button-icon-size: 2rem;
+  --button-padding-block: var(--button-size);
+  --button-padding-left: calc(var(--button-size) * 2);
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
+  --button-height: max-content;
+  --button-border-width: var(--border-width);
+  --button-border-style: var(--border-style);
+  --button-border-color: var(--border-color);
+  --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
+  --button-borderRadius: var(--border-radius-input);
+  color: var(--button-color);
+  background: var(--button-background);
+  --fa-primary-color: var(--button-color);
+  --fa-secondary-color: var(--button-color);
+  --fa-secondary-opacity: 0.5;
+  --fa-size: var(--button-icon-size);
+  font-family: var(--font);
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-decoration: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  border-width: var(--button-border-width);
+  border-style: var(--button-border-style);
+  border-color: var(--button-border-color);
+  border-radius: var(--button-borderRadius);
+  display: flex;
+  gap: calc(var(--button-size) / 2);
+  align-items: center;
+  padding: var(--button-padding);
+  height: var(--button-height);
+  width: fit-content;
+}
+
+[pgs~=button]:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
+[pgs~=button]:where([aria-current=page]) {
+  color: var(--button-color-current);
+  background: var(--button-background-current);
+  --fa-primary-color: var(--button-color-current);
+  --fa-secondary-color: var(--button-color-current);
+}
+
+[pgs~=button]:where(:not([pgs-option~=buttonIcon])):where(:has(i)) {
+  --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding-left: calc(var(--button-size) * 1.5);
+}
+
+[pgs~=button]:where(:not([pgs-option~=buttonIcon])):where([pgs-option~=buttonReverse]:has(i)) {
+  --button-padding-right: calc(var(--button-size) * 1.5);
+  --button-padding-left: calc(var(--button-size) * 2);
+}
+
+[pgs~=button]:where(:is([pgs-option~=buttonIcon])) {
+  --button-padding: var(--button-padding-block);
+  --button-borderRadius: 50%;
+  flex: 0 0;
+  aspect-ratio: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+[pgs~=button]:where(:is([pgs-option~=buttonIcon])) i {
+  display: inline-grid;
+  place-items: center;
+  inline-size: calc(var(--button-icon-size) + 2px);
+  block-size: var(--button-icon-size);
+  line-height: 1;
+  aspect-ratio: 1;
+}
+
+[pgs~=button]:not([pgs-option~=buttonNohover]) {
+  --hover-primaryColor: var(--color-primary-strong);
+  --hover-color: var(--color-whiteFixed);
+  --hover-background: var(--hover-primaryColor);
+  --hover-color: var(--color-white);
+  --hover-shadow-color: var(--hover-background);
+  --fa-primary-color: var(--hover-color);
+  --fa-secondary-color: var(--hover-color);
+  --fa-secondary-opacity: 0.5;
+}
+
+[pgs~=button]:not([pgs-option~=buttonNohover]):where(:disabled, [disabled]) {
+  text-decoration: none;
+  cursor: default;
+}
+
+[pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])) {
+  transition: unset 0ms;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):hover {
+    box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
+    background: var(--hover-background);
+    color: var(--hover-color);
+    outline-color: var(--hover-background);
+  }
+  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
+    color: var(--hover-color);
+  }
+  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
+    color: var(--hover-color);
+  }
+}
+[pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])) * {
+  transition: unset 0ms;
+  text-decoration: none;
+}
+
+[pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])) *::before, [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])) *::after {
+  transition: unset 0ms;
+}
+
+[pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):focus-visible {
+  outline: var(--focus-visible);
+  outline-offset: 3px;
+}
+
+[pgs~=button][pgs-option~=buttonNohover] {
+  transition: all 200ms;
+  cursor: inherit;
+}
+
+[pgs~=button][pgs-option~=buttonStrong] {
+  color: var(--button-color-strong);
+  background: var(--button-background-strong);
+  --fa-primary-color: var(--button-color-strong);
+  --fa-secondary-color: var(--button-color-strong);
+}
+
+[pgs~=button][pgs-option~=buttonMini] {
+  --button-size: 1.2rem;
+  --button-padding: var(--button-padding-block);
+  display: inline-flex;
+}
+
+[pgs~=button][pgs-option~=buttonBig] {
+  --button-padding-right: var(--padding);
+  --button-padding-left: var(--padding);
+  --button-height: 100%;
+  --button-icon-size: 2em;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  aspect-ratio: 1;
+  text-align: center;
+}
+
+[pgs~=button][pgs-option~=buttonText] {
+  --button-border-width: 0;
+  --button-background: transparent;
+}
+
+[pgs~=button][pgs-option~=buttonTransparent] {
+  --button-border-width: 0;
+  --button-background: transparent;
+  --button-background-strong: transparent;
+  --button-background-current: transparent;
+  --button-background-active: transparent;
+  --hover-background: transparent;
+  --button-color-strong: var(--button-primaryColor);
+  --button-color-current: var(--button-primaryColor);
+  --button-color-active: var(--button-primaryColor);
+  --hover-color: var(--button-primaryColor);
+}
+
+[pgs~=button][pgs-option~=buttonSecondary] {
+  --button-primaryColor: var(--color-secondary-strong);
+}
+
+[pgs~=button][pgs-option~=buttonSecondary]:hover {
+  --hover-primaryColor: var(--color-secondary-strong);
+}
+
+[pgs~=button][pgs-option~=buttonTertiary] {
+  --button-primaryColor: var(--color-tertiary-strong);
+}
+
+[pgs~=button][pgs-option~=buttonTertiary]:hover {
+  --hover-primaryColor: var(--color-tertiary-strong);
+}
+
+[pgs~=button][pgs-option~=buttonQuaternary] {
+  --button-primaryColor: var(--color-quaternary-strong);
+}
+
+[pgs~=button][pgs-option~=buttonQuaternary]:hover {
+  --hover-primaryColor: var(--color-quaternary-strong);
+}
+
+[pgs~=icon] {
+  --icon-size: var(--fa-size);
+  --icon-padding: .5rem;
+  --icon-background: var(--color-white-transparent);
+  border-radius: 50%;
+  display: flex;
+  aspect-ratio: 1;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--icon-background);
+  padding: var(--icon-padding);
+  width: calc(var(--icon-size, 1.6rem) * 3);
+  justify-content: center;
+}
+
+[pgs~=icon] i {
+  display: inline-grid;
+  place-items: center;
+  block-size: var(--icon-size);
+  line-height: 1;
+  aspect-ratio: 1;
 }
 
 [pgs~=checkboxBackground] {
@@ -5307,82 +5303,31 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 [pgs~=accordion] {
-  padding: 0 !important;
-  flex-direction: column !important;
-  display: block !important;
-  width: 100% !important;
+  flex-direction: column;
+  min-width: 100%;
   position: relative;
-  user-select: unset !important;
-  --button-primaryColor: var(--color-primary-strong);
-  --button-color: var(--color-black);
-  --button-color-strong: var(--color-white);
-  --button-color-current: var(--color-white);
-  --button-color-active: var(--color-white);
-  --button-background: var(--color-box);
-  --button-background-strong: var(--button-primaryColor);
-  --button-background-current: var(--button-primaryColor);
-  --button-background-active: var(--button-primaryColor);
-  --button-size: 1.5rem;
-  --button-icon-size: 2rem;
-  --button-padding-block: var(--button-size);
-  --button-padding-left: calc(var(--button-size) * 2);
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
-  --button-height: max-content;
-  --button-border-width: var(--border-width);
-  --button-border-style: var(--border-style);
-  --button-border-color: var(--border-color);
-  --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
-  --button-borderRadius: var(--border-radius-input);
-  color: var(--button-color);
-  background: var(--button-background);
-  --fa-primary-color: var(--button-color);
-  --fa-secondary-color: var(--button-color);
-  --fa-secondary-opacity: 0.5;
-  --fa-size: var(--button-icon-size);
-  font-family: var(--font);
-  font-size: 1.6rem;
-  font-weight: 600;
-  text-decoration: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
-  border-width: var(--button-border-width);
-  border-style: var(--button-border-style);
-  border-color: var(--button-border-color);
-  border-radius: var(--button-borderRadius);
-  display: flex;
-  gap: calc(var(--button-size) / 2);
-  align-items: center;
-  padding: var(--button-padding);
-  height: var(--button-height);
-  width: fit-content;
+  -webkit-user-select: unset;
+  user-select: unset;
 }
 
-[pgs~=accordion]:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
+[pgs~=accordion]:not([pgs~=button]) {
+  padding: 10px;
 }
 
-[pgs~=accordion]:where([aria-current=page]) {
-  color: var(--button-color-current);
-  background: var(--button-background-current);
-  --fa-primary-color: var(--button-color-current);
-  --fa-secondary-color: var(--button-color-current);
+[pgs~=accordion]:not([pgs~=button])::after {
+  content: "";
+  width: 100%;
+  border-bottom: var(--border-complete);
+  position: absolute;
+  bottom: -5px;
+  left: 0;
 }
 
-[pgs~=accordion]:where(:has(i)) {
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.5);
-}
-
-[pgs~=accordion]:where([pgs-option~=buttonReverse]:has(i)) {
-  --button-padding-right: calc(var(--button-size) * 1.5);
-  --button-padding-left: calc(var(--button-size) * 2);
+[pgs~=accordion]:not([pgs~=button]) [pgs~=accordion-button] {
+  font-weight: 700;
 }
 
 [pgs~=accordion] [pgs~=accordion-button] {
-  padding: var(--button-padding);
   cursor: pointer;
   display: flex;
   gap: var(--gap-texts);
@@ -5415,7 +5360,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 [pgs~=accordion] [pgs~=accordion-content] {
-  padding-left: var(--button-padding);
   display: flex;
   gap: var(--gap-texts);
   flex-direction: column;
@@ -5431,89 +5375,19 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 [pgs~=accordion]:not([pgs-state~=open]) {
-  --hover-primaryColor: var(--color-primary-strong);
-  --hover-color: var(--color-whiteFixed);
-  --hover-background: var(--hover-primaryColor);
-  --hover-color: var(--color-white);
-  --hover-shadow-color: var(--hover-background);
-  --fa-primary-color: var(--hover-color);
-  --fa-secondary-color: var(--hover-color);
-  --fa-secondary-opacity: 0.5;
-}
-
-[pgs~=accordion]:not([pgs-state~=open]):where(:disabled, [disabled]) {
-  text-decoration: none;
-  cursor: default;
-}
-
-[pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])) {
-  transition: unset 0ms;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])):hover {
-    box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
-    background: var(--hover-background);
-    color: var(--hover-color);
-    outline-color: var(--hover-background);
-  }
-  [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
-    color: var(--hover-color);
-  }
-  [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
-    color: var(--hover-color);
-  }
-}
-[pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])) * {
-  transition: unset 0ms;
-  text-decoration: none;
-}
-
-[pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])) *::before, [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])) *::after {
-  transition: unset 0ms;
-}
-
-[pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])):focus-visible {
-  outline: var(--focus-visible);
-  outline-offset: 3px;
-}
-
-[pgs~=accordion]:not([pgs-state~=open]) {
-  --button-size: var(--padding-2);
+  display: block;
 }
 
 [pgs~=accordion][pgs-state~=open] {
-  transition: all 200ms;
-  cursor: inherit;
-  --button-size: var(--padding-2);
-  margin-top: var(--padding);
-}
-
-[pgs~=accordion][pgs-state~=open] [pgs~=accordion-button] {
-  padding-inline: var(--padding);
-  padding-top: var(--padding);
+  display: flex;
+  gap: var(--gap-texts);
 }
 
 [pgs~=accordion][pgs-state~=open] [pgs~=accordion-button]::after {
   rotate: 180deg;
 }
 
-[pgs~=accordion][pgs-state~=open] [pgs~=accordion-button] > i {
-  padding: 0.5rem;
-  background: color-mix(in srgb, var(--fa-primary-color) 5%, var(--color-white) 95%);
-  border-radius: 0.8rem;
-  display: table;
-  position: absolute;
-  top: calc(var(--padding) * -1);
-  left: var(--padding);
-  font-size: 40px;
-}
-
 [pgs~=accordion][pgs-state~=open] [pgs~=accordion-content] {
-  padding: calc(var(--button-size) * 2);
-  padding-top: var(--button-size);
   visibility: visible;
   opacity: 1;
   max-height: unset;
@@ -6122,83 +5996,6 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   position: absolute;
   top: 50%;
   z-index: -1;
-}
-
-[pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=_stepTabs-dots-dot] {
-  --button-primaryColor: var(--color-primary-strong);
-  --button-color: var(--color-black);
-  --button-color-strong: var(--color-white);
-  --button-color-current: var(--color-white);
-  --button-color-active: var(--color-white);
-  --button-background: var(--color-box);
-  --button-background-strong: var(--button-primaryColor);
-  --button-background-current: var(--button-primaryColor);
-  --button-background-active: var(--button-primaryColor);
-  --button-size: 1.5rem;
-  --button-icon-size: 2rem;
-  --button-padding-block: var(--button-size);
-  --button-padding-left: calc(var(--button-size) * 2);
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
-  --button-height: max-content;
-  --button-border-width: var(--border-width);
-  --button-border-style: var(--border-style);
-  --button-border-color: var(--border-color);
-  --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
-  --button-borderRadius: var(--border-radius-input);
-  color: var(--button-color);
-  background: var(--button-background);
-  --fa-primary-color: var(--button-color);
-  --fa-secondary-color: var(--button-color);
-  --fa-secondary-opacity: 0.5;
-  --fa-size: var(--button-icon-size);
-  font-family: var(--font);
-  font-size: 1.6rem;
-  font-weight: 600;
-  text-decoration: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
-  border-width: var(--button-border-width);
-  border-style: var(--button-border-style);
-  border-color: var(--button-border-color);
-  border-radius: var(--button-borderRadius);
-  display: flex;
-  gap: calc(var(--button-size) / 2);
-  align-items: center;
-  padding: var(--button-padding);
-  height: var(--button-height);
-  width: fit-content;
-}
-
-[pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=_stepTabs-dots-dot]:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
-}
-
-[pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=_stepTabs-dots-dot]:where([aria-current=page]) {
-  color: var(--button-color-current);
-  background: var(--button-background-current);
-  --fa-primary-color: var(--button-color-current);
-  --fa-secondary-color: var(--button-color-current);
-}
-
-[pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=_stepTabs-dots-dot] {
-  --button-padding: var(--button-padding-block);
-  --button-borderRadius: 50%;
-  flex: 0 0;
-  aspect-ratio: 1;
-  justify-content: center;
-  align-items: center;
-}
-
-[pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=_stepTabs-dots-dot] i {
-  display: inline-grid;
-  place-items: center;
-  inline-size: calc(var(--button-icon-size) + 2px);
-  block-size: var(--button-icon-size);
-  line-height: 1;
-  aspect-ratio: 1;
 }
 
 [pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=_stepTabs-dots-dot] {
