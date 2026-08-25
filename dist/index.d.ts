@@ -147,6 +147,7 @@ declare global {
     dropdown?: any;
     menu?: any;
     modal?: any;
+    header?: any;
     notification?: any;
     search?: PgsSearchModule;
     summary?: PgsSummaryModule;

@@ -16,6 +16,7 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `buttonIcon`: identifies a compact button composed primarily of an icon.
 - `buttonMini`: applies the smallest size variant.
 - `buttonBig`: applies the large size variant.
+- `buttonText`: drops the background and the border at rest, so only the label shows, and colours the label on hover. Unlike buttonTransparent it leaves the other states alone, so the same button still fills in when it carries buttonStrong or aria-current.
 - `buttonTransparent`: removes the default background and outline while preserving the button layout and hover behavior.
 - `buttonSecondary`: replaces the primary button accent with the secondary color palette.
 - `buttonTertiary`: replaces the primary button accent with the tertiary color palette.
@@ -26,6 +27,10 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 ### PGS
 
 - `flexRow`: arranges the button examples in a flexible row.
+
+### PGS Options
+
+- `gapTexts`: spaces the two buttons that share the text-only example.
 
 ## Output
 
@@ -104,6 +109,21 @@ Largest button size using buttonBig, combined with an icon.
 <button pgs="button" pgs-option="buttonBig" type="button" aria-label="Large button">
     <i class="fa-duotone fa-solid fa-fire"></i>
     Large
+</button>
+```
+
+### Text only
+
+Only the label shows at rest, and it takes the accent colour on hover. The second one carries buttonStrong as well: unlike buttonTransparent, buttonText leaves the other states alone, so an emphasised button still fills in.
+
+```html
+<button pgs="button" pgs-option="buttonText" type="button">
+    <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+    Read more
+</button>
+
+<button pgs="button" pgs-option="buttonText buttonStrong" type="button">
+    Still filled
 </button>
 ```
 

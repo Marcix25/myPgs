@@ -578,18 +578,22 @@ const demoRenderer = {
     renderNavMenu(nav, items, category) {
         const menu = document.createElement("nav");
         menu.setAttribute("pgs", "menu");
-        menu.setAttribute("pgs-option", "vertical menuHeader");
+        menu.setAttribute("pgs-option", "vertical");
         menu.setAttribute("aria-label", category ? `Menu ${category}` : "Menu");
 
         const list = document.createElement("ul");
-        list.setAttribute("pgs", "borderLeft padding");
-        list.setAttribute("pgs-option", "paddingTexts");
+        list.setAttribute("pgs", "borderLeft ");
 
         items.forEach(({ path }) => {
             const li = document.createElement("li");
             const a = document.createElement("a");
             a.href = `#${this.getSlug(path)}`;
             a.dataset.panelLink = path;
+
+            //== the menu no longer styles its links, so the button tokens are written here as they
+            //== would be in markup
+            pgs(a).add("button");
+            pgs(a).option.add("buttonTransparent buttonQuaternary");
 
             const icon = document.createElement("i");
             icon.className = `fa-solid ${ENTRY_ICONS[path] || DEFAULT_ENTRY_ICON}`;

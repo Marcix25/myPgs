@@ -7,12 +7,12 @@
  * - menu: identifies the menu element used by Menu.
  *
  * @pgs-generated
- * - _menu-buttonIcon: the toggle inserted after the link of every item that has a submenu.
+ * - _menu-buttonIcon: the toggle inserted after the link of every item that has a submenu; it looks and sits the same whichever behaviour it drives.
+ * - _menu-accordion: marks an item whose submenu opens in place rather than floating, which is every item of a vertical menu and every level below the first of a horizontal one.
  *
  * @pgs-option
  * - horizontal: identifies the horizontal element used by Menu.
  * - vertical: identifies the vertical element used by Menu.
- * - menuHeader: identifies the menuHeader element used by Menu.
  * - menuIconOnlyCurrent: displays link icons only when the link has an active aria-current value.
  * - menuShort: compacts adjacent menu links by overlapping their horizontal spacing.
  * - position: identifies the position element used by Menu.
@@ -26,6 +26,10 @@
  * - instance.refresh(): refreshes the component and returns its updated instance.
  *
  * @related
+ * - button: styles a menu link, now that the menu no longer does it itself.
+ * - buttonText: the appearance a navigation link takes, whatever the menu's direction; see Button for the whole set of variants.
+ * - flexRow: lays the top-level list out as a row, so a long menu can be measured against the space it has.
+ * - wrap: lets that row break onto a second line instead of overflowing.
  * - dropdown: uses the related dropdown component or utility in this example.
  * - dropdown-button: uses the related dropdown-button component or utility in this example.
  * - dropdown-content: uses the related dropdown-content component or utility in this example.
@@ -36,59 +40,99 @@
 -->
 
 <nav pgs="menu" pgs-option="horizontal" aria-label="Menu orizzontale" demo="component" demo-title="Horizontal menu" demo-description="Top-level navigation arranged horizontally, with one nested submenu.">
-    <ul>
+    <ul pgs="flexRow" pgs-option="wrap">
         <li>
-            <a href="/" aria-current="page">
+            <a pgs="button" pgs-option="buttonText" href="/" aria-current="page">
                 <i class="fa-solid fa-house" aria-hidden="true"></i>
                 <span>Home</span>
             </a>
         </li>
         <li>
-            <a href="/services">
+            <a pgs="button" pgs-option="buttonText" href="/services">
                 <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
                 <span>Services</span>
             </a>
             <ul>
-                <li><a href="/services/one">First service</a></li>
-                <li><a href="/services/two">Second service</a></li>
+                <li><a pgs="button" pgs-option="buttonText" href="/services/one">First service</a></li>
+                <li><a pgs="button" pgs-option="buttonText" href="/services/two">Second service</a></li>
+            </ul>
+        </li>
+        <li>
+            <a pgs="button" pgs-option="buttonText" href="/about">
+                <i class="fa-solid fa-info-circle" aria-hidden="true"></i>
+                <span>about</span>
+            </a>
+            <ul>
+                <li><a pgs="button" pgs-option="buttonText" href="/services/one">First service</a></li>
+                <li>
+                    <a pgs="button" pgs-option="buttonText" href="/services/two">Second service</a>
+                    <ul>
+                        <li><a pgs="button" pgs-option="buttonText" href="/services/one">First service</a></li>
+                        <li><a pgs="button" pgs-option="buttonText" href="/services/two">Second service</a></li>
+                    </ul>
+                </li>
             </ul>
         </li>
     </ul>
 </nav>
 
-<nav pgs="menu" pgs-option="vertical menuIconOnlyCurrent" aria-label="Menu verticale" demo="component" demo-title="Vertical menu" demo-description="Vertical navigation with recursively nested submenus, showing icons only on the active link.">
+<nav pgs="menu" pgs-option="vertical" aria-label="Menu verticale" demo="component" demo-title="Vertical menu" demo-description="Vertical navigation with recursively nested submenus, showing icons only on the active link.">
     <ul>
         <li>
-            <a href="/" aria-current="page">
+            <a pgs="button" pgs-option="buttonText" href="/" aria-current="page">
                 <i class="fa-solid fa-house" aria-hidden="true"></i>
                 <span>Home</span>
             </a>
         </li>
         <li>
-            <a href="/services">
+            <a pgs="button" pgs-option="buttonText" href="/services">
                 <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
                 <span>Services</span>
             </a>
             <ul>
-                <li><a href="/services/one">First service</a></li>
-                <li><a href="/services/two">Second service</a></li>
+                <li><a pgs="button" pgs-option="buttonText" href="/services/one">First service</a></li>
+                <li><a pgs="button" pgs-option="buttonText" href="/services/two">Second service</a></li>
             </ul>
         </li>
         <li>
-            <a href="/about">
+            <a pgs="button" pgs-option="buttonText" href="/about">
                 <i class="fa-solid fa-info-circle" aria-hidden="true"></i>
                 <span>about</span>
             </a>
             <ul>
-                <li><a href="/services/one">First service</a></li>
+                <li><a pgs="button" pgs-option="buttonText" href="/services/one">First service</a></li>
                 <li>
-                    <a href="/services/two">Second service</a>
+                    <a pgs="button" pgs-option="buttonText" href="/services/two">Second service</a>
                     <ul>
-                        <li><a href="/services/one">First service</a></li>
-                        <li><a href="/services/two">Second service</a></li>
+                        <li><a pgs="button" pgs-option="buttonText" href="/services/one">First service</a></li>
+                        <li><a pgs="button" pgs-option="buttonText" href="/services/two">Second service</a></li>
                     </ul>
                 </li>
             </ul>
+        </li>
+    </ul>
+</nav>
+
+
+<nav pgs="menu" pgs-option="horizontal menuIconOnlyCurrent" aria-label="Menu orizzontale" demo="component" demo-title="Horizontal menu - menu Icon Only Current" demo-description="Top-level navigation arranged horizontally, with one nested submenu.">
+    <ul pgs="flexRow" pgs-option="wrap">
+        <li>
+            <a pgs="button" pgs-option="buttonText" href="/" aria-current="page">
+                <i class="fa-solid fa-house" aria-hidden="true"></i>
+                <span>Home</span>
+            </a>
+        </li>
+        <li>
+            <a pgs="button" pgs-option="buttonText" href="/services">
+                <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+                <span>Services</span>
+            </a>
+        </li>
+        <li>
+            <a pgs="button" pgs-option="buttonText" href="/about">
+                <i class="fa-solid fa-info-circle" aria-hidden="true"></i>
+                <span>about</span>
+            </a>
         </li>
     </ul>
 </nav>

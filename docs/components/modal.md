@@ -27,7 +27,6 @@ Modal markup, configuration, behavior, and usage example.
 - `topLevel`: identifies the topLevel element used by Modal.
 - `left`: identifies the left element used by Modal.
 - `right`: identifies the right element used by Modal.
-- `buttonClose`: styles the close action generated at runtime.
 
 ## JavaScript API
 

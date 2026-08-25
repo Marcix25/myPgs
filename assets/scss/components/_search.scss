@@ -15,7 +15,7 @@
     --search-suggestions-item-selected-color: var(--color-whiteFixed);
     position: relative;
     @include flexRow(nowrap);
-    @include button_header();
+    @include buttonHeader();
     flex: 1;
     width: 100%;
     overflow: visible;

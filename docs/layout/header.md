@@ -26,16 +26,21 @@ Responsive header that measures available space, switches between its full and c
 - `headerCompactTablet`: forces the compact layout from the tablet width down, even when the content still fits.
 - `headerCompactBigTablet`: forces the compact layout from the big-tablet width down, even when the content still fits.
 - `headerCompactLaptop`: forces the compact layout from the laptop width down, even when the content still fits.
+- `headerPrimary`: marks the header that owns --heightOfHeader and --heightOfHeaderScroll, the properties that push the page content down. Only needed on a page with more than one header; without it the first one keeps them.
 
 ## PGS States
 
 - `compact`: is applied to header and header-element when their width or the viewport requires the compact layout.
 
+## JavaScript API
+
+- `pgs.header.init(root)`: initializes the headers inside the specified root, or the root itself when it is one; runs automatically on page load and again via pgs.init(root) for a header added later. A page may hold several headers, and each one manages its own compact layout, while the properties that push the page content down belong to the one marked headerPrimary, or to the first one when none is marked.
+
 ## Related elements
 
 ### PGS
 
-- `button`: provides the base styling for header controls.
+- `button`: provides the base styling for the header controls and for the navigation links, which the menu no longer styles on its own.
 - `logo`: inserts the brand into the initial area.
 - `logo-text`: uses the text variant of the logo.
 - `menu`: provides both the full and the compact navigation.
@@ -53,9 +58,9 @@ Responsive header that measures available space, switches between its full and c
 
 ### PGS Options
 
+- `buttonText`: the appearance of the navigation links, in the full-layout row and once they stack in the compact panel alike.
 - `horizontal`: arranges the full-layout menu horizontally.
 - `vertical`: arranges the compact-layout menu vertically.
-- `menuHeader`: adapts both menus to the header context.
 - `menuShort`: compacts adjacent full-layout menu links by overlapping their horizontal spacing.
 - `containerPGS`: uses containerPGS[header] on the modal wrapper to move the dialog into the header.
 - `right`: presents the compact navigation dialog content from the right side.
@@ -82,12 +87,12 @@ Complete header HTML with full navigation and a side compact panel.
 		</div>
 
 		<div pgs="header-element-onlyFull">
-			<nav pgs="menu" pgs-option="horizontal menuHeader menuShort" aria-label="Main menu">
+			<nav pgs="menu" pgs-option="horizontal menuShort" aria-label="Main menu">
 				<ul>
-					<li><a href="/">Home</a></li>
-					<li><a href="/services">Services</a></li>
-					<li><a href="/about">About</a></li>
-					<li><a href="/contact">Contact</a></li>
+					<li><a pgs="button" pgs-option="buttonText" href="/">Home</a></li>
+					<li><a pgs="button" pgs-option="buttonText" href="/services">Services</a></li>
+					<li><a pgs="button" pgs-option="buttonText" href="/about">About</a></li>
+					<li><a pgs="button" pgs-option="buttonText" href="/contact">Contact</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -97,15 +102,15 @@ Complete header HTML with full navigation and a side compact panel.
 
 		<div pgs="header-element-alwaysOnLast">
 			<div pgs="flexRow nowrap">
-				<button pgs="button toggleDarkmode" pgs-option="buttonIcon" type="button" aria-label="Change theme">
-					<i class="fa-solid fa-moon"></i>
-				</button>
 				<div pgs="modal" pgs-option="containerPGS[header] ">
 					<button type="button" pgs="modal-button modal-close button notificationBell" pgs-option="buttonIcon" aria-label="Open notifications">
 						<i class="fa-duotone fa-solid fa-bell"></i>
 						<span pgs="notificationBell-counter"></span>
 					</button>
 				</div>
+				<button pgs="button toggleDarkmode" pgs-option="buttonIcon" type="button" aria-label="Change theme">
+					<i class="fa-solid fa-moon"></i>
+				</button>
 			</div>
 		</div>
 
@@ -115,12 +120,12 @@ Complete header HTML with full navigation and a side compact panel.
 
 			<dialog pgs="modal-dialog" pgs-option="right">
 				<div pgs="modal-dialog-content">
-					<nav pgs="menu" pgs-option="vertical menuHeader" aria-label="Compact menu">
+					<nav pgs="menu" pgs-option="vertical" aria-label="Compact menu">
 						<ul>
-							<li><a href="/">Home</a></li>
-							<li><a href="/services">Services</a></li>
-							<li><a href="/about">About</a></li>
-							<li><a href="/contact">Contact</a></li>
+							<li><a pgs="button" pgs-option="buttonText" href="/">Home</a></li>
+							<li><a pgs="button" pgs-option="buttonText" href="/services">Services</a></li>
+							<li><a pgs="button" pgs-option="buttonText" href="/about">About</a></li>
+							<li><a pgs="button" pgs-option="buttonText" href="/contact">Contact</a></li>
 						</ul>
 					</nav>
 				</div>

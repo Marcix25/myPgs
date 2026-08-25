@@ -4,11 +4,11 @@
 [pgs~=button] {
     @include buttonBase();
 
-    &:where(:not([pgs-option~=buttonIcon], [pgs-option~=buttonMini], [pgs-option~=buttonClose])) {
+    &:where(:not([pgs-option~=buttonIcon])) {
         @include buttonContent();
     }
 
-    &:where(:is([pgs-option~=buttonIcon], [pgs-option~=buttonMini], [pgs-option~=buttonClose])) {
+    &:where(:is([pgs-option~=buttonIcon])) {
         @include buttonIcon();
     }
 
@@ -32,8 +32,9 @@
         @include buttonBig();
     }
 
-    &[pgs-option~=buttonClose] {
-        @include buttonClose();
+
+    &[pgs-option~=buttonText] {
+        @include buttonText();
     }
 
     &[pgs-option~=buttonTransparent] {

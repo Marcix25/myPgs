@@ -470,14 +470,15 @@
         "pgs-generated": [],
         "pgs-option": [
             "buttonBig",
-            "buttonClose",
             "buttonIcon",
             "buttonMini",
             "buttonNohover",
             "buttonQuaternary",
+            "buttonReverse",
             "buttonSecondary",
             "buttonStrong",
             "buttonTertiary",
+            "buttonText",
             "buttonTransparent"
         ]
     },
@@ -825,6 +826,7 @@
             "headerCompactMobile",
             "headerCompactTablet",
             "headerCompactWatch",
+            "headerPrimary",
             "headerScroll"
         ]
     },
@@ -1140,13 +1142,12 @@
     "menu": {
         "pgs": [],
         "pgs-generated": [
+            "_menu-accordion",
             "_menu-buttonIcon"
         ],
         "pgs-option": [
             "buttonNohover",
-            "buttonReverse",
             "horizontal",
-            "menuHeader",
             "menuIconOnlyCurrent",
             "menuShort",
             "position",
@@ -1409,6 +1410,7 @@
         "pgs-generated": [],
         "pgs-option": [
             "shellAsideScroll",
+            "shellAsideScrollFlush",
             "shellFullPage"
         ]
     },

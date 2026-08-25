@@ -17,12 +17,13 @@
   --border-radius-external: calc(var(--border-radius) + var(--padding));
   --border-radius-input: 2.25rem;
   --border-width: 1.5px;
-  --border: var(--border-width) solid;
+  --border-style: solid;
   --border-color: light-dark(#ebebeb, #353535);
-  --outline-width: var(--border-width);
-  --outline-color: var(--border-color);
-  --border-complete: var(--border) var(--border-color);
-  --border-complete-hover: var(--border) var(--color-white);
+  --border-complete: var(--border-width) var(--border-color) var(--border-style);
+  --outline-width: 1.5px;
+  --outline-style: solid;
+  --outline-color: light-dark(#ebebeb, #353535);
+  --outline-complete: var(--outline-width) var(--outline-color) var(--outline-style);
   --box-shadow: 0px 0px 38px 0px #0000000d;
   --text-shadow: 0px 0px 4px #00000040, 0px 0px 4px #0000002d;
   --backdrop: #0000003e;
@@ -729,6 +730,17 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   border-radius: var(--border-radius-external);
 }
 
+[pgs~=hover] {
+  --hover-primaryColor: var(--color-primary-strong);
+  --hover-color: var(--color-whiteFixed);
+  --hover-background: var(--hover-primaryColor);
+  --hover-color: var(--color-white);
+  --hover-shadow-color: var(--hover-background);
+  --fa-primary-color: var(--hover-color);
+  --fa-secondary-color: var(--hover-color);
+  --fa-secondary-opacity: 0.5;
+}
+
 [pgs~=hover]:where(:disabled, [disabled]) {
   text-decoration: none;
   cursor: default;
@@ -741,24 +753,16 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=hover]:where(:not(:disabled, [disabled])):focus-visible, [pgs~=hover]:where(:not(:disabled, [disabled])):hover {
+  [pgs~=hover]:where(:not(:disabled, [disabled])):hover {
     box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
-    --hover-primaryColor: var(--color-primary-strong);
-    --hover-color: var(--color-whiteFixed);
-    --hover-background: var(--hover-primaryColor);
-    --hover-color: var(--color-white);
-    --hover-shadow-color: var(--hover-background);
-    --fa-primary-color: var(--hover-color);
-    --fa-secondary-color: var(--hover-color);
-    --fa-secondary-opacity: 0.5;
     background: var(--hover-background);
     color: var(--hover-color);
     outline-color: var(--hover-background);
   }
-  [pgs~=hover]:where(:not(:disabled, [disabled])):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=hover]:where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
+  [pgs~=hover]:where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
     color: var(--hover-color);
   }
-  [pgs~=hover]:where(:not(:disabled, [disabled])):focus-visible [pgs~=hover-text], [pgs~=hover]:where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
+  [pgs~=hover]:where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
     color: var(--hover-color);
   }
 }
@@ -769,6 +773,11 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=hover]:where(:not(:disabled, [disabled])) *::before, [pgs~=hover]:where(:not(:disabled, [disabled])) *::after {
   transition: unset 0ms;
+}
+
+[pgs~=hover]:where(:not(:disabled, [disabled])):focus-visible {
+  outline: var(--focus-visible);
+  outline-offset: 3px;
 }
 
 [pgs~=hover]:not(:disabled):hover [pgs~=hover-text] {
@@ -2293,7 +2302,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --pageShell-margin-top: 0px;
   --pageShell-sizeMaskImage: 40px;
   --pageShell-padding-inline: var(--padding-page);
-  --pageShell-padding-top: calc(var(--page-top) - var(--pageShell-margin-top) - var(--pageShell-sizeMaskImage));
+  --pageShell-padding-top: calc(var(--page-top) - var(--pageShell-margin-top));
   --pageShell-padding-bottom: var(--gap-elements);
   --pageShell-gap: var(--gap-elements);
   --pageShell-aside-top: var(--heightOfHeader);
@@ -2479,33 +2488,28 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
       the viewport, so the overflow lives on the aside itself and no inner wrapper is
       needed. Both rules below sit at the same specificity inside the option, so the
       band that releases it wins by source order and does not depend on the
-      specificity of the composition bands above. */
+      specificity of the composition bands above. 
+  */
 }
 
-[pgs~=pageShell][pgs-option~=shellAsideScroll] [pgs~=pageShell-aside] {
-  position: sticky;
-  top: var(--pageShell-aside-top);
-  max-height: calc(100svh - var(--pageShell-aside-top));
-  overflow-y: auto;
-  margin-top: calc(var(--pageShell-padding-top) * -1);
-  scrollbar-color: transparent transparent;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-sizeMaskImage), black calc(100% - var(--pageShell-sizeMaskImage)), transparent 100%);
-  mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-sizeMaskImage), black calc(100% - var(--pageShell-sizeMaskImage)), transparent 100%);
+@container (min-width: 900px) {
+  [pgs~=pageShell][pgs-option~=shellAsideScroll] [pgs~=pageShell-aside], [pgs~=pageShell][pgs-option~=shellAsideScrollFlush] [pgs~=pageShell-aside] {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-sizeMaskImage), black calc(100% - var(--pageShell-sizeMaskImage)), transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-sizeMaskImage), black calc(100% - var(--pageShell-sizeMaskImage)), transparent 100%);
+    position: sticky;
+    overflow-y: auto;
+    top: var(--pageShell-aside-top);
+    scrollbar-color: transparent transparent;
+    max-height: calc(100svh - var(--pageShell-padding-top));
+  }
+  [pgs~=pageShell][pgs-option~=shellAsideScroll] [pgs~=pageShell-aside]:hover, [pgs~=pageShell][pgs-option~=shellAsideScrollFlush] [pgs~=pageShell-aside]:hover {
+    scrollbar-color: var(--color-gray) transparent;
+  }
 }
-
-[pgs~=pageShell][pgs-option~=shellAsideScroll] [pgs~=pageShell-aside]:hover {
-  scrollbar-color: var(--color-gray) transparent;
-}
-
-@container (max-width: 900px) {
-  [pgs~=pageShell][pgs-option~=shellAsideScroll] [pgs~=pageShell-aside] {
-    position: relative;
-    margin-top: 0;
-    top: auto;
-    max-height: none;
-    overflow-y: visible;
-    -webkit-mask-image: none;
-    mask-image: none;
+@container (min-width: 900px) {
+  [pgs~=pageShell][pgs-option~=shellAsideScrollFlush] [pgs~=pageShell-aside] {
+    max-height: calc(100svh - var(--pageShell-aside-top));
+    margin-top: calc(var(--pageShell-padding-top) * -1);
   }
 }
 [pgs~=header] {
@@ -2545,6 +2549,10 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=header] [pgs~=header-element] > * {
   display: contents;
+}
+
+[pgs~=header] [pgs~=header-element] > * > * {
+  flex-shrink: 0;
 }
 
 [pgs~=header] [pgs~=header-element] [pgs~=button] {
@@ -2900,6 +2908,14 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=card]:where(a),
 [pgs~=card] > a:first-child {
   --card-background: var(--color-white);
+  --hover-primaryColor: var(--color-primary-strong);
+  --hover-color: var(--color-whiteFixed);
+  --hover-background: var(--hover-primaryColor);
+  --hover-color: var(--color-white);
+  --hover-shadow-color: var(--hover-background);
+  --fa-primary-color: var(--hover-color);
+  --fa-secondary-color: var(--hover-color);
+  --fa-secondary-opacity: 0.5;
 }
 
 [pgs~=card]:where(a):where(:disabled, [disabled]),
@@ -2916,29 +2932,18 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=card]:where(a):where(:not(:disabled, [disabled])):focus-visible, [pgs~=card]:where(a):where(:not(:disabled, [disabled])):hover,
-  [pgs~=card] > a:first-child:where(:not(:disabled, [disabled])):focus-visible,
+  [pgs~=card]:where(a):where(:not(:disabled, [disabled])):hover,
   [pgs~=card] > a:first-child:where(:not(:disabled, [disabled])):hover {
     box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
-    --hover-primaryColor: var(--color-primary-strong);
-    --hover-color: var(--color-whiteFixed);
-    --hover-background: var(--hover-primaryColor);
-    --hover-color: var(--color-white);
-    --hover-shadow-color: var(--hover-background);
-    --fa-primary-color: var(--hover-color);
-    --fa-secondary-color: var(--hover-color);
-    --fa-secondary-opacity: 0.5;
     background: var(--hover-background);
     color: var(--hover-color);
     outline-color: var(--hover-background);
   }
-  [pgs~=card]:where(a):where(:not(:disabled, [disabled])):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=card]:where(a):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p),
-  [pgs~=card] > a:first-child:where(:not(:disabled, [disabled])):focus-visible :is(h1, h2, h3, h4, h5, h6, p),
+  [pgs~=card]:where(a):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p),
   [pgs~=card] > a:first-child:where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
     color: var(--hover-color);
   }
-  [pgs~=card]:where(a):where(:not(:disabled, [disabled])):focus-visible [pgs~=hover-text], [pgs~=card]:where(a):where(:not(:disabled, [disabled])):hover [pgs~=hover-text],
-  [pgs~=card] > a:first-child:where(:not(:disabled, [disabled])):focus-visible [pgs~=hover-text],
+  [pgs~=card]:where(a):where(:not(:disabled, [disabled])):hover [pgs~=hover-text],
   [pgs~=card] > a:first-child:where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
     color: var(--hover-color);
   }
@@ -2953,6 +2958,12 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=card] > a:first-child:where(:not(:disabled, [disabled])) *::before,
 [pgs~=card] > a:first-child:where(:not(:disabled, [disabled])) *::after {
   transition: unset 0ms;
+}
+
+[pgs~=card]:where(a):where(:not(:disabled, [disabled])):focus-visible,
+[pgs~=card] > a:first-child:where(:not(:disabled, [disabled])):focus-visible {
+  outline: var(--focus-visible);
+  outline-offset: 3px;
 }
 
 [pgs~=card]:where(a),
@@ -3058,6 +3069,14 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=box]:where(a),
 [pgs~=box] > a:first-child {
   --box-background: var(--color-white);
+  --hover-primaryColor: var(--color-primary-strong);
+  --hover-color: var(--color-whiteFixed);
+  --hover-background: var(--hover-primaryColor);
+  --hover-color: var(--color-white);
+  --hover-shadow-color: var(--hover-background);
+  --fa-primary-color: var(--hover-color);
+  --fa-secondary-color: var(--hover-color);
+  --fa-secondary-opacity: 0.5;
 }
 
 [pgs~=box]:where(a):where(:disabled, [disabled]),
@@ -3074,29 +3093,18 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=box]:where(a):where(:not(:disabled, [disabled])):focus-visible, [pgs~=box]:where(a):where(:not(:disabled, [disabled])):hover,
-  [pgs~=box] > a:first-child:where(:not(:disabled, [disabled])):focus-visible,
+  [pgs~=box]:where(a):where(:not(:disabled, [disabled])):hover,
   [pgs~=box] > a:first-child:where(:not(:disabled, [disabled])):hover {
     box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
-    --hover-primaryColor: var(--color-primary-strong);
-    --hover-color: var(--color-whiteFixed);
-    --hover-background: var(--hover-primaryColor);
-    --hover-color: var(--color-white);
-    --hover-shadow-color: var(--hover-background);
-    --fa-primary-color: var(--hover-color);
-    --fa-secondary-color: var(--hover-color);
-    --fa-secondary-opacity: 0.5;
     background: var(--hover-background);
     color: var(--hover-color);
     outline-color: var(--hover-background);
   }
-  [pgs~=box]:where(a):where(:not(:disabled, [disabled])):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=box]:where(a):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p),
-  [pgs~=box] > a:first-child:where(:not(:disabled, [disabled])):focus-visible :is(h1, h2, h3, h4, h5, h6, p),
+  [pgs~=box]:where(a):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p),
   [pgs~=box] > a:first-child:where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
     color: var(--hover-color);
   }
-  [pgs~=box]:where(a):where(:not(:disabled, [disabled])):focus-visible [pgs~=hover-text], [pgs~=box]:where(a):where(:not(:disabled, [disabled])):hover [pgs~=hover-text],
-  [pgs~=box] > a:first-child:where(:not(:disabled, [disabled])):focus-visible [pgs~=hover-text],
+  [pgs~=box]:where(a):where(:not(:disabled, [disabled])):hover [pgs~=hover-text],
   [pgs~=box] > a:first-child:where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
     color: var(--hover-color);
   }
@@ -3111,6 +3119,12 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=box] > a:first-child:where(:not(:disabled, [disabled])) *::before,
 [pgs~=box] > a:first-child:where(:not(:disabled, [disabled])) *::after {
   transition: unset 0ms;
+}
+
+[pgs~=box]:where(a):where(:not(:disabled, [disabled])):focus-visible,
+[pgs~=box] > a:first-child:where(:not(:disabled, [disabled])):focus-visible {
+  outline: var(--focus-visible);
+  outline-offset: 3px;
 }
 
 [pgs~=box]:where(a),
@@ -3140,7 +3154,10 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --button-padding-right: calc(var(--button-size) * 2);
   --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
   --button-height: max-content;
-  --button-border: var(--border-complete);
+  --button-border-width: var(--border-width);
+  --button-border-style: var(--border-style);
+  --button-border-color: var(--border-color);
+  --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
   --button-borderRadius: var(--border-radius-input);
   color: var(--button-color);
   background: var(--button-background);
@@ -3155,8 +3172,9 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   -moz-user-select: none;
   -webkit-user-select: none;
   user-select: none;
-  border: none;
-  outline: var(--button-border);
+  border-width: var(--button-border-width);
+  border-style: var(--button-border-style);
+  border-color: var(--button-border-color);
   border-radius: var(--button-borderRadius);
   display: flex;
   gap: calc(var(--button-size) / 2);
@@ -3171,17 +3189,24 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   cursor: not-allowed;
 }
 
-[pgs~=button]:where(:not([pgs-option~=buttonIcon], [pgs-option~=buttonMini], [pgs-option~=buttonClose])):where(:has(i)) {
+[pgs~=button]:where([aria-current=page]) {
+  color: var(--button-color-current);
+  background: var(--button-background-current);
+  --fa-primary-color: var(--button-color-current);
+  --fa-secondary-color: var(--button-color-current);
+}
+
+[pgs~=button]:where(:not([pgs-option~=buttonIcon])):where(:has(i)) {
   --button-padding-right: calc(var(--button-size) * 2);
   --button-padding-left: calc(var(--button-size) * 1.5);
 }
 
-[pgs~=button]:where(:not([pgs-option~=buttonIcon], [pgs-option~=buttonMini], [pgs-option~=buttonClose])):where([pgs-option~=buttonReverse]:has(i)) {
+[pgs~=button]:where(:not([pgs-option~=buttonIcon])):where([pgs-option~=buttonReverse]:has(i)) {
   --button-padding-right: calc(var(--button-size) * 1.5);
   --button-padding-left: calc(var(--button-size) * 2);
 }
 
-[pgs~=button]:where(:is([pgs-option~=buttonIcon], [pgs-option~=buttonMini], [pgs-option~=buttonClose])) {
+[pgs~=button]:where(:is([pgs-option~=buttonIcon])) {
   --button-padding: var(--button-padding-block);
   --button-borderRadius: 50%;
   flex: 0 0;
@@ -3190,13 +3215,24 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   align-items: center;
 }
 
-[pgs~=button]:where(:is([pgs-option~=buttonIcon], [pgs-option~=buttonMini], [pgs-option~=buttonClose])) i {
+[pgs~=button]:where(:is([pgs-option~=buttonIcon])) i {
   display: inline-grid;
   place-items: center;
   inline-size: calc(var(--button-icon-size) + 2px);
   block-size: var(--button-icon-size);
   line-height: 1;
   aspect-ratio: 1;
+}
+
+[pgs~=button]:not([pgs-option~=buttonNohover]) {
+  --hover-primaryColor: var(--color-primary-strong);
+  --hover-color: var(--color-whiteFixed);
+  --hover-background: var(--hover-primaryColor);
+  --hover-color: var(--color-white);
+  --hover-shadow-color: var(--hover-background);
+  --fa-primary-color: var(--hover-color);
+  --fa-secondary-color: var(--hover-color);
+  --fa-secondary-opacity: 0.5;
 }
 
 [pgs~=button]:not([pgs-option~=buttonNohover]):where(:disabled, [disabled]) {
@@ -3211,24 +3247,16 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):focus-visible, [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):hover {
+  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):hover {
     box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
-    --hover-primaryColor: var(--color-primary-strong);
-    --hover-color: var(--color-whiteFixed);
-    --hover-background: var(--hover-primaryColor);
-    --hover-color: var(--color-white);
-    --hover-shadow-color: var(--hover-background);
-    --fa-primary-color: var(--hover-color);
-    --fa-secondary-color: var(--hover-color);
-    --fa-secondary-opacity: 0.5;
     background: var(--hover-background);
     color: var(--hover-color);
     outline-color: var(--hover-background);
   }
-  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
+  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
     color: var(--hover-color);
   }
-  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):focus-visible [pgs~=hover-text], [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
+  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
     color: var(--hover-color);
   }
 }
@@ -3239,6 +3267,11 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])) *::before, [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])) *::after {
   transition: unset 0ms;
+}
+
+[pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):focus-visible {
+  outline: var(--focus-visible);
+  outline-offset: 3px;
 }
 
 [pgs~=button][pgs-option~=buttonNohover] {
@@ -3254,9 +3287,9 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 [pgs~=button][pgs-option~=buttonMini] {
-  --button-size: 0.5rem;
+  --button-size: 1.2rem;
+  --button-padding: var(--button-padding-block);
   display: inline-flex;
-  aspect-ratio: 1;
 }
 
 [pgs~=button][pgs-option~=buttonBig] {
@@ -3271,31 +3304,24 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   text-align: center;
 }
 
-[pgs~=button][pgs-option~=buttonClose] {
-  --button-background: var(--color-primary-soft);
-  --button-size: 1rem;
-  --button-icon-size: 1.3rem;
-  aspect-ratio: 1;
-  height: max-content;
+[pgs~=button][pgs-option~=buttonText] {
+  --button-border-width: 0;
+  --button-background: transparent;
 }
 
 [pgs~=button][pgs-option~=buttonTransparent] {
-  --button-border: unset;
+  --button-border-width: 0;
   --button-background: transparent;
   --button-background-strong: transparent;
   --button-background-current: transparent;
   --button-background-active: transparent;
-  --button-color-strong: var(--color-primary);
-  --button-color-current: var(--color-primary);
-  --button-color-active: var(--color-primary);
+  --hover-background: transparent;
+  --button-color-strong: var(--button-primaryColor);
+  --button-color-current: var(--button-primaryColor);
+  --button-color-active: var(--button-primaryColor);
+  --hover-color: var(--button-primaryColor);
 }
 
-@media (hover: hover) and (pointer: fine) {
-  [pgs~=button][pgs-option~=buttonTransparent]:focus-visible, [pgs~=button][pgs-option~=buttonTransparent]:hover {
-    --hover-background: transparent;
-    --hover-color: var(--color-primary);
-  }
-}
 [pgs~=button][pgs-option~=buttonSecondary] {
   --button-primaryColor: var(--color-secondary-strong);
 }
@@ -4173,7 +4199,10 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --button-padding-right: calc(var(--button-size) * 2);
   --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
   --button-height: max-content;
-  --button-border: var(--border-complete);
+  --button-border-width: var(--border-width);
+  --button-border-style: var(--border-style);
+  --button-border-color: var(--border-color);
+  --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
   --button-borderRadius: var(--border-radius-input);
   color: var(--button-color);
   background: var(--button-background);
@@ -4188,8 +4217,9 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   -moz-user-select: none;
   -webkit-user-select: none;
   user-select: none;
-  border: none;
-  outline: var(--button-border);
+  border-width: var(--button-border-width);
+  border-style: var(--button-border-style);
+  border-color: var(--button-border-color);
   border-radius: var(--button-borderRadius);
   display: flex;
   gap: calc(var(--button-size) / 2);
@@ -4202,6 +4232,13 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=form] button[type=submit]:disabled {
   opacity: 0.2;
   cursor: not-allowed;
+}
+
+[pgs~=form] button[type=submit]:where([aria-current=page]) {
+  color: var(--button-color-current);
+  background: var(--button-background-current);
+  --fa-primary-color: var(--button-color-current);
+  --fa-secondary-color: var(--button-color-current);
 }
 
 [pgs~=form] button[type=submit]:where(:has(i)) {
@@ -4219,6 +4256,14 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   background: var(--button-background-strong);
   --fa-primary-color: var(--button-color-strong);
   --fa-secondary-color: var(--button-color-strong);
+  --hover-primaryColor: var(--color-primary-strong);
+  --hover-color: var(--color-whiteFixed);
+  --hover-background: var(--hover-primaryColor);
+  --hover-color: var(--color-white);
+  --hover-shadow-color: var(--hover-background);
+  --fa-primary-color: var(--hover-color);
+  --fa-secondary-color: var(--hover-color);
+  --fa-secondary-opacity: 0.5;
 }
 
 [pgs~=form] button[type=submit]:where(:disabled, [disabled]) {
@@ -4233,24 +4278,16 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])):focus-visible, [pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])):hover {
+  [pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])):hover {
     box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
-    --hover-primaryColor: var(--color-primary-strong);
-    --hover-color: var(--color-whiteFixed);
-    --hover-background: var(--hover-primaryColor);
-    --hover-color: var(--color-white);
-    --hover-shadow-color: var(--hover-background);
-    --fa-primary-color: var(--hover-color);
-    --fa-secondary-color: var(--hover-color);
-    --fa-secondary-opacity: 0.5;
     background: var(--hover-background);
     color: var(--hover-color);
     outline-color: var(--hover-background);
   }
-  [pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
+  [pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
     color: var(--hover-color);
   }
-  [pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])):focus-visible [pgs~=hover-text], [pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
+  [pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
     color: var(--hover-color);
   }
 }
@@ -4261,6 +4298,11 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])) *::before, [pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])) *::after {
   transition: unset 0ms;
+}
+
+[pgs~=form] button[type=submit]:where(:not(:disabled, [disabled])):focus-visible {
+  outline: var(--focus-visible);
+  outline-offset: 3px;
 }
 
 [pgs~=form] fieldset {
@@ -4627,7 +4669,10 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --button-padding-right: calc(var(--button-size) * 2);
   --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
   --button-height: max-content;
-  --button-border: var(--border-complete);
+  --button-border-width: var(--border-width);
+  --button-border-style: var(--border-style);
+  --button-border-color: var(--border-color);
+  --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
   --button-borderRadius: var(--border-radius-input);
   color: var(--button-color);
   background: var(--button-background);
@@ -4642,8 +4687,9 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   -moz-user-select: none;
   -webkit-user-select: none;
   user-select: none;
-  border: none;
-  outline: var(--button-border);
+  border-width: var(--button-border-width);
+  border-style: var(--button-border-style);
+  border-color: var(--button-border-color);
   border-radius: var(--button-borderRadius);
   display: flex;
   gap: calc(var(--button-size) / 2);
@@ -4658,6 +4704,13 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   cursor: not-allowed;
 }
 
+[pgs~=twoState]:where([aria-current=page]) {
+  color: var(--button-color-current);
+  background: var(--button-background-current);
+  --fa-primary-color: var(--button-color-current);
+  --fa-secondary-color: var(--button-color-current);
+}
+
 [pgs~=twoState]:where(:has(i)) {
   --button-padding-right: calc(var(--button-size) * 2);
   --button-padding-left: calc(var(--button-size) * 1.5);
@@ -4666,6 +4719,17 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=twoState]:where([pgs-option~=buttonReverse]:has(i)) {
   --button-padding-right: calc(var(--button-size) * 1.5);
   --button-padding-left: calc(var(--button-size) * 2);
+}
+
+[pgs~=twoState] {
+  --hover-primaryColor: var(--color-primary-strong);
+  --hover-color: var(--color-whiteFixed);
+  --hover-background: var(--hover-primaryColor);
+  --hover-color: var(--color-white);
+  --hover-shadow-color: var(--hover-background);
+  --fa-primary-color: var(--hover-color);
+  --fa-secondary-color: var(--hover-color);
+  --fa-secondary-opacity: 0.5;
 }
 
 [pgs~=twoState]:where(:disabled, [disabled]) {
@@ -4680,24 +4744,16 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=twoState]:where(:not(:disabled, [disabled])):focus-visible, [pgs~=twoState]:where(:not(:disabled, [disabled])):hover {
+  [pgs~=twoState]:where(:not(:disabled, [disabled])):hover {
     box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
-    --hover-primaryColor: var(--color-primary-strong);
-    --hover-color: var(--color-whiteFixed);
-    --hover-background: var(--hover-primaryColor);
-    --hover-color: var(--color-white);
-    --hover-shadow-color: var(--hover-background);
-    --fa-primary-color: var(--hover-color);
-    --fa-secondary-color: var(--hover-color);
-    --fa-secondary-opacity: 0.5;
     background: var(--hover-background);
     color: var(--hover-color);
     outline-color: var(--hover-background);
   }
-  [pgs~=twoState]:where(:not(:disabled, [disabled])):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=twoState]:where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
+  [pgs~=twoState]:where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
     color: var(--hover-color);
   }
-  [pgs~=twoState]:where(:not(:disabled, [disabled])):focus-visible [pgs~=hover-text], [pgs~=twoState]:where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
+  [pgs~=twoState]:where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
     color: var(--hover-color);
   }
 }
@@ -4708,6 +4764,11 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=twoState]:where(:not(:disabled, [disabled])) *::before, [pgs~=twoState]:where(:not(:disabled, [disabled])) *::after {
   transition: unset 0ms;
+}
+
+[pgs~=twoState]:where(:not(:disabled, [disabled])):focus-visible {
+  outline: var(--focus-visible);
+  outline-offset: 3px;
 }
 
 [pgs~=twoState] {
@@ -4843,7 +4904,10 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --button-padding-right: calc(var(--button-size) * 2);
   --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
   --button-height: max-content;
-  --button-border: var(--border-complete);
+  --button-border-width: var(--border-width);
+  --button-border-style: var(--border-style);
+  --button-border-color: var(--border-color);
+  --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
   --button-borderRadius: var(--border-radius-input);
   color: var(--button-color);
   background: var(--button-background);
@@ -4858,8 +4922,9 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   -moz-user-select: none;
   -webkit-user-select: none;
   user-select: none;
-  border: none;
-  outline: var(--button-border);
+  border-width: var(--button-border-width);
+  border-style: var(--button-border-style);
+  border-color: var(--button-border-color);
   border-radius: var(--button-borderRadius);
   display: flex;
   gap: calc(var(--button-size) / 2);
@@ -4872,6 +4937,13 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=chips] label:disabled {
   opacity: 0.2;
   cursor: not-allowed;
+}
+
+[pgs~=chips] label:where([aria-current=page]) {
+  color: var(--button-color-current);
+  background: var(--button-background-current);
+  --fa-primary-color: var(--button-color-current);
+  --fa-secondary-color: var(--button-color-current);
 }
 
 [pgs~=chips] label:where(:has(i)) {
@@ -4970,7 +5042,10 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --button-padding-right: calc(var(--button-size) * 2);
   --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
   --button-height: max-content;
-  --button-border: var(--border-complete);
+  --button-border-width: var(--border-width);
+  --button-border-style: var(--border-style);
+  --button-border-color: var(--border-color);
+  --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
   --button-borderRadius: var(--border-radius-input);
   color: var(--button-color);
   background: var(--button-background);
@@ -4985,8 +5060,9 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   -moz-user-select: none;
   -webkit-user-select: none;
   user-select: none;
-  border: none;
-  outline: var(--button-border);
+  border-width: var(--button-border-width);
+  border-style: var(--button-border-style);
+  border-color: var(--button-border-color);
   border-radius: var(--button-borderRadius);
   display: flex;
   gap: calc(var(--button-size) / 2);
@@ -4999,6 +5075,13 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=chip]:disabled {
   opacity: 0.2;
   cursor: not-allowed;
+}
+
+[pgs~=chip]:where([aria-current=page]) {
+  color: var(--button-color-current);
+  background: var(--button-background-current);
+  --fa-primary-color: var(--button-color-current);
+  --fa-secondary-color: var(--button-color-current);
 }
 
 [pgs~=chip]:where(:has(i)) {
@@ -5079,14 +5162,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 [pgs~=menu] {
-  --menu-color: var(--color-black);
-  --menu-color-current: var(--color-whiteFixed);
-  --menu-color-strong: var(--color-whiteFixed);
-  --menu-background: transparent;
-  --menu-background-current: var(--color-primary);
-  --menu-background-strong: var(--color-primary);
-  --menu-border: var(--border-complete);
-  --menu-gap-column: 2px;
+  --menu-gap-column: .5rem;
   --menu-gap-row: 1.0rem;
 }
 
@@ -5103,120 +5179,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   flex-grow: 1;
   min-width: -webkit-fill-available;
   min-width: fit-content;
-  --button-primaryColor: var(--color-primary-strong);
-  --button-color: var(--color-black);
-  --button-color-strong: var(--color-white);
-  --button-color-current: var(--color-white);
-  --button-color-active: var(--color-white);
-  --button-background: var(--color-box);
-  --button-background-strong: var(--button-primaryColor);
-  --button-background-current: var(--button-primaryColor);
-  --button-background-active: var(--button-primaryColor);
-  --button-size: 1.5rem;
-  --button-icon-size: 2rem;
-  --button-padding-block: var(--button-size);
-  --button-padding-left: calc(var(--button-size) * 2);
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
-  --button-height: max-content;
-  --button-border: var(--border-complete);
-  --button-borderRadius: var(--border-radius-input);
-  color: var(--button-color);
-  background: var(--button-background);
-  --fa-primary-color: var(--button-color);
-  --fa-secondary-color: var(--button-color);
-  --fa-secondary-opacity: 0.5;
-  --fa-size: var(--button-icon-size);
-  font-family: var(--font);
-  font-size: 1.6rem;
-  font-weight: 600;
-  text-decoration: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
-  border: none;
-  outline: var(--button-border);
-  border-radius: var(--button-borderRadius);
-  display: flex;
-  gap: calc(var(--button-size) / 2);
-  align-items: center;
-  padding: var(--button-padding);
-  height: var(--button-height);
-  width: fit-content;
-}
-
-[pgs~=menu] ul > li > a:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
-}
-
-[pgs~=menu] ul > li > a:where(:disabled, [disabled]) {
-  text-decoration: none;
-  cursor: default;
-}
-
-[pgs~=menu] ul > li > a:where(:not(:disabled, [disabled])) {
-  transition: unset 0ms;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  [pgs~=menu] ul > li > a:where(:not(:disabled, [disabled])):focus-visible, [pgs~=menu] ul > li > a:where(:not(:disabled, [disabled])):hover {
-    box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
-    --hover-primaryColor: var(--color-primary-strong);
-    --hover-color: var(--color-whiteFixed);
-    --hover-background: var(--hover-primaryColor);
-    --hover-color: var(--color-white);
-    --hover-shadow-color: var(--hover-background);
-    --fa-primary-color: var(--hover-color);
-    --fa-secondary-color: var(--hover-color);
-    --fa-secondary-opacity: 0.5;
-    background: var(--hover-background);
-    color: var(--hover-color);
-    outline-color: var(--hover-background);
-  }
-  [pgs~=menu] ul > li > a:where(:not(:disabled, [disabled])):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=menu] ul > li > a:where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
-    color: var(--hover-color);
-  }
-  [pgs~=menu] ul > li > a:where(:not(:disabled, [disabled])):focus-visible [pgs~=hover-text], [pgs~=menu] ul > li > a:where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
-    color: var(--hover-color);
-  }
-}
-[pgs~=menu] ul > li > a:where(:not(:disabled, [disabled])) * {
-  transition: unset 0ms;
-  text-decoration: none;
-}
-
-[pgs~=menu] ul > li > a:where(:not(:disabled, [disabled])) *::before, [pgs~=menu] ul > li > a:where(:not(:disabled, [disabled])) *::after {
-  transition: unset 0ms;
-}
-
-[pgs~=menu] ul > li > a:where(:has(i)) {
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.5);
-}
-
-[pgs~=menu] ul > li > a:where([pgs-option~=buttonReverse]:has(i)) {
-  --button-padding-right: calc(var(--button-size) * 1.5);
-  --button-padding-left: calc(var(--button-size) * 2);
-}
-
-[pgs~=menu] ul > li > a:where([aria-current=page]:not(:hover, :focus-visible)) {
-  color: var(--button-color-current);
-  background: var(--button-background-current);
-  --fa-primary-color: var(--button-color-current);
-  --fa-secondary-color: var(--button-color-current);
-}
-
-[pgs~=menu] ul > li > a {
-  --button-color: var(--menu-color);
-  --button-color-strong: var(--menu-color-strong);
-  --button-color-current: var(--menu-color-current);
-  --button-background: var(--menu-background);
-  --button-background-strong: var(--menu-background-strong);
-  --button-background-current: var(--menu-background-current);
-  --button-border: var(--menu-border);
 }
 
 [pgs~=menu] ul > li > a > span {
@@ -5241,6 +5203,10 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --dropdown-display: flex;
 }
 
+[pgs~=menu] [pgs~=_menu-accordion][pgs-state~=open] > ul {
+  display: flex;
+}
+
 [pgs~=menu] [pgs~=_menu-buttonIcon] {
   --button-size: 0.9rem;
   margin-right: -15px;
@@ -5251,10 +5217,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   justify-content: center;
   cursor: pointer;
   translate: -15px;
-}
-
-[pgs~=menu] [pgs~=_menu-buttonIcon][aria-expanded=true] {
-  --button-background: var(--menu-background-current);
 }
 
 [pgs~=menu] [pgs~=_menu-buttonIcon][aria-expanded=true] span {
@@ -5296,24 +5258,22 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   gap: var(--gap-texts);
   flex-direction: row;
   flex-wrap: wrap;
-  flex-wrap: nowrap;
   align-items: center;
   position: relative;
 }
 
+[pgs~=menu] ul :is(ul) > li:has(ul) > a, [pgs~=menu][pgs-option~=vertical] :is(ul) > li:has(ul) > a, [pgs~=menu]:not([pgs-option~=horizontal]) :is(ul) > li:has(ul) > a {
+  flex: 1;
+}
+
 [pgs~=menu] ul :is(ul) > li:has(ul) > ul, [pgs~=menu][pgs-option~=vertical] :is(ul) > li:has(ul) > ul, [pgs~=menu]:not([pgs-option~=horizontal]) :is(ul) > li:has(ul) > ul {
   flex-basis: 100%;
+  padding-left: 1rem;
+  border-left: var(--border-complete);
 }
 
 [pgs~=menu] ul :is(ul) > li:has(ul):not([pgs-state~=open]) ul, [pgs~=menu][pgs-option~=vertical] :is(ul) > li:has(ul):not([pgs-state~=open]) ul, [pgs~=menu]:not([pgs-option~=horizontal]) :is(ul) > li:has(ul):not([pgs-state~=open]) ul {
   display: none;
-}
-
-[pgs~=menu][pgs-option~=menuHeader] > ul > li > a {
-  --button-size: 1.2rem;
-  --button-border: unset;
-  overflow-wrap: break-word;
-  height: calc(var(--button-size) * 4);
 }
 
 [pgs~=menu][pgs-option~=menuIconOnlyCurrent] a:not([aria-current]:not([aria-current=false])) {
@@ -5334,8 +5294,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=menu][pgs-option~=menuShort] > ul > li a {
   margin-right: calc(var(--button-padding-block) * -1);
-  --button-background-current: var(--color-primary-soft);
-  --button-color-current: var(--color-primary-strong);
 }
 
 [pgs~=menu][pgs-option~=menuShort] > ul > li a[aria-current=page] {
@@ -5371,7 +5329,10 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --button-padding-right: calc(var(--button-size) * 2);
   --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
   --button-height: max-content;
-  --button-border: var(--border-complete);
+  --button-border-width: var(--border-width);
+  --button-border-style: var(--border-style);
+  --button-border-color: var(--border-color);
+  --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
   --button-borderRadius: var(--border-radius-input);
   color: var(--button-color);
   background: var(--button-background);
@@ -5386,8 +5347,9 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   -moz-user-select: none;
   -webkit-user-select: none;
   user-select: none;
-  border: none;
-  outline: var(--button-border);
+  border-width: var(--button-border-width);
+  border-style: var(--button-border-style);
+  border-color: var(--button-border-color);
   border-radius: var(--button-borderRadius);
   display: flex;
   gap: calc(var(--button-size) / 2);
@@ -5400,6 +5362,13 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=accordion]:disabled {
   opacity: 0.2;
   cursor: not-allowed;
+}
+
+[pgs~=accordion]:where([aria-current=page]) {
+  color: var(--button-color-current);
+  background: var(--button-background-current);
+  --fa-primary-color: var(--button-color-current);
+  --fa-secondary-color: var(--button-color-current);
 }
 
 [pgs~=accordion]:where(:has(i)) {
@@ -5461,6 +5430,17 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   overflow: hidden;
 }
 
+[pgs~=accordion]:not([pgs-state~=open]) {
+  --hover-primaryColor: var(--color-primary-strong);
+  --hover-color: var(--color-whiteFixed);
+  --hover-background: var(--hover-primaryColor);
+  --hover-color: var(--color-white);
+  --hover-shadow-color: var(--hover-background);
+  --fa-primary-color: var(--hover-color);
+  --fa-secondary-color: var(--hover-color);
+  --fa-secondary-opacity: 0.5;
+}
+
 [pgs~=accordion]:not([pgs-state~=open]):where(:disabled, [disabled]) {
   text-decoration: none;
   cursor: default;
@@ -5473,24 +5453,16 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])):focus-visible, [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])):hover {
+  [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])):hover {
     box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
-    --hover-primaryColor: var(--color-primary-strong);
-    --hover-color: var(--color-whiteFixed);
-    --hover-background: var(--hover-primaryColor);
-    --hover-color: var(--color-white);
-    --hover-shadow-color: var(--hover-background);
-    --fa-primary-color: var(--hover-color);
-    --fa-secondary-color: var(--hover-color);
-    --fa-secondary-opacity: 0.5;
     background: var(--hover-background);
     color: var(--hover-color);
     outline-color: var(--hover-background);
   }
-  [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])):focus-visible :is(h1, h2, h3, h4, h5, h6, p), [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
+  [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
     color: var(--hover-color);
   }
-  [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])):focus-visible [pgs~=hover-text], [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
+  [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
     color: var(--hover-color);
   }
 }
@@ -5501,6 +5473,11 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])) *::before, [pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])) *::after {
   transition: unset 0ms;
+}
+
+[pgs~=accordion]:not([pgs-state~=open]):where(:not(:disabled, [disabled])):focus-visible {
+  outline: var(--focus-visible);
+  outline-offset: 3px;
 }
 
 [pgs~=accordion]:not([pgs-state~=open]) {
@@ -5609,7 +5586,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   inset: var(--dropdown-top) auto auto var(--dropdown-left);
   z-index: 1000;
   inline-size: var(--dropdown-inline-size);
-  max-inline-size: var(--dropdown-max-inline-size);
+  width: var(--dropdown-max-inline-size);
   overflow: auto;
   padding: var(--dropdown-padding);
   border: var(--dropdown-border);
@@ -6067,7 +6044,7 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   border-collapse: collapse;
   color: var(--color-text);
   border-radius: var(--border-radius-input);
-  border: var(--border-complete-hover);
+  border: var(--border-complete);
   overflow: hidden;
 }
 
@@ -6076,7 +6053,7 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
 [pgs~=table] table th,
 [pgs~=table] table td {
   padding: 12px;
-  border: var(--border-complete-hover);
+  border: var(--border-complete);
   text-align: left;
   min-width: 100px;
 }
@@ -6164,7 +6141,10 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   --button-padding-right: calc(var(--button-size) * 2);
   --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
   --button-height: max-content;
-  --button-border: var(--border-complete);
+  --button-border-width: var(--border-width);
+  --button-border-style: var(--border-style);
+  --button-border-color: var(--border-color);
+  --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
   --button-borderRadius: var(--border-radius-input);
   color: var(--button-color);
   background: var(--button-background);
@@ -6179,8 +6159,9 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   -moz-user-select: none;
   -webkit-user-select: none;
   user-select: none;
-  border: none;
-  outline: var(--button-border);
+  border-width: var(--button-border-width);
+  border-style: var(--button-border-style);
+  border-color: var(--button-border-color);
   border-radius: var(--button-borderRadius);
   display: flex;
   gap: calc(var(--button-size) / 2);
@@ -6193,6 +6174,13 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
 [pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=_stepTabs-dots-dot]:disabled {
   opacity: 0.2;
   cursor: not-allowed;
+}
+
+[pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=_stepTabs-dots-dot]:where([aria-current=page]) {
+  color: var(--button-color-current);
+  background: var(--button-background-current);
+  --fa-primary-color: var(--button-color-current);
+  --fa-secondary-color: var(--button-color-current);
 }
 
 [pgs~=stepTabs] [pgs~=stepTabs-dots] [pgs~=_stepTabs-dots-dot] {
@@ -6590,6 +6578,7 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   z-index: 98;
   isolation: isolate;
   inset-inline: 0;
+  pointer-events: none;
   top: calc(var(--heightOfHeaderScroll) + 1rem);
 }
 

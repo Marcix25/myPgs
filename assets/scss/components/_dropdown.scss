@@ -28,7 +28,7 @@
         inset: var(--dropdown-top) auto auto var(--dropdown-left);
         z-index: 1000;
         inline-size: var(--dropdown-inline-size);
-        max-inline-size: var(--dropdown-max-inline-size);
+        width: var(--dropdown-max-inline-size);
         overflow: auto;
         padding: var(--dropdown-padding);
         border: var(--dropdown-border);

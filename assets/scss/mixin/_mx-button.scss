@@ -32,8 +32,12 @@
     --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
     --button-height: max-content;
     /// border
-    --button-border: var(--border-complete);
+    --button-border-width: var(--border-width);
+    --button-border-style: var(--border-style);
+    --button-border-color: var(--border-color);
+    --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
     --button-borderRadius: var(--border-radius-input);
+    /// color
     @include _buttonColor();
     --fa-secondary-opacity: 0.5;
     --fa-size: var(--button-icon-size);
@@ -44,8 +48,9 @@
     -moz-user-select: none;
     -webkit-user-select: none;
     user-select: none;
-    border: none;
-    outline: var(--button-border);
+    border-width: var(--button-border-width);
+    border-style: var(--button-border-style);
+    border-color: var(--button-border-color);
     border-radius: var(--button-borderRadius);
     display: flex;
     gap: calc(var(--button-size) / 2);
@@ -59,6 +64,10 @@
     &:disabled {
         opacity: 0.2;
         cursor: not-allowed;
+    }
+
+    &:where([aria-current=page]) {
+        @include _buttonColor("-current");
     }
 }
 
@@ -110,13 +119,6 @@
     cursor: inherit;
 }
 
-//== CURRENT
-@mixin buttonCurrent($tag: '[aria-current=page]') {
-    &:where(#{$tag}:not(:hover, :focus-visible)) {
-        @include _buttonColor("-current");
-    }
-}
-
 //== BUTTON STRONG
 @mixin buttonStrong() {
     @include _buttonColor("-strong");
@@ -124,9 +126,9 @@
 
 //== BUTTON MINI
 @mixin buttonMini() {
-    --button-size: 0.5rem;
+    --button-size: 1.2rem;
+    --button-padding: var(--button-padding-block);
     display: inline-flex;
-    aspect-ratio: 1;
 }
 
 //== BUTTON BIG
@@ -142,51 +144,37 @@
     text-align: center;
 }
 
-//== BUTTON CLOSE
-@mixin buttonClose($isRed: false) {
-    --button-background: var(--color-primary-soft);
-    --button-size: 1rem;
-    --button-icon-size: 1.3rem;
-    aspect-ratio: 1;
-    height: max-content;
-
-    @if($isRed ==true) {
-        --button-background: var(--color-error-soft);
-        --button-color: var(--color-error);
-    }
+//== BUTTON TRANSPARENT
+@mixin buttonTransparent() {
+    $color: var(--button-primaryColor);
+    --button-border-width: 0;
+    --button-background: transparent;
+    --button-background-strong: transparent;
+    --button-background-current: transparent;
+    --button-background-active: transparent;
+    --hover-background: transparent;
+    --button-color-strong: #{$color};
+    --button-color-current: #{$color};
+    --button-color-active: #{$color};
+    --hover-color: #{$color};
 }
 
-//== BUTTON HEADER
-@mixin button_header() {
+@mixin buttonText() {
+    --button-border-width: 0;
+    --button-background: transparent;
+}
+
+//== HEADER
+//=== BUTTON HEADER
+@mixin buttonHeader() {
     --button-size: 1.2rem;
     --button-border: unset;
     overflow-wrap: break-word;
     height: calc(var(--button-size) * 4);
 }
 
-//== BUTTON TRANSPARENT
-@mixin buttonTransparent() {
-    $color: var(--color-primary);
-    --button-border: unset;
-    --button-background: transparent;
-    --button-background-strong: transparent;
-    --button-background-current: transparent;
-    --button-background-active: transparent;
-    --button-color-strong: #{$color};
-    --button-color-current: #{$color};
-    --button-color-active: #{$color};
 
-    @media (hover: hover) and (pointer: fine) {
-
-        &:focus-visible,
-        &:hover {
-            --hover-background: transparent;
-            --hover-color: #{$color};
-        }
-    }
-}
-
-//= ICON
+//# ICON
 @mixin icon() {
     --icon-size: var(--fa-size);
     --icon-padding: .5rem;
@@ -208,5 +196,4 @@
         line-height: 1;
         aspect-ratio: 1;
     }
-
 }

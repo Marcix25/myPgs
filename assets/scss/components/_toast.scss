@@ -23,6 +23,7 @@
     z-index: 98;
     isolation: isolate;
     inset-inline: 0;
+    pointer-events: none;
     top: calc(var(--heightOfHeaderScroll) + $size);
 
     [pgs~=_toast-element] {

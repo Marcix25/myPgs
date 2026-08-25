@@ -13,6 +13,7 @@
  * - buttonIcon: identifies a compact button composed primarily of an icon.
  * - buttonMini: applies the smallest size variant.
  * - buttonBig: applies the large size variant.
+ * - buttonText: drops the background and the border at rest, so only the label shows, and colours the label on hover. Unlike buttonTransparent it leaves the other states alone, so the same button still fills in when it carries buttonStrong or aria-current.
  * - buttonTransparent: removes the default background and outline while preserving the button layout and hover behavior.
  * - buttonSecondary: replaces the primary button accent with the secondary color palette.
  * - buttonTertiary: replaces the primary button accent with the tertiary color palette.
@@ -20,6 +21,7 @@
  *
  * @related
  * - flexRow: arranges the button examples in a flexible row.
+ * - gapTexts: spaces the two buttons that share the text-only example.
  *
  * @return HTML collection of the main button variants and the standalone icon surface.
  */
@@ -57,6 +59,17 @@
         <i class="fa-duotone fa-solid fa-fire"></i>
         Large
     </button>
+
+    <div pgs="flexRow" pgs-option="gapTexts" demo="item" demo-code="children" demo-title="Text only" demo-description="Only the label shows at rest, and it takes the accent colour on hover. The second one carries buttonStrong as well: unlike buttonTransparent, buttonText leaves the other states alone, so an emphasised button still fills in.">
+        <button pgs="button" pgs-option="buttonText" type="button">
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            Read more
+        </button>
+
+        <button pgs="button" pgs-option="buttonText buttonStrong" type="button">
+            Still filled
+        </button>
+    </div>
 
     <button pgs="button" pgs-option="buttonTransparent" type="button" demo="item" demo-title="Transparent" demo-description="Removes the default background and outline while keeping the button layout using buttonTransparent.">
         <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>

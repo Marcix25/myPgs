@@ -1,4 +1,5 @@
 /******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./assets/javascript/_imports.js"
@@ -7,7 +8,6 @@
   \***************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_pgs.js */ "./assets/javascript/_pgs.js");
 /* harmony import */ var _base_darkmode_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./base/_darkmode.js */ "./assets/javascript/base/_darkmode.js");
@@ -25,10 +25,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
 /* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
 /* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
-/* harmony import */ var _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./helper/_formValidate.js */ "./assets/javascript/helper/_formValidate.js");
-/* harmony import */ var _helper_init_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./helper/_init.js */ "./assets/javascript/helper/_init.js");
-/* harmony import */ var _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./helper/_scrollY.js */ "./assets/javascript/helper/_scrollY.js");
-/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
+/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./layout/_header.js */ "./assets/javascript/layout/_header.js");
+/* harmony import */ var _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./helper/_formValidate.js */ "./assets/javascript/helper/_formValidate.js");
+/* harmony import */ var _helper_init_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./helper/_init.js */ "./assets/javascript/helper/_init.js");
+/* harmony import */ var _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./helper/_scrollY.js */ "./assets/javascript/helper/_scrollY.js");
+/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
+
 
 
 
@@ -52,7 +54,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
-    init: _helper_init_js__WEBPACK_IMPORTED_MODULE_17__.PGS_init,
+    init: _helper_init_js__WEBPACK_IMPORTED_MODULE_18__.PGS_init,
     darkmode: _base_darkmode_js__WEBPACK_IMPORTED_MODULE_1__.PGS_darkmode,
     svg: _base_svg_js__WEBPACK_IMPORTED_MODULE_2__.PGS_svg,
     accordion: _components_accordion_js__WEBPACK_IMPORTED_MODULE_3__.PGS_accordion,
@@ -60,7 +62,8 @@ _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
     dropdown: _components_dropdown_js__WEBPACK_IMPORTED_MODULE_5__.PGS_dropdown,
     menu: _components_menu_js__WEBPACK_IMPORTED_MODULE_6__.PGS_menu,
     modal: _components_modal_js__WEBPACK_IMPORTED_MODULE_7__.PGS_modal,
-    cookieConsent: _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_19__.PGS_cookieConsent,
+    header: _layout_header_js__WEBPACK_IMPORTED_MODULE_16__.PGS_header,
+    cookieConsent: _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_20__.PGS_cookieConsent,
     notification: _components_notification_js__WEBPACK_IMPORTED_MODULE_8__.PGS_notification,
     toast: _components_toast_js__WEBPACK_IMPORTED_MODULE_10__.PGS_toast,
     legacyNotification: _components_legacyNotification_js__WEBPACK_IMPORTED_MODULE_9__.PGS_notificationLegacy,
@@ -69,8 +72,8 @@ _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
     stepTabs: _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_13__.PGS_stepTabs,
     steps: _components_steps_js__WEBPACK_IMPORTED_MODULE_14__.PGS_steps,
     summary: _components_summary_js__WEBPACK_IMPORTED_MODULE_15__.PGS_summary,
-    formValidate: _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_16__.PGS_formValidate,
-    scrollHorizontal: _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_18__.PGS_scrollHorizontal,
+    formValidate: _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_17__.PGS_formValidate,
+    scrollHorizontal: _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_19__.PGS_scrollHorizontal,
 });
 
 
@@ -82,7 +85,6 @@ _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
   \***********************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   pgs: () => (/* binding */ pgs)
@@ -487,7 +489,6 @@ globalThis.pgs ??= pgs;
   \*********************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_darkmode: () => (/* binding */ PGS_darkmode)
@@ -567,7 +568,6 @@ const PGS_darkmode = {
   \*******************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
 
@@ -624,7 +624,6 @@ __webpack_require__.r(__webpack_exports__);
   \****************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_svg: () => (/* binding */ PGS_svg)
@@ -748,7 +747,6 @@ const PGS_svg = {
   \****************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_accordion: () => (/* binding */ PGS_accordion)
@@ -891,7 +889,6 @@ const PGS_accordion = {
   \*************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_alert: () => (/* binding */ PGS_alert)
@@ -1015,7 +1012,6 @@ const PGS_alert = {
   \***************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_dropdown: () => (/* binding */ PGS_dropdown)
@@ -1189,6 +1185,8 @@ function PGS_dropdown_init(root = document) {
             open: () => openDropdown(DROPDOWN),
             close: () => closeDropdown(DROPDOWN),
             toggle: () => toggleDropdown(DROPDOWN),
+            //+ recompute where the panel sits, for when its content changed size without reopening
+            reposition: () => updateposition(DROPDOWN),
             refresh: () => {
                 PGS_dropdown_init(DROPDOWN.parentNode || document);
                 updateposition(DROPDOWN);
@@ -1267,7 +1265,6 @@ const PGS_dropdown = {
   \*************************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_notificationLegacy: () => (/* binding */ PGS_notificationLegacy)
@@ -1400,7 +1397,6 @@ _notification_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.toast = {
   \***********************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_menu: () => (/* binding */ PGS_menu)
@@ -1411,6 +1407,49 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const API = new WeakMap();
+let submenuId = 0;
+
+//+ the toggle looks and sits the same whichever behaviour it drives, so it is built once here
+function createToggle(li) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.innerHTML = "<span>&#9207;</span>";
+
+    pgs(button).add("_menu-buttonIcon", "button");
+    pgs(button).option.add("buttonNohover");
+    li.querySelector("a").insertAdjacentElement("afterend", button);
+
+    return button;
+}
+
+//+ opens the submenu in place instead of floating it: used everywhere a dropdown would either
+//+ overflow the viewport or hide the branch the reader is already inside
+function setupAccordion(li, button, ul) {
+    pgs(li).add("_menu-accordion");
+
+    if (!ul.id) ul.id = `menu-submenu-${++submenuId}`;
+    button.setAttribute("aria-controls", ul.id);
+
+    //== a submenu nested inside a first-level dropdown changes the size of the floating panel,
+    //== whose position was computed for the size it had when it opened
+    const dropdown = li.closest('[pgs~="dropdown"]');
+
+    const setOpen = (open) => {
+        pgs(li).state.toggle("open", open);
+        button.setAttribute("aria-expanded", String(open));
+        if (dropdown) globalThis.pgs?.dropdown?.api(dropdown)?.reposition?.();
+    };
+
+    setOpen(pgs(li).state.contains("open"));
+    button.addEventListener("click", () => setOpen(!pgs(li).state.contains("open")));
+}
+
+function setupDropdown(li, button, ul) {
+    pgs(li).add("dropdown");
+    pgs(li).option.setValueBrackets("position", "bottom right");
+    pgs(button).add("dropdown-button");
+    pgs(ul).add("dropdown-content");
+}
 
 //= DROP DOWN MENU
 function PGS_menu_init(root = document) {
@@ -1418,30 +1457,26 @@ function PGS_menu_init(root = document) {
     pgs(root).querySelectorAll('menu').forEach(MENU => {
         if (API.has(MENU)) return;
 
+        const isHorizontal = pgs(MENU).option.contains("horizontal");
+        const topLevel = MENU.querySelector("ul");
+
         MENU.querySelectorAll('li').forEach(li => {
             const ul = li.querySelector("ul");
+            if (!ul) return;
 
-            if (ul) {
+            const button = createToggle(li);
 
-                const button = document.createElement("button");
-                button.type = "button";
-                button.innerHTML = "<span>&#9207;</span>";
-                pgs(button).add("_menu-buttonIcon");
-                li.querySelector("a").insertAdjacentElement("afterend", button);
+            //== only the first level of a horizontal menu floats its submenu: deeper levels would
+            //== stack dropdown over dropdown, and a vertical menu has the room to expand in place
+            const isFirstLevel = li.parentElement === topLevel;
 
-                pgs(li).add("dropdown")
-                pgs(li).option.setValueBrackets("position", "bottom right")
-                pgs(button).add("dropdown-button")
-                pgs(button).add("button")
-                pgs(button).option.add("buttonNohover")
-                pgs(ul).add("dropdown-content")
-
-            }
+            if (isHorizontal && isFirstLevel) setupDropdown(li, button, ul);
+            else setupAccordion(li, button, ul);
         });
 
         API.set(MENU, {
             element: MENU,
-            type: "horizontal",
+            type: isHorizontal ? "horizontal" : "vertical",
             refresh: () => {
                 PGS_menu_init(MENU.parentNode || document);
                 return API.get(MENU);
@@ -1473,7 +1508,6 @@ const PGS_menu = {
   \************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_modal: () => (/* binding */ PGS_modal)
@@ -1502,7 +1536,7 @@ function initializeModal(MODAL, existingDialog = null) {
     let historyTimeout = null;
 
     //== SELECTOR
-    const DOMButtonClose = '<button pgs="button modal-close" pgs-option="buttonClose" type="button" tabindex="0" aria-label="Chiudi"><i class="fa-solid fa-close"></i></button>';
+    const DOMButtonClose = '<button pgs="button modal-close" pgs-option="buttonIcon buttonMini" type="button" tabindex="0" aria-label="Chiudi"><i class="fa-solid fa-close"></i></button>';
     const modalContentHeader = pgs(DIALOG).querySelector("modal-dialog-content-header");
 
 
@@ -1678,7 +1712,6 @@ const PGS_modal = {
   \*******************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_notification: () => (/* binding */ PGS_notification)
@@ -2018,7 +2051,6 @@ const PGS_notification = {
   \*************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_search: () => (/* binding */ PGS_search)
@@ -2427,7 +2459,6 @@ const PGS_search = {
   \*************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_slides: () => (/* binding */ PGS_slides)
@@ -2672,7 +2703,6 @@ const PGS_slides = {
   \***************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_stepTabs: () => (/* binding */ PGS_stepTabs)
@@ -2858,7 +2888,6 @@ const PGS_stepTabs = {
   \************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_steps: () => (/* binding */ PGS_steps)
@@ -2929,7 +2958,6 @@ const PGS_steps = {
   \**************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_summary: () => (/* binding */ PGS_summary)
@@ -3100,7 +3128,6 @@ const PGS_summary = {
   \************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_toast: () => (/* binding */ PGS_toast)
@@ -3375,7 +3402,6 @@ const PGS_toast = {
   \***************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_formValidate: () => (/* binding */ PGS_formValidate)
@@ -3755,7 +3781,6 @@ class PGS_formValidate {
   \*******************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_init: () => (/* binding */ PGS_init)
@@ -3790,7 +3815,6 @@ function PGS_init(root = document) {
   \******************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_onDocumentReady: () => (/* binding */ PGS_onDocumentReady)
@@ -3813,7 +3837,6 @@ function PGS_onDocumentReady(callback) {
   \**********************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_scrollHorizontal: () => (/* binding */ PGS_scrollHorizontal)
@@ -3903,13 +3926,17 @@ function PGS_scrollHorizontal(element, speed) {
 /*!*********************************************!*\
   !*** ./assets/javascript/layout/_header.js ***!
   \*********************************************/
-() {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_header: () => (/* binding */ PGS_header)
+/* harmony export */ });
 
 
 
 
-
-//= HEADER
+//# HEADER
 //+ COMPACT BREAKPOINT
 // Width at or below which the header switches to its compact layout even when the content
 // still fits, so a wide header can be compact on purpose.
@@ -3924,6 +3951,19 @@ function getHeader_CompactBreakpoint(header) {
     return Number.isFinite(declared) ? declared : 600;
 }
 
+//+ OVERFLOW TOLERANCE
+// scrollWidth and clientWidth are whole pixels while the layout underneath is fractional, so a
+// header whose content almost exactly fills the row can report a pixel of overflow that is not
+// there. Two pixels absorb that without letting real overflow through.
+//
+// It does not absorb anything larger, and that is on purpose. scrollWidth also counts whatever is
+// positioned absolutely inside the header: a badge hung past the edge of a button adds its overhang
+// to every measurement, the comparison is then true at any width, and the header stays compact for
+// good. Raising this number would hide that instead of fixing it, so if the header ever gets stuck
+// compact, look for what sticks out past the right edge of header-element rather than tuning here.
+const OVERFLOW_TOLERANCE = 2;
+
+//= RESIZE
 function initHeader_Resize(header) {
 
     if (!header) return;
@@ -3933,56 +3973,82 @@ function initHeader_Resize(header) {
     if (!headerElements.length) console.log('For the header to work correctly, insert "header-element" under "header"');
     if (!headerElements.length) return;
 
-    const selectHeader = document
-
     headerElements.forEach(selectHeader => {
 
+        /*         //==x COMPACT LAYOUT OLD
+                let menuAttivate = false;
+                let childsWidthSAVE;
+        
+                function compact(headerElement) {
+        
+                    //=== header
+                    let style = window.getComputedStyle(headerElement);
+                    let padding = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
+                    let gap = parseFloat(style.gap);
+                    let headerElementWidth = parseInt(headerElement.offsetWidth - padding);
+                    let childsWidth;
+        
+                    if (menuAttivate) {
+                        childsWidth = childsWidthSAVE;
+                    } else {
+                        let childs = [];
+        
+                        Array.from(headerElement.children)
+                            .filter(el => !pgs(el).contains("header-element-onlyCompact"))
+                            .forEach(child => {
+                                if (pgs(child).contains("header-element-hamburger")) return;
+                                childs.push(...child.children);
+                            });
+        
+                        gap = Math.round(gap * (childs.length - 1));
+                        let childsReduce = childs.reduce((totalWidth, child) => totalWidth + child.offsetWidth, 0) - 2;
+        
+                        childsWidth = childsReduce + gap;
+                    }
+        
+                    //===set data
+                    if (window.innerWidth <= getHeader_CompactBreakpoint(header)) {
+                        pgs(header).state.add("compact");
+                        pgs(selectHeader).state.add("compact");
+                    } else if (headerElementWidth < childsWidth) {
+                        pgs(header).state.add("compact");
+                        pgs(headerElement).state.add("compact");
+                        menuAttivate = true;
+                        childsWidthSAVE = childsWidth;
+                    } else {
+                        pgs(header).state.remove("compact");
+                        pgs(headerElement).state.remove("compact");
+                    }
+                } */
+
         //== COMPACT LAYOUT
-        let menuAttivate = false;
-        let childsWidthSAVE;
+        //== how much room the full layout needs, learned the first time it does not fit. It cannot be
+        //== measured while compact, because header-element-onlyFull is hidden and reports zero width.
+        let requiredWidth = 0;
 
         function compact(headerElement) {
+            const isCompact = pgs(headerElement).state.contains("compact");
+            const overflows = headerElement.scrollWidth > headerElement.clientWidth + OVERFLOW_TOLERANCE;
 
-            //=== header
-            let style = window.getComputedStyle(headerElement);
-            let padding = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
-            let gap = parseFloat(style.gap);
-            let headerElementWidth = parseInt(headerElement.offsetWidth - padding);
-            let childsWidth;
+            const setCompact = (value) => {
+                pgs(header).state.toggle("compact", value);
+                pgs(headerElement).state.toggle("compact", value);
+            };
 
-            if (menuAttivate) {
-                childsWidth = childsWidthSAVE;
-            } else {
-                let childs = [];
+            //=== while the full layout is on screen its scrollWidth is what it needs, and this is the only
+            //=== moment it can be learned: once compact, header-element-onlyFull is hidden and reports zero
+            if (!isCompact && overflows) requiredWidth = headerElement.scrollWidth;
 
-                // Esclude l'area compatta dedicata e l'hamburger, poi misura i figli sempre visibili nel layout completo.
-                Array.from(headerElement.children)
-                    .filter(el => !pgs(el).contains("header-element-onlyCompact"))
-                    .forEach(child => {
-                        if (pgs(child).contains("header-element-hamburger")) return;
-                        childs.push(...child.children);
-                    });
+            //=== a breakpoint declared on the header wins over any measurement
+            if (window.innerWidth <= getHeader_CompactBreakpoint(header)) return setCompact(true);
 
-                gap = Math.round(gap * (childs.length - 1));
-                let childsReduce = childs.reduce((totalWidth, child) => totalWidth + child.offsetWidth, 0) - 2;
+            //=== compact: stay only while the room that was missing is still missing. With nothing learned
+            //=== the page loaded compact and the full layout fitted at that width, so let it back in
+            if (isCompact) return setCompact(requiredWidth ? headerElement.clientWidth < requiredWidth : false);
 
-                childsWidth = childsReduce + gap;
-            }
-
-            //===set data
-            if (window.innerWidth <= getHeader_CompactBreakpoint(header)) {
-                pgs(header).state.add("compact");
-                pgs(selectHeader).state.add("compact");
-            } else if (headerElementWidth < childsWidth) {
-                pgs(header).state.add("compact");
-                pgs(headerElement).state.add("compact");
-                menuAttivate = true;
-                childsWidthSAVE = childsWidth;
-            } else {
-                pgs(header).state.remove("compact");
-                pgs(headerElement).state.remove("compact");
-            }
+            setCompact(overflows);
         }
+
 
         //== observer (throttled to avoid ResizeObserver loop warnings)
         let resizeRafId = 0;
@@ -4018,7 +4084,19 @@ function initHeader_Height(header) {
         return isCompactBottom ? pgs(header).querySelector("header-element") || header : header;
     }
 
+    //+ FOR --heightOfHeader e --heightOfHeaderScroll
+    function getPrimaryHeader() {
+        const headers = getReadyHeaders();
+        return headers.find(header => pgs(header).option.contains("headerPrimary")) || headers[0] || null;
+    }
+
+    //+ HEIGHT
     function headerHeight() {
+        //== --heightOfHeader is what pushes the page down, so only one header can own it. Ownership
+        //== is checked here rather than at init, so a header declaring headerPrimary later still
+        //== takes over from the fallback
+        if (getPrimaryHeader() !== header) return;
+
         const wordPressBar = parseInt(window.getComputedStyle(document.documentElement).marginTop, 10) || 0;
         const height = getHeaderHeightElement(header).offsetHeight + wordPressBar;
         const scrollHeight = header.getAttribute("data-header-scroll") === "true" ? 0 : height;
@@ -4081,35 +4159,53 @@ function initHeader_Scroll(header) {
 
 
 //# INIT
+const INITIALIZED_HEADERS = new WeakSet();
+
 function initHeader(header) {
+    if (INITIALIZED_HEADERS.has(header)) return;
+    INITIALIZED_HEADERS.add(header);
+
     initHeader_Resize(header);
     initHeader_Height(header);
     initHeader_Scroll(header);
 }
 
-function getReadyHeader() {
-    const header = pgs(document).querySelector("header");
-    return header && pgs(header).querySelector("header-element") ? header : null;
+//+ a header is only ready once it holds a header-element, which is where every measurement happens
+function getReadyHeaders() {
+    return Array.from(pgs(document).querySelectorAll("header")).filter(header => pgs(header).querySelector("header-element"));
 }
 
-const readyHeader = getReadyHeader();
+function PGS_header_init(root = document) {
+    const candidates = [
+        ...(root instanceof Element && pgs(root).contains("header") ? [root] : []),
+        ...pgs(root).querySelectorAll("header"),
+    ];
 
-if (readyHeader) {
-    initHeader(readyHeader);
-} else {
-    const headerObserver = new MutationObserver(() => {
-        const header = getReadyHeader();
-        if (!header) return;
-
-        headerObserver.disconnect();
-        initHeader(header);
-    });
-
-    headerObserver.observe(document.documentElement, {
-        childList: true,
-        subtree: true
-    });
+    candidates.filter(header => pgs(header).querySelector("header-element")).forEach(header => initHeader(header));
 }
+
+PGS_header_init();
+
+//== headers can arrive later, and there may be more than one, so the watch stays on instead of
+//== stopping at the first: a pass is cheap and every header is initialized only once
+let headerScanRafId = 0;
+const headerObserver = new MutationObserver(() => {
+    if (headerScanRafId) return;
+    headerScanRafId = requestAnimationFrame(() => {
+        headerScanRafId = 0;
+        PGS_header_init();
+    });
+});
+
+headerObserver.observe(document.documentElement, {
+    childList: true,
+    subtree: true
+});
+
+//# EXPORT
+const PGS_header = {
+    init: PGS_header_init
+};
 
 
 /***/ },
@@ -4120,7 +4216,6 @@ if (readyHeader) {
   \******************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_cookieConsent: () => (/* binding */ PGS_cookieConsent)
@@ -4452,18 +4547,6 @@ const PGS_cookieConsent = {
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			const getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter/value functions for harmony exports
@@ -4509,9 +4592,8 @@ const PGS_cookieConsent = {
 /******/ 	
 /************************************************************************/
 let __webpack_exports__ = {};
-// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
 (() => {
-"use strict";
 /*!************************************!*\
   !*** ./assets/javascript/index.js ***!
   \************************************/
@@ -4524,7 +4606,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _base_svg_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./base/_svg.js */ "./assets/javascript/base/_svg.js");
 /* harmony import */ var _base_object_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./base/_object.js */ "./assets/javascript/base/_object.js");
 /* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./layout/_header.js */ "./assets/javascript/layout/_header.js");
-/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_layout_header_js__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _components_accordion_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/_accordion.js */ "./assets/javascript/components/_accordion.js");
 /* harmony import */ var _components_alerts_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/_alerts.js */ "./assets/javascript/components/_alerts.js");
 /* harmony import */ var _components_dropdown_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_dropdown.js */ "./assets/javascript/components/_dropdown.js");

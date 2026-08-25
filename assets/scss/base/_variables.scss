@@ -10,16 +10,22 @@
         --padding: 30px;
         --padding-2: calc(var(--padding)/2);
         --padding-page: 5vw;
+
         --border-radius: 4.5rem;
         --border-radius-external: calc(var(--border-radius) + var(--padding));
         --border-radius-input: 2.25rem;
+        
         --border-width: 1.5px;
-        --border: var(--border-width) solid;
+        --border-style: solid;
         --border-color: light-dark(#ebebeb, #353535);
-        --outline-width: var(--border-width);
-        --outline-color: var(--border-color);
-        --border-complete: var(--border) var(--border-color);
-        --border-complete-hover: var(--border) var(--color-white);
+        --border-complete: var(--border-width) var(--border-color) var(--border-style);
+        
+        --outline-width: 1.5px;
+        --outline-style: solid;
+        --outline-color: light-dark(#ebebeb, #353535);
+        --outline-complete: var(--outline-width) var(--outline-color) var(--outline-style);
+
+
         --box-shadow: 0px 0px 38px 0px #0000000d;
         --text-shadow: 0px 0px 4px #00000040, 0px 0px 4px #0000002d;
         --backdrop: #0000003e;

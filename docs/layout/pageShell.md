@@ -14,6 +14,7 @@ Responsive page layout that combines main content with zero, one or two sidebars
 
 - `shellFullPage`: expands the shell to the full available width while keeping its content centered.
 - `shellAsideScroll`: makes every sidebar stick beside the content and scroll on its own, clamped to the viewport height.
+- `shellAsideScrollFlush`: the same, with the sidebar pulled up over the shell's top padding so it starts flush with the top; both release the sticky behaviour once the sidebar stacks.
 
 ## Related elements
 

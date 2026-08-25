@@ -30,7 +30,7 @@
     --pageShell-margin-top: 0px;
     --pageShell-sizeMaskImage: 40px;
     --pageShell-padding-inline: var(--padding-page);
-    --pageShell-padding-top: calc(var(--page-top) - var(--pageShell-margin-top) - var(--pageShell-sizeMaskImage));
+    --pageShell-padding-top: calc(var(--page-top) - var(--pageShell-margin-top));
     --pageShell-padding-bottom: var(--gap-elements);
     --pageShell-gap: var(--gap-elements);
     // scroll 
@@ -223,38 +223,44 @@
     }
 
     //++ shellAsideScroll
+    //++ shellAsideScrollFlush
     /*  the sidebar scrolls on its own: it sticks next to the content and is clamped to
         the viewport, so the overflow lives on the aside itself and no inner wrapper is
         needed. Both rules below sit at the same specificity inside the option, so the
         band that releases it wins by source order and does not depend on the
-        specificity of the composition bands above. */
-    &[pgs-option~="shellAsideScroll"] {
-        [pgs~="pageShell-aside"] {
-            position: sticky;
-            top: var(--pageShell-aside-top);
-            max-height: calc(100svh - var(--pageShell-aside-top));
-            overflow-y: auto;
-            margin-top: calc(var(--pageShell-padding-top) * -1);
-            // overscroll-behavior: contain;
-            scrollbar-color: transparent transparent;
-            -webkit-mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-sizeMaskImage), black calc(100% - var(--pageShell-sizeMaskImage)), transparent 100%);
-            mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-sizeMaskImage), black calc(100% - var(--pageShell-sizeMaskImage)), transparent 100%);
-
-            &:hover {
-                scrollbar-color: var(--color-gray) transparent;
-            }
-        }
+        specificity of the composition bands above. 
+    */
+    &[pgs-option~="shellAsideScroll"],
+    &[pgs-option~="shellAsideScrollFlush"] {
 
         //=== vertical: the sidebar stacks, so it stops being its own scroller
-        @container (max-width: #{$big-tablet}) {
+        //+( big-tablet 
+        @container (min-width: #{$big-tablet}) {
             [pgs~="pageShell-aside"] {
-                position: relative;
-                margin-top: 0;
-                top: auto;
-                max-height: none;
-                overflow-y: visible;
-                -webkit-mask-image: none;
-                mask-image: none;
+                -webkit-mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-sizeMaskImage), black calc(100% - var(--pageShell-sizeMaskImage)), transparent 100%);
+                mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-sizeMaskImage), black calc(100% - var(--pageShell-sizeMaskImage)), transparent 100%);
+                position: sticky;
+                overflow-y: auto;
+                top: var(--pageShell-aside-top);
+                scrollbar-color: transparent transparent;
+                max-height: calc(100svh - var(--pageShell-padding-top));
+
+                &:hover {
+                    scrollbar-color: var(--color-gray) transparent;
+                }
+            }
+        }
+    }
+
+    //++ shellAsideScrollFlush
+    &[pgs-option~="shellAsideScrollFlush"] {
+
+        //+( big-tablet 
+        @container (min-width: #{$big-tablet}) {
+            [pgs~="pageShell-aside"] {
+                max-height: calc(100svh - var(--pageShell-aside-top));
+                margin-top: calc(var(--pageShell-padding-top) * -1);
+                // margin-left: calc(var(--pageShell-padding-inline)* -1);
             }
         }
     }

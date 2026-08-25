@@ -40,8 +40,16 @@
             display: contents;
         }
 
+        //== the groups above are display:contents, so these grandchildren are the real flex items.
+        //== The switch to compact is decided by comparing their width against the space available,
+        //== which only works if they report what they need: left free to shrink they quietly follow
+        //== the container, the comparison never trips, and the content overflows instead
+        >*>* {
+            flex-shrink: 0;
+        }
+
         [pgs~=button] {
-            @include button_header();
+            @include buttonHeader();
         }
 
         [pgs~="header-element-onlyCompact"] {
@@ -158,9 +166,10 @@
         --header-compact-breakpoint: #{$laptop};
     }
 
-    //option for suggestions: headerCompact[600] carries its own pixel value, and
-    //headerScroll is read by the JavaScript only
+    //option for suggestions: headerCompact[600] carries its own pixel value, while headerScroll and
+    //headerPrimary are read by the JavaScript only
     &[pgs-option~="headerCompact[]"],
+    &[pgs-option~="headerPrimary"],
     &[pgs-option~="headerScroll"] {}
 
     //- compact

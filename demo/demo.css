@@ -14,15 +14,13 @@ body {
     }
 }
 
-.primary-menu {
-    overflow: auto;
-}
-
 /* [pgs~="..."] utility rules set display:flex/grid, which otherwise beats the native [hidden] rule at equal specificity */
 #reference-demo-main [data-panel][hidden] {
     display: none;
 }
 
+
+/* //= CODE EXAMPLE */
 .exampleSource {
     position: relative;
     display: flex;
@@ -49,71 +47,63 @@ body {
             white-space: pre;
         }
     }
-}
 
-/* the three block kinds sit next to each other in the same panel, so each gets its own tint:
-   same family, enough separation to tell at a glance which one you are reading */
-.exampleSource[data-kind="json"] {
-    background: #00000008;
+    /* the three block kinds sit next to each other in the same panel, so each gets its own tint:
+       same family, enough separation to tell at a glance which one you are reading */
+    &[data-kind="json"] {
+        background: #00000008;
 
-    pre {
-        scrollbar-color: #aa5e0086 transparent;
+        pre {
+            scrollbar-color: #aa5e0086 transparent;
 
-        code {
-            color: var(--color-black);
+            code {
+                color: var(--color-black);
+            }
+        }
+    }
+
+    &[data-kind="js"] {
+        background: #ffe1008d;
+
+        pre {
+            scrollbar-color: #ffe100 transparent;
+
+            code {
+                color: var(--color-black);
+            }
+        }
+    }
+
+    .exampleSource-title {
+        color: var(--color-black);
+        font-size: 1.15rem;
+    }
+
+    .exampleSource-copy {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        border: none;
+        background: rgba(255, 255, 255, 0.12);
+        color: var(--color-black);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background-color 150ms;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.22);
         }
     }
 }
 
-.exampleSource[data-kind="js"] {
-    background: #ffe1008d;
 
-    pre {
-        scrollbar-color: #ffe100 transparent;
 
-        code {
-            color: var(--color-black);
-        }
-    }
-}
 
-.exampleSource-title {
-    color: var(--color-black);
-    font-size: 1.15rem;
-}
-
-.exampleSource-copy {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    border: none;
-    background: rgba(255, 255, 255, 0.12);
-    color: var(--color-black);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background-color 150ms;
-
-    &:hover {
-        background: rgba(255, 255, 255, 0.22);
-    }
-}
-
-.docBlock-heading {
-    margin: 0;
-}
-
-.docBlock-subheading {
-    margin: 0;
-    font-size: 0.95em;
-    color: var(--color-tertiary-strong, currentColor);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-}
 
 .docBlock {
     code {
@@ -124,6 +114,18 @@ body {
         padding: 3px 7px;
         border-radius: 6px;
         font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    .docBlock-heading {
+        margin: 0;
+    }
+
+    .docBlock-subheading {
+        margin: 0;
+        font-size: 0.95em;
+        color: var(--color-tertiary-strong, currentColor);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
     }
 }
 
@@ -187,13 +189,21 @@ body {
     }
 }
 
-.reference-demo-nav>p {
-    margin-bottom: calc((var(--gap-elements) * -1) + var(--gap-texts));
-}
+.reference-demo-nav {
+    nav {
+        padding-left: 1px;
+    }
 
+    a {
+        &[aria-current="page"] {
+            --button-border-width: 0 0 0 2px;
+            --button-border-color: var(--button-primaryColor);
+            --button-borderRadius: 0px;
+            transform: translateX(-2px);
+        }
+    }
 
-#asideScroll {
-    /* margin-inline: calc(var(--padding-2) * -1);
-    padding-inline: var(--padding-2); */
-    /* width: calc(100% + var(--padding-2) * 2); */
+    >p {
+        margin-bottom: calc((var(--gap-elements) * -1) + var(--gap-texts));
+    }
 }

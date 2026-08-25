@@ -166,6 +166,8 @@ function PGS_dropdown_init(root = document) {
             open: () => openDropdown(DROPDOWN),
             close: () => closeDropdown(DROPDOWN),
             toggle: () => toggleDropdown(DROPDOWN),
+            //+ recompute where the panel sits, for when its content changed size without reopening
+            reposition: () => updateposition(DROPDOWN),
             refresh: () => {
                 PGS_dropdown_init(DROPDOWN.parentNode || document);
                 updateposition(DROPDOWN);

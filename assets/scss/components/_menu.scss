@@ -4,14 +4,7 @@
 [pgs~=menu] {
     // Menu colours inherit the button theme by default.  A consumer can set the
     // --menu-* variables on this element to theme menus independently.
-    --menu-color: var(--color-black);
-    --menu-color-current: var(--color-whiteFixed);
-    --menu-color-strong: var(--color-whiteFixed);
-    --menu-background: transparent;
-    --menu-background-current: var(--color-primary);
-    --menu-background-strong: var(--color-primary);
-    --menu-border: var(--border-complete);
-    --menu-gap-column: 2px;
+    --menu-gap-column: .5rem;
     --menu-gap-row: 1.0rem;
 
     ul {
@@ -28,17 +21,6 @@
                 flex-grow: 1;
                 min-width: -webkit-fill-available;
                 min-width: fit-content;
-                @include buttonBase();
-                @include buttonHover();
-                @include buttonContent();
-                @include buttonCurrent();
-                --button-color: var(--menu-color);
-                --button-color-strong: var(--menu-color-strong);
-                --button-color-current: var(--menu-color-current);
-                --button-background: var(--menu-background);
-                --button-background-strong: var(--menu-background-strong);
-                --button-background-current: var(--menu-background-current);
-                --button-border: var(--menu-border);
 
                 >span {
                     line-height: 1;
@@ -66,6 +48,14 @@
         }
     }
 
+    //== accordion submenu: the base rule hides every nested ul, so the open branch has to say so.
+    //== The floating counterpart is handled by the dropdown component instead
+    [pgs~=_menu-accordion][pgs-state~=open] {
+        >ul {
+            display: flex;
+        }
+    }
+
     //== buttonIcon
     [pgs~=_menu-buttonIcon] {
         --button-size: 0.9rem;
@@ -79,7 +69,6 @@
         translate: -15px;
 
         &[aria-expanded="true"] {
-            --button-background: var(--menu-background-current);
 
             span {
                 rotate: 180deg;
@@ -128,14 +117,23 @@
             }
 
             //=== Sub menu
+            //=== link ------ |button|
+            //=== list ---------------|
+            //=== the link and the toggle share the first row, the submenu takes the whole next one:
+            //=== it needs flex-wrap, or flex-basis has no line to break onto
             >li:has(ul) {
                 @include flexRow;
-                flex-wrap: nowrap;
                 align-items: center;
                 position: relative;
 
+                >a {
+                    flex: 1;
+                }
+
                 >ul {
                     flex-basis: 100%;
+                    padding-left: 1.0rem;
+                    border-left: var(--border-complete);
                 }
 
                 &:not([pgs-state~=open]) ul {
@@ -145,14 +143,7 @@
         }
     }
 
-    //== menuHeader
-    &[pgs-option~=menuHeader] {
-        >ul>li>a {
-            @include button_header();
-        }
-    }
-
-    //== icon only current
+    //+ icon only current
     &[pgs-option~=menuIconOnlyCurrent] {
         a:not([aria-current]:not([aria-current="false"])) {
             --button-padding-left: var(--button-padding-right);
@@ -163,7 +154,7 @@
         }
     }
 
-    //== SHORT
+    //+ SHORT
     &[pgs-option~=menuShort] {
         >ul>li {
             &:first-child {
@@ -180,8 +171,6 @@
 
             a {
                 margin-right: calc(var(--button-padding-block) * -1);
-                --button-background-current: var(--color-primary-soft);
-                --button-color-current: var(--color-primary-strong);
 
                 &[aria-current=page] {
                     z-index: 1;

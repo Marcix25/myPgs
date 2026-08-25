@@ -15,6 +15,7 @@ import { PGS_slides } from "./components/_slides.js";
 import { PGS_stepTabs } from "./components/_stepTabs.js";
 import { PGS_steps } from "./components/_steps.js";
 import { PGS_summary } from "./components/_summary.js";
+import { PGS_header } from "./layout/_header.js";
 import { PGS_formValidate } from "./helper/_formValidate.js";
 import { PGS_init } from "./helper/_init.js";
 import { PGS_scrollHorizontal } from "./helper/_scrollY.js";
@@ -29,6 +30,7 @@ pgs.registerModules({
     dropdown: PGS_dropdown,
     menu: PGS_menu,
     modal: PGS_modal,
+    header: PGS_header,
     cookieConsent: PGS_cookieConsent,
     notification: PGS_notification,
     toast: PGS_toast,

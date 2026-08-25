@@ -9,11 +9,11 @@ export default function Header() {
                 </div>
 
                 <div pgs="header-element-onlyFull">
-                    <nav pgs="menu" pgs-option="horizontal menuHeader menuShort" aria-label="Main menu">
+                    <nav pgs="menu" pgs-option="horizontal menuShort" aria-label="Main menu">
                         <ul>
-                            <li><a href="/">Home</a></li>
-                            <li><a href="#componenti">Componenti</a></li>
-                            <li><a href="#layout">Layout</a></li>
+                            <li><a pgs="button" pgs-option="buttonText" href="/">Home</a></li>
+                            <li><a pgs="button" pgs-option="buttonText" href="#componenti">Componenti</a></li>
+                            <li><a pgs="button" pgs-option="buttonText" href="#layout">Layout</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -31,11 +31,11 @@ export default function Header() {
 
                     <dialog pgs="modal-dialog" pgs-option="right">
                         <div pgs="modal-dialog-content">
-                            <nav pgs="menu" pgs-option="vertical menuHeader" aria-label="Mobile menu">
+                            <nav pgs="menu" pgs-option="vertical" aria-label="Mobile menu">
                                 <ul>
-                                    <li><a href="/">Home</a></li>
-                                    <li><a href="#componenti">Componenti</a></li>
-                                    <li><a href="#layout">Layout</a></li>
+                                    <li><a pgs="button" pgs-option="buttonText" href="/">Home</a></li>
+                                    <li><a pgs="button" pgs-option="buttonText" href="#componenti">Componenti</a></li>
+                                    <li><a pgs="button" pgs-option="buttonText" href="#layout">Layout</a></li>
                                 </ul>
                             </nav>
                         </div>

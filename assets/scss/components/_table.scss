@@ -18,13 +18,13 @@
         border-collapse: collapse;
         color: var(--color-text);
         border-radius: var(--border-radius-input);
-        border: var(--border-complete-hover);
+        border: var(--border-complete);
         overflow: hidden;
 
         th,
         td {
             padding: 12px;
-            border: var(--border-complete-hover);
+            border: var(--border-complete);
             text-align: left;
             min-width: 100px;
         }
