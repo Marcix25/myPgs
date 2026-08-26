@@ -38,6 +38,7 @@ Write custom CSS or JavaScript only when the required pattern does not exist in 
 - Runtime states belong in `pgs-state`, for example `open`, `is-active`, `is-completed`, `is-locked`, `success`, `errorForm`, and `errorField`.
 - Options belong in `pgs-option` and may contain bracket values. Copy their exact syntax from the relevant reference instead of guessing it.
 - Composable search uses `pgs="search"` as its visual and behavioral root and optionally `pgs="search-suggestions"`. Configure its source through `pgs.search.api(element)?.configure({ source })` and keep it backend-independent.
+- `pgs="icon"` draws a glyph from the library's own inline SVG, with an `icon`-prefixed `pgs-option` choosing which one, as in `<i pgs="icon" pgs-option="icon-arrowRight"></i>`. It needs no icon font: every icon the library builds for itself goes through it, and the set is yours to use too. See `docs/components/icon.md` for the whole list. Written on its own, with no option, it draws nothing and only marks the element as an icon: that is how another icon set gets the same box and placement the library gives an `<i>`, so `<span pgs="icon" class="material-symbols-outlined">check</span>` is sized and placed like one. `pgs-option="iconBox"` is a different thing — it turns the element into the circular surface a glyph sits inside, and it belongs to Icon too.
 
 The complete page must enable the library through the current tokens shown in `reference/html/base/body.html`. Do not infer the root markup from the demo.
 
@@ -73,6 +74,7 @@ Import only the mixins when the project does not need the library stylesheet sou
 
 ## 5. SCSS Usage
 
+- Icon size comes from `--icon-size`, which the components set per context and you can override; `--fa-size` is still honoured for markup written against older versions. Colour follows the text colour, or `--icon-color` when you set it.
 - Reuse existing properties such as `--color-primary`, `--color-box`, `--color-text`, `--padding`, `--padding-page`, `--gap-texts`, `--gap-elements`, `--gap-sections`, `--border-radius`, `--border-radius-input`, `--border-width`, `--border-color`, `--border-complete`, `--outline-width`, `--outline-color`, `--box-shadow`, and `--focus-visible`.
 - Use existing layout and component mixins instead of rewriting them.
 - Compose custom buttons with `buttonBase`, either `buttonContent` or `buttonIcon`, either `buttonHover` or `buttonNohover`, and the required variants. Variant mixins do not include the base styles.

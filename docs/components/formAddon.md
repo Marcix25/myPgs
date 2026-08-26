@@ -20,6 +20,11 @@ Additional form controls for selectable cards, two-state buttons, switches, and 
 - `flexColumn`: vertically arranges each example with its heading and control.
 - `flexRow`: horizontally arranges standalone chip controls.
 - `gapElements`: applies element spacing between the form add-on examples.
+- `icon`: draws the glyphs this example shows; see Icon for the whole set.
+
+### PGS Options
+
+- `icon-star`: the neutral stand-in glyph, used where the example needs an icon but not a particular one.
 
 ## Output
 
@@ -77,7 +82,7 @@ Checkbox label styled as a button whose appearance changes when selected.
 
 <label pgs="twoState">
     <input type="checkbox" name="favorite" value="yes">
-    <i class="fa-solid fa-star" aria-hidden="true"></i>
+    <i pgs="icon" pgs-option="icon-star" aria-hidden="true"></i>
     Add to favorites
 </label>
 ```
@@ -104,12 +109,12 @@ Individual checkbox options presented as compact selectable chip buttons.
 <div pgs="flexRow" role="group" aria-label="Chip actions">
     <label pgs="chip">
         <input type="checkbox" name="like" value="basic">
-        <i class="fa-solid fa-heart"></i>
+        <i pgs="icon" pgs-option="icon-star"></i>
         Like
     </label>
     <label pgs="chip">
         <input type="checkbox" name="share" value="basic">
-        <i class="fa-solid fa-share"></i>
+        <i pgs="icon" pgs-option="icon-star"></i>
         Share
     </label>
 </div>
@@ -148,19 +153,19 @@ Multiple radio chips grouped into a compact segmented selector, each paired with
     <legend>Chips radio</legend>
     <label>
         <input type="radio" name="characters" value="Crow" checked>
-        <i class="fa-solid fa-crow"></i>
+        <i pgs="icon" pgs-option="icon-star"></i>
         Crow
     </label>
 
     <label>
         <input type="radio" name="characters" value="Dove">
-        <i class="fa-solid fa-dove"></i>
+        <i pgs="icon" pgs-option="icon-star"></i>
         Dove
     </label>
 
     <label>
         <input type="radio" name="characters" value="dragon">
-        <i class="fa-solid fa-dragon"></i>
+        <i pgs="icon" pgs-option="icon-star"></i>
         dragon
     </label>
 </fieldset>

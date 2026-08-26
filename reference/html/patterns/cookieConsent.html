@@ -39,6 +39,10 @@
  * - modal: wraps cookieConsent and the dialog, providing open/close behavior shared with every other dialog on the page.
  * - modal-dialog-content: identifies the JS-generated styled content area inside the dialog.
  * - hidden: uses the related hidden component or utility in this example.
+ * - icon: draws the three glyphs in the notice and its buttons; see Icon for the whole set.
+ * - icon-cookie: the glyph beside the introduction.
+ * - icon-sliders: the glyph on the button that saves the current choice.
+ * - icon-check: the glyph on the button that accepts everything.
  *
  * @return Consent panel HTML with essential and analytics preferences, actions, and accessible attributes.
  */
@@ -53,7 +57,7 @@
 }]'></div>
 
 <button type="button" pgs="button cookieConsent-actionOpen" aria-haspopup="dialog">
-    <i class="fa-solid fa-cookie-bite"></i> Cookie preferences
+    <i pgs="icon" pgs-option="icon-cookie"></i> Cookie preferences
 </button>
 
 <script type="application/json">

@@ -36,11 +36,8 @@ ol[pgs~="steps"] {
             font-weight: 600;
             text-align: center;
 
-            i {
+            i, [pgs~=icon] {
                 color: var(--color-black);
-                --fa-primary-color: var(--color-black);
-                --fa-secondary-color: var(--color-black);
-                --fa-secondary-opacity: 0.5;
             }
         }
 
@@ -94,11 +91,8 @@ ol[pgs~="steps"] {
                 background-color: var(--color-primary);
                 color: var(--color-whiteFixed);
 
-                i {
+                i, [pgs~=icon] {
                     color: var(--color-whiteFixed);
-                    --fa-primary-color: var(--color-whiteFixed);
-                    --fa-secondary-color: var(--color-whiteFixed);
-                    --fa-secondary-opacity: 0.5;
                 }
             }
 

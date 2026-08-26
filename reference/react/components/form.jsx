@@ -27,7 +27,6 @@ export default function Form() {
             </label>
 
             <button pgs="button" pgs-option="buttonStrong" type="submit">
-                <i className="fa-solid fa-paper-plane" aria-hidden="true"></i>
                 Invia
             </button>
         </form>

@@ -1,0 +1,110 @@
+<!-- Automatically generated from reference/html/components/icon.html. Edit reference/html/components/icon.html and run npm run docs:generate again. -->
+
+# Icon
+
+The glyphs the library draws itself, as inline SVG rather than a font. The token marks the element as an icon and the option chooses which one, so the set is closed: what the stylesheet holds is what can be drawn. Everything myPGS builds and needs to show goes through here — the slide arrows, the close buttons, the marks on alerts, toasts and notifications — which is why the library needs no icon font of its own. The same token is yours to write, so an icon you place by hand costs no dependency either. Written on its own, with no option, it draws nothing and only marks the element as an icon: that is how any icon set you bring gets the same box and placement the library gives an <i>, so a span, an svg or a custom element is sized and positioned like one. It is not iconBox: that one is the circular surface a glyph can sit inside, this one is the drawing.
+
+## PGS
+
+- `icon`: draws a glyph on the element, taking its size from the font size and its colour from the text colour, so it follows whatever surrounds it.
+
+## PGS Options
+
+- `iconBox`: turns the element into the circular surface a glyph sits inside. It is the container and says nothing about what it holds, so a built-in glyph and an icon from any other set sit in it alike.
+- `icon-arrowLeft`: arrow pointing left, for stepping back through a sequence.
+- `icon-arrowRight`: arrow pointing right, for stepping forward.
+- `icon-chevronDown`: chevron pointing down, for anything that expands in place.
+- `icon-check`: tick, for a confirmed or checked state.
+- `icon-close`: cross, for dismissing a surface.
+- `icon-magnifyingGlass`: magnifying glass, for a search affordance.
+- `icon-moon`: crescent moon, the dark half of a theme switch.
+- `icon-sun`: sun, the light half of a theme switch.
+- `icon-cookie`: biscuit, used by the consent notice.
+- `icon-sliders`: three sliders, for preferences.
+- `icon-circle`: plain disc, for a step that is only a position in a sequence.
+- `icon-circleXmark`: cross inside a disc, the error mark.
+- `icon-circleCheck`: tick inside a disc, the success mark.
+- `icon-circleInfo`: letter i inside a disc, the information mark.
+- `icon-triangleExclamation`: exclamation mark inside a triangle, the warning mark.
+
+## Related elements
+
+### PGS
+
+- `flexColumn`: stacks the groups of examples.
+- `flexRow`: lays each group out in a row.
+- `txtPrimary`: recolours one example, to show that a glyph follows the text colour.
+- `txtError`: recolours another the same way.
+
+### PGS Options
+
+- `gapTexts`: spaces the icons inside a group.
+- `wrap`: lets the full set flow onto more rows.
+- `gapSections`: separates the groups.
+
+## Output
+
+One example per glyph, the sizing and colour behaviour, and the surface a glyph sits inside.
+
+## Example
+
+### The set
+
+Every glyph the library can draw. The token marks the element, the option names the glyph.
+
+```html
+<div pgs="flexRow" pgs-option="gapTexts wrap">
+    <i pgs="icon" pgs-option="icon-arrowLeft"></i>
+    <i pgs="icon" pgs-option="icon-arrowRight"></i>
+    <i pgs="icon" pgs-option="icon-chevronDown"></i>
+    <i pgs="icon" pgs-option="icon-check"></i>
+    <i pgs="icon" pgs-option="icon-close"></i>
+    <i pgs="icon" pgs-option="icon-magnifyingGlass"></i>
+    <i pgs="icon" pgs-option="icon-moon"></i>
+    <i pgs="icon" pgs-option="icon-sun"></i>
+    <i pgs="icon" pgs-option="icon-cookie"></i>
+    <i pgs="icon" pgs-option="icon-sliders"></i>
+    <i pgs="icon" pgs-option="icon-circle"></i>
+    <i pgs="icon" pgs-option="icon-circleXmark"></i>
+    <i pgs="icon" pgs-option="icon-circleCheck"></i>
+    <i pgs="icon" pgs-option="icon-circleInfo"></i>
+    <i pgs="icon" pgs-option="icon-triangleExclamation"></i>
+</div>
+```
+
+### Size and colour
+
+A glyph is drawn at the font size of its element and painted in the text colour, so it needs no settings of its own: size it and colour it the way you would the text around it.
+
+```html
+<div pgs="flexRow" pgs-option="gapTexts">
+    <p><i pgs="icon" pgs-option="icon-circleInfo"></i> Inside a paragraph, matching the text.</p>
+</div>
+
+<div pgs="flexRow" pgs-option="gapTexts">
+    <i pgs="icon" pgs-option="icon-circleCheck" style="font-size: 3.2rem;"></i>
+    <i pgs="icon" pgs-option="icon-circleCheck" style="font-size: 2.4rem;"></i>
+    <i pgs="icon" pgs-option="icon-circleCheck"></i>
+</div>
+
+<div pgs="flexRow" pgs-option="gapTexts">
+    <i pgs="icon txtPrimary" pgs-option="icon-triangleExclamation"></i>
+    <i pgs="icon txtError" pgs-option="icon-triangleExclamation"></i>
+    <i pgs="icon" pgs-option="icon-triangleExclamation"></i>
+</div>
+```
+
+### Inside a surface
+
+A glyph placed in iconBox, the circular surface that holds one icon.
+
+```html
+<div pgs="flexRow" pgs-option="gapTexts">
+    <span pgs="icon" pgs-option="iconBox" aria-hidden="true">
+        <i pgs="icon" pgs-option="icon-check"></i>
+    </span>
+    <span pgs="icon" pgs-option="iconBox" aria-hidden="true">
+        <i pgs="icon" pgs-option="icon-close"></i>
+    </span>
+</div>
+```

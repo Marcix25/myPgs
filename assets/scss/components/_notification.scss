@@ -88,9 +88,7 @@
             padding: var(--padding-2);
 
             [pgs~=_notifications-element-icon] {
-                --fa-primary-color: var(--notification-shadow-color);
-                --fa-secondary-color: color-mix(in srgb, var(--notification-shadow-color) 50%, var(--color-white) 50%);
-                --fa-size: 3.5rem;
+                --icon-size: 3.5rem;
                 flex: 0 0 auto;
                 color: var(--notification-shadow-color);
             }

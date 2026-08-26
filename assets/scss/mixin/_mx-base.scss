@@ -115,7 +115,7 @@
 //= ICON SVG
 @mixin iconSvgBase64($url, $size: 2.0rem, $color: var(--color-primary-strong)) {
     content: "";
-    display: inline-block;
+    display: list-item;
     width: $size;
     height: $size;
     background-color: $color;

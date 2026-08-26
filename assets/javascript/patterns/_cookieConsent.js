@@ -129,7 +129,7 @@ function buildCookieConsent(marker) {
         <dialog pgs-option="topLevel">
             <div pgs="modal-dialog-content">
                 <div pgs="flexColumn">
-                    <p><i class="fa-duotone fa-solid fa-cookie-bite"></i> ${formatText(config.titleIntro)} <br></p>
+                    <p><i pgs="icon" pgs-option="icon-cookie"></i> ${formatText(config.titleIntro)} <br></p>
                     <h2>${formatText(config.titleHeading)}</h2>
 
                     <p>${formatText(config.description)}</p>
@@ -166,11 +166,11 @@ function buildCookieConsent(marker) {
                     </div>
                     <div pgs="flexRow">
                         <button type="button" pgs="button _cookieConsent-actionReject">
-                            <i class="fa-solid fa-duotone fa-sliders"></i> ${formatText(config.titleReject)}
+                            <i pgs="icon" pgs-option="icon-sliders"></i> ${formatText(config.titleReject)}
                         </button>
     
                         <button type="button" pgs="button _cookieConsent-actionAccept" pgs-option="buttonStrong">
-                            <i class="fa-solid fa-check"></i> ${formatText(config.titleAccept)}
+                            <i pgs="icon" pgs-option="icon-check"></i> ${formatText(config.titleAccept)}
                         </button>
                     </div>
                 </div>

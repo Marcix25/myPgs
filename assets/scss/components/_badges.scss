@@ -23,13 +23,10 @@
     white-space: nowrap;
     overflow-wrap: normal;
 
-    i {
+    i, [pgs~=icon] {
         color: var(--badge-color);
         font-size: var(--badge-icon-size);
-        --fa-size: var(--badge-icon-size);
-        --fa-primary-color: var(--badge-color);
-        --fa-secondary-color: var(--badge-color);
-        --fa-secondary-opacity: 0.5;
+        --icon-size: var(--badge-icon-size);
     }
 }
 

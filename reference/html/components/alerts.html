@@ -25,6 +25,11 @@
  * @related
  * - flexColumn: arranges the static alert examples vertically.
  * - notification: provides dynamic floating alerts and toast messages.
+ * - icon: draws the glyph that marks the alert type; see Icon for the whole set.
+ * - icon-circleXmark: the glyph of the error type.
+ * - icon-circleCheck: the glyph of the success type.
+ * - icon-circleInfo: the glyph of the info type.
+ * - icon-triangleExclamation: the glyph of the warning type.
  *
  * @return Accessible HTML examples of the four inline alert states; JavaScript methods return an HTMLElement that can be appended where needed.
  */
@@ -32,7 +37,7 @@
 
 <div pgs="alertContainer flexColumn" demo="component">
     <div pgs="alert" pgs-state="info" role="status" demo="item" demo-title="Information" demo-description="Neutral informational feedback.">
-        <i pgs="alert-icon" class="fa-solid fa-circle-info" aria-hidden="true"></i>
+        <i pgs="alert-icon" pgs="icon" pgs-option="icon-circleInfo" aria-hidden="true"></i>
         <div pgs="alert-content">
             <strong pgs="alert-content-title">Information</strong>
             <p>Your profile information can be updated at any time.</p>
@@ -40,7 +45,7 @@
     </div>
 
     <div pgs="alert" pgs-state="success" role="status" demo="item" demo-title="Changes saved" demo-description="Confirmation of a successful operation.">
-        <i pgs="alert-icon" class="fa-solid fa-circle-check" aria-hidden="true"></i>
+        <i pgs="alert-icon" pgs="icon" pgs-option="icon-circleCheck" aria-hidden="true"></i>
         <div pgs="alert-content">
             <strong pgs="alert-content-title">Changes saved</strong>
             <p>Your preferences were updated successfully.</p>
@@ -48,7 +53,7 @@
     </div>
 
     <div pgs="alert" pgs-state="warning" role="alert" demo="item" demo-title="Check your information" demo-description="A condition that requires the user's attention.">
-        <i pgs="alert-icon" class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+        <i pgs="alert-icon" pgs="icon" pgs-option="icon-triangleExclamation" aria-hidden="true"></i>
         <div pgs="alert-content">
             <strong pgs="alert-content-title">Check your information</strong>
             <p>Some fields may require your attention before continuing.</p>
@@ -56,7 +61,7 @@
     </div>
 
     <div pgs="alert" pgs-state="error" role="alert" demo="item" demo-title="Unable to save" demo-description="A failure or blocking problem.">
-        <i pgs="alert-icon" class="fa-solid fa-circle-xmark" aria-hidden="true"></i>
+        <i pgs="alert-icon" pgs="icon" pgs-option="icon-circleXmark" aria-hidden="true"></i>
         <div pgs="alert-content">
             <strong pgs="alert-content-title">Unable to save</strong>
             <p>Correct the reported errors and try again.</p>

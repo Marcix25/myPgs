@@ -44,7 +44,7 @@
 
         [pgs~=_stepTabs-dots-dot] {
             border-radius: 50%;
-            --fa-size: 1.8rem;
+            --icon-size: 1.8rem;
 
             &[pgs-state~=is-completed] {
                 cursor: pointer;
@@ -55,9 +55,7 @@
                 background: var(--color-primary);
                 scale: 1.2;
 
-                i {
-                    --fa-primary-color: var(--color-whiteFixed);
-                    --fa-secondary-color: var(--color-whiteFixed);
+                i, [pgs~=icon] {
                     color: var(--color-whiteFixed);
                 }
             }

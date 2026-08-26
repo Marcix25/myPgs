@@ -1,0 +1,86 @@
+//+ ICONS
+// Icons the stylesheets draw themselves, as inline SVG rather than a font: a component that needs a
+// chevron or a tick must not depend on the consuming page having loaded an icon library.
+//
+// Each one is a data URI holding a single path, kept whole here so swapping an icon set is a change
+// to this file alone. They are drawn through iconSvgBase64(), which paints them with a mask, so the
+// path carries no colour of its own and the shape follows currentColor or whatever the mixin is
+// given. Keep the SVG minimal for that reason: a viewBox and one path, no fill and no stroke.
+//
+// The escaping matters. A data URI written inline must not contain a raw <, > or #, so the angle
+// brackets are %3C and %3E; spaces inside a path may stay as spaces or be written %20, but they can
+// never be a newline. Adding an icon means URL-encoding it the same way, on one line.
+//
+// The shapes below are drawn here rather than lifted from an icon set, so the library carries no
+// attribution obligation and nothing to re-check if an upstream licence changes. They are plain
+// geometry on a 512 grid. Where a glyph has a hole — the ring of the magnifying glass, the mark
+// inside a disc — the hole is a second subpath wound the opposite way, which is what makes the
+// default nonzero fill rule cut it out. Reversing the point order of a subpath by mistake fills
+// the hole in, so keep the winding when editing one.
+
+//chevron pointing down, for anything that expands in place
+$icon-chevronDown: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512'%3E%3Cpath d='M371.515%20229.055L219.516%20373.033C211.797%20380.344%20201.891%20384%20192%20384S172.203%20380.344%20164.484%20373.033L12.485%20229.055C-3.546%20213.87%20-4.233%20188.561%2010.97%20172.532C26.157%20156.472%2051.485%20155.785%2067.516%20171.001L192%20288.921L316.484%20171.001C332.499%20155.754%20357.827%20156.441%20373.03%20172.532C388.233%20188.561%20387.546%20213.87%20371.515%20229.055Z'/%3E%3C/svg%3E");
+
+//tick, for the checked state of a control
+$icon-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath d='M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.2 0z'/%3E%3C/svg%3E");
+
+//arrows, for stepping through a sequence
+$icon-arrowLeft: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M64 256 L232 88 L232 220 L456 220 L456 292 L232 292 L232 424 Z'/%3E%3C/svg%3E");
+$icon-arrowRight: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M448 256 L280 424 L280 292 L56 292 L56 220 L280 220 L280 88 Z'/%3E%3C/svg%3E");
+
+//cross, for dismissing a surface
+$icon-close: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M424 139 L373 88 L256 205 L139 88 L88 139 L205 256 L88 373 L139 424 L256 307 L373 424 L424 373 L307 256 Z'/%3E%3C/svg%3E");
+
+//magnifying glass, for a search affordance. Ring plus handle: the inner circle is wound the other
+//way so it stays open
+$icon-magnifyingGlass: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M208 48 a160 160 0 1 0 0 320 160 160 0 1 0 0-320 z M208 108 a100 100 0 1 1 0 200 100 100 0 1 1 0-200 z M275 325 L447 497 L497 447 L325 275 Z'/%3E%3C/svg%3E");
+
+//biscuit and sliders, for the consent notice and its preferences
+$icon-cookie: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M256 48 a208 208 0 1 1 0 416 208 208 0 1 1 0-416 z M180 172 a28 28 0 1 0 0 56 28 28 0 1 0 0-56 z M310 152 a28 28 0 1 0 0 56 28 28 0 1 0 0-56 z M230 292 a28 28 0 1 0 0 56 28 28 0 1 0 0-56 z M340 272 a28 28 0 1 0 0 56 28 28 0 1 0 0-56 z'/%3E%3C/svg%3E");
+$icon-sliders: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M32 100 h448 v56 h-448 z M168 76 a52 52 0 1 1 0 104 52 52 0 1 1 0-104 z M32 228 h448 v56 h-448 z M344 204 a52 52 0 1 1 0 104 52 52 0 1 1 0-104 z M32 356 h448 v56 h-448 z M216 332 a52 52 0 1 1 0 104 52 52 0 1 1 0-104 z'/%3E%3C/svg%3E");
+
+//plain disc, for a step that is only a position in a sequence
+$icon-circle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M256 56 a200 200 0 1 1 0 400 200 200 0 1 1 0-400 z'/%3E%3C/svg%3E");
+
+//the four semantic marks: error, success, information, warning. Each is a disc with the mark cut
+//out of it, so the mark shows whatever sits behind the icon
+$icon-circleXmark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M256 56 a200 200 0 1 1 0 400 200 200 0 1 1 0-400 z M356 186 L326 156 L256 226 L186 156 L156 186 L226 256 L156 326 L186 356 L256 286 L326 356 L356 326 L286 256 Z'/%3E%3C/svg%3E");
+$icon-circleCheck: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M256 56 a200 200 0 1 1 0 400 200 200 0 1 1 0-400 z M152 252 L120 284 L222 386 L392 216 L360 184 L222 322 Z'/%3E%3C/svg%3E");
+$icon-circleInfo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M256 56 a200 200 0 1 1 0 400 200 200 0 1 1 0-400 z M256 120 a30 30 0 1 0 0 60 30 30 0 1 0 0-60 z M226 208 v168 h60 v-168 z'/%3E%3C/svg%3E");
+$icon-triangleExclamation: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M256 40 L496 456 L16 456 Z M226 168 v152 h60 v-152 z M256 348 a32 32 0 1 0 0 64 32 32 0 1 0 0-64 z'/%3E%3C/svg%3E");
+
+//moon and sun, for the theme toggle. The crescent has to be one closed shape bounded by two arcs
+//between the same two points, not a disc with a second disc subtracted: nonzero keeps whatever the
+//second disc sticks out by, so subtracting one leaves two lunes instead of a moon
+$icon-moon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M300 70 A200 200 0 1 0 300 442 A190 190 0 0 1 300 70 Z'/%3E%3C/svg%3E");
+$icon-sun: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M256 146 a110 110 0 1 1 0 220 110 110 0 1 1 0-220 z M236 30 h40 v80 h-40 z M236 402 h40 v80 h-40 z M30 236 h80 v40 h-80 z M402 236 h80 v40 h-80 z M411 129 L383 101 L327 157 L355 185 Z M101 129 L129 101 L185 157 L157 185 Z M411 383 L383 411 L327 355 L355 327 Z M101 383 L129 411 L185 355 L157 327 Z'/%3E%3C/svg%3E");
+
+//star, the neutral stand-in: the examples that have to show an icon somewhere, without the icon
+//itself meaning anything, use this one
+$icon-star: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M256 56 L303 191 L446 194 L332 281 L374 418 L256 336 L138 418 L180 281 L66 194 L209 191 Z'/%3E%3C/svg%3E");
+
+//bell, for anything that announces something arriving
+$icon-bell: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M120 356 v-120 a136 136 0 0 1 272 0 v120 l36 44 H84 Z M256 34 a30 30 0 1 1 0 60 30 30 0 1 1 0-60 z M256 404 a42 42 0 1 1 0 84 42 42 0 1 1 0-84 z'/%3E%3C/svg%3E");
+
+//the drawable set: every key here becomes an option of the icon component, so adding an entry is
+//all it takes to make a new glyph writable as pgs-option. Removing or renaming one is a breaking
+//change, since the keys are public.
+$icons-builtin: (
+    icon-arrowLeft: $icon-arrowLeft,
+    icon-arrowRight: $icon-arrowRight,
+    icon-bell: $icon-bell,
+    icon-check: $icon-check,
+    icon-chevronDown: $icon-chevronDown,
+    icon-circle: $icon-circle,
+    icon-circleCheck: $icon-circleCheck,
+    icon-circleInfo: $icon-circleInfo,
+    icon-circleXmark: $icon-circleXmark,
+    icon-close: $icon-close,
+    icon-cookie: $icon-cookie,
+    icon-magnifyingGlass: $icon-magnifyingGlass,
+    icon-moon: $icon-moon,
+    icon-sliders: $icon-sliders,
+    icon-star: $icon-star,
+    icon-sun: $icon-sun,
+    icon-triangleExclamation: $icon-triangleExclamation,
+);

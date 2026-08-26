@@ -2,7 +2,7 @@ export default function Tooltip() {
     return (
         <span pgs="dropdown tooltip">
             <button pgs="dropdown-button button tooltip-button" pgs-option="buttonMini" title="open-tooltip" type="button">
-                <i className="fa-solid fa-info"></i>
+                <i pgs="icon" pgs-option="icon-circleInfo"></i>
             </button>
             <div pgs="dropdown-content tooltip-content">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto hic, id consectetur facilis et, iste animi minima quidem praesentium omnis quod. Quidem provident ad cum aut reprehenderit laboriosam eum placeat.

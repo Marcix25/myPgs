@@ -2,7 +2,7 @@ export default function Footer() {
     return (
         <footer pgs="footer">
             <button pgs="button toggleDarkmode" type="button" aria-label="Change theme">
-                <i className="fa-solid fa-moon"></i>
+                <i pgs="icon"></i>
             </button>
 
             <section pgs="footer-top section">

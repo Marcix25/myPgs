@@ -55,6 +55,7 @@ Responsive header that measures available space, switches between its full and c
 - `modal-close`: closes the compact panel and shares the hamburger control.
 - `modal-dialog`: identifies the compact navigation dialog.
 - `modal-dialog-content`: identifies the inner compact navigation panel; also identifies the JS-generated content area wrapping notifications inside the notification dialog.
+- `icon`: draws the glyphs this example shows; see Icon for the whole set.
 
 ### PGS Options
 
@@ -65,6 +66,7 @@ Responsive header that measures available space, switches between its full and c
 - `containerPGS`: uses containerPGS[header] on the modal wrapper to move the dialog into the header.
 - `right`: presents the compact navigation dialog content from the right side.
 - `buttonIcon`: presents theme and hamburger controls as icon buttons.
+- `icon-bell`: the glyph on the control that opens the panel.
 
 ### Other
 
@@ -104,12 +106,12 @@ Complete header HTML with full navigation and a side compact panel.
 			<div pgs="flexRow nowrap">
 				<div pgs="modal" pgs-option="containerPGS[header] ">
 					<button type="button" pgs="modal-button modal-close button notificationBell" pgs-option="buttonIcon" aria-label="Open notifications">
-						<i class="fa-duotone fa-solid fa-bell"></i>
+						<i pgs="icon" pgs-option="icon-bell"></i>
 						<span pgs="notificationBell-counter"></span>
 					</button>
 				</div>
 				<button pgs="button toggleDarkmode" pgs-option="buttonIcon" type="button" aria-label="Change theme">
-					<i class="fa-solid fa-moon"></i>
+					<i pgs="icon"></i>
 				</button>
 			</div>
 		</div>

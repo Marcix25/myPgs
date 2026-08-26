@@ -156,7 +156,6 @@ Complete HTML form with required fields and an example script for a custom rule,
     <br>
 
     <button pgs="button" pgs-option="buttonStrong" type="submit">
-        <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
         Submit
     </button>
 

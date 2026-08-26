@@ -40,7 +40,6 @@ HTML list of accessible accordion items with an associated button and panel.
 <ul pgs="flexColumn">
     <li pgs="accordion">
         <button pgs="accordion-button" type="button">
-            <i class="fa-solid fa-circle-question" aria-hidden="true"></i>
             <span>Frequently asked question</span>
         </button>
 
@@ -51,7 +50,6 @@ HTML list of accessible accordion items with an associated button and panel.
 
     <li pgs="accordion">
         <button pgs="accordion-button" type="button">
-            <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
             <span>Second section</span>
         </button>
 

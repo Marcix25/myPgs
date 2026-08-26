@@ -50,18 +50,24 @@ Notification markup, configuration, behavior, and usage example. A persistent, m
 - `flexColumn`: stacks the examples vertically.
 - `button`: uses the related button component or utility in this example.
 - `modal-button`: identifies notificationBell as the control that opens the dialog.
+- `icon`: draws the glyph that marks the notification type; see Icon for the whole set.
 
 ### PGS Options
 
 - `gapSections`: separates the examples.
 - `gapTexts`: spaces the content inside each example.
 - `buttonIcon`: presents notificationBell as an icon button.
+- `icon-bell`: the glyph on the control that opens the panel.
 
 ### Other
 
 - `modal`: wraps notificationBell; pgs.notification generates the dialog inside it and provides open/close/toggle behavior shared with every other dialog on the page.
 - `modal-dialog-content`: identifies the JS-generated styled content area inside the dialog, wrapping notifications.
 - `right`: slides the notification dialog in from the right; see Modal for other positions.
+- `icon-circleXmark`: the glyph of the error type.
+- `icon-circleCheck`: the glyph of the success type.
+- `icon-circleInfo`: the glyph of the info type.
+- `icon-triangleExclamation`: the glyph of the warning type.
 
 ## Output
 
@@ -114,7 +120,7 @@ The control that opens and closes the panel, and the only markup this component 
 
 ```html
 <button pgs="modal-button button notificationBell" pgs-option="buttonIcon" aria-label="Open notifications">
-    <i class="fa-duotone fa-solid fa-bell"></i>
+    <i pgs="icon" pgs-option="icon-bell"></i>
     <span pgs="notificationBell-counter"></span>
 </button>
 ```

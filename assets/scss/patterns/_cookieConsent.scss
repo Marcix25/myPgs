@@ -34,11 +34,8 @@
         padding: var(--padding-2, 1.5rem);
     }
 
-    i {
-        --fa-size: 2.5rem;
-        --fa-primary-color: var(--cookie-color);
-        --fa-secondary-color: var(--cookie-color);
-        --fa-secondary-opacity: 0.5;
+    i, [pgs~=icon] {
+        --icon-size: 2.5rem;
     }
 
     h2 {

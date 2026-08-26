@@ -30,13 +30,41 @@ function PGS_stepTabs_init(root = document) {
             dots.innerHTML = "";
 
             allTab.forEach((tab, index) => {
-                const iconClass = pgs(tab).option.getValueBrackets("tabIcon") || "fa-circle";
+                const authoredIcon = (pgs(tab).option.getValueBrackets("tabIcon") || "").trim();
                 const dot = document.createElement("button");
                 dot.type = "button";
                 pgs(dot).add("_stepTabs-dots-dot");
                 pgs(dot).add("button");
                 pgs(dot).option.add("buttonIcon buttonNohover");
-                dot.innerHTML = `<i class="fa-solid ${iconClass}"></i>`;
+                //== tabIcon takes three shapes, told apart by how the value opens. Markup, from a
+                //== "<", is instantiated as written: that is what puts every icon set in reach,
+                //== including the ones a class list cannot describe because they want their name as
+                //== text content or an attribute of their own. An "icon-" prefix is a built-in
+                //== glyph. Anything else is classes for whatever set the page loaded
+                if (authoredIcon.startsWith("<")) {
+                    //== a template rather than innerHTML on the dot: template content stays inert
+                    //== while it parses, so nothing in the author's markup runs or loads until the
+                    //== clone is in the document
+                    const authoredMarkup = document.createElement("template");
+                    authoredMarkup.innerHTML = authoredIcon;
+                    dot.replaceChildren(authoredMarkup.content.cloneNode(true));
+                } else {
+                    const dotIcon = document.createElement("i");
+                    pgs(dotIcon).add("icon");
+
+                    if (!authoredIcon || authoredIcon.startsWith("icon-")) {
+                        pgs(dotIcon).option.add(authoredIcon || "icon-circle");
+                    } else {
+                        //== a full list goes through untouched, whatever set it belongs to. A lone
+                        //== Font Awesome name is completed with its style class, because that set
+                        //== needs one and markup written before other sets were supported relies on it
+                        dotIcon.className = /^fa-\S+$/.test(authoredIcon)
+                            ? `fa-solid ${authoredIcon}`
+                            : authoredIcon;
+                    }
+
+                    dot.replaceChildren(dotIcon);
+                }
 
                 dot.addEventListener("click", () => {
                     if (pgs(dot).state.contains("is-completed")) {

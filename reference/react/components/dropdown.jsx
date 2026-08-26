@@ -17,7 +17,7 @@ export default function Dropdown() {
                 <span key={label} pgs="dropdown" {...(option ? { "pgs-option": option } : {})}>
                     <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
                         {label}
-                        <i className="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                        <i pgs="icon" pgs-option="icon-chevronDown" aria-hidden="true"></i>
                     </button>
 
                     <div pgs="dropdown-content">

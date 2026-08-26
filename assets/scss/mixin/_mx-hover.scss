@@ -34,9 +34,6 @@
     --hover-background: var(--hover-primaryColor);
     --hover-color: var(--color-white);
     --hover-shadow-color: var(--hover-background);
-    --fa-primary-color: var(--hover-color);
-    --fa-secondary-color: var(--hover-color);
-    --fa-secondary-opacity: 0.5;
 
     &:where(:disabled, [disabled]) {
         text-decoration: none;

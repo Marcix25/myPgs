@@ -7,7 +7,6 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 ## PGS
 
 - `button`: identifies the standard button, which can also be used on anchor elements.
-- `icon`: displays a standalone icon inside a circular surface.
 
 ## PGS Options
 
@@ -27,14 +26,17 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 ### PGS
 
 - `flexRow`: arranges the button examples in a flexible row.
+- `icon`: draws the glyphs this example shows; see Icon for the whole set.
 
 ### PGS Options
 
 - `gapTexts`: spaces the two buttons that share the text-only example.
+- `icon-arrowRight`: the glyph that points forward.
+- `icon-star`: the neutral stand-in glyph, used where the example needs an icon but not a particular one.
 
 ## Output
 
-HTML collection of the main button variants and the standalone icon surface.
+HTML collection of the main button variants.
 
 ## Example
 
@@ -44,7 +46,7 @@ Anchor element styled as a standard button, combining an icon with text.
 
 ```html
 <a pgs="button" href="#">
-    <i class="fa-duotone fa-solid fa-store"></i>
+    <i pgs="icon" pgs-option="icon-star"></i>
     About
 </a>
 ```
@@ -66,7 +68,7 @@ Places the icon after the text using buttonReverse.
 ```html
 <button pgs="button" type="button" pgs-option="buttonReverse">
     Next
-    <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+    <i pgs="icon" pgs-option="icon-arrowRight" aria-hidden="true"></i>
 </button>
 ```
 
@@ -76,7 +78,6 @@ Applies the higher-emphasis buttonStrong variant.
 
 ```html
 <button pgs="button" pgs-option="buttonStrong" type="button">
-    <i class="fa-solid fa-check" aria-hidden="true"></i>
     Submit
 </button>
 ```
@@ -87,7 +88,7 @@ Compact icon-only button using buttonIcon.
 
 ```html
 <button pgs="button" pgs-option="buttonIcon" type="button" aria-label="Settings">
-    <i class="fa-solid fa-gear" aria-hidden="true"></i>
+    <i pgs="icon" pgs-option="icon-star" aria-hidden="true"></i>
 </button>
 ```
 
@@ -97,7 +98,7 @@ Smallest button size using buttonMini.
 
 ```html
 <button pgs="button" pgs-option="buttonMini" type="button" aria-label="Information">
-    <i class="fa-solid fa-info" aria-hidden="true"></i>
+    <i pgs="icon" pgs-option="icon-star" aria-hidden="true"></i>
 </button>
 ```
 
@@ -107,7 +108,7 @@ Largest button size using buttonBig, combined with an icon.
 
 ```html
 <button pgs="button" pgs-option="buttonBig" type="button" aria-label="Large button">
-    <i class="fa-duotone fa-solid fa-fire"></i>
+    <i pgs="icon" pgs-option="icon-star"></i>
     Large
 </button>
 ```
@@ -118,7 +119,6 @@ Only the label shows at rest, and it takes the accent colour on hover. The secon
 
 ```html
 <button pgs="button" pgs-option="buttonText" type="button">
-    <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
     Read more
 </button>
 
@@ -133,7 +133,6 @@ Removes the default background and outline while keeping the button layout using
 
 ```html
 <button pgs="button" pgs-option="buttonTransparent" type="button">
-    <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
     Transparent
 </button>
 ```
@@ -166,14 +165,4 @@ Strong button using the quaternary color palette.
 <button pgs="button" pgs-option="buttonStrong buttonQuaternary" type="button">
     Quaternary
 </button>
-```
-
-### Standalone icon
-
-A single icon displayed alone inside a circular surface.
-
-```html
-<span pgs="icon" aria-hidden="true">
-    <i class="fa-solid fa-star"></i>
-</span>
 ```

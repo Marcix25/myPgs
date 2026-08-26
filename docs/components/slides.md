@@ -47,6 +47,12 @@ Slides markup, configuration, behavior, and usage example.
 - `card-content`: groups the textual content of each slide card.
 - `imgCover`: uses the related imgCover component or utility in this example.
 
+### Other
+
+- `icon`: draws the arrow inside each of the two generated buttons; see Icon for the whole set.
+- `icon-arrowLeft`: the glyph in the previous button.
+- `icon-arrowRight`: the glyph in the next button.
+
 ## Output
 
 Complete HTML markup and usage example for Slides.

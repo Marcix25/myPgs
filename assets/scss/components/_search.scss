@@ -76,10 +76,8 @@
         background: var(#{$varColor}-background);
         color: var(#{$varColor}-color);
 
-        i {
+        i, [pgs~=icon] {
             color: var(#{$varColor}-color);
-            --fa-primary-color: var(#{$varColor}-color);
-            --fa-secondary-color: var(#{$varColor}-color);
         }
     }
 

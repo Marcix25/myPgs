@@ -5,19 +5,19 @@ const fn_alert = {
         type: {
             error: {
                 title: "Errore",
-                icon: '<i class="fa-solid fa-circle-xmark"></i>'
+                icon: '<i pgs="icon" pgs-option="icon-circleXmark"></i>'
             },
             success: {
                 title: "Aggiornato",
-                icon: '<i class="fa-solid fa-circle-check"></i>'
+                icon: '<i pgs="icon" pgs-option="icon-circleCheck"></i>'
             },
             info: {
                 title: "Aggiornamento",
-                icon: '<i class="fa-solid fa-circle-info"></i>'
+                icon: '<i pgs="icon" pgs-option="icon-circleInfo"></i>'
             },
             warning: {
                 title: "Attenzione",
-                icon: '<i class="fa-solid fa-triangle-exclamation"></i>'
+                icon: '<i pgs="icon" pgs-option="icon-triangleExclamation"></i>'
             }
         }
     },

@@ -5,9 +5,7 @@
             "accordion-content"
         ],
         "pgs-generated": [],
-        "pgs-option": [
-            "buttonReverse"
-        ]
+        "pgs-option": []
     },
     "alert": {
         "pgs": [
@@ -547,7 +545,10 @@
     "darkmode": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-option": [
+            "icon-moon",
+            "icon-sun"
+        ]
     },
     "dropdown": {
         "pgs": [
@@ -572,6 +573,7 @@
         "pgs-generated": [],
         "pgs-option": [
             "column-",
+            "column-1",
             "column-2",
             "column-3",
             "column-4",
@@ -615,6 +617,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-option": [
+            "column-1",
             "column-2",
             "column-3",
             "column-4",
@@ -658,6 +661,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-option": [
+            "column-1",
             "column-2",
             "column-3",
             "column-4",
@@ -970,7 +974,26 @@
     "icon": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-option": [
+            "icon-arrowLeft",
+            "icon-arrowRight",
+            "icon-bell",
+            "icon-check",
+            "icon-chevronDown",
+            "icon-circle",
+            "icon-circleCheck",
+            "icon-circleInfo",
+            "icon-circleXmark",
+            "icon-close",
+            "icon-cookie",
+            "icon-magnifyingGlass",
+            "icon-moon",
+            "icon-sliders",
+            "icon-star",
+            "icon-sun",
+            "icon-triangleExclamation",
+            "iconBox"
+        ]
     },
     "iconColorPrimary": {
         "pgs": [],

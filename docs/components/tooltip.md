@@ -28,10 +28,12 @@ Tooltip markup, configuration, behavior, and usage example.
 - `dropdown`: uses the related dropdown component or utility in this example.
 - `dropdown-button`: uses the related dropdown-button component or utility in this example.
 - `dropdown-content`: uses the related dropdown-content component or utility in this example.
+- `icon`: draws the glyphs this example shows; see Icon for the whole set.
 
 ### PGS Options
 
 - `buttonMini`: applies the smallest button variant to the tooltip trigger.
+- `icon-circleInfo`: the information mark.
 
 ### Other
 
@@ -47,7 +49,7 @@ Complete HTML markup and usage example for Tooltip.
 ```html
 <span pgs="dropdown tooltip">
     <button pgs="dropdown-button button tooltip-button" pgs-option="buttonMini" title="open-tooltip" type="button">
-        <i class="fa-solid fa-info"></i>
+        <i pgs="icon" pgs-option="icon-circleInfo"></i>
     </button>
     <div pgs="dropdown-content tooltip-content">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto hic, id consectetur facilis et, iste animi minima quidem praesentium omnis quod. Quidem provident ad cum aut reprehenderit laboriosam eum placeat.

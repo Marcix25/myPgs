@@ -39,6 +39,11 @@ Accessible pattern for collecting and storing analytics cookie consent, applying
 
 - `button`: presents the selection actions with standard styling.
 - `hidden`: uses the related hidden component or utility in this example.
+- `icon`: draws the three glyphs in the notice and its buttons; see Icon for the whole set.
+
+### PGS Options
+
+- `icon-cookie`: the glyph beside the introduction.
 
 ### Other
 
@@ -50,6 +55,8 @@ Accessible pattern for collecting and storing analytics cookie consent, applying
 - `badge`: presents the essential-cookie status indicator; see Badges.
 - `modal`: wraps cookieConsent and the dialog, providing open/close behavior shared with every other dialog on the page.
 - `modal-dialog-content`: identifies the JS-generated styled content area inside the dialog.
+- `icon-sliders`: the glyph on the button that saves the current choice.
+- `icon-check`: the glyph on the button that accepts everything.
 
 ## Output
 
@@ -91,6 +98,6 @@ pgs-option='cookieConsent[{
 }]'></div>
 
 <button type="button" pgs="button cookieConsent-actionOpen" aria-haspopup="dialog">
-    <i class="fa-solid fa-cookie-bite"></i> Cookie preferences
+    <i pgs="icon" pgs-option="icon-cookie"></i> Cookie preferences
 </button>
 ```

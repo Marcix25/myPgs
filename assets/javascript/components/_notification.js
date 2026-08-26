@@ -12,19 +12,19 @@ const fn_notification = {
         type: {
             error: {
                 title: "Error",
-                icon: '<i class="fa-solid fa-circle-xmark"></i>'
+                icon: '<i pgs="icon" pgs-option="icon-circleXmark"></i>'
             },
             success: {
                 title: "Success",
-                icon: '<i class="fa-solid fa-circle-check"></i>'
+                icon: '<i pgs="icon" pgs-option="icon-circleCheck"></i>'
             },
             info: {
                 title: "Information",
-                icon: '<i class="fa-solid fa-circle-info"></i>'
+                icon: '<i pgs="icon" pgs-option="icon-circleInfo"></i>'
             },
             warning: {
                 title: "Warning",
-                icon: '<i class="fa-solid fa-triangle-exclamation"></i>'
+                icon: '<i pgs="icon" pgs-option="icon-triangleExclamation"></i>'
             }
         }
     },

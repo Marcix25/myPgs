@@ -148,7 +148,7 @@
         a:not([aria-current]:not([aria-current="false"])) {
             --button-padding-left: var(--button-padding-right);
 
-            >i {
+            >i, >[pgs~=icon] {
                 display: none;
             }
         }

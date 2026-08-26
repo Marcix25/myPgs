@@ -65,9 +65,9 @@
 
 //== IMG
 :where([pgs~="bodyImg"]) {
-    i {
+    i, [pgs~=icon] {
         line-height: 1.2;
-        font-size: var(--fa-size);
+        font-size: var(--fa-size, var(--icon-size));
     }
 
     img,

@@ -37,11 +37,15 @@ Menu markup with horizontal, vertical and recursively nested navigation examples
 
 - `button`: styles a menu link, now that the menu no longer does it itself.
 - `flexRow`: lays the top-level list out as a row, so a long menu can be measured against the space it has.
+- `icon`: draws the glyphs this example shows; see Icon for the whole set.
 
 ### PGS Options
 
 - `buttonText`: the appearance a navigation link takes, whatever the menu's direction; see Button for the whole set of variants.
 - `wrap`: lets that row break onto a second line instead of overflowing.
+- `icon-circle`: a plain disc, standing in for a section icon.
+- `icon-circleInfo`: the information mark.
+- `icon-sliders`: the sliders glyph, standing in for a section icon.
 
 ### Other
 
@@ -61,13 +65,13 @@ Horizontal and vertical menu examples, including recursively nested submenus.
     <ul pgs="flexRow" pgs-option="wrap">
         <li>
             <a pgs="button" pgs-option="buttonText" href="/" aria-current="page">
-                <i class="fa-solid fa-house" aria-hidden="true"></i>
+                <i pgs="icon" pgs-option="icon-circle" aria-hidden="true"></i>
                 <span>Home</span>
             </a>
         </li>
         <li>
             <a pgs="button" pgs-option="buttonText" href="/services">
-                <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+                <i pgs="icon" pgs-option="icon-sliders" aria-hidden="true"></i>
                 <span>Services</span>
             </a>
             <ul>
@@ -77,7 +81,7 @@ Horizontal and vertical menu examples, including recursively nested submenus.
         </li>
         <li>
             <a pgs="button" pgs-option="buttonText" href="/about">
-                <i class="fa-solid fa-info-circle" aria-hidden="true"></i>
+                <i pgs="icon" pgs-option="icon-circleInfo" aria-hidden="true"></i>
                 <span>about</span>
             </a>
             <ul>
@@ -98,13 +102,13 @@ Horizontal and vertical menu examples, including recursively nested submenus.
     <ul>
         <li>
             <a pgs="button" pgs-option="buttonText" href="/" aria-current="page">
-                <i class="fa-solid fa-house" aria-hidden="true"></i>
+                <i pgs="icon" pgs-option="icon-circle" aria-hidden="true"></i>
                 <span>Home</span>
             </a>
         </li>
         <li>
             <a pgs="button" pgs-option="buttonText" href="/services">
-                <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+                <i pgs="icon" pgs-option="icon-sliders" aria-hidden="true"></i>
                 <span>Services</span>
             </a>
             <ul>
@@ -114,7 +118,7 @@ Horizontal and vertical menu examples, including recursively nested submenus.
         </li>
         <li>
             <a pgs="button" pgs-option="buttonText" href="/about">
-                <i class="fa-solid fa-info-circle" aria-hidden="true"></i>
+                <i pgs="icon" pgs-option="icon-circleInfo" aria-hidden="true"></i>
                 <span>about</span>
             </a>
             <ul>
@@ -135,19 +139,19 @@ Horizontal and vertical menu examples, including recursively nested submenus.
     <ul pgs="flexRow" pgs-option="wrap">
         <li>
             <a pgs="button" pgs-option="buttonText" href="/" aria-current="page">
-                <i class="fa-solid fa-house" aria-hidden="true"></i>
+                <i pgs="icon" pgs-option="icon-circle" aria-hidden="true"></i>
                 <span>Home</span>
             </a>
         </li>
         <li>
             <a pgs="button" pgs-option="buttonText" href="/services">
-                <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+                <i pgs="icon" pgs-option="icon-sliders" aria-hidden="true"></i>
                 <span>Services</span>
             </a>
         </li>
         <li>
             <a pgs="button" pgs-option="buttonText" href="/about">
-                <i class="fa-solid fa-info-circle" aria-hidden="true"></i>
+                <i pgs="icon" pgs-option="icon-circleInfo" aria-hidden="true"></i>
                 <span>about</span>
             </a>
         </li>

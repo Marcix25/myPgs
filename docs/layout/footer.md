@@ -15,6 +15,10 @@ Complete footer with theme control, brand area, navigation, informational conten
 - `footer-legal`: identifies the lower section dedicated to legal information.
 - `footer-legal-content`: identifies the content of the legal section.
 
+## PGS States
+
+- `darkmode`: read from the html element to label the theme switch with the theme it leads to, rather than reading the glyph on the button.
+
 ## Related elements
 
 ### PGS
@@ -26,6 +30,7 @@ Complete footer with theme control, brand area, navigation, informational conten
 - `logo`: inserts the brand into the footer.
 - `logo-text`: uses the text variant of the logo.
 - `cookieConsent-actionOpen`: opens the Cookie Consent preference panel.
+- `icon`: draws the glyphs this example shows; see Icon for the whole set.
 
 ### PGS Options
 
@@ -40,7 +45,7 @@ Complete footer HTML structure with brand, menu, and legal area.
 ```html
 <footer pgs="footer" demo="component" demo-title="Footer" demo-description="Brand and navigation columns in the upper section, legal links and cookie preferences in the lower one.">
     <button pgs="button toggleDarkmode" type="button" aria-label="Change theme">
-        <i class="fa-solid fa-moon"></i>
+        <i pgs="icon"></i>
     </button>
 
     <section pgs="footer-top section">

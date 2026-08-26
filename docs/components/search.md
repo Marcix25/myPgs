@@ -51,12 +51,15 @@ Search markup, configuration, behavior, and usage example. Two custom events bub
 - `modal-close`: uses the related modal-close component or utility in this example.
 - `flexRow`: uses the related flexRow component or utility in this example.
 - `section`: uses the related section component or utility in this example.
+- `icon`: draws the glyph at the start of every suggestion; see Icon for the whole set.
 
 ### PGS Options
 
 - `containerPGS`: identifies the containerPGS element used by Search.
 - `buttonNohover`: disables hover behavior on the search container.
 - `buttonIcon`: presents search and close actions as icon buttons.
+- `icon-magnifyingGlass`: the glyph used there.
+- `icon-close`: the cross that dismisses.
 
 ## Output
 
@@ -66,7 +69,7 @@ Complete HTML markup and usage example for Search.
 
 ```html
 <form pgs="button search" pgs-option="buttonNohover" autocomplete="off" action="" method="get" demo="component" demo-title="Inline search" demo-description="Search field with live suggestions embedded directly in the page.">
-    <button type="submit" title="Search"><i class="fa-solid fa-search"></i></button>
+    <button type="submit" title="Search"><i pgs="icon" pgs-option="icon-magnifyingGlass"></i></button>
     <input type="search" name="s" placeholder="Search" value="">
     <ul pgs="search-suggestions"></ul>
 </form>
@@ -74,7 +77,7 @@ Complete HTML markup and usage example for Search.
 <div pgs="modal search-modal" pgs-option="containerPGS[header]" demo="component" demo-title="Mobile search overlay" demo-description="Search opened from an icon button inside a full-width modal, intended for the mobile navigation.">
 
     <button type="button" pgs="modal-button button" pgs-option="buttonIcon" title="Search">
-        <i class="fa-solid fa-search"></i>
+        <i pgs="icon" pgs-option="icon-magnifyingGlass"></i>
     </button>
 
     <dialog>
@@ -82,14 +85,14 @@ Complete HTML markup and usage example for Search.
 
             <form pgs="button search" pgs-option="buttonNohover" autocomplete="off" action="/" method="get">
                 <button type="submit" title="Search">
-                    <i class="fa-solid fa-search"></i>
+                    <i pgs="icon" pgs-option="icon-magnifyingGlass"></i>
                 </button>
 
                 <input type="search" name="s" placeholder="Search" value="">
                 <ul pgs="search-suggestions"></ul>
 
                 <button type="button" pgs="modal-close button" pgs-option="buttonIcon">
-                    <i class="fa-solid fa-close"></i>
+                    <i pgs="icon" pgs-option="icon-close"></i>
                 </button>
             </form>
 

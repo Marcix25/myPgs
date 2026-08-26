@@ -32,7 +32,7 @@ export default function FormAddon() {
                 <strong>Two-state controls</strong>
                 <label pgs="twoState">
                     <input type="checkbox" name="favorite" value="yes" />
-                    <i className="fa-solid fa-star" aria-hidden="true"></i>
+                    <i pgs="icon" pgs-option="icon-star" aria-hidden="true"></i>
                     Add to favorites
                 </label>
             </section>
@@ -50,12 +50,12 @@ export default function FormAddon() {
                 <div pgs="flexRow" role="group" aria-label="Chip actions">
                     <label pgs="chip">
                         <input type="checkbox" name="like" value="basic" />
-                        <i className="fa-solid fa-heart"></i>
+                        <i pgs="icon" pgs-option="icon-star"></i>
                         Like
                     </label>
                     <label pgs="chip">
                         <input type="checkbox" name="share" value="basic" />
-                        <i className="fa-solid fa-share"></i>
+                        <i pgs="icon" pgs-option="icon-star"></i>
                         Share
                     </label>
                 </div>
@@ -82,17 +82,17 @@ export default function FormAddon() {
                     <legend>Chips radio</legend>
                     <label>
                         <input type="radio" name="characters" value="Crow" defaultChecked />
-                        <i className="fa-solid fa-crow"></i>
+                        <i pgs="icon" pgs-option="icon-star"></i>
                         Crow
                     </label>
                     <label>
                         <input type="radio" name="characters" value="Dove" />
-                        <i className="fa-solid fa-dove"></i>
+                        <i pgs="icon" pgs-option="icon-star"></i>
                         Dove
                     </label>
                     <label>
                         <input type="radio" name="characters" value="dragon" />
-                        <i className="fa-solid fa-dragon"></i>
+                        <i pgs="icon" pgs-option="icon-star"></i>
                         dragon
                     </label>
                 </fieldset>

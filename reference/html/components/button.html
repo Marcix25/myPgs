@@ -5,7 +5,6 @@
  *
  * @pgs
  * - button: identifies the standard button, which can also be used on anchor elements.
- * - icon: displays a standalone icon inside a circular surface.
  *
  * @pgs-option
  * - buttonReverse: reverses the visual order of the text and icon on the button.
@@ -22,14 +21,17 @@
  * @related
  * - flexRow: arranges the button examples in a flexible row.
  * - gapTexts: spaces the two buttons that share the text-only example.
+ * - icon: draws the glyphs this example shows; see Icon for the whole set.
+ * - icon-arrowRight: the glyph that points forward.
+ * - icon-star: the neutral stand-in glyph, used where the example needs an icon but not a particular one.
  *
- * @return HTML collection of the main button variants and the standalone icon surface.
+ * @return HTML collection of the main button variants.
  */
 -->
 
 <div pgs="flexRow" demo="component">
     <a pgs="button" href="#" demo="item" demo-title="Link button" demo-description="Anchor element styled as a standard button, combining an icon with text.">
-        <i class="fa-duotone fa-solid fa-store"></i>
+        <i pgs="icon" pgs-option="icon-star"></i>
         About
     </a>
 
@@ -39,30 +41,28 @@
 
     <button pgs="button" type="button" pgs-option="buttonReverse" demo="item" demo-title="Reversed order" demo-description="Places the icon after the text using buttonReverse.">
         Next
-        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        <i pgs="icon" pgs-option="icon-arrowRight" aria-hidden="true"></i>
     </button>
 
     <button pgs="button" pgs-option="buttonStrong" type="button" demo="item" demo-title="Strong emphasis" demo-description="Applies the higher-emphasis buttonStrong variant.">
-        <i class="fa-solid fa-check" aria-hidden="true"></i>
         Submit
     </button>
 
     <button pgs="button" pgs-option="buttonIcon" type="button" aria-label="Settings" demo="item" demo-title="Icon only" demo-description="Compact icon-only button using buttonIcon.">
-        <i class="fa-solid fa-gear" aria-hidden="true"></i>
+        <i pgs="icon" pgs-option="icon-star" aria-hidden="true"></i>
     </button>
 
     <button pgs="button" pgs-option="buttonMini" type="button" aria-label="Information" demo="item" demo-title="Mini size" demo-description="Smallest button size using buttonMini.">
-        <i class="fa-solid fa-info" aria-hidden="true"></i>
+        <i pgs="icon" pgs-option="icon-star" aria-hidden="true"></i>
     </button>
 
     <button pgs="button" pgs-option="buttonBig" type="button" aria-label="Large button" demo="item" demo-title="Large size" demo-description="Largest button size using buttonBig, combined with an icon.">
-        <i class="fa-duotone fa-solid fa-fire"></i>
+        <i pgs="icon" pgs-option="icon-star"></i>
         Large
     </button>
 
     <div pgs="flexRow" pgs-option="gapTexts" demo="item" demo-code="children" demo-title="Text only" demo-description="Only the label shows at rest, and it takes the accent colour on hover. The second one carries buttonStrong as well: unlike buttonTransparent, buttonText leaves the other states alone, so an emphasised button still fills in.">
         <button pgs="button" pgs-option="buttonText" type="button">
-            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
             Read more
         </button>
 
@@ -72,7 +72,6 @@
     </div>
 
     <button pgs="button" pgs-option="buttonTransparent" type="button" demo="item" demo-title="Transparent" demo-description="Removes the default background and outline while keeping the button layout using buttonTransparent.">
-        <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
         Transparent
     </button>
 
@@ -88,7 +87,4 @@
         Quaternary
     </button>
 
-    <span pgs="icon" aria-hidden="true" demo="item" demo-title="Standalone icon" demo-description="A single icon displayed alone inside a circular surface.">
-        <i class="fa-solid fa-star"></i>
-    </span>
 </div>

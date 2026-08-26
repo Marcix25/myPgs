@@ -21,15 +21,16 @@
         translate: 0 -50%;
         z-index: 1;
 
-        &:has(i.fa-sun) {
-            &::after {
-                content: "Attiva Light Mode";
-            }
+        //== the label says where the click leads, so it reads the theme itself rather than the glyph
+        //== on the button. Looking at the root state instead of the icon's classes means it keeps
+        //== working whatever icon set drew that glyph, and with no icon set at all
+        &::after {
+            content: "Switch to dark mode";
         }
 
-        &:has(i.fa-moon) {
+        :root[pgs-state~="darkmode"] & {
             &::after {
-                content: "Attiva Dark Mode";
+                content: "Switch to light mode";
             }
         }
     }
@@ -92,7 +93,7 @@
                         display: flex;
                         align-items: center;
 
-                        i {
+                        i, [pgs~=icon] {
                             order: -1;
                             margin-right: 10px;
                             display: block;
@@ -142,7 +143,7 @@
             }
         }
 
-        i {
+        i, [pgs~=icon] {
             font-size: 0.8rem;
             color: var(--color-text);
         }

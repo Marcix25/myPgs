@@ -52,6 +52,11 @@ Modal markup, configuration, behavior, and usage example.
 - `justifyEnd`: pushes the dialog actions to the end of that row.
 - `buttonStrong`: applies stronger emphasis to the save action.
 
+### Other
+
+- `icon`: draws the cross inside the generated close button; see Icon for the whole set.
+- `icon-close`: the glyph in that button.
+
 ## Output
 
 Complete HTML markup and usage example for Modal.
@@ -61,7 +66,7 @@ Complete HTML markup and usage example for Modal.
 ```html
 <div pgs="modal" pgs-option="containerID[modal-container]" demo="component" demo-title="Standard modal" demo-description="Basic modal dialog centered in the page; the close button is added automatically when missing.">
     <button pgs="modal-button button" type="button">
-        <i class="fa-solid fa-window-maximize"></i> Open modal
+ Open modal
     </button>
 
     <dialog>
@@ -79,7 +84,7 @@ Complete HTML markup and usage example for Modal.
 
 <div pgs="modal" pgs-option="containerID[modal-container]" demo="component" demo-title="Right-side modal" demo-description="Modal dialog sliding in from the right using pgs-option=&quot;right&quot;.">
     <button pgs="modal-button button" type="button">
-        <i class="fa-solid fa-window-maximize"></i> Open modal right
+ Open modal right
     </button>
 
     <dialog pgs-option="right">
@@ -97,7 +102,7 @@ Complete HTML markup and usage example for Modal.
 
 <div pgs="modal" pgs-option="containerID[modal-container]" demo="component" demo-title="Left-side modal" demo-description="Modal dialog sliding in from the left using pgs-option=&quot;left&quot;.">
     <button pgs="modal-button button" type="button">
-        <i class="fa-solid fa-window-maximize"></i> Open modal left
+ Open modal left
     </button>
 
     <dialog pgs-option="left">
@@ -115,7 +120,7 @@ Complete HTML markup and usage example for Modal.
 
 <div pgs="modal" demo="component" demo-title="Confirmation modal" demo-description="Top-level confirmation dialog with cancel and save actions, using pgs-option=&quot;topLevel&quot; and buttonStrong for the primary action.">
     <button pgs="modal-button button" type="button">
-        <i class="fa-solid fa-floppy-disk"></i> Confirmation salvataggio
+ Confirmation salvataggio
     </button>
 
     <dialog pgs-option="topLevel">

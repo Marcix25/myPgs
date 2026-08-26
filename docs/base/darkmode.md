@@ -2,7 +2,7 @@
 
 # Darkmode
 
-Global light and dark theme switch. The choice is persisted in localStorage under screenIsDarkMode and re-applied to the html element as soon as the bundle is parsed, before the page paints, so a reload never flashes the wrong theme. Every control marked toggleDarkmode flips the theme and stays in sync with the others, and its inner icon is swapped between fa-moon and fa-sun automatically. Each switch dispatches pgs:svg:changeColor on the document with detail { isDarkMode }, which is what recolours the SVG and Lottie files; see SVG colors.
+Global light and dark theme switch. The choice is persisted in localStorage under screenIsDarkMode and re-applied to the html element as soon as the bundle is parsed, before the page paints, so a reload never flashes the wrong theme. Every control marked toggleDarkmode flips the theme and stays in sync with the others, and its inner icon is swapped between the built-in icon-moon and icon-sun glyphs automatically, so the control is never blank even with no icon set loaded; the fa-moon and fa-sun classes are still set alongside, for pages that style them. Each switch dispatches pgs:svg:changeColor on the document with detail { isDarkMode }, which is what recolours the SVG and Lottie files; see SVG colors.
 
 ## PGS
 
@@ -22,6 +22,7 @@ Global light and dark theme switch. The choice is persisted in localStorage unde
 
 - `button`: presents the switch as a button.
 - `flexColumn`: stacks the example and its notes vertically.
+- `icon`: marks the element the switch draws its glyph on; the library sets icon-moon or icon-sun on it, so it needs no option of your own.
 
 ### PGS Options
 
@@ -57,7 +58,7 @@ localStorage.getItem("screenIsDarkMode");
 <div pgs="flexColumn" pgs-option="gapTexts" demo="component" demo-title="Theme switch" demo-description="The icon is swapped by the library, so author it as fa-moon and leave it alone. Several switches can coexist: they all read and write the same stored value.">
 
     <button pgs="button toggleDarkmode" pgs-option="buttonIcon" type="button" aria-label="Change theme">
-        <i class="fa-solid fa-moon"></i>
+        <i pgs="icon"></i>
     </button>
 
     

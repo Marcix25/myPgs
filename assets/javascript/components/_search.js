@@ -181,7 +181,7 @@ function PGS_search_init(root = document) {
                 option.setAttribute("role", "option");
                 option.setAttribute("aria-selected", "false");
                 option.setAttribute("aria-disabled", String(item.disabled));
-                option.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i>' +  item.label;
+                option.innerHTML = '<i pgs="icon" pgs-option="icon-magnifyingGlass"></i>' +  item.label;
                 fragment.append(option);
 
             });

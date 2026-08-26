@@ -1,0 +1,54 @@
+@use "../mixin/mixin" as *;
+
+//+ ICON
+// A glyph, drawn from the inline SVG in mixin/_icons.scss. The token says "this element is an
+// icon", the option says which one, and the set is closed: what mixin/_icons.scss holds is what
+// the library can draw.
+//
+// It exists so the library owes nothing to an icon font. Everything myPGS builds and needs to
+// show — the slide arrows, the close buttons, the alert marks — draws through here, which means a
+// page that never loaded a font still gets its controls instead of an empty box.
+//
+// The token is also the integration point for any icon set you bring. Written on its own it draws
+// nothing and only says "this is an icon", which is what every component looks for when it hands an
+// icon its box: mark a span, an svg or a custom element with it and it is sized and placed exactly
+// as an <i> would be. That is the whole reason the components match [pgs~=icon] alongside i.
+//
+// Not to be confused with iconBox, which is the circular surface a glyph can sit inside. That one
+// is the container, this one is the drawing.
+//
+// The glyph lands on ::before, which is also where an icon font paints, so an element carrying
+// both this and a font class draws once and this wins: two attributes beat a font's single class.
+[pgs~=icon] {
+
+    @each $name, $url in $icons-builtin {
+
+        &[pgs-option~=#{$name}] {
+            &::before {
+                //== 1em rather than the size property: --icon-size holds the keyword inherit, which
+                //== is a font-size and not a length. Following the element font-size instead picks
+                //== up every per-component override for free, since --icon-size is what sets it.
+                //== --icon-color is the neutral colour channel, undeclared by default so a glyph
+                //== keeps taking the text colour exactly as an icon font does
+                @include iconSvgBase64($url, 1em, var(--icon-color, currentColor));
+                vertical-align: -0.125em;
+            }
+
+            //== a duotone font paints its second layer here, and the mask above has already drawn
+            //== the whole glyph: left alone the two would sit on top of each other. Scoped to the
+            //== elements that actually carry a glyph, so marking one of your own icons with the
+            //== bare token never touches what your set draws
+            &::after {
+                content: none;
+            }
+        }
+    }
+    //+ ICON BOX
+    // The circular surface a glyph can sit inside. Separate from the glyph on purpose: this one is
+    // the container and says nothing about what it holds, so it takes a built-in glyph and an icon
+    // from any set alike.
+    &[pgs-option~=iconBox] {
+        @include iconBox();
+    }
+}
+

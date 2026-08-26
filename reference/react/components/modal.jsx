@@ -3,7 +3,7 @@ export default function Modal() {
         <>
             <div pgs="modal" pgs-option="containerID[modal-container]">
                 <button pgs="modal-button button" type="button">
-                    <i className="fa-solid fa-window-maximize"></i> Open modal
+ Open modal
                 </button>
 
                 <dialog>
@@ -21,7 +21,7 @@ export default function Modal() {
 
             <div pgs="modal" pgs-option="containerID[modal-container]">
                 <button pgs="modal-button button" type="button">
-                    <i className="fa-solid fa-window-maximize"></i> Open modal right
+ Open modal right
                 </button>
 
                 <dialog pgs-option="right">
@@ -39,7 +39,7 @@ export default function Modal() {
 
             <div pgs="modal" pgs-option="containerID[modal-container]">
                 <button pgs="modal-button button" type="button">
-                    <i className="fa-solid fa-window-maximize"></i> Open modal left
+ Open modal left
                 </button>
 
                 <dialog pgs-option="left">
@@ -57,7 +57,7 @@ export default function Modal() {
 
             <div pgs="modal">
                 <button pgs="modal-button button" type="button">
-                    <i className="fa-solid fa-floppy-disk"></i> Confirmation salvataggio
+ Confirmation salvataggio
                 </button>
 
                 <dialog pgs-option="topLevel">

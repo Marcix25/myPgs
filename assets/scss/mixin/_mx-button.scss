@@ -6,8 +6,6 @@
 @mixin _buttonColor($for: "") {
     color: var(--button-color#{$for});
     background: var(--button-background#{$for});
-    --fa-primary-color: var(--button-color#{$for});
-    --fa-secondary-color: var(--button-color#{$for});
 }
 
 //== BUTTON BASE
@@ -39,8 +37,7 @@
     --button-borderRadius: var(--border-radius-input);
     /// color
     @include _buttonColor();
-    --fa-secondary-opacity: 0.5;
-    --fa-size: var(--button-icon-size);
+    --icon-size: var(--button-icon-size);
     font-family: var(--font);
     font-size: 1.6rem;
     font-weight: 600;
@@ -97,7 +94,7 @@
     justify-content: center;
     align-items: center;
 
-    i {
+    i, [pgs~=icon] {
         display: inline-grid;
         place-items: center;
         inline-size: calc(var(--button-icon-size) + 2px);
@@ -171,29 +168,4 @@
     --button-border: unset;
     overflow-wrap: break-word;
     height: calc(var(--button-size) * 4);
-}
-
-
-//# ICON
-@mixin icon() {
-    --icon-size: var(--fa-size);
-    --icon-padding: .5rem;
-    --icon-background: var(--color-white-transparent);
-    border-radius: 50%;
-    display: flex;
-    aspect-ratio: 1;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--icon-background);
-    padding: var(--icon-padding);
-    width: calc(var(--icon-size, 1.6rem) * 3);
-    justify-content: center;
-
-    i {
-        display: inline-grid;
-        place-items: center;
-        block-size: var(--icon-size);
-        line-height: 1;
-        aspect-ratio: 1;
-    }
 }

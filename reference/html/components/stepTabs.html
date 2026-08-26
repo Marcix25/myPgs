@@ -16,7 +16,7 @@
  * - _stepTabs-dots-dot: one dot per tab, created inside stepTabs-dots, showing the icon declared by that tab's tabIcon option.
  *
  * @pgs-option
- * - tabIcon: identifies the tabIcon element used by Step Tabs.
+ * - tabIcon: the icon drawn in this tab's dot, in brackets, in one of three shapes. Markup, opening with a "<", is built as written, which is what puts every icon set in reach — including the ones a class cannot describe, such as tabIcon[<span class='material-symbols-outlined'>check</span>] or tabIcon[<i data-lucide='check'></i>]; write the inner attributes with single quotes, since the value already lives inside one, and mark your own element with pgs='icon' so it gets the same box the dot gives an icon — without it a set that renders its name as text has nothing sizing it. A plain name is a built-in glyph, as in tabIcon[icon-circleCheck]. Anything else is a class list for whatever set the page loaded, written through untouched, as in tabIcon[bi-check] or tabIcon[fa-regular fa-star]; a lone Font Awesome name such as tabIcon[fa-user] also gets fa-solid, since that set needs a style class. Leave it out and the dot gets icon-circle.
  *
  * @pgs-state
  * - is-active: identifies the is-active element used by Step Tabs.
@@ -41,26 +41,30 @@
  * - flexRow: uses the related flexRow component or utility in this example.
  * - button: uses the related button component or utility in this example.
  * - buttonReverse: reverses text and icon on the example buttons and belongs to the button component.
+ * - icon: draws the glyph inside a dot when the tab does not name its own; see Icon for the whole set.
+ * - icon-circle: the glyph a dot gets by default.
+ * - icon-arrowLeft: the glyph that points back.
+ * - icon-arrowRight: the glyph that points forward.
  *
  * @return Complete HTML markup and usage example for Step Tabs.
  */
 -->
 
 <div pgs="stepTabs flexColumn gapElements">
-    <div pgs="stepTabs-dots" aria-label="Avanzamento"></div>
+    <div pgs="stepTabs-dots" aria-label="Progress"></div>
 
     <div pgs="stepTabs-container">
-        <section pgs="stepTabs-container-tab flexColumn" tabindex="-1" pgs-option="tabIcon[fa-user]">
+        <section pgs="stepTabs-container-tab flexColumn" tabindex="-1" pgs-option="tabIcon[<i pgs='icon' pgs-option='icon-circle'></i>]">
             <h3>Personal details</h3>
             <p>First tab content.</p>
         </section>
 
-        <section pgs="stepTabs-container-tab flexColumn" tabindex="-1" pgs-option="tabIcon[fa-list-check]">
+        <section pgs="stepTabs-container-tab flexColumn" tabindex="-1" pgs-option="tabIcon[<i pgs='icon' pgs-option='icon-sliders'></i>]">
             <h3>Preferences</h3>
             <p>Second tab content.</p>
         </section>
 
-        <section pgs="stepTabs-container-tab flexColumn" tabindex="-1" pgs-option="tabIcon[fa-check]">
+        <section pgs="stepTabs-container-tab flexColumn" tabindex="-1" pgs-option="tabIcon[<i pgs='icon' pgs-option='icon-check'></i>]">
             <h3>Confirmation</h3>
             <p>Third tab content.</p>
         </section>
@@ -68,17 +72,17 @@
 
     <div pgs="flexRow">
         <button pgs="stepTabs-prev button" type="button">
-            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+            <i pgs="icon" pgs-option="icon-arrowLeft" aria-hidden="true"></i>
             Back
         </button>
 
         <button pgs="stepTabs-restart button" type="button">
-            Ricomincia
+            Restart
         </button>
 
         <button pgs="stepTabs-next button" pgs-option="buttonReverse" type="button">
             Next
-            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            <i pgs="icon" pgs-option="icon-arrowRight" aria-hidden="true"></i>
         </button>
     </div>
 </div>

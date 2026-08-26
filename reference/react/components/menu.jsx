@@ -1,7 +1,7 @@
 const homeItem = (
     <li>
         <a href="/" aria-current="page">
-            <i className="fa-solid fa-house" aria-hidden="true"></i>
+            <i pgs="icon" pgs-option="icon-circle" aria-hidden="true"></i>
             <span>Home</span>
         </a>
     </li>
@@ -10,7 +10,7 @@ const homeItem = (
 const servicesItem = (
     <li>
         <a href="/services">
-            <i className="fa-solid fa-layer-group" aria-hidden="true"></i>
+            <i pgs="icon" pgs-option="icon-sliders" aria-hidden="true"></i>
             <span>Services</span>
         </a>
         <ul>
@@ -39,7 +39,7 @@ function MenuVertical() {
                 {servicesItem}
                 <li>
                     <a href="/about">
-                        <i className="fa-solid fa-info-circle" aria-hidden="true"></i>
+                        <i pgs="icon" pgs-option="icon-circleInfo" aria-hidden="true"></i>
                         <span>about</span>
                     </a>
                     <ul>

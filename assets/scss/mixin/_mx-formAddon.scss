@@ -129,13 +129,13 @@
     display: flex !important;
     cursor: pointer;
 
-    i {
+    i, [pgs~=icon] {
         opacity: 0.4;
         min-width: 1.4rem;
     }
 
     &:hover {
-        i {
+        i, [pgs~=icon] {
             opacity: 1;
         }
     }
@@ -145,8 +145,7 @@
         --button-background: var(--button-background-active);
         --button-color: var(--button-color-active);
 
-        i {
-            --fa-secondary-opacity: 0.6;
+        i, [pgs~=icon] {
             opacity: 1;
         }
     }

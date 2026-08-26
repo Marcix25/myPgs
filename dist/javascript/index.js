@@ -502,11 +502,18 @@ const EVENT_SVG_CHANGE_COLOR = "pgs:svg:changeColor";
 const INITIALIZED_BUTTONS = new WeakSet();
 
 //+ CHANGE ICON
+//== the glyph is not the author's choice here: the library owns it, because it has to say which way
+//== the switch is pointing. It draws it from the built-in set so the control is never blank, and
+//== looks for a marked element as well as an <i>, so an icon set that renders anything else still
+//== gets found. The fa- classes stay on for the pages that style them
 function changeIcon(selector, isDarkMode) {
     selector.forEach(button => {
-        const ICON = button.querySelector("i");
+        const ICON = button.querySelector('i, [pgs~="icon"]');
         if (!ICON) return;
 
+        pgs(ICON).add("icon");
+        pgs(ICON).option.toggle("icon-moon", !isDarkMode);
+        pgs(ICON).option.toggle("icon-sun", isDarkMode);
         ICON.classList.toggle("fa-moon", !isDarkMode);
         ICON.classList.toggle("fa-sun", isDarkMode);
     });
@@ -900,19 +907,19 @@ const fn_alert = {
         type: {
             error: {
                 title: "Errore",
-                icon: '<i class="fa-solid fa-circle-xmark"></i>'
+                icon: '<i pgs="icon" pgs-option="icon-circleXmark"></i>'
             },
             success: {
                 title: "Aggiornato",
-                icon: '<i class="fa-solid fa-circle-check"></i>'
+                icon: '<i pgs="icon" pgs-option="icon-circleCheck"></i>'
             },
             info: {
                 title: "Aggiornamento",
-                icon: '<i class="fa-solid fa-circle-info"></i>'
+                icon: '<i pgs="icon" pgs-option="icon-circleInfo"></i>'
             },
             warning: {
                 title: "Attenzione",
-                icon: '<i class="fa-solid fa-triangle-exclamation"></i>'
+                icon: '<i pgs="icon" pgs-option="icon-triangleExclamation"></i>'
             }
         }
     },
@@ -1536,7 +1543,7 @@ function initializeModal(MODAL, existingDialog = null) {
     let historyTimeout = null;
 
     //== SELECTOR
-    const DOMButtonClose = '<button pgs="button modal-close" pgs-option="buttonIcon buttonMini" type="button" tabindex="0" aria-label="Chiudi"><i class="fa-solid fa-close"></i></button>';
+    const DOMButtonClose = '<button pgs="button modal-close" pgs-option="buttonIcon buttonMini" type="button" tabindex="0" aria-label="Chiudi"><i pgs="icon" pgs-option="icon-close"></i></button>';
     const modalContentHeader = pgs(DIALOG).querySelector("modal-dialog-content-header");
 
 
@@ -1731,19 +1738,19 @@ const fn_notification = {
         type: {
             error: {
                 title: "Error",
-                icon: '<i class="fa-solid fa-circle-xmark"></i>'
+                icon: '<i pgs="icon" pgs-option="icon-circleXmark"></i>'
             },
             success: {
                 title: "Success",
-                icon: '<i class="fa-solid fa-circle-check"></i>'
+                icon: '<i pgs="icon" pgs-option="icon-circleCheck"></i>'
             },
             info: {
                 title: "Information",
-                icon: '<i class="fa-solid fa-circle-info"></i>'
+                icon: '<i pgs="icon" pgs-option="icon-circleInfo"></i>'
             },
             warning: {
                 title: "Warning",
-                icon: '<i class="fa-solid fa-triangle-exclamation"></i>'
+                icon: '<i pgs="icon" pgs-option="icon-triangleExclamation"></i>'
             }
         }
     },
@@ -2239,7 +2246,7 @@ function PGS_search_init(root = document) {
                 option.setAttribute("role", "option");
                 option.setAttribute("aria-selected", "false");
                 option.setAttribute("aria-disabled", String(item.disabled));
-                option.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i>' +  item.label;
+                option.innerHTML = '<i pgs="icon" pgs-option="icon-magnifyingGlass"></i>' +  item.label;
                 fragment.append(option);
 
             });
@@ -2504,10 +2511,10 @@ class PGS_Slides {
 
         //== PULSANTI
         if (!pgs(EL).querySelector('slides-prec')) {
-            EL.insertAdjacentHTML("afterbegin", `<button pgs="slides-prec button" pgs-option="buttonIcon" type="button" class="precButton" aria-label="slide precedente"> <span> <i class="fa-solid fa-arrow-left"></i></span></button>`);
+            EL.insertAdjacentHTML("afterbegin", `<button pgs="slides-prec button" pgs-option="buttonIcon" type="button" class="precButton" aria-label="slide precedente"> <span> <i pgs="icon" pgs-option="icon-arrowLeft"></i></span></button>`);
         }
         if (!pgs(EL).querySelector('slides-next')) {
-            EL.insertAdjacentHTML("beforeend", `<button pgs="slides-next button" pgs-option="buttonIcon" type="button" class="nextButton" aria-label="prossima slide"> <span> <i class="fa-solid fa-arrow-right"></i></span></button>`);
+            EL.insertAdjacentHTML("beforeend", `<button pgs="slides-next button" pgs-option="buttonIcon" type="button" class="nextButton" aria-label="prossima slide"> <span> <i pgs="icon" pgs-option="icon-arrowRight"></i></span></button>`);
         }
 
         //== DOTS
@@ -2740,13 +2747,41 @@ function PGS_stepTabs_init(root = document) {
             dots.innerHTML = "";
 
             allTab.forEach((tab, index) => {
-                const iconClass = pgs(tab).option.getValueBrackets("tabIcon") || "fa-circle";
+                const authoredIcon = (pgs(tab).option.getValueBrackets("tabIcon") || "").trim();
                 const dot = document.createElement("button");
                 dot.type = "button";
                 pgs(dot).add("_stepTabs-dots-dot");
                 pgs(dot).add("button");
                 pgs(dot).option.add("buttonIcon buttonNohover");
-                dot.innerHTML = `<i class="fa-solid ${iconClass}"></i>`;
+                //== tabIcon takes three shapes, told apart by how the value opens. Markup, from a
+                //== "<", is instantiated as written: that is what puts every icon set in reach,
+                //== including the ones a class list cannot describe because they want their name as
+                //== text content or an attribute of their own. An "icon-" prefix is a built-in
+                //== glyph. Anything else is classes for whatever set the page loaded
+                if (authoredIcon.startsWith("<")) {
+                    //== a template rather than innerHTML on the dot: template content stays inert
+                    //== while it parses, so nothing in the author's markup runs or loads until the
+                    //== clone is in the document
+                    const authoredMarkup = document.createElement("template");
+                    authoredMarkup.innerHTML = authoredIcon;
+                    dot.replaceChildren(authoredMarkup.content.cloneNode(true));
+                } else {
+                    const dotIcon = document.createElement("i");
+                    pgs(dotIcon).add("icon");
+
+                    if (!authoredIcon || authoredIcon.startsWith("icon-")) {
+                        pgs(dotIcon).option.add(authoredIcon || "icon-circle");
+                    } else {
+                        //== a full list goes through untouched, whatever set it belongs to. A lone
+                        //== Font Awesome name is completed with its style class, because that set
+                        //== needs one and markup written before other sets were supported relies on it
+                        dotIcon.className = /^fa-\S+$/.test(authoredIcon)
+                            ? `fa-solid ${authoredIcon}`
+                            : authoredIcon;
+                    }
+
+                    dot.replaceChildren(dotIcon);
+                }
 
                 dot.addEventListener("click", () => {
                     if (pgs(dot).state.contains("is-completed")) {
@@ -3149,19 +3184,19 @@ const fn_toast = {
         type: {
             error: {
                 title: "Error",
-                icon: '<i class="fa-solid fa-circle-xmark"></i>'
+                icon: '<i pgs="icon" pgs-option="icon-circleXmark"></i>'
             },
             success: {
                 title: "Success",
-                icon: '<i class="fa-solid fa-circle-check"></i>'
+                icon: '<i pgs="icon" pgs-option="icon-circleCheck"></i>'
             },
             info: {
                 title: "Information",
-                icon: '<i class="fa-solid fa-circle-info"></i>'
+                icon: '<i pgs="icon" pgs-option="icon-circleInfo"></i>'
             },
             warning: {
                 title: "Warning",
-                icon: '<i class="fa-solid fa-triangle-exclamation"></i>'
+                icon: '<i pgs="icon" pgs-option="icon-triangleExclamation"></i>'
             }
         }
     },
@@ -4354,7 +4389,7 @@ function buildCookieConsent(marker) {
         <dialog pgs-option="topLevel">
             <div pgs="modal-dialog-content">
                 <div pgs="flexColumn">
-                    <p><i class="fa-duotone fa-solid fa-cookie-bite"></i> ${formatText(config.titleIntro)} <br></p>
+                    <p><i pgs="icon" pgs-option="icon-cookie"></i> ${formatText(config.titleIntro)} <br></p>
                     <h2>${formatText(config.titleHeading)}</h2>
 
                     <p>${formatText(config.description)}</p>
@@ -4391,11 +4426,11 @@ function buildCookieConsent(marker) {
                     </div>
                     <div pgs="flexRow">
                         <button type="button" pgs="button _cookieConsent-actionReject">
-                            <i class="fa-solid fa-duotone fa-sliders"></i> ${formatText(config.titleReject)}
+                            <i pgs="icon" pgs-option="icon-sliders"></i> ${formatText(config.titleReject)}
                         </button>
     
                         <button type="button" pgs="button _cookieConsent-actionAccept" pgs-option="buttonStrong">
-                            <i class="fa-solid fa-check"></i> ${formatText(config.titleAccept)}
+                            <i pgs="icon" pgs-option="icon-check"></i> ${formatText(config.titleAccept)}
                         </button>
                     </div>
                 </div>

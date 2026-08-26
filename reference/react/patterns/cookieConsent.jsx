@@ -8,7 +8,7 @@ export default function CookieConsent({
 
     return (
         <div id="cookieConsent" pgs="cookieConsent" role="dialog" aria-modal="true" data-ga-id={gaMeasurementId} hidden tabIndex="-1">
-            <p><i className="fa-duotone fa-solid fa-cookie-bite"></i> Cookies and privacy <br /></p>
+            <p><i pgs="icon" pgs-option="icon-cookie"></i> Cookies and privacy <br /></p>
             <h2>Your privacy comes first</h2>
 
             <p>
@@ -50,11 +50,11 @@ export default function CookieConsent({
 
             <div pgs="flexRow">
                 <button type="button" pgs="button cookieConsent-actionReject">
-                    <i className="fa-solid fa-duotone fa-sliders"></i>Selected only
+                    <i pgs="icon" pgs-option="icon-sliders"></i>Selected only
                 </button>
 
                 <button type="button" pgs="button cookieConsent-actionAccept" pgs-option="buttonStrong">
-                    <i className="fa-solid fa-check"></i> Accept all
+                    <i pgs="icon" pgs-option="icon-check"></i> Accept all
                 </button>
             </div>
         </div>

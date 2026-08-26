@@ -24,6 +24,13 @@ Collection of compact indicators for displaying categories, priorities, and visu
 ### PGS
 
 - `flexRow`: arranges badges horizontally and allows them to wrap.
+- `icon`: draws the glyphs this example shows; see Icon for the whole set.
+
+### PGS Options
+
+- `icon-circleInfo`: the information mark.
+- `icon-close`: the cross that dismisses.
+- `icon-triangleExclamation`: the warning mark.
 
 ## Output
 
@@ -77,7 +84,7 @@ Badge representing a warning, paired with an icon.
 
 ```html
 <span pgs="badge" pgs-option="badgeWarning">
-    <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+    <i pgs="icon" pgs-option="icon-triangleExclamation" aria-hidden="true"></i>
     Warning
 </span>
 ```
@@ -88,7 +95,7 @@ Badge representing an error, paired with an icon.
 
 ```html
 <span pgs="badge" pgs-option="badgeError">
-    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+    <i pgs="icon" pgs-option="icon-close" aria-hidden="true"></i>
     Error
 </span>
 ```
@@ -99,7 +106,7 @@ Badge representing informational content, paired with an icon.
 
 ```html
 <span pgs="badge" pgs-option="badgeInfo">
-    <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+    <i pgs="icon" pgs-option="icon-circleInfo" aria-hidden="true"></i>
     Info
 </span>
 ```

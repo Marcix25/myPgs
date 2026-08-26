@@ -1,0 +1,27 @@
+//+ ICON
+// The surface an icon can be placed inside. It belongs to the icon family and not to the button
+// one: a glyph sits in it just as happily on its own as it does next to a label.
+//# ICON BOX
+@mixin iconBox() {
+    --iconBox-size: var(--icon-size);
+    --iconBox-padding: .5rem;
+    --iconBox-background: var(--color-white-transparent);
+    border-radius: 50%;
+    display: flex;
+    aspect-ratio: 1;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--iconBox-background);
+    padding: var(--iconBox-padding);
+    width: calc(var(--iconBox-size, 1.6rem) * 3);
+    justify-content: center;
+
+    i,
+    [pgs~=icon] {
+        display: inline-grid;
+        place-items: center;
+        block-size: var(--iconBox-size);
+        line-height: 1;
+        aspect-ratio: 1;
+    }
+}

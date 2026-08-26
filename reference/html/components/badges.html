@@ -18,6 +18,10 @@
  *
  * @related
  * - flexRow: arranges badges horizontally and allows them to wrap.
+ * - icon: draws the glyphs this example shows; see Icon for the whole set.
+ * - icon-circleInfo: the information mark.
+ * - icon-close: the cross that dismisses.
+ * - icon-triangleExclamation: the warning mark.
  *
  * @return HTML examples of the available badge variants.
  */
@@ -41,17 +45,17 @@
     </span>
 
     <span pgs="badge" pgs-option="badgeWarning" demo="item" demo-title="Warning" demo-description="Badge representing a warning, paired with an icon.">
-        <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+        <i pgs="icon" pgs-option="icon-triangleExclamation" aria-hidden="true"></i>
         Warning
     </span>
 
     <span pgs="badge" pgs-option="badgeError" demo="item" demo-title="Error" demo-description="Badge representing an error, paired with an icon.">
-        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        <i pgs="icon" pgs-option="icon-close" aria-hidden="true"></i>
         Error
     </span>
 
     <span pgs="badge" pgs-option="badgeInfo" demo="item" demo-title="Info" demo-description="Badge representing informational content, paired with an icon.">
-        <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+        <i pgs="icon" pgs-option="icon-circleInfo" aria-hidden="true"></i>
         Info
     </span>
 

@@ -31,6 +31,14 @@ Inline feedback messages for contextual information, successful operations, warn
 ### PGS
 
 - `flexColumn`: arranges the static alert examples vertically.
+- `icon`: draws the glyph that marks the alert type; see Icon for the whole set.
+
+### PGS Options
+
+- `icon-circleXmark`: the glyph of the error type.
+- `icon-circleCheck`: the glyph of the success type.
+- `icon-circleInfo`: the glyph of the info type.
+- `icon-triangleExclamation`: the glyph of the warning type.
 
 ### Other
 
@@ -48,7 +56,7 @@ Neutral informational feedback.
 
 ```html
 <div pgs="alert" pgs-state="info" role="status">
-    <i pgs="alert-icon" class="fa-solid fa-circle-info" aria-hidden="true"></i>
+    <i pgs="alert-icon" pgs="icon" pgs-option="icon-circleInfo" aria-hidden="true"></i>
     <div pgs="alert-content">
         <strong pgs="alert-content-title">Information</strong>
         <p>Your profile information can be updated at any time.</p>
@@ -62,7 +70,7 @@ Confirmation of a successful operation.
 
 ```html
 <div pgs="alert" pgs-state="success" role="status">
-    <i pgs="alert-icon" class="fa-solid fa-circle-check" aria-hidden="true"></i>
+    <i pgs="alert-icon" pgs="icon" pgs-option="icon-circleCheck" aria-hidden="true"></i>
     <div pgs="alert-content">
         <strong pgs="alert-content-title">Changes saved</strong>
         <p>Your preferences were updated successfully.</p>
@@ -76,7 +84,7 @@ A condition that requires the user's attention.
 
 ```html
 <div pgs="alert" pgs-state="warning" role="alert">
-    <i pgs="alert-icon" class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+    <i pgs="alert-icon" pgs="icon" pgs-option="icon-triangleExclamation" aria-hidden="true"></i>
     <div pgs="alert-content">
         <strong pgs="alert-content-title">Check your information</strong>
         <p>Some fields may require your attention before continuing.</p>
@@ -90,7 +98,7 @@ A failure or blocking problem.
 
 ```html
 <div pgs="alert" pgs-state="error" role="alert">
-    <i pgs="alert-icon" class="fa-solid fa-circle-xmark" aria-hidden="true"></i>
+    <i pgs="alert-icon" pgs="icon" pgs-option="icon-circleXmark" aria-hidden="true"></i>
     <div pgs="alert-content">
         <strong pgs="alert-content-title">Unable to save</strong>
         <p>Correct the reported errors and try again.</p>

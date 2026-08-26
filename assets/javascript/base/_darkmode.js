@@ -6,11 +6,18 @@ const EVENT_SVG_CHANGE_COLOR = "pgs:svg:changeColor";
 const INITIALIZED_BUTTONS = new WeakSet();
 
 //+ CHANGE ICON
+//== the glyph is not the author's choice here: the library owns it, because it has to say which way
+//== the switch is pointing. It draws it from the built-in set so the control is never blank, and
+//== looks for a marked element as well as an <i>, so an icon set that renders anything else still
+//== gets found. The fa- classes stay on for the pages that style them
 function changeIcon(selector, isDarkMode) {
     selector.forEach(button => {
-        const ICON = button.querySelector("i");
+        const ICON = button.querySelector('i, [pgs~="icon"]');
         if (!ICON) return;
 
+        pgs(ICON).add("icon");
+        pgs(ICON).option.toggle("icon-moon", !isDarkMode);
+        pgs(ICON).option.toggle("icon-sun", isDarkMode);
         ICON.classList.toggle("fa-moon", !isDarkMode);
         ICON.classList.toggle("fa-sun", isDarkMode);
     });

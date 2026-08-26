@@ -25,6 +25,8 @@
  * - position: identifies the position element used by Tooltip.
  * - open: is applied by the dropdown behaviour while the tooltip is visible.
  * - buttonMini: applies the smallest button variant to the tooltip trigger.
+ * - icon: draws the glyphs this example shows; see Icon for the whole set.
+ * - icon-circleInfo: the information mark.
  *
  * @return Complete HTML markup and usage example for Tooltip.
  */
@@ -32,7 +34,7 @@
 
 <span pgs="dropdown tooltip">
     <button pgs="dropdown-button button tooltip-button" pgs-option="buttonMini" title="open-tooltip" type="button">
-        <i class="fa-solid fa-info"></i>
+        <i pgs="icon" pgs-option="icon-circleInfo"></i>
     </button>
     <div pgs="dropdown-content tooltip-content">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto hic, id consectetur facilis et, iste animi minima quidem praesentium omnis quod. Quidem provident ad cum aut reprehenderit laboriosam eum placeat.

@@ -20,7 +20,8 @@
 //== COLUMN
 [pgs~=flexColumn],
 [pgs~=flexRow],
-[pgs~=flex] {
+[pgs~=flex],
+[pgs-option] {
     $maxColumns: 8;
 
     &[pgs-option*="column-"] {
@@ -30,11 +31,12 @@
         @include columnFlex($maxColumns);
     }
 
+    &[pgs-option~="column-1"] {
+        flex-direction: column;
+    }
+
     @for $i from 2 through $maxColumns {
         &[pgs-option~=column-#{$i}] {
-            width: 100%;
-            flex-wrap: wrap;
-            flex-direction: row;
             @include columnFlex($i);
         }
     }
@@ -43,7 +45,8 @@
 //== FLEX OPTIONS
 [pgs~=flexColumn],
 [pgs~=flexRow],
-[pgs~=flex] {
+[pgs~=flex],
+[pgs-option]{
 
     //=== WRAP
     &[pgs-option~=nowrap] {
@@ -105,14 +108,17 @@
     }
 }
 
-
 //= GRID
 //== COLUMN
 [pgs~=grid] {
-    $maxColumns: 8;
     display: grid;
     gap: var(--gap-elements);
     width: 100%;
+}
+
+[pgs~=grid],
+[pgs-option] {
+    $maxColumns: 8;
 
     &[pgs-option*="column-"] {
         @include columnGrid($maxColumns);
@@ -129,7 +135,8 @@
 [pgs~=flexColumn],
 [pgs~=flexRow],
 [pgs~=flex],
-[pgs~=grid] {
+[pgs~=grid], 
+[pgs-option]{
 
     //== GAP
     &[pgs-option~=gapTexts] {
@@ -242,7 +249,6 @@
 }
 
 //x retro compatibility
-
 [pgs~=gapTexts] {
     gap: var(--gap-texts);
 }

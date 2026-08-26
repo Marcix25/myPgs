@@ -3,7 +3,6 @@ export default function Accordion() {
         <ul pgs="grid gapTexts">
             <li pgs="accordion">
                 <button pgs="accordion-button" type="button">
-                    <i className="fa-solid fa-circle-question" aria-hidden="true"></i>
                     <span>Frequently asked question</span>
                 </button>
 
@@ -14,7 +13,6 @@ export default function Accordion() {
 
             <li pgs="accordion">
                 <button pgs="accordion-button" type="button">
-                    <i className="fa-solid fa-circle-info" aria-hidden="true"></i>
                     <span>Second section</span>
                 </button>
 

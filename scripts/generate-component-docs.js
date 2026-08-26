@@ -533,8 +533,17 @@ function validateTemplate(template, parsed, sources, allSourceContent) {
         if (["containerID", "containerPGS", "tabIcon"].includes(option.key) && (!option.payload || !option.payload.trim())) {
             errors.push(createError(file, `Payload mancante per pgs-option "${option.key}".`, `Usa ${option.key}[valore] con un valore non vuoto.`, "@pgs-option", option.key));
         }
-        if (option.key === "tabIcon" && /\s/.test(option.payload || "")) {
-            errors.push(createError(file, `Il payload tabIcon deve contenere una sola classe: "${option.payload}".`, "Usa una singola classe icona, per esempio tabIcon[fa-user].", "@pgs-option", option.key));
+        //== tabIcon accetta tre forme: markup completo (da "<"), il nome di un glifo interno, o una
+        //== lista di classi. Solo la seconda deve restare una parola sola, perche' e' una chiave:
+        //== le classi possono essere piu' di una e il markup contiene spazi per costruzione
+        if (option.key === "tabIcon") {
+            const payload = (option.payload || "").trim();
+            if (payload.startsWith("icon-") && /\s/.test(payload)) {
+                errors.push(createError(file, `Il nome di un glifo in tabIcon deve essere una parola sola: "${option.payload}".`, "Usa il markup completo, il nome di un glifo, oppure una lista di classi: tabIcon[<i pgs='icon' pgs-option='icon-check'></i>], tabIcon[icon-check], tabIcon[fa-regular fa-star].", "@pgs-option", option.key));
+            }
+            if (payload.startsWith("<") && !/<[a-zA-Z][^>]*>/.test(payload)) {
+                errors.push(createError(file, `Il markup di tabIcon non e' un tag valido: "${option.payload}".`, "Scrivi un elemento completo, con gli attributi interni fra apici singoli.", "@pgs-option", option.key));
+            }
         }
         if (option.key === "position") validatePosition(file, option, errors);
     });
@@ -546,9 +555,13 @@ function validateTemplate(template, parsed, sources, allSourceContent) {
         }
     });
 
+    //== @related counts here as it does for the options written in the example: a component whose
+    //== markup carries an option owned by another component documents it as a reference, not as one
+    //== of its own. Demanding @pgs-option would put a foreign key in this component's table, which
+    //== reads as an offer to configure something this component does not own
     associatedFacts.options.forEach(option => {
-        if (!documentedOptions.has(option)) {
-            errors.push(createError(file, `Opzione supportata ma non documentata: "${option}".`, "Aggiungila alla sezione @pgs-option.", "@pgs-option", option));
+        if (!documentedOptions.has(option) && !documentedRelated.has(option)) {
+            errors.push(createError(file, `Opzione supportata ma non documentata: "${option}".`, "Aggiungila alla sezione @pgs-option, oppure a @related se appartiene a un altro componente.", "@pgs-option", option));
         }
     });
 

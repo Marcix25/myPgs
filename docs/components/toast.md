@@ -46,6 +46,14 @@ Toast markup, configuration, behavior, and usage example. An ephemeral, auto-dis
 - `hidden`: uses the related hidden component or utility in this example.
 - `button`: uses the related button component or utility in this example.
 
+### Other
+
+- `icon`: draws the glyph that marks the toast type; see Icon for the whole set.
+- `icon-circleXmark`: the glyph of the error type.
+- `icon-circleCheck`: the glyph of the success type.
+- `icon-circleInfo`: the glyph of the info type.
+- `icon-triangleExclamation`: the glyph of the warning type.
+
 ## Output
 
 Complete HTML markup and usage example for Toast.
@@ -108,5 +116,5 @@ pgs.toast.success({
     "link": null,
     "linkTitle": "Open",
     "closeTitle": "Close"
-}]'><i class="fa-duotone fa-solid fa-bread-slice-butter"></i> Trigger Toast</button>
+}]'> Trigger Toast</button>
 ```
