@@ -958,6 +958,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=flex][pgs-option~=column-1],
 [pgs-option][pgs-option~=column-1] {
   flex-direction: column;
+  grid-template-columns: unset;
 }
 
 [pgs~=flexColumn][pgs-option~=column-2],
@@ -1533,6 +1534,11 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     grid-template-columns: 1fr;
   }
 }
+[pgs~=grid][pgs-option~=column-1],
+[pgs-option][pgs-option~=column-1] {
+  grid-template-columns: auto;
+}
+
 [pgs~=grid][pgs-option~=column-2],
 [pgs-option][pgs-option~=column-2] {
   grid-template-columns: repeat(2, 1fr);
@@ -4517,8 +4523,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 [pgs~=button][pgs-option~=buttonMini] {
-  --button-size: 1.2rem;
-  --button-padding: var(--button-padding-block);
+  --button-size: 0.9rem;
   display: inline-flex;
 }
 

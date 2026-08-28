@@ -123,8 +123,7 @@
 
 //== BUTTON MINI
 @mixin buttonMini() {
-    --button-size: 1.2rem;
-    --button-padding: var(--button-padding-block);
+    --button-size: 0.9rem;
     display: inline-flex;
 }
 

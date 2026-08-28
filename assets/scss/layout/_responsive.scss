@@ -33,6 +33,7 @@
 
     &[pgs-option~="column-1"] {
         flex-direction: column;
+        grid-template-columns: unset;
     }
 
     @for $i from 2 through $maxColumns {
@@ -46,7 +47,7 @@
 [pgs~=flexColumn],
 [pgs~=flexRow],
 [pgs~=flex],
-[pgs-option]{
+[pgs-option] {
 
     //=== WRAP
     &[pgs-option~=nowrap] {
@@ -124,6 +125,10 @@
         @include columnGrid($maxColumns);
     }
 
+    &[pgs-option~="column-1"] {
+        grid-template-columns: auto;
+    }
+
     @for $i from 2 through $maxColumns {
         &[pgs-option~=column-#{$i}] {
             @include columnGrid($i);
@@ -135,8 +140,8 @@
 [pgs~=flexColumn],
 [pgs~=flexRow],
 [pgs~=flex],
-[pgs~=grid], 
-[pgs-option]{
+[pgs~=grid],
+[pgs-option] {
 
     //== GAP
     &[pgs-option~=gapTexts] {
