@@ -62,6 +62,11 @@ $icon-star: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' vi
 //bell, for anything that announces something arriving
 $icon-bell: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M120 356 v-120 a136 136 0 0 1 272 0 v120 l36 44 H84 Z M256 34 a30 30 0 1 1 0 60 30 30 0 1 1 0-60 z M256 404 a42 42 0 1 1 0 84 42 42 0 1 1 0-84 z'/%3E%3C/svg%3E");
 
+//duo hamburger, for controls that need independently styled or animated layers. Each layer keeps
+//the full 20px square viewBox so the two masks can overlap and rotate around the same centre.
+$iconDuo-hamburger-top: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M4 5h12a2 2 0 0 1 0 4H4a2 2 0 0 1 0-4z'/%3E%3C/svg%3E");
+$iconDuo-hamburger-bottom: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M4 11h12a2 2 0 0 1 0 4H4a2 2 0 0 1 0-4z'/%3E%3C/svg%3E");
+
 //the drawable set: every key here becomes an option of the icon component, so adding an entry is
 //all it takes to make a new glyph writable as pgs-option. Removing or renaming one is a breaking
 //change, since the keys are public.
@@ -83,4 +88,10 @@ $icons-builtin: (
     icon-star: $icon-star,
     icon-sun: $icon-sun,
     icon-triangleExclamation: $icon-triangleExclamation,
+);
+
+//Two-layer glyphs. Unlike the single-path set above, their paths are drawn on ::before and ::after
+//so a component can colour or animate each layer independently.
+$icons-duo: (
+    iconDuo-hamburger: ($iconDuo-hamburger-top, $iconDuo-hamburger-bottom),
 );

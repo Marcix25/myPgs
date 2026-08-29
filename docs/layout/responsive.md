@@ -77,16 +77,16 @@ Three-column flex layout using column-2 with m2e to collapse to two columns per 
     <strong>Flex</strong>
     <div pgs="flex" pgs-option="flexRow column-2 m2e">
         <article pgs="box flex" pgs-option="flexColumn">
-            <strong>Column one</strong>
-            <p>First flex column.</p>
+            <strong>Lorem ipsum dolor</strong>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </article>
         <article pgs="box flex" pgs-option="flexColumn">
-            <strong>Column two</strong>
-            <p>Second flex column.</p>
+            <strong>Sit amet consectetur</strong>
+            <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
         </article>
         <article pgs="box flex" pgs-option="flexColumn">
-            <strong>Column three</strong>
-            <p>Third flex column.</p>
+            <strong>Adipiscing elit sed</strong>
+            <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
         </article>
     </div>
 </section>
@@ -101,20 +101,20 @@ Four-column grid layout using column-4 with m2e to collapse to two columns per r
     <strong>Grid</strong>
     <div pgs="grid" pgs-option="column-4 m2e">
         <article pgs="box flex" pgs-option="flexColumn">
-            <strong>Column one</strong>
-            <p>First grid column.</p>
+            <strong>Do eiusmod tempor</strong>
+            <p>Duis aute irure dolor in reprehenderit in voluptate.</p>
         </article>
         <article pgs="box flex" pgs-option="flexColumn">
-            <strong>Column two</strong>
-            <p>Second grid column.</p>
+            <strong>Ut labore et</strong>
+            <p>Excepteur sint occaecat cupidatat non proident sunt.</p>
         </article>
         <article pgs="box flex" pgs-option="flexColumn">
-            <strong>Column three</strong>
-            <p>Third grid column.</p>
+            <strong>Dolore magna aliqua</strong>
+            <p>Sunt in culpa qui officia deserunt mollit anim.</p>
         </article>
         <article pgs="box flex" pgs-option="flexColumn">
-            <strong>Column four</strong>
-            <p>Third grid column.</p>
+            <strong>Enim ad minim</strong>
+            <p>Ut labore et dolore magna aliqua ut enim.</p>
         </article>
     </div>
 </section>

@@ -2712,51 +2712,23 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 [pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button] {
-  flex-direction: column;
-  gap: 5px;
   justify-content: center;
-  aspect-ratio: 1;
-  position: relative;
 }
 
-[pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button]::before, [pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button]::after {
-  content: "";
-  width: 20px;
-  height: 4px;
-  background-color: var(--header-color);
-  display: block;
-  border-radius: 20px;
+[pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button] [pgs-option~=iconDuo-hamburger]::before, [pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button] [pgs-option~=iconDuo-hamburger]::after {
   transition: transform 300ms;
-  position: relative;
 }
 
-[pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button]::before {
+[pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button] [pgs-option~=iconDuo-hamburger]::before {
   opacity: 0.6;
 }
 
-[pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button]:hover::before, [pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button]:hover::after {
-  background-color: var(--hover-color);
+[pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button][aria-expanded=true] [pgs-option~=iconDuo-hamburger]::before {
+  transform: translate(-10.607%, 10.607%) rotate(45deg);
 }
 
-[pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button][aria-expanded=true] {
-  gap: 0px;
-}
-
-[pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button][aria-expanded=true]::before, [pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button][aria-expanded=true]::after {
-  position: absolute;
-  inset: 0;
-  top: 50%;
-  left: 50%;
-  translate: -50% -50%;
-}
-
-[pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button][aria-expanded=true]::before {
-  transform: rotate(-45deg);
-  opacity: 0.6;
-}
-
-[pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button][aria-expanded=true]::after {
-  transform: rotate(45deg);
+[pgs~=header] [pgs~=header-element] [pgs~=header-element-hamburger] [pgs~=header-element-hamburger-button][aria-expanded=true] [pgs-option~=iconDuo-hamburger]::after {
+  transform: translate(-10.607%, -10.607%) rotate(-45deg);
 }
 
 [pgs~=header] dialog[pgs~=modal-dialogpopover],
@@ -4834,6 +4806,39 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-triangleExclamation]::after {
   content: none;
+}
+
+[pgs~=icon][pgs-option~=iconDuo-hamburger] {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 1em;
+  block-size: 1em;
+  line-height: 1;
+}
+
+[pgs~=icon][pgs-option~=iconDuo-hamburger]::before, [pgs~=icon][pgs-option~=iconDuo-hamburger]::after {
+  grid-area: 1/1;
+  vertical-align: -0.125em;
+}
+
+[pgs~=icon][pgs-option~=iconDuo-hamburger]::before {
+  content: "";
+  display: list-item;
+  width: 1em;
+  height: 1em;
+  background-color: var(--icon-color, currentColor);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 20 20%27%3E%3Cpath d=%27M4 5h12a2 2 0 0 1 0 4H4a2 2 0 0 1 0-4z%27/%3E%3C/svg%3E") center/contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 20 20%27%3E%3Cpath d=%27M4 5h12a2 2 0 0 1 0 4H4a2 2 0 0 1 0-4z%27/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+[pgs~=icon][pgs-option~=iconDuo-hamburger]::after {
+  content: "";
+  display: list-item;
+  width: 1em;
+  height: 1em;
+  background-color: var(--icon-color, currentColor);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 20 20%27%3E%3Cpath d=%27M4 11h12a2 2 0 0 1 0 4H4a2 2 0 0 1 0-4z%27/%3E%3C/svg%3E") center/contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 20 20%27%3E%3Cpath d=%27M4 11h12a2 2 0 0 1 0 4H4a2 2 0 0 1 0-4z%27/%3E%3C/svg%3E") center/contain no-repeat;
 }
 
 [pgs~=icon][pgs-option~=iconBox] {

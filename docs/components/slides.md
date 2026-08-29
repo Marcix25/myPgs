@@ -66,8 +66,8 @@ Complete HTML markup and usage example for Slides.
             <article pgs="card">
                 <img pgs="card-img imgCover" src="https://placehold.net/600x400.png" alt="Slide 1">
                 <div pgs="card-content">
-                    <h3>First slide</h3>
-                    <p>First slide content.</p>
+                    <h3>Lorem ipsum dolor</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                 </div>
             </article>
         </li>
@@ -76,8 +76,8 @@ Complete HTML markup and usage example for Slides.
             <article pgs="card">
                 <img pgs="card-img imgCover" src="https://placehold.net/600x400.png" alt="Slide 2">
                 <div pgs="card-content">
-                    <h3>Second slide</h3>
-                    <p>Second slide content.</p>
+                    <h3>Sit amet consectetur</h3>
+                    <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
                 </div>
             </article>
         </li>
@@ -86,8 +86,8 @@ Complete HTML markup and usage example for Slides.
             <article pgs="card">
                 <img pgs="card-img imgCover" src="https://placehold.net/600x400.png" alt="Slide 3">
                 <div pgs="card-content">
-                    <h3>Slide tre</h3>
-                    <p>Third slide content.</p>
+                    <h3>Adipiscing elit sed</h3>
+                    <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
                 </div>
             </article>
         </li>

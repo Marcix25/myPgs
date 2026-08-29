@@ -40,21 +40,21 @@ HTML list of accessible accordion items with an associated button and panel.
 <ul pgs="flexColumn">
     <li pgs="accordion">
         <button pgs="accordion-button" type="button">
-            <span>Frequently asked question</span>
+            <span>Lorem ipsum dolor</span>
         </button>
 
         <div pgs="accordion-content" hidden>
-            <p>Example answer with reusable text content.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </div>
     </li>
 
     <li pgs="accordion">
         <button pgs="accordion-button" type="button">
-            <span>Second section</span>
+            <span>Sit amet consectetur</span>
         </button>
 
         <div pgs="accordion-content" hidden>
-            <p>Additional accordion panel content.</p>
+            <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
         </div>
     </li>
 </ul>

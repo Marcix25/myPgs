@@ -73,18 +73,18 @@ Complete HTML markup and usage example for Step Tabs.
 
     <div pgs="stepTabs-container">
         <section pgs="stepTabs-container-tab flexColumn" tabindex="-1" pgs-option="tabIcon[<i pgs='icon' pgs-option='icon-circle'></i>]">
-            <h3>Personal details</h3>
-            <p>First tab content.</p>
+            <h3>Lorem ipsum dolor</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </section>
 
         <section pgs="stepTabs-container-tab flexColumn" tabindex="-1" pgs-option="tabIcon[<i pgs='icon' pgs-option='icon-sliders'></i>]">
-            <h3>Preferences</h3>
-            <p>Second tab content.</p>
+            <h3>Sit amet consectetur</h3>
+            <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
         </section>
 
         <section pgs="stepTabs-container-tab flexColumn" tabindex="-1" pgs-option="tabIcon[<i pgs='icon' pgs-option='icon-check'></i>]">
-            <h3>Confirmation</h3>
-            <p>Third tab content.</p>
+            <h3>Adipiscing elit sed</h3>
+            <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
         </section>
     </div>
 

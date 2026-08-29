@@ -43,8 +43,8 @@ Default section width and padding with centered content.
 ```html
 <section pgs="section flexColumn gapElements">
     <div pgs="flexColumn">
-        <strong>Standard section</strong>
-        <p>Centered content inside a MyPGS section.</p>
+        <strong>Lorem ipsum dolor</strong>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </div>
 </section>
 ```
@@ -56,8 +56,8 @@ Section that spans the full available width using sectionFull.
 ```html
 <section pgs="sectionFull flexColumn gapElements">
     <div pgs="flexColumn">
-        <strong>Full-width section</strong>
-        <p>Centered content inside a MyPGS section.</p>
+        <strong>Sit amet consectetur</strong>
+        <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
     </div>
 </section>
 ```
@@ -72,8 +72,8 @@ Section applying a specific structure to its child element using sectionSpecific
         <img pgs="card-img imgCover" src="https://placehold.co/800x200?text=Hero" alt="Placeholder image">
     </div>
     <div pgs="sectionSpecificity-child flexColumn">
-        <strong>Specificity-child section</strong>
-        <p>Centered content inside a MyPGS section.</p>
+        <strong>Adipiscing elit sed</strong>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
     </div>
 </section>
 ```
@@ -97,8 +97,8 @@ Section with an extended maximum width using sectionMax.
 ```html
 <section pgs="sectionMax flexColumn gapElements" style="background-color: var(--color-primary-soft)">
     <div pgs="flexColumn">
-        <strong>Max-width section</strong>
-        <p>Centered content inside a MyPGS section.</p>
+        <strong>Do eiusmod tempor</strong>
+        <p>Duis aute irure dolor in reprehenderit in voluptate.</p>
     </div>
 </section>
 ```

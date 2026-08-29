@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-     
+
     <link rel="stylesheet" href="../dist/css/index.css">
     <link rel="stylesheet" href="demo.css">
 </head>
@@ -54,14 +54,16 @@
 
             <div pgs="header-element-hamburger modal" pgs-option="containerPGS[header]">
 
-                <button pgs="button modal-button modal-close header-element-hamburger-button" pgs-option="buttonIcon" type="button" title="menu"></button>
+                <button pgs="button modal-button modal-close header-element-hamburger-button" pgs-option="buttonIcon" type="button" title="menu">
+                    <i pgs="icon" pgs-option="iconDuo-hamburger" aria-hidden="true"></i>
+                </button>
 
                 <dialog pgs="modal-dialog" pgs-option="right">
                     <div pgs="modal-dialog-content">
                         <div pgs="modal-dialog-content-header bgWhite ">
                             <p pgs="h3 margin" pgs-option="margin2"><i class="fa-solid fa-book-bookmark"></i> Browse docs!</p>
                         </div>
-                        <div pgs="modal-dialog-content-scroll bgWhite paddingInline" >
+                        <div pgs="modal-dialog-content-scroll bgWhite paddingInline">
                             <div pgs="flexColumn paddingInline" pgs-option="gapElements padding2" class="reference-demo-nav">
 
                             </div>

@@ -757,6 +757,7 @@
         "pgs-generated": [],
         "pgs-option": [
             "column-",
+            "column-1",
             "column-2",
             "column-3",
             "column-4",
@@ -831,7 +832,8 @@
             "headerCompactTablet",
             "headerCompactWatch",
             "headerPrimary",
-            "headerScroll"
+            "headerScroll",
+            "iconDuo-hamburger"
         ]
     },
     "hidden": {
@@ -992,7 +994,8 @@
             "icon-star",
             "icon-sun",
             "icon-triangleExclamation",
-            "iconBox"
+            "iconBox",
+            "iconDuo-hamburger"
         ]
     },
     "iconColorPrimary": {

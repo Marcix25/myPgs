@@ -43,6 +43,35 @@
             }
         }
     }
+
+    //+ DUO ICON
+    // Two-layer icons use a mask per pseudo-element. Keeping both layers in the same grid cell
+    // lets the component using them animate each one without needing markup solely for decoration.
+    @each $name, $layers in $icons-duo {
+
+        &[pgs-option~=#{$name}] {
+            display: inline-grid;
+            place-items: center;
+            inline-size: 1em;
+            block-size: 1em;
+            line-height: 1;
+
+            &::before,
+            &::after {
+                grid-area: 1 / 1;
+                vertical-align: -0.125em;
+            }
+
+            &::before {
+                @include iconSvgBase64(nth($layers, 1), 1em, var(--icon-color, currentColor));
+            }
+
+            &::after {
+                @include iconSvgBase64(nth($layers, 2), 1em, var(--icon-color, currentColor));
+            }
+        }
+    }
+
     //+ ICON BOX
     // The circular surface a glyph can sit inside. Separate from the glyph on purpose: this one is
     // the container and says nothing about what it holds, so it takes a built-in glyph and an icon
@@ -51,4 +80,3 @@
         @include iconBox();
     }
 }
-

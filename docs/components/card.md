@@ -39,8 +39,8 @@ Descriptive card content suitable for lists, previews, and grids.
     <img pgs="card-img" src="https://placehold.net/600x400.png" alt="Placeholder image">
 
     <div pgs="card-content">
-        <h3>Standard card</h3>
-        <p>Descriptive card content suitable for lists, previews, and grids.</p>
+        <h3>Lorem ipsum dolor</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         <a pgs="button marginTop" href="#">Read more</a>
     </div>
 </article>
@@ -56,8 +56,8 @@ The complete card surface behaves as a link.
         <img pgs="card-img" src="https://placehold.net/600x400.png" alt="Placeholder image">
 
         <div pgs="card-content">
-            <h3>Clickable card</h3>
-            <p>The complete card surface behaves as a link.</p>
+            <h3>Sit amet consectetur</h3>
+            <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
         </div>
     </a>
 </article>
@@ -72,8 +72,8 @@ This card switches intrinsically between horizontal and stacked layouts.
     <img pgs="card-img" src="https://placehold.net/600x400.png" alt="Placeholder image">
 
     <div pgs="card-content">
-        <h3>Horizontal card</h3>
-        <p>This card switches intrinsically between horizontal and stacked layouts.</p>
+        <h3>Adipiscing elit sed</h3>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
     </div>
 </article>
 ```
@@ -87,8 +87,8 @@ The compact option reduces the content padding.
     <img pgs="card-img" src="https://placehold.net/600x400.png" alt="Placeholder image">
 
     <div pgs="card-content">
-        <h3>Compact card</h3>
-        <p>The compact option reduces the content padding.</p>
+        <h3>Do eiusmod tempor</h3>
+        <p>Duis aute irure dolor in reprehenderit in voluptate.</p>
     </div>
 </article>
 ```
@@ -99,8 +99,8 @@ Lightweight content grouped inside a neutral surface.
 
 ```html
 <div pgs="box">
-    <h3>Standard box</h3>
-    <p>Lightweight content grouped inside a neutral surface.</p>
+    <h3>Ut labore et</h3>
+    <p>Excepteur sint occaecat cupidatat non proident sunt.</p>
 </div>
 ```
 
@@ -110,8 +110,8 @@ The complete box surface behaves as a link.
 
 ```html
 <a pgs="box" href="#">
-    <h3>Clickable box</h3>
-    <p>The complete box surface behaves as a link.</p>
+    <h3>Dolore magna aliqua</h3>
+    <p>Sunt in culpa qui officia deserunt mollit anim.</p>
 </a>
 ```
 
@@ -121,7 +121,7 @@ The compact option reduces the internal spacing.
 
 ```html
 <div pgs="box" pgs-option="boxMini">
-    <h3>Compact box</h3>
-    <p>The compact option reduces the internal spacing.</p>
+    <h3>Enim ad minim</h3>
+    <p>Ut labore et dolore magna aliqua ut enim.</p>
 </div>
 ```

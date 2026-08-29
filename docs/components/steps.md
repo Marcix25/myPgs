@@ -36,24 +36,24 @@ Ordered HTML list of numbered steps completed by the JavaScript module.
     <li pgs="steps-step">
         <span pgs="steps-step-circle">1</span>
         <div pgs="steps-step-content">
-            <h3>First step</h3>
-            <p>What happens in the first step.</p>
+            <h3>Lorem ipsum dolor</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </div>
     </li>
 
     <li pgs="steps-step">
         <span pgs="steps-step-circle">2</span>
         <div pgs="steps-step-content">
-            <h3>Second step</h3>
-            <p>What happens in the second step.</p>
+            <h3>Sit amet consectetur</h3>
+            <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
         </div>
     </li>
 
     <li pgs="steps-step">
         <span pgs="steps-step-circle">3</span>
         <div pgs="steps-step-content">
-            <h3>Third step</h3>
-            <p>What happens in the third step.</p>
+            <h3>Adipiscing elit sed</h3>
+            <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
         </div>
     </li>
 </ol>

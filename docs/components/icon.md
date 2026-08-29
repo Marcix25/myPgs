@@ -26,6 +26,7 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 - `icon-circleCheck`: tick inside a disc, the success mark.
 - `icon-circleInfo`: letter i inside a disc, the information mark.
 - `icon-triangleExclamation`: exclamation mark inside a triangle, the warning mark.
+- `iconDuo-hamburger`: two horizontal bars that turn into a close mark when the header menu is open.
 
 ## Related elements
 
@@ -69,6 +70,7 @@ Every glyph the library can draw. The token marks the element, the option names 
     <i pgs="icon" pgs-option="icon-circleCheck"></i>
     <i pgs="icon" pgs-option="icon-circleInfo"></i>
     <i pgs="icon" pgs-option="icon-triangleExclamation"></i>
+    <i pgs="icon" pgs-option="iconDuo-hamburger"></i>
 </div>
 ```
 

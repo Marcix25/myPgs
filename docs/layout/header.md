@@ -67,6 +67,7 @@ Responsive header that measures available space, switches between its full and c
 - `right`: presents the compact navigation dialog content from the right side.
 - `buttonIcon`: presents theme and hamburger controls as icon buttons.
 - `icon-bell`: the glyph on the control that opens the panel.
+- `iconDuo-hamburger`: draws the two-layer hamburger glyph that turns into the close mark while the compact navigation is open.
 
 ### Other
 
@@ -118,7 +119,9 @@ Complete header HTML with full navigation and a side compact panel.
 
 		<div pgs="header-element-hamburger modal" pgs-option="containerPGS[header]">
 
-			<button pgs="button modal-button modal-close header-element-hamburger-button" pgs-option="buttonIcon" type="button" title="menu"></button>
+			<button pgs="button modal-button modal-close header-element-hamburger-button" pgs-option="buttonIcon" type="button" aria-label="Open menu">
+				<i pgs="icon" pgs-option="iconDuo-hamburger" aria-hidden="true"></i>
+			</button>
 
 			<dialog pgs="modal-dialog" pgs-option="right">
 				<div pgs="modal-dialog-content">
