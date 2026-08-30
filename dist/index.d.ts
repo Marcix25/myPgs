@@ -133,6 +133,20 @@ declare global {
     api(selector: Element): PgsSummaryInstance | undefined;
   }
 
+  interface PgsTabsInstance {
+    element: Element;
+    list: Element;
+    panels: Element;
+    select(index: number): void;
+    getCurrent(): number;
+    refresh(): PgsTabsInstance | undefined;
+  }
+
+  interface PgsTabsModule {
+    init(root?: Document | Element): void;
+    api(selector: Element): PgsTabsInstance | undefined;
+  }
+
   interface PgsFunction {
     (root: Document): PgsDocumentApi;
     (root: Element): PgsElementApi;
@@ -151,6 +165,7 @@ declare global {
     notification?: any;
     search?: PgsSearchModule;
     summary?: PgsSummaryModule;
+    tabs?: PgsTabsModule;
     slides?: any;
     stepTabs?: any;
     steps?: any;

@@ -25,11 +25,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
 /* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
 /* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
-/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./layout/_header.js */ "./assets/javascript/layout/_header.js");
-/* harmony import */ var _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./helper/_formValidate.js */ "./assets/javascript/helper/_formValidate.js");
-/* harmony import */ var _helper_init_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./helper/_init.js */ "./assets/javascript/helper/_init.js");
-/* harmony import */ var _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./helper/_scrollY.js */ "./assets/javascript/helper/_scrollY.js");
-/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
+/* harmony import */ var _components_tabs_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/_tabs.js */ "./assets/javascript/components/_tabs.js");
+/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./layout/_header.js */ "./assets/javascript/layout/_header.js");
+/* harmony import */ var _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./helper/_formValidate.js */ "./assets/javascript/helper/_formValidate.js");
+/* harmony import */ var _helper_init_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./helper/_init.js */ "./assets/javascript/helper/_init.js");
+/* harmony import */ var _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./helper/_scrollY.js */ "./assets/javascript/helper/_scrollY.js");
+/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
+
 
 
 
@@ -54,7 +56,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
-    init: _helper_init_js__WEBPACK_IMPORTED_MODULE_18__.PGS_init,
+    init: _helper_init_js__WEBPACK_IMPORTED_MODULE_19__.PGS_init,
     darkmode: _base_darkmode_js__WEBPACK_IMPORTED_MODULE_1__.PGS_darkmode,
     svg: _base_svg_js__WEBPACK_IMPORTED_MODULE_2__.PGS_svg,
     accordion: _components_accordion_js__WEBPACK_IMPORTED_MODULE_3__.PGS_accordion,
@@ -62,8 +64,8 @@ _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
     dropdown: _components_dropdown_js__WEBPACK_IMPORTED_MODULE_5__.PGS_dropdown,
     menu: _components_menu_js__WEBPACK_IMPORTED_MODULE_6__.PGS_menu,
     modal: _components_modal_js__WEBPACK_IMPORTED_MODULE_7__.PGS_modal,
-    header: _layout_header_js__WEBPACK_IMPORTED_MODULE_16__.PGS_header,
-    cookieConsent: _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_20__.PGS_cookieConsent,
+    header: _layout_header_js__WEBPACK_IMPORTED_MODULE_17__.PGS_header,
+    cookieConsent: _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_21__.PGS_cookieConsent,
     notification: _components_notification_js__WEBPACK_IMPORTED_MODULE_8__.PGS_notification,
     toast: _components_toast_js__WEBPACK_IMPORTED_MODULE_10__.PGS_toast,
     legacyNotification: _components_legacyNotification_js__WEBPACK_IMPORTED_MODULE_9__.PGS_notificationLegacy,
@@ -72,8 +74,9 @@ _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
     stepTabs: _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_13__.PGS_stepTabs,
     steps: _components_steps_js__WEBPACK_IMPORTED_MODULE_14__.PGS_steps,
     summary: _components_summary_js__WEBPACK_IMPORTED_MODULE_15__.PGS_summary,
-    formValidate: _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_17__.PGS_formValidate,
-    scrollHorizontal: _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_19__.PGS_scrollHorizontal,
+    tabs: _components_tabs_js__WEBPACK_IMPORTED_MODULE_16__.PGS_tabs,
+    formValidate: _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_18__.PGS_formValidate,
+    scrollHorizontal: _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_20__.PGS_scrollHorizontal,
 });
 
 
@@ -3159,6 +3162,143 @@ const PGS_summary = {
 
 /***/ },
 
+/***/ "./assets/javascript/components/_tabs.js"
+/*!***********************************************!*\
+  !*** ./assets/javascript/components/_tabs.js ***!
+  \***********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_tabs: () => (/* binding */ PGS_tabs)
+/* harmony export */ });
+/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+
+
+const API = new WeakMap();
+let tabsId = 0;
+
+function nextTabsId() {
+    tabsId += 1;
+    return tabsId;
+}
+
+function directPgsChildren(element, token) {
+    return Array.from(element.children).filter(child => pgs(child).contains(token));
+}
+
+function tabRoots(root) {
+    const roots = [];
+    if (root instanceof Element && pgs(root).contains("tabs")) roots.push(root);
+    roots.push(...pgs(root).querySelectorAll("tabs"));
+    return roots;
+}
+
+function PGS_tabs_init(root = document) {
+    tabRoots(root).forEach((tabs) => {
+        if (API.has(tabs)) return;
+
+        const list = directPgsChildren(tabs, "tabs-list")[0];
+        const panels = directPgsChildren(tabs, "tabs-panels")[0];
+        if (!list || !panels) return;
+
+        const buttons = directPgsChildren(list, "tabs-list-tab");
+        const panelItems = directPgsChildren(panels, "tabs-panels-content");
+        if (!buttons.length || buttons.length !== panelItems.length) return;
+
+        const id = nextTabsId();
+        list.setAttribute("role", "tablist");
+
+        let current = Math.max(
+            panelItems.findIndex(panel => pgs(panel).state.contains("active")),
+            buttons.findIndex(button => pgs(button).state.contains("active")),
+            0,
+        );
+
+        function setState(element, active) {
+            pgs(element).state.toggle("active", active);
+        }
+
+        function select(index, focus = false) {
+            if (!Number.isInteger(index) || index < 0 || index >= buttons.length) return;
+            current = index;
+
+            buttons.forEach((button, buttonIndex) => {
+                const active = buttonIndex === current;
+                setState(button, active);
+                button.setAttribute("aria-selected", String(active));
+                button.tabIndex = active ? 0 : -1;
+            });
+
+            panelItems.forEach((panel, panelIndex) => {
+                const active = panelIndex === current;
+                setState(panel, active);
+                panel.hidden = !active;
+            });
+
+            if (focus) buttons[current].focus();
+            tabs.dispatchEvent(new CustomEvent("tabs:change", {
+                detail: { current, tab: buttons[current], panel: panelItems[current] },
+            }));
+        }
+
+        buttons.forEach((button, index) => {
+            const buttonId = button.id || `tabs-list-tab-${id}-${index + 1}`;
+            const panelId = panelItems[index].id || `tabs-panels-content-${id}-${index + 1}`;
+
+            button.id = buttonId;
+            button.type = "button";
+            button.setAttribute("role", "tab");
+            button.setAttribute("aria-controls", panelId);
+
+            panelItems[index].id = panelId;
+            panelItems[index].setAttribute("role", "tabpanel");
+            panelItems[index].setAttribute("aria-labelledby", buttonId);
+
+            button.addEventListener("click", () => select(index));
+            button.addEventListener("keydown", (event) => {
+                let next = null;
+                if (event.key === "ArrowRight" || event.key === "ArrowDown") next = (current + 1) % buttons.length;
+                if (event.key === "ArrowLeft" || event.key === "ArrowUp") next = (current - 1 + buttons.length) % buttons.length;
+                if (event.key === "Home") next = 0;
+                if (event.key === "End") next = buttons.length - 1;
+                if (next === null) return;
+
+                event.preventDefault();
+                select(next, true);
+            });
+        });
+
+        select(current);
+
+        API.set(tabs, {
+            element: tabs,
+            list,
+            panels,
+            select: (index) => select(index),
+            getCurrent: () => current,
+            refresh: () => {
+                PGS_tabs_init(tabs.parentNode || document);
+                return API.get(tabs);
+            },
+        });
+    });
+}
+
+(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(PGS_tabs_init);
+
+function PGS_tabs_api(selector) {
+    return API.get(selector);
+}
+
+const PGS_tabs = {
+    init: PGS_tabs_init,
+    api: PGS_tabs_api,
+};
+
+
+/***/ },
+
 /***/ "./assets/javascript/components/_toast.js"
 /*!************************************************!*\
   !*** ./assets/javascript/components/_toast.js ***!
@@ -4653,11 +4793,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
 /* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
 /* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
-/* harmony import */ var _components_toast_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/_toast.js */ "./assets/javascript/components/_toast.js");
-/* harmony import */ var _components_notification_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/_notification.js */ "./assets/javascript/components/_notification.js");
-/* harmony import */ var _components_legacyNotification_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/_legacyNotification.js */ "./assets/javascript/components/_legacyNotification.js");
-/* harmony import */ var _imports_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./_imports.js */ "./assets/javascript/_imports.js");
-/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
+/* harmony import */ var _components_tabs_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/_tabs.js */ "./assets/javascript/components/_tabs.js");
+/* harmony import */ var _components_toast_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/_toast.js */ "./assets/javascript/components/_toast.js");
+/* harmony import */ var _components_notification_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/_notification.js */ "./assets/javascript/components/_notification.js");
+/* harmony import */ var _components_legacyNotification_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/_legacyNotification.js */ "./assets/javascript/components/_legacyNotification.js");
+/* harmony import */ var _imports_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./_imports.js */ "./assets/javascript/_imports.js");
+/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
 //= PGS
 
 
@@ -4671,6 +4812,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 //= COMPONENTS
+
 
 
 

@@ -1,0 +1,16 @@
+//# TABS
+// A horizontal tab list that wraps onto further rows. The active tab shares the panel background
+// and covers its top border, making the selected control visually connect to its content.
+[pgs~="tabs"] {
+    [pgs~="tabs-list"] {
+        [pgs~="tabs-list-tab"] {}
+    }
+
+    [pgs~="tabs-panels"] {
+        [pgs~="tabs-panels-content"] {
+            &[hidden] {
+                display: none;
+            }
+        }
+    }
+}

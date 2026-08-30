@@ -32,6 +32,7 @@ Components:
 - [`stepTabs`](components/stepTabs.md)
 - [`summary`](components/summary.md)
 - [`table`](components/table.md)
+- [`tabs`](components/tabs.md)
 - [`toast`](components/toast.md)
 - [`tooltip`](components/tooltip.md)
 

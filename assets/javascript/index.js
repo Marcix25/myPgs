@@ -21,6 +21,7 @@ import "./components/_slides.js";
 import "./components/_steps.js";
 import "./components/_stepTabs.js";
 import "./components/_summary.js";
+import "./components/_tabs.js";
 import "./components/_toast.js";
 import "./components/_notification.js";
 import "./components/_legacyNotification.js";

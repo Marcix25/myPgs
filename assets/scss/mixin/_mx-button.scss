@@ -6,6 +6,7 @@
 @mixin _buttonColor($for: "") {
     color: var(--button-color#{$for});
     background: var(--button-background#{$for});
+    border-color: var(--button-background#{$for});
 }
 
 //== BUTTON BASE
@@ -33,6 +34,9 @@
     --button-border-width: var(--border-width);
     --button-border-style: var(--border-style);
     --button-border-color: var(--border-color);
+    --button-border-color-strong: var(--button-primaryColor);
+    --button-border-color-current: var(--button-primaryColor);
+    --button-border-color-active: var(--button-primaryColor);
     --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
     --button-borderRadius: var(--border-radius-input);
     /// color
@@ -52,6 +56,7 @@
     display: flex;
     gap: calc(var(--button-size) / 2);
     align-items: center;
+    justify-content: center;
     padding: var(--button-padding);
     height: var(--button-height);
     //x da controllare
@@ -63,7 +68,8 @@
         cursor: not-allowed;
     }
 
-    &:where([aria-current=page]) {
+    &:where([aria-current=page]),
+    &:where([aria-selected=true]) {
         @include _buttonColor("-current");
     }
 }
@@ -94,7 +100,8 @@
     justify-content: center;
     align-items: center;
 
-    i, [pgs~=icon] {
+    i,
+    [pgs~=icon] {
         display: inline-grid;
         place-items: center;
         inline-size: calc(var(--button-icon-size) + 2px);

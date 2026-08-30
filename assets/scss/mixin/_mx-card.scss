@@ -45,6 +45,14 @@
     [pgs~="card-content"] {
         min-width: 0;
         padding: var(--card-padding);
+
+        &:has(+[pgs~="card-content"]) {
+            padding-bottom: calc(var(--card-padding)/ 2);
+        }
+
+        +[pgs~="card-content"] {
+            padding-top: calc(var(--card-padding)/ 2);
+        }
     }
 }
 

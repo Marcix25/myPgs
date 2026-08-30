@@ -1600,6 +1600,16 @@
         "pgs-generated": [],
         "pgs-option": []
     },
+    "tabs": {
+        "pgs": [
+            "tabs-list",
+            "tabs-list-tab",
+            "tabs-panels",
+            "tabs-panels-content"
+        ],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
     "textarea": {
         "pgs": [],
         "pgs-generated": [],

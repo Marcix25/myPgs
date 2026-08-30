@@ -15,6 +15,7 @@ import { PGS_slides } from "./components/_slides.js";
 import { PGS_stepTabs } from "./components/_stepTabs.js";
 import { PGS_steps } from "./components/_steps.js";
 import { PGS_summary } from "./components/_summary.js";
+import { PGS_tabs } from "./components/_tabs.js";
 import { PGS_header } from "./layout/_header.js";
 import { PGS_formValidate } from "./helper/_formValidate.js";
 import { PGS_init } from "./helper/_init.js";
@@ -40,6 +41,7 @@ pgs.registerModules({
     stepTabs: PGS_stepTabs,
     steps: PGS_steps,
     summary: PGS_summary,
+    tabs: PGS_tabs,
     formValidate: PGS_formValidate,
     scrollHorizontal: PGS_scrollHorizontal,
 });

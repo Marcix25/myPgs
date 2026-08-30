@@ -751,6 +751,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     background: var(--hover-background);
     color: var(--hover-color);
     outline-color: var(--hover-background);
+    border-color: var(--hover-background);
   }
   [pgs~=hover]:where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
     color: var(--hover-color);
@@ -3047,6 +3048,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     background: var(--hover-background);
     color: var(--hover-color);
     outline-color: var(--hover-background);
+    border-color: var(--hover-background);
   }
   [pgs~=card]:where(a):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p),
   [pgs~=card] > a:first-child:where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
@@ -3102,6 +3104,14 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=card]:where(:not([pgs-option~=cardLegacy])) [pgs~=card-content] {
   min-width: 0;
   padding: var(--card-padding);
+}
+
+[pgs~=card]:where(:not([pgs-option~=cardLegacy])) [pgs~=card-content]:has(+ [pgs~=card-content]) {
+  padding-bottom: calc(var(--card-padding) / 2);
+}
+
+[pgs~=card]:where(:not([pgs-option~=cardLegacy])) [pgs~=card-content] + [pgs~=card-content] {
+  padding-top: calc(var(--card-padding) / 2);
 }
 
 [pgs~=card][pgs-option~=cardLegacy] {
@@ -3205,6 +3215,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     background: var(--hover-background);
     color: var(--hover-color);
     outline-color: var(--hover-background);
+    border-color: var(--hover-background);
   }
   [pgs~=box]:where(a):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p),
   [pgs~=box] > a:first-child:where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
@@ -4232,10 +4243,14 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --button-border-width: var(--border-width);
   --button-border-style: var(--border-style);
   --button-border-color: var(--border-color);
+  --button-border-color-strong: var(--button-primaryColor);
+  --button-border-color-current: var(--button-primaryColor);
+  --button-border-color-active: var(--button-primaryColor);
   --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
   --button-borderRadius: var(--border-radius-input);
   color: var(--button-color);
   background: var(--button-background);
+  border-color: var(--button-background);
   --icon-size: var(--button-icon-size);
   font-family: var(--font);
   font-size: 1.6rem;
@@ -4251,6 +4266,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   display: flex;
   gap: calc(var(--button-size) / 2);
   align-items: center;
+  justify-content: center;
   padding: var(--button-padding);
   height: var(--button-height);
   width: fit-content;
@@ -4261,9 +4277,10 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   cursor: not-allowed;
 }
 
-[pgs~=form] :where(button[type=submit]):where([aria-current=page]) {
+[pgs~=form] :where(button[type=submit]):where([aria-current=page]), [pgs~=form] :where(button[type=submit]):where([aria-selected=true]) {
   color: var(--button-color-current);
   background: var(--button-background-current);
+  border-color: var(--button-background-current);
 }
 
 [pgs~=form] :where(button[type=submit]):where(:has(i)) {
@@ -4301,6 +4318,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     background: var(--hover-background);
     color: var(--hover-color);
     outline-color: var(--hover-background);
+    border-color: var(--hover-background);
   }
   [pgs~=form] :where(button[type=submit]):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
     color: var(--hover-color);
@@ -4375,10 +4393,14 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --button-border-width: var(--border-width);
   --button-border-style: var(--border-style);
   --button-border-color: var(--border-color);
+  --button-border-color-strong: var(--button-primaryColor);
+  --button-border-color-current: var(--button-primaryColor);
+  --button-border-color-active: var(--button-primaryColor);
   --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
   --button-borderRadius: var(--border-radius-input);
   color: var(--button-color);
   background: var(--button-background);
+  border-color: var(--button-background);
   --icon-size: var(--button-icon-size);
   font-family: var(--font);
   font-size: 1.6rem;
@@ -4394,6 +4416,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   display: flex;
   gap: calc(var(--button-size) / 2);
   align-items: center;
+  justify-content: center;
   padding: var(--button-padding);
   height: var(--button-height);
   width: fit-content;
@@ -4404,9 +4427,10 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   cursor: not-allowed;
 }
 
-[pgs~=button]:where([aria-current=page]) {
+[pgs~=button]:where([aria-current=page]), [pgs~=button]:where([aria-selected=true]) {
   color: var(--button-color-current);
   background: var(--button-background-current);
+  border-color: var(--button-background-current);
 }
 
 [pgs~=button]:where(:not([pgs-option~=buttonIcon])):where(:has(i)) {
@@ -4428,7 +4452,8 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   align-items: center;
 }
 
-[pgs~=button]:where(:is([pgs-option~=buttonIcon])) i, [pgs~=button]:where(:is([pgs-option~=buttonIcon])) [pgs~=icon] {
+[pgs~=button]:where(:is([pgs-option~=buttonIcon])) i,
+[pgs~=button]:where(:is([pgs-option~=buttonIcon])) [pgs~=icon] {
   display: inline-grid;
   place-items: center;
   inline-size: calc(var(--button-icon-size) + 2px);
@@ -4462,6 +4487,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     background: var(--hover-background);
     color: var(--hover-color);
     outline-color: var(--hover-background);
+    border-color: var(--hover-background);
   }
   [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
     color: var(--hover-color);
@@ -4492,6 +4518,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=button][pgs-option~=buttonStrong] {
   color: var(--button-color-strong);
   background: var(--button-background-strong);
+  border-color: var(--button-background-strong);
 }
 
 [pgs~=button][pgs-option~=buttonMini] {
@@ -5044,10 +5071,14 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --button-border-width: var(--border-width);
   --button-border-style: var(--border-style);
   --button-border-color: var(--border-color);
+  --button-border-color-strong: var(--button-primaryColor);
+  --button-border-color-current: var(--button-primaryColor);
+  --button-border-color-active: var(--button-primaryColor);
   --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
   --button-borderRadius: var(--border-radius-input);
   color: var(--button-color);
   background: var(--button-background);
+  border-color: var(--button-background);
   --icon-size: var(--button-icon-size);
   font-family: var(--font);
   font-size: 1.6rem;
@@ -5063,6 +5094,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   display: flex;
   gap: calc(var(--button-size) / 2);
   align-items: center;
+  justify-content: center;
   padding: var(--button-padding);
   height: var(--button-height);
   width: fit-content;
@@ -5073,9 +5105,10 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   cursor: not-allowed;
 }
 
-[pgs~=twoState]:where([aria-current=page]) {
+[pgs~=twoState]:where([aria-current=page]), [pgs~=twoState]:where([aria-selected=true]) {
   color: var(--button-color-current);
   background: var(--button-background-current);
+  border-color: var(--button-background-current);
 }
 
 [pgs~=twoState]:where(:has(i)) {
@@ -5113,6 +5146,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     background: var(--hover-background);
     color: var(--hover-color);
     outline-color: var(--hover-background);
+    border-color: var(--hover-background);
   }
   [pgs~=twoState]:where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
     color: var(--hover-color);
@@ -5270,10 +5304,14 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --button-border-width: var(--border-width);
   --button-border-style: var(--border-style);
   --button-border-color: var(--border-color);
+  --button-border-color-strong: var(--button-primaryColor);
+  --button-border-color-current: var(--button-primaryColor);
+  --button-border-color-active: var(--button-primaryColor);
   --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
   --button-borderRadius: var(--border-radius-input);
   color: var(--button-color);
   background: var(--button-background);
+  border-color: var(--button-background);
   --icon-size: var(--button-icon-size);
   font-family: var(--font);
   font-size: 1.6rem;
@@ -5289,6 +5327,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   display: flex;
   gap: calc(var(--button-size) / 2);
   align-items: center;
+  justify-content: center;
   padding: var(--button-padding);
   height: var(--button-height);
   width: fit-content;
@@ -5299,9 +5338,10 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   cursor: not-allowed;
 }
 
-[pgs~=chips] label:where([aria-current=page]) {
+[pgs~=chips] label:where([aria-current=page]), [pgs~=chips] label:where([aria-selected=true]) {
   color: var(--button-color-current);
   background: var(--button-background-current);
+  border-color: var(--button-background-current);
 }
 
 [pgs~=chips] label:where(:has(i)) {
@@ -5402,10 +5442,14 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --button-border-width: var(--border-width);
   --button-border-style: var(--border-style);
   --button-border-color: var(--border-color);
+  --button-border-color-strong: var(--button-primaryColor);
+  --button-border-color-current: var(--button-primaryColor);
+  --button-border-color-active: var(--button-primaryColor);
   --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
   --button-borderRadius: var(--border-radius-input);
   color: var(--button-color);
   background: var(--button-background);
+  border-color: var(--button-background);
   --icon-size: var(--button-icon-size);
   font-family: var(--font);
   font-size: 1.6rem;
@@ -5421,6 +5465,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   display: flex;
   gap: calc(var(--button-size) / 2);
   align-items: center;
+  justify-content: center;
   padding: var(--button-padding);
   height: var(--button-height);
   width: fit-content;
@@ -5431,9 +5476,10 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   cursor: not-allowed;
 }
 
-[pgs~=chip]:where([aria-current=page]) {
+[pgs~=chip]:where([aria-current=page]), [pgs~=chip]:where([aria-selected=true]) {
   color: var(--button-color-current);
   background: var(--button-background-current);
+  border-color: var(--button-background-current);
 }
 
 [pgs~=chip]:where(:has(i)) {
@@ -6314,6 +6360,10 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   color: var(--color-text);
 }
 
+[pgs~=tabs] [pgs~=tabs-panels] [pgs~=tabs-panels-content][hidden] {
+  display: none;
+}
+
 [pgs~=stepTabs] [pgs~=stepTabs-container] [pgs~=stepTabs-container-tab] {
   display: none;
 }
@@ -6736,6 +6786,7 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   padding: var(--padding-2);
   position: relative;
   border: var(--border-complete);
+  pointer-events: initial;
 }
 
 @media (max-width: 430px) {
