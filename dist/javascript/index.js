@@ -2514,10 +2514,10 @@ class PGS_Slides {
 
         //== PULSANTI
         if (!pgs(EL).querySelector('slides-prec')) {
-            EL.insertAdjacentHTML("afterbegin", `<button pgs="slides-prec button" pgs-option="buttonIcon" type="button" class="precButton" aria-label="slide precedente"> <span> <i pgs="icon" pgs-option="icon-arrowLeft"></i></span></button>`);
+            EL.insertAdjacentHTML("afterbegin", `<button pgs="slides-prec button" pgs-option="buttonIcon buttonMini" type="button" class="precButton" aria-label="slide precedente"> <span> <i pgs="icon" pgs-option="icon-arrowLeft"></i></span></button>`);
         }
         if (!pgs(EL).querySelector('slides-next')) {
-            EL.insertAdjacentHTML("beforeend", `<button pgs="slides-next button" pgs-option="buttonIcon" type="button" class="nextButton" aria-label="prossima slide"> <span> <i pgs="icon" pgs-option="icon-arrowRight"></i></span></button>`);
+            EL.insertAdjacentHTML("beforeend", `<button pgs="slides-next button" pgs-option="buttonIcon buttonMini" type="button" class="nextButton" aria-label="prossima slide"> <span> <i pgs="icon" pgs-option="icon-arrowRight"></i></span></button>`);
         }
 
         //== DOTS

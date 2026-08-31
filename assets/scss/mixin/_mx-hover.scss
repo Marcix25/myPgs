@@ -4,8 +4,8 @@
     box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
     background: var(--hover-background);
     color: var(--hover-color);
-    outline-color: var(--hover-background);
-    border-color: var(--hover-background);
+    outline-color: var(--hover-border);
+    border-color: var(--hover-border);
 
     :is(h1, h2, h3, h4, h5, h6, p) {
         color: var(--hover-color);
@@ -31,9 +31,9 @@
 @mixin hover() {
     $transition: unset 0ms;
     --hover-primaryColor: var(--color-primary-strong);
-    --hover-color: var(--color-whiteFixed);
     --hover-background: var(--hover-primaryColor);
     --hover-color: var(--color-white);
+    --hover-border: var(--hover-background);
     --hover-shadow-color: var(--hover-background);
 
     &:where(:disabled, [disabled]) {

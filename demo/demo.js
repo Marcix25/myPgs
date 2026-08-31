@@ -39,7 +39,7 @@ const ENTRY_ICONS = {
     "components/tooltip.html": "fa-comment",
     "components/modal.html": "fa-window-restore",
     "components/stepTabs.html": "fa-shoe-prints",
-    "components/tabs.html": "fa-table-cells",
+    "components/tabs.html": "fa-window-maximize",
     "components/accordion.html": "fa-layer-group",
     "components/alerts.html": "fa-triangle-exclamation",
     "components/badges.html": "fa-tag",
@@ -52,11 +52,13 @@ const ENTRY_ICONS = {
     "patterns/cookieConsent.html": "fa-cookie-bite",
     "base/body.html": "fa-file-code",
     "layout/responsive.html": "fa-mobile-screen",
-    "layout/breakpoints.html": "fa-mobile-screen",
+    "layout/breakpoints.html": "fa-ellipsis-vertical",
     "layout/spacing.html": "fa-ruler",
     "layout/utilities.html": "fa-wrench",
     "layout/section.html": "fa-table-cells",
     "layout/pageShell.html": "fa-table-columns",
+    "layout/header.html": "fa-arrow-up",
+    "layout/footer.html": "fa-arrow-down",
 };
 const DEFAULT_ENTRY_ICON = "fa-square";
 

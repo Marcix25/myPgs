@@ -51,7 +51,7 @@ body {
     /* the three block kinds sit next to each other in the same panel, so each gets its own tint:
        same family, enough separation to tell at a glance which one you are reading */
     &[data-kind="json"] {
-        background: #00000008;
+        background: light-dark(#00000008, #ffffff08);
 
         pre {
             scrollbar-color: #aa5e0086 transparent;
@@ -198,8 +198,18 @@ body {
         &[aria-current="page"] {
             --button-border-width: 0 0 0 4px;
             --button-border-color: var(--button-primaryColor);
+            --hover-border: var(--button-primaryColor);
             --button-borderRadius: 0px;
             transform: translateX(-2px);
+
+        }
+
+        i {
+            width: 22px;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     }
 
