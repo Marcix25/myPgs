@@ -9,7 +9,7 @@ export default function Header() {
                 </div>
 
                 <div pgs="header-element-onlyFull">
-                    <nav pgs="menu" pgs-option="horizontal menuShort" aria-label="Main menu">
+                    <nav pgs="menu" pgs-option="menuHorizontal menuShort" aria-label="Main menu">
                         <ul>
                             <li><a pgs="button" pgs-option="buttonText" href="/">Home</a></li>
                             <li><a pgs="button" pgs-option="buttonText" href="#componenti">Componenti</a></li>
@@ -26,14 +26,14 @@ export default function Header() {
                     </button>
                 </div>
 
-                <div pgs="header-element-hamburger modal" pgs-option="containerPGS[header] ">
+                <div pgs="header-element-hamburger modal" pgs-option="modalContainerPGS[header] ">
                     <button pgs="button modal-button modal-close header-element-hamburger-button" pgs-option="buttonIcon" type="button" aria-label="Open menu">
                         <i pgs="icon" pgs-option="iconDuo-hamburger" aria-hidden="true"></i>
                     </button>
 
-                    <dialog pgs="modal-dialog" pgs-option="right">
+                    <dialog pgs="modal-dialog" pgs-option="modalRight">
                         <div pgs="modal-dialog-content">
-                            <nav pgs="menu" pgs-option="vertical" aria-label="Mobile menu">
+                            <nav pgs="menu" pgs-option="menuVertical" aria-label="Mobile menu">
                                 <ul>
                                     <li><a pgs="button" pgs-option="buttonText" href="/">Home</a></li>
                                     <li><a pgs="button" pgs-option="buttonText" href="#componenti">Componenti</a></li>

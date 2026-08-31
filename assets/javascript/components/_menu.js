@@ -41,7 +41,7 @@ function setupAccordion(li, button, ul) {
 
 function setupDropdown(li, button, ul) {
     pgs(li).add("dropdown");
-    pgs(li).option.setValueBrackets("position", "bottom right");
+    pgs(li).option.setValueBrackets("dropdownPosition", "bottom right");
     pgs(button).add("dropdown-button");
     pgs(ul).add("dropdown-content");
 }
@@ -52,7 +52,7 @@ function PGS_menu_init(root = document) {
     pgs(root).querySelectorAll('menu').forEach(MENU => {
         if (API.has(MENU)) return;
 
-        const isHorizontal = pgs(MENU).option.contains("horizontal");
+        const isHorizontal = pgs(MENU).option.contains("menuHorizontal");
         const topLevel = MENU.querySelector("ul");
 
         MENU.querySelectorAll('li').forEach(li => {

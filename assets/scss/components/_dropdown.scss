@@ -13,7 +13,7 @@
     position: relative;
 
     [pgs-option=dropdownHover],
-    [pgs-option="position[]"]{}
+    [pgs-option="dropdownPosition[]"]{}
 
     &:not([pgs-state~="open"])>[pgs~="dropdown-content"] {
         display: none;

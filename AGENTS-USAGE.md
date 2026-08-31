@@ -78,7 +78,7 @@ Import only the mixins when the project does not need the library stylesheet sou
 - Reuse existing properties such as `--color-primary`, `--color-box`, `--color-text`, `--padding`, `--padding-page`, `--gap-texts`, `--gap-elements`, `--gap-sections`, `--border-radius`, `--border-radius-input`, `--border-width`, `--border-color`, `--border-complete`, `--outline-width`, `--outline-color`, `--box-shadow`, and `--focus-visible`.
 - Use existing layout and component mixins instead of rewriting them.
 - Compose custom buttons with `buttonBase`, either `buttonContent` or `buttonIcon`, either `buttonHover` or `buttonNohover`, and the required variants. Variant mixins do not include the base styles.
-- Configure dropdown placement with `pgs-option="position[side align]"`, for example `position[top left]`, `position[bottom right]`, or `position[left center]`.
+- Configure dropdown placement with `pgs-option="dropdownPosition[side align]"`, for example `dropdownPosition[top left]`, `dropdownPosition[bottom right]`, or `dropdownPosition[left center]`.
 - Avoid overriding `display`, `position`, `overflow`, `padding`, and `gap` when the component already manages them.
 - Prefer component-level custom properties for project customization.
 
@@ -111,8 +111,8 @@ const modal = pgs(document).querySelector("modal");
 
 pgs(modal).add("custom-token");
 pgs(modal).state.add("open");
-pgs(modal).option.contains("history");
-pgs(modal).option.getValueBrackets("containerID");
+pgs(modal).option.contains("modalHistory");
+pgs(modal).option.getValueBrackets("modalContainerID");
 ```
 
 Use registered modules directly:

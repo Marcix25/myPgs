@@ -32,7 +32,6 @@
         @include buttonBig();
     }
 
-
     &[pgs-option~=buttonText] {
         @include buttonText();
     }

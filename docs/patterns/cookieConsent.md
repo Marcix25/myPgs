@@ -26,7 +26,7 @@ Accessible pattern for collecting and storing analytics cookie consent, applying
 
 - `cookieConsent`: JSON object read from the hidden marker on page load — every field, with its accepted values and its default, is annotated in the reference below.
 - `buttonStrong`: presents full acceptance as the primary action.
-- `topLevel`: centers the dialog with a backdrop instead of positioning it inline; see Modal.
+- `modalTopLevel`: centers the dialog with a backdrop instead of positioning it inline; see Modal.
 - `badgeSuccess`: presents the essential-cookie badge with the success color; see Badges.
 
 ## JavaScript API

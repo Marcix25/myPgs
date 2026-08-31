@@ -25,7 +25,7 @@
             </div>
 
             <div pgs="header-element-onlyFull">
-                <nav pgs="menu" pgs-option="horizontal menuShort" aria-label="Main menu">
+                <nav pgs="menu" pgs-option="menuHorizontal menuShort" aria-label="Main menu">
                     <ul>
                         <li><a pgs="button" pgs-option="buttonText" href="#base">Base</a></li>
                         <li><a pgs="button" pgs-option="buttonText" href="#components">Components</a></li>
@@ -40,7 +40,7 @@
 
             <div pgs="header-element-alwaysOnLast">
                 <div pgs="flexRow nowrap">
-                    <div pgs="modal" pgs-option="containerPGS[header]">
+                    <div pgs="modal" pgs-option="modalContainerPGS[header]">
                         <button type="button" pgs="modal-button modal-close button notificationBell" pgs-option="buttonIcon" aria-label="Open notifications">
                             <i class="fa-duotone fa-solid fa-bell"></i>
                             <span pgs="notificationBell-counter"></span>
@@ -52,13 +52,13 @@
                 </div>
             </div>
 
-            <div pgs="header-element-hamburger modal" pgs-option="containerPGS[header]">
+            <div pgs="header-element-hamburger modal" pgs-option="modalContainerPGS[header]">
 
                 <button pgs="button modal-button modal-close header-element-hamburger-button" pgs-option="buttonIcon" type="button" title="menu">
                     <i pgs="icon" pgs-option="iconDuo-hamburger" aria-hidden="true"></i>
                 </button>
 
-                <dialog pgs="modal-dialog" pgs-option="right">
+                <dialog pgs="modal-dialog" pgs-option="modalRight">
                     <div pgs="modal-dialog-content">
                         <div pgs="modal-dialog-content-header bgWhite ">
                             <p pgs="h3 margin" pgs-option="margin2"><i class="fa-solid fa-book-bookmark"></i> Browse docs!</p>
@@ -94,7 +94,7 @@
                     </div>
                     <div pgs="box flexColumn bgSecondarySoft" pgs-option="gapTexts boxMini">
                         <strong>pgs-option</strong>
-                        <p>How it is configured. Some options carry a value between square brackets, such as <code>position[top left]</code>.</p>
+                        <p>How it is configured. Some options carry a value between square brackets, such as <code>dropdownPosition[top left]</code>.</p>
                     </div>
                     <div pgs="box flexColumn bgTertiarySoft" pgs-option="gapTexts boxMini">
                         <strong>pgs-state</strong>
@@ -135,7 +135,7 @@
         </section>
     </template>
 
-    <div pgs="pageShell" pgs-option="shellFullPage shellAsideScrollFlush">
+    <div pgs="pageShell" pgs-option="pageShellFullPage pageShellAsideScrollFlush">
         <aside pgs="pageShell-aside hideContainerDownBigTablet" id="asideScroll">
             <div pgs="flexColumn gapElements" class="reference-demo-nav"></div>
         </aside>

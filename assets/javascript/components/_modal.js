@@ -26,13 +26,13 @@ function initializeModal(MODAL, existingDialog = null) {
 
 
     //== OPTION ATTRIBUTES MODAL
-    const disableBackdropClose = pgs(MODAL).option.contains("disableBackdropClose");
-    const data_history = pgs(MODAL).option.contains("history");
-    const data_container = pgs(MODAL).option.getValueBrackets("containerID");
-    const data_containerPGS = pgs(MODAL).option.getValueBrackets("containerPGS");
+    const modalDisableBackdropClose = pgs(MODAL).option.contains("modalDisableBackdropClose");
+    const data_history = pgs(MODAL).option.contains("modalHistory");
+    const data_container = pgs(MODAL).option.getValueBrackets("modalContainerID");
+    const data_modalContainerPGS = pgs(MODAL).option.getValueBrackets("modalContainerPGS");
 
     //== OPTION ATTRIBUTES DIALOG
-    const topLevel = pgs(DIALOG).option.contains("topLevel");
+    const modalTopLevel = pgs(DIALOG).option.contains("modalTopLevel");
 
 
     //== BUTTON CLOSE
@@ -52,10 +52,10 @@ function initializeModal(MODAL, existingDialog = null) {
 
 
     //== POSITION
-    if (topLevel && !MODAL.contains(DIALOG)) MODAL.append(DIALOG);
-    else if (!topLevel) {
+    if (modalTopLevel && !MODAL.contains(DIALOG)) MODAL.append(DIALOG);
+    else if (!modalTopLevel) {
         if (data_container) document.querySelector("#" + data_container)?.append(DIALOG);
-        else if (data_containerPGS) pgs(document).querySelector(data_containerPGS)?.append(DIALOG);
+        else if (data_modalContainerPGS) pgs(document).querySelector(data_modalContainerPGS)?.append(DIALOG);
         else document.body.append(DIALOG);
     }
 
@@ -76,7 +76,7 @@ function initializeModal(MODAL, existingDialog = null) {
 
         if (!DIALOG.open) document.querySelectorAll("dialog[open]").forEach((dlg) => dlg.close());
         statusModal(true);
-        topLevel ? DIALOG.showModal() : DIALOG.show();
+        modalTopLevel ? DIALOG.showModal() : DIALOG.show();
         // modalCustomEvents('modal:open', { event: e });
         MODAL.dispatchEvent(new CustomEvent('modal:open'));
         DIALOG.dispatchEvent(new CustomEvent('modal:open'));
@@ -115,7 +115,7 @@ function initializeModal(MODAL, existingDialog = null) {
 
     //= CLOSE
     DIALOG.addEventListener("close", () => statusModal(false), { signal });
-    DIALOG.addEventListener("click", e => { if (e.target == DIALOG && !disableBackdropClose) closeModal(e) }, { signal });
+    DIALOG.addEventListener("click", e => { if (e.target == DIALOG && !modalDisableBackdropClose) closeModal(e) }, { signal });
     BUTTON_CLOSE?.addEventListener("click", e => closeModal(e), { signal });
 
     //= UPDATE HISTORY

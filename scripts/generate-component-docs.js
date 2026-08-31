@@ -453,7 +453,7 @@ function validatePosition(file, option, errors) {
     };
 
     if (parts.length !== 2 || !allowed[side]?.has(align)) {
-        errors.push(createError(file, `Payload non valido per pgs-option position: "${option.payload}".`, "Usa una coppia lato/allineamento compatibile, per esempio position[bottom center].", "@pgs-option", "position"));
+        errors.push(createError(file, `Payload non valido per pgs-option dropdownPosition: "${option.payload}".`, "Usa una coppia lato/allineamento compatibile, per esempio dropdownPosition[bottom center].", "@pgs-option", "dropdownPosition"));
     }
 }
 
@@ -530,22 +530,22 @@ function validateTemplate(template, parsed, sources, allSourceContent) {
         if (!documentedOptions.has(option.key) && !documentedRelated.has(option.key)) {
             errors.push(createError(file, `Valore pgs-option non documentato: "${option.key}".`, "Aggiungi la chiave alla sezione @pgs-option oppure a @related.", "@pgs-option", option.key));
         }
-        if (["containerID", "containerPGS", "tabIcon"].includes(option.key) && (!option.payload || !option.payload.trim())) {
+        if (["modalContainerID", "modalContainerPGS", "stepTabsIcon"].includes(option.key) && (!option.payload || !option.payload.trim())) {
             errors.push(createError(file, `Payload mancante per pgs-option "${option.key}".`, `Usa ${option.key}[valore] con un valore non vuoto.`, "@pgs-option", option.key));
         }
-        //== tabIcon accetta tre forme: markup completo (da "<"), il nome di un glifo interno, o una
+        //== stepTabsIcon accetta tre forme: markup completo (da "<"), il nome di un glifo interno, o una
         //== lista di classi. Solo la seconda deve restare una parola sola, perche' e' una chiave:
         //== le classi possono essere piu' di una e il markup contiene spazi per costruzione
-        if (option.key === "tabIcon") {
+        if (option.key === "stepTabsIcon") {
             const payload = (option.payload || "").trim();
             if (payload.startsWith("icon-") && /\s/.test(payload)) {
-                errors.push(createError(file, `Il nome di un glifo in tabIcon deve essere una parola sola: "${option.payload}".`, "Usa il markup completo, il nome di un glifo, oppure una lista di classi: tabIcon[<i pgs='icon' pgs-option='icon-check'></i>], tabIcon[icon-check], tabIcon[fa-regular fa-star].", "@pgs-option", option.key));
+                errors.push(createError(file, `Il nome di un glifo in stepTabsIcon deve essere una parola sola: "${option.payload}".`, "Usa il markup completo, il nome di un glifo, oppure una lista di classi: stepTabsIcon[<i pgs='icon' pgs-option='icon-check'></i>], stepTabsIcon[icon-check], stepTabsIcon[fa-regular fa-star].", "@pgs-option", option.key));
             }
             if (payload.startsWith("<") && !/<[a-zA-Z][^>]*>/.test(payload)) {
-                errors.push(createError(file, `Il markup di tabIcon non e' un tag valido: "${option.payload}".`, "Scrivi un elemento completo, con gli attributi interni fra apici singoli.", "@pgs-option", option.key));
+                errors.push(createError(file, `Il markup di stepTabsIcon non e' un tag valido: "${option.payload}".`, "Scrivi un elemento completo, con gli attributi interni fra apici singoli.", "@pgs-option", option.key));
             }
         }
-        if (option.key === "position") validatePosition(file, option, errors);
+        if (option.key === "dropdownPosition") validatePosition(file, option, errors);
     });
 
     documentation["pgs-option"].forEach(item => {

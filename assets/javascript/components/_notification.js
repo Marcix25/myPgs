@@ -267,7 +267,7 @@ const fn_notification = {
         });
     },
 
-    //+ generates <dialog pgs-option="right"><div pgs="modal-dialog-content"><div pgs="notifications"></div></div></dialog>
+    //+ generates <dialog pgs-option="modalRight"><div pgs="modal-dialog-content"><div pgs="notifications"></div></div></dialog>
     //+ inside the modal wrapping notificationBell, then asks pgs.modal to (re)initialize it.
     _ensureDialog(root = document) {
         let created = false;
@@ -276,14 +276,14 @@ const fn_notification = {
             const modalWrapper = bell.closest("[pgs~='modal']");
             if (!modalWrapper || modalWrapper.querySelector("dialog")) return;
 
-            //== containerID/containerPGS move the dialog out of the wrapper, so on a later
+            //== modalContainerID/modalContainerPGS move the dialog out of the wrapper, so on a later
             //== pgs.init() the wrapper looks empty again: without this marker every re-init
             //== would mint another empty panel and the bell would end up opening one of those.
             if (modalWrapper.dataset.notificationDialog === "true") return;
             modalWrapper.dataset.notificationDialog = "true";
 
             const dialog = document.createElement("dialog");
-            pgs(dialog).option.add("right");
+            pgs(dialog).option.add("modalRight");
 
             const content = document.createElement("div");
             pgs(content).add("modal-dialog-content");

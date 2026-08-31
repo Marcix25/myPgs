@@ -37,10 +37,10 @@ class PGS_Slides {
 
         //== PULSANTI
         if (!pgs(EL).querySelector('slides-prec')) {
-            EL.insertAdjacentHTML("afterbegin", `<button pgs="slides-prec button" pgs-option="buttonIcon" type="button" class="precButton" aria-label="slide precedente"> <span> <i pgs="icon" pgs-option="icon-arrowLeft"></i></span></button>`);
+            EL.insertAdjacentHTML("afterbegin", `<button pgs="slides-prec button" pgs-option="buttonIcon buttonMini" type="button" class="precButton" aria-label="slide precedente"> <span> <i pgs="icon" pgs-option="icon-arrowLeft"></i></span></button>`);
         }
         if (!pgs(EL).querySelector('slides-next')) {
-            EL.insertAdjacentHTML("beforeend", `<button pgs="slides-next button" pgs-option="buttonIcon" type="button" class="nextButton" aria-label="prossima slide"> <span> <i pgs="icon" pgs-option="icon-arrowRight"></i></span></button>`);
+            EL.insertAdjacentHTML("beforeend", `<button pgs="slides-next button" pgs-option="buttonIcon buttonMini" type="button" class="nextButton" aria-label="prossima slide"> <span> <i pgs="icon" pgs-option="icon-arrowRight"></i></span></button>`);
         }
 
         //== DOTS
@@ -66,7 +66,7 @@ class PGS_Slides {
         let current;
         
 
-        if (pgs(this.element).option.contains('singleScroll')) current = currents[currents.length - 1];
+        if (pgs(this.element).option.contains('slidesSingleScroll')) current = currents[currents.length - 1];
         else current = currents[0];
 
         const prev = current?.previousElementSibling;
@@ -82,7 +82,7 @@ class PGS_Slides {
 
         
         
-        if (pgs(this.element).option.contains('singleScroll')) current = currents[0];
+        if (pgs(this.element).option.contains('slidesSingleScroll')) current = currents[0];
         else current = currents[currents.length - 1];
         
         const next = current?.nextElementSibling;
@@ -143,10 +143,10 @@ class PGS_Slides {
         const dots = Array.from(pgs(slides).querySelector('slides-dots').children);
 
         //== option
-        const notScrollWithMouse = pgs(slides).option.contains('notScrollWithMouse');
+        const slidesNotScrollWithMouse = pgs(slides).option.contains('slidesNotScrollWithMouse');
 
         //== scroll
-        const removeHorizontalScroll = notScrollWithMouse
+        const removeHorizontalScroll = slidesNotScrollWithMouse
             ? null
             : PGS_scrollHorizontal(this.container, 5);
 

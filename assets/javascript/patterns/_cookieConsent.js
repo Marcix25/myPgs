@@ -126,7 +126,7 @@ function buildCookieConsent(marker) {
     pgs(root).add('modal', 'cookieConsent');
 
     root.innerHTML = `
-        <dialog pgs-option="topLevel">
+        <dialog pgs-option="modalTopLevel">
             <div pgs="modal-dialog-content">
                 <div pgs="flexColumn">
                     <p><i pgs="icon" pgs-option="icon-cookie"></i> ${formatText(config.titleIntro)} <br></p>

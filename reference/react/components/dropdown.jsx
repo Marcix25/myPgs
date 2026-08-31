@@ -1,13 +1,13 @@
 const dropdowns = [
     ["Bottom center", "bottom center content"],
     ["Hover", "hover content", "dropdownHover"],
-    ["Top left", "top left content", "position[top left]"],
-    ["Top center", "top center content", "position[top center]"],
-    ["Top right", "top right content", "position[top right]"],
-    ["Bottom left", "bottom left content", "position[bottom left]"],
-    ["Bottom right", "bottom right content", "position[bottom right]"],
-    ["Left center", "left center content", "position[left center]"],
-    ["Right center", "right center content", "position[right center]"],
+    ["Top left", "top left content", "dropdownPosition[top left]"],
+    ["Top center", "top center content", "dropdownPosition[top center]"],
+    ["Top right", "top right content", "dropdownPosition[top right]"],
+    ["Bottom left", "bottom left content", "dropdownPosition[bottom left]"],
+    ["Bottom right", "bottom right content", "dropdownPosition[bottom right]"],
+    ["Left center", "left center content", "dropdownPosition[left center]"],
+    ["Right center", "right center content", "dropdownPosition[right center]"],
 ];
 
 export default function Dropdown() {

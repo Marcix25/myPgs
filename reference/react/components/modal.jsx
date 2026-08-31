@@ -1,7 +1,7 @@
 export default function Modal() {
     return (
         <>
-            <div pgs="modal" pgs-option="containerID[modal-container]">
+            <div pgs="modal" pgs-option="modalContainerID[modal-container]">
                 <button pgs="modal-button button" type="button">
  Open modal
                 </button>
@@ -19,12 +19,12 @@ export default function Modal() {
                 </dialog>
             </div>
 
-            <div pgs="modal" pgs-option="containerID[modal-container]">
+            <div pgs="modal" pgs-option="modalContainerID[modal-container]">
                 <button pgs="modal-button button" type="button">
  Open modal right
                 </button>
 
-                <dialog pgs-option="right">
+                <dialog pgs-option="modalRight">
                     <div pgs="modal-dialog-content">
                         <div pgs="modal-dialog-content-header">
                             <h3>Side modal</h3>
@@ -37,12 +37,12 @@ export default function Modal() {
                 </dialog>
             </div>
 
-            <div pgs="modal" pgs-option="containerID[modal-container]">
+            <div pgs="modal" pgs-option="modalContainerID[modal-container]">
                 <button pgs="modal-button button" type="button">
  Open modal left
                 </button>
 
-                <dialog pgs-option="left">
+                <dialog pgs-option="modalLeft">
                     <div pgs="modal-dialog-content">
                         <div pgs="modal-dialog-content-header">
                             <h3>Left-side modal</h3>
@@ -60,7 +60,7 @@ export default function Modal() {
  Confirmation salvataggio
                 </button>
 
-                <dialog pgs-option="topLevel">
+                <dialog pgs-option="modalTopLevel">
                     <div pgs="modal-dialog-content">
                         <div pgs="modal-dialog-content-header">
                             <h3>Save changes?</h3>

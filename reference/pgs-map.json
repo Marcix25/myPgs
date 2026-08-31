@@ -558,7 +558,7 @@
         "pgs-generated": [],
         "pgs-option": [
             "dropdownHover",
-            "position"
+            "dropdownPosition"
         ]
     },
     "flex": {
@@ -827,6 +827,7 @@
             "headerCompact",
             "headerCompactBigMobile",
             "headerCompactBigTablet",
+            "headerCompactBottom",
             "headerCompactLaptop",
             "headerCompactMobile",
             "headerCompactTablet",
@@ -1173,10 +1174,12 @@
         ],
         "pgs-option": [
             "buttonNohover",
+            "dropdownPosition",
             "horizontal",
+            "menuHorizontal",
             "menuIconOnlyCurrent",
             "menuShort",
-            "position",
+            "menuVertical",
             "vertical"
         ]
     },
@@ -1198,11 +1201,14 @@
             "modal-dialog"
         ],
         "pgs-option": [
-            "containerID",
-            "containerPGS",
-            "disableBackdropClose",
-            "history",
             "left",
+            "modalContainerID",
+            "modalContainerPGS",
+            "modalDisableBackdropClose",
+            "modalHistory",
+            "modalLeft",
+            "modalRight",
+            "modalTopLevel",
             "right",
             "topLevel"
         ]
@@ -1435,6 +1441,9 @@
         ],
         "pgs-generated": [],
         "pgs-option": [
+            "pageShellAsideScroll",
+            "pageShellAsideScrollFlush",
+            "pageShellFullPage",
             "shellAsideScroll",
             "shellAsideScrollFlush",
             "shellFullPage"
@@ -1549,10 +1558,12 @@
             "slides-prec"
         ],
         "pgs-option": [
-            "notScrollWithMouse",
             "shadowDesktop",
-            "singleScroll",
-            "slideAnimationScale"
+            "slideAnimationScale",
+            "slidesAnimationScale",
+            "slidesNotScrollWithMouse",
+            "slidesShadowDesktop",
+            "slidesSingleScroll"
         ]
     },
     "steps": {
@@ -1579,7 +1590,7 @@
             "_stepTabs-dots-dot"
         ],
         "pgs-option": [
-            "tabIcon"
+            "stepTabsIcon"
         ]
     },
     "summary": {

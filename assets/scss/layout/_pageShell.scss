@@ -212,8 +212,8 @@
     }
 
     //+ OPTION
-    //++ shellFullPage
-    &[pgs-option~="shellFullPage"] {
+    //++ pageShellFullPage
+    &[pgs-option~="pageShellFullPage"] {
         --pageShell-width: 100%;
         --pageShell-padding-inline: var(--padding);
 
@@ -222,16 +222,16 @@
         }
     }
 
-    //++ shellAsideScroll
-    //++ shellAsideScrollFlush
+    //++ pageShellAsideScroll
+    //++ pageShellAsideScrollFlush
     /*  the sidebar scrolls on its own: it sticks next to the content and is clamped to
         the viewport, so the overflow lives on the aside itself and no inner wrapper is
         needed. Both rules below sit at the same specificity inside the option, so the
         band that releases it wins by source order and does not depend on the
         specificity of the composition bands above. 
     */
-    &[pgs-option~="shellAsideScroll"],
-    &[pgs-option~="shellAsideScrollFlush"] {
+    &[pgs-option~="pageShellAsideScroll"],
+    &[pgs-option~="pageShellAsideScrollFlush"] {
 
         //=== vertical: the sidebar stacks, so it stops being its own scroller
         //+( big-tablet 
@@ -252,8 +252,8 @@
         }
     }
 
-    //++ shellAsideScrollFlush
-    &[pgs-option~="shellAsideScrollFlush"] {
+    //++ pageShellAsideScrollFlush
+    &[pgs-option~="pageShellAsideScrollFlush"] {
 
         //+( big-tablet 
         @container (min-width: #{$big-tablet}) {

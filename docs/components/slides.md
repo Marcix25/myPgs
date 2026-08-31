@@ -18,10 +18,10 @@ Slides markup, configuration, behavior, and usage example.
 
 ## PGS Options
 
-- `singleScroll`: identifies the singleScroll element used by Slides.
-- `shadowDesktop`: fades the slides out at the edges from the tablet width up, only on the side that still has slides to reach.
-- `slideAnimationScale`: scales each slide by its scroll visibility using the --visible-percent custom property.
-- `notScrollWithMouse`: identifies the notScrollWithMouse element used by Slides.
+- `slidesSingleScroll`: identifies the slidesSingleScroll element used by Slides.
+- `slidesShadowDesktop`: fades the slides out at the edges from the tablet width up, only on the side that still has slides to reach.
+- `slidesAnimationScale`: scales each slide by its scroll visibility using the --visible-percent custom property.
+- `slidesNotScrollWithMouse`: identifies the slidesNotScrollWithMouse element used by Slides.
 - `buttonIcon`: styles the previous and next actions generated at runtime.
 
 ## JavaScript API
@@ -60,7 +60,7 @@ Complete HTML markup and usage example for Slides.
 ## Example
 
 ```html
-<div pgs="slides" pgs-option="singleScroll shadowDesktop">
+<div pgs="slides" pgs-option="slidesSingleScroll slidesShadowDesktop">
     <ul pgs="slides-container">
         <li pgs="slides-container-slide">
             <article pgs="card">

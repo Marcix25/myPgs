@@ -94,7 +94,6 @@
 //=== BUTTON ICON
 @mixin buttonIcon() {
     --button-padding: var(--button-padding-block);
-    --button-borderRadius: 50%;
     flex: 0 0;
     aspect-ratio: 1;
     justify-content: center;

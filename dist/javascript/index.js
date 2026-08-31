@@ -1063,7 +1063,7 @@ function getDropdowns(root) {
 
 function getposition(dropdown) {
     const option = pgs(dropdown).option;
-    const optionValue = option.getValueBrackets("position");
+    const optionValue = option.getValueBrackets("dropdownPosition");
     const raw = (optionValue || "bottom center").trim().toLowerCase();
     const parts = raw.split(/\s+/).filter(Boolean);
     const side = parts.find(part => ["top", "right", "bottom", "left"].includes(part)) || "bottom";
@@ -1456,7 +1456,7 @@ function setupAccordion(li, button, ul) {
 
 function setupDropdown(li, button, ul) {
     pgs(li).add("dropdown");
-    pgs(li).option.setValueBrackets("position", "bottom right");
+    pgs(li).option.setValueBrackets("dropdownPosition", "bottom right");
     pgs(button).add("dropdown-button");
     pgs(ul).add("dropdown-content");
 }
@@ -1467,7 +1467,7 @@ function PGS_menu_init(root = document) {
     pgs(root).querySelectorAll('menu').forEach(MENU => {
         if (API.has(MENU)) return;
 
-        const isHorizontal = pgs(MENU).option.contains("horizontal");
+        const isHorizontal = pgs(MENU).option.contains("menuHorizontal");
         const topLevel = MENU.querySelector("ul");
 
         MENU.querySelectorAll('li').forEach(li => {
@@ -1551,13 +1551,13 @@ function initializeModal(MODAL, existingDialog = null) {
 
 
     //== OPTION ATTRIBUTES MODAL
-    const disableBackdropClose = pgs(MODAL).option.contains("disableBackdropClose");
-    const data_history = pgs(MODAL).option.contains("history");
-    const data_container = pgs(MODAL).option.getValueBrackets("containerID");
-    const data_containerPGS = pgs(MODAL).option.getValueBrackets("containerPGS");
+    const modalDisableBackdropClose = pgs(MODAL).option.contains("modalDisableBackdropClose");
+    const data_history = pgs(MODAL).option.contains("modalHistory");
+    const data_container = pgs(MODAL).option.getValueBrackets("modalContainerID");
+    const data_modalContainerPGS = pgs(MODAL).option.getValueBrackets("modalContainerPGS");
 
     //== OPTION ATTRIBUTES DIALOG
-    const topLevel = pgs(DIALOG).option.contains("topLevel");
+    const modalTopLevel = pgs(DIALOG).option.contains("modalTopLevel");
 
 
     //== BUTTON CLOSE
@@ -1577,10 +1577,10 @@ function initializeModal(MODAL, existingDialog = null) {
 
 
     //== POSITION
-    if (topLevel && !MODAL.contains(DIALOG)) MODAL.append(DIALOG);
-    else if (!topLevel) {
+    if (modalTopLevel && !MODAL.contains(DIALOG)) MODAL.append(DIALOG);
+    else if (!modalTopLevel) {
         if (data_container) document.querySelector("#" + data_container)?.append(DIALOG);
-        else if (data_containerPGS) pgs(document).querySelector(data_containerPGS)?.append(DIALOG);
+        else if (data_modalContainerPGS) pgs(document).querySelector(data_modalContainerPGS)?.append(DIALOG);
         else document.body.append(DIALOG);
     }
 
@@ -1601,7 +1601,7 @@ function initializeModal(MODAL, existingDialog = null) {
 
         if (!DIALOG.open) document.querySelectorAll("dialog[open]").forEach((dlg) => dlg.close());
         statusModal(true);
-        topLevel ? DIALOG.showModal() : DIALOG.show();
+        modalTopLevel ? DIALOG.showModal() : DIALOG.show();
         // modalCustomEvents('modal:open', { event: e });
         MODAL.dispatchEvent(new CustomEvent('modal:open'));
         DIALOG.dispatchEvent(new CustomEvent('modal:open'));
@@ -1640,7 +1640,7 @@ function initializeModal(MODAL, existingDialog = null) {
 
     //= CLOSE
     DIALOG.addEventListener("close", () => statusModal(false), { signal });
-    DIALOG.addEventListener("click", e => { if (e.target == DIALOG && !disableBackdropClose) closeModal(e) }, { signal });
+    DIALOG.addEventListener("click", e => { if (e.target == DIALOG && !modalDisableBackdropClose) closeModal(e) }, { signal });
     BUTTON_CLOSE?.addEventListener("click", e => closeModal(e), { signal });
 
     //= UPDATE HISTORY
@@ -1996,7 +1996,7 @@ const fn_notification = {
         });
     },
 
-    //+ generates <dialog pgs-option="right"><div pgs="modal-dialog-content"><div pgs="notifications"></div></div></dialog>
+    //+ generates <dialog pgs-option="modalRight"><div pgs="modal-dialog-content"><div pgs="notifications"></div></div></dialog>
     //+ inside the modal wrapping notificationBell, then asks pgs.modal to (re)initialize it.
     _ensureDialog(root = document) {
         let created = false;
@@ -2005,14 +2005,14 @@ const fn_notification = {
             const modalWrapper = bell.closest("[pgs~='modal']");
             if (!modalWrapper || modalWrapper.querySelector("dialog")) return;
 
-            //== containerID/containerPGS move the dialog out of the wrapper, so on a later
+            //== modalContainerID/modalContainerPGS move the dialog out of the wrapper, so on a later
             //== pgs.init() the wrapper looks empty again: without this marker every re-init
             //== would mint another empty panel and the bell would end up opening one of those.
             if (modalWrapper.dataset.notificationDialog === "true") return;
             modalWrapper.dataset.notificationDialog = "true";
 
             const dialog = document.createElement("dialog");
-            pgs(dialog).option.add("right");
+            pgs(dialog).option.add("modalRight");
 
             const content = document.createElement("div");
             pgs(content).add("modal-dialog-content");
@@ -2543,7 +2543,7 @@ class PGS_Slides {
         let current;
         
 
-        if (pgs(this.element).option.contains('singleScroll')) current = currents[currents.length - 1];
+        if (pgs(this.element).option.contains('slidesSingleScroll')) current = currents[currents.length - 1];
         else current = currents[0];
 
         const prev = current?.previousElementSibling;
@@ -2559,7 +2559,7 @@ class PGS_Slides {
 
         
         
-        if (pgs(this.element).option.contains('singleScroll')) current = currents[0];
+        if (pgs(this.element).option.contains('slidesSingleScroll')) current = currents[0];
         else current = currents[currents.length - 1];
         
         const next = current?.nextElementSibling;
@@ -2620,10 +2620,10 @@ class PGS_Slides {
         const dots = Array.from(pgs(slides).querySelector('slides-dots').children);
 
         //== option
-        const notScrollWithMouse = pgs(slides).option.contains('notScrollWithMouse');
+        const slidesNotScrollWithMouse = pgs(slides).option.contains('slidesNotScrollWithMouse');
 
         //== scroll
-        const removeHorizontalScroll = notScrollWithMouse
+        const removeHorizontalScroll = slidesNotScrollWithMouse
             ? null
             : (0,_helper_scrollY_js__WEBPACK_IMPORTED_MODULE_0__.PGS_scrollHorizontal)(this.container, 5);
 
@@ -2750,13 +2750,13 @@ function PGS_stepTabs_init(root = document) {
             dots.innerHTML = "";
 
             allTab.forEach((tab, index) => {
-                const authoredIcon = (pgs(tab).option.getValueBrackets("tabIcon") || "").trim();
+                const authoredIcon = (pgs(tab).option.getValueBrackets("stepTabsIcon") || "").trim();
                 const dot = document.createElement("button");
                 dot.type = "button";
                 pgs(dot).add("_stepTabs-dots-dot");
                 pgs(dot).add("button");
                 pgs(dot).option.add("buttonIcon buttonNohover");
-                //== tabIcon takes three shapes, told apart by how the value opens. Markup, from a
+                //== stepTabsIcon takes three shapes, told apart by how the value opens. Markup, from a
                 //== "<", is instantiated as written: that is what puts every icon set in reach,
                 //== including the ones a class list cannot describe because they want their name as
                 //== text content or an attribute of their own. An "icon-" prefix is a built-in
@@ -4257,7 +4257,7 @@ function initHeader_Height(header) {
 
     //+ GET HEADER HEIGHT ELEMENT
     function getHeaderHeightElement(header) {
-        const isCompactBottom = window.getComputedStyle(header).getPropertyValue("--header-compactBottom-active").trim() === "1";
+        const isCompactBottom = window.getComputedStyle(header).getPropertyValue("--header-headerCompactBottom-active").trim() === "1";
         return isCompactBottom ? pgs(header).querySelector("header-element") || header : header;
     }
 
@@ -4526,7 +4526,7 @@ function buildCookieConsent(marker) {
     pgs(root).add('modal', 'cookieConsent');
 
     root.innerHTML = `
-        <dialog pgs-option="topLevel">
+        <dialog pgs-option="modalTopLevel">
             <div pgs="modal-dialog-content">
                 <div pgs="flexColumn">
                     <p><i pgs="icon" pgs-option="icon-cookie"></i> ${formatText(config.titleIntro)} <br></p>

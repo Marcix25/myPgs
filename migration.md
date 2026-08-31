@@ -115,6 +115,38 @@ and each family has its own thickness options.
 `reference/html/layout/body.html` moved to `reference/html/base/body.html`. If any tooling reads that
 path, update it.
 
+### Option names now prefixed with their component
+
+These `pgs-option` values were single-component options that did not carry their component's name;
+they now do, matching every other option in the library.
+
+| was | now |
+| --- | --- |
+| `pgs-option="singleScroll"` | `pgs-option="slidesSingleScroll"` |
+| `pgs-option="shadowDesktop"` | `pgs-option="slidesShadowDesktop"` |
+| `pgs-option="notScrollWithMouse"` | `pgs-option="slidesNotScrollWithMouse"` |
+| `pgs-option="slideAnimationScale"` | `pgs-option="slidesAnimationScale"` |
+| `pgs-option="tabIcon"` (Step tabs) | `pgs-option="stepTabsIcon"` |
+| `pgs-option="shellAsideScroll"` | `pgs-option="pageShellAsideScroll"` |
+| `pgs-option="shellAsideScrollFlush"` | `pgs-option="pageShellAsideScrollFlush"` |
+| `pgs-option="shellFullPage"` | `pgs-option="pageShellFullPage"` |
+| `pgs-option="horizontal"` (Menu) | `pgs-option="menuHorizontal"` |
+| `pgs-option="vertical"` (Menu) | `pgs-option="menuVertical"` |
+| `pgs-option="position"` (Dropdown, and Menu's own internal use of it) | `pgs-option="dropdownPosition"` |
+| `pgs-option="containerID"` (Modal) | `pgs-option="modalContainerID"` |
+| `pgs-option="containerPGS"` (Modal) | `pgs-option="modalContainerPGS"` |
+| `pgs-option="disableBackdropClose"` | `pgs-option="modalDisableBackdropClose"` |
+| `pgs-option="history"` (Modal) | `pgs-option="modalHistory"` |
+| `pgs-option="left"` (Modal) | `pgs-option="modalLeft"` |
+| `pgs-option="right"` (Modal, and Notification's dialog which reuses it) | `pgs-option="modalRight"` |
+| `pgs-option="topLevel"` (Modal) | `pgs-option="modalTopLevel"` |
+| `pgs-option="compactBottom"` (Header) | `pgs-option="headerCompactBottom"` |
+| `--header-compactBottom-active` | unchanged (the custom property already carried the `header-` prefix) |
+
+`buttonReverse`, `buttonNohover`, the `icon-*` glyph names, and `iconDuo-hamburger` were left alone:
+those belong to the button and icon components respectively, even where another component's example
+or generated markup uses them.
+
 ## 3. New, worth adopting
 
 - **Icons with no font.** `pgs="icon"` plus a glyph option covers seventeen shapes and needs nothing
@@ -151,6 +183,9 @@ grep -rnE '\-\-(fa-|menu-|icon-background|icon-padding|border-complete-hover|sli
 
 # 5. the silent one: icon as a surface
 grep -rn 'pgs="[^"]*\bicon\b' . | grep -v 'pgs-option'
+
+# 6. options renamed to carry their component's name
+grep -rnE 'pgs-option="(singleScroll|shadowDesktop|notScrollWithMouse|slideAnimationScale|tabIcon|shellAsideScroll|shellAsideScrollFlush|shellFullPage|horizontal|vertical|position|containerID|containerPGS|disableBackdropClose|history|left|right|topLevel|compactBottom)([" \[])' .
 ```
 
 Hit 5 needs reading rather than replacing: an `icon` that wraps another element wanted the surface

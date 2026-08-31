@@ -22,7 +22,7 @@ const servicesItem = (
 
 function MenuHorizontal() {
     return (
-        <nav pgs="menu" pgs-option="horizontal" aria-label="Menu orizzontale">
+        <nav pgs="menu" pgs-option="menuHorizontal" aria-label="Menu orizzontale">
             <ul>
                 {homeItem}
                 {servicesItem}
@@ -33,7 +33,7 @@ function MenuHorizontal() {
 
 function MenuVertical() {
     return (
-        <nav pgs="menu" pgs-option="vertical menuIconOnlyCurrent" aria-label="Menu verticale">
+        <nav pgs="menu" pgs-option="menuVertical menuIconOnlyCurrent" aria-label="Menu verticale">
             <ul>
                 {homeItem}
                 {servicesItem}

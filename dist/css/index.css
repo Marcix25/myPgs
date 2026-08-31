@@ -2615,12 +2615,12 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     width: 100%;
   }
 }
-[pgs~=pageShell][pgs-option~=shellFullPage] {
+[pgs~=pageShell][pgs-option~=pageShellFullPage] {
   --pageShell-width: 100%;
   --pageShell-padding-inline: var(--padding);
 }
 
-[pgs~=pageShell][pgs-option~=shellFullPage] [pgs~=pageShell-content] {
+[pgs~=pageShell][pgs-option~=pageShellFullPage] [pgs~=pageShell-content] {
   margin-inline: auto;
 }
 
@@ -2634,7 +2634,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 @container (min-width: 900px) {
-  [pgs~=pageShell][pgs-option~=shellAsideScroll] [pgs~=pageShell-aside], [pgs~=pageShell][pgs-option~=shellAsideScrollFlush] [pgs~=pageShell-aside] {
+  [pgs~=pageShell][pgs-option~=pageShellAsideScroll] [pgs~=pageShell-aside], [pgs~=pageShell][pgs-option~=pageShellAsideScrollFlush] [pgs~=pageShell-aside] {
     -webkit-mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-sizeMaskImage), black calc(100% - var(--pageShell-sizeMaskImage)), transparent 100%);
     mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-sizeMaskImage), black calc(100% - var(--pageShell-sizeMaskImage)), transparent 100%);
     position: sticky;
@@ -2643,12 +2643,12 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     scrollbar-color: transparent transparent;
     max-height: calc(100svh - var(--pageShell-padding-top));
   }
-  [pgs~=pageShell][pgs-option~=shellAsideScroll] [pgs~=pageShell-aside]:hover, [pgs~=pageShell][pgs-option~=shellAsideScrollFlush] [pgs~=pageShell-aside]:hover {
+  [pgs~=pageShell][pgs-option~=pageShellAsideScroll] [pgs~=pageShell-aside]:hover, [pgs~=pageShell][pgs-option~=pageShellAsideScrollFlush] [pgs~=pageShell-aside]:hover {
     scrollbar-color: var(--color-gray) transparent;
   }
 }
 @container (min-width: 900px) {
-  [pgs~=pageShell][pgs-option~=shellAsideScrollFlush] [pgs~=pageShell-aside] {
+  [pgs~=pageShell][pgs-option~=pageShellAsideScrollFlush] [pgs~=pageShell-aside] {
     max-height: calc(100svh - var(--pageShell-aside-top));
     margin-top: calc(var(--pageShell-padding-top) * -1);
   }
@@ -2662,7 +2662,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --header-background: var(--color-white-transparent);
   --header-color: var(--color-black);
   --header-color-hover: var(--color-black);
-  --header-compactBottom-active: 0;
+  --header-headerCompactBottom-active: 0;
   --header-compact-breakpoint: 600px;
   z-index: 100;
   position: fixed;
@@ -2804,13 +2804,13 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   display: flex !important;
 }
 
-[pgs~=header][pgs-state~=compact][pgs-option~=compactBottom] {
-  --header-compactBottom-active: 1;
+[pgs~=header][pgs-state~=compact][pgs-option~=headerCompactBottom] {
+  --header-headerCompactBottom-active: 1;
   background: transparent;
   transform: none !important;
 }
 
-[pgs~=header][pgs-state~=compact][pgs-option~=compactBottom] [pgs~=header-element] {
+[pgs~=header][pgs-state~=compact][pgs-option~=headerCompactBottom] [pgs~=header-element] {
   position: fixed;
   right: 0;
   bottom: 0;
@@ -2819,8 +2819,8 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   transition: padding 300ms, background-color 1000ms;
 }
 
-[pgs~=header][pgs-state~=compact][pgs-option~=compactBottom] dialog[pgs~=modal-dialogpopover],
-[pgs~=header][pgs-state~=compact][pgs-option~=compactBottom] dialog[pgs~=modal-dialog] {
+[pgs~=header][pgs-state~=compact][pgs-option~=headerCompactBottom] dialog[pgs~=modal-dialogpopover],
+[pgs~=header][pgs-state~=compact][pgs-option~=headerCompactBottom] dialog[pgs~=modal-dialog] {
   padding-top: var(--gap-texts);
   padding-bottom: var(--heightOfHeader);
 }
@@ -5624,33 +5624,33 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   transition: all 300ms;
 }
 
-[pgs~=menu][pgs-option~=horizontal] > ul {
+[pgs~=menu][pgs-option~=menuHorizontal] > ul {
   flex-direction: row;
 }
 
-[pgs~=menu][pgs-option~=horizontal] > ul > li > a {
+[pgs~=menu][pgs-option~=menuHorizontal] > ul > li > a {
   width: max-content;
 }
 
-[pgs~=menu][pgs-option~=horizontal] > ul > li:has(ul) {
+[pgs~=menu][pgs-option~=menuHorizontal] > ul > li:has(ul) {
   display: flex;
   gap: 0.2rem;
   flex-wrap: nowrap;
 }
 
-[pgs~=menu] ul :is(ul), [pgs~=menu][pgs-option~=vertical] :is(ul), [pgs~=menu]:not([pgs-option~=horizontal]) :is(ul) {
+[pgs~=menu] ul :is(ul), [pgs~=menu][pgs-option~=menuVertical] :is(ul), [pgs~=menu]:not([pgs-option~=menuHorizontal]) :is(ul) {
   flex-direction: column;
 }
 
-[pgs~=menu] ul :is(ul) li, [pgs~=menu][pgs-option~=vertical] :is(ul) li, [pgs~=menu]:not([pgs-option~=horizontal]) :is(ul) li {
+[pgs~=menu] ul :is(ul) li, [pgs~=menu][pgs-option~=menuVertical] :is(ul) li, [pgs~=menu]:not([pgs-option~=menuHorizontal]) :is(ul) li {
   width: 100%;
 }
 
-[pgs~=menu] ul :is(ul) li > a, [pgs~=menu][pgs-option~=vertical] :is(ul) li > a, [pgs~=menu]:not([pgs-option~=horizontal]) :is(ul) li > a {
+[pgs~=menu] ul :is(ul) li > a, [pgs~=menu][pgs-option~=menuVertical] :is(ul) li > a, [pgs~=menu]:not([pgs-option~=menuHorizontal]) :is(ul) li > a {
   width: 100%;
 }
 
-[pgs~=menu] ul :is(ul) > li:has(ul), [pgs~=menu][pgs-option~=vertical] :is(ul) > li:has(ul), [pgs~=menu]:not([pgs-option~=horizontal]) :is(ul) > li:has(ul) {
+[pgs~=menu] ul :is(ul) > li:has(ul), [pgs~=menu][pgs-option~=menuVertical] :is(ul) > li:has(ul), [pgs~=menu]:not([pgs-option~=menuHorizontal]) :is(ul) > li:has(ul) {
   display: flex;
   gap: var(--gap-texts);
   flex-direction: row;
@@ -5659,17 +5659,17 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   position: relative;
 }
 
-[pgs~=menu] ul :is(ul) > li:has(ul) > a, [pgs~=menu][pgs-option~=vertical] :is(ul) > li:has(ul) > a, [pgs~=menu]:not([pgs-option~=horizontal]) :is(ul) > li:has(ul) > a {
+[pgs~=menu] ul :is(ul) > li:has(ul) > a, [pgs~=menu][pgs-option~=menuVertical] :is(ul) > li:has(ul) > a, [pgs~=menu]:not([pgs-option~=menuHorizontal]) :is(ul) > li:has(ul) > a {
   flex: 1;
 }
 
-[pgs~=menu] ul :is(ul) > li:has(ul) > ul, [pgs~=menu][pgs-option~=vertical] :is(ul) > li:has(ul) > ul, [pgs~=menu]:not([pgs-option~=horizontal]) :is(ul) > li:has(ul) > ul {
+[pgs~=menu] ul :is(ul) > li:has(ul) > ul, [pgs~=menu][pgs-option~=menuVertical] :is(ul) > li:has(ul) > ul, [pgs~=menu]:not([pgs-option~=menuHorizontal]) :is(ul) > li:has(ul) > ul {
   flex-basis: 100%;
   padding-left: 1rem;
   border-left: var(--border-complete);
 }
 
-[pgs~=menu] ul :is(ul) > li:has(ul):not([pgs-state~=open]) ul, [pgs~=menu][pgs-option~=vertical] :is(ul) > li:has(ul):not([pgs-state~=open]) ul, [pgs~=menu]:not([pgs-option~=horizontal]) :is(ul) > li:has(ul):not([pgs-state~=open]) ul {
+[pgs~=menu] ul :is(ul) > li:has(ul):not([pgs-state~=open]) ul, [pgs~=menu][pgs-option~=menuVertical] :is(ul) > li:has(ul):not([pgs-state~=open]) ul, [pgs~=menu]:not([pgs-option~=menuHorizontal]) :is(ul) > li:has(ul):not([pgs-state~=open]) ul {
   display: none;
 }
 
@@ -5964,38 +5964,38 @@ dialog:not(:has(> [pgs~=modal-close])) {
   padding-top: var(--padding-page);
 }
 
-dialog[pgs~=modal-dialog][pgs-option~=topLevel] {
+dialog[pgs~=modal-dialog][pgs-option~=modalTopLevel] {
   align-items: center;
   padding-inline: 1rem;
 }
 
-dialog[pgs~=modal-dialog][pgs-option~=topLevel] [pgs~=modal-dialog-content] {
+dialog[pgs~=modal-dialog][pgs-option~=modalTopLevel] [pgs~=modal-dialog-content] {
   width: min(600px, 100%);
 }
 
-dialog[pgs~=modal-dialog][pgs-option~=left] {
+dialog[pgs~=modal-dialog][pgs-option~=modalLeft] {
   padding-inline: var(--gap-texts);
 }
 
-dialog[pgs~=modal-dialog][pgs-option~=left] [pgs~=modal-dialog-content] {
+dialog[pgs~=modal-dialog][pgs-option~=modalLeft] [pgs~=modal-dialog-content] {
   margin-left: unset;
   margin-right: auto;
   width: min(400px, 100%);
   min-width: unset;
 }
 
-dialog[pgs~=modal-dialog][pgs-option~=right] {
+dialog[pgs~=modal-dialog][pgs-option~=modalRight] {
   padding-inline: var(--gap-texts);
 }
 
-dialog[pgs~=modal-dialog][pgs-option~=right] [pgs~=modal-dialog-content] {
+dialog[pgs~=modal-dialog][pgs-option~=modalRight] [pgs~=modal-dialog-content] {
   margin-left: auto;
   margin-right: unset;
   width: min(400px, 100%);
   min-width: unset;
 }
 
-dialog[pgs~=modal-dialog]:not([pgs-option~=topLevel]) {
+dialog[pgs~=modal-dialog]:not([pgs-option~=modalTopLevel]) {
   height: 100svh;
   top: 0;
   overflow-y: auto;
@@ -6035,17 +6035,17 @@ dialog[pgs~=modal-dialog]:not([pgs-option~=topLevel]) {
         The fade only appears on the side that still has slides to reach: on the
         extremes the stop stays at 0 and the edge stays sharp. */
   }
-  [pgs~=slides][pgs-option~=shadowDesktop] [pgs~=slides-container] {
+  [pgs~=slides][pgs-option~=slidesShadowDesktop] [pgs~=slides-container] {
     --slides-maskStart: 0px;
     --slides-maskEnd: 0px;
     transition: --slides-maskStart 200ms, --slides-maskEnd 200ms;
     -webkit-mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart), black calc(100% - var(--slides-maskEnd)), transparent 100%);
     mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart), black calc(100% - var(--slides-maskEnd)), transparent 100%);
   }
-  [pgs~=slides][pgs-option~=shadowDesktop]:not(:has([pgs~=slides-container] li:first-child.view)) [pgs~=slides-container] {
+  [pgs~=slides][pgs-option~=slidesShadowDesktop]:not(:has([pgs~=slides-container] li:first-child.view)) [pgs~=slides-container] {
     --slides-maskStart: var(--slides-sizeMaskImage);
   }
-  [pgs~=slides][pgs-option~=shadowDesktop]:not(:has([pgs~=slides-container] li:last-child.view)) [pgs~=slides-container] {
+  [pgs~=slides][pgs-option~=slidesShadowDesktop]:not(:has([pgs~=slides-container] li:last-child.view)) [pgs~=slides-container] {
     --slides-maskEnd: var(--slides-sizeMaskImage);
   }
 }
@@ -6168,7 +6168,7 @@ dialog[pgs~=modal-dialog]:not([pgs-option~=topLevel]) {
   background-color: var(--color-secondary);
 }
 
-[pgs~=slides][pgs-option=slideAnimationScale] [pgs~=slides-container] [pgs~=slides-container-slide] > * {
+[pgs~=slides][pgs-option=slidesAnimationScale] [pgs~=slides-container] [pgs~=slides-container-slide] > * {
   scale: var(--visible-percent);
 }
 

@@ -26,9 +26,9 @@
     --slides-sizeMaskImage: 40px;
 
     //option for suggestions
-    &[pgs-option~=singleScroll],
-    &[pgs-option~=notScrollWithMouse],
-    &[pgs-option~=shadowDesktop]{}
+    &[pgs-option~=slidesSingleScroll],
+    &[pgs-option~=slidesNotScrollWithMouse],
+    &[pgs-option~=slidesShadowDesktop]{}
 
     //+( tablet
     @container (min-width: #{$tablet}) {
@@ -36,7 +36,7 @@
             a gradient over it, so it no longer depends on the page background matching.
             The fade only appears on the side that still has slides to reach: on the
             extremes the stop stays at 0 and the edge stays sharp. */
-        &[pgs-option~=shadowDesktop] {
+        &[pgs-option~=slidesShadowDesktop] {
             [pgs~="slides-container"] {
                 --slides-maskStart: 0px;
                 --slides-maskEnd: 0px;
@@ -180,7 +180,7 @@
         }
     }
 
-    &[pgs-option=slideAnimationScale] {
+    &[pgs-option=slidesAnimationScale] {
         [pgs~="slides-container"] {
             [pgs~="slides-container-slide"] {
                 >* {

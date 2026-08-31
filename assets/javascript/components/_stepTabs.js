@@ -30,13 +30,13 @@ function PGS_stepTabs_init(root = document) {
             dots.innerHTML = "";
 
             allTab.forEach((tab, index) => {
-                const authoredIcon = (pgs(tab).option.getValueBrackets("tabIcon") || "").trim();
+                const authoredIcon = (pgs(tab).option.getValueBrackets("stepTabsIcon") || "").trim();
                 const dot = document.createElement("button");
                 dot.type = "button";
                 pgs(dot).add("_stepTabs-dots-dot");
                 pgs(dot).add("button");
                 pgs(dot).option.add("buttonIcon buttonNohover");
-                //== tabIcon takes three shapes, told apart by how the value opens. Markup, from a
+                //== stepTabsIcon takes three shapes, told apart by how the value opens. Markup, from a
                 //== "<", is instantiated as written: that is what puts every icon set in reach,
                 //== including the ones a class list cannot describe because they want their name as
                 //== text content or an attribute of their own. An "icon-" prefix is a built-in

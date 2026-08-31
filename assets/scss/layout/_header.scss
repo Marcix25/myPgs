@@ -9,7 +9,7 @@
     --header-background: var(--color-white-transparent);
     --header-color: var(--color-black);
     --header-color-hover: var(--color-black);
-    --header-compactBottom-active: 0;
+    --header-headerCompactBottom-active: 0;
     --header-compact-breakpoint: 600px;
     z-index: 100;
     position: fixed;
@@ -166,8 +166,8 @@
         }
 
         //== bottom: follows the compact state, so it honours the chosen breakpoint
-        &[pgs-option~="compactBottom"] {
-            --header-compactBottom-active: 1;
+        &[pgs-option~="headerCompactBottom"] {
+            --header-headerCompactBottom-active: 1;
             background: transparent;
             transform: none !important;
 

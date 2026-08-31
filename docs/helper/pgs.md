@@ -43,8 +43,8 @@ pgs(modal).state.contains("open");
 Options:
 
 ```js
-pgs(modal).option.contains("history");
-pgs(modal).option.getValueBrackets("containerID");
+pgs(modal).option.contains("modalHistory");
+pgs(modal).option.getValueBrackets("modalContainerID");
 ```
 
 - `option.add(...options)`: adds plain or parameterized options.
@@ -58,8 +58,8 @@ pgs(modal).option.getValueBrackets("containerID");
 Example markup with options:
 
 ```html
-<div pgs="modal" pgs-option="containerID[modal-container]"></div>
-<div pgs="slides" pgs-option="singleScroll shadowDesktop"></div>
+<div pgs="modal" pgs-option="modalContainerID[modal-container]"></div>
+<div pgs="slides" pgs-option="slidesSingleScroll slidesShadowDesktop"></div>
 ```
 
 ## Automatically initialized JavaScript
@@ -215,7 +215,7 @@ The `pgs.notification` panel lives inside a `<dialog>` managed by `pgs.modal`. A
 </div>
 ```
 
-At the first notification, `pgs.notification` generates `<dialog pgs-option="right"><div pgs="modal-dialog-content"><div pgs="notifications"></div></div></dialog>` inside that wrapper on its own and calls `pgs.modal.init()` to activate it — opening, closing and closing when another dialog opens on the page are handled entirely by `pgs.modal`, not by `pgs.notification`. `pgs.toast` uses no dialog and no modal: it stays an independent fixed container as before.
+At the first notification, `pgs.notification` generates `<dialog pgs-option="modalRight"><div pgs="modal-dialog-content"><div pgs="notifications"></div></div></dialog>` inside that wrapper on its own and calls `pgs.modal.init()` to activate it — opening, closing and closing when another dialog opens on the page are handled entirely by `pgs.modal`, not by `pgs.notification`. `pgs.toast` uses no dialog and no modal: it stays an independent fixed container as before.
 
 ```js
 pgs.notification.success({

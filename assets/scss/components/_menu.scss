@@ -82,7 +82,7 @@
 
     //- OPTION
     //== horizontal
-    &[pgs-option~=horizontal] {
+    &[pgs-option~=menuHorizontal] {
         >ul {
             flex-direction: row;
 
@@ -103,8 +103,8 @@
 
     //== verical
     ul,
-    &[pgs-option~=vertical],
-    &:not([pgs-option~=horizontal]) {
+    &[pgs-option~=menuVertical],
+    &:not([pgs-option~=menuHorizontal]) {
         :is(ul) {
             flex-direction: column;
 

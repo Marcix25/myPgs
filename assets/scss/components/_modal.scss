@@ -12,10 +12,10 @@ html:has(dialog[open]) {
 
     //#OPTION
     //== read by the JavaScript only: declared here so editors suggest them
-    &[pgs-option~="containerID[]"],
-    &[pgs-option~="containerPGS[]"],
-    &[pgs-option~="disableBackdropClose"],
-    &[pgs-option~="history"] {}
+    &[pgs-option~="modalContainerID[]"],
+    &[pgs-option~="modalContainerPGS[]"],
+    &[pgs-option~="modalDisableBackdropClose"],
+    &[pgs-option~="modalHistory"] {}
 }
 
 //= MODAL BUTTON
@@ -111,8 +111,8 @@ dialog[pgs~="modal-dialog"] {
     }
 
     //#OPTION
-    //== topLevel
-    &[pgs-option~="topLevel"] {
+    //== modalTopLevel
+    &[pgs-option~="modalTopLevel"] {
         align-items: center;
         padding-inline: 1rem;
 
@@ -122,7 +122,7 @@ dialog[pgs~="modal-dialog"] {
     }
 
     //== LEFT
-    &[pgs-option~="left"] {
+    &[pgs-option~="modalLeft"] {
         padding-inline: var(--gap-texts);
 
         [pgs~="modal-dialog-content"] {
@@ -134,7 +134,7 @@ dialog[pgs~="modal-dialog"] {
     }
 
     //== RIGHT
-    &[pgs-option~="right"] {
+    &[pgs-option~="modalRight"] {
         padding-inline: var(--gap-texts);
 
         [pgs~="modal-dialog-content"] {
@@ -146,7 +146,7 @@ dialog[pgs~="modal-dialog"] {
     }
 
     //== TOP LEVEL
-    &:not([pgs-option~="topLevel"]) {
+    &:not([pgs-option~="modalTopLevel"]) {
         height: 100svh;
         top: 0;
         overflow-y: auto;

@@ -63,7 +63,7 @@ Notification markup, configuration, behavior, and usage example. A persistent, m
 
 - `modal`: wraps notificationBell; pgs.notification generates the dialog inside it and provides open/close/toggle behavior shared with every other dialog on the page.
 - `modal-dialog-content`: identifies the JS-generated styled content area inside the dialog, wrapping notifications.
-- `right`: slides the notification dialog in from the right; see Modal for other positions.
+- `modalRight`: slides the notification dialog in from the right; see Modal for other positions.
 - `icon-circleXmark`: the glyph of the error type.
 - `icon-circleCheck`: the glyph of the success type.
 - `icon-circleInfo`: the glyph of the info type.

@@ -17,7 +17,7 @@ Responsive header that measures available space, switches between its full and c
 
 ## PGS Options
 
-- `compactBottom`: moves header-element to the bottom of the viewport while the header is compact, so it follows the chosen breakpoint.
+- `headerCompactBottom`: moves header-element to the bottom of the viewport while the header is compact, so it follows the chosen breakpoint.
 - `headerScroll`: hides the header while scrolling down and shows it again while scrolling up.
 - `headerCompact`: forces the compact layout at a custom viewport width with the syntax headerCompact[600], and takes precedence over the named widths below.
 - `headerCompactWatch`: forces the compact layout from the watch width down, even when the content still fits.
@@ -60,11 +60,11 @@ Responsive header that measures available space, switches between its full and c
 ### PGS Options
 
 - `buttonText`: the appearance of the navigation links, in the full-layout row and once they stack in the compact panel alike.
-- `horizontal`: arranges the full-layout menu horizontally.
-- `vertical`: arranges the compact-layout menu vertically.
+- `menuHorizontal`: arranges the full-layout menu horizontally.
+- `menuVertical`: arranges the compact-layout menu vertically.
 - `menuShort`: compacts adjacent full-layout menu links by overlapping their horizontal spacing.
-- `containerPGS`: uses containerPGS[header] on the modal wrapper to move the dialog into the header.
-- `right`: presents the compact navigation dialog content from the right side.
+- `modalContainerPGS`: uses modalContainerPGS[header] on the modal wrapper to move the dialog into the header.
+- `modalRight`: presents the compact navigation dialog content from the right side.
 - `buttonIcon`: presents theme and hamburger controls as icon buttons.
 - `icon-bell`: the glyph on the control that opens the panel.
 - `iconDuo-hamburger`: draws the two-layer hamburger glyph that turns into the close mark while the compact navigation is open.
@@ -90,7 +90,7 @@ Complete header HTML with full navigation and a side compact panel.
 		</div>
 
 		<div pgs="header-element-onlyFull">
-			<nav pgs="menu" pgs-option="horizontal menuShort" aria-label="Main menu">
+			<nav pgs="menu" pgs-option="menuHorizontal menuShort" aria-label="Main menu">
 				<ul>
 					<li><a pgs="button" pgs-option="buttonText" href="/">Home</a></li>
 					<li><a pgs="button" pgs-option="buttonText" href="/services">Services</a></li>
@@ -105,7 +105,7 @@ Complete header HTML with full navigation and a side compact panel.
 
 		<div pgs="header-element-alwaysOnLast">
 			<div pgs="flexRow nowrap">
-				<div pgs="modal" pgs-option="containerPGS[header] ">
+				<div pgs="modal" pgs-option="modalContainerPGS[header] ">
 					<button type="button" pgs="modal-button modal-close button notificationBell" pgs-option="buttonIcon" aria-label="Open notifications">
 						<i pgs="icon" pgs-option="icon-bell"></i>
 						<span pgs="notificationBell-counter"></span>
@@ -117,15 +117,15 @@ Complete header HTML with full navigation and a side compact panel.
 			</div>
 		</div>
 
-		<div pgs="header-element-hamburger modal" pgs-option="containerPGS[header]">
+		<div pgs="header-element-hamburger modal" pgs-option="modalContainerPGS[header]">
 
 			<button pgs="button modal-button modal-close header-element-hamburger-button" pgs-option="buttonIcon" type="button" aria-label="Open menu">
 				<i pgs="icon" pgs-option="iconDuo-hamburger" aria-hidden="true"></i>
 			</button>
 
-			<dialog pgs="modal-dialog" pgs-option="right">
+			<dialog pgs="modal-dialog" pgs-option="modalRight">
 				<div pgs="modal-dialog-content">
-					<nav pgs="menu" pgs-option="vertical" aria-label="Compact menu">
+					<nav pgs="menu" pgs-option="menuVertical" aria-label="Compact menu">
 						<ul>
 							<li><a pgs="button" pgs-option="buttonText" href="/">Home</a></li>
 							<li><a pgs="button" pgs-option="buttonText" href="/services">Services</a></li>

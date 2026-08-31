@@ -10,7 +10,7 @@ export default function Search() {
 
 export function SearchModal() {
     return (
-        <div pgs="modal search-modal" pgs-option="containerPGS[header]">
+        <div pgs="modal search-modal" pgs-option="modalContainerPGS[header]">
             <button type="button" pgs="modal-button button" pgs-option="buttonIcon" title="Search">
                 <i pgs="icon" pgs-option="icon-magnifyingGlass"></i>
             </button>

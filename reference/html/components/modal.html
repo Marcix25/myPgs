@@ -16,13 +16,13 @@
  * - modal-dialog: added to the dialog element on initialization, which is why the example writes a bare dialog tag.
  *
  * @pgs-option
- * - containerID: identifies the containerID element used by Modal.
- * - containerPGS: identifies the containerPGS element used by Modal.
- * - disableBackdropClose: identifies the disableBackdropClose element used by Modal.
- * - history: identifies the history element used by Modal.
- * - topLevel: identifies the topLevel element used by Modal.
- * - left: identifies the left element used by Modal.
- * - right: identifies the right element used by Modal.
+ * - modalContainerID: identifies the modalContainerID element used by Modal.
+ * - modalContainerPGS: identifies the modalContainerPGS element used by Modal.
+ * - modalDisableBackdropClose: identifies the modalDisableBackdropClose element used by Modal.
+ * - modalHistory: identifies the modalHistory element used by Modal.
+ * - modalTopLevel: identifies the modalTopLevel element used by Modal.
+ * - modalLeft: identifies the modalLeft element used by Modal.
+ * - modalRight: identifies the modalRight element used by Modal.
  *
  * @api
  * - pgs.modal.init(root): initializes matching elements within the specified root.
@@ -47,7 +47,7 @@
  */
 -->
 
-<div pgs="modal" pgs-option="containerID[modal-container]" demo="component" demo-title="Standard modal" demo-description="Basic modal dialog centered in the page; the close button is added automatically when missing.">
+<div pgs="modal" pgs-option="modalContainerID[modal-container]" demo="component" demo-title="Standard modal" demo-description="Basic modal dialog centered in the page; the close button is added automatically when missing.">
     <button pgs="modal-button button" type="button">
  Open modal
     </button>
@@ -65,48 +65,48 @@
     </dialog>
 </div>
 
-<div pgs="modal" pgs-option="containerID[modal-container]" demo="component" demo-title="Right-side modal" demo-description="Modal dialog sliding in from the right using pgs-option=&quot;right&quot;.">
+<div pgs="modal" pgs-option="modalContainerID[modal-container]" demo="component" demo-title="Right-side modal" demo-description="Modal dialog sliding in from the right using pgs-option=&quot;modalRight&quot;.">
     <button pgs="modal-button button" type="button">
  Open modal right
     </button>
 
-    <dialog pgs-option="right">
+    <dialog pgs-option="modalRight">
         <div pgs="modal-dialog-content">
             <div pgs="modal-dialog-content-header">
                 <h3>Side modal</h3>
             </div>
 
             <div pgs="modal-dialog-content-scroll">
-                <p>Modal content with <code>pgs-option="right"</code>.</p>
+                <p>Modal content with <code>pgs-option="modalRight"</code>.</p>
             </div>
         </div>
     </dialog>
 </div>
 
-<div pgs="modal" pgs-option="containerID[modal-container]" demo="component" demo-title="Left-side modal" demo-description="Modal dialog sliding in from the left using pgs-option=&quot;left&quot;.">
+<div pgs="modal" pgs-option="modalContainerID[modal-container]" demo="component" demo-title="Left-side modal" demo-description="Modal dialog sliding in from the left using pgs-option=&quot;modalLeft&quot;.">
     <button pgs="modal-button button" type="button">
  Open modal left
     </button>
 
-    <dialog pgs-option="left">
+    <dialog pgs-option="modalLeft">
         <div pgs="modal-dialog-content">
             <div pgs="modal-dialog-content-header">
                 <h3>Left-side modal</h3>
             </div>
 
             <div pgs="modal-dialog-content-scroll">
-                <p>Modal content with <code>pgs-option="left"</code>.</p>
+                <p>Modal content with <code>pgs-option="modalLeft"</code>.</p>
             </div>
         </div>
     </dialog>
 </div>
 
-<div pgs="modal" demo="component" demo-title="Confirmation modal" demo-description="Top-level confirmation dialog with cancel and save actions, using pgs-option=&quot;topLevel&quot; and buttonStrong for the primary action.">
+<div pgs="modal" demo="component" demo-title="Confirmation modal" demo-description="Top-level confirmation dialog with cancel and save actions, using pgs-option=&quot;modalTopLevel&quot; and buttonStrong for the primary action.">
     <button pgs="modal-button button" type="button">
  Confirmation salvataggio
     </button>
 
-    <dialog pgs-option="topLevel">
+    <dialog pgs-option="modalTopLevel">
         <div pgs="modal-dialog-content">
             <div pgs="modal-dialog-content-header">
                 <h3>Save changes?</h3>

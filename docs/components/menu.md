@@ -15,11 +15,10 @@ Menu markup with horizontal, vertical and recursively nested navigation examples
 
 ## PGS Options
 
-- `horizontal`: identifies the horizontal element used by Menu.
-- `vertical`: identifies the vertical element used by Menu.
+- `menuHorizontal`: identifies the menuHorizontal element used by Menu.
+- `menuVertical`: identifies the menuVertical element used by Menu.
 - `menuIconOnlyCurrent`: displays link icons only when the link has an active aria-current value.
 - `menuShort`: compacts adjacent menu links by overlapping their horizontal spacing.
-- `position`: identifies the position element used by Menu.
 
 ## PGS States
 
@@ -53,6 +52,7 @@ Menu markup with horizontal, vertical and recursively nested navigation examples
 - `dropdown-button`: uses the related dropdown-button component or utility in this example.
 - `dropdown-content`: uses the related dropdown-content component or utility in this example.
 - `buttonNohover`: disables hover behavior on menu buttons generated at runtime.
+- `dropdownPosition`: set by Menu at runtime on the li it turns into a dropdown, to place the first-level floating submenu.
 
 ## Output
 
@@ -61,7 +61,7 @@ Horizontal and vertical menu examples, including recursively nested submenus.
 ## Example
 
 ```html
-<nav pgs="menu" pgs-option="horizontal" aria-label="Menu orizzontale" demo="component" demo-title="Horizontal menu" demo-description="Top-level navigation arranged horizontally, with one nested submenu.">
+<nav pgs="menu" pgs-option="menuHorizontal" aria-label="Menu orizzontale" demo="component" demo-title="Horizontal menu" demo-description="Top-level navigation arranged horizontally, with one nested submenu.">
     <ul pgs="flexRow" pgs-option="wrap">
         <li>
             <a pgs="button" pgs-option="buttonText" href="/" aria-current="page">
@@ -98,7 +98,7 @@ Horizontal and vertical menu examples, including recursively nested submenus.
     </ul>
 </nav>
 
-<nav pgs="menu" pgs-option="vertical" aria-label="Menu verticale" demo="component" demo-title="Vertical menu" demo-description="Vertical navigation with recursively nested submenus, showing icons only on the active link.">
+<nav pgs="menu" pgs-option="menuVertical" aria-label="Menu verticale" demo="component" demo-title="Vertical menu" demo-description="Vertical navigation with recursively nested submenus, showing icons only on the active link.">
     <ul>
         <li>
             <a pgs="button" pgs-option="buttonText" href="/" aria-current="page">
@@ -135,7 +135,7 @@ Horizontal and vertical menu examples, including recursively nested submenus.
     </ul>
 </nav>
 
-<nav pgs="menu" pgs-option="horizontal menuIconOnlyCurrent" aria-label="Menu orizzontale" demo="component" demo-title="Horizontal menu - menu Icon Only Current" demo-description="Top-level navigation arranged horizontally, with one nested submenu.">
+<nav pgs="menu" pgs-option="menuHorizontal menuIconOnlyCurrent" aria-label="Menu orizzontale" demo="component" demo-title="Horizontal menu - menu Icon Only Current" demo-description="Top-level navigation arranged horizontally, with one nested submenu.">
     <ul pgs="flexRow" pgs-option="wrap">
         <li>
             <a pgs="button" pgs-option="buttonText" href="/" aria-current="page">

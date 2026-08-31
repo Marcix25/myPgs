@@ -523,14 +523,14 @@ const demoRenderer = {
 
 
     //== the demo renders page-level layouts (header.html) inside the main area, so their modals
-    //== would resolve containerPGS[header] against the *real* page header and move their dialog
+    //== would resolve modalContainerPGS[header] against the *real* page header and move their dialog
     //== in there, hijacking the header's own bell and hamburger: keep those dialogs local instead.
     isolateDemoModals(root) {
         root.querySelectorAll('[pgs~="modal"]').forEach(modal => {
             const option = modal.getAttribute("pgs-option");
-            if (!option || !option.includes("containerPGS")) return;
+            if (!option || !option.includes("modalContainerPGS")) return;
 
-            const cleaned = option.replace(/containerPGS\[[^\]]*\]/g, "").replace(/\s+/g, " ").trim();
+            const cleaned = option.replace(/modalContainerPGS\[[^\]]*\]/g, "").replace(/\s+/g, " ").trim();
             if (cleaned) modal.setAttribute("pgs-option", cleaned);
             else modal.removeAttribute("pgs-option");
         });
@@ -582,7 +582,7 @@ const demoRenderer = {
     renderNavMenu(nav, items, category) {
         const menu = document.createElement("nav");
         menu.setAttribute("pgs", "menu");
-        menu.setAttribute("pgs-option", "vertical");
+        menu.setAttribute("pgs-option", "menuVertical");
         menu.setAttribute("aria-label", category ? `Menu ${category}` : "Menu");
 
         const list = document.createElement("ul");
@@ -633,7 +633,7 @@ const demoRenderer = {
             //== dialog stays open over the panel it just navigated to
             NAVS.forEach(nav => nav.closest("dialog[open]")?.close());
 
-            //== only the window scrolls (the aside owns its own overflow via shellAsideScroll), and
+            //== only the window scrolls (the aside owns its own overflow via pageShellAsideScroll), and
             //== switching panel is a page change, not a jump inside one: start it from the top, the
             //== way a real navigation would, instead of inheriting the previous panel's offset.
             if (resetScroll) window.scrollTo({ top: 0, behavior: "instant" });

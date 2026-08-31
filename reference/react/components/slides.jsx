@@ -6,7 +6,7 @@ const slides = [
 
 export default function Slides() {
     return (
-        <div pgs="slides" pgs-option="singleScroll shadowDesktop">
+        <div pgs="slides" pgs-option="slidesSingleScroll slidesShadowDesktop">
             <ul pgs="slides-container">
                 {slides.map(([title, text, src, alt]) => (
                     <li key={title} pgs="slides-container-slide">

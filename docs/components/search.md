@@ -55,7 +55,7 @@ Search markup, configuration, behavior, and usage example. Two custom events bub
 
 ### PGS Options
 
-- `containerPGS`: identifies the containerPGS element used by Search.
+- `modalContainerPGS`: identifies the modalContainerPGS element used by Search.
 - `buttonNohover`: disables hover behavior on the search container.
 - `buttonIcon`: presents search and close actions as icon buttons.
 - `icon-magnifyingGlass`: the glyph used there.
@@ -74,7 +74,7 @@ Complete HTML markup and usage example for Search.
     <ul pgs="search-suggestions"></ul>
 </form>
 
-<div pgs="modal search-modal" pgs-option="containerPGS[header]" demo="component" demo-title="Mobile search overlay" demo-description="Search opened from an icon button inside a full-width modal, intended for the mobile navigation.">
+<div pgs="modal search-modal" pgs-option="modalContainerPGS[header]" demo="component" demo-title="Mobile search overlay" demo-description="Search opened from an icon button inside a full-width modal, intended for the mobile navigation.">
 
     <button type="button" pgs="modal-button button" pgs-option="buttonIcon" title="Search">
         <i pgs="icon" pgs-option="icon-magnifyingGlass"></i>
