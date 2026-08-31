@@ -49,9 +49,10 @@ Slides markup, configuration, behavior, and usage example.
 
 ### Other
 
-- `icon`: draws the arrow inside each of the two generated buttons; see Icon for the whole set.
-- `icon-arrowLeft`: the glyph in the previous button.
-- `icon-arrowRight`: the glyph in the next button.
+- `icon`: draws the chevron inside each of the two generated buttons; see Icon for the whole set.
+- `icon-chevronDown`: the glyph in both generated buttons, rotated to point left or right.
+- `rotate90`: rotates the glyph in the previous button to point left.
+- `rotate270`: rotates the glyph in the next button to point right.
 
 ## Output
 

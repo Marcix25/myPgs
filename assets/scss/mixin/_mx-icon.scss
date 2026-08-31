@@ -5,7 +5,7 @@
 @mixin iconBox() {
     --iconBox-size: var(--icon-size);
     --iconBox-padding: .5rem;
-    --iconBox-background: var(--color-white-transparent);
+    --iconBox-background: var(--color-box-transparent);
     border-radius: 50%;
     display: flex;
     aspect-ratio: 1;

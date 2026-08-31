@@ -19,6 +19,10 @@ Focused layout, content, interaction, accessibility, and semantic-color utilitie
 - `positionAbsolute`: positions an element absolutely.
 - `positionRelative`: creates a positioning context.
 - `positionSticky`: keeps an element sticky when offsets are supplied by the surrounding layout.
+- `rotate0`: resets a rotation back to 0 degrees.
+- `rotate90`: rotates an element 90 degrees clockwise.
+- `rotate180`: rotates an element 180 degrees.
+- `rotate270`: rotates an element 270 degrees clockwise (90 degrees counter-clockwise).
 - `selectNone`: prevents text selection.
 - `selectText`: enables text selection.
 - `truncate`: limits text to one line and adds an ellipsis when it overflows.
@@ -42,6 +46,7 @@ Focused layout, content, interaction, accessibility, and semantic-color utilitie
 - `skipLink`: creates a link that is revealed only when keyboard-focused.
 - `visuallyHidden`: hides content visually while keeping it available to assistive technology.
 - `visuallyHiddenFocusable`: hides content until it or one of its children receives focus.
+- `icon`: draws the glyph rotated by the example; see Icon for the whole set.
 
 ### PGS Options
 
@@ -50,6 +55,7 @@ Focused layout, content, interaction, accessibility, and semantic-color utilitie
 - `wrap`: allows the layout examples to wrap onto multiple rows.
 - `flexCenter`: centers items on both axes in a flex container.
 - `inlineFlex`: displays a flex container inline.
+- `icon-chevronDown`: the glyph rotated in the example, standing in for any icon that needs to point another way.
 
 ### Other
 
@@ -83,6 +89,12 @@ Examples of the standalone MyPGS utility API.
             <span pgs="positionAbsolute">Absolute child</span>
         </div>
         <aside pgs="box positionSticky">Sticky element</aside>
+        <div pgs="flexRow" pgs-option="gapTexts">
+            <i pgs="icon rotate0" pgs-option="icon-chevronDown" aria-hidden="true"></i>
+            <i pgs="icon rotate90" pgs-option="icon-chevronDown" aria-hidden="true"></i>
+            <i pgs="icon rotate180" pgs-option="icon-chevronDown" aria-hidden="true"></i>
+            <i pgs="icon rotate270" pgs-option="icon-chevronDown" aria-hidden="true"></i>
+        </div>
     </section>
 
     <section pgs="flexColumn" pgs-option="gapTexts">

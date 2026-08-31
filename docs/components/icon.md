@@ -102,11 +102,7 @@ A glyph placed in iconBox, the circular surface that holds one icon.
 
 ```html
 <div pgs="flexRow" pgs-option="gapTexts">
-    <span pgs="icon" pgs-option="iconBox" aria-hidden="true">
-        <i pgs="icon" pgs-option="icon-check"></i>
-    </span>
-    <span pgs="icon" pgs-option="iconBox" aria-hidden="true">
-        <i pgs="icon" pgs-option="icon-close"></i>
-    </span>
+    <i pgs="icon" pgs-option="iconBox icon-check"></i>
+    <i pgs="icon" pgs-option="iconBox icon-close"></i>
 </div>
 ```

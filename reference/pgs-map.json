@@ -823,7 +823,6 @@
         ],
         "pgs-generated": [],
         "pgs-option": [
-            "compactBottom",
             "headerCompact",
             "headerCompactBigMobile",
             "headerCompactBigTablet",
@@ -981,20 +980,39 @@
             "icon-arrowLeft",
             "icon-arrowRight",
             "icon-bell",
+            "icon-calendar",
+            "icon-chatBubble",
             "icon-check",
             "icon-chevronDown",
             "icon-circle",
             "icon-circleCheck",
             "icon-circleInfo",
             "icon-circleXmark",
+            "icon-clock",
             "icon-close",
             "icon-cookie",
+            "icon-download",
+            "icon-envelope",
+            "icon-eye",
+            "icon-gear",
+            "icon-heart",
+            "icon-home",
+            "icon-lock",
             "icon-magnifyingGlass",
+            "icon-mapPin",
+            "icon-minus",
             "icon-moon",
+            "icon-pause",
+            "icon-pencil",
+            "icon-play",
+            "icon-plus",
             "icon-sliders",
             "icon-star",
             "icon-sun",
+            "icon-trash",
             "icon-triangleExclamation",
+            "icon-upload",
+            "icon-user",
             "iconBox",
             "iconDuo-hamburger"
         ]
@@ -1175,12 +1193,10 @@
         "pgs-option": [
             "buttonNohover",
             "dropdownPosition",
-            "horizontal",
             "menuHorizontal",
             "menuIconOnlyCurrent",
             "menuShort",
-            "menuVertical",
-            "vertical"
+            "menuVertical"
         ]
     },
     "minWidth0": {
@@ -1201,16 +1217,13 @@
             "modal-dialog"
         ],
         "pgs-option": [
-            "left",
             "modalContainerID",
             "modalContainerPGS",
             "modalDisableBackdropClose",
             "modalHistory",
             "modalLeft",
             "modalRight",
-            "modalTopLevel",
-            "right",
-            "topLevel"
+            "modalTopLevel"
         ]
     },
     "motionReduce": {
@@ -1443,10 +1456,7 @@
         "pgs-option": [
             "pageShellAsideScroll",
             "pageShellAsideScrollFlush",
-            "pageShellFullPage",
-            "shellAsideScroll",
-            "shellAsideScrollFlush",
-            "shellFullPage"
+            "pageShellFullPage"
         ]
     },
     "pointer": {
@@ -1488,6 +1498,26 @@
         "pgs": [
             "required-here"
         ],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "rotate0": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "rotate180": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "rotate270": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "rotate90": {
+        "pgs": [],
         "pgs-generated": [],
         "pgs-option": []
     },
@@ -1558,8 +1588,6 @@
             "slides-prec"
         ],
         "pgs-option": [
-            "shadowDesktop",
-            "slideAnimationScale",
             "slidesAnimationScale",
             "slidesNotScrollWithMouse",
             "slidesShadowDesktop",

@@ -52,6 +52,23 @@
     aspect-ratio: 16 / 9;
 }
 
+//= ROTATION
+[pgs~=rotate0] {
+    transform: rotate(0deg);
+}
+
+[pgs~=rotate90] {
+    transform: rotate(90deg);
+}
+
+[pgs~=rotate180] {
+    transform: rotate(180deg);
+}
+
+[pgs~=rotate270] {
+    transform: rotate(270deg);
+}
+
 //= INTERACTION
 [pgs~=selectNone] {
     -webkit-user-select:none;
