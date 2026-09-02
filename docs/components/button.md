@@ -20,6 +20,7 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `buttonSecondary`: replaces the primary button accent with the secondary color palette.
 - `buttonTertiary`: replaces the primary button accent with the tertiary color palette.
 - `buttonQuaternary`: replaces the primary button accent with the quaternary color palette.
+- `buttonPaddingEqual`: sets the same padding on every side instead of the wider left/right default.
 
 ## Related elements
 
@@ -134,6 +135,16 @@ Removes the default background and outline while keeping the button layout using
 ```html
 <button pgs="button" pgs-option="buttonTransparent" type="button">
     Transparent
+</button>
+```
+
+### Equal padding
+
+Sets the same padding on every side using buttonPaddingEqual, instead of the wider left/right default.
+
+```html
+<button pgs="button" pgs-option="buttonPaddingEqual" type="button">
+    Equal
 </button>
 ```
 

@@ -11,6 +11,12 @@
  *
  * @pgs-generated
  * - _search-suggestions-item: one suggestion in the list, rebuilt from the configured source at every keystroke.
+ * - _search-suggestions-placeholder: shown instead of the suggestion list while the query is shorter than minLength, guiding how many more characters to type.
+ * - _search-suggestions-empty: shown instead of the suggestion list when a completed search returns no items.
+ *
+ * @pgs-option
+ * - searchPlaceholder: overrides the placeholder message shown below minLength, as searchPlaceholder[your text]. Write {minLength} in it to insert the configured minLength; defaults to "Type at least {minLength} characters".
+ * - searchNoResults: overrides the message shown when a search returns no items, as searchNoResults[your text]. Defaults to "No results found".
  *
  * @pgs-state
  * - open: identifies the open element used by Search.
@@ -54,7 +60,7 @@
  */
 -->
 
-<form pgs="button search" pgs-option="buttonNohover" autocomplete="off" action="" method="get" demo="component" demo-title="Inline search" demo-description="Search field with live suggestions embedded directly in the page.">
+<form pgs="button search" pgs-option="buttonNohover searchPlaceholder[Type a component name]" autocomplete="off" action="" method="get" demo="component" demo-title="Inline search" demo-description="Search field with live suggestions embedded directly in the page.">
     <button type="submit" title="Search"><i pgs="icon" pgs-option="icon-magnifyingGlass"></i></button>
     <input type="search" name="s" placeholder="Search" value="">
     <ul pgs="search-suggestions"></ul>

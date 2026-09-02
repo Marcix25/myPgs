@@ -49,7 +49,9 @@ Notification markup, configuration, behavior, and usage example. A persistent, m
 - `hidden`: keeps every notificationLoad out of the layout, since it only carries a payload.
 - `flexColumn`: stacks the examples vertically.
 - `button`: uses the related button component or utility in this example.
+- `modal`: wraps notificationBell; pgs.notification generates the dialog inside it and provides open/close/toggle behavior shared with every other dialog on the page.
 - `modal-button`: identifies notificationBell as the control that opens the dialog.
+- `modal-close`: identifies notificationBell as also being the control that closes the dialog.
 - `icon`: draws the glyph that marks the notification type; see Icon for the whole set.
 
 ### PGS Options
@@ -61,7 +63,6 @@ Notification markup, configuration, behavior, and usage example. A persistent, m
 
 ### Other
 
-- `modal`: wraps notificationBell; pgs.notification generates the dialog inside it and provides open/close/toggle behavior shared with every other dialog on the page.
 - `modal-dialog-content`: identifies the JS-generated styled content area inside the dialog, wrapping notifications.
 - `modalRight`: slides the notification dialog in from the right; see Modal for other positions.
 - `icon-circleXmark`: the glyph of the error type.
@@ -99,7 +100,7 @@ pgs-option='notification[{
 ## JavaScript Usage
 
 ```js
-    pgs.notification.success({
+pgs.notification.success({
     id: undefined,
     title: "",
     description: "",
@@ -119,10 +120,12 @@ pgs-option='notification[{
 The control that opens and closes the panel, and the only markup this component needs on the page. Wrap it in a modal and pgs.notification builds the dialog inside it on its own.
 
 ```html
-<button pgs="modal-button button notificationBell" pgs-option="buttonIcon" aria-label="Open notifications">
-    <i pgs="icon" pgs-option="icon-bell"></i>
-    <span pgs="notificationBell-counter"></span>
-</button>
+<div pgs="modal">
+    <button type="button" pgs="modal-button modal-close button notificationBell" pgs-option="buttonIcon" aria-label="Open notifications">
+        <i pgs="icon" pgs-option="icon-bell"></i>
+        <span pgs="notificationBell-counter"></span>
+    </button>
+</div>
 ```
 
 ### Success

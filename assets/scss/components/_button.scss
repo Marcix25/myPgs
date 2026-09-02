@@ -40,6 +40,14 @@
         @include buttonTransparent();
     }
 
+    &[pgs-option~=buttonPaddingEqual] {
+        @include buttonPaddingEqual();
+    }
+    
+    &[pgs-option~=buttonHeader] {
+        @include buttonHeader();
+    }
+
     &[pgs-option~=buttonSecondary] {
         --button-primaryColor: var(--color-secondary-strong);
 

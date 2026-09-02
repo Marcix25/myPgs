@@ -23,14 +23,19 @@
 
     @each $name, $url in $icons-builtin {
 
+        //== the mask lives in a custom property rather than baked straight into the mask
+        //== declaration, so any later, more specific rule (see the header's expanded hamburger)
+        //== can swap the drawn glyph with a plain CSS override, no JS involved
         &[pgs-option~=#{$name}] {
+            --icon-mask: #{$url};
+
             &::before {
                 //== 1em rather than the size property: --icon-size holds the keyword inherit, which
                 //== is a font-size and not a length. Following the element font-size instead picks
                 //== up every per-component override for free, since --icon-size is what sets it.
                 //== --icon-color is the neutral colour channel, undeclared by default so a glyph
                 //== keeps taking the text colour exactly as an icon font does
-                @include iconSvgBase64($url, 1em, var(--icon-color, currentColor));
+                @include iconSvgBase64(var(--icon-mask), 1em, var(--icon-color, currentColor));
                 vertical-align: -0.125em;
             }
 
@@ -50,6 +55,8 @@
     @each $name, $layers in $icons-duo {
 
         &[pgs-option~=#{$name}] {
+            --icon-mask-before: #{nth($layers, 1)};
+            --icon-mask-after: #{nth($layers, 2)};
             display: inline-grid;
             place-items: center;
             inline-size: 1em;
@@ -63,11 +70,11 @@
             }
 
             &::before {
-                @include iconSvgBase64(nth($layers, 1), 1em, var(--icon-color, currentColor));
+                @include iconSvgBase64(var(--icon-mask-before), 1em, var(--icon-color, currentColor));
             }
 
             &::after {
-                @include iconSvgBase64(nth($layers, 2), 1em, var(--icon-color, currentColor));
+                @include iconSvgBase64(var(--icon-mask-after), 1em, var(--icon-color, currentColor));
             }
         }
     }

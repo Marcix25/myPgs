@@ -24,7 +24,7 @@
     [pgs~="header-element"] {
         background: var(--header-background);
         color: var(--header-color);
-        transition: padding 300ms, transform 300ms, background-color 1000ms;
+        transition: transform 300ms, background-color 1000ms;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -48,9 +48,9 @@
             flex-shrink: 0;
         }
 
-        [pgs~=button] {
-            @include buttonHeader();
-        }
+        // [pgs~=button] {
+        //     @include buttonHeader();
+        // }
 
         [pgs~="header-element-onlyCompact"] {
             display: none;
@@ -65,25 +65,10 @@
                 justify-content: center;
 
                 //=== OPEN
-                [pgs-option~="iconDuo-hamburger"] {
-                    &::before,
-                    &::after {
-                        transition: transform 300ms;
-                    }
-
-                    &::before {
-                        opacity: 0.6;
-                    }
-                }
-
-                &[aria-expanded="true"] [pgs-option~="iconDuo-hamburger"] {
-                    &::before {
-                        transform: translate(-10.607%, 10.607%) rotate(45deg);
-                    }
-
-                    &::after {
-                        transform: translate(-10.607%, -10.607%) rotate(-45deg);
-                    }
+                //== swaps the drawn glyph via the --icon-mask custom property (see _icon.scss)
+                //== instead of animating two mask layers into an X: a plain CSS override, no JS
+                &[aria-expanded="true"] [pgs-option~="icon-hamburgerTwo"] {
+                    --icon-mask: #{$icon-close};
                 }
             }
         }
@@ -92,19 +77,12 @@
     //= DIALOG 
     dialog[pgs~="modal-dialogpopover"],
     dialog[pgs~="modal-dialog"] {
-        padding-inline: 10px;
         -webkit-backdrop-filter: var(--blur);
         backdrop-filter: var(--blur);
         --modal-padding: 10px;
-        --modal-background: var(--header-background);
 
         &[open] {
-            display: flex;
-            flex-direction: column;
-            gap: var(--gap-elements);
             z-index: -1;
-            overflow: auto;
-            max-height: 100svh;
         }
     }
 

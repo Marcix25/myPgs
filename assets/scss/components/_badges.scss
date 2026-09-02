@@ -3,7 +3,8 @@
 @mixin _badge() {
     --badge-background: var(--color-box);
     --badge-color: var(--color-black);
-    --badge-size: 1.25rem;
+    --badge-size: 0.85rem;
+    --badge-text-size: 1.25rem;
     --badge-icon-size: 1.4rem;
     display: inline-flex;
     align-items: center;
@@ -12,11 +13,11 @@
     width: max-content;
     max-width: 100%;
     min-height: calc(var(--badge-size) * 2.2);
-    padding: calc(var(--badge-size) / 2) var(--badge-size);
+    padding: var(--badge-size);
     border-radius: var(--border-radius-input);
     background: var(--badge-background);
     color: var(--badge-color);
-    font-size: var(--badge-size);
+    font-size: var(--badge-text-size);
     font-weight: 700;
     line-height: 1;
     text-decoration: none;

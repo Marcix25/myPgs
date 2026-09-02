@@ -283,7 +283,7 @@ const fn_notification = {
             modalWrapper.dataset.notificationDialog = "true";
 
             const dialog = document.createElement("dialog");
-            pgs(dialog).option.add("modalRight");
+            pgs(dialog).option.add("modalRight modalMini modalTop");
 
             const content = document.createElement("div");
             pgs(content).add("modal-dialog-content");

@@ -28,7 +28,7 @@ export default function Header() {
 
                 <div pgs="header-element-hamburger modal" pgs-option="modalContainerPGS[header] ">
                     <button pgs="button modal-button modal-close header-element-hamburger-button" pgs-option="buttonIcon" type="button" aria-label="Open menu">
-                        <i pgs="icon" pgs-option="iconDuo-hamburger" aria-hidden="true"></i>
+                        <i pgs="icon" pgs-option="icon-hamburgerTwo" aria-hidden="true"></i>
                     </button>
 
                     <dialog pgs="modal-dialog" pgs-option="modalRight">

@@ -24,7 +24,6 @@
     --button-background-active: var(--button-primaryColor);
     /// size
     --button-size: 1.5rem;
-    --button-icon-size: 2rem;
     --button-padding-block: var(--button-size);
     --button-padding-left: calc(var(--button-size) * 2);
     --button-padding-right: calc(var(--button-size) * 2);
@@ -41,7 +40,6 @@
     --button-borderRadius: var(--border-radius-input);
     /// color
     @include _buttonColor();
-    --icon-size: var(--button-icon-size);
     font-family: var(--font);
     font-size: 1.6rem;
     font-weight: 600;
@@ -103,8 +101,8 @@
     [pgs~=icon] {
         display: inline-grid;
         place-items: center;
-        inline-size: calc(var(--button-icon-size) + 2px);
-        block-size: var(--button-icon-size);
+        inline-size: calc(var(--icon-size) + 2px);
+        block-size: var(--icon-size);
         line-height: 1;
         aspect-ratio: 1;
     }
@@ -113,7 +111,9 @@
 //== BUTTON HOVER - NOHOVER
 //=== BUTTON HOVER
 @mixin buttonHover() {
-    @include hover();
+    @include hoverBase();
+    @include hoverContent1();
+    @include hoverFocus();
 }
 
 //=== BUTTON NOT HOVER
@@ -135,10 +135,9 @@
 
 //== BUTTON BIG
 @mixin buttonBig() {
-    --button-padding-right: var(--padding);
-    --button-padding-left: var(--padding);
+    --button-padding: var(--button-padding-block);
     --button-height: 100%;
-    --button-icon-size: 2em;
+    --icon-size: 2em;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -166,11 +165,15 @@
     --button-background: transparent;
 }
 
+@mixin buttonPaddingEqual() {
+    --button-padding: var(--button-padding-block);
+}
+
 //== HEADER
 //=== BUTTON HEADER
 @mixin buttonHeader() {
     --button-size: 1.2rem;
-    --button-border: unset;
+    --button-border-width: 0;
+    min-height: var(--header-size);
     overflow-wrap: break-word;
-    height: calc(var(--button-size) * 4);
 }

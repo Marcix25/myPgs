@@ -1,6 +1,6 @@
 //# SYNC ICONS
 //+ reads the plain .svg files in assets/icons/ and writes their content into
-//+ assets/scss/mixin/_icons.scss as the url("data:image/svg+xml,...") data URIs the icon
+//+ assets/scss/mixin/_mx-icons.scss as the url("data:image/svg+xml,...") data URIs the icon
 //+ component consumes. Run it after adding or editing a file in assets/icons/:
 //+ node scripts/sync-icons.js
 //+
@@ -19,7 +19,7 @@ const path = require("path");
 
 const ROOT = path.resolve(__dirname, "..");
 const ICONS_DIR = path.join(ROOT, "assets/icons");
-const ICONS_SCSS = path.join(ROOT, "assets/scss/mixin/_icons.scss");
+const ICONS_SCSS = path.join(ROOT, "assets/scss/mixin/_mx-icons.scss");
 
 function encodeSvg(raw) {
     return raw

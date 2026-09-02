@@ -57,6 +57,17 @@ Import the helper when direct access is required:
 import { pgs } from "mypgs";
 ```
 
+**Multiple JS entry points on the same page:** if the project builds more than one bundle that ends
+up loaded on the same page (a main script plus a separate one for a specific page/section, for
+example), only the file that is genuinely the first to load should `import ... from "mypgs"`. A
+shared helper file that other bundles also import must not re-import "mypgs" itself — every module
+inside the package runs its own top-level side effects (component init, event listeners) on import,
+so a second bundle importing it gets a second, independent copy running alongside the first, each
+fighting over the same DOM. `mypgs`'s own entry sets `globalThis.pgs` once it loads, so a shared
+helper needing it should read the ambient global (`pgs(...)`, `pgs.toast.info(...)`, etc.) instead
+of importing it — exactly how every component file inside `mypgs` itself refers to `pgs`, without
+importing it.
+
 Load the SCSS source and public mixins:
 
 ```scss

@@ -537,9 +537,13 @@ const demoRenderer = {
             else modal.removeAttribute("pgs-option");
         });
 
-        //== a second notificationBell would build a second panel competing for the single shared
-        //== "notifications" container, so strip its modal role: the real header bell answers for it.
+        //== every notificationBell shares one "notifications" container/panel: with several bells
+        //== rendered at once (the header pattern demo, the notification component's own demo) only
+        //== one can own it. The notification component's own demo is the one meant to actually
+        //== work, so its bell keeps its modal role and every other bell defers to it (see
+        //== configureNotificationDemo).
         root.querySelectorAll('[pgs~="notificationBell"]').forEach(bell => {
+            if (bell.closest('[data-reference="components/notification.html"]')) return;
             this.removeToken(bell.closest('[pgs~="modal"]'), "pgs", "modal");
             this.removeToken(bell, "pgs", "modal-button");
             this.removeToken(bell, "pgs", "modal-close");
@@ -599,7 +603,7 @@ const demoRenderer = {
             //== the menu no longer styles its links, so the button tokens are written here as they
             //== would be in markup
             pgs(a).add("button");
-            pgs(a).option.add("buttonTransparent buttonQuaternary");
+            pgs(a).option.add("buttonTransparent buttonQuaternary buttonPaddingEqual");
 
             const icon = document.createElement("i");
             icon.className = `fa-solid ${ENTRY_ICONS[path] || DEFAULT_ENTRY_ICON}`;
@@ -863,13 +867,12 @@ function configureNotificationDemo() {
     const section = document.querySelector('[data-reference="components/notification.html"]');
     if (!pgsApi?.notification || !section) return;
 
-    //== isolateDemoModals stripped the modal role off every bell rendered in the main area, because
-    //== two panels would fight over the single shared "notifications" container: the real header bell
-    //== owns the only panel, so clicking a demo bell clicks that one.
-    const headerBell = Array.from(document.querySelectorAll('[pgs~="notificationBell"]'))
-        .find(bell => !bell.closest("#reference-demo-main"));
-    document.querySelectorAll('#reference-demo-main [pgs~="notificationBell"]').forEach(bell => {
-        bell.addEventListener("click", () => headerBell?.click());
+    //== isolateDemoModals kept the modal role only on this section's own bell, since every bell
+    //== shares one "notifications" container/panel: every other demo bell proxies its click here.
+    const realBell = section.querySelector('[pgs~="notificationBell"]');
+    document.querySelectorAll('[pgs~="notificationBell"]').forEach(bell => {
+        if (bell === realBell) return;
+        bell.addEventListener("click", () => realBell?.click());
     });
 
     //== catch every button click regardless of how the notification was created (JS call or markup)
@@ -887,34 +890,6 @@ function configureNotificationDemo() {
         setTimeout(() => console.log("Async work finished for", event.detail.buttonId), 1000);
     });
 
-    // const welcomeButton = document.createElement("button");
-    // welcomeButton.type = "button";
-    // welcomeButton.setAttribute("pgs", "button");
-    // welcomeButton.textContent = "Demo: notifica con link";
-    // welcomeButton.addEventListener("click", () => {
-    //     pgsApi.notification.info({
-    //         title: "Benvenuto",
-    //         description: "Completa il caricamento del tuo profilo.",
-    //         buttons: [{ title: "Vai al profilo", link: "#" }]
-    //     });
-    // });
-    // section.append(welcomeButton);
-
-    // const surveyButton = document.createElement("button");
-    // surveyButton.type = "button";
-    // surveyButton.setAttribute("pgs", "button");
-    // surveyButton.textContent = "Demo: sondaggio con più bottoni";
-    // surveyButton.addEventListener("click", () => {
-    //     pgsApi.notification.info({
-    //         title: "Ti sta piacendo il portale?",
-    //         description: "La tua opinione ci aiuta a migliorare.",
-    //         buttons: [
-    //             { id: "yes", title: "Si", close: true },
-    //             { id: "no", title: "No", close: true },
-    //         ]
-    //     });
-    // });
-    // section.append(surveyButton);
 }
 
 demoRenderer.boot();

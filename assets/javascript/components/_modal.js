@@ -25,6 +25,21 @@ function initializeModal(MODAL, existingDialog = null) {
     const modalContentHeader = pgs(DIALOG).querySelector("modal-dialog-content-header");
 
 
+    //== MERGE OPTIONS
+    //== an option written on the wrapper or the dialog is read from either one, whichever is
+    //== convenient to the author: an option landing on the "wrong" element is harmless, since
+    //== every selector only looks for the tokens it cares about
+    {
+        const mergedOptions = [...new Set([
+            ...(MODAL.getAttribute("pgs-option") || "").split(/\s+/).filter(Boolean),
+            ...(DIALOG.getAttribute("pgs-option") || "").split(/\s+/).filter(Boolean),
+        ])].join(" ");
+        if (mergedOptions) {
+            MODAL.setAttribute("pgs-option", mergedOptions);
+            DIALOG.setAttribute("pgs-option", mergedOptions);
+        }
+    }
+
     //== OPTION ATTRIBUTES MODAL
     const modalDisableBackdropClose = pgs(MODAL).option.contains("modalDisableBackdropClose");
     const data_history = pgs(MODAL).option.contains("modalHistory");

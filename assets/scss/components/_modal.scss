@@ -1,4 +1,5 @@
 @use "../mixin/mixin" as *;
+$modalDialogPgs: 'dialog[pgs~="modal-dialog"]';
 
 html:has(dialog[open]) {
     // overflow: hidden;
@@ -7,47 +8,50 @@ html:has(dialog[open]) {
     cursor: pointer;
 }
 
-//= MODAL
+//= MODAL 
 [pgs~="modal"] {
+
+    //== MODAL BUTTON
+    [pgs="modal-button"] {}
 
     //#OPTION
     //== read by the JavaScript only: declared here so editors suggest them
     &[pgs-option~="modalContainerID[]"],
     &[pgs-option~="modalContainerPGS[]"],
-    &[pgs-option~="modalDisableBackdropClose"],
     &[pgs-option~="modalHistory"] {}
 }
 
-//= MODAL BUTTON
-[pgs="modal-button"] {}
-
-//= DIALOG
-dialog[pgs~="modal-dialog"] {
+//= DIALOG 
+:where(#{$modalDialogPgs}) {
     --modal-backdrop: var(--backdrop);
     --modal-background: var(--color-box);
     --modal-color: var(--color-black);
     --modal-padding: var(--padding);
+    --modal-offset: var(--gap-texts);
     --modal-borderRadius: calc(var(--border-radius-input) + var(--modal-padding));
     border: none;
     min-width: 100%;
+    height: 100svh;
     min-height: 100svh;
     padding-inline: var(--padding-page);
     padding-bottom: var(--padding);
-    padding-top: var(--page-top);
+    padding-top: calc(var(--heightOfHeaderScroll) + var(--modal-offset));
     background: var(--modal-backdrop);
     transition: opacity 600ms ease;
     margin: 0;
     opacity: 1;
     transition-behavior: allow-discrete;
     overscroll-behavior: contain;
+    overflow-y: auto;
+    z-index: 90;
+    position: fixed;
+    inset: 0;
+    cursor: pointer;
 
-    &::backdrop {
-        // height: 0;
-        // display: none;
-    }
-
-    @at-root dialog:not(:has([pgs~="modal-dialog-content"])) {
-        cursor: pointer;
+    &:open {
+        display: flex;
+        align-items: safe flex-start;
+        justify-content: safe center;
     }
 
     //- big-mobile 
@@ -58,6 +62,7 @@ dialog[pgs~="modal-dialog"] {
     //=== CONTENT
     [pgs~="modal-dialog-content"] {
         @include sectionNoPadding();
+        margin-inline: unset;
         padding: 0;
         cursor: auto;
         container-type: inline-size;
@@ -104,55 +109,64 @@ dialog[pgs~="modal-dialog"] {
         right: var(--padding-page);
         top: calc(var(--heightOfHeaderScroll) + var(--padding));
         z-index: 1;
-
-        @at-root dialog:not(:has(>[pgs~="modal-close"])) {
-            padding-top: var(--padding-page);
-        }
     }
 
-    //#OPTION
-    //== modalTopLevel
-    &[pgs-option~="modalTopLevel"] {
-        align-items: center;
-        padding-inline: 1rem;
-
-        [pgs~="modal-dialog-content"] {
-            width: min(600px, 100%);
-        }
-    }
-
-    //== LEFT
-    &[pgs-option~="modalLeft"] {
-        padding-inline: var(--gap-texts);
-
-        [pgs~="modal-dialog-content"] {
-            margin-left: unset;
-            margin-right: auto;
-            width: min(400px, 100%);
-            min-width: unset;
-        }
-    }
-
-    //== RIGHT
-    &[pgs-option~="modalRight"] {
-        padding-inline: var(--gap-texts);
-
-        [pgs~="modal-dialog-content"] {
-            margin-left: auto;
-            margin-right: unset;
-            width: min(400px, 100%);
-            min-width: unset;
-        }
-    }
-
+    //#OPTION 
     //== TOP LEVEL
-    &:not([pgs-option~="modalTopLevel"]) {
-        height: 100svh;
-        top: 0;
+    &[pgs-option~="modalTopLevel"]:where(#{$modalDialogPgs}) {
         overflow-y: auto;
-        padding-top: calc(var(--heightOfHeaderScroll) + var(--gap-texts));
-        z-index: 90;
-        position: fixed;
-        inset: 0;
+        height: auto;
+        z-index: auto;
+        inset: unset;
+        align-items: safe flex-start;
+    }
+
+    //== DISABLED BACKDROP CLOSE
+    &[pgs-option~="modalDisableBackdropClose"] {
+        cursor: auto;
+    }
+
+    //== SIZE
+    //=== MINI
+    &[pgs-option~="modalMini"]:where(#{$modalDialogPgs}) {
+        [pgs~="modal-dialog-content"] {
+            --section-width: min(calc(var(--page-width)/3), 100%);
+        }
+    }
+
+    //=== MEDIUM
+    &[pgs-option~="modalMedium"]:where(#{$modalDialogPgs}) {
+        [pgs~="modal-dialog-content"] {
+            --section-width: min(calc(var(--page-width)/2), 100%);
+        }
+    }
+
+    //== POSITION
+    //=== CENTER
+    &[pgs-option~="modalCenter"]:where(#{$modalDialogPgs}) {
+        justify-content: safe center;
+        align-items: safe center;
+    }
+
+    //=== LEFT
+    &[pgs-option~="modalLeft"]:where(#{$modalDialogPgs}) {
+        justify-content: safe flex-start;
+        padding-inline: var(--modal-offset);
+    }
+
+    //=== RIGHT
+    &[pgs-option~="modalRight"]:where(#{$modalDialogPgs}) {
+        justify-content: safe flex-end;
+        padding-inline: var(--modal-offset);
+    }
+
+    //=== TOP
+    &[pgs-option~="modalTop"]:where(#{$modalDialogPgs}) {
+        align-items: safe flex-start;
+    }
+
+    //=== BOTTOM
+    &[pgs-option~="modalBottom"]:where(#{$modalDialogPgs}) {
+        align-items: safe flex-end;
     }
 }

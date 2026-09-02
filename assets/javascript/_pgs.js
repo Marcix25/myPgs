@@ -388,3 +388,8 @@ pgs.import = function (...names) {
 };
 
 globalThis.pgs ??= pgs;
+
+//== published under the package name too, distinct from the pgs() helper above, so a separate
+//== webpack build can mark "mypgs" as external and resolve it to this at runtime instead of
+//== bundling (and re-running) a whole second copy of the library
+globalThis.mypgs ??= { pgs };

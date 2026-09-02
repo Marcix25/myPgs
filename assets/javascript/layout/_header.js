@@ -41,52 +41,6 @@ function initHeader_Resize(header) {
 
     headerElements.forEach(selectHeader => {
 
-        /*         //==x COMPACT LAYOUT OLD
-                let menuAttivate = false;
-                let childsWidthSAVE;
-        
-                function compact(headerElement) {
-        
-                    //=== header
-                    let style = window.getComputedStyle(headerElement);
-                    let padding = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
-                    let gap = parseFloat(style.gap);
-                    let headerElementWidth = parseInt(headerElement.offsetWidth - padding);
-                    let childsWidth;
-        
-                    if (menuAttivate) {
-                        childsWidth = childsWidthSAVE;
-                    } else {
-                        let childs = [];
-        
-                        Array.from(headerElement.children)
-                            .filter(el => !pgs(el).contains("header-element-onlyCompact"))
-                            .forEach(child => {
-                                if (pgs(child).contains("header-element-hamburger")) return;
-                                childs.push(...child.children);
-                            });
-        
-                        gap = Math.round(gap * (childs.length - 1));
-                        let childsReduce = childs.reduce((totalWidth, child) => totalWidth + child.offsetWidth, 0) - 2;
-        
-                        childsWidth = childsReduce + gap;
-                    }
-        
-                    //===set data
-                    if (window.innerWidth <= getHeader_CompactBreakpoint(header)) {
-                        pgs(header).state.add("compact");
-                        pgs(selectHeader).state.add("compact");
-                    } else if (headerElementWidth < childsWidth) {
-                        pgs(header).state.add("compact");
-                        pgs(headerElement).state.add("compact");
-                        menuAttivate = true;
-                        childsWidthSAVE = childsWidth;
-                    } else {
-                        pgs(header).state.remove("compact");
-                        pgs(headerElement).state.remove("compact");
-                    }
-                } */
-
         //== COMPACT LAYOUT
         //== how much room the full layout needs, learned the first time it does not fit. It cannot be
         //== measured while compact, because header-element-onlyFull is hidden and reports zero width.
@@ -111,29 +65,33 @@ function initHeader_Resize(header) {
             //=== compact: stay only while the room that was missing is still missing. With nothing learned
             //=== the page loaded compact and the full layout fitted at that width, so let it back in
             if (isCompact) return setCompact(requiredWidth ? headerElement.clientWidth < requiredWidth : false);
-
             setCompact(overflows);
         }
 
-
-        //== observer (throttled to avoid ResizeObserver loop warnings)
-        let resizeRafId = 0;
-        const scheduleCompact = () => {
-            if (resizeRafId) return;
-            resizeRafId = requestAnimationFrame(() => {
-                resizeRafId = 0;
+        //= Schedule Compact
+        //== throttled to avoid ResizeObserver loop warnings; state is an object (not a plain
+        //== number) because scheduleCompact needs to write the pending id back to the caller's
+        //== own counter, and a number argument would only update a local copy
+        const scheduleCompact = (state) => {
+            if (state.id) return;
+            state.id = requestAnimationFrame(() => {
+                state.id = 0;
                 compact(selectHeader);
             });
         };
 
-        let observer = new ResizeObserver(scheduleCompact);
+        //== Resize 
+        const resizeState = { id: 0 };
+        let observer = new ResizeObserver(() => scheduleCompact(resizeState));
         observer.observe(selectHeader);
-        scheduleCompact();
-    });
 
-    // Ripristina la posizione dell'header quando si esce dal layout compatto
-    window.addEventListener("resize", () => {
-        if (window.innerWidth > 768) header.style.transform = "translateY(0)";
+        //== MutationObserver, not ResizeObserver: won't loop back from compact()'s own show/hide toggles
+        const childState = { id: 0 };
+        const childObserver = new MutationObserver(() => scheduleCompact(childState));
+        childObserver.observe(selectHeader, { childList: true, subtree: true });
+
+        //== initial check
+        compact(selectHeader);
     });
 }
 

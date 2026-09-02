@@ -14,83 +14,94 @@ const DEFAULT_OPTIONS = {
     onSelect: null,
 };
 
-function nextSearchId() {
-    searchId += 1;
-    return searchId;
-}
+const Search = {
+    nextSearchId() {
+        searchId += 1;
+        return searchId;
+    },
 
-function getSearches(root) {
-    const searches = root instanceof Element && pgs(root).contains("search") ? [root] : [];
-    searches.push(...pgs(root).querySelectorAll("search"));
-    return searches;
-}
+    getSearches(root) {
+        const searches = root instanceof Element && pgs(root).contains("search") ? [root] : [];
+        searches.push(...pgs(root).querySelectorAll("search"));
+        return searches;
+    },
 
-function directPgsChild(element, token) {
-    return Array.from(element.children).find(child => pgs(child).contains(token));
-}
+    directPgsChild(element, token) {
+        return Array.from(element.children).find(child => pgs(child).contains(token));
+    },
 
-function normalizeItem(item) {
-    if (typeof item === "string" || typeof item === "number") {
-        const value = String(item).trim();
-        return value ? { label: value, value, disabled: false, data: item } : null;
-    }
+    normalizeItem(item) {
+        if (typeof item === "string" || typeof item === "number") {
+            const value = String(item).trim();
+            return value ? { label: value, value, disabled: false, data: item } : null;
+        }
 
-    if (!item || typeof item !== "object") return null;
+        if (!item || typeof item !== "object") return null;
 
-    const label = String(item.label ?? item.value ?? "").trim();
-    if (!label) return null;
+        const label = String(item.label ?? item.value ?? "").trim();
+        if (!label) return null;
 
-    return {
-        label,
-        value: String(item.value ?? label),
-        disabled: Boolean(item.disabled),
-        data: Object.prototype.hasOwnProperty.call(item, "data") ? item.data : item,
-    };
-}
+        return {
+            label,
+            value: String(item.value ?? label),
+            disabled: Boolean(item.disabled),
+            data: Object.prototype.hasOwnProperty.call(item, "data") ? item.data : item,
+        };
+    },
 
-function normalizeOptions(current, options = {}) {
-    const next = { ...current, ...options };
-    next.minLength = Math.max(0, Number.parseInt(next.minLength, 10) || 0);
-    next.debounce = Math.max(0, Number.parseInt(next.debounce, 10) || 0);
-    next.limit = Math.max(1, Number.parseInt(next.limit, 10) || DEFAULT_OPTIONS.limit);
-    next.submitOnSelect = Boolean(next.submitOnSelect);
-    next.searchOnFocus = Boolean(next.searchOnFocus);
-    next.source = typeof next.source === "function" || Array.isArray(next.source) ? next.source : null;
-    next.onSelect = typeof next.onSelect === "function" ? next.onSelect : null;
-    return next;
-}
+    normalizeOptions(current, options = {}) {
+        const next = { ...current, ...options };
+        next.minLength = Math.max(0, Number.parseInt(next.minLength, 10) || 0);
+        next.debounce = Math.max(0, Number.parseInt(next.debounce, 10) || 0);
+        next.limit = Math.max(1, Number.parseInt(next.limit, 10) || DEFAULT_OPTIONS.limit);
+        next.submitOnSelect = Boolean(next.submitOnSelect);
+        next.searchOnFocus = Boolean(next.searchOnFocus);
+        next.source = typeof next.source === "function" || Array.isArray(next.source) ? next.source : null;
+        next.onSelect = typeof next.onSelect === "function" ? next.onSelect : null;
+        return next;
+    },
 
-function closeSearch(search) {
-    const data = API.get(search);
-    if (!data) return;
+    closeSearch(search) {
+        const data = API.get(search);
+        if (!data) return;
 
-    pgs(search).state.remove("open");
-    data.input.setAttribute("aria-expanded", "false");
-    data.input.removeAttribute("aria-activedescendant");
-    data.list.setAttribute("aria-hidden", "true");
-    data.setActiveIndex(-1);
-    OPEN_SEARCHES.delete(search);
-}
+        pgs(search).state.remove("open");
+        data.input.setAttribute("aria-expanded", "false");
+        data.input.removeAttribute("aria-activedescendant");
+        data.list.setAttribute("aria-hidden", "true");
+        data.setActiveIndex(-1);
+        OPEN_SEARCHES.delete(search);
+    },
 
-function openSearch(search) {
-    const data = API.get(search);
-    if (!data || data.items().length === 0) return;
+    openSearch(search, force = false) {
+        const data = API.get(search);
+        if (!data || (!force && data.items().length === 0)) return;
 
-    pgs(search).state.add("open");
-    data.input.setAttribute("aria-expanded", "true");
-    data.list.setAttribute("aria-hidden", "false");
-    OPEN_SEARCHES.add(search);
-}
+        pgs(search).state.add("open");
+        data.input.setAttribute("aria-expanded", "true");
+        data.list.setAttribute("aria-hidden", "false");
+        OPEN_SEARCHES.add(search);
+    },
+
+    placeholderText(search, options) {
+        const template = pgs(search).option.getValueBrackets("searchPlaceholder") || "Type at least {minLength} characters";
+        return template.replace("{minLength}", options.minLength);
+    },
+
+    noResultsText(search) {
+        return pgs(search).option.getValueBrackets("searchNoResults") || "No results found";
+    },
+};
 
 function PGS_search_init(root = document) {
-    getSearches(root).forEach(search => {
+    Search["getSearches"](root).forEach(search => {
         if (API.has(search)) return;
 
         const input = search.querySelector('input[type="search"]');
-        const list = directPgsChild(search, "search-suggestions");
+        const list = Search["directPgsChild"](search, "search-suggestions");
         if (!input || !list) return;
 
-        const id = nextSearchId();
+        const id = Search["nextSearchId"]();
         if (!input.id) input.id = `search-input-${id}`;
         if (!list.id) list.id = `search-suggestions-${id}`;
 
@@ -153,7 +164,7 @@ function PGS_search_init(root = document) {
             items = [];
             activeIndex = -1;
             list.replaceChildren();
-            closeSearch(search);
+            Search["closeSearch"](search);
         }
 
         function cancel() {
@@ -167,9 +178,16 @@ function PGS_search_init(root = document) {
 
         function render(nextItems) {
             items = Array.from(nextItems || [])
-                .map(normalizeItem)
+                .map(Search["normalizeItem"])
                 .filter(Boolean)
                 .slice(0, options.limit);
+
+            pgs(search).state.remove("error");
+
+            if (!items.length) {
+                showNoResults();
+                return items;
+            }
 
             const fragment = document.createDocumentFragment();
             items.forEach((item, index) => {
@@ -188,10 +206,7 @@ function PGS_search_init(root = document) {
 
             activeIndex = -1;
             list.replaceChildren(fragment);
-            pgs(search).state.remove("error");
-
-            if (items.length) openSearch(search);
-            else closeSearch(search);
+            Search["openSearch"](search);
 
             return items;
         }
@@ -200,7 +215,7 @@ function PGS_search_init(root = document) {
             if (Array.isArray(options.source)) {
                 const normalizedQuery = query.toLocaleLowerCase();
                 return options.source.filter(item => {
-                    const normalized = normalizeItem(item);
+                    const normalized = Search["normalizeItem"](item);
                     return normalized && normalized.label.toLocaleLowerCase().includes(normalizedQuery);
                 });
             }
@@ -248,12 +263,42 @@ function PGS_search_init(root = document) {
             }
         }
 
+        function showMessage(option) {
+            items = [];
+            activeIndex = -1;
+
+            option.setAttribute("aria-disabled", "true");
+            list.replaceChildren(option);
+
+            Search["openSearch"](search, true);
+        }
+
+        function showPlaceholder() {
+            const option = document.createElement("li");
+            pgs(option).add("_search-suggestions-placeholder");
+            option.textContent = Search["placeholderText"](search, options);
+            showMessage(option);
+        }
+
+        function showNoResults() {
+            const option = document.createElement("li");
+            pgs(option).add("_search-suggestions-empty");
+            option.textContent = Search["noResultsText"](search);
+            showMessage(option);
+        }
+
         function schedule() {
             cancel();
             clear();
             pgs(search).state.remove("error");
 
-            if (input.value.trim().length < options.minLength || !options.source) return;
+            if (!options.source) return;
+
+            if (input.value.trim().length < options.minLength) {
+                showPlaceholder();
+                return;
+            }
+
             timer = window.setTimeout(() => {
                 timer = null;
                 runSearch(input.value);
@@ -278,7 +323,7 @@ function PGS_search_init(root = document) {
         }
 
         function configure(nextOptions = {}) {
-            options = normalizeOptions(options, nextOptions);
+            options = Search["normalizeOptions"](options, nextOptions);
             return api;
         }
 
@@ -287,7 +332,7 @@ function PGS_search_init(root = document) {
         }
 
         function onFocus() {
-            if (items.length) openSearch(search);
+            if (items.length) Search["openSearch"](search);
             else if (options.searchOnFocus) schedule();
         }
 
@@ -316,11 +361,11 @@ function PGS_search_init(root = document) {
             if (event.key === "Escape") {
                 event.preventDefault();
                 cancel();
-                closeSearch(search);
+                Search["closeSearch"](search);
                 return;
             }
 
-            if (event.key === "Tab") closeSearch(search);
+            if (event.key === "Tab") Search["closeSearch"](search);
         }
 
         function onListPointerDown(event) {
@@ -332,7 +377,7 @@ function PGS_search_init(root = document) {
 
         function onSubmit() {
             cancel();
-            closeSearch(search);
+            Search["closeSearch"](search);
         }
 
         function destroy() {
@@ -353,8 +398,8 @@ function PGS_search_init(root = document) {
             configure,
             setSource: source => configure({ source }),
             search: runSearch,
-            open: () => openSearch(search),
-            close: () => closeSearch(search),
+            open: () => Search["openSearch"](search),
+            close: () => Search["closeSearch"](search),
             clear,
             cancel,
             select,
@@ -377,7 +422,7 @@ function PGS_search_init(root = document) {
 
 document.addEventListener("pointerdown", event => {
     OPEN_SEARCHES.forEach(search => {
-        if (!search.contains(event.target)) closeSearch(search);
+        if (!search.contains(event.target)) Search["closeSearch"](search);
     });
 });
 

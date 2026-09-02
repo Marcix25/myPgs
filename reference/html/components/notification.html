@@ -44,6 +44,7 @@
  * - button: uses the related button component or utility in this example.
  * - modal: wraps notificationBell; pgs.notification generates the dialog inside it and provides open/close/toggle behavior shared with every other dialog on the page.
  * - modal-button: identifies notificationBell as the control that opens the dialog.
+ * - modal-close: identifies notificationBell as also being the control that closes the dialog.
  * - modal-dialog-content: identifies the JS-generated styled content area inside the dialog, wrapping notifications.
  * - buttonIcon: presents notificationBell as an icon button.
  * - modalRight: slides the notification dialog in from the right; see Modal for other positions.
@@ -61,15 +62,16 @@
 <div pgs="flexColumn" pgs-option="gapSections" demo="component">
 
     <section pgs="flexColumn" pgs-option="gapTexts" demo="item" demo-code="children" demo-title="Bell" demo-description="The control that opens and closes the panel, and the only markup this component needs on the page. Wrap it in a modal and pgs.notification builds the dialog inside it on its own.">
-        <button pgs="modal-button button notificationBell" pgs-option="buttonIcon" aria-label="Open notifications">
-            <i pgs="icon" pgs-option="icon-bell"></i>
-            <span pgs="notificationBell-counter"></span>
-        </button>
+        <div pgs="modal">
+            <button type="button" pgs="modal-button modal-close button notificationBell" pgs-option="buttonIcon" aria-label="Open notifications">
+                <i pgs="icon" pgs-option="icon-bell"></i>
+                <span pgs="notificationBell-counter"></span>
+            </button>
+        </div>
     </section>
 
 </div>
 <div pgs="flexColumn" pgs-option="gapSections" demo="component" demo-title="Type">
-
 
     <section pgs="flexColumn" pgs-option="gapTexts" demo="item" demo-code="children" demo-title="Success" demo-description="A completed operation. The element is hidden and consumed on load: the notification it describes is moved into the panel." demo-preview="none">
         <div pgs="hidden notificationLoad" pgs-option='notification[{
@@ -116,34 +118,34 @@
 </div>
 
 <script type="application/json">
-notification[{
-    "id": null,                  // string; generated when omitted, and reported by every event
-    "title": "",                 // omitted falls back to the title of the type
-    "description": "",           // plain text under the title
-    "type": "info",              // error | success | warning | info
-    "icon": null,                // HTML string; null uses the icon of the type
-    "closeTitle": "Close",       // label of the dismiss button
-    "buttons": [                 // omitted or empty leaves only the dismiss button
-        {
-            "id": null,          // reported as buttonId by pgs:notification:buttonClick
-            "title": "",         // label of the button
-            "link": null,        // navigates there; omit it to only dispatch the event
-            "close": true,       // dismisses the notification after the click
-            "optionButton": null // pgs-option token added to the button, e.g. buttonMini
-        }
-    ]
-}]
+    notification[{
+        "id": null,                  // string; generated when omitted, and reported by every event
+        "title": "",                 // omitted falls back to the title of the type
+        "description": "",           // plain text under the title
+        "type": "info",              // error | success | warning | info
+        "icon": null,                // HTML string; null uses the icon of the type
+        "closeTitle": "Close",       // label of the dismiss button
+        "buttons": [                 // omitted or empty leaves only the dismiss button
+            {
+                "id": null,          // reported as buttonId by pgs:notification:buttonClick
+                "title": "",         // label of the button
+                "link": null,        // navigates there; omit it to only dispatch the event
+                "close": true,       // dismisses the notification after the click
+                "optionButton": null // pgs-option token added to the button, e.g. buttonMini
+            }
+        ]
+    }]
 </script>
 
 <script type="text/x-example-js">
     pgs.notification.success({
-    id: undefined,
-    title: "",
-    description: "",
-    icon: null,
-    closeTitle: "Close",
-    buttons: [
-        { id: undefined, title: "", link: undefined, close: true, optionButton: undefined }
-    ]
-});
+        id: undefined,
+        title: "",
+        description: "",
+        icon: null,
+        closeTitle: "Close",
+        buttons: [
+            { id: undefined, title: "", link: undefined, close: true, optionButton: undefined }
+        ]
+    });
 </script>

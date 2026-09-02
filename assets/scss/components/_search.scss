@@ -15,7 +15,6 @@
     --search-suggestions-item-selected-color: var(--color-whiteFixed);
     position: relative;
     @include flexRow(nowrap);
-    @include buttonHeader();
     flex: 1;
     width: 100%;
     overflow: visible;
@@ -39,10 +38,9 @@
     input {
         width: 100%;
         min-width: auto;
-        height: 100%;
-        padding: var(--button-size);
+        height: calc( 1.6rem + var(--button-size, 1.2rem) * 2);
+        padding: var(--button-size, 1.2rem);
         padding-left: 0;
-        margin: 2px;
         margin-left: 0;
         border: 0;
         border-radius: var(--border-radius-input);
@@ -113,6 +111,13 @@
                 cursor: not-allowed;
                 opacity: .5;
             }
+        }
+
+        [pgs~="_search-suggestions-placeholder"],
+        [pgs~="_search-suggestions-empty"] {
+            padding: var(--search-suggestions-item-padding);
+            cursor: default;
+            opacity: .6;
         }
 
         &:has([pgs~="_search-suggestions-item"]:hover) {

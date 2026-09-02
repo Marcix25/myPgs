@@ -16,6 +16,8 @@
 </head>
 
 <body class="is-loadingOLD" pgs="bodyBase bodyImg bodyText bodyHeading">
+
+    <!-- = -->
     <header pgs="header" pgs-option="headerCompactBigTablet">
         <div pgs="header-element blur">
             <div pgs="header-element-alwaysOn">
@@ -25,12 +27,12 @@
             </div>
 
             <div pgs="header-element-onlyFull">
-                <nav pgs="menu" pgs-option="menuHorizontal menuShort" aria-label="Main menu">
+                <nav pgs="menu" pgs-option="menuHorizontal " aria-label="Main menu">
                     <ul>
-                        <li><a pgs="button" pgs-option="buttonText" href="#base">Base</a></li>
-                        <li><a pgs="button" pgs-option="buttonText" href="#components">Components</a></li>
-                        <li><a pgs="button" pgs-option="buttonText" href="#patterns">Patterns</a></li>
-                        <li><a pgs="button" pgs-option="buttonText" href="#layout">Layout</a></li>
+                        <li><a pgs="button" pgs-option="buttonText buttonHeader buttonPaddingEqual" href="#base">Base</a></li>
+                        <li><a pgs="button" pgs-option="buttonText buttonHeader buttonPaddingEqual" href="#components">Components</a></li>
+                        <li><a pgs="button" pgs-option="buttonText buttonHeader buttonPaddingEqual" href="#patterns">Patterns</a></li>
+                        <li><a pgs="button" pgs-option="buttonText buttonHeader buttonPaddingEqual" href="#layout">Layout</a></li>
                     </ul>
                 </nav>
             </div>
@@ -40,12 +42,6 @@
 
             <div pgs="header-element-alwaysOnLast">
                 <div pgs="flexRow nowrap">
-                    <div pgs="modal" pgs-option="modalContainerPGS[header]">
-                        <button type="button" pgs="modal-button modal-close button notificationBell" pgs-option="buttonIcon" aria-label="Open notifications">
-                            <i class="fa-duotone fa-solid fa-bell"></i>
-                            <span pgs="notificationBell-counter"></span>
-                        </button>
-                    </div>
                     <button pgs="button toggleDarkmode" pgs-option="buttonIcon" type="button" aria-label="Change theme">
                         <i class="fa-solid fa-moon"></i>
                     </button>
@@ -55,7 +51,7 @@
             <div pgs="header-element-hamburger modal" pgs-option="modalContainerPGS[header]">
 
                 <button pgs="button modal-button modal-close header-element-hamburger-button" pgs-option="buttonIcon" type="button" title="menu">
-                    <i pgs="icon" pgs-option="iconDuo-hamburger" aria-hidden="true"></i>
+                    <i pgs="icon" pgs-option="icon-hamburgerTwo" aria-hidden="true"></i>
                 </button>
 
                 <dialog pgs="modal-dialog" pgs-option="modalRight">
@@ -74,8 +70,7 @@
     </header>
 
 
-    <!-- landing panel: demo.js clones it into the first panel, so the demo opens on something
-         that explains the library instead of on a reference -->
+    <!-- = landing panel: demo.js clones it into the first panel, so the demo opens on something that explains the library instead of on a reference -->
     <template id="reference-demo-welcome">
         <section pgs="flexColumn" pgs-option="gapSections">
             <div pgs="flexColumn" pgs-option="gapTexts">
@@ -135,6 +130,7 @@
         </section>
     </template>
 
+    <!-- = -->
     <div pgs="pageShell" pgs-option="pageShellFullPage pageShellAsideScrollFlush">
         <aside pgs="pageShell-aside hideContainerDownBigTablet" id="asideScroll">
             <div pgs="flexColumn gapElements" class="reference-demo-nav"></div>
@@ -142,7 +138,7 @@
         <main pgs="pageShell-content marginBottom" pgs-option="marginSections" id="reference-demo-main"></main>
     </div>
 
-
+    <!-- = -->
     <footer pgs="footer">
         <button pgs="button toggleDarkmode" type="button" aria-label="Change theme">
             <i class="fa-solid fa-moon"></i>

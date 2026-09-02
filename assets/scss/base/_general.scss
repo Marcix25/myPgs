@@ -69,6 +69,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
     [pgs~=motionReduce],
     [pgs~=motionReduce]::before,
     [pgs~=motionReduce]::after {
@@ -126,7 +127,7 @@
 [pgs~=borderBottom],
 [pgs~=borderLeft],
 [pgs~=borderInline],
-[pgs~=borderBlock]{
+[pgs~=borderBlock] {
     &[pgs-option~=borderThin] {
         --border-width: 1px;
     }
@@ -159,7 +160,6 @@
     }
 }
 
-
 //= BORDER RADIUS
 [pgs~=borderRadius] {
     border-radius: var(--border-radius);
@@ -175,7 +175,9 @@
 
 //= HOVER
 [pgs~=hover] {
-    @include hover();
+    @include hoverBase();
+    @include hoverContent1();
+    @include hoverFocus();
 
     &:not(:disabled):hover {
         [pgs~=hover-text] {

@@ -72,7 +72,7 @@
     }
 }
 
-@mixin sectionNoPadding {
+@mixin sectionNoPadding() {
     --section-width: var(--page-width);
     margin-inline: auto;
     max-width: var(--section-width);

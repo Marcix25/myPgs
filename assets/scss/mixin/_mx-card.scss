@@ -3,43 +3,23 @@
 @use "mx-hover" as *;
 @use "mx-responsive" as *;
 
-//# CARD
-//-- selectorLinkAndNot
-@mixin _selectorLinkAndNot {
-
-    &:where(a),
-    &:where(:not(:has(> a:first-child))),
-    >a:first-child {
-        @content;
-    }
-}
-
-//-- selectorLink
-@mixin _selectorLink {
-
-    &:where(a),
-    >a:first-child {
-        @content;
-    }
-}
-
+//# CARD & BOX
+//= card
 //== content
 @mixin _cardContent() {
-    @include _selectorLinkAndNot {
-        padding: 0;
-        overflow: hidden;
-        flex-basis: 100%;
+    padding: 0;
+    overflow: hidden;
+    flex-basis: 100%;
 
-        > :is(object, img) {
-            display: block;
-            padding: var(--card-img-padding);
-            width: 100%;
-            max-width: 100%;
-            min-width: 0;
-            height: auto;
-            margin: 0;
-            object-fit: cover;
-        }
+    > :is(object, img) {
+        display: block;
+        padding: var(--card-img-padding);
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        height: auto;
+        margin: 0;
+        object-fit: cover;
     }
 
     [pgs~="card-content"] {
@@ -63,22 +43,19 @@
     --card-img-margin-left: var(--card-img-base);
     --card-img-margin-top: var(--card-img-base);
     --card-img-margin-bottom: var(--card-padding);
+    padding: var(--card-padding);
 
-    @include _selectorLinkAndNot {
-        padding: var(--card-padding);
-
-        > :is(object, img) {
-            display: block;
-            padding: var(--card-img-padding);
-            width: calc((var(--card-padding) * 2) + 100%);
-            max-width: none;
-            height: auto;
-            margin:
-                var(--card-img-margin-top) var(--card-img-margin-right) var(--card-img-margin-bottom) var(--card-img-margin-left);
-            border-radius: var(--card-borderRadius);
-            border-bottom-right-radius: 0;
-            border-bottom-left-radius: 0;
-        }
+    > :is(object, img) {
+        display: block;
+        padding: var(--card-img-padding);
+        width: calc((var(--card-padding) * 2) + 100%);
+        max-width: none;
+        height: auto;
+        margin:
+            var(--card-img-margin-top) var(--card-img-margin-right) var(--card-img-margin-bottom) var(--card-img-margin-left);
+        border-radius: var(--card-borderRadius);
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
     }
 
     &:where([pgs-option~="cardMini"]) {
@@ -91,27 +68,25 @@
 
     //- cardHorizontal
     &[pgs-option~="cardHorizontal"] {
-        @include _selectorLinkAndNot {
-            flex-flow: row wrap;
+        flex-flow: row wrap;
 
-            > :is(object, img),
-            [pgs~="card-content"] {
-                flex-basis: calc((var(--card-horizontal-breakpoint) - 100%) * 999);
-            }
+        > :is(object, img),
+        [pgs~="card-content"] {
+            flex-basis: calc((var(--card-horizontal-breakpoint) - 100%) * 999);
+        }
 
-            [pgs~="card-content"] {
-                flex-grow: var(--card-horizontal-content-grow);
-            }
+        [pgs~="card-content"] {
+            flex-grow: var(--card-horizontal-content-grow);
+        }
 
-            > :is(object, img) {
-                flex-grow: var(--card-horizontal-img-grow);
-                min-height: var(--card-horizontal-img-minHeight);
-            }
+        > :is(object, img) {
+            flex-grow: var(--card-horizontal-img-grow);
+            min-height: var(--card-horizontal-img-minHeight);
         }
     }
 }
 
-//= card
+//== card
 @mixin card() {
     --card-padding: var(--padding);
     --card-borderRadius: calc(var(--border-radius-input) + var(--card-padding));
@@ -122,17 +97,15 @@
     --card-horizontal-content-grow: 3;
     --card-horizontal-img-minHeight: 300px;
     display: flex;
+    flex-direction: column;
+    background: var(--card-background);
+    border-radius: var(--card-borderRadius);
 
-    @include _selectorLinkAndNot {
-        display: flex;
-        flex-direction: column;
-        background: var(--card-background);
-        border-radius: var(--card-borderRadius);
-    }
-
-    @include _selectorLink {
+    &:where(a) {
         --card-background: var(--color-white);
-        @include hover();
+        @include hoverBase();
+        @include hoverContent1();
+        @include hoverFocus();
         outline: var(--border-complete);
     }
 
@@ -157,22 +130,20 @@
     }
 }
 
-//# BOX
 //= BOX
 @mixin box() {
     --box-padding: var(--padding);
     --box-borderRadius: calc(var(--border-radius-input) + var(--box-padding));
     --box-background: var(--color-box-transparent);
+    padding: var(--box-padding);
+    background: var(--box-background);
+    border-radius: var(--box-borderRadius);
 
-    @include _selectorLinkAndNot {
-        padding: var(--box-padding);
-        background: var(--box-background);
-        border-radius: var(--box-borderRadius);
-    }
-
-    @include _selectorLink {
+    &:where(a) {
         --box-background: var(--color-white);
-        @include hover();
+        @include hoverBase();
+        @include hoverContent1();
+        @include hoverFocus();
         outline: var(--border-complete);
     }
 

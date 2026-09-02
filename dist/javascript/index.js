@@ -483,6 +483,11 @@ pgs.import = function (...names) {
 
 globalThis.pgs ??= pgs;
 
+//== published under the package name too, distinct from the pgs() helper above, so a separate
+//== webpack build can mark "mypgs" as external and resolve it to this at runtime instead of
+//== bundling (and re-running) a whole second copy of the library
+globalThis.mypgs ??= { pgs };
+
 
 /***/ },
 
@@ -1550,6 +1555,21 @@ function initializeModal(MODAL, existingDialog = null) {
     const modalContentHeader = pgs(DIALOG).querySelector("modal-dialog-content-header");
 
 
+    //== MERGE OPTIONS
+    //== an option written on the wrapper or the dialog is read from either one, whichever is
+    //== convenient to the author: an option landing on the "wrong" element is harmless, since
+    //== every selector only looks for the tokens it cares about
+    {
+        const mergedOptions = [...new Set([
+            ...(MODAL.getAttribute("pgs-option") || "").split(/\s+/).filter(Boolean),
+            ...(DIALOG.getAttribute("pgs-option") || "").split(/\s+/).filter(Boolean),
+        ])].join(" ");
+        if (mergedOptions) {
+            MODAL.setAttribute("pgs-option", mergedOptions);
+            DIALOG.setAttribute("pgs-option", mergedOptions);
+        }
+    }
+
     //== OPTION ATTRIBUTES MODAL
     const modalDisableBackdropClose = pgs(MODAL).option.contains("modalDisableBackdropClose");
     const data_history = pgs(MODAL).option.contains("modalHistory");
@@ -2012,7 +2032,7 @@ const fn_notification = {
             modalWrapper.dataset.notificationDialog = "true";
 
             const dialog = document.createElement("dialog");
-            pgs(dialog).option.add("modalRight");
+            pgs(dialog).option.add("modalRight modalMini modalTop");
 
             const content = document.createElement("div");
             pgs(content).add("modal-dialog-content");
@@ -2082,83 +2102,94 @@ const DEFAULT_OPTIONS = {
     onSelect: null,
 };
 
-function nextSearchId() {
-    searchId += 1;
-    return searchId;
-}
+const Search = {
+    nextSearchId() {
+        searchId += 1;
+        return searchId;
+    },
 
-function getSearches(root) {
-    const searches = root instanceof Element && pgs(root).contains("search") ? [root] : [];
-    searches.push(...pgs(root).querySelectorAll("search"));
-    return searches;
-}
+    getSearches(root) {
+        const searches = root instanceof Element && pgs(root).contains("search") ? [root] : [];
+        searches.push(...pgs(root).querySelectorAll("search"));
+        return searches;
+    },
 
-function directPgsChild(element, token) {
-    return Array.from(element.children).find(child => pgs(child).contains(token));
-}
+    directPgsChild(element, token) {
+        return Array.from(element.children).find(child => pgs(child).contains(token));
+    },
 
-function normalizeItem(item) {
-    if (typeof item === "string" || typeof item === "number") {
-        const value = String(item).trim();
-        return value ? { label: value, value, disabled: false, data: item } : null;
-    }
+    normalizeItem(item) {
+        if (typeof item === "string" || typeof item === "number") {
+            const value = String(item).trim();
+            return value ? { label: value, value, disabled: false, data: item } : null;
+        }
 
-    if (!item || typeof item !== "object") return null;
+        if (!item || typeof item !== "object") return null;
 
-    const label = String(item.label ?? item.value ?? "").trim();
-    if (!label) return null;
+        const label = String(item.label ?? item.value ?? "").trim();
+        if (!label) return null;
 
-    return {
-        label,
-        value: String(item.value ?? label),
-        disabled: Boolean(item.disabled),
-        data: Object.prototype.hasOwnProperty.call(item, "data") ? item.data : item,
-    };
-}
+        return {
+            label,
+            value: String(item.value ?? label),
+            disabled: Boolean(item.disabled),
+            data: Object.prototype.hasOwnProperty.call(item, "data") ? item.data : item,
+        };
+    },
 
-function normalizeOptions(current, options = {}) {
-    const next = { ...current, ...options };
-    next.minLength = Math.max(0, Number.parseInt(next.minLength, 10) || 0);
-    next.debounce = Math.max(0, Number.parseInt(next.debounce, 10) || 0);
-    next.limit = Math.max(1, Number.parseInt(next.limit, 10) || DEFAULT_OPTIONS.limit);
-    next.submitOnSelect = Boolean(next.submitOnSelect);
-    next.searchOnFocus = Boolean(next.searchOnFocus);
-    next.source = typeof next.source === "function" || Array.isArray(next.source) ? next.source : null;
-    next.onSelect = typeof next.onSelect === "function" ? next.onSelect : null;
-    return next;
-}
+    normalizeOptions(current, options = {}) {
+        const next = { ...current, ...options };
+        next.minLength = Math.max(0, Number.parseInt(next.minLength, 10) || 0);
+        next.debounce = Math.max(0, Number.parseInt(next.debounce, 10) || 0);
+        next.limit = Math.max(1, Number.parseInt(next.limit, 10) || DEFAULT_OPTIONS.limit);
+        next.submitOnSelect = Boolean(next.submitOnSelect);
+        next.searchOnFocus = Boolean(next.searchOnFocus);
+        next.source = typeof next.source === "function" || Array.isArray(next.source) ? next.source : null;
+        next.onSelect = typeof next.onSelect === "function" ? next.onSelect : null;
+        return next;
+    },
 
-function closeSearch(search) {
-    const data = API.get(search);
-    if (!data) return;
+    closeSearch(search) {
+        const data = API.get(search);
+        if (!data) return;
 
-    pgs(search).state.remove("open");
-    data.input.setAttribute("aria-expanded", "false");
-    data.input.removeAttribute("aria-activedescendant");
-    data.list.setAttribute("aria-hidden", "true");
-    data.setActiveIndex(-1);
-    OPEN_SEARCHES.delete(search);
-}
+        pgs(search).state.remove("open");
+        data.input.setAttribute("aria-expanded", "false");
+        data.input.removeAttribute("aria-activedescendant");
+        data.list.setAttribute("aria-hidden", "true");
+        data.setActiveIndex(-1);
+        OPEN_SEARCHES.delete(search);
+    },
 
-function openSearch(search) {
-    const data = API.get(search);
-    if (!data || data.items().length === 0) return;
+    openSearch(search, force = false) {
+        const data = API.get(search);
+        if (!data || (!force && data.items().length === 0)) return;
 
-    pgs(search).state.add("open");
-    data.input.setAttribute("aria-expanded", "true");
-    data.list.setAttribute("aria-hidden", "false");
-    OPEN_SEARCHES.add(search);
-}
+        pgs(search).state.add("open");
+        data.input.setAttribute("aria-expanded", "true");
+        data.list.setAttribute("aria-hidden", "false");
+        OPEN_SEARCHES.add(search);
+    },
+
+    placeholderText(search, options) {
+        const template = pgs(search).option.getValueBrackets("searchPlaceholder") || "Type at least {minLength} characters";
+        return template.replace("{minLength}", options.minLength);
+    },
+
+    noResultsText(search) {
+        return pgs(search).option.getValueBrackets("searchNoResults") || "No results found";
+    },
+};
 
 function PGS_search_init(root = document) {
-    getSearches(root).forEach(search => {
+    Search["getSearches"](root).forEach(search => {
         if (API.has(search)) return;
 
         const input = search.querySelector('input[type="search"]');
-        const list = directPgsChild(search, "search-suggestions");
+        const list = Search["directPgsChild"](search, "search-suggestions");
         if (!input || !list) return;
 
-        const id = nextSearchId();
+        const id = Search["nextSearchId"]();
         if (!input.id) input.id = `search-input-${id}`;
         if (!list.id) list.id = `search-suggestions-${id}`;
 
@@ -2221,7 +2252,7 @@ function PGS_search_init(root = document) {
             items = [];
             activeIndex = -1;
             list.replaceChildren();
-            closeSearch(search);
+            Search["closeSearch"](search);
         }
 
         function cancel() {
@@ -2235,9 +2266,16 @@ function PGS_search_init(root = document) {
 
         function render(nextItems) {
             items = Array.from(nextItems || [])
-                .map(normalizeItem)
+                .map(Search["normalizeItem"])
                 .filter(Boolean)
                 .slice(0, options.limit);
+
+            pgs(search).state.remove("error");
+
+            if (!items.length) {
+                showNoResults();
+                return items;
+            }
 
             const fragment = document.createDocumentFragment();
             items.forEach((item, index) => {
@@ -2256,10 +2294,7 @@ function PGS_search_init(root = document) {
 
             activeIndex = -1;
             list.replaceChildren(fragment);
-            pgs(search).state.remove("error");
-
-            if (items.length) openSearch(search);
-            else closeSearch(search);
+            Search["openSearch"](search);
 
             return items;
         }
@@ -2268,7 +2303,7 @@ function PGS_search_init(root = document) {
             if (Array.isArray(options.source)) {
                 const normalizedQuery = query.toLocaleLowerCase();
                 return options.source.filter(item => {
-                    const normalized = normalizeItem(item);
+                    const normalized = Search["normalizeItem"](item);
                     return normalized && normalized.label.toLocaleLowerCase().includes(normalizedQuery);
                 });
             }
@@ -2316,12 +2351,42 @@ function PGS_search_init(root = document) {
             }
         }
 
+        function showMessage(option) {
+            items = [];
+            activeIndex = -1;
+
+            option.setAttribute("aria-disabled", "true");
+            list.replaceChildren(option);
+
+            Search["openSearch"](search, true);
+        }
+
+        function showPlaceholder() {
+            const option = document.createElement("li");
+            pgs(option).add("_search-suggestions-placeholder");
+            option.textContent = Search["placeholderText"](search, options);
+            showMessage(option);
+        }
+
+        function showNoResults() {
+            const option = document.createElement("li");
+            pgs(option).add("_search-suggestions-empty");
+            option.textContent = Search["noResultsText"](search);
+            showMessage(option);
+        }
+
         function schedule() {
             cancel();
             clear();
             pgs(search).state.remove("error");
 
-            if (input.value.trim().length < options.minLength || !options.source) return;
+            if (!options.source) return;
+
+            if (input.value.trim().length < options.minLength) {
+                showPlaceholder();
+                return;
+            }
+
             timer = window.setTimeout(() => {
                 timer = null;
                 runSearch(input.value);
@@ -2346,7 +2411,7 @@ function PGS_search_init(root = document) {
         }
 
         function configure(nextOptions = {}) {
-            options = normalizeOptions(options, nextOptions);
+            options = Search["normalizeOptions"](options, nextOptions);
             return api;
         }
 
@@ -2355,7 +2420,7 @@ function PGS_search_init(root = document) {
         }
 
         function onFocus() {
-            if (items.length) openSearch(search);
+            if (items.length) Search["openSearch"](search);
             else if (options.searchOnFocus) schedule();
         }
 
@@ -2384,11 +2449,11 @@ function PGS_search_init(root = document) {
             if (event.key === "Escape") {
                 event.preventDefault();
                 cancel();
-                closeSearch(search);
+                Search["closeSearch"](search);
                 return;
             }
 
-            if (event.key === "Tab") closeSearch(search);
+            if (event.key === "Tab") Search["closeSearch"](search);
         }
 
         function onListPointerDown(event) {
@@ -2400,7 +2465,7 @@ function PGS_search_init(root = document) {
 
         function onSubmit() {
             cancel();
-            closeSearch(search);
+            Search["closeSearch"](search);
         }
 
         function destroy() {
@@ -2421,8 +2486,8 @@ function PGS_search_init(root = document) {
             configure,
             setSource: source => configure({ source }),
             search: runSearch,
-            open: () => openSearch(search),
-            close: () => closeSearch(search),
+            open: () => Search["openSearch"](search),
+            close: () => Search["closeSearch"](search),
             clear,
             cancel,
             select,
@@ -2445,7 +2510,7 @@ function PGS_search_init(root = document) {
 
 document.addEventListener("pointerdown", event => {
     OPEN_SEARCHES.forEach(search => {
-        if (!search.contains(event.target)) closeSearch(search);
+        if (!search.contains(event.target)) Search["closeSearch"](search);
     });
 });
 
@@ -4152,52 +4217,6 @@ function initHeader_Resize(header) {
 
     headerElements.forEach(selectHeader => {
 
-        /*         //==x COMPACT LAYOUT OLD
-                let menuAttivate = false;
-                let childsWidthSAVE;
-        
-                function compact(headerElement) {
-        
-                    //=== header
-                    let style = window.getComputedStyle(headerElement);
-                    let padding = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
-                    let gap = parseFloat(style.gap);
-                    let headerElementWidth = parseInt(headerElement.offsetWidth - padding);
-                    let childsWidth;
-        
-                    if (menuAttivate) {
-                        childsWidth = childsWidthSAVE;
-                    } else {
-                        let childs = [];
-        
-                        Array.from(headerElement.children)
-                            .filter(el => !pgs(el).contains("header-element-onlyCompact"))
-                            .forEach(child => {
-                                if (pgs(child).contains("header-element-hamburger")) return;
-                                childs.push(...child.children);
-                            });
-        
-                        gap = Math.round(gap * (childs.length - 1));
-                        let childsReduce = childs.reduce((totalWidth, child) => totalWidth + child.offsetWidth, 0) - 2;
-        
-                        childsWidth = childsReduce + gap;
-                    }
-        
-                    //===set data
-                    if (window.innerWidth <= getHeader_CompactBreakpoint(header)) {
-                        pgs(header).state.add("compact");
-                        pgs(selectHeader).state.add("compact");
-                    } else if (headerElementWidth < childsWidth) {
-                        pgs(header).state.add("compact");
-                        pgs(headerElement).state.add("compact");
-                        menuAttivate = true;
-                        childsWidthSAVE = childsWidth;
-                    } else {
-                        pgs(header).state.remove("compact");
-                        pgs(headerElement).state.remove("compact");
-                    }
-                } */
-
         //== COMPACT LAYOUT
         //== how much room the full layout needs, learned the first time it does not fit. It cannot be
         //== measured while compact, because header-element-onlyFull is hidden and reports zero width.
@@ -4222,29 +4241,33 @@ function initHeader_Resize(header) {
             //=== compact: stay only while the room that was missing is still missing. With nothing learned
             //=== the page loaded compact and the full layout fitted at that width, so let it back in
             if (isCompact) return setCompact(requiredWidth ? headerElement.clientWidth < requiredWidth : false);
-
             setCompact(overflows);
         }
 
-
-        //== observer (throttled to avoid ResizeObserver loop warnings)
-        let resizeRafId = 0;
-        const scheduleCompact = () => {
-            if (resizeRafId) return;
-            resizeRafId = requestAnimationFrame(() => {
-                resizeRafId = 0;
+        //= Schedule Compact
+        //== throttled to avoid ResizeObserver loop warnings; state is an object (not a plain
+        //== number) because scheduleCompact needs to write the pending id back to the caller's
+        //== own counter, and a number argument would only update a local copy
+        const scheduleCompact = (state) => {
+            if (state.id) return;
+            state.id = requestAnimationFrame(() => {
+                state.id = 0;
                 compact(selectHeader);
             });
         };
 
-        let observer = new ResizeObserver(scheduleCompact);
+        //== Resize 
+        const resizeState = { id: 0 };
+        let observer = new ResizeObserver(() => scheduleCompact(resizeState));
         observer.observe(selectHeader);
-        scheduleCompact();
-    });
 
-    // Ripristina la posizione dell'header quando si esce dal layout compatto
-    window.addEventListener("resize", () => {
-        if (window.innerWidth > 768) header.style.transform = "translateY(0)";
+        //== MutationObserver, not ResizeObserver: won't loop back from compact()'s own show/hide toggles
+        const childState = { id: 0 };
+        const childObserver = new MutationObserver(() => scheduleCompact(childState));
+        childObserver.observe(selectHeader, { childList: true, subtree: true });
+
+        //== initial check
+        compact(selectHeader);
     });
 }
 

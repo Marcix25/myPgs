@@ -42,20 +42,7 @@ write them by hand.
 `cookieConsent-panel` `cookieConsent-panel-badge` `cookieConsent-panel-featureAnalytics`
 `menu-buttonIcon` → each one gains a leading `_`.
 
-### Icons
-
-| was | now |
-| --- | --- |
-| `class="fa-solid fa-arrow-left"` on markup the library builds | `pgs="icon" pgs-option="icon-arrowLeft"` |
-| `--fa-size` | `--icon-size` (the old name is still honoured where it was set) |
-| `--fa-primary-color`, `--fa-secondary-color`, `--fa-primary-opacity`, `--fa-secondary-opacity` | gone; an icon takes the text `color`, or `--icon-color` |
-| `--icon-background`, `--icon-padding` | `--iconBox-background`, `--iconBox-padding` |
-
-The seventeen glyph options: `icon-arrowLeft` `icon-arrowRight` `icon-bell` `icon-check`
-`icon-chevronDown` `icon-circle` `icon-circleCheck` `icon-circleInfo` `icon-circleXmark`
-`icon-close` `icon-cookie` `icon-magnifyingGlass` `icon-moon` `icon-sliders` `icon-star`
-`icon-sun` `icon-triangleExclamation`.
-
+###
 ### Header
 
 | was | now |

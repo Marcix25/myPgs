@@ -69,7 +69,6 @@
         translate: -15px;
 
         &[aria-expanded="true"] {
-
             span {
                 rotate: 180deg;
             }
@@ -113,6 +112,7 @@
 
                 >a {
                     width: 100%;
+                    justify-content: start;
                 }
             }
 
@@ -132,7 +132,8 @@
 
                 >ul {
                     flex-basis: 100%;
-                    padding-left: 1.0rem;
+                    padding-left: .5rem;
+                    margin-left: 1.5rem;
                     border-left: var(--border-complete);
                 }
 
@@ -148,7 +149,8 @@
         a:not([aria-current]:not([aria-current="false"])) {
             --button-padding-left: var(--button-padding-right);
 
-            >i, >[pgs~=icon] {
+            >i,
+            >[pgs~=icon] {
                 display: none;
             }
         }

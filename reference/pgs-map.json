@@ -468,9 +468,11 @@
         "pgs-generated": [],
         "pgs-option": [
             "buttonBig",
+            "buttonHeader",
             "buttonIcon",
             "buttonMini",
             "buttonNohover",
+            "buttonPaddingEqual",
             "buttonQuaternary",
             "buttonReverse",
             "buttonSecondary",
@@ -833,7 +835,7 @@
             "headerCompactWatch",
             "headerPrimary",
             "headerScroll",
-            "iconDuo-hamburger"
+            "icon-hamburgerTwo"
         ]
     },
     "hidden": {
@@ -995,6 +997,8 @@
             "icon-envelope",
             "icon-eye",
             "icon-gear",
+            "icon-hamburger",
+            "icon-hamburgerTwo",
             "icon-heart",
             "icon-home",
             "icon-lock",
@@ -1217,12 +1221,17 @@
             "modal-dialog"
         ],
         "pgs-option": [
+            "modalBottom",
+            "modalCenter",
             "modalContainerID",
             "modalContainerPGS",
             "modalDisableBackdropClose",
             "modalHistory",
             "modalLeft",
+            "modalMedium",
+            "modalMini",
             "modalRight",
+            "modalTop",
             "modalTopLevel"
         ]
     },
@@ -1526,9 +1535,14 @@
             "search-suggestions"
         ],
         "pgs-generated": [
-            "_search-suggestions-item"
+            "_search-suggestions-empty",
+            "_search-suggestions-item",
+            "_search-suggestions-placeholder"
         ],
-        "pgs-option": []
+        "pgs-option": [
+            "searchNoResults",
+            "searchPlaceholder"
+        ]
     },
     "section": {
         "pgs": [],

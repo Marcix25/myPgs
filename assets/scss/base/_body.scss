@@ -65,7 +65,9 @@
 
 //== IMG
 :where([pgs~="bodyImg"]) {
-    i, [pgs~=icon] {
+
+    i,
+    [pgs~=icon] {
         line-height: 1.2;
         font-size: var(--fa-size, var(--icon-size));
     }
@@ -129,11 +131,11 @@
     a {
         text-decoration: none;
         overflow-wrap: anywhere;
-        color: var(--color-black);
+        color: var(--color-link);
 
         &:where(:hover) {
-            color: color-mix(in srgb, var(--color-link) 100%, var(--color-white) 50%);
-            text-decoration: underline;
+            background-color: var(--color-link-soft);
+            border-radius: 5px;
         }
 
         img,

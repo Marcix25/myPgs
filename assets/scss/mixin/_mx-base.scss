@@ -112,13 +112,3 @@
     @include heading(calc($h5 - 0.1rem), 700);
 }
 
-//= ICON SVG
-@mixin iconSvgBase64($url, $size: 2.0rem, $color: var(--color-primary-strong)) {
-    content: "";
-    display: list-item;
-    width: $size;
-    height: $size;
-    background-color: $color;
-    -webkit-mask: $url center/contain no-repeat;
-    mask: $url center/contain no-repeat;
-}
