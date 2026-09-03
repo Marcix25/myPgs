@@ -1,4 +1,5 @@
 import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
+import { PGS_formatText } from "../helper/_text.js";
 
 //= PGS_toast
 const fn_toast = {
@@ -27,21 +28,6 @@ const fn_toast = {
                 icon: '<i pgs="icon" pgs-option="icon-triangleExclamation"></i>'
             }
         }
-    },
-
-    _escapeHtml(value) {
-        return String(value ?? "")
-            .replaceAll("&", "&amp;")
-            .replaceAll("<", "&lt;")
-            .replaceAll(">", "&gt;")
-            .replaceAll('"', "&quot;")
-            .replaceAll("'", "&#039;");
-    },
-
-    _formatText(value) {
-        return this._escapeHtml(value)
-            .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-            .replace(/\r?\n/g, "<br>");
     },
 
     _getDuration(toast) {
@@ -73,8 +59,8 @@ const fn_toast = {
     },
 
     _getContent(title, description) {
-        const safeDescription = this._formatText(description);
-        const safeTitle = this._formatText(title);
+        const safeDescription = PGS_formatText(description);
+        const safeTitle = PGS_formatText(title);
 
         if (!safeTitle) return `<span>${safeDescription}</span>`;
         if (!safeDescription) return `<strong>${safeTitle}</strong>`;

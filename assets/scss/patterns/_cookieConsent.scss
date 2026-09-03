@@ -3,10 +3,7 @@
 [pgs~=cookieConsent] {
     //option for suggestions
     &[pgs-option~="cookieConsent[]"] {}
-
-    --cookie-bg: var(--color-box);
-    --cookie-color: var(--color-black);
-    --cookie-border: var(--border-complete);
+    --modal-bg: var(--color-white);
     display: flex;
     flex-direction: column;
     gap: var(--gap-);
@@ -72,7 +69,7 @@
     [pgs~=_cookieConsent-panel] {
         border: var(--border-complete);
         border-radius: calc(var(--modal-borderRadius) - var(--gap-texts));
-        background-color: var(--color-primary-soft, rgba(0, 0, 0, 0.02));
+        background-color: var(--color-box);
         margin-inline: var(--gap-texts);
         margin-bottom: var(--gap-texts);
 

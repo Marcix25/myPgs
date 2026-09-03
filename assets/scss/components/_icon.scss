@@ -20,6 +20,9 @@
 // The glyph lands on ::before, which is also where an icon font paints, so an element carrying
 // both this and a font class draws once and this wins: two attributes beat a font's single class.
 [pgs~=icon] {
+    @each $name, $url in $icons-builtin {
+        --#{$name}: #{$url};
+    }
 
     @each $name, $url in $icons-builtin {
 
@@ -27,7 +30,7 @@
         //== declaration, so any later, more specific rule (see the header's expanded hamburger)
         //== can swap the drawn glyph with a plain CSS override, no JS involved
         &[pgs-option~=#{$name}] {
-            --icon-mask: #{$url};
+            --icon: var(--#{$name});
 
             &::before {
                 //== 1em rather than the size property: --icon-size holds the keyword inherit, which
@@ -35,7 +38,7 @@
                 //== up every per-component override for free, since --icon-size is what sets it.
                 //== --icon-color is the neutral colour channel, undeclared by default so a glyph
                 //== keeps taking the text colour exactly as an icon font does
-                @include iconSvgBase64(var(--icon-mask), 1em, var(--icon-color, currentColor));
+                @include iconSvgBase64(var(--icon), 1em, var(--icon-color, currentColor));
                 vertical-align: -0.125em;
             }
 
@@ -52,11 +55,15 @@
     //+ DUO ICON
     // Two-layer icons use a mask per pseudo-element. Keeping both layers in the same grid cell
     // lets the component using them animate each one without needing markup solely for decoration.
+    //
+    // iconDuo is its own option, required alongside the glyph name: a name present in both
+    // $icons-builtin and $icons-duo (icon-hamburgerTwo, for a static and an animatable version of
+    // the same glyph) draws flat until iconDuo is added, at which point this rule's extra
+    // attribute selector gives it more specificity than the single-mask rule above and wins.
     @each $name, $layers in $icons-duo {
-
-        &[pgs-option~=#{$name}] {
-            --icon-mask-before: #{nth($layers, 1)};
-            --icon-mask-after: #{nth($layers, 2)};
+        &[pgs-option~=#{$name}][pgs-option~=iconDuo] {
+            --iconBefore: #{nth($layers, 1)};
+            --iconAfter: #{nth($layers, 2)};
             display: inline-grid;
             place-items: center;
             inline-size: 1em;
@@ -70,11 +77,11 @@
             }
 
             &::before {
-                @include iconSvgBase64(var(--icon-mask-before), 1em, var(--icon-color, currentColor));
+                @include iconSvgBase64(var(--iconBefore), 1em, var(--icon-color, currentColor));
             }
 
             &::after {
-                @include iconSvgBase64(var(--icon-mask-after), 1em, var(--icon-color, currentColor));
+                @include iconSvgBase64(var(--iconAfter), 1em, var(--icon-color, currentColor));
             }
         }
     }

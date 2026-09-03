@@ -1,20 +1,49 @@
-# Horizontal scroll helper
+<!-- Automatically generated from reference/html/helper/scrollHorizontal.html. Edit reference/html/helper/scrollHorizontal.html and run npm run docs:generate again. -->
 
-`pgs.scrollHorizontal(element, speed)` turns vertical wheel movement into horizontal scrolling, but only while the container can still move in the requested direction.
+# Scroll horizontal
 
-```js
-const container = document.querySelector(".horizontal-list");
-const removeScroll = pgs.scrollHorizontal(container, 1);
-```
+Turns the vertical mouse wheel into horizontal scrolling over a container that can still scroll in that direction, leaving trackpad gestures and native horizontal scrolling untouched. Slides uses it internally for slidesScrollMouse; call it directly on any horizontally-scrolling container of your own.
 
-The helper:
+## JavaScript API
 
-- leaves trackpad scrolling untouched;
-- ignores zooming with `Ctrl`;
-- does not replace a native horizontal scroll;
-- lets the page scroll once the container reaches its start or its end;
-- returns a function that removes the listener.
+- `pgs.scrollHorizontal(element, speed)`: attaches the wheel listener to element, scaling each wheel step by speed, and returns a function that removes the listener.
 
-```js
-removeScroll();
+## Related elements
+
+### PGS
+
+- `flexRow`: lays the demo items out in a row.
+- `gapTexts`: spaces them apart.
+- `overflowXAuto`: adds the horizontal scrolling this example turns the wheel into.
+- `box`: uses the related box component or utility in this example.
+
+### PGS Options
+
+- `nowrap`: keeps the row on one line so it actually overflows instead of wrapping.
+- `boxMini`: uses the related boxMini component or utility in this example.
+
+## Output
+
+A horizontally-scrolling row where the vertical mouse wheel scrolls sideways instead of moving the page.
+
+## Example
+
+```html
+<div pgs="flexRow gapTexts overflowXAuto" pgs-option="nowrap" id="pgsScrollDemo" style="max-width: 320px;">
+    <div pgs="box" pgs-option="boxMini">1</div>
+    <div pgs="box" pgs-option="boxMini">2</div>
+    <div pgs="box" pgs-option="boxMini">3</div>
+    <div pgs="box" pgs-option="boxMini">4</div>
+    <div pgs="box" pgs-option="boxMini">5</div>
+    <div pgs="box" pgs-option="boxMini">6</div>
+    <div pgs="box" pgs-option="boxMini">7</div>
+    <div pgs="box" pgs-option="boxMini">8</div>
+    <div pgs="box" pgs-option="boxMini">9</div>
+</div>
+
+<script type="module">
+    import { pgs } from "mypgs";
+
+    pgs.scrollHorizontal(document.getElementById("pgsScrollDemo"), 5);
+</script>
 ```

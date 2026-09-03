@@ -1,3 +1,5 @@
+import { PGS_formatText } from "../helper/_text.js";
+
 //= PGS_alert
 const fn_alert = {
     _defaults: {
@@ -20,15 +22,6 @@ const fn_alert = {
                 icon: '<i pgs="icon" pgs-option="icon-triangleExclamation"></i>'
             }
         }
-    },
-
-    _escapeHtml(value) {
-        return String(value ?? "")
-            .replaceAll("&", "&amp;")
-            .replaceAll("<", "&lt;")
-            .replaceAll(">", "&gt;")
-            .replaceAll('"', "&quot;")
-            .replaceAll("'", "&#039;");
     },
 
     _getContainer(root = document, configuredContainer) {
@@ -68,8 +61,8 @@ const fn_alert = {
             ...definedOptions
         };
         const alert = document.createElement("div");
-        const title = this._escapeHtml(config.title);
-        const description = this._escapeHtml(config.description);
+        const title = PGS_formatText(config.title);
+        const description = PGS_formatText(config.description);
 
         pgs(alert).add("alert");
         pgs(alert).state.add(type);

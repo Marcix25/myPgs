@@ -33,4 +33,8 @@ HTML examples of the theme-aware graphical logo and the text logo.
 <a aria-label="Text logo" pgs="logo" href="/" demo="component" demo-title="Text logo" demo-description="Text-based brand variant, used when no logo image is available.">
     <span pgs="logo-text">MyPGS</span>
 </a>
+
+<a aria-label="Logo" pgs="logo" pgs-option="logoDarkmodeFixed" href="/" demo="component" demo-title="Always-inverted logo" demo-description="Image-based brand logo that stays inverted using logoDarkmodeFixed, regardless of the current theme.">
+    <img pgs="logo-image" src="https://placehold.co/240x80?text=MyPGS" alt="MyPGS">
+</a>
 ```

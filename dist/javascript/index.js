@@ -908,6 +908,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_alert: () => (/* binding */ PGS_alert)
 /* harmony export */ });
+/* harmony import */ var _helper_text_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_text.js */ "./assets/javascript/helper/_text.js");
+
+
 //= PGS_alert
 const fn_alert = {
     _defaults: {
@@ -930,15 +933,6 @@ const fn_alert = {
                 icon: '<i pgs="icon" pgs-option="icon-triangleExclamation"></i>'
             }
         }
-    },
-
-    _escapeHtml(value) {
-        return String(value ?? "")
-            .replaceAll("&", "&amp;")
-            .replaceAll("<", "&lt;")
-            .replaceAll(">", "&gt;")
-            .replaceAll('"', "&quot;")
-            .replaceAll("'", "&#039;");
     },
 
     _getContainer(root = document, configuredContainer) {
@@ -978,8 +972,8 @@ const fn_alert = {
             ...definedOptions
         };
         const alert = document.createElement("div");
-        const title = this._escapeHtml(config.title);
-        const description = this._escapeHtml(config.description);
+        const title = (0,_helper_text_js__WEBPACK_IMPORTED_MODULE_0__.PGS_formatText)(config.title);
+        const description = (0,_helper_text_js__WEBPACK_IMPORTED_MODULE_0__.PGS_formatText)(config.description);
 
         pgs(alert).add("alert");
         pgs(alert).state.add(type);
@@ -1747,6 +1741,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_notification: () => (/* binding */ PGS_notification)
 /* harmony export */ });
 /* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+/* harmony import */ var _helper_text_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_text.js */ "./assets/javascript/helper/_text.js");
+
 
 
 //= PGS_notification
@@ -1778,14 +1774,6 @@ const fn_notification = {
         }
     },
 
-    _escapeHtml(value) {
-        return String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
-    },
-
-    _formatText(value) {
-        return this._escapeHtml(value).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\r?\n/g, "<br>");
-    },
-
     _getType(notification) {
         const type = String(notification.type || "info").trim();
         return typeof PGS_notification[type] === "function" ? type : "info";
@@ -1809,8 +1797,8 @@ const fn_notification = {
     },
 
     _getContent(title, description) {
-        const safeDescription = this._formatText(description);
-        const safeTitle = this._formatText(title);
+        const safeDescription = (0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(description);
+        const safeTitle = (0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(title);
 
         if (!safeTitle) return `<span>${safeDescription}</span>`;
         if (!safeDescription) return `<strong>${safeTitle}</strong>`;
@@ -2685,12 +2673,12 @@ class PGS_Slides {
         const dots = Array.from(pgs(slides).querySelector('slides-dots').children);
 
         //== option
-        const slidesNotScrollWithMouse = pgs(slides).option.contains('slidesNotScrollWithMouse');
+        const slidesScrollMouse = pgs(slides).option.contains('slidesScrollMouse');
 
         //== scroll
-        const removeHorizontalScroll = slidesNotScrollWithMouse
-            ? null
-            : (0,_helper_scrollY_js__WEBPACK_IMPORTED_MODULE_0__.PGS_scrollHorizontal)(this.container, 5);
+        const removeHorizontalScroll = slidesScrollMouse
+            ? (0,_helper_scrollY_js__WEBPACK_IMPORTED_MODULE_0__.PGS_scrollHorizontal)(this.container, 5)
+            : null;
 
         //==Listener: DOT, PREC, NEXT
         dots.forEach((dot, index) => dot.addEventListener("click", () => this.#goToNumberSlide(index), { signal }));
@@ -3375,6 +3363,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_toast: () => (/* binding */ PGS_toast)
 /* harmony export */ });
 /* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+/* harmony import */ var _helper_text_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_text.js */ "./assets/javascript/helper/_text.js");
+
 
 
 //= PGS_toast
@@ -3406,21 +3396,6 @@ const fn_toast = {
         }
     },
 
-    _escapeHtml(value) {
-        return String(value ?? "")
-            .replaceAll("&", "&amp;")
-            .replaceAll("<", "&lt;")
-            .replaceAll(">", "&gt;")
-            .replaceAll('"', "&quot;")
-            .replaceAll("'", "&#039;");
-    },
-
-    _formatText(value) {
-        return this._escapeHtml(value)
-            .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-            .replace(/\r?\n/g, "<br>");
-    },
-
     _getDuration(toast) {
         const rawDuration = toast.timeout ?? toast.duration;
         const duration = Number.parseInt(rawDuration, 10);
@@ -3450,8 +3425,8 @@ const fn_toast = {
     },
 
     _getContent(title, description) {
-        const safeDescription = this._formatText(description);
-        const safeTitle = this._formatText(title);
+        const safeDescription = (0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(description);
+        const safeTitle = (0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(title);
 
         if (!safeTitle) return `<span>${safeDescription}</span>`;
         if (!safeDescription) return `<strong>${safeTitle}</strong>`;
@@ -3658,11 +3633,11 @@ __webpack_require__.r(__webpack_exports__);
 
 class PGS_formValidate {
     #messageDefaults = {
-        fieldErrorTitle: "Error!",
-        fieldError: "Please complete this field.",
-        fieldsError: "Please complete all required fields.",
-        successTitle: "Submitted",
-        success: "Submitted successfully."
+        formFieldErrorTitle: "Error!",
+        formFieldError: "Please complete this field.",
+        formFieldsError: "Please complete all required fields.",
+        formSuccessTitle: "Submitted",
+        formSuccess: "Submitted successfully."
     };
     #temporaryFieldErrors = new Map();
     #insideValidatedCallback = false;
@@ -3901,16 +3876,16 @@ class PGS_formValidate {
         if (i !== 0) return;
 
         const messageSource = field.matches("fieldset")
-            ? field.querySelector('[pgs-option*="message["], [pgs-option*="messageTitle["]')
+            ? field.querySelector('[pgs-option*="formMessage["], [pgs-option*="formMessageTitle["]')
             : field;
         const source = messageSource || field;
         const temporaryError = this.#temporaryFieldErrors.get(field);
-        const fieldTitle = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(source).option.getValueBrackets("messageTitle");
-        const fieldMessage = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(source).option.getValueBrackets("message");
-        const title = temporaryError?.title || fieldTitle || this.#getMessage("fieldErrorTitle");
+        const fieldTitle = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(source).option.getValueBrackets("formMessageTitle");
+        const fieldMessage = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(source).option.getValueBrackets("formMessage");
+        const title = temporaryError?.title || fieldTitle || this.#getMessage("formFieldErrorTitle");
         const description = total > 1
-            ? this.#getMessage("fieldsError")
-            : temporaryError?.message || fieldMessage || this.#getMessage("fieldError");
+            ? this.#getMessage("formFieldsError")
+            : temporaryError?.message || fieldMessage || this.#getMessage("formFieldError");
 
         if (this.typeNotice == "alert") {
             _components_alerts_js__WEBPACK_IMPORTED_MODULE_2__.PGS_alert.error({
@@ -3934,7 +3909,7 @@ class PGS_formValidate {
     }
 
     // + SUCCESS
-    success(description = this.#getMessage("success"), title = this.#getMessage("successTitle")) {
+    success(description = this.#getMessage("formSuccess"), title = this.#getMessage("formSuccessTitle")) {
         if (this.#insideValidatedCallback || this.validate() === true) {
 
             if (this.typeNotice == "alert") {
@@ -4164,6 +4139,40 @@ function PGS_scrollHorizontal(element, speed) {
 
 /***/ },
 
+/***/ "./assets/javascript/helper/_text.js"
+/*!*******************************************!*\
+  !*** ./assets/javascript/helper/_text.js ***!
+  \*******************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_escapeHtml: () => (/* binding */ PGS_escapeHtml),
+/* harmony export */   PGS_formatText: () => (/* binding */ PGS_formatText)
+/* harmony export */ });
+//+ escapes text that gets interpolated into innerHTML, shared by every component that builds its
+//+ own markup from author-supplied strings (alert/notification/toast titles and descriptions,
+//+ cookieConsent copy)
+function PGS_escapeHtml(value) {
+    return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+//+ the shared bit of markdown every one of those components accepts: **bold** and line breaks,
+//+ applied after escaping so the source text can contain < > & unescaped
+function PGS_formatText(value) {
+    return PGS_escapeHtml(value)
+        .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+        .replace(/\r?\n/g, "<br>");
+}
+
+
+/***/ },
+
 /***/ "./assets/javascript/layout/_header.js"
 /*!*********************************************!*\
   !*** ./assets/javascript/layout/_header.js ***!
@@ -4280,7 +4289,7 @@ function initHeader_Height(header) {
 
     //+ GET HEADER HEIGHT ELEMENT
     function getHeaderHeightElement(header) {
-        const isCompactBottom = window.getComputedStyle(header).getPropertyValue("--header-headerCompactBottom-active").trim() === "1";
+        const isCompactBottom = window.getComputedStyle(header).getPropertyValue("--header-compactBottom-active").trim() === "1";
         return isCompactBottom ? pgs(header).querySelector("header-element") || header : header;
     }
 
@@ -4421,6 +4430,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_cookieConsent: () => (/* binding */ PGS_cookieConsent)
 /* harmony export */ });
 /* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+/* harmony import */ var _helper_text_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_text.js */ "./assets/javascript/helper/_text.js");
+
 
 
 const STORAGE_KEY = 'pgs_cookie_preferences_v1';
@@ -4443,23 +4454,6 @@ const DEFAULTS = {
     titleAccept: "Accept all",
     gaId: ""
 };
-
-//+
-function escapeHtml(value) {
-    return String(value ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-}
-
-//+
-function formatText(value) {
-    return escapeHtml(value)
-        .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-        .replace(/\r?\n/g, "<br>");
-}
 
 //+
 function safeJsonParse(value) {
@@ -4549,51 +4543,51 @@ function buildCookieConsent(marker) {
     pgs(root).add('modal', 'cookieConsent');
 
     root.innerHTML = `
-        <dialog pgs-option="modalTopLevel">
+        <dialog pgs-option="modalTopLevel modalBottom modalRight modalMedium">
             <div pgs="modal-dialog-content">
                 <div pgs="flexColumn">
-                    <p><i pgs="icon" pgs-option="icon-cookie"></i> ${formatText(config.titleIntro)} <br></p>
-                    <h2>${formatText(config.titleHeading)}</h2>
+                    <p><i pgs="icon" pgs-option="icon-cookie"></i> ${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.titleIntro)} <br></p>
+                    <h2>${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.titleHeading)}</h2>
 
-                    <p>${formatText(config.description)}</p>
+                    <p>${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.description)}</p>
 
                     <p>
-                        <a href="${escapeHtml(config.privacyPolicyUrl)}" target="_blank" rel="noopener">Privacy Policy</a> -
-                        <a href="${escapeHtml(config.cookiePolicyUrl)}" target="_blank" rel="noopener">Cookie Policy</a>
+                        <a href="${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_escapeHtml)(config.privacyPolicyUrl)}" target="_blank" rel="noopener">Privacy Policy</a> -
+                        <a href="${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_escapeHtml)(config.cookiePolicyUrl)}" target="_blank" rel="noopener">Cookie Policy</a>
                     </p>
                 </div>
 
-                <div pgs="_cookieConsent-panel flexColumn" role="group" aria-label="${escapeHtml(config.panelAriaLabel)}">
+                <div pgs="_cookieConsent-panel flexColumn" role="group" aria-label="${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_escapeHtml)(config.panelAriaLabel)}">
                     <div pgs="flexRow nowrap _cookieConsent-panel-featureEssential">
                         <div>
                             <p>
-                                <strong>${formatText(config.essentialTitle)}</strong>
+                                <strong>${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.essentialTitle)}</strong>
                                 <br>
-                                <small>${formatText(config.essentialDescription)}</small>
+                                <small>${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.essentialDescription)}</small>
                             </p>
                         </div>
 
-                        <span pgs="_cookieConsent-panel-badge badge" pgs-option="badgeSuccess">${formatText(config.essentialBadge)}</span>
+                        <span pgs="_cookieConsent-panel-badge badge" pgs-option="badgeSuccess">${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.essentialBadge)}</span>
                     </div>
 
                     <div pgs="flexRow _cookieConsent-panel-featureAnalytics">
                         <label pgs="toggle">
                             <p>
-                                <strong>${formatText(config.analyticsTitle)}</strong>
+                                <strong>${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.analyticsTitle)}</strong>
                                 <br>
-                                <small>${formatText(config.analyticsDescription)}</small>
+                                <small>${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.analyticsDescription)}</small>
                             </p>
 
-                            <input type="checkbox" pgs="_cookieConsent-panel-toggleAnalytics" aria-label="${escapeHtml(config.analyticsAriaLabel)}">
+                            <input type="checkbox" pgs="_cookieConsent-panel-toggleAnalytics" aria-label="${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_escapeHtml)(config.analyticsAriaLabel)}">
                         </label>
                     </div>
                     <div pgs="flexRow">
                         <button type="button" pgs="button _cookieConsent-actionReject">
-                            <i pgs="icon" pgs-option="icon-sliders"></i> ${formatText(config.titleReject)}
+                            <i pgs="icon" pgs-option="icon-sliders"></i> ${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.titleReject)}
                         </button>
     
                         <button type="button" pgs="button _cookieConsent-actionAccept" pgs-option="buttonStrong">
-                            <i pgs="icon" pgs-option="icon-check"></i> ${formatText(config.titleAccept)}
+                            <i pgs="icon" pgs-option="icon-check"></i> ${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.titleAccept)}
                         </button>
                     </div>
                 </div>

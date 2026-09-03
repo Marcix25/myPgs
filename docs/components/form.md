@@ -19,13 +19,13 @@ Form structure with labels, text fields, a textarea, a checkbox, and a radio gro
 
 ## PGS Options
 
-- `message`: defines a field-specific message with the syntax message[Message text].
-- `messageTitle`: defines a field-specific alert title with the syntax messageTitle[Title text].
-- `fieldErrorTitle`: defines the fallback title for validation errors on the form.
-- `fieldError`: defines the fallback description for one invalid field.
-- `fieldsError`: defines the summary shown when multiple fields are invalid.
-- `successTitle`: defines the validation success title.
-- `success`: defines the validation success description.
+- `formMessage`: defines a field-specific message with the syntax formMessage[Message text].
+- `formMessageTitle`: defines a field-specific alert title with the syntax formMessageTitle[Title text].
+- `formFieldErrorTitle`: defines the fallback title for validation errors on the form.
+- `formFieldError`: defines the fallback description for one invalid field.
+- `formFieldsError`: defines the summary shown when multiple fields are invalid.
+- `formSuccessTitle`: defines the validation success title.
+- `formSuccess`: defines the validation success description.
 
 ## PGS States
 
@@ -35,7 +35,7 @@ Form structure with labels, text fields, a textarea, a checkbox, and a radio gro
 
 ## JavaScript API
 
-- `new pgs.formValidate(form, options)`: creates a utility associated directly with the form, adds novalidate, and completes missing form message options from options.message and then from library defaults; existing pgs-option values are preserved.
+- `new pgs.formValidate(form, options)`: creates a utility associated directly with the form, adds novalidate, and completes missing form message options (formFieldErrorTitle, formFieldError, formFieldsError, formSuccessTitle, formSuccess) from options.message and then from library defaults; existing pgs-option values are preserved.
 - `instance.validator(callback, eventName)`: intercepts the specified event, clears previous temporary field errors, validates the form, shows the success message, and invokes callback only when valid; eventName defaults to submit.
 - `instance.validate()`: validates required fields, updates state attributes, and returns true or false.
 - `instance.success(description, title)`: validates the form and shows a success alert or toast when there are no errors.
@@ -66,27 +66,26 @@ Complete HTML form with required fields and an example script for a custom rule,
 ## Example
 
 ```html
-<form pgs="form" pgs-option="fieldErrorTitle[Check the form] fieldError[Complete this field] fieldsError[Complete all required fields] successTitle[Submitted] success[Submitted successfully]" action="#" method="post">
+<form pgs="form" pgs-option="formFieldErrorTitle[Check the form] formFieldError[Complete this field] formFieldsError[Complete all required fields] formSuccessTitle[Submitted] formSuccess[Submitted successfully]" action="#" method="post">
 
     <label>
         <span pgs="label">Name</span>
-        <input pgs="input" pgs-option="message[Enter your name]" type="text" name="name" placeholder="John Smith" required>
+        <input pgs="input" pgs-option="formMessageTitle[Name required] formMessage[Enter your name]" type="text" name="name" placeholder="John Smith" required>
     </label>
 
     <label>
         <span pgs="label">Email</span>
-        <input pgs="input" pgs-option="message[Enter a valid email address]" type="email" name="email" placeholder="name@example.com" required>
+        <input pgs="input" pgs-option="formMessage[Enter a valid email address]" type="email" name="email" placeholder="name@example.com" required>
     </label>
-    
-    
+
     <label>
         <span pgs="label">Password</span>
-        <input pgs="input" pgs-option="message[Enter a password]" type="password" name="password" autocomplete="new-password" required>
+        <input pgs="input" pgs-option="formMessage[Enter a password]" type="password" name="password" autocomplete="new-password" required>
     </label>
-    
+
     <label>
         <span pgs="label">Confirm password</span>
-        <input pgs="input" pgs-option="message[Confirm your password]" type="password" name="confirmPassword" autocomplete="new-password" required>
+        <input pgs="input" pgs-option="formMessage[Confirm your password]" type="password" name="confirmPassword" autocomplete="new-password" required>
     </label>
     
     <label>
@@ -114,7 +113,7 @@ Complete HTML form with required fields and an example script for a custom rule,
     </label>
 
     <br>
-    <fieldset pgs="radio flexColumn" pgs-option="message[Choose a contact method]">
+    <fieldset pgs="radio flexColumn" pgs-option="formMessage[Choose a contact method]">
         <legend pgs="legend">Preferred contact method</legend>
 
         <label>
@@ -134,7 +133,7 @@ Complete HTML form with required fields and an example script for a custom rule,
     </fieldset>
     <br>
 
-    <fieldset pgs="checkbox flexColumn" pgs-option="message[Choose at least one topic]">
+    <fieldset pgs="checkbox flexColumn" pgs-option="formMessage[Choose at least one topic]">
         <legend pgs="legend">Topics</legend>
 
         <label>
@@ -177,7 +176,7 @@ Complete HTML form with required fields and an example script for a custom rule,
     //== new roules
     formValidate.addNewRule(() => {
         if (password.value && confirmPassword.value && password.value !== confirmPassword.value) {
-            pgs(confirmPassword).option.setValueBrackets("message", "Passwords do not match");
+            pgs(confirmPassword).option.setValueBrackets("formMessage", "Passwords do not match");
             return [confirmPassword, password];
         }
     });

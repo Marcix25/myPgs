@@ -26,7 +26,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    background: var(--color-primary-soft);
+    background: var(--color-box-transparent);
     color: #2b2b2b;
     border-radius: 24px;
     padding: 28px 32px;
@@ -40,7 +40,6 @@ body {
         scroll-padding: 10px;
 
         code {
-            color: var(--color-primary-strong);
             width: auto;
             overflow: visible;
             font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -50,7 +49,7 @@ body {
 
     /* the three block kinds sit next to each other in the same panel, so each gets its own tint:
        same family, enough separation to tell at a glance which one you are reading */
-    &[data-kind="json"] {
+    /* &[data-kind="json"] {
         background: light-dark(#00000008, #ffffff08);
 
         pre {
@@ -72,7 +71,7 @@ body {
                 color: var(--color-black);
             }
         }
-    }
+    } */
 
     .exampleSource-title {
         color: var(--color-black);
@@ -87,7 +86,7 @@ body {
         height: 35px;
         border-radius: 50%;
         border: none;
-        background: rgba(255, 255, 255, 0.12);
+        background: #c2bfbf56;
         color: var(--color-black);
         display: flex;
         align-items: center;
@@ -96,7 +95,45 @@ body {
         transition: background-color 150ms;
 
         &:hover {
-            background: rgba(255, 255, 255, 0.22);
+            background: #8f8e8e56;
+        }
+    }
+
+    /* Prism tokenizes the markup, the colours here just theme it to match the pill's own
+       light-dark background instead of pulling in a stock Prism theme */
+    .token {
+
+        &.tag,
+        &.keyword,
+        &.selector {
+            color: light-dark(#005cc5, #79b8ff);
+        }
+
+        &.attr-name,
+        &.property,
+        &.function {
+            color: light-dark(#6f42c1, #b392f0);
+        }
+
+        &.attr-value,
+        &.string {
+            color: light-dark(#22863a, #85e89d);
+        }
+
+        &.number,
+        &.boolean,
+        &.null {
+            color: light-dark(#e36209, #ffab70);
+        }
+
+        &.comment {
+            color: light-dark(#6a737d, #959da5);
+            font-style: italic;
+        }
+
+        &.punctuation,
+        &.operator {
+            color: light-dark(#586069, #959da5);
         }
     }
 }

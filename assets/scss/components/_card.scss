@@ -1,8 +1,113 @@
 @use "../mixin/mixin" as *;
 
+//= CARD
+// Not a mixin: its content structure requires the [pgs~="card-content"] child to be marked with
+// pgs, so it only makes sense written on the [pgs~=card] element itself.
 [pgs~=card] {
-    @include card();
+    --card-padding: var(--padding);
+    --card-borderRadius: calc(var(--border-radius-input) + var(--card-padding));
+    --card-background: var(--color-box-transparent);
+    --card-img-padding: 0;
+    --card-horizontal-breakpoint: #{$mobile};
+    --card-horizontal-img-grow: 2;
+    --card-horizontal-content-grow: 3;
+    --card-horizontal-img-minHeight: 300px;
+    display: flex;
+    flex-direction: column;
+    background: var(--card-background);
+    border-radius: var(--card-borderRadius);
+
+    &:where(a) {
+        --card-background: var(--color-white);
+        @include hoverBase();
+        @include hoverContent1();
+        @include hoverFocus();
+        outline: var(--border-complete);
+    }
+
+    //- not card Legacy
+    &:where(:not([pgs-option~=cardLegacy])) {
+        padding: 0;
+        overflow: hidden;
+        flex-basis: 100%;
+
+        > :is(object, img) {
+            display: block;
+            padding: var(--card-img-padding);
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            height: auto;
+            margin: 0;
+            object-fit: cover;
+        }
+
+        [pgs~="card-content"] {
+            min-width: 0;
+            padding: var(--card-padding);
+
+            &:has(+[pgs~="card-content"]) {
+                padding-bottom: calc(var(--card-padding)/ 2);
+            }
+
+            +[pgs~="card-content"] {
+                padding-top: calc(var(--card-padding)/ 2);
+            }
+        }
+    }
+
+    //- card Legacy
+    &[pgs-option~=cardLegacy] {
+        --card-img-base: calc(var(--card-padding) * -1);
+        --card-img-margin-right: var(--card-img-base);
+        --card-img-margin-left: var(--card-img-base);
+        --card-img-margin-top: var(--card-img-base);
+        --card-img-margin-bottom: var(--card-padding);
+        padding: var(--card-padding);
+
+        > :is(object, img) {
+            display: block;
+            padding: var(--card-img-padding);
+            width: calc((var(--card-padding) * 2) + 100%);
+            max-width: none;
+            height: auto;
+            margin:
+                var(--card-img-margin-top) var(--card-img-margin-right) var(--card-img-margin-bottom) var(--card-img-margin-left);
+            border-radius: var(--card-borderRadius);
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        &:where([pgs-option~="cardMini"]) {
+            --card-padding: var(--padding-2);
+        }
+    }
+
+    //- card Horizontal
+    &[pgs-option~=cardHorizontal] {
+        flex-flow: row wrap;
+
+        > :is(object, img),
+        [pgs~="card-content"] {
+            flex-basis: calc((var(--card-horizontal-breakpoint) - 100%) * 999);
+        }
+
+        [pgs~="card-content"] {
+            flex-grow: var(--card-horizontal-content-grow);
+        }
+
+        > :is(object, img) {
+            flex-grow: var(--card-horizontal-img-grow);
+            min-height: var(--card-horizontal-img-minHeight);
+        }
+    }
+
+    //- card Mini
+    &[pgs-option~=cardMini] {
+        --card-padding: var(--padding-2);
+    }
 }
+
 [pgs~=box] {
     @include box();
 }

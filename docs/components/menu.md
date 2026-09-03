@@ -157,4 +157,27 @@ Horizontal and vertical menu examples, including recursively nested submenus.
         </li>
     </ul>
 </nav>
+
+<nav pgs="menu" pgs-option="menuHorizontal menuShort" aria-label="Menu orizzontale" demo="component" demo-title="Horizontal menu - menuShort" demo-description="Top-level navigation with menuShort, overlapping the horizontal spacing between adjacent links.">
+    <ul pgs="flexRow" pgs-option="wrap">
+        <li>
+            <a pgs="button" pgs-option="buttonText" href="/" aria-current="page">
+                <i pgs="icon" pgs-option="icon-circle" aria-hidden="true"></i>
+                <span>Home</span>
+            </a>
+        </li>
+        <li>
+            <a pgs="button" pgs-option="buttonText" href="/services">
+                <i pgs="icon" pgs-option="icon-sliders" aria-hidden="true"></i>
+                <span>Services</span>
+            </a>
+        </li>
+        <li>
+            <a pgs="button" pgs-option="buttonText" href="/about">
+                <i pgs="icon" pgs-option="icon-circleInfo" aria-hidden="true"></i>
+                <span>about</span>
+            </a>
+        </li>
+    </ul>
+</nav>
 ```

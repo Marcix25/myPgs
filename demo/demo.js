@@ -18,6 +18,7 @@ const CATEGORY_LABELS = {
     components: "Components",
     layout: "Layout",
     patterns: "Patterns",
+    helper: "Helper",
 };
 const ENTRY_ICONS = {
     "welcome": "fa-house",
@@ -59,6 +60,10 @@ const ENTRY_ICONS = {
     "layout/pageShell.html": "fa-table-columns",
     "layout/header.html": "fa-arrow-up",
     "layout/footer.html": "fa-arrow-down",
+    "helper/pgs.html": "fa-code",
+    "helper/init.html": "fa-rotate",
+    "helper/formValidate.html": "fa-pen-to-square",
+    "helper/scrollHorizontal.html": "fa-arrows-left-right",
 };
 const DEFAULT_ENTRY_ICON = "fa-square";
 
@@ -103,6 +108,10 @@ const demoRenderer = {
         "layout/section.html",
         "layout/pageShell.html",
         "layout/footer.html",
+        "helper/pgs.html",
+        "helper/init.html",
+        "helper/formValidate.html",
+        "helper/scrollHorizontal.html",
     ],
 
     getReferenceTitle(path) {
@@ -237,8 +246,10 @@ const demoRenderer = {
 
         const pre = document.createElement("pre");
         const code = document.createElement("code");
+        code.className = `language-${kind === "html" ? "markup" : kind}`;
         code.textContent = markup;
         pre.append(code);
+        window.Prism?.highlightElement(code);
 
         wrapper.append(heading, copyButton, pre);
         section.append(wrapper);
@@ -761,6 +772,9 @@ const demoRenderer = {
             configureSearchDemo();
             configureFormDemo();
             configureNotificationDemo();
+            configureInitDemo();
+            configureScrollHorizontalDemo();
+            configureFormValidateHelperDemo();
             document.body.classList.remove('is-loading');
             //# end CORE
         } catch (error) {
@@ -835,9 +849,9 @@ function configureFormDemo() {
 
     const formValidate = new pgsApi.formValidate(form, {
         message: {
-            fieldError: "Please complete this field",
-            fieldsError: "Please complete all required fields",
-            success: "Sent successfully"
+            formFieldError: "Please complete this field",
+            formFieldsError: "Please complete all required fields",
+            formSuccess: "Sent successfully"
         }
     });
 
@@ -847,7 +861,7 @@ function configureFormDemo() {
         const confirmPassword = form.querySelector('input[name="confirmPassword"]');
         if (!password || !confirmPassword) return;
         if (password.value && confirmPassword.value && password.value !== confirmPassword.value) {
-            pgsApi(confirmPassword).option.setValueBrackets("message", "Le password non coincidono");
+            pgsApi(confirmPassword).option.setValueBrackets("formMessage", "Le password non coincidono");
             return [confirmPassword, password];
         }
     });
@@ -890,6 +904,62 @@ function configureNotificationDemo() {
         setTimeout(() => console.log("Async work finished for", event.detail.buttonId), 1000);
     });
 
+}
+
+//= Init Demo
+function configureInitDemo() {
+    const pgsApi = globalThis.pgs;
+    const section = document.querySelector('[data-reference="helper/init.html"]');
+    const button = section?.querySelector('#pgsInit-add');
+    const target = section?.querySelector('#pgsInit-target');
+    if (!button || !target) return;
+
+    button.addEventListener('click', () => {
+        target.innerHTML = `
+            <span pgs="dropdown">
+                <button pgs="dropdown-button button" type="button">Added dynamically</button>
+                <div pgs="dropdown-content">This dropdown did not exist when the page loaded.</div>
+            </span>
+        `;
+
+        //== without this call pgs.dropdown never saw the new markup, and it would stay inert
+        pgsApi.init(target);
+    });
+}
+
+//= Scroll Horizontal Demo
+function configureScrollHorizontalDemo() {
+    const pgsApi = globalThis.pgs;
+    const section = document.querySelector('[data-reference="helper/scrollHorizontal.html"]');
+    const container = section?.querySelector('#pgsScrollDemo');
+    if (!container) return;
+
+    pgsApi.scrollHorizontal(container, 5);
+}
+
+//= Form Validate Helper Demo
+function configureFormValidateHelperDemo() {
+    const pgsApi = globalThis.pgs;
+    const section = document.querySelector('[data-reference="helper/formValidate.html"]');
+    const form = section?.querySelector('[pgs~="form"]');
+    const username = form?.querySelector('input[name="username"]');
+    if (!form || !username) return;
+
+    const formValidate = new pgsApi.formValidate(form, {
+        typeNotice: "alert"
+    });
+
+    //== a custom rule: reject a username your own logic decides is unavailable
+    formValidate.addNewRule(() => {
+        if (username.value.toLowerCase() !== "admin") return null;
+
+        pgsApi(username).option.setValueBrackets("formMessage", "That username is taken");
+        return username;
+    });
+
+    formValidate.validator(event => {
+        console.log(Object.fromEntries(new FormData(form)));
+    });
 }
 
 demoRenderer.boot();

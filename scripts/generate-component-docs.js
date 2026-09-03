@@ -8,7 +8,7 @@ const path = require("path");
 const PROJECT_ROOT = path.resolve(__dirname, "..");
 const REFERENCE_ROOT = path.join(PROJECT_ROOT, "reference", "html");
 const DOCS_ROOT = path.join(PROJECT_ROOT, "docs");
-const MANAGED_DOC_DIRECTORIES = ["base", "components", "layout", "patterns"]
+const MANAGED_DOC_DIRECTORIES = ["base", "components", "layout", "patterns", "helper"]
     .map(directory => path.join(DOCS_ROOT, directory));
 const SOURCE_ROOTS = [
     path.join(PROJECT_ROOT, "assets", "javascript"),
@@ -18,6 +18,10 @@ const SOURCE_ROOTS = [
 const TAG_ORDER = ["title", "description", "pgs", "pgs-generated", "pgs-option", "pgs-state", "api", "related", "return"];
 const LIST_TAGS = new Set(["pgs", "pgs-generated", "pgs-option", "pgs-state", "api", "related"]);
 const REQUIRED_TAGS = ["title", "description", "pgs"];
+//== a helper (reference/html/helper/*.html) documents a JavaScript utility, not markup a component
+//== owns: it may touch no pgs token of its own at all, so @api carries the weight @pgs carries
+//== everywhere else, and @pgs is optional there instead of required
+const HELPER_REQUIRED_TAGS = ["title", "description", "api"];
 const GENERATED_MARKER = /^<!-- (?:Automatically generated from ((?:reference|templates)\/html\/.+\.html)\. Edit \1 and run npm run docs:generate again\.|File generato automaticamente da ((?:reference|templates)\/html\/.+\.html)\. Modificare \2 e rieseguire npm run docs:generate\.) -->$/;
 
 function toPosix(value) {
@@ -183,7 +187,9 @@ function parseDocumentationBlock(file, source) {
         data[activeTag].push({ key, description });
     });
 
-    REQUIRED_TAGS.forEach(tag => {
+    const isHelper = toPosix(path.relative(REFERENCE_ROOT, file)).startsWith("helper/");
+    const requiredTags = isHelper ? HELPER_REQUIRED_TAGS : REQUIRED_TAGS;
+    requiredTags.forEach(tag => {
         const value = data[tag];
         if (!seenTags.has(tag) || (Array.isArray(value) ? value.length === 0 : !value)) {
             errors.push(createError(relativeFile, `Sezione obbligatoria @${tag} mancante o vuota.`, `Aggiungi una sezione @${tag} valida.`, `@${tag}`));

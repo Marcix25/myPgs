@@ -75,7 +75,7 @@ Complete HTML markup and usage example for Search.
 ## Example
 
 ```html
-<form pgs="button search" pgs-option="buttonNohover searchPlaceholder[Type a component name]" autocomplete="off" action="" method="get" demo="component" demo-title="Inline search" demo-description="Search field with live suggestions embedded directly in the page.">
+<form pgs="button search" pgs-option="buttonNohover searchPlaceholder[Type a component name] searchNoResults[No component matches]" autocomplete="off" action="" method="get" demo="component" demo-title="Inline search" demo-description="Search field with live suggestions embedded directly in the page.">
     <button type="submit" title="Search"><i pgs="icon" pgs-option="icon-magnifyingGlass"></i></button>
     <input type="search" name="s" placeholder="Search" value="">
     <ul pgs="search-suggestions"></ul>

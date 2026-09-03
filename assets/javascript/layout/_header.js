@@ -104,7 +104,7 @@ function initHeader_Height(header) {
 
     //+ GET HEADER HEIGHT ELEMENT
     function getHeaderHeightElement(header) {
-        const isCompactBottom = window.getComputedStyle(header).getPropertyValue("--header-headerCompactBottom-active").trim() === "1";
+        const isCompactBottom = window.getComputedStyle(header).getPropertyValue("--header-compactBottom-active").trim() === "1";
         return isCompactBottom ? pgs(header).querySelector("header-element") || header : header;
     }
 

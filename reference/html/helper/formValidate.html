@@ -1,0 +1,76 @@
+<!--
+/**
+ * @title Form validate
+ * @description pgs.formValidate is the JavaScript side of Form: validates required fields, applies errorForm/errorField/success pgs-state, shows an alert or a toast, and lets you register custom rules and errors that only your backend knows about. See Form for the full markup and pgs-option reference; this page focuses on the constructor and its instance methods.
+ *
+ * @pgs-generated
+ * - formValidate: added to the form element by the constructor, which is why the example writes a bare form tag; it enables the validation-state styles.
+ *
+ * @pgs-state
+ * - errorForm: applied to the form when validate() finds at least one invalid field.
+ * - errorField: applied to each invalid field.
+ * - success: applied to the form once validate() passes, replacing errorForm.
+ *
+ * @api
+ * - new pgs.formValidate(form, options): creates a utility associated directly with the form, adds novalidate, and completes missing form message options (formFieldErrorTitle, formFieldError, formFieldsError, formSuccessTitle, formSuccess) from options.message and then from library defaults; existing pgs-option values are preserved.
+ * - instance.validator(callback, eventName): intercepts the specified event, clears previous temporary field errors, validates the form, shows the success message, and invokes callback only when valid; eventName defaults to submit.
+ * - instance.validate(): validates required fields, updates state attributes, and returns true or false.
+ * - instance.success(description, title): validates the form and shows a success alert or toast when there are no errors.
+ * - instance.addNewRule(rule): adds a function that returns one or more invalid fields; validate automatically marks each returned field as invalid.
+ * - instance.temporaryFieldError.set(field, options): registers a temporary field error and validates the form; options accepts title and message, or it can be the message string.
+ * - instance.temporaryFieldError.remove(field): removes a temporary error and its visual state from one field.
+ * - instance.temporaryFieldError.clear(): removes all temporary field errors and their visual states.
+ *
+ * @related
+ * - form: uses the related form component or utility in this example.
+ * - label: uses the related label component or utility in this example.
+ * - input: uses the related input component or utility in this example.
+ * - button: uses the related button component or utility in this example.
+ * - buttonStrong: applies stronger emphasis to the submit action.
+ * - formFieldErrorTitle: belongs to the Form component; sets the fallback error title used here.
+ * - formFieldError: belongs to the Form component; sets the fallback error text used here.
+ * - formSuccessTitle: belongs to the Form component; sets the success title used here.
+ * - formSuccess: belongs to the Form component; sets the success text used here.
+ * - formMessage: belongs to the Form component; the field-specific message the custom rule below rewrites.
+ * - formMessageTitle: belongs to the Form component; the field-specific alert title.
+ *
+ * @return A minimal form wired to pgs.formValidate with one custom rule, focused on the JavaScript API rather than the markup options.
+ */
+-->
+
+<form pgs="form" pgs-option="formFieldErrorTitle[Check the form] formFieldError[Complete this field] formSuccessTitle[Sent] formSuccess[Sent successfully]" action="#" method="post">
+    <label>
+        <span pgs="label">Username</span>
+        <input pgs="input" pgs-option="formMessage[Choose a username]" type="text" name="username" required>
+    </label>
+
+    <button pgs="button" pgs-option="buttonStrong" type="submit">Submit</button>
+</form>
+
+<script type="module">
+    import { pgs } from "mypgs";
+
+    const form = pgs(document).querySelector("form");
+    const username = form.querySelector('input[name="username"]');
+
+    const formValidate = new pgs.formValidate(form, {
+        typeNotice: "alert"
+    });
+
+    // A custom rule: reject a username your own logic decides is unavailable.
+    formValidate.addNewRule(() => {
+        if (username.value.toLowerCase() !== "admin") return null;
+
+        pgs(username).option.setValueBrackets("formMessage", "That username is taken");
+        return username;
+    });
+
+    formValidate.validator(event => {
+        // Replace this with a request to your backend. Call formValidate.success()
+        // yourself instead if you construct with { showSuccessOnValidate: false }.
+        console.log(Object.fromEntries(new FormData(form)));
+    });
+
+    // Once the backend answers, report what only it could know:
+    // formValidate.temporaryFieldError.set(username, { message: "This username is already registered" });
+</script>

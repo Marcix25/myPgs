@@ -11,6 +11,7 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 ## PGS Options
 
 - `iconBox`: turns the element into the circular surface a glyph sits inside. It is the container and says nothing about what it holds, so a built-in glyph and an icon from any other set sit in it alike.
+- `iconDuo`: draws a two-layer version of a glyph instead of the flat one, when that glyph has one (icon-hamburgerTwo does); write it alongside the glyph name, as pgs-option="icon-hamburgerTwo iconDuo". Each layer paints on its own pseudo-element, so a component can animate or colour them independently.
 - `icon-arrowLeft`: arrow pointing left, for stepping back through a sequence.
 - `icon-arrowRight`: arrow pointing right, for stepping forward.
 - `icon-chevronDown`: chevron pointing down, for anything that expands in place.
@@ -26,9 +27,29 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 - `icon-circleCheck`: tick inside a disc, the success mark.
 - `icon-circleInfo`: letter i inside a disc, the information mark.
 - `icon-triangleExclamation`: exclamation mark inside a triangle, the warning mark.
+- `icon-bell`: bell, for anything that announces something arriving.
+- `icon-star`: star, the neutral stand-in glyph for an example that needs one without it meaning anything.
 - `icon-hamburger`: three horizontal bars, the classic static hamburger menu glyph.
-- `icon-hamburgerTwo`: two horizontal bars, a lighter static hamburger menu glyph.
-- `iconDuo-hamburger`: two horizontal bars that turn into a close mark when the header menu is open.
+- `icon-hamburgerTwo`: two horizontal bars, a lighter static hamburger menu glyph; add iconDuo for the two-layer version, each bar on its own pseudo-element so a component can animate them into a close mark.
+- `icon-calendar`: calendar, for a date.
+- `icon-chatBubble`: chat bubble, for a message or a comment.
+- `icon-clock`: clock, for a time or a duration.
+- `icon-download`: arrow into a tray, for downloading a file.
+- `icon-envelope`: envelope, for an email or a message.
+- `icon-eye`: eye, for showing or previewing something hidden.
+- `icon-gear`: gear, for settings or configuration.
+- `icon-heart`: heart, for favouriting or liking something.
+- `icon-home`: house, for a homepage or a starting point.
+- `icon-lock`: padlock, for something protected or restricted.
+- `icon-mapPin`: map pin, for a location or an address.
+- `icon-minus`: minus sign, for collapsing or decreasing a value.
+- `icon-pause`: two bars, for pausing playback.
+- `icon-pencil`: pencil, for editing.
+- `icon-play`: triangle, for starting playback.
+- `icon-plus`: plus sign, for adding or increasing a value.
+- `icon-trash`: bin, for deleting something.
+- `icon-upload`: arrow out of a tray, for uploading a file.
+- `icon-user`: person, for an account or a profile.
 
 ## Related elements
 
@@ -72,9 +93,30 @@ Every glyph the library can draw. The token marks the element, the option names 
     <i pgs="icon" pgs-option="icon-circleCheck"></i>
     <i pgs="icon" pgs-option="icon-circleInfo"></i>
     <i pgs="icon" pgs-option="icon-triangleExclamation"></i>
+    <i pgs="icon" pgs-option="icon-bell"></i>
+    <i pgs="icon" pgs-option="icon-star"></i>
     <i pgs="icon" pgs-option="icon-hamburger"></i>
     <i pgs="icon" pgs-option="icon-hamburgerTwo"></i>
-    <i pgs="icon" pgs-option="iconDuo-hamburger"></i>
+    <i pgs="icon" pgs-option="icon-calendar"></i>
+    <i pgs="icon" pgs-option="icon-chatBubble"></i>
+    <i pgs="icon" pgs-option="icon-clock"></i>
+    <i pgs="icon" pgs-option="icon-download"></i>
+    <i pgs="icon" pgs-option="icon-envelope"></i>
+    <i pgs="icon" pgs-option="icon-eye"></i>
+    <i pgs="icon" pgs-option="icon-gear"></i>
+    <i pgs="icon" pgs-option="icon-heart"></i>
+    <i pgs="icon" pgs-option="icon-home"></i>
+    <i pgs="icon" pgs-option="icon-lock"></i>
+    <i pgs="icon" pgs-option="icon-mapPin"></i>
+    <i pgs="icon" pgs-option="icon-minus"></i>
+    <i pgs="icon" pgs-option="icon-pause"></i>
+    <i pgs="icon" pgs-option="icon-pencil"></i>
+    <i pgs="icon" pgs-option="icon-play"></i>
+    <i pgs="icon" pgs-option="icon-plus"></i>
+    <i pgs="icon" pgs-option="icon-trash"></i>
+    <i pgs="icon" pgs-option="icon-upload"></i>
+    <i pgs="icon" pgs-option="icon-user"></i>
+    <i pgs="icon" pgs-option="icon-hamburgerTwo iconDuo"></i>
 </div>
 ```
 

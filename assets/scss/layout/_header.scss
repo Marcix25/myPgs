@@ -9,7 +9,7 @@
     --header-background: var(--color-white-transparent);
     --header-color: var(--color-black);
     --header-color-hover: var(--color-black);
-    --header-headerCompactBottom-active: 0;
+    --header-compactBottom-active: 0;
     --header-compact-breakpoint: 600px;
     z-index: 100;
     position: fixed;
@@ -65,10 +65,10 @@
                 justify-content: center;
 
                 //=== OPEN
-                //== swaps the drawn glyph via the --icon-mask custom property (see _icon.scss)
+                //== swaps the drawn glyph via the --icon custom property (see _icon.scss)
                 //== instead of animating two mask layers into an X: a plain CSS override, no JS
                 &[aria-expanded="true"] [pgs-option~="icon-hamburgerTwo"] {
-                    --icon-mask: #{$icon-close};
+                    --icon: var(--icon-close);
                 }
             }
         }
@@ -145,7 +145,7 @@
 
         //== bottom: follows the compact state, so it honours the chosen breakpoint
         &[pgs-option~="headerCompactBottom"] {
-            --header-headerCompactBottom-active: 1;
+            --header-compactBottom-active: 1;
             background: transparent;
             transform: none !important;
 

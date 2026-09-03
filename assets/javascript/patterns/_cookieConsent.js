@@ -1,4 +1,5 @@
 import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
+import { PGS_escapeHtml, PGS_formatText } from "../helper/_text.js";
 
 const STORAGE_KEY = 'pgs_cookie_preferences_v1';
 const INITIALIZED_COOKIE_CONSENTS = new WeakSet();
@@ -20,23 +21,6 @@ const DEFAULTS = {
     titleAccept: "Accept all",
     gaId: ""
 };
-
-//+
-function escapeHtml(value) {
-    return String(value ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-}
-
-//+
-function formatText(value) {
-    return escapeHtml(value)
-        .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-        .replace(/\r?\n/g, "<br>");
-}
 
 //+
 function safeJsonParse(value) {
@@ -126,51 +110,51 @@ function buildCookieConsent(marker) {
     pgs(root).add('modal', 'cookieConsent');
 
     root.innerHTML = `
-        <dialog pgs-option="modalTopLevel">
+        <dialog pgs-option="modalTopLevel modalBottom modalRight modalMedium">
             <div pgs="modal-dialog-content">
                 <div pgs="flexColumn">
-                    <p><i pgs="icon" pgs-option="icon-cookie"></i> ${formatText(config.titleIntro)} <br></p>
-                    <h2>${formatText(config.titleHeading)}</h2>
+                    <p><i pgs="icon" pgs-option="icon-cookie"></i> ${PGS_formatText(config.titleIntro)} <br></p>
+                    <h2>${PGS_formatText(config.titleHeading)}</h2>
 
-                    <p>${formatText(config.description)}</p>
+                    <p>${PGS_formatText(config.description)}</p>
 
                     <p>
-                        <a href="${escapeHtml(config.privacyPolicyUrl)}" target="_blank" rel="noopener">Privacy Policy</a> -
-                        <a href="${escapeHtml(config.cookiePolicyUrl)}" target="_blank" rel="noopener">Cookie Policy</a>
+                        <a href="${PGS_escapeHtml(config.privacyPolicyUrl)}" target="_blank" rel="noopener">Privacy Policy</a> -
+                        <a href="${PGS_escapeHtml(config.cookiePolicyUrl)}" target="_blank" rel="noopener">Cookie Policy</a>
                     </p>
                 </div>
 
-                <div pgs="_cookieConsent-panel flexColumn" role="group" aria-label="${escapeHtml(config.panelAriaLabel)}">
+                <div pgs="_cookieConsent-panel flexColumn" role="group" aria-label="${PGS_escapeHtml(config.panelAriaLabel)}">
                     <div pgs="flexRow nowrap _cookieConsent-panel-featureEssential">
                         <div>
                             <p>
-                                <strong>${formatText(config.essentialTitle)}</strong>
+                                <strong>${PGS_formatText(config.essentialTitle)}</strong>
                                 <br>
-                                <small>${formatText(config.essentialDescription)}</small>
+                                <small>${PGS_formatText(config.essentialDescription)}</small>
                             </p>
                         </div>
 
-                        <span pgs="_cookieConsent-panel-badge badge" pgs-option="badgeSuccess">${formatText(config.essentialBadge)}</span>
+                        <span pgs="_cookieConsent-panel-badge badge" pgs-option="badgeSuccess">${PGS_formatText(config.essentialBadge)}</span>
                     </div>
 
                     <div pgs="flexRow _cookieConsent-panel-featureAnalytics">
                         <label pgs="toggle">
                             <p>
-                                <strong>${formatText(config.analyticsTitle)}</strong>
+                                <strong>${PGS_formatText(config.analyticsTitle)}</strong>
                                 <br>
-                                <small>${formatText(config.analyticsDescription)}</small>
+                                <small>${PGS_formatText(config.analyticsDescription)}</small>
                             </p>
 
-                            <input type="checkbox" pgs="_cookieConsent-panel-toggleAnalytics" aria-label="${escapeHtml(config.analyticsAriaLabel)}">
+                            <input type="checkbox" pgs="_cookieConsent-panel-toggleAnalytics" aria-label="${PGS_escapeHtml(config.analyticsAriaLabel)}">
                         </label>
                     </div>
                     <div pgs="flexRow">
                         <button type="button" pgs="button _cookieConsent-actionReject">
-                            <i pgs="icon" pgs-option="icon-sliders"></i> ${formatText(config.titleReject)}
+                            <i pgs="icon" pgs-option="icon-sliders"></i> ${PGS_formatText(config.titleReject)}
                         </button>
     
                         <button type="button" pgs="button _cookieConsent-actionAccept" pgs-option="buttonStrong">
-                            <i pgs="icon" pgs-option="icon-check"></i> ${formatText(config.titleAccept)}
+                            <i pgs="icon" pgs-option="icon-check"></i> ${PGS_formatText(config.titleAccept)}
                         </button>
                     </div>
                 </div>

@@ -17,8 +17,7 @@
  * - slidesSingleScroll: identifies the slidesSingleScroll element used by Slides.
  * - slidesShadowDesktop: fades the slides out at the edges from the tablet width up, only on the side that still has slides to reach.
  * - slidesAnimationScale: scales each slide by its scroll visibility using the --visible-percent custom property.
- * - slidesNotScrollWithMouse: identifies the slidesNotScrollWithMouse element used by Slides.
- * - buttonIcon: styles the previous and next actions generated at runtime.
+ * - slidesScrollMouse: turns the vertical mouse wheel into horizontal scrolling over the slides; off by default.
  *
  * @api
  * - pgs.slides.init(root): initializes matching elements within the specified root.
@@ -42,12 +41,115 @@
  * - icon-chevronDown: the glyph in both generated buttons, rotated to point left or right.
  * - rotate90: rotates the glyph in the previous button to point left.
  * - rotate270: rotates the glyph in the next button to point right.
+ * - buttonIcon: styles the previous and next actions generated at runtime; belongs to the button component.
  *
  * @return Complete HTML markup and usage example for Slides.
  */
 -->
 
-<div pgs="slides" pgs-option="slidesSingleScroll slidesShadowDesktop">
+<div pgs="slides" pgs-option="slidesSingleScroll" demo="component" demo-title="Single scroll" demo-description="Scrolls to one slide at a time with the prec/next buttons, using pgs-option=&quot;slidesSingleScroll&quot;, instead of moving by the full visible width.">
+    <ul pgs="slides-container">
+        <li pgs="slides-container-slide">
+            <article pgs="card">
+                <img pgs="card-img imgCover" src="https://placehold.net/600x400.png" alt="Slide 1">
+                <div pgs="card-content">
+                    <h3>Lorem ipsum dolor</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            </article>
+        </li>
+
+        <li pgs="slides-container-slide">
+            <article pgs="card">
+                <img pgs="card-img imgCover" src="https://placehold.net/600x400.png" alt="Slide 2">
+                <div pgs="card-content">
+                    <h3>Sit amet consectetur</h3>
+                    <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                </div>
+            </article>
+        </li>
+
+        <li pgs="slides-container-slide">
+            <article pgs="card">
+                <img pgs="card-img imgCover" src="https://placehold.net/600x400.png" alt="Slide 3">
+                <div pgs="card-content">
+                    <h3>Adipiscing elit sed</h3>
+                    <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                </div>
+            </article>
+        </li>
+    </ul>
+</div>
+
+<div pgs="slides" pgs-option="slidesShadowDesktop" demo="component" demo-title="Shadow desktop" demo-description="Fades the slides out at the edges from the tablet width up, using pgs-option=&quot;slidesShadowDesktop&quot;, only on the side that still has slides to reach.">
+    <ul pgs="slides-container">
+        <li pgs="slides-container-slide">
+            <article pgs="card">
+                <img pgs="card-img imgCover" src="https://placehold.net/600x400.png" alt="Slide 1">
+                <div pgs="card-content">
+                    <h3>Lorem ipsum dolor</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            </article>
+        </li>
+
+        <li pgs="slides-container-slide">
+            <article pgs="card">
+                <img pgs="card-img imgCover" src="https://placehold.net/600x400.png" alt="Slide 2">
+                <div pgs="card-content">
+                    <h3>Sit amet consectetur</h3>
+                    <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                </div>
+            </article>
+        </li>
+
+        <li pgs="slides-container-slide">
+            <article pgs="card">
+                <img pgs="card-img imgCover" src="https://placehold.net/600x400.png" alt="Slide 3">
+                <div pgs="card-content">
+                    <h3>Adipiscing elit sed</h3>
+                    <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                </div>
+            </article>
+        </li>
+    </ul>
+</div>
+
+<div pgs="slides" pgs-option="slidesAnimationScale" demo="component" demo-title="Animation scale" demo-description="Scales each slide by its scroll visibility using pgs-option=&quot;slidesAnimationScale&quot;, driven by the --visible-percent custom property.">
+    <ul pgs="slides-container">
+        <li pgs="slides-container-slide">
+            <article pgs="card">
+                <img pgs="card-img imgCover" src="https://placehold.net/600x400.png" alt="Slide 1">
+                <div pgs="card-content">
+                    <h3>Lorem ipsum dolor</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            </article>
+        </li>
+
+        <li pgs="slides-container-slide">
+            <article pgs="card">
+                <img pgs="card-img imgCover" src="https://placehold.net/600x400.png" alt="Slide 2">
+                <div pgs="card-content">
+                    <h3>Sit amet consectetur</h3>
+                    <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                </div>
+            </article>
+        </li>
+
+        <li pgs="slides-container-slide">
+            <article pgs="card">
+                <img pgs="card-img imgCover" src="https://placehold.net/600x400.png" alt="Slide 3">
+                <div pgs="card-content">
+                    <h3>Adipiscing elit sed</h3>
+                    <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                </div>
+            </article>
+        </li>
+    </ul>
+</div>
+
+<div pgs="slides" pgs-option="slidesScrollMouse" demo="component" demo-title="Scroll mouse" demo-description="Turns the vertical mouse wheel into horizontal scrolling over the slides, using pgs-option=&quot;slidesScrollMouse&quot;; off by default.">
     <ul pgs="slides-container">
         <li pgs="slides-container-slide">
             <article pgs="card">

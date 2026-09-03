@@ -5,11 +5,11 @@ import { PGS_alert } from "../components/_alerts.js";
 
 export class PGS_formValidate {
     #messageDefaults = {
-        fieldErrorTitle: "Error!",
-        fieldError: "Please complete this field.",
-        fieldsError: "Please complete all required fields.",
-        successTitle: "Submitted",
-        success: "Submitted successfully."
+        formFieldErrorTitle: "Error!",
+        formFieldError: "Please complete this field.",
+        formFieldsError: "Please complete all required fields.",
+        formSuccessTitle: "Submitted",
+        formSuccess: "Submitted successfully."
     };
     #temporaryFieldErrors = new Map();
     #insideValidatedCallback = false;
@@ -248,16 +248,16 @@ export class PGS_formValidate {
         if (i !== 0) return;
 
         const messageSource = field.matches("fieldset")
-            ? field.querySelector('[pgs-option*="message["], [pgs-option*="messageTitle["]')
+            ? field.querySelector('[pgs-option*="formMessage["], [pgs-option*="formMessageTitle["]')
             : field;
         const source = messageSource || field;
         const temporaryError = this.#temporaryFieldErrors.get(field);
-        const fieldTitle = pgs(source).option.getValueBrackets("messageTitle");
-        const fieldMessage = pgs(source).option.getValueBrackets("message");
-        const title = temporaryError?.title || fieldTitle || this.#getMessage("fieldErrorTitle");
+        const fieldTitle = pgs(source).option.getValueBrackets("formMessageTitle");
+        const fieldMessage = pgs(source).option.getValueBrackets("formMessage");
+        const title = temporaryError?.title || fieldTitle || this.#getMessage("formFieldErrorTitle");
         const description = total > 1
-            ? this.#getMessage("fieldsError")
-            : temporaryError?.message || fieldMessage || this.#getMessage("fieldError");
+            ? this.#getMessage("formFieldsError")
+            : temporaryError?.message || fieldMessage || this.#getMessage("formFieldError");
 
         if (this.typeNotice == "alert") {
             PGS_alert.error({
@@ -281,7 +281,7 @@ export class PGS_formValidate {
     }
 
     // + SUCCESS
-    success(description = this.#getMessage("success"), title = this.#getMessage("successTitle")) {
+    success(description = this.#getMessage("formSuccess"), title = this.#getMessage("formSuccessTitle")) {
         if (this.#insideValidatedCallback || this.validate() === true) {
 
             if (this.typeNotice == "alert") {

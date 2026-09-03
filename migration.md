@@ -1,6 +1,6 @@
 # Migrating a project onto this branch
 
-Everything below is what changed in `mypgs` since the last merge into `master` — fourteen commits,
+Everything below is what changed in `mypgs` since the last merge into `master` — over twenty commits,
 still versioned 4.7.1. It is written to be handed to whoever updates a consuming project: each entry
 says what to search for and what to write instead.
 
@@ -13,6 +13,10 @@ meaning moved under them, so nothing errors and the page just looks wrong.
 | --- | --- | --- |
 | `pgs="icon"` | the round surface holding an icon | the glyph itself, drawn from inline SVG |
 | `--icon-size` | the width driver of that surface | the size of a glyph, read as a font-size |
+| `pgs-option="menuVertical"` (and any submenu below a horizontal menu's first level) | floated as a dropdown, same as every other submenu | expands in place as an accordion |
+| a plain `<a>` in body content | `color: var(--color-black)`, underline on hover | `color: var(--color-link)`, background highlight on hover |
+| `pgs-state="info"` (alert/badge/notification/toast) | read `--color-link`/`--color-linkBackground` directly | reads `--color-info`/`--color-info-soft`, which only default to the link colours |
+| `pgs="header"` with no options | hid itself on scroll-down automatically | does nothing on scroll unless `pgs-option="headerScroll"` is also written |
 
 So `<span pgs="icon"><i class="fa-solid fa-star"></i></span>` no longer draws a circle. The surface
 is now an option on an icon element:
@@ -22,6 +26,21 @@ is now an option on an icon element:
     <i pgs="icon" pgs-option="icon-star"></i>
 </span>
 ```
+
+Menu: only the first level of a `menuHorizontal` menu still floats its submenu in a dropdown panel.
+Every other submenu — a nested level inside that same horizontal menu, or anything inside a vertical
+menu — now expands in place instead, via a generated `_menu-accordion` token and `pgs-state="open"`.
+Nothing to rename, but a vertical menu with submenus will look different: check it visually.
+
+Links: recolour `--color-link`/`--color-link-soft` if the previous black-with-underline look was
+intentional rather than inherited from never having set them.
+
+Info state: if you retheme "info" surfaces by overriding `--color-link`, set `--color-info` (and
+`--color-info-soft`) instead — they used to be the same colour by coincidence, now only by default.
+
+Header scroll-hide: this used to run unconditionally on every `pgs="header"`. A header with no
+`pgs-option` at all — which is what `PGS_theme`'s own header currently has — silently stops hiding on
+scroll after this merge unless `headerScroll` is added to it.
 
 ## 2. Renames
 
@@ -40,9 +59,11 @@ write them by hand.
 `notifications-element-icon` `notifications-empty` `toast-element` `toast-element-buttons`
 `toast-element-content` `toast-element-icon` `search-suggestions-item` `stepTabs-dots-dot`
 `cookieConsent-panel` `cookieConsent-panel-badge` `cookieConsent-panel-featureAnalytics`
-`menu-buttonIcon` → each one gains a leading `_`.
+`cookieConsent-panel-featureEssential` `cookieConsent-panel-toggleAnalytics`
+`cookieConsent-actionReject` `cookieConsent-actionAccept` `menu-buttonIcon` → each one gains a
+leading `_`. `cookieConsent-actionOpen` is unaffected: you write that trigger yourself, it is not
+generated.
 
-###
 ### Header
 
 | was | now |
@@ -55,6 +76,28 @@ write them by hand.
 
 The header collapses on measured overflow rather than on a hardcoded width, and the breakpoint can
 be forced with `headerCompactWatch` through `headerCompactLaptop`.
+
+### Color tokens
+
+| was | now |
+| --- | --- |
+| `--color-success-background` | `--color-success-soft` |
+| `--color-warning-background` | `--color-warning-soft` |
+| `--color-error-background` | `--color-error-soft` |
+| `--color-linkBackground` | `--color-link-soft` |
+
+Same substitution as `color*` → `txt*`, just the `-background`/`Background` suffix this time. These
+feed `--alert-background`, `--badge-background` and similar component defaults, so a project that set
+the old names to retheme those surfaces needs to move the override to the new ones.
+
+### Step tabs
+
+| was | now |
+| --- | --- |
+| `pgs="tab"` | `pgs="stepTabs-container-tab"` |
+
+The bare `tab` token was never namespaced to the component; every panel written by hand needs the new
+name.
 
 ### Menu
 
@@ -76,14 +119,17 @@ with the `--button-*` properties you already know:
 | `pgs-option="slideScale"` | `pgs-option="slideAnimationScale"` |
 | `pgs-option="notScrollAnimation"` | `pgs-option="notScrollWithMouse"` |
 | `--slide-shadow-color`, `--slide-shadow-width` | `--slides-maskStart`, `--slides-maskEnd`, `--slides-sizeMaskImage` |
+| `pgs-option="slidesNotScrollWithMouse"` | `pgs-option="slidesScrollMouse"` |
 
 The edge fade is a mask now, not a shadow, so it fades to whatever is behind instead of to one colour.
+
+The mouse-scroll option's default also flipped, not just its name: `slidesNotScrollWithMouse` opted OUT of mouse-wheel scrolling (on by default), while `slidesScrollMouse` opts IN (off by default). Simply renaming the token in existing markup silently disables the behavior — check each usage and add the option where the effect is still wanted.
 
 ### Page shell
 
 | was | now |
 | --- | --- |
-| `pgs="pageShell-aside-scroll"` | `pgs-option="shellAsideScroll"` on the aside |
+| `pgs="pageShell-aside-scroll"` | `pgs-option="pageShellAsideScroll"` on the `pageShell` wrapper (not on the aside) |
 | `--pageShell-aside-sticky-top` | `--pageShell-aside-top` |
 
 ### Buttons and borders
@@ -129,14 +175,39 @@ they now do, matching every other option in the library.
 | `pgs-option="topLevel"` (Modal) | `pgs-option="modalTopLevel"` |
 | `pgs-option="compactBottom"` (Header) | `pgs-option="headerCompactBottom"` |
 | `--header-compactBottom-active` | unchanged (the custom property already carried the `header-` prefix) |
+| `pgs-option="message[]"` (Form) | `pgs-option="formMessage[]"` |
+| `pgs-option="messageTitle[]"` (Form) | `pgs-option="formMessageTitle[]"` |
+| `pgs-option="fieldErrorTitle[]"` (Form) | `pgs-option="formFieldErrorTitle[]"` |
+| `pgs-option="fieldError[]"` (Form) | `pgs-option="formFieldError[]"` |
+| `pgs-option="fieldsError[]"` (Form) | `pgs-option="formFieldsError[]"` |
+| `pgs-option="successTitle[]"` (Form) | `pgs-option="formSuccessTitle[]"` |
+| `pgs-option="success[]"` (Form) | `pgs-option="formSuccess[]"` |
 
-`buttonReverse`, `buttonNohover`, the `icon-*` glyph names, and `iconDuo-hamburger` were left alone:
-those belong to the button and icon components respectively, even where another component's example
-or generated markup uses them.
+The `formValidate` JS API's `options.message` bag uses these same keys (e.g. `formFieldErrorTitle`
+instead of `fieldErrorTitle`), since they are written straight through as the `pgs-option` bracket
+key. The `success`/`errorForm`/`errorField` `pgs-state` values are unrelated and unchanged.
+
+`buttonReverse`, `buttonNohover`, and the `icon-*` glyph names were left alone: those belong to the
+button and icon components respectively, even where another component's example or generated markup
+uses them.
+
+### Icon surface, corrected
+
+| was | now |
+| --- | --- |
+| `--icon-padding`, `--icon-background` | `--iconBox-padding`, `--iconBox-background` |
+| `pgs-option="iconDuo-hamburger"` | `pgs-option="icon-hamburgerTwo iconDuo"` |
+
+`iconDuo-hamburger` was NOT left alone as an earlier note here claimed — it no longer exists.
+`iconDuo` is now a general-purpose option: it draws the two-layer version of any glyph that has one
+(currently only `icon-hamburgerTwo`) when written alongside that glyph's name, instead of being its
+own baked-in glyph name. Two new custom properties, `--icon`, `--iconBefore` and `--iconAfter`, let a
+later, more specific rule swap the drawn glyph in pure CSS — see the header's expanded hamburger for
+the pattern.
 
 ## 3. New, worth adopting
 
-- **Icons with no font.** `pgs="icon"` plus a glyph option covers seventeen shapes and needs nothing
+- **Icons with no font.** `pgs="icon"` plus a glyph option covers dozens of shapes and needs nothing
   loaded. Written bare it only marks an element as an icon, which is how a set that does not use
   `<i>` — Material Symbols, Lucide, Iconify — gets the same box and placement.
 - **`tabIcon` takes markup.** `tabIcon[<span pgs='icon' class='material-symbols-outlined'>check</span>]`
@@ -160,21 +231,32 @@ or generated markup uses them.
 grep -rnE 'pgs="[^"]*\bcolor[A-Z]' .
 
 # 2. generated markup now prefixed
-grep -rnE '\b(notifications-element|notifications-empty|toast-element|search-suggestions-item|stepTabs-dots-dot|cookieConsent-panel|menu-buttonIcon)' .
+grep -rnE '\b(notifications-element|notifications-empty|toast-element|search-suggestions-item|stepTabs-dots-dot|cookieConsent-panel|cookieConsent-actionReject|cookieConsent-actionAccept|menu-buttonIcon)' .
 
 # 3. options and states that were renamed
 grep -rnE '\b(menuHeader|buttonClose|mobileBottom|mobileActive|slideScale|notScrollAnimation|pageShell-aside-scroll|header-element-onlyDesktop|header-element-onlyMobile)\b' .
 
 # 4. custom properties that were renamed or removed
-grep -rnE '\-\-(fa-|menu-|icon-background|icon-padding|border-complete-hover|slide-shadow|pageShell-aside-sticky-top|header-mobile-bottom-active)' .
+grep -rnE '\-\-(fa-|menu-|icon-background|icon-padding|border-complete-hover|slide-shadow|pageShell-aside-sticky-top|header-mobile-bottom-active|color-.*-background|color-linkBackground)' .
 
 # 5. the silent one: icon as a surface
 grep -rn 'pgs="[^"]*\bicon\b' . | grep -v 'pgs-option'
 
 # 6. options renamed to carry their component's name
 grep -rnE 'pgs-option="(singleScroll|shadowDesktop|notScrollWithMouse|slideAnimationScale|tabIcon|shellAsideScroll|shellAsideScrollFlush|shellFullPage|horizontal|vertical|position|containerID|containerPGS|disableBackdropClose|history|left|right|topLevel|compactBottom)([" \[])' .
+
+# 7. Step tabs' bare token, and the old hamburger duo option
+grep -rnE 'pgs="[^"]*\btab\b|pgs-option="[^"]*\biconDuo-hamburger\b' .
+
+# 8. menus that may rely on the old unconditional-dropdown submenu behaviour
+grep -rnE 'pgs="menu"|pgs-option="[^"]*\bmenuVertical\b' . -A2 -B2
+
+# 9. a header with no pgs-option, which silently lost scroll-hide
+grep -rnE 'pgs="header"\s*>' .
 ```
 
 Hit 5 needs reading rather than replacing: an `icon` that wraps another element wanted the surface
 and needs `pgs-option="iconBox"`; one that was empty next to a label wanted the glyph and needs an
-`icon-*` option.
+`icon-*` option. Hits 8 and 9 need reading too, not replacing: they flag menus and headers whose
+*behaviour* changed under an unchanged name (see section 1), so add `headerScroll` or accept the new
+accordion submenus, whichever the page actually wants.

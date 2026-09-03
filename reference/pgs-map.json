@@ -730,8 +730,8 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-option": [
-            "message",
-            "messageTitle"
+            "formMessage",
+            "formMessageTitle"
         ]
     },
     "gapElements": {
@@ -1018,7 +1018,7 @@
             "icon-upload",
             "icon-user",
             "iconBox",
-            "iconDuo-hamburger"
+            "iconDuo"
         ]
     },
     "iconColorPrimary": {
@@ -1603,7 +1603,7 @@
         ],
         "pgs-option": [
             "slidesAnimationScale",
-            "slidesNotScrollWithMouse",
+            "slidesScrollMouse",
             "slidesShadowDesktop",
             "slidesSingleScroll"
         ]

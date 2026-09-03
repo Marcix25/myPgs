@@ -1,0 +1,26 @@
+@use "mx-hover" as *;
+
+//# BOX
+//= BOX
+@mixin box() {
+    --box-padding: var(--padding);
+    --box-borderRadius: calc(var(--border-radius-input) + var(--box-padding));
+    --box-background: var(--color-box-transparent);
+    padding: var(--box-padding);
+    background: var(--box-background);
+    border-radius: var(--box-borderRadius);
+
+    &:where(a) {
+        --box-background: var(--color-white);
+        @include hoverBase();
+        @include hoverContent1();
+        @include hoverFocus();
+        outline: var(--border-complete);
+    }
+
+    //- boxMini
+    &[pgs-option~=boxMini] {
+        --box-padding: var(--padding-2);
+        --box-borderRadius: var(--border-radius-input);
+    }
+}

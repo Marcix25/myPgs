@@ -143,12 +143,12 @@ class PGS_Slides {
         const dots = Array.from(pgs(slides).querySelector('slides-dots').children);
 
         //== option
-        const slidesNotScrollWithMouse = pgs(slides).option.contains('slidesNotScrollWithMouse');
+        const slidesScrollMouse = pgs(slides).option.contains('slidesScrollMouse');
 
         //== scroll
-        const removeHorizontalScroll = slidesNotScrollWithMouse
-            ? null
-            : PGS_scrollHorizontal(this.container, 5);
+        const removeHorizontalScroll = slidesScrollMouse
+            ? PGS_scrollHorizontal(this.container, 5)
+            : null;
 
         //==Listener: DOT, PREC, NEXT
         dots.forEach((dot, index) => dot.addEventListener("click", () => this.#goToNumberSlide(index), { signal }));
