@@ -50,11 +50,11 @@ Modal markup, configuration, behavior, and usage example.
 - `modal-container-pgs-demo`: demo-only target token for the modalContainerPGS example; write your own token on your own real target instead.
 - `button`: uses the related button component or utility in this example.
 - `flexColumn`: vertically organizes modal content.
-- `gapElements`: applies element spacing to modal content.
 - `flexRow`: arranges the dialog actions in a row.
 
 ### PGS Options
 
+- `gapElements`: applies element spacing to modal content.
 - `justifyEnd`: pushes the dialog actions to the end of that row.
 - `buttonStrong`: applies stronger emphasis to the save action.
 
@@ -262,7 +262,7 @@ Complete HTML markup and usage example for Modal.
                 <h3>Save changes?</h3>
             </div>
 
-            <div pgs="modal-dialog-content-scroll flexColumn gapElements">
+            <div pgs="modal-dialog-content-scroll flexColumn" pgs-option="gapElements">
                 <p>You have unsaved changes. Confirm to apply them or cancel to return to the page.</p>
 
                 <div pgs="flexRow" pgs-option="justifyEnd">

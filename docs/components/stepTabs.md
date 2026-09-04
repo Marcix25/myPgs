@@ -46,13 +46,13 @@ Step Tabs markup, configuration, behavior, and usage example.
 ### PGS
 
 - `flexColumn`: uses the related flexColumn component or utility in this example.
-- `gapElements`: applies element spacing to the step tab container.
 - `flexRow`: uses the related flexRow component or utility in this example.
 - `button`: uses the related button component or utility in this example.
 - `icon`: draws the glyph inside a dot when the tab does not name its own; see Icon for the whole set.
 
 ### PGS Options
 
+- `gapElements`: applies element spacing to the step tab container.
 - `buttonReverse`: reverses text and icon on the example buttons and belongs to the button component.
 - `icon-arrowLeft`: the glyph that points back.
 - `icon-arrowRight`: the glyph that points forward.
@@ -68,7 +68,7 @@ Complete HTML markup and usage example for Step Tabs.
 ## Example
 
 ```html
-<div pgs="stepTabs flexColumn gapElements">
+<div pgs="stepTabs flexColumn" pgs-option="gapElements">
     <div pgs="stepTabs-dots" aria-label="Progress"></div>
 
     <div pgs="stepTabs-container">

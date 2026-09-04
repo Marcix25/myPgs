@@ -1,4 +1,4 @@
-import { PGS_scrollHorizontal } from "../helper/_scrollY.js";
+import { PGS_scrollHorizontalWithMouse } from "../helper/_scrollHorizontal.js";
 import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
 const API = new WeakMap();
 
@@ -147,7 +147,7 @@ class PGS_Slides {
 
         //== scroll
         const removeHorizontalScroll = slidesScrollMouse
-            ? PGS_scrollHorizontal(this.container, 5)
+            ? PGS_scrollHorizontalWithMouse(this.container, 5)
             : null;
 
         //==Listener: DOT, PREC, NEXT

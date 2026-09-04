@@ -23,6 +23,8 @@ const CATEGORY_LABELS = {
 const ENTRY_ICONS = {
     "welcome": "fa-house",
     "base/general.html": "fa-sliders",
+    "base/border.html": "fa-border-none",
+    "base/hover.html": "fa-arrow-pointer",
     "base/heading.html": "fa-heading",
     "base/color.html": "fa-palette",
     "base/darkmode.html": "fa-moon",
@@ -72,6 +74,8 @@ const demoRenderer = {
     referenceFiles: [
         "base/body.html",
         "base/general.html",
+        "base/border.html",
+        "base/hover.html",
         "base/heading.html",
         "base/color.html",
         "base/darkmode.html",
@@ -257,7 +261,8 @@ const demoRenderer = {
 
     renderReference(section, path, html) {
         const content = document.createElement("div");
-        content.setAttribute("pgs", "container flexColumn gapElements");
+        content.setAttribute("pgs", "container flexColumn");
+        content.setAttribute("pgs-option", "gapElements");
         content.innerHTML = html;
         section.append(content);
     },
@@ -273,7 +278,9 @@ const demoRenderer = {
     renderDemoHeading(section, title, description, level) {
         if (!title && !description) return;
         const heading = document.createElement("div");
-        heading.setAttribute("pgs", "flexColumn gapTexts");
+        heading.className = "demoContent-heading";
+        heading.setAttribute("pgs", "flexColumn");
+        heading.setAttribute("pgs-option", "gapTexts");
 
         if (title) {
             const el = document.createElement(level);
@@ -290,7 +297,9 @@ const demoRenderer = {
 
     renderDemoItem(section, node) {
         const group = document.createElement("div");
-        group.setAttribute("pgs", "flexColumn gapElements");
+        group.classList.add("demo-item");
+        group.setAttribute("pgs", "flexColumn");
+        group.setAttribute("pgs-option", "gapElements");
 
         this.renderDemoHeading(group, node.getAttribute("demo-title"), node.getAttribute("demo-description"), "h3");
 
@@ -300,13 +309,16 @@ const demoRenderer = {
         //== turns into the real notification, so drop the styled box and keep the node out of sight.
         const showPreview = node.getAttribute("demo-preview") !== "none";
         const preview = document.createElement("div");
-        preview.setAttribute("pgs", showPreview ? "container flexColumn gapElements" : "hidden");
+        preview.setAttribute("pgs", showPreview ? "container flexColumn" : "hidden");
+        if (showPreview) preview.setAttribute("pgs-option", "gapElements");
         preview.append(this.stripDemoAttributes(node.cloneNode(true)));
         group.append(preview);
 
         //== "Example HTML" is the only thing demo="disabled" affects: skip it entirely when the
-        //== item's own root is disabled, otherwise strip just the disabled descendants from the code
-        if (node.getAttribute("demo") !== "disabled") {
+        //== item's own root is disabled, otherwise strip just the disabled descendants from the code.
+        //== demo-code="none" is the more direct way to say the same thing: no code block at all for
+        //== this item, live preview untouched — use it when there's simply nothing worth copying.
+        if (node.getAttribute("demo") !== "disabled" && node.getAttribute("demo-code") !== "none") {
             const codeClone = node.cloneNode(true);
             codeClone.querySelectorAll('[demo="disabled"]').forEach(el => el.remove());
 
@@ -397,15 +409,17 @@ const demoRenderer = {
         });
     },
 
-    //= Splits markup tagged with demo="component"/demo="item" into one live-preview + code pair per item,
-    //= falling back to a single whole-markup pair for reference files that don't use those tags yet.
+    //= Splits markup tagged with demo="component"|"container"/demo="item" into one live-preview +
+    //= code pair per item, falling back to a single whole-markup pair for reference files that don't
+    //= use those tags yet. "container" is the same grouping wrapper as "component", just naming
+    //= upfront that it's plain demo layout rather than something meant to be authored.
     renderExamplePairs(section, path, markup) {
         if (!markup.trim()) return;
 
         const template = document.createElement("template");
         template.innerHTML = markup;
 
-        const components = Array.from(template.content.querySelectorAll('[demo="component"]'));
+        const components = Array.from(template.content.querySelectorAll('[demo="component"], [demo="container"]'));
         if (!components.length) {
             //== the live preview always renders the full original markup; demo="disabled" only
             //== affects the "Example HTML" code block below it, never what actually runs in the demo
@@ -431,7 +445,9 @@ const demoRenderer = {
 
     renderHeader(section, title, description) {
         const header = document.createElement("div");
-        header.setAttribute("pgs", "flexColumn gapTexts");
+        header.className = "demoContent-heading";
+        header.setAttribute("pgs", "flexColumn");
+        header.setAttribute("pgs-option", "gapTexts");
 
         const heading = document.createElement("h1");
         heading.textContent = title;
@@ -463,7 +479,8 @@ const demoRenderer = {
 
     renderDocList(container, items) {
         const list = document.createElement("ul");
-        list.setAttribute("pgs", "flexColumn gapTexts");
+        list.setAttribute("pgs", "flexColumn");
+        list.setAttribute("pgs-option", "gapTexts");
         items.forEach(item => {
             const li = document.createElement("li");
             const code = document.createElement("code");
@@ -477,10 +494,11 @@ const demoRenderer = {
     renderDocGroup(container, label, items, level) {
         if (!items.length) return;
         const group = document.createElement("div");
-        group.setAttribute("pgs", "flexColumn gapTexts");
+        group.setAttribute("pgs", "flexColumn");
+        group.setAttribute("pgs-option", "gapTexts");
 
         const heading = document.createElement(level);
-        heading.className = level === "h4" ? "docBlock-heading" : "docBlock-subheading";
+        if (level !== "h4") heading.className = "demoContent-doc-subheading";
         heading.textContent = label;
         group.append(heading);
 
@@ -507,10 +525,10 @@ const demoRenderer = {
         buckets.push(["Other", items.filter(item => !grouped.has(item))]);
 
         const wrapper = document.createElement("div");
-        wrapper.setAttribute("pgs", "flexColumn gapTexts");
+        wrapper.setAttribute("pgs", "flexColumn");
+        wrapper.setAttribute("pgs-option", "gapTexts");
 
         const heading = document.createElement("h4");
-        heading.className = "docBlock-heading";
         heading.textContent = "Related elements";
         wrapper.append(heading);
 
@@ -521,8 +539,9 @@ const demoRenderer = {
     renderDocumentation(section, data, markup) {
         if (!data) return;
         const doc = document.createElement("div");
-        doc.className = "docBlock";
-        doc.setAttribute("pgs", "box flexColumn gapElements");
+        doc.className = "demoContent-doc";
+        doc.setAttribute("pgs", "box flexColumn");
+        doc.setAttribute("pgs-option", "gapElements");
 
         this.renderDocGroup(doc, LIST_TAG_LABELS.pgs, data.pgs || [], "h4");
         this.renderDocGroup(doc, LIST_TAG_LABELS["pgs-generated"], data["pgs-generated"] || [], "h4");
@@ -695,7 +714,8 @@ const demoRenderer = {
             const panel = document.createElement("div");
             panel.dataset.panel = WELCOME_ENTRY.path;
             panel.hidden = true;
-            panel.setAttribute("pgs", "flexColumn gapElements");
+            panel.setAttribute("pgs", "flexColumn");
+            panel.setAttribute("pgs-option", "gapElements");
             panel.append(welcome.content.cloneNode(true));
 
             MAIN.append(panel);
@@ -709,14 +729,19 @@ const demoRenderer = {
             const panel = document.createElement("div");
             panel.dataset.panel = path;
             panel.hidden = true;
-            panel.setAttribute("pgs", "flexColumn gapElements");
+            panel.setAttribute("pgs", "flexColumn");
+            panel.setAttribute("pgs-option", "gapElements");
 
             let section;
             const isSection = path !== "layout/section.html" && path !== "layout/pageShell.html"
             isSection ? section = document.createElement("section") : section = document.createElement("div");
 
-            if (isSection) section.setAttribute("pgs", "flexColumn gapElements");
+            if (isSection) {
+                section.setAttribute("pgs", "flexColumn");
+                section.setAttribute("pgs-option", "gapElements");
+            }
 
+            section.className = "demoContent";
             section.dataset.reference = path;
             let title = this.getReferenceTitle(path);
 
@@ -774,6 +799,7 @@ const demoRenderer = {
             configureNotificationDemo();
             configureInitDemo();
             configureScrollHorizontalDemo();
+            configureScrollHorizontalWithMouseDemo();
             configureFormValidateHelperDemo();
             document.body.classList.remove('is-loading');
             //# end CORE
@@ -935,6 +961,16 @@ function configureScrollHorizontalDemo() {
     if (!container) return;
 
     pgsApi.scrollHorizontal(container, 5);
+}
+
+//= Scroll Horizontal With Mouse Demo
+function configureScrollHorizontalWithMouseDemo() {
+    const pgsApi = globalThis.pgs;
+    const section = document.querySelector('[data-reference="helper/scrollHorizontal.html"]');
+    const container = section?.querySelector('#pgsScrollWithMouseDemo');
+    if (!container) return;
+
+    pgsApi.scrollHorizontalWithMouse(container, 5);
 }
 
 //= Form Validate Helper Demo

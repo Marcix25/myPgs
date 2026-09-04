@@ -2,7 +2,7 @@
 
 # Tooltip
 
-Tooltip markup, configuration, behavior, and usage example.
+Tooltip markup, configuration, behavior, and usage example. A small arrow always points back at the trigger, automatically on whichever side the dropdown behaviour placed the content.
 
 ## PGS
 
@@ -33,6 +33,7 @@ Tooltip markup, configuration, behavior, and usage example.
 ### PGS Options
 
 - `buttonMini`: applies the smallest button variant to the tooltip trigger.
+- `buttonIcon`: presents the tooltip trigger as a compact circular icon button.
 - `icon-circleInfo`: the information mark.
 
 ### Other
@@ -48,7 +49,7 @@ Complete HTML markup and usage example for Tooltip.
 
 ```html
 <span pgs="dropdown tooltip">
-    <button pgs="dropdown-button button tooltip-button" pgs-option="buttonMini" title="open-tooltip" type="button">
+    <button pgs="dropdown-button button tooltip-button" pgs-option="buttonMini buttonIcon" title="open-tooltip" type="button">
         <i pgs="icon" pgs-option="icon-circleInfo"></i>
     </button>
     <div pgs="dropdown-content tooltip-content">

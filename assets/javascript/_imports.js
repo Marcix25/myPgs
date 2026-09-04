@@ -19,7 +19,7 @@ import { PGS_tabs } from "./components/_tabs.js";
 import { PGS_header } from "./layout/_header.js";
 import { PGS_formValidate } from "./helper/_formValidate.js";
 import { PGS_init } from "./helper/_init.js";
-import { PGS_scrollHorizontal } from "./helper/_scrollY.js";
+import { PGS_scrollHorizontal, PGS_scrollHorizontalWithMouse } from "./helper/_scrollHorizontal.js";
 import { PGS_cookieConsent } from "./patterns/_cookieConsent.js";
 
 pgs.registerModules({
@@ -44,4 +44,5 @@ pgs.registerModules({
     tabs: PGS_tabs,
     formValidate: PGS_formValidate,
     scrollHorizontal: PGS_scrollHorizontal,
+    scrollHorizontalWithMouse: PGS_scrollHorizontalWithMouse,
 });

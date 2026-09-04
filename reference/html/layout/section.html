@@ -27,21 +27,21 @@
 -->
 
 <main pgs="main" demo="component">
-    <section pgs="section flexColumn gapElements" demo="item" demo-title="Standard section" demo-description="Default section width and padding with centered content.">
+    <section pgs="section flexColumn" pgs-option="gapElements" demo="item" demo-title="Standard section" demo-description="Default section width and padding with centered content.">
         <div pgs="flexColumn">
             <strong>Lorem ipsum dolor</strong>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </div>
     </section>
 
-    <section pgs="sectionFull flexColumn gapElements" demo="item" demo-title="Full-width section" demo-description="Section that spans the full available width using sectionFull.">
+    <section pgs="sectionFull flexColumn" pgs-option="gapElements" demo="item" demo-title="Full-width section" demo-description="Section that spans the full available width using sectionFull.">
         <div pgs="flexColumn">
             <strong>Sit amet consectetur</strong>
             <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
         </div>
     </section>
 
-    <section pgs="sectionSpecificity flexColumn gapElements" demo="item" demo-title="Specificity-child section" demo-description="Section applying a specific structure to its child element using sectionSpecificity.">
+    <section pgs="sectionSpecificity flexColumn" pgs-option="gapElements" demo="item" demo-title="Specificity-child section" demo-description="Section applying a specific structure to its child element using sectionSpecificity.">
         <div pgs="flexColumn">
             <img pgs="card-img imgCover" src="https://placehold.co/800x200?text=Hero" alt="Placeholder image">
         </div>
@@ -51,20 +51,20 @@
         </div>
     </section>
 
-    <section pgs="section flexColumn gapElements" demo="item" demo-title="Query container" demo-description="container is what the hideContainer* utilities and every container query measure themselves against. Without it the nearest marked ancestor is used instead, and the element reacts to the wrong width.">
+    <section pgs="section flexColumn" pgs-option="gapElements" demo="item" demo-title="Query container" demo-description="container is what the hideContainer* utilities and every container query measure themselves against. Without it the nearest marked ancestor is used instead, and the element reacts to the wrong width.">
         <div pgs="container">
             <span pgs="box hideContainerDownTablet">Hidden while this container is at most 800px wide.</span>
         </div>
     </section>
 
-    <section pgs="sectionMax flexColumn gapElements" style="background-color: var(--color-primary-soft)" demo="item" demo-title="Max-width section" demo-description="Section with an extended maximum width using sectionMax.">
+    <section pgs="sectionMax flexColumn" pgs-option="gapElements" style="background-color: var(--color-primary-soft)" demo="item" demo-title="Max-width section" demo-description="Section with an extended maximum width using sectionMax.">
         <div pgs="flexColumn">
             <strong>Do eiusmod tempor</strong>
             <p>Duis aute irure dolor in reprehenderit in voluptate.</p>
         </div>
     </section>
 
-    <section pgs="sectionNoPadding flexColumn gapElements" demo="item" demo-title="No padding section" demo-description="Section without the standard padding using sectionNoPadding, useful for edge-to-edge images.">
+    <section pgs="sectionNoPadding flexColumn" pgs-option="gapElements" demo="item" demo-title="No padding section" demo-description="Section without the standard padding using sectionNoPadding, useful for edge-to-edge images.">
         <div pgs="flexColumn">
             <img pgs="card-img imgCover" src="https://placehold.co/800x500?text=HI!" alt="Placeholder image">
         </div>

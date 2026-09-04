@@ -17,6 +17,7 @@ meaning moved under them, so nothing errors and the page just looks wrong.
 | a plain `<a>` in body content | `color: var(--color-black)`, underline on hover | `color: var(--color-link)`, background highlight on hover |
 | `pgs-state="info"` (alert/badge/notification/toast) | read `--color-link`/`--color-linkBackground` directly | reads `--color-info`/`--color-info-soft`, which only default to the link colours |
 | `pgs="header"` with no options | hid itself on scroll-down automatically | does nothing on scroll unless `pgs-option="headerScroll"` is also written |
+| `pgs.scrollHorizontal(element, speed)` | converted a mouse wheel only, ignoring a trackpad/Magic Mouse | converts any wheel source, trackpad included |
 
 So `<span pgs="icon"><i class="fa-solid fa-star"></i></span>` no longer draws a circle. The surface
 is now an option on an icon element:
@@ -41,6 +42,11 @@ Info state: if you retheme "info" surfaces by overriding `--color-link`, set `--
 Header scroll-hide: this used to run unconditionally on every `pgs="header"`. A header with no
 `pgs-option` at all — which is what `PGS_theme`'s own header currently has — silently stops hiding on
 scroll after this merge unless `headerScroll` is added to it.
+
+Scroll horizontal: the old mouse-only behaviour moved to a new function,
+`pgs.scrollHorizontalWithMouse(element, speed)` — Slides' `slidesScrollMouse` now calls that one
+internally, so its own behaviour is unchanged. If you called `pgs.scrollHorizontal` directly and
+relied on trackpad input being left alone, switch that call to `pgs.scrollHorizontalWithMouse`.
 
 ## 2. Renames
 
@@ -142,6 +148,22 @@ The mouse-scroll option's default also flipped, not just its name: `slidesNotScr
 
 Border and outline are now separate: `br*` colours need `pgs="border"`, `ol*` need `pgs="outline"`,
 and each family has its own thickness options.
+
+### Flex/grid gap and wrap, bare `pgs` support removed
+
+| was | now |
+| --- | --- |
+| `pgs="gapTexts"` | `pgs-option="gapTexts"` |
+| `pgs="gapElements"` | `pgs-option="gapElements"` |
+| `pgs="gapSections"` | `pgs-option="gapSections"` |
+| `pgs="gapNone"` | `pgs-option="gapNone"` |
+| `pgs="nowrap"` | `pgs-option="nowrap"` |
+| `pgs="wrap"` | `pgs-option="wrap"` |
+
+These six were always meant to be `pgs-option`, matching every other flex/grid modifier
+(`itemCenter`, `justifyBetween`, ...), but a `[pgs~=...]` fallback kept the bare form working. That
+fallback is gone: write them as `pgs-option`, combined with `pgs="flexColumn"`/`flexRow`/`flex`/`grid`
+or any other element that already carries a `pgs-option`.
 
 ### Reference layout
 
@@ -253,6 +275,12 @@ grep -rnE 'pgs="menu"|pgs-option="[^"]*\bmenuVertical\b' . -A2 -B2
 
 # 9. a header with no pgs-option, which silently lost scroll-hide
 grep -rnE 'pgs="header"\s*>' .
+
+# 10. gap/wrap written as a bare pgs value instead of pgs-option
+grep -rnE 'pgs="[^"]*\b(gapTexts|gapElements|gapSections|gapNone|nowrap|wrap)\b' .
+
+# 11. direct calls to scrollHorizontal that relied on the old mouse-only behaviour
+grep -rn 'pgs\.scrollHorizontal(' .
 ```
 
 Hit 5 needs reading rather than replacing: an `icon` that wraps another element wanted the surface

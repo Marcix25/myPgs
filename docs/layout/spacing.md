@@ -43,6 +43,9 @@ Margin and padding utilities based on the shared MyPGS spacing scales. The gap u
 
 - `flexColumn`: arranges the spacing groups vertically.
 - `box`: makes the centred example visible, so marginAuto is actually observable.
+
+### PGS Options
+
 - `gapTexts`: separates the examples inside a group.
 - `gapSections`: separates the groups.
 

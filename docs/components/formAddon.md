@@ -19,11 +19,11 @@ Additional form controls for selectable cards, two-state buttons, switches, and 
 - `form`: applies the base form styles to the complete add-on example.
 - `flexColumn`: vertically arranges each example with its heading and control.
 - `flexRow`: horizontally arranges standalone chip controls.
-- `gapElements`: applies element spacing between the form add-on examples.
 - `icon`: draws the glyphs this example shows; see Icon for the whole set.
 
 ### PGS Options
 
+- `gapElements`: applies element spacing between the form add-on examples.
 - `icon-star`: the neutral stand-in glyph, used where the example needs an icon but not a particular one.
 
 ## Output

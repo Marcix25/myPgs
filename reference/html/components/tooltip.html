@@ -1,7 +1,7 @@
 <!--
 /**
  * @title Tooltip
- * @description Tooltip markup, configuration, behavior, and usage example.
+ * @description Tooltip markup, configuration, behavior, and usage example. A small arrow always points back at the trigger, automatically on whichever side the dropdown behaviour placed the content.
  *
  * @pgs
  * - tooltip: identifies the tooltip element used by Tooltip.
@@ -25,6 +25,7 @@
  * - position: identifies the position element used by Tooltip.
  * - open: is applied by the dropdown behaviour while the tooltip is visible.
  * - buttonMini: applies the smallest button variant to the tooltip trigger.
+ * - buttonIcon: presents the tooltip trigger as a compact circular icon button.
  * - icon: draws the glyphs this example shows; see Icon for the whole set.
  * - icon-circleInfo: the information mark.
  *
@@ -33,7 +34,7 @@
 -->
 
 <span pgs="dropdown tooltip">
-    <button pgs="dropdown-button button tooltip-button" pgs-option="buttonMini" title="open-tooltip" type="button">
+    <button pgs="dropdown-button button tooltip-button" pgs-option="buttonMini buttonIcon" title="open-tooltip" type="button">
         <i pgs="icon" pgs-option="icon-circleInfo"></i>
     </button>
     <div pgs="dropdown-content tooltip-content">

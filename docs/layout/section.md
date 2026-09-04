@@ -20,11 +20,14 @@ Section variants that control width, padding, and specific content treatment whi
 ### PGS
 
 - `flexColumn`: vertically organizes sections and inner content.
-- `gapElements`: applies element spacing inside each section.
 - `card-img`: reuses card image treatment in the demonstration sections.
 - `imgCover`: scales images to the section width.
 - `hideContainerDownTablet`: hides its element while the surrounding container is at most 800px wide; see Breakpoints for the whole family.
 - `box`: makes the container example visible as a surface.
+
+### PGS Options
+
+- `gapElements`: applies element spacing inside each section.
 
 ### Other
 
@@ -41,7 +44,7 @@ HTML collection of the available section variants.
 Default section width and padding with centered content.
 
 ```html
-<section pgs="section flexColumn gapElements">
+<section pgs="section flexColumn" pgs-option="gapElements">
     <div pgs="flexColumn">
         <strong>Lorem ipsum dolor</strong>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -54,7 +57,7 @@ Default section width and padding with centered content.
 Section that spans the full available width using sectionFull.
 
 ```html
-<section pgs="sectionFull flexColumn gapElements">
+<section pgs="sectionFull flexColumn" pgs-option="gapElements">
     <div pgs="flexColumn">
         <strong>Sit amet consectetur</strong>
         <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
@@ -67,7 +70,7 @@ Section that spans the full available width using sectionFull.
 Section applying a specific structure to its child element using sectionSpecificity.
 
 ```html
-<section pgs="sectionSpecificity flexColumn gapElements">
+<section pgs="sectionSpecificity flexColumn" pgs-option="gapElements">
     <div pgs="flexColumn">
         <img pgs="card-img imgCover" src="https://placehold.co/800x200?text=Hero" alt="Placeholder image">
     </div>
@@ -83,7 +86,7 @@ Section applying a specific structure to its child element using sectionSpecific
 container is what the hideContainer* utilities and every container query measure themselves against. Without it the nearest marked ancestor is used instead, and the element reacts to the wrong width.
 
 ```html
-<section pgs="section flexColumn gapElements">
+<section pgs="section flexColumn" pgs-option="gapElements">
     <div pgs="container">
         <span pgs="box hideContainerDownTablet">Hidden while this container is at most 800px wide.</span>
     </div>
@@ -95,7 +98,7 @@ container is what the hideContainer* utilities and every container query measure
 Section with an extended maximum width using sectionMax.
 
 ```html
-<section pgs="sectionMax flexColumn gapElements" style="background-color: var(--color-primary-soft)">
+<section pgs="sectionMax flexColumn" pgs-option="gapElements" style="background-color: var(--color-primary-soft)">
     <div pgs="flexColumn">
         <strong>Do eiusmod tempor</strong>
         <p>Duis aute irure dolor in reprehenderit in voluptate.</p>
@@ -108,7 +111,7 @@ Section with an extended maximum width using sectionMax.
 Section without the standard padding using sectionNoPadding, useful for edge-to-edge images.
 
 ```html
-<section pgs="sectionNoPadding flexColumn gapElements">
+<section pgs="sectionNoPadding flexColumn" pgs-option="gapElements">
     <div pgs="flexColumn">
         <img pgs="card-img imgCover" src="https://placehold.co/800x500?text=HI!" alt="Placeholder image">
     </div>

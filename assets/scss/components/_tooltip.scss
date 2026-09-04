@@ -1,13 +1,99 @@
 [pgs~="tooltip"][pgs~="dropdown"] {
-    --dropdown-position-right: center;
     --dropdown-maxwidth: 400px;
     --dropdown-padding: 15px;
+    --tooltip-arrow-size: 7px;
 
     [pgs~="tooltip-button"][pgs~="dropdown-button"] {
         --icon-size: .9rem;
     }
 
-    [pgs~="tooltip-content"][pgs~="dropdown-content"]{
+    //== the arrow that says which trigger this tooltip belongs to: two stacked triangles, the
+    //== outer one in the border colour and the inner one in the background, offset by the same
+    //== border width, so the arrow reads as an extension of the box instead of a flat cutout
+    [pgs~="tooltip-content"][pgs~="dropdown-content"] {
+        //== the arrow sits entirely outside this box; dropdown-content's own overflow: auto (there
+        //== for a generic scrollable panel) would otherwise clip it away
+        overflow: visible;
 
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            inline-size: 0;
+            block-size: 0;
+            border: var(--tooltip-arrow-size) solid transparent;
+        }
+
+        &[data-dropdown-side="bottom"] {
+            &::before,
+            &::after {
+                bottom: 100%;
+                left: 50%;
+                translate: -50% 0;
+            }
+
+            &::before {
+                border-bottom-color: var(--border-color);
+            }
+
+            &::after {
+                margin-bottom: calc(var(--border-width) * -1);
+                border-bottom-color: var(--dropdown-background);
+            }
+        }
+
+        &[data-dropdown-side="top"] {
+            &::before,
+            &::after {
+                top: 100%;
+                left: 50%;
+                translate: -50% 0;
+            }
+
+            &::before {
+                border-top-color: var(--border-color);
+            }
+
+            &::after {
+                margin-top: calc(var(--border-width) * -1);
+                border-top-color: var(--dropdown-background);
+            }
+        }
+
+        &[data-dropdown-side="right"] {
+            &::before,
+            &::after {
+                right: 100%;
+                top: 50%;
+                translate: 0 -50%;
+            }
+
+            &::before {
+                border-right-color: var(--border-color);
+            }
+
+            &::after {
+                margin-right: calc(var(--border-width) * -1);
+                border-right-color: var(--dropdown-background);
+            }
+        }
+
+        &[data-dropdown-side="left"] {
+            &::before,
+            &::after {
+                left: 100%;
+                top: 50%;
+                translate: 0 -50%;
+            }
+
+            &::before {
+                border-left-color: var(--border-color);
+            }
+
+            &::after {
+                margin-left: calc(var(--border-width) * -1);
+                border-left-color: var(--dropdown-background);
+            }
+        }
     }
 }

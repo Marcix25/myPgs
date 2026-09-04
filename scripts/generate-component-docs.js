@@ -277,13 +277,15 @@ function splitOption(value) {
     return { key, payload: value.slice(openIndex + 1, closeIndex) };
 }
 
-//+ a demo="component" wrapper is grouping-only (and never rendered in the docs Example section, see
-//+ extractDemoItems) ONLY when it actually contains demo="item" children — in that case its own
-//+ pgs/pgs-option/pgs-state attributes are incidental layout and shouldn't force a doc requirement.
-//+ When there are no demo="item" children, the component element itself becomes the rendered item, so
-//+ its own attributes are the real subject and must be left alone.
+//+ a demo="component"/demo="container" wrapper is grouping-only (and never rendered in the docs
+//+ Example section, see extractDemoItems) ONLY when it actually contains demo="item" children — in
+//+ that case its own pgs/pgs-option/pgs-state attributes are incidental layout and shouldn't force a
+//+ doc requirement. demo="container" says so upfront (a plain layout element that exists only to
+//+ arrange the demo, never meant to be authored); demo="component" also gets this treatment, but
+//+ only once items are found, since without them the element itself is the rendered example and its
+//+ attributes are the real subject.
 function stripComponentWrapperAttributes(markup) {
-    const openTagPattern = /<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*\bdemo\s*=\s*["']component["'][^>]*>/g;
+    const openTagPattern = /<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*\bdemo\s*=\s*["'](?:component|container)["'][^>]*>/g;
     let result = "";
     let lastIndex = 0;
     let match;
@@ -637,19 +639,36 @@ function stripDemoAttributesFromMarkup(html) {
 }
 
 //+ an element that only groups the example for the demo is not part of the example: demo-code="children"
-//+ keeps it in the live preview but prints what is inside it instead of itself, as deep as it is repeated
+//+ keeps it in the live preview but prints what is inside it instead of itself. Unlike the outermost
+//+ wrapper this also has to handle several marked elements side by side (see Border's rows of spans),
+//+ not just a single nested chain, so it scans the whole string for a match rather than assuming the
+//+ next one is always at the very start.
 function unwrapScaffold(markup) {
     let current = markup.trim();
+    const openTagPattern = /<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*>/g;
 
     while (true) {
-        const opening = current.match(/^<(\w+)([^>]*)>/);
-        if (!opening || !/\bdemo-code\s*=\s*(["'])children\1/.test(opening[2])) return current;
+        openTagPattern.lastIndex = 0;
+        let match;
+        let target = null;
 
-        const end = findMatchingCloseTag(current, opening[1], opening[0].length);
+        while ((match = openTagPattern.exec(current))) {
+            if (/\bdemo-code\s*=\s*(["'])children\1/.test(match[0])) {
+                target = match;
+                break;
+            }
+        }
+
+        if (!target) return current;
+
+        const openEnd = target.index + target[0].length;
+        const end = findMatchingCloseTag(current, target[1], openEnd);
         if (end === -1) return current;
 
         const closing = current.lastIndexOf("<", end - 1);
-        current = dedent(current.slice(opening[0].length, closing));
+        const inner = dedent(current.slice(openEnd, closing));
+
+        current = current.slice(0, target.index) + inner + current.slice(end);
     }
 }
 
@@ -710,6 +729,13 @@ function extractDemoItems(markup) {
         const end = findMatchingCloseTag(markup, tagName, openTagEnd);
         if (end === -1) {
             openTagPattern.lastIndex = openTagEnd;
+            continue;
+        }
+
+        //== demo-code="none" says there's nothing worth copying for this item (see demo.js);
+        //== an Example section with no code to show is simply left out
+        if (/\bdemo-code\s*=\s*["']none["']/.test(match[0])) {
+            openTagPattern.lastIndex = end;
             continue;
         }
 

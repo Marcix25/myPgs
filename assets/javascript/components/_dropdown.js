@@ -89,6 +89,10 @@ function updateposition(dropdown) {
 
     left = clamp(left, VIEWPORT_GAP, maxLeft);
 
+    //== exposes the resolved side so a component built on dropdown (e.g. Tooltip) can point an
+    //== arrow at the trigger purely in CSS, without recomputing the layout itself
+    content.dataset.dropdownSide = side;
+
     content.style.setProperty("--dropdown-left", `${Math.round(left)}px`);
     content.style.setProperty("--dropdown-top", `${Math.round(top)}px`);
 }

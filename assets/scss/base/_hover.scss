@@ -1,0 +1,14 @@
+@use "../mixin/mixin" as *;
+
+//# HOVER
+[pgs~=hover] {
+    @include hoverBase();
+    @include hoverContent1();
+    @include hoverFocus();
+
+    &:not(:disabled):hover {
+        [pgs~=hover-text] {
+            color: var(--hover-color);
+        }
+    }
+}

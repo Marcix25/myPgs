@@ -45,7 +45,6 @@ Responsive header that measures available space, switches between its full and c
 - `logo-text`: uses the text variant of the logo.
 - `menu`: provides both the full and the compact navigation.
 - `flexRow`: uses the related flexRow component or utility in this example.
-- `nowrap`: uses the related nowrap component or utility in this example.
 - `blur`: applies a backdrop blur behind header-element for a frosted-glass effect.
 - `notificationBell`: opens and closes the notification panel from the header.
 - `notificationBell-counter`: displays the current notification count on the bell.
@@ -62,6 +61,7 @@ Responsive header that measures available space, switches between its full and c
 - `buttonText`: the appearance of the navigation links, in the full-layout row and once they stack in the compact panel alike.
 - `buttonHeader`: sizes a link like the other header controls; belongs to the button component.
 - `buttonPaddingEqual`: sets the same padding on every side of a navigation link instead of the wider left/right default; belongs to the button component.
+- `nowrap`: uses the related nowrap component or utility in this example.
 - `menuHorizontal`: arranges the full-layout menu horizontally.
 - `menuVertical`: arranges the compact-layout menu vertically.
 - `menuShort`: compacts adjacent full-layout menu links by overlapping their horizontal spacing.
@@ -107,7 +107,7 @@ Complete header HTML with full navigation and a side compact panel.
 		</div>
 
 		<div pgs="header-element-alwaysOnLast">
-			<div pgs="flexRow nowrap">
+			<div pgs="flexRow" pgs-option="nowrap">
 				<div pgs="modal" pgs-option="modalContainerPGS[header] ">
 					<button type="button" pgs="modal-button modal-close button notificationBell" pgs-option="buttonIcon" aria-label="Open notifications">
 						<i pgs="icon" pgs-option="icon-bell"></i>

@@ -642,144 +642,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   object-fit: contain;
 }
 
-[pgs~=border] {
-  border: var(--border-width) solid var(--border-color);
-}
-
-[pgs~=borderTop] {
-  border-top: var(--border-width) solid var(--border-color);
-}
-
-[pgs~=borderRight] {
-  border-right: var(--border-width) solid var(--border-color);
-}
-
-[pgs~=borderBottom] {
-  border-bottom: var(--border-width) solid var(--border-color);
-}
-
-[pgs~=borderLeft] {
-  border-left: var(--border-width) solid var(--border-color);
-}
-
-[pgs~=borderInline] {
-  border-inline: var(--border-width) solid var(--border-color);
-}
-
-[pgs~=borderBlock] {
-  border-block: var(--border-width) solid var(--border-color);
-}
-
-[pgs~=border][pgs-option~=borderThin],
-[pgs~=borderTop][pgs-option~=borderThin],
-[pgs~=borderRight][pgs-option~=borderThin],
-[pgs~=borderBottom][pgs-option~=borderThin],
-[pgs~=borderLeft][pgs-option~=borderThin],
-[pgs~=borderInline][pgs-option~=borderThin],
-[pgs~=borderBlock][pgs-option~=borderThin] {
-  --border-width: 1px;
-}
-
-[pgs~=border][pgs-option~=borderThick],
-[pgs~=borderTop][pgs-option~=borderThick],
-[pgs~=borderRight][pgs-option~=borderThick],
-[pgs~=borderBottom][pgs-option~=borderThick],
-[pgs~=borderLeft][pgs-option~=borderThick],
-[pgs~=borderInline][pgs-option~=borderThick],
-[pgs~=borderBlock][pgs-option~=borderThick] {
-  --border-width: 3px;
-}
-
-[pgs~=border][pgs-option~=borderThicker],
-[pgs~=borderTop][pgs-option~=borderThicker],
-[pgs~=borderRight][pgs-option~=borderThicker],
-[pgs~=borderBottom][pgs-option~=borderThicker],
-[pgs~=borderLeft][pgs-option~=borderThicker],
-[pgs~=borderInline][pgs-option~=borderThicker],
-[pgs~=borderBlock][pgs-option~=borderThicker] {
-  --border-width: 4.5px;
-}
-
-[pgs~=outline] {
-  outline: var(--outline-width) solid var(--outline-color);
-}
-
-[pgs~=outline][pgs-option~=outlineThin] {
-  --outline-width: 1px;
-}
-
-[pgs~=outline][pgs-option~=outlineThick] {
-  --outline-width: 3px;
-}
-
-[pgs~=outline][pgs-option~=outlineThicker] {
-  --outline-width: 4.5px;
-}
-
-[pgs~=borderRadius] {
-  border-radius: var(--border-radius);
-}
-
-[pgs~=borderRadiusInput] {
-  border-radius: var(--border-radius-input);
-}
-
-[pgs~=borderRadiusExternal] {
-  border-radius: var(--border-radius-external);
-}
-
-[pgs~=hover] {
-  --hover-primaryColor: var(--color-primary-soft);
-  --hover-background: var(--hover-primaryColor);
-  --hover-color: var(--color-black);
-  --hover-border: var(--hover-background);
-  --hover-shadow-color: var(--hover-background);
-}
-
-[pgs~=hover]:where(:disabled, [disabled]) {
-  text-decoration: none;
-  cursor: default;
-}
-
-[pgs~=hover]:where(:not(:disabled, [disabled])) {
-  transition: unset 0ms;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-[pgs~=hover]:where(:not(:disabled, [disabled])) * {
-  transition: unset 0ms;
-  text-decoration: none;
-}
-
-[pgs~=hover]:where(:not(:disabled, [disabled])) *::before, [pgs~=hover]:where(:not(:disabled, [disabled])) *::after {
-  transition: unset 0ms;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  [pgs~=hover]:where(:not(:disabled, [disabled])):hover {
-    box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
-    background: var(--hover-background);
-    color: var(--hover-color);
-    outline-color: var(--hover-border);
-    border-color: var(--hover-border);
-  }
-  [pgs~=hover]:where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
-    color: var(--hover-color);
-  }
-  [pgs~=hover]:where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
-    color: var(--hover-color);
-  }
-}
-[pgs~=hover]:where(:not(:disabled, [disabled])):focus-visible {
-  outline: var(--focus-visible);
-  outline-offset: 3px;
-}
-
-[pgs~=hover]:not(:disabled):hover [pgs~=hover-text] {
-  color: var(--hover-color);
-}
-
 /*
 |--------------------------------------------------------------------------
 | Layout
@@ -2015,30 +1877,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs-option~=selfBaseline] {
   align-self: baseline;
-}
-
-[pgs~=gapTexts] {
-  gap: var(--gap-texts);
-}
-
-[pgs~=gapElements] {
-  gap: var(--gap-elements);
-}
-
-[pgs~=gapSections] {
-  gap: var(--gap-sections);
-}
-
-[pgs~=gapNone] {
-  gap: unset;
-}
-
-[pgs~=nowrap] {
-  flex-wrap: nowrap;
-}
-
-[pgs~=wrap] {
-  flex-wrap: wrap;
 }
 
 @media (max-width: 315px) {
@@ -7367,13 +7205,85 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
 }
 
 [pgs~=tooltip][pgs~=dropdown] {
-  --dropdown-position-right: center;
   --dropdown-maxwidth: 400px;
   --dropdown-padding: 15px;
+  --tooltip-arrow-size: 7px;
 }
 
 [pgs~=tooltip][pgs~=dropdown] [pgs~=tooltip-button][pgs~=dropdown-button] {
   --icon-size: .9rem;
+}
+
+[pgs~=tooltip][pgs~=dropdown] [pgs~=tooltip-content][pgs~=dropdown-content] {
+  overflow: visible;
+}
+
+[pgs~=tooltip][pgs~=dropdown] [pgs~=tooltip-content][pgs~=dropdown-content]::before, [pgs~=tooltip][pgs~=dropdown] [pgs~=tooltip-content][pgs~=dropdown-content]::after {
+  content: "";
+  position: absolute;
+  inline-size: 0;
+  block-size: 0;
+  border: var(--tooltip-arrow-size) solid transparent;
+}
+
+[pgs~=tooltip][pgs~=dropdown] [pgs~=tooltip-content][pgs~=dropdown-content][data-dropdown-side=bottom]::before, [pgs~=tooltip][pgs~=dropdown] [pgs~=tooltip-content][pgs~=dropdown-content][data-dropdown-side=bottom]::after {
+  bottom: 100%;
+  left: 50%;
+  translate: -50% 0;
+}
+
+[pgs~=tooltip][pgs~=dropdown] [pgs~=tooltip-content][pgs~=dropdown-content][data-dropdown-side=bottom]::before {
+  border-bottom-color: var(--border-color);
+}
+
+[pgs~=tooltip][pgs~=dropdown] [pgs~=tooltip-content][pgs~=dropdown-content][data-dropdown-side=bottom]::after {
+  margin-bottom: calc(var(--border-width) * -1);
+  border-bottom-color: var(--dropdown-background);
+}
+
+[pgs~=tooltip][pgs~=dropdown] [pgs~=tooltip-content][pgs~=dropdown-content][data-dropdown-side=top]::before, [pgs~=tooltip][pgs~=dropdown] [pgs~=tooltip-content][pgs~=dropdown-content][data-dropdown-side=top]::after {
+  top: 100%;
+  left: 50%;
+  translate: -50% 0;
+}
+
+[pgs~=tooltip][pgs~=dropdown] [pgs~=tooltip-content][pgs~=dropdown-content][data-dropdown-side=top]::before {
+  border-top-color: var(--border-color);
+}
+
+[pgs~=tooltip][pgs~=dropdown] [pgs~=tooltip-content][pgs~=dropdown-content][data-dropdown-side=top]::after {
+  margin-top: calc(var(--border-width) * -1);
+  border-top-color: var(--dropdown-background);
+}
+
+[pgs~=tooltip][pgs~=dropdown] [pgs~=tooltip-content][pgs~=dropdown-content][data-dropdown-side=right]::before, [pgs~=tooltip][pgs~=dropdown] [pgs~=tooltip-content][pgs~=dropdown-content][data-dropdown-side=right]::after {
+  right: 100%;
+  top: 50%;
+  translate: 0 -50%;
+}
+
+[pgs~=tooltip][pgs~=dropdown] [pgs~=tooltip-content][pgs~=dropdown-content][data-dropdown-side=right]::before {
+  border-right-color: var(--border-color);
+}
+
+[pgs~=tooltip][pgs~=dropdown] [pgs~=tooltip-content][pgs~=dropdown-content][data-dropdown-side=right]::after {
+  margin-right: calc(var(--border-width) * -1);
+  border-right-color: var(--dropdown-background);
+}
+
+[pgs~=tooltip][pgs~=dropdown] [pgs~=tooltip-content][pgs~=dropdown-content][data-dropdown-side=left]::before, [pgs~=tooltip][pgs~=dropdown] [pgs~=tooltip-content][pgs~=dropdown-content][data-dropdown-side=left]::after {
+  left: 100%;
+  top: 50%;
+  translate: 0 -50%;
+}
+
+[pgs~=tooltip][pgs~=dropdown] [pgs~=tooltip-content][pgs~=dropdown-content][data-dropdown-side=left]::before {
+  border-left-color: var(--border-color);
+}
+
+[pgs~=tooltip][pgs~=dropdown] [pgs~=tooltip-content][pgs~=dropdown-content][data-dropdown-side=left]::after {
+  margin-left: calc(var(--border-width) * -1);
+  border-left-color: var(--dropdown-background);
 }
 
 [pgs~=search] {
@@ -8120,6 +8030,144 @@ dialog [pgs~=search] [pgs~=modal-close] {
 
 [pgs~=olGray] {
   outline-color: var(--color-gray);
+}
+
+[pgs~=border] {
+  border: var(--border-width) solid var(--border-color);
+}
+
+[pgs~=borderTop] {
+  border-top: var(--border-width) solid var(--border-color);
+}
+
+[pgs~=borderRight] {
+  border-right: var(--border-width) solid var(--border-color);
+}
+
+[pgs~=borderBottom] {
+  border-bottom: var(--border-width) solid var(--border-color);
+}
+
+[pgs~=borderLeft] {
+  border-left: var(--border-width) solid var(--border-color);
+}
+
+[pgs~=borderInline] {
+  border-inline: var(--border-width) solid var(--border-color);
+}
+
+[pgs~=borderBlock] {
+  border-block: var(--border-width) solid var(--border-color);
+}
+
+[pgs~=border][pgs-option~=borderThin],
+[pgs~=borderTop][pgs-option~=borderThin],
+[pgs~=borderRight][pgs-option~=borderThin],
+[pgs~=borderBottom][pgs-option~=borderThin],
+[pgs~=borderLeft][pgs-option~=borderThin],
+[pgs~=borderInline][pgs-option~=borderThin],
+[pgs~=borderBlock][pgs-option~=borderThin] {
+  --border-width: 1px;
+}
+
+[pgs~=border][pgs-option~=borderThick],
+[pgs~=borderTop][pgs-option~=borderThick],
+[pgs~=borderRight][pgs-option~=borderThick],
+[pgs~=borderBottom][pgs-option~=borderThick],
+[pgs~=borderLeft][pgs-option~=borderThick],
+[pgs~=borderInline][pgs-option~=borderThick],
+[pgs~=borderBlock][pgs-option~=borderThick] {
+  --border-width: 3px;
+}
+
+[pgs~=border][pgs-option~=borderThicker],
+[pgs~=borderTop][pgs-option~=borderThicker],
+[pgs~=borderRight][pgs-option~=borderThicker],
+[pgs~=borderBottom][pgs-option~=borderThicker],
+[pgs~=borderLeft][pgs-option~=borderThicker],
+[pgs~=borderInline][pgs-option~=borderThicker],
+[pgs~=borderBlock][pgs-option~=borderThicker] {
+  --border-width: 4.5px;
+}
+
+[pgs~=borderRadius] {
+  border-radius: var(--border-radius);
+}
+
+[pgs~=borderRadiusInput] {
+  border-radius: var(--border-radius-input);
+}
+
+[pgs~=borderRadiusExternal] {
+  border-radius: var(--border-radius-external);
+}
+
+[pgs~=outline] {
+  outline: var(--outline-width) solid var(--outline-color);
+}
+
+[pgs~=outline][pgs-option~=outlineThin] {
+  --outline-width: 1px;
+}
+
+[pgs~=outline][pgs-option~=outlineThick] {
+  --outline-width: 3px;
+}
+
+[pgs~=outline][pgs-option~=outlineThicker] {
+  --outline-width: 4.5px;
+}
+
+[pgs~=hover] {
+  --hover-primaryColor: var(--color-primary-soft);
+  --hover-background: var(--hover-primaryColor);
+  --hover-color: var(--color-black);
+  --hover-border: var(--hover-background);
+  --hover-shadow-color: var(--hover-background);
+}
+
+[pgs~=hover]:where(:disabled, [disabled]) {
+  text-decoration: none;
+  cursor: default;
+}
+
+[pgs~=hover]:where(:not(:disabled, [disabled])) {
+  transition: unset 0ms;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+[pgs~=hover]:where(:not(:disabled, [disabled])) * {
+  transition: unset 0ms;
+  text-decoration: none;
+}
+
+[pgs~=hover]:where(:not(:disabled, [disabled])) *::before, [pgs~=hover]:where(:not(:disabled, [disabled])) *::after {
+  transition: unset 0ms;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [pgs~=hover]:where(:not(:disabled, [disabled])):hover {
+    box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
+    background: var(--hover-background);
+    color: var(--hover-color);
+    outline-color: var(--hover-border);
+    border-color: var(--hover-border);
+  }
+  [pgs~=hover]:where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
+    color: var(--hover-color);
+  }
+  [pgs~=hover]:where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
+    color: var(--hover-color);
+  }
+}
+[pgs~=hover]:where(:not(:disabled, [disabled])):focus-visible {
+  outline: var(--focus-visible);
+  outline-offset: 3px;
+}
+
+[pgs~=hover]:not(:disabled):hover [pgs~=hover-text] {
+  color: var(--hover-color);
 }
 
 /*# sourceMappingURL=index.css.map*/

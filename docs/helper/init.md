@@ -13,11 +13,14 @@ Every component initializes itself on page load. pgs.init(root) re-runs that sam
 ### PGS
 
 - `flexColumn`: stacks the trigger and the target vertically in this example.
-- `gapElements`: spaces them apart.
 - `button`: styles the trigger that inserts the new markup.
 - `dropdown`: uses the related dropdown component or utility in this example.
 - `dropdown-button`: uses the related dropdown-button component or utility in this example.
 - `dropdown-content`: uses the related dropdown-content component or utility in this example.
+
+### PGS Options
+
+- `gapElements`: spaces them apart.
 
 ## Output
 
@@ -26,7 +29,7 @@ A dropdown built and inserted after the page has already loaded, working only be
 ## Example
 
 ```html
-<div pgs="flexColumn gapElements">
+<div pgs="flexColumn" pgs-option="gapElements">
     <button pgs="button" id="pgsInit-add" type="button">Add dropdown</button>
     <div id="pgsInit-target"></div>
 </div>

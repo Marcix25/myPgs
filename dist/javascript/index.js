@@ -29,7 +29,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./layout/_header.js */ "./assets/javascript/layout/_header.js");
 /* harmony import */ var _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./helper/_formValidate.js */ "./assets/javascript/helper/_formValidate.js");
 /* harmony import */ var _helper_init_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./helper/_init.js */ "./assets/javascript/helper/_init.js");
-/* harmony import */ var _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./helper/_scrollY.js */ "./assets/javascript/helper/_scrollY.js");
+/* harmony import */ var _helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./helper/_scrollHorizontal.js */ "./assets/javascript/helper/_scrollHorizontal.js");
 /* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
 
 
@@ -76,7 +76,8 @@ _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
     summary: _components_summary_js__WEBPACK_IMPORTED_MODULE_15__.PGS_summary,
     tabs: _components_tabs_js__WEBPACK_IMPORTED_MODULE_16__.PGS_tabs,
     formValidate: _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_18__.PGS_formValidate,
-    scrollHorizontal: _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_20__.PGS_scrollHorizontal,
+    scrollHorizontal: _helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_20__.PGS_scrollHorizontal,
+    scrollHorizontalWithMouse: _helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_20__.PGS_scrollHorizontalWithMouse,
 });
 
 
@@ -1116,6 +1117,10 @@ function updateposition(dropdown) {
     }
 
     left = clamp(left, VIEWPORT_GAP, maxLeft);
+
+    //== exposes the resolved side so a component built on dropdown (e.g. Tooltip) can point an
+    //== arrow at the trigger purely in CSS, without recomputing the layout itself
+    content.dataset.dropdownSide = side;
 
     content.style.setProperty("--dropdown-left", `${Math.round(left)}px`);
     content.style.setProperty("--dropdown-top", `${Math.round(top)}px`);
@@ -2526,7 +2531,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_slides: () => (/* binding */ PGS_slides)
 /* harmony export */ });
-/* harmony import */ var _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_scrollY.js */ "./assets/javascript/helper/_scrollY.js");
+/* harmony import */ var _helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_scrollHorizontal.js */ "./assets/javascript/helper/_scrollHorizontal.js");
 /* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
 
 
@@ -2677,7 +2682,7 @@ class PGS_Slides {
 
         //== scroll
         const removeHorizontalScroll = slidesScrollMouse
-            ? (0,_helper_scrollY_js__WEBPACK_IMPORTED_MODULE_0__.PGS_scrollHorizontal)(this.container, 5)
+            ? (0,_helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_0__.PGS_scrollHorizontalWithMouse)(this.container, 5)
             : null;
 
         //==Listener: DOT, PREC, NEXT
@@ -4048,72 +4053,35 @@ function PGS_onDocumentReady(callback) {
 
 /***/ },
 
-/***/ "./assets/javascript/helper/_scrollY.js"
-/*!**********************************************!*\
-  !*** ./assets/javascript/helper/_scrollY.js ***!
-  \**********************************************/
+/***/ "./assets/javascript/helper/_scrollHorizontal.js"
+/*!*******************************************************!*\
+  !*** ./assets/javascript/helper/_scrollHorizontal.js ***!
+  \*******************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PGS_scrollHorizontal: () => (/* binding */ PGS_scrollHorizontal)
+/* harmony export */   PGS_scrollHorizontal: () => (/* binding */ PGS_scrollHorizontal),
+/* harmony export */   PGS_scrollHorizontalWithMouse: () => (/* binding */ PGS_scrollHorizontalWithMouse)
 /* harmony export */ });
-function PGS_scrollHorizontal(element, speed) {
-    // Se hai più contenitori, selezionali tutti:
-    // Semplice "singleton" per stimare se la sorgente è trackpad
-    const TrackpadDetector = (() => {
-        let lastTs = 0;
-        let smallAndFast = 0;
-        let samples = 0;
-        let isTrackpad = false;
-
-        function update(e) {
-            const now = performance.now();
-            const dt = now - lastTs;
-
-            // Porta delta in px (0: px, 1: linee, 2: pagine)
-            let dy = Math.abs(e.deltaY);
-            if (e.deltaMode === 1) dy *= 16;
-            else if (e.deltaMode === 2) dy *= e.currentTarget?.clientHeight || 800;
-
-            // Heuristica: eventi piccoli e ravvicinati → prob. trackpad
-            const small = dy < 30;          // soglia prudente
-            const fast = dt < 35;          // alta frequenza
-            if (small && fast) smallAndFast++;
-
-            samples++;
-            if (samples >= 6) {             // aggiorna il giudizio ogni N eventi
-                isTrackpad = smallAndFast >= 3;
-                smallAndFast = 0;
-                samples = 0;
-            }
-
-            lastTs = now;
-            return isTrackpad;
-        }
-
-        return {
-            update,
-            get value() { return isTrackpad; }
-        };
-    })();
-
-    //= Scorrimento orizzontale con rotella (evita il trackpad)
-    
+//+ converts a wheel event into a horizontal scroll delta, honouring the container's own scroll
+//+ boundaries and leaving native horizontal scrolling (and pinch-zoom) alone; shouldSkip lets a
+//+ variant bail out of specific input before any of that runs
+function createHorizontalWheelHandler(element, speed, shouldSkip) {
     const onWheel = (e) => {
-        //== lascia lo scroll naturale del trackpad
-        if (TrackpadDetector.update(e)) return;
+        //== lets a variant opt out of specific input (e.g. the trackpad) before anything else runs
+        if (shouldSkip?.(e)) return;
 
-        //== Evita interferenze con zoom o scroll orizzontale nativo
+        //== avoid interfering with pinch-zoom or native horizontal scroll
         if (e.ctrlKey) return;
         if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
 
-        //== Converti delta in px per lo shift orizzontale
+        //== convert the delta to px
         let delta = e.deltaY;
         if (e.deltaMode === 1) delta *= 16;
         else if (e.deltaMode === 2) delta *= element.clientHeight;
 
-        //== Verifica se il contenitore può ancora scrollare orizzontalmente
+        //== only take over the event if the container can still scroll further in that direction
         const atStart = element.scrollLeft <= 0;
         const atEnd = element.scrollLeft + element.clientWidth >= element.scrollWidth - 1;
         const scrollingRight = delta > 0;
@@ -4122,18 +4090,59 @@ function PGS_scrollHorizontal(element, speed) {
             (scrollingRight && !atEnd) ||
             (scrollingLeft && !atStart);
 
-        // Se non può più scrollare in quella direzione, lascia che la pagina gestisca lo scroll verticale
         if (!canScrollHoriz) return;
 
-        //== Previeni il default solo quando facciamo noi lo scroll orizzontale
         e.preventDefault();
-
-        //== rotella giù => destra
         element.scrollLeft += delta * speed;
     };
 
     element.addEventListener('wheel', onWheel, { passive: false });
     return () => element.removeEventListener('wheel', onWheel);
+}
+
+//+ estimates whether the wheel source is a trackpad: small, high-frequency deltas are its signature,
+//+ a physical mouse wheel fires larger, sparser steps
+function createTrackpadDetector() {
+    let lastTs = 0;
+    let smallAndFast = 0;
+    let samples = 0;
+    let isTrackpad = false;
+
+    return function update(e) {
+        const now = performance.now();
+        const dt = now - lastTs;
+
+        let dy = Math.abs(e.deltaY);
+        if (e.deltaMode === 1) dy *= 16;
+        else if (e.deltaMode === 2) dy *= e.currentTarget?.clientHeight || 800;
+
+        const small = dy < 30;
+        const fast = dt < 35;
+        if (small && fast) smallAndFast++;
+
+        samples++;
+        if (samples >= 6) {
+            isTrackpad = smallAndFast >= 3;
+            smallAndFast = 0;
+            samples = 0;
+        }
+
+        lastTs = now;
+        return isTrackpad;
+    };
+}
+
+//= works with any wheel source (mouse, trackpad, Magic Mouse...): any vertical wheel motion over
+//= the container scrolls it horizontally instead
+function PGS_scrollHorizontal(element, speed) {
+    return createHorizontalWheelHandler(element, speed);
+}
+
+//= mouse only: a trackpad or Magic Mouse already scrolls horizontally on its own two-finger swipe,
+//= so their vertical wheel motion is left alone instead of being forced sideways
+function PGS_scrollHorizontalWithMouse(element, speed) {
+    const isTrackpad = createTrackpadDetector();
+    return createHorizontalWheelHandler(element, speed, isTrackpad);
 }
 
 

@@ -734,26 +734,6 @@
             "formMessageTitle"
         ]
     },
-    "gapElements": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "gapNone": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "gapSections": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "gapTexts": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
     "grid": {
         "pgs": [],
         "pgs-generated": [],
@@ -1924,11 +1904,6 @@
         "pgs-option": []
     },
     "visuallyHiddenFocusable": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "wrap": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-option": []

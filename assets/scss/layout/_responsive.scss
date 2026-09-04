@@ -252,28 +252,3 @@
 [pgs-option~=selfBaseline] {
     align-self: baseline;
 }
-
-//x retro compatibility
-[pgs~=gapTexts] {
-    gap: var(--gap-texts);
-}
-
-[pgs~=gapElements] {
-    gap: var(--gap-elements);
-}
-
-[pgs~=gapSections] {
-    gap: var(--gap-sections);
-}
-
-[pgs~=gapNone] {
-    gap: unset;
-}
-
-[pgs~=nowrap] {
-    flex-wrap: nowrap;
-}
-
-[pgs~=wrap] {
-    flex-wrap: wrap;
-}

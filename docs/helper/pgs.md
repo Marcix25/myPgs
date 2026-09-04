@@ -25,12 +25,6 @@ The `pgs(root)` function is how every component finds and edits its own markup: 
 - `pgs.registerModules(modules)`: exposes an object of named modules directly as properties of pgs, refusing to silently overwrite one already registered.
 - `pgs.import(...names)`: returns the requested modules from the advanced import registry, throwing for any name not registered there.
 
-## Related elements
-
-### PGS
-
-- `box`: uses the related box component or utility in this example.
-
 ## Output
 
 The instance returned by pgs(root), and the read/write methods it exposes for pgs, pgs-option and pgs-state.
@@ -38,9 +32,9 @@ The instance returned by pgs(root), and the read/write methods it exposes for pg
 ## JavaScript Usage
 
 ```js
-const instance = pgs(document.getElementById("pgsHelperDemo"));
+const instance = pgs(element); // any Element, or a Document for querySelector(All) only
 
-instance.contains("box");              // true
+instance.contains("modal");
 instance.add("custom-token");
 instance.remove("custom-token");
 instance.toggle("custom-token", true);
@@ -57,11 +51,4 @@ instance.option.setValueBrackets("boxMini", "");
 // available on a Document too
 pgs(document).querySelector("box");
 pgs(document).querySelectorAll("box");
-```
-
-
-## Example
-
-```html
-<div id="pgsHelperDemo" pgs="box"></div>
 ```
