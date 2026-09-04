@@ -1,0 +1,25 @@
+<!--
+/**
+ * @title JavaScript helpers
+ * @description Overview of the reusable JavaScript utilities registered on pgs — see the Helper API reference section for each one's full signature.
+ */
+-->
+
+<p>Helpers collect reusable behaviour that is not a component of its own. They are registered on <code>pgs</code> by the library entrypoint and are available after:</p>
+
+<pre><code class="language-js">import "mypgs";</code></pre>
+
+<p>To reach the <code>pgs(root)</code> function as well:</p>
+
+<pre><code class="language-js">import { pgs } from "mypgs";</code></pre>
+
+<h2>Available helpers</h2>
+
+<ul>
+    <li><code>pgs(root)</code>: finds and edits PGS tokens, states and options.</li>
+    <li><code>pgs.init(root)</code>: initializes components added through JavaScript, JSX or an asynchronous request.</li>
+    <li><code>pgs.formValidate</code>: form validation, messages, custom rules and external errors.</li>
+    <li><code>pgs.scrollHorizontal</code>: turns vertical wheel movement into horizontal scrolling while the container can still scroll, whatever the input device; also registers <code>pgs.scrollHorizontalWithMouse</code>, the same conversion but for a plain mouse wheel only — a trackpad or Magic Mouse is left alone.</li>
+</ul>
+
+<p>The helper sources live in <code>assets/javascript/helper/</code>.</p>

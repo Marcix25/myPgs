@@ -1,4 +1,8 @@
-# npm export and development
+<!-- Automatically generated from reference/html/guides/npm-export-and-development.html. Edit reference/html/guides/npm-export-and-development.html and run npm run docs:generate:guides again. -->
+
+# npm exports and development
+
+What the package exposes, compiled vs source usage, the local development workflow, and how to add a new module.
 
 The package exposes:
 
@@ -19,14 +23,14 @@ The package exposes:
 }
 ```
 
-Uso compilato:
+Compiled usage:
 
 ```js
 import "mypgs";
 import "mypgs/style.css";
 ```
 
-Uso sorgente SCSS:
+SCSS source usage:
 
 ```scss
 @use "sass:meta";
@@ -34,7 +38,7 @@ Uso sorgente SCSS:
 @include meta.load-css("../../node_modules/mypgs/assets/scss/index.scss");
 ```
 
-## Sviluppo
+## Development
 
 One-time build:
 
@@ -87,7 +91,7 @@ export const PGS_myComponent = {
 };
 ```
 
-Registrazione in `assets/javascript/_imports.js`:
+Registration in `assets/javascript/_imports.js`:
 
 ```js
 import { PGS_myComponent } from "./components/_myComponent.js";
@@ -101,7 +105,7 @@ pgs.registerModules({
 });
 ```
 
-Uso:
+Usage:
 
 ```js
 pgs.myComponent.init();

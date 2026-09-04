@@ -1,4 +1,8 @@
+<!-- Automatically generated from reference/html/guides/css-scss-usage.html. Edit reference/html/guides/css-scss-usage.html and run npm run docs:generate:guides again. -->
+
 # CSS/SCSS usage
+
+Custom properties to prefer over hardcoded values, the button mixin composition pattern, and the pgs attribute syntax.
 
 The library exposes many custom properties that should be preferred to hardcoded values, for example:
 
@@ -52,7 +56,7 @@ Use `buttonIcon` instead of `buttonContent` for icon-only controls, and `buttonN
 
 `buttonStrong`, `buttonMini`, `buttonBig`, and `buttonTransparent` contain only their variant declarations and must be added after the required base, content/icon, and interaction mixins. This explicit composition is also the preferred pattern for components such as menus, accordions, forms, and step tabs.
 
-## The `pgs` system
+## The pgs system
 
 Markup uses space-separated tokens inside the `pgs` attribute:
 

@@ -2509,6 +2509,9 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     max-height: calc(100svh - var(--pageShell-aside-top));
     margin-top: calc(var(--pageShell-padding-top) * -1);
   }
+  [pgs~=pageShell][pgs-option~=pageShellAsideScrollFlush] [pgs~=pageShell-content] {
+    min-height: var(--pageShell-aside-maxHeight);
+  }
 }
 [pgs~=header] {
   --header-padding-inline: 30px;

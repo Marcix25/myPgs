@@ -19,6 +19,7 @@ const CATEGORY_LABELS = {
     layout: "Layout",
     patterns: "Patterns",
     helper: "Helper",
+    guides: "Guides",
 };
 const ENTRY_ICONS = {
     "welcome": "fa-house",
@@ -66,6 +67,9 @@ const ENTRY_ICONS = {
     "helper/init.html": "fa-rotate",
     "helper/formValidate.html": "fa-pen-to-square",
     "helper/scrollHorizontal.html": "fa-arrows-left-right",
+    "guides/css-scss-usage.html": "fa-palette",
+    "guides/npm-export-and-development.html": "fa-cube",
+    "guides/javascript-helpers.html": "fa-wand-magic-sparkles",
 };
 const DEFAULT_ENTRY_ICON = "fa-square";
 
@@ -116,6 +120,9 @@ const demoRenderer = {
         "helper/init.html",
         "helper/formValidate.html",
         "helper/scrollHorizontal.html",
+        "guides/css-scss-usage.html",
+        "guides/npm-export-and-development.html",
+        "guides/javascript-helpers.html",
     ],
 
     getReferenceTitle(path) {
@@ -707,19 +714,25 @@ const demoRenderer = {
         const NAVS = Array.from(document.querySelectorAll(".reference-demo-nav"));
         const menuEntries = [];
 
-        //== the demo opens on something that explains the library, not on a reference: the panel is
-        //== cloned from the template in demo.html so the prose stays in markup
-        const welcome = document.getElementById("reference-demo-welcome");
-        if (welcome) {
+        //== the demo opens on something that explains the library, not on a reference: welcome.html
+        //== is its own hand-maintained file (see reference/html/guides/welcome.html — excluded from
+        //== generate-guide-docs.js, since its richer layout doesn't fit the guide prose vocabulary),
+        //== fetched directly like every other panel
+        try {
+            const response = await fetch("../reference/html/guides/welcome.html");
+            if (!response.ok) throw new Error(`welcome.html: ${response.status}`);
+
             const panel = document.createElement("div");
             panel.dataset.panel = WELCOME_ENTRY.path;
             panel.hidden = true;
             panel.setAttribute("pgs", "flexColumn");
             panel.setAttribute("pgs-option", "gapElements");
-            panel.append(welcome.content.cloneNode(true));
+            panel.innerHTML = await response.text();
 
             MAIN.append(panel);
             menuEntries.push(WELCOME_ENTRY);
+        } catch (error) {
+            console.error("Welcome panel non caricato.", error);
         }
 
         //== header and footer are written straight into demo.html, so here they are just
@@ -749,6 +762,17 @@ const demoRenderer = {
                 const html = await this.loadReference(path);
                 const { data, markup } = this.parseDocumentation(html);
                 if (data?.title) title = data.title;
+
+                //== a guide is prose, not a component demo: it renders straight into the page with
+                //== no doc-tag block and no "Example HTML" below it, entirely in demo-guide.js
+                if (path.startsWith("guides/")) {
+                    DemoGuide.render(section, data, markup);
+                    panel.append(section);
+                    MAIN.append(panel);
+                    menuEntries.push({ path, title });
+                    continue;
+                }
+
                 this.renderHeader(section, title, data?.description);
                 this.renderDocumentation(section, data, markup);
 

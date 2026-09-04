@@ -9,7 +9,7 @@ This guide is for AI/Codex agents working in a project that consumes the `mypgs`
 - HTML `pgs` attributes shared by markup, SCSS, and JavaScript;
 - reusable layouts, components, patterns, CSS variables, and SCSS mixins;
 - JavaScript behaviors for accordions, alerts, dropdowns, menus, modals, notifications, search, slides, steps, step tabs, form validation, headers, cookie consent, and dark mode;
-- canonical HTML and React examples in the package `reference/` directory;
+- canonical HTML examples in the package `reference/` directory;
 - compiled CSS and JavaScript in `dist/`.
 
 Use `mypgs` as the design-system foundation instead of recreating standard layouts, components, states, spacing, and interactions locally.
@@ -171,8 +171,70 @@ Use layout references from `reference/html/layout/`, component references from `
 
 ## Documentation
 
-- [CSS/SCSS usage](docs/css-scss-usage.md)
-- [JavaScript helpers](docs/helper/README.md)
-- [Components and markup](docs/components-and-markup.md)
-- [npm exports and development](docs/npm-export-and-development.md)
-- [Conventions](docs/conventions.md)
+Canonical component and layout examples are available in `reference/`. Use those files as the
+reference source before creating new markup.
+
+### Guides
+
+- [css-scss-usage](docs/guides/css-scss-usage.md)
+- [npm-export-and-development](docs/guides/npm-export-and-development.md)
+- [javascript-helpers](docs/guides/javascript-helpers.md)
+
+### Helper API reference
+
+- [pgs](docs/helper/pgs.md)
+- [init](docs/helper/init.md)
+- [formValidate](docs/helper/formValidate.md)
+- [scrollHorizontal](docs/helper/scrollHorizontal.md)
+
+### Base
+
+- [body](docs/base/body.md)
+- [general](docs/base/general.md)
+- [heading](docs/base/heading.md)
+- [color](docs/base/color.md)
+- [darkmode](docs/base/darkmode.md)
+- [svg](docs/base/svg.md)
+- [border](docs/base/border.md)
+- [hover](docs/base/hover.md)
+
+### Components
+
+- [accordion](docs/components/accordion.md)
+- [alerts](docs/components/alerts.md)
+- [badges](docs/components/badges.md)
+- [breadcumbs](docs/components/breadcumbs.md)
+- [button](docs/components/button.md)
+- [card](docs/components/card.md)
+- [dropdown](docs/components/dropdown.md)
+- [form](docs/components/form.md)
+- [formAddon](docs/components/formAddon.md)
+- [icon](docs/components/icon.md)
+- [logo](docs/components/logo.md)
+- [menu](docs/components/menu.md)
+- [modal](docs/components/modal.md)
+- [notification](docs/components/notification.md)
+- [search](docs/components/search.md)
+- [slides](docs/components/slides.md)
+- [steps](docs/components/steps.md)
+- [stepTabs](docs/components/stepTabs.md)
+- [summary](docs/components/summary.md)
+- [table](docs/components/table.md)
+- [tabs](docs/components/tabs.md)
+- [toast](docs/components/toast.md)
+- [tooltip](docs/components/tooltip.md)
+
+### Layout
+
+- [section](docs/layout/section.md)
+- [header](docs/layout/header.md)
+- [footer](docs/layout/footer.md)
+- [pageShell](docs/layout/pageShell.md)
+- [responsive](docs/layout/responsive.md)
+- [breakpoints](docs/layout/breakpoints.md)
+- [spacing](docs/layout/spacing.md)
+- [utilities](docs/layout/utilities.md)
+
+### Patterns
+
+- [cookieConsent](docs/patterns/cookieConsent.md)

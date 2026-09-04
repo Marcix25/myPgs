@@ -21,7 +21,8 @@
     },
     "style": "./dist/css/index.css",
     "scripts": {
-        "docs:generate": "node scripts/generate-component-docs.js",
+        "docs:generate": "node scripts/generate-component-docs.js && node scripts/generate-guide-docs.js",
+        "docs:generate:guides": "node scripts/generate-guide-docs.js",
         "icons:sync": "node scripts/sync-icons.js",
         "start": "webpack",
         "start watch": "webpack --watch",

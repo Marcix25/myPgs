@@ -1,0 +1,59 @@
+<!--
+/**
+ * @title CSS/SCSS usage
+ * @description Custom properties to prefer over hardcoded values, the button mixin composition pattern, and the pgs attribute syntax.
+ */
+-->
+
+<p>The library exposes many custom properties that should be preferred to hardcoded values, for example:</p>
+
+<pre><code class="language-scss">:root {
+  --color-primary: #5c7d6f;
+  --padding: 30px;
+  --gap-texts: 1rem;
+  --gap-elements: 4rem;
+  --border-radius: 4.5rem;
+  --border-radius-input: 2.25rem;
+  --border-width: 1.5px;
+  --border-color: #ebebeb;
+  --outline-width: var(--border-width);
+  --outline-color: var(--border-color);
+}</code></pre>
+
+<p>Recommended override:</p>
+
+<pre><code class="language-scss">#danger-action {
+  --button-background: var(--color-error);
+  --button-color: var(--color-whiteFixed);
+}</code></pre>
+
+<p>Avoid rewriting padding, gaps, border radii, or colors from scratch when a suitable variable or PGS token already exists.</p>
+
+<h2>Button mixins</h2>
+
+<p>Button styling is split into small mixins so each consumer can include only the behavior it needs. A standard button is composed explicitly:</p>
+
+<pre><code class="language-scss">.action {
+  @include buttonBase();
+  @include buttonContent();
+  @include buttonHover();
+}</code></pre>
+
+<p>Use <code>buttonIcon</code> instead of <code>buttonContent</code> for icon-only controls, and <code>buttonNohover</code> instead of <code>buttonHover</code> when pointer interaction must remain neutral:</p>
+
+<pre><code class="language-scss">.icon-action {
+  @include buttonBase();
+  @include buttonIcon();
+  @include buttonNohover();
+}</code></pre>
+
+<p><code>buttonStrong</code>, <code>buttonMini</code>, <code>buttonBig</code>, and <code>buttonTransparent</code> contain only their variant declarations and must be added after the required base, content/icon, and interaction mixins. This explicit composition is also the preferred pattern for components such as menus, accordions, forms, and step tabs.</p>
+
+<h2>The pgs system</h2>
+
+<p>Markup uses space-separated tokens inside the <code>pgs</code> attribute:</p>
+
+<pre><code class="language-html">&lt;button pgs="button" pgs-option="buttonStrong" type="button"&gt;Save&lt;/button&gt;
+&lt;section pgs="section flexColumn gapElements"&gt;&lt;/section&gt;</code></pre>
+
+<p>The same tokens connect HTML, SCSS, and JavaScript.</p>

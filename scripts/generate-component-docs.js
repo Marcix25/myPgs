@@ -853,7 +853,10 @@ function printErrors(errors) {
 }
 
 function main() {
-    const references = walkFiles(REFERENCE_ROOT, file => path.extname(file).toLowerCase() === ".html");
+    //== reference/html/guides/ is prose, handled entirely by the separate scripts/generate-guide-docs.js
+    //== (its own doc-comment rules, its own Markdown-prose rendering) — skipped here, not validated
+    const references = walkFiles(REFERENCE_ROOT, file =>
+        path.extname(file).toLowerCase() === ".html" && !toPosix(path.relative(REFERENCE_ROOT, file)).startsWith("guides/"));
     const errors = [];
     const outputPaths = new Map();
 

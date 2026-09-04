@@ -15,9 +15,8 @@ The source of truth is organized as follows:
 - `assets/javascript/components/`: reusable component modules;
 - `assets/javascript/helper/`: reusable JavaScript helpers;
 - `assets/javascript/patterns/`: larger runtime patterns;
-- `reference/html/`: canonical markup and documentation metadata;
-- `reference/react/`: React equivalents of canonical examples;
-- `docs/`: generated and manually maintained documentation;
+- `reference/html/`: canonical markup and documentation metadata, including `reference/html/guides/` for narrative guide pages (rendered as prose, not a component example — see `scripts/generate-guide-docs.js`);
+- `docs/`: generated documentation, entirely produced by `scripts/generate-component-docs.js` and `scripts/generate-guide-docs.js` — there is no hand-maintained file left under `docs/`;
 - `dist/`: compiled package assets;
 - `demo/`: complete integration assembly, not a design reference.
 
@@ -99,10 +98,9 @@ For a reusable component:
 4. Add JavaScript only when behavior is required.
 5. Register the JavaScript module when it needs a `pgs.*` public API.
 6. Add or update the canonical HTML reference.
-7. Keep the React reference aligned when one exists.
-8. Update declarations, README, guide files, and manually maintained docs when the public usage changes.
-9. Regenerate generated documentation.
-10. Rebuild distributed CSS and JavaScript assets.
+7. Update declarations and README when the public usage changes.
+8. Regenerate generated documentation.
+9. Rebuild distributed CSS and JavaScript assets.
 
 Do not create a separate reference page when the new token is intentionally part of an existing component API. Document it in that component's canonical reference instead.
 
@@ -114,8 +112,7 @@ Use `reference/html/` as the single source of truth. Each reference must:
 - contain only meaningful public examples, not temporary test markup;
 - keep the demo scaffolding out of the copyable code, with `demo-code="children"`;
 - preserve required structure and accessibility attributes;
-- avoid duplicating full examples in other manually maintained guides;
-- remain aligned with its React equivalent when present.
+- avoid duplicating full examples in other guides under `reference/html/guides/`.
 
 ### How the documentation system works
 
@@ -223,7 +220,6 @@ Before a release:
 - Are `pgs`, `pgs-state`, and `pgs-option` synchronized everywhere?
 - Is the HTML reference canonical, minimal, and fully documented?
 - Does every Example HTML block contain only reusable markup, and match the generated `.md` exactly?
-- Is the React reference aligned where applicable?
 - Did I update public APIs and TypeScript declarations together?
 - Did I preserve compatibility or clearly identify a breaking change?
 - Did I regenerate documentation and rebuild `dist/`?
