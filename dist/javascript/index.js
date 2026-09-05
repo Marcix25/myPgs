@@ -4567,7 +4567,7 @@ function buildCookieConsent(marker) {
                 </div>
 
                 <div pgs="_cookieConsent-panel flexColumn" role="group" aria-label="${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_escapeHtml)(config.panelAriaLabel)}">
-                    <div pgs="flexRow nowrap _cookieConsent-panel-featureEssential">
+                    <div pgs="flexRow _cookieConsent-panel-featureEssential" pgs-option="nowrap">
                         <div>
                             <p>
                                 <strong>${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.essentialTitle)}</strong>
@@ -4592,7 +4592,7 @@ function buildCookieConsent(marker) {
                     </div>
                     <div pgs="flexRow">
                         <button type="button" pgs="button _cookieConsent-actionReject">
-                            <i pgs="icon" pgs-option="icon-sliders"></i> ${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.titleReject)}
+                            ${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.titleReject)}
                         </button>
     
                         <button type="button" pgs="button _cookieConsent-actionAccept" pgs-option="buttonStrong">

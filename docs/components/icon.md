@@ -50,6 +50,7 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 - `icon-trash`: bin, for deleting something.
 - `icon-upload`: arrow out of a tray, for uploading a file.
 - `icon-user`: person, for an account or a profile.
+- `icon-ellipsis`: three vertical dots, for a secondary "more actions" menu.
 
 ## Related elements
 
@@ -122,6 +123,7 @@ Every glyph the library can draw. The token marks the element, the option names 
     <i pgs="icon" pgs-option="icon-trash"></i>
     <i pgs="icon" pgs-option="icon-upload"></i>
     <i pgs="icon" pgs-option="icon-user"></i>
+    <i pgs="icon" pgs-option="icon-ellipsis"></i>
     <i pgs="icon" pgs-option="icon-hamburgerTwo iconDuo"></i>
 </div>
 ```

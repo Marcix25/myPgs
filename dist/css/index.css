@@ -12,7 +12,7 @@
   --font-titoli: var(--font);
   --padding: 30px;
   --padding-2: calc(var(--padding)/2);
-  --padding-page: 5vw;
+  --padding-page: min(5vw, var(--padding));
   --border-radius: 4.5rem;
   --border-radius-external: calc(var(--border-radius) + var(--padding));
   --border-radius-input: 2.25rem;
@@ -763,6 +763,10 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=container] {
   container-type: inline-size;
+}
+
+[pgs~=containerNone] {
+  container-type: normal;
 }
 
 [pgs~=flex] {
@@ -2199,28 +2203,56 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   margin: var(--margin-size);
 }
 
+[pgs~=margin][pgs-option~=marginNegative] {
+  margin: calc(var(--margin-size) * -1);
+}
+
 [pgs~=marginLeft] {
   margin-left: var(--margin-size);
+}
+
+[pgs~=marginLeft][pgs-option~=marginNegative] {
+  margin-left: calc(var(--margin-size) * -1);
 }
 
 [pgs~=marginRight] {
   margin-right: var(--margin-size);
 }
 
+[pgs~=marginRight][pgs-option~=marginNegative] {
+  margin-right: calc(var(--margin-size) * -1);
+}
+
 [pgs~=marginBottom] {
   margin-bottom: var(--margin-size);
+}
+
+[pgs~=marginBottom][pgs-option~=marginNegative] {
+  margin-bottom: calc(var(--margin-size) * -1);
 }
 
 [pgs~=marginTop] {
   margin-top: var(--margin-size);
 }
 
+[pgs~=marginTop][pgs-option~=marginNegative] {
+  margin-top: calc(var(--margin-size) * -1);
+}
+
 [pgs~=marginInline] {
   margin-inline: var(--margin-size);
 }
 
+[pgs~=marginInline][pgs-option~=marginNegative] {
+  margin-inline: calc(var(--margin-size) * -1);
+}
+
 [pgs~=marginBlock] {
   margin-block: var(--margin-size);
+}
+
+[pgs~=marginBlock][pgs-option~=marginNegative] {
+  margin-block: calc(var(--margin-size) * -1);
 }
 
 [pgs~=padding],
@@ -2330,7 +2362,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --pageShell-padding-bottom: var(--gap-elements);
   --pageShell-gap: var(--gap-elements);
   --pageShell-content-width: var(--page-width);
-  --pageShell-aside-width: 250px;
+  --pageShell-aside-width: 20rem;
   --pageShell-aside-maxHeight: calc(100svh - var(--pageShell-padding-top));
   --pageShell-aside-top: var(--heightOfHeader);
   display: grid;
@@ -2389,7 +2421,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   min-width: 0;
   width: 100%;
   max-width: var(--pageShell-content-width);
-  padding-block: var(--pageShell-sizeMaskImage);
 }
 
 [pgs~=pageShell] [pgs~=pageShell-aside] {
@@ -2397,7 +2428,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   transition: top 0.3s ease;
   width: var(--pageShell-aside-width);
   min-width: 0;
-  padding-block: var(--pageShell-sizeMaskImage);
   display: grid;
   grid-template-columns: 1fr;
 }
@@ -2510,19 +2540,8 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   margin-inline: auto;
 }
 
-[pgs~=pageShell] {
-  /*  the sidebar scrolls on its own: it sticks next to the content and is clamped to
-      the viewport, so the overflow lives on the aside itself and no inner wrapper is
-      needed. Both rules below sit at the same specificity inside the option, so the
-      band that releases it wins by source order and does not depend on the
-      specificity of the composition bands above. 
-  */
-}
-
 @container (min-width: 900px) {
   [pgs~=pageShell][pgs-option~=pageShellAsideScroll] [pgs~=pageShell-aside], [pgs~=pageShell][pgs-option~=pageShellAsideScrollFlush] [pgs~=pageShell-aside] {
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-sizeMaskImage), black calc(100% - var(--pageShell-sizeMaskImage)), transparent 100%);
-    mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-sizeMaskImage), black calc(100% - var(--pageShell-sizeMaskImage)), transparent 100%);
     position: sticky;
     overflow-y: auto;
     top: var(--pageShell-aside-top);
@@ -2540,6 +2559,13 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   }
   [pgs~=pageShell][pgs-option~=pageShellAsideScrollFlush] [pgs~=pageShell-content] {
     min-height: var(--pageShell-aside-maxHeight);
+  }
+}
+@container (min-width: 900px) {
+  [pgs~=pageShell][pgs-option~=pageShellAsideShadow] [pgs~=pageShell-aside] {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-sizeMaskImage), black calc(100% - var(--pageShell-sizeMaskImage)), transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-sizeMaskImage), black calc(100% - var(--pageShell-sizeMaskImage)), transparent 100%);
+    padding-block: var(--pageShell-sizeMaskImage);
   }
 }
 [pgs~=header] {
@@ -3139,7 +3165,8 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   background-color: var(--label-background);
 }
 
-[pgs~=label] i, [pgs~=label] [pgs~=icon] {
+[pgs~=label] i,
+[pgs~=label] [pgs~=icon] {
   font-size: 1.6rem;
   margin-right: 0.7rem;
 }
@@ -3162,7 +3189,8 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   background-color: var(--label-background);
 }
 
-[pgs~=legend] i, [pgs~=legend] [pgs~=icon] {
+[pgs~=legend] i,
+[pgs~=legend] [pgs~=icon] {
   font-size: 1.6rem;
   margin-right: 0.7rem;
 }
@@ -3449,7 +3477,8 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   background-color: var(--label-background);
 }
 
-[pgs~=form] label:not(:has([pgs~=label], [pgs~=labelUnset], + input[type=checkbox], + input[type=radio])):has(+ input, + select, + textarea) i, [pgs~=form] label:not(:has([pgs~=label], [pgs~=labelUnset], + input[type=checkbox], + input[type=radio])):has(+ input, + select, + textarea) [pgs~=icon] {
+[pgs~=form] label:not(:has([pgs~=label], [pgs~=labelUnset], + input[type=checkbox], + input[type=radio])):has(+ input, + select, + textarea) i,
+[pgs~=form] label:not(:has([pgs~=label], [pgs~=labelUnset], + input[type=checkbox], + input[type=radio])):has(+ input, + select, + textarea) [pgs~=icon] {
   font-size: 1.6rem;
   margin-right: 0.7rem;
 }
@@ -3508,35 +3537,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   margin: -10px;
   margin-right: 10px;
   cursor: pointer;
-}
-
-[pgs~=form] legend {
-  --label-borderadius: 1rem;
-  --label-left: 0;
-  --label-padding: 0.7rem 1.2rem;
-  --label-color: var(--color-black);
-  --label-background: var(--border-color);
-  position: relative;
-  font-weight: 600;
-  display: inline-block;
-  width: fit-content;
-  cursor: pointer;
-  left: var(--label-left);
-  color: var(--label-color);
-  padding: var(--label-padding);
-  border-radius: var(--label-borderadius);
-  background-color: var(--label-background);
-}
-
-[pgs~=form] legend i, [pgs~=form] legend [pgs~=icon] {
-  font-size: 1.6rem;
-  margin-right: 0.7rem;
-}
-
-[pgs~=form] legend {
-  --label-color: var(--color-black);
-  --label-background: var(--color-box);
-  margin-bottom: var(--gap-texts);
 }
 
 [pgs~=form] label:has(input[type=checkbox]):not([pgs~=toggle], [pgs~=twoState], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label),
@@ -3886,6 +3886,36 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=form] fieldset {
   border: unset;
+}
+
+[pgs~=form] fieldset legend {
+  --label-borderadius: 1rem;
+  --label-left: 0;
+  --label-padding: 0.7rem 1.2rem;
+  --label-color: var(--color-black);
+  --label-background: var(--border-color);
+  position: relative;
+  font-weight: 600;
+  display: inline-block;
+  width: fit-content;
+  cursor: pointer;
+  left: var(--label-left);
+  color: var(--label-color);
+  padding: var(--label-padding);
+  border-radius: var(--label-borderadius);
+  background-color: var(--label-background);
+}
+
+[pgs~=form] fieldset legend i,
+[pgs~=form] fieldset legend [pgs~=icon] {
+  font-size: 1.6rem;
+  margin-right: 0.7rem;
+}
+
+[pgs~=form] fieldset legend {
+  --label-color: var(--color-black);
+  --label-background: var(--color-box);
+  margin-bottom: var(--gap-texts);
 }
 
 [pgs~=form] fieldset[required] legend {
@@ -4400,7 +4430,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --icon-circleCheck: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath fill-rule=%27evenodd%27 d=%27M256 56 a200 200 0 1 1 0 400 a200 200 0 1 1 0 -400 z M150 258 A23 23 0 0 0 150 290.5L206.6 347.1 A16.1 16.1 0 0 0 229.4 347.1L366 210.5 A23 23 0 0 0 366 178L366 178 A23 23 0 0 0 333.5 178L225.3 286.2 A10.4 10.4 0 0 1 210.7 286.2L182.5 258 A23 23 0 0 0 150 258Z%27%3E%3C/path%3E%3C/svg%3E");
   --icon-circleInfo: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath fill-rule=%27evenodd%27 d=%27M256 56 a200 200 0 1 1 0 400 a200 200 0 1 1 0 -400 z M256 119 a31 31 0 1 1 0 62 a31 31 0 1 1 0 -62 z M225 237 A31 31 0 0 1 256 206L256 206 A31 31 0 0 1 287 237L287 347 A31 31 0 0 1 256 378L256 378 A31 31 0 0 1 225 347Z%27%3E%3C/path%3E%3C/svg%3E");
   --icon-circleXmark: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath fill-rule=%27evenodd%27 d=%27M256 56 a200 200 0 1 1 0 400 a200 200 0 1 1 0 -400 z M343.7 168.3 A23 23 0 0 1 343.7 200.8L294.9 249.6 A9 9 0 0 0 294.9 262.4L343.7 311.2 A23 23 0 0 1 343.7 343.7L343.7 343.7 A23 23 0 0 1 311.2 343.7L262.4 294.9 A9 9 0 0 0 249.6 294.9L200.8 343.7 A23 23 0 0 1 168.3 343.7L168.3 343.7 A23 23 0 0 1 168.3 311.2L217.1 262.4 A9 9 0 0 0 217.1 249.6L168.3 200.8 A23 23 0 0 1 168.3 168.3L168.3 168.3 A23 23 0 0 1 200.8 168.3L249.6 217.1 A9 9 0 0 0 262.4 217.1L311.2 168.3 A23 23 0 0 1 343.7 168.3Z%27%3E%3C/path%3E%3C/svg%3E");
-  --icon-close: url("data:image/svg+xml,%3Csvg id=%27Livello_1%27 xmlns=%27http://www.w3.org/2000/svg%27 version=%271.1%27 viewBox=%270 0 512 512%27%3E %3C%21-- Generator: Adobe Illustrator 30.8.0, SVG Export Plug-In . SVG Version: 2.1.4 Build 114%29 --%3E %3Cpath d=%27M414.5,366.4c15.2,15.2,16.8,38.3,3.5,51.6s-36.4,11.7-51.6-3.5l-110.4-110.4-110.4,110.4c-15.2,15.2-38.3,16.8-51.6,3.5s-11.7-36.4,3.5-51.6l110.4-110.4-110.4-110.4c-15.2-15.2-16.8-38.3-3.5-51.6s36.4-11.7,51.6,3.5l110.4,110.4,110.4-110.4c15.2-15.2,38.3-16.8,51.6-3.5s11.7,36.4-3.5,51.6l-110.4,110.4,110.4,110.4Z%27/%3E %3C/svg%3E");
+  --icon-close: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath d=%27M414.5,366.4c15.2,15.2,16.8,38.3,3.5,51.6s-36.4,11.7-51.6-3.5l-110.4-110.4-110.4,110.4c-15.2,15.2-38.3,16.8-51.6,3.5s-11.7-36.4,3.5-51.6l110.4-110.4-110.4-110.4c-15.2-15.2-16.8-38.3-3.5-51.6s36.4-11.7,51.6,3.5l110.4,110.4,110.4-110.4c15.2-15.2,38.3-16.8,51.6-3.5s11.7,36.4-3.5,51.6l-110.4,110.4,110.4,110.4Z%27/%3E%3C/svg%3E");
   --icon-cookie: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath fill-rule=%27evenodd%27 d=%27M220.6 55.1 A204 204 0 1 0 445.1 179.6 A58 58 0 0 1 392.5 104.4 A58 58 0 0 1 312.2 59.9 A58 58 0 0 1 220.6 55.1 Z M168 179 a29 29 0 1 1 0 58 a29 29 0 1 1 0 -58 z M124 283 a23 23 0 1 1 0 46 a23 23 0 1 1 0 -46 z M232 312 a26 26 0 1 1 0 52 a26 26 0 1 1 0 -52 z M318 261 a21 21 0 1 1 0 42 a21 21 0 1 1 0 -42 z M214 231 a15 15 0 1 1 0 30 a15 15 0 1 1 0 -30 z%27%3E%3C/path%3E%3C/svg%3E");
   --icon-magnifyingGlass: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath d=%27M208 48 a160 160 0 1 1 0 320 a160 160 0 1 1 0 -320 z M208 108 a100 100 0 1 0 0 200 a100 100 0 1 0 0 -200 z M307 278.7 L444.1 415.9 A20 20 0 0 1 415.9 444.1 L278.7 307 A20 20 0 0 1 307 278.7 z%27%3E%3C/path%3E%3C/svg%3E");
   --icon-moon: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath d=%27M362.9 86.9 A200 200 0 1 0 362.9 425.1 A11 11 0 0 0 360.1 407.6 A162.4 162.4 0 0 1 360.1 104.4 A11 11 0 0 0 362.9 86.9 Z%27%3E%3C/path%3E%3C/svg%3E");
@@ -4428,7 +4458,8 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --icon-upload: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath d=%27M256 320 A28 28 0 0 0 284 292L284 112 A28 28 0 0 0 256 84L256 84 A28 28 0 0 0 228 112L228 292 A28 28 0 0 0 256 320Z M152 190 A28 28 0 0 0 191.6 190L236.2 145.4 A28 28 0 0 1 275.8 145.4L320.4 190 A28 28 0 0 0 360 190L360 190 A28 28 0 0 0 360 150.4L263.1 53.5 A10 10 0 0 0 248.9 53.5L152 150.4 A28 28 0 0 0 152 190Z M88 410 A28 28 0 0 0 116 438L396 438 A28 28 0 0 0 424 410L424 410 A28 28 0 0 0 396 382L116 382 A28 28 0 0 0 88 410Z%27%3E%3C/path%3E%3C/svg%3E");
   --icon-user: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath fill-rule=%27evenodd%27 d=%27M256 82 a86 86 0 1 1 0 172 a86 86 0 1 1 0 -172 z M96 440 A160 160 0 0 1 416 440 A24 24 0 0 1 392 464 H120 A24 24 0 0 1 96 440 Z%27%3E%3C/path%3E%3C/svg%3E");
   --icon-hamburger: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath d=%27M56 154 A34 34 0 0 1 90 120 L422 120 A34 34 0 0 1 456 154 A34 34 0 0 1 422 188 L90 188 A34 34 0 0 1 56 154 Z M56 256 A34 34 0 0 1 90 222 L422 222 A34 34 0 0 1 456 256 A34 34 0 0 1 422 290 L90 290 A34 34 0 0 1 56 256 Z M56 358 A34 34 0 0 1 90 324 L422 324 A34 34 0 0 1 456 358 A34 34 0 0 1 422 392 L90 392 A34 34 0 0 1 56 358 Z%27/%3E%3C/svg%3E");
-  --icon-hamburgerTwo: url("data:image/svg+xml,%3Csvg id=%27Livello_1%27 xmlns=%27http://www.w3.org/2000/svg%27 version=%271.1%27 viewBox=%270 0 512 512%27%3E %3C%21-- Generator: Adobe Illustrator 30.8.0, SVG Export Plug-In . SVG Version: 2.1.4 Build 114%29 --%3E %3Cpath d=%27M56,183.5c0-18.8,15.2-34,34-34h332c18.8,0,34,15.2,34,34s-15.2,34-34,34H90c-18.8,0-34-15.2-34-34h0ZM56,326.5c0-18.8,15.2-34,34-34h332c18.8,0,34,15.2,34,34h0c0,18.8-15.2,34-34,34H90c-18.8,0-34-15.2-34-34h0Z%27/%3E %3C/svg%3E");
+  --icon-hamburgerTwo: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath d=%27M56,183.5c0-18.8,15.2-34,34-34h332c18.8,0,34,15.2,34,34s-15.2,34-34,34H90c-18.8,0-34-15.2-34-34h0ZM56,326.5c0-18.8,15.2-34,34-34h332c18.8,0,34,15.2,34,34h0c0,18.8-15.2,34-34,34H90c-18.8,0-34-15.2-34-34h0Z%27/%3E%3C/svg%3E");
+  --icon-ellipsis: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Ccircle cx=%27256%27 cy=%27154%27 r=%2734%27/%3E%3Ccircle cx=%27256%27 cy=%27256%27 r=%2734%27/%3E%3Ccircle cx=%27256%27 cy=%27358%27 r=%2734%27/%3E%3C/svg%3E");
 }
 
 [pgs~=icon][pgs-option~=icon-arrowLeft] {
@@ -5153,9 +5184,28 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   content: none;
 }
 
+[pgs~=icon][pgs-option~=icon-ellipsis] {
+  --icon: var(--icon-ellipsis);
+}
+
+[pgs~=icon][pgs-option~=icon-ellipsis]::before {
+  content: "";
+  display: list-item;
+  width: 1em;
+  height: 1em;
+  background-color: var(--icon-color, currentColor);
+  -webkit-mask: var(--icon) center/contain no-repeat;
+  mask: var(--icon) center/contain no-repeat;
+  vertical-align: -0.125em;
+}
+
+[pgs~=icon][pgs-option~=icon-ellipsis]::after {
+  content: none;
+}
+
 [pgs~=icon][pgs-option~=icon-hamburgerTwo][pgs-option~=iconDuo] {
-  --iconBefore: url("data:image/svg+xml,%3Csvg id=%27Livello_1%27 xmlns=%27http://www.w3.org/2000/svg%27 version=%271.1%27 viewBox=%270 0 512 512%27%3E %3C%21-- Generator: Adobe Illustrator 30.8.0, SVG Export Plug-In . SVG Version: 2.1.4 Build 114%29 --%3E %3Cpath d=%27M56,183.5c0-18.8,15.2-34,34-34h332c18.8,0,34,15.2,34,34s-15.2,34-34,34H90c-18.8,0-34-15.2-34-34h0Z%27/%3E %3C/svg%3E");
-  --iconAfter: url("data:image/svg+xml,%3Csvg id=%27Livello_1%27 xmlns=%27http://www.w3.org/2000/svg%27 version=%271.1%27 viewBox=%270 0 512 512%27%3E %3C%21-- Generator: Adobe Illustrator 30.8.0, SVG Export Plug-In . SVG Version: 2.1.4 Build 114%29 --%3E %3Cpath d=%27M56,326.5c0-18.8,15.2-34,34-34h332c18.8,0,34,15.2,34,34h0c0,18.8-15.2,34-34,34H90c-18.8,0-34-15.2-34-34h0Z%27/%3E %3C/svg%3E");
+  --iconBefore: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath d=%27M56,183.5c0-18.8,15.2-34,34-34h332c18.8,0,34,15.2,34,34s-15.2,34-34,34H90c-18.8,0-34-15.2-34-34h0Z%27/%3E%3C/svg%3E");
+  --iconAfter: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath d=%27M56,326.5c0-18.8,15.2-34,34-34h332c18.8,0,34,15.2,34,34h0c0,18.8-15.2,34-34,34H90c-18.8,0-34-15.2-34-34h0Z%27/%3E%3C/svg%3E");
   display: inline-grid;
   place-items: center;
   inline-size: 1em;
@@ -7490,6 +7540,11 @@ dialog [pgs~=search] [pgs~=modal-close] {
   flex-direction: column;
   gap: var(--gap-);
   transition: transform 0.35s ease, opacity 0.35s ease;
+  box-sizing: border-box;
+}
+
+[pgs~=cookieConsent] > * {
+  box-sizing: border-box;
 }
 
 [pgs~=cookieConsent][hidden] {
@@ -7507,14 +7562,8 @@ dialog [pgs~=search] [pgs~=modal-close] {
   opacity: 1;
 }
 
-@media (max-width: 430px) {
-  [pgs~=cookieConsent] {
-    inset: auto 16px 16px 16px;
-    width: auto;
-    padding: var(--padding-2, 1.5rem);
-  }
-}
-[pgs~=cookieConsent] i, [pgs~=cookieConsent] [pgs~=icon] {
+[pgs~=cookieConsent] i,
+[pgs~=cookieConsent] [pgs~=icon] {
   --icon-size: 2.5rem;
 }
 
@@ -7530,14 +7579,30 @@ dialog [pgs~=search] [pgs~=modal-close] {
 }
 
 [pgs~=cookieConsent] button {
-  flex: 1;
   min-width: 120px;
-  --button-background: color-mix(in srgb, var(--color-boxDark-transparent) 50%, var(--color-white) 50%);
-  border-width: 2px;
   justify-content: center;
-  flex-basis: 200px;
+  text-wrap: nowrap;
 }
 
+[pgs~=cookieConsent] button[pgs~=_cookieConsent-actionReject] {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto;
+}
+
+[pgs~=cookieConsent] button[pgs~=_cookieConsent-actionAccept] {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0;
+}
+
+@container (max-width: 430px) {
+  [pgs~=cookieConsent] button[pgs~=_cookieConsent-actionReject],
+  [pgs~=cookieConsent] button[pgs~=_cookieConsent-actionAccept] {
+    flex-basis: 100%;
+    flex-grow: 1;
+  }
+}
 [pgs~=cookieConsent] label {
   --toggle-color-thumb: var(--color-whiteFixed);
   --toggle-color-rail: var(--color-blackFixed);
@@ -7552,9 +7617,8 @@ dialog [pgs~=search] [pgs~=modal-close] {
 [pgs~=cookieConsent] [pgs~=_cookieConsent-panel] {
   border: var(--border-complete);
   border-radius: calc(var(--modal-borderRadius) - var(--gap-texts));
-  background-color: var(--color-box);
-  margin-inline: var(--gap-texts);
-  margin-bottom: var(--gap-texts);
+  background-color: var(--color-white);
+  container-type: inline-size;
 }
 
 [pgs~=cookieConsent] [pgs~=_cookieConsent-panel] [pgs~=_cookieConsent-panel-badge] {

@@ -9,7 +9,7 @@
         --font-titoli: var(--font);
         --padding: 30px;
         --padding-2: calc(var(--padding)/2);
-        --padding-page: 5vw;
+        --padding-page: min(5vw, var(--padding));
 
         --border-radius: 4.5rem;
         --border-radius-external: calc(var(--border-radius) + var(--padding));

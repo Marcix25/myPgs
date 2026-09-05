@@ -17,7 +17,7 @@
 
 <body class="is-loadingOLD" pgs="bodyBase bodyImg bodyText bodyHeading">
 
-    <!-- = -->
+    <!-- = HEADER -->
     <header pgs="header" pgs-option="headerCompactBigTablet">
         <div pgs="header-element blur">
             <div pgs="header-element-alwaysOn">
@@ -56,13 +56,15 @@
 
                 <dialog pgs="modal-dialog" pgs-option="modalRight">
                     <div pgs="modal-dialog-content">
-                        <div pgs="modal-dialog-content-header bgWhite ">
-                            <p pgs="h3 margin" pgs-option="margin2"><i class="fa-solid fa-book-bookmark"></i> Browse docs!</p>
-                        </div>
-                        <div pgs="modal-dialog-content-scroll bgWhite paddingInline">
-                            <div pgs="flexColumn paddingInline" pgs-option="gapElements padding2" class="reference-demo-nav">
-
-                            </div>
+                        <div pgs="modal-dialog-content-scroll bgWhite">
+                            <nav pgs="menu" pgs-option="menuVertical " aria-label="Main menu">
+                                <ul>
+                                    <li><a pgs="button" pgs-option="buttonText buttonHeader buttonPaddingEqual" href="#base">Base</a></li>
+                                    <li><a pgs="button" pgs-option="buttonText buttonHeader buttonPaddingEqual" href="#components">Components</a></li>
+                                    <li><a pgs="button" pgs-option="buttonText buttonHeader buttonPaddingEqual" href="#patterns">Patterns</a></li>
+                                    <li><a pgs="button" pgs-option="buttonText buttonHeader buttonPaddingEqual" href="#layout">Layout</a></li>
+                                </ul>
+                            </nav>
                         </div>
                 </dialog>
             </div>
@@ -70,15 +72,33 @@
     </header>
 
 
-    <!-- = -->
+    <!-- = PAGE -->
     <div pgs="pageShell" pgs-option="pageShellFullPage pageShellAsideScrollFlush">
-        <aside pgs="pageShell-aside hideContainerDownBigTablet" id="asideScroll">
-            <div pgs="flexColumn" pgs-option="gapElements" class="reference-demo-nav"></div>
+        <aside pgs="pageShell-aside containerNone" id="asideScroll">
+
+            <!-- Desktop -->
+            <div pgs="flexColumn hideContainerDownBigTablet" pgs-option="gapElements" class="reference-demo-nav"></div>
+
+            <!-- mobile -->
+            <div pgs="flexColumn hideContainerUpBigTablet modal" pgs-option="gapElements padding2">
+                <button type="button" pgs="button modal-button"> <i pgs="icon" pgs-option="icon-ellipsis"></i> Browse docs</button>
+
+                <dialog pgs="modal-dialog" pgs-option="modalRight">
+                    <div pgs="modal-dialog-content">
+                        <div pgs="modal-dialog-content-header bgWhite ">
+                            <h3><i class="fa-solid fa-book-bookmark"></i> Browse docs!</h3>
+                        </div>
+                        <div pgs="modal-dialog-content-scroll bgWhite paddingInline">
+                            <div pgs="flexColumn" pgs-option="gapElements" class="reference-demo-nav"></div>
+                        </div>
+                    </div>
+                </dialog>
+            </div>
         </aside>
         <main pgs="pageShell-content marginBottom" pgs-option="marginSections" id="reference-demo-main"></main>
     </div>
 
-    <!-- = -->
+    <!-- = FOOTER -->
     <footer pgs="footer">
         <button pgs="button toggleDarkmode" type="button" aria-label="Change theme">
             <i class="fa-solid fa-moon"></i>

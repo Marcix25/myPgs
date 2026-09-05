@@ -2,11 +2,18 @@
 
 [pgs~=cookieConsent] {
     //option for suggestions
-    &[pgs-option~="cookieConsent[]"] {}
     display: flex;
     flex-direction: column;
     gap: var(--gap-);
     transition: transform 0.35s ease, opacity 0.35s ease;
+    box-sizing: border-box;
+
+    >* {
+        box-sizing: border-box;
+    }
+
+    //+ option
+    &[pgs-option~="cookieConsent[]"] {}
 
     &[hidden] {
         display: none !important;
@@ -23,14 +30,14 @@
         opacity: 1;
     }
 
-    //- mobile 
-    @media (max-width: $mobile) {
-        inset: auto 16px 16px 16px;
-        width: auto;
-        padding: var(--padding-2, 1.5rem);
-    }
-
-    i, [pgs~=icon] {
+    // //- mobile 
+    // @media (max-width: $mobile) {
+    //     inset: auto 16px 16px 16px;
+    //     width: auto;
+    //     padding: var(--padding-2, 1.5rem);
+    // }
+    i,
+    [pgs~=icon] {
         --icon-size: 2.5rem;
     }
 
@@ -46,12 +53,32 @@
     }
 
     button {
-        flex: 1;
         min-width: 120px;
-        --button-background: color-mix(in srgb, var(--color-boxDark-transparent) 50%, var(--color-white) 50%);
-        border-width: 2px;
         justify-content: center;
-        flex-basis: 200px;
+        text-wrap: nowrap;
+
+        //== as narrow as its content allows
+        &[pgs~=_cookieConsent-actionReject] {
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: auto;
+        }
+
+        //== takes all the space Reject leaves behind
+        &[pgs~=_cookieConsent-actionAccept] {
+            flex-grow: 1;
+            flex-shrink: 1;
+            flex-basis: 0;
+        }
+    }
+
+    @container (max-width: #{$mobile}) {
+        //== same specificity as the Reject/Accept rules above, so this actually wins
+        button[pgs~=_cookieConsent-actionReject],
+        button[pgs~=_cookieConsent-actionAccept] {
+            flex-basis: 100%;
+            flex-grow: 1;
+        }
     }
 
     label {
@@ -68,10 +95,8 @@
     [pgs~=_cookieConsent-panel] {
         border: var(--border-complete);
         border-radius: calc(var(--modal-borderRadius) - var(--gap-texts));
-        background-color: var(--color-box);
-        margin-inline: var(--gap-texts);
-        margin-bottom: var(--gap-texts);
-
+        background-color: var(--color-white);
+        container-type: inline-size;
 
         [pgs~=_cookieConsent-panel-badge] {
             font-size: 1.35rem;

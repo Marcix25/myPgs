@@ -20,6 +20,7 @@ Additional form controls for selectable cards, two-state buttons, switches, and 
 - `flexColumn`: vertically arranges each example with its heading and control.
 - `flexRow`: horizontally arranges standalone chip controls.
 - `icon`: draws the glyphs this example shows; see Icon for the whole set.
+- `legend`: applies the group heading styling to a chips group's legend; see Form.
 
 ### PGS Options
 
@@ -37,8 +38,6 @@ HTML examples of the checkboxBackground, twoState, toggle, and chips form contro
 A single checkbox presented as a selectable container, with the checked state highlighted.
 
 ```html
-<strong>Checkbox with background</strong>
-
 <label pgs="checkboxBackground">
     <input type="checkbox" name="notifications" value="enabled">
     <span>
@@ -53,8 +52,6 @@ A single checkbox presented as a selectable container, with the checked state hi
 Radio inputs sharing the same name and presented as selectable containers, so only one can be checked.
 
 ```html
-<strong>Radio group with background</strong>
-
 <fieldset pgs="flexRow">
     <label pgs="checkboxBackground">
         <input type="radio" name="plan" value="basic" checked>
@@ -78,8 +75,6 @@ Radio inputs sharing the same name and presented as selectable containers, so on
 Checkbox label styled as a button whose appearance changes when selected.
 
 ```html
-<strong>Two-state controls</strong>
-
 <label pgs="twoState">
     <input type="checkbox" name="favorite" value="yes">
     <i pgs="icon" pgs-option="icon-star" aria-hidden="true"></i>
@@ -92,8 +87,6 @@ Checkbox label styled as a button whose appearance changes when selected.
 Checkbox presented as a switch with a rail and movable thumb.
 
 ```html
-<strong>Toggle</strong>
-
 <label pgs="toggle">
     <span>Enable Wi-Fi</span>
     <input type="checkbox" name="darkMode" value="enabled">
@@ -105,7 +98,6 @@ Checkbox presented as a switch with a rail and movable thumb.
 Individual checkbox options presented as compact selectable chip buttons.
 
 ```html
-<strong>Chips checkbox</strong>
 <div pgs="flexRow" role="group" aria-label="Chip actions">
     <label pgs="chip">
         <input type="checkbox" name="like" value="basic">
@@ -126,7 +118,7 @@ Multiple checkbox chips grouped into a compact segmented selector.
 
 ```html
 <fieldset pgs="chips">
-    <legend>Chip checkbox</legend>
+    <legend pgs="legend">Chip checkbox</legend>
     <label>
         <input type="checkbox" name="plan" value="red" checked>
         Red
@@ -150,7 +142,7 @@ Multiple radio chips grouped into a compact segmented selector, each paired with
 
 ```html
 <fieldset pgs="chips">
-    <legend>Chips radio</legend>
+    <legend pgs="legend">Chips radio</legend>
     <label>
         <input type="radio" name="characters" value="Crow" checked>
         <i pgs="icon" pgs-option="icon-star"></i>

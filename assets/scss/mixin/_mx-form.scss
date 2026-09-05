@@ -48,7 +48,8 @@
     border-radius: var(--label-borderadius);
     background-color: var(--label-background);
 
-    i, [pgs~=icon] {
+    i,
+    [pgs~=icon] {
         font-size: 1.6rem;
         margin-right: .7rem;
     }
@@ -424,11 +425,6 @@
         }
     }
 
-    //==== LEGEND
-    legend {
-        @include legend();
-    }
-
     //==== CHECKBOX
     $not-checkbox: '[pgs~=toggle], [pgs~=twoState], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label';
 
@@ -460,6 +456,10 @@
     //===FIELDSET 
     fieldset {
         border: unset;
+
+        legend {
+            @include legend();
+        }
 
         &[required] legend {
             @include required();

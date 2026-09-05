@@ -14,6 +14,7 @@ Section variants that control width, padding, and specific content treatment whi
 - `sectionMax`: identifies a section with an extended maximum width.
 - `sectionNoPadding`: identifies a section without standard padding.
 - `container`: turns any element into an inline-size query container, so the utilities that measure their surroundings have something to measure; see Breakpoints and Responsive.
+- `containerNone`: cancels container on the same element, so it stops acting as a query container and the nearest marked ancestor is measured instead.
 
 ## Related elements
 
@@ -93,6 +94,18 @@ container is what the hideContainer* utilities and every container query measure
 <section pgs="section flexColumn" pgs-option="gapElements">
     <div pgs="container">
         <span pgs="box hideContainerDownTablet">Hidden while this container is at most 800px wide.</span>
+    </div>
+</section>
+```
+
+### Cancelled query container
+
+containerNone on the same element cancels container, so the utilities inside measure the nearest marked ancestor instead of this one.
+
+```html
+<section pgs="section flexColumn" pgs-option="gapElements">
+    <div pgs="container containerNone">
+        <span pgs="box hideContainerDownTablet">Measures the surrounding page instead of this element.</span>
     </div>
 </section>
 ```

@@ -40,30 +40,58 @@
 
 [pgs~=margin] {
     margin: var(--margin-size);
+
+    &[pgs-option~=marginNegative] {
+        margin: calc(var(--margin-size) * -1);
+    }
 }
 
 [pgs~=marginLeft] {
     margin-left: var(--margin-size);
+
+    &[pgs-option~=marginNegative] {
+        margin-left: calc(var(--margin-size) * -1);
+    }
 }
 
 [pgs~=marginRight] {
     margin-right: var(--margin-size);
+
+    &[pgs-option~=marginNegative] {
+        margin-right: calc(var(--margin-size) * -1);
+    }
 }
 
 [pgs~=marginBottom] {
     margin-bottom: var(--margin-size);
+
+    &[pgs-option~=marginNegative] {
+        margin-bottom: calc(var(--margin-size) * -1);
+    }
 }
 
 [pgs~=marginTop] {
     margin-top: var(--margin-size);
+
+    &[pgs-option~=marginNegative] {
+        margin-top: calc(var(--margin-size) * -1);
+    }
 }
 
 [pgs~=marginInline] {
     margin-inline: var(--margin-size);
+
+    &[pgs-option~=marginNegative] {
+        margin-inline: calc(var(--margin-size) * -1);
+    }
 }
 
 [pgs~=marginBlock] {
     margin-block: var(--margin-size);
+
+    &[pgs-option~=marginNegative] {
+        margin-block: calc(var(--margin-size) * -1);
+    }
 }
 
 //= PADDING

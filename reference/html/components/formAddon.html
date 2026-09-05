@@ -17,6 +17,7 @@
  * - gapElements: applies element spacing between the form add-on examples.
  * - icon: draws the glyphs this example shows; see Icon for the whole set.
  * - icon-star: the neutral stand-in glyph, used where the example needs an icon but not a particular one.
+ * - legend: applies the group heading styling to a chips group's legend; see Form.
  *
  * @return HTML examples of the checkboxBackground, twoState, toggle, and chips form controls using native checkbox and radio inputs.
  */
@@ -24,8 +25,6 @@
 
 <form pgs="form flexColumn" pgs-option="gapElements" demo="component">
     <section pgs="flexColumn" demo="item" demo-code="children" demo-title="Checkbox with background" demo-description="A single checkbox presented as a selectable container, with the checked state highlighted.">
-        <strong>Checkbox with background</strong>
-
         <label pgs="checkboxBackground">
             <input type="checkbox" name="notifications" value="enabled">
             <span>
@@ -36,8 +35,6 @@
     </section>
 
     <section pgs="flexColumn" demo="item" demo-code="children" demo-title="Radio group with background" demo-description="Radio inputs sharing the same name and presented as selectable containers, so only one can be checked.">
-        <strong>Radio group with background</strong>
-
         <fieldset pgs="flexRow">
             <label pgs="checkboxBackground">
                 <input type="radio" name="plan" value="basic" checked>
@@ -57,8 +54,6 @@
     </section>
 
     <section pgs="flexColumn" demo="item" demo-code="children" demo-title="Two-state control" demo-description="Checkbox label styled as a button whose appearance changes when selected.">
-        <strong>Two-state controls</strong>
-
         <label pgs="twoState">
             <input type="checkbox" name="favorite" value="yes">
             <i pgs="icon" pgs-option="icon-star" aria-hidden="true"></i>
@@ -67,8 +62,6 @@
     </section>
 
     <section pgs="flexColumn" demo="item" demo-code="children" demo-title="Toggle" demo-description="Checkbox presented as a switch with a rail and movable thumb.">
-        <strong>Toggle</strong>
-
         <label pgs="toggle">
             <span>Enable Wi-Fi</span>
             <input type="checkbox" name="darkMode" value="enabled">
@@ -76,7 +69,6 @@
     </section>
 
     <section pgs="flexColumn" demo="item" demo-code="children" demo-title="Chips checkbox" demo-description="Individual checkbox options presented as compact selectable chip buttons.">
-        <strong>Chips checkbox</strong>
         <div pgs="flexRow" role="group" aria-label="Chip actions">
             <label pgs="chip">
                 <input type="checkbox" name="like" value="basic">
@@ -93,7 +85,7 @@
 
     <section pgs="flexColumn" pgs-option="gapElements">
         <fieldset pgs="chips" demo="item" demo-title="Chips group (checkbox)" demo-description="Multiple checkbox chips grouped into a compact segmented selector.">
-            <legend>Chip checkbox</legend>
+            <legend pgs="legend">Chip checkbox</legend>
             <label>
                 <input type="checkbox" name="plan" value="red" checked>
                 Red
@@ -111,7 +103,7 @@
         </fieldset>
 
         <fieldset pgs="chips" demo="item" demo-title="Chips group (radio)" demo-description="Multiple radio chips grouped into a compact segmented selector, each paired with an icon.">
-            <legend>Chips radio</legend>
+            <legend pgs="legend">Chips radio</legend>
             <label>
                 <input type="radio" name="characters" value="Crow" checked>
                 <i pgs="icon" pgs-option="icon-star"></i>
