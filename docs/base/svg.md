@@ -27,6 +27,11 @@ Recolours external SVG and Lottie files when the theme changes, swapping each de
 
 - `gapTexts`: spaces the example content.
 
+## CSS Variables
+
+- `--svg-color-1`
+- `--svg-color-2`
+
 ## Output
 
 An external SVG marked for recolouring, with the colour pairs it reads from the document.

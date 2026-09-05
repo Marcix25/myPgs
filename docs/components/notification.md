@@ -70,6 +70,13 @@ Notification markup, configuration, behavior, and usage example. A persistent, m
 - `icon-circleInfo`: the glyph of the info type.
 - `icon-triangleExclamation`: the glyph of the warning type.
 
+## CSS Variables
+
+- `--notification-background`
+- `--notification-color`
+- `--notification-shadow-color`
+- `--notification-timeout`
+
 ## Output
 
 Complete HTML markup and usage example for Notification.

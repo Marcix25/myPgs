@@ -36,6 +36,11 @@ Complete footer with theme control, brand area, navigation, informational conten
 
 - `column-3`: configures the footer flex layout with three columns.
 
+## CSS Variables
+
+- `--footer-background`
+- `--footer-color`
+
 ## Output
 
 Complete footer HTML structure with brand, menu, and legal area.

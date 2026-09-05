@@ -30,6 +30,12 @@ Summary markup, configuration, behavior, and usage example.
 - `instance.refresh()`: refreshes the component and returns its updated instance.
 - `instance.isOpen()`: returns true when the component is open.
 
+## CSS Variables
+
+- `--summary-content-max-height`
+- `--summary-fade-background`
+- `--summary-fade-size`
+
 ## Output
 
 Complete HTML markup and usage example for Summary.

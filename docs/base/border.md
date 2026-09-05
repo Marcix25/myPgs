@@ -41,9 +41,22 @@ Border, outline and radius utilities, split out from the general-purpose set sin
 
 ### PGS Options
 
+- `paddingSections`: uses the section spacing scale for the radius example's padding.
 - `wrap`: lets the border and outline examples flow onto a second row.
 - `gapTexts`: spaces the examples inside a group.
 - `gapSections`: separates the groups.
+
+## CSS Variables
+
+- `--border-box`
+- `--border-box-transparent`
+- `--border-color`
+- `--border-complete`
+- `--border-radius`
+- `--border-radius-external`
+- `--border-radius-input`
+- `--border-style`
+- `--border-width`
 
 ## Output
 
@@ -91,7 +104,7 @@ The same line drawn outside the padding  so it takes no space and never moves wh
 Three radius tokens: the standard one, the smaller one used by form controls and the wider one for outer containers.
 
 ```html
-<span pgs="padding border borderRadius">borderRadius</span>
-<span pgs="padding border borderRadiusInput">borderRadiusInput</span>
-<span pgs="padding border borderRadiusExternal">borderRadiusExternal</span>
+<span pgs="padding border borderRadiusExternal" pgs-option="paddingSections">borderRadiusExternal</span>
+<span pgs="padding border borderRadius" pgs-option="paddingSections">borderRadius</span>
+<span pgs="padding border borderRadiusInput" pgs-option="paddingSections">borderRadiusInput</span>
 ```

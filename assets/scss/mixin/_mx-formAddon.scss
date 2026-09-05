@@ -97,7 +97,7 @@
         //== CHECKED
         &:checked {
             &::before {
-                background: var(--color-primary);
+                background: var(--toggle-color-rail-checked);
             }
 
             &::after {
@@ -144,6 +144,7 @@
     &:has(input:checked) {
         --button-background: var(--button-background-active);
         --button-color: var(--button-color-active);
+        --button-border-color: var(--button-border-color-active);
 
         i, [pgs~=icon] {
             opacity: 1;

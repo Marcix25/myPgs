@@ -6,7 +6,7 @@
 @mixin _buttonColor($for: "") {
     color: var(--button-color#{$for});
     background: var(--button-background#{$for});
-    border-color: var(--button-border#{$for});
+    border-color: var(--button-border-color#{$for});
 }
 
 //== BUTTON BASE

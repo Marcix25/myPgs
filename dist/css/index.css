@@ -23,7 +23,6 @@
   --outline-width: 1.5px;
   --outline-style: solid;
   --outline-color: light-dark(#ebebeb, #353535);
-  --outline-complete: var(--outline-width) var(--outline-color) var(--outline-style);
   --box-shadow: 0px 0px 38px 0px #0000000d;
   --text-shadow: 0px 0px 4px #00000040, 0px 0px 4px #0000002d;
   --backdrop: #0000007a;
@@ -31,7 +30,6 @@
   --page-top: calc(var(--heightOfHeader) + 7lvh);
   --page-topScroll: calc(var(--heightOfHeaderScroll) + var(--heightOfHeader));
   --page-width: 1280px;
-  --page-space: clamp(var(--padding-page), calc((100% - var(--section-width)) / 2 + var(--padding-page)), 100%);
   --gap-texts: 1.0rem;
   --gap-elements: 4.0rem;
   --gap-sections: calc(1.0rem + 15svh);
@@ -582,6 +580,39 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=hidden] {
   display: none !important;
+}
+
+[pgs~=list] :is(ul), [pgs~=list]:is(ul) {
+  list-style: disc;
+}
+
+[pgs~=list] :is(ul) > li, [pgs~=list]:is(ul) > li {
+  list-style-type: disc;
+}
+
+[pgs~=list] :is(ul) > li > ul > li, [pgs~=list]:is(ul) > li > ul > li {
+  list-style: circle;
+  margin-top: var(--gap-texts);
+}
+
+[pgs~=list] :is(ul) > li > ul > li ul > li, [pgs~=list]:is(ul) > li > ul > li ul > li {
+  list-style: "-";
+}
+
+[pgs~=list] :is(ol), [pgs~=list]:is(ol) {
+  list-style: decimal;
+}
+
+[pgs~=list] :is(ol) li, [pgs~=list]:is(ol) li {
+  list-style-type: decimal;
+}
+
+[pgs~=list] li {
+  display: list-item;
+  padding-left: 5px;
+  margin-left: 21px;
+  margin-top: calc(var(--gap-texts) / 2);
+  color: var(--color-text);
 }
 
 [pgs~=textShadow] {
@@ -2291,7 +2322,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 [pgs~=pageShell] {
-  --pageShell-minWidth: 600px;
   --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-padding-inline) * 2));
   --pageShell-margin-top: 0px;
   --pageShell-sizeMaskImage: 40px;
@@ -2300,7 +2330,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --pageShell-padding-bottom: var(--gap-elements);
   --pageShell-gap: var(--gap-elements);
   --pageShell-content-width: var(--page-width);
-  --pageShell-content-minWidth: var(--page-width);
   --pageShell-aside-width: 250px;
   --pageShell-aside-maxHeight: calc(100svh - var(--pageShell-padding-top));
   --pageShell-aside-top: var(--heightOfHeader);
@@ -2517,11 +2546,9 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --header-padding-inline: 30px;
   --header-padding-block: 10px;
   --header-gap: var(--gap-elements);
-  --header-borderRadius: var(--border-radius-input);
   --header-size: 4.4rem;
   --header-background: var(--color-white-transparent);
   --header-color: var(--color-black);
-  --header-color-hover: var(--color-black);
   --header-compactBottom-active: 0;
   --header-compact-breakpoint: 600px;
   z-index: 100;
@@ -4039,7 +4066,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --button-borderRadius: var(--border-radius-input);
   color: var(--button-color);
   background: var(--button-background);
-  border-color: var(--button-border);
+  border-color: var(--button-border-color);
   font-family: var(--font);
   font-size: 1.6rem;
   font-weight: 600;
@@ -4068,7 +4095,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=form] :where(button[type=submit]):where([aria-current=page]), [pgs~=form] :where(button[type=submit]):where([aria-selected=true]) {
   color: var(--button-color-current);
   background: var(--button-background-current);
-  border-color: var(--button-border-current);
+  border-color: var(--button-border-color-current);
 }
 
 [pgs~=form] :where(button[type=submit]):where(:has(i)) {
@@ -4187,7 +4214,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --button-borderRadius: var(--border-radius-input);
   color: var(--button-color);
   background: var(--button-background);
-  border-color: var(--button-border);
+  border-color: var(--button-border-color);
   font-family: var(--font);
   font-size: 1.6rem;
   font-weight: 600;
@@ -4216,7 +4243,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=button]:where([aria-current=page]), [pgs~=button]:where([aria-selected=true]) {
   color: var(--button-color-current);
   background: var(--button-background-current);
-  border-color: var(--button-border-current);
+  border-color: var(--button-border-color-current);
 }
 
 [pgs~=button]:where(:not([pgs-option~=buttonIcon])):where(:has(i)) {
@@ -4303,7 +4330,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=button][pgs-option~=buttonStrong] {
   color: var(--button-color-strong);
   background: var(--button-background-strong);
-  border-color: var(--button-border-strong);
+  border-color: var(--button-border-color-strong);
 }
 
 [pgs~=button][pgs-option~=buttonMini] {
@@ -4355,24 +4382,12 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --button-primaryColor: var(--color-secondary-strong);
 }
 
-[pgs~=button][pgs-option~=buttonSecondary]:hover {
-  --hover-primaryColor: var(--color-secondary-strong);
-}
-
 [pgs~=button][pgs-option~=buttonTertiary] {
   --button-primaryColor: var(--color-tertiary-strong);
 }
 
-[pgs~=button][pgs-option~=buttonTertiary]:hover {
-  --hover-primaryColor: var(--color-tertiary-strong);
-}
-
 [pgs~=button][pgs-option~=buttonQuaternary] {
   --button-primaryColor: var(--color-quaternary-strong);
-}
-
-[pgs~=button][pgs-option~=buttonQuaternary]:hover {
-  --hover-primaryColor: var(--color-quaternary-strong);
 }
 
 [pgs~=icon] {
@@ -5382,7 +5397,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --button-borderRadius: var(--border-radius-input);
   color: var(--button-color);
   background: var(--button-background);
-  border-color: var(--button-border);
+  border-color: var(--button-border-color);
   font-family: var(--font);
   font-size: 1.6rem;
   font-weight: 600;
@@ -5411,7 +5426,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=twoState]:where([aria-current=page]), [pgs~=twoState]:where([aria-selected=true]) {
   color: var(--button-color-current);
   background: var(--button-background-current);
-  border-color: var(--button-border-current);
+  border-color: var(--button-border-color-current);
 }
 
 [pgs~=twoState]:where(:has(i)) {
@@ -5490,6 +5505,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=twoState]:has(input:checked) {
   --button-background: var(--button-background-active);
   --button-color: var(--button-color-active);
+  --button-border-color: var(--button-border-color-active);
 }
 
 [pgs~=twoState]:has(input:checked) i, [pgs~=twoState]:has(input:checked) [pgs~=icon] {
@@ -5565,7 +5581,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 [pgs~=toggle] input:checked::before {
-  background: var(--color-primary);
+  background: var(--toggle-color-rail-checked);
 }
 
 [pgs~=toggle] input:checked::after {
@@ -5613,7 +5629,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --button-borderRadius: var(--border-radius-input);
   color: var(--button-color);
   background: var(--button-background);
-  border-color: var(--button-border);
+  border-color: var(--button-border-color);
   font-family: var(--font);
   font-size: 1.6rem;
   font-weight: 600;
@@ -5642,7 +5658,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=chips] label:where([aria-current=page]), [pgs~=chips] label:where([aria-selected=true]) {
   color: var(--button-color-current);
   background: var(--button-background-current);
-  border-color: var(--button-border-current);
+  border-color: var(--button-border-color-current);
 }
 
 [pgs~=chips] label:where(:has(i)) {
@@ -5673,6 +5689,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=chips] label:has(input:checked) {
   --button-background: var(--button-background-active);
   --button-color: var(--button-color-active);
+  --button-border-color: var(--button-border-color-active);
 }
 
 [pgs~=chips] label:has(input:checked) i, [pgs~=chips] label:has(input:checked) [pgs~=icon] {
@@ -5749,7 +5766,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --button-borderRadius: var(--border-radius-input);
   color: var(--button-color);
   background: var(--button-background);
-  border-color: var(--button-border);
+  border-color: var(--button-border-color);
   font-family: var(--font);
   font-size: 1.6rem;
   font-weight: 600;
@@ -5778,7 +5795,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=chip]:where([aria-current=page]), [pgs~=chip]:where([aria-selected=true]) {
   color: var(--button-color-current);
   background: var(--button-background-current);
-  border-color: var(--button-border-current);
+  border-color: var(--button-border-color-current);
 }
 
 [pgs~=chip]:where(:has(i)) {
@@ -5809,6 +5826,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=chip]:has(input:checked) {
   --button-background: var(--button-background-active);
   --button-color: var(--button-color-active);
+  --button-border-color: var(--button-border-color-active);
 }
 
 [pgs~=chip]:has(input:checked) i, [pgs~=chip]:has(input:checked) [pgs~=icon] {
@@ -6575,39 +6593,6 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   opacity: 0;
 }
 
-[pgs~=list] :is(ul), [pgs~=list]:is(ul) {
-  list-style: disc;
-}
-
-[pgs~=list] :is(ul) > li, [pgs~=list]:is(ul) > li {
-  list-style-type: disc;
-}
-
-[pgs~=list] :is(ul) > li > ul > li, [pgs~=list]:is(ul) > li > ul > li {
-  list-style: circle;
-  margin-top: var(--gap-texts);
-}
-
-[pgs~=list] :is(ul) > li > ul > li ul > li, [pgs~=list]:is(ul) > li > ul > li ul > li {
-  list-style: "-";
-}
-
-[pgs~=list] :is(ol), [pgs~=list]:is(ol) {
-  list-style: decimal;
-}
-
-[pgs~=list] :is(ol) li, [pgs~=list]:is(ol) li {
-  list-style-type: decimal;
-}
-
-[pgs~=list] li {
-  display: list-item;
-  padding-left: 5px;
-  margin-left: 21px;
-  margin-top: calc(var(--gap-texts) / 2);
-  color: var(--color-text);
-}
-
 [pgs~=table]:is(table),
 [pgs~=table] table {
   --table-title-background: var(--border-color);
@@ -7208,7 +7193,6 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
 }
 
 [pgs~=tooltip][pgs~=dropdown] {
-  --dropdown-maxwidth: 400px;
   --dropdown-padding: 15px;
   --tooltip-arrow-size: 7px;
 }
@@ -7502,7 +7486,6 @@ dialog [pgs~=search] [pgs~=modal-close] {
 |--------------------------------------------------------------------------
 */
 [pgs~=cookieConsent] {
-  --modal-bg: var(--color-white);
   display: flex;
   flex-direction: column;
   gap: var(--gap-);
@@ -7924,115 +7907,143 @@ dialog [pgs~=search] [pgs~=modal-close] {
 }
 
 [pgs~=brPrimary] {
-  border-color: var(--color-primary);
+  --border-color: var(--color-primary);
+  border-color: var(--border-color);
 }
 
 [pgs~=brSecondary] {
-  border-color: var(--color-secondary);
+  --border-color: var(--color-secondary);
+  border-color: var(--border-color);
 }
 
 [pgs~=brTertiary] {
-  border-color: var(--color-tertiary);
+  --border-color: var(--color-tertiary);
+  border-color: var(--border-color);
 }
 
 [pgs~=brQuaternary] {
-  border-color: var(--color-quaternary);
+  --border-color: var(--color-quaternary);
+  border-color: var(--border-color);
 }
 
 [pgs~=brWhite] {
-  border-color: var(--color-white);
+  --border-color: var(--color-white);
+  border-color: var(--border-color);
 }
 
 [pgs~=brBlack] {
-  border-color: var(--color-black);
+  --border-color: var(--color-black);
+  border-color: var(--border-color);
 }
 
 [pgs~=brBox] {
-  border-color: var(--color-box);
+  --border-color: var(--color-box);
+  border-color: var(--border-color);
 }
 
 [pgs~=brBoxDark] {
-  border-color: var(--color-boxDark);
+  --border-color: var(--color-boxDark);
+  border-color: var(--border-color);
 }
 
 [pgs~=brLink] {
-  border-color: var(--color-link);
+  --border-color: var(--color-link);
+  border-color: var(--border-color);
 }
 
 [pgs~=brInfo] {
-  border-color: var(--color-info);
+  --border-color: var(--color-info);
+  border-color: var(--border-color);
 }
 
 [pgs~=brError] {
-  border-color: var(--color-error);
+  --border-color: var(--color-error);
+  border-color: var(--border-color);
 }
 
 [pgs~=brWarning] {
-  border-color: var(--color-warning);
+  --border-color: var(--color-warning);
+  border-color: var(--border-color);
 }
 
 [pgs~=brSuccess] {
-  border-color: var(--color-success);
+  --border-color: var(--color-success);
+  border-color: var(--border-color);
 }
 
 [pgs~=brGray] {
-  border-color: var(--color-gray);
+  --border-color: var(--color-gray);
+  border-color: var(--border-color);
 }
 
 [pgs~=olPrimary] {
-  outline-color: var(--color-primary);
+  --outline-color: var(--color-primary);
+  outline-color: var(--outline-color);
 }
 
 [pgs~=olSecondary] {
-  outline-color: var(--color-secondary);
+  --outline-color: var(--color-secondary);
+  outline-color: var(--outline-color);
 }
 
 [pgs~=olTertiary] {
-  outline-color: var(--color-tertiary);
+  --outline-color: var(--color-tertiary);
+  outline-color: var(--outline-color);
 }
 
 [pgs~=olQuaternary] {
-  outline-color: var(--color-quaternary);
+  --outline-color: var(--color-quaternary);
+  outline-color: var(--outline-color);
 }
 
 [pgs~=olWhite] {
-  outline-color: var(--color-white);
+  --outline-color: var(--color-white);
+  outline-color: var(--outline-color);
 }
 
 [pgs~=olBlack] {
-  outline-color: var(--color-black);
+  --outline-color: var(--color-black);
+  outline-color: var(--outline-color);
 }
 
 [pgs~=olBox] {
-  outline-color: var(--color-box);
+  --outline-color: var(--color-box);
+  outline-color: var(--outline-color);
 }
 
 [pgs~=olBoxDark] {
-  outline-color: var(--color-boxDark);
+  --outline-color: var(--color-boxDark);
+  outline-color: var(--outline-color);
 }
 
 [pgs~=olLink] {
-  outline-color: var(--color-link);
+  --outline-color: var(--color-link);
+  outline-color: var(--outline-color);
 }
 
 [pgs~=olInfo] {
-  outline-color: var(--color-info);
+  --outline-color: var(--color-info);
+  outline-color: var(--outline-color);
 }
 
 [pgs~=olError] {
-  outline-color: var(--color-error);
+  --outline-color: var(--color-error);
+  outline-color: var(--outline-color);
 }
 
 [pgs~=olWarning] {
-  outline-color: var(--color-warning);
+  --outline-color: var(--color-warning);
+  outline-color: var(--outline-color);
 }
 
 [pgs~=olSuccess] {
-  outline-color: var(--color-success);
+  --outline-color: var(--color-success);
+  outline-color: var(--outline-color);
 }
 
 [pgs~=olGray] {
-  outline-color: var(--color-gray);
+  --outline-color: var(--color-gray);
+  outline-color: var(--outline-color);
 }
 
 [pgs~=border] {

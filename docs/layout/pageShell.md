@@ -26,6 +26,20 @@ Responsive page layout that combines main content with zero, one or two sidebars
 
 - `gapElements`: applies element spacing in the main sections.
 
+## CSS Variables
+
+- `--pageShell-aside-maxHeight`
+- `--pageShell-aside-top`
+- `--pageShell-aside-width`
+- `--pageShell-content-width`
+- `--pageShell-gap`
+- `--pageShell-margin-top`
+- `--pageShell-padding-bottom`
+- `--pageShell-padding-inline`
+- `--pageShell-padding-top`
+- `--pageShell-sizeMaskImage`
+- `--pageShell-width`
+
 ## Output
 
 Eight page-shell HTML configurations with two, one, or no sidebars, with pageShellAsideScroll, its flush variant, or neither.

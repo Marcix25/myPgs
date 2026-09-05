@@ -54,6 +54,11 @@ Menu markup with horizontal, vertical and recursively nested navigation examples
 - `buttonNohover`: disables hover behavior on menu buttons generated at runtime.
 - `dropdownPosition`: set by Menu at runtime on the li it turns into a dropdown, to place the first-level floating submenu.
 
+## CSS Variables
+
+- `--menu-gap-column`
+- `--menu-gap-row`
+
 ## Output
 
 Horizontal and vertical menu examples, including recursively nested submenus.

@@ -102,7 +102,3 @@ ol[pgs~="steps"] {
         }
     }
 }
-
-[pgs~="list"] {
-    @include list();
-}

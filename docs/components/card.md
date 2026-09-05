@@ -24,6 +24,22 @@ Reusable surfaces for presenting structured card content or grouping simpler con
 - `button`: presents the card action as a standard button.
 - `marginTop`: separates the card action from the preceding text.
 
+## CSS Variables
+
+- `--card-background`
+- `--card-borderRadius`
+- `--card-horizontal-breakpoint`
+- `--card-horizontal-content-grow`
+- `--card-horizontal-img-grow`
+- `--card-horizontal-img-minHeight`
+- `--card-img-base`
+- `--card-img-margin-bottom`
+- `--card-img-margin-left`
+- `--card-img-margin-right`
+- `--card-img-margin-top`
+- `--card-img-padding`
+- `--card-padding`
+
 ## Output
 
 Standard, clickable, horizontal, and compact cards followed by standard, compact, and clickable boxes.

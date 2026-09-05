@@ -371,6 +371,15 @@ function loadSources() {
         }));
 }
 
+//+ every custom property a component exposes carries its own name as an exact, unhyphenated-free
+//+ prefix (slides.html -> --slides-*, pageShell.html -> --pageShell-*, casing included) — unlike
+//+ pgs-option matching this needs no fuzzy/singular fallback, the prefix alone is already specific
+function extractCssVariables(template, allSourceContent) {
+    const basename = path.basename(template, ".html");
+    const pattern = new RegExp(`--${escapeRegExp(basename)}-[A-Za-z0-9-]+`, "g");
+    return [...new Set(allSourceContent.match(pattern) || [])].sort((a, b) => a.localeCompare(b, "en"));
+}
+
 function associateSources(template, documentation, sources) {
     const basename = normalizeName(path.basename(template, ".html"));
     const singularBasename = singularName(basename);
@@ -790,7 +799,7 @@ function renderRelatedSection(items, markup) {
     return lines;
 }
 
-function renderMarkdown(template, documentation, markup) {
+function renderMarkdown(template, documentation, markup, allSourceContent) {
     const relativeTemplate = relativeToProject(template);
     const marker = `<!-- Automatically generated from ${relativeTemplate}. Edit ${relativeTemplate} and run npm run docs:generate again. -->`;
     const sections = [marker, "", `# ${documentation.title}`, "", documentation.description];
@@ -808,6 +817,9 @@ function renderMarkdown(template, documentation, markup) {
     });
 
     if (documentation.related.length) sections.push(...renderRelatedSection(documentation.related, markup));
+
+    const cssVariables = extractCssVariables(template, allSourceContent);
+    if (cssVariables.length) sections.push("", "## CSS Variables", "", cssVariables.map(name => `- \`${name}\``).join("\n"));
 
     if (documentation.return) sections.push("", "## Output", "", documentation.return);
 
@@ -890,7 +902,7 @@ function main() {
 
     parsedReferences.forEach(({ template, parsed }) => {
         const output = getOutputPath(template);
-        const content = renderMarkdown(template, parsed.data, parsed.markup);
+        const content = renderMarkdown(template, parsed.data, parsed.markup, allSourceContent);
         expected.add(path.resolve(output));
         fs.mkdirSync(path.dirname(output), { recursive: true });
 

@@ -67,9 +67,6 @@ const ENTRY_ICONS = {
     "helper/init.html": "fa-rotate",
     "helper/formValidate.html": "fa-pen-to-square",
     "helper/scrollHorizontal.html": "fa-arrows-left-right",
-    "guides/css-scss-usage.html": "fa-palette",
-    "guides/npm-export-and-development.html": "fa-cube",
-    "guides/javascript-helpers.html": "fa-wand-magic-sparkles",
 };
 const DEFAULT_ENTRY_ICON = "fa-square";
 
@@ -120,9 +117,6 @@ const demoRenderer = {
         "helper/init.html",
         "helper/formValidate.html",
         "helper/scrollHorizontal.html",
-        "guides/css-scss-usage.html",
-        "guides/npm-export-and-development.html",
-        "guides/javascript-helpers.html",
     ],
 
     getReferenceTitle(path) {
@@ -532,6 +526,7 @@ const demoRenderer = {
         buckets.push(["Other", items.filter(item => !grouped.has(item))]);
 
         const wrapper = document.createElement("div");
+        wrapper.className = "demoContent-doc-related";
         wrapper.setAttribute("pgs", "flexColumn");
         wrapper.setAttribute("pgs-option", "gapTexts");
 
@@ -543,7 +538,40 @@ const demoRenderer = {
         doc.append(wrapper);
     },
 
-    renderDocumentation(section, data, markup) {
+    //= every custom property a component exposes carries its own name as an exact prefix
+    //= (slides.html -> --slides-*), same convention as extractCssVariables in
+    //= scripts/generate-component-docs.js — no fuzzy matching needed, the prefix is specific enough
+    async renderCssVariablesGroup(doc, path) {
+        const basename = this.getEntryLabel(path);
+        const css = await this.getCompiledCss();
+        const pattern = new RegExp(`--${basename.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}-[A-Za-z0-9-]+`, "g");
+        const variables = [...new Set(css.match(pattern) || [])].sort((a, b) => a.localeCompare(b, "en"));
+        if (!variables.length) return;
+
+        const group = document.createElement("div");
+        group.className = "demoContent-doc-cssVariables";
+        group.setAttribute("pgs", "flexColumn");
+        group.setAttribute("pgs-option", "gapTexts");
+
+        const heading = document.createElement("h4");
+        heading.textContent = "CSS Variables";
+        group.append(heading);
+
+        const list = document.createElement("ul");
+        list.setAttribute("pgs", "flexColumn");
+        list.setAttribute("pgs-option", "gapTexts");
+        variables.forEach(name => {
+            const li = document.createElement("li");
+            const code = document.createElement("code");
+            code.textContent = name;
+            li.append(code);
+            list.append(li);
+        });
+        group.append(list);
+        doc.append(group);
+    },
+
+    async renderDocumentation(section, data, markup, path) {
         if (!data) return;
         const doc = document.createElement("div");
         doc.className = "demoContent-doc";
@@ -556,6 +584,7 @@ const demoRenderer = {
         this.renderDocGroup(doc, LIST_TAG_LABELS["pgs-state"], data["pgs-state"] || [], "h4");
         this.renderDocGroup(doc, LIST_TAG_LABELS.api, data.api || [], "h4");
         this.renderRelatedGroup(doc, data.related || [], markup);
+        await this.renderCssVariablesGroup(doc, path);
 
         if (doc.children.length) section.append(doc);
     },
@@ -703,6 +732,22 @@ const demoRenderer = {
             .replace(/[\t ]*<script\b[^>]*(?:___vscode_livepreview_injected_script|livereload|browser-sync)[^>]*>\s*<\/script>\n?/gi, "");
     },
 
+    //= raw SCSS isn't practical to parse client-side, but the compiled stylesheet still carries
+    //= every literal custom-property name; fetched once and cached, mirroring extractCssVariables
+    //= in scripts/generate-component-docs.js
+    async getCompiledCss() {
+        if (this._compiledCss === undefined) {
+            try {
+                const response = await fetch("../dist/css/index.css");
+                this._compiledCss = response.ok ? await response.text() : "";
+            } catch (error) {
+                console.error("Compiled CSS non caricato.", error);
+                this._compiledCss = "";
+            }
+        }
+        return this._compiledCss;
+    },
+
     initPgsJavascript() {
         const pgsApi = globalThis.pgs;
         if (!pgsApi) throw new Error("Bundle PGS non caricato");
@@ -774,7 +819,7 @@ const demoRenderer = {
                 }
 
                 this.renderHeader(section, title, data?.description);
-                this.renderDocumentation(section, data, markup);
+                await this.renderDocumentation(section, data, markup, path);
 
                 //== the reference script blocks get their own titled section and leave the markup,
                 //== in the same order the generated markdown uses: schema, usage, then the example

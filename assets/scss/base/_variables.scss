@@ -23,7 +23,6 @@
         --outline-width: 1.5px;
         --outline-style: solid;
         --outline-color: light-dark(#ebebeb, #353535);
-        --outline-complete: var(--outline-width) var(--outline-color) var(--outline-style);
 
 
         --box-shadow: 0px 0px 38px 0px #0000000d;
@@ -33,7 +32,6 @@
         --page-top: calc(var(--heightOfHeader) + 7lvh);
         --page-topScroll: calc(var(--heightOfHeaderScroll) + var(--heightOfHeader));
         --page-width: 1280px;
-        --page-space: clamp(var(--padding-page), calc((100% - var(--section-width)) / 2 + var(--padding-page)), 100%);
         --gap-texts: 1.0rem;
         --gap-elements: 4.0rem;
         --gap-sections: calc(1.0rem + 15svh);

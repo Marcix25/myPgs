@@ -68,6 +68,23 @@ Search markup, configuration, behavior, and usage example. Two custom events bub
 - `icon-magnifyingGlass`: the glyph used there.
 - `icon-close`: the cross that dismisses.
 
+## CSS Variables
+
+- `--search-suggestions`
+- `--search-suggestions-background`
+- `--search-suggestions-border`
+- `--search-suggestions-borderRadius`
+- `--search-suggestions-boxShadow`
+- `--search-suggestions-color`
+- `--search-suggestions-gap`
+- `--search-suggestions-item-padding`
+- `--search-suggestions-item-selected`
+- `--search-suggestions-item-selected-background`
+- `--search-suggestions-item-selected-color`
+- `--search-suggestions-maxHeight`
+- `--search-suggestions-offset`
+- `--search-suggestions-padding`
+
 ## Output
 
 Complete HTML markup and usage example for Search.

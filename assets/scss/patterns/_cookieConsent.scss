@@ -3,7 +3,6 @@
 [pgs~=cookieConsent] {
     //option for suggestions
     &[pgs-option~="cookieConsent[]"] {}
-    --modal-bg: var(--color-white);
     display: flex;
     flex-direction: column;
     gap: var(--gap-);

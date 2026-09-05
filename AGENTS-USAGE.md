@@ -174,12 +174,6 @@ Use layout references from `reference/html/layout/`, component references from `
 Canonical component and layout examples are available in `reference/`. Use those files as the
 reference source before creating new markup.
 
-### Guides
-
-- [css-scss-usage](docs/guides/css-scss-usage.md)
-- [npm-export-and-development](docs/guides/npm-export-and-development.md)
-- [javascript-helpers](docs/guides/javascript-helpers.md)
-
 ### Helper API reference
 
 - [pgs](docs/helper/pgs.md)

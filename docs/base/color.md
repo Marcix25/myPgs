@@ -145,6 +145,55 @@ Interactive palette of the current MyPGS background and text color utilities.
 - `gapTexts`: spaces individual palette entries.
 - `wrap`: lets palette entries wrap on narrow viewports.
 
+## CSS Variables
+
+- `--color-background`
+- `--color-black`
+- `--color-black-transparent`
+- `--color-blackFixed`
+- `--color-box`
+- `--color-box-transparent`
+- `--color-boxDark`
+- `--color-boxDark-transparent`
+- `--color-error`
+- `--color-error-soft`
+- `--color-focus`
+- `--color-gray`
+- `--color-icon-primary`
+- `--color-icon-secondary`
+- `--color-info`
+- `--color-info-soft`
+- `--color-link`
+- `--color-link-soft`
+- `--color-primary`
+- `--color-primary-dark`
+- `--color-primary-light`
+- `--color-primary-soft`
+- `--color-primary-strong`
+- `--color-quaternary`
+- `--color-quaternary-dark`
+- `--color-quaternary-light`
+- `--color-quaternary-soft`
+- `--color-quaternary-strong`
+- `--color-secondary`
+- `--color-secondary-dark`
+- `--color-secondary-light`
+- `--color-secondary-soft`
+- `--color-secondary-strong`
+- `--color-success`
+- `--color-success-soft`
+- `--color-tertiary`
+- `--color-tertiary-dark`
+- `--color-tertiary-light`
+- `--color-tertiary-soft`
+- `--color-tertiary-strong`
+- `--color-text`
+- `--color-warning`
+- `--color-warning-soft`
+- `--color-white`
+- `--color-white-transparent`
+- `--color-whiteFixed`
+
 ## Output
 
 A complete interactive reference for MyPGS background and text color utilities.

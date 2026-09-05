@@ -8,6 +8,16 @@ Responsive container for a semantic table with headers and data rows consistent 
 
 - `table`: identifies the wrapper that manages presentation and scrolling for the native table.
 
+## CSS Variables
+
+- `--table-row-background-even`
+- `--table-row-background-odd`
+- `--table-row-color`
+- `--table-row-hover-background`
+- `--table-row-hover-color`
+- `--table-title-background`
+- `--table-title-color`
+
 ## Output
 
 Complete HTML table wrapped in the dedicated PGS container.

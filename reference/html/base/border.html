@@ -28,6 +28,7 @@
  * - flexColumn: stacks the utility groups vertically.
  * - flexRow: arranges the examples in a row.
  * - padding: applies the shared padding utility to each example.
+ * - paddingSections: uses the section spacing scale for the radius example's padding.
  * - brPrimary: recolours the border with the primary colour; see Colors for the whole br* family.
  * - brError: recolours the border with the error colour.
  * - olPrimary: recolours the outline with the primary colour; see Colors for the whole ol* family.
@@ -81,9 +82,9 @@
 
     <section pgs="flexColumn" pgs-option="gapTexts" demo="item" demo-code="children" demo-title="Border radius" demo-description="Three radius tokens: the standard one, the smaller one used by form controls and the wider one for outer containers.">
         <div pgs="flexRow" pgs-option="gapTexts" demo-code="children">
-            <span pgs="padding border borderRadius">borderRadius</span>
-            <span pgs="padding border borderRadiusInput">borderRadiusInput</span>
-            <span pgs="padding border borderRadiusExternal">borderRadiusExternal</span>
+            <span pgs="padding border borderRadiusExternal" pgs-option="paddingSections">borderRadiusExternal</span>
+            <span pgs="padding border borderRadius" pgs-option="paddingSections">borderRadius</span>
+            <span pgs="padding border borderRadiusInput" pgs-option="paddingSections">borderRadiusInput</span>
         </div>
     </section>
 

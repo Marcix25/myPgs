@@ -41,6 +41,10 @@ Tooltip markup, configuration, behavior, and usage example. A small arrow always
 - `position`: identifies the position element used by Tooltip.
 - `open`: is applied by the dropdown behaviour while the tooltip is visible.
 
+## CSS Variables
+
+- `--tooltip-arrow-size`
+
 ## Output
 
 Complete HTML markup and usage example for Tooltip.

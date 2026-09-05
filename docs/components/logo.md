@@ -19,6 +19,11 @@ Component for displaying a graphical or text logo, with image variants that supp
 
 - `darkmode`: global document state that activates the logoDarkmode variant.
 
+## CSS Variables
+
+- `--logo-finter`
+- `--logo-height`
+
 ## Output
 
 HTML examples of the theme-aware graphical logo and the text logo.

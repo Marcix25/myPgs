@@ -47,6 +47,10 @@ pgs.formValidate is the JavaScript side of Form: validates required fields, appl
 
 - `formMessageTitle`: belongs to the Form component; the field-specific alert title.
 
+## CSS Variables
+
+- `--formValidate-outline`
+
 ## Output
 
 A minimal form wired to pgs.formValidate with one custom rule, focused on the JavaScript API rather than the markup options.

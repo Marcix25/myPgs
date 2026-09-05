@@ -54,6 +54,13 @@ Toast markup, configuration, behavior, and usage example. An ephemeral, auto-dis
 - `icon-circleInfo`: the glyph of the info type.
 - `icon-triangleExclamation`: the glyph of the warning type.
 
+## CSS Variables
+
+- `--toast-background`
+- `--toast-background-timer`
+- `--toast-color`
+- `--toast-shadow-color`
+
 ## Output
 
 Complete HTML markup and usage example for Toast.

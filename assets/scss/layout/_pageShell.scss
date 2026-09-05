@@ -19,7 +19,6 @@
 
 //= PAGE SHELL
 [pgs~="pageShell"] {
-    --pageShell-minWidth: 600px;
     --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-padding-inline) * 2));
     --pageShell-margin-top: 0px;
     --pageShell-sizeMaskImage: 40px;
@@ -29,7 +28,6 @@
     --pageShell-gap: var(--gap-elements);
     // content
     --pageShell-content-width: var(--page-width);
-    --pageShell-content-minWidth: var(--page-width);
     // aside
     --pageShell-aside-width: 250px;
     --pageShell-aside-maxHeight: calc(100svh - var(--pageShell-padding-top));

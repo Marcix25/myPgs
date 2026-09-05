@@ -27,6 +27,11 @@
     display: none !important;
 }
 
+//= LIST
+[pgs~="list"] {
+    @include list();
+}
+
 [pgs~=textShadow] {
     text-shadow: var(--text-shadow);
 }

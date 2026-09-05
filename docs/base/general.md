@@ -2,7 +2,7 @@
 
 # General
 
-Standalone utilities for shadow, cursor, image fitting and forced colour scheme. Border, outline and radius utilities moved to their own reference, Border; the hover treatment moved to Hover.
+Standalone utilities for shadow, cursor, image fitting, list styling and forced colour scheme. Border, outline and radius utilities moved to their own reference, Border; the hover treatment moved to Hover.
 
 ## PGS
 
@@ -11,6 +11,7 @@ Standalone utilities for shadow, cursor, image fitting and forced colour scheme.
 - `pointer`: shows the pointer cursor on an element that is clickable but is not a control.
 - `appearanceNone`: strips every inherited style and the native appearance, to build a control from scratch.
 - `imgContain`: fits the whole image inside its box without cropping it.
+- `list`: styles a plain ul or ol with the shared marker and spacing.
 - `lightmode`: forces the light colour scheme on a subtree, whatever the page theme is.
 - `darkmode`: forces the dark colour scheme on a subtree, whatever the page theme is.
 
@@ -32,7 +33,7 @@ Standalone utilities for shadow, cursor, image fitting and forced colour scheme.
 
 ## Output
 
-One example per utility, grouped by shadow, interaction, images and colour scheme.
+One example per utility, grouped by shadow, interaction, images, lists and colour scheme.
 
 ## Example
 
@@ -67,6 +68,18 @@ imgContain keeps the whole image inside the box, imgCover crops it to fill the b
     <img pgs="imgContain borderRadius" src="https://placehold.co/600x300?text=imgContain" alt="Contained image" style="width: 220px; height: 140px;">
     <img pgs="imgCover borderRadius" src="https://placehold.co/600x300?text=imgCover" alt="Cropped image" style="width: 220px; height: 140px;">
 </div>
+```
+
+### List
+
+Shared marker and spacing for a plain list, without any component behaviour.
+
+```html
+<ul pgs="list">
+    <li>Plain list item</li>
+    <li>Second item</li>
+    <li>Third item</li>
+</ul>
 ```
 
 ### Forced colour scheme

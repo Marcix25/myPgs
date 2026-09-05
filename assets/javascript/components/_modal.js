@@ -59,7 +59,7 @@ function initializeModal(MODAL, existingDialog = null) {
 
 
     //== SET
-    pgs(DIALOG).add("dialog modal-dialog");
+    pgs(DIALOG).add("modal-dialog");
 
     //== BUTTON OPEN
     BUTTON_OPEN?.setAttribute("role", "button");

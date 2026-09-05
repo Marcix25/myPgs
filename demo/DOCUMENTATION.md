@@ -111,8 +111,8 @@ built by an entirely separate pipeline from everything else on this page.
   inside a code block) since the converter is intentionally simple, not a general HTML parser.
   Anything outside that vocabulary is a validation error, not a silent pass-through.
 - A code sample that needs to show literal `pgs="..."` text (e.g. explaining the attribute syntax
-  itself) must stay HTML-escaped inside its `<pre><code>` — see `css-scss-usage.html` — exactly as
-  you'd write any inert code sample, so it's never mistaken for real authored markup.
+  itself) must stay HTML-escaped inside its `<pre><code>`, exactly as you'd write any inert code
+  sample, so it's never mistaken for real authored markup.
 - **Browser side**: `demo/demo-guide.js`, loaded as its own `<script>` tag before `demo.js` in
   `demo.html`. `demo.js` only does the minimum needed to route to it: guide entries in
   `CATEGORY_LABELS`/`referenceFiles`/`ENTRY_ICONS` (see below) and one check in `boot()`'s render

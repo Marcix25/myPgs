@@ -22,6 +22,10 @@ Heading sizes available as utilities, to give any element the look of a title wi
 
 - `gapTexts`: spaces the examples.
 
+## CSS Variables
+
+- `--heading-size`
+
 ## Output
 
 The five heading sizes applied to plain paragraphs, so the tag keeps its meaning while the size changes.

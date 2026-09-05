@@ -35,6 +35,32 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `icon-arrowRight`: the glyph that points forward.
 - `icon-star`: the neutral stand-in glyph, used where the example needs an icon but not a particular one.
 
+## CSS Variables
+
+- `--button-background`
+- `--button-background-active`
+- `--button-background-current`
+- `--button-background-strong`
+- `--button-border`
+- `--button-border-color`
+- `--button-border-color-active`
+- `--button-border-color-current`
+- `--button-border-color-strong`
+- `--button-border-style`
+- `--button-border-width`
+- `--button-borderRadius`
+- `--button-color`
+- `--button-color-active`
+- `--button-color-current`
+- `--button-color-strong`
+- `--button-height`
+- `--button-padding`
+- `--button-padding-block`
+- `--button-padding-left`
+- `--button-padding-right`
+- `--button-primaryColor`
+- `--button-size`
+
 ## Output
 
 HTML collection of the main button variants.
@@ -116,15 +142,11 @@ Largest button size using buttonBig, combined with an icon.
 
 ### Text only
 
-Only the label shows at rest, and it takes the accent colour on hover. The second one carries buttonStrong as well: unlike buttonTransparent, buttonText leaves the other states alone, so an emphasised button still fills in.
+Only the label shows at rest, and it takes the accent colour on hover. 
 
 ```html
 <button pgs="button" pgs-option="buttonText" type="button">
     Read more
-</button>
-
-<button pgs="button" pgs-option="buttonText buttonStrong" type="button">
-    Still filled
 </button>
 ```
 

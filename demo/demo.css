@@ -153,6 +153,16 @@ body {
         font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
 
+    .demoContent-doc-related code {
+        background: var(--color-primary-soft);
+        color: var(--color-primary);
+    }
+
+    .demoContent-doc-cssVariables code {
+        background: var(--color-info-soft);
+        color: var(--color-info);
+    }
+
     .demoContent-doc-subheading {
         margin: 0;
         font-size: 0.95em;

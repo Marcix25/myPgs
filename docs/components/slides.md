@@ -54,6 +54,12 @@ Slides markup, configuration, behavior, and usage example.
 - `rotate270`: rotates the glyph in the next button to point right.
 - `buttonIcon`: styles the previous and next actions generated at runtime; belongs to the button component.
 
+## CSS Variables
+
+- `--slides-maskEnd`
+- `--slides-maskStart`
+- `--slides-sizeMaskImage`
+
 ## Output
 
 Complete HTML markup and usage example for Slides.

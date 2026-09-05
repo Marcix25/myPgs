@@ -26,6 +26,7 @@
         "icons:sync": "node scripts/sync-icons.js",
         "start": "webpack",
         "start watch": "webpack --watch",
+        "serve:lan": "python3 -m http.server 3025 --bind 0.0.0.0",
         "syncmaster": "git fetch origin && git checkout master && git pull --ff-only origin master && git merge --no-edit origin/dev && git push origin master && git checkout dev",
         "syncmaster commit": "printf 'Merge message: ' && IFS= read -r merge_message && test -n \"$merge_message\" && git fetch origin && git checkout master && git pull --ff-only origin master && git merge --no-ff origin/dev -m \"$merge_message\" && git push origin master && git checkout dev"
     },

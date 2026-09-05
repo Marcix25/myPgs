@@ -66,6 +66,12 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 - `wrap`: lets the full set flow onto more rows.
 - `gapSections`: separates the groups.
 
+## CSS Variables
+
+- `--icon-close`
+- `--icon-color`
+- `--icon-size`
+
 ## Output
 
 One example per glyph, the sizing and colour behaviour, and the surface a glyph sits inside.

@@ -33,6 +33,10 @@ Section variants that control width, padding, and specific content treatment whi
 
 - `gapSections`: applies section spacing to the outer collection.
 
+## CSS Variables
+
+- `--section-width`
+
 ## Output
 
 HTML collection of the available section variants.

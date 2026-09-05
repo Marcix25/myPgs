@@ -15,6 +15,14 @@ The shared hover treatment for a surface and the text marked inside it, split ou
 
 - `box`: makes the example visible as a surface.
 
+## CSS Variables
+
+- `--hover-background`
+- `--hover-border`
+- `--hover-color`
+- `--hover-primaryColor`
+- `--hover-shadow-color`
+
 ## Output
 
 A surface and its inner text, both recolouring together on hover.
