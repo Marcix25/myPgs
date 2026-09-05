@@ -47,8 +47,14 @@ Complete footer HTML structure with brand, menu, and legal area.
 
 ## Example
 
+## Examples
+
+### Footer
+
+Brand and navigation columns in the upper section, legal links and cookie preferences in the lower one.
+
 ```html
-<footer pgs="footer" demo="component" demo-title="Footer" demo-description="Brand and navigation columns in the upper section, legal links and cookie preferences in the lower one.">
+<footer pgs="footer">
     <button pgs="button toggleDarkmode" type="button" aria-label="Change theme">
         <i pgs="icon"></i>
     </button>

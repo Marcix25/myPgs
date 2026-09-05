@@ -77,8 +77,14 @@ Complete HTML markup and usage example for Modal.
 
 ## Example
 
+## Examples
+
+### Standard modal
+
+Basic modal dialog centered in the page; the close button is added automatically when missing.
+
 ```html
-<div pgs="modal" pgs-option="modalContainerID[modal-container]" demo="component" demo-title="Standard modal" demo-description="Basic modal dialog centered in the page; the close button is added automatically when missing.">
+<div pgs="modal" pgs-option="modalContainerID[modal-container]">
     <button pgs="modal-button button" type="button">
         Open modal
     </button>
@@ -95,8 +101,14 @@ Complete HTML markup and usage example for Modal.
         </div>
     </dialog>
 </div>
+```
 
-<div pgs="modal" pgs-option="modalContainerID[modal-container]" demo="component" demo-title="Right-aligned modal" demo-description="Modal dialog content aligned to the right of the viewport using pgs-option=&quot;modalRight&quot;.">
+### Right-aligned modal
+
+Modal dialog content aligned to the right of the viewport using pgs-option=&quot;modalRight&quot;.
+
+```html
+<div pgs="modal" pgs-option="modalContainerID[modal-container]">
     <button pgs="modal-button button" type="button">
         Open modal right
     </button>
@@ -113,8 +125,14 @@ Complete HTML markup and usage example for Modal.
         </div>
     </dialog>
 </div>
+```
 
-<div pgs="modal" pgs-option="modalContainerID[modal-container]" demo="component" demo-title="Left-aligned modal" demo-description="Modal dialog content aligned to the left of the viewport using pgs-option=&quot;modalLeft&quot;.">
+### Left-aligned modal
+
+Modal dialog content aligned to the left of the viewport using pgs-option=&quot;modalLeft&quot;.
+
+```html
+<div pgs="modal" pgs-option="modalContainerID[modal-container]">
     <button pgs="modal-button button" type="button">
         Open modal left
     </button>
@@ -131,8 +149,14 @@ Complete HTML markup and usage example for Modal.
         </div>
     </dialog>
 </div>
+```
 
-<div pgs="modal" pgs-option="modalContainerID[modal-container]" demo="component" demo-title="Top-aligned modal" demo-description="Modal dialog content aligned to the top of the viewport using pgs-option=&quot;modalTop&quot;.">
+### Top-aligned modal
+
+Modal dialog content aligned to the top of the viewport using pgs-option=&quot;modalTop&quot;.
+
+```html
+<div pgs="modal" pgs-option="modalContainerID[modal-container]">
     <button pgs="modal-button button" type="button">
         Open modal top
     </button>
@@ -149,8 +173,14 @@ Complete HTML markup and usage example for Modal.
         </div>
     </dialog>
 </div>
+```
 
-<div pgs="modal" pgs-option="modalContainerID[modal-container]" demo="component" demo-title="Bottom-aligned modal" demo-description="Modal dialog content aligned to the bottom of the viewport using pgs-option=&quot;modalBottom&quot;.">
+### Bottom-aligned modal
+
+Modal dialog content aligned to the bottom of the viewport using pgs-option=&quot;modalBottom&quot;.
+
+```html
+<div pgs="modal" pgs-option="modalContainerID[modal-container]">
     <button pgs="modal-button button" type="button">
         Open modal bottom
     </button>
@@ -167,8 +197,14 @@ Complete HTML markup and usage example for Modal.
         </div>
     </dialog>
 </div>
+```
 
-<div pgs="modal" pgs-option="modalContainerID[modal-container]" demo="component" demo-title="Mini modal" demo-description="Compact dialog width using pgs-option=&quot;modalMini&quot;, for short confirmations rather than full content.">
+### Mini modal
+
+Compact dialog width using pgs-option=&quot;modalMini&quot;, for short confirmations rather than full content.
+
+```html
+<div pgs="modal" pgs-option="modalContainerID[modal-container]">
     <button pgs="modal-button button" type="button">
         Open mini modal
     </button>
@@ -185,8 +221,14 @@ Complete HTML markup and usage example for Modal.
         </div>
     </dialog>
 </div>
+```
 
-<div pgs="modal" pgs-option="modalContainerID[modal-container]" demo="component" demo-title="Medium modal" demo-description="Half-page dialog width using pgs-option=&quot;modalMedium&quot;, between the mini and full-width sizes.">
+### Medium modal
+
+Half-page dialog width using pgs-option=&quot;modalMedium&quot;, between the mini and full-width sizes.
+
+```html
+<div pgs="modal" pgs-option="modalContainerID[modal-container]">
     <button pgs="modal-button button" type="button">
         Open medium modal
     </button>
@@ -203,8 +245,14 @@ Complete HTML markup and usage example for Modal.
         </div>
     </dialog>
 </div>
+```
 
-<div pgs="modal" pgs-option="modalContainerID[modal-container]" demo="component" demo-title="Centered modal" demo-description="Modal dialog content explicitly centered using pgs-option=&quot;modalCenter&quot;.">
+### Centered modal
+
+Modal dialog content explicitly centered using pgs-option=&quot;modalCenter&quot;.
+
+```html
+<div pgs="modal" pgs-option="modalContainerID[modal-container]">
     <button pgs="modal-button button" type="button">
         Open centered modal
     </button>
@@ -221,8 +269,14 @@ Complete HTML markup and usage example for Modal.
         </div>
     </dialog>
 </div>
+```
 
-<div pgs="modal" pgs-option="modalContainerPGS[modal-container-pgs-demo]" demo="component" demo-title="Modal moved by a pgs token" demo-description="Modal dialog moved into the element carrying the target pgs token, using pgs-option=&quot;modalContainerPGS[modal-container-pgs-demo]&quot;.">
+### Modal moved by a pgs token
+
+Modal dialog moved into the element carrying the target pgs token, using pgs-option=&quot;modalContainerPGS[modal-container-pgs-demo]&quot;.
+
+```html
+<div pgs="modal" pgs-option="modalContainerPGS[modal-container-pgs-demo]">
     <button pgs="modal-button button" type="button">
         Open modal moved by token
     </button>
@@ -239,9 +293,14 @@ Complete HTML markup and usage example for Modal.
         </div>
     </dialog>
 </div>
-<div pgs="modal-container-pgs-demo"></div>
+```
 
-<div pgs="modal" pgs-option="modalContainerID[modal-container]" demo="component" demo-title="Modal with history" demo-description="Modal dialog that pushes a browser history entry when opened, using pgs-option=&quot;modalHistory&quot;, so the back button closes it.">
+### Modal with history
+
+Modal dialog that pushes a browser history entry when opened, using pgs-option=&quot;modalHistory&quot;, so the back button closes it.
+
+```html
+<div pgs="modal" pgs-option="modalContainerID[modal-container]">
     <button pgs="modal-button button" type="button">
         Open modal with history
     </button>
@@ -258,8 +317,14 @@ Complete HTML markup and usage example for Modal.
         </div>
     </dialog>
 </div>
+```
 
-<div pgs="modal" demo="component" demo-title="Confirmation modal" demo-description="Top-level confirmation dialog with cancel and save actions, using pgs-option=&quot;modalTopLevel&quot; and buttonStrong for the primary action; modalDisableBackdropClose keeps it open on an accidental outside click.">
+### Confirmation modal
+
+Top-level confirmation dialog with cancel and save actions, using pgs-option=&quot;modalTopLevel&quot; and buttonStrong for the primary action; modalDisableBackdropClose keeps it open on an accidental outside click.
+
+```html
+<div pgs="modal">
     <button pgs="modal-button button" type="button">
         Confirmation salvataggio
     </button>
@@ -281,6 +346,4 @@ Complete HTML markup and usage example for Modal.
         </div>
     </dialog>
 </div>
-
-<div id="modal-container"></div>
 ```

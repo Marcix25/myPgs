@@ -55,6 +55,8 @@ Margin and padding usage examples using all available directions and spacing sca
 
 ## Example
 
+## Examples
+
 ### Margin
 
 Configurable margin utilities on every side and axis, each paired with a spacing scale option.

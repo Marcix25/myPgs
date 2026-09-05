@@ -66,8 +66,14 @@ Complete HTML markup and usage example for Slides.
 
 ## Example
 
+## Examples
+
+### Single scroll
+
+Scrolls to one slide at a time with the prec/next buttons, using pgs-option=&quot;slidesSingleScroll&quot;, instead of moving by the full visible width.
+
 ```html
-<div pgs="slides" pgs-option="slidesSingleScroll" demo="component" demo-title="Single scroll" demo-description="Scrolls to one slide at a time with the prec/next buttons, using pgs-option=&quot;slidesSingleScroll&quot;, instead of moving by the full visible width.">
+<div pgs="slides" pgs-option="slidesSingleScroll">
     <ul pgs="slides-container">
         <li pgs="slides-container-slide">
             <article pgs="card">
@@ -100,8 +106,14 @@ Complete HTML markup and usage example for Slides.
         </li>
     </ul>
 </div>
+```
 
-<div pgs="slides" pgs-option="slidesShadowDesktop" demo="component" demo-title="Shadow desktop" demo-description="Fades the slides out at the edges from the tablet width up, using pgs-option=&quot;slidesShadowDesktop&quot;, only on the side that still has slides to reach.">
+### Shadow desktop
+
+Fades the slides out at the edges from the tablet width up, using pgs-option=&quot;slidesShadowDesktop&quot;, only on the side that still has slides to reach.
+
+```html
+<div pgs="slides" pgs-option="slidesShadowDesktop">
     <ul pgs="slides-container">
         <li pgs="slides-container-slide">
             <article pgs="card">
@@ -134,8 +146,14 @@ Complete HTML markup and usage example for Slides.
         </li>
     </ul>
 </div>
+```
 
-<div pgs="slides" pgs-option="slidesAnimationScale" demo="component" demo-title="Animation scale" demo-description="Scales each slide by its scroll visibility using pgs-option=&quot;slidesAnimationScale&quot;, driven by the --visible-percent custom property.">
+### Animation scale
+
+Scales each slide by its scroll visibility using pgs-option=&quot;slidesAnimationScale&quot;, driven by the --visible-percent custom property.
+
+```html
+<div pgs="slides" pgs-option="slidesAnimationScale">
     <ul pgs="slides-container">
         <li pgs="slides-container-slide">
             <article pgs="card">
@@ -168,8 +186,14 @@ Complete HTML markup and usage example for Slides.
         </li>
     </ul>
 </div>
+```
 
-<div pgs="slides" pgs-option="slidesScrollMouse" demo="component" demo-title="Scroll mouse" demo-description="Turns the vertical mouse wheel into horizontal scrolling over the slides, using pgs-option=&quot;slidesScrollMouse&quot;; off by default.">
+### Scroll mouse
+
+Turns the vertical mouse wheel into horizontal scrolling over the slides, using pgs-option=&quot;slidesScrollMouse&quot;; off by default.
+
+```html
+<div pgs="slides" pgs-option="slidesScrollMouse">
     <ul pgs="slides-container">
         <li pgs="slides-container-slide">
             <article pgs="card">

@@ -50,6 +50,8 @@ Accessible HTML examples of the four inline alert states; JavaScript methods ret
 
 ## Example
 
+## Examples
+
 ### Information
 
 Neutral informational feedback.

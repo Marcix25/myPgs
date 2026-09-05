@@ -32,8 +32,14 @@ The five heading sizes applied to plain paragraphs, so the tag keeps its meaning
 
 ## Example
 
+## Examples
+
+### Heading sizes
+
+The same sizes as h1 to h5, applied to paragraphs: use them when the right size and the right heading level do not match.
+
 ```html
-<div pgs="flexColumn" pgs-option="gapTexts" demo="component" demo-title="Heading sizes" demo-description="The same sizes as h1 to h5, applied to paragraphs: use them when the right size and the right heading level do not match.">
+<div pgs="flexColumn" pgs-option="gapTexts">
     <p pgs="h1">h1 on a paragraph</p>
     <p pgs="h2">h2 on a paragraph</p>
     <p pgs="h3">h3 on a paragraph</p>

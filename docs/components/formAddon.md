@@ -33,6 +33,8 @@ HTML examples of the checkboxBackground, twoState, toggle, and chips form contro
 
 ## Example
 
+## Examples
+
 ### Checkbox with background
 
 A single checkbox presented as a selectable container, with the checked state highlighted.

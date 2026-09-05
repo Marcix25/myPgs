@@ -67,6 +67,8 @@ HTML collection of the main button variants.
 
 ## Example
 
+## Examples
+
 ### Link button
 
 Anchor element styled as a standard button, combining an icon with text.

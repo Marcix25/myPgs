@@ -91,14 +91,26 @@ Complete HTML markup and usage example for Search.
 
 ## Example
 
+## Examples
+
+### Inline search
+
+Search field with live suggestions embedded directly in the page.
+
 ```html
-<form pgs="button search" pgs-option="buttonNohover searchPlaceholder[Type a component name] searchNoResults[No component matches]" autocomplete="off" action="" method="get" demo="component" demo-title="Inline search" demo-description="Search field with live suggestions embedded directly in the page.">
+<form pgs="button search" pgs-option="buttonNohover searchPlaceholder[Type a component name] searchNoResults[No component matches]" autocomplete="off" action="" method="get">
     <button type="submit" title="Search"><i pgs="icon" pgs-option="icon-magnifyingGlass"></i></button>
     <input type="search" name="s" placeholder="Search" value="">
     <ul pgs="search-suggestions"></ul>
 </form>
+```
 
-<div pgs="modal search-modal" pgs-option="modalContainerPGS[header]" demo="component" demo-title="Mobile search overlay" demo-description="Search opened from an icon button inside a full-width modal, intended for the mobile navigation.">
+### Mobile search overlay
+
+Search opened from an icon button inside a full-width modal, intended for the mobile navigation.
+
+```html
+<div pgs="modal search-modal" pgs-option="modalContainerPGS[header]">
 
     <button type="button" pgs="modal-button button" pgs-option="buttonIcon" title="Search">
         <i pgs="icon" pgs-option="icon-magnifyingGlass"></i>
@@ -123,28 +135,4 @@ Complete HTML markup and usage example for Search.
         </div>
     </dialog>
 </div>
-
-<script type="module">
-    import { pgs } from "mypgs";
-
-    const components = [
-        { label: "Accordion", value: "/componenti/accordion", data: { category: "component" } },
-        { label: "Dropdown", value: "/componenti/dropdown", data: { category: "component" } },
-        { label: "Modal", value: "/componenti/modal", data: { category: "component" } },
-        { label: "Search", value: "/componenti/search", data: { category: "component" } },
-        { label: "Page Shell", value: "/layout/page-shell", data: { category: "layout" } },
-    ];
-
-    pgs(document).querySelectorAll("search").forEach(search => {
-        pgs.search.api(search)?.configure({
-            minLength: 1,
-            debounce: 150,
-            limit: 5,
-            source: components,
-            onSelect: ({ item, value }) => {
-                console.log(`Selezionato ${item.label}: ${value}`);
-            },
-        });
-    });
-</script>
 ```

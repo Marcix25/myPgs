@@ -24,7 +24,9 @@
 -->
 
 <form pgs="form flexColumn" pgs-option="gapElements" demo="component">
-    <section pgs="flexColumn" demo="item" demo-code="children" demo-title="Checkbox with background" demo-description="A single checkbox presented as a selectable container, with the checked state highlighted.">
+    <demo demo-h2="Examples"></demo>
+    <demo demo-h3="Checkbox with background" demo-description="A single checkbox presented as a selectable container, with the checked state highlighted."></demo>
+    <section pgs="flexColumn" demo="item" demo-code="children">
         <label pgs="checkboxBackground">
             <input type="checkbox" name="notifications" value="enabled">
             <span>
@@ -34,7 +36,8 @@
         </label>
     </section>
 
-    <section pgs="flexColumn" demo="item" demo-code="children" demo-title="Radio group with background" demo-description="Radio inputs sharing the same name and presented as selectable containers, so only one can be checked.">
+    <demo demo-h3="Radio group with background" demo-description="Radio inputs sharing the same name and presented as selectable containers, so only one can be checked."></demo>
+    <section pgs="flexColumn" demo="item" demo-code="children">
         <fieldset pgs="flexRow">
             <label pgs="checkboxBackground">
                 <input type="radio" name="plan" value="basic" checked>
@@ -53,7 +56,8 @@
         </fieldset>
     </section>
 
-    <section pgs="flexColumn" demo="item" demo-code="children" demo-title="Two-state control" demo-description="Checkbox label styled as a button whose appearance changes when selected.">
+    <demo demo-h3="Two-state control" demo-description="Checkbox label styled as a button whose appearance changes when selected."></demo>
+    <section pgs="flexColumn" demo="item" demo-code="children">
         <label pgs="twoState">
             <input type="checkbox" name="favorite" value="yes">
             <i pgs="icon" pgs-option="icon-star" aria-hidden="true"></i>
@@ -61,14 +65,16 @@
         </label>
     </section>
 
-    <section pgs="flexColumn" demo="item" demo-code="children" demo-title="Toggle" demo-description="Checkbox presented as a switch with a rail and movable thumb.">
+    <demo demo-h3="Toggle" demo-description="Checkbox presented as a switch with a rail and movable thumb."></demo>
+    <section pgs="flexColumn" demo="item" demo-code="children">
         <label pgs="toggle">
             <span>Enable Wi-Fi</span>
             <input type="checkbox" name="darkMode" value="enabled">
         </label>
     </section>
 
-    <section pgs="flexColumn" demo="item" demo-code="children" demo-title="Chips checkbox" demo-description="Individual checkbox options presented as compact selectable chip buttons.">
+    <demo demo-h3="Chips checkbox" demo-description="Individual checkbox options presented as compact selectable chip buttons."></demo>
+    <section pgs="flexColumn" demo="item" demo-code="children">
         <div pgs="flexRow" role="group" aria-label="Chip actions">
             <label pgs="chip">
                 <input type="checkbox" name="like" value="basic">
@@ -84,7 +90,8 @@
     </section>
 
     <section pgs="flexColumn" pgs-option="gapElements">
-        <fieldset pgs="chips" demo="item" demo-title="Chips group (checkbox)" demo-description="Multiple checkbox chips grouped into a compact segmented selector.">
+        <demo demo-h3="Chips group (checkbox)" demo-description="Multiple checkbox chips grouped into a compact segmented selector."></demo>
+        <fieldset pgs="chips" demo="item">
             <legend pgs="legend">Chip checkbox</legend>
             <label>
                 <input type="checkbox" name="plan" value="red" checked>
@@ -102,7 +109,8 @@
             </label>
         </fieldset>
 
-        <fieldset pgs="chips" demo="item" demo-title="Chips group (radio)" demo-description="Multiple radio chips grouped into a compact segmented selector, each paired with an icon.">
+        <demo demo-h3="Chips group (radio)" demo-description="Multiple radio chips grouped into a compact segmented selector, each paired with an icon."></demo>
+        <fieldset pgs="chips" demo="item">
             <legend pgs="legend">Chips radio</legend>
             <label>
                 <input type="radio" name="characters" value="Crow" checked>

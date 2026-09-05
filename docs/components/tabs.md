@@ -43,8 +43,14 @@ A wrapping tab list above a bordered panel, with the active tab joined visually 
 
 ## Example
 
+## Examples
+
+### Tabs
+
+A wrapping tab list with a single connected content panel.
+
 ```html
-<div pgs="tabs card" demo="component" demo-title="Tabs" demo-description="A wrapping tab list with a single connected content panel.">
+<div pgs="tabs card">
     <div pgs="tabs-list card-content flexRow" aria-label="Code formats">
         <button pgs="tabs-list-tab button" pgs-option="buttonMini" type="button">HTML</button>
         <button pgs="tabs-list-tab button" pgs-option="buttonMini" type="button">React</button>

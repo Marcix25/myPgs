@@ -143,10 +143,20 @@ and present it:
 | --- | --- |
 | `demo="component"` | the outer wrapper, one per example group |
 | `demo="item"` | one example, rendered as its own title, preview and code pair |
-| `demo-title`, `demo-description` | heading and prose for that item |
 | `demo="disabled"` | keeps the element in the live preview, hides it from the code |
 | `demo-preview="none"` | keeps the element in the code, hides the preview — for markup that only carries a payload and is consumed on init, such as `notificationLoad` |
 | `demo-code="children"` | prints what is inside the element instead of the element itself |
+| `demo-code="none"` | keeps the title and description, drops the code block entirely — for markup with nothing worth copying |
+
+A heading is never an attribute on the example itself: a standalone, self-closing `<demo>` element
+placed immediately before it carries the title and description instead, so the two never compete for
+the same tag. `<demo demo-h3="Title" demo-description="...">` titles the `demo="component"`/`demo="item"`
+element it immediately precedes; `<demo demo-h2="Title" demo-description="...">` introduces a heading
+one level up, grouping every example that follows until the next `demo-h2` (used when a file's
+examples split into named groups, such as `layout/pageShell.html`'s "simple" vs. "not scroll" sets —
+most files only ever need `demo-h3`). A wrapper that itself contains `demo="item"` children (a plain
+`demo="container"`, or `demo="component"` used the same way, as in `formAddon.html`) is transparent:
+it carries no heading of its own, and a `<demo>` marker only ever precedes an actual titleable leaf.
 
 A `<script type="application/json">` block becomes the "PGS Option fields" section and a
 `<script type="text/x-example-js">` block becomes "JavaScript Usage". Both are documentation, so

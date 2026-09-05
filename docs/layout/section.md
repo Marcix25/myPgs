@@ -44,6 +44,8 @@ HTML collection of the available section variants.
 
 ## Example
 
+## Examples
+
 ### Standard section
 
 Default section width and padding with centered content.

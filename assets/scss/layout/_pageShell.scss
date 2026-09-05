@@ -20,10 +20,9 @@
 //= PAGE SHELL
 [pgs~="pageShell"] {
     --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-padding-inline) * 2));
-    --pageShell-margin-top: 0px;
     --pageShell-sizeMaskImage: 40px;
     --pageShell-padding-inline: var(--padding-page);
-    --pageShell-padding-top: calc(var(--page-top) - var(--pageShell-margin-top));
+    --pageShell-padding-top: var(--page-top);
     --pageShell-padding-bottom: var(--gap-elements);
     --pageShell-gap: var(--gap-elements);
     // content
@@ -37,7 +36,6 @@
     grid-template-areas: "content";
     gap: var(--pageShell-gap);
     margin-inline: auto;
-    margin-top: var(--pageShell-margin-top);
     align-items: start;
     justify-content: center;
     width: 100%;
@@ -207,7 +205,6 @@
     //++ pageShellFullPage
     &[pgs-option~="pageShellFullPage"] {
         --pageShell-width: 100%;
-        --pageShell-padding-inline: var(--padding);
 
         [pgs~="pageShell-content"] {
             margin-inline: auto;

@@ -24,6 +24,15 @@ function initializeModal(MODAL, existingDialog = null) {
     const DOMButtonClose = '<button pgs="button modal-close" pgs-option="buttonIcon buttonMini" type="button" tabindex="0" aria-label="Chiudi"><i pgs="icon" pgs-option="icon-close"></i></button>';
     const modalContentHeader = pgs(DIALOG).querySelector("modal-dialog-content-header");
 
+    //== FOCUS
+    //== with no autofocus element inside, showModal() falls back to focusing the first
+    //== focusable descendant (per the HTML dialog spec), which makes whatever happens to sit
+    //== first — often a plain nav link — look pre-selected. Move focus to the header instead
+    //== (its text is what a screen reader should announce on open), or the dialog itself when
+    //== there's no header; tabindex="-1" keeps it out of the normal tab order.
+    const focusTarget = modalContentHeader || DIALOG;
+    if (!focusTarget.hasAttribute("tabindex")) focusTarget.setAttribute("tabindex", "-1");
+
 
     //== MERGE OPTIONS
     //== an option written on the wrapper or the dialog is read from either one, whichever is
@@ -92,6 +101,8 @@ function initializeModal(MODAL, existingDialog = null) {
         if (!DIALOG.open) document.querySelectorAll("dialog[open]").forEach((dlg) => dlg.close());
         statusModal(true);
         modalTopLevel ? DIALOG.showModal() : DIALOG.show();
+        //== respect an explicit autofocus target inside the dialog when the author set one
+        if (!DIALOG.querySelector("[autofocus]")) focusTarget.focus();
         // modalCustomEvents('modal:open', { event: e });
         MODAL.dispatchEvent(new CustomEvent('modal:open'));
         DIALOG.dispatchEvent(new CustomEvent('modal:open'));

@@ -29,8 +29,14 @@ A surface and its inner text, both recolouring together on hover.
 
 ## Example
 
+## Examples
+
+### Hover
+
+Hovering the surface recolours it and the text marked inside it together.
+
 ```html
-<a pgs="box hover" href="#" demo="component" demo-title="Hover" demo-description="Hovering the surface recolours it and the text marked inside it together.">
+<a pgs="box hover" href="#">
     <strong pgs="hover-text">hover + hover-text</strong>
 </a>
 ```

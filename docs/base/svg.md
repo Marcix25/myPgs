@@ -49,8 +49,14 @@ document.addEventListener("pgs:svg:changeColor", event => console.log(event.deta
 
 ## Example
 
+## Examples
+
+### Theme-aware SVG
+
+Colours are declared on the document as pairs, light value first and dark value second, and every --svg-color-N from 0 to 19 is read. The file must be same-origin, because the pass rewrites the fill and stroke attributes inside its document. The same applies to Lottie files with --lottie-color-N.
+
 ```html
-<div pgs="flexColumn" pgs-option="gapTexts" demo="component" demo-title="Theme-aware SVG" demo-description="Colours are declared on the document as pairs, light value first and dark value second, and every --svg-color-N from 0 to 19 is read. The file must be same-origin, because the pass rewrites the fill and stroke attributes inside its document. The same applies to Lottie files with --lottie-color-N.">
+<div pgs="flexColumn" pgs-option="gapTexts">
 
     <style>
         /* The pairs live on the document, so a single declaration serves every file.

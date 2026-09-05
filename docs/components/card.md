@@ -46,6 +46,8 @@ Standard, clickable, horizontal, and compact cards followed by standard, compact
 
 ## Example
 
+## Examples
+
 ### Standard card
 
 Descriptive card content suitable for lists, previews, and grids.

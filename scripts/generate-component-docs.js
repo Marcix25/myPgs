@@ -726,46 +726,77 @@ function stripDisabledElements(markup) {
     return result.replace(/\n{3,}/g, "\n\n").trim();
 }
 
-//+ pulls out every demo="item" element with its demo-title/demo-description, stripping those attributes from the returned markup
-function extractDemoItems(markup) {
-    const openTagPattern = /<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*\bdemo\s*=\s*["']item["'][^>]*>/g;
-    const items = [];
+//+ true when a demo="component"/"container" wrapper actually has demo="item" descendants, meaning
+//+ it's transparent grouping markup rather than the rendered example itself (shared with
+//+ stripComponentWrapperAttributes's own hasItems check, same rule)
+function hasNestedDemoItems(markup, start, end) {
+    return /\bdemo\s*=\s*["']item["']/.test(markup.slice(start, end));
+}
+
+//+ walks the example markup in document order, matching every <demo demo-h2=.../demo-h3=...>
+//+ marker and every demo="item"/"component"/"container" element as it's encountered. A <demo
+//+ demo-h2> marker becomes its own heading block immediately; a <demo demo-h3> marker is held as
+//+ "pending" until the next titleable leaf consumes it. A demo="component"/"container" wrapper
+//+ that contains demo="item" descendants is transparent — the walk doesn't stop at it, it just
+//+ keeps scanning through its content for the nested demo-h3 + demo="item" pairs, exactly the same
+//+ way stripComponentWrapperAttributes decides whether the wrapper's own attributes are incidental.
+function extractDemoBlocks(markup) {
+    const pattern = /<(demo)\b[^>]*>|<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*\bdemo\s*=\s*["'](item|component|container)["'][^>]*>/g;
+    const blocks = [];
+    let pendingH3 = null;
     let match;
 
-    while ((match = openTagPattern.exec(markup))) {
-        const tagName = match[1];
+    while ((match = pattern.exec(markup))) {
+        if (match[1] === "demo") {
+            const openTagEnd = match.index + match[0].length;
+            const end = findMatchingCloseTag(markup, "demo", openTagEnd);
+            const h2Match = match[0].match(/\bdemo-h2\s*=\s*(["'])((?:(?!\1).)*)\1/);
+            const h3Match = match[0].match(/\bdemo-h3\s*=\s*(["'])((?:(?!\1).)*)\1/);
+            const descriptionMatch = match[0].match(/\bdemo-description\s*=\s*(["'])((?:(?!\1).)*)\1/);
+            const description = descriptionMatch ? descriptionMatch[2] : "";
+
+            if (h2Match) blocks.push({ type: "heading", title: h2Match[2], description });
+            else if (h3Match) pendingH3 = { title: h3Match[2], description };
+
+            pattern.lastIndex = end === -1 ? openTagEnd : end;
+            continue;
+        }
+
+        const tagName = match[2];
+        const kind = match[3];
         const openTagEnd = match.index + match[0].length;
         const end = findMatchingCloseTag(markup, tagName, openTagEnd);
         if (end === -1) {
-            openTagPattern.lastIndex = openTagEnd;
+            pattern.lastIndex = openTagEnd;
             continue;
         }
 
-        //== demo-code="none" says there's nothing worth copying for this item (see demo.js);
-        //== an Example section with no code to show is simply left out
-        if (/\bdemo-code\s*=\s*["']none["']/.test(match[0])) {
-            openTagPattern.lastIndex = end;
+        if (kind !== "item" && hasNestedDemoItems(markup, openTagEnd, end)) {
+            //== transparent wrapper: leave the pending marker alone and keep scanning its content
+            pattern.lastIndex = openTagEnd;
             continue;
         }
-
-        const titleMatch = match[0].match(/\bdemo-title\s*=\s*(["'])((?:(?!\1).)*)\1/);
-        const descriptionMatch = match[0].match(/\bdemo-description\s*=\s*(["'])((?:(?!\1).)*)\1/);
 
         const lineStart = markup.lastIndexOf("\n", match.index) + 1;
         const baseIndent = markup.slice(lineStart, match.index).match(/^[ \t]*$/) ? markup.slice(lineStart, match.index) : "";
         const outer = markup.slice(match.index, end);
         const dedented = baseIndent ? outer.replace(new RegExp(`^${escapeRegExp(baseIndent)}`, "gm"), "") : outer;
 
-        items.push({
-            title: titleMatch ? titleMatch[2] : "",
-            description: descriptionMatch ? descriptionMatch[2] : "",
+        blocks.push({
+            type: "item",
+            title: pendingH3 ? pendingH3.title : "",
+            description: pendingH3 ? pendingH3.description : "",
+            //== demo-code="none" says there's nothing worth copying for this one (see demo.js): the
+            //== heading and description still print, only the fenced code is left out
+            hideCode: /\bdemo-code\s*=\s*["']none["']/.test(match[0]),
             markup: stripDemoAttributesFromMarkup(unwrapScaffold(dedented)).trim(),
         });
+        pendingH3 = null;
 
-        openTagPattern.lastIndex = end;
+        pattern.lastIndex = end;
     }
 
-    return items;
+    return blocks;
 }
 
 function fenceFor(text) {
@@ -831,17 +862,26 @@ function renderMarkdown(template, documentation, markup, allSourceContent) {
     if (jsUsage) sections.push("", "## JavaScript Usage", "", "```js", jsUsage, "```", "");
 
     const exampleMarkup = stripDisabledElements(cleanedMarkup);
-    const demoItems = extractDemoItems(exampleMarkup);
+    const demoBlocks = extractDemoBlocks(exampleMarkup);
 
-    if (demoItems.length > 0 || exampleMarkup) sections.push("", "## Example", "");
+    if (demoBlocks.length > 0 || exampleMarkup) sections.push("", "## Example", "");
 
-    if (demoItems.length > 0) {
-        demoItems.forEach((item, index) => {
+    if (demoBlocks.length > 0) {
+        demoBlocks.forEach((block, index) => {
             if (index > 0) sections.push("");
-            if (item.title) sections.push(`### ${item.title}`, "");
-            if (item.description) sections.push(item.description, "");
-            const itemFence = fenceFor(item.markup);
-            sections.push(`${itemFence}html`, item.markup, itemFence);
+
+            if (block.type === "heading") {
+                sections.push(`## ${block.title}`);
+                if (block.description) sections.push("", block.description);
+                return;
+            }
+
+            if (block.title) sections.push(`### ${block.title}`);
+            if (block.description) sections.push("", block.description);
+            if (block.hideCode) return;
+            sections.push("");
+            const itemFence = fenceFor(block.markup);
+            sections.push(`${itemFence}html`, block.markup, itemFence);
         });
         sections.push("");
     } else if (exampleMarkup) {

@@ -68,6 +68,8 @@ Flex, grid, wrapping, and alignment examples using the current responsive layout
 
 ## Example
 
+## Examples
+
 ### Flex layout
 
 Three-column flex layout using column-2 with m2e to collapse to two columns per row on mobile.

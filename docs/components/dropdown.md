@@ -61,6 +61,8 @@ Series of HTML dropdowns demonstrating the supported placement directions.
 
 ## Example
 
+## Examples
+
 ### Bottom center
 
 Default dropdown placement, opened below and centered on its trigger.

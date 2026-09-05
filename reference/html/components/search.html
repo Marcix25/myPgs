@@ -60,13 +60,16 @@
  */
 -->
 
-<form pgs="button search" pgs-option="buttonNohover searchPlaceholder[Type a component name] searchNoResults[No component matches]" autocomplete="off" action="" method="get" demo="component" demo-title="Inline search" demo-description="Search field with live suggestions embedded directly in the page.">
+<demo demo-h2="Examples"></demo>
+<demo demo-h3="Inline search" demo-description="Search field with live suggestions embedded directly in the page."></demo>
+<form pgs="button search" pgs-option="buttonNohover searchPlaceholder[Type a component name] searchNoResults[No component matches]" autocomplete="off" action="" method="get" demo="component">
     <button type="submit" title="Search"><i pgs="icon" pgs-option="icon-magnifyingGlass"></i></button>
     <input type="search" name="s" placeholder="Search" value="">
     <ul pgs="search-suggestions"></ul>
 </form>
 
-<div pgs="modal search-modal" pgs-option="modalContainerPGS[header]" demo="component" demo-title="Mobile search overlay" demo-description="Search opened from an icon button inside a full-width modal, intended for the mobile navigation.">
+<demo demo-h3="Mobile search overlay" demo-description="Search opened from an icon button inside a full-width modal, intended for the mobile navigation."></demo>
+<div pgs="modal search-modal" pgs-option="modalContainerPGS[header]" demo="component">
 
     <button type="button" pgs="modal-button button" pgs-option="buttonIcon" title="Search">
         <i pgs="icon" pgs-option="icon-magnifyingGlass"></i>

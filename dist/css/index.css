@@ -2355,10 +2355,9 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=pageShell] {
   --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-padding-inline) * 2));
-  --pageShell-margin-top: 0px;
   --pageShell-sizeMaskImage: 40px;
   --pageShell-padding-inline: var(--padding-page);
-  --pageShell-padding-top: calc(var(--page-top) - var(--pageShell-margin-top));
+  --pageShell-padding-top: var(--page-top);
   --pageShell-padding-bottom: var(--gap-elements);
   --pageShell-gap: var(--gap-elements);
   --pageShell-content-width: var(--page-width);
@@ -2370,7 +2369,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   grid-template-areas: "content";
   gap: var(--pageShell-gap);
   margin-inline: auto;
-  margin-top: var(--pageShell-margin-top);
   align-items: start;
   justify-content: center;
   width: 100%;
@@ -2533,7 +2531,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 [pgs~=pageShell][pgs-option~=pageShellFullPage] {
   --pageShell-width: 100%;
-  --pageShell-padding-inline: var(--padding);
 }
 
 [pgs~=pageShell][pgs-option~=pageShellFullPage] [pgs~=pageShell-content] {
@@ -6271,6 +6268,10 @@ html:has(dialog[open]) {
   cursor: pointer;
 }
 
+:where(dialog[pgs~=modal-dialog]):focus {
+  outline: none;
+}
+
 :where(dialog[pgs~=modal-dialog]):open {
   display: flex;
   align-items: safe flex-start;
@@ -6315,6 +6316,10 @@ html:has(dialog[open]) {
   border-bottom: var(--border-complete);
   border-radius: var(--modal-borderRadius) var(--modal-borderRadius) 0 0;
   z-index: 1;
+}
+
+:where(dialog[pgs~=modal-dialog]) [pgs~=modal-dialog-content] [pgs~=modal-dialog-content-header]:focus {
+  outline: none;
 }
 
 :where(dialog[pgs~=modal-dialog]) [pgs~=modal-dialog-content] [pgs~=modal-dialog-content-header] [pgs~=modal-close] {

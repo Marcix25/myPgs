@@ -52,6 +52,8 @@ One example per query type, resizing with the viewport and with a local containe
 
 ## Example
 
+## Examples
+
 ### Viewport visibility
 
 hideMediaDown* and hideMediaUp* read the viewport width, so they answer to the browser window whatever the element is nested in. Resize the window to see them appear and disappear.

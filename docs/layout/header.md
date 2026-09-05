@@ -94,8 +94,14 @@ Complete header HTML with full navigation and a side compact panel.
 
 ## Example
 
+## Examples
+
+### Header
+
+Full navigation on the left, always-visible controls on the right, and the same links behind the hamburger once the header turns compact.
+
 ```html
-<header pgs="header" demo="component" demo-title="Header" demo-description="Full navigation on the left, always-visible controls on the right, and the same links behind the hamburger once the header turns compact.">
+<header pgs="header">
 	<div pgs="header-element blur">
 		<div pgs="header-element-alwaysOn">
 			<a aria-label="Logo" pgs="logo" href="/">

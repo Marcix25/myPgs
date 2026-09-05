@@ -269,7 +269,7 @@ const demoRenderer = {
     },
 
     stripDemoAttributes(node) {
-        ["demo", "demo-title", "demo-description", "demo-preview", "demo-code"].forEach(attribute => {
+        ["demo", "demo-preview", "demo-code"].forEach(attribute => {
             node.removeAttribute(attribute);
             node.querySelectorAll(`[${attribute}]`).forEach(el => el.removeAttribute(attribute));
         });
@@ -285,6 +285,7 @@ const demoRenderer = {
 
         if (title) {
             const el = document.createElement(level);
+            el.className = `demoContent-heading-${level}`;
             el.textContent = title;
             heading.append(el);
         }
@@ -296,13 +297,13 @@ const demoRenderer = {
         section.append(heading);
     },
 
-    renderDemoItem(section, node) {
+    renderDemoItem(section, node, title, description) {
         const group = document.createElement("div");
         group.classList.add("demo-item");
         group.setAttribute("pgs", "flexColumn");
         group.setAttribute("pgs-option", "gapElements");
 
-        this.renderDemoHeading(group, node.getAttribute("demo-title"), node.getAttribute("demo-description"), "h3");
+        this.renderDemoHeading(group, title, description, "h3");
 
         //== demo-preview="none" is the mirror of demo="disabled": markup that only carries a payload
         //== is consumed on init (notificationLoad, toastLoad) and would leave an empty box behind.
@@ -410,18 +411,68 @@ const demoRenderer = {
         });
     },
 
+    //= Walks a root node's children in document order (browser-side port of extractDemoBlocks in
+    //= scripts/generate-component-docs.js — keep both in sync). A <demo demo-h2="..."> marker
+    //= becomes a heading block right where it sits; a <demo demo-h3="..."> marker is held as
+    //= "pending" until the next titleable leaf consumes it. A demo="component"/"container" wrapper
+    //= that itself contains demo="item" descendants is transparent grouping markup — the walk
+    //= recurses into its children instead of treating the wrapper as one block, exactly like the
+    //= Node-side hasNestedDemoItems check.
+    extractDemoBlocks(rootNode) {
+        const blocks = [];
+        let pendingH3 = null;
+
+        const walk = nodes => {
+            nodes.forEach(node => {
+                if (node.nodeType !== Node.ELEMENT_NODE) return;
+
+                if (node.tagName === "DEMO") {
+                    const h2 = node.getAttribute("demo-h2");
+                    const h3 = node.getAttribute("demo-h3");
+                    const description = node.getAttribute("demo-description") || "";
+                    if (h2 !== null) blocks.push({ type: "heading", title: h2, description });
+                    else if (h3 !== null) pendingH3 = { title: h3, description };
+                    return;
+                }
+
+                const demoAttr = node.getAttribute("demo");
+                const isLeaf = demoAttr === "item"
+                    || ((demoAttr === "component" || demoAttr === "container") && !node.querySelector('[demo="item"]'));
+
+                //== anything that isn't itself a titleable leaf is transparent: a plain wrapper with
+                //== no demo attribute at all (e.g. formAddon.html's untagged <section> grouping two
+                //== chip fieldsets), same as a demo="component"/"container" that has item descendants
+                if (!isLeaf) {
+                    walk(Array.from(node.childNodes));
+                    return;
+                }
+
+                blocks.push({
+                    type: "item",
+                    node,
+                    title: pendingH3 ? pendingH3.title : "",
+                    description: pendingH3 ? pendingH3.description : "",
+                });
+                pendingH3 = null;
+            });
+        };
+
+        walk(Array.from(rootNode.childNodes));
+        return blocks;
+    },
+
     //= Splits markup tagged with demo="component"|"container"/demo="item" into one live-preview +
-    //= code pair per item, falling back to a single whole-markup pair for reference files that don't
-    //= use those tags yet. "container" is the same grouping wrapper as "component", just naming
-    //= upfront that it's plain demo layout rather than something meant to be authored.
+    //= code pair per item (titled by a preceding <demo demo-h2/demo-h3> marker, see
+    //= extractDemoBlocks), falling back to a single whole-markup pair for reference files that
+    //= don't use those tags yet.
     renderExamplePairs(section, path, markup) {
         if (!markup.trim()) return;
 
         const template = document.createElement("template");
         template.innerHTML = markup;
 
-        const components = Array.from(template.content.querySelectorAll('[demo="component"], [demo="container"]'));
-        if (!components.length) {
+        const blocks = this.extractDemoBlocks(template.content);
+        if (!blocks.length) {
             //== the live preview always renders the full original markup; demo="disabled" only
             //== affects the "Example HTML" code block below it, never what actually runs in the demo
             this.renderReference(section, path, markup);
@@ -431,16 +482,12 @@ const demoRenderer = {
             return;
         }
 
-        components.forEach(component => {
-            const items = Array.from(component.querySelectorAll('[demo="item"]'));
-
-            //== with no items the component is its own item, and renderDemoItem already prints
-            //== that node's title and description: printing them here too would duplicate them
-            if (items.length) {
-                this.renderDemoHeading(section, component.getAttribute("demo-title"), component.getAttribute("demo-description"), "h2");
+        blocks.forEach(block => {
+            if (block.type === "heading") {
+                this.renderDemoHeading(section, block.title, block.description, "h2");
+                return;
             }
-
-            (items.length ? items : [component]).forEach(node => this.renderDemoItem(section, node));
+            this.renderDemoItem(section, block.node, block.title, block.description);
         });
     },
 
@@ -451,6 +498,7 @@ const demoRenderer = {
         header.setAttribute("pgs-option", "gapTexts");
 
         const heading = document.createElement("h1");
+        heading.className = "demoContent-heading-h1";
         heading.textContent = title;
         header.append(heading);
 

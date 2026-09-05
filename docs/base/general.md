@@ -37,6 +37,8 @@ One example per utility, grouped by shadow, interaction, images, lists and colou
 
 ## Example
 
+## Examples
+
 ### Shadow
 
 The shared shadow tokens, one for a surface and one for text.

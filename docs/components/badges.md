@@ -38,6 +38,8 @@ HTML examples of the available badge variants.
 
 ## Example
 
+## Examples
+
 ### Base
 
 Default badge variant with no color emphasis.

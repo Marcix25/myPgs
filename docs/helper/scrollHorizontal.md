@@ -31,49 +31,12 @@ Two horizontally-scrolling rows: one where any vertical wheel motion scrolls sid
 
 ## Example
 
-```html
-<div pgs="flexRow overflowXAuto" pgs-option="gapTexts nowrap" id="pgsScrollDemo" demo="component" demo-code="none" demo-title="Any input device" demo-description="pgs.scrollHorizontal converts a mouse wheel, a trackpad, or a Magic Mouse alike.">
-    <article pgs="card" style="flex-shrink: 0; min-width: 180px;">
-        <img pgs="card-img imgCover" src="https://placehold.net/600x400.png" alt="Slide 1">
-        <div pgs="card-content">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div>
-    </article>
+## Examples
 
-    <article pgs="card" style="flex-shrink: 0; min-width: 180px;">
-        <img pgs="card-img imgCover" src="https://placehold.net/600x400.png" alt="Slide 2">
-        <div pgs="card-content">
-            <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
-        </div>
-    </article>
+### Any input device
 
-    <article pgs="card" style="flex-shrink: 0; min-width: 180px;">
-        <img pgs="card-img imgCover" src="https://placehold.net/600x400.png" alt="Slide 3">
-        <div pgs="card-content">
-            <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
-        </div>
-    </article>
+pgs.scrollHorizontal converts a mouse wheel, a trackpad, or a Magic Mouse alike.
 
-    <article pgs="card" style="flex-shrink: 0; min-width: 180px;">
-        <img pgs="card-img imgCover" src="https://placehold.net/600x400.png" alt="Slide 4">
-        <div pgs="card-content">
-            <p>Duis aute irure dolor in reprehenderit in voluptate.</p>
-        </div>
-    </article>
-</div>
+### Mouse only
 
-<div pgs="flexRow overflowXAuto" pgs-option="gapTexts nowrap" id="pgsScrollWithMouseDemo" demo="component" demo-code="none" demo-title="Mouse only" demo-description="pgs.scrollHorizontalWithMouse ignores a trackpad or Magic Mouse; only a plain mouse wheel scrolls this row.">
-    <img pgs="imgCover" src="https://placehold.net/600x400.png" alt="Slide 1" style="flex-shrink: 0; border-radius: var(--border-radius);">
-    <img pgs="imgCover" src="https://placehold.net/600x400.png" alt="Slide 2" style="flex-shrink: 0; border-radius: var(--border-radius);">
-    <img pgs="imgCover" src="https://placehold.net/600x400.png" alt="Slide 3" style="flex-shrink: 0; border-radius: var(--border-radius);">
-    <img pgs="imgCover" src="https://placehold.net/600x400.png" alt="Slide 4" style="flex-shrink: 0; border-radius: var(--border-radius);">
-    <img pgs="imgCover" src="https://placehold.net/600x400.png" alt="Slide 5" style="flex-shrink: 0; border-radius: var(--border-radius);">
-</div>
-
-<script type="module">
-    import { pgs } from "mypgs";
-
-    pgs.scrollHorizontal(document.getElementById("pgsScrollDemo"), 5);
-    pgs.scrollHorizontalWithMouse(document.getElementById("pgsScrollWithMouseDemo"), 5);
-</script>
-```
+pgs.scrollHorizontalWithMouse ignores a trackpad or Magic Mouse; only a plain mouse wheel scrolls this row.

@@ -79,6 +79,8 @@ One example per glyph, the sizing and colour behaviour, and the surface a glyph 
 
 ## Example
 
+## Examples
+
 ### The set
 
 Every glyph the library can draw. The token marks the element, the option names the glyph.

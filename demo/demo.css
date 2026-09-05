@@ -260,3 +260,12 @@ body {
         margin-bottom: calc((var(--gap-elements) * -1) + var(--gap-texts));
     }
 }
+
+
+.demoContent-heading-h2 {
+    margin-top: calc(var(--gap-sections) - var(--gap-elements));
+}
+
+.demoContent-heading-h3 {
+    margin-top: var(--gap-elements);
+}

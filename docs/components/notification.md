@@ -122,6 +122,8 @@ pgs.notification.success({
 
 ## Example
 
+## Examples
+
 ### Bell
 
 The control that opens and closes the panel, and the only markup this component needs on the page. Wrap it in a modal and pgs.notification builds the dialog inside it on its own.

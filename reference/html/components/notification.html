@@ -61,7 +61,9 @@
 
 <div pgs="flexColumn" pgs-option="gapSections" demo="container">
 
-    <section pgs="flexColumn" pgs-option="gapTexts" demo="item" demo-code="children" demo-title="Bell" demo-description="The control that opens and closes the panel, and the only markup this component needs on the page. Wrap it in a modal and pgs.notification builds the dialog inside it on its own.">
+    <demo demo-h2="Examples"></demo>
+    <demo demo-h3="Bell" demo-description="The control that opens and closes the panel, and the only markup this component needs on the page. Wrap it in a modal and pgs.notification builds the dialog inside it on its own."></demo>
+    <section pgs="flexColumn" pgs-option="gapTexts" demo="item" demo-code="children">
         <div pgs="modal">
             <button type="button" pgs="modal-button modal-close button notificationBell" pgs-option="buttonIcon" aria-label="Open notifications">
                 <i pgs="icon" pgs-option="icon-bell"></i>
@@ -71,9 +73,11 @@
     </section>
 
 </div>
-<div pgs="flexColumn" pgs-option="gapSections" demo="component" demo-title="Type">
+<demo demo-h3="Type"></demo>
+<div pgs="flexColumn" pgs-option="gapSections" demo="component">
 
-    <section pgs="flexColumn" pgs-option="gapTexts" demo="item" demo-code="children" demo-title="Success" demo-description="A completed operation. The element is hidden and consumed on load: the notification it describes is moved into the panel." demo-preview="none">
+    <demo demo-h3="Success" demo-description="A completed operation. The element is hidden and consumed on load: the notification it describes is moved into the panel."></demo>
+    <section pgs="flexColumn" pgs-option="gapTexts" demo="item" demo-code="children" demo-preview="none">
         <div pgs="hidden notificationLoad" pgs-option='notification[{
             "title": "Profile approved",
             "description": "Your profile has been reviewed and approved.",
@@ -83,7 +87,8 @@
         }]'></div>
     </section>
 
-    <section pgs="flexColumn" pgs-option="gapTexts" demo="item" demo-code="children" demo-title="Error" demo-description="A failure the user has to know about, with a button to try the operation again." demo-preview="none">
+    <demo demo-h3="Error" demo-description="A failure the user has to know about, with a button to try the operation again."></demo>
+    <section pgs="flexColumn" pgs-option="gapTexts" demo="item" demo-code="children" demo-preview="none">
         <div pgs="hidden notificationLoad" pgs-option='notification[{
             "title": "Something went wrong",
             "description": "Please try again later.",
@@ -93,7 +98,8 @@
         }]'></div>
     </section>
 
-    <section pgs="flexColumn" pgs-option="gapTexts" demo="item" demo-code="children" demo-title="Warning" demo-description="Something is missing but nothing is broken, so the button leads to where it can be completed." demo-preview="none">
+    <demo demo-h3="Warning" demo-description="Something is missing but nothing is broken, so the button leads to where it can be completed."></demo>
+    <section pgs="flexColumn" pgs-option="gapTexts" demo="item" demo-code="children" demo-preview="none">
         <div pgs="hidden notificationLoad" pgs-option='notification[{
             "title": "Your profile is incomplete",
             "description": "Complete your profile to unlock all features.",
@@ -103,7 +109,8 @@
         }]'></div>
     </section>
 
-    <section pgs="flexColumn" pgs-option="gapTexts" demo="item" demo-code="children" demo-title="Info with several buttons" demo-description="Buttons carrying an id instead of a link dispatch pgs:notification:buttonClick with that id, which is how a question is answered without leaving the page." demo-preview="none">
+    <demo demo-h3="Info with several buttons" demo-description="Buttons carrying an id instead of a link dispatch pgs:notification:buttonClick with that id, which is how a question is answered without leaving the page."></demo>
+    <section pgs="flexColumn" pgs-option="gapTexts" demo="item" demo-code="children" demo-preview="none">
         <div pgs="hidden notificationLoad" pgs-option='notification[{
             "title": "Are you enjoying the portal?",
             "description": "Your feedback helps us improve.",

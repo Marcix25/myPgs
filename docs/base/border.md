@@ -64,6 +64,8 @@ One example per utility, grouped by border, outline and radius.
 
 ## Example
 
+## Examples
+
 ### Border
 
 A line drawn on the edge of the box, taking its space in the layout. It comes one side at a time as well, named like the margin and padding utilities. Recolour it with a br* utility from Colors, and change its weight with a thickness option.

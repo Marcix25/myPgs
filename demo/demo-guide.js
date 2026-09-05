@@ -13,6 +13,7 @@ const DemoGuide = {
         header.setAttribute("pgs-option", "gapTexts");
 
         const heading = document.createElement("h1");
+        heading.className = "demoContent-heading-h1";
         heading.textContent = data?.title || "";
         header.append(heading);
 
