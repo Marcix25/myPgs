@@ -1,7 +1,6 @@
 @use "../mixin/mixin" as *;
 
 [pgs~=cookieConsent] {
-    //option for suggestions
     display: flex;
     flex-direction: column;
     gap: var(--gap-);
@@ -11,9 +10,6 @@
     >* {
         box-sizing: border-box;
     }
-
-    //+ option
-    &[pgs-option~="cookieConsent[]"] {}
 
     &[hidden] {
         display: none !important;
@@ -28,17 +24,6 @@
     &[aria-hidden="false"] {
         transform: translate3d(0, 0, 0);
         opacity: 1;
-    }
-
-    // //- mobile 
-    // @media (max-width: $mobile) {
-    //     inset: auto 16px 16px 16px;
-    //     width: auto;
-    //     padding: var(--padding-2, 1.5rem);
-    // }
-    i,
-    [pgs~=icon] {
-        --icon-size: 2.5rem;
     }
 
     h2 {
@@ -73,6 +58,7 @@
     }
 
     @container (max-width: #{$mobile}) {
+
         //== same specificity as the Reject/Accept rules above, so this actually wins
         button[pgs~=_cookieConsent-actionReject],
         button[pgs~=_cookieConsent-actionAccept] {
@@ -90,6 +76,10 @@
 
     [pgs~=modal-close] {
         display: none;
+    }
+
+    [pgs~=_cookieConsent-header] {
+        --icon-size: 2.5rem;
     }
 
     [pgs~=_cookieConsent-panel] {
@@ -115,4 +105,7 @@
         opacity: 0.5;
         cursor: not-allowed;
     }
+
+    //+ option
+    &[pgs-option~="cookieConsent[]"] {}
 }

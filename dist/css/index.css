@@ -6349,7 +6349,6 @@ html:has(dialog[open]) {
   overflow-y: auto;
   height: auto;
   z-index: auto;
-  inset: unset;
   align-items: safe flex-start;
 }
 
@@ -7567,11 +7566,6 @@ dialog [pgs~=search] [pgs~=modal-close] {
   opacity: 1;
 }
 
-[pgs~=cookieConsent] i,
-[pgs~=cookieConsent] [pgs~=icon] {
-  --icon-size: 2.5rem;
-}
-
 [pgs~=cookieConsent] h2 {
   font-size: 1.45rem;
   margin: 0;
@@ -7617,6 +7611,10 @@ dialog [pgs~=search] [pgs~=modal-close] {
 
 [pgs~=cookieConsent] [pgs~=modal-close] {
   display: none;
+}
+
+[pgs~=cookieConsent] [pgs~=_cookieConsent-header] {
+  --icon-size: 2.5rem;
 }
 
 [pgs~=cookieConsent] [pgs~=_cookieConsent-panel] {

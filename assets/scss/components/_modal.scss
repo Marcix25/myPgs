@@ -129,7 +129,6 @@ html:has(dialog[open]) {
         overflow-y: auto;
         height: auto;
         z-index: auto;
-        inset: unset;
         align-items: safe flex-start;
     }
 

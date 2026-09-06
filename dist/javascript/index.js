@@ -4565,12 +4565,10 @@ function buildCookieConsent(marker) {
     root.innerHTML = `
         <dialog pgs-option="modalTopLevel modalBottom modalRight modalMedium">
             <div pgs="modal-dialog-content">
-                <div pgs="flexColumn">
-                    <p><i pgs="icon" pgs-option="icon-cookie"></i> ${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.titleIntro)} <br></p>
+                <div pgs="_cookieConsent-header flexColumn">
+                    <p pgs="flexRow" pgs-option="itemCenter"><i pgs="icon" pgs-option="icon-cookie"></i> ${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.titleIntro)}</p>
                     <h2>${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.titleHeading)}</h2>
-
                     <p>${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.description)}</p>
-
                     <p>
                         <a href="${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_escapeHtml)(config.privacyPolicyUrl)}" target="_blank" rel="noopener">Privacy Policy</a> -
                         <a href="${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_escapeHtml)(config.cookiePolicyUrl)}" target="_blank" rel="noopener">Cookie Policy</a>

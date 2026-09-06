@@ -534,6 +534,7 @@
         "pgs-generated": [
             "_cookieConsent-actionAccept",
             "_cookieConsent-actionReject",
+            "_cookieConsent-header",
             "_cookieConsent-panel",
             "_cookieConsent-panel-badge",
             "_cookieConsent-panel-featureAnalytics",
