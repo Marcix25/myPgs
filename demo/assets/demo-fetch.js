@@ -651,7 +651,7 @@ const demoRenderer = {
             else modal.removeAttribute("pgs-option");
         });
 
-        //== every notificationBell shares one "notifications" container/panel: with several bells
+        //== every notificationBell shares one "_notifications" container/panel: with several bells
         //== rendered at once (the header pattern demo, the notification component's own demo) only
         //== one can own it. The notification component's own demo is the one meant to actually
         //== work, so its bell keeps its modal role and every other bell defers to it (see
@@ -771,7 +771,7 @@ const demoRenderer = {
     },
 
     async loadReference(path) {
-        const response = await fetch(`../reference/html/${path}`);
+        const response = await fetch(`../../reference/html/${path}`);
         if (!response.ok) throw new Error(`${path}: ${response.status}`);
 
         //== dev servers with live reload inject their own script into every file they serve
@@ -786,7 +786,7 @@ const demoRenderer = {
     async getCompiledCss() {
         if (this._compiledCss === undefined) {
             try {
-                const response = await fetch("../dist/css/index.css");
+                const response = await fetch("../../dist/css/index.css");
                 this._compiledCss = response.ok ? await response.text() : "";
             } catch (error) {
                 console.error("Compiled CSS non caricato.", error);
@@ -812,7 +812,7 @@ const demoRenderer = {
         //== generate-guide-docs.js, since its richer layout doesn't fit the guide prose vocabulary),
         //== fetched directly like every other panel
         try {
-            const response = await fetch("../reference/html/guides/welcome.html");
+            const response = await fetch("../../reference/html/guides/welcome.html");
             if (!response.ok) throw new Error(`welcome.html: ${response.status}`);
 
             const panel = document.createElement("div");
@@ -828,7 +828,7 @@ const demoRenderer = {
             console.error("Welcome panel non caricato.", error);
         }
 
-        //== header and footer are written straight into demo.html, so here they are just
+        //== header and footer are written straight into demo.structure.html, so here they are just
         //== two more reference panels: they show up in the nav like every other layout
         for (const path of this.referenceFiles) {
 
@@ -855,16 +855,6 @@ const demoRenderer = {
                 const html = await this.loadReference(path);
                 const { data, markup } = this.parseDocumentation(html);
                 if (data?.title) title = data.title;
-
-                //== a guide is prose, not a component demo: it renders straight into the page with
-                //== no doc-tag block and no "Example HTML" below it, entirely in demo-guide.js
-                if (path.startsWith("guides/")) {
-                    DemoGuide.render(section, data, markup);
-                    panel.append(section);
-                    MAIN.append(panel);
-                    menuEntries.push({ path, title });
-                    continue;
-                }
 
                 this.renderHeader(section, title, data?.description);
                 await this.renderDocumentation(section, data, markup, path);
@@ -1025,7 +1015,7 @@ function configureNotificationDemo() {
     if (!pgsApi?.notification || !section) return;
 
     //== isolateDemoModals kept the modal role only on this section's own bell, since every bell
-    //== shares one "notifications" container/panel: every other demo bell proxies its click here.
+    //== shares one "_notifications" container/panel: every other demo bell proxies its click here.
     const realBell = section.querySelector('[pgs~="notificationBell"]');
     document.querySelectorAll('[pgs~="notificationBell"]').forEach(bell => {
         if (bell === realBell) return;

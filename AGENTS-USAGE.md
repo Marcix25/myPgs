@@ -157,7 +157,7 @@ The installed package's `reference/html/` files are the single source of truth f
 
 Use layout references from `reference/html/layout/`, component references from `reference/html/components/`, and pattern references from `reference/html/patterns/`.
 
-`demo/demo.html` is only a complete assembly of the modules and must not be used as the canonical component reference.
+`demo/` is only a complete assembly of the modules and must not be used as the canonical component reference.
 
 ## 8. Consumer Checklist
 

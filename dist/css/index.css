@@ -9,6 +9,10 @@
 */
 :where([pgs~=htmlBase]):root {
   --font: 'Urbanist', sans-serif;
+  --font-weight-title: 800;
+  --font-weight-bold: 600;
+  --font-weight-text: 500;
+  --font-size-text: 1.6rem;
   --font-titoli: var(--font);
   --padding: 30px;
   --padding-2: calc(var(--padding)/2);
@@ -23,16 +27,16 @@
   --outline-width: 1.5px;
   --outline-style: solid;
   --outline-color: light-dark(#ebebeb, #353535);
-  --box-shadow: 0px 0px 38px 0px #0000000d;
-  --text-shadow: 0px 0px 4px #00000040, 0px 0px 4px #0000002d;
-  --backdrop: #0000007a;
-  --blur: blur(20px);
   --page-top: calc(var(--heightOfHeader) + 7lvh);
   --page-topScroll: calc(var(--heightOfHeaderScroll) + var(--heightOfHeader));
   --page-width: 1280px;
   --gap-texts: 1.0rem;
   --gap-elements: 4.0rem;
   --gap-sections: calc(1.0rem + 15svh);
+  --box-shadow: 0px 0px 38px 0px #0000000d;
+  --text-shadow: 0px 0px 4px #00000040, 0px 0px 4px #0000002d;
+  --backdrop: #0000007a;
+  --blur: blur(20px);
   --icon-size: inherit;
   --focus-visible: 3px solid var(--color-focus);
   --heightOfHeader: 6.8rem;
@@ -109,8 +113,9 @@
 }
 
 :where([pgs~=htmlBase]) {
+  --font-rem-base: 62.5%;
   scroll-behavior: smooth;
-  font-size: 62.5%;
+  font-size: var(--font-rem-base);
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -206,11 +211,10 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 :where([pgs~=bodyText]) {
-  letter-spacing: 0.4px;
   color: var(--color-black);
   font-family: var(--font);
-  font-weight: 500;
-  font-size: 1.6rem;
+  font-weight: var(--font-weight-text);
+  font-size: var(--font-size-text);
   font-optical-sizing: auto;
   font-style: normal;
 }
@@ -226,18 +230,20 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 :where([pgs~=bodyText]) p a {
+  text-decoration: none;
+  overflow-wrap: anywhere;
   color: var(--color-link);
+}
+
+:where([pgs~=bodyText]) p a:where(:hover) {
+  background-color: var(--color-link-soft);
+  border-radius: 5px;
 }
 
 :where([pgs~=bodyText]) a {
   text-decoration: none;
   overflow-wrap: anywhere;
   color: var(--color-link);
-}
-
-:where([pgs~=bodyText]) a:where(:hover) {
-  background-color: var(--color-link-soft);
-  border-radius: 5px;
 }
 
 :where([pgs~=bodyText]) a img,
@@ -259,17 +265,17 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 @media (max-width: 800px) {
   :where([pgs~=bodyHeading]) h1 {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 8vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 8vw, var(--heading-size));
   }
 }
 @media (max-width: 430px) {
   :where([pgs~=bodyHeading]) h1 {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 5vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 5vw, var(--heading-size));
   }
 }
 @media (max-width: 315px) {
   :where([pgs~=bodyHeading]) h1 {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 2.5vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 2.5vw, var(--heading-size));
   }
 }
 @container (max-width: 800px) {
@@ -290,17 +296,17 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 @media (max-width: 800px) {
   :where([pgs~=bodyHeading]) h2 {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 8vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 8vw, var(--heading-size));
   }
 }
 @media (max-width: 430px) {
   :where([pgs~=bodyHeading]) h2 {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 5vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 5vw, var(--heading-size));
   }
 }
 @media (max-width: 315px) {
   :where([pgs~=bodyHeading]) h2 {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 2.5vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 2.5vw, var(--heading-size));
   }
 }
 @container (max-width: 800px) {
@@ -321,17 +327,17 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 @media (max-width: 800px) {
   :where([pgs~=bodyHeading]) h3 {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 8vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 8vw, var(--heading-size));
   }
 }
 @media (max-width: 430px) {
   :where([pgs~=bodyHeading]) h3 {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 5vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 5vw, var(--heading-size));
   }
 }
 @media (max-width: 315px) {
   :where([pgs~=bodyHeading]) h3 {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 2.5vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 2.5vw, var(--heading-size));
   }
 }
 @container (max-width: 800px) {
@@ -352,17 +358,17 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 @media (max-width: 800px) {
   :where([pgs~=bodyHeading]) h4 {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 8vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 8vw, var(--heading-size));
   }
 }
 @media (max-width: 430px) {
   :where([pgs~=bodyHeading]) h4 {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 5vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 5vw, var(--heading-size));
   }
 }
 @media (max-width: 315px) {
   :where([pgs~=bodyHeading]) h4 {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 2.5vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 2.5vw, var(--heading-size));
   }
 }
 @container (max-width: 800px) {
@@ -383,17 +389,17 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 @media (max-width: 800px) {
   :where([pgs~=bodyHeading]) h5 {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 8vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 8vw, var(--heading-size));
   }
 }
 @media (max-width: 430px) {
   :where([pgs~=bodyHeading]) h5 {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 5vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 5vw, var(--heading-size));
   }
 }
 @media (max-width: 315px) {
   :where([pgs~=bodyHeading]) h5 {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 2.5vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 2.5vw, var(--heading-size));
   }
 }
 @container (max-width: 800px) {
@@ -414,17 +420,17 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 @media (max-width: 800px) {
   [pgs~=h1] {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 8vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 8vw, var(--heading-size));
   }
 }
 @media (max-width: 430px) {
   [pgs~=h1] {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 5vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 5vw, var(--heading-size));
   }
 }
 @media (max-width: 315px) {
   [pgs~=h1] {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 2.5vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 2.5vw, var(--heading-size));
   }
 }
 @container (max-width: 800px) {
@@ -445,17 +451,17 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 @media (max-width: 800px) {
   [pgs~=h2] {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 8vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 8vw, var(--heading-size));
   }
 }
 @media (max-width: 430px) {
   [pgs~=h2] {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 5vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 5vw, var(--heading-size));
   }
 }
 @media (max-width: 315px) {
   [pgs~=h2] {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 2.5vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 2.5vw, var(--heading-size));
   }
 }
 @container (max-width: 800px) {
@@ -476,17 +482,17 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 @media (max-width: 800px) {
   [pgs~=h3] {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 8vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 8vw, var(--heading-size));
   }
 }
 @media (max-width: 430px) {
   [pgs~=h3] {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 5vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 5vw, var(--heading-size));
   }
 }
 @media (max-width: 315px) {
   [pgs~=h3] {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 2.5vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 2.5vw, var(--heading-size));
   }
 }
 @container (max-width: 800px) {
@@ -507,17 +513,17 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 @media (max-width: 800px) {
   [pgs~=h4] {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 8vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 8vw, var(--heading-size));
   }
 }
 @media (max-width: 430px) {
   [pgs~=h4] {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 5vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 5vw, var(--heading-size));
   }
 }
 @media (max-width: 315px) {
   [pgs~=h4] {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 2.5vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 2.5vw, var(--heading-size));
   }
 }
 @container (max-width: 800px) {
@@ -538,17 +544,17 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 @media (max-width: 800px) {
   [pgs~=h5] {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 8vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 8vw, var(--heading-size));
   }
 }
 @media (max-width: 430px) {
   [pgs~=h5] {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 5vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 5vw, var(--heading-size));
   }
 }
 @media (max-width: 315px) {
   [pgs~=h5] {
-    font-size: clamp(1.6rem, var(--heading-size) / 3 + 2.5vw, var(--heading-size));
+    font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 2.5vw, var(--heading-size));
   }
 }
 @container (max-width: 800px) {
@@ -584,6 +590,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=list] :is(ul), [pgs~=list]:is(ul) {
   list-style: disc;
+  margin-left: 25px;
 }
 
 [pgs~=list] :is(ul) > li, [pgs~=list]:is(ul) > li {
@@ -609,8 +616,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=list] li {
   display: list-item;
-  padding-left: 5px;
-  margin-left: 21px;
   margin-top: calc(var(--gap-texts) / 2);
   color: var(--color-text);
 }
@@ -2623,14 +2628,13 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --icon: var(--icon-close);
 }
 
-[pgs~=header] dialog[pgs~=modal-dialogpopover],
 [pgs~=header] dialog[pgs~=modal-dialog] {
+  --modal-backdrop: var(--color-white);
+  --modal-background: var(--color-white);
   -webkit-backdrop-filter: var(--blur);
   backdrop-filter: var(--blur);
-  --modal-padding: 10px;
 }
 
-[pgs~=header] dialog[pgs~=modal-dialogpopover][open],
 [pgs~=header] dialog[pgs~=modal-dialog][open] {
   z-index: -1;
 }
@@ -2703,45 +2707,34 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   transition: padding 300ms, background-color 1000ms;
 }
 
-[pgs~=header][pgs-state~=compact][pgs-option~=headerCompactBottom] dialog[pgs~=modal-dialogpopover],
-[pgs~=header][pgs-state~=compact][pgs-option~=headerCompactBottom] dialog[pgs~=modal-dialog] {
-  padding-top: var(--gap-texts);
-  padding-bottom: var(--heightOfHeader);
-}
-
 [pgs~=footer] {
-  --footer-color: var(--color-whiteFixed);
-  --footer-background: var(--color-blackFixed);
+  --footer-color: var(--color-black);
+  --footer-background: linear-gradient(360deg, var(--color-primary-soft), transparent);
+  --footer-colorScheme: inherit;
   background: var(--footer-background);
   color: var(--footer-color);
+  color-scheme: var(--footer-colorScheme);
   background-size: cover;
-  background-attachment: fixed;
-  background-position: top;
   container-type: inline-size;
-  color-scheme: dark;
   position: relative;
   isolation: isolate;
 }
 
-[pgs~=footer] [pgs~=toggleDarkmode] {
-  position: absolute;
-  right: calc(20px + 5vw);
-  top: 0;
-  translate: 0 -50%;
-  z-index: 1;
-}
-
 [pgs~=footer] [pgs~=toggleDarkmode]::after {
-  content: "Switch to dark mode";
+  content: "Dark mode";
 }
 
 :root[pgs-state~=darkmode] [pgs~=footer] [pgs~=toggleDarkmode]::after {
-  content: "Switch to light mode";
+  content: "Light mode";
 }
 
 [pgs~=footer] [pgs~=footer-top] {
-  color: var(--color-whiteFixed);
+  color: var(--footer-color);
   padding-block: calc(var(--gap-sections) / 3);
+}
+
+[pgs~=footer] [pgs~=footer-top] [pgs~=footer-top-content] {
+  row-gap: var(--gap-elements);
 }
 
 [pgs~=footer] [pgs~=footer-top]::after {
@@ -2753,7 +2746,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 [pgs~=footer] [pgs~=footer-top] h3 {
-  --heading-size: 1.6rem;
+  --heading-size: var(--font-size-text);
 }
 
 [pgs~=footer] [pgs~=footer-top] p {
@@ -2762,7 +2755,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=footer] [pgs~=footer-top] a {
   text-decoration: none;
-  font-weight: 700;
+  font-weight: var(--font-weight-title);
   color: var(--color-primary-strong);
 }
 
@@ -2785,8 +2778,8 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=footer] [pgs~=footer-top] [pgs~=footer-brand] [pgs~=logo-text] {
   font-size: 4rem;
-  font-weight: 700;
-  color: var(--color-whiteFixed);
+  font-weight: var(--font-weight-title);
+  color: var(--footer-color);
 }
 
 [pgs~=footer] [pgs~=footer-top] [pgs~=footer-content] nav li {
@@ -2799,7 +2792,8 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   align-items: center;
 }
 
-[pgs~=footer] [pgs~=footer-top] [pgs~=footer-content] nav li a i, [pgs~=footer] [pgs~=footer-top] [pgs~=footer-content] nav li a [pgs~=icon] {
+[pgs~=footer] [pgs~=footer-top] [pgs~=footer-content] nav li a i,
+[pgs~=footer] [pgs~=footer-top] [pgs~=footer-content] nav li a [pgs~=icon] {
   order: -1;
   margin-right: 10px;
   display: block;
@@ -2809,12 +2803,14 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   font-size: 15px;
 }
 
-[pgs~=footer] [pgs~=footer-top] [pgs~=footer-content] nav li a i::before, [pgs~=footer] [pgs~=footer-top] [pgs~=footer-content] nav li a [pgs~=icon]::before {
-  color: var(--color-whiteFixed);
+[pgs~=footer] [pgs~=footer-top] [pgs~=footer-content] nav li a i::before,
+[pgs~=footer] [pgs~=footer-top] [pgs~=footer-content] nav li a [pgs~=icon]::before {
+  color: var(--footer-color);
 }
 
-[pgs~=footer] [pgs~=footer-top] [pgs~=footer-content] nav li a i::after, [pgs~=footer] [pgs~=footer-top] [pgs~=footer-content] nav li a [pgs~=icon]::after {
-  color: var(--color-whiteFixed);
+[pgs~=footer] [pgs~=footer-top] [pgs~=footer-content] nav li a i::after,
+[pgs~=footer] [pgs~=footer-top] [pgs~=footer-content] nav li a [pgs~=icon]::after {
+  color: var(--footer-color);
 }
 
 [pgs~=footer] [pgs~=footer-legal] {
@@ -2842,7 +2838,8 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     width: 100%;
   }
 }
-[pgs~=footer] [pgs~=footer-legal] i, [pgs~=footer] [pgs~=footer-legal] [pgs~=icon] {
+[pgs~=footer] [pgs~=footer-legal] i,
+[pgs~=footer] [pgs~=footer-legal] [pgs~=icon] {
   font-size: 0.8rem;
   color: var(--color-text);
 }
@@ -2853,28 +2850,22 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   text-align: center;
 }
 
-[pgs~=footer] [pgs~=footer-legal] p a {
-  color: var(--color-whiteFixed);
+[pgs~=footer] [pgs~=footer-legal] a {
+  font-size: 1.3rem;
+  color: var(--footer-color);
   text-decoration: none;
+}
+
+[pgs~=footer] [pgs~=footer-legal] a:hover {
+  text-decoration: underline;
 }
 
 [pgs~=footer] [pgs~=footer-legal] button {
   font-size: 1.3rem;
-  color: var(--color-whiteFixed);
+  color: var(--footer-color);
   outline: none;
   padding: 1rem 1.2rem;
   font-weight: initial;
-}
-
-@media (max-width: 430px) {
-  [pgs~=footer] {
-    background-image: unset;
-    padding-top: calc(var(--padding-page) * 2);
-  }
-}
-[pgs~=footer] [pgs~=toggleDarkmode] {
-  margin-left: 0;
-  border-radius: var(--border-radius-input);
 }
 
 /*
@@ -2902,8 +2893,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --hover-primaryColor: var(--color-primary-soft);
   --hover-background: var(--hover-primaryColor);
   --hover-color: var(--color-black);
-  --hover-border: var(--hover-background);
-  --hover-shadow-color: var(--hover-background);
+  --hover-border: var(--color-primary-soft);
 }
 
 [pgs~=card]:where(a):where(:disabled, [disabled]) {
@@ -2926,19 +2916,60 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   transition: unset 0ms;
 }
 
+[pgs~=card]:where(a) {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+}
+
+[pgs~=card]:where(a):where(:not(:disabled, [disabled])) {
+  transition: border-color 500ms ease, outline-color 500ms ease;
+}
+
+[pgs~=card]:where(a):where(:not(:disabled, [disabled]))::before {
+  content: "";
+  width: 110%;
+  height: 110%;
+  aspect-ratio: 1;
+  border-radius: 0;
+  background: var(--hover-background);
+  position: absolute;
+  bottom: -5%;
+  left: 50%;
+  z-index: -1;
+  transform: translateY(100%) translateX(-50%) scale(0);
+  transition: transform 500ms ease, border-radius 500ms ease;
+}
+
 @media (hover: hover) and (pointer: fine) {
   [pgs~=card]:where(a):where(:not(:disabled, [disabled])):hover {
-    box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
-    background: var(--hover-background);
+    background-color: var(--hover-background);
     color: var(--hover-color);
     outline-color: var(--hover-border);
     border-color: var(--hover-border);
+    transition: background-color 250ms ease-out 500ms, color 500ms ease 250ms, border-color 500ms ease, outline-color 500ms ease;
   }
-  [pgs~=card]:where(a):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
+  [pgs~=card]:where(a):where(:not(:disabled, [disabled])):hover::before {
+    transform: translateY(0%) translateX(-50%) scale(1);
+    border-radius: 100px;
+  }
+  [pgs~=card]:where(a):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p, a) {
     color: var(--hover-color);
   }
   [pgs~=card]:where(a):where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
     color: var(--hover-color);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [pgs~=card]:where(a):where(:not(:disabled, [disabled])) {
+    transition: unset;
+  }
+  [pgs~=card]:where(a):where(:not(:disabled, [disabled]))::before {
+    display: none;
+  }
+  [pgs~=card]:where(a):where(:not(:disabled, [disabled])):hover {
+    transition: unset;
+    background-color: var(--hover-background);
   }
 }
 [pgs~=card]:where(a):where(:not(:disabled, [disabled])):focus-visible {
@@ -3041,8 +3072,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --hover-primaryColor: var(--color-primary-soft);
   --hover-background: var(--hover-primaryColor);
   --hover-color: var(--color-black);
-  --hover-border: var(--hover-background);
-  --hover-shadow-color: var(--hover-background);
+  --hover-border: var(--color-primary-soft);
 }
 
 [pgs~=box]:where(a):where(:disabled, [disabled]) {
@@ -3065,19 +3095,60 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   transition: unset 0ms;
 }
 
+[pgs~=box]:where(a) {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+}
+
+[pgs~=box]:where(a):where(:not(:disabled, [disabled])) {
+  transition: border-color 500ms ease, outline-color 500ms ease;
+}
+
+[pgs~=box]:where(a):where(:not(:disabled, [disabled]))::before {
+  content: "";
+  width: 110%;
+  height: 110%;
+  aspect-ratio: 1;
+  border-radius: 0;
+  background: var(--hover-background);
+  position: absolute;
+  bottom: -5%;
+  left: 50%;
+  z-index: -1;
+  transform: translateY(100%) translateX(-50%) scale(0);
+  transition: transform 500ms ease, border-radius 500ms ease;
+}
+
 @media (hover: hover) and (pointer: fine) {
   [pgs~=box]:where(a):where(:not(:disabled, [disabled])):hover {
-    box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
-    background: var(--hover-background);
+    background-color: var(--hover-background);
     color: var(--hover-color);
     outline-color: var(--hover-border);
     border-color: var(--hover-border);
+    transition: background-color 250ms ease-out 500ms, color 500ms ease 250ms, border-color 500ms ease, outline-color 500ms ease;
   }
-  [pgs~=box]:where(a):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
+  [pgs~=box]:where(a):where(:not(:disabled, [disabled])):hover::before {
+    transform: translateY(0%) translateX(-50%) scale(1);
+    border-radius: 100px;
+  }
+  [pgs~=box]:where(a):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p, a) {
     color: var(--hover-color);
   }
   [pgs~=box]:where(a):where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
     color: var(--hover-color);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [pgs~=box]:where(a):where(:not(:disabled, [disabled])) {
+    transition: unset;
+  }
+  [pgs~=box]:where(a):where(:not(:disabled, [disabled]))::before {
+    display: none;
+  }
+  [pgs~=box]:where(a):where(:not(:disabled, [disabled])):hover {
+    transition: unset;
+    background-color: var(--hover-background);
   }
 }
 [pgs~=box]:where(a):where(:not(:disabled, [disabled])):focus-visible {
@@ -3103,6 +3174,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=textarea] :is(ul), [pgs~=textarea]:is(ul) {
   list-style: disc;
+  margin-left: 25px;
 }
 
 [pgs~=textarea] :is(ul) > li, [pgs~=textarea]:is(ul) > li {
@@ -3128,8 +3200,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=textarea] li {
   display: list-item;
-  padding-left: 5px;
-  margin-left: 21px;
   margin-top: calc(var(--gap-texts) / 2);
   color: var(--color-text);
 }
@@ -3151,7 +3221,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --label-color: var(--color-black);
   --label-background: var(--border-color);
   position: relative;
-  font-weight: 600;
+  font-weight: var(--font-weight-bold);
   display: inline-block;
   width: fit-content;
   cursor: pointer;
@@ -3164,7 +3234,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=label] i,
 [pgs~=label] [pgs~=icon] {
-  font-size: 1.6rem;
+  font-size: var(--font-size-text);
   margin-right: 0.7rem;
 }
 
@@ -3175,7 +3245,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --label-color: var(--color-black);
   --label-background: var(--border-color);
   position: relative;
-  font-weight: 600;
+  font-weight: var(--font-weight-bold);
   display: inline-block;
   width: fit-content;
   cursor: pointer;
@@ -3188,7 +3258,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=legend] i,
 [pgs~=legend] [pgs~=icon] {
-  font-size: 1.6rem;
+  font-size: var(--font-size-text);
   margin-right: 0.7rem;
 }
 
@@ -3209,7 +3279,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   position: absolute;
   font-size: 40px;
   bottom: -8px;
-  font-weight: 600;
+  font-weight: var(--font-weight-bold);
   right: 0px;
 }
 
@@ -3225,7 +3295,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   border-radius: var(--border-radius-input);
   color: var(--color-text);
   padding: var(--input-padding);
-  font-size: 1.6rem;
+  font-size: var(--font-size-text);
   width: 100%;
   margin-bottom: var(--gap-texts);
   letter-spacing: 0.03em;
@@ -3235,7 +3305,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=input]::placeholder {
   color: var(--color-black);
   opacity: 20%;
-  font-weight: 500;
+  font-weight: var(--font-weight-text);
 }
 
 [pgs~=input]:hover {
@@ -3250,7 +3320,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   border-radius: var(--border-radius-input);
   color: var(--color-text);
   padding: var(--input-padding);
-  font-size: 1.6rem;
+  font-size: var(--font-size-text);
   width: 100%;
   margin-bottom: var(--gap-texts);
   letter-spacing: 0.03em;
@@ -3260,7 +3330,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=select]::placeholder {
   color: var(--color-black);
   opacity: 20%;
-  font-weight: 500;
+  font-weight: var(--font-weight-text);
 }
 
 [pgs~=select]:hover {
@@ -3283,7 +3353,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=select] option:checked {
   background-color: var(--color-primary);
   color: var(--color-whiteFixed);
-  font-weight: 600;
+  font-weight: var(--font-weight-bold);
 }
 
 [pgs~=select] option:hover {
@@ -3351,7 +3421,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   position: absolute;
   font-size: 40px;
   bottom: -8px;
-  font-weight: 600;
+  font-weight: var(--font-weight-bold);
   right: 0px;
 }
 
@@ -3463,7 +3533,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --label-color: var(--color-black);
   --label-background: var(--border-color);
   position: relative;
-  font-weight: 600;
+  font-weight: var(--font-weight-bold);
   display: inline-block;
   width: fit-content;
   cursor: pointer;
@@ -3476,7 +3546,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=form] label:not(:has([pgs~=label], [pgs~=labelUnset], + input[type=checkbox], + input[type=radio])):has(+ input, + select, + textarea) i,
 [pgs~=form] label:not(:has([pgs~=label], [pgs~=labelUnset], + input[type=checkbox], + input[type=radio])):has(+ input, + select, + textarea) [pgs~=icon] {
-  font-size: 1.6rem;
+  font-size: var(--font-size-text);
   margin-right: 0.7rem;
 }
 
@@ -3492,7 +3562,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   border-radius: var(--border-radius-input);
   color: var(--color-text);
   padding: var(--input-padding);
-  font-size: 1.6rem;
+  font-size: var(--font-size-text);
   width: 100%;
   margin-bottom: var(--gap-texts);
   letter-spacing: 0.03em;
@@ -3502,7 +3572,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=form] input:not([pgs~=inputUnset], [type=checkbox], [type=file], [type=radio], [type=range])::placeholder {
   color: var(--color-black);
   opacity: 20%;
-  font-weight: 500;
+  font-weight: var(--font-weight-text);
 }
 
 [pgs~=form] input:not([pgs~=inputUnset], [type=checkbox], [type=file], [type=radio], [type=range]):hover {
@@ -3593,7 +3663,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   position: absolute;
   font-size: 40px;
   bottom: -8px;
-  font-weight: 600;
+  font-weight: var(--font-weight-bold);
   right: 0px;
 }
 
@@ -3703,7 +3773,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   border-radius: var(--border-radius-input);
   color: var(--color-text);
   padding: var(--input-padding);
-  font-size: 1.6rem;
+  font-size: var(--font-size-text);
   width: 100%;
   margin-bottom: var(--gap-texts);
   letter-spacing: 0.03em;
@@ -3713,7 +3783,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=form] textarea::placeholder {
   color: var(--color-black);
   opacity: 20%;
-  font-weight: 500;
+  font-weight: var(--font-weight-text);
 }
 
 [pgs~=form] textarea:hover {
@@ -3795,7 +3865,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   border-radius: var(--border-radius-input);
   color: var(--color-text);
   padding: var(--input-padding);
-  font-size: 1.6rem;
+  font-size: var(--font-size-text);
   width: 100%;
   margin-bottom: var(--gap-texts);
   letter-spacing: 0.03em;
@@ -3805,7 +3875,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=form] input[type=color]::placeholder {
   color: var(--color-black);
   opacity: 20%;
-  font-weight: 500;
+  font-weight: var(--font-weight-text);
 }
 
 [pgs~=form] input[type=color]:hover {
@@ -3837,7 +3907,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   border-radius: var(--border-radius-input);
   color: var(--color-text);
   padding: var(--input-padding);
-  font-size: 1.6rem;
+  font-size: var(--font-size-text);
   width: 100%;
   margin-bottom: var(--gap-texts);
   letter-spacing: 0.03em;
@@ -3847,7 +3917,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=form] select::placeholder {
   color: var(--color-black);
   opacity: 20%;
-  font-weight: 500;
+  font-weight: var(--font-weight-text);
 }
 
 [pgs~=form] select:hover {
@@ -3870,7 +3940,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=form] select option:checked {
   background-color: var(--color-primary);
   color: var(--color-whiteFixed);
-  font-weight: 600;
+  font-weight: var(--font-weight-bold);
 }
 
 [pgs~=form] select option:hover {
@@ -3892,7 +3962,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --label-color: var(--color-black);
   --label-background: var(--border-color);
   position: relative;
-  font-weight: 600;
+  font-weight: var(--font-weight-bold);
   display: inline-block;
   width: fit-content;
   cursor: pointer;
@@ -3905,7 +3975,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=form] fieldset legend i,
 [pgs~=form] fieldset legend [pgs~=icon] {
-  font-size: 1.6rem;
+  font-size: var(--font-size-text);
   margin-right: 0.7rem;
 }
 
@@ -3926,7 +3996,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   position: absolute;
   font-size: 40px;
   bottom: -8px;
-  font-weight: 600;
+  font-weight: var(--font-weight-bold);
   right: 0px;
 }
 
@@ -3963,7 +4033,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   position: absolute;
   font-size: 40px;
   bottom: -8px;
-  font-weight: 600;
+  font-weight: var(--font-weight-bold);
   right: 0px;
 }
 
@@ -4006,7 +4076,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   position: absolute;
   font-size: 40px;
   bottom: -8px;
-  font-weight: 600;
+  font-weight: var(--font-weight-bold);
   right: 0px;
 }
 
@@ -4054,8 +4124,8 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   border-radius: var(--border-radius-input);
   padding: 1.5rem 3rem;
   font-family: var(--font);
-  font-size: 1.6rem;
-  font-weight: 600;
+  font-size: var(--font-size-text);
+  font-weight: var(--font-weight-bold);
   color: var(--button-color);
   background: var(--button-background);
   cursor: pointer;
@@ -4077,10 +4147,12 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --button-background-strong: var(--button-primaryColor);
   --button-background-current: var(--button-primaryColor);
   --button-background-active: var(--button-primaryColor);
-  --button-size: 1.5rem;
+  --button-size: 1.3rem;
+  --button-font-size: var(--font-size-text);
   --button-padding-block: var(--button-size);
   --button-padding-left: calc(var(--button-size) * 2);
   --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding-left-icon: calc(var(--button-size) * 1.5);
   --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
   --button-height: max-content;
   --button-border-width: var(--border-width);
@@ -4095,8 +4167,8 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   background: var(--button-background);
   border-color: var(--button-border-color);
   font-family: var(--font);
-  font-size: 1.6rem;
-  font-weight: 600;
+  font-size: var(--button-font-size);
+  font-weight: var(--font-weight-bold);
   text-decoration: none;
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -4126,21 +4198,19 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 [pgs~=form] :where(button[type=submit]):where(:has(i)) {
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.5);
+  --button-padding-left: var(--button-padding-left-icon);
 }
 
 [pgs~=form] :where(button[type=submit]):where([pgs-option~=buttonReverse]:has(i)) {
-  --button-padding-right: calc(var(--button-size) * 1.5);
-  --button-padding-left: calc(var(--button-size) * 2);
+  --button-padding-right: var(--button-padding-left-icon);
+  --button-padding-left: var(--button-padding-right);
 }
 
 [pgs~=form] :where(button[type=submit]) {
   --hover-primaryColor: var(--color-primary-soft);
   --hover-background: var(--hover-primaryColor);
   --hover-color: var(--color-black);
-  --hover-border: var(--hover-background);
-  --hover-shadow-color: var(--hover-background);
+  --hover-border: var(--color-primary-soft);
 }
 
 [pgs~=form] :where(button[type=submit]):where(:disabled, [disabled]) {
@@ -4163,19 +4233,60 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   transition: unset 0ms;
 }
 
+[pgs~=form] :where(button[type=submit]) {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+}
+
+[pgs~=form] :where(button[type=submit]):where(:not(:disabled, [disabled])) {
+  transition: border-color 500ms ease, outline-color 500ms ease;
+}
+
+[pgs~=form] :where(button[type=submit]):where(:not(:disabled, [disabled]))::before {
+  content: "";
+  width: 110%;
+  height: 110%;
+  aspect-ratio: 1;
+  border-radius: 0;
+  background: var(--hover-background);
+  position: absolute;
+  bottom: -5%;
+  left: 50%;
+  z-index: -1;
+  transform: translateY(100%) translateX(-50%) scale(0);
+  transition: transform 500ms ease, border-radius 500ms ease;
+}
+
 @media (hover: hover) and (pointer: fine) {
   [pgs~=form] :where(button[type=submit]):where(:not(:disabled, [disabled])):hover {
-    box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
-    background: var(--hover-background);
+    background-color: var(--hover-background);
     color: var(--hover-color);
     outline-color: var(--hover-border);
     border-color: var(--hover-border);
+    transition: background-color 250ms ease-out 500ms, color 500ms ease 250ms, border-color 500ms ease, outline-color 500ms ease;
   }
-  [pgs~=form] :where(button[type=submit]):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
+  [pgs~=form] :where(button[type=submit]):where(:not(:disabled, [disabled])):hover::before {
+    transform: translateY(0%) translateX(-50%) scale(1);
+    border-radius: 100px;
+  }
+  [pgs~=form] :where(button[type=submit]):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p, a) {
     color: var(--hover-color);
   }
   [pgs~=form] :where(button[type=submit]):where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
     color: var(--hover-color);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [pgs~=form] :where(button[type=submit]):where(:not(:disabled, [disabled])) {
+    transition: unset;
+  }
+  [pgs~=form] :where(button[type=submit]):where(:not(:disabled, [disabled]))::before {
+    display: none;
+  }
+  [pgs~=form] :where(button[type=submit]):where(:not(:disabled, [disabled])):hover {
+    transition: unset;
+    background-color: var(--hover-background);
   }
 }
 [pgs~=form] :where(button[type=submit]):where(:not(:disabled, [disabled])):focus-visible {
@@ -4225,10 +4336,12 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --button-background-strong: var(--button-primaryColor);
   --button-background-current: var(--button-primaryColor);
   --button-background-active: var(--button-primaryColor);
-  --button-size: 1.5rem;
+  --button-size: 1.3rem;
+  --button-font-size: var(--font-size-text);
   --button-padding-block: var(--button-size);
   --button-padding-left: calc(var(--button-size) * 2);
   --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding-left-icon: calc(var(--button-size) * 1.5);
   --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
   --button-height: max-content;
   --button-border-width: var(--border-width);
@@ -4243,8 +4356,8 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   background: var(--button-background);
   border-color: var(--button-border-color);
   font-family: var(--font);
-  font-size: 1.6rem;
-  font-weight: 600;
+  font-size: var(--button-font-size);
+  font-weight: var(--font-weight-bold);
   text-decoration: none;
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -4274,13 +4387,12 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 [pgs~=button]:where(:not([pgs-option~=buttonIcon])):where(:has(i)) {
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.5);
+  --button-padding-left: var(--button-padding-left-icon);
 }
 
 [pgs~=button]:where(:not([pgs-option~=buttonIcon])):where([pgs-option~=buttonReverse]:has(i)) {
-  --button-padding-right: calc(var(--button-size) * 1.5);
-  --button-padding-left: calc(var(--button-size) * 2);
+  --button-padding-right: var(--button-padding-left-icon);
+  --button-padding-left: var(--button-padding-right);
 }
 
 [pgs~=button]:where(:is([pgs-option~=buttonIcon])) {
@@ -4305,8 +4417,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --hover-primaryColor: var(--color-primary-soft);
   --hover-background: var(--hover-primaryColor);
   --hover-color: var(--color-black);
-  --hover-border: var(--hover-background);
-  --hover-shadow-color: var(--hover-background);
+  --hover-border: var(--color-primary-soft);
 }
 
 [pgs~=button]:not([pgs-option~=buttonNohover]):where(:disabled, [disabled]) {
@@ -4329,19 +4440,60 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   transition: unset 0ms;
 }
 
+[pgs~=button]:not([pgs-option~=buttonNohover]) {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+}
+
+[pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])) {
+  transition: border-color 500ms ease, outline-color 500ms ease;
+}
+
+[pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled]))::before {
+  content: "";
+  width: 110%;
+  height: 110%;
+  aspect-ratio: 1;
+  border-radius: 0;
+  background: var(--hover-background);
+  position: absolute;
+  bottom: -5%;
+  left: 50%;
+  z-index: -1;
+  transform: translateY(100%) translateX(-50%) scale(0);
+  transition: transform 500ms ease, border-radius 500ms ease;
+}
+
 @media (hover: hover) and (pointer: fine) {
   [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):hover {
-    box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
-    background: var(--hover-background);
+    background-color: var(--hover-background);
     color: var(--hover-color);
     outline-color: var(--hover-border);
     border-color: var(--hover-border);
+    transition: background-color 250ms ease-out 500ms, color 500ms ease 250ms, border-color 500ms ease, outline-color 500ms ease;
   }
-  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
+  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):hover::before {
+    transform: translateY(0%) translateX(-50%) scale(1);
+    border-radius: 100px;
+  }
+  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p, a) {
     color: var(--hover-color);
   }
   [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
     color: var(--hover-color);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])) {
+    transition: unset;
+  }
+  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled]))::before {
+    display: none;
+  }
+  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):hover {
+    transition: unset;
+    background-color: var(--hover-background);
   }
 }
 [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):focus-visible {
@@ -4366,13 +4518,12 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 [pgs~=button][pgs-option~=buttonBig] {
-  --button-padding: var(--button-padding-block);
+  --button-padding: var(--button-padding-right);
   --button-height: 100%;
   --icon-size: 2em;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  aspect-ratio: 1;
   text-align: center;
 }
 
@@ -5246,7 +5397,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   align-items: center;
   background-color: var(--iconBox-background);
   padding: var(--iconBox-padding);
-  width: calc(var(--iconBox-size, 1.6rem) * 3);
+  width: calc(var(--iconBox-size, var(--font-size-text)) * 3);
   justify-content: center;
 }
 
@@ -5310,7 +5461,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   position: absolute;
   font-size: 40px;
   bottom: -8px;
-  font-weight: 600;
+  font-weight: var(--font-weight-bold);
   right: 0px;
 }
 
@@ -5428,10 +5579,12 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --button-background-strong: var(--button-primaryColor);
   --button-background-current: var(--button-primaryColor);
   --button-background-active: var(--button-primaryColor);
-  --button-size: 1.5rem;
+  --button-size: 1.3rem;
+  --button-font-size: var(--font-size-text);
   --button-padding-block: var(--button-size);
   --button-padding-left: calc(var(--button-size) * 2);
   --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding-left-icon: calc(var(--button-size) * 1.5);
   --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
   --button-height: max-content;
   --button-border-width: var(--border-width);
@@ -5446,8 +5599,8 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   background: var(--button-background);
   border-color: var(--button-border-color);
   font-family: var(--font);
-  font-size: 1.6rem;
-  font-weight: 600;
+  font-size: var(--button-font-size);
+  font-weight: var(--font-weight-bold);
   text-decoration: none;
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -5477,21 +5630,19 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 [pgs~=twoState]:where(:has(i)) {
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.5);
+  --button-padding-left: var(--button-padding-left-icon);
 }
 
 [pgs~=twoState]:where([pgs-option~=buttonReverse]:has(i)) {
-  --button-padding-right: calc(var(--button-size) * 1.5);
-  --button-padding-left: calc(var(--button-size) * 2);
+  --button-padding-right: var(--button-padding-left-icon);
+  --button-padding-left: var(--button-padding-right);
 }
 
 [pgs~=twoState] {
   --hover-primaryColor: var(--color-primary-soft);
   --hover-background: var(--hover-primaryColor);
   --hover-color: var(--color-black);
-  --hover-border: var(--hover-background);
-  --hover-shadow-color: var(--hover-background);
+  --hover-border: var(--color-primary-soft);
 }
 
 [pgs~=twoState]:where(:disabled, [disabled]) {
@@ -5514,19 +5665,60 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   transition: unset 0ms;
 }
 
+[pgs~=twoState] {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+}
+
+[pgs~=twoState]:where(:not(:disabled, [disabled])) {
+  transition: border-color 500ms ease, outline-color 500ms ease;
+}
+
+[pgs~=twoState]:where(:not(:disabled, [disabled]))::before {
+  content: "";
+  width: 110%;
+  height: 110%;
+  aspect-ratio: 1;
+  border-radius: 0;
+  background: var(--hover-background);
+  position: absolute;
+  bottom: -5%;
+  left: 50%;
+  z-index: -1;
+  transform: translateY(100%) translateX(-50%) scale(0);
+  transition: transform 500ms ease, border-radius 500ms ease;
+}
+
 @media (hover: hover) and (pointer: fine) {
   [pgs~=twoState]:where(:not(:disabled, [disabled])):hover {
-    box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
-    background: var(--hover-background);
+    background-color: var(--hover-background);
     color: var(--hover-color);
     outline-color: var(--hover-border);
     border-color: var(--hover-border);
+    transition: background-color 250ms ease-out 500ms, color 500ms ease 250ms, border-color 500ms ease, outline-color 500ms ease;
   }
-  [pgs~=twoState]:where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
+  [pgs~=twoState]:where(:not(:disabled, [disabled])):hover::before {
+    transform: translateY(0%) translateX(-50%) scale(1);
+    border-radius: 100px;
+  }
+  [pgs~=twoState]:where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p, a) {
     color: var(--hover-color);
   }
   [pgs~=twoState]:where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
     color: var(--hover-color);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [pgs~=twoState]:where(:not(:disabled, [disabled])) {
+    transition: unset;
+  }
+  [pgs~=twoState]:where(:not(:disabled, [disabled]))::before {
+    display: none;
+  }
+  [pgs~=twoState]:where(:not(:disabled, [disabled])):hover {
+    transition: unset;
+    background-color: var(--hover-background);
   }
 }
 [pgs~=twoState]:where(:not(:disabled, [disabled])):focus-visible {
@@ -5623,7 +5815,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=toggle] input:hover::after {
   scale: 1.4;
-  background-color: color-mix(in srgb, var(--toggle-color-thumb) 25%, transparent 75%);
+  background-color: color-mix(in srgb, var(--toggle-color-thumb) 50%, transparent 50%);
   outline: 1.5px solid var(--color-primary);
 }
 
@@ -5660,10 +5852,12 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --button-background-strong: var(--button-primaryColor);
   --button-background-current: var(--button-primaryColor);
   --button-background-active: var(--button-primaryColor);
-  --button-size: 1.5rem;
+  --button-size: 1.3rem;
+  --button-font-size: var(--font-size-text);
   --button-padding-block: var(--button-size);
   --button-padding-left: calc(var(--button-size) * 2);
   --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding-left-icon: calc(var(--button-size) * 1.5);
   --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
   --button-height: max-content;
   --button-border-width: var(--border-width);
@@ -5678,8 +5872,8 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   background: var(--button-background);
   border-color: var(--button-border-color);
   font-family: var(--font);
-  font-size: 1.6rem;
-  font-weight: 600;
+  font-size: var(--button-font-size);
+  font-weight: var(--font-weight-bold);
   text-decoration: none;
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -5709,13 +5903,12 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 [pgs~=chips] label:where(:has(i)) {
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.5);
+  --button-padding-left: var(--button-padding-left-icon);
 }
 
 [pgs~=chips] label:where([pgs-option~=buttonReverse]:has(i)) {
-  --button-padding-right: calc(var(--button-size) * 1.5);
-  --button-padding-left: calc(var(--button-size) * 2);
+  --button-padding-right: var(--button-padding-left-icon);
+  --button-padding-left: var(--button-padding-right);
 }
 
 [pgs~=chips] label {
@@ -5797,10 +5990,12 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --button-background-strong: var(--button-primaryColor);
   --button-background-current: var(--button-primaryColor);
   --button-background-active: var(--button-primaryColor);
-  --button-size: 1.5rem;
+  --button-size: 1.3rem;
+  --button-font-size: var(--font-size-text);
   --button-padding-block: var(--button-size);
   --button-padding-left: calc(var(--button-size) * 2);
   --button-padding-right: calc(var(--button-size) * 2);
+  --button-padding-left-icon: calc(var(--button-size) * 1.5);
   --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
   --button-height: max-content;
   --button-border-width: var(--border-width);
@@ -5815,8 +6010,8 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   background: var(--button-background);
   border-color: var(--button-border-color);
   font-family: var(--font);
-  font-size: 1.6rem;
-  font-weight: 600;
+  font-size: var(--button-font-size);
+  font-weight: var(--font-weight-bold);
   text-decoration: none;
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -5846,13 +6041,12 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 [pgs~=chip]:where(:has(i)) {
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left: calc(var(--button-size) * 1.5);
+  --button-padding-left: var(--button-padding-left-icon);
 }
 
 [pgs~=chip]:where([pgs-option~=buttonReverse]:has(i)) {
-  --button-padding-right: calc(var(--button-size) * 1.5);
-  --button-padding-left: calc(var(--button-size) * 2);
+  --button-padding-right: var(--button-padding-left-icon);
+  --button-padding-left: var(--button-padding-right);
 }
 
 [pgs~=chip] {
@@ -5929,7 +6123,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=menu] ul {
   display: flex;
-  font-weight: 600;
+  font-weight: var(--font-weight-bold);
   align-items: center;
   column-gap: var(--menu-gap-column);
   row-gap: var(--menu-gap-row);
@@ -6092,7 +6286,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 [pgs~=accordion]:not([pgs~=button]) [pgs~=accordion-button] {
-  font-weight: 700;
+  font-weight: var(--font-weight-title);
 }
 
 [pgs~=accordion] [pgs~=accordion-button] {
@@ -6181,7 +6375,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=breadcrumb] [pgs~=breadcrumb-item] a {
   color: var(--color-primary-strong);
   text-decoration: none;
-  font-weight: 500;
 }
 
 [pgs~=breadcrumb] [pgs~=breadcrumb-item] a:hover {
@@ -6191,7 +6384,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=breadcrumb] [pgs~=breadcrumb-item] [aria-current=page] {
   color: var(--color-primary);
-  font-weight: 600;
+  font-weight: var(--font-weight-bold);
 }
 
 [pgs~=breadcrumb] [pgs~=breadcrumb-item] [pgs~=breadcrumb-item-separator] {
@@ -6245,9 +6438,9 @@ html:has(dialog[open]) {
   --modal-backdrop: var(--backdrop);
   --modal-background: var(--color-box);
   --modal-color: var(--color-black);
-  --modal-padding: var(--padding);
+  --modal-content-padding: var(--padding);
   --modal-offset: var(--gap-texts);
-  --modal-borderRadius: calc(var(--border-radius-input) + var(--modal-padding));
+  --modal-borderRadius: calc(var(--border-radius-input) + var(--modal-content-padding));
   border: none;
   min-width: 100%;
   height: 100svh;
@@ -6301,10 +6494,7 @@ html:has(dialog[open]) {
   border-radius: var(--modal-borderRadius);
   position: relative;
   gap: 0;
-}
-
-:where(dialog[pgs~=modal-dialog]) [pgs~=modal-dialog-content] > * {
-  padding: var(--modal-padding);
+  padding: var(--modal-content-padding);
 }
 
 :where(dialog[pgs~=modal-dialog]) [pgs~=modal-dialog-content] [pgs~=modal-dialog-content-header] {
@@ -6312,10 +6502,10 @@ html:has(dialog[open]) {
   gap: var(--gap-texts);
   flex-direction: row;
   flex-wrap: nowrap;
-  padding-bottom: calc(var(--padding) / 2);
-  border-bottom: var(--border-complete);
-  border-radius: var(--modal-borderRadius) var(--modal-borderRadius) 0 0;
   z-index: 1;
+  border-bottom: var(--border-complete);
+  padding-bottom: calc(var(--modal-content-padding) / 2);
+  margin-bottom: calc(var(--modal-content-padding) / 2);
 }
 
 :where(dialog[pgs~=modal-dialog]) [pgs~=modal-dialog-content] [pgs~=modal-dialog-content-header]:focus {
@@ -6331,11 +6521,14 @@ html:has(dialog[open]) {
   overflow: hidden;
 }
 
-:where(dialog[pgs~=modal-dialog]) [pgs~=modal-dialog-content]:has([pgs~=modal-dialog-content-scroll]) [pgs~=modal-dialog-content-scroll] {
-  padding-top: calc(var(--padding) / 2);
+:where(dialog[pgs~=modal-dialog]) [pgs~=modal-dialog-content] [pgs~=modal-dialog-content-scroll] {
   overflow: auto;
   overscroll-behavior: contain;
   max-height: 100%;
+}
+
+:where(dialog[pgs~=modal-dialog]) [pgs~=modal-dialog-content] [pgs~=modal-dialog-content-scroll]:has(~ [pgs~=modal-dialog-content-header]) {
+  padding-top: calc(var(--modal-content-padding) / 2);
 }
 
 :where(dialog[pgs~=modal-dialog]) > [pgs~=modal-close] {
@@ -6587,7 +6780,7 @@ ol[pgs~=steps] [pgs~=steps-step] [pgs~=steps-step-circle] {
   justify-content: center;
   margin-right: 20px;
   border-radius: var(--border-radius);
-  font-weight: 600;
+  font-weight: var(--font-weight-bold);
   text-align: center;
 }
 
@@ -6808,8 +7001,8 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   z-index: 1;
   color: var(--color-primary-strong);
   font-family: var(--font);
-  font-weight: 600;
-  font-size: 1.6rem;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-text);
 }
 
 [pgs~=summary] [pgs~=summary-button][hidden] {
@@ -6834,7 +7027,7 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   background: var(--badge-background);
   color: var(--badge-color);
   font-size: var(--badge-text-size);
-  font-weight: 700;
+  font-weight: var(--font-weight-title);
   line-height: 1;
   text-decoration: none;
   white-space: nowrap;
@@ -6932,7 +7125,7 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
 
 [pgs~=alert] [pgs~=alert-content] [pgs~=alert-content-title] {
   color: var(--alert-content-title-color);
-  font-weight: 800;
+  font-weight: var(--font-weight-title);
   line-height: 1.2;
 }
 
@@ -6968,25 +7161,29 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2px;
+  padding: 1px;
   min-width: 20px;
   aspect-ratio: 1;
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: var(--font-weight-title);
   line-height: 1;
   color: var(--color-error-soft);
   background: var(--color-error);
   border-radius: 50%;
   position: absolute;
-  right: -5px;
-  top: -5px;
+  right: 2px;
+  top: 2px;
 }
 
 [pgs~=notificationBell] [pgs~=notificationBell-counter]:empty {
   display: none;
 }
 
-[pgs~=notifications] {
+[pgs~=_notificationsDialog] {
+  --modal-content-padding: 15px;
+}
+
+[pgs~=_notifications] {
   --notification-background: var(--color-box);
   --notification-color: unset;
   --notification-shadow-color: unset;
@@ -6994,14 +7191,13 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   flex-direction: column;
   gap: var(--gap-texts);
   scrollbar-color: var(--color-black) transparent;
-  --modal-padding: 10px;
 }
 
-[pgs~=notifications]::-webkit-scrollbar-track {
+[pgs~=_notifications]::-webkit-scrollbar-track {
   background: transparent;
 }
 
-[pgs~=notifications] [pgs~=_notifications-empty] {
+[pgs~=_notifications] [pgs~=_notifications-empty] {
   margin: 0;
   padding: var(--padding-2);
   color: var(--color-white);
@@ -7011,15 +7207,15 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   background-color: var(--color-black-transparent);
 }
 
-[pgs~=notifications] [pgs~=_notifications-element] {
+[pgs~=_notifications] [pgs~=_notifications-element] {
   display: flex;
   background: var(--notification-background);
   flex-direction: column;
   opacity: 1;
-  font-weight: 600;
+  font-weight: var(--font-weight-bold);
   overflow: hidden;
   align-items: stretch;
-  border-radius: var(--border-radius-input);
+  border-radius: var(--modal-content-padding);
   width: 100%;
   height: max-content;
   flex-shrink: 0;
@@ -7028,7 +7224,7 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   transition: translate 280ms ease;
 }
 
-[pgs~=notifications] [pgs~=_notifications-element] [pgs~=_notifications-element-content] {
+[pgs~=_notifications] [pgs~=_notifications-element] [pgs~=_notifications-element-content] {
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -7038,13 +7234,13 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   padding: var(--padding-2);
 }
 
-[pgs~=notifications] [pgs~=_notifications-element] [pgs~=_notifications-element-content] [pgs~=_notifications-element-icon] {
+[pgs~=_notifications] [pgs~=_notifications-element] [pgs~=_notifications-element-content] [pgs~=_notifications-element-icon] {
   --icon-size: 3.5rem;
   flex: 0 0 auto;
   color: var(--notification-shadow-color);
 }
 
-[pgs~=notifications] [pgs~=_notifications-element] [pgs~=_notifications-element-content] p {
+[pgs~=_notifications] [pgs~=_notifications-element] [pgs~=_notifications-element-content] p {
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
@@ -7054,12 +7250,11 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   line-height: unset;
 }
 
-[pgs~=notifications] [pgs~=_notifications-element] [pgs~=_notifications-element-content] p span {
+[pgs~=_notifications] [pgs~=_notifications-element] [pgs~=_notifications-element-content] p span {
   font-size: 1.4rem;
-  font-weight: 400;
 }
 
-[pgs~=notifications] [pgs~=_notifications-element] [pgs~=_notifications-element-buttons] {
+[pgs~=_notifications] [pgs~=_notifications-element] [pgs~=_notifications-element-buttons] {
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -7067,12 +7262,11 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   z-index: 1;
   flex-wrap: wrap;
   padding: var(--padding-2);
-  background-color: light-dark(rgba(242, 242, 242, 0.5294117647), rgba(12, 12, 12, 0.4941176471));
+  background: color-mix(in srgb, var(--notification-background) 50%, var(--color-white) 50%);
 }
 
-[pgs~=notifications] [pgs~=_notifications-element] [pgs~=_notifications-element-buttons] :is(a, button, input) {
+[pgs~=_notifications] [pgs~=_notifications-element] [pgs~=_notifications-element-buttons] :is(a, button, input) {
   --button-size: .7rem;
-  --hover-shadow-color: unset;
   --hover-background: var(--color-white);
   --hover-color: var(--color-black);
   flex: 1;
@@ -7081,22 +7275,22 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   min-width: max-content;
 }
 
-[pgs~=notifications] [pgs-state~=success] {
+[pgs~=_notifications] [pgs-state~=success] {
   --notification-background: var(--color-success-soft);
   --notification-shadow-color: var(--color-success);
 }
 
-[pgs~=notifications] [pgs-state~=error] {
+[pgs~=_notifications] [pgs-state~=error] {
   --notification-background: var(--color-error-soft);
   --notification-shadow-color: var(--color-error);
 }
 
-[pgs~=notifications] [pgs-state~=warning] {
+[pgs~=_notifications] [pgs-state~=warning] {
   --notification-background: var(--color-warning-soft);
   --notification-shadow-color: var(--color-warning);
 }
 
-[pgs~=notifications] [pgs-state~=info] {
+[pgs~=_notifications] [pgs-state~=info] {
   --notification-background: var(--color-info-soft);
   --notification-shadow-color: var(--color-info);
 }
@@ -7124,7 +7318,7 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   background: var(--toast-background);
   flex-direction: column;
   opacity: 1;
-  font-weight: 600;
+  font-weight: var(--font-weight-bold);
   overflow: hidden;
   transition: all 280ms;
   align-items: stretch;
@@ -7171,7 +7365,6 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
 
 [pgs~=toast] [pgs~=_toast-element] [pgs~=_toast-element-content] p span {
   font-size: 1.4rem;
-  font-weight: 400;
 }
 
 [pgs~=toast] [pgs~=_toast-element] [pgs~=_toast-element-buttons] {
@@ -7185,9 +7378,6 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
 
 [pgs~=toast] [pgs~=_toast-element] [pgs~=_toast-element-buttons] :is(a, button, input) {
   --button-size: .7rem;
-  --hover-shadow-color: unset;
-  --hover-background: var(--color-white);
-  --hover-color: var(--color-black);
   flex: 1;
   justify-content: center;
   font-size: small;
@@ -7370,7 +7560,7 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
 [pgs~=search] input {
   width: 100%;
   min-width: auto;
-  height: calc(1.6rem + var(--button-size, 1.2rem) * 2);
+  height: calc(var(--font-size-text) + var(--button-size, 1.2rem) * 2);
   padding: var(--button-size, 1.2rem);
   padding-left: 0;
   margin-left: 0;
@@ -7379,8 +7569,8 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   background-color: transparent;
   color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
   font-family: var(--font);
-  font-size: 1.6rem;
-  font-weight: 600;
+  font-size: var(--font-size-text);
+  font-weight: var(--font-weight-bold);
   cursor: text !important;
 }
 
@@ -7530,7 +7720,7 @@ dialog [pgs~=search] [pgs~=modal-close] {
 [pgs~=logo]:has([pgs~=logo-text]) [pgs~=logo-text] {
   font-family: var(--font-titoli);
   font-size: 20px;
-  font-weight: 600;
+  font-weight: var(--font-weight-bold);
   text-wrap: nowrap;
 }
 
@@ -7622,6 +7812,9 @@ dialog [pgs~=search] [pgs~=modal-close] {
   border-radius: calc(var(--modal-borderRadius) - var(--gap-texts));
   background-color: var(--color-white);
   container-type: inline-size;
+  padding: var(--padding);
+  margin: calc(var(--padding) * -1);
+  margin-top: var(--padding);
 }
 
 [pgs~=cookieConsent] [pgs~=_cookieConsent-panel] [pgs~=_cookieConsent-panel-badge] {
@@ -8203,8 +8396,7 @@ dialog [pgs~=search] [pgs~=modal-close] {
   --hover-primaryColor: var(--color-primary-soft);
   --hover-background: var(--hover-primaryColor);
   --hover-color: var(--color-black);
-  --hover-border: var(--hover-background);
-  --hover-shadow-color: var(--hover-background);
+  --hover-border: var(--color-primary-soft);
 }
 
 [pgs~=hover]:where(:disabled, [disabled]) {
@@ -8227,19 +8419,60 @@ dialog [pgs~=search] [pgs~=modal-close] {
   transition: unset 0ms;
 }
 
+[pgs~=hover] {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+}
+
+[pgs~=hover]:where(:not(:disabled, [disabled])) {
+  transition: border-color 500ms ease, outline-color 500ms ease;
+}
+
+[pgs~=hover]:where(:not(:disabled, [disabled]))::before {
+  content: "";
+  width: 110%;
+  height: 110%;
+  aspect-ratio: 1;
+  border-radius: 0;
+  background: var(--hover-background);
+  position: absolute;
+  bottom: -5%;
+  left: 50%;
+  z-index: -1;
+  transform: translateY(100%) translateX(-50%) scale(0);
+  transition: transform 500ms ease, border-radius 500ms ease;
+}
+
 @media (hover: hover) and (pointer: fine) {
   [pgs~=hover]:where(:not(:disabled, [disabled])):hover {
-    box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
-    background: var(--hover-background);
+    background-color: var(--hover-background);
     color: var(--hover-color);
     outline-color: var(--hover-border);
     border-color: var(--hover-border);
+    transition: background-color 250ms ease-out 500ms, color 500ms ease 250ms, border-color 500ms ease, outline-color 500ms ease;
   }
-  [pgs~=hover]:where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p) {
+  [pgs~=hover]:where(:not(:disabled, [disabled])):hover::before {
+    transform: translateY(0%) translateX(-50%) scale(1);
+    border-radius: 100px;
+  }
+  [pgs~=hover]:where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p, a) {
     color: var(--hover-color);
   }
   [pgs~=hover]:where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
     color: var(--hover-color);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [pgs~=hover]:where(:not(:disabled, [disabled])) {
+    transition: unset;
+  }
+  [pgs~=hover]:where(:not(:disabled, [disabled]))::before {
+    display: none;
+  }
+  [pgs~=hover]:where(:not(:disabled, [disabled])):hover {
+    transition: unset;
+    background-color: var(--hover-background);
   }
 }
 [pgs~=hover]:where(:not(:disabled, [disabled])):focus-visible {

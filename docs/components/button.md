@@ -53,10 +53,12 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `--button-color-active`
 - `--button-color-current`
 - `--button-color-strong`
+- `--button-font-size`
 - `--button-height`
 - `--button-padding`
 - `--button-padding-block`
 - `--button-padding-left`
+- `--button-padding-left-icon`
 - `--button-padding-right`
 - `--button-primaryColor`
 - `--button-size`
@@ -127,7 +129,7 @@ Smallest button size using buttonMini.
 
 ```html
 <button pgs="button" pgs-option="buttonMini" type="button" aria-label="Information">
-    <i pgs="icon" pgs-option="icon-star" aria-hidden="true"></i>
+    Mini
 </button>
 ```
 

@@ -1,4 +1,44 @@
 {
+    "_notifications": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "_notifications-element": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "_notifications-element-buttons": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "_notifications-element-buttons-delete": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "_notifications-element-content": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "_notifications-element-icon": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "_notifications-empty": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "_notificationsDialog": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
     "accordion": {
         "pgs": [
             "accordion-button",
@@ -720,7 +760,8 @@
             "footer-content",
             "footer-legal",
             "footer-legal-content",
-            "footer-top"
+            "footer-top",
+            "footer-top-content"
         ],
         "pgs-generated": [],
         "pgs-option": []
@@ -1208,8 +1249,7 @@
             "modal-close",
             "modal-dialog-content",
             "modal-dialog-content-header",
-            "modal-dialog-content-scroll",
-            "modal-dialogpopover"
+            "modal-dialog-content-scroll"
         ],
         "pgs-generated": [
             "modal-dialog"
@@ -1242,25 +1282,6 @@
         "pgs-option": []
     },
     "notificationLoad": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": [
-            "notification"
-        ]
-    },
-    "notifications": {
-        "pgs": [],
-        "pgs-generated": [
-            "_notifications-element",
-            "_notifications-element-buttons",
-            "_notifications-element-buttons-delete",
-            "_notifications-element-content",
-            "_notifications-element-icon",
-            "_notifications-empty"
-        ],
-        "pgs-option": []
-    },
-    "notificationTrigger": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-option": [

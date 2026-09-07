@@ -1,3 +1,13 @@
+<!-- Page shell only — no content-loading script of its own, so opening this file directly shows an
+     empty nav and an empty main. Lives in demo/assets/ with the other demo build pieces (CSS, JS,
+     demo.content.html); it's a building block for scripts/build-demo-static.js, which turns it into
+     two complete, directly-openable pages under demo/build/: demo-fetch.html (this shell plus
+     ../assets/demo-fetch.js, fetching and rendering every reference/html file live) and demo.html
+     (this shell with demo.content.html's pre-baked nav+panels spliced in, plus
+     ../assets/demo.js instead). Edit this file for structural/layout changes (header,
+     page shell, footer, <head>); run `npm run demo:build` afterwards to regenerate both pages. The
+     asset paths below are written relative to demo/build/ (where the generated pages end up), not
+     relative to this file's own location in demo/assets/. -->
 <!DOCTYPE html>
 <html lang="en" pgs="htmlBase">
 
@@ -5,14 +15,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyPGS reference demo</title>
-    <script src="../dist/javascript/index.js"></script>
+    <script src="../../dist/javascript/index.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap">
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"> -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap" >
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    <link rel="stylesheet" href="../dist/css/index.css">
-    <link rel="stylesheet" href="demo.css">
+    <link rel="stylesheet" href="../../dist/css/index.css">
+    <link rel="stylesheet" href="../assets/demo.css">
 </head>
 
 <body class="is-loadingOLD" pgs="bodyBase bodyImg bodyText bodyHeading">
@@ -56,7 +67,7 @@
 
                 <dialog pgs="modal-dialog" pgs-option="modalRight">
                     <div pgs="modal-dialog-content">
-                        <div pgs="modal-dialog-content-scroll bgWhite">
+                        <div pgs="modal-dialog-content-scroll margin padding" pgs-option="marginNegative">
                             <nav pgs="menu" pgs-option="menuVertical " aria-label="Main menu">
                                 <ul>
                                     <li><a pgs="button" pgs-option="buttonText buttonHeader buttonPaddingEqual" href="#base">Base</a></li>
@@ -77,7 +88,7 @@
         <aside pgs="pageShell-aside containerNone" id="asideScroll">
 
             <!-- Desktop -->
-            <div pgs="flexColumn hideContainerDownBigTablet" pgs-option="gapElements" class="reference-demo-nav"></div>
+            <div pgs="flexColumn hideContainerDownBigTablet paddingBlock" pgs-option="gapElements" class="reference-demo-nav"></div>
 
             <!-- mobile -->
             <div pgs="flexColumn hideContainerUpBigTablet modal" pgs-option="gapElements padding2">
@@ -85,10 +96,10 @@
 
                 <dialog pgs="modal-dialog" pgs-option="modalRight">
                     <div pgs="modal-dialog-content">
-                        <div pgs="modal-dialog-content-header bgWhite ">
+                        <div pgs="modal-dialog-content-header">
                             <h3><i class="fa-solid fa-book-bookmark"></i> Browse docs!</h3>
                         </div>
-                        <div pgs="modal-dialog-content-scroll bgWhite paddingInline">
+                        <div pgs="modal-dialog-content-scroll">
                             <div pgs="flexColumn" pgs-option="gapElements" class="reference-demo-nav"></div>
                         </div>
                     </div>
@@ -100,10 +111,7 @@
 
     <!-- = FOOTER -->
     <footer pgs="footer">
-        <button pgs="button toggleDarkmode" type="button" aria-label="Change theme">
-            <i class="fa-solid fa-moon"></i>
-        </button>
-
+        
         <section pgs="footer-top section">
             <div pgs="footer-top-content flexRow" pgs-option="column-3">
                 <div pgs="footer-brand">
@@ -111,8 +119,21 @@
                         <span pgs="logo-text">MyPGS</span>
                     </a>
                     <p pgs="footer-brand-motto">Componenti frontend riutilizzabili.</p>
+                    <button pgs="button toggleDarkmode" type="button" aria-label="Change theme">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
                 </div>
 
+                <div pgs="footer-content">
+                    <h2>Reference</h2>
+                    <nav aria-label="Footer menu">
+                        <ul>
+                            <li><a href="#base">Base</a></li>
+                            <li><a href="#components">Components</a></li>
+                            <li><a href="#layout">Layout</a></li>
+                        </ul>
+                    </nav>
+                </div>
                 <div pgs="footer-content">
                     <h2>Reference</h2>
                     <nav aria-label="Footer menu">
@@ -129,17 +150,15 @@
         <section pgs="footer-legal section">
             <div pgs="footer-legal-content">
                 <button type="button" pgs="button cookieConsent-actionOpen">Cookie preferences</button>
-                <p><a href="">Privacy Policy</a></p>
-                <p><a href="">Cookie Policy</a></p>
-                <p><a href="">Termini e Condizioni</a></p>
+                <a href="">Privacy Policy</a>
+                <a href="">Cookie Policy</a>
+                <a href="">Termini e Condizioni</a>
                 <p>© 2026 MyPgs. No rights reserved.</p>
             </div>
         </section>
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
-    <script src="./demo-guide.js"></script>
-    <script src="./demo.js"></script>
 </body>
 
 </html>

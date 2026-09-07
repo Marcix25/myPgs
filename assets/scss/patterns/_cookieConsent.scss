@@ -87,6 +87,9 @@
         border-radius: calc(var(--modal-borderRadius) - var(--gap-texts));
         background-color: var(--color-white);
         container-type: inline-size;
+        padding: var(--padding);
+        margin: calc(var(--padding) * -1);
+        margin-top: var(--padding);
 
         [pgs~=_cookieConsent-panel-badge] {
             font-size: 1.35rem;

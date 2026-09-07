@@ -47,7 +47,7 @@
         [pgs~="logo-text"] {
             font-family: var(--font-titoli);
             font-size: 20px;
-            font-weight: 600;
+            font-weight: var(--font-weight-bold);
             text-wrap: nowrap;
         }
     }

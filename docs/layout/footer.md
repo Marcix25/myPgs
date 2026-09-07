@@ -40,6 +40,7 @@ Complete footer with theme control, brand area, navigation, informational conten
 
 - `--footer-background`
 - `--footer-color`
+- `--footer-colorScheme`
 
 ## Output
 
@@ -55,10 +56,7 @@ Brand and navigation columns in the upper section, legal links and cookie prefer
 
 ```html
 <footer pgs="footer">
-    <button pgs="button toggleDarkmode" type="button" aria-label="Change theme">
-        <i pgs="icon"></i>
-    </button>
-
+    
     <section pgs="footer-top section">
         <div pgs="footer-top-content flexRow" pgs-option="column-3">
             <div pgs="footer-brand">
@@ -66,6 +64,9 @@ Brand and navigation columns in the upper section, legal links and cookie prefer
                     <span pgs="logo-text">MyPGS</span>
                 </a>
                 <p pgs="footer-brand-motto">Componenti frontend riutilizzabili.</p>
+                <button pgs="button toggleDarkmode" type="button" aria-label="Change theme">
+                    <i pgs="icon"></i>
+                </button>
             </div>
 
             <div pgs="footer-content">
@@ -83,9 +84,9 @@ Brand and navigation columns in the upper section, legal links and cookie prefer
     <section pgs="footer-legal section">
         <div pgs="footer-legal-content">
             <button type="button" pgs="button cookieConsent-actionOpen">Cookie preferences</button>
-            <p><a href="">Privacy Policy</a></p>
-            <p><a href="">Cookie Policy</a></p>
-            <p><a href="">Termini e Condizioni</a></p>
+            <a href="">Privacy Policy</a>
+            <a href="">Cookie Policy</a>
+            <a href="">Termini e Condizioni</a>
             <p>© 2026 MyPgs. No rights reserved.</p>
         </div>
     </section>

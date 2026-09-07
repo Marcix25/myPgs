@@ -9,7 +9,7 @@
 
     ul {
         display: flex;
-        font-weight: 600;
+        font-weight: var(--font-weight-bold);
         align-items: center;
         column-gap: var(--menu-gap-column);
         row-gap: var(--menu-gap-row);

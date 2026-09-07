@@ -33,7 +33,7 @@ ol[pgs~="steps"] {
             margin-right: 20px;
             // margin-top: 4px;
             border-radius: var(--border-radius);
-            font-weight: 600;
+            font-weight: var(--font-weight-bold);
             text-align: center;
 
             i, [pgs~=icon] {

@@ -2,8 +2,9 @@
 
 //== HTML
 :where([pgs~="htmlBase"]) {
+    --font-rem-base: 62.5%;
     scroll-behavior: smooth;
-    font-size: 62.5%;
+    font-size: var(--font-rem-base);
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -106,11 +107,11 @@
 
 //== TEXT
 :where([pgs~="bodyText"]) {
-    letter-spacing: 0.4px;
+    // letter-spacing: 0.4px;
     color: var(--color-black);
     font-family: var(--font);
-    font-weight: 500;
-    font-size: 1.6rem;
+    font-weight: var(--font-weight-text);
+    font-size: var(--font-size-text);
     font-optical-sizing: auto;
     font-style: normal;
 
@@ -124,7 +125,14 @@
         overflow-wrap: anywhere;
 
         a {
+            text-decoration: none;
+            overflow-wrap: anywhere;
             color: var(--color-link);
+
+            &:where(:hover) {
+                background-color: var(--color-link-soft);
+                border-radius: 5px;
+            }
         }
     }
 
@@ -132,11 +140,6 @@
         text-decoration: none;
         overflow-wrap: anywhere;
         color: var(--color-link);
-
-        &:where(:hover) {
-            background-color: var(--color-link-soft);
-            border-radius: 5px;
-        }
 
         img,
         object,

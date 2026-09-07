@@ -46,10 +46,6 @@
             flex-shrink: 0;
         }
 
-        // [pgs~=button] {
-        //     @include buttonHeader();
-        // }
-
         [pgs~="header-element-onlyCompact"] {
             display: none;
             gap: var(--header-gap);
@@ -72,12 +68,12 @@
         }
     }
 
-    //= DIALOG 
-    dialog[pgs~="modal-dialogpopover"],
+    //= DIALOG
     dialog[pgs~="modal-dialog"] {
+        --modal-backdrop: var(--color-white);
+        --modal-background: var(--color-white);
         -webkit-backdrop-filter: var(--blur);
         backdrop-filter: var(--blur);
-        --modal-padding: 10px;
 
         &[open] {
             z-index: -1;
@@ -154,12 +150,6 @@
                 left: 0;
                 background: var(--header-background);
                 transition: padding 300ms, background-color 1000ms;
-            }
-
-            dialog[pgs~="modal-dialogpopover"],
-            dialog[pgs~="modal-dialog"] {
-                padding-top: var(--gap-texts);
-                padding-bottom: var(--heightOfHeader);
             }
         }
     }

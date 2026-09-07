@@ -24,7 +24,6 @@ import "./components/_summary.js";
 import "./components/_tabs.js";
 import "./components/_toast.js";
 import "./components/_notification.js";
-import "./components/_legacyNotification.js";
 
 //+ IMPORT REGISTRY
 import "./_imports.js";

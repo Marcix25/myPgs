@@ -23,10 +23,12 @@
     --button-background-current: var(--button-primaryColor);
     --button-background-active: var(--button-primaryColor);
     /// size
-    --button-size: 1.5rem;
+    --button-size: 1.3rem;
+    --button-font-size: var(--font-size-text);
     --button-padding-block: var(--button-size);
     --button-padding-left: calc(var(--button-size) * 2);
     --button-padding-right: calc(var(--button-size) * 2);
+    --button-padding-left-icon: calc(var(--button-size) * 1.5);
     --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
     --button-height: max-content;
     /// border
@@ -41,8 +43,8 @@
     /// color
     @include _buttonColor();
     font-family: var(--font);
-    font-size: 1.6rem;
-    font-weight: 600;
+    font-size: var(--button-font-size);
+    font-weight: var(--font-weight-bold);
     text-decoration: none;
     -moz-user-select: none;
     -webkit-user-select: none;
@@ -75,17 +77,14 @@
 //== BUTTON CONTENT - ICON
 //=== BUTTON CONTENT
 @mixin buttonContent() {
-    $button-right: calc(var(--button-size) * 2);
-    $button-left: calc(var(--button-size) * 1.5);
 
     &:where(:has(i)) {
-        --button-padding-right: #{$button-right};
-        --button-padding-left: #{$button-left};
+        --button-padding-left: var(--button-padding-left-icon);
     }
 
     &:where([pgs-option~="buttonReverse"]:has(i)) {
-        --button-padding-right: #{$button-left};
-        --button-padding-left: #{$button-right};
+        --button-padding-right: var(--button-padding-left-icon);
+        --button-padding-left: var(--button-padding-right);
     }
 }
 
@@ -135,13 +134,12 @@
 
 //== BUTTON BIG
 @mixin buttonBig() {
-    --button-padding: var(--button-padding-block);
+    --button-padding: var(--button-padding-right);
     --button-height: 100%;
     --icon-size: 2em;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    aspect-ratio: 1;
     text-align: center;
 }
 

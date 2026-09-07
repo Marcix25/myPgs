@@ -38,7 +38,7 @@
     input {
         width: 100%;
         min-width: auto;
-        height: calc( 1.6rem + var(--button-size, 1.2rem) * 2);
+        height: calc( var(--font-size-text) + var(--button-size, 1.2rem) * 2);
         padding: var(--button-size, 1.2rem);
         padding-left: 0;
         margin-left: 0;
@@ -47,8 +47,8 @@
         background-color: transparent;
         color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
         font-family: var(--font);
-        font-size: 1.6rem;
-        font-weight: 600;
+        font-size: var(--font-size-text);
+        font-weight: var(--font-weight-bold);
         cursor: text !important;
 
         //- mobile

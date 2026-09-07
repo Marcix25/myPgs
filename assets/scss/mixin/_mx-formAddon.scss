@@ -90,7 +90,7 @@
         //== HOVER
         &:hover::after {
             scale: 1.4;
-            background-color: color-mix(in srgb, var(--toggle-color-thumb) 25%, transparent 75%);
+            background-color: color-mix(in srgb, var(--toggle-color-thumb) 50%, transparent 50%);
             outline: 1.5px solid var(--color-primary);
         }
 

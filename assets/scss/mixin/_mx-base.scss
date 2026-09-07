@@ -24,6 +24,7 @@
     :is(ul),
     &:is(ul) {
         list-style: disc;
+        margin-left: 25px;
 
         >li {
             list-style-type: disc;
@@ -50,13 +51,8 @@
 
     li {
         display: list-item;
-        padding-left: 5px;
-        margin-left: 21px;
         margin-top: calc(var(--gap-texts)/2);
         color: var(--color-text);
-        // &:nth-child(1) {
-        //     margin-top: calc(var(--gap-texts)/2);
-        // }
     }
 }
 
@@ -73,15 +69,15 @@
     overflow-wrap: anywhere;
 
     @media (max-width: $tablet) {
-        font-size: clamp(1.6rem, var(--heading-size) / 3 + 8vw, var(--heading-size));
+        font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 8vw, var(--heading-size));
     }
 
     @media (max-width: $mobile) {
-        font-size: clamp(1.6rem, var(--heading-size) / 3 + 5vw, var(--heading-size));
+        font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 5vw, var(--heading-size));
     }
 
     @media (max-width: $watch) {
-        font-size: clamp(1.6rem, var(--heading-size) / 3 + 2.5vw, var(--heading-size));
+        font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 2.5vw, var(--heading-size));
     }
 
     //-( tablet 
@@ -111,4 +107,3 @@
 @mixin h5() {
     @include heading(calc($h5 - 0.1rem), 700);
 }
-

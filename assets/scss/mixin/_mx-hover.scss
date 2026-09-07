@@ -1,22 +1,70 @@
 //+ HOVER
 @mixin hoverContent1($hover-text: "") {
+    $timing: 500ms;
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+
     &:where(:not(:disabled, [disabled])) {
+        transition:
+            border-color 500ms ease,
+            outline-color 500ms ease;
+
+        &::before {
+            content: "";
+            width: 110%;
+            height: 110%;
+            aspect-ratio: 1;
+            border-radius: 0;
+            background: var(--hover-background);
+            position: absolute;
+            bottom: -5%;
+            left: 50%;
+            z-index: -1;
+            transform: translateY(100%) translateX(-50%) scale(0);
+            transition:
+                transform $timing ease,
+                border-radius $timing ease,
+        }
+
         @media (hover: hover) and (pointer: fine) {
             &:hover {
-                box-shadow: 0px 0px 38px 0px var(--hover-shadow-color);
-                background: var(--hover-background);
+                background-color: var(--hover-background);
                 color: var(--hover-color);
                 outline-color: var(--hover-border);
                 border-color: var(--hover-border);
+                transition:
+                    background-color 250ms ease-out $timing,
+                    color $timing ease 250ms,
+                    border-color $timing ease,
+                    outline-color $timing ease;
 
-                :is(h1, h2, h3, h4, h5, h6, p) {
+                &::before {
+                    transform: translateY(0%) translateX(-50%) scale(1);
+                    border-radius: 100px;
+                }
+
+                :is(h1, h2, h3, h4, h5, h6, p, a) {
                     color: var(--hover-color);
                 }
 
-                [pgs~=hover-text],
+                [pgs~="hover-text"],
                 #{$hover-text} {
                     color: var(--hover-color);
                 }
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            transition: unset;
+
+            &::before{
+                display: none;
+            }
+
+            &:hover {
+                transition: unset;
+                background-color: var(--hover-background);
             }
         }
     }
@@ -39,8 +87,7 @@
     --hover-primaryColor: var(--color-primary-soft);
     --hover-background: var(--hover-primaryColor);
     --hover-color: var(--color-black);
-    --hover-border: var(--hover-background);
-    --hover-shadow-color: var(--hover-background);
+    --hover-border: var(--color-primary-soft);
 
     &:where(:disabled, [disabled]) {
         text-decoration: none;

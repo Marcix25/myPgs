@@ -46,8 +46,8 @@
         z-index: 1;
         color: var(--color-primary-strong);
         font-family: var(--font);
-        font-weight: 600;
-        font-size: 1.6rem;
+        font-weight: var(--font-weight-bold);
+        font-size: var(--font-size-text);
 
         &[hidden] {
             display: none !important;

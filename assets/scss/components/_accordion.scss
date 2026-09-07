@@ -21,10 +21,9 @@
         }
 
         [pgs~="accordion-button"]{
-            font-weight: 700;
+            font-weight: var(--font-weight-title);
         }
         // [pgs~="accordion-content"]{
-        //     font-weight: 700;
         // }
     }
 

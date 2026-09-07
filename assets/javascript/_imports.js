@@ -8,7 +8,6 @@ import { PGS_dropdown } from "./components/_dropdown.js";
 import { PGS_menu } from "./components/_menu.js";
 import { PGS_modal } from "./components/_modal.js";
 import { PGS_notification } from "./components/_notification.js";
-import { PGS_notificationLegacy } from "./components/_legacyNotification.js";
 import { PGS_toast } from "./components/_toast.js";
 import { PGS_search } from "./components/_search.js";
 import { PGS_slides } from "./components/_slides.js";
@@ -35,7 +34,6 @@ pgs.registerModules({
     cookieConsent: PGS_cookieConsent,
     notification: PGS_notification,
     toast: PGS_toast,
-    legacyNotification: PGS_notificationLegacy,
     search: PGS_search,
     slides: PGS_slides,
     stepTabs: PGS_stepTabs,

@@ -66,7 +66,7 @@ const fn_notification = {
     },
 
     _getContainer() {
-        return pgs(document).querySelector("notifications");
+        return pgs(document).querySelector("_notifications");
     },
 
     _getOrCreateContainer() {
@@ -74,7 +74,7 @@ const fn_notification = {
 
         if (!containerNotification) {
             containerNotification = document.createElement("div");
-            pgs(containerNotification).add("notifications");
+            pgs(containerNotification).add("_notifications");
             containerNotification.setAttribute("aria-live", "polite");
             containerNotification.setAttribute("aria-relevant", "additions");
             document.body.appendChild(containerNotification);
@@ -260,7 +260,7 @@ const fn_notification = {
         });
     },
 
-    //+ generates <dialog pgs-option="modalRight"><div pgs="modal-dialog-content"><div pgs="notifications"></div></div></dialog>
+    //+ generates <dialog pgs-option="modalRight"><div pgs="modal-dialog-content"><div pgs="_notifications"></div></div></dialog>
     //+ inside the modal wrapping notificationBell, then asks pgs.modal to (re)initialize it.
     _ensureDialog(root = document) {
         let created = false;
@@ -277,14 +277,12 @@ const fn_notification = {
 
             const dialog = document.createElement("dialog");
             pgs(dialog).option.add("modalRight modalMini modalTop");
+            pgs(dialog).add("_notificationsDialog");
 
             const content = document.createElement("div");
             pgs(content).add("modal-dialog-content");
+            pgs(content).add("_notifications");
 
-            const list = document.createElement("div");
-            pgs(list).add("notifications");
-
-            content.appendChild(list);
             dialog.appendChild(content);
             modalWrapper.appendChild(dialog);
             created = true;

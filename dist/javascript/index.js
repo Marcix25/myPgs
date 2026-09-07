@@ -18,20 +18,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_menu_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/_menu.js */ "./assets/javascript/components/_menu.js");
 /* harmony import */ var _components_modal_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_modal.js */ "./assets/javascript/components/_modal.js");
 /* harmony import */ var _components_notification_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_notification.js */ "./assets/javascript/components/_notification.js");
-/* harmony import */ var _components_legacyNotification_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_legacyNotification.js */ "./assets/javascript/components/_legacyNotification.js");
-/* harmony import */ var _components_toast_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_toast.js */ "./assets/javascript/components/_toast.js");
-/* harmony import */ var _components_search_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/_search.js */ "./assets/javascript/components/_search.js");
-/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
-/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
-/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
-/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
-/* harmony import */ var _components_tabs_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/_tabs.js */ "./assets/javascript/components/_tabs.js");
-/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./layout/_header.js */ "./assets/javascript/layout/_header.js");
-/* harmony import */ var _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./helper/_formValidate.js */ "./assets/javascript/helper/_formValidate.js");
-/* harmony import */ var _helper_init_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./helper/_init.js */ "./assets/javascript/helper/_init.js");
-/* harmony import */ var _helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./helper/_scrollHorizontal.js */ "./assets/javascript/helper/_scrollHorizontal.js");
-/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
-
+/* harmony import */ var _components_toast_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_toast.js */ "./assets/javascript/components/_toast.js");
+/* harmony import */ var _components_search_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_search.js */ "./assets/javascript/components/_search.js");
+/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
+/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
+/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
+/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
+/* harmony import */ var _components_tabs_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/_tabs.js */ "./assets/javascript/components/_tabs.js");
+/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./layout/_header.js */ "./assets/javascript/layout/_header.js");
+/* harmony import */ var _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./helper/_formValidate.js */ "./assets/javascript/helper/_formValidate.js");
+/* harmony import */ var _helper_init_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./helper/_init.js */ "./assets/javascript/helper/_init.js");
+/* harmony import */ var _helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./helper/_scrollHorizontal.js */ "./assets/javascript/helper/_scrollHorizontal.js");
+/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
 
 
 
@@ -56,7 +54,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
-    init: _helper_init_js__WEBPACK_IMPORTED_MODULE_19__.PGS_init,
+    init: _helper_init_js__WEBPACK_IMPORTED_MODULE_18__.PGS_init,
     darkmode: _base_darkmode_js__WEBPACK_IMPORTED_MODULE_1__.PGS_darkmode,
     svg: _base_svg_js__WEBPACK_IMPORTED_MODULE_2__.PGS_svg,
     accordion: _components_accordion_js__WEBPACK_IMPORTED_MODULE_3__.PGS_accordion,
@@ -64,20 +62,19 @@ _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
     dropdown: _components_dropdown_js__WEBPACK_IMPORTED_MODULE_5__.PGS_dropdown,
     menu: _components_menu_js__WEBPACK_IMPORTED_MODULE_6__.PGS_menu,
     modal: _components_modal_js__WEBPACK_IMPORTED_MODULE_7__.PGS_modal,
-    header: _layout_header_js__WEBPACK_IMPORTED_MODULE_17__.PGS_header,
-    cookieConsent: _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_21__.PGS_cookieConsent,
+    header: _layout_header_js__WEBPACK_IMPORTED_MODULE_16__.PGS_header,
+    cookieConsent: _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_20__.PGS_cookieConsent,
     notification: _components_notification_js__WEBPACK_IMPORTED_MODULE_8__.PGS_notification,
-    toast: _components_toast_js__WEBPACK_IMPORTED_MODULE_10__.PGS_toast,
-    legacyNotification: _components_legacyNotification_js__WEBPACK_IMPORTED_MODULE_9__.PGS_notificationLegacy,
-    search: _components_search_js__WEBPACK_IMPORTED_MODULE_11__.PGS_search,
-    slides: _components_slides_js__WEBPACK_IMPORTED_MODULE_12__.PGS_slides,
-    stepTabs: _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_13__.PGS_stepTabs,
-    steps: _components_steps_js__WEBPACK_IMPORTED_MODULE_14__.PGS_steps,
-    summary: _components_summary_js__WEBPACK_IMPORTED_MODULE_15__.PGS_summary,
-    tabs: _components_tabs_js__WEBPACK_IMPORTED_MODULE_16__.PGS_tabs,
-    formValidate: _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_18__.PGS_formValidate,
-    scrollHorizontal: _helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_20__.PGS_scrollHorizontal,
-    scrollHorizontalWithMouse: _helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_20__.PGS_scrollHorizontalWithMouse,
+    toast: _components_toast_js__WEBPACK_IMPORTED_MODULE_9__.PGS_toast,
+    search: _components_search_js__WEBPACK_IMPORTED_MODULE_10__.PGS_search,
+    slides: _components_slides_js__WEBPACK_IMPORTED_MODULE_11__.PGS_slides,
+    stepTabs: _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_12__.PGS_stepTabs,
+    steps: _components_steps_js__WEBPACK_IMPORTED_MODULE_13__.PGS_steps,
+    summary: _components_summary_js__WEBPACK_IMPORTED_MODULE_14__.PGS_summary,
+    tabs: _components_tabs_js__WEBPACK_IMPORTED_MODULE_15__.PGS_tabs,
+    formValidate: _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_17__.PGS_formValidate,
+    scrollHorizontal: _helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_19__.PGS_scrollHorizontal,
+    scrollHorizontalWithMouse: _helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_19__.PGS_scrollHorizontalWithMouse,
 });
 
 
@@ -1273,138 +1270,6 @@ const PGS_dropdown = {
 
 /***/ },
 
-/***/ "./assets/javascript/components/_legacyNotification.js"
-/*!*************************************************************!*\
-  !*** ./assets/javascript/components/_legacyNotification.js ***!
-  \*************************************************************/
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PGS_notificationLegacy: () => (/* binding */ PGS_notificationLegacy)
-/* harmony export */ });
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
-/* harmony import */ var _notification_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_notification.js */ "./assets/javascript/components/_notification.js");
-/* harmony import */ var _toast_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_toast.js */ "./assets/javascript/components/_toast.js");
-
-
-
-
-//= PGS_notificationLegacy
-//+ the only place that still understands the pre-split markup: <div pgs="hidden notificationTrigger" pgs-option='notification[{"element":"toast",...}]'>
-//+ generated for example by PGS_md_notification() (PGS_theme/modules/md-notification.php), routes each entry to PGS_notification or PGS_toast by its "element" field.
-const fn_legacy = {
-    _defaults: {
-        link: null,
-        linkTitle: "Open",
-        closeTitle: "Close"
-    },
-
-    _getApi(notification) {
-        return String(notification.element || "").trim() === "toast" ? _toast_js__WEBPACK_IMPORTED_MODULE_2__.PGS_toast : _notification_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification;
-    },
-
-    _getType(notification, api) {
-        const type = String(notification.type || "info").trim();
-        return typeof api[type] === "function" ? type : "info";
-    },
-
-    _getDuration(notification) {
-        const rawDuration = notification.timeout ?? notification.duration;
-        const duration = Number.parseInt(rawDuration, 10);
-        return Number.isNaN(duration) ? undefined : duration;
-    },
-
-    _getData(root) {
-        const rawNotification = pgs(root).option.getValueBrackets("notification") || "{}";
-
-        try {
-            const notifications = JSON.parse(`[${rawNotification}]`);
-
-            if (notifications.some(notification => !notification || typeof notification !== "object" || Array.isArray(notification))) {
-                throw new TypeError("Each notification must be a JSON object");
-            }
-
-            return notifications;
-        } catch (error) {
-            console.warn("PGS notification (legacy notificationTrigger): Invalid JSON configuration", error);
-            return [];
-        }
-    },
-
-    trigger(root = document) {
-        pgs(root).querySelectorAll("notificationTrigger").forEach(element => {
-            if (!element || element.dataset.initialize === "true") return;
-
-            element.dataset.initialize = "true";
-
-            this._getData(element).forEach(notification => {
-                const title = String(notification.title || "").trim();
-                const description = String(notification.description ?? notification.message ?? "").trim();
-                const linkTitle = String(notification.linkTitle || notification["title-link"] || this._defaults.linkTitle).trim();
-                const closeTitle = String(notification.closeTitle || notification["title-close"] || this._defaults.closeTitle).trim();
-
-                if (!title && !description) return;
-
-                const link = notification.link || this._defaults.link;
-                const icon = notification.icon || undefined;
-                const duration = this._getDuration(notification);
-                const api = this._getApi(notification);
-                const type = this._getType(notification, api);
-                const isToast = api === _toast_js__WEBPACK_IMPORTED_MODULE_2__.PGS_toast;
-
-                api[type]({
-                    title,
-                    description,
-                    icon,
-                    closeTitle,
-                    //+ PGS_toast still understands link/linkTitle/timeout directly; PGS_notification only understands buttons.
-                    ...(isToast
-                        ? { timeout: duration, link, linkTitle }
-                        : { buttons: link ? [{ title: linkTitle, link }] : [] })
-                });
-            });
-
-            element.remove();
-        });
-    }
-};
-
-//# TRIGGER
-function PGS_notificationLegacy_init(root = document) {
-    fn_legacy.trigger(root);
-}
-
-const PGS_notificationLegacy = {
-    init: PGS_notificationLegacy_init,
-    trigger: PGS_notificationLegacy_init
-};
-
-//+ pre-split API shape: pgs.notification.alert.*/pgs.notification.toast.* — grafted onto the live PGS_notification
-//+ object from the outside, so _notification.js itself never has to know this shape existed.
-_notification_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.alert = {
-    error: _notification_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.error,
-    success: _notification_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.success,
-    info: _notification_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.info,
-    warning: _notification_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.warning,
-    deleteAll: _notification_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.deleteAll
-};
-
-_notification_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.toast = {
-    error: _toast_js__WEBPACK_IMPORTED_MODULE_2__.PGS_toast.error,
-    success: _toast_js__WEBPACK_IMPORTED_MODULE_2__.PGS_toast.success,
-    info: _toast_js__WEBPACK_IMPORTED_MODULE_2__.PGS_toast.info,
-    warning: _toast_js__WEBPACK_IMPORTED_MODULE_2__.PGS_toast.warning,
-    deleteAll: _toast_js__WEBPACK_IMPORTED_MODULE_2__.PGS_toast.deleteAll
-};
-
-
-//= EXECUTE
-(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(PGS_notificationLegacy_init);
-
-
-/***/ },
-
 /***/ "./assets/javascript/components/_menu.js"
 /*!***********************************************!*\
   !*** ./assets/javascript/components/_menu.js ***!
@@ -1826,7 +1691,7 @@ const fn_notification = {
     },
 
     _getContainer() {
-        return pgs(document).querySelector("notifications");
+        return pgs(document).querySelector("_notifications");
     },
 
     _getOrCreateContainer() {
@@ -1834,7 +1699,7 @@ const fn_notification = {
 
         if (!containerNotification) {
             containerNotification = document.createElement("div");
-            pgs(containerNotification).add("notifications");
+            pgs(containerNotification).add("_notifications");
             containerNotification.setAttribute("aria-live", "polite");
             containerNotification.setAttribute("aria-relevant", "additions");
             document.body.appendChild(containerNotification);
@@ -2020,7 +1885,7 @@ const fn_notification = {
         });
     },
 
-    //+ generates <dialog pgs-option="modalRight"><div pgs="modal-dialog-content"><div pgs="notifications"></div></div></dialog>
+    //+ generates <dialog pgs-option="modalRight"><div pgs="modal-dialog-content"><div pgs="_notifications"></div></div></dialog>
     //+ inside the modal wrapping notificationBell, then asks pgs.modal to (re)initialize it.
     _ensureDialog(root = document) {
         let created = false;
@@ -2037,14 +1902,12 @@ const fn_notification = {
 
             const dialog = document.createElement("dialog");
             pgs(dialog).option.add("modalRight modalMini modalTop");
+            pgs(dialog).add("_notificationsDialog");
 
             const content = document.createElement("div");
             pgs(content).add("modal-dialog-content");
+            pgs(content).add("_notifications");
 
-            const list = document.createElement("div");
-            pgs(list).add("notifications");
-
-            content.appendChild(list);
             dialog.appendChild(content);
             modalWrapper.appendChild(dialog);
             created = true;
@@ -4831,9 +4694,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_tabs_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/_tabs.js */ "./assets/javascript/components/_tabs.js");
 /* harmony import */ var _components_toast_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/_toast.js */ "./assets/javascript/components/_toast.js");
 /* harmony import */ var _components_notification_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/_notification.js */ "./assets/javascript/components/_notification.js");
-/* harmony import */ var _components_legacyNotification_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/_legacyNotification.js */ "./assets/javascript/components/_legacyNotification.js");
-/* harmony import */ var _imports_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./_imports.js */ "./assets/javascript/_imports.js");
-/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
+/* harmony import */ var _imports_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./_imports.js */ "./assets/javascript/_imports.js");
+/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
 //= PGS
 
 
@@ -4861,12 +4723,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 //+ IMPORT REGISTRY
 
 
 //= PATTERNS
-
 
 })();
 

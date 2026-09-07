@@ -39,7 +39,7 @@
 
         [pgs~="alert-content-title"] {
             color: var(--alert-content-title-color);
-            font-weight: 800;
+            font-weight: var(--font-weight-title);;
             line-height: 1.2;
         }
     }

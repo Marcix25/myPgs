@@ -120,7 +120,20 @@ Each file in `reference/html/` is both the canonical example and its own documen
 source feeds two renderers, which must stay in agreement:
 
 - `scripts/generate-component-docs.js` writes `docs/**/*.md` and validates the reference;
-- `demo/demo.js` renders the same file as a live panel in `demo/demo.html`.
+- `demo/assets/demo-fetch.js` renders the same file as a live panel — open via `demo/build/demo-fetch.html`.
+
+`demo/assets/demo.structure.html` and `demo/assets/demo.content.html` are components, not pages:
+neither does anything useful opened directly. Everything CSS/JS and these two components live under
+`demo/assets/`; the two real, openable pages live under `demo/build/`. `npm run demo:build`
+(`scripts/build-demo-static.js`) combines them into those two pages — `demo/build/demo-fetch.html`
+(the structure plus `assets/demo-fetch.js`, fetching and rendering every reference live, same as the
+structure alone used to) and `demo/build/demo.html` (the structure with `demo.content.html`'s
+pre-baked nav+panels merged in, plus `assets/demo.js` instead of `assets/demo-fetch.js`, via
+`demo/assets/demo-render.js` — the same rendering as `demo-fetch.js`, ported to plain string/data
+functions so it can run in Node). `demo.html` opens instantly instead of re-fetching and
+re-rendering every reference on load — useful when iterating on CSS/JS. `demo.content.html`,
+`demo-fetch.html` and `demo.html` are all generated: never edit them by hand, edit `reference/html/`
+or `demo/assets/demo.structure.html` and rerun the script.
 
 Every reference opens with a JSDoc-style block. Tags must appear in this order, and each entry is a
 single line in the form `- value: description` — the parser accepts no continuation lines:
@@ -186,7 +199,7 @@ cannot sit in `@pgs` unless an example writes it, and an `_` prefix is only allo
 Because the demo rebuilds its code blocks from the live DOM while the generator reads the source
 text, the two can drift apart. The serializer normalises what the author wrote — it double-quotes
 attributes, expands boolean attributes to `attr=""`, escapes a bare `>` and keeps the source
-indentation on every line after the first — so `demo/demo.js` undoes each of those. When changing
+indentation on every line after the first — so `demo/assets/demo-fetch.js` undoes each of those. When changing
 either renderer, compare their output: every "Example HTML" block in the demo must match the
 corresponding fenced block in `docs/**/*.md` character for character.
 
@@ -216,7 +229,7 @@ Before a release:
 - Do not create duplicate components or JavaScript services.
 - Do not invent APIs without implementing and documenting them.
 - Do not silently change public tokens, selectors, markup, mixins, method signatures, or source import paths.
-- Do not use `demo/demo.html` as inspiration or as the canonical component structure.
+- Do not use `demo/` as inspiration or as the canonical component structure.
 - Do not keep temporary test examples in canonical references.
 - Do not let demo scaffolding reach an Example HTML block: a layout wrapper added to arrange the example belongs in the preview only.
 - Do not repeat a field list in `@pgs-option` when the option block already documents it.

@@ -68,8 +68,8 @@ Modal markup, configuration, behavior, and usage example.
 - `--modal-background`
 - `--modal-borderRadius`
 - `--modal-color`
+- `--modal-content-padding`
 - `--modal-offset`
-- `--modal-padding`
 
 ## Output
 

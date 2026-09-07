@@ -26,9 +26,9 @@ html:has(dialog[open]) {
     --modal-backdrop: var(--backdrop);
     --modal-background: var(--color-box);
     --modal-color: var(--color-black);
-    --modal-padding: var(--padding);
+    --modal-content-padding: var(--padding);
     --modal-offset: var(--gap-texts);
-    --modal-borderRadius: calc(var(--border-radius-input) + var(--modal-padding));
+    --modal-borderRadius: calc(var(--border-radius-input) + var(--modal-content-padding));
     border: none;
     min-width: 100%;
     height: 100svh;
@@ -77,18 +77,15 @@ html:has(dialog[open]) {
         border-radius: var(--modal-borderRadius);
         position: relative;
         gap: 0;
-
-        >* {
-            padding: var(--modal-padding);
-        }
+        padding: var(--modal-content-padding);
 
         //==== HEADER
         [pgs~="modal-dialog-content-header"] {
             @include flexRow(nowrap);
-            padding-bottom: calc(var(--padding) / 2);
-            border-bottom: var(--border-complete);
-            border-radius: var(--modal-borderRadius) var(--modal-borderRadius) 0 0;
             z-index: 1;
+            border-bottom: var(--border-complete);
+            padding-bottom: calc(var(--modal-content-padding) / 2);
+            margin-bottom: calc(var(--modal-content-padding) / 2);
 
             //== same as the dialog's own &:focus above: this is the initial-focus landing
             //== point (see _modal.js), never reached via Tab
@@ -105,12 +102,15 @@ html:has(dialog[open]) {
         &:has([pgs~="modal-dialog-content-scroll"]) {
             max-height: calc(90svh - var(--heightOfHeaderScroll));
             overflow: hidden;
+        }
 
-            [pgs~="modal-dialog-content-scroll"] {
-                padding-top: calc(var(--padding) / 2);
-                overflow: auto;
-                overscroll-behavior: contain;
-                max-height: 100%;
+        [pgs~="modal-dialog-content-scroll"] {
+            overflow: auto;
+            overscroll-behavior: contain;
+            max-height: 100%;
+
+            &:has(~[pgs~="modal-dialog-content-header"]) {
+                padding-top: calc(var(--modal-content-padding) / 2);
             }
         }
     }
