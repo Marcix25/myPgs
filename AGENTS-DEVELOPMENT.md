@@ -52,7 +52,7 @@ When changing a token, update every selector, query, reference, declaration, dem
 - Keep component selectors scoped consistently with the existing stylesheet architecture.
 - Use private mixins with a leading `_` when they are implementation details of a public mixin.
 - Do not duplicate layout or component logic already available elsewhere in the library.
-- Compose button variants from `buttonBase`, `buttonContent` or `buttonIcon`, `buttonHover` or `buttonNohover`, plus the required variant mixins.
+- Compose button variants from `buttonBase`, `buttonContent` or `buttonIcon`, plus the required variant mixins. `[pgs~=button]` does not include `buttonHover`: `pgs.hover` marks it with the `hover` token, and `[pgs~=hover]` draws the treatment. Include `buttonHover` only on an element that is not marked `pgs="button"`, and opt a surface out with `pgs-option="hoverNot"` rather than a per-component option.
 - Treat a removed or renamed public mixin, token, option, or custom property as a potential breaking change.
 
 Example component structure:
@@ -110,7 +110,7 @@ Use `reference/html/` as the single source of truth. Each reference must:
 
 - document every `pgs`, `pgs-state`, and `pgs-option` value used by its example;
 - contain only meaningful public examples, not temporary test markup;
-- keep the demo scaffolding out of the copyable code, with `demo-code="children"`;
+- keep the demo scaffolding out of the copyable code, with `demo="wrapper"`;
 - preserve required structure and accessibility attributes;
 - avoid duplicating full examples in other guides under `reference/html/guides/`.
 
@@ -122,18 +122,19 @@ source feeds two renderers, which must stay in agreement:
 - `scripts/generate-component-docs.js` writes `docs/**/*.md` and validates the reference;
 - `demo/assets/demo-fetch.js` renders the same file as a live panel — open via `demo/build/demo-fetch.html`.
 
-`demo/assets/demo.structure.html` and `demo/assets/demo.content.html` are components, not pages:
-neither does anything useful opened directly. Everything CSS/JS and these two components live under
-`demo/assets/`; the two real, openable pages live under `demo/build/`. `npm run demo:build`
-(`scripts/build-demo-static.js`) combines them into those two pages — `demo/build/demo-fetch.html`
-(the structure plus `assets/demo-fetch.js`, fetching and rendering every reference live, same as the
+`demo/assets/demo.structure.html` is a hand-authored component, not a page: it does nothing useful
+opened directly. The library's CSS/JS and this shell live under `demo/assets/`; every generated
+output — including `demo.content.html`, itself a component, not a page — lives under `demo/build/`.
+`npm run demo:build` (`scripts/build-demo-static.js`) combines the structure with the rendered
+reference files into three outputs there — `demo/build/demo.content.html` (just the pre-baked
+nav+panels markup, produced via `demo/assets/demo-render.js` — the same rendering as `demo-fetch.js`,
+ported to plain string/data functions so it can run in Node), `demo/build/demo-fetch.html` (the
+structure plus `assets/demo-fetch.js`, fetching and rendering every reference live, same as the
 structure alone used to) and `demo/build/demo.html` (the structure with `demo.content.html`'s
-pre-baked nav+panels merged in, plus `assets/demo.js` instead of `assets/demo-fetch.js`, via
-`demo/assets/demo-render.js` — the same rendering as `demo-fetch.js`, ported to plain string/data
-functions so it can run in Node). `demo.html` opens instantly instead of re-fetching and
-re-rendering every reference on load — useful when iterating on CSS/JS. `demo.content.html`,
-`demo-fetch.html` and `demo.html` are all generated: never edit them by hand, edit `reference/html/`
-or `demo/assets/demo.structure.html` and rerun the script.
+pre-baked nav+panels merged in, plus `assets/demo.js` instead of `assets/demo-fetch.js`). `demo.html`
+opens instantly instead of re-fetching and re-rendering every reference on load — useful when
+iterating on CSS/JS. `demo.content.html`, `demo-fetch.html` and `demo.html` are all generated: never
+edit them by hand, edit `reference/html/` or `demo/assets/demo.structure.html` and rerun the script.
 
 Every reference opens with a JSDoc-style block. Tags must appear in this order, and each entry is a
 single line in the form `- value: description` — the parser accepts no continuation lines:
@@ -152,24 +153,31 @@ single line in the form `- value: description` — the parser accepts no continu
 The markup below the block is annotated with `demo` attributes that tell both renderers how to split
 and present it:
 
-| attribute | effect |
+The `demo` attribute is a space-separated token list, the same convention as `pgs`/`pgs-option`:
+
+| token | effect |
 | --- | --- |
-| `demo="component"` | the outer wrapper, one per example group |
-| `demo="item"` | one example, rendered as its own title, preview and code pair |
+| `demo="component"` | one independent example — the outer boundary of a group, or (nested inside another `component`) one variant/entry within it |
+| `demo="wrapper"` | a purely nested grouping element inside a `component`'s own markup: its tag never reaches the copied code, only its children do — repeatable at any depth or side by side (see `base/border.html`'s several rows) |
 | `demo="disabled"` | keeps the element in the live preview, hides it from the code |
-| `demo-preview="none"` | keeps the element in the code, hides the preview — for markup that only carries a payload and is consumed on init, such as `notificationLoad` |
-| `demo-code="children"` | prints what is inside the element instead of the element itself |
-| `demo-code="none"` | keeps the title and description, drops the code block entirely — for markup with nothing worth copying |
+| `demo="previewNone"` | keeps the element in the code, hides the preview — for markup that only carries a payload and is consumed on init, such as `notificationLoad` |
+| `demo="codeNone"` | keeps the title and description, drops the code block entirely — for markup with nothing worth copying |
+
+`component` marks structure — every independent example is one, whether it's the only one in the
+file or nested inside another as one of several; `wrapper` and the two modifiers never define
+structure on their own. `previewNone`/`codeNone` combine with `component` on the same element, e.g.
+`demo="component previewNone"` — never write more than one `component` role marker's worth of intent
+on an element; a `wrapper` is never itself a `component` and vice versa.
 
 A heading is never an attribute on the example itself: a standalone, self-closing `<demo>` element
 placed immediately before it carries the title and description instead, so the two never compete for
-the same tag. `<demo demo-h3="Title" demo-description="...">` titles the `demo="component"`/`demo="item"`
-element it immediately precedes; `<demo demo-h2="Title" demo-description="...">` introduces a heading
-one level up, grouping every example that follows until the next `demo-h2` (used when a file's
-examples split into named groups, such as `layout/pageShell.html`'s "simple" vs. "not scroll" sets —
-most files only ever need `demo-h3`). A wrapper that itself contains `demo="item"` children (a plain
-`demo="container"`, or `demo="component"` used the same way, as in `formAddon.html`) is transparent:
-it carries no heading of its own, and a `<demo>` marker only ever precedes an actual titleable leaf.
+the same tag. `<demo demo-h3="Title" demo-description="...">` titles the `demo="component"` element it
+immediately precedes; `<demo demo-h2="Title" demo-description="...">` introduces a heading one level
+up, grouping every example that follows until the next `demo-h2` (used when a file's examples split
+into named groups, such as `layout/pageShell.html`'s "simple" vs. "not scroll" sets — most files only
+ever need `demo-h3`). A `demo="component"` that itself contains a nested `demo="component"` (as in
+`formAddon.html`'s outer `<form>` around several inner examples) is transparent: it carries no heading
+of its own, and a `<demo>` marker only ever precedes an actual titleable leaf.
 
 A `<script type="application/json">` block becomes the "PGS Option fields" section and a
 `<script type="text/x-example-js">` block becomes "JavaScript Usage". Both are documentation, so
@@ -178,8 +186,9 @@ guessed. Keep the annotations in that one block instead of repeating the field l
 
 **Example HTML must contain only the markup someone copies to reuse the component, never the markup
 that exists to arrange the demo.** When an example needs a layout wrapper to be presentable, mark
-that wrapper `demo-code="children"`: it stays in the live preview and disappears from the code. The
-same applies to any element whose only job is grouping, spacing or aligning the example.
+that wrapper `demo="wrapper"`: it stays in the live preview and disappears from the code. The same
+applies to any element whose only job is grouping, spacing or aligning the example, and it can repeat
+at any depth within one example (see `base/border.html`'s several rows, each its own `wrapper`).
 
 Generate component documentation with:
 

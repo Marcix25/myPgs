@@ -88,7 +88,7 @@ Import only the mixins when the project does not need the library stylesheet sou
 - Icon size comes from `--icon-size`, which the components set per context and you can override; `--fa-size` is still honoured for markup written against older versions. Colour follows the text colour, or `--icon-color` when you set it.
 - Reuse existing properties such as `--color-primary`, `--color-box`, `--color-text`, `--padding`, `--padding-page`, `--gap-texts`, `--gap-elements`, `--gap-sections`, `--border-radius`, `--border-radius-input`, `--border-width`, `--border-color`, `--border-complete`, `--outline-width`, `--outline-color`, `--box-shadow`, and `--focus-visible`.
 - Use existing layout and component mixins instead of rewriting them.
-- Compose custom buttons with `buttonBase`, either `buttonContent` or `buttonIcon`, either `buttonHover` or `buttonNohover`, and the required variants. Variant mixins do not include the base styles.
+- Compose custom buttons with `buttonBase`, either `buttonContent` or `buttonIcon`, `buttonHover`, and the required variants. Variant mixins do not include the base styles. An element marked `pgs="button"` needs no `buttonHover`: `pgs.hover` gives it the `hover` token at load, and `pgs-option="hoverNot"` opts it out.
 - Configure dropdown placement with `pgs-option="dropdownPosition[side align]"`, for example `dropdownPosition[top left]`, `dropdownPosition[bottom right]`, or `dropdownPosition[left center]`.
 - Avoid overriding `display`, `position`, `overflow`, `padding`, and `gap` when the component already manages them.
 - Prefer component-level custom properties for project customization.

@@ -26,14 +26,17 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 
 ### PGS
 
-- `flexRow`: arranges the button examples in a flexible row.
 - `icon`: draws the glyphs this example shows; see Icon for the whole set.
 
 ### PGS Options
 
-- `gapTexts`: spaces the two buttons that share the text-only example.
 - `icon-arrowRight`: the glyph that points forward.
 - `icon-star`: the neutral stand-in glyph, used where the example needs an icon but not a particular one.
+
+### Other
+
+- `flexRow`: arranges the button examples in a flexible row.
+- `gapTexts`: spaces the two buttons that share the text-only example.
 
 ## CSS Variables
 

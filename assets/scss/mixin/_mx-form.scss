@@ -503,13 +503,6 @@
     input[type="file"] {
         @include file();
     }
-
-    //===BUTTON 
-    :where(button[type="submit"]) {
-        @include buttonBase();
-        @include buttonContent();
-        @include buttonHover();
-    }
 }
 
 //== formValidate

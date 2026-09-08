@@ -51,7 +51,7 @@ Menu markup with horizontal, vertical and recursively nested navigation examples
 - `dropdown`: uses the related dropdown component or utility in this example.
 - `dropdown-button`: uses the related dropdown-button component or utility in this example.
 - `dropdown-content`: uses the related dropdown-content component or utility in this example.
-- `buttonNohover`: disables hover behavior on menu buttons generated at runtime.
+- `hoverNot`: disables hover behavior on menu buttons generated at runtime.
 - `dropdownPosition`: set by Menu at runtime on the li it turns into a dropdown, to place the first-level floating submenu.
 
 ## CSS Variables

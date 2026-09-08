@@ -35,7 +35,7 @@ function PGS_stepTabs_init(root = document) {
                 dot.type = "button";
                 pgs(dot).add("_stepTabs-dots-dot");
                 pgs(dot).add("button");
-                pgs(dot).option.add("buttonIcon buttonNohover");
+                pgs(dot).option.add("buttonIcon hoverNot");
                 //== stepTabsIcon takes three shapes, told apart by how the value opens. Markup, from a
                 //== "<", is instantiated as written: that is what puts every icon set in reach,
                 //== including the ones a class list cannot describe because they want their name as

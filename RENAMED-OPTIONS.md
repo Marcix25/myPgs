@@ -24,6 +24,7 @@ token, rinominate per coerenza con il resto della libreria (es. `singleScroll` �
 | Modal (anche riuso nel dialog di Notification) | `right` | `modalRight` |
 | Modal | `topLevel` | `modalTopLevel` |
 | Header | `compactBottom` | `headerCompactBottom` |
+| Button → Hover (opt-out unificato) | `buttonNohover` | `hoverNot` |
 
 ## Non toccati (di proposito)
 
@@ -31,7 +32,8 @@ Questi comparivano associati a più componenti nella mappa (`reference/pgs-map.j
 usati nei relativi esempi/markup generato, ma appartengono davvero a un altro componente e sono già
 nominati coerentemente con quello:
 
-- `buttonReverse`, `buttonNohover` → famiglia del componente **button**.
+- `buttonReverse` → famiglia del componente **button**. (`buttonNohover` invece e' stato spostato:
+  vedi la riga `hoverNot` in tabella — l'opt-out dell'hover ora e' unico per tutta la libreria.)
 - `icon-*` (es. `icon-moon`, `icon-sun`) e `iconDuo-hamburger` → famiglia del componente **icon**.
 - Le famiglie condivise apposta tra più componenti: `border*`, `margin*`, `padding*`,
   `flex*`/`grid` (contentX/itemX/justifyX/gapX), `notification`/`toast` (usati da

@@ -4,10 +4,10 @@
 //+ (scripts/build-demo-static.js, at build time) and, if ever loaded as a plain <script>, in the
 //+ browser too. It is the single "how a reference renders" implementation: demo-fetch.js keeps its
 //+ own DOM-based renderer for the live, always-fresh page (demo-fetch.html), and
-//+ scripts/build-demo-static.js uses only this file to pre-bake demo/assets/demo.content.html and
-//+ the final demo/demo.html. Keep this in sync with demo-fetch.js and with
+//+ scripts/build-demo-static.js uses only this file to pre-bake demo/build/demo.content.html and
+//+ the final demo/build/demo.html. Keep this in sync with demo-fetch.js and with
 //+ scripts/generate-component-docs.js whenever the doc-comment format or the demo markup
-//+ conventions (demo="component"/"item", demo-h2/demo-h3, demo-code, demo-preview) change.
+//+ conventions (demo="component"/"wrapper", demo-h2/demo-h3, codeNone, previewNone) change.
 
 const TAG_ORDER = ["title", "description", "pgs", "pgs-generated", "pgs-option", "pgs-state", "api", "related", "return"];
 const LIST_TAGS = new Set(["pgs", "pgs-generated", "pgs-option", "pgs-state", "api", "related"]);
@@ -260,12 +260,15 @@ function findMatchingCloseTag(markup, tagName, fromIndex) {
 }
 
 function stripDemoAttributesFromMarkup(html) {
-    return html.replace(/\s+demo(?:-h2|-h3|-title|-description|-preview|-code)?\s*=\s*("[^"]*"|'[^']*')/g, "");
+    return html.replace(/\s+demo(?:-h2|-h3|-title|-description)?\s*=\s*("[^"]*"|'[^']*')/g, "");
 }
 
-//+ an element that only groups the example for the demo is not part of the example: demo-code="children"
+//+ an element that only groups the example for the demo is not part of the example: demo="wrapper"
 //+ keeps it in the live preview but prints what is inside it instead of itself — only meaningful for
-//+ the copyable "Example HTML" text, never for the live preview markup
+//+ the copyable "Example HTML" text, never for the live preview markup. It can repeat at several
+//+ levels side by side within one example (see Border's rows of spans), not just a single nested
+//+ chain, so this scans the whole string for a match rather than assuming the next one is always at
+//+ the very start.
 function unwrapScaffold(markup) {
     let current = markup.trim();
     const openTagPattern = /<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*>/g;
@@ -276,7 +279,7 @@ function unwrapScaffold(markup) {
         let target = null;
 
         while ((match = openTagPattern.exec(current))) {
-            if (/\bdemo-code\s*=\s*(["'])children\1/.test(match[0])) {
+            if (/\bdemo\s*=\s*["'][^"']*\bwrapper\b[^"']*["']/.test(match[0])) {
                 target = match;
                 break;
             }
@@ -325,21 +328,26 @@ function extractCssVariables(basename, cssText) {
     return [...new Set((cssText || "").match(pattern) || [])].sort((a, b) => a.localeCompare(b, "en"));
 }
 
-//+ true when a demo="component"/"container" wrapper has demo="item" descendants, meaning it's
-//+ transparent grouping markup rather than the rendered example itself
-function hasNestedDemoItems(markup, start, end) {
-    return /\bdemo\s*=\s*["']item["']/.test(markup.slice(start, end));
+//+ true when a demo="component" element has a nested demo="component" descendant, meaning it's
+//+ transparent grouping markup rather than the rendered example itself. The boundary check (rather
+//+ than an exact-value match) is what lets "component" combine with codeNone/previewNone in the same
+//+ demo attribute, e.g. demo="component previewNone".
+function hasNestedComponent(markup, start, end) {
+    return /\bdemo\s*=\s*["'][^"']*\bcomponent\b[^"']*["']/.test(markup.slice(start, end));
 }
 
 //+ walks the example markup in document order (same rule as extractDemoBlocks in
 //+ scripts/generate-component-docs.js and demo-fetch.js's own extractDemoBlocks): a <demo demo-h2> marker
 //+ becomes a heading block, a <demo demo-h3> marker is held as "pending" until the next titleable
-//+ leaf consumes it, and a demo="component"/"container" wrapper with demo="item" descendants is
-//+ transparent (the walk keeps scanning through its content instead of treating it as one block).
-//+ `unwrap` controls whether demo-code="children" wrappers are unwrapped in the returned markup —
-//+ true for the copyable code text, false for the live-preview markup, which must keep them.
+//+ leaf consumes it, and a demo="component" with a nested demo="component" is transparent (the walk
+//+ keeps scanning through its content instead of treating it as one block, see formAddon.html's
+//+ outer <form demo="component"> around several inner ones). demo="wrapper" never appears in this
+//+ top-level match at all — it's a purely nested instruction, unwrapped afterwards by unwrapScaffold,
+//+ never its own block boundary. `unwrap` controls whether demo="wrapper" elements are unwrapped in
+//+ the returned markup — true for the copyable code text, false for the live-preview markup, which
+//+ must keep them (removing a real, styled element there would break layout).
 function extractDemoBlocks(markup, { unwrap = true } = {}) {
-    const pattern = /<(demo)\b[^>]*>|<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*\bdemo\s*=\s*["'](item|component|container)["'][^>]*>/g;
+    const pattern = /<(demo)\b[^>]*>|<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*\bdemo\s*=\s*["'][^"']*\bcomponent\b[^"']*["'][^>]*>/g;
     const blocks = [];
     let pendingH3 = null;
     let match;
@@ -361,7 +369,6 @@ function extractDemoBlocks(markup, { unwrap = true } = {}) {
         }
 
         const tagName = match[2];
-        const kind = match[3];
         const openTagEnd = match.index + match[0].length;
         const end = findMatchingCloseTag(markup, tagName, openTagEnd);
         if (end === -1) {
@@ -369,23 +376,33 @@ function extractDemoBlocks(markup, { unwrap = true } = {}) {
             continue;
         }
 
-        if (kind !== "item" && hasNestedDemoItems(markup, openTagEnd, end)) {
+        if (hasNestedComponent(markup, openTagEnd, end)) {
             pattern.lastIndex = openTagEnd;
             continue;
         }
 
-        const lineStart = markup.lastIndexOf("\n", match.index) + 1;
-        const baseIndent = markup.slice(lineStart, match.index).match(/^[ \t]*$/) ? markup.slice(lineStart, match.index) : "";
-        const outer = markup.slice(match.index, end);
-        const dedented = baseIndent ? outer.replace(new RegExp(`^${escapeRegExp(baseIndent)}`, "gm"), "") : outer;
+        let dedented;
+        if (unwrap) {
+            //== a demo="component" only declares where one example starts: it is the grouping
+            //== element, never part of the example itself, so its own tag never reaches the copied
+            //== code — exactly like demo="wrapper". The live-preview markup (unwrap: false) always
+            //== keeps the real element, since removing it there could change the layout
+            const closing = markup.lastIndexOf("<", end - 1);
+            dedented = dedent(markup.slice(openTagEnd, closing));
+        } else {
+            const lineStart = markup.lastIndexOf("\n", match.index) + 1;
+            const baseIndent = markup.slice(lineStart, match.index).match(/^[ \t]*$/) ? markup.slice(lineStart, match.index) : "";
+            const outer = markup.slice(match.index, end);
+            dedented = baseIndent ? outer.replace(new RegExp(`^${escapeRegExp(baseIndent)}`, "gm"), "") : outer;
+        }
         const processed = unwrap ? unwrapScaffold(dedented) : dedented;
 
         blocks.push({
             type: "item",
             title: pendingH3 ? pendingH3.title : "",
             description: pendingH3 ? pendingH3.description : "",
-            hideCode: /\bdemo-code\s*=\s*["']none["']/.test(match[0]),
-            previewNone: /\bdemo-preview\s*=\s*["']none["']/.test(match[0]),
+            hideCode: /\bdemo\s*=\s*["'][^"']*\bcodeNone\b[^"']*["']/.test(match[0]),
+            previewNone: /\bdemo\s*=\s*["'][^"']*\bpreviewNone\b[^"']*["']/.test(match[0]),
             markup: stripDemoAttributesFromMarkup(processed).trim(),
         });
         pendingH3 = null;
@@ -481,7 +498,7 @@ function renderDemoItemHtml({ previewMarkup, codeMarkup, title, description, sho
     return html;
 }
 
-//= Splits example markup tagged with demo="component"|"container"/demo="item" (titled by a
+//= Splits example markup tagged with demo="component" (titled by a
 //= preceding <demo demo-h2/demo-h3> marker, see extractDemoBlocks) into one live-preview + code
 //= pair per item, falling back to a single whole-markup pair for reference files that don't use
 //= those tags yet
@@ -498,19 +515,19 @@ function renderExamplePairsHtml(exampleMarkup) {
 
     //== a second walk over the un-stripped, non-unwrapped markup for the live-preview text; the two
     //== walks line up index-for-index in every case seen in this repo (no demo="disabled" element is
-    //== itself a demo="item"/"component" root), paired defensively rather than assumed
+    //== itself a demo="component" root), so the same loop index addresses both
+    //== arrays directly — paired defensively (checked, never assumed) rather than by a separate
+    //== counter that has to remember to advance in lockstep for every block type, headings included
     const previewBlocks = extractDemoBlocks(exampleMarkup, { unwrap: false });
 
     let html = "";
-    let previewIndex = 0;
-    codeBlocks.forEach(block => {
+    codeBlocks.forEach((block, index) => {
         if (block.type === "heading") {
             html += renderHeadingBlockHtml(block.title, block.description, "h2");
             return;
         }
 
-        const previewBlock = previewBlocks[previewIndex];
-        if (previewBlock && previewBlock.type === "item") previewIndex++;
+        const previewBlock = previewBlocks[index];
 
         html += renderDemoItemHtml({
             previewMarkup: previewBlock && previewBlock.type === "item" ? previewBlock.markup : block.markup,

@@ -104,9 +104,13 @@ $icons-duo: (
 
 
 //= ICON SVG
+//+ inline-block, not block or list-item: the glyph has to sit on the text line like a font icon
+//+ does (see icon.html's "inside a paragraph" example) while still taking a width and a height for
+//+ the mask to paint into. Inside a flex or grid parent the value is blockified anyway, so every
+//+ component that lays its icon out that way is unaffected.
 @mixin iconSvgBase64($url, $size: 2.0rem, $color: var(--color-primary-strong)) {
     content: "";
-    display: list-item;
+    display: inline-block;
     width: $size;
     height: $size;
     background-color: $color;

@@ -1,9 +1,10 @@
 <!-- Page shell only — no content-loading script of its own, so opening this file directly shows an
-     empty nav and an empty main. Lives in demo/assets/ with the other demo build pieces (CSS, JS,
-     demo.content.html); it's a building block for scripts/build-demo-static.js, which turns it into
-     two complete, directly-openable pages under demo/build/: demo-fetch.html (this shell plus
-     ../assets/demo-fetch.js, fetching and rendering every reference/html file live) and demo.html
-     (this shell with demo.content.html's pre-baked nav+panels spliced in, plus
+     empty nav and an empty main. Lives in demo/assets/ with the other hand-authored demo build
+     pieces (CSS, JS); it's a building block for scripts/build-demo-static.js, which turns it into
+     three generated outputs under demo/build/: demo.content.html (the pre-baked nav+panels, its own
+     component, never opened directly), demo-fetch.html (this shell plus ../assets/demo-fetch.js,
+     fetching and rendering every reference/html file live) and demo.html (this shell with
+     demo.content.html's nav+panels spliced in, plus
      ../assets/demo.js instead). Edit this file for structural/layout changes (header,
      page shell, footer, <head>); run `npm run demo:build` afterwards to regenerate both pages. The
      asset paths below are written relative to demo/build/ (where the generated pages end up), not
@@ -18,8 +19,7 @@
     <script src="../../dist/javascript/index.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"> -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap" >
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <link rel="stylesheet" href="../../dist/css/index.css">

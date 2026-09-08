@@ -18,9 +18,10 @@
     border-radius: var(--card-borderRadius);
 
     &:where(a) {
+        display: block;
         --card-background: var(--color-white);
-        @include hoverBase();
-        @include hoverContent1();
+        //== hover comes from the "hover" token that pgs.hover adds to a clickable card at load
+        //== time; the focus ring stays here because it must not depend on the JavaScript
         @include hoverFocus();
         outline: var(--border-complete);
     }

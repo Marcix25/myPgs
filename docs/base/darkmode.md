@@ -61,12 +61,7 @@ localStorage.getItem("screenIsDarkMode");
 The icon is swapped by the library, so author it as fa-moon and leave it alone. Several switches can coexist: they all read and write the same stored value.
 
 ```html
-<div pgs="flexColumn" pgs-option="gapTexts">
-
-    <button pgs="button toggleDarkmode" pgs-option="buttonIcon" type="button" aria-label="Change theme">
-        <i pgs="icon"></i>
-    </button>
-
-    
-</div>
+<button pgs="button toggleDarkmode" pgs-option="buttonIcon" type="button" aria-label="Change theme">
+    <i pgs="icon"></i>
+</button>
 ```

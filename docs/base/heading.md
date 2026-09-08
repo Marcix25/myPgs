@@ -39,11 +39,9 @@ The five heading sizes applied to plain paragraphs, so the tag keeps its meaning
 The same sizes as h1 to h5, applied to paragraphs: use them when the right size and the right heading level do not match.
 
 ```html
-<div pgs="flexColumn" pgs-option="gapTexts">
-    <p pgs="h1">h1 on a paragraph</p>
-    <p pgs="h2">h2 on a paragraph</p>
-    <p pgs="h3">h3 on a paragraph</p>
-    <p pgs="h4">h4 on a paragraph</p>
-    <p pgs="h5">h5 on a paragraph</p>
-</div>
+<p pgs="h1">h1 on a paragraph</p>
+<p pgs="h2">h2 on a paragraph</p>
+<p pgs="h3">h3 on a paragraph</p>
+<p pgs="h4">h4 on a paragraph</p>
+<p pgs="h5">h5 on a paragraph</p>
 ```

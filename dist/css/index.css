@@ -1394,7 +1394,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=grid] {
   display: grid;
-  gap: var(--gap-elements);
+  gap: var(--gap-texts);
   width: 100%;
 }
 
@@ -2889,89 +2889,10 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 [pgs~=card]:where(a) {
+  display: block;
   --card-background: var(--color-white);
-  --hover-primaryColor: var(--color-primary-soft);
-  --hover-background: var(--hover-primaryColor);
-  --hover-color: var(--color-black);
-  --hover-border: var(--color-primary-soft);
 }
 
-[pgs~=card]:where(a):where(:disabled, [disabled]) {
-  text-decoration: none;
-  cursor: default;
-}
-
-[pgs~=card]:where(a):where(:not(:disabled, [disabled])) {
-  transition: unset 0ms;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-[pgs~=card]:where(a):where(:not(:disabled, [disabled])) * {
-  transition: unset 0ms;
-  text-decoration: none;
-}
-
-[pgs~=card]:where(a):where(:not(:disabled, [disabled])) *::before, [pgs~=card]:where(a):where(:not(:disabled, [disabled])) *::after {
-  transition: unset 0ms;
-}
-
-[pgs~=card]:where(a) {
-  position: relative;
-  isolation: isolate;
-  overflow: clip;
-}
-
-[pgs~=card]:where(a):where(:not(:disabled, [disabled])) {
-  transition: border-color 500ms ease, outline-color 500ms ease;
-}
-
-[pgs~=card]:where(a):where(:not(:disabled, [disabled]))::before {
-  content: "";
-  width: 110%;
-  height: 110%;
-  aspect-ratio: 1;
-  border-radius: 0;
-  background: var(--hover-background);
-  position: absolute;
-  bottom: -5%;
-  left: 50%;
-  z-index: -1;
-  transform: translateY(100%) translateX(-50%) scale(0);
-  transition: transform 500ms ease, border-radius 500ms ease;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  [pgs~=card]:where(a):where(:not(:disabled, [disabled])):hover {
-    background-color: var(--hover-background);
-    color: var(--hover-color);
-    outline-color: var(--hover-border);
-    border-color: var(--hover-border);
-    transition: background-color 250ms ease-out 500ms, color 500ms ease 250ms, border-color 500ms ease, outline-color 500ms ease;
-  }
-  [pgs~=card]:where(a):where(:not(:disabled, [disabled])):hover::before {
-    transform: translateY(0%) translateX(-50%) scale(1);
-    border-radius: 100px;
-  }
-  [pgs~=card]:where(a):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p, a) {
-    color: var(--hover-color);
-  }
-  [pgs~=card]:where(a):where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
-    color: var(--hover-color);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  [pgs~=card]:where(a):where(:not(:disabled, [disabled])) {
-    transition: unset;
-  }
-  [pgs~=card]:where(a):where(:not(:disabled, [disabled]))::before {
-    display: none;
-  }
-  [pgs~=card]:where(a):where(:not(:disabled, [disabled])):hover {
-    transition: unset;
-    background-color: var(--hover-background);
-  }
-}
 [pgs~=card]:where(a):where(:not(:disabled, [disabled])):focus-visible {
   outline: var(--focus-visible);
   outline-offset: 3px;
@@ -3069,88 +2990,9 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=box]:where(a) {
   --box-background: var(--color-white);
-  --hover-primaryColor: var(--color-primary-soft);
-  --hover-background: var(--hover-primaryColor);
-  --hover-color: var(--color-black);
-  --hover-border: var(--color-primary-soft);
+  display: block;
 }
 
-[pgs~=box]:where(a):where(:disabled, [disabled]) {
-  text-decoration: none;
-  cursor: default;
-}
-
-[pgs~=box]:where(a):where(:not(:disabled, [disabled])) {
-  transition: unset 0ms;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-[pgs~=box]:where(a):where(:not(:disabled, [disabled])) * {
-  transition: unset 0ms;
-  text-decoration: none;
-}
-
-[pgs~=box]:where(a):where(:not(:disabled, [disabled])) *::before, [pgs~=box]:where(a):where(:not(:disabled, [disabled])) *::after {
-  transition: unset 0ms;
-}
-
-[pgs~=box]:where(a) {
-  position: relative;
-  isolation: isolate;
-  overflow: clip;
-}
-
-[pgs~=box]:where(a):where(:not(:disabled, [disabled])) {
-  transition: border-color 500ms ease, outline-color 500ms ease;
-}
-
-[pgs~=box]:where(a):where(:not(:disabled, [disabled]))::before {
-  content: "";
-  width: 110%;
-  height: 110%;
-  aspect-ratio: 1;
-  border-radius: 0;
-  background: var(--hover-background);
-  position: absolute;
-  bottom: -5%;
-  left: 50%;
-  z-index: -1;
-  transform: translateY(100%) translateX(-50%) scale(0);
-  transition: transform 500ms ease, border-radius 500ms ease;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  [pgs~=box]:where(a):where(:not(:disabled, [disabled])):hover {
-    background-color: var(--hover-background);
-    color: var(--hover-color);
-    outline-color: var(--hover-border);
-    border-color: var(--hover-border);
-    transition: background-color 250ms ease-out 500ms, color 500ms ease 250ms, border-color 500ms ease, outline-color 500ms ease;
-  }
-  [pgs~=box]:where(a):where(:not(:disabled, [disabled])):hover::before {
-    transform: translateY(0%) translateX(-50%) scale(1);
-    border-radius: 100px;
-  }
-  [pgs~=box]:where(a):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p, a) {
-    color: var(--hover-color);
-  }
-  [pgs~=box]:where(a):where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
-    color: var(--hover-color);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  [pgs~=box]:where(a):where(:not(:disabled, [disabled])) {
-    transition: unset;
-  }
-  [pgs~=box]:where(a):where(:not(:disabled, [disabled]))::before {
-    display: none;
-  }
-  [pgs~=box]:where(a):where(:not(:disabled, [disabled])):hover {
-    transition: unset;
-    background-color: var(--hover-background);
-  }
-}
 [pgs~=box]:where(a):where(:not(:disabled, [disabled])):focus-visible {
   outline: var(--focus-visible);
   outline-offset: 3px;
@@ -3483,7 +3325,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   top: -1.7rem;
   left: -0.8rem;
   content: "";
-  display: list-item;
+  display: inline-block;
   width: calc(2rem + var(--checkbox-size));
   height: calc(2rem + var(--checkbox-size));
   background-color: var(--checkbox-check-color);
@@ -3725,7 +3567,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   top: -1.7rem;
   left: -0.8rem;
   content: "";
-  display: list-item;
+  display: inline-block;
   width: calc(2rem + var(--checkbox-size));
   height: calc(2rem + var(--checkbox-size));
   background-color: var(--checkbox-check-color);
@@ -4236,7 +4078,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=form] :where(button[type=submit]) {
   position: relative;
   isolation: isolate;
-  overflow: clip;
 }
 
 [pgs~=form] :where(button[type=submit]):where(:not(:disabled, [disabled])) {
@@ -4245,17 +4086,18 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=form] :where(button[type=submit]):where(:not(:disabled, [disabled]))::before {
   content: "";
-  width: 110%;
-  height: 110%;
+  width: 100%;
+  height: 100%;
   aspect-ratio: 1;
-  border-radius: 0;
+  border-radius: inherit;
   background: var(--hover-background);
   position: absolute;
-  bottom: -5%;
-  left: 50%;
+  bottom: 0;
+  left: 0;
   z-index: -1;
-  transform: translateY(100%) translateX(-50%) scale(0);
-  transition: transform 500ms ease, border-radius 500ms ease;
+  transform: scale(0);
+  transform-origin: bottom center;
+  transition: transform 500ms ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -4264,11 +4106,10 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     color: var(--hover-color);
     outline-color: var(--hover-border);
     border-color: var(--hover-border);
-    transition: background-color 250ms ease-out 500ms, color 500ms ease 250ms, border-color 500ms ease, outline-color 500ms ease;
+    transition: background-color 250ms ease-out 500ms, color 500ms ease 250ms, outline-color 500ms ease;
   }
   [pgs~=form] :where(button[type=submit]):where(:not(:disabled, [disabled])):hover::before {
-    transform: translateY(0%) translateX(-50%) scale(1);
-    border-radius: 100px;
+    transform: scale(1);
   }
   [pgs~=form] :where(button[type=submit]):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p, a) {
     color: var(--hover-color);
@@ -4386,6 +4227,17 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   border-color: var(--button-border-color-current);
 }
 
+[pgs~=button]:has(input:checked) {
+  --button-background: var(--button-background-active);
+  --button-color: var(--button-color-active);
+  --button-border-color: var(--button-border-color-active);
+}
+
+[pgs~=button]:where(:not(:disabled, [disabled])):focus-visible {
+  outline: var(--focus-visible);
+  outline-offset: 3px;
+}
+
 [pgs~=button]:where(:not([pgs-option~=buttonIcon])):where(:has(i)) {
   --button-padding-left: var(--button-padding-left-icon);
 }
@@ -4411,99 +4263,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   block-size: var(--icon-size);
   line-height: 1;
   aspect-ratio: 1;
-}
-
-[pgs~=button]:not([pgs-option~=buttonNohover]) {
-  --hover-primaryColor: var(--color-primary-soft);
-  --hover-background: var(--hover-primaryColor);
-  --hover-color: var(--color-black);
-  --hover-border: var(--color-primary-soft);
-}
-
-[pgs~=button]:not([pgs-option~=buttonNohover]):where(:disabled, [disabled]) {
-  text-decoration: none;
-  cursor: default;
-}
-
-[pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])) {
-  transition: unset 0ms;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-[pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])) * {
-  transition: unset 0ms;
-  text-decoration: none;
-}
-
-[pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])) *::before, [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])) *::after {
-  transition: unset 0ms;
-}
-
-[pgs~=button]:not([pgs-option~=buttonNohover]) {
-  position: relative;
-  isolation: isolate;
-  overflow: clip;
-}
-
-[pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])) {
-  transition: border-color 500ms ease, outline-color 500ms ease;
-}
-
-[pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled]))::before {
-  content: "";
-  width: 110%;
-  height: 110%;
-  aspect-ratio: 1;
-  border-radius: 0;
-  background: var(--hover-background);
-  position: absolute;
-  bottom: -5%;
-  left: 50%;
-  z-index: -1;
-  transform: translateY(100%) translateX(-50%) scale(0);
-  transition: transform 500ms ease, border-radius 500ms ease;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):hover {
-    background-color: var(--hover-background);
-    color: var(--hover-color);
-    outline-color: var(--hover-border);
-    border-color: var(--hover-border);
-    transition: background-color 250ms ease-out 500ms, color 500ms ease 250ms, border-color 500ms ease, outline-color 500ms ease;
-  }
-  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):hover::before {
-    transform: translateY(0%) translateX(-50%) scale(1);
-    border-radius: 100px;
-  }
-  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p, a) {
-    color: var(--hover-color);
-  }
-  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
-    color: var(--hover-color);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])) {
-    transition: unset;
-  }
-  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled]))::before {
-    display: none;
-  }
-  [pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):hover {
-    transition: unset;
-    background-color: var(--hover-background);
-  }
-}
-[pgs~=button]:not([pgs-option~=buttonNohover]):where(:not(:disabled, [disabled])):focus-visible {
-  outline: var(--focus-visible);
-  outline-offset: 3px;
-}
-
-[pgs~=button][pgs-option~=buttonNohover] {
-  transition: all 200ms;
-  cursor: inherit;
 }
 
 [pgs~=button][pgs-option~=buttonStrong] {
@@ -4616,7 +4375,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-arrowLeft]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -4635,7 +4394,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-arrowRight]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -4654,7 +4413,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-bell]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -4673,7 +4432,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-check]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -4692,7 +4451,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-chevronDown]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -4711,7 +4470,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-circle]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -4730,7 +4489,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-circleCheck]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -4749,7 +4508,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-circleInfo]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -4768,7 +4527,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-circleXmark]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -4787,7 +4546,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-close]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -4806,7 +4565,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-cookie]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -4825,7 +4584,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-magnifyingGlass]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -4844,7 +4603,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-moon]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -4863,7 +4622,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-sliders]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -4882,7 +4641,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-star]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -4901,7 +4660,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-sun]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -4920,7 +4679,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-triangleExclamation]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -4939,7 +4698,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-calendar]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -4958,7 +4717,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-chatBubble]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -4977,7 +4736,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-clock]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -4996,7 +4755,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-download]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -5015,7 +4774,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-envelope]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -5034,7 +4793,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-eye]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -5053,7 +4812,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-gear]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -5072,7 +4831,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-heart]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -5091,7 +4850,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-home]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -5110,7 +4869,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-lock]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -5129,7 +4888,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-mapPin]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -5148,7 +4907,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-minus]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -5167,7 +4926,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-pause]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -5186,7 +4945,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-pencil]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -5205,7 +4964,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-play]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -5224,7 +4983,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-plus]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -5243,7 +5002,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-trash]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -5262,7 +5021,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-upload]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -5281,7 +5040,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-user]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -5300,7 +5059,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-hamburger]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -5319,7 +5078,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-hamburgerTwo]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -5338,7 +5097,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-ellipsis]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -5368,7 +5127,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-hamburgerTwo][pgs-option~=iconDuo]::before {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -5378,7 +5137,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=icon][pgs-option~=icon-hamburgerTwo][pgs-option~=iconDuo]::after {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--icon-color, currentColor);
@@ -5515,7 +5274,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   top: -1.7rem;
   left: -0.8rem;
   content: "";
-  display: list-item;
+  display: inline-block;
   width: calc(2rem + var(--checkbox-size));
   height: calc(2rem + var(--checkbox-size));
   background-color: var(--checkbox-check-color);
@@ -5570,185 +5329,9 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=twoState] {
   position: relative;
   isolation: isolate;
-  --button-primaryColor: var(--color-primary-strong);
-  --button-color: var(--color-black);
-  --button-color-strong: var(--color-white);
-  --button-color-current: var(--color-white);
-  --button-color-active: var(--color-white);
-  --button-background: var(--color-box);
-  --button-background-strong: var(--button-primaryColor);
-  --button-background-current: var(--button-primaryColor);
-  --button-background-active: var(--button-primaryColor);
-  --button-size: 1.3rem;
-  --button-font-size: var(--font-size-text);
-  --button-padding-block: var(--button-size);
-  --button-padding-left: calc(var(--button-size) * 2);
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left-icon: calc(var(--button-size) * 1.5);
-  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
-  --button-height: max-content;
-  --button-border-width: var(--border-width);
-  --button-border-style: var(--border-style);
-  --button-border-color: var(--border-color);
-  --button-border-color-strong: var(--button-primaryColor);
-  --button-border-color-current: var(--button-primaryColor);
-  --button-border-color-active: var(--button-primaryColor);
-  --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
-  --button-borderRadius: var(--border-radius-input);
-  color: var(--button-color);
-  background: var(--button-background);
-  border-color: var(--button-border-color);
-  font-family: var(--font);
-  font-size: var(--button-font-size);
-  font-weight: var(--font-weight-bold);
-  text-decoration: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
-  border-width: var(--button-border-width);
-  border-style: var(--button-border-style);
-  border-color: var(--button-border-color);
-  border-radius: var(--button-borderRadius);
-  display: flex;
-  gap: calc(var(--button-size) / 2);
-  align-items: center;
-  justify-content: center;
-  padding: var(--button-padding);
-  height: var(--button-height);
-  width: fit-content;
-}
-
-[pgs~=twoState]:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
-}
-
-[pgs~=twoState]:where([aria-current=page]), [pgs~=twoState]:where([aria-selected=true]) {
-  color: var(--button-color-current);
-  background: var(--button-background-current);
-  border-color: var(--button-border-color-current);
-}
-
-[pgs~=twoState]:where(:has(i)) {
-  --button-padding-left: var(--button-padding-left-icon);
-}
-
-[pgs~=twoState]:where([pgs-option~=buttonReverse]:has(i)) {
-  --button-padding-right: var(--button-padding-left-icon);
-  --button-padding-left: var(--button-padding-right);
-}
-
-[pgs~=twoState] {
-  --hover-primaryColor: var(--color-primary-soft);
-  --hover-background: var(--hover-primaryColor);
-  --hover-color: var(--color-black);
-  --hover-border: var(--color-primary-soft);
-}
-
-[pgs~=twoState]:where(:disabled, [disabled]) {
-  text-decoration: none;
-  cursor: default;
-}
-
-[pgs~=twoState]:where(:not(:disabled, [disabled])) {
-  transition: unset 0ms;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-[pgs~=twoState]:where(:not(:disabled, [disabled])) * {
-  transition: unset 0ms;
-  text-decoration: none;
-}
-
-[pgs~=twoState]:where(:not(:disabled, [disabled])) *::before, [pgs~=twoState]:where(:not(:disabled, [disabled])) *::after {
-  transition: unset 0ms;
-}
-
-[pgs~=twoState] {
-  position: relative;
-  isolation: isolate;
-  overflow: clip;
-}
-
-[pgs~=twoState]:where(:not(:disabled, [disabled])) {
-  transition: border-color 500ms ease, outline-color 500ms ease;
-}
-
-[pgs~=twoState]:where(:not(:disabled, [disabled]))::before {
-  content: "";
-  width: 110%;
-  height: 110%;
-  aspect-ratio: 1;
-  border-radius: 0;
-  background: var(--hover-background);
-  position: absolute;
-  bottom: -5%;
-  left: 50%;
-  z-index: -1;
-  transform: translateY(100%) translateX(-50%) scale(0);
-  transition: transform 500ms ease, border-radius 500ms ease;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  [pgs~=twoState]:where(:not(:disabled, [disabled])):hover {
-    background-color: var(--hover-background);
-    color: var(--hover-color);
-    outline-color: var(--hover-border);
-    border-color: var(--hover-border);
-    transition: background-color 250ms ease-out 500ms, color 500ms ease 250ms, border-color 500ms ease, outline-color 500ms ease;
-  }
-  [pgs~=twoState]:where(:not(:disabled, [disabled])):hover::before {
-    transform: translateY(0%) translateX(-50%) scale(1);
-    border-radius: 100px;
-  }
-  [pgs~=twoState]:where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p, a) {
-    color: var(--hover-color);
-  }
-  [pgs~=twoState]:where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
-    color: var(--hover-color);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  [pgs~=twoState]:where(:not(:disabled, [disabled])) {
-    transition: unset;
-  }
-  [pgs~=twoState]:where(:not(:disabled, [disabled]))::before {
-    display: none;
-  }
-  [pgs~=twoState]:where(:not(:disabled, [disabled])):hover {
-    transition: unset;
-    background-color: var(--hover-background);
-  }
-}
-[pgs~=twoState]:where(:not(:disabled, [disabled])):focus-visible {
-  outline: var(--focus-visible);
-  outline-offset: 3px;
-}
-
-[pgs~=twoState] {
   flex-wrap: wrap;
   display: flex !important;
   cursor: pointer;
-}
-
-[pgs~=twoState] i, [pgs~=twoState] [pgs~=icon] {
-  opacity: 0.4;
-  min-width: 1.4rem;
-}
-
-[pgs~=twoState]:hover i, [pgs~=twoState]:hover [pgs~=icon] {
-  opacity: 1;
-}
-
-[pgs~=twoState]:has(input:checked) {
-  --button-background: var(--button-background-active);
-  --button-color: var(--button-color-active);
-  --button-border-color: var(--button-border-color-active);
-}
-
-[pgs~=twoState]:has(input:checked) i, [pgs~=twoState]:has(input:checked) [pgs~=icon] {
-  opacity: 1;
 }
 
 [pgs~=twoState] input {
@@ -5756,6 +5339,22 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   z-index: -1;
   position: absolute;
   appearance: none;
+}
+
+[pgs~=twoState] i,
+[pgs~=twoState] [pgs~=icon] {
+  opacity: 0.4;
+  min-width: 1.4rem;
+}
+
+[pgs~=twoState]:hover i,
+[pgs~=twoState]:hover [pgs~=icon] {
+  opacity: 1;
+}
+
+[pgs~=twoState]:has(input:checked) i,
+[pgs~=twoState]:has(input:checked) [pgs~=icon] {
+  opacity: 1;
 }
 
 [pgs~=toggle] {
@@ -5843,97 +5442,9 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=chips] label {
   position: relative;
   isolation: isolate;
-  --button-primaryColor: var(--color-primary-strong);
-  --button-color: var(--color-black);
-  --button-color-strong: var(--color-white);
-  --button-color-current: var(--color-white);
-  --button-color-active: var(--color-white);
-  --button-background: var(--color-box);
-  --button-background-strong: var(--button-primaryColor);
-  --button-background-current: var(--button-primaryColor);
-  --button-background-active: var(--button-primaryColor);
-  --button-size: 1.3rem;
-  --button-font-size: var(--font-size-text);
-  --button-padding-block: var(--button-size);
-  --button-padding-left: calc(var(--button-size) * 2);
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left-icon: calc(var(--button-size) * 1.5);
-  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
-  --button-height: max-content;
-  --button-border-width: var(--border-width);
-  --button-border-style: var(--border-style);
-  --button-border-color: var(--border-color);
-  --button-border-color-strong: var(--button-primaryColor);
-  --button-border-color-current: var(--button-primaryColor);
-  --button-border-color-active: var(--button-primaryColor);
-  --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
-  --button-borderRadius: var(--border-radius-input);
-  color: var(--button-color);
-  background: var(--button-background);
-  border-color: var(--button-border-color);
-  font-family: var(--font);
-  font-size: var(--button-font-size);
-  font-weight: var(--font-weight-bold);
-  text-decoration: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
-  border-width: var(--button-border-width);
-  border-style: var(--button-border-style);
-  border-color: var(--button-border-color);
-  border-radius: var(--button-borderRadius);
-  display: flex;
-  gap: calc(var(--button-size) / 2);
-  align-items: center;
-  justify-content: center;
-  padding: var(--button-padding);
-  height: var(--button-height);
-  width: fit-content;
-}
-
-[pgs~=chips] label:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
-}
-
-[pgs~=chips] label:where([aria-current=page]), [pgs~=chips] label:where([aria-selected=true]) {
-  color: var(--button-color-current);
-  background: var(--button-background-current);
-  border-color: var(--button-border-color-current);
-}
-
-[pgs~=chips] label:where(:has(i)) {
-  --button-padding-left: var(--button-padding-left-icon);
-}
-
-[pgs~=chips] label:where([pgs-option~=buttonReverse]:has(i)) {
-  --button-padding-right: var(--button-padding-left-icon);
-  --button-padding-left: var(--button-padding-right);
-}
-
-[pgs~=chips] label {
   flex-wrap: wrap;
   display: flex !important;
   cursor: pointer;
-}
-
-[pgs~=chips] label i, [pgs~=chips] label [pgs~=icon] {
-  opacity: 0.4;
-  min-width: 1.4rem;
-}
-
-[pgs~=chips] label:hover i, [pgs~=chips] label:hover [pgs~=icon] {
-  opacity: 1;
-}
-
-[pgs~=chips] label:has(input:checked) {
-  --button-background: var(--button-background-active);
-  --button-color: var(--button-color-active);
-  --button-border-color: var(--button-border-color-active);
-}
-
-[pgs~=chips] label:has(input:checked) i, [pgs~=chips] label:has(input:checked) [pgs~=icon] {
-  opacity: 1;
 }
 
 [pgs~=chips] label input {
@@ -5941,6 +5452,22 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   z-index: -1;
   position: absolute;
   appearance: none;
+}
+
+[pgs~=chips] label i,
+[pgs~=chips] label [pgs~=icon] {
+  opacity: 0.4;
+  min-width: 1.4rem;
+}
+
+[pgs~=chips] label:hover i,
+[pgs~=chips] label:hover [pgs~=icon] {
+  opacity: 1;
+}
+
+[pgs~=chips] label:has(input:checked) i,
+[pgs~=chips] label:has(input:checked) [pgs~=icon] {
+  opacity: 1;
 }
 
 [pgs~=chips] label {
@@ -5981,97 +5508,9 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=chip] {
   position: relative;
   isolation: isolate;
-  --button-primaryColor: var(--color-primary-strong);
-  --button-color: var(--color-black);
-  --button-color-strong: var(--color-white);
-  --button-color-current: var(--color-white);
-  --button-color-active: var(--color-white);
-  --button-background: var(--color-box);
-  --button-background-strong: var(--button-primaryColor);
-  --button-background-current: var(--button-primaryColor);
-  --button-background-active: var(--button-primaryColor);
-  --button-size: 1.3rem;
-  --button-font-size: var(--font-size-text);
-  --button-padding-block: var(--button-size);
-  --button-padding-left: calc(var(--button-size) * 2);
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left-icon: calc(var(--button-size) * 1.5);
-  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
-  --button-height: max-content;
-  --button-border-width: var(--border-width);
-  --button-border-style: var(--border-style);
-  --button-border-color: var(--border-color);
-  --button-border-color-strong: var(--button-primaryColor);
-  --button-border-color-current: var(--button-primaryColor);
-  --button-border-color-active: var(--button-primaryColor);
-  --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
-  --button-borderRadius: var(--border-radius-input);
-  color: var(--button-color);
-  background: var(--button-background);
-  border-color: var(--button-border-color);
-  font-family: var(--font);
-  font-size: var(--button-font-size);
-  font-weight: var(--font-weight-bold);
-  text-decoration: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
-  border-width: var(--button-border-width);
-  border-style: var(--button-border-style);
-  border-color: var(--button-border-color);
-  border-radius: var(--button-borderRadius);
-  display: flex;
-  gap: calc(var(--button-size) / 2);
-  align-items: center;
-  justify-content: center;
-  padding: var(--button-padding);
-  height: var(--button-height);
-  width: fit-content;
-}
-
-[pgs~=chip]:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
-}
-
-[pgs~=chip]:where([aria-current=page]), [pgs~=chip]:where([aria-selected=true]) {
-  color: var(--button-color-current);
-  background: var(--button-background-current);
-  border-color: var(--button-border-color-current);
-}
-
-[pgs~=chip]:where(:has(i)) {
-  --button-padding-left: var(--button-padding-left-icon);
-}
-
-[pgs~=chip]:where([pgs-option~=buttonReverse]:has(i)) {
-  --button-padding-right: var(--button-padding-left-icon);
-  --button-padding-left: var(--button-padding-right);
-}
-
-[pgs~=chip] {
   flex-wrap: wrap;
   display: flex !important;
   cursor: pointer;
-}
-
-[pgs~=chip] i, [pgs~=chip] [pgs~=icon] {
-  opacity: 0.4;
-  min-width: 1.4rem;
-}
-
-[pgs~=chip]:hover i, [pgs~=chip]:hover [pgs~=icon] {
-  opacity: 1;
-}
-
-[pgs~=chip]:has(input:checked) {
-  --button-background: var(--button-background-active);
-  --button-color: var(--button-color-active);
-  --button-border-color: var(--button-border-color-active);
-}
-
-[pgs~=chip]:has(input:checked) i, [pgs~=chip]:has(input:checked) [pgs~=icon] {
-  opacity: 1;
 }
 
 [pgs~=chip] input {
@@ -6079,6 +5518,22 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   z-index: -1;
   position: absolute;
   appearance: none;
+}
+
+[pgs~=chip] i,
+[pgs~=chip] [pgs~=icon] {
+  opacity: 0.4;
+  min-width: 1.4rem;
+}
+
+[pgs~=chip]:hover i,
+[pgs~=chip]:hover [pgs~=icon] {
+  opacity: 1;
+}
+
+[pgs~=chip]:has(input:checked) i,
+[pgs~=chip]:has(input:checked) [pgs~=icon] {
+  opacity: 1;
 }
 
 [pgs~=chip] {
@@ -6312,7 +5767,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=accordion] [pgs~=accordion-button]::after {
   content: "";
-  display: list-item;
+  display: inline-block;
   width: 2rem;
   height: 2rem;
   background-color: var(--color-primary-strong);
@@ -6669,12 +6124,12 @@ html:has(dialog[open]) {
 
 [pgs~=slides] [pgs~=slides-prec]:is([pgs~=slides-prec]),
 [pgs~=slides] [pgs~=slides-next]:is([pgs~=slides-prec]) {
-  left: 0;
+  left: 2px;
 }
 
 [pgs~=slides] [pgs~=slides-prec]:is([pgs~=slides-next]),
 [pgs~=slides] [pgs~=slides-next]:is([pgs~=slides-next]) {
-  right: 0;
+  right: 2px;
 }
 
 @container (max-width: $tablet) {
@@ -7180,7 +6635,8 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
 }
 
 [pgs~=_notificationsDialog] {
-  --modal-content-padding: 15px;
+  --modal-content-padding: 0;
+  --modal-background: transparent;
 }
 
 [pgs~=_notifications] {
@@ -7215,7 +6671,7 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   font-weight: var(--font-weight-bold);
   overflow: hidden;
   align-items: stretch;
-  border-radius: var(--modal-content-padding);
+  border-radius: var(--border-radius-input);
   width: 100%;
   height: max-content;
   flex-shrink: 0;
@@ -8392,96 +7848,100 @@ dialog [pgs~=search] [pgs~=modal-close] {
   --outline-width: 4.5px;
 }
 
-[pgs~=hover] {
+[pgs~=hover]:not(:where([pgs-option~=hoverNot])) {
   --hover-primaryColor: var(--color-primary-soft);
   --hover-background: var(--hover-primaryColor);
   --hover-color: var(--color-black);
   --hover-border: var(--color-primary-soft);
 }
 
-[pgs~=hover]:where(:disabled, [disabled]) {
+[pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:disabled, [disabled]) {
   text-decoration: none;
   cursor: default;
 }
 
-[pgs~=hover]:where(:not(:disabled, [disabled])) {
+[pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])) {
   transition: unset 0ms;
   text-decoration: none;
   cursor: pointer;
 }
 
-[pgs~=hover]:where(:not(:disabled, [disabled])) * {
+[pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])) * {
   transition: unset 0ms;
   text-decoration: none;
 }
 
-[pgs~=hover]:where(:not(:disabled, [disabled])) *::before, [pgs~=hover]:where(:not(:disabled, [disabled])) *::after {
+[pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])) *::before, [pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])) *::after {
   transition: unset 0ms;
 }
 
-[pgs~=hover] {
+[pgs~=hover]:not(:where([pgs-option~=hoverNot])) {
   position: relative;
   isolation: isolate;
-  overflow: clip;
 }
 
-[pgs~=hover]:where(:not(:disabled, [disabled])) {
+[pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])) {
   transition: border-color 500ms ease, outline-color 500ms ease;
 }
 
-[pgs~=hover]:where(:not(:disabled, [disabled]))::before {
+[pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled]))::before {
   content: "";
-  width: 110%;
-  height: 110%;
+  width: 100%;
+  height: 100%;
   aspect-ratio: 1;
-  border-radius: 0;
+  border-radius: inherit;
   background: var(--hover-background);
   position: absolute;
-  bottom: -5%;
-  left: 50%;
+  bottom: 0;
+  left: 0;
   z-index: -1;
-  transform: translateY(100%) translateX(-50%) scale(0);
-  transition: transform 500ms ease, border-radius 500ms ease;
+  transform: scale(0);
+  transform-origin: bottom center;
+  transition: transform 500ms ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=hover]:where(:not(:disabled, [disabled])):hover {
+  [pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])):hover {
     background-color: var(--hover-background);
     color: var(--hover-color);
     outline-color: var(--hover-border);
     border-color: var(--hover-border);
-    transition: background-color 250ms ease-out 500ms, color 500ms ease 250ms, border-color 500ms ease, outline-color 500ms ease;
+    transition: background-color 250ms ease-out 500ms, color 500ms ease 250ms, outline-color 500ms ease;
   }
-  [pgs~=hover]:where(:not(:disabled, [disabled])):hover::before {
-    transform: translateY(0%) translateX(-50%) scale(1);
-    border-radius: 100px;
+  [pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])):hover::before {
+    transform: scale(1);
   }
-  [pgs~=hover]:where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p, a) {
+  [pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p, a) {
     color: var(--hover-color);
   }
-  [pgs~=hover]:where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
+  [pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
     color: var(--hover-color);
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  [pgs~=hover]:where(:not(:disabled, [disabled])) {
+  [pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])) {
     transition: unset;
   }
-  [pgs~=hover]:where(:not(:disabled, [disabled]))::before {
+  [pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled]))::before {
     display: none;
   }
-  [pgs~=hover]:where(:not(:disabled, [disabled])):hover {
+  [pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])):hover {
     transition: unset;
     background-color: var(--hover-background);
   }
 }
-[pgs~=hover]:where(:not(:disabled, [disabled])):focus-visible {
+[pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])):focus-visible {
   outline: var(--focus-visible);
   outline-offset: 3px;
 }
 
-[pgs~=hover]:not(:disabled):hover [pgs~=hover-text] {
+[pgs~=hover]:not(:where([pgs-option~=hoverNot])):not(:disabled):hover [pgs~=hover-text] {
   color: var(--hover-color);
+}
+
+[pgs-option~=hoverNot] {
+  transition: all 200ms;
+  cursor: inherit;
 }
 
 /*# sourceMappingURL=index.css.map*/

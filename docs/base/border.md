@@ -44,6 +44,9 @@ Border, outline and radius utilities, split out from the general-purpose set sin
 - `paddingSections`: uses the section spacing scale for the radius example's padding.
 - `wrap`: lets the border and outline examples flow onto a second row.
 - `gapTexts`: spaces the examples inside a group.
+
+### Other
+
 - `gapSections`: separates the groups.
 
 ## CSS Variables

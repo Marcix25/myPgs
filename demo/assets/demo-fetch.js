@@ -269,10 +269,8 @@ const demoRenderer = {
     },
 
     stripDemoAttributes(node) {
-        ["demo", "demo-preview", "demo-code"].forEach(attribute => {
-            node.removeAttribute(attribute);
-            node.querySelectorAll(`[${attribute}]`).forEach(el => el.removeAttribute(attribute));
-        });
+        node.removeAttribute("demo");
+        node.querySelectorAll("[demo]").forEach(el => el.removeAttribute("demo"));
         return node;
     },
 
@@ -305,11 +303,11 @@ const demoRenderer = {
 
         this.renderDemoHeading(group, title, description, "h3");
 
-        //== demo-preview="none" is the mirror of demo="disabled": markup that only carries a payload
+        //== demo="previewNone" is the mirror of demo="disabled": markup that only carries a payload
         //== is consumed on init (notificationLoad, toastLoad) and would leave an empty box behind.
         //== It still has to reach the DOM though, because that copy is what the library reads and
         //== turns into the real notification, so drop the styled box and keep the node out of sight.
-        const showPreview = node.getAttribute("demo-preview") !== "none";
+        const showPreview = !node.matches('[demo~="previewNone"]');
         const preview = document.createElement("div");
         preview.setAttribute("pgs", showPreview ? "container flexColumn" : "hidden");
         if (showPreview) preview.setAttribute("pgs-option", "gapElements");
@@ -318,9 +316,9 @@ const demoRenderer = {
 
         //== "Example HTML" is the only thing demo="disabled" affects: skip it entirely when the
         //== item's own root is disabled, otherwise strip just the disabled descendants from the code.
-        //== demo-code="none" is the more direct way to say the same thing: no code block at all for
+        //== demo="codeNone" is the more direct way to say the same thing: no code block at all for
         //== this item, live preview untouched — use it when there's simply nothing worth copying.
-        if (node.getAttribute("demo") !== "disabled" && node.getAttribute("demo-code") !== "none") {
+        if (node.getAttribute("demo") !== "disabled" && !node.matches('[demo~="codeNone"]')) {
             const codeClone = node.cloneNode(true);
             codeClone.querySelectorAll('[demo="disabled"]').forEach(el => el.remove());
 
@@ -339,18 +337,15 @@ const demoRenderer = {
         "muted", "novalidate", "open", "playsinline", "readonly", "required", "reversed", "selected",
     ],
 
-    //== an element that only groups the example for the demo is not part of the example: it must
-    //== stay in the live preview but never reach the code someone copies, so demo-code="children"
-    //== prints what is inside it instead of itself, as deep as the marker is repeated. Taking the
-    //== inner markup rather than rebuilding it from the children keeps the author's own spacing,
-    //== which is what the markdown generator prints.
+    //== a demo="wrapper" descendant groups part of the example for the demo, not the example itself:
+    //== it must stay in the live preview but never reach the code someone copies, so its own tag
+    //== disappears and only its children print instead — repeatable at any depth, side by side or
+    //== nested, since border.html needs several of these unwrapped independently within one example.
+    //== The block's own demo="component" root goes the same way: it only declares where the example
+    //== starts, it is never part of the example itself, so its tag never reaches the copied code
+    //== either — only what sits inside it prints.
     codeFor(element) {
-        if (element.getAttribute("demo-code") !== "children") {
-            this.stripDemoAttributes(element);
-            return this.serializeForDisplay(element);
-        }
-
-        element.querySelectorAll('[demo-code="children"]').forEach(inner => inner.replaceWith(...inner.childNodes));
+        element.querySelectorAll('[demo~="wrapper"]').forEach(inner => inner.replaceWith(...inner.childNodes));
         this.stripDemoAttributes(element);
         return this.dedentAll(this.unnormalizeSerialized(element.innerHTML)).trim();
     },
@@ -414,10 +409,14 @@ const demoRenderer = {
     //= Walks a root node's children in document order (browser-side port of extractDemoBlocks in
     //= scripts/generate-component-docs.js — keep both in sync). A <demo demo-h2="..."> marker
     //= becomes a heading block right where it sits; a <demo demo-h3="..."> marker is held as
-    //= "pending" until the next titleable leaf consumes it. A demo="component"/"container" wrapper
-    //= that itself contains demo="item" descendants is transparent grouping markup — the walk
-    //= recurses into its children instead of treating the wrapper as one block, exactly like the
-    //= Node-side hasNestedDemoItems check.
+    //= "pending" until the next titleable leaf consumes it. A demo="component" element that itself
+    //= contains a nested demo="component" is transparent grouping markup — the walk recurses into
+    //= its children instead of treating it as one block (see formAddon.html's outer
+    //= <form demo="component"> around several inner ones), exactly like the Node-side
+    //= hasNestedComponent check. demo="wrapper" never reaches this walk as a leaf at all — it's a
+    //= purely nested, repeatable unwrap instruction handled by codeFor, never its own block boundary.
+    //= `~=` (not `=`) matches the token within a possibly multi-valued demo attribute, e.g.
+    //= demo="component previewNone".
     extractDemoBlocks(rootNode) {
         const blocks = [];
         let pendingH3 = null;
@@ -435,13 +434,11 @@ const demoRenderer = {
                     return;
                 }
 
-                const demoAttr = node.getAttribute("demo");
-                const isLeaf = demoAttr === "item"
-                    || ((demoAttr === "component" || demoAttr === "container") && !node.querySelector('[demo="item"]'));
+                const isLeaf = node.matches('[demo~="component"]') && !node.querySelector('[demo~="component"]');
 
                 //== anything that isn't itself a titleable leaf is transparent: a plain wrapper with
                 //== no demo attribute at all (e.g. formAddon.html's untagged <section> grouping two
-                //== chip fieldsets), same as a demo="component"/"container" that has item descendants
+                //== chip fieldsets), same as a demo="component" that has a nested demo="component"
                 if (!isLeaf) {
                     walk(Array.from(node.childNodes));
                     return;
@@ -461,7 +458,7 @@ const demoRenderer = {
         return blocks;
     },
 
-    //= Splits markup tagged with demo="component"|"container"/demo="item" into one live-preview +
+    //= Splits markup tagged with demo="component" into one live-preview +
     //= code pair per item (titled by a preceding <demo demo-h2/demo-h3> marker, see
     //= extractDemoBlocks), falling back to a single whole-markup pair for reference files that
     //= don't use those tags yet.

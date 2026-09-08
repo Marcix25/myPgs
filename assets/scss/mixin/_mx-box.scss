@@ -12,8 +12,13 @@
 
     &:where(a) {
         --box-background: var(--color-white);
-        @include hoverBase();
-        @include hoverContent1();
+        //== an anchor is inline by default, and the shared hover treatment sizes a ::before against
+        //== this element's own box: left inline the padding, the radius and that overlay all
+        //== misrender unless a flex or grid parent happens to blockify it. A clickable surface is
+        //== always a block, so it says so itself instead of depending on where it is placed
+        display: block;
+        //== hover comes from the "hover" token that pgs.hover adds to a clickable box at load
+        //== time; the focus ring stays here because it must not depend on the JavaScript
         @include hoverFocus();
         outline: var(--border-complete);
     }

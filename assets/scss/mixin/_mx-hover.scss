@@ -3,8 +3,8 @@
     $timing: 500ms;
     position: relative;
     isolation: isolate;
-    overflow: clip;
 
+    // overflow: clip;
     &:where(:not(:disabled, [disabled])) {
         transition:
             border-color 500ms ease,
@@ -12,19 +12,19 @@
 
         &::before {
             content: "";
-            width: 110%;
-            height: 110%;
+            width: 100%;
+            height: 100%;
             aspect-ratio: 1;
-            border-radius: 0;
+            border-radius: inherit;
             background: var(--hover-background);
             position: absolute;
-            bottom: -5%;
-            left: 50%;
+            bottom: 0;
+            left: 0;
             z-index: -1;
-            transform: translateY(100%) translateX(-50%) scale(0);
+            transform: scale(0);
+            transform-origin: bottom center;
             transition:
                 transform $timing ease,
-                border-radius $timing ease,
         }
 
         @media (hover: hover) and (pointer: fine) {
@@ -36,12 +36,10 @@
                 transition:
                     background-color 250ms ease-out $timing,
                     color $timing ease 250ms,
-                    border-color $timing ease,
                     outline-color $timing ease;
 
                 &::before {
-                    transform: translateY(0%) translateX(-50%) scale(1);
-                    border-radius: 100px;
+                    transform: scale(1);
                 }
 
                 :is(h1, h2, h3, h4, h5, h6, p, a) {
@@ -58,7 +56,7 @@
         @media (prefers-reduced-motion: reduce) {
             transition: unset;
 
-            &::before{
+            &::before {
                 display: none;
             }
 
@@ -68,6 +66,15 @@
             }
         }
     }
+}
+
+//= HOVER NOT
+//+ the opt-out of the shared treatment: the surface keeps its look and stops behaving like something
+//+ that answers the pointer. It is written once for every component, since a surface that must not
+//+ react is the same idea whether it is a button, a card or a box
+@mixin hoverNot() {
+    transition: all 200ms;
+    cursor: inherit;
 }
 
 //= FOCUS

@@ -18,6 +18,7 @@ meaning moved under them, so nothing errors and the page just looks wrong.
 | `pgs-state="info"` (alert/badge/notification/toast) | read `--color-link`/`--color-linkBackground` directly | reads `--color-info`/`--color-info-soft`, which only default to the link colours |
 | `pgs="header"` with no options | hid itself on scroll-down automatically | does nothing on scroll unless `pgs-option="headerScroll"` is also written |
 | `pgs.scrollHorizontal(element, speed)` | converted a mouse wheel only, ignoring a trackpad/Magic Mouse | converts any wheel source, trackpad included |
+| `pgs="button"`, a link `pgs="card"`, a link `pgs="box"` | the hover treatment was baked into each component's CSS | the treatment lives only under `pgs="hover"`, which the JS adds to these at load |
 
 So `<span pgs="icon"><i class="fa-solid fa-star"></i></span>` no longer draws a circle. The surface
 is now an option on an icon element:
@@ -47,6 +48,16 @@ Scroll horizontal: the old mouse-only behaviour moved to a new function,
 `pgs.scrollHorizontalWithMouse(element, speed)` — Slides' `slidesScrollMouse` now calls that one
 internally, so its own behaviour is unchanged. If you called `pgs.scrollHorizontal` directly and
 relied on trackpad input being left alone, switch that call to `pgs.scrollHorizontalWithMouse`.
+
+Hover: the shared treatment is no longer written three times. `[pgs~=button]`, `[pgs~=card]:where(a)`
+and `[pgs~=box]:where(a)` dropped their own copy, and `pgs.hover` — a new base module, loaded by the
+bundle — marks those surfaces with `hover` when the page loads and keeps them in sync afterwards
+(markup the library injects later, a token added at runtime, `hoverNot` toggled on or off). The
+output is the same and there is nothing to rename, with two consequences: a project that loads
+`dist/css` **without** `dist/javascript` loses hover on buttons, clickable cards and clickable boxes
+— write `hover` in the markup there — and a custom element styled with the `buttonHover` mixin but
+not marked `pgs="button"` (a `twoState` label, a bare `button[type="submit"]` inside `pgs="form"`)
+is unaffected, since it never relied on the marking. The focus ring stayed in CSS on all three.
 
 ## 2. Renames
 
@@ -209,9 +220,21 @@ The `formValidate` JS API's `options.message` bag uses these same keys (e.g. `fo
 instead of `fieldErrorTitle`), since they are written straight through as the `pgs-option` bracket
 key. The `success`/`errorForm`/`errorField` `pgs-state` values are unrelated and unchanged.
 
-`buttonReverse`, `buttonNohover`, and the `icon-*` glyph names were left alone: those belong to the
-button and icon components respectively, even where another component's example or generated markup
-uses them.
+`buttonReverse` and the `icon-*` glyph names were left alone: those belong to the button and icon
+components respectively, even where another component's example or generated markup uses them.
+`buttonNohover` did move — see just below.
+
+### The hover opt-out — `buttonNohover` becomes `hoverNot`
+
+| was | now |
+| --- | --- |
+| `pgs-option="buttonNohover"` | `pgs-option="hoverNot"` |
+
+The mixin `buttonNohover()` is gone with it, replaced by `hoverNot()` in the hover set. There is one
+opt-out now instead of one per component, because there is one hover treatment: `hoverNot` works on
+a button, on a clickable card and on a clickable box alike — the last two had no opt-out at all
+before. `pgs.hover` skips a surface that carries it, and the SCSS guard covers a `hover` written by
+hand. Menu's generated toggle and Step tabs' generated dots write the new name themselves.
 
 ### Icon surface, corrected
 
@@ -281,6 +304,9 @@ grep -rnE 'pgs="[^"]*\b(gapTexts|gapElements|gapSections|gapNone|nowrap|wrap)\b'
 
 # 11. direct calls to scrollHorizontal that relied on the old mouse-only behaviour
 grep -rn 'pgs\.scrollHorizontal(' .
+
+# 12. the hover opt-out, renamed
+grep -rn 'buttonNohover' .
 ```
 
 Hit 5 needs reading rather than replacing: an `icon` that wraps another element wanted the surface

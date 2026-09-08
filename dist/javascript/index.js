@@ -11,25 +11,27 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_pgs.js */ "./assets/javascript/_pgs.js");
 /* harmony import */ var _base_darkmode_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./base/_darkmode.js */ "./assets/javascript/base/_darkmode.js");
-/* harmony import */ var _base_svg_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./base/_svg.js */ "./assets/javascript/base/_svg.js");
-/* harmony import */ var _components_accordion_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/_accordion.js */ "./assets/javascript/components/_accordion.js");
-/* harmony import */ var _components_alerts_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/_alerts.js */ "./assets/javascript/components/_alerts.js");
-/* harmony import */ var _components_dropdown_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/_dropdown.js */ "./assets/javascript/components/_dropdown.js");
-/* harmony import */ var _components_menu_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/_menu.js */ "./assets/javascript/components/_menu.js");
-/* harmony import */ var _components_modal_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_modal.js */ "./assets/javascript/components/_modal.js");
-/* harmony import */ var _components_notification_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_notification.js */ "./assets/javascript/components/_notification.js");
-/* harmony import */ var _components_toast_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_toast.js */ "./assets/javascript/components/_toast.js");
-/* harmony import */ var _components_search_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_search.js */ "./assets/javascript/components/_search.js");
-/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
-/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
-/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
-/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
-/* harmony import */ var _components_tabs_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/_tabs.js */ "./assets/javascript/components/_tabs.js");
-/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./layout/_header.js */ "./assets/javascript/layout/_header.js");
-/* harmony import */ var _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./helper/_formValidate.js */ "./assets/javascript/helper/_formValidate.js");
-/* harmony import */ var _helper_init_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./helper/_init.js */ "./assets/javascript/helper/_init.js");
-/* harmony import */ var _helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./helper/_scrollHorizontal.js */ "./assets/javascript/helper/_scrollHorizontal.js");
-/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
+/* harmony import */ var _base_hover_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./base/_hover.js */ "./assets/javascript/base/_hover.js");
+/* harmony import */ var _base_svg_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./base/_svg.js */ "./assets/javascript/base/_svg.js");
+/* harmony import */ var _components_accordion_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/_accordion.js */ "./assets/javascript/components/_accordion.js");
+/* harmony import */ var _components_alerts_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/_alerts.js */ "./assets/javascript/components/_alerts.js");
+/* harmony import */ var _components_dropdown_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/_dropdown.js */ "./assets/javascript/components/_dropdown.js");
+/* harmony import */ var _components_menu_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_menu.js */ "./assets/javascript/components/_menu.js");
+/* harmony import */ var _components_modal_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_modal.js */ "./assets/javascript/components/_modal.js");
+/* harmony import */ var _components_notification_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_notification.js */ "./assets/javascript/components/_notification.js");
+/* harmony import */ var _components_toast_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_toast.js */ "./assets/javascript/components/_toast.js");
+/* harmony import */ var _components_search_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/_search.js */ "./assets/javascript/components/_search.js");
+/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
+/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
+/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
+/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
+/* harmony import */ var _components_tabs_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/_tabs.js */ "./assets/javascript/components/_tabs.js");
+/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./layout/_header.js */ "./assets/javascript/layout/_header.js");
+/* harmony import */ var _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./helper/_formValidate.js */ "./assets/javascript/helper/_formValidate.js");
+/* harmony import */ var _helper_init_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./helper/_init.js */ "./assets/javascript/helper/_init.js");
+/* harmony import */ var _helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./helper/_scrollHorizontal.js */ "./assets/javascript/helper/_scrollHorizontal.js");
+/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
+
 
 
 
@@ -54,27 +56,28 @@ __webpack_require__.r(__webpack_exports__);
 
 
 _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
-    init: _helper_init_js__WEBPACK_IMPORTED_MODULE_18__.PGS_init,
+    init: _helper_init_js__WEBPACK_IMPORTED_MODULE_19__.PGS_init,
     darkmode: _base_darkmode_js__WEBPACK_IMPORTED_MODULE_1__.PGS_darkmode,
-    svg: _base_svg_js__WEBPACK_IMPORTED_MODULE_2__.PGS_svg,
-    accordion: _components_accordion_js__WEBPACK_IMPORTED_MODULE_3__.PGS_accordion,
-    alert: _components_alerts_js__WEBPACK_IMPORTED_MODULE_4__.PGS_alert,
-    dropdown: _components_dropdown_js__WEBPACK_IMPORTED_MODULE_5__.PGS_dropdown,
-    menu: _components_menu_js__WEBPACK_IMPORTED_MODULE_6__.PGS_menu,
-    modal: _components_modal_js__WEBPACK_IMPORTED_MODULE_7__.PGS_modal,
-    header: _layout_header_js__WEBPACK_IMPORTED_MODULE_16__.PGS_header,
-    cookieConsent: _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_20__.PGS_cookieConsent,
-    notification: _components_notification_js__WEBPACK_IMPORTED_MODULE_8__.PGS_notification,
-    toast: _components_toast_js__WEBPACK_IMPORTED_MODULE_9__.PGS_toast,
-    search: _components_search_js__WEBPACK_IMPORTED_MODULE_10__.PGS_search,
-    slides: _components_slides_js__WEBPACK_IMPORTED_MODULE_11__.PGS_slides,
-    stepTabs: _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_12__.PGS_stepTabs,
-    steps: _components_steps_js__WEBPACK_IMPORTED_MODULE_13__.PGS_steps,
-    summary: _components_summary_js__WEBPACK_IMPORTED_MODULE_14__.PGS_summary,
-    tabs: _components_tabs_js__WEBPACK_IMPORTED_MODULE_15__.PGS_tabs,
-    formValidate: _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_17__.PGS_formValidate,
-    scrollHorizontal: _helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_19__.PGS_scrollHorizontal,
-    scrollHorizontalWithMouse: _helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_19__.PGS_scrollHorizontalWithMouse,
+    svg: _base_svg_js__WEBPACK_IMPORTED_MODULE_3__.PGS_svg,
+    hover: _base_hover_js__WEBPACK_IMPORTED_MODULE_2__.PGS_hover,
+    accordion: _components_accordion_js__WEBPACK_IMPORTED_MODULE_4__.PGS_accordion,
+    alert: _components_alerts_js__WEBPACK_IMPORTED_MODULE_5__.PGS_alert,
+    dropdown: _components_dropdown_js__WEBPACK_IMPORTED_MODULE_6__.PGS_dropdown,
+    menu: _components_menu_js__WEBPACK_IMPORTED_MODULE_7__.PGS_menu,
+    modal: _components_modal_js__WEBPACK_IMPORTED_MODULE_8__.PGS_modal,
+    header: _layout_header_js__WEBPACK_IMPORTED_MODULE_17__.PGS_header,
+    cookieConsent: _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_21__.PGS_cookieConsent,
+    notification: _components_notification_js__WEBPACK_IMPORTED_MODULE_9__.PGS_notification,
+    toast: _components_toast_js__WEBPACK_IMPORTED_MODULE_10__.PGS_toast,
+    search: _components_search_js__WEBPACK_IMPORTED_MODULE_11__.PGS_search,
+    slides: _components_slides_js__WEBPACK_IMPORTED_MODULE_12__.PGS_slides,
+    stepTabs: _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_13__.PGS_stepTabs,
+    steps: _components_steps_js__WEBPACK_IMPORTED_MODULE_14__.PGS_steps,
+    summary: _components_summary_js__WEBPACK_IMPORTED_MODULE_15__.PGS_summary,
+    tabs: _components_tabs_js__WEBPACK_IMPORTED_MODULE_16__.PGS_tabs,
+    formValidate: _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_18__.PGS_formValidate,
+    scrollHorizontal: _helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_20__.PGS_scrollHorizontal,
+    scrollHorizontalWithMouse: _helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_20__.PGS_scrollHorizontalWithMouse,
 });
 
 
@@ -570,6 +573,123 @@ function initDarkmode(root = document) {
 
 const PGS_darkmode = {
     init: initDarkmode
+};
+
+
+/***/ },
+
+/***/ "./assets/javascript/base/_hover.js"
+/*!******************************************!*\
+  !*** ./assets/javascript/base/_hover.js ***!
+  \******************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_hover: () => (/* binding */ PGS_hover)
+/* harmony export */ });
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+
+
+
+//# HOVER
+//== every clickable surface of the library shares the same hover treatment, and it is written once
+//== in SCSS under [pgs~=hover]. The component selectors no longer repeat it: this module marks the
+//== surfaces that are clickable by definition, so the author keeps writing only the component token
+//== while the element still carries a real pgs value that SCSS, JavaScript and the inspector read.
+
+//+ tokens that get the hover treatment, with the extra condition each one has to satisfy
+const HOVER_TARGETS = {
+    //== a button is clickable whatever its tag
+    button: () => true,
+    //== a card or a box is only a clickable surface when it is a link
+    card: element => element.tagName === "A",
+    box: element => element.tagName === "A"
+};
+
+const TOKENS = Object.keys(HOVER_TARGETS);
+
+//== only what this module added is ever taken back: a "hover" written by hand belongs to the author
+//== and stays, whatever the element turns into later
+const MARKED = new WeakSet();
+
+//+ SYNC HOVER
+function syncHover(element) {
+    if (!(element instanceof Element)) return;
+
+    //== hoverNot is the one opt-out, written on the element whatever the component: a surface that
+    //== must not answer the pointer is never marked, and SCSS guards a "hover" written by hand
+    const clickable = !(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).option.contains("hoverNot")
+        && TOKENS.some(token => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).contains(token) && HOVER_TARGETS[token](element));
+
+    if (clickable) {
+        if ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).contains("hover")) return;
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).add("hover");
+        MARKED.add(element);
+        return;
+    }
+
+    if (!MARKED.has(element)) return;
+    MARKED.delete(element);
+    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).remove("hover");
+}
+
+//= INIT
+function initHover(root = document) {
+    if (!(root instanceof Document || root instanceof Element)) {
+        throw new TypeError("pgs.hover.init(): root deve essere un Document o un Element");
+    }
+
+    if (root instanceof Element) syncHover(root);
+    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).querySelectorAll(TOKENS).forEach(syncHover);
+
+    return root;
+}
+
+(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(initHover);
+
+//= WATCH
+//== the surfaces to mark do not all exist when the page is ready: the library injects its own
+//== markup (a toast, a notification row, the cookie banner) and an author can add or remove a token
+//== at runtime. The watch stays on, batched per frame, and re-marking is idempotent so the pass our
+//== own attribute write triggers back settles at once
+const PENDING = new Set();
+let hoverScanRafId = 0;
+
+function scheduleSync(nodes) {
+    nodes.forEach(node => PENDING.add(node));
+    if (hoverScanRafId) return;
+
+    hoverScanRafId = requestAnimationFrame(() => {
+        hoverScanRafId = 0;
+        const roots = [...PENDING];
+        PENDING.clear();
+        roots.forEach(root => root.isConnected && initHover(root));
+    });
+}
+
+const hoverObserver = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+        if (mutation.type === "attributes") {
+            scheduleSync([mutation.target]);
+            return;
+        }
+
+        scheduleSync([...mutation.addedNodes].filter(node => node instanceof Element));
+    });
+});
+
+hoverObserver.observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ["pgs", "pgs-option"]
+});
+
+//# EXPORT
+const PGS_hover = {
+    init: initHover
 };
 
 
@@ -1295,7 +1415,7 @@ function createToggle(li) {
     button.innerHTML = "<span>&#9207;</span>";
 
     pgs(button).add("_menu-buttonIcon", "button");
-    pgs(button).option.add("buttonNohover");
+    pgs(button).option.add("hoverNot");
     li.querySelector("a").insertAdjacentElement("afterend", button);
 
     return button;
@@ -2687,7 +2807,7 @@ function PGS_stepTabs_init(root = document) {
                 dot.type = "button";
                 pgs(dot).add("_stepTabs-dots-dot");
                 pgs(dot).add("button");
-                pgs(dot).option.add("buttonIcon buttonNohover");
+                pgs(dot).option.add("buttonIcon hoverNot");
                 //== stepTabsIcon takes three shapes, told apart by how the value opens. Markup, from a
                 //== "<", is instantiated as written: that is what puts every icon set in reach,
                 //== including the ones a class list cannot describe because they want their name as
@@ -4679,28 +4799,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_pgs.js */ "./assets/javascript/_pgs.js");
 /* harmony import */ var _base_darkmode_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./base/_darkmode.js */ "./assets/javascript/base/_darkmode.js");
 /* harmony import */ var _base_svg_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./base/_svg.js */ "./assets/javascript/base/_svg.js");
-/* harmony import */ var _base_object_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./base/_object.js */ "./assets/javascript/base/_object.js");
-/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./layout/_header.js */ "./assets/javascript/layout/_header.js");
-/* harmony import */ var _components_accordion_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/_accordion.js */ "./assets/javascript/components/_accordion.js");
-/* harmony import */ var _components_alerts_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/_alerts.js */ "./assets/javascript/components/_alerts.js");
-/* harmony import */ var _components_dropdown_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_dropdown.js */ "./assets/javascript/components/_dropdown.js");
-/* harmony import */ var _components_menu_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_menu.js */ "./assets/javascript/components/_menu.js");
-/* harmony import */ var _components_modal_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_modal.js */ "./assets/javascript/components/_modal.js");
-/* harmony import */ var _components_search_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_search.js */ "./assets/javascript/components/_search.js");
-/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
-/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
-/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
-/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
-/* harmony import */ var _components_tabs_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/_tabs.js */ "./assets/javascript/components/_tabs.js");
-/* harmony import */ var _components_toast_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/_toast.js */ "./assets/javascript/components/_toast.js");
-/* harmony import */ var _components_notification_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/_notification.js */ "./assets/javascript/components/_notification.js");
-/* harmony import */ var _imports_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./_imports.js */ "./assets/javascript/_imports.js");
-/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
+/* harmony import */ var _base_hover_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./base/_hover.js */ "./assets/javascript/base/_hover.js");
+/* harmony import */ var _base_object_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./base/_object.js */ "./assets/javascript/base/_object.js");
+/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./layout/_header.js */ "./assets/javascript/layout/_header.js");
+/* harmony import */ var _components_accordion_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/_accordion.js */ "./assets/javascript/components/_accordion.js");
+/* harmony import */ var _components_alerts_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_alerts.js */ "./assets/javascript/components/_alerts.js");
+/* harmony import */ var _components_dropdown_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_dropdown.js */ "./assets/javascript/components/_dropdown.js");
+/* harmony import */ var _components_menu_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_menu.js */ "./assets/javascript/components/_menu.js");
+/* harmony import */ var _components_modal_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_modal.js */ "./assets/javascript/components/_modal.js");
+/* harmony import */ var _components_search_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/_search.js */ "./assets/javascript/components/_search.js");
+/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
+/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
+/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
+/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
+/* harmony import */ var _components_tabs_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/_tabs.js */ "./assets/javascript/components/_tabs.js");
+/* harmony import */ var _components_toast_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/_toast.js */ "./assets/javascript/components/_toast.js");
+/* harmony import */ var _components_notification_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/_notification.js */ "./assets/javascript/components/_notification.js");
+/* harmony import */ var _imports_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./_imports.js */ "./assets/javascript/_imports.js");
+/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
 //= PGS
 
 
 
 //= BASE
+
 
 
 

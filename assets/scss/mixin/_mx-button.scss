@@ -77,12 +77,13 @@
 //== BUTTON CONTENT - ICON
 //=== BUTTON CONTENT
 @mixin buttonContent() {
-
-    &:where(:has(i)) {
+    &:where(:has(i)),
+    &:where(:has([pgs~=icon])) {
         --button-padding-left: var(--button-padding-left-icon);
     }
 
-    &:where([pgs-option~="buttonReverse"]:has(i)) {
+    &:where([pgs-option~="buttonReverse"]:has(i)),
+    &:where([pgs-option~="buttonReverse"]:has([pgs~=icon])) {
         --button-padding-right: var(--button-padding-left-icon);
         --button-padding-left: var(--button-padding-right);
     }
@@ -113,12 +114,6 @@
     @include hoverBase();
     @include hoverContent1();
     @include hoverFocus();
-}
-
-//=== BUTTON NOT HOVER
-@mixin buttonNohover() {
-    transition: all 200ms;
-    cursor: inherit;
 }
 
 //== BUTTON STRONG
@@ -158,14 +153,25 @@
     --hover-color: #{$color};
 }
 
+//== BUTTON TEXT
 @mixin buttonText() {
     --button-border-width: 0;
     --button-background: transparent;
 }
 
+//== BUTTON ACTIVE
+@mixin buttonActive() {
+    &:has(input:checked) {
+        --button-background: var(--button-background-active);
+        --button-color: var(--button-color-active);
+        --button-border-color: var(--button-border-color-active);
+    }
+}
+
 @mixin buttonPaddingEqual() {
     --button-padding: var(--button-padding-block);
 }
+
 
 //== HEADER
 //=== BUTTON HEADER

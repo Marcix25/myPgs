@@ -35,7 +35,9 @@
 
 //= notificationsDialog
 [pgs~="_notificationsDialog"] {
-    --modal-content-padding: 15px;
+    --modal-content-padding: 0;
+    --modal-background: transparent;
+    
 }
 
 //+ positioning, backdrop, sizing, and scrolling come from the modal wrapping notificationBell + this dialog (see _modal.scss)
@@ -70,7 +72,7 @@
         font-weight: var(--font-weight-bold);
         overflow: hidden;
         align-items: stretch;
-        border-radius: var(--modal-content-padding);
+        border-radius: var(--border-radius-input);
         width: 100%;
         height: max-content;
         flex-shrink: 0;

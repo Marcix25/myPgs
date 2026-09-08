@@ -65,6 +65,9 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 
 - `gapTexts`: spaces the icons inside a group.
 - `wrap`: lets the full set flow onto more rows.
+
+### Other
+
 - `gapSections`: separates the groups.
 
 ## CSS Variables
@@ -86,48 +89,46 @@ One example per glyph, the sizing and colour behaviour, and the surface a glyph 
 Every glyph the library can draw. The token marks the element, the option names the glyph.
 
 ```html
-<div pgs="flexRow" pgs-option="gapTexts wrap">
-    <i pgs="icon" pgs-option="icon-arrowLeft"></i>
-    <i pgs="icon" pgs-option="icon-arrowRight"></i>
-    <i pgs="icon" pgs-option="icon-chevronDown"></i>
-    <i pgs="icon" pgs-option="icon-check"></i>
-    <i pgs="icon" pgs-option="icon-close"></i>
-    <i pgs="icon" pgs-option="icon-magnifyingGlass"></i>
-    <i pgs="icon" pgs-option="icon-moon"></i>
-    <i pgs="icon" pgs-option="icon-sun"></i>
-    <i pgs="icon" pgs-option="icon-cookie"></i>
-    <i pgs="icon" pgs-option="icon-sliders"></i>
-    <i pgs="icon" pgs-option="icon-circle"></i>
-    <i pgs="icon" pgs-option="icon-circleXmark"></i>
-    <i pgs="icon" pgs-option="icon-circleCheck"></i>
-    <i pgs="icon" pgs-option="icon-circleInfo"></i>
-    <i pgs="icon" pgs-option="icon-triangleExclamation"></i>
-    <i pgs="icon" pgs-option="icon-bell"></i>
-    <i pgs="icon" pgs-option="icon-star"></i>
-    <i pgs="icon" pgs-option="icon-hamburger"></i>
-    <i pgs="icon" pgs-option="icon-hamburgerTwo"></i>
-    <i pgs="icon" pgs-option="icon-calendar"></i>
-    <i pgs="icon" pgs-option="icon-chatBubble"></i>
-    <i pgs="icon" pgs-option="icon-clock"></i>
-    <i pgs="icon" pgs-option="icon-download"></i>
-    <i pgs="icon" pgs-option="icon-envelope"></i>
-    <i pgs="icon" pgs-option="icon-eye"></i>
-    <i pgs="icon" pgs-option="icon-gear"></i>
-    <i pgs="icon" pgs-option="icon-heart"></i>
-    <i pgs="icon" pgs-option="icon-home"></i>
-    <i pgs="icon" pgs-option="icon-lock"></i>
-    <i pgs="icon" pgs-option="icon-mapPin"></i>
-    <i pgs="icon" pgs-option="icon-minus"></i>
-    <i pgs="icon" pgs-option="icon-pause"></i>
-    <i pgs="icon" pgs-option="icon-pencil"></i>
-    <i pgs="icon" pgs-option="icon-play"></i>
-    <i pgs="icon" pgs-option="icon-plus"></i>
-    <i pgs="icon" pgs-option="icon-trash"></i>
-    <i pgs="icon" pgs-option="icon-upload"></i>
-    <i pgs="icon" pgs-option="icon-user"></i>
-    <i pgs="icon" pgs-option="icon-ellipsis"></i>
-    <i pgs="icon" pgs-option="icon-hamburgerTwo iconDuo"></i>
-</div>
+<i pgs="icon" pgs-option="icon-arrowLeft"></i>
+<i pgs="icon" pgs-option="icon-arrowRight"></i>
+<i pgs="icon" pgs-option="icon-chevronDown"></i>
+<i pgs="icon" pgs-option="icon-check"></i>
+<i pgs="icon" pgs-option="icon-close"></i>
+<i pgs="icon" pgs-option="icon-magnifyingGlass"></i>
+<i pgs="icon" pgs-option="icon-moon"></i>
+<i pgs="icon" pgs-option="icon-sun"></i>
+<i pgs="icon" pgs-option="icon-cookie"></i>
+<i pgs="icon" pgs-option="icon-sliders"></i>
+<i pgs="icon" pgs-option="icon-circle"></i>
+<i pgs="icon" pgs-option="icon-circleXmark"></i>
+<i pgs="icon" pgs-option="icon-circleCheck"></i>
+<i pgs="icon" pgs-option="icon-circleInfo"></i>
+<i pgs="icon" pgs-option="icon-triangleExclamation"></i>
+<i pgs="icon" pgs-option="icon-bell"></i>
+<i pgs="icon" pgs-option="icon-star"></i>
+<i pgs="icon" pgs-option="icon-hamburger"></i>
+<i pgs="icon" pgs-option="icon-hamburgerTwo"></i>
+<i pgs="icon" pgs-option="icon-calendar"></i>
+<i pgs="icon" pgs-option="icon-chatBubble"></i>
+<i pgs="icon" pgs-option="icon-clock"></i>
+<i pgs="icon" pgs-option="icon-download"></i>
+<i pgs="icon" pgs-option="icon-envelope"></i>
+<i pgs="icon" pgs-option="icon-eye"></i>
+<i pgs="icon" pgs-option="icon-gear"></i>
+<i pgs="icon" pgs-option="icon-heart"></i>
+<i pgs="icon" pgs-option="icon-home"></i>
+<i pgs="icon" pgs-option="icon-lock"></i>
+<i pgs="icon" pgs-option="icon-mapPin"></i>
+<i pgs="icon" pgs-option="icon-minus"></i>
+<i pgs="icon" pgs-option="icon-pause"></i>
+<i pgs="icon" pgs-option="icon-pencil"></i>
+<i pgs="icon" pgs-option="icon-play"></i>
+<i pgs="icon" pgs-option="icon-plus"></i>
+<i pgs="icon" pgs-option="icon-trash"></i>
+<i pgs="icon" pgs-option="icon-upload"></i>
+<i pgs="icon" pgs-option="icon-user"></i>
+<i pgs="icon" pgs-option="icon-ellipsis"></i>
+<i pgs="icon" pgs-option="icon-hamburgerTwo iconDuo"></i>
 ```
 
 ### Size and colour
@@ -135,21 +136,15 @@ Every glyph the library can draw. The token marks the element, the option names 
 A glyph is drawn at the font size of its element and painted in the text colour, so it needs no settings of its own: size it and colour it the way you would the text around it.
 
 ```html
-<div pgs="flexRow" pgs-option="gapTexts">
-    <p><i pgs="icon" pgs-option="icon-circleInfo"></i> Inside a paragraph, matching the text.</p>
-</div>
+<p><i pgs="icon" pgs-option="icon-circleInfo"></i> Inside a paragraph, matching the text.</p>
 
-<div pgs="flexRow" pgs-option="gapTexts">
-    <i pgs="icon" pgs-option="icon-circleCheck" style="font-size: 3.2rem;"></i>
-    <i pgs="icon" pgs-option="icon-circleCheck" style="font-size: 2.4rem;"></i>
-    <i pgs="icon" pgs-option="icon-circleCheck"></i>
-</div>
+<i pgs="icon" pgs-option="icon-circleCheck" style="--icon-size: 3.2rem;"></i>
+<i pgs="icon" pgs-option="icon-circleCheck" style="--icon-size: 2.4rem;"></i>
+<i pgs="icon" pgs-option="icon-circleCheck"></i>
 
-<div pgs="flexRow" pgs-option="gapTexts">
-    <i pgs="icon txtPrimary" pgs-option="icon-triangleExclamation"></i>
-    <i pgs="icon txtError" pgs-option="icon-triangleExclamation"></i>
-    <i pgs="icon" pgs-option="icon-triangleExclamation"></i>
-</div>
+<i pgs="icon txtPrimary" pgs-option="icon-triangleExclamation"></i>
+<i pgs="icon txtError" pgs-option="icon-triangleExclamation"></i>
+<i pgs="icon" pgs-option="icon-triangleExclamation"></i>
 ```
 
 ### Inside a surface
@@ -157,8 +152,6 @@ A glyph is drawn at the font size of its element and painted in the text colour,
 A glyph placed in iconBox, the circular surface that holds one icon.
 
 ```html
-<div pgs="flexRow" pgs-option="gapTexts">
-    <i pgs="icon" pgs-option="iconBox icon-check"></i>
-    <i pgs="icon" pgs-option="iconBox icon-close"></i>
-</div>
+<i pgs="icon" pgs-option="iconBox icon-check"></i>
+<i pgs="icon" pgs-option="iconBox icon-close"></i>
 ```

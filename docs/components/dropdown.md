@@ -33,7 +33,6 @@ Popup component that connects a control to content positioned relative to its tr
 
 ### PGS
 
-- `flexRow`: arranges the placement examples on the same flexible row.
 - `button`: applies standard styling to dropdown controls.
 - `icon`: draws the glyphs this example shows; see Icon for the whole set.
 
@@ -41,6 +40,10 @@ Popup component that connects a control to content positioned relative to its tr
 
 - `buttonReverse`: reverses text and icon on the example buttons and belongs to the button component.
 - `icon-chevronDown`: the glyph that says this button opens something.
+
+### Other
+
+- `flexRow`: arranges the placement examples on the same flexible row.
 
 ## CSS Variables
 

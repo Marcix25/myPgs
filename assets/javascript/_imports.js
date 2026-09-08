@@ -1,6 +1,7 @@
 import { pgs } from "./_pgs.js";
 
 import { PGS_darkmode } from "./base/_darkmode.js";
+import { PGS_hover } from "./base/_hover.js";
 import { PGS_svg } from "./base/_svg.js";
 import { PGS_accordion } from "./components/_accordion.js";
 import { PGS_alert } from "./components/_alerts.js";
@@ -25,6 +26,7 @@ pgs.registerModules({
     init: PGS_init,
     darkmode: PGS_darkmode,
     svg: PGS_svg,
+    hover: PGS_hover,
     accordion: PGS_accordion,
     alert: PGS_alert,
     dropdown: PGS_dropdown,

@@ -23,7 +23,6 @@ Collection of compact indicators for displaying categories, priorities, and visu
 
 ### PGS
 
-- `flexRow`: arranges badges horizontally and allows them to wrap.
 - `icon`: draws the glyphs this example shows; see Icon for the whole set.
 
 ### PGS Options
@@ -31,6 +30,10 @@ Collection of compact indicators for displaying categories, priorities, and visu
 - `icon-circleInfo`: the information mark.
 - `icon-close`: the cross that dismisses.
 - `icon-triangleExclamation`: the warning mark.
+
+### Other
+
+- `flexRow`: arranges badges horizontally and allows them to wrap.
 
 ## Output
 

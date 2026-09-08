@@ -47,6 +47,9 @@ Margin and padding utilities based on the shared MyPGS spacing scales. The gap u
 ### PGS Options
 
 - `gapTexts`: separates the examples inside a group.
+
+### Other
+
 - `gapSections`: separates the groups.
 
 ## Output

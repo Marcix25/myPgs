@@ -29,6 +29,9 @@ Standalone utilities for shadow, cursor, image fitting, list styling and forced 
 ### PGS Options
 
 - `gapTexts`: spaces the examples inside a group.
+
+### Other
+
 - `gapSections`: separates the groups.
 
 ## Output
@@ -44,10 +47,8 @@ One example per utility, grouped by shadow, interaction, images, lists and colou
 The shared shadow tokens, one for a surface and one for text.
 
 ```html
-<div pgs="flexRow" pgs-option="gapTexts">
-    <span pgs="box boxShadow">boxShadow</span>
-    <strong pgs="textShadow">textShadow</strong>
-</div>
+<span pgs="box boxShadow">boxShadow</span>
+<strong pgs="textShadow">textShadow</strong>
 ```
 
 ### Interaction
@@ -55,10 +56,8 @@ The shared shadow tokens, one for a surface and one for text.
 Pointer cursor on a non-control surface, and a full reset to build a control from scratch.
 
 ```html
-<div pgs="flexRow" pgs-option="gapTexts">
-    <span pgs="box pointer">pointer</span>
-    <button pgs="appearanceNone pointer" type="button">appearanceNone</button>
-</div>
+<span pgs="box pointer">pointer</span>
+<button pgs="appearanceNone pointer" type="button">appearanceNone</button>
 ```
 
 ### Image fitting
@@ -66,10 +65,8 @@ Pointer cursor on a non-control surface, and a full reset to build a control fro
 imgContain keeps the whole image inside the box, imgCover crops it to fill the box.
 
 ```html
-<div pgs="flexRow" pgs-option="gapTexts">
-    <img pgs="imgContain borderRadius" src="https://placehold.co/600x300?text=imgContain" alt="Contained image" style="width: 220px; height: 140px;">
-    <img pgs="imgCover borderRadius" src="https://placehold.co/600x300?text=imgCover" alt="Cropped image" style="width: 220px; height: 140px;">
-</div>
+<img pgs="imgContain borderRadius" src="https://placehold.co/600x300?text=imgContain" alt="Contained image" style="width: 220px; height: 140px;">
+<img pgs="imgCover borderRadius" src="https://placehold.co/600x300?text=imgCover" alt="Cropped image" style="width: 220px; height: 140px;">
 ```
 
 ### List

@@ -5,6 +5,7 @@ export { pgs } from "./_pgs.js";
 //= BASE
 import "./base/_darkmode.js";
 import "./base/_svg.js";
+import "./base/_hover.js";
 import "./base/_object.js";
 
 //= HEADER

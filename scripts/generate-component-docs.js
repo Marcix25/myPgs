@@ -277,15 +277,14 @@ function splitOption(value) {
     return { key, payload: value.slice(openIndex + 1, closeIndex) };
 }
 
-//+ a demo="component"/demo="container" wrapper is grouping-only (and never rendered in the docs
-//+ Example section, see extractDemoItems) ONLY when it actually contains demo="item" children — in
-//+ that case its own pgs/pgs-option/pgs-state attributes are incidental layout and shouldn't force a
-//+ doc requirement. demo="container" says so upfront (a plain layout element that exists only to
-//+ arrange the demo, never meant to be authored); demo="component" also gets this treatment, but
-//+ only once items are found, since without them the element itself is the rendered example and its
-//+ attributes are the real subject.
+//+ a demo="component" element is grouping-only (and never rendered in the docs Example section, see
+//+ extractDemoItems) ONLY when it actually contains a nested demo="component" — in that case its
+//+ own pgs/pgs-option/pgs-state attributes are incidental layout and shouldn't force a doc
+//+ requirement. Without a nested component the element itself is the rendered example and its
+//+ attributes are the real subject (see formAddon.html's outer <form demo="component"> against its
+//+ inner, once-nested <section demo="component"> examples).
 function stripComponentWrapperAttributes(markup) {
-    const openTagPattern = /<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*\bdemo\s*=\s*["'](?:component|container)["'][^>]*>/g;
+    const openTagPattern = /<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*\bdemo\s*=\s*["'][^"']*\bcomponent\b[^"']*["'][^>]*>/g;
     let result = "";
     let lastIndex = 0;
     let match;
@@ -296,10 +295,10 @@ function stripComponentWrapperAttributes(markup) {
         const openTagEnd = match.index + openTag.length;
         const end = findMatchingCloseTag(markup, tagName, openTagEnd);
         const innerContent = end === -1 ? "" : markup.slice(openTagEnd, end);
-        const hasItems = /\bdemo\s*=\s*["']item["']/.test(innerContent);
+        const hasNestedComponent = /\bdemo\s*=\s*["'][^"']*\bcomponent\b[^"']*["']/.test(innerContent);
 
         result += markup.slice(lastIndex, match.index);
-        result += hasItems ? openTag.replace(/\s+pgs(?:-option|-state)?\s*=\s*("[^"]*"|'[^']*')/g, "") : openTag;
+        result += hasNestedComponent ? openTag.replace(/\s+pgs(?:-option|-state)?\s*=\s*("[^"]*"|'[^']*')/g, "") : openTag;
 
         lastIndex = openTagEnd;
         openTagPattern.lastIndex = openTagEnd;
@@ -644,14 +643,14 @@ function extractScriptBlock(markup, typeValue) {
 }
 
 function stripDemoAttributesFromMarkup(html) {
-    return html.replace(/\s+demo(?:-title|-description|-preview|-code)?\s*=\s*("[^"]*"|'[^']*')/g, "");
+    return html.replace(/\s+demo(?:-title|-description)?\s*=\s*("[^"]*"|'[^']*')/g, "");
 }
 
-//+ an element that only groups the example for the demo is not part of the example: demo-code="children"
-//+ keeps it in the live preview but prints what is inside it instead of itself. Unlike the outermost
-//+ wrapper this also has to handle several marked elements side by side (see Border's rows of spans),
-//+ not just a single nested chain, so it scans the whole string for a match rather than assuming the
-//+ next one is always at the very start.
+//+ an element that only groups the example for the demo is not part of the example: demo="wrapper"
+//+ keeps it in the live preview but prints what is inside it instead of itself. It can repeat at
+//+ several levels side by side within one example (see Border's rows of spans), not just a single
+//+ nested chain, so this scans the whole string for a match rather than assuming the next one is
+//+ always at the very start.
 function unwrapScaffold(markup) {
     let current = markup.trim();
     const openTagPattern = /<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*>/g;
@@ -662,7 +661,7 @@ function unwrapScaffold(markup) {
         let target = null;
 
         while ((match = openTagPattern.exec(current))) {
-            if (/\bdemo-code\s*=\s*(["'])children\1/.test(match[0])) {
+            if (/\bdemo\s*=\s*["'][^"']*\bwrapper\b[^"']*["']/.test(match[0])) {
                 target = match;
                 break;
             }
@@ -726,22 +725,28 @@ function stripDisabledElements(markup) {
     return result.replace(/\n{3,}/g, "\n\n").trim();
 }
 
-//+ true when a demo="component"/"container" wrapper actually has demo="item" descendants, meaning
+//+ true when a demo="component" element actually has a nested demo="component" descendant, meaning
 //+ it's transparent grouping markup rather than the rendered example itself (shared with
-//+ stripComponentWrapperAttributes's own hasItems check, same rule)
-function hasNestedDemoItems(markup, start, end) {
-    return /\bdemo\s*=\s*["']item["']/.test(markup.slice(start, end));
+//+ stripComponentWrapperAttributes's own check, same rule). The boundary check (rather than an
+//+ exact-value match) is what lets "component" combine with codeNone/previewNone in the same demo
+//+ attribute, e.g. demo="component previewNone".
+function hasNestedComponent(markup, start, end) {
+    return /\bdemo\s*=\s*["'][^"']*\bcomponent\b[^"']*["']/.test(markup.slice(start, end));
 }
 
-//+ walks the example markup in document order, matching every <demo demo-h2=.../demo-h3=...>
-//+ marker and every demo="item"/"component"/"container" element as it's encountered. A <demo
-//+ demo-h2> marker becomes its own heading block immediately; a <demo demo-h3> marker is held as
-//+ "pending" until the next titleable leaf consumes it. A demo="component"/"container" wrapper
-//+ that contains demo="item" descendants is transparent — the walk doesn't stop at it, it just
-//+ keeps scanning through its content for the nested demo-h3 + demo="item" pairs, exactly the same
-//+ way stripComponentWrapperAttributes decides whether the wrapper's own attributes are incidental.
+//+ walks the example markup in document order, matching every <demo demo-h2=.../demo-h3=...> marker
+//+ and every demo="component" element as it's encountered. A <demo demo-h2> marker becomes its own
+//+ heading block immediately; a <demo demo-h3> marker is held as "pending" until the next titleable
+//+ leaf consumes it. A demo="component" that contains a nested demo="component" is transparent — the
+//+ walk doesn't stop at it, it just keeps scanning through its content for the nested demo-h3 +
+//+ demo="component" pairs (see formAddon.html's outer <form demo="component"> around several inner
+//+ ones), exactly the same way stripComponentWrapperAttributes decides whether the wrapper's own
+//+ attributes are incidental. demo="wrapper" never appears in this top-level match at all — it's a
+//+ purely nested instruction, unwrapped afterwards by unwrapScaffold, never its own block boundary.
+//+ Matching "component" by boundary inside the quoted value (not requiring it to be the *whole*
+//+ value) is what lets it combine with codeNone/previewNone, e.g. demo="component codeNone".
 function extractDemoBlocks(markup) {
-    const pattern = /<(demo)\b[^>]*>|<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*\bdemo\s*=\s*["'](item|component|container)["'][^>]*>/g;
+    const pattern = /<(demo)\b[^>]*>|<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*\bdemo\s*=\s*["'][^"']*\bcomponent\b[^"']*["'][^>]*>/g;
     const blocks = [];
     let pendingH3 = null;
     let match;
@@ -763,7 +768,6 @@ function extractDemoBlocks(markup) {
         }
 
         const tagName = match[2];
-        const kind = match[3];
         const openTagEnd = match.index + match[0].length;
         const end = findMatchingCloseTag(markup, tagName, openTagEnd);
         if (end === -1) {
@@ -771,24 +775,25 @@ function extractDemoBlocks(markup) {
             continue;
         }
 
-        if (kind !== "item" && hasNestedDemoItems(markup, openTagEnd, end)) {
+        if (hasNestedComponent(markup, openTagEnd, end)) {
             //== transparent wrapper: leave the pending marker alone and keep scanning its content
             pattern.lastIndex = openTagEnd;
             continue;
         }
 
-        const lineStart = markup.lastIndexOf("\n", match.index) + 1;
-        const baseIndent = markup.slice(lineStart, match.index).match(/^[ \t]*$/) ? markup.slice(lineStart, match.index) : "";
-        const outer = markup.slice(match.index, end);
-        const dedented = baseIndent ? outer.replace(new RegExp(`^${escapeRegExp(baseIndent)}`, "gm"), "") : outer;
+        //== a demo="component" only declares where one example starts: it is the grouping element,
+        //== never part of the example itself, so its own tag never reaches the copied code — exactly
+        //== like demo="wrapper". Only what sits inside it prints.
+        const closing = markup.lastIndexOf("<", end - 1);
+        const dedented = dedent(markup.slice(openTagEnd, closing));
 
         blocks.push({
             type: "item",
             title: pendingH3 ? pendingH3.title : "",
             description: pendingH3 ? pendingH3.description : "",
-            //== demo-code="none" says there's nothing worth copying for this one (see demo.js): the
+            //== demo="codeNone" says there's nothing worth copying for this one (see demo.js): the
             //== heading and description still print, only the fenced code is left out
-            hideCode: /\bdemo-code\s*=\s*["']none["']/.test(match[0]),
+            hideCode: /\bdemo\s*=\s*["'][^"']*\bcodeNone\b[^"']*["']/.test(match[0]),
             markup: stripDemoAttributesFromMarkup(unwrapScaffold(dedented)).trim(),
         });
         pendingH3 = null;

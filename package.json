@@ -24,7 +24,7 @@
         "docs:generate": "node scripts/generate-component-docs.js && node scripts/generate-guide-docs.js",
         "icons:sync": "node scripts/sync-icons.js",
         "demo:build": "node scripts/build-demo-static.js",
-        "serve:lan": "python3 -m http.server 3025 --bind 0.0.0.0",
+        "serve:lan": "node scripts/serve-lan.js",
         "start": "webpack",
         "start watch": "webpack --watch",
         "syncmaster": "git fetch origin && git checkout master && git pull --ff-only origin master && git merge --no-edit origin/dev && git push origin master && git checkout dev",

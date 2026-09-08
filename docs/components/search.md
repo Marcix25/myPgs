@@ -63,7 +63,7 @@ Search markup, configuration, behavior, and usage example. Two custom events bub
 ### PGS Options
 
 - `modalContainerPGS`: identifies the modalContainerPGS element used by Search.
-- `buttonNohover`: disables hover behavior on the search container.
+- `hoverNot`: disables hover behavior on the search container.
 - `buttonIcon`: presents search and close actions as icon buttons.
 - `icon-magnifyingGlass`: the glyph used there.
 - `icon-close`: the cross that dismisses.
@@ -98,7 +98,7 @@ Complete HTML markup and usage example for Search.
 Search field with live suggestions embedded directly in the page.
 
 ```html
-<form pgs="button search" pgs-option="buttonNohover searchPlaceholder[Type a component name] searchNoResults[No component matches]" autocomplete="off" action="" method="get">
+<form pgs="button search" pgs-option="hoverNot searchPlaceholder[Type a component name] searchNoResults[No component matches]" autocomplete="off" action="" method="get">
     <button type="submit" title="Search"><i pgs="icon" pgs-option="icon-magnifyingGlass"></i></button>
     <input type="search" name="s" placeholder="Search" value="">
     <ul pgs="search-suggestions"></ul>
@@ -119,7 +119,7 @@ Search opened from an icon button inside a full-width modal, intended for the mo
     <dialog>
         <div pgs="flexRow section search-mobile">
 
-            <form pgs="button search" pgs-option="buttonNohover" autocomplete="off" action="/" method="get">
+            <form pgs="button search" pgs-option="hoverNot" autocomplete="off" action="/" method="get">
                 <button type="submit" title="Search">
                     <i pgs="icon" pgs-option="icon-magnifyingGlass"></i>
                 </button>

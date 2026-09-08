@@ -56,7 +56,7 @@ Brand and navigation columns in the upper section, legal links and cookie prefer
 
 ```html
 <footer pgs="footer">
-    
+
     <section pgs="footer-top section">
         <div pgs="footer-top-content flexRow" pgs-option="column-3">
             <div pgs="footer-brand">

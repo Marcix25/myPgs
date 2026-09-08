@@ -511,7 +511,6 @@
             "buttonHeader",
             "buttonIcon",
             "buttonMini",
-            "buttonNohover",
             "buttonPaddingEqual",
             "buttonQuaternary",
             "buttonReverse",
@@ -546,16 +545,12 @@
     "chip": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
-            "buttonReverse"
-        ]
+        "pgs-option": []
     },
     "chips": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
-            "buttonReverse"
-        ]
+        "pgs-option": []
     },
     "container": {
         "pgs": [],
@@ -995,7 +990,9 @@
             "hover-text"
         ],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-option": [
+            "hoverNot"
+        ]
     },
     "htmlBase": {
         "pgs": [],
@@ -1230,8 +1227,8 @@
             "_menu-buttonIcon"
         ],
         "pgs-option": [
-            "buttonNohover",
             "dropdownPosition",
+            "hoverNot",
             "menuHorizontal",
             "menuIconOnlyCurrent",
             "menuShort",
@@ -1735,9 +1732,7 @@
     "twoState": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
-            "buttonReverse"
-        ]
+        "pgs-option": []
     },
     "txtBlack": {
         "pgs": [],

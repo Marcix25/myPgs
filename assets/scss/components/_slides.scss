@@ -103,11 +103,11 @@
         translate: 0 -50%;
 
         &:is([pgs~="slides-prec"]) {
-            left: 0;
+            left: 2px;
         }
 
         &:is([pgs~="slides-next"]) {
-            right: 0;
+            right: 2px;
         }
 
         //-( tablet

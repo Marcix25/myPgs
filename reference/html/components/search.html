@@ -50,7 +50,7 @@
  * - flexRow: uses the related flexRow component or utility in this example.
  * - section: uses the related section component or utility in this example.
  * - modalContainerPGS: identifies the modalContainerPGS element used by Search.
- * - buttonNohover: disables hover behavior on the search container.
+ * - hoverNot: disables hover behavior on the search container.
  * - buttonIcon: presents search and close actions as icon buttons.
  * - icon: draws the glyph at the start of every suggestion; see Icon for the whole set.
  * - icon-magnifyingGlass: the glyph used there.
@@ -62,39 +62,43 @@
 
 <demo demo-h2="Examples"></demo>
 <demo demo-h3="Inline search" demo-description="Search field with live suggestions embedded directly in the page."></demo>
-<form pgs="button search" pgs-option="buttonNohover searchPlaceholder[Type a component name] searchNoResults[No component matches]" autocomplete="off" action="" method="get" demo="component">
-    <button type="submit" title="Search"><i pgs="icon" pgs-option="icon-magnifyingGlass"></i></button>
-    <input type="search" name="s" placeholder="Search" value="">
-    <ul pgs="search-suggestions"></ul>
-</form>
+<section demo="component">
+    <form pgs="button search" pgs-option="hoverNot searchPlaceholder[Type a component name] searchNoResults[No component matches]" autocomplete="off" action="" method="get">
+        <button type="submit" title="Search"><i pgs="icon" pgs-option="icon-magnifyingGlass"></i></button>
+        <input type="search" name="s" placeholder="Search" value="">
+        <ul pgs="search-suggestions"></ul>
+    </form>
+</section>
 
 <demo demo-h3="Mobile search overlay" demo-description="Search opened from an icon button inside a full-width modal, intended for the mobile navigation."></demo>
-<div pgs="modal search-modal" pgs-option="modalContainerPGS[header]" demo="component">
+<section demo="component">
+    <div pgs="modal search-modal" pgs-option="modalContainerPGS[header]">
 
-    <button type="button" pgs="modal-button button" pgs-option="buttonIcon" title="Search">
-        <i pgs="icon" pgs-option="icon-magnifyingGlass"></i>
-    </button>
+        <button type="button" pgs="modal-button button" pgs-option="buttonIcon" title="Search">
+            <i pgs="icon" pgs-option="icon-magnifyingGlass"></i>
+        </button>
 
-    <dialog>
-        <div pgs="flexRow section search-mobile">
+        <dialog>
+            <div pgs="flexRow section search-mobile">
 
-            <form pgs="button search" pgs-option="buttonNohover" autocomplete="off" action="/" method="get">
-                <button type="submit" title="Search">
-                    <i pgs="icon" pgs-option="icon-magnifyingGlass"></i>
-                </button>
+                <form pgs="button search" pgs-option="hoverNot" autocomplete="off" action="/" method="get">
+                    <button type="submit" title="Search">
+                        <i pgs="icon" pgs-option="icon-magnifyingGlass"></i>
+                    </button>
 
-                <input type="search" name="s" placeholder="Search" value="">
-                <ul pgs="search-suggestions"></ul>
+                    <input type="search" name="s" placeholder="Search" value="">
+                    <ul pgs="search-suggestions"></ul>
 
-                <button type="button" pgs="modal-close button" pgs-option="buttonIcon">
-                    <i pgs="icon" pgs-option="icon-close"></i>
-                </button>
-            </form>
+                    <button type="button" pgs="modal-close button" pgs-option="buttonIcon">
+                        <i pgs="icon" pgs-option="icon-close"></i>
+                    </button>
+                </form>
 
 
-        </div>
-    </dialog>
-</div>
+            </div>
+        </dialog>
+    </div>
+</section>
 
 <script type="module">
     import { pgs } from "mypgs";

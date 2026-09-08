@@ -56,13 +56,13 @@ Notification markup, configuration, behavior, and usage example. A persistent, m
 
 ### PGS Options
 
-- `gapSections`: separates the examples.
 - `gapTexts`: spaces the content inside each example.
 - `buttonIcon`: presents notificationBell as an icon button.
 - `icon-bell`: the glyph on the control that opens the panel.
 
 ### Other
 
+- `gapSections`: separates the examples.
 - `modal-dialog-content`: identifies the JS-generated styled content area inside the dialog, wrapping notifications.
 - `modalRight`: slides the notification dialog in from the right; see Modal for other positions.
 - `icon-circleXmark`: the glyph of the error type.

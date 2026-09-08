@@ -147,6 +147,10 @@ declare global {
     api(selector: Element): PgsTabsInstance | undefined;
   }
 
+  interface PgsHoverModule {
+    init(root?: Document | Element): Document | Element;
+  }
+
   interface PgsFunction {
     (root: Document): PgsDocumentApi;
     (root: Element): PgsElementApi;
@@ -157,6 +161,7 @@ declare global {
     init(root?: Document | Element): Document | Element;
     cookieConsent?: any;
     darkmode?: any;
+    hover?: PgsHoverModule;
     accordion?: any;
     dropdown?: any;
     menu?: any;

@@ -114,53 +114,47 @@
 }
 
 //= TWOSTATE
-@mixin twoState($ifHover: true) {
+@mixin twoState() {
     //== label
     position: relative;
     isolation: isolate;
-    @include buttonBase();
-    @include buttonContent();
-
-    @if($ifHover) {
-        @include buttonHover();
-    }
-
     flex-wrap: wrap;
     display: flex !important;
     cursor: pointer;
-
-    i, [pgs~=icon] {
-        opacity: 0.4;
-        min-width: 1.4rem;
-    }
-
-    &:hover {
-        i, [pgs~=icon] {
-            opacity: 1;
-        }
-    }
-
-    //== checked
-    &:has(input:checked) {
-        --button-background: var(--button-background-active);
-        --button-color: var(--button-color-active);
-        --button-border-color: var(--button-border-color-active);
-
-        i, [pgs~=icon] {
-            opacity: 1;
-        }
-    }
-
+    
     input {
         opacity: 0;
         z-index: -1;
         position: absolute;
         appearance: none;
     }
+    
+    i,
+    [pgs~=icon] {
+        opacity: 0.4;
+        min-width: 1.4rem;
+    }
+
+    &:hover {
+
+        i,
+        [pgs~=icon] {
+            opacity: 1;
+        }
+    }
+
+    //== checked
+    &:has(input:checked) {
+        i,
+        [pgs~=icon] {
+            opacity: 1;
+        }
+    }
+
 }
 
 @mixin chip() {
-    @include twoState(false);
+    @include twoState();
     --button-size: 1rem;
 
     &:has(input:checked) {

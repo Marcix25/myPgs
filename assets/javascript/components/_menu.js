@@ -11,7 +11,7 @@ function createToggle(li) {
     button.innerHTML = "<span>&#9207;</span>";
 
     pgs(button).add("_menu-buttonIcon", "button");
-    pgs(button).option.add("buttonNohover");
+    pgs(button).option.add("hoverNot");
     li.querySelector("a").insertAdjacentElement("afterend", button);
 
     return button;

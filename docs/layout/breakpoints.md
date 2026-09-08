@@ -44,6 +44,9 @@ Responsive visibility utilities built on the shared breakpoint scale: watch 315p
 
 - `wrap`: allows the examples to wrap onto several rows.
 - `gapTexts`: separates the examples inside a group.
+
+### Other
+
 - `gapSections`: separates the groups.
 
 ## Output
@@ -59,12 +62,10 @@ One example per query type, resizing with the viewport and with a local containe
 hideMediaDown* and hideMediaUp* read the viewport width, so they answer to the browser window whatever the element is nested in. Resize the window to see them appear and disappear.
 
 ```html
-<div pgs="flexRow" pgs-option="gapTexts wrap">
-    <span pgs="box hideMediaDownMobile">hideMediaDownMobile</span>
-    <span pgs="box hideMediaDownTablet">hideMediaDownTablet</span>
-    <span pgs="box hideMediaUpTablet">hideMediaUpTablet</span>
-    <span pgs="box hideMediaUpLaptop">hideMediaUpLaptop</span>
-</div>
+<span pgs="box hideMediaDownMobile">hideMediaDownMobile</span>
+<span pgs="box hideMediaDownTablet">hideMediaDownTablet</span>
+<span pgs="box hideMediaUpTablet">hideMediaUpTablet</span>
+<span pgs="box hideMediaUpLaptop">hideMediaUpLaptop</span>
 ```
 
 ### Container visibility
@@ -73,11 +74,9 @@ hideContainerDown* and hideContainerUp* read the width of the nearest ancestor m
 
 ```html
 <div pgs="container">
-    <div pgs="flexRow" pgs-option="gapTexts wrap">
-        <span pgs="box hideContainerDownMobile">hideContainerDownMobile</span>
-        <span pgs="box hideContainerDownTablet">hideContainerDownTablet</span>
-        <span pgs="box hideContainerUpTablet">hideContainerUpTablet</span>
-        <span pgs="box hideContainerUpLaptop">hideContainerUpLaptop</span>
-    </div>
+    <span pgs="box hideContainerDownMobile">hideContainerDownMobile</span>
+<span pgs="box hideContainerDownTablet">hideContainerDownTablet</span>
+<span pgs="box hideContainerUpTablet">hideContainerUpTablet</span>
+<span pgs="box hideContainerUpLaptop">hideContainerUpLaptop</span>
 </div>
 ```

@@ -75,23 +75,21 @@ Flex, grid, wrapping, and alignment examples using the current responsive layout
 Three-column flex layout using column-2 with m2e to collapse to two columns per row on mobile.
 
 ```html
-<section>
-    <strong>Flex</strong>
-    <div pgs="flex" pgs-option="flexRow column-2 m2e">
-        <article pgs="box flex" pgs-option="flexColumn">
-            <strong>Lorem ipsum dolor</strong>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </article>
-        <article pgs="box flex" pgs-option="flexColumn">
-            <strong>Sit amet consectetur</strong>
-            <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
-        </article>
-        <article pgs="box flex" pgs-option="flexColumn">
-            <strong>Adipiscing elit sed</strong>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
-        </article>
-    </div>
-</section>
+<strong>Flex</strong>
+<div pgs="flex" pgs-option="flexRow column-2 m2e">
+    <article pgs="box flex" pgs-option="flexColumn">
+        <strong>Lorem ipsum dolor</strong>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </article>
+    <article pgs="box flex" pgs-option="flexColumn">
+        <strong>Sit amet consectetur</strong>
+        <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
+    </article>
+    <article pgs="box flex" pgs-option="flexColumn">
+        <strong>Adipiscing elit sed</strong>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
+    </article>
+</div>
 ```
 
 ### Grid layout
@@ -99,27 +97,25 @@ Three-column flex layout using column-2 with m2e to collapse to two columns per 
 Four-column grid layout using column-4 with m2e to collapse to two columns per row on mobile.
 
 ```html
-<section>
-    <strong>Grid</strong>
-    <div pgs="grid" pgs-option="column-4 m2e">
-        <article pgs="box flex" pgs-option="flexColumn">
-            <strong>Do eiusmod tempor</strong>
-            <p>Duis aute irure dolor in reprehenderit in voluptate.</p>
-        </article>
-        <article pgs="box flex" pgs-option="flexColumn">
-            <strong>Ut labore et</strong>
-            <p>Excepteur sint occaecat cupidatat non proident sunt.</p>
-        </article>
-        <article pgs="box flex" pgs-option="flexColumn">
-            <strong>Dolore magna aliqua</strong>
-            <p>Sunt in culpa qui officia deserunt mollit anim.</p>
-        </article>
-        <article pgs="box flex" pgs-option="flexColumn">
-            <strong>Enim ad minim</strong>
-            <p>Ut labore et dolore magna aliqua ut enim.</p>
-        </article>
-    </div>
-</section>
+<strong>Grid</strong>
+<div pgs="grid" pgs-option="column-4 m2e">
+    <article pgs="box flex" pgs-option="flexColumn">
+        <strong>Do eiusmod tempor</strong>
+        <p>Duis aute irure dolor in reprehenderit in voluptate.</p>
+    </article>
+    <article pgs="box flex" pgs-option="flexColumn">
+        <strong>Ut labore et</strong>
+        <p>Excepteur sint occaecat cupidatat non proident sunt.</p>
+    </article>
+    <article pgs="box flex" pgs-option="flexColumn">
+        <strong>Dolore magna aliqua</strong>
+        <p>Sunt in culpa qui officia deserunt mollit anim.</p>
+    </article>
+    <article pgs="box flex" pgs-option="flexColumn">
+        <strong>Enim ad minim</strong>
+        <p>Ut labore et dolore magna aliqua ut enim.</p>
+    </article>
+</div>
 ```
 
 ### Wrap
