@@ -53,7 +53,7 @@
                 }
             </code>
         </div>
-        <p>Component styling composes from small mixins instead of one bundled rule, so each consumer only includes what it needs: a standard button is <code>buttonBase</code> + <code>buttonContent</code> + <code>buttonHover</code>, an icon-only one swaps in <code>buttonIcon</code>, and <code>hoverNot</code> opts any surface out of the hover treatment. Variant mixins such as <code>buttonStrong</code> or <code>buttonTransparent</code> only add their own declarations and must follow that base. Menus, accordions, forms and step tabs follow the same explicit-composition pattern.</p>
+        <p>Component styling composes from small mixins instead of one bundled rule, so each consumer only includes what it needs: a standard button is <code>buttonBase</code> + <code>buttonContent</code>, an icon-only one swaps in <code>buttonIcon</code>. The hover treatment is no longer part of any component's composition: it lives under <code>pgs="hover"</code>, which the library marks on clickable surfaces by itself, and <code>hoverNot</code> opts any surface out of it. Variant mixins such as <code>buttonStrong</code> or <code>buttonTransparent</code> only add their own declarations and must follow that base. Menus, accordions, forms and step tabs follow the same explicit-composition pattern.</p>
     </div>
 
     <div pgs="flexColumn" pgs-option="gapTexts">

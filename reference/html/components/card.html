@@ -4,10 +4,10 @@
  * @description Reusable surfaces for presenting structured card content or grouping simpler content inside a box.
  *
  * @pgs
- * - card: identifies the main card container.
+ * - card: identifies the main card container. Written on an `<a>` it becomes a clickable surface, and `pgs.hover` marks it with `hover` at load so it takes the shared hover and focus treatment.
  * - card-img: identifies the main card image.
  * - card-content: groups the text and actions of a card.
- * - box: identifies a lightweight content container or clickable surface.
+ * - box: identifies a lightweight content container or clickable surface. Written on an `<a>` it is marked with `hover` at load, exactly like a clickable card.
  *
  * @pgs-option
  * - cardHorizontal: switches intrinsically between a horizontal 40/60 layout and a stacked layout according to the card's available width.
@@ -16,7 +16,9 @@
  *
  * @related
  * - button: presents the card action as a standard button.
+ * - hover: the treatment a clickable card or box receives, added by pgs.hover rather than written by hand; see Hover for the opt-out.
  * - marginTop: separates the card action from the preceding text.
+ * - hoverNot: available on a clickable card or box that must stay inert; see Hover.
  *
  * @return Standard, clickable, horizontal, and compact cards followed by standard, compact, and clickable boxes.
  */
@@ -39,8 +41,8 @@
 
 <demo demo-h3="Clickable card" demo-description="The complete card surface behaves as a link."></demo>
 <section demo="component">
-    <article pgs="card">
-        <a href="#">
+    <article>
+        <a href="#" pgs="card">
             <img pgs="card-img" src="https://placehold.net/600x400.png" alt="Placeholder image">
 
             <div pgs="card-content">

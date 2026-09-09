@@ -2,7 +2,8 @@
 
 This explains the pipeline behind everything under `reference/html/`, `docs/`, and this `demo/`
 folder: where a component's documentation actually lives, how it turns into both the generated
-Markdown and the live page at `demo/build/demo-fetch.html`, and what to do when you add or change something.
+Markdown and the browsable page at `demo/build/demo.html`, and what to do when you add or change
+something.
 
 ## The three places involved
 
@@ -11,25 +12,24 @@ Markdown and the live page at `demo/build/demo-fetch.html`, and what to do when 
    markup (and sometimes a script).
 2. **`docs/**/*.md`** — generated from those files by `npm run docs:generate`. Never edit these by
    hand; edit the `reference/html` source and regenerate.
-3. **`demo/`** (this folder) — a static site (`assets/demo.structure.html` + `assets/demo-fetch.js` +
-   `assets/demo.css`, no build step) that fetches every `reference/html` file at runtime, parses the
-   same doc comment, and renders it as a live, browsable reference with working examples. `npm run
-   demo:build` pre-bakes that same rendering (via `assets/demo-render.js`) into `build/demo.content.html`
-   and the final `demo.html` — see "Pre-baking the demo" below; both are generated, never hand-edited.
-   The library's CSS/JS and the hand-authored `demo.structure.html` live under `demo/assets/`; every
-   generated output (`demo.content.html` and the two openable pages, `demo-fetch.html`/`demo.html`)
-   lives under `demo/build/`, alongside this file at the top of `demo/`.
+3. **`demo/`** (this folder) — a browsable reference with working examples, pre-baked by `npm run
+   demobuild`: `assets/demo-render.js` turns every `reference/html` file into its panel, and
+   `scripts/build-demo-static.js` writes `build/demo.content.html` and the final `build/demo.html`
+   — see "Pre-baking the demo" below; both are generated, never hand-edited. The library's CSS/JS
+   and the hand-authored `demo.structure.html` live under `demo/assets/`; every generated output
+   (`demo.content.html` and the one openable page, `demo.html`) lives under `demo/build/`, alongside
+   this file at the top of `demo/`. Nothing is fetched or parsed at runtime: `assets/demo.js` only
+   wires up navigation, copy buttons and the interactive examples.
 
-Both `docs:generate` and `demo-fetch.js` parse the *same* doc-comment format independently — one in
-Node (`scripts/generate-component-docs.js`), one in the browser (`assets/demo-fetch.js`, functions like
-`parseDocumentation`). Keep that in mind if you ever change the format: both sides need updating.
+Two things parse the doc-comment format, both in Node: `scripts/generate-component-docs.js` for the
+Markdown and `assets/demo-render.js` for the demo panels. Keep that in mind if you ever change the
+format: both sides need updating.
 
-Guide pages (see "The guides exception" below) run through a completely separate pipeline on the
-Node side, `scripts/generate-guide-docs.js` — currently dormant, since the only file left in
-`reference/html/guides/` is `welcome.html`, itself excluded from generation (see below). There is no
-browser-side equivalent: `demo-fetch.js` fetches `welcome.html` directly, the same way it fetches every
-other reference file. Everything else in this document describes the main pipeline; guides are
-called out on their own wherever they differ.
+Guide pages (see "The guides exception" below) run through a completely separate pipeline,
+`scripts/generate-guide-docs.js` — currently dormant, since the only file left in
+`reference/html/guides/` is `welcome.html`, itself excluded from generation (see below). The demo
+bakes `welcome.html` in as its landing panel, source and all. Everything else in this document
+describes the main pipeline; guides are called out on their own wherever they differ.
 
 ## The doc comment
 
@@ -120,27 +120,28 @@ built by an entirely separate pipeline from everything else on this page.
 - A code sample that needs to show literal `pgs="..."` text (e.g. explaining the attribute syntax
   itself) must stay HTML-escaped inside its `<pre><code>`, exactly as you'd write any inert code
   sample, so it's never mistaken for real authored markup.
-- **Browser side**: none currently — there is no active guide file for `demo-fetch.js` to render as prose
-  (the only file in `reference/html/guides/` is the excluded `welcome.html`, fetched directly). A
-  guide's live page would skip the doc-tag block and the "Example HTML" code block entirely: there's
-  no `@pgs`/`@api` to list, and showing raw source doesn't help for prose — bring back a browser
-  renderer for it if `reference/html/guides/` gets a real entry again.
+- **Demo side**: none currently — `demo-render.js` has no guide branch, because the only file in
+  `reference/html/guides/` is the excluded `welcome.html`, baked in as-is. A guide's panel would skip
+  the doc-tag block and the "Example HTML" code block entirely: there's no `@pgs`/`@api` to list, and
+  showing raw source doesn't help for prose — write that branch if `reference/html/guides/` gets a
+  real entry again.
 - `npm run docs:generate` runs both generators (`generate-component-docs.js` then
-  `generate-guide-docs.js`); run the guide one on its own with `npm run docs:generate:guides`.
+  `generate-guide-docs.js`); run the guide one on its own with `node scripts/generate-guide-docs.js`,
+  there is no npm script for it alone.
 
 One file in `reference/html/guides/` is an explicit exception to all of the above:
 **`welcome.html`**, the demo's own landing panel. It's excluded by name in
 `generate-guide-docs.js` (`EXCLUDED_FILES`) and produces no `docs/guides/welcome.md`, because its
 layout — coloured cards, `pgs-option` boxes — is richer than the small prose vocabulary can
-convert. `demo-fetch.js` fetches it directly like any other reference file, and it's hand-kept in sync in
-substance with the project `README.md`, on purpose looking different rather than reusing either
-pipeline.
+convert. The build bakes its markup in verbatim as the demo's first panel, and it's hand-kept in
+sync in substance with the project `README.md`, on purpose looking different rather than reusing
+either pipeline.
 
 ## Categories and file layout
 
 `reference/html/` has six top-level folders — `base/`, `components/`, `layout/`, `patterns/`,
 `helper/`, `guides/` — each becoming its own section in the demo's side menu, in the order that
-`demoRenderer.referenceFiles` (see `assets/demo-fetch.js`) lists them; a file's position within a category
+`referenceFiles` in `assets/demo-render.js` lists them; a file's position within a category
 follows that same array. `docs/` mirrors the same folder structure and filenames for every category
 except `guides/`, which is generated by its own script into `docs/guides/` (see above).
 
@@ -184,7 +185,7 @@ Details and cross-references, past what the table already says:
   example itself, so it can't compete with the real `pgs`/`pgs-option` the example is documenting.
 - `<demo demo-h2>` — used when a file's examples split into named sets (see `layout/pageShell.html`'s
   "Page Shell simple" vs. "Page Shell - Not scroll" groups). Most files only ever need `demo-h3`.
-  Both `demo-fetch.js`'s `extractDemoBlocks` and the Node generator's `extractDemoBlocks` in
+  Both `demo-render.js`'s `extractDemoBlocks` and the doc generator's own in
   `scripts/generate-component-docs.js` walk the markup in document order, pairing a `demo-h3` marker
   with the next `demo="component"` leaf and recursing straight through anything that isn't one (a
   plain layout wrapper with no `demo` attribute at all, or a `demo="component"` that itself has a
@@ -221,7 +222,7 @@ markup and never shown mixed in with the "Example HTML":
 
 Because none of the embedded `<script>` tags run, any demo that needs real interactivity — a form
 with custom validation, a live search, a button that inserts markup and calls `pgs.init()` on it —
-needs matching wire-up code written directly in `demo-fetch.js`, scoped to that file's section:
+needs matching wire-up code written directly in `assets/demo.js`, scoped to that file's section:
 
 ```js
 function configureFormDemo() {
@@ -233,38 +234,33 @@ function configureFormDemo() {
 }
 ```
 
-Every such function is called once from `boot()`. Search `demo-fetch.js` for `configure` to see the
+Every such function is called once from `boot()`. Search `demo.js` for `configure` to see the
 current set (`configureFormDemo`, `configureSearchDemo`, `configureNotificationDemo`,
 `configureInitDemo`, `configureScrollHorizontalDemo`, `configureFormValidateHelperDemo`, ...) — copy
 that pattern for a new interactive example, always scoping queries to the element's own
 `data-reference` section (never to `document` directly), since every reference file's markup is
 present in the DOM at once, just hidden behind the currently-selected nav entry.
 
-## Wiring a new page into the demo (`demo-fetch.js`)
+## Wiring a new page into the demo (`demo-render.js`)
 
 Adding a `reference/html/<category>/<name>.html` file makes it validate and generate its `.md`, but
-three things in `demo-fetch.js` need a manual entry for it to actually show up on the live site:
+three things in `demo-render.js` need a manual entry for it to actually show up in the demo:
 
 1. **`CATEGORY_LABELS`** — only needed for a brand-new top-level category (e.g. adding `helper` for
    the first time required `helper: "Helper"` here).
-2. **`referenceFiles`** (an array near the top of `demoRenderer`) — add `"<category>/<name>.html"`.
-   Its position in the array is the file's position in the nav; a category's *first* appearance in
-   this array is where that whole category section is inserted.
+2. **`referenceFiles`** (an array near the top of the file) — add `"<category>/<name>.html"`. Its
+   position in the array is the file's position in the nav; a category's *first* appearance in this
+   array is where that whole category section is inserted.
 3. **`ENTRY_ICONS`** — add `"<category>/<name>.html": "fa-solid-icon-name"` (any Font Awesome
    solid icon class) for its nav icon; falls back to a generic square icon if omitted.
 
-Then, only if the example needs real interactivity, add a `configureXDemo()` function as above and
-call it from `boot()`.
-
-`demo/assets/demo-render.js` keeps its own copies of `CATEGORY_LABELS`, `referenceFiles` and `ENTRY_ICONS`
-— identical to `demo-fetch.js`'s, on purpose (see "Pre-baking the demo" below) — update both whenever you
-touch either. A `configureXDemo()` function needs copying into `assets/demo.js` too if you want it to
-also run on the pre-baked `demo.html`.
+Then rebuild with `npm run demobuild`, and only if the example needs real interactivity add a
+`configureXDemo()` function to `assets/demo.js` as above and call it from `boot()`.
 
 ## Naming conventions worth knowing
 
 - **Markup the library builds at runtime gets an `_` prefix** (`_toast-element`,
-  `_notifications-element-icon`, ...) and is documented under `@pgs-generated`, never `@pgs`. An
+  `_notifications-element-content-icon`, ...) and is documented under `@pgs-generated`, never `@pgs`. An
   exception: a token merely *added* to an element the author already wrote (`formValidate` added to
   an existing `<form>`, `dialog`/`modal-dialog` added to an existing `<dialog>`) stays unprefixed
   and still goes under `@pgs-generated` — the prefix marks a whole new element, not an added token.
@@ -277,19 +273,37 @@ also run on the pre-baked `demo.html`.
 ## The tools
 
 ```sh
+npm run start                      # webpack: compiles assets/ into dist/
 node scripts/generate-pgs-map.js   # scans compiled CSS + source, writes reference/pgs-map.json
 npm run docs:generate              # validates every reference/html file, writes docs/**/*.md
                                     # (runs generate-component-docs.js, then generate-guide-docs.js)
-npm run start                      # webpack: compiles assets/ into dist/
+npm run demobuild                  # pre-bakes demo/build/ — see the section below
 ```
 
-Run all three, in that order, after touching anything under `assets/` or `reference/html/`.
+Run all four, in that order, after touching anything under `assets/` or `reference/html/`. The order
+is not cosmetic: `generate-pgs-map.js` and `build-demo-static.js` read `dist/css/index.css`, so a map
+or a demo built before webpack describes the previous compile. `docs:generate` reads the SCSS and
+JavaScript sources instead, so it is the one step that does not need the build.
+
 `docs:generate` is strict: an undocumented token used in an example, a documented token that
 doesn't actually exist anywhere in `assets/scss`/`assets/javascript`, wrong tag order, a duplicate
 section, and more all fail the whole run with a specific file/line/suggestion — fix everything it
 reports before it will write anything.
 
-## Pre-baking the demo (`npm run demo:build`)
+While iterating, two watchers replace the first and the last step, so nothing has to be remembered:
+
+```sh
+npm run start:watch                # webpack --watch: recompiles dist/ on every assets/ change
+npm run demobuild:watch            # scripts/watch-demo.js: rebuilds demo/build/ on every change to
+                                    # reference/html/, demo.structure.html, demo-render.js or
+                                    # dist/css/index.css — so a webpack rebuild reaches the demo too
+```
+
+Run them in two terminals. Neither replaces `generate-pgs-map.js` or `docs:generate`: the map and the
+generated Markdown are still produced on demand, and `docs:generate` has to pass before committing
+anyway.
+
+## Pre-baking the demo (`npm run demobuild`)
 
 `demo/` separates hand-authored source from generated output: the library's CSS/JS plus the
 hand-authored **component** `demo.structure.html` (meant to be combined, not opened) live under
@@ -305,40 +319,32 @@ complete, directly-openable **pages** — lives under `demo/build/`:
   `demo/assets/demo-render.js` (see below), with no page shell around it. A component like
   `demo.structure.html`, just a generated one — not meant to be opened directly (its two halves sit
   inside inert `<template>` tags).
-- `demo/build/demo-fetch.html` — generated: `assets/demo.structure.html` plus `assets/demo-fetch.js`.
-  Opening it fetches and renders all ~44 reference files live, on every load — functionally what
-  `demo.structure.html` used to be when it carried its own script. Fine day to day, slow when you're
-  iterating on `assets/` (the library's own `assets/`, not `demo/assets/`) and just want to see the result.
-- `demo/build/demo.html` — generated: `assets/demo.structure.html` with `demo.content.html`'s
-  nav+panels spliced in, plus `assets/demo.js` instead of `assets/demo-fetch.js`. `demo.js` only runs
+- `demo/build/demo.html` — generated, and the only page there is: `assets/demo.structure.html` with
+  `demo.content.html`'s nav+panels spliced in, plus `assets/demo.js`. `demo.js` only runs
   `pgs.init()` and the demo's own interactive wiring (nav clicks, copy buttons, the `configureXDemo`
   functions) — nothing in it fetches or parses a reference file, since `demo.html` already has
-  everything written out. This is the one to open while iterating on the library's `assets/`.
+  everything written out. It opens instantly, whatever the reference count.
 
 `demo/assets/demo-render.js` is what makes `demo.content.html` possible — it never reaches the
-browser, only `scripts/build-demo-static.js` (in Node) requires it. It's the same rendering
-`demo-fetch.js` does live in the browser, ported to plain string/data functions with no DOM and no
-fetch so it can run in Node: parses a reference file's doc comment, builds its doc panel (PGS lists,
-related, CSS variables) and its example markup. Keep the two in sync — see the comment at the top of
-that file.
+browser, only `scripts/build-demo-static.js` (in Node) requires it. Plain string/data functions with
+no DOM and no fetch: it parses a reference file's doc comment, builds its doc panel (PGS lists,
+related, CSS variables) and its example markup. It is the only renderer — a live, fetch-everything
+page used to exist alongside it (`demo-fetch.html` plus `assets/demo-fetch.js`) and was removed, so
+there is no second implementation to keep in step any more.
 
 Components built entirely by JS at runtime (notification, toast, modal, accordion, ...) are
 untouched by any of this on either page: their source markup is baked in like everything else, and
 `pgs.init()` still builds them for real when the page loads.
 
-Never hand-edit `demo.content.html`, `demo-fetch.html`, or `demo.html` — edit `reference/html/` or
-`assets/demo.structure.html` and run `npm run demo:build` again.
+Never hand-edit `demo.content.html` or `demo.html` — edit `reference/html/` or
+`assets/demo.structure.html` and run `npm run demobuild` again.
 
 ## Adding a brand-new reference page, step by step
 
 1. Create `reference/html/<category>/<name>.html` with the doc comment (see format above) and a
    real, working example below it.
-2. Wire it into `assets/demo-fetch.js`'s `referenceFiles`/`ENTRY_ICONS`, and, identically, into
-   `assets/demo-render.js`'s copies of the same two — the build script only reads the ones in
-   `demo-render.js`, and the live page only reads the ones in `demo-fetch.js`. Also add a
-   `configureXDemo()` call from `demo-fetch.js`'s `boot()` if the page is interactive (and copy that same
-   function into `assets/demo.js`, which `demo.html` uses instead of `boot()`).
-3. Run the three commands above, in order. Fix anything `docs:generate` reports.
-4. `npm run demo:build`, then open `demo/build/demo-fetch.html` (live fetch, easiest to re-check
-   after a markup tweak) and `demo/build/demo.html` (pre-baked) and check the new page renders and
-   behaves as expected in both.
+2. Wire it into `assets/demo-render.js`'s `referenceFiles`/`ENTRY_ICONS` — that is the only list the
+   build reads. Add a `configureXDemo()` function to `assets/demo.js`, called from its `boot()`, if
+   the page is interactive.
+3. Run the commands above, in order. Fix anything `docs:generate` reports.
+4. Open `demo/build/demo.html` and check the new page renders and behaves as expected.

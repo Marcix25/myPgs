@@ -24,7 +24,7 @@
         "pgs-generated": [],
         "pgs-option": []
     },
-    "_notifications-element-icon": {
+    "_notifications-element-content-icon": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-option": []
@@ -764,9 +764,7 @@
     "form": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
-            "buttonReverse"
-        ]
+        "pgs-option": []
     },
     "formValidate": {
         "pgs": [],
@@ -1003,6 +1001,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-option": [
+            "buttonReverse",
             "icon-arrowLeft",
             "icon-arrowRight",
             "icon-bell",
@@ -1725,11 +1724,6 @@
         "pgs-option": []
     },
     "truncate": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": []
-    },
-    "twoState": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-option": []

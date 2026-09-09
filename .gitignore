@@ -6,3 +6,5 @@ modules
 .agents
 .codex
 .claude
+__pycache__/
+*.pyc

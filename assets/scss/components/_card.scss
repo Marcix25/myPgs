@@ -20,9 +20,8 @@
     &:where(a) {
         display: block;
         --card-background: var(--color-white);
-        //== hover comes from the "hover" token that pgs.hover adds to a clickable card at load
-        //== time; the focus ring stays here because it must not depend on the JavaScript
-        @include hoverFocus();
+        //== hover, focus ring included, comes from the "hover" token that pgs.hover adds to a
+        //== clickable card at load time: it is written once under [pgs~=hover], not repeated here
         outline: var(--border-complete);
     }
 

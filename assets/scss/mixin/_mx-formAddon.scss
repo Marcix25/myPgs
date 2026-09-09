@@ -113,22 +113,23 @@
     }
 }
 
-//= TWOSTATE
-@mixin twoState() {
+//= CHIP
+@mixin chip() {
     //== label
+    --button-size: 1rem;
     position: relative;
     isolation: isolate;
     flex-wrap: wrap;
     display: flex !important;
     cursor: pointer;
-    
+
     input {
         opacity: 0;
         z-index: -1;
         position: absolute;
         appearance: none;
     }
-    
+
     i,
     [pgs~=icon] {
         opacity: 0.4;
@@ -145,23 +146,16 @@
 
     //== checked
     &:has(input:checked) {
+
         i,
         [pgs~=icon] {
             opacity: 1;
         }
-    }
 
-}
-
-@mixin chip() {
-    @include twoState();
-    --button-size: 1rem;
-
-    &:has(input:checked) {
+        &:not(:has([pgs~=icon])),
         &:not(:has(i)) {
 
-            &::after,
-            &::before {
+            &::after{
                 display: grid;
                 place-items: center;
                 width: 1.5rem;
@@ -178,8 +172,10 @@
         }
     }
 
-    //== checkbox
+    //=== checkbox
     &:has(input[type=checkbox]:checked) {
+
+        &:not(:has([pgs~=icon])),
         &:not(:has(i)) {
             padding-right: var(--button-size);
 
@@ -189,12 +185,14 @@
         }
     }
 
-    //== radio
+    //=== radio
     &:has(input[type=radio]:checked) {
+
+        &:not(:has([pgs~=icon])),
         &:not(:has(i)) {
             padding-left: var(--button-size);
 
-            &::before {
+            &::after {
                 content: "";
             }
         }

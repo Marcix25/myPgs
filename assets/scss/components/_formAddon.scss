@@ -5,10 +5,6 @@
     @include checkboxBackground();
 }
 
-[pgs~=twoState] {
-    @include twoState();
-}
-
 [pgs~=toggle] {
     @include toggle();
 }

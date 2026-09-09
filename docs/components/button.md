@@ -6,7 +6,7 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 
 ## PGS
 
-- `button`: identifies the standard button, which can also be used on anchor elements.
+- `button`: identifies the standard button, which can also be used on anchor elements, and on a `<label>` wrapping its own checkbox or radio to make a two-state control. `pgs.hover` marks it with `hover` at load, so the hover and focus treatment is not written here.
 
 ## PGS Options
 
@@ -26,34 +26,38 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 
 ### PGS
 
+- `flexRow`: arranges the button examples in a flexible row.
+- `form`: wraps the checked example, so the control is shown where a form actually puts it.
 - `icon`: draws the glyphs this example shows; see Icon for the whole set.
 
 ### PGS Options
 
+- `wrap`: lets that row break instead of overflowing.
+- `gapTexts`: spaces the two buttons that share the text-only example, and the three two-state buttons.
 - `icon-arrowRight`: the glyph that points forward.
 - `icon-star`: the neutral stand-in glyph, used where the example needs an icon but not a particular one.
 
 ### Other
 
-- `flexRow`: arranges the button examples in a flexible row.
-- `gapTexts`: spaces the two buttons that share the text-only example.
+- `hover`: the treatment every button receives, added by pgs.hover rather than written by hand; see Hover.
+- `hoverNot`: opts a button out of that treatment, so it keeps its look and stops answering the pointer; see Hover.
 
 ## CSS Variables
 
 - `--button-background`
-- `--button-background-active`
+- `--button-background-checked`
 - `--button-background-current`
 - `--button-background-strong`
 - `--button-border`
 - `--button-border-color`
-- `--button-border-color-active`
+- `--button-border-color-checked`
 - `--button-border-color-current`
 - `--button-border-color-strong`
 - `--button-border-style`
 - `--button-border-width`
 - `--button-borderRadius`
 - `--button-color`
-- `--button-color-active`
+- `--button-color-checked`
 - `--button-color-current`
 - `--button-color-strong`
 - `--button-font-size`
@@ -68,7 +72,7 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 
 ## Output
 
-HTML collection of the main button variants.
+HTML collection of the main button variants, including the two-state control.
 
 ## Example
 
@@ -205,4 +209,24 @@ Strong button using the quaternary color palette.
 <button pgs="button" pgs-option="buttonStrong buttonQuaternary" type="button">
     Quaternary
 </button>
+```
+
+### Checked
+
+A label marked as a button wrapping its own checkbox or radio: the input carries the semantics and the keyboard behaviour, the button draws the state. Retune the checked look with --button-background-checked, --button-color-checked and --button-border-color-checked.
+
+```html
+<label pgs="button">
+    <input type="checkbox" name="favorite" value="yes">
+    <i pgs="icon" pgs-option="icon-star"></i>
+    Add to favorites
+</label>
+<label pgs="button">
+    <input type="radio" name="plan" value="monthly" checked>
+    Monthly
+</label>
+<label pgs="button">
+    <input type="radio" name="plan" value="yearly">
+    Yearly
+</label>
 ```

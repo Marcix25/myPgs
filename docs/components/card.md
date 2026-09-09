@@ -6,10 +6,10 @@ Reusable surfaces for presenting structured card content or grouping simpler con
 
 ## PGS
 
-- `card`: identifies the main card container.
+- `card`: identifies the main card container. Written on an `<a>` it becomes a clickable surface, and `pgs.hover` marks it with `hover` at load so it takes the shared hover and focus treatment.
 - `card-img`: identifies the main card image.
 - `card-content`: groups the text and actions of a card.
-- `box`: identifies a lightweight content container or clickable surface.
+- `box`: identifies a lightweight content container or clickable surface. Written on an `<a>` it is marked with `hover` at load, exactly like a clickable card.
 
 ## PGS Options
 
@@ -23,6 +23,11 @@ Reusable surfaces for presenting structured card content or grouping simpler con
 
 - `button`: presents the card action as a standard button.
 - `marginTop`: separates the card action from the preceding text.
+
+### Other
+
+- `hover`: the treatment a clickable card or box receives, added by pgs.hover rather than written by hand; see Hover for the opt-out.
+- `hoverNot`: available on a clickable card or box that must stay inert; see Hover.
 
 ## CSS Variables
 
@@ -69,8 +74,8 @@ Descriptive card content suitable for lists, previews, and grids.
 The complete card surface behaves as a link.
 
 ```html
-<article pgs="card">
-    <a href="#">
+<article>
+    <a href="#" pgs="card">
         <img pgs="card-img" src="https://placehold.net/600x400.png" alt="Placeholder image">
 
         <div pgs="card-content">

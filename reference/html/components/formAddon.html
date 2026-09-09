@@ -1,14 +1,13 @@
 <!--
 /**
  * @title Form Add-ons
- * @description Additional form controls for selectable cards, two-state buttons, switches, and compact chip groups.
+ * @description Additional form controls for selectable cards, switches, and compact chip groups.
  *
  * @pgs
  * - checkboxBackground: presents a checkbox as a selectable container with a highlighted checked state.
- * - twoState: presents checkbox or radio labels as buttons whose appearance changes when selected.
  * - toggle: presents a checkbox as a switch with a rail and movable thumb.
- * - chip: presents an individual checkbox or radio option as a compact selectable button.
- * - chips: groups twoState controls into a compact segmented selector.
+ * - chip: presents an individual checkbox or radio option as a compact selectable button. It shapes the control and leaves the button look to `button`, so write both on the label; inside a `chips` group the token comes from the group and only `button` is written.
+ * - chips: groups chip controls into a compact segmented selector.
  *
  * @related
  * - form: applies the base form styles to the complete add-on example.
@@ -18,8 +17,10 @@
  * - icon: draws the glyphs this example shows; see Icon for the whole set.
  * - icon-star: the neutral stand-in glyph, used where the example needs an icon but not a particular one.
  * - legend: applies the group heading styling to a chips group's legend; see Form.
+ * - button: draws the chip, which composes the button look instead of redrawing it, and hides the checkbox or radio it wraps; see Button.
+ * - buttonMini: sizes that button down to the chip's compact size.
  *
- * @return HTML examples of the checkboxBackground, twoState, toggle, and chips form controls using native checkbox and radio inputs.
+ * @return HTML examples of the checkboxBackground, toggle, chip, and chips form controls using native checkbox and radio inputs.
  */
 -->
 
@@ -56,15 +57,6 @@
         </fieldset>
     </section>
 
-    <demo demo-h3="Two-state control" demo-description="Checkbox label styled as a button whose appearance changes when selected."></demo>
-    <section pgs="flexColumn" demo="component">
-        <label pgs="twoState">
-            <input type="checkbox" name="favorite" value="yes">
-            <i pgs="icon" pgs-option="icon-star" aria-hidden="true"></i>
-            Add to favorites
-        </label>
-    </section>
-
     <demo demo-h3="Toggle" demo-description="Checkbox presented as a switch with a rail and movable thumb."></demo>
     <section pgs="flexColumn" demo="component">
         <label pgs="toggle">
@@ -76,12 +68,12 @@
     <demo demo-h3="Chips checkbox" demo-description="Individual checkbox options presented as compact selectable chip buttons."></demo>
     <section pgs="flexColumn" demo="component">
         <div pgs="flexRow" role="group" aria-label="Chip actions">
-            <label pgs="chip">
+            <label pgs="button chip" pgs-option="buttonMini">
                 <input type="checkbox" name="like" value="basic">
                 <i pgs="icon" pgs-option="icon-star"></i>
                 Like
             </label>
-            <label pgs="chip">
+            <label pgs="button chip" pgs-option="buttonMini">
                 <input type="checkbox" name="share" value="basic">
                 <i pgs="icon" pgs-option="icon-star"></i>
                 Share
@@ -94,17 +86,17 @@
         <section demo="component">
             <fieldset pgs="chips">
                 <legend pgs="legend">Chip checkbox</legend>
-                <label>
+                <label pgs="button" pgs-option="buttonMini">
                     <input type="checkbox" name="plan" value="red" checked>
                     Red
                 </label>
 
-                <label>
+                <label pgs="button" pgs-option="buttonMini">
                     <input type="checkbox" name="plan" value="blue">
                     Blue
                 </label>
 
-                <label>
+                <label pgs="button" pgs-option="buttonMini">
                     <input type="checkbox" name="plan" value="green">
                     Green
                 </label>
@@ -115,19 +107,19 @@
         <section demo="component">
             <fieldset pgs="chips">
                 <legend pgs="legend">Chips radio</legend>
-                <label>
+                <label pgs="button" pgs-option="buttonMini">
                     <input type="radio" name="characters" value="Crow" checked>
                     <i pgs="icon" pgs-option="icon-star"></i>
                     Crow
                 </label>
 
-                <label>
+                <label pgs="button" pgs-option="buttonMini">
                     <input type="radio" name="characters" value="Dove">
                     <i pgs="icon" pgs-option="icon-star"></i>
                     Dove
                 </label>
 
-                <label>
+                <label pgs="button" pgs-option="buttonMini">
                     <input type="radio" name="characters" value="dragon">
                     <i pgs="icon" pgs-option="icon-star"></i>
                     dragon

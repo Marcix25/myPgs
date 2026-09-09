@@ -1,12 +1,10 @@
 <!-- Page shell only — no content-loading script of its own, so opening this file directly shows an
      empty nav and an empty main. Lives in demo/assets/ with the other hand-authored demo build
      pieces (CSS, JS); it's a building block for scripts/build-demo-static.js, which turns it into
-     three generated outputs under demo/build/: demo.content.html (the pre-baked nav+panels, its own
-     component, never opened directly), demo-fetch.html (this shell plus ../assets/demo-fetch.js,
-     fetching and rendering every reference/html file live) and demo.html (this shell with
-     demo.content.html's nav+panels spliced in, plus
-     ../assets/demo.js instead). Edit this file for structural/layout changes (header,
-     page shell, footer, <head>); run `npm run demo:build` afterwards to regenerate both pages. The
+     two generated outputs under demo/build/: demo.content.html (the pre-baked nav+panels, its own
+     component, never opened directly) and demo.html (this shell with demo.content.html's nav+panels
+     spliced in, plus ../assets/demo.js). Edit this file for structural/layout changes (header,
+     page shell, footer, <head>); run `npm run demobuild` afterwards to regenerate them. The
      asset paths below are written relative to demo/build/ (where the generated pages end up), not
      relative to this file's own location in demo/assets/. -->
 <!DOCTYPE html>

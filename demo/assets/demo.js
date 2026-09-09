@@ -3,13 +3,12 @@
 //+ written out by scripts/build-demo-static.js (via demo-render.js) — nothing here fetches or
 //+ parses a reference file. This file only wires up the parts that must run in a real browser: the
 //+ actual pgs component library (notification, modal, accordion, ...), nav click / hash
-//+ navigation, and the "copy to clipboard" buttons. Keep the configure*Demo functions here
-//+ identical to their counterparts in demo-fetch.js (demo-fetch.html's own script) — they only ever
-//+ look for [data-reference="..."] in the page, so the same functions work whether that markup was
-//+ fetched live or baked in ahead of time.
+//+ navigation, and the "copy to clipboard" buttons. The configure*Demo functions only ever look for
+//+ [data-reference="..."] in the page, so a new interactive example is wired up here and nowhere
+//+ else.
 
-//= NAVIGATION (built from the [data-panel] / [data-panel-link] elements already in the page,
-//= instead of from an in-memory list of fetched entries like demo-fetch.js's setupNavigation)
+//= NAVIGATION (built from the [data-panel] / [data-panel-link] elements already in the page: they
+//= are all baked into demo.html, so there is nothing to fetch)
 function setupStaticNavigation() {
     const NAVS = Array.from(document.querySelectorAll(".reference-demo-nav"));
     const MAIN = document.getElementById("reference-demo-main");

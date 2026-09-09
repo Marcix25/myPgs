@@ -16,7 +16,7 @@ Notification markup, configuration, behavior, and usage example. A persistent, m
 - `_notifications`: the scrollable list of notifications, created inside the generated dialog together with it.
 - `_notifications-element`: identifies a single notification inside the panel.
 - `_notifications-element-content`: contains the icon, title, and description.
-- `_notifications-element-icon`: contains the icon displayed to the left of the text.
+- `_notifications-element-content-icon`: contains the icon displayed to the left of the text.
 - `_notifications-element-buttons`: contains the extra action buttons and the dismiss action below the content.
 - `_notifications-element-buttons-delete`: identifies the dismiss button generated inside that row; its label comes from the closeTitle option.
 - `_notifications-empty`: shown inside the panel whenever it holds no notifications; its text comes from the internal emptyMessage default.
@@ -63,6 +63,7 @@ Notification markup, configuration, behavior, and usage example. A persistent, m
 ### Other
 
 - `gapSections`: separates the examples.
+- `buttonText`: the appearance the component gives every button it generates, the dismiss action and the ones passed in the payload alike; see Button.
 - `modal-dialog-content`: identifies the JS-generated styled content area inside the dialog, wrapping notifications.
 - `modalRight`: slides the notification dialog in from the right; see Modal for other positions.
 - `icon-circleXmark`: the glyph of the error type.
@@ -146,8 +147,7 @@ A completed operation. The element is hidden and consumed on load: the notificat
     "title": "Profile approved",
     "description": "Your profile has been reviewed and approved.",
     "type": "success",
-    "icon": null,
-    "buttons": [{ "title": "Open", "link": "/page/" }]
+    "icon": null
 }]'></div>
 ```
 

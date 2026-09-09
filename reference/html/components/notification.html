@@ -13,7 +13,7 @@
  * - _notifications: the scrollable list of notifications, created inside the generated dialog together with it.
  * - _notifications-element: identifies a single notification inside the panel.
  * - _notifications-element-content: contains the icon, title, and description.
- * - _notifications-element-icon: contains the icon displayed to the left of the text.
+ * - _notifications-element-content-icon: contains the icon displayed to the left of the text.
  * - _notifications-element-buttons: contains the extra action buttons and the dismiss action below the content.
  * - _notifications-element-buttons-delete: identifies the dismiss button generated inside that row; its label comes from the closeTitle option.
  * - _notifications-empty: shown inside the panel whenever it holds no notifications; its text comes from the internal emptyMessage default.
@@ -42,6 +42,7 @@
  * - gapSections: separates the examples.
  * - gapTexts: spaces the content inside each example.
  * - button: uses the related button component or utility in this example.
+ * - buttonText: the appearance the component gives every button it generates, the dismiss action and the ones passed in the payload alike; see Button.
  * - modal: wraps notificationBell; pgs.notification generates the dialog inside it and provides open/close/toggle behavior shared with every other dialog on the page.
  * - modal-button: identifies notificationBell as the control that opens the dialog.
  * - modal-close: identifies notificationBell as also being the control that closes the dialog.
@@ -77,8 +78,7 @@
             "title": "Profile approved",
             "description": "Your profile has been reviewed and approved.",
             "type": "success",
-            "icon": null,
-            "buttons": [{ "title": "Open", "link": "/page/" }]
+            "icon": null
         }]'></div>
     </section>
 

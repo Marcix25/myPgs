@@ -16,12 +16,22 @@
     --button-color: var(--color-black);
     --button-color-strong: var(--color-white);
     --button-color-current: var(--color-white);
-    --button-color-active: var(--color-white);
+    --button-color-checked: var(--color-white);
     /// background
     --button-background: var(--color-box);
     --button-background-strong: var(--button-primaryColor);
     --button-background-current: var(--button-primaryColor);
-    --button-background-active: var(--button-primaryColor);
+    --button-background-checked: var(--button-primaryColor);
+    /// border
+    --button-border-color: var(--border-color);
+    --button-border-color-strong: var(--button-primaryColor);
+    --button-border-color-current: var(--button-primaryColor);
+    --button-border-color-checked: var(--button-primaryColor);
+
+    --button-border-width: var(--border-width);
+    --button-border-style: var(--border-style);
+    --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
+    --button-borderRadius: var(--border-radius-input);
     /// size
     --button-size: 1.3rem;
     --button-font-size: var(--font-size-text);
@@ -31,15 +41,6 @@
     --button-padding-left-icon: calc(var(--button-size) * 1.5);
     --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
     --button-height: max-content;
-    /// border
-    --button-border-width: var(--border-width);
-    --button-border-style: var(--border-style);
-    --button-border-color: var(--border-color);
-    --button-border-color-strong: var(--button-primaryColor);
-    --button-border-color-current: var(--button-primaryColor);
-    --button-border-color-active: var(--button-primaryColor);
-    --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
-    --button-borderRadius: var(--border-radius-input);
     /// color
     @include _buttonColor();
     font-family: var(--font);
@@ -59,8 +60,6 @@
     justify-content: center;
     padding: var(--button-padding);
     height: var(--button-height);
-    //x da controllare
-    // width: max-content;
     width: fit-content;
 
     &:disabled {
@@ -68,24 +67,44 @@
         cursor: not-allowed;
     }
 
-    &:where([aria-current=page]),
-    &:where([aria-selected=true]) {
-        @include _buttonColor("-current");
-    }
-}
-
-//== BUTTON CONTENT - ICON
-//=== BUTTON CONTENT
-@mixin buttonContent() {
+    //== BUTTON CONTENT
     &:where(:has(i)),
     &:where(:has([pgs~=icon])) {
         --button-padding-left: var(--button-padding-left-icon);
     }
 
+    //=== BUTTON CONTENT - REVERSE
     &:where([pgs-option~="buttonReverse"]:has(i)),
     &:where([pgs-option~="buttonReverse"]:has([pgs~=icon])) {
         --button-padding-right: var(--button-padding-left-icon);
         --button-padding-left: var(--button-padding-right);
+    }
+
+    //== BUTTON CURRENT
+    &:where([aria-current=page]),
+    &:where([aria-selected=true]) {
+        @include _buttonColor("-current");
+    }
+
+    //== BUTTON TWO-STATE
+    &:has(input:is([type=checkbox], [type=radio])) {
+        position: relative;
+        isolation: isolate;
+        cursor: pointer;
+
+        input:is([type=checkbox], [type=radio]) {
+            opacity: 0;
+            z-index: -1;
+            position: absolute;
+            appearance: none;
+        }
+    }
+
+    //== BUTTON ACTIVE
+    &:has(input:checked) {
+        --button-background: var(--button-background-checked);
+        --button-color: var(--button-color-checked);
+        --button-border-color: var(--button-border-color-checked);
     }
 }
 
@@ -106,14 +125,6 @@
         line-height: 1;
         aspect-ratio: 1;
     }
-}
-
-//== BUTTON HOVER - NOHOVER
-//=== BUTTON HOVER
-@mixin buttonHover() {
-    @include hoverBase();
-    @include hoverContent1();
-    @include hoverFocus();
 }
 
 //== BUTTON STRONG
@@ -145,11 +156,11 @@
     --button-background: transparent;
     --button-background-strong: transparent;
     --button-background-current: transparent;
-    --button-background-active: transparent;
+    --button-background-checked: transparent;
     --hover-background: transparent;
     --button-color-strong: #{$color};
     --button-color-current: #{$color};
-    --button-color-active: #{$color};
+    --button-color-checked: #{$color};
     --hover-color: #{$color};
 }
 
@@ -159,19 +170,10 @@
     --button-background: transparent;
 }
 
-//== BUTTON ACTIVE
-@mixin buttonActive() {
-    &:has(input:checked) {
-        --button-background: var(--button-background-active);
-        --button-color: var(--button-color-active);
-        --button-border-color: var(--button-border-color-active);
-    }
-}
-
+//== BUTTON PADDING EQUAL
 @mixin buttonPaddingEqual() {
     --button-padding: var(--button-padding-block);
 }
-
 
 //== HEADER
 //=== BUTTON HEADER

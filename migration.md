@@ -55,9 +55,10 @@ bundle — marks those surfaces with `hover` when the page loads and keeps them 
 (markup the library injects later, a token added at runtime, `hoverNot` toggled on or off). The
 output is the same and there is nothing to rename, with two consequences: a project that loads
 `dist/css` **without** `dist/javascript` loses hover on buttons, clickable cards and clickable boxes
-— write `hover` in the markup there — and a custom element styled with the `buttonHover` mixin but
-not marked `pgs="button"` (a `twoState` label, a bare `button[type="submit"]` inside `pgs="form"`)
-is unaffected, since it never relied on the marking. The focus ring stayed in CSS on all three.
+— and with it the keyboard focus ring, which is part of the same treatment, so write `hover` in the
+markup there — and the `buttonHover()` mixin no longer exists, since nothing composed it any more. A
+custom element that wants the treatment in CSS includes `hoverBase()`, `hoverContent1()` and
+`hoverFocus()`, the three it was an alias for.
 
 ## 2. Renames
 
@@ -156,6 +157,17 @@ The mouse-scroll option's default also flipped, not just its name: `slidesNotScr
 | `pgs-option="buttonClose"` | `pgs-option="buttonIcon buttonMini"` |
 | `--border` | `--border-width`, alongside the new `--border-style` |
 | `--border-complete-hover` | gone; nothing replaces it |
+| `--button-background-active` | `--button-background-checked` |
+| `--button-color-active` | `--button-color-checked` |
+| `--button-border-color-active` | `--button-border-color-checked` |
+
+The three button custom properties were renamed to say what they actually do: "active" was only ever
+read under `:has(input:checked)`, so a checked state wearing the name of a generic one. The reading
+also moved — it used to sit inside the `twoState` mixin, so only that control picked it up; it is now
+in `buttonBase()`, so any element marked `pgs="button"` that wraps a checked input takes the checked
+colours. That is what let `twoState` be dropped altogether — see just below. Retheming stays the same
+otherwise: set the three properties on the element or a container, under the new names. Nothing reads
+the old ones any more, so a project that overrode them silently loses the override.
 
 Border and outline are now separate: `br*` colours need `pgs="border"`, `ol*` need `pgs="outline"`,
 and each family has its own thickness options.
@@ -230,11 +242,26 @@ components respectively, even where another component's example or generated mar
 | --- | --- |
 | `pgs-option="buttonNohover"` | `pgs-option="hoverNot"` |
 
-The mixin `buttonNohover()` is gone with it, replaced by `hoverNot()` in the hover set. There is one
+The mixin `buttonNohover()` is gone with it, replaced by `hoverNot()` in the hover set, and `buttonHover()` was removed too (see the hover note in section 1). There is one
 opt-out now instead of one per component, because there is one hover treatment: `hoverNot` works on
 a button, on a clickable card and on a clickable box alike — the last two had no opt-out at all
 before. `pgs.hover` skips a surface that carries it, and the SCSS guard covers a `hover` written by
 hand. Menu's generated toggle and Step tabs' generated dots write the new name themselves.
+
+### `twoState` is gone — mark the label `pgs="button"`
+
+| was | now |
+| --- | --- |
+| `<label pgs="twoState">` | `<label pgs="button">` |
+
+The control was a button that showed whether its own checkbox or radio was checked, so it is now the
+button itself: `[pgs~=button]` hides a nested `input[type=checkbox]`/`input[type=radio]`, keeps the
+input's semantics and keyboard behaviour, and paints the checked colours through
+`--button-*-checked`. Every button option comes along with it — `buttonStrong`, `buttonMini`,
+`buttonIcon`, the colour palettes — which the old token could not take. The `twoState()` mixin and
+the `[pgs~=twoState]` selector no longer exist; `chip`, `chips`, `toggle` and `checkboxBackground`
+are unchanged. Inside `pgs="form"` a label marked as a button is left alone by the generic checkbox
+styling, exactly as `twoState` was.
 
 ### Icon surface, corrected
 
@@ -266,7 +293,16 @@ the pattern.
 - **`pgs.header.init(root)`** is registered, several headers on one page are supported, and
   `headerPrimary` says which one drives `--heightOfHeader`.
 - **Focus is separate from hover.** The focus ring is identical everywhere and no longer sits inside
-  a hover media query, so a keyboard user on a touch device gets one.
+  a hover media query, so a keyboard user on a touch device gets one. It is drawn by `pgs="hover"`
+  along with the rest of the treatment, so it reaches a button, a clickable card or box through the
+  token `pgs.hover` marks them with.
+- **`pgs="hover"` is a token you can write.** The whole treatment — surface recolour, `hover-text`,
+  focus ring — comes from one place, so any element can take it, not just the components that used
+  to bake it in. `pgs.hover` writes it for you on buttons and clickable cards/boxes, and
+  `pgs-option="hoverNot"` takes it back off.
+- **A button can be a two-state control.** `<label pgs="button">` around a checkbox or radio hides
+  the input, keeps its semantics, and paints the checked state from `--button-*-checked` — with
+  every button option available on it. This is what replaced `twoState`.
 - **`alertContainer`, `notificationTrigger`, `toastExe`, `lottieChangeColor`** are new public tokens.
 
 ## 4. A sweep to run on the project
@@ -307,6 +343,12 @@ grep -rn 'pgs\.scrollHorizontal(' .
 
 # 12. the hover opt-out, renamed
 grep -rn 'buttonNohover' .
+
+# 13. button custom properties renamed from -active to -checked
+grep -rn -- '--button-\(background\|color\|border-color\)-active' .
+
+# 14. the two-state control, now a button
+grep -rn 'twoState' .
 ```
 
 Hit 5 needs reading rather than replacing: an `icon` that wraps another element wanted the surface

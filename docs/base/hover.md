@@ -2,7 +2,7 @@
 
 # Hover
 
-The shared hover treatment for a surface and the text marked inside it. It is written once here and nowhere else: the component selectors no longer repeat it, so a surface recolours on hover only while it carries this token. On load `pgs.hover` adds it on its own to the surfaces that are clickable by definition, and keeps them in sync when the markup changes: every `button`, and `card` or `box` when they are written as a link (`<a>`). Write it by hand on any other surface, and write `hoverNot` on a surface that must not react at all. The focus ring stays in CSS on button, card and box, so a keyboard user still sees it without the JavaScript.
+The shared hover treatment for a surface and the text marked inside it. It is written once here and nowhere else: the component selectors no longer repeat it, so a surface recolours on hover only while it carries this token. On load `pgs.hover` adds it on its own to the surfaces that are clickable by definition, and keeps them in sync when the markup changes: every `button`, and `card` or `box` when they are written as a link (`<a>`). Write it by hand on any other surface, and write `hoverNot` on a surface that must not react at all. The keyboard focus ring is part of the treatment and arrives with the token, so it too depends on the JavaScript being loaded.
 
 ## PGS
 
@@ -13,6 +13,10 @@ The shared hover treatment for a surface and the text marked inside it. It is wr
 
 - `hoverNot`: opts the surface out of the treatment, whatever component it is. `pgs.hover` leaves it unmarked and the surface stops answering the pointer.
 
+## JavaScript API
+
+- `pgs.hover.init(root)`: marks the clickable surfaces inside the given root, and unmarks the ones that stopped being clickable. It runs on its own at load and on every later change, so it is only needed for markup outside the document, such as a shadow root.
+
 ## Related elements
 
 ### PGS
@@ -22,9 +26,12 @@ The shared hover treatment for a surface and the text marked inside it. It is wr
 ## CSS Variables
 
 - `--hover-background`
+- `--hover-background-delay`
+- `--hover-background-timing`
 - `--hover-border`
 - `--hover-color`
 - `--hover-primaryColor`
+- `--hover-timing`
 
 ## Output
 

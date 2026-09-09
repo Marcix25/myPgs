@@ -3,14 +3,8 @@
 //= BUTTON
 [pgs~=button] {
     @include buttonBase();
-    @include buttonActive();
-    @include hoverFocus();
 
-    &:where(:not([pgs-option~=buttonIcon])) {
-        @include buttonContent();
-    }
-
-    &:where(:is([pgs-option~=buttonIcon])) {
+    &[pgs-option~=buttonIcon] {
         @include buttonIcon();
     }
 

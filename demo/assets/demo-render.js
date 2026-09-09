@@ -1,11 +1,10 @@
 //# DEMO RENDER (shared)
-//+ Pure data/string functions that turn one reference/html/*.html file into the same HTML the
-//+ live demo shows — no DOM, no fetch, no browser globals, so this file runs unchanged in Node
+//+ Pure data/string functions that turn one reference/html/*.html file into the HTML the demo
+//+ shows — no DOM, no fetch, no browser globals, so this file runs unchanged in Node
 //+ (scripts/build-demo-static.js, at build time) and, if ever loaded as a plain <script>, in the
-//+ browser too. It is the single "how a reference renders" implementation: demo-fetch.js keeps its
-//+ own DOM-based renderer for the live, always-fresh page (demo-fetch.html), and
-//+ scripts/build-demo-static.js uses only this file to pre-bake demo/build/demo.content.html and
-//+ the final demo/build/demo.html. Keep this in sync with demo-fetch.js and with
+//+ browser too. It is the only "how a reference renders" implementation: build-demo-static.js uses
+//+ it to pre-bake demo/build/demo.content.html and the final demo/build/demo.html, and nothing
+//+ renders a reference at runtime any more. Keep it in sync with
 //+ scripts/generate-component-docs.js whenever the doc-comment format or the demo markup
 //+ conventions (demo="component"/"wrapper", demo-h2/demo-h3, codeNone, previewNone) change.
 
@@ -31,8 +30,8 @@ const CATEGORY_LABELS = {
     guides: "Guides",
 };
 
-//= keep this list, and the icon map below, identical to demo-fetch.js's own referenceFiles/ENTRY_ICONS —
-//= both files need the exact same nav, in the exact same order
+//= the nav, in the order it is shown: a reference file that is not listed here never reaches the
+//= demo, whatever else it is wired into
 const referenceFiles = [
     "base/body.html",
     "base/general.html",
@@ -169,8 +168,8 @@ function dedent(text) {
     return lines.map(line => line.slice(minIndent)).join("\n");
 }
 
-//= PARSING (pure string/regex — identical shape to demo-fetch.js's own parseDocumentation, no validation:
-//= npm run docs:generate is what enforces the format is followed correctly)
+//= PARSING (pure string/regex, no validation: npm run docs:generate is what enforces the format is
+//= followed correctly)
 function parseDocumentation(html) {
     const match = html.match(/<!--[\t\r\n ]*(\/\*\*[\s\S]*?\*\/)[\t\r\n ]*-->[\t\r\n ]*/);
     if (!match) return { data: null, markup: html.trim() };
@@ -337,7 +336,7 @@ function hasNestedComponent(markup, start, end) {
 }
 
 //+ walks the example markup in document order (same rule as extractDemoBlocks in
-//+ scripts/generate-component-docs.js and demo-fetch.js's own extractDemoBlocks): a <demo demo-h2> marker
+//+ scripts/generate-component-docs.js): a <demo demo-h2> marker
 //+ becomes a heading block, a <demo demo-h3> marker is held as "pending" until the next titleable
 //+ leaf consumes it, and a demo="component" with a nested demo="component" is transparent (the walk
 //+ keeps scanning through its content instead of treating it as one block, see formAddon.html's
@@ -413,8 +412,8 @@ function extractDemoBlocks(markup, { unwrap = true } = {}) {
     return blocks;
 }
 
-//= HTML STRING RENDERING (the part with no Node/generate-component-docs.js equivalent: that script
-//= renders Markdown, this renders the same live-demo HTML demo-fetch.js builds via the DOM)
+//= HTML STRING RENDERING (the part with no generate-component-docs.js equivalent: that script
+//= renders Markdown, this renders the demo's own panel HTML)
 function renderDocListHtml(items) {
     const rows = items.map(item => `<li><code>${escapeHtml(item.key)}</code>: ${escapeHtml(item.description)}</li>`).join("");
     return `<ul pgs="flexColumn" pgs-option="gapTexts">${rows}</ul>`;
@@ -578,9 +577,8 @@ function renderNavHtml(entries, withHeadingIds = true) {
     return html;
 }
 
-//= TOP LEVEL: turns one reference/html/*.html file's raw text into its full panel HTML, mirroring
-//= demo-fetch.js's per-file loop inside boot() exactly (same header, same doc block, same script-block
-//= sections, same example rendering)
+//= TOP LEVEL: turns one reference/html/*.html file's raw text into its full panel HTML — the
+//= header, the doc block, the script-block sections and the rendered examples
 function renderReferencePanelHtml(path, rawFileText, cssText) {
     const isSection = path !== "layout/section.html" && path !== "layout/pageShell.html";
     let title = getReferenceTitle(path);

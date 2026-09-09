@@ -125,11 +125,11 @@ const fn_notification = {
         notification.setAttribute("role", type == "error" ? "alert" : "status");
         notification.innerHTML = `
             <div pgs="_notifications-element-content">
-                <div pgs="_notifications-element-icon">${icon}</div>
+                <div pgs="_notifications-element-content-icon">${icon}</div>
                 <p>${text}</p>
             </div>
             <div pgs="_notifications-element-buttons">
-                <button type="button" pgs="button _notifications-element-buttons-delete">${closeTitle}</button>
+                <button type="button" pgs="button _notifications-element-buttons-delete" pgs-option="buttonText">${closeTitle}</button>
             </div>
         `;
 
@@ -157,6 +157,7 @@ const fn_notification = {
             else buttonElement.type = "button";
             buttonElement.textContent = button.title;
             pgs(buttonElement).add("button");
+            pgs(buttonElement).option.add("buttonText");
             if (button.optionButton) pgs(buttonElement).option.add(button.optionButton);
 
             buttonElement.addEventListener("click", (e) => {

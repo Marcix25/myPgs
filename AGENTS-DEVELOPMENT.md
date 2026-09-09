@@ -52,7 +52,7 @@ When changing a token, update every selector, query, reference, declaration, dem
 - Keep component selectors scoped consistently with the existing stylesheet architecture.
 - Use private mixins with a leading `_` when they are implementation details of a public mixin.
 - Do not duplicate layout or component logic already available elsewhere in the library.
-- Compose button variants from `buttonBase`, `buttonContent` or `buttonIcon`, plus the required variant mixins. `[pgs~=button]` does not include `buttonHover`: `pgs.hover` marks it with the `hover` token, and `[pgs~=hover]` draws the treatment. Include `buttonHover` only on an element that is not marked `pgs="button"`, and opt a surface out with `pgs-option="hoverNot"` rather than a per-component option.
+- Compose button variants from `buttonBase`, `buttonContent` or `buttonIcon`, plus the required variant mixins. No component writes the hover treatment itself: `pgs.hover` marks a clickable surface with the `hover` token and `[pgs~=hover]` draws it, with `pgs-option="hoverNot"` as the single opt-out. An element that needs the treatment without that token composes `hoverBase`, `hoverContent1` and `hoverFocus` directly.
 - Treat a removed or renamed public mixin, token, option, or custom property as a potential breaking change.
 
 Example component structure:
@@ -74,7 +74,7 @@ Example component structure:
 - Register public shortcuts in `assets/javascript/_imports.js` through `pgs.registerModules`.
 - Import runtime modules from `assets/javascript/index.js` when they require automatic initialization or bundling.
 - Keep visual state in `pgs-state`, not arbitrary CSS classes.
-- Update `assets/javascript/pgs.d.ts` and `dist/index.d.ts` when a public API changes.
+- Update `dist/index.d.ts` when a public API changes: it is the only declaration file the package ships.
 - Validate options and produce clear errors for invalid public input.
 - Escape user-provided content before inserting it through HTML templates.
 
@@ -120,20 +120,17 @@ Each file in `reference/html/` is both the canonical example and its own documen
 source feeds two renderers, which must stay in agreement:
 
 - `scripts/generate-component-docs.js` writes `docs/**/*.md` and validates the reference;
-- `demo/assets/demo-fetch.js` renders the same file as a live panel — open via `demo/build/demo-fetch.html`.
+- `demo/assets/demo-render.js` renders the same file as a demo panel, at build time, in Node.
 
 `demo/assets/demo.structure.html` is a hand-authored component, not a page: it does nothing useful
 opened directly. The library's CSS/JS and this shell live under `demo/assets/`; every generated
 output — including `demo.content.html`, itself a component, not a page — lives under `demo/build/`.
-`npm run demo:build` (`scripts/build-demo-static.js`) combines the structure with the rendered
-reference files into three outputs there — `demo/build/demo.content.html` (just the pre-baked
-nav+panels markup, produced via `demo/assets/demo-render.js` — the same rendering as `demo-fetch.js`,
-ported to plain string/data functions so it can run in Node), `demo/build/demo-fetch.html` (the
-structure plus `assets/demo-fetch.js`, fetching and rendering every reference live, same as the
-structure alone used to) and `demo/build/demo.html` (the structure with `demo.content.html`'s
-pre-baked nav+panels merged in, plus `assets/demo.js` instead of `assets/demo-fetch.js`). `demo.html`
-opens instantly instead of re-fetching and re-rendering every reference on load — useful when
-iterating on CSS/JS. `demo.content.html`, `demo-fetch.html` and `demo.html` are all generated: never
+`npm run demobuild` (`scripts/build-demo-static.js`) combines the structure with the rendered
+reference files into two outputs there — `demo/build/demo.content.html` (just the pre-baked
+nav+panels markup, produced via `demo/assets/demo-render.js`) and `demo/build/demo.html` (the
+structure with those nav+panels merged in, plus `assets/demo.js`). `demo.html` is the page to open:
+it renders nothing at runtime, so it opens instantly whatever the reference count, and `demo.js`
+only wires navigation, copy buttons and the interactive examples. Both outputs are generated: never
 edit them by hand, edit `reference/html/` or `demo/assets/demo.structure.html` and rerun the script.
 
 Every reference opens with a JSDoc-style block. Tags must appear in this order, and each entry is a
@@ -205,22 +202,29 @@ cannot sit in `@pgs` unless an example writes it, and an `_` prefix is only allo
 `reference/pgs-map.json` is the whole token surface grouped by component, rebuilt with
 `node scripts/generate-pgs-map.js` after adding or renaming a token.
 
-Because the demo rebuilds its code blocks from the live DOM while the generator reads the source
-text, the two can drift apart. The serializer normalises what the author wrote — it double-quotes
-attributes, expands boolean attributes to `attr=""`, escapes a bare `>` and keeps the source
-indentation on every line after the first — so `demo/assets/demo-fetch.js` undoes each of those. When changing
-either renderer, compare their output: every "Example HTML" block in the demo must match the
-corresponding fenced block in `docs/**/*.md` character for character.
+Both renderers read the reference's source text and only dedent it, so an "Example HTML" block in
+the demo and the fenced block in `docs/**/*.md` are the same characters by construction. That used
+to take deliberate work, when the demo rebuilt its code blocks from the live DOM and had to undo
+what the serializer normalised; keep it that way — a renderer that goes through the DOM brings the
+drift back.
 
 ## 8. Build and Verification
 
 After relevant changes:
 
 ```sh
-npm run docs:generate
-npm run start
+npm run start                       # webpack: compiles assets/ into dist/
+node scripts/generate-pgs-map.js    # reads dist/css/index.css
+npm run docs:generate               # reads the SCSS and JavaScript sources
+npm run demobuild                   # reads dist/css/index.css and reference/html/
 git diff --check
 ```
+
+Keep that order: `generate-pgs-map.js` and `build-demo-static.js` both read the compiled CSS, so
+running either before webpack describes the previous compile.
+
+While iterating, `npm run start:watch` and `npm run demobuild:watch` keep `dist/` and `demo/build/`
+up to date on their own; the map and the documentation are still generated on demand.
 
 Apply verification in proportion to the change. Also inspect generated output when selectors, markup contracts, public APIs, or distribution files change.
 

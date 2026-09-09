@@ -1,6 +1,5 @@
 //+ HOVER
 @mixin hoverContent1($hover-text: "") {
-    $timing: 500ms;
     position: relative;
     isolation: isolate;
 
@@ -24,7 +23,7 @@
             transform: scale(0);
             transform-origin: bottom center;
             transition:
-                transform $timing ease,
+                transform var(--hover-timing) ease,
         }
 
         @media (hover: hover) and (pointer: fine) {
@@ -34,9 +33,9 @@
                 outline-color: var(--hover-border);
                 border-color: var(--hover-border);
                 transition:
-                    background-color 250ms ease-out $timing,
-                    color $timing ease 250ms,
-                    outline-color $timing ease;
+                    background-color var(--hover-background-timing) ease-out var(--hover-background-delay),
+                    color var(--hover-timing) ease-in-out,
+                    outline-color var(--hover-timing) ease;
 
                 &::before {
                     transform: scale(1);
@@ -95,6 +94,9 @@
     --hover-background: var(--hover-primaryColor);
     --hover-color: var(--color-black);
     --hover-border: var(--color-primary-soft);
+    --hover-timing: 500ms;
+    --hover-background-timing: 250ms;
+    --hover-background-delay: 250ms;
 
     &:where(:disabled, [disabled]) {
         text-decoration: none;

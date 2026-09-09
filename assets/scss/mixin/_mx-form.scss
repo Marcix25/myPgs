@@ -426,7 +426,7 @@
     }
 
     //==== CHECKBOX
-    $not-checkbox: '[pgs~=toggle], [pgs~=twoState], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label';
+    $not-checkbox: '[pgs~=button], [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label';
 
     label:has(input[type=checkbox]):not(#{$not-checkbox}),
     label:has(input[type=radio]):not(#{$not-checkbox}) {

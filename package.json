@@ -23,12 +23,13 @@
     "scripts": {
         "docs:generate": "node scripts/generate-component-docs.js && node scripts/generate-guide-docs.js",
         "icons:sync": "node scripts/sync-icons.js",
-        "demo:build": "node scripts/build-demo-static.js",
         "serve:lan": "node scripts/serve-lan.js",
+        "demobuild": "node scripts/build-demo-static.js",
+        "demobuild:watch": "node scripts/watch-demo.js",
         "start": "webpack",
-        "start watch": "webpack --watch",
+        "start:watch": "webpack --watch",
         "syncmaster": "git fetch origin && git checkout master && git pull --ff-only origin master && git merge --no-edit origin/dev && git push origin master && git checkout dev",
-        "syncmaster commit": "printf 'Merge message: ' && IFS= read -r merge_message && test -n \"$merge_message\" && git fetch origin && git checkout master && git pull --ff-only origin master && git merge --no-ff origin/dev -m \"$merge_message\" && git push origin master && git checkout dev"
+        "syncmaster:commit": "printf 'Merge message: ' && IFS= read -r merge_message && test -n \"$merge_message\" && git fetch origin && git checkout master && git pull --ff-only origin master && git merge --no-ff origin/dev -m \"$merge_message\" && git push origin master && git checkout dev"
     },
     "keywords": [
         "theme",
