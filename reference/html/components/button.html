@@ -14,6 +14,7 @@
  * - buttonBig: applies the large size variant.
  * - buttonText: drops the background and the border at rest, so only the label shows, and colours the label on hover. Unlike buttonTransparent it leaves the other states alone, so the same button still fills in when it carries buttonStrong or aria-current.
  * - buttonTransparent: removes the default background and outline while preserving the button layout and hover behavior.
+ * - buttonPrimary: applies the primary color palette.
  * - buttonSecondary: replaces the primary button accent with the secondary color palette.
  * - buttonTertiary: replaces the primary button accent with the tertiary color palette.
  * - buttonQuaternary: replaces the primary button accent with the quaternary color palette.
@@ -87,7 +88,7 @@
     </button>
 </section>
 
-<demo demo-h3="Text only" demo-description="Only the label shows at rest, and it takes the accent colour on hover. "></demo>
+<demo demo-h3="Text only" demo-description="Only the label shows at rest, and it takes the accent colour on hover."></demo>
 <section demo="component">
     <button pgs="button" pgs-option="buttonText" type="button">
         Read more
@@ -108,23 +109,30 @@
     </button>
 </section>
 
+<demo demo-h3="Primary color" demo-description="Strong button using the primary color palette."></demo>
+<section demo="component">
+    <button pgs="button" pgs-option="buttonPrimary" type="button">
+        Primary
+    </button>
+</section>
+
 <demo demo-h3="Secondary color" demo-description="Strong button using the secondary color palette."></demo>
 <section demo="component">
-    <button pgs="button" pgs-option="buttonStrong buttonSecondary" type="button">
+    <button pgs="button" pgs-option="buttonSecondary" type="button">
         Secondary
     </button>
 </section>
 
 <demo demo-h3="Tertiary color" demo-description="Strong button using the tertiary color palette."></demo>
 <section demo="component">
-    <button pgs="button" pgs-option="buttonStrong buttonTertiary" type="button">
+    <button pgs="button" pgs-option="buttonTertiary" type="button">
         Tertiary
     </button>
 </section>
 
 <demo demo-h3="Quaternary color" demo-description="Strong button using the quaternary color palette."></demo>
 <section demo="component">
-    <button pgs="button" pgs-option="buttonStrong buttonQuaternary" type="button">
+    <button pgs="button" pgs-option="buttonQuaternary" type="button">
         Quaternary
     </button>
 </section>

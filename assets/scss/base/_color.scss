@@ -119,6 +119,8 @@
 //== PRIMARY VARIANTS
 [pgs~=txtPrimary] { color: var(--color-primary); }
 
+[pgs~=txtPrimaryText] { color: var(--color-primary-text); }
+
 [pgs~=txtPrimarySoft] { color: var(--color-primary-soft); }
 
 [pgs~=txtPrimaryLight] { color: var(--color-primary-light); }
@@ -129,6 +131,8 @@
 
 //== SECONDARY VARIANTS
 [pgs~=txtSecondary] { color: var(--color-secondary); }
+
+[pgs~=txtSecondaryText] { color: var(--color-primary-text); }
 
 [pgs~=txtSecondarySoft] { color: var(--color-secondary-soft); }
 
@@ -141,6 +145,8 @@
 //== TERTIARY VARIANTS
 [pgs~=txtTertiary] { color: var(--color-tertiary); }
 
+[pgs~=txtTertiaryText] { color: var(--color-tertiary-text); }
+
 [pgs~=txtTertiarySoft] { color: var(--color-tertiary-soft); }
 
 [pgs~=txtTertiaryLight] { color: var(--color-tertiary-light); }
@@ -151,6 +157,8 @@
 
 //== QUATERNARY VARIANTS
 [pgs~=txtQuaternary] { color: var(--color-quaternary); }
+
+[pgs~=txtQuaternaryText] { color: var(--color-quaternary-text); }
 
 [pgs~=txtQuaternarySoft] { color: var(--color-quaternary-soft); }
 

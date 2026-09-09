@@ -544,7 +544,7 @@ function renderExamplePairsHtml(exampleMarkup) {
 function renderNavMenuHtml(items, category) {
     const rows = items.map(({ path }) => {
         const icon = ENTRY_ICONS[path] || DEFAULT_ENTRY_ICON;
-        return `<li><a href="#${escapeHtml(getSlug(path))}" data-panel-link="${escapeHtml(path)}" pgs="button" pgs-option="buttonTransparent buttonQuaternary buttonPaddingEqual">` +
+        return `<li><a href="#${escapeHtml(getSlug(path))}" data-panel-link="${escapeHtml(path)}" pgs="button" pgs-option="buttonTransparent buttonPaddingEqual">` +
             `<i class="fa-solid ${icon}" aria-hidden="true"></i><span>${escapeHtml(getEntryLabel(path))}</span></a></li>`;
     }).join("");
     return `<nav pgs="menu" pgs-option="menuVertical" aria-label="Menu ${escapeHtml(category || "")}"><ul pgs="borderLeft ">${rows}</ul></nav>`;

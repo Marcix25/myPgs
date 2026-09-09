@@ -170,16 +170,19 @@ Interactive palette of the current MyPGS background and text color utilities.
 - `--color-primary-light`
 - `--color-primary-soft`
 - `--color-primary-strong`
+- `--color-primary-text`
 - `--color-quaternary`
 - `--color-quaternary-dark`
 - `--color-quaternary-light`
 - `--color-quaternary-soft`
 - `--color-quaternary-strong`
+- `--color-quaternary-text`
 - `--color-secondary`
 - `--color-secondary-dark`
 - `--color-secondary-light`
 - `--color-secondary-soft`
 - `--color-secondary-strong`
+- `--color-secondary-text`
 - `--color-success`
 - `--color-success-soft`
 - `--color-tertiary`
@@ -187,6 +190,7 @@ Interactive palette of the current MyPGS background and text color utilities.
 - `--color-tertiary-light`
 - `--color-tertiary-soft`
 - `--color-tertiary-strong`
+- `--color-tertiary-text`
 - `--color-text`
 - `--color-warning`
 - `--color-warning-soft`

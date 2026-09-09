@@ -55,7 +55,7 @@
         }
     }
 
-    //=COLOR 
+    //= COLOR 
     //== LIGHTMODE & DARKMODE
     &:root {
         color-scheme: light;
@@ -64,11 +64,16 @@
             color-scheme: dark;
         }
 
-        // == Primary colors
+        //== Primary colors
         --color-primary: #3aa561;
         --color-secondary: #ffa600;
         --color-tertiary: #00f2ff;
-        --color-quaternary: #b3ff00;
+        --color-quaternary: #ddff00;
+        //=== Primary Texts
+        --color-primary-text: red;
+        --color-secondary-text: blue;
+        --color-tertiary-text: green;
+        --color-quaternary-text: orange;
         /*         
         --color-primary: #5c7d6f;
         --color-secondary: #3d5f4f;

@@ -512,6 +512,7 @@
             "buttonIcon",
             "buttonMini",
             "buttonPaddingEqual",
+            "buttonPrimary",
             "buttonQuaternary",
             "buttonReverse",
             "buttonSecondary",
@@ -1808,6 +1809,11 @@
         "pgs-generated": [],
         "pgs-option": []
     },
+    "txtPrimaryText": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
     "txtQuaternary": {
         "pgs": [],
         "pgs-generated": [],
@@ -1833,6 +1839,11 @@
         "pgs-generated": [],
         "pgs-option": []
     },
+    "txtQuaternaryText": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
     "txtSecondary": {
         "pgs": [],
         "pgs-generated": [],
@@ -1854,6 +1865,11 @@
         "pgs-option": []
     },
     "txtSecondaryStrong": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtSecondaryText": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-option": []
@@ -1889,6 +1905,11 @@
         "pgs-option": []
     },
     "txtTertiaryStrong": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "txtTertiaryText": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-option": []

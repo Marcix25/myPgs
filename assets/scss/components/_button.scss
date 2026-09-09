@@ -36,15 +36,23 @@
         @include buttonHeader();
     }
 
+    &[pgs-option~=buttonPrimary] {
+        --button-background: var(--color-primary);
+        --button-color: var(--color-primary-text);
+    }
+
     &[pgs-option~=buttonSecondary] {
-        --button-primaryColor: var(--color-secondary-strong);
+        --button-background: var(--color-secondary);
+        --button-color: var(--color-secondary-text);
     }
-
+    
     &[pgs-option~=buttonTertiary] {
-        --button-primaryColor: var(--color-tertiary-strong);
+        --button-background: var(--color-tertiary);
+        --button-color: var(--color-tertiary-text);
     }
-
+    
     &[pgs-option~=buttonQuaternary] {
-        --button-primaryColor: var(--color-quaternary-strong);
+        --button-background: var(--color-quaternary);
+        --button-color: var(--color-quaternary-text);
     }
 }

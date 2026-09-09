@@ -4,7 +4,7 @@
         {
             "label": "Webpack watch",
             "type": "shell",
-            "command": "npm run \"start watch\"",
+            "command": "npm run \"start:watch\"",
             "options": {
                 "cwd": "${workspaceFolder}"
             },

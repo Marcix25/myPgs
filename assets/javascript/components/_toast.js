@@ -127,7 +127,7 @@ const fn_toast = {
         //== Create Toast
         containerToast.innerHTML = "";
         const toast = document.createElement("div");
-        if (timeout > 0) toast.style.setProperty("--notification-timeout", timeout + "ms");
+        if (timeout > 0) toast.style.setProperty("--toast-timeout", timeout + "ms");
         pgs(toast).state.add(type);
         pgs(toast).add("_toast-element");
         toast.setAttribute("role", type == "error" ? "alert" : "status");
@@ -143,7 +143,7 @@ const fn_toast = {
 
         const toastButtons = pgs(toast).querySelector("_toast-element-buttons");
         const btnDelete = pgs(toast).querySelector("_toast-element-buttons-delete");
-        btnDelete.ariaLabel = closeTitle === "Close" ? "Close notification" : closeTitle;
+        btnDelete.ariaLabel = closeTitle === "Close" ? "Close toast" : closeTitle;
 
         if (link) {
             const toastLink = document.createElement("a");

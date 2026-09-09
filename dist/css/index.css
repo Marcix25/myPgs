@@ -60,7 +60,11 @@
   --color-primary: #3aa561;
   --color-secondary: #ffa600;
   --color-tertiary: #00f2ff;
-  --color-quaternary: #b3ff00;
+  --color-quaternary: #ddff00;
+  --color-primary-text: red;
+  --color-secondary-text: blue;
+  --color-tertiary-text: green;
+  --color-quaternary-text: orange;
   /*         
   --color-primary: #5c7d6f;
   --color-secondary: #3d5f4f;
@@ -4151,16 +4155,24 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   overflow-wrap: break-word;
 }
 
+[pgs~=button][pgs-option~=buttonPrimary] {
+  --button-background: var(--color-primary);
+  --button-color: var(--color-primary-text);
+}
+
 [pgs~=button][pgs-option~=buttonSecondary] {
-  --button-primaryColor: var(--color-secondary-strong);
+  --button-background: var(--color-secondary);
+  --button-color: var(--color-secondary-text);
 }
 
 [pgs~=button][pgs-option~=buttonTertiary] {
-  --button-primaryColor: var(--color-tertiary-strong);
+  --button-background: var(--color-tertiary);
+  --button-color: var(--color-tertiary-text);
 }
 
 [pgs~=button][pgs-option~=buttonQuaternary] {
-  --button-primaryColor: var(--color-quaternary-strong);
+  --button-background: var(--color-quaternary);
+  --button-color: var(--color-quaternary-text);
 }
 
 [pgs~=icon] {
@@ -6549,7 +6561,7 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   --toast-background-timer: color-mix(in srgb, var(--color-box) 95%, var(--color-black) 5%);
   --toast-color: unset;
   --toast-shadow-color: unset;
-  --notification-timeout: unset;
+  --toast-timeout: unset;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6642,7 +6654,7 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   background-color: var(--toast-background-timer);
   border-top-left-radius: var(--border-radius-input);
   border-bottom-left-radius: var(--border-radius-input);
-  animation: toast-timeline var(--notification-timeout) linear;
+  animation: toast-timeline var(--toast-timeout) linear;
 }
 
 @keyframes toast-timeline {
@@ -7296,6 +7308,10 @@ dialog [pgs~=search] [pgs~=modal-close] {
   color: var(--color-primary);
 }
 
+[pgs~=txtPrimaryText] {
+  color: var(--color-primary-text);
+}
+
 [pgs~=txtPrimarySoft] {
   color: var(--color-primary-soft);
 }
@@ -7314,6 +7330,10 @@ dialog [pgs~=search] [pgs~=modal-close] {
 
 [pgs~=txtSecondary] {
   color: var(--color-secondary);
+}
+
+[pgs~=txtSecondaryText] {
+  color: var(--color-primary-text);
 }
 
 [pgs~=txtSecondarySoft] {
@@ -7336,6 +7356,10 @@ dialog [pgs~=search] [pgs~=modal-close] {
   color: var(--color-tertiary);
 }
 
+[pgs~=txtTertiaryText] {
+  color: var(--color-tertiary-text);
+}
+
 [pgs~=txtTertiarySoft] {
   color: var(--color-tertiary-soft);
 }
@@ -7354,6 +7378,10 @@ dialog [pgs~=search] [pgs~=modal-close] {
 
 [pgs~=txtQuaternary] {
   color: var(--color-quaternary);
+}
+
+[pgs~=txtQuaternaryText] {
+  color: var(--color-quaternary-text);
 }
 
 [pgs~=txtQuaternarySoft] {
@@ -7643,10 +7671,6 @@ dialog [pgs~=search] [pgs~=modal-close] {
   --hover-background: var(--hover-primaryColor);
   --hover-color: var(--color-black);
   --hover-border: var(--color-primary-soft);
-  --hover-timing: 500ms;
-  --hover-background-timing: 250ms;
-  --hover-background-delay: 250ms;
-  --hover-transform-origin: bottom center;
   position: relative;
   isolation: isolate;
   cursor: pointer;
@@ -7657,8 +7681,21 @@ dialog [pgs~=search] [pgs~=modal-close] {
   cursor: default;
 }
 
+[pgs~=hover]:not(:where([pgs-option~=hoverNot])) {
+  --hover-st1-timing: 400ms;
+  --hover-st1-behavior: ease-out;
+  --hover-st1-background-timing: calc(var(--hover-st1-timing) / 2);
+  --hover-st1-background-delay: calc(var(--hover-st1-timing) / 2);
+  --hover-st1-transform-origin: bottom center;
+}
+
 [pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])) {
-  transition: border-color var(--hover-timing) ease-out, outline-color var(--hover-timing) ease-out, color var(--hover-timing) ease-in-out;
+  transition: border-color var(--hover-st1-timing) var(--hover-st1-behavior), outline-color var(--hover-st1-timing) var(--hover-st1-behavior), color var(--hover-st1-timing) var(--hover-st1-behavior);
+}
+
+[pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])) :is(h1, h2, h3, h4, h5, h6, p, a),
+[pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])) [pgs~=hover-text] {
+  transition: color var(--hover-st1-timing) var(--hover-st1-behavior);
 }
 
 [pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled]))::before {
@@ -7673,8 +7710,8 @@ dialog [pgs~=search] [pgs~=modal-close] {
   left: 0;
   z-index: -1;
   transform: scale(0);
-  transform-origin: var(--hover-transform-origin);
-  transition: transform var(--hover-timing) ease;
+  transform-origin: var(--hover-st1-transform-origin);
+  transition: transform var(--hover-st1-timing) var(--hover-st1-behavior);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -7683,16 +7720,14 @@ dialog [pgs~=search] [pgs~=modal-close] {
     color: var(--hover-color);
     outline-color: var(--hover-border);
     border-color: var(--hover-border);
-    transition: background-color var(--hover-background-timing) ease-out var(--hover-background-delay);
+    transition: border-color var(--hover-st1-timing) var(--hover-st1-behavior), outline-color var(--hover-st1-timing) var(--hover-st1-behavior), color var(--hover-st1-timing) var(--hover-st1-behavior), background-color var(--hover-st1-background-timing) var(--hover-st1-behavior) var(--hover-st1-background-delay);
+  }
+  [pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p, a),
+  [pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
+    color: var(--hover-color);
   }
   [pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])):hover::before {
     transform: scale(1);
-  }
-  [pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p, a) {
-    color: var(--hover-color);
-  }
-  [pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
-    color: var(--hover-color);
   }
 }
 @media (prefers-reduced-motion: reduce) {
