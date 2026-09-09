@@ -76,7 +76,6 @@ Notification markup, configuration, behavior, and usage example. A persistent, m
 - `--notification-background`
 - `--notification-color`
 - `--notification-shadow-color`
-- `--notification-timeout`
 
 ## Output
 

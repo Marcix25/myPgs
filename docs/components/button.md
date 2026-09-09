@@ -17,6 +17,7 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `buttonBig`: applies the large size variant.
 - `buttonText`: drops the background and the border at rest, so only the label shows, and colours the label on hover. Unlike buttonTransparent it leaves the other states alone, so the same button still fills in when it carries buttonStrong or aria-current.
 - `buttonTransparent`: removes the default background and outline while preserving the button layout and hover behavior.
+- `buttonPrimary`: applies the primary color palette.
 - `buttonSecondary`: replaces the primary button accent with the secondary color palette.
 - `buttonTertiary`: replaces the primary button accent with the tertiary color palette.
 - `buttonQuaternary`: replaces the primary button accent with the quaternary color palette.
@@ -153,7 +154,7 @@ Largest button size using buttonBig, combined with an icon.
 
 ### Text only
 
-Only the label shows at rest, and it takes the accent colour on hover. 
+Only the label shows at rest, and it takes the accent colour on hover.
 
 ```html
 <button pgs="button" pgs-option="buttonText" type="button">
@@ -181,12 +182,22 @@ Sets the same padding on every side using buttonPaddingEqual, instead of the wid
 </button>
 ```
 
+### Primary color
+
+Strong button using the primary color palette.
+
+```html
+<button pgs="button" pgs-option="buttonPrimary" type="button">
+    Primary
+</button>
+```
+
 ### Secondary color
 
 Strong button using the secondary color palette.
 
 ```html
-<button pgs="button" pgs-option="buttonStrong buttonSecondary" type="button">
+<button pgs="button" pgs-option="buttonSecondary" type="button">
     Secondary
 </button>
 ```
@@ -196,7 +207,7 @@ Strong button using the secondary color palette.
 Strong button using the tertiary color palette.
 
 ```html
-<button pgs="button" pgs-option="buttonStrong buttonTertiary" type="button">
+<button pgs="button" pgs-option="buttonTertiary" type="button">
     Tertiary
 </button>
 ```
@@ -206,7 +217,7 @@ Strong button using the tertiary color palette.
 Strong button using the quaternary color palette.
 
 ```html
-<button pgs="button" pgs-option="buttonStrong buttonQuaternary" type="button">
+<button pgs="button" pgs-option="buttonQuaternary" type="button">
     Quaternary
 </button>
 ```

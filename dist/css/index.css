@@ -6585,8 +6585,8 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   align-items: stretch;
   box-shadow: 0px 0px 100px 0px var(--toast-shadow-color);
   border-radius: var(--border-radius-input);
-  max-width: 90vw;
-  min-width: min(200px, 50vw);
+  max-width: calc(99vw - var(--padding-page));
+  min-width: min(300px, 50vw);
   height: max-content;
   padding: var(--padding-2);
   position: relative;
@@ -6608,7 +6608,7 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   z-index: 1;
 }
 
-[pgs~=toast] [pgs~=_toast-element] [pgs~=_toast-element-content] [pgs~=_toast-element-icon] {
+[pgs~=toast] [pgs~=_toast-element] [pgs~=_toast-element-content] [pgs~=_toast-element-content-icon] {
   --icon-size: 3.5rem;
   flex: 0 0 auto;
   color: var(--toast-shadow-color);
@@ -6626,6 +6626,11 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
 
 [pgs~=toast] [pgs~=_toast-element] [pgs~=_toast-element-content] p span {
   font-size: 1.4rem;
+}
+
+[pgs~=toast] [pgs~=_toast-element] [pgs~=_toast-element-content] [pgs~=_toast-element-content-delete] {
+  --button-size: .7rem;
+  flex: 0 0 auto;
 }
 
 [pgs~=toast] [pgs~=_toast-element] [pgs~=_toast-element-buttons] {
@@ -6673,6 +6678,12 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
     opacity: 0;
   }
 }
+[pgs~=toast] [pgs-state~=normal] {
+  --toast-background: var(--color-box);
+  --toast-background-timer: color-mix(in srgb, var(--color-box) 95%, var(--color-black) 5%);
+  --toast-shadow-color: unset;
+}
+
 [pgs~=toast] [pgs-state~=success] {
   --toast-background: var(--color-success-soft);
   --toast-background-timer: color-mix(in srgb, var(--color-success-soft) 70%, var(--color-white) 30%);

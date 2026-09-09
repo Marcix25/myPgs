@@ -3377,6 +3377,12 @@ const fn_toast = {
         linkTitle: "Open",
         closeTitle: "Close",
         type: {
+            //== the plain one: no colour, no glyph, no title of its own — just the message on the
+            //== box surface the container already defaults to
+            normal: {
+                title: "",
+                icon: ""
+            },
             error: {
                 title: "Error",
                 icon: '<i pgs="icon" pgs-option="icon-circleXmark"></i>'
@@ -3463,8 +3469,10 @@ const fn_toast = {
         }
 
         const { type: typeDefaults, ...defaults } = this._defaults;
+        //== null is not a value here, it is "leave it to the type": the JSON path already reads it
+        //== that way (toast.icon || undefined), so the JS API answers the same
         const definedOptions = Object.fromEntries(
-            Object.entries(options).filter(([, value]) => value !== undefined)
+            Object.entries(options).filter(([, value]) => value !== undefined && value !== null)
         );
         const config = {
             ...defaults,
@@ -3497,18 +3505,24 @@ const fn_toast = {
         pgs(toast).state.add(type);
         pgs(toast).add("_toast-element");
         toast.setAttribute("role", type == "error" ? "alert" : "status");
+        //== a type without a glyph (normal, or an explicit icon: "") must not leave an empty box
+        //== behind: the row is a flex with a gap, so the empty div would still push the text over
+        const iconHtml = icon ? `<div pgs="_toast-element-content-icon">${icon}</div>` : "";
+
         toast.innerHTML = `
             <div pgs="_toast-element-content">
-                <div pgs="_toast-element-icon">${icon}</div>
+                ${iconHtml}
                 <p>${text}</p>
+                <button type="button" pgs="button _toast-element-content-delete" pgs-option="buttonIcon"><i pgs="icon" pgs-option="icon-close"></i></button>
             </div>
             <div pgs="_toast-element-buttons">
-                <button type="button" pgs="button _toast-element-buttons-delete">${closeTitle}</button>
             </div>
         `;
 
         const toastButtons = pgs(toast).querySelector("_toast-element-buttons");
-        const btnDelete = pgs(toast).querySelector("_toast-element-buttons-delete");
+        const btnDelete = pgs(toast).querySelector("_toast-element-content-delete");
+        //== the dismiss button draws a cross, so closeTitle is its accessible name and nothing else.
+        //== Set as a property rather than written into the template above: no escaping to get wrong
         btnDelete.ariaLabel = closeTitle === "Close" ? "Close toast" : closeTitle;
 
         if (link) {
@@ -3516,7 +3530,9 @@ const fn_toast = {
             toastLink.href = link;
             toastLink.textContent = linkTitle;
             pgs(toastLink).add("button");
-            toastButtons.insertAdjacentElement("afterbegin", toastLink);
+            toastButtons.appendChild(toastLink);
+        } else{
+            pgs(toastButtons).add("hidden");
         }
 
         containerToast.appendChild(toast);
@@ -3534,7 +3550,7 @@ const fn_toast = {
         btnDelete.addEventListener("click", function (e) {
             e.preventDefault();
             e.stopPropagation();
-            e.stopImmediatePropagation()
+            e.stopImmediatePropagation();
             deleteToast(e);
         });
     },
@@ -3603,6 +3619,7 @@ const PGS_toast = {
     success: (options = {}) => fn_toast.show("success", options),
     info: (options = {}) => fn_toast.show("info", options),
     warning: (options = {}) => fn_toast.show("warning", options),
+    normal: (options = {}) => fn_toast.show("normal", options),
     deleteAll: () => fn_toast.deleteAll()
 };
 

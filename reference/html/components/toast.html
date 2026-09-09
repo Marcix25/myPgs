@@ -11,14 +11,15 @@
  * - toast: the container the toasts are shown in, created at the end of the body when the page has none; you may write it yourself to place it elsewhere, but leave it empty because its content is replaced at every toast.
  * - _toast-element: a single toast inside the container, replacing whatever was there before.
  * - _toast-element-content: contains the icon, title, and description.
- * - _toast-element-icon: contains the icon displayed to the left of the text.
+ * - _toast-element-content-icon: contains the icon displayed to the left of the text.
  * - _toast-element-buttons: contains the link and dismiss actions below the content.
- * - _toast-element-buttons-delete: identifies the dismiss button generated inside that row; its label comes from the title-close field.
+ * - _toast-element-content-delete: identifies the dismiss button generated at the end of the content row; it draws a cross, and closeTitle is its accessible name, not visible text.
  *
  * @pgs-option
  * - toast: JSON object read by toastLoad/toastExe on page load or click; a new toast replaces whatever is currently shown — every field, with its accepted values and its default, is annotated in the reference below.
  *
  * @pgs-state
+ * - normal: the plain toast, with no colour, glyph or title of its own: it stays on the neutral box surface.
  * - success: identifies the success element used by Toast.
  * - error: identifies the error element used by Toast.
  * - warning: identifies the warning element used by Toast.
@@ -31,6 +32,7 @@
  * - pgs.toast.success(optionsOrTitle): a title string, or an options object — see the full field reference in the commented example below.
  * - pgs.toast.info(optionsOrTitle): a title string, or an options object — see the full field reference in the commented example below.
  * - pgs.toast.warning(optionsOrTitle): a title string, or an options object — see the full field reference in the commented example below.
+ * - pgs.toast.normal(optionsOrTitle): the plain toast, same arguments as the others; it has no title or glyph of its own, so pass at least a description.
  * - pgs.toast.deleteAll(): removes the currently shown toast, if any.
  *
  * @related
@@ -41,6 +43,8 @@
  * - icon-circleCheck: the glyph of the success type.
  * - icon-circleInfo: the glyph of the info type.
  * - icon-triangleExclamation: the glyph of the warning type.
+ * - icon-close: the cross the dismiss button draws.
+ * - buttonIcon: shapes that dismiss button as an icon-only button; see Button.
  *
  * @return Complete HTML markup and usage example for Toast.
  */
@@ -67,21 +71,28 @@
     "type": "success",
     "icon": null,
     "timeout": "7000",
-    "link": null,
+    "link": "#",
     "linkTitle": "Open",
     "closeTitle": "Close"
 }]'> Trigger Toast</button>
+
+<button pgs="button toastExe" pgs-option='toast[{
+    "title": "Hello",
+    "description": "Message",
+    "type": "normal",
+    "timeout": "7000"
+}]'> Trigger Toast normal</button>
 
 <script type="application/json">
 toast[{
     "title": "",            // omitted falls back to the title of the type
     "description": "",      // plain text under the title; a newline becomes a line break
-    "type": "info",         // error | success | warning | info, and anything else falls back to info
+    "type": "info",         // normal | error | success | warning | info, and anything else falls back to info
     "icon": null,           // HTML string; null uses the icon of the type
     "timeout": 4000,        // milliseconds before it dismisses itself; a value that is not a number is ignored
     "link": null,           // shows the link button and navigates there
     "linkTitle": "Open",    // label of the link button, only used when link is set
-    "closeTitle": "Close"   // label of the dismiss button
+    "closeTitle": "Close"   // accessible name of the dismiss button, which always draws a cross
 }]
 </script>
 

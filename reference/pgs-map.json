@@ -1686,9 +1686,9 @@
         "pgs-generated": [
             "_toast-element",
             "_toast-element-buttons",
-            "_toast-element-buttons-delete",
             "_toast-element-content",
-            "_toast-element-icon"
+            "_toast-element-content-delete",
+            "_toast-element-content-icon"
         ],
         "pgs-option": [
             "toast"
