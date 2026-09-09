@@ -52,7 +52,7 @@ When changing a token, update every selector, query, reference, declaration, dem
 - Keep component selectors scoped consistently with the existing stylesheet architecture.
 - Use private mixins with a leading `_` when they are implementation details of a public mixin.
 - Do not duplicate layout or component logic already available elsewhere in the library.
-- Compose button variants from `buttonBase`, `buttonContent` or `buttonIcon`, plus the required variant mixins. No component writes the hover treatment itself: `pgs.hover` marks a clickable surface with the `hover` token and `[pgs~=hover]` draws it, with `pgs-option="hoverNot"` as the single opt-out. An element that needs the treatment without that token composes `hoverBase`, `hoverContent1` and `hoverFocus` directly.
+- Compose button variants from `buttonBase`, `buttonContent` or `buttonIcon`, plus the required variant mixins. No component writes the hover treatment itself: `pgs.hover` marks a clickable surface with the `hover` token and `[pgs~=hover]` draws it, with `pgs-option="hoverNot"` as the single opt-out. An element that needs the treatment without that token composes `hoverBase`, `hoverStyle1` and `focus` directly.
 - Treat a removed or renamed public mixin, token, option, or custom property as a potential breaking change.
 
 Example component structure:

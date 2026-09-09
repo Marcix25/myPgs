@@ -1,6 +1,8 @@
 @use "settings" as *;
 @use "mx-responsive" as *;
 
+//# TEXTAREA, LIST, HEADING, FOCUS
+
 //= TEXTAREA
 @mixin textarea() {
     align-items: flex-start;
@@ -18,7 +20,7 @@
     }
 }
 
-//= LISTA
+//= LIST
 @mixin list() {
 
     :is(ul),
@@ -106,4 +108,12 @@
 
 @mixin h5() {
     @include heading(calc($h5 - 0.1rem), 700);
+}
+
+//= FOCUS
+@mixin focus() {
+    &:where(:not(:disabled, [disabled])):focus-visible {
+        outline: var(--focus-visible);
+        outline-offset: 3px;
+    }
 }

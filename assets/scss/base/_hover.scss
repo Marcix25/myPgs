@@ -1,23 +1,18 @@
 @use "../mixin/mixin" as *;
 
 //# HOVER
-//== :where() keeps the guard free: the treatment stays at the specificity of a single token, so a
-//== component variant that retunes --hover-* on its own selector still wins
+//= HOVER
+//// :where() keeps the guard free: the treatment stays at the specificity of a single token, so a
+//// component variant that retunes --hover-* on its own selector still wins
 [pgs~=hover]:not(:where([pgs-option~=hoverNot])) {
     @include hoverBase();
-    @include hoverContent1();
-    @include hoverFocus();
-
-    &:not(:disabled):hover {
-        [pgs~=hover-text] {
-            color: var(--hover-color);
-        }
-    }
+    @include hoverStyle1();
+    @include focus();
 }
 
-//= HOVER NOT
-//== written on the element itself and not scoped to a component: pgs.hover leaves a surface carrying
-//== it unmarked, and the guard above covers a "hover" written by hand
+//== HOVER NOT
+//// written on the element itself and not scoped to a component: pgs.hover leaves a surface carrying
+//// it unmarked, and the guard above covers a "hover" written by hand
 [pgs-option~=hoverNot] {
-    @include hoverNot();
+    cursor: inherit;
 }

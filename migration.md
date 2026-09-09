@@ -19,6 +19,7 @@ meaning moved under them, so nothing errors and the page just looks wrong.
 | `pgs="header"` with no options | hid itself on scroll-down automatically | does nothing on scroll unless `pgs-option="headerScroll"` is also written |
 | `pgs.scrollHorizontal(element, speed)` | converted a mouse wheel only, ignoring a trackpad/Magic Mouse | converts any wheel source, trackpad included |
 | `pgs="button"`, a link `pgs="card"`, a link `pgs="box"` | the hover treatment was baked into each component's CSS | the treatment lives only under `pgs="hover"`, which the JS adds to these at load |
+| a bare `<button type="submit">` inside `pgs="form"` | the form styled it as a strong button on its own | draws nothing: mark it `pgs="button"` yourself |
 
 So `<span pgs="icon"><i class="fa-solid fa-star"></i></span>` no longer draws a circle. The surface
 is now an option on an icon element:
@@ -57,8 +58,22 @@ output is the same and there is nothing to rename, with two consequences: a proj
 `dist/css` **without** `dist/javascript` loses hover on buttons, clickable cards and clickable boxes
 — and with it the keyboard focus ring, which is part of the same treatment, so write `hover` in the
 markup there — and the `buttonHover()` mixin no longer exists, since nothing composed it any more. A
-custom element that wants the treatment in CSS includes `hoverBase()`, `hoverContent1()` and
-`hoverFocus()`, the three it was an alias for.
+custom element that wants the treatment in CSS includes `hoverBase()`, `hoverStyle1()` and
+`focus()`, the three it was an alias for.
+
+Form submit: `[pgs~=form]` no longer styles `button[type="submit"]`. It used to give any bare submit
+button inside a form `buttonBase` + `buttonContent` + `buttonStrong` + `buttonHover`, styling it by
+tag instead of by token — the one place left where writing no `pgs` still produced a component. Now
+nothing errors and nothing is renamed: the button simply falls back to the browser's own look. Write
+it out to get the same button as before:
+
+```html
+<button pgs="button" pgs-option="buttonStrong" type="submit">Send</button>
+```
+
+`buttonHover` needs no equivalent — `pgs.hover` adds the hover token to anything marked `pgs="button"`.
+This one is worth a pass over every form in the project, since the markup keeps working and only the
+look changes.
 
 ## 2. Renames
 
@@ -349,10 +364,15 @@ grep -rn -- '--button-\(background\|color\|border-color\)-active' .
 
 # 14. the two-state control, now a button
 grep -rn 'twoState' .
+
+# 15. submit buttons that relied on the form styling them (read, don't replace)
+grep -rn 'type="submit"' . | grep -v 'pgs='
 ```
 
 Hit 5 needs reading rather than replacing: an `icon` that wraps another element wanted the surface
 and needs `pgs-option="iconBox"`; one that was empty next to a label wanted the glyph and needs an
 `icon-*` option. Hits 8 and 9 need reading too, not replacing: they flag menus and headers whose
 *behaviour* changed under an unchanged name (see section 1), so add `headerScroll` or accept the new
-accordion submenus, whichever the page actually wants.
+accordion submenus, whichever the page actually wants. Hit 15 is the same kind: a submit button that
+sits inside a `pgs="form"` and carries no `pgs` used to be styled by the form and now is not, so it
+needs `pgs="button"` written on it — one outside a form was never styled and needs nothing.

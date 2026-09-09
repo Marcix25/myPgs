@@ -6781,9 +6781,6 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   --search-suggestions-item-selected-color: var(--color-whiteFixed);
   position: relative;
   display: flex;
-  gap: var(--gap-texts);
-  flex-direction: row;
-  flex-wrap: nowrap;
   flex: 1;
   width: 100%;
   overflow: visible;
@@ -6798,12 +6795,7 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
 }
 [pgs~=search] button {
   height: 100%;
-  padding-left: var(--button-size);
-  border: none;
-  border-radius: var(--border-radius-input);
-  outline: none;
-  background: none;
-  cursor: pointer;
+  --button-background: transparent;
 }
 
 [pgs~=search] input {
@@ -6860,7 +6852,8 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   color: var(--search-suggestions-color);
 }
 
-[pgs~=search] [pgs~=search-suggestions] i, [pgs~=search] [pgs~=search-suggestions] [pgs~=icon] {
+[pgs~=search] [pgs~=search-suggestions] i,
+[pgs~=search] [pgs~=search-suggestions] [pgs~=icon] {
   color: var(--search-suggestions-color);
 }
 
@@ -6876,7 +6869,9 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   color: var(--search-suggestions-item-selected-color);
 }
 
-[pgs~=search] [pgs~=search-suggestions] [pgs~=_search-suggestions-item][aria-selected=true] i, [pgs~=search] [pgs~=search-suggestions] [pgs~=_search-suggestions-item][aria-selected=true] [pgs~=icon], [pgs~=search] [pgs~=search-suggestions] [pgs~=_search-suggestions-item]:hover i, [pgs~=search] [pgs~=search-suggestions] [pgs~=_search-suggestions-item]:hover [pgs~=icon] {
+[pgs~=search] [pgs~=search-suggestions] [pgs~=_search-suggestions-item][aria-selected=true] i,
+[pgs~=search] [pgs~=search-suggestions] [pgs~=_search-suggestions-item][aria-selected=true] [pgs~=icon], [pgs~=search] [pgs~=search-suggestions] [pgs~=_search-suggestions-item]:hover i,
+[pgs~=search] [pgs~=search-suggestions] [pgs~=_search-suggestions-item]:hover [pgs~=icon] {
   color: var(--search-suggestions-item-selected-color);
 }
 
@@ -6897,7 +6892,8 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   color: var(--search-suggestions-color);
 }
 
-[pgs~=search] [pgs~=search-suggestions]:has([pgs~=_search-suggestions-item]:hover) [pgs~=_search-suggestions-item][aria-selected=true] i, [pgs~=search] [pgs~=search-suggestions]:has([pgs~=_search-suggestions-item]:hover) [pgs~=_search-suggestions-item][aria-selected=true] [pgs~=icon] {
+[pgs~=search] [pgs~=search-suggestions]:has([pgs~=_search-suggestions-item]:hover) [pgs~=_search-suggestions-item][aria-selected=true] i,
+[pgs~=search] [pgs~=search-suggestions]:has([pgs~=_search-suggestions-item]:hover) [pgs~=_search-suggestions-item][aria-selected=true] [pgs~=icon] {
   color: var(--search-suggestions-color);
 }
 
@@ -6906,7 +6902,8 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   color: var(--search-suggestions-item-selected-color);
 }
 
-[pgs~=search] [pgs~=search-suggestions]:has([pgs~=_search-suggestions-item]:hover) [pgs~=_search-suggestions-item][aria-selected=true]:hover i, [pgs~=search] [pgs~=search-suggestions]:has([pgs~=_search-suggestions-item]:hover) [pgs~=_search-suggestions-item][aria-selected=true]:hover [pgs~=icon] {
+[pgs~=search] [pgs~=search-suggestions]:has([pgs~=_search-suggestions-item]:hover) [pgs~=_search-suggestions-item][aria-selected=true]:hover i,
+[pgs~=search] [pgs~=search-suggestions]:has([pgs~=_search-suggestions-item]:hover) [pgs~=_search-suggestions-item][aria-selected=true]:hover [pgs~=icon] {
   color: var(--search-suggestions-item-selected-color);
 }
 
@@ -7649,35 +7646,19 @@ dialog [pgs~=search] [pgs~=modal-close] {
   --hover-timing: 500ms;
   --hover-background-timing: 250ms;
   --hover-background-delay: 250ms;
+  --hover-transform-origin: bottom center;
+  position: relative;
+  isolation: isolate;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 [pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:disabled, [disabled]) {
-  text-decoration: none;
   cursor: default;
 }
 
 [pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])) {
-  transition: unset 0ms;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-[pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])) * {
-  transition: unset 0ms;
-  text-decoration: none;
-}
-
-[pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])) *::before, [pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])) *::after {
-  transition: unset 0ms;
-}
-
-[pgs~=hover]:not(:where([pgs-option~=hoverNot])) {
-  position: relative;
-  isolation: isolate;
-}
-
-[pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])) {
-  transition: border-color 500ms ease, outline-color 500ms ease;
+  transition: border-color var(--hover-timing) ease-out, outline-color var(--hover-timing) ease-out, color var(--hover-timing) ease-in-out;
 }
 
 [pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled]))::before {
@@ -7692,7 +7673,7 @@ dialog [pgs~=search] [pgs~=modal-close] {
   left: 0;
   z-index: -1;
   transform: scale(0);
-  transform-origin: bottom center;
+  transform-origin: var(--hover-transform-origin);
   transition: transform var(--hover-timing) ease;
 }
 
@@ -7702,7 +7683,7 @@ dialog [pgs~=search] [pgs~=modal-close] {
     color: var(--hover-color);
     outline-color: var(--hover-border);
     border-color: var(--hover-border);
-    transition: background-color var(--hover-background-timing) ease-out var(--hover-background-delay), color var(--hover-timing) ease-in-out, outline-color var(--hover-timing) ease;
+    transition: background-color var(--hover-background-timing) ease-out var(--hover-background-delay);
   }
   [pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])):hover::before {
     transform: scale(1);
@@ -7731,12 +7712,7 @@ dialog [pgs~=search] [pgs~=modal-close] {
   outline-offset: 3px;
 }
 
-[pgs~=hover]:not(:where([pgs-option~=hoverNot])):not(:disabled):hover [pgs~=hover-text] {
-  color: var(--hover-color);
-}
-
 [pgs-option~=hoverNot] {
-  transition: all 200ms;
   cursor: inherit;
 }
 

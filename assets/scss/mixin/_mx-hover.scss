@@ -1,13 +1,33 @@
 //+ HOVER
-@mixin hoverContent1($hover-text: "") {
+//= HOVER
+//== HOVER BASE
+@mixin hoverBase($hover-text: "") {
+    --hover-primaryColor: var(--color-primary-soft);
+    --hover-background: var(--hover-primaryColor);
+    --hover-color: var(--color-black);
+    --hover-border: var(--color-primary-soft);
+    --hover-timing: 500ms;
+    --hover-behavior: ease-out;
+    --hover-background-timing: 250ms;
+    --hover-background-delay: 250ms;
+    --hover-transform-origin: bottom center;
     position: relative;
     isolation: isolate;
+    cursor: pointer;
+    text-decoration: none;
 
-    // overflow: clip;
+    &:where(:disabled, [disabled]) {
+        cursor: default;
+    }
+}
+
+//== HOVER CONTENT
+@mixin hoverStyle1($hover-text: "") {
     &:where(:not(:disabled, [disabled])) {
         transition:
-            border-color 500ms ease,
-            outline-color 500ms ease;
+            border-color var(--hover-timing) var(--hover),
+            outline-color var(--hover-timing) var(--hover-behavior),
+            color var(--hover-timing) var(--hover-behavior);
 
         &::before {
             content: "";
@@ -21,9 +41,9 @@
             left: 0;
             z-index: -1;
             transform: scale(0);
-            transform-origin: bottom center;
+            transform-origin: var(--hover-transform-origin);
             transition:
-                transform var(--hover-timing) ease,
+                transform var(--hover-timing) var(--hover-behavior),
         }
 
         @media (hover: hover) and (pointer: fine) {
@@ -33,9 +53,7 @@
                 outline-color: var(--hover-border);
                 border-color: var(--hover-border);
                 transition:
-                    background-color var(--hover-background-timing) ease-out var(--hover-background-delay),
-                    color var(--hover-timing) ease-in-out,
-                    outline-color var(--hover-timing) ease;
+                    background-color var(--hover-background-timing) var(--hover-behavior) var(--hover-background-delay);
 
                 &::before {
                     transform: scale(1);
@@ -62,59 +80,6 @@
             &:hover {
                 transition: unset;
                 background-color: var(--hover-background);
-            }
-        }
-    }
-}
-
-//= HOVER NOT
-//+ the opt-out of the shared treatment: the surface keeps its look and stops behaving like something
-//+ that answers the pointer. It is written once for every component, since a surface that must not
-//+ react is the same idea whether it is a button, a card or a box
-@mixin hoverNot() {
-    transition: all 200ms;
-    cursor: inherit;
-}
-
-//= FOCUS
-//+ keyboard focus is an affordance, not a visual variant: every component draws the same ring from
-//+ the same token, and outside any hover media query. Bundling it with :hover left a keyboard user
-//+ on a device that reports no fine pointer with nothing to see.
-@mixin hoverFocus() {
-    &:where(:not(:disabled, [disabled])):focus-visible {
-        outline: var(--focus-visible);
-        outline-offset: 3px;
-    }
-}
-
-//= HOVER
-@mixin hoverBase() {
-    $transition: unset 0ms;
-    --hover-primaryColor: var(--color-primary-soft);
-    --hover-background: var(--hover-primaryColor);
-    --hover-color: var(--color-black);
-    --hover-border: var(--color-primary-soft);
-    --hover-timing: 500ms;
-    --hover-background-timing: 250ms;
-    --hover-background-delay: 250ms;
-
-    &:where(:disabled, [disabled]) {
-        text-decoration: none;
-        cursor: default;
-    }
-
-    &:where(:not(:disabled, [disabled])) {
-        transition: $transition;
-        text-decoration: none;
-        cursor: pointer;
-
-        * {
-            transition: $transition;
-            text-decoration: none;
-
-            &::before,
-            &::after {
-                transition: $transition;
             }
         }
     }

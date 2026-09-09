@@ -14,7 +14,7 @@
     --search-suggestions-item-selected-background: var(--color-primary);
     --search-suggestions-item-selected-color: var(--color-whiteFixed);
     position: relative;
-    @include flexRow(nowrap);
+    display: flex;
     flex: 1;
     width: 100%;
     overflow: visible;
@@ -27,18 +27,13 @@
 
     button {
         height: 100%;
-        padding-left: var(--button-size);
-        border: none;
-        border-radius: var(--border-radius-input);
-        outline: none;
-        background: none;
-        cursor: pointer;
+        --button-background: transparent;
     }
 
     input {
         width: 100%;
         min-width: auto;
-        height: calc( var(--font-size-text) + var(--button-size, 1.2rem) * 2);
+        height: calc(var(--font-size-text) + var(--button-size, 1.2rem) * 2);
         padding: var(--button-size, 1.2rem);
         padding-left: 0;
         margin-left: 0;
@@ -74,7 +69,8 @@
         background: var(#{$varColor}-background);
         color: var(#{$varColor}-color);
 
-        i, [pgs~=icon] {
+        i,
+        [pgs~=icon] {
             color: var(#{$varColor}-color);
         }
     }
