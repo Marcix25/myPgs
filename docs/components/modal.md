@@ -319,14 +319,14 @@ Modal dialog that pushes a browser history entry when opened, using pgs-option=&
 </div>
 ```
 
-### Confirmation modal
+### modalTopLevel
 
 Top-level confirmation dialog with cancel and save actions, using pgs-option=&quot;modalTopLevel&quot; and buttonStrong for the primary action; modalDisableBackdropClose keeps it open on an accidental outside click.
 
 ```html
 <div pgs="modal">
     <button pgs="modal-button button" type="button">
-        Confirmation salvataggio
+        Confirmation
     </button>
 
     <dialog pgs-option="modalTopLevel modalDisableBackdropClose">

@@ -4,6 +4,11 @@
         "pgs-generated": [],
         "pgs-option": []
     },
+    "_notifications-close": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
     "_notifications-element": {
         "pgs": [],
         "pgs-generated": [],
@@ -14,12 +19,12 @@
         "pgs-generated": [],
         "pgs-option": []
     },
-    "_notifications-element-buttons-delete": {
+    "_notifications-element-content": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-option": []
     },
-    "_notifications-element-content": {
+    "_notifications-element-content-delete": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-option": []

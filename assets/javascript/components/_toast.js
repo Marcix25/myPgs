@@ -11,9 +11,9 @@ const fn_toast = {
         linkTitle: "Open",
         closeTitle: "Close",
         type: {
-            //== the plain one: no colour, no glyph, no title of its own — just the message on the
-            //== box surface the container already defaults to
-            normal: {
+            //== the plain one: no severity colour, no glyph, no title of its own — just the
+            //== message on the box surface the container already defaults to
+            neutral: {
                 title: "",
                 icon: ""
             },
@@ -139,7 +139,7 @@ const fn_toast = {
         pgs(toast).state.add(type);
         pgs(toast).add("_toast-element");
         toast.setAttribute("role", type == "error" ? "alert" : "status");
-        //== a type without a glyph (normal, or an explicit icon: "") must not leave an empty box
+        //== a type without a glyph (neutral, or an explicit icon: "") must not leave an empty box
         //== behind: the row is a flex with a gap, so the empty div would still push the text over
         const iconHtml = icon ? `<div pgs="_toast-element-content-icon">${icon}</div>` : "";
 
@@ -253,7 +253,7 @@ export const PGS_toast = {
     success: (options = {}) => fn_toast.show("success", options),
     info: (options = {}) => fn_toast.show("info", options),
     warning: (options = {}) => fn_toast.show("warning", options),
-    normal: (options = {}) => fn_toast.show("normal", options),
+    neutral: (options = {}) => fn_toast.show("neutral", options),
     deleteAll: () => fn_toast.deleteAll()
 };
 

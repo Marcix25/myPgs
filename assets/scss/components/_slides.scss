@@ -28,10 +28,11 @@
     //option for suggestions
     &[pgs-option~=slidesSingleScroll],
     &[pgs-option~=slidesScrollMouse],
-    &[pgs-option~=slidesShadowDesktop]{}
+    &[pgs-option~=slidesShadowDesktop] {}
 
     //+( tablet
     @container (min-width: #{$tablet}) {
+
         /*  fades the slides out at the edges by masking the scroller instead of painting
             a gradient over it, so it no longer depends on the page background matching.
             The fade only appears on the side that still has slides to reach: on the
@@ -79,13 +80,27 @@
 
         //== slide
         [pgs~="slides-container-slide"] {
-            scroll-snap-align: center;
+            //== the first and the last slide line up with the page content through --page-edge
+            //== below, and that only holds because the alignment here is center: their centred
+            //== snap position falls outside the scroll range, so the browser stops at the edge and
+            //== the margin is what shows. Switch this to start and both margins stop mattering
+            scroll-snap-align: center !important;
             scroll-snap-stop: always;
             position: relative;
-            margin-inline: auto;
             min-width: var(--slide-width);
             max-width: 100%;
             height: auto;
+
+            //== the flush variant on purpose: below --page-width the slides run edge to edge
+            //== instead of staying in the text column. Swap in --page-edge to line them up with
+            //== the text on a phone too
+            &:first-child {
+                margin-left: var(--page-edgeFlush);
+            }
+
+            &:last-child {
+                margin-right: var(--page-edgeFlush);
+            }
 
             //-( tablet
             @container (max-width: #{$tablet}) {
@@ -141,7 +156,7 @@
         z-index: 3;
         border-radius: var(--border-radius);
         transition: all 100ms;
-        translate: 0px calc(50%);
+        translate: 0px calc(100% + var(--gap-texts));
         position: absolute;
         bottom: 0;
         border: var(--border-complete);

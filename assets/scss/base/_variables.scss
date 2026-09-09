@@ -33,6 +33,18 @@
         --page-top: calc(var(--heightOfHeader) + 7lvh);
         --page-topScroll: calc(var(--heightOfHeaderScroll) + var(--heightOfHeader));
         --page-width: 1280px;
+        //== distance from the edge of a full-bleed element to where the page content starts, so a
+        //== row that spans the whole width can line its first item up with the text above it.
+        //== Deliberately left unresolved: an unregistered custom property is substituted as tokens
+        //== and measured on whoever uses it, so 100cqw is that element's own query container (the
+        //== viewport where there is none) and the value adapts per element. Registering either of
+        //== these with @property <length> would freeze it here, against the root, and break that.
+        //== The two differ only below --page-width, where the content column no longer fits:
+        //== --page-edge keeps the page padding, so the element stays in the text column, while
+        //== --page-edgeFlush drops to zero and lets it run edge to edge, which is what a carousel
+        //== or a full-width image usually wants on a phone
+        --page-edge: max(var(--padding-page), calc((100cqw - var(--page-width)) / 2));
+        --page-edgeFlush: max(0px, calc((100cqw - var(--page-width)) / 2));
         
         --gap-texts: 1.0rem;
         --gap-elements: 4.0rem;

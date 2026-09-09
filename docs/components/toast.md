@@ -24,7 +24,7 @@ Toast markup, configuration, behavior, and usage example. An ephemeral, auto-dis
 
 ## PGS States
 
-- `normal`: the plain toast, with no colour, glyph or title of its own: it stays on the neutral box surface.
+- `neutral`: the plain toast: no severity colour, no glyph and no title of its own, so it stays on the box surface.
 - `success`: identifies the success element used by Toast.
 - `error`: identifies the error element used by Toast.
 - `warning`: identifies the warning element used by Toast.
@@ -38,7 +38,7 @@ Toast markup, configuration, behavior, and usage example. An ephemeral, auto-dis
 - `pgs.toast.success(optionsOrTitle)`: a title string, or an options object — see the full field reference in the commented example below.
 - `pgs.toast.info(optionsOrTitle)`: a title string, or an options object — see the full field reference in the commented example below.
 - `pgs.toast.warning(optionsOrTitle)`: a title string, or an options object — see the full field reference in the commented example below.
-- `pgs.toast.normal(optionsOrTitle)`: the plain toast, same arguments as the others; it has no title or glyph of its own, so pass at least a description.
+- `pgs.toast.neutral(optionsOrTitle)`: the plain toast, same arguments as the others; it has no title or glyph of its own, so pass at least a description.
 - `pgs.toast.deleteAll()`: removes the currently shown toast, if any.
 
 ## Related elements
@@ -76,7 +76,7 @@ Complete HTML markup and usage example for Toast.
 pgs-option='toast[{
     "title": "",            // omitted falls back to the title of the type
     "description": "",      // plain text under the title; a newline becomes a line break
-    "type": "info",         // normal | error | success | warning | info, and anything else falls back to info
+    "type": "info",         // neutral | error | success | warning | info, and anything else falls back to info
     "icon": null,           // HTML string; null uses the icon of the type
     "timeout": 4000,        // milliseconds before it dismisses itself; a value that is not a number is ignored
     "link": null,           // shows the link button and navigates there
@@ -131,8 +131,9 @@ pgs.toast.success({
 }]'> Trigger Toast</button>
 
 <button pgs="button toastExe" pgs-option='toast[{
+    "title": "Hello",
     "description": "Message",
-    "type": "normal",
+    "type": "neutral",
     "timeout": "7000"
-}]'> Trigger Toast normal</button>
+}]'> Trigger Toast neutral</button>
 ```

@@ -30,6 +30,8 @@
   --page-top: calc(var(--heightOfHeader) + 7lvh);
   --page-topScroll: calc(var(--heightOfHeaderScroll) + var(--heightOfHeader));
   --page-width: 1280px;
+  --page-edge: max(var(--padding-page), calc((100cqw - var(--page-width)) / 2));
+  --page-edgeFlush: max(0px, calc((100cqw - var(--page-width)) / 2));
   --gap-texts: 1.0rem;
   --gap-elements: 4.0rem;
   --gap-sections: calc(1.0rem + 15svh);
@@ -2582,7 +2584,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --header-background: var(--color-white-transparent);
   --header-color: var(--color-black);
   --header-compactBottom-active: 0;
-  --header-compact-breakpoint: 600px;
+  --header-compact-breakpoint: 100px;
   z-index: 100;
   position: fixed;
   isolation: isolate;
@@ -5911,13 +5913,20 @@ html:has(dialog[open]) {
 }
 
 [pgs~=slides] [pgs~=slides-container] [pgs~=slides-container-slide] {
-  scroll-snap-align: center;
+  scroll-snap-align: center !important;
   scroll-snap-stop: always;
   position: relative;
-  margin-inline: auto;
   min-width: var(--slide-width);
   max-width: 100%;
   height: auto;
+}
+
+[pgs~=slides] [pgs~=slides-container] [pgs~=slides-container-slide]:first-child {
+  margin-left: var(--page-edgeFlush);
+}
+
+[pgs~=slides] [pgs~=slides-container] [pgs~=slides-container-slide]:last-child {
+  margin-right: var(--page-edgeFlush);
 }
 
 @container (max-width: 800px) {
@@ -5972,7 +5981,7 @@ html:has(dialog[open]) {
   z-index: 3;
   border-radius: var(--border-radius);
   transition: all 100ms;
-  translate: 0px 50%;
+  translate: 0px calc(100% + var(--gap-texts));
   position: absolute;
   bottom: 0;
   border: var(--border-complete);
@@ -6464,6 +6473,10 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   background: transparent;
 }
 
+[pgs~=_notifications] [pgs~=_notifications-close] {
+  align-self: flex-end;
+}
+
 [pgs~=_notifications] [pgs~=_notifications-empty] {
   margin: 0;
   padding: var(--padding-2);
@@ -6497,8 +6510,12 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   align-items: center;
   flex-direction: row;
   gap: calc(var(--padding) / 4);
-  padding: calc(var(--padding) / 4);
   z-index: 1;
+}
+
+[pgs~=_notifications] [pgs~=_notifications-element] [pgs~=_notifications-element-content] {
+  min-height: 5rem;
+  padding: var(--padding-2);
 }
 
 [pgs~=_notifications] [pgs~=_notifications-element] [pgs~=_notifications-element-content] [pgs~=_notifications-element-content-icon] {
@@ -6521,8 +6538,16 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   font-size: 1.4rem;
 }
 
+[pgs~=_notifications] [pgs~=_notifications-element] [pgs~=_notifications-element-content] [pgs~=_notifications-element-content-delete] {
+  --button-size: .7rem;
+  flex: 0 0 auto;
+  margin-inline-start: auto;
+  align-self: flex-start;
+}
+
 [pgs~=_notifications] [pgs~=_notifications-element] [pgs~=_notifications-element-buttons] {
   flex-wrap: wrap;
+  padding: calc(var(--padding) / 4);
   background: color-mix(in srgb, var(--notification-background) 50%, var(--color-white) 50%);
 }
 
@@ -6534,6 +6559,11 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   justify-content: center;
   font-size: small;
   min-width: max-content;
+}
+
+[pgs~=_notifications] [pgs-state~=neutral] {
+  --notification-background: var(--color-box);
+  --notification-shadow-color: unset;
 }
 
 [pgs~=_notifications] [pgs-state~=success] {
@@ -6678,7 +6708,7 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
     opacity: 0;
   }
 }
-[pgs~=toast] [pgs-state~=normal] {
+[pgs~=toast] [pgs-state~=neutral] {
   --toast-background: var(--color-box);
   --toast-background-timer: color-mix(in srgb, var(--color-box) 95%, var(--color-black) 5%);
   --toast-shadow-color: unset;

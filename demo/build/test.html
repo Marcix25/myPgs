@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="it-IT" pgs="htmlBase">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyPGS</title>
+
+    <!-- Colori Browsers -->
+    <meta name="theme-color" content="">
+    <meta name="apple-mobile-web-app-status-bar-color" content="">
+
+    <script src="../../dist/javascript/index.js"></script>
+    <link rel="stylesheet" href="../../dist/css/index.css">
+</head>
+
+<body pgs="bodyBase bodyImg bodyText bodyHeading">
+    <header pgs="header">
+        <div pgs="header-element blur">
+            <div pgs="header-element-alwaysOn">
+                <a aria-label="Logo" pgs="logo" href="/">
+                    <span pgs="logo-text">MyPGS</span>
+                </a>
+            </div>
+
+            <div pgs="header-element-onlyFull">
+                <nav pgs="menu" pgs-option="menuHorizontal menuShort" aria-label="Main menu">
+                    <ul>
+                        <li><a pgs="button" pgs-option="buttonText buttonHeader buttonPaddingEqual" href="/">Home</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div pgs="header-element-onlyCompact">
+            </div>
+
+            <div pgs="header-element-alwaysOnLast">
+
+            </div>
+
+            <div pgs="header-element-hamburger modal" pgs-option="modalContainerPGS[header]">
+
+                <button pgs="button modal-button modal-close header-element-hamburger-button" pgs-option="buttonIcon" type="button" aria-label="Open menu">
+                    <i pgs="icon" pgs-option="icon-hamburgerTwo" aria-hidden="true"></i>
+                </button>
+
+                <dialog pgs="modal-dialog" pgs-option="modalRight">
+                    <nav pgs="menu" pgs-option="menuHorizontal menuShort" aria-label="Main menu">
+                        <ul>
+                            <li><a pgs="button" pgs-option="buttonText buttonHeader buttonPaddingEqual" href="/">Home</a></li>
+                        </ul>
+                    </nav>
+                </dialog>
+            </div>
+        </div>
+    </header>
+
+    <!-- = MAIN -->
+    <main pgs="main">
+        <section pgs="sectionSpecificity flexColumn" pgs-option="gapSections">
+
+            <div pgs="sectionSpecificity-child">
+                <h1>Lorem ipsum</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae, itaque!</p>
+            </div>
+
+            <div pgs="slides" pgs-option="slidesShadowDesktop">
+                <ul pgs="slides-container">
+                    <li pgs="slides-container-slide">
+                        <article pgs="card">
+                            <img pgs="card-img imgCover" src="https://placehold.net/600x400.png" alt="Slide 1">
+                            <div pgs="card-content">
+                                <h3>Lorem ipsum dolor</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            </div>
+                        </article>
+                    </li>
+
+                    <li pgs="slides-container-slide">
+                        <article pgs="card">
+                            <img pgs="card-img imgCover" src="https://placehold.net/600x400.png" alt="Slide 2">
+                            <div pgs="card-content">
+                                <h3>Sit amet consectetur</h3>
+                                <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                            </div>
+                        </article>
+                    </li>
+
+                    <li pgs="slides-container-slide">
+                        <article pgs="card">
+                            <img pgs="card-img imgCover" src="https://placehold.net/600x400.png" alt="Slide 3">
+                            <div pgs="card-content">
+                                <h3>Adipiscing elit sed</h3>
+                                <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                            </div>
+                        </article>
+                    </li>
+                    <li pgs="slides-container-slide">
+                        <article pgs="card">
+                            <img pgs="card-img imgCover" src="https://placehold.net/600x400.png" alt="Slide 3">
+                            <div pgs="card-content">
+                                <h3>Adipiscing elit sed</h3>
+                                <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                            </div>
+                        </article>
+                    </li>
+                    <li pgs="slides-container-slide">
+                        <article pgs="card">
+                            <img pgs="card-img imgCover" src="https://placehold.net/600x400.png" alt="Slide 3">
+                            <div pgs="card-content">
+                                <h3>Adipiscing elit sed</h3>
+                                <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                            </div>
+                        </article>
+                    </li>
+                    <li pgs="slides-container-slide">
+                        <article pgs="card">
+                            <img pgs="card-img imgCover" src="https://placehold.net/600x400.png" alt="Slide 3">
+                            <div pgs="card-content">
+                                <h3>Adipiscing elit sed</h3>
+                                <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                            </div>
+                        </article>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>

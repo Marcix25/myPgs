@@ -2,7 +2,7 @@
 
 # Section
 
-Section variants that control width, padding, and specific content treatment while preserving shared vertical spacing.
+Section variants that control width, padding, and specific content treatment while preserving shared vertical spacing. The content column is `--page-width` wide, centred, with `--padding-page` on either side; an element that spans the full width instead can line itself up with that column through `--page-edge`, the distance from its own edge to where the content starts, or through `--page-edgeFlush`, the same measure but allowed to fall to zero once the column no longer fits, so the element runs edge to edge on a narrow screen (Slides uses the flush one for its first and last slide).
 
 ## PGS
 

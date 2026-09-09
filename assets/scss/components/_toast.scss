@@ -139,9 +139,9 @@
         }
     }
 
-    //== the plain toast: it takes the box surface the container already defaults to, written out
-    //== rather than left implicit so the state exists in CSS like every other one
-    [pgs-state~="normal"] {
+    //== the plain toast: no severity of its own, so it keeps the box surface the container already
+    //== defaults to. Written out rather than left implicit, so the state exists in CSS like the others
+    [pgs-state~="neutral"] {
         --toast-background: var(--color-box);
         --toast-background-timer: color-mix(in srgb, var(--color-box) 95%, var(--color-black) 5%);
         --toast-shadow-color: unset;

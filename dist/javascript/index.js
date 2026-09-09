@@ -1755,7 +1755,14 @@ const fn_notification = {
         description: "",
         closeTitle: "Close",
         emptyMessage: "No notifications",
+        panelCloseTitle: "Close",
         type: {
+            //== the plain one: no severity colour, no glyph, no title of its own — just the
+            //== message on the box surface the panel already defaults to
+            neutral: {
+                title: "",
+                icon: ""
+            },
             error: {
                 title: "Error",
                 icon: '<i pgs="icon" pgs-option="icon-circleXmark"></i>'
@@ -1836,8 +1843,10 @@ const fn_notification = {
         }
 
         const { type: typeDefaults, ...defaults } = this._defaults;
+        //== null is not a value here, it is "leave it to the type": the JSON path already reads it
+        //== that way (notification.icon || undefined), so the JS API answers the same
         const definedOptions = Object.fromEntries(
-            Object.entries(options).filter(([, value]) => value !== undefined)
+            Object.entries(options).filter(([, value]) => value !== undefined && value !== null)
         );
         const config = {
             ...defaults,
@@ -1868,18 +1877,24 @@ const fn_notification = {
         pgs(notification).state.add(type);
         pgs(notification).add("_notifications-element");
         notification.setAttribute("role", type == "error" ? "alert" : "status");
+        //== a type without a glyph (neutral, or an explicit icon: "") must not leave an empty box
+        //== behind: the row is a grid with a gap, so the empty div would still push the text over
+        const iconHtml = icon ? `<div pgs="_notifications-element-content-icon">${icon}</div>` : "";
+
         notification.innerHTML = `
             <div pgs="_notifications-element-content">
-                <div pgs="_notifications-element-content-icon">${icon}</div>
+                ${iconHtml}
                 <p>${text}</p>
+                <button type="button" pgs="button _notifications-element-content-delete" pgs-option="buttonIcon"><i pgs="icon" pgs-option="icon-close"></i></button>
             </div>
             <div pgs="_notifications-element-buttons">
-                <button type="button" pgs="button _notifications-element-buttons-delete" pgs-option="buttonText">${closeTitle}</button>
             </div>
         `;
 
         const notificationButtons = pgs(notification).querySelector("_notifications-element-buttons");
-        const btnDelete = pgs(notification).querySelector("_notifications-element-buttons-delete");
+        const btnDelete = pgs(notification).querySelector("_notifications-element-content-delete");
+        //== the dismiss button draws a cross, so closeTitle is its accessible name and nothing else.
+        //== Set as a property rather than written into the template above: no escaping to get wrong
         btnDelete.ariaLabel = closeTitle === "Close" ? "Close notification" : closeTitle;
 
         //+ Animation delete
@@ -1916,8 +1931,12 @@ const fn_notification = {
                 if (button.close !== false) deleteNotification();
             });
 
-            notificationButtons.insertBefore(buttonElement, btnDelete);
+            notificationButtons.appendChild(buttonElement);
         });
+
+        //== the row carries a padding and a tinted strip of its own, so an empty one is not
+        //== invisible: it has to be taken out of the layout. The default is [], never a falsy value
+        if (!buttons?.length) pgs(notificationButtons).add("hidden");
 
         containerNotification.appendChild(notification);
         this._updateBellCounter();
@@ -1935,10 +1954,12 @@ const fn_notification = {
         const containerNotification = this._getContainer();
 
         if (containerNotification) {
-            const ids = Array.from(pgs(containerNotification).querySelectorAll("_notifications-element"))
-                .map(element => element.dataset.notificationId);
+            //== only the notifications go: the panel also holds its own close button, and emptying
+            //== the whole container would take that with them
+            const elements = Array.from(pgs(containerNotification).querySelectorAll("_notifications-element"));
+            const ids = elements.map(element => element.dataset.notificationId);
 
-            containerNotification.innerHTML = "";
+            elements.forEach(element => element.remove());
             containerNotification.dispatchEvent(new CustomEvent("pgs:notification:deleteAll", {
                 bubbles: true,
                 detail: { ids }
@@ -2029,6 +2050,17 @@ const fn_notification = {
             pgs(content).add("modal-dialog-content");
             pgs(content).add("_notifications");
 
+            //== the panel had no closer of its own: the bell was the only one, so the modal wired
+            //== its close to that. Written first, it sits above the first notification, and being
+            //== inside the dialog it is the one pgs.modal picks up (the bell keeps toggling on its
+            //== own modal-button, since openModal already closes an open dialog)
+            const closeButton = document.createElement("button");
+            closeButton.type = "button";
+            closeButton.textContent = this._defaults.panelCloseTitle;
+            pgs(closeButton).add("button", "modal-close", "_notifications-close");
+            pgs(closeButton).option.add("buttonMini");
+            content.appendChild(closeButton);
+
             dialog.appendChild(content);
             modalWrapper.appendChild(dialog);
             created = true;
@@ -2053,6 +2085,7 @@ const PGS_notification = {
     success: (options = {}) => fn_notification.show("success", options),
     info: (options = {}) => fn_notification.show("info", options),
     warning: (options = {}) => fn_notification.show("warning", options),
+    neutral: (options = {}) => fn_notification.show("neutral", options),
     deleteAll: () => fn_notification.deleteAll()
 };
 
@@ -3377,9 +3410,9 @@ const fn_toast = {
         linkTitle: "Open",
         closeTitle: "Close",
         type: {
-            //== the plain one: no colour, no glyph, no title of its own — just the message on the
-            //== box surface the container already defaults to
-            normal: {
+            //== the plain one: no severity colour, no glyph, no title of its own — just the
+            //== message on the box surface the container already defaults to
+            neutral: {
                 title: "",
                 icon: ""
             },
@@ -3505,7 +3538,7 @@ const fn_toast = {
         pgs(toast).state.add(type);
         pgs(toast).add("_toast-element");
         toast.setAttribute("role", type == "error" ? "alert" : "status");
-        //== a type without a glyph (normal, or an explicit icon: "") must not leave an empty box
+        //== a type without a glyph (neutral, or an explicit icon: "") must not leave an empty box
         //== behind: the row is a flex with a gap, so the empty div would still push the text over
         const iconHtml = icon ? `<div pgs="_toast-element-content-icon">${icon}</div>` : "";
 
@@ -3619,7 +3652,7 @@ const PGS_toast = {
     success: (options = {}) => fn_toast.show("success", options),
     info: (options = {}) => fn_toast.show("info", options),
     warning: (options = {}) => fn_toast.show("warning", options),
-    normal: (options = {}) => fn_toast.show("normal", options),
+    neutral: (options = {}) => fn_toast.show("neutral", options),
     deleteAll: () => fn_toast.deleteAll()
 };
 

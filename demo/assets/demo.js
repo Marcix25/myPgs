@@ -42,6 +42,46 @@ function setupStaticNavigation() {
     if (initialPath) activate(initialPath, false);
 }
 
+//+ the pre-navigator.clipboard way of copying: put the text in a field, select it, let the browser
+//+ copy the selection. setSelectionRange as well as select(), because iOS Safari ignores the latter
+//+ on its own; off-screen rather than hidden, since a display:none field cannot be selected at all
+function copyBySelection(text) {
+    const field = document.createElement("textarea");
+    field.value = text;
+    field.style.position = "fixed";
+    field.style.top = "-1000px";
+    field.style.opacity = "0";
+    document.body.appendChild(field);
+    field.select();
+    field.setSelectionRange(0, field.value.length);
+
+    let copied = false;
+    try {
+        copied = document.execCommand("copy");
+    } catch (error) {
+        copied = false;
+    }
+
+    field.remove();
+    return copied;
+}
+
+//+ navigator.clipboard only exists in a secure context: opening the demo over plain http from
+//+ another device (npm run serve:lan, a phone on the same network) or straight from file:// leaves
+//+ it undefined, which is why the fallback above is still here
+async function copyText(text) {
+    if (navigator.clipboard?.writeText) {
+        try {
+            await navigator.clipboard.writeText(text);
+            return true;
+        } catch (error) {
+            //== a denied permission is not the end of it: the selection path may still go through
+        }
+    }
+
+    return copyBySelection(text);
+}
+
 //= COPY BUTTONS (delegated: works for every .exampleSource-copy button in the page, no per-button
 //= closure needed since the markup was written out as static HTML, not built via document.createElement)
 function setupCopyButtons() {
@@ -53,17 +93,16 @@ function setupCopyButtons() {
         if (!code) return;
 
         const icon = button.querySelector("i");
-        try {
-            await navigator.clipboard.writeText(code.textContent);
-            if (icon) icon.className = "fa-solid fa-check";
-            button.setAttribute("aria-label", "Copiato");
-            setTimeout(() => {
-                if (icon) icon.className = "fa-solid fa-copy";
-                button.setAttribute("aria-label", "Copia il codice HTML");
-            }, 1500);
-        } catch (error) {
-            console.error("Copia negli appunti non riuscita.", error);
-        }
+        const copied = await copyText(code.textContent);
+        if (!copied) console.error("Copia negli appunti non riuscita.");
+
+        //== the button says how it went either way: a silent failure looks like a dead button
+        if (icon) icon.className = copied ? "fa-solid fa-check" : "fa-solid fa-xmark";
+        button.setAttribute("aria-label", copied ? "Copiato" : "Copia non riuscita");
+        setTimeout(() => {
+            if (icon) icon.className = "fa-solid fa-copy";
+            button.setAttribute("aria-label", "Copia il codice HTML");
+        }, 1500);
     });
 }
 
