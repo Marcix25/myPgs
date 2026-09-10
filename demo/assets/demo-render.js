@@ -414,15 +414,40 @@ function extractDemoBlocks(markup, { unwrap = true } = {}) {
 
 //= HTML STRING RENDERING (the part with no generate-component-docs.js equivalent: that script
 //= renders Markdown, this renders the demo's own panel HTML)
-function renderDocListHtml(items) {
+//+ isPanel turns the list into the accordion's own panel: the token and the initial hidden go on
+//+ the <ul> itself, since there is nothing else between it and the accordion root
+function renderDocListHtml(items, isPanel = false) {
     const rows = items.map(item => `<li><code>${escapeHtml(item.key)}</code>: ${escapeHtml(item.description)}</li>`).join("");
-    return `<ul pgs="flexColumn" pgs-option="gapTexts">${rows}</ul>`;
+    return `<ul pgs="flexColumn${isPanel ? " accordion-content" : ""}" pgs-option="gapTexts"${isPanel ? " hidden" : ""}>${rows}</ul>`;
 }
 
+//== the two lists a reader opens a reference for; the rest stay closed so the doc block does not
+//== push the examples below the fold
+const DOC_GROUPS_OPEN = new Set([LIST_TAG_LABELS.pgs, LIST_TAG_LABELS["pgs-option"]]);
+
+//+ every top-level group of the doc block is an accordion: the lists are long and a reader is
+//+ usually after one of them. The heading is the control — pgs.accordion gives it role="button"
+//+ and tabindex, so a heading stays operable — and both it and the panel have to be direct
+//+ children of the root, which is what the module looks for. The panel is always written hidden so
+//+ it does not flash open before the JavaScript runs; accordionAutoOpen is what reopens the two
+//+ groups above at init. There is no accordionContainer around these on purpose — without a group
+//+ each panel answers for itself, so reading one does not collapse the rest of the block
+function renderDocAccordionHtml(label, panelHtml, className = "") {
+    const classAttribute = className ? ` class="${className}"` : "";
+    const options = DOC_GROUPS_OPEN.has(label) ? "gapTexts accordionAutoOpen" : "gapTexts";
+    return `<div${classAttribute} pgs="flexColumn accordion" pgs-option="${options}">` +
+        `<h4 pgs="accordion-button">${escapeHtml(label)}</h4>` +
+        panelHtml +
+        `</div>`;
+}
+
+//== only the h4 groups become accordions: the h5 buckets live inside the Related panel, and an
+//== accordion nested in another one would close its own parent, since opening one closes every
+//== other accordion in the document
 function renderDocGroupHtml(label, items, level) {
     if (!items.length) return "";
-    const headingClass = level === "h4" ? "" : ` class="demoContent-doc-subheading"`;
-    return `<div pgs="flexColumn" pgs-option="gapTexts"><${level}${headingClass}>${escapeHtml(label)}</${level}>${renderDocListHtml(items)}</div>`;
+    if (level === "h4") return renderDocAccordionHtml(label, renderDocListHtml(items, true));
+    return `<div pgs="flexColumn" pgs-option="gapTexts"><${level} class="demoContent-doc-subheading">${escapeHtml(label)}</${level}>${renderDocListHtml(items)}</div>`;
 }
 
 function renderRelatedGroupHtml(items, markup) {
@@ -441,14 +466,16 @@ function renderRelatedGroupHtml(items, markup) {
     buckets.push(["Other", items.filter(item => !grouped.has(item))]);
 
     const groupsHtml = buckets.map(([label, groupItems]) => renderDocGroupHtml(label, groupItems, "h5")).join("");
-    return `<div class="demoContent-doc-related" pgs="flexColumn" pgs-option="gapTexts"><h4>Related elements</h4>${groupsHtml}</div>`;
+    const panel = `<div pgs="flexColumn accordion-content" pgs-option="gapTexts" hidden>${groupsHtml}</div>`;
+    return renderDocAccordionHtml("Related elements", panel, "demoContent-doc-related");
 }
 
 function renderCssVariablesGroupHtml(basename, cssText) {
     const variables = extractCssVariables(basename, cssText);
     if (!variables.length) return "";
     const items = variables.map(name => `<li><code>${escapeHtml(name)}</code></li>`).join("");
-    return `<div class="demoContent-doc-cssVariables" pgs="flexColumn" pgs-option="gapTexts"><h4>CSS Variables</h4><ul pgs="flexColumn" pgs-option="gapTexts">${items}</ul></div>`;
+    const panel = `<ul pgs="flexColumn accordion-content" pgs-option="gapTexts" hidden>${items}</ul>`;
+    return renderDocAccordionHtml("CSS Variables", panel, "demoContent-doc-cssVariables");
 }
 
 function renderDocumentationHtml(data, markup, basename, cssText) {
@@ -463,7 +490,7 @@ function renderDocumentationHtml(data, markup, basename, cssText) {
         renderCssVariablesGroupHtml(basename, cssText),
     ].filter(Boolean).join("");
     if (!parts) return "";
-    return `<div class="demoContent-doc" pgs="box flexColumn" pgs-option="gapElements">${parts}</div>`;
+    return `<div class="demoContent-doc" pgs="box flexColumn accordionContainer" pgs-option="gapElements">${parts}</div>`;
 }
 
 function renderHeadingBlockHtml(title, description, level) {

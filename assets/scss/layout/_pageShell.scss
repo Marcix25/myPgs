@@ -20,7 +20,6 @@
 //= PAGE SHELL
 [pgs~="pageShell"] {
     --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-padding-inline) * 2));
-    --pageShell-sizeMaskImage: 40px;
     --pageShell-padding-inline: var(--padding-page);
     --pageShell-padding-top: var(--page-top);
     --pageShell-padding-bottom: var(--gap-elements);
@@ -29,8 +28,11 @@
     --pageShell-content-width: var(--page-width);
     // aside
     --pageShell-aside-width: 20rem;
-    --pageShell-aside-maxHeight: calc(100svh - var(--pageShell-padding-top));
-    --pageShell-aside-top: var(--heightOfHeader);
+    //++ asideScroll
+    --pageShell-asideScroll-top: var(--heightOfHeader);
+    --pageShell-asideScroll-maxHeight: calc(100svh - var(--pageShell-asideScroll-top));
+    //++ asideShadow
+    --pageShell-asideShadow-sizeMaskImage: 40px;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-areas: "content";
@@ -54,13 +56,13 @@
         --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-aside-width) * 2) + (var(--pageShell-gap) * 2) + (var(--pageShell-padding-inline) * 2));
     }
 
-    /*  
+    /*
         columns: one track per area, so a sidebar that is not there leaves no track
         and no gap. The sidebar tracks are auto and take their size from the sidebar
         width, so they collapse by themselves once a @container band stacks the
         children — no minmax is needed to keep the rows inside the shell.
         :where keeps the compositions at the same specificity, so source order decides
-        and the two-sidebar case comes last. 
+        and the two-sidebar case comes last.
     */
     //== type of shell
     //=== aside | content
@@ -87,7 +89,7 @@
         min-width: 0;
         width: 100%;
         max-width: var(--pageShell-content-width);
-        // padding-block: var(--pageShell-sizeMaskImage);
+        // padding-block: var(--pageShell-asideShadow-sizeMaskImage);
     }
 
     //== aside
@@ -96,7 +98,7 @@
         transition: top 0.3s ease;
         width: var(--pageShell-aside-width);
         min-width: 0;
-        // padding-block: var(--pageShell-sizeMaskImage);
+        // padding-block: var(--pageShell-asideShadow-sizeMaskImage);
         display: grid;
         grid-template-columns: 1fr;
 
@@ -115,10 +117,10 @@
     }
 
     //==- RESPONSIVE ==//
-    /* 
+    /*
         A band can never target the shell itself: the shell is the query container
         and nothing can query its own container. So each band re-places the children.
-        type of shell 
+        type of shell
     */
     //=== aside | content
     &:has(> [pgs~="pageShell-aside"] + [pgs~="pageShell-content"]) {
@@ -212,40 +214,35 @@
     }
 
     //++ pageShellAsideScroll
-    //++ pageShellAsideScrollFlush
-    &[pgs-option~="pageShellAsideScroll"],
-    &[pgs-option~="pageShellAsideScrollFlush"] {
+    &[pgs-option~="pageShellAsideScroll"] {
+        padding-top: 0;
 
         //=== vertical: the sidebar stacks, so it stops being its own scroller
-        //+( big-tablet 
+        //-( big-tablet
+        @container (max-width: #{$big-tablet}) {
+            >*:first-child {
+                padding-top: var(--pageShell-padding-top);
+            }
+        }
+
+        //+( big-tablet
         @container (min-width: #{$big-tablet}) {
             [pgs~="pageShell-aside"] {
                 position: sticky;
                 overflow-y: auto;
-                top: var(--pageShell-aside-top);
+                top: var(--pageShell-asideScroll-top);
                 scrollbar-color: transparent transparent;
-                max-height: var(--pageShell-aside-maxHeight);
+                max-height: var(--pageShell-asideScroll-maxHeight);
+                padding-top: calc(var(--pageShell-padding-top) - var(--pageShell-asideScroll-top));
+                padding-top: var(--pageShell-padding-top);
 
                 &:hover {
                     scrollbar-color: var(--color-gray) transparent;
                 }
             }
-        }
-    }
-
-    //++ pageShellAsideScrollFlush
-    &[pgs-option~="pageShellAsideScrollFlush"] {
-
-        //+( big-tablet 
-        @container (min-width: #{$big-tablet}) {
-            [pgs~="pageShell-aside"] {
-                max-height: calc(100svh - var(--pageShell-aside-top));
-                margin-top: calc(var(--pageShell-padding-top) * -1);
-                // margin-left: calc(var(--pageShell-padding-inline)* -1);
-            }
 
             [pgs~="pageShell-content"] {
-                min-height: var(--pageShell-aside-maxHeight);
+                padding-top: var(--pageShell-padding-top);
             }
         }
     }
@@ -253,12 +250,11 @@
     //++ pageShellAsideShadow
     &[pgs-option~="pageShellAsideShadow"] {
 
-        //+( big-tablet 
+        //+( big-tablet
         @container (min-width: #{$big-tablet}) {
             [pgs~="pageShell-aside"] {
-                -webkit-mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-sizeMaskImage), black calc(100% - var(--pageShell-sizeMaskImage)), transparent 100%);
-                mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-sizeMaskImage), black calc(100% - var(--pageShell-sizeMaskImage)), transparent 100%);
-                padding-block: var(--pageShell-sizeMaskImage);
+                -webkit-mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-asideShadow-sizeMaskImage), black calc(100% - var(--pageShell-asideShadow-sizeMaskImage)), transparent 100%);
+                mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-asideShadow-sizeMaskImage), black calc(100% - var(--pageShell-asideShadow-sizeMaskImage)), transparent 100%);
             }
         }
     }

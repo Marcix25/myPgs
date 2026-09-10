@@ -6,7 +6,6 @@
 // add an icon there and re-run it, rather than hand-editing the data URIs below. "icon-name.svg" is
 // a single-layer glyph; a duo icon is two files sharing a base name with a -before/-after suffix
 // (drawn on ::before/::after respectively), e.g. iconDuo-example-before.svg / -after.svg.
-
 $icon-chevronDown: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M136 196 A34 34 0 0 0 136 244.1L232 340 A34 34 0 0 0 280 340L376 244.1 A34 34 0 0 0 376 196L376 196 A34 34 0 0 0 327.9 196L263.1 260.8 A10 10 0 0 1 248.9 260.8L184.1 196 A34 34 0 0 0 136 196Z'%3E%3C/path%3E%3C/svg%3E");
 $icon-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath d='M424 112 a34 34 0 0 1 0 48 L200 384 a34 34 0 0 1 -48 0 L24 256 a34 34 0 0 1 48 -48 L176 312 L376 112 a34 34 0 0 1 48 0 z'%3E%3C/path%3E%3C/svg%3E");
 $icon-arrowLeft: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M64 256 L232 88 L232 220 L456 220 L456 292 L232 292 L232 424 Z'/%3E%3C/svg%3E");
@@ -45,63 +44,60 @@ $icon-upload: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' 
 $icon-user: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill-rule='evenodd' d='M256 82 a86 86 0 1 1 0 172 a86 86 0 1 1 0 -172 z M96 440 A160 160 0 0 1 416 440 A24 24 0 0 1 392 464 H120 A24 24 0 0 1 96 440 Z'%3E%3C/path%3E%3C/svg%3E");
 $icon-hamburger: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M56 154 A34 34 0 0 1 90 120 L422 120 A34 34 0 0 1 456 154 A34 34 0 0 1 422 188 L90 188 A34 34 0 0 1 56 154 Z M56 256 A34 34 0 0 1 90 222 L422 222 A34 34 0 0 1 456 256 A34 34 0 0 1 422 290 L90 290 A34 34 0 0 1 56 256 Z M56 358 A34 34 0 0 1 90 324 L422 324 A34 34 0 0 1 456 358 A34 34 0 0 1 422 392 L90 392 A34 34 0 0 1 56 358 Z'/%3E%3C/svg%3E");
 $icon-hamburgerTwo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M56,183.5c0-18.8,15.2-34,34-34h332c18.8,0,34,15.2,34,34s-15.2,34-34,34H90c-18.8,0-34-15.2-34-34h0ZM56,326.5c0-18.8,15.2-34,34-34h332c18.8,0,34,15.2,34,34h0c0,18.8-15.2,34-34,34H90c-18.8,0-34-15.2-34-34h0Z'/%3E%3C/svg%3E");
-
 $icon-hamburgerTwo-before: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M56,183.5c0-18.8,15.2-34,34-34h332c18.8,0,34,15.2,34,34s-15.2,34-34,34H90c-18.8,0-34-15.2-34-34h0Z'/%3E%3C/svg%3E");
 $icon-hamburgerTwo-after: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M56,326.5c0-18.8,15.2-34,34-34h332c18.8,0,34,15.2,34,34h0c0,18.8-15.2,34-34,34H90c-18.8,0-34-15.2-34-34h0Z'/%3E%3C/svg%3E");
-
 $icon-ellipsis: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Ccircle cx='256' cy='154' r='34'/%3E%3Ccircle cx='256' cy='256' r='34'/%3E%3Ccircle cx='256' cy='358' r='34'/%3E%3C/svg%3E");
-
-//the drawable set: every key here becomes an option of the icon component, so adding an entry is
-//all it takes to make a new glyph writable as pgs-option. Removing or renaming one is a breaking
-//change, since the keys are public.
+//the drawable set. The key is the bare glyph name: the two prefixes are written where they are
+//used, icon- for the public option (pgs-option="icon-star") and --icon-glyph- for the custom
+//property that carries the drawing, so the glyphs never mix with the icon's own configuration.
+//Adding an entry is all it takes to make a new glyph writable as pgs-option; removing or renaming
+//one is a breaking change, since the keys are public through that option.
 $icons-builtin: (
-    icon-arrowLeft: $icon-arrowLeft,
-    icon-arrowRight: $icon-arrowRight,
-    icon-bell: $icon-bell,
-    icon-check: $icon-check,
-    icon-chevronDown: $icon-chevronDown,
-    icon-circle: $icon-circle,
-    icon-circleCheck: $icon-circleCheck,
-    icon-circleInfo: $icon-circleInfo,
-    icon-circleXmark: $icon-circleXmark,
-    icon-close: $icon-close,
-    icon-cookie: $icon-cookie,
-    icon-magnifyingGlass: $icon-magnifyingGlass,
-    icon-moon: $icon-moon,
-    icon-sliders: $icon-sliders,
-    icon-star: $icon-star,
-    icon-sun: $icon-sun,
-    icon-triangleExclamation: $icon-triangleExclamation,
-    icon-calendar: $icon-calendar,
-    icon-chatBubble: $icon-chatBubble,
-    icon-clock: $icon-clock,
-    icon-download: $icon-download,
-    icon-envelope: $icon-envelope,
-    icon-eye: $icon-eye,
-    icon-gear: $icon-gear,
-    icon-heart: $icon-heart,
-    icon-home: $icon-home,
-    icon-lock: $icon-lock,
-    icon-mapPin: $icon-mapPin,
-    icon-minus: $icon-minus,
-    icon-pause: $icon-pause,
-    icon-pencil: $icon-pencil,
-    icon-play: $icon-play,
-    icon-plus: $icon-plus,
-    icon-trash: $icon-trash,
-    icon-upload: $icon-upload,
-    icon-user: $icon-user,
-    icon-hamburger: $icon-hamburger,
-    icon-hamburgerTwo: $icon-hamburgerTwo,
-    icon-ellipsis: $icon-ellipsis,
+    arrowLeft: $icon-arrowLeft,
+    arrowRight: $icon-arrowRight,
+    bell: $icon-bell,
+    check: $icon-check,
+    chevronDown: $icon-chevronDown,
+    circle: $icon-circle,
+    circleCheck: $icon-circleCheck,
+    circleInfo: $icon-circleInfo,
+    circleXmark: $icon-circleXmark,
+    close: $icon-close,
+    cookie: $icon-cookie,
+    magnifyingGlass: $icon-magnifyingGlass,
+    moon: $icon-moon,
+    sliders: $icon-sliders,
+    star: $icon-star,
+    sun: $icon-sun,
+    triangleExclamation: $icon-triangleExclamation,
+    calendar: $icon-calendar,
+    chatBubble: $icon-chatBubble,
+    clock: $icon-clock,
+    download: $icon-download,
+    envelope: $icon-envelope,
+    eye: $icon-eye,
+    gear: $icon-gear,
+    heart: $icon-heart,
+    home: $icon-home,
+    lock: $icon-lock,
+    mapPin: $icon-mapPin,
+    minus: $icon-minus,
+    pause: $icon-pause,
+    pencil: $icon-pencil,
+    play: $icon-play,
+    plus: $icon-plus,
+    trash: $icon-trash,
+    upload: $icon-upload,
+    user: $icon-user,
+    hamburger: $icon-hamburger,
+    hamburgerTwo: $icon-hamburgerTwo,
+    ellipsis: $icon-ellipsis,
 );
-
 //Two-layer glyphs. Unlike the single-path set above, their paths are drawn on ::before and ::after
 //so a component can colour or animate each layer independently.
 $icons-duo: (
-    icon-hamburgerTwo: ($icon-hamburgerTwo-before, $icon-hamburgerTwo-after),
+    hamburgerTwo: ($icon-hamburgerTwo-before, $icon-hamburgerTwo-after),
 );
-
 
 //= ICON SVG
 //+ inline-block, not block or list-item: the glyph has to sit on the text line like a font icon
@@ -116,4 +112,49 @@ $icons-duo: (
     background-color: $color;
     -webkit-mask: $url center/contain no-repeat;
     mask: $url center/contain no-repeat;
+}
+
+//+ draws a glyph as a mask on one of the element's pseudo-elements. ::before by default, which is
+//+ where an icon font paints too, so an element carrying both draws once and this wins. Pass after
+//+ for a component that wants the glyph at the end of its row, like the accordion arrow: the other
+//+ pseudo-element is blanked either way, so a leftover box never shows up on the opposite side.
+@mixin icon($icon, $on: before) {
+    --iconSize: 1em;
+    //== interpolated: a custom property value is copied out as written, so without #{} this ships
+    //== the literal token "$icon" and every mask below resolves to nothing
+    --icon: #{$icon};
+
+    &::#{$on} {
+        @include iconSvgBase64(var(--icon), 1em, var(--icon-color, currentColor));
+        vertical-align: -0.125em;
+    }
+
+    &::#{if($on == after, before, after)} {
+        content: none;
+    }
+}
+
+@mixin iconDuo($iconBefore, $iconAfter) {
+    --iconSize: 1em;
+    --iconBefore: #{$iconBefore};
+    --iconAfter: #{$iconAfter};
+    display: inline-grid;
+    place-items: center;
+    inline-size: 1em;
+    block-size: 1em;
+    line-height: 1;
+
+    &::before,
+    &::after {
+        grid-area: 1 / 1;
+        vertical-align: -0.125em;
+    }
+
+    &::before {
+        @include iconSvgBase64(var(--iconBefore), var(--iconSize), var(--icon-color, currentColor));
+    }
+
+    &::after {
+        @include iconSvgBase64(var(--iconAfter), var(--iconSize), var(--icon-color, currentColor));
+    }
 }

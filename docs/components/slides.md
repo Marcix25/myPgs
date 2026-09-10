@@ -58,6 +58,7 @@ Slides markup, configuration, behavior, and usage example.
 
 - `--slides-maskEnd`
 - `--slides-maskStart`
+- `--slides-paddingInline-tablet`
 - `--slides-sizeMaskImage`
 
 ## Output

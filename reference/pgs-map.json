@@ -50,7 +50,17 @@
             "accordion-content"
         ],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-option": [
+            "accordionAutoOpen",
+            "accordionMultiOpen"
+        ]
+    },
+    "accordionContainer": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": [
+            "accordionMultiOpen"
+        ]
     },
     "alert": {
         "pgs": [
@@ -621,7 +631,6 @@
         ],
         "pgs-generated": [],
         "pgs-option": [
-            "column-",
             "column-1",
             "column-2",
             "column-3",
@@ -784,7 +793,6 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-option": [
-            "column-",
             "column-1",
             "column-2",
             "column-3",
@@ -1476,7 +1484,6 @@
         "pgs-generated": [],
         "pgs-option": [
             "pageShellAsideScroll",
-            "pageShellAsideScrollFlush",
             "pageShellAsideShadow",
             "pageShellFullPage"
         ]

@@ -5,7 +5,9 @@
 //+ node scripts/sync-icons.js
 //+
 //+ Naming convention read from assets/icons/:
-//+ - "icon-name.svg" is a single-layer glyph -> $icon-name, added to $icons-builtin.
+//+ - "icon-name.svg" is a single-layer glyph -> $icon-name, added to $icons-builtin under the bare
+//+   key "name", which _icon.scss turns into the pgs-option icon-name and the --icon-glyph-name
+//+   custom property.
 //+ - "iconDuo-name-before.svg" + "iconDuo-name-after.svg" (same base name, -before/-after
 //+   suffix) are the two layers of a duo glyph -> $iconDuo-name-before/-after, paired as
 //+   iconDuo-name in $icons-duo. -before draws on ::before, -after on ::after.
@@ -32,6 +34,13 @@ function encodeSvg(raw) {
         .replace(/#/g, "%23")
         .replace(/\s+/g, " ")
         .trim();
+}
+
+//+ the SCSS variable keeps the file's own name ($icon-star), while the map key is the bare glyph
+//+ name: _icon.scss writes the two prefixes where they are used, icon- for the public option and
+//+ --icon-glyph- for the custom property that carries the drawing
+function mapKey(name) {
+    return name.startsWith("icon-") ? name.slice("icon-".length) : name;
 }
 
 function readIcons() {
@@ -102,7 +111,7 @@ function main() {
         scss = result.scss;
         if (result.added) {
             newDeclarations.push(result.declaration);
-            newBuiltinEntries.push(`${name}: $${name},`);
+            newBuiltinEntries.push(`${mapKey(name)}: $${name},`);
         } else {
             updated.push(name);
         }
@@ -119,7 +128,7 @@ function main() {
         if (beforeResult.added || afterResult.added) {
             if (beforeResult.added) newDeclarations.push(beforeResult.declaration);
             if (afterResult.added) newDeclarations.push(afterResult.declaration);
-            newDuoEntries.push(`${name}: ($${beforeVar}, $${afterVar}),`);
+            newDuoEntries.push(`${mapKey(name)}: ($${beforeVar}, $${afterVar}),`);
         } else {
             updated.push(name);
         }

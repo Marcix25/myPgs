@@ -2,13 +2,19 @@
 
 # Accordion
 
-Interactive component that expands one panel at a time while synchronizing visibility, ARIA attributes, and keyboard navigation.
+Expandable panels with synchronized visibility, ARIA attributes and keyboard navigation. An accordion on its own answers for itself: opening it leaves every other panel on the page alone. Wrap a set of them in an accordionContainer to get the one-at-a-time behaviour, scoped to that group.
 
 ## PGS
 
+- `accordionContainer`: groups the accordions inside it, so opening one closes the others of the same group. The group is the nearest container above each accordion, so a nested container keeps its own panels to itself. (Optional)
 - `accordion`: identifies each expandable element initialized by the JavaScript module.
 - `accordion-button`: identifies the control that opens or closes the associated panel.
 - `accordion-content`: identifies the content panel managed through the hidden attribute.
+
+## PGS Options
+
+- `accordionAutoOpen`: written on an accordion, the module opens that panel by itself on load and never closes it on its own afterwards, so it stays open while the rest of its group is used. It is the authored form of the open state: pgs-state belongs to the runtime, and the module writes it from here.
+- `accordionMultiOpen`: written on an accordionContainer, it lifts the one-at-a-time rule for that group, so its panels can be open together. Without a container this is already the behaviour, so the option only means something on the container.
 
 ## PGS States
 
@@ -24,20 +30,19 @@ Interactive component that expands one panel at a time while synchronizing visib
 - `instance.refresh()`: reruns initialization within the accordion container and returns the instance.
 - `instance.isOpen()`: returns true when the open state is active.
 
-## Related elements
+## CSS Variables
 
-### PGS
-
-- `flexColumn`: applies text spacing between the list items.
+- `--accordion-gap`
+- `--accordion-icon`
 
 ## Output
 
-HTML list of accessible accordion items with an associated button and panel.
+A group of accessible accordion items, each with its button and panel, the last one open on load and left open while the others are used.
 
 ## Example
 
 ```html
-<ul pgs="flexColumn">
+<ul pgs="accordionContainer">
     <li pgs="accordion">
         <button pgs="accordion-button" type="button">
             <span>Lorem ipsum dolor</span>
@@ -55,6 +60,16 @@ HTML list of accessible accordion items with an associated button and panel.
 
         <div pgs="accordion-content" hidden>
             <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
+        </div>
+    </li>
+
+    <li pgs="accordion" pgs-option="accordionAutoOpen">
+        <button pgs="accordion-button" type="button">
+            <span>Tempor incididunt (accordionAutoOpen)</span>
+        </button>
+
+        <div pgs="accordion-content" hidden>
+            <p>This panel is already open when the page loads, and stays open while the other two are used.</p>
         </div>
     </li>
 </ul>

@@ -88,7 +88,7 @@
         [pgs~=_notifications-element-content],
         [pgs~=_notifications-element-buttons] {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             flex-direction: row;
             gap: calc(var(--padding)/4);
             z-index: 1;

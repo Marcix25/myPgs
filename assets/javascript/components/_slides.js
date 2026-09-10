@@ -60,46 +60,73 @@ class PGS_Slides {
         });
     }
 
-    //+ PREV 
+    //+ SLIDE THE ARROWS MOVE FROM
+    //== singleScroll starts from the middle one in view, the one the snap is resting on: from the
+    //== first, with three slides showing, the next sibling is already centred and nothing scrolls
+    #currentSlide(towardsEnd) {
+        //== arrow function: a declared one would have its own this and throw here
+        const nearestSlide = () => {
+            const box = this.container.getBoundingClientRect();
+            const middle = (box.left + box.right) / 2;
+
+            return Array.from(this.container.children).reduce((nearest, slide) => {
+                const slideBox = slide.getBoundingClientRect();
+                const distance = Math.abs((slideBox.left + slideBox.right) / 2 - middle);
+                return !nearest || distance < nearest.distance ? { slide, distance } : nearest;
+            }, null)?.slide;
+        };
+
+        const currents = this.container.querySelectorAll('.view');
+        if (!currents.length) return nearestSlide();
+        if (pgs(this.element).option.contains('slidesSingleScroll')) return currents[Math.floor((currents.length - 1) / 2)];
+        return towardsEnd ? currents[currents.length - 1] : currents[0];
+    }
+
+    //+ GO TO A SLIDE
+    //== the two ends run the scroll out instead of centring, so the margin they carry is scrolled
+    //== through and the card lines up with the page content
+    #goToSlide(slide) {
+        if (!slide) return;
+
+        const all = this.container.children;
+        const behavior = this.scrollOptions.behavior;
+
+        //== FIRST SLIDE
+        if (slide === all[0]) this.container.scrollTo({ left: 0, behavior });
+        //== LAST SLIDE
+        else if (slide === all[all.length - 1]) this.container.scrollTo({ left: this.container.scrollWidth, behavior });
+        //== SLIDE
+        else slide.scrollIntoView(this.scrollOptions);
+
+        slide.focus({ preventScroll: true });
+    }
+
+    //+ PREV
+    //== no slide left to move to, but the scroll has not run out: the edge slide is showing with
+    //== its margin still to come, so the arrow finishes the scroll instead of doing nothing
     #previousSlide() {
-        const currents = this.container.querySelectorAll('.view');
-        let current;
-        
-
-        if (pgs(this.element).option.contains('slidesSingleScroll')) current = currents[currents.length - 1];
-        else current = currents[0];
-
-        const prev = current?.previousElementSibling;
-
-        prev?.scrollIntoView(this.scrollOptions);
-        prev?.focus({ preventScroll: true });
+        const all = this.container.children;
+        this.#goToSlide(this.#currentSlide(false)?.previousElementSibling ?? all[0]);
     }
 
-    //+ NEXT 
+    //+ NEXT
     #nextSlide() {
-        const currents = this.container.querySelectorAll('.view');
-        let current;
-
-        
-        
-        if (pgs(this.element).option.contains('slidesSingleScroll')) current = currents[0];
-        else current = currents[currents.length - 1];
-        
-        const next = current?.nextElementSibling;
-        next?.scrollIntoView(this.scrollOptions);
-        next?.focus({ preventScroll: true });
+        const all = this.container.children;
+        this.#goToSlide(this.#currentSlide(true)?.nextElementSibling ?? all[all.length - 1]);
     }
 
-    //+ GO TO NUMBER SLIDE 
+    //+ GO TO NUMBER SLIDE
     #goToNumberSlide(index) {
-        this.container.children[index]?.scrollIntoView(this.scrollOptions);
+        this.#goToSlide(this.container.children[index]);
     }
 
     //+ CALLBACK
     #callback(allLi, container, precButton, nextButton, dots) {
         allLi.forEach(LI => {
+            //== visiblePercent only feeds the scale animation; the threshold is viewRatio, which
+            //== used to be a stored and never read parameter, with 0.8 hardcoded here instead
             const visiblePercent = 0.9 + LI.intersectionRatio * 0.1;
-            const isView = visiblePercent >= 0.98;
+            const isView = LI.intersectionRatio >= this.viewRatio;
 
             //== SCROLL ANIMATION
             if (LI.target.firstElementChild) {
@@ -110,15 +137,6 @@ class PGS_Slides {
             LI.target.classList.toggle("view", isView);
             LI.target.classList.toggle("notView", !isView);
 
-            //== VIEW PREC e NEXT
-            const all = LI.target.parentNode.children;
-            const atStart = all[0].classList.contains("view");
-            const atEnd = all[all.length - 1].classList.contains("view");
-            nextButton.disabled = atEnd;
-            precButton.disabled = atStart;
-            nextButton.setAttribute('aria-disabled', String(atEnd));
-            precButton.setAttribute('aria-disabled', String(atStart));
-
             //== ACTIVE DOT
             const viewElements = Array.from(container.children).filter(el => el.classList.contains('view'));
             dots.forEach((btn, i) => {
@@ -127,6 +145,22 @@ class PGS_Slides {
                 btn.setAttribute('aria-current', isActive ? 'true' : 'false');
             });
         })
+
+        this.#updateArrows(precButton, nextButton);
+    }
+
+    //+ ARROWS STATE
+    //== an arrow goes off only at the end of the scroll, not as soon as the edge slide is in view:
+    //== that slide carries a margin, so it can be entirely on screen with a stretch still to run,
+    //== and the arrow is what runs it
+    #updateArrows(precButton, nextButton) {
+        const atStart = this.container.scrollLeft <= 1;
+        const atEnd = this.container.scrollLeft >= this.container.scrollWidth - this.container.clientWidth - 1;
+
+        nextButton.disabled = atEnd;
+        precButton.disabled = atStart;
+        nextButton.setAttribute('aria-disabled', String(atEnd));
+        precButton.setAttribute('aria-disabled', String(atStart));
     }
 
     //= EXECUTE
@@ -155,6 +189,18 @@ class PGS_Slides {
         precButton.addEventListener("click", () => this.#previousSlide(), { passive: true, signal });
         nextButton.addEventListener("click", () => this.#nextSlide(), { passive: true, signal });
 
+        //== the observer answers what is visible, not where the scroll is: the last stretch can
+        //== settle with no threshold left to cross, so the arrows are refreshed on scroll too
+        let arrowsFrame = 0;
+        this.container.addEventListener("scroll", () => {
+            if (arrowsFrame) return;
+            arrowsFrame = requestAnimationFrame(() => {
+                arrowsFrame = 0;
+                this.#updateArrows(precButton, nextButton);
+            });
+        }, { passive: true, signal });
+        this.#updateArrows(precButton, nextButton);
+
         //== observer
         const observer = new IntersectionObserver(
             (allLi) => this.#callback(allLi, this.container, precButton, nextButton, dots),
@@ -182,12 +228,9 @@ class PGS_Slides {
             getCurrentIndexes: () => Array.from(this.container.children).map((el, i) => el.classList.contains("view") ? i : -1).filter(i => i !== -1),
             getCurrentElements: () => Array.from(this.container.children).filter(el => el.classList.contains("view")),
             getTotal: () => this.container.children.length,
-            isAtStart: () => this.container.children[0]?.classList.contains("view") || false,
-            isAtEnd: () => {
-                const children = this.container.children;
-                const last = children[children.length - 1];
-                return last?.classList.contains("view") || false;
-            },
+            //== same reading as the arrows: the end of the scroll, not the edge slide being in view
+            isAtStart: () => this.container.scrollLeft <= 1,
+            isAtEnd: () => this.container.scrollLeft >= this.container.scrollWidth - this.container.clientWidth - 1,
             refresh: () => {
                 if (API.get(this.element) !== api) return API.get(this.element);
                 destroy();

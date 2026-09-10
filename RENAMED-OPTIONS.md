@@ -11,7 +11,6 @@ token, rinominate per coerenza con il resto della libreria (es. `singleScroll` â
 | Slides | `slideAnimationScale` | `slidesAnimationScale` |
 | Step tabs | `tabIcon` | `stepTabsIcon` |
 | Page shell | `shellAsideScroll` | `pageShellAsideScroll` |
-| Page shell | `shellAsideScrollFlush` | `pageShellAsideScrollFlush` |
 | Page shell | `shellFullPage` | `pageShellFullPage` |
 | Menu | `horizontal` | `menuHorizontal` |
 | Menu | `vertical` | `menuVertical` |

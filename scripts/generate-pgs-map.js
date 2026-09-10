@@ -59,7 +59,14 @@ function optionTokensInJs(text) {
 function tokensIn(text, attribute) {
     const found = new Set();
     const pattern = new RegExp(`\\[${attribute}~?=["']?([A-Za-z_][\\w-]*)`, "g");
-    for (const match of text.matchAll(pattern)) found.add(match[1]);
+
+    for (const match of text.matchAll(pattern)) {
+        //== a token cut short by an interpolation is a prefix the loop completes, not an option of
+        //== its own: [pgs-option~=icon-#{$name}] in the SCSS would otherwise register "icon-"
+        if (text[match.index + match[0].length] === "#") continue;
+        found.add(match[1]);
+    }
+
     return found;
 }
 

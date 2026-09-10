@@ -211,6 +211,10 @@ body {
     max-width: 300px;
 }
 
+#reference-demo-aside {
+    padding-top: calc(var(--heightOfHeader) / 2);
+}
+
 #reference-demo-main {
     position: relative;
     z-index: 1;
@@ -218,7 +222,7 @@ body {
     [pgs~=pageShell] {
         --pageShell-padding-inline: 0;
         --pageShell-padding-top: 0;
-        --pageShell-aside-top: 0;
+        --pageShell-asideScroll-top: 0;
         border: solid 0.1px;
         resize: horizontal;
         overflow: auto;

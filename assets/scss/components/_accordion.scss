@@ -1,33 +1,53 @@
 @use "../mixin/mixin" as *;
 
 //# ACCORDION
+//read by the JavaScript only, declared here so editors suggest them: accordionContainer groups the
+//accordions inside it, so that opening one closes the others, and accordionMultiOpen on that same
+//container lifts the rule and lets them stay open together
+//= ACCORDION CONTAINER
+[pgs~=accordionContainer] {
+    --accordion-gap: var(--gap-elements);
+    display: flex;
+    flex-direction: column;
+    gap: var(--accordion-gap);
+
+    &[pgs-option~=accordionMultiOpen] {}
+}
+
+//= ACCORDION
 [pgs~=accordion] {
     flex-direction: column;
     min-width: 100%;
     position: relative;
     -webkit-user-select: unset;
     user-select: unset;
+    --accordion-icon: var(--icon-glyph-chevronDown);
 
     &:not([pgs~=button]) {
-        padding: 10px;
+        padding-block: 1.0rem;
 
         &::after {
             content: "";
             width: 100%;
             border-bottom: var(--border-complete);
             position: absolute;
-            bottom: -5px;
+            bottom: calc((var(--accordion-gap, 1.0rem) / 2) * -1);
             left: 0;
         }
 
-        [pgs~="accordion-button"]{
+        //== the line separates one accordion from the next, so the last of a run does not draw it:
+        //== written as "no accordion sibling after me" rather than :last-child, so it still holds
+        //== when the container ends with something else
+        &:not(:has(~ [pgs~=accordion]))::after {
+            content: none;
+        }
+
+        [pgs~="accordion-button"] {
             font-weight: var(--font-weight-title);
         }
-        // [pgs~="accordion-content"]{
-        // }
     }
 
-    //= BUTTON
+    //== BUTTON
     [pgs~="accordion-button"] {
         cursor: pointer;
         @include flexRow;
@@ -44,14 +64,14 @@
         border-radius: var(--border-radius-input);
         align-items: center;
         width: 100%;
+        @include icon(var(--accordion-icon), after);
 
         &::after {
-            @include iconSvgBase64($icon-chevronDown);
             margin-left: auto;
         }
     }
 
-    //= CONTENT
+    //== CONTENT
     [pgs~="accordion-content"] {
         @include flexColumn();
         visibility: hidden;
@@ -65,7 +85,12 @@
         overflow: hidden;
     }
 
-    //= OPEN - NOT OPEN
+    //++ OPTION
+    //read by the JavaScript only, declared here so editors suggest it: opens the panel on load and
+    //keeps it open when another one in the group is opened
+    &[pgs-option~=accordionAutoOpen] {}
+
+    //-- STATE OPEN - NOT OPEN
     &:not([pgs-state~=open]) {
         display: block
     }
@@ -79,16 +104,6 @@
             &::after {
                 rotate: 180deg;
             }
-
-            // >i {
-            //     padding: .5rem;
-            //     border-radius: .8rem;
-            //     display: table;
-            //     position: absolute;
-            //     top: calc(var(--padding) * -1);
-            //     left: var(--padding);
-            //     font-size: $iconSpace;
-            // }
         }
 
         [pgs~="accordion-content"] {

@@ -62,7 +62,7 @@
                 //== swaps the drawn glyph via the --icon custom property (see _icon.scss)
                 //== instead of animating two mask layers into an X: a plain CSS override, no JS
                 &[aria-expanded="true"] [pgs-option~="icon-hamburgerTwo"] {
-                    --icon: var(--icon-close);
+                    --icon: var(--icon-glyph-close);
                 }
             }
         }

@@ -72,8 +72,10 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 
 ## CSS Variables
 
-- `--icon-close`
 - `--icon-color`
+- `--icon-glyph-`
+- `--icon-glyph-chevronDown`
+- `--icon-glyph-close`
 - `--icon-size`
 
 ## Output

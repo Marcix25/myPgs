@@ -20,6 +20,7 @@ meaning moved under them, so nothing errors and the page just looks wrong.
 | `pgs.scrollHorizontal(element, speed)` | converted a mouse wheel only, ignoring a trackpad/Magic Mouse | converts any wheel source, trackpad included |
 | `pgs="button"`, a link `pgs="card"`, a link `pgs="box"` | the hover treatment was baked into each component's CSS | the treatment lives only under `pgs="hover"`, which the JS adds to these at load |
 | a bare `<button type="submit">` inside `pgs="form"` | the form styled it as a strong button on its own | draws nothing: mark it `pgs="button"` yourself |
+| several `pgs="accordion"` next to each other | opening one closed every other accordion on the page | each one answers for itself: wrap them in `pgs="accordionContainer"` to get the old behaviour |
 
 So `<span pgs="icon"><i class="fa-solid fa-star"></i></span>` no longer draws a circle. The surface
 is now an option on an icon element:
@@ -74,6 +75,25 @@ it out to get the same button as before:
 `buttonHover` needs no equivalent — `pgs.hover` adds the hover token to anything marked `pgs="button"`.
 This one is worth a pass over every form in the project, since the markup keeps working and only the
 look changes.
+
+Accordion: opening a panel used to close every other accordion in the document, wherever it was —
+two unrelated groups on the same page fought each other, and a single standalone panel was closed by
+somebody else's. The rule now needs a group: `pgs="accordionContainer"` on the element that wraps a
+set of accordions, typically the `<ul>`, and only the panels of that same group close each other.
+Nothing errors, and a lone accordion is better off than before; what changes silently is a set that
+relied on the old behaviour, which now lets all of its panels stay open:
+
+```html
+<ul pgs="flexColumn accordionContainer">
+    <li pgs="accordion">...</li>
+    <li pgs="accordion">...</li>
+</ul>
+```
+
+Two options come with it. `accordionMultiOpen` on the container lifts the rule again, so its panels
+can be open together. `accordionAutoOpen` on a single accordion opens it on load and keeps it open
+while the rest of the group is used — it is also the form to write instead of a hand-written
+`pgs-state="open"`, which still works but belongs to the runtime.
 
 ## 2. Renames
 
@@ -163,7 +183,11 @@ The mouse-scroll option's default also flipped, not just its name: `slidesNotScr
 | was | now |
 | --- | --- |
 | `pgs="pageShell-aside-scroll"` | `pgs-option="pageShellAsideScroll"` on the `pageShell` wrapper (not on the aside) |
-| `--pageShell-aside-sticky-top` | `--pageShell-aside-top` |
+| `--pageShell-aside-sticky-top` | `--pageShell-asideScroll-top` |
+| `--pageShell-aside-maxHeight` | `--pageShell-asideScroll-maxHeight` |
+
+The two sticky properties carry the option's name now, `asideScroll` instead of `aside`: they only
+exist while `pageShellAsideScroll` is on, and the old names read as if every sidebar had them.
 
 ### Buttons and borders
 
@@ -221,7 +245,6 @@ they now do, matching every other option in the library.
 | `pgs-option="slideAnimationScale"` | `pgs-option="slidesAnimationScale"` |
 | `pgs-option="tabIcon"` (Step tabs) | `pgs-option="stepTabsIcon"` |
 | `pgs-option="shellAsideScroll"` | `pgs-option="pageShellAsideScroll"` |
-| `pgs-option="shellAsideScrollFlush"` | `pgs-option="pageShellAsideScrollFlush"` |
 | `pgs-option="shellFullPage"` | `pgs-option="pageShellFullPage"` |
 | `pgs-option="horizontal"` (Menu) | `pgs-option="menuHorizontal"` |
 | `pgs-option="vertical"` (Menu) | `pgs-option="menuVertical"` |
@@ -283,7 +306,15 @@ styling, exactly as `twoState` was.
 | was | now |
 | --- | --- |
 | `--icon-padding`, `--icon-background` | `--iconBox-padding`, `--iconBox-background` |
+| `--icon-close`, `--icon-chevronDown`, ... (every built-in glyph) | `--icon-glyph-close`, `--icon-glyph-chevronDown`, ... |
 | `pgs-option="iconDuo-hamburger"` | `pgs-option="icon-hamburgerTwo iconDuo"` |
+
+The glyphs moved to a namespace of their own: the data URI of each built-in icon is now published as
+`--icon-glyph-<name>` instead of `--icon-<name>`, so the drawings no longer sit in the same list as
+the icon's actual configuration (`--icon`, `--icon-size`, `--icon-color`). The option written in the
+markup is unchanged — `pgs-option="icon-close"` is still `icon-close` — so this only matters to a
+stylesheet that read a glyph by hand, e.g. `--icon: var(--icon-close)` becomes
+`var(--icon-glyph-close)`.
 
 `iconDuo-hamburger` was NOT left alone as an earlier note here claimed — it no longer exists.
 `iconDuo` is now a general-purpose option: it draws the two-layer version of any glyph that has one
@@ -339,7 +370,7 @@ grep -rnE '\-\-(fa-|menu-|icon-background|icon-padding|border-complete-hover|sli
 grep -rn 'pgs="[^"]*\bicon\b' . | grep -v 'pgs-option'
 
 # 6. options renamed to carry their component's name
-grep -rnE 'pgs-option="(singleScroll|shadowDesktop|notScrollWithMouse|slideAnimationScale|tabIcon|shellAsideScroll|shellAsideScrollFlush|shellFullPage|horizontal|vertical|position|containerID|containerPGS|disableBackdropClose|history|left|right|topLevel|compactBottom)([" \[])' .
+grep -rnE 'pgs-option="(singleScroll|shadowDesktop|notScrollWithMouse|slideAnimationScale|tabIcon|shellAsideScroll|shellFullPage|horizontal|vertical|position|containerID|containerPGS|disableBackdropClose|history|left|right|topLevel|compactBottom)([" \[])' .
 
 # 7. Step tabs' bare token, and the old hamburger duo option
 grep -rnE 'pgs="[^"]*\btab\b|pgs-option="[^"]*\biconDuo-hamburger\b' .
@@ -367,6 +398,12 @@ grep -rn 'twoState' .
 
 # 15. submit buttons that relied on the form styling them (read, don't replace)
 grep -rn 'type="submit"' . | grep -v 'pgs='
+
+# 16. accordion groups that need the new container (read, don't replace)
+grep -rn 'pgs="[^"]*\baccordion\b' .
+
+# 17. built-in glyphs read by hand, now on the --icon-glyph-* namespace
+grep -rnE 'var\(--icon-(?!glyph|color|size)' .
 ```
 
 Hit 5 needs reading rather than replacing: an `icon` that wraps another element wanted the surface
@@ -375,4 +412,6 @@ and needs `pgs-option="iconBox"`; one that was empty next to a label wanted the 
 *behaviour* changed under an unchanged name (see section 1), so add `headerScroll` or accept the new
 accordion submenus, whichever the page actually wants. Hit 15 is the same kind: a submit button that
 sits inside a `pgs="form"` and carries no `pgs` used to be styled by the form and now is not, so it
-needs `pgs="button"` written on it — one outside a form was never styled and needs nothing.
+needs `pgs="button"` written on it — one outside a form was never styled and needs nothing. Hit 16
+is the last of the kind: a set of accordions that used to close each other needs `accordionContainer`
+on its wrapper, while a standalone one needs nothing.
