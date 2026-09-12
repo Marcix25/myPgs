@@ -16,10 +16,10 @@
 
 //= SECTION 
 @mixin section {
-    --section-width: calc(var(--page-width) + (var(--padding-page) * 2));
+    --section-width: calc(var(--page-width) + (var(--page-padding) * 2));
     margin-inline: auto;
     max-width: var(--section-width);
-    padding-inline: var(--padding-page);
+    padding-inline: var(--page-padding);
     position: relative;
     width: 100%;
     display: flex;
@@ -28,14 +28,14 @@
 }
 
 @mixin sectionSpecifity-child($child) {
-    --section-width: calc(var(--page-width) + (var(--padding-page) * 2));
+    --section-width: calc(var(--page-width) + (var(--page-padding) * 2));
     width: 100%;
 
     #{$child} {
         container-type: inline-size;
         margin-inline: auto;
         max-width: var(--section-width);
-        padding-inline: var(--padding-page);
+        padding-inline: var(--page-padding);
         position: relative;
         width: 100%;
 
@@ -46,29 +46,75 @@
 }
 
 @mixin sectionMax() {
-    --section-width: calc(var(--page-width) + (var(--padding-page) * 2));
+    --section-width: calc(var(--page-width) + (var(--page-padding) * 2));
     position: relative;
     width: 100%;
-    padding-inline: var(--padding-page);
+    padding-inline: var(--page-padding);
     padding-block: calc((var(--gap-sections) /2));
     margin-block: calc((var(--gap-sections) /2) * -1);
 
     >* {
         container-type: inline-size;
         width: 100%;
-        max-width: calc(var(--section-width) - var(--padding-page)*2);
+        max-width: calc(var(--section-width) - var(--page-padding)*2);
         margin-inline: auto;
     }
 }
 
 @mixin sectionFull() {
-    padding: var(--padding-page);
+    padding: var(--page-padding);
     position: relative;
     width: 100%;
 
     >* {
         container-type: inline-size;
         width: 100%;
+    }
+}
+
+@mixin sectionEdgeLeft() {
+    position: relative;
+    width: 100%;
+    container-type: inline-size;
+
+    >* {
+        width: 100%;
+        padding-left: var(--page-edge);
+        padding-right: var(--page-padding);
+    }
+}
+
+@mixin sectionEdgeRight() {
+    position: relative;
+    width: 100%;
+    container-type: inline-size;
+
+    >* {
+        width: 100%;
+        padding-right: var(--page-edge);
+        padding-left: var(--page-padding);
+    }
+}
+
+@mixin sectionEdgeFlushLeft() {
+    position: relative;
+    width: 100%;
+    container-type: inline-size;
+
+    >* {
+        width: 100%;
+        padding-left: var(--page-edgeFlush);
+    }
+}
+
+@mixin sectionEdgeFlushRight() {
+    position: relative;
+    width: 100%;
+    container-type: inline-size;
+
+    >* {
+        width: 100%;
+        padding-right: var(--page-edgeFlush);
     }
 }
 

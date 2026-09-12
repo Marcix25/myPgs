@@ -31,9 +31,12 @@ html:has(dialog[open]) {
     --modal-borderRadius: calc(var(--border-radius-input) + var(--modal-content-padding));
     border: none;
     min-width: 100%;
-    height: 100svh;
-    min-height: 100svh;
-    padding-inline: var(--padding-page);
+    //== dvh, not svh: svh is the viewport with the browser's toolbars expanded, so on iOS Safari
+    //== with the toolbars collapsed the dialog ends short of the screen and the page shows through
+    //== underneath. dvh follows the visible area as the toolbars come and go
+    height: 100dvh;
+    min-height: 100dvh;
+    padding-inline: var(--page-padding);
     padding-bottom: var(--padding);
     padding-top: calc(var(--heightOfHeaderScroll) + var(--modal-offset));
     background: var(--modal-backdrop);
@@ -118,7 +121,7 @@ html:has(dialog[open]) {
     //== CLOSE
     >[pgs~="modal-close"] {
         position: fixed !important;
-        right: var(--padding-page);
+        right: var(--page-padding);
         top: calc(var(--heightOfHeaderScroll) + var(--padding));
         z-index: 1;
     }

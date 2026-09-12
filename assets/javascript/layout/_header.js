@@ -6,11 +6,11 @@
 //+ COMPACT BREAKPOINT
 // Width at or below which the header switches to its compact layout even when the content
 // still fits, so a wide header can be compact on purpose.
-// headerCompact[600] wins with its own pixel value, otherwise the named options
+// headerCompactFrom[600] wins with its own pixel value, otherwise the named options
 // (headerCompactTablet, headerCompactLaptop, ...) set --header-compact-breakpoint in the
 // SCSS, so the breakpoint values stay defined in one place.
 function getHeader_CompactBreakpoint(header) {
-    const custom = parseFloat(pgs(header).option.getValueBrackets("headerCompact"));
+    const custom = parseFloat(pgs(header).option.getValueBrackets("headerCompactFrom"));
     if (Number.isFinite(custom)) return custom;
 
     const declared = parseFloat(window.getComputedStyle(header).getPropertyValue("--header-compact-breakpoint"));

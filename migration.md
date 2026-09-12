@@ -178,6 +178,50 @@ The edge fade is a mask now, not a shadow, so it fades to whatever is behind ins
 
 The mouse-scroll option's default also flipped, not just its name: `slidesNotScrollWithMouse` opted OUT of mouse-wheel scrolling (on by default), while `slidesScrollMouse` opts IN (off by default). Simply renaming the token in existing markup silently disables the behavior — check each usage and add the option where the effect is still wanted.
 
+### Header: the hamburger group is an onlyCompact group
+
+| was | now |
+| --- | --- |
+| `pgs="header-element-hamburger"` | `pgs="header-element-onlyCompact"` |
+| `pgs="header-element-hamburger-button"` | nothing: the control is a plain `pgs="button"` |
+
+The two tokens did what `header-element-onlyCompact` already did — hidden in the full layout, shown
+once the header turns compact — so they are gone and the group carries `onlyCompact` instead. The
+button keeps `button modal-button modal-close` and its `buttonIcon` option; the header-specific
+token added nothing to it. The group has to stay **inside** `pgs="header-element"`: that is where
+the rule that hides it in the full layout looks for it.
+
+`modal` does **not** go on the same element. `header-element-onlyCompact` is a group, like
+`alwaysOn` or `onlyFull`, and a group holds controls: written together the group *is* the modal, so
+it can never hold a second compact-only control (a theme toggle, a search button) without that
+control becoming part of the modal. Nest the modal inside it, the way any other header group holds
+its controls.
+
+```html
+<div pgs="header-element-onlyCompact">
+    <div pgs="modal" pgs-option="modalContainerPGS[header]">
+        <button pgs="button modal-button modal-close" pgs-option="buttonIcon" type="button" aria-label="Open menu">
+            <i pgs="icon" pgs-option="icon-hamburgerTwo" aria-hidden="true"></i>
+        </button>
+        <dialog pgs="modal-dialog" pgs-option="modalRight">...</dialog>
+    </div>
+</div>
+```
+
+### Header: `header-element-alwaysOnLast` is gone
+
+| was | now |
+| --- | --- |
+| `pgs="header-element-alwaysOnLast"` | `pgs="header-element-alwaysOn"` |
+
+The two tokens were the same thing: neither carried a single declaration, and the order of the areas
+in the header came from the order of the markup, not from the names. `alwaysOnLast` only read as if
+it did something. Write `header-element-alwaysOn` as many times as the header needs areas — the one
+that comes last in the document is the one that lands last, which is what the old name was promising.
+
+A WordPress theme that hooks content into the trailing area keeps its hook: only the `pgs` attribute
+on the wrapper changes.
+
 ### Page shell
 
 | was | now |
@@ -210,6 +254,34 @@ the old ones any more, so a project that overrode them silently loses the overri
 
 Border and outline are now separate: `br*` colours need `pgs="border"`, `ol*` need `pgs="outline"`,
 and each family has its own thickness options.
+
+### Global tokens — one `--SIZE` scale
+
+| was | now |
+| --- | --- |
+| `--padding-2` | `--padding-half` |
+| `--padding-page` | `--page-padding` |
+| `--font-titoli` | `--font-heading` |
+
+The spacing rhythm now comes off a single root value, `--SIZE`. `--padding`, `--padding-half`,
+`--page-padding`, `--border-radius`, `--border-radius-input`, `--gap-texts` and `--gap-elements` are
+all derived from it, so retheming the whole scale is one number instead of seven. The three renames
+are a consequence: `-2` said "divided by two" rather than what it is, and `--padding-page` was the
+only page token not on the `--page-*` prefix that `--page-width`, `--page-top` and `--page-edge`
+already shared.
+
+Two behaviours moved with the names, so a project that only renames still gets a different result:
+
+- `--page-padding` is a plain measure, where `--padding-page` was `min(5vw, var(--padding))`. The
+  page gutter no longer shrinks on a narrow screen. Put the clamp back on the new name if a project
+  wants it: `--page-padding: min(5vw, var(--padding))`.
+- `--page-edgeFlush` is now one `--page-padding` shorter than `--page-edge`, so it lands on the outer
+  edge of a section box rather than on its text, and reaches zero as soon as that box stops fitting
+  rather than when the bare column does.
+
+The `margin2` and `padding2` options keep their names while reading `--padding-half` — the token is
+the public name, the custom property is the plumbing, and renaming the options too would have been a
+second breaking change for no gain.
 
 ### Flex/grid gap and wrap, bare `pgs` support removed
 
@@ -404,6 +476,16 @@ grep -rn 'pgs="[^"]*\baccordion\b' .
 
 # 17. built-in glyphs read by hand, now on the --icon-glyph-* namespace
 grep -rnE 'var\(--icon-(?!glyph|color|size)' .
+
+# 18. the header hamburger group, now an onlyCompact group, with the modal nested rather than merged
+grep -rn 'header-element-hamburger' .
+grep -rnE 'pgs="[^"]*header-element-onlyCompact[^"]*\bmodal\b' .
+
+# 19. global tokens renamed onto the --SIZE scale
+grep -rnE -- '--padding-2|--padding-page|--font-titoli' .
+
+# 20. the trailing header area, now a second alwaysOn group
+grep -rn 'header-element-alwaysOnLast' .
 ```
 
 Hit 5 needs reading rather than replacing: an `icon` that wraps another element wanted the surface

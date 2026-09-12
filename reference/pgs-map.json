@@ -534,7 +534,8 @@
             "buttonStrong",
             "buttonTertiary",
             "buttonText",
-            "buttonTransparent"
+            "buttonTransparent",
+            "icon-hamburgerTwo"
         ]
     },
     "card": {
@@ -852,17 +853,16 @@
     "header": {
         "pgs": [
             "header-element",
-            "header-element-hamburger",
-            "header-element-hamburger-button",
+            "header-element-alwaysOn",
             "header-element-onlyCompact",
             "header-element-onlyFull"
         ],
         "pgs-generated": [],
         "pgs-option": [
-            "headerCompact",
             "headerCompactBigMobile",
             "headerCompactBigTablet",
             "headerCompactBottom",
+            "headerCompactFrom",
             "headerCompactLaptop",
             "headerCompactMobile",
             "headerCompactTablet",
@@ -870,6 +870,45 @@
             "headerPrimary",
             "headerScroll",
             "icon-hamburgerTwo"
+        ]
+    },
+    "height": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": [
+            "heightAuto",
+            "heightFull",
+            "heightScreen",
+            "heightScreenHalf",
+            "heightScreenLarge",
+            "heightScreenLive",
+            "heightUnderHeader"
+        ]
+    },
+    "heightMax": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": [
+            "heightAuto",
+            "heightFull",
+            "heightScreen",
+            "heightScreenHalf",
+            "heightScreenLarge",
+            "heightScreenLive",
+            "heightUnderHeader"
+        ]
+    },
+    "heightMin": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": [
+            "heightAuto",
+            "heightFull",
+            "heightScreen",
+            "heightScreenHalf",
+            "heightScreenLarge",
+            "heightScreenLive",
+            "heightUnderHeader"
         ]
     },
     "hidden": {
@@ -1569,6 +1608,26 @@
         "pgs-generated": [],
         "pgs-option": []
     },
+    "sectionEdgeFlushLeft": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "sectionEdgeFlushRight": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "sectionEdgeLeft": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
+    "sectionEdgeRight": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
     "sectionFull": {
         "pgs": [],
         "pgs-generated": [],
@@ -1960,5 +2019,38 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-option": []
+    },
+    "width": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": [
+            "widthFull",
+            "widthPage",
+            "widthPageHalf",
+            "widthPageThird",
+            "widthText"
+        ]
+    },
+    "widthMax": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": [
+            "widthFull",
+            "widthPage",
+            "widthPageHalf",
+            "widthPageThird",
+            "widthText"
+        ]
+    },
+    "widthMin": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": [
+            "widthFull",
+            "widthPage",
+            "widthPageHalf",
+            "widthPageThird",
+            "widthText"
+        ]
     }
 }

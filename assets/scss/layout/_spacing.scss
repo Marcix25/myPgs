@@ -10,11 +10,11 @@
     --margin-size: var(--padding);
 
     &[pgs-option~=margin2] {
-        --margin-size: var(--padding-2);
+        --margin-size: var(--padding-half);
     }
 
     &[pgs-option~=marginPage] {
-        --margin-size: var(--padding-page);
+        --margin-size: var(--page-padding);
     }
 
     &[pgs-option~=marginTexts] {
@@ -105,11 +105,11 @@
     --padding-size: var(--padding);
 
     &[pgs-option~=padding2] {
-        --padding-size: var(--padding-2);
+        --padding-size: var(--padding-half);
     }
 
     &[pgs-option~=paddingPage] {
-        --padding-size: var(--padding-page);
+        --padding-size: var(--page-padding);
     }
 
     &[pgs-option~=paddingTexts] {

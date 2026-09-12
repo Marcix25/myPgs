@@ -49,14 +49,8 @@
         [pgs~="header-element-onlyCompact"] {
             display: none;
             gap: var(--header-gap);
-        }
 
-        //== HAMBURGER 
-        [pgs~="header-element-hamburger"] {
-            display: none;
-
-            [pgs~="header-element-hamburger-button"] {
-                justify-content: center;
+            [pgs~="button"] {
 
                 //=== OPEN
                 //== swaps the drawn glyph via the --icon custom property (see _icon.scss)
@@ -84,7 +78,7 @@
     /*  forces the compact layout at a breakpoint even when the content would still fit,
         so a wide header can be compact on purpose. Only the value is declared here: the
         JavaScript reads --header-compact-breakpoint and adds the compact state below it.
-        headerCompact[600] takes over with its own pixel value. */
+        headerCompactFrom[600] takes over with its own pixel value. */
     &[pgs-option~="headerCompactWatch"] {
         --header-compact-breakpoint: #{$watch};
     }
@@ -109,9 +103,9 @@
         --header-compact-breakpoint: #{$laptop};
     }
 
-    //option for suggestions: headerCompact[600] carries its own pixel value, while headerScroll and
+    //option for suggestions: headerCompactFrom[600] carries its own pixel value, while headerScroll and
     //headerPrimary are read by the JavaScript only
-    &[pgs-option~="headerCompact[]"],
+    &[pgs-option~="headerCompactFrom[]"],
     &[pgs-option~="headerPrimary"],
     &[pgs-option~="headerScroll"] {}
 
@@ -121,36 +115,23 @@
 
         [pgs~="header-element"] {
             padding-inline: var(--header-padding-block);
-        }
 
-        [pgs~="header-element-onlyFull"] {
-            display: none !important;
-        }
+            [pgs~="header-element-alwaysOn"] {
+                margin-right: auto;
+            }
 
-        [pgs~="header-element-onlyCompact"] {
-            display: flex !important;
-            margin-left: auto;
-            align-items: center;
-        }
+            [pgs~="header-element-onlyFull"] {
+                display: none;
+            }
 
-        [pgs~="header-element-hamburger"] {
-            display: flex !important;
+            [pgs~="header-element-onlyCompact"] {
+                display: contents;
+            }
         }
 
         //== bottom: follows the compact state, so it honours the chosen breakpoint
         &[pgs-option~="headerCompactBottom"] {
             --header-compactBottom-active: 1;
-            background: transparent;
-            transform: none !important;
-
-            [pgs~="header-element"] {
-                position: fixed;
-                right: 0;
-                bottom: 0;
-                left: 0;
-                background: var(--header-background);
-                transition: padding 300ms, background-color 1000ms;
-            }
         }
     }
 }

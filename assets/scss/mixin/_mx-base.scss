@@ -60,7 +60,7 @@
 
 //= HEADING
 @mixin heading($size, $weight: 900) {
-    font-family: var(--font-titoli);
+    font-family: var(--font-heading);
     --heading-size: #{$size};
     color: var(--color-black);
     margin-bottom: calc(var(--heading-size)/8);

@@ -9,6 +9,7 @@
 
 //== BUTTON BASE
 @mixin buttonBase() {
+    --button-size: 1.3rem;
     --button-primaryColor: var(--color-primary-strong);
     /// color
     --button-color: var(--color-black);
@@ -29,9 +30,8 @@
     --button-border-width: var(--border-width);
     --button-border-style: var(--border-style);
     --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
-    --button-borderRadius: var(--border-radius-input);
+    --button-borderRadius:  calc(var(--button-size) * 2);
     /// size
-    --button-size: 1.3rem;
     --button-font-size: var(--font-size-text);
     --button-padding-block: var(--button-size);
     --button-padding-left: calc(var(--button-size) * 2);
@@ -44,7 +44,10 @@
     font-family: var(--font);
     font-size: var(--button-font-size);
     font-weight: var(--font-weight-bold);
+    //== written here and not left to the hover token: pgs.hover adds that one from JavaScript, so
+    //== until it runs a link would keep the underline and the text cursor of a plain anchor
     text-decoration: none;
+    cursor: pointer;
     -moz-user-select: none;
     -webkit-user-select: none;
     user-select: none;

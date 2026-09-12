@@ -326,7 +326,6 @@ function boot() {
         configureFormValidateHelperDemo();
 
         document.querySelectorAll("pre code").forEach(code => window.Prism?.highlightElement(code));
-        document.body.classList.remove("is-loading");
     } catch (error) {
         console.error("Demo PGS non inizializzata.", error);
     }

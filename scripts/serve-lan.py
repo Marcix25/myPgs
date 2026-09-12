@@ -27,8 +27,14 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
         super().end_headers()
 
 
-class ReusableTCPServer(socketserver.TCPServer):
+class ReusableTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
+    """Threaded on purpose: TCPServer answers one request at a time, so the page's assets
+    queue up behind each other. With no-store on every response that queue is paid at each
+    reload, and the stylesheet can land after the browser has given up waiting and painted
+    the page unstyled."""
+
     allow_reuse_address = True
+    daemon_threads = True
 
 
 if __name__ == "__main__":

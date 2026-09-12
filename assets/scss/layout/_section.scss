@@ -25,6 +25,22 @@
     @include sectionFull;
 }
 
+[pgs~=sectionEdgeLeft] {
+    @include sectionEdgeLeft;
+}
+
+[pgs~=sectionEdgeRight] {
+    @include sectionEdgeRight;
+}
+
+[pgs~=sectionEdgeFlushLeft] {
+    @include sectionEdgeFlushLeft;
+}
+
+[pgs~=sectionEdgeFlushRight] {
+    @include sectionEdgeFlushRight;
+}
+
 //== CONTAINER
 [pgs~=container] {
     container-type: inline-size;

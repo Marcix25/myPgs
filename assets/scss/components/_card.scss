@@ -79,7 +79,7 @@
         }
 
         &:where([pgs-option~="cardMini"]) {
-            --card-padding: var(--padding-2);
+            --card-padding: var(--padding-half);
         }
     }
 
@@ -104,7 +104,7 @@
 
     //- card Mini
     &[pgs-option~=cardMini] {
-        --card-padding: var(--padding-2);
+        --card-padding: var(--padding-half);
     }
 }
 

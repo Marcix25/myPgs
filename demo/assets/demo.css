@@ -7,11 +7,6 @@ body {
     @starting-style {
         opacity: 0;
     }
-
-    &.is-loading {
-        display: none;
-        opacity: 0;
-    }
 }
 
 /* [pgs~="..."] utility rules set display:flex/grid, which otherwise beats the native [hidden] rule at equal specificity */
@@ -212,7 +207,7 @@ body {
 }
 
 #reference-demo-aside {
-    padding-top: calc(var(--heightOfHeader) / 2);
+    --pageShell-asideScroll-padding-top: calc(var(--heightOfHeader) / 2);
 }
 
 #reference-demo-main {

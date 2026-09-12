@@ -86,7 +86,7 @@ Import only the mixins when the project does not need the library stylesheet sou
 ## 5. SCSS Usage
 
 - Icon size comes from `--icon-size`, which the components set per context and you can override; `--fa-size` is still honoured for markup written against older versions. Colour follows the text colour, or `--icon-color` when you set it.
-- Reuse existing properties such as `--color-primary`, `--color-box`, `--color-text`, `--padding`, `--padding-page`, `--gap-texts`, `--gap-elements`, `--gap-sections`, `--border-radius`, `--border-radius-input`, `--border-width`, `--border-color`, `--border-complete`, `--outline-width`, `--outline-color`, `--box-shadow`, and `--focus-visible`.
+- Reuse existing properties such as `--color-primary`, `--color-box`, `--color-text`, `--padding`, `--page-padding`, `--gap-texts`, `--gap-elements`, `--gap-sections`, `--border-radius`, `--border-radius-input`, `--border-width`, `--border-color`, `--border-complete`, `--outline-width`, `--outline-color`, `--box-shadow`, and `--focus-visible`.
 - Use existing layout and component mixins instead of rewriting them.
 - Compose custom buttons with `buttonBase`, either `buttonContent` or `buttonIcon`, and the required variants. Variant mixins do not include the base styles. The hover treatment is not part of that composition: mark the element `pgs="button"` and `pgs.hover` adds the `hover` token at load, write `hover` yourself on anything else, and opt out with `pgs-option="hoverNot"`.
 - Configure dropdown placement with `pgs-option="dropdownPosition[side align]"`, for example `dropdownPosition[top left]`, `dropdownPosition[bottom right]`, or `dropdownPosition[left center]`.

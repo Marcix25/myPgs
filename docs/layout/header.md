@@ -8,18 +8,15 @@ Responsive header that measures available space, switches between its full and c
 
 - `header`: identifies the main header observed by the JavaScript module.
 - `header-element`: identifies the inner group measured to determine the switch to the compact layout.
-- `header-element-alwaysOn`: identifies the initial area that is always visible.
+- `header-element-alwaysOn`: identifies an area that stays visible in both layouts. Write it as many times as the header needs areas: the groups carry no styling of their own, so where each one lands is decided by document order alone.
 - `header-element-onlyFull`: identifies content shown only in the full layout.
 - `header-element-onlyCompact`: identifies content shown only in the compact layout.
-- `header-element-alwaysOnLast`: identifies the final area that is always visible.
-- `header-element-hamburger`: identifies the compact navigation group.
-- `header-element-hamburger-button`: identifies the header-specific hamburger control.
 
 ## PGS Options
 
 - `headerCompactBottom`: moves header-element to the bottom of the viewport while the header is compact, so it follows the chosen breakpoint.
 - `headerScroll`: hides the header while scrolling down and shows it again while scrolling up.
-- `headerCompact`: forces the compact layout at a custom viewport width with the syntax headerCompact[600], and takes precedence over the named widths below.
+- `headerCompactFrom`: forces the compact layout from a custom viewport width down, written as headerCompactFrom[600], and takes precedence over the named widths below.
 - `headerCompactWatch`: forces the compact layout from the watch width down, even when the content still fits.
 - `headerCompactMobile`: forces the compact layout from the mobile width down, even when the content still fits.
 - `headerCompactBigMobile`: forces the compact layout from the big-mobile width down, even when the content still fits.
@@ -119,10 +116,7 @@ Full navigation on the left, always-visible controls on the right, and the same 
 			</nav>
 		</div>
 
-		<div pgs="header-element-onlyCompact">
-		</div>
-
-		<div pgs="header-element-alwaysOnLast">
+		<div pgs="header-element-alwaysOn">
 			<div pgs="flexRow" pgs-option="nowrap">
 				<div pgs="modal" pgs-option="modalContainerPGS[header] ">
 					<button type="button" pgs="modal-button modal-close button notificationBell" pgs-option="buttonIcon" aria-label="Open notifications">
@@ -136,24 +130,26 @@ Full navigation on the left, always-visible controls on the right, and the same 
 			</div>
 		</div>
 
-		<div pgs="header-element-hamburger modal" pgs-option="modalContainerPGS[header]">
+		<div pgs="header-element-onlyCompact">
+			<div pgs="modal" pgs-option="modalContainerPGS[header]">
 
-			<button pgs="button modal-button modal-close header-element-hamburger-button" pgs-option="buttonIcon" type="button" aria-label="Open menu">
-				<i pgs="icon" pgs-option="icon-hamburgerTwo" aria-hidden="true"></i>
-			</button>
+				<button pgs="button modal-button modal-close" pgs-option="buttonIcon" type="button" aria-label="Open menu">
+					<i pgs="icon" pgs-option="icon-hamburgerTwo" aria-hidden="true"></i>
+				</button>
 
-			<dialog pgs="modal-dialog" pgs-option="modalRight">
-				<div pgs="modal-dialog-content">
-					<nav pgs="menu" pgs-option="menuVertical" aria-label="Compact menu">
-						<ul>
-							<li><a pgs="button" pgs-option="buttonText buttonPaddingEqual" href="/">Home</a></li>
-							<li><a pgs="button" pgs-option="buttonText buttonPaddingEqual" href="/services">Services</a></li>
-							<li><a pgs="button" pgs-option="buttonText buttonPaddingEqual" href="/about">About</a></li>
-							<li><a pgs="button" pgs-option="buttonText buttonPaddingEqual" href="/contact">Contact</a></li>
-						</ul>
-					</nav>
-				</div>
-			</dialog>
+				<dialog pgs="modal-dialog" pgs-option="modalRight">
+					<div pgs="modal-dialog-content">
+						<nav pgs="menu" pgs-option="menuVertical" aria-label="Compact menu">
+							<ul>
+								<li><a pgs="button" pgs-option="buttonText buttonPaddingEqual" href="/">Home</a></li>
+								<li><a pgs="button" pgs-option="buttonText buttonPaddingEqual" href="/services">Services</a></li>
+								<li><a pgs="button" pgs-option="buttonText buttonPaddingEqual" href="/about">About</a></li>
+								<li><a pgs="button" pgs-option="buttonText buttonPaddingEqual" href="/contact">Contact</a></li>
+							</ul>
+						</nav>
+					</div>
+				</dialog>
+			</div>
 		</div>
 	</div>
 </header>

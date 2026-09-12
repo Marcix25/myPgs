@@ -5,7 +5,7 @@
 //= checkboxBackground 
 @mixin checkboxBackground() {
     --checkboxBackground-color: var(--color-text);
-    --checkboxBackground-padding: var(--padding-2);
+    --checkboxBackground-padding: var(--padding-half);
     --checkboxBackground-borderRadius: var(--border-radius-input);
     --checkboxBackground-background: var(--color-box-transparent);
     --checkboxBackground-background-checked: var(--color-primary-soft);

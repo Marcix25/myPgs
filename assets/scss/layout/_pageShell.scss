@@ -20,7 +20,7 @@
 //= PAGE SHELL
 [pgs~="pageShell"] {
     --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-padding-inline) * 2));
-    --pageShell-padding-inline: var(--padding-page);
+    --pageShell-padding-inline: var(--page-padding);
     --pageShell-padding-top: var(--page-top);
     --pageShell-padding-bottom: var(--gap-elements);
     --pageShell-gap: var(--gap-elements);
@@ -30,6 +30,7 @@
     --pageShell-aside-width: 20rem;
     //++ asideScroll
     --pageShell-asideScroll-top: var(--heightOfHeader);
+    --pageShell-asideScroll-padding-top: var(--pageShell-padding-top);
     --pageShell-asideScroll-maxHeight: calc(100svh - var(--pageShell-asideScroll-top));
     //++ asideShadow
     --pageShell-asideShadow-sizeMaskImage: 40px;
@@ -124,6 +125,8 @@
     */
     //=== aside | content
     &:has(> [pgs~="pageShell-aside"] + [pgs~="pageShell-content"]) {
+
+        //-( big-tablet
         @container (max-width: #{$big-tablet}) {
             [pgs~="pageShell-aside"]:has(+ [pgs~="pageShell-content"]) {
                 @include pageShell-aside-flow;
@@ -137,6 +140,8 @@
 
     //=== content | aside
     &:has(> [pgs~="pageShell-content"] + [pgs~="pageShell-aside"]) {
+
+        //-( big-tablet
         @container (max-width: #{$big-tablet}) {
             [pgs~="pageShell-content"] {
                 @include pageShell-content-flow;
@@ -150,6 +155,8 @@
 
     //=== aside | content | aside
     &:has(> [pgs~="pageShell-aside"] + [pgs~="pageShell-content"]):has(> [pgs~="pageShell-content"] + [pgs~="pageShell-aside"]) {
+
+        //-( laptop
         @container (max-width: #{$laptop}) {
 
             //== the right sidebar drops under the content, the left one spans both rows
@@ -169,6 +176,7 @@
             }
         }
 
+        //-( big-tablet
         @container (max-width: #{$big-tablet}) {
 
             //== same specificity as the band above, so the row span is released
@@ -190,6 +198,7 @@
     }
 
     //=== vertical
+    //-( big-mobile
     @container (max-width: #{$big-mobile}) {
         [pgs~="pageShell-content"] {
             @include pageShell-content-flow;
@@ -233,8 +242,7 @@
                 top: var(--pageShell-asideScroll-top);
                 scrollbar-color: transparent transparent;
                 max-height: var(--pageShell-asideScroll-maxHeight);
-                padding-top: calc(var(--pageShell-padding-top) - var(--pageShell-asideScroll-top));
-                padding-top: var(--pageShell-padding-top);
+                padding-top: var(--pageShell-asideScroll-padding-top);
 
                 &:hover {
                     scrollbar-color: var(--color-gray) transparent;

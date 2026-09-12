@@ -61,7 +61,7 @@
 
     [pgs~=_notifications-empty] {
         margin: 0;
-        padding: var(--padding-2);
+        padding: var(--padding-half);
         color: var(--color-white);
         border-radius: var(--border-radius-input);
         font-size: small;
@@ -96,7 +96,7 @@
 
         [pgs~=_notifications-element-content] {
             min-height: 5rem;
-            padding: var(--padding-2);
+            padding: var(--padding-half);
 
             [pgs~=_notifications-element-content-icon] {
                 --icon-size: 3.5rem;

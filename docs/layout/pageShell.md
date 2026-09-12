@@ -30,6 +30,7 @@ Responsive page layout that combines main content with zero, one or two sidebars
 
 - `--pageShell-aside-width`
 - `--pageShell-asideScroll-maxHeight`
+- `--pageShell-asideScroll-padding-top`
 - `--pageShell-asideScroll-top`
 - `--pageShell-asideShadow-sizeMaskImage`
 - `--pageShell-content-width`
@@ -118,7 +119,7 @@ Shell with the sidebar placed after the main content instead of before it.
 
 ## Page Shell simple
 
-The same shell with pageShellAsideScroll, so a sidebar sticks beside the content and scrolls on its own, plus its flush and shadow variants.
+The same shell with pageShellAsideScroll, so a sidebar sticks beside the content and scrolls on its own, plus its shadow variant.
 
 ### Full-width with sidebar
 

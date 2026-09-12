@@ -24,7 +24,7 @@
     --slide-width: calc(var(--page-width) /2.3);
     --slide-width-tablet: 100%;
     --slides-sizeMaskImage: 40px;
-    --slides-paddingInline-tablet: var(--padding-page);
+    --slides-paddingInline-tablet: var(--page-padding);
 
     //++option for suggestions
     &[pgs-option~=slidesSingleScroll],
@@ -128,11 +128,11 @@
             --button-size: .8rem;
 
             &:is([pgs~="slides-prec"]) {
-                left: calc(var(--padding-page) * -1 + .4rem);
+                left: calc(var(--page-padding) * -1 + .4rem);
             }
 
             &:is([pgs~="slides-next"]) {
-                right: calc(var(--padding-page) * -1 + .4rem);
+                right: calc(var(--page-padding) * -1 + .4rem);
             }
         }
     }

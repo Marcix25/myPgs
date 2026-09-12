@@ -1,0 +1,115 @@
+//# SIZE
+//== one variable holds the value and the tokens decide which property it lands on, so the same
+//== option set works for a size, a ceiling or a floor: --size-width and --size-height are meant to
+//== be set inline (style="--size-width: 600px") or by one of the presets below
+
+//= WIDTH
+//== min() is the point of the width side: every value is capped at the container, so a fixed width
+//== never overflows on a narrow screen and no media query is needed to take it back
+[pgs~=width],
+[pgs~=widthMax],
+[pgs~=widthMin] {
+    --size-width: var(--page-width);
+
+    //== SCALES: the width scales come off the page, so an element lines up with the page content
+    &[pgs-option~=widthPage] {
+        --size-width: var(--page-width);
+    }
+
+    &[pgs-option~=widthPageHalf] {
+        --size-width: calc(var(--page-width) / 2);
+    }
+
+    &[pgs-option~=widthPageThird] {
+        --size-width: calc(var(--page-width) / 3);
+    }
+
+    //== the measure a line of text stays readable at, independent of the page width
+    &[pgs-option~=widthText] {
+        --size-width: 65ch;
+    }
+
+    &[pgs-option~=widthFull] {
+        --size-width: 100%;
+    }
+}
+
+//== the element takes --size-width, or the container when that is narrower
+[pgs~=width] {
+    width: min(100%, var(--size-width));
+}
+
+//== a ceiling: the element keeps its own width and only stops growing at --size-width
+[pgs~=widthMax] {
+    max-width: min(100%, var(--size-width));
+}
+
+//== a floor: the element never goes under --size-width, unless the container itself is narrower
+[pgs~=widthMin] {
+    min-width: min(100%, var(--size-width));
+}
+
+
+//= HEIGHT
+//== no min() here, on purpose: too wide breaks the page with a horizontal scrollbar, too tall just
+//== scrolls, which is what a page does anyway. And a percentage height only resolves against a
+//== parent that has a definite height, so wrapping it in min() would make the value indefinite in
+//== exactly the layouts where it is used
+[pgs~=height],
+[pgs~=heightMax],
+[pgs~=heightMin] {
+    --size-height: 100svh;
+
+    //== SCALES: the height scales come off the viewport, the only measure a block can be tall
+    //== against without a parent that already has a height
+    //== svh is the viewport with the browser toolbars expanded, so the element never grows past the
+    //== screen as they retract - this is the safe default
+    &[pgs-option~=heightScreen] {
+        --size-height: 100svh;
+    }
+
+    //== dvh follows the visible area as the toolbars come and go: the element is always exactly the
+    //== screen, at the cost of resizing during the scroll
+    &[pgs-option~=heightScreenLive] {
+        --size-height: 100dvh;
+    }
+
+    //== lvh is the viewport with the toolbars retracted, for something meant to run under them
+    &[pgs-option~=heightScreenLarge] {
+        --size-height: 100lvh;
+    }
+
+    &[pgs-option~=heightScreenHalf] {
+        --size-height: 50svh;
+    }
+
+    //== what is left of the screen below the header, for a hero that fills the first view
+    &[pgs-option~=heightUnderHeader] {
+        --size-height: calc(100svh - var(--heightOfHeader));
+    }
+
+    &[pgs-option~=heightFull] {
+        --size-height: 100%;
+    }
+
+    //== drops the constraint on one element without dropping the utility: auto is valid on height
+    //== and min-height, and on max-height it is invalid at computed-value time, which lands on the
+    //== initial none - no limit either way
+    &[pgs-option~=heightAuto] {
+        --size-height: auto;
+    }
+}
+
+[pgs~=height] {
+    height: var(--size-height);
+}
+
+//== a ceiling: pair it with an overflow utility, or the content simply spills out
+[pgs~=heightMax] {
+    max-height: var(--size-height);
+}
+
+//== a floor: the element grows past it with its content, so this is the usual one for a section
+[pgs~=heightMin] {
+    min-height: var(--size-height);
+}

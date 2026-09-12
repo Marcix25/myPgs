@@ -35,8 +35,8 @@ Complete HTML skeleton required to initialize the MyPGS library.
 	<meta name="theme-color" content="">
 	<meta name="apple-mobile-web-app-status-bar-color" content="">
 
-	<script src="../dist/javascript/index.js"></script>
 	<link rel="stylesheet" href="../dist/css/index.css">
+	<script src="../dist/javascript/index.js"></script>
 </head>
 
 <body pgs="bodyBase bodyImg bodyText bodyHeading">
