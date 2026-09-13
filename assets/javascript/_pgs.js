@@ -72,13 +72,13 @@ export function pgs(root) {
     };
 
     //+
-    function concactSelector(value) {
+    function concactSelector(value, attribute = ATTR) {
         if (Array.isArray(value)) value = value.join(",");
         return String(value)
             .split(",")
             .map(v => v.trim())
             .filter(Boolean)
-            .map(v => `[${ATTR}~="${v}"]`)
+            .map(v => `[${attribute}~="${v}"]`)
             .join(",");
     }
 
@@ -106,6 +106,11 @@ export function pgs(root) {
 
         api.querySelectorAll = function (value) {
             return root.querySelectorAll(concactSelector(value));
+        };
+
+        api.closest = function (value) {
+            if (!canAttr) return attrOnlyForElements("closest");
+            return root.closest(concactSelector(value));
         };
 
         api.add = function (...values) {
@@ -227,6 +232,18 @@ export function pgs(root) {
             return read().includes(v);
         };
 
+        api.querySelector = function (value) {
+            return root.querySelector(concactSelector(value, attribute));
+        };
+
+        api.querySelectorAll = function (value) {
+            return root.querySelectorAll(concactSelector(value, attribute));
+        };
+
+        api.closest = function (value) {
+            return root.closest(concactSelector(value, attribute));
+        };
+
         Object.defineProperty(api, "value", {
             get() { return root.getAttribute(attribute); },
             set(v) { root.setAttribute(attribute, v); }
@@ -292,6 +309,47 @@ export function pgs(root) {
         api.contains = function (key) {
             const safeKey = String(key).trim();
             return read().some(token => getKey(token) === safeKey);
+        };
+
+        //== every lookup below matches on the key rather than through a [pgs-option~="..."]
+        //== selector: that selector compares whole tokens, so it would miss every parameterized
+        //== option - headerCompactFrom[600] does not answer to headerCompactFrom
+        const getKeys = value => (Array.isArray(value) ? value.join(",") : String(value))
+            .split(",")
+            .map(getKey)
+            .filter(Boolean);
+
+        const hasKeys = (element, keys) => tokenizeOptionValue(element.getAttribute(attribute) || "")
+            .some(token => keys.includes(getKey(token)));
+
+        api.querySelector = function (value) {
+            const keys = getKeys(value);
+            if (!keys.length) return null;
+
+            for (const element of root.querySelectorAll(`[${attribute}]`)) {
+                if (hasKeys(element, keys)) return element;
+            }
+
+            return null;
+        };
+
+        //== an Array, where every other querySelectorAll returns a NodeList: the match is computed
+        //== here instead of by the engine, so there is no live list to hand back
+        api.querySelectorAll = function (value) {
+            const keys = getKeys(value);
+            if (!keys.length) return [];
+            return Array.from(root.querySelectorAll(`[${attribute}]`)).filter(element => hasKeys(element, keys));
+        };
+
+        api.closest = function (value) {
+            const keys = getKeys(value);
+            if (!keys.length) return null;
+
+            for (let element = root; element; element = element.parentElement) {
+                if (hasKeys(element, keys)) return element;
+            }
+
+            return null;
         };
 
         api.getValueBrackets = function (key) {

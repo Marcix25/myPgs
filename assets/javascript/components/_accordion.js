@@ -33,7 +33,7 @@ function PGS_accordion_init(root = document) {
         //== an accordion closes the others only inside a group, and the group is the nearest
         //== accordionContainer above it: on its own an accordion answers for itself alone, so a
         //== single panel dropped anywhere on the page no longer collapses somebody else's
-        const CONTAINER = accordion.closest("[pgs~='accordionContainer']");
+        const CONTAINER = pgs(accordion).closest("accordionContainer");
         const isMultiOpen = !CONTAINER || pgs(CONTAINER).option.contains("accordionMultiOpen");
 
         //== Accessibilità (setup una volta)
@@ -62,7 +62,7 @@ function PGS_accordion_init(root = document) {
         function closeOltherAccordion() {
             for (const otherLi of pgs(CONTAINER).querySelectorAll("accordion")) {
                 if (otherLi === accordion) continue;
-                if (otherLi.closest("[pgs~='accordionContainer']") !== CONTAINER) continue;
+                if (pgs(otherLi).closest("accordionContainer") !== CONTAINER) continue;
                 if (pgs(otherLi).option.contains("accordionAutoOpen")) continue;
 
                 const otherBtn = pgs(otherLi).querySelector("accordion-button");

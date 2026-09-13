@@ -288,7 +288,7 @@ const fn_notification = {
         let created = false;
 
         pgs(root).querySelectorAll("notificationBell").forEach(bell => {
-            const modalWrapper = bell.closest("[pgs~='modal']");
+            const modalWrapper = pgs(bell).closest("modal");
             if (!modalWrapper || modalWrapper.querySelector("dialog")) return;
 
             //== modalContainerID/modalContainerPGS move the dialog out of the wrapper, so on a later

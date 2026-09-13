@@ -8,6 +8,7 @@ The `pgs(root)` function is how every component finds and edits its own markup: 
 
 - `instance.querySelector(token)`: returns the first descendant carrying the given pgs token; also accepts an array or a comma-separated list of tokens.
 - `instance.querySelectorAll(token)`: returns every matching descendant.
+- `instance.closest(token)`: returns the nearest ancestor carrying the given pgs token, the element itself included, or null; also accepts an array or a comma-separated list of tokens.
 - `instance.add(...tokens)`: adds one or more pgs tokens without duplicating existing ones and returns the instance.
 - `instance.remove(...tokens)`: removes the given pgs tokens and returns the instance.
 - `instance.toggle(token, force)`: flips the token, or forces it on/off when force is passed, and returns the resulting boolean state.
@@ -16,10 +17,16 @@ The `pgs(root)` function is how every component finds and edits its own markup: 
 - `instance.state.remove(...states)`: removes the given pgs-state values.
 - `instance.state.toggle(state, force)`: flips or forces a pgs-state value and returns the result.
 - `instance.state.contains(state)`: checks whether a pgs-state value is present.
+- `instance.state.querySelector(state)`: returns the first descendant carrying the given pgs-state value; also accepts an array or a comma-separated list.
+- `instance.state.querySelectorAll(state)`: returns every matching descendant.
+- `instance.state.closest(state)`: returns the nearest ancestor carrying the given pgs-state value, the element itself included, or null.
 - `instance.option.add(...options)`: adds one or more pgs-option values, plain or parameterized as key[value].
 - `instance.option.remove(...keys)`: removes pgs-option entries by their key, ignoring any payload.
 - `instance.option.toggle(option, force)`: flips or forces a pgs-option entry and returns the resulting boolean state.
 - `instance.option.contains(key)`: checks for a pgs-option key even when it carries a payload.
+- `instance.option.querySelector(key)`: returns the first descendant carrying the given pgs-option key, payload or not; also accepts an array or a comma-separated list of keys.
+- `instance.option.querySelectorAll(key)`: returns every matching descendant, as an Array rather than a NodeList, since the keys are matched here and not by the selector engine.
+- `instance.option.closest(key)`: returns the nearest ancestor carrying the given pgs-option key, the element itself included, or null; it matches on the key alone, so a parameterized key[payload] is found by its bare key.
 - `instance.option.getValueBrackets(key)`: returns the payload inside a key[payload] pgs-option, or undefined.
 - `instance.option.setValueBrackets(key, value)`: sets or replaces a single parameterized pgs-option entry.
 - `pgs.registerModules(modules)`: exposes an object of named modules directly as properties of pgs, refusing to silently overwrite one already registered.
@@ -35,6 +42,7 @@ The instance returned by pgs(root), and the read/write methods it exposes for pg
 const instance = pgs(element); // any Element, or a Document for querySelector(All) only
 
 instance.contains("modal");
+instance.closest("accordionContainer");
 instance.add("custom-token");
 instance.remove("custom-token");
 instance.toggle("custom-token", true);
@@ -42,9 +50,13 @@ instance.toggle("custom-token", true);
 instance.state.add("open");
 instance.state.toggle("open", false);
 instance.state.contains("open");
+instance.state.closest("errorField");
+instance.state.querySelectorAll("errorField");
 
 instance.option.add("boxMini");
 instance.option.contains("boxMini");
+instance.option.closest("boxMini");
+instance.option.querySelector(["formMessage", "formMessageTitle"]); // finds formMessage[...] too
 instance.option.getValueBrackets("boxMini");
 instance.option.setValueBrackets("boxMini", "");
 

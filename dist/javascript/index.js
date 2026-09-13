@@ -167,13 +167,13 @@ function pgs(root) {
     };
 
     //+
-    function concactSelector(value) {
+    function concactSelector(value, attribute = ATTR) {
         if (Array.isArray(value)) value = value.join(",");
         return String(value)
             .split(",")
             .map(v => v.trim())
             .filter(Boolean)
-            .map(v => `[${ATTR}~="${v}"]`)
+            .map(v => `[${attribute}~="${v}"]`)
             .join(",");
     }
 
@@ -201,6 +201,11 @@ function pgs(root) {
 
         api.querySelectorAll = function (value) {
             return root.querySelectorAll(concactSelector(value));
+        };
+
+        api.closest = function (value) {
+            if (!canAttr) return attrOnlyForElements("closest");
+            return root.closest(concactSelector(value));
         };
 
         api.add = function (...values) {
@@ -322,6 +327,18 @@ function pgs(root) {
             return read().includes(v);
         };
 
+        api.querySelector = function (value) {
+            return root.querySelector(concactSelector(value, attribute));
+        };
+
+        api.querySelectorAll = function (value) {
+            return root.querySelectorAll(concactSelector(value, attribute));
+        };
+
+        api.closest = function (value) {
+            return root.closest(concactSelector(value, attribute));
+        };
+
         Object.defineProperty(api, "value", {
             get() { return root.getAttribute(attribute); },
             set(v) { root.setAttribute(attribute, v); }
@@ -387,6 +404,47 @@ function pgs(root) {
         api.contains = function (key) {
             const safeKey = String(key).trim();
             return read().some(token => getKey(token) === safeKey);
+        };
+
+        //== every lookup below matches on the key rather than through a [pgs-option~="..."]
+        //== selector: that selector compares whole tokens, so it would miss every parameterized
+        //== option - headerCompactFrom[600] does not answer to headerCompactFrom
+        const getKeys = value => (Array.isArray(value) ? value.join(",") : String(value))
+            .split(",")
+            .map(getKey)
+            .filter(Boolean);
+
+        const hasKeys = (element, keys) => tokenizeOptionValue(element.getAttribute(attribute) || "")
+            .some(token => keys.includes(getKey(token)));
+
+        api.querySelector = function (value) {
+            const keys = getKeys(value);
+            if (!keys.length) return null;
+
+            for (const element of root.querySelectorAll(`[${attribute}]`)) {
+                if (hasKeys(element, keys)) return element;
+            }
+
+            return null;
+        };
+
+        //== an Array, where every other querySelectorAll returns a NodeList: the match is computed
+        //== here instead of by the engine, so there is no live list to hand back
+        api.querySelectorAll = function (value) {
+            const keys = getKeys(value);
+            if (!keys.length) return [];
+            return Array.from(root.querySelectorAll(`[${attribute}]`)).filter(element => hasKeys(element, keys));
+        };
+
+        api.closest = function (value) {
+            const keys = getKeys(value);
+            if (!keys.length) return null;
+
+            for (let element = root; element; element = element.parentElement) {
+                if (hasKeys(element, keys)) return element;
+            }
+
+            return null;
         };
 
         api.getValueBrackets = function (key) {
@@ -517,7 +575,7 @@ const INITIALIZED_BUTTONS = new WeakSet();
 //== gets found. The fa- classes stay on for the pages that style them
 function changeIcon(selector, isDarkMode) {
     selector.forEach(button => {
-        const ICON = button.querySelector('i, [pgs~="icon"]');
+        const ICON = pgs(button).querySelector("icon") || button.querySelector("i");
         if (!ICON) return;
 
         pgs(ICON).add("icon");
@@ -920,7 +978,7 @@ function PGS_accordion_init(root = document) {
         //== an accordion closes the others only inside a group, and the group is the nearest
         //== accordionContainer above it: on its own an accordion answers for itself alone, so a
         //== single panel dropped anywhere on the page no longer collapses somebody else's
-        const CONTAINER = accordion.closest("[pgs~='accordionContainer']");
+        const CONTAINER = pgs(accordion).closest("accordionContainer");
         const isMultiOpen = !CONTAINER || pgs(CONTAINER).option.contains("accordionMultiOpen");
 
         //== Accessibilità (setup una volta)
@@ -949,7 +1007,7 @@ function PGS_accordion_init(root = document) {
         function closeOltherAccordion() {
             for (const otherLi of pgs(CONTAINER).querySelectorAll("accordion")) {
                 if (otherLi === accordion) continue;
-                if (otherLi.closest("[pgs~='accordionContainer']") !== CONTAINER) continue;
+                if (pgs(otherLi).closest("accordionContainer") !== CONTAINER) continue;
                 if (pgs(otherLi).option.contains("accordionAutoOpen")) continue;
 
                 const otherBtn = pgs(otherLi).querySelector("accordion-button");
@@ -1446,7 +1504,7 @@ function setupAccordion(li, button, ul) {
 
     //== a submenu nested inside a first-level dropdown changes the size of the floating panel,
     //== whose position was computed for the size it had when it opened
-    const dropdown = li.closest('[pgs~="dropdown"]');
+    const dropdown = pgs(li).closest("dropdown");
 
     const setOpen = (open) => {
         pgs(li).state.toggle("open", open);
@@ -2048,7 +2106,7 @@ const fn_notification = {
         let created = false;
 
         pgs(root).querySelectorAll("notificationBell").forEach(bell => {
-            const modalWrapper = bell.closest("[pgs~='modal']");
+            const modalWrapper = pgs(bell).closest("modal");
             if (!modalWrapper || modalWrapper.querySelector("dialog")) return;
 
             //== modalContainerID/modalContainerPGS move the dialog out of the wrapper, so on a later
@@ -2254,7 +2312,7 @@ function PGS_search_init(root = document) {
 
         function setActiveIndex(index) {
             activeIndex = index;
-            const elements = Array.from(list.querySelectorAll('[pgs~="_search-suggestions-item"]'));
+            const elements = Array.from(pgs(list).querySelectorAll("_search-suggestions-item"));
 
             elements.forEach((element, itemIndex) => {
                 const selected = itemIndex === activeIndex;
@@ -2493,7 +2551,7 @@ function PGS_search_init(root = document) {
         }
 
         function onListPointerDown(event) {
-            const option = event.target.closest('[pgs~="_search-suggestions-item"]');
+            const option = pgs(event.target).closest("_search-suggestions-item");
             if (!option || !list.contains(option)) return;
             event.preventDefault();
             select(Number.parseInt(option.dataset.index, 10));
@@ -3984,7 +4042,7 @@ class PGS_formValidate {
         if (i !== 0) return;
 
         const messageSource = field.matches("fieldset")
-            ? field.querySelector('[pgs-option*="formMessage["], [pgs-option*="formMessageTitle["]')
+            ? (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(field).option.querySelector(["formMessage", "formMessageTitle"])
             : field;
         const source = messageSource || field;
         const temporaryError = this.#temporaryFieldErrors.get(field);
@@ -4043,7 +4101,7 @@ class PGS_formValidate {
         const allFields = this.container.querySelectorAll("input, textarea, select")
 
         //== pulizia/aggiornamento errori
-        this.container.querySelectorAll('[pgs-state~="errorField"]').forEach(element => {
+        ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.container).state.querySelectorAll("errorField").forEach(element => {
             if (!invalid.includes(element)) this.#removeFieldError(element);
         });
 
@@ -4052,7 +4110,7 @@ class PGS_formValidate {
 
         //== rimuove l'errore al click
         allFields.forEach(element => element.addEventListener("click", () => {
-            const errorTarget = element.closest('fieldset[pgs-state~="errorField"]') || element;
+            const errorTarget = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).state.closest("errorField") || element;
             this.#removeFieldError(errorTarget);
         }));
 
@@ -4720,8 +4778,8 @@ function assignCookieRuntimeAttributes({ root, analyticsToggle, acceptAllButton,
     acceptAllButton?.setAttribute('data-cookie-action', 'accept');
     rejectButton?.setAttribute('data-cookie-action', 'reject');
 
-    root.querySelector('[pgs~="_cookieConsent-panel-featureEssential"]')?.setAttribute('data-cookie-feature', 'essential');
-    root.querySelector('[pgs~="_cookieConsent-panel-featureAnalytics"]')?.setAttribute('data-cookie-feature', 'analytics');
+    pgs(root).querySelector('_cookieConsent-panel-featureEssential')?.setAttribute('data-cookie-feature', 'essential');
+    pgs(root).querySelector('_cookieConsent-panel-featureAnalytics')?.setAttribute('data-cookie-feature', 'analytics');
 
     openButtons.forEach((button) => {
         button.setAttribute('data-cookie-action', 'open');
@@ -4745,10 +4803,10 @@ function initCookieConsent(selectRoot = document) {
     const modal = globalThis.pgs?.modal?.api(root);
     if (!modal) return;
 
-    const analyticsToggle = root.querySelector('[pgs~="_cookieConsent-panel-toggleAnalytics"]');
-    const acceptAllButton = root.querySelector('[pgs~="_cookieConsent-actionAccept"]');
-    const rejectButton = root.querySelector('[pgs~="_cookieConsent-actionReject"]');
-    const openButtons = document.querySelectorAll('[pgs~="cookieConsent-actionOpen"]');
+    const analyticsToggle = pgs(root).querySelector('_cookieConsent-panel-toggleAnalytics');
+    const acceptAllButton = pgs(root).querySelector('_cookieConsent-actionAccept');
+    const rejectButton = pgs(root).querySelector('_cookieConsent-actionReject');
+    const openButtons = pgs(document).querySelectorAll('cookieConsent-actionOpen');
     const measurementId = (root.dataset.gaId || '').trim();
     const prefersGa = measurementId.length > 0;
 

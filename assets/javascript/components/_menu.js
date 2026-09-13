@@ -27,7 +27,7 @@ function setupAccordion(li, button, ul) {
 
     //== a submenu nested inside a first-level dropdown changes the size of the floating panel,
     //== whose position was computed for the size it had when it opened
-    const dropdown = li.closest('[pgs~="dropdown"]');
+    const dropdown = pgs(li).closest("dropdown");
 
     const setOpen = (open) => {
         pgs(li).state.toggle("open", open);

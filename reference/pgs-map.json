@@ -581,6 +581,7 @@
     },
     "cookieConsent": {
         "pgs": [
+            "cookieConsent-actionOpen",
             "cookieConsent-gaUnavailable"
         ],
         "pgs-generated": [

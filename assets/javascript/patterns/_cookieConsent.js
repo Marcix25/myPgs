@@ -175,8 +175,8 @@ function assignCookieRuntimeAttributes({ root, analyticsToggle, acceptAllButton,
     acceptAllButton?.setAttribute('data-cookie-action', 'accept');
     rejectButton?.setAttribute('data-cookie-action', 'reject');
 
-    root.querySelector('[pgs~="_cookieConsent-panel-featureEssential"]')?.setAttribute('data-cookie-feature', 'essential');
-    root.querySelector('[pgs~="_cookieConsent-panel-featureAnalytics"]')?.setAttribute('data-cookie-feature', 'analytics');
+    pgs(root).querySelector('_cookieConsent-panel-featureEssential')?.setAttribute('data-cookie-feature', 'essential');
+    pgs(root).querySelector('_cookieConsent-panel-featureAnalytics')?.setAttribute('data-cookie-feature', 'analytics');
 
     openButtons.forEach((button) => {
         button.setAttribute('data-cookie-action', 'open');
@@ -200,10 +200,10 @@ function initCookieConsent(selectRoot = document) {
     const modal = globalThis.pgs?.modal?.api(root);
     if (!modal) return;
 
-    const analyticsToggle = root.querySelector('[pgs~="_cookieConsent-panel-toggleAnalytics"]');
-    const acceptAllButton = root.querySelector('[pgs~="_cookieConsent-actionAccept"]');
-    const rejectButton = root.querySelector('[pgs~="_cookieConsent-actionReject"]');
-    const openButtons = document.querySelectorAll('[pgs~="cookieConsent-actionOpen"]');
+    const analyticsToggle = pgs(root).querySelector('_cookieConsent-panel-toggleAnalytics');
+    const acceptAllButton = pgs(root).querySelector('_cookieConsent-actionAccept');
+    const rejectButton = pgs(root).querySelector('_cookieConsent-actionReject');
+    const openButtons = pgs(document).querySelectorAll('cookieConsent-actionOpen');
     const measurementId = (root.dataset.gaId || '').trim();
     const prefersGa = measurementId.length > 0;
 

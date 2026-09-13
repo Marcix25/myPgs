@@ -12,7 +12,7 @@ const INITIALIZED_BUTTONS = new WeakSet();
 //== gets found. The fa- classes stay on for the pages that style them
 function changeIcon(selector, isDarkMode) {
     selector.forEach(button => {
-        const ICON = button.querySelector('i, [pgs~="icon"]');
+        const ICON = pgs(button).querySelector("icon") || button.querySelector("i");
         if (!ICON) return;
 
         pgs(ICON).add("icon");

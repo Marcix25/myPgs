@@ -248,7 +248,7 @@ export class PGS_formValidate {
         if (i !== 0) return;
 
         const messageSource = field.matches("fieldset")
-            ? field.querySelector('[pgs-option*="formMessage["], [pgs-option*="formMessageTitle["]')
+            ? pgs(field).option.querySelector(["formMessage", "formMessageTitle"])
             : field;
         const source = messageSource || field;
         const temporaryError = this.#temporaryFieldErrors.get(field);
@@ -307,7 +307,7 @@ export class PGS_formValidate {
         const allFields = this.container.querySelectorAll("input, textarea, select")
 
         //== pulizia/aggiornamento errori
-        this.container.querySelectorAll('[pgs-state~="errorField"]').forEach(element => {
+        pgs(this.container).state.querySelectorAll("errorField").forEach(element => {
             if (!invalid.includes(element)) this.#removeFieldError(element);
         });
 
@@ -316,7 +316,7 @@ export class PGS_formValidate {
 
         //== rimuove l'errore al click
         allFields.forEach(element => element.addEventListener("click", () => {
-            const errorTarget = element.closest('fieldset[pgs-state~="errorField"]') || element;
+            const errorTarget = pgs(element).state.closest("errorField") || element;
             this.#removeFieldError(errorTarget);
         }));
 
