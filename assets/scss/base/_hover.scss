@@ -6,7 +6,7 @@
     --hover-st1-behavior: ease-out;
     --hover-st1-background-timing: calc(var(--hover-st1-timing) / 2);
     --hover-st1-background-delay: calc(var(--hover-st1-timing) / 2);
-    --hover-st1-transform-origin: bottom center;
+    --hover-st1-transform-origin: center center;
 
     &:where(:not(:disabled, [disabled])) {
         //= CONTENT

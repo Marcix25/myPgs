@@ -22,6 +22,7 @@ meaning moved under them, so nothing errors and the page just looks wrong.
 | a bare `<button type="submit">` inside `pgs="form"` | the form styled it as a strong button on its own | draws nothing: mark it `pgs="button"` yourself |
 | several `pgs="accordion"` next to each other | opening one closed every other accordion on the page | each one answers for itself: wrap them in `pgs="accordionContainer"` to get the old behaviour |
 | `pgs-option="buttonText"` and `pgs-option="buttonTransparent"` | `buttonTransparent` stripped every state, `buttonText` only the resting one | the two traded places: `buttonText` strips every state, `buttonTransparent` only the resting one |
+| `pgs="toggleDarkmode"` inside `pgs="footer"` | the footer wrote "Dark mode"/"Light mode" next to the glyph on its own | the label is opt-in, and available everywhere: add `pgs-option="toggleDarkmodeExtended"` |
 
 So `<span pgs="icon"><i class="fa-solid fa-star"></i></span>` no longer draws a circle. The surface
 is now an option on an icon element:
@@ -436,6 +437,11 @@ the pattern.
   the input, keeps its semantics, and paints the checked state from `--button-*-checked` — with
   every button option available on it. This is what replaced `twoState`.
 - **`alertContainer`, `notificationTrigger`, `toastExe`, `lottieChangeColor`** are new public tokens.
+- **A theme switch can carry its label anywhere.** `pgs-option="toggleDarkmodeExtended"` writes the
+  theme the click leads to next to the glyph. The rule used to be baked into the footer, where it
+  applied whether or not the page wanted it and reached no switch outside; it now lives in the
+  darkmode layer, opt-in, with `--darkmode-label-toDark` and `--darkmode-label-toLight`
+  to translate it — both take a CSS string, quotes included.
 
 ## 4. A sweep to run on the project
 
@@ -503,6 +509,9 @@ grep -rn 'header-element-alwaysOnLast' .
 
 # 21. the two button options that traded places (read, don't replace)
 grep -rnE 'buttonText|buttonTransparent' .
+
+# 22. theme switches the footer used to label on its own (read, don't replace)
+grep -rnE 'pgs="[^"]*\btoggleDarkmode\b' .
 ```
 
 Hit 5 needs reading rather than replacing: an `icon` that wraps another element wanted the surface
@@ -516,4 +525,6 @@ is the last of the kind: a set of accordions that used to close each other needs
 on its wrapper, while a standalone one needs nothing. Hit 21 too: `buttonText` and `buttonTransparent`
 swapped implementations, so every hit needs the other name — but read each one, because a link that
 should stay filled when it is the current page wants `buttonTransparent`, and only a button that
-must never fill wants `buttonText`.
+must never fill wants `buttonText`. Hit 22 closes the set: a switch that sat in a footer and
+showed a written label needs `pgs-option="toggleDarkmodeExtended"` to keep it, while one that was
+icon-only — in a header, or anywhere outside the footer — needs nothing.

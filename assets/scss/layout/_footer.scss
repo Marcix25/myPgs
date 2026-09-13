@@ -2,7 +2,7 @@
 
 [pgs~="footer"] {
     --footer-color: var(--color-black);
-    --footer-background: linear-gradient(360deg, var(--color-primary-soft), transparent);
+    --footer-background: var(--color-box);
     --footer-colorScheme: inherit;
     background: var(--footer-background);
     color: var(--footer-color);
@@ -11,28 +11,6 @@
     container-type: inline-size;
     position: relative;
     isolation: isolate;
-
-    //= DARKMODE
-    [pgs~="toggleDarkmode"] {
-
-        // position: absolute;
-        // right: calc(20px + 5vw);
-        // top: 0;
-        // translate: 0 -50%;
-        // z-index: 1;
-        //== the label says where the click leads, so it reads the theme itself rather than the glyph
-        //== on the button. Looking at the root state instead of the icon's classes means it keeps
-        //== working whatever icon set drew that glyph, and with no icon set at all
-        &::after {
-            content: "Dark mode";
-        }
-
-        :root[pgs-state~="darkmode"] & {
-            &::after {
-                content: "Light mode";
-            }
-        }
-    }
 
     //= TOP
     [pgs~="footer-top"] {
@@ -73,8 +51,8 @@
             @include flexColumn();
 
             [pgs~="logo-image"] {
-                max-width: 250px;
-                max-height: 100px;
+                aspect-ratio: 1;
+                height: 200px;
                 object-fit: contain;
                 object-position: left center;
             }

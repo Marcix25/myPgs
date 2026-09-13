@@ -44,7 +44,7 @@
     <header pgs="header" pgs-option="headerCompactBigTablet">
         <div pgs="header-element blur">
             <div pgs="header-element-alwaysOn">
-                <a aria-label="Logo" pgs="logo" href="/">
+                <a aria-label="Logo" pgs="logo" pgs-option="logoDarkmode" href="/">
                     <img pgs="logo-image" src="/demo/assets/logo.jpg" alt="MyPGS">
                 </a>
             </div>
@@ -67,23 +67,22 @@
                     <button pgs="button toggleDarkmode" pgs-option="buttonIcon" type="button" aria-label="Change theme">
                         <i class="fa-solid fa-moon"></i>
                     </button>
-                </div>
+                    <div pgs="modal" pgs-option="modalContainerPGS[header]">
+                        <button pgs="button modal-button modal-close" pgs-option="buttonIcon" type="button" title="menu">
+                            <i pgs="icon" pgs-option="icon-hamburgerTwo" aria-hidden="true"></i>
+                        </button>
 
-                <div pgs="modal" pgs-option="modalContainerPGS[header]">
-                    <button pgs="button modal-button modal-close" pgs-option="buttonIcon" type="button" title="menu">
-                        <i pgs="icon" pgs-option="icon-hamburgerTwo" aria-hidden="true"></i>
-                    </button>
-
-                    <dialog pgs="modal-dialog" pgs-option="modalRight">
-                        <div pgs="modal-dialog-content">
-                            <div pgs="modal-dialog-content-scroll margin padding" pgs-option="marginNegative">
-                                <nav pgs="menu" pgs-option="menuVertical " aria-label="Main menu">
-                                    <ul>
-                                        <li><a pgs="button" pgs-option="buttonTransparent buttonHeader buttonPaddingEqual" href="/demo/build/test.html">Test</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-                    </dialog>
+                        <dialog pgs="modal-dialog" pgs-option="modalRight">
+                            <div pgs="modal-dialog-content">
+                                <div pgs="modal-dialog-content-scroll margin padding" pgs-option="marginNegative">
+                                    <nav pgs="menu" pgs-option="menuVertical " aria-label="Main menu">
+                                        <ul>
+                                            <li><a pgs="button" pgs-option="buttonTransparent buttonHeader buttonPaddingEqual" href="/demo/build/test.html">Test</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                        </dialog>
+                    </div>
                 </div>
             </div>
         </div>
@@ -122,34 +121,20 @@
         <section pgs="footer-top section">
             <div pgs="footer-top-content flexRow" pgs-option="column-3">
                 <div pgs="footer-brand">
-                    <a aria-label="Logo" pgs="logo" href="/">
-                        <span pgs="logo-text">MyPGS</span>
+                    <a aria-label="Logo" pgs="logo" pgs-option="logoDarkmode" href="/">
+                        <img pgs="logo-image" src="/demo/assets/logo.jpg" alt="MyPGS">
                     </a>
                     <p pgs="footer-brand-motto">Reusable frontend components.</p>
-                    <button pgs="button toggleDarkmode" type="button" aria-label="Change theme">
+                    <button pgs="button toggleDarkmode" pgs-option="toggleDarkmodeExtended" type="button" aria-label="Change theme">
                         <i class="fa-solid fa-moon"></i>
                     </button>
                 </div>
 
                 <div pgs="footer-content">
-                    <h2>Reference</h2>
-                    <nav aria-label="Footer menu">
-                        <ul>
-                            <li><a href="#base">Base</a></li>
-                            <li><a href="#components">Components</a></li>
-                            <li><a href="#layout">Layout</a></li>
-                        </ul>
-                    </nav>
+
                 </div>
                 <div pgs="footer-content">
-                    <h2>Reference</h2>
-                    <nav aria-label="Footer menu">
-                        <ul>
-                            <li><a href="#base">Base</a></li>
-                            <li><a href="#components">Components</a></li>
-                            <li><a href="#layout">Layout</a></li>
-                        </ul>
-                    </nav>
+
                 </div>
             </div>
         </section>

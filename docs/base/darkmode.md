@@ -8,6 +8,10 @@ Global light and dark theme switch. The choice is persisted in localStorage unde
 
 - `toggleDarkmode`: turns a control into a theme switch; every one of them on the page reflects the same state.
 
+## PGS Options
+
+- `toggleDarkmodeExtended`: writes the theme the click leads to next to the glyph, "Dark mode" while the page is light and "Light mode" while it is dark. It reads the theme from the html element rather than the glyph on the button, so it keeps working whatever icon set drew it; retitle or translate it with --darkmode-label-toDark and --darkmode-label-toLight, whose values are CSS strings, quotes included.
+
 ## PGS States
 
 - `darkmode`: applied to the html and body elements while the dark theme is active, and read by the whole colour layer.
@@ -33,6 +37,11 @@ Global light and dark theme switch. The choice is persisted in localStorage unde
 
 - `lightmode`: pins a subtree to the light scheme, ignoring this switch; see General.
 - `darkmode`: pins a subtree to the dark scheme, ignoring this switch; see General.
+
+## CSS Variables
+
+- `--darkmode-label-toDark`
+- `--darkmode-label-toLight`
 
 ## Output
 
@@ -62,6 +71,16 @@ The icon is swapped by the library, so author it as fa-moon and leave it alone. 
 
 ```html
 <button pgs="button toggleDarkmode" pgs-option="buttonIcon" type="button" aria-label="Change theme">
+    <i pgs="icon"></i>
+</button>
+```
+
+### Labelled switch
+
+toggleDarkmodeExtended adds the written label, so the control says where the click leads instead of relying on the glyph alone. Override --darkmode-label-toDark and --darkmode-label-toLight to write it in another language: both take a CSS string, quotes included.
+
+```html
+<button pgs="button toggleDarkmode" pgs-option="toggleDarkmodeExtended" type="button" aria-label="Change theme">
     <i pgs="icon"></i>
 </button>
 ```

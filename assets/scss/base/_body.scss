@@ -47,6 +47,8 @@
         margin: var(--gap-texts);
         border-style: solid;
         border-color: var(--color-primary-soft);
+        align-self: stretch;
+        width: auto;
     }
 
     fieldset {

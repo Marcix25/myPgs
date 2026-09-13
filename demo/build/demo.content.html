@@ -573,7 +573,7 @@
             <span pgs="box outline olError" pgs-option="boxMini">olError</span>
         </div>
     </section>
-</main></div></section></div><div data-panel="base/darkmode.html" hidden pgs="flexColumn" pgs-option="gapElements"><section class="demoContent" data-reference="base/darkmode.html" pgs="flexColumn" pgs-option="gapElements"><div class="demoContent-heading" pgs="flexColumn" pgs-option="gapTexts"><h1 class="demoContent-heading-h1">Darkmode</h1><p>Global light and dark theme switch. The choice is persisted in localStorage under screenIsDarkMode and re-applied to the html element as soon as the bundle is parsed, before the page paints, so a reload never flashes the wrong theme. Every control marked toggleDarkmode flips the theme and stays in sync with the others, and its inner icon is swapped between the built-in icon-moon and icon-sun glyphs automatically, so the control is never blank even with no icon set loaded; the fa-moon and fa-sun classes are still set alongside, for pages that style them. Each switch dispatches pgs:svg:changeColor on the document with detail { isDarkMode }, which is what recolours the SVG and Lottie files; see SVG colors.</p></div><div class="demoContent-doc" pgs="box flexColumn accordionContainer" pgs-option="gapElements"><div pgs="flexColumn accordion" pgs-option="gapTexts accordionAutoOpen"><h4 pgs="accordion-button">PGS</h4><ul pgs="flexColumn accordion-content" pgs-option="gapTexts" hidden><li><code>toggleDarkmode</code>: turns a control into a theme switch; every one of them on the page reflects the same state.</li></ul></div><div pgs="flexColumn accordion" pgs-option="gapTexts"><h4 pgs="accordion-button">PGS States</h4><ul pgs="flexColumn accordion-content" pgs-option="gapTexts" hidden><li><code>darkmode</code>: applied to the html and body elements while the dark theme is active, and read by the whole colour layer.</li></ul></div><div pgs="flexColumn accordion" pgs-option="gapTexts"><h4 pgs="accordion-button">API</h4><ul pgs="flexColumn accordion-content" pgs-option="gapTexts" hidden><li><code>pgs.darkmode.init(root)</code>: initializes the switches within the specified root, and re-applies the stored theme.</li></ul></div><div class="demoContent-doc-related" pgs="flexColumn accordion" pgs-option="gapTexts"><h4 pgs="accordion-button">Related elements</h4><div pgs="flexColumn accordion-content" pgs-option="gapTexts" hidden><div pgs="flexColumn" pgs-option="gapTexts"><h5 class="demoContent-doc-subheading">PGS</h5><ul pgs="flexColumn" pgs-option="gapTexts"><li><code>button</code>: presents the switch as a button.</li><li><code>flexColumn</code>: stacks the example and its notes vertically.</li><li><code>icon</code>: marks the element the switch draws its glyph on; the library sets icon-moon or icon-sun on it, so it needs no option of your own.</li></ul></div><div pgs="flexColumn" pgs-option="gapTexts"><h5 class="demoContent-doc-subheading">PGS Options</h5><ul pgs="flexColumn" pgs-option="gapTexts"><li><code>buttonIcon</code>: presents the switch as an icon-only button.</li><li><code>gapTexts</code>: spaces the example content.</li></ul></div><div pgs="flexColumn" pgs-option="gapTexts"><h5 class="demoContent-doc-subheading">Other</h5><ul pgs="flexColumn" pgs-option="gapTexts"><li><code>lightmode</code>: pins a subtree to the light scheme, ignoring this switch; see General.</li><li><code>darkmode</code>: pins a subtree to the dark scheme, ignoring this switch; see General.</li></ul></div></div></div></div><div class="exampleSource" data-kind="js"><strong class="exampleSource-title">JavaScript Usage</strong><button type="button" class="exampleSource-copy" aria-label="Copia il codice HTML"><i class="fa-solid fa-copy" aria-hidden="true"></i></button><pre><code class="language-js">/* Re-run it after adding a switch to the page. */
+</main></div></section></div><div data-panel="base/darkmode.html" hidden pgs="flexColumn" pgs-option="gapElements"><section class="demoContent" data-reference="base/darkmode.html" pgs="flexColumn" pgs-option="gapElements"><div class="demoContent-heading" pgs="flexColumn" pgs-option="gapTexts"><h1 class="demoContent-heading-h1">Darkmode</h1><p>Global light and dark theme switch. The choice is persisted in localStorage under screenIsDarkMode and re-applied to the html element as soon as the bundle is parsed, before the page paints, so a reload never flashes the wrong theme. Every control marked toggleDarkmode flips the theme and stays in sync with the others, and its inner icon is swapped between the built-in icon-moon and icon-sun glyphs automatically, so the control is never blank even with no icon set loaded; the fa-moon and fa-sun classes are still set alongside, for pages that style them. Each switch dispatches pgs:svg:changeColor on the document with detail { isDarkMode }, which is what recolours the SVG and Lottie files; see SVG colors.</p></div><div class="demoContent-doc" pgs="box flexColumn accordionContainer" pgs-option="gapElements"><div pgs="flexColumn accordion" pgs-option="gapTexts accordionAutoOpen"><h4 pgs="accordion-button">PGS</h4><ul pgs="flexColumn accordion-content" pgs-option="gapTexts" hidden><li><code>toggleDarkmode</code>: turns a control into a theme switch; every one of them on the page reflects the same state.</li></ul></div><div pgs="flexColumn accordion" pgs-option="gapTexts accordionAutoOpen"><h4 pgs="accordion-button">PGS Options</h4><ul pgs="flexColumn accordion-content" pgs-option="gapTexts" hidden><li><code>toggleDarkmodeExtended</code>: writes the theme the click leads to next to the glyph, &quot;Dark mode&quot; while the page is light and &quot;Light mode&quot; while it is dark. It reads the theme from the html element rather than the glyph on the button, so it keeps working whatever icon set drew it; retitle or translate it with --darkmode-label-toDark and --darkmode-label-toLight, whose values are CSS strings, quotes included.</li></ul></div><div pgs="flexColumn accordion" pgs-option="gapTexts"><h4 pgs="accordion-button">PGS States</h4><ul pgs="flexColumn accordion-content" pgs-option="gapTexts" hidden><li><code>darkmode</code>: applied to the html and body elements while the dark theme is active, and read by the whole colour layer.</li></ul></div><div pgs="flexColumn accordion" pgs-option="gapTexts"><h4 pgs="accordion-button">API</h4><ul pgs="flexColumn accordion-content" pgs-option="gapTexts" hidden><li><code>pgs.darkmode.init(root)</code>: initializes the switches within the specified root, and re-applies the stored theme.</li></ul></div><div class="demoContent-doc-related" pgs="flexColumn accordion" pgs-option="gapTexts"><h4 pgs="accordion-button">Related elements</h4><div pgs="flexColumn accordion-content" pgs-option="gapTexts" hidden><div pgs="flexColumn" pgs-option="gapTexts"><h5 class="demoContent-doc-subheading">PGS</h5><ul pgs="flexColumn" pgs-option="gapTexts"><li><code>button</code>: presents the switch as a button.</li><li><code>flexColumn</code>: stacks the example and its notes vertically.</li><li><code>icon</code>: marks the element the switch draws its glyph on; the library sets icon-moon or icon-sun on it, so it needs no option of your own.</li></ul></div><div pgs="flexColumn" pgs-option="gapTexts"><h5 class="demoContent-doc-subheading">PGS Options</h5><ul pgs="flexColumn" pgs-option="gapTexts"><li><code>buttonIcon</code>: presents the switch as an icon-only button.</li><li><code>gapTexts</code>: spaces the example content.</li></ul></div><div pgs="flexColumn" pgs-option="gapTexts"><h5 class="demoContent-doc-subheading">Other</h5><ul pgs="flexColumn" pgs-option="gapTexts"><li><code>lightmode</code>: pins a subtree to the light scheme, ignoring this switch; see General.</li><li><code>darkmode</code>: pins a subtree to the dark scheme, ignoring this switch; see General.</li></ul></div></div></div><div class="demoContent-doc-cssVariables" pgs="flexColumn accordion" pgs-option="gapTexts"><h4 pgs="accordion-button">CSS Variables</h4><ul pgs="flexColumn accordion-content" pgs-option="gapTexts" hidden><li><code>--darkmode-label-toDark</code></li><li><code>--darkmode-label-toLight</code></li></ul></div></div><div class="exampleSource" data-kind="js"><strong class="exampleSource-title">JavaScript Usage</strong><button type="button" class="exampleSource-copy" aria-label="Copia il codice HTML"><i class="fa-solid fa-copy" aria-hidden="true"></i></button><pre><code class="language-js">/* Re-run it after adding a switch to the page. */
 pgs.darkmode.init(document);
 
 /* Dispatched on the document at every switch, and at the initial pass on load. */
@@ -588,6 +588,14 @@ localStorage.getItem(&quot;screenIsDarkMode&quot;);</code></pre></div><div class
 
     
 </div></div><div class="exampleSource" data-kind="html"><strong class="exampleSource-title">Example HTML</strong><button type="button" class="exampleSource-copy" aria-label="Copia il codice HTML"><i class="fa-solid fa-copy" aria-hidden="true"></i></button><pre><code class="language-markup">&lt;button pgs=&quot;button toggleDarkmode&quot; pgs-option=&quot;buttonIcon&quot; type=&quot;button&quot; aria-label=&quot;Change theme&quot;&gt;
+    &lt;i pgs=&quot;icon&quot;&gt;&lt;/i&gt;
+&lt;/button&gt;</code></pre></div></div><div class="demo-item" pgs="flexColumn" pgs-option="gapElements"><div class="demoContent-heading" pgs="flexColumn" pgs-option="gapTexts"><h3 class="demoContent-heading-h3">Labelled switch</h3><p>toggleDarkmodeExtended adds the written label, so the control says where the click leads instead of relying on the glyph alone. Override --darkmode-label-toDark and --darkmode-label-toLight to write it in another language: both take a CSS string, quotes included.</p></div><div pgs="container flexColumn" pgs-option="gapElements"><div>
+
+    <button pgs="button toggleDarkmode" pgs-option="toggleDarkmodeExtended" type="button" aria-label="Change theme">
+        <i pgs="icon"></i>
+    </button>
+
+</div></div><div class="exampleSource" data-kind="html"><strong class="exampleSource-title">Example HTML</strong><button type="button" class="exampleSource-copy" aria-label="Copia il codice HTML"><i class="fa-solid fa-copy" aria-hidden="true"></i></button><pre><code class="language-markup">&lt;button pgs=&quot;button toggleDarkmode&quot; pgs-option=&quot;toggleDarkmodeExtended&quot; type=&quot;button&quot; aria-label=&quot;Change theme&quot;&gt;
     &lt;i pgs=&quot;icon&quot;&gt;&lt;/i&gt;
 &lt;/button&gt;</code></pre></div></div></section></div><div data-panel="base/svg.html" hidden pgs="flexColumn" pgs-option="gapElements"><section class="demoContent" data-reference="base/svg.html" pgs="flexColumn" pgs-option="gapElements"><div class="demoContent-heading" pgs="flexColumn" pgs-option="gapTexts"><h1 class="demoContent-heading-h1">SVG colors</h1><p>Recolours external SVG and Lottie files when the theme changes, swapping each declared colour pair between its light and dark value.</p></div><div class="demoContent-doc" pgs="box flexColumn accordionContainer" pgs-option="gapElements"><div pgs="flexColumn accordion" pgs-option="gapTexts accordionAutoOpen"><h4 pgs="accordion-button">PGS</h4><ul pgs="flexColumn accordion-content" pgs-option="gapTexts" hidden><li><code>svgChangeColor</code>: marks the file to recolour; its presence in the page also enables the whole recolouring pass.</li><li><code>lottieChangeColor</code>: the same marker for a Lottie player, recoloured from the --lottie-color-N pairs instead of --svg-color-N.</li></ul></div><div pgs="flexColumn accordion" pgs-option="gapTexts"><h4 pgs="accordion-button">PGS States</h4><ul pgs="flexColumn accordion-content" pgs-option="gapTexts" hidden><li><code>darkmode</code>: read on the document to decide which side of every colour pair to apply.</li></ul></div><div pgs="flexColumn accordion" pgs-option="gapTexts"><h4 pgs="accordion-button">API</h4><ul pgs="flexColumn accordion-content" pgs-option="gapTexts" hidden><li><code>pgs.svg.init(root)</code>: initializes matching elements within the specified root.</li></ul></div><div class="demoContent-doc-related" pgs="flexColumn accordion" pgs-option="gapTexts"><h4 pgs="accordion-button">Related elements</h4><div pgs="flexColumn accordion-content" pgs-option="gapTexts" hidden><div pgs="flexColumn" pgs-option="gapTexts"><h5 class="demoContent-doc-subheading">PGS</h5><ul pgs="flexColumn" pgs-option="gapTexts"><li><code>flexColumn</code>: stacks the example and its notes vertically.</li></ul></div><div pgs="flexColumn" pgs-option="gapTexts"><h5 class="demoContent-doc-subheading">PGS Options</h5><ul pgs="flexColumn" pgs-option="gapTexts"><li><code>gapTexts</code>: spaces the example content.</li></ul></div></div></div></div><div class="demoContent-heading" pgs="flexColumn" pgs-option="gapTexts"><h2 class="demoContent-heading-h2">Examples</h2></div><div class="demo-item" pgs="flexColumn" pgs-option="gapElements"><div class="demoContent-heading" pgs="flexColumn" pgs-option="gapTexts"><h3 class="demoContent-heading-h3">Theme-aware SVG</h3><p>Colours are declared on the document as pairs, light value first and dark value second, and every --svg-color-N from 0 to 19 is read. The file must be same-origin, because the pass rewrites the fill and stroke attributes inside its document. The same applies to Lottie files with --lottie-color-N.</p></div><div pgs="container flexColumn" pgs-option="gapElements"><object pgs="svgChangeColor" type="image/svg+xml" data="/reference/assets/svg-logo.svg" width="200" height="200">
     Theme-aware logo
@@ -3224,9 +3232,6 @@ localStorage.getItem(&quot;screenIsDarkMode&quot;);</code></pre></div><div class
 						<li><a pgs="button" pgs-option="buttonTransparent buttonHeader buttonPaddingEqual" href="/contact">Contact</a></li>
 					</ul>
 				</nav>
-			</div>
-
-			<div pgs="header-element-alwaysOn">
 				<div pgs="flexRow" pgs-option="nowrap">
 					<div pgs="modal" pgs-option="modalContainerPGS[header] ">
 						<button type="button" pgs="modal-button modal-close button notificationBell" pgs-option="buttonIcon" aria-label="Open notifications">
@@ -3241,24 +3246,35 @@ localStorage.getItem(&quot;screenIsDarkMode&quot;);</code></pre></div><div class
 			</div>
 
 			<div pgs="header-element-onlyCompact">
-				<div pgs="modal" pgs-option="modalContainerPGS[header]">
-
-					<button pgs="button modal-button modal-close" pgs-option="buttonIcon" type="button" aria-label="Open menu">
-						<i pgs="icon" pgs-option="icon-hamburgerTwo" aria-hidden="true"></i>
+				<div pgs="flexRow" pgs-option="nowrap">
+					<div pgs="modal" pgs-option="modalContainerPGS[header] ">
+						<button type="button" pgs="modal-button modal-close button notificationBell" pgs-option="buttonIcon" aria-label="Open notifications">
+							<i pgs="icon" pgs-option="icon-bell"></i>
+							<span pgs="notificationBell-counter"></span>
+						</button>
+					</div>
+					<button pgs="button toggleDarkmode" pgs-option="buttonIcon" type="button" aria-label="Change theme">
+						<i pgs="icon"></i>
 					</button>
+					<div pgs="modal" pgs-option="modalContainerPGS[header]">
 
-					<dialog pgs="modal-dialog" pgs-option="modalRight">
-						<div pgs="modal-dialog-content">
-							<nav pgs="menu" pgs-option="menuVertical" aria-label="Compact menu">
-								<ul>
-									<li><a pgs="button" pgs-option="buttonTransparent buttonPaddingEqual" href="/">Home</a></li>
-									<li><a pgs="button" pgs-option="buttonTransparent buttonPaddingEqual" href="/services">Services</a></li>
-									<li><a pgs="button" pgs-option="buttonTransparent buttonPaddingEqual" href="/about">About</a></li>
-									<li><a pgs="button" pgs-option="buttonTransparent buttonPaddingEqual" href="/contact">Contact</a></li>
-								</ul>
-							</nav>
-						</div>
-					</dialog>
+						<button pgs="button modal-button modal-close" pgs-option="buttonIcon" type="button" aria-label="Open menu">
+							<i pgs="icon" pgs-option="icon-hamburgerTwo" aria-hidden="true"></i>
+						</button>
+
+						<dialog pgs="modal-dialog" pgs-option="modalRight">
+							<div pgs="modal-dialog-content">
+								<nav pgs="menu" pgs-option="menuVertical" aria-label="Compact menu">
+									<ul>
+										<li><a pgs="button" pgs-option="buttonTransparent buttonPaddingEqual" href="/">Home</a></li>
+										<li><a pgs="button" pgs-option="buttonTransparent buttonPaddingEqual" href="/services">Services</a></li>
+										<li><a pgs="button" pgs-option="buttonTransparent buttonPaddingEqual" href="/about">About</a></li>
+										<li><a pgs="button" pgs-option="buttonTransparent buttonPaddingEqual" href="/contact">Contact</a></li>
+									</ul>
+								</nav>
+							</div>
+						</dialog>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -3280,9 +3296,6 @@ localStorage.getItem(&quot;screenIsDarkMode&quot;);</code></pre></div><div class
 					&lt;li&gt;&lt;a pgs=&quot;button&quot; pgs-option=&quot;buttonTransparent buttonHeader buttonPaddingEqual&quot; href=&quot;/contact&quot;&gt;Contact&lt;/a&gt;&lt;/li&gt;
 				&lt;/ul&gt;
 			&lt;/nav&gt;
-		&lt;/div&gt;
-
-		&lt;div pgs=&quot;header-element-alwaysOn&quot;&gt;
 			&lt;div pgs=&quot;flexRow&quot; pgs-option=&quot;nowrap&quot;&gt;
 				&lt;div pgs=&quot;modal&quot; pgs-option=&quot;modalContainerPGS[header] &quot;&gt;
 					&lt;button type=&quot;button&quot; pgs=&quot;modal-button modal-close button notificationBell&quot; pgs-option=&quot;buttonIcon&quot; aria-label=&quot;Open notifications&quot;&gt;
@@ -3297,24 +3310,35 @@ localStorage.getItem(&quot;screenIsDarkMode&quot;);</code></pre></div><div class
 		&lt;/div&gt;
 
 		&lt;div pgs=&quot;header-element-onlyCompact&quot;&gt;
-			&lt;div pgs=&quot;modal&quot; pgs-option=&quot;modalContainerPGS[header]&quot;&gt;
-
-				&lt;button pgs=&quot;button modal-button modal-close&quot; pgs-option=&quot;buttonIcon&quot; type=&quot;button&quot; aria-label=&quot;Open menu&quot;&gt;
-					&lt;i pgs=&quot;icon&quot; pgs-option=&quot;icon-hamburgerTwo&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
+			&lt;div pgs=&quot;flexRow&quot; pgs-option=&quot;nowrap&quot;&gt;
+				&lt;div pgs=&quot;modal&quot; pgs-option=&quot;modalContainerPGS[header] &quot;&gt;
+					&lt;button type=&quot;button&quot; pgs=&quot;modal-button modal-close button notificationBell&quot; pgs-option=&quot;buttonIcon&quot; aria-label=&quot;Open notifications&quot;&gt;
+						&lt;i pgs=&quot;icon&quot; pgs-option=&quot;icon-bell&quot;&gt;&lt;/i&gt;
+						&lt;span pgs=&quot;notificationBell-counter&quot;&gt;&lt;/span&gt;
+					&lt;/button&gt;
+				&lt;/div&gt;
+				&lt;button pgs=&quot;button toggleDarkmode&quot; pgs-option=&quot;buttonIcon&quot; type=&quot;button&quot; aria-label=&quot;Change theme&quot;&gt;
+					&lt;i pgs=&quot;icon&quot;&gt;&lt;/i&gt;
 				&lt;/button&gt;
+				&lt;div pgs=&quot;modal&quot; pgs-option=&quot;modalContainerPGS[header]&quot;&gt;
 
-				&lt;dialog pgs=&quot;modal-dialog&quot; pgs-option=&quot;modalRight&quot;&gt;
-					&lt;div pgs=&quot;modal-dialog-content&quot;&gt;
-						&lt;nav pgs=&quot;menu&quot; pgs-option=&quot;menuVertical&quot; aria-label=&quot;Compact menu&quot;&gt;
-							&lt;ul&gt;
-								&lt;li&gt;&lt;a pgs=&quot;button&quot; pgs-option=&quot;buttonTransparent buttonPaddingEqual&quot; href=&quot;/&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
-								&lt;li&gt;&lt;a pgs=&quot;button&quot; pgs-option=&quot;buttonTransparent buttonPaddingEqual&quot; href=&quot;/services&quot;&gt;Services&lt;/a&gt;&lt;/li&gt;
-								&lt;li&gt;&lt;a pgs=&quot;button&quot; pgs-option=&quot;buttonTransparent buttonPaddingEqual&quot; href=&quot;/about&quot;&gt;About&lt;/a&gt;&lt;/li&gt;
-								&lt;li&gt;&lt;a pgs=&quot;button&quot; pgs-option=&quot;buttonTransparent buttonPaddingEqual&quot; href=&quot;/contact&quot;&gt;Contact&lt;/a&gt;&lt;/li&gt;
-							&lt;/ul&gt;
-						&lt;/nav&gt;
-					&lt;/div&gt;
-				&lt;/dialog&gt;
+					&lt;button pgs=&quot;button modal-button modal-close&quot; pgs-option=&quot;buttonIcon&quot; type=&quot;button&quot; aria-label=&quot;Open menu&quot;&gt;
+						&lt;i pgs=&quot;icon&quot; pgs-option=&quot;icon-hamburgerTwo&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
+					&lt;/button&gt;
+
+					&lt;dialog pgs=&quot;modal-dialog&quot; pgs-option=&quot;modalRight&quot;&gt;
+						&lt;div pgs=&quot;modal-dialog-content&quot;&gt;
+							&lt;nav pgs=&quot;menu&quot; pgs-option=&quot;menuVertical&quot; aria-label=&quot;Compact menu&quot;&gt;
+								&lt;ul&gt;
+									&lt;li&gt;&lt;a pgs=&quot;button&quot; pgs-option=&quot;buttonTransparent buttonPaddingEqual&quot; href=&quot;/&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
+									&lt;li&gt;&lt;a pgs=&quot;button&quot; pgs-option=&quot;buttonTransparent buttonPaddingEqual&quot; href=&quot;/services&quot;&gt;Services&lt;/a&gt;&lt;/li&gt;
+									&lt;li&gt;&lt;a pgs=&quot;button&quot; pgs-option=&quot;buttonTransparent buttonPaddingEqual&quot; href=&quot;/about&quot;&gt;About&lt;/a&gt;&lt;/li&gt;
+									&lt;li&gt;&lt;a pgs=&quot;button&quot; pgs-option=&quot;buttonTransparent buttonPaddingEqual&quot; href=&quot;/contact&quot;&gt;Contact&lt;/a&gt;&lt;/li&gt;
+								&lt;/ul&gt;
+							&lt;/nav&gt;
+						&lt;/div&gt;
+					&lt;/dialog&gt;
+				&lt;/div&gt;
 			&lt;/div&gt;
 		&lt;/div&gt;
 	&lt;/div&gt;
@@ -3998,7 +4022,7 @@ localStorage.getItem(&quot;screenIsDarkMode&quot;);</code></pre></div><div class
             &lt;p&gt;Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab modi ut sunt est illum accusantium dolores eum aut cum itaque.&lt;/p&gt;
         &lt;/div&gt;
     &lt;/aside&gt;
-&lt;/div&gt;</code></pre></div></div></div></div><div data-panel="layout/footer.html" hidden pgs="flexColumn" pgs-option="gapElements"><section class="demoContent" data-reference="layout/footer.html" pgs="flexColumn" pgs-option="gapElements"><div class="demoContent-heading" pgs="flexColumn" pgs-option="gapTexts"><h1 class="demoContent-heading-h1">Footer</h1><p>Complete footer with theme control, brand area, navigation, informational content, and a link to cookie preferences.</p></div><div class="demoContent-doc" pgs="box flexColumn accordionContainer" pgs-option="gapElements"><div pgs="flexColumn accordion" pgs-option="gapTexts accordionAutoOpen"><h4 pgs="accordion-button">PGS</h4><ul pgs="flexColumn accordion-content" pgs-option="gapTexts" hidden><li><code>footer</code>: identifies the main footer container.</li><li><code>footer-top</code>: identifies the upper section containing the brand and content.</li><li><code>footer-top-content</code>: identifies the responsive inner layout of the upper section.</li><li><code>footer-brand</code>: identifies the group dedicated to the brand.</li><li><code>footer-brand-motto</code>: identifies the descriptive text associated with the brand.</li><li><code>footer-content</code>: identifies an informational footer column.</li><li><code>footer-legal</code>: identifies the lower section dedicated to legal information.</li><li><code>footer-legal-content</code>: identifies the content of the legal section.</li></ul></div><div pgs="flexColumn accordion" pgs-option="gapTexts"><h4 pgs="accordion-button">PGS States</h4><ul pgs="flexColumn accordion-content" pgs-option="gapTexts" hidden><li><code>darkmode</code>: read from the html element to label the theme switch with the theme it leads to, rather than reading the glyph on the button.</li></ul></div><div class="demoContent-doc-related" pgs="flexColumn accordion" pgs-option="gapTexts"><h4 pgs="accordion-button">Related elements</h4><div pgs="flexColumn accordion-content" pgs-option="gapTexts" hidden><div pgs="flexColumn" pgs-option="gapTexts"><h5 class="demoContent-doc-subheading">PGS</h5><ul pgs="flexColumn" pgs-option="gapTexts"><li><code>button</code>: presents theme and cookie preference controls as buttons.</li><li><code>toggleDarkmode</code>: connects the control to the global light or dark theme handler.</li><li><code>section</code>: applies the shared section structure to the upper and legal areas.</li><li><code>flexRow</code>: distributes the upper columns responsively.</li><li><code>logo</code>: inserts the brand into the footer.</li><li><code>logo-text</code>: uses the text variant of the logo.</li><li><code>cookieConsent-actionOpen</code>: opens the Cookie Consent preference panel.</li><li><code>icon</code>: draws the glyphs this example shows; see Icon for the whole set.</li></ul></div><div pgs="flexColumn" pgs-option="gapTexts"><h5 class="demoContent-doc-subheading">PGS Options</h5><ul pgs="flexColumn" pgs-option="gapTexts"><li><code>column-3</code>: configures the footer flex layout with three columns.</li></ul></div></div></div><div class="demoContent-doc-cssVariables" pgs="flexColumn accordion" pgs-option="gapTexts"><h4 pgs="accordion-button">CSS Variables</h4><ul pgs="flexColumn accordion-content" pgs-option="gapTexts" hidden><li><code>--footer-background</code></li><li><code>--footer-color</code></li><li><code>--footer-colorScheme</code></li></ul></div></div><div class="demoContent-heading" pgs="flexColumn" pgs-option="gapTexts"><h2 class="demoContent-heading-h2">Examples</h2></div><div class="demo-item" pgs="flexColumn" pgs-option="gapElements"><div class="demoContent-heading" pgs="flexColumn" pgs-option="gapTexts"><h3 class="demoContent-heading-h3">Footer</h3><p>Brand and navigation columns in the upper section, legal links and cookie preferences in the lower one.</p></div><div pgs="container flexColumn" pgs-option="gapElements"><section>
+&lt;/div&gt;</code></pre></div></div></div></div><div data-panel="layout/footer.html" hidden pgs="flexColumn" pgs-option="gapElements"><section class="demoContent" data-reference="layout/footer.html" pgs="flexColumn" pgs-option="gapElements"><div class="demoContent-heading" pgs="flexColumn" pgs-option="gapTexts"><h1 class="demoContent-heading-h1">Footer</h1><p>Complete footer with theme control, brand area, navigation, informational content, and a link to cookie preferences.</p></div><div class="demoContent-doc" pgs="box flexColumn accordionContainer" pgs-option="gapElements"><div pgs="flexColumn accordion" pgs-option="gapTexts accordionAutoOpen"><h4 pgs="accordion-button">PGS</h4><ul pgs="flexColumn accordion-content" pgs-option="gapTexts" hidden><li><code>footer</code>: identifies the main footer container.</li><li><code>footer-top</code>: identifies the upper section containing the brand and content.</li><li><code>footer-top-content</code>: identifies the responsive inner layout of the upper section.</li><li><code>footer-brand</code>: identifies the group dedicated to the brand.</li><li><code>footer-brand-motto</code>: identifies the descriptive text associated with the brand.</li><li><code>footer-content</code>: identifies an informational footer column.</li><li><code>footer-legal</code>: identifies the lower section dedicated to legal information.</li><li><code>footer-legal-content</code>: identifies the content of the legal section.</li></ul></div><div class="demoContent-doc-related" pgs="flexColumn accordion" pgs-option="gapTexts"><h4 pgs="accordion-button">Related elements</h4><div pgs="flexColumn accordion-content" pgs-option="gapTexts" hidden><div pgs="flexColumn" pgs-option="gapTexts"><h5 class="demoContent-doc-subheading">PGS</h5><ul pgs="flexColumn" pgs-option="gapTexts"><li><code>button</code>: presents theme and cookie preference controls as buttons.</li><li><code>toggleDarkmode</code>: connects the control to the global light or dark theme handler.</li><li><code>section</code>: applies the shared section structure to the upper and legal areas.</li><li><code>flexRow</code>: distributes the upper columns responsively.</li><li><code>logo</code>: inserts the brand into the footer.</li><li><code>logo-text</code>: uses the text variant of the logo.</li><li><code>cookieConsent-actionOpen</code>: opens the Cookie Consent preference panel.</li></ul></div><div pgs="flexColumn" pgs-option="gapTexts"><h5 class="demoContent-doc-subheading">PGS Options</h5><ul pgs="flexColumn" pgs-option="gapTexts"><li><code>toggleDarkmodeExtended</code>: labels that control with the theme the click leads to; see Darkmode.</li><li><code>column-3</code>: configures the footer flex layout with three columns.</li></ul></div><div pgs="flexColumn" pgs-option="gapTexts"><h5 class="demoContent-doc-subheading">Other</h5><ul pgs="flexColumn" pgs-option="gapTexts"><li><code>icon</code>: draws the glyphs this example shows; see Icon for the whole set.</li></ul></div></div></div><div class="demoContent-doc-cssVariables" pgs="flexColumn accordion" pgs-option="gapTexts"><h4 pgs="accordion-button">CSS Variables</h4><ul pgs="flexColumn accordion-content" pgs-option="gapTexts" hidden><li><code>--footer-background</code></li><li><code>--footer-color</code></li><li><code>--footer-colorScheme</code></li></ul></div></div><div class="demoContent-heading" pgs="flexColumn" pgs-option="gapTexts"><h2 class="demoContent-heading-h2">Examples</h2></div><div class="demo-item" pgs="flexColumn" pgs-option="gapElements"><div class="demoContent-heading" pgs="flexColumn" pgs-option="gapTexts"><h3 class="demoContent-heading-h3">Footer</h3><p>Brand and navigation columns in the upper section, legal links and cookie preferences in the lower one.</p></div><div pgs="container flexColumn" pgs-option="gapElements"><section>
     <footer pgs="footer">
     
         <section pgs="footer-top section">
@@ -4008,8 +4032,8 @@ localStorage.getItem(&quot;screenIsDarkMode&quot;);</code></pre></div><div class
                         <span pgs="logo-text">MyPGS</span>
                     </a>
                     <p pgs="footer-brand-motto">Reusable frontend components.</p>
-                    <button pgs="button toggleDarkmode" type="button" aria-label="Change theme">
-                        <i pgs="icon"></i>
+                    <button pgs="button toggleDarkmode" pgs-option="toggleDarkmodeExtended" type="button" aria-label="Change theme">
+                        <i class="fa-solid fa-moon"></i>
                     </button>
                 </div>
 
@@ -4044,8 +4068,8 @@ localStorage.getItem(&quot;screenIsDarkMode&quot;);</code></pre></div><div class
                     &lt;span pgs=&quot;logo-text&quot;&gt;MyPGS&lt;/span&gt;
                 &lt;/a&gt;
                 &lt;p pgs=&quot;footer-brand-motto&quot;&gt;Reusable frontend components.&lt;/p&gt;
-                &lt;button pgs=&quot;button toggleDarkmode&quot; type=&quot;button&quot; aria-label=&quot;Change theme&quot;&gt;
-                    &lt;i pgs=&quot;icon&quot;&gt;&lt;/i&gt;
+                &lt;button pgs=&quot;button toggleDarkmode&quot; pgs-option=&quot;toggleDarkmodeExtended&quot; type=&quot;button&quot; aria-label=&quot;Change theme&quot;&gt;
+                    &lt;i class=&quot;fa-solid fa-moon&quot;&gt;&lt;/i&gt;
                 &lt;/button&gt;
             &lt;/div&gt;
 

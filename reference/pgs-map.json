@@ -1786,7 +1786,9 @@
     "toggleDarkmode": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-option": [
+            "toggleDarkmodeExtended"
+        ]
     },
     "tooltip": {
         "pgs": [

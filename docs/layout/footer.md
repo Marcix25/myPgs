@@ -15,10 +15,6 @@ Complete footer with theme control, brand area, navigation, informational conten
 - `footer-legal`: identifies the lower section dedicated to legal information.
 - `footer-legal-content`: identifies the content of the legal section.
 
-## PGS States
-
-- `darkmode`: read from the html element to label the theme switch with the theme it leads to, rather than reading the glyph on the button.
-
 ## Related elements
 
 ### PGS
@@ -34,6 +30,7 @@ Complete footer with theme control, brand area, navigation, informational conten
 
 ### PGS Options
 
+- `toggleDarkmodeExtended`: labels that control with the theme the click leads to; see Darkmode.
 - `column-3`: configures the footer flex layout with three columns.
 
 ## CSS Variables
@@ -64,7 +61,7 @@ Brand and navigation columns in the upper section, legal links and cookie prefer
                     <span pgs="logo-text">MyPGS</span>
                 </a>
                 <p pgs="footer-brand-motto">Reusable frontend components.</p>
-                <button pgs="button toggleDarkmode" type="button" aria-label="Change theme">
+                <button pgs="button toggleDarkmode" pgs-option="toggleDarkmodeExtended" type="button" aria-label="Change theme">
                     <i pgs="icon"></i>
                 </button>
             </div>

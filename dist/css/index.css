@@ -164,6 +164,8 @@
   margin: var(--gap-texts);
   border-style: solid;
   border-color: var(--color-primary-soft);
+  align-self: stretch;
+  width: auto;
 }
 
 :where([pgs~=bodyBase]) fieldset {
@@ -683,6 +685,19 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=imgContain] {
   object-fit: contain;
+}
+
+[pgs~=toggleDarkmode] {
+  --darkmode-label-toDark: "Dark mode";
+  --darkmode-label-toLight: "Light mode";
+}
+
+[pgs~=toggleDarkmode][pgs-option~=toggleDarkmodeExtended]::after {
+  content: var(--darkmode-label-toDark);
+}
+
+:root[pgs-state~=darkmode] [pgs~=toggleDarkmode][pgs-option~=toggleDarkmodeExtended]::after {
+  content: var(--darkmode-label-toLight);
 }
 
 /*
@@ -2835,10 +2850,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   padding-inline: var(--header-padding-block);
 }
 
-[pgs~=header][pgs-state~=compact] [pgs~=header-element] [pgs~=header-element-alwaysOn] {
-  margin-right: auto;
-}
-
 [pgs~=header][pgs-state~=compact] [pgs~=header-element] [pgs~=header-element-onlyFull] {
   display: none;
 }
@@ -2853,7 +2864,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=footer] {
   --footer-color: var(--color-black);
-  --footer-background: linear-gradient(360deg, var(--color-primary-soft), transparent);
+  --footer-background: var(--color-box);
   --footer-colorScheme: inherit;
   background: var(--footer-background);
   color: var(--footer-color);
@@ -2862,14 +2873,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   container-type: inline-size;
   position: relative;
   isolation: isolate;
-}
-
-[pgs~=footer] [pgs~=toggleDarkmode]::after {
-  content: "Dark mode";
-}
-
-:root[pgs-state~=darkmode] [pgs~=footer] [pgs~=toggleDarkmode]::after {
-  content: "Light mode";
 }
 
 [pgs~=footer] [pgs~=footer-top] {
@@ -2914,8 +2917,8 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 [pgs~=footer] [pgs~=footer-top] [pgs~=footer-brand] [pgs~=logo-image] {
-  max-width: 250px;
-  max-height: 100px;
+  aspect-ratio: 1;
+  height: 200px;
   object-fit: contain;
   object-position: left center;
 }
@@ -5356,7 +5359,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 [pgs~=toggle] {
-  --toggle-size: var(--border-radius-input);
+  --toggle-size: 2.0rem;
   --toggle-color-thumb: var(--color-white);
   --toggle-color-rail: #cbcbcb;
   --toggle-color-rail-checked: var(--color-primary);
@@ -7923,7 +7926,7 @@ dialog [pgs~=search] [pgs~=modal-close] {
   --hover-st1-behavior: ease-out;
   --hover-st1-background-timing: calc(var(--hover-st1-timing) / 2);
   --hover-st1-background-delay: calc(var(--hover-st1-timing) / 2);
-  --hover-st1-transform-origin: bottom center;
+  --hover-st1-transform-origin: center center;
 }
 
 [pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])) {

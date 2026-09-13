@@ -30,7 +30,7 @@
 
 //= TOGGLE 
 @mixin toggle() {
-    --toggle-size: var(--border-radius-input);
+    --toggle-size: 2.0rem;
     --toggle-color-thumb: var(--color-white);
     --toggle-color-rail: #cbcbcb;
     --toggle-color-rail-checked: var(--color-primary);

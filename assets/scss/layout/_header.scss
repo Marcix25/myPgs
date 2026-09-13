@@ -33,6 +33,10 @@
         color: var(--header-color);
         pointer-events: auto;
 
+        [pgs~="header-element-onlyCompact"],
+        [pgs~="header-element-onlyFull"],
+        [pgs~="header-element-alwaysOn"] {}
+
         //== ALL
         >* {
             display: contents;
@@ -115,10 +119,6 @@
 
         [pgs~="header-element"] {
             padding-inline: var(--header-padding-block);
-
-            [pgs~="header-element-alwaysOn"] {
-                margin-right: auto;
-            }
 
             [pgs~="header-element-onlyFull"] {
                 display: none;
