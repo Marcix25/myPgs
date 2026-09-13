@@ -52,6 +52,7 @@
  * - modalContainerPGS: identifies the modalContainerPGS element used by Search.
  * - hoverNot: disables hover behavior on the search container.
  * - buttonIcon: presents search and close actions as icon buttons.
+ * - buttonTransparent: keeps the submit button flat inside the field, so only the icon shows.
  * - icon: draws the glyph at the start of every suggestion; see Icon for the whole set.
  * - icon-magnifyingGlass: the glyph used there.
  * - icon-close: the cross that dismisses.
@@ -64,7 +65,9 @@
 <demo demo-h3="Inline search" demo-description="Search field with live suggestions embedded directly in the page."></demo>
 <section demo="component">
     <form pgs="button search" pgs-option="hoverNot searchPlaceholder[Type a component name] searchNoResults[No component matches]" autocomplete="off" action="" method="get">
-        <button type="submit" title="Search"><i pgs="icon" pgs-option="icon-magnifyingGlass"></i></button>
+        <button pgs="button" pgs-option="buttonIcon buttonTransparent" type="submit" title="Search">
+            <i pgs="icon" pgs-option="icon-magnifyingGlass"></i>
+        </button>
         <input type="search" name="s" placeholder="Search" value="">
         <ul pgs="search-suggestions"></ul>
     </form>
@@ -82,7 +85,7 @@
             <div pgs="flexRow section search-mobile">
 
                 <form pgs="button search" pgs-option="hoverNot" autocomplete="off" action="/" method="get">
-                    <button type="submit" title="Search">
+                    <button pgs="button" pgs-option="buttonIcon buttonTransparent" type="submit" title="Search">
                         <i pgs="icon" pgs-option="icon-magnifyingGlass"></i>
                     </button>
 

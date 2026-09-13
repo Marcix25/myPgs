@@ -53,6 +53,10 @@ Interactive palette of the current MyPGS background and text color utilities.
 - `txtSecondary`: applies --color-secondary to text.
 - `txtTertiary`: applies --color-tertiary to text.
 - `txtQuaternary`: applies --color-quaternary to text.
+- `txtPrimaryText`: applies --color-primary-text, the text color meant to sit on a bgPrimary surface.
+- `txtSecondaryText`: applies --color-secondary-text, the text color meant to sit on a bgSecondary surface.
+- `txtTertiaryText`: applies --color-tertiary-text, the text color meant to sit on a bgTertiary surface.
+- `txtQuaternaryText`: applies --color-quaternary-text, the text color meant to sit on a bgQuaternary surface.
 - `txtPrimarySoft`: applies --color-primary-soft to text.
 - `txtPrimaryLight`: applies --color-primary-light to text.
 - `txtPrimaryStrong`: applies --color-primary-strong to text.

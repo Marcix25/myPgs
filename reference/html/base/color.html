@@ -51,6 +51,10 @@
  * - txtSecondary: applies --color-secondary to text.
  * - txtTertiary: applies --color-tertiary to text.
  * - txtQuaternary: applies --color-quaternary to text.
+ * - txtPrimaryText: applies --color-primary-text, the text color meant to sit on a bgPrimary surface.
+ * - txtSecondaryText: applies --color-secondary-text, the text color meant to sit on a bgSecondary surface.
+ * - txtTertiaryText: applies --color-tertiary-text, the text color meant to sit on a bgTertiary surface.
+ * - txtQuaternaryText: applies --color-quaternary-text, the text color meant to sit on a bgQuaternary surface.
  * - txtPrimarySoft: applies --color-primary-soft to text.
  * - txtPrimaryLight: applies --color-primary-light to text.
  * - txtPrimaryStrong: applies --color-primary-strong to text.
@@ -369,6 +373,17 @@
                     <span pgs="dropdown-content tooltip-content">bgSuccessSoft</span>
                 </span>
             </div>
+        </div>
+    </section>
+
+    <section pgs="flexColumn">
+        <strong pgs="flex-flexFull">Text on a color</strong>
+        <p>Each <code>--color-*-text</code> is the reading colour that belongs to its own background, so a coloured surface gets legible text without anyone picking a contrast by hand. Retheme the background and the pair follows.</p>
+        <div pgs="flexRow" pgs-option="gapTexts wrap">
+            <div pgs="box bgPrimary txtPrimaryText" pgs-option="boxMini">bgPrimary + txtPrimaryText</div>
+            <div pgs="box bgSecondary txtSecondaryText" pgs-option="boxMini">bgSecondary + txtSecondaryText</div>
+            <div pgs="box bgTertiary txtTertiaryText" pgs-option="boxMini">bgTertiary + txtTertiaryText</div>
+            <div pgs="box bgQuaternary txtQuaternaryText" pgs-option="boxMini">bgQuaternary + txtQuaternaryText</div>
         </div>
     </section>
 

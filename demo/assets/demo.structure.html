@@ -25,6 +25,17 @@
     <!-- after the stylesheets so the browser starts fetching them first, and still synchronous:
          darkmode writes the theme on the html element before the first paint -->
     <script src="../../dist/javascript/index.js"></script>
+
+    <!-- the reference examples import from "mypgs" like a real project; a browser cannot resolve a
+         bare specifier on its own, so it is mapped to a module that re-exports the global the
+         library already published. Must come before any type="module" script -->
+    <script type="importmap">
+        {
+            "imports": {
+                "mypgs": "../assets/mypgs-module.js"
+            }
+        }
+    </script>
 </head>
 
 <body pgs="bodyBase bodyImg bodyText bodyHeading">
@@ -34,14 +45,14 @@
         <div pgs="header-element blur">
             <div pgs="header-element-alwaysOn">
                 <a aria-label="Logo" pgs="logo" href="/">
-                    <span pgs="logo-text">MyPGS</span>
+                    <img pgs="logo-image" src="/demo/assets/logo.jpg" alt="MyPGS">
                 </a>
             </div>
 
             <div pgs="header-element-onlyFull">
                 <nav pgs="menu" pgs-option="menuHorizontal " aria-label="Main menu">
                     <ul>
-                        <li><a pgs="button" pgs-option="buttonText buttonHeader buttonPaddingEqual" href="/demo/build/test.html">Test</a></li>
+                        <li><a pgs="button" pgs-option="buttonTransparent buttonHeader buttonPaddingEqual" href="/demo/build/test.html">Test</a></li>
                     </ul>
                 </nav>
                 <div pgs="flexRow" pgs-option="nowrap">
@@ -68,7 +79,7 @@
                             <div pgs="modal-dialog-content-scroll margin padding" pgs-option="marginNegative">
                                 <nav pgs="menu" pgs-option="menuVertical " aria-label="Main menu">
                                     <ul>
-                                        <li><a pgs="button" pgs-option="buttonText buttonHeader buttonPaddingEqual" href="/demo/build/test.html">Test</a></li>
+                                        <li><a pgs="button" pgs-option="buttonTransparent buttonHeader buttonPaddingEqual" href="/demo/build/test.html">Test</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -114,7 +125,7 @@
                     <a aria-label="Logo" pgs="logo" href="/">
                         <span pgs="logo-text">MyPGS</span>
                     </a>
-                    <p pgs="footer-brand-motto">Componenti frontend riutilizzabili.</p>
+                    <p pgs="footer-brand-motto">Reusable frontend components.</p>
                     <button pgs="button toggleDarkmode" type="button" aria-label="Change theme">
                         <i class="fa-solid fa-moon"></i>
                     </button>

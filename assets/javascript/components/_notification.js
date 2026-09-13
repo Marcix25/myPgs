@@ -172,7 +172,7 @@ const fn_notification = {
             else buttonElement.type = "button";
             buttonElement.textContent = button.title;
             pgs(buttonElement).add("button");
-            pgs(buttonElement).option.add("buttonText");
+            pgs(buttonElement).option.add("buttonTransparent");
             if (button.optionButton) pgs(buttonElement).option.add(button.optionButton);
 
             buttonElement.addEventListener("click", (e) => {

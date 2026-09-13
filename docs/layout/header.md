@@ -55,7 +55,7 @@ Responsive header that measures available space, switches between its full and c
 
 ### PGS Options
 
-- `buttonText`: the appearance of the navigation links, in the full-layout row and once they stack in the compact panel alike.
+- `buttonTransparent`: the appearance of the navigation links, in the full-layout row and once they stack in the compact panel alike.
 - `buttonHeader`: sizes a link like the other header controls; belongs to the button component.
 - `buttonPaddingEqual`: sets the same padding on every side of a navigation link instead of the wider left/right default; belongs to the button component.
 - `nowrap`: uses the related nowrap component or utility in this example.
@@ -108,10 +108,10 @@ Full navigation on the left, always-visible controls on the right, and the same 
 		<div pgs="header-element-onlyFull">
 			<nav pgs="menu" pgs-option="menuHorizontal menuShort" aria-label="Main menu">
 				<ul>
-					<li><a pgs="button" pgs-option="buttonText buttonHeader buttonPaddingEqual" href="/">Home</a></li>
-					<li><a pgs="button" pgs-option="buttonText buttonHeader buttonPaddingEqual" href="/services">Services</a></li>
-					<li><a pgs="button" pgs-option="buttonText buttonHeader buttonPaddingEqual" href="/about">About</a></li>
-					<li><a pgs="button" pgs-option="buttonText buttonHeader buttonPaddingEqual" href="/contact">Contact</a></li>
+					<li><a pgs="button" pgs-option="buttonTransparent buttonHeader buttonPaddingEqual" href="/">Home</a></li>
+					<li><a pgs="button" pgs-option="buttonTransparent buttonHeader buttonPaddingEqual" href="/services">Services</a></li>
+					<li><a pgs="button" pgs-option="buttonTransparent buttonHeader buttonPaddingEqual" href="/about">About</a></li>
+					<li><a pgs="button" pgs-option="buttonTransparent buttonHeader buttonPaddingEqual" href="/contact">Contact</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -141,10 +141,10 @@ Full navigation on the left, always-visible controls on the right, and the same 
 					<div pgs="modal-dialog-content">
 						<nav pgs="menu" pgs-option="menuVertical" aria-label="Compact menu">
 							<ul>
-								<li><a pgs="button" pgs-option="buttonText buttonPaddingEqual" href="/">Home</a></li>
-								<li><a pgs="button" pgs-option="buttonText buttonPaddingEqual" href="/services">Services</a></li>
-								<li><a pgs="button" pgs-option="buttonText buttonPaddingEqual" href="/about">About</a></li>
-								<li><a pgs="button" pgs-option="buttonText buttonPaddingEqual" href="/contact">Contact</a></li>
+								<li><a pgs="button" pgs-option="buttonTransparent buttonPaddingEqual" href="/">Home</a></li>
+								<li><a pgs="button" pgs-option="buttonTransparent buttonPaddingEqual" href="/services">Services</a></li>
+								<li><a pgs="button" pgs-option="buttonTransparent buttonPaddingEqual" href="/about">About</a></li>
+								<li><a pgs="button" pgs-option="buttonTransparent buttonPaddingEqual" href="/contact">Contact</a></li>
 							</ul>
 						</nav>
 					</div>

@@ -40,7 +40,7 @@ Menu markup with horizontal, vertical and recursively nested navigation examples
 
 ### PGS Options
 
-- `buttonText`: the appearance a navigation link takes, whatever the menu's direction; see Button for the whole set of variants.
+- `buttonTransparent`: the appearance a navigation link takes, whatever the menu's direction; see Button for the whole set of variants.
 - `wrap`: lets that row break onto a second line instead of overflowing.
 - `icon-circle`: a plain disc, standing in for a section icon.
 - `icon-circleInfo`: the information mark.
@@ -75,33 +75,33 @@ Top-level navigation arranged horizontally, with one nested submenu.
 <nav pgs="menu" pgs-option="menuHorizontal" aria-label="Menu orizzontale">
     <ul pgs="flexRow" pgs-option="wrap">
         <li>
-            <a pgs="button" pgs-option="buttonText" href="/" aria-current="page">
+            <a pgs="button" pgs-option="buttonTransparent" href="/" aria-current="page">
                 <i pgs="icon" pgs-option="icon-circle" aria-hidden="true"></i>
                 <span>Home</span>
             </a>
         </li>
         <li>
-            <a pgs="button" pgs-option="buttonText" href="/services">
+            <a pgs="button" pgs-option="buttonTransparent" href="/services">
                 <i pgs="icon" pgs-option="icon-sliders" aria-hidden="true"></i>
                 <span>Services</span>
             </a>
             <ul>
-                <li><a pgs="button" pgs-option="buttonText" href="/services/one">First service</a></li>
-                <li><a pgs="button" pgs-option="buttonText" href="/services/two">Second service</a></li>
+                <li><a pgs="button" pgs-option="buttonTransparent" href="/services/one">First service</a></li>
+                <li><a pgs="button" pgs-option="buttonTransparent" href="/services/two">Second service</a></li>
             </ul>
         </li>
         <li>
-            <a pgs="button" pgs-option="buttonText" href="/about">
+            <a pgs="button" pgs-option="buttonTransparent" href="/about">
                 <i pgs="icon" pgs-option="icon-circleInfo" aria-hidden="true"></i>
                 <span>about</span>
             </a>
             <ul>
-                <li><a pgs="button" pgs-option="buttonText" href="/services/one">First service</a></li>
+                <li><a pgs="button" pgs-option="buttonTransparent" href="/services/one">First service</a></li>
                 <li>
-                    <a pgs="button" pgs-option="buttonText" href="/services/two">Second service</a>
+                    <a pgs="button" pgs-option="buttonTransparent" href="/services/two">Second service</a>
                     <ul>
-                        <li><a pgs="button" pgs-option="buttonText" href="/services/one">First service</a></li>
-                        <li><a pgs="button" pgs-option="buttonText" href="/services/two">Second service</a></li>
+                        <li><a pgs="button" pgs-option="buttonTransparent" href="/services/one">First service</a></li>
+                        <li><a pgs="button" pgs-option="buttonTransparent" href="/services/two">Second service</a></li>
                     </ul>
                 </li>
             </ul>
@@ -118,33 +118,33 @@ Vertical navigation with recursively nested submenus, showing icons only on the 
 <nav pgs="menu" pgs-option="menuVertical" aria-label="Menu verticale">
     <ul>
         <li>
-            <a pgs="button" pgs-option="buttonText" href="/" aria-current="page">
+            <a pgs="button" pgs-option="buttonTransparent" href="/" aria-current="page">
                 <i pgs="icon" pgs-option="icon-circle" aria-hidden="true"></i>
                 <span>Home</span>
             </a>
         </li>
         <li>
-            <a pgs="button" pgs-option="buttonText" href="/services">
+            <a pgs="button" pgs-option="buttonTransparent" href="/services">
                 <i pgs="icon" pgs-option="icon-sliders" aria-hidden="true"></i>
                 <span>Services</span>
             </a>
             <ul>
-                <li><a pgs="button" pgs-option="buttonText" href="/services/one">First service</a></li>
-                <li><a pgs="button" pgs-option="buttonText" href="/services/two">Second service</a></li>
+                <li><a pgs="button" pgs-option="buttonTransparent" href="/services/one">First service</a></li>
+                <li><a pgs="button" pgs-option="buttonTransparent" href="/services/two">Second service</a></li>
             </ul>
         </li>
         <li>
-            <a pgs="button" pgs-option="buttonText" href="/about">
+            <a pgs="button" pgs-option="buttonTransparent" href="/about">
                 <i pgs="icon" pgs-option="icon-circleInfo" aria-hidden="true"></i>
                 <span>about</span>
             </a>
             <ul>
-                <li><a pgs="button" pgs-option="buttonText" href="/services/one">First service</a></li>
+                <li><a pgs="button" pgs-option="buttonTransparent" href="/services/one">First service</a></li>
                 <li>
-                    <a pgs="button" pgs-option="buttonText" href="/services/two">Second service</a>
+                    <a pgs="button" pgs-option="buttonTransparent" href="/services/two">Second service</a>
                     <ul>
-                        <li><a pgs="button" pgs-option="buttonText" href="/services/one">First service</a></li>
-                        <li><a pgs="button" pgs-option="buttonText" href="/services/two">Second service</a></li>
+                        <li><a pgs="button" pgs-option="buttonTransparent" href="/services/one">First service</a></li>
+                        <li><a pgs="button" pgs-option="buttonTransparent" href="/services/two">Second service</a></li>
                     </ul>
                 </li>
             </ul>
@@ -161,19 +161,19 @@ Top-level navigation arranged horizontally, with one nested submenu.
 <nav pgs="menu" pgs-option="menuHorizontal menuIconOnlyCurrent" aria-label="Menu orizzontale">
     <ul pgs="flexRow" pgs-option="wrap">
         <li>
-            <a pgs="button" pgs-option="buttonText" href="/" aria-current="page">
+            <a pgs="button" pgs-option="buttonTransparent" href="/" aria-current="page">
                 <i pgs="icon" pgs-option="icon-circle" aria-hidden="true"></i>
                 <span>Home</span>
             </a>
         </li>
         <li>
-            <a pgs="button" pgs-option="buttonText" href="/services">
+            <a pgs="button" pgs-option="buttonTransparent" href="/services">
                 <i pgs="icon" pgs-option="icon-sliders" aria-hidden="true"></i>
                 <span>Services</span>
             </a>
         </li>
         <li>
-            <a pgs="button" pgs-option="buttonText" href="/about">
+            <a pgs="button" pgs-option="buttonTransparent" href="/about">
                 <i pgs="icon" pgs-option="icon-circleInfo" aria-hidden="true"></i>
                 <span>about</span>
             </a>
@@ -190,19 +190,19 @@ Top-level navigation with menuShort, overlapping the horizontal spacing between 
 <nav pgs="menu" pgs-option="menuHorizontal menuShort" aria-label="Menu orizzontale">
     <ul pgs="flexRow" pgs-option="wrap">
         <li>
-            <a pgs="button" pgs-option="buttonText" href="/" aria-current="page">
+            <a pgs="button" pgs-option="buttonTransparent" href="/" aria-current="page">
                 <i pgs="icon" pgs-option="icon-circle" aria-hidden="true"></i>
                 <span>Home</span>
             </a>
         </li>
         <li>
-            <a pgs="button" pgs-option="buttonText" href="/services">
+            <a pgs="button" pgs-option="buttonTransparent" href="/services">
                 <i pgs="icon" pgs-option="icon-sliders" aria-hidden="true"></i>
                 <span>Services</span>
             </a>
         </li>
         <li>
-            <a pgs="button" pgs-option="buttonText" href="/about">
+            <a pgs="button" pgs-option="buttonTransparent" href="/about">
                 <i pgs="icon" pgs-option="icon-circleInfo" aria-hidden="true"></i>
                 <span>about</span>
             </a>

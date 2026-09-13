@@ -8,24 +8,25 @@
         @include buttonIcon();
     }
 
-    &[pgs-option~=buttonStrong] {
-        @include buttonStrong();
-    }
-
+    
     &[pgs-option~=buttonMini] {
         @include buttonMini();
     }
-
+    
     &[pgs-option~=buttonBig] {
         @include buttonBig();
     }
-
-    &[pgs-option~=buttonText] {
-        @include buttonText();
-    }
-
+    
     &[pgs-option~=buttonTransparent] {
         @include buttonTransparent();
+    }
+    
+    &[pgs-option~=buttonStrong] {
+        @include buttonStrong();
+    }
+    
+    &[pgs-option~=buttonText] {
+        @include buttonText();
     }
 
     &[pgs-option~=buttonPaddingEqual] {

@@ -59,7 +59,7 @@ Descriptive card content suitable for lists, previews, and grids.
 
 ```html
 <article pgs="card">
-    <img pgs="card-img" src="https://placehold.net/600x400.png" alt="Placeholder image">
+    <img pgs="card-img" src="/demo/assets/placeholder.jpg" alt="Placeholder image">
 
     <div pgs="card-content">
         <h3>Lorem ipsum dolor</h3>
@@ -76,7 +76,7 @@ The complete card surface behaves as a link.
 ```html
 <article>
     <a href="#" pgs="card">
-        <img pgs="card-img" src="https://placehold.net/600x400.png" alt="Placeholder image">
+        <img pgs="card-img" src="/demo/assets/placeholder.jpg" alt="Placeholder image">
 
         <div pgs="card-content">
             <h3>Sit amet consectetur</h3>
@@ -92,7 +92,7 @@ This card switches intrinsically between horizontal and stacked layouts.
 
 ```html
 <article pgs="card" pgs-option="cardHorizontal">
-    <img pgs="card-img" src="https://placehold.net/600x400.png" alt="Placeholder image">
+    <img pgs="card-img" src="/demo/assets/placeholder.jpg" alt="Placeholder image">
 
     <div pgs="card-content">
         <h3>Adipiscing elit sed</h3>
@@ -107,7 +107,7 @@ The compact option reduces the content padding.
 
 ```html
 <article pgs="card" pgs-option="cardMini">
-    <img pgs="card-img" src="https://placehold.net/600x400.png" alt="Placeholder image">
+    <img pgs="card-img" src="/demo/assets/placeholder.jpg" alt="Placeholder image">
 
     <div pgs="card-content">
         <h3>Do eiusmod tempor</h3>

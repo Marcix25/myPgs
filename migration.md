@@ -21,6 +21,7 @@ meaning moved under them, so nothing errors and the page just looks wrong.
 | `pgs="button"`, a link `pgs="card"`, a link `pgs="box"` | the hover treatment was baked into each component's CSS | the treatment lives only under `pgs="hover"`, which the JS adds to these at load |
 | a bare `<button type="submit">` inside `pgs="form"` | the form styled it as a strong button on its own | draws nothing: mark it `pgs="button"` yourself |
 | several `pgs="accordion"` next to each other | opening one closed every other accordion on the page | each one answers for itself: wrap them in `pgs="accordionContainer"` to get the old behaviour |
+| `pgs-option="buttonText"` and `pgs-option="buttonTransparent"` | `buttonTransparent` stripped every state, `buttonText` only the resting one | the two traded places: `buttonText` strips every state, `buttonTransparent` only the resting one |
 
 So `<span pgs="icon"><i class="fa-solid fa-star"></i></span>` no longer draws a circle. The surface
 is now an option on an icon element:
@@ -95,6 +96,19 @@ can be open together. `accordionAutoOpen` on a single accordion opens it on load
 while the rest of the group is used — it is also the form to write instead of a hand-written
 `pgs-state="open"`, which still works but belongs to the runtime.
 
+Buttons, `buttonText` and `buttonTransparent`: the two names swapped implementations. Neither was
+renamed and neither was removed, so nothing errors — a button carrying either one simply looks like
+the other one now. `buttonTransparent` is the light touch: no background and no border at rest, the
+label taking the accent colour on hover, and `buttonStrong` or `aria-current` still filling the
+button in. `buttonText` is the absolute one: every state transparent, so the button never fills,
+not even when it is the current page. Navigation links want the first, which is why every menu,
+header and notification example in the library now writes `buttonTransparent` where it used to write
+`buttonText`. Search the project for both names and swap each for the other:
+
+```html
+<li><a pgs="button" pgs-option="buttonTransparent" href="/">Home</a></li>
+```
+
 ## 2. Renames
 
 ### Text colour utilities — `color*` becomes `txt*`
@@ -162,7 +176,7 @@ Menu links are no longer styled by the menu. Write the button tokens on the link
 with the `--button-*` properties you already know:
 
 ```html
-<li><a pgs="button" pgs-option="buttonText" href="/">Home</a></li>
+<li><a pgs="button" pgs-option="buttonTransparent" href="/">Home</a></li>
 ```
 
 ### Slides
@@ -486,6 +500,9 @@ grep -rnE -- '--padding-2|--padding-page|--font-titoli' .
 
 # 20. the trailing header area, now a second alwaysOn group
 grep -rn 'header-element-alwaysOnLast' .
+
+# 21. the two button options that traded places (read, don't replace)
+grep -rnE 'buttonText|buttonTransparent' .
 ```
 
 Hit 5 needs reading rather than replacing: an `icon` that wraps another element wanted the surface
@@ -496,4 +513,7 @@ accordion submenus, whichever the page actually wants. Hit 15 is the same kind: 
 sits inside a `pgs="form"` and carries no `pgs` used to be styled by the form and now is not, so it
 needs `pgs="button"` written on it — one outside a form was never styled and needs nothing. Hit 16
 is the last of the kind: a set of accordions that used to close each other needs `accordionContainer`
-on its wrapper, while a standalone one needs nothing.
+on its wrapper, while a standalone one needs nothing. Hit 21 too: `buttonText` and `buttonTransparent`
+swapped implementations, so every hit needs the other name — but read each one, because a link that
+should stay filled when it is the current page wants `buttonTransparent`, and only a button that
+must never fill wants `buttonText`.

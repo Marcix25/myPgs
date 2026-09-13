@@ -63,7 +63,7 @@ Brand and navigation columns in the upper section, legal links and cookie prefer
                 <a aria-label="Logo" pgs="logo" href="/">
                     <span pgs="logo-text">MyPGS</span>
                 </a>
-                <p pgs="footer-brand-motto">Componenti frontend riutilizzabili.</p>
+                <p pgs="footer-brand-motto">Reusable frontend components.</p>
                 <button pgs="button toggleDarkmode" type="button" aria-label="Change theme">
                     <i pgs="icon"></i>
                 </button>

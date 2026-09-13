@@ -66,7 +66,7 @@ Notification markup, configuration, behavior, and usage example. A persistent, m
 ### Other
 
 - `gapSections`: separates the examples.
-- `buttonText`: the appearance the component gives the buttons passed in the payload; see Button.
+- `buttonTransparent`: the appearance the component gives the buttons passed in the payload; see Button.
 - `modal-dialog-content`: identifies the JS-generated styled content area inside the dialog, wrapping notifications.
 - `buttonMini`: keeps the generated panel-close button small; see Button.
 - `modalRight`: slides the notification dialog in from the right; see Modal for other positions.

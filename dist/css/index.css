@@ -172,7 +172,7 @@
 
 :where([pgs~=bodyBase]) ::selection {
   background: var(--color-secondary);
-  color: var(--color-whiteFixed);
+  color: var(--color-secondary-text);
 }
 
 :where([pgs~=bodyBase]) :focus-visible {
@@ -4246,12 +4246,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   aspect-ratio: 1;
 }
 
-[pgs~=button][pgs-option~=buttonStrong] {
-  color: var(--button-color-strong);
-  background: var(--button-background-strong);
-  border-color: var(--button-border-color-strong);
-}
-
 [pgs~=button][pgs-option~=buttonMini] {
   --button-size: 0.9rem;
   display: inline-flex;
@@ -4267,12 +4261,18 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   text-align: center;
 }
 
-[pgs~=button][pgs-option~=buttonText] {
+[pgs~=button][pgs-option~=buttonTransparent] {
   --button-border-width: 0;
   --button-background: transparent;
 }
 
-[pgs~=button][pgs-option~=buttonTransparent] {
+[pgs~=button][pgs-option~=buttonStrong] {
+  color: var(--button-color-strong);
+  background: var(--button-background-strong);
+  border-color: var(--button-border-color-strong);
+}
+
+[pgs~=button][pgs-option~=buttonText] {
   --button-border-width: 0;
   --button-background: transparent;
   --button-background-strong: transparent;
@@ -6210,7 +6210,7 @@ html:has(dialog[open]) {
 }
 
 [pgs~=slides] [pgs~=slides-dots] > *:hover {
-  background-color: var(--color-secondary);
+  background-color: var(--color-primary-soft);
 }
 
 [pgs~=slides][pgs-option=slidesAnimationScale] [pgs~=slides-container] [pgs~=slides-container-slide] > * {
@@ -6317,7 +6317,7 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   --table-row-background-even: var(--border-box-transparent);
   --table-row-background-odd: var(--border-box);
   --table-row-color: var(--color-black);
-  --table-row-hover-background: var(--color-secondary-soft);
+  --table-row-hover-background: var(--color-primary-soft);
   --table-row-hover-color: var(--color-blackFixed);
   width: 100%;
   max-width: 100%;
@@ -7030,6 +7030,7 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   position: relative;
   display: flex;
   flex: 1;
+  gap: 0;
   width: 100%;
   overflow: visible;
   margin-inline: auto;
@@ -7569,7 +7570,7 @@ dialog [pgs~=search] [pgs~=modal-close] {
 }
 
 [pgs~=txtSecondaryText] {
-  color: var(--color-primary-text);
+  color: var(--color-secondary-text);
 }
 
 [pgs~=txtSecondarySoft] {

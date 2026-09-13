@@ -84,7 +84,7 @@ Section applying a specific structure to its child element using sectionSpecific
 ```html
 <section pgs="sectionSpecificity flexColumn" pgs-option="gapElements">
     <div pgs="flexColumn">
-        <img pgs="card-img imgCover" src="https://placehold.co/800x200?text=Hero" alt="Placeholder image">
+        <img pgs="card-img imgCover" src="/demo/assets/placeholder.jpg" alt="Placeholder image">
     </div>
     <div pgs="sectionSpecificity-child flexColumn">
         <strong>Adipiscing elit sed</strong>
@@ -125,7 +125,7 @@ A full-width row aligned with the page column on one side only, so the image run
 <section pgs="sectionEdgeLeft">
     <div pgs="flexRow" pgs-option="gapElements">
         <p>Text that starts exactly where the centred page column starts, while the image beside it runs on past the column to the right.</p>
-        <img pgs="card-img imgCover" src="https://placehold.co/600x300?text=Edge+left" alt="Placeholder image">
+        <img pgs="card-img imgCover" src="/demo/assets/placeholder.jpg" alt="Placeholder image">
     </div>
 </section>
 ```
@@ -134,7 +134,7 @@ A full-width row aligned with the page column on one side only, so the image run
 ```html
 <section pgs="sectionEdgeRight">
     <div pgs="flexRow" pgs-option="gapElements">
-        <img pgs="card-img imgCover" src="https://placehold.co/600x300?text=Edge+right" alt="Placeholder image">
+        <img pgs="card-img imgCover" src="/demo/assets/placeholder.jpg" alt="Placeholder image">
         <p>The mirror: the text ends where the page column ends, and the image runs on past it to the left.</p>
     </div>
 </section>
@@ -148,7 +148,7 @@ Measured with --page-edgeFlush instead: the offset lands on the outer edge of a 
 <section pgs="sectionEdgeFlushLeft">
     <div pgs="flexRow" pgs-option="gapElements">
         <p>Below the page width this text is flush against the left edge of the screen, with no padding left to hold it off.</p>
-        <img pgs="card-img imgCover" src="https://placehold.co/600x300?text=Flush+left" alt="Placeholder image">
+        <img pgs="card-img imgCover" src="/demo/assets/placeholder.jpg" alt="Placeholder image">
     </div>
 </section>
 ```
@@ -157,7 +157,7 @@ Measured with --page-edgeFlush instead: the offset lands on the outer edge of a 
 ```html
 <section pgs="sectionEdgeFlushRight">
     <div pgs="flexRow" pgs-option="gapElements">
-        <img pgs="card-img imgCover" src="https://placehold.co/600x300?text=Flush+right" alt="Placeholder image">
+        <img pgs="card-img imgCover" src="/demo/assets/placeholder.jpg" alt="Placeholder image">
         <p>The mirror, flush against the right edge of the screen.</p>
     </div>
 </section>
@@ -183,7 +183,7 @@ Section without the standard padding using sectionNoPadding, useful for edge-to-
 ```html
 <section pgs="sectionNoPadding flexColumn" pgs-option="gapElements">
     <div pgs="flexColumn">
-        <img pgs="card-img imgCover" src="https://placehold.co/800x500?text=HI!" alt="Placeholder image">
+        <img pgs="card-img imgCover" src="/demo/assets/placeholder.jpg" alt="Placeholder image">
     </div>
 </section>
 ```

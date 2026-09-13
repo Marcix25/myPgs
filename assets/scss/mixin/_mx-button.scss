@@ -150,8 +150,8 @@
     text-align: center;
 }
 
-//== BUTTON TRANSPARENT
-@mixin buttonTransparent() {
+//== BUTTON TEXT
+@mixin buttonText() {
     $color: var(--button-primaryColor);
     --button-border-width: 0;
     --button-background: transparent;
@@ -165,8 +165,8 @@
     --hover-color: #{$color};
 }
 
-//== BUTTON TEXT
-@mixin buttonText() {
+//== BUTTON TRANSPARENT
+@mixin buttonTransparent() {
     --button-border-width: 0;
     --button-background: transparent;
 }
