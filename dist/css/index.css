@@ -7963,8 +7963,7 @@ dialog [pgs~=search] [pgs~=modal-close] {
   }
 }
 [pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])) {
-  transition-behavior: var(--hover-behavior);
-  transition: border-color var(--hover-timing), outline-color var(--hover-timing), color var(--hover-timing), background-color var(--hover-st1-background-timing);
+  transition: border-color var(--hover-timing) var(--hover-behavior), outline-color var(--hover-timing) var(--hover-behavior), color var(--hover-timing) var(--hover-behavior), background-color var(--hover-st1-background-timing) var(--hover-behavior);
 }
 
 [pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])) :is(h1, h2, h3, h4, h5, h6, p, a),
@@ -7978,7 +7977,7 @@ dialog [pgs~=search] [pgs~=modal-close] {
     color: var(--hover-color);
     outline-color: var(--hover-border);
     border-color: var(--hover-border);
-    transition: border-color var(--hover-timing), outline-color var(--hover-timing), color var(--hover-timing), background-color var(--hover-st1-background-timing) var(--hover-st1-background-delay);
+    transition: border-color var(--hover-timing) var(--hover-behavior), outline-color var(--hover-timing) var(--hover-behavior), color var(--hover-timing) var(--hover-behavior), background-color var(--hover-st1-background-timing) var(--hover-behavior) var(--hover-st1-background-delay);
   }
   [pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p, a),
   [pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
@@ -7994,7 +7993,7 @@ dialog [pgs~=search] [pgs~=modal-close] {
     background-color: var(--hover-background);
   }
 }
-[pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])):where(:not(:disabled, [disabled])):focus-visible {
+[pgs~=hover]:not(:where([pgs-option~=hoverNot])):where(:not(:disabled, [disabled])):focus-visible {
   outline: var(--focus-visible);
   outline-offset: 3px;
 }
