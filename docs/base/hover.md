@@ -26,14 +26,14 @@ The shared hover treatment for a surface and the text marked inside it. It is wr
 ## CSS Variables
 
 - `--hover-background`
+- `--hover-behavior`
 - `--hover-border`
 - `--hover-color`
 - `--hover-primaryColor`
 - `--hover-st1-background-delay`
 - `--hover-st1-background-timing`
-- `--hover-st1-behavior`
-- `--hover-st1-timing`
 - `--hover-st1-transform-origin`
+- `--hover-timing`
 
 ## Output
 

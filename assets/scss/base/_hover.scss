@@ -1,81 +1,95 @@
 @use "../mixin/mixin" as *;
 
-//+ HOVER CONTENT
-@mixin hoverStyle1($hover-text: "") {
-    --hover-st1-timing: 400ms;
-    --hover-st1-behavior: ease-out;
-    --hover-st1-background-timing: calc(var(--hover-st1-timing) / 2);
-    --hover-st1-background-delay: calc(var(--hover-st1-timing) / 2);
-    --hover-st1-transform-origin: center center;
+//= STYLE NORMAL
+@mixin hoverStyleNormal($timing: var(--hover-timing), $delay: 0ms) {
+    //== CONTENT
+    transition-behavior: var(--hover-behavior);
+    transition:
+        border-color var(--hover-timing),
+        outline-color var(--hover-timing),
+        color var(--hover-timing),
+        background-color $timing;
 
-    &:where(:not(:disabled, [disabled])) {
-        //= CONTENT
+    :is(h1, h2, h3, h4, h5, h6, p, a),
+    [pgs~="hover-text"] {
         transition:
-            border-color var(--hover-st1-timing) var(--hover-st1-behavior),
-            outline-color var(--hover-st1-timing) var(--hover-st1-behavior),
-            color var(--hover-st1-timing) var(--hover-st1-behavior);
+            color var(--hover-timing) var(--hover-behavior);
+    }
 
-        :is(h1, h2, h3, h4, h5, h6, p, a),
-        [pgs~="hover-text"]{
+    //== HOVER
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            background-color: var(--hover-background);
+            color: var(--hover-color);
+            outline-color: var(--hover-border);
+            border-color: var(--hover-border);
             transition:
-                color var(--hover-st1-timing) var(--hover-st1-behavior);
-        }
+                border-color var(--hover-timing),
+                outline-color var(--hover-timing),
+                color var(--hover-timing),
+                background-color $timing $delay;
 
-        &::before {
-            content: "";
-            width: 100%;
-            height: 100%;
-            aspect-ratio: 1;
-            border-radius: inherit;
-            background: var(--hover-background);
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            z-index: -1;
-            transform: scale(0);
-            transform-origin: var(--hover-st1-transform-origin);
-            transition:
-                transform var(--hover-st1-timing) var(--hover-st1-behavior),
-        }
-
-        //= HOVER
-        @media (hover: hover) and (pointer: fine) {
-            &:hover {
-                background-color: var(--hover-background);
+            :is(h1, h2, h3, h4, h5, h6, p, a),
+            [pgs~="hover-text"] {
                 color: var(--hover-color);
-                outline-color: var(--hover-border);
-                border-color: var(--hover-border);
-                transition:
-                    border-color var(--hover-st1-timing) var(--hover-st1-behavior),
-                    outline-color var(--hover-st1-timing) var(--hover-st1-behavior),
-                    color var(--hover-st1-timing) var(--hover-st1-behavior),
-                    background-color var(--hover-st1-background-timing) var(--hover-st1-behavior) var(--hover-st1-background-delay);
-
-                :is(h1, h2, h3, h4, h5, h6, p, a),
-                [pgs~="hover-text"]{
-                    color: var(--hover-color);
-                }
-
-                &::before {
-                    transform: scale(1);
-                }
-            }
-        }
-
-        //= ACCESSIBILITY
-        @media (prefers-reduced-motion: reduce) {
-            transition: unset;
-
-            &::before {
-                display: none;
-            }
-
-            &:hover {
-                transition: unset;
-                background-color: var(--hover-background);
             }
         }
     }
+
+    //== ACCESSIBILITY
+    @media (prefers-reduced-motion: reduce) {
+        transition: unset;
+
+        &:hover {
+            transition: unset;
+            background-color: var(--hover-background);
+        }
+    }
+}
+
+//+ HOVER CONTENT
+@mixin hoverStyle1($hover-text: "") {
+    --hover-st1-background-timing: calc(var(--hover-timing) / 2);
+    --hover-st1-background-delay: calc(var(--hover-timing) / 2);
+    --hover-st1-transform-origin: center center;
+
+    //== CONTENT
+    &::before {
+        content: "";
+        width: 100%;
+        height: 100%;
+        aspect-ratio: 1;
+        border-radius: inherit;
+        background: transparent;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+        transform: scale(0);
+        transform-origin: var(--hover-st1-transform-origin);
+        transition:
+            transform var(--hover-timing) var(--hover-behavior),
+            background-color var(--hover-timing) var(--hover-behavior);
+    }
+
+    //== HOVER
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            &::before {
+                transform: scale(1);
+                background: var(--hover-background);
+            }
+        }
+    }
+
+    //== ACCESSIBILITY
+    @media (prefers-reduced-motion: reduce) {
+        &::before {
+            display: none;
+        }
+    }
+
+    @include hoverStyleNormal(var(--hover-st1-background-timing), var(--hover-st1-background-delay))
 }
 
 //# HOVER
@@ -87,6 +101,8 @@
     --hover-background: var(--hover-primaryColor);
     --hover-color: var(--color-black);
     --hover-border: var(--color-primary-soft);
+    --hover-timing: 400ms;
+    --hover-behavior: ease-out;
     position: relative;
     isolation: isolate;
     cursor: pointer;
@@ -96,8 +112,10 @@
         cursor: default;
     }
 
-    @include hoverStyle1(); 
-    @include focus();
+    &:where(:not(:disabled, [disabled])) {
+        @include hoverStyle1();
+        @include focus();
+    }
 }
 
 //== HOVER NOT
