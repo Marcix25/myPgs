@@ -13,7 +13,7 @@ Expandable panels with synchronized visibility, ARIA attributes and keyboard nav
 
 ## PGS Options
 
-- `accordionAutoOpen`: written on an accordion, the module opens that panel by itself on load and never closes it on its own afterwards, so it stays open while the rest of its group is used. It is the authored form of the open state: pgs-state belongs to the runtime, and the module writes it from here.
+- `accordionAutoOpen`: written on an accordion, the module opens that panel by itself on load and leaves it open while the rest of its group is used, so opening a sibling does not take it down. That protection lasts until the reader works that panel themselves: the first time it is opened or closed by hand the module drops the token, and from there it is an ordinary panel of the group. It is the authored form of the open state: pgs-state belongs to the runtime, and the module writes it from here.
 - `accordionMultiOpen`: written on an accordionContainer, it lifts the one-at-a-time rule for that group, so its panels can be open together. Without a container this is already the behaviour, so the option only means something on the container.
 
 ## PGS States

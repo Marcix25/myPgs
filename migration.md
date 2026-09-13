@@ -93,7 +93,7 @@ relied on the old behaviour, which now lets all of its panels stay open:
 
 Two options come with it. `accordionMultiOpen` on the container lifts the rule again, so its panels
 can be open together. `accordionAutoOpen` on a single accordion opens it on load and keeps it open
-while the rest of the group is used — it is also the form to write instead of a hand-written
+while the rest of the group is used, until the reader works that panel themselves — it is also the form to write instead of a hand-written
 `pgs-state="open"`, which still works but belongs to the runtime.
 
 Buttons, `buttonText` and `buttonTransparent`: the two names swapped implementations. Neither was

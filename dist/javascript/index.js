@@ -1003,7 +1003,8 @@ function PGS_accordion_init(root = document) {
         //== only the accordions of this same group: an accordionContainer nested in another one
         //== keeps its own panels to itself, which is why the nearest container is compared rather
         //== than trusting the descendant search. accordionAutoOpen is left alone on purpose — it
-        //== is the authored "this one stays open", so a sibling opening does not take it down
+        //== is the authored "this one stays open", so a sibling opening does not take it down,
+        //== and only until the reader works that panel themselves, which drops the token
         function closeOltherAccordion() {
             for (const otherLi of pgs(CONTAINER).querySelectorAll("accordion")) {
                 if (otherLi === accordion) continue;
@@ -1014,7 +1015,7 @@ function PGS_accordion_init(root = document) {
                 const otherContent = pgs(otherLi).querySelector("accordion-content");
                 if (!otherBtn || !otherContent) continue;
 
-                pgs(otherLi).state().remove("open");
+                pgs(otherLi).state.remove("open");
                 accordionAccessibility(false, otherBtn, otherContent);
             }
         }
@@ -1027,6 +1028,11 @@ function PGS_accordion_init(root = document) {
             pgs(accordion).state.toggle("open", nowOpen);
             accordionAccessibility(nowOpen, BUTTON, CONTENT);
 
+            //== the moment the reader works this panel, accordionAutoOpen stops being the authored
+            //== "this one stays open": from here on it is an ordinary panel of the group, so a
+            //== sibling opening can close it. Guarded, because remove() would otherwise write an
+            //== empty pgs-option on every accordion that never had one
+            if (pgs(accordion).option.contains("accordionAutoOpen")) pgs(accordion).option.remove("accordionAutoOpen");
             if (!isMultiOpen) closeOltherAccordion();
 
             //== scroll to view
