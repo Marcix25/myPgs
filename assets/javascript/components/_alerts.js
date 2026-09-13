@@ -6,19 +6,19 @@ const fn_alert = {
         description: "",
         type: {
             error: {
-                title: "Errore",
+                title: "Error",
                 icon: '<i pgs="icon" pgs-option="icon-circleXmark"></i>'
             },
             success: {
-                title: "Aggiornato",
+                title: "Success",
                 icon: '<i pgs="icon" pgs-option="icon-circleCheck"></i>'
             },
             info: {
-                title: "Aggiornamento",
+                title: "Information",
                 icon: '<i pgs="icon" pgs-option="icon-circleInfo"></i>'
             },
             warning: {
-                title: "Attenzione",
+                title: "Warning",
                 icon: '<i pgs="icon" pgs-option="icon-triangleExclamation"></i>'
             }
         }
@@ -26,7 +26,7 @@ const fn_alert = {
 
     _getContainer(root = document, configuredContainer) {
         if (!(root instanceof Document) && !(root instanceof Element)) {
-            throw new TypeError("PGS alert: root deve essere un Document o un Element");
+            throw new TypeError("PGS alert: root must be a Document or an Element");
         }
 
         let container = configuredContainer;
@@ -34,7 +34,7 @@ const fn_alert = {
         if (!container) container = pgs(root).querySelector("alertContainer");
 
         if (container && (!(container instanceof Element) || container === root || !root.contains(container))) {
-            throw new TypeError("PGS alert: container deve essere un elemento contenuto in root");
+            throw new TypeError("PGS alert: container must be an element contained in root");
         }
 
         if (!container) {
@@ -80,7 +80,7 @@ const fn_alert = {
 
     show(type, options = {}) {
         if (!options || typeof options !== "object" || Array.isArray(options)) {
-            throw new TypeError("PGS alert: options deve essere un oggetto");
+            throw new TypeError("PGS alert: options must be an object");
         }
 
         const { root, container, ...contentOptions } = options;

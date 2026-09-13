@@ -62,7 +62,7 @@ function PGS_tabs_init(root = document) {
             });
 
             if (focus) buttons[current].focus();
-            tabs.dispatchEvent(new CustomEvent("tabs:change", {
+            tabs.dispatchEvent(new CustomEvent("pgs:tabs:change", {
                 detail: { current, tab: buttons[current], panel: panelItems[current] },
             }));
         }

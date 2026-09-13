@@ -24,6 +24,31 @@ token, rinominate per coerenza con il resto della libreria (es. `singleScroll` â
 | Modal | `topLevel` | `modalTopLevel` |
 | Header | `compactBottom` | `headerCompactBottom` |
 | Button â†’ Hover (opt-out unificato) | `buttonNohover` | `hoverNot` |
+| Color (utility `bg*`, unica fuori convenzione) | `bglink-soft` | `bgLinkSoft` |
+| Form (marcatore dell'asterisco, ora figlio di `form`) | `required-here` | `form-requiredHere` |
+
+## Eventi rinominati
+
+Gli eventi pubblici usavano due prefissi diversi. Ora tutti sotto `pgs:`, come
+`pgs:notification:*`, `pgs:search:*` e `pgs:svg:changeColor` che gia' lo facevano.
+
+| Componente | Prima | Ora |
+| --- | --- | --- |
+| Modal | `modal:open` | `pgs:modal:open` |
+| Modal | `modal:close` | `pgs:modal:close` |
+| Tabs | `tabs:change` | `pgs:tabs:change` |
+| Step tabs | `stepTabs:change` | `pgs:stepTabs:change` |
+
+## Classi CSS diventate stati
+
+Slides era l'ultimo componente a scrivere classi invece di `pgs-state`.
+
+| Componente | Prima | Ora |
+| --- | --- | --- |
+| Slides | `.view` sulla slide | `pgs-state="view"` |
+| Slides | `.notView` sulla slide | `pgs-state="notView"` |
+| Slides | `.active` sul dot | `pgs-state="active"` |
+| Slides | `class="slide-dot"` | `pgs="_slides-dots-dot"` |
 
 ## Non toccati (di proposito)
 

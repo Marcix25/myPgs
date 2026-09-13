@@ -36,8 +36,10 @@ function initHeader_Resize(header) {
 
     const headerElements = pgs(header).querySelectorAll("header-element");
 
-    if (!headerElements.length) console.log('For the header to work correctly, insert "header-element" under "header"');
-    if (!headerElements.length) return;
+    if (!headerElements.length) {
+        console.warn('pgs.header: a header needs at least one "header-element" under it, or it draws nothing.');
+        return;
+    }
 
     headerElements.forEach(selectHeader => {
 
@@ -153,7 +155,8 @@ function initHeader_Height(header) {
 
 
 //= SCROLL
-// Nasconde l'header quando si scorre verso il basso e lo mostra quando si scorre verso l'alto su dispositivi con altezza fino a 900px.
+//== hides the header while the reader scrolls down and brings it back on the way up, on screens
+//== up to 900px tall, where a pinned header costs too much of the page
 function initHeader_Scroll(header) {
     let lastScrollY = window.scrollY;
     if (!header || !pgs(header).option.contains("headerScroll")) return;

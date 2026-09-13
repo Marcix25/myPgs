@@ -3,7 +3,7 @@
 [pgs~=cookieConsent] {
     display: flex;
     flex-direction: column;
-    gap: var(--gap-);
+    gap: var(--gap-texts);
     transition: transform 0.35s ease, opacity 0.35s ease;
     box-sizing: border-box;
 

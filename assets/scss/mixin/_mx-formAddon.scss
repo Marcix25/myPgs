@@ -108,7 +108,7 @@
 
         //== FOCUS
         &:focus-visible::after {
-            outline: 3px solid var(--color-link) !important;
+            outline: var(--focus-visible) !important;
         }
     }
 }

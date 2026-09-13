@@ -2,7 +2,7 @@
 
 # SVG colors
 
-Recolours external SVG and Lottie files when the theme changes, swapping each declared colour pair between its light and dark value.
+Recolours external SVG and Lottie files when the theme changes, swapping each declared colour pair between its light and dark value. Alongside it, and needing no token at all, every <object type="image/svg+xml"> on the page has its preserveAspectRatio kept in step with the object-fit it is given in CSS — slice for cover, meet for anything else — and re-read whenever the element is resized, so an external SVG crops and scales the way an <img> in the same box would. Both passes need the file to be same-origin, since they reach inside its document.
 
 ## PGS
 

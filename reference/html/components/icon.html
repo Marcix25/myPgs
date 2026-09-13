@@ -4,7 +4,7 @@
  * @description The glyphs the library draws itself, as inline SVG rather than a font. The token marks the element as an icon and the option chooses which one, so the set is closed: what the stylesheet holds is what can be drawn. Everything myPGS builds and needs to show goes through here — the slide arrows, the close buttons, the marks on alerts, toasts and notifications — which is why the library needs no icon font of its own. The same token is yours to write, so an icon you place by hand costs no dependency either. Written on its own, with no option, it draws nothing and only marks the element as an icon: that is how any icon set you bring gets the same box and placement the library gives an <i>, so a span, an svg or a custom element is sized and positioned like one. It is not iconBox: that one is the circular surface a glyph can sit inside, this one is the drawing.
  *
  * @pgs
- * - icon: draws a glyph on the element, taking its size from the font size and its colour from the text colour, so it follows whatever surrounds it.
+ * - icon: draws a glyph on the element, taking its size from the font size and its colour from the text colour, so it follows whatever surrounds it. Set --icon-size on it, or on anything above it, to size a glyph away from the text around it, and --icon-color to paint it away from the text colour; both are read with a fallback, so an icon that is given neither keeps following its surroundings.
  *
  * @pgs-option
  * - iconBox: turns the element into the circular surface a glyph sits inside. It is the container and says nothing about what it holds, so a built-in glyph and an icon from any other set sit in it alike.

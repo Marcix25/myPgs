@@ -21,13 +21,13 @@ function PGS_accordion_init(root = document) {
         const CONTENT = directPgsChild(accordion, "accordion-content");
         if (!BUTTON || !CONTENT) return;
 
-        //== ID univoci per aria-controls / aria-labelledby
+        //== ids of its own for aria-controls / aria-labelledby
         const ID = nextAccordionId();
         const btnId = `acc-btn-${ID}`;
         const panelId = `acc-panel-${ID}`;
 
-        //== Stato iniziale: accordionAutoOpen e' la forma da scrivere a mano, perche' pgs-state
-        //== appartiene al runtime; un pgs-state="open" gia' scritto resta comunque valido
+        //== initial state: accordionAutoOpen is the authored form, because pgs-state belongs to
+        //== the runtime; a pgs-state="open" already written by hand is honoured all the same
         const isOpenInit = pgs(accordion).option.contains("accordionAutoOpen") || pgs(accordion).state.contains("open");
 
         //== an accordion closes the others only inside a group, and the group is the nearest
@@ -36,7 +36,7 @@ function PGS_accordion_init(root = document) {
         const CONTAINER = pgs(accordion).closest("accordionContainer");
         const isMultiOpen = !CONTAINER || pgs(CONTAINER).option.contains("accordionMultiOpen");
 
-        //== Accessibilità (setup una volta)
+        //== accessibility, written once
         BUTTON.setAttribute("role", "button");
         BUTTON.setAttribute("tabindex", "0");
         if (!BUTTON.id) BUTTON.setAttribute("id", btnId);
@@ -46,21 +46,28 @@ function PGS_accordion_init(root = document) {
         CONTENT.setAttribute("role", "region");
         CONTENT.setAttribute("aria-labelledby", BUTTON.id);
 
-        //+ Accessibility (applica stato aperto/chiuso)
+        //+ Accessibility (writes the open/closed state)
+        //== the composed label says what the click does, and is only written when the author has
+        //== not named the control themselves: a hand-written aria-label is the page's own wording
+        //== and survives every toggle
+        const hasAuthorLabel = BUTTON.hasAttribute("aria-label");
+
         function accordionAccessibility(isOpen, button, content) {
-            const text = (button?.textContent || "").trim().replace(/\s+/g, " ");
-            button.setAttribute("aria-label", `${isOpen ? "Chiudi" : "Apri"} ${text || "sezione"}`);
+            if (!hasAuthorLabel) {
+                const text = (button?.textContent || "").trim().replace(/\s+/g, " ");
+                button.setAttribute("aria-label", `${isOpen ? "Close" : "Open"} ${text || "section"}`);
+            }
             button.setAttribute("aria-expanded", String(isOpen));
             content.hidden = !isOpen;
         }
 
-        //+ Chiudi gli altri del gruppo
+        //+ Close the others of the group
         //== only the accordions of this same group: an accordionContainer nested in another one
         //== keeps its own panels to itself, which is why the nearest container is compared rather
         //== than trusting the descendant search. accordionAutoOpen is left alone on purpose — it
         //== is the authored "this one stays open", so a sibling opening does not take it down,
         //== and only until the reader works that panel themselves, which drops the token
-        function closeOltherAccordion() {
+        function closeOtherAccordion() {
             for (const otherLi of pgs(CONTAINER).querySelectorAll("accordion")) {
                 if (otherLi === accordion) continue;
                 if (pgs(otherLi).closest("accordionContainer") !== CONTAINER) continue;
@@ -88,7 +95,7 @@ function PGS_accordion_init(root = document) {
             //== sibling opening can close it. Guarded, because remove() would otherwise write an
             //== empty pgs-option on every accordion that never had one
             if (pgs(accordion).option.contains("accordionAutoOpen")) pgs(accordion).option.remove("accordionAutoOpen");
-            if (!isMultiOpen) closeOltherAccordion();
+            if (!isMultiOpen) closeOtherAccordion();
 
             //== scroll to view
             if (nowOpen) setTimeout(() => accordion.scrollIntoView({ block: "nearest", inline: "nearest" }), 100);
@@ -102,12 +109,12 @@ function PGS_accordion_init(root = document) {
             if (pgs(accordion).state.contains("open")) accordionFunction();
         }
 
-        //== applica stato iniziale: il token va scritto, non solo letto, perche' con accordionAutoOpen
-        //== il pgs-state non c'e' ancora ed e' quello che il CSS guarda per ruotare la freccia
+        //== writes that initial state, rather than only reading it: with accordionAutoOpen the
+        //== pgs-state is not there yet, and it is what the CSS reads to turn the arrow
         pgs(accordion).state.toggle("open", isOpenInit);
         accordionAccessibility(isOpenInit, BUTTON, CONTENT);
 
-        //- Eventi
+        //- Events
         BUTTON.addEventListener("click", accordionFunction);
 
         //- Tastiera: Enter / Space

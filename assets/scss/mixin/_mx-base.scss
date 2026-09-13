@@ -67,7 +67,6 @@
     font-size: var(--heading-size);
     min-width: 0;
     font-weight: $weight;
-    // text-box: trim-both cap alphabetic;
     overflow-wrap: anywhere;
 
     @media (max-width: $tablet) {

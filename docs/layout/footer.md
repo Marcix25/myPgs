@@ -26,12 +26,15 @@ Complete footer with theme control, brand area, navigation, informational conten
 - `logo`: inserts the brand into the footer.
 - `logo-text`: uses the text variant of the logo.
 - `cookieConsent-actionOpen`: opens the Cookie Consent preference panel.
-- `icon`: draws the glyphs this example shows; see Icon for the whole set.
 
 ### PGS Options
 
 - `toggleDarkmodeExtended`: labels that control with the theme the click leads to; see Darkmode.
 - `column-3`: configures the footer flex layout with three columns.
+
+### Other
+
+- `icon`: draws the glyphs this example shows; see Icon for the whole set.
 
 ## CSS Variables
 
@@ -62,7 +65,7 @@ Brand and navigation columns in the upper section, legal links and cookie prefer
                 </a>
                 <p pgs="footer-brand-motto">Reusable frontend components.</p>
                 <button pgs="button toggleDarkmode" pgs-option="toggleDarkmodeExtended" type="button" aria-label="Change theme">
-                    <i pgs="icon"></i>
+                    <i class="fa-solid fa-moon"></i>
                 </button>
             </div>
 

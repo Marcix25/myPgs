@@ -70,7 +70,7 @@
 //== same line drawn outside the box, so it takes no space in the layout: the ol* colour
 //== utilities recolour this one
 [pgs~=outline] {
-    outline: var(--outline-width) solid var(--outline-color);
+    outline: var(--outline-width) var(--outline-style) var(--outline-color);
 
     &[pgs-option~=outlineThin] {
         --outline-width: 1px;

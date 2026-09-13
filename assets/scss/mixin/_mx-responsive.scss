@@ -93,17 +93,17 @@
 
         //-( laptop 
         @container (max-width: #{$laptop}) {
-            grid-template-columns: repeat(math.ceil($columns * 0.75), 1fr); // 75% delle colonne originali
+            grid-template-columns: repeat(math.ceil($columns * 0.75), 1fr); // 75% of the declared columns
         }
 
         //-( big-tablet 
         @container (max-width: #{$big-tablet}) {
-            grid-template-columns: repeat(math.ceil($columns * 0.5), 1fr); // 50% delle colonne originali
+            grid-template-columns: repeat(math.ceil($columns * 0.5), 1fr); // 50% of the declared columns
         }
 
         //-( tablet 
         @container (max-width: #{$tablet}) {
-            grid-template-columns: repeat(math.ceil($columns * 0.33), 1fr); // 33% delle colonne originali
+            grid-template-columns: repeat(math.ceil($columns * 0.33), 1fr); // 33% of the declared columns
         }
     }
 
@@ -111,17 +111,17 @@
 
         //-( laptop 
         @container (max-width: #{$laptop}) {
-            grid-template-columns: repeat(math.ceil($columns * 0.75), 1fr); // 75% delle colonne originali
+            grid-template-columns: repeat(math.ceil($columns * 0.75), 1fr); // 75% of the declared columns
         }
 
         //-( big-tablet 
         @container (max-width: #{$big-tablet}) {
-            grid-template-columns: repeat(math.ceil($columns * 0.5), 1fr); // 50% delle colonne originali
+            grid-template-columns: repeat(math.ceil($columns * 0.5), 1fr); // 50% of the declared columns
         }
 
         //-( tablet 
         @container (max-width: #{$tablet}) {
-            grid-template-columns: repeat(math.ceil($columns * 0.33), 1fr); // 33% delle colonne originali
+            grid-template-columns: repeat(math.ceil($columns * 0.33), 1fr); // 33% of the declared columns
         }
     }
 

@@ -19,7 +19,7 @@ Interactive palette of the current MyPGS background and text color utilities.
 - `bgBoxDark`: applies --color-boxDark as a background.
 - `bgBoxTransparent`: applies --color-box-transparent as a background.
 - `bgBoxDarkTransparent`: applies --color-boxDark-transparent as a background.
-- `bglink-soft`: applies --color-link-soft as a background.
+- `bgLinkSoft`: applies --color-link-soft as a background.
 - `bgBackground`: applies --color-background as a background.
 - `bgWhiteFixed`: applies --color-whiteFixed as a background.
 - `bgBlackFixed`: applies --color-blackFixed as a background.

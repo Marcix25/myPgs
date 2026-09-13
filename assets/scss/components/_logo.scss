@@ -38,7 +38,7 @@
         }
     }
 
-    //= SENZA LOGO
+    //= TEXT ONLY
     &:has([pgs~="logo-text"]) {
         display: flex;
         align-items: center;

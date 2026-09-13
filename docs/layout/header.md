@@ -114,9 +114,6 @@ Full navigation on the left, always-visible controls on the right, and the same 
 					<li><a pgs="button" pgs-option="buttonTransparent buttonHeader buttonPaddingEqual" href="/contact">Contact</a></li>
 				</ul>
 			</nav>
-		</div>
-
-		<div pgs="header-element-alwaysOn">
 			<div pgs="flexRow" pgs-option="nowrap">
 				<div pgs="modal" pgs-option="modalContainerPGS[header] ">
 					<button type="button" pgs="modal-button modal-close button notificationBell" pgs-option="buttonIcon" aria-label="Open notifications">
@@ -131,24 +128,35 @@ Full navigation on the left, always-visible controls on the right, and the same 
 		</div>
 
 		<div pgs="header-element-onlyCompact">
-			<div pgs="modal" pgs-option="modalContainerPGS[header]">
-
-				<button pgs="button modal-button modal-close" pgs-option="buttonIcon" type="button" aria-label="Open menu">
-					<i pgs="icon" pgs-option="icon-hamburgerTwo" aria-hidden="true"></i>
+			<div pgs="flexRow" pgs-option="nowrap">
+				<div pgs="modal" pgs-option="modalContainerPGS[header] ">
+					<button type="button" pgs="modal-button modal-close button notificationBell" pgs-option="buttonIcon" aria-label="Open notifications">
+						<i pgs="icon" pgs-option="icon-bell"></i>
+						<span pgs="notificationBell-counter"></span>
+					</button>
+				</div>
+				<button pgs="button toggleDarkmode" pgs-option="buttonIcon" type="button" aria-label="Change theme">
+					<i pgs="icon"></i>
 				</button>
+				<div pgs="modal" pgs-option="modalContainerPGS[header]">
 
-				<dialog pgs="modal-dialog" pgs-option="modalRight">
-					<div pgs="modal-dialog-content">
-						<nav pgs="menu" pgs-option="menuVertical" aria-label="Compact menu">
-							<ul>
-								<li><a pgs="button" pgs-option="buttonTransparent buttonPaddingEqual" href="/">Home</a></li>
-								<li><a pgs="button" pgs-option="buttonTransparent buttonPaddingEqual" href="/services">Services</a></li>
-								<li><a pgs="button" pgs-option="buttonTransparent buttonPaddingEqual" href="/about">About</a></li>
-								<li><a pgs="button" pgs-option="buttonTransparent buttonPaddingEqual" href="/contact">Contact</a></li>
-							</ul>
-						</nav>
-					</div>
-				</dialog>
+					<button pgs="button modal-button modal-close" pgs-option="buttonIcon" type="button" aria-label="Open menu">
+						<i pgs="icon" pgs-option="icon-hamburgerTwo" aria-hidden="true"></i>
+					</button>
+
+					<dialog pgs="modal-dialog" pgs-option="modalRight">
+						<div pgs="modal-dialog-content">
+							<nav pgs="menu" pgs-option="menuVertical" aria-label="Compact menu">
+								<ul>
+									<li><a pgs="button" pgs-option="buttonTransparent buttonPaddingEqual" href="/">Home</a></li>
+									<li><a pgs="button" pgs-option="buttonTransparent buttonPaddingEqual" href="/services">Services</a></li>
+									<li><a pgs="button" pgs-option="buttonTransparent buttonPaddingEqual" href="/about">About</a></li>
+									<li><a pgs="button" pgs-option="buttonTransparent buttonPaddingEqual" href="/contact">Contact</a></li>
+								</ul>
+							</nav>
+						</div>
+					</dialog>
+				</div>
 			</div>
 		</div>
 	</div>

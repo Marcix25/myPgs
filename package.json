@@ -20,6 +20,19 @@
         }
     },
     "style": "./dist/css/index.css",
+    "files": [
+        "assets/",
+        "dist/",
+        "docs/",
+        "plugins/",
+        "reference/",
+        "AGENTS.md",
+        "AGENTS-DEVELOPMENT.md",
+        "AGENTS-USAGE.md",
+        "README.md",
+        "RENAMED-OPTIONS.md",
+        "migration.md"
+    ],
     "scripts": {
         "docs:generate": "node scripts/generate-component-docs.js && node scripts/generate-guide-docs.js",
         "icons:sync": "node scripts/sync-icons.js",

@@ -126,7 +126,7 @@ export class PGS_formValidate {
         for (const rule of this._rules) {
             const res = rule(container);
 
-            // la rule può tornare:
+            // a rule can return:
             // • null/undefined => ok
             // • un elemento => invalido
             // • un array di elementi => invalidi
@@ -143,7 +143,7 @@ export class PGS_formValidate {
             if (input.type === "hidden") return false;
             if (input.type === "checkbox" || input.type === "radio" || input.type === "file") return false;
 
-            // valida solo se required
+            // only validated when the field is required
             if (!this.#help.isRequired(input)) return false;
 
             return this.#help.isEmptyTextLike(input);
@@ -166,7 +166,7 @@ export class PGS_formValidate {
         });
 
         //== RADIO 
-        // required: se in un gruppo required non ce n'è uno checked => errore sul "primo" radio del gruppo
+        // required: a radio group with nothing checked reports the error on the first radio of the group
         const radios = Array.from(container.querySelectorAll('input[type="radio"]')).filter((r) => !r.disabled);
         const requiredRadioGroups = new Map(); // name -> [elements]
         for (const r of radios) {
@@ -187,7 +187,7 @@ export class PGS_formValidate {
 
         //== CHECKBOX 
         // required: può essere singola checkbox required (checked obbligatorio)
-        // oppure gruppo di checkbox (stesso name) con almeno una selezionata
+        // or a checkbox group (same name) with at least one box ticked
         const checkboxes = Array.from(container.querySelectorAll('input[type="checkbox"]')).filter((c) => !c.disabled);
         const requiredCheckboxSingles = [];
         const requiredCheckboxGroups = new Map(); // name -> [elements]
@@ -196,18 +196,18 @@ export class PGS_formValidate {
 
             const name = this.#help.getGroupName(c);
             if (!name) {
-                // checkbox senza name: trattala come singola required
+                // a checkbox with no name is treated as a single required field
                 if (!c.checked) requiredCheckboxSingles.push(c);
                 continue;
             }
 
-            // se vuoi trattare come gruppo, raggruppa per name
+            // grouped by name, so a group answers as one field
             if (!requiredCheckboxGroups.has(name)) requiredCheckboxGroups.set(name, []);
             requiredCheckboxGroups.get(name).push(c);
         }
         const checkboxGroupErrors = [];
         for (const [name, group] of requiredCheckboxGroups.entries()) {
-            // se è un gruppo (>=2) richiedi almeno una spuntata
+            // a real group (>= 2) needs at least one box ticked
             // se è 1 sola, si comporta come singola
             const anyChecked = group.some((c) => c.checked);
             if (!anyChecked) {
@@ -224,7 +224,7 @@ export class PGS_formValidate {
             return !(f.files && f.files.length > 0);
         });
 
-        //== risultato finale: tutti i campi da marcare come errore
+        //== the result: every field to be marked as failing
         const invalidFields = [
             textInputs,
             textareas,
@@ -314,7 +314,7 @@ export class PGS_formValidate {
         //== aggiungo errori dove serve
         invalid.forEach((el, i) => this.#addFieldError(el, i, invalid.length))
 
-        //== rimuove l'errore al click
+        //== a click clears the error
         allFields.forEach(element => element.addEventListener("click", () => {
             const errorTarget = pgs(element).state.closest("errorField") || element;
             this.#removeFieldError(errorTarget);

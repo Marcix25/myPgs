@@ -1,36 +1,42 @@
 <!--
 /**
  * @title Slides
- * @description Slides markup, configuration, behavior, and usage example.
+ * @description A horizontal, scroll-snapped track of slides with its own arrows and position dots. It is the browser doing the scrolling: the module only watches which slides are in view, through an IntersectionObserver, and moves the track by whole slides when an arrow is used. The arrows step from the slide the snap is resting on, so a track showing three at a time advances by the one in the middle, and the two ends scroll all the way out rather than centring, which is what lines the first and last card up with the page content. Arrows, dots and their states are generated at the end of the component unless the markup already carries them, so writing any of the three yourself is how you place it elsewhere.
  *
  * @pgs
- * - slides: identifies the slides element used by Slides.
- * - slides-container: identifies the slides-container element used by Slides.
+ * - slides: identifies the root the module initializes, and the element the instance is stored against.
+ * - slides-container: the scrolling track, the element that carries the scroll snapping and the one the arrows move.
  * - slides-container-slide: identifies each direct slide item.
  *
  * @pgs-generated
  * - slides-prec: the button that scrolls to the previous slide, appended at the end of the component; write your own to place it elsewhere and it is left alone.
  * - slides-next: the button that scrolls to the next slide, appended at the end of the component; write your own to place it elsewhere and it is left alone.
  * - slides-dots: the row of position dots, one per slide, appended at the end of the component; write your own to place it elsewhere and it is left alone.
+ * - _slides-dots-dot: one dot inside that row, built and kept in step with the number of slides. It is written on every child of the row, so a row placed by hand holds the same dots.
  *
  * @pgs-option
- * - slidesSingleScroll: identifies the slidesSingleScroll element used by Slides.
+ * - slidesSingleScroll: an arrow advances by a single slide, counted from the one the snap is resting on, instead of jumping past every slide currently in view.
  * - slidesShadowDesktop: fades the slides out at the edges from the tablet width up, only on the side that still has slides to reach.
- * - slidesAnimationScale: scales each slide by its scroll visibility using the --visible-percent custom property.
+ * - slidesAnimationScale: scales each slide by how much of it is in view, through the --slides-visiblePercent custom property the module writes on it; a slide sits at 1 before the first pass of the observer.
  * - slidesScrollMouse: turns the vertical mouse wheel into horizontal scrolling over the slides; off by default.
+ *
+ * @pgs-state
+ * - view: written on each slide the observer reads as in view, at or above 97% visible. It is what the arrows, the dots and the edge fades are all driven from, and what getCurrentIndexes and getCurrentElements report.
+ * - notView: the other side of the same pass, written on the slides that are out of view. It is not the same as :not([pgs-state~="view"]), which also matches every slide before the first pass of the observer, when neither state has been written yet.
+ * - active: written on the dot of each slide currently in view, alongside aria-current.
  *
  * @api
  * - pgs.slides.init(root): initializes matching elements within the specified root.
  * - pgs.slides.api(element): returns the instance associated with the specified initialized element.
  * - instance.previous(): moves to the previous item.
  * - instance.next(): moves to the next item.
- * - instance.goTo(index): provides the documented operation through the component public API.
- * - instance.getCurrentIndexes(): provides the documented operation through the component public API.
- * - instance.getCurrentElements(): provides the documented operation through the component public API.
- * - instance.getTotal(): returns the total number of items.
- * - instance.isAtStart(): provides the documented operation through the component public API.
- * - instance.isAtEnd(): provides the documented operation through the component public API.
- * - instance.refresh(): refreshes the component and returns its updated instance.
+ * - instance.goTo(index): scrolls to the zero-based slide at that position.
+ * - instance.getCurrentIndexes(): returns the positions of every slide currently in view.
+ * - instance.getCurrentElements(): returns the slide elements currently in view.
+ * - instance.getTotal(): returns the total number of slides.
+ * - instance.isAtStart(): returns true when the track is scrolled to its beginning.
+ * - instance.isAtEnd(): returns true when the track is scrolled to its end.
+ * - instance.refresh(): rebuilds the instance on the same element and returns it, after the slides have changed.
  *
  * @related
  * - card: uses the related card component or utility in this example.

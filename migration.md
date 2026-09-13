@@ -410,6 +410,62 @@ own baked-in glyph name. Two new custom properties, `--icon`, `--iconBefore` and
 later, more specific rule swap the drawn glyph in pure CSS — see the header's expanded hamburger for
 the pattern.
 
+### Two tokens that were the last ones off convention
+
+| was | now |
+| --- | --- |
+| `pgs="bglink-soft"` | `pgs="bgLinkSoft"` |
+| `pgs="required-here"` | `pgs="form-requiredHere"` |
+
+`bglink-soft` was the only one of the forty-three `bg*` utilities written in lower case with a dash,
+while its own text twin was already `txtLinkSoft`. `required-here` is the marker that says where the
+asterisk of a required label goes, and it belongs to the form, so it takes the component's name like
+every other child token.
+
+### Events — one prefix for all of them
+
+| was | now |
+| --- | --- |
+| `modal:open` | `pgs:modal:open` |
+| `modal:close` | `pgs:modal:close` |
+| `tabs:change` | `pgs:tabs:change` |
+| `stepTabs:change` | `pgs:stepTabs:change` |
+
+Four events were dispatched with a bare component prefix, while `pgs:notification:*`,
+`pgs:search:*` and `pgs:svg:changeColor` already carried `pgs:`. Every listener needs the new name.
+The events themselves are unchanged: same element, same detail, and still not bubbling, so the
+listener stays where it is.
+
+### Slides — the last CSS classes become states
+
+| was | now |
+| --- | --- |
+| `.view` on a slide | `pgs-state="view"` |
+| `.notView` on a slide | `pgs-state="notView"` |
+| `.active` on a dot | `pgs-state="active"` |
+| `class="slide-dot"` on each dot | `pgs="_slides-dots-dot"` |
+
+Slides was the one component still writing plain classes, which the rest of the library had already
+left behind: runtime state lives in `pgs-state`. A stylesheet that hooked into `.view` — to animate
+the slide in view, or to style the current dot — needs the attribute selector instead, e.g.
+`[pgs-state~="view"]`. The classes on the two arrows, `precButton` and `nextButton`, are untouched
+in this pass, though `[pgs~="slides-prec"]` and `[pgs~="slides-next"]` sit on the same buttons and
+are the selectors to move to.
+
+### Three broken custom property references, fixed
+
+Nothing to rename here — these were typos in the library, so the rules they sat in were dropped by
+the browser and now apply. Three surfaces change look without any markup changing:
+
+| where | was | is now |
+| --- | --- | --- |
+| `pgs="table"` rows | `var(--border-box)` / `var(--border-box-transparent)`, neither of which exists, so no zebra striping at all | `var(--color-box)` / `var(--color-box-transparent)`: the alternating rows are drawn |
+| `pgs="footer-legal-content"` | `border-top: var(--border) ...`, no such property, so no line | the separator above the legal area is drawn |
+| `pgs="cookieConsent"` | `gap: var(--gap-)`, a truncated token, so no gap | `var(--gap-texts)` between heading, text and buttons |
+
+A project that worked around any of the three — its own zebra striping on a `pgs="table"`, its own
+border above the footer legal row — now has both its rule and the library's.
+
 ## 3. New, worth adopting
 
 - **Icons with no font.** `pgs="icon"` plus a glyph option covers dozens of shapes and needs nothing
@@ -512,6 +568,16 @@ grep -rnE 'buttonText|buttonTransparent' .
 
 # 22. theme switches the footer used to label on its own (read, don't replace)
 grep -rnE 'pgs="[^"]*\btoggleDarkmode\b' .
+
+# 23. the last two tokens off convention
+grep -rn 'bglink-soft' .
+grep -rn 'required-here' .
+
+# 24. listeners on the four renamed events
+grep -rnE '\b(modal:open|modal:close|tabs:change|stepTabs:change)\b' .
+
+# 25. stylesheets hooked into the slides classes, now states
+grep -rnE '\.(view|notView|slide-dot)\b' .
 ```
 
 Hit 5 needs reading rather than replacing: an `icon` that wraps another element wanted the surface
@@ -527,4 +593,6 @@ swapped implementations, so every hit needs the other name — but read each one
 should stay filled when it is the current page wants `buttonTransparent`, and only a button that
 must never fill wants `buttonText`. Hit 22 closes the set: a switch that sat in a footer and
 showed a written label needs `pgs-option="toggleDarkmodeExtended"` to keep it, while one that was
-icon-only — in a header, or anywhere outside the footer — needs nothing.
+icon-only — in a header, or anywhere outside the footer — needs nothing. Hits 23 and 24 are plain substitutions:
+`bglink-soft` → `bgLinkSoft`, `required-here` → `form-requiredHere`, and each of the four events
+gains its `pgs:` prefix.

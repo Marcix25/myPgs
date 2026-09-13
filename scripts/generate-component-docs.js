@@ -376,7 +376,11 @@ function loadSources() {
 function extractCssVariables(template, allSourceContent) {
     const basename = path.basename(template, ".html");
     const pattern = new RegExp(`--${escapeRegExp(basename)}-[A-Za-z0-9-]+`, "g");
-    return [...new Set(allSourceContent.match(pattern) || [])].sort((a, b) => a.localeCompare(b, "en"));
+    //== a name ending in "-" is the head of an interpolated one (--icon-glyph-#{$name}), not a
+    //== property anybody can write: the source text carries it, the documentation should not
+    return [...new Set(allSourceContent.match(pattern) || [])]
+        .filter(name => !name.endsWith("-"))
+        .sort((a, b) => a.localeCompare(b, "en"));
 }
 
 function associateSources(template, documentation, sources) {

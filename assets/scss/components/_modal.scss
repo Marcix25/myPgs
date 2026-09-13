@@ -2,9 +2,6 @@
 $modalDialogPgs: 'dialog[pgs~="modal-dialog"]';
 
 html:has(dialog[open]) {
-    // overflow: hidden;
-    // position: relative;
-    // scrollbar-gutter: stable;
     cursor: pointer;
 }
 

@@ -51,8 +51,6 @@ Border, outline and radius utilities, split out from the general-purpose set sin
 
 ## CSS Variables
 
-- `--border-box`
-- `--border-box-transparent`
 - `--border-color`
 - `--border-complete`
 - `--border-radius`

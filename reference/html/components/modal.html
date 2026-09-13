@@ -1,15 +1,15 @@
 <!--
 /**
  * @title Modal
- * @description Modal markup, configuration, behavior, and usage example.
+ * @description A native dialog driven by the library. The dialog is moved out of its wrapper on initialization — to the body by default, or into the container named by modalContainerID or modalContainerPGS — so a modal written inside a header or a card is never clipped by it; modalTopLevel keeps it in place and opens it with showModal(), on the browser's top layer. Options are read from the wrapper and from the dialog alike: whichever of the two carries them, the module merges them onto both. A close button is generated when neither element holds one, and focus moves to the content header on open, or to the dialog itself when there is no header, instead of the first focusable descendant the dialog spec would otherwise pick. Opening and closing dispatch pgs:modal:open and pgs:modal:close on the wrapper and on the dialog, neither of them bubbling, so a listener sits on whichever of the two it already holds and never hears the same opening twice.
  *
  * @pgs
- * - modal: identifies the modal element used by Modal.
- * - modal-button: identifies the modal-button element used by Modal.
- * - modal-dialog-content: identifies the modal-dialog-content element used by Modal.
- * - modal-dialog-content-header: identifies the modal-dialog-content-header element used by Modal.
- * - modal-dialog-content-scroll: identifies the modal-dialog-content-scroll element used by Modal.
- * - modal-close: identifies the modal-close element used by Modal.
+ * - modal: identifies the wrapper the module initializes, and the element the instance is stored against.
+ * - modal-button: the control that opens the dialog; without one the modal only opens through its API.
+ * - modal-dialog-content: the panel drawn inside the dialog, and the element every position and width option sizes.
+ * - modal-dialog-content-header: the fixed heading area at the top of the panel; it is also what takes focus when the dialog opens.
+ * - modal-dialog-content-scroll: the part of the panel that scrolls, leaving the header and anything beside it still.
+ * - modal-close: closes the dialog. Write it anywhere inside the wrapper or the dialog to place it yourself; leave it out and the module generates one.
  *
  * @pgs-generated
  * - modal-dialog: added to the dialog element on initialization, which is why the example writes a bare dialog tag.
@@ -17,25 +17,25 @@
  * @pgs-option
  * - modalBottom: aligns the dialog content to the bottom of the viewport.
  * - modalCenter: centers the dialog content both horizontally and vertically; this is also the default, so it only matters when combined with a component that changes that default.
- * - modalContainerID: identifies the modalContainerID element used by Modal.
- * - modalContainerPGS: identifies the modalContainerPGS element used by Modal.
- * - modalDisableBackdropClose: identifies the modalDisableBackdropClose element used by Modal.
- * - modalHistory: identifies the modalHistory element used by Modal.
+ * - modalContainerID: moves the dialog into the element with this id instead of the body, with the syntax modalContainerID[myContainer] — the id is written without the #.
+ * - modalContainerPGS: moves the dialog into the first element carrying this pgs token instead of the body, with the syntax modalContainerPGS[header].
+ * - modalDisableBackdropClose: keeps a click on the backdrop from closing the dialog, so it only closes through its own controls or its API.
+ * - modalHistory: writes ?modal=<id of the opening button> into the URL while the dialog is open, and opens or closes it again on back and forward. It needs a modal-button with an id.
  * - modalLeft: aligns the dialog content to the left of the viewport.
  * - modalMedium: shrinks the dialog content to half the page width instead of filling the viewport.
  * - modalMini: shrinks the dialog content to a compact width (max 400px) instead of filling the viewport.
  * - modalRight: aligns the dialog content to the right of the viewport.
  * - modalTop: aligns the dialog content to the top of the viewport.
- * - modalTopLevel: identifies the modalTopLevel element used by Modal.
+ * - modalTopLevel: leaves the dialog inside its wrapper and opens it with showModal(), on the browser's top layer above everything else, instead of moving it into a container and opening it with show().
  *
  * @api
  * - pgs.modal.init(root): initializes matching elements within the specified root.
  * - pgs.modal.api(element): returns the instance associated with the specified initialized element.
- * - instance.open(): opens the component.
- * - instance.close(): closes the component.
- * - instance.toggle(): toggles the component state.
- * - instance.refresh(): refreshes the component and returns its updated instance.
- * - instance.isOpen(): returns true when the component is open.
+ * - instance.open(): opens the dialog, and does nothing when it is already open.
+ * - instance.close(): closes the dialog.
+ * - instance.toggle(): opens the dialog, or closes it when it is already open.
+ * - instance.refresh(): re-reads the dialog and the options, and returns the updated instance.
+ * - instance.isOpen(): returns true while the dialog is open.
  *
  * @related
  * - modal-container-pgs-demo: demo-only target token for the modalContainerPGS example; write your own token on your own real target instead.

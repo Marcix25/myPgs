@@ -5,16 +5,16 @@
         --table-title-background: var(--border-color);
         --table-title-color: var(--color-black);
     
-        --table-row-background-even: var(--border-box-transparent);
-        --table-row-background-odd: var(--border-box);
+        --table-row-background-even: var(--color-box-transparent);
+        --table-row-background-odd: var(--color-box);
         --table-row-color: var(--color-black);
 
         --table-row-hover-background: var(--color-primary-soft);
         --table-row-hover-color: var(--color-blackFixed);
         
         width: 100%;
-        max-width: 100%; // Limita la larghezza della tabella al contenitore
-        table-layout: auto; // Cambiato da fixed ad auto per migliorare la flessibilità del layout
+        max-width: 100%; // never wider than its container
+        table-layout: auto; // auto rather than fixed, so a column takes the room its content needs
         border-collapse: collapse;
         color: var(--color-text);
         border-radius: var(--border-radius-input);

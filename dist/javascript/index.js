@@ -152,18 +152,18 @@ function tokenizeOptionValue(source) {
 */
 function pgs(root) {
     const ATTR = "pgs";
-    if (!root) throw new TypeError("pgs(root): root richiesto");
+    if (!root) throw new TypeError("pgs(root): root is required");
 
     const canAttr = typeof root.getAttribute === "function" && typeof root.setAttribute === "function";
     const canQuery = typeof root.querySelector === "function" && typeof root.querySelectorAll === "function";
 
     if (!canQuery) {
-        throw new TypeError("pgs(root): root deve supportare querySelector/querySelectorAll");
+        throw new TypeError("pgs(root): root must support querySelector/querySelectorAll");
     }
 
     //+
     function attrOnlyForElements(methodName) {
-        throw new TypeError(`pgs(${root.nodeName || "root"}).${methodName}(): disponibile solo su Element (non su Document)`);
+        throw new TypeError(`pgs(${root.nodeName || "root"}).${methodName}(): available on an Element only, not on a Document`);
     };
 
     //+
@@ -491,7 +491,7 @@ const PGS_IMPORTS = {};
 function registerImportModule(name, module) {
     const key = String(name || "").trim().replace(/^pgs[_-\s]*/i, "").toLowerCase();
 
-    if (!key) throw new TypeError("pgs.registerImport(...modules): ogni modulo deve avere name o PGS_name");
+    if (!key) throw new TypeError("pgs.registerImport(...modules): every module needs a name or a PGS_name");
 
     PGS_IMPORTS[key] = {
         name,
@@ -519,7 +519,7 @@ pgs.registerModules = function (modules = {}) {
 
         const hasOwn = Object.prototype.hasOwnProperty.call(pgs, key);
         if (hasOwn && pgs[key] !== module) {
-            throw new Error(`pgs.registerModules(): "${key}" e' gia' definito su pgs`);
+            throw new Error(`pgs.registerModules(): "${key}" is already defined on pgs`);
         }
 
         pgs[key] = module;
@@ -533,7 +533,7 @@ pgs.import = function (...names) {
         const key = String(name || "").trim().replace(/^pgs[_-\s]*/i, "").toLowerCase();
         const item = PGS_IMPORTS[key];
 
-        if (!item) throw new Error(`pgs.import(): modulo "${name}" non registrato`);
+        if (!item) throw new Error(`pgs.import(): module "${name}" is not registered`);
 
         imports[item.name] = item.module;
         return imports;
@@ -607,7 +607,8 @@ function setDarkmodeStatus(toggle = false, button = []) {
 
 
 //= INIT
-// Applica subito il tema alla radice quando il bundle viene caricato nel head.
+//== applies the stored theme to the root as soon as the bundle is parsed in the head, so a
+//== reload never paints the wrong one first
 setDarkmodeStatus();
 
 function initDarkmode(root = document) {
@@ -696,7 +697,7 @@ function syncHover(element) {
 //= INIT
 function initHover(root = document) {
     if (!(root instanceof Document || root instanceof Element)) {
-        throw new TypeError("pgs.hover.init(): root deve essere un Document o un Element");
+        throw new TypeError("pgs.hover.init(): root must be a Document or an Element");
     }
 
     if (root instanceof Element) syncHover(root);
@@ -966,13 +967,13 @@ function PGS_accordion_init(root = document) {
         const CONTENT = directPgsChild(accordion, "accordion-content");
         if (!BUTTON || !CONTENT) return;
 
-        //== ID univoci per aria-controls / aria-labelledby
+        //== ids of its own for aria-controls / aria-labelledby
         const ID = nextAccordionId();
         const btnId = `acc-btn-${ID}`;
         const panelId = `acc-panel-${ID}`;
 
-        //== Stato iniziale: accordionAutoOpen e' la forma da scrivere a mano, perche' pgs-state
-        //== appartiene al runtime; un pgs-state="open" gia' scritto resta comunque valido
+        //== initial state: accordionAutoOpen is the authored form, because pgs-state belongs to
+        //== the runtime; a pgs-state="open" already written by hand is honoured all the same
         const isOpenInit = pgs(accordion).option.contains("accordionAutoOpen") || pgs(accordion).state.contains("open");
 
         //== an accordion closes the others only inside a group, and the group is the nearest
@@ -981,7 +982,7 @@ function PGS_accordion_init(root = document) {
         const CONTAINER = pgs(accordion).closest("accordionContainer");
         const isMultiOpen = !CONTAINER || pgs(CONTAINER).option.contains("accordionMultiOpen");
 
-        //== Accessibilità (setup una volta)
+        //== accessibility, written once
         BUTTON.setAttribute("role", "button");
         BUTTON.setAttribute("tabindex", "0");
         if (!BUTTON.id) BUTTON.setAttribute("id", btnId);
@@ -991,21 +992,28 @@ function PGS_accordion_init(root = document) {
         CONTENT.setAttribute("role", "region");
         CONTENT.setAttribute("aria-labelledby", BUTTON.id);
 
-        //+ Accessibility (applica stato aperto/chiuso)
+        //+ Accessibility (writes the open/closed state)
+        //== the composed label says what the click does, and is only written when the author has
+        //== not named the control themselves: a hand-written aria-label is the page's own wording
+        //== and survives every toggle
+        const hasAuthorLabel = BUTTON.hasAttribute("aria-label");
+
         function accordionAccessibility(isOpen, button, content) {
-            const text = (button?.textContent || "").trim().replace(/\s+/g, " ");
-            button.setAttribute("aria-label", `${isOpen ? "Chiudi" : "Apri"} ${text || "sezione"}`);
+            if (!hasAuthorLabel) {
+                const text = (button?.textContent || "").trim().replace(/\s+/g, " ");
+                button.setAttribute("aria-label", `${isOpen ? "Close" : "Open"} ${text || "section"}`);
+            }
             button.setAttribute("aria-expanded", String(isOpen));
             content.hidden = !isOpen;
         }
 
-        //+ Chiudi gli altri del gruppo
+        //+ Close the others of the group
         //== only the accordions of this same group: an accordionContainer nested in another one
         //== keeps its own panels to itself, which is why the nearest container is compared rather
         //== than trusting the descendant search. accordionAutoOpen is left alone on purpose — it
         //== is the authored "this one stays open", so a sibling opening does not take it down,
         //== and only until the reader works that panel themselves, which drops the token
-        function closeOltherAccordion() {
+        function closeOtherAccordion() {
             for (const otherLi of pgs(CONTAINER).querySelectorAll("accordion")) {
                 if (otherLi === accordion) continue;
                 if (pgs(otherLi).closest("accordionContainer") !== CONTAINER) continue;
@@ -1033,7 +1041,7 @@ function PGS_accordion_init(root = document) {
             //== sibling opening can close it. Guarded, because remove() would otherwise write an
             //== empty pgs-option on every accordion that never had one
             if (pgs(accordion).option.contains("accordionAutoOpen")) pgs(accordion).option.remove("accordionAutoOpen");
-            if (!isMultiOpen) closeOltherAccordion();
+            if (!isMultiOpen) closeOtherAccordion();
 
             //== scroll to view
             if (nowOpen) setTimeout(() => accordion.scrollIntoView({ block: "nearest", inline: "nearest" }), 100);
@@ -1047,12 +1055,12 @@ function PGS_accordion_init(root = document) {
             if (pgs(accordion).state.contains("open")) accordionFunction();
         }
 
-        //== applica stato iniziale: il token va scritto, non solo letto, perche' con accordionAutoOpen
-        //== il pgs-state non c'e' ancora ed e' quello che il CSS guarda per ruotare la freccia
+        //== writes that initial state, rather than only reading it: with accordionAutoOpen the
+        //== pgs-state is not there yet, and it is what the CSS reads to turn the arrow
         pgs(accordion).state.toggle("open", isOpenInit);
         accordionAccessibility(isOpenInit, BUTTON, CONTENT);
 
-        //- Eventi
+        //- Events
         BUTTON.addEventListener("click", accordionFunction);
 
         //- Tastiera: Enter / Space
@@ -1114,19 +1122,19 @@ const fn_alert = {
         description: "",
         type: {
             error: {
-                title: "Errore",
+                title: "Error",
                 icon: '<i pgs="icon" pgs-option="icon-circleXmark"></i>'
             },
             success: {
-                title: "Aggiornato",
+                title: "Success",
                 icon: '<i pgs="icon" pgs-option="icon-circleCheck"></i>'
             },
             info: {
-                title: "Aggiornamento",
+                title: "Information",
                 icon: '<i pgs="icon" pgs-option="icon-circleInfo"></i>'
             },
             warning: {
-                title: "Attenzione",
+                title: "Warning",
                 icon: '<i pgs="icon" pgs-option="icon-triangleExclamation"></i>'
             }
         }
@@ -1134,7 +1142,7 @@ const fn_alert = {
 
     _getContainer(root = document, configuredContainer) {
         if (!(root instanceof Document) && !(root instanceof Element)) {
-            throw new TypeError("PGS alert: root deve essere un Document o un Element");
+            throw new TypeError("PGS alert: root must be a Document or an Element");
         }
 
         let container = configuredContainer;
@@ -1142,7 +1150,7 @@ const fn_alert = {
         if (!container) container = pgs(root).querySelector("alertContainer");
 
         if (container && (!(container instanceof Element) || container === root || !root.contains(container))) {
-            throw new TypeError("PGS alert: container deve essere un elemento contenuto in root");
+            throw new TypeError("PGS alert: container must be an element contained in root");
         }
 
         if (!container) {
@@ -1188,7 +1196,7 @@ const fn_alert = {
 
     show(type, options = {}) {
         if (!options || typeof options !== "object" || Array.isArray(options)) {
-            throw new TypeError("PGS alert: options deve essere un oggetto");
+            throw new TypeError("PGS alert: options must be an object");
         }
 
         const { root, container, ...contentOptions } = options;
@@ -1594,6 +1602,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 //# MODAL
+const EVENT_OPEN = "pgs:modal:open";
+const EVENT_CLOSE = "pgs:modal:close";
 const API = new WeakMap();
 
 function getModals(root) {
@@ -1614,7 +1624,7 @@ function initializeModal(MODAL, existingDialog = null) {
     let historyTimeout = null;
 
     //== SELECTOR
-    const DOMButtonClose = '<button pgs="button modal-close" pgs-option="buttonIcon buttonMini" type="button" tabindex="0" aria-label="Chiudi"><i pgs="icon" pgs-option="icon-close"></i></button>';
+    const DOMButtonClose = '<button pgs="button modal-close" pgs-option="buttonIcon buttonMini" type="button" tabindex="0" aria-label="Close"><i pgs="icon" pgs-option="icon-close"></i></button>';
     const modalContentHeader = pgs(DIALOG).querySelector("modal-dialog-content-header");
 
     //== FOCUS
@@ -1664,8 +1674,10 @@ function initializeModal(MODAL, existingDialog = null) {
     pgs(DIALOG).add("modal-dialog");
 
     //== BUTTON OPEN
+    //== the label is a fallback, not a correction: a control the author has already named keeps
+    //== that name, which is the one the page is written around
     BUTTON_OPEN?.setAttribute("role", "button");
-    BUTTON_OPEN?.setAttribute("aria-label", "apri modale");
+    if (BUTTON_OPEN && !BUTTON_OPEN.hasAttribute("aria-label")) BUTTON_OPEN.setAttribute("aria-label", "Open modal");
 
 
     //== POSITION
@@ -1696,9 +1708,10 @@ function initializeModal(MODAL, existingDialog = null) {
         modalTopLevel ? DIALOG.showModal() : DIALOG.show();
         //== respect an explicit autofocus target inside the dialog when the author set one
         if (!DIALOG.querySelector("[autofocus]")) focusTarget.focus();
-        // modalCustomEvents('modal:open', { event: e });
-        MODAL.dispatchEvent(new CustomEvent('modal:open'));
-        DIALOG.dispatchEvent(new CustomEvent('modal:open'));
+        //== dispatched on both, and neither bubbles: a listener sits on whichever of the two it
+        //== already holds, and never receives the same opening twice
+        MODAL.dispatchEvent(new CustomEvent(EVENT_OPEN));
+        DIALOG.dispatchEvent(new CustomEvent(EVENT_OPEN));
     }
 
     //+ FN CLOSE
@@ -1706,9 +1719,8 @@ function initializeModal(MODAL, existingDialog = null) {
         e?.stopImmediatePropagation()
         statusModal(false);
         DIALOG.close();
-        // modalCustomEvents('modal:close', { event: e });
-        MODAL.dispatchEvent(new CustomEvent('modal:close'));
-        DIALOG.dispatchEvent(new CustomEvent('modal:close'));
+        MODAL.dispatchEvent(new CustomEvent(EVENT_CLOSE));
+        DIALOG.dispatchEvent(new CustomEvent(EVENT_CLOSE));
     }
 
     function forceOpen(e) {
@@ -1741,7 +1753,7 @@ function initializeModal(MODAL, existingDialog = null) {
     if (data_history && BUTTON_OPEN?.id) {
         historyTimeout = window.setTimeout(openModalOnHistory, 1);
 
-        //== Aggiorna URL quando cambia l'attributo "open" del dialog
+        //== keeps the URL in step with the dialog's own "open" attribute
         historyObserver = new MutationObserver(() => {
             let isOpen = DIALOG.hasAttribute("open");
             try {
@@ -1754,7 +1766,7 @@ function initializeModal(MODAL, existingDialog = null) {
         });
         historyObserver.observe(DIALOG, { attributes: true, attributeFilter: ["open"] });
 
-        //== Gestisce back/forward del browser per aprire/chiudere il dialog coerentemente
+        //== back and forward in the browser open and close the dialog to match
         window.addEventListener("popstate", () => {
             try {
                 const params = new URLSearchParams(window.location.search);
@@ -2679,26 +2691,29 @@ class PGS_Slides {
 
         //== PULSANTI
         if (!pgs(EL).querySelector('slides-prec')) {
-            EL.insertAdjacentHTML("afterbegin", `<button pgs="slides-prec button" pgs-option="buttonIcon buttonMini" type="button" class="precButton" aria-label="slide precedente"> <i pgs="icon rotate90" pgs-option="icon-chevronDown"></i></button>`);
+            EL.insertAdjacentHTML("afterbegin", `<button pgs="slides-prec button" pgs-option="buttonIcon buttonMini" type="button" class="precButton" aria-label="Previous slide"> <i pgs="icon rotate90" pgs-option="icon-chevronDown"></i></button>`);
         }
         if (!pgs(EL).querySelector('slides-next')) {
-            EL.insertAdjacentHTML("beforeend", `<button pgs="slides-next button" pgs-option="buttonIcon buttonMini" type="button" class="nextButton" aria-label="prossima slide"> <i pgs="icon rotate270" pgs-option="icon-chevronDown"></i></button>`);
+            EL.insertAdjacentHTML("beforeend", `<button pgs="slides-next button" pgs-option="buttonIcon buttonMini" type="button" class="nextButton" aria-label="Next slide"> <i pgs="icon rotate270" pgs-option="icon-chevronDown"></i></button>`);
         }
 
         //== DOTS
         if (!pgs(EL).querySelector('slides-dots')) {
-            EL.insertAdjacentHTML("beforeend", `<div pgs="slides-dots" class="slides-dots"></div>`);
+            EL.insertAdjacentHTML("beforeend", `<div pgs="slides-dots"></div>`);
         }
 
         const dotsContainer = pgs(EL).querySelector('slides-dots');
         while (dotsContainer.children.length < this.container.children.length) {
-            dotsContainer.insertAdjacentHTML("beforeend", `<button type="button" class="slide-dot"></button>`);
+            dotsContainer.insertAdjacentHTML("beforeend", `<button pgs="_slides-dots-dot" type="button"></button>`);
         }
         while (dotsContainer.children.length > this.container.children.length) {
             dotsContainer.lastElementChild.remove();
         }
+        //== the token goes on every child, not only the ones built here: a dots container written
+        //== by hand is filled and labelled the same way, and the stylesheet has one thing to look for
         Array.from(dotsContainer.children).forEach((dot, index) => {
-            dot.setAttribute("aria-label", `vai alla slide ${index + 1}`);
+            pgs(dot).add("_slides-dots-dot");
+            dot.setAttribute("aria-label", `Go to slide ${index + 1}`);
         });
     }
 
@@ -2718,7 +2733,7 @@ class PGS_Slides {
             }, null)?.slide;
         };
 
-        const currents = this.container.querySelectorAll('.view');
+        const currents = pgs(this.container).state.querySelectorAll("view");
         if (!currents.length) return nearestSlide();
         if (pgs(this.element).option.contains('slidesSingleScroll')) return currents[Math.floor((currents.length - 1) / 2)];
         return towardsEnd ? currents[currents.length - 1] : currents[0];
@@ -2772,18 +2787,21 @@ class PGS_Slides {
 
             //== SCROLL ANIMATION
             if (LI.target.firstElementChild) {
-                LI.target.firstElementChild.style.setProperty('--visible-percent', `${visiblePercent}`);
+                LI.target.firstElementChild.style.setProperty('--slides-visiblePercent', `${visiblePercent}`);
             };
 
-            //== VIEW & NOT-VIEW 
-            LI.target.classList.toggle("view", isView);
-            LI.target.classList.toggle("notView", !isView);
+            //== VIEW & NOT-VIEW
+            //== both are written: notView says the observer has run and put this slide outside the
+            //== view, which :not([pgs-state~="view"]) cannot tell apart from the state before the
+            //== first pass, when no slide carries either
+            pgs(LI.target).state.toggle("view", isView);
+            pgs(LI.target).state.toggle("notView", !isView);
 
             //== ACTIVE DOT
-            const viewElements = Array.from(container.children).filter(el => el.classList.contains('view'));
+            const viewElements = Array.from(container.children).filter(el => pgs(el).state.contains("view"));
             dots.forEach((btn, i) => {
                 const isActive = viewElements.some(el => Array.from(container.children).indexOf(el) === i);
-                btn.classList.toggle('active', isActive);
+                pgs(btn).state.toggle("active", isActive);
                 btn.setAttribute('aria-current', isActive ? 'true' : 'false');
             });
         })
@@ -2867,8 +2885,8 @@ class PGS_Slides {
             previous: () => this.#previousSlide(),
             next: () => this.#nextSlide(),
             goTo: (index) => this.#goToNumberSlide(index),
-            getCurrentIndexes: () => Array.from(this.container.children).map((el, i) => el.classList.contains("view") ? i : -1).filter(i => i !== -1),
-            getCurrentElements: () => Array.from(this.container.children).filter(el => el.classList.contains("view")),
+            getCurrentIndexes: () => Array.from(this.container.children).map((el, i) => pgs(el).state.contains("view") ? i : -1).filter(i => i !== -1),
+            getCurrentElements: () => Array.from(this.container.children).filter(el => pgs(el).state.contains("view")),
             getTotal: () => this.container.children.length,
             //== same reading as the arrows: the end of the scroll, not the edge slide being in view
             isAtStart: () => this.container.scrollLeft <= 1,
@@ -3044,7 +3062,7 @@ function PGS_stepTabs_init(root = document) {
                 tabsWizard?.scrollIntoView({ behavior: "smooth", block: "start" });
             }
 
-            tabsWizard.dispatchEvent(new CustomEvent('stepTabs:change', { detail: { current, total } }));
+            tabsWizard.dispatchEvent(new CustomEvent('pgs:stepTabs:change', { detail: { current, total } }));
         }
 
         //+ restart
@@ -3073,7 +3091,6 @@ function PGS_stepTabs_init(root = document) {
         restart?.addEventListener("click", e => restartTab(), { capture: true });
 
         //-(API) 
-        // tabsWizard.addEventListener("stepTabs:reset", () => restartTab());
         API.set(tabsWizard, {
             element: tabsWizard,
             container: tabsContainer,
@@ -3102,30 +3119,6 @@ const PGS_stepTabs = {
     init: PGS_stepTabs_init,
     api: PGS_stepTabs_api
 };
-
-/* 
-    / EXAMPLE
-    // vai allo step 2
-    w.dispatchEvent(new CustomEvent("stepTabs:go", { detail: { step: 2 } }));
-    
-    // next
-    w.dispatchEvent(new CustomEvent("stepTabs:next"));
-    
-    // prev
-    w.dispatchEvent(new CustomEvent("stepTabs:prev"));
-    
-    // reset a 0 senza relock
-    w.dispatchEvent(new CustomEvent("stepTabs:reset"));
-    
-    // lock step 3
-    w.dispatchEvent(new CustomEvent("stepTabs:toggle-lock", { detail: { step: 3, lock: true } }));
-    
-    // unlock step 3
-    w.dispatchEvent(new CustomEvent("stepTabs:toggle-lock", { detail: { step: 3, lock: false } }));
-    
-    // leggi stato
-    w.dispatchEvent(new CustomEvent("stepTabs:get", { detail: { reply: (state) => console.log(state) } }));
-*/
 
 
 /***/ },
@@ -3445,7 +3438,7 @@ function PGS_tabs_init(root = document) {
             });
 
             if (focus) buttons[current].focus();
-            tabs.dispatchEvent(new CustomEvent("tabs:change", {
+            tabs.dispatchEvent(new CustomEvent("pgs:tabs:change", {
                 detail: { current, tab: buttons[current], panel: panelItems[current] },
             }));
         }
@@ -3926,7 +3919,7 @@ class PGS_formValidate {
         for (const rule of this._rules) {
             const res = rule(container);
 
-            // la rule può tornare:
+            // a rule can return:
             // • null/undefined => ok
             // • un elemento => invalido
             // • un array di elementi => invalidi
@@ -3943,7 +3936,7 @@ class PGS_formValidate {
             if (input.type === "hidden") return false;
             if (input.type === "checkbox" || input.type === "radio" || input.type === "file") return false;
 
-            // valida solo se required
+            // only validated when the field is required
             if (!this.#help.isRequired(input)) return false;
 
             return this.#help.isEmptyTextLike(input);
@@ -3966,7 +3959,7 @@ class PGS_formValidate {
         });
 
         //== RADIO 
-        // required: se in un gruppo required non ce n'è uno checked => errore sul "primo" radio del gruppo
+        // required: a radio group with nothing checked reports the error on the first radio of the group
         const radios = Array.from(container.querySelectorAll('input[type="radio"]')).filter((r) => !r.disabled);
         const requiredRadioGroups = new Map(); // name -> [elements]
         for (const r of radios) {
@@ -3987,7 +3980,7 @@ class PGS_formValidate {
 
         //== CHECKBOX 
         // required: può essere singola checkbox required (checked obbligatorio)
-        // oppure gruppo di checkbox (stesso name) con almeno una selezionata
+        // or a checkbox group (same name) with at least one box ticked
         const checkboxes = Array.from(container.querySelectorAll('input[type="checkbox"]')).filter((c) => !c.disabled);
         const requiredCheckboxSingles = [];
         const requiredCheckboxGroups = new Map(); // name -> [elements]
@@ -3996,18 +3989,18 @@ class PGS_formValidate {
 
             const name = this.#help.getGroupName(c);
             if (!name) {
-                // checkbox senza name: trattala come singola required
+                // a checkbox with no name is treated as a single required field
                 if (!c.checked) requiredCheckboxSingles.push(c);
                 continue;
             }
 
-            // se vuoi trattare come gruppo, raggruppa per name
+            // grouped by name, so a group answers as one field
             if (!requiredCheckboxGroups.has(name)) requiredCheckboxGroups.set(name, []);
             requiredCheckboxGroups.get(name).push(c);
         }
         const checkboxGroupErrors = [];
         for (const [name, group] of requiredCheckboxGroups.entries()) {
-            // se è un gruppo (>=2) richiedi almeno una spuntata
+            // a real group (>= 2) needs at least one box ticked
             // se è 1 sola, si comporta come singola
             const anyChecked = group.some((c) => c.checked);
             if (!anyChecked) {
@@ -4024,7 +4017,7 @@ class PGS_formValidate {
             return !(f.files && f.files.length > 0);
         });
 
-        //== risultato finale: tutti i campi da marcare come errore
+        //== the result: every field to be marked as failing
         const invalidFields = [
             textInputs,
             textareas,
@@ -4114,7 +4107,7 @@ class PGS_formValidate {
         //== aggiungo errori dove serve
         invalid.forEach((el, i) => this.#addFieldError(el, i, invalid.length))
 
-        //== rimuove l'errore al click
+        //== a click clears the error
         allFields.forEach(element => element.addEventListener("click", () => {
             const errorTarget = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).state.closest("errorField") || element;
             this.#removeFieldError(errorTarget);
@@ -4179,7 +4172,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function PGS_init(root = document) {
     if (!(root instanceof Document || root instanceof Element)) {
-        throw new TypeError("pgs.init(): root deve essere un Document o un Element");
+        throw new TypeError("pgs.init(): root must be a Document or an Element");
     }
 
     const initialized = new Set();
@@ -4397,8 +4390,10 @@ function initHeader_Resize(header) {
 
     const headerElements = pgs(header).querySelectorAll("header-element");
 
-    if (!headerElements.length) console.log('For the header to work correctly, insert "header-element" under "header"');
-    if (!headerElements.length) return;
+    if (!headerElements.length) {
+        console.warn('pgs.header: a header needs at least one "header-element" under it, or it draws nothing.');
+        return;
+    }
 
     headerElements.forEach(selectHeader => {
 
@@ -4514,7 +4509,8 @@ function initHeader_Height(header) {
 
 
 //= SCROLL
-// Nasconde l'header quando si scorre verso il basso e lo mostra quando si scorre verso l'alto su dispositivi con altezza fino a 900px.
+//== hides the header while the reader scrolls down and brings it back on the way up, on screens
+//== up to 900px tall, where a pinned header costs too much of the page
 function initHeader_Scroll(header) {
     let lastScrollY = window.scrollY;
     if (!header || !pgs(header).option.contains("headerScroll")) return;

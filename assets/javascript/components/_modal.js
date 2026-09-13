@@ -1,6 +1,8 @@
 import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
 
 //# MODAL
+const EVENT_OPEN = "pgs:modal:open";
+const EVENT_CLOSE = "pgs:modal:close";
 const API = new WeakMap();
 
 function getModals(root) {
@@ -21,7 +23,7 @@ function initializeModal(MODAL, existingDialog = null) {
     let historyTimeout = null;
 
     //== SELECTOR
-    const DOMButtonClose = '<button pgs="button modal-close" pgs-option="buttonIcon buttonMini" type="button" tabindex="0" aria-label="Chiudi"><i pgs="icon" pgs-option="icon-close"></i></button>';
+    const DOMButtonClose = '<button pgs="button modal-close" pgs-option="buttonIcon buttonMini" type="button" tabindex="0" aria-label="Close"><i pgs="icon" pgs-option="icon-close"></i></button>';
     const modalContentHeader = pgs(DIALOG).querySelector("modal-dialog-content-header");
 
     //== FOCUS
@@ -71,8 +73,10 @@ function initializeModal(MODAL, existingDialog = null) {
     pgs(DIALOG).add("modal-dialog");
 
     //== BUTTON OPEN
+    //== the label is a fallback, not a correction: a control the author has already named keeps
+    //== that name, which is the one the page is written around
     BUTTON_OPEN?.setAttribute("role", "button");
-    BUTTON_OPEN?.setAttribute("aria-label", "apri modale");
+    if (BUTTON_OPEN && !BUTTON_OPEN.hasAttribute("aria-label")) BUTTON_OPEN.setAttribute("aria-label", "Open modal");
 
 
     //== POSITION
@@ -103,9 +107,10 @@ function initializeModal(MODAL, existingDialog = null) {
         modalTopLevel ? DIALOG.showModal() : DIALOG.show();
         //== respect an explicit autofocus target inside the dialog when the author set one
         if (!DIALOG.querySelector("[autofocus]")) focusTarget.focus();
-        // modalCustomEvents('modal:open', { event: e });
-        MODAL.dispatchEvent(new CustomEvent('modal:open'));
-        DIALOG.dispatchEvent(new CustomEvent('modal:open'));
+        //== dispatched on both, and neither bubbles: a listener sits on whichever of the two it
+        //== already holds, and never receives the same opening twice
+        MODAL.dispatchEvent(new CustomEvent(EVENT_OPEN));
+        DIALOG.dispatchEvent(new CustomEvent(EVENT_OPEN));
     }
 
     //+ FN CLOSE
@@ -113,9 +118,8 @@ function initializeModal(MODAL, existingDialog = null) {
         e?.stopImmediatePropagation()
         statusModal(false);
         DIALOG.close();
-        // modalCustomEvents('modal:close', { event: e });
-        MODAL.dispatchEvent(new CustomEvent('modal:close'));
-        DIALOG.dispatchEvent(new CustomEvent('modal:close'));
+        MODAL.dispatchEvent(new CustomEvent(EVENT_CLOSE));
+        DIALOG.dispatchEvent(new CustomEvent(EVENT_CLOSE));
     }
 
     function forceOpen(e) {
@@ -148,7 +152,7 @@ function initializeModal(MODAL, existingDialog = null) {
     if (data_history && BUTTON_OPEN?.id) {
         historyTimeout = window.setTimeout(openModalOnHistory, 1);
 
-        //== Aggiorna URL quando cambia l'attributo "open" del dialog
+        //== keeps the URL in step with the dialog's own "open" attribute
         historyObserver = new MutationObserver(() => {
             let isOpen = DIALOG.hasAttribute("open");
             try {
@@ -161,7 +165,7 @@ function initializeModal(MODAL, existingDialog = null) {
         });
         historyObserver.observe(DIALOG, { attributes: true, attributeFilter: ["open"] });
 
-        //== Gestisce back/forward del browser per aprire/chiudere il dialog coerentemente
+        //== back and forward in the browser open and close the dialog to match
         window.addEventListener("popstate", () => {
             try {
                 const params = new URLSearchParams(window.location.search);

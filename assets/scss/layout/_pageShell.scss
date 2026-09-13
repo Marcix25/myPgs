@@ -90,7 +90,6 @@
         min-width: 0;
         width: 100%;
         max-width: var(--pageShell-content-width);
-        // padding-block: var(--pageShell-asideShadow-sizeMaskImage);
     }
 
     //== aside
@@ -99,7 +98,6 @@
         transition: top 0.3s ease;
         width: var(--pageShell-aside-width);
         min-width: 0;
-        // padding-block: var(--pageShell-asideShadow-sizeMaskImage);
         display: grid;
         grid-template-columns: 1fr;
 
@@ -186,11 +184,6 @@
                 @include pageShell-aside-flow;
             }
 
-            [pgs~="pageShell-content"],
-            [pgs~="pageShell-content"]+[pgs~="pageShell-aside"] {
-                // padding-top: 0;
-            }
-
             [pgs~="pageShell-content"] {
                 @include pageShell-content-flow;
             }
@@ -202,7 +195,6 @@
     @container (max-width: #{$big-mobile}) {
         [pgs~="pageShell-content"] {
             @include pageShell-content-flow;
-            // padding-top: 0;
         }
 
         [pgs~="pageShell-aside"],

@@ -44,12 +44,12 @@
             }
 
             //== fade on the left until the first slide is reached
-            &:not(:has([pgs~="slides-container"] li:first-child.view)) [pgs~="slides-container"] {
+            &:not(:has([pgs~="slides-container"] li:first-child[pgs-state~="view"])) [pgs~="slides-container"] {
                 --slides-maskStart: var(--slides-sizeMaskImage);
             }
 
             //== fade on the right until the last slide is reached
-            &:not(:has([pgs~="slides-container"] li:last-child.view)) [pgs~="slides-container"] {
+            &:not(:has([pgs~="slides-container"] li:last-child[pgs-state~="view"])) [pgs~="slides-container"] {
                 --slides-maskEnd: var(--slides-sizeMaskImage);
             }
         }
@@ -159,14 +159,14 @@
             padding: 1.2rem;
             z-index: 1;
 
-            >* {
+            [pgs~="_slides-dots-dot"] {
                 padding: 1.2rem;
                 width: 1.2rem;
                 height: 1.2rem;
             }
         }
 
-        >* {
+        [pgs~="_slides-dots-dot"] {
             padding: 0.6rem;
             width: 0.6rem;
             height: 0.6rem;
@@ -177,10 +177,8 @@
             transition: all 300ms;
             margin-block: auto;
 
-            &.active {
+            &[pgs-state~="active"] {
                 background-color: var(--color-primary);
-                // scale: 1.2;
-                // margin: 0.3rem;
             }
 
             &:hover {
@@ -193,7 +191,9 @@
         [pgs~="slides-container"] {
             [pgs~="slides-container-slide"] {
                 >* {
-                    scale: var(--visible-percent);
+                    //== the JavaScript writes the real ratio on every scroll; the fallback is what
+                    //== the slide is drawn at before the first observer pass
+                    scale: var(--slides-visiblePercent, 1);
                 }
             }
         }

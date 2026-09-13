@@ -1,16 +1,16 @@
 <!--
 /**
  * @title Step Tabs
- * @description Step Tabs markup, configuration, behavior, and usage example.
+ * @description A step-by-step wizard: one panel at a time, a row of dots showing where the reader is, and previous, next and restart controls the module enables and disables for you. A step marked is-locked in the markup blocks the next button until something unlocks it, which is how a form gates its own progress; restart returns to the first step and puts those locks back exactly as the markup declared them, whatever was unlocked in between. Moving to a step scrolls the wizard into view and focuses the panel, unless it sits inside a dialog, and dispatches pgs:stepTabs:change on the root with detail { current, total }, current being zero-based.
  *
  * @pgs
- * - stepTabs: identifies the stepTabs element used by Step Tabs.
- * - stepTabs-dots: identifies the stepTabs-dots element used by Step Tabs.
- * - stepTabs-container: identifies the stepTabs-container element used by Step Tabs.
- * - stepTabs-container-tab: identifies a panel within the Step Tabs container.
- * - stepTabs-prev: identifies the stepTabs-prev element used by Step Tabs.
- * - stepTabs-restart: identifies the stepTabs-restart element used by Step Tabs.
- * - stepTabs-next: identifies the stepTabs-next element used by Step Tabs.
+ * - stepTabs: identifies the root the module initializes, and the element the instance is stored against.
+ * - stepTabs-dots: the row the dots are built into; its content is replaced on initialization, one dot per step. (Optional)
+ * - stepTabs-container: the wrapper holding the steps, and the only place the module looks for them.
+ * - stepTabs-container-tab: one step, shown when it is the current one.
+ * - stepTabs-prev: the control that goes back a step; the module disables it on the first one.
+ * - stepTabs-restart: the control that returns to the first step and restores the locks the markup declared.
+ * - stepTabs-next: the control that goes on a step; the module disables it on the last one, and on a step marked is-locked.
  *
  * @pgs-generated
  * - _stepTabs-dots-dot: one dot per tab, created inside stepTabs-dots, showing the icon declared by that tab's stepTabsIcon option.
@@ -19,21 +19,21 @@
  * - stepTabsIcon: the icon drawn in this tab's dot, in brackets, in one of three shapes. Markup, opening with a "<", is built as written, which is what puts every icon set in reach — including the ones a class cannot describe, such as stepTabsIcon[<span class='material-symbols-outlined'>check</span>] or stepTabsIcon[<i data-lucide='check'></i>]; write the inner attributes with single quotes, since the value already lives inside one, and mark your own element with pgs='icon' so it gets the same box the dot gives an icon — without it a set that renders its name as text has nothing sizing it. A plain name is a built-in glyph, as in stepTabsIcon[icon-circleCheck]. Anything else is a class list for whatever set the page loaded, written through untouched, as in stepTabsIcon[bi-check] or stepTabsIcon[fa-regular fa-star]; a lone Font Awesome name such as stepTabsIcon[fa-user] also gets fa-solid, since that set needs a style class. Leave it out and the dot gets icon-circle.
  *
  * @pgs-state
- * - is-active: identifies the is-active element used by Step Tabs.
- * - is-completed: identifies the is-completed element used by Step Tabs.
- * - is-locked: identifies the is-locked element used by Step Tabs.
+ * - is-active: written by the module on the current step and on its dot.
+ * - is-completed: written by the module on the dots of the steps already behind the current one.
+ * - is-locked: the one state written by hand as well: a step carrying it holds the next button down until it is taken off, and restart puts it back on every step that had it.
  *
  * @api
  * - pgs.stepTabs.init(root): initializes matching elements within the specified root.
  * - pgs.stepTabs.api(element): returns the instance associated with the specified initialized element.
  * - instance.restart(): returns to the first tab and restores the locks declared in the markup.
- * - instance.goTo(index, scroll): provides the documented operation through the component public API.
- * - instance.next(): moves to the next item.
- * - instance.prev(): moves to the previous item.
- * - instance.toggleLock(index, lock): provides the documented operation through the component public API.
- * - instance.refresh(): refreshes the component and returns its updated instance.
- * - instance.getCurrent(): provides the documented operation through the component public API.
- * - instance.getState(): provides the documented operation through the component public API.
+ * - instance.goTo(index, scroll): moves to the zero-based step, clamped to the ones that exist; pass false as the second argument to move without scrolling the wizard into view.
+ * - instance.next(): moves on a step.
+ * - instance.prev(): moves back a step.
+ * - instance.toggleLock(index, lock): locks or unlocks the step at that position, lock defaulting to true, and redraws the controls.
+ * - instance.refresh(): initializes the wizard again and returns the updated instance.
+ * - instance.getCurrent(): returns the zero-based index of the current step.
+ * - instance.getState(): returns { current, total }, the same detail the change event carries.
  *
  * @related
  * - flexColumn: uses the related flexColumn component or utility in this example.

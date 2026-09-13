@@ -57,18 +57,18 @@ function tokenizeOptionValue(source) {
 */
 export function pgs(root) {
     const ATTR = "pgs";
-    if (!root) throw new TypeError("pgs(root): root richiesto");
+    if (!root) throw new TypeError("pgs(root): root is required");
 
     const canAttr = typeof root.getAttribute === "function" && typeof root.setAttribute === "function";
     const canQuery = typeof root.querySelector === "function" && typeof root.querySelectorAll === "function";
 
     if (!canQuery) {
-        throw new TypeError("pgs(root): root deve supportare querySelector/querySelectorAll");
+        throw new TypeError("pgs(root): root must support querySelector/querySelectorAll");
     }
 
     //+
     function attrOnlyForElements(methodName) {
-        throw new TypeError(`pgs(${root.nodeName || "root"}).${methodName}(): disponibile solo su Element (non su Document)`);
+        throw new TypeError(`pgs(${root.nodeName || "root"}).${methodName}(): available on an Element only, not on a Document`);
     };
 
     //+
@@ -396,7 +396,7 @@ const PGS_IMPORTS = {};
 function registerImportModule(name, module) {
     const key = String(name || "").trim().replace(/^pgs[_-\s]*/i, "").toLowerCase();
 
-    if (!key) throw new TypeError("pgs.registerImport(...modules): ogni modulo deve avere name o PGS_name");
+    if (!key) throw new TypeError("pgs.registerImport(...modules): every module needs a name or a PGS_name");
 
     PGS_IMPORTS[key] = {
         name,
@@ -424,7 +424,7 @@ pgs.registerModules = function (modules = {}) {
 
         const hasOwn = Object.prototype.hasOwnProperty.call(pgs, key);
         if (hasOwn && pgs[key] !== module) {
-            throw new Error(`pgs.registerModules(): "${key}" e' gia' definito su pgs`);
+            throw new Error(`pgs.registerModules(): "${key}" is already defined on pgs`);
         }
 
         pgs[key] = module;
@@ -438,7 +438,7 @@ pgs.import = function (...names) {
         const key = String(name || "").trim().replace(/^pgs[_-\s]*/i, "").toLowerCase();
         const item = PGS_IMPORTS[key];
 
-        if (!item) throw new Error(`pgs.import(): modulo "${name}" non registrato`);
+        if (!item) throw new Error(`pgs.import(): module "${name}" is not registered`);
 
         imports[item.name] = item.module;
         return imports;

@@ -46,7 +46,7 @@ function syncHover(element) {
 //= INIT
 function initHover(root = document) {
     if (!(root instanceof Document || root instanceof Element)) {
-        throw new TypeError("pgs.hover.init(): root deve essere un Document o un Element");
+        throw new TypeError("pgs.hover.init(): root must be a Document or an Element");
     }
 
     if (root instanceof Element) syncHover(root);

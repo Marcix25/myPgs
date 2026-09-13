@@ -116,7 +116,7 @@ function PGS_stepTabs_init(root = document) {
                 tabsWizard?.scrollIntoView({ behavior: "smooth", block: "start" });
             }
 
-            tabsWizard.dispatchEvent(new CustomEvent('stepTabs:change', { detail: { current, total } }));
+            tabsWizard.dispatchEvent(new CustomEvent('pgs:stepTabs:change', { detail: { current, total } }));
         }
 
         //+ restart
@@ -145,7 +145,6 @@ function PGS_stepTabs_init(root = document) {
         restart?.addEventListener("click", e => restartTab(), { capture: true });
 
         //-(API) 
-        // tabsWizard.addEventListener("stepTabs:reset", () => restartTab());
         API.set(tabsWizard, {
             element: tabsWizard,
             container: tabsContainer,
@@ -174,27 +173,3 @@ export const PGS_stepTabs = {
     init: PGS_stepTabs_init,
     api: PGS_stepTabs_api
 };
-
-/* 
-    / EXAMPLE
-    // vai allo step 2
-    w.dispatchEvent(new CustomEvent("stepTabs:go", { detail: { step: 2 } }));
-    
-    // next
-    w.dispatchEvent(new CustomEvent("stepTabs:next"));
-    
-    // prev
-    w.dispatchEvent(new CustomEvent("stepTabs:prev"));
-    
-    // reset a 0 senza relock
-    w.dispatchEvent(new CustomEvent("stepTabs:reset"));
-    
-    // lock step 3
-    w.dispatchEvent(new CustomEvent("stepTabs:toggle-lock", { detail: { step: 3, lock: true } }));
-    
-    // unlock step 3
-    w.dispatchEvent(new CustomEvent("stepTabs:toggle-lock", { detail: { step: 3, lock: false } }));
-    
-    // leggi stato
-    w.dispatchEvent(new CustomEvent("stepTabs:get", { detail: { reply: (state) => console.log(state) } }));
-*/

@@ -37,26 +37,29 @@ class PGS_Slides {
 
         //== PULSANTI
         if (!pgs(EL).querySelector('slides-prec')) {
-            EL.insertAdjacentHTML("afterbegin", `<button pgs="slides-prec button" pgs-option="buttonIcon buttonMini" type="button" class="precButton" aria-label="slide precedente"> <i pgs="icon rotate90" pgs-option="icon-chevronDown"></i></button>`);
+            EL.insertAdjacentHTML("afterbegin", `<button pgs="slides-prec button" pgs-option="buttonIcon buttonMini" type="button" class="precButton" aria-label="Previous slide"> <i pgs="icon rotate90" pgs-option="icon-chevronDown"></i></button>`);
         }
         if (!pgs(EL).querySelector('slides-next')) {
-            EL.insertAdjacentHTML("beforeend", `<button pgs="slides-next button" pgs-option="buttonIcon buttonMini" type="button" class="nextButton" aria-label="prossima slide"> <i pgs="icon rotate270" pgs-option="icon-chevronDown"></i></button>`);
+            EL.insertAdjacentHTML("beforeend", `<button pgs="slides-next button" pgs-option="buttonIcon buttonMini" type="button" class="nextButton" aria-label="Next slide"> <i pgs="icon rotate270" pgs-option="icon-chevronDown"></i></button>`);
         }
 
         //== DOTS
         if (!pgs(EL).querySelector('slides-dots')) {
-            EL.insertAdjacentHTML("beforeend", `<div pgs="slides-dots" class="slides-dots"></div>`);
+            EL.insertAdjacentHTML("beforeend", `<div pgs="slides-dots"></div>`);
         }
 
         const dotsContainer = pgs(EL).querySelector('slides-dots');
         while (dotsContainer.children.length < this.container.children.length) {
-            dotsContainer.insertAdjacentHTML("beforeend", `<button type="button" class="slide-dot"></button>`);
+            dotsContainer.insertAdjacentHTML("beforeend", `<button pgs="_slides-dots-dot" type="button"></button>`);
         }
         while (dotsContainer.children.length > this.container.children.length) {
             dotsContainer.lastElementChild.remove();
         }
+        //== the token goes on every child, not only the ones built here: a dots container written
+        //== by hand is filled and labelled the same way, and the stylesheet has one thing to look for
         Array.from(dotsContainer.children).forEach((dot, index) => {
-            dot.setAttribute("aria-label", `vai alla slide ${index + 1}`);
+            pgs(dot).add("_slides-dots-dot");
+            dot.setAttribute("aria-label", `Go to slide ${index + 1}`);
         });
     }
 
@@ -76,7 +79,7 @@ class PGS_Slides {
             }, null)?.slide;
         };
 
-        const currents = this.container.querySelectorAll('.view');
+        const currents = pgs(this.container).state.querySelectorAll("view");
         if (!currents.length) return nearestSlide();
         if (pgs(this.element).option.contains('slidesSingleScroll')) return currents[Math.floor((currents.length - 1) / 2)];
         return towardsEnd ? currents[currents.length - 1] : currents[0];
@@ -130,18 +133,21 @@ class PGS_Slides {
 
             //== SCROLL ANIMATION
             if (LI.target.firstElementChild) {
-                LI.target.firstElementChild.style.setProperty('--visible-percent', `${visiblePercent}`);
+                LI.target.firstElementChild.style.setProperty('--slides-visiblePercent', `${visiblePercent}`);
             };
 
-            //== VIEW & NOT-VIEW 
-            LI.target.classList.toggle("view", isView);
-            LI.target.classList.toggle("notView", !isView);
+            //== VIEW & NOT-VIEW
+            //== both are written: notView says the observer has run and put this slide outside the
+            //== view, which :not([pgs-state~="view"]) cannot tell apart from the state before the
+            //== first pass, when no slide carries either
+            pgs(LI.target).state.toggle("view", isView);
+            pgs(LI.target).state.toggle("notView", !isView);
 
             //== ACTIVE DOT
-            const viewElements = Array.from(container.children).filter(el => el.classList.contains('view'));
+            const viewElements = Array.from(container.children).filter(el => pgs(el).state.contains("view"));
             dots.forEach((btn, i) => {
                 const isActive = viewElements.some(el => Array.from(container.children).indexOf(el) === i);
-                btn.classList.toggle('active', isActive);
+                pgs(btn).state.toggle("active", isActive);
                 btn.setAttribute('aria-current', isActive ? 'true' : 'false');
             });
         })
@@ -225,8 +231,8 @@ class PGS_Slides {
             previous: () => this.#previousSlide(),
             next: () => this.#nextSlide(),
             goTo: (index) => this.#goToNumberSlide(index),
-            getCurrentIndexes: () => Array.from(this.container.children).map((el, i) => el.classList.contains("view") ? i : -1).filter(i => i !== -1),
-            getCurrentElements: () => Array.from(this.container.children).filter(el => el.classList.contains("view")),
+            getCurrentIndexes: () => Array.from(this.container.children).map((el, i) => pgs(el).state.contains("view") ? i : -1).filter(i => i !== -1),
+            getCurrentElements: () => Array.from(this.container.children).filter(el => pgs(el).state.contains("view")),
             getTotal: () => this.container.children.length,
             //== same reading as the arrows: the end of the scroll, not the edge slide being in view
             isAtStart: () => this.container.scrollLeft <= 1,

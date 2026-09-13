@@ -2,7 +2,7 @@
 
 # Tabs
 
-A tabbed interface with a wrapping list of controls and one visible panel at a time. Click a tab or use Arrow keys, Home, or End while a tab is focused to select its panel.
+A tabbed interface with a wrapping list of controls and one visible panel at a time. Click a tab or use Arrow keys, Home, or End while a tab is focused to select its panel. Every selection dispatches pgs:tabs:change on the tabs root, with detail { current, tab, panel } — current being the zero-based index — and the event does not bubble, so the listener goes on the root itself.
 
 ## PGS
 

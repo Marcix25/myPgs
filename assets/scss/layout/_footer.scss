@@ -103,7 +103,7 @@
         width: 100%;
 
         [pgs~="footer-legal-content"] {
-            border-top: var(--border) var(--color-boxDark-transparent);
+            border-top: var(--border-width) var(--border-style) var(--color-boxDark-transparent);
             padding-block: 60px;
             display: flex;
             flex-direction: row;

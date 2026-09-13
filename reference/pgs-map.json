@@ -175,7 +175,7 @@
         "pgs-generated": [],
         "pgs-option": []
     },
-    "bglink-soft": {
+    "bgLinkSoft": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-option": []
@@ -779,7 +779,9 @@
         "pgs-option": []
     },
     "form": {
-        "pgs": [],
+        "pgs": [
+            "form-requiredHere"
+        ],
         "pgs-generated": [],
         "pgs-option": []
     },
@@ -1564,9 +1566,7 @@
         "pgs-option": []
     },
     "required": {
-        "pgs": [
-            "required-here"
-        ],
+        "pgs": [],
         "pgs-generated": [],
         "pgs-option": []
     },
@@ -1677,6 +1677,7 @@
             "slides-container-slide"
         ],
         "pgs-generated": [
+            "_slides-dots-dot",
             "slides-dots",
             "slides-next",
             "slides-prec"

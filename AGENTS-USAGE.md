@@ -197,7 +197,7 @@ reference source before creating new markup.
 - [accordion](docs/components/accordion.md)
 - [alerts](docs/components/alerts.md)
 - [badges](docs/components/badges.md)
-- [breadcumbs](docs/components/breadcumbs.md)
+- [breadcrumb](docs/components/breadcrumb.md)
 - [button](docs/components/button.md)
 - [card](docs/components/card.md)
 - [dropdown](docs/components/dropdown.md)
@@ -227,6 +227,7 @@ reference source before creating new markup.
 - [responsive](docs/layout/responsive.md)
 - [breakpoints](docs/layout/breakpoints.md)
 - [spacing](docs/layout/spacing.md)
+- [size](docs/layout/size.md)
 - [utilities](docs/layout/utilities.md)
 
 ### Patterns

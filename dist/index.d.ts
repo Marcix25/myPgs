@@ -161,13 +161,16 @@ declare global {
     init(root?: Document | Element): Document | Element;
     cookieConsent?: any;
     darkmode?: any;
+    svg?: any;
     hover?: PgsHoverModule;
     accordion?: any;
+    alert?: any;
     dropdown?: any;
     menu?: any;
     modal?: any;
     header?: any;
     notification?: any;
+    toast?: any;
     search?: PgsSearchModule;
     summary?: PgsSummaryModule;
     tabs?: PgsTabsModule;
@@ -176,6 +179,7 @@ declare global {
     steps?: any;
     formValidate?: any;
     scrollHorizontal?: any;
+    scrollHorizontalWithMouse?: any;
     [moduleName: string]: any;
   }
 

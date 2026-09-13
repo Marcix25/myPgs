@@ -14,6 +14,9 @@
  * - select: applies shared styling to a native select.
  * - legend: applies the group heading styling to the legend of a fieldset.
  * - required: marks a label as required without relying on the control's own required attribute.
+ * - form-requiredHere: written inside a required label or legend, it puts the asterisk where the element sits instead of at the end of the label. Without it the asterisk is drawn on the label itself, which is what a label with plain text wants; a label ending in a link or a long sentence usually wants to say where the mark goes.
+ * - inputUnset: written on an input, it keeps the library from styling that field, leaving the browser's own control in place. It is the opt-out for a field the page styles itself, or one a third-party script owns.
+ * - labelUnset: written on a label, it keeps the library from styling it as a field label. The form styles a label only when it wraps or precedes a control, so this is the way out for a label that does both and should stay plain.
  *
  * @pgs-option
  * - formMessage: defines a field-specific message with the syntax formMessage[Message text].

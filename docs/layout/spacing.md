@@ -30,6 +30,7 @@ Margin and padding utilities based on the shared MyPGS spacing scales. The gap u
 - `marginPage`: uses the page padding token for margin utilities.
 - `marginAuto`: sets the margin to auto, to centre an element or push it away.
 - `marginUnset`: resets the margin to its initial value, to drop the spacing on one element without dropping the utility.
+- `marginNegative`: flips the chosen scale, so the utility pulls the element out by the same amount it would have pushed it in. It works on every margin utility and reads the scale option written next to it, which is how a full-bleed child escapes the padding of its container.
 - `paddingTexts`: uses the text spacing scale and is the default for padding utilities.
 - `paddingElements`: uses the element spacing scale for padding utilities.
 - `paddingSections`: uses the section spacing scale for padding utilities.
@@ -87,6 +88,14 @@ Besides the three text, element and section scales, the padding tokens and margi
 <p pgs="paddingInline" pgs-option="padding2">Double padding on the inline axis.</p>
 <p pgs="paddingInline" pgs-option="paddingPage">Page padding on the inline axis.</p>
 <p pgs="box marginInline" pgs-option="marginAuto">Centred by marginAuto.</p>
+```
+
+### Negative
+
+marginNegative turns the chosen scale around: the same utility that pushes an element in pulls it out, which is how a child reaches past the padding of the box it sits in.
+
+```html
+<p pgs="box marginInline" pgs-option="marginElements marginNegative">Pulled out to the edges of the padded box.</p>
 ```
 
 ### Padding

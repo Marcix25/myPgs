@@ -44,7 +44,8 @@ function setDarkmodeStatus(toggle = false, button = []) {
 
 
 //= INIT
-// Applica subito il tema alla radice quando il bundle viene caricato nel head.
+//== applies the stored theme to the root as soon as the bundle is parsed in the head, so a
+//== reload never paints the wrong one first
 setDarkmodeStatus();
 
 function initDarkmode(root = document) {

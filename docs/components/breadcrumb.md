@@ -1,4 +1,4 @@
-<!-- Automatically generated from reference/html/components/breadcumbs.html. Edit reference/html/components/breadcumbs.html and run npm run docs:generate again. -->
+<!-- Automatically generated from reference/html/components/breadcrumb.html. Edit reference/html/components/breadcrumb.html and run npm run docs:generate again. -->
 
 # Breadcrumb
 
@@ -9,6 +9,15 @@ Hierarchical navigation that shows the current page path with links, separators,
 - `breadcrumb`: identifies the main navigation path list.
 - `breadcrumb-item`: identifies each level in the path.
 - `breadcrumb-item-separator`: identifies the decorative separator hidden from assistive technologies.
+
+## CSS Variables
+
+- `--breadcrumb-color`
+- `--breadcrumb-color-current`
+- `--breadcrumb-color-hover`
+- `--breadcrumb-separator-color`
+- `--breadcrumb-separator-gap`
+- `--breadcrumb-size`
 
 ## Output
 

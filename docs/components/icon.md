@@ -6,7 +6,7 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 
 ## PGS
 
-- `icon`: draws a glyph on the element, taking its size from the font size and its colour from the text colour, so it follows whatever surrounds it.
+- `icon`: draws a glyph on the element, taking its size from the font size and its colour from the text colour, so it follows whatever surrounds it. Set --icon-size on it, or on anything above it, to size a glyph away from the text around it, and --icon-color to paint it away from the text colour; both are read with a fallback, so an icon that is given neither keeps following its surroundings.
 
 ## PGS Options
 
@@ -73,7 +73,6 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 ## CSS Variables
 
 - `--icon-color`
-- `--icon-glyph-`
 - `--icon-glyph-chevronDown`
 - `--icon-glyph-close`
 - `--icon-size`
