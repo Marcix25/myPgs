@@ -12,9 +12,13 @@ A tabbed interface with a wrapping list of controls and one visible panel at a t
 - `tabs-panels`: identifies the wrapper around the tab panels.
 - `tabs-panels-content`: identifies a panel paired with the tab at the same position.
 
+## PGS Options
+
+- `tabsHistory`: the selected tab is written to the URL, so a reload — or a shared link — lands on the tab the reader left rather than on the first one. Each selection pushes a history entry, so back and forward walk the tabs. The query parameter is named in brackets, as tabsHistory[docs]; written bare it is tab, and two history-backed sets on one page each need a name of their own. A tab is addressed by its own id when the markup gives it one, as ?docs=install, and by its 1-based position otherwise, as ?tab=2.
+
 ## PGS States
 
-- `active`: identifies the selected tab and its visible panel; the first pair is selected when no pair starts active.
+- `active`: identifies the selected tab and its visible panel; the first pair is selected when no pair starts active, and a tab named in the URL by tabsHistory wins over both.
 
 ## JavaScript API
 
@@ -79,6 +83,35 @@ A wrapping tab list with a single connected content panel.
         <section pgs="tabs-panels-content">
             <h3>XML</h3>
             <p>Structured data markup in XML format.</p>
+        </section>
+    </div>
+</div>
+```
+
+### Remembered across a reload
+
+tabsHistory puts the selected tab in the URL, under the name written in brackets. Give each tab an id and the link reads ?format=vue and can be shared; leave the ids out and it is the tab's position, ?format=3. Reloading, or coming back with the browser's own back button, lands on the tab that was open.
+
+```html
+<div pgs="tabs card" pgs-option="tabsHistory[format]">
+    <div pgs="tabs-list card-content flexRow" aria-label="Code formats">
+        <button id="html" pgs="tabs-list-tab button" pgs-option="buttonMini" type="button">HTML</button>
+        <button id="react" pgs="tabs-list-tab button" pgs-option="buttonMini" type="button">React</button>
+        <button id="vue" pgs="tabs-list-tab button" pgs-option="buttonMini" type="button">Vue</button>
+    </div>
+
+    <div pgs="tabs-panels card-content">
+        <section pgs="tabs-panels-content">
+            <h3>HTML</h3>
+            <p>Reload the page: this tab is the one that comes back.</p>
+        </section>
+        <section pgs="tabs-panels-content">
+            <h3>React</h3>
+            <p>The URL carries ?format=react while this panel is open.</p>
+        </section>
+        <section pgs="tabs-panels-content">
+            <h3>Vue</h3>
+            <p>Back and forward walk the tabs, one entry per selection.</p>
         </section>
     </div>
 </div>

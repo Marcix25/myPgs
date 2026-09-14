@@ -25,6 +25,9 @@
     --slide-width-tablet: 100%;
     --slides-sizeMaskImage: 40px;
     --slides-paddingInline-tablet: var(--page-padding);
+    //== --slides-height is not declared here: the JavaScript measures the track and writes it on
+    //== this element, because the height comes from the tallest slide and only the layout knows it.
+    //== Everything reading it falls back to 100% for the frame before the first measurement
 
     //++option for suggestions
     &[pgs-option~=slidesSingleScroll],
@@ -112,7 +115,9 @@
     [pgs~="slides-next"] {
         position: absolute;
         z-index: 4;
-        top: 50%;
+        //== half of the track, not half of the component: the root also holds the dots and whatever
+        //== the page puts beside them, and 50% of that is not the middle of the slides
+        top: calc(var(--slides-height, 100%) / 2);
         translate: 0 -50%;
 
         &:is([pgs~="slides-prec"]) {
@@ -151,9 +156,6 @@
         z-index: 3;
         border-radius: var(--border-radius);
         transition: all 300ms;
-        translate: 0px calc(100% + var(--gap-texts));
-        position: absolute;
-        bottom: 0;
 
         &:hover {
             padding: 1.2rem;

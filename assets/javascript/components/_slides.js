@@ -214,12 +214,31 @@ class PGS_Slides {
         );
         Array.from(this.container.children).forEach(allLi => observer.observe(allLi));
 
+        //== HEIGHT
+        //== the track's height published on the root as --slides-height, so the CSS can place
+        //== something against the slides themselves rather than against the whole component: the
+        //== arrows sit at half of it, and stay centred on the slides whatever else the root holds.
+        //== Measured rather than computed because the height comes from the tallest slide, which
+        //== only the layout knows — through a rAF, like the header does, so a write never lands
+        //== inside the callback that observed it
+        let heightFrame = 0;
+        const heightObserver = new ResizeObserver(() => {
+            if (heightFrame) return;
+            heightFrame = requestAnimationFrame(() => {
+                heightFrame = 0;
+                this.element.style.setProperty("--slides-height", `${this.container.offsetHeight}px`);
+            });
+        });
+        heightObserver.observe(this.container);
+
 
         let api;
         const destroy = () => {
             if (API.get(this.element) !== api) return;
             eventController.abort();
             observer.disconnect();
+            heightObserver.disconnect();
+            if (heightFrame) cancelAnimationFrame(heightFrame);
             removeHorizontalScroll?.();
             API.delete(this.element);
         };

@@ -6145,7 +6145,7 @@ html:has(dialog[open]) {
 [pgs~=slides] [pgs~=slides-next] {
   position: absolute;
   z-index: 4;
-  top: 50%;
+  top: calc(var(--slides-height, 100%) / 2);
   translate: 0 -50%;
 }
 
@@ -6186,9 +6186,6 @@ html:has(dialog[open]) {
   z-index: 3;
   border-radius: var(--border-radius);
   transition: all 300ms;
-  translate: 0px calc(100% + var(--gap-texts));
-  position: absolute;
-  bottom: 0;
 }
 
 [pgs~=slides] [pgs~=slides-dots]:hover {

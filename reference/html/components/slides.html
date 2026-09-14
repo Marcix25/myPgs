@@ -5,7 +5,7 @@
  *
  * @pgs
  * - slides: identifies the root the module initializes, and the element the instance is stored against.
- * - slides-container: the scrolling track, the element that carries the scroll snapping and the one the arrows move.
+ * - slides-container: the scrolling track, the element that carries the scroll snapping and the one the arrows move. Its measured height is published on the root as --slides-height and kept in step with it, so a rule can sit something against the slides themselves rather than against the whole component; it is what puts the arrows at the middle of the slides, whatever else the root holds. Read it with a fallback, var(--slides-height, 100%), for the frame before the first measurement.
  * - slides-container-slide: identifies each direct slide item.
  *
  * @pgs-generated

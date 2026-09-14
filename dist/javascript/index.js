@@ -2868,12 +2868,31 @@ class PGS_Slides {
         );
         Array.from(this.container.children).forEach(allLi => observer.observe(allLi));
 
+        //== HEIGHT
+        //== the track's height published on the root as --slides-height, so the CSS can place
+        //== something against the slides themselves rather than against the whole component: the
+        //== arrows sit at half of it, and stay centred on the slides whatever else the root holds.
+        //== Measured rather than computed because the height comes from the tallest slide, which
+        //== only the layout knows — through a rAF, like the header does, so a write never lands
+        //== inside the callback that observed it
+        let heightFrame = 0;
+        const heightObserver = new ResizeObserver(() => {
+            if (heightFrame) return;
+            heightFrame = requestAnimationFrame(() => {
+                heightFrame = 0;
+                this.element.style.setProperty("--slides-height", `${this.container.offsetHeight}px`);
+            });
+        });
+        heightObserver.observe(this.container);
+
 
         let api;
         const destroy = () => {
             if (API.get(this.element) !== api) return;
             eventController.abort();
             observer.disconnect();
+            heightObserver.disconnect();
+            if (heightFrame) cancelAnimationFrame(heightFrame);
             removeHorizontalScroll?.();
             API.delete(this.element);
         };
@@ -3410,6 +3429,41 @@ function PGS_tabs_init(root = document) {
         const id = nextTabsId();
         list.setAttribute("role", "tablist");
 
+        //== HISTORY
+        //== the parameter is named by the option, so two history-backed sets on one page do not
+        //== write over each other. A tab is addressed by its own id when the author gave it one,
+        //== and by its 1-based position otherwise, which is what keeps a shared link readable
+        //== without asking for ids that the markup does not need
+        const historyKey = pgs(tabs).option.contains("tabsHistory")
+            ? (pgs(tabs).option.getValueBrackets("tabsHistory") || "tab")
+            : null;
+
+        //== read before the loop below fills in the generated ids, so what reaches the URL is the
+        //== author's own name for the tab or nothing at all — never tabs-list-tab-1-2
+        const authoredIds = buttons.map(button => button.id || "");
+
+        function indexFromHistory() {
+            if (!historyKey) return -1;
+            const value = new URLSearchParams(window.location.search).get(historyKey);
+            if (!value) return -1;
+
+            const byId = authoredIds.indexOf(value);
+            if (byId !== -1) return byId;
+
+            const position = Number(value);
+            return Number.isInteger(position) && position >= 1 && position <= buttons.length ? position - 1 : -1;
+        }
+
+        function writeHistory() {
+            if (!historyKey) return;
+            const value = authoredIds[current] || String(current + 1);
+            try {
+                const url = new URL(window.location.href);
+                url.searchParams.set(historyKey, value);
+                window.history.pushState({ [historyKey]: value }, "", url);
+            } catch (_) { }
+        }
+
         let current = Math.max(
             panelItems.findIndex(panel => pgs(panel).state.contains("active")),
             buttons.findIndex(button => pgs(button).state.contains("active")),
@@ -3420,9 +3474,10 @@ function PGS_tabs_init(root = document) {
             pgs(element).state.toggle("active", active);
         }
 
-        function select(index, focus = false) {
+        function select(index, focus = false, history = true) {
             if (!Number.isInteger(index) || index < 0 || index >= buttons.length) return;
             current = index;
+            if (history) writeHistory();
 
             buttons.forEach((button, buttonIndex) => {
                 const active = buttonIndex === current;
@@ -3470,7 +3525,17 @@ function PGS_tabs_init(root = document) {
             });
         });
 
-        select(current);
+        //== the URL wins over the state written in the markup: a reload lands on the tab the reader
+        //== left, and the first pass only reads it — it never pushes an entry of its own
+        const restored = indexFromHistory();
+        select(restored === -1 ? current : restored, false, false);
+
+        if (historyKey) {
+            window.addEventListener("popstate", () => {
+                const index = indexFromHistory();
+                select(index === -1 ? 0 : index, false, false);
+            });
+        }
 
         API.set(tabs, {
             element: tabs,
