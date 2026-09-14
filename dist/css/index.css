@@ -5943,7 +5943,7 @@ html:has(dialog[open]) {
   outline: none;
 }
 
-:where(dialog[pgs~=modal-dialog]):open {
+:where(dialog[pgs~=modal-dialog])[open] {
   display: flex;
   align-items: safe flex-start;
   justify-content: safe center;

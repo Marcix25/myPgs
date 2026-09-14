@@ -54,7 +54,7 @@ html:has(dialog[open]) {
         outline: none;
     }
 
-    &:open {
+    &[open] {
         display: flex;
         align-items: safe flex-start;
         justify-content: safe center;
