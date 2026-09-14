@@ -38,7 +38,7 @@ Image-based brand logo that inverts automatically when dark mode is active.
 
 ```html
 <a aria-label="Logo" pgs="logo" pgs-option="logoDarkmode" href="/">
-    <img pgs="logo-image" src="/demo/assets/logo.svg" alt="MyPGS">
+    <img pgs="logo-image" src="../assets/logo.svg" alt="MyPGS">
 </a>
 ```
 
@@ -58,6 +58,6 @@ Image-based brand logo that stays inverted using logoDarkmodeFixed, regardless o
 
 ```html
 <a aria-label="Logo" pgs="logo" pgs-option="logoDarkmodeFixed" href="/">
-    <img pgs="logo-image" src="/demo/assets/logo.svg" alt="MyPGS">
+    <img pgs="logo-image" src="../assets/logo.svg" alt="MyPGS">
 </a>
 ```

@@ -88,7 +88,7 @@ Scrolls to one slide at a time with the prec/next buttons, using pgs-option=&quo
     <ul pgs="slides-container">
         <li pgs="slides-container-slide">
             <article pgs="card">
-                <img pgs="card-img imgCover" src="/demo/assets/placeholder.jpg" alt="Slide 1">
+                <img pgs="card-img imgCover" src="../assets/placeholder.jpg" alt="Slide 1">
                 <div pgs="card-content">
                     <h3>Lorem ipsum dolor</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -98,7 +98,7 @@ Scrolls to one slide at a time with the prec/next buttons, using pgs-option=&quo
 
         <li pgs="slides-container-slide">
             <article pgs="card">
-                <img pgs="card-img imgCover" src="/demo/assets/placeholder.jpg" alt="Slide 2">
+                <img pgs="card-img imgCover" src="../assets/placeholder.jpg" alt="Slide 2">
                 <div pgs="card-content">
                     <h3>Sit amet consectetur</h3>
                     <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
@@ -108,7 +108,7 @@ Scrolls to one slide at a time with the prec/next buttons, using pgs-option=&quo
 
         <li pgs="slides-container-slide">
             <article pgs="card">
-                <img pgs="card-img imgCover" src="/demo/assets/placeholder.jpg" alt="Slide 3">
+                <img pgs="card-img imgCover" src="../assets/placeholder.jpg" alt="Slide 3">
                 <div pgs="card-content">
                     <h3>Adipiscing elit sed</h3>
                     <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
@@ -128,7 +128,7 @@ Fades the slides out at the edges from the tablet width up, using pgs-option=&qu
     <ul pgs="slides-container">
         <li pgs="slides-container-slide">
             <article pgs="card">
-                <img pgs="card-img imgCover" src="/demo/assets/placeholder.jpg" alt="Slide 1">
+                <img pgs="card-img imgCover" src="../assets/placeholder.jpg" alt="Slide 1">
                 <div pgs="card-content">
                     <h3>Lorem ipsum dolor</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -138,7 +138,7 @@ Fades the slides out at the edges from the tablet width up, using pgs-option=&qu
 
         <li pgs="slides-container-slide">
             <article pgs="card">
-                <img pgs="card-img imgCover" src="/demo/assets/placeholder.jpg" alt="Slide 2">
+                <img pgs="card-img imgCover" src="../assets/placeholder.jpg" alt="Slide 2">
                 <div pgs="card-content">
                     <h3>Sit amet consectetur</h3>
                     <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
@@ -148,7 +148,7 @@ Fades the slides out at the edges from the tablet width up, using pgs-option=&qu
 
         <li pgs="slides-container-slide">
             <article pgs="card">
-                <img pgs="card-img imgCover" src="/demo/assets/placeholder.jpg" alt="Slide 3">
+                <img pgs="card-img imgCover" src="../assets/placeholder.jpg" alt="Slide 3">
                 <div pgs="card-content">
                     <h3>Adipiscing elit sed</h3>
                     <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
@@ -168,7 +168,7 @@ Scales each slide by its scroll visibility using pgs-option=&quot;slidesAnimatio
     <ul pgs="slides-container">
         <li pgs="slides-container-slide">
             <article pgs="card">
-                <img pgs="card-img imgCover" src="/demo/assets/placeholder.jpg" alt="Slide 1">
+                <img pgs="card-img imgCover" src="../assets/placeholder.jpg" alt="Slide 1">
                 <div pgs="card-content">
                     <h3>Lorem ipsum dolor</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -178,7 +178,7 @@ Scales each slide by its scroll visibility using pgs-option=&quot;slidesAnimatio
 
         <li pgs="slides-container-slide">
             <article pgs="card">
-                <img pgs="card-img imgCover" src="/demo/assets/placeholder.jpg" alt="Slide 2">
+                <img pgs="card-img imgCover" src="../assets/placeholder.jpg" alt="Slide 2">
                 <div pgs="card-content">
                     <h3>Sit amet consectetur</h3>
                     <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
@@ -188,7 +188,7 @@ Scales each slide by its scroll visibility using pgs-option=&quot;slidesAnimatio
 
         <li pgs="slides-container-slide">
             <article pgs="card">
-                <img pgs="card-img imgCover" src="/demo/assets/placeholder.jpg" alt="Slide 3">
+                <img pgs="card-img imgCover" src="../assets/placeholder.jpg" alt="Slide 3">
                 <div pgs="card-content">
                     <h3>Adipiscing elit sed</h3>
                     <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
@@ -208,7 +208,7 @@ Turns the vertical mouse wheel into horizontal scrolling over the slides, using 
     <ul pgs="slides-container">
         <li pgs="slides-container-slide">
             <article pgs="card">
-                <img pgs="card-img imgCover" src="/demo/assets/placeholder.jpg" alt="Slide 1">
+                <img pgs="card-img imgCover" src="../assets/placeholder.jpg" alt="Slide 1">
                 <div pgs="card-content">
                     <h3>Lorem ipsum dolor</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -218,7 +218,7 @@ Turns the vertical mouse wheel into horizontal scrolling over the slides, using 
 
         <li pgs="slides-container-slide">
             <article pgs="card">
-                <img pgs="card-img imgCover" src="/demo/assets/placeholder.jpg" alt="Slide 2">
+                <img pgs="card-img imgCover" src="../assets/placeholder.jpg" alt="Slide 2">
                 <div pgs="card-content">
                     <h3>Sit amet consectetur</h3>
                     <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
@@ -228,7 +228,7 @@ Turns the vertical mouse wheel into horizontal scrolling over the slides, using 
 
         <li pgs="slides-container-slide">
             <article pgs="card">
-                <img pgs="card-img imgCover" src="/demo/assets/placeholder.jpg" alt="Slide 3">
+                <img pgs="card-img imgCover" src="../assets/placeholder.jpg" alt="Slide 3">
                 <div pgs="card-content">
                     <h3>Adipiscing elit sed</h3>
                     <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>

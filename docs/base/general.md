@@ -65,8 +65,8 @@ Pointer cursor on a non-control surface, and a full reset to build a control fro
 imgContain keeps the whole image inside the box, imgCover crops it to fill the box.
 
 ```html
-<img pgs="imgContain borderRadius" src="/demo/assets/placeholder.jpg" alt="Contained image" style="width: 220px; height: 140px;">
-<img pgs="imgCover borderRadius" src="/demo/assets/placeholder.jpg" alt="Cropped image" style="width: 220px; height: 140px;">
+<img pgs="imgContain borderRadius" src="../assets/placeholder.jpg" alt="Contained image" style="width: 220px; height: 140px;">
+<img pgs="imgCover borderRadius" src="../assets/placeholder.jpg" alt="Cropped image" style="width: 220px; height: 140px;">
 ```
 
 ### List
