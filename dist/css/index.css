@@ -6076,10 +6076,12 @@ html:has(dialog[open]) {
   align-items: center;
   isolation: isolate;
   height: max-content;
+  --slides-sizeMaskImage: 40px;
   --slide-width: calc(var(--page-width) /2.3);
   --slide-width-tablet: 100%;
-  --slides-sizeMaskImage: 40px;
+  --slide-width-mobile: 100%;
   --slides-paddingInline-tablet: var(--page-padding);
+  --slides-paddingInline-mobile: 0px;
 }
 
 @container (min-width: 800px) {
@@ -6139,6 +6141,13 @@ html:has(dialog[open]) {
     gap: 1px;
     padding-inline: var(--slides-paddingInline-tablet);
     min-width: var(--slide-width-tablet);
+  }
+}
+@container (max-width: 430px) {
+  [pgs~=slides] [pgs~=slides-container] [pgs~=slides-container-slide] {
+    gap: 1px;
+    padding-inline: var(--slides-paddingInline-mobile);
+    min-width: var(--slide-width-mobile);
   }
 }
 [pgs~=slides] [pgs~=slides-prec],
@@ -6219,7 +6228,7 @@ html:has(dialog[open]) {
   background-color: var(--color-primary-soft);
 }
 
-[pgs~=slides][pgs-option=slidesAnimationScale] [pgs~=slides-container] [pgs~=slides-container-slide] > * {
+[pgs~=slides][pgs-option~=slidesAnimationScale] [pgs~=slides-container] [pgs~=slides-container-slide] > * {
   scale: var(--slides-visiblePercent, 1);
 }
 

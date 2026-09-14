@@ -21,14 +21,16 @@
     align-items: center;
     isolation: isolate;
     height: max-content;
+    --slides-sizeMaskImage: 40px;
     --slide-width: calc(var(--page-width) /2.3);
     --slide-width-tablet: 100%;
-    --slides-sizeMaskImage: 40px;
+    --slide-width-mobile: 100%;
     --slides-paddingInline-tablet: var(--page-padding);
+    --slides-paddingInline-mobile: 0px;
+
     //== --slides-height is not declared here: the JavaScript measures the track and writes it on
     //== this element, because the height comes from the tallest slide and only the layout knows it.
     //== Everything reading it falls back to 100% for the frame before the first measurement
-
     //++option for suggestions
     &[pgs-option~=slidesSingleScroll],
     &[pgs-option~=slidesScrollMouse],
@@ -106,6 +108,13 @@
                 gap: 1px;
                 padding-inline: var(--slides-paddingInline-tablet);
                 min-width: var(--slide-width-tablet);
+            }
+
+            //-( mobile
+            @container (max-width: #{$mobile}) {
+                gap: 1px;
+                padding-inline: var(--slides-paddingInline-mobile);
+                min-width: var(--slide-width-mobile);
             }
         }
     }
@@ -189,7 +198,7 @@
         }
     }
 
-    &[pgs-option=slidesAnimationScale] {
+    &[pgs-option~=slidesAnimationScale] {
         [pgs~="slides-container"] {
             [pgs~="slides-container-slide"] {
                 >* {

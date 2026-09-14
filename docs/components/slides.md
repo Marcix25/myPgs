@@ -66,6 +66,7 @@ A horizontal, scroll-snapped track of slides with its own arrows and position do
 - `--slides-height`
 - `--slides-maskEnd`
 - `--slides-maskStart`
+- `--slides-paddingInline-mobile`
 - `--slides-paddingInline-tablet`
 - `--slides-sizeMaskImage`
 - `--slides-visiblePercent`

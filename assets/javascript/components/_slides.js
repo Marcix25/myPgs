@@ -81,7 +81,16 @@ class PGS_Slides {
 
         const currents = pgs(this.container).state.querySelectorAll("view");
         if (!currents.length) return nearestSlide();
-        if (pgs(this.element).option.contains('slidesSingleScroll')) return currents[Math.floor((currents.length - 1) / 2)];
+
+        //== the middle of an even number of slides falls between two of them, so each arrow takes
+        //== the one on its own side: rounded down going forward, up going back. Rounding down for
+        //== both, as this did, left the two arrows starting from the same slide, and going back
+        //== then covered a slide more than going forward did
+        if (pgs(this.element).option.contains('slidesSingleScroll')) {
+            const middle = (currents.length - 1) / 2;
+            return currents[towardsEnd ? Math.floor(middle) : Math.ceil(middle)];
+        }
+
         return towardsEnd ? currents[currents.length - 1] : currents[0];
     }
 
@@ -99,7 +108,17 @@ class PGS_Slides {
         //== LAST SLIDE
         else if (slide === all[all.length - 1]) this.container.scrollTo({ left: this.container.scrollWidth, behavior });
         //== SLIDE
-        else slide.scrollIntoView(this.scrollOptions);
+        //== the centring is measured and applied to the track alone. scrollIntoView would do the
+        //== same arithmetic, but by definition it walks up every scrollable ancestor and leaves
+        //== each one to the engine's reading of block: "nearest" — which is why Safari answers an
+        //== arrow by scrolling the page vertically as well. A horizontal carousel needs nothing
+        //== above the track to move, so nothing above the track is asked to
+        else {
+            const trackBox = this.container.getBoundingClientRect();
+            const slideBox = slide.getBoundingClientRect();
+            const distanceFromCentre = (slideBox.left + slideBox.width / 2) - (trackBox.left + trackBox.width / 2);
+            this.container.scrollTo({ left: this.container.scrollLeft + distanceFromCentre, behavior });
+        }
 
         slide.focus({ preventScroll: true });
     }
