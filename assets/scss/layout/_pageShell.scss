@@ -243,6 +243,7 @@
 
             [pgs~="pageShell-content"] {
                 padding-top: var(--pageShell-padding-top);
+                min-height: var(--pageShell-asideScroll-maxHeight);
             }
         }
     }

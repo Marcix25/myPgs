@@ -1319,6 +1319,7 @@
             "modalContainerID",
             "modalContainerPGS",
             "modalDisableBackdropClose",
+            "modalFull",
             "modalHistory",
             "modalLeft",
             "modalMedium",

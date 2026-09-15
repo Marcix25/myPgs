@@ -9,7 +9,7 @@
 //+ dist/javascript/index.js as a classic script, so the examples ran straight into that error and
 //+ none of them worked.
 //+
-//+ demo.structure.html maps "mypgs" to this file through an import map, so the examples stay exactly
+//+ site.structure.html maps "mypgs" to this file through an import map, so the examples stay exactly
 //+ as they are documented and still run. Nothing is loaded twice: the library is already on the page
 //+ and this only re-exports what it published on globalThis.
 export const pgs = globalThis.pgs;

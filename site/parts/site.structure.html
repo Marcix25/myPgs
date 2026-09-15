@@ -1,12 +1,12 @@
-<!-- Page shell only — no content-loading script of its own, so opening this file directly shows an
-     empty nav and an empty main. Lives in demo/assets/ with the other hand-authored demo build
-     pieces (CSS, JS); it's a building block for scripts/build-demo-static.js, which turns it into
-     two generated outputs under demo/build/: demo.content.html (the pre-baked nav+panels, its own
-     component, never opened directly) and demo.html (this shell with demo.content.html's nav+panels
-     spliced in, plus ../assets/demo.js). Edit this file for structural/layout changes (header,
-     page shell, footer, <head>); run `npm run demobuild` afterwards to regenerate them. The
-     asset paths below are written relative to demo/build/ (where the generated pages end up), not
-     relative to this file's own location in demo/assets/. -->
+<!-- Site shell — doctype, head, header, footer; no page content of its own. Opening this file
+     directly shows the header and footer around an empty middle. The
+     id="reference-demo-content" placeholder between them is display: contents, so it adds no box
+     of its own — it is where scripts/build-site-static.js splices in one page's own content, read
+     from site/page/<name>.html, to produce site/<name>.html. Every generated page shares this one
+     shell: edit this file for anything that should change on all of them (head, header, footer);
+     add or edit a file under site/page/ for one page's own content. The asset paths below are
+     written relative to site/ (where every generated page ends up, one level down from the repo
+     root), not relative to this file's own location in site/assets/. -->
 <!DOCTYPE html>
 <html lang="en" pgs="htmlBase">
 
@@ -14,8 +14,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyPGS reference demo</title>
-    <link rel="stylesheet" href="../../dist/css/index.css">
-    <link rel="stylesheet" href="../assets/demo.css">
+    <link rel="stylesheet" href="../dist/css/index.css">
+    <link rel="stylesheet" href="assets/demo.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,7 +24,7 @@
 
     <!-- after the stylesheets so the browser starts fetching them first, and still synchronous:
          darkmode writes the theme on the html element before the first paint -->
-    <script src="../../dist/javascript/index.js"></script>
+    <script src="../dist/javascript/index.js"></script>
 
     <!-- the reference examples import from "mypgs" like a real project; a browser cannot resolve a
          bare specifier on its own, so it is mapped to a module that re-exports the global the
@@ -32,7 +32,7 @@
     <script type="importmap">
         {
             "imports": {
-                "mypgs": "../assets/mypgs-module.js"
+                "mypgs": "assets/mypgs-module.js"
             }
         }
     </script>
@@ -44,15 +44,17 @@
     <header pgs="header" pgs-option="headerCompactBigTablet">
         <div pgs="header-element blur">
             <div pgs="header-element-alwaysOn">
-                <a aria-label="Logo" pgs="logo" pgs-option="logoDarkmode" href="/">
-                    <img pgs="logo-image" src="../assets/logo.svg" alt="MyPGS">
+                <a aria-label="Logo" pgs="logo" pgs-option="logoDarkmode" href="site.html">
+                    <img pgs="logo-image" src="assets/logo.svg" alt="MyPGS">
                 </a>
             </div>
 
             <div pgs="header-element-onlyFull">
                 <nav pgs="menu" pgs-option="menuHorizontal " aria-label="Main menu">
                     <ul>
-                        <li><a pgs="button" pgs-option="buttonTransparent buttonHeader buttonPaddingEqual" href="test.html">Test</a></li>
+                        <li><a pgs="button" pgs-option="buttonTransparent buttonHeader" href="site.html">Home</a></li>
+                        <li><a pgs="button" pgs-option="buttonTransparent buttonHeader" href="demo.html">Docs</a></li>
+                        <li><a pgs="button" pgs-option="buttonTransparent buttonHeader" href="test.html">Test</a></li>
                     </ul>
                 </nav>
                 <div pgs="flexRow" pgs-option="nowrap">
@@ -72,12 +74,14 @@
                             <i pgs="icon" pgs-option="icon-hamburgerTwo" aria-hidden="true"></i>
                         </button>
 
-                        <dialog pgs="modal-dialog" pgs-option="modalRight">
+                        <dialog pgs="modal-dialog" pgs-option="modalRight modalMedium">
                             <div pgs="modal-dialog-content">
                                 <div pgs="modal-dialog-content-scroll margin padding" pgs-option="marginNegative">
                                     <nav pgs="menu" pgs-option="menuVertical " aria-label="Main menu">
                                         <ul>
-                                            <li><a pgs="button" pgs-option="buttonTransparent buttonHeader buttonPaddingEqual" href="test.html">Test</a></li>
+                                            <li><a pgs="button" pgs-option="buttonTransparent buttonHeader" href="site.html">Home</a></li>
+                                            <li><a pgs="button" pgs-option="buttonTransparent buttonHeader" href="demo.html">Docs</a></li>
+                                            <li><a pgs="button" pgs-option="buttonTransparent buttonHeader" href="test.html">Test</a></li>
                                         </ul>
                                     </nav>
                                 </div>
@@ -88,32 +92,8 @@
         </div>
     </header>
 
-
-    <!-- = PAGE -->
-    <div pgs="pageShell" pgs-option="pageShellFullPage pageShellAsideScroll">
-        <aside pgs="pageShell-aside containerNone" id="reference-demo-aside">
-
-            <!-- Desktop -->
-            <div pgs="flexColumn hideContainerDownBigTablet paddingBottom" pgs-option="gapElements" class="reference-demo-nav"></div>
-
-            <!-- mobile -->
-            <div pgs="flexColumn hideContainerUpBigTablet modal" pgs-option="gapElements padding2">
-                <button type="button" pgs="button modal-button"> <i pgs="icon" pgs-option="icon-ellipsis"></i> Browse docs</button>
-
-                <dialog pgs="modal-dialog" pgs-option="modalRight">
-                    <div pgs="modal-dialog-content">
-                        <div pgs="modal-dialog-content-header">
-                            <h3><i class="fa-solid fa-book-bookmark"></i> Browse docs!</h3>
-                        </div>
-                        <div pgs="modal-dialog-content-scroll">
-                            <div pgs="flexColumn" pgs-option="gapElements" class="reference-demo-nav"></div>
-                        </div>
-                    </div>
-                </dialog>
-            </div>
-        </aside>
-        <main pgs="pageShell-content marginBottom" pgs-option="marginSections" id="reference-demo-main"></main>
-    </div>
+    <!-- = DEMO (filled in by scripts/build-site-static.js; see demo.structure.html) -->
+    <div id="reference-demo-content" style="display: contents;"></div>
 
     <!-- = FOOTER -->
     <footer pgs="footer">
@@ -121,8 +101,8 @@
         <section pgs="footer-top section">
             <div pgs="footer-top-content flexRow" pgs-option="column-3">
                 <div pgs="footer-brand">
-                    <a aria-label="Logo" pgs="logo" pgs-option="logoDarkmode" href="/">
-                        <img pgs="logo-image" src="../assets/logo.svg" alt="MyPGS">
+                    <a aria-label="Logo" pgs="logo" pgs-option="logoDarkmode" href="site.html">
+                        <img pgs="logo-image" src="assets/logo.svg" alt="MyPGS">
                     </a>
                     <p pgs="footer-brand-motto">Reusable frontend components.</p>
                     <button pgs="button toggleDarkmode" pgs-option="toggleDarkmodeExtended" type="button" aria-label="Change theme">

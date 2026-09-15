@@ -1,14 +1,15 @@
-//# DEMO (browser-only runtime for the pre-baked demo.html)
-//+ demo/demo.html (generated — see scripts/build-demo-static.js) already has every panel's markup
-//+ written out by scripts/build-demo-static.js (via demo-render.js) — nothing here fetches or
-//+ parses a reference file. This file only wires up the parts that must run in a real browser: the
-//+ actual pgs component library (notification, modal, accordion, ...), nav click / hash
-//+ navigation, and the "copy to clipboard" buttons. The configure*Demo functions only ever look for
-//+ [data-reference="..."] in the page, so a new interactive example is wired up here and nowhere
-//+ else.
+//# DEMO (browser-only runtime, shared by every generated site/*.html page)
+//+ Every page built by scripts/build-site-static.js loads this file — nothing here fetches or
+//+ parses a reference file, whatever it runs against. It wires up the parts that must run in a
+//+ real browser: the actual pgs component library (notification, modal, accordion, ...), nav
+//+ click / hash navigation, and the "copy to clipboard" buttons. Most of that only matters on the
+//+ page that actually carries the reference panels — currently site/page/demo.html, parked there
+//+ and not yet promoted to a top-level page — and no-ops harmlessly on any other. The configure*Demo
+//+ functions only ever look for [data-reference="..."] in the page, so a new interactive example is
+//+ wired up here and nowhere else.
 
-//= NAVIGATION (built from the [data-panel] / [data-panel-link] elements already in the page: they
-//= are all baked into demo.html, so there is nothing to fetch)
+//= NAVIGATION (built from the [data-panel] / [data-panel-link] elements already in the page, when
+//= it has any: they are all baked in by the build, so there is nothing to fetch)
 function setupStaticNavigation() {
     const NAVS = Array.from(document.querySelectorAll(".reference-demo-nav"));
     const MAIN = document.getElementById("reference-demo-main");

@@ -1,81 +1,11 @@
-<!DOCTYPE html>
-<html lang="it-IT" pgs="htmlBase">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyPGS</title>
-
-    <!-- Colori Browsers -->
-    <meta name="theme-color" content="">
-    <meta name="apple-mobile-web-app-status-bar-color" content="">
-
-    <script src="../../dist/javascript/index.js"></script>
-    <link rel="stylesheet" href="../../dist/css/index.css">
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap">
-</head>
-
-<body pgs="bodyBase bodyImg bodyText bodyHeading bodyHoverAuto">
-    <header pgs="header" pgs-option="headerCompactBigTablet">
-        <div pgs="header-element blur">
-            <div pgs="header-element-alwaysOn">
-                <a aria-label="Logo" pgs="logo" href="/">
-                    <img pgs="logo-image" src="../assets/logo.svg" alt="MyPGS">
-                </a>
-            </div>
-
-            <div pgs="header-element-onlyFull">
-                <nav pgs="menu" pgs-option="menuHorizontal " aria-label="Main menu">
-                    <ul>
-                        <li><a pgs="button" pgs-option="buttonTransparent buttonHeader buttonPaddingEqual" href="demo.html">Demo</a></li>
-                    </ul>
-                </nav>
-                <div pgs="flexRow" pgs-option="nowrap">
-                    <button pgs="button toggleDarkmode" pgs-option="buttonIcon" type="button" aria-label="Change theme">
-                        <i class="fa-solid fa-moon"></i>
-                    </button>
-                </div>
-            </div>
-
-            <div pgs="header-element-alwaysOnLast">
-            </div>
-
-            <div pgs="header-element-onlyCompact">
-                <div pgs="flexRow" pgs-option="nowrap">
-                    <button pgs="button toggleDarkmode" pgs-option="buttonIcon" type="button" aria-label="Change theme">
-                        <i class="fa-solid fa-moon"></i>
-                    </button>
-                </div>
-
-                <div pgs=" modal" pgs-option="modalContainerPGS[header]">
-                    <button pgs="button modal-button modal-close" pgs-option="buttonIcon" type="button" title="menu">
-                        <i pgs="icon" pgs-option="icon-hamburgerTwo" aria-hidden="true"></i>
-                    </button>
-
-                    <dialog pgs="modal-dialog" pgs-option="modalRight">
-                        <div pgs="modal-dialog-content">
-                            <div pgs="modal-dialog-content-scroll margin padding" pgs-option="marginNegative">
-                                <nav pgs="menu" pgs-option="menuVertical " aria-label="Main menu">
-                                    <ul>
-                                        <li><a pgs="button" pgs-option="buttonTransparent buttonHeader buttonPaddingEqual" href="demo.html">Demo</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-                    </dialog>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- = MAIN -->
+<!-- = MAIN -->
     <main pgs="main">
         <section pgs="">
             <div pgs="slides" pgs-option="slidesSingleScroll">
                 <ul pgs="slides-container">
                     <li pgs="slides-container-slide">
                         <article pgs="card">
-                            <img pgs="card-img imgCover" src="../assets/placeholder.jpg" alt="Slide 1">
+                            <img pgs="card-img imgCover" src="assets/placeholder.jpg" alt="Slide 1">
                             <div pgs="card-content">
                                 <h3>Lorem ipsum dolor</h3>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -85,7 +15,7 @@
 
                     <li pgs="slides-container-slide">
                         <article pgs="card">
-                            <img pgs="card-img imgCover" src="../assets/placeholder.jpg" alt="Slide 2">
+                            <img pgs="card-img imgCover" src="assets/placeholder.jpg" alt="Slide 2">
                             <div pgs="card-content">
                                 <h3>Sit amet consectetur</h3>
                                 <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
@@ -95,7 +25,7 @@
 
                     <li pgs="slides-container-slide">
                         <article pgs="card">
-                            <img pgs="card-img imgCover" src="../assets/placeholder.jpg" alt="Slide 3">
+                            <img pgs="card-img imgCover" src="assets/placeholder.jpg" alt="Slide 3">
                             <div pgs="card-content">
                                 <h3>Adipiscing elit sed</h3>
                                 <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
@@ -104,7 +34,7 @@
                     </li>
                     <li pgs="slides-container-slide">
                         <article pgs="card">
-                            <img pgs="card-img imgCover" src="../assets/placeholder.jpg" alt="Slide 3">
+                            <img pgs="card-img imgCover" src="assets/placeholder.jpg" alt="Slide 3">
                             <div pgs="card-content">
                                 <h3>Adipiscing elit sed</h3>
                                 <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
@@ -113,7 +43,7 @@
                     </li>
                     <li pgs="slides-container-slide">
                         <article pgs="card">
-                            <img pgs="card-img imgCover" src="../assets/placeholder.jpg" alt="Slide 3">
+                            <img pgs="card-img imgCover" src="assets/placeholder.jpg" alt="Slide 3">
                             <div pgs="card-content">
                                 <h3>Adipiscing elit sed</h3>
                                 <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
@@ -122,7 +52,7 @@
                     </li>
                     <li pgs="slides-container-slide">
                         <article pgs="card">
-                            <img pgs="card-img imgCover" src="../assets/placeholder.jpg" alt="Slide 3">
+                            <img pgs="card-img imgCover" src="assets/placeholder.jpg" alt="Slide 3">
                             <div pgs="card-content">
                                 <h3>Adipiscing elit sed</h3>
                                 <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
@@ -137,7 +67,7 @@
                 <ul pgs="slides-container">
                     <li pgs="slides-container-slide">
                         <article pgs="card">
-                            <img pgs="card-img imgCover" src="../assets/placeholder.jpg" alt="Slide 1">
+                            <img pgs="card-img imgCover" src="assets/placeholder.jpg" alt="Slide 1">
                             <div pgs="card-content">
                                 <h3>Lorem ipsum dolor</h3>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -147,7 +77,7 @@
 
                     <li pgs="slides-container-slide">
                         <article pgs="card">
-                            <img pgs="card-img imgCover" src="../assets/placeholder.jpg" alt="Slide 2">
+                            <img pgs="card-img imgCover" src="assets/placeholder.jpg" alt="Slide 2">
                             <div pgs="card-content">
                                 <h3>Sit amet consectetur</h3>
                                 <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
@@ -157,7 +87,7 @@
 
                     <li pgs="slides-container-slide">
                         <article pgs="card">
-                            <img pgs="card-img imgCover" src="../assets/placeholder.jpg" alt="Slide 3">
+                            <img pgs="card-img imgCover" src="assets/placeholder.jpg" alt="Slide 3">
                             <div pgs="card-content">
                                 <h3>Adipiscing elit sed</h3>
                                 <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
@@ -166,7 +96,7 @@
                     </li>
                     <li pgs="slides-container-slide">
                         <article pgs="card">
-                            <img pgs="card-img imgCover" src="../assets/placeholder.jpg" alt="Slide 3">
+                            <img pgs="card-img imgCover" src="assets/placeholder.jpg" alt="Slide 3">
                             <div pgs="card-content">
                                 <h3>Adipiscing elit sed</h3>
                                 <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
@@ -175,7 +105,7 @@
                     </li>
                     <li pgs="slides-container-slide">
                         <article pgs="card">
-                            <img pgs="card-img imgCover" src="../assets/placeholder.jpg" alt="Slide 3">
+                            <img pgs="card-img imgCover" src="assets/placeholder.jpg" alt="Slide 3">
                             <div pgs="card-content">
                                 <h3>Adipiscing elit sed</h3>
                                 <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
@@ -184,7 +114,7 @@
                     </li>
                     <li pgs="slides-container-slide">
                         <article pgs="card">
-                            <img pgs="card-img imgCover" src="../assets/placeholder.jpg" alt="Slide 3">
+                            <img pgs="card-img imgCover" src="assets/placeholder.jpg" alt="Slide 3">
                             <div pgs="card-content">
                                 <h3>Adipiscing elit sed</h3>
                                 <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
@@ -196,6 +126,3 @@
         </section>
 
     </main>
-</body>
-
-</html>

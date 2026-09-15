@@ -1,9 +1,9 @@
 # How the documentation works
 
-This explains the pipeline behind everything under `reference/html/`, `docs/`, and this `demo/`
-folder: where a component's documentation actually lives, how it turns into both the generated
-Markdown and the browsable page at `demo/build/demo.html`, and what to do when you add or change
-something.
+This explains the pipeline behind everything under `reference/html/`, `docs/`, and this `site/`
+folder: where a component's documentation actually lives, how it turns into the generated Markdown
+and into `site/demo.html` — the reference browser's own page, see "Pre-baking the demo" below for
+how it is assembled — and what to do when you add or change something.
 
 ## The three places involved
 
@@ -12,14 +12,16 @@ something.
    markup (and sometimes a script).
 2. **`docs/**/*.md`** — generated from those files by `npm run docs:generate`. Never edit these by
    hand; edit the `reference/html` source and regenerate.
-3. **`demo/`** (this folder) — a browsable reference with working examples, pre-baked by `npm run
-   demobuild`: `assets/demo-render.js` turns every `reference/html` file into its panel, and
-   `scripts/build-demo-static.js` writes `build/demo.content.html` and the final `build/demo.html`
-   — see "Pre-baking the demo" below; both are generated, never hand-edited. The library's CSS/JS
-   and the hand-authored `demo.structure.html` live under `demo/assets/`; every generated output
-   (`demo.content.html` and the one openable page, `demo.html`) lives under `demo/build/`, alongside
-   this file at the top of `demo/`. Nothing is fetched or parsed at runtime: `assets/demo.js` only
-   wires up navigation, copy buttons and the interactive examples.
+3. **`site/`** (this folder) — a browsable reference with working examples, pre-baked by
+   `npm run sitebuild`: `assets/demo-render.js` turns every `reference/html` file into its panel, and
+   `scripts/build-site-static.js` merges it with a hand-authored shell into `site/demo.html` — see
+   "Pre-baking the demo" below for the full split between `assets/`, `parts/`, `build/` and `page/`.
+   The library's CSS/JS live under `site/assets/`, the two shells under `site/parts/`; every
+   generated output lives under
+   `site/build/` (fragments nobody opens directly), `site/page/` (one page's own content each) or
+   directly under `site/` (the complete, promoted pages, alongside this file). Nothing is fetched
+   or parsed at runtime: `assets/demo.js` only wires up navigation, copy buttons and the
+   interactive examples.
 
 Two things parse the doc-comment format, both in Node: `scripts/generate-component-docs.js` for the
 Markdown and `assets/demo-render.js` for the demo panels. Keep that in mind if you ever change the
@@ -254,7 +256,7 @@ three things in `demo-render.js` need a manual entry for it to actually show up 
 3. **`ENTRY_ICONS`** — add `"<category>/<name>.html": "fa-solid-icon-name"` (any Font Awesome
    solid icon class) for its nav icon; falls back to a generic square icon if omitted.
 
-Then rebuild with `npm run demobuild`, and only if the example needs real interactivity add a
+Then rebuild with `npm run sitebuild`, and only if the example needs real interactivity add a
 `configureXDemo()` function to `assets/demo.js` as above and call it from `boot()`.
 
 ## Naming conventions worth knowing
@@ -277,11 +279,11 @@ npm run start                      # webpack: compiles assets/ into dist/
 node scripts/generate-pgs-map.js   # scans compiled CSS + source, writes reference/pgs-map.json
 npm run docs:generate              # validates every reference/html file, writes docs/**/*.md
                                     # (runs generate-component-docs.js, then generate-guide-docs.js)
-npm run demobuild                  # pre-bakes demo/build/ — see the section below
+npm run sitebuild                  # pre-bakes site/build/ and site/page/ — see the section below
 ```
 
 Run all four, in that order, after touching anything under `assets/` or `reference/html/`. The order
-is not cosmetic: `generate-pgs-map.js` and `build-demo-static.js` read `dist/css/index.css`, so a map
+is not cosmetic: `generate-pgs-map.js` and `build-site-static.js` read `dist/css/index.css`, so a map
 or a demo built before webpack describes the previous compile. `docs:generate` reads the SCSS and
 JavaScript sources instead, so it is the one step that does not need the build.
 
@@ -294,8 +296,10 @@ While iterating, two watchers replace the first and the last step, so nothing ha
 
 ```sh
 npm run start:watch                # webpack --watch: recompiles dist/ on every assets/ change
-npm run demobuild:watch            # scripts/watch-demo.js: rebuilds demo/build/ on every change to
-                                    # reference/html/, demo.structure.html, demo-render.js or
+npm run sitebuild:watch            # scripts/watch-site.js: rebuilds every site/*.html on every
+                                    # change to reference/html/, demo.structure.html,
+                                    # site.structure.html, demo-render.js, a page's own file under
+                                    # site/page/ (except the generated demo.html), or
                                     # dist/css/index.css — so a webpack rebuild reaches the demo too
 ```
 
@@ -303,41 +307,57 @@ Run them in two terminals. Neither replaces `generate-pgs-map.js` or `docs:gener
 generated Markdown are still produced on demand, and `docs:generate` has to pass before committing
 anyway.
 
-## Pre-baking the demo (`npm run demobuild`)
+## Pre-baking the demo (`npm run sitebuild`)
 
-`demo/` separates hand-authored source from generated output: the library's CSS/JS plus the
-hand-authored **component** `demo.structure.html` (meant to be combined, not opened) live under
-`demo/assets/`; everything `scripts/build-demo-static.js` writes — one more component plus the two
-complete, directly-openable **pages** — lives under `demo/build/`:
+`site/` separates hand-authored source from generated output, across four folders:
 
-- `demo/assets/demo.structure.html` — hand-authored page shell (head, header, page layout, footer).
-  No content-loading script of its own, so opening it directly shows an empty nav and an empty main.
-  Edit this for structural/layout changes. Its asset links (`<script>`/`<link>` hrefs) are written
-  relative to `demo/build/`, where the generated pages end up — not relative to this file's own
-  location in `demo/assets/`.
-- `demo/build/demo.content.html` — generated: the whole nav plus every panel's markup, produced by
-  `demo/assets/demo-render.js` (see below), with no page shell around it. A component like
-  `demo.structure.html`, just a generated one — not meant to be opened directly (its two halves sit
-  inside inert `<template>` tags).
-- `demo/build/demo.html` — generated, and the only page there is: `assets/demo.structure.html` with
-  `demo.content.html`'s nav+panels spliced in, plus `assets/demo.js`. `demo.js` only runs
-  `pgs.init()` and the demo's own interactive wiring (nav clicks, copy buttons, the `configureXDemo`
-  functions) — nothing in it fetches or parses a reference file, since `demo.html` already has
-  everything written out. It opens instantly, whatever the reference count.
+- **`site/parts/`** — hand-authored, nothing generated. Two shells, neither a page on its own:
+  - `demo.structure.html` — the pageShell that hosts the reference nav and panels (nav+main empty
+    until the build fills them in). Edit this for the reference demo's own layout — the part
+    specific to browsing components.
+  - `site.structure.html` — the page around every page: head, header, footer, and an
+    `id="reference-demo-content"` placeholder (`display: contents`, so it adds no box of its own)
+    that one page's own content is spliced into. Edit this for the surrounding page — everything
+    that would still be there without a single reference panel — since every generated page shares
+    this one shell.
 
-`demo/assets/demo-render.js` is what makes `demo.content.html` possible — it never reaches the
-browser, only `scripts/build-demo-static.js` (in Node) requires it. Plain string/data functions with
+  Both files' asset links (`<script>`/`<link>` hrefs) are written relative to `site/`, where every
+  generated page ends up — not relative to either file's own location in `site/parts/`.
+- **`site/build/`** — generated fragments nobody opens directly:
+  - `demo.content.html` — the whole nav plus every panel's markup, produced by
+    `site/assets/demo-render.js` (see below), with no shell around it. Consumed to build
+    `page/demo.html`, below — not meant to be opened directly, and its two halves sit inside inert
+    `<template>` tags so it parses as valid HTML without rendering anything if opened by mistake.
+- **`site/page/`** — one page's own content, no shell around any of it:
+  - `demo.html` — generated: `demo.content.html`'s nav+panels spliced into `demo.structure.html`.
+    The reference demo's own content, still with no `<html>`/`<head>` of its own.
+  - `site.html` and `test.html` — hand-kept, not touched by the build; just a `<main>` and nothing
+    else, the same shape `demo.html` has. `site.html` is the home page, its content still to be
+    filled in; `test.html` is a fixture for trying components out.
+  - a future page follows the same rule: drop its own content here, as `<name>.html`, and the build
+    picks it up on its own — nothing else has to change.
+- **`site/` itself** — the complete, directly-openable pages: one output per file in `page/`,
+  named the same. `site.structure.html` with that page's own content spliced into the placeholder,
+  plus `assets/demo.js`. `demo.html` is generated the same way as `site.html` and `test.html` here
+  — only its own content in `page/` is generated rather than hand-kept. `demo.js` only runs
+  `pgs.init()` and the demo's own interactive wiring (nav clicks, copy buttons, the
+  `configureXDemo` functions) — nothing in it fetches or parses a reference file, since each page
+  already has everything written out. Every page opens instantly, whatever the reference count.
+
+`site/assets/demo-render.js` is what makes `demo.content.html` possible — it never reaches the
+browser, only `scripts/build-site-static.js` (in Node) requires it. Plain string/data functions with
 no DOM and no fetch: it parses a reference file's doc comment, builds its doc panel (PGS lists,
 related, CSS variables) and its example markup. It is the only renderer — a live, fetch-everything
 page used to exist alongside it (`demo-fetch.html` plus `assets/demo-fetch.js`) and was removed, so
 there is no second implementation to keep in step any more.
 
 Components built entirely by JS at runtime (notification, toast, modal, accordion, ...) are
-untouched by any of this on either page: their source markup is baked in like everything else, and
-`pgs.init()` still builds them for real when the page loads.
+untouched by any of this: their source markup is baked in like everything else, and `pgs.init()`
+still builds them for real when the page loads.
 
-Never hand-edit `demo.content.html` or `demo.html` — edit `reference/html/` or
-`assets/demo.structure.html` and run `npm run demobuild` again.
+Never hand-edit `demo.content.html`, `page/demo.html`, or any page directly under `site/` — edit
+`reference/html/`, either `site/parts/*.structure.html` file, or a page's own file under
+`site/page/`, and run `npm run sitebuild` again.
 
 ## Adding a brand-new reference page, step by step
 
@@ -347,4 +367,4 @@ Never hand-edit `demo.content.html` or `demo.html` — edit `reference/html/` or
    build reads. Add a `configureXDemo()` function to `assets/demo.js`, called from its `boot()`, if
    the page is interactive.
 3. Run the commands above, in order. Fix anything `docs:generate` reports.
-4. Open `demo/build/demo.html` and check the new page renders and behaves as expected.
+4. Open `site/demo.html` directly and check the new page renders and behaves as expected.

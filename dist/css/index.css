@@ -2429,109 +2429,109 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=width],
 [pgs~=widthMax],
 [pgs~=widthMin] {
-  --size-width: var(--page-width);
+  --width-size: var(--page-width);
 }
 
 [pgs~=width][pgs-option~=widthPage],
 [pgs~=widthMax][pgs-option~=widthPage],
 [pgs~=widthMin][pgs-option~=widthPage] {
-  --size-width: var(--page-width);
+  --width-size: var(--page-width);
 }
 
 [pgs~=width][pgs-option~=widthPageHalf],
 [pgs~=widthMax][pgs-option~=widthPageHalf],
 [pgs~=widthMin][pgs-option~=widthPageHalf] {
-  --size-width: calc(var(--page-width) / 2);
+  --width-size: calc(var(--page-width) / 2);
 }
 
 [pgs~=width][pgs-option~=widthPageThird],
 [pgs~=widthMax][pgs-option~=widthPageThird],
 [pgs~=widthMin][pgs-option~=widthPageThird] {
-  --size-width: calc(var(--page-width) / 3);
+  --width-size: calc(var(--page-width) / 3);
 }
 
 [pgs~=width][pgs-option~=widthText],
 [pgs~=widthMax][pgs-option~=widthText],
 [pgs~=widthMin][pgs-option~=widthText] {
-  --size-width: 65ch;
+  --width-size: 65ch;
 }
 
 [pgs~=width][pgs-option~=widthFull],
 [pgs~=widthMax][pgs-option~=widthFull],
 [pgs~=widthMin][pgs-option~=widthFull] {
-  --size-width: 100%;
+  --width-size: 100%;
 }
 
 [pgs~=width] {
-  width: min(100%, var(--size-width));
+  width: min(100%, var(--width-size));
 }
 
 [pgs~=widthMax] {
-  max-width: min(100%, var(--size-width));
+  max-width: min(100%, var(--width-size));
 }
 
 [pgs~=widthMin] {
-  min-width: min(100%, var(--size-width));
+  min-width: min(100%, var(--width-size));
 }
 
 [pgs~=height],
 [pgs~=heightMax],
 [pgs~=heightMin] {
-  --size-height: 100svh;
+  --height-size: 100svh;
 }
 
 [pgs~=height][pgs-option~=heightScreen],
 [pgs~=heightMax][pgs-option~=heightScreen],
 [pgs~=heightMin][pgs-option~=heightScreen] {
-  --size-height: 100svh;
+  --height-size: 100svh;
 }
 
 [pgs~=height][pgs-option~=heightScreenLive],
 [pgs~=heightMax][pgs-option~=heightScreenLive],
 [pgs~=heightMin][pgs-option~=heightScreenLive] {
-  --size-height: 100dvh;
+  --height-size: 100dvh;
 }
 
 [pgs~=height][pgs-option~=heightScreenLarge],
 [pgs~=heightMax][pgs-option~=heightScreenLarge],
 [pgs~=heightMin][pgs-option~=heightScreenLarge] {
-  --size-height: 100lvh;
+  --height-size: 100lvh;
 }
 
 [pgs~=height][pgs-option~=heightScreenHalf],
 [pgs~=heightMax][pgs-option~=heightScreenHalf],
 [pgs~=heightMin][pgs-option~=heightScreenHalf] {
-  --size-height: 50svh;
+  --height-size: 50svh;
 }
 
 [pgs~=height][pgs-option~=heightUnderHeader],
 [pgs~=heightMax][pgs-option~=heightUnderHeader],
 [pgs~=heightMin][pgs-option~=heightUnderHeader] {
-  --size-height: calc(100dvh - var(--heightOfHeader));
+  --height-size: calc(100dvh - var(--heightOfHeader));
 }
 
 [pgs~=height][pgs-option~=heightFull],
 [pgs~=heightMax][pgs-option~=heightFull],
 [pgs~=heightMin][pgs-option~=heightFull] {
-  --size-height: 100%;
+  --height-size: 100%;
 }
 
 [pgs~=height][pgs-option~=heightAuto],
 [pgs~=heightMax][pgs-option~=heightAuto],
 [pgs~=heightMin][pgs-option~=heightAuto] {
-  --size-height: auto;
+  --height-size: auto;
 }
 
 [pgs~=height] {
-  height: var(--size-height);
+  height: var(--height-size);
 }
 
 [pgs~=heightMax] {
-  max-height: var(--size-height);
+  max-height: var(--height-size);
 }
 
 [pgs~=heightMin] {
-  min-height: var(--size-height);
+  min-height: var(--height-size);
 }
 
 [pgs~=pageShell] {
@@ -2742,6 +2742,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   }
   [pgs~=pageShell][pgs-option~=pageShellAsideScroll] [pgs~=pageShell-content] {
     padding-top: var(--pageShell-padding-top);
+    min-height: var(--pageShell-asideScroll-maxHeight);
   }
 }
 @container (min-width: 900px) {
@@ -6031,7 +6032,7 @@ html:has(dialog[open]) {
 
 :where(dialog[pgs~=modal-dialog]) {
   --modal-backdrop: var(--backdrop);
-  --modal-background: var(--color-box);
+  --modal-background: var(--color-background);
   --modal-color: var(--color-black);
   --modal-content-padding: var(--padding);
   --modal-offset: var(--gap-texts);
@@ -6041,7 +6042,7 @@ html:has(dialog[open]) {
   height: 100dvh;
   min-height: 100dvh;
   padding-inline: var(--page-padding);
-  padding-bottom: var(--padding);
+  padding-bottom: var(--modal-offset);
   padding-top: calc(var(--heightOfHeaderScroll) + var(--modal-offset));
   background: var(--modal-backdrop);
   transition: opacity 600ms ease;
@@ -6112,7 +6113,7 @@ html:has(dialog[open]) {
 }
 
 :where(dialog[pgs~=modal-dialog]) [pgs~=modal-dialog-content]:has([pgs~=modal-dialog-content-scroll]) {
-  max-height: calc(90svh - var(--heightOfHeaderScroll));
+  max-height: 100%;
   overflow: hidden;
 }
 
@@ -6150,6 +6151,10 @@ html:has(dialog[open]) {
 
 :where(dialog[pgs~=modal-dialog])[pgs-option~=modalMedium]:where(dialog[pgs~=modal-dialog]) [pgs~=modal-dialog-content] {
   --section-width: min(calc(var(--page-width)/2), 100%);
+}
+
+:where(dialog[pgs~=modal-dialog])[pgs-option~=modalFull]:where(dialog[pgs~=modal-dialog]) [pgs~=modal-dialog-content] {
+  --section-width: 100%;
 }
 
 :where(dialog[pgs~=modal-dialog])[pgs-option~=modalCenter]:where(dialog[pgs~=modal-dialog]) {

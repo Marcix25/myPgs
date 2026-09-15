@@ -21,7 +21,7 @@ html:has(dialog[open]) {
 //= DIALOG 
 :where(#{$modalDialogPgs}) {
     --modal-backdrop: var(--backdrop);
-    --modal-background: var(--color-box);
+    --modal-background: var(--color-background);
     --modal-color: var(--color-black);
     --modal-content-padding: var(--padding);
     --modal-offset: var(--gap-texts);
@@ -34,7 +34,7 @@ html:has(dialog[open]) {
     height: 100dvh;
     min-height: 100dvh;
     padding-inline: var(--page-padding);
-    padding-bottom: var(--padding);
+    padding-bottom: var(--modal-offset);
     padding-top: calc(var(--heightOfHeaderScroll) + var(--modal-offset));
     background: var(--modal-backdrop);
     transition: opacity 600ms ease;
@@ -100,7 +100,7 @@ html:has(dialog[open]) {
 
         //=== SCROLL
         &:has([pgs~="modal-dialog-content-scroll"]) {
-            max-height: calc(90svh - var(--heightOfHeaderScroll));
+            max-height: 100%;
             overflow: hidden;
         }
 
@@ -149,6 +149,13 @@ html:has(dialog[open]) {
     &[pgs-option~="modalMedium"]:where(#{$modalDialogPgs}) {
         [pgs~="modal-dialog-content"] {
             --section-width: min(calc(var(--page-width)/2), 100%);
+        }
+    }
+
+    //=== Full
+    &[pgs-option~="modalFull"]:where(#{$modalDialogPgs}) {
+        [pgs~="modal-dialog-content"] {
+            --section-width: 100%;
         }
     }
 

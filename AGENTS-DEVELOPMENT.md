@@ -18,7 +18,7 @@ The source of truth is organized as follows:
 - `reference/html/`: canonical markup and documentation metadata, including `reference/html/guides/` for narrative guide pages (rendered as prose, not a component example — see `scripts/generate-guide-docs.js`);
 - `docs/`: generated documentation, entirely produced by `scripts/generate-component-docs.js` and `scripts/generate-guide-docs.js` — there is no hand-maintained file left under `docs/`;
 - `dist/`: compiled package assets;
-- `demo/`: complete integration assembly, not a design reference.
+- `site/`: complete integration assembly, not a design reference.
 
 Do not edit generated `dist/` files as the source of truth. Modify `assets/`, regenerate documentation when needed, and rebuild the distribution.
 
@@ -120,18 +120,29 @@ Each file in `reference/html/` is both the canonical example and its own documen
 source feeds two renderers, which must stay in agreement:
 
 - `scripts/generate-component-docs.js` writes `docs/**/*.md` and validates the reference;
-- `demo/assets/demo-render.js` renders the same file as a demo panel, at build time, in Node.
+- `site/assets/demo-render.js` renders the same file as a demo panel, at build time, in Node.
 
-`demo/assets/demo.structure.html` is a hand-authored component, not a page: it does nothing useful
-opened directly. The library's CSS/JS and this shell live under `demo/assets/`; every generated
-output — including `demo.content.html`, itself a component, not a page — lives under `demo/build/`.
-`npm run demobuild` (`scripts/build-demo-static.js`) combines the structure with the rendered
-reference files into two outputs there — `demo/build/demo.content.html` (just the pre-baked
-nav+panels markup, produced via `demo/assets/demo-render.js`) and `demo/build/demo.html` (the
-structure with those nav+panels merged in, plus `assets/demo.js`). `demo.html` is the page to open:
-it renders nothing at runtime, so it opens instantly whatever the reference count, and `demo.js`
-only wires navigation, copy buttons and the interactive examples. Both outputs are generated: never
-edit them by hand, edit `reference/html/` or `demo/assets/demo.structure.html` and rerun the script.
+Two hand-authored shells feed the build, neither a page on its own: `site/parts/demo.structure.html`
+(the pageShell that hosts the reference nav and panels) and `site/parts/site.structure.html` (the
+page around every page — head, header, footer, shared by all of them). The library's CSS/JS live
+under `site/assets/`, the two shells under `site/parts/`; `npm run sitebuild`
+(`scripts/build-site-static.js`) combines
+them with the rendered reference files into generated output across three places:
+`site/build/demo.content.html` (just the pre-baked nav+panels markup, produced via
+`site/assets/demo-render.js`, a fragment nobody opens directly), `site/page/*.html` (one page's own
+content each, no shell around it — `demo.html` generated from demo.structure.html merged with
+demo.content.html, alongside whatever else is hand-kept there, such as `site.html` and `test.html`),
+and `site/*.html` — one output per file in `page/`, `demo.html` included, named the same, with
+`site.structure.html` and `assets/demo.js` wrapped around it. Every page renders nothing at
+runtime, so it opens instantly whatever the reference count, and `demo.js` only wires navigation,
+copy buttons and the interactive examples — most of that specific to whichever page carries the
+reference panels, harmless on any other. Adding a brand-new page needs no script change: drop its
+own content in `site/page/<name>.html` and the next `npm run sitebuild` produces `site/<name>.html`
+from it, sharing the same shell as every other page. All of it is generated except that hand-kept
+content: never edit `demo.content.html`,
+`page/demo.html` or any `site/*.html` by hand — edit `reference/html/`, the two
+`site/parts/*.structure.html` files, or a page's own file under `site/page/`, and rerun the
+script.
 
 Every reference opens with a JSDoc-style block. Tags must appear in this order, and each entry is a
 single line in the form `- value: description` — the parser accepts no continuation lines:
@@ -216,14 +227,14 @@ After relevant changes:
 npm run start                       # webpack: compiles assets/ into dist/
 node scripts/generate-pgs-map.js    # reads dist/css/index.css
 npm run docs:generate               # reads the SCSS and JavaScript sources
-npm run demobuild                   # reads dist/css/index.css and reference/html/
+npm run sitebuild                   # reads dist/css/index.css and reference/html/
 git diff --check
 ```
 
-Keep that order: `generate-pgs-map.js` and `build-demo-static.js` both read the compiled CSS, so
+Keep that order: `generate-pgs-map.js` and `build-site-static.js` both read the compiled CSS, so
 running either before webpack describes the previous compile.
 
-While iterating, `npm run start:watch` and `npm run demobuild:watch` keep `dist/` and `demo/build/`
+While iterating, `npm run start:watch` and `npm run sitebuild:watch` keep `dist/` and every `site/*.html`
 up to date on their own; the map and the documentation are still generated on demand.
 
 Apply verification in proportion to the change. Also inspect generated output when selectors, markup contracts, public APIs, or distribution files change.
@@ -242,7 +253,7 @@ Before a release:
 - Do not create duplicate components or JavaScript services.
 - Do not invent APIs without implementing and documenting them.
 - Do not silently change public tokens, selectors, markup, mixins, method signatures, or source import paths.
-- Do not use `demo/` as inspiration or as the canonical component structure.
+- Do not use `site/` as inspiration or as the canonical component structure.
 - Do not keep temporary test examples in canonical references.
 - Do not let demo scaffolding reach an Example HTML block: a layout wrapper added to arrange the example belongs in the preview only.
 - Do not repeat a field list in `@pgs-option` when the option block already documents it.

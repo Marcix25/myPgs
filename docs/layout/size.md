@@ -49,11 +49,6 @@ Width and height utilities driven by a single custom property each. The width si
 
 - `gapSections`: separates the groups.
 
-## CSS Variables
-
-- `--size-height`
-- `--size-width`
-
 ## Output
 
 Width and height examples using the shared scales and arbitrary inline values.

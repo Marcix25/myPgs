@@ -1,10 +1,14 @@
 #!/usr/bin/env node
-//# WATCH DEMO
-//+ Re-runs scripts/build-demo-static.js whenever one of its inputs changes, so demo/build/ is never
-//+ the previous version of itself while iterating. Those inputs are exactly three things:
+//# WATCH SITE
+//+ Re-runs scripts/build-site-static.js whenever one of its inputs changes, so none of site/*.html
+//+ is ever the previous version of itself while iterating. Those inputs are exactly five things:
 //+ - reference/html/**/*.html — the panels and the nav come from here;
-//+ - demo/assets/demo.structure.html and demo/assets/demo-render.js — the page shell and the
-//+   renderer the build calls;
+//+ - site/parts/demo.structure.html, site/parts/site.structure.html and
+//+   site/assets/demo-render.js — the two shells and the renderer the build calls;
+//+ - site/page/*.html, except demo.html — every other page's own hand-authored content
+//+   (site.html, test.html, and any future page dropped in there the same way). demo.html is
+//+   excluded on purpose: the build writes it itself from demo.structure.html, so watching it too
+//+   would have every build retrigger the next one;
 //+ - dist/css/index.css — read to list each component's CSS variables, so a webpack rebuild has to
 //+   reach the demo too.
 //+ demo.js and demo.css are only linked by the generated page, never read into it: editing one
@@ -16,7 +20,7 @@
 //+ filtering by name survives that. fs.watch is not recursive on Linux, so every directory under
 //+ reference/html gets its own watcher, re-synced after each build to pick up new ones.
 //+
-//+ Run with: npm run demobuild:watch (alongside npm run start:watch, which keeps dist/ fresh)
+//+ Run with: npm run sitebuild:watch (alongside npm run start:watch, which keeps dist/ fresh)
 
 "use strict";
 
@@ -25,7 +29,7 @@ const path = require("path");
 const { spawn } = require("child_process");
 
 const PROJECT_ROOT = path.resolve(__dirname, "..");
-const BUILD_SCRIPT = path.join(__dirname, "build-demo-static.js");
+const BUILD_SCRIPT = path.join(__dirname, "build-site-static.js");
 const DEBOUNCE_MS = 200;
 
 //+ what to watch: a root directory, whether to descend into it, and which filenames matter
@@ -36,9 +40,20 @@ const TARGETS = [
         accept: name => name.endsWith(".html")
     },
     {
-        root: path.join(PROJECT_ROOT, "demo", "assets"),
+        root: path.join(PROJECT_ROOT, "site", "assets"),
         recursive: false,
-        accept: name => name === "demo.structure.html" || name === "demo-render.js"
+        accept: name => name === "demo-render.js"
+    },
+    {
+        root: path.join(PROJECT_ROOT, "site", "parts"),
+        recursive: false,
+        accept: name => name === "demo.structure.html" || name === "site.structure.html"
+    },
+    {
+        //== demo.html excluded: the build writes it itself (see the header comment above)
+        root: path.join(PROJECT_ROOT, "site", "page"),
+        recursive: false,
+        accept: name => name.endsWith(".html") && name !== "demo.html"
     },
     {
         root: path.join(PROJECT_ROOT, "dist", "css"),
@@ -119,7 +134,7 @@ function syncWatchers() {
 
                 watchers.set(directory, watcher);
             } catch (error) {
-                console.warn(`[watch-demo] impossibile osservare ${path.relative(PROJECT_ROOT, directory)}: ${error.message}`);
+                console.warn(`[watch-site] impossibile osservare ${path.relative(PROJECT_ROOT, directory)}: ${error.message}`);
             }
         });
     });
@@ -156,17 +171,17 @@ function runBuild(reason) {
     }
 
     running = true;
-    if (reason) console.log(`[watch-demo] ${reason} cambiato, ricostruisco...`);
+    if (reason) console.log(`[watch-site] ${reason} cambiato, ricostruisco...`);
 
     const child = spawn(process.execPath, [BUILD_SCRIPT], { stdio: "inherit" });
 
     child.on("error", error => {
-        console.error(`[watch-demo] build non avviata: ${error.message}`);
+        console.error(`[watch-site] build non avviata: ${error.message}`);
     });
 
     child.on("exit", code => {
         running = false;
-        if (code !== 0) console.error(`[watch-demo] build fallita (codice ${code}), resto in ascolto.`);
+        if (code !== 0) console.error(`[watch-site] build fallita (codice ${code}), resto in ascolto.`);
 
         syncWatchers();
 
@@ -181,20 +196,20 @@ function runBuild(reason) {
 syncWatchers();
 
 if (!watchers.size) {
-    console.error("[watch-demo] nessuna directory da osservare: esegui dalla radice del progetto.");
+    console.error("[watch-site] nessuna directory da osservare: esegui dalla radice del progetto.");
     process.exit(1);
 }
 
-console.log("[watch-demo] osservo:");
+console.log("[watch-site] osservo:");
 TARGETS.forEach(target => console.log(`  ${path.relative(PROJECT_ROOT, target.root)}${target.recursive ? "/**" : ""}`));
-console.log("[watch-demo] Ctrl+C per uscire.");
+console.log("[watch-site] Ctrl+C per uscire.");
 
 runBuild("");
 
 ["SIGINT", "SIGTERM"].forEach(signal => {
     process.on(signal, () => {
         watchers.forEach(watcher => watcher.close());
-        console.log("\n[watch-demo] fermato.");
+        console.log("\n[watch-site] fermato.");
         process.exit(0);
     });
 });

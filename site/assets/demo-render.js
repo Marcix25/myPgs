@@ -1,10 +1,11 @@
 //# DEMO RENDER (shared)
 //+ Pure data/string functions that turn one reference/html/*.html file into the HTML the demo
 //+ shows — no DOM, no fetch, no browser globals, so this file runs unchanged in Node
-//+ (scripts/build-demo-static.js, at build time) and, if ever loaded as a plain <script>, in the
-//+ browser too. It is the only "how a reference renders" implementation: build-demo-static.js uses
-//+ it to pre-bake demo/build/demo.content.html and the final demo/build/demo.html, and nothing
-//+ renders a reference at runtime any more. Keep it in sync with
+//+ (scripts/build-site-static.js, at build time) and, if ever loaded as a plain <script>, in the
+//+ browser too. It is the only "how a reference renders" implementation: build-site-static.js uses
+//+ it to pre-bake site/build/demo.content.html and site/page/demo.html (parked there, not yet
+//+ promoted to a top-level page), and nothing renders a reference at runtime any more. Keep it in
+//+ sync with
 //+ scripts/generate-component-docs.js whenever the doc-comment format or the demo markup
 //+ conventions (demo="component"/"wrapper", demo-h2/demo-h3, codeNone, previewNone) change.
 

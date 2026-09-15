@@ -1,0 +1,32 @@
+<!-- Component-demo content only — the pageShell that hosts the reference nav and panels, no
+     surrounding page around it. Opening this file directly shows nothing (it is not a document on
+     its own, and its nav/main start empty either way). scripts/build-site-static.js merges it with
+     site/build/demo.content.html's nav+panels and writes the result to site/page/demo.html — the
+     demo's own content, still no shell around it, parked there rather than promoted to a
+     top-level page for now. Edit this file for the demo's own layout — the nav, the aside, the
+     main; edit site.structure.html for the page around it (head, header, footer, and the asset
+     paths, since this file carries none of its own). -->
+<div pgs="pageShell" pgs-option="pageShellFullPage pageShellAsideScroll">
+    <aside pgs="pageShell-aside containerNone" id="reference-demo-aside">
+
+        <!-- Desktop -->
+        <div pgs="flexColumn hideContainerDownBigTablet paddingBottom" pgs-option="gapElements" class="reference-demo-nav"></div>
+
+        <!-- mobile -->
+        <div pgs="flexColumn hideContainerUpBigTablet modal" pgs-option="gapElements padding2">
+            <button type="button" pgs="button modal-button"> <i pgs="icon" pgs-option="icon-ellipsis"></i> Browse docs</button>
+
+            <dialog pgs="modal-dialog" pgs-option="modalLeft modalMedium">
+                <div pgs="modal-dialog-content">
+                    <div pgs="modal-dialog-content-header">
+                        <h3><i class="fa-solid fa-book-bookmark"></i> Browse docs!</h3>
+                    </div>
+                    <div pgs="modal-dialog-content-scroll">
+                        <div pgs="flexColumn" pgs-option="gapElements" class="reference-demo-nav"></div>
+                    </div>
+                </div>
+            </dialog>
+        </div>
+    </aside>
+    <main pgs="pageShell-content marginBottom" pgs-option="marginSections" id="reference-demo-main"></main>
+</div>

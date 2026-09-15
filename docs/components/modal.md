@@ -24,6 +24,7 @@ A native dialog driven by the library. The dialog is moved out of its wrapper on
 - `modalContainerID`: moves the dialog into the element with this id instead of the body, with the syntax modalContainerID[myContainer] — the id is written without the #.
 - `modalContainerPGS`: moves the dialog into the first element carrying this pgs token instead of the body, with the syntax modalContainerPGS[header].
 - `modalDisableBackdropClose`: keeps a click on the backdrop from closing the dialog, so it only closes through its own controls or its API.
+- `modalFull`: expands the dialog content to the full width of the viewport, instead of capping it at the page width.
 - `modalHistory`: writes ?modal=<id of the opening button> into the URL while the dialog is open, and opens or closes it again on back and forward. It needs a modal-button with an id.
 - `modalLeft`: aligns the dialog content to the left of the viewport.
 - `modalMedium`: shrinks the dialog content to half the page width instead of filling the viewport.
@@ -74,14 +75,14 @@ A native dialog driven by the library. The dialog is moved out of its wrapper on
 ## Output
 
 Complete HTML markup and usage example for Modal.
-## Examples
+## Modal
 
 ### Standard modal
 
 Basic modal dialog centered in the page; the close button is added automatically when missing.
 
 ```html
-<div pgs="modal" pgs-option="modalContainerID[modal-container]">
+<div pgs="modal">
     <button pgs="modal-button button" type="button">
         Open modal
     </button>
@@ -99,6 +100,8 @@ Basic modal dialog centered in the page; the close button is added automatically
     </dialog>
 </div>
 ```
+
+## Modal Positon
 
 ### Right-aligned modal
 
@@ -196,6 +199,32 @@ Modal dialog content aligned to the bottom of the viewport using pgs-option=&quo
 </div>
 ```
 
+### Centered modal
+
+Modal dialog content explicitly centered using pgs-option=&quot;modalCenter&quot;.
+
+```html
+<div pgs="modal" pgs-option="modalContainerID[modal-container]">
+    <button pgs="modal-button button" type="button">
+        Open modal centered 
+    </button>
+
+    <dialog pgs-option="modalCenter">
+        <div pgs="modal-dialog-content">
+            <div pgs="modal-dialog-content-header">
+                <h3>Centered modal</h3>
+            </div>
+
+            <div pgs="modal-dialog-content-scroll">
+                <p>Modal content with <code>pgs-option="modalCenter"</code>.</p>
+            </div>
+        </div>
+    </dialog>
+</div>
+```
+
+## Modal Size
+
 ### Mini modal
 
 Compact dialog width using pgs-option=&quot;modalMini&quot;, for short confirmations rather than full content.
@@ -244,29 +273,31 @@ Half-page dialog width using pgs-option=&quot;modalMedium&quot;, between the min
 </div>
 ```
 
-### Centered modal
+### Full-width modal
 
-Modal dialog content explicitly centered using pgs-option=&quot;modalCenter&quot;.
+Dialog content expanded to the full viewport width using pgs-option=&quot;modalFull&quot;, instead of capping it at the page width.
 
 ```html
 <div pgs="modal" pgs-option="modalContainerID[modal-container]">
     <button pgs="modal-button button" type="button">
-        Open centered modal
+        Open full-width modal
     </button>
 
-    <dialog pgs-option="modalCenter">
+    <dialog pgs-option="modalFull">
         <div pgs="modal-dialog-content">
             <div pgs="modal-dialog-content-header">
-                <h3>Centered modal</h3>
+                <h3>Full-width modal</h3>
             </div>
 
             <div pgs="modal-dialog-content-scroll">
-                <p>Modal content with <code>pgs-option="modalCenter"</code>.</p>
+                <p>Modal content with <code>pgs-option="modalFull"</code>.</p>
             </div>
         </div>
     </dialog>
 </div>
 ```
+
+## Other Modal
 
 ### Modal moved by a pgs token
 
