@@ -65,9 +65,6 @@ Responsive flex and grid layouts with configurable columns, gap, wrapping, and a
 ## Output
 
 Flex, grid, wrapping, and alignment examples using the current responsive layout API.
-
-## Example
-
 ## Examples
 
 ### Flex layout

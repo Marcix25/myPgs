@@ -62,9 +62,6 @@ Menu markup with horizontal, vertical and recursively nested navigation examples
 ## Output
 
 Horizontal and vertical menu examples, including recursively nested submenus.
-
-## Example
-
 ## Examples
 
 ### Horizontal menu

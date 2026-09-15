@@ -31,7 +31,7 @@
     //++ asideScroll
     --pageShell-asideScroll-top: var(--heightOfHeader);
     --pageShell-asideScroll-padding-top: var(--pageShell-padding-top);
-    --pageShell-asideScroll-maxHeight: calc(100svh - var(--pageShell-asideScroll-top));
+    --pageShell-asideScroll-maxHeight: calc(100dvh - var(--pageShell-asideScroll-top));
     //++ asideShadow
     --pageShell-asideShadow-sizeMaskImage: 40px;
     display: grid;

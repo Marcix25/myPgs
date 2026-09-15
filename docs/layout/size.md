@@ -57,9 +57,6 @@ Width and height utilities driven by a single custom property each. The width si
 ## Output
 
 Width and height examples using the shared scales and arbitrary inline values.
-
-## Example
-
 ## Width
 
 ### Width scales

@@ -11,6 +11,7 @@ Base HTML document that enables MyPGS: the root rules and the shared custom prop
 - `bodyImg`: enables shared rules for images contained in the page. It also sizes every <i> and every icon element from --icon-size, which is what gives an icon font the same box the library's own glyphs get; a page whose icon font wants a size of its own sets --fa-size, read here in preference to --icon-size.
 - `bodyText`: enables text typography and spacing.
 - `bodyHeading`: enables the typographic heading hierarchy.
+- `bodyHoverAuto`: activates pgs.hover, the module that marks a button, and a card or box written as a link, with the hover token at load and keeps them in sync afterwards. Without it nothing is marked on its own; a pgs="hover" written by hand is unaffected either way, and pgs.hover.init(root) still runs on request.
 
 ## PGS States
 
@@ -39,7 +40,7 @@ Complete HTML skeleton required to initialize the MyPGS library.
 	<script src="../dist/javascript/index.js"></script>
 </head>
 
-<body pgs="bodyBase bodyImg bodyText bodyHeading">
+<body pgs="bodyBase bodyImg bodyText bodyHeading bodyHoverAuto">
 
 </body>
 

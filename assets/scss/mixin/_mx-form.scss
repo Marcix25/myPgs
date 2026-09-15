@@ -262,13 +262,21 @@
 
         //=== Checkbox
         &[type=checkbox] {
+            //== icon() draws on ::after and blanks ::before, which here is not a leftover — it is
+            //== the box below — so it is reclaimed right after; the size and colour come after the
+            //== include too, since they override the mixin's own --iconSize/--icon-color and a
+            //== declaration only wins over an earlier one on the same selector
+            @include icon(var(--checkbox-icon), after);
+            --iconSize: calc(2rem + var(--checkbox-size));
+            --icon-color: var(--checkbox-check-color);
+
             &::after {
                 top: -1.7rem;
                 left: -0.8rem;
-                @include iconSvgBase64(var(--checkbox-icon), calc(2rem + var(--checkbox-size)), var(--checkbox-check-color));
             }
 
             &::before {
+                content: "";
                 border-radius: 0.3rem;
             }
         }

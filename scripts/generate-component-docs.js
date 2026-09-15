@@ -873,7 +873,12 @@ function renderMarkdown(template, documentation, markup, allSourceContent) {
     const exampleMarkup = stripDisabledElements(cleanedMarkup);
     const demoBlocks = extractDemoBlocks(exampleMarkup);
 
-    if (demoBlocks.length > 0 || exampleMarkup) sections.push("", "## Example", "");
+    //== a file whose examples open with <demo demo-h2="..."> already supplies its own top-level
+    //== heading, from the first block in the forEach below — pushing this one too duplicated it
+    //== (Example directly above Examples) on every file following that convention. A file with no
+    //== demo-h2 has nothing of its own, so it still gets this fallback, exactly as before
+    const suppliesOwnHeading = demoBlocks.length > 0 && demoBlocks[0].type === "heading";
+    if (!suppliesOwnHeading && (demoBlocks.length > 0 || exampleMarkup)) sections.push("", "## Example", "");
 
     if (demoBlocks.length > 0) {
         demoBlocks.forEach((block, index) => {

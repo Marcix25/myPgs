@@ -74,9 +74,6 @@ A horizontal, scroll-snapped track of slides with its own arrows and position do
 ## Output
 
 Complete HTML markup and usage example for Slides.
-
-## Example
-
 ## Examples
 
 ### Single scroll

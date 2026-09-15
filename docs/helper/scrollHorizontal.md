@@ -28,9 +28,6 @@ Two variants that turn vertical wheel motion into horizontal scrolling over a co
 ## Output
 
 Two horizontally-scrolling rows: one where any vertical wheel motion scrolls sideways whatever the input device, one where only a mouse wheel does and a trackpad scrolls it natively.
-
-## Example
-
 ## Examples
 
 ### Any input device

@@ -52,9 +52,6 @@ Responsive visibility utilities built on the shared breakpoint scale: watch 315p
 ## Output
 
 One example per query type, resizing with the viewport and with a local container.
-
-## Example
-
 ## Examples
 
 ### Viewport visibility

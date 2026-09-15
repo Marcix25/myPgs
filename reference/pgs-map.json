@@ -340,6 +340,11 @@
         "pgs-generated": [],
         "pgs-option": []
     },
+    "bodyHoverAuto": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-option": []
+    },
     "bodyImg": {
         "pgs": [],
         "pgs-generated": [],
@@ -540,11 +545,13 @@
     },
     "card": {
         "pgs": [
-            "card-content"
+            "card-content",
+            "card-img"
         ],
         "pgs-generated": [],
         "pgs-option": [
             "cardHorizontal",
+            "cardHorizontalFixed",
             "cardLegacy",
             "cardMini"
         ]

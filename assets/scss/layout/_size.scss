@@ -85,7 +85,7 @@
 
     //== what is left of the screen below the header, for a hero that fills the first view
     &[pgs-option~=heightUnderHeader] {
-        --size-height: calc(100svh - var(--heightOfHeader));
+        --size-height: calc(100dvh - var(--heightOfHeader));
     }
 
     &[pgs-option~=heightFull] {

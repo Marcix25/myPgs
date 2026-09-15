@@ -26,11 +26,10 @@
     --button-border-color-strong: var(--button-primaryColor);
     --button-border-color-current: var(--button-primaryColor);
     --button-border-color-checked: var(--button-primaryColor);
-
     --button-border-width: var(--border-width);
     --button-border-style: var(--border-style);
     --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
-    --button-borderRadius:  calc(var(--button-size) * 2);
+    --button-borderRadius: calc(var(--button-size) * 2);
     /// size
     --button-font-size: var(--font-size-text);
     --button-padding-block: var(--button-size);
@@ -128,6 +127,22 @@
     }
 }
 
+//== HVOER
+@mixin buttonHover() {
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            &:not(:where([pgs-option~=hoverNot])) {
+                &:where(:not(:disabled, [disabled])) {
+                    @include _buttonColor("-hover");
+                    --button-background-hover: var(--color-primary-soft);
+                    --button-border-color-hover: var(--color-primary-soft);
+                    --button-color-hover: var(--color-black);
+                }
+            }
+        }
+    }
+}
+
 //== BUTTON STRONG
 @mixin buttonStrong() {
     @include _buttonColor("-strong");
@@ -158,10 +173,12 @@
     --button-background-strong: transparent;
     --button-background-current: transparent;
     --button-background-checked: transparent;
+    --button-background-hover: transparent;
     --hover-background: transparent;
     --button-color-strong: #{$color};
     --button-color-current: #{$color};
     --button-color-checked: #{$color};
+    --button-color-hover: #{$color};
     --hover-color: #{$color};
 }
 

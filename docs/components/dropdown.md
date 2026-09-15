@@ -61,9 +61,6 @@ Popup component that connects a control to content positioned relative to its tr
 ## Output
 
 Series of HTML dropdowns demonstrating the supported placement directions.
-
-## Example
-
 ## Examples
 
 ### Bottom center

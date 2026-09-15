@@ -35,9 +35,6 @@ Recolours external SVG and Lottie files when the theme changes, swapping each de
 ## Output
 
 An external SVG marked for recolouring, with the colour pairs it reads from the document.
-
-## Example
-
 ## Examples
 
 ### Theme-aware SVG

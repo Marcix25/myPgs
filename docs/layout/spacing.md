@@ -56,9 +56,6 @@ Margin and padding utilities based on the shared MyPGS spacing scales. The gap u
 ## Output
 
 Margin and padding usage examples using all available directions and spacing scales.
-
-## Example
-
 ## Examples
 
 ### Margin

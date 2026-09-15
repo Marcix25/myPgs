@@ -31,9 +31,6 @@ Additional form controls for selectable cards, switches, and compact chip groups
 ## Output
 
 HTML examples of the checkboxBackground, toggle, chip, and chips form controls using native checkbox and radio inputs.
-
-## Example
-
 ## Examples
 
 ### Checkbox with background

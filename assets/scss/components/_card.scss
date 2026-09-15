@@ -1,17 +1,57 @@
 @use "../mixin/mixin" as *;
 
+//+ the row state cardHorizontal and cardHorizontalFixed both draw, private because neither
+//+ variant makes sense without the padding/min-width rules above them on [pgs~=card] itself
+@mixin _cardHorizontal() {
+    flex-flow: row wrap;
+    
+    > :is(object, img),
+    [pgs~="card-img"],
+    [pgs~="card-content"] {
+        border-radius: var(--card-horizontal-borderRadius-item);
+        //== basis 0 alongside flex-grow is what turns the two grow values below into an exact
+        //== ratio (2:3, the 40/60 split) instead of a share of whatever space is left over after
+        flex-basis: 0;
+    }
+
+    [pgs~="card-content"] {
+        flex-grow: var(--card-horizontal-content-grow);
+    }
+
+    > :is(object, img),
+    [pgs~="card-img"] {
+        flex-grow: var(--card-horizontal-img-grow);
+        min-height: var(--card-horizontal-img-minHeight);
+    }
+}
+
+//+ the fallback for a page with no bodyHoverAuto: pgs.hover never marks a link card with the hover
+//+ token there, so nothing under [pgs~=hover] ever applies. Private because it only makes sense
+//+ composed on the &:where(a) branch below, the one card variant a hover treatment applies to
+@mixin _cardHover() {
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            &:not(:where([pgs-option~=hoverNot])) {
+                --card-background: var(--color-primary-soft);
+            }
+        }
+    }
+}
+
+//# CARD, BOX
 //= CARD
 // Not a mixin: its content structure requires the [pgs~="card-content"] child to be marked with
 // pgs, so it only makes sense written on the [pgs~=card] element itself.
 [pgs~=card] {
     --card-padding: var(--padding);
     --card-borderRadius: calc(var(--border-radius-input) + var(--card-padding));
+    --card-borderRadius-item: var(--card-borderRadius) var(--card-borderRadius) 0 0;
     --card-background: var(--color-box-transparent);
     --card-img-padding: 0;
-    --card-horizontal-breakpoint: #{$mobile};
     --card-horizontal-img-grow: 2;
-    --card-horizontal-content-grow: 3;
     --card-horizontal-img-minHeight: 300px;
+    --card-horizontal-content-grow: 3;
+    --card-horizontal-borderRadius-item: var(--card-borderRadius) 0 0 var(--card-borderRadius);
     display: flex;
     flex-direction: column;
     background: var(--card-background);
@@ -19,19 +59,21 @@
 
     &:where(a) {
         display: block;
+        border: var(--border-complete);
         --card-background: var(--color-white);
-        //== hover, focus ring included, comes from the "hover" token that pgs.hover adds to a
-        //== clickable card at load time: it is written once under [pgs~=hover], not repeated here
-        outline: var(--border-complete);
+
+        &:not(:where([pgs~=bodyHoverAuto] [pgs~=card])) {
+            @include _cardHover();
+        }
     }
 
     //- not card Legacy
     &:where(:not([pgs-option~=cardLegacy])) {
         padding: 0;
-        overflow: hidden;
         flex-basis: 100%;
 
-        > :is(object, img) {
+        > :is(object, img),
+        [pgs~="card-img"] {
             display: block;
             padding: var(--card-img-padding);
             width: 100%;
@@ -40,6 +82,7 @@
             height: auto;
             margin: 0;
             object-fit: cover;
+            border-radius: var(--card-borderRadius-item);
         }
 
         [pgs~="card-content"] {
@@ -71,35 +114,29 @@
             width: calc((var(--card-padding) * 2) + 100%);
             max-width: none;
             height: auto;
-            margin:
-                var(--card-img-margin-top) var(--card-img-margin-right) var(--card-img-margin-bottom) var(--card-img-margin-left);
-            border-radius: var(--card-borderRadius);
-            border-bottom-right-radius: 0;
-            border-bottom-left-radius: 0;
-        }
-
-        &:where([pgs-option~="cardMini"]) {
-            --card-padding: var(--padding-half);
+            margin: var(--card-img-margin-top) var(--card-img-margin-right) var(--card-img-margin-bottom) var(--card-img-margin-left);
+            border-radius: var(--card-borderRadius-item);
         }
     }
 
     //- card Horizontal
+    //== below the breakpoint the card keeps the default column layout above unchanged; the
+    //== container query only ever adds the row state, so there is nothing to undo going narrow
     &[pgs-option~=cardHorizontal] {
-        flex-flow: row wrap;
+        container-type: inline-size;
 
-        > :is(object, img),
-        [pgs~="card-content"] {
-            flex-basis: calc((var(--card-horizontal-breakpoint) - 100%) * 999);
+        //+( mobile
+        @container (min-width: #{$mobile}) {
+            @include _cardHorizontal();
         }
+    }
 
-        [pgs~="card-content"] {
-            flex-grow: var(--card-horizontal-content-grow);
-        }
-
-        > :is(object, img) {
-            flex-grow: var(--card-horizontal-img-grow);
-            min-height: var(--card-horizontal-img-minHeight);
-        }
+    //- card Horizontal, fixed
+    //== the same row layout with no query at all: for a card whose own width is not a reliable
+    //== signal — already known to be wide enough, or deliberately narrow and still meant to read
+    //== side-by-side — cardHorizontal would stack in that case, this one never does
+    &[pgs-option~=cardHorizontalFixed] {
+        @include _cardHorizontal();
     }
 
     //- card Mini
@@ -108,6 +145,7 @@
     }
 }
 
+//= BOX
 [pgs~=box] {
     @include box();
 }

@@ -69,7 +69,7 @@ To import only the mixins:
 
 ```html
 <html lang="en" pgs="htmlBase">
-  <body pgs="bodyBase bodyImg bodyText bodyHeading">
+  <body pgs="bodyBase bodyImg bodyText bodyHeading bodyHoverAuto">
     <main pgs="main"></main>
   </body>
 </html>

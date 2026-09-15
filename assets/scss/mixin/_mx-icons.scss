@@ -1,4 +1,4 @@
-//+ ICONS
+// ICONS
 // Icons the stylesheets draw themselves, as inline SVG rather than a font, painted through
 // iconSvgBase64() so each shape follows currentColor instead of carrying its own.
 //
@@ -100,29 +100,37 @@ $icons-duo: (
 );
 
 //= ICON SVG
-//+ inline-block, not block or list-item: the glyph has to sit on the text line like a font icon
-//+ does (see icon.html's "inside a paragraph" example) while still taking a width and a height for
-//+ the mask to paint into. Inside a flex or grid parent the value is blockified anyway, so every
-//+ component that lays its icon out that way is unaffected.
-@mixin iconSvgBase64($url, $size: 2.0rem, $color: var(--color-primary-strong)) {
-    content: "";
-    display: inline-block;
-    width: $size;
-    height: $size;
+// inline-block, not block or list-item: the glyph has to sit on the text line like a font icon
+// does (see icon.html's "inside a paragraph" example) while still taking a width and a height for
+// the mask to paint into. Inside a flex or grid parent the value is blockified anyway, so every
+// component that lays its icon out that way is unaffected.
+//== $box is the one thing that told iconSvgBase64 and icon apart from a second, near-identical
+//== copy of each (iconSvgBase64NoParams, iconNoParams): true draws the glyph as its own box —
+//== content, display, width, height — false paints only the mask, for a caller whose own rule
+//== already sets those and only wants the colour and the shape
+@mixin iconSvgBase64($url, $size: 2.0rem, $color: var(--color-primary-strong), $box: true) {
+    @if $box {
+        content: "";
+        display: inline-block;
+        width: $size;
+        height: $size;
+    }
+
     background-color: $color;
     -webkit-mask: $url center/contain no-repeat;
     mask: $url center/contain no-repeat;
 }
 
-//+ draws a glyph as a mask on one of the element's pseudo-elements. ::before by default, which is
-//+ where an icon font paints too, so an element carrying both draws once and this wins. Pass after
-//+ for a component that wants the glyph at the end of its row, like the accordion arrow: the other
-//+ pseudo-element is blanked either way, so a leftover box never shows up on the opposite side.
-@mixin icon($icon, $on: before) {
+// draws a glyph as a mask on one of the element's pseudo-elements. ::before by default, which is
+// where an icon font paints too, so an element carrying both draws once and this wins. Pass after
+// for a component that wants the glyph at the end of its row, like the accordion arrow: the other
+// pseudo-element is blanked either way, so a leftover box never shows up on the opposite side.
+@mixin icon($icon, $on: before, $box: true) {
     //== @if rather than the if() function, which Dart Sass deprecated: it warns on every build of
     //== every project that compiles the library from source
     $other: after;
-    @if $on == after {
+
+    @if $on ==after {
         $other: before;
     }
 
@@ -132,7 +140,7 @@ $icons-duo: (
     --icon: #{$icon};
 
     &::#{$on} {
-        @include iconSvgBase64(var(--icon), var(--iconSize), var(--icon-color, currentColor));
+        @include iconSvgBase64(var(--icon), var(--iconSize), var(--icon-color, currentColor), $box);
         vertical-align: -0.125em;
     }
 

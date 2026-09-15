@@ -29,9 +29,6 @@ Heading sizes available as utilities, to give any element the look of a title wi
 ## Output
 
 The five heading sizes applied to plain paragraphs, so the tag keeps its meaning while the size changes.
-
-## Example
-
 ## Examples
 
 ### Heading sizes

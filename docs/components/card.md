@@ -6,14 +6,15 @@ Reusable surfaces for presenting structured card content or grouping simpler con
 
 ## PGS
 
-- `card`: identifies the main card container. Written on an `<a>` it becomes a clickable surface, and `pgs.hover` marks it with `hover` at load so it takes the shared hover and focus treatment.
+- `card`: identifies the main card container. Written on an `<a>` it becomes a clickable surface, and `pgs.hover` marks it with `hover` on a page that carries `bodyHoverAuto`, so it takes the shared hover and focus treatment; see Html and Body.
 - `card-img`: identifies the main card image.
 - `card-content`: groups the text and actions of a card.
-- `box`: identifies a lightweight content container or clickable surface. Written on an `<a>` it is marked with `hover` at load, exactly like a clickable card.
+- `box`: identifies a lightweight content container or clickable surface. Written on an `<a>` it is marked with `hover` the same way a clickable card is.
 
 ## PGS Options
 
 - `cardHorizontal`: switches intrinsically between a horizontal 40/60 layout and a stacked layout according to the card's available width.
+- `cardHorizontalFixed`: the same 40/60 layout as cardHorizontal, with no container query behind it — the card reads side-by-side whatever its own width is, which is what a card already known to be wide enough, or one deliberately narrow but still meant to stay horizontal, wants instead of the responsive switch.
 - `cardMini`: reduces the card content padding.
 - `cardLegacy`: the card the library drew before the padding moved onto card-content: the card itself is padded and the image is pulled out to the edges with negative margins. It is kept for pages built around that geometry — a new card wants neither the option nor a card-content of its own to place the image.
 - `boxMini`: reduces the box padding.
@@ -27,14 +28,15 @@ Reusable surfaces for presenting structured card content or grouping simpler con
 
 ### Other
 
-- `hover`: the treatment a clickable card or box receives, added by pgs.hover rather than written by hand; see Hover for the opt-out.
+- `hover`: the treatment a clickable card or box receives, added by pgs.hover on a page that carries bodyHoverAuto, rather than written by hand; see Hover.
 - `hoverNot`: available on a clickable card or box that must stay inert; see Hover.
 
 ## CSS Variables
 
 - `--card-background`
 - `--card-borderRadius`
-- `--card-horizontal-breakpoint`
+- `--card-borderRadius-item`
+- `--card-horizontal-borderRadius-item`
 - `--card-horizontal-content-grow`
 - `--card-horizontal-img-grow`
 - `--card-horizontal-img-minHeight`
@@ -49,9 +51,6 @@ Reusable surfaces for presenting structured card content or grouping simpler con
 ## Output
 
 Standard, clickable, horizontal, and compact cards followed by standard, compact, and clickable boxes.
-
-## Example
-
 ## Examples
 
 ### Standard card
@@ -98,6 +97,21 @@ This card switches intrinsically between horizontal and stacked layouts.
     <div pgs="card-content">
         <h3>Adipiscing elit sed</h3>
         <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
+    </div>
+</article>
+```
+
+### Fixed horizontal card
+
+cardHorizontalFixed keeps the row layout with no container query behind it, so it stays side-by-side even narrower than cardHorizontal's own breakpoint would allow.
+
+```html
+<article pgs="card" pgs-option="cardHorizontalFixed">
+    <img pgs="card-img" src="../assets/placeholder.jpg" alt="Placeholder image">
+
+    <div pgs="card-content">
+        <h3>Sed do eiusmod</h3>
+        <p>Tempor incididunt ut labore et dolore magna aliqua.</p>
     </div>
 </article>
 ```

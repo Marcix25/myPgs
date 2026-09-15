@@ -43,9 +43,6 @@ Responsive page layout that combines main content with zero, one or two sidebars
 ## Output
 
 Seven page-shell HTML configurations with two, one, or no sidebars, with pageShellAsideScroll, its shadow variant, or neither.
-
-## Example
-
 ## Page Shell - Not scroll
 
 The shell without pageShellAsideScroll: every sidebar scrolls with the page, like any other column.

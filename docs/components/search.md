@@ -89,9 +89,6 @@ Search markup, configuration, behavior, and usage example. Two custom events bub
 ## Output
 
 Complete HTML markup and usage example for Search.
-
-## Example
-
 ## Examples
 
 ### Inline search

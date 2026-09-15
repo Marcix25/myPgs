@@ -74,9 +74,6 @@ A native dialog driven by the library. The dialog is moved out of its wrapper on
 ## Output
 
 Complete HTML markup and usage example for Modal.
-
-## Example
-
 ## Examples
 
 ### Standard modal

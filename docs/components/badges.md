@@ -38,9 +38,6 @@ Collection of compact indicators for displaying categories, priorities, and visu
 ## Output
 
 HTML examples of the available badge variants.
-
-## Example
-
 ## Examples
 
 ### Base

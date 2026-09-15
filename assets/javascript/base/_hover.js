@@ -44,18 +44,22 @@ function syncHover(element) {
 }
 
 //= INIT
+//== bodyHoverAuto gates every caller here, not only the automatic pass below: pgs.init(root) walks
+//== every registered module and calls its init(root) whether or not the caller meant to touch
+//== hover specifically, so the check has to live in the one function every path funnels through,
+//== not in the block that only covers this module's own unprompted call
 function initHover(root = document) {
     if (!(root instanceof Document || root instanceof Element)) {
         throw new TypeError("pgs.hover.init(): root must be a Document or an Element");
     }
+
+    if (!pgs(document.body).contains("bodyHoverAuto")) return root;
 
     if (root instanceof Element) syncHover(root);
     pgs(root).querySelectorAll(TOKENS).forEach(syncHover);
 
     return root;
 }
-
-PGS_onDocumentReady(initHover);
 
 //= WATCH
 //== the surfaces to mark do not all exist when the page is ready: the library injects its own
@@ -88,11 +92,21 @@ const hoverObserver = new MutationObserver(mutations => {
     });
 });
 
-hoverObserver.observe(document.documentElement, {
-    childList: true,
-    subtree: true,
-    attributes: true,
-    attributeFilter: ["pgs", "pgs-option"]
+//= AUTO-MARK
+//== bodyHoverAuto is the author's own switch, written on <body> next to bodyBase/bodyImg/bodyText/
+//== bodyHeading: without it nothing is marked on load, and — separately from the check inside
+//== initHover — the observer below never even starts, so a page that only ever writes
+//== pgs="hover" by hand never pays for it running for its whole lifetime
+PGS_onDocumentReady(() => {
+    if (!pgs(document.body).contains("bodyHoverAuto")) return;
+
+    initHover(document);
+    hoverObserver.observe(document.documentElement, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ["pgs", "pgs-option"]
+    });
 });
 
 //# EXPORT

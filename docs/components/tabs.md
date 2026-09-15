@@ -44,9 +44,6 @@ A tabbed interface with a wrapping list of controls and one visible panel at a t
 ## Output
 
 A wrapping tab list above a bordered panel, with the active tab joined visually to its content.
-
-## Example
-
 ## Examples
 
 ### Tabs

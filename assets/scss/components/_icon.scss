@@ -19,19 +19,28 @@
 //
 // The glyph lands on ::before, which is also where an icon font paints, so an element carrying
 // both this and a font class draws once and this wins: two attributes beat a font's single class.
-:root{
+:root {
     @each $name, $url in $icons-builtin {
         --icon-glyph-#{$name}: #{$url};
     }
 }
 
 [pgs~=icon] {
+
+    &:not([pgs-option~=iconDuo]) {
+        &::before{
+            content: "";
+            display: inline-block;
+            width: var(--iconSize);
+            height: var(--iconSize);
+            background-color: var(--icon-color, currentColor);
+        }
+    }
+    
     //== the key is the bare glyph name, so both prefixes are written out here: the drawing goes on
     //== --icon-glyph-*, away from the icon's own configuration, and the option keeps the icon-
     //== form that is written in the markup
-
     @each $name, $url in $icons-builtin {
-
         &[pgs-option~=icon-#{$name}] {
             @include icon(var(--icon-glyph-#{$name}))
         }
@@ -46,7 +55,6 @@
     // the same glyph) draws flat until iconDuo is added, at which point this rule's extra
     // attribute selector gives it more specificity than the single-mask rule above and wins.
     @each $name, $layers in $icons-duo {
-
         &[pgs-option~=icon-#{$name}][pgs-option~=iconDuo] {
             @include iconDuo(nth($layers, 1), nth($layers, 2));
         }

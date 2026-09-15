@@ -4,27 +4,30 @@
 [pgs~=button] {
     @include buttonBase();
 
+    &:where(:not([pgs~=bodyHoverAuto] [pgs~=button])) {
+        @include buttonHover();
+    }
+
     &[pgs-option~=buttonIcon] {
         @include buttonIcon();
     }
 
-    
     &[pgs-option~=buttonMini] {
         @include buttonMini();
     }
-    
+
     &[pgs-option~=buttonBig] {
         @include buttonBig();
     }
-    
+
     &[pgs-option~=buttonTransparent] {
         @include buttonTransparent();
     }
-    
+
     &[pgs-option~=buttonStrong] {
         @include buttonStrong();
     }
-    
+
     &[pgs-option~=buttonText] {
         @include buttonText();
     }
@@ -32,7 +35,7 @@
     &[pgs-option~=buttonPaddingEqual] {
         @include buttonPaddingEqual();
     }
-    
+
     &[pgs-option~=buttonHeader] {
         @include buttonHeader();
     }
@@ -46,12 +49,12 @@
         --button-background: var(--color-secondary);
         --button-color: var(--color-secondary-text);
     }
-    
+
     &[pgs-option~=buttonTertiary] {
         --button-background: var(--color-tertiary);
         --button-color: var(--color-tertiary-text);
     }
-    
+
     &[pgs-option~=buttonQuaternary] {
         --button-background: var(--color-quaternary);
         --button-color: var(--color-quaternary-text);

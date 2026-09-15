@@ -23,6 +23,11 @@
     navigation: auto;
 }
 
+//== HOVER
+//== read by the JavaScript only, declared here so editors suggest it: without it pgs.hover marks
+//== nothing on its own, and only a pgs="hover" written by hand gets the treatment. See base/hover
+[pgs~="bodyHoverAuto"] {}
+
 //== BASE
 :where([pgs~="bodyBase"]) {
     background-color: var(--color-background);

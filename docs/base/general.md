@@ -37,9 +37,6 @@ Standalone utilities for shadow, cursor, image fitting, list styling and forced 
 ## Output
 
 One example per utility, grouped by shadow, interaction, images, lists and colour scheme.
-
-## Example
-
 ## Examples
 
 ### Shadow

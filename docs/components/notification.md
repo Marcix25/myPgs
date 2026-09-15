@@ -124,9 +124,6 @@ pgs.notification.success({
 });
 ```
 
-
-## Example
-
 ## Examples
 
 ### Bell

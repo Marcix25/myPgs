@@ -46,9 +46,6 @@ Section variants that control width, padding, and specific content treatment whi
 ## Output
 
 HTML collection of the available section variants.
-
-## Example
-
 ## Examples
 
 ### Standard section

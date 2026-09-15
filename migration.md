@@ -23,6 +23,7 @@ meaning moved under them, so nothing errors and the page just looks wrong.
 | several `pgs="accordion"` next to each other | opening one closed every other accordion on the page | each one answers for itself: wrap them in `pgs="accordionContainer"` to get the old behaviour |
 | `pgs-option="buttonText"` and `pgs-option="buttonTransparent"` | `buttonTransparent` stripped every state, `buttonText` only the resting one | the two traded places: `buttonText` strips every state, `buttonTransparent` only the resting one |
 | `pgs="toggleDarkmode"` inside `pgs="footer"` | the footer wrote "Dark mode"/"Light mode" next to the glyph on its own | the label is opt-in, and available everywhere: add `pgs-option="toggleDarkmodeExtended"` |
+| `pgs.hover`'s marking (a button, and a card or box written as a link) | ran on every page as soon as the bundle loaded, and `pgs.hover.init(root)` always ran on request | needs `pgs="bodyHoverAuto"` on `<body>` to run at all, by any path — the automatic pass, a direct `pgs.hover.init(root)` call, or `pgs.init(root)`, which reaches every module's `init(root)` regardless of what the caller meant to touch |
 
 So `<span pgs="icon"><i class="fa-solid fa-star"></i></span>` no longer draws a circle. The surface
 is now an option on an icon element:
@@ -436,6 +437,19 @@ Four events were dispatched with a bare component prefix, while `pgs:notificatio
 The events themselves are unchanged: same element, same detail, and still not bubbling, so the
 listener stays where it is.
 
+### Card — cardHorizontal switches on a real container query
+
+`cardHorizontal` used to force the switch between stacked and side-by-side with a flex-basis
+`calc()` trick (`calc((var(--card-horizontal-breakpoint) - 100%) * 999)`), which needed no
+container-type at all but hid the breakpoint inside arithmetic. It is a `@container` query now,
+matching pageShell, header and slides elsewhere in the library — but a `@container` condition
+cannot take a `var()` reliably, so the breakpoint is fixed in Sass (`$mobile`, 430px, the same
+default the custom property held) instead of being read from one. `--card-horizontal-breakpoint`
+is gone; nothing else about the option — the 40/60 split, `--card-horizontal-img-grow`,
+`--card-horizontal-content-grow`, `--card-horizontal-img-minHeight` — changed. A project that
+overrode `--card-horizontal-breakpoint` to move the switch point needs the `@container` rule's
+`min-width` changed directly, in a project-side override of the selector.
+
 ### Slides — the last CSS classes become states
 
 | was | now |
@@ -468,6 +482,10 @@ border above the footer legal row — now has both its rule and the library's.
 
 ## 3. New, worth adopting
 
+- **`cardHorizontalFixed`.** The same 40/60 row layout `cardHorizontal` switches to, minus the
+  `@container` behind it: for a card whose own width is not a reliable signal — already known
+  to be wide enough, or deliberately narrow but still meant to read side-by-side — where
+  `cardHorizontal` would stack, this one never does.
 - **Icons with no font.** `pgs="icon"` plus a glyph option covers dozens of shapes and needs nothing
   loaded. Written bare it only marks an element as an icon, which is how a set that does not use
   `<i>` — Material Symbols, Lucide, Iconify — gets the same box and placement.
@@ -578,6 +596,12 @@ grep -rnE '\b(modal:open|modal:close|tabs:change|stepTabs:change)\b' .
 
 # 25. stylesheets hooked into the slides classes, now states
 grep -rnE '\.(view|notView|slide-dot)\b' .
+
+# 26. a body with no bodyHoverAuto, which silently lost the automatic hover marking
+grep -rnE '<body\b[^>]*\bpgs="' . | grep -vE 'bodyHoverAuto'
+
+# 27. cardHorizontal's breakpoint, no longer a custom property
+grep -rn 'card-horizontal-breakpoint' .
 ```
 
 Hit 5 needs reading rather than replacing: an `icon` that wraps another element wanted the surface
@@ -595,4 +619,11 @@ must never fill wants `buttonText`. Hit 22 closes the set: a switch that sat in 
 showed a written label needs `pgs-option="toggleDarkmodeExtended"` to keep it, while one that was
 icon-only — in a header, or anywhere outside the footer — needs nothing. Hits 23 and 24 are plain substitutions:
 `bglink-soft` → `bgLinkSoft`, `required-here` → `form-requiredHere`, and each of the four events
-gains its `pgs:` prefix.
+gains its `pgs:` prefix, and the slides classes each become the `pgs-state` or generated token named
+after them. Hit 26 needs reading, not replacing: a `<body>` that never wrote `pgs="bodyHoverAuto"` simply
+never got the automatic marking, so this only flags pages that carry some other `pgs` value on
+`<body>` already — a bare `<body>` with none at all was never in scope for the grep and needs
+`bodyHoverAuto` added regardless if it uses `pgs="button"`, a link `card` or `box` anywhere and relied on
+the hover treatment showing up on its own. Hit 27 needs reading: a project that never touched
+`--card-horizontal-breakpoint` needs nothing, one that did override it needs the same `min-width`
+written into its own `@container` rule instead.

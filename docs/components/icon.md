@@ -80,9 +80,6 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 ## Output
 
 One example per glyph, the sizing and colour behaviour, and the surface a glyph sits inside.
-
-## Example
-
 ## Examples
 
 ### The set

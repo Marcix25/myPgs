@@ -60,9 +60,6 @@ document.addEventListener("pgs:svg:changeColor", event => console.log(event.deta
 localStorage.getItem("screenIsDarkMode");
 ```
 
-
-## Example
-
 ## Examples
 
 ### Theme switch

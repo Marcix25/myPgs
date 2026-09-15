@@ -6,7 +6,7 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 
 ## PGS
 
-- `button`: identifies the standard button, which can also be used on anchor elements, and on a `<label>` wrapping its own checkbox or radio to make a two-state control. `pgs.hover` marks it with `hover` at load, so the hover and focus treatment is not written here.
+- `button`: identifies the standard button, which can also be used on anchor elements, and on a `<label>` wrapping its own checkbox or radio to make a two-state control. On a page that carries `bodyHoverAuto`, `pgs.hover` marks it with `hover` at load, so the hover and focus treatment is not written here; see Html and Body.
 
 ## PGS Options
 
@@ -40,7 +40,7 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 
 ### Other
 
-- `hover`: the treatment every button receives, added by pgs.hover rather than written by hand; see Hover.
+- `hover`: the treatment every button receives, added by pgs.hover on a page that carries bodyHoverAuto, rather than written by hand; see Hover.
 - `hoverNot`: opts a button out of that treatment, so it keeps its look and stops answering the pointer; see Hover.
 
 ## CSS Variables
@@ -48,11 +48,13 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `--button-background`
 - `--button-background-checked`
 - `--button-background-current`
+- `--button-background-hover`
 - `--button-background-strong`
 - `--button-border`
 - `--button-border-color`
 - `--button-border-color-checked`
 - `--button-border-color-current`
+- `--button-border-color-hover`
 - `--button-border-color-strong`
 - `--button-border-style`
 - `--button-border-width`
@@ -60,6 +62,7 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `--button-color`
 - `--button-color-checked`
 - `--button-color-current`
+- `--button-color-hover`
 - `--button-color-strong`
 - `--button-font-size`
 - `--button-height`
@@ -74,9 +77,6 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 ## Output
 
 HTML collection of the main button variants, including the two-state control.
-
-## Example
-
 ## Examples
 
 ### Link button

@@ -45,9 +45,6 @@ Complete footer with theme control, brand area, navigation, informational conten
 ## Output
 
 Complete footer HTML structure with brand, menu, and legal area.
-
-## Example
-
 ## Examples
 
 ### Footer

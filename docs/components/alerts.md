@@ -47,9 +47,6 @@ Inline feedback messages for contextual information, successful operations, warn
 ## Output
 
 Accessible HTML examples of the four inline alert states; JavaScript methods return an HTMLElement that can be appended where needed.
-
-## Example
-
 ## Examples
 
 ### Information

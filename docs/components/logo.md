@@ -27,9 +27,6 @@ Component for displaying a graphical or text logo, with image variants that supp
 ## Output
 
 HTML examples of the theme-aware graphical logo and the text logo.
-
-## Example
-
 ## Examples
 
 ### Graphical logo

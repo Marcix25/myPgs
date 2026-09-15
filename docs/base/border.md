@@ -62,9 +62,6 @@ Border, outline and radius utilities, split out from the general-purpose set sin
 ## Output
 
 One example per utility, grouped by border, outline and radius.
-
-## Example
-
 ## Examples
 
 ### Border

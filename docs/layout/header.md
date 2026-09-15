@@ -87,9 +87,6 @@ Responsive header that measures available space, switches between its full and c
 ## Output
 
 Complete header HTML with full navigation and a side compact panel.
-
-## Example
-
 ## Examples
 
 ### Header
