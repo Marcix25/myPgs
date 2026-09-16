@@ -4,7 +4,7 @@
 //+ is ever the previous version of itself while iterating. Those inputs are exactly five things:
 //+ - reference/html/**/*.html — the panels and the nav come from here;
 //+ - site/parts/demo.structure.html, site/parts/site.structure.html and
-//+   site/assets/demo-render.js — the two shells and the renderer the build calls;
+//+   scripts/demo-render.js — the two shells and the renderer the build calls;
 //+ - site/page/*.html, except demo.html — every other page's own hand-authored content
 //+   (site.html, test.html, and any future page dropped in there the same way). demo.html is
 //+   excluded on purpose: the build writes it itself from demo.structure.html, so watching it too
@@ -40,7 +40,7 @@ const TARGETS = [
         accept: name => name.endsWith(".html")
     },
     {
-        root: path.join(PROJECT_ROOT, "site", "assets"),
+        root: __dirname,
         recursive: false,
         accept: name => name === "demo-render.js"
     },

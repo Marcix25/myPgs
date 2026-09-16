@@ -120,20 +120,21 @@ Each file in `reference/html/` is both the canonical example and its own documen
 source feeds two renderers, which must stay in agreement:
 
 - `scripts/generate-component-docs.js` writes `docs/**/*.md` and validates the reference;
-- `site/assets/demo-render.js` renders the same file as a demo panel, at build time, in Node.
+- `scripts/demo-render.js` renders the same file as a demo panel, at build time, in Node.
 
 Two hand-authored shells feed the build, neither a page on its own: `site/parts/demo.structure.html`
 (the pageShell that hosts the reference nav and panels) and `site/parts/site.structure.html` (the
-page around every page — head, header, footer, shared by all of them). The library's CSS/JS live
-under `site/assets/`, the two shells under `site/parts/`; `npm run sitebuild`
+page around every page — head, header, footer, shared by all of them). The site's own CSS/JS/images
+live under `site/assets/css/`, `site/assets/js/`, `site/assets/img/` and `site/assets/font/`, the
+two shells under `site/parts/`; `npm run sitebuild`
 (`scripts/build-site-static.js`) combines
 them with the rendered reference files into generated output across three places:
 `site/build/demo.content.html` (just the pre-baked nav+panels markup, produced via
-`site/assets/demo-render.js`, a fragment nobody opens directly), `site/page/*.html` (one page's own
+`scripts/demo-render.js`, a fragment nobody opens directly), `site/page/*.html` (one page's own
 content each, no shell around it — `demo.html` generated from demo.structure.html merged with
 demo.content.html, alongside whatever else is hand-kept there, such as `site.html` and `test.html`),
 and `site/*.html` — one output per file in `page/`, `demo.html` included, named the same, with
-`site.structure.html` and `assets/demo.js` wrapped around it. Every page renders nothing at
+`site.structure.html` and `assets/js/demo.js` wrapped around it. Every page renders nothing at
 runtime, so it opens instantly whatever the reference count, and `demo.js` only wires navigation,
 copy buttons and the interactive examples — most of that specific to whichever page carries the
 reference panels, harmless on any other. Adding a brand-new page needs no script change: drop its
