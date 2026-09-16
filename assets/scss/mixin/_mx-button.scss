@@ -29,7 +29,7 @@
     --button-border-width: var(--border-width);
     --button-border-style: var(--border-style);
     --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
-    --button-borderRadius: calc(var(--button-size) * 2);
+    --button-borderRadius: calc(var(--button-size) * 2.5);
     /// size
     --button-font-size: var(--font-size-text);
     --button-padding-block: var(--button-size);
@@ -169,6 +169,7 @@
 @mixin buttonText() {
     $color: var(--button-primaryColor);
     --button-border-width: 0;
+    --button-borderRadius: 0px;
     --button-background: transparent;
     --button-background-strong: transparent;
     --button-background-current: transparent;

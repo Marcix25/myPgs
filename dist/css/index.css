@@ -4239,7 +4239,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --button-border-width: var(--border-width);
   --button-border-style: var(--border-style);
   --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
-  --button-borderRadius: calc(var(--button-size) * 2);
+  --button-borderRadius: calc(var(--button-size) * 2.5);
   --button-font-size: var(--font-size-text);
   --button-padding-block: var(--button-size);
   --button-padding-left: calc(var(--button-size) * 2);
@@ -4366,6 +4366,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs~=button][pgs-option~=buttonText] {
   --button-border-width: 0;
+  --button-borderRadius: 0px;
   --button-background: transparent;
   --button-background-strong: transparent;
   --button-background-current: transparent;

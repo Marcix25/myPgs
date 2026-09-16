@@ -126,8 +126,7 @@ $icons-duo: (
 // for a component that wants the glyph at the end of its row, like the accordion arrow: the other
 // pseudo-element is blanked either way, so a leftover box never shows up on the opposite side.
 @mixin icon($icon, $on: before, $box: true) {
-    //== @if rather than the if() function, which Dart Sass deprecated: it warns on every build of
-    //== every project that compiles the library from source
+    //== @if rather than the if() function, which Dart Sass deprecated: it warns on every build of every project that compiles the library from source
     $other: after;
 
     @if $on ==after {
@@ -135,8 +134,6 @@ $icons-duo: (
     }
 
     --iconSize: 1em;
-    //== interpolated: a custom property value is copied out as written, so without #{} this ships
-    //== the literal token "$icon" and every mask below resolves to nothing
     --icon: #{$icon};
 
     &::#{$on} {
