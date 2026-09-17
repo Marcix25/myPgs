@@ -1446,6 +1446,13 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   flex: 0 0 100%;
 }
 
+[pgs~=flexColumn] [pgs~=flex-flexValue],
+[pgs~=flexRow] [pgs~=flex-flexValue],
+[pgs~=flex] [pgs~=flex-flexValue],
+[pgs-option] [pgs~=flex-flexValue] {
+  flex: 1 1 var(--flex-flexValue, auto);
+}
+
 [pgs~=flexColumn] [pgs~=flex-flexOrderFirst],
 [pgs~=flexRow] [pgs~=flex-flexOrderFirst],
 [pgs~=flex] [pgs~=flex-flexOrderFirst],
@@ -2429,7 +2436,13 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=width],
 [pgs~=widthMax],
 [pgs~=widthMin] {
-  --width-size: var(--page-width);
+  --width-size: 100%;
+}
+
+[pgs~=width][pgs-option~=widthFull],
+[pgs~=widthMax][pgs-option~=widthFull],
+[pgs~=widthMin][pgs-option~=widthFull] {
+  --width-size: 100%;
 }
 
 [pgs~=width][pgs-option~=widthPage],
@@ -2454,12 +2467,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=widthMax][pgs-option~=widthText],
 [pgs~=widthMin][pgs-option~=widthText] {
   --width-size: 65ch;
-}
-
-[pgs~=width][pgs-option~=widthFull],
-[pgs~=widthMax][pgs-option~=widthFull],
-[pgs~=widthMin][pgs-option~=widthFull] {
-  --width-size: 100%;
 }
 
 [pgs~=width] {
@@ -2489,7 +2496,13 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 [pgs~=height],
 [pgs~=heightMax],
 [pgs~=heightMin] {
-  --height-size: 100svh;
+  --height-size: 100%;
+}
+
+[pgs~=height][pgs-option~=heightFull],
+[pgs~=heightMax][pgs-option~=heightFull],
+[pgs~=heightMin][pgs-option~=heightFull] {
+  --height-size: 100%;
 }
 
 [pgs~=height][pgs-option~=heightScreen],
@@ -2522,10 +2535,10 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --height-size: calc(100dvh - var(--heightOfHeader));
 }
 
-[pgs~=height][pgs-option~=heightFull],
-[pgs~=heightMax][pgs-option~=heightFull],
-[pgs~=heightMin][pgs-option~=heightFull] {
-  --height-size: 100%;
+[pgs~=height][pgs-option~=heightUnderMain],
+[pgs~=heightMax][pgs-option~=heightUnderMain],
+[pgs~=heightMin][pgs-option~=heightUnderMain] {
+  --height-size: calc(100dvh - var(--main-padding-top));
 }
 
 [pgs~=height][pgs-option~=heightAuto],

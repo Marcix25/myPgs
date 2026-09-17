@@ -1,22 +1,24 @@
 <!-- = MAIN -->
-<main pgs="main">
+<main pgs="main" id="homePage" style="--main-padding-top: var(--heightOfHeader);">
 
     <!-- = HERO -->
-    <section class="home-hero" pgs="sectionFull marginInline width darkmode" pgs-option="widthFillAvailable marginPage">
-        <div class="home-hero-inner" pgs="flexRow" pgs-option="gapElements wrap">
-            <div class="home-hero-text" pgs="flexColumn" pgs-option="gapTexts">
-                <p class="home-hero-eyebrow">Frontend theme &amp; component library</p>
-                <h1>Build interfaces with one attribute: <code pgs="h1 txtPrimaryText">pgs</code>.</h1>
-                <p class="home-hero-lead">MyPGS ties markup, CSS and JavaScript together through a single
-                    attribute contract. Dark mode, container queries and accessible defaults come built in —
-                    nothing else to configure.</p>
-                <div pgs="flexRow marginTop" pgs-option="gapTexts wrap">
+    <section class="home-hero" pgs="sectionFull marginInline width darkmode heightMin flexColumn" pgs-option="widthFillAvailable marginPage" style="--height-size: calc(100dvh - var(--main-padding-top) - var(--page-padding))">
+        <div class="home-hero-inner" pgs="flexRow flex-flex1" pgs-option="gapElements wrap">
+            <div class="home-hero-text" pgs="flexColumn flex-flexValue paddingTop" pgs-option="selfStretch justifyBetween" style="--flex-flexValue: 420px;">
+                <div pgs="flexColumn" pgs-option="gapTexts">
+                    <p class="home-hero-eyebrow">Frontend theme &amp; component library</p>
+                    <h1>Build interfaces with one attribute: <code pgs="h1 txtPrimaryText">pgs</code>.</h1>
+                    <p class="home-hero-lead">MyPGS ties markup, CSS and JavaScript together through a single
+                        attribute contract. Dark mode, container queries and accessible defaults come built in —
+                        nothing else to configure.</p>
+                </div>
+                <div pgs="flexRow" pgs-option="gapTexts wrap">
                     <a pgs="button" pgs-option="buttonBig buttonStrong" href="demo.html">Browse the reference</a>
                     <a pgs="button" pgs-option="buttonBig buttonTransparent" href="test.html">Try it live</a>
                 </div>
             </div>
 
-            <div class="home-hero-media">
+            <div class="home-hero-media" pgs="flex-flexValue" style="--flex-flexValue: 280px;">
                 <div class="home-hero-media-panel">
                     <img src="../assets/img/logo.svg" alt="MyPGS">
                 </div>
@@ -80,14 +82,14 @@
     <!-- = SHOWCASE -->
     <section pgs="section flexColumn" pgs-option="gapElements">
         <div class="home-showcase-inner" pgs="flexRow" pgs-option="gapElements wrap">
-            <div class="home-showcase-text" pgs="flexColumn" pgs-option="gapTexts">
+            <div class="home-showcase-text" pgs="flexColumn flex-flexValue" pgs-option="gapTexts" style="--flex-flexValue: 380px;">
                 <h2>What you see is what you write</h2>
                 <p>Every example in the reference is the real, working markup — copy it exactly as it is,
                     no build step and no hidden wrapper around it.</p>
                 <a pgs="button marginTop" href="demo.html">See the components</a>
             </div>
 
-            <div class="home-showcase-demo" pgs="flexColumn" pgs-option="gapTexts">
+            <div class="home-showcase-demo" pgs="flexColumn flex-flexValue" pgs-option="gapTexts" style="--flex-flexValue: 420px;">
                 <article class="home-showcase-card" pgs="card" pgs-option="cardHorizontal">
                     <img pgs="card-img imgCover" src="../assets/img/placeholder.jpg" alt="A MyPGS card component">
                     <div pgs="card-content">
@@ -116,7 +118,7 @@
     <!-- = ICONS -->
     <section pgs="section flexColumn" pgs-option="gapElements">
         <div class="home-icons-heading" pgs="flexColumn" pgs-option="gapTexts">
-            <h2>A icon set, no icon font</h2>
+            <h2>An icon set, no icon font</h2>
             <p>Every glyph below is inline SVG, drawn by the same component: <code>pgs="icon"
                     pgs-option="icon-name"</code>. Nothing to load, nothing to install.</p>
         </div>

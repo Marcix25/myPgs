@@ -636,7 +636,8 @@
             "flex-flexInitial",
             "flex-flexNone",
             "flex-flexOrderFirst",
-            "flex-flexOrderLast"
+            "flex-flexOrderLast",
+            "flex-flexValue"
         ],
         "pgs-generated": [],
         "pgs-option": [
@@ -892,7 +893,8 @@
             "heightScreenHalf",
             "heightScreenLarge",
             "heightScreenLive",
-            "heightUnderHeader"
+            "heightUnderHeader",
+            "heightUnderMain"
         ]
     },
     "heightMax": {
@@ -905,7 +907,8 @@
             "heightScreenHalf",
             "heightScreenLarge",
             "heightScreenLive",
-            "heightUnderHeader"
+            "heightUnderHeader",
+            "heightUnderMain"
         ]
     },
     "heightMin": {
@@ -918,7 +921,8 @@
             "heightScreenHalf",
             "heightScreenLarge",
             "heightScreenLive",
-            "heightUnderHeader"
+            "heightUnderHeader",
+            "heightUnderMain"
         ]
     },
     "hidden": {

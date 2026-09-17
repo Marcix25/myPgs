@@ -59,6 +59,7 @@ Responsive flex and grid layouts with configurable columns, gap, wrapping, and a
 - `flex-flexNone`: prevents a flex child from growing or shrinking.
 - `flex-flex1`: lets a flex child grow and shrink to fill available space.
 - `flex-flexFull`: makes a flex child occupy a full row.
+- `flex-flexValue`: sets a flex child's basis to --flex-flexValue, set inline for an arbitrary value.
 - `flex-flexOrderFirst`: places a flex child before its siblings.
 - `flex-flexOrderLast`: places a flex child after its siblings.
 
@@ -172,6 +173,7 @@ Sizing behavior of individual flex children: initial, none, grow, full width, an
     <span pgs="box flex-flexNone">None</span>
     <span pgs="box flex-flex1">Grow</span>
     <span pgs="box flex-flexFull">Full width</span>
+    <span pgs="box flex-flexValue" style="--flex-flexValue: 220px;">220px</span>
     <span pgs="box flex-flexOrderLast">Last</span>
     <span pgs="box flex-flexOrderFirst">First</span>
 </div>

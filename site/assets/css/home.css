@@ -19,7 +19,6 @@
 }
 
 .home-hero-text {
-    flex: 1 1 420px;
     max-width: 620px;
 }
 
@@ -43,7 +42,6 @@
 
 .home-hero-media {
     position: relative;
-    flex: 1 1 280px;
     max-width: 320px;
 }
 
@@ -100,12 +98,10 @@
 }
 
 .home-showcase-text {
-    flex: 1 1 380px;
     width: 100%;
 }
 
 .home-showcase-demo {
-    flex: 1 1 420px;
     max-width: 520px;
     width: 100%;
 }

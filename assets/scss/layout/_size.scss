@@ -2,14 +2,18 @@
 //== one variable holds the value and the tokens decide which property it lands on, so the same
 //== option set works for a size, a ceiling or a floor: --width-size and --height-size are meant to
 //== be set inline (style="--width-size: 600px") or by one of the presets below
-
 //= WIDTH
 //== min() is the point of the width side: every value is capped at the container, so a fixed width
 //== never overflows on a narrow screen and no media query is needed to take it back
 [pgs~=width],
 [pgs~=widthMax],
 [pgs~=widthMin] {
-    --width-size: var(--page-width);
+    --width-size: 100%;
+
+    //== This is the safe default
+    &[pgs-option~=widthFull] {
+        --width-size: 100%;
+    }
 
     //== SCALES: the width scales come off the page, so an element lines up with the page content
     &[pgs-option~=widthPage] {
@@ -29,9 +33,6 @@
         --width-size: 65ch;
     }
 
-    &[pgs-option~=widthFull] {
-        --width-size: 100%;
-    }
 }
 
 //== the element takes --width-size, or the container when that is narrower
@@ -64,7 +65,6 @@
     }
 }
 
-
 //= HEIGHT
 //== no min() here, on purpose: too wide breaks the page with a horizontal scrollbar, too tall just
 //== scrolls, which is what a page does anyway. And a percentage height only resolves against a
@@ -73,12 +73,17 @@
 [pgs~=height],
 [pgs~=heightMax],
 [pgs~=heightMin] {
-    --height-size: 100svh;
+    --height-size: 100%;
+
+    //== This is the safe default
+    &[pgs-option~=heightFull] {
+        --height-size: 100%;
+    }
 
     //== SCALES: the height scales come off the viewport, the only measure a block can be tall
     //== against without a parent that already has a height
     //== svh is the viewport with the browser toolbars expanded, so the element never grows past the
-    //== screen as they retract - this is the safe default
+    //== screen as they retract
     &[pgs-option~=heightScreen] {
         --height-size: 100svh;
     }
@@ -103,8 +108,11 @@
         --height-size: calc(100dvh - var(--heightOfHeader));
     }
 
-    &[pgs-option~=heightFull] {
-        --height-size: 100%;
+    //== the same idea for an element that is the first child of main instead: main already carries
+    //== --main-padding-top (the header height plus the extra breathing room --page-top adds), so
+    //== subtracting only --heightOfHeader would leave that padding still counted twice
+    &[pgs-option~=heightUnderMain] {
+        --height-size: calc(100dvh - var(--main-padding-top));
     }
 
     //== drops the constraint on one element without dropping the utility: auto is valid on height
