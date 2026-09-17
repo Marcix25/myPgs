@@ -26,23 +26,18 @@
 }
 
 [pgs~=icon] {
+    @include iconBase();
 
-    &:not([pgs-option~=iconDuo]) {
-        &::before{
-            content: "";
-            display: inline-block;
-            width: var(--iconSize);
-            height: var(--iconSize);
-            background-color: var(--icon-color, currentColor);
-        }
-    }
-    
     //== the key is the bare glyph name, so both prefixes are written out here: the drawing goes on
     //== --icon-glyph-*, away from the icon's own configuration, and the option keeps the icon-
-    //== form that is written in the markup
+    //== form that is written in the markup. The mask has to land on ::before, where iconBase()
+    //== drew the box — masking the wrapper element itself paints nothing, since that element has
+    //== no background of its own.
     @each $name, $url in $icons-builtin {
         &[pgs-option~=icon-#{$name}] {
-            @include icon(var(--icon-glyph-#{$name}))
+            &::before {
+                @include svgBase64(var(--icon-glyph-#{$name}));
+            }
         }
     }
 
@@ -61,10 +56,17 @@
     }
 
     //+ ICON BOX
-    // The circular surface a glyph can sit inside. Separate from the glyph on purpose: this one is
-    // the container and says nothing about what it holds, so it takes a built-in glyph and an icon
-    // from any set alike.
     &[pgs-option~=iconBox] {
         @include iconBox();
+    }
+
+    //+ ICON MEDIUM
+    &[pgs-option~=iconMedium] {
+        --icon-size: 1.25em;
+    }
+    
+    //+ ICON LARGE
+    &[pgs-option~=iconLarge] {
+        --icon-size: 1.5em;
     }
 }

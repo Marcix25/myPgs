@@ -31,7 +31,7 @@
         --outline-style: solid;
         --outline-color: light-dark(#ebebeb, #353535);
         //Page
-        --page-padding: #{$SIZE};
+        --page-padding: min(3vw, #{$SIZE});
         --page-top: calc(var(--heightOfHeader) + 7lvh);
         --page-topScroll: calc(var(--heightOfHeaderScroll) + var(--heightOfHeader));
         --page-width: 1280px;

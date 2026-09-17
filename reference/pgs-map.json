@@ -1105,7 +1105,9 @@
             "icon-upload",
             "icon-user",
             "iconBox",
-            "iconDuo"
+            "iconDuo",
+            "iconLarge",
+            "iconMedium"
         ]
     },
     "iconColorPrimary": {
@@ -2038,6 +2040,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-option": [
+            "widthFillAvailable",
             "widthFull",
             "widthPage",
             "widthPageHalf",
@@ -2049,6 +2052,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-option": [
+            "widthFillAvailable",
             "widthFull",
             "widthPage",
             "widthPageHalf",
@@ -2060,6 +2064,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-option": [
+            "widthFillAvailable",
             "widthFull",
             "widthPage",
             "widthPageHalf",

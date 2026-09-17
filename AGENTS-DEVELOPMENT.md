@@ -128,22 +128,23 @@ page around every page — head, header, footer, shared by all of them). The sit
 live under `site/assets/css/`, `site/assets/js/`, `site/assets/img/` and `site/assets/font/`, the
 two shells under `site/parts/`; `npm run sitebuild`
 (`scripts/build-site-static.js`) combines
-them with the rendered reference files into generated output across three places:
-`site/build/demo.content.html` (just the pre-baked nav+panels markup, produced via
-`scripts/demo-render.js`, a fragment nobody opens directly), `site/page/*.html` (one page's own
-content each, no shell around it — `demo.html` generated from demo.structure.html merged with
-demo.content.html, alongside whatever else is hand-kept there, such as `site.html` and `test.html`),
-and `site/*.html` — one output per file in `page/`, `demo.html` included, named the same, with
-`site.structure.html` and `assets/js/demo.js` wrapped around it. Every page renders nothing at
-runtime, so it opens instantly whatever the reference count, and `demo.js` only wires navigation,
-copy buttons and the interactive examples — most of that specific to whichever page carries the
-reference panels, harmless on any other. Adding a brand-new page needs no script change: drop its
-own content in `site/page/<name>.html` and the next `npm run sitebuild` produces `site/<name>.html`
-from it, sharing the same shell as every other page. All of it is generated except that hand-kept
-content: never edit `demo.content.html`,
-`page/demo.html` or any `site/*.html` by hand — edit `reference/html/`, the two
-`site/parts/*.structure.html` files, or a page's own file under `site/page/`, and rerun the
-script.
+them with the rendered reference files into generated output across two places:
+`site/page/*.html` (one page's own content each, no shell around it — `demo.html` generated from
+demo.structure.html merged with demo.content.html, alongside whatever else is hand-kept there, such
+as `home.html` and `test.html`) and `site/build/*.html` — one output per file in `page/`, `demo.html`
+included, named the same, with `site.structure.html` and `assets/js/demo.js` wrapped around it.
+`site/build/` also holds `demo.content.html`, the pre-baked nav+panels markup produced by
+`scripts/demo-render.js`, a fragment nobody opens directly, next to the real pages it feeds into
+`page/demo.html`. Every page renders nothing at runtime, so it opens instantly whatever the
+reference count, and `demo.js` only wires navigation, copy buttons and the interactive examples —
+most of that specific to whichever page carries the reference panels, harmless on any other.
+`site/index.html` redirects to `build/home.html`, so nothing else needs to know the current home
+page's filename. Adding a brand-new page needs no script change: drop its own content in
+`site/page/<name>.html` and the next `npm run sitebuild` produces `site/build/<name>.html` from it,
+sharing the same shell as every other page. All of it is generated except that hand-kept content:
+never edit `demo.content.html`, `page/demo.html` or any `site/build/*.html` by hand — edit
+`reference/html/`, the two `site/parts/*.structure.html` files, or a page's own file under
+`site/page/`, and rerun the script.
 
 Every reference opens with a JSDoc-style block. Tags must appear in this order, and each entry is a
 single line in the form `- value: description` — the parser accepts no continuation lines:
@@ -235,8 +236,9 @@ git diff --check
 Keep that order: `generate-pgs-map.js` and `build-site-static.js` both read the compiled CSS, so
 running either before webpack describes the previous compile.
 
-While iterating, `npm run start:watch` and `npm run sitebuild:watch` keep `dist/` and every `site/*.html`
-up to date on their own; the map and the documentation are still generated on demand.
+While iterating, `npm run start:watch` and `npm run sitebuild:watch` keep `dist/` and every
+`site/build/*.html` up to date on their own; the map and the documentation are still generated on
+demand.
 
 Apply verification in proportion to the change. Also inspect generated output when selectors, markup contracts, public APIs, or distribution files change.
 

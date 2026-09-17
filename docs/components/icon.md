@@ -12,6 +12,8 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 
 - `iconBox`: turns the element into the circular surface a glyph sits inside. It is the container and says nothing about what it holds, so a built-in glyph and an icon from any other set sit in it alike.
 - `iconDuo`: draws a two-layer version of a glyph instead of the flat one, when that glyph has one (icon-hamburgerTwo does); write it alongside the glyph name, as pgs-option="icon-hamburgerTwo iconDuo". Each layer paints on its own pseudo-element, so a component can animate or colour them independently.
+- `iconMedium`: sets --icon-size to 2rem, a preset for a glyph that needs to stand out more than the size it inherits from the surrounding text.
+- `iconLarge`: sets --icon-size to 3rem, a preset for a glyph large enough to anchor its own section.
 - `icon-arrowLeft`: arrow pointing left, for stepping back through a sequence.
 - `icon-arrowRight`: arrow pointing right, for stepping forward.
 - `icon-chevronDown`: chevron pointing down, for anything that expands in place.
@@ -136,8 +138,8 @@ A glyph is drawn at the font size of its element and painted in the text colour,
 ```html
 <p><i pgs="icon" pgs-option="icon-circleInfo"></i> Inside a paragraph, matching the text.</p>
 
-<i pgs="icon" pgs-option="icon-circleCheck" style="--icon-size: 3.2rem;"></i>
-<i pgs="icon" pgs-option="icon-circleCheck" style="--icon-size: 2.4rem;"></i>
+<i pgs="icon" pgs-option="iconLarge icon-circleCheck"></i>
+<i pgs="icon" pgs-option="iconMedium icon-circleCheck"></i>
 <i pgs="icon" pgs-option="icon-circleCheck"></i>
 
 <i pgs="icon txtPrimary" pgs-option="icon-triangleExclamation"></i>

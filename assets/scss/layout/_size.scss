@@ -37,16 +37,31 @@
 //== the element takes --width-size, or the container when that is narrower
 [pgs~=width] {
     width: min(100%, var(--width-size));
+
+    //== -webkit-fill-available can't compose inside min(), so it needs the real property instead
+    //== of --width-size; unsupported outside Chromium/Safari, where the invalid value is dropped
+    //== and the rule above applies instead
+    &[pgs-option~=widthFillAvailable] {
+        width: -webkit-fill-available;
+    }
 }
 
 //== a ceiling: the element keeps its own width and only stops growing at --width-size
 [pgs~=widthMax] {
     max-width: min(100%, var(--width-size));
+
+    &[pgs-option~=widthFillAvailable] {
+        max-width: -webkit-fill-available;
+    }
 }
 
 //== a floor: the element never goes under --width-size, unless the container itself is narrower
 [pgs~=widthMin] {
     min-width: min(100%, var(--width-size));
+
+    &[pgs-option~=widthFillAvailable] {
+        min-width: -webkit-fill-available;
+    }
 }
 
 

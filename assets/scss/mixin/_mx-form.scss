@@ -264,10 +264,10 @@
         &[type=checkbox] {
             //== icon() draws on ::after and blanks ::before, which here is not a leftover — it is
             //== the box below — so it is reclaimed right after; the size and colour come after the
-            //== include too, since they override the mixin's own --iconSize/--icon-color and a
+            //== include too, since they override the mixin's own --icon-size/--icon-color and a
             //== declaration only wins over an earlier one on the same selector
-            @include icon(var(--checkbox-icon), after);
-            --iconSize: calc(2rem + var(--checkbox-size));
+            @include icon(var(--checkbox-icon), "::after");
+            --icon-size: calc(2rem + var(--checkbox-size));
             --icon-color: var(--checkbox-check-color);
 
             &::after {

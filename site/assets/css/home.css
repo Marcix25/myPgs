@@ -1,0 +1,141 @@
+/* //= HOME PAGE — layout only used by site.html (site/page/site.html). Everything visual that the
+   library already provides (box, card, button, icon, flexRow/flexColumn, gapElements/gapTexts) is
+   left to it; this file only adds what a one-off landing page needs on top: the hero layout, the
+   feature grid, and the two floating badges. Classes are plain CSS (not pgs), since none of this
+   is a reusable component — see demo.css's own .exampleSource for the same convention. */
+
+/* = HERO */
+.home-hero {
+    background:
+        linear-gradient(160deg, color-mix(in srgb, var(--color-primary-soft) 75%, transparent), color-mix(in srgb, var(--color-background) 90%, transparent) 70%),
+        url("../img/hero-leaves.jpg") center / cover no-repeat;
+    border-radius: var(--border-radius-external);
+    padding-block: var(--gap-elements);
+}
+
+.home-hero-inner {
+    align-items: center;
+    justify-content: space-between;
+}
+
+.home-hero-text {
+    flex: 1 1 420px;
+    max-width: 620px;
+}
+
+.home-hero-eyebrow {
+    display: inline-flex;
+    padding: 0.4rem 1rem;
+    border-radius: var(--border-radius);
+    background: var(--color-box-transparent);
+    color: var(--color-primary-strong);
+    font-weight: var(--font-weight-bold);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    width: fit-content;
+}
+
+.home-hero-lead {
+    font-size: 1.8rem;
+    color: var(--color-text);
+}
+
+.home-hero-media {
+    position: relative;
+    flex: 1 1 280px;
+    max-width: 320px;
+}
+
+.home-hero-media-panel {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: var(--border-radius-external);
+    display: grid;
+    place-items: center;
+    box-shadow: var(--box-shadow);
+}
+
+.home-hero-media-panel img {
+    width: 65%;
+}
+
+
+@media (max-width: 900px) {
+    .home-hero-media {
+        max-width: 220px;
+    }
+}
+
+/* = FEATURES */
+.home-features-heading {
+    text-align: center;
+    max-width: 640px;
+    margin-inline: auto;
+}
+
+
+.home-features-grid [pgs~="icon"] {
+    --icon-size: 1.8rem;
+    --iconBox-background: var(--color-primary-soft);
+    --icon-color: var(--color-primary-strong);
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 1100px) {
+    .home-features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 800px) {
+    .home-features-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* = SHOWCASE */
+.home-showcase-inner {
+    align-items: center;
+}
+
+.home-showcase-text {
+    flex: 1 1 380px;
+    width: 100%;
+}
+
+.home-showcase-demo {
+    flex: 1 1 420px;
+    max-width: 520px;
+    width: 100%;
+}
+
+/* = ICONS */
+.home-icons-heading {
+    text-align: center;
+    max-width: 640px;
+    margin-inline: auto;
+}
+
+.home-icons-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--gap-elements);
+}
+
+.home-icons-grid [pgs~="icon"] {
+    --iconBox-background: var(--color-box-transparent);
+    --icon-color: var(--color-primary-strong);
+}
+
+.home-icons-link {
+    display: block;
+    margin-inline: auto;
+    width: fit-content;
+}
+
+/* = CTA */
+.home-cta {
+    text-align: center;
+}

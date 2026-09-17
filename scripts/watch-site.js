@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 //# WATCH SITE
-//+ Re-runs scripts/build-site-static.js whenever one of its inputs changes, so none of site/*.html
-//+ is ever the previous version of itself while iterating. Those inputs are exactly five things:
+//+ Re-runs scripts/build-site-static.js whenever one of its inputs changes, so none of
+//+ site/build/*.html is ever the previous version of itself while iterating. Those inputs are
+//+ exactly five things:
 //+ - reference/html/**/*.html — the panels and the nav come from here;
 //+ - site/parts/demo.structure.html, site/parts/site.structure.html and
 //+   scripts/demo-render.js — the two shells and the renderer the build calls;
 //+ - site/page/*.html, except demo.html — every other page's own hand-authored content
-//+   (site.html, test.html, and any future page dropped in there the same way). demo.html is
+//+   (home.html, test.html, and any future page dropped in there the same way). demo.html is
 //+   excluded on purpose: the build writes it itself from demo.structure.html, so watching it too
 //+   would have every build retrigger the next one;
 //+ - dist/css/index.css — read to list each component's CSS variables, so a webpack rebuild has to

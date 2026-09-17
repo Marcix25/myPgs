@@ -20,6 +20,7 @@ Width and height utilities driven by a single custom property each. The width si
 - `widthPageThird`: uses a third of the page width.
 - `widthText`: uses a 65 character measure, the width a line of text stays readable at, independent of the page width.
 - `widthFull`: uses the whole container width.
+- `widthFillAvailable`: uses -webkit-fill-available, the space actually left after margins and padding on iOS Safari, where percentages and viewport units miscompute against the address bar. Unsupported outside Chromium/Safari, where the invalid value is dropped and the element falls back to whichever other option, or --width-size, it also carries.
 - `heightScreen`: uses the small viewport height, the screen with the browser toolbars expanded, and is the default for every height utility. The element never grows past the screen as the toolbars retract.
 - `heightScreenLive`: uses the dynamic viewport height, which follows the visible area as the toolbars come and go, at the cost of resizing during the scroll.
 - `heightScreenLarge`: uses the large viewport height, the screen with the toolbars retracted, for something meant to run under them.
@@ -65,6 +66,7 @@ The width scales come off the page, so a constrained element lines up with the p
 <p pgs="box width" pgs-option="widthPageThird">A third of the page width.</p>
 <p pgs="box width" pgs-option="widthText">A 65 character measure, the width a line of text stays readable at.</p>
 <p pgs="box width" pgs-option="widthFull">The whole container width.</p>
+<p pgs="box width" pgs-option="widthFillAvailable">-webkit-fill-available, Chromium/Safari only.</p>
 ```
 
 ### Arbitrary width

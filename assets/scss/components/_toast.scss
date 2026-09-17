@@ -60,10 +60,10 @@
             min-width: 0;
             z-index: 1;
 
-            [pgs~=_toast-element-content-icon] {
+            [pgs~=_toast-element-content-icon] > *{
                 --icon-size: 3.5rem;
+                --icon-color: var(--toast-shadow-color);
                 flex: 0 0 auto;
-                color: var(--toast-shadow-color);
             }
 
             p {

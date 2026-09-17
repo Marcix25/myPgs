@@ -23,7 +23,7 @@ function getLanIp() {
 }
 
 const PORT = 3025;
-const DEMO_PATH = "/site/site.html";
+const DEMO_PATH = "/site/index.html";
 const lanIp = getLanIp();
 
 console.log(`[serve:lan] http://127.0.0.1:${PORT}${DEMO_PATH}`);
