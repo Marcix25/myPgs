@@ -1,42 +1,42 @@
 //# LAYOUT, CONTENT & INTERACTION UTILITIES
 
 //= DISPLAY & FLEX ITEMS
-[pgs~=block] {
+:is([pgs~="block"], [pgs*="block\5B"]) {
     display: block;
 }
 
-[pgs~=minWidth0] {
+:is([pgs~="minWidth0"], [pgs*="minWidth0\5B"]) {
     min-width: 0;
 }
 
 
 //= POSITION
-[pgs~=positionRelative] {
+:is([pgs~="positionRelative"], [pgs*="positionRelative\5B"]) {
     position: relative;
 }
 
-[pgs~=positionAbsolute] {
+:is([pgs~="positionAbsolute"], [pgs*="positionAbsolute\5B"]) {
     position: absolute;
 }
 
-[pgs~=positionSticky] {
+:is([pgs~="positionSticky"], [pgs*="positionSticky\5B"]) {
     position: sticky;
 }
 
 //= OVERFLOW & TEXT
-[pgs~=overflowAuto] {
+:is([pgs~="overflowAuto"], [pgs*="overflowAuto\5B"]) {
     overflow: auto;
 }
 
-[pgs~=overflowXAuto] {
+:is([pgs~="overflowXAuto"], [pgs*="overflowXAuto\5B"]) {
     overflow-x: auto;
 }
 
-[pgs~=overflowHidden] {
+:is([pgs~="overflowHidden"], [pgs*="overflowHidden\5B"]) {
     overflow: hidden;
 }
 
-[pgs~=truncate] {
+:is([pgs~="truncate"], [pgs*="truncate\5B"]) {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -44,50 +44,50 @@
 }
 
 //= ASPECT RATIO
-[pgs~=aspectSquare] {
+:is([pgs~="aspectSquare"], [pgs*="aspectSquare\5B"]) {
     aspect-ratio: 1 / 1;
 }
 
-[pgs~=aspectVideo] {
+:is([pgs~="aspectVideo"], [pgs*="aspectVideo\5B"]) {
     aspect-ratio: 16 / 9;
 }
 
 //= ROTATION
-[pgs~=rotate0] {
+:is([pgs~="rotate0"], [pgs*="rotate0\5B"]) {
     transform: rotate(0deg);
 }
 
-[pgs~=rotate90] {
+:is([pgs~="rotate90"], [pgs*="rotate90\5B"]) {
     transform: rotate(90deg);
 }
 
-[pgs~=rotate180] {
+:is([pgs~="rotate180"], [pgs*="rotate180\5B"]) {
     transform: rotate(180deg);
 }
 
-[pgs~=rotate270] {
+:is([pgs~="rotate270"], [pgs*="rotate270\5B"]) {
     transform: rotate(270deg);
 }
 
 //= INTERACTION
-[pgs~=selectNone] {
+:is([pgs~="selectNone"], [pgs*="selectNone\5B"]) {
     -webkit-user-select:none;
     user-select: none;
 }
 
-[pgs~=selectText] {
+:is([pgs~="selectText"], [pgs*="selectText\5B"]) {
     -webkit-user-select:text;
     user-select: text;
 }
 
-[pgs~=pointerEventsNone] {
+:is([pgs~="pointerEventsNone"], [pgs*="pointerEventsNone\5B"]) {
     pointer-events: none;
 }
 
-[pgs~=pointerEventsAuto] {
+:is([pgs~="pointerEventsAuto"], [pgs*="pointerEventsAuto\5B"]) {
     pointer-events: auto;
 }
 
-[pgs~=cursorNotAllowed] {
+:is([pgs~="cursorNotAllowed"], [pgs*="cursorNotAllowed\5B"]) {
     cursor: not-allowed;
 }

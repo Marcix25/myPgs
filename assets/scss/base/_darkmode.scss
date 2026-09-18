@@ -1,7 +1,7 @@
 //# DARKMODE
 //== the switch itself is drawn by button and icon: what lives here is only the written label, and
 //== it is opt-in because an icon-only switch already says enough on its own
-[pgs~="toggleDarkmode"] {
+:is([pgs~="toggleDarkmode"], [pgs*="toggleDarkmode\5B"]) {
     --darkmode-label-toDark: "Dark mode";
     --darkmode-label-toLight: "Light mode";
 
@@ -9,7 +9,7 @@
     //== the label says where the click leads, so it reads the theme itself rather than the glyph
     //== on the button. Looking at the root state instead of the icon's classes means it keeps
     //== working whatever icon set drew that glyph, and with no icon set at all
-    &[pgs-option~="toggleDarkmodeExtended"] {
+    &[pgs*="'toggleDarkmodeExtended'"] {
         &::after {
             content: var(--darkmode-label-toDark);
         }

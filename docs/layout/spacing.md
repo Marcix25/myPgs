@@ -21,7 +21,7 @@ Margin and padding utilities based on the shared MyPGS spacing scales. The gap u
 - `paddingInline`: applies configurable inner spacing on the inline axis.
 - `paddingBlock`: applies configurable inner spacing on the block axis.
 
-## PGS Options
+## PGS Options (component brackets)
 
 - `marginTexts`: uses the text spacing scale and is the default for margin utilities.
 - `marginElements`: uses the element spacing scale for margin utilities.
@@ -42,11 +42,12 @@ Margin and padding utilities based on the shared MyPGS spacing scales. The gap u
 
 ### PGS
 
-- `flexColumn`: arranges the spacing groups vertically.
+- `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `box`: makes the centred example visible, so marginAuto is actually observable.
 
-### PGS Options
+### PGS Options (component brackets)
 
+- `flexColumn`: arranges the spacing groups vertically.
 - `gapTexts`: separates the examples inside a group.
 
 ### Other
@@ -64,14 +65,14 @@ Configurable margin utilities on every side and axis, each paired with a spacing
 
 ```html
 <strong>Margin</strong>
-<p pgs="marginLeft" pgs-option="marginTexts">Text spacing on the left.</p>
-<p pgs="marginRight" pgs-option="marginElements">Element spacing on the right.</p>
-<p pgs="marginBottom" pgs-option="marginSections">Section spacing below.</p>
-<p pgs="marginTop" pgs-option="marginTexts">Text spacing above.</p>
-<p pgs="marginInline" pgs-option="marginElements">Element spacing on the inline axis.</p>
-<p pgs="marginBlock" pgs-option="marginSections">Section spacing on the block axis.</p>
-<p pgs="margin" pgs-option="marginElements">Element spacing on every side.</p>
-<p pgs="margin" pgs-option="marginUnset">No margin at all.</p>
+<p pgs="marginLeft['marginTexts']">Text spacing on the left.</p>
+<p pgs="marginRight['marginElements']">Element spacing on the right.</p>
+<p pgs="marginBottom['marginSections']">Section spacing below.</p>
+<p pgs="marginTop['marginTexts']">Text spacing above.</p>
+<p pgs="marginInline['marginElements']">Element spacing on the inline axis.</p>
+<p pgs="marginBlock['marginSections']">Section spacing on the block axis.</p>
+<p pgs="margin['marginElements']">Element spacing on every side.</p>
+<p pgs="margin['marginUnset']">No margin at all.</p>
 ```
 
 ### Scales
@@ -80,11 +81,11 @@ Besides the three text, element and section scales, the padding tokens and margi
 
 ```html
 <strong>Scales</strong>
-<p pgs="marginLeft" pgs-option="margin2">Double padding on the left.</p>
-<p pgs="marginLeft" pgs-option="marginPage">Page padding on the left.</p>
-<p pgs="paddingInline" pgs-option="padding2">Double padding on the inline axis.</p>
-<p pgs="paddingInline" pgs-option="paddingPage">Page padding on the inline axis.</p>
-<p pgs="box marginInline" pgs-option="marginAuto">Centred by marginAuto.</p>
+<p pgs="marginLeft['margin2']">Double padding on the left.</p>
+<p pgs="marginLeft['marginPage']">Page padding on the left.</p>
+<p pgs="paddingInline['padding2']">Double padding on the inline axis.</p>
+<p pgs="paddingInline['paddingPage']">Page padding on the inline axis.</p>
+<p pgs="box marginInline['marginAuto']">Centred by marginAuto.</p>
 ```
 
 ### Negative
@@ -92,7 +93,7 @@ Besides the three text, element and section scales, the padding tokens and margi
 marginNegative turns the chosen scale around: the same utility that pushes an element in pulls it out, which is how a child reaches past the padding of the box it sits in.
 
 ```html
-<p pgs="box marginInline" pgs-option="marginElements marginNegative">Pulled out to the edges of the padded box.</p>
+<p pgs="box marginInline['marginElements' 'marginNegative']">Pulled out to the edges of the padded box.</p>
 ```
 
 ### Padding
@@ -101,12 +102,12 @@ Configurable padding utilities on every side and axis, each paired with a spacin
 
 ```html
 <strong>Padding</strong>
-<p pgs="paddingLeft" pgs-option="paddingTexts">Text spacing on the left.</p>
-<p pgs="paddingRight" pgs-option="paddingElements">Element spacing on the right.</p>
-<p pgs="paddingBottom" pgs-option="paddingSections">Section spacing below.</p>
-<p pgs="paddingTop" pgs-option="paddingTexts">Text spacing above.</p>
-<p pgs="paddingInline" pgs-option="paddingElements">Element spacing on the inline axis.</p>
-<p pgs="paddingBlock" pgs-option="paddingSections">Section spacing on the block axis.</p>
-<p pgs="box padding" pgs-option="paddingElements">Element spacing on every side.</p>
-<p pgs="box padding" pgs-option="paddingUnset">No padding at all.</p>
+<p pgs="paddingLeft['paddingTexts']">Text spacing on the left.</p>
+<p pgs="paddingRight['paddingElements']">Element spacing on the right.</p>
+<p pgs="paddingBottom['paddingSections']">Section spacing below.</p>
+<p pgs="paddingTop['paddingTexts']">Text spacing above.</p>
+<p pgs="paddingInline['paddingElements']">Element spacing on the inline axis.</p>
+<p pgs="paddingBlock['paddingSections']">Section spacing on the block axis.</p>
+<p pgs="box padding['paddingElements']">Element spacing on every side.</p>
+<p pgs="box padding['paddingUnset']">No padding at all.</p>
 ```

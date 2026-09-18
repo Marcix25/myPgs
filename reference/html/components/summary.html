@@ -8,7 +8,7 @@
  * - summary-content: the collapsed content, cut to --summary-content-max-height while it is closed.
  * - summary-button: the control that expands and collapses the content. Write it to place it yourself; leave it out and the module generates one.
  *
- * @pgs-option
+ * @pgs-data
  * - showMore: defines the collapsed button text through `showMore[...]`.
  * - showLess: defines the expanded button text through `showLess[...]`.
  *
@@ -17,7 +17,7 @@
  * - open: written while the content is expanded.
  *
  * @api
- * - pgs.summary.init(root, options): initializes matching elements; missing `pgs-option` texts use `options.message.showMore` and `options.message.showLess`, then the English library defaults.
+ * - pgs.summary.init(root, options): initializes matching elements; missing `pgs-data` texts use `options.message.showMore` and `options.message.showLess`, then the English library defaults.
  * - pgs.summary.api(element): returns the instance associated with the specified initialized element.
  * - instance.open(): expands the content.
  * - instance.close(): collapses the content.
@@ -29,7 +29,7 @@
  */
 -->
 
-<div pgs="summary" pgs-option="showMore[Show more] showLess[Show less]">
+<div pgs="summary" pgs-data="showMore[Show more] showLess[Show less]">
     <div pgs="summary-content">
         <p>
             This demonstration text is long enough to span multiple lines and show the summary component behavior. Content can include text, links, and other inline elements without requiring additional markup.

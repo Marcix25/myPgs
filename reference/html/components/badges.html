@@ -6,7 +6,7 @@
  * @pgs
  * - badge: identifies the base badge variant.
  *
- * @pgs-option
+ * @pgs-options
  * - badgePrimary: applies the primary color variant.
  * - badgeStrong: applies the high-contrast variant.
  * - badgeSuccess: represents a successful result.
@@ -17,6 +17,7 @@
  * - badgeNeutral: applies the neutral variant.
  *
  * @related
+ * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - flexRow: arranges badges horizontally and allows them to wrap.
  * - icon: draws the glyphs this example shows; see Icon for the whole set.
  * - icon-circleInfo: the information mark.
@@ -37,52 +38,52 @@
 
 <demo demo-h3="Primary" demo-description="Badge using the primary color variant."></demo>
 <section demo="component">
-    <span pgs="badge" pgs-option="badgePrimary">
+    <span pgs="badge['badgePrimary']">
         Primary
     </span>
 </section>
 
 <demo demo-h3="Strong" demo-description="High-contrast badge variant."></demo>
 <section demo="component">
-    <span pgs="badge" pgs-option="badgeStrong">
+    <span pgs="badge['badgeStrong']">
         Strong
     </span>
 </section>
 
 <demo demo-h3="Active" demo-description="Success badge combined with a dot indicator."></demo>
 <section demo="component">
-    <span pgs="badge" pgs-option="badgeSuccess badgeDot">
+    <span pgs="badge['badgeSuccess' 'badgeDot']">
         Active
     </span>
 </section>
 
 <demo demo-h3="Warning" demo-description="Badge representing a warning, paired with an icon."></demo>
 <section demo="component">
-    <span pgs="badge" pgs-option="badgeWarning">
-        <i pgs="icon" pgs-option="icon-triangleExclamation" aria-hidden="true"></i>
+    <span pgs="badge['badgeWarning']">
+        <i pgs="icon['icon-triangleExclamation']" aria-hidden="true"></i>
         Warning
     </span>
 </section>
 
 <demo demo-h3="Error" demo-description="Badge representing an error, paired with an icon."></demo>
 <section demo="component">
-    <span pgs="badge" pgs-option="badgeError">
-        <i pgs="icon" pgs-option="icon-close" aria-hidden="true"></i>
+    <span pgs="badge['badgeError']">
+        <i pgs="icon['icon-close']" aria-hidden="true"></i>
         Error
     </span>
 </section>
 
 <demo demo-h3="Info" demo-description="Badge representing informational content, paired with an icon."></demo>
 <section demo="component">
-    <span pgs="badge" pgs-option="badgeInfo">
-        <i pgs="icon" pgs-option="icon-circleInfo" aria-hidden="true"></i>
+    <span pgs="badge['badgeInfo']">
+        <i pgs="icon['icon-circleInfo']" aria-hidden="true"></i>
         Info
     </span>
 </section>
 
 <demo demo-h3="Neutral" demo-description="Neutral badge variant with muted colors."></demo>
 <section demo="component">
-    <span pgs="badge" pgs-option="badgeNeutral">
+    <span pgs="badge['badgeNeutral']">
         Neutral
     </span>
 </section>

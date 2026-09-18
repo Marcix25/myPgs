@@ -20,16 +20,19 @@
  * - _cookieConsent-actionReject: applies selected preferences without automatically accepting analytics.
  * - _cookieConsent-actionAccept: accepts all available cookies.
  *
- * @pgs-option
- * - cookieConsent: JSON object read from the hidden marker on page load — every field, with its accepted values and its default, is annotated in the reference below.
+ * @pgs-options
  * - buttonStrong: presents full acceptance as the primary action.
  * - modalTopLevel: centers the dialog with a backdrop instead of positioning it inline; see Modal.
  * - badgeSuccess: presents the essential-cookie badge with the success color; see Badges.
+ *
+ * @pgs-data
+ * - cookieConsent: JSON object read from the hidden marker on page load — every field, with its accepted values and its default, is annotated in the reference below.
  *
  * @api
  * - pgs.cookieConsent.init(root): reads the JSON marker inside the provided document or element, generates the pattern from it, and initializes it.
  *
  * @related
+ * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - flexColumn: vertically organizes the JS-generated dialog content and the preference panel.
  * - gapElements: applies element spacing to the JS-generated dialog content.
  * - flexRow: arranges panel rows and actions, and the icon beside the introduction.
@@ -50,7 +53,7 @@
  */
 -->
 
-<div pgs="hidden cookieConsent" pgs-option='cookieConsent[{
+<div pgs="hidden cookieConsent" pgs-data='cookieConsent[{
     "titleHeading": "Your privacy comes first",
     "description": "We use essential cookies to provide the service and, with your consent, analytics cookies from **Google Analytics** to measure traffic anonymously and improve our content.\nYou can change your choice at any time.",
     "privacyPolicyUrl": "/privacy-policy/",
@@ -59,7 +62,7 @@
 }]'></div>
 
 <button type="button" pgs="button cookieConsent-actionOpen" aria-haspopup="dialog">
-    <i pgs="icon" pgs-option="icon-cookie"></i> Cookie preferences
+    <i pgs="icon['icon-cookie']"></i> Cookie preferences
 </button>
 
 <script type="application/json">

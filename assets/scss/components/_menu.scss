@@ -1,7 +1,7 @@
 @use "../mixin/mixin" as *;
 
 //# MENU
-[pgs~=menu] {
+:is([pgs~="menu"], [pgs*="menu\5B"]) {
     // Menu colours inherit the button theme by default.  A consumer can set the
     // --menu-* variables on this element to theme menus independently.
     --menu-gap-column: .5rem;
@@ -50,14 +50,14 @@
 
     //== accordion submenu: the base rule hides every nested ul, so the open branch has to say so.
     //== The floating counterpart is handled by the dropdown component instead
-    [pgs~=_menu-accordion][pgs-state~=open] {
+    :is([pgs~="_menu-accordion"], [pgs*="_menu-accordion\5B"])[pgs-state~=open] {
         >ul {
             display: flex;
         }
     }
 
     //== buttonIcon
-    [pgs~=_menu-buttonIcon] {
+    :is([pgs~="_menu-buttonIcon"], [pgs*="_menu-buttonIcon\5B"]) {
         --button-size: 0.9rem;
         margin-right: -15px;
         margin-block: auto;
@@ -81,7 +81,7 @@
 
     //- OPTION
     //== horizontal
-    &[pgs-option~=menuHorizontal] {
+    &[pgs*="'menuHorizontal'"] {
         >ul {
             flex-direction: row;
 
@@ -102,8 +102,8 @@
 
     //== verical
     ul,
-    &[pgs-option~=menuVertical],
-    &:not([pgs-option~=menuHorizontal]) {
+    &[pgs*="'menuVertical'"],
+    &:not([pgs*="'menuHorizontal'"]) {
         :is(ul) {
             flex-direction: column;
 
@@ -145,19 +145,19 @@
     }
 
     //+ icon only current
-    &[pgs-option~=menuIconOnlyCurrent] {
+    &[pgs*="'menuIconOnlyCurrent'"] {
         a:not([aria-current]:not([aria-current="false"])) {
             --button-padding-left: var(--button-padding-right);
 
             >i,
-            >[pgs~=icon] {
+            >:is([pgs~="icon"], [pgs*="icon\5B"]) {
                 display: none;
             }
         }
     }
 
     //+ SHORT
-    &[pgs-option~=menuShort] {
+    &[pgs*="'menuShort'"] {
         >ul>li {
             &:first-child {
                 a {

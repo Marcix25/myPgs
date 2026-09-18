@@ -1,55 +1,88 @@
-//+ index of the "]" matching the "[" at openIndex, counting nested brackets and ignoring any "[" / "]" inside a JSON string (respects \" escapes)
-function findMatchingBracket(source, openIndex) {
-    let depth = 0;
-    let inString = false;
-    let escaped = false;
+//+ shared helpers for the "key", "key['flag' ...]" and "key[payload]" bracket syntax — used by
+//+ the pgs attribute itself and by every pgs-data accessor below, so a fix here fixes all of them
+const BracketToken = {
+    //+ the part before an opening "[", or the whole token when there is none
+    key(value) {
+        return String(value).trim().match(/^[^\s[\]]+/)?.[0] || "";
+    },
 
-    for (let i = openIndex; i < source.length; i++) {
-        const char = source[i];
+    //+ every quoted 'flag' inside a token's own ['flag' ...] bracket
+    flags(token) {
+        const open = token.indexOf("[");
+        return open === -1 ? [] : [...token.slice(open + 1).matchAll(/'([^']+)'/g)].map(match => match[1]);
+    },
 
-        if (escaped) {
-            escaped = false;
-            continue;
+    //+ rebuilds "key['flag' ...]", or the bare key when there is nothing to carry
+    component(key, flags) {
+        return flags.length ? `${key}[${[...new Set(flags)].map(flag => `'${flag}'`).join(" ")}]` : key;
+    },
+
+    //+ index of the "]" matching the "[" at openIndex, counting nested brackets and ignoring any "[" / "]" inside a JSON string (respects \" escapes)
+    findClose(source, openIndex) {
+        let depth = 0;
+        let inString = false;
+        let escaped = false;
+
+        for (let i = openIndex; i < source.length; i++) {
+            const char = source[i];
+
+            if (escaped) {
+                escaped = false;
+                continue;
+            }
+
+            if (inString) {
+                if (char === "\\") escaped = true;
+                else if (char === "\"") inString = false;
+                continue;
+            }
+
+            if (char === "\"") inString = true;
+            else if (char === "[") depth++;
+            else if (char === "]") {
+                depth--;
+                if (depth === 0) return i;
+            }
         }
 
-        if (inString) {
-            if (char === "\\") escaped = true;
-            else if (char === "\"") inString = false;
-            continue;
+        return -1;
+    },
+
+    //+ splits a pgs or pgs-data value into tokens, keeping "key[...]" whole even when the payload contains its own [...] (e.g. a JSON array)
+    split(source) {
+        const tokens = [];
+        let i = 0;
+
+        while (i < source.length) {
+            while (i < source.length && /\s/.test(source[i])) i++;
+            if (i >= source.length) break;
+
+            const start = i;
+            while (i < source.length && !/\s/.test(source[i]) && source[i] !== "[") i++;
+
+            if (i < source.length && source[i] === "[") {
+                const close = this.findClose(source, i);
+                i = close === -1 ? source.length : close + 1;
+            }
+
+            if (i > start) tokens.push(source.slice(start, i));
         }
 
-        if (char === "\"") inString = true;
-        else if (char === "[") depth++;
-        else if (char === "]") {
-            depth--;
-            if (depth === 0) return i;
-        }
-    }
+        return tokens;
+    },
+};
 
-    return -1;
-}
-
-//+ splits a pgs-option value into tokens, keeping "key[...]" whole even when the payload contains its own [...] (e.g. a JSON array)
-function tokenizeOptionValue(source) {
-    const tokens = [];
-    let i = 0;
-
-    while (i < source.length) {
-        while (i < source.length && /\s/.test(source[i])) i++;
-        if (i >= source.length) break;
-
-        const start = i;
-        while (i < source.length && !/\s/.test(source[i]) && source[i] !== "[") i++;
-
-        if (i < source.length && source[i] === "[") {
-            const close = findMatchingBracket(source, i);
-            i = close === -1 ? source.length : close + 1;
-        }
-
-        if (i > start) tokens.push(source.slice(start, i));
-    }
-
-    return tokens;
+//+ read/rebuild helper for one element's attribute, in bracket-token form: shared by the pgs
+//+ attribute and by every pgs-data accessor, since each of them only ever reads/writes its own
+//+ element this way — traversal code that needs an arbitrary element reads it directly instead
+function createBracketAttribute(element, attribute) {
+    return {
+        read: () => BracketToken.split(element.getAttribute(attribute) || ""),
+        write(values) {
+            if (values.length) element.setAttribute(attribute, values.join(" "));
+            else element.removeAttribute(attribute);
+        },
+    };
 }
 
 /**
@@ -78,24 +111,19 @@ export function pgs(root) {
             .split(",")
             .map(v => v.trim())
             .filter(Boolean)
-            .map(v => `[${attribute}~="${v}"]`)
+            .map(v => {
+                const escaped = v.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+                return attribute === ATTR
+                    ? `:is([pgs~="${escaped}"], [pgs*="${escaped}\\5B"])`
+                    : `[${attribute}~="${escaped}"]`;
+            })
             .join(",");
     }
 
-    //+
-    function getValues(el, separator = " ") {
-        return (el.getAttribute(ATTR) || "")
-            .split(separator)
-            .filter(Boolean);
-    }
+    //= PGS
+    function createPgs() {
+        const store = createBracketAttribute(root, ATTR);
 
-    //+
-    function setValues(el, values, separator = " ") {
-        el.setAttribute(ATTR, values.join(separator));
-    }
-
-    //= BASE PGS 
-    function createBasePgs() {
         function api() {
             return api;
         }
@@ -115,22 +143,28 @@ export function pgs(root) {
 
         api.add = function (...values) {
             if (!canAttr) return attrOnlyForElements("add");
-            const current = getValues(root);
-            for (const v of values) if (!current.includes(v)) current.push(v);
-            setValues(root, current);
+            const current = store.read();
+            for (const token of values.flatMap(value => BracketToken.split(String(value)))) {
+                const key = BracketToken.key(token);
+                const index = current.findIndex(item => BracketToken.key(item) === key);
+                if (index === -1) current.push(token);
+                else current[index] = BracketToken.component(key, [...BracketToken.flags(current[index]), ...BracketToken.flags(token)]);
+            }
+            store.write(current);
             return api;
         };
 
         api.remove = function (...values) {
             if (!canAttr) return attrOnlyForElements("remove");
-            setValues(root, getValues(root).filter(v => !values.includes(v)));
+            const keys = values.flatMap(value => BracketToken.split(String(value))).map(BracketToken.key);
+            store.write(store.read().filter(v => !keys.includes(BracketToken.key(v))));
             return api;
         };
 
         api.toggle = function (value, force) {
             if (!canAttr) return attrOnlyForElements("toggle");
 
-            const exists = getValues(root).includes(value);
+            const exists = api.contains(value);
 
             if (force !== undefined) {
                 if (force && !exists) api.add(value);
@@ -149,7 +183,7 @@ export function pgs(root) {
 
         api.contains = function (value) {
             if (!canAttr) return attrOnlyForElements("contains");
-            return getValues(root).includes(value);
+            return store.read().some(token => BracketToken.key(token) === BracketToken.key(value));
         };
 
         Object.defineProperty(api, "value", {
@@ -253,40 +287,57 @@ export function pgs(root) {
     }
 
     //= OPTION
-    function createOption(attribute) {
+    /// flags only, and only inside the pgs attribute — never pgs-data. add/toggle derive a
+    /// flag's owning component from its own name (the lowercase run before the first uppercase
+    /// letter or "-", the naming convention every component-owned flag already follows) and
+    /// merge into that component's existing bracket; a flag with no matching owner on the
+    /// element becomes its own bare pgs token instead, the same way "hover" already is one.
+    function createOption() {
         if (!canAttr) return undefined;
 
-        const read = () => tokenizeOptionValue(root.getAttribute(attribute) || "");
-        const write = values => root.setAttribute(attribute, values.join(" "));
-        const getKey = value => String(value).trim().match(/^[^\s[\]]+/)?.[0] || "";
+        const store = createBracketAttribute(root, ATTR);
         const getValues = values => values
             .flat()
-            .flatMap(value => tokenizeOptionValue(String(value)))
-            .filter(Boolean);
+            .flatMap(value => BracketToken.split(String(value)))
+            .filter(Boolean)
+            .map(BracketToken.key);
+
+        function ownerOf(key) {
+            return key.match(/^[a-z]+/)?.[0] || "";
+        }
 
         function api() {
             return api;
         }
 
         api.add = function (...values) {
-            const current = read();
-
-            getValues(values).forEach(value => {
-                if (!current.includes(value)) current.push(value);
+            const current = store.read();
+            getValues(values).forEach(key => {
+                const owner = ownerOf(key);
+                const index = owner ? current.findIndex(item => BracketToken.key(item) === owner) : -1;
+                if (index === -1) {
+                    if (!current.some(item => BracketToken.key(item) === key)) current.push(key);
+                } else {
+                    current[index] = BracketToken.component(owner, [...BracketToken.flags(current[index]), key]);
+                }
             });
-
-            write(current);
+            store.write(current);
             return api;
         };
 
         api.remove = function (...values) {
-            const keys = getValues(values).map(getKey).filter(Boolean);
-            write(read().filter(value => !keys.includes(getKey(value))));
+            const keys = getValues(values);
+            if (!keys.length) return api;
+
+            store.write(store.read()
+                .filter(token => !keys.includes(BracketToken.key(token)))
+                .map(token => BracketToken.component(BracketToken.key(token),
+                    BracketToken.flags(token).filter(flag => !keys.includes(flag)))));
             return api;
         };
 
         api.toggle = function (value, force) {
-            const key = getKey(value);
+            const key = BracketToken.key(value);
             if (!key) return false;
 
             const exists = api.contains(key);
@@ -308,25 +359,22 @@ export function pgs(root) {
 
         api.contains = function (key) {
             const safeKey = String(key).trim();
-            return read().some(token => getKey(token) === safeKey);
+            return store.read().some(token => BracketToken.key(token) === safeKey || BracketToken.flags(token).includes(safeKey));
         };
 
-        //== every lookup below matches on the key rather than through a [pgs-option~="..."]
-        //== selector: that selector compares whole tokens, so it would miss every parameterized
-        //== option - headerCompactFrom[600] does not answer to headerCompactFrom
         const getKeys = value => (Array.isArray(value) ? value.join(",") : String(value))
             .split(",")
-            .map(getKey)
+            .map(v => BracketToken.key(v))
             .filter(Boolean);
 
-        const hasKeys = (element, keys) => tokenizeOptionValue(element.getAttribute(attribute) || "")
-            .some(token => keys.includes(getKey(token)));
+        const hasKeys = (element, keys) => BracketToken.split(element.getAttribute(ATTR) || "")
+            .some(token => keys.includes(BracketToken.key(token)) || BracketToken.flags(token).some(flag => keys.includes(flag)));
 
         api.querySelector = function (value) {
             const keys = getKeys(value);
             if (!keys.length) return null;
 
-            for (const element of root.querySelectorAll(`[${attribute}]`)) {
+            for (const element of root.querySelectorAll(`[${ATTR}]`)) {
                 if (hasKeys(element, keys)) return element;
             }
 
@@ -338,7 +386,7 @@ export function pgs(root) {
         api.querySelectorAll = function (value) {
             const keys = getKeys(value);
             if (!keys.length) return [];
-            return Array.from(root.querySelectorAll(`[${attribute}]`)).filter(element => hasKeys(element, keys));
+            return Array.from(root.querySelectorAll(`[${ATTR}]`)).filter(element => hasKeys(element, keys));
         };
 
         api.closest = function (value) {
@@ -352,42 +400,61 @@ export function pgs(root) {
             return null;
         };
 
+        return api;
+    }
+
+    //= DATA — key[payload] values only, always in this attribute; never touches the pgs bracket.
+    function createData(attribute) {
+        if (!canAttr) return undefined;
+
+        const store = createBracketAttribute(root, attribute);
+
+        function api() {
+            return api;
+        }
+
         api.getValueBrackets = function (key) {
             const safeKey = String(key).trim();
-            const token = read().find(item => getKey(item) === safeKey);
+            const token = store.read().find(item => BracketToken.key(item) === safeKey);
             if (!token) return undefined;
 
             const openIndex = token.indexOf("[");
-            const closeIndex = openIndex === -1 ? -1 : findMatchingBracket(token, openIndex);
+            const closeIndex = openIndex === -1 ? -1 : BracketToken.findClose(token, openIndex);
             if (closeIndex === -1) return undefined;
 
             return token.slice(openIndex + 1, closeIndex);
         };
 
         api.setValueBrackets = function (key, value = "") {
-            const optionKey = getKey(key);
-            if (!optionKey) return api;
+            const dataKey = BracketToken.key(key);
+            if (!dataKey) return api;
 
-            const option = `${optionKey}[${String(value).trim()}]`;
-            const options = read().filter(item => getKey(item) !== optionKey);
+            const entry = `${dataKey}[${String(value).trim()}]`;
+            const entries = store.read().filter(item => BracketToken.key(item) !== dataKey);
 
-            options.push(option);
-            write(options);
+            entries.push(entry);
+            store.write(entries);
             return api;
         };
 
+        //== a plain passthrough on this attribute, like state's and the base pgs's own value: a
+        //== bracket flag is never read or written back through here, only this attribute ever is.
         Object.defineProperty(api, "value", {
             get() { return root.getAttribute(attribute); },
-            set(v) { root.setAttribute(attribute, v); }
+            set(value) {
+                if (value == null) root.removeAttribute(attribute);
+                else root.setAttribute(attribute, value);
+            }
         });
 
         return api;
     }
 
-    //# RETURN 
-    const api = createBasePgs();
+    //# RETURN
+    const api = createPgs();
     api.state = createState("pgs-state");
-    api.option = createOption("pgs-option");
+    api.option = createOption();
+    api.data = createData("pgs-data");
     return api;
 }
 

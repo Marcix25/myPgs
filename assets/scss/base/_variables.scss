@@ -1,7 +1,7 @@
 @use "../mixin/mixin" as *;
 
 //+ MIXIN
-:where([pgs~=htmlBase]) {
+:where(:is([pgs~="htmlBase"], [pgs*="htmlBase\5B"])) {
 
     // = SETTINGS 
     &:root {

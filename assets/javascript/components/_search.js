@@ -84,12 +84,12 @@ const Search = {
     },
 
     placeholderText(search, options) {
-        const template = pgs(search).option.getValueBrackets("searchPlaceholder") || "Type at least {minLength} characters";
+        const template = pgs(search).data.getValueBrackets("searchPlaceholder") || "Type at least {minLength} characters";
         return template.replace("{minLength}", options.minLength);
     },
 
     noResultsText(search) {
-        return pgs(search).option.getValueBrackets("searchNoResults") || "No results found";
+        return pgs(search).data.getValueBrackets("searchNoResults") || "No results found";
     },
 };
 
@@ -193,13 +193,13 @@ function PGS_search_init(root = document) {
             items.forEach((item, index) => {
                 const option = document.createElement("li");
                 pgs(option).add("_search-suggestions-item");
-                pgs(option).add("flexRow");
+                pgs(option).add("flex['flexRow']");
                 option.id = `${list.id}-option-${index}`;
                 option.dataset.index = String(index);
                 option.setAttribute("role", "option");
                 option.setAttribute("aria-selected", "false");
                 option.setAttribute("aria-disabled", String(item.disabled));
-                option.innerHTML = '<i pgs="icon" pgs-option="icon-magnifyingGlass"></i>' +  item.label;
+                option.innerHTML = "<i pgs=\"icon['icon-magnifyingGlass']\"></i>" +  item.label;
                 fragment.append(option);
 
             });

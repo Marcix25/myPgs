@@ -39,8 +39,12 @@ function PGS_tabs_init(root = document) {
         //== write over each other. A tab is addressed by its own id when the author gave it one,
         //== and by its 1-based position otherwise, which is what keeps a shared link readable
         //== without asking for ids that the markup does not need
-        const historyKey = pgs(tabs).option.contains("tabsHistory")
-            ? (pgs(tabs).option.getValueBrackets("tabsHistory") || "tab")
+        //== tabsHistory lives only in pgs-data and .data has no contains(), so presence (with or
+        //== without its own payload) is checked directly against the raw attribute value
+        const rawData = (pgs(tabs).data.value || "").split(/\s+/).filter(Boolean);
+        const hasHistory = rawData.some(token => token === "tabsHistory" || token.startsWith("tabsHistory["));
+        const historyKey = hasHistory
+            ? (pgs(tabs).data.getValueBrackets("tabsHistory") || "tab")
             : null;
 
         //== read before the loop below fills in the generated ids, so what reaches the URL is the

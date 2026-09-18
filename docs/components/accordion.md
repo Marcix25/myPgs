@@ -11,7 +11,7 @@ Expandable panels with synchronized visibility, ARIA attributes and keyboard nav
 - `accordion-button`: identifies the control that opens or closes the associated panel.
 - `accordion-content`: identifies the content panel managed through the hidden attribute.
 
-## PGS Options
+## PGS Options (component brackets)
 
 - `accordionAutoOpen`: written on an accordion, the module opens that panel by itself on load and leaves it open while the rest of its group is used, so opening a sibling does not take it down. That protection lasts until the reader works that panel themselves: the first time it is opened or closed by hand the module drops the token, and from there it is an ordinary panel of the group. It is the authored form of the open state: pgs-state belongs to the runtime, and the module writes it from here.
 - `accordionMultiOpen`: written on an accordionContainer, it lifts the one-at-a-time rule for that group, so its panels can be open together. Without a container this is already the behaviour, so the option only means something on the container.
@@ -63,7 +63,7 @@ A group of accessible accordion items, each with its button and panel, the last 
         </div>
     </li>
 
-    <li pgs="accordion" pgs-option="accordionAutoOpen">
+    <li pgs="accordion['accordionAutoOpen']">
         <button pgs="accordion-button" type="button">
             <span>Tempor incididunt (accordionAutoOpen)</span>
         </button>

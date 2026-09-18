@@ -19,19 +19,19 @@ const fn_toast = {
             },
             error: {
                 title: "Error",
-                icon: '<i pgs="icon" pgs-option="icon-circleXmark"></i>'
+                icon: "<i pgs=\"icon['icon-circleXmark']\"></i>"
             },
             success: {
                 title: "Success",
-                icon: '<i pgs="icon" pgs-option="icon-circleCheck"></i>'
+                icon: "<i pgs=\"icon['icon-circleCheck']\"></i>"
             },
             info: {
                 title: "Information",
-                icon: '<i pgs="icon" pgs-option="icon-circleInfo"></i>'
+                icon: "<i pgs=\"icon['icon-circleInfo']\"></i>"
             },
             warning: {
                 title: "Warning",
-                icon: '<i pgs="icon" pgs-option="icon-triangleExclamation"></i>'
+                icon: "<i pgs=\"icon['icon-triangleExclamation']\"></i>"
             }
         }
     },
@@ -48,7 +48,7 @@ const fn_toast = {
     },
 
     _getData(root) {
-        const rawToast = pgs(root).option.getValueBrackets("toast") || "{}";
+        const rawToast = pgs(root).data.getValueBrackets("toast") || "{}";
 
         try {
             const toasts = JSON.parse(`[${rawToast}]`);
@@ -147,7 +147,7 @@ const fn_toast = {
             <div pgs="_toast-element-content">
                 ${iconHtml}
                 <p>${text}</p>
-                <button type="button" pgs="button _toast-element-content-delete" pgs-option="buttonIcon"><i pgs="icon" pgs-option="icon-close"></i></button>
+                <button type="button" pgs="button['buttonIcon'] _toast-element-content-delete"><i pgs="icon['icon-close']"></i></button>
             </div>
             <div pgs="_toast-element-buttons">
             </div>

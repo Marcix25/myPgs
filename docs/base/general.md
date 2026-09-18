@@ -19,15 +19,16 @@ Standalone utilities for shadow, cursor, image fitting, list styling and forced 
 
 ### PGS
 
-- `flexColumn`: stacks the utility groups vertically.
-- `flexRow`: arranges the examples in a row.
+- `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `box`: makes each example visible as a surface.
 - `bgWhiteFixed`: holds the same light background whatever the page theme is, so the two forced schemes read against one ground.
 - `imgCover`: crops the image to fill its box, the counterpart of imgContain.
 - `borderRadius`: rounds the image fitting examples; see Border for the whole family.
 
-### PGS Options
+### PGS Options (component brackets)
 
+- `flexColumn`: stacks the utility groups vertically.
+- `flexRow`: arranges the examples in a row.
 - `gapTexts`: spaces the examples inside a group.
 
 ### Other
@@ -83,7 +84,7 @@ Shared marker and spacing for a plain list, without any component behaviour.
 Pins a subtree to one colour scheme, ignoring the current page theme.
 
 ```html
-<div pgs="flexRow bgWhiteFixed" pgs-option="gapTexts">
+<div pgs="flex['flexRow' 'gapTexts'] bgWhiteFixed">
     <div pgs="box lightmode">
         <p>lightmode</p>
     </div>

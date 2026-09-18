@@ -1,6 +1,6 @@
 @use "../mixin/mixin" as *;
 
-[pgs~="search"] {
+:is([pgs~="search"], [pgs*="search\5B"]) {
     --search-suggestions-background: var(--color-box);
     --search-suggestions-color: var(--color-text);
     --search-suggestions-border: var(--border-complete);
@@ -71,12 +71,12 @@
         color: var(#{$varColor}-color);
 
         i,
-        [pgs~=icon] {
+        :is([pgs~="icon"], [pgs*="icon\5B"]) {
             color: var(#{$varColor}-color);
         }
     }
 
-    [pgs~="search-suggestions"] {
+    :is([pgs~="search-suggestions"], [pgs*="search-suggestions\5B"]) {
         display: none;
         position: absolute;
         inset: calc(100% + var(--search-suggestions-offset)) 0 auto;
@@ -93,7 +93,7 @@
         box-shadow: var(--search-suggestions-boxShadow);
         @include _color(--search-suggestions);
 
-        [pgs~="_search-suggestions-item"] {
+        :is([pgs~="_search-suggestions-item"], [pgs*="_search-suggestions-item\5B"]) {
             padding: var(--search-suggestions-item-padding);
             border-radius: var(--search-suggestions-borderRadius);
             cursor: pointer;
@@ -110,15 +110,15 @@
             }
         }
 
-        [pgs~="_search-suggestions-placeholder"],
-        [pgs~="_search-suggestions-empty"] {
+        :is([pgs~="_search-suggestions-placeholder"], [pgs*="_search-suggestions-placeholder\5B"]),
+        :is([pgs~="_search-suggestions-empty"], [pgs*="_search-suggestions-empty\5B"]) {
             padding: var(--search-suggestions-item-padding);
             cursor: default;
             opacity: .6;
         }
 
-        &:has([pgs~="_search-suggestions-item"]:hover) {
-            [pgs~="_search-suggestions-item"][aria-selected="true"] {
+        &:has(:is([pgs~="_search-suggestions-item"], [pgs*="_search-suggestions-item\5B"]):hover) {
+            :is([pgs~="_search-suggestions-item"], [pgs*="_search-suggestions-item\5B"])[aria-selected="true"] {
                 @include _color(--search-suggestions);
 
                 &:hover {
@@ -128,7 +128,7 @@
         }
     }
 
-    &[pgs-state~="open"] [pgs~="search-suggestions"] {
+    &[pgs-state~="open"] :is([pgs~="search-suggestions"], [pgs*="search-suggestions\5B"]) {
         display: flex;
     }
 
@@ -138,7 +138,7 @@
         margin-inline: auto;
         background-color: var(--color-white);
 
-        [pgs~="modal-close"] {
+        :is([pgs~="modal-close"], [pgs*="modal-close\5B"]) {
             padding: var(--button-size);
         }
     }

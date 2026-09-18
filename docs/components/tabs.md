@@ -12,7 +12,7 @@ A tabbed interface with a wrapping list of controls and one visible panel at a t
 - `tabs-panels`: identifies the wrapper around the tab panels.
 - `tabs-panels-content`: identifies a panel paired with the tab at the same position.
 
-## PGS Options
+## PGS Data
 
 - `tabsHistory`: the selected tab is written to the URL, so a reload — or a shared link — lands on the tab the reader left rather than on the first one. Each selection pushes a history entry, so back and forward walk the tabs. The query parameter is named in brackets, as tabsHistory[docs]; written bare it is tab, and two history-backed sets on one page each need a name of their own. A tab is addressed by its own id when the markup gives it one, as ?docs=install, and by its 1-based position otherwise, as ?tab=2.
 
@@ -32,13 +32,14 @@ A tabbed interface with a wrapping list of controls and one visible panel at a t
 
 ### PGS
 
+- `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `card`: provides the outer surface for this example.
 - `card-content`: provides the spacing wrapper around the tab list and panels.
-- `flexRow`: lets the tab controls wrap in a row.
 - `button`: supplies the base style for each tab control.
 
-### PGS Options
+### PGS Options (component brackets)
 
+- `flexRow`: lets the tab controls wrap in a row.
 - `buttonMini`: makes each tab control compact.
 
 ## Output
@@ -52,12 +53,12 @@ A wrapping tab list with a single connected content panel.
 
 ```html
 <div pgs="tabs card">
-    <div pgs="tabs-list card-content flexRow" aria-label="Code formats">
-        <button pgs="tabs-list-tab button" pgs-option="buttonMini" type="button">HTML</button>
-        <button pgs="tabs-list-tab button" pgs-option="buttonMini" type="button">React</button>
-        <button pgs="tabs-list-tab button" pgs-option="buttonMini" type="button">Vue</button>
-        <button pgs="tabs-list-tab button" pgs-option="buttonMini" type="button">SVG</button>
-        <button pgs="tabs-list-tab button" pgs-option="buttonMini" type="button">XML</button>
+    <div pgs="tabs-list card-content flex['flexRow']" aria-label="Code formats">
+        <button pgs="tabs-list-tab button['buttonMini']" type="button">HTML</button>
+        <button pgs="tabs-list-tab button['buttonMini']" type="button">React</button>
+        <button pgs="tabs-list-tab button['buttonMini']" type="button">Vue</button>
+        <button pgs="tabs-list-tab button['buttonMini']" type="button">SVG</button>
+        <button pgs="tabs-list-tab button['buttonMini']" type="button">XML</button>
     </div>
 
     <div pgs="tabs-panels card-content">
@@ -90,11 +91,11 @@ A wrapping tab list with a single connected content panel.
 tabsHistory puts the selected tab in the URL, under the name written in brackets. Give each tab an id and the link reads ?format=vue and can be shared; leave the ids out and it is the tab's position, ?format=3. Reloading, or coming back with the browser's own back button, lands on the tab that was open.
 
 ```html
-<div pgs="tabs card" pgs-option="tabsHistory[format]">
-    <div pgs="tabs-list card-content flexRow" aria-label="Code formats">
-        <button id="html" pgs="tabs-list-tab button" pgs-option="buttonMini" type="button">HTML</button>
-        <button id="react" pgs="tabs-list-tab button" pgs-option="buttonMini" type="button">React</button>
-        <button id="vue" pgs="tabs-list-tab button" pgs-option="buttonMini" type="button">Vue</button>
+<div pgs="tabs card" pgs-data="tabsHistory[format]">
+    <div pgs="tabs-list card-content flex['flexRow']" aria-label="Code formats">
+        <button id="html" pgs="tabs-list-tab button['buttonMini']" type="button">HTML</button>
+        <button id="react" pgs="tabs-list-tab button['buttonMini']" type="button">React</button>
+        <button id="vue" pgs="tabs-list-tab button['buttonMini']" type="button">Vue</button>
     </div>
 
     <div pgs="tabs-panels card-content">

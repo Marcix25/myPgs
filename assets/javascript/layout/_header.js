@@ -10,7 +10,7 @@
 // (headerCompactTablet, headerCompactLaptop, ...) set --header-compact-breakpoint in the
 // SCSS, so the breakpoint values stay defined in one place.
 function getHeader_CompactBreakpoint(header) {
-    const custom = parseFloat(pgs(header).option.getValueBrackets("headerCompactFrom"));
+    const custom = parseFloat(pgs(header).data.getValueBrackets("headerCompactFrom"));
     if (Number.isFinite(custom)) return custom;
 
     const declared = parseFloat(window.getComputedStyle(header).getPropertyValue("--header-compact-breakpoint"));

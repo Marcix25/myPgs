@@ -1,6 +1,6 @@
 @use "../mixin/mixin" as *;
 
-[pgs~="header"] {
+:is([pgs~="header"], [pgs*="header\5B"]) {
     --header-padding-inline: 30px;
     --header-padding-block: 10px;
     --header-gap: var(--gap-elements);
@@ -18,7 +18,7 @@
     top: 0;
 
     //= HEADER TOP
-    [pgs~="header-element"] {
+    :is([pgs~="header-element"], [pgs*="header-element\5B"]) {
         background: var(--header-background);
         color: var(--header-color);
         transition: transform 300ms, background-color 1000ms;
@@ -32,9 +32,9 @@
         color: var(--header-color);
         pointer-events: auto;
 
-        [pgs~="header-element-onlyCompact"],
-        [pgs~="header-element-onlyFull"],
-        [pgs~="header-element-alwaysOn"] {}
+        :is([pgs~="header-element-onlyCompact"], [pgs*="header-element-onlyCompact\5B"]),
+        :is([pgs~="header-element-onlyFull"], [pgs*="header-element-onlyFull\5B"]),
+        :is([pgs~="header-element-alwaysOn"], [pgs*="header-element-alwaysOn\5B"]) {}
 
         //== ALL
         >* {
@@ -49,16 +49,16 @@
             flex-shrink: 0;
         }
 
-        [pgs~="header-element-onlyCompact"] {
+        :is([pgs~="header-element-onlyCompact"], [pgs*="header-element-onlyCompact\5B"]) {
             display: none;
             gap: var(--header-gap);
 
-            [pgs~="button"] {
+            :is([pgs~="button"], [pgs*="button\5B"]) {
 
                 //=== OPEN
                 //== swaps the drawn glyph via the --icon custom property (see _icon.scss)
                 //== instead of animating two mask layers into an X: a plain CSS override, no JS
-                &[aria-expanded="true"] [pgs-option~="icon-hamburgerTwo"] {
+                &[aria-expanded="true"] [pgs*="'icon-hamburgerTwo'"] {
                     --icon: var(--icon-glyph-close);
                 }
             }
@@ -66,7 +66,7 @@
     }
 
     //= DIALOG
-    dialog[pgs~="modal-dialog"] {
+    dialog:is([pgs~="modal-dialog"], [pgs*="modal-dialog\5B"]) {
         --modal-backdrop: var(--color-white);
         --modal-background: var(--color-white);
         -webkit-backdrop-filter: var(--blur);
@@ -82,54 +82,56 @@
         so a wide header can be compact on purpose. Only the value is declared here: the
         JavaScript reads --header-compact-breakpoint and adds the compact state below it.
         headerCompactFrom[600] takes over with its own pixel value. */
-    &[pgs-option~="headerCompactWatch"] {
+    &[pgs*="'headerCompactWatch'"] {
         --header-compact-breakpoint: #{$watch};
     }
 
-    &[pgs-option~="headerCompactMobile"] {
+    &[pgs*="'headerCompactMobile'"] {
         --header-compact-breakpoint: #{$mobile};
     }
 
-    &[pgs-option~="headerCompactBigMobile"] {
+    &[pgs*="'headerCompactBigMobile'"] {
         --header-compact-breakpoint: #{$big-mobile};
     }
 
-    &[pgs-option~="headerCompactTablet"] {
+    &[pgs*="'headerCompactTablet'"] {
         --header-compact-breakpoint: #{$tablet};
     }
 
-    &[pgs-option~="headerCompactBigTablet"] {
+    &[pgs*="'headerCompactBigTablet'"] {
         --header-compact-breakpoint: #{$big-tablet};
     }
 
-    &[pgs-option~="headerCompactLaptop"] {
+    &[pgs*="'headerCompactLaptop'"] {
         --header-compact-breakpoint: #{$laptop};
     }
 
-    //option for suggestions: headerCompactFrom[600] carries its own pixel value, while headerScroll and
-    //headerPrimary are read by the JavaScript only
-    &[pgs-option~="headerCompactFrom[]"],
-    &[pgs-option~="headerPrimary"],
-    &[pgs-option~="headerScroll"] {}
+    //option for suggestions: headerScroll and headerPrimary are plain flags, read by the
+    //JavaScript only
+    &[pgs*="'headerPrimary'"],
+    &[pgs*="'headerScroll'"] {}
+
+    //option for suggestions: headerCompactFrom[600] carries its own pixel value, read from pgs-data
+    &[pgs-data~="headerCompactFrom[]"] {}
 
     //- compact
     &[pgs-state~="compact"] {
         --header-gap: var(--gap-texts);
 
-        [pgs~="header-element"] {
+        :is([pgs~="header-element"], [pgs*="header-element\5B"]) {
             padding-inline: var(--header-padding-block);
 
-            [pgs~="header-element-onlyFull"] {
+            :is([pgs~="header-element-onlyFull"], [pgs*="header-element-onlyFull\5B"]) {
                 display: none;
             }
 
-            [pgs~="header-element-onlyCompact"] {
+            :is([pgs~="header-element-onlyCompact"], [pgs*="header-element-onlyCompact\5B"]) {
                 display: contents;
             }
         }
 
         //== bottom: follows the compact state, so it honours the chosen breakpoint
-        &[pgs-option~="headerCompactBottom"] {
+        &[pgs*="'headerCompactBottom'"] {
             --header-compactBottom-active: 1;
         }
     }

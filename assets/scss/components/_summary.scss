@@ -1,6 +1,6 @@
 @use "../mixin/mixin" as *;
 
-[pgs~="summary"] {
+:is([pgs~="summary"], [pgs*="summary\5B"]) {
     --summary-fade-size: 4rem;
     --summary-fade-background: var(--color-background);
     --summary-content-max-height: 5.7rem;
@@ -10,14 +10,14 @@
     gap: var(--gap-texts);
     isolation: isolate;
 
-    [pgs~="summary-content"] {
+    :is([pgs~="summary-content"], [pgs*="summary-content\5B"]) {
         max-height: var(--summary-content-max-height, none);
         overflow: hidden;
         transition: max-height 300ms ease;
     }
 
     &[pgs-state~="overflow"]:not([pgs-state~="open"]) {
-        [pgs~="summary-content"] {
+        :is([pgs~="summary-content"], [pgs*="summary-content\5B"]) {
             position: relative;
 
             &::after {
@@ -31,13 +31,13 @@
         }
     }
 
-    &:has([pgs~="summary-button"][hidden]) {
-        [pgs~="summary-content"]{
+    &:has(:is([pgs~="summary-button"], [pgs*="summary-button\5B"])[hidden]) {
+        :is([pgs~="summary-content"], [pgs*="summary-content\5B"]){
             max-height: unset;
         }
     }
 
-    [pgs~="summary-button"] {
+    :is([pgs~="summary-button"], [pgs*="summary-button\5B"]) {
         padding: 5px;
         cursor: pointer;
         background-color: transparent;

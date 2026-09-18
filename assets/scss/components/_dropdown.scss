@@ -1,5 +1,5 @@
 //# DROPDOWN
-[pgs~="dropdown"] {
+:is([pgs~="dropdown"], [pgs*="dropdown\5B"]) {
     --dropdown-background: var(--color-box);
     --dropdown-color: var(--color-black);
     --dropdown-border: var(--border-complete);
@@ -12,18 +12,18 @@
     --dropdown-display: block;
     position: relative;
 
-    [pgs-option=dropdownHover],
-    [pgs-option="dropdownPosition[]"]{}
+    [pgs*="'dropdownHover'"] {}
+    [pgs-data~="dropdownPosition[]"] {}
 
-    &:not([pgs-state~="open"])>[pgs~="dropdown-content"] {
+    &:not([pgs-state~="open"])>:is([pgs~="dropdown-content"], [pgs*="dropdown-content\5B"]) {
         display: none;
     }
 
-    &[pgs-state~="open"]>[pgs~="dropdown-content"] {
+    &[pgs-state~="open"]>:is([pgs~="dropdown-content"], [pgs*="dropdown-content\5B"]) {
         display: var(--dropdown-display);
     }
 
-    >[pgs~="dropdown-content"] {
+    >:is([pgs~="dropdown-content"], [pgs*="dropdown-content\5B"]) {
         position: fixed;
         inset: var(--dropdown-top) auto auto var(--dropdown-left);
         z-index: 1000;

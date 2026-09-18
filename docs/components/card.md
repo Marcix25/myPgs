@@ -11,7 +11,7 @@ Reusable surfaces for presenting structured card content or grouping simpler con
 - `card-content`: groups the text and actions of a card.
 - `box`: identifies a lightweight content container or clickable surface. Written on an `<a>` it is marked with `hover` the same way a clickable card is.
 
-## PGS Options
+## PGS Options (component brackets)
 
 - `cardHorizontal`: switches intrinsically between a horizontal 40/60 layout and a stacked layout according to the card's available width.
 - `cardHorizontalFixed`: the same 40/60 layout as cardHorizontal, with no container query behind it — the card reads side-by-side whatever its own width is, which is what a card already known to be wide enough, or one deliberately narrow but still meant to stay horizontal, wants instead of the responsive switch.
@@ -91,7 +91,7 @@ The complete card surface behaves as a link.
 This card switches intrinsically between horizontal and stacked layouts.
 
 ```html
-<article pgs="card" pgs-option="cardHorizontal">
+<article pgs="card['cardHorizontal']">
     <img pgs="card-img" src="../assets/img/placeholder.jpg" alt="Placeholder image">
 
     <div pgs="card-content">
@@ -106,7 +106,7 @@ This card switches intrinsically between horizontal and stacked layouts.
 cardHorizontalFixed keeps the row layout with no container query behind it, so it stays side-by-side even narrower than cardHorizontal's own breakpoint would allow.
 
 ```html
-<article pgs="card" pgs-option="cardHorizontalFixed">
+<article pgs="card['cardHorizontalFixed']">
     <img pgs="card-img" src="../assets/img/placeholder.jpg" alt="Placeholder image">
 
     <div pgs="card-content">
@@ -121,7 +121,7 @@ cardHorizontalFixed keeps the row layout with no container query behind it, so i
 The compact option reduces the content padding.
 
 ```html
-<article pgs="card" pgs-option="cardMini">
+<article pgs="card['cardMini']">
     <img pgs="card-img" src="../assets/img/placeholder.jpg" alt="Placeholder image">
 
     <div pgs="card-content">
@@ -158,7 +158,7 @@ The complete box surface behaves as a link.
 The compact option reduces the internal spacing.
 
 ```html
-<div pgs="box" pgs-option="boxMini">
+<div pgs="box['boxMini']">
     <h3>Enim ad minim</h3>
     <p>Ut labore et dolore magna aliqua ut enim.</p>
 </div>

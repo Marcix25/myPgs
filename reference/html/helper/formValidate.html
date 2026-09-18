@@ -1,7 +1,7 @@
 <!--
 /**
  * @title Form validate
- * @description pgs.formValidate is the JavaScript side of Form: validates required fields, applies errorForm/errorField/success pgs-state, shows an alert or a toast, and lets you register custom rules and errors that only your backend knows about. See Form for the full markup and pgs-option reference; this page focuses on the constructor and its instance methods.
+ * @description pgs.formValidate is the JavaScript side of Form: validates required fields, applies errorForm/errorField/success pgs-state, shows an alert or a toast, and lets you register custom rules and errors that only your backend knows about. See Form for the full markup and pgs-data reference; this page focuses on the constructor and its instance methods.
  *
  * @pgs-generated
  * - formValidate: added to the form element by the constructor, which is why the example writes a bare form tag; it enables the validation-state styles.
@@ -12,7 +12,7 @@
  * - success: applied to the form once validate() passes, replacing errorForm.
  *
  * @api
- * - new pgs.formValidate(form, options): creates a utility associated directly with the form, adds novalidate, and completes missing form message options (formFieldErrorTitle, formFieldError, formFieldsError, formSuccessTitle, formSuccess) from options.message and then from library defaults; existing pgs-option values are preserved.
+ * - new pgs.formValidate(form, options): creates a utility associated directly with the form, adds novalidate, and completes missing form message options (formFieldErrorTitle, formFieldError, formFieldsError, formSuccessTitle, formSuccess) from options.message and then from library defaults; existing pgs-data values are preserved.
  * - instance.validator(callback, eventName): intercepts the specified event, clears previous temporary field errors, validates the form, shows the success message, and invokes callback only when valid; eventName defaults to submit.
  * - instance.validate(): validates required fields, updates state attributes, and returns true or false.
  * - instance.success(description, title): validates the form and shows a success alert or toast when there are no errors.
@@ -38,13 +38,13 @@
  */
 -->
 
-<form pgs="form" pgs-option="formFieldErrorTitle[Check the form] formFieldError[Complete this field] formSuccessTitle[Sent] formSuccess[Sent successfully]" action="#" method="post">
+<form pgs="form" pgs-data="formFieldErrorTitle[Check the form] formFieldError[Complete this field] formSuccessTitle[Sent] formSuccess[Sent successfully]" action="#" method="post">
     <label>
         <span pgs="label">Username</span>
-        <input pgs="input" pgs-option="formMessage[Choose a username]" type="text" name="username" required>
+        <input pgs="input" pgs-data="formMessage[Choose a username]" type="text" name="username" required>
     </label>
 
-    <button pgs="button" pgs-option="buttonStrong" type="submit">Submit</button>
+    <button pgs="button['buttonStrong']" type="submit">Submit</button>
 </form>
 
 <script type="module">
@@ -61,7 +61,7 @@
     formValidate.addNewRule(() => {
         if (username.value.toLowerCase() !== "admin") return null;
 
-        pgs(username).option.setValueBrackets("formMessage", "That username is taken");
+        pgs(username).data.setValueBrackets("formMessage", "That username is taken");
         return username;
     });
 

@@ -18,7 +18,7 @@ A step-by-step wizard: one panel at a time, a row of dots showing where the read
 
 - `_stepTabs-dots-dot`: one dot per tab, created inside stepTabs-dots, showing the icon declared by that tab's stepTabsIcon option.
 
-## PGS Options
+## PGS Data
 
 - `stepTabsIcon`: the icon drawn in this tab's dot, in brackets, in one of three shapes. Markup, opening with a "<", is built as written, which is what puts every icon set in reach — including the ones a class cannot describe, such as stepTabsIcon[<span class='material-symbols-outlined'>check</span>] or stepTabsIcon[<i data-lucide='check'></i>]; write the inner attributes with single quotes, since the value already lives inside one, and mark your own element with pgs='icon' so it gets the same box the dot gives an icon — without it a set that renders its name as text has nothing sizing it. A plain name is a built-in glyph, as in stepTabsIcon[icon-circleCheck]. Anything else is a class list for whatever set the page loaded, written through untouched, as in stepTabsIcon[bi-check] or stepTabsIcon[fa-regular fa-star]; a lone Font Awesome name such as stepTabsIcon[fa-user] also gets fa-solid, since that set needs a style class. Leave it out and the dot gets icon-circle.
 
@@ -45,14 +45,15 @@ A step-by-step wizard: one panel at a time, a row of dots showing where the read
 
 ### PGS
 
-- `flexColumn`: uses the related flexColumn component or utility in this example.
-- `flexRow`: uses the related flexRow component or utility in this example.
+- `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `button`: uses the related button component or utility in this example.
 - `icon`: draws the glyph inside a dot when the tab does not name its own; see Icon for the whole set.
 
-### PGS Options
+### PGS Options (component brackets)
 
+- `flexColumn`: sets the vertical direction inside the flex bracket.
 - `gapElements`: applies element spacing to the step tab container.
+- `flexRow`: sets the horizontal direction inside the flex bracket.
 - `buttonReverse`: reverses text and icon on the example buttons and belongs to the button component.
 - `icon-arrowLeft`: the glyph that points back.
 - `icon-arrowRight`: the glyph that points forward.
@@ -68,29 +69,29 @@ Complete HTML markup and usage example for Step Tabs.
 ## Example
 
 ```html
-<div pgs="stepTabs flexColumn" pgs-option="gapElements">
+<div pgs="stepTabs flex['flexColumn' 'gapElements']">
     <div pgs="stepTabs-dots" aria-label="Progress"></div>
 
     <div pgs="stepTabs-container">
-        <section pgs="stepTabs-container-tab flexColumn" tabindex="-1" pgs-option="stepTabsIcon[<i pgs='icon' pgs-option='icon-circle'></i>]">
+        <section pgs="stepTabs-container-tab flex['flexColumn']" pgs-data="stepTabsIcon[<i pgs=&quot;icon['icon-circle']&quot;></i>]" tabindex="-1">
             <h3>Lorem ipsum dolor</h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </section>
 
-        <section pgs="stepTabs-container-tab flexColumn" tabindex="-1" pgs-option="stepTabsIcon[<i pgs='icon' pgs-option='icon-sliders'></i>]">
+        <section pgs="stepTabs-container-tab flex['flexColumn']" pgs-data="stepTabsIcon[<i pgs=&quot;icon['icon-sliders']&quot;></i>]" tabindex="-1">
             <h3>Sit amet consectetur</h3>
             <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
         </section>
 
-        <section pgs="stepTabs-container-tab flexColumn" tabindex="-1" pgs-option="stepTabsIcon[<i pgs='icon' pgs-option='icon-check'></i>]">
+        <section pgs="stepTabs-container-tab flex['flexColumn']" pgs-data="stepTabsIcon[<i pgs=&quot;icon['icon-check']&quot;></i>]" tabindex="-1">
             <h3>Adipiscing elit sed</h3>
             <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
         </section>
     </div>
 
-    <div pgs="flexRow">
+    <div pgs="flex['flexRow']">
         <button pgs="stepTabs-prev button" type="button">
-            <i pgs="icon" pgs-option="icon-arrowLeft" aria-hidden="true"></i>
+            <i pgs="icon['icon-arrowLeft']" aria-hidden="true"></i>
             Back
         </button>
 
@@ -98,9 +99,9 @@ Complete HTML markup and usage example for Step Tabs.
             Restart
         </button>
 
-        <button pgs="stepTabs-next button" pgs-option="buttonReverse" type="button">
+        <button pgs="stepTabs-next button['buttonReverse']" type="button">
             Next
-            <i pgs="icon" pgs-option="icon-arrowRight" aria-hidden="true"></i>
+            <i pgs="icon['icon-arrowRight']" aria-hidden="true"></i>
         </button>
     </div>
 </div>

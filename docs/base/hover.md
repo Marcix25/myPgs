@@ -9,7 +9,7 @@ The shared hover treatment for a surface and the text marked inside it. It is wr
 - `hover`: enables the shared hover treatment on a surface.
 - `hover-text`: recolours this text when the surrounding hover element is hovered.
 
-## PGS Options
+## PGS Options (component brackets)
 
 - `hoverNot`: opts the surface out of the treatment, whatever component it is. `pgs.hover` leaves it unmarked and the surface stops answering the pointer.
 
@@ -58,7 +58,7 @@ Hovering the surface recolours it and the text marked inside it together. The to
 The opt-out: on a page with bodyHoverAuto, a surface that would otherwise be marked at load stays inert and keeps the look it has at rest.
 
 ```html
-<a pgs="box" pgs-option="hoverNot" href="#">
+<a pgs="box['hoverNot']" href="#">
     <strong>box + hoverNot</strong>
 </a>
 ```

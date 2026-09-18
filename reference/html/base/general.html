@@ -14,6 +14,7 @@
  * - darkmode: forces the dark colour scheme on a subtree, whatever the page theme is.
  *
  * @related
+ * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - flexColumn: stacks the utility groups vertically.
  * - flexRow: arranges the examples in a row.
  * - box: makes each example visible as a surface.
@@ -29,31 +30,31 @@
 
 <demo demo-h2="Examples"></demo>
 <demo demo-h3="Shadow" demo-description="The shared shadow tokens, one for a surface and one for text."></demo>
-<section pgs="flexColumn" pgs-option="gapTexts" demo="component">
-    <div pgs="flexRow" pgs-option="gapTexts" demo="wrapper">
+<section pgs="flex['flexColumn' 'gapTexts']" demo="component">
+    <div pgs="flex['flexRow' 'gapTexts']" demo="wrapper">
         <span pgs="box boxShadow">boxShadow</span>
         <strong pgs="textShadow">textShadow</strong>
     </div>
 </section>
 
 <demo demo-h3="Interaction" demo-description="Pointer cursor on a non-control surface, and a full reset to build a control from scratch."></demo>
-<section pgs="flexColumn" pgs-option="gapTexts" demo="component">
-    <div pgs="flexRow" pgs-option="gapTexts" demo="wrapper">
+<section pgs="flex['flexColumn' 'gapTexts']" demo="component">
+    <div pgs="flex['flexRow' 'gapTexts']" demo="wrapper">
         <span pgs="box pointer">pointer</span>
         <button pgs="appearanceNone pointer" type="button">appearanceNone</button>
     </div>
 </section>
 
 <demo demo-h3="Image fitting" demo-description="imgContain keeps the whole image inside the box, imgCover crops it to fill the box."></demo>
-<section pgs="flexColumn" pgs-option="gapTexts" demo="component">
-    <div pgs="flexRow" pgs-option="gapTexts" demo="wrapper">
+<section pgs="flex['flexColumn' 'gapTexts']" demo="component">
+    <div pgs="flex['flexRow' 'gapTexts']" demo="wrapper">
         <img pgs="imgContain borderRadius" src="../assets/img/placeholder.jpg" alt="Contained image" style="width: 220px; height: 140px;">
         <img pgs="imgCover borderRadius" src="../assets/img/placeholder.jpg" alt="Cropped image" style="width: 220px; height: 140px;">
     </div>
 </section>
 
 <demo demo-h3="List" demo-description="Shared marker and spacing for a plain list, without any component behaviour."></demo>
-<section pgs="flexColumn" pgs-option="gapTexts" demo="component">
+<section pgs="flex['flexColumn' 'gapTexts']" demo="component">
     <ul pgs="list">
         <li>Plain list item</li>
         <li>Second item</li>
@@ -62,8 +63,8 @@
 </section>
 
 <demo demo-h3="Forced colour scheme" demo-description="Pins a subtree to one colour scheme, ignoring the current page theme."></demo>
-<section pgs="flexColumn" pgs-option="gapTexts" demo="component">
-    <div pgs="flexRow bgWhiteFixed" pgs-option="gapTexts">
+<section pgs="flex['flexColumn' 'gapTexts']" demo="component">
+    <div pgs="flex['flexRow' 'gapTexts'] bgWhiteFixed">
         <div pgs="box lightmode">
             <p>lightmode</p>
         </div>

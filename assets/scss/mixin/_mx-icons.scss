@@ -83,7 +83,7 @@
     justify-content: center;
 
     i,
-    [pgs~=icon] {
+    :is([pgs~="icon"], [pgs*="icon\5B"]) {
         display: inline-grid;
         place-items: center;
         block-size: var(--iconBox-size);
@@ -142,9 +142,9 @@ $icon-hamburgerTwo-before: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
 $icon-hamburgerTwo-after: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M56,326.5c0-18.8,15.2-34,34-34h332c18.8,0,34,15.2,34,34h0c0,18.8-15.2,34-34,34H90c-18.8,0-34-15.2-34-34h0Z'/%3E%3C/svg%3E");
 $icon-ellipsis: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Ccircle cx='256' cy='154' r='34'/%3E%3Ccircle cx='256' cy='256' r='34'/%3E%3Ccircle cx='256' cy='358' r='34'/%3E%3C/svg%3E");
 //the drawable set. The key is the bare glyph name: the two prefixes are written where they are
-//used, icon- for the public option (pgs-option="icon-star") and --icon-glyph- for the custom
+//used, icon- for the public option (pgs="icon['icon-star']") and --icon-glyph- for the custom
 //property that carries the drawing, so the glyphs never mix with the icon's own configuration.
-//Adding an entry is all it takes to make a new glyph writable as pgs-option; removing or renaming
+//Adding an entry is all it takes to make a new glyph writable in the icon bracket; removing or renaming
 //one is a breaking change, since the keys are public through that option.
 $icons-builtin: (
     arrowLeft: $icon-arrowLeft,

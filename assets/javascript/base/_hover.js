@@ -105,7 +105,7 @@ PGS_onDocumentReady(() => {
         childList: true,
         subtree: true,
         attributes: true,
-        attributeFilter: ["pgs", "pgs-option"]
+        attributeFilter: ["pgs"]
     });
 });
 

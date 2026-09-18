@@ -1,10 +1,10 @@
 <!--
 /**
  * @title Toast
- * @description Toast markup, configuration, behavior, and usage example. An ephemeral, auto-dismissing message shown one at a time (e.g. "saved", "error"). Split from Notification, which is a persistent, manually-dismissed panel. Full JSON field list is under @pgs-option "toast"; full JS options list is under each @api method below. The JSON form and the JS options now use the same names; the previous message, title-link, title-close and duration keys are still accepted as aliases.
+ * @description Toast markup, configuration, behavior, and usage example. An ephemeral, auto-dismissing message shown one at a time (e.g. "saved", "error"). Split from Notification, which is a persistent, manually-dismissed panel. Full JSON field list is under @pgs-data "toast"; full JS options list is under each @api method below. The JSON form and the JS options now use the same names; the previous message, title-link, title-close and duration keys are still accepted as aliases.
  *
  * @pgs
- * - toastLoad: creates one toast from a JSON object on page load; see @pgs-option "toast" for every accepted field.
+ * - toastLoad: creates one toast from a JSON object on page load; see @pgs-data "toast" for every accepted field.
  * - toastExe: creates one toast from a JSON object each time the element is clicked; same fields as toastLoad.
  *
  * @pgs-generated
@@ -15,7 +15,7 @@
  * - _toast-element-buttons: contains the link and dismiss actions below the content.
  * - _toast-element-content-delete: identifies the dismiss button generated at the end of the content row; it draws a cross, and closeTitle is its accessible name, not visible text.
  *
- * @pgs-option
+ * @pgs-data
  * - toast: JSON object read by toastLoad/toastExe on page load or click; a new toast replaces whatever is currently shown — every field, with its accepted values and its default, is annotated in the reference below.
  *
  * @pgs-state
@@ -52,8 +52,7 @@
 
 <!-- <div pgs="toast" aria-live="polite"></div> -->
 
-<div pgs="hidden toastLoad" pgs-option='
-    toast[{
+<div pgs="hidden toastLoad" pgs-data='toast[{
         "title": "Benvenuto",
         "description": "Message",
         "type": "success",
@@ -62,10 +61,9 @@
         "link": null,
         "linkTitle": "Open",
         "closeTitle": "Close"
-    }]
-'></div>
+    }]'></div>
 
-<button pgs="button toastExe" pgs-option='toast[{
+<button pgs="button toastExe" pgs-data='toast[{
     "title": "Benvenuto",
     "description": "Message",
     "type": "success",
@@ -76,7 +74,7 @@
     "closeTitle": "Close"
 }]'> Trigger Toast</button>
 
-<button pgs="button toastExe" pgs-option='toast[{
+<button pgs="button toastExe" pgs-data='toast[{
     "title": "Hello",
     "description": "Message",
     "type": "neutral",

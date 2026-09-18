@@ -1,10 +1,10 @@
 @use "../mixin/mixin" as *;
 
-ol[pgs~="steps"] {
+ol:is([pgs~="steps"], [pgs*="steps\5B"]) {
     color: var(--color-black);
 
     //== step
-    [pgs~=steps-step] {
+    :is([pgs~="steps-step"], [pgs*="steps-step\5B"]) {
         display: flex;
         align-items: start;
         position: relative;
@@ -14,7 +14,7 @@ ol[pgs~="steps"] {
         --steps-line-color: var(--color-gray);
 
         //== CONTENT
-        [pgs~=steps-step-content] {
+        :is([pgs~="steps-step-content"], [pgs*="steps-step-content\5B"]) {
             @include flexColumn();
             margin-bottom: calc(var(--gap-elements) / 2 - 8px);
             padding-bottom: calc(var(--gap-elements) / 2);
@@ -23,7 +23,7 @@ ol[pgs~="steps"] {
         }
 
         //== NUMBER
-        [pgs~=steps-step-circle] {
+        :is([pgs~="steps-step-circle"], [pgs*="steps-step-circle\5B"]) {
             min-width: var(--steps-circle-size);
             aspect-ratio: 1;
             background: var(--steps-circle-color);
@@ -35,13 +35,13 @@ ol[pgs~="steps"] {
             font-weight: var(--font-weight-bold);
             text-align: center;
 
-            i, [pgs~=icon] {
+            i, :is([pgs~="icon"], [pgs*="icon\5B"]) {
                 color: var(--color-black);
             }
         }
 
         //== LINE
-        [pgs~=steps-step-line] {
+        :is([pgs~="steps-step-line"], [pgs*="steps-step-line\5B"]) {
             $space: 15px;
             display: block;
             position: absolute;
@@ -81,21 +81,21 @@ ol[pgs~="steps"] {
 
         //== LAST
         &:last-child {
-            [pgs~=steps-step] {
+            :is([pgs~="steps-step"], [pgs*="steps-step\5B"]) {
                 padding-bottom: 0;
                 margin-bottom: 0;
             }
 
-            [pgs~=steps-step-circle] {
+            :is([pgs~="steps-step-circle"], [pgs*="steps-step-circle\5B"]) {
                 background-color: var(--color-primary);
                 color: var(--color-whiteFixed);
 
-                i, [pgs~=icon] {
+                i, :is([pgs~="icon"], [pgs*="icon\5B"]) {
                     color: var(--color-whiteFixed);
                 }
             }
 
-            [pgs~=steps-step-line] {
+            :is([pgs~="steps-step-line"], [pgs*="steps-step-line\5B"]) {
                 opacity: 0;
             }
         }

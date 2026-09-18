@@ -126,6 +126,7 @@ Interactive palette of the current MyPGS background and text color utilities.
 
 ### PGS
 
+- `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `dropdown`: provides the interactive container for each background color tooltip.
 - `tooltip`: applies the tooltip presentation to the dropdown.
 - `dropdown-button`: identifies the control that opens a color tooltip.
@@ -137,10 +138,8 @@ Interactive palette of the current MyPGS background and text color utilities.
 - `outline`: draws the outline that the ol* utilities recolour; it sits outside the box and takes no space.
 - `button`: supplies the shared button base used by background color triggers.
 - `flex-flexFull`: makes palette headings occupy a full flex row.
-- `flexColumn`: stacks palette groups vertically.
-- `flexRow`: arranges palette entries in flexible rows.
 
-### PGS Options
+### PGS Options (component brackets)
 
 - `boxMini`: applies the compact box presentation to each palette group.
 - `buttonIcon`: makes each background color trigger a compact circular button.
@@ -148,6 +147,8 @@ Interactive palette of the current MyPGS background and text color utilities.
 - `gapElements`: spaces the background and text color groups.
 - `gapTexts`: spaces individual palette entries.
 - `wrap`: lets palette entries wrap on narrow viewports.
+- `flexColumn`: stacks palette groups vertically.
+- `flexRow`: arranges palette entries in flexible rows.
 
 ## CSS Variables
 

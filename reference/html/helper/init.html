@@ -7,6 +7,7 @@
  * - pgs.init(root): finds every registered module that exposes init(root) and runs it again against the given Document or Element; already-initialized markup inside it is left untouched.
  *
  * @related
+ * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - flexColumn: stacks the trigger and the target vertically in this example.
  * - gapElements: spaces them apart.
  * - button: styles the trigger that inserts the new markup.
@@ -18,7 +19,7 @@
  */
 -->
 
-<div pgs="flexColumn" pgs-option="gapElements">
+<div pgs="flex['flexColumn' 'gapElements']">
     <button pgs="button" id="pgsInit-add" type="button">Add dropdown</button>
     <div id="pgsInit-target"></div>
 </div>

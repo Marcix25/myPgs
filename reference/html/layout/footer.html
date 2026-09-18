@@ -14,6 +14,7 @@
  * - footer-legal-content: identifies the content of the legal section.
  *
  * @related
+ * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - button: presents theme and cookie preference controls as buttons.
  * - toggleDarkmode: connects the control to the global light or dark theme handler.
  * - toggleDarkmodeExtended: labels that control with the theme the click leads to; see Darkmode.
@@ -35,13 +36,13 @@
     <footer pgs="footer">
     
         <section pgs="footer-top section">
-            <div pgs="footer-top-content flexRow" pgs-option="column-3">
+            <div pgs="footer-top-content flex['flexRow' 'column-3']">
                 <div pgs="footer-brand">
                     <a aria-label="Logo" pgs="logo" href="/">
                         <span pgs="logo-text">MyPGS</span>
                     </a>
                     <p pgs="footer-brand-motto">Reusable frontend components.</p>
-                    <button pgs="button toggleDarkmode" pgs-option="toggleDarkmodeExtended" type="button" aria-label="Change theme">
+                    <button pgs="button toggleDarkmode['toggleDarkmodeExtended']" type="button" aria-label="Change theme">
                         <i class="fa-solid fa-moon"></i>
                     </button>
                 </div>

@@ -8,8 +8,9 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 
 - `button`: identifies the standard button, which can also be used on anchor elements, and on a `<label>` wrapping its own checkbox or radio to make a two-state control. On a page that carries `bodyHoverAuto`, `pgs.hover` marks it with `hover` at load, so the hover and focus treatment is not written here; see Html and Body.
 
-## PGS Options
+## PGS Options (component brackets)
 
+- `buttonHeader`: sizes the button for use in a header.
 - `buttonReverse`: reverses the visual order of the text and icon on the button.
 - `buttonStrong`: applies the variant with stronger visual emphasis.
 - `buttonIcon`: identifies a compact button composed primarily of an icon.
@@ -27,12 +28,13 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 
 ### PGS
 
-- `flexRow`: arranges the button examples in a flexible row.
+- `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `form`: wraps the checked example, so the control is shown where a form actually puts it.
 - `icon`: draws the glyphs this example shows; see Icon for the whole set.
 
-### PGS Options
+### PGS Options (component brackets)
 
+- `flexRow`: arranges the button examples in a flexible row.
 - `wrap`: lets that row break instead of overflowing.
 - `gapTexts`: spaces the two buttons that share the text-only example, and the three two-state buttons.
 - `icon-arrowRight`: the glyph that points forward.
@@ -85,7 +87,7 @@ Anchor element styled as a standard button, combining an icon with text.
 
 ```html
 <a pgs="button" href="#">
-    <i pgs="icon" pgs-option="icon-star"></i>
+    <i pgs="icon['icon-star']"></i>
     About
 </a>
 ```
@@ -105,9 +107,9 @@ button disabled
 Places the icon after the text using buttonReverse.
 
 ```html
-<button pgs="button" type="button" pgs-option="buttonReverse">
+<button pgs="button['buttonReverse']" type="button">
     Next
-    <i pgs="icon" pgs-option="icon-arrowRight" aria-hidden="true"></i>
+    <i pgs="icon['icon-arrowRight']" aria-hidden="true"></i>
 </button>
 ```
 
@@ -116,7 +118,7 @@ Places the icon after the text using buttonReverse.
 Applies the higher-emphasis buttonStrong variant.
 
 ```html
-<button pgs="button" pgs-option="buttonStrong" type="button">
+<button pgs="button['buttonStrong']" type="button">
     Submit
 </button>
 ```
@@ -126,8 +128,8 @@ Applies the higher-emphasis buttonStrong variant.
 Compact icon-only button using buttonIcon.
 
 ```html
-<button pgs="button" pgs-option="buttonIcon" type="button" aria-label="Settings">
-    <i pgs="icon" pgs-option="icon-star" aria-hidden="true"></i>
+<button pgs="button['buttonIcon']" type="button" aria-label="Settings">
+    <i pgs="icon['icon-star']" aria-hidden="true"></i>
 </button>
 ```
 
@@ -136,7 +138,7 @@ Compact icon-only button using buttonIcon.
 Smallest button size using buttonMini.
 
 ```html
-<button pgs="button" pgs-option="buttonMini" type="button" aria-label="Information">
+<button pgs="button['buttonMini']" type="button" aria-label="Information">
     Mini
 </button>
 ```
@@ -146,8 +148,8 @@ Smallest button size using buttonMini.
 Largest button size using buttonBig, combined with an icon.
 
 ```html
-<button pgs="button" pgs-option="buttonBig" type="button" aria-label="Large button">
-    <i pgs="icon" pgs-option="icon-star"></i>
+<button pgs="button['buttonBig']" type="button" aria-label="Large button">
+    <i pgs="icon['icon-star']"></i>
     Large
 </button>
 ```
@@ -157,7 +159,7 @@ Largest button size using buttonBig, combined with an icon.
 Only the label shows at rest, and it takes the accent colour on hover; buttonStrong and aria-current still fill in.
 
 ```html
-<button pgs="button" pgs-option="buttonTransparent" type="button">
+<button pgs="button['buttonTransparent']" type="button">
     Read more
 </button>
 ```
@@ -167,7 +169,7 @@ Only the label shows at rest, and it takes the accent colour on hover; buttonStr
 Removes the default background and outline while keeping the button layout using buttonText.
 
 ```html
-<button pgs="button" pgs-option="buttonText" type="button">
+<button pgs="button['buttonText']" type="button">
     Text only
 </button>
 ```
@@ -177,7 +179,7 @@ Removes the default background and outline while keeping the button layout using
 Sets the same padding on every side using buttonPaddingEqual, instead of the wider left/right default.
 
 ```html
-<button pgs="button" pgs-option="buttonPaddingEqual" type="button">
+<button pgs="button['buttonPaddingEqual']" type="button">
     Equal
 </button>
 ```
@@ -187,7 +189,7 @@ Sets the same padding on every side using buttonPaddingEqual, instead of the wid
 Strong button using the primary color palette.
 
 ```html
-<button pgs="button" pgs-option="buttonPrimary" type="button">
+<button pgs="button['buttonPrimary']" type="button">
     Primary
 </button>
 ```
@@ -197,7 +199,7 @@ Strong button using the primary color palette.
 Strong button using the secondary color palette.
 
 ```html
-<button pgs="button" pgs-option="buttonSecondary" type="button">
+<button pgs="button['buttonSecondary']" type="button">
     Secondary
 </button>
 ```
@@ -207,7 +209,7 @@ Strong button using the secondary color palette.
 Strong button using the tertiary color palette.
 
 ```html
-<button pgs="button" pgs-option="buttonTertiary" type="button">
+<button pgs="button['buttonTertiary']" type="button">
     Tertiary
 </button>
 ```
@@ -217,7 +219,7 @@ Strong button using the tertiary color palette.
 Strong button using the quaternary color palette.
 
 ```html
-<button pgs="button" pgs-option="buttonQuaternary" type="button">
+<button pgs="button['buttonQuaternary']" type="button">
     Quaternary
 </button>
 ```
@@ -229,7 +231,7 @@ A label marked as a button wrapping its own checkbox or radio: the input carries
 ```html
 <label pgs="button">
     <input type="checkbox" name="favorite" value="yes">
-    <i pgs="icon" pgs-option="icon-star"></i>
+    <i pgs="icon['icon-star']"></i>
     Add to favorites
 </label>
 <label pgs="button">

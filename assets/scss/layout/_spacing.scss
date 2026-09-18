@@ -1,158 +1,158 @@
 //# SPACING
 //= MARGIN
-[pgs~=margin],
-[pgs~=marginLeft],
-[pgs~=marginRight],
-[pgs~=marginBottom],
-[pgs~=marginTop],
-[pgs~=marginInline],
-[pgs~=marginBlock] {
+:is([pgs~="margin"], [pgs*="margin\5B"]),
+:is([pgs~="marginLeft"], [pgs*="marginLeft\5B"]),
+:is([pgs~="marginRight"], [pgs*="marginRight\5B"]),
+:is([pgs~="marginBottom"], [pgs*="marginBottom\5B"]),
+:is([pgs~="marginTop"], [pgs*="marginTop\5B"]),
+:is([pgs~="marginInline"], [pgs*="marginInline\5B"]),
+:is([pgs~="marginBlock"], [pgs*="marginBlock\5B"]) {
     --margin-size: var(--padding);
 
-    &[pgs-option~=margin2] {
+    &[pgs*="'margin2'"] {
         --margin-size: var(--padding-half);
     }
 
-    &[pgs-option~=marginPage] {
+    &[pgs*="'marginPage'"] {
         --margin-size: var(--page-padding);
     }
 
-    &[pgs-option~=marginTexts] {
+    &[pgs*="'marginTexts'"] {
         --margin-size: var(--gap-texts);
     }
 
-    &[pgs-option~=marginElements] {
+    &[pgs*="'marginElements'"] {
         --margin-size: var(--gap-elements);
     }
 
-    &[pgs-option~=marginSections] {
+    &[pgs*="'marginSections'"] {
         --margin-size: var(--gap-sections);
     }
 
-    &[pgs-option~=marginAuto] {
+    &[pgs*="'marginAuto'"] {
         --margin-size: auto;
     }
 
-    &[pgs-option~=marginUnset] {
+    &[pgs*="'marginUnset'"] {
         --margin-size: unset;
     }
 }
 
-[pgs~=margin] {
+:is([pgs~="margin"], [pgs*="margin\5B"]) {
     margin: var(--margin-size);
 
-    &[pgs-option~=marginNegative] {
+    &[pgs*="'marginNegative'"] {
         margin: calc(var(--margin-size) * -1);
     }
 }
 
-[pgs~=marginLeft] {
+:is([pgs~="marginLeft"], [pgs*="marginLeft\5B"]) {
     margin-left: var(--margin-size);
 
-    &[pgs-option~=marginNegative] {
+    &[pgs*="'marginNegative'"] {
         margin-left: calc(var(--margin-size) * -1);
     }
 }
 
-[pgs~=marginRight] {
+:is([pgs~="marginRight"], [pgs*="marginRight\5B"]) {
     margin-right: var(--margin-size);
 
-    &[pgs-option~=marginNegative] {
+    &[pgs*="'marginNegative'"] {
         margin-right: calc(var(--margin-size) * -1);
     }
 }
 
-[pgs~=marginBottom] {
+:is([pgs~="marginBottom"], [pgs*="marginBottom\5B"]) {
     margin-bottom: var(--margin-size);
 
-    &[pgs-option~=marginNegative] {
+    &[pgs*="'marginNegative'"] {
         margin-bottom: calc(var(--margin-size) * -1);
     }
 }
 
-[pgs~=marginTop] {
+:is([pgs~="marginTop"], [pgs*="marginTop\5B"]) {
     margin-top: var(--margin-size);
 
-    &[pgs-option~=marginNegative] {
+    &[pgs*="'marginNegative'"] {
         margin-top: calc(var(--margin-size) * -1);
     }
 }
 
-[pgs~=marginInline] {
+:is([pgs~="marginInline"], [pgs*="marginInline\5B"]) {
     margin-inline: var(--margin-size);
 
-    &[pgs-option~=marginNegative] {
+    &[pgs*="'marginNegative'"] {
         margin-inline: calc(var(--margin-size) * -1);
     }
 }
 
-[pgs~=marginBlock] {
+:is([pgs~="marginBlock"], [pgs*="marginBlock\5B"]) {
     margin-block: var(--margin-size);
 
-    &[pgs-option~=marginNegative] {
+    &[pgs*="'marginNegative'"] {
         margin-block: calc(var(--margin-size) * -1);
     }
 }
 
 //= PADDING
-[pgs~=padding],
-[pgs~=paddingLeft],
-[pgs~=paddingRight],
-[pgs~=paddingBottom],
-[pgs~=paddingTop],
-[pgs~=paddingInline],
-[pgs~=paddingBlock] {
+:is([pgs~="padding"], [pgs*="padding\5B"]),
+:is([pgs~="paddingLeft"], [pgs*="paddingLeft\5B"]),
+:is([pgs~="paddingRight"], [pgs*="paddingRight\5B"]),
+:is([pgs~="paddingBottom"], [pgs*="paddingBottom\5B"]),
+:is([pgs~="paddingTop"], [pgs*="paddingTop\5B"]),
+:is([pgs~="paddingInline"], [pgs*="paddingInline\5B"]),
+:is([pgs~="paddingBlock"], [pgs*="paddingBlock\5B"]) {
     --padding-size: var(--padding);
 
-    &[pgs-option~=padding2] {
+    &[pgs*="'padding2'"] {
         --padding-size: var(--padding-half);
     }
 
-    &[pgs-option~=paddingPage] {
+    &[pgs*="'paddingPage'"] {
         --padding-size: var(--page-padding);
     }
 
-    &[pgs-option~=paddingTexts] {
+    &[pgs*="'paddingTexts'"] {
         --padding-size: var(--gap-texts);
     }
 
-    &[pgs-option~=paddingElements] {
+    &[pgs*="'paddingElements'"] {
         --padding-size: var(--gap-elements);
     }
 
-    &[pgs-option~=paddingSections] {
+    &[pgs*="'paddingSections'"] {
         --padding-size: var(--gap-sections);
     }
 
-    &[pgs-option~=paddingUnset] {
+    &[pgs*="'paddingUnset'"] {
         --padding-size: unset;
     }
 }
 
-[pgs~=padding] {
+:is([pgs~="padding"], [pgs*="padding\5B"]) {
     padding: var(--padding-size);
 }
 
-[pgs~=paddingLeft] {
+:is([pgs~="paddingLeft"], [pgs*="paddingLeft\5B"]) {
     padding-left: var(--padding-size);
 }
 
-[pgs~=paddingRight] {
+:is([pgs~="paddingRight"], [pgs*="paddingRight\5B"]) {
     padding-right: var(--padding-size);
 }
 
-[pgs~=paddingBottom] {
+:is([pgs~="paddingBottom"], [pgs*="paddingBottom\5B"]) {
     padding-bottom: var(--padding-size);
 }
 
-[pgs~=paddingTop] {
+:is([pgs~="paddingTop"], [pgs*="paddingTop\5B"]) {
     padding-top: var(--padding-size);
 }
 
-[pgs~=paddingInline] {
+:is([pgs~="paddingInline"], [pgs*="paddingInline\5B"]) {
     padding-inline: var(--padding-size);
 }
 
-[pgs~=paddingBlock] {
+:is([pgs~="paddingBlock"], [pgs*="paddingBlock\5B"]) {
     padding-block: var(--padding-size);
 }

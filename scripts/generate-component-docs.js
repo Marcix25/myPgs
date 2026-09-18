@@ -4,6 +4,7 @@
 
 const fs = require("fs");
 const path = require("path");
+const { findMatchingBracket, tokenizeOptions, extractAttributes } = require("./pgs-attributes.js");
 
 const PROJECT_ROOT = path.resolve(__dirname, "..");
 const REFERENCE_ROOT = path.join(PROJECT_ROOT, "reference", "html");
@@ -15,8 +16,8 @@ const SOURCE_ROOTS = [
     path.join(PROJECT_ROOT, "assets", "scss"),
 ];
 
-const TAG_ORDER = ["title", "description", "pgs", "pgs-generated", "pgs-option", "pgs-state", "api", "related", "return"];
-const LIST_TAGS = new Set(["pgs", "pgs-generated", "pgs-option", "pgs-state", "api", "related"]);
+const TAG_ORDER = ["title", "description", "pgs", "pgs-generated", "pgs-options", "pgs-data", "pgs-state", "api", "related", "return"];
+const LIST_TAGS = new Set(["pgs", "pgs-generated", "pgs-options", "pgs-data", "pgs-state", "api", "related"]);
 const REQUIRED_TAGS = ["title", "description", "pgs"];
 //== a helper (reference/html/helper/*.html) documents a JavaScript utility, not markup a component
 //== owns: it may touch no pgs token of its own at all, so @api carries the weight @pgs carries
@@ -70,7 +71,7 @@ function parseDocumentationBlock(file, source) {
     const content = hasBom ? source.slice(1) : source;
     const blockPattern = /\/\*\*[\s\S]*?\*\//g;
     const taggedBlocks = [...content.matchAll(blockPattern)]
-        .filter(match => /@(title|description|pgs(?:-option|-state)?|api|related|return)\b/.test(match[0]));
+        .filter(match => /@(title|description|pgs(?:-options|-data|-state)?|api|related|return)\b/.test(match[0]));
     const initialHtmlComment = content.match(/^<!--[\t\r\n ]*(\/\*\*[\s\S]*?\*\/)[\t\r\n ]*-->/);
 
     if (taggedBlocks.length === 0) {
@@ -113,7 +114,8 @@ function parseDocumentationBlock(file, source) {
         description: "",
         pgs: [],
         "pgs-generated": [],
-        "pgs-option": [],
+        "pgs-options": [],
+        "pgs-data": [],
         "pgs-state": [],
         api: [],
         related: [],
@@ -180,8 +182,8 @@ function parseDocumentationBlock(file, source) {
             errors.push(createError(relativeFile, `Valore duplicato "${key}" nella sezione @${activeTag}.`, "Rimuovi la voce duplicata.", `@${activeTag}`, key));
             return;
         }
-        if (activeTag === "pgs-option" && /[\s[\]]/.test(key)) {
-            errors.push(createError(relativeFile, `La voce @pgs-option "${key}" non è una chiave valida.`, "Documenta la chiave senza payload, per esempio position invece di position[top left].", "@pgs-option", key));
+        if (["pgs-options", "pgs-data"].includes(activeTag) && /[\s[\]]/.test(key)) {
+            errors.push(createError(relativeFile, `La voce @pgs-options "${key}" non è una chiave valida.`, "Documenta la chiave senza payload, per esempio position invece di position[top left].", "@pgs-options", key));
             return;
         }
         data[activeTag].push({ key, description });
@@ -213,59 +215,6 @@ function parseDocumentationBlock(file, source) {
 }
 
 //+ index of the "]" matching the "[" at openIndex, counting nested brackets and ignoring any "[" / "]" inside a JSON string (respects \" escapes)
-function findMatchingBracket(source, openIndex) {
-    let depth = 0;
-    let inString = false;
-    let escaped = false;
-
-    for (let i = openIndex; i < source.length; i++) {
-        const char = source[i];
-
-        if (escaped) {
-            escaped = false;
-            continue;
-        }
-
-        if (inString) {
-            if (char === "\\") escaped = true;
-            else if (char === "\"") inString = false;
-            continue;
-        }
-
-        if (char === "\"") inString = true;
-        else if (char === "[") depth++;
-        else if (char === "]") {
-            depth--;
-            if (depth === 0) return i;
-        }
-    }
-
-    return -1;
-}
-
-//+ mirrors assets/javascript/_pgs.js tokenizeOptionValue: keeps "key[...]" whole even when the payload has its own [...]
-function tokenizeOptions(value) {
-    const tokens = [];
-    let i = 0;
-
-    while (i < value.length) {
-        while (i < value.length && /\s/.test(value[i])) i++;
-        if (i >= value.length) break;
-
-        const start = i;
-        while (i < value.length && !/\s/.test(value[i]) && value[i] !== "[") i++;
-
-        if (i < value.length && value[i] === "[") {
-            const close = findMatchingBracket(value, i);
-            i = close === -1 ? value.length : close + 1;
-        }
-
-        if (i > start) tokens.push(value.slice(start, i));
-    }
-
-    return tokens;
-}
-
 function splitOption(value) {
     const openIndex = value.indexOf("[");
     if (openIndex === -1) return /^[^\s[\]]+$/.test(value) ? { key: value, payload: undefined } : { key: "", payload: undefined };
@@ -279,7 +228,7 @@ function splitOption(value) {
 
 //+ a demo="component" element is grouping-only (and never rendered in the docs Example section, see
 //+ extractDemoItems) ONLY when it actually contains a nested demo="component" — in that case its
-//+ own pgs/pgs-option/pgs-state attributes are incidental layout and shouldn't force a doc
+//+ own pgs/pgs-options/pgs-state attributes are incidental layout and shouldn't force a doc
 //+ requirement. Without a nested component the element itself is the rendered example and its
 //+ attributes are the real subject (see formAddon.html's outer <form demo="component"> against its
 //+ inner, once-nested <section demo="component"> examples).
@@ -298,32 +247,13 @@ function stripComponentWrapperAttributes(markup) {
         const hasNestedComponent = /\bdemo\s*=\s*["'][^"']*\bcomponent\b[^"']*["']/.test(innerContent);
 
         result += markup.slice(lastIndex, match.index);
-        result += hasNestedComponent ? openTag.replace(/\s+pgs(?:-option|-state)?\s*=\s*("[^"]*"|'[^']*')/g, "") : openTag;
+        result += hasNestedComponent ? openTag.replace(/\s+pgs(?:-options|-data|-state)?\s*=\s*("[^"]*"|'[^']*')/g, "") : openTag;
 
         lastIndex = openTagEnd;
         openTagPattern.lastIndex = openTagEnd;
     }
 
     result += markup.slice(lastIndex);
-    return result;
-}
-
-function extractAttributes(markup) {
-    const activeMarkup = markup.replace(/<!--[\s\S]*?-->/g, "");
-    const result = { pgs: [], options: [], states: [] };
-    const pattern = /\b(pgs(?:-option|-state)?)\s*=\s*(["'])([\s\S]*?)\2/g;
-
-    for (const match of activeMarkup.matchAll(pattern)) {
-        const attribute = match[1];
-        const value = match[3];
-        if (attribute === "pgs-option") result.options.push(...tokenizeOptions(value));
-        else if (attribute === "pgs-state") result.states.push(...value.trim().split(/\s+/).filter(Boolean));
-        else result.pgs.push(...value.trim().split(/\s+/).filter(Boolean));
-    }
-
-    Object.keys(result).forEach(key => {
-        result[key] = [...new Set(result[key])];
-    });
     return result;
 }
 
@@ -372,7 +302,7 @@ function loadSources() {
 
 //+ every custom property a component exposes carries its own name as an exact, unhyphenated-free
 //+ prefix (slides.html -> --slides-*, pageShell.html -> --pageShell-*, casing included) — unlike
-//+ pgs-option matching this needs no fuzzy/singular fallback, the prefix alone is already specific
+//+ pgs-options matching this needs no fuzzy/singular fallback, the prefix alone is already specific
 function extractCssVariables(template, allSourceContent) {
     const basename = path.basename(template, ".html");
     const pattern = new RegExp(`--${escapeRegExp(basename)}-[A-Za-z0-9-]+`, "g");
@@ -423,11 +353,10 @@ function extractEmittedPgs(source) {
         }
     });
 
-    for (const match of source.content.matchAll(/\bpgs\s*=\s*\\?["']([^"'\\`$]+)/g)) {
-        match[1].split(/\s+/).forEach(value => {
-            if (/^[A-Za-z_][\w-]*$/.test(value)) emitted.add(value);
-        });
-    }
+    const markup = source.content.replace(/\\"/g, '"');
+    extractAttributes(markup).pgs.forEach(token => {
+        if (/^[A-Za-z_][\w-]*$/.test(token)) emitted.add(token);
+    });
 
     return [...emitted];
 }
@@ -439,7 +368,8 @@ function extractSourceFacts(sources) {
         const content = source.content;
         const optionPatterns = [
             /\.option\.(?:contains|getValueBrackets|setValueBrackets)\(\s*["']([^"']+)["']\s*(?=[,)])/g,
-            /pgs-option\s*[~*^$|]?=\s*["']([^"'\[\]\s]+)(?:\[[^\]]*\])?["']/g,
+            /pgs-data\s*[~*^$|]?=\s*["']([^"'\[\]\s]+)(?:\[[^\]]*\])?["']/g,
+            /\[pgs\*="'([A-Za-z_][\w-]*)'"\]/g,
         ];
         const statePatterns = [
             /\.state\.(?:add|remove|toggle|contains)\(\s*["']([^"']+)["']\s*(?=[,)])/g,
@@ -473,7 +403,7 @@ function validatePosition(file, option, errors) {
     };
 
     if (parts.length !== 2 || !allowed[side]?.has(align)) {
-        errors.push(createError(file, `Payload non valido per pgs-option dropdownPosition: "${option.payload}".`, "Usa una coppia lato/allineamento compatibile, per esempio dropdownPosition[bottom center].", "@pgs-option", "dropdownPosition"));
+        errors.push(createError(file, `Payload non valido per pgs-data dropdownPosition: "${option.payload}".`, "Usa una coppia lato/allineamento compatibile, per esempio dropdownPosition[bottom center].", "@pgs-options", "dropdownPosition"));
     }
 }
 
@@ -490,8 +420,17 @@ function validateTemplate(template, parsed, sources, allSourceContent) {
     const documentedPgs = new Set(documentation.pgs.map(item => item.key));
     const documentedGenerated = new Set(documentation["pgs-generated"].map(item => item.key));
     const documentedRelated = new Set(documentation.related.map(item => item.key));
-    const documentedOptions = new Set(documentation["pgs-option"].map(item => item.key));
+    const documentedOptions = new Set([...documentation["pgs-options"], ...documentation["pgs-data"]].map(item => item.key));
     const documentedStates = new Set(documentation["pgs-state"].map(item => item.key));
+    for (const [attribute, values, tag] of [["pgs", attributes.options, "pgs-options"], ["pgs-data", attributes.data, "pgs-data"]]) {
+        const ownKeys = new Set(documentation[tag].map(item => item.key));
+        for (const value of values) {
+            const key = splitOption(value).key;
+            if (!ownKeys.has(key) && !documentedRelated.has(key)) {
+                errors.push(createError(file, `Opzione "${key}" non documentata per ${attribute}.`, `Documentala in @${tag} o @related.`, tag, key));
+            }
+        }
+    }
     const associatedSources = associateSources(template, documentation, sources);
     const associatedFacts = extractSourceFacts(associatedSources);
 
@@ -535,23 +474,23 @@ function validateTemplate(template, parsed, sources, allSourceContent) {
     });
 
     [...documentedPgs, ...documentedGenerated, ...documentedRelated].forEach(token => {
-        const usedAsOption = attributes.options.some(value => splitOption(value).key === token);
+        const usedAsOption = [...attributes.options, ...attributes.data].some(value => splitOption(value).key === token);
         if (!attributes.pgs.includes(token) && !usedAsOption && !containsExactToken(allSourceContent, token)) {
             errors.push(createError(file, `Valore documentato non trovato nel template, JavaScript o SCSS: "${token}".`, "Correggi il nome oppure rimuovi la voce non implementata.", documentedPgs.has(token) ? "@pgs" : "@related", token));
         }
     });
 
-    attributes.options.forEach(rawOption => {
+    [...attributes.options, ...attributes.data].forEach(rawOption => {
         const option = splitOption(rawOption);
         if (!option.key) {
-            errors.push(createError(file, `Valore pgs-option non valido: "${rawOption}".`, "Correggi la sintassi dell'attributo pgs-option.", "@pgs-option", rawOption));
+            errors.push(createError(file, `Valore pgs-options non valido: "${rawOption}".`, "Correggi la sintassi dell'attributo pgs-options.", "@pgs-options", rawOption));
             return;
         }
         if (!documentedOptions.has(option.key) && !documentedRelated.has(option.key)) {
-            errors.push(createError(file, `Valore pgs-option non documentato: "${option.key}".`, "Aggiungi la chiave alla sezione @pgs-option oppure a @related.", "@pgs-option", option.key));
+            errors.push(createError(file, `Valore pgs-options non documentato: "${option.key}".`, "Aggiungi la chiave alla sezione @pgs-options oppure a @related.", "@pgs-options", option.key));
         }
         if (["modalContainerID", "modalContainerPGS", "stepTabsIcon"].includes(option.key) && (!option.payload || !option.payload.trim())) {
-            errors.push(createError(file, `Payload mancante per pgs-option "${option.key}".`, `Usa ${option.key}[valore] con un valore non vuoto.`, "@pgs-option", option.key));
+            errors.push(createError(file, `Payload mancante per pgs-data "${option.key}".`, `Usa ${option.key}[valore] con un valore non vuoto.`, "@pgs-options", option.key));
         }
         //== stepTabsIcon accetta tre forme: markup completo (da "<"), il nome di un glifo interno, o una
         //== lista di classi. Solo la seconda deve restare una parola sola, perche' e' una chiave:
@@ -559,29 +498,29 @@ function validateTemplate(template, parsed, sources, allSourceContent) {
         if (option.key === "stepTabsIcon") {
             const payload = (option.payload || "").trim();
             if (payload.startsWith("icon-") && /\s/.test(payload)) {
-                errors.push(createError(file, `Il nome di un glifo in stepTabsIcon deve essere una parola sola: "${option.payload}".`, "Usa il markup completo, il nome di un glifo, oppure una lista di classi: stepTabsIcon[<i pgs='icon' pgs-option='icon-check'></i>], stepTabsIcon[icon-check], stepTabsIcon[fa-regular fa-star].", "@pgs-option", option.key));
+                errors.push(createError(file, `Il nome di un glifo in stepTabsIcon deve essere una parola sola: "${option.payload}".`, "Usa il markup completo, il nome di un glifo, oppure una lista di classi: stepTabsIcon[icon-check], stepTabsIcon[icon-check], stepTabsIcon[fa-regular fa-star].", "@pgs-options", option.key));
             }
             if (payload.startsWith("<") && !/<[a-zA-Z][^>]*>/.test(payload)) {
-                errors.push(createError(file, `Il markup di stepTabsIcon non e' un tag valido: "${option.payload}".`, "Scrivi un elemento completo, con gli attributi interni fra apici singoli.", "@pgs-option", option.key));
+                errors.push(createError(file, `Il markup di stepTabsIcon non e' un tag valido: "${option.payload}".`, "Scrivi un elemento completo, con gli attributi interni fra apici singoli.", "@pgs-options", option.key));
             }
         }
         if (option.key === "dropdownPosition") validatePosition(file, option, errors);
     });
 
-    documentation["pgs-option"].forEach(item => {
-        const inTemplate = attributes.options.some(value => splitOption(value).key === item.key);
+    [...documentation["pgs-options"], ...documentation["pgs-data"]].forEach(item => {
+        const inTemplate = [...attributes.options, ...attributes.data].some(value => splitOption(value).key === item.key);
         if (!inTemplate && !associatedFacts.options.has(item.key) && !containsExactToken(allSourceContent, item.key)) {
-            errors.push(createError(file, `Il valore @pgs-option "${item.key}" non è stato trovato nei sorgenti collegati.`, "Correggi il nome o rimuovi l'opzione non implementata.", "@pgs-option", item.key));
+            errors.push(createError(file, `Il valore @pgs-options "${item.key}" non è stato trovato nei sorgenti collegati.`, "Correggi il nome o rimuovi l'opzione non implementata.", "@pgs-options", item.key));
         }
     });
 
     //== @related counts here as it does for the options written in the example: a component whose
     //== markup carries an option owned by another component documents it as a reference, not as one
-    //== of its own. Demanding @pgs-option would put a foreign key in this component's table, which
+    //== of its own. Demanding @pgs-options would put a foreign key in this component's table, which
     //== reads as an offer to configure something this component does not own
     associatedFacts.options.forEach(option => {
         if (!documentedOptions.has(option) && !documentedRelated.has(option)) {
-            errors.push(createError(file, `Opzione supportata ma non documentata: "${option}".`, "Aggiungila alla sezione @pgs-option, oppure a @related se appartiene a un altro componente.", "@pgs-option", option));
+            errors.push(createError(file, `Opzione supportata ma non documentata: "${option}".`, "Aggiungila alla sezione @pgs-options, oppure a @related se appartiene a un altro componente.", "@pgs-options", option));
         }
     });
 
@@ -707,7 +646,7 @@ function findMatchingCloseTag(markup, tagName, fromIndex) {
 
 //+ removes every demo="disabled" element (whole subtree) from the rendered "## Example" output — test-only
 //+ markup that shouldn't appear in the generated docs, even though it stays in the file and still counts
-//+ for @pgs/@pgs-option/@related validation (which runs on the untouched markup, not this output)
+//+ for @pgs/@pgs-options/@related validation (which runs on the untouched markup, not this output)
 function stripDisabledElements(markup) {
     const openTagPattern = /<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*\bdemo\s*=\s*["']disabled["'][^>]*>/g;
     let result = "";
@@ -813,18 +752,20 @@ function fenceFor(text) {
     return "`".repeat(Math.max(3, (runs.length ? Math.max(...runs) : 0) + 1));
 }
 
-//+ related elements can be borrowed from any of the three attribute kinds (pgs/pgs-option/pgs-state);
+//+ related elements can be borrowed from any of the three attribute kinds (pgs/pgs-options/pgs-state);
 //+ split them into labeled subgroups by how they're actually used in this template's markup, so a
 //+ reader can tell which attribute to put each one in without re-checking the source
 function renderRelatedSection(items, markup) {
     const attributes = extractAttributes(markup);
-    const isOption = key => attributes.options.some(value => splitOption(value).key === key);
+    const isOption = key => attributes.options.includes(key);
+    const isData = key => attributes.data.some(value => splitOption(value).key === key);
     const isState = key => attributes.states.includes(key);
     const isPgs = key => attributes.pgs.includes(key);
 
     const groups = [
         ["PGS", items.filter(item => isPgs(item.key))],
-        ["PGS Options", items.filter(item => !isPgs(item.key) && isOption(item.key))],
+        ["PGS Options (component brackets)", items.filter(item => !isPgs(item.key) && isOption(item.key))],
+        ["PGS Data", items.filter(item => isData(item.key))],
         ["PGS States", items.filter(item => !isPgs(item.key) && !isOption(item.key) && isState(item.key))],
     ];
     const grouped = new Set(groups.flatMap(([, groupItems]) => groupItems));
@@ -846,7 +787,8 @@ function renderMarkdown(template, documentation, markup, allSourceContent) {
     const sectionMap = [
         ["PGS", documentation.pgs],
         ["PGS generated by JavaScript", documentation["pgs-generated"]],
-        ["PGS Options", documentation["pgs-option"]],
+        ["PGS Options (component brackets)", documentation["pgs-options"]],
+        ["PGS Data", documentation["pgs-data"]],
         ["PGS States", documentation["pgs-state"]],
         ["JavaScript API", documentation.api],
     ];
@@ -866,8 +808,8 @@ function renderMarkdown(template, documentation, markup, allSourceContent) {
     const { content: jsonSchema, markup: markupAfterJson } = extractScriptBlock(markup, "application/json");
     const { content: jsUsage, markup: cleanedMarkup } = extractScriptBlock(markupAfterJson, "text/x-example-js");
 
-    //== the payload is the value of a pgs-option attribute, so print it as one
-    if (jsonSchema) sections.push("", "## PGS Option fields", "", "```html", `pgs-option='${jsonSchema}'`, "```", "");
+    //== the payload is the value of a pgs-data attribute, so print it as one
+    if (jsonSchema) sections.push("", "## PGS Data fields", "", "```html", `pgs-data='${jsonSchema}'`, "```", "");
     if (jsUsage) sections.push("", "## JavaScript Usage", "", "```js", jsUsage, "```", "");
 
     const exampleMarkup = stripDisabledElements(cleanedMarkup);

@@ -19,13 +19,13 @@
         //== clickable box on a page with bodyHoverAuto; without it, boxHover below is the fallback
         outline: var(--border-complete);
 
-        &:not(:where([pgs~=bodyHoverAuto] [pgs~=box])) {
+        &:not(:where(:is([pgs~="bodyHoverAuto"], [pgs*="bodyHoverAuto\5B"]) :is([pgs~="box"], [pgs*="box\5B"]))) {
             @include boxHover();
         }
     }
 
     //- boxMini
-    &[pgs-option~=boxMini] {
+    &[pgs*="'boxMini'"] {
         --box-padding: var(--padding-half);
         --box-borderRadius: var(--border-radius-input);
     }
@@ -33,11 +33,11 @@
 
 //== HOVER
 //== the fallback for a page with no bodyHoverAuto: pgs.hover never marks a link box with the hover
-//== token there, so nothing under [pgs~=hover] ever applies
+//== token there, so nothing under :is([pgs~="hover"], [pgs*="hover\5B"]) ever applies
 @mixin boxHover() {
     @media (hover: hover) and (pointer: fine) {
         &:hover {
-            &:not(:where([pgs-option~=hoverNot])) {
+            &:not(:where([pgs*="'hoverNot'"])) {
                 --box-background: var(--color-primary-soft);
             }
         }

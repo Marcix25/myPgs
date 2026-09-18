@@ -30,11 +30,12 @@ Inline feedback messages for contextual information, successful operations, warn
 
 ### PGS
 
-- `flexColumn`: arranges the static alert examples vertically.
+- `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `icon`: draws the glyph that marks the alert type; see Icon for the whole set.
 
-### PGS Options
+### PGS Options (component brackets)
 
+- `flexColumn`: arranges the static alert examples vertically.
 - `icon-circleXmark`: the glyph of the error type.
 - `icon-circleCheck`: the glyph of the success type.
 - `icon-circleInfo`: the glyph of the info type.
@@ -55,7 +56,7 @@ Neutral informational feedback.
 
 ```html
 <div pgs="alert" pgs-state="info" role="status">
-    <i pgs="icon alert-icon" pgs-option="icon-circleInfo" aria-hidden="true"></i>
+    <i pgs="icon['icon-circleInfo'] alert-icon" aria-hidden="true"></i>
     <div pgs="alert-content">
         <strong pgs="alert-content-title">Information</strong>
         <p>Your profile information can be updated at any time.</p>
@@ -69,7 +70,7 @@ Confirmation of a successful operation.
 
 ```html
 <div pgs="alert" pgs-state="success" role="status">
-    <i pgs="icon alert-icon" pgs-option="icon-circleCheck" aria-hidden="true"></i>
+    <i pgs="icon['icon-circleCheck'] alert-icon" aria-hidden="true"></i>
     <div pgs="alert-content">
         <strong pgs="alert-content-title">Changes saved</strong>
         <p>Your preferences were updated successfully.</p>
@@ -83,7 +84,7 @@ A condition that requires the user's attention.
 
 ```html
 <div pgs="alert" pgs-state="warning" role="alert">
-    <i pgs="icon alert-icon" pgs-option="icon-triangleExclamation" aria-hidden="true"></i>
+    <i pgs="icon['icon-triangleExclamation'] alert-icon" aria-hidden="true"></i>
     <div pgs="alert-content">
         <strong pgs="alert-content-title">Check your information</strong>
         <p>Some fields may require your attention before continuing.</p>
@@ -97,7 +98,7 @@ A failure or blocking problem.
 
 ```html
 <div pgs="alert" pgs-state="error" role="alert">
-    <i pgs="icon alert-icon" pgs-option="icon-circleXmark" aria-hidden="true"></i>
+    <i pgs="icon['icon-circleXmark'] alert-icon" aria-hidden="true"></i>
     <div pgs="alert-content">
         <strong pgs="alert-content-title">Unable to save</strong>
         <p>Correct the reported errors and try again.</p>

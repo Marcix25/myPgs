@@ -93,58 +93,91 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   pgs: () => (/* binding */ pgs)
 /* harmony export */ });
-//+ index of the "]" matching the "[" at openIndex, counting nested brackets and ignoring any "[" / "]" inside a JSON string (respects \" escapes)
-function findMatchingBracket(source, openIndex) {
-    let depth = 0;
-    let inString = false;
-    let escaped = false;
+//+ shared helpers for the "key", "key['flag' ...]" and "key[payload]" bracket syntax — used by
+//+ the pgs attribute itself and by every pgs-data accessor below, so a fix here fixes all of them
+const BracketToken = {
+    //+ the part before an opening "[", or the whole token when there is none
+    key(value) {
+        return String(value).trim().match(/^[^\s[\]]+/)?.[0] || "";
+    },
 
-    for (let i = openIndex; i < source.length; i++) {
-        const char = source[i];
+    //+ every quoted 'flag' inside a token's own ['flag' ...] bracket
+    flags(token) {
+        const open = token.indexOf("[");
+        return open === -1 ? [] : [...token.slice(open + 1).matchAll(/'([^']+)'/g)].map(match => match[1]);
+    },
 
-        if (escaped) {
-            escaped = false;
-            continue;
+    //+ rebuilds "key['flag' ...]", or the bare key when there is nothing to carry
+    component(key, flags) {
+        return flags.length ? `${key}[${[...new Set(flags)].map(flag => `'${flag}'`).join(" ")}]` : key;
+    },
+
+    //+ index of the "]" matching the "[" at openIndex, counting nested brackets and ignoring any "[" / "]" inside a JSON string (respects \" escapes)
+    findClose(source, openIndex) {
+        let depth = 0;
+        let inString = false;
+        let escaped = false;
+
+        for (let i = openIndex; i < source.length; i++) {
+            const char = source[i];
+
+            if (escaped) {
+                escaped = false;
+                continue;
+            }
+
+            if (inString) {
+                if (char === "\\") escaped = true;
+                else if (char === "\"") inString = false;
+                continue;
+            }
+
+            if (char === "\"") inString = true;
+            else if (char === "[") depth++;
+            else if (char === "]") {
+                depth--;
+                if (depth === 0) return i;
+            }
         }
 
-        if (inString) {
-            if (char === "\\") escaped = true;
-            else if (char === "\"") inString = false;
-            continue;
+        return -1;
+    },
+
+    //+ splits a pgs or pgs-data value into tokens, keeping "key[...]" whole even when the payload contains its own [...] (e.g. a JSON array)
+    split(source) {
+        const tokens = [];
+        let i = 0;
+
+        while (i < source.length) {
+            while (i < source.length && /\s/.test(source[i])) i++;
+            if (i >= source.length) break;
+
+            const start = i;
+            while (i < source.length && !/\s/.test(source[i]) && source[i] !== "[") i++;
+
+            if (i < source.length && source[i] === "[") {
+                const close = this.findClose(source, i);
+                i = close === -1 ? source.length : close + 1;
+            }
+
+            if (i > start) tokens.push(source.slice(start, i));
         }
 
-        if (char === "\"") inString = true;
-        else if (char === "[") depth++;
-        else if (char === "]") {
-            depth--;
-            if (depth === 0) return i;
-        }
-    }
+        return tokens;
+    },
+};
 
-    return -1;
-}
-
-//+ splits a pgs-option value into tokens, keeping "key[...]" whole even when the payload contains its own [...] (e.g. a JSON array)
-function tokenizeOptionValue(source) {
-    const tokens = [];
-    let i = 0;
-
-    while (i < source.length) {
-        while (i < source.length && /\s/.test(source[i])) i++;
-        if (i >= source.length) break;
-
-        const start = i;
-        while (i < source.length && !/\s/.test(source[i]) && source[i] !== "[") i++;
-
-        if (i < source.length && source[i] === "[") {
-            const close = findMatchingBracket(source, i);
-            i = close === -1 ? source.length : close + 1;
-        }
-
-        if (i > start) tokens.push(source.slice(start, i));
-    }
-
-    return tokens;
+//+ read/rebuild helper for one element's attribute, in bracket-token form: shared by the pgs
+//+ attribute and by every pgs-data accessor, since each of them only ever reads/writes its own
+//+ element this way — traversal code that needs an arbitrary element reads it directly instead
+function createBracketAttribute(element, attribute) {
+    return {
+        read: () => BracketToken.split(element.getAttribute(attribute) || ""),
+        write(values) {
+            if (values.length) element.setAttribute(attribute, values.join(" "));
+            else element.removeAttribute(attribute);
+        },
+    };
 }
 
 /**
@@ -173,24 +206,19 @@ function pgs(root) {
             .split(",")
             .map(v => v.trim())
             .filter(Boolean)
-            .map(v => `[${attribute}~="${v}"]`)
+            .map(v => {
+                const escaped = v.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+                return attribute === ATTR
+                    ? `:is([pgs~="${escaped}"], [pgs*="${escaped}\\5B"])`
+                    : `[${attribute}~="${escaped}"]`;
+            })
             .join(",");
     }
 
-    //+
-    function getValues(el, separator = " ") {
-        return (el.getAttribute(ATTR) || "")
-            .split(separator)
-            .filter(Boolean);
-    }
+    //= PGS
+    function createPgs() {
+        const store = createBracketAttribute(root, ATTR);
 
-    //+
-    function setValues(el, values, separator = " ") {
-        el.setAttribute(ATTR, values.join(separator));
-    }
-
-    //= BASE PGS 
-    function createBasePgs() {
         function api() {
             return api;
         }
@@ -210,22 +238,28 @@ function pgs(root) {
 
         api.add = function (...values) {
             if (!canAttr) return attrOnlyForElements("add");
-            const current = getValues(root);
-            for (const v of values) if (!current.includes(v)) current.push(v);
-            setValues(root, current);
+            const current = store.read();
+            for (const token of values.flatMap(value => BracketToken.split(String(value)))) {
+                const key = BracketToken.key(token);
+                const index = current.findIndex(item => BracketToken.key(item) === key);
+                if (index === -1) current.push(token);
+                else current[index] = BracketToken.component(key, [...BracketToken.flags(current[index]), ...BracketToken.flags(token)]);
+            }
+            store.write(current);
             return api;
         };
 
         api.remove = function (...values) {
             if (!canAttr) return attrOnlyForElements("remove");
-            setValues(root, getValues(root).filter(v => !values.includes(v)));
+            const keys = values.flatMap(value => BracketToken.split(String(value))).map(BracketToken.key);
+            store.write(store.read().filter(v => !keys.includes(BracketToken.key(v))));
             return api;
         };
 
         api.toggle = function (value, force) {
             if (!canAttr) return attrOnlyForElements("toggle");
 
-            const exists = getValues(root).includes(value);
+            const exists = api.contains(value);
 
             if (force !== undefined) {
                 if (force && !exists) api.add(value);
@@ -244,7 +278,7 @@ function pgs(root) {
 
         api.contains = function (value) {
             if (!canAttr) return attrOnlyForElements("contains");
-            return getValues(root).includes(value);
+            return store.read().some(token => BracketToken.key(token) === BracketToken.key(value));
         };
 
         Object.defineProperty(api, "value", {
@@ -348,40 +382,57 @@ function pgs(root) {
     }
 
     //= OPTION
-    function createOption(attribute) {
+    /// flags only, and only inside the pgs attribute — never pgs-data. add/toggle derive a
+    /// flag's owning component from its own name (the lowercase run before the first uppercase
+    /// letter or "-", the naming convention every component-owned flag already follows) and
+    /// merge into that component's existing bracket; a flag with no matching owner on the
+    /// element becomes its own bare pgs token instead, the same way "hover" already is one.
+    function createOption() {
         if (!canAttr) return undefined;
 
-        const read = () => tokenizeOptionValue(root.getAttribute(attribute) || "");
-        const write = values => root.setAttribute(attribute, values.join(" "));
-        const getKey = value => String(value).trim().match(/^[^\s[\]]+/)?.[0] || "";
+        const store = createBracketAttribute(root, ATTR);
         const getValues = values => values
             .flat()
-            .flatMap(value => tokenizeOptionValue(String(value)))
-            .filter(Boolean);
+            .flatMap(value => BracketToken.split(String(value)))
+            .filter(Boolean)
+            .map(BracketToken.key);
+
+        function ownerOf(key) {
+            return key.match(/^[a-z]+/)?.[0] || "";
+        }
 
         function api() {
             return api;
         }
 
         api.add = function (...values) {
-            const current = read();
-
-            getValues(values).forEach(value => {
-                if (!current.includes(value)) current.push(value);
+            const current = store.read();
+            getValues(values).forEach(key => {
+                const owner = ownerOf(key);
+                const index = owner ? current.findIndex(item => BracketToken.key(item) === owner) : -1;
+                if (index === -1) {
+                    if (!current.some(item => BracketToken.key(item) === key)) current.push(key);
+                } else {
+                    current[index] = BracketToken.component(owner, [...BracketToken.flags(current[index]), key]);
+                }
             });
-
-            write(current);
+            store.write(current);
             return api;
         };
 
         api.remove = function (...values) {
-            const keys = getValues(values).map(getKey).filter(Boolean);
-            write(read().filter(value => !keys.includes(getKey(value))));
+            const keys = getValues(values);
+            if (!keys.length) return api;
+
+            store.write(store.read()
+                .filter(token => !keys.includes(BracketToken.key(token)))
+                .map(token => BracketToken.component(BracketToken.key(token),
+                    BracketToken.flags(token).filter(flag => !keys.includes(flag)))));
             return api;
         };
 
         api.toggle = function (value, force) {
-            const key = getKey(value);
+            const key = BracketToken.key(value);
             if (!key) return false;
 
             const exists = api.contains(key);
@@ -403,25 +454,22 @@ function pgs(root) {
 
         api.contains = function (key) {
             const safeKey = String(key).trim();
-            return read().some(token => getKey(token) === safeKey);
+            return store.read().some(token => BracketToken.key(token) === safeKey || BracketToken.flags(token).includes(safeKey));
         };
 
-        //== every lookup below matches on the key rather than through a [pgs-option~="..."]
-        //== selector: that selector compares whole tokens, so it would miss every parameterized
-        //== option - headerCompactFrom[600] does not answer to headerCompactFrom
         const getKeys = value => (Array.isArray(value) ? value.join(",") : String(value))
             .split(",")
-            .map(getKey)
+            .map(v => BracketToken.key(v))
             .filter(Boolean);
 
-        const hasKeys = (element, keys) => tokenizeOptionValue(element.getAttribute(attribute) || "")
-            .some(token => keys.includes(getKey(token)));
+        const hasKeys = (element, keys) => BracketToken.split(element.getAttribute(ATTR) || "")
+            .some(token => keys.includes(BracketToken.key(token)) || BracketToken.flags(token).some(flag => keys.includes(flag)));
 
         api.querySelector = function (value) {
             const keys = getKeys(value);
             if (!keys.length) return null;
 
-            for (const element of root.querySelectorAll(`[${attribute}]`)) {
+            for (const element of root.querySelectorAll(`[${ATTR}]`)) {
                 if (hasKeys(element, keys)) return element;
             }
 
@@ -433,7 +481,7 @@ function pgs(root) {
         api.querySelectorAll = function (value) {
             const keys = getKeys(value);
             if (!keys.length) return [];
-            return Array.from(root.querySelectorAll(`[${attribute}]`)).filter(element => hasKeys(element, keys));
+            return Array.from(root.querySelectorAll(`[${ATTR}]`)).filter(element => hasKeys(element, keys));
         };
 
         api.closest = function (value) {
@@ -447,42 +495,61 @@ function pgs(root) {
             return null;
         };
 
+        return api;
+    }
+
+    //= DATA — key[payload] values only, always in this attribute; never touches the pgs bracket.
+    function createData(attribute) {
+        if (!canAttr) return undefined;
+
+        const store = createBracketAttribute(root, attribute);
+
+        function api() {
+            return api;
+        }
+
         api.getValueBrackets = function (key) {
             const safeKey = String(key).trim();
-            const token = read().find(item => getKey(item) === safeKey);
+            const token = store.read().find(item => BracketToken.key(item) === safeKey);
             if (!token) return undefined;
 
             const openIndex = token.indexOf("[");
-            const closeIndex = openIndex === -1 ? -1 : findMatchingBracket(token, openIndex);
+            const closeIndex = openIndex === -1 ? -1 : BracketToken.findClose(token, openIndex);
             if (closeIndex === -1) return undefined;
 
             return token.slice(openIndex + 1, closeIndex);
         };
 
         api.setValueBrackets = function (key, value = "") {
-            const optionKey = getKey(key);
-            if (!optionKey) return api;
+            const dataKey = BracketToken.key(key);
+            if (!dataKey) return api;
 
-            const option = `${optionKey}[${String(value).trim()}]`;
-            const options = read().filter(item => getKey(item) !== optionKey);
+            const entry = `${dataKey}[${String(value).trim()}]`;
+            const entries = store.read().filter(item => BracketToken.key(item) !== dataKey);
 
-            options.push(option);
-            write(options);
+            entries.push(entry);
+            store.write(entries);
             return api;
         };
 
+        //== a plain passthrough on this attribute, like state's and the base pgs's own value: a
+        //== bracket flag is never read or written back through here, only this attribute ever is.
         Object.defineProperty(api, "value", {
             get() { return root.getAttribute(attribute); },
-            set(v) { root.setAttribute(attribute, v); }
+            set(value) {
+                if (value == null) root.removeAttribute(attribute);
+                else root.setAttribute(attribute, value);
+            }
         });
 
         return api;
     }
 
-    //# RETURN 
-    const api = createBasePgs();
+    //# RETURN
+    const api = createPgs();
     api.state = createState("pgs-state");
-    api.option = createOption("pgs-option");
+    api.option = createOption();
+    api.data = createData("pgs-data");
     return api;
 }
 
@@ -756,7 +823,7 @@ const hoverObserver = new MutationObserver(mutations => {
         childList: true,
         subtree: true,
         attributes: true,
-        attributeFilter: ["pgs", "pgs-option"]
+        attributeFilter: ["pgs"]
     });
 });
 
@@ -1137,19 +1204,19 @@ const fn_alert = {
         type: {
             error: {
                 title: "Error",
-                icon: '<i pgs="icon" pgs-option="icon-circleXmark"></i>'
+                icon: "<i pgs=\"icon['icon-circleXmark']\"></i>"
             },
             success: {
                 title: "Success",
-                icon: '<i pgs="icon" pgs-option="icon-circleCheck"></i>'
+                icon: "<i pgs=\"icon['icon-circleCheck']\"></i>"
             },
             info: {
                 title: "Information",
-                icon: '<i pgs="icon" pgs-option="icon-circleInfo"></i>'
+                icon: "<i pgs=\"icon['icon-circleInfo']\"></i>"
             },
             warning: {
                 title: "Warning",
-                icon: '<i pgs="icon" pgs-option="icon-triangleExclamation"></i>'
+                icon: "<i pgs=\"icon['icon-triangleExclamation']\"></i>"
             }
         }
     },
@@ -1280,8 +1347,7 @@ function getDropdowns(root) {
 }
 
 function getposition(dropdown) {
-    const option = pgs(dropdown).option;
-    const optionValue = option.getValueBrackets("dropdownPosition");
+    const optionValue = pgs(dropdown).data.getValueBrackets("dropdownPosition");
     const raw = (optionValue || "bottom center").trim().toLowerCase();
     const parts = raw.split(/\s+/).filter(Boolean);
     const side = parts.find(part => ["top", "right", "bottom", "left"].includes(part)) || "bottom";
@@ -1515,8 +1581,7 @@ function createToggle(li) {
     button.type = "button";
     button.innerHTML = "<span>&#9207;</span>";
 
-    pgs(button).add("_menu-buttonIcon", "button");
-    pgs(button).option.add("hoverNot");
+    pgs(button).add("_menu-buttonIcon", "button['hoverNot']");
     li.querySelector("a").insertAdjacentElement("afterend", button);
 
     return button;
@@ -1546,7 +1611,7 @@ function setupAccordion(li, button, ul) {
 
 function setupDropdown(li, button, ul) {
     pgs(li).add("dropdown");
-    pgs(li).option.setValueBrackets("dropdownPosition", "bottom right");
+    pgs(li).data.setValueBrackets("dropdownPosition", "bottom right");
     pgs(button).add("dropdown-button");
     pgs(ul).add("dropdown-content");
 }
@@ -1638,7 +1703,7 @@ function initializeModal(MODAL, existingDialog = null) {
     let historyTimeout = null;
 
     //== SELECTOR
-    const DOMButtonClose = '<button pgs="button modal-close" pgs-option="buttonIcon buttonMini" type="button" tabindex="0" aria-label="Close"><i pgs="icon" pgs-option="icon-close"></i></button>';
+    const DOMButtonClose = "<button pgs=\"button['buttonIcon' 'buttonMini'] modal-close\" type=\"button\" tabindex=\"0\" aria-label=\"Close\"><i pgs=\"icon['icon-close']\"></i></button>";
     const modalContentHeader = pgs(DIALOG).querySelector("modal-dialog-content-header");
 
     //== FOCUS
@@ -1652,25 +1717,33 @@ function initializeModal(MODAL, existingDialog = null) {
 
 
     //== MERGE OPTIONS
-    //== an option written on the wrapper or the dialog is read from either one, whichever is
-    //== convenient to the author: an option landing on the "wrong" element is harmless, since
-    //== every selector only looks for the tokens it cares about
-    {
-        const mergedOptions = [...new Set([
-            ...(MODAL.getAttribute("pgs-option") || "").split(/\s+/).filter(Boolean),
-            ...(DIALOG.getAttribute("pgs-option") || "").split(/\s+/).filter(Boolean),
-        ])].join(" ");
-        if (mergedOptions) {
-            MODAL.setAttribute("pgs-option", mergedOptions);
-            DIALOG.setAttribute("pgs-option", mergedOptions);
-        }
+    //== Modal configuration may be authored on either wrapper or dialog. Copy only modal
+    //== options: other component brackets (for example flex on the wrapper) stay local.
+    pgs(DIALOG).add("modal-dialog");
+    for (const key of [
+        "modalHistory", "modalTopLevel", "modalDisableBackdropClose", "modalMini",
+        "modalMedium", "modalFull", "modalCenter", "modalLeft", "modalRight", "modalTop", "modalBottom"
+    ]) {
+        const source = [MODAL, DIALOG].find(element => pgs(element).option.contains(key));
+        if (!source) continue;
+        pgs(MODAL).add(`modal['${key}']`);
+        pgs(DIALOG).add(`modal-dialog['${key}']`);
+    }
+
+    //== these two carry a value, so they still live in pgs-data — option never checks pgs-data,
+    //== so presence is a getValueBrackets read instead of an option.contains() call
+    for (const key of ["modalContainerID", "modalContainerPGS"]) {
+        const source = [MODAL, DIALOG].find(element => pgs(element).data.getValueBrackets(key) !== undefined);
+        if (!source) continue;
+        const value = pgs(source).data.getValueBrackets(key);
+        for (const target of [MODAL, DIALOG]) pgs(target).data.setValueBrackets(key, value);
     }
 
     //== OPTION ATTRIBUTES MODAL
     const modalDisableBackdropClose = pgs(MODAL).option.contains("modalDisableBackdropClose");
     const data_history = pgs(MODAL).option.contains("modalHistory");
-    const data_container = pgs(MODAL).option.getValueBrackets("modalContainerID");
-    const data_modalContainerPGS = pgs(MODAL).option.getValueBrackets("modalContainerPGS");
+    const data_container = pgs(MODAL).data.getValueBrackets("modalContainerID");
+    const data_modalContainerPGS = pgs(MODAL).data.getValueBrackets("modalContainerPGS");
 
     //== OPTION ATTRIBUTES DIALOG
     const modalTopLevel = pgs(DIALOG).option.contains("modalTopLevel");
@@ -1870,19 +1943,19 @@ const fn_notification = {
             },
             error: {
                 title: "Error",
-                icon: '<i pgs="icon" pgs-option="icon-circleXmark"></i>'
+                icon: "<i pgs=\"icon['icon-circleXmark']\"></i>"
             },
             success: {
                 title: "Success",
-                icon: '<i pgs="icon" pgs-option="icon-circleCheck"></i>'
+                icon: "<i pgs=\"icon['icon-circleCheck']\"></i>"
             },
             info: {
                 title: "Information",
-                icon: '<i pgs="icon" pgs-option="icon-circleInfo"></i>'
+                icon: "<i pgs=\"icon['icon-circleInfo']\"></i>"
             },
             warning: {
                 title: "Warning",
-                icon: '<i pgs="icon" pgs-option="icon-triangleExclamation"></i>'
+                icon: "<i pgs=\"icon['icon-triangleExclamation']\"></i>"
             }
         }
     },
@@ -1893,7 +1966,7 @@ const fn_notification = {
     },
 
     _getData(root) {
-        const rawNotification = pgs(root).option.getValueBrackets("notification") || "{}";
+        const rawNotification = pgs(root).data.getValueBrackets("notification") || "{}";
 
         try {
             const notifications = JSON.parse(`[${rawNotification}]`);
@@ -1990,7 +2063,7 @@ const fn_notification = {
             <div pgs="_notifications-element-content">
                 ${iconHtml}
                 <p>${text}</p>
-                <button type="button" pgs="button _notifications-element-content-delete" pgs-option="buttonIcon"><i pgs="icon" pgs-option="icon-close"></i></button>
+                <button type="button" pgs="button['buttonIcon'] _notifications-element-content-delete"><i pgs="icon['icon-close']"></i></button>
             </div>
             <div pgs="_notifications-element-buttons">
             </div>
@@ -2021,9 +2094,8 @@ const fn_notification = {
             if (button.link) buttonElement.href = button.link;
             else buttonElement.type = "button";
             buttonElement.textContent = button.title;
-            pgs(buttonElement).add("button");
-            pgs(buttonElement).option.add("buttonTransparent");
-            if (button.optionButton) pgs(buttonElement).option.add(button.optionButton);
+            pgs(buttonElement).add("button['buttonTransparent']");
+            if (button.optionButton) pgs(buttonElement).add(`button['${button.optionButton}']`);
 
             buttonElement.addEventListener("click", (e) => {
                 const proceed = buttonElement.dispatchEvent(new CustomEvent("pgs:notification:buttonClick", {
@@ -2132,7 +2204,7 @@ const fn_notification = {
         });
     },
 
-    //+ generates <dialog pgs-option="modalRight"><div pgs="modal-dialog-content"><div pgs="_notifications"></div></div></dialog>
+    //+ generates <dialog pgs="modal-dialog['modalRight']"><div pgs="modal-dialog-content"><div pgs="_notifications"></div></div></dialog>
     //+ inside the modal wrapping notificationBell, then asks pgs.modal to (re)initialize it.
     _ensureDialog(root = document) {
         let created = false;
@@ -2148,7 +2220,7 @@ const fn_notification = {
             modalWrapper.dataset.notificationDialog = "true";
 
             const dialog = document.createElement("dialog");
-            pgs(dialog).option.add("modalRight modalMini modalTop");
+            pgs(dialog).add("modal-dialog['modalRight' 'modalMini' 'modalTop']");
             pgs(dialog).add("_notificationsDialog");
 
             const content = document.createElement("div");
@@ -2162,8 +2234,7 @@ const fn_notification = {
             const closeButton = document.createElement("button");
             closeButton.type = "button";
             closeButton.textContent = this._defaults.panelCloseTitle;
-            pgs(closeButton).add("button", "modal-close", "_notifications-close");
-            pgs(closeButton).option.add("buttonMini");
+            pgs(closeButton).add("button['buttonMini']", "modal-close", "_notifications-close");
             content.appendChild(closeButton);
 
             dialog.appendChild(content);
@@ -2298,12 +2369,12 @@ const Search = {
     },
 
     placeholderText(search, options) {
-        const template = pgs(search).option.getValueBrackets("searchPlaceholder") || "Type at least {minLength} characters";
+        const template = pgs(search).data.getValueBrackets("searchPlaceholder") || "Type at least {minLength} characters";
         return template.replace("{minLength}", options.minLength);
     },
 
     noResultsText(search) {
-        return pgs(search).option.getValueBrackets("searchNoResults") || "No results found";
+        return pgs(search).data.getValueBrackets("searchNoResults") || "No results found";
     },
 };
 
@@ -2407,13 +2478,13 @@ function PGS_search_init(root = document) {
             items.forEach((item, index) => {
                 const option = document.createElement("li");
                 pgs(option).add("_search-suggestions-item");
-                pgs(option).add("flexRow");
+                pgs(option).add("flex['flexRow']");
                 option.id = `${list.id}-option-${index}`;
                 option.dataset.index = String(index);
                 option.setAttribute("role", "option");
                 option.setAttribute("aria-selected", "false");
                 option.setAttribute("aria-disabled", String(item.disabled));
-                option.innerHTML = '<i pgs="icon" pgs-option="icon-magnifyingGlass"></i>' +  item.label;
+                option.innerHTML = "<i pgs=\"icon['icon-magnifyingGlass']\"></i>" +  item.label;
                 fragment.append(option);
 
             });
@@ -2705,10 +2776,10 @@ class PGS_Slides {
 
         //== PULSANTI
         if (!pgs(EL).querySelector('slides-prec')) {
-            EL.insertAdjacentHTML("afterbegin", `<button pgs="slides-prec button" pgs-option="buttonIcon buttonMini" type="button" class="precButton" aria-label="Previous slide"> <i pgs="icon rotate90" pgs-option="icon-chevronDown"></i></button>`);
+            EL.insertAdjacentHTML("afterbegin", `<button pgs="slides-prec button['buttonIcon' 'buttonMini']" type="button" class="precButton" aria-label="Previous slide"> <i pgs="icon['icon-chevronDown'] rotate90"></i></button>`);
         }
         if (!pgs(EL).querySelector('slides-next')) {
-            EL.insertAdjacentHTML("beforeend", `<button pgs="slides-next button" pgs-option="buttonIcon buttonMini" type="button" class="nextButton" aria-label="Next slide"> <i pgs="icon rotate270" pgs-option="icon-chevronDown"></i></button>`);
+            EL.insertAdjacentHTML("beforeend", `<button pgs="slides-next button['buttonIcon' 'buttonMini']" type="button" class="nextButton" aria-label="Next slide"> <i pgs="icon['icon-chevronDown'] rotate270"></i></button>`);
         }
 
         //== DOTS
@@ -3028,12 +3099,11 @@ function PGS_stepTabs_init(root = document) {
             dots.innerHTML = "";
 
             allTab.forEach((tab, index) => {
-                const authoredIcon = (pgs(tab).option.getValueBrackets("stepTabsIcon") || "").trim();
+                const authoredIcon = (pgs(tab).data.getValueBrackets("stepTabsIcon") || "").trim();
                 const dot = document.createElement("button");
                 dot.type = "button";
                 pgs(dot).add("_stepTabs-dots-dot");
-                pgs(dot).add("button");
-                pgs(dot).option.add("buttonIcon hoverNot");
+                pgs(dot).add("button['buttonIcon' 'hoverNot']");
                 //== stepTabsIcon takes three shapes, told apart by how the value opens. Markup, from a
                 //== "<", is instantiated as written: that is what puts every icon set in reach,
                 //== including the ones a class list cannot describe because they want their name as
@@ -3048,11 +3118,11 @@ function PGS_stepTabs_init(root = document) {
                     dot.replaceChildren(authoredMarkup.content.cloneNode(true));
                 } else {
                     const dotIcon = document.createElement("i");
-                    pgs(dotIcon).add("icon");
 
                     if (!authoredIcon || authoredIcon.startsWith("icon-")) {
-                        pgs(dotIcon).option.add(authoredIcon || "icon-circle");
+                        pgs(dotIcon).add(`icon['${authoredIcon || "icon-circle"}']`);
                     } else {
+                        pgs(dotIcon).add("icon");
                         //== a full list goes through untouched, whatever set it belongs to. A lone
                         //== Font Awesome name is completed with its style class, because that set
                         //== needs one and markup written before other sets were supported relies on it
@@ -3312,9 +3382,9 @@ function getInitialMessages(value = {}) {
 }
 
 function initializeMessages(summary, messages) {
-    const summaryOptions = pgs(summary).option;
+    const summaryData = pgs(summary).data;
     Object.entries(messages).forEach(([key, message]) => {
-        if (!summaryOptions.contains(key)) summaryOptions.setValueBrackets(key, message);
+        if (summaryData.getValueBrackets(key) === undefined) summaryData.setValueBrackets(key, message);
     });
 }
 
@@ -3362,7 +3432,7 @@ function PGS_summary_init(root = document, options = {}) {
             button.hidden = !overflow;
             button.setAttribute("aria-hidden", String(!overflow));
             button.setAttribute("aria-expanded", String(expanded && overflow));
-            button.textContent = pgs(summary).option.getValueBrackets(
+            button.textContent = pgs(summary).data.getValueBrackets(
                 expanded && overflow ? "showLess" : "showMore"
             );
 
@@ -3467,8 +3537,12 @@ function PGS_tabs_init(root = document) {
         //== write over each other. A tab is addressed by its own id when the author gave it one,
         //== and by its 1-based position otherwise, which is what keeps a shared link readable
         //== without asking for ids that the markup does not need
-        const historyKey = pgs(tabs).option.contains("tabsHistory")
-            ? (pgs(tabs).option.getValueBrackets("tabsHistory") || "tab")
+        //== tabsHistory lives only in pgs-data and .data has no contains(), so presence (with or
+        //== without its own payload) is checked directly against the raw attribute value
+        const rawData = (pgs(tabs).data.value || "").split(/\s+/).filter(Boolean);
+        const hasHistory = rawData.some(token => token === "tabsHistory" || token.startsWith("tabsHistory["));
+        const historyKey = hasHistory
+            ? (pgs(tabs).data.getValueBrackets("tabsHistory") || "tab")
             : null;
 
         //== read before the loop below fills in the generated ids, so what reaches the URL is the
@@ -3631,19 +3705,19 @@ const fn_toast = {
             },
             error: {
                 title: "Error",
-                icon: '<i pgs="icon" pgs-option="icon-circleXmark"></i>'
+                icon: "<i pgs=\"icon['icon-circleXmark']\"></i>"
             },
             success: {
                 title: "Success",
-                icon: '<i pgs="icon" pgs-option="icon-circleCheck"></i>'
+                icon: "<i pgs=\"icon['icon-circleCheck']\"></i>"
             },
             info: {
                 title: "Information",
-                icon: '<i pgs="icon" pgs-option="icon-circleInfo"></i>'
+                icon: "<i pgs=\"icon['icon-circleInfo']\"></i>"
             },
             warning: {
                 title: "Warning",
-                icon: '<i pgs="icon" pgs-option="icon-triangleExclamation"></i>'
+                icon: "<i pgs=\"icon['icon-triangleExclamation']\"></i>"
             }
         }
     },
@@ -3660,7 +3734,7 @@ const fn_toast = {
     },
 
     _getData(root) {
-        const rawToast = pgs(root).option.getValueBrackets("toast") || "{}";
+        const rawToast = pgs(root).data.getValueBrackets("toast") || "{}";
 
         try {
             const toasts = JSON.parse(`[${rawToast}]`);
@@ -3759,7 +3833,7 @@ const fn_toast = {
             <div pgs="_toast-element-content">
                 ${iconHtml}
                 <p>${text}</p>
-                <button type="button" pgs="button _toast-element-content-delete" pgs-option="buttonIcon"><i pgs="icon" pgs-option="icon-close"></i></button>
+                <button type="button" pgs="button['buttonIcon'] _toast-element-content-delete"><i pgs="icon['icon-close']"></i></button>
             </div>
             <div pgs="_toast-element-buttons">
             </div>
@@ -3893,6 +3967,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+//+ formMessage/formMessageTitle live only in pgs-data, and .data has no querySelector — find
+//+ the nearest descendant carrying either key's payload directly
+function findDataDescendant(root, keys) {
+    for (const element of root.querySelectorAll("[pgs-data]")) {
+        if (keys.some(key => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).data.getValueBrackets(key) !== undefined)) return element;
+    }
+    return null;
+}
+
 
 class PGS_formValidate {
     #messageDefaults = {
@@ -3940,7 +4023,7 @@ class PGS_formValidate {
     #initializeMessages(value = {}) {
         this.#validateMessages(value);
 
-        const formOptions = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.container).option;
+        const formData = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.container).data;
         const initialMessages = {
             ...this.#messageDefaults,
             ...Object.fromEntries(
@@ -3949,12 +4032,12 @@ class PGS_formValidate {
         };
 
         Object.entries(initialMessages).forEach(([key, message]) => {
-            if (!formOptions.contains(key)) formOptions.setValueBrackets(key, message);
+            if (formData.getValueBrackets(key) === undefined) formData.setValueBrackets(key, message);
         });
     }
 
     #getMessage(key) {
-        return (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.container).option.getValueBrackets(key);
+        return (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.container).data.getValueBrackets(key);
     }
 
     temporaryFieldError = {
@@ -4139,12 +4222,12 @@ class PGS_formValidate {
         if (i !== 0) return;
 
         const messageSource = field.matches("fieldset")
-            ? (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(field).option.querySelector(["formMessage", "formMessageTitle"])
+            ? findDataDescendant(field, ["formMessage", "formMessageTitle"])
             : field;
         const source = messageSource || field;
         const temporaryError = this.#temporaryFieldErrors.get(field);
-        const fieldTitle = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(source).option.getValueBrackets("formMessageTitle");
-        const fieldMessage = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(source).option.getValueBrackets("formMessage");
+        const fieldTitle = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(source).data.getValueBrackets("formMessageTitle");
+        const fieldMessage = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(source).data.getValueBrackets("formMessage");
         const title = temporaryError?.title || fieldTitle || this.#getMessage("formFieldErrorTitle");
         const description = total > 1
             ? this.#getMessage("formFieldsError")
@@ -4462,7 +4545,7 @@ __webpack_require__.r(__webpack_exports__);
 // (headerCompactTablet, headerCompactLaptop, ...) set --header-compact-breakpoint in the
 // SCSS, so the breakpoint values stay defined in one place.
 function getHeader_CompactBreakpoint(header) {
-    const custom = parseFloat(pgs(header).option.getValueBrackets("headerCompactFrom"));
+    const custom = parseFloat(pgs(header).data.getValueBrackets("headerCompactFrom"));
     if (Number.isFinite(custom)) return custom;
 
     const declared = parseFloat(window.getComputedStyle(header).getPropertyValue("--header-compact-breakpoint"));
@@ -4795,28 +4878,23 @@ function applyAnalyticsConsent({ allowAnalytics, measurementId }) {
 //+
 function setPgsFlag(element, token, enabled) {
     if (!(element instanceof HTMLElement) || !token) return;
-    const current = (element.getAttribute('pgs') || '').split(/\s+/).filter(Boolean);
-    const next = enabled ? [...new Set([...current, token])] : current.filter((item) => item !== token);
-    if (next.length > 0) {
-        element.setAttribute('pgs', next.join(' '));
-    } else {
-        element.removeAttribute('pgs');
-    }
+    pgs(element).toggle(token, enabled);
+    if (!pgs(element).value) element.removeAttribute('pgs');
 }
 
 //+ reads the JSON config off the marker element and builds the whole modal + dialog + content from it,
-//+ so the consuming site never has to hand-author the banner markup — see @pgs-option "cookieConsent".
+//+ so the consuming site never has to hand-author the banner markup — see @pgs-data "cookieConsent".
 function buildCookieConsent(marker) {
-    const config = { ...DEFAULTS, ...(safeJsonParse(pgs(marker).option.getValueBrackets('cookieConsent') || '{}') || {}) };
+    const config = { ...DEFAULTS, ...(safeJsonParse(pgs(marker).data.getValueBrackets('cookieConsent') || '{}') || {}) };
 
     const root = document.createElement('div');
     pgs(root).add('modal', 'cookieConsent');
 
     root.innerHTML = `
-        <dialog pgs-option="modalTopLevel modalBottom modalRight modalMedium">
+        <dialog pgs="modal-dialog['modalTopLevel' 'modalBottom' 'modalRight' 'modalMedium']">
             <div pgs="modal-dialog-content">
-                <div pgs="_cookieConsent-header flexColumn">
-                    <p pgs="flexRow" pgs-option="itemCenter"><i pgs="icon" pgs-option="icon-cookie"></i> ${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.titleIntro)}</p>
+                <div pgs="_cookieConsent-header flex['flexColumn']">
+                    <p pgs="flex['flexRow' 'itemCenter']"><i pgs="icon['icon-cookie']"></i> ${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.titleIntro)}</p>
                     <h2>${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.titleHeading)}</h2>
                     <p>${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.description)}</p>
                     <p>
@@ -4825,8 +4903,8 @@ function buildCookieConsent(marker) {
                     </p>
                 </div>
 
-                <div pgs="_cookieConsent-panel flexColumn" role="group" aria-label="${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_escapeHtml)(config.panelAriaLabel)}">
-                    <div pgs="flexRow _cookieConsent-panel-featureEssential" pgs-option="nowrap">
+                <div pgs="_cookieConsent-panel flex['flexColumn']" role="group" aria-label="${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_escapeHtml)(config.panelAriaLabel)}">
+                    <div pgs="flex['flexRow' 'nowrap'] _cookieConsent-panel-featureEssential">
                         <div>
                             <p>
                                 <strong>${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.essentialTitle)}</strong>
@@ -4835,10 +4913,10 @@ function buildCookieConsent(marker) {
                             </p>
                         </div>
 
-                        <span pgs="_cookieConsent-panel-badge badge" pgs-option="badgeSuccess">${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.essentialBadge)}</span>
+                        <span pgs="_cookieConsent-panel-badge badge['badgeSuccess']">${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.essentialBadge)}</span>
                     </div>
 
-                    <div pgs="flexRow _cookieConsent-panel-featureAnalytics">
+                    <div pgs="flex['flexRow'] _cookieConsent-panel-featureAnalytics">
                         <label pgs="toggle">
                             <p>
                                 <strong>${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.analyticsTitle)}</strong>
@@ -4849,13 +4927,13 @@ function buildCookieConsent(marker) {
                             <input type="checkbox" pgs="_cookieConsent-panel-toggleAnalytics" aria-label="${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_escapeHtml)(config.analyticsAriaLabel)}">
                         </label>
                     </div>
-                    <div pgs="flexRow">
+                    <div pgs="flex['flexRow']">
                         <button type="button" pgs="button _cookieConsent-actionReject">
                             ${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.titleReject)}
                         </button>
     
-                        <button type="button" pgs="button _cookieConsent-actionAccept" pgs-option="buttonStrong">
-                            <i pgs="icon" pgs-option="icon-check"></i> ${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.titleAccept)}
+                        <button type="button" pgs="button['buttonStrong'] _cookieConsent-actionAccept">
+                            <i pgs="icon['icon-check']"></i> ${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.titleAccept)}
                         </button>
                     </div>
                 </div>

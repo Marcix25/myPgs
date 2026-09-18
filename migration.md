@@ -11,6 +11,7 @@ meaning moved under them, so nothing errors and the page just looks wrong.
 
 | name | was | is now |
 | --- | --- | --- |
+| `pgs-option` (retired) | `pgs="component" pgs-option="key1 key2"` | Every boolean flag, CSS-facing or JavaScript-only: `pgs="component['key1' 'key2']"`. Only a genuine `key[payload]` value: `pgs-data="..."`. The old attribute is no longer read or styled. |
 | `pgs="icon"` | the round surface holding an icon | the glyph itself, drawn from inline SVG |
 | `--icon-size` | the width driver of that surface | the size of a glyph, read as a font-size |
 | `pgs-option="menuVertical"` (and any submenu below a horizontal menu's first level) | floated as a dropdown, same as every other submenu | expands in place as an accordion |
@@ -24,6 +25,64 @@ meaning moved under them, so nothing errors and the page just looks wrong.
 | `pgs-option="buttonText"` and `pgs-option="buttonTransparent"` | `buttonTransparent` stripped every state, `buttonText` only the resting one | the two traded places: `buttonText` strips every state, `buttonTransparent` only the resting one |
 | `pgs="toggleDarkmode"` inside `pgs="footer"` | the footer wrote "Dark mode"/"Light mode" next to the glyph on its own | the label is opt-in, and available everywhere: add `pgs-option="toggleDarkmodeExtended"` |
 | `pgs.hover`'s marking (a button, and a card or box written as a link) | ran on every page as soon as the bundle loaded, and `pgs.hover.init(root)` always ran on request | needs `pgs="bodyHoverAuto"` on `<body>` to run at all, by any path — the automatic pass, a direct `pgs.hover.init(root)` call, or `pgs.init(root)`, which reaches every module's `init(root)` regardless of what the caller meant to touch |
+
+### Retired option attribute: migrate every occurrence manually
+
+Search the consuming project's HTML, PHP, templates, JavaScript strings and custom selectors for
+`pgs-option`. Move each CSS flag into the bracket of its own component, retaining its exact existing
+name and single quotes around each flag. Multiple components keep separate brackets:
+
+```html
+<button pgs="button['buttonStrong' 'buttonMini'] icon['icon-check']"></button>
+<div pgs="box['boxMini'] flex['flexColumn' 'wrap' 'flexCenter']"></div>
+<header pgs="header['headerCompactTablet' 'headerPrimary' 'headerScroll']"
+        pgs-data="headerCompactFrom[600]"></header>
+```
+
+`flexRow` and `flexColumn` are now options of `flex`, not standalone component tokens. The existing
+wrapping names remain `wrap` / `nowrap`, and `inlineFlex` keeps its name. Do not rename these to
+`flexWrap`, `column` or `row`. A quoted `'flexColumn'` cannot match `'flexColumnReverse'`, regardless
+of its position in the bracket.
+
+Only a genuine `key[payload]` value moves to `pgs-data`, with the existing format and support for
+nested JSON arrays: `headerCompactFrom[600]`, `modalContainerID[myContainer]`,
+`modalContainerPGS[header]`, `dropdownPosition[top left]`, `stepTabsIcon[...]`, `formMessage[...]`,
+`formMessageTitle[...]`, `notification[...]`, `toast[...]`, `cookieConsent[...]`. `tabsHistory` is
+the one hybrid case: it belongs in `pgs-data` whether written bare or with its optional
+`tabsHistory[name]` payload, because it can carry one.
+
+Every boolean flag with no payload stays in `pgs`, whether it is CSS-facing or read by JavaScript
+only: `headerPrimary`, `headerScroll`, `accordionAutoOpen`, `accordionMultiOpen`,
+`slidesSingleScroll`, `slidesScrollMouse`, `dropdownHover`, `modalHistory`, `menuHorizontal`,
+`modalTopLevel` and `modalDisableBackdropClose` are all written as `component['flagName']`, next
+to the flags that also carry a CSS rule. `hoverNot` is the one exception: it opts out on whichever
+component carries it (button, card, box, hover), so it has no single owner — write it bare,
+`pgs="button hoverNot"`, not nested in a bracket.
+
+`.option` and `.data` are two separate accessors, split by attribute as well as by purpose:
+`.option` (`contains`/`add`/`remove`/`toggle`/queries/`closest`) only ever touches the `pgs`
+attribute; `.data` (`getValueBrackets`/`setValueBrackets`/`value`) only ever touches `pgs-data`.
+Neither reads nor writes the other's attribute. `option.add(key)` derives the owning component
+from `key`'s own name — the lowercase run before the first uppercase letter or a `-`
+(`headerScroll` → `header`) — and merges into that component's existing bracket; a flag with no
+matching owner on the element (like `hoverNot` where nothing carries a `hover` token) becomes its
+own bare `pgs` token instead. `option.remove`/`option.toggle` strip a flag correctly either way,
+bare or nested. There is no ownership registry to keep in sync. `data.getValueBrackets` /
+`data.setValueBrackets` read and write only `pgs-data`, for a genuine `key[payload]` value;
+`data.value` is a plain passthrough on `pgs-data` — get or set its raw attribute string, nothing
+from the `pgs` bracket. `.data` has no `contains`/`add`/`remove`/`toggle` of its own — `tabsHistory`
+written bare goes through `data.value` directly, since it has no owner to derive and never belongs
+in the `pgs` bracket. The base `pgs()` API recognizes components with brackets and preserves their
+options when another token is added. There is no fallback to the retired attribute.
+
+Update consumer selectors too: `[pgs~="button"]` alone does not match `button['buttonMini']`.
+Use `:is([pgs~="button"], [pgs*="button\5B"])` for the component and
+`[pgs*="'buttonMini'"]` for the flag. In SCSS, spell the opening bracket as `\5B`.
+Custom code that directly reads/writes attributes must use the new storage or the wrapper.
+
+This is a manual breaking migration: the two attribute forms do not coexist. The older transitions
+below retain historical names in their explanations; apply this rule to their `pgs-option` examples
+as well. No consuming project is migrated by this library change.
 
 So `<span pgs="icon"><i class="fa-solid fa-star"></i></span>` no longer draws a circle. The surface
 is now an option on an icon element:

@@ -5,17 +5,17 @@
 //accordions inside it, so that opening one closes the others, and accordionMultiOpen on that same
 //container lifts the rule and lets them stay open together
 //= ACCORDION CONTAINER
-[pgs~=accordionContainer] {
+:is([pgs~="accordionContainer"], [pgs*="accordionContainer\5B"]) {
     --accordion-gap: var(--gap-elements);
     display: flex;
     flex-direction: column;
     gap: var(--accordion-gap);
 
-    &[pgs-option~=accordionMultiOpen] {}
+    &[pgs*="'accordionMultiOpen'"] {}
 }
 
 //= ACCORDION
-[pgs~=accordion] {
+:is([pgs~="accordion"], [pgs*="accordion\5B"]) {
     flex-direction: column;
     min-width: 100%;
     position: relative;
@@ -23,7 +23,7 @@
     user-select: unset;
     --accordion-icon: var(--icon-glyph-chevronDown);
 
-    &:not([pgs~=button]) {
+    &:not(:is([pgs~="button"], [pgs*="button\5B"])) {
         padding-block: 1.0rem;
 
         &::after {
@@ -38,17 +38,17 @@
         //== the line separates one accordion from the next, so the last of a run does not draw it:
         //== written as "no accordion sibling after me" rather than :last-child, so it still holds
         //== when the container ends with something else
-        &:not(:has(~ [pgs~=accordion]))::after {
+        &:not(:has(~ :is([pgs~="accordion"], [pgs*="accordion\5B"])))::after {
             content: none;
         }
 
-        [pgs~="accordion-button"] {
+        :is([pgs~="accordion-button"], [pgs*="accordion-button\5B"]) {
             font-weight: var(--font-weight-title);
         }
     }
 
     //== BUTTON
-    [pgs~="accordion-button"] {
+    :is([pgs~="accordion-button"], [pgs*="accordion-button\5B"]) {
         cursor: pointer;
         @include flexRow;
         appearance: none;
@@ -72,7 +72,7 @@
     }
 
     //== CONTENT
-    [pgs~="accordion-content"] {
+    :is([pgs~="accordion-content"], [pgs*="accordion-content\5B"]) {
         @include flexColumn();
         visibility: hidden;
         opacity: 0;
@@ -88,7 +88,7 @@
     //++ OPTION
     //read by the JavaScript only, declared here so editors suggest it: opens the panel on load and
     //keeps it open when another one in the group is opened
-    &[pgs-option~=accordionAutoOpen] {}
+    &[pgs*="'accordionAutoOpen'"] {}
 
     //-- STATE OPEN - NOT OPEN
     &:not([pgs-state~=open]) {
@@ -100,13 +100,13 @@
         display: flex;
         gap: var(--gap-texts);
 
-        [pgs~="accordion-button"] {
+        :is([pgs~="accordion-button"], [pgs*="accordion-button\5B"]) {
             &::after {
                 rotate: 180deg;
             }
         }
 
-        [pgs~="accordion-content"] {
+        :is([pgs~="accordion-content"], [pgs*="accordion-content\5B"]) {
             visibility: visible;
             opacity: 1;
             max-height: unset;

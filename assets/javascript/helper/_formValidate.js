@@ -2,6 +2,15 @@ import { pgs } from "../_pgs.js";
 import { PGS_toast } from "../components/_toast.js";
 import { PGS_alert } from "../components/_alerts.js";
 
+//+ formMessage/formMessageTitle live only in pgs-data, and .data has no querySelector — find
+//+ the nearest descendant carrying either key's payload directly
+function findDataDescendant(root, keys) {
+    for (const element of root.querySelectorAll("[pgs-data]")) {
+        if (keys.some(key => pgs(element).data.getValueBrackets(key) !== undefined)) return element;
+    }
+    return null;
+}
+
 
 export class PGS_formValidate {
     #messageDefaults = {
@@ -49,7 +58,7 @@ export class PGS_formValidate {
     #initializeMessages(value = {}) {
         this.#validateMessages(value);
 
-        const formOptions = pgs(this.container).option;
+        const formData = pgs(this.container).data;
         const initialMessages = {
             ...this.#messageDefaults,
             ...Object.fromEntries(
@@ -58,12 +67,12 @@ export class PGS_formValidate {
         };
 
         Object.entries(initialMessages).forEach(([key, message]) => {
-            if (!formOptions.contains(key)) formOptions.setValueBrackets(key, message);
+            if (formData.getValueBrackets(key) === undefined) formData.setValueBrackets(key, message);
         });
     }
 
     #getMessage(key) {
-        return pgs(this.container).option.getValueBrackets(key);
+        return pgs(this.container).data.getValueBrackets(key);
     }
 
     temporaryFieldError = {
@@ -248,12 +257,12 @@ export class PGS_formValidate {
         if (i !== 0) return;
 
         const messageSource = field.matches("fieldset")
-            ? pgs(field).option.querySelector(["formMessage", "formMessageTitle"])
+            ? findDataDescendant(field, ["formMessage", "formMessageTitle"])
             : field;
         const source = messageSource || field;
         const temporaryError = this.#temporaryFieldErrors.get(field);
-        const fieldTitle = pgs(source).option.getValueBrackets("formMessageTitle");
-        const fieldMessage = pgs(source).option.getValueBrackets("formMessage");
+        const fieldTitle = pgs(source).data.getValueBrackets("formMessageTitle");
+        const fieldMessage = pgs(source).data.getValueBrackets("formMessage");
         const title = temporaryError?.title || fieldTitle || this.#getMessage("formFieldErrorTitle");
         const description = total > 1
             ? this.#getMessage("formFieldsError")

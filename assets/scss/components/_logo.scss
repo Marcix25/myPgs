@@ -1,7 +1,7 @@
 @use "../mixin/mixin" as *;
 
 //# LOGO 
-[pgs~="logo"] {
+:is([pgs~="logo"], [pgs*="logo\5B"]) {
     display: flex;
     min-width: max-content;
     background-color: transparent;
@@ -10,12 +10,12 @@
     --logo-finter: invert(1) hue-rotate(180deg) brightness(1.5);
 
     //== DARKMODE
-    &:is([pgs-state~="darkmode"] [pgs-option~="logoDarkmode"]) [pgs~="logo-image"] {
+    &:is([pgs-state~="darkmode"] [pgs*="'logoDarkmode'"]) :is([pgs~="logo-image"], [pgs*="logo-image\5B"]) {
         filter: var(--logo-finter);
     }
 
     //== FIXED DARKMODE
-    &[pgs-option~="logoDarkmodeFixed"] [pgs~="logo-image"] {
+    &[pgs*="'logoDarkmodeFixed'"] :is([pgs~="logo-image"], [pgs*="logo-image\5B"]) {
         filter: var(--logo-finter);
     }
 
@@ -25,7 +25,7 @@
     }
 
     //= LOGO
-    >*:not([pgs~="logo-text"]) {
+    >*:not(:is([pgs~="logo-text"], [pgs*="logo-text\5B"])) {
         height: var(--logo-height);
         object-fit: contain;
         object-position: left;
@@ -39,12 +39,12 @@
     }
 
     //= TEXT ONLY
-    &:has([pgs~="logo-text"]) {
+    &:has(:is([pgs~="logo-text"], [pgs*="logo-text\5B"])) {
         display: flex;
         align-items: center;
         filter: unset !important;
 
-        [pgs~="logo-text"] {
+        :is([pgs~="logo-text"], [pgs*="logo-text\5B"]) {
             font-family: var(--font-heading);
             font-size: 20px;
             font-weight: var(--font-weight-bold);

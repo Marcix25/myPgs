@@ -1,61 +1,61 @@
 @use "../mixin/mixin" as *;
 
 //= BUTTON
-[pgs~=button] {
+:is([pgs~="button"], [pgs*="button\5B"]) {
     @include buttonBase();
 
-    &:where(:not([pgs~=bodyHoverAuto] [pgs~=button])) {
+    &:where(:not(:is([pgs~="bodyHoverAuto"], [pgs*="bodyHoverAuto\5B"]) :is([pgs~="button"], [pgs*="button\5B"]))) {
         @include buttonHover();
     }
 
-    &[pgs-option~=buttonIcon] {
+    &[pgs*="'buttonIcon'"] {
         @include buttonIcon();
     }
 
-    &[pgs-option~=buttonMini] {
+    &[pgs*="'buttonMini'"] {
         @include buttonMini();
     }
 
-    &[pgs-option~=buttonBig] {
+    &[pgs*="'buttonBig'"] {
         @include buttonBig();
     }
 
-    &[pgs-option~=buttonTransparent] {
+    &[pgs*="'buttonTransparent'"] {
         @include buttonTransparent();
     }
 
-    &[pgs-option~=buttonStrong] {
+    &[pgs*="'buttonStrong'"] {
         @include buttonStrong();
     }
 
-    &[pgs-option~=buttonText] {
+    &[pgs*="'buttonText'"] {
         @include buttonText();
     }
 
-    &[pgs-option~=buttonPaddingEqual] {
+    &[pgs*="'buttonPaddingEqual'"] {
         @include buttonPaddingEqual();
     }
 
-    &[pgs-option~=buttonHeader] {
+    &[pgs*="'buttonHeader'"] {
         @include buttonHeader();
     }
 
-    &[pgs-option~=buttonPrimary] {
+    &[pgs*="'buttonPrimary'"] {
         --button-background: var(--color-primary);
         --button-color: var(--color-primary-text);
     }
 
-    &[pgs-option~=buttonSecondary] {
+    &[pgs*="'buttonSecondary'"] {
         --button-background: var(--color-secondary);
         --button-color: var(--color-secondary-text);
     }
 
-    &[pgs-option~=buttonTertiary] {
+    &[pgs*="'buttonTertiary'"] {
         --button-background: var(--color-tertiary);
         --button-color: var(--color-tertiary-text);
     }
 
-    &[pgs-option~=buttonQuaternary] {
+    &[pgs*="'buttonQuaternary'"] {
         --button-background: var(--color-quaternary);
         --button-color: var(--color-quaternary-text);
     }

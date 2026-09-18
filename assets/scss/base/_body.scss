@@ -1,7 +1,7 @@
 @use "../mixin/mixin" as *;
 
 //== HTML
-:where([pgs~="htmlBase"]) {
+:where(:is([pgs~="htmlBase"], [pgs*="htmlBase\5B"])) {
     --font-rem-base: 62.5%;
     scroll-behavior: smooth;
     font-size: var(--font-rem-base);
@@ -26,10 +26,10 @@
 //== HOVER
 //== read by the JavaScript only, declared here so editors suggest it: without it pgs.hover marks
 //== nothing on its own, and only a pgs="hover" written by hand gets the treatment. See base/hover
-[pgs~="bodyHoverAuto"] {}
+:is([pgs~="bodyHoverAuto"], [pgs*="bodyHoverAuto\5B"]) {}
 
 //== BASE
-:where([pgs~="bodyBase"]) {
+:where(:is([pgs~="bodyBase"], [pgs*="bodyBase\5B"])) {
     background-color: var(--color-background);
     position: relative;
 
@@ -72,10 +72,10 @@
 }
 
 //== IMG
-:where([pgs~="bodyImg"]) {
+:where(:is([pgs~="bodyImg"], [pgs*="bodyImg\5B"])) {
 
     i,
-    [pgs~=icon] {
+    :is([pgs~="icon"], [pgs*="icon\5B"]) {
         line-height: 1.2;
         font-size: var(--fa-size, var(--icon-size));
     }
@@ -113,7 +113,7 @@
 }
 
 //== TEXT
-:where([pgs~="bodyText"]) {
+:where(:is([pgs~="bodyText"], [pgs*="bodyText\5B"])) {
     color: var(--color-black);
     font-family: var(--font);
     font-weight: var(--font-weight-text);
@@ -156,7 +156,7 @@
 }
 
 //== heading
-:where([pgs~="bodyHeading"]) {
+:where(:is([pgs~="bodyHeading"], [pgs*="bodyHeading\5B"])) {
     h1 {
         @include h1();
     }

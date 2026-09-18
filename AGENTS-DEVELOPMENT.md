@@ -35,7 +35,11 @@ Do not edit generated `dist/` files as the source of truth. Modify `assets/`, re
 
 - `pgs` is the component and layout contract shared by markup, SCSS, and JavaScript.
 - `pgs-state` contains runtime state.
-- `pgs-option` contains configuration and bracket values.
+- CSS flags and JavaScript-only boolean flags both live inside their component bracket: `pgs="button['buttonStrong']"`, `pgs="header['headerScroll']"`.
+- `pgs-data` holds only genuine `key[payload]` values passed from HTML to JavaScript, such as `headerCompactFrom[600]`. A flag with no payload never belongs there.
+- `.option` and `.data` are two separate accessors, split by attribute as well as by purpose: `.option` (`contains`/`add`/`remove`/`toggle`/`querySelector(All)`/`closest`) only ever reads/writes the `pgs` attribute; `.data` (`getValueBrackets`/`setValueBrackets`/`value`) only ever reads/writes `pgs-data`. Neither one touches the other's attribute.
+- `.option.add(key)` derives the owning component from `key`'s own name — the lowercase run before the first uppercase letter or a `-` (`buttonTransparent` → `button`, `headerScroll` → `header`), the naming convention every component-owned flag already follows — and merges into that component's existing bracket if a token with that key is present on the element. When no such token is present, the flag becomes its own bare `pgs` token instead (this is how `hoverNot` — a flag with no single owner — ends up on an element with no matching `hover`/`button`/`card`/`box` token to merge into). `option.remove`/`option.toggle` strip a flag correctly either way, bare or nested. There is no ownership registry to keep in sync.
+- A flag with no payload always lives in `pgs`, bare or bracketed. `pgs-data` holds only a genuine `key[payload]` value; `tabsHistory` is the one flag that can be either, and its bare form is set through `.data.value` directly (`.data` has no `contains`/`add`/`remove`/`toggle`), since there is no owner to derive for it and it never belongs in the `pgs` bracket.
 - Components use a stable root token and consistently prefixed child tokens.
 - Naming is normally camelCase for compound root/options and component-prefixed naming for child tokens.
 - Markup must remain semantic and accessible before runtime enhancement.
@@ -52,7 +56,7 @@ When changing a token, update every selector, query, reference, declaration, dem
 - Keep component selectors scoped consistently with the existing stylesheet architecture.
 - Use private mixins with a leading `_` when they are implementation details of a public mixin.
 - Do not duplicate layout or component logic already available elsewhere in the library.
-- Compose button variants from `buttonBase`, `buttonContent` or `buttonIcon`, plus the required variant mixins. No component writes the hover treatment itself: `pgs.hover` marks a clickable surface with the `hover` token and `[pgs~=hover]` draws it, with `pgs-option="hoverNot"` as the single opt-out. An element that needs the treatment without that token composes `hoverBase`, `hoverStyle1` and `focus` directly.
+- Compose button variants from `buttonBase`, `buttonContent` or `buttonIcon`, plus the required variant mixins. No component writes the hover treatment itself: `pgs.hover` marks a clickable surface with the `hover` token and `[pgs~=hover]` draws it, with `pgs="button['hoverNot']"` (or the bracket of the relevant component) as the single opt-out. An element that needs the treatment without that token composes `hoverBase`, `hoverStyle1` and `focus` directly.
 - Treat a removed or renamed public mixin, token, option, or custom property as a potential breaking change.
 
 Example component structure:
@@ -108,7 +112,7 @@ Do not create a separate reference page when the new token is intentionally part
 
 Use `reference/html/` as the single source of truth. Each reference must:
 
-- document every `pgs`, `pgs-state`, and `pgs-option` value used by its example;
+- document every `pgs`, `pgs-state`, and `pgs-data` value used by its example;
 - contain only meaningful public examples, not temporary test markup;
 - keep the demo scaffolding out of the copyable code, with `demo="wrapper"`;
 - preserve required structure and accessibility attributes;
@@ -154,7 +158,8 @@ single line in the form `- value: description` — the parser accepts no continu
 | `@title`, `@description` | name and prose, `@description` is the place for events and behaviour |
 | `@pgs` | tokens you write yourself |
 | `@pgs-generated` | tokens the library puts in the DOM; an `_` prefix marks the ones you can never write |
-| `@pgs-option` | configuration, with bracket payloads |
+| `@pgs-options` | CSS flags and JavaScript-only boolean flags inside each component bracket |
+| `@pgs-data` | key[payload] configuration passed from HTML to JavaScript |
 | `@pgs-state` | runtime state |
 | `@api` | public JavaScript entry points |
 | `@related` | tokens borrowed from other components, grouped automatically by kind |
@@ -163,7 +168,7 @@ single line in the form `- value: description` — the parser accepts no continu
 The markup below the block is annotated with `demo` attributes that tell both renderers how to split
 and present it:
 
-The `demo` attribute is a space-separated token list, the same convention as `pgs`/`pgs-option`:
+The `demo` attribute is a space-separated token list, the same convention as `pgs-state` (component brackets keep their internal spaces in `pgs`):
 
 | token | effect |
 | --- | --- |
@@ -189,10 +194,10 @@ ever need `demo-h3`). A `demo="component"` that itself contains a nested `demo="
 `formAddon.html`'s outer `<form>` around several inner examples) is transparent: it carries no heading
 of its own, and a `<demo>` marker only ever precedes an actual titleable leaf.
 
-A `<script type="application/json">` block becomes the "PGS Option fields" section and a
+A `<script type="application/json">` block becomes the "PGS Data fields" section and a
 `<script type="text/x-example-js">` block becomes "JavaScript Usage". Both are documentation, so
 annotate every field with its accepted values and its default, read from the JavaScript rather than
-guessed. Keep the annotations in that one block instead of repeating the field list in `@pgs-option`.
+guessed. Keep the annotations in that one block instead of repeating the field list in `@pgs-data`.
 
 **Example HTML must contain only the markup someone copies to reuse the component, never the markup
 that exists to arrange the demo.** When an example needs a layout wrapper to be presentable, mark
@@ -259,7 +264,7 @@ Before a release:
 - Do not use `site/` as inspiration or as the canonical component structure.
 - Do not keep temporary test examples in canonical references.
 - Do not let demo scaffolding reach an Example HTML block: a layout wrapper added to arrange the example belongs in the preview only.
-- Do not repeat a field list in `@pgs-option` when the option block already documents it.
+- Do not repeat a field list in `@pgs-data` when the option block already documents it.
 - Do not hardcode values when an established variable or custom property exists.
 - Do not make a reusable feature project-specific.
 
@@ -267,7 +272,7 @@ Before a release:
 
 - Did I search for an existing implementation first?
 - Is the source file in the correct architectural group?
-- Are `pgs`, `pgs-state`, and `pgs-option` synchronized everywhere?
+- Are `pgs`, `pgs-state`, and `pgs-data` synchronized everywhere?
 - Is the HTML reference canonical, minimal, and fully documented?
 - Does every Example HTML block contain only reusable markup, and match the generated `.md` exactly?
 - Did I update public APIs and TypeScript declarations together?

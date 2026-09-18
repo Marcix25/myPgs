@@ -23,12 +23,15 @@ Accessible pattern for collecting and storing analytics cookie consent, applying
 - `_cookieConsent-actionReject`: applies selected preferences without automatically accepting analytics.
 - `_cookieConsent-actionAccept`: accepts all available cookies.
 
-## PGS Options
+## PGS Options (component brackets)
 
-- `cookieConsent`: JSON object read from the hidden marker on page load — every field, with its accepted values and its default, is annotated in the reference below.
 - `buttonStrong`: presents full acceptance as the primary action.
 - `modalTopLevel`: centers the dialog with a backdrop instead of positioning it inline; see Modal.
 - `badgeSuccess`: presents the essential-cookie badge with the success color; see Badges.
+
+## PGS Data
+
+- `cookieConsent`: JSON object read from the hidden marker on page load — every field, with its accepted values and its default, is annotated in the reference below.
 
 ## JavaScript API
 
@@ -42,12 +45,13 @@ Accessible pattern for collecting and storing analytics cookie consent, applying
 - `hidden`: uses the related hidden component or utility in this example.
 - `icon`: draws the three glyphs in the notice and its buttons; see Icon for the whole set.
 
-### PGS Options
+### PGS Options (component brackets)
 
 - `icon-cookie`: the glyph beside the introduction.
 
 ### Other
 
+- `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `flexColumn`: vertically organizes the JS-generated dialog content and the preference panel.
 - `gapElements`: applies element spacing to the JS-generated dialog content.
 - `flexRow`: arranges panel rows and actions, and the icon beside the introduction.
@@ -64,10 +68,10 @@ Accessible pattern for collecting and storing analytics cookie consent, applying
 
 Consent panel HTML with essential and analytics preferences, actions, and accessible attributes.
 
-## PGS Option fields
+## PGS Data fields
 
 ```html
-pgs-option='cookieConsent[{
+pgs-data='cookieConsent[{
     // every field is optional and falls back to the value shown here, which is the library default
     "titleIntro": "Cookies and privacy",            // small heading above the title
     "titleHeading": "Your privacy comes first",     // title of the banner
@@ -91,7 +95,7 @@ pgs-option='cookieConsent[{
 ## Example
 
 ```html
-<div pgs="hidden cookieConsent" pgs-option='cookieConsent[{
+<div pgs="hidden cookieConsent" pgs-data='cookieConsent[{
     "titleHeading": "Your privacy comes first",
     "description": "We use essential cookies to provide the service and, with your consent, analytics cookies from **Google Analytics** to measure traffic anonymously and improve our content.\nYou can change your choice at any time.",
     "privacyPolicyUrl": "/privacy-policy/",
@@ -100,6 +104,6 @@ pgs-option='cookieConsent[{
 }]'></div>
 
 <button type="button" pgs="button cookieConsent-actionOpen" aria-haspopup="dialog">
-    <i pgs="icon" pgs-option="icon-cookie"></i> Cookie preferences
+    <i pgs="icon['icon-cookie']"></i> Cookie preferences
 </button>
 ```

@@ -24,52 +24,52 @@
     white-space: nowrap;
     overflow-wrap: normal;
 
-    i, [pgs~=icon] {
+    i, :is([pgs~="icon"], [pgs*="icon\5B"]) {
         color: var(--badge-color);
         font-size: var(--badge-icon-size);
         --icon-size: var(--badge-icon-size);
     }
 }
 
-[pgs~="badge"] {
+:is([pgs~="badge"], [pgs*="badge\5B"]) {
     @include _badge();
 
-    &[pgs-option~="badgePrimary"] {
+    &[pgs*="'badgePrimary'"] {
         --badge-background: var(--color-primary-soft);
         --badge-color: var(--color-primary-strong);
     }
 
-    &[pgs-option~="badgeStrong"] {
+    &[pgs*="'badgeStrong'"] {
         --badge-background: var(--color-primary);
         --badge-color: var(--color-whiteFixed);
     }
 
-    &[pgs-option~="badgeSuccess"] {
+    &[pgs*="'badgeSuccess'"] {
         --badge-background: var(--color-success-soft);
         --badge-color: var(--color-success);
     }
 
-    &[pgs-option~="badgeWarning"] {
+    &[pgs*="'badgeWarning'"] {
         --badge-background: var(--color-warning-soft);
         --badge-color: var(--color-warning);
     }
 
-    &[pgs-option~="badgeError"] {
+    &[pgs*="'badgeError'"] {
         --badge-background: var(--color-error-soft);
         --badge-color: var(--color-error);
     }
 
-    &[pgs-option~="badgeInfo"] {
+    &[pgs*="'badgeInfo'"] {
         --badge-background: var(--color-info-soft);
         --badge-color: var(--color-info);
     }
 
-    &[pgs-option~="badgeNeutral"] {
+    &[pgs*="'badgeNeutral'"] {
         --badge-background: var(--color-box-transparent);
         --badge-color: var(--color-text);
     }
 
-    &[pgs-option~="badgeDot"] {
+    &[pgs*="'badgeDot'"] {
         &::before {
             content: "";
             display: block;

@@ -12,7 +12,7 @@
 // The token is also the integration point for any icon set you bring. Written on its own it draws
 // nothing and only says "this is an icon", which is what every component looks for when it hands an
 // icon its box: mark a span, an svg or a custom element with it and it is sized and placed exactly
-// as an <i> would be. That is the whole reason the components match [pgs~=icon] alongside i.
+// as an <i> would be. That is the whole reason the components match :is([pgs~="icon"], [pgs*="icon\5B"]) alongside i.
 //
 // Not to be confused with iconBox, which is the circular surface a glyph can sit inside. That one
 // is the container, this one is the drawing.
@@ -25,7 +25,7 @@
     }
 }
 
-[pgs~=icon] {
+:is([pgs~="icon"], [pgs*="icon\5B"]) {
     @include iconBase();
 
     //== the key is the bare glyph name, so both prefixes are written out here: the drawing goes on
@@ -34,7 +34,7 @@
     //== drew the box — masking the wrapper element itself paints nothing, since that element has
     //== no background of its own.
     @each $name, $url in $icons-builtin {
-        &[pgs-option~=icon-#{$name}] {
+        &[pgs*="'icon-#{$name}'"] {
             &::before {
                 @include svgBase64(var(--icon-glyph-#{$name}));
             }
@@ -50,23 +50,23 @@
     // the same glyph) draws flat until iconDuo is added, at which point this rule's extra
     // attribute selector gives it more specificity than the single-mask rule above and wins.
     @each $name, $layers in $icons-duo {
-        &[pgs-option~=icon-#{$name}][pgs-option~=iconDuo] {
+        &[pgs*="'icon-#{$name}'"][pgs*="'iconDuo'"] {
             @include iconDuo(nth($layers, 1), nth($layers, 2));
         }
     }
 
     //+ ICON BOX
-    &[pgs-option~=iconBox] {
+    &[pgs*="'iconBox'"] {
         @include iconBox();
     }
 
     //+ ICON MEDIUM
-    &[pgs-option~=iconMedium] {
+    &[pgs*="'iconMedium'"] {
         --icon-size: 1.25em;
     }
     
     //+ ICON LARGE
-    &[pgs-option~=iconLarge] {
+    &[pgs*="'iconLarge'"] {
         --icon-size: 1.5em;
     }
 }

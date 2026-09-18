@@ -16,10 +16,11 @@ Heading sizes available as utilities, to give any element the look of a title wi
 
 ### PGS
 
+- `flex`: provides the flex layout; direction and spacing are flags in its bracket.
+
+### PGS Options (component brackets)
+
 - `flexColumn`: stacks the examples vertically.
-
-### PGS Options
-
 - `gapTexts`: spaces the examples.
 
 ## CSS Variables

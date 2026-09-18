@@ -10,6 +10,7 @@
  * - chips: groups chip controls into a compact segmented selector.
  *
  * @related
+ * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - form: applies the base form styles to the complete add-on example.
  * - flexColumn: vertically arranges each example with its heading and control.
  * - flexRow: horizontally arranges standalone chip controls.
@@ -24,10 +25,10 @@
  */
 -->
 
-<form pgs="form flexColumn" pgs-option="gapElements" demo="component">
+<form pgs="form flex['flexColumn' 'gapElements']" demo="component">
     <demo demo-h2="Examples"></demo>
     <demo demo-h3="Checkbox with background" demo-description="A single checkbox presented as a selectable container, with the checked state highlighted."></demo>
-    <section pgs="flexColumn" demo="component">
+    <section pgs="flex['flexColumn']" demo="component">
         <label pgs="checkboxBackground">
             <input type="checkbox" name="notifications" value="enabled">
             <span>
@@ -38,8 +39,8 @@
     </section>
 
     <demo demo-h3="Radio group with background" demo-description="Radio inputs sharing the same name and presented as selectable containers, so only one can be checked."></demo>
-    <section pgs="flexColumn" demo="component">
-        <fieldset pgs="flexRow">
+    <section pgs="flex['flexColumn']" demo="component">
+        <fieldset pgs="flex['flexRow']">
             <label pgs="checkboxBackground">
                 <input type="radio" name="plan" value="basic" checked>
                 Basic
@@ -58,7 +59,7 @@
     </section>
 
     <demo demo-h3="Toggle" demo-description="Checkbox presented as a switch with a rail and movable thumb."></demo>
-    <section pgs="flexColumn" demo="component">
+    <section pgs="flex['flexColumn']" demo="component">
         <label pgs="toggle">
             <span>Enable Wi-Fi</span>
             <input type="checkbox" name="darkMode" value="enabled">
@@ -66,37 +67,37 @@
     </section>
 
     <demo demo-h3="Chips checkbox" demo-description="Individual checkbox options presented as compact selectable chip buttons."></demo>
-    <section pgs="flexColumn" demo="component">
-        <div pgs="flexRow" role="group" aria-label="Chip actions">
-            <label pgs="button chip" pgs-option="buttonMini">
+    <section pgs="flex['flexColumn']" demo="component">
+        <div pgs="flex['flexRow']" role="group" aria-label="Chip actions">
+            <label pgs="button['buttonMini'] chip">
                 <input type="checkbox" name="like" value="basic">
-                <i pgs="icon" pgs-option="icon-star"></i>
+                <i pgs="icon['icon-star']"></i>
                 Like
             </label>
-            <label pgs="button chip" pgs-option="buttonMini">
+            <label pgs="button['buttonMini'] chip">
                 <input type="checkbox" name="share" value="basic">
-                <i pgs="icon" pgs-option="icon-star"></i>
+                <i pgs="icon['icon-star']"></i>
                 Share
             </label>
         </div>
     </section>
 
-    <section pgs="flexColumn" pgs-option="gapElements">
+    <section pgs="flex['flexColumn' 'gapElements']">
         <demo demo-h3="Chips group (checkbox)" demo-description="Multiple checkbox chips grouped into a compact segmented selector."></demo>
         <section demo="component">
             <fieldset pgs="chips">
                 <legend pgs="legend">Chip checkbox</legend>
-                <label pgs="button" pgs-option="buttonMini">
+                <label pgs="button['buttonMini']">
                     <input type="checkbox" name="plan" value="red" checked>
                     Red
                 </label>
 
-                <label pgs="button" pgs-option="buttonMini">
+                <label pgs="button['buttonMini']">
                     <input type="checkbox" name="plan" value="blue">
                     Blue
                 </label>
 
-                <label pgs="button" pgs-option="buttonMini">
+                <label pgs="button['buttonMini']">
                     <input type="checkbox" name="plan" value="green">
                     Green
                 </label>
@@ -107,21 +108,21 @@
         <section demo="component">
             <fieldset pgs="chips">
                 <legend pgs="legend">Chips radio</legend>
-                <label pgs="button" pgs-option="buttonMini">
+                <label pgs="button['buttonMini']">
                     <input type="radio" name="characters" value="Crow" checked>
-                    <i pgs="icon" pgs-option="icon-star"></i>
+                    <i pgs="icon['icon-star']"></i>
                     Crow
                 </label>
 
-                <label pgs="button" pgs-option="buttonMini">
+                <label pgs="button['buttonMini']">
                     <input type="radio" name="characters" value="Dove">
-                    <i pgs="icon" pgs-option="icon-star"></i>
+                    <i pgs="icon['icon-star']"></i>
                     Dove
                 </label>
 
-                <label pgs="button" pgs-option="buttonMini">
+                <label pgs="button['buttonMini']">
                     <input type="radio" name="characters" value="dragon">
-                    <i pgs="icon" pgs-option="icon-star"></i>
+                    <i pgs="icon['icon-star']"></i>
                     dragon
                 </label>
             </fieldset>

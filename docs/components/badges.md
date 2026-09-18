@@ -8,7 +8,7 @@ Collection of compact indicators for displaying categories, priorities, and visu
 
 - `badge`: identifies the base badge variant.
 
-## PGS Options
+## PGS Options (component brackets)
 
 - `badgePrimary`: applies the primary color variant.
 - `badgeStrong`: applies the high-contrast variant.
@@ -25,7 +25,7 @@ Collection of compact indicators for displaying categories, priorities, and visu
 
 - `icon`: draws the glyphs this example shows; see Icon for the whole set.
 
-### PGS Options
+### PGS Options (component brackets)
 
 - `icon-circleInfo`: the information mark.
 - `icon-close`: the cross that dismisses.
@@ -33,6 +33,7 @@ Collection of compact indicators for displaying categories, priorities, and visu
 
 ### Other
 
+- `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `flexRow`: arranges badges horizontally and allows them to wrap.
 
 ## Output
@@ -55,7 +56,7 @@ Default badge variant with no color emphasis.
 Badge using the primary color variant.
 
 ```html
-<span pgs="badge" pgs-option="badgePrimary">
+<span pgs="badge['badgePrimary']">
     Primary
 </span>
 ```
@@ -65,7 +66,7 @@ Badge using the primary color variant.
 High-contrast badge variant.
 
 ```html
-<span pgs="badge" pgs-option="badgeStrong">
+<span pgs="badge['badgeStrong']">
     Strong
 </span>
 ```
@@ -75,7 +76,7 @@ High-contrast badge variant.
 Success badge combined with a dot indicator.
 
 ```html
-<span pgs="badge" pgs-option="badgeSuccess badgeDot">
+<span pgs="badge['badgeSuccess' 'badgeDot']">
     Active
 </span>
 ```
@@ -85,8 +86,8 @@ Success badge combined with a dot indicator.
 Badge representing a warning, paired with an icon.
 
 ```html
-<span pgs="badge" pgs-option="badgeWarning">
-    <i pgs="icon" pgs-option="icon-triangleExclamation" aria-hidden="true"></i>
+<span pgs="badge['badgeWarning']">
+    <i pgs="icon['icon-triangleExclamation']" aria-hidden="true"></i>
     Warning
 </span>
 ```
@@ -96,8 +97,8 @@ Badge representing a warning, paired with an icon.
 Badge representing an error, paired with an icon.
 
 ```html
-<span pgs="badge" pgs-option="badgeError">
-    <i pgs="icon" pgs-option="icon-close" aria-hidden="true"></i>
+<span pgs="badge['badgeError']">
+    <i pgs="icon['icon-close']" aria-hidden="true"></i>
     Error
 </span>
 ```
@@ -107,8 +108,8 @@ Badge representing an error, paired with an icon.
 Badge representing informational content, paired with an icon.
 
 ```html
-<span pgs="badge" pgs-option="badgeInfo">
-    <i pgs="icon" pgs-option="icon-circleInfo" aria-hidden="true"></i>
+<span pgs="badge['badgeInfo']">
+    <i pgs="icon['icon-circleInfo']" aria-hidden="true"></i>
     Info
 </span>
 ```
@@ -118,7 +119,7 @@ Badge representing informational content, paired with an icon.
 Neutral badge variant with muted colors.
 
 ```html
-<span pgs="badge" pgs-option="badgeNeutral">
+<span pgs="badge['badgeNeutral']">
     Neutral
 </span>
 ```

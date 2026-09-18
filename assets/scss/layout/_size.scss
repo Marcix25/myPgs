@@ -5,62 +5,62 @@
 //= WIDTH
 //== min() is the point of the width side: every value is capped at the container, so a fixed width
 //== never overflows on a narrow screen and no media query is needed to take it back
-[pgs~=width],
-[pgs~=widthMax],
-[pgs~=widthMin] {
+:is([pgs~="width"], [pgs*="width\5B"]),
+:is([pgs~="widthMax"], [pgs*="widthMax\5B"]),
+:is([pgs~="widthMin"], [pgs*="widthMin\5B"]) {
     --width-size: 100%;
 
     //== This is the safe default
-    &[pgs-option~=widthFull] {
+    &[pgs*="'widthFull'"] {
         --width-size: 100%;
     }
 
     //== SCALES: the width scales come off the page, so an element lines up with the page content
-    &[pgs-option~=widthPage] {
+    &[pgs*="'widthPage'"] {
         --width-size: var(--page-width);
     }
 
-    &[pgs-option~=widthPageHalf] {
+    &[pgs*="'widthPageHalf'"] {
         --width-size: calc(var(--page-width) / 2);
     }
 
-    &[pgs-option~=widthPageThird] {
+    &[pgs*="'widthPageThird'"] {
         --width-size: calc(var(--page-width) / 3);
     }
 
     //== the measure a line of text stays readable at, independent of the page width
-    &[pgs-option~=widthText] {
+    &[pgs*="'widthText'"] {
         --width-size: 65ch;
     }
 
 }
 
 //== the element takes --width-size, or the container when that is narrower
-[pgs~=width] {
+:is([pgs~="width"], [pgs*="width\5B"]) {
     width: min(100%, var(--width-size));
 
     //== -webkit-fill-available can't compose inside min(), so it needs the real property instead
     //== of --width-size; unsupported outside Chromium/Safari, where the invalid value is dropped
     //== and the rule above applies instead
-    &[pgs-option~=widthFillAvailable] {
+    &[pgs*="'widthFillAvailable'"] {
         width: -webkit-fill-available;
     }
 }
 
 //== a ceiling: the element keeps its own width and only stops growing at --width-size
-[pgs~=widthMax] {
+:is([pgs~="widthMax"], [pgs*="widthMax\5B"]) {
     max-width: min(100%, var(--width-size));
 
-    &[pgs-option~=widthFillAvailable] {
+    &[pgs*="'widthFillAvailable'"] {
         max-width: -webkit-fill-available;
     }
 }
 
 //== a floor: the element never goes under --width-size, unless the container itself is narrower
-[pgs~=widthMin] {
+:is([pgs~="widthMin"], [pgs*="widthMin\5B"]) {
     min-width: min(100%, var(--width-size));
 
-    &[pgs-option~=widthFillAvailable] {
+    &[pgs*="'widthFillAvailable'"] {
         min-width: -webkit-fill-available;
     }
 }
@@ -70,13 +70,13 @@
 //== scrolls, which is what a page does anyway. And a percentage height only resolves against a
 //== parent that has a definite height, so wrapping it in min() would make the value indefinite in
 //== exactly the layouts where it is used
-[pgs~=height],
-[pgs~=heightMax],
-[pgs~=heightMin] {
+:is([pgs~="height"], [pgs*="height\5B"]),
+:is([pgs~="heightMax"], [pgs*="heightMax\5B"]),
+:is([pgs~="heightMin"], [pgs*="heightMin\5B"]) {
     --height-size: 100%;
 
     //== This is the safe default
-    &[pgs-option~=heightFull] {
+    &[pgs*="'heightFull'"] {
         --height-size: 100%;
     }
 
@@ -84,55 +84,55 @@
     //== against without a parent that already has a height
     //== svh is the viewport with the browser toolbars expanded, so the element never grows past the
     //== screen as they retract
-    &[pgs-option~=heightScreen] {
+    &[pgs*="'heightScreen'"] {
         --height-size: 100svh;
     }
 
     //== dvh follows the visible area as the toolbars come and go: the element is always exactly the
     //== screen, at the cost of resizing during the scroll
-    &[pgs-option~=heightScreenLive] {
+    &[pgs*="'heightScreenLive'"] {
         --height-size: 100dvh;
     }
 
     //== lvh is the viewport with the toolbars retracted, for something meant to run under them
-    &[pgs-option~=heightScreenLarge] {
+    &[pgs*="'heightScreenLarge'"] {
         --height-size: 100lvh;
     }
 
-    &[pgs-option~=heightScreenHalf] {
+    &[pgs*="'heightScreenHalf'"] {
         --height-size: 50svh;
     }
 
     //== what is left of the screen below the header, for a hero that fills the first view
-    &[pgs-option~=heightUnderHeader] {
+    &[pgs*="'heightUnderHeader'"] {
         --height-size: calc(100dvh - var(--heightOfHeader));
     }
 
     //== the same idea for an element that is the first child of main instead: main already carries
     //== --main-padding-top (the header height plus the extra breathing room --page-top adds), so
     //== subtracting only --heightOfHeader would leave that padding still counted twice
-    &[pgs-option~=heightUnderMain] {
+    &[pgs*="'heightUnderMain'"] {
         --height-size: calc(100dvh - var(--main-padding-top));
     }
 
     //== drops the constraint on one element without dropping the utility: auto is valid on height
     //== and min-height, and on max-height it is invalid at computed-value time, which lands on the
     //== initial none - no limit either way
-    &[pgs-option~=heightAuto] {
+    &[pgs*="'heightAuto'"] {
         --height-size: auto;
     }
 }
 
-[pgs~=height] {
+:is([pgs~="height"], [pgs*="height\5B"]) {
     height: var(--height-size);
 }
 
 //== a ceiling: pair it with an overflow utility, or the content simply spills out
-[pgs~=heightMax] {
+:is([pgs~="heightMax"], [pgs*="heightMax\5B"]) {
     max-height: var(--height-size);
 }
 
 //== a floor: the element grows past it with its content, so this is the usual one for a section
-[pgs~=heightMin] {
+:is([pgs~="heightMin"], [pgs*="heightMin\5B"]) {
     min-height: var(--height-size);
 }

@@ -23,7 +23,7 @@ function initializeModal(MODAL, existingDialog = null) {
     let historyTimeout = null;
 
     //== SELECTOR
-    const DOMButtonClose = '<button pgs="button modal-close" pgs-option="buttonIcon buttonMini" type="button" tabindex="0" aria-label="Close"><i pgs="icon" pgs-option="icon-close"></i></button>';
+    const DOMButtonClose = "<button pgs=\"button['buttonIcon' 'buttonMini'] modal-close\" type=\"button\" tabindex=\"0\" aria-label=\"Close\"><i pgs=\"icon['icon-close']\"></i></button>";
     const modalContentHeader = pgs(DIALOG).querySelector("modal-dialog-content-header");
 
     //== FOCUS
@@ -37,25 +37,33 @@ function initializeModal(MODAL, existingDialog = null) {
 
 
     //== MERGE OPTIONS
-    //== an option written on the wrapper or the dialog is read from either one, whichever is
-    //== convenient to the author: an option landing on the "wrong" element is harmless, since
-    //== every selector only looks for the tokens it cares about
-    {
-        const mergedOptions = [...new Set([
-            ...(MODAL.getAttribute("pgs-option") || "").split(/\s+/).filter(Boolean),
-            ...(DIALOG.getAttribute("pgs-option") || "").split(/\s+/).filter(Boolean),
-        ])].join(" ");
-        if (mergedOptions) {
-            MODAL.setAttribute("pgs-option", mergedOptions);
-            DIALOG.setAttribute("pgs-option", mergedOptions);
-        }
+    //== Modal configuration may be authored on either wrapper or dialog. Copy only modal
+    //== options: other component brackets (for example flex on the wrapper) stay local.
+    pgs(DIALOG).add("modal-dialog");
+    for (const key of [
+        "modalHistory", "modalTopLevel", "modalDisableBackdropClose", "modalMini",
+        "modalMedium", "modalFull", "modalCenter", "modalLeft", "modalRight", "modalTop", "modalBottom"
+    ]) {
+        const source = [MODAL, DIALOG].find(element => pgs(element).option.contains(key));
+        if (!source) continue;
+        pgs(MODAL).add(`modal['${key}']`);
+        pgs(DIALOG).add(`modal-dialog['${key}']`);
+    }
+
+    //== these two carry a value, so they still live in pgs-data — option never checks pgs-data,
+    //== so presence is a getValueBrackets read instead of an option.contains() call
+    for (const key of ["modalContainerID", "modalContainerPGS"]) {
+        const source = [MODAL, DIALOG].find(element => pgs(element).data.getValueBrackets(key) !== undefined);
+        if (!source) continue;
+        const value = pgs(source).data.getValueBrackets(key);
+        for (const target of [MODAL, DIALOG]) pgs(target).data.setValueBrackets(key, value);
     }
 
     //== OPTION ATTRIBUTES MODAL
     const modalDisableBackdropClose = pgs(MODAL).option.contains("modalDisableBackdropClose");
     const data_history = pgs(MODAL).option.contains("modalHistory");
-    const data_container = pgs(MODAL).option.getValueBrackets("modalContainerID");
-    const data_modalContainerPGS = pgs(MODAL).option.getValueBrackets("modalContainerPGS");
+    const data_container = pgs(MODAL).data.getValueBrackets("modalContainerID");
+    const data_modalContainerPGS = pgs(MODAL).data.getValueBrackets("modalContainerPGS");
 
     //== OPTION ATTRIBUTES DIALOG
     const modalTopLevel = pgs(DIALOG).option.contains("modalTopLevel");

@@ -43,47 +43,47 @@
 <body pgs="bodyBase bodyImg bodyText bodyHeading bodyHoverAuto">
 
     <!-- = HEADER -->
-    <header pgs="header" pgs-option="headerCompactBigTablet">
+    <header pgs="header['headerCompactBigTablet']">
         <div pgs="header-element blur">
             <div pgs="header-element-alwaysOn">
-                <a aria-label="Logo" pgs="logo" pgs-option="logoDarkmode" href="home.html">
+                <a aria-label="Logo" pgs="logo['logoDarkmode']" href="home.html">
                     <img pgs="logo-image" src="../assets/img/logo.svg" alt="MyPGS">
                 </a>
             </div>
 
             <div pgs="header-element-onlyFull">
-                <nav pgs="menu" pgs-option="menuHorizontal " aria-label="Main menu">
+                <nav pgs="menu['menuHorizontal']" aria-label="Main menu">
                     <ul>
-                        <li><a pgs="button" pgs-option="buttonTransparent buttonHeader" href="home.html">Home</a></li>
-                        <li><a pgs="button" pgs-option="buttonTransparent buttonHeader" href="demo.html">Docs</a></li>
-                        <li><a pgs="button" pgs-option="buttonTransparent buttonHeader" href="test.html">Test</a></li>
+                        <li><a pgs="button['buttonTransparent' 'buttonHeader']" href="home.html">Home</a></li>
+                        <li><a pgs="button['buttonTransparent' 'buttonHeader']" href="demo.html">Docs</a></li>
+                        <li><a pgs="button['buttonTransparent' 'buttonHeader']" href="test.html">Test</a></li>
                     </ul>
                 </nav>
-                <div pgs="flexRow" pgs-option="nowrap">
-                    <button pgs="button toggleDarkmode" pgs-option="buttonIcon" type="button" aria-label="Change theme">
+                <div pgs="flex['flexRow' 'nowrap']">
+                    <button pgs="button['buttonIcon'] toggleDarkmode" type="button" aria-label="Change theme">
                         <i class="fa-solid fa-moon"></i>
                     </button>
                 </div>
             </div>
 
             <div pgs="header-element-onlyCompact">
-                <div pgs="flexRow" pgs-option="nowrap">
-                    <button pgs="button toggleDarkmode" pgs-option="buttonIcon" type="button" aria-label="Change theme">
+                <div pgs="flex['flexRow' 'nowrap']">
+                    <button pgs="button['buttonIcon'] toggleDarkmode" type="button" aria-label="Change theme">
                         <i class="fa-solid fa-moon"></i>
                     </button>
-                    <div pgs="modal" pgs-option="modalContainerPGS[header]">
-                        <button pgs="button modal-button modal-close" pgs-option="buttonIcon" type="button" title="menu">
-                            <i pgs="icon" pgs-option="icon-hamburgerTwo" aria-hidden="true"></i>
+                    <div pgs="modal" pgs-data="modalContainerPGS[header]">
+                        <button pgs="button['buttonIcon'] modal-button modal-close" type="button" title="menu">
+                            <i pgs="icon['icon-hamburgerTwo']" aria-hidden="true"></i>
                         </button>
 
-                        <dialog pgs="modal-dialog" pgs-option="modalRight modalMedium">
+                        <dialog pgs="modal-dialog['modalRight' 'modalMedium']">
                             <div pgs="modal-dialog-content">
-                                <div pgs="modal-dialog-content-scroll margin padding" pgs-option="marginNegative">
-                                    <nav pgs="menu" pgs-option="menuVertical " aria-label="Main menu">
+                                <div pgs="modal-dialog-content-scroll margin['marginNegative'] padding">
+                                    <nav pgs="menu['menuVertical']" aria-label="Main menu">
                                         <ul>
-                                            <li><a pgs="button" pgs-option="buttonTransparent buttonHeader" href="home.html">Home</a></li>
-                                            <li><a pgs="button" pgs-option="buttonTransparent buttonHeader" href="demo.html">Docs</a></li>
-                                            <li><a pgs="button" pgs-option="buttonTransparent buttonHeader" href="test.html">Test</a></li>
+                                            <li><a pgs="button['buttonTransparent' 'buttonHeader']" href="home.html">Home</a></li>
+                                            <li><a pgs="button['buttonTransparent' 'buttonHeader']" href="demo.html">Docs</a></li>
+                                            <li><a pgs="button['buttonTransparent' 'buttonHeader']" href="test.html">Test</a></li>
                                         </ul>
                                     </nav>
                                 </div>
@@ -102,13 +102,13 @@
     <footer pgs="footer">
 
         <section pgs="footer-top section">
-            <div pgs="footer-top-content flexRow" pgs-option="column-3">
+            <div pgs="footer-top-content flex['flexRow' 'column-3']">
                 <div pgs="footer-brand">
-                    <a aria-label="Logo" pgs="logo" pgs-option="logoDarkmode" href="home.html">
+                    <a aria-label="Logo" pgs="logo['logoDarkmode']" href="home.html">
                         <img pgs="logo-image" src="../assets/img/logo.svg" alt="MyPGS">
                     </a>
                     <p pgs="footer-brand-motto">Reusable frontend components.</p>
-                    <button pgs="button toggleDarkmode" pgs-option="toggleDarkmodeExtended" type="button" aria-label="Change theme">
+                    <button pgs="button toggleDarkmode['toggleDarkmodeExtended']" type="button" aria-label="Change theme">
                         <i class="fa-solid fa-moon"></i>
                     </button>
                 </div>

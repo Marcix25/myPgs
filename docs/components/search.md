@@ -17,7 +17,7 @@ Search markup, configuration, behavior, and usage example. Two custom events bub
 - `_search-suggestions-placeholder`: shown instead of the suggestion list while the query is shorter than minLength, guiding how many more characters to type.
 - `_search-suggestions-empty`: shown instead of the suggestion list when a completed search returns no items.
 
-## PGS Options
+## PGS Data
 
 - `searchPlaceholder`: overrides the placeholder message shown below minLength, as searchPlaceholder[your text]. Write {minLength} in it to insert the configured minLength; defaults to "Type at least {minLength} characters".
 - `searchNoResults`: overrides the message shown when a search returns no items, as searchNoResults[your text]. Defaults to "No results found".
@@ -52,22 +52,26 @@ Search markup, configuration, behavior, and usage example. Two custom events bub
 
 ### PGS
 
+- `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `button`: provides the base styling for search controls.
 - `modal`: uses the related modal component or utility in this example.
 - `modal-button`: uses the related modal-button component or utility in this example.
 - `modal-close`: uses the related modal-close component or utility in this example.
-- `flexRow`: uses the related flexRow component or utility in this example.
 - `section`: uses the related section component or utility in this example.
 - `icon`: draws the glyph at the start of every suggestion; see Icon for the whole set.
 
-### PGS Options
+### PGS Options (component brackets)
 
-- `modalContainerPGS`: identifies the modalContainerPGS element used by Search.
+- `flexRow`: sets the horizontal direction inside the flex bracket.
 - `hoverNot`: disables hover behavior on the search container.
 - `buttonIcon`: presents search and close actions as icon buttons.
 - `buttonTransparent`: keeps the submit button flat inside the field, so only the icon shows.
 - `icon-magnifyingGlass`: the glyph used there.
 - `icon-close`: the cross that dismisses.
+
+### PGS Data
+
+- `modalContainerPGS`: identifies the modalContainerPGS element used by Search.
 
 ## CSS Variables
 
@@ -96,9 +100,9 @@ Complete HTML markup and usage example for Search.
 Search field with live suggestions embedded directly in the page.
 
 ```html
-<form pgs="button search" pgs-option="hoverNot searchPlaceholder[Type a component name] searchNoResults[No component matches]" autocomplete="off" action="" method="get">
-    <button pgs="button" pgs-option="buttonIcon buttonTransparent" type="submit" title="Search">
-        <i pgs="icon" pgs-option="icon-magnifyingGlass"></i>
+<form pgs="button['hoverNot'] search" pgs-data="searchPlaceholder[Type a component name] searchNoResults[No component matches]" autocomplete="off" action="" method="get">
+    <button pgs="button['buttonIcon' 'buttonTransparent']" type="submit" title="Search">
+        <i pgs="icon['icon-magnifyingGlass']"></i>
     </button>
     <input type="search" name="s" placeholder="Search" value="">
     <ul pgs="search-suggestions"></ul>
@@ -110,25 +114,25 @@ Search field with live suggestions embedded directly in the page.
 Search opened from an icon button inside a full-width modal, intended for the mobile navigation.
 
 ```html
-<div pgs="modal search-modal" pgs-option="modalContainerPGS[header]">
+<div pgs="modal search-modal" pgs-data="modalContainerPGS[header]">
 
-    <button type="button" pgs="modal-button button" pgs-option="buttonIcon" title="Search">
-        <i pgs="icon" pgs-option="icon-magnifyingGlass"></i>
+    <button type="button" pgs="modal-button button['buttonIcon']" title="Search">
+        <i pgs="icon['icon-magnifyingGlass']"></i>
     </button>
 
     <dialog>
-        <div pgs="flexRow section search-mobile">
+        <div pgs="flex['flexRow'] section search-mobile">
 
-            <form pgs="button search" pgs-option="hoverNot" autocomplete="off" action="/" method="get">
-                <button pgs="button" pgs-option="buttonIcon buttonTransparent" type="submit" title="Search">
-                    <i pgs="icon" pgs-option="icon-magnifyingGlass"></i>
+            <form pgs="button['hoverNot'] search" autocomplete="off" action="/" method="get">
+                <button pgs="button['buttonIcon' 'buttonTransparent']" type="submit" title="Search">
+                    <i pgs="icon['icon-magnifyingGlass']"></i>
                 </button>
 
                 <input type="search" name="s" placeholder="Search" value="">
                 <ul pgs="search-suggestions"></ul>
 
-                <button type="button" pgs="modal-close button" pgs-option="buttonIcon">
-                    <i pgs="icon" pgs-option="icon-close"></i>
+                <button type="button" pgs="modal-close button['buttonIcon']">
+                    <i pgs="icon['icon-close']"></i>
                 </button>
             </form>
 

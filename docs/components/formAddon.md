@@ -15,15 +15,16 @@ Additional form controls for selectable cards, switches, and compact chip groups
 
 ### PGS
 
+- `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `form`: applies the base form styles to the complete add-on example.
-- `flexColumn`: vertically arranges each example with its heading and control.
-- `flexRow`: horizontally arranges standalone chip controls.
 - `icon`: draws the glyphs this example shows; see Icon for the whole set.
 - `legend`: applies the group heading styling to a chips group's legend; see Form.
 - `button`: draws the chip, which composes the button look instead of redrawing it, and hides the checkbox or radio it wraps; see Button.
 
-### PGS Options
+### PGS Options (component brackets)
 
+- `flexColumn`: vertically arranges each example with its heading and control.
+- `flexRow`: horizontally arranges standalone chip controls.
 - `gapElements`: applies element spacing between the form add-on examples.
 - `icon-star`: the neutral stand-in glyph, used where the example needs an icon but not a particular one.
 - `buttonMini`: sizes that button down to the chip's compact size.
@@ -52,7 +53,7 @@ A single checkbox presented as a selectable container, with the checked state hi
 Radio inputs sharing the same name and presented as selectable containers, so only one can be checked.
 
 ```html
-<fieldset pgs="flexRow">
+<fieldset pgs="flex['flexRow']">
     <label pgs="checkboxBackground">
         <input type="radio" name="plan" value="basic" checked>
         Basic
@@ -86,15 +87,15 @@ Checkbox presented as a switch with a rail and movable thumb.
 Individual checkbox options presented as compact selectable chip buttons.
 
 ```html
-<div pgs="flexRow" role="group" aria-label="Chip actions">
-    <label pgs="button chip" pgs-option="buttonMini">
+<div pgs="flex['flexRow']" role="group" aria-label="Chip actions">
+    <label pgs="button['buttonMini'] chip">
         <input type="checkbox" name="like" value="basic">
-        <i pgs="icon" pgs-option="icon-star"></i>
+        <i pgs="icon['icon-star']"></i>
         Like
     </label>
-    <label pgs="button chip" pgs-option="buttonMini">
+    <label pgs="button['buttonMini'] chip">
         <input type="checkbox" name="share" value="basic">
-        <i pgs="icon" pgs-option="icon-star"></i>
+        <i pgs="icon['icon-star']"></i>
         Share
     </label>
 </div>
@@ -107,17 +108,17 @@ Multiple checkbox chips grouped into a compact segmented selector.
 ```html
 <fieldset pgs="chips">
     <legend pgs="legend">Chip checkbox</legend>
-    <label pgs="button" pgs-option="buttonMini">
+    <label pgs="button['buttonMini']">
         <input type="checkbox" name="plan" value="red" checked>
         Red
     </label>
 
-    <label pgs="button" pgs-option="buttonMini">
+    <label pgs="button['buttonMini']">
         <input type="checkbox" name="plan" value="blue">
         Blue
     </label>
 
-    <label pgs="button" pgs-option="buttonMini">
+    <label pgs="button['buttonMini']">
         <input type="checkbox" name="plan" value="green">
         Green
     </label>
@@ -131,21 +132,21 @@ Multiple radio chips grouped into a compact segmented selector, each paired with
 ```html
 <fieldset pgs="chips">
     <legend pgs="legend">Chips radio</legend>
-    <label pgs="button" pgs-option="buttonMini">
+    <label pgs="button['buttonMini']">
         <input type="radio" name="characters" value="Crow" checked>
-        <i pgs="icon" pgs-option="icon-star"></i>
+        <i pgs="icon['icon-star']"></i>
         Crow
     </label>
 
-    <label pgs="button" pgs-option="buttonMini">
+    <label pgs="button['buttonMini']">
         <input type="radio" name="characters" value="Dove">
-        <i pgs="icon" pgs-option="icon-star"></i>
+        <i pgs="icon['icon-star']"></i>
         Dove
     </label>
 
-    <label pgs="button" pgs-option="buttonMini">
+    <label pgs="button['buttonMini']">
         <input type="radio" name="characters" value="dragon">
-        <i pgs="icon" pgs-option="icon-star"></i>
+        <i pgs="icon['icon-star']"></i>
         dragon
     </label>
 </fieldset>

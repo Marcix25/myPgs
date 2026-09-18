@@ -13,7 +13,7 @@ Width and height utilities driven by a single custom property each. The width si
 - `heightMax`: caps the element at --height-size, and needs an overflow utility next to it or the content spills out.
 - `heightMin`: keeps the element at least --height-size tall, and lets it grow past that with its content.
 
-## PGS Options
+## PGS Options (component brackets)
 
 - `widthPage`: uses the page width and is the default for every width utility.
 - `widthPageHalf`: uses half the page width, for two columns that line up with the page content.
@@ -34,15 +34,16 @@ Width and height utilities driven by a single custom property each. The width si
 
 ### PGS
 
+- `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `main`: sets --main-padding-top, which heightUnderMain subtracts from the viewport height.
-- `flexColumn`: arranges the groups vertically.
-- `flexRow`: places the column and viewport examples side by side.
 - `box`: makes the measured elements visible.
 - `overflowAuto`: scrolls the content a heightMax element cannot show.
 - `marginInline`: pairs with marginAuto to centre a constrained element.
 
-### PGS Options
+### PGS Options (component brackets)
 
+- `flexColumn`: arranges the groups vertically.
+- `flexRow`: places the column and viewport examples side by side.
 - `gapTexts`: separates the examples inside a group.
 - `gapElements`: separates the side by side examples.
 - `marginAuto`: centres an element once its width is constrained.
@@ -63,12 +64,12 @@ The width scales come off the page, so a constrained element lines up with the p
 
 ```html
 <strong>Width scales</strong>
-<p pgs="box width" pgs-option="widthPage">Page width.</p>
-<p pgs="box width" pgs-option="widthPageHalf">Half the page width.</p>
-<p pgs="box width" pgs-option="widthPageThird">A third of the page width.</p>
-<p pgs="box width" pgs-option="widthText">A 65 character measure, the width a line of text stays readable at.</p>
-<p pgs="box width" pgs-option="widthFull">The whole container width.</p>
-<p pgs="box width" pgs-option="widthFillAvailable">-webkit-fill-available, Chromium/Safari only.</p>
+<p pgs="box width['widthPage']">Page width.</p>
+<p pgs="box width['widthPageHalf']">Half the page width.</p>
+<p pgs="box width['widthPageThird']">A third of the page width.</p>
+<p pgs="box width['widthText']">A 65 character measure, the width a line of text stays readable at.</p>
+<p pgs="box width['widthFull']">The whole container width.</p>
+<p pgs="box width['widthFillAvailable']">-webkit-fill-available, Chromium/Safari only.</p>
 ```
 
 ### Arbitrary width
@@ -79,7 +80,7 @@ Without an option the value comes from --width-size, which can be set inline, fr
 <strong>Arbitrary width</strong>
 <p pgs="box width" style="--width-size: 600px">Six hundred pixels, capped at the container.</p>
 <p pgs="box widthMin" style="--width-size: 400px">At least four hundred pixels.</p>
-<p pgs="box widthMax marginInline" pgs-option="marginAuto" style="--width-size: 500px">Capped at five hundred pixels and centred.</p>
+<p pgs="box widthMax marginInline['marginAuto']" style="--width-size: 500px">Capped at five hundred pixels and centred.</p>
 ```
 
 ### Two columns
@@ -87,8 +88,8 @@ Without an option the value comes from --width-size, which can be set inline, fr
 Half the page width on each side of a row, so the text keeps the page rhythm while the row bleeds past the edge.
 
 ```html
-<p pgs="box widthMax" pgs-option="widthPageHalf">Text held at half the page width, so it stays aligned with the page content.</p>
-<p pgs="box widthMax" pgs-option="widthPageHalf">The second column takes the same ceiling.</p>
+<p pgs="box widthMax['widthPageHalf']">Text held at half the page width, so it stays aligned with the page content.</p>
+<p pgs="box widthMax['widthPageHalf']">The second column takes the same ceiling.</p>
 ```
 
 ## Height
@@ -98,8 +99,8 @@ Half the page width on each side of a row, so the text keeps the page rhythm whi
 Each scale is a different reading of what the screen is: svh with the browser toolbars expanded, lvh with them retracted, dvh following them as they move.
 
 ```html
-<div pgs="box heightMin flexColumn" pgs-option="heightScreenHalf flexCenter">Half the screen.</div>
-<div pgs="box heightMin flexColumn" pgs-option="heightUnderHeader flexCenter">What is left below the header.</div>
+<div pgs="box heightMin['heightScreenHalf'] flex['flexColumn' 'flexCenter']">Half the screen.</div>
+<div pgs="box heightMin['heightUnderHeader'] flex['flexColumn' 'flexCenter']">What is left below the header.</div>
 ```
 
 ### First element inside main
@@ -108,7 +109,7 @@ heightUnderMain excludes main's own top padding (--main-padding-top) instead of 
 
 ```html
 <div pgs="main">
-    <div pgs="box heightMin flexColumn" pgs-option="heightUnderMain flexCenter">First element inside main.</div>
+    <div pgs="box heightMin['heightUnderMain'] flex['flexColumn' 'flexCenter']">First element inside main.</div>
 </div>
 ```
 
@@ -129,5 +130,5 @@ heightAuto removes the limit on a single element while the utility stays in plac
 
 ```html
 <strong>Dropping the constraint</strong>
-<div pgs="box heightMin" pgs-option="heightAuto">No floor at all.</div>
+<div pgs="box heightMin['heightAuto']">No floor at all.</div>
 ```

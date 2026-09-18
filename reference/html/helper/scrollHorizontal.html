@@ -8,6 +8,7 @@
  * - pgs.scrollHorizontalWithMouse(element, speed): same as pgs.scrollHorizontal, but ignores input identified as a trackpad.
  *
  * @related
+ * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - flexRow: lays the demo items out in a row.
  * - gapTexts: spaces them apart.
  * - overflowXAuto: adds the horizontal scrolling these examples turn the wheel into.
@@ -23,7 +24,7 @@
 
 <demo demo-h2="Examples"></demo>
 <demo demo-h3="Any input device" demo-description="pgs.scrollHorizontal converts a mouse wheel, a trackpad, or a Magic Mouse alike."></demo>
-<div pgs="flexRow overflowXAuto" pgs-option="gapTexts nowrap" id="pgsScrollDemo" demo="component codeNone">
+<div pgs="flex['flexRow' 'gapTexts' 'nowrap'] overflowXAuto" id="pgsScrollDemo" demo="component codeNone">
     <article pgs="card" style="flex-shrink: 0; min-width: 180px;">
         <img pgs="card-img imgCover" src="../assets/img/placeholder.jpg" alt="Slide 1">
         <div pgs="card-content">
@@ -54,7 +55,7 @@
 </div>
 
 <demo demo-h3="Mouse only" demo-description="pgs.scrollHorizontalWithMouse ignores a trackpad or Magic Mouse; only a plain mouse wheel scrolls this row."></demo>
-<div pgs="flexRow overflowXAuto" pgs-option="gapTexts nowrap" id="pgsScrollWithMouseDemo" demo="component codeNone">
+<div pgs="flex['flexRow' 'gapTexts' 'nowrap'] overflowXAuto" id="pgsScrollWithMouseDemo" demo="component codeNone">
     <img pgs="imgCover" src="../assets/img/placeholder.jpg" alt="Slide 1" style="flex-shrink: 0; border-radius: var(--border-radius);">
     <img pgs="imgCover" src="../assets/img/placeholder.jpg" alt="Slide 2" style="flex-shrink: 0; border-radius: var(--border-radius);">
     <img pgs="imgCover" src="../assets/img/placeholder.jpg" alt="Slide 3" style="flex-shrink: 0; border-radius: var(--border-radius);">

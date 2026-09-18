@@ -18,7 +18,7 @@
 }
 
 //= PAGE SHELL
-[pgs~="pageShell"] {
+:is([pgs~="pageShell"], [pgs*="pageShell\5B"]) {
     --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-padding-inline) * 2));
     --pageShell-padding-inline: var(--page-padding);
     --pageShell-padding-top: var(--page-top);
@@ -49,11 +49,11 @@
     container-type: inline-size;
     max-width: var(--pageShell-width);
 
-    &:where(:has(> [pgs~="pageShell-aside"])) {
+    &:where(:has(> :is([pgs~="pageShell-aside"], [pgs*="pageShell-aside\5B"]))) {
         --pageShell-width: calc(var(--pageShell-content-width) + var(--pageShell-aside-width) + var(--pageShell-gap) + (var(--pageShell-padding-inline) * 2));
     }
 
-    &:where(:has(> [pgs~="pageShell-aside"] ~ [pgs~="pageShell-aside"])) {
+    &:where(:has(> :is([pgs~="pageShell-aside"], [pgs*="pageShell-aside\5B"]) ~ :is([pgs~="pageShell-aside"], [pgs*="pageShell-aside\5B"]))) {
         --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-aside-width) * 2) + (var(--pageShell-gap) * 2) + (var(--pageShell-padding-inline) * 2));
     }
 
@@ -67,25 +67,25 @@
     */
     //== type of shell
     //=== aside | content
-    &:where(:has(> [pgs~="pageShell-aside"] + [pgs~="pageShell-content"])) {
+    &:where(:has(> :is([pgs~="pageShell-aside"], [pgs*="pageShell-aside\5B"]) + :is([pgs~="pageShell-content"], [pgs*="pageShell-content\5B"]))) {
         grid-template-columns: auto 1fr;
         grid-template-areas: "asideLeft content";
     }
 
     //=== content | aside
-    &:where(:has(> [pgs~="pageShell-content"] + [pgs~="pageShell-aside"])) {
+    &:where(:has(> :is([pgs~="pageShell-content"], [pgs*="pageShell-content\5B"]) + :is([pgs~="pageShell-aside"], [pgs*="pageShell-aside\5B"]))) {
         grid-template-columns: 1fr auto;
         grid-template-areas: "content asideRight";
     }
 
     //=== aside | content | aside
-    &:where(:has(> [pgs~="pageShell-aside"] + [pgs~="pageShell-content"]):has(> [pgs~="pageShell-content"] + [pgs~="pageShell-aside"])) {
+    &:where(:has(> :is([pgs~="pageShell-aside"], [pgs*="pageShell-aside\5B"]) + :is([pgs~="pageShell-content"], [pgs*="pageShell-content\5B"])):has(> :is([pgs~="pageShell-content"], [pgs*="pageShell-content\5B"]) + :is([pgs~="pageShell-aside"], [pgs*="pageShell-aside\5B"]))) {
         grid-template-columns: auto 1fr auto;
         grid-template-areas: "asideLeft content asideRight";
     }
 
     //== content
-    [pgs~="pageShell-content"] {
+    :is([pgs~="pageShell-content"], [pgs*="pageShell-content\5B"]) {
         grid-area: content;
         min-width: 0;
         width: 100%;
@@ -93,7 +93,7 @@
     }
 
     //== aside
-    [pgs~="pageShell-aside"] {
+    :is([pgs~="pageShell-aside"], [pgs*="pageShell-aside\5B"]) {
         isolation: isolate;
         transition: top 0.3s ease;
         width: var(--pageShell-aside-width);
@@ -105,13 +105,13 @@
             width: 100%;
         }
 
-        &:has(+ [pgs~="pageShell-content"]) {
+        &:has(+ :is([pgs~="pageShell-content"], [pgs*="pageShell-content\5B"])) {
             grid-area: asideLeft;
         }
     }
 
     //== aside right
-    [pgs~="pageShell-content"]+[pgs~="pageShell-aside"] {
+    :is([pgs~="pageShell-content"], [pgs*="pageShell-content\5B"])+:is([pgs~="pageShell-aside"], [pgs*="pageShell-aside\5B"]) {
         grid-area: asideRight;
     }
 
@@ -122,52 +122,52 @@
         type of shell
     */
     //=== aside | content
-    &:has(> [pgs~="pageShell-aside"] + [pgs~="pageShell-content"]) {
+    &:has(> :is([pgs~="pageShell-aside"], [pgs*="pageShell-aside\5B"]) + :is([pgs~="pageShell-content"], [pgs*="pageShell-content\5B"])) {
 
         //-( big-tablet
         @container (max-width: #{$big-tablet}) {
-            [pgs~="pageShell-aside"]:has(+ [pgs~="pageShell-content"]) {
+            :is([pgs~="pageShell-aside"], [pgs*="pageShell-aside\5B"]):has(+ :is([pgs~="pageShell-content"], [pgs*="pageShell-content\5B"])) {
                 @include pageShell-aside-flow;
             }
 
-            [pgs~="pageShell-content"] {
+            :is([pgs~="pageShell-content"], [pgs*="pageShell-content\5B"]) {
                 @include pageShell-content-flow;
             }
         }
     }
 
     //=== content | aside
-    &:has(> [pgs~="pageShell-content"] + [pgs~="pageShell-aside"]) {
+    &:has(> :is([pgs~="pageShell-content"], [pgs*="pageShell-content\5B"]) + :is([pgs~="pageShell-aside"], [pgs*="pageShell-aside\5B"])) {
 
         //-( big-tablet
         @container (max-width: #{$big-tablet}) {
-            [pgs~="pageShell-content"] {
+            :is([pgs~="pageShell-content"], [pgs*="pageShell-content\5B"]) {
                 @include pageShell-content-flow;
             }
 
-            [pgs~="pageShell-content"]+[pgs~="pageShell-aside"] {
+            :is([pgs~="pageShell-content"], [pgs*="pageShell-content\5B"])+:is([pgs~="pageShell-aside"], [pgs*="pageShell-aside\5B"]) {
                 @include pageShell-aside-flow;
             }
         }
     }
 
     //=== aside | content | aside
-    &:has(> [pgs~="pageShell-aside"] + [pgs~="pageShell-content"]):has(> [pgs~="pageShell-content"] + [pgs~="pageShell-aside"]) {
+    &:has(> :is([pgs~="pageShell-aside"], [pgs*="pageShell-aside\5B"]) + :is([pgs~="pageShell-content"], [pgs*="pageShell-content\5B"])):has(> :is([pgs~="pageShell-content"], [pgs*="pageShell-content\5B"]) + :is([pgs~="pageShell-aside"], [pgs*="pageShell-aside\5B"])) {
 
         //-( laptop
         @container (max-width: #{$laptop}) {
 
             //== the right sidebar drops under the content, the left one spans both rows
-            [pgs~="pageShell-aside"]:has(+ [pgs~="pageShell-content"]) {
+            :is([pgs~="pageShell-aside"], [pgs*="pageShell-aside\5B"]):has(+ :is([pgs~="pageShell-content"], [pgs*="pageShell-content\5B"])) {
                 grid-row: 1 / 3;
             }
 
-            [pgs~="pageShell-content"] {
+            :is([pgs~="pageShell-content"], [pgs*="pageShell-content\5B"]) {
                 grid-column: 2 / -1;
                 grid-row: 1;
             }
 
-            [pgs~="pageShell-content"]+[pgs~="pageShell-aside"] {
+            :is([pgs~="pageShell-content"], [pgs*="pageShell-content\5B"])+:is([pgs~="pageShell-aside"], [pgs*="pageShell-aside\5B"]) {
                 @include pageShell-aside-flow;
                 grid-column: 2 / -1;
                 grid-row: 2;
@@ -178,13 +178,13 @@
         @container (max-width: #{$big-tablet}) {
 
             //== same specificity as the band above, so the row span is released
-            [pgs~="pageShell-aside"],
-            [pgs~="pageShell-aside"]:has(+ [pgs~="pageShell-content"]),
-            [pgs~="pageShell-content"]+[pgs~="pageShell-aside"] {
+            :is([pgs~="pageShell-aside"], [pgs*="pageShell-aside\5B"]),
+            :is([pgs~="pageShell-aside"], [pgs*="pageShell-aside\5B"]):has(+ :is([pgs~="pageShell-content"], [pgs*="pageShell-content\5B"])),
+            :is([pgs~="pageShell-content"], [pgs*="pageShell-content\5B"])+:is([pgs~="pageShell-aside"], [pgs*="pageShell-aside\5B"]) {
                 @include pageShell-aside-flow;
             }
 
-            [pgs~="pageShell-content"] {
+            :is([pgs~="pageShell-content"], [pgs*="pageShell-content\5B"]) {
                 @include pageShell-content-flow;
             }
         }
@@ -193,29 +193,29 @@
     //=== vertical
     //-( big-mobile
     @container (max-width: #{$big-mobile}) {
-        [pgs~="pageShell-content"] {
+        :is([pgs~="pageShell-content"], [pgs*="pageShell-content\5B"]) {
             @include pageShell-content-flow;
         }
 
-        [pgs~="pageShell-aside"],
-        [pgs~="pageShell-aside"]:has(+ [pgs~="pageShell-content"]),
-        [pgs~="pageShell-content"]+[pgs~="pageShell-aside"] {
+        :is([pgs~="pageShell-aside"], [pgs*="pageShell-aside\5B"]),
+        :is([pgs~="pageShell-aside"], [pgs*="pageShell-aside\5B"]):has(+ :is([pgs~="pageShell-content"], [pgs*="pageShell-content\5B"])),
+        :is([pgs~="pageShell-content"], [pgs*="pageShell-content\5B"])+:is([pgs~="pageShell-aside"], [pgs*="pageShell-aside\5B"]) {
             @include pageShell-aside-flow;
         }
     }
 
     //+ OPTION
     //++ pageShellFullPage
-    &[pgs-option~="pageShellFullPage"] {
+    &[pgs*="'pageShellFullPage'"] {
         --pageShell-width: 100%;
 
-        [pgs~="pageShell-content"] {
+        :is([pgs~="pageShell-content"], [pgs*="pageShell-content\5B"]) {
             margin-inline: auto;
         }
     }
 
     //++ pageShellAsideScroll
-    &[pgs-option~="pageShellAsideScroll"] {
+    &[pgs*="'pageShellAsideScroll'"] {
         padding-top: 0;
 
         //=== vertical: the sidebar stacks, so it stops being its own scroller
@@ -228,7 +228,7 @@
 
         //+( big-tablet
         @container (min-width: #{$big-tablet}) {
-            [pgs~="pageShell-aside"] {
+            :is([pgs~="pageShell-aside"], [pgs*="pageShell-aside\5B"]) {
                 position: sticky;
                 overflow-y: auto;
                 top: var(--pageShell-asideScroll-top);
@@ -241,7 +241,7 @@
                 }
             }
 
-            [pgs~="pageShell-content"] {
+            :is([pgs~="pageShell-content"], [pgs*="pageShell-content\5B"]) {
                 padding-top: var(--pageShell-padding-top);
                 min-height: var(--pageShell-asideScroll-maxHeight);
             }
@@ -249,11 +249,11 @@
     }
 
     //++ pageShellAsideShadow
-    &[pgs-option~="pageShellAsideShadow"] {
+    &[pgs*="'pageShellAsideShadow'"] {
 
         //+( big-tablet
         @container (min-width: #{$big-tablet}) {
-            [pgs~="pageShell-aside"] {
+            :is([pgs~="pageShell-aside"], [pgs*="pageShell-aside\5B"]) {
                 -webkit-mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-asideShadow-sizeMaskImage), black calc(100% - var(--pageShell-asideShadow-sizeMaskImage)), transparent 100%);
                 mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-asideShadow-sizeMaskImage), black calc(100% - var(--pageShell-asideShadow-sizeMaskImage)), transparent 100%);
             }

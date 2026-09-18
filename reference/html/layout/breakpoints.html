@@ -30,6 +30,7 @@
  * - hideContainerUpLaptop: hides an element when its nearest container is at least 1100px wide.
  *
  * @related
+ * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - container: establishes the inline-size container the hideContainer* utilities are measured against; without it they fall back to the nearest container in the page, or never match at all.
  * - flexColumn: stacks the groups vertically.
  * - flexRow: arranges the examples in a row.
@@ -44,8 +45,8 @@
 
 <demo demo-h2="Examples"></demo>
 <demo demo-h3="Viewport visibility" demo-description="hideMediaDown* and hideMediaUp* read the viewport width, so they answer to the browser window whatever the element is nested in. Resize the window to see them appear and disappear."></demo>
-<section pgs="flexColumn" pgs-option="gapTexts" demo="component">
-    <div pgs="flexRow" pgs-option="gapTexts wrap" demo="wrapper">
+<section pgs="flex['flexColumn' 'gapTexts']" demo="component">
+    <div pgs="flex['flexRow' 'gapTexts' 'wrap']" demo="wrapper">
         <span pgs="box hideMediaDownMobile">hideMediaDownMobile</span>
         <span pgs="box hideMediaDownTablet">hideMediaDownTablet</span>
         <span pgs="box hideMediaUpTablet">hideMediaUpTablet</span>
@@ -54,9 +55,9 @@
 </section>
 
 <demo demo-h3="Container visibility" demo-description="hideContainerDown* and hideContainerUp* read the width of the nearest ancestor marked pgs=&quot;container&quot;, so the same element reacts to the space it actually sits in rather than to the window. Mark that ancestor, or nothing will ever match."></demo>
-<section pgs="flexColumn" pgs-option="gapTexts" demo="component">
+<section pgs="flex['flexColumn' 'gapTexts']" demo="component">
     <div pgs="container">
-        <div pgs="flexRow" pgs-option="gapTexts wrap" demo="wrapper">
+        <div pgs="flex['flexRow' 'gapTexts' 'wrap']" demo="wrapper">
             <span pgs="box hideContainerDownMobile">hideContainerDownMobile</span>
             <span pgs="box hideContainerDownTablet">hideContainerDownTablet</span>
             <span pgs="box hideContainerUpTablet">hideContainerUpTablet</span>

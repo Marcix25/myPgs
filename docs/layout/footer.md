@@ -19,17 +19,18 @@ Complete footer with theme control, brand area, navigation, informational conten
 
 ### PGS
 
+- `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `button`: presents theme and cookie preference controls as buttons.
 - `toggleDarkmode`: connects the control to the global light or dark theme handler.
 - `section`: applies the shared section structure to the upper and legal areas.
-- `flexRow`: distributes the upper columns responsively.
 - `logo`: inserts the brand into the footer.
 - `logo-text`: uses the text variant of the logo.
 - `cookieConsent-actionOpen`: opens the Cookie Consent preference panel.
 
-### PGS Options
+### PGS Options (component brackets)
 
 - `toggleDarkmodeExtended`: labels that control with the theme the click leads to; see Darkmode.
+- `flexRow`: distributes the upper columns responsively.
 - `column-3`: configures the footer flex layout with three columns.
 
 ### Other
@@ -55,13 +56,13 @@ Brand and navigation columns in the upper section, legal links and cookie prefer
 <footer pgs="footer">
 
     <section pgs="footer-top section">
-        <div pgs="footer-top-content flexRow" pgs-option="column-3">
+        <div pgs="footer-top-content flex['flexRow' 'column-3']">
             <div pgs="footer-brand">
                 <a aria-label="Logo" pgs="logo" href="/">
                     <span pgs="logo-text">MyPGS</span>
                 </a>
                 <p pgs="footer-brand-motto">Reusable frontend components.</p>
-                <button pgs="button toggleDarkmode" pgs-option="toggleDarkmodeExtended" type="button" aria-label="Change theme">
+                <button pgs="button toggleDarkmode['toggleDarkmodeExtended']" type="button" aria-label="Change theme">
                     <i class="fa-solid fa-moon"></i>
                 </button>
             </div>

@@ -4,7 +4,7 @@
 
 //= Standalone generator for reference/html/guides/*.html -> docs/guides/*.md.
 //= Deliberately separate from scripts/generate-component-docs.js: a guide is prose, not a
-//= component demo, so it needs neither that script's @pgs/@pgs-option/@api validation nor its
+//= component demo, so it needs neither that script's @pgs/@pgs-options/@pgs-data/@api validation nor its
 //= "wrap the whole example in one fenced code block" rendering. A guide's body is converted to
 //= real Markdown prose instead, via the small, fixed tag vocabulary documented below.
 //= generate-component-docs.js has one matching line of its own that skips this same guides/
@@ -30,7 +30,7 @@ function normalizeEol(value) {
 }
 
 //== welcome.html lives here too (so every hand-authored demo/reference page sits under
-//== reference/), but it's the demo's landing panel: a richer layout (coloured cards, pgs-option
+//== reference/), but it's the demo's landing panel: a richer layout (coloured cards, component options
 //== boxes) than the small prose vocabulary below can convert, and it isn't meant to produce a
 //== docs/guides/welcome.md anyway. demo.js fetches it directly instead.
 const EXCLUDED_FILES = new Set(["welcome.html"]);

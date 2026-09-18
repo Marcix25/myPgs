@@ -54,9 +54,9 @@ function getInitialMessages(value = {}) {
 }
 
 function initializeMessages(summary, messages) {
-    const summaryOptions = pgs(summary).option;
+    const summaryData = pgs(summary).data;
     Object.entries(messages).forEach(([key, message]) => {
-        if (!summaryOptions.contains(key)) summaryOptions.setValueBrackets(key, message);
+        if (summaryData.getValueBrackets(key) === undefined) summaryData.setValueBrackets(key, message);
     });
 }
 
@@ -104,7 +104,7 @@ function PGS_summary_init(root = document, options = {}) {
             button.hidden = !overflow;
             button.setAttribute("aria-hidden", String(!overflow));
             button.setAttribute("aria-expanded", String(expanded && overflow));
-            button.textContent = pgs(summary).option.getValueBrackets(
+            button.textContent = pgs(summary).data.getValueBrackets(
                 expanded && overflow ? "showLess" : "showMore"
             );
 

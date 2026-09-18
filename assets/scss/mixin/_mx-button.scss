@@ -69,13 +69,13 @@
 
     //== BUTTON CONTENT
     &:where(:has(i)),
-    &:where(:has([pgs~=icon])) {
+    &:where(:has(:is([pgs~="icon"], [pgs*="icon\5B"]))) {
         --button-padding-left: var(--button-padding-left-icon);
     }
 
     //=== BUTTON CONTENT - REVERSE
-    &:where([pgs-option~="buttonReverse"]:has(i)),
-    &:where([pgs-option~="buttonReverse"]:has([pgs~=icon])) {
+    &:where([pgs*="'buttonReverse'"]:has(i)),
+    &:where([pgs*="'buttonReverse'"]:has(:is([pgs~="icon"], [pgs*="icon\5B"]))) {
         --button-padding-right: var(--button-padding-left-icon);
         --button-padding-left: var(--button-padding-right);
     }
@@ -117,7 +117,7 @@
     align-items: center;
 
     i,
-    [pgs~=icon] {
+    :is([pgs~="icon"], [pgs*="icon\5B"]) {
         display: inline-grid;
         place-items: center;
         inline-size: calc(var(--icon-size) + 2px);
@@ -131,7 +131,7 @@
 @mixin buttonHover() {
     @media (hover: hover) and (pointer: fine) {
         &:hover {
-            &:not(:where([pgs-option~=hoverNot])) {
+            &:not(:where([pgs*="'hoverNot'"])) {
                 &:where(:not(:disabled, [disabled])) {
                     @include _buttonColor("-hover");
                     --button-background-hover: var(--color-primary-soft);

@@ -2,11 +2,11 @@
 
 # Notification
 
-Notification markup, configuration, behavior, and usage example. A persistent, manually-dismissed panel of messages. Author only the modal wrapping notificationBell (no dialog inside it); the first time it is needed, pgs.notification generates the dialog and re-initializes that modal automatically. It lives inside a modal dialog (see Modal) opened and closed by notificationBell — opening any other dialog on the page (e.g. the mobile menu) closes it automatically, and vice versa. Split from Toast, which is ephemeral and auto-dismissing. Full JSON field list is under @pgs-option "notification"; full JS options list is under each @api method below. The JSON form and the JS options now use the same names; the previous message and title-close keys are still accepted as aliases. Three custom events are dispatched: pgs:notification:buttonClick on a buttons[] element when clicked (detail: id, buttonId, type, title, description, link; cancelable — call event.preventDefault() to stop a link's navigation and finish async work first), pgs:notification:close on the notification element right before it is removed (detail: id, type, title, description), and pgs:notification:deleteAll on the panel when deleteAll() runs (detail: ids).
+Notification markup, configuration, behavior, and usage example. A persistent, manually-dismissed panel of messages. Author only the modal wrapping notificationBell (no dialog inside it); the first time it is needed, pgs.notification generates the dialog and re-initializes that modal automatically. It lives inside a modal dialog (see Modal) opened and closed by notificationBell — opening any other dialog on the page (e.g. the mobile menu) closes it automatically, and vice versa. Split from Toast, which is ephemeral and auto-dismissing. Full JSON field list is under @pgs-data "notification"; full JS options list is under each @api method below. The JSON form and the JS options now use the same names; the previous message and title-close keys are still accepted as aliases. Three custom events are dispatched: pgs:notification:buttonClick on a buttons[] element when clicked (detail: id, buttonId, type, title, description, link; cancelable — call event.preventDefault() to stop a link's navigation and finish async work first), pgs:notification:close on the notification element right before it is removed (detail: id, type, title, description), and pgs:notification:deleteAll on the panel when deleteAll() runs (detail: ids).
 
 ## PGS
 
-- `notificationLoad`: creates one or more notifications from comma-separated JSON objects on page load; see @pgs-option "notification" for every accepted field.
+- `notificationLoad`: creates one or more notifications from comma-separated JSON objects on page load; see @pgs-data "notification" for every accepted field.
 - `notificationBell`: opens/closes the notification dialog each time it is clicked; also the modal-button for the surrounding modal.
 - `notificationBell-counter`: displays the current count of _notifications-element elements inside notificationBell.
 
@@ -22,7 +22,7 @@ Notification markup, configuration, behavior, and usage example. A persistent, m
 - `_notifications-element-content-delete`: identifies the dismiss button generated at the end of the content row; it draws a cross, and closeTitle is its accessible name, not visible text.
 - `_notifications-empty`: shown inside the panel whenever it holds no notifications; its text comes from the internal emptyMessage default.
 
-## PGS Options
+## PGS Data
 
 - `notification`: JSON object (or several, comma-separated) read by notificationLoad on page load — every field, with its accepted values and its default, is annotated in the reference below.
 
@@ -49,16 +49,17 @@ Notification markup, configuration, behavior, and usage example. A persistent, m
 
 ### PGS
 
+- `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `hidden`: keeps every notificationLoad out of the layout, since it only carries a payload.
-- `flexColumn`: stacks the examples vertically.
 - `button`: uses the related button component or utility in this example.
 - `modal`: wraps notificationBell; pgs.notification generates the dialog inside it and provides open/close/toggle behavior shared with every other dialog on the page.
 - `modal-button`: identifies notificationBell as the control that opens the dialog.
 - `modal-close`: marks the generated _notifications-close button as the control that closes the dialog; notificationBell carries it too, and keeps toggling the panel through modal-button.
 - `icon`: draws the glyph that marks the notification type; see Icon for the whole set.
 
-### PGS Options
+### PGS Options (component brackets)
 
+- `flexColumn`: stacks the examples vertically.
 - `gapTexts`: spaces the content inside each example.
 - `buttonIcon`: presents notificationBell, and the generated dismiss button, as icon buttons.
 - `icon-bell`: the glyph on the control that opens the panel.
@@ -86,10 +87,10 @@ Notification markup, configuration, behavior, and usage example. A persistent, m
 
 Complete HTML markup and usage example for Notification.
 
-## PGS Option fields
+## PGS Data fields
 
 ```html
-pgs-option='notification[{
+pgs-data='notification[{
     "id": null,                  // string; generated when omitted, and reported by every event
     "title": "",                 // omitted falls back to the title of the type
     "description": "",           // plain text under the title
@@ -102,7 +103,7 @@ pgs-option='notification[{
             "title": "",         // label of the button
             "link": null,        // navigates there; omit it to only dispatch the event
             "close": true,       // dismisses the notification after the click
-            "optionButton": null // pgs-option token added to the button, e.g. buttonMini
+            "optionButton": null // pgs-data token added to the button, e.g. buttonMini
         }
     ]
 }]'
@@ -132,8 +133,8 @@ The control that opens and closes the panel, and the only markup this component 
 
 ```html
 <div pgs="modal">
-    <button type="button" pgs="modal-button modal-close button notificationBell" pgs-option="buttonIcon" aria-label="Open notifications">
-        <i pgs="icon" pgs-option="icon-bell"></i>
+    <button type="button" pgs="modal-button modal-close button['buttonIcon'] notificationBell" aria-label="Open notifications">
+        <i pgs="icon['icon-bell']"></i>
         <span pgs="notificationBell-counter"></span>
     </button>
 </div>
@@ -144,7 +145,7 @@ The control that opens and closes the panel, and the only markup this component 
 A message with nothing to signal: no severity colour, no glyph, and the title left out so only the text shows.
 
 ```html
-<div pgs="hidden notificationLoad" pgs-option='notification[{
+<div pgs="hidden notificationLoad" pgs-data='notification[{
     "title": "Hi!",
     "description": "The report you asked for is ready.",
     "type": "neutral"
@@ -156,7 +157,7 @@ A message with nothing to signal: no severity colour, no glyph, and the title le
 A completed operation. The element is hidden and consumed on load: the notification it describes is moved into the panel.
 
 ```html
-<div pgs="hidden notificationLoad" pgs-option='notification[{
+<div pgs="hidden notificationLoad" pgs-data='notification[{
         "title": "Profile approved",
         "description": "Your profile has been reviewed and approved.",
         "type": "success",
@@ -169,7 +170,7 @@ A completed operation. The element is hidden and consumed on load: the notificat
 A failure the user has to know about, with a button to try the operation again.
 
 ```html
-<div pgs="hidden notificationLoad" pgs-option='notification[{
+<div pgs="hidden notificationLoad" pgs-data='notification[{
         "title": "Something went wrong",
         "description": "Please try again later.",
         "type": "error",
@@ -183,7 +184,7 @@ A failure the user has to know about, with a button to try the operation again.
 Something is missing but nothing is broken, so the button leads to where it can be completed.
 
 ```html
-<div pgs="hidden notificationLoad" pgs-option='notification[{
+<div pgs="hidden notificationLoad" pgs-data='notification[{
         "title": "Your profile is incomplete",
         "description": "Complete your profile to unlock all features.",
         "type": "warning",
@@ -197,7 +198,7 @@ Something is missing but nothing is broken, so the button leads to where it can 
 Buttons carrying an id instead of a link dispatch pgs:notification:buttonClick with that id, which is how a question is answered without leaving the page.
 
 ```html
-<div pgs="hidden notificationLoad" pgs-option='notification[{
+<div pgs="hidden notificationLoad" pgs-data='notification[{
         "title": "Are you enjoying the portal?",
         "description": "Your feedback helps us improve.",
         "type": "info",

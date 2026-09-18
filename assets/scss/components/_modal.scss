@@ -1,21 +1,22 @@
 @use "../mixin/mixin" as *;
-$modalDialogPgs: 'dialog[pgs~="modal-dialog"]';
+$modalDialogPgs: 'dialog:is([pgs~="modal-dialog"], [pgs*="modal-dialog\5B"])';
 
 html:has(dialog[open]) {
     cursor: pointer;
 }
 
 //= MODAL 
-[pgs~="modal"] {
+:is([pgs~="modal"], [pgs*="modal\5B"]) {
 
     //== MODAL BUTTON
-    [pgs="modal-button"] {}
+    :is([pgs~="modal-button"], [pgs*="modal-button\5B"]) {}
 
     //#OPTION
     //== read by the JavaScript only: declared here so editors suggest them
-    &[pgs-option~="modalContainerID[]"],
-    &[pgs-option~="modalContainerPGS[]"],
-    &[pgs-option~="modalHistory"] {}
+    &[pgs-data~="modalContainerID[]"],
+    &[pgs-data~="modalContainerPGS[]"] {}
+
+    &[pgs*="'modalHistory'"] {}
 }
 
 //= DIALOG 
@@ -66,7 +67,7 @@ html:has(dialog[open]) {
     }
 
     //=== CONTENT
-    [pgs~="modal-dialog-content"] {
+    :is([pgs~="modal-dialog-content"], [pgs*="modal-dialog-content\5B"]) {
         @include sectionNoPadding();
         margin-inline: unset;
         padding: 0;
@@ -80,7 +81,7 @@ html:has(dialog[open]) {
         padding: var(--modal-content-padding);
 
         //==== HEADER
-        [pgs~="modal-dialog-content-header"] {
+        :is([pgs~="modal-dialog-content-header"], [pgs*="modal-dialog-content-header\5B"]) {
             @include flexRow(nowrap);
             z-index: 1;
             border-bottom: var(--border-complete);
@@ -93,30 +94,30 @@ html:has(dialog[open]) {
                 outline: none;
             }
 
-            [pgs~="modal-close"] {
+            :is([pgs~="modal-close"], [pgs*="modal-close\5B"]) {
                 margin-left: auto;
             }
         }
 
         //=== SCROLL
-        &:has([pgs~="modal-dialog-content-scroll"]) {
+        &:has(:is([pgs~="modal-dialog-content-scroll"], [pgs*="modal-dialog-content-scroll\5B"])) {
             max-height: 100%;
             overflow: hidden;
         }
 
-        [pgs~="modal-dialog-content-scroll"] {
+        :is([pgs~="modal-dialog-content-scroll"], [pgs*="modal-dialog-content-scroll\5B"]) {
             overflow: auto;
             overscroll-behavior: contain;
             max-height: 100%;
 
-            &:has(~[pgs~="modal-dialog-content-header"]) {
+            &:has(~:is([pgs~="modal-dialog-content-header"], [pgs*="modal-dialog-content-header\5B"])) {
                 padding-top: calc(var(--modal-content-padding) / 2);
             }
         }
     }
 
     //== CLOSE
-    >[pgs~="modal-close"] {
+    >:is([pgs~="modal-close"], [pgs*="modal-close\5B"]) {
         position: fixed !important;
         right: var(--page-padding);
         top: calc(var(--heightOfHeaderScroll) + var(--padding));
@@ -125,7 +126,7 @@ html:has(dialog[open]) {
 
     //#OPTION 
     //== TOP LEVEL
-    &[pgs-option~="modalTopLevel"]:where(#{$modalDialogPgs}) {
+    &[pgs*="'modalTopLevel'"]:where(#{$modalDialogPgs}) {
         overflow-y: auto;
         height: auto;
         z-index: auto;
@@ -133,58 +134,58 @@ html:has(dialog[open]) {
     }
 
     //== DISABLED BACKDROP CLOSE
-    &[pgs-option~="modalDisableBackdropClose"] {
+    &[pgs*="'modalDisableBackdropClose'"] {
         cursor: auto;
     }
 
     //== SIZE
     //=== MINI
-    &[pgs-option~="modalMini"]:where(#{$modalDialogPgs}) {
-        [pgs~="modal-dialog-content"] {
+    &[pgs*="'modalMini'"]:where(#{$modalDialogPgs}) {
+        :is([pgs~="modal-dialog-content"], [pgs*="modal-dialog-content\5B"]) {
             --section-width: min(calc(var(--page-width)/3), 100%);
         }
     }
 
     //=== MEDIUM
-    &[pgs-option~="modalMedium"]:where(#{$modalDialogPgs}) {
-        [pgs~="modal-dialog-content"] {
+    &[pgs*="'modalMedium'"]:where(#{$modalDialogPgs}) {
+        :is([pgs~="modal-dialog-content"], [pgs*="modal-dialog-content\5B"]) {
             --section-width: min(calc(var(--page-width)/2), 100%);
         }
     }
 
     //=== Full
-    &[pgs-option~="modalFull"]:where(#{$modalDialogPgs}) {
-        [pgs~="modal-dialog-content"] {
+    &[pgs*="'modalFull'"]:where(#{$modalDialogPgs}) {
+        :is([pgs~="modal-dialog-content"], [pgs*="modal-dialog-content\5B"]) {
             --section-width: 100%;
         }
     }
 
     //== POSITION
     //=== CENTER
-    &[pgs-option~="modalCenter"]:where(#{$modalDialogPgs}) {
+    &[pgs*="'modalCenter'"]:where(#{$modalDialogPgs}) {
         justify-content: safe center;
         align-items: safe center;
     }
 
     //=== LEFT
-    &[pgs-option~="modalLeft"]:where(#{$modalDialogPgs}) {
+    &[pgs*="'modalLeft'"]:where(#{$modalDialogPgs}) {
         justify-content: safe flex-start;
         padding-inline: var(--modal-offset);
     }
 
     //=== RIGHT
-    &[pgs-option~="modalRight"]:where(#{$modalDialogPgs}) {
+    &[pgs*="'modalRight'"]:where(#{$modalDialogPgs}) {
         justify-content: safe flex-end;
         padding-inline: var(--modal-offset);
     }
 
     //=== TOP
-    &[pgs-option~="modalTop"]:where(#{$modalDialogPgs}) {
+    &[pgs*="'modalTop'"]:where(#{$modalDialogPgs}) {
         align-items: safe flex-start;
     }
 
     //=== BOTTOM
-    &[pgs-option~="modalBottom"]:where(#{$modalDialogPgs}) {
+    &[pgs*="'modalBottom'"]:where(#{$modalDialogPgs}) {
         align-items: safe flex-end;
     }
 }

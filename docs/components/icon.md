@@ -8,13 +8,13 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 
 - `icon`: draws a glyph on the element, taking its size from the font size and its colour from the text colour, so it follows whatever surrounds it. Set --icon-size on it, or on anything above it, to size a glyph away from the text around it, and --icon-color to paint it away from the text colour; both are read with a fallback, so an icon that is given neither keeps following its surroundings.
 
-## PGS Options
+## PGS Options (component brackets)
 
+- `icon-arrowLeft`: arrow pointing left, for stepping back through a sequence.
 - `iconBox`: turns the element into the circular surface a glyph sits inside. It is the container and says nothing about what it holds, so a built-in glyph and an icon from any other set sit in it alike.
-- `iconDuo`: draws a two-layer version of a glyph instead of the flat one, when that glyph has one (icon-hamburgerTwo does); write it alongside the glyph name, as pgs-option="icon-hamburgerTwo iconDuo". Each layer paints on its own pseudo-element, so a component can animate or colour them independently.
+- `iconDuo`: draws a two-layer version of a glyph instead of the flat one, when that glyph has one (icon-hamburgerTwo does); write it alongside the glyph name, as pgs="icon['icon-hamburgerTwo' 'iconDuo']". Each layer paints on its own pseudo-element, so a component can animate or colour them independently.
 - `iconMedium`: sets --icon-size to 2rem, a preset for a glyph that needs to stand out more than the size it inherits from the surrounding text.
 - `iconLarge`: sets --icon-size to 3rem, a preset for a glyph large enough to anchor its own section.
-- `icon-arrowLeft`: arrow pointing left, for stepping back through a sequence.
 - `icon-arrowRight`: arrow pointing right, for stepping forward.
 - `icon-chevronDown`: chevron pointing down, for anything that expands in place.
 - `icon-check`: tick, for a confirmed or checked state.
@@ -58,13 +58,14 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 
 ### PGS
 
-- `flexColumn`: stacks the groups of examples.
-- `flexRow`: lays each group out in a row.
+- `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `txtPrimary`: recolours one example, to show that a glyph follows the text colour.
 - `txtError`: recolours another the same way.
 
-### PGS Options
+### PGS Options (component brackets)
 
+- `flexColumn`: stacks the groups of examples.
+- `flexRow`: lays each group out in a row.
 - `gapTexts`: spaces the icons inside a group.
 - `wrap`: lets the full set flow onto more rows.
 
@@ -89,46 +90,46 @@ One example per glyph, the sizing and colour behaviour, and the surface a glyph 
 Every glyph the library can draw. The token marks the element, the option names the glyph.
 
 ```html
-<i pgs="icon" pgs-option="icon-arrowLeft"></i>
-<i pgs="icon" pgs-option="icon-arrowRight"></i>
-<i pgs="icon" pgs-option="icon-chevronDown"></i>
-<i pgs="icon" pgs-option="icon-check"></i>
-<i pgs="icon" pgs-option="icon-close"></i>
-<i pgs="icon" pgs-option="icon-magnifyingGlass"></i>
-<i pgs="icon" pgs-option="icon-moon"></i>
-<i pgs="icon" pgs-option="icon-sun"></i>
-<i pgs="icon" pgs-option="icon-cookie"></i>
-<i pgs="icon" pgs-option="icon-sliders"></i>
-<i pgs="icon" pgs-option="icon-circle"></i>
-<i pgs="icon" pgs-option="icon-circleXmark"></i>
-<i pgs="icon" pgs-option="icon-circleCheck"></i>
-<i pgs="icon" pgs-option="icon-circleInfo"></i>
-<i pgs="icon" pgs-option="icon-triangleExclamation"></i>
-<i pgs="icon" pgs-option="icon-bell"></i>
-<i pgs="icon" pgs-option="icon-star"></i>
-<i pgs="icon" pgs-option="icon-hamburger"></i>
-<i pgs="icon" pgs-option="icon-hamburgerTwo"></i>
-<i pgs="icon" pgs-option="icon-calendar"></i>
-<i pgs="icon" pgs-option="icon-chatBubble"></i>
-<i pgs="icon" pgs-option="icon-clock"></i>
-<i pgs="icon" pgs-option="icon-download"></i>
-<i pgs="icon" pgs-option="icon-envelope"></i>
-<i pgs="icon" pgs-option="icon-eye"></i>
-<i pgs="icon" pgs-option="icon-gear"></i>
-<i pgs="icon" pgs-option="icon-heart"></i>
-<i pgs="icon" pgs-option="icon-home"></i>
-<i pgs="icon" pgs-option="icon-lock"></i>
-<i pgs="icon" pgs-option="icon-mapPin"></i>
-<i pgs="icon" pgs-option="icon-minus"></i>
-<i pgs="icon" pgs-option="icon-pause"></i>
-<i pgs="icon" pgs-option="icon-pencil"></i>
-<i pgs="icon" pgs-option="icon-play"></i>
-<i pgs="icon" pgs-option="icon-plus"></i>
-<i pgs="icon" pgs-option="icon-trash"></i>
-<i pgs="icon" pgs-option="icon-upload"></i>
-<i pgs="icon" pgs-option="icon-user"></i>
-<i pgs="icon" pgs-option="icon-ellipsis"></i>
-<i pgs="icon" pgs-option="icon-hamburgerTwo iconDuo"></i>
+<i pgs="icon['icon-arrowLeft']"></i>
+<i pgs="icon['icon-arrowRight']"></i>
+<i pgs="icon['icon-chevronDown']"></i>
+<i pgs="icon['icon-check']"></i>
+<i pgs="icon['icon-close']"></i>
+<i pgs="icon['icon-magnifyingGlass']"></i>
+<i pgs="icon['icon-moon']"></i>
+<i pgs="icon['icon-sun']"></i>
+<i pgs="icon['icon-cookie']"></i>
+<i pgs="icon['icon-sliders']"></i>
+<i pgs="icon['icon-circle']"></i>
+<i pgs="icon['icon-circleXmark']"></i>
+<i pgs="icon['icon-circleCheck']"></i>
+<i pgs="icon['icon-circleInfo']"></i>
+<i pgs="icon['icon-triangleExclamation']"></i>
+<i pgs="icon['icon-bell']"></i>
+<i pgs="icon['icon-star']"></i>
+<i pgs="icon['icon-hamburger']"></i>
+<i pgs="icon['icon-hamburgerTwo']"></i>
+<i pgs="icon['icon-calendar']"></i>
+<i pgs="icon['icon-chatBubble']"></i>
+<i pgs="icon['icon-clock']"></i>
+<i pgs="icon['icon-download']"></i>
+<i pgs="icon['icon-envelope']"></i>
+<i pgs="icon['icon-eye']"></i>
+<i pgs="icon['icon-gear']"></i>
+<i pgs="icon['icon-heart']"></i>
+<i pgs="icon['icon-home']"></i>
+<i pgs="icon['icon-lock']"></i>
+<i pgs="icon['icon-mapPin']"></i>
+<i pgs="icon['icon-minus']"></i>
+<i pgs="icon['icon-pause']"></i>
+<i pgs="icon['icon-pencil']"></i>
+<i pgs="icon['icon-play']"></i>
+<i pgs="icon['icon-plus']"></i>
+<i pgs="icon['icon-trash']"></i>
+<i pgs="icon['icon-upload']"></i>
+<i pgs="icon['icon-user']"></i>
+<i pgs="icon['icon-ellipsis']"></i>
+<i pgs="icon['icon-hamburgerTwo' 'iconDuo']"></i>
 ```
 
 ### Size and colour
@@ -136,15 +137,15 @@ Every glyph the library can draw. The token marks the element, the option names 
 A glyph is drawn at the font size of its element and painted in the text colour, so it needs no settings of its own: size it and colour it the way you would the text around it.
 
 ```html
-<p><i pgs="icon" pgs-option="icon-circleInfo"></i> Inside a paragraph, matching the text.</p>
+<p><i pgs="icon['icon-circleInfo']"></i> Inside a paragraph, matching the text.</p>
 
-<i pgs="icon" pgs-option="iconLarge icon-circleCheck"></i>
-<i pgs="icon" pgs-option="iconMedium icon-circleCheck"></i>
-<i pgs="icon" pgs-option="icon-circleCheck"></i>
+<i pgs="icon['iconLarge' 'icon-circleCheck']"></i>
+<i pgs="icon['iconMedium' 'icon-circleCheck']"></i>
+<i pgs="icon['icon-circleCheck']"></i>
 
-<i pgs="icon txtPrimary" pgs-option="icon-triangleExclamation"></i>
-<i pgs="icon txtError" pgs-option="icon-triangleExclamation"></i>
-<i pgs="icon" pgs-option="icon-triangleExclamation"></i>
+<i pgs="icon['icon-triangleExclamation'] txtPrimary"></i>
+<i pgs="icon['icon-triangleExclamation'] txtError"></i>
+<i pgs="icon['icon-triangleExclamation']"></i>
 ```
 
 ### Inside a surface
@@ -152,6 +153,6 @@ A glyph is drawn at the font size of its element and painted in the text colour,
 A glyph placed in iconBox, the circular surface that holds one icon.
 
 ```html
-<i pgs="icon" pgs-option="iconBox icon-check"></i>
-<i pgs="icon" pgs-option="iconBox icon-close"></i>
+<i pgs="icon['iconBox' 'icon-check']"></i>
+<i pgs="icon['iconBox' 'icon-close']"></i>
 ```

@@ -5,13 +5,15 @@
 //// component variant that retunes --hover-* on its own selector still wins. hoverBase, hoverStyle1
 //// and the mixins they compose live in mixin/_mx-hover.scss, so an element that needs the
 //// treatment without carrying this token can include them directly — see AGENTS-DEVELOPMENT.md
-[pgs~=hover] {
+:is([pgs~="hover"], [pgs*="hover\5B"]) {
     @include hover();
 }
 
 //+ HOVER NOT
 //// written on the element itself and not scoped to a component: pgs.hover leaves a surface carrying
-//// it unmarked, and the guard above covers a "hover" written by hand
-[pgs-option~=hoverNot] {
+//// it unmarked, and the guard above covers a "hover" written by hand. option.add("hoverNot") finds
+//// no "hover" token to merge into on a button/card/box, so it lands bare — the bracket form stays
+//// valid too, for markup that nests it in an existing component on purpose
+:is([pgs~="hoverNot"], [pgs*="'hoverNot'"]) {
     cursor: inherit;
 }

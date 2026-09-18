@@ -6,7 +6,7 @@
 //+
 //+ Naming convention read from assets/icons/:
 //+ - "icon-name.svg" is a single-layer glyph -> $icon-name, added to $icons-builtin under the bare
-//+   key "name", which _icon.scss turns into the pgs-option icon-name and the --icon-glyph-name
+//+   key "name", which _icon.scss turns into the icon bracket flag icon-name and the --icon-glyph-name
 //+   custom property.
 //+ - "iconDuo-name-before.svg" + "iconDuo-name-after.svg" (same base name, -before/-after
 //+   suffix) are the two layers of a duo glyph -> $iconDuo-name-before/-after, paired as
@@ -144,7 +144,7 @@ function main() {
     console.log(`[sync-icons] ${updated.length} updated, ${added.length} added.`);
     if (updated.length) console.log("  updated:", updated.join(", "));
     if (added.length) console.log("  added:  ", added.join(", "));
-    if (added.length) console.log("\nNew glyphs still need a line in reference/html/components/icon.html's @pgs-option and a demo, then `npm run docs:generate`.");
+    if (added.length) console.log("\nNew glyphs still need a line in reference/html/components/icon.html's @pgs-options and a demo, then `npm run docs:generate`.");
 }
 
 main();

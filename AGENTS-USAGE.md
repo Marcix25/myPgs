@@ -21,8 +21,8 @@ Use `mypgs` as the design-system foundation instead of recreating standard layou
 - Do not duplicate behavior already handled by a `pgs.*` module.
 - Prefer composing `pgs` tokens over adding custom classes.
 - Classes are acceptable for external integrations and project-specific details, but must not replace existing PGS tokens.
-- Configure components through `pgs-option` and CSS custom properties before overriding their internal layout.
-- Use `pgs-state` for runtime state and `pgs-option` for configuration.
+- Configure components through their `pgs` brackets, `pgs-data` and CSS custom properties before overriding their internal layout.
+- Use `pgs-state` for runtime state, component brackets for CSS flags, and `pgs-data` for JavaScript configuration.
 - Keep base markup semantic even when the library adds ARIA attributes at runtime.
 
 Write custom CSS or JavaScript only when the required pattern does not exist in `mypgs` or is genuinely specific to the consuming project.
@@ -36,9 +36,9 @@ Write custom CSS or JavaScript only when the required pattern does not exist in 
 - Colour utilities share a prefix per property: `bg*` for the background, `txt*` for the text, `br*` for the border colour and `ol*` for the outline colour, as in `bgPrimary`, `txtError`, `brSuccess`, `olPrimary`.
 - `br*` needs `pgs="border"` and `ol*` needs `pgs="outline"` to have a line to recolour, and their thickness comes from `borderThin`/`borderThick`/`borderThicker` and `outlineThin`/`outlineThick`/`outlineThicker`.
 - Runtime states belong in `pgs-state`, for example `open`, `is-active`, `is-completed`, `is-locked`, `success`, `errorForm`, and `errorField`.
-- Options belong in `pgs-option` and may contain bracket values. Copy their exact syntax from the relevant reference instead of guessing it.
+- CSS flags and JavaScript-only boolean flags both belong inside their own component bracket, as `pgs="flex['flexColumn' 'wrap']"` or `pgs="header['headerScroll']"`. Only a genuine `key[payload]` value passed from HTML to JavaScript, such as `headerCompactFrom[600]`, belongs in `pgs-data`. Copy their exact syntax from the relevant reference instead of guessing it.
 - Composable search uses `pgs="search"` as its visual and behavioral root and optionally `pgs="search-suggestions"`. Configure its source through `pgs.search.api(element)?.configure({ source })` and keep it backend-independent.
-- `pgs="icon"` draws a glyph from the library's own inline SVG, with an `icon`-prefixed `pgs-option` choosing which one, as in `<i pgs="icon" pgs-option="icon-arrowRight"></i>`. It needs no icon font: every icon the library builds for itself goes through it, and the set is yours to use too. See `docs/components/icon.md` for the whole list. Written on its own, with no option, it draws nothing and only marks the element as an icon: that is how another icon set gets the same box and placement the library gives an `<i>`, so `<span pgs="icon" class="material-symbols-outlined">check</span>` is sized and placed like one. `pgs-option="iconBox"` is a different thing — it turns the element into the circular surface a glyph sits inside, and it belongs to Icon too.
+- `pgs="icon"` draws a glyph from the library's own inline SVG, with an `icon`-prefixed flag in its bracket choosing which one, as in `<i pgs="icon['icon-arrowRight']"></i>`. It needs no icon font: every icon the library builds for itself goes through it, and the set is yours to use too. See `docs/components/icon.md` for the whole list. Written on its own, with no option, it draws nothing and only marks the element as an icon: that is how another icon set gets the same box and placement the library gives an `<i>`, so `<span pgs="icon" class="material-symbols-outlined">check</span>` is sized and placed like one. `pgs="icon['iconBox']"` is a different thing — it turns the element into the circular surface a glyph sits inside, and it belongs to Icon too.
 
 The complete page must enable the library through the current tokens shown in `reference/html/base/body.html`. Do not infer the root markup from the demo.
 
@@ -88,8 +88,8 @@ Import only the mixins when the project does not need the library stylesheet sou
 - Icon size comes from `--icon-size`, which the components set per context and you can override; `--fa-size` is still honoured for markup written against older versions. Colour follows the text colour, or `--icon-color` when you set it.
 - Reuse existing properties such as `--color-primary`, `--color-box`, `--color-text`, `--padding`, `--page-padding`, `--gap-texts`, `--gap-elements`, `--gap-sections`, `--border-radius`, `--border-radius-input`, `--border-width`, `--border-color`, `--border-complete`, `--outline-width`, `--outline-color`, `--box-shadow`, and `--focus-visible`.
 - Use existing layout and component mixins instead of rewriting them.
-- Compose custom buttons with `buttonBase`, either `buttonContent` or `buttonIcon`, and the required variants. Variant mixins do not include the base styles. The hover treatment is not part of that composition: mark the element `pgs="button"`, add `pgs="bodyHoverAuto"` to `<body>` and `pgs.hover` adds the `hover` token at load, write `hover` yourself on anything else (or on a page without `bodyHoverAuto`), and opt out with `pgs-option="hoverNot"`.
-- Configure dropdown placement with `pgs-option="dropdownPosition[side align]"`, for example `dropdownPosition[top left]`, `dropdownPosition[bottom right]`, or `dropdownPosition[left center]`.
+- Compose custom buttons with `buttonBase`, either `buttonContent` or `buttonIcon`, and the required variants. Variant mixins do not include the base styles. The hover treatment is not part of that composition: mark the element `pgs="button"`, add `pgs="bodyHoverAuto"` to `<body>` and `pgs.hover` adds the `hover` token at load, write `hover` yourself on anything else (or on a page without `bodyHoverAuto`), and opt out with `pgs="button['hoverNot']"`.
+- Configure dropdown placement with `pgs-data="dropdownPosition[side align]"`, for example `dropdownPosition[top left]`, `dropdownPosition[bottom right]`, or `dropdownPosition[left center]`.
 - Avoid overriding `display`, `position`, `overflow`, `padding`, and `gap` when the component already manages them.
 - Prefer component-level custom properties for project customization.
 
@@ -122,8 +122,8 @@ const modal = pgs(document).querySelector("modal");
 
 pgs(modal).add("custom-token");
 pgs(modal).state.add("open");
-pgs(modal).option.contains("modalHistory");
-pgs(modal).option.getValueBrackets("modalContainerID");
+pgs(modal).option.contains("modalHistory"); // modalHistory is a flag, so it lives in the pgs bracket
+pgs(modal).data.getValueBrackets("modalContainerID"); // a key[payload] value, so it lives in pgs-data
 ```
 
 Use registered modules directly:
@@ -152,7 +152,7 @@ The installed package's `reference/html/` files are the single source of truth f
 1. Open the relevant reference file.
 2. Copy its current root and child tokens.
 3. Preserve semantic elements and ARIA attributes.
-4. Copy the exact `pgs-option` syntax.
+4. Copy the exact component bracket and `pgs-data` syntax.
 5. Do not remove elements queried by the component's JavaScript.
 
 Use layout references from `reference/html/layout/`, component references from `reference/html/components/`, and pattern references from `reference/html/patterns/`.
@@ -163,7 +163,7 @@ Use layout references from `reference/html/layout/`, component references from `
 
 - Did I check whether `mypgs` already provides the requested feature?
 - Did I open the relevant canonical HTML reference?
-- Did I use `pgs-state` for runtime state and `pgs-option` for configuration?
+- Did I use `pgs-state` for runtime state and component brackets and `pgs-data` for configuration?
 - Did I use library variables and mixins instead of hardcoded replacements?
 - Did I avoid duplicating a registered JavaScript behavior?
 - Did I verify APIs against the installed package version?

@@ -33,8 +33,7 @@ function getDropdowns(root) {
 }
 
 function getposition(dropdown) {
-    const option = pgs(dropdown).option;
-    const optionValue = option.getValueBrackets("dropdownPosition");
+    const optionValue = pgs(dropdown).data.getValueBrackets("dropdownPosition");
     const raw = (optionValue || "bottom center").trim().toLowerCase();
     const parts = raw.split(/\s+/).filter(Boolean);
     const side = parts.find(part => ["top", "right", "bottom", "left"].includes(part)) || "bottom";

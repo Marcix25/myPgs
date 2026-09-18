@@ -7,19 +7,19 @@ const fn_alert = {
         type: {
             error: {
                 title: "Error",
-                icon: '<i pgs="icon" pgs-option="icon-circleXmark"></i>'
+                icon: "<i pgs=\"icon['icon-circleXmark']\"></i>"
             },
             success: {
                 title: "Success",
-                icon: '<i pgs="icon" pgs-option="icon-circleCheck"></i>'
+                icon: "<i pgs=\"icon['icon-circleCheck']\"></i>"
             },
             info: {
                 title: "Information",
-                icon: '<i pgs="icon" pgs-option="icon-circleInfo"></i>'
+                icon: "<i pgs=\"icon['icon-circleInfo']\"></i>"
             },
             warning: {
                 title: "Warning",
-                icon: '<i pgs="icon" pgs-option="icon-triangleExclamation"></i>'
+                icon: "<i pgs=\"icon['icon-triangleExclamation']\"></i>"
             }
         }
     },

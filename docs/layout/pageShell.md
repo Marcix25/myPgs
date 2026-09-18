@@ -10,7 +10,7 @@ Responsive page layout that combines main content with zero, one or two sidebars
 - `pageShell-aside`: identifies a sidebar that can be placed before or after the content.
 - `pageShell-content`: identifies the main page content.
 
-## PGS Options
+## PGS Options (component brackets)
 
 - `pageShellFullPage`: expands the shell to the full available width while keeping its content centered.
 - `pageShellAsideScroll`: makes every sidebar stick beside the content and scroll on its own, clamped to the viewport height; it releases the sticky behaviour once the sidebar stacks.
@@ -20,10 +20,11 @@ Responsive page layout that combines main content with zero, one or two sidebars
 
 ### PGS
 
+- `flex`: provides the flex layout; direction and spacing are flags in its bracket.
+
+### PGS Options (component brackets)
+
 - `flexColumn`: organizes text contained in the sidebars.
-
-### PGS Options
-
 - `gapElements`: applies element spacing in the main sections.
 
 ## CSS Variables
@@ -54,19 +55,19 @@ Shell with a sidebar on both sides of the main content.
 ```html
 <div pgs="pageShell">
     <aside pgs="pageShell-aside">
-        <div pgs="flexColumn">
+        <div pgs="flex['flexColumn']">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab modi ut sunt est illum accusantium dolores eum aut cum itaque.</p>
         </div>
     </aside>
 
     <main pgs="pageShell-content">
-        <section pgs="flexColumn" pgs-option="gapElements">
+        <section pgs="flex['flexColumn' 'gapElements']">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum? Eveniet, sit, excepturi iusto porro eos temporibus illum non ut sunt ex aut earum neque. Iure harum similique autem commodi ratione enim quisquam soluta rem, eius dolor officiis necessitatibus voluptatibus obcaecati vel sint iusto. Eligendi reiciendis aut error rem? Hic aliquid tenetur porro itaque quaerat excepturi consequatur veniam, et alias molestiae, eius odio quae maiores suscipit iure voluptatibus sed dolor facere ipsa quod libero necessitatibus, placeat natus. Doloribus esse nobis culpa ab ut dolorem id expedita nesciunt necessitatibus ipsam natus accusantium eius eveniet eum, distinctio quos modi perspiciatis earum sequi nostrum consequatur quibusdam? Blanditiis iusto possimus officia odio animi repudiandae? Repellendus autem ut soluta facere accusamus magni aut architecto cumque cupiditate. Nostrum officiis, tenetur consequuntur quaerat alias animi debitis? Quae quas placeat iure alias totam quaerat fugit recusandae sed, earum ipsa nihil molestiae quam odit itaque, odio asperiores, mollitia porro ratione tempora laboriosam. Incidunt aliquam nobis sunt ut molestiae nam animi placeat neque vero ratione? Eaque?</p>
         </section>
     </main>
 
     <aside pgs="pageShell-aside">
-        <div pgs="flexColumn">
+        <div pgs="flex['flexColumn']">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab modi ut sunt est illum accusantium dolores eum aut cum itaque.</p>
         </div>
     </aside>
@@ -80,13 +81,13 @@ Default-width shell with a single sidebar before the main content.
 ```html
 <div pgs="pageShell">
     <aside pgs="pageShell-aside">
-        <div pgs="flexColumn">
+        <div pgs="flex['flexColumn']">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab modi ut sunt est illum accusantium dolores eum aut cum itaque.</p>
         </div>
     </aside>
 
     <main pgs="pageShell-content">
-        <section pgs="flexColumn" pgs-option="gapElements">
+        <section pgs="flex['flexColumn' 'gapElements']">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum? Eveniet, sit, excepturi iusto porro eos temporibus illum non ut sunt ex aut earum neque. Iure harum similique autem commodi ratione enim quisquam soluta rem, eius dolor officiis necessitatibus voluptatibus obcaecati vel sint iusto. Eligendi reiciendis aut error rem? Hic aliquid tenetur porro itaque quaerat excepturi consequatur veniam, et alias molestiae, eius odio quae maiores suscipit iure voluptatibus sed dolor facere ipsa quod libero necessitatibus, placeat natus. Doloribus esse nobis culpa ab ut dolorem id expedita nesciunt necessitatibus ipsam natus accusantium eius eveniet eum, distinctio quos modi perspiciatis earum sequi nostrum consequatur quibusdam? Blanditiis iusto possimus officia odio animi repudiandae? Repellendus autem ut soluta facere accusamus magni aut architecto cumque cupiditate. Nostrum officiis, tenetur consequuntur quaerat alias animi debitis? Quae quas placeat iure alias totam quaerat fugit recusandae sed, earum ipsa nihil molestiae quam odit itaque, odio asperiores, mollitia porro ratione tempora laboriosam. Incidunt aliquam nobis sunt ut molestiae nam animi placeat neque vero ratione? Eaque?</p>
         </section>
     </main>
@@ -101,13 +102,13 @@ Shell with the sidebar placed after the main content instead of before it.
 <div pgs="pageShell">
 
     <main pgs="pageShell-content">
-        <section pgs="flexColumn" pgs-option="gapElements">
+        <section pgs="flex['flexColumn' 'gapElements']">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum? Eveniet, sit, excepturi iusto porro eos temporibus illum non ut sunt ex aut earum neque. Iure harum similique autem commodi ratione enim quisquam soluta rem, eius dolor officiis necessitatibus voluptatibus obcaecati vel sint iusto. Eligendi reiciendis aut error rem? Hic aliquid tenetur porro itaque quaerat excepturi consequatur veniam, et alias molestiae, eius odio quae maiores suscipit iure voluptatibus sed dolor facere ipsa quod libero necessitatibus, placeat natus. Doloribus esse nobis culpa ab ut dolorem id expedita nesciunt necessitatibus ipsam natus accusantium eius eveniet eum, distinctio quos modi perspiciatis earum sequi nostrum consequatur quibusdam? Blanditiis iusto possimus officia odio animi repudiandae? Repellendus autem ut soluta facere accusamus magni aut architecto cumque cupiditate. Nostrum officiis, tenetur consequuntur quaerat alias animi debitis? Quae quas placeat iure alias totam quaerat fugit recusandae sed, earum ipsa nihil molestiae quam odit itaque, odio asperiores, mollitia porro ratione tempora laboriosam. Incidunt aliquam nobis sunt ut molestiae nam animi placeat neque vero ratione? Eaque?</p>
         </section>
     </main>
 
     <aside pgs="pageShell-aside">
-        <div pgs="flexColumn">
+        <div pgs="flex['flexColumn']">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab modi ut sunt est illum accusantium dolores eum aut cum itaque.</p>
         </div>
     </aside>
@@ -123,15 +124,15 @@ The same shell with pageShellAsideScroll, so a sidebar sticks beside the content
 Full-width shell with a single sidebar before the main content, using pageShellFullPage.
 
 ```html
-<div pgs="pageShell" pgs-option="pageShellFullPage pageShellAsideScroll">
+<div pgs="pageShell['pageShellFullPage' 'pageShellAsideScroll']">
     <aside pgs="pageShell-aside">
-        <div pgs="flexColumn">
+        <div pgs="flex['flexColumn']">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab modi ut sunt est illum accusantium dolores eum aut cum itaque.</p>
         </div>
     </aside>
 
     <main pgs="pageShell-content">
-        <section pgs="flexColumn" pgs-option="gapElements">
+        <section pgs="flex['flexColumn' 'gapElements']">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum? Eveniet, sit, excepturi iusto porro eos temporibus illum non ut sunt ex aut earum neque. Iure harum similique autem commodi ratione enim quisquam soluta rem, eius dolor officiis necessitatibus voluptatibus obcaecati vel sint iusto. Eligendi reiciendis aut error rem? Hic aliquid tenetur porro itaque quaerat excepturi consequatur veniam, et alias molestiae, eius odio quae maiores suscipit iure voluptatibus sed dolor facere ipsa quod libero necessitatibus, placeat natus. Doloribus esse nobis culpa ab ut dolorem id expedita nesciunt necessitatibus ipsam natus accusantium eius eveniet eum, distinctio quos modi perspiciatis earum sequi nostrum consequatur quibusdam? Blanditiis iusto possimus officia odio animi repudiandae? Repellendus autem ut soluta facere accusamus magni aut architecto cumque cupiditate. Nostrum officiis, tenetur consequuntur quaerat alias animi debitis? Quae quas placeat iure alias totam quaerat fugit recusandae sed, earum ipsa nihil molestiae quam odit itaque, odio asperiores, mollitia porro ratione tempora laboriosam. Incidunt aliquam nobis sunt ut molestiae nam animi placeat neque vero ratione? Eaque?</p>
         </section>
     </main>
@@ -143,15 +144,15 @@ Full-width shell with a single sidebar before the main content, using pageShellF
 Default-width shell with a single sidebar before the main content, scrolling on its own with pageShellAsideScroll.
 
 ```html
-<div pgs="pageShell" pgs-option="pageShellAsideScroll">
+<div pgs="pageShell['pageShellAsideScroll']">
     <aside pgs="pageShell-aside">
-        <div pgs="flexColumn">
+        <div pgs="flex['flexColumn']">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab modi ut sunt est illum accusantium dolores eum aut cum itaque.</p>
         </div>
     </aside>
 
     <main pgs="pageShell-content">
-        <section pgs="flexColumn" pgs-option="gapElements">
+        <section pgs="flex['flexColumn' 'gapElements']">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum? Eveniet, sit, excepturi iusto porro eos temporibus illum non ut sunt ex aut earum neque. Iure harum similique autem commodi ratione enim quisquam soluta rem, eius dolor officiis necessitatibus voluptatibus obcaecati vel sint iusto. Eligendi reiciendis aut error rem? Hic aliquid tenetur porro itaque quaerat excepturi consequatur veniam, et alias molestiae, eius odio quae maiores suscipit iure voluptatibus sed dolor facere ipsa quod libero necessitatibus, placeat natus. Doloribus esse nobis culpa ab ut dolorem id expedita nesciunt necessitatibus ipsam natus accusantium eius eveniet eum, distinctio quos modi perspiciatis earum sequi nostrum consequatur quibusdam? Blanditiis iusto possimus officia odio animi repudiandae? Repellendus autem ut soluta facere accusamus magni aut architecto cumque cupiditate. Nostrum officiis, tenetur consequuntur quaerat alias animi debitis? Quae quas placeat iure alias totam quaerat fugit recusandae sed, earum ipsa nihil molestiae quam odit itaque, odio asperiores, mollitia porro ratione tempora laboriosam. Incidunt aliquam nobis sunt ut molestiae nam animi placeat neque vero ratione? Eaque?</p>
         </section>
     </main>
@@ -163,15 +164,15 @@ Default-width shell with a single sidebar before the main content, scrolling on 
 Same single sidebar, with pageShellAsideShadow: its scrolling edges fade out instead of cutting content abruptly.
 
 ```html
-<div pgs="pageShell" pgs-option="pageShellAsideScroll pageShellAsideShadow">
+<div pgs="pageShell['pageShellAsideScroll' 'pageShellAsideShadow']">
     <aside pgs="pageShell-aside">
-        <div pgs="flexColumn">
+        <div pgs="flex['flexColumn']">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab modi ut sunt est illum accusantium dolores eum aut cum itaque.</p>
         </div>
     </aside>
 
     <main pgs="pageShell-content">
-        <section pgs="flexColumn" pgs-option="gapElements">
+        <section pgs="flex['flexColumn' 'gapElements']">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum? Eveniet, sit, excepturi iusto porro eos temporibus illum non ut sunt ex aut earum neque. Iure harum similique autem commodi ratione enim quisquam soluta rem, eius dolor officiis necessitatibus voluptatibus obcaecati vel sint iusto. Eligendi reiciendis aut error rem? Hic aliquid tenetur porro itaque quaerat excepturi consequatur veniam, et alias molestiae, eius odio quae maiores suscipit iure voluptatibus sed dolor facere ipsa quod libero necessitatibus, placeat natus. Doloribus esse nobis culpa ab ut dolorem id expedita nesciunt necessitatibus ipsam natus accusantium eius eveniet eum, distinctio quos modi perspiciatis earum sequi nostrum consequatur quibusdam? Blanditiis iusto possimus officia odio animi repudiandae? Repellendus autem ut soluta facere accusamus magni aut architecto cumque cupiditate. Nostrum officiis, tenetur consequuntur quaerat alias animi debitis? Quae quas placeat iure alias totam quaerat fugit recusandae sed, earum ipsa nihil molestiae quam odit itaque, odio asperiores, mollitia porro ratione tempora laboriosam. Incidunt aliquam nobis sunt ut molestiae nam animi placeat neque vero ratione? Eaque?</p>
         </section>
     </main>
@@ -183,16 +184,16 @@ Same single sidebar, with pageShellAsideShadow: its scrolling edges fade out ins
 Shell with the sidebar placed after the main content instead of before it, scrolling on its own with pageShellAsideScroll.
 
 ```html
-<div pgs="pageShell" pgs-option="pageShellAsideScroll">
+<div pgs="pageShell['pageShellAsideScroll']">
 
     <main pgs="pageShell-content">
-        <section pgs="flexColumn" pgs-option="gapElements">
+        <section pgs="flex['flexColumn' 'gapElements']">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum? Eveniet, sit, excepturi iusto porro eos temporibus illum non ut sunt ex aut earum neque. Iure harum similique autem commodi ratione enim quisquam soluta rem, eius dolor officiis necessitatibus voluptatibus obcaecati vel sint iusto. Eligendi reiciendis aut error rem? Hic aliquid tenetur porro itaque quaerat excepturi consequatur veniam, et alias molestiae, eius odio quae maiores suscipit iure voluptatibus sed dolor facere ipsa quod libero necessitatibus, placeat natus. Doloribus esse nobis culpa ab ut dolorem id expedita nesciunt necessitatibus ipsam natus accusantium eius eveniet eum, distinctio quos modi perspiciatis earum sequi nostrum consequatur quibusdam? Blanditiis iusto possimus officia odio animi repudiandae? Repellendus autem ut soluta facere accusamus magni aut architecto cumque cupiditate. Nostrum officiis, tenetur consequuntur quaerat alias animi debitis? Quae quas placeat iure alias totam quaerat fugit recusandae sed, earum ipsa nihil molestiae quam odit itaque, odio asperiores, mollitia porro ratione tempora laboriosam. Incidunt aliquam nobis sunt ut molestiae nam animi placeat neque vero ratione? Eaque?</p>
         </section>
     </main>
 
     <aside pgs="pageShell-aside">
-        <div pgs="flexColumn">
+        <div pgs="flex['flexColumn']">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab modi ut sunt est illum accusantium dolores eum aut cum itaque.</p>
         </div>
     </aside>

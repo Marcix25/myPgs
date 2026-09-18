@@ -20,19 +20,19 @@ const fn_notification = {
             },
             error: {
                 title: "Error",
-                icon: '<i pgs="icon" pgs-option="icon-circleXmark"></i>'
+                icon: "<i pgs=\"icon['icon-circleXmark']\"></i>"
             },
             success: {
                 title: "Success",
-                icon: '<i pgs="icon" pgs-option="icon-circleCheck"></i>'
+                icon: "<i pgs=\"icon['icon-circleCheck']\"></i>"
             },
             info: {
                 title: "Information",
-                icon: '<i pgs="icon" pgs-option="icon-circleInfo"></i>'
+                icon: "<i pgs=\"icon['icon-circleInfo']\"></i>"
             },
             warning: {
                 title: "Warning",
-                icon: '<i pgs="icon" pgs-option="icon-triangleExclamation"></i>'
+                icon: "<i pgs=\"icon['icon-triangleExclamation']\"></i>"
             }
         }
     },
@@ -43,7 +43,7 @@ const fn_notification = {
     },
 
     _getData(root) {
-        const rawNotification = pgs(root).option.getValueBrackets("notification") || "{}";
+        const rawNotification = pgs(root).data.getValueBrackets("notification") || "{}";
 
         try {
             const notifications = JSON.parse(`[${rawNotification}]`);
@@ -140,7 +140,7 @@ const fn_notification = {
             <div pgs="_notifications-element-content">
                 ${iconHtml}
                 <p>${text}</p>
-                <button type="button" pgs="button _notifications-element-content-delete" pgs-option="buttonIcon"><i pgs="icon" pgs-option="icon-close"></i></button>
+                <button type="button" pgs="button['buttonIcon'] _notifications-element-content-delete"><i pgs="icon['icon-close']"></i></button>
             </div>
             <div pgs="_notifications-element-buttons">
             </div>
@@ -171,9 +171,8 @@ const fn_notification = {
             if (button.link) buttonElement.href = button.link;
             else buttonElement.type = "button";
             buttonElement.textContent = button.title;
-            pgs(buttonElement).add("button");
-            pgs(buttonElement).option.add("buttonTransparent");
-            if (button.optionButton) pgs(buttonElement).option.add(button.optionButton);
+            pgs(buttonElement).add("button['buttonTransparent']");
+            if (button.optionButton) pgs(buttonElement).add(`button['${button.optionButton}']`);
 
             buttonElement.addEventListener("click", (e) => {
                 const proceed = buttonElement.dispatchEvent(new CustomEvent("pgs:notification:buttonClick", {
@@ -282,7 +281,7 @@ const fn_notification = {
         });
     },
 
-    //+ generates <dialog pgs-option="modalRight"><div pgs="modal-dialog-content"><div pgs="_notifications"></div></div></dialog>
+    //+ generates <dialog pgs="modal-dialog['modalRight']"><div pgs="modal-dialog-content"><div pgs="_notifications"></div></div></dialog>
     //+ inside the modal wrapping notificationBell, then asks pgs.modal to (re)initialize it.
     _ensureDialog(root = document) {
         let created = false;
@@ -298,7 +297,7 @@ const fn_notification = {
             modalWrapper.dataset.notificationDialog = "true";
 
             const dialog = document.createElement("dialog");
-            pgs(dialog).option.add("modalRight modalMini modalTop");
+            pgs(dialog).add("modal-dialog['modalRight' 'modalMini' 'modalTop']");
             pgs(dialog).add("_notificationsDialog");
 
             const content = document.createElement("div");
@@ -312,8 +311,7 @@ const fn_notification = {
             const closeButton = document.createElement("button");
             closeButton.type = "button";
             closeButton.textContent = this._defaults.panelCloseTitle;
-            pgs(closeButton).add("button", "modal-close", "_notifications-close");
-            pgs(closeButton).option.add("buttonMini");
+            pgs(closeButton).add("button['buttonMini']", "modal-close", "_notifications-close");
             content.appendChild(closeButton);
 
             dialog.appendChild(content);

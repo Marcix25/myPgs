@@ -1,6 +1,6 @@
 @use "../mixin/mixin" as *;
 
-[pgs~=cookieConsent] {
+:is([pgs~="cookieConsent"], [pgs*="cookieConsent\5B"]) {
     display: flex;
     flex-direction: column;
     gap: var(--gap-texts);
@@ -43,14 +43,14 @@
         text-wrap: nowrap;
 
         //== as narrow as its content allows
-        &[pgs~=_cookieConsent-actionReject] {
+        &:is([pgs~="_cookieConsent-actionReject"], [pgs*="_cookieConsent-actionReject\5B"]) {
             flex-grow: 0;
             flex-shrink: 0;
             flex-basis: auto;
         }
 
         //== takes all the space Reject leaves behind
-        &[pgs~=_cookieConsent-actionAccept] {
+        &:is([pgs~="_cookieConsent-actionAccept"], [pgs*="_cookieConsent-actionAccept\5B"]) {
             flex-grow: 1;
             flex-shrink: 1;
             flex-basis: 0;
@@ -60,8 +60,8 @@
     @container (max-width: #{$mobile}) {
 
         //== same specificity as the Reject/Accept rules above, so this actually wins
-        button[pgs~=_cookieConsent-actionReject],
-        button[pgs~=_cookieConsent-actionAccept] {
+        button:is([pgs~="_cookieConsent-actionReject"], [pgs*="_cookieConsent-actionReject\5B"]),
+        button:is([pgs~="_cookieConsent-actionAccept"], [pgs*="_cookieConsent-actionAccept\5B"]) {
             flex-basis: 100%;
             flex-grow: 1;
         }
@@ -74,15 +74,15 @@
         align-items: center;
     }
 
-    [pgs~=modal-close] {
+    :is([pgs~="modal-close"], [pgs*="modal-close\5B"]) {
         display: none;
     }
 
-    [pgs~=_cookieConsent-header] {
+    :is([pgs~="_cookieConsent-header"], [pgs*="_cookieConsent-header\5B"]) {
         --icon-size: 2.5rem;
     }
 
-    [pgs~=_cookieConsent-panel] {
+    :is([pgs~="_cookieConsent-panel"], [pgs*="_cookieConsent-panel\5B"]) {
         border: var(--border-complete);
         border-radius: calc(var(--modal-borderRadius) - var(--gap-texts));
         background-color: var(--color-white);
@@ -91,7 +91,7 @@
         margin: calc(var(--padding) * -1);
         margin-top: var(--padding);
 
-        [pgs~=_cookieConsent-panel-badge] {
+        :is([pgs~="_cookieConsent-panel-badge"], [pgs*="_cookieConsent-panel-badge\5B"]) {
             font-size: 1.35rem;
             overflow-wrap: normal;
             width: max-content;
@@ -100,15 +100,15 @@
         }
     }
 
-    [pgs~=_cookieConsent-panel-featureAnalytics] label {
+    :is([pgs~="_cookieConsent-panel-featureAnalytics"], [pgs*="_cookieConsent-panel-featureAnalytics\5B"]) label {
         width: 100%;
     }
 
-    &[pgs~=cookieConsent-gaUnavailable] [pgs~=_cookieConsent-panel-featureAnalytics] label {
+    &:is([pgs~="cookieConsent-gaUnavailable"], [pgs*="cookieConsent-gaUnavailable\5B"]) :is([pgs~="_cookieConsent-panel-featureAnalytics"], [pgs*="_cookieConsent-panel-featureAnalytics\5B"]) label {
         opacity: 0.5;
         cursor: not-allowed;
     }
 
     //+ option
-    &[pgs-option~="cookieConsent[]"] {}
+    &[pgs-data~="cookieConsent[]"] {}
 }

@@ -2,47 +2,56 @@
     "_notifications": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "_notifications-close": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "_notifications-element": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "_notifications-element-buttons": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "_notifications-element-content": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "_notifications-element-content-delete": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "_notifications-element-content-icon": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "_notifications-empty": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "_notificationsDialog": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "accordion": {
         "pgs": [
@@ -50,7 +59,11 @@
             "accordion-content"
         ],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
+            "accordionAutoOpen",
+            "accordionMultiOpen"
+        ],
+        "pgs-data": [
             "accordionAutoOpen",
             "accordionMultiOpen"
         ]
@@ -58,9 +71,8 @@
     "accordionContainer": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
-            "accordionMultiOpen"
-        ]
+        "pgs-options": [],
+        "pgs-data": []
     },
     "alert": {
         "pgs": [
@@ -69,32 +81,37 @@
             "alert-icon"
         ],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "alertContainer": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "appearanceNone": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "aspectSquare": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "aspectVideo": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "badge": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "badgeDot",
             "badgeError",
             "badgeInfo",
@@ -103,362 +120,430 @@
             "badgeStrong",
             "badgeSuccess",
             "badgeWarning"
-        ]
+        ],
+        "pgs-data": []
     },
     "bgBackground": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgBlack": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgBlackFixed": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgBlackTransparent": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgBox": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgBoxDark": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgBoxDarkTransparent": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgBoxTransparent": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgError": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgErrorSoft": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgGray": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgInfo": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgInfoSoft": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgLink": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgLinkSoft": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgPrimary": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgPrimaryDark": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgPrimaryLight": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgPrimarySoft": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgPrimaryStrong": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgQuaternary": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgQuaternaryDark": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgQuaternaryLight": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgQuaternarySoft": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgQuaternaryStrong": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgSecondary": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgSecondaryDark": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgSecondaryLight": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgSecondarySoft": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgSecondaryStrong": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgSuccess": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgSuccessSoft": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgTertiary": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgTertiaryDark": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgTertiaryLight": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgTertiarySoft": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgTertiaryStrong": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgText": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgWarning": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgWarningSoft": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgWhite": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgWhiteFixed": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bgWhiteTransparent": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "block": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "blur": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bodyBase": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bodyHeading": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bodyHoverAuto": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [
+            "hoverNot"
+        ],
+        "pgs-data": []
     },
     "bodyImg": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "bodyText": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "border": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "borderThick",
             "borderThicker",
             "borderThin"
-        ]
+        ],
+        "pgs-data": []
     },
     "borderBlock": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "borderThick",
             "borderThicker",
             "borderThin"
-        ]
+        ],
+        "pgs-data": []
     },
     "borderBottom": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "borderThick",
             "borderThicker",
             "borderThin"
-        ]
+        ],
+        "pgs-data": []
     },
     "borderInline": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "borderThick",
             "borderThicker",
             "borderThin"
-        ]
+        ],
+        "pgs-data": []
     },
     "borderLeft": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "borderThick",
             "borderThicker",
             "borderThin"
-        ]
+        ],
+        "pgs-data": []
     },
     "borderRadius": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "borderRadiusExternal": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "borderRadiusInput": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "borderRight": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "borderThick",
             "borderThicker",
             "borderThin"
-        ]
+        ],
+        "pgs-data": []
     },
     "borderTop": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "borderThick",
             "borderThicker",
             "borderThin"
-        ]
+        ],
+        "pgs-data": []
     },
     "box": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "boxMini"
-        ]
+        ],
+        "pgs-data": []
     },
     "boxShadow": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "brBlack": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "brBox": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "brBoxDark": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "breadcrumb": {
         "pgs": [
@@ -466,67 +551,79 @@
             "breadcrumb-item-separator"
         ],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "brError": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "brGray": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "brInfo": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "brLink": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "brPrimary": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "brQuaternary": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "brSecondary": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "brSuccess": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "brTertiary": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "brWarning": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "brWhite": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "button": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "buttonBig",
             "buttonHeader",
             "buttonIcon",
@@ -541,7 +638,8 @@
             "buttonText",
             "buttonTransparent",
             "icon-hamburgerTwo"
-        ]
+        ],
+        "pgs-data": []
     },
     "card": {
         "pgs": [
@@ -549,42 +647,49 @@
             "card-img"
         ],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "cardHorizontal",
             "cardHorizontalFixed",
             "cardLegacy",
             "cardMini"
-        ]
+        ],
+        "pgs-data": []
     },
     "checkbox": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "checkboxBackground": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "chip": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "chips": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "container": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "containerNone": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "cookieConsent": {
         "pgs": [
@@ -601,22 +706,29 @@
             "_cookieConsent-panel-featureEssential",
             "_cookieConsent-panel-toggleAnalytics"
         ],
-        "pgs-option": [
+        "pgs-options": [
+            "badgeSuccess",
+            "buttonStrong",
+            "modalTopLevel"
+        ],
+        "pgs-data": [
             "cookieConsent"
         ]
     },
     "cursorNotAllowed": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "darkmode": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "icon-moon",
             "icon-sun"
-        ]
+        ],
+        "pgs-data": []
     },
     "dropdown": {
         "pgs": [
@@ -624,7 +736,10 @@
             "dropdown-content"
         ],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
+            "dropdownHover"
+        ],
+        "pgs-data": [
             "dropdownHover",
             "dropdownPosition"
         ]
@@ -640,7 +755,7 @@
             "flex-flexValue"
         ],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "column-1",
             "column-2",
             "column-3",
@@ -678,101 +793,20 @@
             "justifyStart",
             "m2e",
             "nowrap",
+            "selfBaseline",
+            "selfCenter",
+            "selfEnd",
+            "selfStart",
+            "selfStretch",
             "wrap"
-        ]
-    },
-    "flexColumn": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": [
-            "column-1",
-            "column-2",
-            "column-3",
-            "column-4",
-            "column-5",
-            "column-6",
-            "column-7",
-            "column-8",
-            "contentAround",
-            "contentBetween",
-            "contentCenter",
-            "contentEnd",
-            "contentEvenly",
-            "contentStart",
-            "flexCenter",
-            "flexColumn",
-            "flexColumnReverse",
-            "flexRow",
-            "flexRowReverse",
-            "gapElements",
-            "gapNone",
-            "gapSections",
-            "gapTexts",
-            "inlineFlex",
-            "itemBaseline",
-            "itemCenter",
-            "itemEnd",
-            "itemStart",
-            "itemStretch",
-            "justifyAround",
-            "justifyBetween",
-            "justifyCenter",
-            "justifyEnd",
-            "justifyEvenly",
-            "justifyStart",
-            "m2e",
-            "nowrap",
-            "wrap"
-        ]
-    },
-    "flexRow": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-option": [
-            "column-1",
-            "column-2",
-            "column-3",
-            "column-4",
-            "column-5",
-            "column-6",
-            "column-7",
-            "column-8",
-            "contentAround",
-            "contentBetween",
-            "contentCenter",
-            "contentEnd",
-            "contentEvenly",
-            "contentStart",
-            "flexCenter",
-            "flexColumn",
-            "flexColumnReverse",
-            "flexRow",
-            "flexRowReverse",
-            "gapElements",
-            "gapNone",
-            "gapSections",
-            "gapTexts",
-            "inlineFlex",
-            "itemBaseline",
-            "itemCenter",
-            "itemEnd",
-            "itemStart",
-            "itemStretch",
-            "justifyAround",
-            "justifyBetween",
-            "justifyCenter",
-            "justifyEnd",
-            "justifyEvenly",
-            "justifyStart",
-            "m2e",
-            "nowrap",
-            "wrap"
-        ]
+        ],
+        "pgs-data": []
     },
     "focusRing": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "footer": {
         "pgs": [
@@ -784,19 +818,30 @@
             "footer-top-content"
         ],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "form": {
         "pgs": [
             "form-requiredHere"
         ],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": [
+            "formFieldError",
+            "formFieldErrorTitle",
+            "formFieldsError",
+            "formMessage",
+            "formMessageTitle",
+            "formSuccess",
+            "formSuccessTitle"
+        ]
     },
     "formValidate": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [],
+        "pgs-data": [
             "formMessage",
             "formMessageTitle"
         ]
@@ -804,7 +849,8 @@
     "grid": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
+            "column-",
             "column-1",
             "column-2",
             "column-3",
@@ -823,6 +869,7 @@
             "gapNone",
             "gapSections",
             "gapTexts",
+            "inlineFlex",
             "itemBaseline",
             "itemCenter",
             "itemEnd",
@@ -833,33 +880,47 @@
             "justifyCenter",
             "justifyEnd",
             "justifyEvenly",
-            "justifyStart"
-        ]
+            "justifyStart",
+            "m2e",
+            "nowrap",
+            "selfBaseline",
+            "selfCenter",
+            "selfEnd",
+            "selfStart",
+            "selfStretch",
+            "wrap"
+        ],
+        "pgs-data": []
     },
     "h1": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "h2": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "h3": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "h4": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "h5": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "header": {
         "pgs": [
@@ -869,24 +930,27 @@
             "header-element-onlyFull"
         ],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "headerCompactBigMobile",
             "headerCompactBigTablet",
             "headerCompactBottom",
-            "headerCompactFrom",
             "headerCompactLaptop",
             "headerCompactMobile",
             "headerCompactTablet",
             "headerCompactWatch",
             "headerPrimary",
-            "headerScroll",
-            "icon-hamburgerTwo"
+            "headerScroll"
+        ],
+        "pgs-data": [
+            "headerCompactFrom",
+            "headerPrimary",
+            "headerScroll"
         ]
     },
     "height": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "heightAuto",
             "heightFull",
             "heightScreen",
@@ -895,12 +959,13 @@
             "heightScreenLive",
             "heightUnderHeader",
             "heightUnderMain"
-        ]
+        ],
+        "pgs-data": []
     },
     "heightMax": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "heightAuto",
             "heightFull",
             "heightScreen",
@@ -909,12 +974,13 @@
             "heightScreenLive",
             "heightUnderHeader",
             "heightUnderMain"
-        ]
+        ],
+        "pgs-data": []
     },
     "heightMin": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "heightAuto",
             "heightFull",
             "heightScreen",
@@ -923,152 +989,187 @@
             "heightScreenLive",
             "heightUnderHeader",
             "heightUnderMain"
-        ]
+        ],
+        "pgs-data": []
     },
     "hidden": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "hideContainerDownBigMobile": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "hideContainerDownBigTablet": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "hideContainerDownLaptop": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "hideContainerDownMobile": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "hideContainerDownTablet": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "hideContainerDownWatch": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "hideContainerUpBigMobile": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "hideContainerUpBigTablet": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "hideContainerUpLaptop": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "hideContainerUpMobile": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "hideContainerUpTablet": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "hideContainerUpWatch": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "hideMediaDownBigMobile": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "hideMediaDownBigTablet": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "hideMediaDownLaptop": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "hideMediaDownMobile": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "hideMediaDownTablet": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "hideMediaDownWatch": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "hideMediaUpBigMobile": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "hideMediaUpBigTablet": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "hideMediaUpLaptop": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "hideMediaUpMobile": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "hideMediaUpTablet": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "hideMediaUpWatch": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "hover": {
         "pgs": [
             "hover-text"
         ],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "hoverNot"
-        ]
+        ],
+        "pgs-data": []
+    },
+    "hoverNot": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "hoverNot"
+        ],
+        "pgs-data": []
     },
     "htmlBase": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "icon": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
-            "buttonReverse",
+        "pgs-options": [
             "icon-arrowLeft",
             "icon-arrowRight",
             "icon-bell",
@@ -1112,62 +1213,74 @@
             "iconDuo",
             "iconLarge",
             "iconMedium"
-        ]
+        ],
+        "pgs-data": []
     },
     "iconColorPrimary": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "iconColorSecondary": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "imgContain": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "imgCover": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "input": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "inputUnset": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "label": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "labelUnset": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "legend": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "lightmode": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "list": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "logo": {
         "pgs": [
@@ -1175,25 +1288,28 @@
             "logo-text"
         ],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "logoDarkmode",
             "logoDarkmodeFixed"
-        ]
+        ],
+        "pgs-data": []
     },
     "lottieChangeColor": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "main": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "margin": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "margin2",
             "marginAuto",
             "marginElements",
@@ -1202,12 +1318,13 @@
             "marginSections",
             "marginTexts",
             "marginUnset"
-        ]
+        ],
+        "pgs-data": []
     },
     "marginBlock": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "margin2",
             "marginAuto",
             "marginElements",
@@ -1216,12 +1333,13 @@
             "marginSections",
             "marginTexts",
             "marginUnset"
-        ]
+        ],
+        "pgs-data": []
     },
     "marginBottom": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "margin2",
             "marginAuto",
             "marginElements",
@@ -1230,12 +1348,13 @@
             "marginSections",
             "marginTexts",
             "marginUnset"
-        ]
+        ],
+        "pgs-data": []
     },
     "marginInline": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "margin2",
             "marginAuto",
             "marginElements",
@@ -1244,12 +1363,13 @@
             "marginSections",
             "marginTexts",
             "marginUnset"
-        ]
+        ],
+        "pgs-data": []
     },
     "marginLeft": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "margin2",
             "marginAuto",
             "marginElements",
@@ -1258,12 +1378,13 @@
             "marginSections",
             "marginTexts",
             "marginUnset"
-        ]
+        ],
+        "pgs-data": []
     },
     "marginRight": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "margin2",
             "marginAuto",
             "marginElements",
@@ -1272,12 +1393,13 @@
             "marginSections",
             "marginTexts",
             "marginUnset"
-        ]
+        ],
+        "pgs-data": []
     },
     "marginTop": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "margin2",
             "marginAuto",
             "marginElements",
@@ -1286,7 +1408,8 @@
             "marginSections",
             "marginTexts",
             "marginUnset"
-        ]
+        ],
+        "pgs-data": []
     },
     "menu": {
         "pgs": [],
@@ -1294,19 +1417,19 @@
             "_menu-accordion",
             "_menu-buttonIcon"
         ],
-        "pgs-option": [
-            "dropdownPosition",
-            "hoverNot",
+        "pgs-options": [
             "menuHorizontal",
             "menuIconOnlyCurrent",
             "menuShort",
             "menuVertical"
-        ]
+        ],
+        "pgs-data": []
     },
     "minWidth0": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "modal": {
         "pgs": [
@@ -1319,11 +1442,9 @@
         "pgs-generated": [
             "modal-dialog"
         ],
-        "pgs-option": [
+        "pgs-options": [
             "modalBottom",
             "modalCenter",
-            "modalContainerID",
-            "modalContainerPGS",
             "modalDisableBackdropClose",
             "modalFull",
             "modalHistory",
@@ -1333,204 +1454,237 @@
             "modalRight",
             "modalTop",
             "modalTopLevel"
+        ],
+        "pgs-data": [
+            "modalContainerID",
+            "modalContainerPGS",
+            "modalHistory"
         ]
     },
     "motionReduce": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "notificationBell": {
         "pgs": [
             "notificationBell-counter"
         ],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "notificationLoad": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [],
+        "pgs-data": [
             "notification"
         ]
     },
     "olBlack": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "olBox": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "olBoxDark": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "olError": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "olGray": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "olInfo": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "olLink": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "olPrimary": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "olQuaternary": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "olSecondary": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "olSuccess": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "olTertiary": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "olWarning": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "olWhite": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "outline": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "outlineThick",
             "outlineThicker",
             "outlineThin"
-        ]
+        ],
+        "pgs-data": []
     },
     "overflowAuto": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "overflowHidden": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "overflowXAuto": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "padding": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "padding2",
             "paddingElements",
             "paddingPage",
             "paddingSections",
             "paddingTexts",
             "paddingUnset"
-        ]
+        ],
+        "pgs-data": []
     },
     "paddingBlock": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "padding2",
             "paddingElements",
             "paddingPage",
             "paddingSections",
             "paddingTexts",
             "paddingUnset"
-        ]
+        ],
+        "pgs-data": []
     },
     "paddingBottom": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "padding2",
             "paddingElements",
             "paddingPage",
             "paddingSections",
             "paddingTexts",
             "paddingUnset"
-        ]
+        ],
+        "pgs-data": []
     },
     "paddingInline": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "padding2",
             "paddingElements",
             "paddingPage",
             "paddingSections",
             "paddingTexts",
             "paddingUnset"
-        ]
+        ],
+        "pgs-data": []
     },
     "paddingLeft": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "padding2",
             "paddingElements",
             "paddingPage",
             "paddingSections",
             "paddingTexts",
             "paddingUnset"
-        ]
+        ],
+        "pgs-data": []
     },
     "paddingRight": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "padding2",
             "paddingElements",
             "paddingPage",
             "paddingSections",
             "paddingTexts",
             "paddingUnset"
-        ]
+        ],
+        "pgs-data": []
     },
     "paddingTop": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "padding2",
             "paddingElements",
             "paddingPage",
             "paddingSections",
             "paddingTexts",
             "paddingUnset"
-        ]
+        ],
+        "pgs-data": []
     },
     "pageShell": {
         "pgs": [
@@ -1538,71 +1692,84 @@
             "pageShell-content"
         ],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "pageShellAsideScroll",
             "pageShellAsideShadow",
             "pageShellFullPage"
-        ]
+        ],
+        "pgs-data": []
     },
     "pointer": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "pointerEventsAuto": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "pointerEventsNone": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "positionAbsolute": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "positionRelative": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "positionSticky": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "radio": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "required": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "rotate0": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "rotate180": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "rotate270": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "rotate90": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "search": {
         "pgs": [
@@ -1613,7 +1780,8 @@
             "_search-suggestions-item",
             "_search-suggestions-placeholder"
         ],
-        "pgs-option": [
+        "pgs-options": [],
+        "pgs-data": [
             "searchNoResults",
             "searchPlaceholder"
         ]
@@ -1621,69 +1789,82 @@
     "section": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "sectionEdgeFlushLeft": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "sectionEdgeFlushRight": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "sectionEdgeLeft": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "sectionEdgeRight": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "sectionFull": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "sectionMax": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "sectionNoPadding": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "sectionSpecificity": {
         "pgs": [
             "sectionSpecificity-child"
         ],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "select": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "selectNone": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "selectText": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "skipLink": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "slides": {
         "pgs": [
@@ -1696,10 +1877,14 @@
             "slides-next",
             "slides-prec"
         ],
-        "pgs-option": [
+        "pgs-options": [
             "slidesAnimationScale",
             "slidesScrollMouse",
             "slidesShadowDesktop",
+            "slidesSingleScroll"
+        ],
+        "pgs-data": [
+            "slidesScrollMouse",
             "slidesSingleScroll"
         ]
     },
@@ -1712,7 +1897,8 @@
         "pgs-generated": [
             "steps-step-line"
         ],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "stepTabs": {
         "pgs": [
@@ -1726,7 +1912,8 @@
         "pgs-generated": [
             "_stepTabs-dots-dot"
         ],
-        "pgs-option": [
+        "pgs-options": [],
+        "pgs-data": [
             "stepTabsIcon"
         ]
     },
@@ -1736,17 +1923,23 @@
             "summary-content"
         ],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": [
+            "showLess",
+            "showMore"
+        ]
     },
     "svgChangeColor": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "table": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "tabs": {
         "pgs": [
@@ -1756,19 +1949,22 @@
             "tabs-panels-content"
         ],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [],
+        "pgs-data": [
             "tabsHistory"
         ]
     },
     "textarea": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "textShadow": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "toast": {
         "pgs": [],
@@ -1779,33 +1975,36 @@
             "_toast-element-content-delete",
             "_toast-element-content-icon"
         ],
-        "pgs-option": [
-            "toast"
-        ]
+        "pgs-options": [],
+        "pgs-data": []
     },
     "toastExe": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "toastLoad": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [],
+        "pgs-data": [
             "toast"
         ]
     },
     "toggle": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "toggleDarkmode": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "toggleDarkmodeExtended"
-        ]
+        ],
+        "pgs-data": []
     },
     "tooltip": {
         "pgs": [
@@ -1813,267 +2012,316 @@
             "tooltip-content"
         ],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "truncate": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtBlack": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtBlackFixed": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtBox": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtBoxDark": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtError": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtErrorSoft": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtGray": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtInfo": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtInfoSoft": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtLink": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtLinkSoft": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtPrimary": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtPrimaryDark": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtPrimaryLight": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtPrimarySoft": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtPrimaryStrong": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtPrimaryText": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtQuaternary": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtQuaternaryDark": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtQuaternaryLight": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtQuaternarySoft": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtQuaternaryStrong": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtQuaternaryText": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtSecondary": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtSecondaryDark": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtSecondaryLight": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtSecondarySoft": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtSecondaryStrong": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtSecondaryText": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtSuccess": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtSuccessSoft": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtTertiary": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtTertiaryDark": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtTertiaryLight": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtTertiarySoft": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtTertiaryStrong": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtTertiaryText": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtText": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtWarning": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtWarningSoft": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtWhite": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "txtWhiteFixed": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "visuallyHidden": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "visuallyHiddenFocusable": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": []
+        "pgs-options": [],
+        "pgs-data": []
     },
     "width": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "widthFillAvailable",
             "widthFull",
             "widthPage",
             "widthPageHalf",
             "widthPageThird",
             "widthText"
-        ]
+        ],
+        "pgs-data": []
     },
     "widthMax": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "widthFillAvailable",
             "widthFull",
             "widthPage",
             "widthPageHalf",
             "widthPageThird",
             "widthText"
-        ]
+        ],
+        "pgs-data": []
     },
     "widthMin": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-option": [
+        "pgs-options": [
             "widthFillAvailable",
             "widthFull",
             "widthPage",
             "widthPageHalf",
             "widthPageThird",
             "widthText"
-        ]
+        ],
+        "pgs-data": []
     }
 }

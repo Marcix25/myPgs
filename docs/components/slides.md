@@ -17,11 +17,11 @@ A horizontal, scroll-snapped track of slides with its own arrows and position do
 - `slides-dots`: the row of position dots, one per slide, appended at the end of the component; write your own to place it elsewhere and it is left alone.
 - `_slides-dots-dot`: one dot inside that row, built and kept in step with the number of slides. It is written on every child of the row, so a row placed by hand holds the same dots.
 
-## PGS Options
+## PGS Options (component brackets)
 
-- `slidesSingleScroll`: an arrow advances by a single slide, counted from the one the snap is resting on, instead of jumping past every slide currently in view.
 - `slidesShadowDesktop`: fades the slides out at the edges from the tablet width up, only on the side that still has slides to reach.
 - `slidesAnimationScale`: scales each slide by how much of it is in view, through the --slides-visiblePercent custom property the module writes on it; a slide sits at 1 before the first pass of the observer.
+- `slidesSingleScroll`: an arrow advances by a single slide, counted from the one the snap is resting on, instead of jumping past every slide currently in view.
 - `slidesScrollMouse`: turns the vertical mouse wheel into horizontal scrolling over the slides; off by default.
 
 ## PGS States
@@ -78,10 +78,10 @@ Complete HTML markup and usage example for Slides.
 
 ### Single scroll
 
-Scrolls to one slide at a time with the prec/next buttons, using pgs-option=&quot;slidesSingleScroll&quot;, instead of moving by the full visible width.
+Scrolls to one slide at a time with the prec/next buttons, using pgs=&quot;slides['slidesSingleScroll']&quot;, instead of moving by the full visible width.
 
 ```html
-<div pgs="slides" pgs-option="slidesSingleScroll">
+<div pgs="slides['slidesSingleScroll']">
     <ul pgs="slides-container">
         <li pgs="slides-container-slide">
             <article pgs="card">
@@ -118,10 +118,10 @@ Scrolls to one slide at a time with the prec/next buttons, using pgs-option=&quo
 
 ### Shadow desktop
 
-Fades the slides out at the edges from the tablet width up, using pgs-option=&quot;slidesShadowDesktop&quot;, only on the side that still has slides to reach.
+Fades the slides out at the edges from the tablet width up, using pgs=&quot;slides['slidesShadowDesktop']&quot;, only on the side that still has slides to reach.
 
 ```html
-<div pgs="slides" pgs-option="slidesShadowDesktop">
+<div pgs="slides['slidesShadowDesktop']">
     <ul pgs="slides-container">
         <li pgs="slides-container-slide">
             <article pgs="card">
@@ -158,10 +158,10 @@ Fades the slides out at the edges from the tablet width up, using pgs-option=&qu
 
 ### Animation scale
 
-Scales each slide by its scroll visibility using pgs-option=&quot;slidesAnimationScale&quot;, driven by the --visible-percent custom property.
+Scales each slide by its scroll visibility using pgs=&quot;slides['slidesAnimationScale']&quot;, driven by the --visible-percent custom property.
 
 ```html
-<div pgs="slides" pgs-option="slidesAnimationScale">
+<div pgs="slides['slidesAnimationScale']">
     <ul pgs="slides-container">
         <li pgs="slides-container-slide">
             <article pgs="card">
@@ -198,10 +198,10 @@ Scales each slide by its scroll visibility using pgs-option=&quot;slidesAnimatio
 
 ### Scroll mouse
 
-Turns the vertical mouse wheel into horizontal scrolling over the slides, using pgs-option=&quot;slidesScrollMouse&quot;; off by default.
+Turns the vertical mouse wheel into horizontal scrolling over the slides, using pgs=&quot;slides['slidesScrollMouse']&quot;; off by default.
 
 ```html
-<div pgs="slides" pgs-option="slidesScrollMouse">
+<div pgs="slides['slidesScrollMouse']">
     <ul pgs="slides-container">
         <li pgs="slides-container-slide">
             <article pgs="card">

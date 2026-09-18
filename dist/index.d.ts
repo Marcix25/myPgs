@@ -17,17 +17,25 @@ declare global {
   }
 
   interface PgsOptionApi {
+    /** CSS flags live in component brackets; JS flags and key[payload] values in pgs-data. */
     add(...values: PgsStateValue[]): PgsOptionApi;
     remove(...values: PgsStateValue[]): PgsOptionApi;
     toggle(value: string, force?: boolean): boolean;
     contains(key: string): boolean;
+    querySelector(value: PgsSelectorValue): Element | null;
+    querySelectorAll(value: PgsSelectorValue): Element[];
+    closest(value: PgsSelectorValue): Element | null;
+    /** Reads only pgs-data, preserving nested brackets and JSON strings. */
     getValueBrackets(key: string): string | undefined;
+    /** Writes only pgs-data. */
     setValueBrackets(key: string, value?: string): PgsOptionApi;
+    /** Serialized CSS flags and data entries; assigning redistributes them to their attributes. */
     value: string | null;
   }
 
   interface PgsElementApi extends PgsQueryableApi {
     (): PgsElementApi;
+    closest(value: PgsSelectorValue): Element | null;
     add(...values: string[]): PgsElementApi;
     remove(...values: string[]): PgsElementApi;
     toggle(value: string, force?: boolean): boolean;

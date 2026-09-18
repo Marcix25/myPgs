@@ -12,18 +12,21 @@ Responsive header that measures available space, switches between its full and c
 - `header-element-onlyFull`: identifies content shown only in the full layout.
 - `header-element-onlyCompact`: identifies content shown only in the compact layout.
 
-## PGS Options
+## PGS Options (component brackets)
 
 - `headerCompactBottom`: moves header-element to the bottom of the viewport while the header is compact, so it follows the chosen breakpoint.
-- `headerScroll`: hides the header while scrolling down and shows it again while scrolling up.
-- `headerCompactFrom`: forces the compact layout from a custom viewport width down, written as headerCompactFrom[600], and takes precedence over the named widths below.
 - `headerCompactWatch`: forces the compact layout from the watch width down, even when the content still fits.
 - `headerCompactMobile`: forces the compact layout from the mobile width down, even when the content still fits.
 - `headerCompactBigMobile`: forces the compact layout from the big-mobile width down, even when the content still fits.
 - `headerCompactTablet`: forces the compact layout from the tablet width down, even when the content still fits.
 - `headerCompactBigTablet`: forces the compact layout from the big-tablet width down, even when the content still fits.
 - `headerCompactLaptop`: forces the compact layout from the laptop width down, even when the content still fits.
+- `headerScroll`: hides the header while scrolling down and shows it again while scrolling up.
 - `headerPrimary`: marks the header that owns --heightOfHeader and --heightOfHeaderScroll, the properties that push the page content down. Only needed on a page with more than one header; without it the first one keeps them.
+
+## PGS Data
+
+- `headerCompactFrom`: forces the compact layout from a custom viewport width down, written as headerCompactFrom[600], and takes precedence over the named widths below.
 
 ## PGS States
 
@@ -37,11 +40,11 @@ Responsive header that measures available space, switches between its full and c
 
 ### PGS
 
+- `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `button`: provides the base styling for the header controls and for the navigation links, which the menu no longer styles on its own.
 - `logo`: inserts the brand into the initial area.
 - `logo-text`: uses the text variant of the logo.
 - `menu`: provides both the full and the compact navigation.
-- `flexRow`: uses the related flexRow component or utility in this example.
 - `blur`: applies a backdrop blur behind header-element for a frosted-glass effect.
 - `notificationBell`: opens and closes the notification panel from the header.
 - `notificationBell-counter`: displays the current notification count on the bell.
@@ -53,20 +56,24 @@ Responsive header that measures available space, switches between its full and c
 - `modal-dialog-content`: identifies the inner compact navigation panel; also identifies the JS-generated content area wrapping notifications inside the notification dialog.
 - `icon`: draws the glyphs this example shows; see Icon for the whole set.
 
-### PGS Options
+### PGS Options (component brackets)
 
 - `buttonTransparent`: the appearance of the navigation links, in the full-layout row and once they stack in the compact panel alike.
 - `buttonHeader`: sizes a link like the other header controls; belongs to the button component.
 - `buttonPaddingEqual`: sets the same padding on every side of a navigation link instead of the wider left/right default; belongs to the button component.
+- `flexRow`: sets the horizontal direction inside the flex bracket.
 - `nowrap`: uses the related nowrap component or utility in this example.
 - `menuHorizontal`: arranges the full-layout menu horizontally.
 - `menuVertical`: arranges the compact-layout menu vertically.
 - `menuShort`: compacts adjacent full-layout menu links by overlapping their horizontal spacing.
-- `modalContainerPGS`: uses modalContainerPGS[header] on the modal wrapper to move the dialog into the header.
 - `modalRight`: presents the compact navigation dialog content from the right side.
 - `buttonIcon`: presents theme and hamburger controls as icon buttons.
 - `icon-bell`: the glyph on the control that opens the panel.
 - `icon-hamburgerTwo`: draws the hamburger glyph, swapped for icon-close via CSS while the compact navigation is open.
+
+### PGS Data
+
+- `modalContainerPGS`: uses modalContainerPGS[header] on the modal wrapper to move the dialog into the header.
 
 ### Other
 
@@ -103,52 +110,52 @@ Full navigation on the left, always-visible controls on the right, and the same 
 		</div>
 
 		<div pgs="header-element-onlyFull">
-			<nav pgs="menu" pgs-option="menuHorizontal menuShort" aria-label="Main menu">
+			<nav pgs="menu['menuHorizontal' 'menuShort']" aria-label="Main menu">
 				<ul>
-					<li><a pgs="button" pgs-option="buttonTransparent buttonHeader buttonPaddingEqual" href="/">Home</a></li>
-					<li><a pgs="button" pgs-option="buttonTransparent buttonHeader buttonPaddingEqual" href="/services">Services</a></li>
-					<li><a pgs="button" pgs-option="buttonTransparent buttonHeader buttonPaddingEqual" href="/about">About</a></li>
-					<li><a pgs="button" pgs-option="buttonTransparent buttonHeader buttonPaddingEqual" href="/contact">Contact</a></li>
+					<li><a pgs="button['buttonTransparent' 'buttonHeader' 'buttonPaddingEqual']" href="/">Home</a></li>
+					<li><a pgs="button['buttonTransparent' 'buttonHeader' 'buttonPaddingEqual']" href="/services">Services</a></li>
+					<li><a pgs="button['buttonTransparent' 'buttonHeader' 'buttonPaddingEqual']" href="/about">About</a></li>
+					<li><a pgs="button['buttonTransparent' 'buttonHeader' 'buttonPaddingEqual']" href="/contact">Contact</a></li>
 				</ul>
 			</nav>
-			<div pgs="flexRow" pgs-option="nowrap">
-				<div pgs="modal" pgs-option="modalContainerPGS[header] ">
-					<button type="button" pgs="modal-button modal-close button notificationBell" pgs-option="buttonIcon" aria-label="Open notifications">
-						<i pgs="icon" pgs-option="icon-bell"></i>
+			<div pgs="flex['flexRow' 'nowrap']">
+				<div pgs="modal" pgs-data="modalContainerPGS[header]">
+					<button type="button" pgs="modal-button modal-close button['buttonIcon'] notificationBell" aria-label="Open notifications">
+						<i pgs="icon['icon-bell']"></i>
 						<span pgs="notificationBell-counter"></span>
 					</button>
 				</div>
-				<button pgs="button toggleDarkmode" pgs-option="buttonIcon" type="button" aria-label="Change theme">
+				<button pgs="button['buttonIcon'] toggleDarkmode" type="button" aria-label="Change theme">
 					<i pgs="icon"></i>
 				</button>
 			</div>
 		</div>
 
 		<div pgs="header-element-onlyCompact">
-			<div pgs="flexRow" pgs-option="nowrap">
-				<div pgs="modal" pgs-option="modalContainerPGS[header] ">
-					<button type="button" pgs="modal-button modal-close button notificationBell" pgs-option="buttonIcon" aria-label="Open notifications">
-						<i pgs="icon" pgs-option="icon-bell"></i>
+			<div pgs="flex['flexRow' 'nowrap']">
+				<div pgs="modal" pgs-data="modalContainerPGS[header]">
+					<button type="button" pgs="modal-button modal-close button['buttonIcon'] notificationBell" aria-label="Open notifications">
+						<i pgs="icon['icon-bell']"></i>
 						<span pgs="notificationBell-counter"></span>
 					</button>
 				</div>
-				<button pgs="button toggleDarkmode" pgs-option="buttonIcon" type="button" aria-label="Change theme">
+				<button pgs="button['buttonIcon'] toggleDarkmode" type="button" aria-label="Change theme">
 					<i pgs="icon"></i>
 				</button>
-				<div pgs="modal" pgs-option="modalContainerPGS[header]">
+				<div pgs="modal" pgs-data="modalContainerPGS[header]">
 
-					<button pgs="button modal-button modal-close" pgs-option="buttonIcon" type="button" aria-label="Open menu">
-						<i pgs="icon" pgs-option="icon-hamburgerTwo" aria-hidden="true"></i>
+					<button pgs="button['buttonIcon'] modal-button modal-close" type="button" aria-label="Open menu">
+						<i pgs="icon['icon-hamburgerTwo']" aria-hidden="true"></i>
 					</button>
 
-					<dialog pgs="modal-dialog" pgs-option="modalRight">
+					<dialog pgs="modal-dialog['modalRight']">
 						<div pgs="modal-dialog-content">
-							<nav pgs="menu" pgs-option="menuVertical" aria-label="Compact menu">
+							<nav pgs="menu['menuVertical']" aria-label="Compact menu">
 								<ul>
-									<li><a pgs="button" pgs-option="buttonTransparent buttonPaddingEqual" href="/">Home</a></li>
-									<li><a pgs="button" pgs-option="buttonTransparent buttonPaddingEqual" href="/services">Services</a></li>
-									<li><a pgs="button" pgs-option="buttonTransparent buttonPaddingEqual" href="/about">About</a></li>
-									<li><a pgs="button" pgs-option="buttonTransparent buttonPaddingEqual" href="/contact">Contact</a></li>
+									<li><a pgs="button['buttonTransparent' 'buttonPaddingEqual']" href="/">Home</a></li>
+									<li><a pgs="button['buttonTransparent' 'buttonPaddingEqual']" href="/services">Services</a></li>
+									<li><a pgs="button['buttonTransparent' 'buttonPaddingEqual']" href="/about">About</a></li>
+									<li><a pgs="button['buttonTransparent' 'buttonPaddingEqual']" href="/contact">Contact</a></li>
 								</ul>
 							</nav>
 						</div>

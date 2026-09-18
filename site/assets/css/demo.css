@@ -219,7 +219,7 @@ body {
     }
 }
 
-[pgs~=button][pgs-option~=buttonBig] {
+:is([pgs~="button"], [pgs*="button\5B"])[pgs*="'buttonBig'"] {
     max-width: 300px;
 }
 

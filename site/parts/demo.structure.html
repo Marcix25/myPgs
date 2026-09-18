@@ -6,27 +6,27 @@
      top-level page for now. Edit this file for the demo's own layout — the nav, the aside, the
      main; edit site.structure.html for the page around it (head, header, footer, and the asset
      paths, since this file carries none of its own). -->
-<div pgs="pageShell" pgs-option="pageShellFullPage pageShellAsideScroll">
+<div pgs="pageShell['pageShellFullPage' 'pageShellAsideScroll']">
     <aside pgs="pageShell-aside containerNone" id="reference-demo-aside">
 
         <!-- Desktop -->
-        <div pgs="flexColumn hideContainerDownBigTablet paddingBottom" pgs-option="gapElements" class="reference-demo-nav"></div>
+        <div pgs="flex['flexColumn' 'gapElements'] hideContainerDownBigTablet paddingBottom" class="reference-demo-nav"></div>
 
         <!-- mobile -->
-        <div pgs="flexColumn hideContainerUpBigTablet modal" pgs-option="gapElements padding2">
-            <button type="button" pgs="button modal-button"> <i pgs="icon" pgs-option="icon-ellipsis"></i> Browse docs</button>
+        <div pgs="flex['flexColumn' 'gapElements'] hideContainerUpBigTablet modal padding['padding2']">
+            <button type="button" pgs="button modal-button"> <i pgs="icon['icon-ellipsis']"></i> Browse docs</button>
 
-            <dialog pgs="modal-dialog" pgs-option="modalLeft modalMedium">
+            <dialog pgs="modal-dialog['modalLeft' 'modalMedium']">
                 <div pgs="modal-dialog-content">
                     <div pgs="modal-dialog-content-header">
                         <h3><i class="fa-solid fa-book-bookmark"></i> Browse docs!</h3>
                     </div>
                     <div pgs="modal-dialog-content-scroll">
-                        <div pgs="flexColumn" pgs-option="gapElements" class="reference-demo-nav"></div>
+                        <div pgs="flex['flexColumn' 'gapElements']" class="reference-demo-nav"></div>
                     </div>
                 </div>
             </dialog>
         </div>
     </aside>
-    <main pgs="pageShell-content marginBottom" pgs-option="marginSections" id="reference-demo-main"></main>
+    <main pgs="pageShell-content marginBottom['marginSections']" id="reference-demo-main"></main>
 </div>

@@ -68,7 +68,7 @@
             flex-basis:#{_basis(0.15, $gap, $columns)};
         }
 
-        &[pgs-option~=m2e] {
+        &[pgs*="'m2e'"] {
             >* {
                 flex-basis:#{_basis(0.33, $gap, $columns)};
             }
@@ -131,7 +131,7 @@
     }
 
     //-( big mobile m2e
-    &[pgs-option~=m2e] {
+    &[pgs*="'m2e'"] {
         @container (max-width: #{$big-mobile}) {
             grid-template-columns: 1fr 1fr; // 2 colonne su mobile
         }
@@ -182,7 +182,7 @@
             flex-basis: #{_basis(0.15, $gap, $columns)};
         }
 
-        &[pgs-option~=m2e] {
+        &[pgs*="'m2e'"] {
             >* {
                 flex-basis: #{_basis(0.33, $gap, $columns)};
             }
@@ -223,7 +223,7 @@
     }
 
     //-( mobile m2e
-    &[pgs-option~=m2e] {
+    &[pgs*="'m2e'"] {
         @container (max-width: #{calc(var(--adaptiveGrid-width) * 0.33)}) {
             grid-template-columns: 1fr 1fr;
         }

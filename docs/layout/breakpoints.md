@@ -35,13 +35,14 @@ Responsive visibility utilities built on the shared breakpoint scale: watch 315p
 
 ### PGS
 
+- `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `container`: establishes the inline-size container the hideContainer* utilities are measured against; without it they fall back to the nearest container in the page, or never match at all.
-- `flexColumn`: stacks the groups vertically.
-- `flexRow`: arranges the examples in a row.
 - `box`: makes each example visible as a surface.
 
-### PGS Options
+### PGS Options (component brackets)
 
+- `flexColumn`: stacks the groups vertically.
+- `flexRow`: arranges the examples in a row.
 - `wrap`: allows the examples to wrap onto several rows.
 - `gapTexts`: separates the examples inside a group.
 

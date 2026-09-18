@@ -7,7 +7,7 @@
  * - hover: enables the shared hover treatment on a surface.
  * - hover-text: recolours this text when the surrounding hover element is hovered.
  *
- * @pgs-option
+ * @pgs-options
  * - hoverNot: opts the surface out of the treatment, whatever component it is. `pgs.hover` leaves it unmarked and the surface stops answering the pointer.
  *
  * @api
@@ -31,7 +31,7 @@
 
 <demo demo-h3="Hover not" demo-description="The opt-out: on a page with bodyHoverAuto, a surface that would otherwise be marked at load stays inert and keeps the look it has at rest."></demo>
 <section demo="component">
-    <a pgs="box" pgs-option="hoverNot" href="#">
+    <a pgs="box['hoverNot']" href="#">
         <strong>box + hoverNot</strong>
     </a>
 </section>

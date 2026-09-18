@@ -1,6 +1,9 @@
-# pgs-option rename — nomi precedenti vs nuovi
+# Nomi delle opzioni — rinominazioni precedenti
 
-Opzioni `pgs-option` che appartenevano a un solo componente ma non ne portavano il nome nel
+Questo documento registra rinominazioni precedenti. L’attributo `pgs-option` è ora ritirato:
+applicare anche la migrazione a bracket e `pgs-data` descritta in [migration.md](migration.md).
+
+Opzioni che appartenevano a un solo componente ma non ne portavano il nome nel
 token, rinominate per coerenza con il resto della libreria (es. `singleScroll` → `slidesSingleScroll`).
 
 | Componente | Prima | Ora |

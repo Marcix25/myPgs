@@ -131,7 +131,7 @@
     }
 
     i,
-    [pgs~=icon] {
+    :is([pgs~="icon"], [pgs*="icon\5B"]) {
         opacity: 0.4;
         min-width: 1.4rem;
     }
@@ -139,7 +139,7 @@
     &:hover {
 
         i,
-        [pgs~=icon] {
+        :is([pgs~="icon"], [pgs*="icon\5B"]) {
             opacity: 1;
         }
     }
@@ -148,11 +148,11 @@
     &:has(input:checked) {
 
         i,
-        [pgs~=icon] {
+        :is([pgs~="icon"], [pgs*="icon\5B"]) {
             opacity: 1;
         }
 
-        &:not(:has([pgs~=icon])),
+        &:not(:has(:is([pgs~="icon"], [pgs*="icon\5B"]))),
         &:not(:has(i)) {
 
             &::after{
@@ -175,7 +175,7 @@
     //=== checkbox
     &:has(input[type=checkbox]:checked) {
 
-        &:not(:has([pgs~=icon])),
+        &:not(:has(:is([pgs~="icon"], [pgs*="icon\5B"]))),
         &:not(:has(i)) {
             padding-right: var(--button-size);
 
@@ -188,7 +188,7 @@
     //=== radio
     &:has(input[type=radio]:checked) {
 
-        &:not(:has([pgs~=icon])),
+        &:not(:has(:is([pgs~="icon"], [pgs*="icon\5B"]))),
         &:not(:has(i)) {
             padding-left: var(--button-size);
 

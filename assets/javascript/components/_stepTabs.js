@@ -30,12 +30,11 @@ function PGS_stepTabs_init(root = document) {
             dots.innerHTML = "";
 
             allTab.forEach((tab, index) => {
-                const authoredIcon = (pgs(tab).option.getValueBrackets("stepTabsIcon") || "").trim();
+                const authoredIcon = (pgs(tab).data.getValueBrackets("stepTabsIcon") || "").trim();
                 const dot = document.createElement("button");
                 dot.type = "button";
                 pgs(dot).add("_stepTabs-dots-dot");
-                pgs(dot).add("button");
-                pgs(dot).option.add("buttonIcon hoverNot");
+                pgs(dot).add("button['buttonIcon' 'hoverNot']");
                 //== stepTabsIcon takes three shapes, told apart by how the value opens. Markup, from a
                 //== "<", is instantiated as written: that is what puts every icon set in reach,
                 //== including the ones a class list cannot describe because they want their name as
@@ -50,11 +49,11 @@ function PGS_stepTabs_init(root = document) {
                     dot.replaceChildren(authoredMarkup.content.cloneNode(true));
                 } else {
                     const dotIcon = document.createElement("i");
-                    pgs(dotIcon).add("icon");
 
                     if (!authoredIcon || authoredIcon.startsWith("icon-")) {
-                        pgs(dotIcon).option.add(authoredIcon || "icon-circle");
+                        pgs(dotIcon).add(`icon['${authoredIcon || "icon-circle"}']`);
                     } else {
+                        pgs(dotIcon).add("icon");
                         //== a full list goes through untouched, whatever set it belongs to. A lone
                         //== Font Awesome name is completed with its style class, because that set
                         //== needs one and markup written before other sets were supported relies on it

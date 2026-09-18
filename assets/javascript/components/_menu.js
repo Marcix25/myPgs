@@ -10,8 +10,7 @@ function createToggle(li) {
     button.type = "button";
     button.innerHTML = "<span>&#9207;</span>";
 
-    pgs(button).add("_menu-buttonIcon", "button");
-    pgs(button).option.add("hoverNot");
+    pgs(button).add("_menu-buttonIcon", "button['hoverNot']");
     li.querySelector("a").insertAdjacentElement("afterend", button);
 
     return button;
@@ -41,7 +40,7 @@ function setupAccordion(li, button, ul) {
 
 function setupDropdown(li, button, ul) {
     pgs(li).add("dropdown");
-    pgs(li).option.setValueBrackets("dropdownPosition", "bottom right");
+    pgs(li).data.setValueBrackets("dropdownPosition", "bottom right");
     pgs(button).add("dropdown-button");
     pgs(ul).add("dropdown-content");
 }

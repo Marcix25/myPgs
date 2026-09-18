@@ -6,10 +6,11 @@
  * @pgs
  * - grid: creates a responsive grid layout.
  * - flex: creates a horizontal flex layout by default.
- * - flexColumn: creates a vertical flex layout.
- * - flexRow: creates a horizontal flex layout.
  *
- * @pgs-option
+ * @pgs-options
+ * - inlineFlex: uses inline-flex for the flex container.
+ * - flexCenter: centers items on both axes of a flex container.
+ * - gapElements: applies the element spacing gap.
  * - flexColumn: configures a flex layout to stack items vertically.
  * - flexRow: configures a flex layout to arrange items horizontally.
  * - flexColumnReverse: configures a flex layout to stack items vertically in reverse order.
@@ -65,16 +66,16 @@
     <demo demo-h3="Flex layout" demo-description="Three-column flex layout using column-2 with m2e to collapse to two columns per row on mobile."></demo>
     <section demo="component">
         <strong>Flex</strong>
-        <div pgs="flex" pgs-option="flexRow column-2 m2e">
-            <article pgs="box flex" pgs-option="flexColumn">
+        <div pgs="flex['flexRow' 'column-2' 'm2e']">
+            <article pgs="box flex['flexColumn']">
                 <strong>Lorem ipsum dolor</strong>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
             </article>
-            <article pgs="box flex" pgs-option="flexColumn">
+            <article pgs="box flex['flexColumn']">
                 <strong>Sit amet consectetur</strong>
                 <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
             </article>
-            <article pgs="box flex" pgs-option="flexColumn">
+            <article pgs="box flex['flexColumn']">
                 <strong>Adipiscing elit sed</strong>
                 <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
             </article>
@@ -84,20 +85,20 @@
     <demo demo-h3="Grid layout" demo-description="Four-column grid layout using column-4 with m2e to collapse to two columns per row on mobile."></demo>
     <section demo="component">
         <strong>Grid</strong>
-        <div pgs="grid" pgs-option="column-4 m2e">
-            <article pgs="box flex" pgs-option="flexColumn">
+        <div pgs="grid['column-4' 'm2e']">
+            <article pgs="box flex['flexColumn']">
                 <strong>Do eiusmod tempor</strong>
                 <p>Duis aute irure dolor in reprehenderit in voluptate.</p>
             </article>
-            <article pgs="box flex" pgs-option="flexColumn">
+            <article pgs="box flex['flexColumn']">
                 <strong>Ut labore et</strong>
                 <p>Excepteur sint occaecat cupidatat non proident sunt.</p>
             </article>
-            <article pgs="box flex" pgs-option="flexColumn">
+            <article pgs="box flex['flexColumn']">
                 <strong>Dolore magna aliqua</strong>
                 <p>Sunt in culpa qui officia deserunt mollit anim.</p>
             </article>
-            <article pgs="box flex" pgs-option="flexColumn">
+            <article pgs="box flex['flexColumn']">
                 <strong>Enim ad minim</strong>
                 <p>Ut labore et dolore magna aliqua ut enim.</p>
             </article>
@@ -105,46 +106,46 @@
     </section>
 
     <demo demo-h3="Wrap" demo-description="Flex items wrapping onto multiple rows versus staying on a single non-wrapping row."></demo>
-    <section pgs="flex" pgs-option="flexColumn gapTexts" demo="component">
+    <section pgs="flex['flexColumn' 'gapTexts']" demo="component">
         <strong>Wrap</strong>
-        <div pgs="flex" pgs-option="flexRow gapTexts wrap">
+        <div pgs="flex['flexRow' 'gapTexts' 'wrap']">
             <span pgs="box">Wrapping item</span>
             <span pgs="box">Wrapping item</span>
             <span pgs="box">Wrapping item</span>
         </div>
-        <div pgs="flex" pgs-option="flexRow gapTexts nowrap">
+        <div pgs="flex['flexRow' 'gapTexts' 'nowrap']">
             <span pgs="box">Non-wrapping item</span>
             <span pgs="box">Non-wrapping item</span>
         </div>
     </section>
 
     <demo demo-h3="Direction" demo-description="Reversing the visual order of flex items on the row axis and on the column axis."></demo>
-    <section pgs="flex" pgs-option="flexColumn gapTexts" demo="component">
+    <section pgs="flex['flexColumn' 'gapTexts']" demo="component">
         <strong>Direction</strong>
-        <div pgs="flex" pgs-option="flexRowReverse gapTexts">
+        <div pgs="flex['flexRowReverse' 'gapTexts']">
             <span pgs="box">First in markup</span>
             <span pgs="box">Second in markup</span>
         </div>
-        <div pgs="flex" pgs-option="flexColumnReverse gapTexts">
+        <div pgs="flex['flexColumnReverse' 'gapTexts']">
             <span pgs="box">First in markup</span>
             <span pgs="box">Second in markup</span>
         </div>
     </section>
 
     <demo demo-h3="Alignment" demo-description="Aligning and justifying flex items, including overriding a single child's alignment with selfEnd."></demo>
-    <section pgs="flex" pgs-option="flexColumn gapTexts" demo="component">
+    <section pgs="flex['flexColumn' 'gapTexts']" demo="component">
         <strong>Alignment</strong>
-        <div pgs="flex" pgs-option="flexRow gapTexts itemCenter justifyBetween contentCenter">
+        <div pgs="flex['flexRow' 'gapTexts' 'itemCenter' 'justifyBetween' 'contentCenter']">
             <span pgs="box">Short item</span>
             <span pgs="box">Taller item<br>with two lines</span>
-            <span pgs="box" pgs-option="selfEnd">Self-aligned item</span>
+            <span pgs="box['selfEnd']">Self-aligned item</span>
         </div>
     </section>
 
     <demo demo-h3="Flex children" demo-description="Sizing behavior of individual flex children: initial, none, grow, full width, and reordering."></demo>
-    <section pgs="flex" pgs-option="flexColumn gapTexts" demo="component">
+    <section pgs="flex['flexColumn' 'gapTexts']" demo="component">
         <strong>Flex children</strong>
-        <div pgs="flex" pgs-option="flexRow gapTexts wrap">
+        <div pgs="flex['flexRow' 'gapTexts' 'wrap']">
             <span pgs="box flex-flexInitial">Initial</span>
             <span pgs="box flex-flexNone">None</span>
             <span pgs="box flex-flex1">Grow</span>

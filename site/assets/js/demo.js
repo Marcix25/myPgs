@@ -112,19 +112,18 @@ function setupCopyButtons() {
 //== there, hijacking the header's own bell and hamburger: keep those dialogs local instead.
 function removeToken(element, attribute, token) {
     if (!element) return;
+    if (attribute === "pgs") {
+        pgs(element).remove(token);
+        return;
+    }
     const value = (element.getAttribute(attribute) || "").split(/\s+/).filter(item => item && item !== token).join(" ");
     if (value) element.setAttribute(attribute, value);
     else element.removeAttribute(attribute);
 }
 
 function isolateDemoModals(root) {
-    root.querySelectorAll('[pgs~="modal"]').forEach(modal => {
-        const option = modal.getAttribute("pgs-option");
-        if (!option || !option.includes("modalContainerPGS")) return;
-
-        const cleaned = option.replace(/modalContainerPGS\[[^\]]*\]/g, "").replace(/\s+/g, " ").trim();
-        if (cleaned) modal.setAttribute("pgs-option", cleaned);
-        else modal.removeAttribute("pgs-option");
+    pgs(root).querySelectorAll("modal").forEach(modal => {
+        pgs(modal).option.remove("modalContainerPGS");
     });
 
     //== every notificationBell shares one "_notifications" container/panel: with several bells
@@ -132,7 +131,7 @@ function isolateDemoModals(root) {
     //== one can own it. See configureNotificationDemo.
     root.querySelectorAll('[pgs~="notificationBell"]').forEach(bell => {
         if (bell.closest('[data-reference="components/notification.html"]')) return;
-        removeToken(bell.closest('[pgs~="modal"]'), "pgs", "modal");
+        removeToken(pgs(bell).closest("modal"), "pgs", "modal");
         removeToken(bell, "pgs", "modal-button");
         removeToken(bell, "pgs", "modal-close");
     });

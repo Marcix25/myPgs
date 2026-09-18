@@ -1,6 +1,6 @@
 @use "../mixin/mixin" as *;
 
-[pgs~="footer"] {
+:is([pgs~="footer"], [pgs*="footer\5B"]) {
     --footer-color: var(--color-black);
     --footer-background: var(--color-box);
     --footer-colorScheme: inherit;
@@ -13,11 +13,11 @@
     isolation: isolate;
 
     //= TOP
-    [pgs~="footer-top"] {
+    :is([pgs~="footer-top"], [pgs*="footer-top\5B"]) {
         color: var(--footer-color);
         padding-block: calc(var(--gap-sections)/3);
 
-        [pgs~="footer-top-content"] {
+        :is([pgs~="footer-top-content"], [pgs*="footer-top-content\5B"]) {
             row-gap: var(--gap-elements);
         }
 
@@ -47,24 +47,24 @@
             }
         }
 
-        [pgs~="footer-brand"] {
+        :is([pgs~="footer-brand"], [pgs*="footer-brand\5B"]) {
             @include flexColumn();
 
-            [pgs~="logo-image"] {
+            :is([pgs~="logo-image"], [pgs*="logo-image\5B"]) {
                 aspect-ratio: 1;
                 height: 200px;
                 object-fit: contain;
                 object-position: left center;
             }
 
-            [pgs~="logo-text"] {
+            :is([pgs~="logo-text"], [pgs*="logo-text\5B"]) {
                 font-size: 4.0rem;
                 font-weight: var(--font-weight-title);
                 color: var(--footer-color);
             }
         }
 
-        [pgs~="footer-content"] {
+        :is([pgs~="footer-content"], [pgs*="footer-content\5B"]) {
             nav {
                 li {
                     margin-top: 5px;
@@ -75,7 +75,7 @@
                         align-items: center;
 
                         i,
-                        [pgs~=icon] {
+                        :is([pgs~="icon"], [pgs*="icon\5B"]) {
                             order: -1;
                             margin-right: 10px;
                             display: block;
@@ -99,10 +99,10 @@
     }
 
     //= LEGAL
-    [pgs~="footer-legal"] {
+    :is([pgs~="footer-legal"], [pgs*="footer-legal\5B"]) {
         width: 100%;
 
-        [pgs~="footer-legal-content"] {
+        :is([pgs~="footer-legal-content"], [pgs*="footer-legal-content\5B"]) {
             border-top: var(--border-width) var(--border-style) var(--color-boxDark-transparent);
             padding-block: 60px;
             display: flex;
@@ -112,21 +112,21 @@
             justify-content: center;
             align-items: center;
 
-            [pgs~="logo"] {
+            :is([pgs~="logo"], [pgs*="logo\5B"]) {
                 margin-right: auto;
                 justify-content: center;
             }
 
             //- tablet 
             @media (max-width: $tablet) {
-                [pgs~="logo"] {
+                :is([pgs~="logo"], [pgs*="logo\5B"]) {
                     width: 100%;
                 }
             }
         }
 
         i,
-        [pgs~=icon] {
+        :is([pgs~="icon"], [pgs*="icon\5B"]) {
             font-size: 0.8rem;
             color: var(--color-text);
         }

@@ -31,16 +31,15 @@ Focused layout, content, interaction, accessibility, and semantic-color utilitie
 
 ### PGS
 
+- `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `box`: makes demonstration cells visible.
 - `bgInfo`: applies the semantic info color as the background.
 - `brInfo`: applies the semantic info color as the border color.
 - `txtInfo`: applies the semantic info color to text.
-- `flexColumn`: stacks demonstration groups vertically.
 - `flex-flex1`: lets a flex item grow and shrink to occupy available space.
 - `flex-flexNone`: prevents a flex item from growing or shrinking.
 - `flex-flexOrderFirst`: places a flex item before its siblings.
 - `flex-flexOrderLast`: places a flex item after its siblings.
-- `flexRow`: arranges demonstration items in a row.
 - `focusRing`: shows the shared focus ring when keyboard focus is visible.
 - `motionReduce`: removes non-essential animation and transitions when reduced motion is preferred.
 - `skipLink`: creates a link that is revealed only when keyboard-focused.
@@ -48,8 +47,10 @@ Focused layout, content, interaction, accessibility, and semantic-color utilitie
 - `visuallyHiddenFocusable`: hides content until it or one of its children receives focus.
 - `icon`: draws the glyph rotated by the example; see Icon for the whole set.
 
-### PGS Options
+### PGS Options (component brackets)
 
+- `flexColumn`: stacks demonstration groups vertically.
+- `flexRow`: arranges demonstration items in a row.
 - `gapSections`: separates the demonstration sections.
 - `gapTexts`: separates items within each demonstration group.
 - `wrap`: allows the layout examples to wrap onto multiple rows.
@@ -70,34 +71,34 @@ Examples of the standalone MyPGS utility API.
 ```html
 <a pgs="skipLink" href="#utility-content">Skip to utility examples</a>
 
-<main id="utility-content" pgs="flexColumn" pgs-option="gapSections">
-    <section pgs="flexColumn" pgs-option="gapTexts">
+<main id="utility-content" pgs="flex['flexColumn' 'gapSections']">
+    <section pgs="flex['flexColumn' 'gapTexts']">
         <strong>Layout</strong>
-        <div pgs="flexRow" pgs-option="gapTexts wrap">
+        <div pgs="flex['flexRow' 'gapTexts' 'wrap']">
             <span pgs="box block">Block</span>
-            <span pgs="box flexRow" pgs-option="inlineFlex">Inline flex</span>
-            <span pgs="box flexRow aspectSquare" pgs-option="flexCenter">Centered</span>
+            <span pgs="box flex['flexRow' 'inlineFlex']">Inline flex</span>
+            <span pgs="box flex['flexRow' 'flexCenter'] aspectSquare">Centered</span>
         </div>
-        <div pgs="flexRow" pgs-option="gapTexts">
-            <span pgs="box flexRow flex-flexNone">Fixed</span>
-            <span pgs="box flexRow minWidth0 truncate flex-flex1">Flexible content that is safely truncated when needed.</span>
-            <span pgs="box flexColumn flex-flexOrderFirst">First</span>
-            <span pgs="box flexColumn flex-flexOrderLast">Last</span>
+        <div pgs="flex['flexRow' 'gapTexts']">
+            <span pgs="box flex['flexRow'] flex-flexNone">Fixed</span>
+            <span pgs="box flex['flexRow'] minWidth0 truncate flex-flex1">Flexible content that is safely truncated when needed.</span>
+            <span pgs="box flex['flexColumn'] flex-flexOrderFirst">First</span>
+            <span pgs="box flex['flexColumn'] flex-flexOrderLast">Last</span>
         </div>
         <div pgs="box positionRelative">
             Relative parent
             <span pgs="positionAbsolute">Absolute child</span>
         </div>
         <aside pgs="box positionSticky">Sticky element</aside>
-        <div pgs="flexRow" pgs-option="gapTexts">
-            <i pgs="icon rotate0" pgs-option="icon-chevronDown" aria-hidden="true"></i>
-            <i pgs="icon rotate90" pgs-option="icon-chevronDown" aria-hidden="true"></i>
-            <i pgs="icon rotate180" pgs-option="icon-chevronDown" aria-hidden="true"></i>
-            <i pgs="icon rotate270" pgs-option="icon-chevronDown" aria-hidden="true"></i>
+        <div pgs="flex['flexRow' 'gapTexts']">
+            <i pgs="icon['icon-chevronDown'] rotate0" aria-hidden="true"></i>
+            <i pgs="icon['icon-chevronDown'] rotate90" aria-hidden="true"></i>
+            <i pgs="icon['icon-chevronDown'] rotate180" aria-hidden="true"></i>
+            <i pgs="icon['icon-chevronDown'] rotate270" aria-hidden="true"></i>
         </div>
     </section>
 
-    <section pgs="flexColumn" pgs-option="gapTexts">
+    <section pgs="flex['flexColumn' 'gapTexts']">
         <strong>Content and interaction</strong>
         <div pgs="box overflowAuto">Scrollable content when its container has constrained dimensions.</div>
         <div pgs="box overflowXAuto">Horizontally scrollable content when required.</div>
@@ -110,7 +111,7 @@ Examples of the standalone MyPGS utility API.
         <button type="button" pgs="cursorNotAllowed">Unavailable action</button>
     </section>
 
-    <section pgs="flexColumn" pgs-option="gapTexts">
+    <section pgs="flex['flexColumn' 'gapTexts']">
         <strong>Accessibility and color</strong>
         <button type="button" pgs="focusRing">Keyboard focus ring</button>
         <span pgs="visuallyHidden">Screen-reader-only description.</span>

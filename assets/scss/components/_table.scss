@@ -1,4 +1,4 @@
-[pgs~="table"] {
+:is([pgs~="table"], [pgs*="table\5B"]) {
 
     &:is(table),
     table {

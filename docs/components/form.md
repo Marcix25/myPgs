@@ -20,7 +20,7 @@ Form structure with labels, text fields, a textarea, a checkbox, and a radio gro
 - `inputUnset`: written on an input, it keeps the library from styling that field, leaving the browser's own control in place. It is the opt-out for a field the page styles itself, or one a third-party script owns.
 - `labelUnset`: written on a label, it keeps the library from styling it as a field label. The form styles a label only when it wraps or precedes a control, so this is the way out for a label that does both and should stay plain.
 
-## PGS Options
+## PGS Data
 
 - `formMessage`: defines a field-specific message with the syntax formMessage[Message text].
 - `formMessageTitle`: defines a field-specific alert title with the syntax formMessageTitle[Title text].
@@ -38,7 +38,7 @@ Form structure with labels, text fields, a textarea, a checkbox, and a radio gro
 
 ## JavaScript API
 
-- `new pgs.formValidate(form, options)`: creates a utility associated directly with the form, adds novalidate, and completes missing form message options (formFieldErrorTitle, formFieldError, formFieldsError, formSuccessTitle, formSuccess) from options.message and then from library defaults; existing pgs-option values are preserved.
+- `new pgs.formValidate(form, options)`: creates a utility associated directly with the form, adds novalidate, and completes missing form message options (formFieldErrorTitle, formFieldError, formFieldsError, formSuccessTitle, formSuccess) from options.message and then from library defaults; existing pgs-data values are preserved.
 - `instance.validator(callback, eventName)`: intercepts the specified event, clears previous temporary field errors, validates the form, shows the success message, and invokes callback only when valid; eventName defaults to submit.
 - `instance.validate()`: validates required fields, updates state attributes, and returns true or false.
 - `instance.success(description, title)`: validates the form and shows a success alert or toast when there are no errors.
@@ -51,11 +51,12 @@ Form structure with labels, text fields, a textarea, a checkbox, and a radio gro
 
 ### PGS
 
+- `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `button`: provides the base styling for the primary submit action.
+
+### PGS Options (component brackets)
+
 - `flexColumn`: spaces text elements in the radio group.
-
-### PGS Options
-
 - `buttonStrong`: presents form submission as the primary action.
 
 ### Other
@@ -66,29 +67,62 @@ Form structure with labels, text fields, a textarea, a checkbox, and a radio gro
 
 Complete HTML form with required fields and an example script for a custom rule, validation, and a success message.
 
+## JavaScript Usage
+
+```js
+import { pgs } from "mypgs";
+
+const form = pgs(document).querySelector("form");
+
+const password = form.querySelector('input[name="password"]');
+const confirmPassword = form.querySelector('input[name="confirmPassword"]');
+if (!password || !confirmPassword) return;
+
+const formValidate = new pgs.formValidate(form, {
+    typeNotice: "alert"
+});
+
+//== new roules
+formValidate.addNewRule(() => {
+    if (password.value && confirmPassword.value && password.value !== confirmPassword.value) {
+        pgs(confirmPassword).data.setValueBrackets("formMessage", "Passwords do not match");
+        return [confirmPassword, password];
+    }
+});
+
+//== validate
+formValidate.validator(event => {
+    const values = Object.fromEntries(new FormData(form));
+
+    // Replace this log with a request to your backend.
+    console.log(values);
+}, "submit");
+```
+
+
 ## Example
 
 ```html
-<form pgs="form" pgs-option="formFieldErrorTitle[Check the form] formFieldError[Complete this field] formFieldsError[Complete all required fields] formSuccessTitle[Submitted] formSuccess[Submitted successfully]" action="#" method="post">
+<form pgs="form" pgs-data="formFieldErrorTitle[Check the form] formFieldError[Complete this field] formFieldsError[Complete all required fields] formSuccessTitle[Submitted] formSuccess[Submitted successfully]" action="#" method="post">
 
     <label>
         <span pgs="label">Name</span>
-        <input pgs="input" pgs-option="formMessageTitle[Name required] formMessage[Enter your name]" type="text" name="name" placeholder="John Smith" required>
+        <input pgs="input" pgs-data="formMessageTitle[Name required] formMessage[Enter your name]" type="text" name="name" placeholder="John Smith" required>
     </label>
 
     <label>
         <span pgs="label">Email</span>
-        <input pgs="input" pgs-option="formMessage[Enter a valid email address]" type="email" name="email" placeholder="name@example.com" required>
+        <input pgs="input" pgs-data="formMessage[Enter a valid email address]" type="email" name="email" placeholder="name@example.com" required>
     </label>
 
     <label>
         <span pgs="label">Password</span>
-        <input pgs="input" pgs-option="formMessage[Enter a password]" type="password" name="password" autocomplete="new-password" required>
+        <input pgs="input" pgs-data="formMessage[Enter a password]" type="password" name="password" autocomplete="new-password" required>
     </label>
 
     <label>
         <span pgs="label">Confirm password</span>
-        <input pgs="input" pgs-option="formMessage[Confirm your password]" type="password" name="confirmPassword" autocomplete="new-password" required>
+        <input pgs="input" pgs-data="formMessage[Confirm your password]" type="password" name="confirmPassword" autocomplete="new-password" required>
     </label>
     
     <label>
@@ -116,7 +150,7 @@ Complete HTML form with required fields and an example script for a custom rule,
     </label>
 
     <br>
-    <fieldset pgs="radio flexColumn" pgs-option="formMessage[Choose a contact method]">
+    <fieldset pgs="radio flex['flexColumn']" pgs-data="formMessage[Choose a contact method]">
         <legend pgs="legend">Preferred contact method</legend>
 
         <label>
@@ -136,7 +170,7 @@ Complete HTML form with required fields and an example script for a custom rule,
     </fieldset>
     <br>
 
-    <fieldset pgs="checkbox flexColumn" pgs-option="formMessage[Choose at least one topic]">
+    <fieldset pgs="checkbox flex['flexColumn']" pgs-data="formMessage[Choose at least one topic]">
         <legend pgs="legend">Topics</legend>
 
         <label>
@@ -157,39 +191,9 @@ Complete HTML form with required fields and an example script for a custom rule,
     </label>
     <br>
 
-    <button pgs="button" pgs-option="buttonStrong" type="submit">
+    <button pgs="button['buttonStrong']" type="submit">
         Submit
     </button>
 
 </form>
-
-<script type="module">
-    import { pgs } from "mypgs";
-
-    const form = pgs(document).querySelector("form");
-
-    const password = form.querySelector('input[name="password"]');
-    const confirmPassword = form.querySelector('input[name="confirmPassword"]');
-    if (!password || !confirmPassword) return;
-
-    const formValidate = new pgs.formValidate(form, {
-        typeNotice: "alert"
-    });
-
-    //== new roules
-    formValidate.addNewRule(() => {
-        if (password.value && confirmPassword.value && password.value !== confirmPassword.value) {
-            pgs(confirmPassword).option.setValueBrackets("formMessage", "Passwords do not match");
-            return [confirmPassword, password];
-        }
-    });
-
-    //== validate
-    formValidate.validator(event => {
-        const values = Object.fromEntries(new FormData(form));
-
-        // Replace this log with a request to your backend.
-        console.log(values);
-    }, "submit");
-</script>
 ```

@@ -21,10 +21,11 @@ Recolours external SVG and Lottie files when the theme changes, swapping each de
 
 ### PGS
 
+- `flex`: provides the flex layout; direction and spacing are flags in its bracket.
+
+### PGS Options (component brackets)
+
 - `flexColumn`: stacks the example and its notes vertically.
-
-### PGS Options
-
 - `gapTexts`: spaces the example content.
 
 ## CSS Variables

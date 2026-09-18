@@ -13,7 +13,7 @@
     initial-value: 0px;
 }
 
-[pgs~="slides"] {
+:is([pgs~="slides"], [pgs*="slides\5B"]) {
     display: flex;
     flex-direction: column;
     position: relative;
@@ -32,15 +32,15 @@
     //== this element, because the height comes from the tallest slide and only the layout knows it.
     //== Everything reading it falls back to 100% for the frame before the first measurement
     //++option for suggestions
-    &[pgs-option~=slidesSingleScroll],
-    &[pgs-option~=slidesScrollMouse],
-    &[pgs-option~=slidesShadowDesktop] {}
+    &[pgs*="'slidesSingleScroll'"],
+    &[pgs*="'slidesScrollMouse'"],
+    &[pgs*="'slidesShadowDesktop'"] {}
 
     //++ option - slidesShadowDesktop
     //+( tablet
     @container (min-width: #{$tablet}) {
-        &[pgs-option~=slidesShadowDesktop] {
-            [pgs~="slides-container"] {
+        &[pgs*="'slidesShadowDesktop'"] {
+            :is([pgs~="slides-container"], [pgs*="slides-container\5B"]) {
                 --slides-maskStart: 0px;
                 --slides-maskEnd: 0px;
                 transition: --slides-maskStart 200ms, --slides-maskEnd 200ms;
@@ -49,18 +49,18 @@
             }
 
             //== fade on the left until the first slide is reached
-            &:not(:has([pgs~="slides-container"] li:first-child[pgs-state~="view"])) [pgs~="slides-container"] {
+            &:not(:has(:is([pgs~="slides-container"], [pgs*="slides-container\5B"]) li:first-child[pgs-state~="view"])) :is([pgs~="slides-container"], [pgs*="slides-container\5B"]) {
                 --slides-maskStart: var(--slides-sizeMaskImage);
             }
 
             //== fade on the right until the last slide is reached
-            &:not(:has([pgs~="slides-container"] li:last-child[pgs-state~="view"])) [pgs~="slides-container"] {
+            &:not(:has(:is([pgs~="slides-container"], [pgs*="slides-container\5B"]) li:last-child[pgs-state~="view"])) :is([pgs~="slides-container"], [pgs*="slides-container\5B"]) {
                 --slides-maskEnd: var(--slides-sizeMaskImage);
             }
         }
     }
 
-    [pgs~="slides-container-slide"] {
+    :is([pgs~="slides-container-slide"], [pgs*="slides-container-slide\5B"]) {
         &:first-child {
             margin-left: var(--page-edgeFlush);
         }
@@ -71,7 +71,7 @@
     }
 
     //= CONTAINER SLIDES (ul)
-    [pgs~="slides-container"] {
+    :is([pgs~="slides-container"], [pgs*="slides-container\5B"]) {
         display: flex;
         width: 100%;
         overflow-x: scroll;
@@ -91,7 +91,7 @@
         }
 
         //== slide
-        [pgs~="slides-container-slide"] {
+        :is([pgs~="slides-container-slide"], [pgs*="slides-container-slide\5B"]) {
             //== the first and the last slide line up with the page content through --page-edge
             //== below, and that only holds because the alignment here is center: their centred
             //== snap position falls outside the scroll range, so the browser stops at the edge and
@@ -120,8 +120,8 @@
     }
 
     //= ARROW
-    [pgs~="slides-prec"],
-    [pgs~="slides-next"] {
+    :is([pgs~="slides-prec"], [pgs*="slides-prec\5B"]),
+    :is([pgs~="slides-next"], [pgs*="slides-next\5B"]) {
         position: absolute;
         z-index: 4;
         //== half of the track, not half of the component: the root also holds the dots and whatever
@@ -129,11 +129,11 @@
         top: calc(var(--slides-height, 100%) / 2);
         translate: 0 -50%;
 
-        &:is([pgs~="slides-prec"]) {
+        &:is(:is([pgs~="slides-prec"], [pgs*="slides-prec\5B"])) {
             left: .4rem;
         }
 
-        &:is([pgs~="slides-next"]) {
+        &:is(:is([pgs~="slides-next"], [pgs*="slides-next\5B"])) {
             right: .4rem;
         }
 
@@ -141,18 +141,18 @@
         @container (max-width: $tablet) {
             --button-size: .8rem;
 
-            &:is([pgs~="slides-prec"]) {
+            &:is(:is([pgs~="slides-prec"], [pgs*="slides-prec\5B"])) {
                 left: calc(var(--page-padding) * -1 + .4rem);
             }
 
-            &:is([pgs~="slides-next"]) {
+            &:is(:is([pgs~="slides-next"], [pgs*="slides-next\5B"])) {
                 right: calc(var(--page-padding) * -1 + .4rem);
             }
         }
     }
 
     //= DOTS
-    [pgs~="slides-dots"] {
+    :is([pgs~="slides-dots"], [pgs*="slides-dots\5B"]) {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
@@ -170,14 +170,14 @@
             padding: 1.2rem;
             z-index: 1;
 
-            [pgs~="_slides-dots-dot"] {
+            :is([pgs~="_slides-dots-dot"], [pgs*="_slides-dots-dot\5B"]) {
                 padding: 1.2rem;
                 width: 1.2rem;
                 height: 1.2rem;
             }
         }
 
-        [pgs~="_slides-dots-dot"] {
+        :is([pgs~="_slides-dots-dot"], [pgs*="_slides-dots-dot\5B"]) {
             padding: 0.6rem;
             width: 0.6rem;
             height: 0.6rem;
@@ -198,9 +198,9 @@
         }
     }
 
-    &[pgs-option~=slidesAnimationScale] {
-        [pgs~="slides-container"] {
-            [pgs~="slides-container-slide"] {
+    &[pgs*="'slidesAnimationScale'"] {
+        :is([pgs~="slides-container"], [pgs*="slides-container\5B"]) {
+            :is([pgs~="slides-container-slide"], [pgs*="slides-container-slide\5B"]) {
                 >* {
                     //== the JavaScript writes the real ratio on every scroll; the fallback is what
                     //== the slide is drawn at before the first observer pass

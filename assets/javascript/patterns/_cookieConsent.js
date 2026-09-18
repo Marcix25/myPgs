@@ -92,28 +92,23 @@ function applyAnalyticsConsent({ allowAnalytics, measurementId }) {
 //+
 function setPgsFlag(element, token, enabled) {
     if (!(element instanceof HTMLElement) || !token) return;
-    const current = (element.getAttribute('pgs') || '').split(/\s+/).filter(Boolean);
-    const next = enabled ? [...new Set([...current, token])] : current.filter((item) => item !== token);
-    if (next.length > 0) {
-        element.setAttribute('pgs', next.join(' '));
-    } else {
-        element.removeAttribute('pgs');
-    }
+    pgs(element).toggle(token, enabled);
+    if (!pgs(element).value) element.removeAttribute('pgs');
 }
 
 //+ reads the JSON config off the marker element and builds the whole modal + dialog + content from it,
-//+ so the consuming site never has to hand-author the banner markup — see @pgs-option "cookieConsent".
+//+ so the consuming site never has to hand-author the banner markup — see @pgs-data "cookieConsent".
 function buildCookieConsent(marker) {
-    const config = { ...DEFAULTS, ...(safeJsonParse(pgs(marker).option.getValueBrackets('cookieConsent') || '{}') || {}) };
+    const config = { ...DEFAULTS, ...(safeJsonParse(pgs(marker).data.getValueBrackets('cookieConsent') || '{}') || {}) };
 
     const root = document.createElement('div');
     pgs(root).add('modal', 'cookieConsent');
 
     root.innerHTML = `
-        <dialog pgs-option="modalTopLevel modalBottom modalRight modalMedium">
+        <dialog pgs="modal-dialog['modalTopLevel' 'modalBottom' 'modalRight' 'modalMedium']">
             <div pgs="modal-dialog-content">
-                <div pgs="_cookieConsent-header flexColumn">
-                    <p pgs="flexRow" pgs-option="itemCenter"><i pgs="icon" pgs-option="icon-cookie"></i> ${PGS_formatText(config.titleIntro)}</p>
+                <div pgs="_cookieConsent-header flex['flexColumn']">
+                    <p pgs="flex['flexRow' 'itemCenter']"><i pgs="icon['icon-cookie']"></i> ${PGS_formatText(config.titleIntro)}</p>
                     <h2>${PGS_formatText(config.titleHeading)}</h2>
                     <p>${PGS_formatText(config.description)}</p>
                     <p>
@@ -122,8 +117,8 @@ function buildCookieConsent(marker) {
                     </p>
                 </div>
 
-                <div pgs="_cookieConsent-panel flexColumn" role="group" aria-label="${PGS_escapeHtml(config.panelAriaLabel)}">
-                    <div pgs="flexRow _cookieConsent-panel-featureEssential" pgs-option="nowrap">
+                <div pgs="_cookieConsent-panel flex['flexColumn']" role="group" aria-label="${PGS_escapeHtml(config.panelAriaLabel)}">
+                    <div pgs="flex['flexRow' 'nowrap'] _cookieConsent-panel-featureEssential">
                         <div>
                             <p>
                                 <strong>${PGS_formatText(config.essentialTitle)}</strong>
@@ -132,10 +127,10 @@ function buildCookieConsent(marker) {
                             </p>
                         </div>
 
-                        <span pgs="_cookieConsent-panel-badge badge" pgs-option="badgeSuccess">${PGS_formatText(config.essentialBadge)}</span>
+                        <span pgs="_cookieConsent-panel-badge badge['badgeSuccess']">${PGS_formatText(config.essentialBadge)}</span>
                     </div>
 
-                    <div pgs="flexRow _cookieConsent-panel-featureAnalytics">
+                    <div pgs="flex['flexRow'] _cookieConsent-panel-featureAnalytics">
                         <label pgs="toggle">
                             <p>
                                 <strong>${PGS_formatText(config.analyticsTitle)}</strong>
@@ -146,13 +141,13 @@ function buildCookieConsent(marker) {
                             <input type="checkbox" pgs="_cookieConsent-panel-toggleAnalytics" aria-label="${PGS_escapeHtml(config.analyticsAriaLabel)}">
                         </label>
                     </div>
-                    <div pgs="flexRow">
+                    <div pgs="flex['flexRow']">
                         <button type="button" pgs="button _cookieConsent-actionReject">
                             ${PGS_formatText(config.titleReject)}
                         </button>
     
-                        <button type="button" pgs="button _cookieConsent-actionAccept" pgs-option="buttonStrong">
-                            <i pgs="icon" pgs-option="icon-check"></i> ${PGS_formatText(config.titleAccept)}
+                        <button type="button" pgs="button['buttonStrong'] _cookieConsent-actionAccept">
+                            <i pgs="icon['icon-check']"></i> ${PGS_formatText(config.titleAccept)}
                         </button>
                     </div>
                 </div>

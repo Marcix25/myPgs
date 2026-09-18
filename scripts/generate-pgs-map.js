@@ -1,8 +1,10 @@
 //# PGS MAP
-//+ builds reference/pgs-map.json: every pgs root with the pgs children and the pgs-option
+//+ builds reference/pgs-map.json: every pgs root with the pgs children and its CSS flags / pgs-data keys
 //+ it accepts. Run it after adding or renaming a token: node scripts/generate-pgs-map.js
 const fs = require("fs");
 const path = require("path");
+const postcss = require("postcss");
+const { extractAttributes } = require("./pgs-attributes.js");
 
 const ROOT = path.resolve(__dirname, "..");
 const SCSS_DIR = path.join(ROOT, "assets/scss");
@@ -39,12 +41,10 @@ function pgsTokensInJs(text) {
     const pattern = /pgs\([^)]*\)\s*\.\s*(?:querySelectorAll|querySelector|add|remove|contains|toggle)\(\s*["']([A-Za-z_][\w-]*)["']/g;
     for (const match of text.matchAll(pattern)) found.add(match[1]);
 
-    //== whole components are assembled as template literals, so their tokens appear nowhere else
-    for (const match of text.matchAll(/\bpgs\s*=\s*\\?["']([^"'\\`$]+)/g)) {
-        match[1].split(/\s+/).forEach(value => {
-            if (/^[A-Za-z_][\w-]*$/.test(value)) found.add(value);
-        });
-    }
+    //== Includes component brackets inside generated HTML string literals.
+    extractAttributes(text.replace(/\\"/g, '"')).pgs.forEach(token => {
+        if (/^[A-Za-z_][\w-]*$/.test(token)) found.add(token);
+    });
 
     return found;
 }
@@ -62,7 +62,7 @@ function tokensIn(text, attribute) {
 
     for (const match of text.matchAll(pattern)) {
         //== a token cut short by an interpolation is a prefix the loop completes, not an option of
-        //== its own: [pgs-option~=icon-#{$name}] in the SCSS would otherwise register "icon-"
+        //== its own: [pgs*="'icon-#{$name}'"] in the SCSS would otherwise register "icon-"
         if (text[match.index + match[0].length] === "#") continue;
         found.add(match[1]);
     }
@@ -76,17 +76,16 @@ function optionsFromCompiledCss() {
     const css = fs.existsSync(COMPILED_CSS) ? fs.readFileSync(COMPILED_CSS, "utf8") : "";
     const pairs = [];
 
-    for (const rule of css.split("}")) {
-        const selectorText = rule.slice(rule.lastIndexOf("{") === -1 ? 0 : 0, rule.indexOf("{"));
-        if (!selectorText) continue;
-
-        for (const selector of selectorText.split(",")) {
-            const owner = selector.match(/\[pgs~=["']?([A-Za-z_][\w-]*)/);
-            if (!owner) continue;
-
-            for (const option of tokensIn(selector, "pgs-option")) pairs.push([owner[1], option]);
+    postcss.parse(css).walkRules(rule => {
+        for (const selector of rule.selectors) {
+            for (const option of selector.matchAll(/\[pgs\*="'([^']+)'"\]/g)) {
+                const owners = [...tokensIn(selector.slice(0, option.index), "pgs")];
+                if (owners.length) pairs.push([owners.at(-1), option[1], "pgs-options"]);
+                else if (option[1] === "hoverNot") pairs.push(["hover", option[1], "pgs-options"]);
+                else for (const owner of ["flex", "grid"]) pairs.push([owner, option[1], "pgs-options"]);
+            }
         }
-    }
+    });
 
     return pairs;
 }
@@ -106,13 +105,13 @@ function optionsFromScss(files) {
             pending = chunk.split(";").pop();
 
             const selector = pending;
-            const options = tokensIn(selector, "pgs-option");
+            const options = tokensIn(selector, "pgs-data");
             if (!options.size) continue;
 
             const owner = [...stack, selector]
                 .flatMap(level => [...tokensIn(level, "pgs")])
                 .pop();
-            if (owner) for (const option of options) pairs.push([owner, option]);
+            if (owner) for (const option of options) pairs.push([owner, option, "pgs-data"]);
         }
     }
 
@@ -154,23 +153,46 @@ const map = new Map();
 
 for (const token of allTokens) {
     const root = rootOf(token, allTokens);
-    if (!map.has(root)) map.set(root, { pgs: new Set(), "pgs-generated": new Set(), "pgs-option": new Set() });
+    if (!map.has(root)) map.set(root, { pgs: new Set(), "pgs-generated": new Set(), "pgs-options": new Set(), "pgs-data": new Set() });
     if (root === token) continue;
 
     map.get(root)[generated.has(token) ? "pgs-generated" : "pgs"].add(token);
 }
 
+const cssPairs = optionsFromCompiledCss();
+const cssOptions = new Set(cssPairs.map(([, option]) => option));
+
 function optionsFromJs(files) {
     return files.flatMap(file => {
         const owner = path.basename(file, ".js").replace(/^_/, "");
         const text = fs.readFileSync(file, "utf8");
-        return [...optionTokensInJs(text)].map(option => [owner, option]);
+        return [...optionTokensInJs(text)].map(option => [owner, option, cssOptions.has(option) ? "pgs-options" : "pgs-data"]);
     });
 }
 
-for (const [owner, option] of [...optionsFromCompiledCss(), ...optionsFromScss(scssFiles), ...optionsFromJs(jsFiles)]) {
+for (const [owner, option, kind] of [...cssPairs, ...optionsFromScss(scssFiles), ...optionsFromJs(jsFiles)]) {
     const root = rootOf(owner, allTokens);
-    if (map.has(root)) map.get(root)["pgs-option"].add(option);
+    if (map.has(root)) map.get(root)[kind].add(option);
+}
+
+for (const file of walk(REFERENCE_DIR, ".html")) {
+    const source = fs.readFileSync(file, "utf8");
+    const block = source.match(/\/\*\*([\s\S]*?)\*\//)?.[1] || "";
+    const roots = [];
+    let active;
+    const entries = [];
+    for (const line of block.split("\n")) {
+        const tag = line.match(/^\s*\*\s*@([\w-]+)/);
+        if (tag) { active = tag[1]; continue; }
+        const item = line.match(/^\s*\*\s*-\s*([\w-]+)\s*:/);
+        if (!item) continue;
+        if (active === "pgs" && map.has(item[1])) roots.push(item[1]);
+        if (["pgs-options", "pgs-data"].includes(active)) entries.push([active, item[1]]);
+    }
+    for (const [kind, key] of entries) {
+        const owners = roots.filter(name => key.startsWith(name));
+        for (const owner of owners.length ? owners : roots.slice(0, 1)) map.get(owner)[kind].add(key);
+    }
 }
 
 const sortTokens = (a, b) => a.localeCompare(b, "en");
@@ -179,7 +201,8 @@ for (const root of [...map.keys()].sort(sortTokens)) {
     output[root] = {
         pgs: [...map.get(root).pgs].sort(sortTokens),
         "pgs-generated": [...map.get(root)["pgs-generated"]].sort(sortTokens),
-        "pgs-option": [...map.get(root)["pgs-option"]].sort(sortTokens),
+        "pgs-options": [...map.get(root)["pgs-options"]].sort(sortTokens),
+        "pgs-data": [...map.get(root)["pgs-data"]].sort(sortTokens),
     };
 }
 
@@ -187,5 +210,5 @@ fs.writeFileSync(OUTPUT, JSON.stringify(output, null, 4) + "\n");
 
 const children = Object.values(output).reduce((total, entry) => total + entry.pgs.length, 0);
 const built = Object.values(output).reduce((total, entry) => total + entry["pgs-generated"].length, 0);
-const options = new Set(Object.values(output).flatMap(entry => entry["pgs-option"]));
-console.log(`${path.relative(ROOT, OUTPUT)}: ${Object.keys(output).length} radici, ${children} figli pgs, ${built} generati dal JS, ${options.size} pgs-option distinte`);
+const options = new Set(Object.values(output).flatMap(entry => entry["pgs-options"]));
+console.log(`${path.relative(ROOT, OUTPUT)}: ${Object.keys(output).length} radici, ${children} figli pgs, ${built} generati dal JS, ${options.size} opzioni CSS distinte`);
