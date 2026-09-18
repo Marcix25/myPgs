@@ -1,7 +1,7 @@
 //# BREADCRUMB
 //== the path itself is a plain list: what the component owns is the spacing between the levels,
 //== the separator and the colour of the step the reader is on
-:is([pgs~="breadcrumb"], [pgs*="breadcrumb\5B"]) {
+[pgs~="breadcrumb"] {
     --breadcrumb-size: 1.4rem;
     --breadcrumb-color: var(--color-primary-strong);
     --breadcrumb-color-hover: var(--color-primary);
@@ -18,7 +18,7 @@
     flex-wrap: wrap;
     gap: 0;
 
-    :is([pgs~="breadcrumb-item"], [pgs*="breadcrumb-item\5B"]) {
+    [pgs~="breadcrumb-item"] {
         display: inline-flex;
         align-items: center;
 
@@ -37,7 +37,7 @@
             font-weight: var(--font-weight-bold);
         }
 
-        :is([pgs~="breadcrumb-item-separator"], [pgs*="breadcrumb-item-separator\5B"]) {
+        [pgs~="breadcrumb-item-separator"] {
             color: var(--breadcrumb-separator-color);
             margin-inline: var(--breadcrumb-separator-gap);
             display: inline-flex;

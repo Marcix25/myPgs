@@ -1,10 +1,10 @@
 @use "../mixin/mixin" as *;
 
-ol:is([pgs~="steps"], [pgs*="steps\5B"]) {
+ol[pgs~="steps"] {
     color: var(--color-black);
 
     //== step
-    :is([pgs~="steps-step"], [pgs*="steps-step\5B"]) {
+    [pgs~="steps-step"] {
         display: flex;
         align-items: start;
         position: relative;
@@ -14,7 +14,7 @@ ol:is([pgs~="steps"], [pgs*="steps\5B"]) {
         --steps-line-color: var(--color-gray);
 
         //== CONTENT
-        :is([pgs~="steps-step-content"], [pgs*="steps-step-content\5B"]) {
+        [pgs~="steps-step-content"] {
             @include flexColumn();
             margin-bottom: calc(var(--gap-elements) / 2 - 8px);
             padding-bottom: calc(var(--gap-elements) / 2);
@@ -23,7 +23,7 @@ ol:is([pgs~="steps"], [pgs*="steps\5B"]) {
         }
 
         //== NUMBER
-        :is([pgs~="steps-step-circle"], [pgs*="steps-step-circle\5B"]) {
+        [pgs~="steps-step-circle"] {
             min-width: var(--steps-circle-size);
             aspect-ratio: 1;
             background: var(--steps-circle-color);
@@ -41,7 +41,7 @@ ol:is([pgs~="steps"], [pgs*="steps\5B"]) {
         }
 
         //== LINE
-        :is([pgs~="steps-step-line"], [pgs*="steps-step-line\5B"]) {
+        [pgs~="steps-step-line"] {
             $space: 15px;
             display: block;
             position: absolute;
@@ -81,12 +81,12 @@ ol:is([pgs~="steps"], [pgs*="steps\5B"]) {
 
         //== LAST
         &:last-child {
-            :is([pgs~="steps-step"], [pgs*="steps-step\5B"]) {
+            [pgs~="steps-step"] {
                 padding-bottom: 0;
                 margin-bottom: 0;
             }
 
-            :is([pgs~="steps-step-circle"], [pgs*="steps-step-circle\5B"]) {
+            [pgs~="steps-step-circle"] {
                 background-color: var(--color-primary);
                 color: var(--color-whiteFixed);
 
@@ -95,7 +95,7 @@ ol:is([pgs~="steps"], [pgs*="steps\5B"]) {
                 }
             }
 
-            :is([pgs~="steps-step-line"], [pgs*="steps-step-line\5B"]) {
+            [pgs~="steps-step-line"] {
                 opacity: 0;
             }
         }

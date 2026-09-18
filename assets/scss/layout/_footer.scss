@@ -1,6 +1,6 @@
 @use "../mixin/mixin" as *;
 
-:is([pgs~="footer"], [pgs*="footer\5B"]) {
+[pgs~="footer"] {
     --footer-color: var(--color-black);
     --footer-background: var(--color-box);
     --footer-colorScheme: inherit;
@@ -13,11 +13,11 @@
     isolation: isolate;
 
     //= TOP
-    :is([pgs~="footer-top"], [pgs*="footer-top\5B"]) {
+    [pgs~="footer-top"] {
         color: var(--footer-color);
         padding-block: calc(var(--gap-sections)/3);
 
-        :is([pgs~="footer-top-content"], [pgs*="footer-top-content\5B"]) {
+        [pgs~="footer-top-content"] {
             row-gap: var(--gap-elements);
         }
 
@@ -47,24 +47,24 @@
             }
         }
 
-        :is([pgs~="footer-brand"], [pgs*="footer-brand\5B"]) {
+        [pgs~="footer-brand"] {
             @include flexColumn();
 
-            :is([pgs~="logo-image"], [pgs*="logo-image\5B"]) {
+            [pgs~="logo-image"] {
                 aspect-ratio: 1;
                 height: 200px;
                 object-fit: contain;
                 object-position: left center;
             }
 
-            :is([pgs~="logo-text"], [pgs*="logo-text\5B"]) {
+            [pgs~="logo-text"] {
                 font-size: 4.0rem;
                 font-weight: var(--font-weight-title);
                 color: var(--footer-color);
             }
         }
 
-        :is([pgs~="footer-content"], [pgs*="footer-content\5B"]) {
+        [pgs~="footer-content"] {
             nav {
                 li {
                     margin-top: 5px;
@@ -99,10 +99,10 @@
     }
 
     //= LEGAL
-    :is([pgs~="footer-legal"], [pgs*="footer-legal\5B"]) {
+    [pgs~="footer-legal"] {
         width: 100%;
 
-        :is([pgs~="footer-legal-content"], [pgs*="footer-legal-content\5B"]) {
+        [pgs~="footer-legal-content"] {
             border-top: var(--border-width) var(--border-style) var(--color-boxDark-transparent);
             padding-block: 60px;
             display: flex;

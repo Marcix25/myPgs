@@ -1,0 +1,54 @@
+{
+  "name": "pgs-html-suggestions",
+  "displayName": "PGS HTML Suggestions",
+  "description": "Suggerimenti automatici per pgs e pgs-data in HTML/PHP, letti da reference/pgs-map.json — le opzioni proposte dentro component[...] sono sempre e solo quelle di quel componente.",
+  "version": "0.1.0",
+  "publisher": "marcoferrari",
+  "icon": "icon.png",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:html",
+    "onLanguage:php",
+    "onLanguage:javascript",
+    "onLanguage:javascriptreact",
+    "onLanguage:typescript",
+    "onLanguage:typescriptreact",
+    "workspaceContains:reference/pgs-map.json"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "PGS HTML Suggestions",
+      "properties": {
+        "pgsHtmlSuggestions.mapPath": {
+          "type": "string",
+          "default": "reference/pgs-map.json",
+          "description": "Percorso di pgs-map.json (relativo alla root del workspace), generato da node scripts/generate-pgs-map.js."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "pgsHtmlSuggestions.rescan",
+        "title": "PGS: ricarica pgs-map.json"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "npm run compile && npx @vscode/vsce package -o ../../pgs-html-suggestions.vsix"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.4.2"
+  }
+}

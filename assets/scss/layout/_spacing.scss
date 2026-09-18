@@ -95,12 +95,12 @@
 }
 
 //= PADDING
-:is([pgs~="padding"], [pgs*="padding\5B"]),
-:is([pgs~="paddingLeft"], [pgs*="paddingLeft\5B"]),
-:is([pgs~="paddingRight"], [pgs*="paddingRight\5B"]),
-:is([pgs~="paddingBottom"], [pgs*="paddingBottom\5B"]),
-:is([pgs~="paddingTop"], [pgs*="paddingTop\5B"]),
-:is([pgs~="paddingInline"], [pgs*="paddingInline\5B"]),
+[pgs~="padding"],
+[pgs~="paddingLeft"],
+[pgs~="paddingRight"],
+[pgs~="paddingBottom"],
+[pgs~="paddingTop"],
+[pgs~="paddingInline"],
 :is([pgs~="paddingBlock"], [pgs*="paddingBlock\5B"]) {
     --padding-size: var(--padding);
 
@@ -129,27 +129,27 @@
     }
 }
 
-:is([pgs~="padding"], [pgs*="padding\5B"]) {
+[pgs~="padding"] {
     padding: var(--padding-size);
 }
 
-:is([pgs~="paddingLeft"], [pgs*="paddingLeft\5B"]) {
+[pgs~="paddingLeft"] {
     padding-left: var(--padding-size);
 }
 
-:is([pgs~="paddingRight"], [pgs*="paddingRight\5B"]) {
+[pgs~="paddingRight"] {
     padding-right: var(--padding-size);
 }
 
-:is([pgs~="paddingBottom"], [pgs*="paddingBottom\5B"]) {
+[pgs~="paddingBottom"] {
     padding-bottom: var(--padding-size);
 }
 
-:is([pgs~="paddingTop"], [pgs*="paddingTop\5B"]) {
+[pgs~="paddingTop"] {
     padding-top: var(--padding-size);
 }
 
-:is([pgs~="paddingInline"], [pgs*="paddingInline\5B"]) {
+[pgs~="paddingInline"] {
     padding-inline: var(--padding-size);
 }
 

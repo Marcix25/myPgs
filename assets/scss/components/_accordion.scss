@@ -42,13 +42,13 @@
             content: none;
         }
 
-        :is([pgs~="accordion-button"], [pgs*="accordion-button\5B"]) {
+        [pgs~="accordion-button"] {
             font-weight: var(--font-weight-title);
         }
     }
 
     //== BUTTON
-    :is([pgs~="accordion-button"], [pgs*="accordion-button\5B"]) {
+    [pgs~="accordion-button"] {
         cursor: pointer;
         @include flexRow;
         appearance: none;
@@ -72,7 +72,7 @@
     }
 
     //== CONTENT
-    :is([pgs~="accordion-content"], [pgs*="accordion-content\5B"]) {
+    [pgs~="accordion-content"] {
         @include flexColumn();
         visibility: hidden;
         opacity: 0;
@@ -100,13 +100,13 @@
         display: flex;
         gap: var(--gap-texts);
 
-        :is([pgs~="accordion-button"], [pgs*="accordion-button\5B"]) {
+        [pgs~="accordion-button"] {
             &::after {
                 rotate: 180deg;
             }
         }
 
-        :is([pgs~="accordion-content"], [pgs*="accordion-content\5B"]) {
+        [pgs~="accordion-content"] {
             visibility: visible;
             opacity: 1;
             max-height: unset;

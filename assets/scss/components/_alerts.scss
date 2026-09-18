@@ -1,9 +1,9 @@
 @use "../mixin/mixin" as *;
 
 //declared here so editors suggest it: mark your own wrapper to say where the alerts go, or the JavaScript creates one before the submit button
-:is([pgs~="alertContainer"], [pgs*="alertContainer\5B"]) {}
+[pgs~="alertContainer"] {}
 
-:is([pgs~="alert"], [pgs*="alert\5B"]) {
+[pgs~="alert"] {
     --alert-accent: var(--color-primary);
     --alert-background: var(--color-primary-soft);
     --alert-color: var(--color-text);
@@ -22,7 +22,7 @@
     color: var(--alert-color);
     margin-block: var(--gap-texts);
 
-    :is([pgs~="alert-icon"], [pgs*="alert-icon\5B"]) {
+    [pgs~="alert-icon"] {
         display: grid;
         place-items: center;
         min-inline-size: 2.4rem;
@@ -32,11 +32,11 @@
         --icon-size: 2rem;
     }
 
-    :is([pgs~="alert-content"], [pgs*="alert-content\5B"]) {
+    [pgs~="alert-content"] {
         @include flexColumn(calc(var(--alert-gap) / 2));
         min-width: 0;
 
-        :is([pgs~="alert-content-title"], [pgs*="alert-content-title\5B"]) {
+        [pgs~="alert-content-title"] {
             color: var(--alert-content-title-color);
             font-weight: var(--font-weight-title);;
             line-height: 1.2;

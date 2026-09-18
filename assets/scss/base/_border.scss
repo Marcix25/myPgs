@@ -3,29 +3,29 @@
 //# BORDER - BORDER RADIUS - OUTLINE
 //= BORDER
 //== draws the shared border, so the br* colour utilities have something to recolour
-:is([pgs~="border"], [pgs*="border\5B"]) {
+[pgs~="border"] {
     border: var(--border-width) solid var(--border-color);
 }
 
 //== one side at a time, named like the margin and padding utilities. The br* colour utilities
 //== set border-color, which only shows on the side that is actually drawn
-:is([pgs~="borderTop"], [pgs*="borderTop\5B"]) {
+[pgs~="borderTop"] {
     border-top: var(--border-width) solid var(--border-color);
 }
 
-:is([pgs~="borderRight"], [pgs*="borderRight\5B"]) {
+[pgs~="borderRight"] {
     border-right: var(--border-width) solid var(--border-color);
 }
 
-:is([pgs~="borderBottom"], [pgs*="borderBottom\5B"]) {
+[pgs~="borderBottom"] {
     border-bottom: var(--border-width) solid var(--border-color);
 }
 
-:is([pgs~="borderLeft"], [pgs*="borderLeft\5B"]) {
+[pgs~="borderLeft"] {
     border-left: var(--border-width) solid var(--border-color);
 }
 
-:is([pgs~="borderInline"], [pgs*="borderInline\5B"]) {
+[pgs~="borderInline"] {
     border-inline: var(--border-width) solid var(--border-color);
 }
 
@@ -33,12 +33,12 @@
     border-block: var(--border-width) solid var(--border-color);
 }
 
-:is([pgs~="border"], [pgs*="border\5B"]),
-:is([pgs~="borderTop"], [pgs*="borderTop\5B"]),
-:is([pgs~="borderRight"], [pgs*="borderRight\5B"]),
-:is([pgs~="borderBottom"], [pgs*="borderBottom\5B"]),
-:is([pgs~="borderLeft"], [pgs*="borderLeft\5B"]),
-:is([pgs~="borderInline"], [pgs*="borderInline\5B"]),
+[pgs~="border"],
+[pgs~="borderTop"],
+[pgs~="borderRight"],
+[pgs~="borderBottom"],
+[pgs~="borderLeft"],
+[pgs~="borderInline"],
 :is([pgs~="borderBlock"], [pgs*="borderBlock\5B"]) {
     &[pgs*="'borderThin'"] {
         --border-width: 1px;
@@ -54,15 +54,15 @@
 }
 
 //= BORDER RADIUS
-:is([pgs~="borderRadius"], [pgs*="borderRadius\5B"]) {
+[pgs~="borderRadius"] {
     border-radius: var(--border-radius);
 }
 
-:is([pgs~="borderRadiusInput"], [pgs*="borderRadiusInput\5B"]) {
+[pgs~="borderRadiusInput"] {
     border-radius: var(--border-radius-input);
 }
 
-:is([pgs~="borderRadiusExternal"], [pgs*="borderRadiusExternal\5B"]) {
+[pgs~="borderRadiusExternal"] {
     border-radius: var(--border-radius-external);
 }
 

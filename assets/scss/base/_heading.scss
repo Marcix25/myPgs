@@ -1,22 +1,22 @@
 @use "../mixin/mixin" as *;
 
 //# HEADING
-:is([pgs~="h1"], [pgs*="h1\5B"]) {
+[pgs~="h1"] {
     @include h1();
 }
 
-:is([pgs~="h2"], [pgs*="h2\5B"]) {
+[pgs~="h2"] {
     @include h2();
 }
 
-:is([pgs~="h3"], [pgs*="h3\5B"]) {
+[pgs~="h3"] {
     @include h3();
 }
 
-:is([pgs~="h4"], [pgs*="h4\5B"]) {
+[pgs~="h4"] {
     @include h4();
 }
 
-:is([pgs~="h5"], [pgs*="h5\5B"]) {
+[pgs~="h5"] {
     @include h5();
 }

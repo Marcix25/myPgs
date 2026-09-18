@@ -70,34 +70,34 @@
     }
 
     //=== FLEX CHILD
-    :is([pgs~="flex-flexInitial"], [pgs*="flex-flexInitial\5B"]) {
+    [pgs~="flex-flexInitial"] {
         flex: 0 1 auto;
     }
 
-    :is([pgs~="flex-flexNone"], [pgs*="flex-flexNone\5B"]) {
+    [pgs~="flex-flexNone"] {
         flex: none;
     }
 
-    :is([pgs~="flex-flex1"], [pgs*="flex-flex1\5B"]) {
+    [pgs~="flex-flex1"] {
         flex: 1 1 0%;
     }
 
-    :is([pgs~="flex-flexFull"], [pgs*="flex-flexFull\5B"]) {
+    [pgs~="flex-flexFull"] {
         flex: 0 0 100%;
     }
 
     //== an arbitrary basis has no CSS-only way to come from a bracketed value in the pgs
     //== attribute itself (attr() outside content isn't supported anywhere) — --flex-flexValue set
     //== inline is the same custom-property pattern width/height/icon-size already use
-    :is([pgs~="flex-flexValue"], [pgs*="flex-flexValue\5B"]) {
+    [pgs~="flex-flexValue"] {
         flex: 1 1 var(--flex-flexValue, auto);
     }
 
-    :is([pgs~="flex-flexOrderFirst"], [pgs*="flex-flexOrderFirst\5B"]) {
+    [pgs~="flex-flexOrderFirst"] {
         order: -1;
     }
 
-    :is([pgs~="flex-flexOrderLast"], [pgs*="flex-flexOrderLast\5B"]) {
+    [pgs~="flex-flexOrderLast"] {
         order: 999;
     }
 }

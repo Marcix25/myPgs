@@ -1,8 +1,8 @@
 //read by the JavaScript only, declared here so editors suggest it: the Lottie counterpart, recoloured from --lottie-color-N
-:is([pgs~="lottieChangeColor"], [pgs*="lottieChangeColor\5B"]) {}
+[pgs~="lottieChangeColor"] {}
 
 //= SVG Change Color 
-html:has(:is([pgs~="svgChangeColor"], [pgs*="svgChangeColor\5B"])) {
+html:has([pgs~="svgChangeColor"]) {
     &:root {
         --svg-color-1: white & black;
         --svg-color-2: black & white;

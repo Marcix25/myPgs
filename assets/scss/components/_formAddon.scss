@@ -1,18 +1,18 @@
 @use "../mixin/mixin" as *;
 
 //# FORM ADDON
-:is([pgs~="checkboxBackground"], [pgs*="checkboxBackground\5B"]) {
+[pgs~="checkboxBackground"] {
     @include checkboxBackground();
 }
 
-:is([pgs~="toggle"], [pgs*="toggle\5B"]) {
+[pgs~="toggle"] {
     @include toggle();
 }
 
-:is([pgs~="chips"], [pgs*="chips\5B"]) {
+[pgs~="chips"] {
     @include chips();
 }
 
-:is([pgs~="chip"], [pgs*="chip\5B"]) {
+[pgs~="chip"] {
     @include chip();
 }

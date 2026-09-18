@@ -50,14 +50,14 @@
 
     //== accordion submenu: the base rule hides every nested ul, so the open branch has to say so.
     //== The floating counterpart is handled by the dropdown component instead
-    :is([pgs~="_menu-accordion"], [pgs*="_menu-accordion\5B"])[pgs-state~=open] {
+    [pgs~="_menu-accordion"][pgs-state~=open] {
         >ul {
             display: flex;
         }
     }
 
     //== buttonIcon
-    :is([pgs~="_menu-buttonIcon"], [pgs*="_menu-buttonIcon\5B"]) {
+    [pgs~="_menu-buttonIcon"] {
         --button-size: 0.9rem;
         margin-right: -15px;
         margin-block: auto;

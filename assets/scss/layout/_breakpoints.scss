@@ -4,148 +4,148 @@
 //- MEDIA MAX
 
 @media (max-width: $watch) {
-    :is([pgs~="hideMediaDownWatch"], [pgs*="hideMediaDownWatch\5B"]) {
+    [pgs~="hideMediaDownWatch"] {
         display: none !important;
     }
 }
 
 @media (max-width: $mobile) {
-    :is([pgs~="hideMediaDownMobile"], [pgs*="hideMediaDownMobile\5B"]) {
+    [pgs~="hideMediaDownMobile"] {
         display: none !important;
     }
 }
 
 @media (max-width: $big-mobile) {
-    :is([pgs~="hideMediaDownBigMobile"], [pgs*="hideMediaDownBigMobile\5B"]) {
+    [pgs~="hideMediaDownBigMobile"] {
         display: none !important;
     }
 }
 
 @media (max-width: $tablet) {
-    :is([pgs~="hideMediaDownTablet"], [pgs*="hideMediaDownTablet\5B"]) {
+    [pgs~="hideMediaDownTablet"] {
         display: none !important;
     }
 }
 
 @media (max-width: $big-tablet) {
-    :is([pgs~="hideMediaDownBigTablet"], [pgs*="hideMediaDownBigTablet\5B"]) {
+    [pgs~="hideMediaDownBigTablet"] {
         display: none !important;
     }
 }
 
 @media (max-width: $laptop) {
-    :is([pgs~="hideMediaDownLaptop"], [pgs*="hideMediaDownLaptop\5B"]) {
+    [pgs~="hideMediaDownLaptop"] {
         display: none !important;
     }
 }
 
 //+ MEDIA MIN
 @media (min-width: $watch) {
-    :is([pgs~="hideMediaUpWatch"], [pgs*="hideMediaUpWatch\5B"]) {
+    [pgs~="hideMediaUpWatch"] {
         display: none !important;
     }
 }
 
 @media (min-width: $mobile) {
-    :is([pgs~="hideMediaUpMobile"], [pgs*="hideMediaUpMobile\5B"]) {
+    [pgs~="hideMediaUpMobile"] {
         display: none !important;
     }
 }
 
 @media (min-width: $big-mobile) {
-    :is([pgs~="hideMediaUpBigMobile"], [pgs*="hideMediaUpBigMobile\5B"]) {
+    [pgs~="hideMediaUpBigMobile"] {
         display: none !important;
     }
 }
 
 @media (min-width: $tablet) {
-    :is([pgs~="hideMediaUpTablet"], [pgs*="hideMediaUpTablet\5B"]) {
+    [pgs~="hideMediaUpTablet"] {
         display: none !important;
     }
 }
 
 @media (min-width: $big-tablet) {
-    :is([pgs~="hideMediaUpBigTablet"], [pgs*="hideMediaUpBigTablet\5B"]) {
+    [pgs~="hideMediaUpBigTablet"] {
         display: none !important;
     }
 }
 
 @media (min-width: $laptop) {
-    :is([pgs~="hideMediaUpLaptop"], [pgs*="hideMediaUpLaptop\5B"]) {
+    [pgs~="hideMediaUpLaptop"] {
         display: none !important;
     }
 }
 
 //-( CONTAINER MAX
 @container (max-width: #{$watch}) {
-    :is([pgs~="hideContainerDownWatch"], [pgs*="hideContainerDownWatch\5B"]) {
+    [pgs~="hideContainerDownWatch"] {
         display: none !important;
     }
 }
 
 @container (max-width: #{$mobile}) {
-    :is([pgs~="hideContainerDownMobile"], [pgs*="hideContainerDownMobile\5B"]) {
+    [pgs~="hideContainerDownMobile"] {
         display: none !important;
     }
 }
 
 @container (max-width: #{$big-mobile}) {
-    :is([pgs~="hideContainerDownBigMobile"], [pgs*="hideContainerDownBigMobile\5B"]) {
+    [pgs~="hideContainerDownBigMobile"] {
         display: none !important;
     }
 }
 
 @container (max-width: #{$tablet}) {
-    :is([pgs~="hideContainerDownTablet"], [pgs*="hideContainerDownTablet\5B"]) {
+    [pgs~="hideContainerDownTablet"] {
         display: none !important;
     }
 }
 
 @container (max-width: #{$big-tablet}) {
-    :is([pgs~="hideContainerDownBigTablet"], [pgs*="hideContainerDownBigTablet\5B"]) {
+    [pgs~="hideContainerDownBigTablet"] {
         display: none !important;
     }
 }
 
 @container (max-width: #{$laptop}) {
-    :is([pgs~="hideContainerDownLaptop"], [pgs*="hideContainerDownLaptop\5B"]) {
+    [pgs~="hideContainerDownLaptop"] {
         display: none !important;
     }
 }
 
 //+( CONTAINER MIN
 @container (min-width: #{$watch}) {
-    :is([pgs~="hideContainerUpWatch"], [pgs*="hideContainerUpWatch\5B"]) {
+    [pgs~="hideContainerUpWatch"] {
         display: none !important;
     }
 }
 
 @container (min-width: #{$mobile}) {
-    :is([pgs~="hideContainerUpMobile"], [pgs*="hideContainerUpMobile\5B"]) {
+    [pgs~="hideContainerUpMobile"] {
         display: none !important;
     }
 }
 
 @container (min-width: #{$big-mobile}) {
-    :is([pgs~="hideContainerUpBigMobile"], [pgs*="hideContainerUpBigMobile\5B"]) {
+    [pgs~="hideContainerUpBigMobile"] {
         display: none !important;
     }
 }
 
 @container (min-width: #{$tablet}) {
-    :is([pgs~="hideContainerUpTablet"], [pgs*="hideContainerUpTablet\5B"]) {
+    [pgs~="hideContainerUpTablet"] {
         display: none !important;
     }
 }
 
 @container (min-width: #{$big-tablet}) {
-    :is([pgs~="hideContainerUpBigTablet"], [pgs*="hideContainerUpBigTablet\5B"]) {
+    [pgs~="hideContainerUpBigTablet"] {
         display: none !important;
     }
 }
 
 @container (min-width: #{$laptop}) {
-    :is([pgs~="hideContainerUpLaptop"], [pgs*="hideContainerUpLaptop\5B"]) {
+    [pgs~="hideContainerUpLaptop"] {
         display: none !important;
     }
 }

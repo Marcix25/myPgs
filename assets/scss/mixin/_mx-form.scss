@@ -59,8 +59,8 @@
 @mixin required() {
     position: relative;
 
-    :is([pgs~="form-requiredHere"], [pgs*="form-requiredHere\5B"]),
-    &:not(:has(:is([pgs~="form-requiredHere"], [pgs*="form-requiredHere\5B"]))) {
+    [pgs~="form-requiredHere"],
+    &:not(:has([pgs~="form-requiredHere"])) {
         &::after {
             content: "*";
             color: var(--color-error);
@@ -73,7 +73,7 @@
         }
     }
 
-    :is([pgs~="form-requiredHere"], [pgs*="form-requiredHere\5B"]) {
+    [pgs~="form-requiredHere"] {
         &::after {
             position: relative;
         }
@@ -380,21 +380,21 @@
     label {
         display: block;
 
-        &:not(:has(:is([pgs~="label"], [pgs*="label\5B"]), :is([pgs~="labelUnset"], [pgs*="labelUnset\5B"]), +input[type=checkbox], +input[type=radio])) {
+        &:not(:has([pgs~="label"], [pgs~="labelUnset"], +input[type=checkbox], +input[type=radio])) {
             &:has(+input, +select, +textarea) {
                 @include label();
             }
         }
 
-        &:has(+[hidden], :is([pgs~="hidden"], [pgs*="hidden\5B"])),
-        &:has([hidden], :is([pgs~="hidden"], [pgs*="hidden\5B"])) {
+        &:has(+[hidden], [pgs~="hidden"]),
+        &:has([hidden], [pgs~="hidden"]) {
             display: none !important;
         }
     }
 
     //=== INPUT
     input {
-        &:not(:is([pgs~="inputUnset"], [pgs*="inputUnset\5B"]), [type=checkbox], [type=file], [type=radio], [type=range]) {
+        &:not([pgs~="inputUnset"], [type=checkbox], [type=file], [type=radio], [type=range]) {
             @include input();
         }
 
@@ -433,7 +433,7 @@
     }
 
     //==== CHECKBOX
-    $not-checkbox: ':is([pgs~="button"], [pgs*="button\5B"]), :is([pgs~="toggle"], [pgs*="toggle\5B"]), :is([pgs~="chip"], [pgs*="chip\5B"]), :is([pgs~="checkboxBackground"], [pgs*="checkboxBackground\5B"]), :is([pgs~="chips"], [pgs*="chips\5B"]) label';
+    $not-checkbox: ':is([pgs~="button"], [pgs*="button\5B"]), [pgs~="toggle"], [pgs~="chip"], [pgs~="checkboxBackground"], [pgs~="chips"] label';
 
     label:has(input[type=checkbox]):not(#{$not-checkbox}),
     label:has(input[type=radio]):not(#{$not-checkbox}) {
@@ -481,11 +481,11 @@
         > select[required],
         > textarea[required]),
     fieldset:has(input[type="checkbox"][required], input[type="radio"][required]) legend {
-        &:not(:has(:is([pgs~="label"], [pgs*="label\5B"]))) {
+        &:not(:has([pgs~="label"])) {
             @include required();
         }
 
-        :is([pgs~="label"], [pgs*="label\5B"]) {
+        [pgs~="label"] {
             @include required();
         }
     }

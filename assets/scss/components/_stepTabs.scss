@@ -1,8 +1,8 @@
 @use "../mixin/mixin" as *;
 
-:is([pgs~="stepTabs"], [pgs*="stepTabs\5B"]) {
-    :is([pgs~="stepTabs-container"], [pgs*="stepTabs-container\5B"]) {
-        :is([pgs~="stepTabs-container-tab"], [pgs*="stepTabs-container-tab\5B"]) {
+[pgs~="stepTabs"] {
+    [pgs~="stepTabs-container"] {
+        [pgs~="stepTabs-container-tab"] {
             //option for suggestions
             &[pgs-data~="stepTabsIcon[]"] {}
 
@@ -14,16 +14,16 @@
         }
     }
 
-    :is([pgs~="stepTabs-next"], [pgs*="stepTabs-next\5B"]) {
+    [pgs~="stepTabs-next"] {
         --button-background: var(--color-primary);
         --button-color: var(--color-whiteFixed);
     }
 
     //read by the JavaScript only, declared here so editors suggest it: styling comes from the button component
-    :is([pgs~="stepTabs-prev"], [pgs*="stepTabs-prev\5B"]),
-    :is([pgs~="stepTabs-restart"], [pgs*="stepTabs-restart\5B"]) {}
+    [pgs~="stepTabs-prev"],
+    [pgs~="stepTabs-restart"] {}
 
-    :is([pgs~="stepTabs-dots"], [pgs*="stepTabs-dots\5B"]) {
+    [pgs~="stepTabs-dots"] {
         display: flex;
         gap: var(--gap-texts);
         justify-content: space-between;
@@ -42,7 +42,7 @@
             z-index: -1;
         }
 
-        :is([pgs~="_stepTabs-dots-dot"], [pgs*="_stepTabs-dots-dot\5B"]) {
+        [pgs~="_stepTabs-dots-dot"] {
             border-radius: 50%;
             --icon-size: 1.8rem;
 

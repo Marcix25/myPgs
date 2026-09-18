@@ -1,42 +1,42 @@
 //# LAYOUT, CONTENT & INTERACTION UTILITIES
 
 //= DISPLAY & FLEX ITEMS
-:is([pgs~="block"], [pgs*="block\5B"]) {
+[pgs~="block"] {
     display: block;
 }
 
-:is([pgs~="minWidth0"], [pgs*="minWidth0\5B"]) {
+[pgs~="minWidth0"] {
     min-width: 0;
 }
 
 
 //= POSITION
-:is([pgs~="positionRelative"], [pgs*="positionRelative\5B"]) {
+[pgs~="positionRelative"] {
     position: relative;
 }
 
-:is([pgs~="positionAbsolute"], [pgs*="positionAbsolute\5B"]) {
+[pgs~="positionAbsolute"] {
     position: absolute;
 }
 
-:is([pgs~="positionSticky"], [pgs*="positionSticky\5B"]) {
+[pgs~="positionSticky"] {
     position: sticky;
 }
 
 //= OVERFLOW & TEXT
-:is([pgs~="overflowAuto"], [pgs*="overflowAuto\5B"]) {
+[pgs~="overflowAuto"] {
     overflow: auto;
 }
 
-:is([pgs~="overflowXAuto"], [pgs*="overflowXAuto\5B"]) {
+[pgs~="overflowXAuto"] {
     overflow-x: auto;
 }
 
-:is([pgs~="overflowHidden"], [pgs*="overflowHidden\5B"]) {
+[pgs~="overflowHidden"] {
     overflow: hidden;
 }
 
-:is([pgs~="truncate"], [pgs*="truncate\5B"]) {
+[pgs~="truncate"] {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -44,50 +44,50 @@
 }
 
 //= ASPECT RATIO
-:is([pgs~="aspectSquare"], [pgs*="aspectSquare\5B"]) {
+[pgs~="aspectSquare"] {
     aspect-ratio: 1 / 1;
 }
 
-:is([pgs~="aspectVideo"], [pgs*="aspectVideo\5B"]) {
+[pgs~="aspectVideo"] {
     aspect-ratio: 16 / 9;
 }
 
 //= ROTATION
-:is([pgs~="rotate0"], [pgs*="rotate0\5B"]) {
+[pgs~="rotate0"] {
     transform: rotate(0deg);
 }
 
-:is([pgs~="rotate90"], [pgs*="rotate90\5B"]) {
+[pgs~="rotate90"] {
     transform: rotate(90deg);
 }
 
-:is([pgs~="rotate180"], [pgs*="rotate180\5B"]) {
+[pgs~="rotate180"] {
     transform: rotate(180deg);
 }
 
-:is([pgs~="rotate270"], [pgs*="rotate270\5B"]) {
+[pgs~="rotate270"] {
     transform: rotate(270deg);
 }
 
 //= INTERACTION
-:is([pgs~="selectNone"], [pgs*="selectNone\5B"]) {
+[pgs~="selectNone"] {
     -webkit-user-select:none;
     user-select: none;
 }
 
-:is([pgs~="selectText"], [pgs*="selectText\5B"]) {
+[pgs~="selectText"] {
     -webkit-user-select:text;
     user-select: text;
 }
 
-:is([pgs~="pointerEventsNone"], [pgs*="pointerEventsNone\5B"]) {
+[pgs~="pointerEventsNone"] {
     pointer-events: none;
 }
 
-:is([pgs~="pointerEventsAuto"], [pgs*="pointerEventsAuto\5B"]) {
+[pgs~="pointerEventsAuto"] {
     pointer-events: auto;
 }
 
-:is([pgs~="cursorNotAllowed"], [pgs*="cursorNotAllowed\5B"]) {
+[pgs~="cursorNotAllowed"] {
     cursor: not-allowed;
 }

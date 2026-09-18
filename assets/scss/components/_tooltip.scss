@@ -1,15 +1,15 @@
-:is([pgs~="tooltip"], [pgs*="tooltip\5B"]):is([pgs~="dropdown"], [pgs*="dropdown\5B"]) {
+[pgs~="tooltip"]:is([pgs~="dropdown"], [pgs*="dropdown\5B"]) {
     --dropdown-padding: 15px;
     --tooltip-arrow-size: 7px;
 
-    :is([pgs~="tooltip-button"], [pgs*="tooltip-button\5B"]):is([pgs~="dropdown-button"], [pgs*="dropdown-button\5B"]) {
+    [pgs~="tooltip-button"][pgs~="dropdown-button"] {
         --icon-size: .9rem;
     }
 
     //== the arrow that says which trigger this tooltip belongs to: two stacked triangles, the
     //== outer one in the border colour and the inner one in the background, offset by the same
     //== border width, so the arrow reads as an extension of the box instead of a flat cutout
-    :is([pgs~="tooltip-content"], [pgs*="tooltip-content\5B"]):is([pgs~="dropdown-content"], [pgs*="dropdown-content\5B"]) {
+    [pgs~="tooltip-content"][pgs~="dropdown-content"] {
         //== the arrow sits entirely outside this box; dropdown-content's own overflow: auto (there
         //== for a generic scrollable panel) would otherwise clip it away
         overflow: visible;

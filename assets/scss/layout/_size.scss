@@ -70,8 +70,8 @@
 //== scrolls, which is what a page does anyway. And a percentage height only resolves against a
 //== parent that has a definite height, so wrapping it in min() would make the value indefinite in
 //== exactly the layouts where it is used
-:is([pgs~="height"], [pgs*="height\5B"]),
-:is([pgs~="heightMax"], [pgs*="heightMax\5B"]),
+[pgs~="height"],
+[pgs~="heightMax"],
 :is([pgs~="heightMin"], [pgs*="heightMin\5B"]) {
     --height-size: 100%;
 
@@ -123,12 +123,12 @@
     }
 }
 
-:is([pgs~="height"], [pgs*="height\5B"]) {
+[pgs~="height"] {
     height: var(--height-size);
 }
 
 //== a ceiling: pair it with an overflow utility, or the content simply spills out
-:is([pgs~="heightMax"], [pgs*="heightMax\5B"]) {
+[pgs~="heightMax"] {
     max-height: var(--height-size);
 }
 

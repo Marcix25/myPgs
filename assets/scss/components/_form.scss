@@ -1,44 +1,44 @@
 @use "../mixin/mixin" as *;
 
 //# FORM
-:is([pgs~="textarea"], [pgs*="textarea\5B"]) {
+[pgs~="textarea"] {
     @include textarea();
 }
 
-:is([pgs~="label"], [pgs*="label\5B"]) {
+[pgs~="label"] {
     @include label();
 }
 
-:is([pgs~="legend"], [pgs*="legend\5B"]) {
+[pgs~="legend"] {
     @include legend();
 }
 
-:is([pgs~="required"], [pgs*="required\5B"]) {
+[pgs~="required"] {
     @include required();
 }
 
-:is([pgs~="input"], [pgs*="input\5B"]) {
+[pgs~="input"] {
     @include input();
 }
 
-:is([pgs~="select"], [pgs*="select\5B"]) {
+[pgs~="select"] {
     @include select();
 }
 
-:is([pgs~="radio"], [pgs*="radio\5B"]),
-:is([pgs~="checkbox"], [pgs*="checkbox\5B"]) {
+[pgs~="radio"],
+[pgs~="checkbox"] {
     @include checkbox();
 }
 
-:is([pgs~="form"], [pgs*="form\5B"]) {
+[pgs~="form"] {
     @include form();
 }
 
-:is([pgs~="formValidate"], [pgs*="formValidate\5B"]) {
+[pgs~="formValidate"] {
     @include formValidate();
 }
 
-:is([pgs~="formValidate"], [pgs*="formValidate\5B"]) {
+[pgs~="formValidate"] {
     //option for suggestions: set on the field that fails, or on a descendant of the
     //fieldset that does, to override its default error title and text
     [pgs-data~="formMessageTitle[]"],

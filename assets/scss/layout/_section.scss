@@ -1,51 +1,51 @@
 @use "../mixin/mixin" as *;
 
 //# SEMANTIC
-:is([pgs~="main"], [pgs*="main\5B"]) {
+[pgs~="main"] {
     @include main;
 }
 
-:is([pgs~="sectionNoPadding"], [pgs*="sectionNoPadding\5B"]) {
+[pgs~="sectionNoPadding"] {
     @include sectionNoPadding;
 }
 
-:is([pgs~="section"], [pgs*="section\5B"]) {
+[pgs~="section"] {
     @include section;
 }
 
-:is([pgs~="sectionSpecificity"], [pgs*="sectionSpecificity\5B"]) {
-    @include sectionSpecifity-child(':is([pgs~="sectionSpecificity-child"], [pgs*="sectionSpecificity-child\5B"])');
+[pgs~="sectionSpecificity"] {
+    @include sectionSpecifity-child('[pgs~="sectionSpecificity-child"]');
 }
 
-:is([pgs~="sectionMax"], [pgs*="sectionMax\5B"]) {
+[pgs~="sectionMax"] {
     @include sectionMax;
 }
 
-:is([pgs~="sectionFull"], [pgs*="sectionFull\5B"]) {
+[pgs~="sectionFull"] {
     @include sectionFull;
 }
 
-:is([pgs~="sectionEdgeLeft"], [pgs*="sectionEdgeLeft\5B"]) {
+[pgs~="sectionEdgeLeft"] {
     @include sectionEdgeLeft;
 }
 
-:is([pgs~="sectionEdgeRight"], [pgs*="sectionEdgeRight\5B"]) {
+[pgs~="sectionEdgeRight"] {
     @include sectionEdgeRight;
 }
 
-:is([pgs~="sectionEdgeFlushLeft"], [pgs*="sectionEdgeFlushLeft\5B"]) {
+[pgs~="sectionEdgeFlushLeft"] {
     @include sectionEdgeFlushLeft;
 }
 
-:is([pgs~="sectionEdgeFlushRight"], [pgs*="sectionEdgeFlushRight\5B"]) {
+[pgs~="sectionEdgeFlushRight"] {
     @include sectionEdgeFlushRight;
 }
 
 //== CONTAINER
-:is([pgs~="container"], [pgs*="container\5B"]) {
+[pgs~="container"] {
     container-type: inline-size;
 }
 
-:is([pgs~="containerNone"], [pgs*="containerNone\5B"]) {
+[pgs~="containerNone"] {
     container-type: normal;
 }

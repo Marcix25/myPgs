@@ -1,49 +1,49 @@
 @use "../mixin/mixin" as *;
 
 //# GENERAL
-:is([pgs~="darkmode"], [pgs*="darkmode\5B"]) {
+[pgs~="darkmode"] {
     color-scheme: dark;
 }
 
-:is([pgs~="lightmode"], [pgs*="lightmode\5B"]) {
+[pgs~="lightmode"] {
     color-scheme: light;
 }
 
-:is([pgs~="blur"], [pgs*="blur\5B"]) {
+[pgs~="blur"] {
     -webkit-backdrop-filter: var(--blur);
     backdrop-filter: var(--blur);
 }
 
-:is([pgs~="appearanceNone"], [pgs*="appearanceNone\5B"]) {
+[pgs~="appearanceNone"] {
     all: unset;
     appearance: none;
 }
 
-:is([pgs~="pointer"], [pgs*="pointer\5B"]) {
+[pgs~="pointer"] {
     cursor: pointer;
 }
 
-:is([pgs~="hidden"], [pgs*="hidden\5B"]) {
+[pgs~="hidden"] {
     display: none !important;
 }
 
 //= LIST
-:is([pgs~="list"], [pgs*="list\5B"]) {
+[pgs~="list"] {
     @include list();
 }
 
-:is([pgs~="textShadow"], [pgs*="textShadow\5B"]) {
+[pgs~="textShadow"] {
     text-shadow: var(--text-shadow);
 }
 
-:is([pgs~="boxShadow"], [pgs*="boxShadow\5B"]) {
+[pgs~="boxShadow"] {
     box-shadow: var(--box-shadow);
 }
 
 //= ACCESSIBILITY
-:is([pgs~="visuallyHidden"], [pgs*="visuallyHidden\5B"]),
-:is([pgs~="visuallyHiddenFocusable"], [pgs*="visuallyHiddenFocusable\5B"]):not(:focus):not(:focus-within),
-:is([pgs~="skipLink"], [pgs*="skipLink\5B"]):not(:focus):not(:focus-visible) {
+[pgs~="visuallyHidden"],
+[pgs~="visuallyHiddenFocusable"]:not(:focus):not(:focus-within),
+[pgs~="skipLink"]:not(:focus):not(:focus-visible) {
     position: absolute !important;
     width: 1px !important;
     height: 1px !important;
@@ -55,12 +55,12 @@
     border: 0 !important;
 }
 
-:is([pgs~="focusRing"], [pgs*="focusRing\5B"]):focus-visible {
+[pgs~="focusRing"]:focus-visible {
     outline: var(--focus-visible);
     outline-offset: 3px;
 }
 
-:is([pgs~="skipLink"], [pgs*="skipLink\5B"]):focus-visible {
+[pgs~="skipLink"]:focus-visible {
     position: fixed;
     top: var(--gap-texts);
     left: var(--gap-texts);
@@ -75,9 +75,9 @@
 
 @media (prefers-reduced-motion: reduce) {
 
-    :is([pgs~="motionReduce"], [pgs*="motionReduce\5B"]),
-    :is([pgs~="motionReduce"], [pgs*="motionReduce\5B"])::before,
-    :is([pgs~="motionReduce"], [pgs*="motionReduce\5B"])::after {
+    [pgs~="motionReduce"],
+    [pgs~="motionReduce"]::before,
+    [pgs~="motionReduce"]::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         scroll-behavior: auto !important;
@@ -86,10 +86,10 @@
 }
 
 //= IMG
-:is([pgs~="imgCover"], [pgs*="imgCover\5B"]) {
+[pgs~="imgCover"] {
     object-fit: cover;
 }
 
-:is([pgs~="imgContain"], [pgs*="imgContain\5B"]) {
+[pgs~="imgContain"] {
     object-fit: contain;
 }

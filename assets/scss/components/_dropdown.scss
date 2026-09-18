@@ -15,15 +15,15 @@
     [pgs*="'dropdownHover'"] {}
     [pgs-data~="dropdownPosition[]"] {}
 
-    &:not([pgs-state~="open"])>:is([pgs~="dropdown-content"], [pgs*="dropdown-content\5B"]) {
+    &:not([pgs-state~="open"])>[pgs~="dropdown-content"] {
         display: none;
     }
 
-    &[pgs-state~="open"]>:is([pgs~="dropdown-content"], [pgs*="dropdown-content\5B"]) {
+    &[pgs-state~="open"]>[pgs~="dropdown-content"] {
         display: var(--dropdown-display);
     }
 
-    >:is([pgs~="dropdown-content"], [pgs*="dropdown-content\5B"]) {
+    >[pgs~="dropdown-content"] {
         position: fixed;
         inset: var(--dropdown-top) auto auto var(--dropdown-left);
         z-index: 1000;

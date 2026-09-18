@@ -1,4 +1,13 @@
 @use "../mixin/mixin" as *;
+
+//== modal-dialog keeps the full :is([pgs~=…], [pgs*=…\5B]) form on purpose, unlike every other
+//== hyphenated child token in this codebase (modal-dialog-content and the rest never carry a
+//== bracket of their own, so their selectors were simplified to a plain [pgs~=…]). The prefix in
+//== its name reads like a child, but it behaves like a second root: it is its own DOM element (the
+//== <dialog>, not the wrapper), the JavaScript can move it anywhere in the document independently
+//== of the wrapper, and it carries its own options (modalRight, modalMini, modalHistory, …)
+//== wherever it ends up. "Root" here means "gets its own bracket", not "has no prefix in its name"
+//== — see AGENTS-DEVELOPMENT.md for the general rule this follows.
 $modalDialogPgs: 'dialog:is([pgs~="modal-dialog"], [pgs*="modal-dialog\5B"])';
 
 html:has(dialog[open]) {
@@ -9,14 +18,27 @@ html:has(dialog[open]) {
 :is([pgs~="modal"], [pgs*="modal\5B"]) {
 
     //== MODAL BUTTON
-    :is([pgs~="modal-button"], [pgs*="modal-button\5B"]) {}
+    [pgs~="modal-button"] {}
 
-    //#OPTION
+    //- DATA
     //== read by the JavaScript only: declared here so editors suggest them
     &[pgs-data~="modalContainerID[]"],
     &[pgs-data~="modalContainerPGS[]"] {}
-
-    &[pgs*="'modalHistory'"] {}
+    
+    //== the flag-copy loop in _modal.js lets any of these be authored on modal or modal-dialog
+    //== alike, so both are declared here too, for editors to suggest them on either
+    //+ OPTION
+    &[pgs*="'modalHistory'"],
+    &[pgs*="'modalTopLevel'"],
+    &[pgs*="'modalDisableBackdropClose'"],
+    &[pgs*="'modalMini'"],
+    &[pgs*="'modalMedium'"],
+    &[pgs*="'modalFull'"],
+    &[pgs*="'modalCenter'"],
+    &[pgs*="'modalLeft'"],
+    &[pgs*="'modalRight'"],
+    &[pgs*="'modalTop'"],
+    &[pgs*="'modalBottom'"] {}
 }
 
 //= DIALOG 
@@ -67,7 +89,7 @@ html:has(dialog[open]) {
     }
 
     //=== CONTENT
-    :is([pgs~="modal-dialog-content"], [pgs*="modal-dialog-content\5B"]) {
+    [pgs~="modal-dialog-content"] {
         @include sectionNoPadding();
         margin-inline: unset;
         padding: 0;
@@ -81,7 +103,7 @@ html:has(dialog[open]) {
         padding: var(--modal-content-padding);
 
         //==== HEADER
-        :is([pgs~="modal-dialog-content-header"], [pgs*="modal-dialog-content-header\5B"]) {
+        [pgs~="modal-dialog-content-header"] {
             @include flexRow(nowrap);
             z-index: 1;
             border-bottom: var(--border-complete);
@@ -94,30 +116,30 @@ html:has(dialog[open]) {
                 outline: none;
             }
 
-            :is([pgs~="modal-close"], [pgs*="modal-close\5B"]) {
+            [pgs~="modal-close"] {
                 margin-left: auto;
             }
         }
 
         //=== SCROLL
-        &:has(:is([pgs~="modal-dialog-content-scroll"], [pgs*="modal-dialog-content-scroll\5B"])) {
+        &:has([pgs~="modal-dialog-content-scroll"]) {
             max-height: 100%;
             overflow: hidden;
         }
 
-        :is([pgs~="modal-dialog-content-scroll"], [pgs*="modal-dialog-content-scroll\5B"]) {
+        [pgs~="modal-dialog-content-scroll"] {
             overflow: auto;
             overscroll-behavior: contain;
             max-height: 100%;
 
-            &:has(~:is([pgs~="modal-dialog-content-header"], [pgs*="modal-dialog-content-header\5B"])) {
+            &:has(~[pgs~="modal-dialog-content-header"]) {
                 padding-top: calc(var(--modal-content-padding) / 2);
             }
         }
     }
 
     //== CLOSE
-    >:is([pgs~="modal-close"], [pgs*="modal-close\5B"]) {
+    >[pgs~="modal-close"] {
         position: fixed !important;
         right: var(--page-padding);
         top: calc(var(--heightOfHeaderScroll) + var(--padding));
@@ -141,21 +163,21 @@ html:has(dialog[open]) {
     //== SIZE
     //=== MINI
     &[pgs*="'modalMini'"]:where(#{$modalDialogPgs}) {
-        :is([pgs~="modal-dialog-content"], [pgs*="modal-dialog-content\5B"]) {
+        [pgs~="modal-dialog-content"] {
             --section-width: min(calc(var(--page-width)/3), 100%);
         }
     }
 
     //=== MEDIUM
     &[pgs*="'modalMedium'"]:where(#{$modalDialogPgs}) {
-        :is([pgs~="modal-dialog-content"], [pgs*="modal-dialog-content\5B"]) {
+        [pgs~="modal-dialog-content"] {
             --section-width: min(calc(var(--page-width)/2), 100%);
         }
     }
 
     //=== Full
     &[pgs*="'modalFull'"]:where(#{$modalDialogPgs}) {
-        :is([pgs~="modal-dialog-content"], [pgs*="modal-dialog-content\5B"]) {
+        [pgs~="modal-dialog-content"] {
             --section-width: 100%;
         }
     }

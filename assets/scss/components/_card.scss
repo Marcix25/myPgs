@@ -6,20 +6,20 @@
     flex-flow: row wrap;
     
     > :is(object, img),
-    :is([pgs~="card-img"], [pgs*="card-img\5B"]),
-    :is([pgs~="card-content"], [pgs*="card-content\5B"]) {
+    [pgs~="card-img"],
+    [pgs~="card-content"] {
         border-radius: var(--card-horizontal-borderRadius-item);
         //== basis 0 alongside flex-grow is what turns the two grow values below into an exact
         //== ratio (2:3, the 40/60 split) instead of a share of whatever space is left over after
         flex-basis: 0;
     }
 
-    :is([pgs~="card-content"], [pgs*="card-content\5B"]) {
+    [pgs~="card-content"] {
         flex-grow: var(--card-horizontal-content-grow);
     }
 
     > :is(object, img),
-    :is([pgs~="card-img"], [pgs*="card-img\5B"]) {
+    [pgs~="card-img"] {
         flex-grow: var(--card-horizontal-img-grow);
         min-height: var(--card-horizontal-img-minHeight);
     }
@@ -40,7 +40,7 @@
 
 //# CARD, BOX
 //= CARD
-// Not a mixin: its content structure requires the :is([pgs~="card-content"], [pgs*="card-content\5B"]) child to be marked with
+// Not a mixin: its content structure requires the [pgs~="card-content"] child to be marked with
 // pgs, so it only makes sense written on the :is([pgs~="card"], [pgs*="card\5B"]) element itself.
 :is([pgs~="card"], [pgs*="card\5B"]) {
     --card-padding: var(--padding);
@@ -62,7 +62,7 @@
         border: var(--border-complete);
         --card-background: var(--color-white);
 
-        &:not(:where(:is([pgs~="bodyHoverAuto"], [pgs*="bodyHoverAuto\5B"]) :is([pgs~="card"], [pgs*="card\5B"]))) {
+        &:not(:where([pgs~="bodyHoverAuto"] :is([pgs~="card"], [pgs*="card\5B"]))) {
             @include _cardHover();
         }
     }
@@ -73,7 +73,7 @@
         flex-basis: 100%;
 
         > :is(object, img),
-        :is([pgs~="card-img"], [pgs*="card-img\5B"]) {
+        [pgs~="card-img"] {
             display: block;
             padding: var(--card-img-padding);
             width: 100%;
@@ -85,15 +85,15 @@
             border-radius: var(--card-borderRadius-item);
         }
 
-        :is([pgs~="card-content"], [pgs*="card-content\5B"]) {
+        [pgs~="card-content"] {
             min-width: 0;
             padding: var(--card-padding);
 
-            &:has(+:is([pgs~="card-content"], [pgs*="card-content\5B"])) {
+            &:has(+[pgs~="card-content"]) {
                 padding-bottom: calc(var(--card-padding)/ 2);
             }
 
-            +:is([pgs~="card-content"], [pgs*="card-content\5B"]) {
+            +[pgs~="card-content"] {
                 padding-top: calc(var(--card-padding)/ 2);
             }
         }
@@ -146,6 +146,6 @@
 }
 
 //= BOX
-:is([pgs~="box"], [pgs*="box\5B"]) {
+[pgs~="box"] {
     @include box();
 }
