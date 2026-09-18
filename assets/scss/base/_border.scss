@@ -3,29 +3,29 @@
 //# BORDER - BORDER RADIUS - OUTLINE
 //= BORDER
 //== draws the shared border, so the br* colour utilities have something to recolour
-[pgs~="border"] {
+:is([pgs~="border"], [pgs*="border\5B"]) {
     border: var(--border-width) solid var(--border-color);
 }
 
 //== one side at a time, named like the margin and padding utilities. The br* colour utilities
 //== set border-color, which only shows on the side that is actually drawn
-[pgs~="borderTop"] {
+:is([pgs~="borderTop"], [pgs*="borderTop\5B"]) {
     border-top: var(--border-width) solid var(--border-color);
 }
 
-[pgs~="borderRight"] {
+:is([pgs~="borderRight"], [pgs*="borderRight\5B"]) {
     border-right: var(--border-width) solid var(--border-color);
 }
 
-[pgs~="borderBottom"] {
+:is([pgs~="borderBottom"], [pgs*="borderBottom\5B"]) {
     border-bottom: var(--border-width) solid var(--border-color);
 }
 
-[pgs~="borderLeft"] {
+:is([pgs~="borderLeft"], [pgs*="borderLeft\5B"]) {
     border-left: var(--border-width) solid var(--border-color);
 }
 
-[pgs~="borderInline"] {
+:is([pgs~="borderInline"], [pgs*="borderInline\5B"]) {
     border-inline: var(--border-width) solid var(--border-color);
 }
 
@@ -33,13 +33,13 @@
     border-block: var(--border-width) solid var(--border-color);
 }
 
-[pgs~="border"],
-[pgs~="borderTop"],
-[pgs~="borderRight"],
-[pgs~="borderBottom"],
-[pgs~="borderLeft"],
-[pgs~="borderInline"],
-:is([pgs~="borderBlock"], [pgs*="borderBlock\5B"]) {
+:is([pgs~="border"], [pgs*="border\5B"],
+    [pgs~="borderTop"], [pgs*="borderTop\5B"],
+    [pgs~="borderRight"], [pgs*="borderRight\5B"],
+    [pgs~="borderBottom"], [pgs*="borderBottom\5B"],
+    [pgs~="borderLeft"], [pgs*="borderLeft\5B"],
+    [pgs~="borderInline"], [pgs*="borderInline\5B"],
+    [pgs~="borderBlock"], [pgs*="borderBlock\5B"]) {
     &[pgs*="'thin'"] {
         --border-width: 1px;
     }

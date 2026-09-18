@@ -1,12 +1,12 @@
 //# SPACING
 //= MARGIN
-:is([pgs~="margin"], [pgs*="margin\5B"]),
-:is([pgs~="marginLeft"], [pgs*="marginLeft\5B"]),
-:is([pgs~="marginRight"], [pgs*="marginRight\5B"]),
-:is([pgs~="marginBottom"], [pgs*="marginBottom\5B"]),
-:is([pgs~="marginTop"], [pgs*="marginTop\5B"]),
-:is([pgs~="marginInline"], [pgs*="marginInline\5B"]),
-:is([pgs~="marginBlock"], [pgs*="marginBlock\5B"]) {
+:is([pgs~="margin"], [pgs*="margin\5B"],
+    [pgs~="marginLeft"], [pgs*="marginLeft\5B"],
+    [pgs~="marginRight"], [pgs*="marginRight\5B"],
+    [pgs~="marginBottom"], [pgs*="marginBottom\5B"],
+    [pgs~="marginTop"], [pgs*="marginTop\5B"],
+    [pgs~="marginInline"], [pgs*="marginInline\5B"],
+    [pgs~="marginBlock"], [pgs*="marginBlock\5B"]) {
     --margin-size: var(--padding);
 
     &[pgs*="'margin2'"] {
@@ -95,13 +95,13 @@
 }
 
 //= PADDING
-[pgs~="padding"],
-[pgs~="paddingLeft"],
-[pgs~="paddingRight"],
-[pgs~="paddingBottom"],
-[pgs~="paddingTop"],
-[pgs~="paddingInline"],
-:is([pgs~="paddingBlock"], [pgs*="paddingBlock\5B"]) {
+:is([pgs~="padding"], [pgs*="padding\5B"],
+    [pgs~="paddingLeft"], [pgs*="paddingLeft\5B"],
+    [pgs~="paddingRight"], [pgs*="paddingRight\5B"],
+    [pgs~="paddingBottom"], [pgs*="paddingBottom\5B"],
+    [pgs~="paddingTop"], [pgs*="paddingTop\5B"],
+    [pgs~="paddingInline"], [pgs*="paddingInline\5B"],
+    [pgs~="paddingBlock"], [pgs*="paddingBlock\5B"]) {
     --padding-size: var(--padding);
 
     &[pgs*="'padding2'"] {
@@ -129,27 +129,27 @@
     }
 }
 
-[pgs~="padding"] {
+:is([pgs~="padding"], [pgs*="padding\5B"]) {
     padding: var(--padding-size);
 }
 
-[pgs~="paddingLeft"] {
+:is([pgs~="paddingLeft"], [pgs*="paddingLeft\5B"]) {
     padding-left: var(--padding-size);
 }
 
-[pgs~="paddingRight"] {
+:is([pgs~="paddingRight"], [pgs*="paddingRight\5B"]) {
     padding-right: var(--padding-size);
 }
 
-[pgs~="paddingBottom"] {
+:is([pgs~="paddingBottom"], [pgs*="paddingBottom\5B"]) {
     padding-bottom: var(--padding-size);
 }
 
-[pgs~="paddingTop"] {
+:is([pgs~="paddingTop"], [pgs*="paddingTop\5B"]) {
     padding-top: var(--padding-size);
 }
 
-[pgs~="paddingInline"] {
+:is([pgs~="paddingInline"], [pgs*="paddingInline\5B"]) {
     padding-inline: var(--padding-size);
 }
 
