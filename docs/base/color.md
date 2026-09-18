@@ -141,14 +141,14 @@ Interactive palette of the current MyPGS background and text color utilities.
 
 ### PGS Options (component brackets)
 
-- `boxMini`: applies the compact box presentation to each palette group.
-- `buttonIcon`: makes each background color trigger a compact circular button.
-- `dropdownHover`: opens each background color tooltip while its circle is hovered.
+- `mini`: applies the compact box presentation to each palette group.
+- `iconOnly`: makes each background color trigger a compact circular button.
+- `hover`: opens each background color tooltip while its circle is hovered.
 - `gapElements`: spaces the background and text color groups.
 - `gapTexts`: spaces individual palette entries.
 - `wrap`: lets palette entries wrap on narrow viewports.
-- `flexColumn`: stacks palette groups vertically.
-- `flexRow`: arranges palette entries in flexible rows.
+- `column`: stacks palette groups vertically.
+- `row`: arranges palette entries in flexible rows.
 
 ## CSS Variables
 

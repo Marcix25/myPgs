@@ -692,11 +692,11 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --darkmode-label-toLight: "Light mode";
 }
 
-:is([pgs~=toggleDarkmode], [pgs*="toggleDarkmode["])[pgs*="'toggleDarkmodeExtended'"]::after {
+:is([pgs~=toggleDarkmode], [pgs*="toggleDarkmode["])[pgs*="'labelled'"]::after {
   content: var(--darkmode-label-toDark);
 }
 
-:root[pgs-state~=darkmode] :is([pgs~=toggleDarkmode], [pgs*="toggleDarkmode["])[pgs*="'toggleDarkmodeExtended'"]::after {
+:root[pgs-state~=darkmode] :is([pgs~=toggleDarkmode], [pgs*="toggleDarkmode["])[pgs*="'labelled'"]::after {
   content: var(--darkmode-label-toLight);
 }
 
@@ -1162,20 +1162,20 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   justify-content: center;
 }
 
-:is([pgs~=flex], [pgs*="flex["])[pgs*="'flexColumn'"] {
+:is([pgs~=flex], [pgs*="flex["])[pgs*="'column'"] {
   flex-direction: column;
   flex-wrap: nowrap;
 }
 
-:is([pgs~=flex], [pgs*="flex["])[pgs*="'flexRow'"] {
+:is([pgs~=flex], [pgs*="flex["])[pgs*="'row'"] {
   flex-direction: row;
 }
 
-:is([pgs~=flex], [pgs*="flex["])[pgs*="'flexColumnReverse'"] {
+:is([pgs~=flex], [pgs*="flex["])[pgs*="'columnReverse'"] {
   flex-direction: column-reverse;
 }
 
-:is([pgs~=flex], [pgs*="flex["])[pgs*="'flexRowReverse'"] {
+:is([pgs~=flex], [pgs*="flex["])[pgs*="'rowReverse'"] {
   flex-direction: row-reverse;
 }
 
@@ -1826,63 +1826,63 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --margin-size: var(--padding-half);
 }
 
-:is([pgs~=margin], [pgs*="margin["])[pgs*="'marginPage'"],
-:is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'marginPage'"],
-:is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'marginPage'"],
-:is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'marginPage'"],
-:is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'marginPage'"],
-:is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'marginPage'"],
-:is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'marginPage'"] {
+:is([pgs~=margin], [pgs*="margin["])[pgs*="'page'"],
+:is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'page'"],
+:is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'page'"],
+:is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'page'"],
+:is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'page'"],
+:is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'page'"],
+:is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'page'"] {
   --margin-size: var(--page-padding);
 }
 
-:is([pgs~=margin], [pgs*="margin["])[pgs*="'marginTexts'"],
-:is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'marginTexts'"],
-:is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'marginTexts'"],
-:is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'marginTexts'"],
-:is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'marginTexts'"],
-:is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'marginTexts'"],
-:is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'marginTexts'"] {
+:is([pgs~=margin], [pgs*="margin["])[pgs*="'texts'"],
+:is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'texts'"],
+:is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'texts'"],
+:is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'texts'"],
+:is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'texts'"],
+:is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'texts'"],
+:is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'texts'"] {
   --margin-size: var(--gap-texts);
 }
 
-:is([pgs~=margin], [pgs*="margin["])[pgs*="'marginElements'"],
-:is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'marginElements'"],
-:is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'marginElements'"],
-:is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'marginElements'"],
-:is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'marginElements'"],
-:is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'marginElements'"],
-:is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'marginElements'"] {
+:is([pgs~=margin], [pgs*="margin["])[pgs*="'elements'"],
+:is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'elements'"],
+:is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'elements'"],
+:is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'elements'"],
+:is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'elements'"],
+:is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'elements'"],
+:is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'elements'"] {
   --margin-size: var(--gap-elements);
 }
 
-:is([pgs~=margin], [pgs*="margin["])[pgs*="'marginSections'"],
-:is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'marginSections'"],
-:is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'marginSections'"],
-:is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'marginSections'"],
-:is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'marginSections'"],
-:is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'marginSections'"],
-:is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'marginSections'"] {
+:is([pgs~=margin], [pgs*="margin["])[pgs*="'sections'"],
+:is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'sections'"],
+:is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'sections'"],
+:is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'sections'"],
+:is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'sections'"],
+:is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'sections'"],
+:is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'sections'"] {
   --margin-size: var(--gap-sections);
 }
 
-:is([pgs~=margin], [pgs*="margin["])[pgs*="'marginAuto'"],
-:is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'marginAuto'"],
-:is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'marginAuto'"],
-:is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'marginAuto'"],
-:is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'marginAuto'"],
-:is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'marginAuto'"],
-:is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'marginAuto'"] {
+:is([pgs~=margin], [pgs*="margin["])[pgs*="'auto'"],
+:is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'auto'"],
+:is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'auto'"],
+:is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'auto'"],
+:is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'auto'"],
+:is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'auto'"],
+:is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'auto'"] {
   --margin-size: auto;
 }
 
-:is([pgs~=margin], [pgs*="margin["])[pgs*="'marginUnset'"],
-:is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'marginUnset'"],
-:is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'marginUnset'"],
-:is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'marginUnset'"],
-:is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'marginUnset'"],
-:is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'marginUnset'"],
-:is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'marginUnset'"] {
+:is([pgs~=margin], [pgs*="margin["])[pgs*="'unset'"],
+:is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'unset'"],
+:is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'unset'"],
+:is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'unset'"],
+:is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'unset'"],
+:is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'unset'"],
+:is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'unset'"] {
   --margin-size: unset;
 }
 
@@ -1890,7 +1890,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   margin: var(--margin-size);
 }
 
-:is([pgs~=margin], [pgs*="margin["])[pgs*="'marginNegative'"] {
+:is([pgs~=margin], [pgs*="margin["])[pgs*="'negative'"] {
   margin: calc(var(--margin-size) * -1);
 }
 
@@ -1898,7 +1898,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   margin-left: var(--margin-size);
 }
 
-:is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'marginNegative'"] {
+:is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'negative'"] {
   margin-left: calc(var(--margin-size) * -1);
 }
 
@@ -1906,7 +1906,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   margin-right: var(--margin-size);
 }
 
-:is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'marginNegative'"] {
+:is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'negative'"] {
   margin-right: calc(var(--margin-size) * -1);
 }
 
@@ -1914,7 +1914,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   margin-bottom: var(--margin-size);
 }
 
-:is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'marginNegative'"] {
+:is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'negative'"] {
   margin-bottom: calc(var(--margin-size) * -1);
 }
 
@@ -1922,7 +1922,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   margin-top: var(--margin-size);
 }
 
-:is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'marginNegative'"] {
+:is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'negative'"] {
   margin-top: calc(var(--margin-size) * -1);
 }
 
@@ -1930,7 +1930,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   margin-inline: var(--margin-size);
 }
 
-:is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'marginNegative'"] {
+:is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'negative'"] {
   margin-inline: calc(var(--margin-size) * -1);
 }
 
@@ -1938,7 +1938,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   margin-block: var(--margin-size);
 }
 
-:is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'marginNegative'"] {
+:is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'negative'"] {
   margin-block: calc(var(--margin-size) * -1);
 }
 
@@ -1962,53 +1962,53 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --padding-size: var(--padding-half);
 }
 
-[pgs~=padding][pgs*="'paddingPage'"],
-[pgs~=paddingLeft][pgs*="'paddingPage'"],
-[pgs~=paddingRight][pgs*="'paddingPage'"],
-[pgs~=paddingBottom][pgs*="'paddingPage'"],
-[pgs~=paddingTop][pgs*="'paddingPage'"],
-[pgs~=paddingInline][pgs*="'paddingPage'"],
-:is([pgs~=paddingBlock], [pgs*="paddingBlock["])[pgs*="'paddingPage'"] {
+[pgs~=padding][pgs*="'page'"],
+[pgs~=paddingLeft][pgs*="'page'"],
+[pgs~=paddingRight][pgs*="'page'"],
+[pgs~=paddingBottom][pgs*="'page'"],
+[pgs~=paddingTop][pgs*="'page'"],
+[pgs~=paddingInline][pgs*="'page'"],
+:is([pgs~=paddingBlock], [pgs*="paddingBlock["])[pgs*="'page'"] {
   --padding-size: var(--page-padding);
 }
 
-[pgs~=padding][pgs*="'paddingTexts'"],
-[pgs~=paddingLeft][pgs*="'paddingTexts'"],
-[pgs~=paddingRight][pgs*="'paddingTexts'"],
-[pgs~=paddingBottom][pgs*="'paddingTexts'"],
-[pgs~=paddingTop][pgs*="'paddingTexts'"],
-[pgs~=paddingInline][pgs*="'paddingTexts'"],
-:is([pgs~=paddingBlock], [pgs*="paddingBlock["])[pgs*="'paddingTexts'"] {
+[pgs~=padding][pgs*="'texts'"],
+[pgs~=paddingLeft][pgs*="'texts'"],
+[pgs~=paddingRight][pgs*="'texts'"],
+[pgs~=paddingBottom][pgs*="'texts'"],
+[pgs~=paddingTop][pgs*="'texts'"],
+[pgs~=paddingInline][pgs*="'texts'"],
+:is([pgs~=paddingBlock], [pgs*="paddingBlock["])[pgs*="'texts'"] {
   --padding-size: var(--gap-texts);
 }
 
-[pgs~=padding][pgs*="'paddingElements'"],
-[pgs~=paddingLeft][pgs*="'paddingElements'"],
-[pgs~=paddingRight][pgs*="'paddingElements'"],
-[pgs~=paddingBottom][pgs*="'paddingElements'"],
-[pgs~=paddingTop][pgs*="'paddingElements'"],
-[pgs~=paddingInline][pgs*="'paddingElements'"],
-:is([pgs~=paddingBlock], [pgs*="paddingBlock["])[pgs*="'paddingElements'"] {
+[pgs~=padding][pgs*="'elements'"],
+[pgs~=paddingLeft][pgs*="'elements'"],
+[pgs~=paddingRight][pgs*="'elements'"],
+[pgs~=paddingBottom][pgs*="'elements'"],
+[pgs~=paddingTop][pgs*="'elements'"],
+[pgs~=paddingInline][pgs*="'elements'"],
+:is([pgs~=paddingBlock], [pgs*="paddingBlock["])[pgs*="'elements'"] {
   --padding-size: var(--gap-elements);
 }
 
-[pgs~=padding][pgs*="'paddingSections'"],
-[pgs~=paddingLeft][pgs*="'paddingSections'"],
-[pgs~=paddingRight][pgs*="'paddingSections'"],
-[pgs~=paddingBottom][pgs*="'paddingSections'"],
-[pgs~=paddingTop][pgs*="'paddingSections'"],
-[pgs~=paddingInline][pgs*="'paddingSections'"],
-:is([pgs~=paddingBlock], [pgs*="paddingBlock["])[pgs*="'paddingSections'"] {
+[pgs~=padding][pgs*="'sections'"],
+[pgs~=paddingLeft][pgs*="'sections'"],
+[pgs~=paddingRight][pgs*="'sections'"],
+[pgs~=paddingBottom][pgs*="'sections'"],
+[pgs~=paddingTop][pgs*="'sections'"],
+[pgs~=paddingInline][pgs*="'sections'"],
+:is([pgs~=paddingBlock], [pgs*="paddingBlock["])[pgs*="'sections'"] {
   --padding-size: var(--gap-sections);
 }
 
-[pgs~=padding][pgs*="'paddingUnset'"],
-[pgs~=paddingLeft][pgs*="'paddingUnset'"],
-[pgs~=paddingRight][pgs*="'paddingUnset'"],
-[pgs~=paddingBottom][pgs*="'paddingUnset'"],
-[pgs~=paddingTop][pgs*="'paddingUnset'"],
-[pgs~=paddingInline][pgs*="'paddingUnset'"],
-:is([pgs~=paddingBlock], [pgs*="paddingBlock["])[pgs*="'paddingUnset'"] {
+[pgs~=padding][pgs*="'unset'"],
+[pgs~=paddingLeft][pgs*="'unset'"],
+[pgs~=paddingRight][pgs*="'unset'"],
+[pgs~=paddingBottom][pgs*="'unset'"],
+[pgs~=paddingTop][pgs*="'unset'"],
+[pgs~=paddingInline][pgs*="'unset'"],
+:is([pgs~=paddingBlock], [pgs*="paddingBlock["])[pgs*="'unset'"] {
   --padding-size: unset;
 }
 
@@ -2046,33 +2046,33 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --width-size: 100%;
 }
 
-:is([pgs~=width], [pgs*="width["])[pgs*="'widthFull'"],
-:is([pgs~=widthMax], [pgs*="widthMax["])[pgs*="'widthFull'"],
-:is([pgs~=widthMin], [pgs*="widthMin["])[pgs*="'widthFull'"] {
+:is([pgs~=width], [pgs*="width["])[pgs*="'full'"],
+:is([pgs~=widthMax], [pgs*="widthMax["])[pgs*="'full'"],
+:is([pgs~=widthMin], [pgs*="widthMin["])[pgs*="'full'"] {
   --width-size: 100%;
 }
 
-:is([pgs~=width], [pgs*="width["])[pgs*="'widthPage'"],
-:is([pgs~=widthMax], [pgs*="widthMax["])[pgs*="'widthPage'"],
-:is([pgs~=widthMin], [pgs*="widthMin["])[pgs*="'widthPage'"] {
+:is([pgs~=width], [pgs*="width["])[pgs*="'page'"],
+:is([pgs~=widthMax], [pgs*="widthMax["])[pgs*="'page'"],
+:is([pgs~=widthMin], [pgs*="widthMin["])[pgs*="'page'"] {
   --width-size: var(--page-width);
 }
 
-:is([pgs~=width], [pgs*="width["])[pgs*="'widthPageHalf'"],
-:is([pgs~=widthMax], [pgs*="widthMax["])[pgs*="'widthPageHalf'"],
-:is([pgs~=widthMin], [pgs*="widthMin["])[pgs*="'widthPageHalf'"] {
+:is([pgs~=width], [pgs*="width["])[pgs*="'pageHalf'"],
+:is([pgs~=widthMax], [pgs*="widthMax["])[pgs*="'pageHalf'"],
+:is([pgs~=widthMin], [pgs*="widthMin["])[pgs*="'pageHalf'"] {
   --width-size: calc(var(--page-width) / 2);
 }
 
-:is([pgs~=width], [pgs*="width["])[pgs*="'widthPageThird'"],
-:is([pgs~=widthMax], [pgs*="widthMax["])[pgs*="'widthPageThird'"],
-:is([pgs~=widthMin], [pgs*="widthMin["])[pgs*="'widthPageThird'"] {
+:is([pgs~=width], [pgs*="width["])[pgs*="'pageThird'"],
+:is([pgs~=widthMax], [pgs*="widthMax["])[pgs*="'pageThird'"],
+:is([pgs~=widthMin], [pgs*="widthMin["])[pgs*="'pageThird'"] {
   --width-size: calc(var(--page-width) / 3);
 }
 
-:is([pgs~=width], [pgs*="width["])[pgs*="'widthText'"],
-:is([pgs~=widthMax], [pgs*="widthMax["])[pgs*="'widthText'"],
-:is([pgs~=widthMin], [pgs*="widthMin["])[pgs*="'widthText'"] {
+:is([pgs~=width], [pgs*="width["])[pgs*="'text'"],
+:is([pgs~=widthMax], [pgs*="widthMax["])[pgs*="'text'"],
+:is([pgs~=widthMin], [pgs*="widthMin["])[pgs*="'text'"] {
   --width-size: 65ch;
 }
 
@@ -2080,7 +2080,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   width: min(100%, var(--width-size));
 }
 
-:is([pgs~=width], [pgs*="width["])[pgs*="'widthFillAvailable'"] {
+:is([pgs~=width], [pgs*="width["])[pgs*="'fillAvailable'"] {
   width: -webkit-fill-available;
 }
 
@@ -2088,7 +2088,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   max-width: min(100%, var(--width-size));
 }
 
-:is([pgs~=widthMax], [pgs*="widthMax["])[pgs*="'widthFillAvailable'"] {
+:is([pgs~=widthMax], [pgs*="widthMax["])[pgs*="'fillAvailable'"] {
   max-width: -webkit-fill-available;
 }
 
@@ -2096,7 +2096,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   min-width: min(100%, var(--width-size));
 }
 
-:is([pgs~=widthMin], [pgs*="widthMin["])[pgs*="'widthFillAvailable'"] {
+:is([pgs~=widthMin], [pgs*="widthMin["])[pgs*="'fillAvailable'"] {
   min-width: -webkit-fill-available;
 }
 
@@ -2106,51 +2106,51 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --height-size: 100%;
 }
 
-[pgs~=height][pgs*="'heightFull'"],
-[pgs~=heightMax][pgs*="'heightFull'"],
-:is([pgs~=heightMin], [pgs*="heightMin["])[pgs*="'heightFull'"] {
+[pgs~=height][pgs*="'full'"],
+[pgs~=heightMax][pgs*="'full'"],
+:is([pgs~=heightMin], [pgs*="heightMin["])[pgs*="'full'"] {
   --height-size: 100%;
 }
 
-[pgs~=height][pgs*="'heightScreen'"],
-[pgs~=heightMax][pgs*="'heightScreen'"],
-:is([pgs~=heightMin], [pgs*="heightMin["])[pgs*="'heightScreen'"] {
+[pgs~=height][pgs*="'screen'"],
+[pgs~=heightMax][pgs*="'screen'"],
+:is([pgs~=heightMin], [pgs*="heightMin["])[pgs*="'screen'"] {
   --height-size: 100svh;
 }
 
-[pgs~=height][pgs*="'heightScreenLive'"],
-[pgs~=heightMax][pgs*="'heightScreenLive'"],
-:is([pgs~=heightMin], [pgs*="heightMin["])[pgs*="'heightScreenLive'"] {
+[pgs~=height][pgs*="'screenLive'"],
+[pgs~=heightMax][pgs*="'screenLive'"],
+:is([pgs~=heightMin], [pgs*="heightMin["])[pgs*="'screenLive'"] {
   --height-size: 100dvh;
 }
 
-[pgs~=height][pgs*="'heightScreenLarge'"],
-[pgs~=heightMax][pgs*="'heightScreenLarge'"],
-:is([pgs~=heightMin], [pgs*="heightMin["])[pgs*="'heightScreenLarge'"] {
+[pgs~=height][pgs*="'screenLarge'"],
+[pgs~=heightMax][pgs*="'screenLarge'"],
+:is([pgs~=heightMin], [pgs*="heightMin["])[pgs*="'screenLarge'"] {
   --height-size: 100lvh;
 }
 
-[pgs~=height][pgs*="'heightScreenHalf'"],
-[pgs~=heightMax][pgs*="'heightScreenHalf'"],
-:is([pgs~=heightMin], [pgs*="heightMin["])[pgs*="'heightScreenHalf'"] {
+[pgs~=height][pgs*="'screenHalf'"],
+[pgs~=heightMax][pgs*="'screenHalf'"],
+:is([pgs~=heightMin], [pgs*="heightMin["])[pgs*="'screenHalf'"] {
   --height-size: 50svh;
 }
 
-[pgs~=height][pgs*="'heightUnderHeader'"],
-[pgs~=heightMax][pgs*="'heightUnderHeader'"],
-:is([pgs~=heightMin], [pgs*="heightMin["])[pgs*="'heightUnderHeader'"] {
+[pgs~=height][pgs*="'underHeader'"],
+[pgs~=heightMax][pgs*="'underHeader'"],
+:is([pgs~=heightMin], [pgs*="heightMin["])[pgs*="'underHeader'"] {
   --height-size: calc(100dvh - var(--heightOfHeader));
 }
 
-[pgs~=height][pgs*="'heightUnderMain'"],
-[pgs~=heightMax][pgs*="'heightUnderMain'"],
-:is([pgs~=heightMin], [pgs*="heightMin["])[pgs*="'heightUnderMain'"] {
+[pgs~=height][pgs*="'underMain'"],
+[pgs~=heightMax][pgs*="'underMain'"],
+:is([pgs~=heightMin], [pgs*="heightMin["])[pgs*="'underMain'"] {
   --height-size: calc(100dvh - var(--main-padding-top));
 }
 
-[pgs~=height][pgs*="'heightAuto'"],
-[pgs~=heightMax][pgs*="'heightAuto'"],
-:is([pgs~=heightMin], [pgs*="heightMin["])[pgs*="'heightAuto'"] {
+[pgs~=height][pgs*="'auto'"],
+[pgs~=heightMax][pgs*="'auto'"],
+:is([pgs~=heightMin], [pgs*="heightMin["])[pgs*="'auto'"] {
   --height-size: auto;
 }
 
@@ -2343,25 +2343,25 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     width: 100%;
   }
 }
-:is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'pageShellFullPage'"] {
+:is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'fullPage'"] {
   --pageShell-width: 100%;
 }
 
-:is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'pageShellFullPage'"] [pgs~=pageShell-content] {
+:is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'fullPage'"] [pgs~=pageShell-content] {
   margin-inline: auto;
 }
 
-:is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'pageShellAsideScroll'"] {
+:is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'asideScroll'"] {
   padding-top: 0;
 }
 
 @container (max-width: 900px) {
-  :is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'pageShellAsideScroll'"] > *:first-child {
+  :is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'asideScroll'"] > *:first-child {
     padding-top: var(--pageShell-padding-top);
   }
 }
 @container (min-width: 900px) {
-  :is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'pageShellAsideScroll'"] [pgs~=pageShell-aside] {
+  :is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'asideScroll'"] [pgs~=pageShell-aside] {
     position: sticky;
     overflow-y: auto;
     top: var(--pageShell-asideScroll-top);
@@ -2369,16 +2369,16 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     max-height: var(--pageShell-asideScroll-maxHeight);
     padding-top: var(--pageShell-asideScroll-padding-top);
   }
-  :is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'pageShellAsideScroll'"] [pgs~=pageShell-aside]:hover {
+  :is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'asideScroll'"] [pgs~=pageShell-aside]:hover {
     scrollbar-color: var(--color-gray) transparent;
   }
-  :is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'pageShellAsideScroll'"] [pgs~=pageShell-content] {
+  :is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'asideScroll'"] [pgs~=pageShell-content] {
     padding-top: var(--pageShell-padding-top);
     min-height: var(--pageShell-asideScroll-maxHeight);
   }
 }
 @container (min-width: 900px) {
-  :is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'pageShellAsideShadow'"] [pgs~=pageShell-aside] {
+  :is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'asideShadow'"] [pgs~=pageShell-aside] {
     -webkit-mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-asideShadow-sizeMaskImage), black calc(100% - var(--pageShell-asideShadow-sizeMaskImage)), transparent 100%);
     mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-asideShadow-sizeMaskImage), black calc(100% - var(--pageShell-asideShadow-sizeMaskImage)), transparent 100%);
   }
@@ -2451,27 +2451,27 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
       headerCompactFrom[600] takes over with its own pixel value. */
 }
 
-:is([pgs~=header], [pgs*="header["])[pgs*="'headerCompactWatch'"] {
+:is([pgs~=header], [pgs*="header["])[pgs*="'compactWatch'"] {
   --header-compact-breakpoint: 315px;
 }
 
-:is([pgs~=header], [pgs*="header["])[pgs*="'headerCompactMobile'"] {
+:is([pgs~=header], [pgs*="header["])[pgs*="'compactMobile'"] {
   --header-compact-breakpoint: 430px;
 }
 
-:is([pgs~=header], [pgs*="header["])[pgs*="'headerCompactBigMobile'"] {
+:is([pgs~=header], [pgs*="header["])[pgs*="'compactBigMobile'"] {
   --header-compact-breakpoint: 615px;
 }
 
-:is([pgs~=header], [pgs*="header["])[pgs*="'headerCompactTablet'"] {
+:is([pgs~=header], [pgs*="header["])[pgs*="'compactTablet'"] {
   --header-compact-breakpoint: 800px;
 }
 
-:is([pgs~=header], [pgs*="header["])[pgs*="'headerCompactBigTablet'"] {
+:is([pgs~=header], [pgs*="header["])[pgs*="'compactBigTablet'"] {
   --header-compact-breakpoint: 900px;
 }
 
-:is([pgs~=header], [pgs*="header["])[pgs*="'headerCompactLaptop'"] {
+:is([pgs~=header], [pgs*="header["])[pgs*="'compactLaptop'"] {
   --header-compact-breakpoint: 1100px;
 }
 
@@ -2491,7 +2491,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   display: contents;
 }
 
-:is([pgs~=header], [pgs*="header["])[pgs-state~=compact][pgs*="'headerCompactBottom'"] {
+:is([pgs~=header], [pgs*="header["])[pgs-state~=compact][pgs*="'compactBottom'"] {
   --header-compactBottom-active: 1;
 }
 
@@ -2680,13 +2680,13 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     --card-background: var(--color-primary-soft);
   }
 }
-:is([pgs~=card], [pgs*="card["]):where(:not([pgs*="'cardLegacy'"])) {
+:is([pgs~=card], [pgs*="card["]):where(:not([pgs*="'legacy'"])) {
   padding: 0;
   flex-basis: 100%;
 }
 
-:is([pgs~=card], [pgs*="card["]):where(:not([pgs*="'cardLegacy'"])) > :is(object, img),
-:is([pgs~=card], [pgs*="card["]):where(:not([pgs*="'cardLegacy'"])) [pgs~=card-img] {
+:is([pgs~=card], [pgs*="card["]):where(:not([pgs*="'legacy'"])) > :is(object, img),
+:is([pgs~=card], [pgs*="card["]):where(:not([pgs*="'legacy'"])) [pgs~=card-img] {
   display: block;
   padding: var(--card-img-padding);
   width: 100%;
@@ -2698,20 +2698,20 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   border-radius: var(--card-borderRadius-item);
 }
 
-:is([pgs~=card], [pgs*="card["]):where(:not([pgs*="'cardLegacy'"])) [pgs~=card-content] {
+:is([pgs~=card], [pgs*="card["]):where(:not([pgs*="'legacy'"])) [pgs~=card-content] {
   min-width: 0;
   padding: var(--card-padding);
 }
 
-:is([pgs~=card], [pgs*="card["]):where(:not([pgs*="'cardLegacy'"])) [pgs~=card-content]:has(+ [pgs~=card-content]) {
+:is([pgs~=card], [pgs*="card["]):where(:not([pgs*="'legacy'"])) [pgs~=card-content]:has(+ [pgs~=card-content]) {
   padding-bottom: calc(var(--card-padding) / 2);
 }
 
-:is([pgs~=card], [pgs*="card["]):where(:not([pgs*="'cardLegacy'"])) [pgs~=card-content] + [pgs~=card-content] {
+:is([pgs~=card], [pgs*="card["]):where(:not([pgs*="'legacy'"])) [pgs~=card-content] + [pgs~=card-content] {
   padding-top: calc(var(--card-padding) / 2);
 }
 
-:is([pgs~=card], [pgs*="card["])[pgs*="'cardLegacy'"] {
+:is([pgs~=card], [pgs*="card["])[pgs*="'legacy'"] {
   --card-img-base: calc(var(--card-padding) * -1);
   --card-img-margin-right: var(--card-img-base);
   --card-img-margin-left: var(--card-img-base);
@@ -2720,7 +2720,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   padding: var(--card-padding);
 }
 
-:is([pgs~=card], [pgs*="card["])[pgs*="'cardLegacy'"] > :is(object, img) {
+:is([pgs~=card], [pgs*="card["])[pgs*="'legacy'"] > :is(object, img) {
   display: block;
   padding: var(--card-img-padding);
   width: calc(var(--card-padding) * 2 + 100%);
@@ -2730,55 +2730,55 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   border-radius: var(--card-borderRadius-item);
 }
 
-:is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] {
+:is([pgs~=card], [pgs*="card["])[pgs*="'horizontal'"] {
   container-type: inline-size;
 }
 
 @container (min-width: 430px) {
-  :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] {
+  :is([pgs~=card], [pgs*="card["])[pgs*="'horizontal'"] {
     flex-flow: row wrap;
   }
-  :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] > :is(object, img),
-  :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] [pgs~=card-img],
-  :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] [pgs~=card-content] {
+  :is([pgs~=card], [pgs*="card["])[pgs*="'horizontal'"] > :is(object, img),
+  :is([pgs~=card], [pgs*="card["])[pgs*="'horizontal'"] [pgs~=card-img],
+  :is([pgs~=card], [pgs*="card["])[pgs*="'horizontal'"] [pgs~=card-content] {
     border-radius: var(--card-horizontal-borderRadius-item);
     flex-basis: 0;
   }
-  :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] [pgs~=card-content] {
+  :is([pgs~=card], [pgs*="card["])[pgs*="'horizontal'"] [pgs~=card-content] {
     flex-grow: var(--card-horizontal-content-grow);
   }
-  :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] > :is(object, img),
-  :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] [pgs~=card-img] {
+  :is([pgs~=card], [pgs*="card["])[pgs*="'horizontal'"] > :is(object, img),
+  :is([pgs~=card], [pgs*="card["])[pgs*="'horizontal'"] [pgs~=card-img] {
     flex-grow: var(--card-horizontal-img-grow);
     min-height: var(--card-horizontal-img-minHeight);
   }
 }
-:is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontalFixed'"] {
+:is([pgs~=card], [pgs*="card["])[pgs*="'horizontalFixed'"] {
   flex-flow: row wrap;
 }
 
-:is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontalFixed'"] > :is(object, img),
-:is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontalFixed'"] [pgs~=card-img],
-:is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontalFixed'"] [pgs~=card-content] {
+:is([pgs~=card], [pgs*="card["])[pgs*="'horizontalFixed'"] > :is(object, img),
+:is([pgs~=card], [pgs*="card["])[pgs*="'horizontalFixed'"] [pgs~=card-img],
+:is([pgs~=card], [pgs*="card["])[pgs*="'horizontalFixed'"] [pgs~=card-content] {
   border-radius: var(--card-horizontal-borderRadius-item);
   flex-basis: 0;
 }
 
-:is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontalFixed'"] [pgs~=card-content] {
+:is([pgs~=card], [pgs*="card["])[pgs*="'horizontalFixed'"] [pgs~=card-content] {
   flex-grow: var(--card-horizontal-content-grow);
 }
 
-:is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontalFixed'"] > :is(object, img),
-:is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontalFixed'"] [pgs~=card-img] {
+:is([pgs~=card], [pgs*="card["])[pgs*="'horizontalFixed'"] > :is(object, img),
+:is([pgs~=card], [pgs*="card["])[pgs*="'horizontalFixed'"] [pgs~=card-img] {
   flex-grow: var(--card-horizontal-img-grow);
   min-height: var(--card-horizontal-img-minHeight);
 }
 
-:is([pgs~=card], [pgs*="card["])[pgs*="'cardMini'"] {
+:is([pgs~=card], [pgs*="card["])[pgs*="'mini'"] {
   --card-padding: var(--padding-half);
 }
 
-[pgs~=box] {
+:is([pgs~=box], [pgs*="box["]) {
   --box-padding: var(--padding);
   --box-borderRadius: calc(var(--border-radius-input) + var(--box-padding));
   --box-background: var(--color-box-transparent);
@@ -2787,18 +2787,18 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   border-radius: var(--box-borderRadius);
 }
 
-[pgs~=box]:where(a) {
+:is([pgs~=box], [pgs*="box["]):where(a) {
   --box-background: var(--color-white);
   display: block;
   outline: var(--border-complete);
 }
 
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=box]:where(a):not(:where([pgs~=bodyHoverAuto] [pgs~=box])):hover:not(:where([pgs*="'hoverNot'"])) {
+  :is([pgs~=box], [pgs*="box["]):where(a):not(:where([pgs~=bodyHoverAuto] [pgs~=box])):hover:not(:where([pgs*="'hoverNot'"])) {
     --box-background: var(--color-primary-soft);
   }
 }
-[pgs~=box][pgs*="'boxMini'"] {
+:is([pgs~=box], [pgs*="box["])[pgs*="'mini'"] {
   --box-padding: var(--padding-half);
   --box-borderRadius: var(--border-radius-input);
 }
@@ -3908,7 +3908,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --button-padding-left: var(--button-padding-left-icon);
 }
 
-:is([pgs~=button], [pgs*="button["]):where([pgs*="'buttonReverse'"]:has(i)), :is([pgs~=button], [pgs*="button["]):where([pgs*="'buttonReverse'"]:has(:is([pgs~=icon], [pgs*="icon["]))) {
+:is([pgs~=button], [pgs*="button["]):where([pgs*="'reverse'"]:has(i)), :is([pgs~=button], [pgs*="button["]):where([pgs*="'reverse'"]:has(:is([pgs~=icon], [pgs*="icon["]))) {
   --button-padding-right: var(--button-padding-left-icon);
   --button-padding-left: var(--button-padding-right);
 }
@@ -3948,7 +3948,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     --button-color-hover: var(--color-black);
   }
 }
-:is([pgs~=button], [pgs*="button["])[pgs*="'buttonIcon'"] {
+:is([pgs~=button], [pgs*="button["])[pgs*="'iconOnly'"] {
   --button-padding: var(--button-padding-block);
   flex: 0 0;
   aspect-ratio: 1;
@@ -3956,8 +3956,8 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   align-items: center;
 }
 
-:is([pgs~=button], [pgs*="button["])[pgs*="'buttonIcon'"] i,
-:is([pgs~=button], [pgs*="button["])[pgs*="'buttonIcon'"] :is([pgs~=icon], [pgs*="icon["]) {
+:is([pgs~=button], [pgs*="button["])[pgs*="'iconOnly'"] i,
+:is([pgs~=button], [pgs*="button["])[pgs*="'iconOnly'"] :is([pgs~=icon], [pgs*="icon["]) {
   display: inline-grid;
   place-items: center;
   inline-size: calc(var(--icon-size) + 2px);
@@ -3966,12 +3966,12 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   aspect-ratio: 1;
 }
 
-:is([pgs~=button], [pgs*="button["])[pgs*="'buttonMini'"] {
+:is([pgs~=button], [pgs*="button["])[pgs*="'mini'"] {
   --button-size: 0.9rem;
   display: inline-flex;
 }
 
-:is([pgs~=button], [pgs*="button["])[pgs*="'buttonBig'"] {
+:is([pgs~=button], [pgs*="button["])[pgs*="'big'"] {
   --button-padding: var(--button-padding-right);
   --button-height: 100%;
   --icon-size: 2em;
@@ -3981,18 +3981,18 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   text-align: center;
 }
 
-:is([pgs~=button], [pgs*="button["])[pgs*="'buttonTransparent'"] {
+:is([pgs~=button], [pgs*="button["])[pgs*="'transparent'"] {
   --button-border-width: 0;
   --button-background: transparent;
 }
 
-:is([pgs~=button], [pgs*="button["])[pgs*="'buttonStrong'"] {
+:is([pgs~=button], [pgs*="button["])[pgs*="'strong'"] {
   color: var(--button-color-strong);
   background: var(--button-background-strong);
   border-color: var(--button-border-color-strong);
 }
 
-:is([pgs~=button], [pgs*="button["])[pgs*="'buttonText'"] {
+:is([pgs~=button], [pgs*="button["])[pgs*="'text'"] {
   --button-border-width: 0;
   --button-borderRadius: 0px;
   --button-background: transparent;
@@ -4008,33 +4008,33 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --hover-color: var(--button-primaryColor);
 }
 
-:is([pgs~=button], [pgs*="button["])[pgs*="'buttonPaddingEqual'"] {
+:is([pgs~=button], [pgs*="button["])[pgs*="'paddingEqual'"] {
   --button-padding: var(--button-padding-block);
 }
 
-:is([pgs~=button], [pgs*="button["])[pgs*="'buttonHeader'"] {
+:is([pgs~=button], [pgs*="button["])[pgs*="'forHeader'"] {
   --button-size: 1.2rem;
   --button-border-width: 0;
   min-height: var(--header-size);
   overflow-wrap: break-word;
 }
 
-:is([pgs~=button], [pgs*="button["])[pgs*="'buttonPrimary'"] {
+:is([pgs~=button], [pgs*="button["])[pgs*="'primary'"] {
   --button-background: var(--color-primary);
   --button-color: var(--color-primary-text);
 }
 
-:is([pgs~=button], [pgs*="button["])[pgs*="'buttonSecondary'"] {
+:is([pgs~=button], [pgs*="button["])[pgs*="'secondary'"] {
   --button-background: var(--color-secondary);
   --button-color: var(--color-secondary-text);
 }
 
-:is([pgs~=button], [pgs*="button["])[pgs*="'buttonTertiary'"] {
+:is([pgs~=button], [pgs*="button["])[pgs*="'tertiary'"] {
   --button-background: var(--color-tertiary);
   --button-color: var(--color-tertiary-text);
 }
 
-:is([pgs~=button], [pgs*="button["])[pgs*="'buttonQuaternary'"] {
+:is([pgs~=button], [pgs*="button["])[pgs*="'quaternary'"] {
   --button-background: var(--color-quaternary);
   --button-color: var(--color-quaternary-text);
 }
@@ -4285,7 +4285,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   mask: var(--icon-glyph-ellipsis) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-hamburgerTwo'"][pgs*="'iconDuo'"] {
+:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-hamburgerTwo'"][pgs*="'duo'"] {
   --iconBefore: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath d=%27M56,183.5c0-18.8,15.2-34,34-34h332c18.8,0,34,15.2,34,34s-15.2,34-34,34H90c-18.8,0-34-15.2-34-34h0Z%27/%3E%3C/svg%3E");
   --iconAfter: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath d=%27M56,326.5c0-18.8,15.2-34,34-34h332c18.8,0,34,15.2,34,34h0c0,18.8-15.2,34-34,34H90c-18.8,0-34-15.2-34-34h0Z%27/%3E%3C/svg%3E");
   --iconBefore-color: var(--icon-color, currentColor);
@@ -4297,7 +4297,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   line-height: 1;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-hamburgerTwo'"][pgs*="'iconDuo'"]::before, :is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-hamburgerTwo'"][pgs*="'iconDuo'"]::after {
+:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-hamburgerTwo'"][pgs*="'duo'"]::before, :is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-hamburgerTwo'"][pgs*="'duo'"]::after {
   display: inline-block;
   width: var(--icon-size);
   height: var(--icon-size);
@@ -4307,47 +4307,47 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   vertical-align: -0.125em;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-hamburgerTwo'"][pgs*="'iconDuo'"]::before {
+:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-hamburgerTwo'"][pgs*="'duo'"]::before {
   -webkit-mask: var(--iconBefore) center/contain no-repeat;
   mask: var(--iconBefore) center/contain no-repeat;
   background-color: var(--iconBefore-color);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-hamburgerTwo'"][pgs*="'iconDuo'"]::after {
+:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-hamburgerTwo'"][pgs*="'duo'"]::after {
   -webkit-mask: var(--iconAfter) center/contain no-repeat;
   mask: var(--iconAfter) center/contain no-repeat;
   background-color: var(--iconAfter-color);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'iconBox'"] {
-  --iconBox-size: calc(var(--icon-size) / 1.5);
-  --iconBox-padding: .5rem;
-  --iconBox-background: var(--color-box-transparent);
+:is([pgs~=icon], [pgs*="icon["])[pgs*="'boxed'"] {
+  --boxed-size: calc(var(--icon-size) / 1.5);
+  --boxed-padding: .5rem;
+  --boxed-background: var(--color-box-transparent);
   border-radius: 50%;
   display: flex;
   aspect-ratio: 1;
   justify-content: center;
   align-items: center;
-  background-color: var(--iconBox-background);
-  padding: var(--iconBox-padding);
-  width: calc(var(--iconBox-size, var(--font-size-text)) * 3);
+  background-color: var(--boxed-background);
+  padding: var(--boxed-padding);
+  width: calc(var(--boxed-size, var(--font-size-text)) * 3);
   justify-content: center;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'iconBox'"] i,
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'iconBox'"] :is([pgs~=icon], [pgs*="icon["]) {
+:is([pgs~=icon], [pgs*="icon["])[pgs*="'boxed'"] i,
+:is([pgs~=icon], [pgs*="icon["])[pgs*="'boxed'"] :is([pgs~=icon], [pgs*="icon["]) {
   display: inline-grid;
   place-items: center;
-  block-size: var(--iconBox-size);
+  block-size: var(--boxed-size);
   line-height: 1;
   aspect-ratio: 1;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'iconMedium'"] {
+:is([pgs~=icon], [pgs*="icon["])[pgs*="'medium'"] {
   --icon-size: 1.25em;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'iconLarge'"] {
+:is([pgs~=icon], [pgs*="icon["])[pgs*="'large'"] {
   --icon-size: 1.5em;
 }
 
@@ -4779,7 +4779,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   display: flex;
 }
 
-:is([pgs~=menu], [pgs*="menu["]) [pgs~=_menu-buttonIcon] {
+:is([pgs~=menu], [pgs*="menu["]) [pgs~=_menu-iconOnly] {
   --button-size: 0.9rem;
   margin-right: -15px;
   margin-block: auto;
@@ -4791,42 +4791,42 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   translate: -15px;
 }
 
-:is([pgs~=menu], [pgs*="menu["]) [pgs~=_menu-buttonIcon][aria-expanded=true] span {
+:is([pgs~=menu], [pgs*="menu["]) [pgs~=_menu-iconOnly][aria-expanded=true] span {
   rotate: 180deg;
 }
 
-:is([pgs~=menu], [pgs*="menu["]) [pgs~=_menu-buttonIcon] span {
+:is([pgs~=menu], [pgs*="menu["]) [pgs~=_menu-iconOnly] span {
   transition: all 300ms;
 }
 
-:is([pgs~=menu], [pgs*="menu["])[pgs*="'menuHorizontal'"] > ul {
+:is([pgs~=menu], [pgs*="menu["])[pgs*="'horizontal'"] > ul {
   flex-direction: row;
 }
 
-:is([pgs~=menu], [pgs*="menu["])[pgs*="'menuHorizontal'"] > ul > li > a {
+:is([pgs~=menu], [pgs*="menu["])[pgs*="'horizontal'"] > ul > li > a {
   width: max-content;
 }
 
-:is([pgs~=menu], [pgs*="menu["])[pgs*="'menuHorizontal'"] > ul > li:has(ul) {
+:is([pgs~=menu], [pgs*="menu["])[pgs*="'horizontal'"] > ul > li:has(ul) {
   display: flex;
   gap: 0.2rem;
   flex-wrap: nowrap;
 }
 
-:is([pgs~=menu], [pgs*="menu["]) ul :is(ul), :is([pgs~=menu], [pgs*="menu["])[pgs*="'menuVertical'"] :is(ul), :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :is(ul) {
+:is([pgs~=menu], [pgs*="menu["]) ul :is(ul), :is([pgs~=menu], [pgs*="menu["])[pgs*="'vertical'"] :is(ul), :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'horizontal'"]) :is(ul) {
   flex-direction: column;
 }
 
-:is([pgs~=menu], [pgs*="menu["]) ul :is(ul) li, :is([pgs~=menu], [pgs*="menu["])[pgs*="'menuVertical'"] :is(ul) li, :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :is(ul) li {
+:is([pgs~=menu], [pgs*="menu["]) ul :is(ul) li, :is([pgs~=menu], [pgs*="menu["])[pgs*="'vertical'"] :is(ul) li, :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'horizontal'"]) :is(ul) li {
   width: 100%;
 }
 
-:is([pgs~=menu], [pgs*="menu["]) ul :is(ul) li > a, :is([pgs~=menu], [pgs*="menu["])[pgs*="'menuVertical'"] :is(ul) li > a, :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :is(ul) li > a {
+:is([pgs~=menu], [pgs*="menu["]) ul :is(ul) li > a, :is([pgs~=menu], [pgs*="menu["])[pgs*="'vertical'"] :is(ul) li > a, :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'horizontal'"]) :is(ul) li > a {
   width: 100%;
   justify-content: start;
 }
 
-:is([pgs~=menu], [pgs*="menu["]) ul :is(ul) > li:has(ul), :is([pgs~=menu], [pgs*="menu["])[pgs*="'menuVertical'"] :is(ul) > li:has(ul), :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :is(ul) > li:has(ul) {
+:is([pgs~=menu], [pgs*="menu["]) ul :is(ul) > li:has(ul), :is([pgs~=menu], [pgs*="menu["])[pgs*="'vertical'"] :is(ul) > li:has(ul), :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'horizontal'"]) :is(ul) > li:has(ul) {
   display: flex;
   gap: var(--gap-texts);
   flex-direction: row;
@@ -4835,48 +4835,48 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   position: relative;
 }
 
-:is([pgs~=menu], [pgs*="menu["]) ul :is(ul) > li:has(ul) > a, :is([pgs~=menu], [pgs*="menu["])[pgs*="'menuVertical'"] :is(ul) > li:has(ul) > a, :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :is(ul) > li:has(ul) > a {
+:is([pgs~=menu], [pgs*="menu["]) ul :is(ul) > li:has(ul) > a, :is([pgs~=menu], [pgs*="menu["])[pgs*="'vertical'"] :is(ul) > li:has(ul) > a, :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'horizontal'"]) :is(ul) > li:has(ul) > a {
   flex: 1;
 }
 
-:is([pgs~=menu], [pgs*="menu["]) ul :is(ul) > li:has(ul) > ul, :is([pgs~=menu], [pgs*="menu["])[pgs*="'menuVertical'"] :is(ul) > li:has(ul) > ul, :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :is(ul) > li:has(ul) > ul {
+:is([pgs~=menu], [pgs*="menu["]) ul :is(ul) > li:has(ul) > ul, :is([pgs~=menu], [pgs*="menu["])[pgs*="'vertical'"] :is(ul) > li:has(ul) > ul, :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'horizontal'"]) :is(ul) > li:has(ul) > ul {
   flex-basis: 100%;
   padding-left: 0.5rem;
   margin-left: 1.5rem;
   border-left: var(--border-complete);
 }
 
-:is([pgs~=menu], [pgs*="menu["]) ul :is(ul) > li:has(ul):not([pgs-state~=open]) ul, :is([pgs~=menu], [pgs*="menu["])[pgs*="'menuVertical'"] :is(ul) > li:has(ul):not([pgs-state~=open]) ul, :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :is(ul) > li:has(ul):not([pgs-state~=open]) ul {
+:is([pgs~=menu], [pgs*="menu["]) ul :is(ul) > li:has(ul):not([pgs-state~=open]) ul, :is([pgs~=menu], [pgs*="menu["])[pgs*="'vertical'"] :is(ul) > li:has(ul):not([pgs-state~=open]) ul, :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'horizontal'"]) :is(ul) > li:has(ul):not([pgs-state~=open]) ul {
   display: none;
 }
 
-:is([pgs~=menu], [pgs*="menu["])[pgs*="'menuIconOnlyCurrent'"] a:not([aria-current]:not([aria-current=false])) {
+:is([pgs~=menu], [pgs*="menu["])[pgs*="'iconOnlyCurrent'"] a:not([aria-current]:not([aria-current=false])) {
   --button-padding-left: var(--button-padding-right);
 }
 
-:is([pgs~=menu], [pgs*="menu["])[pgs*="'menuIconOnlyCurrent'"] a:not([aria-current]:not([aria-current=false])) > i,
-:is([pgs~=menu], [pgs*="menu["])[pgs*="'menuIconOnlyCurrent'"] a:not([aria-current]:not([aria-current=false])) > :is([pgs~=icon], [pgs*="icon["]) {
+:is([pgs~=menu], [pgs*="menu["])[pgs*="'iconOnlyCurrent'"] a:not([aria-current]:not([aria-current=false])) > i,
+:is([pgs~=menu], [pgs*="menu["])[pgs*="'iconOnlyCurrent'"] a:not([aria-current]:not([aria-current=false])) > :is([pgs~=icon], [pgs*="icon["]) {
   display: none;
 }
 
-:is([pgs~=menu], [pgs*="menu["])[pgs*="'menuShort'"] > ul > li:first-child a {
+:is([pgs~=menu], [pgs*="menu["])[pgs*="'short'"] > ul > li:first-child a {
   margin-left: 0px;
 }
 
-:is([pgs~=menu], [pgs*="menu["])[pgs*="'menuShort'"] > ul > li:last-child a {
+:is([pgs~=menu], [pgs*="menu["])[pgs*="'short'"] > ul > li:last-child a {
   margin-right: 0px;
 }
 
-:is([pgs~=menu], [pgs*="menu["])[pgs*="'menuShort'"] > ul > li a {
+:is([pgs~=menu], [pgs*="menu["])[pgs*="'short'"] > ul > li a {
   margin-right: calc(var(--button-padding-block) * -1);
 }
 
-:is([pgs~=menu], [pgs*="menu["])[pgs*="'menuShort'"] > ul > li a[aria-current=page] {
+:is([pgs~=menu], [pgs*="menu["])[pgs*="'short'"] > ul > li a[aria-current=page] {
   z-index: 1;
   position: relative;
 }
 
-:is([pgs~=menu], [pgs*="menu["])[pgs*="'menuShort'"] > ul > li a:hover {
+:is([pgs~=menu], [pgs*="menu["])[pgs*="'short'"] > ul > li a:hover {
   z-index: 2;
   position: relative;
 }
@@ -5181,49 +5181,49 @@ html:has(dialog[open]) {
   z-index: 1;
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'modalTopLevel'"]:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) {
+:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'dialogTopLevel'"]:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) {
   overflow-y: auto;
   height: auto;
   z-index: auto;
   align-items: safe flex-start;
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'modalDisableBackdropClose'"] {
+:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'dialogDisableBackdropClose'"] {
   cursor: auto;
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'modalMini'"]:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) [pgs~=modal-dialog-content] {
+:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'dialogMini'"]:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) [pgs~=modal-dialog-content] {
   --section-width: min(calc(var(--page-width)/3), 100%);
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'modalMedium'"]:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) [pgs~=modal-dialog-content] {
+:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'dialogMedium'"]:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) [pgs~=modal-dialog-content] {
   --section-width: min(calc(var(--page-width)/2), 100%);
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'modalFull'"]:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) [pgs~=modal-dialog-content] {
+:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'dialogFull'"]:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) [pgs~=modal-dialog-content] {
   --section-width: 100%;
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'modalCenter'"]:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) {
+:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'dialogCenter'"]:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) {
   justify-content: safe center;
   align-items: safe center;
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'modalLeft'"]:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) {
+:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'dialogLeft'"]:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) {
   justify-content: safe flex-start;
   padding-inline: var(--modal-offset);
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'modalRight'"]:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) {
+:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'dialogRight'"]:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) {
   justify-content: safe flex-end;
   padding-inline: var(--modal-offset);
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'modalTop'"]:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) {
+:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'dialogTop'"]:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) {
   align-items: safe flex-start;
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'modalBottom'"]:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) {
+:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'dialogBottom'"]:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) {
   align-items: safe flex-end;
 }
 
@@ -5254,17 +5254,17 @@ html:has(dialog[open]) {
 }
 
 @container (min-width: 800px) {
-  :is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesShadowDesktop'"] [pgs~=slides-container] {
+  :is([pgs~=slides], [pgs*="slides["])[pgs*="'shadowDesktop'"] [pgs~=slides-container] {
     --slides-maskStart: 0px;
     --slides-maskEnd: 0px;
     transition: --slides-maskStart 200ms, --slides-maskEnd 200ms;
     -webkit-mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart), black calc(100% - var(--slides-maskEnd)), transparent 100%);
     mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart), black calc(100% - var(--slides-maskEnd)), transparent 100%);
   }
-  :is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesShadowDesktop'"]:not(:has([pgs~=slides-container] li:first-child[pgs-state~=view])) [pgs~=slides-container] {
+  :is([pgs~=slides], [pgs*="slides["])[pgs*="'shadowDesktop'"]:not(:has([pgs~=slides-container] li:first-child[pgs-state~=view])) [pgs~=slides-container] {
     --slides-maskStart: var(--slides-sizeMaskImage);
   }
-  :is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesShadowDesktop'"]:not(:has([pgs~=slides-container] li:last-child[pgs-state~=view])) [pgs~=slides-container] {
+  :is([pgs~=slides], [pgs*="slides["])[pgs*="'shadowDesktop'"]:not(:has([pgs~=slides-container] li:last-child[pgs-state~=view])) [pgs~=slides-container] {
     --slides-maskEnd: var(--slides-sizeMaskImage);
   }
 }
@@ -5397,7 +5397,7 @@ html:has(dialog[open]) {
   background-color: var(--color-primary-soft);
 }
 
-:is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesAnimationScale'"] [pgs~=slides-container] [pgs~=slides-container-slide] > * {
+:is([pgs~=slides], [pgs*="slides["])[pgs*="'animationScale'"] [pgs~=slides-container] [pgs~=slides-container-slide] > * {
   scale: var(--slides-visiblePercent, 1);
 }
 
@@ -5694,42 +5694,42 @@ ol[pgs~=steps] [pgs~=steps-step]:last-child [pgs~=steps-step-line] {
   --icon-size: var(--badge-icon-size);
 }
 
-:is([pgs~=badge], [pgs*="badge["])[pgs*="'badgePrimary'"] {
+:is([pgs~=badge], [pgs*="badge["])[pgs*="'primary'"] {
   --badge-background: var(--color-primary-soft);
   --badge-color: var(--color-primary-strong);
 }
 
-:is([pgs~=badge], [pgs*="badge["])[pgs*="'badgeStrong'"] {
+:is([pgs~=badge], [pgs*="badge["])[pgs*="'strong'"] {
   --badge-background: var(--color-primary);
   --badge-color: var(--color-whiteFixed);
 }
 
-:is([pgs~=badge], [pgs*="badge["])[pgs*="'badgeSuccess'"] {
+:is([pgs~=badge], [pgs*="badge["])[pgs*="'success'"] {
   --badge-background: var(--color-success-soft);
   --badge-color: var(--color-success);
 }
 
-:is([pgs~=badge], [pgs*="badge["])[pgs*="'badgeWarning'"] {
+:is([pgs~=badge], [pgs*="badge["])[pgs*="'warning'"] {
   --badge-background: var(--color-warning-soft);
   --badge-color: var(--color-warning);
 }
 
-:is([pgs~=badge], [pgs*="badge["])[pgs*="'badgeError'"] {
+:is([pgs~=badge], [pgs*="badge["])[pgs*="'error'"] {
   --badge-background: var(--color-error-soft);
   --badge-color: var(--color-error);
 }
 
-:is([pgs~=badge], [pgs*="badge["])[pgs*="'badgeInfo'"] {
+:is([pgs~=badge], [pgs*="badge["])[pgs*="'info'"] {
   --badge-background: var(--color-info-soft);
   --badge-color: var(--color-info);
 }
 
-:is([pgs~=badge], [pgs*="badge["])[pgs*="'badgeNeutral'"] {
+:is([pgs~=badge], [pgs*="badge["])[pgs*="'neutral'"] {
   --badge-background: var(--color-box-transparent);
   --badge-color: var(--color-text);
 }
 
-:is([pgs~=badge], [pgs*="badge["])[pgs*="'badgeDot'"]::before {
+:is([pgs~=badge], [pgs*="badge["])[pgs*="'dot'"]::before {
   content: "";
   display: block;
   inline-size: 0.65em;
@@ -6363,11 +6363,11 @@ dialog [pgs~=search] [pgs~=modal-close] {
   --logo-finter: invert(1) hue-rotate(180deg) brightness(1.5);
 }
 
-:is([pgs~=logo], [pgs*="logo["]):is([pgs-state~=darkmode] [pgs*="'logoDarkmode'"]) [pgs~=logo-image] {
+:is([pgs~=logo], [pgs*="logo["]):is([pgs-state~=darkmode] [pgs*="'darkmode'"]) [pgs~=logo-image] {
   filter: var(--logo-finter);
 }
 
-:is([pgs~=logo], [pgs*="logo["])[pgs*="'logoDarkmodeFixed'"] [pgs~=logo-image] {
+:is([pgs~=logo], [pgs*="logo["])[pgs*="'darkmodeFixed'"] [pgs~=logo-image] {
   filter: var(--logo-finter);
 }
 
@@ -7028,33 +7028,33 @@ dialog [pgs~=search] [pgs~=modal-close] {
   border-block: var(--border-width) solid var(--border-color);
 }
 
-[pgs~=border][pgs*="'borderThin'"],
-[pgs~=borderTop][pgs*="'borderThin'"],
-[pgs~=borderRight][pgs*="'borderThin'"],
-[pgs~=borderBottom][pgs*="'borderThin'"],
-[pgs~=borderLeft][pgs*="'borderThin'"],
-[pgs~=borderInline][pgs*="'borderThin'"],
-:is([pgs~=borderBlock], [pgs*="borderBlock["])[pgs*="'borderThin'"] {
+[pgs~=border][pgs*="'thin'"],
+[pgs~=borderTop][pgs*="'thin'"],
+[pgs~=borderRight][pgs*="'thin'"],
+[pgs~=borderBottom][pgs*="'thin'"],
+[pgs~=borderLeft][pgs*="'thin'"],
+[pgs~=borderInline][pgs*="'thin'"],
+:is([pgs~=borderBlock], [pgs*="borderBlock["])[pgs*="'thin'"] {
   --border-width: 1px;
 }
 
-[pgs~=border][pgs*="'borderThick'"],
-[pgs~=borderTop][pgs*="'borderThick'"],
-[pgs~=borderRight][pgs*="'borderThick'"],
-[pgs~=borderBottom][pgs*="'borderThick'"],
-[pgs~=borderLeft][pgs*="'borderThick'"],
-[pgs~=borderInline][pgs*="'borderThick'"],
-:is([pgs~=borderBlock], [pgs*="borderBlock["])[pgs*="'borderThick'"] {
+[pgs~=border][pgs*="'thick'"],
+[pgs~=borderTop][pgs*="'thick'"],
+[pgs~=borderRight][pgs*="'thick'"],
+[pgs~=borderBottom][pgs*="'thick'"],
+[pgs~=borderLeft][pgs*="'thick'"],
+[pgs~=borderInline][pgs*="'thick'"],
+:is([pgs~=borderBlock], [pgs*="borderBlock["])[pgs*="'thick'"] {
   --border-width: 3px;
 }
 
-[pgs~=border][pgs*="'borderThicker'"],
-[pgs~=borderTop][pgs*="'borderThicker'"],
-[pgs~=borderRight][pgs*="'borderThicker'"],
-[pgs~=borderBottom][pgs*="'borderThicker'"],
-[pgs~=borderLeft][pgs*="'borderThicker'"],
-[pgs~=borderInline][pgs*="'borderThicker'"],
-:is([pgs~=borderBlock], [pgs*="borderBlock["])[pgs*="'borderThicker'"] {
+[pgs~=border][pgs*="'thicker'"],
+[pgs~=borderTop][pgs*="'thicker'"],
+[pgs~=borderRight][pgs*="'thicker'"],
+[pgs~=borderBottom][pgs*="'thicker'"],
+[pgs~=borderLeft][pgs*="'thicker'"],
+[pgs~=borderInline][pgs*="'thicker'"],
+:is([pgs~=borderBlock], [pgs*="borderBlock["])[pgs*="'thicker'"] {
   --border-width: 4.5px;
 }
 
@@ -7074,15 +7074,15 @@ dialog [pgs~=search] [pgs~=modal-close] {
   outline: var(--outline-width) var(--outline-style) var(--outline-color);
 }
 
-:is([pgs~=outline], [pgs*="outline["])[pgs*="'outlineThin'"] {
+:is([pgs~=outline], [pgs*="outline["])[pgs*="'thin'"] {
   --outline-width: 1px;
 }
 
-:is([pgs~=outline], [pgs*="outline["])[pgs*="'outlineThick'"] {
+:is([pgs~=outline], [pgs*="outline["])[pgs*="'thick'"] {
   --outline-width: 3px;
 }
 
-:is([pgs~=outline], [pgs*="outline["])[pgs*="'outlineThicker'"] {
+:is([pgs~=outline], [pgs*="outline["])[pgs*="'thicker'"] {
   --outline-width: 4.5px;
 }
 

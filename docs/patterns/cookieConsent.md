@@ -25,9 +25,9 @@ Accessible pattern for collecting and storing analytics cookie consent, applying
 
 ## PGS Options (component brackets)
 
-- `buttonStrong`: presents full acceptance as the primary action.
-- `modalTopLevel`: centers the dialog with a backdrop instead of positioning it inline; see Modal.
-- `badgeSuccess`: presents the essential-cookie badge with the success color; see Badges.
+- `strong`: presents full acceptance as the primary action.
+- `dialogTopLevel`: centers the dialog with a backdrop instead of positioning it inline; see Modal.
+- `success`: presents the essential-cookie badge with the success color; see Badges.
 
 ## PGS Data
 
@@ -52,9 +52,9 @@ Accessible pattern for collecting and storing analytics cookie consent, applying
 ### Other
 
 - `flex`: provides the flex layout; direction and spacing are flags in its bracket.
-- `flexColumn`: vertically organizes the JS-generated dialog content and the preference panel.
+- `column`: vertically organizes the JS-generated dialog content and the preference panel.
 - `gapElements`: applies element spacing to the JS-generated dialog content.
-- `flexRow`: arranges panel rows and actions, and the icon beside the introduction.
+- `row`: arranges panel rows and actions, and the icon beside the introduction.
 - `itemCenter`: vertically centers the icon beside the introduction against its text.
 - `nowrap`: prevents wrapping in the essential-cookie row.
 - `toggle`: presents analytics consent as a switch.

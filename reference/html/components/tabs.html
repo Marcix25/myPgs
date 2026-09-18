@@ -27,9 +27,9 @@
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - card: provides the outer surface for this example.
  * - card-content: provides the spacing wrapper around the tab list and panels.
- * - flexRow: lets the tab controls wrap in a row.
+ * - row: lets the tab controls wrap in a row.
  * - button: supplies the base style for each tab control.
- * - buttonMini: makes each tab control compact.
+ * - mini: makes each tab control compact.
  *
  * @return A wrapping tab list above a bordered panel, with the active tab joined visually to its content.
  */
@@ -39,12 +39,12 @@
 <demo demo-h3="Tabs" demo-description="A wrapping tab list with a single connected content panel."></demo>
 <section demo="component">
     <div pgs="tabs card">
-        <div pgs="tabs-list card-content flex['flexRow']" aria-label="Code formats">
-            <button pgs="tabs-list-tab button['buttonMini']" type="button">HTML</button>
-            <button pgs="tabs-list-tab button['buttonMini']" type="button">React</button>
-            <button pgs="tabs-list-tab button['buttonMini']" type="button">Vue</button>
-            <button pgs="tabs-list-tab button['buttonMini']" type="button">SVG</button>
-            <button pgs="tabs-list-tab button['buttonMini']" type="button">XML</button>
+        <div pgs="tabs-list card-content flex['row']" aria-label="Code formats">
+            <button pgs="tabs-list-tab button['mini']" type="button">HTML</button>
+            <button pgs="tabs-list-tab button['mini']" type="button">React</button>
+            <button pgs="tabs-list-tab button['mini']" type="button">Vue</button>
+            <button pgs="tabs-list-tab button['mini']" type="button">SVG</button>
+            <button pgs="tabs-list-tab button['mini']" type="button">XML</button>
         </div>
 
         <div pgs="tabs-panels card-content">
@@ -75,10 +75,10 @@
 <demo demo-h3="Remembered across a reload" demo-description="tabsHistory puts the selected tab in the URL, under the name written in brackets. Give each tab an id and the link reads ?format=vue and can be shared; leave the ids out and it is the tab's position, ?format=3. Reloading, or coming back with the browser's own back button, lands on the tab that was open."></demo>
 <section demo="component">
     <div pgs="tabs card" pgs-data="tabsHistory[format]">
-        <div pgs="tabs-list card-content flex['flexRow']" aria-label="Code formats">
-            <button id="html" pgs="tabs-list-tab button['buttonMini']" type="button">HTML</button>
-            <button id="react" pgs="tabs-list-tab button['buttonMini']" type="button">React</button>
-            <button id="vue" pgs="tabs-list-tab button['buttonMini']" type="button">Vue</button>
+        <div pgs="tabs-list card-content flex['row']" aria-label="Code formats">
+            <button id="html" pgs="tabs-list-tab button['mini']" type="button">HTML</button>
+            <button id="react" pgs="tabs-list-tab button['mini']" type="button">React</button>
+            <button id="vue" pgs="tabs-list-tab button['mini']" type="button">Vue</button>
         </div>
 
         <div pgs="tabs-panels card-content">

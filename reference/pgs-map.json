@@ -59,19 +59,19 @@
             "accordion-content"
         ],
         "pgs-generated": [],
-        "pgs-options": [
-            "accordionAutoOpen",
-            "accordionMultiOpen"
-        ],
+        "pgs-options": [],
         "pgs-data": [
-            "accordionAutoOpen",
-            "accordionMultiOpen"
+            "autoOpen",
+            "multiOpen"
         ]
     },
     "accordionContainer": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "autoOpen",
+            "multiOpen"
+        ],
         "pgs-data": []
     },
     "alert": {
@@ -112,14 +112,14 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "badgeDot",
-            "badgeError",
-            "badgeInfo",
-            "badgeNeutral",
-            "badgePrimary",
-            "badgeStrong",
-            "badgeSuccess",
-            "badgeWarning"
+            "dot",
+            "error",
+            "info",
+            "neutral",
+            "primary",
+            "strong",
+            "success",
+            "warning"
         ],
         "pgs-data": []
     },
@@ -429,9 +429,9 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "borderThick",
-            "borderThicker",
-            "borderThin"
+            "thick",
+            "thicker",
+            "thin"
         ],
         "pgs-data": []
     },
@@ -439,9 +439,9 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "borderThick",
-            "borderThicker",
-            "borderThin"
+            "thick",
+            "thicker",
+            "thin"
         ],
         "pgs-data": []
     },
@@ -449,9 +449,9 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "borderThick",
-            "borderThicker",
-            "borderThin"
+            "thick",
+            "thicker",
+            "thin"
         ],
         "pgs-data": []
     },
@@ -459,9 +459,9 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "borderThick",
-            "borderThicker",
-            "borderThin"
+            "thick",
+            "thicker",
+            "thin"
         ],
         "pgs-data": []
     },
@@ -469,9 +469,9 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "borderThick",
-            "borderThicker",
-            "borderThin"
+            "thick",
+            "thicker",
+            "thin"
         ],
         "pgs-data": []
     },
@@ -497,9 +497,9 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "borderThick",
-            "borderThicker",
-            "borderThin"
+            "thick",
+            "thicker",
+            "thin"
         ],
         "pgs-data": []
     },
@@ -507,9 +507,9 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "borderThick",
-            "borderThicker",
-            "borderThin"
+            "thick",
+            "thicker",
+            "thin"
         ],
         "pgs-data": []
     },
@@ -517,7 +517,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "boxMini"
+            "mini"
         ],
         "pgs-data": []
     },
@@ -624,20 +624,20 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "buttonBig",
-            "buttonHeader",
-            "buttonIcon",
-            "buttonMini",
-            "buttonPaddingEqual",
-            "buttonPrimary",
-            "buttonQuaternary",
-            "buttonReverse",
-            "buttonSecondary",
-            "buttonStrong",
-            "buttonTertiary",
-            "buttonText",
-            "buttonTransparent",
-            "icon-hamburgerTwo"
+            "big",
+            "forHeader",
+            "icon-hamburgerTwo",
+            "iconOnly",
+            "mini",
+            "paddingEqual",
+            "primary",
+            "quaternary",
+            "reverse",
+            "secondary",
+            "strong",
+            "tertiary",
+            "text",
+            "transparent"
         ],
         "pgs-data": []
     },
@@ -648,10 +648,10 @@
         ],
         "pgs-generated": [],
         "pgs-options": [
-            "cardHorizontal",
-            "cardHorizontalFixed",
-            "cardLegacy",
-            "cardMini"
+            "horizontal",
+            "horizontalFixed",
+            "legacy",
+            "mini"
         ],
         "pgs-data": []
     },
@@ -707,9 +707,9 @@
             "_cookieConsent-panel-toggleAnalytics"
         ],
         "pgs-options": [
-            "badgeSuccess",
-            "buttonStrong",
-            "modalTopLevel"
+            "dialogTopLevel",
+            "strong",
+            "success"
         ],
         "pgs-data": [
             "cookieConsent"
@@ -737,11 +737,11 @@
         ],
         "pgs-generated": [],
         "pgs-options": [
-            "dropdownHover"
+            "hover"
         ],
         "pgs-data": [
-            "dropdownHover",
-            "dropdownPosition"
+            "dropdownPosition",
+            "hover"
         ]
     },
     "flex": {
@@ -756,6 +756,7 @@
         ],
         "pgs-generated": [],
         "pgs-options": [
+            "column",
             "column-1",
             "column-2",
             "column-3",
@@ -764,6 +765,7 @@
             "column-6",
             "column-7",
             "column-8",
+            "columnReverse",
             "contentAround",
             "contentBetween",
             "contentCenter",
@@ -771,10 +773,6 @@
             "contentEvenly",
             "contentStart",
             "flexCenter",
-            "flexColumn",
-            "flexColumnReverse",
-            "flexRow",
-            "flexRowReverse",
             "gapElements",
             "gapNone",
             "gapSections",
@@ -793,6 +791,8 @@
             "justifyStart",
             "m2e",
             "nowrap",
+            "row",
+            "rowReverse",
             "selfBaseline",
             "selfCenter",
             "selfEnd",
@@ -850,6 +850,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "column",
             "column-",
             "column-1",
             "column-2",
@@ -859,6 +860,7 @@
             "column-6",
             "column-7",
             "column-8",
+            "columnReverse",
             "contentAround",
             "contentBetween",
             "contentCenter",
@@ -883,6 +885,8 @@
             "justifyStart",
             "m2e",
             "nowrap",
+            "row",
+            "rowReverse",
             "selfBaseline",
             "selfCenter",
             "selfEnd",
@@ -931,34 +935,34 @@
         ],
         "pgs-generated": [],
         "pgs-options": [
-            "headerCompactBigMobile",
-            "headerCompactBigTablet",
-            "headerCompactBottom",
-            "headerCompactLaptop",
-            "headerCompactMobile",
-            "headerCompactTablet",
-            "headerCompactWatch",
-            "headerPrimary",
-            "headerScroll"
+            "compactBigMobile",
+            "compactBigTablet",
+            "compactBottom",
+            "compactLaptop",
+            "compactMobile",
+            "compactTablet",
+            "compactWatch",
+            "main",
+            "scroll"
         ],
         "pgs-data": [
             "headerCompactFrom",
-            "headerPrimary",
-            "headerScroll"
+            "main",
+            "scroll"
         ]
     },
     "height": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "heightAuto",
-            "heightFull",
-            "heightScreen",
-            "heightScreenHalf",
-            "heightScreenLarge",
-            "heightScreenLive",
-            "heightUnderHeader",
-            "heightUnderMain"
+            "auto",
+            "full",
+            "screen",
+            "screenHalf",
+            "screenLarge",
+            "screenLive",
+            "underHeader",
+            "underMain"
         ],
         "pgs-data": []
     },
@@ -966,14 +970,14 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "heightAuto",
-            "heightFull",
-            "heightScreen",
-            "heightScreenHalf",
-            "heightScreenLarge",
-            "heightScreenLive",
-            "heightUnderHeader",
-            "heightUnderMain"
+            "auto",
+            "full",
+            "screen",
+            "screenHalf",
+            "screenLarge",
+            "screenLive",
+            "underHeader",
+            "underMain"
         ],
         "pgs-data": []
     },
@@ -981,14 +985,14 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "heightAuto",
-            "heightFull",
-            "heightScreen",
-            "heightScreenHalf",
-            "heightScreenLarge",
-            "heightScreenLive",
-            "heightUnderHeader",
-            "heightUnderMain"
+            "auto",
+            "full",
+            "screen",
+            "screenHalf",
+            "screenLarge",
+            "screenLive",
+            "underHeader",
+            "underMain"
         ],
         "pgs-data": []
     },
@@ -1170,6 +1174,8 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "boxed",
+            "duo",
             "icon-arrowLeft",
             "icon-arrowRight",
             "icon-bell",
@@ -1209,10 +1215,8 @@
             "icon-triangleExclamation",
             "icon-upload",
             "icon-user",
-            "iconBox",
-            "iconDuo",
-            "iconLarge",
-            "iconMedium"
+            "large",
+            "medium"
         ],
         "pgs-data": []
     },
@@ -1289,8 +1293,8 @@
         ],
         "pgs-generated": [],
         "pgs-options": [
-            "logoDarkmode",
-            "logoDarkmodeFixed"
+            "darkmode",
+            "darkmodeFixed"
         ],
         "pgs-data": []
     },
@@ -1310,14 +1314,14 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "auto",
+            "elements",
             "margin2",
-            "marginAuto",
-            "marginElements",
-            "marginNegative",
-            "marginPage",
-            "marginSections",
-            "marginTexts",
-            "marginUnset"
+            "negative",
+            "page",
+            "sections",
+            "texts",
+            "unset"
         ],
         "pgs-data": []
     },
@@ -1325,14 +1329,14 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "auto",
+            "elements",
             "margin2",
-            "marginAuto",
-            "marginElements",
-            "marginNegative",
-            "marginPage",
-            "marginSections",
-            "marginTexts",
-            "marginUnset"
+            "negative",
+            "page",
+            "sections",
+            "texts",
+            "unset"
         ],
         "pgs-data": []
     },
@@ -1340,14 +1344,14 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "auto",
+            "elements",
             "margin2",
-            "marginAuto",
-            "marginElements",
-            "marginNegative",
-            "marginPage",
-            "marginSections",
-            "marginTexts",
-            "marginUnset"
+            "negative",
+            "page",
+            "sections",
+            "texts",
+            "unset"
         ],
         "pgs-data": []
     },
@@ -1355,14 +1359,14 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "auto",
+            "elements",
             "margin2",
-            "marginAuto",
-            "marginElements",
-            "marginNegative",
-            "marginPage",
-            "marginSections",
-            "marginTexts",
-            "marginUnset"
+            "negative",
+            "page",
+            "sections",
+            "texts",
+            "unset"
         ],
         "pgs-data": []
     },
@@ -1370,14 +1374,14 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "auto",
+            "elements",
             "margin2",
-            "marginAuto",
-            "marginElements",
-            "marginNegative",
-            "marginPage",
-            "marginSections",
-            "marginTexts",
-            "marginUnset"
+            "negative",
+            "page",
+            "sections",
+            "texts",
+            "unset"
         ],
         "pgs-data": []
     },
@@ -1385,14 +1389,14 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "auto",
+            "elements",
             "margin2",
-            "marginAuto",
-            "marginElements",
-            "marginNegative",
-            "marginPage",
-            "marginSections",
-            "marginTexts",
-            "marginUnset"
+            "negative",
+            "page",
+            "sections",
+            "texts",
+            "unset"
         ],
         "pgs-data": []
     },
@@ -1400,14 +1404,14 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "auto",
+            "elements",
             "margin2",
-            "marginAuto",
-            "marginElements",
-            "marginNegative",
-            "marginPage",
-            "marginSections",
-            "marginTexts",
-            "marginUnset"
+            "negative",
+            "page",
+            "sections",
+            "texts",
+            "unset"
         ],
         "pgs-data": []
     },
@@ -1415,13 +1419,13 @@
         "pgs": [],
         "pgs-generated": [
             "_menu-accordion",
-            "_menu-buttonIcon"
+            "_menu-iconOnly"
         ],
         "pgs-options": [
-            "menuHorizontal",
-            "menuIconOnlyCurrent",
-            "menuShort",
-            "menuVertical"
+            "horizontal",
+            "iconOnlyCurrent",
+            "short",
+            "vertical"
         ],
         "pgs-data": []
     },
@@ -1443,22 +1447,22 @@
             "modal-dialog"
         ],
         "pgs-options": [
-            "modalBottom",
-            "modalCenter",
-            "modalDisableBackdropClose",
-            "modalFull",
-            "modalHistory",
-            "modalLeft",
-            "modalMedium",
-            "modalMini",
-            "modalRight",
-            "modalTop",
-            "modalTopLevel"
+            "dialogBottom",
+            "dialogCenter",
+            "dialogDisableBackdropClose",
+            "dialogFull",
+            "dialogHistory",
+            "dialogLeft",
+            "dialogMedium",
+            "dialogMini",
+            "dialogRight",
+            "dialogTop",
+            "dialogTopLevel"
         ],
         "pgs-data": [
+            "dialogHistory",
             "modalContainerID",
-            "modalContainerPGS",
-            "modalHistory"
+            "modalContainerPGS"
         ]
     },
     "motionReduce": {
@@ -1571,9 +1575,9 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "outlineThick",
-            "outlineThicker",
-            "outlineThin"
+            "thick",
+            "thicker",
+            "thin"
         ],
         "pgs-data": []
     },
@@ -1599,12 +1603,12 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "elements",
             "padding2",
-            "paddingElements",
-            "paddingPage",
-            "paddingSections",
-            "paddingTexts",
-            "paddingUnset"
+            "page",
+            "sections",
+            "texts",
+            "unset"
         ],
         "pgs-data": []
     },
@@ -1612,12 +1616,12 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "elements",
             "padding2",
-            "paddingElements",
-            "paddingPage",
-            "paddingSections",
-            "paddingTexts",
-            "paddingUnset"
+            "page",
+            "sections",
+            "texts",
+            "unset"
         ],
         "pgs-data": []
     },
@@ -1625,12 +1629,12 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "elements",
             "padding2",
-            "paddingElements",
-            "paddingPage",
-            "paddingSections",
-            "paddingTexts",
-            "paddingUnset"
+            "page",
+            "sections",
+            "texts",
+            "unset"
         ],
         "pgs-data": []
     },
@@ -1638,12 +1642,12 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "elements",
             "padding2",
-            "paddingElements",
-            "paddingPage",
-            "paddingSections",
-            "paddingTexts",
-            "paddingUnset"
+            "page",
+            "sections",
+            "texts",
+            "unset"
         ],
         "pgs-data": []
     },
@@ -1651,12 +1655,12 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "elements",
             "padding2",
-            "paddingElements",
-            "paddingPage",
-            "paddingSections",
-            "paddingTexts",
-            "paddingUnset"
+            "page",
+            "sections",
+            "texts",
+            "unset"
         ],
         "pgs-data": []
     },
@@ -1664,12 +1668,12 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "elements",
             "padding2",
-            "paddingElements",
-            "paddingPage",
-            "paddingSections",
-            "paddingTexts",
-            "paddingUnset"
+            "page",
+            "sections",
+            "texts",
+            "unset"
         ],
         "pgs-data": []
     },
@@ -1677,12 +1681,12 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "elements",
             "padding2",
-            "paddingElements",
-            "paddingPage",
-            "paddingSections",
-            "paddingTexts",
-            "paddingUnset"
+            "page",
+            "sections",
+            "texts",
+            "unset"
         ],
         "pgs-data": []
     },
@@ -1693,9 +1697,9 @@
         ],
         "pgs-generated": [],
         "pgs-options": [
-            "pageShellAsideScroll",
-            "pageShellAsideShadow",
-            "pageShellFullPage"
+            "asideScroll",
+            "asideShadow",
+            "fullPage"
         ],
         "pgs-data": []
     },
@@ -1878,14 +1882,14 @@
             "slides-prec"
         ],
         "pgs-options": [
-            "slidesAnimationScale",
-            "slidesScrollMouse",
-            "slidesShadowDesktop",
-            "slidesSingleScroll"
+            "animationScale",
+            "scrollMouse",
+            "shadowDesktop",
+            "singleScroll"
         ],
         "pgs-data": [
-            "slidesScrollMouse",
-            "slidesSingleScroll"
+            "scrollMouse",
+            "singleScroll"
         ]
     },
     "steps": {
@@ -2002,7 +2006,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "toggleDarkmodeExtended"
+            "labelled"
         ],
         "pgs-data": []
     },
@@ -2289,12 +2293,19 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "widthFillAvailable",
-            "widthFull",
-            "widthPage",
-            "widthPageHalf",
-            "widthPageThird",
-            "widthText"
+            "auto",
+            "fillAvailable",
+            "full",
+            "page",
+            "pageHalf",
+            "pageThird",
+            "screen",
+            "screenHalf",
+            "screenLarge",
+            "screenLive",
+            "text",
+            "underHeader",
+            "underMain"
         ],
         "pgs-data": []
     },
@@ -2302,12 +2313,12 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "widthFillAvailable",
-            "widthFull",
-            "widthPage",
-            "widthPageHalf",
-            "widthPageThird",
-            "widthText"
+            "fillAvailable",
+            "full",
+            "page",
+            "pageHalf",
+            "pageThird",
+            "text"
         ],
         "pgs-data": []
     },
@@ -2315,12 +2326,12 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "widthFillAvailable",
-            "widthFull",
-            "widthPage",
-            "widthPageHalf",
-            "widthPageThird",
-            "widthText"
+            "fillAvailable",
+            "full",
+            "page",
+            "pageHalf",
+            "pageThird",
+            "text"
         ],
         "pgs-data": []
     }

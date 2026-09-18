@@ -20,7 +20,7 @@ Heading sizes available as utilities, to give any element the look of a title wi
 
 ### PGS Options (component brackets)
 
-- `flexColumn`: stacks the examples vertically.
+- `column`: stacks the examples vertically.
 - `gapTexts`: spaces the examples.
 
 ## CSS Variables

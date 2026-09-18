@@ -14,7 +14,7 @@
 // icon its box: mark a span, an svg or a custom element with it and it is sized and placed exactly
 // as an <i> would be. That is the whole reason the components match :is([pgs~="icon"], [pgs*="icon\5B"]) alongside i.
 //
-// Not to be confused with iconBox, which is the circular surface a glyph can sit inside. That one
+// Not to be confused with boxed, which is the circular surface a glyph can sit inside. That one
 // is the container, this one is the drawing.
 //
 // The glyph lands on ::before, which is also where an icon font paints, so an element carrying
@@ -45,28 +45,28 @@
     // Two-layer icons use a mask per pseudo-element. Keeping both layers in the same grid cell
     // lets the component using them animate each one without needing markup solely for decoration.
     //
-    // iconDuo is its own option, required alongside the glyph name: a name present in both
+    // duo is its own option, required alongside the glyph name: a name present in both
     // $icons-builtin and $icons-duo (icon-hamburgerTwo, for a static and an animatable version of
-    // the same glyph) draws flat until iconDuo is added, at which point this rule's extra
+    // the same glyph) draws flat until duo is added, at which point this rule's extra
     // attribute selector gives it more specificity than the single-mask rule above and wins.
     @each $name, $layers in $icons-duo {
-        &[pgs*="'icon-#{$name}'"][pgs*="'iconDuo'"] {
-            @include iconDuo(nth($layers, 1), nth($layers, 2));
+        &[pgs*="'icon-#{$name}'"][pgs*="'duo'"] {
+            @include duo(nth($layers, 1), nth($layers, 2));
         }
     }
 
     //+ ICON BOX
-    &[pgs*="'iconBox'"] {
-        @include iconBox();
+    &[pgs*="'boxed'"] {
+        @include boxed();
     }
 
     //+ ICON MEDIUM
-    &[pgs*="'iconMedium'"] {
+    &[pgs*="'medium'"] {
         --icon-size: 1.25em;
     }
     
     //+ ICON LARGE
-    &[pgs*="'iconLarge'"] {
+    &[pgs*="'large'"] {
         --icon-size: 1.5em;
     }
 }

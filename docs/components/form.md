@@ -56,8 +56,8 @@ Form structure with labels, text fields, a textarea, a checkbox, and a radio gro
 
 ### PGS Options (component brackets)
 
-- `flexColumn`: spaces text elements in the radio group.
-- `buttonStrong`: presents form submission as the primary action.
+- `column`: spaces text elements in the radio group.
+- `strong`: presents form submission as the primary action.
 
 ### Other
 
@@ -150,7 +150,7 @@ formValidate.validator(event => {
     </label>
 
     <br>
-    <fieldset pgs="radio flex['flexColumn']" pgs-data="formMessage[Choose a contact method]">
+    <fieldset pgs="radio flex['column']" pgs-data="formMessage[Choose a contact method]">
         <legend pgs="legend">Preferred contact method</legend>
 
         <label>
@@ -170,7 +170,7 @@ formValidate.validator(event => {
     </fieldset>
     <br>
 
-    <fieldset pgs="checkbox flex['flexColumn']" pgs-data="formMessage[Choose at least one topic]">
+    <fieldset pgs="checkbox flex['column']" pgs-data="formMessage[Choose at least one topic]">
         <legend pgs="legend">Topics</legend>
 
         <label>
@@ -191,7 +191,7 @@ formValidate.validator(event => {
     </label>
     <br>
 
-    <button pgs="button['buttonStrong']" type="submit">
+    <button pgs="button['strong']" type="submit">
         Submit
     </button>
 

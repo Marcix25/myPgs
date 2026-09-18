@@ -1,7 +1,7 @@
 <!--
 /**
  * @title Scroll horizontal
- * @description Two variants that turn vertical wheel motion into horizontal scrolling over a container that can still scroll in that direction. scrollHorizontal converts any input device — mouse wheel, trackpad, Magic Mouse. scrollHorizontalWithMouse converts only a plain mouse wheel and leaves a trackpad's own two-finger swipe alone, since it already scrolls horizontally on its own; Slides uses this one internally for slidesScrollMouse.
+ * @description Two variants that turn vertical wheel motion into horizontal scrolling over a container that can still scroll in that direction. scrollHorizontal converts any input device — mouse wheel, trackpad, Magic Mouse. scrollHorizontalWithMouse converts only a plain mouse wheel and leaves a trackpad's own two-finger swipe alone, since it already scrolls horizontally on its own; Slides uses this one internally for scrollMouse.
  *
  * @api
  * - pgs.scrollHorizontal(element, speed): attaches the wheel listener to element, scaling each wheel step by speed, and returns a function that removes the listener.
@@ -9,7 +9,7 @@
  *
  * @related
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
- * - flexRow: lays the demo items out in a row.
+ * - row: lays the demo items out in a row.
  * - gapTexts: spaces them apart.
  * - overflowXAuto: adds the horizontal scrolling these examples turn the wheel into.
  * - nowrap: keeps each row on one line so it actually overflows instead of wrapping.
@@ -24,7 +24,7 @@
 
 <demo demo-h2="Examples"></demo>
 <demo demo-h3="Any input device" demo-description="pgs.scrollHorizontal converts a mouse wheel, a trackpad, or a Magic Mouse alike."></demo>
-<div pgs="flex['flexRow' 'gapTexts' 'nowrap'] overflowXAuto" id="pgsScrollDemo" demo="component codeNone">
+<div pgs="flex['row' 'gapTexts' 'nowrap'] overflowXAuto" id="pgsScrollDemo" demo="component codeNone">
     <article pgs="card" style="flex-shrink: 0; min-width: 180px;">
         <img pgs="card-img imgCover" src="../assets/img/placeholder.jpg" alt="Slide 1">
         <div pgs="card-content">
@@ -55,7 +55,7 @@
 </div>
 
 <demo demo-h3="Mouse only" demo-description="pgs.scrollHorizontalWithMouse ignores a trackpad or Magic Mouse; only a plain mouse wheel scrolls this row."></demo>
-<div pgs="flex['flexRow' 'gapTexts' 'nowrap'] overflowXAuto" id="pgsScrollWithMouseDemo" demo="component codeNone">
+<div pgs="flex['row' 'gapTexts' 'nowrap'] overflowXAuto" id="pgsScrollWithMouseDemo" demo="component codeNone">
     <img pgs="imgCover" src="../assets/img/placeholder.jpg" alt="Slide 1" style="flex-shrink: 0; border-radius: var(--border-radius);">
     <img pgs="imgCover" src="../assets/img/placeholder.jpg" alt="Slide 2" style="flex-shrink: 0; border-radius: var(--border-radius);">
     <img pgs="imgCover" src="../assets/img/placeholder.jpg" alt="Slide 3" style="flex-shrink: 0; border-radius: var(--border-radius);">

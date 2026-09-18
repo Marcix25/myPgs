@@ -59,18 +59,18 @@ Notification markup, configuration, behavior, and usage example. A persistent, m
 
 ### PGS Options (component brackets)
 
-- `flexColumn`: stacks the examples vertically.
+- `column`: stacks the examples vertically.
 - `gapTexts`: spaces the content inside each example.
-- `buttonIcon`: presents notificationBell, and the generated dismiss button, as icon buttons.
+- `iconOnly`: presents notificationBell, and the generated dismiss button, as icon buttons.
 - `icon-bell`: the glyph on the control that opens the panel.
 
 ### Other
 
 - `gapSections`: separates the examples.
-- `buttonTransparent`: the appearance the component gives the buttons passed in the payload; see Button.
+- `transparent`: the appearance the component gives the buttons passed in the payload; see Button.
 - `modal-dialog-content`: identifies the JS-generated styled content area inside the dialog, wrapping notifications.
-- `buttonMini`: keeps the generated panel-close button small; see Button.
-- `modalRight`: slides the notification dialog in from the right; see Modal for other positions.
+- `mini`: keeps the generated panel-close button small; see Button.
+- `dialogRight`: slides the notification dialog in from the right; see Modal for other positions.
 - `icon-circleXmark`: the glyph of the error type.
 - `icon-circleCheck`: the glyph of the success type.
 - `icon-circleInfo`: the glyph of the info type.
@@ -103,7 +103,7 @@ pgs-data='notification[{
             "title": "",         // label of the button
             "link": null,        // navigates there; omit it to only dispatch the event
             "close": true,       // dismisses the notification after the click
-            "optionButton": null // pgs-data token added to the button, e.g. buttonMini
+            "optionButton": null // pgs-data token added to the button, e.g. mini
         }
     ]
 }]'
@@ -133,7 +133,7 @@ The control that opens and closes the panel, and the only markup this component 
 
 ```html
 <div pgs="modal">
-    <button type="button" pgs="modal-button modal-close button['buttonIcon'] notificationBell" aria-label="Open notifications">
+    <button type="button" pgs="modal-button modal-close button['iconOnly'] notificationBell" aria-label="Open notifications">
         <i pgs="icon['icon-bell']"></i>
         <span pgs="notificationBell-counter"></span>
     </button>

@@ -1053,15 +1053,15 @@ function PGS_accordion_init(root = document) {
         const btnId = `acc-btn-${ID}`;
         const panelId = `acc-panel-${ID}`;
 
-        //== initial state: accordionAutoOpen is the authored form, because pgs-state belongs to
+        //== initial state: autoOpen is the authored form, because pgs-state belongs to
         //== the runtime; a pgs-state="open" already written by hand is honoured all the same
-        const isOpenInit = pgs(accordion).option.contains("accordionAutoOpen") || pgs(accordion).state.contains("open");
+        const isOpenInit = pgs(accordion).option.contains("autoOpen") || pgs(accordion).state.contains("open");
 
         //== an accordion closes the others only inside a group, and the group is the nearest
         //== accordionContainer above it: on its own an accordion answers for itself alone, so a
         //== single panel dropped anywhere on the page no longer collapses somebody else's
         const CONTAINER = pgs(accordion).closest("accordionContainer");
-        const isMultiOpen = !CONTAINER || pgs(CONTAINER).option.contains("accordionMultiOpen");
+        const isMultiOpen = !CONTAINER || pgs(CONTAINER).option.contains("multiOpen");
 
         //== accessibility, written once
         BUTTON.setAttribute("role", "button");
@@ -1091,14 +1091,14 @@ function PGS_accordion_init(root = document) {
         //+ Close the others of the group
         //== only the accordions of this same group: an accordionContainer nested in another one
         //== keeps its own panels to itself, which is why the nearest container is compared rather
-        //== than trusting the descendant search. accordionAutoOpen is left alone on purpose — it
+        //== than trusting the descendant search. autoOpen is left alone on purpose — it
         //== is the authored "this one stays open", so a sibling opening does not take it down,
         //== and only until the reader works that panel themselves, which drops the token
         function closeOtherAccordion() {
             for (const otherLi of pgs(CONTAINER).querySelectorAll("accordion")) {
                 if (otherLi === accordion) continue;
                 if (pgs(otherLi).closest("accordionContainer") !== CONTAINER) continue;
-                if (pgs(otherLi).option.contains("accordionAutoOpen")) continue;
+                if (pgs(otherLi).option.contains("autoOpen")) continue;
 
                 const otherBtn = pgs(otherLi).querySelector("accordion-button");
                 const otherContent = pgs(otherLi).querySelector("accordion-content");
@@ -1117,11 +1117,11 @@ function PGS_accordion_init(root = document) {
             pgs(accordion).state.toggle("open", nowOpen);
             accordionAccessibility(nowOpen, BUTTON, CONTENT);
 
-            //== the moment the reader works this panel, accordionAutoOpen stops being the authored
+            //== the moment the reader works this panel, autoOpen stops being the authored
             //== "this one stays open": from here on it is an ordinary panel of the group, so a
             //== sibling opening can close it. Guarded, because remove() would otherwise write an
             //== empty pgs-option on every accordion that never had one
-            if (pgs(accordion).option.contains("accordionAutoOpen")) pgs(accordion).option.remove("accordionAutoOpen");
+            if (pgs(accordion).option.contains("autoOpen")) pgs(accordion).option.remove("autoOpen");
             if (!isMultiOpen) closeOtherAccordion();
 
             //== scroll to view
@@ -1136,7 +1136,7 @@ function PGS_accordion_init(root = document) {
             if (pgs(accordion).state.contains("open")) accordionFunction();
         }
 
-        //== writes that initial state, rather than only reading it: with accordionAutoOpen the
+        //== writes that initial state, rather than only reading it: with autoOpen the
         //== pgs-state is not there yet, and it is what the CSS reads to turn the arrow
         pgs(accordion).state.toggle("open", isOpenInit);
         accordionAccessibility(isOpenInit, BUTTON, CONTENT);
@@ -1502,7 +1502,7 @@ function PGS_dropdown_init(root = document) {
         });
 
         //== Hover behavior
-        if (pgs(DROPDOWN).option.contains("dropdownHover")) {
+        if (pgs(DROPDOWN).option.contains("hover")) {
             let hoverCloseTimeout;
             const clearHoverCloseTimeout = () => {
                 window.clearTimeout(hoverCloseTimeout);
@@ -1581,7 +1581,7 @@ function createToggle(li) {
     button.type = "button";
     button.innerHTML = "<span>&#9207;</span>";
 
-    pgs(button).add("_menu-buttonIcon", "button['hoverNot']");
+    pgs(button).add("_menu-iconOnly", "button['hoverNot']");
     li.querySelector("a").insertAdjacentElement("afterend", button);
 
     return button;
@@ -1622,7 +1622,7 @@ function PGS_menu_init(root = document) {
     pgs(root).querySelectorAll('menu').forEach(MENU => {
         if (API.has(MENU)) return;
 
-        const isHorizontal = pgs(MENU).option.contains("menuHorizontal");
+        const isHorizontal = pgs(MENU).option.contains("horizontal");
         const topLevel = MENU.querySelector("ul");
 
         MENU.querySelectorAll('li').forEach(li => {
@@ -1703,7 +1703,7 @@ function initializeModal(MODAL, existingDialog = null) {
     let historyTimeout = null;
 
     //== SELECTOR
-    const DOMButtonClose = "<button pgs=\"button['buttonIcon' 'buttonMini'] modal-close\" type=\"button\" tabindex=\"0\" aria-label=\"Close\"><i pgs=\"icon['icon-close']\"></i></button>";
+    const DOMButtonClose = "<button pgs=\"button['iconOnly' 'mini'] modal-close\" type=\"button\" tabindex=\"0\" aria-label=\"Close\"><i pgs=\"icon['icon-close']\"></i></button>";
     const modalContentHeader = pgs(DIALOG).querySelector("modal-dialog-content-header");
 
     //== FOCUS
@@ -1721,8 +1721,8 @@ function initializeModal(MODAL, existingDialog = null) {
     //== options: other component brackets (for example flex on the wrapper) stay local.
     pgs(DIALOG).add("modal-dialog");
     for (const key of [
-        "modalHistory", "modalTopLevel", "modalDisableBackdropClose", "modalMini",
-        "modalMedium", "modalFull", "modalCenter", "modalLeft", "modalRight", "modalTop", "modalBottom"
+        "dialogHistory", "dialogTopLevel", "dialogDisableBackdropClose", "dialogMini",
+        "dialogMedium", "dialogFull", "dialogCenter", "dialogLeft", "dialogRight", "dialogTop", "dialogBottom"
     ]) {
         const source = [MODAL, DIALOG].find(element => pgs(element).option.contains(key));
         if (!source) continue;
@@ -1740,13 +1740,13 @@ function initializeModal(MODAL, existingDialog = null) {
     }
 
     //== OPTION ATTRIBUTES MODAL
-    const modalDisableBackdropClose = pgs(MODAL).option.contains("modalDisableBackdropClose");
-    const data_history = pgs(MODAL).option.contains("modalHistory");
+    const dialogDisableBackdropClose = pgs(MODAL).option.contains("dialogDisableBackdropClose");
+    const data_history = pgs(MODAL).option.contains("dialogHistory");
     const data_container = pgs(MODAL).data.getValueBrackets("modalContainerID");
     const data_modalContainerPGS = pgs(MODAL).data.getValueBrackets("modalContainerPGS");
 
     //== OPTION ATTRIBUTES DIALOG
-    const modalTopLevel = pgs(DIALOG).option.contains("modalTopLevel");
+    const dialogTopLevel = pgs(DIALOG).option.contains("dialogTopLevel");
 
 
     //== BUTTON CLOSE
@@ -1768,8 +1768,8 @@ function initializeModal(MODAL, existingDialog = null) {
 
 
     //== POSITION
-    if (modalTopLevel && !MODAL.contains(DIALOG)) MODAL.append(DIALOG);
-    else if (!modalTopLevel) {
+    if (dialogTopLevel && !MODAL.contains(DIALOG)) MODAL.append(DIALOG);
+    else if (!dialogTopLevel) {
         if (data_container) document.querySelector("#" + data_container)?.append(DIALOG);
         else if (data_modalContainerPGS) pgs(document).querySelector(data_modalContainerPGS)?.append(DIALOG);
         else document.body.append(DIALOG);
@@ -1792,7 +1792,7 @@ function initializeModal(MODAL, existingDialog = null) {
 
         if (!DIALOG.open) document.querySelectorAll("dialog[open]").forEach((dlg) => dlg.close());
         statusModal(true);
-        modalTopLevel ? DIALOG.showModal() : DIALOG.show();
+        dialogTopLevel ? DIALOG.showModal() : DIALOG.show();
         //== respect an explicit autofocus target inside the dialog when the author set one
         if (!DIALOG.querySelector("[autofocus]")) focusTarget.focus();
         //== dispatched on both, and neither bubbles: a listener sits on whichever of the two it
@@ -1833,7 +1833,7 @@ function initializeModal(MODAL, existingDialog = null) {
 
     //= CLOSE
     DIALOG.addEventListener("close", () => statusModal(false), { signal });
-    DIALOG.addEventListener("click", e => { if (e.target == DIALOG && !modalDisableBackdropClose) closeModal(e) }, { signal });
+    DIALOG.addEventListener("click", e => { if (e.target == DIALOG && !dialogDisableBackdropClose) closeModal(e) }, { signal });
     BUTTON_CLOSE?.addEventListener("click", e => closeModal(e), { signal });
 
     //= UPDATE HISTORY
@@ -2063,7 +2063,7 @@ const fn_notification = {
             <div pgs="_notifications-element-content">
                 ${iconHtml}
                 <p>${text}</p>
-                <button type="button" pgs="button['buttonIcon'] _notifications-element-content-delete"><i pgs="icon['icon-close']"></i></button>
+                <button type="button" pgs="button['iconOnly'] _notifications-element-content-delete"><i pgs="icon['icon-close']"></i></button>
             </div>
             <div pgs="_notifications-element-buttons">
             </div>
@@ -2094,7 +2094,7 @@ const fn_notification = {
             if (button.link) buttonElement.href = button.link;
             else buttonElement.type = "button";
             buttonElement.textContent = button.title;
-            pgs(buttonElement).add("button['buttonTransparent']");
+            pgs(buttonElement).add("button['transparent']");
             if (button.optionButton) pgs(buttonElement).add(`button['${button.optionButton}']`);
 
             buttonElement.addEventListener("click", (e) => {
@@ -2204,7 +2204,7 @@ const fn_notification = {
         });
     },
 
-    //+ generates <dialog pgs="modal-dialog['modalRight']"><div pgs="modal-dialog-content"><div pgs="_notifications"></div></div></dialog>
+    //+ generates <dialog pgs="modal-dialog['dialogRight']"><div pgs="modal-dialog-content"><div pgs="_notifications"></div></div></dialog>
     //+ inside the modal wrapping notificationBell, then asks pgs.modal to (re)initialize it.
     _ensureDialog(root = document) {
         let created = false;
@@ -2220,7 +2220,7 @@ const fn_notification = {
             modalWrapper.dataset.notificationDialog = "true";
 
             const dialog = document.createElement("dialog");
-            pgs(dialog).add("modal-dialog['modalRight' 'modalMini' 'modalTop']");
+            pgs(dialog).add("modal-dialog['dialogRight' 'dialogMini' 'dialogTop']");
             pgs(dialog).add("_notificationsDialog");
 
             const content = document.createElement("div");
@@ -2234,7 +2234,7 @@ const fn_notification = {
             const closeButton = document.createElement("button");
             closeButton.type = "button";
             closeButton.textContent = this._defaults.panelCloseTitle;
-            pgs(closeButton).add("button['buttonMini']", "modal-close", "_notifications-close");
+            pgs(closeButton).add("button['mini']", "modal-close", "_notifications-close");
             content.appendChild(closeButton);
 
             dialog.appendChild(content);
@@ -2478,7 +2478,7 @@ function PGS_search_init(root = document) {
             items.forEach((item, index) => {
                 const option = document.createElement("li");
                 pgs(option).add("_search-suggestions-item");
-                pgs(option).add("flex['flexRow']");
+                pgs(option).add("flex['row']");
                 option.id = `${list.id}-option-${index}`;
                 option.dataset.index = String(index);
                 option.setAttribute("role", "option");
@@ -2776,10 +2776,10 @@ class PGS_Slides {
 
         //== PULSANTI
         if (!pgs(EL).querySelector('slides-prec')) {
-            EL.insertAdjacentHTML("afterbegin", `<button pgs="slides-prec button['buttonIcon' 'buttonMini']" type="button" class="precButton" aria-label="Previous slide"> <i pgs="icon['icon-chevronDown'] rotate90"></i></button>`);
+            EL.insertAdjacentHTML("afterbegin", `<button pgs="slides-prec button['iconOnly' 'mini']" type="button" class="precButton" aria-label="Previous slide"> <i pgs="icon['icon-chevronDown'] rotate90"></i></button>`);
         }
         if (!pgs(EL).querySelector('slides-next')) {
-            EL.insertAdjacentHTML("beforeend", `<button pgs="slides-next button['buttonIcon' 'buttonMini']" type="button" class="nextButton" aria-label="Next slide"> <i pgs="icon['icon-chevronDown'] rotate270"></i></button>`);
+            EL.insertAdjacentHTML("beforeend", `<button pgs="slides-next button['iconOnly' 'mini']" type="button" class="nextButton" aria-label="Next slide"> <i pgs="icon['icon-chevronDown'] rotate270"></i></button>`);
         }
 
         //== DOTS
@@ -2825,7 +2825,7 @@ class PGS_Slides {
         //== the one on its own side: rounded down going forward, up going back. Rounding down for
         //== both, as this did, left the two arrows starting from the same slide, and going back
         //== then covered a slide more than going forward did
-        if (pgs(this.element).option.contains('slidesSingleScroll')) {
+        if (pgs(this.element).option.contains('singleScroll')) {
             const middle = (currents.length - 1) / 2;
             return currents[towardsEnd ? Math.floor(middle) : Math.ceil(middle)];
         }
@@ -2941,10 +2941,10 @@ class PGS_Slides {
         const dots = Array.from(pgs(slides).querySelector('slides-dots').children);
 
         //== option
-        const slidesScrollMouse = pgs(slides).option.contains('slidesScrollMouse');
+        const scrollMouse = pgs(slides).option.contains('scrollMouse');
 
         //== scroll
-        const removeHorizontalScroll = slidesScrollMouse
+        const removeHorizontalScroll = scrollMouse
             ? (0,_helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_0__.PGS_scrollHorizontalWithMouse)(this.container, 5)
             : null;
 
@@ -3103,7 +3103,7 @@ function PGS_stepTabs_init(root = document) {
                 const dot = document.createElement("button");
                 dot.type = "button";
                 pgs(dot).add("_stepTabs-dots-dot");
-                pgs(dot).add("button['buttonIcon' 'hoverNot']");
+                pgs(dot).add("button['iconOnly' 'hoverNot']");
                 //== stepTabsIcon takes three shapes, told apart by how the value opens. Markup, from a
                 //== "<", is instantiated as written: that is what puts every icon set in reach,
                 //== including the ones a class list cannot describe because they want their name as
@@ -3833,7 +3833,7 @@ const fn_toast = {
             <div pgs="_toast-element-content">
                 ${iconHtml}
                 <p>${text}</p>
-                <button type="button" pgs="button['buttonIcon'] _toast-element-content-delete"><i pgs="icon['icon-close']"></i></button>
+                <button type="button" pgs="button['iconOnly'] _toast-element-content-delete"><i pgs="icon['icon-close']"></i></button>
             </div>
             <div pgs="_toast-element-buttons">
             </div>
@@ -4542,7 +4542,7 @@ __webpack_require__.r(__webpack_exports__);
 // Width at or below which the header switches to its compact layout even when the content
 // still fits, so a wide header can be compact on purpose.
 // headerCompactFrom[600] wins with its own pixel value, otherwise the named options
-// (headerCompactTablet, headerCompactLaptop, ...) set --header-compact-breakpoint in the
+// (compactTablet, compactLaptop, ...) set --header-compact-breakpoint in the
 // SCSS, so the breakpoint values stay defined in one place.
 function getHeader_CompactBreakpoint(header) {
     const custom = parseFloat(pgs(header).data.getValueBrackets("headerCompactFrom"));
@@ -4648,13 +4648,13 @@ function initHeader_Height(header) {
     //+ FOR --heightOfHeader e --heightOfHeaderScroll
     function getPrimaryHeader() {
         const headers = getReadyHeaders();
-        return headers.find(header => pgs(header).option.contains("headerPrimary")) || headers[0] || null;
+        return headers.find(header => pgs(header).option.contains("main")) || headers[0] || null;
     }
 
     //+ HEIGHT
     function headerHeight() {
         //== --heightOfHeader is what pushes the page down, so only one header can own it. Ownership
-        //== is checked here rather than at init, so a header declaring headerPrimary later still
+        //== is checked here rather than at init, so a header declaring main later still
         //== takes over from the fallback
         if (getPrimaryHeader() !== header) return;
 
@@ -4694,7 +4694,7 @@ function initHeader_Height(header) {
 //== up to 900px tall, where a pinned header costs too much of the page
 function initHeader_Scroll(header) {
     let lastScrollY = window.scrollY;
-    if (!header || !pgs(header).option.contains("headerScroll")) return;
+    if (!header || !pgs(header).option.contains("scroll")) return;
     const headerElements = pgs(header).querySelectorAll("header-element");
 
     window.addEventListener("scroll", () => {
@@ -4891,10 +4891,10 @@ function buildCookieConsent(marker) {
     pgs(root).add('modal', 'cookieConsent');
 
     root.innerHTML = `
-        <dialog pgs="modal-dialog['modalTopLevel' 'modalBottom' 'modalRight' 'modalMedium']">
+        <dialog pgs="modal-dialog['dialogTopLevel' 'dialogBottom' 'dialogRight' 'dialogMedium']">
             <div pgs="modal-dialog-content">
-                <div pgs="_cookieConsent-header flex['flexColumn']">
-                    <p pgs="flex['flexRow' 'itemCenter']"><i pgs="icon['icon-cookie']"></i> ${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.titleIntro)}</p>
+                <div pgs="_cookieConsent-header flex['column']">
+                    <p pgs="flex['row' 'itemCenter']"><i pgs="icon['icon-cookie']"></i> ${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.titleIntro)}</p>
                     <h2>${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.titleHeading)}</h2>
                     <p>${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.description)}</p>
                     <p>
@@ -4903,8 +4903,8 @@ function buildCookieConsent(marker) {
                     </p>
                 </div>
 
-                <div pgs="_cookieConsent-panel flex['flexColumn']" role="group" aria-label="${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_escapeHtml)(config.panelAriaLabel)}">
-                    <div pgs="flex['flexRow' 'nowrap'] _cookieConsent-panel-featureEssential">
+                <div pgs="_cookieConsent-panel flex['column']" role="group" aria-label="${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_escapeHtml)(config.panelAriaLabel)}">
+                    <div pgs="flex['row' 'nowrap'] _cookieConsent-panel-featureEssential">
                         <div>
                             <p>
                                 <strong>${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.essentialTitle)}</strong>
@@ -4913,10 +4913,10 @@ function buildCookieConsent(marker) {
                             </p>
                         </div>
 
-                        <span pgs="_cookieConsent-panel-badge badge['badgeSuccess']">${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.essentialBadge)}</span>
+                        <span pgs="_cookieConsent-panel-badge badge['success']">${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.essentialBadge)}</span>
                     </div>
 
-                    <div pgs="flex['flexRow'] _cookieConsent-panel-featureAnalytics">
+                    <div pgs="flex['row'] _cookieConsent-panel-featureAnalytics">
                         <label pgs="toggle">
                             <p>
                                 <strong>${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.analyticsTitle)}</strong>
@@ -4927,12 +4927,12 @@ function buildCookieConsent(marker) {
                             <input type="checkbox" pgs="_cookieConsent-panel-toggleAnalytics" aria-label="${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_escapeHtml)(config.analyticsAriaLabel)}">
                         </label>
                     </div>
-                    <div pgs="flex['flexRow']">
+                    <div pgs="flex['row']">
                         <button type="button" pgs="button _cookieConsent-actionReject">
                             ${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.titleReject)}
                         </button>
     
-                        <button type="button" pgs="button['buttonStrong'] _cookieConsent-actionAccept">
+                        <button type="button" pgs="button['strong'] _cookieConsent-actionAccept">
                             <i pgs="icon['icon-check']"></i> ${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.titleAccept)}
                         </button>
                     </div>

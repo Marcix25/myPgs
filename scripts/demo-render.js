@@ -421,7 +421,7 @@ function extractDemoBlocks(markup, { unwrap = true } = {}) {
 //+ the <ul> itself, since there is nothing else between it and the accordion root
 function renderDocListHtml(items, isPanel = false) {
     const rows = items.map(item => `<li><code>${escapeHtml(item.key)}</code>: ${escapeHtml(item.description)}</li>`).join("");
-    return `<ul pgs="flex['flexColumn' 'gapTexts']${isPanel ? " accordion-content" : ""}"${isPanel ? " hidden" : ""}>${rows}</ul>`;
+    return `<ul pgs="flex['column' 'gapTexts']${isPanel ? " accordion-content" : ""}"${isPanel ? " hidden" : ""}>${rows}</ul>`;
 }
 
 //== the two lists a reader opens a reference for; the rest stay closed so the doc block does not
@@ -432,13 +432,13 @@ const DOC_GROUPS_OPEN = new Set([LIST_TAG_LABELS.pgs, LIST_TAG_LABELS["pgs-optio
 //+ usually after one of them. The heading is the control — pgs.accordion gives it role="button"
 //+ and tabindex, so a heading stays operable — and both it and the panel have to be direct
 //+ children of the root, which is what the module looks for. The panel is always written hidden so
-//+ it does not flash open before the JavaScript runs; accordionAutoOpen is what reopens the two
+//+ it does not flash open before the JavaScript runs; autoOpen is what reopens the two
 //+ groups above at init. There is no accordionContainer around these on purpose — without a group
 //+ each panel answers for itself, so reading one does not collapse the rest of the block
 function renderDocAccordionHtml(label, panelHtml, className = "") {
     const classAttribute = className ? ` class="${className}"` : "";
-    const accordion = DOC_GROUPS_OPEN.has(label) ? "accordion['accordionAutoOpen']" : "accordion";
-    return `<div${classAttribute} pgs="flex['flexColumn' 'gapTexts'] ${accordion}">` +
+    const accordion = DOC_GROUPS_OPEN.has(label) ? "accordion['autoOpen']" : "accordion";
+    return `<div${classAttribute} pgs="flex['column' 'gapTexts'] ${accordion}">` +
         `<h4 pgs="accordion-button">${escapeHtml(label)}</h4>` +
         panelHtml +
         `</div>`;
@@ -450,7 +450,7 @@ function renderDocAccordionHtml(label, panelHtml, className = "") {
 function renderDocGroupHtml(label, items, level) {
     if (!items.length) return "";
     if (level === "h4") return renderDocAccordionHtml(label, renderDocListHtml(items, true));
-    return `<div pgs="flex['flexColumn' 'gapTexts']"><${level} class="demoContent-doc-subheading">${escapeHtml(label)}</${level}>${renderDocListHtml(items)}</div>`;
+    return `<div pgs="flex['column' 'gapTexts']"><${level} class="demoContent-doc-subheading">${escapeHtml(label)}</${level}>${renderDocListHtml(items)}</div>`;
 }
 
 function renderRelatedGroupHtml(items, markup) {
@@ -471,7 +471,7 @@ function renderRelatedGroupHtml(items, markup) {
     buckets.push(["Other", items.filter(item => !grouped.has(item))]);
 
     const groupsHtml = buckets.map(([label, groupItems]) => renderDocGroupHtml(label, groupItems, "h5")).join("");
-    const panel = `<div pgs="flex['flexColumn' 'gapTexts'] accordion-content" hidden>${groupsHtml}</div>`;
+    const panel = `<div pgs="flex['column' 'gapTexts'] accordion-content" hidden>${groupsHtml}</div>`;
     return renderDocAccordionHtml("Related elements", panel, "demoContent-doc-related");
 }
 
@@ -479,7 +479,7 @@ function renderCssVariablesGroupHtml(basename, cssText) {
     const variables = extractCssVariables(basename, cssText);
     if (!variables.length) return "";
     const items = variables.map(name => `<li><code>${escapeHtml(name)}</code></li>`).join("");
-    const panel = `<ul pgs="flex['flexColumn' 'gapTexts'] accordion-content" hidden>${items}</ul>`;
+    const panel = `<ul pgs="flex['column' 'gapTexts'] accordion-content" hidden>${items}</ul>`;
     return renderDocAccordionHtml("CSS Variables", panel, "demoContent-doc-cssVariables");
 }
 
@@ -496,14 +496,14 @@ function renderDocumentationHtml(data, markup, basename, cssText) {
         renderCssVariablesGroupHtml(basename, cssText),
     ].filter(Boolean).join("");
     if (!parts) return "";
-    return `<div class="demoContent-doc" pgs="box flex['flexColumn' 'gapElements'] accordionContainer">${parts}</div>`;
+    return `<div class="demoContent-doc" pgs="box flex['column' 'gapElements'] accordionContainer">${parts}</div>`;
 }
 
 function renderHeadingBlockHtml(title, description, level) {
     if (!title && !description) return "";
     const heading = title ? `<${level} class="demoContent-heading-${level}">${escapeHtml(title)}</${level}>` : "";
     const desc = description ? `<p>${escapeHtml(description)}</p>` : "";
-    return `<div class="demoContent-heading" pgs="flex['flexColumn' 'gapTexts']">${heading}${desc}</div>`;
+    return `<div class="demoContent-heading" pgs="flex['column' 'gapTexts']">${heading}${desc}</div>`;
 }
 
 function renderExampleSourceHtml(markup, title = "Example HTML", kind = "html") {
@@ -516,14 +516,14 @@ function renderExampleSourceHtml(markup, title = "Example HTML", kind = "html") 
 }
 
 function renderReferenceHtml(markup) {
-    return `<div pgs="container flex['flexColumn' 'gapElements']">${markup}</div>`;
+    return `<div pgs="container flex['column' 'gapElements']">${markup}</div>`;
 }
 
 function renderDemoItemHtml({ previewMarkup, codeMarkup, title, description, showPreview, hasCode }) {
-    let html = `<div class="demo-item" pgs="flex['flexColumn' 'gapElements']">`;
+    let html = `<div class="demo-item" pgs="flex['column' 'gapElements']">`;
     html += renderHeadingBlockHtml(title, description, "h3");
     html += showPreview
-        ? `<div pgs="container flex['flexColumn' 'gapElements']">${previewMarkup}</div>`
+        ? `<div pgs="container flex['column' 'gapElements']">${previewMarkup}</div>`
         : `<div pgs="hidden">${previewMarkup}</div>`;
     if (hasCode) html += renderExampleSourceHtml(codeMarkup);
     html += `</div>`;
@@ -577,10 +577,10 @@ function renderExamplePairsHtml(exampleMarkup) {
 function renderNavMenuHtml(items, category) {
     const rows = items.map(({ path }) => {
         const icon = ENTRY_ICONS[path] || DEFAULT_ENTRY_ICON;
-        return `<li><a href="#${escapeHtml(getSlug(path))}" data-panel-link="${escapeHtml(path)}" pgs="button['buttonText' 'buttonPaddingEqual']">` +
+        return `<li><a href="#${escapeHtml(getSlug(path))}" data-panel-link="${escapeHtml(path)}" pgs="button['text' 'paddingEqual']">` +
             `<i class="fa-solid ${icon}" aria-hidden="true"></i><span>${escapeHtml(getEntryLabel(path))}</span></a></li>`;
     }).join("");
-    return `<nav pgs="menu['menuVertical']" aria-label="Menu ${escapeHtml(category || "")}"><ul pgs="borderLeft ">${rows}</ul></nav>`;
+    return `<nav pgs="menu['vertical']" aria-label="Menu ${escapeHtml(category || "")}"><ul pgs="borderLeft ">${rows}</ul></nav>`;
 }
 
 function renderNavHtml(entries, withHeadingIds = true) {
@@ -638,9 +638,9 @@ function renderReferencePanelHtml(path, rawFileText, cssText) {
     }
 
     const sectionTag = isSection ? "section" : "div";
-    const sectionExtraAttrs = isSection ? ` pgs="flex['flexColumn' 'gapElements']"` : ` style="display:contents"`;
+    const sectionExtraAttrs = isSection ? ` pgs="flex['column' 'gapElements']"` : ` style="display:contents"`;
     const section = `<${sectionTag} class="demoContent" data-reference="${escapeHtml(path)}"${sectionExtraAttrs}>${bodyHtml}</${sectionTag}>`;
-    const panel = `<div data-panel="${escapeHtml(path)}" hidden pgs="flex['flexColumn' 'gapElements']">${section}</div>`;
+    const panel = `<div data-panel="${escapeHtml(path)}" hidden pgs="flex['column' 'gapElements']">${section}</div>`;
 
     return { title, panelHtml: panel };
 }

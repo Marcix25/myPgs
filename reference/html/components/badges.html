@@ -7,18 +7,18 @@
  * - badge: identifies the base badge variant.
  *
  * @pgs-options
- * - badgePrimary: applies the primary color variant.
- * - badgeStrong: applies the high-contrast variant.
- * - badgeSuccess: represents a successful result.
- * - badgeDot: adds a dot indicator to the badge.
- * - badgeWarning: represents a warning.
- * - badgeError: represents an error.
- * - badgeInfo: represents informational content.
- * - badgeNeutral: applies the neutral variant.
+ * - primary: applies the primary color variant.
+ * - strong: applies the high-contrast variant.
+ * - success: represents a successful result.
+ * - dot: adds a dot indicator to the badge.
+ * - warning: represents a warning.
+ * - error: represents an error.
+ * - info: represents informational content.
+ * - neutral: applies the neutral variant.
  *
  * @related
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
- * - flexRow: arranges badges horizontally and allows them to wrap.
+ * - row: arranges badges horizontally and allows them to wrap.
  * - icon: draws the glyphs this example shows; see Icon for the whole set.
  * - icon-circleInfo: the information mark.
  * - icon-close: the cross that dismisses.
@@ -38,28 +38,28 @@
 
 <demo demo-h3="Primary" demo-description="Badge using the primary color variant."></demo>
 <section demo="component">
-    <span pgs="badge['badgePrimary']">
+    <span pgs="badge['primary']">
         Primary
     </span>
 </section>
 
 <demo demo-h3="Strong" demo-description="High-contrast badge variant."></demo>
 <section demo="component">
-    <span pgs="badge['badgeStrong']">
+    <span pgs="badge['strong']">
         Strong
     </span>
 </section>
 
 <demo demo-h3="Active" demo-description="Success badge combined with a dot indicator."></demo>
 <section demo="component">
-    <span pgs="badge['badgeSuccess' 'badgeDot']">
+    <span pgs="badge['success' 'dot']">
         Active
     </span>
 </section>
 
 <demo demo-h3="Warning" demo-description="Badge representing a warning, paired with an icon."></demo>
 <section demo="component">
-    <span pgs="badge['badgeWarning']">
+    <span pgs="badge['warning']">
         <i pgs="icon['icon-triangleExclamation']" aria-hidden="true"></i>
         Warning
     </span>
@@ -67,7 +67,7 @@
 
 <demo demo-h3="Error" demo-description="Badge representing an error, paired with an icon."></demo>
 <section demo="component">
-    <span pgs="badge['badgeError']">
+    <span pgs="badge['error']">
         <i pgs="icon['icon-close']" aria-hidden="true"></i>
         Error
     </span>
@@ -75,7 +75,7 @@
 
 <demo demo-h3="Info" demo-description="Badge representing informational content, paired with an icon."></demo>
 <section demo="component">
-    <span pgs="badge['badgeInfo']">
+    <span pgs="badge['info']">
         <i pgs="icon['icon-circleInfo']" aria-hidden="true"></i>
         Info
     </span>
@@ -83,7 +83,7 @@
 
 <demo demo-h3="Neutral" demo-description="Neutral badge variant with muted colors."></demo>
 <section demo="component">
-    <span pgs="badge['badgeNeutral']">
+    <span pgs="badge['neutral']">
         Neutral
     </span>
 </section>

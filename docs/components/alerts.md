@@ -35,7 +35,7 @@ Inline feedback messages for contextual information, successful operations, warn
 
 ### PGS Options (component brackets)
 
-- `flexColumn`: arranges the static alert examples vertically.
+- `column`: arranges the static alert examples vertically.
 - `icon-circleXmark`: the glyph of the error type.
 - `icon-circleCheck`: the glyph of the success type.
 - `icon-circleInfo`: the glyph of the info type.

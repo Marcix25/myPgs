@@ -33,41 +33,81 @@ Search the consuming project's HTML, PHP, templates, JavaScript strings and cust
 name and single quotes around each flag. Multiple components keep separate brackets:
 
 ```html
-<button pgs="button['buttonStrong' 'buttonMini'] icon['icon-check']"></button>
-<div pgs="box['boxMini'] flex['flexColumn' 'wrap' 'flexCenter']"></div>
-<header pgs="header['headerCompactTablet' 'headerPrimary' 'headerScroll']"
+<button pgs="button['strong' 'mini'] icon['icon-check']"></button>
+<div pgs="box['mini'] flex['column' 'wrap' 'flexCenter']"></div>
+<header pgs="header['compactTablet' 'main' 'scroll']"
         pgs-data="headerCompactFrom[600]"></header>
 ```
 
-`flexRow` and `flexColumn` are now options of `flex`, not standalone component tokens. The existing
-wrapping names remain `wrap` / `nowrap`, and `inlineFlex` keeps its name. Do not rename these to
-`flexWrap`, `column` or `row`. A quoted `'flexColumn'` cannot match `'flexColumnReverse'`, regardless
-of its position in the bracket.
+`row` and `column` are now options of `flex`, not standalone component tokens. The existing
+wrapping names remain `wrap` / `nowrap`, and `inlineFlex` keeps its name. A quoted `'column'`
+cannot match `'columnReverse'`, regardless of its position in the bracket.
 
 Only a genuine `key[payload]` value moves to `pgs-data`, with the existing format and support for
 nested JSON arrays: `headerCompactFrom[600]`, `modalContainerID[myContainer]`,
 `modalContainerPGS[header]`, `dropdownPosition[top left]`, `stepTabsIcon[...]`, `formMessage[...]`,
 `formMessageTitle[...]`, `notification[...]`, `toast[...]`, `cookieConsent[...]`. `tabsHistory` is
 the one hybrid case: it belongs in `pgs-data` whether written bare or with its optional
-`tabsHistory[name]` payload, because it can carry one.
+`tabsHistory[name]` payload, because it can carry one. A `pgs-data` key always keeps the prefix of
+the component it belongs to — that attribute is flat, with no bracket to give a bare key context.
 
 Every boolean flag with no payload stays in `pgs`, whether it is CSS-facing or read by JavaScript
-only: `headerPrimary`, `headerScroll`, `accordionAutoOpen`, `accordionMultiOpen`,
-`slidesSingleScroll`, `slidesScrollMouse`, `dropdownHover`, `modalHistory`, `menuHorizontal`,
-`modalTopLevel` and `modalDisableBackdropClose` are all written as `component['flagName']`, next
-to the flags that also carry a CSS rule. `hoverNot` is the one exception: it opts out on whichever
-component carries it (button, card, box, hover), so it has no single owner — write it bare,
-`pgs="button hoverNot"`, not nested in a bracket.
+only, written as `component['flagName']` next to the flags that also carry a CSS rule. `hoverNot`
+is the one exception: it opts out on whichever component carries it (button, card, box, hover), so
+it has no single owner — write it bare, `pgs="button hoverNot"`, not nested in a bracket.
+
+### The component prefix, dropped from most flags a second time
+
+Once every flag lived inside its own component's bracket, the prefix that told the two apart
+under the old flat `pgs-option` (`buttonMini`, `headerScroll`, `modalHistory`) became redundant —
+`button['mini']` already says which component `mini` belongs to. Search for every occurrence of
+the table below and rename it; a handful of flags kept their prefix on purpose (`margin2`/
+`padding2` — a lone digit means nothing on its own — and the `icon-*` glyphs), and every `pgs-data`
+key kept its too, for the reason above.
+
+| component | was | is now |
+| --- | --- | --- |
+| accordion | `accordionAutoOpen` | `autoOpen` |
+| accordionContainer | `accordionMultiOpen` | `multiOpen` |
+| badge | `badgeDot` / `badgeError` / `badgeInfo` / `badgeNeutral` / `badgePrimary` / `badgeStrong` / `badgeSuccess` / `badgeWarning` | `dot` / `error` / `info` / `neutral` / `primary` / `strong` / `success` / `warning` |
+| border (and its variants) | `borderThick` / `borderThicker` / `borderThin` | `thick` / `thicker` / `thin` |
+| outline | `outlineThick` / `outlineThicker` / `outlineThin` | `thick` / `thicker` / `thin` |
+| box | `boxMini` | `mini` |
+| button | `buttonBig` / `buttonMini` / `buttonPaddingEqual` / `buttonPrimary` / `buttonQuaternary` / `buttonReverse` / `buttonSecondary` / `buttonStrong` / `buttonTertiary` / `buttonText` / `buttonTransparent` | `big` / `mini` / `paddingEqual` / `primary` / `quaternary` / `reverse` / `secondary` / `strong` / `tertiary` / `text` / `transparent` |
+| button | `buttonHeader` | `forHeader` (kept a word, not just stripped: `button['header']` reads as "is a header") |
+| button | `buttonIcon` | `iconOnly` (not bare `icon`, which is also a real component) |
+| card | `cardHorizontal` / `cardHorizontalFixed` / `cardLegacy` / `cardMini` | `horizontal` / `horizontalFixed` / `legacy` / `mini` |
+| dropdown | `dropdownHover` | `hover` |
+| flex | `flexColumn` / `flexRow` / `flexColumnReverse` / `flexRowReverse` | `column` / `row` / `columnReverse` / `rowReverse` (`flexCenter` keeps its name: bare `center` would collide in meaning with `itemCenter`/`justifyCenter`/`contentCenter` in the same bracket) |
+| header | `headerCompactBigMobile` / `headerCompactBigTablet` / `headerCompactBottom` / `headerCompactLaptop` / `headerCompactMobile` / `headerCompactTablet` / `headerCompactWatch` | `compactBigMobile` / `compactBigTablet` / `compactBottom` / `compactLaptop` / `compactMobile` / `compactTablet` / `compactWatch` |
+| header | `headerPrimary` | `main` (not bare `primary`, which means a colour variant on button/badge) |
+| header | `headerScroll` | `scroll` |
+| icon | `iconBox` | `boxed` (not bare `box`, which is also a real component) |
+| icon | `iconDuo` / `iconLarge` / `iconMedium` | `duo` / `large` / `medium` |
+| logo | `logoDarkmode` / `logoDarkmodeFixed` | `darkmode` / `darkmodeFixed` |
+| menu | `menuHorizontal` / `menuIconOnlyCurrent` / `menuShort` / `menuVertical` | `horizontal` / `iconOnlyCurrent` / `short` / `vertical` |
+| modal / modal-dialog | `modalBottom` / `modalCenter` / `modalDisableBackdropClose` / `modalFull` / `modalHistory` / `modalLeft` / `modalMedium` / `modalMini` / `modalRight` / `modalTop` / `modalTopLevel` | `dialogBottom` / `dialogCenter` / `dialogDisableBackdropClose` / `dialogFull` / `dialogHistory` / `dialogLeft` / `dialogMedium` / `dialogMini` / `dialogRight` / `dialogTop` / `dialogTopLevel` (renamed to `dialog*`, not stripped bare — these flags act on the `<dialog>`, not the wrapper) |
+| margin (and its variants) | `marginAuto` / `marginElements` / `marginNegative` / `marginPage` / `marginSections` / `marginTexts` / `marginUnset` | `auto` / `elements` / `negative` / `page` / `sections` / `texts` / `unset` (`margin2` keeps its name) |
+| padding (and its variants) | same list as margin, `padding*` | same as margin (`padding2` keeps its name) |
+| pageShell | `pageShellAsideScroll` / `pageShellAsideShadow` / `pageShellFullPage` | `asideScroll` / `asideShadow` / `fullPage` |
+| slides | `slidesAnimationScale` / `slidesScrollMouse` / `slidesShadowDesktop` / `slidesSingleScroll` | `animationScale` / `scrollMouse` / `shadowDesktop` / `singleScroll` |
+| toggleDarkmode | `toggleDarkmodeExtended` | `labelled` (not bare `extended`, which does not say what is extended) |
+| width (and its variants) | `widthFillAvailable` / `widthFull` / `widthPage` / `widthPageHalf` / `widthPageThird` / `widthText` | `fillAvailable` / `full` / `page` / `pageHalf` / `pageThird` / `text` |
+| height (and its variants) | `heightAuto` / `heightFull` / `heightScreen` / `heightScreenHalf` / `heightScreenLarge` / `heightScreenLive` / `heightUnderHeader` / `heightUnderMain` | `auto` / `full` / `screen` / `screenHalf` / `screenLarge` / `screenLive` / `underHeader` / `underMain` |
 
 `.option` and `.data` are two separate accessors, split by attribute as well as by purpose:
 `.option` (`contains`/`add`/`remove`/`toggle`/queries/`closest`) only ever touches the `pgs`
 attribute; `.data` (`getValueBrackets`/`setValueBrackets`/`value`) only ever touches `pgs-data`.
 Neither reads nor writes the other's attribute. `option.add(key)` derives the owning component
-from `key`'s own name — the lowercase run before the first uppercase letter or a `-`
-(`headerScroll` → `header`) — and merges into that component's existing bracket; a flag with no
-matching owner on the element (like `hoverNot` where nothing carries a `hover` token) becomes its
-own bare `pgs` token instead. `option.remove`/`option.toggle` strip a flag correctly either way,
-bare or nested. There is no ownership registry to keep in sync. `data.getValueBrackets` /
+from `key`'s own name — the lowercase run before the first uppercase letter or a `-` — and merges
+into that component's existing bracket. Most flags lost that derivable prefix in the table above,
+so this now only actually resolves an owner for the few that kept one (`margin2` → `margin`,
+`icon-moon` → `icon`); every other flag falls through to becoming its own bare `pgs` token, same as
+`hoverNot` (which never had an owner to derive). To add a shortened flag into its bracket from
+JavaScript, call the base `pgs(el).add("component['flag']")` directly, naming the component — this
+is the normal way to add a bracket flag now, not a fallback. `option.remove`/`option.toggle` strip
+a flag correctly either way, bare or nested, since removal only needs to find the flag, not derive
+where to put it. There is no ownership registry to keep in sync. `data.getValueBrackets` /
 `data.setValueBrackets` read and write only `pgs-data`, for a genuine `key[payload]` value;
 `data.value` is a plain passthrough on `pgs-data` — get or set its raw attribute string, nothing
 from the `pgs` bracket. `.data` has no `contains`/`add`/`remove`/`toggle` of its own — `tabsHistory`
@@ -75,14 +115,18 @@ written bare goes through `data.value` directly, since it has no owner to derive
 in the `pgs` bracket. The base `pgs()` API recognizes components with brackets and preserves their
 options when another token is added. There is no fallback to the retired attribute.
 
-Update consumer selectors too: `[pgs~="button"]` alone does not match `button['buttonMini']`.
+Update consumer selectors too: `[pgs~="button"]` alone does not match `button['mini']`.
 Use `:is([pgs~="button"], [pgs*="button\5B"])` for the component and
-`[pgs*="'buttonMini'"]` for the flag. In SCSS, spell the opening bracket as `\5B`.
+`[pgs*="'mini'"]` for the flag. In SCSS, spell the opening bracket as `\5B`. A selector for a true
+child token (one that never carries its own bracket, like `accordion-button` or
+`modal-dialog-content`) needs only the plain `[pgs~="X"]` form — keep the full `:is(...)` form for
+a token that gets its own options, such as `modal-dialog` itself.
 Custom code that directly reads/writes attributes must use the new storage or the wrapper.
 
 This is a manual breaking migration: the two attribute forms do not coexist. The older transitions
-below retain historical names in their explanations; apply this rule to their `pgs-option` examples
-as well. No consuming project is migrated by this library change.
+below retain historical names in their explanations, from before either of the renames above —
+apply both rules to their `pgs-option` examples as well. No consuming project is migrated by this
+library change.
 
 So `<span pgs="icon"><i class="fa-solid fa-star"></i></span>` no longer draws a circle. The surface
 is now an option on an icon element:

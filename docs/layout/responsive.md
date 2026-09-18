@@ -14,10 +14,10 @@ Responsive flex and grid layouts with configurable columns, gap, wrapping, and a
 - `inlineFlex`: uses inline-flex for the flex container.
 - `flexCenter`: centers items on both axes of a flex container.
 - `gapElements`: applies the element spacing gap.
-- `flexColumn`: configures a flex layout to stack items vertically.
-- `flexRow`: configures a flex layout to arrange items horizontally.
-- `flexColumnReverse`: configures a flex layout to stack items vertically in reverse order.
-- `flexRowReverse`: configures a flex layout to arrange items horizontally in reverse order.
+- `column`: configures a flex layout to stack items vertically.
+- `row`: configures a flex layout to arrange items horizontally.
+- `columnReverse`: configures a flex layout to stack items vertically in reverse order.
+- `rowReverse`: configures a flex layout to arrange items horizontally in reverse order.
 - `wrap`: allows flex items to wrap.
 - `nowrap`: prevents flex items from wrapping.
 - `column-`: configures a flex or grid layout with a selected number of columns; supported values are column-1 through column-8.
@@ -75,16 +75,16 @@ Three-column flex layout using column-2 with m2e to collapse to two columns per 
 
 ```html
 <strong>Flex</strong>
-<div pgs="flex['flexRow' 'column-2' 'm2e']">
-    <article pgs="box flex['flexColumn']">
+<div pgs="flex['row' 'column-2' 'm2e']">
+    <article pgs="box flex['column']">
         <strong>Lorem ipsum dolor</strong>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </article>
-    <article pgs="box flex['flexColumn']">
+    <article pgs="box flex['column']">
         <strong>Sit amet consectetur</strong>
         <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
     </article>
-    <article pgs="box flex['flexColumn']">
+    <article pgs="box flex['column']">
         <strong>Adipiscing elit sed</strong>
         <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
     </article>
@@ -98,19 +98,19 @@ Four-column grid layout using column-4 with m2e to collapse to two columns per r
 ```html
 <strong>Grid</strong>
 <div pgs="grid['column-4' 'm2e']">
-    <article pgs="box flex['flexColumn']">
+    <article pgs="box flex['column']">
         <strong>Do eiusmod tempor</strong>
         <p>Duis aute irure dolor in reprehenderit in voluptate.</p>
     </article>
-    <article pgs="box flex['flexColumn']">
+    <article pgs="box flex['column']">
         <strong>Ut labore et</strong>
         <p>Excepteur sint occaecat cupidatat non proident sunt.</p>
     </article>
-    <article pgs="box flex['flexColumn']">
+    <article pgs="box flex['column']">
         <strong>Dolore magna aliqua</strong>
         <p>Sunt in culpa qui officia deserunt mollit anim.</p>
     </article>
-    <article pgs="box flex['flexColumn']">
+    <article pgs="box flex['column']">
         <strong>Enim ad minim</strong>
         <p>Ut labore et dolore magna aliqua ut enim.</p>
     </article>
@@ -123,12 +123,12 @@ Flex items wrapping onto multiple rows versus staying on a single non-wrapping r
 
 ```html
 <strong>Wrap</strong>
-<div pgs="flex['flexRow' 'gapTexts' 'wrap']">
+<div pgs="flex['row' 'gapTexts' 'wrap']">
     <span pgs="box">Wrapping item</span>
     <span pgs="box">Wrapping item</span>
     <span pgs="box">Wrapping item</span>
 </div>
-<div pgs="flex['flexRow' 'gapTexts' 'nowrap']">
+<div pgs="flex['row' 'gapTexts' 'nowrap']">
     <span pgs="box">Non-wrapping item</span>
     <span pgs="box">Non-wrapping item</span>
 </div>
@@ -140,11 +140,11 @@ Reversing the visual order of flex items on the row axis and on the column axis.
 
 ```html
 <strong>Direction</strong>
-<div pgs="flex['flexRowReverse' 'gapTexts']">
+<div pgs="flex['rowReverse' 'gapTexts']">
     <span pgs="box">First in markup</span>
     <span pgs="box">Second in markup</span>
 </div>
-<div pgs="flex['flexColumnReverse' 'gapTexts']">
+<div pgs="flex['columnReverse' 'gapTexts']">
     <span pgs="box">First in markup</span>
     <span pgs="box">Second in markup</span>
 </div>
@@ -156,7 +156,7 @@ Aligning and justifying flex items, including overriding a single child's alignm
 
 ```html
 <strong>Alignment</strong>
-<div pgs="flex['flexRow' 'gapTexts' 'itemCenter' 'justifyBetween' 'contentCenter']">
+<div pgs="flex['row' 'gapTexts' 'itemCenter' 'justifyBetween' 'contentCenter']">
     <span pgs="box">Short item</span>
     <span pgs="box">Taller item<br>with two lines</span>
     <span pgs="box['selfEnd']">Self-aligned item</span>
@@ -169,7 +169,7 @@ Sizing behavior of individual flex children: initial, none, grow, full width, an
 
 ```html
 <strong>Flex children</strong>
-<div pgs="flex['flexRow' 'gapTexts' 'wrap']">
+<div pgs="flex['row' 'gapTexts' 'wrap']">
     <span pgs="box flex-flexInitial">Initial</span>
     <span pgs="box flex-flexNone">None</span>
     <span pgs="box flex-flex1">Grow</span>

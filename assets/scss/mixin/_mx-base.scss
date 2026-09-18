@@ -6,7 +6,7 @@
 //= TEXTAREA
 @mixin textarea() {
     align-items: flex-start;
-    @include flexColumn();
+    @include column();
     @include list;
 
     hr {

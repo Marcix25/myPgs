@@ -23,12 +23,6 @@
             @include boxHover();
         }
     }
-
-    //- boxMini
-    &[pgs*="'boxMini'"] {
-        --box-padding: var(--padding-half);
-        --box-borderRadius: var(--border-radius-input);
-    }
 }
 
 //== HOVER

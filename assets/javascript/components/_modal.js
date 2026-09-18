@@ -23,7 +23,7 @@ function initializeModal(MODAL, existingDialog = null) {
     let historyTimeout = null;
 
     //== SELECTOR
-    const DOMButtonClose = "<button pgs=\"button['buttonIcon' 'buttonMini'] modal-close\" type=\"button\" tabindex=\"0\" aria-label=\"Close\"><i pgs=\"icon['icon-close']\"></i></button>";
+    const DOMButtonClose = "<button pgs=\"button['iconOnly' 'mini'] modal-close\" type=\"button\" tabindex=\"0\" aria-label=\"Close\"><i pgs=\"icon['icon-close']\"></i></button>";
     const modalContentHeader = pgs(DIALOG).querySelector("modal-dialog-content-header");
 
     //== FOCUS
@@ -41,8 +41,8 @@ function initializeModal(MODAL, existingDialog = null) {
     //== options: other component brackets (for example flex on the wrapper) stay local.
     pgs(DIALOG).add("modal-dialog");
     for (const key of [
-        "modalHistory", "modalTopLevel", "modalDisableBackdropClose", "modalMini",
-        "modalMedium", "modalFull", "modalCenter", "modalLeft", "modalRight", "modalTop", "modalBottom"
+        "dialogHistory", "dialogTopLevel", "dialogDisableBackdropClose", "dialogMini",
+        "dialogMedium", "dialogFull", "dialogCenter", "dialogLeft", "dialogRight", "dialogTop", "dialogBottom"
     ]) {
         const source = [MODAL, DIALOG].find(element => pgs(element).option.contains(key));
         if (!source) continue;
@@ -60,13 +60,13 @@ function initializeModal(MODAL, existingDialog = null) {
     }
 
     //== OPTION ATTRIBUTES MODAL
-    const modalDisableBackdropClose = pgs(MODAL).option.contains("modalDisableBackdropClose");
-    const data_history = pgs(MODAL).option.contains("modalHistory");
+    const dialogDisableBackdropClose = pgs(MODAL).option.contains("dialogDisableBackdropClose");
+    const data_history = pgs(MODAL).option.contains("dialogHistory");
     const data_container = pgs(MODAL).data.getValueBrackets("modalContainerID");
     const data_modalContainerPGS = pgs(MODAL).data.getValueBrackets("modalContainerPGS");
 
     //== OPTION ATTRIBUTES DIALOG
-    const modalTopLevel = pgs(DIALOG).option.contains("modalTopLevel");
+    const dialogTopLevel = pgs(DIALOG).option.contains("dialogTopLevel");
 
 
     //== BUTTON CLOSE
@@ -88,8 +88,8 @@ function initializeModal(MODAL, existingDialog = null) {
 
 
     //== POSITION
-    if (modalTopLevel && !MODAL.contains(DIALOG)) MODAL.append(DIALOG);
-    else if (!modalTopLevel) {
+    if (dialogTopLevel && !MODAL.contains(DIALOG)) MODAL.append(DIALOG);
+    else if (!dialogTopLevel) {
         if (data_container) document.querySelector("#" + data_container)?.append(DIALOG);
         else if (data_modalContainerPGS) pgs(document).querySelector(data_modalContainerPGS)?.append(DIALOG);
         else document.body.append(DIALOG);
@@ -112,7 +112,7 @@ function initializeModal(MODAL, existingDialog = null) {
 
         if (!DIALOG.open) document.querySelectorAll("dialog[open]").forEach((dlg) => dlg.close());
         statusModal(true);
-        modalTopLevel ? DIALOG.showModal() : DIALOG.show();
+        dialogTopLevel ? DIALOG.showModal() : DIALOG.show();
         //== respect an explicit autofocus target inside the dialog when the author set one
         if (!DIALOG.querySelector("[autofocus]")) focusTarget.focus();
         //== dispatched on both, and neither bubbles: a listener sits on whichever of the two it
@@ -153,7 +153,7 @@ function initializeModal(MODAL, existingDialog = null) {
 
     //= CLOSE
     DIALOG.addEventListener("close", () => statusModal(false), { signal });
-    DIALOG.addEventListener("click", e => { if (e.target == DIALOG && !modalDisableBackdropClose) closeModal(e) }, { signal });
+    DIALOG.addEventListener("click", e => { if (e.target == DIALOG && !dialogDisableBackdropClose) closeModal(e) }, { signal });
     BUTTON_CLOSE?.addEventListener("click", e => closeModal(e), { signal });
 
     //= UPDATE HISTORY

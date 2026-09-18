@@ -51,10 +51,10 @@ A step-by-step wizard: one panel at a time, a row of dots showing where the read
 
 ### PGS Options (component brackets)
 
-- `flexColumn`: sets the vertical direction inside the flex bracket.
+- `column`: sets the vertical direction inside the flex bracket.
 - `gapElements`: applies element spacing to the step tab container.
-- `flexRow`: sets the horizontal direction inside the flex bracket.
-- `buttonReverse`: reverses text and icon on the example buttons and belongs to the button component.
+- `row`: sets the horizontal direction inside the flex bracket.
+- `reverse`: reverses text and icon on the example buttons and belongs to the button component.
 - `icon-arrowLeft`: the glyph that points back.
 - `icon-arrowRight`: the glyph that points forward.
 
@@ -69,27 +69,27 @@ Complete HTML markup and usage example for Step Tabs.
 ## Example
 
 ```html
-<div pgs="stepTabs flex['flexColumn' 'gapElements']">
+<div pgs="stepTabs flex['column' 'gapElements']">
     <div pgs="stepTabs-dots" aria-label="Progress"></div>
 
     <div pgs="stepTabs-container">
-        <section pgs="stepTabs-container-tab flex['flexColumn']" pgs-data="stepTabsIcon[<i pgs=&quot;icon['icon-circle']&quot;></i>]" tabindex="-1">
+        <section pgs="stepTabs-container-tab flex['column']" pgs-data="stepTabsIcon[<i pgs=&quot;icon['icon-circle']&quot;></i>]" tabindex="-1">
             <h3>Lorem ipsum dolor</h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </section>
 
-        <section pgs="stepTabs-container-tab flex['flexColumn']" pgs-data="stepTabsIcon[<i pgs=&quot;icon['icon-sliders']&quot;></i>]" tabindex="-1">
+        <section pgs="stepTabs-container-tab flex['column']" pgs-data="stepTabsIcon[<i pgs=&quot;icon['icon-sliders']&quot;></i>]" tabindex="-1">
             <h3>Sit amet consectetur</h3>
             <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
         </section>
 
-        <section pgs="stepTabs-container-tab flex['flexColumn']" pgs-data="stepTabsIcon[<i pgs=&quot;icon['icon-check']&quot;></i>]" tabindex="-1">
+        <section pgs="stepTabs-container-tab flex['column']" pgs-data="stepTabsIcon[<i pgs=&quot;icon['icon-check']&quot;></i>]" tabindex="-1">
             <h3>Adipiscing elit sed</h3>
             <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
         </section>
     </div>
 
-    <div pgs="flex['flexRow']">
+    <div pgs="flex['row']">
         <button pgs="stepTabs-prev button" type="button">
             <i pgs="icon['icon-arrowLeft']" aria-hidden="true"></i>
             Back
@@ -99,7 +99,7 @@ Complete HTML markup and usage example for Step Tabs.
             Restart
         </button>
 
-        <button pgs="stepTabs-next button['buttonReverse']" type="button">
+        <button pgs="stepTabs-next button['reverse']" type="button">
             Next
             <i pgs="icon['icon-arrowRight']" aria-hidden="true"></i>
         </button>

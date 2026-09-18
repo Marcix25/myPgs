@@ -10,7 +10,7 @@ function createToggle(li) {
     button.type = "button";
     button.innerHTML = "<span>&#9207;</span>";
 
-    pgs(button).add("_menu-buttonIcon", "button['hoverNot']");
+    pgs(button).add("_menu-iconOnly", "button['hoverNot']");
     li.querySelector("a").insertAdjacentElement("afterend", button);
 
     return button;
@@ -51,7 +51,7 @@ function PGS_menu_init(root = document) {
     pgs(root).querySelectorAll('menu').forEach(MENU => {
         if (API.has(MENU)) return;
 
-        const isHorizontal = pgs(MENU).option.contains("menuHorizontal");
+        const isHorizontal = pgs(MENU).option.contains("horizontal");
         const topLevel = MENU.querySelector("ul");
 
         MENU.querySelectorAll('li').forEach(li => {

@@ -37,10 +37,10 @@ class PGS_Slides {
 
         //== PULSANTI
         if (!pgs(EL).querySelector('slides-prec')) {
-            EL.insertAdjacentHTML("afterbegin", `<button pgs="slides-prec button['buttonIcon' 'buttonMini']" type="button" class="precButton" aria-label="Previous slide"> <i pgs="icon['icon-chevronDown'] rotate90"></i></button>`);
+            EL.insertAdjacentHTML("afterbegin", `<button pgs="slides-prec button['iconOnly' 'mini']" type="button" class="precButton" aria-label="Previous slide"> <i pgs="icon['icon-chevronDown'] rotate90"></i></button>`);
         }
         if (!pgs(EL).querySelector('slides-next')) {
-            EL.insertAdjacentHTML("beforeend", `<button pgs="slides-next button['buttonIcon' 'buttonMini']" type="button" class="nextButton" aria-label="Next slide"> <i pgs="icon['icon-chevronDown'] rotate270"></i></button>`);
+            EL.insertAdjacentHTML("beforeend", `<button pgs="slides-next button['iconOnly' 'mini']" type="button" class="nextButton" aria-label="Next slide"> <i pgs="icon['icon-chevronDown'] rotate270"></i></button>`);
         }
 
         //== DOTS
@@ -86,7 +86,7 @@ class PGS_Slides {
         //== the one on its own side: rounded down going forward, up going back. Rounding down for
         //== both, as this did, left the two arrows starting from the same slide, and going back
         //== then covered a slide more than going forward did
-        if (pgs(this.element).option.contains('slidesSingleScroll')) {
+        if (pgs(this.element).option.contains('singleScroll')) {
             const middle = (currents.length - 1) / 2;
             return currents[towardsEnd ? Math.floor(middle) : Math.ceil(middle)];
         }
@@ -202,10 +202,10 @@ class PGS_Slides {
         const dots = Array.from(pgs(slides).querySelector('slides-dots').children);
 
         //== option
-        const slidesScrollMouse = pgs(slides).option.contains('slidesScrollMouse');
+        const scrollMouse = pgs(slides).option.contains('scrollMouse');
 
         //== scroll
-        const removeHorizontalScroll = slidesScrollMouse
+        const removeHorizontalScroll = scrollMouse
             ? PGS_scrollHorizontalWithMouse(this.container, 5)
             : null;
 

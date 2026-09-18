@@ -73,10 +73,10 @@ To import only the mixins:
 the retired `pgs-option` attribute is no longer supported.
 
 ```html
-<div pgs="flex['flexColumn' 'wrap' 'flexCenter']">
-  <button pgs="button['buttonStrong']">Save</button>
+<div pgs="flex['column' 'wrap' 'flexCenter']">
+  <button pgs="button['strong']">Save</button>
 </div>
-<header pgs="header['headerCompactTablet' 'headerScroll']" pgs-data="headerCompactFrom[600]"></header>
+<header pgs="header['compactTablet' 'scroll']" pgs-data="headerCompactFrom[600]"></header>
 ```
 
 ```html

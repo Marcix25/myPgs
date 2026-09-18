@@ -202,7 +202,7 @@
 //= CHIPS
 @mixin chips() {
     border: unset;
-    @include flexRow();
+    @include row();
 
     label {
         @include chip();

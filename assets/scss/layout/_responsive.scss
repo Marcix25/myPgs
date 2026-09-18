@@ -4,7 +4,7 @@
 //= FLEX
 //== FLEX
 :is([pgs~="flex"], [pgs*="flex\5B"]) {
-    @include flexRow();
+    @include row();
 }
 
 //== COLUMN
@@ -42,25 +42,25 @@
         justify-content: center;
     }
 
-    &[pgs*="'flexColumn'"] {
+    &[pgs*="'column'"] {
         flex-direction: column;
         flex-wrap: nowrap;
     }
 
-    &[pgs*="'flexRow'"] {
+    &[pgs*="'row'"] {
         flex-direction: row
     }
 
-    &[pgs*="'flexColumnReverse'"] {
+    &[pgs*="'columnReverse'"] {
         flex-direction: column-reverse
     }
 
-    &[pgs*="'flexRowReverse'"] {
+    &[pgs*="'rowReverse'"] {
         flex-direction: row-reverse
     }
 
     //=== WRAP
-    //== A column keeps the old flexColumn layout's nowrap default; an explicit flag wins.
+    //== A column keeps the old column layout's nowrap default; an explicit flag wins.
     &[pgs*="'nowrap'"] {
         flex-wrap: nowrap;
     }

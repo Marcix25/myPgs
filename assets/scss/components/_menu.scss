@@ -56,8 +56,8 @@
         }
     }
 
-    //== buttonIcon
-    [pgs~="_menu-buttonIcon"] {
+    //== iconOnly
+    [pgs~="_menu-iconOnly"] {
         --button-size: 0.9rem;
         margin-right: -15px;
         margin-block: auto;
@@ -81,7 +81,7 @@
 
     //- OPTION
     //== horizontal
-    &[pgs*="'menuHorizontal'"] {
+    &[pgs*="'horizontal'"] {
         >ul {
             flex-direction: row;
 
@@ -102,8 +102,8 @@
 
     //== verical
     ul,
-    &[pgs*="'menuVertical'"],
-    &:not([pgs*="'menuHorizontal'"]) {
+    &[pgs*="'vertical'"],
+    &:not([pgs*="'horizontal'"]) {
         :is(ul) {
             flex-direction: column;
 
@@ -122,7 +122,7 @@
             //=== the link and the toggle share the first row, the submenu takes the whole next one:
             //=== it needs flex-wrap, or flex-basis has no line to break onto
             >li:has(ul) {
-                @include flexRow;
+                @include row;
                 align-items: center;
                 position: relative;
 
@@ -145,7 +145,7 @@
     }
 
     //+ icon only current
-    &[pgs*="'menuIconOnlyCurrent'"] {
+    &[pgs*="'iconOnlyCurrent'"] {
         a:not([aria-current]:not([aria-current="false"])) {
             --button-padding-left: var(--button-padding-right);
 
@@ -157,7 +157,7 @@
     }
 
     //+ SHORT
-    &[pgs*="'menuShort'"] {
+    &[pgs*="'short'"] {
         >ul>li {
             &:first-child {
                 a {

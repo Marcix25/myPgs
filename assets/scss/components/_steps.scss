@@ -15,7 +15,7 @@ ol[pgs~="steps"] {
 
         //== CONTENT
         [pgs~="steps-step-content"] {
-            @include flexColumn();
+            @include column();
             margin-bottom: calc(var(--gap-elements) / 2 - 8px);
             padding-bottom: calc(var(--gap-elements) / 2);
             min-height: 8.5rem;

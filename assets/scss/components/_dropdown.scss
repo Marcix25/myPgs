@@ -12,7 +12,7 @@
     --dropdown-display: block;
     position: relative;
 
-    [pgs*="'dropdownHover'"] {}
+    [pgs*="'hover'"] {}
     [pgs-data~="dropdownPosition[]"] {}
 
     &:not([pgs-state~="open"])>[pgs~="dropdown-content"] {

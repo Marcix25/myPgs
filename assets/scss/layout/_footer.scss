@@ -48,7 +48,7 @@
         }
 
         [pgs~="footer-brand"] {
-            @include flexColumn();
+            @include column();
 
             [pgs~="logo-image"] {
                 aspect-ratio: 1;

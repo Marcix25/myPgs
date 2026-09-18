@@ -62,10 +62,10 @@ Search markup, configuration, behavior, and usage example. Two custom events bub
 
 ### PGS Options (component brackets)
 
-- `flexRow`: sets the horizontal direction inside the flex bracket.
+- `row`: sets the horizontal direction inside the flex bracket.
 - `hoverNot`: disables hover behavior on the search container.
-- `buttonIcon`: presents search and close actions as icon buttons.
-- `buttonTransparent`: keeps the submit button flat inside the field, so only the icon shows.
+- `iconOnly`: presents search and close actions as icon buttons.
+- `transparent`: keeps the submit button flat inside the field, so only the icon shows.
 - `icon-magnifyingGlass`: the glyph used there.
 - `icon-close`: the cross that dismisses.
 
@@ -101,7 +101,7 @@ Search field with live suggestions embedded directly in the page.
 
 ```html
 <form pgs="button['hoverNot'] search" pgs-data="searchPlaceholder[Type a component name] searchNoResults[No component matches]" autocomplete="off" action="" method="get">
-    <button pgs="button['buttonIcon' 'buttonTransparent']" type="submit" title="Search">
+    <button pgs="button['iconOnly' 'transparent']" type="submit" title="Search">
         <i pgs="icon['icon-magnifyingGlass']"></i>
     </button>
     <input type="search" name="s" placeholder="Search" value="">
@@ -116,22 +116,22 @@ Search opened from an icon button inside a full-width modal, intended for the mo
 ```html
 <div pgs="modal search-modal" pgs-data="modalContainerPGS[header]">
 
-    <button type="button" pgs="modal-button button['buttonIcon']" title="Search">
+    <button type="button" pgs="modal-button button['iconOnly']" title="Search">
         <i pgs="icon['icon-magnifyingGlass']"></i>
     </button>
 
     <dialog>
-        <div pgs="flex['flexRow'] section search-mobile">
+        <div pgs="flex['row'] section search-mobile">
 
             <form pgs="button['hoverNot'] search" autocomplete="off" action="/" method="get">
-                <button pgs="button['buttonIcon' 'buttonTransparent']" type="submit" title="Search">
+                <button pgs="button['iconOnly' 'transparent']" type="submit" title="Search">
                     <i pgs="icon['icon-magnifyingGlass']"></i>
                 </button>
 
                 <input type="search" name="s" placeholder="Search" value="">
                 <ul pgs="search-suggestions"></ul>
 
-                <button type="button" pgs="modal-close button['buttonIcon']">
+                <button type="button" pgs="modal-close button['iconOnly']">
                     <i pgs="icon['icon-close']"></i>
                 </button>
             </form>

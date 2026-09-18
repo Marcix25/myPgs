@@ -42,18 +42,18 @@
  * @related
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - hidden: keeps every notificationLoad out of the layout, since it only carries a payload.
- * - flexColumn: stacks the examples vertically.
+ * - column: stacks the examples vertically.
  * - gapSections: separates the examples.
  * - gapTexts: spaces the content inside each example.
  * - button: uses the related button component or utility in this example.
- * - buttonTransparent: the appearance the component gives the buttons passed in the payload; see Button.
+ * - transparent: the appearance the component gives the buttons passed in the payload; see Button.
  * - modal: wraps notificationBell; pgs.notification generates the dialog inside it and provides open/close/toggle behavior shared with every other dialog on the page.
  * - modal-button: identifies notificationBell as the control that opens the dialog.
  * - modal-close: marks the generated _notifications-close button as the control that closes the dialog; notificationBell carries it too, and keeps toggling the panel through modal-button.
  * - modal-dialog-content: identifies the JS-generated styled content area inside the dialog, wrapping notifications.
- * - buttonIcon: presents notificationBell, and the generated dismiss button, as icon buttons.
- * - buttonMini: keeps the generated panel-close button small; see Button.
- * - modalRight: slides the notification dialog in from the right; see Modal for other positions.
+ * - iconOnly: presents notificationBell, and the generated dismiss button, as icon buttons.
+ * - mini: keeps the generated panel-close button small; see Button.
+ * - dialogRight: slides the notification dialog in from the right; see Modal for other positions.
  * - icon: draws the glyph that marks the notification type; see Icon for the whole set.
  * - icon-circleXmark: the glyph of the error type.
  * - icon-circleCheck: the glyph of the success type.
@@ -68,9 +68,9 @@
 
 <demo demo-h2="Examples"></demo>
 <demo demo-h3="Bell" demo-description="The control that opens and closes the panel, and the only markup this component needs on the page. Wrap it in a modal and pgs.notification builds the dialog inside it on its own."></demo>
-<section pgs="flex['flexColumn' 'gapTexts']" demo="component">
+<section pgs="flex['column' 'gapTexts']" demo="component">
     <div pgs="modal">
-        <button type="button" pgs="modal-button modal-close button['buttonIcon'] notificationBell" aria-label="Open notifications">
+        <button type="button" pgs="modal-button modal-close button['iconOnly'] notificationBell" aria-label="Open notifications">
             <i pgs="icon['icon-bell']"></i>
             <span pgs="notificationBell-counter"></span>
         </button>
@@ -80,7 +80,7 @@
 <demo demo-h3="Examples - Type"></demo>
 
 <demo demo-h3="Neutral" demo-description="A message with nothing to signal: no severity colour, no glyph, and the title left out so only the text shows."></demo>
-<section pgs="flex['flexColumn' 'gapTexts']" demo="component previewNone">
+<section pgs="flex['column' 'gapTexts']" demo="component previewNone">
     <div pgs="hidden notificationLoad" pgs-data='notification[{
         "title": "Hi!",
         "description": "The report you asked for is ready.",
@@ -89,7 +89,7 @@
 </section>
 
 <demo demo-h3="Success" demo-description="A completed operation. The element is hidden and consumed on load: the notification it describes is moved into the panel."></demo>
-<section pgs="flex['flexColumn' 'gapTexts']" demo="component previewNone">
+<section pgs="flex['column' 'gapTexts']" demo="component previewNone">
     <div pgs="hidden notificationLoad" pgs-data='notification[{
             "title": "Profile approved",
             "description": "Your profile has been reviewed and approved.",
@@ -99,7 +99,7 @@
 </section>
 
 <demo demo-h3="Error" demo-description="A failure the user has to know about, with a button to try the operation again."></demo>
-<section pgs="flex['flexColumn' 'gapTexts']" demo="component previewNone">
+<section pgs="flex['column' 'gapTexts']" demo="component previewNone">
     <div pgs="hidden notificationLoad" pgs-data='notification[{
             "title": "Something went wrong",
             "description": "Please try again later.",
@@ -110,7 +110,7 @@
 </section>
 
 <demo demo-h3="Warning" demo-description="Something is missing but nothing is broken, so the button leads to where it can be completed."></demo>
-<section pgs="flex['flexColumn' 'gapTexts']" demo="component previewNone">
+<section pgs="flex['column' 'gapTexts']" demo="component previewNone">
     <div pgs="hidden notificationLoad" pgs-data='notification[{
             "title": "Your profile is incomplete",
             "description": "Complete your profile to unlock all features.",
@@ -122,7 +122,7 @@
 
 
 <demo demo-h3="Info with several buttons" demo-description="Buttons carrying an id instead of a link dispatch pgs:notification:buttonClick with that id, which is how a question is answered without leaving the page."></demo>
-<section pgs="flex['flexColumn' 'gapTexts']" demo="component previewNone">
+<section pgs="flex['column' 'gapTexts']" demo="component previewNone">
     <div pgs="hidden notificationLoad" pgs-data='notification[{
             "title": "Are you enjoying the portal?",
             "description": "Your feedback helps us improve.",
@@ -149,7 +149,7 @@
                 "title": "",         // label of the button
                 "link": null,        // navigates there; omit it to only dispatch the event
                 "close": true,       // dismisses the notification after the click
-                "optionButton": null // pgs-data token added to the button, e.g. buttonMini
+                "optionButton": null // pgs-data token added to the button, e.g. mini
             }
         ]
     }]

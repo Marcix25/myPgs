@@ -105,10 +105,10 @@ function buildCookieConsent(marker) {
     pgs(root).add('modal', 'cookieConsent');
 
     root.innerHTML = `
-        <dialog pgs="modal-dialog['modalTopLevel' 'modalBottom' 'modalRight' 'modalMedium']">
+        <dialog pgs="modal-dialog['dialogTopLevel' 'dialogBottom' 'dialogRight' 'dialogMedium']">
             <div pgs="modal-dialog-content">
-                <div pgs="_cookieConsent-header flex['flexColumn']">
-                    <p pgs="flex['flexRow' 'itemCenter']"><i pgs="icon['icon-cookie']"></i> ${PGS_formatText(config.titleIntro)}</p>
+                <div pgs="_cookieConsent-header flex['column']">
+                    <p pgs="flex['row' 'itemCenter']"><i pgs="icon['icon-cookie']"></i> ${PGS_formatText(config.titleIntro)}</p>
                     <h2>${PGS_formatText(config.titleHeading)}</h2>
                     <p>${PGS_formatText(config.description)}</p>
                     <p>
@@ -117,8 +117,8 @@ function buildCookieConsent(marker) {
                     </p>
                 </div>
 
-                <div pgs="_cookieConsent-panel flex['flexColumn']" role="group" aria-label="${PGS_escapeHtml(config.panelAriaLabel)}">
-                    <div pgs="flex['flexRow' 'nowrap'] _cookieConsent-panel-featureEssential">
+                <div pgs="_cookieConsent-panel flex['column']" role="group" aria-label="${PGS_escapeHtml(config.panelAriaLabel)}">
+                    <div pgs="flex['row' 'nowrap'] _cookieConsent-panel-featureEssential">
                         <div>
                             <p>
                                 <strong>${PGS_formatText(config.essentialTitle)}</strong>
@@ -127,10 +127,10 @@ function buildCookieConsent(marker) {
                             </p>
                         </div>
 
-                        <span pgs="_cookieConsent-panel-badge badge['badgeSuccess']">${PGS_formatText(config.essentialBadge)}</span>
+                        <span pgs="_cookieConsent-panel-badge badge['success']">${PGS_formatText(config.essentialBadge)}</span>
                     </div>
 
-                    <div pgs="flex['flexRow'] _cookieConsent-panel-featureAnalytics">
+                    <div pgs="flex['row'] _cookieConsent-panel-featureAnalytics">
                         <label pgs="toggle">
                             <p>
                                 <strong>${PGS_formatText(config.analyticsTitle)}</strong>
@@ -141,12 +141,12 @@ function buildCookieConsent(marker) {
                             <input type="checkbox" pgs="_cookieConsent-panel-toggleAnalytics" aria-label="${PGS_escapeHtml(config.analyticsAriaLabel)}">
                         </label>
                     </div>
-                    <div pgs="flex['flexRow']">
+                    <div pgs="flex['row']">
                         <button type="button" pgs="button _cookieConsent-actionReject">
                             ${PGS_formatText(config.titleReject)}
                         </button>
     
-                        <button type="button" pgs="button['buttonStrong'] _cookieConsent-actionAccept">
+                        <button type="button" pgs="button['strong'] _cookieConsent-actionAccept">
                             <i pgs="icon['icon-check']"></i> ${PGS_formatText(config.titleAccept)}
                         </button>
                     </div>

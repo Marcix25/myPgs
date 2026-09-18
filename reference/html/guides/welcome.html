@@ -3,26 +3,26 @@
      kept in sync in substance with the project README, but free to look different since this is
      the demo's own page rather than a generated reference. -->
 
-<section pgs="flex['flexColumn' 'gapSections']">
-    <div pgs="flex['flexColumn' 'gapTexts']">
+<section pgs="flex['column' 'gapSections']">
+    <div pgs="flex['column' 'gapTexts']">
         <h1>MyPGS</h1>
         <p>A shared frontend library for building consistent interfaces through <strong>pgs attributes</strong>, SCSS sources, UI components and reusable JavaScript behaviours. Layouts, spacing, colours, buttons, forms, alerts, menus, modals, dropdowns, suggestion search, slides and notifications are defined once and reused across projects.</p>
     </div>
 
-    <div pgs="flex['flexColumn' 'gapTexts']">
+    <div pgs="flex['column' 'gapTexts']">
         <h2>Three attributes</h2>
         <p>Everything is composed from tokens on three attributes, instead of from a class per variant.</p>
 
-        <div pgs="flex['flexColumn' 'gapTexts' 'wrap']">
-            <div pgs="box['boxMini'] flex['flexColumn' 'gapTexts'] bgPrimarySoft">
+        <div pgs="flex['column' 'gapTexts' 'wrap']">
+            <div pgs="box['mini'] flex['column' 'gapTexts'] bgPrimarySoft">
                 <strong>pgs</strong>
-                <p>What the element is, its visual options and its JavaScript-only flags: <code>pgs="flex['flexColumn' 'wrap']"</code>, <code>pgs="header['headerScroll']"</code>. Several components can sit together, each with its own bracket.</p>
+                <p>What the element is, its visual options and its JavaScript-only flags: <code>pgs="flex['column' 'wrap']"</code>, <code>pgs="header['scroll']"</code>. Several components can sit together, each with its own bracket.</p>
             </div>
-            <div pgs="box['boxMini'] flex['flexColumn' 'gapTexts'] bgSecondarySoft">
+            <div pgs="box['mini'] flex['column' 'gapTexts'] bgSecondarySoft">
                 <strong>pgs-data</strong>
                 <p>Values passed from HTML to JavaScript, always as <code>key[payload]</code>: <code>dropdownPosition[top left]</code>.</p>
             </div>
-            <div pgs="box['boxMini'] flex['flexColumn' 'gapTexts'] bgTertiarySoft">
+            <div pgs="box['mini'] flex['column' 'gapTexts'] bgTertiarySoft">
                 <strong>pgs-state</strong>
                 <p>What it is doing right now. The library writes these at runtime: <code>open</code>, <code>is-active</code>, <code>errorField</code>.</p>
             </div>
@@ -30,10 +30,10 @@
 
     </div>
 
-    <div pgs="flex['flexColumn' 'gapTexts']">
+    <div pgs="flex['column' 'gapTexts']">
         <h2>Getting started</h2>
-        <div pgs="box['boxMini'] bgPrimarySoft txtPrimaryStrong"><code>npm install mypgs</code></div>
-        <div pgs="box['boxMini'] bgPrimarySoft txtPrimaryStrong">
+        <div pgs="box['mini'] bgPrimarySoft txtPrimaryStrong"><code>npm install mypgs</code></div>
+        <div pgs="box['mini'] bgPrimarySoft txtPrimaryStrong">
             <code>
                 import "mypgs"; <br>
                 import "mypgs/style.css";
@@ -42,10 +42,10 @@
         <p>The bundle initializes the registered behaviours on load. For markup added later, by JavaScript, JSX or a fetch, initialize its container with <code>pgs.init(container)</code>.</p>
     </div>
 
-    <div pgs="flex['flexColumn' 'gapTexts']">
+    <div pgs="flex['column' 'gapTexts']">
         <h2>CSS and SCSS</h2>
         <p>Prefer the library's custom properties, such as <code>--color-primary</code>, <code>--padding</code>, <code>--gap-elements</code> and <code>--border-radius</code>, to hardcoded values:</p>
-        <div pgs="box['boxMini'] bgPrimarySoft txtPrimaryStrong">
+        <div pgs="box['mini'] bgPrimarySoft txtPrimaryStrong">
             <code>
                 #danger-action { <br>
                 &nbsp;&nbsp;--button-background: var(--color-error); <br>
@@ -53,10 +53,10 @@
                 }
             </code>
         </div>
-        <p>Component styling composes from small mixins instead of one bundled rule, so each consumer only includes what it needs: a standard button is <code>buttonBase</code> + <code>buttonContent</code>, an icon-only one swaps in <code>buttonIcon</code>. The hover treatment is no longer part of any component's composition: it lives under <code>pgs="hover"</code>, which the library marks on clickable surfaces by itself, and <code>hoverNot</code> opts any surface out of it. Variant mixins such as <code>buttonStrong</code> or <code>buttonText</code> only add their own declarations and must follow that base. Menus, accordions, forms and step tabs follow the same explicit-composition pattern.</p>
+        <p>Component styling composes from small mixins instead of one bundled rule, so each consumer only includes what it needs: a standard button is <code>buttonBase</code> + <code>buttonContent</code>, an icon-only one swaps in <code>iconOnly</code>. The hover treatment is no longer part of any component's composition: it lives under <code>pgs="hover"</code>, which the library marks on clickable surfaces by itself, and <code>hoverNot</code> opts any surface out of it. Variant mixins such as <code>strong</code> or <code>text</code> only add their own declarations and must follow that base. Menus, accordions, forms and step tabs follow the same explicit-composition pattern.</p>
     </div>
 
-    <div pgs="flex['flexColumn' 'gapTexts']">
+    <div pgs="flex['column' 'gapTexts']">
         <h2>JavaScript helpers</h2>
         <p>Helpers collect reusable behaviour that is not a component of its own. They are registered on <code>pgs</code> by the library entrypoint, and their sources live in <code>assets/javascript/helper/</code>:</p>
         <ul pgs="list">
@@ -67,7 +67,7 @@
         </ul>
     </div>
 
-    <div pgs="flex['flexColumn' 'gapTexts']">
+    <div pgs="flex['column' 'gapTexts']">
         <h2>Conventions</h2>
         <ul pgs="list">
             <li>Prefer an existing token to a new class.</li>

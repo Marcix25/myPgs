@@ -9,7 +9,7 @@
     //== the label says where the click leads, so it reads the theme itself rather than the glyph
     //== on the button. Looking at the root state instead of the icon's classes means it keeps
     //== working whatever icon set drew that glyph, and with no icon set at all
-    &[pgs*="'toggleDarkmodeExtended'"] {
+    &[pgs*="'labelled'"] {
         &::after {
             content: var(--darkmode-label-toDark);
         }

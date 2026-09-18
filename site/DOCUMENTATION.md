@@ -52,7 +52,7 @@ each line prefixed with `*`, tags in this order:
  * - dialog: added to the dialog element on initialization, which is why the example writes a bare dialog tag.
  *
  * @pgs-options
- * - modalMini: shrinks the dialog content to a compact width instead of filling the viewport.
+ * - dialogMini: shrinks the dialog content to a compact width instead of filling the viewport.
  *
  * @pgs-state
  * - open: identifies the open element used by Modal.
@@ -88,7 +88,7 @@ each line prefixed with `*`, tags in this order:
   `instance.z(args)` (optionally `new pgs.x(args)`) — a plain call like `pgs(el)` itself can't be
   expressed this way and is left to prose in `@description` instead.
 - **`@related`** lists any `pgs` (including its option brackets)/`pgs-data`/`pgs-state` value used in the example that belongs to
-  *another* component or a plain utility (`flexColumn`, `gapElements`, `icon-close`, ...).
+  *another* component or a plain utility (`column`, `gapElements`, `icon-close`, ...).
 
 Everything after the closing `-->` is the actual example: real markup, exactly as a consumer would
 write it. It's rendered live in the demo *and* copied verbatim into the generated Markdown.
@@ -176,7 +176,7 @@ Details and cross-references, past what the table already says:
   attributes as incidental *only* once it has a nested `component` inside it — that nesting is the
   only signal that matters: a real variant worth documenting (`pgs="modal"`) needs no nested
   `component`, while a transparent grouping wrapper (`form.html`'s outer `<form>`, or a plain
-  `pgs="flex['flexColumn']"` div once one existed there) always does.
+  `pgs="flex['column']"` div once one existed there) always does.
 - `demo="wrapper"` — see `base/border.html`'s rows of spans, each its own `<div demo="wrapper">`
   inside one `<section demo="component">`: several, side by side, all disappearing from the code
   while the section's own tag stays. Never appears as a file's outermost marker — remove a purely
@@ -267,12 +267,15 @@ Then rebuild with `npm run sitebuild`, and only if the example needs real intera
   exception: a token merely *added* to an element the author already wrote (`formValidate` added to
   an existing `<form>`, `dialog`/`modal-dialog` added to an existing `<dialog>`) stays unprefixed
   and still goes under `@pgs-generated` — the prefix marks a whole new element, not an added token.
-- **A flag specific to one component is prefixed with that component's name**, whether it is
-  CSS-facing or JavaScript-only (`modalMini`, `slidesScrollMouse`, `formFieldError`,
-  `headerCompactBottom`, ...) — see `migration.md` for the full history of this convention being
-  applied retroactively.
-- **A plain reusable utility has no prefix** and is written directly as a `pgs` value, not a
-  component brackets (`flexColumn`, `gapElements`, `overflowXAuto`, `icon-close`, ...).
+- **A CSS flag or JavaScript-only bracket flag drops its component's name**, since the bracket it
+  lives in already says which component owns it (`button['mini']`, `header['scroll']`, not
+  `button['buttonMini']`). A handful kept the prefix on purpose because a bare word would mean
+  nothing on its own — `margin2`/`padding2` (a lone digit) and the `icon-*` glyphs — and `hoverNot`
+  never had a single owner to drop a prefix from. A `pgs-data` key keeps its prefix always
+  (`formFieldError`, `headerCompactFrom`): that attribute is flat, with no bracket to give a bare
+  key context. See `migration.md` for the history of both conventions.
+- **A plain reusable utility has no prefix** and is written directly as a `pgs` value, not inside a
+  component bracket (`column`, `gapElements`, `overflowXAuto`, `icon-close`, ...).
 
 ## The tools
 

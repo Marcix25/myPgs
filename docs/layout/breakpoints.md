@@ -41,8 +41,8 @@ Responsive visibility utilities built on the shared breakpoint scale: watch 315p
 
 ### PGS Options (component brackets)
 
-- `flexColumn`: stacks the groups vertically.
-- `flexRow`: arranges the examples in a row.
+- `column`: stacks the groups vertically.
+- `row`: arranges the examples in a row.
 - `wrap`: allows the examples to wrap onto several rows.
 - `gapTexts`: separates the examples inside a group.
 

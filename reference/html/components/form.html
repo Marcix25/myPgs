@@ -46,8 +46,8 @@
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - alertContainer: is found or created automatically by the alert API when form validation uses inline alerts.
  * - button: provides the base styling for the primary submit action.
- * - flexColumn: spaces text elements in the radio group.
- * - buttonStrong: presents form submission as the primary action.
+ * - column: spaces text elements in the radio group.
+ * - strong: presents form submission as the primary action.
  *
  * @return Complete HTML form with required fields and an example script for a custom rule, validation, and a success message.
  */
@@ -101,7 +101,7 @@
     </label>
 
     <br>
-    <fieldset pgs="radio flex['flexColumn']" pgs-data="formMessage[Choose a contact method]">
+    <fieldset pgs="radio flex['column']" pgs-data="formMessage[Choose a contact method]">
         <legend pgs="legend">Preferred contact method</legend>
 
         <label>
@@ -121,7 +121,7 @@
     </fieldset>
     <br>
 
-    <fieldset pgs="checkbox flex['flexColumn']" pgs-data="formMessage[Choose at least one topic]">
+    <fieldset pgs="checkbox flex['column']" pgs-data="formMessage[Choose at least one topic]">
         <legend pgs="legend">Topics</legend>
 
         <label>
@@ -142,7 +142,7 @@
     </label>
     <br>
 
-    <button pgs="button['buttonStrong']" type="submit">
+    <button pgs="button['strong']" type="submit">
         Submit
     </button>
 

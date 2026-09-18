@@ -140,7 +140,7 @@ const fn_notification = {
             <div pgs="_notifications-element-content">
                 ${iconHtml}
                 <p>${text}</p>
-                <button type="button" pgs="button['buttonIcon'] _notifications-element-content-delete"><i pgs="icon['icon-close']"></i></button>
+                <button type="button" pgs="button['iconOnly'] _notifications-element-content-delete"><i pgs="icon['icon-close']"></i></button>
             </div>
             <div pgs="_notifications-element-buttons">
             </div>
@@ -171,7 +171,7 @@ const fn_notification = {
             if (button.link) buttonElement.href = button.link;
             else buttonElement.type = "button";
             buttonElement.textContent = button.title;
-            pgs(buttonElement).add("button['buttonTransparent']");
+            pgs(buttonElement).add("button['transparent']");
             if (button.optionButton) pgs(buttonElement).add(`button['${button.optionButton}']`);
 
             buttonElement.addEventListener("click", (e) => {
@@ -281,7 +281,7 @@ const fn_notification = {
         });
     },
 
-    //+ generates <dialog pgs="modal-dialog['modalRight']"><div pgs="modal-dialog-content"><div pgs="_notifications"></div></div></dialog>
+    //+ generates <dialog pgs="modal-dialog['dialogRight']"><div pgs="modal-dialog-content"><div pgs="_notifications"></div></div></dialog>
     //+ inside the modal wrapping notificationBell, then asks pgs.modal to (re)initialize it.
     _ensureDialog(root = document) {
         let created = false;
@@ -297,7 +297,7 @@ const fn_notification = {
             modalWrapper.dataset.notificationDialog = "true";
 
             const dialog = document.createElement("dialog");
-            pgs(dialog).add("modal-dialog['modalRight' 'modalMini' 'modalTop']");
+            pgs(dialog).add("modal-dialog['dialogRight' 'dialogMini' 'dialogTop']");
             pgs(dialog).add("_notificationsDialog");
 
             const content = document.createElement("div");
@@ -311,7 +311,7 @@ const fn_notification = {
             const closeButton = document.createElement("button");
             closeButton.type = "button";
             closeButton.textContent = this._defaults.panelCloseTitle;
-            pgs(closeButton).add("button['buttonMini']", "modal-close", "_notifications-close");
+            pgs(closeButton).add("button['mini']", "modal-close", "_notifications-close");
             content.appendChild(closeButton);
 
             dialog.appendChild(content);

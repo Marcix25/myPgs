@@ -32,8 +32,8 @@ Section variants that control width, padding, and specific content treatment whi
 
 ### PGS Options (component brackets)
 
-- `flexColumn`: vertically organizes sections and inner content.
-- `flexRow`: places the text and the image of an edge section side by side.
+- `column`: vertically organizes sections and inner content.
+- `row`: places the text and the image of an edge section side by side.
 - `gapElements`: applies element spacing inside each section.
 
 ### Other
@@ -54,8 +54,8 @@ HTML collection of the available section variants.
 Default section width and padding with centered content.
 
 ```html
-<section pgs="section flex['flexColumn' 'gapElements']">
-    <div pgs="flex['flexColumn']">
+<section pgs="section flex['column' 'gapElements']">
+    <div pgs="flex['column']">
         <strong>Lorem ipsum dolor</strong>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </div>
@@ -67,8 +67,8 @@ Default section width and padding with centered content.
 Section that spans the full available width using sectionFull.
 
 ```html
-<section pgs="sectionFull flex['flexColumn' 'gapElements']">
-    <div pgs="flex['flexColumn']">
+<section pgs="sectionFull flex['column' 'gapElements']">
+    <div pgs="flex['column']">
         <strong>Sit amet consectetur</strong>
         <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
     </div>
@@ -80,11 +80,11 @@ Section that spans the full available width using sectionFull.
 Section applying a specific structure to its child element using sectionSpecificity.
 
 ```html
-<section pgs="sectionSpecificity flex['flexColumn' 'gapElements']">
-    <div pgs="flex['flexColumn']">
+<section pgs="sectionSpecificity flex['column' 'gapElements']">
+    <div pgs="flex['column']">
         <img pgs="card-img imgCover" src="../assets/img/placeholder.jpg" alt="Placeholder image">
     </div>
-    <div pgs="sectionSpecificity-child flex['flexColumn']">
+    <div pgs="sectionSpecificity-child flex['column']">
         <strong>Adipiscing elit sed</strong>
         <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
     </div>
@@ -96,7 +96,7 @@ Section applying a specific structure to its child element using sectionSpecific
 container is what the hideContainer* utilities and every container query measure themselves against. Without it the nearest marked ancestor is used instead, and the element reacts to the wrong width.
 
 ```html
-<section pgs="section flex['flexColumn' 'gapElements']">
+<section pgs="section flex['column' 'gapElements']">
     <div pgs="container">
         <span pgs="box hideContainerDownTablet">Hidden while this container is at most 800px wide.</span>
     </div>
@@ -108,7 +108,7 @@ container is what the hideContainer* utilities and every container query measure
 containerNone on the same element cancels container, so the utilities inside measure the nearest marked ancestor instead of this one.
 
 ```html
-<section pgs="section flex['flexColumn' 'gapElements']">
+<section pgs="section flex['column' 'gapElements']">
     <div pgs="container containerNone">
         <span pgs="box hideContainerDownTablet">Measures the surrounding page instead of this element.</span>
     </div>
@@ -121,7 +121,7 @@ A full-width row aligned with the page column on one side only, so the image run
 
 ```html
 <section pgs="sectionEdgeLeft">
-    <div pgs="flex['flexRow' 'gapElements']">
+    <div pgs="flex['row' 'gapElements']">
         <p>Text that starts exactly where the centred page column starts, while the image beside it runs on past the column to the right.</p>
         <img pgs="card-img imgCover" src="../assets/img/placeholder.jpg" alt="Placeholder image">
     </div>
@@ -131,7 +131,7 @@ A full-width row aligned with the page column on one side only, so the image run
 
 ```html
 <section pgs="sectionEdgeRight">
-    <div pgs="flex['flexRow' 'gapElements']">
+    <div pgs="flex['row' 'gapElements']">
         <img pgs="card-img imgCover" src="../assets/img/placeholder.jpg" alt="Placeholder image">
         <p>The mirror: the text ends where the page column ends, and the image runs on past it to the left.</p>
     </div>
@@ -144,7 +144,7 @@ Measured with --page-edgeFlush instead: the offset lands on the outer edge of a 
 
 ```html
 <section pgs="sectionEdgeFlushLeft">
-    <div pgs="flex['flexRow' 'gapElements']">
+    <div pgs="flex['row' 'gapElements']">
         <p>Below the page width this text is flush against the left edge of the screen, with no padding left to hold it off.</p>
         <img pgs="card-img imgCover" src="../assets/img/placeholder.jpg" alt="Placeholder image">
     </div>
@@ -154,7 +154,7 @@ Measured with --page-edgeFlush instead: the offset lands on the outer edge of a 
 
 ```html
 <section pgs="sectionEdgeFlushRight">
-    <div pgs="flex['flexRow' 'gapElements']">
+    <div pgs="flex['row' 'gapElements']">
         <img pgs="card-img imgCover" src="../assets/img/placeholder.jpg" alt="Placeholder image">
         <p>The mirror, flush against the right edge of the screen.</p>
     </div>
@@ -166,8 +166,8 @@ Measured with --page-edgeFlush instead: the offset lands on the outer edge of a 
 Section with an extended maximum width using sectionMax.
 
 ```html
-<section pgs="sectionMax flex['flexColumn' 'gapElements']" style="background-color: var(--color-primary-soft)">
-    <div pgs="flex['flexColumn']">
+<section pgs="sectionMax flex['column' 'gapElements']" style="background-color: var(--color-primary-soft)">
+    <div pgs="flex['column']">
         <strong>Do eiusmod tempor</strong>
         <p>Duis aute irure dolor in reprehenderit in voluptate.</p>
     </div>
@@ -179,8 +179,8 @@ Section with an extended maximum width using sectionMax.
 Section without the standard padding using sectionNoPadding, useful for edge-to-edge images.
 
 ```html
-<section pgs="sectionNoPadding flex['flexColumn' 'gapElements']">
-    <div pgs="flex['flexColumn']">
+<section pgs="sectionNoPadding flex['column' 'gapElements']">
+    <div pgs="flex['column']">
         <img pgs="card-img imgCover" src="../assets/img/placeholder.jpg" alt="Placeholder image">
     </div>
 </section>

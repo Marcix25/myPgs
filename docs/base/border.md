@@ -20,12 +20,9 @@ Border, outline and radius utilities, split out from the general-purpose set sin
 
 ## PGS Options (component brackets)
 
-- `borderThin`: draws the border at 1px instead of the default 1.5px.
-- `borderThick`: draws the border at 3px.
-- `borderThicker`: draws the border at 4.5px.
-- `outlineThin`: draws the outline at 1px instead of the default 1.5px.
-- `outlineThick`: draws the outline at 3px.
-- `outlineThicker`: draws the outline at 4.5px.
+- `thin`: draws the border (or, inside outline's own bracket, the outline) at 1px instead of the default 1.5px.
+- `thick`: draws the border (or, inside outline's own bracket, the outline) at 3px.
+- `thicker`: draws the border (or, inside outline's own bracket, the outline) at 4.5px.
 
 ## Related elements
 
@@ -40,9 +37,9 @@ Border, outline and radius utilities, split out from the general-purpose set sin
 
 ### PGS Options (component brackets)
 
-- `flexColumn`: stacks the utility groups vertically.
-- `flexRow`: arranges the examples in a row.
-- `paddingSections`: uses the section spacing scale for the radius example's padding.
+- `column`: stacks the utility groups vertically.
+- `row`: arranges the examples in a row.
+- `sections`: uses the section spacing scale for the radius example's padding.
 - `wrap`: lets the border and outline examples flow onto a second row.
 - `gapTexts`: spaces the examples inside a group.
 
@@ -74,9 +71,9 @@ A line drawn on the edge of the box, taking its space in the layout. It comes on
 <span pgs="padding border brPrimary">border + brPrimary</span>
 <span pgs="padding border brError">border + brError</span>
 
-<span pgs="padding border['borderThin']">borderThin</span>
-<span pgs="padding border['borderThick']">borderThick</span>
-<span pgs="padding border['borderThicker']">borderThicker</span>
+<span pgs="padding border['thin']">thin</span>
+<span pgs="padding border['thick']">thick</span>
+<span pgs="padding border['thicker']">thicker</span>
 
 <span pgs="padding borderTop brPrimary">borderTop</span>
 <span pgs="padding borderRight brPrimary">borderRight</span>
@@ -95,9 +92,9 @@ The same line drawn outside the padding  so it takes no space and never moves wh
 <span pgs="padding outline olPrimary">outline + olPrimary</span>
 <span pgs="padding outline olError">outline + olError</span>
 
-<span pgs="padding outline['outlineThin']">outlineThin</span>
-<span pgs="padding outline['outlineThick']">outlineThick</span>
-<span pgs="padding outline['outlineThicker']">outlineThicker</span>
+<span pgs="padding outline['thin']">thin</span>
+<span pgs="padding outline['thick']">thick</span>
+<span pgs="padding outline['thicker']">thicker</span>
 ```
 
 ### Border radius
@@ -105,7 +102,7 @@ The same line drawn outside the padding  so it takes no space and never moves wh
 Three radius tokens: the standard one, the smaller one used by form controls and the wider one for outer containers.
 
 ```html
-<span pgs="padding['paddingSections'] border borderRadiusExternal">borderRadiusExternal</span>
-<span pgs="padding['paddingSections'] border borderRadius">borderRadius</span>
-<span pgs="padding['paddingSections'] border borderRadiusInput">borderRadiusInput</span>
+<span pgs="padding['sections'] border borderRadiusExternal">borderRadiusExternal</span>
+<span pgs="padding['sections'] border borderRadius">borderRadius</span>
+<span pgs="padding['sections'] border borderRadiusInput">borderRadiusInput</span>
 ```

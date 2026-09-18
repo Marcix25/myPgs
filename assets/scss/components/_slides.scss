@@ -32,14 +32,14 @@
     //== this element, because the height comes from the tallest slide and only the layout knows it.
     //== Everything reading it falls back to 100% for the frame before the first measurement
     //++option for suggestions
-    &[pgs*="'slidesSingleScroll'"],
-    &[pgs*="'slidesScrollMouse'"],
-    &[pgs*="'slidesShadowDesktop'"] {}
+    &[pgs*="'singleScroll'"],
+    &[pgs*="'scrollMouse'"],
+    &[pgs*="'shadowDesktop'"] {}
 
-    //++ option - slidesShadowDesktop
+    //++ option - shadowDesktop
     //+( tablet
     @container (min-width: #{$tablet}) {
-        &[pgs*="'slidesShadowDesktop'"] {
+        &[pgs*="'shadowDesktop'"] {
             [pgs~="slides-container"] {
                 --slides-maskStart: 0px;
                 --slides-maskEnd: 0px;
@@ -198,7 +198,7 @@
         }
     }
 
-    &[pgs*="'slidesAnimationScale'"] {
+    &[pgs*="'animationScale'"] {
         [pgs~="slides-container"] {
             [pgs~="slides-container-slide"] {
                 >* {

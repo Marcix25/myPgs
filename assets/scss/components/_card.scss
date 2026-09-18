@@ -1,10 +1,10 @@
 @use "../mixin/mixin" as *;
 
-//+ the row state cardHorizontal and cardHorizontalFixed both draw, private because neither
+//+ the row state horizontal and horizontalFixed both draw, private because neither
 //+ variant makes sense without the padding/min-width rules above them on :is([pgs~="card"], [pgs*="card\5B"]) itself
 @mixin _cardHorizontal() {
     flex-flow: row wrap;
-    
+
     > :is(object, img),
     [pgs~="card-img"],
     [pgs~="card-content"] {
@@ -68,7 +68,7 @@
     }
 
     //- not card Legacy
-    &:where(:not([pgs*="'cardLegacy'"])) {
+    &:where(:not([pgs*="'legacy'"])) {
         padding: 0;
         flex-basis: 100%;
 
@@ -100,7 +100,7 @@
     }
 
     //- card Legacy
-    &[pgs*="'cardLegacy'"] {
+    &[pgs*="'legacy'"] {
         --card-img-base: calc(var(--card-padding) * -1);
         --card-img-margin-right: var(--card-img-base);
         --card-img-margin-left: var(--card-img-base);
@@ -122,7 +122,7 @@
     //- card Horizontal
     //== below the breakpoint the card keeps the default column layout above unchanged; the
     //== container query only ever adds the row state, so there is nothing to undo going narrow
-    &[pgs*="'cardHorizontal'"] {
+    &[pgs*="'horizontal'"] {
         container-type: inline-size;
 
         //+( mobile
@@ -134,18 +134,24 @@
     //- card Horizontal, fixed
     //== the same row layout with no query at all: for a card whose own width is not a reliable
     //== signal — already known to be wide enough, or deliberately narrow and still meant to read
-    //== side-by-side — cardHorizontal would stack in that case, this one never does
-    &[pgs*="'cardHorizontalFixed'"] {
+    //== side-by-side — horizontal would stack in that case, this one never does
+    &[pgs*="'horizontalFixed'"] {
         @include _cardHorizontal();
     }
 
     //- card Mini
-    &[pgs*="'cardMini'"] {
+    &[pgs*="'mini'"] {
         --card-padding: var(--padding-half);
     }
 }
 
 //= BOX
-[pgs~="box"] {
+:is([pgs~="box"], [pgs*="box\5B"]) {
     @include box();
+
+    //- mini
+    &[pgs*="'mini'"] {
+        --box-padding: var(--padding-half);
+        --box-borderRadius: var(--border-radius-input);
+    }
 }

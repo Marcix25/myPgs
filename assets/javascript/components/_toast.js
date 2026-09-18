@@ -147,7 +147,7 @@ const fn_toast = {
             <div pgs="_toast-element-content">
                 ${iconHtml}
                 <p>${text}</p>
-                <button type="button" pgs="button['buttonIcon'] _toast-element-content-delete"><i pgs="icon['icon-close']"></i></button>
+                <button type="button" pgs="button['iconOnly'] _toast-element-content-delete"><i pgs="icon['icon-close']"></i></button>
             </div>
             <div pgs="_toast-element-buttons">
             </div>

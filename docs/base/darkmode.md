@@ -10,7 +10,7 @@ Global light and dark theme switch. The choice is persisted in localStorage unde
 
 ## PGS Options (component brackets)
 
-- `toggleDarkmodeExtended`: writes the theme the click leads to next to the glyph, "Dark mode" while the page is light and "Light mode" while it is dark. It reads the theme from the html element rather than the glyph on the button, so it keeps working whatever icon set drew it; retitle or translate it with --darkmode-label-toDark and --darkmode-label-toLight, whose values are CSS strings, quotes included.
+- `labelled`: writes the theme the click leads to next to the glyph, "Dark mode" while the page is light and "Light mode" while it is dark. It reads the theme from the html element rather than the glyph on the button, so it keeps working whatever icon set drew it; retitle or translate it with --darkmode-label-toDark and --darkmode-label-toLight, whose values are CSS strings, quotes included.
 
 ## PGS States
 
@@ -30,8 +30,8 @@ Global light and dark theme switch. The choice is persisted in localStorage unde
 
 ### PGS Options (component brackets)
 
-- `buttonIcon`: presents the switch as an icon-only button.
-- `flexColumn`: stacks the example and its notes vertically.
+- `iconOnly`: presents the switch as an icon-only button.
+- `column`: stacks the example and its notes vertically.
 - `gapTexts`: spaces the example content.
 
 ### Other
@@ -68,17 +68,17 @@ localStorage.getItem("screenIsDarkMode");
 The icon is swapped by the library, so author it as fa-moon and leave it alone. Several switches can coexist: they all read and write the same stored value.
 
 ```html
-<button pgs="button['buttonIcon'] toggleDarkmode" type="button" aria-label="Change theme">
+<button pgs="button['iconOnly'] toggleDarkmode" type="button" aria-label="Change theme">
     <i pgs="icon"></i>
 </button>
 ```
 
 ### Labelled switch
 
-toggleDarkmodeExtended adds the written label, so the control says where the click leads instead of relying on the glyph alone. Override --darkmode-label-toDark and --darkmode-label-toLight to write it in another language: both take a CSS string, quotes included.
+labelled adds the written label, so the control says where the click leads instead of relying on the glyph alone. Override --darkmode-label-toDark and --darkmode-label-toLight to write it in another language: both take a CSS string, quotes included.
 
 ```html
-<button pgs="button toggleDarkmode['toggleDarkmodeExtended']" type="button" aria-label="Change theme">
+<button pgs="button toggleDarkmode['labelled']" type="button" aria-label="Change theme">
     <i pgs="icon"></i>
 </button>
 ```

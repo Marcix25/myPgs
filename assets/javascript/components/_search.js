@@ -193,7 +193,7 @@ function PGS_search_init(root = document) {
             items.forEach((item, index) => {
                 const option = document.createElement("li");
                 pgs(option).add("_search-suggestions-item");
-                pgs(option).add("flex['flexRow']");
+                pgs(option).add("flex['row']");
                 option.id = `${list.id}-option-${index}`;
                 option.dataset.index = String(index);
                 option.setAttribute("role", "option");

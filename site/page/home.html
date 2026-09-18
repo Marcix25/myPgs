@@ -2,19 +2,19 @@
 <main pgs="main" id="homePage" style="--main-padding-top: var(--heightOfHeader);">
 
     <!-- = HERO -->
-    <section class="home-hero" pgs="sectionFull marginInline['marginPage'] width['widthFillAvailable'] darkmode heightMin flex['flexColumn']" style="--height-size: calc(100dvh - var(--main-padding-top) - var(--page-padding))">
-        <div class="home-hero-inner" pgs="flex['flexRow' 'gapElements' 'wrap'] flex-flex1">
-            <div class="home-hero-text" pgs="flex['flexColumn' 'selfStretch' 'justifyBetween'] flex-flexValue paddingTop" style="--flex-flexValue: 420px;">
-                <div pgs="flex['flexColumn' 'gapTexts']">
+    <section class="home-hero" pgs="sectionFull marginInline['page'] width['fillAvailable'] darkmode heightMin flex['column']" style="--height-size: calc(100dvh - var(--main-padding-top) - var(--page-padding))">
+        <div class="home-hero-inner" pgs="flex['row' 'gapElements' 'wrap'] flex-flex1">
+            <div class="home-hero-text" pgs="flex['column' 'selfStretch' 'justifyBetween'] flex-flexValue paddingTop" style="--flex-flexValue: 420px;">
+                <div pgs="flex['column' 'gapTexts']">
                     <p class="home-hero-eyebrow">Frontend theme &amp; component library</p>
                     <h1>Build interfaces with one attribute: <code pgs="h1 txtPrimaryText">pgs</code>.</h1>
                     <p class="home-hero-lead">MyPGS ties markup, CSS and JavaScript together through a single
                         attribute contract. Dark mode, container queries and accessible defaults come built in —
                         nothing else to configure.</p>
                 </div>
-                <div pgs="flex['flexRow' 'gapTexts' 'wrap']">
-                    <a pgs="button['buttonBig' 'buttonStrong']" href="demo.html">Browse the reference</a>
-                    <a pgs="button['buttonBig' 'buttonTransparent']" href="test.html">Try it live</a>
+                <div pgs="flex['row' 'gapTexts' 'wrap']">
+                    <a pgs="button['big' 'strong']" href="demo.html">Browse the reference</a>
+                    <a pgs="button['big' 'transparent']" href="test.html">Try it live</a>
                 </div>
             </div>
 
@@ -27,51 +27,51 @@
     </section>
 
     <!-- = FEATURES -->
-    <section pgs="section flex['flexColumn' 'gapElements']">
-        <div class="home-features-heading" pgs="flex['flexColumn' 'gapTexts']">
+    <section pgs="section flex['column' 'gapElements']">
+        <div class="home-features-heading" pgs="flex['column' 'gapTexts']">
             <h2>Everything a component needs, built in</h2>
             <p>Six ideas that show up in every one of the 45+ components in the reference.</p>
         </div>
 
         <div class="home-features-grid" pgs="grid['column-3']">
-            <div pgs="box flex['flexColumn' 'gapTexts']">
-                <i pgs="icon['iconBox' 'icon-gear']"></i>
+            <div pgs="box flex['column' 'gapTexts']">
+                <i pgs="icon['boxed' 'icon-gear']"></i>
                 <h3>One attribute, one contract</h3>
                 <p><code>pgs</code> identifies the element and its visual options, <code>pgs-data</code> configures its behavior,
                     <code>pgs-state</code> tracks it at runtime — the same three attributes everywhere.
                 </p>
             </div>
 
-            <div pgs="box flex['flexColumn' 'gapTexts']">
-                <i pgs="icon['iconBox' 'icon-moon']"></i>
+            <div pgs="box flex['column' 'gapTexts']">
+                <i pgs="icon['boxed' 'icon-moon']"></i>
                 <h3>Dark mode, built in</h3>
                 <p>Every colour ships as a light/dark pair from the start, so a component looks right in
                     either theme with no extra markup.</p>
             </div>
 
-            <div pgs="box flex['flexColumn' 'gapTexts']">
-                <i pgs="icon['iconBox' 'icon-eye']"></i>
+            <div pgs="box flex['column' 'gapTexts']">
+                <i pgs="icon['boxed' 'icon-eye']"></i>
                 <h3>Accessible by default</h3>
                 <p>Semantic markup, focus states and keyboard behaviour come before any JavaScript runs,
                     not after.</p>
             </div>
 
-            <div pgs="box flex['flexColumn' 'gapTexts']">
-                <i pgs="icon['iconBox' 'icon-sliders']"></i>
+            <div pgs="box flex['column' 'gapTexts']">
+                <i pgs="icon['boxed' 'icon-sliders']"></i>
                 <h3>Adapts to its container</h3>
                 <p>Components read their own container's width through CSS container queries, not just the
                     page's viewport.</p>
             </div>
 
-            <div pgs="box flex['flexColumn' 'gapTexts']">
-                <i pgs="icon['iconBox' 'icon-circleCheck']"></i>
+            <div pgs="box flex['column' 'gapTexts']">
+                <i pgs="icon['boxed' 'icon-circleCheck']"></i>
                 <h3>Nothing extra to install</h3>
                 <p>Plain CSS custom properties and vanilla JavaScript — nothing to configure beyond the
                     package itself.</p>
             </div>
 
-            <div pgs="box flex['flexColumn' 'gapTexts']">
-                <i pgs="icon['iconBox' 'icon-magnifyingGlass']"></i>
+            <div pgs="box flex['column' 'gapTexts']">
+                <i pgs="icon['boxed' 'icon-magnifyingGlass']"></i>
                 <h3>45+ reference components</h3>
                 <p>Every one documented, tested against its own examples, and browsable live in the
                     reference.</p>
@@ -80,17 +80,17 @@
     </section>
 
     <!-- = SHOWCASE -->
-    <section pgs="section flex['flexColumn' 'gapElements']">
-        <div class="home-showcase-inner" pgs="flex['flexRow' 'gapElements' 'wrap']">
-            <div class="home-showcase-text" pgs="flex['flexColumn' 'gapTexts'] flex-flexValue" style="--flex-flexValue: 380px;">
+    <section pgs="section flex['column' 'gapElements']">
+        <div class="home-showcase-inner" pgs="flex['row' 'gapElements' 'wrap']">
+            <div class="home-showcase-text" pgs="flex['column' 'gapTexts'] flex-flexValue" style="--flex-flexValue: 380px;">
                 <h2>What you see is what you write</h2>
                 <p>Every example in the reference is the real, working markup — copy it exactly as it is,
                     no build step and no hidden wrapper around it.</p>
                 <a pgs="button marginTop" href="demo.html">See the components</a>
             </div>
 
-            <div class="home-showcase-demo" pgs="flex['flexColumn' 'gapTexts'] flex-flexValue" style="--flex-flexValue: 420px;">
-                <article class="home-showcase-card" pgs="card['cardHorizontal']">
+            <div class="home-showcase-demo" pgs="flex['column' 'gapTexts'] flex-flexValue" style="--flex-flexValue: 420px;">
+                <article class="home-showcase-card" pgs="card['horizontal']">
                     <img pgs="card-img imgCover" src="../assets/img/placeholder.jpg" alt="A MyPGS card component">
                     <div pgs="card-content">
                         <h3>Card and Box</h3>
@@ -103,7 +103,7 @@
                     <button type="button" class="exampleSource-copy" aria-label="Copia il codice HTML">
                         <i class="fa-solid fa-copy" aria-hidden="true"></i>
                     </button>
-                    <pre><code class="language-markup">&lt;article pgs="card['cardHorizontal']"&gt;
+                    <pre><code class="language-markup">&lt;article pgs="card['horizontal']"&gt;
     &lt;img pgs="card-img imgCover" src="placeholder.jpg" alt="…"&gt;
     &lt;div pgs="card-content"&gt;
         &lt;h3&gt;Card and Box&lt;/h3&gt;
@@ -116,38 +116,38 @@
     </section>
 
     <!-- = ICONS -->
-    <section pgs="section flex['flexColumn' 'gapElements']">
-        <div class="home-icons-heading" pgs="flex['flexColumn' 'gapTexts']">
+    <section pgs="section flex['column' 'gapElements']">
+        <div class="home-icons-heading" pgs="flex['column' 'gapTexts']">
             <h2>An icon set, no icon font</h2>
             <p>Every glyph below is inline SVG, drawn by the same component: <code>pgs="icon['icon-name']"</code>. Nothing to load, nothing to install.</p>
         </div>
 
         <div class="home-icons-grid">
-            <i pgs="icon['iconBox' 'iconMedium' 'icon-heart']" title="icon-heart"></i>
-            <i pgs="icon['iconBox' 'iconMedium' 'icon-bell']" title="icon-bell"></i>
-            <i pgs="icon['iconBox' 'iconMedium' 'icon-calendar']" title="icon-calendar"></i>
-            <i pgs="icon['iconBox' 'iconMedium' 'icon-envelope']" title="icon-envelope"></i>
-            <i pgs="icon['iconBox' 'iconMedium' 'icon-lock']" title="icon-lock"></i>
-            <i pgs="icon['iconBox' 'iconMedium' 'icon-gear']" title="icon-gear"></i>
-            <i pgs="icon['iconBox' 'iconMedium' 'icon-user']" title="icon-user"></i>
-            <i pgs="icon['iconBox' 'iconMedium' 'icon-download']" title="icon-download"></i>
-            <i pgs="icon['iconBox' 'iconMedium' 'icon-trash']" title="icon-trash"></i>
-            <i pgs="icon['iconBox' 'iconMedium' 'icon-eye']" title="icon-eye"></i>
-            <i pgs="icon['iconBox' 'iconMedium' 'icon-mapPin']" title="icon-mapPin"></i>
-            <i pgs="icon['iconBox' 'iconMedium' 'icon-clock']" title="icon-clock"></i>
+            <i pgs="icon['boxed' 'medium' 'icon-heart']" title="icon-heart"></i>
+            <i pgs="icon['boxed' 'medium' 'icon-bell']" title="icon-bell"></i>
+            <i pgs="icon['boxed' 'medium' 'icon-calendar']" title="icon-calendar"></i>
+            <i pgs="icon['boxed' 'medium' 'icon-envelope']" title="icon-envelope"></i>
+            <i pgs="icon['boxed' 'medium' 'icon-lock']" title="icon-lock"></i>
+            <i pgs="icon['boxed' 'medium' 'icon-gear']" title="icon-gear"></i>
+            <i pgs="icon['boxed' 'medium' 'icon-user']" title="icon-user"></i>
+            <i pgs="icon['boxed' 'medium' 'icon-download']" title="icon-download"></i>
+            <i pgs="icon['boxed' 'medium' 'icon-trash']" title="icon-trash"></i>
+            <i pgs="icon['boxed' 'medium' 'icon-eye']" title="icon-eye"></i>
+            <i pgs="icon['boxed' 'medium' 'icon-mapPin']" title="icon-mapPin"></i>
+            <i pgs="icon['boxed' 'medium' 'icon-clock']" title="icon-clock"></i>
         </div>
 
-        <a class="home-icons-link" pgs="button marginTop['marginTexts'] bgBoxDark txtWhite" href="demo.html#components-icon">See the whole set</a>
+        <a class="home-icons-link" pgs="button marginTop['texts'] bgBoxDark txtWhite" href="demo.html#components-icon">See the whole set</a>
     </section>
 
     <!-- = CTA -->
     <section class="home-cta" pgs="section['gapTexts']">
-        <div pgs="box flex['flexColumn']">
+        <div pgs="box flex['column']">
             <h2>Ready to look around?</h2>
             <p>Every component, layout and helper the library ships, with a live, working example each.</p>
-            <div pgs="flex['flexRow' 'gapTexts' 'wrap' 'justifyCenter']">
-                <a pgs="button['buttonBig' 'buttonStrong']" href="demo.html">Browse the reference</a>
-                <a pgs="button['buttonBig' 'buttonTransparent']" href="test.html">Try it live</a>
+            <div pgs="flex['row' 'gapTexts' 'wrap' 'justifyCenter']">
+                <a pgs="button['big' 'strong']" href="demo.html">Browse the reference</a>
+                <a pgs="button['big' 'transparent']" href="test.html">Try it live</a>
             </div>
         </div>
     </section>

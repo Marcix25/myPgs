@@ -13,27 +13,27 @@
         --margin-size: var(--padding-half);
     }
 
-    &[pgs*="'marginPage'"] {
+    &[pgs*="'page'"] {
         --margin-size: var(--page-padding);
     }
 
-    &[pgs*="'marginTexts'"] {
+    &[pgs*="'texts'"] {
         --margin-size: var(--gap-texts);
     }
 
-    &[pgs*="'marginElements'"] {
+    &[pgs*="'elements'"] {
         --margin-size: var(--gap-elements);
     }
 
-    &[pgs*="'marginSections'"] {
+    &[pgs*="'sections'"] {
         --margin-size: var(--gap-sections);
     }
 
-    &[pgs*="'marginAuto'"] {
+    &[pgs*="'auto'"] {
         --margin-size: auto;
     }
 
-    &[pgs*="'marginUnset'"] {
+    &[pgs*="'unset'"] {
         --margin-size: unset;
     }
 }
@@ -41,7 +41,7 @@
 :is([pgs~="margin"], [pgs*="margin\5B"]) {
     margin: var(--margin-size);
 
-    &[pgs*="'marginNegative'"] {
+    &[pgs*="'negative'"] {
         margin: calc(var(--margin-size) * -1);
     }
 }
@@ -49,7 +49,7 @@
 :is([pgs~="marginLeft"], [pgs*="marginLeft\5B"]) {
     margin-left: var(--margin-size);
 
-    &[pgs*="'marginNegative'"] {
+    &[pgs*="'negative'"] {
         margin-left: calc(var(--margin-size) * -1);
     }
 }
@@ -57,7 +57,7 @@
 :is([pgs~="marginRight"], [pgs*="marginRight\5B"]) {
     margin-right: var(--margin-size);
 
-    &[pgs*="'marginNegative'"] {
+    &[pgs*="'negative'"] {
         margin-right: calc(var(--margin-size) * -1);
     }
 }
@@ -65,7 +65,7 @@
 :is([pgs~="marginBottom"], [pgs*="marginBottom\5B"]) {
     margin-bottom: var(--margin-size);
 
-    &[pgs*="'marginNegative'"] {
+    &[pgs*="'negative'"] {
         margin-bottom: calc(var(--margin-size) * -1);
     }
 }
@@ -73,7 +73,7 @@
 :is([pgs~="marginTop"], [pgs*="marginTop\5B"]) {
     margin-top: var(--margin-size);
 
-    &[pgs*="'marginNegative'"] {
+    &[pgs*="'negative'"] {
         margin-top: calc(var(--margin-size) * -1);
     }
 }
@@ -81,7 +81,7 @@
 :is([pgs~="marginInline"], [pgs*="marginInline\5B"]) {
     margin-inline: var(--margin-size);
 
-    &[pgs*="'marginNegative'"] {
+    &[pgs*="'negative'"] {
         margin-inline: calc(var(--margin-size) * -1);
     }
 }
@@ -89,7 +89,7 @@
 :is([pgs~="marginBlock"], [pgs*="marginBlock\5B"]) {
     margin-block: var(--margin-size);
 
-    &[pgs*="'marginNegative'"] {
+    &[pgs*="'negative'"] {
         margin-block: calc(var(--margin-size) * -1);
     }
 }
@@ -108,23 +108,23 @@
         --padding-size: var(--padding-half);
     }
 
-    &[pgs*="'paddingPage'"] {
+    &[pgs*="'page'"] {
         --padding-size: var(--page-padding);
     }
 
-    &[pgs*="'paddingTexts'"] {
+    &[pgs*="'texts'"] {
         --padding-size: var(--gap-texts);
     }
 
-    &[pgs*="'paddingElements'"] {
+    &[pgs*="'elements'"] {
         --padding-size: var(--gap-elements);
     }
 
-    &[pgs*="'paddingSections'"] {
+    &[pgs*="'sections'"] {
         --padding-size: var(--gap-sections);
     }
 
-    &[pgs*="'paddingUnset'"] {
+    &[pgs*="'unset'"] {
         --padding-size: unset;
     }
 }

@@ -205,8 +205,8 @@
     }
 
     //+ OPTION
-    //++ pageShellFullPage
-    &[pgs*="'pageShellFullPage'"] {
+    //++ fullPage
+    &[pgs*="'fullPage'"] {
         --pageShell-width: 100%;
 
         [pgs~="pageShell-content"] {
@@ -214,8 +214,8 @@
         }
     }
 
-    //++ pageShellAsideScroll
-    &[pgs*="'pageShellAsideScroll'"] {
+    //++ asideScroll
+    &[pgs*="'asideScroll'"] {
         padding-top: 0;
 
         //=== vertical: the sidebar stacks, so it stops being its own scroller
@@ -248,8 +248,8 @@
         }
     }
 
-    //++ pageShellAsideShadow
-    &[pgs*="'pageShellAsideShadow'"] {
+    //++ asideShadow
+    &[pgs*="'asideShadow'"] {
 
         //+( big-tablet
         @container (min-width: #{$big-tablet}) {

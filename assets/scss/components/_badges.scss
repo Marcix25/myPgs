@@ -34,42 +34,42 @@
 :is([pgs~="badge"], [pgs*="badge\5B"]) {
     @include _badge();
 
-    &[pgs*="'badgePrimary'"] {
+    &[pgs*="'primary'"] {
         --badge-background: var(--color-primary-soft);
         --badge-color: var(--color-primary-strong);
     }
 
-    &[pgs*="'badgeStrong'"] {
+    &[pgs*="'strong'"] {
         --badge-background: var(--color-primary);
         --badge-color: var(--color-whiteFixed);
     }
 
-    &[pgs*="'badgeSuccess'"] {
+    &[pgs*="'success'"] {
         --badge-background: var(--color-success-soft);
         --badge-color: var(--color-success);
     }
 
-    &[pgs*="'badgeWarning'"] {
+    &[pgs*="'warning'"] {
         --badge-background: var(--color-warning-soft);
         --badge-color: var(--color-warning);
     }
 
-    &[pgs*="'badgeError'"] {
+    &[pgs*="'error'"] {
         --badge-background: var(--color-error-soft);
         --badge-color: var(--color-error);
     }
 
-    &[pgs*="'badgeInfo'"] {
+    &[pgs*="'info'"] {
         --badge-background: var(--color-info-soft);
         --badge-color: var(--color-info);
     }
 
-    &[pgs*="'badgeNeutral'"] {
+    &[pgs*="'neutral'"] {
         --badge-background: var(--color-box-transparent);
         --badge-color: var(--color-text);
     }
 
-    &[pgs*="'badgeDot'"] {
+    &[pgs*="'dot'"] {
         &::before {
             content: "";
             display: block;

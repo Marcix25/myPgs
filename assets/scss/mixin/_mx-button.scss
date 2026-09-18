@@ -74,8 +74,8 @@
     }
 
     //=== BUTTON CONTENT - REVERSE
-    &:where([pgs*="'buttonReverse'"]:has(i)),
-    &:where([pgs*="'buttonReverse'"]:has(:is([pgs~="icon"], [pgs*="icon\5B"]))) {
+    &:where([pgs*="'reverse'"]:has(i)),
+    &:where([pgs*="'reverse'"]:has(:is([pgs~="icon"], [pgs*="icon\5B"]))) {
         --button-padding-right: var(--button-padding-left-icon);
         --button-padding-left: var(--button-padding-right);
     }
@@ -109,7 +109,7 @@
 }
 
 //=== BUTTON ICON
-@mixin buttonIcon() {
+@mixin iconOnly() {
     --button-padding: var(--button-padding-block);
     flex: 0 0;
     aspect-ratio: 1;
@@ -144,18 +144,18 @@
 }
 
 //== BUTTON STRONG
-@mixin buttonStrong() {
+@mixin strong() {
     @include _buttonColor("-strong");
 }
 
 //== BUTTON MINI
-@mixin buttonMini() {
+@mixin mini() {
     --button-size: 0.9rem;
     display: inline-flex;
 }
 
 //== BUTTON BIG
-@mixin buttonBig() {
+@mixin big() {
     --button-padding: var(--button-padding-right);
     --button-height: 100%;
     --icon-size: 2em;
@@ -166,7 +166,7 @@
 }
 
 //== BUTTON TEXT
-@mixin buttonText() {
+@mixin text() {
     $color: var(--button-primaryColor);
     --button-border-width: 0;
     --button-borderRadius: 0px;
@@ -184,19 +184,19 @@
 }
 
 //== BUTTON TRANSPARENT
-@mixin buttonTransparent() {
+@mixin transparent() {
     --button-border-width: 0;
     --button-background: transparent;
 }
 
 //== BUTTON PADDING EQUAL
-@mixin buttonPaddingEqual() {
+@mixin paddingEqual() {
     --button-padding: var(--button-padding-block);
 }
 
 //== HEADER
 //=== BUTTON HEADER
-@mixin buttonHeader() {
+@mixin forHeader() {
     --button-size: 1.2rem;
     --button-border-width: 0;
     min-height: var(--header-size);

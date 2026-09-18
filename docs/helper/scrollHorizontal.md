@@ -2,7 +2,7 @@
 
 # Scroll horizontal
 
-Two variants that turn vertical wheel motion into horizontal scrolling over a container that can still scroll in that direction. scrollHorizontal converts any input device — mouse wheel, trackpad, Magic Mouse. scrollHorizontalWithMouse converts only a plain mouse wheel and leaves a trackpad's own two-finger swipe alone, since it already scrolls horizontally on its own; Slides uses this one internally for slidesScrollMouse.
+Two variants that turn vertical wheel motion into horizontal scrolling over a container that can still scroll in that direction. scrollHorizontal converts any input device — mouse wheel, trackpad, Magic Mouse. scrollHorizontalWithMouse converts only a plain mouse wheel and leaves a trackpad's own two-finger swipe alone, since it already scrolls horizontally on its own; Slides uses this one internally for scrollMouse.
 
 ## JavaScript API
 
@@ -22,7 +22,7 @@ Two variants that turn vertical wheel motion into horizontal scrolling over a co
 
 ### PGS Options (component brackets)
 
-- `flexRow`: lays the demo items out in a row.
+- `row`: lays the demo items out in a row.
 - `gapTexts`: spaces them apart.
 - `nowrap`: keeps each row on one line so it actually overflows instead of wrapping.
 

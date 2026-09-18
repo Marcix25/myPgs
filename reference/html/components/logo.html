@@ -9,11 +9,11 @@
  * - logo-text: identifies the text-based brand variant.
  *
  * @pgs-options
- * - logoDarkmode: inverts the logo image when the global darkmode state is active.
- * - logoDarkmodeFixed: keeps the image inversion enabled regardless of the current theme.
+ * - darkmode: inverts the logo image when the global darkmode state is active.
+ * - darkmodeFixed: keeps the image inversion enabled regardless of the current theme.
  *
  * @pgs-state
- * - darkmode: global document state that activates the logoDarkmode variant.
+ * - darkmode: global document state that activates the darkmode variant.
  *
  * @return HTML examples of the theme-aware graphical logo and the text logo.
  */
@@ -22,7 +22,7 @@
 <demo demo-h2="Examples"></demo>
 <demo demo-h3="Graphical logo" demo-description="Image-based brand logo that inverts automatically when dark mode is active."></demo>
 <section demo="component">
-    <a aria-label="Logo" pgs="logo['logoDarkmode']" href="/">
+    <a aria-label="Logo" pgs="logo['darkmode']" href="/">
         <img pgs="logo-image" src="../assets/img/logo.svg" alt="MyPGS">
     </a>
 </section>
@@ -34,9 +34,9 @@
     </a>
 </section>
 
-<demo demo-h3="Always-inverted logo" demo-description="Image-based brand logo that stays inverted using logoDarkmodeFixed, regardless of the current theme."></demo>
+<demo demo-h3="Always-inverted logo" demo-description="Image-based brand logo that stays inverted using darkmodeFixed, regardless of the current theme."></demo>
 <section demo="component">
-    <a aria-label="Logo" pgs="logo['logoDarkmodeFixed']" href="/">
+    <a aria-label="Logo" pgs="logo['darkmodeFixed']" href="/">
         <img pgs="logo-image" src="../assets/img/logo.svg" alt="MyPGS">
     </a>
 </section>

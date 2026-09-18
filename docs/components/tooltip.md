@@ -32,8 +32,8 @@ Tooltip markup, configuration, behavior, and usage example. A small arrow always
 
 ### PGS Options (component brackets)
 
-- `buttonMini`: applies the smallest button variant to the tooltip trigger.
-- `buttonIcon`: presents the tooltip trigger as a compact circular icon button.
+- `mini`: applies the smallest button variant to the tooltip trigger.
+- `iconOnly`: presents the tooltip trigger as a compact circular icon button.
 - `icon-circleInfo`: the information mark.
 
 ### Other
@@ -53,7 +53,7 @@ Complete HTML markup and usage example for Tooltip.
 
 ```html
 <span pgs="dropdown tooltip">
-    <button pgs="dropdown-button button['buttonMini' 'buttonIcon'] tooltip-button" title="open-tooltip" type="button">
+    <button pgs="dropdown-button button['mini' 'iconOnly'] tooltip-button" title="open-tooltip" type="button">
         <i pgs="icon['icon-circleInfo']"></i>
     </button>
     <div pgs="dropdown-content tooltip-content">

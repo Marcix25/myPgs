@@ -33,7 +33,7 @@
     }
 
     [pgs~="alert-content"] {
-        @include flexColumn(calc(var(--alert-gap) / 2));
+        @include column(calc(var(--alert-gap) / 2));
         min-width: 0;
 
         [pgs~="alert-content-title"] {

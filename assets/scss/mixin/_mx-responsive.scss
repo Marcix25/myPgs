@@ -3,14 +3,14 @@
 
 //= FLEX 
 //== column
-@mixin flexColumn($gap: var(--gap-texts)) {
+@mixin column($gap: var(--gap-texts)) {
     display: flex;
     gap: $gap;
     flex-direction: column;
 }
 
 //== row
-@mixin flexRow($wrap: wrap, $gap: var(--gap-texts)) {
+@mixin row($wrap: wrap, $gap: var(--gap-texts)) {
     display: flex;
     gap: $gap;
     flex-direction: row;

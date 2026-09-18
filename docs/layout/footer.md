@@ -29,8 +29,8 @@ Complete footer with theme control, brand area, navigation, informational conten
 
 ### PGS Options (component brackets)
 
-- `toggleDarkmodeExtended`: labels that control with the theme the click leads to; see Darkmode.
-- `flexRow`: distributes the upper columns responsively.
+- `labelled`: labels that control with the theme the click leads to; see Darkmode.
+- `row`: distributes the upper columns responsively.
 - `column-3`: configures the footer flex layout with three columns.
 
 ### Other
@@ -56,13 +56,13 @@ Brand and navigation columns in the upper section, legal links and cookie prefer
 <footer pgs="footer">
 
     <section pgs="footer-top section">
-        <div pgs="footer-top-content flex['flexRow' 'column-3']">
+        <div pgs="footer-top-content flex['row' 'column-3']">
             <div pgs="footer-brand">
                 <a aria-label="Logo" pgs="logo" href="/">
                     <span pgs="logo-text">MyPGS</span>
                 </a>
                 <p pgs="footer-brand-motto">Reusable frontend components.</p>
-                <button pgs="button toggleDarkmode['toggleDarkmodeExtended']" type="button" aria-label="Change theme">
+                <button pgs="button toggleDarkmode['labelled']" type="button" aria-label="Change theme">
                     <i class="fa-solid fa-moon"></i>
                 </button>
             </div>

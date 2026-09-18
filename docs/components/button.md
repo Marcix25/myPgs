@@ -10,19 +10,19 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 
 ## PGS Options (component brackets)
 
-- `buttonHeader`: sizes the button for use in a header.
-- `buttonReverse`: reverses the visual order of the text and icon on the button.
-- `buttonStrong`: applies the variant with stronger visual emphasis.
-- `buttonIcon`: identifies a compact button composed primarily of an icon.
-- `buttonMini`: applies the smallest size variant.
-- `buttonBig`: applies the large size variant.
-- `buttonTransparent`: drops the background and the border at rest, so only the label shows, and colours the label on hover. Unlike buttonText it leaves the other states alone, so the same button still fills in when it carries buttonStrong or aria-current.
-- `buttonText`: removes the default background and outline while preserving the button layout and hover behavior.
-- `buttonPrimary`: applies the primary color palette.
-- `buttonSecondary`: replaces the primary button accent with the secondary color palette.
-- `buttonTertiary`: replaces the primary button accent with the tertiary color palette.
-- `buttonQuaternary`: replaces the primary button accent with the quaternary color palette.
-- `buttonPaddingEqual`: sets the same padding on every side instead of the wider left/right default.
+- `forHeader`: sizes the button for use in a header.
+- `reverse`: reverses the visual order of the text and icon on the button.
+- `strong`: applies the variant with stronger visual emphasis.
+- `iconOnly`: identifies a compact button composed primarily of an icon.
+- `mini`: applies the smallest size variant.
+- `big`: applies the large size variant.
+- `transparent`: drops the background and the border at rest, so only the label shows, and colours the label on hover. Unlike text it leaves the other states alone, so the same button still fills in when it carries strong or aria-current.
+- `text`: removes the default background and outline while preserving the button layout and hover behavior.
+- `primary`: applies the primary color palette.
+- `secondary`: replaces the primary button accent with the secondary color palette.
+- `tertiary`: replaces the primary button accent with the tertiary color palette.
+- `quaternary`: replaces the primary button accent with the quaternary color palette.
+- `paddingEqual`: sets the same padding on every side instead of the wider left/right default.
 
 ## Related elements
 
@@ -34,7 +34,7 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 
 ### PGS Options (component brackets)
 
-- `flexRow`: arranges the button examples in a flexible row.
+- `row`: arranges the button examples in a flexible row.
 - `wrap`: lets that row break instead of overflowing.
 - `gapTexts`: spaces the two buttons that share the text-only example, and the three two-state buttons.
 - `icon-arrowRight`: the glyph that points forward.
@@ -104,10 +104,10 @@ button disabled
 
 ### Reversed order
 
-Places the icon after the text using buttonReverse.
+Places the icon after the text using reverse.
 
 ```html
-<button pgs="button['buttonReverse']" type="button">
+<button pgs="button['reverse']" type="button">
     Next
     <i pgs="icon['icon-arrowRight']" aria-hidden="true"></i>
 </button>
@@ -115,40 +115,40 @@ Places the icon after the text using buttonReverse.
 
 ### Strong emphasis
 
-Applies the higher-emphasis buttonStrong variant.
+Applies the higher-emphasis strong variant.
 
 ```html
-<button pgs="button['buttonStrong']" type="button">
+<button pgs="button['strong']" type="button">
     Submit
 </button>
 ```
 
 ### Icon only
 
-Compact icon-only button using buttonIcon.
+Compact icon-only button using iconOnly.
 
 ```html
-<button pgs="button['buttonIcon']" type="button" aria-label="Settings">
+<button pgs="button['iconOnly']" type="button" aria-label="Settings">
     <i pgs="icon['icon-star']" aria-hidden="true"></i>
 </button>
 ```
 
 ### Mini size
 
-Smallest button size using buttonMini.
+Smallest button size using mini.
 
 ```html
-<button pgs="button['buttonMini']" type="button" aria-label="Information">
+<button pgs="button['mini']" type="button" aria-label="Information">
     Mini
 </button>
 ```
 
 ### Large size
 
-Largest button size using buttonBig, combined with an icon.
+Largest button size using big, combined with an icon.
 
 ```html
-<button pgs="button['buttonBig']" type="button" aria-label="Large button">
+<button pgs="button['big']" type="button" aria-label="Large button">
     <i pgs="icon['icon-star']"></i>
     Large
 </button>
@@ -156,30 +156,30 @@ Largest button size using buttonBig, combined with an icon.
 
 ### Transparent
 
-Only the label shows at rest, and it takes the accent colour on hover; buttonStrong and aria-current still fill in.
+Only the label shows at rest, and it takes the accent colour on hover; strong and aria-current still fill in.
 
 ```html
-<button pgs="button['buttonTransparent']" type="button">
+<button pgs="button['transparent']" type="button">
     Read more
 </button>
 ```
 
 ### Text only
 
-Removes the default background and outline while keeping the button layout using buttonText.
+Removes the default background and outline while keeping the button layout using text.
 
 ```html
-<button pgs="button['buttonText']" type="button">
+<button pgs="button['text']" type="button">
     Text only
 </button>
 ```
 
 ### Equal padding
 
-Sets the same padding on every side using buttonPaddingEqual, instead of the wider left/right default.
+Sets the same padding on every side using paddingEqual, instead of the wider left/right default.
 
 ```html
-<button pgs="button['buttonPaddingEqual']" type="button">
+<button pgs="button['paddingEqual']" type="button">
     Equal
 </button>
 ```
@@ -189,7 +189,7 @@ Sets the same padding on every side using buttonPaddingEqual, instead of the wid
 Strong button using the primary color palette.
 
 ```html
-<button pgs="button['buttonPrimary']" type="button">
+<button pgs="button['primary']" type="button">
     Primary
 </button>
 ```
@@ -199,7 +199,7 @@ Strong button using the primary color palette.
 Strong button using the secondary color palette.
 
 ```html
-<button pgs="button['buttonSecondary']" type="button">
+<button pgs="button['secondary']" type="button">
     Secondary
 </button>
 ```
@@ -209,7 +209,7 @@ Strong button using the secondary color palette.
 Strong button using the tertiary color palette.
 
 ```html
-<button pgs="button['buttonTertiary']" type="button">
+<button pgs="button['tertiary']" type="button">
     Tertiary
 </button>
 ```
@@ -219,7 +219,7 @@ Strong button using the tertiary color palette.
 Strong button using the quaternary color palette.
 
 ```html
-<button pgs="button['buttonQuaternary']" type="button">
+<button pgs="button['quaternary']" type="button">
     Quaternary
 </button>
 ```

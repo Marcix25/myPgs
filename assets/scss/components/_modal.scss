@@ -5,7 +5,7 @@
 //== bracket of their own, so their selectors were simplified to a plain [pgs~=…]). The prefix in
 //== its name reads like a child, but it behaves like a second root: it is its own DOM element (the
 //== <dialog>, not the wrapper), the JavaScript can move it anywhere in the document independently
-//== of the wrapper, and it carries its own options (modalRight, modalMini, modalHistory, …)
+//== of the wrapper, and it carries its own options (dialogRight, dialogMini, dialogHistory, …)
 //== wherever it ends up. "Root" here means "gets its own bracket", not "has no prefix in its name"
 //== — see AGENTS-DEVELOPMENT.md for the general rule this follows.
 $modalDialogPgs: 'dialog:is([pgs~="modal-dialog"], [pgs*="modal-dialog\5B"])';
@@ -28,17 +28,17 @@ html:has(dialog[open]) {
     //== the flag-copy loop in _modal.js lets any of these be authored on modal or modal-dialog
     //== alike, so both are declared here too, for editors to suggest them on either
     //+ OPTION
-    &[pgs*="'modalHistory'"],
-    &[pgs*="'modalTopLevel'"],
-    &[pgs*="'modalDisableBackdropClose'"],
-    &[pgs*="'modalMini'"],
-    &[pgs*="'modalMedium'"],
-    &[pgs*="'modalFull'"],
-    &[pgs*="'modalCenter'"],
-    &[pgs*="'modalLeft'"],
-    &[pgs*="'modalRight'"],
-    &[pgs*="'modalTop'"],
-    &[pgs*="'modalBottom'"] {}
+    &[pgs*="'dialogHistory'"],
+    &[pgs*="'dialogTopLevel'"],
+    &[pgs*="'dialogDisableBackdropClose'"],
+    &[pgs*="'dialogMini'"],
+    &[pgs*="'dialogMedium'"],
+    &[pgs*="'dialogFull'"],
+    &[pgs*="'dialogCenter'"],
+    &[pgs*="'dialogLeft'"],
+    &[pgs*="'dialogRight'"],
+    &[pgs*="'dialogTop'"],
+    &[pgs*="'dialogBottom'"] {}
 }
 
 //= DIALOG 
@@ -104,7 +104,7 @@ html:has(dialog[open]) {
 
         //==== HEADER
         [pgs~="modal-dialog-content-header"] {
-            @include flexRow(nowrap);
+            @include row(nowrap);
             z-index: 1;
             border-bottom: var(--border-complete);
             padding-bottom: calc(var(--modal-content-padding) / 2);
@@ -148,7 +148,7 @@ html:has(dialog[open]) {
 
     //#OPTION 
     //== TOP LEVEL
-    &[pgs*="'modalTopLevel'"]:where(#{$modalDialogPgs}) {
+    &[pgs*="'dialogTopLevel'"]:where(#{$modalDialogPgs}) {
         overflow-y: auto;
         height: auto;
         z-index: auto;
@@ -156,27 +156,27 @@ html:has(dialog[open]) {
     }
 
     //== DISABLED BACKDROP CLOSE
-    &[pgs*="'modalDisableBackdropClose'"] {
+    &[pgs*="'dialogDisableBackdropClose'"] {
         cursor: auto;
     }
 
     //== SIZE
     //=== MINI
-    &[pgs*="'modalMini'"]:where(#{$modalDialogPgs}) {
+    &[pgs*="'dialogMini'"]:where(#{$modalDialogPgs}) {
         [pgs~="modal-dialog-content"] {
             --section-width: min(calc(var(--page-width)/3), 100%);
         }
     }
 
     //=== MEDIUM
-    &[pgs*="'modalMedium'"]:where(#{$modalDialogPgs}) {
+    &[pgs*="'dialogMedium'"]:where(#{$modalDialogPgs}) {
         [pgs~="modal-dialog-content"] {
             --section-width: min(calc(var(--page-width)/2), 100%);
         }
     }
 
     //=== Full
-    &[pgs*="'modalFull'"]:where(#{$modalDialogPgs}) {
+    &[pgs*="'dialogFull'"]:where(#{$modalDialogPgs}) {
         [pgs~="modal-dialog-content"] {
             --section-width: 100%;
         }
@@ -184,30 +184,30 @@ html:has(dialog[open]) {
 
     //== POSITION
     //=== CENTER
-    &[pgs*="'modalCenter'"]:where(#{$modalDialogPgs}) {
+    &[pgs*="'dialogCenter'"]:where(#{$modalDialogPgs}) {
         justify-content: safe center;
         align-items: safe center;
     }
 
     //=== LEFT
-    &[pgs*="'modalLeft'"]:where(#{$modalDialogPgs}) {
+    &[pgs*="'dialogLeft'"]:where(#{$modalDialogPgs}) {
         justify-content: safe flex-start;
         padding-inline: var(--modal-offset);
     }
 
     //=== RIGHT
-    &[pgs*="'modalRight'"]:where(#{$modalDialogPgs}) {
+    &[pgs*="'dialogRight'"]:where(#{$modalDialogPgs}) {
         justify-content: safe flex-end;
         padding-inline: var(--modal-offset);
     }
 
     //=== TOP
-    &[pgs*="'modalTop'"]:where(#{$modalDialogPgs}) {
+    &[pgs*="'dialogTop'"]:where(#{$modalDialogPgs}) {
         align-items: safe flex-start;
     }
 
     //=== BOTTOM
-    &[pgs*="'modalBottom'"]:where(#{$modalDialogPgs}) {
+    &[pgs*="'dialogBottom'"]:where(#{$modalDialogPgs}) {
         align-items: safe flex-end;
     }
 }

@@ -40,15 +40,15 @@
 [pgs~="borderLeft"],
 [pgs~="borderInline"],
 :is([pgs~="borderBlock"], [pgs*="borderBlock\5B"]) {
-    &[pgs*="'borderThin'"] {
+    &[pgs*="'thin'"] {
         --border-width: 1px;
     }
 
-    &[pgs*="'borderThick'"] {
+    &[pgs*="'thick'"] {
         --border-width: 3px;
     }
 
-    &[pgs*="'borderThicker'"] {
+    &[pgs*="'thicker'"] {
         --border-width: 4.5px;
     }
 }
@@ -72,15 +72,15 @@
 :is([pgs~="outline"], [pgs*="outline\5B"]) {
     outline: var(--outline-width) var(--outline-style) var(--outline-color);
 
-    &[pgs*="'outlineThin'"] {
+    &[pgs*="'thin'"] {
         --outline-width: 1px;
     }
 
-    &[pgs*="'outlineThick'"] {
+    &[pgs*="'thick'"] {
         --outline-width: 3px;
     }
 
-    &[pgs*="'outlineThicker'"] {
+    &[pgs*="'thicker'"] {
         --outline-width: 4.5px;
     }
 }

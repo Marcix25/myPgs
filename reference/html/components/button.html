@@ -7,23 +7,23 @@
  * - button: identifies the standard button, which can also be used on anchor elements, and on a `<label>` wrapping its own checkbox or radio to make a two-state control. On a page that carries `bodyHoverAuto`, `pgs.hover` marks it with `hover` at load, so the hover and focus treatment is not written here; see Html and Body.
  *
  * @pgs-options
- * - buttonHeader: sizes the button for use in a header.
- * - buttonReverse: reverses the visual order of the text and icon on the button.
- * - buttonStrong: applies the variant with stronger visual emphasis.
- * - buttonIcon: identifies a compact button composed primarily of an icon.
- * - buttonMini: applies the smallest size variant.
- * - buttonBig: applies the large size variant.
- * - buttonTransparent: drops the background and the border at rest, so only the label shows, and colours the label on hover. Unlike buttonText it leaves the other states alone, so the same button still fills in when it carries buttonStrong or aria-current.
- * - buttonText: removes the default background and outline while preserving the button layout and hover behavior.
- * - buttonPrimary: applies the primary color palette.
- * - buttonSecondary: replaces the primary button accent with the secondary color palette.
- * - buttonTertiary: replaces the primary button accent with the tertiary color palette.
- * - buttonQuaternary: replaces the primary button accent with the quaternary color palette.
- * - buttonPaddingEqual: sets the same padding on every side instead of the wider left/right default.
+ * - forHeader: sizes the button for use in a header.
+ * - reverse: reverses the visual order of the text and icon on the button.
+ * - strong: applies the variant with stronger visual emphasis.
+ * - iconOnly: identifies a compact button composed primarily of an icon.
+ * - mini: applies the smallest size variant.
+ * - big: applies the large size variant.
+ * - transparent: drops the background and the border at rest, so only the label shows, and colours the label on hover. Unlike text it leaves the other states alone, so the same button still fills in when it carries strong or aria-current.
+ * - text: removes the default background and outline while preserving the button layout and hover behavior.
+ * - primary: applies the primary color palette.
+ * - secondary: replaces the primary button accent with the secondary color palette.
+ * - tertiary: replaces the primary button accent with the tertiary color palette.
+ * - quaternary: replaces the primary button accent with the quaternary color palette.
+ * - paddingEqual: sets the same padding on every side instead of the wider left/right default.
  *
  * @related
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
- * - flexRow: arranges the button examples in a flexible row.
+ * - row: arranges the button examples in a flexible row.
  * - hover: the treatment every button receives, added by pgs.hover on a page that carries bodyHoverAuto, rather than written by hand; see Hover.
  * - form: wraps the checked example, so the control is shown where a form actually puts it.
  * - wrap: lets that row break instead of overflowing.
@@ -53,95 +53,95 @@
     </button>
 </section>
 
-<demo demo-h3="Reversed order" demo-description="Places the icon after the text using buttonReverse."></demo>
+<demo demo-h3="Reversed order" demo-description="Places the icon after the text using reverse."></demo>
 <section demo="component">
-    <button pgs="button['buttonReverse']" type="button">
+    <button pgs="button['reverse']" type="button">
         Next
         <i pgs="icon['icon-arrowRight']" aria-hidden="true"></i>
     </button>
 </section>
 
-<demo demo-h3="Strong emphasis" demo-description="Applies the higher-emphasis buttonStrong variant."></demo>
+<demo demo-h3="Strong emphasis" demo-description="Applies the higher-emphasis strong variant."></demo>
 <section demo="component">
-    <button pgs="button['buttonStrong']" type="button">
+    <button pgs="button['strong']" type="button">
         Submit
     </button>
 </section>
 
-<demo demo-h3="Icon only" demo-description="Compact icon-only button using buttonIcon."></demo>
+<demo demo-h3="Icon only" demo-description="Compact icon-only button using iconOnly."></demo>
 <section demo="component">
-    <button pgs="button['buttonIcon']" type="button" aria-label="Settings">
+    <button pgs="button['iconOnly']" type="button" aria-label="Settings">
         <i pgs="icon['icon-star']" aria-hidden="true"></i>
     </button>
 </section>
 
-<demo demo-h3="Mini size" demo-description="Smallest button size using buttonMini."></demo>
+<demo demo-h3="Mini size" demo-description="Smallest button size using mini."></demo>
 <section demo="component">
-    <button pgs="button['buttonMini']" type="button" aria-label="Information">
+    <button pgs="button['mini']" type="button" aria-label="Information">
         Mini
     </button>
 </section>
 
-<demo demo-h3="Large size" demo-description="Largest button size using buttonBig, combined with an icon."></demo>
+<demo demo-h3="Large size" demo-description="Largest button size using big, combined with an icon."></demo>
 <section demo="component">
-    <button pgs="button['buttonBig']" type="button" aria-label="Large button">
+    <button pgs="button['big']" type="button" aria-label="Large button">
         <i pgs="icon['icon-star']"></i>
         Large
     </button>
 </section>
 
-<demo demo-h3="Transparent" demo-description="Only the label shows at rest, and it takes the accent colour on hover; buttonStrong and aria-current still fill in."></demo>
+<demo demo-h3="Transparent" demo-description="Only the label shows at rest, and it takes the accent colour on hover; strong and aria-current still fill in."></demo>
 <section demo="component">
-    <button pgs="button['buttonTransparent']" type="button">
+    <button pgs="button['transparent']" type="button">
         Read more
     </button>
 </section>
 
-<demo demo-h3="Text only" demo-description="Removes the default background and outline while keeping the button layout using buttonText."></demo>
+<demo demo-h3="Text only" demo-description="Removes the default background and outline while keeping the button layout using text."></demo>
 <section demo="component">
-    <button pgs="button['buttonText']" type="button">
+    <button pgs="button['text']" type="button">
         Text only
     </button>
 </section>
 
-<demo demo-h3="Equal padding" demo-description="Sets the same padding on every side using buttonPaddingEqual, instead of the wider left/right default."></demo>
+<demo demo-h3="Equal padding" demo-description="Sets the same padding on every side using paddingEqual, instead of the wider left/right default."></demo>
 <section demo="component">
-    <button pgs="button['buttonPaddingEqual']" type="button">
+    <button pgs="button['paddingEqual']" type="button">
         Equal
     </button>
 </section>
 
 <demo demo-h3="Primary color" demo-description="Strong button using the primary color palette."></demo>
 <section demo="component">
-    <button pgs="button['buttonPrimary']" type="button">
+    <button pgs="button['primary']" type="button">
         Primary
     </button>
 </section>
 
 <demo demo-h3="Secondary color" demo-description="Strong button using the secondary color palette."></demo>
 <section demo="component">
-    <button pgs="button['buttonSecondary']" type="button">
+    <button pgs="button['secondary']" type="button">
         Secondary
     </button>
 </section>
 
 <demo demo-h3="Tertiary color" demo-description="Strong button using the tertiary color palette."></demo>
 <section demo="component">
-    <button pgs="button['buttonTertiary']" type="button">
+    <button pgs="button['tertiary']" type="button">
         Tertiary
     </button>
 </section>
 
 <demo demo-h3="Quaternary color" demo-description="Strong button using the quaternary color palette."></demo>
 <section demo="component">
-    <button pgs="button['buttonQuaternary']" type="button">
+    <button pgs="button['quaternary']" type="button">
         Quaternary
     </button>
 </section>
 
 <demo demo-h3="Checked" demo-description="A label marked as a button wrapping its own checkbox or radio: the input carries the semantics and the keyboard behaviour, the button draws the state. Retune the checked look with --button-background-checked, --button-color-checked and --button-border-color-checked."></demo>
 <section demo="component">
-    <form pgs="form flex['flexRow' 'gapTexts' 'wrap']" demo="wrapper">
+    <form pgs="form flex['row' 'gapTexts' 'wrap']" demo="wrapper">
         <label pgs="button">
             <input type="checkbox" name="favorite" value="yes">
             <i pgs="icon['icon-star']"></i>

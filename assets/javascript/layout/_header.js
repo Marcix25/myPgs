@@ -7,7 +7,7 @@
 // Width at or below which the header switches to its compact layout even when the content
 // still fits, so a wide header can be compact on purpose.
 // headerCompactFrom[600] wins with its own pixel value, otherwise the named options
-// (headerCompactTablet, headerCompactLaptop, ...) set --header-compact-breakpoint in the
+// (compactTablet, compactLaptop, ...) set --header-compact-breakpoint in the
 // SCSS, so the breakpoint values stay defined in one place.
 function getHeader_CompactBreakpoint(header) {
     const custom = parseFloat(pgs(header).data.getValueBrackets("headerCompactFrom"));
@@ -113,13 +113,13 @@ function initHeader_Height(header) {
     //+ FOR --heightOfHeader e --heightOfHeaderScroll
     function getPrimaryHeader() {
         const headers = getReadyHeaders();
-        return headers.find(header => pgs(header).option.contains("headerPrimary")) || headers[0] || null;
+        return headers.find(header => pgs(header).option.contains("main")) || headers[0] || null;
     }
 
     //+ HEIGHT
     function headerHeight() {
         //== --heightOfHeader is what pushes the page down, so only one header can own it. Ownership
-        //== is checked here rather than at init, so a header declaring headerPrimary later still
+        //== is checked here rather than at init, so a header declaring main later still
         //== takes over from the fallback
         if (getPrimaryHeader() !== header) return;
 
@@ -159,7 +159,7 @@ function initHeader_Height(header) {
 //== up to 900px tall, where a pinned header costs too much of the page
 function initHeader_Scroll(header) {
     let lastScrollY = window.scrollY;
-    if (!header || !pgs(header).option.contains("headerScroll")) return;
+    if (!header || !pgs(header).option.contains("scroll")) return;
     const headerElements = pgs(header).querySelectorAll("header-element");
 
     window.addEventListener("scroll", () => {

@@ -2,7 +2,7 @@
 
 # Icon
 
-The glyphs the library draws itself, as inline SVG rather than a font. The token marks the element as an icon and the option chooses which one, so the set is closed: what the stylesheet holds is what can be drawn. Everything myPGS builds and needs to show goes through here — the slide arrows, the close buttons, the marks on alerts, toasts and notifications — which is why the library needs no icon font of its own. The same token is yours to write, so an icon you place by hand costs no dependency either. Written on its own, with no option, it draws nothing and only marks the element as an icon: that is how any icon set you bring gets the same box and placement the library gives an <i>, so a span, an svg or a custom element is sized and positioned like one. It is not iconBox: that one is the circular surface a glyph can sit inside, this one is the drawing.
+The glyphs the library draws itself, as inline SVG rather than a font. The token marks the element as an icon and the option chooses which one, so the set is closed: what the stylesheet holds is what can be drawn. Everything myPGS builds and needs to show goes through here — the slide arrows, the close buttons, the marks on alerts, toasts and notifications — which is why the library needs no icon font of its own. The same token is yours to write, so an icon you place by hand costs no dependency either. Written on its own, with no option, it draws nothing and only marks the element as an icon: that is how any icon set you bring gets the same box and placement the library gives an <i>, so a span, an svg or a custom element is sized and positioned like one. It is not boxed: that one is the circular surface a glyph can sit inside, this one is the drawing.
 
 ## PGS
 
@@ -11,10 +11,10 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 ## PGS Options (component brackets)
 
 - `icon-arrowLeft`: arrow pointing left, for stepping back through a sequence.
-- `iconBox`: turns the element into the circular surface a glyph sits inside. It is the container and says nothing about what it holds, so a built-in glyph and an icon from any other set sit in it alike.
-- `iconDuo`: draws a two-layer version of a glyph instead of the flat one, when that glyph has one (icon-hamburgerTwo does); write it alongside the glyph name, as pgs="icon['icon-hamburgerTwo' 'iconDuo']". Each layer paints on its own pseudo-element, so a component can animate or colour them independently.
-- `iconMedium`: sets --icon-size to 2rem, a preset for a glyph that needs to stand out more than the size it inherits from the surrounding text.
-- `iconLarge`: sets --icon-size to 3rem, a preset for a glyph large enough to anchor its own section.
+- `boxed`: turns the element into the circular surface a glyph sits inside. It is the container and says nothing about what it holds, so a built-in glyph and an icon from any other set sit in it alike.
+- `duo`: draws a two-layer version of a glyph instead of the flat one, when that glyph has one (icon-hamburgerTwo does); write it alongside the glyph name, as pgs="icon['icon-hamburgerTwo' 'duo']". Each layer paints on its own pseudo-element, so a component can animate or colour them independently.
+- `medium`: sets --icon-size to 2rem, a preset for a glyph that needs to stand out more than the size it inherits from the surrounding text.
+- `large`: sets --icon-size to 3rem, a preset for a glyph large enough to anchor its own section.
 - `icon-arrowRight`: arrow pointing right, for stepping forward.
 - `icon-chevronDown`: chevron pointing down, for anything that expands in place.
 - `icon-check`: tick, for a confirmed or checked state.
@@ -32,7 +32,7 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 - `icon-bell`: bell, for anything that announces something arriving.
 - `icon-star`: star, the neutral stand-in glyph for an example that needs one without it meaning anything.
 - `icon-hamburger`: three horizontal bars, the classic static hamburger menu glyph.
-- `icon-hamburgerTwo`: two horizontal bars, a lighter static hamburger menu glyph; add iconDuo for the two-layer version, each bar on its own pseudo-element so a component can animate them into a close mark.
+- `icon-hamburgerTwo`: two horizontal bars, a lighter static hamburger menu glyph; add duo for the two-layer version, each bar on its own pseudo-element so a component can animate them into a close mark.
 - `icon-calendar`: calendar, for a date.
 - `icon-chatBubble`: chat bubble, for a message or a comment.
 - `icon-clock`: clock, for a time or a duration.
@@ -64,8 +64,8 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 
 ### PGS Options (component brackets)
 
-- `flexColumn`: stacks the groups of examples.
-- `flexRow`: lays each group out in a row.
+- `column`: stacks the groups of examples.
+- `row`: lays each group out in a row.
 - `gapTexts`: spaces the icons inside a group.
 - `wrap`: lets the full set flow onto more rows.
 
@@ -129,7 +129,7 @@ Every glyph the library can draw. The token marks the element, the option names 
 <i pgs="icon['icon-upload']"></i>
 <i pgs="icon['icon-user']"></i>
 <i pgs="icon['icon-ellipsis']"></i>
-<i pgs="icon['icon-hamburgerTwo' 'iconDuo']"></i>
+<i pgs="icon['icon-hamburgerTwo' 'duo']"></i>
 ```
 
 ### Size and colour
@@ -139,8 +139,8 @@ A glyph is drawn at the font size of its element and painted in the text colour,
 ```html
 <p><i pgs="icon['icon-circleInfo']"></i> Inside a paragraph, matching the text.</p>
 
-<i pgs="icon['iconLarge' 'icon-circleCheck']"></i>
-<i pgs="icon['iconMedium' 'icon-circleCheck']"></i>
+<i pgs="icon['large' 'icon-circleCheck']"></i>
+<i pgs="icon['medium' 'icon-circleCheck']"></i>
 <i pgs="icon['icon-circleCheck']"></i>
 
 <i pgs="icon['icon-triangleExclamation'] txtPrimary"></i>
@@ -150,9 +150,9 @@ A glyph is drawn at the font size of its element and painted in the text colour,
 
 ### Inside a surface
 
-A glyph placed in iconBox, the circular surface that holds one icon.
+A glyph placed in boxed, the circular surface that holds one icon.
 
 ```html
-<i pgs="icon['iconBox' 'icon-check']"></i>
-<i pgs="icon['iconBox' 'icon-close']"></i>
+<i pgs="icon['boxed' 'icon-check']"></i>
+<i pgs="icon['boxed' 'icon-close']"></i>
 ```

@@ -27,8 +27,8 @@ Standalone utilities for shadow, cursor, image fitting, list styling and forced 
 
 ### PGS Options (component brackets)
 
-- `flexColumn`: stacks the utility groups vertically.
-- `flexRow`: arranges the examples in a row.
+- `column`: stacks the utility groups vertically.
+- `row`: arranges the examples in a row.
 - `gapTexts`: spaces the examples inside a group.
 
 ### Other
@@ -84,7 +84,7 @@ Shared marker and spacing for a plain list, without any component behaviour.
 Pins a subtree to one colour scheme, ignoring the current page theme.
 
 ```html
-<div pgs="flex['flexRow' 'gapTexts'] bgWhiteFixed">
+<div pgs="flex['row' 'gapTexts'] bgWhiteFixed">
     <div pgs="box lightmode">
         <p>lightmode</p>
     </div>

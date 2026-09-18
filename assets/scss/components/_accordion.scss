@@ -2,7 +2,7 @@
 
 //# ACCORDION
 //read by the JavaScript only, declared here so editors suggest them: accordionContainer groups the
-//accordions inside it, so that opening one closes the others, and accordionMultiOpen on that same
+//accordions inside it, so that opening one closes the others, and multiOpen on that same
 //container lifts the rule and lets them stay open together
 //= ACCORDION CONTAINER
 :is([pgs~="accordionContainer"], [pgs*="accordionContainer\5B"]) {
@@ -11,7 +11,7 @@
     flex-direction: column;
     gap: var(--accordion-gap);
 
-    &[pgs*="'accordionMultiOpen'"] {}
+    &[pgs*="'multiOpen'"] {}
 }
 
 //= ACCORDION
@@ -50,7 +50,7 @@
     //== BUTTON
     [pgs~="accordion-button"] {
         cursor: pointer;
-        @include flexRow;
+        @include row;
         appearance: none;
         border: 0;
         background: transparent;
@@ -73,7 +73,7 @@
 
     //== CONTENT
     [pgs~="accordion-content"] {
-        @include flexColumn();
+        @include column();
         visibility: hidden;
         opacity: 0;
         max-height: 0;
@@ -88,7 +88,7 @@
     //++ OPTION
     //read by the JavaScript only, declared here so editors suggest it: opens the panel on load and
     //keeps it open when another one in the group is opened
-    &[pgs*="'accordionAutoOpen'"] {}
+    &[pgs*="'autoOpen'"] {}
 
     //-- STATE OPEN - NOT OPEN
     &:not([pgs-state~=open]) {

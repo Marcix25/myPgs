@@ -8,54 +8,54 @@
         @include buttonHover();
     }
 
-    &[pgs*="'buttonIcon'"] {
-        @include buttonIcon();
+    &[pgs*="'iconOnly'"] {
+        @include iconOnly();
     }
 
-    &[pgs*="'buttonMini'"] {
-        @include buttonMini();
+    &[pgs*="'mini'"] {
+        @include mini();
     }
 
-    &[pgs*="'buttonBig'"] {
-        @include buttonBig();
+    &[pgs*="'big'"] {
+        @include big();
     }
 
-    &[pgs*="'buttonTransparent'"] {
-        @include buttonTransparent();
+    &[pgs*="'transparent'"] {
+        @include transparent();
     }
 
-    &[pgs*="'buttonStrong'"] {
-        @include buttonStrong();
+    &[pgs*="'strong'"] {
+        @include strong();
     }
 
-    &[pgs*="'buttonText'"] {
-        @include buttonText();
+    &[pgs*="'text'"] {
+        @include text();
     }
 
-    &[pgs*="'buttonPaddingEqual'"] {
-        @include buttonPaddingEqual();
+    &[pgs*="'paddingEqual'"] {
+        @include paddingEqual();
     }
 
-    &[pgs*="'buttonHeader'"] {
-        @include buttonHeader();
+    &[pgs*="'forHeader'"] {
+        @include forHeader();
     }
 
-    &[pgs*="'buttonPrimary'"] {
+    &[pgs*="'primary'"] {
         --button-background: var(--color-primary);
         --button-color: var(--color-primary-text);
     }
 
-    &[pgs*="'buttonSecondary'"] {
+    &[pgs*="'secondary'"] {
         --button-background: var(--color-secondary);
         --button-color: var(--color-secondary-text);
     }
 
-    &[pgs*="'buttonTertiary'"] {
+    &[pgs*="'tertiary'"] {
         --button-background: var(--color-tertiary);
         --button-color: var(--color-tertiary-text);
     }
 
-    &[pgs*="'buttonQuaternary'"] {
+    &[pgs*="'quaternary'"] {
         --button-background: var(--color-quaternary);
         --button-color: var(--color-quaternary-text);
     }
