@@ -7,32 +7,8 @@
     @include row();
 }
 
-//== COLUMN
-:is([pgs~="flex"], [pgs*="flex\5B"]) {
-    $maxColumns: 8;
-
-    &[pgs*="'column-"] {
-        width: 100%;
-        flex-wrap: wrap;
-        flex-direction: row;
-        @include columnFlex($maxColumns);
-    }
-
-    &[pgs*="'column-1'"] {
-        flex-direction: column;
-        grid-template-columns: unset;
-    }
-
-    @for $i from 2 through $maxColumns {
-        &[pgs*="'column-#{$i}'"] {
-            @include columnFlex($i);
-        }
-    }
-}
-
 //== FLEX OPTIONS
 :is([pgs~="flex"], [pgs*="flex\5B"]) {
-
     &[pgs*="'inlineFlex'"] {
         display: inline-flex;
     }
@@ -102,6 +78,30 @@
     }
 }
 
+//== COLUMN
+:is([pgs~="flex"], [pgs*="flex\5B"]) {
+    $maxColumns: 8;
+
+    &[pgs*="'column-"] {
+        width: 100%;
+        flex-wrap: wrap;
+        flex-direction: row;
+        @include columnFlex($maxColumns);
+    }
+
+    &[pgs*="'column-1'"] {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        // grid-template-columns: unset;
+    }
+
+    @for $i from 2 through $maxColumns {
+        &[pgs*="'column-#{$i}'"] {
+            @include columnFlex($i);
+        }
+    }
+}
+
 //= GRID
 //== COLUMN
 :is([pgs~="grid"], [pgs*="grid\5B"]) {
@@ -128,7 +128,8 @@
     }
 }
 
-//= FLEX & GRID (including layout mixins composed by other components)
+//= FLEX & GRID 
+// (including layout mixins composed by other components)
 [pgs] {
 
     //== GAP

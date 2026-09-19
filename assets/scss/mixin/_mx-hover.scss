@@ -3,7 +3,7 @@
 //# HOVER
 //= HOVER BASE
 @mixin hoverBase() {
-    &:not(:where([pgs*="'hoverNot'"])) {
+    &:not(:where(:is([pgs~="hoverNot"], [pgs*="'hoverNot'"]))) {
         --hover-primaryColor: var(--color-primary-soft);
         --hover-background: var(--hover-primaryColor);
         --hover-color: var(--color-black);
@@ -26,7 +26,7 @@
 //== element needs the treatment without carrying that token
 //= STYLE NORMAL
 @mixin hoverStyleNormal($delay: 0ms) {
-    &:not(:where([pgs*="'hoverNot'"])) {
+    &:not(:where(:is([pgs~="hoverNot"], [pgs*="'hoverNot'"]))) {
         &:where(:not(:disabled, [disabled])) {
             //== CONTENT
             //== the easing goes inside every shorthand entry: transition-behavior is not where it lives
@@ -78,7 +78,7 @@
 
 //- HOVER CONTENT
 @mixin hoverStyle1($hover-text: "") {
-    &:not(:where([pgs*="'hoverNot'"])) {
+    &:not(:where(:is([pgs~="hoverNot"], [pgs*="'hoverNot'"]))) {
         &:where(:not(:disabled, [disabled])) {
             --hover-st1-background-delay: var(--hover-timing);
             --hover-st1-transform-origin: center center;

@@ -28,38 +28,6 @@
     --slides-paddingInline-tablet: var(--page-padding);
     --slides-paddingInline-mobile: 0px;
 
-    //== --slides-height is not declared here: the JavaScript measures the track and writes it on
-    //== this element, because the height comes from the tallest slide and only the layout knows it.
-    //== Everything reading it falls back to 100% for the frame before the first measurement
-    //++option for suggestions
-    &[pgs*="'singleScroll'"],
-    &[pgs*="'scrollMouse'"],
-    &[pgs*="'shadowDesktop'"] {}
-
-    //++ option - shadowDesktop
-    //+( tablet
-    @container (min-width: #{$tablet}) {
-        &[pgs*="'shadowDesktop'"] {
-            [pgs~="slides-container"] {
-                --slides-maskStart: 0px;
-                --slides-maskEnd: 0px;
-                transition: --slides-maskStart 200ms, --slides-maskEnd 200ms;
-                -webkit-mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart), black calc(100% - var(--slides-maskEnd)), transparent 100%);
-                mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart), black calc(100% - var(--slides-maskEnd)), transparent 100%);
-            }
-
-            //== fade on the left until the first slide is reached
-            &:not(:has([pgs~="slides-container"] li:first-child[pgs-state~="view"])) [pgs~="slides-container"] {
-                --slides-maskStart: var(--slides-sizeMaskImage);
-            }
-
-            //== fade on the right until the last slide is reached
-            &:not(:has([pgs~="slides-container"] li:last-child[pgs-state~="view"])) [pgs~="slides-container"] {
-                --slides-maskEnd: var(--slides-sizeMaskImage);
-            }
-        }
-    }
-
     [pgs~="slides-container-slide"] {
         &:first-child {
             margin-left: var(--page-edgeFlush);
@@ -170,6 +138,7 @@
             padding: 1.2rem;
             z-index: 1;
 
+            [pgs~="slides-dots-dot"],
             [pgs~="_slides-dots-dot"] {
                 padding: 1.2rem;
                 width: 1.2rem;
@@ -177,6 +146,7 @@
             }
         }
 
+        [pgs~="slides-dots-dot"],
         [pgs~="_slides-dots-dot"] {
             padding: 0.6rem;
             width: 0.6rem;
@@ -198,6 +168,12 @@
         }
     }
 
+    //+option for suggestions
+    &[pgs*="'singleScroll'"],
+    &[pgs*="'scrollMouse'"],
+    &[pgs*="'shadowDesktop'"] {}
+
+    //+ animationScale
     &[pgs*="'animationScale'"] {
         [pgs~="slides-container"] {
             [pgs~="slides-container-slide"] {
@@ -206,6 +182,31 @@
                     //== the slide is drawn at before the first observer pass
                     scale: var(--slides-visiblePercent, 1);
                 }
+            }
+        }
+    }
+
+    //+ shadowDesktop
+    &[pgs*="'shadowDesktop'"] {
+
+        //+( tablet
+        @container (min-width: #{$tablet}) {
+            [pgs~="slides-container"] {
+                --slides-maskStart: 0px;
+                --slides-maskEnd: 0px;
+                transition: --slides-maskStart 200ms, --slides-maskEnd 200ms;
+                -webkit-mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart), black calc(100% - var(--slides-maskEnd)), transparent 100%);
+                mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart), black calc(100% - var(--slides-maskEnd)), transparent 100%);
+            }
+
+            //== fade on the left until the first slide is reached
+            &:not(:has([pgs~="slides-container"] li:first-child[pgs-state~="view"])) [pgs~="slides-container"] {
+                --slides-maskStart: var(--slides-sizeMaskImage);
+            }
+
+            //== fade on the right until the last slide is reached
+            &:not(:has([pgs~="slides-container"] li:last-child[pgs-state~="view"])) [pgs~="slides-container"] {
+                --slides-maskEnd: var(--slides-sizeMaskImage);
             }
         }
     }

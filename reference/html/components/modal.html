@@ -1,10 +1,10 @@
 <!--
 /**
  * @title Modal
- * @description A native dialog driven by the library. The dialog is moved out of its wrapper on initialization — to the body by default, or into the container named by modalContainerID or modalContainerPGS — so a modal written inside a header or a card is never clipped by it; dialogTopLevel keeps it in place and opens it with showModal(), on the browser's top layer. Options are read from the wrapper and from the dialog alike: whichever of the two carries them, the module merges them onto both. A close button is generated when neither element holds one, and focus moves to the content header on open, or to the dialog itself when there is no header, instead of the first focusable descendant the dialog spec would otherwise pick. Opening and closing dispatch pgs:modal:open and pgs:modal:close on the wrapper and on the dialog, neither of them bubbling, so a listener sits on whichever of the two it already holds and never hears the same opening twice.
+ * @description A native dialog driven by the library. The dialog is moved out of its wrapper on initialization — to the body by default, or into the container named by modalContainerID or modalContainerPGS — so a modal written inside a header or a card is never clipped by it; dialogTopLevel keeps it in place and opens it with showModal(), on the browser's top layer. Options are authored on the wrapper — modal-dialog stays bare, like every other generated child token, and the module copies each option it finds onto _dialog, a second generated token on the dialog element itself that exists to carry them. A close button is generated when neither element holds one, and focus moves to the content header on open, or to the dialog itself when there is no header, instead of the first focusable descendant the dialog spec would otherwise pick. Opening and closing dispatch pgs:modal:open and pgs:modal:close on the wrapper and on the dialog, neither of them bubbling, so a listener sits on whichever of the two it already holds and never hears the same opening twice.
  *
  * @pgs
- * - modal: identifies the wrapper the module initializes, and the element the instance is stored against.
+ * - modal: identifies the wrapper the module initializes, and the element the instance is stored against; write every option here.
  * - modal-button: the control that opens the dialog; without one the modal only opens through its API.
  * - modal-dialog-content: the panel drawn inside the dialog, and the element every position and width option sizes.
  * - modal-dialog-content-header: the fixed heading area at the top of the panel; it is also what takes focus when the dialog opens.
@@ -13,6 +13,7 @@
  *
  * @pgs-generated
  * - modal-dialog: added to the dialog element on initialization, which is why the example writes a bare dialog tag.
+ * - _dialog: added alongside modal-dialog to carry whichever options were authored on the wrapper; never write it by hand.
  *
  * @pgs-options
  * - dialogBottom: aligns the dialog content to the bottom of the viewport.
@@ -79,105 +80,105 @@
 </section>
 
 <demo demo-h2="Modal Positon"></demo>
-<demo demo-h3="Right-aligned modal" demo-description="Modal dialog content aligned to the right of the viewport using pgs=&quot;modal-dialog['dialogRight']&quot;."></demo>
+<demo demo-h3="Right-aligned modal" demo-description="Modal dialog content aligned to the right of the viewport using pgs=&quot;modal['dialogRight']&quot;."></demo>
 <section demo="component">
-    <div pgs="modal" pgs-data="modalContainerID[modal-container]">
+    <div pgs="modal['dialogRight']" pgs-data="modalContainerID[modal-container]">
         <button pgs="modal-button button" type="button">
             Open modal right
         </button>
 
-        <dialog pgs="modal-dialog['dialogRight']">
+        <dialog>
             <div pgs="modal-dialog-content">
                 <div pgs="modal-dialog-content-header">
                     <h3>Side modal</h3>
                 </div>
 
                 <div pgs="modal-dialog-content-scroll">
-                    <p>Modal content with <code>pgs="modal-dialog['dialogRight']"</code>.</p>
+                    <p>Modal content with <code>pgs="modal['dialogRight']"</code>.</p>
                 </div>
             </div>
         </dialog>
     </div>
 </section>
 
-<demo demo-h3="Left-aligned modal" demo-description="Modal dialog content aligned to the left of the viewport using pgs=&quot;modal-dialog['dialogLeft']&quot;."></demo>
+<demo demo-h3="Left-aligned modal" demo-description="Modal dialog content aligned to the left of the viewport using pgs=&quot;modal['dialogLeft']&quot;."></demo>
 <section demo="component">
-    <div pgs="modal" pgs-data="modalContainerID[modal-container]">
+    <div pgs="modal['dialogLeft']" pgs-data="modalContainerID[modal-container]">
         <button pgs="modal-button button" type="button">
             Open modal left
         </button>
 
-        <dialog pgs="modal-dialog['dialogLeft']">
+        <dialog>
             <div pgs="modal-dialog-content">
                 <div pgs="modal-dialog-content-header">
                     <h3>Left-side modal</h3>
                 </div>
 
                 <div pgs="modal-dialog-content-scroll">
-                    <p>Modal content with <code>pgs="modal-dialog['dialogLeft']"</code>.</p>
+                    <p>Modal content with <code>pgs="modal['dialogLeft']"</code>.</p>
                 </div>
             </div>
         </dialog>
     </div>
 </section>
 
-<demo demo-h3="Top-aligned modal" demo-description="Modal dialog content aligned to the top of the viewport using pgs=&quot;modal-dialog['dialogTop']&quot;."></demo>
+<demo demo-h3="Top-aligned modal" demo-description="Modal dialog content aligned to the top of the viewport using pgs=&quot;modal['dialogTop']&quot;."></demo>
 <section demo="component">
-    <div pgs="modal" pgs-data="modalContainerID[modal-container]">
+    <div pgs="modal['dialogTop']" pgs-data="modalContainerID[modal-container]">
         <button pgs="modal-button button" type="button">
             Open modal top
         </button>
 
-        <dialog pgs="modal-dialog['dialogTop']">
+        <dialog>
             <div pgs="modal-dialog-content">
                 <div pgs="modal-dialog-content-header">
                     <h3>Top modal</h3>
                 </div>
 
                 <div pgs="modal-dialog-content-scroll">
-                    <p>Modal content with <code>pgs="modal-dialog['dialogTop']"</code>.</p>
+                    <p>Modal content with <code>pgs="modal['dialogTop']"</code>.</p>
                 </div>
             </div>
         </dialog>
     </div>
 </section>
 
-<demo demo-h3="Bottom-aligned modal" demo-description="Modal dialog content aligned to the bottom of the viewport using pgs=&quot;modal-dialog['dialogBottom']&quot;."></demo>
+<demo demo-h3="Bottom-aligned modal" demo-description="Modal dialog content aligned to the bottom of the viewport using pgs=&quot;modal['dialogBottom']&quot;."></demo>
 <section demo="component">
-    <div pgs="modal" pgs-data="modalContainerID[modal-container]">
+    <div pgs="modal['dialogBottom']" pgs-data="modalContainerID[modal-container]">
         <button pgs="modal-button button" type="button">
             Open modal bottom
         </button>
 
-        <dialog pgs="modal-dialog['dialogBottom']">
+        <dialog>
             <div pgs="modal-dialog-content">
                 <div pgs="modal-dialog-content-header">
                     <h3>Bottom modal</h3>
                 </div>
 
                 <div pgs="modal-dialog-content-scroll">
-                    <p>Modal content with <code>pgs="modal-dialog['dialogBottom']"</code>.</p>
+                    <p>Modal content with <code>pgs="modal['dialogBottom']"</code>.</p>
                 </div>
             </div>
         </dialog>
     </div>
 </section>
 
-<demo demo-h3="Centered modal" demo-description="Modal dialog content explicitly centered using pgs=&quot;modal-dialog['dialogCenter']&quot;."></demo>
+<demo demo-h3="Centered modal" demo-description="Modal dialog content explicitly centered using pgs=&quot;modal['dialogCenter']&quot;."></demo>
 <section demo="component">
-    <div pgs="modal" pgs-data="modalContainerID[modal-container]">
+    <div pgs="modal['dialogCenter']" pgs-data="modalContainerID[modal-container]">
         <button pgs="modal-button button" type="button">
             Open modal centered 
         </button>
 
-        <dialog pgs="modal-dialog['dialogCenter']">
+        <dialog>
             <div pgs="modal-dialog-content">
                 <div pgs="modal-dialog-content-header">
                     <h3>Centered modal</h3>
                 </div>
 
                 <div pgs="modal-dialog-content-scroll">
-                    <p>Modal content with <code>pgs="modal-dialog['dialogCenter']"</code>.</p>
+                    <p>Modal content with <code>pgs="modal['dialogCenter']"</code>.</p>
                 </div>
             </div>
         </dialog>
@@ -185,63 +186,63 @@
 </section>
 
 <demo demo-h2="Modal Size"></demo>
-<demo demo-h3="Mini modal" demo-description="Compact dialog width using pgs=&quot;modal-dialog['dialogMini']&quot;, for short confirmations rather than full content."></demo>
+<demo demo-h3="Mini modal" demo-description="Compact dialog width using pgs=&quot;modal['dialogMini']&quot;, for short confirmations rather than full content."></demo>
 <section demo="component">
-    <div pgs="modal" pgs-data="modalContainerID[modal-container]">
+    <div pgs="modal['dialogMini']" pgs-data="modalContainerID[modal-container]">
         <button pgs="modal-button button" type="button">
             Open mini modal
         </button>
 
-        <dialog pgs="modal-dialog['dialogMini']">
+        <dialog>
             <div pgs="modal-dialog-content">
                 <div pgs="modal-dialog-content-header">
                     <h3>Mini modal</h3>
                 </div>
 
                 <div pgs="modal-dialog-content-scroll">
-                    <p>Modal content with <code>pgs="modal-dialog['dialogMini']"</code>.</p>
+                    <p>Modal content with <code>pgs="modal['dialogMini']"</code>.</p>
                 </div>
             </div>
         </dialog>
     </div>
 </section>
 
-<demo demo-h3="Medium modal" demo-description="Half-page dialog width using pgs=&quot;modal-dialog['dialogMedium']&quot;, between the mini and full-width sizes."></demo>
+<demo demo-h3="Medium modal" demo-description="Half-page dialog width using pgs=&quot;modal['dialogMedium']&quot;, between the mini and full-width sizes."></demo>
 <section demo="component">
-    <div pgs="modal" pgs-data="modalContainerID[modal-container]">
+    <div pgs="modal['dialogMedium']" pgs-data="modalContainerID[modal-container]">
         <button pgs="modal-button button" type="button">
             Open medium modal
         </button>
 
-        <dialog pgs="modal-dialog['dialogMedium']">
+        <dialog>
             <div pgs="modal-dialog-content">
                 <div pgs="modal-dialog-content-header">
                     <h3>Medium modal</h3>
                 </div>
 
                 <div pgs="modal-dialog-content-scroll">
-                    <p>Modal content with <code>pgs="modal-dialog['dialogMedium']"</code>.</p>
+                    <p>Modal content with <code>pgs="modal['dialogMedium']"</code>.</p>
                 </div>
             </div>
         </dialog>
     </div>
 </section>
 
-<demo demo-h3="Full-width modal" demo-description="Dialog content expanded to the full viewport width using pgs=&quot;modal-dialog['dialogFull']&quot;, instead of capping it at the page width."></demo>
+<demo demo-h3="Full-width modal" demo-description="Dialog content expanded to the full viewport width using pgs=&quot;modal['dialogFull']&quot;, instead of capping it at the page width."></demo>
 <section demo="component">
-    <div pgs="modal" pgs-data="modalContainerID[modal-container]">
+    <div pgs="modal['dialogFull']" pgs-data="modalContainerID[modal-container]">
         <button pgs="modal-button button" type="button">
             Open full-width modal
         </button>
 
-        <dialog pgs="modal-dialog['dialogFull']">
+        <dialog>
             <div pgs="modal-dialog-content">
                 <div pgs="modal-dialog-content-header">
                     <h3>Full-width modal</h3>
                 </div>
 
                 <div pgs="modal-dialog-content-scroll">
-                    <p>Modal content with <code>pgs="modal-dialog['dialogFull']"</code>.</p>
+                    <p>Modal content with <code>pgs="modal['dialogFull']"</code>.</p>
                 </div>
             </div>
         </dialog>
@@ -272,35 +273,35 @@
 </section>
 <div pgs="modal-container-pgs-demo"></div>
 
-<demo demo-h3="Modal with history" demo-description="Modal dialog that pushes a browser history entry when opened, using pgs=&quot;modal-dialog['dialogHistory']&quot;, so the back button closes it."></demo>
+<demo demo-h3="Modal with history" demo-description="Modal dialog that pushes a browser history entry when opened, using pgs=&quot;modal['dialogHistory']&quot;, so the back button closes it."></demo>
 <section demo="component">
-    <div pgs="modal" pgs-data="modalContainerID[modal-container]">
+    <div pgs="modal['dialogHistory']" pgs-data="modalContainerID[modal-container]">
         <button pgs="modal-button button" type="button">
             Open modal with history
         </button>
 
-        <dialog pgs="modal-dialog['dialogHistory']">
+        <dialog>
             <div pgs="modal-dialog-content">
                 <div pgs="modal-dialog-content-header">
                     <h3>Modal with history</h3>
                 </div>
 
                 <div pgs="modal-dialog-content-scroll">
-                    <p>Modal content with <code>pgs="modal-dialog['dialogHistory']"</code>.</p>
+                    <p>Modal content with <code>pgs="modal['dialogHistory']"</code>.</p>
                 </div>
             </div>
         </dialog>
     </div>
 </section>
 
-<demo demo-h3="dialogTopLevel" demo-description="Top-level confirmation dialog with cancel and save actions, using pgs=&quot;modal-dialog['dialogTopLevel']&quot; and strong for the primary action; dialogDisableBackdropClose keeps it open on an accidental outside click."></demo>
+<demo demo-h3="dialogTopLevel" demo-description="Top-level confirmation dialog with cancel and save actions, using pgs=&quot;modal['dialogTopLevel']&quot; and strong for the primary action; dialogDisableBackdropClose keeps it open on an accidental outside click."></demo>
 <section demo="component">
-    <div pgs="modal">
+    <div pgs="modal['dialogTopLevel' 'dialogDisableBackdropClose']">
         <button pgs="modal-button button" type="button">
             Confirmation
         </button>
 
-        <dialog pgs="modal-dialog['dialogTopLevel' 'dialogDisableBackdropClose']">
+        <dialog>
             <div pgs="modal-dialog-content">
                 <div pgs="modal-dialog-content-header">
                     <h3>Save changes?</h3>

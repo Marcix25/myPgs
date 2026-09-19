@@ -1,4 +1,10 @@
 {
+    "_dialog": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
     "_notifications": {
         "pgs": [],
         "pgs-generated": [],
@@ -408,9 +414,7 @@
     "bodyHoverAuto": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [
-            "hoverNot"
-        ],
+        "pgs-options": [],
         "pgs-data": []
     },
     "bodyImg": {
@@ -448,31 +452,19 @@
     "borderBottom": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [
-            "thick",
-            "thicker",
-            "thin"
-        ],
+        "pgs-options": [],
         "pgs-data": []
     },
     "borderInline": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [
-            "thick",
-            "thicker",
-            "thin"
-        ],
+        "pgs-options": [],
         "pgs-data": []
     },
     "borderLeft": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [
-            "thick",
-            "thicker",
-            "thin"
-        ],
+        "pgs-options": [],
         "pgs-data": []
     },
     "borderRadius": {
@@ -496,21 +488,13 @@
     "borderRight": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [
-            "thick",
-            "thicker",
-            "thin"
-        ],
+        "pgs-options": [],
         "pgs-data": []
     },
     "borderTop": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [
-            "thick",
-            "thicker",
-            "thin"
-        ],
+        "pgs-options": [],
         "pgs-data": []
     },
     "box": {
@@ -954,31 +938,13 @@
     "height": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [
-            "auto",
-            "full",
-            "screen",
-            "screenHalf",
-            "screenLarge",
-            "screenLive",
-            "underHeader",
-            "underMain"
-        ],
+        "pgs-options": [],
         "pgs-data": []
     },
     "heightMax": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [
-            "auto",
-            "full",
-            "screen",
-            "screenHalf",
-            "screenLarge",
-            "screenLive",
-            "underHeader",
-            "underMain"
-        ],
+        "pgs-options": [],
         "pgs-data": []
     },
     "heightMin": {
@@ -1344,14 +1310,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "auto",
-            "elements",
-            "margin2",
-            "negative",
-            "page",
-            "sections",
-            "texts",
-            "unset"
+            "negative"
         ],
         "pgs-data": []
     },
@@ -1359,14 +1318,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "auto",
-            "elements",
-            "margin2",
-            "negative",
-            "page",
-            "sections",
-            "texts",
-            "unset"
+            "negative"
         ],
         "pgs-data": []
     },
@@ -1374,14 +1326,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "auto",
-            "elements",
-            "margin2",
-            "negative",
-            "page",
-            "sections",
-            "texts",
-            "unset"
+            "negative"
         ],
         "pgs-data": []
     },
@@ -1389,14 +1334,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "auto",
-            "elements",
-            "margin2",
-            "negative",
-            "page",
-            "sections",
-            "texts",
-            "unset"
+            "negative"
         ],
         "pgs-data": []
     },
@@ -1404,14 +1342,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "auto",
-            "elements",
-            "margin2",
-            "negative",
-            "page",
-            "sections",
-            "texts",
-            "unset"
+            "negative"
         ],
         "pgs-data": []
     },
@@ -1603,12 +1534,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "elements",
-            "padding2",
-            "page",
-            "sections",
-            "texts",
-            "unset"
+            "padding2"
         ],
         "pgs-data": []
     },
@@ -1628,66 +1554,31 @@
     "paddingBottom": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [
-            "elements",
-            "padding2",
-            "page",
-            "sections",
-            "texts",
-            "unset"
-        ],
+        "pgs-options": [],
         "pgs-data": []
     },
     "paddingInline": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [
-            "elements",
-            "padding2",
-            "page",
-            "sections",
-            "texts",
-            "unset"
-        ],
+        "pgs-options": [],
         "pgs-data": []
     },
     "paddingLeft": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [
-            "elements",
-            "padding2",
-            "page",
-            "sections",
-            "texts",
-            "unset"
-        ],
+        "pgs-options": [],
         "pgs-data": []
     },
     "paddingRight": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [
-            "elements",
-            "padding2",
-            "page",
-            "sections",
-            "texts",
-            "unset"
-        ],
+        "pgs-options": [],
         "pgs-data": []
     },
     "paddingTop": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [
-            "elements",
-            "padding2",
-            "page",
-            "sections",
-            "texts",
-            "unset"
-        ],
+        "pgs-options": [],
         "pgs-data": []
     },
     "pageShell": {

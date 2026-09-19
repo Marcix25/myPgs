@@ -1719,7 +1719,10 @@ function initializeModal(MODAL, existingDialog = null) {
     //== MERGE OPTIONS
     //== Modal configuration may be authored on either wrapper or dialog. Copy only modal
     //== options: other component brackets (for example flex on the wrapper) stay local.
-    pgs(DIALOG).add("modal-dialog");
+    //== modal-dialog itself always stays bare, like every other generated child token — its own
+    //== options land on _dialog instead, a second, pgs-generated-only token on the same <dialog>
+    //== element that exists purely to carry them (see AGENTS-DEVELOPMENT.md).
+    pgs(DIALOG).add("modal-dialog", "_dialog");
     for (const key of [
         "dialogHistory", "dialogTopLevel", "dialogDisableBackdropClose", "dialogMini",
         "dialogMedium", "dialogFull", "dialogCenter", "dialogLeft", "dialogRight", "dialogTop", "dialogBottom"
@@ -1727,7 +1730,8 @@ function initializeModal(MODAL, existingDialog = null) {
         const source = [MODAL, DIALOG].find(element => pgs(element).option.contains(key));
         if (!source) continue;
         pgs(MODAL).add(`modal['${key}']`);
-        pgs(DIALOG).add(`modal-dialog['${key}']`);
+        pgs(DIALOG).option.remove(key);
+        pgs(DIALOG).add(`_dialog['${key}']`);
     }
 
     //== these two carry a value, so they still live in pgs-data — option never checks pgs-data,
@@ -2204,7 +2208,7 @@ const fn_notification = {
         });
     },
 
-    //+ generates <dialog pgs="modal-dialog['dialogRight']"><div pgs="modal-dialog-content"><div pgs="_notifications"></div></div></dialog>
+    //+ generates <dialog pgs="modal-dialog _dialog['dialogRight' 'dialogMini' 'dialogTop']"><div pgs="modal-dialog-content"><div pgs="_notifications"></div></div></dialog>
     //+ inside the modal wrapping notificationBell, then asks pgs.modal to (re)initialize it.
     _ensureDialog(root = document) {
         let created = false;
@@ -2220,8 +2224,9 @@ const fn_notification = {
             modalWrapper.dataset.notificationDialog = "true";
 
             const dialog = document.createElement("dialog");
-            pgs(dialog).add("modal-dialog['dialogRight' 'dialogMini' 'dialogTop']");
+            pgs(dialog).add("modal-dialog");
             pgs(dialog).add("_notificationsDialog");
+            pgs(modalWrapper).add("modal['dialogRight' 'dialogMini' 'dialogTop']");
 
             const content = document.createElement("div");
             pgs(content).add("modal-dialog-content");
@@ -4888,10 +4893,10 @@ function buildCookieConsent(marker) {
     const config = { ...DEFAULTS, ...(safeJsonParse(pgs(marker).data.getValueBrackets('cookieConsent') || '{}') || {}) };
 
     const root = document.createElement('div');
-    pgs(root).add('modal', 'cookieConsent');
+    pgs(root).add("modal['dialogTopLevel' 'dialogBottom' 'dialogRight' 'dialogMedium']", 'cookieConsent');
 
     root.innerHTML = `
-        <dialog pgs="modal-dialog['dialogTopLevel' 'dialogBottom' 'dialogRight' 'dialogMedium']">
+        <dialog>
             <div pgs="modal-dialog-content">
                 <div pgs="_cookieConsent-header flex['column']">
                     <p pgs="flex['row' 'itemCenter']"><i pgs="icon['icon-cookie']"></i> ${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.titleIntro)}</p>

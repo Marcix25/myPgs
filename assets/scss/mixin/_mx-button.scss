@@ -131,7 +131,7 @@
 @mixin buttonHover() {
     @media (hover: hover) and (pointer: fine) {
         &:hover {
-            &:not(:where([pgs*="'hoverNot'"])) {
+            &:not(:where(:is([pgs~="hoverNot"], [pgs*="'hoverNot'"]))) {
                 &:where(:not(:disabled, [disabled])) {
                     @include _buttonColor("-hover");
                     --button-background-hover: var(--color-primary-soft);

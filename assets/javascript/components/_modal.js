@@ -39,7 +39,10 @@ function initializeModal(MODAL, existingDialog = null) {
     //== MERGE OPTIONS
     //== Modal configuration may be authored on either wrapper or dialog. Copy only modal
     //== options: other component brackets (for example flex on the wrapper) stay local.
-    pgs(DIALOG).add("modal-dialog");
+    //== modal-dialog itself always stays bare, like every other generated child token — its own
+    //== options land on _dialog instead, a second, pgs-generated-only token on the same <dialog>
+    //== element that exists purely to carry them (see AGENTS-DEVELOPMENT.md).
+    pgs(DIALOG).add("modal-dialog", "_dialog");
     for (const key of [
         "dialogHistory", "dialogTopLevel", "dialogDisableBackdropClose", "dialogMini",
         "dialogMedium", "dialogFull", "dialogCenter", "dialogLeft", "dialogRight", "dialogTop", "dialogBottom"
@@ -47,7 +50,8 @@ function initializeModal(MODAL, existingDialog = null) {
         const source = [MODAL, DIALOG].find(element => pgs(element).option.contains(key));
         if (!source) continue;
         pgs(MODAL).add(`modal['${key}']`);
-        pgs(DIALOG).add(`modal-dialog['${key}']`);
+        pgs(DIALOG).option.remove(key);
+        pgs(DIALOG).add(`_dialog['${key}']`);
     }
 
     //== these two carry a value, so they still live in pgs-data — option never checks pgs-data,

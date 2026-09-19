@@ -849,6 +849,68 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   flex-wrap: wrap;
 }
 
+:is([pgs~=flex], [pgs*="flex["])[pgs*="'inlineFlex'"] {
+  display: inline-flex;
+}
+
+:is([pgs~=flex], [pgs*="flex["])[pgs*="'flexCenter'"] {
+  align-items: center;
+  justify-content: center;
+}
+
+:is([pgs~=flex], [pgs*="flex["])[pgs*="'column'"] {
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+:is([pgs~=flex], [pgs*="flex["])[pgs*="'row'"] {
+  flex-direction: row;
+}
+
+:is([pgs~=flex], [pgs*="flex["])[pgs*="'columnReverse'"] {
+  flex-direction: column-reverse;
+}
+
+:is([pgs~=flex], [pgs*="flex["])[pgs*="'rowReverse'"] {
+  flex-direction: row-reverse;
+}
+
+:is([pgs~=flex], [pgs*="flex["])[pgs*="'nowrap'"] {
+  flex-wrap: nowrap;
+}
+
+:is([pgs~=flex], [pgs*="flex["])[pgs*="'wrap'"] {
+  flex-wrap: wrap;
+}
+
+:is([pgs~=flex], [pgs*="flex["]) [pgs~=flex-flexInitial] {
+  flex: 0 1 auto;
+}
+
+:is([pgs~=flex], [pgs*="flex["]) [pgs~=flex-flexNone] {
+  flex: none;
+}
+
+:is([pgs~=flex], [pgs*="flex["]) [pgs~=flex-flex1] {
+  flex: 1 1 0%;
+}
+
+:is([pgs~=flex], [pgs*="flex["]) [pgs~=flex-flexFull] {
+  flex: 0 0 100%;
+}
+
+:is([pgs~=flex], [pgs*="flex["]) [pgs~=flex-flexValue] {
+  flex: 1 1 var(--flex-flexValue, auto);
+}
+
+:is([pgs~=flex], [pgs*="flex["]) [pgs~=flex-flexOrderFirst] {
+  order: -1;
+}
+
+:is([pgs~=flex], [pgs*="flex["]) [pgs~=flex-flexOrderLast] {
+  order: 999;
+}
+
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-"] {
   width: 100%;
   flex-wrap: wrap;
@@ -891,7 +953,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-1'"] {
   flex-direction: column;
-  grid-template-columns: unset;
+  flex-wrap: nowrap;
 }
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-2'"] {
@@ -1153,68 +1215,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     flex-basis: calc((100% - var(--flex-gap) * 1) / 2);
   }
 }
-:is([pgs~=flex], [pgs*="flex["])[pgs*="'inlineFlex'"] {
-  display: inline-flex;
-}
-
-:is([pgs~=flex], [pgs*="flex["])[pgs*="'flexCenter'"] {
-  align-items: center;
-  justify-content: center;
-}
-
-:is([pgs~=flex], [pgs*="flex["])[pgs*="'column'"] {
-  flex-direction: column;
-  flex-wrap: nowrap;
-}
-
-:is([pgs~=flex], [pgs*="flex["])[pgs*="'row'"] {
-  flex-direction: row;
-}
-
-:is([pgs~=flex], [pgs*="flex["])[pgs*="'columnReverse'"] {
-  flex-direction: column-reverse;
-}
-
-:is([pgs~=flex], [pgs*="flex["])[pgs*="'rowReverse'"] {
-  flex-direction: row-reverse;
-}
-
-:is([pgs~=flex], [pgs*="flex["])[pgs*="'nowrap'"] {
-  flex-wrap: nowrap;
-}
-
-:is([pgs~=flex], [pgs*="flex["])[pgs*="'wrap'"] {
-  flex-wrap: wrap;
-}
-
-:is([pgs~=flex], [pgs*="flex["]) [pgs~=flex-flexInitial] {
-  flex: 0 1 auto;
-}
-
-:is([pgs~=flex], [pgs*="flex["]) [pgs~=flex-flexNone] {
-  flex: none;
-}
-
-:is([pgs~=flex], [pgs*="flex["]) [pgs~=flex-flex1] {
-  flex: 1 1 0%;
-}
-
-:is([pgs~=flex], [pgs*="flex["]) [pgs~=flex-flexFull] {
-  flex: 0 0 100%;
-}
-
-:is([pgs~=flex], [pgs*="flex["]) [pgs~=flex-flexValue] {
-  flex: 1 1 var(--flex-flexValue, auto);
-}
-
-:is([pgs~=flex], [pgs*="flex["]) [pgs~=flex-flexOrderFirst] {
-  order: -1;
-}
-
-:is([pgs~=flex], [pgs*="flex["]) [pgs~=flex-flexOrderLast] {
-  order: 999;
-}
-
 :is([pgs~=grid], [pgs*="grid["]) {
   display: grid;
   gap: var(--gap-texts);
@@ -2676,7 +2676,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 @media (hover: hover) and (pointer: fine) {
-  :is([pgs~=card], [pgs*="card["]):where(a):not(:where([pgs~=bodyHoverAuto] :is([pgs~=card], [pgs*="card["]))):hover:not(:where([pgs*="'hoverNot'"])) {
+  :is([pgs~=card], [pgs*="card["]):where(a):not(:where([pgs~=bodyHoverAuto] :is([pgs~=card], [pgs*="card["]))):hover:not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))) {
     --card-background: var(--color-primary-soft);
   }
 }
@@ -2794,7 +2794,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 @media (hover: hover) and (pointer: fine) {
-  :is([pgs~=box], [pgs*="box["]):where(a):not(:where([pgs~=bodyHoverAuto] [pgs~=box])):hover:not(:where([pgs*="'hoverNot'"])) {
+  :is([pgs~=box], [pgs*="box["]):where(a):not(:where([pgs~=bodyHoverAuto] [pgs~=box])):hover:not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))) {
     --box-background: var(--color-primary-soft);
   }
 }
@@ -3939,7 +3939,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 @media (hover: hover) and (pointer: fine) {
-  :is([pgs~=button], [pgs*="button["]):where(:not([pgs~=bodyHoverAuto] :is([pgs~=button], [pgs*="button["]))):hover:not(:where([pgs*="'hoverNot'"])):where(:not(:disabled, [disabled])) {
+  :is([pgs~=button], [pgs*="button["]):where(:not([pgs~=bodyHoverAuto] :is([pgs~=button], [pgs*="button["]))):hover:not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))):where(:not(:disabled, [disabled])) {
     color: var(--button-color-hover);
     background: var(--button-background-hover);
     border-color: var(--button-border-color-hover);
@@ -5077,7 +5077,7 @@ html:has(dialog[open]) {
   cursor: pointer;
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) {
+:where(dialog[pgs~=modal-dialog]) {
   --modal-backdrop: var(--backdrop);
   --modal-background: var(--color-background);
   --modal-color: var(--color-black);
@@ -5104,22 +5104,22 @@ html:has(dialog[open]) {
   cursor: pointer;
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])):focus {
+:where(dialog[pgs~=modal-dialog]):focus {
   outline: none;
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[open] {
+:where(dialog[pgs~=modal-dialog])[open] {
   display: flex;
   align-items: safe flex-start;
   justify-content: safe center;
 }
 
 @media (max-width: 615px) {
-  :where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) {
+  :where(dialog[pgs~=modal-dialog]) {
     padding-inline: 0;
   }
 }
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) [pgs~=modal-dialog-content] {
+:where(dialog[pgs~=modal-dialog]) [pgs~=modal-dialog-content] {
   --section-width: var(--page-width);
   margin-inline: auto;
   max-width: var(--section-width);
@@ -5140,7 +5140,7 @@ html:has(dialog[open]) {
   padding: var(--modal-content-padding);
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) [pgs~=modal-dialog-content] [pgs~=modal-dialog-content-header] {
+:where(dialog[pgs~=modal-dialog]) [pgs~=modal-dialog-content] [pgs~=modal-dialog-content-header] {
   display: flex;
   gap: var(--gap-texts);
   flex-direction: row;
@@ -5151,79 +5151,79 @@ html:has(dialog[open]) {
   margin-bottom: calc(var(--modal-content-padding) / 2);
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) [pgs~=modal-dialog-content] [pgs~=modal-dialog-content-header]:focus {
+:where(dialog[pgs~=modal-dialog]) [pgs~=modal-dialog-content] [pgs~=modal-dialog-content-header]:focus {
   outline: none;
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) [pgs~=modal-dialog-content] [pgs~=modal-dialog-content-header] [pgs~=modal-close] {
+:where(dialog[pgs~=modal-dialog]) [pgs~=modal-dialog-content] [pgs~=modal-dialog-content-header] [pgs~=modal-close] {
   margin-left: auto;
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) [pgs~=modal-dialog-content]:has([pgs~=modal-dialog-content-scroll]) {
+:where(dialog[pgs~=modal-dialog]) [pgs~=modal-dialog-content]:has([pgs~=modal-dialog-content-scroll]) {
   max-height: 100%;
   overflow: hidden;
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) [pgs~=modal-dialog-content] [pgs~=modal-dialog-content-scroll] {
+:where(dialog[pgs~=modal-dialog]) [pgs~=modal-dialog-content] [pgs~=modal-dialog-content-scroll] {
   overflow: auto;
   overscroll-behavior: contain;
   max-height: 100%;
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) [pgs~=modal-dialog-content] [pgs~=modal-dialog-content-scroll]:has(~ [pgs~=modal-dialog-content-header]) {
+:where(dialog[pgs~=modal-dialog]) [pgs~=modal-dialog-content] [pgs~=modal-dialog-content-scroll]:has(~ [pgs~=modal-dialog-content-header]) {
   padding-top: calc(var(--modal-content-padding) / 2);
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) > [pgs~=modal-close] {
+:where(dialog[pgs~=modal-dialog]) > [pgs~=modal-close] {
   position: fixed !important;
   right: var(--page-padding);
   top: calc(var(--heightOfHeaderScroll) + var(--padding));
   z-index: 1;
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'dialogTopLevel'"]:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) {
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogTopLevel'"]:where(dialog[pgs~=modal-dialog]) {
   overflow-y: auto;
   height: auto;
   z-index: auto;
   align-items: safe flex-start;
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'dialogDisableBackdropClose'"] {
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogDisableBackdropClose'"] {
   cursor: auto;
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'dialogMini'"]:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) [pgs~=modal-dialog-content] {
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogMini'"]:where(dialog[pgs~=modal-dialog]) [pgs~=modal-dialog-content] {
   --section-width: min(calc(var(--page-width)/3), 100%);
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'dialogMedium'"]:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) [pgs~=modal-dialog-content] {
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogMedium'"]:where(dialog[pgs~=modal-dialog]) [pgs~=modal-dialog-content] {
   --section-width: min(calc(var(--page-width)/2), 100%);
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'dialogFull'"]:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) [pgs~=modal-dialog-content] {
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogFull'"]:where(dialog[pgs~=modal-dialog]) [pgs~=modal-dialog-content] {
   --section-width: 100%;
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'dialogCenter'"]:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) {
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogCenter'"]:where(dialog[pgs~=modal-dialog]) {
   justify-content: safe center;
   align-items: safe center;
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'dialogLeft'"]:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) {
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogLeft'"]:where(dialog[pgs~=modal-dialog]) {
   justify-content: safe flex-start;
   padding-inline: var(--modal-offset);
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'dialogRight'"]:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) {
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogRight'"]:where(dialog[pgs~=modal-dialog]) {
   justify-content: safe flex-end;
   padding-inline: var(--modal-offset);
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'dialogTop'"]:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) {
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogTop'"]:where(dialog[pgs~=modal-dialog]) {
   align-items: safe flex-start;
 }
 
-:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]))[pgs*="'dialogBottom'"]:where(dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])) {
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogBottom'"]:where(dialog[pgs~=modal-dialog]) {
   align-items: safe flex-end;
 }
 
@@ -5253,21 +5253,6 @@ html:has(dialog[open]) {
   --slides-paddingInline-mobile: 0px;
 }
 
-@container (min-width: 800px) {
-  :is([pgs~=slides], [pgs*="slides["])[pgs*="'shadowDesktop'"] [pgs~=slides-container] {
-    --slides-maskStart: 0px;
-    --slides-maskEnd: 0px;
-    transition: --slides-maskStart 200ms, --slides-maskEnd 200ms;
-    -webkit-mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart), black calc(100% - var(--slides-maskEnd)), transparent 100%);
-    mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart), black calc(100% - var(--slides-maskEnd)), transparent 100%);
-  }
-  :is([pgs~=slides], [pgs*="slides["])[pgs*="'shadowDesktop'"]:not(:has([pgs~=slides-container] li:first-child[pgs-state~=view])) [pgs~=slides-container] {
-    --slides-maskStart: var(--slides-sizeMaskImage);
-  }
-  :is([pgs~=slides], [pgs*="slides["])[pgs*="'shadowDesktop'"]:not(:has([pgs~=slides-container] li:last-child[pgs-state~=view])) [pgs~=slides-container] {
-    --slides-maskEnd: var(--slides-sizeMaskImage);
-  }
-}
 :is([pgs~=slides], [pgs*="slides["]) [pgs~=slides-container-slide]:first-child {
   margin-left: var(--page-edgeFlush);
 }
@@ -5371,12 +5356,14 @@ html:has(dialog[open]) {
   z-index: 1;
 }
 
+:is([pgs~=slides], [pgs*="slides["]) [pgs~=slides-dots]:hover [pgs~=slides-dots-dot],
 :is([pgs~=slides], [pgs*="slides["]) [pgs~=slides-dots]:hover [pgs~=_slides-dots-dot] {
   padding: 1.2rem;
   width: 1.2rem;
   height: 1.2rem;
 }
 
+:is([pgs~=slides], [pgs*="slides["]) [pgs~=slides-dots] [pgs~=slides-dots-dot],
 :is([pgs~=slides], [pgs*="slides["]) [pgs~=slides-dots] [pgs~=_slides-dots-dot] {
   padding: 0.6rem;
   width: 0.6rem;
@@ -5389,10 +5376,12 @@ html:has(dialog[open]) {
   margin-block: auto;
 }
 
+:is([pgs~=slides], [pgs*="slides["]) [pgs~=slides-dots] [pgs~=slides-dots-dot][pgs-state~=active],
 :is([pgs~=slides], [pgs*="slides["]) [pgs~=slides-dots] [pgs~=_slides-dots-dot][pgs-state~=active] {
   background-color: var(--color-primary);
 }
 
+:is([pgs~=slides], [pgs*="slides["]) [pgs~=slides-dots] [pgs~=slides-dots-dot]:hover,
 :is([pgs~=slides], [pgs*="slides["]) [pgs~=slides-dots] [pgs~=_slides-dots-dot]:hover {
   background-color: var(--color-primary-soft);
 }
@@ -5401,6 +5390,21 @@ html:has(dialog[open]) {
   scale: var(--slides-visiblePercent, 1);
 }
 
+@container (min-width: 800px) {
+  :is([pgs~=slides], [pgs*="slides["])[pgs*="'shadowDesktop'"] [pgs~=slides-container] {
+    --slides-maskStart: 0px;
+    --slides-maskEnd: 0px;
+    transition: --slides-maskStart 200ms, --slides-maskEnd 200ms;
+    -webkit-mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart), black calc(100% - var(--slides-maskEnd)), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart), black calc(100% - var(--slides-maskEnd)), transparent 100%);
+  }
+  :is([pgs~=slides], [pgs*="slides["])[pgs*="'shadowDesktop'"]:not(:has([pgs~=slides-container] li:first-child[pgs-state~=view])) [pgs~=slides-container] {
+    --slides-maskStart: var(--slides-sizeMaskImage);
+  }
+  :is([pgs~=slides], [pgs*="slides["])[pgs*="'shadowDesktop'"]:not(:has([pgs~=slides-container] li:last-child[pgs-state~=view])) [pgs~=slides-container] {
+    --slides-maskEnd: var(--slides-sizeMaskImage);
+  }
+}
 ol[pgs~=steps] {
   color: var(--color-black);
 }
@@ -7086,7 +7090,7 @@ dialog [pgs~=search] [pgs~=modal-close] {
   --outline-width: 4.5px;
 }
 
-:is([pgs~=hover], [pgs*="hover["]):not(:where([pgs*="'hoverNot'"])) {
+:is([pgs~=hover], [pgs*="hover["]):not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))) {
   --hover-primaryColor: var(--color-primary-soft);
   --hover-background: var(--hover-primaryColor);
   --hover-color: var(--color-black);
@@ -7099,16 +7103,16 @@ dialog [pgs~=search] [pgs~=modal-close] {
   text-decoration: none;
 }
 
-:is([pgs~=hover], [pgs*="hover["]):not(:where([pgs*="'hoverNot'"])):where(:disabled, [disabled]) {
+:is([pgs~=hover], [pgs*="hover["]):not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))):where(:disabled, [disabled]) {
   cursor: default;
 }
 
-:is([pgs~=hover], [pgs*="hover["]):not(:where([pgs*="'hoverNot'"])):where(:not(:disabled, [disabled])) {
+:is([pgs~=hover], [pgs*="hover["]):not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))):where(:not(:disabled, [disabled])) {
   --hover-st1-background-delay: var(--hover-timing);
   --hover-st1-transform-origin: center center;
 }
 
-:is([pgs~=hover], [pgs*="hover["]):not(:where([pgs*="'hoverNot'"])):where(:not(:disabled, [disabled]))::before {
+:is([pgs~=hover], [pgs*="hover["]):not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))):where(:not(:disabled, [disabled]))::before {
   content: "";
   width: calc(100% + 2px);
   height: calc(100% + 2px);
@@ -7125,43 +7129,43 @@ dialog [pgs~=search] [pgs~=modal-close] {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  :is([pgs~=hover], [pgs*="hover["]):not(:where([pgs*="'hoverNot'"])):where(:not(:disabled, [disabled])):hover::before {
+  :is([pgs~=hover], [pgs*="hover["]):not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))):where(:not(:disabled, [disabled])):hover::before {
     transform: scale(1);
     background: var(--hover-background);
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  :is([pgs~=hover], [pgs*="hover["]):not(:where([pgs*="'hoverNot'"])):where(:not(:disabled, [disabled]))::before {
+  :is([pgs~=hover], [pgs*="hover["]):not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))):where(:not(:disabled, [disabled]))::before {
     display: none;
   }
 }
-:is([pgs~=hover], [pgs*="hover["]):not(:where([pgs*="'hoverNot'"])):where(:not(:disabled, [disabled])) {
+:is([pgs~=hover], [pgs*="hover["]):not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))):where(:not(:disabled, [disabled])) {
   transition: border-color var(--hover-timing) var(--hover-behavior), outline-color var(--hover-timing) var(--hover-behavior), color var(--hover-timing) var(--hover-behavior), background-color var(--hover-timing) var(--hover-behavior);
 }
 
-:is([pgs~=hover], [pgs*="hover["]):not(:where([pgs*="'hoverNot'"])):where(:not(:disabled, [disabled])) :is(h1, h2, h3, h4, h5, h6, p, a),
-:is([pgs~=hover], [pgs*="hover["]):not(:where([pgs*="'hoverNot'"])):where(:not(:disabled, [disabled])) [pgs~=hover-text] {
+:is([pgs~=hover], [pgs*="hover["]):not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))):where(:not(:disabled, [disabled])) :is(h1, h2, h3, h4, h5, h6, p, a),
+:is([pgs~=hover], [pgs*="hover["]):not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))):where(:not(:disabled, [disabled])) [pgs~=hover-text] {
   transition: color var(--hover-timing) var(--hover-behavior);
 }
 
 @media (hover: hover) and (pointer: fine) {
-  :is([pgs~=hover], [pgs*="hover["]):not(:where([pgs*="'hoverNot'"])):where(:not(:disabled, [disabled])):hover {
+  :is([pgs~=hover], [pgs*="hover["]):not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))):where(:not(:disabled, [disabled])):hover {
     background: var(--hover-background);
     color: var(--hover-color);
     outline-color: var(--hover-border);
     border-color: var(--hover-border);
     transition: border-color var(--hover-timing) var(--hover-behavior), outline-color var(--hover-timing) var(--hover-behavior), color var(--hover-timing) var(--hover-behavior), background-color var(--hover-timing) var(--hover-behavior) var(--hover-st1-background-delay);
   }
-  :is([pgs~=hover], [pgs*="hover["]):not(:where([pgs*="'hoverNot'"])):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p, a),
-  :is([pgs~=hover], [pgs*="hover["]):not(:where([pgs*="'hoverNot'"])):where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
+  :is([pgs~=hover], [pgs*="hover["]):not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))):where(:not(:disabled, [disabled])):hover :is(h1, h2, h3, h4, h5, h6, p, a),
+  :is([pgs~=hover], [pgs*="hover["]):not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))):where(:not(:disabled, [disabled])):hover [pgs~=hover-text] {
     color: var(--hover-color);
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  :is([pgs~=hover], [pgs*="hover["]):not(:where([pgs*="'hoverNot'"])):where(:not(:disabled, [disabled])) {
+  :is([pgs~=hover], [pgs*="hover["]):not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))):where(:not(:disabled, [disabled])) {
     transition: unset;
   }
-  :is([pgs~=hover], [pgs*="hover["]):not(:where([pgs*="'hoverNot'"])):where(:not(:disabled, [disabled])):hover {
+  :is([pgs~=hover], [pgs*="hover["]):not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))):where(:not(:disabled, [disabled])):hover {
     transition: unset;
     background-color: var(--hover-background);
   }

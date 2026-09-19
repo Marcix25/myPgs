@@ -1,14 +1,13 @@
 @use "../mixin/mixin" as *;
 
-//== modal-dialog keeps the full :is([pgs~=…], [pgs*=…\5B]) form on purpose, unlike every other
-//== hyphenated child token in this codebase (modal-dialog-content and the rest never carry a
-//== bracket of their own, so their selectors were simplified to a plain [pgs~=…]). The prefix in
-//== its name reads like a child, but it behaves like a second root: it is its own DOM element (the
-//== <dialog>, not the wrapper), the JavaScript can move it anywhere in the document independently
-//== of the wrapper, and it carries its own options (dialogRight, dialogMini, dialogHistory, …)
-//== wherever it ends up. "Root" here means "gets its own bracket", not "has no prefix in its name"
-//== — see AGENTS-DEVELOPMENT.md for the general rule this follows.
-$modalDialogPgs: 'dialog:is([pgs~="modal-dialog"], [pgs*="modal-dialog\5B"])';
+//== modal-dialog stays bare like every other generated child token — it never carries a bracket
+//== of its own. Its own options (dialogRight, dialogMini, dialogHistory, …) live instead on
+//== _dialog, a second, pgs-generated-only token _modal.js always adds alongside it on the same
+//== <dialog> element: the one place that needs its own bracket, since the JavaScript can move
+//== this element anywhere in the document independently of the wrapper. The flag selectors below
+//== don't check _dialog specifically — see AGENTS-DEVELOPMENT.md for why a bracket flag never
+//== needs to be scoped to the token that carries it.
+$modalDialogPgs: 'dialog[pgs~="modal-dialog"]';
 
 html:has(dialog[open]) {
     cursor: pointer;

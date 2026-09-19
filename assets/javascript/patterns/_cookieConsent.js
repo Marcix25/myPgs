@@ -102,10 +102,10 @@ function buildCookieConsent(marker) {
     const config = { ...DEFAULTS, ...(safeJsonParse(pgs(marker).data.getValueBrackets('cookieConsent') || '{}') || {}) };
 
     const root = document.createElement('div');
-    pgs(root).add('modal', 'cookieConsent');
+    pgs(root).add("modal['dialogTopLevel' 'dialogBottom' 'dialogRight' 'dialogMedium']", 'cookieConsent');
 
     root.innerHTML = `
-        <dialog pgs="modal-dialog['dialogTopLevel' 'dialogBottom' 'dialogRight' 'dialogMedium']">
+        <dialog>
             <div pgs="modal-dialog-content">
                 <div pgs="_cookieConsent-header flex['column']">
                     <p pgs="flex['row' 'itemCenter']"><i pgs="icon['icon-cookie']"></i> ${PGS_formatText(config.titleIntro)}</p>

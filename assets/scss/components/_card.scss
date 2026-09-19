@@ -31,7 +31,7 @@
 @mixin _cardHover() {
     @media (hover: hover) and (pointer: fine) {
         &:hover {
-            &:not(:where([pgs*="'hoverNot'"])) {
+            &:not(:where(:is([pgs~="hoverNot"], [pgs*="'hoverNot'"]))) {
                 --card-background: var(--color-primary-soft);
             }
         }

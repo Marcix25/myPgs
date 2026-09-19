@@ -31,7 +31,7 @@
 @mixin boxHover() {
     @media (hover: hover) and (pointer: fine) {
         &:hover {
-            &:not(:where([pgs*="'hoverNot'"])) {
+            &:not(:where(:is([pgs~="hoverNot"], [pgs*="'hoverNot'"]))) {
                 --box-background: var(--color-primary-soft);
             }
         }
