@@ -23,8 +23,8 @@ interface RootInfo {
 class PgsMapIndex {
     private map: PgsMap = {};
     //+ every generated child (modal-dialog, _toast-element, ...) points back at the root that
-    //+ documents its options — modal-dialog carries its own bracket, but pgs-map.json only lists
-    //+ its options once, under "modal"
+    //+ documents pgs-data written on it directly — used for pgs-data scoping only, never for
+    //+ bracket completion (see resolveOwnBracket): no generated child carries its own bracket
     private generatedToRoot = new Map<string, string>();
     private watcher: vscode.FileSystemWatcher | undefined;
 
@@ -73,8 +73,9 @@ class PgsMapIndex {
         );
     }
 
-    //+ resolves a written token (root or a generated child like modal-dialog) to the RootInfo
-    //+ that documents its options/data — undefined when the token is unknown
+    //+ resolves a written token (root or a generated child, e.g. slides-next) to the RootInfo
+    //+ that documents its data — undefined when the token is unknown. Used to scope pgs-data
+    //+ completions, since pgs-data can legitimately be written on a generated child too.
     resolveRoot(token: string): RootInfo | undefined {
         const direct = this.map[token];
         if (direct) return { name: token, options: direct["pgs-options"] ?? [], data: direct["pgs-data"] ?? [] };
@@ -86,6 +87,15 @@ class PgsMapIndex {
         }
 
         return undefined;
+    }
+
+    //+ resolves a written token to the RootInfo that documents ITS OWN bracket, direct matches
+    //+ only — no generated child carries one (modal-dialog no longer does either: see _dialog in
+    //+ myPgs's _modal.js), so offering options through the generated-child fallback would suggest
+    //+ a bracket on a token that can never actually use it
+    resolveOwnBracket(token: string): RootInfo | undefined {
+        const direct = this.map[token];
+        return direct ? { name: token, options: direct["pgs-options"] ?? [], data: direct["pgs-data"] ?? [] } : undefined;
     }
 
     //+ every bare word that is valid on its own inside pgs="...": a root, one of its declared
@@ -366,7 +376,7 @@ export function activate(context: vscode.ExtensionContext): void {
             if (!pgsState) return [];
 
             if (pgsState.bracketOwner) {
-                const root = index.resolveRoot(pgsState.bracketOwner);
+                const root = index.resolveOwnBracket(pgsState.bracketOwner);
                 if (!root) return [];
                 const already = flagsAlreadyInBracket(pgsState.bracketPartial ?? "");
                 return root.options.map((flag) => makeFlagCompletion(flag, `opzione di ${root.name}`, already.has(flag)));

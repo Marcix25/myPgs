@@ -66,7 +66,7 @@
     }
 
     //= DIALOG
-    dialog:is([pgs~="modal-dialog"], [pgs*="modal-dialog\5B"]) {
+    dialog[pgs~="modal-dialog"] {
         --modal-backdrop: var(--color-white);
         --modal-background: var(--color-white);
         -webkit-backdrop-filter: var(--blur);

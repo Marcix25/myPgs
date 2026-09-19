@@ -6,8 +6,9 @@ Autocomplete per `pgs="..."` e `pgs-data="..."` in HTML/PHP, letto direttamente 
 - `pgs="flex["` suggerisce solo le opzioni di `flex` (mai quelle di `grid`, `modal`, ecc.).
 - `pgs-data="` suggerisce le chiavi dei componenti già scritti nel `pgs="..."` dello stesso tag,
   con fallback a tutte le chiavi se non ne trova nessuno.
-- Un token generato ma indirizzabile a mano (`modal-dialog`) risolve le sue opzioni tramite la
-  radice che le documenta (`modal`), anche se non è una voce di primo livello nella mappa.
+- Le parentesi si suggeriscono solo su una vera radice della mappa: un figlio generato (anche
+  se indirizzabile a mano, come `modal-dialog`) non porta mai un proprio bracket, quindi non
+  riceve mai queste opzioni — solo `pgs-data`, se la radice ne documenta, resta suggerito anche lì.
 - Riconosce anche `pgs(el).option.*(...)` e `pgs(el).data.*(...)` in JS/TS, senza scoping (non
   c'è un elemento da cui dedurre il componente).
 

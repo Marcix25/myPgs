@@ -2433,14 +2433,14 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --icon: var(--icon-glyph-close);
 }
 
-:is([pgs~=header], [pgs*="header["]) dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["]) {
+:is([pgs~=header], [pgs*="header["]) dialog[pgs~=modal-dialog] {
   --modal-backdrop: var(--color-white);
   --modal-background: var(--color-white);
   -webkit-backdrop-filter: var(--blur);
   backdrop-filter: var(--blur);
 }
 
-:is([pgs~=header], [pgs*="header["]) dialog:is([pgs~=modal-dialog], [pgs*="modal-dialog["])[open] {
+:is([pgs~=header], [pgs*="header["]) dialog[pgs~=modal-dialog][open] {
   z-index: -1;
 }
 

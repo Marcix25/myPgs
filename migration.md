@@ -118,9 +118,10 @@ options when another token is added. There is no fallback to the retired attribu
 Update consumer selectors too: `[pgs~="button"]` alone does not match `button['mini']`.
 Use `:is([pgs~="button"], [pgs*="button\5B"])` for the component and
 `[pgs*="'mini'"]` for the flag. In SCSS, spell the opening bracket as `\5B`. A selector for a true
-child token (one that never carries its own bracket, like `accordion-button` or
-`modal-dialog-content`) needs only the plain `[pgs~="X"]` form — keep the full `:is(...)` form for
-a token that gets its own options, such as `modal-dialog` itself.
+child token needs only the plain `[pgs~="X"]` form — no child keeps the full `:is(...)` form
+anymore, not even `modal-dialog`: its own options (`dialogRight`, `dialogMini`, ...) now land on
+`_dialog`, a second, pgs-generated-only token added alongside it, so `modal-dialog` itself simplifies
+like every other child (see `AGENTS-DEVELOPMENT.md`).
 Custom code that directly reads/writes attributes must use the new storage or the wrapper.
 
 This is a manual breaking migration: the two attribute forms do not coexist. The older transitions

@@ -24,8 +24,8 @@ html:has(dialog[open]) {
     &[pgs-data~="modalContainerID[]"],
     &[pgs-data~="modalContainerPGS[]"] {}
     
-    //== the flag-copy loop in _modal.js lets any of these be authored on modal or modal-dialog
-    //== alike, so both are declared here too, for editors to suggest them on either
+    //== the flag-copy loop in _modal.js reads any of these off the wrapper or the dialog alike,
+    //== so they are declared here too, for editors to suggest them on the wrapper as well
     //+ OPTION
     &[pgs*="'dialogHistory'"],
     &[pgs*="'dialogTopLevel'"],
