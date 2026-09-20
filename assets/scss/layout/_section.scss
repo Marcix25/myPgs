@@ -42,10 +42,10 @@
 }
 
 //== CONTAINER
-[pgs~="container"] {
+:is([pgs~="container"], [pgs*="container\5B"]) {
     container-type: inline-size;
-}
 
-[pgs~="containerNone"] {
-    container-type: normal;
+    &[pgs*="'none'"] {
+        container-type: normal;
+    }
 }

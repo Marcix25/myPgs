@@ -14,15 +14,15 @@ Border, outline and radius utilities, split out from the general-purpose set sin
 - `borderInline`: draws it on both sides of the inline axis.
 - `borderBlock`: draws it on both sides of the block axis.
 - `outline`: draws the same line outside the box, taking no space in the layout; the ol* colour utilities recolour it.
-- `borderRadius`: applies the standard radius token to any surface.
-- `borderRadiusInput`: applies the smaller radius used by form controls.
-- `borderRadiusExternal`: applies the wider radius used by outer containers.
+- `borderRadius`: applies the standard radius token to any surface, or one of its own two other scales.
 
 ## PGS Options (component brackets)
 
 - `thin`: draws the border (or, inside outline's own bracket, the outline) at 1px instead of the default 1.5px.
 - `thick`: draws the border (or, inside outline's own bracket, the outline) at 3px.
 - `thicker`: draws the border (or, inside outline's own bracket, the outline) at 4.5px.
+- `input`: inside borderRadius's own bracket, uses the smaller radius used by form controls instead of the standard one.
+- `external`: inside borderRadius's own bracket, uses the wider radius used by outer containers instead of the standard one.
 
 ## Related elements
 
@@ -102,7 +102,7 @@ The same line drawn outside the padding  so it takes no space and never moves wh
 Three radius tokens: the standard one, the smaller one used by form controls and the wider one for outer containers.
 
 ```html
-<span pgs="padding['sections'] border borderRadiusExternal">borderRadiusExternal</span>
+<span pgs="padding['sections'] border borderRadius['external']">borderRadius['external']</span>
 <span pgs="padding['sections'] border borderRadius">borderRadius</span>
-<span pgs="padding['sections'] border borderRadiusInput">borderRadiusInput</span>
+<span pgs="padding['sections'] border borderRadius['input']">borderRadius['input']</span>
 ```

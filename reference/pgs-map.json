@@ -105,7 +105,16 @@
     "aspectSquare": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "0",
+            "180",
+            "270",
+            "90",
+            "auto",
+            "hidden",
+            "x",
+            "y"
+        ],
         "pgs-data": []
     },
     "aspectVideo": {
@@ -433,6 +442,8 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "external",
+            "input",
             "thick",
             "thicker",
             "thin"
@@ -452,49 +463,60 @@
     "borderBottom": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "thick",
+            "thicker",
+            "thin"
+        ],
         "pgs-data": []
     },
     "borderInline": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "thick",
+            "thicker",
+            "thin"
+        ],
         "pgs-data": []
     },
     "borderLeft": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "thick",
+            "thicker",
+            "thin"
+        ],
         "pgs-data": []
     },
     "borderRadius": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "borderRadiusExternal": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "borderRadiusInput": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "external",
+            "input"
+        ],
         "pgs-data": []
     },
     "borderRight": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "thick",
+            "thicker",
+            "thin"
+        ],
         "pgs-data": []
     },
     "borderTop": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "thick",
+            "thicker",
+            "thin"
+        ],
         "pgs-data": []
     },
     "box": {
@@ -666,13 +688,9 @@
     "container": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "containerNone": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "none"
+        ],
         "pgs-data": []
     },
     "cookieConsent": {
@@ -740,7 +758,10 @@
         ],
         "pgs-generated": [],
         "pgs-options": [
+            "absolute",
+            "auto",
             "column",
+            "column-\"][pgs*=\"",
             "column-1",
             "column-2",
             "column-3",
@@ -750,12 +771,26 @@
             "column-7",
             "column-8",
             "columnReverse",
+            "contain",
+            "containerDownBigMobile",
+            "containerDownBigTablet",
+            "containerDownLaptop",
+            "containerDownMobile",
+            "containerDownTablet",
+            "containerDownWatch",
+            "containerUpBigMobile",
+            "containerUpBigTablet",
+            "containerUpLaptop",
+            "containerUpMobile",
+            "containerUpTablet",
+            "containerUpWatch",
             "contentAround",
             "contentBetween",
             "contentCenter",
             "contentEnd",
             "contentEvenly",
             "contentStart",
+            "cover",
             "flexCenter",
             "gapElements",
             "gapNone",
@@ -774,7 +809,21 @@
             "justifyEvenly",
             "justifyStart",
             "m2e",
+            "mediaDownBigMobile",
+            "mediaDownBigTablet",
+            "mediaDownLaptop",
+            "mediaDownMobile",
+            "mediaDownTablet",
+            "mediaDownWatch",
+            "mediaUpBigMobile",
+            "mediaUpBigTablet",
+            "mediaUpLaptop",
+            "mediaUpMobile",
+            "mediaUpTablet",
+            "mediaUpWatch",
+            "none",
             "nowrap",
+            "relative",
             "row",
             "rowReverse",
             "selfBaseline",
@@ -782,6 +831,10 @@
             "selfEnd",
             "selfStart",
             "selfStretch",
+            "square",
+            "sticky",
+            "text",
+            "video",
             "wrap"
         ],
         "pgs-data": []
@@ -834,8 +887,11 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "absolute",
+            "auto",
             "column",
             "column-",
+            "column-\"][pgs*=\"",
             "column-1",
             "column-2",
             "column-3",
@@ -845,12 +901,26 @@
             "column-7",
             "column-8",
             "columnReverse",
+            "contain",
+            "containerDownBigMobile",
+            "containerDownBigTablet",
+            "containerDownLaptop",
+            "containerDownMobile",
+            "containerDownTablet",
+            "containerDownWatch",
+            "containerUpBigMobile",
+            "containerUpBigTablet",
+            "containerUpLaptop",
+            "containerUpMobile",
+            "containerUpTablet",
+            "containerUpWatch",
             "contentAround",
             "contentBetween",
             "contentCenter",
             "contentEnd",
             "contentEvenly",
             "contentStart",
+            "cover",
             "gapElements",
             "gapNone",
             "gapSections",
@@ -868,7 +938,21 @@
             "justifyEvenly",
             "justifyStart",
             "m2e",
+            "mediaDownBigMobile",
+            "mediaDownBigTablet",
+            "mediaDownLaptop",
+            "mediaDownMobile",
+            "mediaDownTablet",
+            "mediaDownWatch",
+            "mediaUpBigMobile",
+            "mediaUpBigTablet",
+            "mediaUpLaptop",
+            "mediaUpMobile",
+            "mediaUpTablet",
+            "mediaUpWatch",
+            "none",
             "nowrap",
+            "relative",
             "row",
             "rowReverse",
             "selfBaseline",
@@ -876,6 +960,10 @@
             "selfEnd",
             "selfStart",
             "selfStretch",
+            "square",
+            "sticky",
+            "text",
+            "video",
             "wrap"
         ],
         "pgs-data": []
@@ -938,13 +1026,31 @@
     "height": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "auto",
+            "full",
+            "screen",
+            "screenHalf",
+            "screenLarge",
+            "screenLive",
+            "underHeader",
+            "underMain"
+        ],
         "pgs-data": []
     },
     "heightMax": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "auto",
+            "full",
+            "screen",
+            "screenHalf",
+            "screenLarge",
+            "screenLive",
+            "underHeader",
+            "underMain"
+        ],
         "pgs-data": []
     },
     "heightMin": {
@@ -968,148 +1074,35 @@
         "pgs-options": [],
         "pgs-data": []
     },
-    "hideContainerDownBigMobile": {
+    "hide": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "hideContainerDownBigTablet": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "hideContainerDownLaptop": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "hideContainerDownMobile": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "hideContainerDownTablet": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "hideContainerDownWatch": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "hideContainerUpBigMobile": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "hideContainerUpBigTablet": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "hideContainerUpLaptop": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "hideContainerUpMobile": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "hideContainerUpTablet": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "hideContainerUpWatch": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "hideMediaDownBigMobile": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "hideMediaDownBigTablet": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "hideMediaDownLaptop": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "hideMediaDownMobile": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "hideMediaDownTablet": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "hideMediaDownWatch": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "hideMediaUpBigMobile": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "hideMediaUpBigTablet": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "hideMediaUpLaptop": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "hideMediaUpMobile": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "hideMediaUpTablet": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "hideMediaUpWatch": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "containerDownBigMobile",
+            "containerDownBigTablet",
+            "containerDownLaptop",
+            "containerDownMobile",
+            "containerDownTablet",
+            "containerDownWatch",
+            "containerUpBigMobile",
+            "containerUpBigTablet",
+            "containerUpLaptop",
+            "containerUpMobile",
+            "containerUpTablet",
+            "containerUpWatch",
+            "mediaDownBigMobile",
+            "mediaDownBigTablet",
+            "mediaDownLaptop",
+            "mediaDownMobile",
+            "mediaDownTablet",
+            "mediaDownWatch",
+            "mediaUpBigMobile",
+            "mediaUpBigTablet",
+            "mediaUpLaptop",
+            "mediaUpMobile",
+            "mediaUpTablet",
+            "mediaUpWatch"
+        ],
         "pgs-data": []
     },
     "hover": {
@@ -1273,7 +1266,9 @@
     "main": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "none"
+        ],
         "pgs-data": []
     },
     "margin": {
@@ -1310,7 +1305,14 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "negative"
+            "auto",
+            "elements",
+            "margin2",
+            "negative",
+            "page",
+            "sections",
+            "texts",
+            "unset"
         ],
         "pgs-data": []
     },
@@ -1318,7 +1320,14 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "negative"
+            "auto",
+            "elements",
+            "margin2",
+            "negative",
+            "page",
+            "sections",
+            "texts",
+            "unset"
         ],
         "pgs-data": []
     },
@@ -1326,7 +1335,14 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "negative"
+            "auto",
+            "elements",
+            "margin2",
+            "negative",
+            "page",
+            "sections",
+            "texts",
+            "unset"
         ],
         "pgs-data": []
     },
@@ -1334,7 +1350,14 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "negative"
+            "auto",
+            "elements",
+            "margin2",
+            "negative",
+            "page",
+            "sections",
+            "texts",
+            "unset"
         ],
         "pgs-data": []
     },
@@ -1342,7 +1365,14 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "negative"
+            "auto",
+            "elements",
+            "margin2",
+            "negative",
+            "page",
+            "sections",
+            "texts",
+            "unset"
         ],
         "pgs-data": []
     },
@@ -1512,29 +1542,27 @@
         ],
         "pgs-data": []
     },
-    "overflowAuto": {
+    "overflow": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "overflowHidden": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "overflowXAuto": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "auto",
+            "hidden",
+            "x",
+            "y"
+        ],
         "pgs-data": []
     },
     "padding": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "padding2"
+            "elements",
+            "padding2",
+            "page",
+            "sections",
+            "texts",
+            "unset"
         ],
         "pgs-data": []
     },
@@ -1554,31 +1582,66 @@
     "paddingBottom": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "elements",
+            "padding2",
+            "page",
+            "sections",
+            "texts",
+            "unset"
+        ],
         "pgs-data": []
     },
     "paddingInline": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "elements",
+            "padding2",
+            "page",
+            "sections",
+            "texts",
+            "unset"
+        ],
         "pgs-data": []
     },
     "paddingLeft": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "elements",
+            "padding2",
+            "page",
+            "sections",
+            "texts",
+            "unset"
+        ],
         "pgs-data": []
     },
     "paddingRight": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "elements",
+            "padding2",
+            "page",
+            "sections",
+            "texts",
+            "unset"
+        ],
         "pgs-data": []
     },
     "paddingTop": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "elements",
+            "padding2",
+            "page",
+            "sections",
+            "texts",
+            "unset"
+        ],
         "pgs-data": []
     },
     "pageShell": {
@@ -1642,28 +1705,15 @@
         "pgs-options": [],
         "pgs-data": []
     },
-    "rotate0": {
+    "rotate": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "rotate180": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "rotate270": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "rotate90": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "0",
+            "180",
+            "270",
+            "90"
+        ],
         "pgs-data": []
     },
     "search": {
@@ -1764,7 +1814,8 @@
     "slides": {
         "pgs": [
             "slides-container",
-            "slides-container-slide"
+            "slides-container-slide",
+            "slides-dots-dot"
         ],
         "pgs-generated": [
             "_slides-dots-dot",

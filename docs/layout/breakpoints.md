@@ -2,41 +2,45 @@
 
 # Breakpoints
 
-Responsive visibility utilities built on the shared breakpoint scale: watch 315px, mobile 430px, big mobile 615px, tablet 800px, big tablet 900px and laptop 1100px. Each breakpoint comes in four utilities, crossing the two queries with the two directions: Media reads the viewport, Container reads the nearest ancestor marked with pgs="container", Down hides at or below the width, Up hides from the width upwards.
+Responsive visibility built on the shared breakpoint scale: watch 315px, mobile 430px, big mobile 615px, tablet 800px, big tablet 900px and laptop 1100px. hide alone, with no bracket, always hides — every breakpoint instead lives inside hide's own bracket, crossing the two queries with the two directions: Media reads the viewport, Container reads the nearest ancestor marked with pgs="container", Down hides at or below the width, Up hides from the width upwards. Combine more than one to hide outside a range, e.g. hide['mediaDownTablet' 'mediaUpLaptop'] to show an element only between Tablet and Laptop.
 
 ## PGS
 
-- `hideMediaDownWatch`: hides an element when the viewport is 315px wide or narrower.
-- `hideMediaDownMobile`: hides an element when the viewport is 430px wide or narrower.
-- `hideMediaDownBigMobile`: hides an element when the viewport is 615px wide or narrower.
-- `hideMediaDownTablet`: hides an element when the viewport is 800px wide or narrower.
-- `hideMediaDownBigTablet`: hides an element when the viewport is 900px wide or narrower.
-- `hideMediaDownLaptop`: hides an element when the viewport is 1100px wide or narrower.
-- `hideMediaUpWatch`: hides an element when the viewport is at least 315px wide.
-- `hideMediaUpMobile`: hides an element when the viewport is at least 430px wide.
-- `hideMediaUpBigMobile`: hides an element when the viewport is at least 615px wide.
-- `hideMediaUpTablet`: hides an element when the viewport is at least 800px wide.
-- `hideMediaUpBigTablet`: hides an element when the viewport is at least 900px wide.
-- `hideMediaUpLaptop`: hides an element when the viewport is at least 1100px wide.
-- `hideContainerDownWatch`: hides an element when its nearest container is 315px wide or narrower.
-- `hideContainerDownMobile`: hides an element when its nearest container is 430px wide or narrower.
-- `hideContainerDownBigMobile`: hides an element when its nearest container is 615px wide or narrower.
-- `hideContainerDownTablet`: hides an element when its nearest container is 800px wide or narrower.
-- `hideContainerDownBigTablet`: hides an element when its nearest container is 900px wide or narrower.
-- `hideContainerDownLaptop`: hides an element when its nearest container is 1100px wide or narrower.
-- `hideContainerUpWatch`: hides an element when its nearest container is at least 315px wide.
-- `hideContainerUpMobile`: hides an element when its nearest container is at least 430px wide.
-- `hideContainerUpBigMobile`: hides an element when its nearest container is at least 615px wide.
-- `hideContainerUpTablet`: hides an element when its nearest container is at least 800px wide.
-- `hideContainerUpBigTablet`: hides an element when its nearest container is at least 900px wide.
-- `hideContainerUpLaptop`: hides an element when its nearest container is at least 1100px wide.
+- `hide`: hides the element unconditionally when written bare; with a breakpoint option in its bracket, hides only past that threshold instead.
+
+## PGS Options (component brackets)
+
+- `mediaDownWatch`: hides an element when the viewport is 315px wide or narrower.
+- `mediaDownMobile`: hides an element when the viewport is 430px wide or narrower.
+- `mediaDownBigMobile`: hides an element when the viewport is 615px wide or narrower.
+- `mediaDownTablet`: hides an element when the viewport is 800px wide or narrower.
+- `mediaDownBigTablet`: hides an element when the viewport is 900px wide or narrower.
+- `mediaDownLaptop`: hides an element when the viewport is 1100px wide or narrower.
+- `mediaUpWatch`: hides an element when the viewport is at least 315px wide.
+- `mediaUpMobile`: hides an element when the viewport is at least 430px wide.
+- `mediaUpBigMobile`: hides an element when the viewport is at least 615px wide.
+- `mediaUpTablet`: hides an element when the viewport is at least 800px wide.
+- `mediaUpBigTablet`: hides an element when the viewport is at least 900px wide.
+- `mediaUpLaptop`: hides an element when the viewport is at least 1100px wide.
+- `containerDownWatch`: hides an element when its nearest container is 315px wide or narrower.
+- `containerDownMobile`: hides an element when its nearest container is 430px wide or narrower.
+- `containerDownBigMobile`: hides an element when its nearest container is 615px wide or narrower.
+- `containerDownTablet`: hides an element when its nearest container is 800px wide or narrower.
+- `containerDownBigTablet`: hides an element when its nearest container is 900px wide or narrower.
+- `containerDownLaptop`: hides an element when its nearest container is 1100px wide or narrower.
+- `containerUpWatch`: hides an element when its nearest container is at least 315px wide.
+- `containerUpMobile`: hides an element when its nearest container is at least 430px wide.
+- `containerUpBigMobile`: hides an element when its nearest container is at least 615px wide.
+- `containerUpTablet`: hides an element when its nearest container is at least 800px wide.
+- `containerUpBigTablet`: hides an element when its nearest container is at least 900px wide.
+- `containerUpLaptop`: hides an element when its nearest container is at least 1100px wide.
 
 ## Related elements
 
 ### PGS
 
 - `flex`: provides the flex layout; direction and spacing are flags in its bracket.
-- `container`: establishes the inline-size container the hideContainer* utilities are measured against; without it they fall back to the nearest container in the page, or never match at all.
+- `container`: establishes the inline-size container the containerDown* and containerUp* options are measured against; without it they fall back to the nearest container in the page, or never match at all.
 - `box`: makes each example visible as a surface.
 
 ### PGS Options (component brackets)
@@ -57,24 +61,24 @@ One example per query type, resizing with the viewport and with a local containe
 
 ### Viewport visibility
 
-hideMediaDown* and hideMediaUp* read the viewport width, so they answer to the browser window whatever the element is nested in. Resize the window to see them appear and disappear.
+mediaDown* and mediaUp* read the viewport width, so they answer to the browser window whatever the element is nested in. Resize the window to see them appear and disappear.
 
 ```html
-<span pgs="box hideMediaDownMobile">hideMediaDownMobile</span>
-<span pgs="box hideMediaDownTablet">hideMediaDownTablet</span>
-<span pgs="box hideMediaUpTablet">hideMediaUpTablet</span>
-<span pgs="box hideMediaUpLaptop">hideMediaUpLaptop</span>
+<span pgs="box hide['mediaDownMobile']">hide['mediaDownMobile']</span>
+<span pgs="box hide['mediaDownTablet']">hide['mediaDownTablet']</span>
+<span pgs="box hide['mediaUpTablet']">hide['mediaUpTablet']</span>
+<span pgs="box hide['mediaUpLaptop']">hide['mediaUpLaptop']</span>
 ```
 
 ### Container visibility
 
-hideContainerDown* and hideContainerUp* read the width of the nearest ancestor marked pgs=&quot;container&quot;, so the same element reacts to the space it actually sits in rather than to the window. Mark that ancestor, or nothing will ever match.
+containerDown* and containerUp* read the width of the nearest ancestor marked pgs=&quot;container&quot;, so the same element reacts to the space it actually sits in rather than to the window. Mark that ancestor, or nothing will ever match.
 
 ```html
 <div pgs="container">
-    <span pgs="box hideContainerDownMobile">hideContainerDownMobile</span>
-<span pgs="box hideContainerDownTablet">hideContainerDownTablet</span>
-<span pgs="box hideContainerUpTablet">hideContainerUpTablet</span>
-<span pgs="box hideContainerUpLaptop">hideContainerUpLaptop</span>
+    <span pgs="box hide['containerDownMobile']">hide['containerDownMobile']</span>
+<span pgs="box hide['containerDownTablet']">hide['containerDownTablet']</span>
+<span pgs="box hide['containerUpTablet']">hide['containerUpTablet']</span>
+<span pgs="box hide['containerUpLaptop']">hide['containerUpLaptop']</span>
 </div>
 ```

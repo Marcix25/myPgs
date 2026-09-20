@@ -1,158 +1,95 @@
 //# SPACING
+//== every scale check is anchored to its own direction's opening bracket (X\5B'scale') instead of
+//== a bare [pgs*="'scale'"] — a bare check matches the flag anywhere on the element, so
+//== marginRight['page'] marginLeft['texts'] on the same element would let whichever scale is
+//== declared later in this file win for both sides. Anchoring assumes the documented order (the
+//== scale option, then negative, e.g. marginRight['page' 'negative']) — negative never appears
+//== before its own scale. Both margin and padding set the real property directly in every branch,
+//== negative included (calc() reads the same literal value the branch just set, never a shared
+//== custom property) — no --X-size anywhere in this file.
+$spacing-scale-values: (
+    "texts": var(--gap-texts),
+    "elements": var(--gap-elements),
+    "sections": var(--gap-sections),
+    "page": var(--page-padding),
+);
+
 //= MARGIN
-:is([pgs~="margin"], [pgs*="margin\5B"],
-    [pgs~="marginLeft"], [pgs*="marginLeft\5B"],
-    [pgs~="marginRight"], [pgs*="marginRight\5B"],
-    [pgs~="marginBottom"], [pgs*="marginBottom\5B"],
-    [pgs~="marginTop"], [pgs*="marginTop\5B"],
-    [pgs~="marginInline"], [pgs*="marginInline\5B"],
-    [pgs~="marginBlock"], [pgs*="marginBlock\5B"]) {
-    --margin-size: var(--padding);
+$margin-directions: (
+    "margin": margin,
+    "marginLeft": margin-left,
+    "marginRight": margin-right,
+    "marginTop": margin-top,
+    "marginBottom": margin-bottom,
+    "marginInline": margin-inline,
+    "marginBlock": margin-block,
+);
 
-    &[pgs*="'margin2'"] {
-        --margin-size: var(--padding-half);
-    }
+@each $token, $property in $margin-directions {
+    :is([pgs~="#{$token}"], [pgs*="#{$token}\5B"]) {
+        #{$property}: var(--padding);
 
-    &[pgs*="'page'"] {
-        --margin-size: var(--page-padding);
-    }
+        &[pgs*="#{$token}\5B'margin2'"] {
+            #{$property}: var(--padding-half);
+        }
 
-    &[pgs*="'texts'"] {
-        --margin-size: var(--gap-texts);
-    }
+        @each $scale, $value in $spacing-scale-values {
+            &[pgs*="#{$token}\5B'#{$scale}'"] {
+                #{$property}: #{$value};
+            }
+        }
 
-    &[pgs*="'elements'"] {
-        --margin-size: var(--gap-elements);
-    }
+        &[pgs*="#{$token}\5B'auto'"] {
+            #{$property}: auto;
+        }
 
-    &[pgs*="'sections'"] {
-        --margin-size: var(--gap-sections);
-    }
+        &[pgs*="#{$token}\5B'unset'"] {
+            #{$property}: unset;
+        }
 
-    &[pgs*="'auto'"] {
-        --margin-size: auto;
-    }
+        &[pgs*="#{$token}\5B'negative'"] {
+            #{$property}: calc(var(--padding) * -1);
+        }
 
-    &[pgs*="'unset'"] {
-        --margin-size: unset;
-    }
-}
+        &[pgs*="#{$token}\5B'margin2' 'negative'"] {
+            #{$property}: calc(var(--padding-half) * -1);
+        }
 
-:is([pgs~="margin"], [pgs*="margin\5B"]) {
-    margin: var(--margin-size);
-
-    &[pgs*="'negative'"] {
-        margin: calc(var(--margin-size) * -1);
-    }
-}
-
-:is([pgs~="marginLeft"], [pgs*="marginLeft\5B"]) {
-    margin-left: var(--margin-size);
-
-    &[pgs*="'negative'"] {
-        margin-left: calc(var(--margin-size) * -1);
-    }
-}
-
-:is([pgs~="marginRight"], [pgs*="marginRight\5B"]) {
-    margin-right: var(--margin-size);
-
-    &[pgs*="'negative'"] {
-        margin-right: calc(var(--margin-size) * -1);
-    }
-}
-
-:is([pgs~="marginBottom"], [pgs*="marginBottom\5B"]) {
-    margin-bottom: var(--margin-size);
-
-    &[pgs*="'negative'"] {
-        margin-bottom: calc(var(--margin-size) * -1);
-    }
-}
-
-:is([pgs~="marginTop"], [pgs*="marginTop\5B"]) {
-    margin-top: var(--margin-size);
-
-    &[pgs*="'negative'"] {
-        margin-top: calc(var(--margin-size) * -1);
-    }
-}
-
-:is([pgs~="marginInline"], [pgs*="marginInline\5B"]) {
-    margin-inline: var(--margin-size);
-
-    &[pgs*="'negative'"] {
-        margin-inline: calc(var(--margin-size) * -1);
-    }
-}
-
-:is([pgs~="marginBlock"], [pgs*="marginBlock\5B"]) {
-    margin-block: var(--margin-size);
-
-    &[pgs*="'negative'"] {
-        margin-block: calc(var(--margin-size) * -1);
+        @each $scale, $value in $spacing-scale-values {
+            &[pgs*="#{$token}\5B'#{$scale}' 'negative'"] {
+                #{$property}: calc(#{$value} * -1);
+            }
+        }
     }
 }
 
 //= PADDING
-:is([pgs~="padding"], [pgs*="padding\5B"],
-    [pgs~="paddingLeft"], [pgs*="paddingLeft\5B"],
-    [pgs~="paddingRight"], [pgs*="paddingRight\5B"],
-    [pgs~="paddingBottom"], [pgs*="paddingBottom\5B"],
-    [pgs~="paddingTop"], [pgs*="paddingTop\5B"],
-    [pgs~="paddingInline"], [pgs*="paddingInline\5B"],
-    [pgs~="paddingBlock"], [pgs*="paddingBlock\5B"]) {
-    --padding-size: var(--padding);
+$padding-directions: (
+    "padding": padding,
+    "paddingLeft": padding-left,
+    "paddingRight": padding-right,
+    "paddingBottom": padding-bottom,
+    "paddingTop": padding-top,
+    "paddingInline": padding-inline,
+    "paddingBlock": padding-block,
+);
 
-    &[pgs*="'padding2'"] {
-        --padding-size: var(--padding-half);
+@each $token, $property in $padding-directions {
+    :is([pgs~="#{$token}"], [pgs*="#{$token}\5B"]) {
+        #{$property}: var(--padding);
+
+        &[pgs*="#{$token}\5B'padding2'"] {
+            #{$property}: var(--padding-half);
+        }
+
+        @each $scale, $value in $spacing-scale-values {
+            &[pgs*="#{$token}\5B'#{$scale}'"] {
+                #{$property}: #{$value};
+            }
+        }
+
+        &[pgs*="#{$token}\5B'unset'"] {
+            #{$property}: unset;
+        }
     }
-
-    &[pgs*="'page'"] {
-        --padding-size: var(--page-padding);
-    }
-
-    &[pgs*="'texts'"] {
-        --padding-size: var(--gap-texts);
-    }
-
-    &[pgs*="'elements'"] {
-        --padding-size: var(--gap-elements);
-    }
-
-    &[pgs*="'sections'"] {
-        --padding-size: var(--gap-sections);
-    }
-
-    &[pgs*="'unset'"] {
-        --padding-size: unset;
-    }
-}
-
-:is([pgs~="padding"], [pgs*="padding\5B"]) {
-    padding: var(--padding-size);
-}
-
-:is([pgs~="paddingLeft"], [pgs*="paddingLeft\5B"]) {
-    padding-left: var(--padding-size);
-}
-
-:is([pgs~="paddingRight"], [pgs*="paddingRight\5B"]) {
-    padding-right: var(--padding-size);
-}
-
-:is([pgs~="paddingBottom"], [pgs*="paddingBottom\5B"]) {
-    padding-bottom: var(--padding-size);
-}
-
-:is([pgs~="paddingTop"], [pgs*="paddingTop\5B"]) {
-    padding-top: var(--padding-size);
-}
-
-:is([pgs~="paddingInline"], [pgs*="paddingInline\5B"]) {
-    padding-inline: var(--padding-size);
-}
-
-:is([pgs~="paddingBlock"], [pgs*="paddingBlock\5B"]) {
-    padding-block: var(--padding-size);
 }

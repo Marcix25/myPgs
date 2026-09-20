@@ -18,7 +18,10 @@ Section variants that control width, padding, and specific content treatment whi
 - `sectionEdgeFlushLeft`: lines the content up with the outer edge of a centred section on the left, one page padding further out than sectionEdgeLeft, through --page-edgeFlush, which is allowed to fall to zero: once the section box no longer fits, the content runs flush to the left edge of the screen. The right side carries no padding at all, so the row bleeds off that edge instead of stopping short of it, which is what a carousel or a full-width image wants.
 - `sectionEdgeFlushRight`: the mirror of sectionEdgeFlushLeft, lined up on the right and bleeding off the left edge.
 - `container`: turns any element into an inline-size query container, so the utilities that measure their surroundings have something to measure; see Breakpoints and Responsive.
-- `containerNone`: cancels container on the same element, so it stops acting as a query container and the nearest marked ancestor is measured instead.
+
+## PGS Options (component brackets)
+
+- `none`: inside container's own bracket, cancels it on the same element, so it stops acting as a query container and the nearest marked ancestor is measured instead.
 
 ## Related elements
 
@@ -27,7 +30,7 @@ Section variants that control width, padding, and specific content treatment whi
 - `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `card-img`: reuses card image treatment in the demonstration sections.
 - `imgCover`: scales images to the section width.
-- `hideContainerDownTablet`: hides its element while the surrounding container is at most 800px wide; see Breakpoints for the whole family.
+- `hide`: hides its element while carrying a breakpoint option in its bracket; see Breakpoints for the whole family.
 - `box`: makes the container example visible as a surface.
 
 ### PGS Options (component brackets)
@@ -35,6 +38,7 @@ Section variants that control width, padding, and specific content treatment whi
 - `column`: vertically organizes sections and inner content.
 - `row`: places the text and the image of an edge section side by side.
 - `gapElements`: applies element spacing inside each section.
+- `containerDownTablet`: inside hide's own bracket, hides its element while the surrounding container is at most 800px wide.
 
 ### Other
 
@@ -93,24 +97,24 @@ Section applying a specific structure to its child element using sectionSpecific
 
 ### Query container
 
-container is what the hideContainer* utilities and every container query measure themselves against. Without it the nearest marked ancestor is used instead, and the element reacts to the wrong width.
+container is what hide's containerDown* and containerUp* options and every container query measure themselves against. Without it the nearest marked ancestor is used instead, and the element reacts to the wrong width.
 
 ```html
 <section pgs="section flex['column' 'gapElements']">
     <div pgs="container">
-        <span pgs="box hideContainerDownTablet">Hidden while this container is at most 800px wide.</span>
+        <span pgs="box hide['containerDownTablet']">Hidden while this container is at most 800px wide.</span>
     </div>
 </section>
 ```
 
 ### Cancelled query container
 
-containerNone on the same element cancels container, so the utilities inside measure the nearest marked ancestor instead of this one.
+container['none'] cancels container on the same element, so the utilities inside measure the nearest marked ancestor instead of this one.
 
 ```html
 <section pgs="section flex['column' 'gapElements']">
-    <div pgs="container containerNone">
-        <span pgs="box hideContainerDownTablet">Measures the surrounding page instead of this element.</span>
+    <div pgs="container['none']">
+        <span pgs="box hide['containerDownTablet']">Measures the surrounding page instead of this element.</span>
     </div>
 </section>
 ```

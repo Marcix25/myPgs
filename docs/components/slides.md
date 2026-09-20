@@ -57,8 +57,7 @@ A horizontal, scroll-snapped track of slides with its own arrows and position do
 
 - `icon`: draws the chevron inside each of the two generated buttons; see Icon for the whole set.
 - `icon-chevronDown`: the glyph in both generated buttons, rotated to point left or right.
-- `rotate90`: rotates the glyph in the previous button to point left.
-- `rotate270`: rotates the glyph in the next button to point right.
+- `rotate`: rotates the chevron; the previous button uses its 90 option to point left, the next button its 270 option to point right.
 - `iconOnly`: styles the previous and next actions generated at runtime; belongs to the button component.
 
 ## CSS Variables

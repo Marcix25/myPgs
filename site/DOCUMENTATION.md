@@ -275,7 +275,7 @@ Then rebuild with `npm run sitebuild`, and only if the example needs real intera
   (`formFieldError`, `headerCompactFrom`): that attribute is flat, with no bracket to give a bare
   key context. See `migration.md` for the history of both conventions.
 - **A plain reusable utility has no prefix** and is written directly as a `pgs` value, not inside a
-  component bracket (`column`, `gapElements`, `overflowXAuto`, `icon-close`, ...).
+  component bracket (`column`, `gapElements`, `truncate`, `icon-close`, ...).
 
 ## The tools
 

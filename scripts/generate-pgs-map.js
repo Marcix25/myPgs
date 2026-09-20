@@ -78,7 +78,11 @@ function optionsFromCompiledCss() {
 
     postcss.parse(css).walkRules(rule => {
         for (const selector of rule.selectors) {
-            for (const option of selector.matchAll(/\[pgs\*="'([^']+)'"\]/g)) {
+            //== a flag check is usually bare ([pgs*="'X'"]), but a selector that anchors the flag to
+            //== its own direction's bracket to avoid leaking into a sibling direction (see
+            //== layout/_spacing.scss) writes it as [pgs*="marginLeft['X'"] instead — the optional
+            //== prefix here skips past that anchor without changing which flag gets captured
+            for (const option of selector.matchAll(/\[pgs\*="(?:[A-Za-z_][\w-]*\[)?'([^']+)'/g)) {
                 const owners = [...tokensIn(selector.slice(0, option.index), "pgs")];
                 if (owners.length) pairs.push([owners.at(-1), option[1], "pgs-options"]);
                 else if (option[1] === "hoverNot") pairs.push(["hover", option[1], "pgs-options"]);

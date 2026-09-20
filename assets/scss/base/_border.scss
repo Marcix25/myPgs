@@ -2,68 +2,51 @@
 
 //# BORDER - BORDER RADIUS - OUTLINE
 //= BORDER
-//== draws the shared border, so the br* colour utilities have something to recolour
-:is([pgs~="border"], [pgs*="border\5B"]) {
-    border: var(--border-width) solid var(--border-color);
-}
-
 //== one side at a time, named like the margin and padding utilities. The br* colour utilities
-//== set border-color, which only shows on the side that is actually drawn
-:is([pgs~="borderTop"], [pgs*="borderTop\5B"]) {
-    border-top: var(--border-width) solid var(--border-color);
-}
+//== set border-color, which only shows on the side that is actually drawn. Every thickness check
+//== is anchored to its own direction's opening bracket (X\5B'thick') and sets border(-X) directly,
+//== the same reasoning and the same fix as layout/_spacing.scss: a bare [pgs*="'thick'"] would
+//== match anywhere on the element, so borderTop['thin'] borderLeft['thick'] on the same element
+//== would let whichever thickness is declared last in this list win on both sides.
+$border-directions: (
+    "border": border,
+    "borderTop": border-top,
+    "borderRight": border-right,
+    "borderBottom": border-bottom,
+    "borderLeft": border-left,
+    "borderInline": border-inline,
+    "borderBlock": border-block,
+);
 
-:is([pgs~="borderRight"], [pgs*="borderRight\5B"]) {
-    border-right: var(--border-width) solid var(--border-color);
-}
+$border-width-values: (
+    "thin": 1px,
+    "thick": 3px,
+    "thicker": 4.5px,
+);
 
-:is([pgs~="borderBottom"], [pgs*="borderBottom\5B"]) {
-    border-bottom: var(--border-width) solid var(--border-color);
-}
+@each $token, $property in $border-directions {
+    :is([pgs~="#{$token}"], [pgs*="#{$token}\5B"]) {
+        #{$property}: var(--border-width) solid var(--border-color);
 
-:is([pgs~="borderLeft"], [pgs*="borderLeft\5B"]) {
-    border-left: var(--border-width) solid var(--border-color);
-}
-
-:is([pgs~="borderInline"], [pgs*="borderInline\5B"]) {
-    border-inline: var(--border-width) solid var(--border-color);
-}
-
-:is([pgs~="borderBlock"], [pgs*="borderBlock\5B"]) {
-    border-block: var(--border-width) solid var(--border-color);
-}
-
-:is([pgs~="border"], [pgs*="border\5B"],
-    [pgs~="borderTop"], [pgs*="borderTop\5B"],
-    [pgs~="borderRight"], [pgs*="borderRight\5B"],
-    [pgs~="borderBottom"], [pgs*="borderBottom\5B"],
-    [pgs~="borderLeft"], [pgs*="borderLeft\5B"],
-    [pgs~="borderInline"], [pgs*="borderInline\5B"],
-    [pgs~="borderBlock"], [pgs*="borderBlock\5B"]) {
-    &[pgs*="'thin'"] {
-        --border-width: 1px;
-    }
-
-    &[pgs*="'thick'"] {
-        --border-width: 3px;
-    }
-
-    &[pgs*="'thicker'"] {
-        --border-width: 4.5px;
+        @each $size, $value in $border-width-values {
+            &[pgs*="#{$token}\5B'#{$size}'"] {
+                #{$property}: #{$value} solid var(--border-color);
+            }
+        }
     }
 }
 
 //= BORDER RADIUS
-[pgs~="borderRadius"] {
+:is([pgs~="borderRadius"], [pgs*="borderRadius\5B"]) {
     border-radius: var(--border-radius);
-}
 
-[pgs~="borderRadiusInput"] {
-    border-radius: var(--border-radius-input);
-}
+    &[pgs*="'input'"] {
+        border-radius: var(--border-radius-input);
+    }
 
-[pgs~="borderRadiusExternal"] {
-    border-radius: var(--border-radius-external);
+    &[pgs*="'external'"] {
+        border-radius: var(--border-radius-external);
+    }
 }
 
 //= OUTLINE

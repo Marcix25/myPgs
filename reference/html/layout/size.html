@@ -1,15 +1,15 @@
 <!--
 /**
  * @title Size
- * @description Width and height utilities driven by a single custom property each. The width side wraps every value in min() against the container, because an element that is too wide breaks the page with a horizontal scrollbar; the height side does not, because an element that is too tall just scrolls, which is what a page does anyway. The scales differ for the same reason: widths come off the page, heights off the viewport, the only measure a block can be tall against without a parent that already has a height. Set --width-size or --height-size inline for an arbitrary value, or pick one of the scales.
+ * @description Width and height utilities, each driven by its own custom property: --width-size for width, --widthMax-size for widthMax, and so on, so combining two of them on the same element (a floor and a ceiling, say) never fights over a shared one. The width side wraps every value in min() against the container, because an element that is too wide breaks the page with a horizontal scrollbar; the height side does not, because an element that is too tall just scrolls, which is what a page does anyway. The scales differ for the same reason: widths come off the page, heights off the viewport, the only measure a block can be tall against without a parent that already has a height. Set a utility's own -size property inline for an arbitrary value, or pick one of the scales.
  *
  * @pgs
  * - width: sets the element width to --width-size, or to the container when that is narrower.
- * - widthMax: caps the element at --width-size while it keeps its own natural width below it.
- * - widthMin: keeps the element at least --width-size wide, unless the container itself is narrower.
+ * - widthMax: caps the element at --widthMax-size while it keeps its own natural width below it.
+ * - widthMin: keeps the element at least --widthMin-size wide, unless the container itself is narrower.
  * - height: sets the element height to --height-size.
- * - heightMax: caps the element at --height-size, and needs an overflow utility next to it or the content spills out.
- * - heightMin: keeps the element at least --height-size tall, and lets it grow past that with its content.
+ * - heightMax: caps the element at --heightMax-size, and needs an overflow utility next to it or the content spills out.
+ * - heightMin: keeps the element at least --heightMin-size tall, and lets it grow past that with its content.
  *
  * @pgs-options
  * - page: uses the page width and is the default for every width utility.
@@ -17,7 +17,7 @@
  * - pageThird: uses a third of the page width.
  * - text: uses a 65 character measure, the width a line of text stays readable at, independent of the page width.
  * - full: uses the whole container width, or, inside a height utility's own bracket, the whole parent height — which then only resolves when the parent has a definite height of its own.
- * - fillAvailable: uses -webkit-fill-available, the space actually left after margins and padding on iOS Safari, where percentages and viewport units miscompute against the address bar. Unsupported outside Chromium/Safari, where the invalid value is dropped and the element falls back to whichever other option, or --width-size, it also carries.
+ * - fillAvailable: uses -webkit-fill-available, the space actually left after margins and padding on iOS Safari, where percentages and viewport units miscompute against the address bar. Unsupported outside Chromium/Safari, where the invalid value is dropped and the element falls back to whichever other option, or its own -size property, it also carries.
  * - screen: uses the small viewport height, the screen with the browser toolbars expanded, and is the default for every height utility. The element never grows past the screen as the toolbars retract.
  * - screenLive: uses the dynamic viewport height, which follows the visible area as the toolbars come and go, at the cost of resizing during the scroll.
  * - screenLarge: uses the large viewport height, the screen with the toolbars retracted, for something meant to run under them.
@@ -32,7 +32,7 @@
  * - column: arranges the groups vertically.
  * - row: places the column and viewport examples side by side.
  * - box: makes the measured elements visible.
- * - overflowAuto: scrolls the content a heightMax element cannot show.
+ * - overflow: scrolls the content a heightMax element cannot show, with its auto option.
  * - marginInline: pairs with auto to centre a constrained element.
  * - gapTexts: separates the examples inside a group.
  * - gapElements: separates the side by side examples.
@@ -56,12 +56,12 @@
         <p pgs="box width['fillAvailable']">-webkit-fill-available, Chromium/Safari only.</p>
     </section>
 
-    <demo demo-h3="Arbitrary width" demo-description="Without an option the value comes from --width-size, which can be set inline, from a theme or from any enclosing rule. Every value stays capped at the container."></demo>
+    <demo demo-h3="Arbitrary width" demo-description="Without an option the value comes from the utility's own -size property (--width-size, --widthMin-size, --widthMax-size), which can be set inline, from a theme or from any enclosing rule. Every value stays capped at the container."></demo>
     <section pgs="flex['column' 'gapTexts']" demo="component">
         <strong>Arbitrary width</strong>
         <p pgs="box width" style="--width-size: 600px">Six hundred pixels, capped at the container.</p>
-        <p pgs="box widthMin" style="--width-size: 400px">At least four hundred pixels.</p>
-        <p pgs="box widthMax marginInline['auto']" style="--width-size: 500px">Capped at five hundred pixels and centred.</p>
+        <p pgs="box widthMin" style="--widthMin-size: 400px">At least four hundred pixels.</p>
+        <p pgs="box widthMax marginInline['auto']" style="--widthMax-size: 500px">Capped at five hundred pixels and centred.</p>
     </section>
 
     <demo demo-h3="Two columns" demo-description="Half the page width on each side of a row, so the text keeps the page rhythm while the row bleeds past the edge."></demo>
@@ -87,12 +87,12 @@
     <demo demo-h3="Floor and ceiling" demo-description="heightMin is the usual one for a section, because the element still grows with its content. heightMax needs an overflow utility next to it."></demo>
     <section pgs="flex['column' 'gapTexts']" demo="component">
         <strong>Floor and ceiling</strong>
-        <div pgs="box heightMin" style="--height-size: 120px">At least a hundred and twenty pixels tall, and taller if the content asks for it.</div>
-        <div pgs="box heightMax overflowAuto" style="--height-size: 80px">Capped at eighty pixels, with the rest of the content reachable by scrolling. A ceiling without an overflow utility would simply let this text spill out of the box, because the element stops growing but the content does not.</div>
+        <div pgs="box heightMin" style="--heightMin-size: 120px">At least a hundred and twenty pixels tall, and taller if the content asks for it.</div>
+        <div pgs="box heightMax overflow['auto']" style="--heightMax-size: 80px">Capped at eighty pixels, with the rest of the content reachable by scrolling. A ceiling without an overflow utility would simply let this text spill out of the box, because the element stops growing but the content does not.</div>
         <div pgs="box height" style="--height-size: 60px">Exactly sixty pixels.</div>
     </section>
 
-    <demo demo-h3="Dropping the constraint" demo-description="auto removes the limit on a single element while the utility stays in place, so a rule that sets --height-size higher up is not fought with a second one."></demo>
+    <demo demo-h3="Dropping the constraint" demo-description="auto removes the limit on a single element while the utility stays in place, so a rule that sets --heightMin-size higher up is not fought with a second one."></demo>
     <section pgs="flex['column' 'gapTexts']" demo="component">
         <strong>Dropping the constraint</strong>
         <div pgs="box heightMin['auto']">No floor at all.</div>

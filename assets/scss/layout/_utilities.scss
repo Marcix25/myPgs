@@ -11,29 +11,46 @@
 
 
 //= POSITION
-[pgs~="positionRelative"] {
+//== both the flat tokens and position['relative']/['absolute']/['sticky'] stay valid side by side
+[pgs~="positionRelative"], [pgs*="position\5B'relative'"] {
     position: relative;
 }
 
-[pgs~="positionAbsolute"] {
+[pgs~="positionAbsolute"], [pgs*="position\5B'absolute'"] {
     position: absolute;
 }
 
-[pgs~="positionSticky"] {
+[pgs~="positionSticky"], [pgs*="position\5B'sticky'"] {
     position: sticky;
 }
 
 //= OVERFLOW & TEXT
-[pgs~="overflowAuto"] {
-    overflow: auto;
-}
+//== auto/hidden apply to both axes unless 'x' or 'y' sits next to it in the same bracket, e.g.
+//== overflow['auto' 'x'] for the horizontal axis only
+:is([pgs~="overflow"], [pgs*="overflow\5B"]) {
+    &[pgs*="'auto'"]:not([pgs*="'x'"]):not([pgs*="'y'"]) {
+        overflow: auto;
+    }
 
-[pgs~="overflowXAuto"] {
-    overflow-x: auto;
-}
+    &[pgs*="'hidden'"]:not([pgs*="'x'"]):not([pgs*="'y'"]) {
+        overflow: hidden;
+    }
 
-[pgs~="overflowHidden"] {
-    overflow: hidden;
+    &[pgs*="'auto' 'x'"] {
+        overflow-x: auto;
+    }
+
+    &[pgs*="'auto' 'y'"] {
+        overflow-y: auto;
+    }
+
+    &[pgs*="'hidden' 'x'"] {
+        overflow-x: hidden;
+    }
+
+    &[pgs*="'hidden' 'y'"] {
+        overflow-y: hidden;
+    }
 }
 
 [pgs~="truncate"] {
@@ -44,47 +61,56 @@
 }
 
 //= ASPECT RATIO
-[pgs~="aspectSquare"] {
+//== both the flat tokens and aspect['square']/['video'] stay valid side by side
+[pgs~="aspectSquare"], [pgs*="aspect\5B'square'"] {
     aspect-ratio: 1 / 1;
 }
 
-[pgs~="aspectVideo"] {
+[pgs~="aspectVideo"], [pgs*="aspect\5B'video'"] {
     aspect-ratio: 16 / 9;
 }
 
 //= ROTATION
-[pgs~="rotate0"] {
-    transform: rotate(0deg);
-}
-
-[pgs~="rotate90"] {
-    transform: rotate(90deg);
-}
-
-[pgs~="rotate180"] {
+//== bare, with no option, rotate defaults to 180deg — the common case (a chevron that points the
+//== opposite way) doesn't need one written out
+:is([pgs~="rotate"], [pgs*="rotate\5B"]) {
     transform: rotate(180deg);
-}
 
-[pgs~="rotate270"] {
-    transform: rotate(270deg);
+    &[pgs*="'0'"] {
+        transform: rotate(0deg);
+    }
+
+    &[pgs*="'90'"] {
+        transform: rotate(90deg);
+    }
+
+    &[pgs*="'180'"] {
+        transform: rotate(180deg);
+    }
+
+    &[pgs*="'270'"] {
+        transform: rotate(270deg);
+    }
 }
 
 //= INTERACTION
-[pgs~="selectNone"] {
+//== both the flat tokens and select['none']/['text'], pointerEvents['none']/['auto'] stay valid
+//== side by side
+[pgs~="selectNone"], [pgs*="select\5B'none'"] {
     -webkit-user-select:none;
     user-select: none;
 }
 
-[pgs~="selectText"] {
+[pgs~="selectText"], [pgs*="select\5B'text'"] {
     -webkit-user-select:text;
     user-select: text;
 }
 
-[pgs~="pointerEventsNone"] {
+[pgs~="pointerEventsNone"], [pgs*="pointerEvents\5B'none'"] {
     pointer-events: none;
 }
 
-[pgs~="pointerEventsAuto"] {
+[pgs~="pointerEventsAuto"], [pgs*="pointerEvents\5B'auto'"] {
     pointer-events: auto;
 }
 

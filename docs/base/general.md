@@ -10,7 +10,7 @@ Standalone utilities for shadow, cursor, image fitting, list styling and forced 
 - `textShadow`: applies the shared text shadow token.
 - `pointer`: shows the pointer cursor on an element that is clickable but is not a control.
 - `appearanceNone`: strips every inherited style and the native appearance, to build a control from scratch.
-- `imgContain`: fits the whole image inside its box without cropping it.
+- `imgContain`: fits the whole image inside its box without cropping it; img['contain'] does the same, both forms stay valid.
 - `list`: styles a plain ul or ol with the shared marker and spacing.
 - `lightmode`: forces the light colour scheme on a subtree, whatever the page theme is.
 - `darkmode`: forces the dark colour scheme on a subtree, whatever the page theme is.
@@ -22,7 +22,7 @@ Standalone utilities for shadow, cursor, image fitting, list styling and forced 
 - `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `box`: makes each example visible as a surface.
 - `bgWhiteFixed`: holds the same light background whatever the page theme is, so the two forced schemes read against one ground.
-- `imgCover`: crops the image to fill its box, the counterpart of imgContain.
+- `imgCover`: crops the image to fill its box, the counterpart of imgContain; img['cover'] does the same, both forms stay valid.
 - `borderRadius`: rounds the image fitting examples; see Border for the whole family.
 
 ### PGS Options (component brackets)
