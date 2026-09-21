@@ -14,8 +14,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyPGS reference demo</title>
+    <meta name="description" content="MyPGS is a shared frontend library for building consistent UIs across projects through pgs attributes: SCSS sources, UI components and reusable JavaScript modules defined once and reused across every project.">
     <link rel="icon" type="image/svg+xml" href="../assets/img/logo.svg">
-    <link rel="stylesheet" href="../../dist/css/index.css">
+    <link rel="stylesheet" href="../../dist/css/index.min.css">
     <link rel="stylesheet" href="../assets/css/demo.css">
     <link rel="stylesheet" href="../assets/css/home.css">
 
@@ -26,7 +27,7 @@
 
     <!-- after the stylesheets so the browser starts fetching them first, and still synchronous:
          darkmode writes the theme on the html element before the first paint -->
-    <script src="../../dist/javascript/index.js"></script>
+    <script src="../../dist/javascript/index.min.js"></script>
 
     <!-- the reference examples import from "mypgs" like a real project; a browser cannot resolve a
          bare specifier on its own, so it is mapped to a module that re-exports the global the

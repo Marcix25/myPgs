@@ -1,9 +1,29 @@
-<!-- = MAIN -->
-    <main pgs="main">
-        <section pgs="section border">
-            <div pgs="slides['singleScroll'] bgError">
-                <p pgs="marginRight['page' '']  marginLeft['texts' 'negative']">Lorem ipsum dolor sit amet consectetur adipisicing elit. Error aut suscipit adipisci alias voluptates nam perferendis in facere nihil repellat, iure magnam quod, eum blanditiis eos quidem iusto! Cumque minima officia similique, pariatur doloribus facilis, sit nobis maxime unde molestias porro iste commodi quod? Debitis molestias non quos dignissimos adipisci voluptas dicta necessitatibus consequatur tempore laudantium, mollitia fugiat sint et ullam itaque quidem beatae perferendis cum eius, quaerat harum. Sunt, laborum soluta. Similique quia harum atque quaerat soluta doloribus quasi eligendi tempora, aliquam praesentium beatae fuga natus, velit debitis explicabo deleniti temporibus officia amet tempore, voluptatem obcaecati numquam laborum at.</p>
-            </div>
-        </section>
+<div pgs="pageNav heightMin['screen'] paddingBlock['sections']">
+    <div pgs="pageNav-list" aria-label="Sections">
+        <a href="#pageNav-html" pgs="pageNav-list-item">HTML</a>
+        <a href="#pageNav-react" pgs="pageNav-list-item">React</a>
+        <a href="#pageNav-vue" pgs="pageNav-list-item">Vue</a>
+    </div>
 
-    </main>
+    <!-- a second, independent list of links to the same panels, kept in sync automatically -->
+    <div pgs="pageNav-list" aria-label="Sections (copy)">
+        <a href="#pageNav-html" pgs="pageNav-list-item">HTML</a>
+        <a href="#pageNav-react" pgs="pageNav-list-item">React</a>
+        <a href="#pageNav-vue" pgs="pageNav-list-item">Vue</a>
+    </div>
+
+    <div pgs="pageNav-panels">
+        <section id="pageNav-html" pgs="pageNav-panels-content">
+            <h3>HTML</h3>
+            <p>Semantic markup ready to copy into a page.</p>
+        </section>
+        <section id="pageNav-react" pgs="pageNav-panels-content">
+            <h3>React</h3>
+            <p>The same structure written in JSX with pgs attributes.</p>
+        </section>
+        <section id="pageNav-vue" pgs="pageNav-panels-content">
+            <h3>Vue</h3>
+            <p>Component markup ready for a Vue template.</p>
+        </section>
+    </div>
+</div>

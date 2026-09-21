@@ -7,18 +7,41 @@
         :where([pgs~="pageNav-list-item"]) {}
     }
 
-    //== hidden by default, with no need to write [hidden] by hand: the module writes it on every
-    //== panel but the current one during init, so this only ever has to cover the frame before
-    //== that first pass runs. Shown is a plain block — give the panel's own content its layout on
-    //== an inner wrapper, not on this element, so nothing here fights a combined utility over
-    //== `display`
-    :where([pgs~="pageNav-panels"]) {
-        :where([pgs~="pageNav-panels-content"]) {
+    //== hidden until marked active: a positive mark rather than [hidden]'s absence, since with no
+    //== [hidden] left to write by hand every panel would otherwise start "not hidden" and flash at
+    //== once before the first init pass gives one of them the mark. Shown is a plain block — give
+    //== the panel's own content its layout on an inner wrapper, not on this element, so nothing
+    //== here fights a combined utility over `display`
+    [pgs~="pageNav-panels"] {
+        [pgs~="pageNav-panels-content"] {
             display: none;
-
-            &:not([hidden]) {
+            &[pgs-state~="active"] {
                 display: block;
             }
+        }
+
+        &:not:has([pgs~="pageNav-panels-content"][pgs-state~="active"]) {
+        position: relative;
+        overflow: hidden;
+
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg,
+                    transparent 25%,
+                    var(--color-box-transparent) 50%,
+                    transparent 75%);
+            transform: translateX(-100%);
+            animation: loading 1.4s ease-in-out infinite;
+        }
+
+        @keyframes loading {
+            to {
+                transform: translateX(100%);
+            }
+        }
+
         }
     }
 }

@@ -11,7 +11,7 @@
  * - pageNav-panels-content: identifies one panel, addressed by its own id. Hidden by default, with no [hidden] to write by hand — give its own content's layout to an inner wrapper, not to this element.
  *
  * @pgs-state
- * - active: not written by this module; a link's own selected state is aria-current="page", read directly rather than duplicated into pgs-state.
+ * - active: identifies the visible panel; the module writes it, and reads it back on a hashless load to honour one already marked in the markup, the same convention Tabs uses. A link's own selected state is separate, aria-current="page", not pgs-state.
  *
  * @api
  * - pgs.pageNav.init(root): initializes pageNav inside the specified Document or Element, including the root when it is pageNav.

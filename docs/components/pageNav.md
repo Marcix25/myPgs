@@ -14,7 +14,7 @@ Full-page panels switched by the URL hash instead of an index, so the current on
 
 ## PGS States
 
-- `active`: not written by this module; a link's own selected state is aria-current="page", read directly rather than duplicated into pgs-state.
+- `active`: identifies the visible panel; the module writes it, and reads it back on a hashless load to honour one already marked in the markup, the same convention Tabs uses. A link's own selected state is separate, aria-current="page", not pgs-state.
 
 ## JavaScript API
 

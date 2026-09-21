@@ -2838,7 +2838,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   }
   :is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'asideScroll'"] :where([pgs~=pageShell-content]) {
     padding-top: var(--pageShell-padding-top);
-    min-height: var(--pageShell-asideScroll-maxHeight);
+    min-height: 100dvh;
   }
 }
 @container (min-width: 900px) {
@@ -5693,14 +5693,33 @@ html:has(dialog[open]) {
   align-items: safe flex-end;
 }
 
-[pgs~=pageNav] :where([pgs~=pageNav-panels]) :where([pgs~=pageNav-panels-content]) {
+[pgs~=pageNav] [pgs~=pageNav-panels] [pgs~=pageNav-panels-content] {
   display: none;
 }
 
-[pgs~=pageNav] :where([pgs~=pageNav-panels]) :where([pgs~=pageNav-panels-content]):not([hidden]) {
+[pgs~=pageNav] [pgs~=pageNav-panels] [pgs~=pageNav-panels-content][pgs-state~=active] {
   display: block;
 }
 
+[pgs~=pageNav] [pgs~=pageNav-panels]:not:has([pgs~=pageNav-panels-content][pgs-state~=active]) {
+  position: relative;
+  overflow: hidden;
+}
+
+[pgs~=pageNav] [pgs~=pageNav-panels]:not:has([pgs~=pageNav-panels-content][pgs-state~=active])::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 25%, var(--color-box-transparent) 50%, transparent 75%);
+  transform: translateX(-100%);
+  animation: loading 1.4s ease-in-out infinite;
+}
+
+@keyframes loading {
+  to {
+    transform: translateX(100%);
+  }
+}
 @property --slides-maskStart {
   syntax: "<length>";
   inherits: false;

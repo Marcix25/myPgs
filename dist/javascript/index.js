@@ -2329,14 +2329,16 @@ function PGS_pageNav_init(root = document) {
             return items.filter(item => panelIdFor(item) === panelId);
         }
 
-        let current = panelItems.find(panel => !panel.hidden) || panelItems[0];
+        //== active is the mark of the one panel to show, matching the same convention tabs uses:
+        //== a panel already marked active in the markup is where a hashless load lands
+        let current = panelItems.find(panel => pgs(panel).state.contains("active")) || panelItems[0];
 
         function select(panelId, { resetScroll = true } = {}) {
             const panel = panelItems.find(item => item.id === panelId);
             if (!panel) return;
             current = panel;
 
-            panelItems.forEach(item => { item.hidden = item !== panel; });
+            panelItems.forEach(item => pgs(item).state.toggle("active", item === panel));
             items.forEach(item => {
                 if (panelIdFor(item) === panel.id) item.setAttribute("aria-current", "page");
                 else item.removeAttribute("aria-current");
