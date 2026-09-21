@@ -13,11 +13,11 @@
     isolation: isolate;
 
     //= TOP
-    [pgs~="footer-top"] {
+    :where([pgs~="footer-top"]) {
         color: var(--footer-color);
         padding-block: calc(var(--gap-sections)/3);
 
-        [pgs~="footer-top-content"] {
+        :where([pgs~="footer-top-content"]) {
             row-gap: var(--gap-elements);
         }
 
@@ -47,24 +47,24 @@
             }
         }
 
-        [pgs~="footer-brand"] {
+        :where([pgs~="footer-brand"]) {
             @include column();
 
-            [pgs~="logo-image"] {
+            :where([pgs~="logo-image"]) {
                 aspect-ratio: 1;
                 height: 200px;
                 object-fit: contain;
                 object-position: left center;
             }
 
-            [pgs~="logo-text"] {
+            :where([pgs~="logo-text"]) {
                 font-size: 4.0rem;
                 font-weight: var(--font-weight-title);
                 color: var(--footer-color);
             }
         }
 
-        [pgs~="footer-content"] {
+        :where([pgs~="footer-content"]) {
             nav {
                 li {
                     margin-top: 5px;
@@ -99,10 +99,10 @@
     }
 
     //= LEGAL
-    [pgs~="footer-legal"] {
+    :where([pgs~="footer-legal"]) {
         width: 100%;
 
-        [pgs~="footer-legal-content"] {
+        :where([pgs~="footer-legal-content"]) {
             border-top: var(--border-width) var(--border-style) var(--color-boxDark-transparent);
             padding-block: 60px;
             display: flex;

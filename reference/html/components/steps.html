@@ -6,11 +6,13 @@
  * @pgs
  * - steps: identifies the ordered list initialized by the steps module.
  * - steps-step: identifies each step in the sequence.
- * - steps-step-circle: identifies the numeric indicator, which is created automatically when missing.
+ * - steps-step-circle: write one yourself, bare like this, to place the numeric indicator with your own markup inside; the module leaves it alone and never generates a second one.
+ * - steps-step-line: the same, for the line joining one step to the next.
  * - steps-step-content: identifies the text content of the step.
  *
  * @pgs-generated
- * - steps-step-line: the line joining one step to the next, added inside every step that does not already contain one.
+ * - _steps-step-circle: added at the start of the step when no steps-step-circle was written by hand.
+ * - _steps-step-line: added at the start of the step when no steps-step-line was written by hand.
  *
  * @api
  * - pgs.steps.init(root): initializes unregistered step lists within the specified Document or Element.

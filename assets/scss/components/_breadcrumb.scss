@@ -18,7 +18,7 @@
     flex-wrap: wrap;
     gap: 0;
 
-    [pgs~="breadcrumb-item"] {
+    :where([pgs~="breadcrumb-item"]) {
         display: inline-flex;
         align-items: center;
 
@@ -37,7 +37,7 @@
             font-weight: var(--font-weight-bold);
         }
 
-        [pgs~="breadcrumb-item-separator"] {
+        :where([pgs~="breadcrumb-item-separator"]) {
             color: var(--breadcrumb-separator-color);
             margin-inline: var(--breadcrumb-separator-gap);
             display: inline-flex;

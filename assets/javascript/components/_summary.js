@@ -123,7 +123,21 @@ function PGS_summary_init(root = document, options = {}) {
         }
 
         button.addEventListener("click", toggle);
-        window.addEventListener("resize", refresh, { passive: true });
+
+        //== a window resize is not the only way content's real size changes: a summary
+        //== initialized while its own tab/panel is hidden measures a scrollHeight of 0, so it
+        //== has to redo that measurement once the element actually gets a layout box. A
+        //== ResizeObserver catches both, throttled to a single pending frame so refresh()'s own
+        //== max-height write doesn't feed back into itself
+        let rafId = 0;
+        const resizeObserver = new ResizeObserver(() => {
+            if (rafId) return;
+            rafId = requestAnimationFrame(() => {
+                rafId = 0;
+                refresh();
+            });
+        });
+        resizeObserver.observe(content);
 
         refresh();
         requestAnimationFrame(refresh);

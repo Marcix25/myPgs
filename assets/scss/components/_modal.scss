@@ -17,7 +17,7 @@ html:has(dialog[open]) {
 :is([pgs~="modal"], [pgs*="modal\5B"]) {
 
     //== MODAL BUTTON
-    [pgs~="modal-button"] {}
+    :where([pgs~="modal-button"]) {}
 
     //- DATA
     //== read by the JavaScript only: declared here so editors suggest them
@@ -88,7 +88,7 @@ html:has(dialog[open]) {
     }
 
     //=== CONTENT
-    [pgs~="modal-dialog-content"] {
+    :where([pgs~="modal-dialog-content"]) {
         @include sectionNoPadding();
         margin-inline: unset;
         padding: 0;
@@ -102,7 +102,7 @@ html:has(dialog[open]) {
         padding: var(--modal-content-padding);
 
         //==== HEADER
-        [pgs~="modal-dialog-content-header"] {
+        :where([pgs~="modal-dialog-content-header"]) {
             @include row(nowrap);
             z-index: 1;
             border-bottom: var(--border-complete);
@@ -115,30 +115,34 @@ html:has(dialog[open]) {
                 outline: none;
             }
 
-            [pgs~="modal-close"] {
+            :where([pgs~="modal-close"]),
+            :where([pgs~="_modal-close"]) {
                 margin-left: auto;
             }
         }
 
         //=== SCROLL
-        &:has([pgs~="modal-dialog-content-scroll"]) {
+        &:has(:where([pgs~="modal-dialog-content-scroll"])) {
             max-height: 100%;
             overflow: hidden;
         }
 
-        [pgs~="modal-dialog-content-scroll"] {
+        :where([pgs~="modal-dialog-content-scroll"]) {
             overflow: auto;
             overscroll-behavior: contain;
             max-height: 100%;
 
-            &:has(~[pgs~="modal-dialog-content-header"]) {
+            &:has(~:where([pgs~="modal-dialog-content-header"])) {
                 padding-top: calc(var(--modal-content-padding) / 2);
             }
         }
     }
 
     //== CLOSE
-    >[pgs~="modal-close"] {
+    //== a hand-written close button keeps the bare name; a generated one gets the underscore
+    //== (see _modal.js), so this needs both
+    >:where([pgs~="modal-close"]),
+    >:where([pgs~="_modal-close"]) {
         position: fixed !important;
         right: var(--page-padding);
         top: calc(var(--heightOfHeaderScroll) + var(--padding));
@@ -162,21 +166,21 @@ html:has(dialog[open]) {
     //== SIZE
     //=== MINI
     &[pgs*="'dialogMini'"]:where(#{$modalDialogPgs}) {
-        [pgs~="modal-dialog-content"] {
+        :where([pgs~="modal-dialog-content"]) {
             --section-width: min(calc(var(--page-width)/3), 100%);
         }
     }
 
     //=== MEDIUM
     &[pgs*="'dialogMedium'"]:where(#{$modalDialogPgs}) {
-        [pgs~="modal-dialog-content"] {
+        :where([pgs~="modal-dialog-content"]) {
             --section-width: min(calc(var(--page-width)/2), 100%);
         }
     }
 
     //=== Full
     &[pgs*="'dialogFull'"]:where(#{$modalDialogPgs}) {
-        [pgs~="modal-dialog-content"] {
+        :where([pgs~="modal-dialog-content"]) {
             --section-width: 100%;
         }
     }

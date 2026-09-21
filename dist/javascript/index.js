@@ -1264,10 +1264,12 @@ const fn_alert = {
         pgs(alert).add("alert");
         pgs(alert).state.add(type);
         alert.setAttribute("role", type === "error" || type === "warning" ? "alert" : "status");
+        //== generated from scratch, so every child token here gets the underscore; the same
+        //== markup written by hand in the page instead keeps the bare names (see alerts.html)
         alert.innerHTML = `
-            <div pgs="alert-icon" aria-hidden="true">${config.icon}</div>
-            <div pgs="alert-content">
-                <strong pgs="alert-content-title">${title}</strong>
+            <div pgs="_alert-icon" aria-hidden="true">${config.icon}</div>
+            <div pgs="_alert-content">
+                <strong pgs="_alert-content-title">${title}</strong>
                 ${description ? `<p>${description}</p>` : ""}
             </div>
         `;
@@ -1703,7 +1705,8 @@ function initializeModal(MODAL, existingDialog = null) {
     let historyTimeout = null;
 
     //== SELECTOR
-    const DOMButtonClose = "<button pgs=\"button['iconOnly' 'mini'] modal-close\" type=\"button\" tabindex=\"0\" aria-label=\"Close\"><i pgs=\"icon['icon-close']\"></i></button>";
+    //== a hand-written close button keeps the bare name; a generated one gets the underscore
+    const DOMButtonClose = "<button pgs=\"button['iconOnly' 'mini'] _modal-close\" type=\"button\" tabindex=\"0\" aria-label=\"Close\"><i pgs=\"icon['icon-close']\"></i></button>";
     const modalContentHeader = pgs(DIALOG).querySelector("modal-dialog-content-header");
 
     //== FOCUS
@@ -1754,11 +1757,11 @@ function initializeModal(MODAL, existingDialog = null) {
 
 
     //== BUTTON CLOSE
-    if (!pgs(DIALOG).querySelector("modal-close") && !pgs(MODAL).querySelector("modal-close")) {
+    if (!pgs(DIALOG).querySelector(["modal-close", "_modal-close"]) && !pgs(MODAL).querySelector(["modal-close", "_modal-close"])) {
         if (modalContentHeader) modalContentHeader.insertAdjacentHTML("beforeend", DOMButtonClose);
         else DIALOG.insertAdjacentHTML("beforeend", DOMButtonClose);
     }
-    const BUTTON_CLOSE = pgs(DIALOG).querySelector("modal-close") || pgs(MODAL).querySelector("modal-close");
+    const BUTTON_CLOSE = pgs(DIALOG).querySelector(["modal-close", "_modal-close"]) || pgs(MODAL).querySelector(["modal-close", "_modal-close"]);
 
 
     //== SET
@@ -2239,7 +2242,7 @@ const fn_notification = {
             const closeButton = document.createElement("button");
             closeButton.type = "button";
             closeButton.textContent = this._defaults.panelCloseTitle;
-            pgs(closeButton).add("button['mini']", "modal-close", "_notifications-close");
+            pgs(closeButton).add("button['mini']", "_modal-close", "_notifications-close");
             content.appendChild(closeButton);
 
             dialog.appendChild(content);
@@ -2780,19 +2783,21 @@ class PGS_Slides {
         const EL = this.element;
 
         //== PULSANTI
-        if (!pgs(EL).querySelector('slides-prec')) {
-            EL.insertAdjacentHTML("afterbegin", `<button pgs="slides-prec button['iconOnly' 'mini']" type="button" class="precButton" aria-label="Previous slide"> <i pgs="icon['icon-chevronDown'] rotate['90']"></i></button>`);
+        //== a hand-written button keeps the bare name; a generated one gets the underscore, so
+        //== the check below has to look for either
+        if (!pgs(EL).querySelector(['slides-prec', '_slides-prec'])) {
+            EL.insertAdjacentHTML("afterbegin", `<button pgs="_slides-prec button['iconOnly' 'mini']" type="button" class="precButton" aria-label="Previous slide"> <i pgs="icon['icon-chevronDown'] rotate['90']"></i></button>`);
         }
-        if (!pgs(EL).querySelector('slides-next')) {
-            EL.insertAdjacentHTML("beforeend", `<button pgs="slides-next button['iconOnly' 'mini']" type="button" class="nextButton" aria-label="Next slide"> <i pgs="icon['icon-chevronDown'] rotate['270']"></i></button>`);
+        if (!pgs(EL).querySelector(['slides-next', '_slides-next'])) {
+            EL.insertAdjacentHTML("beforeend", `<button pgs="_slides-next button['iconOnly' 'mini']" type="button" class="nextButton" aria-label="Next slide"> <i pgs="icon['icon-chevronDown'] rotate['270']"></i></button>`);
         }
 
         //== DOTS
-        if (!pgs(EL).querySelector('slides-dots')) {
-            EL.insertAdjacentHTML("beforeend", `<div pgs="slides-dots"></div>`);
+        if (!pgs(EL).querySelector(['slides-dots', '_slides-dots'])) {
+            EL.insertAdjacentHTML("beforeend", `<div pgs="_slides-dots"></div>`);
         }
 
-        const dotsContainer = pgs(EL).querySelector('slides-dots');
+        const dotsContainer = pgs(EL).querySelector(['slides-dots', '_slides-dots']);
         while (dotsContainer.children.length < this.container.children.length) {
             dotsContainer.insertAdjacentHTML("beforeend", `<button pgs="_slides-dots-dot" type="button"></button>`);
         }
@@ -2941,9 +2946,9 @@ class PGS_Slides {
 
         //== elements
         this.#createButtonsAndDots();
-        const precButton = pgs(slides).querySelector('slides-prec');
-        const nextButton = pgs(slides).querySelector('slides-next');
-        const dots = Array.from(pgs(slides).querySelector('slides-dots').children);
+        const precButton = pgs(slides).querySelector(['slides-prec', '_slides-prec']);
+        const nextButton = pgs(slides).querySelector(['slides-next', '_slides-next']);
+        const dots = Array.from(pgs(slides).querySelector(['slides-dots', '_slides-dots']).children);
 
         //== option
         const scrollMouse = pgs(slides).option.contains('scrollMouse');
@@ -3272,20 +3277,23 @@ function PGS_steps_init(root = document) {
         pgs(steps).querySelectorAll("steps-step").forEach((li, index) => {
             
             //= CIRCLE
+            //== a hand-written circle keeps the bare name; a generated one gets the underscore,
+            //== so the check below has to look for either
             let circleLi;
-            if (!pgs(li).querySelector("steps-step-circle")) {
+            if (!pgs(li).querySelector(["steps-step-circle", "_steps-step-circle"])) {
                 circleLi = document.createElement("span");
-                pgs(circleLi).add("steps-step-circle")
+                pgs(circleLi).add("_steps-step-circle")
                 circleLi.textContent = index + 1;
                 li.insertAdjacentElement("afterbegin", circleLi);
             } else{
-                circleLi = pgs(li).querySelector("steps-step-circle");
+                circleLi = pgs(li).querySelector(["steps-step-circle", "_steps-step-circle"]);
             }
-            
+
             //= line
-            if (!pgs(li).querySelector("steps-step-line")) {
+            //== same dual form as the circle above
+            if (!pgs(li).querySelector(["steps-step-line", "_steps-step-line"])) {
                 const line = document.createElement("span");
-                pgs(line).add("steps-step-line")
+                pgs(line).add("_steps-step-line")
                 li.insertAdjacentElement("afterbegin", line);
             }
         });
@@ -3456,7 +3464,21 @@ function PGS_summary_init(root = document, options = {}) {
         }
 
         button.addEventListener("click", toggle);
-        window.addEventListener("resize", refresh, { passive: true });
+
+        //== a window resize is not the only way content's real size changes: a summary
+        //== initialized while its own tab/panel is hidden measures a scrollHeight of 0, so it
+        //== has to redo that measurement once the element actually gets a layout box. A
+        //== ResizeObserver catches both, throttled to a single pending frame so refresh()'s own
+        //== max-height write doesn't feed back into itself
+        let rafId = 0;
+        const resizeObserver = new ResizeObserver(() => {
+            if (rafId) return;
+            rafId = requestAnimationFrame(() => {
+                rafId = 0;
+                refresh();
+            });
+        });
+        resizeObserver.observe(content);
 
         refresh();
         requestAnimationFrame(refresh);
@@ -3768,8 +3790,10 @@ const fn_toast = {
         `;
     },
 
+    //== a hand-written container keeps the bare name; a generated one gets the underscore, so
+    //== this needs both
     _getContainer() {
-        return pgs(document).querySelector("toast");
+        return pgs(document).querySelector(["toast", "_toast"]);
     },
 
     _getOrCreateContainer() {
@@ -3777,7 +3801,7 @@ const fn_toast = {
 
         if (!containerToast) {
             containerToast = document.createElement("div");
-            pgs(containerToast).add("toast");
+            pgs(containerToast).add("_toast");
             containerToast.setAttribute("aria-live", "polite");
             containerToast.setAttribute("aria-relevant", "additions");
             document.body.appendChild(containerToast);

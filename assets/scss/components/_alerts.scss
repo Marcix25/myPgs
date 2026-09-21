@@ -22,7 +22,10 @@
     color: var(--alert-color);
     margin-block: var(--gap-texts);
 
-    [pgs~="alert-icon"] {
+    //== a hand-written alert keeps the bare names; one built through the JS API gets the
+    //== underscore (see _alerts.js), so every child here needs both
+    :where([pgs~="alert-icon"]),
+    :where([pgs~="_alert-icon"]) {
         display: grid;
         place-items: center;
         min-inline-size: 2.4rem;
@@ -32,11 +35,13 @@
         --icon-size: 2rem;
     }
 
-    [pgs~="alert-content"] {
+    :where([pgs~="alert-content"]),
+    :where([pgs~="_alert-content"]) {
         @include column(calc(var(--alert-gap) / 2));
         min-width: 0;
 
-        [pgs~="alert-content-title"] {
+        :where([pgs~="alert-content-title"]),
+        :where([pgs~="_alert-content-title"]) {
             color: var(--alert-content-title-color);
             font-weight: var(--font-weight-title);;
             line-height: 1.2;

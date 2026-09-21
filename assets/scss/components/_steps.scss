@@ -4,7 +4,7 @@ ol[pgs~="steps"] {
     color: var(--color-black);
 
     //== step
-    [pgs~="steps-step"] {
+    :where([pgs~="steps-step"]) {
         display: flex;
         align-items: start;
         position: relative;
@@ -14,7 +14,7 @@ ol[pgs~="steps"] {
         --steps-line-color: var(--color-gray);
 
         //== CONTENT
-        [pgs~="steps-step-content"] {
+        :where([pgs~="steps-step-content"]) {
             @include column();
             margin-bottom: calc(var(--gap-elements) / 2 - 8px);
             padding-bottom: calc(var(--gap-elements) / 2);
@@ -23,7 +23,10 @@ ol[pgs~="steps"] {
         }
 
         //== NUMBER
-        [pgs~="steps-step-circle"] {
+        //== a hand-written circle keeps the bare name; a generated one gets the underscore (see
+        //== _steps.js), so every check here needs both
+        :where([pgs~="steps-step-circle"]),
+        :where([pgs~="_steps-step-circle"]) {
             min-width: var(--steps-circle-size);
             aspect-ratio: 1;
             background: var(--steps-circle-color);
@@ -41,7 +44,9 @@ ol[pgs~="steps"] {
         }
 
         //== LINE
-        [pgs~="steps-step-line"] {
+        //== same dual form as the circle above
+        :where([pgs~="steps-step-line"]),
+        :where([pgs~="_steps-step-line"]) {
             $space: 15px;
             display: block;
             position: absolute;
@@ -81,12 +86,13 @@ ol[pgs~="steps"] {
 
         //== LAST
         &:last-child {
-            [pgs~="steps-step"] {
+            :where([pgs~="steps-step"]) {
                 padding-bottom: 0;
                 margin-bottom: 0;
             }
 
-            [pgs~="steps-step-circle"] {
+            :where([pgs~="steps-step-circle"]),
+            :where([pgs~="_steps-step-circle"]) {
                 background-color: var(--color-primary);
                 color: var(--color-whiteFixed);
 
@@ -95,7 +101,8 @@ ol[pgs~="steps"] {
                 }
             }
 
-            [pgs~="steps-step-line"] {
+            :where([pgs~="steps-step-line"]),
+            :where([pgs~="_steps-step-line"]) {
                 opacity: 0;
             }
         }

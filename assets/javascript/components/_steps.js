@@ -9,20 +9,23 @@ function PGS_steps_init(root = document) {
         pgs(steps).querySelectorAll("steps-step").forEach((li, index) => {
             
             //= CIRCLE
+            //== a hand-written circle keeps the bare name; a generated one gets the underscore,
+            //== so the check below has to look for either
             let circleLi;
-            if (!pgs(li).querySelector("steps-step-circle")) {
+            if (!pgs(li).querySelector(["steps-step-circle", "_steps-step-circle"])) {
                 circleLi = document.createElement("span");
-                pgs(circleLi).add("steps-step-circle")
+                pgs(circleLi).add("_steps-step-circle")
                 circleLi.textContent = index + 1;
                 li.insertAdjacentElement("afterbegin", circleLi);
             } else{
-                circleLi = pgs(li).querySelector("steps-step-circle");
+                circleLi = pgs(li).querySelector(["steps-step-circle", "_steps-step-circle"]);
             }
-            
+
             //= line
-            if (!pgs(li).querySelector("steps-step-line")) {
+            //== same dual form as the circle above
+            if (!pgs(li).querySelector(["steps-step-line", "_steps-step-line"])) {
                 const line = document.createElement("span");
-                pgs(line).add("steps-step-line")
+                pgs(line).add("_steps-step-line")
                 li.insertAdjacentElement("afterbegin", line);
             }
         });

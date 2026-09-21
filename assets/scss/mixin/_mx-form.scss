@@ -59,8 +59,8 @@
 @mixin required() {
     position: relative;
 
-    [pgs~="form-requiredHere"],
-    &:not(:has([pgs~="form-requiredHere"])) {
+    :where([pgs~="form-requiredHere"]),
+    &:not(:has(:where([pgs~="form-requiredHere"]))) {
         &::after {
             content: "*";
             color: var(--color-error);
@@ -73,7 +73,7 @@
         }
     }
 
-    [pgs~="form-requiredHere"] {
+    :where([pgs~="form-requiredHere"]) {
         &::after {
             position: relative;
         }

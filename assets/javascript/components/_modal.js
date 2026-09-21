@@ -23,7 +23,8 @@ function initializeModal(MODAL, existingDialog = null) {
     let historyTimeout = null;
 
     //== SELECTOR
-    const DOMButtonClose = "<button pgs=\"button['iconOnly' 'mini'] modal-close\" type=\"button\" tabindex=\"0\" aria-label=\"Close\"><i pgs=\"icon['icon-close']\"></i></button>";
+    //== a hand-written close button keeps the bare name; a generated one gets the underscore
+    const DOMButtonClose = "<button pgs=\"button['iconOnly' 'mini'] _modal-close\" type=\"button\" tabindex=\"0\" aria-label=\"Close\"><i pgs=\"icon['icon-close']\"></i></button>";
     const modalContentHeader = pgs(DIALOG).querySelector("modal-dialog-content-header");
 
     //== FOCUS
@@ -74,11 +75,11 @@ function initializeModal(MODAL, existingDialog = null) {
 
 
     //== BUTTON CLOSE
-    if (!pgs(DIALOG).querySelector("modal-close") && !pgs(MODAL).querySelector("modal-close")) {
+    if (!pgs(DIALOG).querySelector(["modal-close", "_modal-close"]) && !pgs(MODAL).querySelector(["modal-close", "_modal-close"])) {
         if (modalContentHeader) modalContentHeader.insertAdjacentHTML("beforeend", DOMButtonClose);
         else DIALOG.insertAdjacentHTML("beforeend", DOMButtonClose);
     }
-    const BUTTON_CLOSE = pgs(DIALOG).querySelector("modal-close") || pgs(MODAL).querySelector("modal-close");
+    const BUTTON_CLOSE = pgs(DIALOG).querySelector(["modal-close", "_modal-close"]) || pgs(MODAL).querySelector(["modal-close", "_modal-close"]);
 
 
     //== SET

@@ -14,7 +14,7 @@ Notification markup, configuration, behavior, and usage example. A persistent, m
 
 - `_notificationsDialog`: identifies the dialog generated to hold the notification panel.
 - `_notifications`: the scrollable list of notifications, created inside the generated dialog together with it.
-- `_notifications-close`: the button generated at the top of that list, above the first notification, which closes the panel; its label is the internal panelCloseTitle default.
+- `_notifications-close`: the button generated at the top of that list, above the first notification, which closes the panel; its label is the internal panelCloseTitle default. It also carries _modal-close, Modal's own generated form of the close control it hands off to.
 - `_notifications-element`: identifies a single notification inside the panel.
 - `_notifications-element-content`: contains the icon, the title and description, and the dismiss button.
 - `_notifications-element-content-icon`: contains the icon displayed to the left of the text.
@@ -54,7 +54,7 @@ Notification markup, configuration, behavior, and usage example. A persistent, m
 - `button`: uses the related button component or utility in this example.
 - `modal`: wraps notificationBell; pgs.notification generates the dialog inside it and provides open/close/toggle behavior shared with every other dialog on the page.
 - `modal-button`: identifies notificationBell as the control that opens the dialog.
-- `modal-close`: marks the generated _notifications-close button as the control that closes the dialog; notificationBell carries it too, and keeps toggling the panel through modal-button.
+- `modal-close`: written by hand on notificationBell in the example below, so opening it toggles the panel through modal-button instead of just adding another close control.
 - `icon`: draws the glyph that marks the notification type; see Icon for the whole set.
 
 ### PGS Options (component brackets)

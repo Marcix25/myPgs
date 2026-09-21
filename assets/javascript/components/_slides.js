@@ -36,19 +36,21 @@ class PGS_Slides {
         const EL = this.element;
 
         //== PULSANTI
-        if (!pgs(EL).querySelector('slides-prec')) {
-            EL.insertAdjacentHTML("afterbegin", `<button pgs="slides-prec button['iconOnly' 'mini']" type="button" class="precButton" aria-label="Previous slide"> <i pgs="icon['icon-chevronDown'] rotate['90']"></i></button>`);
+        //== a hand-written button keeps the bare name; a generated one gets the underscore, so
+        //== the check below has to look for either
+        if (!pgs(EL).querySelector(['slides-prec', '_slides-prec'])) {
+            EL.insertAdjacentHTML("afterbegin", `<button pgs="_slides-prec button['iconOnly' 'mini']" type="button" class="precButton" aria-label="Previous slide"> <i pgs="icon['icon-chevronDown'] rotate['90']"></i></button>`);
         }
-        if (!pgs(EL).querySelector('slides-next')) {
-            EL.insertAdjacentHTML("beforeend", `<button pgs="slides-next button['iconOnly' 'mini']" type="button" class="nextButton" aria-label="Next slide"> <i pgs="icon['icon-chevronDown'] rotate['270']"></i></button>`);
+        if (!pgs(EL).querySelector(['slides-next', '_slides-next'])) {
+            EL.insertAdjacentHTML("beforeend", `<button pgs="_slides-next button['iconOnly' 'mini']" type="button" class="nextButton" aria-label="Next slide"> <i pgs="icon['icon-chevronDown'] rotate['270']"></i></button>`);
         }
 
         //== DOTS
-        if (!pgs(EL).querySelector('slides-dots')) {
-            EL.insertAdjacentHTML("beforeend", `<div pgs="slides-dots"></div>`);
+        if (!pgs(EL).querySelector(['slides-dots', '_slides-dots'])) {
+            EL.insertAdjacentHTML("beforeend", `<div pgs="_slides-dots"></div>`);
         }
 
-        const dotsContainer = pgs(EL).querySelector('slides-dots');
+        const dotsContainer = pgs(EL).querySelector(['slides-dots', '_slides-dots']);
         while (dotsContainer.children.length < this.container.children.length) {
             dotsContainer.insertAdjacentHTML("beforeend", `<button pgs="_slides-dots-dot" type="button"></button>`);
         }
@@ -197,9 +199,9 @@ class PGS_Slides {
 
         //== elements
         this.#createButtonsAndDots();
-        const precButton = pgs(slides).querySelector('slides-prec');
-        const nextButton = pgs(slides).querySelector('slides-next');
-        const dots = Array.from(pgs(slides).querySelector('slides-dots').children);
+        const precButton = pgs(slides).querySelector(['slides-prec', '_slides-prec']);
+        const nextButton = pgs(slides).querySelector(['slides-next', '_slides-next']);
+        const dots = Array.from(pgs(slides).querySelector(['slides-dots', '_slides-dots']).children);
 
         //== option
         const scrollMouse = pgs(slides).option.contains('scrollMouse');

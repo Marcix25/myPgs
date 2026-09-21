@@ -312,7 +312,7 @@ const fn_notification = {
             const closeButton = document.createElement("button");
             closeButton.type = "button";
             closeButton.textContent = this._defaults.panelCloseTitle;
-            pgs(closeButton).add("button['mini']", "modal-close", "_notifications-close");
+            pgs(closeButton).add("button['mini']", "_modal-close", "_notifications-close");
             content.appendChild(closeButton);
 
             dialog.appendChild(content);

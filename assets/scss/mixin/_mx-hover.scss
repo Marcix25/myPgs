@@ -38,7 +38,7 @@
                 background-color var(--hover-timing) var(--hover-behavior);
 
             :is(h1, h2, h3, h4, h5, h6, p, a),
-            [pgs~="hover-text"] {
+            :where([pgs~="hover-text"]) {
                 transition:
                     color var(--hover-timing) var(--hover-behavior);
             }
@@ -57,7 +57,7 @@
                         background-color var(--hover-timing) var(--hover-behavior) $delay;
 
                     :is(h1, h2, h3, h4, h5, h6, p, a),
-                    [pgs~="hover-text"] {
+                    :where([pgs~="hover-text"]) {
                         color: var(--hover-color);
                     }
                 }

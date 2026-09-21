@@ -1,8 +1,8 @@
 @use "../mixin/mixin" as *;
 
 [pgs~="stepTabs"] {
-    [pgs~="stepTabs-container"] {
-        [pgs~="stepTabs-container-tab"] {
+    :where([pgs~="stepTabs-container"]) {
+        :where([pgs~="stepTabs-container-tab"]) {
             //option for suggestions
             &[pgs-data~="stepTabsIcon[]"] {}
 
@@ -14,16 +14,16 @@
         }
     }
 
-    [pgs~="stepTabs-next"] {
+    :where([pgs~="stepTabs-next"]) {
         --button-background: var(--color-primary);
         --button-color: var(--color-whiteFixed);
     }
 
     //read by the JavaScript only, declared here so editors suggest it: styling comes from the button component
-    [pgs~="stepTabs-prev"],
-    [pgs~="stepTabs-restart"] {}
+    :where([pgs~="stepTabs-prev"]),
+    :where([pgs~="stepTabs-restart"]) {}
 
-    [pgs~="stepTabs-dots"] {
+    :where([pgs~="stepTabs-dots"]) {
         display: flex;
         gap: var(--gap-texts);
         justify-content: space-between;
@@ -42,7 +42,7 @@
             z-index: -1;
         }
 
-        [pgs~="_stepTabs-dots-dot"] {
+        :where([pgs~="_stepTabs-dots-dot"]) {
             border-radius: 50%;
             --icon-size: 1.8rem;
 

@@ -7,12 +7,15 @@
  * - slides: identifies the root the module initializes, and the element the instance is stored against.
  * - slides-container: the scrolling track, the element that carries the scroll snapping and the one the arrows move. Its measured height is published on the root as --slides-height and kept in step with it, so a rule can sit something against the slides themselves rather than against the whole component; it is what puts the arrows at the middle of the slides, whatever else the root holds. Read it with a fallback, var(--slides-height, 100%), for the frame before the first measurement.
  * - slides-container-slide: identifies each direct slide item.
+ * - slides-prec: write one yourself, bare like this, to place the previous-slide button elsewhere; the module leaves it alone and never generates a second one.
+ * - slides-next: the same, for the next-slide button.
+ * - slides-dots: the same, for the row of position dots.
  *
  * @pgs-generated
- * - slides-prec: the button that scrolls to the previous slide, appended at the end of the component; write your own to place it elsewhere and it is left alone.
- * - slides-next: the button that scrolls to the next slide, appended at the end of the component; write your own to place it elsewhere and it is left alone.
- * - slides-dots: the row of position dots, one per slide, appended at the end of the component; write your own to place it elsewhere and it is left alone.
- * - _slides-dots-dot: one dot inside that row, built and kept in step with the number of slides. It is written on every child of the row, so a row placed by hand holds the same dots.
+ * - _slides-prec: appended at the end of the component when no slides-prec was written by hand.
+ * - _slides-next: appended at the end of the component when no slides-next was written by hand.
+ * - _slides-dots: appended at the end of the component when no slides-dots was written by hand.
+ * - _slides-dots-dot: one dot inside the dots row, built and kept in step with the number of slides. It is written on every child of the row, so a row placed by hand holds the same dots.
  *
  * @pgs-options
  * - shadowDesktop: fades the slides out at the edges from the tablet width up, only on the side that still has slides to reach.

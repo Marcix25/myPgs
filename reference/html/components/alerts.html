@@ -5,10 +5,15 @@
  *
  * @pgs
  * - alertContainer: identifies a target that can receive alerts created through JavaScript.
- * - alert: identifies the inline alert container.
- * - alert-icon: identifies the decorative status icon.
- * - alert-content: groups the title and descriptive message.
- * - alert-content-title: identifies the alert heading.
+ * - alert: identifies the inline alert container, written by hand like this or returned by the JS API.
+ * - alert-icon: write it yourself, bare like this, when authoring the alert directly in markup; identifies the decorative status icon.
+ * - alert-content: the same, for the element grouping the title and descriptive message.
+ * - alert-content-title: the same, for the alert heading.
+ *
+ * @pgs-generated
+ * - _alert-icon: the icon, built with this token instead when the alert is created through the JS API.
+ * - _alert-content: the same, for the content wrapper.
+ * - _alert-content-title: the same, for the heading.
  *
  * @pgs-state
  * - info: presents neutral informational feedback.

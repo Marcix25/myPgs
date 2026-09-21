@@ -77,8 +77,10 @@ const fn_toast = {
         `;
     },
 
+    //== a hand-written container keeps the bare name; a generated one gets the underscore, so
+    //== this needs both
     _getContainer() {
-        return pgs(document).querySelector("toast");
+        return pgs(document).querySelector(["toast", "_toast"]);
     },
 
     _getOrCreateContainer() {
@@ -86,7 +88,7 @@ const fn_toast = {
 
         if (!containerToast) {
             containerToast = document.createElement("div");
-            pgs(containerToast).add("toast");
+            pgs(containerToast).add("_toast");
             containerToast.setAttribute("aria-live", "polite");
             containerToast.setAttribute("aria-relevant", "additions");
             document.body.appendChild(containerToast);

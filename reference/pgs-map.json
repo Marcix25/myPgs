@@ -59,6 +59,12 @@
         "pgs-options": [],
         "pgs-data": []
     },
+    "_toast": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
     "accordion": {
         "pgs": [
             "accordion-button",
@@ -86,7 +92,11 @@
             "alert-content-title",
             "alert-icon"
         ],
-        "pgs-generated": [],
+        "pgs-generated": [
+            "_alert-content",
+            "_alert-content-title",
+            "_alert-icon"
+        ],
         "pgs-options": [],
         "pgs-data": []
     },
@@ -1393,6 +1403,7 @@
             "modal-dialog-content-scroll"
         ],
         "pgs-generated": [
+            "_modal-close",
             "modal-dialog"
         ],
         "pgs-options": [
@@ -1750,13 +1761,16 @@
         "pgs": [
             "slides-container",
             "slides-container-slide",
-            "slides-dots-dot"
-        ],
-        "pgs-generated": [
-            "_slides-dots-dot",
             "slides-dots",
+            "slides-dots-dot",
             "slides-next",
             "slides-prec"
+        ],
+        "pgs-generated": [
+            "_slides-dots",
+            "_slides-dots-dot",
+            "_slides-next",
+            "_slides-prec"
         ],
         "pgs-options": [
             "animationScale",
@@ -1773,10 +1787,12 @@
         "pgs": [
             "steps-step",
             "steps-step-circle",
-            "steps-step-content"
+            "steps-step-content",
+            "steps-step-line"
         ],
         "pgs-generated": [
-            "steps-step-line"
+            "_steps-step-circle",
+            "_steps-step-line"
         ],
         "pgs-options": [],
         "pgs-data": []
@@ -1857,7 +1873,9 @@
             "_toast-element-content-icon"
         ],
         "pgs-options": [],
-        "pgs-data": []
+        "pgs-data": [
+            "toast"
+        ]
     },
     "toastExe": {
         "pgs": [],

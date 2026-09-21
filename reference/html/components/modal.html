@@ -9,11 +9,12 @@
  * - modal-dialog-content: the panel drawn inside the dialog, and the element every position and width option sizes.
  * - modal-dialog-content-header: the fixed heading area at the top of the panel; it is also what takes focus when the dialog opens.
  * - modal-dialog-content-scroll: the part of the panel that scrolls, leaving the header and anything beside it still.
- * - modal-close: closes the dialog. Write it anywhere inside the wrapper or the dialog to place it yourself; leave it out and the module generates one.
+ * - modal-close: write one yourself, bare like this, anywhere inside the wrapper or the dialog to place the close button yourself; the module leaves it alone and never generates a second one.
  *
  * @pgs-generated
  * - modal-dialog: added to the dialog element on initialization, which is why the example writes a bare dialog tag.
  * - _dialog: added alongside modal-dialog to carry whichever options were authored on the wrapper; never write it by hand.
+ * - _modal-close: appended to the content header, or to the dialog itself when there is no header, when no modal-close was written by hand.
  *
  * @pgs-options
  * - dialogBottom: aligns the dialog content to the bottom of the viewport.

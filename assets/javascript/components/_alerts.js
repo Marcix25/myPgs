@@ -67,10 +67,12 @@ const fn_alert = {
         pgs(alert).add("alert");
         pgs(alert).state.add(type);
         alert.setAttribute("role", type === "error" || type === "warning" ? "alert" : "status");
+        //== generated from scratch, so every child token here gets the underscore; the same
+        //== markup written by hand in the page instead keeps the bare names (see alerts.html)
         alert.innerHTML = `
-            <div pgs="alert-icon" aria-hidden="true">${config.icon}</div>
-            <div pgs="alert-content">
-                <strong pgs="alert-content-title">${title}</strong>
+            <div pgs="_alert-icon" aria-hidden="true">${config.icon}</div>
+            <div pgs="_alert-content">
+                <strong pgs="_alert-content-title">${title}</strong>
                 ${description ? `<p>${description}</p>` : ""}
             </div>
         `;

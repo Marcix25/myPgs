@@ -10,14 +10,14 @@
     gap: var(--gap-texts);
     isolation: isolate;
 
-    [pgs~="summary-content"] {
+    :where([pgs~="summary-content"]) {
         max-height: var(--summary-content-max-height, none);
         overflow: hidden;
         transition: max-height 300ms ease;
     }
 
     &[pgs-state~="overflow"]:not([pgs-state~="open"]) {
-        [pgs~="summary-content"] {
+        :where([pgs~="summary-content"]) {
             position: relative;
 
             &::after {
@@ -31,13 +31,13 @@
         }
     }
 
-    &:has([pgs~="summary-button"][hidden]) {
-        [pgs~="summary-content"]{
+    &:has(:where([pgs~="summary-button"])[hidden]) {
+        :where([pgs~="summary-content"]){
             max-height: unset;
         }
     }
 
-    [pgs~="summary-button"] {
+    :where([pgs~="summary-button"]) {
         padding: 5px;
         cursor: pointer;
         background-color: transparent;

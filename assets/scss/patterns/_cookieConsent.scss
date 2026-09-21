@@ -43,14 +43,14 @@
         text-wrap: nowrap;
 
         //== as narrow as its content allows
-        &[pgs~="_cookieConsent-actionReject"] {
+        &:where([pgs~="_cookieConsent-actionReject"]) {
             flex-grow: 0;
             flex-shrink: 0;
             flex-basis: auto;
         }
 
         //== takes all the space Reject leaves behind
-        &[pgs~="_cookieConsent-actionAccept"] {
+        &:where([pgs~="_cookieConsent-actionAccept"]) {
             flex-grow: 1;
             flex-shrink: 1;
             flex-basis: 0;
@@ -60,8 +60,8 @@
     @container (max-width: #{$mobile}) {
 
         //== same specificity as the Reject/Accept rules above, so this actually wins
-        button[pgs~="_cookieConsent-actionReject"],
-        button[pgs~="_cookieConsent-actionAccept"] {
+        button:where([pgs~="_cookieConsent-actionReject"]),
+        button:where([pgs~="_cookieConsent-actionAccept"]) {
             flex-basis: 100%;
             flex-grow: 1;
         }
@@ -74,15 +74,16 @@
         align-items: center;
     }
 
-    [pgs~="modal-close"] {
+    [pgs~="modal-close"],
+    [pgs~="_modal-close"] {
         display: none;
     }
 
-    [pgs~="_cookieConsent-header"] {
+    :where([pgs~="_cookieConsent-header"]) {
         --icon-size: 2.5rem;
     }
 
-    [pgs~="_cookieConsent-panel"] {
+    :where([pgs~="_cookieConsent-panel"]) {
         border: var(--border-complete);
         border-radius: calc(var(--modal-borderRadius) - var(--gap-texts));
         background-color: var(--color-white);
@@ -91,7 +92,7 @@
         margin: calc(var(--padding) * -1);
         margin-top: var(--padding);
 
-        [pgs~="_cookieConsent-panel-badge"] {
+        :where([pgs~="_cookieConsent-panel-badge"]) {
             font-size: 1.35rem;
             overflow-wrap: normal;
             width: max-content;
@@ -100,11 +101,11 @@
         }
     }
 
-    [pgs~="_cookieConsent-panel-featureAnalytics"] label {
+    :where([pgs~="_cookieConsent-panel-featureAnalytics"]) label {
         width: 100%;
     }
 
-    &[pgs~="cookieConsent-gaUnavailable"] [pgs~="_cookieConsent-panel-featureAnalytics"] label {
+    &:where([pgs~="cookieConsent-gaUnavailable"]) :where([pgs~="_cookieConsent-panel-featureAnalytics"]) label {
         opacity: 0.5;
         cursor: not-allowed;
     }

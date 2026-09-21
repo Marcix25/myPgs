@@ -6,9 +6,10 @@
  * @pgs
  * - toastLoad: creates one toast from a JSON object on page load; see @pgs-data "toast" for every accepted field.
  * - toastExe: creates one toast from a JSON object each time the element is clicked; same fields as toastLoad.
+ * - toast: write it yourself, bare like this, to place the container elsewhere; the module leaves it alone and never generates a second one. Leave it empty, because its content is replaced at every toast.
  *
  * @pgs-generated
- * - toast: the container the toasts are shown in, created at the end of the body when the page has none; you may write it yourself to place it elsewhere, but leave it empty because its content is replaced at every toast.
+ * - _toast: the container the toasts are shown in, appended at the end of the body when no toast was written by hand.
  * - _toast-element: a single toast inside the container, replacing whatever was there before.
  * - _toast-element-content: contains the icon, title, and description.
  * - _toast-element-content-icon: contains the icon displayed to the left of the text.

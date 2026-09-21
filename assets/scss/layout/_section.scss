@@ -14,7 +14,7 @@
 }
 
 [pgs~="sectionSpecificity"] {
-    @include sectionSpecifity-child('[pgs~="sectionSpecificity-child"]');
+    @include sectionSpecifity-child(':where([pgs~="sectionSpecificity-child"])');
 }
 
 [pgs~="sectionMax"] {

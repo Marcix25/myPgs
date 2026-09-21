@@ -42,13 +42,13 @@
             content: none;
         }
 
-        [pgs~="accordion-button"] {
+        :where([pgs~="accordion-button"]) {
             font-weight: var(--font-weight-title);
         }
     }
 
     //== BUTTON
-    [pgs~="accordion-button"] {
+    :where([pgs~="accordion-button"]) {
         cursor: pointer;
         @include row;
         appearance: none;
@@ -72,7 +72,7 @@
     }
 
     //== CONTENT
-    [pgs~="accordion-content"] {
+    :where([pgs~="accordion-content"]) {
         @include column();
         visibility: hidden;
         opacity: 0;
@@ -100,13 +100,13 @@
         display: flex;
         gap: var(--gap-texts);
 
-        [pgs~="accordion-button"] {
+        :where([pgs~="accordion-button"]) {
             &::after {
                 rotate: 180deg;
             }
         }
 
-        [pgs~="accordion-content"] {
+        :where([pgs~="accordion-content"]) {
             visibility: visible;
             opacity: 1;
             max-height: unset;
