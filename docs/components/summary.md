@@ -45,18 +45,7 @@ Complete HTML markup and usage example for Summary.
 ```html
 <div pgs="summary" pgs-data="showMore[Show more] showLess[Show less]">
     <div pgs="summary-content">
-        <p>
-            This demonstration text is long enough to span multiple lines and show the summary component behavior. Content can include text, links, and other inline elements without requiring additional markup.
-        </p>
-        <p>
-            When content exceeds three lines, a button is shown to expand or collapse the visible area.
-        </p>
-        <p>
-            This demonstration text is long enough to span multiple lines and show the summary component behavior. Content can include text, links, and other inline elements without requiring additional markup.
-        </p>
-        <p>
-            When content exceeds three lines, a button is shown to expand or collapse the visible area.
-        </p>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Totam eligendi incidunt veritatis reprehenderit saepe, doloribus dolore sapiente quod animi tempora provident omnis placeat enim temporibus! Quae nam quas voluptatem quos in exercitationem minima modi optio, voluptates praesentium voluptas incidunt neque animi voluptatibus? Magni voluptatem blanditiis vitae fuga nihil assumenda ab, quaerat asperiores. Quaerat magni, unde blanditiis facere autem praesentium impedit porro laudantium ut cupiditate sed culpa beatae tempora voluptatum quasi molestias molestiae aliquid nesciunt illum non distinctio corporis. Aliquid aperiam dolore alias unde, reiciendis fuga id numquam temporibus facere eius quasi, consectetur perspiciatis sint distinctio culpa nulla animi obcaecati beatae, harum delectus hic! Et, maiores. Et, veritatis saepe cumque vel, in pariatur distinctio aspernatur quasi dolores officia odit possimus adipisci ad assumenda architecto voluptates impedit autem, facilis est magnam. Voluptatibus veritatis vel cupiditate nesciunt molestiae corrupti quibusdam. Eos deserunt mollitia laborum ea quidem reprehenderit illo optio. Repudiandae harum ad explicabo illo, itaque repellendus porro quidem, magnam assumenda debitis quae saepe magni aperiam sint natus reprehenderit vel recusandae amet! Ratione sint consectetur voluptatum itaque exercitationem error modi voluptas, in veritatis perspiciatis ea, qui veniam id dolorem fuga! Modi, reprehenderit vitae eius similique dolor neque delectus in assumenda blanditiis provident! Consequatur, magnam!</p>
     </div>
 
     <button pgs="summary-button" type="button">

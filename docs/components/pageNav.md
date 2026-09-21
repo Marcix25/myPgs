@@ -1,0 +1,78 @@
+<!-- Automatically generated from reference/html/components/pageNav.html. Edit reference/html/components/pageNav.html and run npm run docs:generate again. -->
+
+# Page Nav
+
+Full-page panels switched by the URL hash instead of an index, so the current one survives a reload or a shared link with no extra bookkeeping. A panel is addressed by its own id, matched against the fragment of whichever pageNav-list-item link points at it: write as many pageNav-list navs as the layout needs — a sidebar and a copy inside a mobile dialog, say — and every one of them stays in sync, since matching goes by id rather than by counting positions in a single list. Clicking a link is a native hash navigation the browser already handles; the module only reacts to it (and to a direct back/forward move) to hide every panel but the one now named by the hash. A link inside an open dialog closes it on selection. Every selection dispatches pgs:pageNav:change on the pageNav root, with detail { panel, items }, and the event does not bubble, so the listener goes on the root itself.
+
+## PGS
+
+- `pageNav`: identifies the root initialized by the module; usually the page's own <body>, since the panels it switches are whole pages, not a fragment of one.
+- `pageNav-list`: identifies one navigation list of links; write as many as the layout needs, they all stay in sync.
+- `pageNav-list-item`: identifies a link, whose href="#id" names the panel it selects.
+- `pageNav-panels`: identifies the wrapper around every panel.
+- `pageNav-panels-content`: identifies one panel, addressed by its own id. Hidden by default, with no [hidden] to write by hand — give its own content's layout to an inner wrapper, not to this element.
+
+## PGS States
+
+- `active`: not written by this module; a link's own selected state is aria-current="page", read directly rather than duplicated into pgs-state.
+
+## JavaScript API
+
+- `pgs.pageNav.init(root)`: initializes pageNav inside the specified Document or Element, including the root when it is pageNav.
+- `pgs.pageNav.api(element)`: returns the instance associated with an initialized pageNav root.
+- `instance.select(id)`: navigates to the panel with that id, the same as following a link to #id.
+- `instance.getCurrent()`: returns the currently visible panel element.
+- `instance.refresh()`: re-initializes the root and returns the new instance.
+
+## Related elements
+
+### Other
+
+- `flex`: provides the layout for the two lists and the panels in this example.
+- `row`: lets the two lists lay their links out horizontally.
+- `card`: provides the outer surface for this example.
+- `card-content`: provides the spacing wrapper around the lists and panels.
+- `button`: supplies the base style for each link.
+- `mini`: makes each link compact.
+- `text`: gives the second list's links a plainer, text-only appearance, to tell the two lists apart in the example.
+
+## Output
+
+Two synchronized link lists above a bordered panel, the visible one always matching the URL hash.
+## Examples
+
+### Page Nav
+
+Two independent lists of links, kept in sync, switching the same set of full panels by hash. Only one pageNav can exist on a page — usually pgs=&quot;pageNav&quot; on the body itself — so this is markup to copy and adapt, not a live preview to click through.
+
+```html
+<div pgs="pageNav">
+    <div pgs="pageNav-list" aria-label="Sections">
+        <a href="#pageNav-html" pgs="pageNav-list-item">HTML</a>
+        <a href="#pageNav-react" pgs="pageNav-list-item">React</a>
+        <a href="#pageNav-vue" pgs="pageNav-list-item">Vue</a>
+    </div>
+
+    <!-- a second, independent list of links to the same panels, kept in sync automatically -->
+    <div pgs="pageNav-list" aria-label="Sections (copy)">
+        <a href="#pageNav-html" pgs="pageNav-list-item">HTML</a>
+        <a href="#pageNav-react" pgs="pageNav-list-item">React</a>
+        <a href="#pageNav-vue" pgs="pageNav-list-item">Vue</a>
+    </div>
+
+    <div pgs="pageNav-panels">
+        <section id="pageNav-html" pgs="pageNav-panels-content">
+            <h3>HTML</h3>
+            <p>Semantic markup ready to copy into a page.</p>
+        </section>
+        <section id="pageNav-react" pgs="pageNav-panels-content">
+            <h3>React</h3>
+            <p>The same structure written in JSX with pgs attributes.</p>
+        </section>
+        <section id="pageNav-vue" pgs="pageNav-panels-content">
+            <h3>Vue</h3>
+            <p>Component markup ready for a Vue template.</p>
+        </section>
+    </div>
+</div>
+```

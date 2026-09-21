@@ -8,6 +8,7 @@ import { PGS_alert } from "./components/_alerts.js";
 import { PGS_dropdown } from "./components/_dropdown.js";
 import { PGS_menu } from "./components/_menu.js";
 import { PGS_modal } from "./components/_modal.js";
+import { PGS_pageNav } from "./components/_pageNav.js";
 import { PGS_notification } from "./components/_notification.js";
 import { PGS_toast } from "./components/_toast.js";
 import { PGS_search } from "./components/_search.js";
@@ -32,6 +33,7 @@ pgs.registerModules({
     dropdown: PGS_dropdown,
     menu: PGS_menu,
     modal: PGS_modal,
+    pageNav: PGS_pageNav,
     header: PGS_header,
     cookieConsent: PGS_cookieConsent,
     notification: PGS_notification,

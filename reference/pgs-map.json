@@ -1632,6 +1632,17 @@
         ],
         "pgs-data": []
     },
+    "pageNav": {
+        "pgs": [
+            "pageNav-list",
+            "pageNav-list-item",
+            "pageNav-panels",
+            "pageNav-panels-content"
+        ],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
     "pageShell": {
         "pgs": [
             "pageShell-aside",

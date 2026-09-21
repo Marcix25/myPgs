@@ -26,12 +26,6 @@ body {
     }
 }
 
-/* [pgs~="..."] utility rules set display:flex/grid, which otherwise beats the native [hidden] rule at equal specificity */
-#reference-demo-main [data-panel][hidden] {
-    display: none;
-}
-
-
 /* //= CODE EXAMPLE */
 .exampleSource {
     position: relative;

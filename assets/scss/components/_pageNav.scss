@@ -1,0 +1,24 @@
+//# PAGE NAV
+// Full-page panels switched by URL hash instead of index, addressed by native <a href="#id">
+// links kept in sync across as many pageNav-list navs as the markup holds (a desktop sidebar and
+// a mobile one inside a dialog, for example).
+[pgs~="pageNav"] {
+    :where([pgs~="pageNav-list"]) {
+        :where([pgs~="pageNav-list-item"]) {}
+    }
+
+    //== hidden by default, with no need to write [hidden] by hand: the module writes it on every
+    //== panel but the current one during init, so this only ever has to cover the frame before
+    //== that first pass runs. Shown is a plain block — give the panel's own content its layout on
+    //== an inner wrapper, not on this element, so nothing here fights a combined utility over
+    //== `display`
+    :where([pgs~="pageNav-panels"]) {
+        :where([pgs~="pageNav-panels-content"]) {
+            display: none;
+
+            &:not([hidden]) {
+                display: block;
+            }
+        }
+    }
+}

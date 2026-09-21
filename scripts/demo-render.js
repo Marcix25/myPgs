@@ -57,6 +57,7 @@ const referenceFiles = [
     "components/menu.html",
     "components/tooltip.html",
     "components/modal.html",
+    "components/pageNav.html",
     "components/stepTabs.html",
     "components/tabs.html",
     "components/accordion.html",
@@ -105,6 +106,7 @@ const ENTRY_ICONS = {
     "components/menu.html": "fa-bars",
     "components/tooltip.html": "fa-comment",
     "components/modal.html": "fa-window-restore",
+    "components/pageNav.html": "fa-map-signs",
     "components/stepTabs.html": "fa-shoe-prints",
     "components/tabs.html": "fa-window-maximize",
     "components/accordion.html": "fa-layer-group",
@@ -577,10 +579,10 @@ function renderExamplePairsHtml(exampleMarkup) {
 function renderNavMenuHtml(items, category) {
     const rows = items.map(({ path }) => {
         const icon = ENTRY_ICONS[path] || DEFAULT_ENTRY_ICON;
-        return `<li><a href="#${escapeHtml(getSlug(path))}" data-panel-link="${escapeHtml(path)}" pgs="button['text' 'paddingEqual']">` +
+        return `<li><a href="#${escapeHtml(getSlug(path))}" pgs="pageNav-list-item button['text' 'paddingEqual']">` +
             `<i class="fa-solid ${icon}" aria-hidden="true"></i><span>${escapeHtml(getEntryLabel(path))}</span></a></li>`;
     }).join("");
-    return `<nav pgs="menu['vertical']" aria-label="Menu ${escapeHtml(category || "")}"><ul pgs="borderLeft ">${rows}</ul></nav>`;
+    return `<nav pgs="pageNav-list menu['vertical']" aria-label="Menu ${escapeHtml(category || "")}"><ul pgs="borderLeft ">${rows}</ul></nav>`;
 }
 
 function renderNavHtml(entries, withHeadingIds = true) {
@@ -640,7 +642,9 @@ function renderReferencePanelHtml(path, rawFileText, cssText) {
     const sectionTag = isSection ? "section" : "div";
     const sectionExtraAttrs = isSection ? ` pgs="flex['column' 'gapElements']"` : ` style="display:contents"`;
     const section = `<${sectionTag} class="demoContent" data-reference="${escapeHtml(path)}"${sectionExtraAttrs}>${bodyHtml}</${sectionTag}>`;
-    const panel = `<div data-panel="${escapeHtml(path)}" hidden pgs="flex['column' 'gapElements']">${section}</div>`;
+    //== no flex utility here: the section above already lays out its own content, and
+    //== pageNav-panels-content's own display is fully owned by _pageNav.scss (see there for why)
+    const panel = `<div id="${escapeHtml(getSlug(path))}" pgs="pageNav-panels-content">${section}</div>`;
 
     return { title, panelHtml: panel };
 }

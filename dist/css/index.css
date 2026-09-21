@@ -5693,6 +5693,14 @@ html:has(dialog[open]) {
   align-items: safe flex-end;
 }
 
+[pgs~=pageNav] :where([pgs~=pageNav-panels]) :where([pgs~=pageNav-panels-content]) {
+  display: none;
+}
+
+[pgs~=pageNav] :where([pgs~=pageNav-panels]) :where([pgs~=pageNav-panels-content]):not([hidden]) {
+  display: block;
+}
+
 @property --slides-maskStart {
   syntax: "<length>";
   inherits: false;

@@ -1,47 +1,13 @@
 //# DEMO (browser-only runtime, shared by every generated site/*.html page)
 //+ Every page built by scripts/build-site-static.js loads this file — nothing here fetches or
 //+ parses a reference file, whatever it runs against. It wires up the parts that must run in a
-//+ real browser: the actual pgs component library (notification, modal, accordion, ...), nav
-//+ click / hash navigation, and the "copy to clipboard" buttons. Most of that only matters on the
-//+ page that actually carries the reference panels — currently site/page/demo.html, parked there
-//+ and not yet promoted to a top-level page — and no-ops harmlessly on any other. The configure*Demo
-//+ functions only ever look for [data-reference="..."] in the page, so a new interactive example is
-//+ wired up here and nowhere else.
-
-//= NAVIGATION (built from the [data-panel] / [data-panel-link] elements already in the page, when
-//= it has any: they are all baked in by the build, so there is nothing to fetch)
-function setupStaticNavigation() {
-    const NAVS = Array.from(document.querySelectorAll(".reference-demo-nav"));
-    const MAIN = document.getElementById("reference-demo-main");
-    if (!MAIN) return;
-
-    const paths = Array.from(MAIN.querySelectorAll("[data-panel]")).map(panel => panel.dataset.panel);
-
-    const activate = (path, resetScroll = true) => {
-        const panel = MAIN.querySelector(`[data-panel="${CSS.escape(path)}"]`);
-        if (!panel) return;
-
-        MAIN.querySelectorAll("[data-panel]").forEach(el => { el.hidden = el !== panel; });
-        NAVS.forEach(nav => nav.querySelectorAll("a[data-panel-link]").forEach(link => {
-            if (link.dataset.panelLink === path) link.setAttribute("aria-current", "page");
-            else link.removeAttribute("aria-current");
-        }));
-
-        NAVS.forEach(nav => nav.closest("dialog[open]")?.close());
-
-        if (resetScroll) window.scrollTo({ top: 0, behavior: "instant" });
-    };
-
-    const getSlug = path => path.replace(/\.html$/, "").replace(/\//g, "-");
-
-    window.addEventListener("hashchange", () => {
-        const path = paths.find(item => getSlug(item) === location.hash.slice(1));
-        if (path) activate(path);
-    });
-
-    const initialPath = paths.find(item => getSlug(item) === location.hash.slice(1)) || paths[0];
-    if (initialPath) activate(initialPath, false);
-}
+//+ real browser: the actual pgs component library (notification, modal, accordion, ...), and the
+//+ "copy to clipboard" buttons. Nav click / hash navigation between reference panels is pgs.pageNav's
+//+ own job now (pgs="pageNav" on <body>, see site.structure.html + demo.structure.html), not this
+//+ file's. Most of what is left here only matters on the page that actually carries the reference
+//+ panels — currently site/page/demo.html, parked there and not yet promoted to a top-level page —
+//+ and no-ops harmlessly on any other. The configure*Demo functions only ever look for
+//+ [data-reference="..."] in the page, so a new interactive example is wired up here and nowhere else.
 
 //+ the pre-navigator.clipboard way of copying: put the text in a field, select it, let the browser
 //+ copy the selection. setSelectionRange as well as select(), because iOS Safari ignores the latter
@@ -308,7 +274,6 @@ function configureFormValidateHelperDemo() {
 }
 
 function boot() {
-    setupStaticNavigation();
     setupCopyButtons();
 
     try {
