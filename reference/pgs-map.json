@@ -102,27 +102,6 @@
         "pgs-options": [],
         "pgs-data": []
     },
-    "aspectSquare": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [
-            "0",
-            "180",
-            "270",
-            "90",
-            "auto",
-            "hidden",
-            "x",
-            "y"
-        ],
-        "pgs-data": []
-    },
-    "aspectVideo": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
     "badge": {
         "pgs": [],
         "pgs-generated": [],
@@ -399,7 +378,23 @@
     "block": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "0",
+            "180",
+            "270",
+            "90",
+            "absolute",
+            "auto",
+            "hidden",
+            "none",
+            "relative",
+            "square",
+            "sticky",
+            "text",
+            "video",
+            "x",
+            "y"
+        ],
         "pgs-data": []
     },
     "blur": {
@@ -530,7 +525,10 @@
     "boxShadow": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "contain",
+            "cover"
+        ],
         "pgs-data": []
     },
     "brBlack": {
@@ -796,6 +794,7 @@
             "gapNone",
             "gapSections",
             "gapTexts",
+            "hidden",
             "inlineFlex",
             "itemBaseline",
             "itemCenter",
@@ -925,6 +924,7 @@
             "gapNone",
             "gapSections",
             "gapTexts",
+            "hidden",
             "inlineFlex",
             "itemBaseline",
             "itemCenter",
@@ -1186,18 +1186,6 @@
         "pgs-data": []
     },
     "iconColorSecondary": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "imgContain": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "imgCover": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [],
@@ -1542,17 +1530,6 @@
         ],
         "pgs-data": []
     },
-    "overflow": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [
-            "auto",
-            "hidden",
-            "x",
-            "y"
-        ],
-        "pgs-data": []
-    },
     "padding": {
         "pgs": [],
         "pgs-generated": [],
@@ -1663,36 +1640,6 @@
         "pgs-options": [],
         "pgs-data": []
     },
-    "pointerEventsAuto": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "pointerEventsNone": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "positionAbsolute": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "positionRelative": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "positionSticky": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
     "radio": {
         "pgs": [],
         "pgs-generated": [],
@@ -1788,18 +1735,6 @@
         "pgs-data": []
     },
     "select": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "selectNone": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "selectText": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [],

@@ -27,7 +27,8 @@
  * - gapSections: applies section spacing to the outer collection.
  * - gapElements: applies element spacing inside each section.
  * - card-img: reuses card image treatment in the demonstration sections.
- * - imgCover: scales images to the section width.
+ * - img: scales images to the section width.
+ * - cover: inside img's own bracket, crops the image to fill its box.
  * - hide: hides its element while carrying a breakpoint option in its bracket; see Breakpoints for the whole family.
  * - containerDownTablet: inside hide's own bracket, hides its element while the surrounding container is at most 800px wide.
  * - box: makes the container example visible as a surface.
@@ -62,7 +63,7 @@
     <section demo="component">
         <section pgs="sectionSpecificity flex['column' 'gapElements']">
             <div pgs="flex['column']">
-                <img pgs="card-img imgCover" src="../assets/img/placeholder.jpg" alt="Placeholder image">
+                <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="Placeholder image">
             </div>
             <div pgs="sectionSpecificity-child flex['column']">
                 <strong>Adipiscing elit sed</strong>
@@ -94,7 +95,7 @@
         <section pgs="sectionEdgeLeft">
             <div pgs="flex['row' 'gapElements']">
                 <p>Text that starts exactly where the centred page column starts, while the image beside it runs on past the column to the right.</p>
-                <img pgs="card-img imgCover" src="../assets/img/placeholder.jpg" alt="Placeholder image">
+                <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="Placeholder image">
             </div>
         </section>
     </section>
@@ -102,7 +103,7 @@
     <section demo="component">
         <section pgs="sectionEdgeRight">
             <div pgs="flex['row' 'gapElements']">
-                <img pgs="card-img imgCover" src="../assets/img/placeholder.jpg" alt="Placeholder image">
+                <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="Placeholder image">
                 <p>The mirror: the text ends where the page column ends, and the image runs on past it to the left.</p>
             </div>
         </section>
@@ -113,7 +114,7 @@
         <section pgs="sectionEdgeFlushLeft">
             <div pgs="flex['row' 'gapElements']">
                 <p>Below the page width this text is flush against the left edge of the screen, with no padding left to hold it off.</p>
-                <img pgs="card-img imgCover" src="../assets/img/placeholder.jpg" alt="Placeholder image">
+                <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="Placeholder image">
             </div>
         </section>
     </section>
@@ -121,7 +122,7 @@
     <section demo="component">
         <section pgs="sectionEdgeFlushRight">
             <div pgs="flex['row' 'gapElements']">
-                <img pgs="card-img imgCover" src="../assets/img/placeholder.jpg" alt="Placeholder image">
+                <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="Placeholder image">
                 <p>The mirror, flush against the right edge of the screen.</p>
             </div>
         </section>
@@ -141,7 +142,7 @@
     <section demo="component">
         <section pgs="sectionNoPadding flex['column' 'gapElements']">
             <div pgs="flex['column']">
-                <img pgs="card-img imgCover" src="../assets/img/placeholder.jpg" alt="Placeholder image">
+                <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="Placeholder image">
             </div>
         </section>
     </section>

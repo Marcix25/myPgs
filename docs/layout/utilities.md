@@ -6,32 +6,34 @@ Focused layout, content, interaction, accessibility, and semantic-color utilitie
 
 ## PGS
 
-- `aspectSquare`: gives an element a 1:1 aspect ratio; aspect['square'] does the same, both forms stay valid.
-- `aspectVideo`: gives an element a 16:9 aspect ratio; aspect['video'] does the same, both forms stay valid.
+- `aspect`: gives an element an aspect ratio picked by the option in its bracket; written bare it does nothing.
 - `block`: displays an element as a block.
 - `cursorNotAllowed`: shows the unavailable cursor.
 - `minWidth0`: allows flex or grid content to shrink below its intrinsic width.
 - `overflow`: adds scrolling or clips overflowing content on both axes, or on one axis only with an axis option next to the scrolling behavior in its bracket.
-- `pointerEventsAuto`: restores pointer interaction; pointerEvents['auto'] does the same, both forms stay valid.
-- `pointerEventsNone`: ignores pointer interaction; pointerEvents['none'] does the same, both forms stay valid.
-- `positionAbsolute`: positions an element absolutely; position['absolute'] does the same, both forms stay valid.
-- `positionRelative`: creates a positioning context; position['relative'] does the same, both forms stay valid.
-- `positionSticky`: keeps an element sticky when offsets are supplied by the surrounding layout; position['sticky'] does the same, both forms stay valid.
+- `pointerEvents`: sets pointer interaction to the value in its bracket; written bare it does nothing.
+- `position`: positions an element the way the option in its bracket says; written bare it does nothing.
 - `rotate`: rotates an element 180 degrees when written bare; a degree option in its bracket picks a different amount instead.
-- `selectNone`: prevents text selection; select['none'] does the same, both forms stay valid.
-- `selectText`: enables text selection; select['text'] does the same, both forms stay valid.
+- `select`: allows or prevents text selection depending on the option in its bracket; written bare it does nothing.
 - `truncate`: limits text to one line and adds an ellipsis when it overflows.
 
 ## PGS Options (component brackets)
 
-- `auto`: inside overflow's own bracket, adds scrolling only when content overflows.
+- `square`: inside aspect's own bracket, gives it a 1:1 aspect ratio.
+- `video`: inside aspect's own bracket, gives it a 16:9 aspect ratio.
+- `auto`: inside overflow's own bracket, adds scrolling only when content overflows; inside pointerEvents's own bracket, restores pointer interaction instead.
 - `hidden`: inside overflow's own bracket, clips overflowing content.
 - `x`: inside overflow's own bracket, next to auto or hidden, applies it to the horizontal axis only instead of both.
 - `y`: inside overflow's own bracket, next to auto or hidden, applies it to the vertical axis only instead of both.
+- `none`: inside pointerEvents's own bracket, ignores pointer interaction; inside select's own bracket, prevents text selection instead.
+- `relative`: inside position's own bracket, creates a positioning context.
+- `absolute`: inside position's own bracket, positions an element absolutely.
+- `sticky`: inside position's own bracket, keeps an element sticky when offsets are supplied by the surrounding layout.
 - `0`: inside rotate's own bracket, resets the rotation back to 0 degrees.
 - `90`: inside rotate's own bracket, rotates 90 degrees clockwise.
 - `180`: inside rotate's own bracket, rotates 180 degrees; this is also the default with no bracket at all.
 - `270`: inside rotate's own bracket, rotates 270 degrees clockwise (90 degrees counter-clockwise).
+- `text`: inside select's own bracket, enables text selection.
 
 ## Related elements
 
@@ -83,7 +85,7 @@ Examples of the standalone MyPGS utility API.
         <div pgs="flex['row' 'gapTexts' 'wrap']">
             <span pgs="box block">Block</span>
             <span pgs="box flex['row' 'inlineFlex']">Inline flex</span>
-            <span pgs="box flex['row' 'flexCenter'] aspectSquare">Centered</span>
+            <span pgs="box flex['row' 'flexCenter'] aspect['square']">Centered</span>
         </div>
         <div pgs="flex['row' 'gapTexts']">
             <span pgs="box flex['row'] flex-flexNone">Fixed</span>
@@ -91,11 +93,11 @@ Examples of the standalone MyPGS utility API.
             <span pgs="box flex['column'] flex-flexOrderFirst">First</span>
             <span pgs="box flex['column'] flex-flexOrderLast">Last</span>
         </div>
-        <div pgs="box positionRelative">
+        <div pgs="box position['relative']">
             Relative parent
-            <span pgs="positionAbsolute">Absolute child</span>
+            <span pgs="position['absolute']">Absolute child</span>
         </div>
-        <aside pgs="box positionSticky">Sticky element</aside>
+        <aside pgs="box position['sticky']">Sticky element</aside>
         <div pgs="flex['row' 'gapTexts']">
             <i pgs="icon['icon-chevronDown'] rotate['0']" aria-hidden="true"></i>
             <i pgs="icon['icon-chevronDown'] rotate['90']" aria-hidden="true"></i>
@@ -109,11 +111,11 @@ Examples of the standalone MyPGS utility API.
         <div pgs="box overflow['auto']">Scrollable content when its container has constrained dimensions.</div>
         <div pgs="box overflow['auto' 'x']">Horizontally scrollable content when required.</div>
         <div pgs="box overflow['hidden']">Overflowing content is clipped.</div>
-        <div pgs="box aspectVideo">16:9 media area</div>
-        <span pgs="selectNone">Selection disabled</span>
-        <span pgs="selectText">Selection enabled</span>
-        <span pgs="pointerEventsNone">Pointer events disabled</span>
-        <span pgs="pointerEventsAuto">Pointer events enabled</span>
+        <div pgs="box aspect['video']">16:9 media area</div>
+        <span pgs="select['none']">Selection disabled</span>
+        <span pgs="select['text']">Selection enabled</span>
+        <span pgs="pointerEvents['none']">Pointer events disabled</span>
+        <span pgs="pointerEvents['auto']">Pointer events enabled</span>
         <button type="button" pgs="cursorNotAllowed">Unavailable action</button>
     </section>
 

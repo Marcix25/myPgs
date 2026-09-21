@@ -18,7 +18,7 @@ Two variants that turn vertical wheel motion into horizontal scrolling over a co
 - `card`: uses the related card component or utility in this example.
 - `card-img`: uses the related card-img component or utility in this example.
 - `card-content`: groups the textual content of each card.
-- `imgCover`: uses the related imgCover component or utility in this example.
+- `img`: uses the related img component or utility in this example.
 
 ### PGS Options (component brackets)
 
@@ -27,6 +27,7 @@ Two variants that turn vertical wheel motion into horizontal scrolling over a co
 - `auto`: inside overflow's own bracket, adds scrolling only when content overflows.
 - `x`: inside overflow's own bracket, next to auto, applies it to the horizontal axis only.
 - `nowrap`: keeps each row on one line so it actually overflows instead of wrapping.
+- `cover`: inside img's own bracket, crops the image to fill its box.
 
 ## Output
 

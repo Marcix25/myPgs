@@ -679,11 +679,11 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     transition-duration: 0.01ms !important;
   }
 }
-[pgs~=imgCover], [pgs*="img['cover'"] {
+[pgs*="img["][pgs*="img['cover'"] {
   object-fit: cover;
 }
 
-[pgs~=imgContain], [pgs*="img['contain'"] {
+[pgs*="img["][pgs*="img['contain'"] {
   object-fit: contain;
 }
 
@@ -838,7 +838,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   container-type: inline-size;
 }
 
-:is([pgs~=container], [pgs*="container["])[pgs*="'none'"] {
+:is([pgs~=container], [pgs*="container["])[pgs*="container['none'"] {
   container-type: normal;
 }
 
@@ -1733,39 +1733,39 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   min-width: 0;
 }
 
-[pgs~=positionRelative], [pgs*="position['relative'"] {
+[pgs*="position["][pgs*="position['relative'"] {
   position: relative;
 }
 
-[pgs~=positionAbsolute], [pgs*="position['absolute'"] {
+[pgs*="position["][pgs*="position['absolute'"] {
   position: absolute;
 }
 
-[pgs~=positionSticky], [pgs*="position['sticky'"] {
+[pgs*="position["][pgs*="position['sticky'"] {
   position: sticky;
 }
 
-:is([pgs~=overflow], [pgs*="overflow["])[pgs*="'auto'"]:not([pgs*="'x'"]):not([pgs*="'y'"]) {
+[pgs*="overflow["][pgs*="overflow['auto'"]:not([pgs*="overflow['auto' 'x'"]):not([pgs*="overflow['auto' 'y'"]) {
   overflow: auto;
 }
 
-:is([pgs~=overflow], [pgs*="overflow["])[pgs*="'hidden'"]:not([pgs*="'x'"]):not([pgs*="'y'"]) {
+[pgs*="overflow["][pgs*="overflow['hidden'"]:not([pgs*="overflow['hidden' 'x'"]):not([pgs*="overflow['hidden' 'y'"]) {
   overflow: hidden;
 }
 
-:is([pgs~=overflow], [pgs*="overflow["])[pgs*="'auto' 'x'"] {
+[pgs*="overflow["][pgs*="overflow['auto' 'x'"] {
   overflow-x: auto;
 }
 
-:is([pgs~=overflow], [pgs*="overflow["])[pgs*="'auto' 'y'"] {
+[pgs*="overflow["][pgs*="overflow['auto' 'y'"] {
   overflow-y: auto;
 }
 
-:is([pgs~=overflow], [pgs*="overflow["])[pgs*="'hidden' 'x'"] {
+[pgs*="overflow["][pgs*="overflow['hidden' 'x'"] {
   overflow-x: hidden;
 }
 
-:is([pgs~=overflow], [pgs*="overflow["])[pgs*="'hidden' 'y'"] {
+[pgs*="overflow["][pgs*="overflow['hidden' 'y'"] {
   overflow-y: hidden;
 }
 
@@ -1776,11 +1776,11 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   white-space: nowrap;
 }
 
-[pgs~=aspectSquare], [pgs*="aspect['square'"] {
+[pgs*="aspect["][pgs*="aspect['square'"] {
   aspect-ratio: 1/1;
 }
 
-[pgs~=aspectVideo], [pgs*="aspect['video'"] {
+[pgs*="aspect["][pgs*="aspect['video'"] {
   aspect-ratio: 16/9;
 }
 
@@ -1788,37 +1788,37 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   transform: rotate(180deg);
 }
 
-:is([pgs~=rotate], [pgs*="rotate["])[pgs*="'0'"] {
+:is([pgs~=rotate], [pgs*="rotate["])[pgs*="rotate['0'"] {
   transform: rotate(0deg);
 }
 
-:is([pgs~=rotate], [pgs*="rotate["])[pgs*="'90'"] {
+:is([pgs~=rotate], [pgs*="rotate["])[pgs*="rotate['90'"] {
   transform: rotate(90deg);
 }
 
-:is([pgs~=rotate], [pgs*="rotate["])[pgs*="'180'"] {
+:is([pgs~=rotate], [pgs*="rotate["])[pgs*="rotate['180'"] {
   transform: rotate(180deg);
 }
 
-:is([pgs~=rotate], [pgs*="rotate["])[pgs*="'270'"] {
+:is([pgs~=rotate], [pgs*="rotate["])[pgs*="rotate['270'"] {
   transform: rotate(270deg);
 }
 
-[pgs~=selectNone], [pgs*="select['none'"] {
+[pgs*="select["][pgs*="select['none'"] {
   -webkit-user-select: none;
   user-select: none;
 }
 
-[pgs~=selectText], [pgs*="select['text'"] {
+[pgs*="select["][pgs*="select['text'"] {
   -webkit-user-select: text;
   user-select: text;
 }
 
-[pgs~=pointerEventsNone], [pgs*="pointerEvents['none'"] {
+[pgs*="pointerEvents["][pgs*="pointerEvents['none'"] {
   pointer-events: none;
 }
 
-[pgs~=pointerEventsAuto], [pgs*="pointerEvents['auto'"] {
+[pgs*="pointerEvents["][pgs*="pointerEvents['auto'"] {
   pointer-events: auto;
 }
 

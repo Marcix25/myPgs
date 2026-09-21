@@ -86,11 +86,12 @@
 }
 
 //= IMG
-//== both the flat tokens and img['cover']/['contain'] stay valid side by side
-[pgs~="imgCover"], [pgs*="img\5B'cover'"] {
-    object-fit: cover;
-}
+[pgs*="img\5B"] {
+    &[pgs*="img\5B'cover'"] {
+        object-fit: cover;
+    }
 
-[pgs~="imgContain"], [pgs*="img\5B'contain'"] {
-    object-fit: contain;
+    &[pgs*="img\5B'contain'"] {
+        object-fit: contain;
+    }
 }
