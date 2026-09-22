@@ -30,7 +30,7 @@ Global light and dark theme switch. The choice is persisted in localStorage unde
 
 ### PGS Options (component brackets)
 
-- `iconOnly`: presents the switch as an icon-only button.
+- `btnIconOnly`: presents the switch as an icon-only button.
 - `column`: stacks the example and its notes vertically.
 - `gapTexts`: spaces the example content.
 
@@ -68,7 +68,7 @@ localStorage.getItem("screenIsDarkMode");
 The icon is swapped by the library, so author it as fa-moon and leave it alone. Several switches can coexist: they all read and write the same stored value.
 
 ```html
-<button pgs="button['iconOnly'] toggleDarkmode" type="button" aria-label="Change theme">
+<button pgs="button['btnIconOnly'] toggleDarkmode" type="button" aria-label="Change theme">
     <i pgs="icon"></i>
 </button>
 ```

@@ -57,7 +57,7 @@ Toast markup, configuration, behavior, and usage example. An ephemeral, auto-dis
 - `icon-circleInfo`: the glyph of the info type.
 - `icon-triangleExclamation`: the glyph of the warning type.
 - `icon-close`: the cross the dismiss button draws.
-- `iconOnly`: shapes that dismiss button as an icon-only button; see Button.
+- `btnIconOnly`: shapes that dismiss button as an icon-only button; see Button.
 
 ## CSS Variables
 

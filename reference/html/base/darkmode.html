@@ -18,7 +18,7 @@
  * @related
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - button: presents the switch as a button.
- * - iconOnly: presents the switch as an icon-only button.
+ * - btnIconOnly: presents the switch as an icon-only button.
  * - column: stacks the example and its notes vertically.
  * - gapTexts: spaces the example content.
  * - lightmode: pins a subtree to the light scheme, ignoring this switch; see General.
@@ -33,7 +33,7 @@
 <demo demo-h3="Theme switch" demo-description="The icon is swapped by the library, so author it as fa-moon and leave it alone. Several switches can coexist: they all read and write the same stored value."></demo>
 <div pgs="flex['column' 'gapTexts']" demo="component">
 
-    <button pgs="button['iconOnly'] toggleDarkmode" type="button" aria-label="Change theme">
+    <button pgs="button['btnIconOnly'] toggleDarkmode" type="button" aria-label="Change theme">
         <i pgs="icon"></i>
     </button>
 

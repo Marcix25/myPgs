@@ -8,62 +8,58 @@
         @include buttonHover();
     }
 
-    &[pgs*="'iconOnly'"] {
+    //== every option below carries the btn prefix, not just the ones that used to collide with
+    //== another component's own option (mini/strong/primary) — button is common enough as a
+    //== prefix in other libraries that a bare option name here is one dependency away from a
+    //== real collision, so all of them get it, not only the ones colliding today
+    &[pgs*="'btnIconOnly'"] {
         @include buttonIconOnly();
     }
 
-    //== btnMini, not the shortened mini: card and box also have a 'mini' option, and mini isn't
-    //== always first in button's own bracket (button['iconOnly' 'mini'] in _slides.js/_modal.js,
-    //== button['mini' 'iconOnly'] elsewhere), so anchoring to "first in the bracket" wasn't an
-    //== option either — btn is unique across every component's brackets instead
     &[pgs*="'btnMini'"] {
         @include buttonMini();
     }
 
-    &[pgs*="'big'"] {
+    &[pgs*="'btnBig'"] {
         @include buttonBig();
     }
 
-    &[pgs*="'transparent'"] {
+    &[pgs*="'btnTransparent'"] {
         @include buttonTransparent();
     }
 
-    //== btnStrong, not the shortened strong: badge also has a 'strong' option, and button's own
-    //== combos (button['big' 'strong'] in home.html) don't keep it first either
     &[pgs*="'btnStrong'"] {
         @include buttonStrong();
     }
 
-    &[pgs*="'text'"] {
+    &[pgs*="'btnText'"] {
         @include buttonText();
     }
 
-    &[pgs*="'paddingEqual'"] {
+    &[pgs*="'btnPaddingEqual'"] {
         @include buttonPaddingEqual();
     }
 
-    &[pgs*="'forHeader'"] {
+    &[pgs*="'btnForHeader'"] {
         @include buttonForHeader();
     }
 
-    //== btnPrimary, not the shortened primary: badge also has a 'primary' option, same reasoning
-    //== as btnMini/btnStrong above
     &[pgs*="'btnPrimary'"] {
         --button-background: var(--color-primary);
         --button-color: var(--color-primary-text);
     }
 
-    &[pgs*="'secondary'"] {
+    &[pgs*="'btnSecondary'"] {
         --button-background: var(--color-secondary);
         --button-color: var(--color-secondary-text);
     }
 
-    &[pgs*="'tertiary'"] {
+    &[pgs*="'btnTertiary'"] {
         --button-background: var(--color-tertiary);
         --button-color: var(--color-tertiary-text);
     }
 
-    &[pgs*="'quaternary'"] {
+    &[pgs*="'btnQuaternary'"] {
         --button-background: var(--color-quaternary);
         --button-color: var(--color-quaternary-text);
     }

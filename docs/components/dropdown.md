@@ -41,7 +41,7 @@ Popup component that connects a control to content positioned relative to its tr
 
 ### PGS Options (component brackets)
 
-- `reverse`: reverses text and icon on the example buttons and belongs to the button component.
+- `btnReverse`: reverses text and icon on the example buttons and belongs to the button component.
 - `icon-chevronDown`: the glyph that says this button opens something.
 
 ### Other
@@ -73,7 +73,7 @@ Default dropdown placement, opened below and centered on its trigger.
 
 ```html
 <span pgs="dropdown">
-    <button pgs="dropdown-button button['reverse']" type="button">
+    <button pgs="dropdown-button button['btnReverse']" type="button">
         Bottom center
         <i pgs="icon['icon-chevronDown']" aria-hidden="true"></i>
     </button>
@@ -90,7 +90,7 @@ Opens when the pointer enters the trigger and closes after it leaves.
 
 ```html
 <span pgs="dropdown['hover']">
-    <button pgs="dropdown-button button['reverse']" type="button">
+    <button pgs="dropdown-button button['btnReverse']" type="button">
         Hover
         <i pgs="icon['icon-chevronDown']" aria-hidden="true"></i>
     </button>
@@ -107,7 +107,7 @@ Dropdown content positioned above the trigger, aligned to the left.
 
 ```html
 <span pgs="dropdown" pgs-data="dropdownPosition[top left]">
-    <button pgs="dropdown-button button['reverse']" type="button">
+    <button pgs="dropdown-button button['btnReverse']" type="button">
         Top left
         <i pgs="icon['icon-chevronDown']" aria-hidden="true"></i>
     </button>
@@ -124,7 +124,7 @@ Dropdown content positioned above the trigger, centered.
 
 ```html
 <span pgs="dropdown" pgs-data="dropdownPosition[top center]">
-    <button pgs="dropdown-button button['reverse']" type="button">
+    <button pgs="dropdown-button button['btnReverse']" type="button">
         Top center
         <i pgs="icon['icon-chevronDown']" aria-hidden="true"></i>
     </button>
@@ -141,7 +141,7 @@ Dropdown content positioned above the trigger, aligned to the right.
 
 ```html
 <span pgs="dropdown" pgs-data="dropdownPosition[top right]">
-    <button pgs="dropdown-button button['reverse']" type="button">
+    <button pgs="dropdown-button button['btnReverse']" type="button">
         Top right
         <i pgs="icon['icon-chevronDown']" aria-hidden="true"></i>
     </button>
@@ -158,7 +158,7 @@ Dropdown content positioned below the trigger, aligned to the left.
 
 ```html
 <span pgs="dropdown" pgs-data="dropdownPosition[bottom left]">
-    <button pgs="dropdown-button button['reverse']" type="button">
+    <button pgs="dropdown-button button['btnReverse']" type="button">
         Bottom left
         <i pgs="icon['icon-chevronDown']" aria-hidden="true"></i>
     </button>
@@ -175,7 +175,7 @@ Dropdown content positioned below the trigger, aligned to the right.
 
 ```html
 <span pgs="dropdown" pgs-data="dropdownPosition[bottom right]">
-    <button pgs="dropdown-button button['reverse']" type="button">
+    <button pgs="dropdown-button button['btnReverse']" type="button">
         Bottom right
         <i pgs="icon['icon-chevronDown']" aria-hidden="true"></i>
     </button>
@@ -192,7 +192,7 @@ Dropdown content positioned to the left of the trigger, vertically centered.
 
 ```html
 <span pgs="dropdown" pgs-data="dropdownPosition[left center]">
-    <button pgs="dropdown-button button['reverse']" type="button">
+    <button pgs="dropdown-button button['btnReverse']" type="button">
         Left center
         <i pgs="icon['icon-chevronDown']" aria-hidden="true"></i>
     </button>
@@ -209,7 +209,7 @@ Dropdown content positioned to the right of the trigger, vertically centered.
 
 ```html
 <span pgs="dropdown" pgs-data="dropdownPosition[right center]">
-    <button pgs="dropdown-button button['reverse']" type="button">
+    <button pgs="dropdown-button button['btnReverse']" type="button">
         Right center
         <i pgs="icon['icon-chevronDown']" aria-hidden="true"></i>
     </button>

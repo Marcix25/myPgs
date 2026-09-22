@@ -140,7 +140,7 @@ const fn_notification = {
             <div pgs="_notifications-element-content">
                 ${iconHtml}
                 <p>${text}</p>
-                <button type="button" pgs="button['iconOnly'] _notifications-element-content-delete"><i pgs="icon['icon-close']"></i></button>
+                <button type="button" pgs="button['btnIconOnly'] _notifications-element-content-delete"><i pgs="icon['icon-close']"></i></button>
             </div>
             <div pgs="_notifications-element-buttons">
             </div>
@@ -171,7 +171,7 @@ const fn_notification = {
             if (button.link) buttonElement.href = button.link;
             else buttonElement.type = "button";
             buttonElement.textContent = button.title;
-            pgs(buttonElement).add("button['transparent']");
+            pgs(buttonElement).add("button['btnTransparent']");
             if (button.optionButton) pgs(buttonElement).add(`button['${button.optionButton}']`);
 
             buttonElement.addEventListener("click", (e) => {

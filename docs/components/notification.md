@@ -62,13 +62,13 @@ Notification markup, configuration, behavior, and usage example. A persistent, m
 
 - `column`: stacks the examples vertically.
 - `gapTexts`: spaces the content inside each example.
-- `iconOnly`: presents notificationBell, and the generated dismiss button, as icon buttons.
+- `btnIconOnly`: presents notificationBell, and the generated dismiss button, as icon buttons.
 - `icon-bell`: the glyph on the control that opens the panel.
 
 ### Other
 
 - `gapSections`: separates the examples.
-- `transparent`: the appearance the component gives the buttons passed in the payload; see Button.
+- `btnTransparent`: the appearance the component gives the buttons passed in the payload; see Button.
 - `modal-dialog-content`: identifies the JS-generated styled content area inside the dialog, wrapping notifications.
 - `btnMini`: keeps the generated panel-close button small; see Button.
 - `dialogRight`: slides the notification dialog in from the right; see Modal for other positions.
@@ -134,7 +134,7 @@ The control that opens and closes the panel, and the only markup this component 
 
 ```html
 <div pgs="modal">
-    <button type="button" pgs="modal-button modal-close button['iconOnly'] notificationBell" aria-label="Open notifications">
+    <button type="button" pgs="modal-button modal-close button['btnIconOnly'] notificationBell" aria-label="Open notifications">
         <i pgs="icon['icon-bell']"></i>
     </button>
 </div>

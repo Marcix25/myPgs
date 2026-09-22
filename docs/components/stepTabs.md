@@ -54,7 +54,7 @@ A step-by-step wizard: one panel at a time, a row of dots showing where the read
 - `column`: sets the vertical direction inside the flex bracket.
 - `gapElements`: applies element spacing to the step tab container.
 - `row`: sets the horizontal direction inside the flex bracket.
-- `reverse`: reverses text and icon on the example buttons and belongs to the button component.
+- `btnReverse`: reverses text and icon on the example buttons and belongs to the button component.
 - `icon-arrowLeft`: the glyph that points back.
 - `icon-arrowRight`: the glyph that points forward.
 
@@ -99,7 +99,7 @@ Complete HTML markup and usage example for Step Tabs.
             Restart
         </button>
 
-        <button pgs="stepTabs-next button['reverse']" type="button">
+        <button pgs="stepTabs-next button['btnReverse']" type="button">
             Next
             <i pgs="icon['icon-arrowRight']" aria-hidden="true"></i>
         </button>

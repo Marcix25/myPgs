@@ -4325,7 +4325,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --button-padding-left: var(--button-padding-left-icon);
 }
 
-:is([pgs~=button], [pgs*="button["]):where([pgs*="'reverse'"]:has(i)), :is([pgs~=button], [pgs*="button["]):where([pgs*="'reverse'"]:has(:is([pgs~=icon], [pgs*="icon["]))) {
+:is([pgs~=button], [pgs*="button["]):where([pgs*="'btnReverse'"]:has(i)), :is([pgs~=button], [pgs*="button["]):where([pgs*="'btnReverse'"]:has(:is([pgs~=icon], [pgs*="icon["]))) {
   --button-padding-right: var(--button-padding-left-icon);
   --button-padding-left: var(--button-padding-right);
 }
@@ -4365,7 +4365,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
     --button-color-hover: var(--color-black);
   }
 }
-:is([pgs~=button], [pgs*="button["])[pgs*="'iconOnly'"] {
+:is([pgs~=button], [pgs*="button["])[pgs*="'btnIconOnly'"] {
   --button-padding: var(--button-padding-block);
   flex: 0 0;
   aspect-ratio: 1;
@@ -4373,8 +4373,8 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   align-items: center;
 }
 
-:is([pgs~=button], [pgs*="button["])[pgs*="'iconOnly'"] i,
-:is([pgs~=button], [pgs*="button["])[pgs*="'iconOnly'"] :is([pgs~=icon], [pgs*="icon["]) {
+:is([pgs~=button], [pgs*="button["])[pgs*="'btnIconOnly'"] i,
+:is([pgs~=button], [pgs*="button["])[pgs*="'btnIconOnly'"] :is([pgs~=icon], [pgs*="icon["]) {
   display: inline-grid;
   place-items: center;
   inline-size: calc(var(--icon-size) + 2px);
@@ -4388,7 +4388,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   display: inline-flex;
 }
 
-:is([pgs~=button], [pgs*="button["])[pgs*="'big'"] {
+:is([pgs~=button], [pgs*="button["])[pgs*="'btnBig'"] {
   --button-padding: var(--button-padding-right);
   --button-height: 100%;
   --icon-size: 2em;
@@ -4398,7 +4398,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   text-align: center;
 }
 
-:is([pgs~=button], [pgs*="button["])[pgs*="'transparent'"] {
+:is([pgs~=button], [pgs*="button["])[pgs*="'btnTransparent'"] {
   --button-border-width: 0;
   --button-background: transparent;
 }
@@ -4409,7 +4409,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   border-color: var(--button-border-color-strong);
 }
 
-:is([pgs~=button], [pgs*="button["])[pgs*="'text'"] {
+:is([pgs~=button], [pgs*="button["])[pgs*="'btnText'"] {
   --button-border-width: 0;
   --button-borderRadius: 0px;
   --button-background: transparent;
@@ -4425,11 +4425,11 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --hover-color: var(--button-primaryColor);
 }
 
-:is([pgs~=button], [pgs*="button["])[pgs*="'paddingEqual'"] {
+:is([pgs~=button], [pgs*="button["])[pgs*="'btnPaddingEqual'"] {
   --button-padding: var(--button-padding-block);
 }
 
-:is([pgs~=button], [pgs*="button["])[pgs*="'forHeader'"] {
+:is([pgs~=button], [pgs*="button["])[pgs*="'btnForHeader'"] {
   --button-size: 1.2rem;
   --button-border-width: 0;
   min-height: var(--header-size);
@@ -4441,17 +4441,17 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --button-color: var(--color-primary-text);
 }
 
-:is([pgs~=button], [pgs*="button["])[pgs*="'secondary'"] {
+:is([pgs~=button], [pgs*="button["])[pgs*="'btnSecondary'"] {
   --button-background: var(--color-secondary);
   --button-color: var(--color-secondary-text);
 }
 
-:is([pgs~=button], [pgs*="button["])[pgs*="'tertiary'"] {
+:is([pgs~=button], [pgs*="button["])[pgs*="'btnTertiary'"] {
   --button-background: var(--color-tertiary);
   --button-color: var(--color-tertiary-text);
 }
 
-:is([pgs~=button], [pgs*="button["])[pgs*="'quaternary'"] {
+:is([pgs~=button], [pgs*="button["])[pgs*="'btnQuaternary'"] {
   --button-background: var(--color-quaternary);
   --button-color: var(--color-quaternary-text);
 }

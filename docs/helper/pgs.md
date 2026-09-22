@@ -20,7 +20,7 @@ The `pgs(root)` function is how every component finds and edits its own markup: 
 - `instance.state.querySelector(state)`: returns the first descendant carrying the given pgs-state value; also accepts an array or a comma-separated list.
 - `instance.state.querySelectorAll(state)`: returns every matching descendant.
 - `instance.state.closest(state)`: returns the nearest ancestor carrying the given pgs-state value, the element itself included, or null.
-- `instance.option.add(...flags)`: adds a CSS or JavaScript-only boolean flag. Most flags lost their component prefix once the bracket itself made it redundant (button['iconOnly'], not button['buttonIconOnly']), so add() can no longer derive an owner from the name alone — it only manages when the flag still carries one long enough to match the component's own name (the icon-* glyphs, and cardMini/cardHorizontal, boxMini, badgePrimary/badgeStrong, menuHorizontal, flexPlaceCenter — a handful renamed to stay unique across components, keeping the full name rather than an abbreviation) and otherwise the flag becomes its own bare pgs token. margin/padding's own mrg- and pad-prefixed flags and button's btnMini/btnStrong/btnPrimary fall in that second group too — mrg and btn are abbreviations, not the component's own name, so add() cannot derive margin or button from them either. To add a shortened flag into its bracket, call the base pgs(el).add("component['flag']") directly, naming the component. Never touches pgs-data.
+- `instance.option.add(...flags)`: adds a CSS or JavaScript-only boolean flag. Most flags lost their component prefix once the bracket itself made it redundant (badge['dot'], not badge['badgeDot']), so add() can no longer derive an owner from the name alone — it only manages when the flag still carries one long enough to match the component's own name (the icon-* glyphs, and cardMini/cardHorizontal, boxMini, badgePrimary/badgeStrong, menuHorizontal, flexPlaceCenter — a handful renamed to stay unique across components, keeping the full name rather than an abbreviation) and otherwise the flag becomes its own bare pgs token. margin/padding's own mrg- and pad-prefixed flags and every one of button's own btn-prefixed flags (btnMini, btnStrong, btnPrimary, btnIconOnly, ...) fall in that second group too — mrg and btn are abbreviations, not the component's own name, so add() cannot derive margin or button from them either. To add a shortened flag into its bracket, call the base pgs(el).add("component['flag']") directly, naming the component. Never touches pgs-data.
 - `instance.option.remove(...keys)`: removes a flag by key, bare or nested in a bracket, preserving the rest. Never touches pgs-data.
 - `instance.option.toggle(key, force)`: flips or forces a flag and returns the resulting boolean state. Never touches pgs-data.
 - `instance.option.contains(key)`: checks whether a flag is present, bare or nested in a bracket. Never checks pgs-data.
@@ -36,12 +36,12 @@ The `pgs(root)` function is how every component finds and edits its own markup: 
 
 ### PGS
 
-- `button`: borrowed purely to illustrate adding a shortened flag through the base add(); belongs to the button component.
+- `badge`: borrowed purely to illustrate adding a shortened flag through the base add(); belongs to the badge component.
 - `hoverNot`: has no single owning component, so it is the example for option.add's bare-token fallback; belongs to the hover opt-out.
 
 ### PGS Options (component brackets)
 
-- `iconOnly`: a CSS flag of button with no derivable owner, used the same way here as any other shortened flag; belongs to the button component.
+- `dot`: a CSS flag of badge with no derivable owner, used the same way here as any other shortened flag; belongs to the badge component.
 
 ### Other
 
@@ -72,13 +72,13 @@ instance.state.contains("open");
 instance.state.closest("errorField");
 instance.state.querySelectorAll("errorField");
 
-instance.add("button['iconOnly']"); // shortened flags have no prefix left to derive from: name the component
-instance.option.contains("iconOnly");
-instance.option.closest("iconOnly");
+instance.add("badge['dot']"); // shortened flags have no prefix left to derive from: name the component
+instance.option.contains("dot");
+instance.option.closest("dot");
 instance.add("icon");
 instance.option.add("icon-moon"); // icon-moon kept its prefix, so this still derives "icon" and merges
 instance.option.add("boxMini"); // boxMini kept its prefix too (a handful of flags do, to stay unique across components), so this derives "box" the same way
-instance.option.add("hoverNot"); // no "hover" token present to merge into: lands bare, pgs="button['iconOnly'] hoverNot"
+instance.option.add("hoverNot"); // no "hover" token present to merge into: lands bare, pgs="badge['dot'] hoverNot"
 instance.data.getValueBrackets("headerCompactFrom"); // pgs-data only, never the pgs bracket
 instance.data.setValueBrackets("headerCompactFrom", "600");
 // tabsHistory has no owner to derive and never belongs in the pgs bracket, so its bare form goes

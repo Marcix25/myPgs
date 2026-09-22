@@ -74,8 +74,8 @@
     }
 
     //=== BUTTON CONTENT - REVERSE
-    &:where([pgs*="'reverse'"]:has(i)),
-    &:where([pgs*="'reverse'"]:has(:is([pgs~="icon"], [pgs*="icon\5B"]))) {
+    &:where([pgs*="'btnReverse'"]:has(i)),
+    &:where([pgs*="'btnReverse'"]:has(:is([pgs~="icon"], [pgs*="icon\5B"]))) {
         --button-padding-right: var(--button-padding-left-icon);
         --button-padding-left: var(--button-padding-right);
     }

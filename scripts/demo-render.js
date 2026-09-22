@@ -593,7 +593,7 @@ function renderExamplePairsHtml(exampleMarkup) {
 function renderNavMenuHtml(items, category) {
     const rows = items.map(({ path }) => {
         const icon = ENTRY_ICONS[path] || DEFAULT_ENTRY_ICON;
-        return `<li><a href="#${escapeHtml(getSlug(path))}" pgs="pageNav-list-item button['text' 'paddingEqual']">` +
+        return `<li><a href="#${escapeHtml(getSlug(path))}" pgs="pageNav-list-item button['btnText' 'btnPaddingEqual']">` +
             `<i class="fa-solid ${icon}" aria-hidden="true"></i><span>${escapeHtml(getEntryLabel(path))}</span></a></li>`;
     }).join("");
     return `<nav pgs="pageNav-list menu['vertical']" aria-label="Menu ${escapeHtml(category || "")}"><ul pgs="border['brdLeft']">${rows}</ul></nav>`;

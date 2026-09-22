@@ -40,7 +40,7 @@ Menu markup with horizontal, vertical and recursively nested navigation examples
 
 ### PGS Options (component brackets)
 
-- `transparent`: the appearance a navigation link takes, whatever the menu's direction; see Button for the whole set of variants.
+- `btnTransparent`: the appearance a navigation link takes, whatever the menu's direction; see Button for the whole set of variants.
 - `row`: lays the top-level list out as a row, so a long menu can be measured against the space it has.
 - `wrap`: lets that row break onto a second line instead of overflowing.
 - `icon-circle`: a plain disc, standing in for a section icon.
@@ -73,33 +73,33 @@ Top-level navigation arranged horizontally, with one nested submenu.
 <nav pgs="menu['menuHorizontal']" aria-label="Menu orizzontale">
     <ul pgs="flex['row' 'wrap']">
         <li>
-            <a pgs="button['transparent']" href="/" aria-current="page">
+            <a pgs="button['btnTransparent']" href="/" aria-current="page">
                 <i pgs="icon['icon-circle']" aria-hidden="true"></i>
                 <span>Home</span>
             </a>
         </li>
         <li>
-            <a pgs="button['transparent']" href="/services">
+            <a pgs="button['btnTransparent']" href="/services">
                 <i pgs="icon['icon-sliders']" aria-hidden="true"></i>
                 <span>Services</span>
             </a>
             <ul>
-                <li><a pgs="button['transparent']" href="/services/one">First service</a></li>
-                <li><a pgs="button['transparent']" href="/services/two">Second service</a></li>
+                <li><a pgs="button['btnTransparent']" href="/services/one">First service</a></li>
+                <li><a pgs="button['btnTransparent']" href="/services/two">Second service</a></li>
             </ul>
         </li>
         <li>
-            <a pgs="button['transparent']" href="/about">
+            <a pgs="button['btnTransparent']" href="/about">
                 <i pgs="icon['icon-circleInfo']" aria-hidden="true"></i>
                 <span>about</span>
             </a>
             <ul>
-                <li><a pgs="button['transparent']" href="/services/one">First service</a></li>
+                <li><a pgs="button['btnTransparent']" href="/services/one">First service</a></li>
                 <li>
-                    <a pgs="button['transparent']" href="/services/two">Second service</a>
+                    <a pgs="button['btnTransparent']" href="/services/two">Second service</a>
                     <ul>
-                        <li><a pgs="button['transparent']" href="/services/one">First service</a></li>
-                        <li><a pgs="button['transparent']" href="/services/two">Second service</a></li>
+                        <li><a pgs="button['btnTransparent']" href="/services/one">First service</a></li>
+                        <li><a pgs="button['btnTransparent']" href="/services/two">Second service</a></li>
                     </ul>
                 </li>
             </ul>
@@ -116,33 +116,33 @@ Vertical navigation with recursively nested submenus, showing icons only on the 
 <nav pgs="menu['vertical']" aria-label="Menu verticale">
     <ul>
         <li>
-            <a pgs="button['transparent']" href="/" aria-current="page">
+            <a pgs="button['btnTransparent']" href="/" aria-current="page">
                 <i pgs="icon['icon-circle']" aria-hidden="true"></i>
                 <span>Home</span>
             </a>
         </li>
         <li>
-            <a pgs="button['transparent']" href="/services">
+            <a pgs="button['btnTransparent']" href="/services">
                 <i pgs="icon['icon-sliders']" aria-hidden="true"></i>
                 <span>Services</span>
             </a>
             <ul>
-                <li><a pgs="button['transparent']" href="/services/one">First service</a></li>
-                <li><a pgs="button['transparent']" href="/services/two">Second service</a></li>
+                <li><a pgs="button['btnTransparent']" href="/services/one">First service</a></li>
+                <li><a pgs="button['btnTransparent']" href="/services/two">Second service</a></li>
             </ul>
         </li>
         <li>
-            <a pgs="button['transparent']" href="/about">
+            <a pgs="button['btnTransparent']" href="/about">
                 <i pgs="icon['icon-circleInfo']" aria-hidden="true"></i>
                 <span>about</span>
             </a>
             <ul>
-                <li><a pgs="button['transparent']" href="/services/one">First service</a></li>
+                <li><a pgs="button['btnTransparent']" href="/services/one">First service</a></li>
                 <li>
-                    <a pgs="button['transparent']" href="/services/two">Second service</a>
+                    <a pgs="button['btnTransparent']" href="/services/two">Second service</a>
                     <ul>
-                        <li><a pgs="button['transparent']" href="/services/one">First service</a></li>
-                        <li><a pgs="button['transparent']" href="/services/two">Second service</a></li>
+                        <li><a pgs="button['btnTransparent']" href="/services/one">First service</a></li>
+                        <li><a pgs="button['btnTransparent']" href="/services/two">Second service</a></li>
                     </ul>
                 </li>
             </ul>
@@ -159,19 +159,19 @@ Top-level navigation arranged horizontally, with one nested submenu.
 <nav pgs="menu['menuHorizontal' 'iconOnlyCurrent']" aria-label="Menu orizzontale">
     <ul pgs="flex['row' 'wrap']">
         <li>
-            <a pgs="button['transparent']" href="/" aria-current="page">
+            <a pgs="button['btnTransparent']" href="/" aria-current="page">
                 <i pgs="icon['icon-circle']" aria-hidden="true"></i>
                 <span>Home</span>
             </a>
         </li>
         <li>
-            <a pgs="button['transparent']" href="/services">
+            <a pgs="button['btnTransparent']" href="/services">
                 <i pgs="icon['icon-sliders']" aria-hidden="true"></i>
                 <span>Services</span>
             </a>
         </li>
         <li>
-            <a pgs="button['transparent']" href="/about">
+            <a pgs="button['btnTransparent']" href="/about">
                 <i pgs="icon['icon-circleInfo']" aria-hidden="true"></i>
                 <span>about</span>
             </a>
@@ -188,19 +188,19 @@ Top-level navigation with short, overlapping the horizontal spacing between adja
 <nav pgs="menu['menuHorizontal' 'short']" aria-label="Menu orizzontale">
     <ul pgs="flex['row' 'wrap']">
         <li>
-            <a pgs="button['transparent']" href="/" aria-current="page">
+            <a pgs="button['btnTransparent']" href="/" aria-current="page">
                 <i pgs="icon['icon-circle']" aria-hidden="true"></i>
                 <span>Home</span>
             </a>
         </li>
         <li>
-            <a pgs="button['transparent']" href="/services">
+            <a pgs="button['btnTransparent']" href="/services">
                 <i pgs="icon['icon-sliders']" aria-hidden="true"></i>
                 <span>Services</span>
             </a>
         </li>
         <li>
-            <a pgs="button['transparent']" href="/about">
+            <a pgs="button['btnTransparent']" href="/about">
                 <i pgs="icon['icon-circleInfo']" aria-hidden="true"></i>
                 <span>about</span>
             </a>

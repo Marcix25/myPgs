@@ -24,7 +24,7 @@ function initializeModal(MODAL, existingDialog = null) {
 
     //== SELECTOR
     //== a hand-written close button keeps the bare name; a generated one gets the underscore
-    const DOMButtonClose = "<button pgs=\"button['iconOnly' 'btnMini'] _modal-close\" type=\"button\" tabindex=\"0\" aria-label=\"Close\"><i pgs=\"icon['icon-close']\"></i></button>";
+    const DOMButtonClose = "<button pgs=\"button['btnIconOnly' 'btnMini'] _modal-close\" type=\"button\" tabindex=\"0\" aria-label=\"Close\"><i pgs=\"icon['icon-close']\"></i></button>";
     const modalContentHeader = pgs(DIALOG).querySelector("modal-dialog-content-header");
 
     //== FOCUS

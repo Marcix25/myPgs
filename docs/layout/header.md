@@ -56,16 +56,16 @@ Responsive header that measures available space, switches between its full and c
 
 ### PGS Options (component brackets)
 
-- `transparent`: the appearance of the navigation links, in the full-layout row and once they stack in the compact panel alike.
-- `forHeader`: sizes a link like the other header controls; belongs to the button component.
-- `paddingEqual`: sets the same padding on every side of a navigation link instead of the wider left/right default; belongs to the button component.
+- `btnTransparent`: the appearance of the navigation links, in the full-layout row and once they stack in the compact panel alike.
+- `btnForHeader`: sizes a link like the other header controls; belongs to the button component.
+- `btnPaddingEqual`: sets the same padding on every side of a navigation link instead of the wider left/right default; belongs to the button component.
 - `row`: sets the horizontal direction inside the flex bracket.
 - `nowrap`: uses the related nowrap component or utility in this example.
 - `menuHorizontal`: arranges the full-layout menu horizontally.
 - `vertical`: arranges the compact-layout menu vertically.
 - `short`: compacts adjacent full-layout menu links by overlapping their horizontal spacing.
 - `dialogRight`: presents the compact navigation dialog content from the right side.
-- `iconOnly`: presents theme and hamburger controls as icon buttons.
+- `btnIconOnly`: presents theme and hamburger controls as icon buttons.
 - `icon-bell`: the glyph on the control that opens the panel.
 - `icon-hamburgerTwo`: draws the hamburger glyph, swapped for icon-close via CSS while the compact navigation is open.
 
@@ -119,19 +119,19 @@ Full navigation on the left, always-visible controls on the right, and the same 
 		<div pgs="header-element-onlyFull">
 			<nav pgs="menu['menuHorizontal' 'short']" aria-label="Main menu">
 				<ul>
-					<li><a pgs="button['transparent' 'forHeader' 'paddingEqual']" href="/">Home</a></li>
-					<li><a pgs="button['transparent' 'forHeader' 'paddingEqual']" href="/services">Services</a></li>
-					<li><a pgs="button['transparent' 'forHeader' 'paddingEqual']" href="/about">About</a></li>
-					<li><a pgs="button['transparent' 'forHeader' 'paddingEqual']" href="/contact">Contact</a></li>
+					<li><a pgs="button['btnTransparent' 'btnForHeader' 'btnPaddingEqual']" href="/">Home</a></li>
+					<li><a pgs="button['btnTransparent' 'btnForHeader' 'btnPaddingEqual']" href="/services">Services</a></li>
+					<li><a pgs="button['btnTransparent' 'btnForHeader' 'btnPaddingEqual']" href="/about">About</a></li>
+					<li><a pgs="button['btnTransparent' 'btnForHeader' 'btnPaddingEqual']" href="/contact">Contact</a></li>
 				</ul>
 			</nav>
 			<div pgs="flex['row' 'nowrap']">
 				<div pgs="modal" pgs-data="modalContainerPGS[header]">
-					<button type="button" pgs="modal-button modal-close button['iconOnly'] notificationBell" aria-label="Open notifications">
+					<button type="button" pgs="modal-button modal-close button['btnIconOnly'] notificationBell" aria-label="Open notifications">
 						<i pgs="icon['icon-bell']"></i>
 					</button>
 				</div>
-				<button pgs="button['iconOnly'] toggleDarkmode" type="button" aria-label="Change theme">
+				<button pgs="button['btnIconOnly'] toggleDarkmode" type="button" aria-label="Change theme">
 					<i pgs="icon"></i>
 				</button>
 			</div>
@@ -140,16 +140,16 @@ Full navigation on the left, always-visible controls on the right, and the same 
 		<div pgs="header-element-onlyCompact">
 			<div pgs="flex['row' 'nowrap']">
 				<div pgs="modal" pgs-data="modalContainerPGS[header]">
-					<button type="button" pgs="modal-button modal-close button['iconOnly'] notificationBell" aria-label="Open notifications">
+					<button type="button" pgs="modal-button modal-close button['btnIconOnly'] notificationBell" aria-label="Open notifications">
 						<i pgs="icon['icon-bell']"></i>
 					</button>
 				</div>
-				<button pgs="button['iconOnly'] toggleDarkmode" type="button" aria-label="Change theme">
+				<button pgs="button['btnIconOnly'] toggleDarkmode" type="button" aria-label="Change theme">
 					<i pgs="icon"></i>
 				</button>
 				<div pgs="modal['dialogRight']" pgs-data="modalContainerPGS[header]">
 
-					<button pgs="button['iconOnly'] modal-button modal-close" type="button" aria-label="Open menu">
+					<button pgs="button['btnIconOnly'] modal-button modal-close" type="button" aria-label="Open menu">
 						<i pgs="icon['icon-hamburgerTwo']" aria-hidden="true"></i>
 					</button>
 
@@ -157,10 +157,10 @@ Full navigation on the left, always-visible controls on the right, and the same 
 						<div pgs="modal-dialog-content">
 							<nav pgs="menu['vertical']" aria-label="Compact menu">
 								<ul>
-									<li><a pgs="button['transparent' 'paddingEqual']" href="/">Home</a></li>
-									<li><a pgs="button['transparent' 'paddingEqual']" href="/services">Services</a></li>
-									<li><a pgs="button['transparent' 'paddingEqual']" href="/about">About</a></li>
-									<li><a pgs="button['transparent' 'paddingEqual']" href="/contact">Contact</a></li>
+									<li><a pgs="button['btnTransparent' 'btnPaddingEqual']" href="/">Home</a></li>
+									<li><a pgs="button['btnTransparent' 'btnPaddingEqual']" href="/services">Services</a></li>
+									<li><a pgs="button['btnTransparent' 'btnPaddingEqual']" href="/about">About</a></li>
+									<li><a pgs="button['btnTransparent' 'btnPaddingEqual']" href="/contact">Contact</a></li>
 								</ul>
 							</nav>
 						</div>
