@@ -1,95 +1,465 @@
-//# SPACING
-//== every scale check is anchored to its own direction's opening bracket (X\5B'scale') instead of
-//== a bare [pgs*="'scale'"] — a bare check matches the flag anywhere on the element, so
-//== marginRight['page'] marginLeft['texts'] on the same element would let whichever scale is
-//== declared later in this file win for both sides. Anchoring assumes the documented order (the
-//== scale option, then negative, e.g. marginRight['page' 'negative']) — negative never appears
-//== before its own scale. Both margin and padding set the real property directly in every branch,
-//== negative included (calc() reads the same literal value the branch just set, never a shared
-//== custom property) — no --X-size anywhere in this file.
-$spacing-scale-values: (
-    "texts": var(--gap-texts),
-    "elements": var(--gap-elements),
-    "sections": var(--gap-sections),
-    "page": var(--page-padding),
-);
-
+//# SPACING: margin, padding
+//== one root each for margin and padding, every direction folded into the flag name (mrgLeft,
+//== padTop, ...) instead of a separate root token per direction — no anchoring assumptions about
+//== flag order or position survive combining two flags in a single bracket, because every flag
+//== name is unique across the whole system. Compiled least-specific-first: base (all four sides),
+//== then block/inline (each a shorthand for two physical sides), then the four single sides — a
+//== physical side always wins over its logical shorthand when both are written, because CSS
+//== resolves that by which one comes later in the cascade, not by specificity. There is a single
+//== shared --margin-sign custom property, flipped to -1 by the base mrgNegative flag alone and
+//== read with a plain `, 1)` fallback in every branch, every direction included — mrgNegative
+//== negates whatever direction/scale is combined with it in the same bracket, since the sign and
+//== the value are two independent properties resolved by the normal cascade, not by which literal
+//== substring happens to sit first inside the bracket. There is no per-direction negative flag.
+//== Padding has no negative variant at all, since negative padding isn't a real thing.
 //= MARGIN
-$margin-directions: (
-    "margin": margin,
-    "marginLeft": margin-left,
-    "marginRight": margin-right,
-    "marginTop": margin-top,
-    "marginBottom": margin-bottom,
-    "marginInline": margin-inline,
-    "marginBlock": margin-block,
-);
+:is([pgs~="margin"], [pgs*="margin\5B"]) {
 
-@each $token, $property in $margin-directions {
-    :is([pgs~="#{$token}"], [pgs*="#{$token}\5B"]) {
-        #{$property}: var(--padding);
+    //- BASE (all four sides)
+    //== the default value lives here too, not just below: mrgNegative alone (no scale flag next
+    //== to it) still needs a value to negate, same as bare margin with no bracket at all
+    &[pgs*="'mrgNegative'"] {
+        --margin-sign: -1;
+    }
 
-        &[pgs*="#{$token}\5B'margin2'"] {
-            #{$property}: var(--padding-half);
-        }
+    &[pgs~="margin['mrgNegative']"] {
+        margin: calc(var(--padding) * var(--margin-sign, 1));
+    }
 
-        @each $scale, $value in $spacing-scale-values {
-            &[pgs*="#{$token}\5B'#{$scale}'"] {
-                #{$property}: #{$value};
-            }
-        }
+    &:not([pgs*="margin\5B"]) {
+        margin: calc(var(--padding) * var(--margin-sign, 1));
+    }
 
-        &[pgs*="#{$token}\5B'auto'"] {
-            #{$property}: auto;
-        }
+    &[pgs*="'mrgHalf'"] {
+        margin: calc(var(--padding-half) * var(--margin-sign, 1));
+    }
 
-        &[pgs*="#{$token}\5B'unset'"] {
-            #{$property}: unset;
-        }
+    &[pgs*="'mrgTexts'"] {
+        margin: calc(var(--gap-texts) * var(--margin-sign, 1));
+    }
 
-        &[pgs*="#{$token}\5B'negative'"] {
-            #{$property}: calc(var(--padding) * -1);
-        }
+    &[pgs*="'mrgElements'"] {
+        margin: calc(var(--gap-elements) * var(--margin-sign, 1));
+    }
 
-        &[pgs*="#{$token}\5B'margin2' 'negative'"] {
-            #{$property}: calc(var(--padding-half) * -1);
-        }
+    &[pgs*="'mrgSections'"] {
+        margin: calc(var(--gap-sections) * var(--margin-sign, 1));
+    }
 
-        @each $scale, $value in $spacing-scale-values {
-            &[pgs*="#{$token}\5B'#{$scale}' 'negative'"] {
-                #{$property}: calc(#{$value} * -1);
-            }
-        }
+    &[pgs*="'mrgPage'"] {
+        margin: calc(var(--page-padding) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgAuto'"] {
+        margin: auto;
+    }
+
+    &[pgs*="'mrgUnset'"] {
+        margin: unset;
+    }
+
+    //- BLOCK
+    &[pgs*="'mrgBlock'"] {
+        margin-block: calc(var(--padding) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgBlockHalf'"] {
+        margin-block: calc(var(--padding-half) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgBlockTexts'"] {
+        margin-block: calc(var(--gap-texts) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgBlockElements'"] {
+        margin-block: calc(var(--gap-elements) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgBlockSections'"] {
+        margin-block: calc(var(--gap-sections) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgBlockPage'"] {
+        margin-block: calc(var(--page-padding) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgBlockAuto'"] {
+        margin-block: auto;
+    }
+
+    &[pgs*="'mrgBlockUnset'"] {
+        margin-block: unset;
+    }
+
+    //- INLINE
+    &[pgs*="'mrgInline'"] {
+        margin-inline: calc(var(--padding) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgInlineHalf'"] {
+        margin-inline: calc(var(--padding-half) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgInlineTexts'"] {
+        margin-inline: calc(var(--gap-texts) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgInlineElements'"] {
+        margin-inline: calc(var(--gap-elements) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgInlineSections'"] {
+        margin-inline: calc(var(--gap-sections) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgInlinePage'"] {
+        margin-inline: calc(var(--page-padding) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgInlineAuto'"] {
+        margin-inline: auto;
+    }
+
+    &[pgs*="'mrgInlineUnset'"] {
+        margin-inline: unset;
+    }
+
+    //- TOP
+    &[pgs*="'mrgTop'"] {
+        margin-top: calc(var(--padding) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgTopHalf'"] {
+        margin-top: calc(var(--padding-half) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgTopTexts'"] {
+        margin-top: calc(var(--gap-texts) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgTopElements'"] {
+        margin-top: calc(var(--gap-elements) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgTopSections'"] {
+        margin-top: calc(var(--gap-sections) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgTopPage'"] {
+        margin-top: calc(var(--page-padding) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgTopAuto'"] {
+        margin-top: auto;
+    }
+
+    &[pgs*="'mrgTopUnset'"] {
+        margin-top: unset;
+    }
+
+    //- RIGHT
+    &[pgs*="'mrgRight'"] {
+        margin-right: calc(var(--padding) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgRightHalf'"] {
+        margin-right: calc(var(--padding-half) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgRightTexts'"] {
+        margin-right: calc(var(--gap-texts) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgRightElements'"] {
+        margin-right: calc(var(--gap-elements) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgRightSections'"] {
+        margin-right: calc(var(--gap-sections) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgRightPage'"] {
+        margin-right: calc(var(--page-padding) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgRightAuto'"] {
+        margin-right: auto;
+    }
+
+    &[pgs*="'mrgRightUnset'"] {
+        margin-right: unset;
+    }
+
+    //- BOTTOM
+    &[pgs*="'mrgBottom'"] {
+        margin-bottom: calc(var(--padding) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgBottomHalf'"] {
+        margin-bottom: calc(var(--padding-half) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgBottomTexts'"] {
+        margin-bottom: calc(var(--gap-texts) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgBottomElements'"] {
+        margin-bottom: calc(var(--gap-elements) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgBottomSections'"] {
+        margin-bottom: calc(var(--gap-sections) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgBottomPage'"] {
+        margin-bottom: calc(var(--page-padding) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgBottomAuto'"] {
+        margin-bottom: auto;
+    }
+
+    &[pgs*="'mrgBottomUnset'"] {
+        margin-bottom: unset;
+    }
+
+    //- LEFT
+    &[pgs*="'mrgLeft'"] {
+        margin-left: calc(var(--padding) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgLeftHalf'"] {
+        margin-left: calc(var(--padding-half) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgLeftTexts'"] {
+        margin-left: calc(var(--gap-texts) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgLeftElements'"] {
+        margin-left: calc(var(--gap-elements) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgLeftSections'"] {
+        margin-left: calc(var(--gap-sections) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgLeftPage'"] {
+        margin-left: calc(var(--page-padding) * var(--margin-sign, 1));
+    }
+
+    &[pgs*="'mrgLeftAuto'"] {
+        margin-left: auto;
+    }
+
+    &[pgs*="'mrgLeftUnset'"] {
+        margin-left: unset;
     }
 }
 
 //= PADDING
-$padding-directions: (
-    "padding": padding,
-    "paddingLeft": padding-left,
-    "paddingRight": padding-right,
-    "paddingBottom": padding-bottom,
-    "paddingTop": padding-top,
-    "paddingInline": padding-inline,
-    "paddingBlock": padding-block,
-);
+:is([pgs~="padding"], [pgs*="padding\5B"]) {
 
-@each $token, $property in $padding-directions {
-    :is([pgs~="#{$token}"], [pgs*="#{$token}\5B"]) {
-        #{$property}: var(--padding);
+    //- BASE (all four sides)
+    &:not([pgs*="padding\5B"]) {
+        padding: var(--padding);
+    }
 
-        &[pgs*="#{$token}\5B'padding2'"] {
-            #{$property}: var(--padding-half);
-        }
+    &[pgs*="'padHalf'"] {
+        padding: var(--padding-half);
+    }
 
-        @each $scale, $value in $spacing-scale-values {
-            &[pgs*="#{$token}\5B'#{$scale}'"] {
-                #{$property}: #{$value};
-            }
-        }
+    &[pgs*="'padTexts'"] {
+        padding: var(--gap-texts);
+    }
 
-        &[pgs*="#{$token}\5B'unset'"] {
-            #{$property}: unset;
-        }
+    &[pgs*="'padElements'"] {
+        padding: var(--gap-elements);
+    }
+
+    &[pgs*="'padSections'"] {
+        padding: var(--gap-sections);
+    }
+
+    &[pgs*="'padPage'"] {
+        padding: var(--page-padding);
+    }
+
+    &[pgs*="'padUnset'"] {
+        padding: unset;
+    }
+
+    //- BLOCK
+    &[pgs*="'padBlock'"] {
+        padding-block: var(--padding);
+    }
+
+    &[pgs*="'padBlockHalf'"] {
+        padding-block: var(--padding-half);
+    }
+
+    &[pgs*="'padBlockTexts'"] {
+        padding-block: var(--gap-texts);
+    }
+
+    &[pgs*="'padBlockElements'"] {
+        padding-block: var(--gap-elements);
+    }
+
+    &[pgs*="'padBlockSections'"] {
+        padding-block: var(--gap-sections);
+    }
+
+    &[pgs*="'padBlockPage'"] {
+        padding-block: var(--page-padding);
+    }
+
+    &[pgs*="'padBlockUnset'"] {
+        padding-block: unset;
+    }
+
+    //- INLINE
+    &[pgs*="'padInline'"] {
+        padding-inline: var(--padding);
+    }
+
+    &[pgs*="'padInlineHalf'"] {
+        padding-inline: var(--padding-half);
+    }
+
+    &[pgs*="'padInlineTexts'"] {
+        padding-inline: var(--gap-texts);
+    }
+
+    &[pgs*="'padInlineElements'"] {
+        padding-inline: var(--gap-elements);
+    }
+
+    &[pgs*="'padInlineSections'"] {
+        padding-inline: var(--gap-sections);
+    }
+
+    &[pgs*="'padInlinePage'"] {
+        padding-inline: var(--page-padding);
+    }
+
+    &[pgs*="'padInlineUnset'"] {
+        padding-inline: unset;
+    }
+
+    //- TOP
+    &[pgs*="'padTop'"] {
+        padding-top: var(--padding);
+    }
+
+    &[pgs*="'padTopHalf'"] {
+        padding-top: var(--padding-half);
+    }
+
+    &[pgs*="'padTopTexts'"] {
+        padding-top: var(--gap-texts);
+    }
+
+    &[pgs*="'padTopElements'"] {
+        padding-top: var(--gap-elements);
+    }
+
+    &[pgs*="'padTopSections'"] {
+        padding-top: var(--gap-sections);
+    }
+
+    &[pgs*="'padTopPage'"] {
+        padding-top: var(--page-padding);
+    }
+
+    &[pgs*="'padTopUnset'"] {
+        padding-top: unset;
+    }
+
+    //- RIGHT
+    &[pgs*="'padRight'"] {
+        padding-right: var(--padding);
+    }
+
+    &[pgs*="'padRightHalf'"] {
+        padding-right: var(--padding-half);
+    }
+
+    &[pgs*="'padRightTexts'"] {
+        padding-right: var(--gap-texts);
+    }
+
+    &[pgs*="'padRightElements'"] {
+        padding-right: var(--gap-elements);
+    }
+
+    &[pgs*="'padRightSections'"] {
+        padding-right: var(--gap-sections);
+    }
+
+    &[pgs*="'padRightPage'"] {
+        padding-right: var(--page-padding);
+    }
+
+    &[pgs*="'padRightUnset'"] {
+        padding-right: unset;
+    }
+
+    //- BOTTOM
+    &[pgs*="'padBottom'"] {
+        padding-bottom: var(--padding);
+    }
+
+    &[pgs*="'padBottomHalf'"] {
+        padding-bottom: var(--padding-half);
+    }
+
+    &[pgs*="'padBottomTexts'"] {
+        padding-bottom: var(--gap-texts);
+    }
+
+    &[pgs*="'padBottomElements'"] {
+        padding-bottom: var(--gap-elements);
+    }
+
+    &[pgs*="'padBottomSections'"] {
+        padding-bottom: var(--gap-sections);
+    }
+
+    &[pgs*="'padBottomPage'"] {
+        padding-bottom: var(--page-padding);
+    }
+
+    &[pgs*="'padBottomUnset'"] {
+        padding-bottom: unset;
+    }
+
+    //- LEFT
+    &[pgs*="'padLeft'"] {
+        padding-left: var(--padding);
+    }
+
+    &[pgs*="'padLeftHalf'"] {
+        padding-left: var(--padding-half);
+    }
+
+    &[pgs*="'padLeftTexts'"] {
+        padding-left: var(--gap-texts);
+    }
+
+    &[pgs*="'padLeftElements'"] {
+        padding-left: var(--gap-elements);
+    }
+
+    &[pgs*="'padLeftSections'"] {
+        padding-left: var(--gap-sections);
+    }
+
+    &[pgs*="'padLeftPage'"] {
+        padding-left: var(--page-padding);
+    }
+
+    &[pgs*="'padLeftUnset'"] {
+        padding-left: unset;
     }
 }

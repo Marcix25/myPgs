@@ -14,7 +14,7 @@ Two variants that turn vertical wheel motion into horizontal scrolling over a co
 ### PGS
 
 - `flex`: provides the flex layout; direction and spacing are flags in its bracket.
-- `overflow`: adds the horizontal scrolling these examples turn the wheel into, with its auto and x options.
+- `overflow`: adds the horizontal scrolling these examples turn the wheel into, with its ovAutoX option.
 - `card`: uses the related card component or utility in this example.
 - `card-img`: uses the related card-img component or utility in this example.
 - `card-content`: groups the textual content of each card.
@@ -24,8 +24,7 @@ Two variants that turn vertical wheel motion into horizontal scrolling over a co
 
 - `row`: lays the demo items out in a row.
 - `gapTexts`: spaces them apart.
-- `auto`: inside overflow's own bracket, adds scrolling only when content overflows.
-- `x`: inside overflow's own bracket, next to auto, applies it to the horizontal axis only.
+- `ovAutoX`: inside overflow's own bracket, adds scrolling only when content overflows, on the horizontal axis only.
 - `nowrap`: keeps each row on one line so it actually overflows instead of wrapping.
 - `cover`: inside img's own bracket, crops the image to fill its box.
 

@@ -8,10 +8,6 @@
 //== above Laptop, visible in between). Each map spells its option names out in full, rather than
 //== building them by concatenation, so the literal name the docs validator looks for is actually
 //== present in this file — see scripts/generate-component-docs.js's containsExactToken.
-[pgs~="hide"] {
-    display: none !important;
-}
-
 $hide-media-down: (
     "mediaDownWatch": $watch,
     "mediaDownMobile": $mobile,
@@ -20,7 +16,6 @@ $hide-media-down: (
     "mediaDownBigTablet": $big-tablet,
     "mediaDownLaptop": $laptop,
 );
-
 $hide-media-up: (
     "mediaUpWatch": $watch,
     "mediaUpMobile": $mobile,
@@ -29,7 +24,6 @@ $hide-media-up: (
     "mediaUpBigTablet": $big-tablet,
     "mediaUpLaptop": $laptop,
 );
-
 $hide-container-down: (
     "containerDownWatch": $watch,
     "containerDownMobile": $mobile,
@@ -38,7 +32,6 @@ $hide-container-down: (
     "containerDownBigTablet": $big-tablet,
     "containerDownLaptop": $laptop,
 );
-
 $hide-container-up: (
     "containerUpWatch": $watch,
     "containerUpMobile": $mobile,
@@ -48,38 +41,47 @@ $hide-container-up: (
     "containerUpLaptop": $laptop,
 );
 
-//- MEDIA MAX
-@each $option, $size in $hide-media-down {
-    @media (max-width: #{$size}) {
-        [pgs*="hide\5B'#{$option}'"] {
-            display: none !important;
+//= HIDE
+:is([pgs~="hide"], [pgs*="hide\5B"]) {
+
+    &:not([pgs*="hide\5B"]),
+    &[pgs*="hide[]"] {
+        display: none !important;
+    }
+
+    //- MEDIA MAX
+    @each $option, $size in $hide-media-down {
+        @media (max-width: #{$size}) {
+            &[pgs*="'#{$option}'"] {
+                display: none !important;
+            }
         }
     }
-}
 
-//+ MEDIA MIN
-@each $option, $size in $hide-media-up {
-    @media (min-width: #{$size}) {
-        [pgs*="hide\5B'#{$option}'"] {
-            display: none !important;
+    //+ MEDIA MIN
+    @each $option, $size in $hide-media-up {
+        @media (min-width: #{$size}) {
+            &[pgs*="'#{$option}'"] {
+                display: none !important;
+            }
         }
     }
-}
 
-//-( CONTAINER MAX
-@each $option, $size in $hide-container-down {
-    @container (max-width: #{$size}) {
-        [pgs*="hide\5B'#{$option}'"] {
-            display: none !important;
+    //-( CONTAINER MAX
+    @each $option, $size in $hide-container-down {
+        @container (max-width: #{$size}) {
+            &[pgs*="'#{$option}'"] {
+                display: none !important;
+            }
         }
     }
-}
 
-//+( CONTAINER MIN
-@each $option, $size in $hide-container-up {
-    @container (min-width: #{$size}) {
-        [pgs*="hide\5B'#{$option}'"] {
-            display: none !important;
+    //+( CONTAINER MIN
+    @each $option, $size in $hide-container-up {
+        @container (min-width: #{$size}) {
+            &[pgs*="'#{$option}'"] {
+                display: none !important;
+            }
         }
     }
 }

@@ -45,7 +45,7 @@
 :is([pgs~="container"], [pgs*="container\5B"]) {
     container-type: inline-size;
 
-    &[pgs*="container\5B'none'"] {
+    &[pgs*="'none'"] {
         container-type: normal;
     }
 }

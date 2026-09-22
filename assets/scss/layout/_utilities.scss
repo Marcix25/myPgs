@@ -11,67 +11,69 @@
 
 
 //= POSITION
+//== each value gets its own unique flag (posRelative, posAbsolute, posSticky) instead of a bare
+//== 'relative'/'absolute'/'sticky', so the inner checks need no anchoring at all — no other
+//== component can ever produce the same quoted substring
 [pgs*="position\5B"] {
-    &[pgs*="position\5B'relative'"] {
+    &[pgs*="'posRelative'"] {
         position: relative;
     }
 
-    &[pgs*="position\5B'absolute'"] {
+    &[pgs*="'posAbsolute'"] {
         position: absolute;
     }
 
-    &[pgs*="position\5B'sticky'"] {
+    &[pgs*="'posSticky'"] {
         position: sticky;
     }
 }
 
 //= OVERFLOW & TEXT
-//== auto/hidden apply to both axes unless 'x' or 'y' sits next to it in the same bracket, e.g.
-//== overflow['auto' 'x'] for the horizontal axis only. Every check is anchored to overflow's own
-//== bracket (overflow\5B'auto') rather than a bare [pgs*="'auto'"], since 'auto' alone is already
-//== used, correctly anchored, by margin/width/height/etc. — a bare check here would also fire from
-//== any of those, e.g. on pgs="overflow margin['auto']", where overflow itself asked for nothing
+//== auto/hidden apply to both axes by default; ovAutoX/ovAutoY/ovHiddenX/ovHiddenY fold the axis
+//== into the flag name itself instead of checking for a second 'x'/'y' token next to 'auto' in the
+//== same bracket, which used to assume 'auto' came first — folding the axis into the name removes
+//== that ordering assumption entirely, the same fix already applied to margin and padding
 [pgs*="overflow\5B"] {
-    &[pgs*="overflow\5B'auto'"]:not([pgs*="overflow\5B'auto' 'x'"]):not([pgs*="overflow\5B'auto' 'y'"]) {
+    &[pgs*="'ovAuto'"] {
         overflow: auto;
     }
 
-    &[pgs*="overflow\5B'hidden'"]:not([pgs*="overflow\5B'hidden' 'x'"]):not([pgs*="overflow\5B'hidden' 'y'"]) {
+    &[pgs*="'ovHidden'"] {
         overflow: hidden;
     }
 
-    &[pgs*="overflow\5B'auto' 'x'"] {
+    &[pgs*="'ovAutoX'"] {
         overflow-x: auto;
     }
 
-    &[pgs*="overflow\5B'auto' 'y'"] {
+    &[pgs*="'ovAutoY'"] {
         overflow-y: auto;
     }
 
-    &[pgs*="overflow\5B'hidden' 'x'"] {
+    &[pgs*="'ovHiddenX'"] {
         overflow-x: hidden;
     }
 
-    &[pgs*="overflow\5B'hidden' 'y'"] {
+    &[pgs*="'ovHiddenY'"] {
         overflow-y: hidden;
     }
 }
 
 //= TEXT ALIGN
 [pgs*="textAlign\5B"] {
-    &[pgs*="textAlign\5B'left'"] {
+    &[pgs*="'taLeft'"] {
         text-align: left;
     }
 
-    &[pgs*="textAlign\5B'center'"] {
+    &[pgs*="'taCenter'"] {
         text-align: center;
     }
 
-    &[pgs*="textAlign\5B'right'"] {
+    &[pgs*="'taRight'"] {
         text-align: right;
     }
 
-    &[pgs*="textAlign\5B'justify'"] {
+    &[pgs*="'taJustify'"] {
         text-align: justify;
     }
 }
@@ -85,11 +87,11 @@
 
 //= ASPECT RATIO
 [pgs*="aspect\5B"] {
-    &[pgs*="aspect\5B'square'"] {
+    &[pgs*="'aspSquare'"] {
         aspect-ratio: 1 / 1;
     }
 
-    &[pgs*="aspect\5B'video'"] {
+    &[pgs*="'aspVideo'"] {
         aspect-ratio: 16 / 9;
     }
 }
@@ -100,42 +102,42 @@
 :is([pgs~="rotate"], [pgs*="rotate\5B"]) {
     transform: rotate(180deg);
 
-    &[pgs*="rotate\5B'0'"] {
+    &[pgs*="'rot0'"] {
         transform: rotate(0deg);
     }
 
-    &[pgs*="rotate\5B'90'"] {
+    &[pgs*="'rot90'"] {
         transform: rotate(90deg);
     }
 
-    &[pgs*="rotate\5B'180'"] {
+    &[pgs*="'rot180'"] {
         transform: rotate(180deg);
     }
 
-    &[pgs*="rotate\5B'270'"] {
+    &[pgs*="'rot270'"] {
         transform: rotate(270deg);
     }
 }
 
 //= INTERACTION
 [pgs*="select\5B"] {
-    &[pgs*="select\5B'none'"] {
+    &[pgs*="'selNone'"] {
         -webkit-user-select:none;
         user-select: none;
     }
 
-    &[pgs*="select\5B'text'"] {
+    &[pgs*="'selText'"] {
         -webkit-user-select:text;
         user-select: text;
     }
 }
 
 [pgs*="pointerEvents\5B"] {
-    &[pgs*="pointerEvents\5B'none'"] {
+    &[pgs*="'peNone'"] {
         pointer-events: none;
     }
 
-    &[pgs*="pointerEvents\5B'auto'"] {
+    &[pgs*="'peAuto'"] {
         pointer-events: auto;
     }
 }

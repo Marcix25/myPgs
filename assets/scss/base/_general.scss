@@ -87,11 +87,11 @@
 
 //= IMG
 [pgs*="img\5B"] {
-    &[pgs*="img\5B'cover'"] {
+    &[pgs*="'cover'"] {
         object-fit: cover;
     }
 
-    &[pgs*="img\5B'contain'"] {
+    &[pgs*="'contain'"] {
         object-fit: contain;
     }
 }

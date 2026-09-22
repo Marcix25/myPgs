@@ -6,21 +6,42 @@ Border, outline and radius utilities, split out from the general-purpose set sin
 
 ## PGS
 
-- `border`: draws the shared border on every side, and is what the br* colour utilities recolour.
-- `borderTop`: draws it above only.
-- `borderRight`: draws it on the right only.
-- `borderBottom`: draws it below only.
-- `borderLeft`: draws it on the left only.
-- `borderInline`: draws it on both sides of the inline axis.
-- `borderBlock`: draws it on both sides of the block axis.
+- `border`: draws the shared border, on every side by default, or on one direction with the option in its bracket; what the br* colour utilities recolour.
 - `outline`: draws the same line outside the box, taking no space in the layout; the ol* colour utilities recolour it.
 - `borderRadius`: applies the standard radius token to any surface, or one of its own two other scales.
 
 ## PGS Options (component brackets)
 
-- `thin`: draws the border (or, inside outline's own bracket, the outline) at 1px instead of the default 1.5px.
-- `thick`: draws the border (or, inside outline's own bracket, the outline) at 3px.
-- `thicker`: draws the border (or, inside outline's own bracket, the outline) at 4.5px.
+- `brdThin`: inside border's own bracket, draws it at 1px instead of the default 1.5px, on every side.
+- `brdThick`: inside border's own bracket, draws it at 3px, on every side.
+- `brdThicker`: inside border's own bracket, draws it at 4.5px, on every side.
+- `brdTop`: inside border's own bracket, draws it above only, at the default thickness.
+- `brdTopThin`: inside border's own bracket, draws it above only, at 1px.
+- `brdTopThick`: inside border's own bracket, draws it above only, at 3px.
+- `brdTopThicker`: inside border's own bracket, draws it above only, at 4.5px.
+- `brdRight`: inside border's own bracket, draws it on the right only, at the default thickness.
+- `brdRightThin`: inside border's own bracket, draws it on the right only, at 1px.
+- `brdRightThick`: inside border's own bracket, draws it on the right only, at 3px.
+- `brdRightThicker`: inside border's own bracket, draws it on the right only, at 4.5px.
+- `brdBottom`: inside border's own bracket, draws it below only, at the default thickness.
+- `brdBottomThin`: inside border's own bracket, draws it below only, at 1px.
+- `brdBottomThick`: inside border's own bracket, draws it below only, at 3px.
+- `brdBottomThicker`: inside border's own bracket, draws it below only, at 4.5px.
+- `brdLeft`: inside border's own bracket, draws it on the left only, at the default thickness.
+- `brdLeftThin`: inside border's own bracket, draws it on the left only, at 1px.
+- `brdLeftThick`: inside border's own bracket, draws it on the left only, at 3px.
+- `brdLeftThicker`: inside border's own bracket, draws it on the left only, at 4.5px.
+- `brdInline`: inside border's own bracket, draws it on both sides of the inline axis, at the default thickness.
+- `brdInlineThin`: inside border's own bracket, draws it on both sides of the inline axis, at 1px.
+- `brdInlineThick`: inside border's own bracket, draws it on both sides of the inline axis, at 3px.
+- `brdInlineThicker`: inside border's own bracket, draws it on both sides of the inline axis, at 4.5px.
+- `brdBlock`: inside border's own bracket, draws it on both sides of the block axis, at the default thickness.
+- `brdBlockThin`: inside border's own bracket, draws it on both sides of the block axis, at 1px.
+- `brdBlockThick`: inside border's own bracket, draws it on both sides of the block axis, at 3px.
+- `brdBlockThicker`: inside border's own bracket, draws it on both sides of the block axis, at 4.5px.
+- `otlThin`: inside outline's own bracket, draws it at 1px instead of the default 1.5px.
+- `otlThick`: inside outline's own bracket, draws it at 3px.
+- `otlThicker`: inside outline's own bracket, draws it at 4.5px.
 - `input`: inside borderRadius's own bracket, uses the smaller radius used by form controls instead of the standard one.
 - `external`: inside borderRadius's own bracket, uses the wider radius used by outer containers instead of the standard one.
 
@@ -39,7 +60,7 @@ Border, outline and radius utilities, split out from the general-purpose set sin
 
 - `column`: stacks the utility groups vertically.
 - `row`: arranges the examples in a row.
-- `sections`: uses the section spacing scale for the radius example's padding.
+- `padSections`: inside padding's own bracket, uses the section spacing scale for the radius example's padding.
 - `wrap`: lets the border and outline examples flow onto a second row.
 - `gapTexts`: spaces the examples inside a group.
 
@@ -71,16 +92,16 @@ A line drawn on the edge of the box, taking its space in the layout. It comes on
 <span pgs="padding border brPrimary">border + brPrimary</span>
 <span pgs="padding border brError">border + brError</span>
 
-<span pgs="padding border['thin']">thin</span>
-<span pgs="padding border['thick']">thick</span>
-<span pgs="padding border['thicker']">thicker</span>
+<span pgs="padding border['brdThin']">thin</span>
+<span pgs="padding border['brdThick']">thick</span>
+<span pgs="padding border['brdThicker']">thicker</span>
 
-<span pgs="padding borderTop brPrimary">borderTop</span>
-<span pgs="padding borderRight brPrimary">borderRight</span>
-<span pgs="padding borderBottom brPrimary">borderBottom</span>
-<span pgs="padding borderLeft brPrimary">borderLeft</span>
-<span pgs="padding borderInline brPrimary">borderInline</span>
-<span pgs="padding borderBlock brPrimary">borderBlock</span>
+<span pgs="padding border['brdTop'] brPrimary">borderTop</span>
+<span pgs="padding border['brdRight'] brPrimary">borderRight</span>
+<span pgs="padding border['brdBottom'] brPrimary">borderBottom</span>
+<span pgs="padding border['brdLeft'] brPrimary">borderLeft</span>
+<span pgs="padding border['brdInline'] brPrimary">borderInline</span>
+<span pgs="padding border['brdBlock'] brPrimary">borderBlock</span>
 ```
 
 ### Outline
@@ -92,9 +113,9 @@ The same line drawn outside the padding  so it takes no space and never moves wh
 <span pgs="padding outline olPrimary">outline + olPrimary</span>
 <span pgs="padding outline olError">outline + olError</span>
 
-<span pgs="padding outline['thin']">thin</span>
-<span pgs="padding outline['thick']">thick</span>
-<span pgs="padding outline['thicker']">thicker</span>
+<span pgs="padding outline['otlThin']">thin</span>
+<span pgs="padding outline['otlThick']">thick</span>
+<span pgs="padding outline['otlThicker']">thicker</span>
 ```
 
 ### Border radius
@@ -102,7 +123,7 @@ The same line drawn outside the padding  so it takes no space and never moves wh
 Three radius tokens: the standard one, the smaller one used by form controls and the wider one for outer containers.
 
 ```html
-<span pgs="padding['sections'] border borderRadius['external']">borderRadius['external']</span>
-<span pgs="padding['sections'] border borderRadius">borderRadius</span>
-<span pgs="padding['sections'] border borderRadius['input']">borderRadius['input']</span>
+<span pgs="padding['padSections'] border borderRadius['external']">borderRadius['external']</span>
+<span pgs="padding['padSections'] border borderRadius">borderRadius</span>
+<span pgs="padding['padSections'] border borderRadius['input']">borderRadius['input']</span>
 ```

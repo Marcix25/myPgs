@@ -19,7 +19,8 @@
  * @related
  * - button: presents the card action as a standard button.
  * - hover: the treatment a clickable card or box receives, added by pgs.hover on a page that carries bodyHoverAuto, rather than written by hand; see Hover.
- * - marginTop: separates the card action from the preceding text.
+ * - margin: provides the spacing utility used here.
+ * - mrgTop: inside margin's own bracket, separates the card action from the preceding text.
  * - hoverNot: available on a clickable card or box that must stay inert; see Hover.
  *
  * @return Standard, clickable, horizontal, and compact cards followed by standard, compact, and clickable boxes.
@@ -37,7 +38,7 @@
             <div pgs="card-content">
                 <h3>Lorem ipsum dolor</h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <a pgs="button marginTop" href="#">Read more</a>
+                <a pgs="button margin['mrgTop']" href="#">Read more</a>
             </div>
         </article>
     </div>

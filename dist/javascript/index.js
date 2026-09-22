@@ -1709,7 +1709,7 @@ function initializeModal(MODAL, existingDialog = null) {
 
     //== SELECTOR
     //== a hand-written close button keeps the bare name; a generated one gets the underscore
-    const DOMButtonClose = "<button pgs=\"button['iconOnly' 'mini'] _modal-close\" type=\"button\" tabindex=\"0\" aria-label=\"Close\"><i pgs=\"icon['icon-close']\"></i></button>";
+    const DOMButtonClose = "<button pgs=\"button['iconOnly' 'btnMini'] _modal-close\" type=\"button\" tabindex=\"0\" aria-label=\"Close\"><i pgs=\"icon['icon-close']\"></i></button>";
     const modalContentHeader = pgs(DIALOG).querySelector("modal-dialog-content-header");
 
     //== FOCUS
@@ -2915,10 +2915,10 @@ class PGS_Slides {
         //== a hand-written button keeps the bare name; a generated one gets the underscore, so
         //== the check below has to look for either
         if (!pgs(EL).querySelector(['slides-prec', '_slides-prec'])) {
-            EL.insertAdjacentHTML("afterbegin", `<button pgs="_slides-prec button['iconOnly' 'mini']" type="button" class="precButton" aria-label="Previous slide"> <i pgs="icon['icon-chevronDown'] rotate['90']"></i></button>`);
+            EL.insertAdjacentHTML("afterbegin", `<button pgs="_slides-prec button['iconOnly' 'btnMini']" type="button" class="precButton" aria-label="Previous slide"> <i pgs="icon['icon-chevronDown'] rotate['rot90']"></i></button>`);
         }
         if (!pgs(EL).querySelector(['slides-next', '_slides-next'])) {
-            EL.insertAdjacentHTML("beforeend", `<button pgs="_slides-next button['iconOnly' 'mini']" type="button" class="nextButton" aria-label="Next slide"> <i pgs="icon['icon-chevronDown'] rotate['270']"></i></button>`);
+            EL.insertAdjacentHTML("beforeend", `<button pgs="_slides-next button['iconOnly' 'btnMini']" type="button" class="nextButton" aria-label="Next slide"> <i pgs="icon['icon-chevronDown'] rotate['rot270']"></i></button>`);
         }
 
         //== DOTS

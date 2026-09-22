@@ -20,25 +20,29 @@ Focused layout, content, interaction, accessibility, and semantic-color utilitie
 
 ## PGS Options (component brackets)
 
-- `square`: inside aspect's own bracket, gives it a 1:1 aspect ratio.
-- `video`: inside aspect's own bracket, gives it a 16:9 aspect ratio.
-- `auto`: inside overflow's own bracket, adds scrolling only when content overflows; inside pointerEvents's own bracket, restores pointer interaction instead.
-- `hidden`: inside overflow's own bracket, clips overflowing content.
-- `x`: inside overflow's own bracket, next to auto or hidden, applies it to the horizontal axis only instead of both.
-- `y`: inside overflow's own bracket, next to auto or hidden, applies it to the vertical axis only instead of both.
-- `none`: inside pointerEvents's own bracket, ignores pointer interaction; inside select's own bracket, prevents text selection instead.
-- `relative`: inside position's own bracket, creates a positioning context.
-- `absolute`: inside position's own bracket, positions an element absolutely.
-- `sticky`: inside position's own bracket, keeps an element sticky when offsets are supplied by the surrounding layout.
-- `0`: inside rotate's own bracket, resets the rotation back to 0 degrees.
-- `90`: inside rotate's own bracket, rotates 90 degrees clockwise.
-- `180`: inside rotate's own bracket, rotates 180 degrees; this is also the default with no bracket at all.
-- `270`: inside rotate's own bracket, rotates 270 degrees clockwise (90 degrees counter-clockwise).
-- `text`: inside select's own bracket, enables text selection.
-- `left`: inside textAlign's own bracket, aligns text to the start of the line.
-- `center`: inside textAlign's own bracket, centers text.
-- `right`: inside textAlign's own bracket, aligns text to the end of the line.
-- `justify`: inside textAlign's own bracket, stretches text to fill each full line.
+- `aspSquare`: inside aspect's own bracket, gives it a 1:1 aspect ratio.
+- `aspVideo`: inside aspect's own bracket, gives it a 16:9 aspect ratio.
+- `ovAuto`: inside overflow's own bracket, adds scrolling only when content overflows, on both axes.
+- `ovHidden`: inside overflow's own bracket, clips overflowing content on both axes.
+- `ovAutoX`: inside overflow's own bracket, adds scrolling only when content overflows, on the horizontal axis only.
+- `ovAutoY`: inside overflow's own bracket, adds scrolling only when content overflows, on the vertical axis only.
+- `ovHiddenX`: inside overflow's own bracket, clips overflowing content on the horizontal axis only.
+- `ovHiddenY`: inside overflow's own bracket, clips overflowing content on the vertical axis only.
+- `peNone`: inside pointerEvents's own bracket, ignores pointer interaction.
+- `peAuto`: inside pointerEvents's own bracket, restores pointer interaction.
+- `posRelative`: inside position's own bracket, creates a positioning context.
+- `posAbsolute`: inside position's own bracket, positions an element absolutely.
+- `posSticky`: inside position's own bracket, keeps an element sticky when offsets are supplied by the surrounding layout.
+- `rot0`: inside rotate's own bracket, resets the rotation back to 0 degrees.
+- `rot90`: inside rotate's own bracket, rotates 90 degrees clockwise.
+- `rot180`: inside rotate's own bracket, rotates 180 degrees; this is also the default with no bracket at all.
+- `rot270`: inside rotate's own bracket, rotates 270 degrees clockwise (90 degrees counter-clockwise).
+- `selNone`: inside select's own bracket, prevents text selection.
+- `selText`: inside select's own bracket, enables text selection.
+- `taLeft`: inside textAlign's own bracket, aligns text to the start of the line.
+- `taCenter`: inside textAlign's own bracket, centers text.
+- `taRight`: inside textAlign's own bracket, aligns text to the end of the line.
+- `taJustify`: inside textAlign's own bracket, stretches text to fill each full line.
 
 ## Related elements
 
@@ -90,7 +94,7 @@ Examples of the standalone MyPGS utility API.
         <div pgs="flex['row' 'gapTexts' 'wrap']">
             <span pgs="box block">Block</span>
             <span pgs="box flex['row' 'inlineFlex']">Inline flex</span>
-            <span pgs="box flex['row' 'flexCenter'] aspect['square']">Centered</span>
+            <span pgs="box flex['row' 'flexCenter'] aspect['aspSquare']">Centered</span>
         </div>
         <div pgs="flex['row' 'gapTexts']">
             <span pgs="box flex['row'] flex-flexNone">Fixed</span>
@@ -98,33 +102,33 @@ Examples of the standalone MyPGS utility API.
             <span pgs="box flex['column'] flex-flexOrderFirst">First</span>
             <span pgs="box flex['column'] flex-flexOrderLast">Last</span>
         </div>
-        <div pgs="box position['relative']">
+        <div pgs="box position['posRelative']">
             Relative parent
-            <span pgs="position['absolute']">Absolute child</span>
+            <span pgs="position['posAbsolute']">Absolute child</span>
         </div>
-        <aside pgs="box position['sticky']">Sticky element</aside>
+        <aside pgs="box position['posSticky']">Sticky element</aside>
         <div pgs="flex['row' 'gapTexts']">
-            <i pgs="icon['icon-chevronDown'] rotate['0']" aria-hidden="true"></i>
-            <i pgs="icon['icon-chevronDown'] rotate['90']" aria-hidden="true"></i>
+            <i pgs="icon['icon-chevronDown'] rotate['rot0']" aria-hidden="true"></i>
+            <i pgs="icon['icon-chevronDown'] rotate['rot90']" aria-hidden="true"></i>
             <i pgs="icon['icon-chevronDown'] rotate" aria-hidden="true"></i>
-            <i pgs="icon['icon-chevronDown'] rotate['270']" aria-hidden="true"></i>
+            <i pgs="icon['icon-chevronDown'] rotate['rot270']" aria-hidden="true"></i>
         </div>
     </section>
 
     <section pgs="flex['column' 'gapTexts']">
         <strong>Content and interaction</strong>
-        <div pgs="box overflow['auto']">Scrollable content when its container has constrained dimensions.</div>
-        <div pgs="box overflow['auto' 'x']">Horizontally scrollable content when required.</div>
-        <div pgs="box overflow['hidden']">Overflowing content is clipped.</div>
-        <div pgs="box aspect['video']">16:9 media area</div>
-        <span pgs="select['none']">Selection disabled</span>
-        <span pgs="select['text']">Selection enabled</span>
-        <span pgs="pointerEvents['none']">Pointer events disabled</span>
-        <span pgs="pointerEvents['auto']">Pointer events enabled</span>
+        <div pgs="box overflow['ovAuto']">Scrollable content when its container has constrained dimensions.</div>
+        <div pgs="box overflow['ovAutoX']">Horizontally scrollable content when required.</div>
+        <div pgs="box overflow['ovHidden']">Overflowing content is clipped.</div>
+        <div pgs="box aspect['aspVideo']">16:9 media area</div>
+        <span pgs="select['selNone']">Selection disabled</span>
+        <span pgs="select['selText']">Selection enabled</span>
+        <span pgs="pointerEvents['peNone']">Pointer events disabled</span>
+        <span pgs="pointerEvents['peAuto']">Pointer events enabled</span>
         <button type="button" pgs="cursorNotAllowed">Unavailable action</button>
-        <p pgs="box textAlign['center']">Centered text</p>
-        <p pgs="box textAlign['right']">Right-aligned text</p>
-        <p pgs="box textAlign['justify']">Justified text stretches to fill each full line, spacing words out to meet the right edge except on its last line.</p>
+        <p pgs="box textAlign['taCenter']">Centered text</p>
+        <p pgs="box textAlign['taRight']">Right-aligned text</p>
+        <p pgs="box textAlign['taJustify']">Justified text stretches to fill each full line, spacing words out to meet the right edge except on its last line.</p>
     </section>
 
     <section pgs="flex['column' 'gapTexts']">

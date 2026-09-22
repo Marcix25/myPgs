@@ -2,16 +2,16 @@
 <main pgs="main" id="homePage" style="--main-padding-top: calc(var(--heightOfHeader) + var(--page-padding)) ;">
 
     <!-- = HERO -->
-    <section class="home-hero" pgs="sectionMax marginInline['page'] width['fillAvailable'] darkmode heightMin flex['column']" style="--heightMin-size: calc(100dvh - var(--main-padding-top) - var(--page-padding))">
+    <section class="home-hero" pgs="sectionMax margin['mrgInlinePage'] width['widthFillAvailable'] darkmode heightMin flex['column']" style="--heightMin-size: calc(100dvh - var(--main-padding-top) - var(--page-padding))">
         <div class="home-hero-inner" pgs="flex['row' 'gapElements' 'wrap'] flex-flex1">
-            <div class="home-hero-text" pgs="flex['column' 'center'] textAlign['center'] flex-flexValue paddingTop" style="--flex-flexValue: 420px;">
+            <div class="home-hero-text" pgs="flex['column' 'flexPlaceCenter'] textAlign['taCenter'] flex-flexValue padding['padTop']" style="--flex-flexValue: 420px;">
                 <p class="home-hero-eyebrow">Frontend theme &amp; component library</p>
                 <h1>Build interfaces with one attribute: <code class="demoContent-heading" pgs="h1 txtPrimaryText">pgs</code>.</h1>
                 <p class="home-hero-lead">MyPGS ties markup, CSS and JavaScript together through a single
                     attribute contract. Dark mode, container queries and accessible defaults come built in —
                     nothing else to configure.</p>
                 <div pgs="flex['row' 'flexCenter' 'gapTexts' 'wrap']">
-                    <a pgs="button['big' 'strong']" href="demo.html">Browse the reference</a>
+                    <a pgs="button['big' 'btnStrong']" href="demo.html">Browse the reference</a>
                     <a pgs="button['big' 'transparent']" href="test.html">Try it live</a>
                 </div>
             </div>
@@ -88,7 +88,7 @@
             </div>
 
             <div class="home-showcase-demo" pgs="flex['column' 'gapTexts'] flex-flexValue" style="--flex-flexValue: 420px;">
-                <article class="home-showcase-card" pgs="card['horizontal']">
+                <article class="home-showcase-card" pgs="card['cardHorizontal']">
                     <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="A MyPGS card component">
                     <div pgs="card-content">
                         <h3>Card and Box</h3>
@@ -101,7 +101,7 @@
                     <button type="button" class="exampleSource-copy" aria-label="Copia il codice HTML">
                         <i class="fa-solid fa-copy" aria-hidden="true"></i>
                     </button>
-                    <pre><code class="language-markup">&lt;article pgs="card['horizontal']"&gt;
+                    <pre><code class="language-markup">&lt;article pgs="card['cardHorizontal']"&gt;
     &lt;img pgs="card-img img['cover']" src="placeholder.jpg" alt="…"&gt;
     &lt;div pgs="card-content"&gt;
         &lt;h3&gt;Card and Box&lt;/h3&gt;
@@ -135,16 +135,16 @@
             <i pgs="icon['boxed' 'medium' 'icon-clock']" title="icon-clock"></i>
         </div>
 
-        <a class="home-icons-link" pgs="button marginTop['texts'] bgBoxDark txtWhite" href="demo.html#components-icon">See the whole set</a>
+        <a class="home-icons-link" pgs="button margin['mrgTopTexts'] bgBoxDark txtWhite" href="demo.html#components-icon">See the whole set</a>
     </section>
 
     <!-- = CTA -->
-    <section class="home-cta" pgs="section['gapTexts'] paddingBlock['elements'] heightMin['screenHalf']">
-        <div pgs="box flex['column' 'center'] heightMin['screenHalf']">
+    <section class="home-cta" pgs="section['gapTexts'] padding['padBlockElements'] heightMin['heightMinScreenHalf']">
+        <div pgs="box flex['column' 'flexPlaceCenter'] heightMin['heightMinScreenHalf']">
             <h2>Ready to look around?</h2>
             <p>Every component, layout and helper the library ships, with a live, working example each.</p>
             <div pgs="flex['row' 'gapTexts' 'wrap' 'justifyCenter']">
-                <a pgs="button['big' 'strong']" href="demo.html">Browse the reference</a>
+                <a pgs="button['big' 'btnStrong']" href="demo.html">Browse the reference</a>
                 <a pgs="button['big' 'transparent']" href="test.html">Try it live</a>
             </div>
         </div>

@@ -15,19 +15,48 @@ Width and height utilities, each driven by its own custom property: --width-size
 
 ## PGS Options (component brackets)
 
-- `page`: uses the page width and is the default for every width utility.
-- `pageHalf`: uses half the page width, for two columns that line up with the page content.
-- `pageThird`: uses a third of the page width.
-- `text`: uses a 65 character measure, the width a line of text stays readable at, independent of the page width.
-- `full`: uses the whole container width, or, inside a height utility's own bracket, the whole parent height — which then only resolves when the parent has a definite height of its own.
-- `fillAvailable`: uses -webkit-fill-available, the space actually left after margins and padding on iOS Safari, where percentages and viewport units miscompute against the address bar. Unsupported outside Chromium/Safari, where the invalid value is dropped and the element falls back to whichever other option, or its own -size property, it also carries.
-- `screen`: uses the small viewport height, the screen with the browser toolbars expanded, and is the default for every height utility. The element never grows past the screen as the toolbars retract.
-- `screenLive`: uses the dynamic viewport height, which follows the visible area as the toolbars come and go, at the cost of resizing during the scroll.
-- `screenLarge`: uses the large viewport height, the screen with the toolbars retracted, for something meant to run under them.
-- `screenHalf`: uses half the small viewport height.
-- `underHeader`: uses what is left of the screen below the header, for a hero that fills the first view.
-- `underMain`: the same idea for an element that is the first child of main instead, subtracting --main-padding-top rather than just the header height, since main already carries the extra room --page-top adds.
-- `auto`: drops the height constraint on one element without dropping the utility.
+- `widthPage`: inside width's own bracket, uses the page width and is the default for every width utility.
+- `widthPageHalf`: inside width's own bracket, uses half the page width, for two columns that line up with the page content.
+- `widthPageThird`: inside width's own bracket, uses a third of the page width.
+- `widthText`: inside width's own bracket, uses a 65 character measure, the width a line of text stays readable at, independent of the page width.
+- `widthFull`: inside width's own bracket, uses the whole container width.
+- `widthFillAvailable`: inside width's own bracket, uses -webkit-fill-available, the space actually left after margins and padding on iOS Safari, where percentages and viewport units miscompute against the address bar. Unsupported outside Chromium/Safari, where the invalid value is dropped and the element falls back to whichever other option, or its own -size property, it also carries.
+- `widthMaxPage`: inside widthMax's own bracket, the same page width scale as widthPage, capping instead of setting.
+- `widthMaxPageHalf`: inside widthMax's own bracket, the same half-page scale as widthPageHalf.
+- `widthMaxPageThird`: inside widthMax's own bracket, the same third-page scale as widthPageThird.
+- `widthMaxText`: inside widthMax's own bracket, the same 65 character measure as widthText.
+- `widthMaxFull`: inside widthMax's own bracket, the same whole container width as widthFull.
+- `widthMaxFillAvailable`: inside widthMax's own bracket, the same -webkit-fill-available as widthFillAvailable.
+- `widthMinPage`: inside widthMin's own bracket, the same page width scale as widthPage, flooring instead of setting.
+- `widthMinPageHalf`: inside widthMin's own bracket, the same half-page scale as widthPageHalf.
+- `widthMinPageThird`: inside widthMin's own bracket, the same third-page scale as widthPageThird.
+- `widthMinText`: inside widthMin's own bracket, the same 65 character measure as widthText.
+- `widthMinFull`: inside widthMin's own bracket, the same whole container width as widthFull.
+- `widthMinFillAvailable`: inside widthMin's own bracket, the same -webkit-fill-available as widthFillAvailable.
+- `heightFull`: inside height's own bracket, uses the whole parent height, which only resolves when the parent has a definite height of its own.
+- `heightScreen`: inside height's own bracket, uses the small viewport height, the screen with the browser toolbars expanded, and is the default for every height utility. The element never grows past the screen as the toolbars retract.
+- `heightScreenLive`: inside height's own bracket, uses the dynamic viewport height, which follows the visible area as the toolbars come and go, at the cost of resizing during the scroll.
+- `heightScreenLarge`: inside height's own bracket, uses the large viewport height, the screen with the toolbars retracted, for something meant to run under them.
+- `heightScreenHalf`: inside height's own bracket, uses half the small viewport height.
+- `heightUnderHeader`: inside height's own bracket, uses what is left of the screen below the header, for a hero that fills the first view.
+- `heightUnderMain`: inside height's own bracket, the same idea for an element that is the first child of main instead, subtracting --main-padding-top rather than just the header height, since main already carries the extra room --page-top adds.
+- `heightAuto`: inside height's own bracket, drops the height constraint on one element without dropping the utility.
+- `heightMaxFull`: inside heightMax's own bracket, the same whole parent height as heightFull.
+- `heightMaxScreen`: inside heightMax's own bracket, the same small viewport height as heightScreen, and the default for heightMax.
+- `heightMaxScreenLive`: inside heightMax's own bracket, the same dynamic viewport height as heightScreenLive.
+- `heightMaxScreenLarge`: inside heightMax's own bracket, the same large viewport height as heightScreenLarge.
+- `heightMaxScreenHalf`: inside heightMax's own bracket, the same half viewport height as heightScreenHalf.
+- `heightMaxUnderHeader`: inside heightMax's own bracket, the same header-relative height as heightUnderHeader.
+- `heightMaxUnderMain`: inside heightMax's own bracket, the same main-relative height as heightUnderMain.
+- `heightMaxAuto`: inside heightMax's own bracket, drops the ceiling on one element without dropping the utility.
+- `heightMinFull`: inside heightMin's own bracket, the same whole parent height as heightFull.
+- `heightMinScreen`: inside heightMin's own bracket, the same small viewport height as heightScreen, and the default for heightMin.
+- `heightMinScreenLive`: inside heightMin's own bracket, the same dynamic viewport height as heightScreenLive.
+- `heightMinScreenLarge`: inside heightMin's own bracket, the same large viewport height as heightScreenLarge.
+- `heightMinScreenHalf`: inside heightMin's own bracket, the same half viewport height as heightScreenHalf.
+- `heightMinUnderHeader`: inside heightMin's own bracket, the same header-relative height as heightUnderHeader.
+- `heightMinUnderMain`: inside heightMin's own bracket, the same main-relative height as heightUnderMain.
+- `heightMinAuto`: inside heightMin's own bracket, drops the floor on one element without dropping the utility.
 
 ## Related elements
 
@@ -36,16 +65,17 @@ Width and height utilities, each driven by its own custom property: --width-size
 - `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `main`: sets --main-padding-top, which underMain subtracts from the viewport height.
 - `box`: makes the measured elements visible.
-- `overflow`: scrolls the content a heightMax element cannot show, with its auto option.
-- `marginInline`: pairs with auto to centre a constrained element.
+- `overflow`: scrolls the content a heightMax element cannot show.
+- `margin`: provides the spacing utility used here.
 
 ### PGS Options (component brackets)
 
 - `column`: arranges the groups vertically.
 - `row`: places the column and viewport examples side by side.
+- `ovAuto`: inside overflow's own bracket, adds scrolling only when content overflows.
+- `mrgInlineAuto`: inside margin's own bracket, pairs with auto to centre a constrained element.
 - `gapTexts`: separates the examples inside a group.
 - `gapElements`: separates the side by side examples.
-- `auto`: centres an element once its width is constrained.
 - `flexCenter`: centres the label inside each measured block.
 
 ### Other
@@ -63,12 +93,12 @@ The width scales come off the page, so a constrained element lines up with the p
 
 ```html
 <strong>Width scales</strong>
-<p pgs="box width['page']">Page width.</p>
-<p pgs="box width['pageHalf']">Half the page width.</p>
-<p pgs="box width['pageThird']">A third of the page width.</p>
-<p pgs="box width['text']">A 65 character measure, the width a line of text stays readable at.</p>
-<p pgs="box width['full']">The whole container width.</p>
-<p pgs="box width['fillAvailable']">-webkit-fill-available, Chromium/Safari only.</p>
+<p pgs="box width['widthPage']">Page width.</p>
+<p pgs="box width['widthPageHalf']">Half the page width.</p>
+<p pgs="box width['widthPageThird']">A third of the page width.</p>
+<p pgs="box width['widthText']">A 65 character measure, the width a line of text stays readable at.</p>
+<p pgs="box width['widthFull']">The whole container width.</p>
+<p pgs="box width['widthFillAvailable']">-webkit-fill-available, Chromium/Safari only.</p>
 ```
 
 ### Arbitrary width
@@ -79,7 +109,7 @@ Without an option the value comes from the utility's own -size property (--width
 <strong>Arbitrary width</strong>
 <p pgs="box width" style="--width-size: 600px">Six hundred pixels, capped at the container.</p>
 <p pgs="box widthMin" style="--widthMin-size: 400px">At least four hundred pixels.</p>
-<p pgs="box widthMax marginInline['auto']" style="--widthMax-size: 500px">Capped at five hundred pixels and centred.</p>
+<p pgs="box widthMax margin['mrgInlineAuto']" style="--widthMax-size: 500px">Capped at five hundred pixels and centred.</p>
 ```
 
 ### Two columns
@@ -87,8 +117,8 @@ Without an option the value comes from the utility's own -size property (--width
 Half the page width on each side of a row, so the text keeps the page rhythm while the row bleeds past the edge.
 
 ```html
-<p pgs="box widthMax['pageHalf']">Text held at half the page width, so it stays aligned with the page content.</p>
-<p pgs="box widthMax['pageHalf']">The second column takes the same ceiling.</p>
+<p pgs="box widthMax['widthMaxPageHalf']">Text held at half the page width, so it stays aligned with the page content.</p>
+<p pgs="box widthMax['widthMaxPageHalf']">The second column takes the same ceiling.</p>
 ```
 
 ## Height
@@ -98,8 +128,8 @@ Half the page width on each side of a row, so the text keeps the page rhythm whi
 Each scale is a different reading of what the screen is: svh with the browser toolbars expanded, lvh with them retracted, dvh following them as they move.
 
 ```html
-<div pgs="box heightMin['screenHalf'] flex['column' 'flexCenter']">Half the screen.</div>
-<div pgs="box heightMin['underHeader'] flex['column' 'flexCenter']">What is left below the header.</div>
+<div pgs="box heightMin['heightMinScreenHalf'] flex['column' 'flexCenter']">Half the screen.</div>
+<div pgs="box heightMin['heightMinUnderHeader'] flex['column' 'flexCenter']">What is left below the header.</div>
 ```
 
 ### First element inside main
@@ -108,7 +138,7 @@ underMain excludes main's own top padding (--main-padding-top) instead of just t
 
 ```html
 <div pgs="main">
-    <div pgs="box heightMin['underMain'] flex['column' 'flexCenter']">First element inside main.</div>
+    <div pgs="box heightMin['heightMinUnderMain'] flex['column' 'flexCenter']">First element inside main.</div>
 </div>
 ```
 
@@ -119,7 +149,7 @@ heightMin is the usual one for a section, because the element still grows with i
 ```html
 <strong>Floor and ceiling</strong>
 <div pgs="box heightMin" style="--heightMin-size: 120px">At least a hundred and twenty pixels tall, and taller if the content asks for it.</div>
-<div pgs="box heightMax overflow['auto']" style="--heightMax-size: 80px">Capped at eighty pixels, with the rest of the content reachable by scrolling. A ceiling without an overflow utility would simply let this text spill out of the box, because the element stops growing but the content does not.</div>
+<div pgs="box heightMax overflow['ovAuto']" style="--heightMax-size: 80px">Capped at eighty pixels, with the rest of the content reachable by scrolling. A ceiling without an overflow utility would simply let this text spill out of the box, because the element stops growing but the content does not.</div>
 <div pgs="box height" style="--height-size: 60px">Exactly sixty pixels.</div>
 ```
 
@@ -129,5 +159,5 @@ auto removes the limit on a single element while the utility stays in place, so 
 
 ```html
 <strong>Dropping the constraint</strong>
-<div pgs="box heightMin['auto']">No floor at all.</div>
+<div pgs="box heightMin['heightMinAuto']">No floor at all.</div>
 ```
