@@ -122,6 +122,9 @@
     //- card Horizontal
     //== below the breakpoint the card keeps the default column layout above unchanged; the
     //== container query only ever adds the row state, so there is nothing to undo going narrow
+    //== NOT anchored: card's own options combine freely (e.g. alongside a future width/mini
+    //== combo), so anchoring to "first in the bracket" is unsafe here, same lesson as button's
+    //== mini/strong/primary. menu also has a 'horizontal' option; accepted risk
     &[pgs*="'horizontal'"] {
         container-type: inline-size;
 
@@ -140,6 +143,8 @@
     }
 
     //- card Mini
+    //== NOT anchored, same reasoning as card's horizontal above. button and box also have a
+    //== 'mini' option; accepted risk
     &[pgs*="'mini'"] {
         --card-padding: var(--padding-half);
     }
@@ -150,6 +155,8 @@
     @include box();
 
     //- mini
+    //== NOT anchored, same reasoning as button's mini/strong/primary in _button.scss. button
+    //== and card also have a 'mini' option; accepted risk
     &[pgs*="'mini'"] {
         --box-padding: var(--padding-half);
         --box-borderRadius: var(--border-radius-input);

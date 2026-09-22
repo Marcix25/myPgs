@@ -9,12 +9,19 @@
 
 //== FLEX OPTIONS
 :is([pgs~="flex"], [pgs*="flex\5B"]) {
-    &[pgs*="'center'"] {
-        @include center();
-    }
-
     &[pgs*="'inlineFlex'"] {
         display: inline-flex;
+    }
+
+    //== NOT anchored, unlike position/select/rotate/etc.: those only ever take one value, so
+    //== requiring the flag right after their own [ is safe. flex takes several at once in any
+    //== order the author likes (flex['column' 'center'], flex['center' 'wrap'], ...), so anchoring
+    //== to "immediately after flex[" would only match when center happens to be written first —
+    //== exactly the bug this caused. Every other flex option here (column, row, wrap, gapTexts...)
+    //== has the same unanchored shape for the same reason; textAlign also having a 'center' option
+    //== is a known, accepted collision risk, not one this bracket can anchor its way out of
+    &[pgs*="'center'"] {
+        @include center();
     }
 
     &[pgs*="'flexCenter'"] {

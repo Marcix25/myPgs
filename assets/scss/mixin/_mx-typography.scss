@@ -12,8 +12,9 @@
     font-family: var(--heading-family#{$tag}, var(--font-heading));
     margin-bottom: calc(var(--heading-size#{$tag}, #{$size}) / 8);
     font-size: var(--heading-size#{$tag}, #{$size});
-    line-height: var(--heading-line-height#{$tag}, 1.1);
+    line-height: var(--heading-line-height#{$tag}, var(--heading-line-height));
     color: var(--heading-color#{$tag}, var(--color-black));
+    letter-spacing: var(--header-letter-spacing#{$tag}, var(--heading-letter-spacing));
     min-width: 0;
     font-weight: $weight;
     overflow-wrap: anywhere;

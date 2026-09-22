@@ -1,28 +1,26 @@
 <!-- = MAIN -->
-<main pgs="main" id="homePage" style="--main-padding-top: var(--heightOfHeader);">
+<main pgs="main" id="homePage" style="--main-padding-top: calc(var(--heightOfHeader) + var(--page-padding)) ;">
 
     <!-- = HERO -->
-    <section class="home-hero" pgs="sectionFull marginInline['page'] width['fillAvailable'] darkmode heightMin flex['column']" style="--heightMin-size: calc(100dvh - var(--main-padding-top) - var(--page-padding))">
+    <section class="home-hero" pgs="sectionMax marginInline['page'] width['fillAvailable'] darkmode heightMin flex['column']" style="--heightMin-size: calc(100dvh - var(--main-padding-top) - var(--page-padding))">
         <div class="home-hero-inner" pgs="flex['row' 'gapElements' 'wrap'] flex-flex1">
-            <div class="home-hero-text" pgs="flex['column' 'selfStretch' 'justifyBetween'] flex-flexValue paddingTop" style="--flex-flexValue: 420px;">
-                <div pgs="flex['column' 'gapTexts']">
-                    <p class="home-hero-eyebrow">Frontend theme &amp; component library</p>
-                    <h1>Build interfaces with one attribute: <code pgs="h1 txtPrimaryText">pgs</code>.</h1>
-                    <p class="home-hero-lead">MyPGS ties markup, CSS and JavaScript together through a single
-                        attribute contract. Dark mode, container queries and accessible defaults come built in —
-                        nothing else to configure.</p>
-                </div>
-                <div pgs="flex['row' 'gapTexts' 'wrap']">
+            <div class="home-hero-text" pgs="flex['column' 'center'] textAlign['center'] flex-flexValue paddingTop" style="--flex-flexValue: 420px;">
+                <p class="home-hero-eyebrow">Frontend theme &amp; component library</p>
+                <h1>Build interfaces with one attribute: <code class="demoContent-heading" pgs="h1 txtPrimaryText">pgs</code>.</h1>
+                <p class="home-hero-lead">MyPGS ties markup, CSS and JavaScript together through a single
+                    attribute contract. Dark mode, container queries and accessible defaults come built in —
+                    nothing else to configure.</p>
+                <div pgs="flex['row' 'flexCenter' 'gapTexts' 'wrap']">
                     <a pgs="button['big' 'strong']" href="demo.html">Browse the reference</a>
                     <a pgs="button['big' 'transparent']" href="test.html">Try it live</a>
                 </div>
             </div>
 
-            <div class="home-hero-media" pgs="flex-flexValue" style="--flex-flexValue: 280px;">
+            <!-- <div class="home-hero-media" pgs="flex-flexValue" style="--flex-flexValue: 280px;">
                 <div class="home-hero-media-panel">
                     <img src="../assets/img/logo.svg" alt="MyPGS">
                 </div>
-            </div>
+            </div> -->
         </div>
     </section>
 

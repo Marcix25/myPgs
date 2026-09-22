@@ -15,6 +15,7 @@ Focused layout, content, interaction, accessibility, and semantic-color utilitie
 - `position`: positions an element the way the option in its bracket says; written bare it does nothing.
 - `rotate`: rotates an element 180 degrees when written bare; a degree option in its bracket picks a different amount instead.
 - `select`: allows or prevents text selection depending on the option in its bracket; written bare it does nothing.
+- `textAlign`: aligns text the way the option in its bracket says; written bare it does nothing.
 - `truncate`: limits text to one line and adds an ellipsis when it overflows.
 
 ## PGS Options (component brackets)
@@ -34,6 +35,10 @@ Focused layout, content, interaction, accessibility, and semantic-color utilitie
 - `180`: inside rotate's own bracket, rotates 180 degrees; this is also the default with no bracket at all.
 - `270`: inside rotate's own bracket, rotates 270 degrees clockwise (90 degrees counter-clockwise).
 - `text`: inside select's own bracket, enables text selection.
+- `left`: inside textAlign's own bracket, aligns text to the start of the line.
+- `center`: inside textAlign's own bracket, centers text.
+- `right`: inside textAlign's own bracket, aligns text to the end of the line.
+- `justify`: inside textAlign's own bracket, stretches text to fill each full line.
 
 ## Related elements
 
@@ -117,6 +122,9 @@ Examples of the standalone MyPGS utility API.
         <span pgs="pointerEvents['none']">Pointer events disabled</span>
         <span pgs="pointerEvents['auto']">Pointer events enabled</span>
         <button type="button" pgs="cursorNotAllowed">Unavailable action</button>
+        <p pgs="box textAlign['center']">Centered text</p>
+        <p pgs="box textAlign['right']">Right-aligned text</p>
+        <p pgs="box textAlign['justify']">Justified text stretches to fill each full line, spacing words out to meet the right edge except on its last line.</p>
     </section>
 
     <section pgs="flex['column' 'gapTexts']">

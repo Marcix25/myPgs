@@ -1,5 +1,18 @@
 @use "../mixin/mixin" as *;
 
+//+ CSS has no pow(): builds "var(...) * var(...) * ..." $n times instead, so raising the
+//+ percentage to a higher power still just multiplies it by itself, only more times
+@function _slidesScalePow($n) {
+    $term: "var(--slides-visiblePercent, 1)";
+    $expr: $term;
+
+    @for $i from 2 through $n {
+        $expr: "#{$expr} * #{$term}";
+    }
+
+    @return $expr;
+}
+
 //+ registered so the fade width can be animated: a plain custom property would jump
 @property --slides-maskStart {
     syntax: "<length>";
@@ -171,19 +184,31 @@
         }
     }
 
-    //+option for suggestions
+    //+ option for suggestions
     &[pgs*="'singleScroll'"],
-    &[pgs*="'scrollMouse'"],
-    &[pgs*="'shadowDesktop'"] {}
+    &[pgs*="'scrollMouse'"] {}
 
     //+ animationScale
     &[pgs*="'animationScale'"] {
         :where([pgs~="slides-container"]) {
             :where([pgs~="slides-container-slide"]) {
+                &:not([pgs-state~="view"]) {}
+
                 >* {
-                    //== the JavaScript writes the real ratio on every scroll; the fallback is what
-                    //== the slide is drawn at before the first observer pass
-                    scale: var(--slides-visiblePercent, 1);
+                    scale: calc(var(--slides-visiblePercent, 1) * var(--slides-visiblePercent, 1) * var(--slides-visiblePercent, 1));
+                    transform-origin: center;
+                }
+            }
+
+            :where([pgs~="slides-container-slide"]):has(~ [pgs-state~="view"]) {
+                >* {
+                    transform-origin: right;
+                }
+            }
+
+            :where([pgs-state~="view"])~ :where([pgs~="slides-container-slide"]) {
+                >* {
+                    transform-origin: left;
                 }
             }
         }

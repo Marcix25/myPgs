@@ -9,36 +9,43 @@
     --heading-color: var(--color-black);
     --heading-family: var(--font-heading);
     --heading-line-height: 1.1;
+    --header-letter-spacing: normal;
     // h1
     --heading-size-h1: #{$h1};
     --heading-color-h1: var(--heading-color);
     --heading-family-h1: var(--heading-family);
     --heading-line-height-h1: var(--heading-line-height);
+    --header-letter-spacing-h1: var(--header-letter-spacing);
     // h2
     --heading-size-h2: #{$h2};
     --heading-color-h2: var(--heading-color);
     --heading-family-h2: var(--heading-family);
     --heading-line-height-h2: var(--heading-line-height);
+    --header-letter-spacing-h2: var(--header-letter-spacing);
     // h3
     --heading-size-h3: #{$h3};
     --heading-color-h3: var(--heading-color);
     --heading-family-h3: var(--heading-family);
     --heading-line-height-h3: var(--heading-line-height);
+    --header-letter-spacing-h3: var(--header-letter-spacing);
     // h4
     --heading-size-h4: #{$h4};
     --heading-color-h4: var(--heading-color);
     --heading-family-h4: var(--heading-family);
     --heading-line-height-h4: var(--heading-line-height);
+    --header-letter-spacing-h4: var(--header-letter-spacing);
     // h5
     --heading-size-h5: calc(#{$h5} - 0.1rem);
     --heading-color-h5: var(--heading-color);
     --heading-family-h5: var(--heading-family);
     --heading-line-height-h5: var(--heading-line-height);
+    --header-letter-spacing-h5: var(--header-letter-spacing);
     // h6
     --heading-size-h6: calc(#{$h5} - 0.1rem);
     --heading-color-h6: var(--heading-color);
     --heading-family-h6: var(--heading-family);
     --heading-line-height-h6: var(--heading-line-height);
+    --header-letter-spacing-h6: var(--header-letter-spacing);
 }
 
 [pgs~="h1"] {

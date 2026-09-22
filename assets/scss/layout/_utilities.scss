@@ -57,6 +57,25 @@
     }
 }
 
+//= TEXT ALIGN
+[pgs*="textAlign\5B"] {
+    &[pgs*="textAlign\5B'left'"] {
+        text-align: left;
+    }
+
+    &[pgs*="textAlign\5B'center'"] {
+        text-align: center;
+    }
+
+    &[pgs*="textAlign\5B'right'"] {
+        text-align: right;
+    }
+
+    &[pgs*="textAlign\5B'justify'"] {
+        text-align: justify;
+    }
+}
+
 [pgs~="truncate"] {
     min-width: 0;
     overflow: hidden;

@@ -267,8 +267,9 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   font-family: var(--heading-family-h1, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h1, 7.2rem) / 8);
   font-size: var(--heading-size-h1, 7.2rem);
-  line-height: var(--heading-line-height-h1, 1.1);
+  line-height: var(--heading-line-height-h1, var(--heading-line-height));
   color: var(--heading-color-h1, var(--color-black));
+  letter-spacing: var(--header-letter-spacing-h1, var(--heading-letter-spacing));
   min-width: 0;
   font-weight: 900;
   overflow-wrap: anywhere;
@@ -294,8 +295,9 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   font-family: var(--heading-family-h2, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h2, 4.45rem) / 8);
   font-size: var(--heading-size-h2, 4.45rem);
-  line-height: var(--heading-line-height-h2, 1.1);
+  line-height: var(--heading-line-height-h2, var(--heading-line-height));
   color: var(--heading-color-h2, var(--color-black));
+  letter-spacing: var(--header-letter-spacing-h2, var(--heading-letter-spacing));
   min-width: 0;
   font-weight: 900;
   overflow-wrap: anywhere;
@@ -321,8 +323,9 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   font-family: var(--heading-family-h3, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h3, 2.75rem) / 8);
   font-size: var(--heading-size-h3, 2.75rem);
-  line-height: var(--heading-line-height-h3, 1.1);
+  line-height: var(--heading-line-height-h3, var(--heading-line-height));
   color: var(--heading-color-h3, var(--color-black));
+  letter-spacing: var(--header-letter-spacing-h3, var(--heading-letter-spacing));
   min-width: 0;
   font-weight: 900;
   overflow-wrap: anywhere;
@@ -348,8 +351,9 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   font-family: var(--heading-family-h4, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h4, 1.7rem) / 8);
   font-size: var(--heading-size-h4, 1.7rem);
-  line-height: var(--heading-line-height-h4, 1.1);
+  line-height: var(--heading-line-height-h4, var(--heading-line-height));
   color: var(--heading-color-h4, var(--color-black));
+  letter-spacing: var(--header-letter-spacing-h4, var(--heading-letter-spacing));
   min-width: 0;
   font-weight: 900;
   overflow-wrap: anywhere;
@@ -375,8 +379,9 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   font-family: var(--heading-family-h5, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h5, 1.7rem) / 8);
   font-size: var(--heading-size-h5, 1.7rem);
-  line-height: var(--heading-line-height-h5, 1.1);
+  line-height: var(--heading-line-height-h5, var(--heading-line-height));
   color: var(--heading-color-h5, var(--color-black));
+  letter-spacing: var(--header-letter-spacing-h5, var(--heading-letter-spacing));
   min-width: 0;
   font-weight: 700;
   overflow-wrap: anywhere;
@@ -402,8 +407,9 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   font-family: var(--heading-family-h6, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h6, 1.7rem) / 8);
   font-size: var(--heading-size-h6, 1.7rem);
-  line-height: var(--heading-line-height-h6, 1.1);
+  line-height: var(--heading-line-height-h6, var(--heading-line-height));
   color: var(--heading-color-h6, var(--color-black));
+  letter-spacing: var(--header-letter-spacing-h6, var(--heading-letter-spacing));
   min-width: 0;
   font-weight: 500;
   overflow-wrap: anywhere;
@@ -429,38 +435,46 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --heading-color: var(--color-black);
   --heading-family: var(--font-heading);
   --heading-line-height: 1.1;
+  --header-letter-spacing: normal;
   --heading-size-h1: 7.2rem;
   --heading-color-h1: var(--heading-color);
   --heading-family-h1: var(--heading-family);
   --heading-line-height-h1: var(--heading-line-height);
+  --header-letter-spacing-h1: var(--header-letter-spacing);
   --heading-size-h2: 4.45rem;
   --heading-color-h2: var(--heading-color);
   --heading-family-h2: var(--heading-family);
   --heading-line-height-h2: var(--heading-line-height);
+  --header-letter-spacing-h2: var(--header-letter-spacing);
   --heading-size-h3: 2.75rem;
   --heading-color-h3: var(--heading-color);
   --heading-family-h3: var(--heading-family);
   --heading-line-height-h3: var(--heading-line-height);
+  --header-letter-spacing-h3: var(--header-letter-spacing);
   --heading-size-h4: 1.7rem;
   --heading-color-h4: var(--heading-color);
   --heading-family-h4: var(--heading-family);
   --heading-line-height-h4: var(--heading-line-height);
+  --header-letter-spacing-h4: var(--header-letter-spacing);
   --heading-size-h5: calc(1.7rem - 0.1rem);
   --heading-color-h5: var(--heading-color);
   --heading-family-h5: var(--heading-family);
   --heading-line-height-h5: var(--heading-line-height);
+  --header-letter-spacing-h5: var(--header-letter-spacing);
   --heading-size-h6: calc(1.7rem - 0.1rem);
   --heading-color-h6: var(--heading-color);
   --heading-family-h6: var(--heading-family);
   --heading-line-height-h6: var(--heading-line-height);
+  --header-letter-spacing-h6: var(--header-letter-spacing);
 }
 
 [pgs~=h1] {
   font-family: var(--heading-family-h1, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h1, 7.2rem) / 8);
   font-size: var(--heading-size-h1, 7.2rem);
-  line-height: var(--heading-line-height-h1, 1.1);
+  line-height: var(--heading-line-height-h1, var(--heading-line-height));
   color: var(--heading-color-h1, var(--color-black));
+  letter-spacing: var(--header-letter-spacing-h1, var(--heading-letter-spacing));
   min-width: 0;
   font-weight: 900;
   overflow-wrap: anywhere;
@@ -486,8 +500,9 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   font-family: var(--heading-family-h2, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h2, 4.45rem) / 8);
   font-size: var(--heading-size-h2, 4.45rem);
-  line-height: var(--heading-line-height-h2, 1.1);
+  line-height: var(--heading-line-height-h2, var(--heading-line-height));
   color: var(--heading-color-h2, var(--color-black));
+  letter-spacing: var(--header-letter-spacing-h2, var(--heading-letter-spacing));
   min-width: 0;
   font-weight: 900;
   overflow-wrap: anywhere;
@@ -513,8 +528,9 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   font-family: var(--heading-family-h3, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h3, 2.75rem) / 8);
   font-size: var(--heading-size-h3, 2.75rem);
-  line-height: var(--heading-line-height-h3, 1.1);
+  line-height: var(--heading-line-height-h3, var(--heading-line-height));
   color: var(--heading-color-h3, var(--color-black));
+  letter-spacing: var(--header-letter-spacing-h3, var(--heading-letter-spacing));
   min-width: 0;
   font-weight: 900;
   overflow-wrap: anywhere;
@@ -540,8 +556,9 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   font-family: var(--heading-family-h4, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h4, 1.7rem) / 8);
   font-size: var(--heading-size-h4, 1.7rem);
-  line-height: var(--heading-line-height-h4, 1.1);
+  line-height: var(--heading-line-height-h4, var(--heading-line-height));
   color: var(--heading-color-h4, var(--color-black));
+  letter-spacing: var(--header-letter-spacing-h4, var(--heading-letter-spacing));
   min-width: 0;
   font-weight: 900;
   overflow-wrap: anywhere;
@@ -567,8 +584,9 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   font-family: var(--heading-family-h5, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h5, 1.7rem) / 8);
   font-size: var(--heading-size-h5, 1.7rem);
-  line-height: var(--heading-line-height-h5, 1.1);
+  line-height: var(--heading-line-height-h5, var(--heading-line-height));
   color: var(--heading-color-h5, var(--color-black));
+  letter-spacing: var(--header-letter-spacing-h5, var(--heading-letter-spacing));
   min-width: 0;
   font-weight: 700;
   overflow-wrap: anywhere;
@@ -594,8 +612,9 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   font-family: var(--heading-family-h6, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h6, 1.7rem) / 8);
   font-size: var(--heading-size-h6, 1.7rem);
-  line-height: var(--heading-line-height-h6, 1.1);
+  line-height: var(--heading-line-height-h6, var(--heading-line-height));
   color: var(--heading-color-h6, var(--color-black));
+  letter-spacing: var(--header-letter-spacing-h6, var(--heading-letter-spacing));
   min-width: 0;
   font-weight: 500;
   overflow-wrap: anywhere;
@@ -839,8 +858,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   position: relative;
   width: 100%;
   padding-inline: var(--page-padding);
-  padding-block: calc(var(--gap-sections) / 2);
-  margin-block: calc(var(--gap-sections) / 2 * -1);
 }
 
 [pgs~=sectionMax] > * {
@@ -922,15 +939,15 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   flex-wrap: wrap;
 }
 
+:is([pgs~=flex], [pgs*="flex["])[pgs*="'inlineFlex'"] {
+  display: inline-flex;
+}
+
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'center'"] {
   display: flex;
   gap: var(--gap-texts);
   align-items: center;
   justify-content: center;
-}
-
-:is([pgs~=flex], [pgs*="flex["])[pgs*="'inlineFlex'"] {
-  display: inline-flex;
 }
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'flexCenter'"] {
@@ -1847,6 +1864,22 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 [pgs*="overflow["][pgs*="overflow['hidden' 'y'"] {
   overflow-y: hidden;
+}
+
+[pgs*="textAlign["][pgs*="textAlign['left'"] {
+  text-align: left;
+}
+
+[pgs*="textAlign["][pgs*="textAlign['center'"] {
+  text-align: center;
+}
+
+[pgs*="textAlign["][pgs*="textAlign['right'"] {
+  text-align: right;
+}
+
+[pgs*="textAlign["][pgs*="textAlign['justify'"] {
+  text-align: justify;
 }
 
 [pgs~=truncate] {
@@ -5970,7 +6003,16 @@ html:has(dialog[open]) {
 }
 
 :is([pgs~=slides], [pgs*="slides["])[pgs*="'animationScale'"] :where([pgs~=slides-container]) :where([pgs~=slides-container-slide]) > * {
-  scale: var(--slides-visiblePercent, 1);
+  scale: calc(var(--slides-visiblePercent, 1) * var(--slides-visiblePercent, 1) * var(--slides-visiblePercent, 1));
+  transform-origin: center;
+}
+
+:is([pgs~=slides], [pgs*="slides["])[pgs*="'animationScale'"] :where([pgs~=slides-container]) :where([pgs~=slides-container-slide]):has(~ [pgs-state~=view]) > * {
+  transform-origin: right;
+}
+
+:is([pgs~=slides], [pgs*="slides["])[pgs*="'animationScale'"] :where([pgs~=slides-container]) :where([pgs-state~=view]) ~ :where([pgs~=slides-container-slide]) > * {
+  transform-origin: left;
 }
 
 @container (min-width: 800px) {
@@ -7707,11 +7749,11 @@ dialog [pgs~=search] :where([pgs~=_modal-close]) {
   border-radius: var(--border-radius);
 }
 
-:is([pgs~=borderRadius], [pgs*="borderRadius["])[pgs*="'input'"] {
+:is([pgs~=borderRadius], [pgs*="borderRadius["])[pgs*="borderRadius['input'"] {
   border-radius: var(--border-radius-input);
 }
 
-:is([pgs~=borderRadius], [pgs*="borderRadius["])[pgs*="'external'"] {
+:is([pgs~=borderRadius], [pgs*="borderRadius["])[pgs*="borderRadius['external'"] {
   border-radius: var(--border-radius-external);
 }
 

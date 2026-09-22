@@ -40,11 +40,14 @@ $border-width-values: (
 :is([pgs~="borderRadius"], [pgs*="borderRadius\5B"]) {
     border-radius: var(--border-radius);
 
-    &[pgs*="'input'"] {
+    //== anchored to borderRadius's own bracket: neither option is used elsewhere today, but
+    //== both are common enough words that an unanchored check here is one future component away
+    //== from firing on someone else's bracket
+    &[pgs*="borderRadius\5B'input'"] {
         border-radius: var(--border-radius-input);
     }
 
-    &[pgs*="'external'"] {
+    &[pgs*="borderRadius\5B'external'"] {
         border-radius: var(--border-radius-external);
     }
 }

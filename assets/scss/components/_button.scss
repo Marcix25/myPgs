@@ -12,6 +12,10 @@
         @include buttonIconOnly();
     }
 
+    //== NOT anchored: button['iconOnly' 'mini'] and button['mini' 'iconOnly'] both appear in
+    //== real markup (_slides.js, _modal.js), so mini isn't always first in button's own bracket
+    //== — anchoring to "right after button[" would only match one of those two orders. card and
+    //== box also have a 'mini' option; that collision risk is real but accepted, same as flex's
     &[pgs*="'mini'"] {
         @include buttonMini();
     }
@@ -24,6 +28,8 @@
         @include buttonTransparent();
     }
 
+    //== NOT anchored: button['big' 'strong'] is real markup (home.html), so strong isn't always
+    //== first in button's own bracket either. badge also has a 'strong' option; accepted risk
     &[pgs*="'strong'"] {
         @include buttonStrong();
     }
@@ -40,6 +46,9 @@
         @include buttonForHeader();
     }
 
+    //== NOT anchored, for consistency with mini/strong above: button's own options are combined
+    //== freely, in any order, so anchoring to "first in the bracket" is unsafe here even where
+    //== no broken combo has been found yet. badge also has a 'primary' option; accepted risk
     &[pgs*="'primary'"] {
         --button-background: var(--color-primary);
         --button-color: var(--color-primary-text);

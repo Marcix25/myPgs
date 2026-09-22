@@ -87,6 +87,13 @@ Responsive header that measures available space, switches between its full and c
 - `--header-compact-breakpoint`
 - `--header-compactBottom-active`
 - `--header-gap`
+- `--header-letter-spacing`
+- `--header-letter-spacing-h1`
+- `--header-letter-spacing-h2`
+- `--header-letter-spacing-h3`
+- `--header-letter-spacing-h4`
+- `--header-letter-spacing-h5`
+- `--header-letter-spacing-h6`
 - `--header-padding-block`
 - `--header-padding-inline`
 - `--header-size`

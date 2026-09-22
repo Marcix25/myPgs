@@ -14,7 +14,10 @@
 #reference-demo-content .demoContent-heading {
     --heading-family-h1: "MyPix", var(--font);
     --heading-family-h2: "MyPix", var(--font);
-
+    /* --heading-color-h1: var(--color-primary-strong);
+    --heading-color-h2: var(--color-primary-strong); */
+    --header-letter-spacing-h1: 2.5px;
+    --header-letter-spacing-h2: 1.5px;
 }
 
 body {
