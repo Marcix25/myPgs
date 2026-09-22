@@ -13,14 +13,10 @@
         display: inline-flex;
     }
 
-    //== NOT anchored, unlike position/select/rotate/etc.: those only ever take one value, so
-    //== requiring the flag right after their own [ is safe. flex takes several at once in any
-    //== order the author likes (flex['column' 'center'], flex['center' 'wrap'], ...), so anchoring
-    //== to "immediately after flex[" would only match when center happens to be written first —
-    //== exactly the bug this caused. Every other flex option here (column, row, wrap, gapTexts...)
-    //== has the same unanchored shape for the same reason; textAlign also having a 'center' option
-    //== is a known, accepted collision risk, not one this bracket can anchor its way out of
-    &[pgs*="'center'"] {
+    //== flexPlaceCenter, not the shortened center: textAlign also has a 'center' option. Named
+    //== after place-content/place-items (the CSS shorthand this mirrors); flexCenter below is
+    //== the same align-items/justify-content pair without this one's default gap
+    &[pgs*="'flexPlaceCenter'"] {
         @include center();
     }
 
@@ -230,25 +226,25 @@
     &[pgs*="'contentEvenly'"] {
         align-content: space-evenly;
     }
-}
 
-//== SELF ALIGN (on the child of a flex or grid container)
-[pgs*="'selfStart'"] {
-    align-self: start;
-}
+    //== SELF ALIGN (on the child of a flex or grid container, not the container itself)
+    &[pgs*="'selfStart'"] {
+        align-self: start;
+    }
 
-[pgs*="'selfCenter'"] {
-    align-self: center;
-}
+    &[pgs*="'selfCenter'"] {
+        align-self: center;
+    }
 
-[pgs*="'selfEnd'"] {
-    align-self: end;
-}
+    &[pgs*="'selfEnd'"] {
+        align-self: end;
+    }
 
-[pgs*="'selfStretch'"] {
-    align-self: stretch;
-}
+    &[pgs*="'selfStretch'"] {
+        align-self: stretch;
+    }
 
-[pgs*="'selfBaseline'"] {
-    align-self: baseline;
+    &[pgs*="'selfBaseline'"] {
+        align-self: baseline;
+    }
 }

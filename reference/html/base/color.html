@@ -133,7 +133,7 @@
  * - outline: draws the outline that the ol* utilities recolour; it sits outside the box and takes no space.
  * - button: supplies the shared button base used by background color triggers.
  * - flex-flexFull: makes palette headings occupy a full flex row.
- * - mini: applies the compact box presentation to each palette group.
+ * - boxMini: applies the compact box presentation to each palette group.
  * - iconOnly: makes each background color trigger a compact circular button.
  * - hover: opens each background color tooltip while its circle is hovered.
  * - gapElements: spaces the background and text color groups.
@@ -150,7 +150,7 @@
     <section pgs="flex['row']">
         <strong pgs="flex-flexFull">Background colors</strong>
 
-        <div pgs="flex['column'] box['mini']">
+        <div pgs="flex['column'] box['boxMini']">
             <p>Primary colors</p>
             <div pgs="flex['row' 'gapTexts' 'wrap']">
                 <span pgs="dropdown['hover'] tooltip">
@@ -172,7 +172,7 @@
             </div>
         </div>
 
-        <div pgs="flex['column'] box['mini']">
+        <div pgs="flex['column'] box['boxMini']">
             <p>Primary variants</p>
             <div pgs="flex['row' 'gapTexts' 'wrap']">
                 <span pgs="dropdown['hover'] tooltip">
@@ -194,7 +194,7 @@
             </div>
         </div>
 
-        <div pgs="flex['column'] box['mini']">
+        <div pgs="flex['column'] box['boxMini']">
             <p>Secondary variants</p>
             <div pgs="flex['row' 'gapTexts' 'wrap']">
                 <span pgs="dropdown['hover'] tooltip">
@@ -216,7 +216,7 @@
             </div>
         </div>
 
-        <div pgs="flex['column'] box['mini']">
+        <div pgs="flex['column'] box['boxMini']">
             <p>Tertiary variants</p>
             <div pgs="flex['row' 'gapTexts' 'wrap']">
                 <span pgs="dropdown['hover'] tooltip">
@@ -238,7 +238,7 @@
             </div>
         </div>
 
-        <div pgs="flex['column'] box['mini']">
+        <div pgs="flex['column'] box['boxMini']">
             <p>Quaternary variants</p>
             <div pgs="flex['row' 'gapTexts' 'wrap']">
                 <span pgs="dropdown['hover'] tooltip">
@@ -260,7 +260,7 @@
             </div>
         </div>
 
-        <div pgs="flex['column'] box['mini']">
+        <div pgs="flex['column'] box['boxMini']">
             <p>Base colors</p>
             <div pgs="flex['row' 'gapTexts' 'wrap']">
                 <span pgs="dropdown['hover'] tooltip">
@@ -302,7 +302,7 @@
             </div>
         </div>
 
-        <div pgs="flex['column'] box['mini']">
+        <div pgs="flex['column'] box['boxMini']">
             <p>White colors</p>
             <div pgs="flex['row' 'gapTexts' 'wrap']">
                 <span pgs="dropdown['hover'] tooltip">
@@ -320,7 +320,7 @@
             </div>
         </div>
 
-        <div pgs="flex['column'] box['mini']">
+        <div pgs="flex['column'] box['boxMini']">
             <p>Black colors</p>
             <div pgs="flex['row' 'gapTexts' 'wrap']">
                 <span pgs="dropdown['hover'] tooltip">
@@ -338,7 +338,7 @@
             </div>
         </div>
 
-        <div pgs="flex['column'] box['mini']">
+        <div pgs="flex['column'] box['boxMini']">
             <p>Status</p>
             <div pgs="flex['row' 'gapTexts' 'wrap']">
                 <span pgs="dropdown['hover'] tooltip">
@@ -381,16 +381,16 @@
         <strong pgs="flex-flexFull">Text on a color</strong>
         <p>Each <code>--color-*-text</code> is the reading colour that belongs to its own background, so a coloured surface gets legible text without anyone picking a contrast by hand. Retheme the background and the pair follows.</p>
         <div pgs="flex['row' 'gapTexts' 'wrap']">
-            <div pgs="box['mini'] bgPrimary txtPrimaryText">bgPrimary + txtPrimaryText</div>
-            <div pgs="box['mini'] bgSecondary txtSecondaryText">bgSecondary + txtSecondaryText</div>
-            <div pgs="box['mini'] bgTertiary txtTertiaryText">bgTertiary + txtTertiaryText</div>
-            <div pgs="box['mini'] bgQuaternary txtQuaternaryText">bgQuaternary + txtQuaternaryText</div>
+            <div pgs="box['boxMini'] bgPrimary txtPrimaryText">bgPrimary + txtPrimaryText</div>
+            <div pgs="box['boxMini'] bgSecondary txtSecondaryText">bgSecondary + txtSecondaryText</div>
+            <div pgs="box['boxMini'] bgTertiary txtTertiaryText">bgTertiary + txtTertiaryText</div>
+            <div pgs="box['boxMini'] bgQuaternary txtQuaternaryText">bgQuaternary + txtQuaternaryText</div>
         </div>
     </section>
 
     <section pgs="flex['column']">
         <strong pgs="flex-flexFull">Text colors</strong>
-        <div pgs="flex['row' 'gapTexts' 'wrap'] box['mini'] bgWhite">
+        <div pgs="flex['row' 'gapTexts' 'wrap'] box['boxMini'] bgWhite">
             <strong pgs="flex-flexFull">Color</strong>
             <span pgs="txtPrimary">txtPrimary</span>
             <span pgs="txtSecondary">txtSecondary</span>
@@ -413,7 +413,7 @@
             <span pgs="iconColorSecondary">iconColorSecondary</span>
         </div>
         
-        <div pgs="flex['row' 'gapTexts' 'wrap'] box['mini'] bgBlack">
+        <div pgs="flex['row' 'gapTexts' 'wrap'] box['boxMini'] bgBlack">
             <strong pgs="txtWhite flex-flexFull">Color for dark</strong>
             <span pgs="txtPrimarySoft">txtPrimarySoft</span>
             <span pgs="txtSecondarySoft">txtSecondarySoft</span>
@@ -428,7 +428,7 @@
             <span pgs="txtBox">txtBox</span>
         </div>
         
-        <div pgs="flex['row' 'gapTexts' 'wrap'] box['mini'] bgWhiteFixed">
+        <div pgs="flex['row' 'gapTexts' 'wrap'] box['boxMini'] bgWhiteFixed">
             <strong pgs="txtBlackFixed flex-flexFull">Color for light</strong>
             <span pgs="txtPrimaryDark">txtPrimaryDark</span>
             <span pgs="txtSecondaryDark">txtSecondaryDark</span>
@@ -437,7 +437,7 @@
             <span pgs="txtBlackFixed">txtBlackFixed</span>
         </div>
 
-        <div pgs="flex['row' 'gapTexts' 'wrap'] box['mini'] bgBlackFixed">
+        <div pgs="flex['row' 'gapTexts' 'wrap'] box['boxMini'] bgBlackFixed">
             <strong pgs="txtWhiteFixed flex-flexFull">Color for dark</strong>
             <span pgs="txtPrimaryLight">txtPrimaryLight</span>
             <span pgs="txtSecondaryLight">txtSecondaryLight</span>
@@ -451,40 +451,40 @@
     <section pgs="flex['column']">
         <strong pgs="flex-flexFull">Border colors</strong>
         <div pgs="flex['row' 'gapTexts' 'wrap']">
-            <span pgs="box['mini'] border brPrimary">brPrimary</span>
-            <span pgs="box['mini'] border brSecondary">brSecondary</span>
-            <span pgs="box['mini'] border brTertiary">brTertiary</span>
-            <span pgs="box['mini'] border brQuaternary">brQuaternary</span>
-            <span pgs="box['mini'] border brWhite">brWhite</span>
-            <span pgs="box['mini'] border brBlack">brBlack</span>
-            <span pgs="box['mini'] border brBox">brBox</span>
-            <span pgs="box['mini'] border brBoxDark">brBoxDark</span>
-            <span pgs="box['mini'] border brLink">brLink</span>
-            <span pgs="box['mini'] border brGray">brGray</span>
-            <span pgs="box['mini'] border brInfo">brInfo</span>
-            <span pgs="box['mini'] border brSuccess">brSuccess</span>
-            <span pgs="box['mini'] border brWarning">brWarning</span>
-            <span pgs="box['mini'] border brError">brError</span>
+            <span pgs="box['boxMini'] border brPrimary">brPrimary</span>
+            <span pgs="box['boxMini'] border brSecondary">brSecondary</span>
+            <span pgs="box['boxMini'] border brTertiary">brTertiary</span>
+            <span pgs="box['boxMini'] border brQuaternary">brQuaternary</span>
+            <span pgs="box['boxMini'] border brWhite">brWhite</span>
+            <span pgs="box['boxMini'] border brBlack">brBlack</span>
+            <span pgs="box['boxMini'] border brBox">brBox</span>
+            <span pgs="box['boxMini'] border brBoxDark">brBoxDark</span>
+            <span pgs="box['boxMini'] border brLink">brLink</span>
+            <span pgs="box['boxMini'] border brGray">brGray</span>
+            <span pgs="box['boxMini'] border brInfo">brInfo</span>
+            <span pgs="box['boxMini'] border brSuccess">brSuccess</span>
+            <span pgs="box['boxMini'] border brWarning">brWarning</span>
+            <span pgs="box['boxMini'] border brError">brError</span>
         </div>
     </section>
 
     <section pgs="flex['column']">
         <strong pgs="flex-flexFull">Outline colors</strong>
         <div pgs="flex['row' 'gapTexts' 'wrap']">
-            <span pgs="box['mini'] outline olPrimary">olPrimary</span>
-            <span pgs="box['mini'] outline olSecondary">olSecondary</span>
-            <span pgs="box['mini'] outline olTertiary">olTertiary</span>
-            <span pgs="box['mini'] outline olQuaternary">olQuaternary</span>
-            <span pgs="box['mini'] outline olWhite">olWhite</span>
-            <span pgs="box['mini'] outline olBlack">olBlack</span>
-            <span pgs="box['mini'] outline olBox">olBox</span>
-            <span pgs="box['mini'] outline olBoxDark">olBoxDark</span>
-            <span pgs="box['mini'] outline olLink">olLink</span>
-            <span pgs="box['mini'] outline olGray">olGray</span>
-            <span pgs="box['mini'] outline olInfo">olInfo</span>
-            <span pgs="box['mini'] outline olSuccess">olSuccess</span>
-            <span pgs="box['mini'] outline olWarning">olWarning</span>
-            <span pgs="box['mini'] outline olError">olError</span>
+            <span pgs="box['boxMini'] outline olPrimary">olPrimary</span>
+            <span pgs="box['boxMini'] outline olSecondary">olSecondary</span>
+            <span pgs="box['boxMini'] outline olTertiary">olTertiary</span>
+            <span pgs="box['boxMini'] outline olQuaternary">olQuaternary</span>
+            <span pgs="box['boxMini'] outline olWhite">olWhite</span>
+            <span pgs="box['boxMini'] outline olBlack">olBlack</span>
+            <span pgs="box['boxMini'] outline olBox">olBox</span>
+            <span pgs="box['boxMini'] outline olBoxDark">olBoxDark</span>
+            <span pgs="box['boxMini'] outline olLink">olLink</span>
+            <span pgs="box['boxMini'] outline olGray">olGray</span>
+            <span pgs="box['boxMini'] outline olInfo">olInfo</span>
+            <span pgs="box['boxMini'] outline olSuccess">olSuccess</span>
+            <span pgs="box['boxMini'] outline olWarning">olWarning</span>
+            <span pgs="box['boxMini'] outline olError">olError</span>
         </div>
     </section>
 </main>

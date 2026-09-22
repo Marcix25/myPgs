@@ -40,7 +40,7 @@ A tabbed interface with a wrapping list of controls and one visible panel at a t
 ### PGS Options (component brackets)
 
 - `row`: lets the tab controls wrap in a row.
-- `mini`: makes each tab control compact.
+- `btnMini`: makes each tab control compact.
 
 ## Output
 
@@ -54,11 +54,11 @@ A wrapping tab list with a single connected content panel.
 ```html
 <div pgs="tabs card">
     <div pgs="tabs-list card-content flex['row']" aria-label="Code formats">
-        <button pgs="tabs-list-tab button['mini']" type="button">HTML</button>
-        <button pgs="tabs-list-tab button['mini']" type="button">React</button>
-        <button pgs="tabs-list-tab button['mini']" type="button">Vue</button>
-        <button pgs="tabs-list-tab button['mini']" type="button">SVG</button>
-        <button pgs="tabs-list-tab button['mini']" type="button">XML</button>
+        <button pgs="tabs-list-tab button['btnMini']" type="button">HTML</button>
+        <button pgs="tabs-list-tab button['btnMini']" type="button">React</button>
+        <button pgs="tabs-list-tab button['btnMini']" type="button">Vue</button>
+        <button pgs="tabs-list-tab button['btnMini']" type="button">SVG</button>
+        <button pgs="tabs-list-tab button['btnMini']" type="button">XML</button>
     </div>
 
     <div pgs="tabs-panels card-content">
@@ -93,9 +93,9 @@ tabsHistory puts the selected tab in the URL, under the name written in brackets
 ```html
 <div pgs="tabs card" pgs-data="tabsHistory[format]">
     <div pgs="tabs-list card-content flex['row']" aria-label="Code formats">
-        <button id="html" pgs="tabs-list-tab button['mini']" type="button">HTML</button>
-        <button id="react" pgs="tabs-list-tab button['mini']" type="button">React</button>
-        <button id="vue" pgs="tabs-list-tab button['mini']" type="button">Vue</button>
+        <button id="html" pgs="tabs-list-tab button['btnMini']" type="button">HTML</button>
+        <button id="react" pgs="tabs-list-tab button['btnMini']" type="button">React</button>
+        <button id="vue" pgs="tabs-list-tab button['btnMini']" type="button">Vue</button>
     </div>
 
     <div pgs="tabs-panels card-content">

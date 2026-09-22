@@ -57,7 +57,7 @@ Form structure with labels, text fields, a textarea, a checkbox, and a radio gro
 ### PGS Options (component brackets)
 
 - `column`: spaces text elements in the radio group.
-- `strong`: presents form submission as the primary action.
+- `btnStrong`: presents form submission as the primary action.
 
 ### Other
 
@@ -191,7 +191,7 @@ formValidate.validator(event => {
     </label>
     <br>
 
-    <button pgs="button['strong']" type="submit">
+    <button pgs="button['btnStrong']" type="submit">
         Submit
     </button>
 

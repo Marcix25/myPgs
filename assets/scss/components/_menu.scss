@@ -81,11 +81,8 @@
 
     //- OPTION
     //== horizontal
-    //== NOT anchored: menu's own options combine freely (menu['horizontal' 'short'],
-    //== menu['horizontal' 'iconOnlyCurrent']), so anchoring to "first in the bracket" is unsafe
-    //== even though horizontal happens to be first in both of those. card also has a
-    //== 'horizontal' option; accepted risk, same as flex/textAlign's 'center'
-    &[pgs*="'horizontal'"] {
+    //== menuHorizontal, not the shortened horizontal: card also has a 'horizontal' option
+    &[pgs*="'menuHorizontal'"] {
         >ul {
             flex-direction: row;
 
@@ -107,7 +104,7 @@
     //== verical
     ul,
     &[pgs*="'vertical'"],
-    &:not([pgs*="'horizontal'"]) {
+    &:not([pgs*="'menuHorizontal'"]) {
         :is(ul) {
             flex-direction: column;
 

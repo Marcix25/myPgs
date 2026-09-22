@@ -62,7 +62,7 @@ A native dialog driven by the library. The dialog is moved out of its wrapper on
 - `gapElements`: applies element spacing to modal content.
 - `row`: arranges the dialog actions in a row.
 - `justifyEnd`: pushes the dialog actions to the end of that row.
-- `strong`: applies stronger emphasis to the save action.
+- `btnStrong`: applies stronger emphasis to the save action.
 
 ### Other
 
@@ -374,7 +374,7 @@ Top-level confirmation dialog with cancel and save actions, using pgs=&quot;moda
 
                 <div pgs="flex['row' 'justifyEnd']">
                     <button pgs="button modal-close" type="button">Cancel</button>
-                    <button pgs="button['strong']" type="button">Save changes</button>
+                    <button pgs="button['btnStrong']" type="button">Save changes</button>
                 </div>
             </div>
         </div>

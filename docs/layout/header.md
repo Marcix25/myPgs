@@ -61,7 +61,7 @@ Responsive header that measures available space, switches between its full and c
 - `paddingEqual`: sets the same padding on every side of a navigation link instead of the wider left/right default; belongs to the button component.
 - `row`: sets the horizontal direction inside the flex bracket.
 - `nowrap`: uses the related nowrap component or utility in this example.
-- `horizontal`: arranges the full-layout menu horizontally.
+- `menuHorizontal`: arranges the full-layout menu horizontally.
 - `vertical`: arranges the compact-layout menu vertically.
 - `short`: compacts adjacent full-layout menu links by overlapping their horizontal spacing.
 - `dialogRight`: presents the compact navigation dialog content from the right side.
@@ -117,7 +117,7 @@ Full navigation on the left, always-visible controls on the right, and the same 
 		</div>
 
 		<div pgs="header-element-onlyFull">
-			<nav pgs="menu['horizontal' 'short']" aria-label="Main menu">
+			<nav pgs="menu['menuHorizontal' 'short']" aria-label="Main menu">
 				<ul>
 					<li><a pgs="button['transparent' 'forHeader' 'paddingEqual']" href="/">Home</a></li>
 					<li><a pgs="button['transparent' 'forHeader' 'paddingEqual']" href="/services">Services</a></li>

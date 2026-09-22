@@ -19,7 +19,7 @@
  * - icon-star: the neutral stand-in glyph, used where the example needs an icon but not a particular one.
  * - legend: applies the group heading styling to a chips group's legend; see Form.
  * - button: draws the chip, which composes the button look instead of redrawing it, and hides the checkbox or radio it wraps; see Button.
- * - mini: sizes that button down to the chip's compact size.
+ * - btnMini: sizes that button down to the chip's compact size.
  *
  * @return HTML examples of the checkboxBackground, toggle, chip, and chips form controls using native checkbox and radio inputs.
  */
@@ -69,12 +69,12 @@
     <demo demo-h3="Chips checkbox" demo-description="Individual checkbox options presented as compact selectable chip buttons."></demo>
     <section pgs="flex['column']" demo="component">
         <div pgs="flex['row']" role="group" aria-label="Chip actions">
-            <label pgs="button['mini'] chip">
+            <label pgs="button['btnMini'] chip">
                 <input type="checkbox" name="like" value="basic">
                 <i pgs="icon['icon-star']"></i>
                 Like
             </label>
-            <label pgs="button['mini'] chip">
+            <label pgs="button['btnMini'] chip">
                 <input type="checkbox" name="share" value="basic">
                 <i pgs="icon['icon-star']"></i>
                 Share
@@ -87,17 +87,17 @@
         <section demo="component">
             <fieldset pgs="chips">
                 <legend pgs="legend">Chip checkbox</legend>
-                <label pgs="button['mini']">
+                <label pgs="button['btnMini']">
                     <input type="checkbox" name="plan" value="red" checked>
                     Red
                 </label>
 
-                <label pgs="button['mini']">
+                <label pgs="button['btnMini']">
                     <input type="checkbox" name="plan" value="blue">
                     Blue
                 </label>
 
-                <label pgs="button['mini']">
+                <label pgs="button['btnMini']">
                     <input type="checkbox" name="plan" value="green">
                     Green
                 </label>
@@ -108,19 +108,19 @@
         <section demo="component">
             <fieldset pgs="chips">
                 <legend pgs="legend">Chips radio</legend>
-                <label pgs="button['mini']">
+                <label pgs="button['btnMini']">
                     <input type="radio" name="characters" value="Crow" checked>
                     <i pgs="icon['icon-star']"></i>
                     Crow
                 </label>
 
-                <label pgs="button['mini']">
+                <label pgs="button['btnMini']">
                     <input type="radio" name="characters" value="Dove">
                     <i pgs="icon['icon-star']"></i>
                     Dove
                 </label>
 
-                <label pgs="button['mini']">
+                <label pgs="button['btnMini']">
                     <input type="radio" name="characters" value="dragon">
                     <i pgs="icon['icon-star']"></i>
                     dragon

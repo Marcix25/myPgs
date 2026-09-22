@@ -116,12 +116,12 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "badgePrimary",
+            "badgeStrong",
             "dot",
             "error",
             "info",
             "neutral",
-            "primary",
-            "strong",
             "success",
             "warning"
         ],
@@ -532,7 +532,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "mini"
+            "boxMini"
         ],
         "pgs-data": []
     },
@@ -643,16 +643,16 @@
         "pgs-generated": [],
         "pgs-options": [
             "big",
+            "btnMini",
+            "btnPrimary",
+            "btnStrong",
             "forHeader",
             "icon-hamburgerTwo",
             "iconOnly",
-            "mini",
             "paddingEqual",
-            "primary",
             "quaternary",
             "reverse",
             "secondary",
-            "strong",
             "tertiary",
             "text",
             "transparent"
@@ -666,10 +666,10 @@
         ],
         "pgs-generated": [],
         "pgs-options": [
-            "horizontal",
+            "cardHorizontal",
+            "cardMini",
             "horizontalFixed",
-            "legacy",
-            "mini"
+            "legacy"
         ],
         "pgs-data": []
     },
@@ -721,8 +721,8 @@
             "_cookieConsent-panel-toggleAnalytics"
         ],
         "pgs-options": [
+            "btnStrong",
             "dialogTopLevel",
-            "strong",
             "success"
         ],
         "pgs-data": [
@@ -805,6 +805,7 @@
             "contentStart",
             "cover",
             "flexCenter",
+            "flexPlaceCenter",
             "gapElements",
             "gapNone",
             "gapSections",
@@ -1399,8 +1400,8 @@
             "_menu-iconOnly"
         ],
         "pgs-options": [
-            "horizontal",
             "iconOnlyCurrent",
+            "menuHorizontal",
             "short",
             "vertical"
         ],

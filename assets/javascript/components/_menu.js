@@ -51,7 +51,7 @@ function PGS_menu_init(root = document) {
     pgs(root).querySelectorAll('menu').forEach(MENU => {
         if (API.has(MENU)) return;
 
-        const isHorizontal = pgs(MENU).option.contains("horizontal");
+        const isHorizontal = pgs(MENU).option.contains("menuHorizontal");
         const topLevel = MENU.querySelector("ul");
 
         MENU.querySelectorAll('li').forEach(li => {

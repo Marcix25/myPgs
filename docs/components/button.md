@@ -12,13 +12,13 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 
 - `forHeader`: sizes the button for use in a header.
 - `reverse`: reverses the visual order of the text and icon on the button.
-- `strong`: applies the variant with stronger visual emphasis.
+- `btnStrong`: applies the variant with stronger visual emphasis.
 - `iconOnly`: identifies a compact button composed primarily of an icon.
-- `mini`: applies the smallest size variant.
+- `btnMini`: applies the smallest size variant.
 - `big`: applies the large size variant.
-- `transparent`: drops the background and the border at rest, so only the label shows, and colours the label on hover. Unlike text it leaves the other states alone, so the same button still fills in when it carries strong or aria-current.
+- `transparent`: drops the background and the border at rest, so only the label shows, and colours the label on hover. Unlike text it leaves the other states alone, so the same button still fills in when it carries btnStrong or aria-current.
 - `text`: removes the default background and outline while preserving the button layout and hover behavior.
-- `primary`: applies the primary color palette.
+- `btnPrimary`: applies the primary color palette.
 - `secondary`: replaces the primary button accent with the secondary color palette.
 - `tertiary`: replaces the primary button accent with the tertiary color palette.
 - `quaternary`: replaces the primary button accent with the quaternary color palette.
@@ -118,7 +118,7 @@ Places the icon after the text using reverse.
 Applies the higher-emphasis strong variant.
 
 ```html
-<button pgs="button['strong']" type="button">
+<button pgs="button['btnStrong']" type="button">
     Submit
 </button>
 ```
@@ -138,7 +138,7 @@ Compact icon-only button using iconOnly.
 Smallest button size using mini.
 
 ```html
-<button pgs="button['mini']" type="button" aria-label="Information">
+<button pgs="button['btnMini']" type="button" aria-label="Information">
     Mini
 </button>
 ```
@@ -189,7 +189,7 @@ Sets the same padding on every side using paddingEqual, instead of the wider lef
 Strong button using the primary color palette.
 
 ```html
-<button pgs="button['primary']" type="button">
+<button pgs="button['btnPrimary']" type="button">
     Primary
 </button>
 ```

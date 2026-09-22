@@ -11,7 +11,7 @@
  * - _menu-accordion: marks an item whose submenu opens in place rather than floating, which is every item of a vertical menu and every level below the first of a horizontal one.
  *
  * @pgs-options
- * - horizontal: identifies the horizontal element used by Menu.
+ * - menuHorizontal: identifies the horizontal element used by Menu.
  * - vertical: identifies the vertical element used by Menu.
  * - iconOnlyCurrent: displays link icons only when the link has an active aria-current value.
  * - short: compacts adjacent menu links by overlapping their horizontal spacing.
@@ -47,7 +47,7 @@
 <demo demo-h2="Examples"></demo>
 <demo demo-h3="Horizontal menu" demo-description="Top-level navigation arranged horizontally, with one nested submenu."></demo>
 <section demo="component">
-    <nav pgs="menu['horizontal']" aria-label="Menu orizzontale">
+    <nav pgs="menu['menuHorizontal']" aria-label="Menu orizzontale">
         <ul pgs="flex['row' 'wrap']">
             <li>
                 <a pgs="button['transparent']" href="/" aria-current="page">
@@ -128,7 +128,7 @@
 
 <demo demo-h3="Horizontal menu - menu Icon Only Current" demo-description="Top-level navigation arranged horizontally, with one nested submenu."></demo>
 <section demo="component">
-    <nav pgs="menu['horizontal' 'iconOnlyCurrent']" aria-label="Menu orizzontale">
+    <nav pgs="menu['menuHorizontal' 'iconOnlyCurrent']" aria-label="Menu orizzontale">
         <ul pgs="flex['row' 'wrap']">
             <li>
                 <a pgs="button['transparent']" href="/" aria-current="page">
@@ -154,7 +154,7 @@
 
 <demo demo-h3="Horizontal menu - short" demo-description="Top-level navigation with short, overlapping the horizontal spacing between adjacent links."></demo>
 <section demo="component">
-    <nav pgs="menu['horizontal' 'short']" aria-label="Menu orizzontale">
+    <nav pgs="menu['menuHorizontal' 'short']" aria-label="Menu orizzontale">
         <ul pgs="flex['row' 'wrap']">
             <li>
                 <a pgs="button['transparent']" href="/" aria-current="page">

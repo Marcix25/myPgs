@@ -141,7 +141,7 @@ Interactive palette of the current MyPGS background and text color utilities.
 
 ### PGS Options (component brackets)
 
-- `mini`: applies the compact box presentation to each palette group.
+- `boxMini`: applies the compact box presentation to each palette group.
 - `iconOnly`: makes each background color trigger a compact circular button.
 - `hover`: opens each background color tooltip while its circle is hovered.
 - `gapElements`: spaces the background and text color groups.

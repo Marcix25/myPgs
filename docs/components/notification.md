@@ -70,7 +70,7 @@ Notification markup, configuration, behavior, and usage example. A persistent, m
 - `gapSections`: separates the examples.
 - `transparent`: the appearance the component gives the buttons passed in the payload; see Button.
 - `modal-dialog-content`: identifies the JS-generated styled content area inside the dialog, wrapping notifications.
-- `mini`: keeps the generated panel-close button small; see Button.
+- `btnMini`: keeps the generated panel-close button small; see Button.
 - `dialogRight`: slides the notification dialog in from the right; see Modal for other positions.
 - `icon-circleXmark`: the glyph of the error type.
 - `icon-circleCheck`: the glyph of the success type.
@@ -104,7 +104,7 @@ pgs-data='notification[{
             "title": "",         // label of the button
             "link": null,        // navigates there; omit it to only dispatch the event
             "close": true,       // dismisses the notification after the click
-            "optionButton": null // pgs-data token added to the button, e.g. mini
+            "optionButton": null // pgs-data token added to the button, e.g. btnMini
         }
     ]
 }]'

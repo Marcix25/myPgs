@@ -34,17 +34,14 @@
 :is([pgs~="badge"], [pgs*="badge\5B"]) {
     @include _badge();
 
-    //== NOT anchored: badge's own options can combine in any order (same reasoning as button's
-    //== mini/strong/primary in _button.scss — anchoring to "first in the bracket" breaks as soon
-    //== as two options are combined in the other order). button also has a 'primary' option;
-    //== accepted risk, same as flex/textAlign's 'center'
-    &[pgs*="'primary'"] {
+    //== badgePrimary, not the shortened primary: button also has a 'primary' option
+    &[pgs*="'badgePrimary'"] {
         --badge-background: var(--color-primary-soft);
         --badge-color: var(--color-primary-strong);
     }
 
-    //== NOT anchored, same reasoning. button also has a 'strong' option; accepted risk
-    &[pgs*="'strong'"] {
+    //== badgeStrong, not the shortened strong: button also has a 'strong' option
+    &[pgs*="'badgeStrong'"] {
         --badge-background: var(--color-primary);
         --badge-color: var(--color-whiteFixed);
     }

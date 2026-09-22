@@ -1627,7 +1627,7 @@ function PGS_menu_init(root = document) {
     pgs(root).querySelectorAll('menu').forEach(MENU => {
         if (API.has(MENU)) return;
 
-        const isHorizontal = pgs(MENU).option.contains("horizontal");
+        const isHorizontal = pgs(MENU).option.contains("menuHorizontal");
         const topLevel = MENU.querySelector("ul");
 
         MENU.querySelectorAll('li').forEach(li => {
@@ -2253,7 +2253,7 @@ const fn_notification = {
             const closeButton = document.createElement("button");
             closeButton.type = "button";
             closeButton.textContent = this._defaults.panelCloseTitle;
-            pgs(closeButton).add("button['mini']", "_modal-close", "_notifications-close");
+            pgs(closeButton).add("button['btnMini']", "_modal-close", "_notifications-close");
             content.appendChild(closeButton);
 
             dialog.appendChild(content);
@@ -5090,7 +5090,7 @@ function buildCookieConsent(marker) {
                             ${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.titleReject)}
                         </button>
     
-                        <button type="button" pgs="button['strong'] _cookieConsent-actionAccept">
+                        <button type="button" pgs="button['btnStrong'] _cookieConsent-actionAccept">
                             <i pgs="icon['icon-check']"></i> ${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.titleAccept)}
                         </button>
                     </div>

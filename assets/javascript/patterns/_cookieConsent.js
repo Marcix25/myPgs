@@ -146,7 +146,7 @@ function buildCookieConsent(marker) {
                             ${PGS_formatText(config.titleReject)}
                         </button>
     
-                        <button type="button" pgs="button['strong'] _cookieConsent-actionAccept">
+                        <button type="button" pgs="button['btnStrong'] _cookieConsent-actionAccept">
                             <i pgs="icon['icon-check']"></i> ${PGS_formatText(config.titleAccept)}
                         </button>
                     </div>

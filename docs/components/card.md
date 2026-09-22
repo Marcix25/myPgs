@@ -13,9 +13,10 @@ Reusable surfaces for presenting structured card content or grouping simpler con
 
 ## PGS Options (component brackets)
 
-- `horizontal`: switches intrinsically between a horizontal 40/60 layout and a stacked layout according to the card's available width.
-- `horizontalFixed`: the same 40/60 layout as horizontal, with no container query behind it — the card reads side-by-side whatever its own width is, which is what a card already known to be wide enough, or one deliberately narrow but still meant to stay horizontal, wants instead of the responsive switch.
-- `mini`: reduces the content padding — the card's own card-content, or, inside box's own bracket, the box itself.
+- `cardHorizontal`: switches intrinsically between a horizontal 40/60 layout and a stacked layout according to the card's available width.
+- `horizontalFixed`: the same 40/60 layout as cardHorizontal, with no container query behind it — the card reads side-by-side whatever its own width is, which is what a card already known to be wide enough, or one deliberately narrow but still meant to stay horizontal, wants instead of the responsive switch.
+- `cardMini`: reduces the content padding on the card's own card-content.
+- `boxMini`: inside box's own bracket, the same reduced padding on the box itself.
 - `legacy`: the card the library drew before the padding moved onto card-content: the card itself is padded and the image is pulled out to the edges with negative margins. It is kept for pages built around that geometry — a new card wants neither the option nor a card-content of its own to place the image.
 
 ## Related elements
@@ -90,7 +91,7 @@ The complete card surface behaves as a link.
 This card switches intrinsically between horizontal and stacked layouts.
 
 ```html
-<article pgs="card['horizontal']">
+<article pgs="card['cardHorizontal']">
     <img pgs="card-img" src="../assets/img/placeholder.jpg" alt="Placeholder image">
 
     <div pgs="card-content">
@@ -120,7 +121,7 @@ horizontalFixed keeps the row layout with no container query behind it, so it st
 The compact option reduces the content padding.
 
 ```html
-<article pgs="card['mini']">
+<article pgs="card['cardMini']">
     <img pgs="card-img" src="../assets/img/placeholder.jpg" alt="Placeholder image">
 
     <div pgs="card-content">
@@ -157,7 +158,7 @@ The complete box surface behaves as a link.
 The compact option reduces the internal spacing.
 
 ```html
-<div pgs="box['mini']">
+<div pgs="box['boxMini']">
     <h3>Enim ad minim</h3>
     <p>Ut labore et dolore magna aliqua ut enim.</p>
 </div>

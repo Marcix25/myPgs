@@ -25,7 +25,7 @@ Accessible pattern for collecting and storing analytics cookie consent, applying
 
 ## PGS Options (component brackets)
 
-- `strong`: presents full acceptance as the primary action.
+- `btnStrong`: presents full acceptance as the primary action.
 - `dialogTopLevel`: centers the dialog with a backdrop instead of positioning it inline; see Modal.
 - `success`: presents the essential-cookie badge with the success color; see Badges.
 

@@ -14,15 +14,15 @@
         <p>Everything is composed from tokens on three attributes, instead of from a class per variant.</p>
 
         <div pgs="flex['column' 'gapTexts' 'wrap']">
-            <div pgs="box['mini'] flex['column' 'gapTexts'] bgPrimarySoft">
+            <div pgs="box['boxMini'] flex['column' 'gapTexts'] bgPrimarySoft">
                 <strong>pgs</strong>
                 <p>What the element is, its visual options and its JavaScript-only flags: <code>pgs="flex['column' 'wrap']"</code>, <code>pgs="header['scroll']"</code>. Several components can sit together, each with its own bracket.</p>
             </div>
-            <div pgs="box['mini'] flex['column' 'gapTexts'] bgSecondarySoft">
+            <div pgs="box['boxMini'] flex['column' 'gapTexts'] bgSecondarySoft">
                 <strong>pgs-data</strong>
                 <p>Values passed from HTML to JavaScript, always as <code>key[payload]</code>: <code>dropdownPosition[top left]</code>.</p>
             </div>
-            <div pgs="box['mini'] flex['column' 'gapTexts'] bgTertiarySoft">
+            <div pgs="box['boxMini'] flex['column' 'gapTexts'] bgTertiarySoft">
                 <strong>pgs-state</strong>
                 <p>What it is doing right now. The library writes these at runtime: <code>open</code>, <code>is-active</code>, <code>errorField</code>.</p>
             </div>
@@ -32,8 +32,8 @@
 
     <div pgs="flex['column' 'gapTexts']">
         <h2 class="demoContent-heading demoContent-heading-h2">Getting started</h2>
-        <div pgs="box['mini'] bgPrimarySoft txtPrimaryStrong"><code>npm install mypgs</code></div>
-        <div pgs="box['mini'] bgPrimarySoft txtPrimaryStrong">
+        <div pgs="box['boxMini'] bgPrimarySoft txtPrimaryStrong"><code>npm install mypgs</code></div>
+        <div pgs="box['boxMini'] bgPrimarySoft txtPrimaryStrong">
             <code>
                 import "mypgs"; <br>
                 import "mypgs/style.css";
@@ -45,7 +45,7 @@
     <div pgs="flex['column' 'gapTexts']">
         <h2 class="demoContent-heading demoContent-heading-h2">CSS and SCSS</h2>
         <p>Prefer the library's custom properties, such as <code>--color-primary</code>, <code>--padding</code>, <code>--gap-elements</code> and <code>--border-radius</code>, to hardcoded values:</p>
-        <div pgs="box['mini'] bgPrimarySoft txtPrimaryStrong">
+        <div pgs="box['boxMini'] bgPrimarySoft txtPrimaryStrong">
             <code>
                 #danger-action { <br>
                 &nbsp;&nbsp;--button-background: var(--color-error); <br>

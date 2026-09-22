@@ -36,7 +36,7 @@ pgs.formValidate is the JavaScript side of Form: validates required fields, appl
 
 ### PGS Options (component brackets)
 
-- `strong`: applies stronger emphasis to the submit action.
+- `btnStrong`: applies stronger emphasis to the submit action.
 
 ### PGS Data
 
@@ -67,7 +67,7 @@ A minimal form wired to pgs.formValidate with one custom rule, focused on the Ja
         <input pgs="input" pgs-data="formMessage[Choose a username]" type="text" name="username" required>
     </label>
 
-    <button pgs="button['strong']" type="submit">Submit</button>
+    <button pgs="button['btnStrong']" type="submit">Submit</button>
 </form>
 
 <script type="module">
