@@ -2,7 +2,6 @@
 @use "mx-responsive" as *;
 
 //# TEXTAREA, LIST, HEADING, FOCUS
-
 //= TEXTAREA
 @mixin textarea() {
     align-items: flex-start;
@@ -59,54 +58,53 @@
 }
 
 //= HEADING
-@mixin heading($size, $weight: 900) {
-    font-family: var(--font-heading);
-    --heading-size: #{$size};
-    color: var(--color-black);
-    margin-bottom: calc(var(--heading-size)/8);
-    font-size: var(--heading-size);
+//== $size/$tag/$weight are fallbacks, not the source of truth: the :root block in
+//== base/_heading.scss is the one place that actually sets --heading-size-h1..h5/
+//== --heading-family-h1..h5/--heading-line-height-h1..h5 for the whole page, so overriding e.g.
+//== h3's family means overriding --heading-family-h3 there once, not touching this mixin or its
+//== h3() caller. The var() fallback here only matters if that :root block is ever missing.
+@mixin heading($size, $tag: "", $weight: 900) {
+    font-family: var(--heading-family#{$tag}, var(--font-heading));
+    margin-bottom: calc(var(--heading-size#{$tag}, #{$size}) / 8);
+    font-size: var(--heading-size#{$tag}, #{$size});
+    line-height: var(--heading-line-height#{$tag}, 1.1);
+    color: var(--heading-color#{$tag}, var(--color-black));
     min-width: 0;
     font-weight: $weight;
     overflow-wrap: anywhere;
+    text-wrap: balance;
 
     @media (max-width: $tablet) {
-        font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 8vw, var(--heading-size));
+        font-size: clamp(var(--font-size-text), var(--heading-size#{$tag}, #{$size}) / 3 + 8vw, var(--heading-size#{$tag}, #{$size}));
     }
 
     @media (max-width: $mobile) {
-        font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 5vw, var(--heading-size));
+        font-size: clamp(var(--font-size-text), var(--heading-size#{$tag}, #{$size}) / 3 + 5vw, var(--heading-size#{$tag}, #{$size}));
     }
 
     @media (max-width: $watch) {
-        font-size: clamp(var(--font-size-text), var(--heading-size) / 3 + 2.5vw, var(--heading-size));
-    }
-
-    //-( tablet 
-    @container (max-width: #{$tablet}) {
-        :is(h1, h2, h3, h4, h5, h6) {
-            line-height: 1.1;
-        }
+        font-size: clamp(var(--font-size-text), var(--heading-size#{$tag}, #{$size}) / 3 + 2.5vw, var(--heading-size#{$tag}, #{$size}));
     }
 }
 
 @mixin h1() {
-    @include heading($h1);
+    @include heading($h1, "-h1");
 }
 
 @mixin h2() {
-    @include heading($h2);
+    @include heading($h2, "-h2");
 }
 
 @mixin h3() {
-    @include heading($h3);
+    @include heading($h3, "-h3");
 }
 
 @mixin h4() {
-    @include heading($h4);
+    @include heading($h4, "-h4");
 }
 
 @mixin h5() {
-    @include heading(calc($h5 - 0.1rem), 700);
+    @include heading(calc($h5 - 0.1rem), "-h5", 700);
 }
 
 //= FOCUS

@@ -503,7 +503,7 @@ function renderDocumentationHtml(data, markup, basename, cssText) {
 
 function renderHeadingBlockHtml(title, description, level) {
     if (!title && !description) return "";
-    const heading = title ? `<${level} class="demoContent-heading-${level}">${escapeHtml(title)}</${level}>` : "";
+    const heading = title ? `<${level} class="demoContent-heading demoContent-heading-${level}">${escapeHtml(title)}</${level}>` : "";
     const desc = description ? `<p>${escapeHtml(description)}</p>` : "";
     return `<div class="demoContent-heading" pgs="flex['column' 'gapTexts']">${heading}${desc}</div>`;
 }
@@ -599,14 +599,20 @@ function renderNavHtml(entries, withHeadingIds = true) {
         groups.get(prefix).push(entry);
     });
 
-    let html = "";
-    if (ungrouped.length) html += renderNavMenuHtml(ungrouped);
+    const byLabel = (a, b) => getEntryLabel(a.path).localeCompare(getEntryLabel(b.path));
 
-    groups.forEach((items, prefix) => {
+    let html = "";
+    if (ungrouped.length) html += renderNavMenuHtml([...ungrouped].sort(byLabel));
+
+    const sortedGroups = [...groups.entries()].sort(([prefixA], [prefixB]) =>
+        (CATEGORY_LABELS[prefixA] || prefixA).localeCompare(CATEGORY_LABELS[prefixB] || prefixB)
+    );
+
+    sortedGroups.forEach(([prefix, items]) => {
         const category = CATEGORY_LABELS[prefix] || prefix;
         const idAttr = withHeadingIds ? ` id="${escapeHtml(prefix)}"` : "";
         html += `<p${idAttr}><strong>${escapeHtml(category)}</strong></p>`;
-        html += renderNavMenuHtml(items, category);
+        html += renderNavMenuHtml([...items].sort(byLabel), category);
     });
 
     return html;

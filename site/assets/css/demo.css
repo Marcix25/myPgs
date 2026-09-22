@@ -11,8 +11,10 @@
     font-display: swap;
 }
 
-:root {
-    --font-heading: "MyPix", var(--font);
+#reference-demo-content .demoContent-heading {
+    --heading-family-h1: "MyPix", var(--font);
+    --heading-family-h2: "MyPix", var(--font);
+
 }
 
 body {

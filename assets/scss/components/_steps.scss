@@ -68,20 +68,6 @@ ol[pgs~="steps"] {
                 left: 50%;
                 translate: -50%;
             }
-
-            //=== arrow
-            &::after {
-                content: "";
-                $line: solid var(--steps-line-size) var(--steps-line-color);
-                border-right: $line;
-                border-bottom: $line;
-                height: 15px;
-                aspect-ratio: 1;
-                position: absolute;
-                bottom: -10px;
-                left: 50%;
-                transform: rotate(45deg) translatex(-74%);
-            }
         }
 
         //== LAST

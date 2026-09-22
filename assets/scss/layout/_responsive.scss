@@ -9,6 +9,10 @@
 
 //== FLEX OPTIONS
 :is([pgs~="flex"], [pgs*="flex\5B"]) {
+    &[pgs*="'center'"] {
+        @include center();
+    }
+
     &[pgs*="'inlineFlex'"] {
         display: inline-flex;
     }
