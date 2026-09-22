@@ -10,7 +10,10 @@
 [pgs~="notificationBell"] {
     position: relative;
 
-    :where([pgs~="notificationBell-counter"]) {
+    //== a hand-written counter keeps the bare name; a generated one gets the underscore (see
+    //== _notification.js), so this needs both
+    :where([pgs~="notificationBell-counter"]),
+    :where([pgs~="_notificationBell-counter"]) {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -83,7 +86,7 @@
         flex-shrink: 0;
         position: relative;
         border: var(--border-complete);
-        transition: translate 280ms ease;
+        transition: opacity 280ms ease;
 
         :where([pgs~="_notifications-element-content"]),
         :where([pgs~="_notifications-element-buttons"]) {

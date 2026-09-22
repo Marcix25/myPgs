@@ -1,66 +1,11 @@
 @use "settings" as *;
 @use "mx-responsive" as *;
 
-//# TEXTAREA, LIST, HEADING, FOCUS
-//= TEXTAREA
-@mixin textarea() {
-    align-items: flex-start;
-    @include column();
-    @include list;
-
-    hr {
-        align-self: stretch;
-    }
-
-    h1,
-    h3,
-    h2 {
-        margin-top: 25px;
-    }
-}
-
-//= LIST
-@mixin list() {
-
-    :is(ul),
-    &:is(ul) {
-        list-style: disc;
-        margin-left: 25px;
-
-        >li {
-            list-style-type: disc;
-
-            >ul>li {
-                list-style: circle;
-                margin-top: var(--gap-texts);
-
-                ul>li {
-                    list-style: "-";
-                }
-            }
-        }
-    }
-
-    :is(ol),
-    &:is(ol) {
-        list-style: decimal;
-
-        li {
-            list-style-type: decimal;
-        }
-    }
-
-    li {
-        display: list-item;
-        margin-top: calc(var(--gap-texts)/2);
-        color: var(--color-text);
-    }
-}
-
+//# HEADING, TEXT
 //= HEADING
 //== $size/$tag/$weight are fallbacks, not the source of truth: the :root block in
-//== base/_heading.scss is the one place that actually sets --heading-size-h1..h5/
-//== --heading-family-h1..h5/--heading-line-height-h1..h5 for the whole page, so overriding e.g.
+//== base/_typography.scss is the one place that actually sets --heading-size-h1..h6/
+//== --heading-family-h1..h6/--heading-line-height-h1..h6 for the whole page, so overriding e.g.
 //== h3's family means overriding --heading-family-h3 there once, not touching this mixin or its
 //== h3() caller. The var() fallback here only matters if that :root block is ever missing.
 @mixin heading($size, $tag: "", $weight: 900) {
@@ -104,13 +49,29 @@
 }
 
 @mixin h5() {
-    @include heading(calc($h5 - 0.1rem), "-h5", 700);
+    @include heading($h5, "-h5", 700);
 }
 
-//= FOCUS
-@mixin focus() {
-    &:where(:not(:disabled, [disabled])):focus-visible {
-        outline: var(--focus-visible);
-        outline-offset: 3px;
+@mixin h6() {
+    @include heading($h6, "-h6", 500);
+}
+
+//= TEXT
+@mixin text() {
+    color: var(--text-color);
+    font-family: var(--text-family);
+    font-size: var(--text-size);
+    line-height: var(--text-line-height);
+    overflow-wrap: var(--text-overflowWrap);
+
+    a {
+        text-decoration: none;
+        overflow-wrap: var(--text-overflowWrap);
+        color: var(--color-link);
+
+        &:where(:hover) {
+            background-color: var(--color-link-soft);
+            border-radius: 5px;
+        }
     }
 }

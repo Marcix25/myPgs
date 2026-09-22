@@ -12,7 +12,8 @@ Responsive flex and grid layouts with configurable columns, gap, wrapping, and a
 ## PGS Options (component brackets)
 
 - `inlineFlex`: uses inline-flex for the flex container.
-- `flexCenter`: centers items on both axes of a flex container.
+- `center`: centers items on both axes of a flex container, with gapTexts as its default gap.
+- `flexCenter`: centers items on both axes of a flex container, with no gap of its own.
 - `gapElements`: applies the element spacing gap.
 - `column`: configures a flex layout to stack items vertically.
 - `row`: configures a flex layout to arrange items horizontally.

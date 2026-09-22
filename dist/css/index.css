@@ -226,11 +226,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 :where([pgs~=bodyText]) {
-  --text-color: var(--color-black);
-  --text-family: var(--font);
-  --text-size: var(--font-size-text);
-  --text-line-height: 1.5;
-  --text-overflowWrap: anywhere;
   color: var(--text-color);
   font-family: var(--text-family);
   font-weight: var(--font-weight-text);
@@ -244,7 +239,9 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 :where([pgs~=bodyText]) p {
-  color: var(--color-text);
+  color: var(--text-color);
+  font-family: var(--text-family);
+  font-size: var(--text-size);
   line-height: var(--text-line-height);
   overflow-wrap: var(--text-overflowWrap);
 }
@@ -264,32 +261,6 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   text-decoration: none;
   overflow-wrap: var(--text-overflowWrap);
   color: var(--color-link);
-}
-
-:where([pgs~=bodyHeading]) {
-  --heading-color: var(--color-black);
-  --heading-family: var(--font-heading);
-  --heading-line-height: 1.1;
-  --heading-size-h1: 7.2rem;
-  --heading-color-h1: var(--heading-color);
-  --heading-family-h1: var(--heading-family);
-  --heading-line-height-h1: var(--heading-line-height);
-  --heading-size-h2: 4.45rem;
-  --heading-color-h2: var(--heading-color);
-  --heading-family-h2: var(--heading-family);
-  --heading-line-height-h2: var(--heading-line-height);
-  --heading-size-h3: 2.75rem;
-  --heading-color-h3: var(--heading-color);
-  --heading-family-h3: var(--heading-family);
-  --heading-line-height-h3: var(--heading-line-height);
-  --heading-size-h4: 1.7rem;
-  --heading-color-h4: var(--heading-color);
-  --heading-family-h4: var(--heading-family);
-  --heading-line-height-h4: var(--heading-line-height);
-  --heading-size-h5: calc(1.7rem - 0.1rem);
-  --heading-color-h5: var(--heading-color);
-  --heading-family-h5: var(--heading-family);
-  --heading-line-height-h5: var(--heading-line-height);
 }
 
 :where([pgs~=bodyHeading]) h1 {
@@ -402,8 +373,8 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 :where([pgs~=bodyHeading]) h5 {
   font-family: var(--heading-family-h5, var(--font-heading));
-  margin-bottom: calc(var(--heading-size-h5, 1.6rem) / 8);
-  font-size: var(--heading-size-h5, 1.6rem);
+  margin-bottom: calc(var(--heading-size-h5, 1.7rem) / 8);
+  font-size: var(--heading-size-h5, 1.7rem);
   line-height: var(--heading-line-height-h5, 1.1);
   color: var(--heading-color-h5, var(--color-black));
   min-width: 0;
@@ -414,19 +385,76 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 @media (max-width: 800px) {
   :where([pgs~=bodyHeading]) h5 {
-    font-size: clamp(var(--font-size-text), var(--heading-size-h5, 1.6rem) / 3 + 8vw, var(--heading-size-h5, 1.6rem));
+    font-size: clamp(var(--font-size-text), var(--heading-size-h5, 1.7rem) / 3 + 8vw, var(--heading-size-h5, 1.7rem));
   }
 }
 @media (max-width: 430px) {
   :where([pgs~=bodyHeading]) h5 {
-    font-size: clamp(var(--font-size-text), var(--heading-size-h5, 1.6rem) / 3 + 5vw, var(--heading-size-h5, 1.6rem));
+    font-size: clamp(var(--font-size-text), var(--heading-size-h5, 1.7rem) / 3 + 5vw, var(--heading-size-h5, 1.7rem));
   }
 }
 @media (max-width: 315px) {
   :where([pgs~=bodyHeading]) h5 {
-    font-size: clamp(var(--font-size-text), var(--heading-size-h5, 1.6rem) / 3 + 2.5vw, var(--heading-size-h5, 1.6rem));
+    font-size: clamp(var(--font-size-text), var(--heading-size-h5, 1.7rem) / 3 + 2.5vw, var(--heading-size-h5, 1.7rem));
   }
 }
+:where([pgs~=bodyHeading]) h6 {
+  font-family: var(--heading-family-h6, var(--font-heading));
+  margin-bottom: calc(var(--heading-size-h6, 1.7rem) / 8);
+  font-size: var(--heading-size-h6, 1.7rem);
+  line-height: var(--heading-line-height-h6, 1.1);
+  color: var(--heading-color-h6, var(--color-black));
+  min-width: 0;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+@media (max-width: 800px) {
+  :where([pgs~=bodyHeading]) h6 {
+    font-size: clamp(var(--font-size-text), var(--heading-size-h6, 1.7rem) / 3 + 8vw, var(--heading-size-h6, 1.7rem));
+  }
+}
+@media (max-width: 430px) {
+  :where([pgs~=bodyHeading]) h6 {
+    font-size: clamp(var(--font-size-text), var(--heading-size-h6, 1.7rem) / 3 + 5vw, var(--heading-size-h6, 1.7rem));
+  }
+}
+@media (max-width: 315px) {
+  :where([pgs~=bodyHeading]) h6 {
+    font-size: clamp(var(--font-size-text), var(--heading-size-h6, 1.7rem) / 3 + 2.5vw, var(--heading-size-h6, 1.7rem));
+  }
+}
+:root {
+  --heading-color: var(--color-black);
+  --heading-family: var(--font-heading);
+  --heading-line-height: 1.1;
+  --heading-size-h1: 7.2rem;
+  --heading-color-h1: var(--heading-color);
+  --heading-family-h1: var(--heading-family);
+  --heading-line-height-h1: var(--heading-line-height);
+  --heading-size-h2: 4.45rem;
+  --heading-color-h2: var(--heading-color);
+  --heading-family-h2: var(--heading-family);
+  --heading-line-height-h2: var(--heading-line-height);
+  --heading-size-h3: 2.75rem;
+  --heading-color-h3: var(--heading-color);
+  --heading-family-h3: var(--heading-family);
+  --heading-line-height-h3: var(--heading-line-height);
+  --heading-size-h4: 1.7rem;
+  --heading-color-h4: var(--heading-color);
+  --heading-family-h4: var(--heading-family);
+  --heading-line-height-h4: var(--heading-line-height);
+  --heading-size-h5: calc(1.7rem - 0.1rem);
+  --heading-color-h5: var(--heading-color);
+  --heading-family-h5: var(--heading-family);
+  --heading-line-height-h5: var(--heading-line-height);
+  --heading-size-h6: calc(1.7rem - 0.1rem);
+  --heading-color-h6: var(--heading-color);
+  --heading-family-h6: var(--heading-family);
+  --heading-line-height-h6: var(--heading-line-height);
+}
+
 [pgs~=h1] {
   font-family: var(--heading-family-h1, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h1, 7.2rem) / 8);
@@ -537,8 +565,8 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 [pgs~=h5] {
   font-family: var(--heading-family-h5, var(--font-heading));
-  margin-bottom: calc(var(--heading-size-h5, 1.6rem) / 8);
-  font-size: var(--heading-size-h5, 1.6rem);
+  margin-bottom: calc(var(--heading-size-h5, 1.7rem) / 8);
+  font-size: var(--heading-size-h5, 1.7rem);
   line-height: var(--heading-line-height-h5, 1.1);
   color: var(--heading-color-h5, var(--color-black));
   min-width: 0;
@@ -549,19 +577,73 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 
 @media (max-width: 800px) {
   [pgs~=h5] {
-    font-size: clamp(var(--font-size-text), var(--heading-size-h5, 1.6rem) / 3 + 8vw, var(--heading-size-h5, 1.6rem));
+    font-size: clamp(var(--font-size-text), var(--heading-size-h5, 1.7rem) / 3 + 8vw, var(--heading-size-h5, 1.7rem));
   }
 }
 @media (max-width: 430px) {
   [pgs~=h5] {
-    font-size: clamp(var(--font-size-text), var(--heading-size-h5, 1.6rem) / 3 + 5vw, var(--heading-size-h5, 1.6rem));
+    font-size: clamp(var(--font-size-text), var(--heading-size-h5, 1.7rem) / 3 + 5vw, var(--heading-size-h5, 1.7rem));
   }
 }
 @media (max-width: 315px) {
   [pgs~=h5] {
-    font-size: clamp(var(--font-size-text), var(--heading-size-h5, 1.6rem) / 3 + 2.5vw, var(--heading-size-h5, 1.6rem));
+    font-size: clamp(var(--font-size-text), var(--heading-size-h5, 1.7rem) / 3 + 2.5vw, var(--heading-size-h5, 1.7rem));
   }
 }
+[pgs~=h6] {
+  font-family: var(--heading-family-h6, var(--font-heading));
+  margin-bottom: calc(var(--heading-size-h6, 1.7rem) / 8);
+  font-size: var(--heading-size-h6, 1.7rem);
+  line-height: var(--heading-line-height-h6, 1.1);
+  color: var(--heading-color-h6, var(--color-black));
+  min-width: 0;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+@media (max-width: 800px) {
+  [pgs~=h6] {
+    font-size: clamp(var(--font-size-text), var(--heading-size-h6, 1.7rem) / 3 + 8vw, var(--heading-size-h6, 1.7rem));
+  }
+}
+@media (max-width: 430px) {
+  [pgs~=h6] {
+    font-size: clamp(var(--font-size-text), var(--heading-size-h6, 1.7rem) / 3 + 5vw, var(--heading-size-h6, 1.7rem));
+  }
+}
+@media (max-width: 315px) {
+  [pgs~=h6] {
+    font-size: clamp(var(--font-size-text), var(--heading-size-h6, 1.7rem) / 3 + 2.5vw, var(--heading-size-h6, 1.7rem));
+  }
+}
+:root {
+  --text-color: var(--color-text);
+  --text-family: var(--font);
+  --text-size: var(--font-size-text);
+  --text-line-height: 1.5;
+  --text-overflowWrap: anywhere;
+}
+
+[pgs~=text] {
+  color: var(--text-color);
+  font-family: var(--text-family);
+  font-size: var(--text-size);
+  line-height: var(--text-line-height);
+  overflow-wrap: var(--text-overflowWrap);
+}
+
+[pgs~=text] a {
+  text-decoration: none;
+  overflow-wrap: var(--text-overflowWrap);
+  color: var(--color-link);
+}
+
+[pgs~=text] a:where(:hover) {
+  background-color: var(--color-link-soft);
+  border-radius: 5px;
+}
+
 [pgs~=darkmode] {
   color-scheme: dark;
 }
@@ -5795,47 +5877,35 @@ html:has(dialog[open]) {
     min-width: var(--slide-width-mobile);
   }
 }
-:is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-prec]),
-:is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-prec]),
-:is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-next]),
-:is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-next]) {
+:is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec],
+:is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next] {
   position: absolute;
   z-index: 4;
   top: calc(var(--slides-height, 100%) / 2);
   translate: 0 -50%;
 }
 
-:is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-prec]):is(:where([pgs~=slides-prec]), :where([pgs~=_slides-prec])),
-:is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-prec]):is(:where([pgs~=slides-prec]), :where([pgs~=_slides-prec])),
-:is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-next]):is(:where([pgs~=slides-prec]), :where([pgs~=_slides-prec])),
-:is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-next]):is(:where([pgs~=slides-prec]), :where([pgs~=_slides-prec])) {
+:is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec]:is(:where([pgs~=slides-prec]), :where([pgs~=_slides-prec])),
+:is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next]:is(:where([pgs~=slides-prec]), :where([pgs~=_slides-prec])) {
   left: 0.4rem;
 }
 
-:is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-prec]):is(:where([pgs~=slides-next]), :where([pgs~=_slides-next])),
-:is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-prec]):is(:where([pgs~=slides-next]), :where([pgs~=_slides-next])),
-:is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-next]):is(:where([pgs~=slides-next]), :where([pgs~=_slides-next])),
-:is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-next]):is(:where([pgs~=slides-next]), :where([pgs~=_slides-next])) {
+:is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec]:is(:where([pgs~=slides-next]), :where([pgs~=_slides-next])),
+:is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next]:is(:where([pgs~=slides-next]), :where([pgs~=_slides-next])) {
   right: 0.4rem;
 }
 
 @container (max-width: $tablet) {
-  :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-prec]),
-  :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-prec]),
-  :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-next]),
-  :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-next]) {
+  :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec],
+  :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next] {
     --button-size: .8rem;
   }
-  :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-prec]):is(:where([pgs~=slides-prec]), :where([pgs~=_slides-prec])),
-  :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-prec]):is(:where([pgs~=slides-prec]), :where([pgs~=_slides-prec])),
-  :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-next]):is(:where([pgs~=slides-prec]), :where([pgs~=_slides-prec])),
-  :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-next]):is(:where([pgs~=slides-prec]), :where([pgs~=_slides-prec])) {
+  :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec]:is(:where([pgs~=slides-prec]), :where([pgs~=_slides-prec])),
+  :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next]:is(:where([pgs~=slides-prec]), :where([pgs~=_slides-prec])) {
     left: calc(var(--page-padding) * -1 + 0.4rem);
   }
-  :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-prec]):is(:where([pgs~=slides-next]), :where([pgs~=_slides-next])),
-  :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-prec]):is(:where([pgs~=slides-next]), :where([pgs~=_slides-next])),
-  :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-next]):is(:where([pgs~=slides-next]), :where([pgs~=_slides-next])),
-  :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-next]):is(:where([pgs~=slides-next]), :where([pgs~=_slides-next])) {
+  :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec]:is(:where([pgs~=slides-next]), :where([pgs~=_slides-next])),
+  :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next]:is(:where([pgs~=slides-next]), :where([pgs~=_slides-next])) {
     right: calc(var(--page-padding) * -1 + 0.4rem);
   }
 }
@@ -5905,11 +5975,9 @@ html:has(dialog[open]) {
 
 @container (min-width: 800px) {
   :is([pgs~=slides], [pgs*="slides["])[pgs*="'shadowDesktop'"] :where([pgs~=slides-container]) {
-    --slides-maskStart: 0px;
-    --slides-maskEnd: 0px;
     transition: --slides-maskStart 200ms, --slides-maskEnd 200ms;
-    -webkit-mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart), black calc(100% - var(--slides-maskEnd)), transparent 100%);
-    mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart), black calc(100% - var(--slides-maskEnd)), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart, 0px), black calc(100% - var(--slides-maskEnd)), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart, 0px), black calc(100% - var(--slides-maskEnd)), transparent 100%);
   }
   :is([pgs~=slides], [pgs*="slides["])[pgs*="'shadowDesktop'"]:not(:has(:where([pgs~=slides-container]) li:first-child[pgs-state~=view])) :where([pgs~=slides-container]) {
     --slides-maskStart: var(--slides-sizeMaskImage);
@@ -6329,7 +6397,8 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   position: relative;
 }
 
-[pgs~=notificationBell] :where([pgs~=notificationBell-counter]) {
+[pgs~=notificationBell] :where([pgs~=notificationBell-counter]),
+[pgs~=notificationBell] :where([pgs~=_notificationBell-counter]) {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -6347,7 +6416,8 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   top: -5px;
 }
 
-[pgs~=notificationBell] :where([pgs~=notificationBell-counter]):empty {
+[pgs~=notificationBell] :where([pgs~=notificationBell-counter]):empty,
+[pgs~=notificationBell] :where([pgs~=_notificationBell-counter]):empty {
   display: none;
 }
 
@@ -6398,7 +6468,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   flex-shrink: 0;
   position: relative;
   border: var(--border-complete);
-  transition: translate 280ms ease;
+  transition: opacity 280ms ease;
 }
 
 [pgs~=_notifications] :where([pgs~=_notifications-element]) :where([pgs~=_notifications-element-content]),

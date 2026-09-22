@@ -89,13 +89,12 @@
     //== a hand-written arrow keeps the bare name; a generated one gets the underscore (see
     //== #createButtonsAndDots in _slides.js), so every check here needs both
     :where([pgs~="slides-prec"]),
-    :where([pgs~="_slides-prec"]),
-    :where([pgs~="slides-next"]),
-    :where([pgs~="_slides-next"]) {
+    :where([pgs~="slides-next"]) {}
+
+    [pgs~="_slides-prec"],
+    [pgs~="_slides-next"] {
         position: absolute;
         z-index: 4;
-        //== half of the track, not half of the component: the root also holds the dots and whatever
-        //== the page puts beside them, and 50% of that is not the middle of the slides
         top: calc(var(--slides-height, 100%) / 2);
         translate: 0 -50%;
 
@@ -150,7 +149,6 @@
             }
         }
 
-
         :where([pgs~="slides-dots-dot"]),
         :where([pgs~="_slides-dots-dot"]) {
             padding: 0.6rem;
@@ -197,11 +195,9 @@
         //+( tablet
         @container (min-width: #{$tablet}) {
             :where([pgs~="slides-container"]) {
-                --slides-maskStart: 0px;
-                --slides-maskEnd: 0px;
                 transition: --slides-maskStart 200ms, --slides-maskEnd 200ms;
-                -webkit-mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart), black calc(100% - var(--slides-maskEnd)), transparent 100%);
-                mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart), black calc(100% - var(--slides-maskEnd)), transparent 100%);
+                -webkit-mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart, 0px), black calc(100% - var(--slides-maskEnd)), transparent 100%);
+                mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart, 0px), black calc(100% - var(--slides-maskEnd)), transparent 100%);
             }
 
             //== fade on the left until the first slide is reached

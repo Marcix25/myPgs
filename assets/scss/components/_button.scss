@@ -9,35 +9,35 @@
     }
 
     &[pgs*="'iconOnly'"] {
-        @include iconOnly();
+        @include buttonIconOnly();
     }
 
     &[pgs*="'mini'"] {
-        @include mini();
+        @include buttonMini();
     }
 
     &[pgs*="'big'"] {
-        @include big();
+        @include buttonBig();
     }
 
     &[pgs*="'transparent'"] {
-        @include transparent();
+        @include buttonTransparent();
     }
 
     &[pgs*="'strong'"] {
-        @include strong();
+        @include buttonStrong();
     }
 
     &[pgs*="'text'"] {
-        @include text();
+        @include buttonText();
     }
 
     &[pgs*="'paddingEqual'"] {
-        @include paddingEqual();
+        @include buttonPaddingEqual();
     }
 
     &[pgs*="'forHeader'"] {
-        @include forHeader();
+        @include buttonForHeader();
     }
 
     &[pgs*="'primary'"] {

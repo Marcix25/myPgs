@@ -1,0 +1,66 @@
+@use "settings" as *;
+@use "mx-responsive" as *;
+
+//# TEXTAREA, LIST, FOCUS
+//= TEXTAREA
+@mixin textarea() {
+    align-items: flex-start;
+    @include column();
+    @include list;
+
+    hr {
+        align-self: stretch;
+    }
+
+    h1,
+    h3,
+    h2 {
+        margin-top: 25px;
+    }
+}
+
+//= LIST
+@mixin list() {
+
+    :is(ul),
+    &:is(ul) {
+        list-style: disc;
+        margin-left: 25px;
+
+        >li {
+            list-style-type: disc;
+
+            >ul>li {
+                list-style: circle;
+                margin-top: var(--gap-texts);
+
+                ul>li {
+                    list-style: "-";
+                }
+            }
+        }
+    }
+
+    :is(ol),
+    &:is(ol) {
+        list-style: decimal;
+
+        li {
+            list-style-type: decimal;
+        }
+    }
+
+    li {
+        display: list-item;
+        margin-top: calc(var(--gap-texts)/2);
+        color: var(--color-text);
+    }
+}
+
+//= FOCUS
+@mixin focus() {
+    &:where(:not(:disabled, [disabled])):focus-visible {
+        outline: var(--focus-visible);
+        outline-offset: 3px;
+    }
+}

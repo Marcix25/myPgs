@@ -1,0 +1,79 @@
+@use "../mixin/mixin" as *;
+
+//# HEADING & TEXT
+//= HEADING
+//== the single place every heading's custom properties are declared, for the whole page: change
+//== --heading-family-h3 here (or override it downstream, same specificity rules as any other
+//== custom property) instead of passing a different value into h3()/heading() at every call site
+:root {
+    --heading-color: var(--color-black);
+    --heading-family: var(--font-heading);
+    --heading-line-height: 1.1;
+    // h1
+    --heading-size-h1: #{$h1};
+    --heading-color-h1: var(--heading-color);
+    --heading-family-h1: var(--heading-family);
+    --heading-line-height-h1: var(--heading-line-height);
+    // h2
+    --heading-size-h2: #{$h2};
+    --heading-color-h2: var(--heading-color);
+    --heading-family-h2: var(--heading-family);
+    --heading-line-height-h2: var(--heading-line-height);
+    // h3
+    --heading-size-h3: #{$h3};
+    --heading-color-h3: var(--heading-color);
+    --heading-family-h3: var(--heading-family);
+    --heading-line-height-h3: var(--heading-line-height);
+    // h4
+    --heading-size-h4: #{$h4};
+    --heading-color-h4: var(--heading-color);
+    --heading-family-h4: var(--heading-family);
+    --heading-line-height-h4: var(--heading-line-height);
+    // h5
+    --heading-size-h5: calc(#{$h5} - 0.1rem);
+    --heading-color-h5: var(--heading-color);
+    --heading-family-h5: var(--heading-family);
+    --heading-line-height-h5: var(--heading-line-height);
+    // h6
+    --heading-size-h6: calc(#{$h5} - 0.1rem);
+    --heading-color-h6: var(--heading-color);
+    --heading-family-h6: var(--heading-family);
+    --heading-line-height-h6: var(--heading-line-height);
+}
+
+[pgs~="h1"] {
+    @include h1();
+}
+
+[pgs~="h2"] {
+    @include h2();
+}
+
+[pgs~="h3"] {
+    @include h3();
+}
+
+[pgs~="h4"] {
+    @include h4();
+}
+
+[pgs~="h5"] {
+    @include h5();
+}
+
+[pgs~="h6"] {
+    @include h6();
+}
+
+//= TEXT
+:root {
+    --text-color: var(--color-text);
+    --text-family: var(--font);
+    --text-size: var(--font-size-text);
+    --text-line-height: 1.5;
+    --text-overflowWrap: anywhere;
+}
+
+[pgs~="text"] {
+    @include text();
+}

@@ -8,7 +8,7 @@
 .home-hero {
     background:
         linear-gradient(160deg, color-mix(in srgb, var(--color-primary-soft) 75%, transparent), color-mix(in srgb, var(--color-background) 90%, transparent) 70%),
-        url("../img/hero-leaves.jpg") center / cover no-repeat;
+        url("../img/hero-leaves.webp") center / cover no-repeat;
     border-radius: var(--border-radius-external);
     padding-block: var(--gap-elements);
 }

@@ -49,7 +49,7 @@
  * - dialogRight: presents the compact navigation dialog content from the right side.
  * - iconOnly: presents theme and hamburger controls as icon buttons.
  * - notificationBell: opens and closes the notification panel from the header.
- * - notificationBell-counter: displays the current notification count on the bell.
+ * - notificationBell-counter: generated automatically inside notificationBell; not written by hand in this example.
  * - toggleDarkmode: connects the control to the global theme handler.
  * - modal: provides opening and closing behavior for the compact navigation.
  * - modal-button: opens the compact panel.
@@ -90,7 +90,6 @@
 					<div pgs="modal" pgs-data="modalContainerPGS[header]">
 						<button type="button" pgs="modal-button modal-close button['iconOnly'] notificationBell" aria-label="Open notifications">
 							<i pgs="icon['icon-bell']"></i>
-							<span pgs="notificationBell-counter"></span>
 						</button>
 					</div>
 					<button pgs="button['iconOnly'] toggleDarkmode" type="button" aria-label="Change theme">
@@ -104,7 +103,6 @@
 					<div pgs="modal" pgs-data="modalContainerPGS[header]">
 						<button type="button" pgs="modal-button modal-close button['iconOnly'] notificationBell" aria-label="Open notifications">
 							<i pgs="icon['icon-bell']"></i>
-							<span pgs="notificationBell-counter"></span>
 						</button>
 					</div>
 					<button pgs="button['iconOnly'] toggleDarkmode" type="button" aria-label="Change theme">

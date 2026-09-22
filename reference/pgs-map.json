@@ -768,6 +768,7 @@
         "pgs-options": [
             "absolute",
             "auto",
+            "center",
             "column",
             "column-\"][pgs*=\"",
             "column-1",
@@ -898,6 +899,7 @@
         "pgs-options": [
             "absolute",
             "auto",
+            "center",
             "column",
             "column-",
             "column-\"][pgs*=\"",
@@ -1003,6 +1005,12 @@
         "pgs-data": []
     },
     "h5": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "h6": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [],
@@ -1435,7 +1443,9 @@
         "pgs": [
             "notificationBell-counter"
         ],
-        "pgs-generated": [],
+        "pgs-generated": [
+            "_notificationBell-counter"
+        ],
         "pgs-options": [],
         "pgs-data": []
     },
@@ -1861,6 +1871,12 @@
         "pgs-data": [
             "tabsHistory"
         ]
+    },
+    "text": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
     },
     "textarea": {
         "pgs": [],

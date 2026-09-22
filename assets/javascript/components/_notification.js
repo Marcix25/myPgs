@@ -154,7 +154,7 @@ const fn_notification = {
 
         //+ Animation delete
         function deleteNotification() {
-            notification.style.translate = "120%";
+            notification.style.opacity = "0";
             setTimeout(() => {
                 notification.dispatchEvent(new CustomEvent("pgs:notification:close", {
                     bubbles: true,
@@ -227,7 +227,7 @@ const fn_notification = {
         const container = this._getContainer();
         const count = container ? pgs(container).querySelectorAll("_notifications-element").length : 0;
 
-        pgs(document).querySelectorAll("notificationBell-counter").forEach(counter => {
+        pgs(document).querySelectorAll(["notificationBell-counter", "_notificationBell-counter"]).forEach(counter => {
             counter.textContent = count > 0 ? count : "";
         });
 
@@ -287,6 +287,14 @@ const fn_notification = {
         let created = false;
 
         pgs(root).querySelectorAll("notificationBell").forEach(bell => {
+            //== a hand-written counter keeps the bare name; a generated one gets the underscore,
+            //== so this is the one place that has to check for either
+            if (!pgs(bell).querySelector(["notificationBell-counter", "_notificationBell-counter"])) {
+                const counter = document.createElement("span");
+                pgs(counter).add("_notificationBell-counter");
+                bell.appendChild(counter);
+            }
+
             const modalWrapper = pgs(bell).closest("modal");
             if (!modalWrapper || modalWrapper.querySelector("dialog")) return;
 

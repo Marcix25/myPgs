@@ -41,7 +41,7 @@ const referenceFiles = [
     "base/general.html",
     "base/border.html",
     "base/hover.html",
-    "base/heading.html",
+    "base/typography.html",
     "base/color.html",
     "base/darkmode.html",
     "base/svg.html",
@@ -90,7 +90,7 @@ const ENTRY_ICONS = {
     "base/general.html": "fa-sliders",
     "base/border.html": "fa-border-none",
     "base/hover.html": "fa-arrow-pointer",
-    "base/heading.html": "fa-heading",
+    "base/typography.html": "fa-heading",
     "base/color.html": "fa-palette",
     "base/darkmode.html": "fa-moon",
     "base/svg.html": "fa-bezier-curve",
@@ -162,6 +162,20 @@ function escapeHtml(value) {
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#39;");
+}
+
+//= reverses escapeHtml, for text read out of an HTML attribute (demo-h2/demo-h3/demo-description):
+//= those are written with entities so a literal quote or a "pgs=" example fits inside the
+//= attribute's own quotes, but this file only ever regex-matches the raw attribute text, never
+//= parses it as HTML. Decoding once here keeps escapeHtml's later, single re-encode correct,
+//= instead of encoding an already-encoded string into a visibly broken "&amp;quot;"
+function unescapeHtml(value) {
+    return String(value)
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
+        .replace(/&quot;/g, "\"")
+        .replace(/&#39;/g, "'")
+        .replace(/&amp;/g, "&");
 }
 
 function escapeRegExp(value) {
@@ -363,10 +377,10 @@ function extractDemoBlocks(markup, { unwrap = true } = {}) {
             const h2Match = match[0].match(/\bdemo-h2\s*=\s*(["'])((?:(?!\1).)*)\1/);
             const h3Match = match[0].match(/\bdemo-h3\s*=\s*(["'])((?:(?!\1).)*)\1/);
             const descriptionMatch = match[0].match(/\bdemo-description\s*=\s*(["'])((?:(?!\1).)*)\1/);
-            const description = descriptionMatch ? descriptionMatch[2] : "";
+            const description = descriptionMatch ? unescapeHtml(descriptionMatch[2]) : "";
 
-            if (h2Match) blocks.push({ type: "heading", title: h2Match[2], description });
-            else if (h3Match) pendingH3 = { title: h3Match[2], description };
+            if (h2Match) blocks.push({ type: "heading", title: unescapeHtml(h2Match[2]), description });
+            else if (h3Match) pendingH3 = { title: unescapeHtml(h3Match[2]), description };
 
             pattern.lastIndex = end === -1 ? openTagEnd : end;
             continue;
