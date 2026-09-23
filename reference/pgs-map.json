@@ -507,8 +507,7 @@
     },
     "breadcrumb": {
         "pgs": [
-            "breadcrumb-item",
-            "breadcrumb-item-separator"
+            "breadcrumb-item"
         ],
         "pgs-generated": [],
         "pgs-options": [],
@@ -1223,7 +1222,18 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "none"
+            "none",
+            "sctEdgeFlushLeft",
+            "sctEdgeFlushRight",
+            "sctEdgeLeft",
+            "sctEdgeRight",
+            "sctFull",
+            "sctMax",
+            "sctNoPadding",
+            "sctRemoveGap",
+            "sctRemoveGapBottom",
+            "sctRemoveGapTop",
+            "sctSpecificity"
         ],
         "pgs-data": []
     },
@@ -1615,6 +1625,12 @@
         ],
         "pgs-data": []
     },
+    "sctSpecificity-child": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
     "search": {
         "pgs": [
             "search-suggestions"
@@ -1633,57 +1649,19 @@
     "section": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "sectionEdgeFlushLeft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "sectionEdgeFlushRight": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "sectionEdgeLeft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "sectionEdgeRight": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "sectionFull": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "sectionMax": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "sectionNoPadding": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "sectionSpecificity": {
-        "pgs": [
-            "sectionSpecificity-child"
+        "pgs-options": [
+            "sctEdgeFlushLeft",
+            "sctEdgeFlushRight",
+            "sctEdgeLeft",
+            "sctEdgeRight",
+            "sctFull",
+            "sctMax",
+            "sctNoPadding",
+            "sctRemoveGap",
+            "sctRemoveGapBottom",
+            "sctRemoveGapTop",
+            "sctSpecificity"
         ],
-        "pgs-generated": [],
-        "pgs-options": [],
         "pgs-data": []
     },
     "select": {

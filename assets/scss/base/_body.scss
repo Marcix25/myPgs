@@ -93,6 +93,7 @@
             pointer-events: none;
             color-scheme: light;
             transition: opacity 200ms;
+            object-fit: contain;
 
             @at-root body #{&} {
                 width: 100%;

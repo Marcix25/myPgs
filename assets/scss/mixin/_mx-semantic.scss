@@ -50,6 +50,7 @@
     position: relative;
     width: 100%;
     padding-inline: var(--page-padding);
+    padding-block: calc(var(--gap-sections) / 2);
 
     >* {
         container-type: inline-size;

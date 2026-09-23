@@ -16,6 +16,8 @@
     :where([pgs~="footer-top"]) {
         color: var(--footer-color);
         padding-block: calc(var(--gap-sections)/3);
+        --heading-size-h2: 2.0rem;
+        --heading-size-h3: var(--font-size-text);
 
         :where([pgs~="footer-top-content"]) {
             row-gap: var(--gap-elements);
@@ -23,14 +25,6 @@
 
         &::after {
             content: unset;
-        }
-
-        h2 {
-            --heading-size: 2.0rem;
-        }
-
-        h3 {
-            --heading-size: var(--font-size-text);
         }
 
         p {

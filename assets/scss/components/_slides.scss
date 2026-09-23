@@ -1,7 +1,6 @@
 @use "../mixin/mixin" as *;
 
 //# SLIDES
-
 // percentage to a higher power still just multiplies it by itself, only more times
 @function _slidesScalePow($n) {
     $term: "var(--slides-visiblePercent, 1)";
@@ -151,23 +150,16 @@
         border-radius: var(--border-radius);
         transition: all 300ms;
 
-        &:hover {
-            padding: 1.2rem;
-            z-index: 1;
-
-            :where([pgs~="slides-dots-dot"]),
-            :where([pgs~="_slides-dots-dot"]) {
-                padding: 1.2rem;
-                width: 1.2rem;
-                height: 1.2rem;
-            }
+        &:is([pgs~="_slides-dots"]){
+            position: absolute;
+            bottom: 0;
+            transform: translateY(calc(100% + var(--gap-texts)));
         }
 
         :where([pgs~="slides-dots-dot"]),
         :where([pgs~="_slides-dots-dot"]) {
-            padding: 0.6rem;
-            width: 0.6rem;
-            height: 0.6rem;
+            width: 1.5rem;
+            height: 1.5rem;
             border-radius: 50%;
             border: none;
             cursor: pointer;

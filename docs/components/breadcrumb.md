@@ -7,8 +7,7 @@ Hierarchical navigation that shows the current page path with links, separators,
 ## PGS
 
 - `breadcrumb`: identifies the main navigation path list.
-- `breadcrumb-item`: identifies each level in the path.
-- `breadcrumb-item-separator`: identifies the decorative separator hidden from assistive technologies.
+- `breadcrumb-item`: identifies each level in the path. The separator between items is drawn by the component itself, through ::after, so it never needs its own markup.
 
 ## CSS Variables
 
@@ -17,6 +16,7 @@ Hierarchical navigation that shows the current page path with links, separators,
 - `--breadcrumb-color-hover`
 - `--breadcrumb-separator-color`
 - `--breadcrumb-separator-gap`
+- `--breadcrumb-separator-type`
 - `--breadcrumb-size`
 
 ## Output
@@ -30,16 +30,10 @@ Semantic breadcrumb HTML structure wrapped in a nav element.
     <ul pgs="breadcrumb">
         <li pgs="breadcrumb-item">
             <a href="/">Home</a>
-            <span pgs="breadcrumb-item-separator" aria-hidden="true">
-                >
-            </span>
         </li>
 
         <li pgs="breadcrumb-item">
             <a href="/blog">Blog</a>
-            <span pgs="breadcrumb-item-separator" aria-hidden="true">
-                >
-            </span>
         </li>
 
         <li pgs="breadcrumb-item">

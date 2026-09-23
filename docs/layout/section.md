@@ -7,20 +7,23 @@ Section variants that control width, padding, and specific content treatment whi
 ## PGS
 
 - `main`: identifies the main page area that stacks the sections, spacing them apart and filling the viewport height.
-- `section`: identifies the standard section with centered content.
-- `sectionFull`: identifies a section that spans the full available width.
-- `sectionSpecificity`: identifies a section that applies a specific structure to its child.
-- `sectionSpecificity-child`: identifies child content managed by the sectionSpecificity variant.
-- `sectionMax`: identifies a section with an extended maximum width.
-- `sectionNoPadding`: identifies a section without standard padding.
-- `sectionEdgeLeft`: identifies a full-width section whose content starts where the text of a centred section starts on the left and runs on past it to the right, keeping only the page padding there. The left offset is --page-edge, which never falls below --page-padding, so the content keeps its breathing room once the column no longer fits.
-- `sectionEdgeRight`: the mirror of sectionEdgeLeft: the content ends where the page column ends on the right and runs on past it to the left.
-- `sectionEdgeFlushLeft`: lines the content up with the outer edge of a centred section on the left, one page padding further out than sectionEdgeLeft, through --page-edgeFlush, which is allowed to fall to zero: once the section box no longer fits, the content runs flush to the left edge of the screen. The right side carries no padding at all, so the row bleeds off that edge instead of stopping short of it, which is what a carousel or a full-width image wants.
-- `sectionEdgeFlushRight`: the mirror of sectionEdgeFlushLeft, lined up on the right and bleeding off the left edge.
+- `section`: identifies the standard section with centered content, on every side by default, or with the option in its bracket picking one of the variants below instead.
+- `sctSpecificity-child`: identifies child content managed by the sctSpecificity variant.
 - `container`: turns any element into an inline-size query container, so the utilities that measure their surroundings have something to measure; see Breakpoints and Responsive.
 
 ## PGS Options (component brackets)
 
+- `sctFull`: inside section's own bracket, identifies a section that spans the full available width.
+- `sctSpecificity`: inside section's own bracket, identifies a section that applies a specific structure to its child.
+- `sctMax`: inside section's own bracket, identifies a section with an extended maximum width.
+- `sctNoPadding`: inside section's own bracket, identifies a section without standard padding.
+- `sctEdgeLeft`: inside section's own bracket, identifies a full-width section whose content starts where the text of a centred section starts on the left and runs on past it to the right, keeping only the page padding there. The left offset is --page-edge, which never falls below --page-padding, so the content keeps its breathing room once the column no longer fits.
+- `sctEdgeRight`: inside section's own bracket, the mirror of sctEdgeLeft: the content ends where the page column ends on the right and runs on past it to the left.
+- `sctEdgeFlushLeft`: inside section's own bracket, lines the content up with the outer edge of a centred section on the left, one page padding further out than sctEdgeLeft, through --page-edgeFlush, which is allowed to fall to zero: once the section box no longer fits, the content runs flush to the left edge of the screen. The right side carries no padding at all, so the row bleeds off that edge instead of stopping short of it, which is what a carousel or a full-width image wants.
+- `sctEdgeFlushRight`: inside section's own bracket, the mirror of sctEdgeFlushLeft, lined up on the right and bleeding off the left edge.
+- `sctRemoveGap`: inside section's own bracket, pulls the section into the shared gap above and below it, negating half of --gap-sections on each side; combines with any variant above.
+- `sctRemoveGapTop`: inside section's own bracket, the same pull on the top edge only.
+- `sctRemoveGapBottom`: inside section's own bracket, the same pull on the bottom edge only.
 - `none`: inside container's own bracket, cancels it on the same element, so it stops acting as a query container and the nearest marked ancestor is measured instead.
 
 ## Related elements
@@ -69,10 +72,10 @@ Default section width and padding with centered content.
 
 ### Full-width section
 
-Section that spans the full available width using sectionFull.
+Section that spans the full available width using sctFull.
 
 ```html
-<section pgs="sectionFull flex['column' 'gapElements']">
+<section pgs="section['sctFull'] flex['column' 'gapElements']">
     <div pgs="flex['column']">
         <strong>Sit amet consectetur</strong>
         <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
@@ -82,14 +85,14 @@ Section that spans the full available width using sectionFull.
 
 ### Specificity-child section
 
-Section applying a specific structure to its child element using sectionSpecificity.
+Section applying a specific structure to its child element using sctSpecificity.
 
 ```html
-<section pgs="sectionSpecificity flex['column' 'gapElements']">
+<section pgs="section['sctSpecificity'] flex['column' 'gapElements']">
     <div pgs="flex['column']">
         <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="Placeholder image">
     </div>
-    <div pgs="sectionSpecificity-child flex['column']">
+    <div pgs="sctSpecificity-child flex['column']">
         <strong>Adipiscing elit sed</strong>
         <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
     </div>
@@ -125,7 +128,7 @@ container['none'] cancels container on the same element, so the utilities inside
 A full-width row aligned with the page column on one side only, so the image runs past the column on the other. The aligned side keeps at least the page padding, so it still breathes on a narrow screen.
 
 ```html
-<section pgs="sectionEdgeLeft">
+<section pgs="section['sctEdgeLeft']">
     <div pgs="flex['row' 'gapElements']">
         <p>Text that starts exactly where the centred page column starts, while the image beside it runs on past the column to the right.</p>
         <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="Placeholder image">
@@ -135,7 +138,7 @@ A full-width row aligned with the page column on one side only, so the image run
 
 
 ```html
-<section pgs="sectionEdgeRight">
+<section pgs="section['sctEdgeRight']">
     <div pgs="flex['row' 'gapElements']">
         <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="Placeholder image">
         <p>The mirror: the text ends where the page column ends, and the image runs on past it to the left.</p>
@@ -148,7 +151,7 @@ A full-width row aligned with the page column on one side only, so the image run
 Measured with --page-edgeFlush instead: the offset lands on the outer edge of a centred section rather than on its text, and is allowed to fall to zero, so as soon as the section box no longer fits the content touches the edge of the screen. The opposite side carries no padding either, so the row bleeds right off it. Slides uses this for its first and last slide.
 
 ```html
-<section pgs="sectionEdgeFlushLeft">
+<section pgs="section['sctEdgeFlushLeft']">
     <div pgs="flex['row' 'gapElements']">
         <p>Below the page width this text is flush against the left edge of the screen, with no padding left to hold it off.</p>
         <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="Placeholder image">
@@ -158,7 +161,7 @@ Measured with --page-edgeFlush instead: the offset lands on the outer edge of a 
 
 
 ```html
-<section pgs="sectionEdgeFlushRight">
+<section pgs="section['sctEdgeFlushRight']">
     <div pgs="flex['row' 'gapElements']">
         <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="Placeholder image">
         <p>The mirror, flush against the right edge of the screen.</p>
@@ -168,10 +171,10 @@ Measured with --page-edgeFlush instead: the offset lands on the outer edge of a 
 
 ### Max-width section
 
-Section with an extended maximum width using sectionMax.
+Section with an extended maximum width using sctMax.
 
 ```html
-<section pgs="sectionMax flex['column' 'gapElements']" style="background-color: var(--color-primary-soft)">
+<section pgs="section['sctMax'] flex['column' 'gapElements']" style="background-color: var(--color-primary-soft)">
     <div pgs="flex['column']">
         <strong>Do eiusmod tempor</strong>
         <p>Duis aute irure dolor in reprehenderit in voluptate.</p>
@@ -181,10 +184,10 @@ Section with an extended maximum width using sectionMax.
 
 ### No padding section
 
-Section without the standard padding using sectionNoPadding, useful for edge-to-edge images.
+Section without the standard padding using sctNoPadding, useful for edge-to-edge images.
 
 ```html
-<section pgs="sectionNoPadding flex['column' 'gapElements']">
+<section pgs="section['sctNoPadding'] flex['column' 'gapElements']">
     <div pgs="flex['column']">
         <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="Placeholder image">
     </div>
