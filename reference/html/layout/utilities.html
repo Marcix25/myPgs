@@ -44,9 +44,12 @@
  * @related
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - box: makes demonstration cells visible.
- * - bgInfo: applies the semantic info color as the background.
- * - brInfo: applies the semantic info color as the border color.
- * - txtInfo: applies the semantic info color to text.
+ * - background: applies the semantic info color as the background here.
+ * - bgInfo: inside background's own bracket, applies the semantic info color.
+ * - border: applies the semantic info color as the border color here.
+ * - brInfo: inside border's own bracket, applies the semantic info color.
+ * - textColor: applies the semantic info color to text here.
+ * - txtInfo: inside textColor's own bracket, applies the semantic info color.
  * - column: stacks demonstration groups vertically.
  * - flex-flex1: lets a flex item grow and shrink to occupy available space.
  * - flex-flexNone: prevents a flex item from growing or shrinking.
@@ -122,7 +125,7 @@
         <span pgs="visuallyHidden">Screen-reader-only description.</span>
         <a pgs="visuallyHiddenFocusable" href="#utility-content">Visible while focused</a>
         <span pgs="motionReduce">Motion is reduced for users who request it.</span>
-        <span pgs="bgInfo brInfo">Info background</span>
-        <span pgs="txtInfo">Info text</span>
+        <span pgs="background['bgInfo'] border['brInfo']">Info background</span>
+        <span pgs="textColor['txtInfo']">Info text</span>
     </section>
 </main>

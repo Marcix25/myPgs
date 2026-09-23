@@ -5772,13 +5772,17 @@ html:has(dialog[open]) {
   translate: 0 -50%;
 }
 
-:is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec]:is(:where([pgs~=slides-prec]), :where([pgs~=_slides-prec])),
-:is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next]:is(:where([pgs~=slides-prec]), :where([pgs~=_slides-prec])) {
+:is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec]:is(:where([pgs~=slides-prec]),
+:where([pgs~=_slides-prec])),
+:is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next]:is(:where([pgs~=slides-prec]),
+:where([pgs~=_slides-prec])) {
   left: 0.4rem;
 }
 
-:is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec]:is(:where([pgs~=slides-next]), :where([pgs~=_slides-next])),
-:is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next]:is(:where([pgs~=slides-next]), :where([pgs~=_slides-next])) {
+:is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec]:is(:where([pgs~=slides-next]),
+:where([pgs~=_slides-next])),
+:is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next]:is(:where([pgs~=slides-next]),
+:where([pgs~=_slides-next])) {
   right: 0.4rem;
 }
 
@@ -5787,12 +5791,16 @@ html:has(dialog[open]) {
   :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next] {
     --button-size: .8rem;
   }
-  :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec]:is(:where([pgs~=slides-prec]), :where([pgs~=_slides-prec])),
-  :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next]:is(:where([pgs~=slides-prec]), :where([pgs~=_slides-prec])) {
+  :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec]:is(:where([pgs~=slides-prec]), :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec]:where([pgs~=_slides-prec]),
+  :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next]:where([pgs~=_slides-prec])),
+  :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next]:is(:where([pgs~=slides-prec]), :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec]:where([pgs~=_slides-prec]),
+  :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next]:where([pgs~=_slides-prec])) {
     left: calc(var(--page-padding) * -1 + 0.4rem);
   }
-  :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec]:is(:where([pgs~=slides-next]), :where([pgs~=_slides-next])),
-  :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next]:is(:where([pgs~=slides-next]), :where([pgs~=_slides-next])) {
+  :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec]:is(:where([pgs~=slides-next]), :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec]:where([pgs~=_slides-next]),
+  :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next]:where([pgs~=_slides-next])),
+  :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next]:is(:where([pgs~=slides-next]), :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec]:where([pgs~=_slides-next]),
+  :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next]:where([pgs~=_slides-next])) {
     right: calc(var(--page-padding) * -1 + 0.4rem);
   }
 }
@@ -6991,343 +6999,343 @@ dialog [pgs~=search] :where([pgs~=_modal-close]) {
   cursor: not-allowed;
 }
 
-[pgs~=bgWhite] {
+[pgs*="background["][pgs*="'bgWhite'"] {
   background-color: var(--color-white);
 }
 
-[pgs~=bgBlack] {
+[pgs*="background["][pgs*="'bgBlack'"] {
   background-color: var(--color-black);
 }
 
-[pgs~=bgWhiteTransparent] {
+[pgs*="background["][pgs*="'bgWhiteTransparent'"] {
   background-color: var(--color-white-transparent);
 }
 
-[pgs~=bgBlackTransparent] {
+[pgs*="background["][pgs*="'bgBlackTransparent'"] {
   background-color: var(--color-black-transparent);
 }
 
-[pgs~=bgText] {
+[pgs*="background["][pgs*="'bgText'"] {
   background-color: var(--color-text);
 }
 
-[pgs~=bgBox] {
+[pgs*="background["][pgs*="'bgBox'"] {
   background-color: var(--color-box);
 }
 
-[pgs~=bgBoxDark] {
+[pgs*="background["][pgs*="'bgBoxDark'"] {
   background-color: var(--color-boxDark);
 }
 
-[pgs~=bgBoxTransparent] {
+[pgs*="background["][pgs*="'bgBoxTransparent'"] {
   background-color: var(--color-box-transparent);
 }
 
-[pgs~=bgBoxDarkTransparent] {
+[pgs*="background["][pgs*="'bgBoxDarkTransparent'"] {
   background-color: var(--color-boxDark-transparent);
 }
 
-[pgs~=bgLinkSoft] {
+[pgs*="background["][pgs*="'bgLinkSoft'"] {
   background-color: var(--color-link-soft);
 }
 
-[pgs~=bgBackground] {
+[pgs*="background["][pgs*="'bgBackground'"] {
   background-color: var(--color-background);
 }
 
-[pgs~=bgWhiteFixed] {
+[pgs*="background["][pgs*="'bgWhiteFixed'"] {
   background-color: var(--color-whiteFixed);
 }
 
-[pgs~=bgBlackFixed] {
+[pgs*="background["][pgs*="'bgBlackFixed'"] {
   background-color: var(--color-blackFixed);
 }
 
-[pgs~=bgLink] {
+[pgs*="background["][pgs*="'bgLink'"] {
   background-color: var(--color-link);
 }
 
-[pgs~=bgGray] {
+[pgs*="background["][pgs*="'bgGray'"] {
   background-color: var(--color-gray);
 }
 
-[pgs~=bgPrimary] {
+[pgs*="background["][pgs*="'bgPrimary'"] {
   background-color: var(--color-primary);
 }
 
-[pgs~=bgPrimarySoft] {
+[pgs*="background["][pgs*="'bgPrimarySoft'"] {
   background-color: var(--color-primary-soft);
 }
 
-[pgs~=bgPrimaryLight] {
+[pgs*="background["][pgs*="'bgPrimaryLight'"] {
   background-color: var(--color-primary-light);
 }
 
-[pgs~=bgPrimaryStrong] {
+[pgs*="background["][pgs*="'bgPrimaryStrong'"] {
   background-color: var(--color-primary-strong);
 }
 
-[pgs~=bgPrimaryDark] {
+[pgs*="background["][pgs*="'bgPrimaryDark'"] {
   background-color: var(--color-primary-dark);
 }
 
-[pgs~=bgSecondary] {
+[pgs*="background["][pgs*="'bgSecondary'"] {
   background-color: var(--color-secondary);
 }
 
-[pgs~=bgSecondarySoft] {
+[pgs*="background["][pgs*="'bgSecondarySoft'"] {
   background-color: var(--color-secondary-soft);
 }
 
-[pgs~=bgSecondaryLight] {
+[pgs*="background["][pgs*="'bgSecondaryLight'"] {
   background-color: var(--color-secondary-light);
 }
 
-[pgs~=bgSecondaryStrong] {
+[pgs*="background["][pgs*="'bgSecondaryStrong'"] {
   background-color: var(--color-secondary-strong);
 }
 
-[pgs~=bgSecondaryDark] {
+[pgs*="background["][pgs*="'bgSecondaryDark'"] {
   background-color: var(--color-secondary-dark);
 }
 
-[pgs~=bgTertiary] {
+[pgs*="background["][pgs*="'bgTertiary'"] {
   background-color: var(--color-tertiary);
 }
 
-[pgs~=bgTertiarySoft] {
+[pgs*="background["][pgs*="'bgTertiarySoft'"] {
   background-color: var(--color-tertiary-soft);
 }
 
-[pgs~=bgTertiaryLight] {
+[pgs*="background["][pgs*="'bgTertiaryLight'"] {
   background-color: var(--color-tertiary-light);
 }
 
-[pgs~=bgTertiaryStrong] {
+[pgs*="background["][pgs*="'bgTertiaryStrong'"] {
   background-color: var(--color-tertiary-strong);
 }
 
-[pgs~=bgTertiaryDark] {
+[pgs*="background["][pgs*="'bgTertiaryDark'"] {
   background-color: var(--color-tertiary-dark);
 }
 
-[pgs~=bgQuaternary] {
+[pgs*="background["][pgs*="'bgQuaternary'"] {
   background-color: var(--color-quaternary);
 }
 
-[pgs~=bgQuaternarySoft] {
+[pgs*="background["][pgs*="'bgQuaternarySoft'"] {
   background-color: var(--color-quaternary-soft);
 }
 
-[pgs~=bgQuaternaryLight] {
+[pgs*="background["][pgs*="'bgQuaternaryLight'"] {
   background-color: var(--color-quaternary-light);
 }
 
-[pgs~=bgQuaternaryStrong] {
+[pgs*="background["][pgs*="'bgQuaternaryStrong'"] {
   background-color: var(--color-quaternary-strong);
 }
 
-[pgs~=bgQuaternaryDark] {
+[pgs*="background["][pgs*="'bgQuaternaryDark'"] {
   background-color: var(--color-quaternary-dark);
 }
 
-[pgs~=bgInfo] {
+[pgs*="background["][pgs*="'bgInfo'"] {
   background-color: var(--color-info);
 }
 
-[pgs~=bgError] {
+[pgs*="background["][pgs*="'bgError'"] {
   background-color: var(--color-error);
 }
 
-[pgs~=bgWarning] {
+[pgs*="background["][pgs*="'bgWarning'"] {
   background-color: var(--color-warning);
 }
 
-[pgs~=bgSuccess] {
+[pgs*="background["][pgs*="'bgSuccess'"] {
   background-color: var(--color-success);
 }
 
-[pgs~=bgInfoSoft] {
+[pgs*="background["][pgs*="'bgInfoSoft'"] {
   background-color: var(--color-info-soft);
 }
 
-[pgs~=bgErrorSoft] {
+[pgs*="background["][pgs*="'bgErrorSoft'"] {
   background-color: var(--color-error-soft);
 }
 
-[pgs~=bgWarningSoft] {
+[pgs*="background["][pgs*="'bgWarningSoft'"] {
   background-color: var(--color-warning-soft);
 }
 
-[pgs~=bgSuccessSoft] {
+[pgs*="background["][pgs*="'bgSuccessSoft'"] {
   background-color: var(--color-success-soft);
 }
 
-[pgs~=txtWhite] {
+[pgs*="textColor["][pgs*="'txtWhite'"] {
   color: var(--color-white);
 }
 
-[pgs~=txtBlack] {
+[pgs*="textColor["][pgs*="'txtBlack'"] {
   color: var(--color-black);
 }
 
-[pgs~=txtGray] {
+[pgs*="textColor["][pgs*="'txtGray'"] {
   color: var(--color-gray);
 }
 
-[pgs~=txtText] {
+[pgs*="textColor["][pgs*="'txtText'"] {
   color: var(--color-text);
 }
 
-[pgs~=txtBox] {
+[pgs*="textColor["][pgs*="'txtBox'"] {
   color: var(--color-box);
 }
 
-[pgs~=txtBoxDark] {
+[pgs*="textColor["][pgs*="'txtBoxDark'"] {
   color: var(--color-boxDark);
 }
 
-[pgs~=txtLinkSoft] {
+[pgs*="textColor["][pgs*="'txtLinkSoft'"] {
   color: var(--color-link-soft);
 }
 
-[pgs~=txtWhiteFixed] {
+[pgs*="textColor["][pgs*="'txtWhiteFixed'"] {
   color: var(--color-whiteFixed);
 }
 
-[pgs~=txtBlackFixed] {
+[pgs*="textColor["][pgs*="'txtBlackFixed'"] {
   color: var(--color-blackFixed);
 }
 
-[pgs~=txtLink] {
+[pgs*="textColor["][pgs*="'txtLink'"] {
   color: var(--color-link);
 }
 
-[pgs~=txtPrimary] {
+[pgs*="textColor["][pgs*="'txtPrimary'"] {
   color: var(--color-primary);
 }
 
-[pgs~=txtPrimaryText] {
+[pgs*="textColor["][pgs*="'txtPrimaryText'"] {
   color: var(--color-primary-text);
 }
 
-[pgs~=txtPrimarySoft] {
+[pgs*="textColor["][pgs*="'txtPrimarySoft'"] {
   color: var(--color-primary-soft);
 }
 
-[pgs~=txtPrimaryLight] {
+[pgs*="textColor["][pgs*="'txtPrimaryLight'"] {
   color: var(--color-primary-light);
 }
 
-[pgs~=txtPrimaryStrong] {
+[pgs*="textColor["][pgs*="'txtPrimaryStrong'"] {
   color: var(--color-primary-strong);
 }
 
-[pgs~=txtPrimaryDark] {
+[pgs*="textColor["][pgs*="'txtPrimaryDark'"] {
   color: var(--color-primary-dark);
 }
 
-[pgs~=txtSecondary] {
+[pgs*="textColor["][pgs*="'txtSecondary'"] {
   color: var(--color-secondary);
 }
 
-[pgs~=txtSecondaryText] {
+[pgs*="textColor["][pgs*="'txtSecondaryText'"] {
   color: var(--color-secondary-text);
 }
 
-[pgs~=txtSecondarySoft] {
+[pgs*="textColor["][pgs*="'txtSecondarySoft'"] {
   color: var(--color-secondary-soft);
 }
 
-[pgs~=txtSecondaryLight] {
+[pgs*="textColor["][pgs*="'txtSecondaryLight'"] {
   color: var(--color-secondary-light);
 }
 
-[pgs~=txtSecondaryStrong] {
+[pgs*="textColor["][pgs*="'txtSecondaryStrong'"] {
   color: var(--color-secondary-strong);
 }
 
-[pgs~=txtSecondaryDark] {
+[pgs*="textColor["][pgs*="'txtSecondaryDark'"] {
   color: var(--color-secondary-dark);
 }
 
-[pgs~=txtTertiary] {
+[pgs*="textColor["][pgs*="'txtTertiary'"] {
   color: var(--color-tertiary);
 }
 
-[pgs~=txtTertiaryText] {
+[pgs*="textColor["][pgs*="'txtTertiaryText'"] {
   color: var(--color-tertiary-text);
 }
 
-[pgs~=txtTertiarySoft] {
+[pgs*="textColor["][pgs*="'txtTertiarySoft'"] {
   color: var(--color-tertiary-soft);
 }
 
-[pgs~=txtTertiaryLight] {
+[pgs*="textColor["][pgs*="'txtTertiaryLight'"] {
   color: var(--color-tertiary-light);
 }
 
-[pgs~=txtTertiaryStrong] {
+[pgs*="textColor["][pgs*="'txtTertiaryStrong'"] {
   color: var(--color-tertiary-strong);
 }
 
-[pgs~=txtTertiaryDark] {
+[pgs*="textColor["][pgs*="'txtTertiaryDark'"] {
   color: var(--color-tertiary-dark);
 }
 
-[pgs~=txtQuaternary] {
+[pgs*="textColor["][pgs*="'txtQuaternary'"] {
   color: var(--color-quaternary);
 }
 
-[pgs~=txtQuaternaryText] {
+[pgs*="textColor["][pgs*="'txtQuaternaryText'"] {
   color: var(--color-quaternary-text);
 }
 
-[pgs~=txtQuaternarySoft] {
+[pgs*="textColor["][pgs*="'txtQuaternarySoft'"] {
   color: var(--color-quaternary-soft);
 }
 
-[pgs~=txtQuaternaryLight] {
+[pgs*="textColor["][pgs*="'txtQuaternaryLight'"] {
   color: var(--color-quaternary-light);
 }
 
-[pgs~=txtQuaternaryStrong] {
+[pgs*="textColor["][pgs*="'txtQuaternaryStrong'"] {
   color: var(--color-quaternary-strong);
 }
 
-[pgs~=txtQuaternaryDark] {
+[pgs*="textColor["][pgs*="'txtQuaternaryDark'"] {
   color: var(--color-quaternary-dark);
 }
 
-[pgs~=txtInfo] {
+[pgs*="textColor["][pgs*="'txtInfo'"] {
   color: var(--color-info);
 }
 
-[pgs~=txtError] {
+[pgs*="textColor["][pgs*="'txtError'"] {
   color: var(--color-error);
 }
 
-[pgs~=txtWarning] {
+[pgs*="textColor["][pgs*="'txtWarning'"] {
   color: var(--color-warning);
 }
 
-[pgs~=txtSuccess] {
+[pgs*="textColor["][pgs*="'txtSuccess'"] {
   color: var(--color-success);
 }
 
-[pgs~=txtInfoSoft] {
+[pgs*="textColor["][pgs*="'txtInfoSoft'"] {
   color: var(--color-info-soft);
 }
 
-[pgs~=txtErrorSoft] {
+[pgs*="textColor["][pgs*="'txtErrorSoft'"] {
   color: var(--color-error-soft);
 }
 
-[pgs~=txtWarningSoft] {
+[pgs*="textColor["][pgs*="'txtWarningSoft'"] {
   color: var(--color-warning-soft);
 }
 
-[pgs~=txtSuccessSoft] {
+[pgs*="textColor["][pgs*="'txtSuccessSoft'"] {
   color: var(--color-success-soft);
 }
 
@@ -7339,147 +7347,7 @@ dialog [pgs~=search] :where([pgs~=_modal-close]) {
   color: var(--color-icon-secondary);
 }
 
-[pgs~=brPrimary] {
-  --border-color: var(--color-primary);
-  border-color: var(--border-color);
-}
-
-[pgs~=brSecondary] {
-  --border-color: var(--color-secondary);
-  border-color: var(--border-color);
-}
-
-[pgs~=brTertiary] {
-  --border-color: var(--color-tertiary);
-  border-color: var(--border-color);
-}
-
-[pgs~=brQuaternary] {
-  --border-color: var(--color-quaternary);
-  border-color: var(--border-color);
-}
-
-[pgs~=brWhite] {
-  --border-color: var(--color-white);
-  border-color: var(--border-color);
-}
-
-[pgs~=brBlack] {
-  --border-color: var(--color-black);
-  border-color: var(--border-color);
-}
-
-[pgs~=brBox] {
-  --border-color: var(--color-box);
-  border-color: var(--border-color);
-}
-
-[pgs~=brBoxDark] {
-  --border-color: var(--color-boxDark);
-  border-color: var(--border-color);
-}
-
-[pgs~=brLink] {
-  --border-color: var(--color-link);
-  border-color: var(--border-color);
-}
-
-[pgs~=brInfo] {
-  --border-color: var(--color-info);
-  border-color: var(--border-color);
-}
-
-[pgs~=brError] {
-  --border-color: var(--color-error);
-  border-color: var(--border-color);
-}
-
-[pgs~=brWarning] {
-  --border-color: var(--color-warning);
-  border-color: var(--border-color);
-}
-
-[pgs~=brSuccess] {
-  --border-color: var(--color-success);
-  border-color: var(--border-color);
-}
-
-[pgs~=brGray] {
-  --border-color: var(--color-gray);
-  border-color: var(--border-color);
-}
-
-[pgs~=olPrimary] {
-  --outline-color: var(--color-primary);
-  outline-color: var(--outline-color);
-}
-
-[pgs~=olSecondary] {
-  --outline-color: var(--color-secondary);
-  outline-color: var(--outline-color);
-}
-
-[pgs~=olTertiary] {
-  --outline-color: var(--color-tertiary);
-  outline-color: var(--outline-color);
-}
-
-[pgs~=olQuaternary] {
-  --outline-color: var(--color-quaternary);
-  outline-color: var(--outline-color);
-}
-
-[pgs~=olWhite] {
-  --outline-color: var(--color-white);
-  outline-color: var(--outline-color);
-}
-
-[pgs~=olBlack] {
-  --outline-color: var(--color-black);
-  outline-color: var(--outline-color);
-}
-
-[pgs~=olBox] {
-  --outline-color: var(--color-box);
-  outline-color: var(--outline-color);
-}
-
-[pgs~=olBoxDark] {
-  --outline-color: var(--color-boxDark);
-  outline-color: var(--outline-color);
-}
-
-[pgs~=olLink] {
-  --outline-color: var(--color-link);
-  outline-color: var(--outline-color);
-}
-
-[pgs~=olInfo] {
-  --outline-color: var(--color-info);
-  outline-color: var(--outline-color);
-}
-
-[pgs~=olError] {
-  --outline-color: var(--color-error);
-  outline-color: var(--outline-color);
-}
-
-[pgs~=olWarning] {
-  --outline-color: var(--color-warning);
-  outline-color: var(--outline-color);
-}
-
-[pgs~=olSuccess] {
-  --outline-color: var(--color-success);
-  outline-color: var(--outline-color);
-}
-
-[pgs~=olGray] {
-  --outline-color: var(--color-gray);
-  outline-color: var(--outline-color);
-}
-
-:is([pgs~=border], [pgs*="border["]):not([pgs*="border["]), :is([pgs~=border], [pgs*="border["])[pgs*="border[]"] {
+:is([pgs~=border], [pgs*="border["]):not([pgs*="'brd"]) {
   border: var(--border-width) solid var(--border-color);
 }
 
@@ -7591,6 +7459,62 @@ dialog [pgs~=search] :where([pgs~=_modal-close]) {
   border-left: 4.5px solid var(--border-color);
 }
 
+:is([pgs~=border], [pgs*="border["])[pgs*="'brPrimary'"] {
+  --border-color: var(--color-primary);
+}
+
+:is([pgs~=border], [pgs*="border["])[pgs*="'brSecondary'"] {
+  --border-color: var(--color-secondary);
+}
+
+:is([pgs~=border], [pgs*="border["])[pgs*="'brTertiary'"] {
+  --border-color: var(--color-tertiary);
+}
+
+:is([pgs~=border], [pgs*="border["])[pgs*="'brQuaternary'"] {
+  --border-color: var(--color-quaternary);
+}
+
+:is([pgs~=border], [pgs*="border["])[pgs*="'brWhite'"] {
+  --border-color: var(--color-white);
+}
+
+:is([pgs~=border], [pgs*="border["])[pgs*="'brBlack'"] {
+  --border-color: var(--color-black);
+}
+
+:is([pgs~=border], [pgs*="border["])[pgs*="'brBox'"] {
+  --border-color: var(--color-box);
+}
+
+:is([pgs~=border], [pgs*="border["])[pgs*="'brBoxDark'"] {
+  --border-color: var(--color-boxDark);
+}
+
+:is([pgs~=border], [pgs*="border["])[pgs*="'brLink'"] {
+  --border-color: var(--color-link);
+}
+
+:is([pgs~=border], [pgs*="border["])[pgs*="'brInfo'"] {
+  --border-color: var(--color-info);
+}
+
+:is([pgs~=border], [pgs*="border["])[pgs*="'brError'"] {
+  --border-color: var(--color-error);
+}
+
+:is([pgs~=border], [pgs*="border["])[pgs*="'brWarning'"] {
+  --border-color: var(--color-warning);
+}
+
+:is([pgs~=border], [pgs*="border["])[pgs*="'brSuccess'"] {
+  --border-color: var(--color-success);
+}
+
+:is([pgs~=border], [pgs*="border["])[pgs*="'brGray'"] {
+  --border-color: var(--color-gray);
+}
+
 :is([pgs~=borderRadius], [pgs*="borderRadius["]) {
   border-radius: var(--border-radius);
 }
@@ -7617,6 +7541,62 @@ dialog [pgs~=search] :where([pgs~=_modal-close]) {
 
 :is([pgs~=outline], [pgs*="outline["])[pgs*="'otlThicker'"] {
   --outline-width: 4.5px;
+}
+
+:is([pgs~=outline], [pgs*="outline["])[pgs*="'olPrimary'"] {
+  --outline-color: var(--color-primary);
+}
+
+:is([pgs~=outline], [pgs*="outline["])[pgs*="'olSecondary'"] {
+  --outline-color: var(--color-secondary);
+}
+
+:is([pgs~=outline], [pgs*="outline["])[pgs*="'olTertiary'"] {
+  --outline-color: var(--color-tertiary);
+}
+
+:is([pgs~=outline], [pgs*="outline["])[pgs*="'olQuaternary'"] {
+  --outline-color: var(--color-quaternary);
+}
+
+:is([pgs~=outline], [pgs*="outline["])[pgs*="'olWhite'"] {
+  --outline-color: var(--color-white);
+}
+
+:is([pgs~=outline], [pgs*="outline["])[pgs*="'olBlack'"] {
+  --outline-color: var(--color-black);
+}
+
+:is([pgs~=outline], [pgs*="outline["])[pgs*="'olBox'"] {
+  --outline-color: var(--color-box);
+}
+
+:is([pgs~=outline], [pgs*="outline["])[pgs*="'olBoxDark'"] {
+  --outline-color: var(--color-boxDark);
+}
+
+:is([pgs~=outline], [pgs*="outline["])[pgs*="'olLink'"] {
+  --outline-color: var(--color-link);
+}
+
+:is([pgs~=outline], [pgs*="outline["])[pgs*="'olInfo'"] {
+  --outline-color: var(--color-info);
+}
+
+:is([pgs~=outline], [pgs*="outline["])[pgs*="'olError'"] {
+  --outline-color: var(--color-error);
+}
+
+:is([pgs~=outline], [pgs*="outline["])[pgs*="'olWarning'"] {
+  --outline-color: var(--color-warning);
+}
+
+:is([pgs~=outline], [pgs*="outline["])[pgs*="'olSuccess'"] {
+  --outline-color: var(--color-success);
+}
+
+:is([pgs~=outline], [pgs*="outline["])[pgs*="'olGray'"] {
+  --outline-color: var(--color-gray);
 }
 
 :is([pgs~=hover], [pgs*="hover["]):not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))) {

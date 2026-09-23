@@ -59,8 +59,7 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 ### PGS
 
 - `flex`: provides the flex layout; direction and spacing are flags in its bracket.
-- `txtPrimary`: recolours one example, to show that a glyph follows the text colour.
-- `txtError`: recolours another the same way.
+- `textColor`: provides the text-color utility used here, to show that a glyph follows the text colour.
 
 ### PGS Options (component brackets)
 
@@ -68,6 +67,8 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 - `row`: lays each group out in a row.
 - `gapTexts`: spaces the icons inside a group.
 - `wrap`: lets the full set flow onto more rows.
+- `txtPrimary`: inside textColor's own bracket, recolours one example.
+- `txtError`: inside textColor's own bracket, recolours another the same way.
 
 ### Other
 
@@ -143,8 +144,8 @@ A glyph is drawn at the font size of its element and painted in the text colour,
 <i pgs="icon['medium' 'icon-circleCheck']"></i>
 <i pgs="icon['icon-circleCheck']"></i>
 
-<i pgs="icon['icon-triangleExclamation'] txtPrimary"></i>
-<i pgs="icon['icon-triangleExclamation'] txtError"></i>
+<i pgs="icon['icon-triangleExclamation'] textColor['txtPrimary']"></i>
+<i pgs="icon['icon-triangleExclamation'] textColor['txtError']"></i>
 <i pgs="icon['icon-triangleExclamation']"></i>
 ```
 

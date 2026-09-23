@@ -48,29 +48,17 @@
     --header-letter-spacing-h6: var(--header-letter-spacing);
 }
 
-[pgs~="h1"] {
-    @include h1();
-}
+[pgs~="h1"] { @include h1(); }
 
-[pgs~="h2"] {
-    @include h2();
-}
+[pgs~="h2"] { @include h2(); }
 
-[pgs~="h3"] {
-    @include h3();
-}
+[pgs~="h3"] { @include h3(); }
 
-[pgs~="h4"] {
-    @include h4();
-}
+[pgs~="h4"] { @include h4(); }
 
-[pgs~="h5"] {
-    @include h5();
-}
+[pgs~="h5"] { @include h5(); }
 
-[pgs~="h6"] {
-    @include h6();
-}
+[pgs~="h6"] { @include h6(); }
 
 //= TEXT
 :root {
@@ -81,6 +69,4 @@
     --text-overflowWrap: anywhere;
 }
 
-[pgs~="text"] {
-    @include text();
-}
+[pgs~="text"] { @include text(); }

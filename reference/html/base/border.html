@@ -39,6 +39,34 @@
  * - otlThin: inside outline's own bracket, draws it at 1px instead of the default 1.5px.
  * - otlThick: inside outline's own bracket, draws it at 3px.
  * - otlThicker: inside outline's own bracket, draws it at 4.5px.
+ * - brPrimary: inside border's own bracket, recolours it with the primary colour.
+ * - brSecondary: inside border's own bracket, recolours it with the secondary colour.
+ * - brTertiary: inside border's own bracket, recolours it with the tertiary colour.
+ * - brQuaternary: inside border's own bracket, recolours it with the quaternary colour.
+ * - brWhite: inside border's own bracket, recolours it white.
+ * - brBlack: inside border's own bracket, recolours it black.
+ * - brBox: inside border's own bracket, recolours it with the box surface colour.
+ * - brBoxDark: inside border's own bracket, recolours it with the dark box surface colour.
+ * - brLink: inside border's own bracket, recolours it with the link colour.
+ * - brInfo: inside border's own bracket, recolours it with the info colour.
+ * - brError: inside border's own bracket, recolours it with the error colour.
+ * - brWarning: inside border's own bracket, recolours it with the warning colour.
+ * - brSuccess: inside border's own bracket, recolours it with the success colour.
+ * - brGray: inside border's own bracket, recolours it gray.
+ * - olPrimary: inside outline's own bracket, recolours it with the primary colour.
+ * - olSecondary: inside outline's own bracket, recolours it with the secondary colour.
+ * - olTertiary: inside outline's own bracket, recolours it with the tertiary colour.
+ * - olQuaternary: inside outline's own bracket, recolours it with the quaternary colour.
+ * - olWhite: inside outline's own bracket, recolours it white.
+ * - olBlack: inside outline's own bracket, recolours it black.
+ * - olBox: inside outline's own bracket, recolours it with the box surface colour.
+ * - olBoxDark: inside outline's own bracket, recolours it with the dark box surface colour.
+ * - olLink: inside outline's own bracket, recolours it with the link colour.
+ * - olInfo: inside outline's own bracket, recolours it with the info colour.
+ * - olError: inside outline's own bracket, recolours it with the error colour.
+ * - olWarning: inside outline's own bracket, recolours it with the warning colour.
+ * - olSuccess: inside outline's own bracket, recolours it with the success colour.
+ * - olGray: inside outline's own bracket, recolours it gray.
  * - input: inside borderRadius's own bracket, uses the smaller radius used by form controls instead of the standard one.
  * - external: inside borderRadius's own bracket, uses the wider radius used by outer containers instead of the standard one.
  *
@@ -48,10 +76,6 @@
  * - row: arranges the examples in a row.
  * - padding: applies the shared padding utility to each example.
  * - padSections: inside padding's own bracket, uses the section spacing scale for the radius example's padding.
- * - brPrimary: recolours the border with the primary colour; see Colors for the whole br* family.
- * - brError: recolours the border with the error colour.
- * - olPrimary: recolours the outline with the primary colour; see Colors for the whole ol* family.
- * - olError: recolours the outline with the error colour.
  * - wrap: lets the border and outline examples flow onto a second row.
  * - gapTexts: spaces the examples inside a group.
  * - gapSections: separates the groups.
@@ -65,8 +89,8 @@
 <section pgs="flex['column' 'gapTexts']" demo="component">
     <div pgs="flex['row' 'gapTexts' 'wrap']" demo="wrapper">
         <span pgs="padding border">border</span>
-        <span pgs="padding border brPrimary">border + brPrimary</span>
-        <span pgs="padding border brError">border + brError</span>
+        <span pgs="padding border['brPrimary']">border['brPrimary']</span>
+        <span pgs="padding border['brError']">border['brError']</span>
     </div>
 
     <div pgs="flex['row' 'gapTexts' 'wrap']" demo="wrapper">
@@ -76,12 +100,12 @@
     </div>
 
     <div pgs="flex['row' 'gapTexts' 'wrap']" demo="wrapper">
-        <span pgs="padding border['brdTop'] brPrimary">borderTop</span>
-        <span pgs="padding border['brdRight'] brPrimary">borderRight</span>
-        <span pgs="padding border['brdBottom'] brPrimary">borderBottom</span>
-        <span pgs="padding border['brdLeft'] brPrimary">borderLeft</span>
-        <span pgs="padding border['brdInline'] brPrimary">borderInline</span>
-        <span pgs="padding border['brdBlock'] brPrimary">borderBlock</span>
+        <span pgs="padding border['brdTop' 'brPrimary']">borderTop</span>
+        <span pgs="padding border['brdRight' 'brPrimary']">borderRight</span>
+        <span pgs="padding border['brdBottom' 'brPrimary']">borderBottom</span>
+        <span pgs="padding border['brdLeft' 'brPrimary']">borderLeft</span>
+        <span pgs="padding border['brdInline' 'brPrimary']">borderInline</span>
+        <span pgs="padding border['brdBlock' 'brPrimary']">borderBlock</span>
     </div>
 </section>
 
@@ -89,8 +113,8 @@
 <section pgs="flex['column' 'gapTexts']" demo="component">
     <div pgs="flex['row' 'gapTexts' 'wrap']" demo="wrapper">
         <span pgs="padding outline">outline</span>
-        <span pgs="padding outline olPrimary">outline + olPrimary</span>
-        <span pgs="padding outline olError">outline + olError</span>
+        <span pgs="padding outline['olPrimary']">outline['olPrimary']</span>
+        <span pgs="padding outline['olError']">outline['olError']</span>
     </div>
 
     <div pgs="flex['row' 'gapTexts' 'wrap']" demo="wrapper">

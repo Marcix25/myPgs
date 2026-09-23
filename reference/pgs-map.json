@@ -127,264 +127,6 @@
         ],
         "pgs-data": []
     },
-    "bgBackground": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgBlack": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgBlackFixed": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgBlackTransparent": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgBox": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgBoxDark": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgBoxDarkTransparent": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgBoxTransparent": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgError": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgErrorSoft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgGray": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgInfo": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgInfoSoft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgLink": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgLinkSoft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgPrimary": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgPrimaryDark": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgPrimaryLight": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgPrimarySoft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgPrimaryStrong": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgQuaternary": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgQuaternaryDark": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgQuaternaryLight": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgQuaternarySoft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgQuaternaryStrong": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgSecondary": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgSecondaryDark": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgSecondaryLight": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgSecondarySoft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgSecondaryStrong": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgSuccess": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgSuccessSoft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgTertiary": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgTertiaryDark": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgTertiaryLight": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgTertiarySoft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgTertiaryStrong": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgText": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgWarning": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgWarningSoft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgWhite": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgWhiteFixed": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bgWhiteTransparent": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
     "block": {
         "pgs": [],
         "pgs-generated": [],
@@ -425,6 +167,9 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "brBlack",
+            "brBox",
+            "brBoxDark",
             "brdBlock",
             "brdBlockThick",
             "brdBlockThicker",
@@ -452,8 +197,33 @@
             "brdTopThick",
             "brdTopThicker",
             "brdTopThin",
+            "brError",
+            "brGray",
+            "brInfo",
+            "brLink",
+            "brPrimary",
+            "brQuaternary",
+            "brSecondary",
+            "brSuccess",
+            "brTertiary",
+            "brWarning",
+            "brWhite",
             "external",
             "input",
+            "olBlack",
+            "olBox",
+            "olBoxDark",
+            "olError",
+            "olGray",
+            "olInfo",
+            "olLink",
+            "olPrimary",
+            "olQuaternary",
+            "olSecondary",
+            "olSuccess",
+            "olTertiary",
+            "olWarning",
+            "olWhite",
             "otlThick",
             "otlThicker",
             "otlThin"
@@ -487,94 +257,10 @@
         ],
         "pgs-data": []
     },
-    "brBlack": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "brBox": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "brBoxDark": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
     "breadcrumb": {
         "pgs": [
             "breadcrumb-item"
         ],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "brError": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "brGray": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "brInfo": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "brLink": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "brPrimary": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "brQuaternary": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "brSecondary": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "brSuccess": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "brTertiary": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "brWarning": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "brWhite": {
-        "pgs": [],
         "pgs-generated": [],
         "pgs-options": [],
         "pgs-data": []
@@ -715,6 +401,49 @@
         "pgs-options": [
             "aspSquare",
             "aspVideo",
+            "bgBackground",
+            "bgBlack",
+            "bgBlackFixed",
+            "bgBlackTransparent",
+            "bgBox",
+            "bgBoxDark",
+            "bgBoxDarkTransparent",
+            "bgBoxTransparent",
+            "bgError",
+            "bgErrorSoft",
+            "bgGray",
+            "bgInfo",
+            "bgInfoSoft",
+            "bgLink",
+            "bgLinkSoft",
+            "bgPrimary",
+            "bgPrimaryDark",
+            "bgPrimaryLight",
+            "bgPrimarySoft",
+            "bgPrimaryStrong",
+            "bgQuaternary",
+            "bgQuaternaryDark",
+            "bgQuaternaryLight",
+            "bgQuaternarySoft",
+            "bgQuaternaryStrong",
+            "bgSecondary",
+            "bgSecondaryDark",
+            "bgSecondaryLight",
+            "bgSecondarySoft",
+            "bgSecondaryStrong",
+            "bgSuccess",
+            "bgSuccessSoft",
+            "bgTertiary",
+            "bgTertiaryDark",
+            "bgTertiaryLight",
+            "bgTertiarySoft",
+            "bgTertiaryStrong",
+            "bgText",
+            "bgWarning",
+            "bgWarningSoft",
+            "bgWhite",
+            "bgWhiteFixed",
+            "bgWhiteTransparent",
             "bodyBase",
             "bodyHeading",
             "bodyImg",
@@ -782,6 +511,48 @@
             "taJustify",
             "taLeft",
             "taRight",
+            "txtBlack",
+            "txtBlackFixed",
+            "txtBox",
+            "txtBoxDark",
+            "txtError",
+            "txtErrorSoft",
+            "txtGray",
+            "txtInfo",
+            "txtInfoSoft",
+            "txtLink",
+            "txtLinkSoft",
+            "txtPrimary",
+            "txtPrimaryDark",
+            "txtPrimaryLight",
+            "txtPrimarySoft",
+            "txtPrimaryStrong",
+            "txtPrimaryText",
+            "txtQuaternary",
+            "txtQuaternaryDark",
+            "txtQuaternaryLight",
+            "txtQuaternarySoft",
+            "txtQuaternaryStrong",
+            "txtQuaternaryText",
+            "txtSecondary",
+            "txtSecondaryDark",
+            "txtSecondaryLight",
+            "txtSecondarySoft",
+            "txtSecondaryStrong",
+            "txtSecondaryText",
+            "txtSuccess",
+            "txtSuccessSoft",
+            "txtTertiary",
+            "txtTertiaryDark",
+            "txtTertiaryLight",
+            "txtTertiarySoft",
+            "txtTertiaryStrong",
+            "txtTertiaryText",
+            "txtText",
+            "txtWarning",
+            "txtWarningSoft",
+            "txtWhite",
+            "txtWhiteFixed",
             "wrap"
         ],
         "pgs-data": []
@@ -836,6 +607,49 @@
         "pgs-options": [
             "aspSquare",
             "aspVideo",
+            "bgBackground",
+            "bgBlack",
+            "bgBlackFixed",
+            "bgBlackTransparent",
+            "bgBox",
+            "bgBoxDark",
+            "bgBoxDarkTransparent",
+            "bgBoxTransparent",
+            "bgError",
+            "bgErrorSoft",
+            "bgGray",
+            "bgInfo",
+            "bgInfoSoft",
+            "bgLink",
+            "bgLinkSoft",
+            "bgPrimary",
+            "bgPrimaryDark",
+            "bgPrimaryLight",
+            "bgPrimarySoft",
+            "bgPrimaryStrong",
+            "bgQuaternary",
+            "bgQuaternaryDark",
+            "bgQuaternaryLight",
+            "bgQuaternarySoft",
+            "bgQuaternaryStrong",
+            "bgSecondary",
+            "bgSecondaryDark",
+            "bgSecondaryLight",
+            "bgSecondarySoft",
+            "bgSecondaryStrong",
+            "bgSuccess",
+            "bgSuccessSoft",
+            "bgTertiary",
+            "bgTertiaryDark",
+            "bgTertiaryLight",
+            "bgTertiarySoft",
+            "bgTertiaryStrong",
+            "bgText",
+            "bgWarning",
+            "bgWarningSoft",
+            "bgWhite",
+            "bgWhiteFixed",
+            "bgWhiteTransparent",
             "bodyBase",
             "bodyHeading",
             "bodyImg",
@@ -902,6 +716,48 @@
             "taJustify",
             "taLeft",
             "taRight",
+            "txtBlack",
+            "txtBlackFixed",
+            "txtBox",
+            "txtBoxDark",
+            "txtError",
+            "txtErrorSoft",
+            "txtGray",
+            "txtInfo",
+            "txtInfoSoft",
+            "txtLink",
+            "txtLinkSoft",
+            "txtPrimary",
+            "txtPrimaryDark",
+            "txtPrimaryLight",
+            "txtPrimarySoft",
+            "txtPrimaryStrong",
+            "txtPrimaryText",
+            "txtQuaternary",
+            "txtQuaternaryDark",
+            "txtQuaternaryLight",
+            "txtQuaternarySoft",
+            "txtQuaternaryStrong",
+            "txtQuaternaryText",
+            "txtSecondary",
+            "txtSecondaryDark",
+            "txtSecondaryLight",
+            "txtSecondarySoft",
+            "txtSecondaryStrong",
+            "txtSecondaryText",
+            "txtSuccess",
+            "txtSuccessSoft",
+            "txtTertiary",
+            "txtTertiaryDark",
+            "txtTertiaryLight",
+            "txtTertiarySoft",
+            "txtTertiaryStrong",
+            "txtTertiaryText",
+            "txtText",
+            "txtWarning",
+            "txtWarningSoft",
+            "txtWhite",
+            "txtWhiteFixed",
             "wrap"
         ],
         "pgs-data": []
@@ -1149,7 +1005,93 @@
     "iconColorPrimary": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "bgBackground",
+            "bgBlack",
+            "bgBlackFixed",
+            "bgBlackTransparent",
+            "bgBox",
+            "bgBoxDark",
+            "bgBoxDarkTransparent",
+            "bgBoxTransparent",
+            "bgError",
+            "bgErrorSoft",
+            "bgGray",
+            "bgInfo",
+            "bgInfoSoft",
+            "bgLink",
+            "bgLinkSoft",
+            "bgPrimary",
+            "bgPrimaryDark",
+            "bgPrimaryLight",
+            "bgPrimarySoft",
+            "bgPrimaryStrong",
+            "bgQuaternary",
+            "bgQuaternaryDark",
+            "bgQuaternaryLight",
+            "bgQuaternarySoft",
+            "bgQuaternaryStrong",
+            "bgSecondary",
+            "bgSecondaryDark",
+            "bgSecondaryLight",
+            "bgSecondarySoft",
+            "bgSecondaryStrong",
+            "bgSuccess",
+            "bgSuccessSoft",
+            "bgTertiary",
+            "bgTertiaryDark",
+            "bgTertiaryLight",
+            "bgTertiarySoft",
+            "bgTertiaryStrong",
+            "bgText",
+            "bgWarning",
+            "bgWarningSoft",
+            "bgWhite",
+            "bgWhiteFixed",
+            "bgWhiteTransparent",
+            "txtBlack",
+            "txtBlackFixed",
+            "txtBox",
+            "txtBoxDark",
+            "txtError",
+            "txtErrorSoft",
+            "txtGray",
+            "txtInfo",
+            "txtInfoSoft",
+            "txtLink",
+            "txtLinkSoft",
+            "txtPrimary",
+            "txtPrimaryDark",
+            "txtPrimaryLight",
+            "txtPrimarySoft",
+            "txtPrimaryStrong",
+            "txtPrimaryText",
+            "txtQuaternary",
+            "txtQuaternaryDark",
+            "txtQuaternaryLight",
+            "txtQuaternarySoft",
+            "txtQuaternaryStrong",
+            "txtQuaternaryText",
+            "txtSecondary",
+            "txtSecondaryDark",
+            "txtSecondaryLight",
+            "txtSecondarySoft",
+            "txtSecondaryStrong",
+            "txtSecondaryText",
+            "txtSuccess",
+            "txtSuccessSoft",
+            "txtTertiary",
+            "txtTertiaryDark",
+            "txtTertiaryLight",
+            "txtTertiarySoft",
+            "txtTertiaryStrong",
+            "txtTertiaryText",
+            "txtText",
+            "txtWarning",
+            "txtWarningSoft",
+            "txtWhite",
+            "txtWhiteFixed"
+        ],
         "pgs-data": []
     },
     "iconColorSecondary": {
@@ -1423,94 +1365,24 @@
             "notification"
         ]
     },
-    "olBlack": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "olBox": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "olBoxDark": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "olError": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "olGray": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "olInfo": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "olLink": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "olPrimary": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "olQuaternary": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "olSecondary": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "olSuccess": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "olTertiary": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "olWarning": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "olWhite": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
     "outline": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "olBlack",
+            "olBox",
+            "olBoxDark",
+            "olError",
+            "olGray",
+            "olInfo",
+            "olLink",
+            "olPrimary",
+            "olQuaternary",
+            "olSecondary",
+            "olSuccess",
+            "olTertiary",
+            "olWarning",
+            "olWhite",
             "otlThick",
             "otlThicker",
             "otlThin"
@@ -1840,258 +1712,6 @@
         "pgs-data": []
     },
     "truncate": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtBlack": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtBlackFixed": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtBox": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtBoxDark": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtError": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtErrorSoft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtGray": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtInfo": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtInfoSoft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtLink": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtLinkSoft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtPrimary": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtPrimaryDark": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtPrimaryLight": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtPrimarySoft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtPrimaryStrong": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtPrimaryText": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtQuaternary": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtQuaternaryDark": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtQuaternaryLight": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtQuaternarySoft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtQuaternaryStrong": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtQuaternaryText": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtSecondary": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtSecondaryDark": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtSecondaryLight": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtSecondarySoft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtSecondaryStrong": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtSecondaryText": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtSuccess": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtSuccessSoft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtTertiary": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtTertiaryDark": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtTertiaryLight": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtTertiarySoft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtTertiaryStrong": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtTertiaryText": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtText": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtWarning": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtWarningSoft": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtWhite": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "txtWhiteFixed": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [],

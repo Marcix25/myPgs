@@ -22,7 +22,8 @@
  * - column: stacks the utility groups vertically.
  * - row: arranges the examples in a row.
  * - box: makes each example visible as a surface.
- * - bgWhiteFixed: holds the same light background whatever the page theme is, so the two forced schemes read against one ground.
+ * - background: holds the same light background whatever the page theme is, so the two forced schemes read against one ground.
+ * - bgWhiteFixed: inside background's own bracket, the fixed light background used here.
  * - borderRadius: rounds the image fitting examples; see Border for the whole family.
  * - gapTexts: spaces the examples inside a group.
  * - gapSections: separates the groups.
@@ -67,7 +68,7 @@
 
 <demo demo-h3="Forced colour scheme" demo-description="Pins a subtree to one colour scheme, ignoring the current page theme."></demo>
 <section pgs="flex['column' 'gapTexts']" demo="component">
-    <div pgs="flex['row' 'gapTexts'] bgWhiteFixed">
+    <div pgs="flex['row' 'gapTexts'] background['bgWhiteFixed']">
         <div pgs="box lightmode">
             <p>lightmode</p>
         </div>

@@ -1,334 +1,231 @@
 @use "../mixin/mixin" as *;
 
 //# COLOR
-
+//== every color family below is one root with its palette folded into the flag name (bgPrimary,
+//== txtQuaternaryDark, ...) instead of a separate bare token per colour — the same fold applied to
+//== margin/padding/border/section/utilities this cycle. border and outline's own colour flags
+//== (brPrimary, olPrimary, ...) live in base/_border.scss instead, alongside the thickness flags
+//== they share a bracket with.
 //= BACKGROUND COLORS
-[pgs~="bgWhite"] { background-color: var(--color-white); }
+[pgs*="background\5B"] {
+    &[pgs*="'bgWhite'"] {
+        background-color: var(--color-white);
+    }
 
-[pgs~="bgBlack"] { background-color: var(--color-black); }
+    &[pgs*="'bgBlack'"] { background-color: var(--color-black); }
 
-[pgs~="bgWhiteTransparent"] { background-color: var(--color-white-transparent); }
+    &[pgs*="'bgWhiteTransparent'"] { background-color: var(--color-white-transparent); }
 
-[pgs~="bgBlackTransparent"] { background-color: var(--color-black-transparent); }
+    &[pgs*="'bgBlackTransparent'"] { background-color: var(--color-black-transparent); }
 
-[pgs~="bgText"] { background-color: var(--color-text); }
+    &[pgs*="'bgText'"] { background-color: var(--color-text); }
 
-[pgs~="bgBox"] { background-color: var(--color-box); }
+    &[pgs*="'bgBox'"] { background-color: var(--color-box); }
 
-[pgs~="bgBoxDark"] { background-color: var(--color-boxDark); }
+    &[pgs*="'bgBoxDark'"] { background-color: var(--color-boxDark); }
 
-[pgs~="bgBoxTransparent"] { background-color: var(--color-box-transparent); }
+    &[pgs*="'bgBoxTransparent'"] { background-color: var(--color-box-transparent); }
 
-[pgs~="bgBoxDarkTransparent"] { background-color: var(--color-boxDark-transparent); }
+    &[pgs*="'bgBoxDarkTransparent'"] { background-color: var(--color-boxDark-transparent); }
 
-[pgs~="bgLinkSoft"] { background-color: var(--color-link-soft); }
+    &[pgs*="'bgLinkSoft'"] { background-color: var(--color-link-soft); }
 
-[pgs~="bgBackground"] { background-color: var(--color-background); }
+    &[pgs*="'bgBackground'"] { background-color: var(--color-background); }
 
-[pgs~="bgWhiteFixed"] { background-color: var(--color-whiteFixed); }
+    &[pgs*="'bgWhiteFixed'"] { background-color: var(--color-whiteFixed); }
 
-[pgs~="bgBlackFixed"] { background-color: var(--color-blackFixed); }
+    &[pgs*="'bgBlackFixed'"] { background-color: var(--color-blackFixed); }
 
-[pgs~="bgLink"] { background-color: var(--color-link); }
+    &[pgs*="'bgLink'"] { background-color: var(--color-link); }
 
-[pgs~="bgGray"] { background-color: var(--color-gray); }
+    &[pgs*="'bgGray'"] { background-color: var(--color-gray); }
 
-//== PRIMARY VARIANTS
-[pgs~="bgPrimary"] { background-color: var(--color-primary); }
+    //== PRIMARY VARIANTS
+    &[pgs*="'bgPrimary'"] {
+        background-color: var(--color-primary);
+    }
 
-[pgs~="bgPrimarySoft"] { background-color: var(--color-primary-soft); }
+    &[pgs*="'bgPrimarySoft'"] { background-color: var(--color-primary-soft); }
 
-[pgs~="bgPrimaryLight"] { background-color: var(--color-primary-light); }
+    &[pgs*="'bgPrimaryLight'"] { background-color: var(--color-primary-light); }
 
-[pgs~="bgPrimaryStrong"] { background-color: var(--color-primary-strong); }
+    &[pgs*="'bgPrimaryStrong'"] { background-color: var(--color-primary-strong); }
 
-[pgs~="bgPrimaryDark"] { background-color: var(--color-primary-dark); }
+    &[pgs*="'bgPrimaryDark'"] { background-color: var(--color-primary-dark); }
 
-//== SECONDARY VARIANTS
-[pgs~="bgSecondary"] { background-color: var(--color-secondary); }
+    //== SECONDARY VARIANTS
+    &[pgs*="'bgSecondary'"] {
+        background-color: var(--color-secondary);
+    }
 
-[pgs~="bgSecondarySoft"] { background-color: var(--color-secondary-soft); }
+    &[pgs*="'bgSecondarySoft'"] { background-color: var(--color-secondary-soft); }
 
-[pgs~="bgSecondaryLight"] { background-color: var(--color-secondary-light); }
+    &[pgs*="'bgSecondaryLight'"] { background-color: var(--color-secondary-light); }
 
-[pgs~="bgSecondaryStrong"] { background-color: var(--color-secondary-strong); }
+    &[pgs*="'bgSecondaryStrong'"] { background-color: var(--color-secondary-strong); }
 
-[pgs~="bgSecondaryDark"] { background-color: var(--color-secondary-dark); }
+    &[pgs*="'bgSecondaryDark'"] { background-color: var(--color-secondary-dark); }
 
-//== TERTIARY VARIANTS
-[pgs~="bgTertiary"] { background-color: var(--color-tertiary); }
+    //== TERTIARY VARIANTS
+    &[pgs*="'bgTertiary'"] {
+        background-color: var(--color-tertiary);
+    }
 
-[pgs~="bgTertiarySoft"] { background-color: var(--color-tertiary-soft); }
+    &[pgs*="'bgTertiarySoft'"] { background-color: var(--color-tertiary-soft); }
 
-[pgs~="bgTertiaryLight"] { background-color: var(--color-tertiary-light); }
+    &[pgs*="'bgTertiaryLight'"] { background-color: var(--color-tertiary-light); }
 
-[pgs~="bgTertiaryStrong"] { background-color: var(--color-tertiary-strong); }
+    &[pgs*="'bgTertiaryStrong'"] { background-color: var(--color-tertiary-strong); }
 
-[pgs~="bgTertiaryDark"] { background-color: var(--color-tertiary-dark); }
+    &[pgs*="'bgTertiaryDark'"] { background-color: var(--color-tertiary-dark); }
 
-//== QUATERNARY VARIANTS
-[pgs~="bgQuaternary"] { background-color: var(--color-quaternary); }
+    //== QUATERNARY VARIANTS
+    &[pgs*="'bgQuaternary'"] {
+        background-color: var(--color-quaternary);
+    }
 
-[pgs~="bgQuaternarySoft"] { background-color: var(--color-quaternary-soft); }
+    &[pgs*="'bgQuaternarySoft'"] { background-color: var(--color-quaternary-soft); }
 
-[pgs~="bgQuaternaryLight"] { background-color: var(--color-quaternary-light); }
+    &[pgs*="'bgQuaternaryLight'"] { background-color: var(--color-quaternary-light); }
 
-[pgs~="bgQuaternaryStrong"] { background-color: var(--color-quaternary-strong); }
+    &[pgs*="'bgQuaternaryStrong'"] { background-color: var(--color-quaternary-strong); }
 
-[pgs~="bgQuaternaryDark"] { background-color: var(--color-quaternary-dark); }
+    &[pgs*="'bgQuaternaryDark'"] { background-color: var(--color-quaternary-dark); }
 
-//== STATUS
-[pgs~="bgInfo"] { background-color: var(--color-info); }
+    //== STATUS
+    &[pgs*="'bgInfo'"] {
+        background-color: var(--color-info);
+    }
 
-[pgs~="bgError"] { background-color: var(--color-error); }
+    &[pgs*="'bgError'"] { background-color: var(--color-error); }
 
-[pgs~="bgWarning"] { background-color: var(--color-warning); }
+    &[pgs*="'bgWarning'"] { background-color: var(--color-warning); }
 
-[pgs~="bgSuccess"] { background-color: var(--color-success); }
+    &[pgs*="'bgSuccess'"] { background-color: var(--color-success); }
 
-//== STATUS BACKGROUNDS
-[pgs~="bgInfoSoft"] { background-color: var(--color-info-soft); }
+    //== STATUS BACKGROUNDS
+    &[pgs*="'bgInfoSoft'"] {
+        background-color: var(--color-info-soft);
+    }
 
-[pgs~="bgErrorSoft"] { background-color: var(--color-error-soft); }
+    &[pgs*="'bgErrorSoft'"] { background-color: var(--color-error-soft); }
 
-[pgs~="bgWarningSoft"] { background-color: var(--color-warning-soft); }
+    &[pgs*="'bgWarningSoft'"] { background-color: var(--color-warning-soft); }
 
-[pgs~="bgSuccessSoft"] { background-color: var(--color-success-soft); }
+    &[pgs*="'bgSuccessSoft'"] { background-color: var(--color-success-soft); }
+}
 
 //= TEXT COLORS
-[pgs~="txtWhite"] { color: var(--color-white); }
+[pgs*="textColor\5B"] {
+    &[pgs*="'txtWhite'"] {
+        color: var(--color-white);
+    }
 
-[pgs~="txtBlack"] { color: var(--color-black); }
+    &[pgs*="'txtBlack'"] { color: var(--color-black); }
 
-[pgs~="txtGray"] { color: var(--color-gray); }
+    &[pgs*="'txtGray'"] { color: var(--color-gray); }
 
-[pgs~="txtText"] { color: var(--color-text); }
+    &[pgs*="'txtText'"] { color: var(--color-text); }
 
-[pgs~="txtBox"] { color: var(--color-box); }
+    &[pgs*="'txtBox'"] { color: var(--color-box); }
 
-[pgs~="txtBoxDark"] { color: var(--color-boxDark); }
+    &[pgs*="'txtBoxDark'"] { color: var(--color-boxDark); }
 
-[pgs~="txtLinkSoft"] { color: var(--color-link-soft); }
+    &[pgs*="'txtLinkSoft'"] { color: var(--color-link-soft); }
 
-[pgs~="txtWhiteFixed"] { color: var(--color-whiteFixed); }
+    &[pgs*="'txtWhiteFixed'"] { color: var(--color-whiteFixed); }
 
-[pgs~="txtBlackFixed"] { color: var(--color-blackFixed); }
+    &[pgs*="'txtBlackFixed'"] { color: var(--color-blackFixed); }
 
-[pgs~="txtLink"] { color: var(--color-link); }
+    &[pgs*="'txtLink'"] { color: var(--color-link); }
 
-//== PRIMARY VARIANTS
-[pgs~="txtPrimary"] { color: var(--color-primary); }
+    //== PRIMARY VARIANTS
+    &[pgs*="'txtPrimary'"] {
+        color: var(--color-primary);
+    }
 
-[pgs~="txtPrimaryText"] { color: var(--color-primary-text); }
+    &[pgs*="'txtPrimaryText'"] { color: var(--color-primary-text); }
 
-[pgs~="txtPrimarySoft"] { color: var(--color-primary-soft); }
+    &[pgs*="'txtPrimarySoft'"] { color: var(--color-primary-soft); }
 
-[pgs~="txtPrimaryLight"] { color: var(--color-primary-light); }
+    &[pgs*="'txtPrimaryLight'"] { color: var(--color-primary-light); }
 
-[pgs~="txtPrimaryStrong"] { color: var(--color-primary-strong); }
+    &[pgs*="'txtPrimaryStrong'"] { color: var(--color-primary-strong); }
 
-[pgs~="txtPrimaryDark"] { color: var(--color-primary-dark); }
+    &[pgs*="'txtPrimaryDark'"] { color: var(--color-primary-dark); }
 
-//== SECONDARY VARIANTS
-[pgs~="txtSecondary"] { color: var(--color-secondary); }
+    //== SECONDARY VARIANTS
+    &[pgs*="'txtSecondary'"] {
+        color: var(--color-secondary);
+    }
 
-[pgs~="txtSecondaryText"] { color: var(--color-secondary-text); }
+    &[pgs*="'txtSecondaryText'"] { color: var(--color-secondary-text); }
 
-[pgs~="txtSecondarySoft"] { color: var(--color-secondary-soft); }
+    &[pgs*="'txtSecondarySoft'"] { color: var(--color-secondary-soft); }
 
-[pgs~="txtSecondaryLight"] { color: var(--color-secondary-light); }
+    &[pgs*="'txtSecondaryLight'"] { color: var(--color-secondary-light); }
 
-[pgs~="txtSecondaryStrong"] { color: var(--color-secondary-strong); }
+    &[pgs*="'txtSecondaryStrong'"] { color: var(--color-secondary-strong); }
 
-[pgs~="txtSecondaryDark"] { color: var(--color-secondary-dark); }
+    &[pgs*="'txtSecondaryDark'"] { color: var(--color-secondary-dark); }
 
-//== TERTIARY VARIANTS
-[pgs~="txtTertiary"] { color: var(--color-tertiary); }
+    //== TERTIARY VARIANTS
+    &[pgs*="'txtTertiary'"] {
+        color: var(--color-tertiary);
+    }
 
-[pgs~="txtTertiaryText"] { color: var(--color-tertiary-text); }
+    &[pgs*="'txtTertiaryText'"] { color: var(--color-tertiary-text); }
 
-[pgs~="txtTertiarySoft"] { color: var(--color-tertiary-soft); }
+    &[pgs*="'txtTertiarySoft'"] { color: var(--color-tertiary-soft); }
 
-[pgs~="txtTertiaryLight"] { color: var(--color-tertiary-light); }
+    &[pgs*="'txtTertiaryLight'"] { color: var(--color-tertiary-light); }
 
-[pgs~="txtTertiaryStrong"] { color: var(--color-tertiary-strong); }
+    &[pgs*="'txtTertiaryStrong'"] { color: var(--color-tertiary-strong); }
 
-[pgs~="txtTertiaryDark"] { color: var(--color-tertiary-dark); }
+    &[pgs*="'txtTertiaryDark'"] { color: var(--color-tertiary-dark); }
 
-//== QUATERNARY VARIANTS
-[pgs~="txtQuaternary"] { color: var(--color-quaternary); }
+    //== QUATERNARY VARIANTS
+    &[pgs*="'txtQuaternary'"] {
+        color: var(--color-quaternary);
+    }
 
-[pgs~="txtQuaternaryText"] { color: var(--color-quaternary-text); }
+    &[pgs*="'txtQuaternaryText'"] { color: var(--color-quaternary-text); }
 
-[pgs~="txtQuaternarySoft"] { color: var(--color-quaternary-soft); }
+    &[pgs*="'txtQuaternarySoft'"] { color: var(--color-quaternary-soft); }
 
-[pgs~="txtQuaternaryLight"] { color: var(--color-quaternary-light); }
+    &[pgs*="'txtQuaternaryLight'"] { color: var(--color-quaternary-light); }
 
-[pgs~="txtQuaternaryStrong"] { color: var(--color-quaternary-strong); }
+    &[pgs*="'txtQuaternaryStrong'"] { color: var(--color-quaternary-strong); }
 
-[pgs~="txtQuaternaryDark"] { color: var(--color-quaternary-dark); }
+    &[pgs*="'txtQuaternaryDark'"] { color: var(--color-quaternary-dark); }
 
-//== STATUS
-[pgs~="txtInfo"] { color: var(--color-info); }
+    //== STATUS
+    &[pgs*="'txtInfo'"] {
+        color: var(--color-info);
+    }
 
-[pgs~="txtError"] { color: var(--color-error); }
+    &[pgs*="'txtError'"] { color: var(--color-error); }
 
-[pgs~="txtWarning"] { color: var(--color-warning); }
+    &[pgs*="'txtWarning'"] { color: var(--color-warning); }
 
-[pgs~="txtSuccess"] { color: var(--color-success); }
+    &[pgs*="'txtSuccess'"] { color: var(--color-success); }
 
-//== STATUS BACKGROUNDS
-[pgs~="txtInfoSoft"] { color: var(--color-info-soft); }
+    //== STATUS BACKGROUNDS
+    &[pgs*="'txtInfoSoft'"] {
+        color: var(--color-info-soft);
+    }
 
-[pgs~="txtErrorSoft"] { color: var(--color-error-soft); }
+    &[pgs*="'txtErrorSoft'"] { color: var(--color-error-soft); }
 
-[pgs~="txtWarningSoft"] { color: var(--color-warning-soft); }
+    &[pgs*="'txtWarningSoft'"] { color: var(--color-warning-soft); }
 
-[pgs~="txtSuccessSoft"] { color: var(--color-success-soft); }
+    &[pgs*="'txtSuccessSoft'"] { color: var(--color-success-soft); }
+}
 
 //= ICON COLORS
-[pgs~="iconColorPrimary"] { color: var(--color-icon-primary); }
+[pgs~="iconColorPrimary"] {
+    color: var(--color-icon-primary);
+}
 
 [pgs~="iconColorSecondary"] { color: var(--color-icon-secondary); }
 
-//= BORDER COLORS
-[pgs~="brPrimary"] {
-    --border-color: var(--color-primary);
-    border-color: var(--border-color);
- }
-
-[pgs~="brSecondary"] {
-    --border-color: var(--color-secondary);
-    border-color: var(--border-color);
- }
-
-[pgs~="brTertiary"] {
-    --border-color: var(--color-tertiary);
-    border-color: var(--border-color);
- }
-
-[pgs~="brQuaternary"] {
-    --border-color: var(--color-quaternary);
-    border-color: var(--border-color);
- }
-
-[pgs~="brWhite"] {
-    --border-color: var(--color-white);
-    border-color: var(--border-color);
- }
-
-[pgs~="brBlack"] {
-    --border-color: var(--color-black);
-    border-color: var(--border-color);
- }
-
-[pgs~="brBox"] {
-    --border-color: var(--color-box);
-    border-color: var(--border-color);
- }
-
-[pgs~="brBoxDark"] {
-    --border-color: var(--color-boxDark);
-    border-color: var(--border-color);
- }
-
-[pgs~="brLink"] {
-    --border-color: var(--color-link);
-    border-color: var(--border-color);
- }
-
-[pgs~="brInfo"] {
-    --border-color: var(--color-info);
-    border-color: var(--border-color);
- }
-
-[pgs~="brError"] {
-    --border-color: var(--color-error);
-    border-color: var(--border-color);
- }
-
-[pgs~="brWarning"] {
-    --border-color: var(--color-warning);
-    border-color: var(--border-color);
- }
-
-[pgs~="brSuccess"] {
-    --border-color: var(--color-success);
-    border-color: var(--border-color);
- }
-
-[pgs~="brGray"] {
-    --border-color: var(--color-gray);
-    border-color: var(--border-color);
- }
-
-//= OUTLINE COLORS
-[pgs~="olPrimary"] {
-    --outline-color: var(--color-primary);
-    outline-color: var(--outline-color);
- }
-
-[pgs~="olSecondary"] {
-    --outline-color: var(--color-secondary);
-    outline-color: var(--outline-color);
- }
-
-[pgs~="olTertiary"] {
-    --outline-color: var(--color-tertiary);
-    outline-color: var(--outline-color);
- }
-
-[pgs~="olQuaternary"] {
-    --outline-color: var(--color-quaternary);
-    outline-color: var(--outline-color);
- }
-
-[pgs~="olWhite"] {
-    --outline-color: var(--color-white);
-    outline-color: var(--outline-color);
- }
-
-[pgs~="olBlack"] {
-    --outline-color: var(--color-black);
-    outline-color: var(--outline-color);
- }
-
-[pgs~="olBox"] {
-    --outline-color: var(--color-box);
-    outline-color: var(--outline-color);
- }
-
-[pgs~="olBoxDark"] {
-    --outline-color: var(--color-boxDark);
-    outline-color: var(--outline-color);
- }
-
-[pgs~="olLink"] {
-    --outline-color: var(--color-link);
-    outline-color: var(--outline-color);
- }
-
-[pgs~="olInfo"] {
-    --outline-color: var(--color-info);
-    outline-color: var(--outline-color);
- }
-
-[pgs~="olError"] {
-    --outline-color: var(--color-error);
-    outline-color: var(--outline-color);
- }
-
-[pgs~="olWarning"] {
-    --outline-color: var(--color-warning);
-    outline-color: var(--outline-color);
- }
-
-[pgs~="olSuccess"] {
-    --outline-color: var(--color-success);
-    outline-color: var(--outline-color);
- }
-
-[pgs~="olGray"] {
-    --outline-color: var(--color-gray);
-    outline-color: var(--outline-color);
- }

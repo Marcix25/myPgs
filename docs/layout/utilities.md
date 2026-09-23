@@ -50,9 +50,9 @@ Focused layout, content, interaction, accessibility, and semantic-color utilitie
 
 - `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `box`: makes demonstration cells visible.
-- `bgInfo`: applies the semantic info color as the background.
-- `brInfo`: applies the semantic info color as the border color.
-- `txtInfo`: applies the semantic info color to text.
+- `background`: applies the semantic info color as the background here.
+- `border`: applies the semantic info color as the border color here.
+- `textColor`: applies the semantic info color to text here.
 - `flex-flex1`: lets a flex item grow and shrink to occupy available space.
 - `flex-flexNone`: prevents a flex item from growing or shrinking.
 - `flex-flexOrderFirst`: places a flex item before its siblings.
@@ -66,6 +66,9 @@ Focused layout, content, interaction, accessibility, and semantic-color utilitie
 
 ### PGS Options (component brackets)
 
+- `bgInfo`: inside background's own bracket, applies the semantic info color.
+- `brInfo`: inside border's own bracket, applies the semantic info color.
+- `txtInfo`: inside textColor's own bracket, applies the semantic info color.
 - `column`: stacks demonstration groups vertically.
 - `row`: arranges demonstration items in a row.
 - `gapSections`: separates the demonstration sections.
@@ -137,8 +140,8 @@ Examples of the standalone MyPGS utility API.
         <span pgs="visuallyHidden">Screen-reader-only description.</span>
         <a pgs="visuallyHiddenFocusable" href="#utility-content">Visible while focused</a>
         <span pgs="motionReduce">Motion is reduced for users who request it.</span>
-        <span pgs="bgInfo brInfo">Info background</span>
-        <span pgs="txtInfo">Info text</span>
+        <span pgs="background['bgInfo'] border['brInfo']">Info background</span>
+        <span pgs="textColor['txtInfo']">Info text</span>
     </section>
 </main>
 ```

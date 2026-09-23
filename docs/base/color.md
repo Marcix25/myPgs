@@ -6,121 +6,98 @@ Interactive palette of the current MyPGS background and text color utilities.
 
 ## PGS
 
-- `bgPrimary`: applies --color-primary as a background.
-- `bgSecondary`: applies --color-secondary as a background.
-- `bgTertiary`: applies --color-tertiary as a background.
-- `bgQuaternary`: applies --color-quaternary as a background.
-- `bgWhite`: applies --color-white as a background.
-- `bgBlack`: applies --color-black as a background.
-- `bgWhiteTransparent`: applies --color-white-transparent as a background.
-- `bgBlackTransparent`: applies --color-black-transparent as a background.
-- `bgText`: applies --color-text as a background.
-- `bgBox`: applies --color-box as a background.
-- `bgBoxDark`: applies --color-boxDark as a background.
-- `bgBoxTransparent`: applies --color-box-transparent as a background.
-- `bgBoxDarkTransparent`: applies --color-boxDark-transparent as a background.
-- `bgLinkSoft`: applies --color-link-soft as a background.
-- `bgBackground`: applies --color-background as a background.
-- `bgWhiteFixed`: applies --color-whiteFixed as a background.
-- `bgBlackFixed`: applies --color-blackFixed as a background.
-- `bgLink`: applies --color-link as a background.
-- `bgInfo`: applies --color-info as a background.
-- `bgInfoSoft`: applies --color-info-soft as a background.
-- `bgError`: applies --color-error as a background.
-- `bgWarning`: applies --color-warning as a background.
-- `bgSuccess`: applies --color-success as a background.
-- `bgGray`: applies --color-gray as a background.
-- `bgPrimarySoft`: applies --color-primary-soft as a background.
-- `bgPrimaryLight`: applies --color-primary-light as a background.
-- `bgPrimaryStrong`: applies --color-primary-strong as a background.
-- `bgPrimaryDark`: applies --color-primary-dark as a background.
-- `bgSecondarySoft`: applies --color-secondary-soft as a background.
-- `bgSecondaryLight`: applies --color-secondary-light as a background.
-- `bgSecondaryStrong`: applies --color-secondary-strong as a background.
-- `bgSecondaryDark`: applies --color-secondary-dark as a background.
-- `bgTertiarySoft`: applies --color-tertiary-soft as a background.
-- `bgTertiaryLight`: applies --color-tertiary-light as a background.
-- `bgTertiaryStrong`: applies --color-tertiary-strong as a background.
-- `bgTertiaryDark`: applies --color-tertiary-dark as a background.
-- `bgQuaternarySoft`: applies --color-quaternary-soft as a background.
-- `bgQuaternaryLight`: applies --color-quaternary-light as a background.
-- `bgQuaternaryStrong`: applies --color-quaternary-strong as a background.
-- `bgQuaternaryDark`: applies --color-quaternary-dark as a background.
-- `bgSuccessSoft`: applies --color-success-soft as a background.
-- `bgWarningSoft`: applies --color-warning-soft as a background.
-- `bgErrorSoft`: applies --color-error-soft as a background.
-- `txtPrimary`: applies --color-primary to text.
-- `txtSecondary`: applies --color-secondary to text.
-- `txtTertiary`: applies --color-tertiary to text.
-- `txtQuaternary`: applies --color-quaternary to text.
-- `txtPrimaryText`: applies --color-primary-text, the text color meant to sit on a bgPrimary surface.
-- `txtSecondaryText`: applies --color-secondary-text, the text color meant to sit on a bgSecondary surface.
-- `txtTertiaryText`: applies --color-tertiary-text, the text color meant to sit on a bgTertiary surface.
-- `txtQuaternaryText`: applies --color-quaternary-text, the text color meant to sit on a bgQuaternary surface.
-- `txtPrimarySoft`: applies --color-primary-soft to text.
-- `txtPrimaryLight`: applies --color-primary-light to text.
-- `txtPrimaryStrong`: applies --color-primary-strong to text.
-- `txtPrimaryDark`: applies --color-primary-dark to text.
-- `txtSecondarySoft`: applies --color-secondary-soft to text.
-- `txtSecondaryLight`: applies --color-secondary-light to text.
-- `txtSecondaryStrong`: applies --color-secondary-strong to text.
-- `txtSecondaryDark`: applies --color-secondary-dark to text.
-- `txtTertiarySoft`: applies --color-tertiary-soft to text.
-- `txtTertiaryLight`: applies --color-tertiary-light to text.
-- `txtTertiaryStrong`: applies --color-tertiary-strong to text.
-- `txtTertiaryDark`: applies --color-tertiary-dark to text.
-- `txtQuaternarySoft`: applies --color-quaternary-soft to text.
-- `txtQuaternaryLight`: applies --color-quaternary-light to text.
-- `txtQuaternaryStrong`: applies --color-quaternary-strong to text.
-- `txtQuaternaryDark`: applies --color-quaternary-dark to text.
-- `txtWhite`: applies --color-white to text.
-- `txtBlack`: applies --color-black to text.
-- `txtText`: applies --color-text to text.
-- `txtBox`: applies --color-box to text.
-- `txtBoxDark`: applies --color-boxDark to text.
-- `txtLinkSoft`: applies --color-link-soft to text.
-- `txtWhiteFixed`: applies --color-whiteFixed to text.
-- `txtBlackFixed`: applies --color-blackFixed to text.
-- `txtLink`: applies --color-link to text.
-- `txtInfo`: applies --color-info to text.
-- `txtInfoSoft`: applies --color-info-soft to text.
-- `txtError`: applies --color-error to text.
-- `txtWarning`: applies --color-warning to text.
-- `txtSuccess`: applies --color-success to text.
-- `txtGray`: applies --color-gray to text.
-- `txtSuccessSoft`: applies --color-success-soft to text.
-- `txtWarningSoft`: applies --color-warning-soft to text.
-- `txtErrorSoft`: applies --color-error-soft to text.
+- `background`: applies a background color, one of the palette below picked in its bracket.
+- `textColor`: applies a text color, one of the palette below picked in its bracket.
 - `iconColorPrimary`: applies --color-icon-primary to text.
 - `iconColorSecondary`: applies --color-icon-secondary to text.
-- `brPrimary`: applies --color-primary to the border.
-- `brSecondary`: applies --color-secondary to the border.
-- `brTertiary`: applies --color-tertiary to the border.
-- `brQuaternary`: applies --color-quaternary to the border.
-- `brWhite`: applies --color-white to the border.
-- `brBlack`: applies --color-black to the border.
-- `brBox`: applies --color-box to the border.
-- `brBoxDark`: applies --color-boxDark to the border.
-- `brLink`: applies --color-link to the border.
-- `brGray`: applies --color-gray to the border.
-- `brInfo`: applies --color-info to the border.
-- `brSuccess`: applies --color-success to the border.
-- `brWarning`: applies --color-warning to the border.
-- `brError`: applies --color-error to the border.
-- `olPrimary`: applies --color-primary to the outline.
-- `olSecondary`: applies --color-secondary to the outline.
-- `olTertiary`: applies --color-tertiary to the outline.
-- `olQuaternary`: applies --color-quaternary to the outline.
-- `olWhite`: applies --color-white to the outline.
-- `olBlack`: applies --color-black to the outline.
-- `olBox`: applies --color-box to the outline.
-- `olBoxDark`: applies --color-boxDark to the outline.
-- `olLink`: applies --color-link to the outline.
-- `olGray`: applies --color-gray to the outline.
-- `olInfo`: applies --color-info to the outline.
-- `olSuccess`: applies --color-success to the outline.
-- `olWarning`: applies --color-warning to the outline.
-- `olError`: applies --color-error to the outline.
+
+## PGS Options (component brackets)
+
+- `bgPrimary`: inside background's own bracket, applies --color-primary as a background.
+- `bgSecondary`: inside background's own bracket, applies --color-secondary as a background.
+- `bgTertiary`: inside background's own bracket, applies --color-tertiary as a background.
+- `bgQuaternary`: inside background's own bracket, applies --color-quaternary as a background.
+- `bgWhite`: inside background's own bracket, applies --color-white as a background.
+- `bgBlack`: inside background's own bracket, applies --color-black as a background.
+- `bgWhiteTransparent`: inside background's own bracket, applies --color-white-transparent as a background.
+- `bgBlackTransparent`: inside background's own bracket, applies --color-black-transparent as a background.
+- `bgText`: inside background's own bracket, applies --color-text as a background.
+- `bgBox`: inside background's own bracket, applies --color-box as a background.
+- `bgBoxDark`: inside background's own bracket, applies --color-boxDark as a background.
+- `bgBoxTransparent`: inside background's own bracket, applies --color-box-transparent as a background.
+- `bgBoxDarkTransparent`: inside background's own bracket, applies --color-boxDark-transparent as a background.
+- `bgLinkSoft`: inside background's own bracket, applies --color-link-soft as a background.
+- `bgBackground`: inside background's own bracket, applies --color-background as a background.
+- `bgWhiteFixed`: inside background's own bracket, applies --color-whiteFixed as a background.
+- `bgBlackFixed`: inside background's own bracket, applies --color-blackFixed as a background.
+- `bgLink`: inside background's own bracket, applies --color-link as a background.
+- `bgInfo`: inside background's own bracket, applies --color-info as a background.
+- `bgInfoSoft`: inside background's own bracket, applies --color-info-soft as a background.
+- `bgError`: inside background's own bracket, applies --color-error as a background.
+- `bgWarning`: inside background's own bracket, applies --color-warning as a background.
+- `bgSuccess`: inside background's own bracket, applies --color-success as a background.
+- `bgGray`: inside background's own bracket, applies --color-gray as a background.
+- `bgPrimarySoft`: inside background's own bracket, applies --color-primary-soft as a background.
+- `bgPrimaryLight`: inside background's own bracket, applies --color-primary-light as a background.
+- `bgPrimaryStrong`: inside background's own bracket, applies --color-primary-strong as a background.
+- `bgPrimaryDark`: inside background's own bracket, applies --color-primary-dark as a background.
+- `bgSecondarySoft`: inside background's own bracket, applies --color-secondary-soft as a background.
+- `bgSecondaryLight`: inside background's own bracket, applies --color-secondary-light as a background.
+- `bgSecondaryStrong`: inside background's own bracket, applies --color-secondary-strong as a background.
+- `bgSecondaryDark`: inside background's own bracket, applies --color-secondary-dark as a background.
+- `bgTertiarySoft`: inside background's own bracket, applies --color-tertiary-soft as a background.
+- `bgTertiaryLight`: inside background's own bracket, applies --color-tertiary-light as a background.
+- `bgTertiaryStrong`: inside background's own bracket, applies --color-tertiary-strong as a background.
+- `bgTertiaryDark`: inside background's own bracket, applies --color-tertiary-dark as a background.
+- `bgQuaternarySoft`: inside background's own bracket, applies --color-quaternary-soft as a background.
+- `bgQuaternaryLight`: inside background's own bracket, applies --color-quaternary-light as a background.
+- `bgQuaternaryStrong`: inside background's own bracket, applies --color-quaternary-strong as a background.
+- `bgQuaternaryDark`: inside background's own bracket, applies --color-quaternary-dark as a background.
+- `bgSuccessSoft`: inside background's own bracket, applies --color-success-soft as a background.
+- `bgWarningSoft`: inside background's own bracket, applies --color-warning-soft as a background.
+- `bgErrorSoft`: inside background's own bracket, applies --color-error-soft as a background.
+- `txtPrimary`: inside textColor's own bracket, applies --color-primary to text.
+- `txtSecondary`: inside textColor's own bracket, applies --color-secondary to text.
+- `txtTertiary`: inside textColor's own bracket, applies --color-tertiary to text.
+- `txtQuaternary`: inside textColor's own bracket, applies --color-quaternary to text.
+- `txtPrimaryText`: inside textColor's own bracket, applies --color-primary-text, the text color meant to sit on a background['bgPrimary'] surface.
+- `txtSecondaryText`: inside textColor's own bracket, applies --color-secondary-text, the text color meant to sit on a background['bgSecondary'] surface.
+- `txtTertiaryText`: inside textColor's own bracket, applies --color-tertiary-text, the text color meant to sit on a background['bgTertiary'] surface.
+- `txtQuaternaryText`: inside textColor's own bracket, applies --color-quaternary-text, the text color meant to sit on a background['bgQuaternary'] surface.
+- `txtPrimarySoft`: inside textColor's own bracket, applies --color-primary-soft to text.
+- `txtPrimaryLight`: inside textColor's own bracket, applies --color-primary-light to text.
+- `txtPrimaryStrong`: inside textColor's own bracket, applies --color-primary-strong to text.
+- `txtPrimaryDark`: inside textColor's own bracket, applies --color-primary-dark to text.
+- `txtSecondarySoft`: inside textColor's own bracket, applies --color-secondary-soft to text.
+- `txtSecondaryLight`: inside textColor's own bracket, applies --color-secondary-light to text.
+- `txtSecondaryStrong`: inside textColor's own bracket, applies --color-secondary-strong to text.
+- `txtSecondaryDark`: inside textColor's own bracket, applies --color-secondary-dark to text.
+- `txtTertiarySoft`: inside textColor's own bracket, applies --color-tertiary-soft to text.
+- `txtTertiaryLight`: inside textColor's own bracket, applies --color-tertiary-light to text.
+- `txtTertiaryStrong`: inside textColor's own bracket, applies --color-tertiary-strong to text.
+- `txtTertiaryDark`: inside textColor's own bracket, applies --color-tertiary-dark to text.
+- `txtQuaternarySoft`: inside textColor's own bracket, applies --color-quaternary-soft to text.
+- `txtQuaternaryLight`: inside textColor's own bracket, applies --color-quaternary-light to text.
+- `txtQuaternaryStrong`: inside textColor's own bracket, applies --color-quaternary-strong to text.
+- `txtQuaternaryDark`: inside textColor's own bracket, applies --color-quaternary-dark to text.
+- `txtWhite`: inside textColor's own bracket, applies --color-white to text.
+- `txtBlack`: inside textColor's own bracket, applies --color-black to text.
+- `txtText`: inside textColor's own bracket, applies --color-text to text.
+- `txtBox`: inside textColor's own bracket, applies --color-box to text.
+- `txtBoxDark`: inside textColor's own bracket, applies --color-boxDark to text.
+- `txtLinkSoft`: inside textColor's own bracket, applies --color-link-soft to text.
+- `txtWhiteFixed`: inside textColor's own bracket, applies --color-whiteFixed to text.
+- `txtBlackFixed`: inside textColor's own bracket, applies --color-blackFixed to text.
+- `txtLink`: inside textColor's own bracket, applies --color-link to text.
+- `txtInfo`: inside textColor's own bracket, applies --color-info to text.
+- `txtInfoSoft`: inside textColor's own bracket, applies --color-info-soft to text.
+- `txtError`: inside textColor's own bracket, applies --color-error to text.
+- `txtWarning`: inside textColor's own bracket, applies --color-warning to text.
+- `txtSuccess`: inside textColor's own bracket, applies --color-success to text.
+- `txtGray`: inside textColor's own bracket, applies --color-gray to text.
+- `txtSuccessSoft`: inside textColor's own bracket, applies --color-success-soft to text.
+- `txtWarningSoft`: inside textColor's own bracket, applies --color-warning-soft to text.
+- `txtErrorSoft`: inside textColor's own bracket, applies --color-error-soft to text.
 
 ## Related elements
 
@@ -141,6 +118,34 @@ Interactive palette of the current MyPGS background and text color utilities.
 
 ### PGS Options (component brackets)
 
+- `brPrimary`: inside border's own bracket, recolours it with the primary colour; see Border for the whole br* family.
+- `brSecondary`: inside border's own bracket, recolours it with the secondary colour.
+- `brTertiary`: inside border's own bracket, recolours it with the tertiary colour.
+- `brQuaternary`: inside border's own bracket, recolours it with the quaternary colour.
+- `brWhite`: inside border's own bracket, recolours it white.
+- `brBlack`: inside border's own bracket, recolours it black.
+- `brBox`: inside border's own bracket, recolours it with the box surface colour.
+- `brBoxDark`: inside border's own bracket, recolours it with the dark box surface colour.
+- `brLink`: inside border's own bracket, recolours it with the link colour.
+- `brGray`: inside border's own bracket, recolours it gray.
+- `brInfo`: inside border's own bracket, recolours it with the info colour.
+- `brSuccess`: inside border's own bracket, recolours it with the success colour.
+- `brWarning`: inside border's own bracket, recolours it with the warning colour.
+- `brError`: inside border's own bracket, recolours it with the error colour.
+- `olPrimary`: inside outline's own bracket, recolours it with the primary colour; see Border for the whole ol* family.
+- `olSecondary`: inside outline's own bracket, recolours it with the secondary colour.
+- `olTertiary`: inside outline's own bracket, recolours it with the tertiary colour.
+- `olQuaternary`: inside outline's own bracket, recolours it with the quaternary colour.
+- `olWhite`: inside outline's own bracket, recolours it white.
+- `olBlack`: inside outline's own bracket, recolours it black.
+- `olBox`: inside outline's own bracket, recolours it with the box surface colour.
+- `olBoxDark`: inside outline's own bracket, recolours it with the dark box surface colour.
+- `olLink`: inside outline's own bracket, recolours it with the link colour.
+- `olGray`: inside outline's own bracket, recolours it gray.
+- `olInfo`: inside outline's own bracket, recolours it with the info colour.
+- `olSuccess`: inside outline's own bracket, recolours it with the success colour.
+- `olWarning`: inside outline's own bracket, recolours it with the warning colour.
+- `olError`: inside outline's own bracket, recolours it with the error colour.
 - `boxMini`: applies the compact box presentation to each palette group.
 - `btnIconOnly`: makes each background color trigger a compact circular button.
 - `hover`: opens each background color tooltip while its circle is hovered.

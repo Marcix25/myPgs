@@ -59,8 +59,9 @@
  * - gapTexts: spaces the icons inside a group.
  * - wrap: lets the full set flow onto more rows.
  * - gapSections: separates the groups.
- * - txtPrimary: recolours one example, to show that a glyph follows the text colour.
- * - txtError: recolours another the same way.
+ * - textColor: provides the text-color utility used here, to show that a glyph follows the text colour.
+ * - txtPrimary: inside textColor's own bracket, recolours one example.
+ * - txtError: inside textColor's own bracket, recolours another the same way.
  *
  * @return One example per glyph, the sizing and colour behaviour, and the surface a glyph sits inside.
  */
@@ -127,8 +128,8 @@
     </div>
 
     <div pgs="flex['row' 'gapTexts']" demo="wrapper">
-        <i pgs="icon['icon-triangleExclamation'] txtPrimary"></i>
-        <i pgs="icon['icon-triangleExclamation'] txtError"></i>
+        <i pgs="icon['icon-triangleExclamation'] textColor['txtPrimary']"></i>
+        <i pgs="icon['icon-triangleExclamation'] textColor['txtError']"></i>
         <i pgs="icon['icon-triangleExclamation']"></i>
     </div>
 </section>

@@ -75,13 +75,9 @@
             max-width: 100%;
             height: auto;
 
-            &:first-child {
-                margin-left: var(--page-edgeFlush);
-            }
+            &:first-child { margin-left: var(--page-edgeFlush); }
 
-            &:last-child {
-                margin-right: var(--page-edgeFlush);
-            }
+            &:last-child { margin-right: var(--page-edgeFlush); }
 
             //-( tablet
             @container (max-width: #{$tablet}) {
@@ -111,11 +107,13 @@
         top: calc(var(--slides-height, 100%) / 2);
         translate: 0 -50%;
 
-        &:is(:where([pgs~="slides-prec"]), :where([pgs~="_slides-prec"])) {
+        &:is(:where([pgs~="slides-prec"]),
+            :where([pgs~="_slides-prec"])) {
             left: .4rem;
         }
 
-        &:is(:where([pgs~="slides-next"]), :where([pgs~="_slides-next"])) {
+        &:is(:where([pgs~="slides-next"]),
+            :where([pgs~="_slides-next"])) {
             right: .4rem;
         }
 
@@ -123,11 +121,13 @@
         @container (max-width: $tablet) {
             --button-size: .8rem;
 
-            &:is(:where([pgs~="slides-prec"]), :where([pgs~="_slides-prec"])) {
+            &:is(:where([pgs~="slides-prec"]),
+            &:where([pgs~="_slides-prec"])) {
                 left: calc(var(--page-padding) * -1 + .4rem);
             }
 
-            &:is(:where([pgs~="slides-next"]), :where([pgs~="_slides-next"])) {
+            &:is(:where([pgs~="slides-next"]),
+            &:where([pgs~="_slides-next"])) {
                 right: calc(var(--page-padding) * -1 + .4rem);
             }
         }
@@ -150,7 +150,7 @@
         border-radius: var(--border-radius);
         transition: all 300ms;
 
-        &:is([pgs~="_slides-dots"]){
+        &:is([pgs~="_slides-dots"]) {
             position: absolute;
             bottom: 0;
             transform: translateY(calc(100% + var(--gap-texts)));
@@ -167,13 +167,9 @@
             transition: all 300ms;
             margin-block: auto;
 
-            &[pgs-state~="active"] {
-                background-color: var(--color-primary);
-            }
+            &[pgs-state~="active"] { background-color: var(--color-primary); }
 
-            &:hover {
-                background-color: var(--color-primary-soft);
-            }
+            &:hover { background-color: var(--color-primary-soft); }
         }
     }
 
