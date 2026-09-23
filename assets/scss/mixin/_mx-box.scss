@@ -19,7 +19,7 @@
         //== clickable box on a page with bodyHoverAuto; without it, boxHover below is the fallback
         outline: var(--border-complete);
 
-        &:not(:where([pgs~="bodyHoverAuto"] [pgs~="box"])) {
+        &:not(:where([pgs*="body\5B"][pgs*="'bodyHoverAuto'"] [pgs~="box"])) {
             @include boxHover();
         }
     }

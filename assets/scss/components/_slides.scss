@@ -1,7 +1,8 @@
 @use "../mixin/mixin" as *;
 
-//+ CSS has no pow(): builds "var(...) * var(...) * ..." $n times instead, so raising the
-//+ percentage to a higher power still just multiplies it by itself, only more times
+//# SLIDES
+
+// percentage to a higher power still just multiplies it by itself, only more times
 @function _slidesScalePow($n) {
     $term: "var(--slides-visiblePercent, 1)";
     $expr: $term;
@@ -13,7 +14,7 @@
     @return $expr;
 }
 
-//+ registered so the fade width can be animated: a plain custom property would jump
+// registered so the fade width can be animated: a plain custom property would jump
 @property --slides-maskStart {
     syntax: "<length>";
     inherits: false;
@@ -26,6 +27,7 @@
     initial-value: 0px;
 }
 
+//= SLIDES 
 :is([pgs~="slides"], [pgs*="slides\5B"]) {
     display: flex;
     flex-direction: column;
@@ -41,7 +43,7 @@
     --slides-paddingInline-tablet: var(--page-padding);
     --slides-paddingInline-mobile: 0px;
 
-    //= CONTAINER SLIDES (ul)
+    //== CONTAINER SLIDES
     :where([pgs~="slides-container"]) {
         display: flex;
         width: 100%;
@@ -61,12 +63,12 @@
             display: none;
         }
 
-        //== slide
+        //=== SLIDE
+        // the first and the last slide line up with the page content through --page-edge
+        // below, and that only holds because the alignment here is center: their centred
+        // snap position falls outside the scroll range, so the browser stops at the edge and
+        // the margin is what shows. Switch this to start and both margins stop mattering
         :where([pgs~="slides-container-slide"]) {
-            //== the first and the last slide line up with the page content through --page-edge
-            //== below, and that only holds because the alignment here is center: their centred
-            //== snap position falls outside the scroll range, so the browser stops at the edge and
-            //== the margin is what shows. Switch this to start and both margins stop mattering
             scroll-snap-align: center !important;
             scroll-snap-stop: always;
             position: relative;
@@ -98,9 +100,8 @@
         }
     }
 
-    //= ARROW
-    //== a hand-written arrow keeps the bare name; a generated one gets the underscore (see
-    //== #createButtonsAndDots in _slides.js), so every check here needs both
+    //== ARROW
+    // a hand-written arrow keeps the bare name; a generated one gets the underscore (see #createButtonsAndDots in _slides.js), so every check here needs both
     :where([pgs~="slides-prec"]),
     :where([pgs~="slides-next"]) {}
 
@@ -133,8 +134,8 @@
         }
     }
 
-    //= DOTS
-    //== a hand-written dots row keeps the bare name; a generated one gets the underscore
+    //== DOTS
+    // a hand-written dots row keeps the bare name; a generated one gets the underscore
     :where([pgs~="slides-dots"]),
     :where([pgs~="_slides-dots"]) {
         display: flex;

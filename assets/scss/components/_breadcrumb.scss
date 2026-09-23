@@ -1,11 +1,12 @@
 //# BREADCRUMB
-//== the path itself is a plain list: what the component owns is the spacing between the levels,
-//== the separator and the colour of the step the reader is on
+// the path itself is a plain list: what the component owns is the spacing between the levels,
+// the separator and the colour of the step the reader is on
 [pgs~="breadcrumb"] {
     --breadcrumb-size: 1.4rem;
     --breadcrumb-color: var(--color-primary-strong);
     --breadcrumb-color-hover: var(--color-primary);
     --breadcrumb-color-current: var(--color-primary);
+    --breadcrumb-separator-type: "/";
     --breadcrumb-separator-color: var(--color-primary-soft);
     --breadcrumb-separator-gap: 0.8rem;
     font-size: var(--breadcrumb-size);
@@ -37,11 +38,18 @@
             font-weight: var(--font-weight-bold);
         }
 
-        :where([pgs~="breadcrumb-item-separator"]) {
+        &::after {
+            content: var(--breadcrumb-separator-type);
             color: var(--breadcrumb-separator-color);
             margin-inline: var(--breadcrumb-separator-gap);
             display: inline-flex;
             align-items: center;
+        }
+
+        &:last-child {
+            &::after {
+                display: none;
+            }
         }
     }
 }

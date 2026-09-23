@@ -33,6 +33,7 @@ Reusable surfaces for presenting structured card content or grouping simpler con
 ### Other
 
 - `hover`: the treatment a clickable card or box receives, added by pgs.hover on a page that carries bodyHoverAuto, rather than written by hand; see Hover.
+- `bodyHoverAuto`: inside body's own bracket, gates whether pgs.hover marks a clickable card or box automatically; see Html and Body.
 - `hoverNot`: available on a clickable card or box that must stay inert; see Hover.
 
 ## CSS Variables

@@ -62,7 +62,7 @@
         border: var(--border-complete);
         --card-background: var(--color-white);
 
-        &:not(:where([pgs~="bodyHoverAuto"] :is([pgs~="card"], [pgs*="card\5B"]))) {
+        &:not(:where([pgs*="body\5B"][pgs*="'bodyHoverAuto'"] :is([pgs~="card"], [pgs*="card\5B"]))) {
             @include _cardHover();
         }
     }

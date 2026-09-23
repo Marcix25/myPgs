@@ -51,6 +51,19 @@ When changing a token, update every selector, query, reference, declaration, dem
 
 ## 4. SCSS Development
 
+### SCSS comment hierarchy
+
+Every SCSS comment uses one of these markers, chosen by what it introduces, never mixed with plain
+prose:
+
+| marker (followed by a space) | use |
+| --- | --- |
+| `//#` | page identifier, once per file, when the file has several sections and it helps to know what's inside from the first line — like an HTML `<title>`; not essential, but preferred when a file has more than one `//=` section. Example: `//# BORDER - BORDER RADIUS - OUTLINE` |
+| `//=` | a title. Example: `//= SLIDES` |
+| `//==` | a subtitle, one level under a title. Example: `//== CONTAINER SLIDES` |
+| `//===` | a sub-subtitle, one level under a subtitle. Example: `//=== SLIDE` |
+| `//` (nothing after the slashes) | a description or explanation, at any depth. Never reuse `//#`/`//=`/`//==`/`//===` for this — those four are reserved for the heading hierarchy above, nothing else. |
+
 - Add reusable styles to the correct `base`, `layout`, `components`, `patterns`, or `mixin` group.
 - Import new source files from `assets/scss/index.scss` or forward mixins from `assets/scss/mixin/mixin.scss` as appropriate.
 - Reuse existing custom properties and naming conventions.

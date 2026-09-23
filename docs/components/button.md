@@ -43,6 +43,7 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 ### Other
 
 - `hover`: the treatment every button receives, added by pgs.hover on a page that carries bodyHoverAuto, rather than written by hand; see Hover.
+- `bodyHoverAuto`: inside body's own bracket, gates whether pgs.hover marks a button automatically; see Html and Body.
 - `hoverNot`: opts a button out of that treatment, so it keeps its look and stops answering the pointer; see Hover.
 
 ## CSS Variables

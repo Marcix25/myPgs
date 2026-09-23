@@ -23,151 +23,154 @@
     navigation: auto;
 }
 
-//== HOVER
-//== read by the JavaScript only, declared here so editors suggest it: without it pgs.hover marks
-//== nothing on its own, and only a pgs="hover" written by hand gets the treatment. See base/hover
-[pgs~="bodyHoverAuto"] {}
+//== BODY
+:where([pgs*="body\5B"]) {
+    //== HOVER
+    //== declared here so editors suggest it: without it pgs.hover marks nothing on its own, and
+    //== only a pgs="hover" written by hand gets the treatment. See base/hover
+    &:where([pgs*="'bodyHoverAuto'"]) {}
 
-//== BASE
-:where([pgs~="bodyBase"]) {
-    background-color: var(--color-background);
-    position: relative;
+    //== BASE
+    &:where([pgs*="'bodyBase'"]) {
+        background-color: var(--color-background);
+        position: relative;
 
-    section {
-        container-type: inline-size;
-        width: 100%;
-    }
-
-    aside {
-        container-type: inline-size;
-        width: 100%;
-    }
-
-    ul {
-        list-style: none;
-        color: var(--color-black);
-    }
-
-    hr {
-        margin: var(--gap-texts);
-        border-style: solid;
-        border-color: var(--color-primary-soft);
-        align-self: stretch;
-        width: auto;
-    }
-
-    fieldset {
-        border: unset;
-    }
-
-    ::selection {
-        background: var(--color-secondary);
-        color: var(--color-secondary-text);
-    }
-
-    :focus-visible {
-        outline: var(--focus-visible);
-        outline-offset: 3px;
-    }
-}
-
-//== IMG
-:where([pgs~="bodyImg"]) {
-
-    i,
-    :is([pgs~="icon"], [pgs*="icon\5B"]) {
-        line-height: 1.2;
-        font-size: var(--fa-size, var(--icon-size));
-    }
-
-    img,
-    object,
-    lottie-player {
-        width: 100%;
-        height: auto;
-        overflow: hidden;
-        -webkit-user-drag: none;
-        user-drag: none;
-        pointer-events: none;
-        color-scheme: light;
-        transition: opacity 200ms;
-
-        @at-root body #{&} {
+        section {
+            container-type: inline-size;
             width: 100%;
-            height: auto;
+        }
+
+        aside {
+            container-type: inline-size;
+            width: 100%;
+        }
+
+        ul {
+            list-style: none;
+            color: var(--color-black);
+        }
+
+        hr {
+            margin: var(--gap-texts);
+            border-style: solid;
+            border-color: var(--color-primary-soft);
+            align-self: stretch;
+            width: auto;
+        }
+
+        fieldset {
+            border: unset;
+        }
+
+        ::selection {
+            background: var(--color-secondary);
+            color: var(--color-secondary-text);
+        }
+
+        :focus-visible {
+            outline: var(--focus-visible);
+            outline-offset: 3px;
         }
     }
 
-    a {
+    //== IMG
+    &:where([pgs*="'bodyImg'"]) {
+
+        i,
+        :is([pgs~="icon"], [pgs*="icon\5B"]) {
+            line-height: 1.2;
+            font-size: var(--fa-size, var(--icon-size));
+        }
 
         img,
         object,
         lottie-player {
-            vertical-align: bottom;
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+            -webkit-user-drag: none;
+            user-drag: none;
+            pointer-events: none;
+            color-scheme: light;
+            transition: opacity 200ms;
+
+            @at-root body #{&} {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        a {
+
+            img,
+            object,
+            lottie-player {
+                vertical-align: bottom;
+            }
+        }
+
+        svg {
+            fill: currentColor;
+        }
+
+        body:not(.object-loaded) :is(object[type="image/svg+xml"], lottie-player) {
+            opacity: 0;
+        }
+
+        picture {
+            display: block;
+            height: 100%;
         }
     }
 
-    svg {
-        fill: currentColor;
+    //== TEXT
+    &:where([pgs*="'bodyText'"]) {
+        color: var(--color-black);
+        font-family: var(--text-family);
+        font-weight: var(--font-weight-text);
+        font-size: var(--text-size);
+        font-optical-sizing: auto;
+        font-style: normal;
+
+        span {
+            overflow-wrap: var(--text-overflowWrap);
+        }
+
+        p {
+            @include text();
+        }
+
+        a {
+            text-decoration: none;
+            overflow-wrap: var(--text-overflowWrap);
+            color: var(--color-link);
+        }
     }
 
-    body:not(.object-loaded) :is(object[type="image/svg+xml"], lottie-player) {
-        opacity: 0;
-    }
+    //== HEADING
+    &:where([pgs*="'bodyHeading'"]) {
+        h1 {
+            @include h1();
+        }
 
-    picture {
-        display: block;
-        height: 100%;
-    }
-}
+        h2 {
+            @include h2();
+        }
 
-//== TEXT
-:where([pgs~="bodyText"]) {
-    color: var(--text-color);
-    font-family: var(--text-family);
-    font-weight: var(--font-weight-text);
-    font-size: var(--text-size);
-    font-optical-sizing: auto;
-    font-style: normal;
+        h3 {
+            @include h3();
+        }
 
-    span {
-        overflow-wrap: var(--text-overflowWrap);
-    }
+        h4 {
+            @include h4();
+        }
 
-    p {
-        @include text();
-    }
+        h5 {
+            @include h5();
+        }
 
-    a {
-        text-decoration: none;
-        overflow-wrap: var(--text-overflowWrap);
-        color: var(--color-link);
-    }
-}
-
-//== heading
-:where([pgs~="bodyHeading"]) {
-    h1 {
-        @include h1();
-    }
-
-    h2 {
-        @include h2();
-    }
-
-    h3 {
-        @include h3();
-    }
-
-    h4 {
-        @include h4();
-    }
-
-    h5 {
-        @include h5();
-    }
-
-    h6 {
-        @include h6();
+        h6 {
+            @include h6();
+        }
     }
 }

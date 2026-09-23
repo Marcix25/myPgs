@@ -53,7 +53,7 @@ function initHover(root = document) {
         throw new TypeError("pgs.hover.init(): root must be a Document or an Element");
     }
 
-    if (!pgs(document.body).contains("bodyHoverAuto")) return root;
+    if (!pgs(document.body).option.contains("bodyHoverAuto")) return root;
 
     if (root instanceof Element) syncHover(root);
     pgs(root).querySelectorAll(TOKENS).forEach(syncHover);
@@ -93,12 +93,12 @@ const hoverObserver = new MutationObserver(mutations => {
 });
 
 //= AUTO-MARK
-//== bodyHoverAuto is the author's own switch, written on <body> next to bodyBase/bodyImg/bodyText/
-//== bodyHeading: without it nothing is marked on load, and — separately from the check inside
-//== initHover — the observer below never even starts, so a page that only ever writes
-//== pgs="hover" by hand never pays for it running for its whole lifetime
+//== bodyHoverAuto is the author's own switch, one of the flags in <body>'s own body[...] bracket
+//== alongside bodyBase/bodyImg/bodyText/bodyHeading: without it nothing is marked on load, and —
+//== separately from the check inside initHover — the observer below never even starts, so a page
+//== that only ever writes pgs="hover" by hand never pays for it running for its whole lifetime
 PGS_onDocumentReady(() => {
-    if (!pgs(document.body).contains("bodyHoverAuto")) return;
+    if (!pgs(document.body).option.contains("bodyHoverAuto")) return;
 
     initHover(document);
     hoverObserver.observe(document.documentElement, {

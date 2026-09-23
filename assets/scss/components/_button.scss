@@ -4,7 +4,7 @@
 :is([pgs~="button"], [pgs*="button\5B"]) {
     @include buttonBase();
 
-    &:where(:not([pgs~="bodyHoverAuto"] :is([pgs~="button"], [pgs*="button\5B"]))) {
+    &:where(:not([pgs*="body\5B"][pgs*="'bodyHoverAuto'"] :is([pgs~="button"], [pgs*="button\5B"]))) {
         @include buttonHover();
     }
 

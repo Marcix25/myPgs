@@ -140,27 +140,27 @@
 @view-transition {
   navigation: auto;
 }
-:where([pgs~=bodyBase]) {
+:where([pgs*="body["]):where([pgs*="'bodyBase'"]) {
   background-color: var(--color-background);
   position: relative;
 }
 
-:where([pgs~=bodyBase]) section {
+:where([pgs*="body["]):where([pgs*="'bodyBase'"]) section {
   container-type: inline-size;
   width: 100%;
 }
 
-:where([pgs~=bodyBase]) aside {
+:where([pgs*="body["]):where([pgs*="'bodyBase'"]) aside {
   container-type: inline-size;
   width: 100%;
 }
 
-:where([pgs~=bodyBase]) ul {
+:where([pgs*="body["]):where([pgs*="'bodyBase'"]) ul {
   list-style: none;
   color: var(--color-black);
 }
 
-:where([pgs~=bodyBase]) hr {
+:where([pgs*="body["]):where([pgs*="'bodyBase'"]) hr {
   margin: var(--gap-texts);
   border-style: solid;
   border-color: var(--color-primary-soft);
@@ -168,29 +168,29 @@
   width: auto;
 }
 
-:where([pgs~=bodyBase]) fieldset {
+:where([pgs*="body["]):where([pgs*="'bodyBase'"]) fieldset {
   border: unset;
 }
 
-:where([pgs~=bodyBase]) ::selection {
+:where([pgs*="body["]):where([pgs*="'bodyBase'"]) ::selection {
   background: var(--color-secondary);
   color: var(--color-secondary-text);
 }
 
-:where([pgs~=bodyBase]) :focus-visible {
+:where([pgs*="body["]):where([pgs*="'bodyBase'"]) :focus-visible {
   outline: var(--focus-visible);
   outline-offset: 3px;
 }
 
-:where([pgs~=bodyImg]) i,
-:where([pgs~=bodyImg]) :is([pgs~=icon], [pgs*="icon["]) {
+:where([pgs*="body["]):where([pgs*="'bodyImg'"]) i,
+:where([pgs*="body["]):where([pgs*="'bodyImg'"]) :is([pgs~=icon], [pgs*="icon["]) {
   line-height: 1.2;
   font-size: var(--fa-size, var(--icon-size));
 }
 
-:where([pgs~=bodyImg]) img,
-:where([pgs~=bodyImg]) object,
-:where([pgs~=bodyImg]) lottie-player {
+:where([pgs*="body["]):where([pgs*="'bodyImg'"]) img,
+:where([pgs*="body["]):where([pgs*="'bodyImg'"]) object,
+:where([pgs*="body["]):where([pgs*="'bodyImg'"]) lottie-player {
   width: 100%;
   height: auto;
   overflow: hidden;
@@ -201,32 +201,32 @@
   transition: opacity 200ms;
 }
 
-body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bodyImg]) lottie-player {
+body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]):where([pgs*="'bodyImg'"]) object, :where([pgs*="body["]):where([pgs*="'bodyImg'"]) lottie-player {
   width: 100%;
   height: auto;
 }
 
-:where([pgs~=bodyImg]) a img,
-:where([pgs~=bodyImg]) a object,
-:where([pgs~=bodyImg]) a lottie-player {
+:where([pgs*="body["]):where([pgs*="'bodyImg'"]) a img,
+:where([pgs*="body["]):where([pgs*="'bodyImg'"]) a object,
+:where([pgs*="body["]):where([pgs*="'bodyImg'"]) a lottie-player {
   vertical-align: bottom;
 }
 
-:where([pgs~=bodyImg]) svg {
+:where([pgs*="body["]):where([pgs*="'bodyImg'"]) svg {
   fill: currentColor;
 }
 
-:where([pgs~=bodyImg]) body:not(.object-loaded) :is(object[type="image/svg+xml"], lottie-player) {
+:where([pgs*="body["]):where([pgs*="'bodyImg'"]) body:not(.object-loaded) :is(object[type="image/svg+xml"], lottie-player) {
   opacity: 0;
 }
 
-:where([pgs~=bodyImg]) picture {
+:where([pgs*="body["]):where([pgs*="'bodyImg'"]) picture {
   display: block;
   height: 100%;
 }
 
-:where([pgs~=bodyText]) {
-  color: var(--text-color);
+:where([pgs*="body["]):where([pgs*="'bodyText'"]) {
+  color: var(--color-black);
   font-family: var(--text-family);
   font-weight: var(--font-weight-text);
   font-size: var(--text-size);
@@ -234,11 +234,11 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   font-style: normal;
 }
 
-:where([pgs~=bodyText]) span {
+:where([pgs*="body["]):where([pgs*="'bodyText'"]) span {
   overflow-wrap: var(--text-overflowWrap);
 }
 
-:where([pgs~=bodyText]) p {
+:where([pgs*="body["]):where([pgs*="'bodyText'"]) p {
   color: var(--text-color);
   font-family: var(--text-family);
   font-size: var(--text-size);
@@ -246,24 +246,24 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   overflow-wrap: var(--text-overflowWrap);
 }
 
-:where([pgs~=bodyText]) p a {
+:where([pgs*="body["]):where([pgs*="'bodyText'"]) p a {
   text-decoration: none;
   overflow-wrap: var(--text-overflowWrap);
   color: var(--color-link);
 }
 
-:where([pgs~=bodyText]) p a:where(:hover) {
+:where([pgs*="body["]):where([pgs*="'bodyText'"]) p a:where(:hover) {
   background-color: var(--color-link-soft);
   border-radius: 5px;
 }
 
-:where([pgs~=bodyText]) a {
+:where([pgs*="body["]):where([pgs*="'bodyText'"]) a {
   text-decoration: none;
   overflow-wrap: var(--text-overflowWrap);
   color: var(--color-link);
 }
 
-:where([pgs~=bodyHeading]) h1 {
+:where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h1 {
   font-family: var(--heading-family-h1, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h1, 7.2rem) / 8);
   font-size: var(--heading-size-h1, 7.2rem);
@@ -277,21 +277,21 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 @media (max-width: 800px) {
-  :where([pgs~=bodyHeading]) h1 {
+  :where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h1 {
     font-size: clamp(var(--font-size-text), var(--heading-size-h1, 7.2rem) / 3 + 8vw, var(--heading-size-h1, 7.2rem));
   }
 }
 @media (max-width: 430px) {
-  :where([pgs~=bodyHeading]) h1 {
+  :where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h1 {
     font-size: clamp(var(--font-size-text), var(--heading-size-h1, 7.2rem) / 3 + 5vw, var(--heading-size-h1, 7.2rem));
   }
 }
 @media (max-width: 315px) {
-  :where([pgs~=bodyHeading]) h1 {
+  :where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h1 {
     font-size: clamp(var(--font-size-text), var(--heading-size-h1, 7.2rem) / 3 + 2.5vw, var(--heading-size-h1, 7.2rem));
   }
 }
-:where([pgs~=bodyHeading]) h2 {
+:where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h2 {
   font-family: var(--heading-family-h2, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h2, 4.45rem) / 8);
   font-size: var(--heading-size-h2, 4.45rem);
@@ -305,21 +305,21 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 @media (max-width: 800px) {
-  :where([pgs~=bodyHeading]) h2 {
+  :where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h2 {
     font-size: clamp(var(--font-size-text), var(--heading-size-h2, 4.45rem) / 3 + 8vw, var(--heading-size-h2, 4.45rem));
   }
 }
 @media (max-width: 430px) {
-  :where([pgs~=bodyHeading]) h2 {
+  :where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h2 {
     font-size: clamp(var(--font-size-text), var(--heading-size-h2, 4.45rem) / 3 + 5vw, var(--heading-size-h2, 4.45rem));
   }
 }
 @media (max-width: 315px) {
-  :where([pgs~=bodyHeading]) h2 {
+  :where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h2 {
     font-size: clamp(var(--font-size-text), var(--heading-size-h2, 4.45rem) / 3 + 2.5vw, var(--heading-size-h2, 4.45rem));
   }
 }
-:where([pgs~=bodyHeading]) h3 {
+:where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h3 {
   font-family: var(--heading-family-h3, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h3, 2.75rem) / 8);
   font-size: var(--heading-size-h3, 2.75rem);
@@ -333,21 +333,21 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 @media (max-width: 800px) {
-  :where([pgs~=bodyHeading]) h3 {
+  :where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h3 {
     font-size: clamp(var(--font-size-text), var(--heading-size-h3, 2.75rem) / 3 + 8vw, var(--heading-size-h3, 2.75rem));
   }
 }
 @media (max-width: 430px) {
-  :where([pgs~=bodyHeading]) h3 {
+  :where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h3 {
     font-size: clamp(var(--font-size-text), var(--heading-size-h3, 2.75rem) / 3 + 5vw, var(--heading-size-h3, 2.75rem));
   }
 }
 @media (max-width: 315px) {
-  :where([pgs~=bodyHeading]) h3 {
+  :where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h3 {
     font-size: clamp(var(--font-size-text), var(--heading-size-h3, 2.75rem) / 3 + 2.5vw, var(--heading-size-h3, 2.75rem));
   }
 }
-:where([pgs~=bodyHeading]) h4 {
+:where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h4 {
   font-family: var(--heading-family-h4, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h4, 1.7rem) / 8);
   font-size: var(--heading-size-h4, 1.7rem);
@@ -361,21 +361,21 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 @media (max-width: 800px) {
-  :where([pgs~=bodyHeading]) h4 {
+  :where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h4 {
     font-size: clamp(var(--font-size-text), var(--heading-size-h4, 1.7rem) / 3 + 8vw, var(--heading-size-h4, 1.7rem));
   }
 }
 @media (max-width: 430px) {
-  :where([pgs~=bodyHeading]) h4 {
+  :where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h4 {
     font-size: clamp(var(--font-size-text), var(--heading-size-h4, 1.7rem) / 3 + 5vw, var(--heading-size-h4, 1.7rem));
   }
 }
 @media (max-width: 315px) {
-  :where([pgs~=bodyHeading]) h4 {
+  :where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h4 {
     font-size: clamp(var(--font-size-text), var(--heading-size-h4, 1.7rem) / 3 + 2.5vw, var(--heading-size-h4, 1.7rem));
   }
 }
-:where([pgs~=bodyHeading]) h5 {
+:where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h5 {
   font-family: var(--heading-family-h5, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h5, 1.7rem) / 8);
   font-size: var(--heading-size-h5, 1.7rem);
@@ -389,21 +389,21 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 @media (max-width: 800px) {
-  :where([pgs~=bodyHeading]) h5 {
+  :where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h5 {
     font-size: clamp(var(--font-size-text), var(--heading-size-h5, 1.7rem) / 3 + 8vw, var(--heading-size-h5, 1.7rem));
   }
 }
 @media (max-width: 430px) {
-  :where([pgs~=bodyHeading]) h5 {
+  :where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h5 {
     font-size: clamp(var(--font-size-text), var(--heading-size-h5, 1.7rem) / 3 + 5vw, var(--heading-size-h5, 1.7rem));
   }
 }
 @media (max-width: 315px) {
-  :where([pgs~=bodyHeading]) h5 {
+  :where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h5 {
     font-size: clamp(var(--font-size-text), var(--heading-size-h5, 1.7rem) / 3 + 2.5vw, var(--heading-size-h5, 1.7rem));
   }
 }
-:where([pgs~=bodyHeading]) h6 {
+:where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h6 {
   font-family: var(--heading-family-h6, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h6, 1.7rem) / 8);
   font-size: var(--heading-size-h6, 1.7rem);
@@ -417,17 +417,17 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 @media (max-width: 800px) {
-  :where([pgs~=bodyHeading]) h6 {
+  :where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h6 {
     font-size: clamp(var(--font-size-text), var(--heading-size-h6, 1.7rem) / 3 + 8vw, var(--heading-size-h6, 1.7rem));
   }
 }
 @media (max-width: 430px) {
-  :where([pgs~=bodyHeading]) h6 {
+  :where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h6 {
     font-size: clamp(var(--font-size-text), var(--heading-size-h6, 1.7rem) / 3 + 5vw, var(--heading-size-h6, 1.7rem));
   }
 }
 @media (max-width: 315px) {
-  :where([pgs~=bodyHeading]) h6 {
+  :where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h6 {
     font-size: clamp(var(--font-size-text), var(--heading-size-h6, 1.7rem) / 3 + 2.5vw, var(--heading-size-h6, 1.7rem));
   }
 }
@@ -3093,7 +3093,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 @media (hover: hover) and (pointer: fine) {
-  :is([pgs~=card], [pgs*="card["]):where(a):not(:where([pgs~=bodyHoverAuto] :is([pgs~=card], [pgs*="card["]))):hover:not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))) {
+  :is([pgs~=card], [pgs*="card["]):where(a):not(:where([pgs*="body["][pgs*="'bodyHoverAuto'"] :is([pgs~=card], [pgs*="card["]))):hover:not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))) {
     --card-background: var(--color-primary-soft);
   }
 }
@@ -3211,7 +3211,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 @media (hover: hover) and (pointer: fine) {
-  :is([pgs~=box], [pgs*="box["]):where(a):not(:where([pgs~=bodyHoverAuto] [pgs~=box])):hover:not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))) {
+  :is([pgs~=box], [pgs*="box["]):where(a):not(:where([pgs*="body["][pgs*="'bodyHoverAuto'"] [pgs~=box])):hover:not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))) {
     --box-background: var(--color-primary-soft);
   }
 }
@@ -4356,7 +4356,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
 }
 
 @media (hover: hover) and (pointer: fine) {
-  :is([pgs~=button], [pgs*="button["]):where(:not([pgs~=bodyHoverAuto] :is([pgs~=button], [pgs*="button["]))):hover:not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))):where(:not(:disabled, [disabled])) {
+  :is([pgs~=button], [pgs*="button["]):where(:not([pgs*="body["][pgs*="'bodyHoverAuto'"] :is([pgs~=button], [pgs*="button["]))):hover:not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))):where(:not(:disabled, [disabled])) {
     color: var(--button-color-hover);
     background: var(--button-background-hover);
     border-color: var(--button-border-color-hover);
@@ -5414,6 +5414,7 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   --breadcrumb-color: var(--color-primary-strong);
   --breadcrumb-color-hover: var(--color-primary);
   --breadcrumb-color-current: var(--color-primary);
+  --breadcrumb-separator-type: "/";
   --breadcrumb-separator-color: var(--color-primary-soft);
   --breadcrumb-separator-gap: 0.8rem;
   font-size: var(--breadcrumb-size);
@@ -5447,11 +5448,16 @@ body :where([pgs~=bodyImg]) img, :where([pgs~=bodyImg]) object, :where([pgs~=bod
   font-weight: var(--font-weight-bold);
 }
 
-[pgs~=breadcrumb] :where([pgs~=breadcrumb-item]) :where([pgs~=breadcrumb-item-separator]) {
+[pgs~=breadcrumb] :where([pgs~=breadcrumb-item])::after {
+  content: var(--breadcrumb-separator-type);
   color: var(--breadcrumb-separator-color);
   margin-inline: var(--breadcrumb-separator-gap);
   display: inline-flex;
   align-items: center;
+}
+
+[pgs~=breadcrumb] :where([pgs~=breadcrumb-item]):last-child::after {
+  display: none;
 }
 
 :is([pgs~=dropdown], [pgs*="dropdown["]) {
@@ -6132,7 +6138,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   --badge-color: var(--color-black);
   --badge-size: 0.85rem;
   --badge-text-size: 1.25rem;
-  --badge-icon-size: 1.4rem;
+  --badge-icon-size: 1.10rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -6156,6 +6162,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   color: var(--badge-color);
   font-size: var(--badge-icon-size);
   --icon-size: var(--badge-icon-size);
+  scale: 1.3;
 }
 
 :is([pgs~=badge], [pgs*="badge["])[pgs*="'badgePrimary'"] {
@@ -6231,7 +6238,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   min-block-size: 2.4rem;
   color: var(--alert-accent);
   line-height: 1;
-  --icon-size: 2rem;
+  --icon-size: 3rem;
 }
 
 [pgs~=alert] :where([pgs~=alert-content]),

@@ -32,7 +32,7 @@
         min-block-size: 2.4rem;
         color: var(--alert-accent);
         line-height: 1;
-        --icon-size: 2rem;
+        --icon-size: 3rem;
     }
 
     :where([pgs~="alert-content"]),
@@ -43,7 +43,7 @@
         :where([pgs~="alert-content-title"]),
         :where([pgs~="_alert-content-title"]) {
             color: var(--alert-content-title-color);
-            font-weight: var(--font-weight-title);;
+            font-weight: var(--font-weight-title);
             line-height: 1.2;
         }
     }

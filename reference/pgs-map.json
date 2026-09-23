@@ -421,36 +421,6 @@
         "pgs-options": [],
         "pgs-data": []
     },
-    "bodyBase": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bodyHeading": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bodyHoverAuto": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bodyImg": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "bodyText": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
     "border": {
         "pgs": [],
         "pgs-generated": [],
@@ -503,6 +473,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "bodyHoverAuto",
             "boxMini"
         ],
         "pgs-data": []
@@ -613,6 +584,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "bodyHoverAuto",
             "btnBig",
             "btnForHeader",
             "btnIconOnly",
@@ -637,6 +609,7 @@
         ],
         "pgs-generated": [],
         "pgs-options": [
+            "bodyHoverAuto",
             "cardHorizontal",
             "cardMini",
             "horizontalFixed",
@@ -743,6 +716,10 @@
         "pgs-options": [
             "aspSquare",
             "aspVideo",
+            "bodyBase",
+            "bodyHeading",
+            "bodyImg",
+            "bodyText",
             "column",
             "column-\"][pgs*=\"",
             "column-1",
@@ -860,6 +837,10 @@
         "pgs-options": [
             "aspSquare",
             "aspVideo",
+            "bodyBase",
+            "bodyHeading",
+            "bodyImg",
+            "bodyText",
             "column",
             "column-",
             "column-\"][pgs*=\"",
@@ -1091,6 +1072,7 @@
         ],
         "pgs-generated": [],
         "pgs-options": [
+            "bodyHoverAuto",
             "hoverNot"
         ],
         "pgs-data": []
@@ -1106,7 +1088,13 @@
     "htmlBase": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "bodyBase",
+            "bodyHeading",
+            "bodyHoverAuto",
+            "bodyImg",
+            "bodyText"
+        ],
         "pgs-data": []
     },
     "icon": {
