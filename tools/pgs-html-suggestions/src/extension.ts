@@ -99,9 +99,14 @@ class PgsMapIndex {
     }
 
     //+ every bare word that is valid on its own inside pgs="...": a root, one of its declared
-    //+ children, or one of its generated tokens (modal-dialog is legitimately hand-written, per
-    //+ reference/html/components/modal.html; an underscore-prefixed one never is, but is still
-    //+ offered — with a note — since it is occasionally matched from SCSS/JS, not only authored)
+    //+ children, or one of its generated tokens that can still legitimately be hand-written
+    //+ (modal-dialog, per reference/html/components/modal.html). An underscore-prefixed token is
+    //+ never hand-written, whether it is listed as a root's own pgs-generated child
+    //+ (_slides-dots-dot, ...) or is itself a root in the map (_dialog, _toast,
+    //+ _notifications-close, ... — the modal-dialog exception documented in
+    //+ AGENTS-DEVELOPMENT.md, generated-only components that still need their own bracket), so
+    //+ both forms are excluded here rather than offered with a note — neither should show up in
+    //+ suggestions at all.
     allBareTokens(): { token: string; kind: "root" | "child" | "generated" }[] {
         const seen = new Set<string>();
         const out: { token: string; kind: "root" | "child" | "generated" }[] = [];
@@ -113,9 +118,11 @@ class PgsMapIndex {
         };
 
         for (const [root, entry] of Object.entries(this.map)) {
-            push(root, "root");
+            if (!root.startsWith("_")) push(root, "root");
             for (const child of entry.pgs ?? []) push(child, "child");
-            for (const generated of entry["pgs-generated"] ?? []) push(generated, "generated");
+            for (const generated of entry["pgs-generated"] ?? []) {
+                if (!generated.startsWith("_")) push(generated, "generated");
+            }
         }
 
         return out;
@@ -340,10 +347,12 @@ function makeBareTokenCompletion(token: string, kind: "root" | "child" | "genera
             ? "componente"
             : kind === "child"
                 ? "token figlio"
-                : token.startsWith("_")
-                    ? "generato dalla libreria — non scriverlo a mano"
-                    : "generato dalla libreria, ma può essere scritto a mano (vedi il suo reference)";
-    item.sortText = alreadyUsed ? `z_${token}` : kind === "root" ? `a_${token}` : `b_${token}`;
+                : "generato dalla libreria, ma può essere scritto a mano (vedi il suo reference)";
+    //== alphabetical across root/child/generated alike — sortText used to prefix root with "a_"
+    //== and child/generated with "b_", grouping by kind before falling back to alphabetical order
+    //== within each group; a single "a_" prefix for everything not already used sorts the whole
+    //== list by token name instead, kind only shown in "detail"
+    item.sortText = alreadyUsed ? `z_${token}` : `a_${token}`;
     item.preselect = !alreadyUsed && kind === "root";
     return item;
 }

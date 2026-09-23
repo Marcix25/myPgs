@@ -6,8 +6,16 @@
  * @pgs
  * - grid: creates a responsive grid layout.
  * - flex: creates a horizontal flex layout by default.
+ * - flexChild: sizes or orders one item inside a flex (or grid) container, the option in its bracket picking how; a separate component from flex itself, so it stands on its own without needing a flex/flex[...] ancestor.
  *
  * @pgs-options
+ * - flexInitial: inside flexChild's own bracket, uses the flex initial sizing behavior on a flex child.
+ * - flexNone: inside flexChild's own bracket, prevents a flex child from growing or shrinking.
+ * - flex1: inside flexChild's own bracket, lets a flex child grow and shrink to fill available space.
+ * - flexFull: inside flexChild's own bracket, makes a flex child occupy a full row.
+ * - flexValue: inside flexChild's own bracket, sets a flex child's basis to --flex-flexValue, set inline for an arbitrary value.
+ * - flexOrderFirst: inside flexChild's own bracket, places a flex child before its siblings.
+ * - flexOrderLast: inside flexChild's own bracket, places a flex child after its siblings.
  * - inlineFlex: uses inline-flex for the flex container.
  * - flexPlaceCenter: centers items on both axes of a flex container, with gapTexts as its default gap.
  * - flexCenter: centers items on both axes of a flex container, with no gap of its own.
@@ -51,13 +59,6 @@
  *
  * @related
  * - box: makes the demonstration cells visible.
- * - flex-flexInitial: uses the flex initial sizing behavior on a flex child.
- * - flex-flexNone: prevents a flex child from growing or shrinking.
- * - flex-flex1: lets a flex child grow and shrink to fill available space.
- * - flex-flexFull: makes a flex child occupy a full row.
- * - flex-flexValue: sets a flex child's basis to --flex-flexValue, set inline for an arbitrary value.
- * - flex-flexOrderFirst: places a flex child before its siblings.
- * - flex-flexOrderLast: places a flex child after its siblings.
  *
  * @return Flex, grid, wrapping, and alignment examples using the current responsive layout API.
  */
@@ -147,12 +148,12 @@
     <section pgs="flex['column' 'gapTexts']" demo="component">
         <strong>Flex children</strong>
         <div pgs="flex['row' 'gapTexts' 'wrap']">
-            <span pgs="box flex-flexInitial">Initial</span>
-            <span pgs="box flex-flexNone">None</span>
-            <span pgs="box flex-flex1">Grow</span>
-            <span pgs="box flex-flexFull">Full width</span>
-            <span pgs="box flex-flexValue" style="--flex-flexValue: 220px;">220px</span>
-            <span pgs="box flex-flexOrderLast">Last</span>
-            <span pgs="box flex-flexOrderFirst">First</span>
+            <span pgs="box flexChild['flexInitial']">Initial</span>
+            <span pgs="box flexChild['flexNone']">None</span>
+            <span pgs="box flexChild['flex1']">Grow</span>
+            <span pgs="box flexChild['flexFull']">Full width</span>
+            <span pgs="box flexChild['flexValue']" style="--flex-flexValue: 220px;">220px</span>
+            <span pgs="box flexChild['flexOrderLast']">Last</span>
+            <span pgs="box flexChild['flexOrderFirst']">First</span>
         </div>
     </section>

@@ -36,6 +36,7 @@
     "scripts": {
         "docs:generate": "node scripts/generate-component-docs.js && node scripts/generate-guide-docs.js",
         "icons:sync": "node scripts/sync-icons.js",
+        "pgs-map": "webpack && node scripts/generate-pgs-map.js",
         "serve:lan": "node scripts/serve-lan.js",
         "sitebuild": "node scripts/build-site-static.js",
         "sitebuild:watch": "node scripts/watch-site.js",

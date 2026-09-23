@@ -136,7 +136,8 @@
  * - olWarning: inside outline's own bracket, recolours it with the warning colour.
  * - olError: inside outline's own bracket, recolours it with the error colour.
  * - button: supplies the shared button base used by background color triggers.
- * - flex-flexFull: makes palette headings occupy a full flex row.
+ * - flexChild: sizes or orders an item inside a flex container; the option in its bracket picking how.
+ * - flexFull: inside flexChild's own bracket, makes palette headings occupy a full flex row.
  * - boxMini: applies the compact box presentation to each palette group.
  * - btnIconOnly: makes each background color trigger a compact circular button.
  * - hover: opens each background color tooltip while its circle is hovered.
@@ -152,7 +153,7 @@
 
 <main pgs="flex['column' 'gapElements']" demo="disabled">
     <section pgs="flex['row']">
-        <strong pgs="flex-flexFull">Background colors</strong>
+        <strong pgs="flexChild['flexFull']">Background colors</strong>
 
         <div pgs="flex['column'] box['boxMini']">
             <p>Primary colors</p>
@@ -382,7 +383,7 @@
     </section>
 
     <section pgs="flex['column']">
-        <strong pgs="flex-flexFull">Text on a color</strong>
+        <strong pgs="flexChild['flexFull']">Text on a color</strong>
         <p>Each <code>--color-*-text</code> is the reading colour that belongs to its own background, so a coloured surface gets legible text without anyone picking a contrast by hand. Retheme the background and the pair follows.</p>
         <div pgs="flex['row' 'gapTexts' 'wrap']">
             <div pgs="box['boxMini'] background['bgPrimary'] textColor['txtPrimaryText']">background['bgPrimary'] + textColor['txtPrimaryText']</div>
@@ -393,9 +394,9 @@
     </section>
 
     <section pgs="flex['column']">
-        <strong pgs="flex-flexFull">Text colors</strong>
+        <strong pgs="flexChild['flexFull']">Text colors</strong>
         <div pgs="flex['row' 'gapTexts' 'wrap'] box['boxMini'] background['bgWhite']">
-            <strong pgs="flex-flexFull">Color</strong>
+            <strong pgs="flexChild['flexFull']">Color</strong>
             <span pgs="textColor['txtPrimary']">textColor['txtPrimary']</span>
             <span pgs="textColor['txtSecondary']">textColor['txtSecondary']</span>
             <span pgs="textColor['txtTertiary']">textColor['txtTertiary']</span>
@@ -418,7 +419,7 @@
         </div>
         
         <div pgs="flex['row' 'gapTexts' 'wrap'] box['boxMini'] background['bgBlack']">
-            <strong pgs="textColor['txtWhite'] flex-flexFull">Color for dark</strong>
+            <strong pgs="textColor['txtWhite'] flexChild['flexFull']">Color for dark</strong>
             <span pgs="textColor['txtPrimarySoft']">textColor['txtPrimarySoft']</span>
             <span pgs="textColor['txtSecondarySoft']">textColor['txtSecondarySoft']</span>
             <span pgs="textColor['txtTertiarySoft']">textColor['txtTertiarySoft']</span>
@@ -433,7 +434,7 @@
         </div>
         
         <div pgs="flex['row' 'gapTexts' 'wrap'] box['boxMini'] background['bgWhiteFixed']">
-            <strong pgs="textColor['txtBlackFixed'] flex-flexFull">Color for light</strong>
+            <strong pgs="textColor['txtBlackFixed'] flexChild['flexFull']">Color for light</strong>
             <span pgs="textColor['txtPrimaryDark']">textColor['txtPrimaryDark']</span>
             <span pgs="textColor['txtSecondaryDark']">textColor['txtSecondaryDark']</span>
             <span pgs="textColor['txtTertiaryDark']">textColor['txtTertiaryDark']</span>
@@ -442,7 +443,7 @@
         </div>
 
         <div pgs="flex['row' 'gapTexts' 'wrap'] box['boxMini'] background['bgBlackFixed']">
-            <strong pgs="textColor['txtWhiteFixed'] flex-flexFull">Color for dark</strong>
+            <strong pgs="textColor['txtWhiteFixed'] flexChild['flexFull']">Color for dark</strong>
             <span pgs="textColor['txtPrimaryLight']">textColor['txtPrimaryLight']</span>
             <span pgs="textColor['txtSecondaryLight']">textColor['txtSecondaryLight']</span>
             <span pgs="textColor['txtTertiaryLight']">textColor['txtTertiaryLight']</span>
@@ -453,7 +454,7 @@
     </section>
 
     <section pgs="flex['column']">
-        <strong pgs="flex-flexFull">Border colors</strong>
+        <strong pgs="flexChild['flexFull']">Border colors</strong>
         <div pgs="flex['row' 'gapTexts' 'wrap']">
             <span pgs="box['boxMini'] border border['brPrimary']">border['brPrimary']</span>
             <span pgs="box['boxMini'] border border['brSecondary']">border['brSecondary']</span>
@@ -473,7 +474,7 @@
     </section>
 
     <section pgs="flex['column']">
-        <strong pgs="flex-flexFull">Outline colors</strong>
+        <strong pgs="flexChild['flexFull']">Outline colors</strong>
         <div pgs="flex['row' 'gapTexts' 'wrap']">
             <span pgs="box['boxMini'] outline outline['olPrimary']">outline['olPrimary']</span>
             <span pgs="box['boxMini'] outline outline['olSecondary']">outline['olSecondary']</span>

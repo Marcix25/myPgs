@@ -994,31 +994,31 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   flex-wrap: wrap;
 }
 
-:is([pgs~=flex], [pgs*="flex["]) :where([pgs~=flex-flexInitial]) {
+:is([pgs~=flexChild], [pgs*="flexChild["])[pgs*="'flexInitial'"] {
   flex: 0 1 auto;
 }
 
-:is([pgs~=flex], [pgs*="flex["]) :where([pgs~=flex-flexNone]) {
+:is([pgs~=flexChild], [pgs*="flexChild["])[pgs*="'flexNone'"] {
   flex: none;
 }
 
-:is([pgs~=flex], [pgs*="flex["]) :where([pgs~=flex-flex1]) {
+:is([pgs~=flexChild], [pgs*="flexChild["])[pgs*="'flex1'"] {
   flex: 1 1 0%;
 }
 
-:is([pgs~=flex], [pgs*="flex["]) :where([pgs~=flex-flexFull]) {
+:is([pgs~=flexChild], [pgs*="flexChild["])[pgs*="'flexFull'"] {
   flex: 0 0 100%;
 }
 
-:is([pgs~=flex], [pgs*="flex["]) :where([pgs~=flex-flexValue]) {
+:is([pgs~=flexChild], [pgs*="flexChild["])[pgs*="'flexValue'"] {
   flex: 1 1 var(--flex-flexValue, auto);
 }
 
-:is([pgs~=flex], [pgs*="flex["]) :where([pgs~=flex-flexOrderFirst]) {
+:is([pgs~=flexChild], [pgs*="flexChild["])[pgs*="'flexOrderFirst'"] {
   order: -1;
 }
 
-:is([pgs~=flex], [pgs*="flex["]) :where([pgs~=flex-flexOrderLast]) {
+:is([pgs~=flexChild], [pgs*="flexChild["])[pgs*="'flexOrderLast'"] {
   order: 999;
 }
 

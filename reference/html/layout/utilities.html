@@ -51,10 +51,11 @@
  * - textColor: applies the semantic info color to text here.
  * - txtInfo: inside textColor's own bracket, applies the semantic info color.
  * - column: stacks demonstration groups vertically.
- * - flex-flex1: lets a flex item grow and shrink to occupy available space.
- * - flex-flexNone: prevents a flex item from growing or shrinking.
- * - flex-flexOrderFirst: places a flex item before its siblings.
- * - flex-flexOrderLast: places a flex item after its siblings.
+ * - flexChild: sizes or orders one item inside a flex (or grid) container, the option in its bracket picking how.
+ * - flex1: inside flexChild's own bracket, lets a flex item grow and shrink to occupy available space.
+ * - flexNone: inside flexChild's own bracket, prevents a flex item from growing or shrinking.
+ * - flexOrderFirst: inside flexChild's own bracket, places a flex item before its siblings.
+ * - flexOrderLast: inside flexChild's own bracket, places a flex item after its siblings.
  * - row: arranges demonstration items in a row.
  * - focusRing: shows the shared focus ring when keyboard focus is visible.
  * - motionReduce: removes non-essential animation and transitions when reduced motion is preferred.
@@ -85,10 +86,10 @@
             <span pgs="box flex['row' 'flexCenter'] aspect['aspSquare']">Centered</span>
         </div>
         <div pgs="flex['row' 'gapTexts']">
-            <span pgs="box flex['row'] flex-flexNone">Fixed</span>
-            <span pgs="box flex['row'] minWidth0 truncate flex-flex1">Flexible content that is safely truncated when needed.</span>
-            <span pgs="box flex['column'] flex-flexOrderFirst">First</span>
-            <span pgs="box flex['column'] flex-flexOrderLast">Last</span>
+            <span pgs="box flex['row'] flexChild['flexNone']">Fixed</span>
+            <span pgs="box flex['row'] minWidth0 truncate flexChild['flex1']">Flexible content that is safely truncated when needed.</span>
+            <span pgs="box flex['column'] flexChild['flexOrderFirst']">First</span>
+            <span pgs="box flex['column'] flexChild['flexOrderLast']">Last</span>
         </div>
         <div pgs="box position['posRelative']">
             Relative parent

@@ -3,8 +3,8 @@
 
     <!-- = HERO -->
     <section class="home-hero" pgs="section['sctMax'] margin['mrgInlinePage'] width['widthFillAvailable'] darkmode heightMin flex['column']" style="--heightMin-size: calc(100dvh - var(--main-padding-top) - var(--page-padding))">
-        <div class="home-hero-inner" pgs="flex['row' 'gapElements' 'wrap'] flex-flex1">
-            <div class="home-hero-text" pgs="flex['column' 'flexPlaceCenter'] textAlign['taCenter'] flex-flexValue padding['padTop']" style="--flex-flexValue: 420px;">
+        <div class="home-hero-inner" pgs="flex['row' 'gapElements' 'wrap'] flexChild['flex1']">
+            <div class="home-hero-text" pgs="flex['column' 'flexPlaceCenter'] textAlign['taCenter'] flexChild['flexValue'] padding['padTop']" style="--flex-flexValue: 420px;">
                 <p class="home-hero-eyebrow">Frontend theme &amp; component library</p>
                 <h1>Build interfaces with one attribute: <code class="demoContent-heading" pgs="h1 textColor['txtPrimaryText']">pgs</code></h1>
                 <p class="home-hero-lead">MyPGS ties markup, CSS and JavaScript together through a single
@@ -16,7 +16,7 @@
                 </div>
             </div>
 
-            <!-- <div class="home-hero-media" pgs="flex-flexValue" style="--flex-flexValue: 280px;">
+            <!-- <div class="home-hero-media" pgs="flexChild['flexValue']" style="--flex-flexValue: 280px;">
                 <div class="home-hero-media-panel">
                     <img src="../assets/img/logo.svg" alt="MyPGS">
                 </div>
@@ -80,14 +80,14 @@
     <!-- = SHOWCASE -->
     <section pgs="section flex['column' 'gapElements']">
         <div class="home-showcase-inner" pgs="flex['row' 'gapElements' 'wrap']">
-            <div class="home-showcase-text" pgs="flex['column' 'gapTexts'] flex-flexValue" style="--flex-flexValue: 380px;">
+            <div class="home-showcase-text" pgs="flex['column' 'gapTexts'] flexChild['flexValue']" style="--flex-flexValue: 380px;">
                 <h2>What you see is what <span class="demoContent-heading" pgs="h2">you write</span></h2>
                 <p>Every example in the reference is the real, working markup — copy it exactly as it is,
                     no build step and no hidden wrapper around it.</p>
                 <a pgs="button" href="demo.html">See the components</a>
             </div>
 
-            <div class="home-showcase-demo" pgs="flex['column' 'gapTexts'] flex-flexValue" style="--flex-flexValue: 420px;">
+            <div class="home-showcase-demo" pgs="flex['column' 'gapTexts'] flexChild['flexValue']" style="--flex-flexValue: 420px;">
                 <article class="home-showcase-card" pgs="card['cardHorizontal']">
                     <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="A MyPGS card component">
                     <div pgs="card-content">

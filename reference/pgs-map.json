@@ -388,15 +388,7 @@
         ]
     },
     "flex": {
-        "pgs": [
-            "flex-flex1",
-            "flex-flexFull",
-            "flex-flexInitial",
-            "flex-flexNone",
-            "flex-flexOrderFirst",
-            "flex-flexOrderLast",
-            "flex-flexValue"
-        ],
+        "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
             "aspSquare",
@@ -467,8 +459,15 @@
             "contentEvenly",
             "contentStart",
             "cover",
+            "flex1",
             "flexCenter",
+            "flexFull",
+            "flexInitial",
+            "flexNone",
+            "flexOrderFirst",
+            "flexOrderLast",
             "flexPlaceCenter",
+            "flexValue",
             "gapElements",
             "gapNone",
             "gapSections",
@@ -554,6 +553,20 @@
             "txtWhite",
             "txtWhiteFixed",
             "wrap"
+        ],
+        "pgs-data": []
+    },
+    "flexChild": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "flex1",
+            "flexFull",
+            "flexInitial",
+            "flexNone",
+            "flexOrderFirst",
+            "flexOrderLast",
+            "flexValue"
         ],
         "pgs-data": []
     },

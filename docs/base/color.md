@@ -114,7 +114,7 @@ Interactive palette of the current MyPGS background and text color utilities.
 - `border`: draws the border that the br* utilities recolour; without it there is nothing to colour.
 - `outline`: draws the outline that the ol* utilities recolour; it sits outside the box and takes no space.
 - `button`: supplies the shared button base used by background color triggers.
-- `flex-flexFull`: makes palette headings occupy a full flex row.
+- `flexChild`: sizes or orders an item inside a flex container; the option in its bracket picking how.
 
 ### PGS Options (component brackets)
 
@@ -146,6 +146,7 @@ Interactive palette of the current MyPGS background and text color utilities.
 - `olSuccess`: inside outline's own bracket, recolours it with the success colour.
 - `olWarning`: inside outline's own bracket, recolours it with the warning colour.
 - `olError`: inside outline's own bracket, recolours it with the error colour.
+- `flexFull`: inside flexChild's own bracket, makes palette headings occupy a full flex row.
 - `boxMini`: applies the compact box presentation to each palette group.
 - `btnIconOnly`: makes each background color trigger a compact circular button.
 - `hover`: opens each background color tooltip while its circle is hovered.

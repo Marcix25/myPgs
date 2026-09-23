@@ -3,15 +3,11 @@
 //# RESPONSIVE
 //= FLEX
 //== FLEX
-:is([pgs~="flex"], [pgs*="flex\5B"]) {
-    @include row();
-}
+:is([pgs~="flex"], [pgs*="flex\5B"]) { @include row(); }
 
 //== FLEX OPTIONS
 :is([pgs~="flex"], [pgs*="flex\5B"]) {
-    &[pgs*="'inlineFlex'"] {
-        display: inline-flex;
-    }
+    &[pgs*="'inlineFlex'"] { display: inline-flex; }
 
     //== flexPlaceCenter, not the shortened center: textAlign also has a 'center' option. Named
     //== after place-content/place-items (the CSS shorthand this mirrors); flexCenter below is
@@ -48,41 +44,25 @@
         flex-wrap: nowrap;
     }
 
-    &[pgs*="'wrap'"] {
-        flex-wrap: wrap;
-    }
+    &[pgs*="'wrap'"] { flex-wrap: wrap; }
+}
 
-    //=== FLEX CHILD
-    :where([pgs~="flex-flexInitial"]) {
-        flex: 0 1 auto;
-    }
-
-    :where([pgs~="flex-flexNone"]) {
-        flex: none;
-    }
-
-    :where([pgs~="flex-flex1"]) {
-        flex: 1 1 0%;
-    }
-
-    :where([pgs~="flex-flexFull"]) {
-        flex: 0 0 100%;
-    }
+//== FLEX CHILD
+//== a separate component from flex itself, not nested under it: flexChild marks how one item
+//== behaves inside whichever flex (or grid) container it sits in, and stands on its own instead
+//== of requiring a flex/flex[...] ancestor to match
+:is([pgs~="flexChild"], [pgs*="flexChild\5B"]){
+    &[pgs*="'flexInitial'"] { flex: 0 1 auto; }
+    &[pgs*="'flexNone'"] { flex: none; }
+    &[pgs*="'flex1'"] { flex: 1 1 0%; }
+    &[pgs*="'flexFull'"] { flex: 0 0 100%; }
 
     //== an arbitrary basis has no CSS-only way to come from a bracketed value in the pgs
     //== attribute itself (attr() outside content isn't supported anywhere) — --flex-flexValue set
     //== inline is the same custom-property pattern width/height/icon-size already use
-    :where([pgs~="flex-flexValue"]) {
-        flex: 1 1 var(--flex-flexValue, auto);
-    }
-
-    :where([pgs~="flex-flexOrderFirst"]) {
-        order: -1;
-    }
-
-    :where([pgs~="flex-flexOrderLast"]) {
-        order: 999;
-    }
+    &[pgs*="'flexValue'"] { flex: 1 1 var(--flex-flexValue, auto); }
+    &[pgs*="'flexOrderFirst'"] { order: -1; }
+    &[pgs*="'flexOrderLast'"] { order: 999; }
 }
 
 //== COLUMN
@@ -103,9 +83,7 @@
     }
 
     @for $i from 2 through $maxColumns {
-        &[pgs*="'column-#{$i}'"] {
-            @include columnFlex($i);
-        }
+        &[pgs*="'column-#{$i}'"] { @include columnFlex($i); }
     }
 }
 
@@ -120,18 +98,11 @@
 :is([pgs~="grid"], [pgs*="grid\5B"]) {
     $maxColumns: 8;
 
-    &[pgs*="'column-"] {
-        @include columnGrid($maxColumns);
-    }
-
-    &[pgs*="'column-1'"] {
-        grid-template-columns: auto;
-    }
+    &[pgs*="'column-"] { @include columnGrid($maxColumns); }
+    &[pgs*="'column-1'"] { grid-template-columns: auto; }
 
     @for $i from 2 through $maxColumns {
-        &[pgs*="'column-#{$i}'"] {
-            @include columnGrid($i);
-        }
+        &[pgs*="'column-#{$i}'"] { @include columnGrid($i); }
     }
 }
 
@@ -140,111 +111,38 @@
 [pgs] {
 
     //== GAP
-    &[pgs*="'gapTexts'"] {
-        gap: var(--gap-texts);
-    }
-
-    &[pgs*="'gapElements'"] {
-        gap: var(--gap-elements);
-    }
-
-    &[pgs*="'gapSections'"] {
-        gap: var(--gap-sections);
-    }
-
-    &[pgs*="'gapNone'"] {
-        gap: unset;
-    }
+    &[pgs*="'gapTexts'"] { gap: var(--gap-texts); }
+    &[pgs*="'gapElements'"] { gap: var(--gap-elements); }
+    &[pgs*="'gapSections'"] { gap: var(--gap-sections); }
+    &[pgs*="'gapNone'"] { gap: unset; }
 
     //== ALIGN ITEMS
-    &[pgs*="'itemStart'"] {
-        align-items: start;
-    }
-
-    &[pgs*="'itemCenter'"] {
-        align-items: center;
-    }
-
-    &[pgs*="'itemEnd'"] {
-        align-items: end;
-    }
-
-    &[pgs*="'itemStretch'"] {
-        align-items: stretch;
-    }
-
-    &[pgs*="'itemBaseline'"] {
-        align-items: baseline;
-    }
+    &[pgs*="'itemStart'"] { align-items: start; }
+    &[pgs*="'itemCenter'"] { align-items: center; }
+    &[pgs*="'itemEnd'"] { align-items: end; }
+    &[pgs*="'itemStretch'"] { align-items: stretch; }
+    &[pgs*="'itemBaseline'"] { align-items: baseline; }
 
     //== JUSTIFY CONTENT
-    &[pgs*="'justifyStart'"] {
-        justify-content: start;
-    }
-
-    &[pgs*="'justifyCenter'"] {
-        justify-content: center;
-    }
-
-    &[pgs*="'justifyEnd'"] {
-        justify-content: end;
-    }
-
-    &[pgs*="'justifyBetween'"] {
-        justify-content: space-between;
-    }
-
-    &[pgs*="'justifyAround'"] {
-        justify-content: space-around;
-    }
-
-    &[pgs*="'justifyEvenly'"] {
-        justify-content: space-evenly;
-    }
+    &[pgs*="'justifyStart'"] { justify-content: start; }
+    &[pgs*="'justifyCenter'"] { justify-content: center; }
+    &[pgs*="'justifyEnd'"] { justify-content: end; }
+    &[pgs*="'justifyBetween'"] { justify-content: space-between; }
+    &[pgs*="'justifyAround'"] { justify-content: space-around; }
+    &[pgs*="'justifyEvenly'"] { justify-content: space-evenly; }
 
     //== ALIGN CONTENT
-    &[pgs*="'contentStart'"] {
-        align-content: start;
-    }
-
-    &[pgs*="'contentCenter'"] {
-        align-content: center;
-    }
-
-    &[pgs*="'contentEnd'"] {
-        align-content: end;
-    }
-
-    &[pgs*="'contentBetween'"] {
-        align-content: space-between;
-    }
-
-    &[pgs*="'contentAround'"] {
-        align-content: space-around;
-    }
-
-    &[pgs*="'contentEvenly'"] {
-        align-content: space-evenly;
-    }
+    &[pgs*="'contentStart'"] { align-content: start; }
+    &[pgs*="'contentCenter'"] { align-content: center; }
+    &[pgs*="'contentEnd'"] { align-content: end; }
+    &[pgs*="'contentBetween'"] { align-content: space-between; }
+    &[pgs*="'contentAround'"] { align-content: space-around; }
+    &[pgs*="'contentEvenly'"] { align-content: space-evenly; }
 
     //== SELF ALIGN (on the child of a flex or grid container, not the container itself)
-    &[pgs*="'selfStart'"] {
-        align-self: start;
-    }
-
-    &[pgs*="'selfCenter'"] {
-        align-self: center;
-    }
-
-    &[pgs*="'selfEnd'"] {
-        align-self: end;
-    }
-
-    &[pgs*="'selfStretch'"] {
-        align-self: stretch;
-    }
-
-    &[pgs*="'selfBaseline'"] {
-        align-self: baseline;
-    }
+    &[pgs*="'selfStart'"] { align-self: start; }
+    &[pgs*="'selfCenter'"] { align-self: center; }
+    &[pgs*="'selfEnd'"] { align-self: end; }
+    &[pgs*="'selfStretch'"] { align-self: stretch; }
+    &[pgs*="'selfBaseline'"] { align-self: baseline; }
 }
