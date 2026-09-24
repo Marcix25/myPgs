@@ -9,3 +9,4 @@ modules
 __pycache__/
 *.pyc
 tests
+task.md

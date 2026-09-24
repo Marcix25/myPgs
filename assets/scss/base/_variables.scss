@@ -52,9 +52,7 @@
         --heightOfHeaderScroll: 6.8rem; ///preload fittizio
 
         //- mobile 
-        @media (max-width: $mobile) {
-            --gap-sections: calc(7.3rem + 8svh);
-        }
+        @media (max-width: $mobile) { --gap-sections: calc(7.3rem + 8svh); }
     }
 
     //= COLOR 
@@ -62,9 +60,7 @@
     &:root {
         color-scheme: light;
 
-        &[pgs-state~=darkmode] {
-            color-scheme: dark;
-        }
+        &[pgs-state~=darkmode] { color-scheme: dark; }
 
         //== Primary colors
         --color-primary: #3aa561;

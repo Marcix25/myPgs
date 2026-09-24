@@ -1,9 +1,7 @@
 @use "../mixin/mixin" as *;
 
 //# SEMANTIC
-[pgs~="main"] {
-    @include main;
-}
+[pgs~="main"] { @include main; }
 
 //= SECTION
 // one root, every variant folded into a flag with the sct prefix (sctMax, sctEdgeLeft, ...)
@@ -13,60 +11,37 @@
 // sctRemoveGapBottom are modifiers instead, meant to combine with whichever variant is also
 // present. sctSpecificity keeps its own child token, renamed to match: sctSpecificity-child.
 :is([pgs~="section"], [pgs*="section\5B"]) {
-    &:not([pgs*="section\5B"]) {
+    --section-parentGap: var(--main-gap, var(--gap-sections));
+    --section-marginBase: calc(var(--section-parentGap) / 2 * -1);
+    --section-margin-block: 0 0;
+
+    &:not([pgs*="section\5B"]),
+    &[pgs*="section[]"] {
         @include section;
+        margin-block: var(--section-margin-block);
     }
 
-    &[pgs*="'sctNoPadding'"] {
-        @include sectionNoPadding;
-    }
+    //+ Type of section
+    &[pgs*="'sctNoPadding'"] { @include sectionNoPadding; }
+    &[pgs*="'sctMax'"] { @include sectionMax; }
+    &[pgs*="'sctFull'"] { @include sectionFull; }
+    &[pgs*="'sctSpecificity'"] { @include sectionSpecifity-child(':where([pgs~="sctSpecificity-child"])'); }
 
-    &[pgs*="'sctMax'"] {
-        @include sectionMax;
-    }
+    //++ Edge
+    &[pgs*="'sctEdgeLeft'"] { @include sectionEdgeLeft; }
+    &[pgs*="'sctEdgeRight'"] { @include sectionEdgeRight; }
+    &[pgs*="'sctEdgeFlushLeft'"] { @include sectionEdgeFlushLeft; }
+    &[pgs*="'sctEdgeFlushRight'"] { @include sectionEdgeFlushRight; }
 
-    &[pgs*="'sctFull'"] {
-        @include sectionFull;
-    }
-
-    &[pgs*="'sctEdgeLeft'"] {
-        @include sectionEdgeLeft;
-    }
-
-    &[pgs*="'sctEdgeRight'"] {
-        @include sectionEdgeRight;
-    }
-
-    &[pgs*="'sctEdgeFlushLeft'"] {
-        @include sectionEdgeFlushLeft;
-    }
-
-    &[pgs*="'sctEdgeFlushRight'"] {
-        @include sectionEdgeFlushRight;
-    }
-
-    &[pgs*="'sctSpecificity'"] {
-        @include sectionSpecifity-child(':where([pgs~="sctSpecificity-child"])');
-    }
-
-    &[pgs*="'sctRemoveGap'"] {
-        margin-block: calc(var(--gap-sections) / 2 * -1);
-    }
-
-    &[pgs*="'sctRemoveGapTop'"] {
-        margin-top: calc(var(--gap-sections) / 2 * -1);
-    }
-
-    &[pgs*="'sctRemoveGapBottom'"] {
-        margin-bottom: calc(var(--gap-sections) / 2 * -1);
-    }
+    //+ Remove gap
+    &[pgs*="'sctRemoveGap'"] { --section-margin-block: var(--section-marginBase) var(--section-marginBase); }
+    &[pgs*="'sctRemoveGapTop'"] { --section-margin-block: var(--section-marginBase) 0; }
+    &[pgs*="'sctRemoveGapBottom'"] { --section-margin-block: 0 var(--section-marginBase); }
 }
 
 //== CONTAINER
 :is([pgs~="container"], [pgs*="container\5B"]) {
     container-type: inline-size;
 
-    &[pgs*="'none'"] {
-        container-type: normal;
-    }
+    &[pgs*="'none'"] { container-type: normal; }
 }

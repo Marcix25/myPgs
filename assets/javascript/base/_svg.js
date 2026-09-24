@@ -80,7 +80,9 @@ const svgColors = {
     applyColorsLottie(isDarkMode = svgColors._getCurrentDarkmode()) {
         const colorsLottie = svgColors.searchColor("svg");
 
-        if (!pgs(document).querySelector("lottieChangeColor")) return;
+        //== svgChangeColor gates both passes: Lottie recolours from the same --svg-color-N pairs,
+        //== so there is no separate lottieChangeColor to opt into any more
+        if (!pgs(document).querySelector("svgChangeColor")) return;
 
         document.querySelectorAll("lottie-player").forEach(lottiePlayer => {
             if (!svgColors.watchedLotties.has(lottiePlayer)) {
