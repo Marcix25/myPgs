@@ -1,47 +1,7 @@
 @use "../mixin/mixin" as *;
 
-//+ the row state horizontal and horizontalFixed both draw, private because neither
-//+ variant makes sense without the padding/min-width rules above them on :is([pgs~="card"], [pgs*="card\5B"]) itself
-@mixin _cardHorizontal() {
-    flex-flow: row wrap;
-
-    > :is(object, img),
-    :where([pgs~="card-img"]),
-    :where([pgs~="card-content"]) {
-        border-radius: var(--card-horizontal-borderRadius-item);
-        //== basis 0 alongside flex-grow is what turns the two grow values below into an exact
-        //== ratio (2:3, the 40/60 split) instead of a share of whatever space is left over after
-        flex-basis: 0;
-    }
-
-    :where([pgs~="card-content"]) {
-        flex-grow: var(--card-horizontal-content-grow);
-    }
-
-    > :is(object, img),
-    :where([pgs~="card-img"]) {
-        flex-grow: var(--card-horizontal-img-grow);
-        min-height: var(--card-horizontal-img-minHeight);
-    }
-}
-
-//+ the fallback for a page with no bodyHoverAuto: pgs.hover never marks a link card with the hover
-//+ token there, so nothing under :is([pgs~="hover"], [pgs*="hover\5B"]) ever applies. Private because it only makes sense
-//+ composed on the &:where(a) branch below, the one card variant a hover treatment applies to
-@mixin _cardHover() {
-    @media (hover: hover) and (pointer: fine) {
-        &:hover {
-            &:not(:where(:is([pgs~="hoverNot"], [pgs*="'hoverNot'"]))) {
-                --card-background: var(--color-primary-soft);
-            }
-        }
-    }
-}
-
 //# CARD, BOX
 //= CARD
-// Not a mixin: its content structure requires the :where([pgs~="card-content"]) child to be marked with
-// pgs, so it only makes sense written on the :is([pgs~="card"], [pgs*="card\5B"]) element itself.
 :is([pgs~="card"], [pgs*="card\5B"]) {
     --card-padding: var(--padding);
     --card-borderRadius: calc(var(--border-radius-input) + var(--card-padding));
@@ -56,103 +16,103 @@
     flex-direction: column;
     background: var(--card-background);
     border-radius: var(--card-borderRadius);
+    padding: 0;
+    flex-basis: 100%;
 
+    //== LINK
     &:where(a) {
         display: block;
         border: var(--border-complete);
         --card-background: var(--color-white);
 
+        //=== HOVER
         &:not(:where([pgs*="body\5B"][pgs*="'bodyHoverAuto'"] :is([pgs~="card"], [pgs*="card\5B"]))) {
-            @include _cardHover();
-        }
-    }
-
-    //- not card Legacy
-    &:where(:not([pgs*="'legacy'"])) {
-        padding: 0;
-        flex-basis: 100%;
-
-        > :is(object, img),
-        :where([pgs~="card-img"]) {
-            display: block;
-            padding: var(--card-img-padding);
-            width: 100%;
-            max-width: 100%;
-            min-width: 0;
-            height: auto;
-            margin: 0;
-            object-fit: cover;
-            border-radius: var(--card-borderRadius-item);
-        }
-
-        :where([pgs~="card-content"]) {
-            min-width: 0;
-            padding: var(--card-padding);
-
-            &:has(+:where([pgs~="card-content"])) {
-                padding-bottom: calc(var(--card-padding)/ 2);
-            }
-
-            +:where([pgs~="card-content"]) {
-                padding-top: calc(var(--card-padding)/ 2);
+            @media (hover: hover) and (pointer: fine) {
+                &:hover {
+                    &:not(:where(:is([pgs~="hoverNot"], [pgs*="'hoverNot'"]))) { --card-background: var(--color-primary-soft); }
+                }
             }
         }
     }
 
-    //- card Legacy
-    &[pgs*="'legacy'"] {
-        --card-img-base: calc(var(--card-padding) * -1);
-        --card-img-margin-right: var(--card-img-base);
-        --card-img-margin-left: var(--card-img-base);
-        --card-img-margin-top: var(--card-img-base);
-        --card-img-margin-bottom: var(--card-padding);
+    //== IMG
+    :where([pgs~="card-img"]),
+    :where([pgs~="card-imgForChild"])>* {
+        display: block;
+        padding: var(--card-img-padding);
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        height: auto;
+        margin: 0;
+        object-fit: cover;
+        border-radius: var(--card-borderRadius-item);
+    }
+
+    //== card-imgForChild
+    // wrapper for external media: the rules above land on its direct child
+    :where([pgs~="card-imgForChild"]) {
+        display: block;
+        min-width: 0;
+    }
+
+    //== card-content
+    :where([pgs~="card-content"]) {
+        min-width: 0;
         padding: var(--card-padding);
 
-        > :is(object, img) {
-            display: block;
-            padding: var(--card-img-padding);
-            width: calc((var(--card-padding) * 2) + 100%);
-            max-width: none;
-            height: auto;
-            margin: var(--card-img-margin-top) var(--card-img-margin-right) var(--card-img-margin-bottom) var(--card-img-margin-left);
-            border-radius: var(--card-borderRadius-item);
+        &:has(+:where([pgs~="card-content"])) { padding-bottom: calc(var(--card-padding)/ 2); }
+        +:where([pgs~="card-content"]) { padding-top: calc(var(--card-padding)/ 2); }
+    }
+
+    //+ card Mini
+    // not 'mini': button and box already have that option
+    &[pgs*="'cardMini'"] { --card-padding: var(--padding-half); }
+
+    //+ Horizontal
+    // row layout shared by cardHorizontal and horizontalFixed
+    @mixin _cardHorizontal() {
+        flex-flow: row wrap;
+
+        :where([pgs~="card-img"]),
+        :where([pgs~="card-imgForChild"]),
+        :where([pgs~="card-content"]) {
+            border-radius: var(--card-horizontal-borderRadius-item);
+            flex-basis: 0;
+        }
+
+        :where([pgs~="card-content"]) { flex-grow: var(--card-horizontal-content-grow); }
+
+        :where([pgs~="card-img"]),
+        :where([pgs~="card-imgForChild"]) {
+            flex-grow: var(--card-horizontal-img-grow);
+            min-height: var(--card-horizontal-img-minHeight);
+
+            &:where([pgs~="card-imgForChild"])>* {
+                height: 100%;
+                border-radius: var(--card-horizontal-borderRadius-item);
+            }
         }
     }
 
-    //- card Horizontal
-    //== below the breakpoint the card keeps the default column layout above unchanged; the
-    //== container query only ever adds the row state, so there is nothing to undo going narrow
-    //== cardHorizontal, not the shortened horizontal: menu also has a 'horizontal' option
+    //++ card Horizontal
     &[pgs*="'cardHorizontal'"] {
         container-type: inline-size;
 
         //+( mobile
-        @container (min-width: #{$mobile}) {
-            @include _cardHorizontal();
-        }
+        @container (min-width: #{$mobile}) { @include _cardHorizontal(); }
     }
 
-    //- card Horizontal, fixed
-    //== the same row layout with no query at all: for a card whose own width is not a reliable
-    //== signal — already known to be wide enough, or deliberately narrow and still meant to read
-    //== side-by-side — horizontal would stack in that case, this one never does
-    &[pgs*="'horizontalFixed'"] {
-        @include _cardHorizontal();
-    }
-
-    //- card Mini
-    //== cardMini, not the shortened mini: button and box also have a 'mini' option
-    &[pgs*="'cardMini'"] {
-        --card-padding: var(--padding-half);
-    }
+    //++ card Horizontal - fixed
+    &[pgs*="'horizontalFixed'"] { @include _cardHorizontal(); }
 }
 
 //= BOX
 :is([pgs~="box"], [pgs*="box\5B"]) {
     @include box();
 
-    //- mini
-    //== boxMini, not the shortened mini: button and card also have a 'mini' option
+    //+ mini
+    // not 'mini': button and card already have that option
     &[pgs*="'boxMini'"] {
         --box-padding: var(--padding-half);
         --box-borderRadius: var(--border-radius-input);

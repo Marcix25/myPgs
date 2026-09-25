@@ -3099,6 +3099,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   flex-direction: column;
   background: var(--card-background);
   border-radius: var(--card-borderRadius);
+  padding: 0;
+  flex-basis: 100%;
 }
 
 :is([pgs~=card], [pgs*="card["]):where(a) {
@@ -3112,13 +3114,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
     --card-background: var(--color-primary-soft);
   }
 }
-:is([pgs~=card], [pgs*="card["]):where(:not([pgs*="'legacy'"])) {
-  padding: 0;
-  flex-basis: 100%;
-}
-
-:is([pgs~=card], [pgs*="card["]):where(:not([pgs*="'legacy'"])) > :is(object, img),
-:is([pgs~=card], [pgs*="card["]):where(:not([pgs*="'legacy'"])) :where([pgs~=card-img]) {
+:is([pgs~=card], [pgs*="card["]) :where([pgs~=card-img]),
+:is([pgs~=card], [pgs*="card["]) :where([pgs~=card-imgForChild]) > * {
   display: block;
   padding: var(--card-img-padding);
   width: 100%;
@@ -3130,36 +3127,26 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   border-radius: var(--card-borderRadius-item);
 }
 
-:is([pgs~=card], [pgs*="card["]):where(:not([pgs*="'legacy'"])) :where([pgs~=card-content]) {
+:is([pgs~=card], [pgs*="card["]) :where([pgs~=card-imgForChild]) {
+  display: block;
+  min-width: 0;
+}
+
+:is([pgs~=card], [pgs*="card["]) :where([pgs~=card-content]) {
   min-width: 0;
   padding: var(--card-padding);
 }
 
-:is([pgs~=card], [pgs*="card["]):where(:not([pgs*="'legacy'"])) :where([pgs~=card-content]):has(+ :where([pgs~=card-content])) {
+:is([pgs~=card], [pgs*="card["]) :where([pgs~=card-content]):has(+ :where([pgs~=card-content])) {
   padding-bottom: calc(var(--card-padding) / 2);
 }
 
-:is([pgs~=card], [pgs*="card["]):where(:not([pgs*="'legacy'"])) :where([pgs~=card-content]) + :where([pgs~=card-content]) {
+:is([pgs~=card], [pgs*="card["]) :where([pgs~=card-content]) + :where([pgs~=card-content]) {
   padding-top: calc(var(--card-padding) / 2);
 }
 
-:is([pgs~=card], [pgs*="card["])[pgs*="'legacy'"] {
-  --card-img-base: calc(var(--card-padding) * -1);
-  --card-img-margin-right: var(--card-img-base);
-  --card-img-margin-left: var(--card-img-base);
-  --card-img-margin-top: var(--card-img-base);
-  --card-img-margin-bottom: var(--card-padding);
-  padding: var(--card-padding);
-}
-
-:is([pgs~=card], [pgs*="card["])[pgs*="'legacy'"] > :is(object, img) {
-  display: block;
-  padding: var(--card-img-padding);
-  width: calc(var(--card-padding) * 2 + 100%);
-  max-width: none;
-  height: auto;
-  margin: var(--card-img-margin-top) var(--card-img-margin-right) var(--card-img-margin-bottom) var(--card-img-margin-left);
-  border-radius: var(--card-borderRadius-item);
+:is([pgs~=card], [pgs*="card["])[pgs*="'cardMini'"] {
+  --card-padding: var(--padding-half);
 }
 
 :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] {
@@ -3170,8 +3157,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] {
     flex-flow: row wrap;
   }
-  :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] > :is(object, img),
   :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] :where([pgs~=card-img]),
+  :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] :where([pgs~=card-imgForChild]),
   :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] :where([pgs~=card-content]) {
     border-radius: var(--card-horizontal-borderRadius-item);
     flex-basis: 0;
@@ -3179,18 +3166,22 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] :where([pgs~=card-content]) {
     flex-grow: var(--card-horizontal-content-grow);
   }
-  :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] > :is(object, img),
-  :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] :where([pgs~=card-img]) {
+  :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] :where([pgs~=card-img]),
+  :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] :where([pgs~=card-imgForChild]) {
     flex-grow: var(--card-horizontal-img-grow);
     min-height: var(--card-horizontal-img-minHeight);
+  }
+  :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] :where([pgs~=card-imgForChild]) > * {
+    height: 100%;
+    border-radius: var(--card-horizontal-borderRadius-item);
   }
 }
 :is([pgs~=card], [pgs*="card["])[pgs*="'horizontalFixed'"] {
   flex-flow: row wrap;
 }
 
-:is([pgs~=card], [pgs*="card["])[pgs*="'horizontalFixed'"] > :is(object, img),
 :is([pgs~=card], [pgs*="card["])[pgs*="'horizontalFixed'"] :where([pgs~=card-img]),
+:is([pgs~=card], [pgs*="card["])[pgs*="'horizontalFixed'"] :where([pgs~=card-imgForChild]),
 :is([pgs~=card], [pgs*="card["])[pgs*="'horizontalFixed'"] :where([pgs~=card-content]) {
   border-radius: var(--card-horizontal-borderRadius-item);
   flex-basis: 0;
@@ -3200,14 +3191,15 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   flex-grow: var(--card-horizontal-content-grow);
 }
 
-:is([pgs~=card], [pgs*="card["])[pgs*="'horizontalFixed'"] > :is(object, img),
-:is([pgs~=card], [pgs*="card["])[pgs*="'horizontalFixed'"] :where([pgs~=card-img]) {
+:is([pgs~=card], [pgs*="card["])[pgs*="'horizontalFixed'"] :where([pgs~=card-img]),
+:is([pgs~=card], [pgs*="card["])[pgs*="'horizontalFixed'"] :where([pgs~=card-imgForChild]) {
   flex-grow: var(--card-horizontal-img-grow);
   min-height: var(--card-horizontal-img-minHeight);
 }
 
-:is([pgs~=card], [pgs*="card["])[pgs*="'cardMini'"] {
-  --card-padding: var(--padding-half);
+:is([pgs~=card], [pgs*="card["])[pgs*="'horizontalFixed'"] :where([pgs~=card-imgForChild]) > * {
+  height: 100%;
+  border-radius: var(--card-horizontal-borderRadius-item);
 }
 
 :is([pgs~=box], [pgs*="box["]) {

@@ -76,7 +76,7 @@ key kept its too, for the reason above.
 | button | `buttonBig` / `buttonMini` / `buttonPaddingEqual` / `buttonPrimary` / `buttonQuaternary` / `buttonReverse` / `buttonSecondary` / `buttonStrong` / `buttonTertiary` / `buttonText` / `buttonTransparent` | `big` / `mini` / `paddingEqual` / `primary` / `quaternary` / `reverse` / `secondary` / `strong` / `tertiary` / `text` / `transparent` |
 | button | `buttonHeader` | `forHeader` (kept a word, not just stripped: `button['header']` reads as "is a header") |
 | button | `buttonIcon` | `iconOnly` (not bare `icon`, which is also a real component) |
-| card | `cardHorizontal` / `cardHorizontalFixed` / `cardLegacy` / `cardMini` | `horizontal` / `horizontalFixed` / `legacy` / `mini` |
+| card | `cardHorizontal` / `cardHorizontalFixed` / `cardLegacy` / `cardMini` | `horizontal` / `horizontalFixed` / `legacy` (since removed, see section 2) / `mini` |
 | dropdown | `dropdownHover` | `hover` |
 | flex | `flexColumn` / `flexRow` / `flexColumnReverse` / `flexRowReverse` | `column` / `row` / `columnReverse` / `rowReverse` (`flexCenter` keeps its name: bare `center` would collide in meaning with `itemCenter`/`justifyCenter`/`contentCenter` in the same bracket) |
 | header | `headerCompactBigMobile` / `headerCompactBigTablet` / `headerCompactBottom` / `headerCompactLaptop` / `headerCompactMobile` / `headerCompactTablet` / `headerCompactWatch` | `compactBigMobile` / `compactBigTablet` / `compactBottom` / `compactLaptop` / `compactMobile` / `compactTablet` / `compactWatch` |
@@ -554,6 +554,59 @@ is gone; nothing else about the option — the 40/60 split, `--card-horizontal-i
 overrode `--card-horizontal-breakpoint` to move the switch point needs the `@container` rule's
 `min-width` changed directly, in a project-side override of the selector.
 
+### Card — `legacy` is gone
+
+`card['legacy']` padded the card itself and pulled a direct `<img>`/`<object>` out to the edges
+with negative margins. The option, its rules and the five custom properties behind it
+(`--card-img-base`, `--card-img-margin-top`, `--card-img-margin-right`, `--card-img-margin-bottom`,
+`--card-img-margin-left`) are removed. A card still carrying `'legacy'` in its bracket gets the
+standard card: no padding on the card, the image full-bleed at the top, and the text padded only
+inside `pgs="card-content"`.
+
+Search for `'legacy'` and drop the option, then move everything that is not the image into a
+`card-content`:
+
+```html
+<!-- before -->
+<div pgs="card['legacy']">
+    <img src="...">
+    <h3>...</h3>
+    <p>...</p>
+</div>
+
+<!-- after -->
+<div pgs="card">
+    <img pgs="card-img" src="...">
+    <div pgs="card-content">
+        <h3>...</h3>
+        <p>...</p>
+    </div>
+</div>
+```
+
+The image needs `pgs="card-img"` on it: the card no longer styles a bare `<img>`/`<object>` child
+on its own (see below). A card with no image at all needs the same `card-content` around its
+content, or it loses every bit of its padding. When the image arrives already wrapped, from a
+helper or a block of elements, wrap it in `pgs="card-imgForChild"` (see section 3) instead of leaving the wrapper unmarked.
+
+### Card — the image needs `card-img`
+
+The card used to style any direct `<img>` or `<object>` child by tag, token or not. It
+now styles only what is marked: `pgs="card-img"` on the image itself, or `pgs="card-imgForChild"`
+around it when the markup comes from a helper that writes its own `pgs`. A bare image inside a card
+keeps its intrinsic size and loses the full-bleed width, the top radius, `object-fit: cover` and,
+in `cardHorizontal`/`horizontalFixed`, its share of the 40/60 split.
+
+```html
+<!-- before -->
+<article pgs="card">
+    <img src="...">
+
+<!-- after -->
+<article pgs="card">
+    <img pgs="card-img" src="...">
+```
+
 ### Slides — the last CSS classes become states
 
 | was | now |
@@ -590,6 +643,9 @@ border above the footer legal row — now has both its rule and the library's.
   `@container` behind it: for a card whose own width is not a reliable signal — already known
   to be wide enough, or deliberately narrow but still meant to read side-by-side — where
   `cardHorizontal` would stack, this one never does.
+- **`card-imgForChild`.** A wrapper for card media the card does not write itself — an `<img>`
+  printed by a helper, a block of elements: the `card-img` treatment lands on its
+  direct child, and in `cardHorizontal`/`horizontalFixed` the wrapper itself takes the 40/60 split.
 - **Icons with no font.** `pgs="icon"` plus a glyph option covers dozens of shapes and needs nothing
   loaded. Written bare it only marks an element as an icon, which is how a set that does not use
   `<i>` — Material Symbols, Lucide, Iconify — gets the same box and placement.
@@ -706,6 +762,12 @@ grep -rnE '<body\b[^>]*\bpgs="' . | grep -vE 'bodyHoverAuto'
 
 # 27. cardHorizontal's breakpoint, no longer a custom property
 grep -rn 'card-horizontal-breakpoint' .
+
+# 28. cards still on the removed legacy geometry (read, don't replace)
+grep -rnE "card\\[[^]]*'legacy'|--card-img-(base|margin)" .
+
+# 29. cards whose image carries no card-img (read, don't replace)
+grep -rnE -A3 'pgs="card(\[|")' . | grep -E '<(img|object|picture)\b' | grep -v 'card-img'
 ```
 
 Hit 5 needs reading rather than replacing: an `icon` that wraps another element wanted the surface
@@ -730,4 +792,9 @@ never got the automatic marking, so this only flags pages that carry some other 
 `bodyHoverAuto` added regardless if it uses `pgs="button"`, a link `card` or `box` anywhere and relied on
 the hover treatment showing up on its own. Hit 27 needs reading: a project that never touched
 `--card-horizontal-breakpoint` needs nothing, one that did override it needs the same `min-width`
-written into its own `@container` rule instead.
+written into its own `@container` rule instead. Hit 28 needs reading as well: dropping `'legacy'` is
+the easy half, each hit also needs its non-image content moved into a `pgs="card-content"`, which
+only the markup can tell you how to split. Hit 29 is a starting point, not a complete list: it only
+sees an image written within three lines of the card, so an image printed by a helper
+(`PGS_fn_img()` and the like) has to be found by reading the card templates, and wrapped in
+`card-imgForChild`.

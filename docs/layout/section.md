@@ -50,6 +50,9 @@ Section variants that control width, padding, and specific content treatment whi
 
 ## CSS Variables
 
+- `--section-margin-block`
+- `--section-marginBase`
+- `--section-parentGap`
 - `--section-width`
 
 ## Output

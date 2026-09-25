@@ -7,7 +7,8 @@ Reusable surfaces for presenting structured card content or grouping simpler con
 ## PGS
 
 - `card`: identifies the main card container. Written on an `<a>` it becomes a clickable surface, and `pgs.hover` marks it with `hover` on a page that carries `bodyHoverAuto`, so it takes the shared hover and focus treatment; see Html and Body.
-- `card-img`: identifies the main card image.
+- `card-img`: identifies the main card image, written on the `<img>` or `<object>` itself; a bare image with no token inside a card is not styled.
+- `card-imgForChild`: a wrapper for card media the card does not write itself, such as an image printed by a helper or a block of elements: the card-img treatment lands on its direct child, and in cardHorizontal/horizontalFixed the wrapper is the one taking the 40/60 split.
 - `card-content`: groups the text and actions of a card.
 - `box`: identifies a lightweight content container or clickable surface. Written on an `<a>` it is marked with `hover` the same way a clickable card is.
 
@@ -17,7 +18,6 @@ Reusable surfaces for presenting structured card content or grouping simpler con
 - `horizontalFixed`: the same 40/60 layout as cardHorizontal, with no container query behind it — the card reads side-by-side whatever its own width is, which is what a card already known to be wide enough, or one deliberately narrow but still meant to stay horizontal, wants instead of the responsive switch.
 - `cardMini`: reduces the content padding on the card's own card-content.
 - `boxMini`: inside box's own bracket, the same reduced padding on the box itself.
-- `legacy`: the card the library drew before the padding moved onto card-content: the card itself is padded and the image is pulled out to the edges with negative margins. It is kept for pages built around that geometry — a new card wants neither the option nor a card-content of its own to place the image.
 
 ## Related elements
 
@@ -45,17 +45,12 @@ Reusable surfaces for presenting structured card content or grouping simpler con
 - `--card-horizontal-content-grow`
 - `--card-horizontal-img-grow`
 - `--card-horizontal-img-minHeight`
-- `--card-img-base`
-- `--card-img-margin-bottom`
-- `--card-img-margin-left`
-- `--card-img-margin-right`
-- `--card-img-margin-top`
 - `--card-img-padding`
 - `--card-padding`
 
 ## Output
 
-Standard, clickable, horizontal, and compact cards followed by standard, compact, and clickable boxes.
+Standard, wrapped-image, clickable, horizontal, and compact cards followed by standard, compact, and clickable boxes.
 ## Examples
 
 ### Standard card
@@ -70,6 +65,23 @@ Descriptive card content suitable for lists, previews, and grids.
         <h3>Lorem ipsum dolor</h3>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         <a pgs="button margin['mrgTop']" href="#">Read more</a>
+    </div>
+</article>
+```
+
+### Card with a wrapped image
+
+card-imgForChild wraps media the card does not write itself: the image treatment lands on its direct child.
+
+```html
+<article pgs="card">
+    <div pgs="card-imgForChild">
+        <img src="../assets/img/placeholder.jpg" alt="Placeholder image">
+    </div>
+
+    <div pgs="card-content">
+        <h3>Sed ut perspiciatis</h3>
+        <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur.</p>
     </div>
 </article>
 ```
