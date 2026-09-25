@@ -9,6 +9,7 @@ Responsive flex and grid layouts with configurable columns, gap, wrapping, and a
 - `grid`: creates a responsive grid layout.
 - `flex`: creates a horizontal flex layout by default.
 - `flexChild`: sizes or orders one item inside a flex (or grid) container, the option in its bracket picking how; a separate component from flex itself, so it stands on its own without needing a flex/flex[...] ancestor.
+- `gridChild`: the grid counterpart of flexChild, for one item inside a grid['column-N']: its col* options set how many columns the item spans. Separate from flexChild because flex's own sizing (grow, basis) means nothing inside a grid.
 
 ## PGS Options (component brackets)
 
@@ -17,6 +18,17 @@ Responsive flex and grid layouts with configurable columns, gap, wrapping, and a
 - `flex1`: inside flexChild's own bracket, lets a flex child grow and shrink to fill available space.
 - `flexFull`: inside flexChild's own bracket, makes a flex child occupy a full row.
 - `flexValue`: inside flexChild's own bracket, sets a flex child's basis to --flex-flexValue, set inline for an arbitrary value.
+- `flexS`: inside flexChild's own bracket, grows the item by a weight of 1 (--flexChild-size-s) on a zero basis, so sizes next to each other split the row in exact proportion.
+- `flexM`: inside flexChild's own bracket, grows the item by a weight of 2 (--flexChild-size-m).
+- `flexL`: inside flexChild's own bracket, grows the item by a weight of 3 (--flexChild-size-l).
+- `flexXl`: inside flexChild's own bracket, grows the item by a weight of 4 (--flexChild-size-xl).
+- `flexXxl`: inside flexChild's own bracket, grows the item by a weight of 5 (--flexChild-size-xxl).
+- `gridDense`: inside grid's own bracket, lets later items fill the holes a wider one leaves at the end of a row (grid-auto-flow: dense), so the visual order can differ from the source order.
+- `colS`: inside flexChild's or gridChild's own bracket, makes the item take 1 column of a flex['column-N'] (flexChild, --flexChild-col-s) or grid['column-N'] (gridChild, --gridChild-col-s) row, capped by the columns the current breakpoint leaves; outside those containers it does nothing.
+- `colM`: inside flexChild's or gridChild's own bracket, takes 2 columns (--flexChild-col-m / --gridChild-col-m) of a column-N row.
+- `colL`: inside flexChild's or gridChild's own bracket, takes 3 columns (--flexChild-col-l / --gridChild-col-l) of a column-N row: three of a column-4, and a full row where the breakpoint leaves only two.
+- `colXl`: inside flexChild's or gridChild's own bracket, takes 4 columns (--flexChild-col-xl / --gridChild-col-xl) of a column-N row.
+- `colXxl`: inside flexChild's or gridChild's own bracket, takes 5 columns (--flexChild-col-xxl / --gridChild-col-xxl) of a column-N row.
 - `flexOrderFirst`: inside flexChild's own bracket, places a flex child before its siblings.
 - `flexOrderLast`: inside flexChild's own bracket, places a flex child after its siblings.
 - `inlineFlex`: uses inline-flex for the flex container.
@@ -179,5 +191,48 @@ Sizing behavior of individual flex children: initial, none, grow, full width, an
     <span pgs="box flexChild['flexValue']" style="--flex-flexValue: 220px;">220px</span>
     <span pgs="box flexChild['flexOrderLast']">Last</span>
     <span pgs="box flexChild['flexOrderFirst']">First</span>
+</div>
+```
+
+### Flex child sizes
+
+flexS to flexXxl grow in proportion 1:2:3:4:5 on a zero basis, so each row splits by weight whatever the content.
+
+```html
+<div pgs="flex['row' 'gapTexts']">
+    <span pgs="box flexChild['flexS']">S</span>
+    <span pgs="box flexChild['flexM']">M</span>
+    <span pgs="box flexChild['flexL']">L</span>
+    <span pgs="box flexChild['flexXl']">XL</span>
+    <span pgs="box flexChild['flexXxl']">XXL</span>
+</div>
+<div pgs="flex['row' 'gapTexts']">
+    <span pgs="box flexChild['flexS']">S — 1/4</span>
+    <span pgs="box flexChild['flexL']">L — 3/4</span>
+</div>
+```
+
+### Column spans
+
+colS to colXxl take 1 to 5 columns of a column-N row: on flexChild inside a flex, on gridChild inside a grid, capped by the columns each breakpoint leaves.
+
+```html
+<div pgs="flex['column-4']">
+    <span pgs="box flexChild['colS']">colS — 1 of 4</span>
+    <span pgs="box flexChild['colL']">colL — 3 of 4</span>
+    <span pgs="box flexChild['colM']">colM — 2 of 4</span>
+    <span pgs="box">1</span>
+    <span pgs="box">1</span>
+</div>
+<div pgs="grid['column-4']">
+    <span pgs="box gridChild['colL']">colL — spans 3 of 4</span>
+    <span pgs="box">1</span>
+    <span pgs="box gridChild['colM']">colM — spans 2</span>
+    <span pgs="box gridChild['colM']">colM — spans 2</span>
+</div>
+<div pgs="grid['column-4' 'gridDense']">
+    <span pgs="box gridChild['colL']">colL — spans 3</span>
+    <span pgs="box gridChild['colM']">colM — spans 2</span>
+    <span pgs="box">1 — moved up by gridDense</span>
 </div>
 ```

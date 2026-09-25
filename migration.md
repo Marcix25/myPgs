@@ -752,6 +752,14 @@ border above the footer legal row — now has both its rule and the library's.
 - **Size utilities.** `width`/`widthMax`/`widthMin`/`height`/`heightMax`/`heightMin`, each with its
   own scale (`width['widthPage']`, `heightMin['heightMinScreen']`, `height['heightUnderMain']`, ...)
   and its own inline custom property (`--width-size`, `--widthMax-size`, `--heightMin-size`, ...).
+- **Proportional flex children.** `flexChild['flexS'/'flexM'/'flexL'/'flexXl'/'flexXxl']` grow in
+  proportion 1:2:3:4:5 on a zero basis, so a `flexS` next to a `flexL` splits the row 1:3; each
+  weight is a custom property (`--flexChild-size-s` … `--flexChild-size-xxl`).
+- **Column spans.** `colS`/`colM`/`colL`/`colXl`/`colXxl` take 1 to 5 columns of a `column-N` row
+  (`colL` = three columns of a `column-4`), capped by the columns each breakpoint leaves, so a
+  span never overflows into extra columns: on `flexChild` inside a `flex['column-N']`, and on the
+  new `gridChild` inside a `grid['column-N']`, where it replaces a hand-written
+  `grid-column: span N`. `--flexChild-col-*` / `--gridChild-col-*` retune the spans. `grid['gridDense']` lets later items fill the holes a wide span leaves.
 - **More utilities.** `textAlign['taCenter']` and the rest of the `ta*` set, `rotate` (180deg bare,
   `rot0`/`rot90`/`rot270` in the bracket), `container['cntNone']`, and `section['sctRemoveGap']`/
   `sctRemoveGapTop`/`sctRemoveGapBottom` to drop a section's outer margin.

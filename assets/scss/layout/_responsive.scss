@@ -2,11 +2,10 @@
 
 //# RESPONSIVE
 //= FLEX
-//== FLEX
-:is([pgs~="flex"], [pgs*="flex\5B"]) { @include row(); }
-
 //== FLEX OPTIONS
 :is([pgs~="flex"], [pgs*="flex\5B"]) {
+    @include row();
+
     &[pgs*="'inlineFlex'"] { display: inline-flex; }
 
     //== flexPlaceCenter, not the shortened center: textAlign also has a 'center' option. Named
@@ -49,9 +48,9 @@
 
 //== FLEX CHILD
 // a separate component from flex itself, not nested under it: flexChild marks how one item
-// behaves inside whichever flex (or grid) container it sits in, and stands on its own instead
-// of requiring a flex/flex[...] ancestor to match
-:is([pgs~="flexChild"], [pgs*="flexChild\5B"]){
+// behaves inside the flex container it sits in, and stands on its own instead of requiring a
+// flex/flex[...] ancestor to match. A grid item uses gridChild instead
+:is([pgs~="flexChild"], [pgs*="flexChild\5B"]) {
     &[pgs*="'flexInitial'"] { flex: 0 1 auto; }
     &[pgs*="'flexNone'"] { flex: none; }
     &[pgs*="'flex1'"] { flex: 1 1 0%; }
@@ -61,6 +60,28 @@
     // attribute itself (attr() outside content isn't supported anywhere) — --flex-flexValue set
     // inline is the same custom-property pattern width/height/icon-size already use
     &[pgs*="'flexValue'"] { flex: 1 1 var(--flex-flexValue, auto); }
+
+    // proportional sizes: a zero basis turns the grow values into an exact ratio, so a flexS next
+    // to a flexL splits the row 1:3 whatever their content. Each weight is a custom property, so a
+    // project can retune the scale without touching the option names
+    &[pgs*="'flexS'"] { --_flexChild-size: var(--flexChild-size-s, 1); }
+    &[pgs*="'flexM'"] { --_flexChild-size: var(--flexChild-size-m, 2); }
+    &[pgs*="'flexL'"] { --_flexChild-size: var(--flexChild-size-l, 3); }
+    &[pgs*="'flexXl'"] { --_flexChild-size: var(--flexChild-size-xl, 4); }
+    &[pgs*="'flexXxl'"] { --_flexChild-size: var(--flexChild-size-xxl, 5); }
+    &:is([pgs*="'flexS'"], [pgs*="'flexM'"], [pgs*="'flexL'"], [pgs*="'flexXl'"], [pgs*="'flexXxl'"]) { flex: var(--_flexChild-size) 1 0%; }
+
+    // column spans: how many columns the item takes inside a flex['column-N'], capped by the
+    // columns the current breakpoint leaves; outside it they do nothing, see COLUMN below.
+    // gridChild has the same set for grid['column-N']
+    &[pgs*="'colS'"] {
+        --_flexChild-col: var(--flexChild-col-s, 1);
+    }
+
+    &[pgs*="'colM'"] { --_flexChild-col: var(--flexChild-col-m, 2); }
+    &[pgs*="'colL'"] { --_flexChild-col: var(--flexChild-col-l, 3); }
+    &[pgs*="'colXl'"] { --_flexChild-col: var(--flexChild-col-xl, 4); }
+    &[pgs*="'colXxl'"] { --_flexChild-col: var(--flexChild-col-xxl, 5); }
     &[pgs*="'flexOrderFirst'"] { order: -1; }
     &[pgs*="'flexOrderLast'"] { order: 999; }
 }
@@ -85,6 +106,22 @@
     @for $i from 2 through $maxColumns {
         &[pgs*="'column-#{$i}'"] { @include columnFlex($i); }
     }
+
+    // col* spans that many columns, capped by the columns the current breakpoint leaves
+    // (--_flex-cols, published by columnFlex): colL in a column-4 row takes three of the four and
+    // drops to a full row once the breakpoint leaves only two. Growing by its own span keeps the
+    // proportion when the row has columns left over
+    &[pgs*="'column-"]:not([pgs*="'column-1'"]) {
+        > :is([pgs~="flexChild"], [pgs*="flexChild\5B"]) {
+            &:is([pgs*="'colS'"], [pgs*="'colM'"], [pgs*="'colL'"], [pgs*="'colXl'"], [pgs*="'colXxl'"]) {
+                --_flexChild-span: min(var(--_flexChild-col), var(--_flex-cols, 1));
+                // flex: var(--_flexChild-span) 0 calc((100% - var(--flex-gap) * (var(--_flex-cols, 1) - 1)) / var(--_flex-cols, 1) * var(--_flexChild-span) + var(--flex-gap) * (var(--_flexChild-span) - 1));
+                flex-grow: var(--_flexChild-span);
+                flex-shrink: 0;
+                flex-basis: calc((100% + var(--flex-gap)) * var(--_flexChild-span) / var(--_flex-cols, 1) - var(--flex-gap));
+            }
+        }
+    }
 }
 
 //= GRID
@@ -93,22 +130,56 @@
     display: grid;
     gap: var(--gap-texts);
     width: 100%;
+
+    // fills the holes a wide item leaves at the end of a row with the items that come after it,
+    // instead of always placing them in source order
+    &[pgs*="'gridDense'"] { grid-auto-flow: row dense; }
 }
 
 :is([pgs~="grid"], [pgs*="grid\5B"]) {
     $maxColumns: 8;
 
     &[pgs*="'column-"] { @include columnGrid($maxColumns); }
-    &[pgs*="'column-1'"] { grid-template-columns: auto; }
+
+    &[pgs*="'column-1'"] {
+        grid-template-columns: auto;
+        --_grid-cols: 1;
+    }
 
     @for $i from 2 through $maxColumns {
         &[pgs*="'column-#{$i}'"] { @include columnGrid($i); }
     }
+
+    // gridChild's col* spans that many grid columns, capped by the columns the current
+    // breakpoint leaves (--_grid-cols, published by columnGrid): a span wider than the grid
+    // would otherwise make the grid add implicit columns of its own
+    &[pgs*="'column-"]> :is([pgs~="gridChild"], [pgs*="gridChild\5B"]):is([pgs*="'colS'"], [pgs*="'colM'"], [pgs*="'colL'"], [pgs*="'colXl'"], [pgs*="'colXxl'"]) {
+        //
+        grid-column: span min(var(--_gridChild-col), var(--_grid-cols, 1));
+    }
+}
+
+//== GRID CHILD
+// the grid counterpart of flexChild: how one item sits inside the grid it belongs to. Separate
+// from flexChild because a grid item has none of flex's sizing (flex-grow/basis mean nothing
+// there), and its own options stay free to grow into rows and placement
+:is([pgs~="gridChild"], [pgs*="gridChild\5B"]) {
+
+    // column spans: how many columns the item takes inside a grid['column-N'], capped by the
+    // columns the current breakpoint leaves; outside it they do nothing, see COLUMN above
+    &[pgs*="'colS'"] {
+        --_gridChild-col: var(--gridChild-col-s, 1);
+    }
+
+    &[pgs*="'colM'"] { --_gridChild-col: var(--gridChild-col-m, 2); }
+    &[pgs*="'colL'"] { --_gridChild-col: var(--gridChild-col-l, 3); }
+    &[pgs*="'colXl'"] { --_gridChild-col: var(--gridChild-col-xl, 4); }
+    &[pgs*="'colXxl'"] { --_gridChild-col: var(--gridChild-col-xxl, 5); }
 }
 
 //= FLEX & GRID 
 // (including layout mixins composed by other components)
-[pgs] {
+:is([pgs~="gridChild"], [pgs*="gridChild\5B"], [pgs~="flex"], [pgs*="flex\5B"]) {
 
     //== GAP
     &[pgs*="'gapTexts'"] { gap: var(--gap-texts); }
