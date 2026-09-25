@@ -14,15 +14,15 @@ Responsive header that measures available space, switches between its full and c
 
 ## PGS Options (component brackets)
 
-- `compactBottom`: moves header-element to the bottom of the viewport while the header is compact, so it follows the chosen breakpoint.
-- `compactWatch`: forces the compact layout from the watch width down, even when the content still fits.
-- `compactMobile`: forces the compact layout from the mobile width down, even when the content still fits.
-- `compactBigMobile`: forces the compact layout from the big-mobile width down, even when the content still fits.
-- `compactTablet`: forces the compact layout from the tablet width down, even when the content still fits.
-- `compactBigTablet`: forces the compact layout from the big-tablet width down, even when the content still fits.
-- `compactLaptop`: forces the compact layout from the laptop width down, even when the content still fits.
-- `scroll`: hides the header while scrolling down and shows it again while scrolling up.
-- `main`: marks the header that owns --heightOfHeader and --heightOfHeaderScroll, the properties that push the page content down. Only needed on a page with more than one header; without it the first one keeps them.
+- `headerCompactBottom`: moves header-element to the bottom of the viewport while the header is compact, so it follows the chosen breakpoint.
+- `headerCompactWatch`: forces the compact layout from the watch width down, even when the content still fits.
+- `headerCompactMobile`: forces the compact layout from the mobile width down, even when the content still fits.
+- `headerCompactBigMobile`: forces the compact layout from the big-mobile width down, even when the content still fits.
+- `headerCompactTablet`: forces the compact layout from the tablet width down, even when the content still fits.
+- `headerCompactBigTablet`: forces the compact layout from the big-tablet width down, even when the content still fits.
+- `headerCompactLaptop`: forces the compact layout from the laptop width down, even when the content still fits.
+- `headerScroll`: hides the header while scrolling down and shows it again while scrolling up.
+- `headerMain`: marks the header that owns --heightOfHeader and --heightOfHeaderScroll, the properties that push the page content down. Only needed on a page with more than one header; without it the first one keeps them.
 
 ## PGS Data
 
@@ -62,8 +62,8 @@ Responsive header that measures available space, switches between its full and c
 - `row`: sets the horizontal direction inside the flex bracket.
 - `nowrap`: uses the related nowrap component or utility in this example.
 - `menuHorizontal`: arranges the full-layout menu horizontally.
-- `vertical`: arranges the compact-layout menu vertically.
-- `short`: compacts adjacent full-layout menu links by overlapping their horizontal spacing.
+- `menuVertical`: arranges the compact-layout menu vertically.
+- `menuShort`: compacts adjacent full-layout menu links by overlapping their horizontal spacing.
 - `dialogRight`: presents the compact navigation dialog content from the right side.
 - `btnIconOnly`: presents theme and hamburger controls as icon buttons.
 - `icon-bell`: the glyph on the control that opens the panel.
@@ -117,7 +117,7 @@ Full navigation on the left, always-visible controls on the right, and the same 
 		</div>
 
 		<div pgs="header-element-onlyFull">
-			<nav pgs="menu['menuHorizontal' 'short']" aria-label="Main menu">
+			<nav pgs="menu['menuHorizontal' 'menuShort']" aria-label="Main menu">
 				<ul>
 					<li><a pgs="button['btnTransparent' 'btnForHeader' 'btnPaddingEqual']" href="/">Home</a></li>
 					<li><a pgs="button['btnTransparent' 'btnForHeader' 'btnPaddingEqual']" href="/services">Services</a></li>
@@ -155,7 +155,7 @@ Full navigation on the left, always-visible controls on the right, and the same 
 
 					<dialog>
 						<div pgs="modal-dialog-content">
-							<nav pgs="menu['vertical']" aria-label="Compact menu">
+							<nav pgs="menu['menuVertical']" aria-label="Compact menu">
 								<ul>
 									<li><a pgs="button['btnTransparent' 'btnPaddingEqual']" href="/">Home</a></li>
 									<li><a pgs="button['btnTransparent' 'btnPaddingEqual']" href="/services">Services</a></li>

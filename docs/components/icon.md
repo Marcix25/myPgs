@@ -11,10 +11,10 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 ## PGS Options (component brackets)
 
 - `icon-arrowLeft`: arrow pointing left, for stepping back through a sequence.
-- `boxed`: turns the element into the circular surface a glyph sits inside. It is the container and says nothing about what it holds, so a built-in glyph and an icon from any other set sit in it alike.
-- `duo`: draws a two-layer version of a glyph instead of the flat one, when that glyph has one (icon-hamburgerTwo does); write it alongside the glyph name, as pgs="icon['icon-hamburgerTwo' 'duo']". Each layer paints on its own pseudo-element, so a component can animate or colour them independently.
-- `medium`: sets --icon-size to 2rem, a preset for a glyph that needs to stand out more than the size it inherits from the surrounding text.
-- `large`: sets --icon-size to 3rem, a preset for a glyph large enough to anchor its own section.
+- `iconBoxed`: turns the element into the circular surface a glyph sits inside. It is the container and says nothing about what it holds, so a built-in glyph and an icon from any other set sit in it alike.
+- `iconDuo`: draws a two-layer version of a glyph instead of the flat one, when that glyph has one (icon-hamburgerTwo does); write it alongside the glyph name, as pgs="icon['icon-hamburgerTwo' 'iconDuo']". Each layer paints on its own pseudo-element, so a component can animate or colour them independently.
+- `iconMedium`: sets --icon-size to 2rem, a preset for a glyph that needs to stand out more than the size it inherits from the surrounding text.
+- `iconLarge`: sets --icon-size to 3rem, a preset for a glyph large enough to anchor its own section.
 - `icon-arrowRight`: arrow pointing right, for stepping forward.
 - `icon-chevronDown`: chevron pointing down, for anything that expands in place.
 - `icon-check`: tick, for a confirmed or checked state.
@@ -130,7 +130,7 @@ Every glyph the library can draw. The token marks the element, the option names 
 <i pgs="icon['icon-upload']"></i>
 <i pgs="icon['icon-user']"></i>
 <i pgs="icon['icon-ellipsis']"></i>
-<i pgs="icon['icon-hamburgerTwo' 'duo']"></i>
+<i pgs="icon['icon-hamburgerTwo' 'iconDuo']"></i>
 ```
 
 ### Size and colour
@@ -140,8 +140,8 @@ A glyph is drawn at the font size of its element and painted in the text colour,
 ```html
 <p><i pgs="icon['icon-circleInfo']"></i> Inside a paragraph, matching the text.</p>
 
-<i pgs="icon['large' 'icon-circleCheck']"></i>
-<i pgs="icon['medium' 'icon-circleCheck']"></i>
+<i pgs="icon['iconLarge' 'icon-circleCheck']"></i>
+<i pgs="icon['iconMedium' 'icon-circleCheck']"></i>
 <i pgs="icon['icon-circleCheck']"></i>
 
 <i pgs="icon['icon-triangleExclamation'] textColor['txtPrimary']"></i>
@@ -154,6 +154,6 @@ A glyph is drawn at the font size of its element and painted in the text colour,
 A glyph placed in boxed, the circular surface that holds one icon.
 
 ```html
-<i pgs="icon['boxed' 'icon-check']"></i>
-<i pgs="icon['boxed' 'icon-close']"></i>
+<i pgs="icon['iconBoxed' 'icon-check']"></i>
+<i pgs="icon['iconBoxed' 'icon-close']"></i>
 ```

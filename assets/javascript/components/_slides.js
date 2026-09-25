@@ -66,7 +66,7 @@ class PGS_Slides {
     }
 
     //+ SLIDE THE ARROWS MOVE FROM
-    //== singleScroll starts from the middle one in view, the one the snap is resting on: from the
+    //== slidesSingleScroll starts from the middle one in view, the one the snap is resting on: from the
     //== first, with three slides showing, the next sibling is already centred and nothing scrolls
     #currentSlide(towardsEnd) {
         //== arrow function: a declared one would have its own this and throw here
@@ -88,7 +88,7 @@ class PGS_Slides {
         //== the one on its own side: rounded down going forward, up going back. Rounding down for
         //== both, as this did, left the two arrows starting from the same slide, and going back
         //== then covered a slide more than going forward did
-        if (pgs(this.element).option.contains('singleScroll')) {
+        if (pgs(this.element).option.contains('slidesSingleScroll')) {
             const middle = (currents.length - 1) / 2;
             return currents[towardsEnd ? Math.floor(middle) : Math.ceil(middle)];
         }
@@ -204,7 +204,7 @@ class PGS_Slides {
         const dots = Array.from(pgs(slides).querySelector(['slides-dots', '_slides-dots']).children);
 
         //== option
-        const scrollMouse = pgs(slides).option.contains('scrollMouse');
+        const scrollMouse = pgs(slides).option.contains('slidesScrollMouse');
 
         //== scroll
         const removeHorizontalScroll = scrollMouse

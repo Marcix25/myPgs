@@ -28,11 +28,11 @@
     --pageShell-content-width: var(--page-width);
     // aside
     --pageShell-aside-width: 20rem;
-    //++ asideScroll
+    //++ shellAsideScroll
     --pageShell-asideScroll-top: var(--heightOfHeader);
     --pageShell-asideScroll-padding-top: var(--pageShell-padding-top);
     --pageShell-asideScroll-maxHeight: calc(100dvh - var(--pageShell-asideScroll-top));
-    //++ asideShadow
+    //++ shellAsideShadow
     --pageShell-asideShadow-sizeMaskImage: 40px;
     display: grid;
     grid-template-columns: 1fr;
@@ -205,8 +205,8 @@
     }
 
     //+ OPTION
-    //++ fullPage
-    &[pgs*="'fullPage'"] {
+    //++ shellFullPage
+    &[pgs*="'shellFullPage'"] {
         --pageShell-width: 100%;
 
         :where([pgs~="pageShell-content"]) {
@@ -214,8 +214,8 @@
         }
     }
 
-    //++ asideScroll
-    &[pgs*="'asideScroll'"] {
+    //++ shellAsideScroll
+    &[pgs*="'shellAsideScroll'"] {
         padding-top: 0;
 
         //=== vertical: the sidebar stacks, so it stops being its own scroller
@@ -248,8 +248,8 @@
         }
     }
 
-    //++ asideShadow
-    &[pgs*="'asideShadow'"] {
+    //++ shellAsideShadow
+    &[pgs*="'shellAsideShadow'"] {
 
         //+( big-tablet
         @container (min-width: #{$big-tablet}) {

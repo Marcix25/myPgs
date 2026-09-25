@@ -14,7 +14,7 @@
     --_dropdown-arrow-inset: calc(var(--dropdown-arrow-size) + var(--dropdown-borderRadius));
     position: relative;
 
-    [pgs*="'hover'"] {}
+    [pgs*="'drpHover'"] {}
     [pgs-data~="dropdownPosition[]"] {}
     &:not([pgs-state~="open"])>:where([pgs~="dropdown-content"]) { display: none; }
     &[pgs-state~="open"]>:where([pgs~="dropdown-content"]) { display: var(--dropdown-display); }

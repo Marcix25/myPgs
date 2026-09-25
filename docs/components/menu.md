@@ -16,9 +16,9 @@ Menu markup with horizontal, vertical and recursively nested navigation examples
 ## PGS Options (component brackets)
 
 - `menuHorizontal`: identifies the horizontal element used by Menu.
-- `vertical`: identifies the vertical element used by Menu.
-- `iconOnlyCurrent`: displays link icons only when the link has an active aria-current value.
-- `short`: compacts adjacent menu links by overlapping their horizontal spacing.
+- `menuVertical`: identifies the vertical element used by Menu.
+- `menuIconOnlyCurrent`: displays link icons only when the link has an active aria-current value.
+- `menuShort`: compacts adjacent menu links by overlapping their horizontal spacing.
 
 ## PGS States
 
@@ -113,7 +113,7 @@ Top-level navigation arranged horizontally, with one nested submenu.
 Vertical navigation with recursively nested submenus, showing icons only on the active link.
 
 ```html
-<nav pgs="menu['vertical']" aria-label="Menu verticale">
+<nav pgs="menu['menuVertical']" aria-label="Menu verticale">
     <ul>
         <li>
             <a pgs="button['btnTransparent']" href="/" aria-current="page">
@@ -156,7 +156,7 @@ Vertical navigation with recursively nested submenus, showing icons only on the 
 Top-level navigation arranged horizontally, with one nested submenu.
 
 ```html
-<nav pgs="menu['menuHorizontal' 'iconOnlyCurrent']" aria-label="Menu orizzontale">
+<nav pgs="menu['menuHorizontal' 'menuIconOnlyCurrent']" aria-label="Menu orizzontale">
     <ul pgs="flex['row' 'wrap']">
         <li>
             <a pgs="button['btnTransparent']" href="/" aria-current="page">
@@ -185,7 +185,7 @@ Top-level navigation arranged horizontally, with one nested submenu.
 Top-level navigation with short, overlapping the horizontal spacing between adjacent links.
 
 ```html
-<nav pgs="menu['menuHorizontal' 'short']" aria-label="Menu orizzontale">
+<nav pgs="menu['menuHorizontal' 'menuShort']" aria-label="Menu orizzontale">
     <ul pgs="flex['row' 'wrap']">
         <li>
             <a pgs="button['btnTransparent']" href="/" aria-current="page">

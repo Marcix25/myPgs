@@ -147,7 +147,7 @@ Interactive palette of the current MyPGS background and text color utilities.
 - `flexFull`: inside flexChild's own bracket, makes palette headings occupy a full flex row.
 - `boxMini`: applies the compact box presentation to each palette group.
 - `btnIconOnly`: makes each background color trigger a compact circular button.
-- `hover`: opens each background color's name while its circle is hovered.
+- `drpHover`: opens each background color's name while its circle is hovered.
 - `gapElements`: spaces the background and text color groups.
 - `gapTexts`: spaces individual palette entries.
 - `wrap`: lets palette entries wrap on narrow viewports.

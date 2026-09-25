@@ -22,10 +22,10 @@ A horizontal, scroll-snapped track of slides with its own arrows and position do
 
 ## PGS Options (component brackets)
 
-- `shadowDesktop`: fades the slides out at the edges from the tablet width up, only on the side that still has slides to reach.
-- `animationScale`: scales each slide by how much of it is in view, through the --_slides-visiblePercent custom property the module writes on it; a slide sits at 1 before the first pass of the observer.
-- `singleScroll`: an arrow advances by a single slide, counted from the one the snap is resting on, instead of jumping past every slide currently in view.
-- `scrollMouse`: turns the vertical mouse wheel into horizontal scrolling over the slides; off by default.
+- `slidesShadowDesktop`: fades the slides out at the edges from the tablet width up, only on the side that still has slides to reach.
+- `slidesAnimationScale`: scales each slide by how much of it is in view, through the --_slides-visiblePercent custom property the module writes on it; a slide sits at 1 before the first pass of the observer.
+- `slidesSingleScroll`: an arrow advances by a single slide, counted from the one the snap is resting on, instead of jumping past every slide currently in view.
+- `slidesScrollMouse`: turns the vertical mouse wheel into horizontal scrolling over the slides; off by default.
 
 ## PGS States
 
@@ -58,7 +58,7 @@ A horizontal, scroll-snapped track of slides with its own arrows and position do
 
 ### PGS Options (component brackets)
 
-- `cover`: inside img's own bracket, crops the image to fill its box.
+- `imgCover`: inside img's own bracket, crops the image to fill its box.
 
 ### Other
 
@@ -82,14 +82,14 @@ Complete HTML markup and usage example for Slides.
 
 ### Single scroll
 
-Scrolls to one slide at a time with the prec/next buttons, using pgs=&quot;slides['singleScroll']&quot;, instead of moving by the full visible width.
+Scrolls to one slide at a time with the prec/next buttons, using pgs=&quot;slides['slidesSingleScroll']&quot;, instead of moving by the full visible width.
 
 ```html
-<div pgs="slides['singleScroll']">
+<div pgs="slides['slidesSingleScroll']">
     <ul pgs="slides-container">
         <li pgs="slides-container-slide">
             <article pgs="card">
-                <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="Slide 1">
+                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 1">
                 <div pgs="card-content">
                     <h3>Lorem ipsum dolor</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -99,7 +99,7 @@ Scrolls to one slide at a time with the prec/next buttons, using pgs=&quot;slide
 
         <li pgs="slides-container-slide">
             <article pgs="card">
-                <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="Slide 2">
+                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 2">
                 <div pgs="card-content">
                     <h3>Sit amet consectetur</h3>
                     <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
@@ -109,7 +109,7 @@ Scrolls to one slide at a time with the prec/next buttons, using pgs=&quot;slide
 
         <li pgs="slides-container-slide">
             <article pgs="card">
-                <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="Slide 3">
+                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 3">
                 <div pgs="card-content">
                     <h3>Adipiscing elit sed</h3>
                     <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
@@ -122,14 +122,14 @@ Scrolls to one slide at a time with the prec/next buttons, using pgs=&quot;slide
 
 ### Shadow desktop
 
-Fades the slides out at the edges from the tablet width up, using pgs=&quot;slides['shadowDesktop']&quot;, only on the side that still has slides to reach.
+Fades the slides out at the edges from the tablet width up, using pgs=&quot;slides['slidesShadowDesktop']&quot;, only on the side that still has slides to reach.
 
 ```html
-<div pgs="slides['shadowDesktop']">
+<div pgs="slides['slidesShadowDesktop']">
     <ul pgs="slides-container">
         <li pgs="slides-container-slide">
             <article pgs="card">
-                <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="Slide 1">
+                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 1">
                 <div pgs="card-content">
                     <h3>Lorem ipsum dolor</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -139,7 +139,7 @@ Fades the slides out at the edges from the tablet width up, using pgs=&quot;slid
 
         <li pgs="slides-container-slide">
             <article pgs="card">
-                <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="Slide 2">
+                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 2">
                 <div pgs="card-content">
                     <h3>Sit amet consectetur</h3>
                     <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
@@ -149,7 +149,7 @@ Fades the slides out at the edges from the tablet width up, using pgs=&quot;slid
 
         <li pgs="slides-container-slide">
             <article pgs="card">
-                <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="Slide 3">
+                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 3">
                 <div pgs="card-content">
                     <h3>Adipiscing elit sed</h3>
                     <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
@@ -162,14 +162,14 @@ Fades the slides out at the edges from the tablet width up, using pgs=&quot;slid
 
 ### Animation scale
 
-Scales each slide by its scroll visibility using pgs=&quot;slides['animationScale']&quot;, driven by the --visible-percent custom property.
+Scales each slide by its scroll visibility using pgs=&quot;slides['slidesAnimationScale']&quot;, driven by the --visible-percent custom property.
 
 ```html
-<div pgs="slides['animationScale']">
+<div pgs="slides['slidesAnimationScale']">
     <ul pgs="slides-container">
         <li pgs="slides-container-slide">
             <article pgs="card">
-                <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="Slide 1">
+                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 1">
                 <div pgs="card-content">
                     <h3>Lorem ipsum dolor</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -179,7 +179,7 @@ Scales each slide by its scroll visibility using pgs=&quot;slides['animationScal
 
         <li pgs="slides-container-slide">
             <article pgs="card">
-                <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="Slide 2">
+                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 2">
                 <div pgs="card-content">
                     <h3>Sit amet consectetur</h3>
                     <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
@@ -189,7 +189,7 @@ Scales each slide by its scroll visibility using pgs=&quot;slides['animationScal
 
         <li pgs="slides-container-slide">
             <article pgs="card">
-                <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="Slide 3">
+                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 3">
                 <div pgs="card-content">
                     <h3>Adipiscing elit sed</h3>
                     <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
@@ -202,14 +202,14 @@ Scales each slide by its scroll visibility using pgs=&quot;slides['animationScal
 
 ### Scroll mouse
 
-Turns the vertical mouse wheel into horizontal scrolling over the slides, using pgs=&quot;slides['scrollMouse']&quot;; off by default.
+Turns the vertical mouse wheel into horizontal scrolling over the slides, using pgs=&quot;slides['slidesScrollMouse']&quot;; off by default.
 
 ```html
-<div pgs="slides['scrollMouse']">
+<div pgs="slides['slidesScrollMouse']">
     <ul pgs="slides-container">
         <li pgs="slides-container-slide">
             <article pgs="card">
-                <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="Slide 1">
+                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 1">
                 <div pgs="card-content">
                     <h3>Lorem ipsum dolor</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -219,7 +219,7 @@ Turns the vertical mouse wheel into horizontal scrolling over the slides, using 
 
         <li pgs="slides-container-slide">
             <article pgs="card">
-                <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="Slide 2">
+                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 2">
                 <div pgs="card-content">
                     <h3>Sit amet consectetur</h3>
                     <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
@@ -229,7 +229,7 @@ Turns the vertical mouse wheel into horizontal scrolling over the slides, using 
 
         <li pgs="slides-container-slide">
             <article pgs="card">
-                <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="Slide 3">
+                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 3">
                 <div pgs="card-content">
                     <h3>Adipiscing elit sed</h3>
                     <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>

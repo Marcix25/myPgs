@@ -446,12 +446,12 @@ const DOC_GROUPS_OPEN = new Set([LIST_TAG_LABELS.pgs, LIST_TAG_LABELS["pgs-optio
 //+ usually after one of them. The heading is the control — pgs.accordion gives it role="button"
 //+ and tabindex, so a heading stays operable — and both it and the panel have to be direct
 //+ children of the root, which is what the module looks for. The panel is always written hidden so
-//+ it does not flash open before the JavaScript runs; autoOpen is what reopens the two
+//+ it does not flash open before the JavaScript runs; accAutoOpen is what reopens the two
 //+ groups above at init. There is no accordionContainer around these on purpose — without a group
 //+ each panel answers for itself, so reading one does not collapse the rest of the block
 function renderDocAccordionHtml(label, panelHtml, className = "") {
     const classAttribute = className ? ` class="${className}"` : "";
-    const accordion = DOC_GROUPS_OPEN.has(label) ? "accordion['autoOpen']" : "accordion";
+    const accordion = DOC_GROUPS_OPEN.has(label) ? "accordion['accAutoOpen']" : "accordion";
     return `<div${classAttribute} pgs="${accordion}">` +
         `<h4 pgs="accordion-button">${escapeHtml(label)}</h4>` +
         panelHtml +
@@ -594,7 +594,7 @@ function renderNavMenuHtml(items, category) {
         return `<li><a href="#${escapeHtml(getSlug(path))}" pgs="pageNav-list-item button['btnText' 'btnPaddingEqual']">` +
             `<i class="fa-solid ${icon}" aria-hidden="true"></i><span>${escapeHtml(getEntryLabel(path))}</span></a></li>`;
     }).join("");
-    return `<nav pgs="pageNav-list menu['vertical']" aria-label="Menu ${escapeHtml(category || "")}"><ul pgs="border['brdLeft']">${rows}</ul></nav>`;
+    return `<nav pgs="pageNav-list menu['menuVertical']" aria-label="Menu ${escapeHtml(category || "")}"><ul pgs="border['brdLeft']">${rows}</ul></nav>`;
 }
 
 function renderNavHtml(entries, withHeadingIds = true) {

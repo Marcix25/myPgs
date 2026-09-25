@@ -82,34 +82,34 @@
         so a wide header can be compact on purpose. Only the value is declared here: the
         JavaScript reads --header-compact-breakpoint and adds the compact state below it.
         headerCompactFrom[600] takes over with its own pixel value. */
-    &[pgs*="'compactWatch'"] {
+    &[pgs*="'headerCompactWatch'"] {
         --header-compact-breakpoint: #{$watch};
     }
 
-    &[pgs*="'compactMobile'"] {
+    &[pgs*="'headerCompactMobile'"] {
         --header-compact-breakpoint: #{$mobile};
     }
 
-    &[pgs*="'compactBigMobile'"] {
+    &[pgs*="'headerCompactBigMobile'"] {
         --header-compact-breakpoint: #{$big-mobile};
     }
 
-    &[pgs*="'compactTablet'"] {
+    &[pgs*="'headerCompactTablet'"] {
         --header-compact-breakpoint: #{$tablet};
     }
 
-    &[pgs*="'compactBigTablet'"] {
+    &[pgs*="'headerCompactBigTablet'"] {
         --header-compact-breakpoint: #{$big-tablet};
     }
 
-    &[pgs*="'compactLaptop'"] {
+    &[pgs*="'headerCompactLaptop'"] {
         --header-compact-breakpoint: #{$laptop};
     }
 
     //option for suggestions: scroll and main are plain flags, read by the
     //JavaScript only
-    &[pgs*="'main'"],
-    &[pgs*="'scroll'"] {}
+    &[pgs*="'headerMain'"],
+    &[pgs*="'headerScroll'"] {}
 
     //option for suggestions: headerCompactFrom[600] carries its own pixel value, read from pgs-data
     &[pgs-data~="headerCompactFrom[]"] {}
@@ -131,7 +131,7 @@
         }
 
         //== bottom: follows the compact state, so it honours the chosen breakpoint
-        &[pgs*="'compactBottom'"] {
+        &[pgs*="'headerCompactBottom'"] {
             --header-compactBottom-active: 1;
         }
     }

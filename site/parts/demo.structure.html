@@ -6,14 +6,14 @@
      top-level page for now. Edit this file for the demo's own layout — the nav, the aside, the
      main; edit site.structure.html for the page around it (head, header, footer, and the asset
      paths, since this file carries none of its own). -->
-<div pgs="pageShell['fullPage' 'asideScroll']">
-    <aside pgs="pageShell-aside container['none']" id="reference-demo-aside">
+<div pgs="pageShell['shellFullPage' 'shellAsideScroll']">
+    <aside pgs="pageShell-aside container['cntNone']" id="reference-demo-aside">
 
         <!-- Desktop -->
-        <div pgs="flex['column' 'gapElements'] hide['containerDownBigTablet'] padding['padBottom']" class="reference-demo-nav"></div>
+        <div pgs="flex['column' 'gapElements'] hide['hideContainerDownBigTablet'] padding['padBottom']" class="reference-demo-nav"></div>
 
         <!-- mobile -->
-        <div pgs="flex['column' 'gapElements'] hide['containerUpBigTablet'] modal['dialogLeft' 'dialogMedium'] padding['padHalf']">
+        <div pgs="flex['column' 'gapElements'] hide['hideContainerUpBigTablet'] modal['dialogLeft' 'dialogMedium'] padding['padHalf']">
             <button type="button" pgs="button modal-button"> <i pgs="icon['icon-ellipsis']"></i> Browse docs</button>
 
             <dialog>

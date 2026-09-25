@@ -12,8 +12,8 @@ Component for displaying a graphical or text logo, with image variants that supp
 
 ## PGS Options (component brackets)
 
-- `darkmode`: inverts the logo image when the global darkmode state is active.
-- `darkmodeFixed`: keeps the image inversion enabled regardless of the current theme.
+- `logoDarkmode`: inverts the logo image when the global darkmode state is active.
+- `logoDarkmodeFixed`: keeps the image inversion enabled regardless of the current theme.
 
 ## PGS States
 
@@ -34,7 +34,7 @@ HTML examples of the theme-aware graphical logo and the text logo.
 Image-based brand logo that inverts automatically when dark mode is active.
 
 ```html
-<a aria-label="Logo" pgs="logo['darkmode']" href="/">
+<a aria-label="Logo" pgs="logo['logoDarkmode']" href="/">
     <img pgs="logo-image" src="../assets/img/logo.svg" alt="MyPGS">
 </a>
 ```
@@ -51,10 +51,10 @@ Text-based brand variant, used when no logo image is available.
 
 ### Always-inverted logo
 
-Image-based brand logo that stays inverted using darkmodeFixed, regardless of the current theme.
+Image-based brand logo that stays inverted using logoDarkmodeFixed, regardless of the current theme.
 
 ```html
-<a aria-label="Logo" pgs="logo['darkmodeFixed']" href="/">
+<a aria-label="Logo" pgs="logo['logoDarkmodeFixed']" href="/">
     <img pgs="logo-image" src="../assets/img/logo.svg" alt="MyPGS">
 </a>
 ```

@@ -70,7 +70,7 @@
     &[pgs*="'cardMini'"] { --card-padding: var(--padding-half); }
 
     //+ Horizontal
-    // row layout shared by cardHorizontal and horizontalFixed
+    // row layout shared by cardHorizontal and cardHorizontalFixed
     @mixin _cardHorizontal() {
         flex-flow: row wrap;
 
@@ -103,7 +103,7 @@
     }
 
     //++ card Horizontal - fixed
-    &[pgs*="'horizontalFixed'"] { @include _cardHorizontal(); }
+    &[pgs*="'cardHorizontalFixed'"] { @include _cardHorizontal(); }
 }
 
 //= BOX

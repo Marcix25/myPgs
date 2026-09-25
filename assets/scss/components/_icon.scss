@@ -50,23 +50,23 @@
     // the same glyph) draws flat until duo is added, at which point this rule's extra
     // attribute selector gives it more specificity than the single-mask rule above and wins.
     @each $name, $layers in $icons-duo {
-        &[pgs*="'icon-#{$name}'"][pgs*="'duo'"] {
+        &[pgs*="'icon-#{$name}'"][pgs*="'iconDuo'"] {
             @include duo(nth($layers, 1), nth($layers, 2));
         }
     }
 
     //+ ICON BOX
-    &[pgs*="'boxed'"] {
+    &[pgs*="'iconBoxed'"] {
         @include boxed();
     }
 
     //+ ICON MEDIUM
-    &[pgs*="'medium'"] {
+    &[pgs*="'iconMedium'"] {
         --icon-size: 1.25em;
     }
     
     //+ ICON LARGE
-    &[pgs*="'large'"] {
+    &[pgs*="'iconLarge'"] {
         --icon-size: 1.5em;
     }
 }

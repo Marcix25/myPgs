@@ -73,16 +73,16 @@
         "pgs-generated": [],
         "pgs-options": [],
         "pgs-data": [
-            "autoOpen",
-            "multiOpen"
+            "accAutoOpen",
+            "accMultiOpen"
         ]
     },
     "accordionContainer": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "autoOpen",
-            "multiOpen"
+            "accAutoOpen",
+            "accMultiOpen"
         ],
         "pgs-data": []
     },
@@ -116,14 +116,14 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "badgeDot",
+            "badgeError",
+            "badgeInfo",
+            "badgeNeutral",
             "badgePrimary",
             "badgeStrong",
-            "dot",
-            "error",
-            "info",
-            "neutral",
-            "success",
-            "warning"
+            "badgeSuccess",
+            "badgeWarning"
         ],
         "pgs-data": []
     },
@@ -208,8 +208,6 @@
             "brTertiary",
             "brWarning",
             "brWhite",
-            "external",
-            "input",
             "olBlack",
             "olBox",
             "olBoxDark",
@@ -226,7 +224,9 @@
             "olWhite",
             "otlThick",
             "otlThicker",
-            "otlThin"
+            "otlThin",
+            "radExternal",
+            "radInput"
         ],
         "pgs-data": []
     },
@@ -234,8 +234,8 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "external",
-            "input"
+            "radExternal",
+            "radInput"
         ],
         "pgs-data": []
     },
@@ -252,8 +252,8 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "contain",
-            "cover"
+            "imgContain",
+            "imgCover"
         ],
         "pgs-data": []
     },
@@ -297,8 +297,8 @@
         "pgs-options": [
             "bodyHoverAuto",
             "cardHorizontal",
-            "cardMini",
-            "horizontalFixed"
+            "cardHorizontalFixed",
+            "cardMini"
         ],
         "pgs-data": []
     },
@@ -330,7 +330,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "none"
+            "cntNone"
         ],
         "pgs-data": []
     },
@@ -380,12 +380,12 @@
         ],
         "pgs-generated": [],
         "pgs-options": [
-            "drpNotArrow",
-            "hover"
+            "drpHover",
+            "drpNotArrow"
         ],
         "pgs-data": [
             "dropdownPosition",
-            "hover"
+            "drpHover"
         ]
     },
     "flex": {
@@ -452,14 +452,12 @@
             "column-7",
             "column-8",
             "columnReverse",
-            "contain",
             "contentAround",
             "contentBetween",
             "contentCenter",
             "contentEnd",
             "contentEvenly",
             "contentStart",
-            "cover",
             "flex1",
             "flexCenter",
             "flexFull",
@@ -473,6 +471,8 @@
             "gapNone",
             "gapSections",
             "gapTexts",
+            "imgContain",
+            "imgCover",
             "inlineFlex",
             "itemBaseline",
             "itemCenter",
@@ -680,18 +680,18 @@
             "column-7",
             "column-8",
             "columnReverse",
-            "contain",
             "contentAround",
             "contentBetween",
             "contentCenter",
             "contentEnd",
             "contentEvenly",
             "contentStart",
-            "cover",
             "gapElements",
             "gapNone",
             "gapSections",
             "gapTexts",
+            "imgContain",
+            "imgCover",
             "inlineFlex",
             "itemBaseline",
             "itemCenter",
@@ -821,20 +821,20 @@
         ],
         "pgs-generated": [],
         "pgs-options": [
-            "compactBigMobile",
-            "compactBigTablet",
-            "compactBottom",
-            "compactLaptop",
-            "compactMobile",
-            "compactTablet",
-            "compactWatch",
-            "main",
-            "scroll"
+            "headerCompactBigMobile",
+            "headerCompactBigTablet",
+            "headerCompactBottom",
+            "headerCompactLaptop",
+            "headerCompactMobile",
+            "headerCompactTablet",
+            "headerCompactWatch",
+            "headerMain",
+            "headerScroll"
         ],
         "pgs-data": [
             "headerCompactFrom",
-            "main",
-            "scroll"
+            "headerMain",
+            "headerScroll"
         ]
     },
     "height": {
@@ -908,30 +908,30 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "containerDownBigMobile",
-            "containerDownBigTablet",
-            "containerDownLaptop",
-            "containerDownMobile",
-            "containerDownTablet",
-            "containerDownWatch",
-            "containerUpBigMobile",
-            "containerUpBigTablet",
-            "containerUpLaptop",
-            "containerUpMobile",
-            "containerUpTablet",
-            "containerUpWatch",
-            "mediaDownBigMobile",
-            "mediaDownBigTablet",
-            "mediaDownLaptop",
-            "mediaDownMobile",
-            "mediaDownTablet",
-            "mediaDownWatch",
-            "mediaUpBigMobile",
-            "mediaUpBigTablet",
-            "mediaUpLaptop",
-            "mediaUpMobile",
-            "mediaUpTablet",
-            "mediaUpWatch"
+            "hideContainerDownBigMobile",
+            "hideContainerDownBigTablet",
+            "hideContainerDownLaptop",
+            "hideContainerDownMobile",
+            "hideContainerDownTablet",
+            "hideContainerDownWatch",
+            "hideContainerUpBigMobile",
+            "hideContainerUpBigTablet",
+            "hideContainerUpLaptop",
+            "hideContainerUpMobile",
+            "hideContainerUpTablet",
+            "hideContainerUpWatch",
+            "hideMediaDownBigMobile",
+            "hideMediaDownBigTablet",
+            "hideMediaDownLaptop",
+            "hideMediaDownMobile",
+            "hideMediaDownTablet",
+            "hideMediaDownWatch",
+            "hideMediaUpBigMobile",
+            "hideMediaUpBigTablet",
+            "hideMediaUpLaptop",
+            "hideMediaUpMobile",
+            "hideMediaUpTablet",
+            "hideMediaUpWatch"
         ],
         "pgs-data": []
     },
@@ -970,8 +970,6 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "boxed",
-            "duo",
             "icon-arrowLeft",
             "icon-arrowRight",
             "icon-bell",
@@ -1011,8 +1009,10 @@
             "icon-triangleExclamation",
             "icon-upload",
             "icon-user",
-            "large",
-            "medium"
+            "iconBoxed",
+            "iconDuo",
+            "iconLarge",
+            "iconMedium"
         ],
         "pgs-data": []
     },
@@ -1163,8 +1163,8 @@
         ],
         "pgs-generated": [],
         "pgs-options": [
-            "darkmode",
-            "darkmodeFixed"
+            "logoDarkmode",
+            "logoDarkmodeFixed"
         ],
         "pgs-data": []
     },
@@ -1172,7 +1172,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "none",
+            "cntNone",
             "sctEdgeFlushLeft",
             "sctEdgeFlushRight",
             "sctEdgeLeft",
@@ -1305,10 +1305,10 @@
             "_menu-submenuButton"
         ],
         "pgs-options": [
-            "iconOnlyCurrent",
             "menuHorizontal",
-            "short",
-            "vertical"
+            "menuIconOnlyCurrent",
+            "menuShort",
+            "menuVertical"
         ],
         "pgs-data": []
     },
@@ -1470,9 +1470,9 @@
         ],
         "pgs-generated": [],
         "pgs-options": [
-            "asideScroll",
-            "asideShadow",
-            "fullPage"
+            "shellAsideScroll",
+            "shellAsideShadow",
+            "shellFullPage"
         ],
         "pgs-data": []
     },
@@ -1572,14 +1572,14 @@
             "_slides-prec"
         ],
         "pgs-options": [
-            "animationScale",
-            "scrollMouse",
-            "shadowDesktop",
-            "singleScroll"
+            "slidesAnimationScale",
+            "slidesScrollMouse",
+            "slidesShadowDesktop",
+            "slidesSingleScroll"
         ],
         "pgs-data": [
-            "scrollMouse",
-            "singleScroll"
+            "slidesScrollMouse",
+            "slidesSingleScroll"
         ]
     },
     "steps": {
@@ -1706,7 +1706,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "labelled"
+            "tglLabelled"
         ],
         "pgs-data": []
     },

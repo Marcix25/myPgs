@@ -14,8 +14,8 @@
  * - darkmode: forces the dark colour scheme on a subtree, whatever the page theme is.
  *
  * @pgs-options
- * - contain: inside img's own bracket, fits the whole image inside its box without cropping it.
- * - cover: inside img's own bracket, crops the image to fill its box, the counterpart of contain.
+ * - imgContain: inside img's own bracket, fits the whole image inside its box without cropping it.
+ * - imgCover: inside img's own bracket, crops the image to fill its box, the counterpart of contain.
  *
  * @related
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
@@ -49,11 +49,11 @@
     </div>
 </section>
 
-<demo demo-h3="Image fitting" demo-description="img['contain'] keeps the whole image inside the box, img['cover'] crops it to fill the box."></demo>
+<demo demo-h3="Image fitting" demo-description="img['imgContain'] keeps the whole image inside the box, img['imgCover'] crops it to fill the box."></demo>
 <section pgs="flex['column' 'gapTexts']" demo="component">
     <div pgs="flex['row' 'gapTexts']" demo="wrapper">
-        <img pgs="img['contain'] borderRadius" src="../assets/img/placeholder.jpg" alt="Contained image" style="width: 220px; height: 140px;">
-        <img pgs="img['cover'] borderRadius" src="../assets/img/placeholder.jpg" alt="Cropped image" style="width: 220px; height: 140px;">
+        <img pgs="img['imgContain'] borderRadius" src="../assets/img/placeholder.jpg" alt="Contained image" style="width: 220px; height: 140px;">
+        <img pgs="img['imgCover'] borderRadius" src="../assets/img/placeholder.jpg" alt="Cropped image" style="width: 220px; height: 140px;">
     </div>
 </section>
 

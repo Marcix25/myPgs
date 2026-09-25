@@ -193,7 +193,7 @@ function PGS_dropdown_init(root = document) {
         });
 
         //== Hover behavior
-        if (pgs(DROPDOWN).option.contains("hover")) {
+        if (pgs(DROPDOWN).option.contains("drpHover")) {
             let hoverCloseTimeout;
             const clearHoverCloseTimeout = () => {
                 window.clearTimeout(hoverCloseTimeout);

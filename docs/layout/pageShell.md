@@ -12,9 +12,9 @@ Responsive page layout that combines main content with zero, one or two sidebars
 
 ## PGS Options (component brackets)
 
-- `fullPage`: expands the shell to the full available width while keeping its content centered.
-- `asideScroll`: makes every sidebar stick beside the content and scroll on its own, clamped to the viewport height; it releases the sticky behaviour once the sidebar stacks.
-- `asideShadow`: fades the top and bottom edges of a sidebar instead of cutting its content abruptly; independent of asideScroll, but only meaningful alongside it.
+- `shellFullPage`: expands the shell to the full available width while keeping its content centered.
+- `shellAsideScroll`: makes every sidebar stick beside the content and scroll on its own, clamped to the viewport height; it releases the sticky behaviour once the sidebar stacks.
+- `shellAsideShadow`: fades the top and bottom edges of a sidebar instead of cutting its content abruptly; independent of shellAsideScroll, but only meaningful alongside it.
 
 ## Related elements
 
@@ -43,10 +43,10 @@ Responsive page layout that combines main content with zero, one or two sidebars
 
 ## Output
 
-Seven page-shell HTML configurations with two, one, or no sidebars, with asideScroll, its shadow variant, or neither.
+Seven page-shell HTML configurations with two, one, or no sidebars, with shellAsideScroll, its shadow variant, or neither.
 ## Page Shell
 
-The shell without asideScroll: every sidebar scrolls with the page, like any other column.
+The shell without shellAsideScroll: every sidebar scrolls with the page, like any other column.
 
 ### Not scroll - Two sidebars
 
@@ -117,14 +117,14 @@ Shell with the sidebar placed after the main content instead of before it.
 
 ## Page Shell - Scroll
 
-The same shell with asideScroll, so a sidebar sticks beside the content and scrolls on its own, plus its shadow variant.
+The same shell with shellAsideScroll, so a sidebar sticks beside the content and scrolls on its own, plus its shadow variant.
 
 ### Full-width with sidebar
 
-Full-width shell with a single sidebar before the main content, using fullPage.
+Full-width shell with a single sidebar before the main content, using shellFullPage.
 
 ```html
-<div pgs="pageShell['fullPage' 'asideScroll']">
+<div pgs="pageShell['shellFullPage' 'shellAsideScroll']">
     <aside pgs="pageShell-aside">
         <div pgs="flex['column']">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab modi ut sunt est illum accusantium dolores eum aut cum itaque.</p>
@@ -141,10 +141,10 @@ Full-width shell with a single sidebar before the main content, using fullPage.
 
 ### Single sidebar
 
-Default-width shell with a single sidebar before the main content, scrolling on its own with asideScroll.
+Default-width shell with a single sidebar before the main content, scrolling on its own with shellAsideScroll.
 
 ```html
-<div pgs="pageShell['asideScroll']">
+<div pgs="pageShell['shellAsideScroll']">
     <aside pgs="pageShell-aside">
         <div pgs="flex['column']">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab modi ut sunt est illum accusantium dolores eum aut cum itaque.</p>
@@ -161,10 +161,10 @@ Default-width shell with a single sidebar before the main content, scrolling on 
 
 ### Single sidebar, shadow
 
-Same single sidebar, with asideShadow: its scrolling edges fade out instead of cutting content abruptly.
+Same single sidebar, with shellAsideShadow: its scrolling edges fade out instead of cutting content abruptly.
 
 ```html
-<div pgs="pageShell['asideScroll' 'asideShadow']">
+<div pgs="pageShell['shellAsideScroll' 'shellAsideShadow']">
     <aside pgs="pageShell-aside">
         <div pgs="flex['column']">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab modi ut sunt est illum accusantium dolores eum aut cum itaque.</p>
@@ -181,10 +181,10 @@ Same single sidebar, with asideShadow: its scrolling edges fade out instead of c
 
 ### Sidebar after content
 
-Shell with the sidebar placed after the main content instead of before it, scrolling on its own with asideScroll.
+Shell with the sidebar placed after the main content instead of before it, scrolling on its own with shellAsideScroll.
 
 ```html
-<div pgs="pageShell['asideScroll']">
+<div pgs="pageShell['shellAsideScroll']">
 
     <main pgs="pageShell-content">
         <section pgs="flex['column' 'gapElements']">

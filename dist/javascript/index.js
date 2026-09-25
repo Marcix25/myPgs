@@ -1058,15 +1058,15 @@ function PGS_accordion_init(root = document) {
         const btnId = `acc-btn-${ID}`;
         const panelId = `acc-panel-${ID}`;
 
-        //== initial state: autoOpen is the authored form, because pgs-state belongs to
+        //== initial state: accAutoOpen is the authored form, because pgs-state belongs to
         //== the runtime; a pgs-state="open" already written by hand is honoured all the same
-        const isOpenInit = pgs(accordion).option.contains("autoOpen") || pgs(accordion).state.contains("open");
+        const isOpenInit = pgs(accordion).option.contains("accAutoOpen") || pgs(accordion).state.contains("open");
 
         //== an accordion closes the others only inside a group, and the group is the nearest
         //== accordionContainer above it: on its own an accordion answers for itself alone, so a
         //== single panel dropped anywhere on the page no longer collapses somebody else's
         const CONTAINER = pgs(accordion).closest("accordionContainer");
-        const isMultiOpen = !CONTAINER || pgs(CONTAINER).option.contains("multiOpen");
+        const isMultiOpen = !CONTAINER || pgs(CONTAINER).option.contains("accMultiOpen");
 
         //== accessibility, written once
         BUTTON.setAttribute("role", "button");
@@ -1096,14 +1096,14 @@ function PGS_accordion_init(root = document) {
         //+ Close the others of the group
         //== only the accordions of this same group: an accordionContainer nested in another one
         //== keeps its own panels to itself, which is why the nearest container is compared rather
-        //== than trusting the descendant search. autoOpen is left alone on purpose — it
+        //== than trusting the descendant search. accAutoOpen is left alone on purpose — it
         //== is the authored "this one stays open", so a sibling opening does not take it down,
         //== and only until the reader works that panel themselves, which drops the token
         function closeOtherAccordion() {
             for (const otherLi of pgs(CONTAINER).querySelectorAll("accordion")) {
                 if (otherLi === accordion) continue;
                 if (pgs(otherLi).closest("accordionContainer") !== CONTAINER) continue;
-                if (pgs(otherLi).option.contains("autoOpen")) continue;
+                if (pgs(otherLi).option.contains("accAutoOpen")) continue;
 
                 const otherBtn = pgs(otherLi).querySelector("accordion-button");
                 const otherContent = pgs(otherLi).querySelector("accordion-content");
@@ -1122,11 +1122,11 @@ function PGS_accordion_init(root = document) {
             pgs(accordion).state.toggle("open", nowOpen);
             accordionAccessibility(nowOpen, BUTTON, CONTENT);
 
-            //== the moment the reader works this panel, autoOpen stops being the authored
+            //== the moment the reader works this panel, accAutoOpen stops being the authored
             //== "this one stays open": from here on it is an ordinary panel of the group, so a
             //== sibling opening can close it. Guarded, because remove() would otherwise write an
             //== empty pgs-option on every accordion that never had one
-            if (pgs(accordion).option.contains("autoOpen")) pgs(accordion).option.remove("autoOpen");
+            if (pgs(accordion).option.contains("accAutoOpen")) pgs(accordion).option.remove("accAutoOpen");
             if (!isMultiOpen) closeOtherAccordion();
 
             //== scroll to view
@@ -1141,7 +1141,7 @@ function PGS_accordion_init(root = document) {
             if (pgs(accordion).state.contains("open")) accordionFunction();
         }
 
-        //== writes that initial state, rather than only reading it: with autoOpen the
+        //== writes that initial state, rather than only reading it: with accAutoOpen the
         //== pgs-state is not there yet, and it is what the CSS reads to turn the arrow
         pgs(accordion).state.toggle("open", isOpenInit);
         accordionAccessibility(isOpenInit, BUTTON, CONTENT);
@@ -1514,7 +1514,7 @@ function PGS_dropdown_init(root = document) {
         });
 
         //== Hover behavior
-        if (pgs(DROPDOWN).option.contains("hover")) {
+        if (pgs(DROPDOWN).option.contains("drpHover")) {
             let hoverCloseTimeout;
             const clearHoverCloseTimeout = () => {
                 window.clearTimeout(hoverCloseTimeout);
@@ -2949,7 +2949,7 @@ class PGS_Slides {
     }
 
     //+ SLIDE THE ARROWS MOVE FROM
-    //== singleScroll starts from the middle one in view, the one the snap is resting on: from the
+    //== slidesSingleScroll starts from the middle one in view, the one the snap is resting on: from the
     //== first, with three slides showing, the next sibling is already centred and nothing scrolls
     #currentSlide(towardsEnd) {
         //== arrow function: a declared one would have its own this and throw here
@@ -2971,7 +2971,7 @@ class PGS_Slides {
         //== the one on its own side: rounded down going forward, up going back. Rounding down for
         //== both, as this did, left the two arrows starting from the same slide, and going back
         //== then covered a slide more than going forward did
-        if (pgs(this.element).option.contains('singleScroll')) {
+        if (pgs(this.element).option.contains('slidesSingleScroll')) {
             const middle = (currents.length - 1) / 2;
             return currents[towardsEnd ? Math.floor(middle) : Math.ceil(middle)];
         }
@@ -3087,7 +3087,7 @@ class PGS_Slides {
         const dots = Array.from(pgs(slides).querySelector(['slides-dots', '_slides-dots']).children);
 
         //== option
-        const scrollMouse = pgs(slides).option.contains('scrollMouse');
+        const scrollMouse = pgs(slides).option.contains('slidesScrollMouse');
 
         //== scroll
         const removeHorizontalScroll = scrollMouse
@@ -4709,7 +4709,7 @@ __webpack_require__.r(__webpack_exports__);
 // Width at or below which the header switches to its compact layout even when the content
 // still fits, so a wide header can be compact on purpose.
 // headerCompactFrom[600] wins with its own pixel value, otherwise the named options
-// (compactTablet, compactLaptop, ...) set --header-compact-breakpoint in the
+// (headerCompactTablet, headerCompactLaptop, ...) set --header-compact-breakpoint in the
 // SCSS, so the breakpoint values stay defined in one place.
 function getHeader_CompactBreakpoint(header) {
     const custom = parseFloat(pgs(header).data.getValueBrackets("headerCompactFrom"));
@@ -4815,7 +4815,7 @@ function initHeader_Height(header) {
     //+ FOR --heightOfHeader e --heightOfHeaderScroll
     function getPrimaryHeader() {
         const headers = getReadyHeaders();
-        return headers.find(header => pgs(header).option.contains("main")) || headers[0] || null;
+        return headers.find(header => pgs(header).option.contains("headerMain")) || headers[0] || null;
     }
 
     //+ HEIGHT
@@ -4861,7 +4861,7 @@ function initHeader_Height(header) {
 //== up to 900px tall, where a pinned header costs too much of the page
 function initHeader_Scroll(header) {
     let lastScrollY = window.scrollY;
-    if (!header || !pgs(header).option.contains("scroll")) return;
+    if (!header || !pgs(header).option.contains("headerScroll")) return;
     const headerElements = pgs(header).querySelectorAll("header-element");
 
     window.addEventListener("scroll", () => {
@@ -5080,7 +5080,7 @@ function buildCookieConsent(marker) {
                             </p>
                         </div>
 
-                        <span pgs="_cookieConsent-panel-badge badge['success']">${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.essentialBadge)}</span>
+                        <span pgs="_cookieConsent-panel-badge badge['badgeSuccess']">${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.essentialBadge)}</span>
                     </div>
 
                     <div pgs="flex['row'] _cookieConsent-panel-featureAnalytics">

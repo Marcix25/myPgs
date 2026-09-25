@@ -7,7 +7,7 @@
  * - toggleDarkmode: turns a control into a theme switch; every one of them on the page reflects the same state.
  *
  * @pgs-options
- * - labelled: writes the theme the click leads to next to the glyph, "Dark mode" while the page is light and "Light mode" while it is dark. It reads the theme from the html element rather than the glyph on the button, so it keeps working whatever icon set drew it; retitle or translate it with --darkmode-label-toDark and --darkmode-label-toLight, whose values are CSS strings, quotes included.
+ * - tglLabelled: writes the theme the click leads to next to the glyph, "Dark mode" while the page is light and "Light mode" while it is dark. It reads the theme from the html element rather than the glyph on the button, so it keeps working whatever icon set drew it; retitle or translate it with --darkmode-label-toDark and --darkmode-label-toLight, whose values are CSS strings, quotes included.
  *
  * @pgs-state
  * - darkmode: applied to the html and body elements while the dark theme is active, and read by the whole colour layer.
@@ -49,10 +49,10 @@
     </script>
 </div>
 
-<demo demo-h3="Labelled switch" demo-description="labelled adds the written label, so the control says where the click leads instead of relying on the glyph alone. Override --darkmode-label-toDark and --darkmode-label-toLight to write it in another language: both take a CSS string, quotes included."></demo>
+<demo demo-h3="Labelled switch" demo-description="tglLabelled adds the written label, so the control says where the click leads instead of relying on the glyph alone. Override --darkmode-label-toDark and --darkmode-label-toLight to write it in another language: both take a CSS string, quotes included."></demo>
 <div demo="component">
 
-    <button pgs="button toggleDarkmode['labelled']" type="button" aria-label="Change theme">
+    <button pgs="button toggleDarkmode['tglLabelled']" type="button" aria-label="Change theme">
         <i pgs="icon"></i>
     </button>
 

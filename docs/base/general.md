@@ -17,8 +17,8 @@ Standalone utilities for shadow, cursor, image fitting, list styling and forced 
 
 ## PGS Options (component brackets)
 
-- `contain`: inside img's own bracket, fits the whole image inside its box without cropping it.
-- `cover`: inside img's own bracket, crops the image to fill its box, the counterpart of contain.
+- `imgContain`: inside img's own bracket, fits the whole image inside its box without cropping it.
+- `imgCover`: inside img's own bracket, crops the image to fill its box, the counterpart of contain.
 
 ## Related elements
 
@@ -65,11 +65,11 @@ Pointer cursor on a non-control surface, and a full reset to build a control fro
 
 ### Image fitting
 
-img['contain'] keeps the whole image inside the box, img['cover'] crops it to fill the box.
+img['imgContain'] keeps the whole image inside the box, img['imgCover'] crops it to fill the box.
 
 ```html
-<img pgs="img['contain'] borderRadius" src="../assets/img/placeholder.jpg" alt="Contained image" style="width: 220px; height: 140px;">
-<img pgs="img['cover'] borderRadius" src="../assets/img/placeholder.jpg" alt="Cropped image" style="width: 220px; height: 140px;">
+<img pgs="img['imgContain'] borderRadius" src="../assets/img/placeholder.jpg" alt="Contained image" style="width: 220px; height: 140px;">
+<img pgs="img['imgCover'] borderRadius" src="../assets/img/placeholder.jpg" alt="Cropped image" style="width: 220px; height: 140px;">
 ```
 
 ### List

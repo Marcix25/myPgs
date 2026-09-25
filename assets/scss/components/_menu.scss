@@ -85,7 +85,7 @@
 
     //== verical
     ul,
-    &[pgs*="'vertical'"],
+    &[pgs*="'menuVertical'"],
     &:not([pgs*="'menuHorizontal'"]) {
         :is(ul) {
             flex-direction: column;
@@ -124,7 +124,7 @@
     }
 
     //+ icon only current
-    &[pgs*="'iconOnlyCurrent'"] {
+    &[pgs*="'menuIconOnlyCurrent'"] {
         a:not([aria-current]:not([aria-current="false"])) {
             --button-padding-left: var(--button-padding-right);
 
@@ -136,7 +136,7 @@
     }
 
     //+ SHORT
-    &[pgs*="'short'"] {
+    &[pgs*="'menuShort'"] {
         >ul>li {
             &:first-child {
                 a { margin-left: 0px; }

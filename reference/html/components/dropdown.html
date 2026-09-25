@@ -10,7 +10,7 @@
  *
  * @pgs-options
  * - drpNotArrow: removes the small arrow every dropdown draws on its content by default. The arrow points back at the trigger on whichever side the content was placed, and follows it even when the viewport pushes the content off-centre.
- * - hover: opens the dropdown when the pointer enters its trigger and closes it after the pointer leaves; click and keyboard activation remain available.
+ * - drpHover: opens the dropdown when the pointer enters its trigger and closes it after the pointer leaves; click and keyboard activation remain available.
  *
  * @pgs-data
  * - dropdownPosition: configures the root as dropdownPosition[side alignment]; side accepts top, right, bottom, or left, while compatible alignment values are top, right, bottom, left, or center. The default is bottom center.
@@ -56,7 +56,7 @@
 
     <demo demo-h3="Hover" demo-description="Opens when the pointer enters the trigger and closes after it leaves."></demo>
     <section demo="component">
-        <span pgs="dropdown['hover']">
+        <span pgs="dropdown['drpHover']">
             <button pgs="dropdown-button button['btnReverse']" type="button">
                 Hover
                 <i pgs="icon['icon-chevronDown']" aria-hidden="true"></i>

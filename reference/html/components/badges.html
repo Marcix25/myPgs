@@ -9,12 +9,12 @@
  * @pgs-options
  * - badgePrimary: applies the primary color variant.
  * - badgeStrong: applies the high-contrast variant.
- * - success: represents a successful result.
- * - dot: adds a dot indicator to the badge.
- * - warning: represents a warning.
- * - error: represents an error.
- * - info: represents informational content.
- * - neutral: applies the neutral variant.
+ * - badgeSuccess: represents a successful result.
+ * - badgeDot: adds a dot indicator to the badge.
+ * - badgeWarning: represents a warning.
+ * - badgeError: represents an error.
+ * - badgeInfo: represents informational content.
+ * - badgeNeutral: applies the neutral variant.
  *
  * @related
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
@@ -52,14 +52,14 @@
 
 <demo demo-h3="Active" demo-description="Success badge combined with a dot indicator."></demo>
 <section demo="component">
-    <span pgs="badge['success' 'dot']">
+    <span pgs="badge['badgeSuccess' 'badgeDot']">
         Active
     </span>
 </section>
 
 <demo demo-h3="Warning" demo-description="Badge representing a warning, paired with an icon."></demo>
 <section demo="component">
-    <span pgs="badge['warning']">
+    <span pgs="badge['badgeWarning']">
         <i pgs="icon['icon-triangleExclamation']" aria-hidden="true"></i>
         Warning
     </span>
@@ -67,7 +67,7 @@
 
 <demo demo-h3="Error" demo-description="Badge representing an error, paired with an icon."></demo>
 <section demo="component">
-    <span pgs="badge['error']">
+    <span pgs="badge['badgeError']">
         <i pgs="icon['icon-close']" aria-hidden="true"></i>
         Error
     </span>
@@ -75,7 +75,7 @@
 
 <demo demo-h3="Info" demo-description="Badge representing informational content, paired with an icon."></demo>
 <section demo="component">
-    <span pgs="badge['info']">
+    <span pgs="badge['badgeInfo']">
         <i pgs="icon['icon-circleInfo']" aria-hidden="true"></i>
         Info
     </span>
@@ -83,7 +83,7 @@
 
 <demo demo-h3="Neutral" demo-description="Neutral badge variant with muted colors."></demo>
 <section demo="component">
-    <span pgs="badge['neutral']">
+    <span pgs="badge['badgeNeutral']">
         Neutral
     </span>
 </section>

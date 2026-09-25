@@ -174,11 +174,11 @@
     }
 
     //+ option for suggestions
-    &[pgs*="'singleScroll'"],
-    &[pgs*="'scrollMouse'"] {}
+    &[pgs*="'slidesSingleScroll'"],
+    &[pgs*="'slidesScrollMouse'"] {}
 
-    //+ animationScale
-    &[pgs*="'animationScale'"] {
+    //+ slidesAnimationScale
+    &[pgs*="'slidesAnimationScale'"] {
         :where([pgs~="slides-container"]) {
             :where([pgs~="slides-container-slide"]) {
                 &:not([pgs-state~="view"]) {}
@@ -203,8 +203,8 @@
         }
     }
 
-    //+ shadowDesktop
-    &[pgs*="'shadowDesktop'"] {
+    //+ slidesShadowDesktop
+    &[pgs*="'slidesShadowDesktop'"] {
 
         //+( tablet
         @container (min-width: #{$tablet}) {

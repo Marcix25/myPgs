@@ -127,7 +127,7 @@ function buildCookieConsent(marker) {
                             </p>
                         </div>
 
-                        <span pgs="_cookieConsent-panel-badge badge['success']">${PGS_formatText(config.essentialBadge)}</span>
+                        <span pgs="_cookieConsent-panel-badge badge['badgeSuccess']">${PGS_formatText(config.essentialBadge)}</span>
                     </div>
 
                     <div pgs="flex['row'] _cookieConsent-panel-featureAnalytics">

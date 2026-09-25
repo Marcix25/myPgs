@@ -268,7 +268,7 @@ Then rebuild with `npm run sitebuild`, and only if the example needs real intera
   an existing `<form>`, `dialog`/`modal-dialog` added to an existing `<dialog>`) stays unprefixed
   and still goes under `@pgs-generated` — the prefix marks a whole new element, not an added token.
 - **A CSS flag or JavaScript-only bracket flag drops its component's name**, since the bracket it
-  lives in already says which component owns it (`button['mini']`, `header['scroll']`, not
+  lives in already says which component owns it (`button['mini']`, `header['headerScroll']`, not
   `button['buttonMini']`). A handful kept the prefix on purpose because a bare word would mean
   nothing on its own — `margin2`/`padding2` (a lone digit) and the `icon-*` glyphs — and `hoverNot`
   never had a single owner to drop a prefix from. A `pgs-data` key keeps its prefix always

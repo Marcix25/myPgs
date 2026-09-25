@@ -1,7 +1,7 @@
 <!--
 /**
  * @title Scroll horizontal
- * @description Two variants that turn vertical wheel motion into horizontal scrolling over a container that can still scroll in that direction. scrollHorizontal converts any input device — mouse wheel, trackpad, Magic Mouse. scrollHorizontalWithMouse converts only a plain mouse wheel and leaves a trackpad's own two-finger swipe alone, since it already scrolls horizontally on its own; Slides uses this one internally for scrollMouse.
+ * @description Two variants that turn vertical wheel motion into horizontal scrolling over a container that can still scroll in that direction. scrollHorizontal converts any input device — mouse wheel, trackpad, Magic Mouse. scrollHorizontalWithMouse converts only a plain mouse wheel and leaves a trackpad's own two-finger swipe alone, since it already scrolls horizontally on its own; Slides uses this one internally for slidesScrollMouse.
  *
  * @api
  * - pgs.scrollHorizontal(element, speed): attaches the wheel listener to element, scaling each wheel step by speed, and returns a function that removes the listener.
@@ -18,7 +18,7 @@
  * - card-img: uses the related card-img component or utility in this example.
  * - card-content: groups the textual content of each card.
  * - img: uses the related img component or utility in this example.
- * - cover: inside img's own bracket, crops the image to fill its box.
+ * - imgCover: inside img's own bracket, crops the image to fill its box.
  *
  * @return Two horizontally-scrolling rows: one where any vertical wheel motion scrolls sideways whatever the input device, one where only a mouse wheel does and a trackpad scrolls it natively.
  */
@@ -28,28 +28,28 @@
 <demo demo-h3="Any input device" demo-description="pgs.scrollHorizontal converts a mouse wheel, a trackpad, or a Magic Mouse alike."></demo>
 <div pgs="flex['row' 'gapTexts' 'nowrap'] overflow['ovAutoX']" id="pgsScrollDemo" demo="component codeNone">
     <article pgs="card" style="flex-shrink: 0; min-width: 180px;">
-        <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="Slide 1">
+        <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 1">
         <div pgs="card-content">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </div>
     </article>
 
     <article pgs="card" style="flex-shrink: 0; min-width: 180px;">
-        <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="Slide 2">
+        <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 2">
         <div pgs="card-content">
             <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
         </div>
     </article>
 
     <article pgs="card" style="flex-shrink: 0; min-width: 180px;">
-        <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="Slide 3">
+        <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 3">
         <div pgs="card-content">
             <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
         </div>
     </article>
 
     <article pgs="card" style="flex-shrink: 0; min-width: 180px;">
-        <img pgs="card-img img['cover']" src="../assets/img/placeholder.jpg" alt="Slide 4">
+        <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 4">
         <div pgs="card-content">
             <p>Duis aute irure dolor in reprehenderit in voluptate.</p>
         </div>
@@ -58,11 +58,11 @@
 
 <demo demo-h3="Mouse only" demo-description="pgs.scrollHorizontalWithMouse ignores a trackpad or Magic Mouse; only a plain mouse wheel scrolls this row."></demo>
 <div pgs="flex['row' 'gapTexts' 'nowrap'] overflow['ovAutoX']" id="pgsScrollWithMouseDemo" demo="component codeNone">
-    <img pgs="img['cover']" src="../assets/img/placeholder.jpg" alt="Slide 1" style="flex-shrink: 0; border-radius: var(--border-radius);">
-    <img pgs="img['cover']" src="../assets/img/placeholder.jpg" alt="Slide 2" style="flex-shrink: 0; border-radius: var(--border-radius);">
-    <img pgs="img['cover']" src="../assets/img/placeholder.jpg" alt="Slide 3" style="flex-shrink: 0; border-radius: var(--border-radius);">
-    <img pgs="img['cover']" src="../assets/img/placeholder.jpg" alt="Slide 4" style="flex-shrink: 0; border-radius: var(--border-radius);">
-    <img pgs="img['cover']" src="../assets/img/placeholder.jpg" alt="Slide 5" style="flex-shrink: 0; border-radius: var(--border-radius);">
+    <img pgs="img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 1" style="flex-shrink: 0; border-radius: var(--border-radius);">
+    <img pgs="img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 2" style="flex-shrink: 0; border-radius: var(--border-radius);">
+    <img pgs="img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 3" style="flex-shrink: 0; border-radius: var(--border-radius);">
+    <img pgs="img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 4" style="flex-shrink: 0; border-radius: var(--border-radius);">
+    <img pgs="img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 5" style="flex-shrink: 0; border-radius: var(--border-radius);">
 </div>
 
 <script type="module">

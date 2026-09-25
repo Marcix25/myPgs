@@ -26,15 +26,15 @@ function PGS_accordion_init(root = document) {
         const btnId = `acc-btn-${ID}`;
         const panelId = `acc-panel-${ID}`;
 
-        //== initial state: autoOpen is the authored form, because pgs-state belongs to
+        //== initial state: accAutoOpen is the authored form, because pgs-state belongs to
         //== the runtime; a pgs-state="open" already written by hand is honoured all the same
-        const isOpenInit = pgs(accordion).option.contains("autoOpen") || pgs(accordion).state.contains("open");
+        const isOpenInit = pgs(accordion).option.contains("accAutoOpen") || pgs(accordion).state.contains("open");
 
         //== an accordion closes the others only inside a group, and the group is the nearest
         //== accordionContainer above it: on its own an accordion answers for itself alone, so a
         //== single panel dropped anywhere on the page no longer collapses somebody else's
         const CONTAINER = pgs(accordion).closest("accordionContainer");
-        const isMultiOpen = !CONTAINER || pgs(CONTAINER).option.contains("multiOpen");
+        const isMultiOpen = !CONTAINER || pgs(CONTAINER).option.contains("accMultiOpen");
 
         //== accessibility, written once
         BUTTON.setAttribute("role", "button");
@@ -64,14 +64,14 @@ function PGS_accordion_init(root = document) {
         //+ Close the others of the group
         //== only the accordions of this same group: an accordionContainer nested in another one
         //== keeps its own panels to itself, which is why the nearest container is compared rather
-        //== than trusting the descendant search. autoOpen is left alone on purpose — it
+        //== than trusting the descendant search. accAutoOpen is left alone on purpose — it
         //== is the authored "this one stays open", so a sibling opening does not take it down,
         //== and only until the reader works that panel themselves, which drops the token
         function closeOtherAccordion() {
             for (const otherLi of pgs(CONTAINER).querySelectorAll("accordion")) {
                 if (otherLi === accordion) continue;
                 if (pgs(otherLi).closest("accordionContainer") !== CONTAINER) continue;
-                if (pgs(otherLi).option.contains("autoOpen")) continue;
+                if (pgs(otherLi).option.contains("accAutoOpen")) continue;
 
                 const otherBtn = pgs(otherLi).querySelector("accordion-button");
                 const otherContent = pgs(otherLi).querySelector("accordion-content");
@@ -90,11 +90,11 @@ function PGS_accordion_init(root = document) {
             pgs(accordion).state.toggle("open", nowOpen);
             accordionAccessibility(nowOpen, BUTTON, CONTENT);
 
-            //== the moment the reader works this panel, autoOpen stops being the authored
+            //== the moment the reader works this panel, accAutoOpen stops being the authored
             //== "this one stays open": from here on it is an ordinary panel of the group, so a
             //== sibling opening can close it. Guarded, because remove() would otherwise write an
             //== empty pgs-option on every accordion that never had one
-            if (pgs(accordion).option.contains("autoOpen")) pgs(accordion).option.remove("autoOpen");
+            if (pgs(accordion).option.contains("accAutoOpen")) pgs(accordion).option.remove("accAutoOpen");
             if (!isMultiOpen) closeOtherAccordion();
 
             //== scroll to view
@@ -109,7 +109,7 @@ function PGS_accordion_init(root = document) {
             if (pgs(accordion).state.contains("open")) accordionFunction();
         }
 
-        //== writes that initial state, rather than only reading it: with autoOpen the
+        //== writes that initial state, rather than only reading it: with accAutoOpen the
         //== pgs-state is not there yet, and it is what the CSS reads to turn the arrow
         pgs(accordion).state.toggle("open", isOpenInit);
         accordionAccessibility(isOpenInit, BUTTON, CONTENT);

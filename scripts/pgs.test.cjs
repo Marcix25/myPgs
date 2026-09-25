@@ -50,17 +50,17 @@ test('bracket flags stay in the matching bracket and do not collide with longer 
 
 test('JS-only flags and nested JSON survive updates and removal of adjacent keys', () => {
     const payload = JSON.stringify({ nested: [[1, 2], { text: 'literal ] [ and "quotes"', path: 'a\\b' }] });
-    const el = element({ pgs: "header['main' 'scroll']", 'pgs-data': `config[${payload}] headerCompactFrom[600]` });
+    const el = element({ pgs: "header['headerMain' 'headerScroll']", 'pgs-data': `config[${payload}] headerCompactFrom[600]` });
     const options = pgs(el).option;
     const data = pgs(el).data;
     data.setValueBrackets('headerCompactFrom', '800');
     assert.equal(data.getValueBrackets('config'), payload);
     assert.equal(data.getValueBrackets('headerCompactFrom'), '800');
-    assert.equal(data.getValueBrackets('main'), undefined);
-    assert.equal(options.contains('scroll'), true);
-    options.remove('main');
+    assert.equal(data.getValueBrackets('headerMain'), undefined);
+    assert.equal(options.contains('headerScroll'), true);
+    options.remove('headerMain');
     assert.equal(data.getValueBrackets('config'), payload);
-    assert.equal(el.getAttribute('pgs'), "header['scroll']");
+    assert.equal(el.getAttribute('pgs'), "header['headerScroll']");
     assert.equal(el.getAttribute('pgs-option'), null);
 });
 
@@ -145,9 +145,9 @@ test('option.add falls back to a bare pgs token when no owner is present, like h
 });
 
 test('option.remove strips a flag whether it is bare or nested in a bracket', () => {
-    const el = element({ pgs: "header['scroll' 'main'] hoverNot" });
-    pgs(el).option.remove('scroll', 'hoverNot');
-    assert.equal(el.getAttribute('pgs'), "header['main']");
+    const el = element({ pgs: "header['headerScroll' 'headerMain'] hoverNot" });
+    pgs(el).option.remove('headerScroll', 'hoverNot');
+    assert.equal(el.getAttribute('pgs'), "header['headerMain']");
 });
 
 test('tabsHistory is genuine pgs-data: bare via data.value, or with its optional payload', () => {
@@ -164,10 +164,10 @@ test('tabsHistory is genuine pgs-data: bare via data.value, or with its optional
 
 test('boolean flags with no payload live in the component bracket, not pgs-data', () => {
     for (const [component, flag] of [
-        ['header', 'scroll'], ['header', 'main'],
-        ['accordion', 'autoOpen'], ['accordionContainer', 'multiOpen'],
-        ['slides', 'singleScroll'], ['slides', 'scrollMouse'],
-        ['dropdown', 'hover'], ['modal', 'dialogHistory'],
+        ['header', 'headerScroll'], ['header', 'headerMain'],
+        ['accordion', 'accAutoOpen'], ['accordionContainer', 'accMultiOpen'],
+        ['slides', 'slidesSingleScroll'], ['slides', 'slidesScrollMouse'],
+        ['dropdown', 'drpHover'], ['modal', 'dialogHistory'],
     ]) {
         const el = element();
         pgs(el).add(`${component}['${flag}']`);

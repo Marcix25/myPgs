@@ -12,12 +12,12 @@ Collection of compact indicators for displaying categories, priorities, and visu
 
 - `badgePrimary`: applies the primary color variant.
 - `badgeStrong`: applies the high-contrast variant.
-- `success`: represents a successful result.
-- `dot`: adds a dot indicator to the badge.
-- `warning`: represents a warning.
-- `error`: represents an error.
-- `info`: represents informational content.
-- `neutral`: applies the neutral variant.
+- `badgeSuccess`: represents a successful result.
+- `badgeDot`: adds a dot indicator to the badge.
+- `badgeWarning`: represents a warning.
+- `badgeError`: represents an error.
+- `badgeInfo`: represents informational content.
+- `badgeNeutral`: applies the neutral variant.
 
 ## Related elements
 
@@ -76,7 +76,7 @@ High-contrast badge variant.
 Success badge combined with a dot indicator.
 
 ```html
-<span pgs="badge['success' 'dot']">
+<span pgs="badge['badgeSuccess' 'badgeDot']">
     Active
 </span>
 ```
@@ -86,7 +86,7 @@ Success badge combined with a dot indicator.
 Badge representing a warning, paired with an icon.
 
 ```html
-<span pgs="badge['warning']">
+<span pgs="badge['badgeWarning']">
     <i pgs="icon['icon-triangleExclamation']" aria-hidden="true"></i>
     Warning
 </span>
@@ -97,7 +97,7 @@ Badge representing a warning, paired with an icon.
 Badge representing an error, paired with an icon.
 
 ```html
-<span pgs="badge['error']">
+<span pgs="badge['badgeError']">
     <i pgs="icon['icon-close']" aria-hidden="true"></i>
     Error
 </span>
@@ -108,7 +108,7 @@ Badge representing an error, paired with an icon.
 Badge representing informational content, paired with an icon.
 
 ```html
-<span pgs="badge['info']">
+<span pgs="badge['badgeInfo']">
     <i pgs="icon['icon-circleInfo']" aria-hidden="true"></i>
     Info
 </span>
@@ -119,7 +119,7 @@ Badge representing informational content, paired with an icon.
 Neutral badge variant with muted colors.
 
 ```html
-<span pgs="badge['neutral']">
+<span pgs="badge['badgeNeutral']">
     Neutral
 </span>
 ```

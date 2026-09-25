@@ -47,32 +47,32 @@
         --badge-color: var(--color-whiteFixed);
     }
 
-    &[pgs*="'success'"] {
+    &[pgs*="'badgeSuccess'"] {
         --badge-background: var(--color-success-soft);
         --badge-color: var(--color-success);
     }
 
-    &[pgs*="'warning'"] {
+    &[pgs*="'badgeWarning'"] {
         --badge-background: var(--color-warning-soft);
         --badge-color: var(--color-warning);
     }
 
-    &[pgs*="'error'"] {
+    &[pgs*="'badgeError'"] {
         --badge-background: var(--color-error-soft);
         --badge-color: var(--color-error);
     }
 
-    &[pgs*="'info'"] {
+    &[pgs*="'badgeInfo'"] {
         --badge-background: var(--color-info-soft);
         --badge-color: var(--color-info);
     }
 
-    &[pgs*="'neutral'"] {
+    &[pgs*="'badgeNeutral'"] {
         --badge-background: var(--color-box-transparent);
         --badge-color: var(--color-text);
     }
 
-    &[pgs*="'dot'"] {
+    &[pgs*="'badgeDot'"] {
         &::before {
             content: "";
             display: block;

@@ -9,36 +9,36 @@
 //== building them by concatenation, so the literal name the docs validator looks for is actually
 //== present in this file — see scripts/generate-component-docs.js's containsExactToken.
 $hide-media-down: (
-    "mediaDownWatch": $watch,
-    "mediaDownMobile": $mobile,
-    "mediaDownBigMobile": $big-mobile,
-    "mediaDownTablet": $tablet,
-    "mediaDownBigTablet": $big-tablet,
-    "mediaDownLaptop": $laptop,
+    "hideMediaDownWatch": $watch,
+    "hideMediaDownMobile": $mobile,
+    "hideMediaDownBigMobile": $big-mobile,
+    "hideMediaDownTablet": $tablet,
+    "hideMediaDownBigTablet": $big-tablet,
+    "hideMediaDownLaptop": $laptop,
 );
 $hide-media-up: (
-    "mediaUpWatch": $watch,
-    "mediaUpMobile": $mobile,
-    "mediaUpBigMobile": $big-mobile,
-    "mediaUpTablet": $tablet,
-    "mediaUpBigTablet": $big-tablet,
-    "mediaUpLaptop": $laptop,
+    "hideMediaUpWatch": $watch,
+    "hideMediaUpMobile": $mobile,
+    "hideMediaUpBigMobile": $big-mobile,
+    "hideMediaUpTablet": $tablet,
+    "hideMediaUpBigTablet": $big-tablet,
+    "hideMediaUpLaptop": $laptop,
 );
 $hide-container-down: (
-    "containerDownWatch": $watch,
-    "containerDownMobile": $mobile,
-    "containerDownBigMobile": $big-mobile,
-    "containerDownTablet": $tablet,
-    "containerDownBigTablet": $big-tablet,
-    "containerDownLaptop": $laptop,
+    "hideContainerDownWatch": $watch,
+    "hideContainerDownMobile": $mobile,
+    "hideContainerDownBigMobile": $big-mobile,
+    "hideContainerDownTablet": $tablet,
+    "hideContainerDownBigTablet": $big-tablet,
+    "hideContainerDownLaptop": $laptop,
 );
 $hide-container-up: (
-    "containerUpWatch": $watch,
-    "containerUpMobile": $mobile,
-    "containerUpBigMobile": $big-mobile,
-    "containerUpTablet": $tablet,
-    "containerUpBigTablet": $big-tablet,
-    "containerUpLaptop": $laptop,
+    "hideContainerUpWatch": $watch,
+    "hideContainerUpMobile": $mobile,
+    "hideContainerUpBigMobile": $big-mobile,
+    "hideContainerUpTablet": $tablet,
+    "hideContainerUpBigTablet": $big-tablet,
+    "hideContainerUpLaptop": $laptop,
 );
 
 //= HIDE

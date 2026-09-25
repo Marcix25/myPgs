@@ -8,14 +8,14 @@ Reusable surfaces for presenting structured card content or grouping simpler con
 
 - `card`: identifies the main card container. Written on an `<a>` it becomes a clickable surface, and `pgs.hover` marks it with `hover` on a page that carries `bodyHoverAuto`, so it takes the shared hover and focus treatment; see Html and Body.
 - `card-img`: identifies the main card image, written on the `<img>` or `<object>` itself; a bare image with no token inside a card is not styled.
-- `card-imgForChild`: a wrapper for card media the card does not write itself, such as an image printed by a helper or a block of elements: the card-img treatment lands on its direct child, and in cardHorizontal/horizontalFixed the wrapper is the one taking the 40/60 split.
+- `card-imgForChild`: a wrapper for card media the card does not write itself, such as an image printed by a helper or a block of elements: the card-img treatment lands on its direct child, and in cardHorizontal/cardHorizontalFixed the wrapper is the one taking the 40/60 split.
 - `card-content`: groups the text and actions of a card.
 - `box`: identifies a lightweight content container or clickable surface. Written on an `<a>` it is marked with `hover` the same way a clickable card is.
 
 ## PGS Options (component brackets)
 
 - `cardHorizontal`: switches intrinsically between a horizontal 40/60 layout and a stacked layout according to the card's available width.
-- `horizontalFixed`: the same 40/60 layout as cardHorizontal, with no container query behind it — the card reads side-by-side whatever its own width is, which is what a card already known to be wide enough, or one deliberately narrow but still meant to stay horizontal, wants instead of the responsive switch.
+- `cardHorizontalFixed`: the same 40/60 layout as cardHorizontal, with no container query behind it — the card reads side-by-side whatever its own width is, which is what a card already known to be wide enough, or one deliberately narrow but still meant to stay horizontal, wants instead of the responsive switch.
 - `cardMini`: reduces the content padding on the card's own card-content.
 - `boxMini`: inside box's own bracket, the same reduced padding on the box itself.
 
@@ -120,10 +120,10 @@ This card switches intrinsically between horizontal and stacked layouts.
 
 ### Fixed horizontal card
 
-horizontalFixed keeps the row layout with no container query behind it, so it stays side-by-side even narrower than horizontal's own breakpoint would allow.
+cardHorizontalFixed keeps the row layout with no container query behind it, so it stays side-by-side even narrower than horizontal's own breakpoint would allow.
 
 ```html
-<article pgs="card['horizontalFixed']">
+<article pgs="card['cardHorizontalFixed']">
     <img pgs="card-img" src="../assets/img/placeholder.jpg" alt="Placeholder image">
 
     <div pgs="card-content">

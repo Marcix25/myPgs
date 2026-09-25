@@ -7,7 +7,7 @@
 // Width at or below which the header switches to its compact layout even when the content
 // still fits, so a wide header can be compact on purpose.
 // headerCompactFrom[600] wins with its own pixel value, otherwise the named options
-// (compactTablet, compactLaptop, ...) set --header-compact-breakpoint in the
+// (headerCompactTablet, headerCompactLaptop, ...) set --header-compact-breakpoint in the
 // SCSS, so the breakpoint values stay defined in one place.
 function getHeader_CompactBreakpoint(header) {
     const custom = parseFloat(pgs(header).data.getValueBrackets("headerCompactFrom"));
@@ -113,7 +113,7 @@ function initHeader_Height(header) {
     //+ FOR --heightOfHeader e --heightOfHeaderScroll
     function getPrimaryHeader() {
         const headers = getReadyHeaders();
-        return headers.find(header => pgs(header).option.contains("main")) || headers[0] || null;
+        return headers.find(header => pgs(header).option.contains("headerMain")) || headers[0] || null;
     }
 
     //+ HEIGHT
@@ -159,7 +159,7 @@ function initHeader_Height(header) {
 //== up to 900px tall, where a pinned header costs too much of the page
 function initHeader_Scroll(header) {
     let lastScrollY = window.scrollY;
-    if (!header || !pgs(header).option.contains("scroll")) return;
+    if (!header || !pgs(header).option.contains("headerScroll")) return;
     const headerElements = pgs(header).querySelectorAll("header-element");
 
     window.addEventListener("scroll", () => {

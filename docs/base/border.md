@@ -70,8 +70,8 @@ Border, outline and radius utilities, split out from the general-purpose set sin
 - `olWarning`: inside outline's own bracket, recolours it with the warning colour.
 - `olSuccess`: inside outline's own bracket, recolours it with the success colour.
 - `olGray`: inside outline's own bracket, recolours it gray.
-- `input`: inside borderRadius's own bracket, uses the smaller radius used by form controls instead of the standard one.
-- `external`: inside borderRadius's own bracket, uses the wider radius used by outer containers instead of the standard one.
+- `radInput`: inside borderRadius's own bracket, uses the smaller radius used by form controls instead of the standard one.
+- `radExternal`: inside borderRadius's own bracket, uses the wider radius used by outer containers instead of the standard one.
 
 ## Related elements
 
@@ -147,7 +147,7 @@ The same line drawn outside the padding  so it takes no space and never moves wh
 Three radius tokens: the standard one, the smaller one used by form controls and the wider one for outer containers.
 
 ```html
-<span pgs="padding['padSections'] border borderRadius['external']">borderRadius['external']</span>
+<span pgs="padding['padSections'] border borderRadius['radExternal']">borderRadius['radExternal']</span>
 <span pgs="padding['padSections'] border borderRadius">borderRadius</span>
-<span pgs="padding['padSections'] border borderRadius['input']">borderRadius['input']</span>
+<span pgs="padding['padSections'] border borderRadius['radInput']">borderRadius['radInput']</span>
 ```

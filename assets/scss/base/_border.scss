@@ -77,8 +77,8 @@
 :is([pgs~="borderRadius"], [pgs*="borderRadius\5B"]) {
     border-radius: var(--border-radius);
 
-    &[pgs*="'input'"] { border-radius: var(--border-radius-input); }
-    &[pgs*="'external'"] { border-radius: var(--border-radius-external); }
+    &[pgs*="'radInput'"] { border-radius: var(--border-radius-input); }
+    &[pgs*="'radExternal'"] { border-radius: var(--border-radius-external); }
 }
 
 //= OUTLINE

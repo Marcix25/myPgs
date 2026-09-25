@@ -12,9 +12,9 @@
  *
  * @pgs-options
  * - menuHorizontal: identifies the horizontal element used by Menu.
- * - vertical: identifies the vertical element used by Menu.
- * - iconOnlyCurrent: displays link icons only when the link has an active aria-current value.
- * - short: compacts adjacent menu links by overlapping their horizontal spacing.
+ * - menuVertical: identifies the vertical element used by Menu.
+ * - menuIconOnlyCurrent: displays link icons only when the link has an active aria-current value.
+ * - menuShort: compacts adjacent menu links by overlapping their horizontal spacing.
  *
  * @pgs-state
  * - open: identifies the open element used by Menu.
@@ -87,7 +87,7 @@
 
 <demo demo-h3="Vertical menu" demo-description="Vertical navigation with recursively nested submenus, showing icons only on the active link."></demo>
 <section demo="component">
-    <nav pgs="menu['vertical']" aria-label="Menu verticale">
+    <nav pgs="menu['menuVertical']" aria-label="Menu verticale">
         <ul>
             <li>
                 <a pgs="button['btnTransparent']" href="/" aria-current="page">
@@ -128,7 +128,7 @@
 
 <demo demo-h3="Horizontal menu - menu Icon Only Current" demo-description="Top-level navigation arranged horizontally, with one nested submenu."></demo>
 <section demo="component">
-    <nav pgs="menu['menuHorizontal' 'iconOnlyCurrent']" aria-label="Menu orizzontale">
+    <nav pgs="menu['menuHorizontal' 'menuIconOnlyCurrent']" aria-label="Menu orizzontale">
         <ul pgs="flex['row' 'wrap']">
             <li>
                 <a pgs="button['btnTransparent']" href="/" aria-current="page">
@@ -154,7 +154,7 @@
 
 <demo demo-h3="Horizontal menu - short" demo-description="Top-level navigation with short, overlapping the horizontal spacing between adjacent links."></demo>
 <section demo="component">
-    <nav pgs="menu['menuHorizontal' 'short']" aria-label="Menu orizzontale">
+    <nav pgs="menu['menuHorizontal' 'menuShort']" aria-label="Menu orizzontale">
         <ul pgs="flex['row' 'wrap']">
             <li>
                 <a pgs="button['btnTransparent']" href="/" aria-current="page">

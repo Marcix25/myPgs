@@ -9,22 +9,22 @@
  * - pageShell-content: identifies the main page content.
  *
  * @pgs-options
- * - fullPage: expands the shell to the full available width while keeping its content centered.
- * - asideScroll: makes every sidebar stick beside the content and scroll on its own, clamped to the viewport height; it releases the sticky behaviour once the sidebar stacks.
- * - asideShadow: fades the top and bottom edges of a sidebar instead of cutting its content abruptly; independent of asideScroll, but only meaningful alongside it.
+ * - shellFullPage: expands the shell to the full available width while keeping its content centered.
+ * - shellAsideScroll: makes every sidebar stick beside the content and scroll on its own, clamped to the viewport height; it releases the sticky behaviour once the sidebar stacks.
+ * - shellAsideShadow: fades the top and bottom edges of a sidebar instead of cutting its content abruptly; independent of shellAsideScroll, but only meaningful alongside it.
  *
  * @related
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - column: organizes text contained in the sidebars.
  * - gapElements: applies element spacing in the main sections.
  *
- * @return Seven page-shell HTML configurations with two, one, or no sidebars, with asideScroll, its shadow variant, or neither.
+ * @return Seven page-shell HTML configurations with two, one, or no sidebars, with shellAsideScroll, its shadow variant, or neither.
  */
 -->
 
 
 <!--  -->
-<demo demo-h2="Page Shell" demo-description="The shell without asideScroll: every sidebar scrolls with the page, like any other column."></demo>
+<demo demo-h2="Page Shell" demo-description="The shell without shellAsideScroll: every sidebar scrolls with the page, like any other column."></demo>
 
 <demo demo-h3="Not scroll - Two sidebars" demo-description="Shell with a sidebar on both sides of the main content."></demo>
 <section demo="component">
@@ -88,11 +88,11 @@
 
 
 <!--  -->
-<demo demo-h2="Page Shell - Scroll" demo-description="The same shell with asideScroll, so a sidebar sticks beside the content and scrolls on its own, plus its shadow variant."></demo>
+<demo demo-h2="Page Shell - Scroll" demo-description="The same shell with shellAsideScroll, so a sidebar sticks beside the content and scrolls on its own, plus its shadow variant."></demo>
 
-<demo demo-h3="Full-width with sidebar" demo-description="Full-width shell with a single sidebar before the main content, using fullPage."></demo>
+<demo demo-h3="Full-width with sidebar" demo-description="Full-width shell with a single sidebar before the main content, using shellFullPage."></demo>
 <section demo="component">
-    <div pgs="pageShell['fullPage' 'asideScroll']">
+    <div pgs="pageShell['shellFullPage' 'shellAsideScroll']">
         <aside pgs="pageShell-aside">
             <div pgs="flex['column']">
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab modi ut sunt est illum accusantium dolores eum aut cum itaque.</p>
@@ -120,9 +120,9 @@
 
 
 
-<demo demo-h3="Single sidebar" demo-description="Default-width shell with a single sidebar before the main content, scrolling on its own with asideScroll."></demo>
+<demo demo-h3="Single sidebar" demo-description="Default-width shell with a single sidebar before the main content, scrolling on its own with shellAsideScroll."></demo>
 <section demo="component">
-    <div pgs="pageShell['asideScroll']">
+    <div pgs="pageShell['shellAsideScroll']">
         <aside pgs="pageShell-aside">
             <div pgs="flex['column']">
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab modi ut sunt est illum accusantium dolores eum aut cum itaque.</p>
@@ -145,9 +145,9 @@
 
 
 
-<demo demo-h3="Single sidebar, shadow" demo-description="Same single sidebar, with asideShadow: its scrolling edges fade out instead of cutting content abruptly."></demo>
+<demo demo-h3="Single sidebar, shadow" demo-description="Same single sidebar, with shellAsideShadow: its scrolling edges fade out instead of cutting content abruptly."></demo>
 <section demo="component">
-    <div pgs="pageShell['asideScroll' 'asideShadow']">
+    <div pgs="pageShell['shellAsideScroll' 'shellAsideShadow']">
         <aside pgs="pageShell-aside">
             <div pgs="flex['column']">
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab modi ut sunt est illum accusantium dolores eum aut cum itaque.</p>
@@ -164,9 +164,9 @@
 
 
 
-<demo demo-h3="Sidebar after content" demo-description="Shell with the sidebar placed after the main content instead of before it, scrolling on its own with asideScroll."></demo>
+<demo demo-h3="Sidebar after content" demo-description="Shell with the sidebar placed after the main content instead of before it, scrolling on its own with shellAsideScroll."></demo>
 <section demo="component">
-    <div pgs="pageShell['asideScroll']">
+    <div pgs="pageShell['shellAsideScroll']">
 
         <main pgs="pageShell-content">
             <section pgs="flex['column' 'gapElements']">

@@ -2,7 +2,7 @@
 
 # Scroll horizontal
 
-Two variants that turn vertical wheel motion into horizontal scrolling over a container that can still scroll in that direction. scrollHorizontal converts any input device — mouse wheel, trackpad, Magic Mouse. scrollHorizontalWithMouse converts only a plain mouse wheel and leaves a trackpad's own two-finger swipe alone, since it already scrolls horizontally on its own; Slides uses this one internally for scrollMouse.
+Two variants that turn vertical wheel motion into horizontal scrolling over a container that can still scroll in that direction. scrollHorizontal converts any input device — mouse wheel, trackpad, Magic Mouse. scrollHorizontalWithMouse converts only a plain mouse wheel and leaves a trackpad's own two-finger swipe alone, since it already scrolls horizontally on its own; Slides uses this one internally for slidesScrollMouse.
 
 ## JavaScript API
 
@@ -26,7 +26,7 @@ Two variants that turn vertical wheel motion into horizontal scrolling over a co
 - `gapTexts`: spaces them apart.
 - `ovAutoX`: inside overflow's own bracket, adds scrolling only when content overflows, on the horizontal axis only.
 - `nowrap`: keeps each row on one line so it actually overflows instead of wrapping.
-- `cover`: inside img's own bracket, crops the image to fill its box.
+- `imgCover`: inside img's own bracket, crops the image to fill its box.
 
 ## Output
 

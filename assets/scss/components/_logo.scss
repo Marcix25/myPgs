@@ -10,12 +10,12 @@
     --logo-finter: invert(1) hue-rotate(180deg) brightness(1.5);
 
     //== DARKMODE
-    &:is([pgs-state~="darkmode"] [pgs*="'darkmode'"]) :where([pgs~="logo-image"]) {
+    &:is([pgs-state~="darkmode"] [pgs*="'logoDarkmode'"]) :where([pgs~="logo-image"]) {
         filter: var(--logo-finter);
     }
 
     //== FIXED DARKMODE
-    &[pgs*="'darkmodeFixed'"] :where([pgs~="logo-image"]) {
+    &[pgs*="'logoDarkmodeFixed'"] :where([pgs~="logo-image"]) {
         filter: var(--logo-finter);
     }
 
