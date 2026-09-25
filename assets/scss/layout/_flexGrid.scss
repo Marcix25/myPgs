@@ -1,0 +1,43 @@
+//# FLEX & GRID
+// gap and alignment options shared by flex and grid (and by the layout mixins other components
+// compose), kept apart from both so neither page owns them
+:is([pgs~="gridChild"], [pgs*="gridChild\5B"], [pgs~="flex"], [pgs*="flex\5B"]) {
+
+    //== GAP
+    // each one also sets --flex-gap, the value a flex['column-N'] computes its column widths
+    // with, so the gap it draws and the gap it counts are always the same
+    &[pgs*="'gapTexts'"] { --flex-gap: var(--gap-texts); gap: var(--flex-gap); }
+    &[pgs*="'gapElements'"] { --flex-gap: var(--gap-elements); gap: var(--flex-gap); }
+    &[pgs*="'gapSections'"] { --flex-gap: var(--gap-sections); gap: var(--flex-gap); }
+    &[pgs*="'gapNone'"] { --flex-gap: 0px; gap: 0; }
+
+    //== ALIGN ITEMS
+    &[pgs*="'itemStart'"] { align-items: start; }
+    &[pgs*="'itemCenter'"] { align-items: center; }
+    &[pgs*="'itemEnd'"] { align-items: end; }
+    &[pgs*="'itemStretch'"] { align-items: stretch; }
+    &[pgs*="'itemBaseline'"] { align-items: baseline; }
+
+    //== JUSTIFY CONTENT
+    &[pgs*="'justifyStart'"] { justify-content: start; }
+    &[pgs*="'justifyCenter'"] { justify-content: center; }
+    &[pgs*="'justifyEnd'"] { justify-content: end; }
+    &[pgs*="'justifyBetween'"] { justify-content: space-between; }
+    &[pgs*="'justifyAround'"] { justify-content: space-around; }
+    &[pgs*="'justifyEvenly'"] { justify-content: space-evenly; }
+
+    //== ALIGN CONTENT
+    &[pgs*="'contentStart'"] { align-content: start; }
+    &[pgs*="'contentCenter'"] { align-content: center; }
+    &[pgs*="'contentEnd'"] { align-content: end; }
+    &[pgs*="'contentBetween'"] { align-content: space-between; }
+    &[pgs*="'contentAround'"] { align-content: space-around; }
+    &[pgs*="'contentEvenly'"] { align-content: space-evenly; }
+
+    //== SELF ALIGN (on the child of a flex or grid container, not the container itself)
+    &[pgs*="'selfStart'"] { align-self: start; }
+    &[pgs*="'selfCenter'"] { align-self: center; }
+    &[pgs*="'selfEnd'"] { align-self: end; }
+    &[pgs*="'selfStretch'"] { align-self: stretch; }
+    &[pgs*="'selfBaseline'"] { align-self: baseline; }
+}

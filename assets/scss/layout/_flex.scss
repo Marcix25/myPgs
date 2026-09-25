@@ -1,6 +1,6 @@
 @use "../mixin/mixin" as *;
 
-//# RESPONSIVE
+//# FLEX
 //= FLEX
 //== FLEX OPTIONS
 :is([pgs~="flex"], [pgs*="flex\5B"]) {
@@ -122,98 +122,4 @@
             }
         }
     }
-}
-
-//= GRID
-//== COLUMN
-:is([pgs~="grid"], [pgs*="grid\5B"]) {
-    display: grid;
-    gap: var(--gap-texts);
-    width: 100%;
-
-    // fills the holes a wide item leaves at the end of a row with the items that come after it,
-    // instead of always placing them in source order
-    &[pgs*="'gridDense'"] { grid-auto-flow: row dense; }
-}
-
-:is([pgs~="grid"], [pgs*="grid\5B"]) {
-    $maxColumns: 8;
-
-    &[pgs*="'column-"] { @include columnGrid($maxColumns); }
-
-    &[pgs*="'column-1'"] {
-        grid-template-columns: auto;
-        --_grid-cols: 1;
-    }
-
-    @for $i from 2 through $maxColumns {
-        &[pgs*="'column-#{$i}'"] { @include columnGrid($i); }
-    }
-
-    // gridChild's col* spans that many grid columns, capped by the columns the current
-    // breakpoint leaves (--_grid-cols, published by columnGrid): a span wider than the grid
-    // would otherwise make the grid add implicit columns of its own
-    &[pgs*="'column-"]> :is([pgs~="gridChild"], [pgs*="gridChild\5B"]):is([pgs*="'colS'"], [pgs*="'colM'"], [pgs*="'colL'"], [pgs*="'colXl'"], [pgs*="'colXxl'"]) {
-        //
-        grid-column: span min(var(--_gridChild-col), var(--_grid-cols, 1));
-    }
-}
-
-//== GRID CHILD
-// the grid counterpart of flexChild: how one item sits inside the grid it belongs to. Separate
-// from flexChild because a grid item has none of flex's sizing (flex-grow/basis mean nothing
-// there), and its own options stay free to grow into rows and placement
-:is([pgs~="gridChild"], [pgs*="gridChild\5B"]) {
-
-    // column spans: how many columns the item takes inside a grid['column-N'], capped by the
-    // columns the current breakpoint leaves; outside it they do nothing, see COLUMN above
-    &[pgs*="'colS'"] {
-        --_gridChild-col: var(--gridChild-col-s, 1);
-    }
-
-    &[pgs*="'colM'"] { --_gridChild-col: var(--gridChild-col-m, 2); }
-    &[pgs*="'colL'"] { --_gridChild-col: var(--gridChild-col-l, 3); }
-    &[pgs*="'colXl'"] { --_gridChild-col: var(--gridChild-col-xl, 4); }
-    &[pgs*="'colXxl'"] { --_gridChild-col: var(--gridChild-col-xxl, 5); }
-}
-
-//= FLEX & GRID 
-// (including layout mixins composed by other components)
-:is([pgs~="gridChild"], [pgs*="gridChild\5B"], [pgs~="flex"], [pgs*="flex\5B"]) {
-
-    //== GAP
-    &[pgs*="'gapTexts'"] { gap: var(--gap-texts); }
-    &[pgs*="'gapElements'"] { gap: var(--gap-elements); }
-    &[pgs*="'gapSections'"] { gap: var(--gap-sections); }
-    &[pgs*="'gapNone'"] { gap: unset; }
-
-    //== ALIGN ITEMS
-    &[pgs*="'itemStart'"] { align-items: start; }
-    &[pgs*="'itemCenter'"] { align-items: center; }
-    &[pgs*="'itemEnd'"] { align-items: end; }
-    &[pgs*="'itemStretch'"] { align-items: stretch; }
-    &[pgs*="'itemBaseline'"] { align-items: baseline; }
-
-    //== JUSTIFY CONTENT
-    &[pgs*="'justifyStart'"] { justify-content: start; }
-    &[pgs*="'justifyCenter'"] { justify-content: center; }
-    &[pgs*="'justifyEnd'"] { justify-content: end; }
-    &[pgs*="'justifyBetween'"] { justify-content: space-between; }
-    &[pgs*="'justifyAround'"] { justify-content: space-around; }
-    &[pgs*="'justifyEvenly'"] { justify-content: space-evenly; }
-
-    //== ALIGN CONTENT
-    &[pgs*="'contentStart'"] { align-content: start; }
-    &[pgs*="'contentCenter'"] { align-content: center; }
-    &[pgs*="'contentEnd'"] { align-content: end; }
-    &[pgs*="'contentBetween'"] { align-content: space-between; }
-    &[pgs*="'contentAround'"] { align-content: space-around; }
-    &[pgs*="'contentEvenly'"] { align-content: space-evenly; }
-
-    //== SELF ALIGN (on the child of a flex or grid container, not the container itself)
-    &[pgs*="'selfStart'"] { align-self: start; }
-    &[pgs*="'selfCenter'"] { align-self: center; }
-    &[pgs*="'selfEnd'"] { align-self: end; }
-    &[pgs*="'selfStretch'"] { align-self: stretch; }
-    &[pgs*="'selfBaseline'"] { align-self: baseline; }
 }

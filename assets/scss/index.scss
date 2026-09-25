@@ -16,7 +16,9 @@
 |--------------------------------------------------------------------------
 */
 @include meta.load-css("layout/section");
-@include meta.load-css("layout/responsive");
+@include meta.load-css("layout/flex");
+@include meta.load-css("layout/grid");
+@include meta.load-css("layout/flexGrid");
 @include meta.load-css("layout/breakpoints");
 @include meta.load-css("layout/utilities");
 @include meta.load-css("layout/spacing");

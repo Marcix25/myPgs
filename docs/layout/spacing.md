@@ -2,7 +2,7 @@
 
 # Spacing
 
-Margin and padding utilities based on the shared MyPGS spacing scales. One root each — margin, padding — with every direction and scale folded into the option name (mrgLeftTexts, padBlockPage, ...) instead of a separate root per direction, so two of them can combine in the same bracket in any order. The gap utilities live in Responsive instead, because they only take effect on a flex or grid container.
+Margin and padding utilities based on the shared MyPGS spacing scales. One root each — margin, padding — with every direction and scale folded into the option name (mrgLeftTexts, padBlockPage, ...) instead of a separate root per direction, so two of them can combine in the same bracket in any order. The gap utilities live in Flex and Grid instead, because they only take effect on a flex or grid container.
 
 ## PGS
 

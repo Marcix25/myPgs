@@ -1,0 +1,55 @@
+@use "../mixin/mixin" as *;
+
+//# GRID
+//= GRID
+//== COLUMN
+:is([pgs~="grid"], [pgs*="grid\5B"]) {
+    display: grid;
+    gap: var(--gap-texts);
+    width: 100%;
+
+    // fills the holes a wide item leaves at the end of a row with the items that come after it,
+    // instead of always placing them in source order
+    &[pgs*="'gridDense'"] { grid-auto-flow: row dense; }
+}
+
+:is([pgs~="grid"], [pgs*="grid\5B"]) {
+    $maxColumns: 8;
+
+    &[pgs*="'column-"] { @include columnGrid($maxColumns); }
+
+    &[pgs*="'column-1'"] {
+        grid-template-columns: auto;
+        --_grid-cols: 1;
+    }
+
+    @for $i from 2 through $maxColumns {
+        &[pgs*="'column-#{$i}'"] { @include columnGrid($i); }
+    }
+
+    // gridChild's col* spans that many grid columns, capped by the columns the current
+    // breakpoint leaves (--_grid-cols, published by columnGrid): a span wider than the grid
+    // would otherwise make the grid add implicit columns of its own
+    &[pgs*="'column-"]> :is([pgs~="gridChild"], [pgs*="gridChild\5B"]):is([pgs*="'colS'"], [pgs*="'colM'"], [pgs*="'colL'"], [pgs*="'colXl'"], [pgs*="'colXxl'"]) {
+        //
+        grid-column: span min(var(--_gridChild-col), var(--_grid-cols, 1));
+    }
+}
+
+//== GRID CHILD
+// the grid counterpart of flexChild: how one item sits inside the grid it belongs to. Separate
+// from flexChild because a grid item has none of flex's sizing (flex-grow/basis mean nothing
+// there), and its own options stay free to grow into rows and placement
+:is([pgs~="gridChild"], [pgs*="gridChild\5B"]) {
+
+    // column spans: how many columns the item takes inside a grid['column-N'], capped by the
+    // columns the current breakpoint leaves; outside it they do nothing, see COLUMN above
+    &[pgs*="'colS'"] {
+        --_gridChild-col: var(--gridChild-col-s, 1);
+    }
+
+    &[pgs*="'colM'"] { --_gridChild-col: var(--gridChild-col-m, 2); }
+    &[pgs*="'colL'"] { --_gridChild-col: var(--gridChild-col-l, 3); }
+    &[pgs*="'colXl'"] { --_gridChild-col: var(--gridChild-col-xl, 4); }
+    &[pgs*="'colXxl'"] { --_gridChild-col: var(--gridChild-col-xxl, 5); }
+}

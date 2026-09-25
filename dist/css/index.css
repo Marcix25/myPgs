@@ -959,6 +959,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 :is([pgs~=flex], [pgs*="flex["]) {
   display: flex;
   gap: var(--gap-texts);
+  --flex-gap: var(--gap-texts);
   flex-direction: row;
   flex-wrap: wrap;
 }
@@ -970,6 +971,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'flexPlaceCenter'"] {
   display: flex;
   gap: var(--gap-texts);
+  --flex-gap: var(--gap-texts);
   align-items: center;
   justify-content: center;
 }
@@ -1080,7 +1082,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   width: 100%;
   flex-wrap: wrap;
   flex-direction: row;
-  --flex-gap: var(--gap-elements);
+  --flex-gap: var(--gap-texts);
+  gap: var(--flex-gap);
 }
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-"] > * {
@@ -1129,7 +1132,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-2'"] {
-  --flex-gap: var(--gap-elements);
+  --flex-gap: var(--gap-texts);
+  gap: var(--flex-gap);
 }
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-2'"] > * {
@@ -1173,7 +1177,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   }
 }
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-3'"] {
-  --flex-gap: var(--gap-elements);
+  --flex-gap: var(--gap-texts);
+  gap: var(--flex-gap);
 }
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-3'"] > * {
@@ -1217,7 +1222,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   }
 }
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-4'"] {
-  --flex-gap: var(--gap-elements);
+  --flex-gap: var(--gap-texts);
+  gap: var(--flex-gap);
 }
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-4'"] > * {
@@ -1261,7 +1267,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   }
 }
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-5'"] {
-  --flex-gap: var(--gap-elements);
+  --flex-gap: var(--gap-texts);
+  gap: var(--flex-gap);
 }
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-5'"] > * {
@@ -1305,7 +1312,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   }
 }
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-6'"] {
-  --flex-gap: var(--gap-elements);
+  --flex-gap: var(--gap-texts);
+  gap: var(--flex-gap);
 }
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-6'"] > * {
@@ -1349,7 +1357,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   }
 }
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-7'"] {
-  --flex-gap: var(--gap-elements);
+  --flex-gap: var(--gap-texts);
+  gap: var(--flex-gap);
 }
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-7'"] > * {
@@ -1393,7 +1402,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   }
 }
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-8'"] {
-  --flex-gap: var(--gap-elements);
+  --flex-gap: var(--gap-texts);
+  gap: var(--flex-gap);
 }
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-8'"] > * {
@@ -1811,19 +1821,23 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=gridChild], [pgs*="gridChild["], [pgs~=flex], [pgs*="flex["])[pgs*="'gapTexts'"] {
-  gap: var(--gap-texts);
+  --flex-gap: var(--gap-texts);
+  gap: var(--flex-gap);
 }
 
 :is([pgs~=gridChild], [pgs*="gridChild["], [pgs~=flex], [pgs*="flex["])[pgs*="'gapElements'"] {
-  gap: var(--gap-elements);
+  --flex-gap: var(--gap-elements);
+  gap: var(--flex-gap);
 }
 
 :is([pgs~=gridChild], [pgs*="gridChild["], [pgs~=flex], [pgs*="flex["])[pgs*="'gapSections'"] {
-  gap: var(--gap-sections);
+  --flex-gap: var(--gap-sections);
+  gap: var(--flex-gap);
 }
 
 :is([pgs~=gridChild], [pgs*="gridChild["], [pgs~=flex], [pgs*="flex["])[pgs*="'gapNone'"] {
-  gap: unset;
+  --flex-gap: 0px;
+  gap: 0;
 }
 
 :is([pgs~=gridChild], [pgs*="gridChild["], [pgs~=flex], [pgs*="flex["])[pgs*="'itemStart'"] {
@@ -3173,6 +3187,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 [pgs~=footer] :where([pgs~=footer-top]) :where([pgs~=footer-brand]) {
   display: flex;
   gap: var(--gap-texts);
+  --flex-gap: var(--gap-texts);
   flex-direction: column;
 }
 
@@ -3423,6 +3438,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   align-items: flex-start;
   display: flex;
   gap: var(--gap-texts);
+  --flex-gap: var(--gap-texts);
   flex-direction: column;
 }
 
@@ -3697,6 +3713,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   cursor: pointer;
   display: flex;
   gap: var(--gap-texts);
+  --flex-gap: var(--gap-texts);
   align-items: center;
   justify-content: center;
 }
@@ -3960,6 +3977,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   cursor: pointer;
   display: flex;
   gap: var(--gap-texts);
+  --flex-gap: var(--gap-texts);
   align-items: center;
   justify-content: center;
 }
@@ -5037,6 +5055,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   cursor: pointer;
   display: flex;
   gap: var(--gap-texts);
+  --flex-gap: var(--gap-texts);
   align-items: center;
   justify-content: center;
 }
@@ -5219,6 +5238,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   border: unset;
   display: flex;
   gap: var(--gap-texts);
+  --flex-gap: var(--gap-texts);
   flex-direction: row;
   flex-wrap: wrap;
 }
@@ -5440,6 +5460,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 :is([pgs~=menu], [pgs*="menu["]) ul :is(ul) > li:has(ul), :is([pgs~=menu], [pgs*="menu["])[pgs*="'menuVertical'"] :is(ul) > li:has(ul), :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :is(ul) > li:has(ul) {
   display: flex;
   gap: var(--gap-texts);
+  --flex-gap: var(--gap-texts);
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
@@ -5535,6 +5556,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   cursor: pointer;
   display: flex;
   gap: var(--gap-texts);
+  --flex-gap: var(--gap-texts);
   flex-direction: row;
   flex-wrap: nowrap;
   box-shadow: none;
@@ -5573,6 +5595,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 :is([pgs~=accordion], [pgs*="accordion["]) :where([pgs~=accordion-content]) {
   display: flex;
   gap: var(--gap-texts);
+  --flex-gap: var(--gap-texts);
   flex-direction: column;
   visibility: hidden;
   opacity: 0;
@@ -5840,6 +5863,7 @@ html:has(dialog[open]) {
 :where(dialog[pgs~=modal-dialog]) :where([pgs~=modal-dialog-content]) :where([pgs~=modal-dialog-content-header]) {
   display: flex;
   gap: var(--gap-texts);
+  --flex-gap: var(--gap-texts);
   flex-direction: row;
   flex-wrap: nowrap;
   z-index: 1;
@@ -6164,6 +6188,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]) {
 ol[pgs~=steps] :where([pgs~=steps-step]) :where([pgs~=steps-step-content]) {
   display: flex;
   gap: var(--gap-texts);
+  --flex-gap: var(--gap-texts);
   flex-direction: column;
   margin-bottom: calc(var(--gap-elements) / 2 - 8px);
   padding-bottom: calc(var(--gap-elements) / 2);
@@ -6518,6 +6543,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 [pgs~=alert] :where([pgs~=_alert-content]) {
   display: flex;
   gap: calc(var(--alert-gap) / 2);
+  --flex-gap: calc(var(--alert-gap) / 2);
   flex-direction: column;
   min-width: 0;
 }
