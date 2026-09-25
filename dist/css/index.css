@@ -819,6 +819,10 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --section-margin-block: 0 0;
 }
 
+:is([pgs~=section], [pgs*="section["])[pgs*="section["] {
+  margin-block: var(--section-margin-block);
+}
+
 :is([pgs~=section], [pgs*="section["]):not([pgs*="section["]), :is([pgs~=section], [pgs*="section["])[pgs*="section[]"] {
   --section-width: calc(var(--page-width) + (var(--page-padding) * 2));
   margin-inline: auto;
@@ -829,7 +833,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   display: flex;
   flex-direction: column;
   gap: var(--gap-elements);
-  margin-block: var(--section-margin-block);
 }
 
 :is([pgs~=section], [pgs*="section["])[pgs*="'sctNoPadding'"] {
@@ -5306,6 +5309,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 :is([pgs~=accordion], [pgs*="accordion["]) {
   flex-direction: column;
+  gap: 0;
   min-width: 100%;
   position: relative;
   -webkit-user-select: unset;
@@ -5372,6 +5376,11 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 :is([pgs~=accordion], [pgs*="accordion["]) :where([pgs~=accordion-button])::after {
   margin-left: auto;
+  transition: rotate var(--accordion-timing, 300ms) ease;
+}
+
+:is([pgs~=accordion], [pgs*="accordion["]) {
+  --accordion-timing: 300ms;
 }
 
 :is([pgs~=accordion], [pgs*="accordion["]) :where([pgs~=accordion-content]) {
@@ -5380,17 +5389,17 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   flex-direction: column;
   visibility: hidden;
   opacity: 0;
-  max-height: 0;
+  height: 0;
   top: 20px;
   left: 0;
   width: 100%;
   font-weight: normal;
-  transition: padding 500ms, opacity 1000ms;
+  transition: height var(--accordion-timing) ease, opacity var(--accordion-timing) ease, visibility var(--accordion-timing);
   overflow: hidden;
 }
 
 :is([pgs~=accordion], [pgs*="accordion["]):not([pgs-state~=open]) {
-  display: block;
+  display: flex;
 }
 
 :is([pgs~=accordion], [pgs*="accordion["])[pgs-state~=open] {
@@ -5405,7 +5414,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 :is([pgs~=accordion], [pgs*="accordion["])[pgs-state~=open] :where([pgs~=accordion-content]) {
   visibility: visible;
   opacity: 1;
-  max-height: unset;
+  height: auto;
 }
 
 [pgs~=breadcrumb] {
@@ -5467,11 +5476,10 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --dropdown-padding: 1rem;
   --dropdown-inline-size: max-content;
   --dropdown-max-inline-size: min(400px, calc(100vw - 16px));
-  --dropdown-max-inline-size: 100%;
-  --_dropdown-left: 0px;
-  --_dropdown-top: 0px;
   --dropdown-display: block;
   --dropdown-arrow-size: 7px;
+  --_dropdown-left: 0px;
+  --_dropdown-top: 0px;
   --_dropdown-arrow-inset: calc(var(--dropdown-arrow-size) + var(--dropdown-borderRadius));
   position: relative;
 }

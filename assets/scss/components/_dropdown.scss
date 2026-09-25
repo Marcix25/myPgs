@@ -7,11 +7,10 @@
     --dropdown-padding: 1rem;
     --dropdown-inline-size: max-content;
     --dropdown-max-inline-size: min(400px, calc(100vw - 16px));
-    --dropdown-max-inline-size: 100%;
-    --_dropdown-left: 0px;
-    --_dropdown-top: 0px;
     --dropdown-display: block;
     --dropdown-arrow-size: 7px;
+    --_dropdown-left: 0px;
+    --_dropdown-top: 0px;
     --_dropdown-arrow-inset: calc(var(--dropdown-arrow-size) + var(--dropdown-borderRadius));
     position: relative;
 

@@ -61,23 +61,26 @@ it has no single owner — write it bare, `pgs="button hoverNot"`, not nested in
 
 Once every flag lived inside its own component's bracket, the prefix that told the two apart
 under the old flat `pgs-option` (`buttonMini`, `headerScroll`, `modalHistory`) became redundant —
-`button['mini']` already says which component `mini` belongs to. Search for every occurrence of
-the table below and rename it; a handful of flags kept their prefix on purpose (`margin2`/
-`padding2` — a lone digit means nothing on its own — and the `icon-*` glyphs), and every `pgs-data`
-key kept its too, for the reason above.
+`accordion['autoOpen']` already says which component `autoOpen` belongs to. A bare name that two
+components share on the same element, though, matches both (`[pgs*="'mini'"]` cannot tell button's
+from card's), so the flags that would collide keep a short prefix instead: every button flag
+(`btn*`), margin/padding/border/outline (`mrg*`/`pad*`/`brd*`/`otl*`), and a few single ones
+(`cardMini`, `boxMini`, `badgePrimary`, `menuHorizontal`). The `icon-*` glyphs keep theirs, and
+every `pgs-data` key keeps its own, for the reason above. The table gives the current name; search
+for every occurrence of the left column and rename it.
 
 | component | was | is now |
 | --- | --- | --- |
 | accordion | `accordionAutoOpen` | `autoOpen` |
 | accordionContainer | `accordionMultiOpen` | `multiOpen` |
-| badge | `badgeDot` / `badgeError` / `badgeInfo` / `badgeNeutral` / `badgePrimary` / `badgeStrong` / `badgeSuccess` / `badgeWarning` | `dot` / `error` / `info` / `neutral` / `primary` / `strong` / `success` / `warning` |
-| border (and its variants) | `borderThick` / `borderThicker` / `borderThin` | `thick` / `thicker` / `thin` |
-| outline | `outlineThick` / `outlineThicker` / `outlineThin` | `thick` / `thicker` / `thin` |
-| box | `boxMini` | `mini` |
-| button | `buttonBig` / `buttonMini` / `buttonPaddingEqual` / `buttonPrimary` / `buttonQuaternary` / `buttonReverse` / `buttonSecondary` / `buttonStrong` / `buttonTertiary` / `buttonText` / `buttonTransparent` | `big` / `mini` / `paddingEqual` / `primary` / `quaternary` / `reverse` / `secondary` / `strong` / `tertiary` / `text` / `transparent` |
-| button | `buttonHeader` | `forHeader` (kept a word, not just stripped: `button['header']` reads as "is a header") |
-| button | `buttonIcon` | `iconOnly` (not bare `icon`, which is also a real component) |
-| card | `cardHorizontal` / `cardHorizontalFixed` / `cardLegacy` / `cardMini` | `horizontal` / `horizontalFixed` / `legacy` (since removed, see section 2) / `mini` |
+| badge | `badgeDot` / `badgeError` / `badgeInfo` / `badgeNeutral` / `badgePrimary` / `badgeStrong` / `badgeSuccess` / `badgeWarning` | `dot` / `error` / `info` / `neutral` / `badgePrimary` / `badgeStrong` / `success` / `warning` (primary/strong keep a prefix: button has its own) |
+| border (and its variants) | `borderThick` / `borderThicker` / `borderThin` | `brdThick` / `brdThicker` / `brdThin`, one `border[...]` bracket for every side (`brdTop`, `brdLeftThick`, ...) |
+| outline | `outlineThick` / `outlineThicker` / `outlineThin` | `otlThick` / `otlThicker` / `otlThin` |
+| box | `boxMini` | `boxMini` (unchanged: button and card also have a mini) |
+| button | `buttonBig` / `buttonMini` / `buttonPaddingEqual` / `buttonPrimary` / `buttonQuaternary` / `buttonReverse` / `buttonSecondary` / `buttonStrong` / `buttonTertiary` / `buttonText` / `buttonTransparent` | `btnBig` / `btnMini` / `btnPaddingEqual` / `btnPrimary` / `btnQuaternary` / `btnReverse` / `btnSecondary` / `btnStrong` / `btnTertiary` / `btnText` / `btnTransparent` (every button flag carries `btn`) |
+| button | `buttonHeader` | `btnForHeader` |
+| button | `buttonIcon` | `btnIconOnly` |
+| card | `cardHorizontal` / `cardHorizontalFixed` / `cardLegacy` / `cardMini` | `cardHorizontal` / `horizontalFixed` / `legacy` (since removed, see section 2) / `cardMini` |
 | dropdown | `dropdownHover` | `hover` |
 | flex | `flexColumn` / `flexRow` / `flexColumnReverse` / `flexRowReverse` | `column` / `row` / `columnReverse` / `rowReverse` (`flexCenter` keeps its name: bare `center` would collide in meaning with `itemCenter`/`justifyCenter`/`contentCenter` in the same bracket) |
 | header | `headerCompactBigMobile` / `headerCompactBigTablet` / `headerCompactBottom` / `headerCompactLaptop` / `headerCompactMobile` / `headerCompactTablet` / `headerCompactWatch` | `compactBigMobile` / `compactBigTablet` / `compactBottom` / `compactLaptop` / `compactMobile` / `compactTablet` / `compactWatch` |
@@ -86,15 +89,13 @@ key kept its too, for the reason above.
 | icon | `iconBox` | `boxed` (not bare `box`, which is also a real component) |
 | icon | `iconDuo` / `iconLarge` / `iconMedium` | `duo` / `large` / `medium` |
 | logo | `logoDarkmode` / `logoDarkmodeFixed` | `darkmode` / `darkmodeFixed` |
-| menu | `menuHorizontal` / `menuIconOnlyCurrent` / `menuShort` / `menuVertical` | `horizontal` / `iconOnlyCurrent` / `short` / `vertical` |
+| menu | `menuHorizontal` / `menuIconOnlyCurrent` / `menuShort` / `menuVertical` | `menuHorizontal` / `iconOnlyCurrent` / `short` / `vertical` |
 | modal / modal-dialog | `modalBottom` / `modalCenter` / `modalDisableBackdropClose` / `modalFull` / `modalHistory` / `modalLeft` / `modalMedium` / `modalMini` / `modalRight` / `modalTop` / `modalTopLevel` | `dialogBottom` / `dialogCenter` / `dialogDisableBackdropClose` / `dialogFull` / `dialogHistory` / `dialogLeft` / `dialogMedium` / `dialogMini` / `dialogRight` / `dialogTop` / `dialogTopLevel` (renamed to `dialog*`, not stripped bare — these flags act on the `<dialog>`, not the wrapper) |
-| margin (and its variants) | `marginAuto` / `marginElements` / `marginNegative` / `marginPage` / `marginSections` / `marginTexts` / `marginUnset` | `auto` / `elements` / `negative` / `page` / `sections` / `texts` / `unset` (`margin2` keeps its name) |
-| padding (and its variants) | same list as margin, `padding*` | same as margin (`padding2` keeps its name) |
+| margin (and its variants) | `marginAuto` / `marginElements` / `marginNegative` / `marginPage` / `marginSections` / `marginTexts` / `marginUnset` | `mrgAuto` / `mrgElements` / `mrgNegative` / `mrgPage` / `mrgSections` / `mrgTexts` / `mrgUnset`, and `margin2` → `mrgHalf`; one `margin[...]` bracket for every side (`mrgTop`, `mrgInlineAuto`, ...) |
+| padding (and its variants) | same list as margin, `padding*` | the same with `pad` (`padPage`, `padTopHalf`, ...), `padding2` → `padHalf`; padding has no `auto` or `negative` |
 | pageShell | `pageShellAsideScroll` / `pageShellAsideShadow` / `pageShellFullPage` | `asideScroll` / `asideShadow` / `fullPage` |
 | slides | `slidesAnimationScale` / `slidesScrollMouse` / `slidesShadowDesktop` / `slidesSingleScroll` | `animationScale` / `scrollMouse` / `shadowDesktop` / `singleScroll` |
 | toggleDarkmode | `toggleDarkmodeExtended` | `labelled` (not bare `extended`, which does not say what is extended) |
-| width (and its variants) | `widthFillAvailable` / `widthFull` / `widthPage` / `widthPageHalf` / `widthPageThird` / `widthText` | `fillAvailable` / `full` / `page` / `pageHalf` / `pageThird` / `text` |
-| height (and its variants) | `heightAuto` / `heightFull` / `heightScreen` / `heightScreenHalf` / `heightScreenLarge` / `heightScreenLive` / `heightUnderHeader` / `heightUnderMain` | `auto` / `full` / `screen` / `screenHalf` / `screenLarge` / `screenLive` / `underHeader` / `underMain` |
 
 `.option` and `.data` are two separate accessors, split by attribute as well as by purpose:
 `.option` (`contains`/`add`/`remove`/`toggle`/queries/`closest`) only ever touches the `pgs`
@@ -102,8 +103,9 @@ attribute; `.data` (`getValueBrackets`/`setValueBrackets`/`value`) only ever tou
 Neither reads nor writes the other's attribute. `option.add(key)` derives the owning component
 from `key`'s own name — the lowercase run before the first uppercase letter or a `-` — and merges
 into that component's existing bracket. Most flags lost that derivable prefix in the table above,
-so this now only actually resolves an owner for the few that kept one (`margin2` → `margin`,
-`icon-moon` → `icon`); every other flag falls through to becoming its own bare `pgs` token, same as
+so this now only actually resolves an owner for the few that kept the component's own full name
+(`icon-moon` → `icon`, `cardMini` → `card`); an abbreviated prefix does not count (`mrgTop` derives
+`mrg`, not `margin`; `btnMini` derives `btn`, not `button`), and every other flag falls through to becoming its own bare `pgs` token, same as
 `hoverNot` (which never had an owner to derive). To add a shortened flag into its bracket from
 JavaScript, call the base `pgs(el).add("component['flag']")` directly, naming the component — this
 is the normal way to add a bracket flag now, not a fallback. `option.remove`/`option.toggle` strip
@@ -218,11 +220,49 @@ header and notification example in the library now writes `buttonTransparent` wh
 
 ## 2. Renames
 
+### Every utility family is one bracket
+
+The last round of the naming work folds each family of utility tokens into a single root with its
+own bracket, the same shape every component already has: one `margin[...]` instead of eleven
+`margin*` roots, one `section[...]` instead of eight `section*` ones. The flags inside carry a short
+prefix of their family (`mrg`, `pad`, `brd`, `sct`, `pos`, ...), so two families written on the same
+element can never match each other's flags. Nothing keeps working under the old name.
+
+| family | was | is now |
+| --- | --- | --- |
+| margin | `marginTop` / `marginBlock` / `marginAuto` / `marginTexts` / `margin2` / ... | `margin['mrgTop']` / `margin['mrgBlock']` / `margin['mrgAuto']` / `margin['mrgTexts']` / `margin['mrgHalf']`. A side and a scale fold into one flag: `marginTop` + `texts` → `margin['mrgTopTexts']`, `marginLeft` + `auto` → `margin['mrgLeftAuto']`. `mrgNegative` negates whatever else is in the bracket |
+| padding | `paddingTop` / `paddingInline` / `paddingElements` / `padding2` / ... | the same with `pad`: `padding['padTop']`, `padding['padInlineElements']`, `padding['padHalf']`. Padding has no `auto` and no `negative` |
+| border | `pgs="border"` + `borderThin`/`borderThick`/`borderThicker`, the per-side `borderTop`/`borderLeft`/..., and a colour `brPrimary`/... | one bracket for all three: `border['brdTop' 'brdThick' 'brPrimary']` — thickness and side fold into one flag (`brdLeftThick`), the colour sits next to it. `border['brPrimary']` alone draws the default width in that colour |
+| outline | `pgs="outline"` + `olPrimary`/... and `outlineThin`/... | `outline['olPrimary' 'otlThick']` |
+| border radius | `borderRadius` / `borderRadiusInput` / `borderRadiusExternal` | `borderRadius` / `borderRadius['input']` / `borderRadius['external']` |
+| section | `section` / `sectionFull` / `sectionMax` / `sectionNoPadding` / `sectionSpecificity` (and the dev-only `sectionEdge*`) | `section` / `section['sctFull']` / `section['sctMax']` / `section['sctNoPadding']` / `section['sctSpecificity']` / `section['sctEdgeLeft']`...; its child `sectionSpecificity-child` → `sctSpecificity-child` |
+| body | `bodyBase` / `bodyImg` / `bodyText` / `bodyHeading` / `bodyHoverAuto` on `<body>` | `body['bodyBase' 'bodyImg' 'bodyText' 'bodyHeading' 'bodyHoverAuto']` |
+| background colour | `bgPrimary` / `bgBoxDark` / ... | `background['bgPrimary']` / `background['bgBoxDark']` |
+| text colour | `colorPrimary` / ... (the dev-only `txtPrimary` / ...) | `textColor['txtPrimary']` — not `text[...]`, which is the typography utility |
+| position | `positionRelative` / `positionAbsolute` / `positionSticky` | `position['posRelative']` / `position['posAbsolute']` / `position['posSticky']` |
+| overflow | `overflowAuto` / `overflowXAuto` / `overflowHidden` | `overflow['ovAuto']` / `overflow['ovAutoX']` / `overflow['ovHidden']` (and the new `ovAutoY` / `ovHiddenX` / `ovHiddenY`) |
+| aspect ratio | `aspectSquare` / `aspectVideo` | `aspect['aspSquare']` / `aspect['aspVideo']` |
+| selection | `selectNone` / `selectText` | `select['selNone']` / `select['selText']` |
+| pointer events | `pointerEventsNone` / `pointerEventsAuto` | `pointerEvents['peNone']` / `pointerEvents['peAuto']` |
+| image fit | `imgCover` / `imgContain` | `img['cover']` / `img['contain']` |
+| flex item | `flex-flex1` / `flex-flexFull` / `flex-flexInitial` / `flex-flexNone` / `flex-flexOrderFirst` / `flex-flexOrderLast` | `flexChild['flex1']` / `flexChild['flexFull']` / ...: its own component, so it works inside any flex or grid container, not only under `flex` |
+
+Unchanged: `block`, `minWidth0`, `truncate`, `cursorNotAllowed`, `container`, and
+`iconColorPrimary`/`iconColorSecondary`, which stay bare.
+
+`svgChangeColor` now recolours Lottie animations too, from the same `--svg-color-N` pairs. The
+`lottieChangeColor` token that briefly existed on this branch is gone; write `svgChangeColor`.
+
+In PHP, a value an ACF field or a helper writes straight into `pgs` needs the same rename.
+`PGS_theme`'s `bl-section.php` maps the old section names for content already published; any other
+template that builds these names by concatenation will not show up in a plain search.
+
 ### Text colour utilities — `color*` becomes `txt*`
 
 Thirty-eight tokens, one straight substitution: `colorPrimary` → `txtPrimary`, `colorError` →
 `txtError`, `colorWhiteFixed` → `txtWhiteFixed`, and so on for every `color*` you were using. The
-family now matches `bg*`, `br*` and `ol*`.
+flag then moved into its own bracket, so the final form is `textColor['txtPrimary']`; see "Every
+utility family is one bracket" above.
 
 ### Markup the library builds — an `_` prefix
 
@@ -374,8 +414,8 @@ colours. That is what let `twoState` be dropped altogether — see just below. R
 otherwise: set the three properties on the element or a container, under the new names. Nothing reads
 the old ones any more, so a project that overrode them silently loses the override.
 
-Border and outline are now separate: `br*` colours need `pgs="border"`, `ol*` need `pgs="outline"`,
-and each family has its own thickness options.
+Border and outline are now separate: `br*` colours go in `border[...]`, `ol*` in `outline[...]`, and
+each family has its own thickness options (`brd*`, `otl*`); see "Every utility family is one bracket".
 
 ### Global tokens — one `--SIZE` scale
 
@@ -401,9 +441,8 @@ Two behaviours moved with the names, so a project that only renames still gets a
   edge of a section box rather than on its text, and reaches zero as soon as that box stops fitting
   rather than when the bare column does.
 
-The `margin2` and `padding2` options keep their names while reading `--padding-half` — the token is
-the public name, the custom property is the plumbing, and renaming the options too would have been a
-second breaking change for no gain.
+The `margin2` and `padding2` options read `--padding-half`; they are now `margin['mrgHalf']` and
+`padding['padHalf']`, see "Every utility family is one bracket".
 
 ### Flex/grid gap and wrap, bare `pgs` support removed
 
@@ -701,11 +740,19 @@ border above the footer legal row — now has both its rule and the library's.
   `<i>` — Material Symbols, Lucide, Iconify — gets the same box and placement.
 - **`tabIcon` takes markup.** `tabIcon[<span pgs='icon' class='material-symbols-outlined'>check</span>]`
   works, as does a glyph name or a class list. Inner attributes use single quotes.
-- **Border and outline sizing.** `borderThin`/`borderThick`/`borderThicker` and the `outline*` set.
-- **Spacing utilities.** `padding`, `padding2`, `paddingPage`, `paddingUnset`, and the same for
-  `margin`.
-- **Responsive hiding.** `hideMediaUp*`/`hideMediaDown*` by viewport, `hideContainerUp*`/
-  `hideContainerDown*` by container, across all six breakpoints.
+- **Border and outline sizing.** `border['brdThin'/'brdThick'/'brdThicker']`, per side too
+  (`brdTopThick`, `brdInlineThin`, ...), and `outline['otlThin'/'otlThick'/'otlThicker']`.
+- **Spacing utilities.** Every side and scale of `margin[...]`/`padding[...]`: `mrgPage`,
+  `padUnset`, `mrgBlockHalf`, `mrgNegative`, ...
+- **Responsive hiding.** `hide` alone hides unconditionally; `hide['mediaUpTablet']`,
+  `hide['mediaDownMobile']`, `hide['containerUpLaptop']`, ... hide past one breakpoint, by viewport
+  or by container, across all six breakpoints, and several options combine for a range.
+- **Size utilities.** `width`/`widthMax`/`widthMin`/`height`/`heightMax`/`heightMin`, each with its
+  own scale (`width['widthPage']`, `heightMin['heightMinScreen']`, `height['heightUnderMain']`, ...)
+  and its own inline custom property (`--width-size`, `--widthMax-size`, `--heightMin-size`, ...).
+- **More utilities.** `textAlign['taCenter']` and the rest of the `ta*` set, `rotate` (180deg bare,
+  `rot0`/`rot90`/`rot270` in the bracket), `container['none']`, and `section['sctRemoveGap']`/
+  `sctRemoveGapTop`/`sctRemoveGapBottom` to drop a section's outer margin.
 - **`column-1`** stacks a flex or grid layout in a single column.
 - **`pgs.header.init(root)`** is registered, several headers on one page are supported, and
   `headerPrimary` says which one drives `--heightOfHeader`.
@@ -720,7 +767,7 @@ border above the footer legal row — now has both its rule and the library's.
 - **A button can be a two-state control.** `<label pgs="button">` around a checkbox or radio hides
   the input, keeps its semantics, and paints the checked state from `--button-*-checked` — with
   every button option available on it. This is what replaced `twoState`.
-- **`alertContainer`, `notificationTrigger`, `toastExe`, `lottieChangeColor`** are new public tokens.
+- **`alertContainer`, `notificationTrigger`, `toastExe`** are new public tokens.
 - **A theme switch can carry its label anywhere.** `pgs-option="toggleDarkmodeExtended"` writes the
   theme the click leads to next to the glyph. The rule used to be baked into the footer, where it
   applied whether or not the page wanted it and reached no switch outside; it now lives in the
@@ -824,6 +871,15 @@ grep -rnE 'tooltip(-button|-content)?\b|--tooltip-arrow-size' .
 
 # 31. custom properties written by JavaScript, now _-prefixed
 grep -rnE -- '--(dropdown-left|dropdown-top|dropdown-arrowLeft|dropdown-arrowTop|slides-visiblePercent|slides-height|toast-timeout|summary-content-max-height)\b' .
+
+# 32. utility families folded into one bracket each (read, then rename by the table)
+grep -rnE '\b(margin|padding)(Top|Bottom|Left|Right|Block|Inline|Auto|Texts|Elements|Sections|2)\b' .
+grep -rnE '\b(border(Top|Bottom|Left|Right|Block|Inline|Thin|Thick|Thicker|RadiusInput|RadiusExternal)|outline(Thin|Thick|Thicker))\b' .
+grep -rnE 'pgs="([^"]* )?(br|ol|bg|txt|color)[A-Z]' .
+grep -rnE '\b(section(Full|Max|NoPadding|Specificity|Edge[A-Za-z]*)|sectionSpecificity-child)\b' .
+grep -rnE '\bbody(Base|Img|Text|Heading|HoverAuto)\b' . | grep -v "body\['"
+grep -rnE '\b(position(Relative|Absolute|Sticky)|overflow(Auto|XAuto|Hidden)|aspect(Square|Video)|select(None|Text)|pointerEvents(None|Auto)|img(Cover|Contain))\b' .
+grep -rnE '\bflex-flex[A-Za-z0-9]+|lottieChangeColor' .
 ```
 
 Hit 5 needs reading rather than replacing: an `icon` that wraps another element wanted the surface
@@ -848,7 +904,11 @@ never got the automatic marking, so this only flags pages that carry some other 
 `bodyHoverAuto` added regardless if it uses `pgs="button"`, a link `card` or `box` anywhere and relied on
 the hover treatment showing up on its own. Hit 27 needs reading: a project that never touched
 `--card-horizontal-breakpoint` needs nothing, one that did override it needs the same `min-width`
-written into its own `@container` rule instead. Hit 28 needs reading as well: dropping `'legacy'` is
+written into its own `@container` rule instead. Hit 32 needs reading: the patterns also catch PHP
+variable names and CSS properties that happen to share the spelling (`$imgCover`, `marginTop` in a
+style object); rename only what ends up inside a `pgs` attribute, by the table in "Every utility
+family is one bracket". A name built by concatenation or picked from an ACF field
+(`pgs="<?= $imgCover ?>"`) is the one that slips through, so read those templates too. Hit 28 needs reading as well: dropping `'legacy'` is
 the easy half, each hit also needs its non-image content moved into a `pgs="card-content"`, which
 only the markup can tell you how to split. Hit 29 is a starting point, not a complete list: it only
 sees an image written within three lines of the card, so an image printed by a helper

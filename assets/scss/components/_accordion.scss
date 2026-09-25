@@ -17,6 +17,7 @@
 //= ACCORDION
 :is([pgs~="accordion"], [pgs*="accordion\5B"]) {
     flex-direction: column;
+    gap: 0;
     min-width: 100%;
     position: relative;
     -webkit-user-select: unset;
@@ -38,13 +39,8 @@
         //== the line separates one accordion from the next, so the last of a run does not draw it:
         //== written as "no accordion sibling after me" rather than :last-child, so it still holds
         //== when the container ends with something else
-        &:not(:has(~ :is([pgs~="accordion"], [pgs*="accordion\5B"])))::after {
-            content: none;
-        }
-
-        :where([pgs~="accordion-button"]) {
-            font-weight: var(--font-weight-title);
-        }
+        &:not(:has(~ :is([pgs~="accordion"], [pgs*="accordion\5B"])))::after { content: none; }
+        :where([pgs~="accordion-button"]) { font-weight: var(--font-weight-title); }
     }
 
     //== BUTTON
@@ -68,20 +64,26 @@
 
         &::after {
             margin-left: auto;
+            transition: rotate var(--accordion-timing, 300ms) ease;
         }
     }
 
     //== CONTENT
+    //== height (not max-height) animates open/close: interpolate-size: allow-keywords, set once on
+    //== htmlBase, is what lets a browser transition into/out of "auto" instead of snapping straight
+    //== to it — max-height: unset never had a real target size to interpolate toward
+    --accordion-timing: 300ms;
+
     :where([pgs~="accordion-content"]) {
         @include column();
         visibility: hidden;
         opacity: 0;
-        max-height: 0;
+        height: 0;
         top: 20px;
         left: 0;
         width: 100%;
         font-weight: normal;
-        transition: padding 500ms, opacity 1000ms;
+        transition: height var(--accordion-timing) ease, opacity var(--accordion-timing) ease, visibility var(--accordion-timing);
         overflow: hidden;
     }
 
@@ -91,25 +93,19 @@
     &[pgs*="'autoOpen'"] {}
 
     //-- STATE OPEN - NOT OPEN
-    &:not([pgs-state~=open]) {
-        display: block
-    }
+    &:not([pgs-state~=open]) { display: flex; }
 
     &[pgs-state~=open] {
         $iconSpace: 3.0rem;
         display: flex;
         gap: var(--gap-texts);
 
-        :where([pgs~="accordion-button"]) {
-            &::after {
-                rotate: 180deg;
-            }
-        }
+        :where([pgs~="accordion-button"])::after { rotate: 180deg; }
 
         :where([pgs~="accordion-content"]) {
             visibility: visible;
             opacity: 1;
-            max-height: unset;
+            height: auto;
         }
     }
 }

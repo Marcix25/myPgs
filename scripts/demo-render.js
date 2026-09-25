@@ -452,7 +452,7 @@ const DOC_GROUPS_OPEN = new Set([LIST_TAG_LABELS.pgs, LIST_TAG_LABELS["pgs-optio
 function renderDocAccordionHtml(label, panelHtml, className = "") {
     const classAttribute = className ? ` class="${className}"` : "";
     const accordion = DOC_GROUPS_OPEN.has(label) ? "accordion['autoOpen']" : "accordion";
-    return `<div${classAttribute} pgs="flex['column' 'gapTexts'] ${accordion}">` +
+    return `<div${classAttribute} pgs="${accordion}">` +
         `<h4 pgs="accordion-button">${escapeHtml(label)}</h4>` +
         panelHtml +
         `</div>`;

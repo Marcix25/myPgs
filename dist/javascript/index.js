@@ -1324,7 +1324,7 @@ __webpack_require__.r(__webpack_exports__);
 // + dropdown
 const API = new WeakMap();
 const OPEN_DROPDOWNS = new Set();
-const VIEWPORT_GAP = 0;
+const VIEWPORT_GAP = 8;
 let dropdownId = 0;
 
 function nextDropdownId() {

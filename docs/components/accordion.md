@@ -34,6 +34,7 @@ Expandable panels with synchronized visibility, ARIA attributes and keyboard nav
 
 - `--accordion-gap`
 - `--accordion-icon`
+- `--accordion-timing`
 
 ## Output
 

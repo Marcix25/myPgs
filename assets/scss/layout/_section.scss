@@ -15,10 +15,11 @@
     --section-marginBase: calc(var(--section-parentGap) / 2 * -1);
     --section-margin-block: 0 0;
 
+    &[pgs*="section\5B"] { margin-block: var(--section-margin-block); }
+
     &:not([pgs*="section\5B"]),
     &[pgs*="section[]"] {
         @include section;
-        margin-block: var(--section-margin-block);
     }
 
     //+ Type of section

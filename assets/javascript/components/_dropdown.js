@@ -3,7 +3,7 @@ import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
 // + dropdown
 const API = new WeakMap();
 const OPEN_DROPDOWNS = new Set();
-const VIEWPORT_GAP = 0;
+const VIEWPORT_GAP = 8;
 let dropdownId = 0;
 
 function nextDropdownId() {
