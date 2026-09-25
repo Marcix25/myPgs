@@ -95,14 +95,15 @@
     //-- STATE OPEN - NOT OPEN
     &:not([pgs-state~=open]) { display: flex; }
 
+    //== only its own button and content, never those of an accordion nested inside the open panel,
+    //== which keeps its own closed state
     &[pgs-state~=open] {
-        $iconSpace: 3.0rem;
         display: flex;
         gap: var(--gap-texts);
 
-        :where([pgs~="accordion-button"])::after { rotate: 180deg; }
+        > :where([pgs~="accordion-button"])::after { rotate: 180deg; }
 
-        :where([pgs~="accordion-content"]) {
+        > :where([pgs~="accordion-content"]) {
             visibility: visible;
             opacity: 1;
             height: auto;

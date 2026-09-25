@@ -18,13 +18,13 @@ Expandable panels with synchronized visibility, ARIA attributes and keyboard nav
 
 ## PGS States
 
-- `open`: indicates the accordion element that is currently open and visible.
+- `open`: indicates the accordion element that is currently open and visible. It styles only that accordion's own button and content, so an accordion nested inside an open panel keeps its own closed state.
 
 ## JavaScript API
 
 - `pgs.accordion.init(root)`: initializes unregistered accordions within the specified Document or Element.
 - `pgs.accordion.api(element)`: returns the instance associated with an initialized accordion root.
-- `instance.open()`: opens the panel and closes any other accordions on the page.
+- `instance.open()`: opens the panel and, inside an accordionContainer without accMultiOpen, closes the other panels of the same group.
 - `instance.close()`: closes the current panel.
 - `instance.toggle()`: toggles the panel between its open and closed states.
 - `instance.refresh()`: reruns initialization within the accordion container and returns the instance.

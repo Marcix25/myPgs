@@ -5407,11 +5407,11 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   gap: var(--gap-texts);
 }
 
-:is([pgs~=accordion], [pgs*="accordion["])[pgs-state~=open] :where([pgs~=accordion-button])::after {
+:is([pgs~=accordion], [pgs*="accordion["])[pgs-state~=open] > :where([pgs~=accordion-button])::after {
   rotate: 180deg;
 }
 
-:is([pgs~=accordion], [pgs*="accordion["])[pgs-state~=open] :where([pgs~=accordion-content]) {
+:is([pgs~=accordion], [pgs*="accordion["])[pgs-state~=open] > :where([pgs~=accordion-content]) {
   visibility: visible;
   opacity: 1;
   height: auto;

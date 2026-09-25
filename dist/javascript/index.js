@@ -1105,8 +1105,8 @@ function PGS_accordion_init(root = document) {
                 if (pgs(otherLi).closest("accordionContainer") !== CONTAINER) continue;
                 if (pgs(otherLi).option.contains("accAutoOpen")) continue;
 
-                const otherBtn = pgs(otherLi).querySelector("accordion-button");
-                const otherContent = pgs(otherLi).querySelector("accordion-content");
+                const otherBtn = directPgsChild(otherLi, "accordion-button");
+                const otherContent = directPgsChild(otherLi, "accordion-content");
                 if (!otherBtn || !otherContent) continue;
 
                 pgs(otherLi).state.remove("open");
