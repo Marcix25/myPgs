@@ -5301,52 +5301,49 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=accordionContainer], [pgs*="accordionContainer["]) {
-  --accordion-gap: var(--gap-elements);
+  --accordionContainer-gap: 10px;
   display: flex;
   flex-direction: column;
-  gap: var(--accordion-gap);
+  gap: var(--accordionContainer-gap);
 }
 
 :is([pgs~=accordion], [pgs*="accordion["]) {
+  --accordion-icon: var(--icon-glyph-chevronDown);
+  --accordion-borderRadius: var(--border-radius);
+  --accordion-padding: calc(var(--accordion-borderRadius)/1.5);
+  --accordion-timing: 300ms;
+  --accordion-background: transparent;
+  --accordion-background-open: var(--color-box-transparent);
   flex-direction: column;
   gap: 0;
   min-width: 100%;
   position: relative;
   -webkit-user-select: unset;
   user-select: unset;
-  --accordion-icon: var(--icon-glyph-chevronDown);
+  padding: var(--accordion-padding);
+  border-radius: var(--accordion-borderRadius);
+  background: var(--accordion-background);
 }
 
-:is([pgs~=accordion], [pgs*="accordion["]):not(:is([pgs~=button], [pgs*="button["])) {
-  padding-block: 1rem;
-}
-
-:is([pgs~=accordion], [pgs*="accordion["]):not(:is([pgs~=button], [pgs*="button["]))::after {
+:is([pgs~=accordion], [pgs*="accordion["])::after {
   content: "";
   width: 100%;
   border-bottom: var(--border-complete);
   position: absolute;
-  bottom: calc(var(--accordion-gap, 1rem) / 2 * -1);
+  top: calc(var(--accordionContainer-gap, 10px) / 2 * -1);
   left: 0;
 }
 
-:is([pgs~=accordion], [pgs*="accordion["]):not(:is([pgs~=button], [pgs*="button["])):not(:has(~ :is([pgs~=accordion], [pgs*="accordion["])))::after {
+:is([pgs~=accordion], [pgs*="accordion["]):first-child::after {
   content: none;
 }
 
-:is([pgs~=accordion], [pgs*="accordion["]):not(:is([pgs~=button], [pgs*="button["])) :where([pgs~=accordion-button]) {
-  font-weight: var(--font-weight-title);
-}
-
 :is([pgs~=accordion], [pgs*="accordion["]) :where([pgs~=accordion-button]) {
+  all: unset;
   cursor: pointer;
   display: flex;
   gap: var(--gap-texts);
   flex-direction: row;
-  flex-wrap: wrap;
-  appearance: none;
-  border: 0;
-  background: transparent;
   flex-wrap: nowrap;
   box-shadow: none;
   outline: none;
@@ -5354,9 +5351,11 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   color: inherit;
   line-height: inherit;
   text-align: inherit;
-  border-radius: var(--border-radius-input);
   align-items: center;
   width: 100%;
+  font-weight: var(--font-weight-title);
+  padding-block: var(--accordion-padding);
+  margin-block: calc(var(--accordion-padding) * -1);
   --icon: var(--accordion-icon);
 }
 
@@ -5379,10 +5378,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   transition: rotate var(--accordion-timing, 300ms) ease;
 }
 
-:is([pgs~=accordion], [pgs*="accordion["]) {
-  --accordion-timing: 300ms;
-}
-
 :is([pgs~=accordion], [pgs*="accordion["]) :where([pgs~=accordion-content]) {
   display: flex;
   gap: var(--gap-texts);
@@ -5398,13 +5393,14 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   overflow: hidden;
 }
 
-:is([pgs~=accordion], [pgs*="accordion["]):not([pgs-state~=open]) {
-  display: flex;
+:is([pgs~=accordion], [pgs*="accordion["]) :is([pgs~=accordion], [pgs*="accordion["]) {
+  padding-inline: 10px;
 }
 
 :is([pgs~=accordion], [pgs*="accordion["])[pgs-state~=open] {
   display: flex;
   gap: var(--gap-texts);
+  background: var(--accordion-background-open);
 }
 
 :is([pgs~=accordion], [pgs*="accordion["])[pgs-state~=open] > :where([pgs~=accordion-button])::after {
@@ -5415,6 +5411,10 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   visibility: visible;
   opacity: 1;
   height: auto;
+}
+
+:is([pgs~=accordion], [pgs*="accordion["]):not([pgs-state~=open]) {
+  display: flex;
 }
 
 [pgs~=breadcrumb] {

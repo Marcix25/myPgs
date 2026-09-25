@@ -510,7 +510,7 @@ function renderDocumentationHtml(data, markup, basename, cssText) {
         renderCssVariablesGroupHtml(basename, cssText),
     ].filter(Boolean).join("");
     if (!parts) return "";
-    return `<div class="demoContent-doc" pgs="box flex['column' 'gapElements'] accordionContainer">${parts}</div>`;
+    return `<div class="demoContent-doc" pgs="box accordionContainer" style="padding:10px;">${parts}</div>`;
 }
 
 function renderHeadingBlockHtml(title, description, level) {

@@ -1,7 +1,69 @@
 <main pgs="main">
-    <demo demo-h3="Animation scale" demo-description="Scales each slide by its scroll visibility using pgs=&quot;slides['slidesAnimationScale']&quot;, driven by the --visible-percent custom property."></demo>
-    <section demo="component">
-        <div pgs="margin['mrgNegativeLeft']"></div>
-        <div pgs="flexChild['flex1'] lottieChangeColor"></div>
+    <section pgs="section">
+        <ul pgs="accordionContainer">
+            <li pgs="accordion['accAutoOpen']">
+                <button pgs="accordion-button" type="button">
+                    <span>Level 1 — open on load</span>
+                </button>
+
+                <div pgs="accordion-content" hidden>
+                    <p>This panel is open, the two inside it must stay closed until clicked.</p>
+
+                    <ul pgs="accordionContainer">
+                        <li pgs="accordion">
+                            <button pgs="accordion-button" type="button">
+                                <span>Level 2 — A</span>
+                            </button>
+
+                            <div pgs="accordion-content" hidden>
+                                <p>Opening this one closes Level 2 — B, not the outer panel.</p>
+
+                                <ul pgs="accordionContainer['accMultiOpen']">
+                                    <li pgs="accordion">
+                                        <button pgs="accordion-button" type="button">
+                                            <span>Level 3 — A (multiOpen group)</span>
+                                        </button>
+
+                                        <div pgs="accordion-content" hidden>
+                                            <p>Level 3 — A and B can be open together.</p>
+                                        </div>
+                                    </li>
+
+                                    <li pgs="accordion">
+                                        <button pgs="accordion-button" type="button">
+                                            <span>Level 3 — B (multiOpen group)</span>
+                                        </button>
+
+                                        <div pgs="accordion-content" hidden>
+                                            <p>Still open when Level 3 — A opens.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li pgs="accordion">
+                            <button pgs="accordion-button" type="button">
+                                <span>Level 2 — B</span>
+                            </button>
+
+                            <div pgs="accordion-content" hidden>
+                                <p>Opening this one closes Level 2 — A.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li pgs="accordion">
+                <button pgs="accordion-button" type="button">
+                    <span>Level 1 — second panel</span>
+                </button>
+
+                <div pgs="accordion-content" hidden>
+                    <p>Opening this one closes the first Level 1 panel, whatever is open inside it.</p>
+                </div>
+            </li>
+        </ul>
     </section>
 </main>

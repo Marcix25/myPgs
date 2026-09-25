@@ -32,8 +32,11 @@ Expandable panels with synchronized visibility, ARIA attributes and keyboard nav
 
 ## CSS Variables
 
-- `--accordion-gap`
+- `--accordion-background`
+- `--accordion-background-open`
+- `--accordion-borderRadius`
 - `--accordion-icon`
+- `--accordion-padding`
 - `--accordion-timing`
 
 ## Output

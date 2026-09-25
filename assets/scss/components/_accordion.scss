@@ -1,65 +1,67 @@
 @use "../mixin/mixin" as *;
-
 //# ACCORDION
 //read by the JavaScript only, declared here so editors suggest them: accordionContainer groups the
 //accordions inside it, so that opening one closes the others, and accMultiOpen on that same
 //container lifts the rule and lets them stay open together
+$accordionGap: 10px;
+
 //= ACCORDION CONTAINER
 :is([pgs~="accordionContainer"], [pgs*="accordionContainer\5B"]) {
-    --accordion-gap: var(--gap-elements);
+    --accordionContainer-gap: #{$accordionGap};
     display: flex;
     flex-direction: column;
-    gap: var(--accordion-gap);
+    gap: var(--accordionContainer-gap);
 
     &[pgs*="'accMultiOpen'"] {}
 }
 
 //= ACCORDION
 :is([pgs~="accordion"], [pgs*="accordion\5B"]) {
+    --accordion-icon: var(--icon-glyph-chevronDown);
+    --accordion-borderRadius: var(--border-radius);
+    --accordion-padding: calc(var(--accordion-borderRadius)/1.5);
+    --accordion-timing: 300ms;
+    --accordion-background: transparent;
+    --accordion-background-open: var(--color-box-transparent);
+
     flex-direction: column;
     gap: 0;
     min-width: 100%;
     position: relative;
     -webkit-user-select: unset;
     user-select: unset;
-    --accordion-icon: var(--icon-glyph-chevronDown);
+    padding: var(--accordion-padding);
+    border-radius: var(--accordion-borderRadius);
+    background: var(--accordion-background);
 
-    &:not(:is([pgs~="button"], [pgs*="button\5B"])) {
-        padding-block: 1.0rem;
-
-        &::after {
-            content: "";
-            width: 100%;
-            border-bottom: var(--border-complete);
-            position: absolute;
-            bottom: calc((var(--accordion-gap, 1.0rem) / 2) * -1);
-            left: 0;
-        }
-
-        //== the line separates one accordion from the next, so the last of a run does not draw it:
-        //== written as "no accordion sibling after me" rather than :last-child, so it still holds
-        //== when the container ends with something else
-        &:not(:has(~ :is([pgs~="accordion"], [pgs*="accordion\5B"])))::after { content: none; }
-        :where([pgs~="accordion-button"]) { font-weight: var(--font-weight-title); }
+    &::after {
+        content: "";
+        width: 100%;
+        border-bottom: var(--border-complete);
+        position: absolute;
+        top: calc((var(--accordionContainer-gap, #{$accordionGap}) / 2) * -1);
+        left: 0;
     }
+
+    &:first-child::after { content: none; }
 
     //== BUTTON
     :where([pgs~="accordion-button"]) {
+        all: unset;
         cursor: pointer;
-        @include row;
-        appearance: none;
-        border: 0;
-        background: transparent;
-        flex-wrap: nowrap;
+        @include row(nowrap);
         box-shadow: none;
         outline: none;
         font: inherit;
         color: inherit;
         line-height: inherit;
         text-align: inherit;
-        border-radius: var(--border-radius-input);
         align-items: center;
         width: 100%;
+        font-weight: var(--font-weight-title);
+        padding-block: var(--accordion-padding);
+        margin-block: calc(var(--accordion-padding) * -1);
+        //=== ICON
         @include icon(var(--accordion-icon), "::after");
 
         &::after {
@@ -69,11 +71,6 @@
     }
 
     //== CONTENT
-    //== height (not max-height) animates open/close: interpolate-size: allow-keywords, set once on
-    //== htmlBase, is what lets a browser transition into/out of "auto" instead of snapping straight
-    //== to it — max-height: unset never had a real target size to interpolate toward
-    --accordion-timing: 300ms;
-
     :where([pgs~="accordion-content"]) {
         @include column();
         visibility: hidden;
@@ -87,19 +84,21 @@
         overflow: hidden;
     }
 
-    //++ OPTION
+    //== Accordion insert
+    :is([pgs~="accordion"], [pgs*="accordion\5B"]) { padding-inline: 10px; }
+
+    //+ OPTION
     //read by the JavaScript only, declared here so editors suggest it: opens the panel on load and
     //keeps it open when another one in the group is opened
     &[pgs*="'accAutoOpen'"] {}
 
     //-- STATE OPEN - NOT OPEN
-    &:not([pgs-state~=open]) { display: flex; }
-
-    //== only its own button and content, never those of an accordion nested inside the open panel,
-    //== which keeps its own closed state
+    // only its own button and content, never those of an accordion nested inside the open panel,
+    // which keeps its own closed state
     &[pgs-state~=open] {
         display: flex;
         gap: var(--gap-texts);
+        background: var(--accordion-background-open);
 
         > :where([pgs~="accordion-button"])::after { rotate: 180deg; }
 
@@ -109,4 +108,6 @@
             height: auto;
         }
     }
+
+    &:not([pgs-state~=open]) { display: flex; }
 }
