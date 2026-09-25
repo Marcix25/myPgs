@@ -1324,7 +1324,7 @@ __webpack_require__.r(__webpack_exports__);
 // + dropdown
 const API = new WeakMap();
 const OPEN_DROPDOWNS = new Set();
-const VIEWPORT_GAP = 8;
+const VIEWPORT_GAP = 0;
 let dropdownId = 0;
 
 function nextDropdownId() {
@@ -1409,12 +1409,17 @@ function updateposition(dropdown) {
 
     left = clamp(left, VIEWPORT_GAP, maxLeft);
 
-    //== exposes the resolved side so a component built on dropdown (e.g. Tooltip) can point an
-    //== arrow at the trigger purely in CSS, without recomputing the layout itself
+    //== exposes the resolved side so the arrow (or a component built on dropdown) can
+    //== point at the trigger purely in CSS, without recomputing the layout itself
     content.dataset.dropdownSide = side;
 
-    content.style.setProperty("--dropdown-left", `${Math.round(left)}px`);
-    content.style.setProperty("--dropdown-top", `${Math.round(top)}px`);
+    content.style.setProperty("--_dropdown-left", `${Math.round(left)}px`);
+    content.style.setProperty("--_dropdown-top", `${Math.round(top)}px`);
+
+    //== where the trigger's centre falls inside the panel, after the viewport clamp above may
+    //== have shifted it: an arrow placed at 50% would stop pointing at the trigger
+    content.style.setProperty("--_dropdown-arrowLeft", `${Math.round(triggerRect.left + triggerRect.width / 2 - left)}px`);
+    content.style.setProperty("--_dropdown-arrowTop", `${Math.round(triggerRect.top + triggerRect.height / 2 - top)}px`);
 }
 
 function updateOpenDropdowns() {
@@ -1586,9 +1591,9 @@ let submenuId = 0;
 function createToggle(li) {
     const button = document.createElement("button");
     button.type = "button";
-    button.innerHTML = "<span>&#9207;</span>";
+    button.innerHTML = `<i pgs="icon['icon-chevronDown']"></i>`;
 
-    pgs(button).add("_menu-iconOnly", "button['hoverNot']");
+    pgs(button).add("_menu-submenuButton", "hover", "button['btnMini' 'btnIconOnly']");
     li.querySelector("a").insertAdjacentElement("afterend", button);
 
     return button;
@@ -1618,7 +1623,7 @@ function setupAccordion(li, button, ul) {
 
 function setupDropdown(li, button, ul) {
     pgs(li).add("dropdown");
-    pgs(li).data.setValueBrackets("dropdownPosition", "bottom right");
+    pgs(li).data.setValueBrackets("dropdownPosition", "bottom center");
     pgs(button).add("dropdown-button");
     pgs(ul).add("dropdown-content");
 }
@@ -3032,7 +3037,7 @@ class PGS_Slides {
 
             //== SCROLL ANIMATION
             if (LI.target.firstElementChild) {
-                LI.target.firstElementChild.style.setProperty('--slides-visiblePercent', `${visiblePercent}`);
+                LI.target.firstElementChild.style.setProperty('--_slides-visiblePercent', `${visiblePercent}`);
             };
 
             //== VIEW & NOT-VIEW
@@ -3114,7 +3119,7 @@ class PGS_Slides {
         Array.from(this.container.children).forEach(allLi => observer.observe(allLi));
 
         //== HEIGHT
-        //== the track's height published on the root as --slides-height, so the CSS can place
+        //== the track's height published on the root as --_slides-height, so the CSS can place
         //== something against the slides themselves rather than against the whole component: the
         //== arrows sit at half of it, and stay centred on the slides whatever else the root holds.
         //== Measured rather than computed because the height comes from the tallest slide, which
@@ -3125,7 +3130,7 @@ class PGS_Slides {
             if (heightFrame) return;
             heightFrame = requestAnimationFrame(() => {
                 heightFrame = 0;
-                this.element.style.setProperty("--slides-height", `${this.container.offsetHeight}px`);
+                this.element.style.setProperty("--_slides-height", `${this.container.offsetHeight}px`);
             });
         });
         heightObserver.observe(this.container);
@@ -3559,8 +3564,10 @@ function PGS_summary_init(root = document, options = {}) {
             return pgs(summary).state.contains("open");
         }
 
+        //== --summary-lines is the author's setting, read here and never written
         function getCollapsedHeight() {
-            return getLineHeight(content) * 3;
+            const lines = parseFloat(window.getComputedStyle(content).getPropertyValue("--summary-lines"));
+            return getLineHeight(content) * (Number.isFinite(lines) && lines > 0 ? lines : 3);
         }
 
         function isOverflowing() {
@@ -3581,12 +3588,12 @@ function PGS_summary_init(root = document, options = {}) {
             );
 
             const nextHeight = expanded && overflow ? content.scrollHeight : getCollapsedHeight();
-            content.style.setProperty("--summary-content-max-height", `${nextHeight}px`);
+            content.style.setProperty("--_summary-content-height", `${nextHeight}px`);
         }
 
         function refresh() {
             const wasOpen = isOpen();
-            content.style.setProperty("--summary-content-max-height", "none");
+            content.style.setProperty("--_summary-content-height", "none");
             setExpanded(wasOpen);
         }
 
@@ -3981,7 +3988,7 @@ const fn_toast = {
         //== Create Toast
         containerToast.innerHTML = "";
         const toast = document.createElement("div");
-        if (timeout > 0) toast.style.setProperty("--toast-timeout", timeout + "ms");
+        if (timeout > 0) toast.style.setProperty("--_toast-timeout", timeout + "ms");
         pgs(toast).state.add(type);
         pgs(toast).add("_toast-element");
         toast.setAttribute("role", type == "error" ? "alert" : "status");

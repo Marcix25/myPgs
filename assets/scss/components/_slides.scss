@@ -3,7 +3,7 @@
 //# SLIDES
 // percentage to a higher power still just multiplies it by itself, only more times
 @function _slidesScalePow($n) {
-    $term: "var(--slides-visiblePercent, 1)";
+    $term: "var(--_slides-visiblePercent, 1)";
     $expr: $term;
 
     @for $i from 2 through $n {
@@ -104,7 +104,7 @@
     [pgs~="_slides-next"] {
         position: absolute;
         z-index: 4;
-        top: calc(var(--slides-height, 100%) / 2);
+        top: calc(var(--_slides-height, 100%) / 2);
         translate: 0 -50%;
 
         &:is(:where([pgs~="slides-prec"]),
@@ -184,7 +184,7 @@
                 &:not([pgs-state~="view"]) {}
 
                 >* {
-                    scale: calc(var(--slides-visiblePercent, 1) * var(--slides-visiblePercent, 1) * var(--slides-visiblePercent, 1));
+                    scale: calc(var(--_slides-visiblePercent, 1) * var(--_slides-visiblePercent, 1) * var(--_slides-visiblePercent, 1));
                     transform-origin: center;
                 }
             }

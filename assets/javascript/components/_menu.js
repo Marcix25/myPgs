@@ -8,9 +8,9 @@ let submenuId = 0;
 function createToggle(li) {
     const button = document.createElement("button");
     button.type = "button";
-    button.innerHTML = "<span>&#9207;</span>";
+    button.innerHTML = `<i pgs="icon['icon-chevronDown']"></i>`;
 
-    pgs(button).add("_menu-iconOnly", "button['hoverNot']");
+    pgs(button).add("_menu-submenuButton", "hover", "button['btnMini' 'btnIconOnly']");
     li.querySelector("a").insertAdjacentElement("afterend", button);
 
     return button;
@@ -40,7 +40,7 @@ function setupAccordion(li, button, ul) {
 
 function setupDropdown(li, button, ul) {
     pgs(li).add("dropdown");
-    pgs(li).data.setValueBrackets("dropdownPosition", "bottom right");
+    pgs(li).data.setValueBrackets("dropdownPosition", "bottom center");
     pgs(button).add("dropdown-button");
     pgs(ul).add("dropdown-content");
 }

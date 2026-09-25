@@ -74,17 +74,16 @@
     @mixin _cardHorizontal() {
         flex-flow: row wrap;
 
-        :where([pgs~="card-img"]),
-        :where([pgs~="card-imgForChild"]),
         :where([pgs~="card-content"]) {
             border-radius: var(--card-horizontal-borderRadius-item);
             flex-basis: 0;
+            flex-grow: var(--card-horizontal-content-grow);
         }
-
-        :where([pgs~="card-content"]) { flex-grow: var(--card-horizontal-content-grow); }
 
         :where([pgs~="card-img"]),
         :where([pgs~="card-imgForChild"]) {
+            border-radius: var(--card-horizontal-borderRadius-item);
+            flex-basis: 0;
             flex-grow: var(--card-horizontal-img-grow);
             min-height: var(--card-horizontal-img-minHeight);
 

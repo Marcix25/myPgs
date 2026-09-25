@@ -7,33 +7,114 @@
     --dropdown-padding: 1rem;
     --dropdown-inline-size: max-content;
     --dropdown-max-inline-size: min(400px, calc(100vw - 16px));
-    --dropdown-left: 0px;
-    --dropdown-top: 0px;
+    --dropdown-max-inline-size: 100%;
+    --_dropdown-left: 0px;
+    --_dropdown-top: 0px;
     --dropdown-display: block;
+    --dropdown-arrow-size: 7px;
+    --_dropdown-arrow-inset: calc(var(--dropdown-arrow-size) + var(--dropdown-borderRadius));
     position: relative;
 
     [pgs*="'hover'"] {}
     [pgs-data~="dropdownPosition[]"] {}
-
-    &:not([pgs-state~="open"])>:where([pgs~="dropdown-content"]) {
-        display: none;
-    }
-
-    &[pgs-state~="open"]>:where([pgs~="dropdown-content"]) {
-        display: var(--dropdown-display);
-    }
+    &:not([pgs-state~="open"])>:where([pgs~="dropdown-content"]) { display: none; }
+    &[pgs-state~="open"]>:where([pgs~="dropdown-content"]) { display: var(--dropdown-display); }
 
     >:where([pgs~="dropdown-content"]) {
         position: fixed;
-        inset: var(--dropdown-top) auto auto var(--dropdown-left);
+        inset: var(--_dropdown-top) auto auto var(--_dropdown-left);
         z-index: 1000;
         inline-size: var(--dropdown-inline-size);
         width: var(--dropdown-max-inline-size);
         overflow: auto;
         padding: var(--dropdown-padding);
         border: var(--dropdown-border);
-        border-radius:  var(--dropdown-borderRadius);
+        border-radius: var(--dropdown-borderRadius);
         background: var(--dropdown-background);
         color: var(--dropdown-color);
+    }
+
+    //== ARROW
+    // two stacked triangles pointing at the trigger: the outer one in the border colour, the inner
+    // one in the background. On by default, drpNotArrow removes it
+    &:not([pgs*="'drpNotArrow'"])> :where([pgs~="dropdown-content"]) {
+        overflow: visible;
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            inline-size: 0;
+            block-size: 0;
+            border: var(--dropdown-arrow-size) solid transparent;
+        }
+
+        &[data-dropdown-side="bottom"] {
+
+            &::before,
+            &::after {
+                bottom: 100%;
+                left: clamp(var(--_dropdown-arrow-inset), calc(var(--_dropdown-arrowLeft, 50%) - var(--border-width)), calc(100% - var(--_dropdown-arrow-inset)));
+                translate: -50% 0;
+            }
+
+            &::before { border-bottom-color: var(--border-color); }
+
+            &::after {
+                margin-bottom: calc(var(--border-width) * -1);
+                border-bottom-color: var(--dropdown-background);
+            }
+        }
+
+        &[data-dropdown-side="top"] {
+
+            &::before,
+            &::after {
+                top: 100%;
+                left: clamp(var(--_dropdown-arrow-inset), calc(var(--_dropdown-arrowLeft, 50%) - var(--border-width)), calc(100% - var(--_dropdown-arrow-inset)));
+                translate: -50% 0;
+            }
+
+            &::before { border-top-color: var(--border-color); }
+
+            &::after {
+                margin-top: calc(var(--border-width) * -1);
+                border-top-color: var(--dropdown-background);
+            }
+        }
+
+        &[data-dropdown-side="right"] {
+
+            &::before,
+            &::after {
+                right: 100%;
+                top: clamp(var(--_dropdown-arrow-inset), calc(var(--_dropdown-arrowTop, 50%) - var(--border-width)), calc(100% - var(--_dropdown-arrow-inset)));
+                translate: 0 -50%;
+            }
+
+            &::before { border-right-color: var(--border-color); }
+
+            &::after {
+                margin-right: calc(var(--border-width) * -1);
+                border-right-color: var(--dropdown-background);
+            }
+        }
+
+        &[data-dropdown-side="left"] {
+
+            &::before,
+            &::after {
+                left: 100%;
+                top: clamp(var(--_dropdown-arrow-inset), calc(var(--_dropdown-arrowTop, 50%) - var(--border-width)), calc(100% - var(--_dropdown-arrow-inset)));
+                translate: 0 -50%;
+            }
+
+            &::before { border-left-color: var(--border-color); }
+
+            &::after {
+                margin-left: calc(var(--border-width) * -1);
+                border-left-color: var(--dropdown-background);
+            }
+        }
     }
 }

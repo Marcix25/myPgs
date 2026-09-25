@@ -104,12 +104,9 @@ Interactive palette of the current MyPGS background and text color utilities.
 ### PGS
 
 - `flex`: provides the flex layout; direction and spacing are flags in its bracket.
-- `dropdown`: provides the interactive container for each background color tooltip.
-- `tooltip`: applies the tooltip presentation to the dropdown.
-- `dropdown-button`: identifies the control that opens a color tooltip.
-- `tooltip-button`: identifies the tooltip trigger.
-- `dropdown-content`: identifies the content panel of a color tooltip.
-- `tooltip-content`: applies the tooltip content presentation.
+- `dropdown`: provides the interactive container that names each background color.
+- `dropdown-button`: identifies the control that opens a color's name.
+- `dropdown-content`: identifies the panel holding a color's name.
 - `box`: makes each palette group visible.
 - `border`: draws the border that the br* utilities recolour; without it there is nothing to colour.
 - `outline`: draws the outline that the ol* utilities recolour; it sits outside the box and takes no space.
@@ -118,6 +115,7 @@ Interactive palette of the current MyPGS background and text color utilities.
 
 ### PGS Options (component brackets)
 
+- `btnMini`: inside button's own bracket, applies the smallest button variant to each color circle.
 - `brPrimary`: inside border's own bracket, recolours it with the primary colour; see Border for the whole br* family.
 - `brSecondary`: inside border's own bracket, recolours it with the secondary colour.
 - `brTertiary`: inside border's own bracket, recolours it with the tertiary colour.
@@ -149,7 +147,7 @@ Interactive palette of the current MyPGS background and text color utilities.
 - `flexFull`: inside flexChild's own bracket, makes palette headings occupy a full flex row.
 - `boxMini`: applies the compact box presentation to each palette group.
 - `btnIconOnly`: makes each background color trigger a compact circular button.
-- `hover`: opens each background color tooltip while its circle is hovered.
+- `hover`: opens each background color's name while its circle is hovered.
 - `gapElements`: spaces the background and text color groups.
 - `gapTexts`: spaces individual palette entries.
 - `wrap`: lets palette entries wrap on narrow viewports.

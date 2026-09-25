@@ -68,6 +68,7 @@ prose:
 - Import new source files from `assets/scss/index.scss` or forward mixins from `assets/scss/mixin/mixin.scss` as appropriate.
 - Reuse existing custom properties and naming conventions.
 - Prefer configurable custom properties over hardcoded values.
+- A custom property written only by JavaScript (a measured position, height or ratio that an author override would be overwritten on) takes a leading `_`: `--_dropdown-left`, `--_slides-height`. The underscore says "read it if you need it, never set it". A private SCSS-only helper property uses the same prefix (`--_dropdown-arrow-inset`). A property the author is meant to set stays unprefixed even when JavaScript reads it (`--header-compact-breakpoint`, `--svg-color-N`).
 - Keep component selectors scoped consistently with the existing stylesheet architecture.
 - Use private mixins with a leading `_` when they are implementation details of a public mixin.
 - Do not duplicate layout or component logic already available elsewhere in the library.

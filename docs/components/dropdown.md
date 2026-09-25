@@ -12,6 +12,7 @@ Popup component that connects a control to content positioned relative to its tr
 
 ## PGS Options (component brackets)
 
+- `drpNotArrow`: removes the small arrow every dropdown draws on its content by default. The arrow points back at the trigger on whichever side the content was placed, and follows it even when the viewport pushes the content off-centre.
 - `hover`: opens the dropdown when the pointer enters its trigger and closes it after the pointer leaves; click and keyboard activation remain available.
 
 ## PGS Data
@@ -51,16 +52,15 @@ Popup component that connects a control to content positioned relative to its tr
 
 ## CSS Variables
 
+- `--dropdown-arrow-size`
 - `--dropdown-background`
 - `--dropdown-border`
 - `--dropdown-borderRadius`
 - `--dropdown-color`
 - `--dropdown-display`
 - `--dropdown-inline-size`
-- `--dropdown-left`
 - `--dropdown-max-inline-size`
 - `--dropdown-padding`
-- `--dropdown-top`
 
 ## Output
 
@@ -97,6 +97,23 @@ Opens when the pointer enters the trigger and closes after it leaves.
 
     <div pgs="dropdown-content">
         hover content
+    </div>
+</span>
+```
+
+### Without arrow
+
+drpNotArrow removes the arrow that points the content back at its trigger.
+
+```html
+<span pgs="dropdown['drpNotArrow']">
+    <button pgs="dropdown-button button['btnReverse']" type="button">
+        Without arrow
+        <i pgs="icon['icon-chevronDown']" aria-hidden="true"></i>
+    </button>
+
+    <div pgs="dropdown-content">
+        content without arrow
     </div>
 </span>
 ```

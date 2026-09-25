@@ -87,8 +87,10 @@ function PGS_summary_init(root = document, options = {}) {
             return pgs(summary).state.contains("open");
         }
 
+        //== --summary-lines is the author's setting, read here and never written
         function getCollapsedHeight() {
-            return getLineHeight(content) * 3;
+            const lines = parseFloat(window.getComputedStyle(content).getPropertyValue("--summary-lines"));
+            return getLineHeight(content) * (Number.isFinite(lines) && lines > 0 ? lines : 3);
         }
 
         function isOverflowing() {
@@ -109,12 +111,12 @@ function PGS_summary_init(root = document, options = {}) {
             );
 
             const nextHeight = expanded && overflow ? content.scrollHeight : getCollapsedHeight();
-            content.style.setProperty("--summary-content-max-height", `${nextHeight}px`);
+            content.style.setProperty("--_summary-content-height", `${nextHeight}px`);
         }
 
         function refresh() {
             const wasOpen = isOpen();
-            content.style.setProperty("--summary-content-max-height", "none");
+            content.style.setProperty("--_summary-content-height", "none");
             setExpanded(wasOpen);
         }
 

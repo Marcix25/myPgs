@@ -18,7 +18,7 @@
     --toast-background-timer: color-mix(in srgb, var(--color-box) 95%, var(--color-black) 5%);
     --toast-color: unset;
     --toast-shadow-color: unset;
-    --toast-timeout: unset;
+    --_toast-timeout: unset;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -117,7 +117,7 @@
             background-color: var(--toast-background-timer);
             border-top-left-radius: var(--border-radius-input);
             border-bottom-left-radius: var(--border-radius-input);
-            animation: toast-timeline var(--toast-timeout) linear;
+            animation: toast-timeline var(--_toast-timeout) linear;
         }
 
         @keyframes toast-timeline {

@@ -3,7 +3,8 @@
 [pgs~="summary"] {
     --summary-fade-size: 4rem;
     --summary-fade-background: var(--color-background);
-    --summary-content-max-height: 5.7rem;
+    // how many lines stay visible while the content is closed
+    --summary-lines: 3;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -11,7 +12,8 @@
     isolation: isolate;
 
     :where([pgs~="summary-content"]) {
-        max-height: var(--summary-content-max-height, none);
+        // --_summary-content-height is written by the module; before it runs, the lines alone decide
+        max-height: var(--_summary-content-height, calc(var(--summary-lines) * 1lh));
         overflow: hidden;
         transition: max-height 300ms ease;
     }

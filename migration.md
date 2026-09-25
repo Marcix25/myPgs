@@ -25,6 +25,7 @@ meaning moved under them, so nothing errors and the page just looks wrong.
 | `pgs-option="buttonText"` and `pgs-option="buttonTransparent"` | `buttonTransparent` stripped every state, `buttonText` only the resting one | the two traded places: `buttonText` strips every state, `buttonTransparent` only the resting one |
 | `pgs="toggleDarkmode"` inside `pgs="footer"` | the footer wrote "Dark mode"/"Light mode" next to the glyph on its own | the label is opt-in, and available everywhere: add `pgs-option="toggleDarkmodeExtended"` |
 | `pgs.hover`'s marking (a button, and a card or box written as a link) | ran on every page as soon as the bundle loaded, and `pgs.hover.init(root)` always ran on request | needs `pgs="bodyHoverAuto"` on `<body>` to run at all, by any path — the automatic pass, a direct `pgs.hover.init(root)` call, or `pgs.init(root)`, which reaches every module's `init(root)` regardless of what the caller meant to touch |
+| `pgs="dropdown"` (and the floating first-level submenus of a horizontal menu) | the content floated with no arrow | the content draws an arrow pointing back at the trigger: add `drpNotArrow` to the bracket to keep the old look |
 
 ### Retired option attribute: migrate every occurrence manually
 
@@ -233,8 +234,9 @@ write them by hand.
 `toast-element-content` `toast-element-icon` `search-suggestions-item` `stepTabs-dots-dot`
 `cookieConsent-panel` `cookieConsent-panel-badge` `cookieConsent-panel-featureAnalytics`
 `cookieConsent-panel-featureEssential` `cookieConsent-panel-toggleAnalytics`
-`cookieConsent-actionReject` `cookieConsent-actionAccept` `menu-buttonIcon` → each one gains a
-leading `_`. `cookieConsent-actionOpen` is unaffected: you write that trigger yourself, it is not
+`cookieConsent-actionReject` `cookieConsent-actionAccept` → each one gains a
+leading `_`. `menu-buttonIcon` also changes name, to `_menu-submenuButton`: the toggle the menu
+inserts next to every link with a submenu. `cookieConsent-actionOpen` is unaffected: you write that trigger yourself, it is not
 generated.
 
 ### Header
@@ -607,6 +609,50 @@ in `cardHorizontal`/`horizontalFixed`, its share of the 40/60 split.
     <img pgs="card-img" src="...">
 ```
 
+### Tooltip is gone — every dropdown has the arrow
+
+Tooltip was a dropdown with three rules of its own: the arrow, a larger `--dropdown-padding`
+(15px) and a smaller icon in its trigger. Every dropdown now draws the arrow on its own; the component, its
+three tokens (`tooltip`, `tooltip-button`, `tooltip-content`) and `--tooltip-arrow-size` are removed.
+
+```html
+<!-- before -->
+<span pgs="dropdown tooltip">
+    <button pgs="dropdown-button button tooltip-button" type="button">...</button>
+    <div pgs="dropdown-content tooltip-content">...</div>
+</span>
+
+<!-- after -->
+<span pgs="dropdown">
+    <button pgs="dropdown-button button['btnMini']" type="button">...</button>
+    <div pgs="dropdown-content">...</div>
+</span>
+```
+
+`tooltip` is dropped, since the arrow needs no flag; `tooltip-button` is dropped and its button takes `btnMini`;
+`tooltip-content` is dropped. `--tooltip-arrow-size` becomes `--dropdown-arrow-size`. A page that
+relied on the 15px padding sets `--dropdown-padding` itself.
+
+### Custom properties written by JavaScript — an `_` prefix
+
+A custom property the JavaScript writes on its own, recomputed on every open, scroll or resize,
+now starts with `_`, the same way generated markup does: setting it from a stylesheet never worked,
+since the inline value always won. Rename any read of it:
+
+| was | is now |
+| --- | --- |
+| `--dropdown-left` / `--dropdown-top` | `--_dropdown-left` / `--_dropdown-top` |
+| `--dropdown-arrowLeft` / `--dropdown-arrowTop` | `--_dropdown-arrowLeft` / `--_dropdown-arrowTop` |
+| `--slides-visiblePercent` | `--_slides-visiblePercent` |
+| `--slides-height` | `--_slides-height` |
+| `--toast-timeout` | `--_toast-timeout` |
+
+`--summary-content-max-height` is gone rather than renamed: the module always overwrote it with
+three lines' worth of height, so a value set from a stylesheet only lasted until the script ran.
+The collapsed height is now `--summary-lines`, a number of lines (3 by default) that the module
+reads and never writes; the height it animates lives in `--_summary-content-height`. A project that
+set `--summary-content-max-height` converts it to a line count.
+
 ### Slides — the last CSS classes become states
 
 | was | now |
@@ -643,6 +689,10 @@ border above the footer legal row — now has both its rule and the library's.
   `@container` behind it: for a card whose own width is not a reliable signal — already known
   to be wide enough, or deliberately narrow but still meant to read side-by-side — where
   `cardHorizontal` would stack, this one never does.
+- **The dropdown arrow.** The arrow the tooltip used to draw, now on every dropdown by default and
+  removed with `dropdown['drpNotArrow']`. It follows the trigger even when the viewport clamp
+  pushes the content off-centre, and `--dropdown-arrow-size` sizes it. It is what replaced the
+  tooltip component; see section 2.
 - **`card-imgForChild`.** A wrapper for card media the card does not write itself — an `<img>`
   printed by a helper, a block of elements: the `card-img` treatment lands on its
   direct child, and in `cardHorizontal`/`horizontalFixed` the wrapper itself takes the 40/60 split.
@@ -768,6 +818,12 @@ grep -rnE "card\\[[^]]*'legacy'|--card-img-(base|margin)" .
 
 # 29. cards whose image carries no card-img (read, don't replace)
 grep -rnE -A3 'pgs="card(\[|")' . | grep -E '<(img|object|picture)\b' | grep -v 'card-img'
+
+# 30. the tooltip component, now a plain dropdown
+grep -rnE 'tooltip(-button|-content)?\b|--tooltip-arrow-size' .
+
+# 31. custom properties written by JavaScript, now _-prefixed
+grep -rnE -- '--(dropdown-left|dropdown-top|dropdown-arrowLeft|dropdown-arrowTop|slides-visiblePercent|slides-height|toast-timeout|summary-content-max-height)\b' .
 ```
 
 Hit 5 needs reading rather than replacing: an `icon` that wraps another element wanted the surface

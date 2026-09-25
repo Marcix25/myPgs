@@ -216,7 +216,6 @@ reference source before creating new markup.
 - [table](docs/components/table.md)
 - [tabs](docs/components/tabs.md)
 - [toast](docs/components/toast.md)
-- [tooltip](docs/components/tooltip.md)
 
 ### Layout
 

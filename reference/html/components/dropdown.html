@@ -9,6 +9,7 @@
  * - dropdown-content: identifies the panel positioned relative to the control.
  *
  * @pgs-options
+ * - drpNotArrow: removes the small arrow every dropdown draws on its content by default. The arrow points back at the trigger on whichever side the content was placed, and follows it even when the viewport pushes the content off-centre.
  * - hover: opens the dropdown when the pointer enters its trigger and closes it after the pointer leaves; click and keyboard activation remain available.
  *
  * @pgs-data
@@ -63,6 +64,20 @@
 
             <div pgs="dropdown-content">
                 hover content
+            </div>
+        </span>
+    </section>
+
+    <demo demo-h3="Without arrow" demo-description="drpNotArrow removes the arrow that points the content back at its trigger."></demo>
+    <section demo="component">
+        <span pgs="dropdown['drpNotArrow']">
+            <button pgs="dropdown-button button['btnReverse']" type="button">
+                Without arrow
+                <i pgs="icon['icon-chevronDown']" aria-hidden="true"></i>
+            </button>
+
+            <div pgs="dropdown-content">
+                content without arrow
             </div>
         </span>
     </section>

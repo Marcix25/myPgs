@@ -290,15 +290,15 @@
     "card": {
         "pgs": [
             "card-content",
-            "card-img"
+            "card-img",
+            "card-imgForChild"
         ],
         "pgs-generated": [],
         "pgs-options": [
             "bodyHoverAuto",
             "cardHorizontal",
             "cardMini",
-            "horizontalFixed",
-            "legacy"
+            "horizontalFixed"
         ],
         "pgs-data": []
     },
@@ -380,6 +380,7 @@
         ],
         "pgs-generated": [],
         "pgs-options": [
+            "drpNotArrow",
             "hover"
         ],
         "pgs-data": [
@@ -1301,7 +1302,7 @@
         "pgs": [],
         "pgs-generated": [
             "_menu-accordion",
-            "_menu-iconOnly"
+            "_menu-submenuButton"
         ],
         "pgs-options": [
             "iconOnlyCurrent",
@@ -1707,15 +1708,6 @@
         "pgs-options": [
             "labelled"
         ],
-        "pgs-data": []
-    },
-    "tooltip": {
-        "pgs": [
-            "tooltip-button",
-            "tooltip-content"
-        ],
-        "pgs-generated": [],
-        "pgs-options": [],
         "pgs-data": []
     },
     "truncate": {

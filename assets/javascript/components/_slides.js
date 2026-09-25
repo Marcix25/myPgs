@@ -154,7 +154,7 @@ class PGS_Slides {
 
             //== SCROLL ANIMATION
             if (LI.target.firstElementChild) {
-                LI.target.firstElementChild.style.setProperty('--slides-visiblePercent', `${visiblePercent}`);
+                LI.target.firstElementChild.style.setProperty('--_slides-visiblePercent', `${visiblePercent}`);
             };
 
             //== VIEW & NOT-VIEW
@@ -236,7 +236,7 @@ class PGS_Slides {
         Array.from(this.container.children).forEach(allLi => observer.observe(allLi));
 
         //== HEIGHT
-        //== the track's height published on the root as --slides-height, so the CSS can place
+        //== the track's height published on the root as --_slides-height, so the CSS can place
         //== something against the slides themselves rather than against the whole component: the
         //== arrows sit at half of it, and stay centred on the slides whatever else the root holds.
         //== Measured rather than computed because the height comes from the tallest slide, which
@@ -247,7 +247,7 @@ class PGS_Slides {
             if (heightFrame) return;
             heightFrame = requestAnimationFrame(() => {
                 heightFrame = 0;
-                this.element.style.setProperty("--slides-height", `${this.container.offsetHeight}px`);
+                this.element.style.setProperty("--_slides-height", `${this.container.offsetHeight}px`);
             });
         });
         heightObserver.observe(this.container);

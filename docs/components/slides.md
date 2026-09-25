@@ -7,7 +7,7 @@ A horizontal, scroll-snapped track of slides with its own arrows and position do
 ## PGS
 
 - `slides`: identifies the root the module initializes, and the element the instance is stored against.
-- `slides-container`: the scrolling track, the element that carries the scroll snapping and the one the arrows move. Its measured height is published on the root as --slides-height and kept in step with it, so a rule can sit something against the slides themselves rather than against the whole component; it is what puts the arrows at the middle of the slides, whatever else the root holds. Read it with a fallback, var(--slides-height, 100%), for the frame before the first measurement.
+- `slides-container`: the scrolling track, the element that carries the scroll snapping and the one the arrows move. Its measured height is published on the root as --_slides-height and kept in step with it, so a rule can sit something against the slides themselves rather than against the whole component; it is what puts the arrows at the middle of the slides, whatever else the root holds. Read it with a fallback, var(--_slides-height, 100%), for the frame before the first measurement.
 - `slides-container-slide`: identifies each direct slide item.
 - `slides-prec`: write one yourself, bare like this, to place the previous-slide button elsewhere; the module leaves it alone and never generates a second one.
 - `slides-next`: the same, for the next-slide button.
@@ -23,7 +23,7 @@ A horizontal, scroll-snapped track of slides with its own arrows and position do
 ## PGS Options (component brackets)
 
 - `shadowDesktop`: fades the slides out at the edges from the tablet width up, only on the side that still has slides to reach.
-- `animationScale`: scales each slide by how much of it is in view, through the --slides-visiblePercent custom property the module writes on it; a slide sits at 1 before the first pass of the observer.
+- `animationScale`: scales each slide by how much of it is in view, through the --_slides-visiblePercent custom property the module writes on it; a slide sits at 1 before the first pass of the observer.
 - `singleScroll`: an arrow advances by a single slide, counted from the one the snap is resting on, instead of jumping past every slide currently in view.
 - `scrollMouse`: turns the vertical mouse wheel into horizontal scrolling over the slides; off by default.
 
@@ -69,13 +69,11 @@ A horizontal, scroll-snapped track of slides with its own arrows and position do
 
 ## CSS Variables
 
-- `--slides-height`
 - `--slides-maskEnd`
 - `--slides-maskStart`
 - `--slides-paddingInline-mobile`
 - `--slides-paddingInline-tablet`
 - `--slides-sizeMaskImage`
-- `--slides-visiblePercent`
 
 ## Output
 

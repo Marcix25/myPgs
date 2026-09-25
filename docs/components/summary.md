@@ -2,12 +2,12 @@
 
 # Summary
 
-Long content collapsed to a few lines, with a button that expands it. The module measures the content against the collapsed height set by --summary-content-max-height and only shows the button when there is something hidden: content that already fits keeps the button out of the page and out of the accessibility tree, so nothing offers to expand what is fully visible. A button written in the markup is used as is; without one the module generates it, and its two labels come from the showMore and showLess options, then from the options passed to init, then from the English defaults.
+Long content collapsed to a few lines, with a button that expands it. The module measures the content against the collapsed height, --summary-lines lines of text (3 by default), and only shows the button when there is something hidden: content that already fits keeps the button out of the page and out of the accessibility tree, so nothing offers to expand what is fully visible. A button written in the markup is used as is; without one the module generates it, and its two labels come from the showMore and showLess options, then from the options passed to init, then from the English defaults.
 
 ## PGS
 
 - `summary`: identifies the root the module initializes, and the element the instance is stored against.
-- `summary-content`: the collapsed content, cut to --summary-content-max-height while it is closed.
+- `summary-content`: the collapsed content, cut to --summary-lines lines while it is closed.
 - `summary-button`: the control that expands and collapses the content. Write it to place it yourself; leave it out and the module generates one.
 
 ## PGS Data
@@ -32,9 +32,9 @@ Long content collapsed to a few lines, with a button that expands it. The module
 
 ## CSS Variables
 
-- `--summary-content-max-height`
 - `--summary-fade-background`
 - `--summary-fade-size`
+- `--summary-lines`
 
 ## Output
 

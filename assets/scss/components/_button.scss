@@ -4,45 +4,15 @@
 :is([pgs~="button"], [pgs*="button\5B"]) {
     @include buttonBase();
 
-    &:where(:not([pgs*="body\5B"][pgs*="'bodyHoverAuto'"] :is([pgs~="button"], [pgs*="button\5B"]))) {
-        @include buttonHover();
-    }
-
-    //== every option below carries the btn prefix, not just the ones that used to collide with
-    //== another component's own option (mini/strong/primary) — button is common enough as a
-    //== prefix in other libraries that a bare option name here is one dependency away from a
-    //== real collision, so all of them get it, not only the ones colliding today
-    &[pgs*="'btnIconOnly'"] {
-        @include buttonIconOnly();
-    }
-
-    &[pgs*="'btnMini'"] {
-        @include buttonMini();
-    }
-
-    &[pgs*="'btnBig'"] {
-        @include buttonBig();
-    }
-
-    &[pgs*="'btnTransparent'"] {
-        @include buttonTransparent();
-    }
-
-    &[pgs*="'btnStrong'"] {
-        @include buttonStrong();
-    }
-
-    &[pgs*="'btnText'"] {
-        @include buttonText();
-    }
-
-    &[pgs*="'btnPaddingEqual'"] {
-        @include buttonPaddingEqual();
-    }
-
-    &[pgs*="'btnForHeader'"] {
-        @include buttonForHeader();
-    }
+    &:where(:not([pgs*="body\5B"][pgs*="'bodyHoverAuto'"] :is([pgs~="button"], [pgs*="button\5B"]))) { @include buttonHover(); }
+    &[pgs*="'btnIconOnly'"] { @include buttonIconOnly(); }
+    &[pgs*="'btnMini'"] { @include buttonMini(); }
+    &[pgs*="'btnBig'"] { @include buttonBig(); }
+    &[pgs*="'btnTransparent'"] { @include buttonTransparent(); }
+    &[pgs*="'btnStrong'"] { @include buttonStrong(); }
+    &[pgs*="'btnText'"] { @include buttonText(); }
+    &[pgs*="'btnPaddingEqual'"] { @include buttonPaddingEqual(); }
+    &[pgs*="'btnForHeader'"] { @include buttonForHeader(); }
 
     &[pgs*="'btnPrimary'"] {
         --button-background: var(--color-primary);

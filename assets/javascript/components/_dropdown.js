@@ -3,7 +3,7 @@ import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
 // + dropdown
 const API = new WeakMap();
 const OPEN_DROPDOWNS = new Set();
-const VIEWPORT_GAP = 8;
+const VIEWPORT_GAP = 0;
 let dropdownId = 0;
 
 function nextDropdownId() {
@@ -88,12 +88,17 @@ function updateposition(dropdown) {
 
     left = clamp(left, VIEWPORT_GAP, maxLeft);
 
-    //== exposes the resolved side so a component built on dropdown (e.g. Tooltip) can point an
-    //== arrow at the trigger purely in CSS, without recomputing the layout itself
+    //== exposes the resolved side so the arrow (or a component built on dropdown) can
+    //== point at the trigger purely in CSS, without recomputing the layout itself
     content.dataset.dropdownSide = side;
 
-    content.style.setProperty("--dropdown-left", `${Math.round(left)}px`);
-    content.style.setProperty("--dropdown-top", `${Math.round(top)}px`);
+    content.style.setProperty("--_dropdown-left", `${Math.round(left)}px`);
+    content.style.setProperty("--_dropdown-top", `${Math.round(top)}px`);
+
+    //== where the trigger's centre falls inside the panel, after the viewport clamp above may
+    //== have shifted it: an arrow placed at 50% would stop pointing at the trigger
+    content.style.setProperty("--_dropdown-arrowLeft", `${Math.round(triggerRect.left + triggerRect.width / 2 - left)}px`);
+    content.style.setProperty("--_dropdown-arrowTop", `${Math.round(triggerRect.top + triggerRect.height / 2 - top)}px`);
 }
 
 function updateOpenDropdowns() {

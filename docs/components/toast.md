@@ -65,7 +65,6 @@ Toast markup, configuration, behavior, and usage example. An ephemeral, auto-dis
 - `--toast-background-timer`
 - `--toast-color`
 - `--toast-shadow-color`
-- `--toast-timeout`
 
 ## Output
 

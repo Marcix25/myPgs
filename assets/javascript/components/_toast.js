@@ -137,7 +137,7 @@ const fn_toast = {
         //== Create Toast
         containerToast.innerHTML = "";
         const toast = document.createElement("div");
-        if (timeout > 0) toast.style.setProperty("--toast-timeout", timeout + "ms");
+        if (timeout > 0) toast.style.setProperty("--_toast-timeout", timeout + "ms");
         pgs(toast).state.add(type);
         pgs(toast).add("_toast-element");
         toast.setAttribute("role", type == "error" ? "alert" : "status");

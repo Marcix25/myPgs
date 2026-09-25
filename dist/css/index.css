@@ -3157,21 +3157,20 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] {
     flex-flow: row wrap;
   }
-  :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] :where([pgs~=card-img]),
-  :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] :where([pgs~=card-imgForChild]),
   :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] :where([pgs~=card-content]) {
     border-radius: var(--card-horizontal-borderRadius-item);
     flex-basis: 0;
-  }
-  :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] :where([pgs~=card-content]) {
     flex-grow: var(--card-horizontal-content-grow);
   }
   :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] :where([pgs~=card-img]),
   :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] :where([pgs~=card-imgForChild]) {
+    border-radius: var(--card-horizontal-borderRadius-item);
+    flex-basis: 0;
     flex-grow: var(--card-horizontal-img-grow);
     min-height: var(--card-horizontal-img-minHeight);
   }
-  :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] :where([pgs~=card-imgForChild]) > * {
+  :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] :where([pgs~=card-img]):where([pgs~=card-imgForChild]) > *,
+  :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] :where([pgs~=card-imgForChild]):where([pgs~=card-imgForChild]) > * {
     height: 100%;
     border-radius: var(--card-horizontal-borderRadius-item);
   }
@@ -3180,24 +3179,22 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   flex-flow: row wrap;
 }
 
-:is([pgs~=card], [pgs*="card["])[pgs*="'horizontalFixed'"] :where([pgs~=card-img]),
-:is([pgs~=card], [pgs*="card["])[pgs*="'horizontalFixed'"] :where([pgs~=card-imgForChild]),
 :is([pgs~=card], [pgs*="card["])[pgs*="'horizontalFixed'"] :where([pgs~=card-content]) {
   border-radius: var(--card-horizontal-borderRadius-item);
   flex-basis: 0;
-}
-
-:is([pgs~=card], [pgs*="card["])[pgs*="'horizontalFixed'"] :where([pgs~=card-content]) {
   flex-grow: var(--card-horizontal-content-grow);
 }
 
 :is([pgs~=card], [pgs*="card["])[pgs*="'horizontalFixed'"] :where([pgs~=card-img]),
 :is([pgs~=card], [pgs*="card["])[pgs*="'horizontalFixed'"] :where([pgs~=card-imgForChild]) {
+  border-radius: var(--card-horizontal-borderRadius-item);
+  flex-basis: 0;
   flex-grow: var(--card-horizontal-img-grow);
   min-height: var(--card-horizontal-img-minHeight);
 }
 
-:is([pgs~=card], [pgs*="card["])[pgs*="'horizontalFixed'"] :where([pgs~=card-imgForChild]) > * {
+:is([pgs~=card], [pgs*="card["])[pgs*="'horizontalFixed'"] :where([pgs~=card-img]):where([pgs~=card-imgForChild]) > *,
+:is([pgs~=card], [pgs*="card["])[pgs*="'horizontalFixed'"] :where([pgs~=card-imgForChild]):where([pgs~=card-imgForChild]) > * {
   height: 100%;
   border-radius: var(--card-horizontal-borderRadius-item);
 }
@@ -5203,24 +5200,19 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   display: flex;
 }
 
-:is([pgs~=menu], [pgs*="menu["]) :where([pgs~=_menu-iconOnly]) {
-  --button-size: 0.9rem;
-  margin-right: -15px;
+:is([pgs~=menu], [pgs*="menu["]) :where([pgs~=_menu-submenuButton]) {
+  --button-size: 0.2rem;
+  margin-right: -5px;
+  translate: -5px;
   margin-block: auto;
-  width: 40px;
-  aspect-ratio: 1;
-  padding: 0;
-  justify-content: center;
-  cursor: pointer;
-  translate: -15px;
 }
 
-:is([pgs~=menu], [pgs*="menu["]) :where([pgs~=_menu-iconOnly])[aria-expanded=true] span {
-  rotate: 180deg;
-}
-
-:is([pgs~=menu], [pgs*="menu["]) :where([pgs~=_menu-iconOnly]) span {
+:is([pgs~=menu], [pgs*="menu["]) :where([pgs~=_menu-submenuButton]) i {
   transition: all 300ms;
+}
+
+:is([pgs~=menu], [pgs*="menu["]) :where([pgs~=_menu-submenuButton])[aria-expanded=true] i {
+  rotate: 180deg;
 }
 
 :is([pgs~=menu], [pgs*="menu["])[pgs*="'menuHorizontal'"] > ul {
@@ -5475,9 +5467,12 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --dropdown-padding: 1rem;
   --dropdown-inline-size: max-content;
   --dropdown-max-inline-size: min(400px, calc(100vw - 16px));
-  --dropdown-left: 0px;
-  --dropdown-top: 0px;
+  --dropdown-max-inline-size: 100%;
+  --_dropdown-left: 0px;
+  --_dropdown-top: 0px;
   --dropdown-display: block;
+  --dropdown-arrow-size: 7px;
+  --_dropdown-arrow-inset: calc(var(--dropdown-arrow-size) + var(--dropdown-borderRadius));
   position: relative;
 }
 
@@ -5491,7 +5486,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 :is([pgs~=dropdown], [pgs*="dropdown["]) > :where([pgs~=dropdown-content]) {
   position: fixed;
-  inset: var(--dropdown-top) auto auto var(--dropdown-left);
+  inset: var(--_dropdown-top) auto auto var(--_dropdown-left);
   z-index: 1000;
   inline-size: var(--dropdown-inline-size);
   width: var(--dropdown-max-inline-size);
@@ -5501,6 +5496,78 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   border-radius: var(--dropdown-borderRadius);
   background: var(--dropdown-background);
   color: var(--dropdown-color);
+}
+
+:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content]) {
+  overflow: visible;
+}
+
+:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])::before, :is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])::after {
+  content: "";
+  position: absolute;
+  inline-size: 0;
+  block-size: 0;
+  border: var(--dropdown-arrow-size) solid transparent;
+}
+
+:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=bottom]::before, :is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=bottom]::after {
+  bottom: 100%;
+  left: clamp(var(--_dropdown-arrow-inset), var(--_dropdown-arrowLeft, 50%) - var(--border-width), 100% - var(--_dropdown-arrow-inset));
+  translate: -50% 0;
+}
+
+:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=bottom]::before {
+  border-bottom-color: var(--border-color);
+}
+
+:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=bottom]::after {
+  margin-bottom: calc(var(--border-width) * -1);
+  border-bottom-color: var(--dropdown-background);
+}
+
+:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=top]::before, :is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=top]::after {
+  top: 100%;
+  left: clamp(var(--_dropdown-arrow-inset), var(--_dropdown-arrowLeft, 50%) - var(--border-width), 100% - var(--_dropdown-arrow-inset));
+  translate: -50% 0;
+}
+
+:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=top]::before {
+  border-top-color: var(--border-color);
+}
+
+:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=top]::after {
+  margin-top: calc(var(--border-width) * -1);
+  border-top-color: var(--dropdown-background);
+}
+
+:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=right]::before, :is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=right]::after {
+  right: 100%;
+  top: clamp(var(--_dropdown-arrow-inset), var(--_dropdown-arrowTop, 50%) - var(--border-width), 100% - var(--_dropdown-arrow-inset));
+  translate: 0 -50%;
+}
+
+:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=right]::before {
+  border-right-color: var(--border-color);
+}
+
+:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=right]::after {
+  margin-right: calc(var(--border-width) * -1);
+  border-right-color: var(--dropdown-background);
+}
+
+:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=left]::before, :is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=left]::after {
+  left: 100%;
+  top: clamp(var(--_dropdown-arrow-inset), var(--_dropdown-arrowTop, 50%) - var(--border-width), 100% - var(--_dropdown-arrow-inset));
+  translate: 0 -50%;
+}
+
+:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=left]::before {
+  border-left-color: var(--border-color);
+}
+
+:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=left]::after {
+  margin-left: calc(var(--border-width) * -1);
+  border-left-color: var(--dropdown-background);
 }
 
 html:has(dialog[open]) {
@@ -5767,7 +5834,7 @@ html:has(dialog[open]) {
 :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next] {
   position: absolute;
   z-index: 4;
-  top: calc(var(--slides-height, 100%) / 2);
+  top: calc(var(--_slides-height, 100%) / 2);
   translate: 0 -50%;
 }
 
@@ -5855,7 +5922,7 @@ html:has(dialog[open]) {
 }
 
 :is([pgs~=slides], [pgs*="slides["])[pgs*="'animationScale'"] :where([pgs~=slides-container]) :where([pgs~=slides-container-slide]) > * {
-  scale: calc(var(--slides-visiblePercent, 1) * var(--slides-visiblePercent, 1) * var(--slides-visiblePercent, 1));
+  scale: calc(var(--_slides-visiblePercent, 1) * var(--_slides-visiblePercent, 1) * var(--_slides-visiblePercent, 1));
   transform-origin: center;
 }
 
@@ -6091,7 +6158,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 [pgs~=summary] {
   --summary-fade-size: 4rem;
   --summary-fade-background: var(--color-background);
-  --summary-content-max-height: 5.7rem;
+  --summary-lines: 3;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -6100,7 +6167,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 }
 
 [pgs~=summary] :where([pgs~=summary-content]) {
-  max-height: var(--summary-content-max-height, none);
+  max-height: var(--_summary-content-height, calc(var(--summary-lines) * 1lh));
   overflow: hidden;
   transition: max-height 300ms ease;
 }
@@ -6453,7 +6520,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   --toast-background-timer: color-mix(in srgb, var(--color-box) 95%, var(--color-black) 5%);
   --toast-color: unset;
   --toast-shadow-color: unset;
-  --toast-timeout: unset;
+  --_toast-timeout: unset;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6551,7 +6618,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   background-color: var(--toast-background-timer);
   border-top-left-radius: var(--border-radius-input);
   border-bottom-left-radius: var(--border-radius-input);
-  animation: toast-timeline var(--toast-timeout) linear;
+  animation: toast-timeline var(--_toast-timeout) linear;
 }
 
 @keyframes toast-timeline {
@@ -6598,87 +6665,6 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   --toast-background: var(--color-info-soft);
   --toast-background-timer: color-mix(in srgb, var(--color-info-soft) 70%, var(--color-white) 30%);
   --toast-shadow-color: var(--color-info);
-}
-
-[pgs~=tooltip]:is([pgs~=dropdown], [pgs*="dropdown["]) {
-  --dropdown-padding: 15px;
-  --tooltip-arrow-size: 7px;
-}
-
-[pgs~=tooltip]:is([pgs~=dropdown], [pgs*="dropdown["]) :where([pgs~=tooltip-button]):where([pgs~=dropdown-button]) {
-  --icon-size: .9rem;
-}
-
-[pgs~=tooltip]:is([pgs~=dropdown], [pgs*="dropdown["]) :where([pgs~=tooltip-content]):where([pgs~=dropdown-content]) {
-  overflow: visible;
-}
-
-[pgs~=tooltip]:is([pgs~=dropdown], [pgs*="dropdown["]) :where([pgs~=tooltip-content]):where([pgs~=dropdown-content])::before, [pgs~=tooltip]:is([pgs~=dropdown], [pgs*="dropdown["]) :where([pgs~=tooltip-content]):where([pgs~=dropdown-content])::after {
-  content: "";
-  position: absolute;
-  inline-size: 0;
-  block-size: 0;
-  border: var(--tooltip-arrow-size) solid transparent;
-}
-
-[pgs~=tooltip]:is([pgs~=dropdown], [pgs*="dropdown["]) :where([pgs~=tooltip-content]):where([pgs~=dropdown-content])[data-dropdown-side=bottom]::before, [pgs~=tooltip]:is([pgs~=dropdown], [pgs*="dropdown["]) :where([pgs~=tooltip-content]):where([pgs~=dropdown-content])[data-dropdown-side=bottom]::after {
-  bottom: 100%;
-  left: 50%;
-  translate: -50% 0;
-}
-
-[pgs~=tooltip]:is([pgs~=dropdown], [pgs*="dropdown["]) :where([pgs~=tooltip-content]):where([pgs~=dropdown-content])[data-dropdown-side=bottom]::before {
-  border-bottom-color: var(--border-color);
-}
-
-[pgs~=tooltip]:is([pgs~=dropdown], [pgs*="dropdown["]) :where([pgs~=tooltip-content]):where([pgs~=dropdown-content])[data-dropdown-side=bottom]::after {
-  margin-bottom: calc(var(--border-width) * -1);
-  border-bottom-color: var(--dropdown-background);
-}
-
-[pgs~=tooltip]:is([pgs~=dropdown], [pgs*="dropdown["]) :where([pgs~=tooltip-content]):where([pgs~=dropdown-content])[data-dropdown-side=top]::before, [pgs~=tooltip]:is([pgs~=dropdown], [pgs*="dropdown["]) :where([pgs~=tooltip-content]):where([pgs~=dropdown-content])[data-dropdown-side=top]::after {
-  top: 100%;
-  left: 50%;
-  translate: -50% 0;
-}
-
-[pgs~=tooltip]:is([pgs~=dropdown], [pgs*="dropdown["]) :where([pgs~=tooltip-content]):where([pgs~=dropdown-content])[data-dropdown-side=top]::before {
-  border-top-color: var(--border-color);
-}
-
-[pgs~=tooltip]:is([pgs~=dropdown], [pgs*="dropdown["]) :where([pgs~=tooltip-content]):where([pgs~=dropdown-content])[data-dropdown-side=top]::after {
-  margin-top: calc(var(--border-width) * -1);
-  border-top-color: var(--dropdown-background);
-}
-
-[pgs~=tooltip]:is([pgs~=dropdown], [pgs*="dropdown["]) :where([pgs~=tooltip-content]):where([pgs~=dropdown-content])[data-dropdown-side=right]::before, [pgs~=tooltip]:is([pgs~=dropdown], [pgs*="dropdown["]) :where([pgs~=tooltip-content]):where([pgs~=dropdown-content])[data-dropdown-side=right]::after {
-  right: 100%;
-  top: 50%;
-  translate: 0 -50%;
-}
-
-[pgs~=tooltip]:is([pgs~=dropdown], [pgs*="dropdown["]) :where([pgs~=tooltip-content]):where([pgs~=dropdown-content])[data-dropdown-side=right]::before {
-  border-right-color: var(--border-color);
-}
-
-[pgs~=tooltip]:is([pgs~=dropdown], [pgs*="dropdown["]) :where([pgs~=tooltip-content]):where([pgs~=dropdown-content])[data-dropdown-side=right]::after {
-  margin-right: calc(var(--border-width) * -1);
-  border-right-color: var(--dropdown-background);
-}
-
-[pgs~=tooltip]:is([pgs~=dropdown], [pgs*="dropdown["]) :where([pgs~=tooltip-content]):where([pgs~=dropdown-content])[data-dropdown-side=left]::before, [pgs~=tooltip]:is([pgs~=dropdown], [pgs*="dropdown["]) :where([pgs~=tooltip-content]):where([pgs~=dropdown-content])[data-dropdown-side=left]::after {
-  left: 100%;
-  top: 50%;
-  translate: 0 -50%;
-}
-
-[pgs~=tooltip]:is([pgs~=dropdown], [pgs*="dropdown["]) :where([pgs~=tooltip-content]):where([pgs~=dropdown-content])[data-dropdown-side=left]::before {
-  border-left-color: var(--border-color);
-}
-
-[pgs~=tooltip]:is([pgs~=dropdown], [pgs*="dropdown["]) :where([pgs~=tooltip-content]):where([pgs~=dropdown-content])[data-dropdown-side=left]::after {
-  margin-left: calc(var(--border-width) * -1);
-  border-left-color: var(--dropdown-background);
 }
 
 [pgs~=search] {
