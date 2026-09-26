@@ -4,15 +4,6 @@ import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
 const EVENT_OPEN = "pgs:modal:open";
 const EVENT_CLOSE = "pgs:modal:close";
 const API = new WeakMap();
-const ZOOM_EASING = "cubic-bezier(0.4, 0, 0.22, 1)";
-
-//+ how long the dialogZoom animation runs, read from --modal-zoom-timing on the dialog
-function zoomTiming(dialog) {
-    const raw = window.getComputedStyle(dialog).getPropertyValue("--modal-zoom-timing").trim();
-    const value = parseFloat(raw);
-    if (!Number.isFinite(value)) return 333;
-    return raw.endsWith("ms") ? value : value * 1000;
-}
 
 function getModals(root) {
     const modals = root instanceof Element && pgs(root).contains("modal") ? [root] : [];
@@ -82,7 +73,7 @@ function initializeModal(MODAL, existingDialog = null) {
     //== OPTION ATTRIBUTES DIALOG
     const dialogTopLevel = pgs(DIALOG).option.contains("dialogTopLevel");
     const dialogZoom = pgs(DIALOG).option.contains("dialogZoom");
-    let zoomAnimations = [];
+    const CONTENT = pgs(DIALOG).querySelector("modal-dialog-content");
     let closing = false;
 
 
@@ -121,53 +112,40 @@ function initializeModal(MODAL, existingDialog = null) {
 
     //+ FN ZOOM
     //+ dialogZoom: the panel grows out of the button that opened it and shrinks back into it on
-    //+ close, the way PhotoSwipe zooms a thumbnail. FLIP: the panel is already laid out in its
-    //+ final place, so it starts transformed onto the button's box and animates to none. Returns
-    //+ null whenever there is nothing to zoom from — no button, a hidden one, no panel, or a
-    //+ reader who asked for reduced motion — and the dialog then opens and closes as usual.
-    function cancelZoom() {
-        zoomAnimations.forEach(animation => animation.cancel());
-        zoomAnimations = [];
+    //+ close, the way PhotoSwipe zooms a thumbnail. The JavaScript only measures: the panel is
+    //+ already laid out in its final place, so the offset and the scale that lay it over the
+    //+ button go to the stylesheet as --_modal-zoom-*, and the zoomIn/zoomOut state starts the
+    //+ animation — keyframes, timing, backdrop fade and reduced motion all live in _modal.scss.
+    //+ Returns a promise that settles when every animation the stylesheet started has finished,
+    //+ or null when there is nothing to wait for: no button, a hidden one, no panel, or no
+    //+ animation at all (prefers-reduced-motion, or a theme that turns it off).
+    function stopZoom() {
+        pgs(DIALOG).state.remove("zoomIn");
+        pgs(DIALOG).state.remove("zoomOut");
     }
 
-    function zoom(reverse = false) {
-        cancelZoom();
-        if (!dialogZoom || !BUTTON_OPEN) return null;
-        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return null;
-        const content = pgs(DIALOG).querySelector("modal-dialog-content");
-        if (!content) return null;
+    function zoom(state) {
+        stopZoom();
+        if (!dialogZoom || !BUTTON_OPEN || !CONTENT) return null;
 
+        //== measuring right after stopZoom() also flushes the removed state, so a zoomOut that
+        //== follows a zoomIn restarts the same keyframes instead of carrying on the running ones
         const from = BUTTON_OPEN.getBoundingClientRect();
-        const to = content.getBoundingClientRect();
+        const to = CONTENT.getBoundingClientRect();
         if (!from.width || !from.height || !to.width || !to.height) return null;
 
-        const options = {
-            duration: zoomTiming(DIALOG),
-            easing: window.getComputedStyle(DIALOG).getPropertyValue("--modal-zoom-easing").trim() || ZOOM_EASING,
-            direction: reverse ? "reverse" : "normal",
-            fill: "both",
-        };
-        const start = `translate(${from.left - to.left}px, ${from.top - to.top}px) scale(${from.width / to.width}, ${from.height / to.height})`;
+        CONTENT.style.setProperty("--_modal-zoom-x", `${from.left - to.left}px`);
+        CONTENT.style.setProperty("--_modal-zoom-y", `${from.top - to.top}px`);
+        CONTENT.style.setProperty("--_modal-zoom-scaleX", from.width / to.width);
+        CONTENT.style.setProperty("--_modal-zoom-scaleY", from.height / to.height);
+        pgs(DIALOG).state.add(state);
 
-        //== the panel is invisible while it still has the button's shape, so the squashed text of
-        //== the first frames never shows: it only appears as it grows past the button
-        zoomAnimations.push(content.animate([
-            { transformOrigin: "0 0", transform: start, opacity: 0 },
-            { transformOrigin: "0 0", opacity: 1, offset: 0.35 },
-            { transformOrigin: "0 0", transform: "none", opacity: 1 },
-        ], options));
-
-        //== the backdrop fades alongside: the dialog paints it itself, and dialogTopLevel adds
-        //== the browser's own ::backdrop on the top layer
-        zoomAnimations.push(DIALOG.animate([
-            { backgroundColor: "transparent" },
-            { backgroundColor: window.getComputedStyle(DIALOG).backgroundColor },
-        ], options));
-        if (dialogTopLevel) {
-            try { zoomAnimations.push(DIALOG.animate([{ opacity: 0 }, { opacity: 1 }], { ...options, pseudoElement: "::backdrop" })); } catch (_) { }
+        const animations = DIALOG.getAnimations({ subtree: true }).filter(animation => animation.animationName?.startsWith("modalZoom"));
+        if (!animations.length) {
+            stopZoom();
+            return null;
         }
-
-        return zoomAnimations[0];
+        return Promise.all(animations.map(animation => animation.finished));
     }
 
     //+ FN OPEN
@@ -184,7 +162,7 @@ function initializeModal(MODAL, existingDialog = null) {
         dialogTopLevel ? DIALOG.showModal() : DIALOG.show();
         //== respect an explicit autofocus target inside the dialog when the author set one
         if (!DIALOG.querySelector("[autofocus]")) focusTarget.focus();
-        zoom()?.finished.then(cancelZoom, () => { });
+        zoom("zoomIn")?.then(stopZoom, () => { });
         //== dispatched on both, and neither bubbles: a listener sits on whichever of the two it
         //== already holds, and never receives the same opening twice
         MODAL.dispatchEvent(new CustomEvent(EVENT_OPEN));
@@ -197,18 +175,18 @@ function initializeModal(MODAL, existingDialog = null) {
         //== a second request while the zoom-out is still running changes nothing
         if (closing) return;
         statusModal(false);
-        const animation = DIALOG.open ? zoom(true) : null;
-        if (!animation) return finishClose();
+        const zoomOut = DIALOG.open ? zoom("zoomOut") : null;
+        if (!zoomOut) return finishClose();
         closing = true;
-        //== a rejected promise means the animation was cancelled — by a native close or by
-        //== opening again — and whoever cancelled it already owns the dialog's state
-        animation.finished.then(finishClose, () => { });
+        //== a rejected promise means the animation was cancelled — by a native close removing
+        //== the state — and whoever cancelled it already owns the dialog's state
+        zoomOut.then(finishClose, () => { });
     }
 
     function finishClose() {
         closing = false;
         DIALOG.close();
-        cancelZoom();
+        stopZoom();
         MODAL.dispatchEvent(new CustomEvent(EVENT_CLOSE));
         DIALOG.dispatchEvent(new CustomEvent(EVENT_CLOSE));
     }
@@ -238,7 +216,7 @@ function initializeModal(MODAL, existingDialog = null) {
     DIALOG.addEventListener("close", () => {
         statusModal(false);
         closing = false;
-        cancelZoom();
+        stopZoom();
     }, { signal });
     //== Escape on a showModal() dialog closes it natively, with no time left for the zoom-out:
     //== take the cancel over and close through closeModal instead
@@ -279,7 +257,7 @@ function initializeModal(MODAL, existingDialog = null) {
 
     function destroy() {
         eventController.abort();
-        cancelZoom();
+        stopZoom();
         historyObserver?.disconnect();
         if (historyTimeout !== null) window.clearTimeout(historyTimeout);
         API.delete(MODAL);

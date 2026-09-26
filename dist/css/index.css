@@ -5906,7 +5906,7 @@ html:has(dialog[open]) {
   z-index: 1;
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogTopLevel'"]:where(dialog[pgs~=modal-dialog]) {
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogTopLevel'"] {
   overflow-y: auto;
   height: auto;
   z-index: auto;
@@ -5917,41 +5917,88 @@ html:has(dialog[open]) {
   cursor: auto;
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogMini'"]:where(dialog[pgs~=modal-dialog]) :where([pgs~=modal-dialog-content]) {
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogMini'"] :where([pgs~=modal-dialog-content]) {
   --section-width: min(calc(var(--page-width)/3), 100%);
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogMedium'"]:where(dialog[pgs~=modal-dialog]) :where([pgs~=modal-dialog-content]) {
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogMedium'"] :where([pgs~=modal-dialog-content]) {
   --section-width: min(calc(var(--page-width)/2), 100%);
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogFull'"]:where(dialog[pgs~=modal-dialog]) :where([pgs~=modal-dialog-content]) {
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogFull'"] :where([pgs~=modal-dialog-content]) {
   --section-width: 100%;
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogCenter'"]:where(dialog[pgs~=modal-dialog]) {
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogCenter'"] {
   justify-content: safe center;
   align-items: safe center;
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogLeft'"]:where(dialog[pgs~=modal-dialog]) {
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogLeft'"] {
   justify-content: safe flex-start;
   padding-inline: var(--modal-offset);
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogRight'"]:where(dialog[pgs~=modal-dialog]) {
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogRight'"] {
   justify-content: safe flex-end;
   padding-inline: var(--modal-offset);
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogTop'"]:where(dialog[pgs~=modal-dialog]) {
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogTop'"] {
   align-items: safe flex-start;
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogBottom'"]:where(dialog[pgs~=modal-dialog]) {
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogBottom'"] {
   align-items: safe flex-end;
 }
 
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogZoom'"]:is([pgs-state~=zoomIn], [pgs-state~=zoomOut]) {
+  animation: modalZoomBackdrop var(--modal-zoom-timing) var(--modal-zoom-easing) both;
+}
+
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogZoom'"]:is([pgs-state~=zoomIn], [pgs-state~=zoomOut])::backdrop {
+  animation: modalZoomFade var(--modal-zoom-timing) var(--modal-zoom-easing) both;
+}
+
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogZoom'"]:is([pgs-state~=zoomIn], [pgs-state~=zoomOut]) :where([pgs~=modal-dialog-content]) {
+  transform-origin: 0 0;
+  animation: modalZoomPanel var(--modal-zoom-timing) var(--modal-zoom-easing) both;
+}
+
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogZoom'"][pgs-state~=zoomOut], :where(dialog[pgs~=modal-dialog])[pgs*="'dialogZoom'"][pgs-state~=zoomOut]::backdrop,
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogZoom'"][pgs-state~=zoomOut] :where([pgs~=modal-dialog-content]) {
+  animation-direction: reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(dialog[pgs~=modal-dialog])[pgs*="'dialogZoom'"]:is([pgs-state~=zoomIn], [pgs-state~=zoomOut]), :where(dialog[pgs~=modal-dialog])[pgs*="'dialogZoom'"]:is([pgs-state~=zoomIn], [pgs-state~=zoomOut])::backdrop,
+  :where(dialog[pgs~=modal-dialog])[pgs*="'dialogZoom'"]:is([pgs-state~=zoomIn], [pgs-state~=zoomOut]) :where([pgs~=modal-dialog-content]) {
+    animation: none;
+  }
+}
+@keyframes modalZoomPanel {
+  from {
+    transform: translate(var(--_modal-zoom-x), var(--_modal-zoom-y)) scale(var(--_modal-zoom-scaleX), var(--_modal-zoom-scaleY));
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+@keyframes modalZoomBackdrop {
+  from {
+    background-color: transparent;
+  }
+}
+@keyframes modalZoomFade {
+  from {
+    opacity: 0;
+  }
+}
 [pgs~=pageNav] [pgs~=pageNav-panels] [pgs~=pageNav-panels-content] {
   display: none;
 }

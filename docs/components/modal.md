@@ -31,13 +31,18 @@ A native dialog driven by the library. The dialog is moved out of its wrapper on
 - `dialogRight`: aligns the dialog content to the right of the viewport.
 - `dialogTop`: aligns the dialog content to the top of the viewport.
 - `dialogTopLevel`: leaves the dialog inside its wrapper and opens it with showModal(), on the browser's top layer above everything else, instead of moving it into a container and opening it with show().
-- `dialogZoom`: grows the panel out of the modal-button that opened it and shrinks it back into the button on close, with the backdrop fading alongside; --modal-zoom-timing and --modal-zoom-easing tune it, and it is skipped under prefers-reduced-motion or when there is no visible button to zoom from.
+- `dialogZoom`: grows the panel out of the modal-button that opened it and shrinks it back into the button on close, with the backdrop fading alongside; the animation lives in the stylesheet, tuned by --modal-zoom-timing and --modal-zoom-easing and turned off under prefers-reduced-motion, while the module only measures the button and the panel; it is skipped when there is no visible button to zoom from.
 - `dialogHistory`: writes ?modal=<id of the opening button> into the URL while the dialog is open, and opens or closes it again on back and forward. It needs a modal-button with an id.
 
 ## PGS Data
 
 - `modalContainerID`: moves the dialog into the element with this id instead of the body, with the syntax modalContainerID[myContainer] — the id is written without the #.
 - `modalContainerPGS`: moves the dialog into the first element carrying this pgs token instead of the body, with the syntax modalContainerPGS[header].
+
+## PGS States
+
+- `zoomIn`: set on the dialog while dialogZoom grows the panel out of the button, and removed when it has finished.
+- `zoomOut`: set on the dialog while dialogZoom shrinks the panel back into the button; the dialog really closes when it has finished.
 
 ## JavaScript API
 

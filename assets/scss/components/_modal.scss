@@ -7,13 +7,10 @@
 //== this element anywhere in the document independently of the wrapper. The flag selectors below
 //== don't check _dialog specifically — see AGENTS-DEVELOPMENT.md for why a bracket flag never
 //== needs to be scoped to the token that carries it.
-$modalDialogPgs: 'dialog[pgs~="modal-dialog"]';
 
-html:has(dialog[open]) {
-    cursor: pointer;
-}
+html:has(dialog[open]) { cursor: pointer; }
 
-//= MODAL 
+//= MODAL
 :is([pgs~="modal"], [pgs*="modal\5B"]) {
 
     //== MODAL BUTTON
@@ -23,7 +20,7 @@ html:has(dialog[open]) {
     //== read by the JavaScript only: declared here so editors suggest them
     &[pgs-data~="modalContainerID[]"],
     &[pgs-data~="modalContainerPGS[]"] {}
-    
+
     //== the flag-copy loop in _modal.js reads any of these off the wrapper or the dialog alike,
     //== so they are declared here too, for editors to suggest them on the wrapper as well
     //+ OPTION
@@ -41,15 +38,15 @@ html:has(dialog[open]) {
     &[pgs*="'dialogZoom'"] {}
 }
 
-//= DIALOG 
-:where(#{$modalDialogPgs}) {
+//= DIALOG
+:where(dialog[pgs~="modal-dialog"]) {
     --modal-backdrop: var(--backdrop);
     --modal-background: var(--color-background);
     --modal-color: var(--color-black);
     --modal-content-padding: var(--padding);
     --modal-offset: var(--gap-texts);
     --modal-borderRadius: calc(var(--border-radius-input) + var(--modal-content-padding));
-    //== read by _modal.js for dialogZoom, which animates through the Web Animations API
+    //== dialogZoom: duration and curve of the zoom in and out (PhotoSwipe's own defaults)
     --modal-zoom-timing: 333ms;
     --modal-zoom-easing: cubic-bezier(0.4, 0, 0.22, 1);
     border: none;
@@ -76,9 +73,7 @@ html:has(dialog[open]) {
 
     //== reachable only programmatically (tabindex="-1", see _modal.js), never via Tab: the
     //== default outline would look like a stray highlight around the whole dialog
-    &:focus {
-        outline: none;
-    }
+    &:focus { outline: none; }
 
     &[open] {
         display: flex;
@@ -86,10 +81,8 @@ html:has(dialog[open]) {
         justify-content: safe center;
     }
 
-    //- big-mobile 
-    @media (max-width: $big-mobile) {
-        padding-inline: 0;
-    }
+    //- big-mobile
+    @media (max-width: $big-mobile) { padding-inline: 0; }
 
     //=== CONTENT
     :where([pgs~="modal-dialog-content"]) {
@@ -115,9 +108,7 @@ html:has(dialog[open]) {
 
             //== same as the dialog's own &:focus above: this is the initial-focus landing
             //== point (see _modal.js), never reached via Tab
-            &:focus {
-                outline: none;
-            }
+            &:focus { outline: none; }
 
             :where([pgs~="modal-close"]),
             :where([pgs~="_modal-close"]) {
@@ -136,9 +127,7 @@ html:has(dialog[open]) {
             overscroll-behavior: contain;
             max-height: 100%;
 
-            &:has(~:where([pgs~="modal-dialog-content-header"])) {
-                padding-top: calc(var(--modal-content-padding) / 2);
-            }
+            &:has(~:where([pgs~="modal-dialog-content-header"])) { padding-top: calc(var(--modal-content-padding) / 2); }
         }
     }
 
@@ -153,72 +142,120 @@ html:has(dialog[open]) {
         z-index: 1;
     }
 
-    //#OPTION 
-    //== TOP LEVEL
-    &[pgs*="'dialogTopLevel'"]:where(#{$modalDialogPgs}) {
+    //=OPTION
+    //+ TOP LEVEL
+    &[pgs*="'dialogTopLevel'"] {
         overflow-y: auto;
         height: auto;
         z-index: auto;
         align-items: safe flex-start;
     }
 
-    //== DISABLED BACKDROP CLOSE
-    &[pgs*="'dialogDisableBackdropClose'"] {
-        cursor: auto;
-    }
+    //+ DISABLED BACKDROP CLOSE
+    &[pgs*="'dialogDisableBackdropClose'"] { cursor: auto; }
 
-    //== SIZE
+    //+ SIZE
     //=== MINI
-    &[pgs*="'dialogMini'"]:where(#{$modalDialogPgs}) {
-        :where([pgs~="modal-dialog-content"]) {
-            --section-width: min(calc(var(--page-width)/3), 100%);
-        }
+    &[pgs*="'dialogMini'"] {
+        :where([pgs~="modal-dialog-content"]) { --section-width: min(calc(var(--page-width)/3), 100%); }
     }
 
     //=== MEDIUM
-    &[pgs*="'dialogMedium'"]:where(#{$modalDialogPgs}) {
-        :where([pgs~="modal-dialog-content"]) {
-            --section-width: min(calc(var(--page-width)/2), 100%);
-        }
+    &[pgs*="'dialogMedium'"] {
+        :where([pgs~="modal-dialog-content"]) { --section-width: min(calc(var(--page-width)/2), 100%); }
     }
 
     //=== Full
-    &[pgs*="'dialogFull'"]:where(#{$modalDialogPgs}) {
-        :where([pgs~="modal-dialog-content"]) {
-            --section-width: 100%;
-        }
+    &[pgs*="'dialogFull'"] {
+        :where([pgs~="modal-dialog-content"]) { --section-width: 100%; }
     }
 
-    //== POSITION
+    //+ POSITION
     //=== CENTER
-    &[pgs*="'dialogCenter'"]:where(#{$modalDialogPgs}) {
+    &[pgs*="'dialogCenter'"] {
         justify-content: safe center;
         align-items: safe center;
     }
 
     //=== LEFT
-    &[pgs*="'dialogLeft'"]:where(#{$modalDialogPgs}) {
+    &[pgs*="'dialogLeft'"] {
         justify-content: safe flex-start;
         padding-inline: var(--modal-offset);
     }
 
     //=== RIGHT
-    &[pgs*="'dialogRight'"]:where(#{$modalDialogPgs}) {
+    &[pgs*="'dialogRight'"] {
         justify-content: safe flex-end;
         padding-inline: var(--modal-offset);
     }
 
     //=== TOP
-    &[pgs*="'dialogTop'"]:where(#{$modalDialogPgs}) {
-        align-items: safe flex-start;
-    }
+    &[pgs*="'dialogTop'"] { align-items: safe flex-start; }
 
     //=== BOTTOM
-    &[pgs*="'dialogBottom'"]:where(#{$modalDialogPgs}) {
-        align-items: safe flex-end;
-    }
+    &[pgs*="'dialogBottom'"] { align-items: safe flex-end; }
 
-    //== ZOOM
-    //== the animation itself is driven by _modal.js; the selector is here so editors suggest it
-    &[pgs*="'dialogZoom'"]:where(#{$modalDialogPgs}) {}
+    //+ ZOOM
+    // _modal.js measures the button and the panel, writes the offset and scale that lay the
+    // panel over the button as --_modal-zoom-* on the panel, and sets zoomIn on open, zoomOut
+    // on close; it waits for these animations to finish before it really closes the dialog.
+    // The dialog paints the backdrop itself, and dialogTopLevel adds the browser's ::backdrop
+    &[pgs*="'dialogZoom'"] {
+        &:is([pgs-state~="zoomIn"], [pgs-state~="zoomOut"]) {
+            animation: modalZoomBackdrop var(--modal-zoom-timing) var(--modal-zoom-easing) both;
+
+            &::backdrop { animation: modalZoomFade var(--modal-zoom-timing) var(--modal-zoom-easing) both; }
+
+            :where([pgs~="modal-dialog-content"]) {
+                transform-origin: 0 0;
+                animation: modalZoomPanel var(--modal-zoom-timing) var(--modal-zoom-easing) both;
+            }
+        }
+
+        //=== OUT
+        //== the same keyframes played backwards: the panel shrinks back into the button
+        &[pgs-state~="zoomOut"] {
+            &,
+            &::backdrop,
+            :where([pgs~="modal-dialog-content"]) {
+                animation-direction: reverse;
+            }
+        }
+
+        //- reduced motion
+        //== no animation at all: _modal.js finds none to wait for and opens and closes at once
+        @media (prefers-reduced-motion: reduce) {
+            &:is([pgs-state~="zoomIn"], [pgs-state~="zoomOut"]) {
+                &,
+                &::backdrop,
+                :where([pgs~="modal-dialog-content"]) {
+                    animation: none;
+                }
+            }
+        }
+        //== ZOOM KEYFRAMES
+        //== the panel stays transparent while it still has the button's shape, so the squashed text of
+        //== the first frames never shows: it only appears as it grows past the button
+        @keyframes modalZoomPanel {
+            from {
+                transform: translate(var(--_modal-zoom-x), var(--_modal-zoom-y)) scale(var(--_modal-zoom-scaleX), var(--_modal-zoom-scaleY));
+                opacity: 0;
+            }
+
+            35% { opacity: 1; }
+
+            to {
+                transform: none;
+                opacity: 1;
+            }
+        }
+
+        @keyframes modalZoomBackdrop {
+            from { background-color: transparent; }
+        }
+
+        @keyframes modalZoomFade {
+            from { opacity: 0; }
+        }
+    }
 }
