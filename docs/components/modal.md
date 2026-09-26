@@ -31,6 +31,7 @@ A native dialog driven by the library. The dialog is moved out of its wrapper on
 - `dialogRight`: aligns the dialog content to the right of the viewport.
 - `dialogTop`: aligns the dialog content to the top of the viewport.
 - `dialogTopLevel`: leaves the dialog inside its wrapper and opens it with showModal(), on the browser's top layer above everything else, instead of moving it into a container and opening it with show().
+- `dialogZoom`: grows the panel out of the modal-button that opened it and shrinks it back into the button on close, with the backdrop fading alongside; --modal-zoom-timing and --modal-zoom-easing tune it, and it is skipped under prefers-reduced-motion or when there is no visible button to zoom from.
 - `dialogHistory`: writes ?modal=<id of the opening button> into the URL while the dialog is open, and opens or closes it again on back and forward. It needs a modal-button with an id.
 
 ## PGS Data
@@ -77,6 +78,8 @@ A native dialog driven by the library. The dialog is moved out of its wrapper on
 - `--modal-color`
 - `--modal-content-padding`
 - `--modal-offset`
+- `--modal-zoom-easing`
+- `--modal-zoom-timing`
 
 ## Output
 
@@ -297,6 +300,32 @@ Dialog content expanded to the full viewport width using pgs=&quot;modal['dialog
 
             <div pgs="modal-dialog-content-scroll">
                 <p>Modal content with <code>pgs="modal['dialogFull']"</code>.</p>
+            </div>
+        </div>
+    </dialog>
+</div>
+```
+
+## Modal Animation
+
+### Zoom from the button
+
+The panel grows out of the button that opened it and shrinks back into it on close, using pgs=&quot;modal['dialogZoom']&quot;; it combines with every position and size option.
+
+```html
+<div pgs="modal['dialogZoom' 'dialogCenter' 'dialogMedium']" pgs-data="modalContainerID[modal-container]">
+    <button pgs="modal-button button" type="button">
+        Open zoom modal
+    </button>
+
+    <dialog>
+        <div pgs="modal-dialog-content">
+            <div pgs="modal-dialog-content-header">
+                <h3>Zoom modal</h3>
+            </div>
+
+            <div pgs="modal-dialog-content-scroll">
+                <p>Modal content with <code>pgs="modal['dialogZoom']"</code>.</p>
             </div>
         </div>
     </dialog>

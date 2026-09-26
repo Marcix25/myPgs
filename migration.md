@@ -763,6 +763,9 @@ border above the footer legal row — now has both its rule and the library's.
 - **More utilities.** `textAlign['taCenter']` and the rest of the `ta*` set, `rotate` (180deg bare,
   `rot0`/`rot90`/`rot270` in the bracket), `container['cntNone']`, and `section['sctRemoveGap']`/
   `sctRemoveGapTop`/`sctRemoveGapBottom` to drop a section's outer margin.
+- **`modal['dialogZoom']`.** The dialog panel grows out of the `modal-button` that opened it and
+  shrinks back into it on close, PhotoSwipe-style, with the backdrop fading alongside.
+  `--modal-zoom-timing` (333ms) and `--modal-zoom-easing` tune it; reduced motion skips it.
 - **`column-1`** stacks a flex or grid layout in a single column.
 - **`pgs.header.init(root)`** is registered, several headers on one page are supported, and
   `headerPrimary` says which one drives `--heightOfHeader`.

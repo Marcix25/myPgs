@@ -37,7 +37,8 @@ html:has(dialog[open]) {
     &[pgs*="'dialogLeft'"],
     &[pgs*="'dialogRight'"],
     &[pgs*="'dialogTop'"],
-    &[pgs*="'dialogBottom'"] {}
+    &[pgs*="'dialogBottom'"],
+    &[pgs*="'dialogZoom'"] {}
 }
 
 //= DIALOG 
@@ -48,6 +49,9 @@ html:has(dialog[open]) {
     --modal-content-padding: var(--padding);
     --modal-offset: var(--gap-texts);
     --modal-borderRadius: calc(var(--border-radius-input) + var(--modal-content-padding));
+    //== read by _modal.js for dialogZoom, which animates through the Web Animations API
+    --modal-zoom-timing: 333ms;
+    --modal-zoom-easing: cubic-bezier(0.4, 0, 0.22, 1);
     border: none;
     min-width: 100%;
     //== dvh, not svh: svh is the viewport with the browser's toolbars expanded, so on iOS Safari
@@ -213,4 +217,8 @@ html:has(dialog[open]) {
     &[pgs*="'dialogBottom'"]:where(#{$modalDialogPgs}) {
         align-items: safe flex-end;
     }
+
+    //== ZOOM
+    //== the animation itself is driven by _modal.js; the selector is here so editors suggest it
+    &[pgs*="'dialogZoom'"]:where(#{$modalDialogPgs}) {}
 }

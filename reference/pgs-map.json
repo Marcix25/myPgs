@@ -978,7 +978,8 @@
             "dialogMini",
             "dialogRight",
             "dialogTop",
-            "dialogTopLevel"
+            "dialogTopLevel",
+            "dialogZoom"
         ],
         "pgs-data": [
             "modalContainerID",

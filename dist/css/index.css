@@ -5804,6 +5804,8 @@ html:has(dialog[open]) {
   --modal-content-padding: var(--padding);
   --modal-offset: var(--gap-texts);
   --modal-borderRadius: calc(var(--border-radius-input) + var(--modal-content-padding));
+  --modal-zoom-timing: 333ms;
+  --modal-zoom-easing: cubic-bezier(0.4, 0, 0.22, 1);
   border: none;
   min-width: 100%;
   height: 100dvh;

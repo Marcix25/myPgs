@@ -1,230 +1,130 @@
 <main pgs="main">
     <section pgs="section flex['column' 'gapElements']">
-        <h2>Flex column-N — gap sync</h2>
-        <p>Every row below must show exactly N items per row. Before the --flex-gap fix, gapSections made the last item of each row wrap.</p>
+        <h2>Modal — dialogZoom</h2>
+        <p>Every button opens a modal whose panel grows out of the button itself and shrinks back into it on close (X, backdrop click, Esc). Compare with the last one, which has no dialogZoom.</p>
 
-        <h3>column-4, default gap (gapTexts) — 4 per row</h3>
-        <div pgs="flex['column-4']">
-            <span pgs="box">1</span><span pgs="box">2</span><span pgs="box">3</span><span pgs="box">4</span>
-            <span pgs="box">5</span><span pgs="box">6</span><span pgs="box">7</span><span pgs="box">8</span>
-        </div>
-
-        <h3>column-4 + gapElements — 4 per row</h3>
-        <div pgs="flex['column-4' 'gapElements']">
-            <span pgs="box">1</span><span pgs="box">2</span><span pgs="box">3</span><span pgs="box">4</span>
-            <span pgs="box">5</span><span pgs="box">6</span><span pgs="box">7</span><span pgs="box">8</span>
-        </div>
-
-        <h3>column-4 + gapSections — 4 per row (was 3 before the fix)</h3>
-        <div pgs="flex['column-4' 'gapSections']">
-            <span pgs="box">1</span><span pgs="box">2</span><span pgs="box">3</span><span pgs="box">4</span>
-            <span pgs="box">5</span><span pgs="box">6</span><span pgs="box">7</span><span pgs="box">8</span>
-        </div>
-
-        <h3>column-4 + gapNone — 4 per row, boxes touching</h3>
-        <div pgs="flex['column-4' 'gapNone']">
-            <span pgs="box">1</span><span pgs="box">2</span><span pgs="box">3</span><span pgs="box">4</span>
-        </div>
-    </section>
-    <section pgs="section flex['column' 'gapElements']">
-        <h2>Accordion — a tall panel above closes, the clicked one stays in place</h2>
-        <p>Scroll until "Second panel" is on screen and open it: the tall first panel closes, and "Second panel" must stay where it was under the pointer instead of the page jumping far below.</p>
-        <ul pgs="accordionContainer[] grid[]">
-            <li pgs="accordion[]" id="accTall">
-                <button pgs="accordion-button" type="button"><span>First panel — very tall (open it first)</span></button>
-                <div pgs="accordion-content" hidden>
-                    <p>Long panel paragraph 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 3. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 4. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 5. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 6. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 7. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 8. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 9. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 10. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 11. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 12. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 13. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 14. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 15. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 16. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 17. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 18. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 19. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 20. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 21. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 22. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 23. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 24. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 25. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 26. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 27. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 28. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 29. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 30. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 31. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 32. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 33. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 34. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 35. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 36. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 37. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 38. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 39. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 40. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 41. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 42. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 43. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 44. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 45. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 46. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 47. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 48. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 49. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 50. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 51. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 52. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 53. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 54. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 55. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 56. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 57. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 58. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 59. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Long panel paragraph 60. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </div>
-            </li>
-            <li pgs="accordion" id="accSecond">
-                <button pgs="accordion-button" type="button"><span>Second panel</span></button>
-                <div pgs="accordion-content" hidden>
-                    <p>Second panel content.</p>
-                </div>
-            </li>
-            <li pgs="accordion">
-                <button pgs="accordion-button" type="button"><span>Third panel</span></button>
-                <div pgs="accordion-content" hidden>
-                    <p>Third panel content.</p>
-                </div>
-            </li>
-        </ul>
-    </section>
-
-
-    <section pgs="section flex['column' 'gapElements']">
-        <h2>Flex column-N — col spans with every gap</h2>
-        <p>colS + colL must fill the row exactly (1/4 + 3/4) whatever the gap: with gapSections, S lines up with 1 of the reference row and L ends where 4 ends.</p>
-
-        <h3>reference row — column-4 + gapSections</h3>
-        <div pgs="flex['column-4' 'gapSections']">
-            <span pgs="box">1</span><span pgs="box">2</span><span pgs="box">3</span><span pgs="box">4</span>
-        </div>
-
-        <h3>colS + colL — gapSections</h3>
-        <div pgs="flex['column-4' 'gapSections']">
-            <span pgs="box flexChild['colS']">S — 1</span>
-            <span pgs="box flexChild['colL']">L — 3</span>
-        </div>
-
-        <h3>colS + colL — gapElements</h3>
-        <div pgs="flex['column-4' 'gapElements']">
-            <span pgs="box flexChild['colS']">S — 1</span>
-            <span pgs="box flexChild['colL']">L — 3</span>
-        </div>
-
-        <h3>colS + colL — gapTexts (default)</h3>
-        <div pgs="flex['column-4']">
-            <span pgs="box flexChild['colS']">S — 1</span>
-            <span pgs="box flexChild['colL']">L — 3</span>
-        </div>
-
-        <h3>colM + colM, then colS + colS + colM — gapSections</h3>
-        <div pgs="flex['column-4' 'gapSections']">
-            <span pgs="box flexChild['colM']">M — 2</span>
-            <span pgs="box flexChild['colM']">M — 2</span>
-            <span pgs="box flexChild['colS']">S — 1</span>
-            <span pgs="box flexChild['colS']">S — 1</span>
-            <span pgs="box flexChild['colM']">M — 2</span>
-        </div>
-
-        <h3>column-6 — colXl + 1 + 1, then colL + colL — gapElements</h3>
-        <div pgs="flex['column-6' 'gapElements']">
-            <span pgs="box flexChild['colXl']">XL — 4</span>
-            <span pgs="box">1</span>
-            <span pgs="box">1</span>
-            <span pgs="box flexChild['colL']">L — 3</span>
-            <span pgs="box flexChild['colL']">L — 3</span>
-        </div>
-
-        <h3>column-8 — colS + colM + colL + 1 + 1 = 8</h3>
-        <div pgs="flex['column-8']">
-            <span pgs="box flexChild['colS']">S — 1</span>
-            <span pgs="box flexChild['colM']">M — 2</span>
-            <span pgs="box flexChild['colL']">L — 3</span>
-            <span pgs="box">1</span>
-            <span pgs="box">1</span>
-        </div>
-
-        <h3>column-3 — colXxl is capped to the 3 columns (full row)</h3>
-        <div pgs="flex['column-3' 'gapElements']">
-            <span pgs="box flexChild['colXxl']">XXL — capped to 3</span>
-            <span pgs="box">1</span>
-            <span pgs="box flexChild['colM']">M — 2</span>
-        </div>
-
-        <h3>Known flex limit — a row that does not add up: the plain items grow to fill it (grid would leave holes)</h3>
-        <div pgs="flex['column-4']">
-            <span pgs="box">1</span>
-            <span pgs="box flexChild['colS']">S — 1</span>
-            <span pgs="box flexChild['colL']">L — 3</span>
-            <span pgs="box">1</span>
-        </div>
-    </section>
-
-    <section pgs="section flex['column' 'gapElements']">
-        <h2>Flex column-N — breakpoints</h2>
-        <p>Resize the window. column-4 steps down to 3, then 2, then 1 column; col spans shrink with it and never ask for more columns than are left.</p>
-
-        <h3>column-4 — S + L, M + M</h3>
-        <div pgs="flex['column-4' 'gapElements']">
-            <span pgs="box flexChild['colS']">S</span>
-            <span pgs="box flexChild['colL']">L — full row at 2 columns</span>
-            <span pgs="box flexChild['colM']">M</span>
-            <span pgs="box flexChild['colM']">M</span>
-        </div>
-
-        <h3>column-8 — colXl + colXl, then colXxl + colL</h3>
-        <div pgs="flex['column-8' 'gapElements']">
-            <span pgs="box flexChild['colXl']">XL — 4</span>
-            <span pgs="box flexChild['colXl']">XL — 4</span>
-            <span pgs="box flexChild['colXxl']">XXL — 5</span>
-            <span pgs="box flexChild['colL']">L — 3</span>
-        </div>
-    </section>
-
-    <section pgs="section flex['column' 'gapElements']">
-        <h2>Flex — proportional sizes (outside column-N)</h2>
-
-        <h3>flexS … flexXxl — 1 : 2 : 3 : 4 : 5</h3>
         <div pgs="flex['row' 'gapElements']">
-            <span pgs="box flexChild['flexS']">S</span>
-            <span pgs="box flexChild['flexM']">M</span>
-            <span pgs="box flexChild['flexL']">L</span>
-            <span pgs="box flexChild['flexXl']">XL</span>
-            <span pgs="box flexChild['flexXxl']">XXL</span>
-        </div>
+            <div pgs="modal['dialogZoom']">
+                <button pgs="modal-button button" type="button">Zoom — default</button>
+                <dialog>
+                    <div pgs="modal-dialog-content">
+                        <div pgs="modal-dialog-content-header">
+                            <h3>Zoom — default</h3>
+                        </div>
+                        <div pgs="modal-dialog-content-scroll">
+                            <p>Full-width panel at the top of the page, zoomed from the button.</p>
+                        </div>
+                    </div>
+                </dialog>
+            </div>
 
-        <h3>flexS + flexL — 1/4 + 3/4, whatever the content</h3>
-        <div pgs="flex['row' 'gapSections']">
-            <span pgs="box flexChild['flexS']">Short</span>
-            <span pgs="box flexChild['flexL']">A longer text that still takes exactly three quarters of the row.</span>
-        </div>
+            <div pgs="modal['dialogZoom' 'dialogCenter' 'dialogMedium']">
+                <button pgs="modal-button button['btnStrong']" type="button">Zoom — center medium</button>
+                <dialog>
+                    <div pgs="modal-dialog-content">
+                        <div pgs="modal-dialog-content-header">
+                            <h3>Zoom — center medium</h3>
+                        </div>
+                        <div pgs="modal-dialog-content-scroll">
+                            <p>Half-width panel centered in the viewport.</p>
+                        </div>
+                    </div>
+                </dialog>
+            </div>
 
-        <h3>flexNone + flexS + flexXl — the fixed item keeps its width, the rest splits 1:4</h3>
-        <div pgs="flex['row' 'gapElements']">
-            <span pgs="box flexChild['flexNone']">Fixed</span>
-            <span pgs="box flexChild['flexS']">S</span>
-            <span pgs="box flexChild['flexXl']">XL</span>
+            <div pgs="modal['dialogZoom' 'dialogCenter' 'dialogMini']">
+                <button pgs="modal-button button" type="button">Zoom — mini</button>
+                <dialog>
+                    <div pgs="modal-dialog-content">
+                        <div pgs="modal-dialog-content-header">
+                            <h3>Zoom — mini</h3>
+                        </div>
+                        <div pgs="modal-dialog-content-scroll">
+                            <p>Compact panel.</p>
+                        </div>
+                    </div>
+                </dialog>
+            </div>
+
+            <div pgs="modal['dialogZoom' 'dialogRight' 'dialogMini']">
+                <button pgs="modal-button button" type="button">Zoom — right</button>
+                <dialog>
+                    <div pgs="modal-dialog-content">
+                        <div pgs="modal-dialog-content-header">
+                            <h3>Zoom — right</h3>
+                        </div>
+                        <div pgs="modal-dialog-content-scroll">
+                            <p>Side panel on the right.</p>
+                        </div>
+                    </div>
+                </dialog>
+            </div>
+
+            <div pgs="modal['dialogZoom' 'dialogTopLevel' 'dialogCenter' 'dialogMedium']">
+                <button pgs="modal-button button" type="button">Zoom — top level</button>
+                <dialog>
+                    <div pgs="modal-dialog-content">
+                        <div pgs="modal-dialog-content-header">
+                            <h3>Zoom — top level</h3>
+                        </div>
+                        <div pgs="modal-dialog-content-scroll flex['column' 'gapElements']">
+                            <p>Opened with showModal(), on the top layer: Esc still zooms back into the button.</p>
+                            <div pgs="flex['row' 'justifyEnd']">
+                                <button pgs="button modal-close" type="button">Cancel</button>
+                                <button pgs="button['btnStrong']" type="button">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </dialog>
+            </div>
+
+            <div pgs="modal['dialogZoom' 'dialogCenter' 'dialogMedium']">
+                <button pgs="modal-button button" type="button">Zoom — slow (900ms)</button>
+                <dialog style="--modal-zoom-timing: 900ms;">
+                    <div pgs="modal-dialog-content">
+                        <div pgs="modal-dialog-content-header">
+                            <h3>Zoom — slow</h3>
+                        </div>
+                        <div pgs="modal-dialog-content-scroll">
+                            <p>Same animation with --modal-zoom-timing: 900ms, to watch it frame by frame.</p>
+                        </div>
+                    </div>
+                </dialog>
+            </div>
+
+            <div pgs="modal['dialogCenter' 'dialogMedium']">
+                <button pgs="modal-button button" type="button">No zoom (compare)</button>
+                <dialog>
+                    <div pgs="modal-dialog-content">
+                        <div pgs="modal-dialog-content-header">
+                            <h3>No zoom</h3>
+                        </div>
+                        <div pgs="modal-dialog-content-scroll">
+                            <p>The same modal without dialogZoom.</p>
+                        </div>
+                    </div>
+                </dialog>
+            </div>
+        </div>
+    </section>
+
+    <section pgs="section flex['column' 'gapElements']">
+        <h2>Zoom from a button far down the page</h2>
+        <p>The panel must start from the button wherever it sits on screen.</p>
+        <div pgs="flex['row' 'justifyEnd']">
+            <div pgs="modal['dialogZoom' 'dialogCenter' 'dialogMedium']">
+                <button pgs="modal-button button" type="button">Zoom — bottom right button</button>
+                <dialog>
+                    <div pgs="modal-dialog-content">
+                        <div pgs="modal-dialog-content-header">
+                            <h3>From the corner</h3>
+                        </div>
+                        <div pgs="modal-dialog-content-scroll">
+                            <p>Grows out of the button on the right.</p>
+                        </div>
+                    </div>
+                </dialog>
+            </div>
         </div>
     </section>
 </main>
