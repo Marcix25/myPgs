@@ -31,7 +31,11 @@ A native dialog driven by the library. The dialog is moved out of its wrapper on
 - `dialogRight`: aligns the dialog content to the right of the viewport.
 - `dialogTop`: aligns the dialog content to the top of the viewport.
 - `dialogTopLevel`: leaves the dialog inside its wrapper and opens it with showModal(), on the browser's top layer above everything else, instead of moving it into a container and opening it with show().
-- `dialogZoom`: grows the panel out of the modal-button that opened it and shrinks it back into the button on close, with the backdrop fading alongside; the animation lives in the stylesheet, tuned by --modal-zoom-timing and --modal-zoom-easing and turned off under prefers-reduced-motion, while the module only measures the button and the panel; it is skipped when there is no visible button to zoom from.
+- `dialogAnimationZoom`: grows the panel out of the modal-button that opened it and shrinks it back into the button on close, with the backdrop fading alongside; the animation lives in the stylesheet, tuned by --modal-animation-timing and --modal-animation-easing and turned off under prefers-reduced-motion, while the module only measures the button and the panel; it is skipped when there is no visible button to zoom from.
+- `dialogAnimationLeft`: slides the panel in from the left edge of the screen and back out to it on close, with the backdrop fading alongside; timing, curve and reduced motion as dialogAnimationZoom. Use one dialogAnimation* option at a time.
+- `dialogAnimationRight`: slides the panel in from the right edge of the screen and back out to it on close, like dialogAnimationLeft.
+- `dialogAnimationTop`: slides the panel down from the top edge of the screen and back up on close, like dialogAnimationLeft.
+- `dialogAnimationBottom`: slides the panel up from the bottom edge of the screen and back down on close, like dialogAnimationLeft.
 - `dialogHistory`: writes ?modal=<id of the opening button> into the URL while the dialog is open, and opens or closes it again on back and forward. It needs a modal-button with an id.
 
 ## PGS Data
@@ -41,8 +45,8 @@ A native dialog driven by the library. The dialog is moved out of its wrapper on
 
 ## PGS States
 
-- `zoomIn`: set on the dialog while dialogZoom grows the panel out of the button, and removed when it has finished.
-- `zoomOut`: set on the dialog while dialogZoom shrinks the panel back into the button; the dialog really closes when it has finished.
+- `animationIn`: set on the dialog while a dialogAnimation* option brings the panel in, and removed when it has finished.
+- `animationOut`: set on the dialog while a dialogAnimation* option takes the panel back out; the dialog really closes when it has finished.
 
 ## JavaScript API
 
@@ -77,14 +81,14 @@ A native dialog driven by the library. The dialog is moved out of its wrapper on
 
 ## CSS Variables
 
+- `--modal-animation-easing`
+- `--modal-animation-timing`
 - `--modal-backdrop`
 - `--modal-background`
 - `--modal-borderRadius`
 - `--modal-color`
 - `--modal-content-padding`
 - `--modal-offset`
-- `--modal-zoom-easing`
-- `--modal-zoom-timing`
 
 ## Output
 
@@ -315,10 +319,10 @@ Dialog content expanded to the full viewport width using pgs=&quot;modal['dialog
 
 ### Zoom from the button
 
-The panel grows out of the button that opened it and shrinks back into it on close, using pgs=&quot;modal['dialogZoom']&quot;; it combines with every position and size option.
+The panel grows out of the button that opened it and shrinks back into it on close, using pgs=&quot;modal['dialogAnimationZoom']&quot;; it combines with every position and size option.
 
 ```html
-<div pgs="modal['dialogZoom' 'dialogCenter' 'dialogMedium']" pgs-data="modalContainerID[modal-container]">
+<div pgs="modal['dialogAnimationZoom' 'dialogCenter' 'dialogMedium']" pgs-data="modalContainerID[modal-container]">
     <button pgs="modal-button button" type="button">
         Open zoom modal
     </button>
@@ -330,7 +334,103 @@ The panel grows out of the button that opened it and shrinks back into it on clo
             </div>
 
             <div pgs="modal-dialog-content-scroll">
-                <p>Modal content with <code>pgs="modal['dialogZoom']"</code>.</p>
+                <p>Modal content with <code>pgs="modal['dialogAnimationZoom']"</code>.</p>
+            </div>
+        </div>
+    </dialog>
+</div>
+```
+
+### Slide from left
+
+The panel slides in from the left edge of the screen and goes back there on close, using pgs=&quot;modal['dialogAnimationLeft']&quot;.
+
+```html
+<div pgs="modal['dialogAnimationLeft' 'dialogLeft' 'dialogMedium']" pgs-data="modalContainerID[modal-container]">
+    <button pgs="modal-button button" type="button">
+        Open modal from left
+    </button>
+
+    <dialog>
+        <div pgs="modal-dialog-content">
+            <div pgs="modal-dialog-content-header">
+                <h3>Modal from left</h3>
+            </div>
+
+            <div pgs="modal-dialog-content-scroll">
+                <p>Modal content with <code>pgs="modal['dialogAnimationLeft']"</code>.</p>
+            </div>
+        </div>
+    </dialog>
+</div>
+```
+
+### Slide from right
+
+The panel slides in from the right edge of the screen and goes back there on close, using pgs=&quot;modal['dialogAnimationRight']&quot;.
+
+```html
+<div pgs="modal['dialogAnimationRight' 'dialogRight' 'dialogMedium']" pgs-data="modalContainerID[modal-container]">
+    <button pgs="modal-button button" type="button">
+        Open modal from right
+    </button>
+
+    <dialog>
+        <div pgs="modal-dialog-content">
+            <div pgs="modal-dialog-content-header">
+                <h3>Modal from right</h3>
+            </div>
+
+            <div pgs="modal-dialog-content-scroll">
+                <p>Modal content with <code>pgs="modal['dialogAnimationRight']"</code>.</p>
+            </div>
+        </div>
+    </dialog>
+</div>
+```
+
+### Slide from top
+
+The panel slides in from the top edge of the screen and goes back there on close, using pgs=&quot;modal['dialogAnimationTop']&quot;.
+
+```html
+<div pgs="modal['dialogAnimationTop' 'dialogCenter' 'dialogMedium']" pgs-data="modalContainerID[modal-container]">
+    <button pgs="modal-button button" type="button">
+        Open modal from top
+    </button>
+
+    <dialog>
+        <div pgs="modal-dialog-content">
+            <div pgs="modal-dialog-content-header">
+                <h3>Modal from top</h3>
+            </div>
+
+            <div pgs="modal-dialog-content-scroll">
+                <p>Modal content with <code>pgs="modal['dialogAnimationTop']"</code>.</p>
+            </div>
+        </div>
+    </dialog>
+</div>
+```
+
+### Slide from bottom
+
+The panel slides in from the bottom edge of the screen and goes back there on close, using pgs=&quot;modal['dialogAnimationBottom']&quot;.
+
+```html
+<div pgs="modal['dialogAnimationBottom' 'dialogCenter' 'dialogMedium']" pgs-data="modalContainerID[modal-container]">
+    <button pgs="modal-button button" type="button">
+        Open modal from bottom
+    </button>
+
+    <dialog>
+        <div pgs="modal-dialog-content">
+            <div pgs="modal-dialog-content-header">
+                <h3>Modal from bottom</h3>
+            </div>
+
+            <div pgs="modal-dialog-content-scroll">
+                <p>Modal content with <code>pgs="modal['dialogAnimationBottom']"</code>.</p>
             </div>
         </div>
     </dialog>

@@ -35,7 +35,11 @@ html:has(dialog[open]) { cursor: pointer; }
     &[pgs*="'dialogRight'"],
     &[pgs*="'dialogTop'"],
     &[pgs*="'dialogBottom'"],
-    &[pgs*="'dialogZoom'"] {}
+    &[pgs*="'dialogAnimationZoom'"],
+    &[pgs*="'dialogAnimationLeft'"],
+    &[pgs*="'dialogAnimationRight'"],
+    &[pgs*="'dialogAnimationTop'"],
+    &[pgs*="'dialogAnimationBottom'"] {}
 }
 
 //= DIALOG
@@ -46,9 +50,9 @@ html:has(dialog[open]) { cursor: pointer; }
     --modal-content-padding: var(--padding);
     --modal-offset: var(--gap-texts);
     --modal-borderRadius: calc(var(--border-radius-input) + var(--modal-content-padding));
-    //== dialogZoom: duration and curve of the zoom in and out (PhotoSwipe's own defaults)
-    --modal-zoom-timing: 333ms;
-    --modal-zoom-easing: cubic-bezier(0.4, 0, 0.22, 1);
+    //== dialogAnimation*: duration and curve of every opening and closing animation (PhotoSwipe's own defaults)
+    --modal-animation-timing: 333ms;
+    --modal-animation-easing: cubic-bezier(0.4, 0, 0.22, 1);
     border: none;
     min-width: 100%;
     //== dvh, not svh: svh is the viewport with the browser's toolbars expanded, so on iOS Safari
@@ -195,26 +199,27 @@ html:has(dialog[open]) { cursor: pointer; }
     //=== BOTTOM
     &[pgs*="'dialogBottom'"] { align-items: safe flex-end; }
 
-    //+ ZOOM
-    // _modal.js measures the button and the panel, writes the offset and scale that lay the
-    // panel over the button as --_modal-zoom-* on the panel, and sets zoomIn on open, zoomOut
-    // on close; it waits for these animations to finish before it really closes the dialog.
-    // The dialog paints the backdrop itself, and dialogTopLevel adds the browser's ::backdrop
-    &[pgs*="'dialogZoom'"] {
-        &:is([pgs-state~="zoomIn"], [pgs-state~="zoomOut"]) {
-            animation: modalZoomBackdrop var(--modal-zoom-timing) var(--modal-zoom-easing) both;
+    //+ ANIMATION
+    // _modal.js sets animationIn on open and animationOut on close, and waits for these
+    // animations to finish before it really closes the dialog. Each dialogAnimation* option picks
+    // the panel's keyframes; the backdrop fades the same way for all of them. The dialog paints
+    // the backdrop itself, and dialogTopLevel adds the browser's ::backdrop
+    &:is([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"]) {
+        &:is([pgs-state~="animationIn"], [pgs-state~="animationOut"]) {
+            animation: modalAnimationBackdrop var(--modal-animation-timing) var(--modal-animation-easing) both;
 
-            &::backdrop { animation: modalZoomFade var(--modal-zoom-timing) var(--modal-zoom-easing) both; }
+            &::backdrop { animation: modalAnimationFade var(--modal-animation-timing) var(--modal-animation-easing) both; }
 
             :where([pgs~="modal-dialog-content"]) {
-                transform-origin: 0 0;
-                animation: modalZoomPanel var(--modal-zoom-timing) var(--modal-zoom-easing) both;
+                animation-duration: var(--modal-animation-timing);
+                animation-timing-function: var(--modal-animation-easing);
+                animation-fill-mode: both;
             }
         }
 
         //=== OUT
-        //== the same keyframes played backwards: the panel shrinks back into the button
-        &[pgs-state~="zoomOut"] {
+        //== the same keyframes played backwards: the panel goes back where it came from
+        &[pgs-state~="animationOut"] {
             &,
             &::backdrop,
             :where([pgs~="modal-dialog-content"]) {
@@ -224,38 +229,77 @@ html:has(dialog[open]) { cursor: pointer; }
 
         //- reduced motion
         //== no animation at all: _modal.js finds none to wait for and opens and closes at once
+        //== (the panel's own keyframes are turned off after the options that name them, below)
         @media (prefers-reduced-motion: reduce) {
-            &:is([pgs-state~="zoomIn"], [pgs-state~="zoomOut"]) {
+            &:is([pgs-state~="animationIn"], [pgs-state~="animationOut"]) {
                 &,
-                &::backdrop,
-                :where([pgs~="modal-dialog-content"]) {
+                &::backdrop {
                     animation: none;
                 }
             }
         }
-        //== ZOOM KEYFRAMES
-        //== the panel stays transparent while it still has the button's shape, so the squashed text of
-        //== the first frames never shows: it only appears as it grows past the button
-        @keyframes modalZoomPanel {
-            from {
-                transform: translate(var(--_modal-zoom-x), var(--_modal-zoom-y)) scale(var(--_modal-zoom-scaleX), var(--_modal-zoom-scaleY));
-                opacity: 0;
-            }
 
-            35% { opacity: 1; }
-
-            to {
-                transform: none;
-                opacity: 1;
-            }
-        }
-
-        @keyframes modalZoomBackdrop {
+        @keyframes modalAnimationBackdrop {
             from { background-color: transparent; }
         }
 
-        @keyframes modalZoomFade {
+        @keyframes modalAnimationFade {
             from { opacity: 0; }
         }
+    }
+
+    //=== ZOOM
+    // _modal.js measures the button and the panel and writes the offset and scale that lay the
+    // panel over the button as --_modal-zoom-* on the panel
+    &[pgs*="'dialogAnimationZoom'"]:is([pgs-state~="animationIn"], [pgs-state~="animationOut"]) :where([pgs~="modal-dialog-content"]) {
+        transform-origin: 0 0;
+        animation-name: modalAnimationZoom;
+    }
+
+    //=== SLIDE
+    //== the panel slides in from the edge of the screen: a whole viewport of travel is always
+    //== enough to start it off screen, wherever the position options put it
+    &[pgs*="'dialogAnimationLeft'"]:is([pgs-state~="animationIn"], [pgs-state~="animationOut"]) :where([pgs~="modal-dialog-content"]) { animation-name: modalAnimationLeft; }
+    &[pgs*="'dialogAnimationRight'"]:is([pgs-state~="animationIn"], [pgs-state~="animationOut"]) :where([pgs~="modal-dialog-content"]) { animation-name: modalAnimationRight; }
+    &[pgs*="'dialogAnimationTop'"]:is([pgs-state~="animationIn"], [pgs-state~="animationOut"]) :where([pgs~="modal-dialog-content"]) { animation-name: modalAnimationTop; }
+    &[pgs*="'dialogAnimationBottom'"]:is([pgs-state~="animationIn"], [pgs-state~="animationOut"]) :where([pgs~="modal-dialog-content"]) { animation-name: modalAnimationBottom; }
+
+    //- reduced motion
+    //== after the options, so it wins over the animation-name each of them sets
+    @media (prefers-reduced-motion: reduce) {
+        &:is([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"]):is([pgs-state~="animationIn"], [pgs-state~="animationOut"]) :where([pgs~="modal-dialog-content"]) { animation-name: none; }
+    }
+
+    //== ANIMATION KEYFRAMES
+    //== the zoomed panel stays transparent while it still has the button's shape, so the squashed
+    //== text of the first frames never shows: it only appears as it grows past the button
+    @keyframes modalAnimationZoom {
+        from {
+            transform: translate(var(--_modal-zoom-x), var(--_modal-zoom-y)) scale(var(--_modal-zoom-scaleX), var(--_modal-zoom-scaleY));
+            opacity: 0;
+        }
+
+        35% { opacity: 1; }
+
+        to {
+            transform: none;
+            opacity: 1;
+        }
+    }
+
+    @keyframes modalAnimationLeft {
+        from { transform: translateX(-100vw); }
+    }
+
+    @keyframes modalAnimationRight {
+        from { transform: translateX(100vw); }
+    }
+
+    @keyframes modalAnimationTop {
+        from { transform: translateY(-100dvh); }
+    }
+
+    @keyframes modalAnimationBottom {
+        from { transform: translateY(100dvh); }
     }
 }

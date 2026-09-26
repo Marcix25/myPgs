@@ -5804,8 +5804,8 @@ html:has(dialog[open]) {
   --modal-content-padding: var(--padding);
   --modal-offset: var(--gap-texts);
   --modal-borderRadius: calc(var(--border-radius-input) + var(--modal-content-padding));
-  --modal-zoom-timing: 333ms;
-  --modal-zoom-easing: cubic-bezier(0.4, 0, 0.22, 1);
+  --modal-animation-timing: 333ms;
+  --modal-animation-easing: cubic-bezier(0.4, 0, 0.22, 1);
   border: none;
   min-width: 100%;
   height: 100dvh;
@@ -5952,31 +5952,67 @@ html:has(dialog[open]) {
   align-items: safe flex-end;
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogZoom'"]:is([pgs-state~=zoomIn], [pgs-state~=zoomOut]) {
-  animation: modalZoomBackdrop var(--modal-zoom-timing) var(--modal-zoom-easing) both;
+:where(dialog[pgs~=modal-dialog]):is([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"]):is([pgs-state~=animationIn], [pgs-state~=animationOut]) {
+  animation: modalAnimationBackdrop var(--modal-animation-timing) var(--modal-animation-easing) both;
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogZoom'"]:is([pgs-state~=zoomIn], [pgs-state~=zoomOut])::backdrop {
-  animation: modalZoomFade var(--modal-zoom-timing) var(--modal-zoom-easing) both;
+:where(dialog[pgs~=modal-dialog]):is([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"]):is([pgs-state~=animationIn], [pgs-state~=animationOut])::backdrop {
+  animation: modalAnimationFade var(--modal-animation-timing) var(--modal-animation-easing) both;
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogZoom'"]:is([pgs-state~=zoomIn], [pgs-state~=zoomOut]) :where([pgs~=modal-dialog-content]) {
-  transform-origin: 0 0;
-  animation: modalZoomPanel var(--modal-zoom-timing) var(--modal-zoom-easing) both;
+:where(dialog[pgs~=modal-dialog]):is([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"]):is([pgs-state~=animationIn], [pgs-state~=animationOut]) :where([pgs~=modal-dialog-content]) {
+  animation-duration: var(--modal-animation-timing);
+  animation-timing-function: var(--modal-animation-easing);
+  animation-fill-mode: both;
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogZoom'"][pgs-state~=zoomOut], :where(dialog[pgs~=modal-dialog])[pgs*="'dialogZoom'"][pgs-state~=zoomOut]::backdrop,
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogZoom'"][pgs-state~=zoomOut] :where([pgs~=modal-dialog-content]) {
+:where(dialog[pgs~=modal-dialog]):is([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"])[pgs-state~=animationOut], :where(dialog[pgs~=modal-dialog]):is([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"])[pgs-state~=animationOut]::backdrop,
+:where(dialog[pgs~=modal-dialog]):is([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"])[pgs-state~=animationOut] :where([pgs~=modal-dialog-content]) {
   animation-direction: reverse;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  :where(dialog[pgs~=modal-dialog])[pgs*="'dialogZoom'"]:is([pgs-state~=zoomIn], [pgs-state~=zoomOut]), :where(dialog[pgs~=modal-dialog])[pgs*="'dialogZoom'"]:is([pgs-state~=zoomIn], [pgs-state~=zoomOut])::backdrop,
-  :where(dialog[pgs~=modal-dialog])[pgs*="'dialogZoom'"]:is([pgs-state~=zoomIn], [pgs-state~=zoomOut]) :where([pgs~=modal-dialog-content]) {
+  :where(dialog[pgs~=modal-dialog]):is([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"]):is([pgs-state~=animationIn], [pgs-state~=animationOut]), :where(dialog[pgs~=modal-dialog]):is([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"]):is([pgs-state~=animationIn], [pgs-state~=animationOut])::backdrop {
     animation: none;
   }
 }
-@keyframes modalZoomPanel {
+@keyframes modalAnimationBackdrop {
+  from {
+    background-color: transparent;
+  }
+}
+@keyframes modalAnimationFade {
+  from {
+    opacity: 0;
+  }
+}
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogAnimationZoom'"]:is([pgs-state~=animationIn], [pgs-state~=animationOut]) :where([pgs~=modal-dialog-content]) {
+  transform-origin: 0 0;
+  animation-name: modalAnimationZoom;
+}
+
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogAnimationLeft'"]:is([pgs-state~=animationIn], [pgs-state~=animationOut]) :where([pgs~=modal-dialog-content]) {
+  animation-name: modalAnimationLeft;
+}
+
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogAnimationRight'"]:is([pgs-state~=animationIn], [pgs-state~=animationOut]) :where([pgs~=modal-dialog-content]) {
+  animation-name: modalAnimationRight;
+}
+
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogAnimationTop'"]:is([pgs-state~=animationIn], [pgs-state~=animationOut]) :where([pgs~=modal-dialog-content]) {
+  animation-name: modalAnimationTop;
+}
+
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogAnimationBottom'"]:is([pgs-state~=animationIn], [pgs-state~=animationOut]) :where([pgs~=modal-dialog-content]) {
+  animation-name: modalAnimationBottom;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(dialog[pgs~=modal-dialog]):is([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"]):is([pgs-state~=animationIn], [pgs-state~=animationOut]) :where([pgs~=modal-dialog-content]) {
+    animation-name: none;
+  }
+}
+@keyframes modalAnimationZoom {
   from {
     transform: translate(var(--_modal-zoom-x), var(--_modal-zoom-y)) scale(var(--_modal-zoom-scaleX), var(--_modal-zoom-scaleY));
     opacity: 0;
@@ -5989,14 +6025,24 @@ html:has(dialog[open]) {
     opacity: 1;
   }
 }
-@keyframes modalZoomBackdrop {
+@keyframes modalAnimationLeft {
   from {
-    background-color: transparent;
+    transform: translateX(-100vw);
   }
 }
-@keyframes modalZoomFade {
+@keyframes modalAnimationRight {
   from {
-    opacity: 0;
+    transform: translateX(100vw);
+  }
+}
+@keyframes modalAnimationTop {
+  from {
+    transform: translateY(-100dvh);
+  }
+}
+@keyframes modalAnimationBottom {
+  from {
+    transform: translateY(100dvh);
   }
 }
 [pgs~=pageNav] [pgs~=pageNav-panels] [pgs~=pageNav-panels-content] {

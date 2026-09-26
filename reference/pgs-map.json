@@ -968,6 +968,11 @@
             "modal-dialog"
         ],
         "pgs-options": [
+            "dialogAnimationBottom",
+            "dialogAnimationLeft",
+            "dialogAnimationRight",
+            "dialogAnimationTop",
+            "dialogAnimationZoom",
             "dialogBottom",
             "dialogCenter",
             "dialogDisableBackdropClose",
@@ -978,8 +983,7 @@
             "dialogMini",
             "dialogRight",
             "dialogTop",
-            "dialogTopLevel",
-            "dialogZoom"
+            "dialogTopLevel"
         ],
         "pgs-data": [
             "modalContainerID",
