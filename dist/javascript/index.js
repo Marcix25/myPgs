@@ -1041,6 +1041,32 @@ function nextAccordionId() {
     return accordionId;
 }
 
+//+ how long the open/close transition runs, read from the same --accordion-timing the CSS uses
+function accordionTiming(accordion) {
+    const raw = window.getComputedStyle(accordion).getPropertyValue("--accordion-timing").trim();
+    const value = parseFloat(raw);
+    if (!Number.isFinite(value)) return 300;
+    return raw.endsWith("ms") ? value : value * 1000;
+}
+
+//+ keeps an element where it is on screen while the layout above it moves: closing a tall sibling
+//+ pulls everything below it up, so the panel the reader just clicked would slide away under the
+//+ pointer and leave them far down the page. Follows it for as long as the transition runs.
+//+ behavior "instant", so a page with scroll-behavior: smooth does not turn each correction into
+//+ an animation of its own
+function keepInPlace(element, duration) {
+    const startTop = element.getBoundingClientRect().top;
+    const end = performance.now() + duration + 50;
+
+    function step(now) {
+        const delta = element.getBoundingClientRect().top - startTop;
+        if (Math.abs(delta) >= 1) window.scrollBy({ top: delta, behavior: "instant" });
+        if (now < end) requestAnimationFrame(step);
+    }
+
+    requestAnimationFrame(step);
+}
+
 function directPgsChild(element, token) {
     return Array.from(element.children).find(child => pgs(child).contains(token));
 }
@@ -1118,6 +1144,10 @@ function PGS_accordion_init(root = document) {
         function accordionFunction() {
             const isOpen = pgs(accordion).state.contains("open");
             const nowOpen = !isOpen;
+            const timing = accordionTiming(accordion);
+
+            //== measured before anything changes: this button's position is the one to hold
+            keepInPlace(BUTTON, timing);
 
             pgs(accordion).state.toggle("open", nowOpen);
             accordionAccessibility(nowOpen, BUTTON, CONTENT);
@@ -1129,8 +1159,12 @@ function PGS_accordion_init(root = document) {
             if (pgs(accordion).option.contains("accAutoOpen")) pgs(accordion).option.remove("accAutoOpen");
             if (!isMultiOpen) closeOtherAccordion();
 
-            //== scroll to view
-            if (nowOpen) setTimeout(() => accordion.scrollIntoView({ block: "nearest", inline: "nearest" }), 100);
+            //== once the layout has settled, only scroll if the button ended up out of view (an
+            //== open() called from code, say): the reader's own click is already held in place
+            if (nowOpen) setTimeout(() => {
+                const rect = BUTTON.getBoundingClientRect();
+                if (rect.top < 0 || rect.bottom > window.innerHeight) BUTTON.scrollIntoView({ block: "nearest", inline: "nearest" });
+            }, timing + 60);
         }
 
         function open() {

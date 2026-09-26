@@ -2,7 +2,7 @@
 
 # Accordion
 
-Expandable panels with synchronized visibility, ARIA attributes and keyboard navigation. An accordion on its own answers for itself: opening it leaves every other panel on the page alone. Wrap a set of them in an accordionContainer to get the one-at-a-time behaviour, scoped to that group.
+Expandable panels with synchronized visibility, ARIA attributes and keyboard navigation. An accordion on its own answers for itself: opening it leaves every other panel on the page alone. Wrap a set of them in an accordionContainer to get the one-at-a-time behaviour, scoped to that group. When opening one closes a taller panel above it, the page scrolls with the change, so the button just clicked stays where it was on screen instead of the page jumping below it.
 
 ## PGS
 

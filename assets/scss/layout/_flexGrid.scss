@@ -1,7 +1,7 @@
 //# FLEX & GRID
 // gap and alignment options shared by flex and grid (and by the layout mixins other components
 // compose), kept apart from both so neither page owns them
-:is([pgs~="gridChild"], [pgs*="gridChild\5B"], [pgs~="flex"], [pgs*="flex\5B"]) {
+:is([pgs~="grid"], [pgs*="grid\5B"], [pgs~="flex"], [pgs*="flex\5B"]) {
 
     //== GAP
     // each one also sets --flex-gap, the value a flex['column-N'] computes its column widths

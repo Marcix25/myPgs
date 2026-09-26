@@ -70,6 +70,74 @@ function tokensIn(text, attribute) {
     return found;
 }
 
+//== a component that only ever appears with its bracket (background, textColor, position, img,
+//== ...) has no [pgs~="X"] form at all: its only selector is [pgs*="X\5B"] in the source,
+//== [pgs*="X["] once compiled. Counted as a pgs token too, so it gets its own root and owns its flags
+function componentsIn(text) {
+    const found = tokensIn(text, "pgs");
+    for (const match of text.matchAll(/\[pgs\*="([A-Za-z_][\w-]*)(?:\[|\\5B)/g)) found.add(match[1]);
+    return found;
+}
+
+//== :not(...) and :has(...) are conditions on something else (an ancestor, a sibling), never the
+//== element's own component, so their contents are dropped before looking for the owner
+function stripConditions(text) {
+    let out = "";
+    for (let i = 0; i < text.length;) {
+        const match = text.slice(i).match(/^:(?:not|has)\(/);
+        if (!match) { out += text[i]; i++; continue; }
+
+        let depth = 0;
+        let quote = null;
+        let j = i + match[0].length - 1;
+        for (; j < text.length; j++) {
+            const char = text[j];
+            if (quote) { if (char === quote) quote = null; continue; }
+            if (char === '"' || char === "'") { quote = char; continue; }
+            if (char === "(") depth++;
+            else if (char === ")" && --depth === 0) break;
+        }
+        i = j + 1;
+    }
+    return out;
+}
+
+//== every component the flag is checked against: the ones in the last compound selector before it,
+//== inside the innermost group it sits in, so :is([pgs~="grid"], [pgs~="flex"])[pgs*="'gapTexts'"]
+//== belongs to both grid and flex. Quote-aware, since [pgs*="grid["] carries a bracket of its own
+function ownersBefore(selector) {
+    let quote = null;
+    const parens = [];
+    for (let i = 0; i < selector.length; i++) {
+        const char = selector[i];
+        if (quote) { if (char === quote) quote = null; continue; }
+        if (char === '"' || char === "'") { quote = char; continue; }
+        if (char === "(") parens.push(i);
+        else if (char === ")") parens.pop();
+    }
+
+    const scope = selector.slice(parens.length ? parens.at(-1) + 1 : 0);
+    let square = 0;
+    let depth = 0;
+    let start = 0;
+    quote = null;
+    for (let i = 0; i < scope.length; i++) {
+        const char = scope[i];
+        if (quote) { if (char === quote) quote = null; continue; }
+        if (char === '"' || char === "'") { quote = char; continue; }
+        if (char === "[") square++;
+        else if (char === "]") square--;
+        else if (char === "(") depth++;
+        else if (char === ")") depth--;
+        else if (!square && !depth && /[\s>+~,]/.test(char)) start = i + 1;
+    }
+
+    const last = [...componentsIn(stripConditions(scope.slice(start)))];
+    if (last.length) return last;
+    const all = [...componentsIn(selector)];
+    return all.length ? [all.at(-1)] : [];
+}
+
 //== options are attached to the component whose selector they appear in, so the compiled CSS
 //== is the honest source: mixins are already expanded and every real pairing is visible
 function optionsFromCompiledCss() {
@@ -83,10 +151,10 @@ function optionsFromCompiledCss() {
             //== time (see e.g. layout/_utilities.scss's position/select/rotate), writes it as
             //== [pgs*="position['X'"] instead — the optional prefix here skips past that anchor
             //== without changing which flag gets captured
-            for (const option of selector.matchAll(/\[pgs\*="(?:[A-Za-z_][\w-]*\[)?'([^']+)'/g)) {
-                const owners = [...tokensIn(selector.slice(0, option.index), "pgs")];
-                if (owners.length) pairs.push([owners.at(-1), option[1], "pgs-options"]);
-                else if (option[1] === "hoverNot") pairs.push(["hover", option[1], "pgs-options"]);
+            for (const option of selector.matchAll(/\[pgs\*="(?:[A-Za-z_][\w-]*\[)?'([^'"]+)'/g)) {
+                const owners = ownersBefore(selector.slice(0, option.index));
+                if (option[1] === "hoverNot") pairs.push(["hover", option[1], "pgs-options"]);
+                else if (owners.length) for (const owner of owners) pairs.push([owner, option[1], "pgs-options"]);
                 else for (const owner of ["flex", "grid"]) pairs.push([owner, option[1], "pgs-options"]);
             }
         }
@@ -96,7 +164,10 @@ function optionsFromCompiledCss() {
 }
 
 //== empty placeholder rules never reach the compiled CSS, so the options that exist only for
-//== the JavaScript are recovered from the source by tracking the enclosing selectors
+//== the JavaScript are recovered from the source by tracking the enclosing selectors: a
+//== pgs-data key, and a bracket flag written as an empty &[pgs*="'X'"] {} placeholder (accordion's
+//== accAutoOpen, accordionContainer's accMultiOpen), each attached to the component whose block
+//== it sits in rather than to whichever file happens to read it
 function optionsFromScss(files) {
     const pairs = [];
 
@@ -110,13 +181,22 @@ function optionsFromScss(files) {
             pending = chunk.split(";").pop();
 
             const selector = pending;
-            const options = tokensIn(selector, "pgs-data");
-            if (!options.size) continue;
+            const dataKeys = tokensIn(selector, "pgs-data");
+            const flags = [...selector.matchAll(/\[pgs\*="'([A-Za-z_][\w-]*)'"\]/g)];
+            if (!dataKeys.size && !flags.length) continue;
 
-            const owner = [...stack, selector]
-                .flatMap(level => [...tokensIn(level, "pgs")])
+            //== the owner is the last component named before the flag, never one written after it
+            //== (&[pgs*="'btnReverse'"] :where([pgs~="icon"]) is a button flag styling an icon)
+            const ownerOf = cut => [...stack, cut]
+                .flatMap(level => [...componentsIn(level)])
                 .pop();
-            if (owner) for (const option of options) pairs.push([owner, option, "pgs-data"]);
+            const dataOwner = ownerOf(selector);
+            if (dataOwner) for (const key of dataKeys) pairs.push([dataOwner, key, "pgs-data"]);
+            for (const flag of flags) {
+                //== hoverNot has no single owner: it opts out on whatever carries it
+                const flagOwner = flag[1] === "hoverNot" ? "hover" : ownerOf(selector.slice(0, flag.index));
+                if (flagOwner) pairs.push([flagOwner, flag[1], "pgs-options"]);
+            }
         }
     }
 
@@ -152,7 +232,7 @@ const allText = scssFiles.map(file => fs.readFileSync(file, "utf8")).join("\n")
 const jsFiles = walk(JS_DIR, ".js");
 const jsText = jsFiles.map(file => fs.readFileSync(file, "utf8")).join("\n");
 
-const allTokens = new Set([...tokensIn(allText, "pgs"), ...pgsTokensInJs(jsText)]);
+const allTokens = new Set([...componentsIn(allText), ...pgsTokensInJs(jsText)]);
 const generated = generatedTokens();
 const map = new Map();
 
@@ -167,18 +247,29 @@ for (const token of allTokens) {
 const cssPairs = optionsFromCompiledCss();
 const cssOptions = new Set(cssPairs.map(([, option]) => option));
 
+const scssPairs = optionsFromScss(scssFiles);
+const knownOptions = new Set([...cssPairs, ...scssPairs].map(([, option]) => option));
+
+//== a last resort, for a flag only the JavaScript reads: the file name is a guess at the owner
+//== (_accordion.js also reads accordionContainer's accMultiOpen), so it never overrides a
+//== pairing the stylesheet already made. .option only ever touches the pgs attribute, so what it
+//== reads is a bracket flag, not a pgs-data key
 function optionsFromJs(files) {
     return files.flatMap(file => {
         const owner = path.basename(file, ".js").replace(/^_/, "");
         const text = fs.readFileSync(file, "utf8");
-        return [...optionTokensInJs(text)].map(option => [owner, option, cssOptions.has(option) ? "pgs-options" : "pgs-data"]);
+        return [...optionTokensInJs(text)]
+            .filter(option => !knownOptions.has(option))
+            .map(option => [owner, option, "pgs-options"]);
     });
 }
 
-for (const [owner, option, kind] of [...cssPairs, ...optionsFromScss(scssFiles), ...optionsFromJs(jsFiles)]) {
+for (const [owner, option, kind] of [...cssPairs, ...scssPairs, ...optionsFromJs(jsFiles)]) {
     const root = rootOf(owner, allTokens);
     if (map.has(root)) map.get(root)[kind].add(option);
 }
+
+const assignedOptions = new Set([...map.values()].flatMap(entry => [...entry["pgs-options"], ...entry["pgs-data"]]));
 
 for (const file of walk(REFERENCE_DIR, ".html")) {
     const source = fs.readFileSync(file, "utf8");
@@ -195,6 +286,11 @@ for (const file of walk(REFERENCE_DIR, ".html")) {
         if (["pgs-options", "pgs-data"].includes(active)) entries.push([active, item[1]]);
     }
     for (const [kind, key] of entries) {
+        //== the reference only fills in what the sources could not place: its fallback is the
+        //== first root the page documents, which for a page with two roots is a guess
+        //== flags only: a pgs-data key is meant to sit on several roots at once (formMessage on both
+        //== form and formValidate), so the reference keeps adding those
+        if (kind === "pgs-options" && assignedOptions.has(key)) continue;
         const owners = roots.filter(name => key.startsWith(name));
         for (const owner of owners.length ? owners : roots.slice(0, 1)) map.get(owner)[kind].add(key);
     }
