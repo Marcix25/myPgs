@@ -3081,10 +3081,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=header], [pgs*="header["]) dialog[pgs~=modal-dialog] {
-  --modal-backdrop: var(--color-white);
-  --modal-background: var(--color-white);
-  -webkit-backdrop-filter: var(--blur);
-  backdrop-filter: var(--blur);
+  --modal-background: var(--color-background);
 }
 
 :is([pgs~=header], [pgs*="header["]) dialog[pgs~=modal-dialog][open] {
@@ -5917,7 +5914,7 @@ html:has(dialog[open]) {
   cursor: auto;
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogMini'"] :where([pgs~=modal-dialog-content]) {
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogSmall'"] :where([pgs~=modal-dialog-content]) {
   --section-width: min(calc(var(--page-width)/3), 100%);
 }
 

@@ -46,7 +46,7 @@ function initializeModal(MODAL, existingDialog = null) {
     //== element that exists purely to carry them (see AGENTS-DEVELOPMENT.md).
     pgs(DIALOG).add("modal-dialog", "_dialog");
     for (const key of [
-        "dialogHistory", "dialogTopLevel", "dialogDisableBackdropClose", "dialogMini", "dialogMedium",
+        "dialogHistory", "dialogTopLevel", "dialogDisableBackdropClose", "dialogSmall", "dialogMedium",
         ...ANIMATIONS, "dialogFull", "dialogCenter", "dialogLeft", "dialogRight", "dialogTop", "dialogBottom"
     ]) {
         const source = [MODAL, DIALOG].find(element => pgs(element).option.contains(key));

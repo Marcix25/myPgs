@@ -27,7 +27,7 @@ A native dialog driven by the library. The dialog is moved out of its wrapper on
 - `dialogFull`: expands the dialog content to the full width of the viewport, instead of capping it at the page width.
 - `dialogLeft`: aligns the dialog content to the left of the viewport.
 - `dialogMedium`: shrinks the dialog content to half the page width instead of filling the viewport.
-- `dialogMini`: shrinks the dialog content to a compact width (max 400px) instead of filling the viewport.
+- `dialogSmall`: shrinks the dialog content to a compact width (max 400px) instead of filling the viewport.
 - `dialogRight`: aligns the dialog content to the right of the viewport.
 - `dialogTop`: aligns the dialog content to the top of the viewport.
 - `dialogTopLevel`: leaves the dialog inside its wrapper and opens it with showModal(), on the browser's top layer above everything else, instead of moving it into a container and opening it with show().
@@ -245,10 +245,10 @@ Modal dialog content explicitly centered using pgs=&quot;modal['dialogCenter']&q
 
 ### Mini modal
 
-Compact dialog width using pgs=&quot;modal['dialogMini']&quot;, for short confirmations rather than full content.
+Compact dialog width using pgs=&quot;modal['dialogSmall']&quot;, for short confirmations rather than full content.
 
 ```html
-<div pgs="modal['dialogMini']" pgs-data="modalContainerID[modal-container]">
+<div pgs="modal['dialogSmall']" pgs-data="modalContainerID[modal-container]">
     <button pgs="modal-button button" type="button">
         Open mini modal
     </button>
@@ -260,7 +260,7 @@ Compact dialog width using pgs=&quot;modal['dialogMini']&quot;, for short confir
             </div>
 
             <div pgs="modal-dialog-content-scroll">
-                <p>Modal content with <code>pgs="modal['dialogMini']"</code>.</p>
+                <p>Modal content with <code>pgs="modal['dialogSmall']"</code>.</p>
             </div>
         </div>
     </dialog>

@@ -37,17 +37,13 @@
         :where([pgs~="header-element-alwaysOn"]) {}
 
         //== ALL
-        >* {
-            display: contents;
-        }
+        >* { display: contents; }
 
         //== the groups above are display:contents, so these grandchildren are the real flex items.
         //== The switch to compact is decided by comparing their width against the space available,
         //== which only works if they report what they need: left free to shrink they quietly follow
         //== the container, the comparison never trips, and the content overflows instead
-        >*>* {
-            flex-shrink: 0;
-        }
+        >*>* { flex-shrink: 0; }
 
         :where([pgs~="header-element-onlyCompact"]) {
             display: none;
@@ -58,23 +54,16 @@
                 //=== OPEN
                 //== swaps the drawn glyph via the --icon custom property (see _icon.scss)
                 //== instead of animating two mask layers into an X: a plain CSS override, no JS
-                &[aria-expanded="true"] [pgs*="'icon-hamburgerTwo'"] {
-                    --icon: var(--icon-glyph-close);
-                }
+                &[aria-expanded="true"] [pgs*="'icon-hamburgerTwo'"] { --icon: var(--icon-glyph-close); }
             }
         }
     }
 
     //= DIALOG
     dialog[pgs~="modal-dialog"] {
-        --modal-backdrop: var(--color-white);
-        --modal-background: var(--color-white);
-        -webkit-backdrop-filter: var(--blur);
-        backdrop-filter: var(--blur);
+        --modal-background: var(--color-background);
 
-        &[open] {
-            z-index: -1;
-        }
+        &[open] { z-index: -1; }
     }
 
     //+ OPTION
@@ -121,18 +110,11 @@
         :where([pgs~="header-element"]) {
             padding-inline: var(--header-padding-block);
 
-            :where([pgs~="header-element-onlyFull"]) {
-                display: none;
-            }
-
-            :where([pgs~="header-element-onlyCompact"]) {
-                display: contents;
-            }
+            :where([pgs~="header-element-onlyFull"]) { display: none; }
+            :where([pgs~="header-element-onlyCompact"]) { display: contents; }
         }
 
         //== bottom: follows the compact state, so it honours the chosen breakpoint
-        &[pgs*="'headerCompactBottom'"] {
-            --header-compactBottom-active: 1;
-        }
+        &[pgs*="'headerCompactBottom'"] { --header-compactBottom-active: 1; }
     }
 }

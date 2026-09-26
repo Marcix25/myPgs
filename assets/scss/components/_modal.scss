@@ -1,7 +1,7 @@
 @use "../mixin/mixin" as *;
 
 //== modal-dialog stays bare like every other generated child token — it never carries a bracket
-//== of its own. Its own options (dialogRight, dialogMini, dialogHistory, …) live instead on
+//== of its own. Its own options (dialogRight, dialogSmall, dialogHistory, …) live instead on
 //== _dialog, a second, pgs-generated-only token _modal.js always adds alongside it on the same
 //== <dialog> element: the one place that needs its own bracket, since the JavaScript can move
 //== this element anywhere in the document independently of the wrapper. The flag selectors below
@@ -27,7 +27,7 @@ html:has(dialog[open]) { cursor: pointer; }
     &[pgs*="'dialogHistory'"],
     &[pgs*="'dialogTopLevel'"],
     &[pgs*="'dialogDisableBackdropClose'"],
-    &[pgs*="'dialogMini'"],
+    &[pgs*="'dialogSmall'"],
     &[pgs*="'dialogMedium'"],
     &[pgs*="'dialogFull'"],
     &[pgs*="'dialogCenter'"],
@@ -160,7 +160,7 @@ html:has(dialog[open]) { cursor: pointer; }
 
     //+ SIZE
     //=== MINI
-    &[pgs*="'dialogMini'"] {
+    &[pgs*="'dialogSmall'"] {
         :where([pgs~="modal-dialog-content"]) { --section-width: min(calc(var(--page-width)/3), 100%); }
     }
 

@@ -281,7 +281,7 @@ const fn_notification = {
         });
     },
 
-    //+ generates <dialog pgs="modal-dialog _dialog['dialogRight' 'dialogMini' 'dialogTop']"><div pgs="modal-dialog-content"><div pgs="_notifications"></div></div></dialog>
+    //+ generates <dialog pgs="modal-dialog _dialog['dialogRight' 'dialogSmall' 'dialogTop']"><div pgs="modal-dialog-content"><div pgs="_notifications"></div></div></dialog>
     //+ inside the modal wrapping notificationBell, then asks pgs.modal to (re)initialize it.
     _ensureDialog(root = document) {
         let created = false;
@@ -307,7 +307,7 @@ const fn_notification = {
             const dialog = document.createElement("dialog");
             pgs(dialog).add("modal-dialog");
             pgs(dialog).add("_notificationsDialog");
-            pgs(modalWrapper).add("modal['dialogRight' 'dialogMini' 'dialogTop']");
+            pgs(modalWrapper).add("modal['dialogRight' 'dialogSmall' 'dialogTop']");
 
             const content = document.createElement("div");
             pgs(content).add("modal-dialog-content");

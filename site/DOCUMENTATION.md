@@ -52,7 +52,7 @@ each line prefixed with `*`, tags in this order:
  * - dialog: added to the dialog element on initialization, which is why the example writes a bare dialog tag.
  *
  * @pgs-options
- * - dialogMini: shrinks the dialog content to a compact width instead of filling the viewport.
+ * - dialogSmall: shrinks the dialog content to a compact width instead of filling the viewport.
  *
  * @pgs-state
  * - open: identifies the open element used by Modal.

@@ -92,7 +92,7 @@ rename it where it changed.
 | icon | `iconDuo` / `iconLarge` / `iconMedium` | unchanged |
 | logo | `logoDarkmode` / `logoDarkmodeFixed` | unchanged |
 | menu | `menuHorizontal` / `menuIconOnlyCurrent` / `menuShort` / `menuVertical` | unchanged |
-| modal / modal-dialog | `modalBottom` / `modalCenter` / `modalDisableBackdropClose` / `modalFull` / `modalHistory` / `modalLeft` / `modalMedium` / `modalMini` / `modalRight` / `modalTop` / `modalTopLevel` | `dialogBottom` / `dialogCenter` / `dialogDisableBackdropClose` / `dialogFull` / `dialogHistory` / `dialogLeft` / `dialogMedium` / `dialogMini` / `dialogRight` / `dialogTop` / `dialogTopLevel` (renamed to `dialog*`, not stripped bare — these flags act on the `<dialog>`, not the wrapper) |
+| modal / modal-dialog | `modalBottom` / `modalCenter` / `modalDisableBackdropClose` / `modalFull` / `modalHistory` / `modalLeft` / `modalMedium` / `modalMini` / `modalRight` / `modalTop` / `modalTopLevel` | `dialogBottom` / `dialogCenter` / `dialogDisableBackdropClose` / `dialogFull` / `dialogHistory` / `dialogLeft` / `dialogMedium` / `dialogSmall` / `dialogRight` / `dialogTop` / `dialogTopLevel` (renamed to `dialog*`, not stripped bare — these flags act on the `<dialog>`, not the wrapper) |
 | margin (and its variants) | `marginAuto` / `marginElements` / `marginNegative` / `marginPage` / `marginSections` / `marginTexts` / `marginUnset` | `mrgAuto` / `mrgElements` / `mrgNegative` / `mrgPage` / `mrgSections` / `mrgTexts` / `mrgUnset`, and `margin2` → `mrgHalf`; one `margin[...]` bracket for every side (`mrgTop`, `mrgInlineAuto`, ...) |
 | padding (and its variants) | same list as margin, `padding*` | the same with `pad` (`padPage`, `padTopHalf`, ...), `padding2` → `padHalf`; padding has no `auto` or `negative` |
 | pageShell | `pageShellAsideScroll` / `pageShellAsideShadow` / `pageShellFullPage` | `shellAsideScroll` / `shellAsideShadow` / `shellFullPage` |
@@ -124,7 +124,7 @@ Update consumer selectors too: `[pgs~="button"]` alone does not match `button['m
 Use `:is([pgs~="button"], [pgs*="button\5B"])` for the component and
 `[pgs*="'mini'"]` for the flag. In SCSS, spell the opening bracket as `\5B`. A selector for a true
 child token needs only the plain `[pgs~="X"]` form — no child keeps the full `:is(...)` form
-anymore, not even `modal-dialog`: its own options (`dialogRight`, `dialogMini`, ...) now land on
+anymore, not even `modal-dialog`: its own options (`dialogRight`, `dialogSmall`, ...) now land on
 `_dialog`, a second, pgs-generated-only token added alongside it, so `modal-dialog` itself simplifies
 like every other child (see `AGENTS-DEVELOPMENT.md`).
 Custom code that directly reads/writes attributes must use the new storage or the wrapper.
