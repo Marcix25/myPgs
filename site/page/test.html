@@ -1,5 +1,96 @@
 <main pgs="main">
     <section pgs="section flex['column' 'gapElements']">
+        <h2>Modal — dialogDragClose</h2>
+        <p>On a phone (or the device toolbar in DevTools): pull the panel down. A short drag springs back, a long one or a quick flick closes it. Sideways and upward drags are left to the page.</p>
+
+        <div pgs="flex['row' 'gapElements']">
+            <div pgs="modal['dialogDragClose' 'dialogBottom' 'dialogFull' 'dialogAnimationBottom']">
+                <button pgs="modal-button button" type="button">Bottom sheet</button>
+                <dialog>
+                    <div pgs="modal-dialog-content">
+                        <div pgs="modal-dialog-content-header">
+                            <h3>Bottom sheet</h3>
+                        </div>
+                        <div pgs="modal-dialog-content-scroll">
+                            <p>Full-width sheet docked at the bottom, slides up on open.</p>
+                        </div>
+                    </div>
+                </dialog>
+            </div>
+            <div pgs="modal['dialogDragClose' 'dialogCenter' 'dialogMedium' 'dialogAnimationZoom']">
+                <button pgs="modal-button button" type="button">Zoom + drag</button>
+                <dialog>
+                    <div pgs="modal-dialog-content">
+                        <div pgs="modal-dialog-content-header">
+                            <h3>Zoom + drag</h3>
+                        </div>
+                        <div pgs="modal-dialog-content-scroll">
+                            <p>Zooms out of the button; drag it down to close.</p>
+                        </div>
+                    </div>
+                </dialog>
+            </div>
+            <div pgs="modal['dialogDragClose']">
+                <button pgs="modal-button button" type="button">Default + drag</button>
+                <dialog>
+                    <div pgs="modal-dialog-content">
+                        <div pgs="modal-dialog-content-header">
+                            <h3>Default + drag</h3>
+                        </div>
+                        <div pgs="modal-dialog-content-scroll">
+                            <p>Default full-width panel at the top, no opening animation.</p>
+                        </div>
+                    </div>
+                </dialog>
+            </div>
+            <div pgs="modal['dialogDragClose' 'dialogTopLevel' 'dialogCenter' 'dialogSmall']">
+                <button pgs="modal-button button" type="button">Top level + drag</button>
+                <dialog>
+                    <div pgs="modal-dialog-content">
+                        <div pgs="modal-dialog-content-header">
+                            <h3>Top level + drag</h3>
+                        </div>
+                        <div pgs="modal-dialog-content-scroll">
+                            <p>showModal() on the top layer: the native ::backdrop fades with the drag.</p>
+                        </div>
+                    </div>
+                </dialog>
+            </div>
+            <div pgs="modal['dialogDragClose' 'dialogCenter' 'dialogMedium']">
+                <button pgs="modal-button button" type="button">Long content + drag</button>
+                <dialog>
+                    <div pgs="modal-dialog-content">
+                        <div pgs="modal-dialog-content-header">
+                            <h3>Long content</h3>
+                        </div>
+                        <div pgs="modal-dialog-content-scroll">
+                            <p>Paragraph 1. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
+                            <p>Paragraph 2. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
+                            <p>Paragraph 3. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
+                            <p>Paragraph 4. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
+                            <p>Paragraph 5. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
+                            <p>Paragraph 6. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
+                            <p>Paragraph 7. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
+                            <p>Paragraph 8. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
+                            <p>Paragraph 9. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
+                            <p>Paragraph 10. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
+                            <p>Paragraph 11. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
+                            <p>Paragraph 12. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
+                            <p>Paragraph 13. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
+                            <p>Paragraph 14. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
+                            <p>Paragraph 15. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
+                            <p>Paragraph 16. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
+                            <p>Paragraph 17. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
+                            <p>Paragraph 18. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
+                            <p>Paragraph 19. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
+                            <p>Paragraph 20. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
+                        </div>
+                    </div>
+                </dialog>
+            </div>
+        </div>
+    </section>
+    <section pgs="section flex['column' 'gapElements']">
         <h2>Modal — dialogAnimationLeft / Right / Top / Bottom</h2>
         <p>Each panel slides in from its edge of the screen and goes back there on close (X, backdrop click, Esc).</p>
 

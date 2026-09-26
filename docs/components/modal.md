@@ -24,6 +24,7 @@ A native dialog driven by the library. The dialog is moved out of its wrapper on
 - `dialogBottom`: aligns the dialog content to the bottom of the viewport.
 - `dialogCenter`: centers the dialog content both horizontally and vertically; this is also the default, so it only matters when combined with a component that changes that default.
 - `dialogDisableBackdropClose`: keeps a click on the backdrop from closing the dialog, so it only closes through its own controls or its API.
+- `dialogDragClose`: on a touch screen, dragging the panel down follows the finger and fades the backdrop, the way PhotoSwipe pulls a photo away; let go past 15% of the screen height, or with a quick flick, and it carries on down and the dialog closes, otherwise it springs back. A drag only starts where nothing would scroll instead: outside form fields, and with the panel and the dialog scrolled to their top.
 - `dialogFull`: expands the dialog content to the full width of the viewport, instead of capping it at the page width.
 - `dialogLeft`: aligns the dialog content to the left of the viewport.
 - `dialogMedium`: shrinks the dialog content to half the page width instead of filling the viewport.
@@ -47,6 +48,8 @@ A native dialog driven by the library. The dialog is moved out of its wrapper on
 
 - `animationIn`: set on the dialog while a dialogAnimation* option brings the panel in, and removed when it has finished.
 - `animationOut`: set on the dialog while a dialogAnimation* option takes the panel back out; the dialog really closes when it has finished.
+- `dragging`: set on the dialog while dialogDragClose follows a finger pulling the panel down.
+- `dragClose`: set on the dialog while dialogDragClose carries a released panel off the bottom of the screen; the dialog really closes when it has finished.
 
 ## JavaScript API
 
@@ -431,6 +434,32 @@ The panel slides in from the bottom edge of the screen and goes back there on cl
 
             <div pgs="modal-dialog-content-scroll">
                 <p>Modal content with <code>pgs="modal['dialogAnimationBottom']"</code>.</p>
+            </div>
+        </div>
+    </dialog>
+</div>
+```
+
+## Modal Gesture
+
+### Drag down to close
+
+On a touch screen, pull the panel down to close it, using pgs=&quot;modal['dialogDragClose']&quot;: it follows the finger, the backdrop fades, and a short drag springs back. Here it is a bottom sheet, with dialogBottom, dialogFull and dialogAnimationBottom.
+
+```html
+<div pgs="modal['dialogDragClose' 'dialogBottom' 'dialogFull' 'dialogAnimationBottom']" pgs-data="modalContainerID[modal-container]">
+    <button pgs="modal-button button" type="button">
+        Open drag-to-close modal
+    </button>
+
+    <dialog>
+        <div pgs="modal-dialog-content">
+            <div pgs="modal-dialog-content-header">
+                <h3>Drag me down</h3>
+            </div>
+
+            <div pgs="modal-dialog-content-scroll">
+                <p>Modal content with <code>pgs="modal['dialogDragClose']"</code>.</p>
             </div>
         </div>
     </dialog>

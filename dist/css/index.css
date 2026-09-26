@@ -5914,6 +5914,51 @@ html:has(dialog[open]) {
   cursor: auto;
 }
 
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogDragClose'"] {
+  transition: opacity 600ms ease, background-color var(--modal-animation-timing) var(--modal-animation-easing);
+}
+
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogDragClose'"]::backdrop {
+  transition: opacity var(--modal-animation-timing) var(--modal-animation-easing);
+}
+
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogDragClose'"] :where([pgs~=modal-dialog-content]) {
+  transition: transform var(--modal-animation-timing) var(--modal-animation-easing);
+}
+
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogDragClose'"][pgs-state~=dragging] {
+  background-color: color-mix(in srgb, var(--modal-backdrop) calc((1 - var(--_modal-drag-progress, 0)) * 100%), transparent);
+  transition: none;
+}
+
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogDragClose'"][pgs-state~=dragging]::backdrop {
+  opacity: calc(1 - var(--_modal-drag-progress, 0));
+  transition: none;
+}
+
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogDragClose'"][pgs-state~=dragging] :where([pgs~=modal-dialog-content]) {
+  transform: translateY(var(--_modal-drag-y, 0px));
+  transition: none;
+}
+
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogDragClose'"][pgs-state~=dragClose] {
+  background-color: transparent;
+}
+
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogDragClose'"][pgs-state~=dragClose]::backdrop {
+  opacity: 0;
+}
+
+:where(dialog[pgs~=modal-dialog])[pgs*="'dialogDragClose'"][pgs-state~=dragClose] :where([pgs~=modal-dialog-content]) {
+  transform: translateY(100dvh);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(dialog[pgs~=modal-dialog])[pgs*="'dialogDragClose'"], :where(dialog[pgs~=modal-dialog])[pgs*="'dialogDragClose'"]::backdrop,
+  :where(dialog[pgs~=modal-dialog])[pgs*="'dialogDragClose'"] :where([pgs~=modal-dialog-content]) {
+    transition: none;
+  }
+}
 :where(dialog[pgs~=modal-dialog])[pgs*="'dialogSmall'"] :where([pgs~=modal-dialog-content]) {
   --section-width: min(calc(var(--page-width)/3), 100%);
 }
@@ -5961,6 +6006,10 @@ html:has(dialog[open]) {
   animation-duration: var(--modal-animation-timing);
   animation-timing-function: var(--modal-animation-easing);
   animation-fill-mode: both;
+}
+
+:where(dialog[pgs~=modal-dialog]):is([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"])[pgs-state~=animationIn] {
+  overflow: clip;
 }
 
 :where(dialog[pgs~=modal-dialog]):is([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"])[pgs-state~=animationOut], :where(dialog[pgs~=modal-dialog]):is([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"])[pgs-state~=animationOut]::backdrop,

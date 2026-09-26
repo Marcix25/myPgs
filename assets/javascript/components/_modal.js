@@ -46,7 +46,7 @@ function initializeModal(MODAL, existingDialog = null) {
     //== element that exists purely to carry them (see AGENTS-DEVELOPMENT.md).
     pgs(DIALOG).add("modal-dialog", "_dialog");
     for (const key of [
-        "dialogHistory", "dialogTopLevel", "dialogDisableBackdropClose", "dialogSmall", "dialogMedium",
+        "dialogHistory", "dialogTopLevel", "dialogDisableBackdropClose", "dialogDragClose", "dialogSmall", "dialogMedium",
         ...ANIMATIONS, "dialogFull", "dialogCenter", "dialogLeft", "dialogRight", "dialogTop", "dialogBottom"
     ]) {
         const source = [MODAL, DIALOG].find(element => pgs(element).option.contains(key));
@@ -75,6 +75,7 @@ function initializeModal(MODAL, existingDialog = null) {
     const dialogTopLevel = pgs(DIALOG).option.contains("dialogTopLevel");
     const dialogAnimationZoom = pgs(DIALOG).option.contains("dialogAnimationZoom");
     const dialogAnimation = ANIMATIONS.some(key => pgs(DIALOG).option.contains(key));
+    const dialogDragClose = pgs(DIALOG).option.contains("dialogDragClose");
     const CONTENT = pgs(DIALOG).querySelector("modal-dialog-content");
     let closing = false;
 
@@ -113,16 +114,16 @@ function initializeModal(MODAL, existingDialog = null) {
     }
 
     //+ FN ANIMATION
-    //+ dialogAnimation*: the panel comes in on open and goes back on close — dialogAnimationZoom
-    //+ grows it out of the button that opened it, the way PhotoSwipe zooms a thumbnail, and
-    //+ dialogAnimationLeft/Right/Top/Bottom slide it in from that edge of the screen. The
-    //+ animationIn/animationOut state starts the animation — keyframes, timing, backdrop fade
-    //+ and reduced motion all live in _modal.scss. The JavaScript only measures, for the zoom:
-    //+ the panel is already laid out in its final place, so the offset and the scale that lay it
-    //+ over the button go to the stylesheet as --_modal-zoom-*.
-    //+ Returns a promise that settles when every animation the stylesheet started has finished,
-    //+ or null when there is nothing to wait for: no panel, a zoom with no visible button to grow
-    //+ from, or no animation at all (prefers-reduced-motion, or a theme that turns it off).
+    // dialogAnimation*: the panel comes in on open and goes back on close — dialogAnimationZoom
+    // grows it out of the button that opened it, the way PhotoSwipe zooms a thumbnail, and
+    // dialogAnimationLeft/Right/Top/Bottom slide it in from that edge of the screen. The
+    // animationIn/animationOut state starts the animation — keyframes, timing, backdrop fade
+    // and reduced motion all live in _modal.scss. The JavaScript only measures, for the zoom:
+    // the panel is already laid out in its final place, so the offset and the scale that lay it
+    // over the button go to the stylesheet as --_modal-zoom-*.
+    // Returns a promise that settles when every animation the stylesheet started has finished,
+    // or null when there is nothing to wait for: no panel, a zoom with no visible button to grow
+    // from, or no animation at all (prefers-reduced-motion, or a theme that turns it off).
     function stopAnimation() {
         pgs(DIALOG).state.remove("animationIn");
         pgs(DIALOG).state.remove("animationOut");
@@ -159,6 +160,102 @@ function initializeModal(MODAL, existingDialog = null) {
         return Promise.all(animations.map(animation => animation.finished));
     }
 
+    //+ FN DRAG CLOSE
+    //+ dialogDragClose: on a touch screen, dragging the panel down follows the finger and fades
+    //+ the backdrop, the way PhotoSwipe lets a photo be pulled away. Let go far or fast enough and
+    //+ the panel carries on down and the dialog closes; otherwise it springs back. The JavaScript
+    //+ only tracks the finger — the distance goes to --_modal-drag-y and the fade to
+    //+ --_modal-drag-progress on the dialog — and the dragging/dragClose states hand following,
+    //+ springing back and leaving to _modal.scss.
+    const dragClose = {
+        START: 10, //== px of vertical travel before a touch counts as a drag
+        CLOSE: 0.15, //== share of the viewport height that closes on release
+        VELOCITY: 0.5, //== px/ms that closes on release, whatever the distance
+        touch: null,
+
+        stop() {
+            this.touch = null;
+            pgs(DIALOG).state.remove("dragging");
+            pgs(DIALOG).state.remove("dragClose");
+            DIALOG.style.removeProperty("--_modal-drag-y");
+            DIALOG.style.removeProperty("--_modal-drag-progress");
+        },
+
+        //== a drag only starts where nothing would scroll instead: not in a form field, and every
+        //== box between the finger and the dialog (the dialog included) already at its top
+        canStart(target) {
+            if (target.closest("input, textarea, select, [contenteditable]")) return false;
+            for (let element = target; element; element = element.parentElement) {
+                if (element.scrollTop > 0) return false;
+                if (element === DIALOG) break;
+            }
+            return true;
+        },
+
+        start(e) {
+            this.touch = null;
+            if (closing || e.touches.length !== 1 || !this.canStart(e.target)) return;
+            const touch = e.touches[0];
+            this.touch = { x: touch.clientX, y: touch.clientY, distance: 0, active: false, samples: [] };
+        },
+
+        move(e) {
+            const drag = this.touch;
+            if (!drag) return;
+            //== a second finger means a pinch, which is the browser's
+            if (e.touches.length !== 1) return this.end(e, false);
+            const touch = e.touches[0];
+
+            if (!drag.active) {
+                const dx = touch.clientX - drag.x;
+                const dy = touch.clientY - drag.y;
+                if (Math.abs(dx) < this.START && Math.abs(dy) < this.START) return;
+                //== sideways or upwards stays the page's: a horizontal scroller, the panel's own scroll
+                if (dy <= 0 || Math.abs(dx) > dy) {
+                    this.touch = null;
+                    return;
+                }
+                //== counted from here, so the panel does not jump by the threshold
+                drag.active = true;
+                drag.y = touch.clientY;
+                stopAnimation();
+                pgs(DIALOG).state.add("dragging");
+            }
+
+            e.preventDefault();
+            drag.distance = Math.max(0, touch.clientY - drag.y);
+            drag.samples = [...drag.samples.filter(([time]) => e.timeStamp - time < 100), [e.timeStamp, drag.distance]];
+            DIALOG.style.setProperty("--_modal-drag-y", `${drag.distance}px`);
+            DIALOG.style.setProperty("--_modal-drag-progress", Math.min(drag.distance / (window.innerHeight / 2), 1));
+        },
+
+        end(e, release = true) {
+            const drag = this.touch;
+            if (!drag?.active) {
+                this.touch = null;
+                return;
+            }
+            //== speed over the last 100ms of movement; a finger that stopped before lifting has none
+            const [firstTime, firstDistance] = drag.samples[0] || [e.timeStamp, drag.distance];
+            const [lastTime, lastDistance] = drag.samples.at(-1) || [e.timeStamp, drag.distance];
+            const velocity = e.timeStamp - lastTime > 100 ? 0 : (lastDistance - firstDistance) / Math.max(lastTime - firstTime, 1);
+            const shouldClose = release && (drag.distance > window.innerHeight * this.CLOSE || (velocity > this.VELOCITY && drag.distance > this.START));
+            //== back where it was: removing the state lets the stylesheet's transition take it there
+            if (!shouldClose) return this.stop();
+
+            this.touch = null;
+            closing = true;
+            statusModal(false);
+            pgs(DIALOG).state.remove("dragging");
+            pgs(DIALOG).state.add("dragClose");
+            //== the panel leaves from where the finger let it go, through the transitions this state
+            //== starts; none (reduced motion, or a theme that turns them off) closes at once
+            const transitions = DIALOG.getAnimations({ subtree: true }).filter(animation => animation instanceof CSSTransition && [DIALOG, CONTENT].includes(animation.effect?.target));
+            if (!transitions.length) return finishClose();
+            Promise.all(transitions.map(animation => animation.finished)).then(finishClose, () => { });
+        },
+    };
+
     //+ FN OPEN
     function openModal(e) {
         e?.stopImmediatePropagation();
@@ -172,7 +269,9 @@ function initializeModal(MODAL, existingDialog = null) {
         statusModal(true);
         dialogTopLevel ? DIALOG.showModal() : DIALOG.show();
         //== respect an explicit autofocus target inside the dialog when the author set one
-        if (!DIALOG.querySelector("[autofocus]")) focusTarget.focus();
+        //== preventScroll: the dialog is focused before the opening animation moves the panel off
+        //== screen, and Safari would scroll the dialog to follow it there
+        if (!DIALOG.querySelector("[autofocus]")) focusTarget.focus({ preventScroll: true });
         animate("animationIn")?.then(stopAnimation, () => { });
         //== dispatched on both, and neither bubbles: a listener sits on whichever of the two it
         //== already holds, and never receives the same opening twice
@@ -198,6 +297,7 @@ function initializeModal(MODAL, existingDialog = null) {
         closing = false;
         DIALOG.close();
         stopAnimation();
+        dragClose.stop();
         MODAL.dispatchEvent(new CustomEvent(EVENT_CLOSE));
         DIALOG.dispatchEvent(new CustomEvent(EVENT_CLOSE));
     }
@@ -228,6 +328,7 @@ function initializeModal(MODAL, existingDialog = null) {
         statusModal(false);
         closing = false;
         stopAnimation();
+        dragClose.stop();
     }, { signal });
     //== Escape on a showModal() dialog closes it natively, with no time left for the closing
     //== animation: take the cancel over and close through closeModal instead
@@ -237,6 +338,15 @@ function initializeModal(MODAL, existingDialog = null) {
     }, { signal });
     DIALOG.addEventListener("click", e => { if (e.target == DIALOG && !dialogDisableBackdropClose) closeModal(e) }, { signal });
     BUTTON_CLOSE?.addEventListener("click", e => closeModal(e), { signal });
+
+    //= DRAG CLOSE
+    //== touchmove is not passive: once a drag has started it has to stop the page from scrolling
+    if (dialogDragClose && CONTENT) {
+        DIALOG.addEventListener("touchstart", e => dragClose.start(e), { signal, passive: true });
+        DIALOG.addEventListener("touchmove", e => dragClose.move(e), { signal, passive: false });
+        DIALOG.addEventListener("touchend", e => dragClose.end(e), { signal });
+        DIALOG.addEventListener("touchcancel", e => dragClose.end(e, false), { signal });
+    }
 
     //= UPDATE HISTORY
     if (data_history && BUTTON_OPEN?.id) {
@@ -269,6 +379,7 @@ function initializeModal(MODAL, existingDialog = null) {
     function destroy() {
         eventController.abort();
         stopAnimation();
+        dragClose.stop();
         historyObserver?.disconnect();
         if (historyTimeout !== null) window.clearTimeout(historyTimeout);
         API.delete(MODAL);

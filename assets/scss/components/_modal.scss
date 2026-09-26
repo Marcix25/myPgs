@@ -8,7 +8,10 @@
 //== don't check _dialog specifically — see AGENTS-DEVELOPMENT.md for why a bracket flag never
 //== needs to be scoped to the token that carries it.
 
-html:has(dialog[open]) { cursor: pointer; }
+html:has(dialog[open]) { 
+    cursor: pointer; 
+    // overflow: hidden;
+}
 
 //= MODAL
 :is([pgs~="modal"], [pgs*="modal\5B"]) {
@@ -27,6 +30,7 @@ html:has(dialog[open]) { cursor: pointer; }
     &[pgs*="'dialogHistory'"],
     &[pgs*="'dialogTopLevel'"],
     &[pgs*="'dialogDisableBackdropClose'"],
+    &[pgs*="'dialogDragClose'"],
     &[pgs*="'dialogSmall'"],
     &[pgs*="'dialogMedium'"],
     &[pgs*="'dialogFull'"],
@@ -158,6 +162,55 @@ html:has(dialog[open]) { cursor: pointer; }
     //+ DISABLED BACKDROP CLOSE
     &[pgs*="'dialogDisableBackdropClose'"] { cursor: auto; }
 
+    //+ DRAG CLOSE
+    // _modal.js tracks the finger: --_modal-drag-y is how far the panel has been pulled down,
+    // --_modal-drag-progress how much of the backdrop has faded (0 to 1). While dragging the
+    // panel follows with no transition; let go and the transitions below either spring it back
+    // (the state is removed) or carry it off the bottom of the screen (dragClose), which
+    // _modal.js waits for before it really closes the dialog
+    &[pgs*="'dialogDragClose'"] {
+        transition: opacity 600ms ease, background-color var(--modal-animation-timing) var(--modal-animation-easing);
+
+        &::backdrop { transition: opacity var(--modal-animation-timing) var(--modal-animation-easing); }
+        :where([pgs~="modal-dialog-content"]) { transition: transform var(--modal-animation-timing) var(--modal-animation-easing); }
+
+        //=== DRAGGING
+        &[pgs-state~="dragging"] {
+            background-color: color-mix(in srgb, var(--modal-backdrop) calc((1 - var(--_modal-drag-progress, 0)) * 100%), transparent);
+            transition: none;
+
+            &::backdrop {
+                opacity: calc(1 - var(--_modal-drag-progress, 0));
+                transition: none;
+            }
+
+            :where([pgs~="modal-dialog-content"]) {
+                transform: translateY(var(--_modal-drag-y, 0px));
+                transition: none;
+            }
+        }
+
+        //=== CLOSE
+        //== a whole viewport further down is always off screen, wherever the panel was let go
+        &[pgs-state~="dragClose"] {
+            background-color: transparent;
+
+            &::backdrop { opacity: 0; }
+            :where([pgs~="modal-dialog-content"]) { transform: translateY(100dvh); }
+        }
+
+        //- reduced motion
+        //== the panel still follows the finger, but springs back and leaves at once: _modal.js
+        //== finds no transition to wait for and closes straight away
+        @media (prefers-reduced-motion: reduce) {
+            &,
+            &::backdrop,
+            :where([pgs~="modal-dialog-content"]) {
+                transition: none;
+            }
+        }
+    }
+
     //+ SIZE
     //=== MINI
     &[pgs*="'dialogSmall'"] {
@@ -216,6 +269,14 @@ html:has(dialog[open]) { cursor: pointer; }
                 animation-fill-mode: both;
             }
         }
+
+        //=== IN
+        //== a panel pushed right or down, off screen, makes the dialog scrollable in that direction
+        //== for as long as it travels back, and Safari scrolls it — the panel seems to come in
+        //== from the other side, or to overshoot and settle. clip is no scroll container at all,
+        //== so nothing can scroll it; only on the way in, when the dialog has not been scrolled
+        //== yet — on the way out, clip would throw away the reader's scroll position
+        &[pgs-state~="animationIn"] { overflow: clip; }
 
         //=== OUT
         //== the same keyframes played backwards: the panel goes back where it came from
