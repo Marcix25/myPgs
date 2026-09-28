@@ -108,28 +108,28 @@ Interactive palette of the current MyPGS background and text color utilities.
 - `dropdown-button`: identifies the control that opens a color's name.
 - `dropdown-content`: identifies the panel holding a color's name.
 - `box`: makes each palette group visible.
-- `border`: draws the border that the br* utilities recolour; without it there is nothing to colour.
-- `outline`: draws the outline that the ol* utilities recolour; it sits outside the box and takes no space.
+- `border`: draws the border that the bd* utilities recolour; without it there is nothing to colour.
+- `outline`: draws the outline that the otl* utilities recolour; it sits outside the box and takes no space.
 - `button`: supplies the shared button base used by background color triggers.
 - `flexChild`: sizes or orders an item inside a flex container; the option in its bracket picking how.
 
 ### PGS Options (component brackets)
 
 - `btnMini`: inside button's own bracket, applies the smallest button variant to each color circle.
-- `brPrimary`: inside border's own bracket, recolours it with the primary colour; see Border for the whole br* family.
-- `brSecondary`: inside border's own bracket, recolours it with the secondary colour.
-- `brTertiary`: inside border's own bracket, recolours it with the tertiary colour.
-- `brQuaternary`: inside border's own bracket, recolours it with the quaternary colour.
-- `brWhite`: inside border's own bracket, recolours it white.
-- `brBlack`: inside border's own bracket, recolours it black.
-- `brBox`: inside border's own bracket, recolours it with the box surface colour.
-- `brBoxDark`: inside border's own bracket, recolours it with the dark box surface colour.
-- `brLink`: inside border's own bracket, recolours it with the link colour.
-- `brGray`: inside border's own bracket, recolours it gray.
-- `brInfo`: inside border's own bracket, recolours it with the info colour.
-- `brSuccess`: inside border's own bracket, recolours it with the success colour.
-- `brWarning`: inside border's own bracket, recolours it with the warning colour.
-- `brError`: inside border's own bracket, recolours it with the error colour.
+- `bdPrimary`: inside border's own bracket, recolours it with the primary colour; see Border for the whole bd* family.
+- `bdSecondary`: inside border's own bracket, recolours it with the secondary colour.
+- `bdTertiary`: inside border's own bracket, recolours it with the tertiary colour.
+- `bdQuaternary`: inside border's own bracket, recolours it with the quaternary colour.
+- `bdWhite`: inside border's own bracket, recolours it white.
+- `bdBlack`: inside border's own bracket, recolours it black.
+- `bdBox`: inside border's own bracket, recolours it with the box surface colour.
+- `bdBoxDark`: inside border's own bracket, recolours it with the dark box surface colour.
+- `bdLink`: inside border's own bracket, recolours it with the link colour.
+- `bdGray`: inside border's own bracket, recolours it gray.
+- `bdInfo`: inside border's own bracket, recolours it with the info colour.
+- `bdSuccess`: inside border's own bracket, recolours it with the success colour.
+- `bdWarning`: inside border's own bracket, recolours it with the warning colour.
+- `bdError`: inside border's own bracket, recolours it with the error colour.
 - `otlPrimary`: inside outline's own bracket, recolours it with the primary colour; see Border for the whole otl* family.
 - `otlSecondary`: inside outline's own bracket, recolours it with the secondary colour.
 - `otlTertiary`: inside outline's own bracket, recolours it with the tertiary colour.

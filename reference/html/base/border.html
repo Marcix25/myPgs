@@ -1,10 +1,10 @@
 <!--
 /**
  * @title Border
- * @description Border, outline and radius utilities, split out from the general-purpose set since together they cover an entire surface treatment on their own. Border's width has a shared base root (all four sides) plus one root per direction (borderTop, borderBlock, ...), each using a short direction-prefixed thickness flag (brdtThin, brdblThick, ...); colour is shared across all of them through a single br* set of flags.
+ * @description Border, outline and radius utilities, split out from the general-purpose set since together they cover an entire surface treatment on their own. Border's width has a shared base root (all four sides) plus one root per direction (borderTop, borderBlock, ...), each using a short direction-prefixed thickness flag (bdtThin, bdblThick, ...); colour is shared across all of them through a single bd* set of flags.
  *
  * @pgs
- * - border: draws the shared border, on every side by default; what the br* colour utilities recolour.
+ * - border: draws the shared border, on every side by default; what the bd* colour utilities recolour.
  * - borderBlock: draws the shared border on both sides of the block axis only.
  * - borderInline: draws the shared border on both sides of the inline axis only.
  * - borderTop: draws the shared border above only.
@@ -15,44 +15,44 @@
  * - borderRadius: applies the standard radius token to any surface, or one of its own two other scales.
  *
  * @pgs-options
- * - brdThin: inside border's own bracket, draws it at 1px instead of the default 1.5px, on every side.
- * - brdThick: inside border's own bracket, draws it at 3px, on every side.
- * - brdThicker: inside border's own bracket, draws it at 4.5px, on every side.
- * - brdblThin: inside borderBlock's own bracket, draws it on both sides of the block axis, at 1px.
- * - brdblThick: inside borderBlock's own bracket, draws it on both sides of the block axis, at 3px.
- * - brdblThicker: inside borderBlock's own bracket, draws it on both sides of the block axis, at 4.5px.
- * - brdiThin: inside borderInline's own bracket, draws it on both sides of the inline axis, at 1px.
- * - brdiThick: inside borderInline's own bracket, draws it on both sides of the inline axis, at 3px.
- * - brdiThicker: inside borderInline's own bracket, draws it on both sides of the inline axis, at 4.5px.
- * - brdtThin: inside borderTop's own bracket, draws it above only, at 1px.
- * - brdtThick: inside borderTop's own bracket, draws it above only, at 3px.
- * - brdtThicker: inside borderTop's own bracket, draws it above only, at 4.5px.
- * - brdrThin: inside borderRight's own bracket, draws it on the right only, at 1px.
- * - brdrThick: inside borderRight's own bracket, draws it on the right only, at 3px.
- * - brdrThicker: inside borderRight's own bracket, draws it on the right only, at 4.5px.
- * - brdbThin: inside borderBottom's own bracket, draws it below only, at 1px.
- * - brdbThick: inside borderBottom's own bracket, draws it below only, at 3px.
- * - brdbThicker: inside borderBottom's own bracket, draws it below only, at 4.5px.
- * - brdlThin: inside borderLeft's own bracket, draws it on the left only, at 1px.
- * - brdlThick: inside borderLeft's own bracket, draws it on the left only, at 3px.
- * - brdlThicker: inside borderLeft's own bracket, draws it on the left only, at 4.5px.
+ * - bdThin: inside border's own bracket, draws it at 1px instead of the default 1.5px, on every side.
+ * - bdThick: inside border's own bracket, draws it at 3px, on every side.
+ * - bdThicker: inside border's own bracket, draws it at 4.5px, on every side.
+ * - bdblThin: inside borderBlock's own bracket, draws it on both sides of the block axis, at 1px.
+ * - bdblThick: inside borderBlock's own bracket, draws it on both sides of the block axis, at 3px.
+ * - bdblThicker: inside borderBlock's own bracket, draws it on both sides of the block axis, at 4.5px.
+ * - bdiThin: inside borderInline's own bracket, draws it on both sides of the inline axis, at 1px.
+ * - bdiThick: inside borderInline's own bracket, draws it on both sides of the inline axis, at 3px.
+ * - bdiThicker: inside borderInline's own bracket, draws it on both sides of the inline axis, at 4.5px.
+ * - bdtThin: inside borderTop's own bracket, draws it above only, at 1px.
+ * - bdtThick: inside borderTop's own bracket, draws it above only, at 3px.
+ * - bdtThicker: inside borderTop's own bracket, draws it above only, at 4.5px.
+ * - bdrThin: inside borderRight's own bracket, draws it on the right only, at 1px.
+ * - bdrThick: inside borderRight's own bracket, draws it on the right only, at 3px.
+ * - bdrThicker: inside borderRight's own bracket, draws it on the right only, at 4.5px.
+ * - bdbThin: inside borderBottom's own bracket, draws it below only, at 1px.
+ * - bdbThick: inside borderBottom's own bracket, draws it below only, at 3px.
+ * - bdbThicker: inside borderBottom's own bracket, draws it below only, at 4.5px.
+ * - bdlThin: inside borderLeft's own bracket, draws it on the left only, at 1px.
+ * - bdlThick: inside borderLeft's own bracket, draws it on the left only, at 3px.
+ * - bdlThicker: inside borderLeft's own bracket, draws it on the left only, at 4.5px.
  * - otlThin: inside outline's own bracket, draws it at 1px instead of the default 1.5px.
  * - otlThick: inside outline's own bracket, draws it at 3px.
  * - otlThicker: inside outline's own bracket, draws it at 4.5px.
- * - brPrimary: recolours the border with the primary colour, whichever border-family bracket carries it.
- * - brSecondary: recolours the border with the secondary colour, whichever border-family bracket carries it.
- * - brTertiary: recolours the border with the tertiary colour, whichever border-family bracket carries it.
- * - brQuaternary: recolours the border with the quaternary colour, whichever border-family bracket carries it.
- * - brWhite: recolours the border white, whichever border-family bracket carries it.
- * - brBlack: recolours the border black, whichever border-family bracket carries it.
- * - brBox: recolours the border with the box surface colour, whichever border-family bracket carries it.
- * - brBoxDark: recolours the border with the dark box surface colour, whichever border-family bracket carries it.
- * - brLink: recolours the border with the link colour, whichever border-family bracket carries it.
- * - brInfo: recolours the border with the info colour, whichever border-family bracket carries it.
- * - brError: recolours the border with the error colour, whichever border-family bracket carries it.
- * - brWarning: recolours the border with the warning colour, whichever border-family bracket carries it.
- * - brSuccess: recolours the border with the success colour, whichever border-family bracket carries it.
- * - brGray: recolours the border gray, whichever border-family bracket carries it.
+ * - bdPrimary: recolours the border with the primary colour, whichever border-family bracket carries it.
+ * - bdSecondary: recolours the border with the secondary colour, whichever border-family bracket carries it.
+ * - bdTertiary: recolours the border with the tertiary colour, whichever border-family bracket carries it.
+ * - bdQuaternary: recolours the border with the quaternary colour, whichever border-family bracket carries it.
+ * - bdWhite: recolours the border white, whichever border-family bracket carries it.
+ * - bdBlack: recolours the border black, whichever border-family bracket carries it.
+ * - bdBox: recolours the border with the box surface colour, whichever border-family bracket carries it.
+ * - bdBoxDark: recolours the border with the dark box surface colour, whichever border-family bracket carries it.
+ * - bdLink: recolours the border with the link colour, whichever border-family bracket carries it.
+ * - bdInfo: recolours the border with the info colour, whichever border-family bracket carries it.
+ * - bdError: recolours the border with the error colour, whichever border-family bracket carries it.
+ * - bdWarning: recolours the border with the warning colour, whichever border-family bracket carries it.
+ * - bdSuccess: recolours the border with the success colour, whichever border-family bracket carries it.
+ * - bdGray: recolours the border gray, whichever border-family bracket carries it.
  * - otlPrimary: inside outline's own bracket, recolours it with the primary colour.
  * - otlSecondary: inside outline's own bracket, recolours it with the secondary colour.
  * - otlTertiary: inside outline's own bracket, recolours it with the tertiary colour.
@@ -85,27 +85,27 @@
 -->
 
 <demo demo-h2="Examples"></demo>
-<demo demo-h3="Border" demo-description="A line drawn on the edge of the box, taking its space in the layout. Each direction is its own root component, named like the margin and padding utilities. Recolour it with a br* utility from Colors — it applies no matter which border-family bracket carries it — and change its weight with a thickness option."></demo>
+<demo demo-h3="Border" demo-description="A line drawn on the edge of the box, taking its space in the layout. Each direction is its own root component, named like the margin and padding utilities. Recolour it with a bd* utility from Colors — it applies no matter which border-family bracket carries it — and change its weight with a thickness option."></demo>
 <section pgs="flex['column' 'gapTexts']" demo="component">
     <div pgs="flex['row' 'gapTexts' 'wrap']" demo="wrapper">
         <span pgs="padding border">border</span>
-        <span pgs="padding border['brPrimary']">border['brPrimary']</span>
-        <span pgs="padding border['brError']">border['brError']</span>
+        <span pgs="padding border['bdPrimary']">border['bdPrimary']</span>
+        <span pgs="padding border['bdError']">border['bdError']</span>
     </div>
 
     <div pgs="flex['row' 'gapTexts' 'wrap']" demo="wrapper">
-        <span pgs="padding border['brdThin']">thin</span>
-        <span pgs="padding border['brdThick']">thick</span>
-        <span pgs="padding border['brdThicker']">thicker</span>
+        <span pgs="padding border['bdThin']">thin</span>
+        <span pgs="padding border['bdThick']">thick</span>
+        <span pgs="padding border['bdThicker']">thicker</span>
     </div>
 
     <div pgs="flex['row' 'gapTexts' 'wrap']" demo="wrapper">
-        <span pgs="padding borderTop['brdtThin'] border['brPrimary']">borderTop</span>
-        <span pgs="padding borderRight['brdrThin'] border['brPrimary']">borderRight</span>
-        <span pgs="padding borderBottom['brdbThin'] border['brPrimary']">borderBottom</span>
-        <span pgs="padding borderLeft['brdlThin'] border['brPrimary']">borderLeft</span>
-        <span pgs="padding borderInline['brdiThin'] border['brPrimary']">borderInline</span>
-        <span pgs="padding borderBlock['brdblThin'] border['brPrimary']">borderBlock</span>
+        <span pgs="padding borderTop['bdtThin'] border['bdPrimary']">borderTop</span>
+        <span pgs="padding borderRight['bdrThin'] border['bdPrimary']">borderRight</span>
+        <span pgs="padding borderBottom['bdbThin'] border['bdPrimary']">borderBottom</span>
+        <span pgs="padding borderLeft['bdlThin'] border['bdPrimary']">borderLeft</span>
+        <span pgs="padding borderInline['bdiThin'] border['bdPrimary']">borderInline</span>
+        <span pgs="padding borderBlock['bdblThin'] border['bdPrimary']">borderBlock</span>
     </div>
 </section>
 

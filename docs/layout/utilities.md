@@ -64,7 +64,7 @@ Focused layout, content, interaction, accessibility, and semantic-color utilitie
 ### PGS Options (component brackets)
 
 - `bgInfo`: inside background's own bracket, applies the semantic info color.
-- `brInfo`: inside border's own bracket, applies the semantic info color.
+- `bdInfo`: inside border's own bracket, applies the semantic info color.
 - `txtInfo`: inside textColor's own bracket, applies the semantic info color.
 - `column`: stacks demonstration groups vertically.
 - `flex1`: inside flexChild's own bracket, lets a flex item grow and shrink to occupy available space.
@@ -141,7 +141,7 @@ Examples of the standalone MyPGS utility API.
         <span pgs="visuallyHidden">Screen-reader-only description.</span>
         <a pgs="visuallyHiddenFocusable" href="#utility-content">Visible while focused</a>
         <span pgs="motionReduce">Motion is reduced for users who request it.</span>
-        <span pgs="background['bgInfo'] border['brInfo']">Info background</span>
+        <span pgs="background['bgInfo'] border['bdInfo']">Info background</span>
         <span pgs="textColor['txtInfo']">Info text</span>
     </section>
 </main>

@@ -212,9 +212,9 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "brdThick",
-            "brdThicker",
-            "brdThin"
+            "bdThick",
+            "bdThicker",
+            "bdThin"
         ],
         "pgs-data": []
     },
@@ -222,9 +222,9 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "brdblThick",
-            "brdblThicker",
-            "brdblThin"
+            "bdblThick",
+            "bdblThicker",
+            "bdblThin"
         ],
         "pgs-data": []
     },
@@ -232,9 +232,9 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "brdbThick",
-            "brdbThicker",
-            "brdbThin"
+            "bdbThick",
+            "bdbThicker",
+            "bdbThin"
         ],
         "pgs-data": []
     },
@@ -242,9 +242,9 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "brdiThick",
-            "brdiThicker",
-            "brdiThin"
+            "bdiThick",
+            "bdiThicker",
+            "bdiThin"
         ],
         "pgs-data": []
     },
@@ -252,23 +252,23 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "brBlack",
-            "brBox",
-            "brBoxDark",
-            "brdlThick",
-            "brdlThicker",
-            "brdlThin",
-            "brError",
-            "brGray",
-            "brInfo",
-            "brLink",
-            "brPrimary",
-            "brQuaternary",
-            "brSecondary",
-            "brSuccess",
-            "brTertiary",
-            "brWarning",
-            "brWhite"
+            "bdBlack",
+            "bdBox",
+            "bdBoxDark",
+            "bdError",
+            "bdGray",
+            "bdInfo",
+            "bdLink",
+            "bdlThick",
+            "bdlThicker",
+            "bdlThin",
+            "bdPrimary",
+            "bdQuaternary",
+            "bdSecondary",
+            "bdSuccess",
+            "bdTertiary",
+            "bdWarning",
+            "bdWhite"
         ],
         "pgs-data": []
     },
@@ -285,9 +285,9 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "brdrThick",
-            "brdrThicker",
-            "brdrThin"
+            "bdrThick",
+            "bdrThicker",
+            "bdrThin"
         ],
         "pgs-data": []
     },
@@ -295,9 +295,9 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "brdtThick",
-            "brdtThicker",
-            "brdtThin"
+            "bdtThick",
+            "bdtThicker",
+            "bdtThin"
         ],
         "pgs-data": []
     },

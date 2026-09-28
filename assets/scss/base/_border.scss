@@ -6,78 +6,78 @@
 //- WIDTH
 :is([pgs~="border"], [pgs*="border\5B"]) {
 
-    &:not([pgs*="'brd"]) { border: var(--border-width) solid var(--border-color);  }
+    &:not([pgs*="'bd"]) { border: var(--border-width) solid var(--border-color);  }
 
     //- BASE (all four sides) — unchanged, still general
-    &[pgs*="'brdThin'"] { border: 1px solid var(--border-color); }
-    &[pgs*="'brdThick'"] { border: 3px solid var(--border-color); }
-    &[pgs*="'brdThicker'"] { border: 4.5px solid var(--border-color); }
+    &[pgs*="'bdThin'"] { border: 1px solid var(--border-color); }
+    &[pgs*="'bdThick'"] { border: 3px solid var(--border-color); }
+    &[pgs*="'bdThicker'"] { border: 4.5px solid var(--border-color); }
 }
 
 //- COLOR
 :is([pgs*="border\5B"],[pgs*="borderBlock\5B"], [pgs*="borderInline\5B"], [pgs*="borderTop\5B"], [pgs*="borderRight\5B"], [pgs*="borderBottom\5B"], [pgs*="borderLeft\5B"]) {
-    [pgs*="'brPrimary'"] { --border-color: var(--color-primary); }
-    [pgs*="'brSecondary'"] { --border-color: var(--color-secondary); }
-    [pgs*="'brTertiary'"] { --border-color: var(--color-tertiary); }
-    [pgs*="'brQuaternary'"] { --border-color: var(--color-quaternary); }
-    [pgs*="'brWhite'"] { --border-color: var(--color-white); }
-    [pgs*="'brBlack'"] { --border-color: var(--color-black); }
-    [pgs*="'brBox'"] { --border-color: var(--color-box); }
-    [pgs*="'brBoxDark'"] { --border-color: var(--color-boxDark); }
-    [pgs*="'brLink'"] { --border-color: var(--color-link); }
-    [pgs*="'brInfo'"] { --border-color: var(--color-info); }
-    [pgs*="'brError'"] { --border-color: var(--color-error); }
-    [pgs*="'brWarning'"] { --border-color: var(--color-warning); }
-    [pgs*="'brSuccess'"] { --border-color: var(--color-success); }
-    [pgs*="'brGray'"] { --border-color: var(--color-gray); }
+    [pgs*="'bdPrimary'"] { --border-color: var(--color-primary); }
+    [pgs*="'bdSecondary'"] { --border-color: var(--color-secondary); }
+    [pgs*="'bdTertiary'"] { --border-color: var(--color-tertiary); }
+    [pgs*="'bdQuaternary'"] { --border-color: var(--color-quaternary); }
+    [pgs*="'bdWhite'"] { --border-color: var(--color-white); }
+    [pgs*="'bdBlack'"] { --border-color: var(--color-black); }
+    [pgs*="'bdBox'"] { --border-color: var(--color-box); }
+    [pgs*="'bdBoxDark'"] { --border-color: var(--color-boxDark); }
+    [pgs*="'bdLink'"] { --border-color: var(--color-link); }
+    [pgs*="'bdInfo'"] { --border-color: var(--color-info); }
+    [pgs*="'bdError'"] { --border-color: var(--color-error); }
+    [pgs*="'bdWarning'"] { --border-color: var(--color-warning); }
+    [pgs*="'bdSuccess'"] { --border-color: var(--color-success); }
+    [pgs*="'bdGray'"] { --border-color: var(--color-gray); }
 }
 
 //- BLOCK
 :is([pgs~="borderBlock"], [pgs*="borderBlock\5B"]) {
     &:not([pgs*="borderBlock\5B"]) { border-block: var(--border-width) solid var(--border-color); }
-    &[pgs*="'brdblThin'"] { border-block: 1px solid var(--border-color); }
-    &[pgs*="'brdblThick'"] { border-block: 3px solid var(--border-color); }
-    &[pgs*="'brdblThicker'"] { border-block: 4.5px solid var(--border-color); }
+    &[pgs*="'bdblThin'"] { border-block: 1px solid var(--border-color); }
+    &[pgs*="'bdblThick'"] { border-block: 3px solid var(--border-color); }
+    &[pgs*="'bdblThicker'"] { border-block: 4.5px solid var(--border-color); }
 }
 
 //- INLINE
 :is([pgs~="borderInline"], [pgs*="borderInline\5B"]) {
     &:not([pgs*="borderInline\5B"]) { border-inline: var(--border-width) solid var(--border-color); }
-    &[pgs*="'brdiThin'"] { border-inline: 1px solid var(--border-color); }
-    &[pgs*="'brdiThick'"] { border-inline: 3px solid var(--border-color); }
-    &[pgs*="'brdiThicker'"] { border-inline: 4.5px solid var(--border-color); }
+    &[pgs*="'bdiThin'"] { border-inline: 1px solid var(--border-color); }
+    &[pgs*="'bdiThick'"] { border-inline: 3px solid var(--border-color); }
+    &[pgs*="'bdiThicker'"] { border-inline: 4.5px solid var(--border-color); }
 }
 
 //- TOP
 :is([pgs~="borderTop"], [pgs*="borderTop\5B"]) {
     &:not([pgs*="borderTop\5B"]) { border-top: var(--border-width) solid var(--border-color); }
-    &[pgs*="'brdtThin'"] { border-top: 1px solid var(--border-color); }
-    &[pgs*="'brdtThick'"] { border-top: 3px solid var(--border-color); }
-    &[pgs*="'brdtThicker'"] { border-top: 4.5px solid var(--border-color); }
+    &[pgs*="'bdtThin'"] { border-top: 1px solid var(--border-color); }
+    &[pgs*="'bdtThick'"] { border-top: 3px solid var(--border-color); }
+    &[pgs*="'bdtThicker'"] { border-top: 4.5px solid var(--border-color); }
 }
 
 //- RIGHT
 :is([pgs~="borderRight"], [pgs*="borderRight\5B"]) {
     &:not([pgs*="borderRight\5B"]) { border-right: var(--border-width) solid var(--border-color); }
-    &[pgs*="'brdrThin'"] { border-right: 1px solid var(--border-color); }
-    &[pgs*="'brdrThick'"] { border-right: 3px solid var(--border-color); }
-    &[pgs*="'brdrThicker'"] { border-right: 4.5px solid var(--border-color); }
+    &[pgs*="'bdrThin'"] { border-right: 1px solid var(--border-color); }
+    &[pgs*="'bdrThick'"] { border-right: 3px solid var(--border-color); }
+    &[pgs*="'bdrThicker'"] { border-right: 4.5px solid var(--border-color); }
 }
 
 //- BOTTOM
 :is([pgs~="borderBottom"], [pgs*="borderBottom\5B"]) {
     &:not([pgs*="borderBottom\5B"]) { border-bottom: var(--border-width) solid var(--border-color); }
-    &[pgs*="'brdbThin'"] { border-bottom: 1px solid var(--border-color); }
-    &[pgs*="'brdbThick'"] { border-bottom: 3px solid var(--border-color); }
-    &[pgs*="'brdbThicker'"] { border-bottom: 4.5px solid var(--border-color); }
+    &[pgs*="'bdbThin'"] { border-bottom: 1px solid var(--border-color); }
+    &[pgs*="'bdbThick'"] { border-bottom: 3px solid var(--border-color); }
+    &[pgs*="'bdbThicker'"] { border-bottom: 4.5px solid var(--border-color); }
 }
 
 //- LEFT
 :is([pgs~="borderLeft"], [pgs*="borderLeft\5B"]) {
     &:not([pgs*="borderLeft\5B"]) { border-left: var(--border-width) solid var(--border-color); }
-    &[pgs*="'brdlThin'"] { border-left: 1px solid var(--border-color); }
-    &[pgs*="'brdlThick'"] { border-left: 3px solid var(--border-color); }
-    &[pgs*="'brdlThicker'"] { border-left: 4.5px solid var(--border-color); }
+    &[pgs*="'bdlThin'"] { border-left: 1px solid var(--border-color); }
+    &[pgs*="'bdlThick'"] { border-left: 3px solid var(--border-color); }
+    &[pgs*="'bdlThicker'"] { border-left: 4.5px solid var(--border-color); }
 }
 
 //= BORDER RADIUS
