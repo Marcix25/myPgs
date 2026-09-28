@@ -81,8 +81,8 @@
     }
 
     //== BUTTON CURRENT
-    &:where([aria-current=page]),
-    &:where([aria-selected=true]) {
+    &[aria-current=page],
+    &[aria-selected=true] {
         @include _buttonColor("-current");
     }
 
@@ -144,9 +144,7 @@
 }
 
 //== BUTTON STRONG
-@mixin buttonStrong() {
-    @include _buttonColor("-strong");
-}
+@mixin buttonStrong() { @include _buttonColor("-strong"); }
 
 //== BUTTON MINI
 @mixin buttonMini() {
@@ -190,9 +188,7 @@
 }
 
 //== BUTTON PADDING EQUAL
-@mixin buttonPaddingEqual() {
-    --button-padding: var(--button-padding-block);
-}
+@mixin buttonPaddingEqual() { --button-padding: var(--button-padding-block); }
 
 //== HEADER
 //=== BUTTON HEADER

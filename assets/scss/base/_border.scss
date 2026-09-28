@@ -2,75 +2,82 @@
 
 //# BORDER - BORDER RADIUS - OUTLINE
 //= BORDER
-// the colour flags (brPrimary, olPrimary, ...) live here too, not in base/_color.scss, since they
-// share this same border/outline bracket with the thickness flags — border['brdTop' 'brPrimary']
-// sets width and colour together
+
+//- WIDTH
 :is([pgs~="border"], [pgs*="border\5B"]) {
 
-    //== fires whenever no brd* thickness flag is present — no bracket at all, an empty bracket, or
-    //== a bracket holding only a colour flag from base/_color.scss (border['brPrimary'] alone still
-    //== needs a width and style to actually draw, not just a colour)
-    &:not([pgs*="'brd"]) { border: var(--border-width) solid var(--border-color); }
+    &:not([pgs*="'brd"]) { border: var(--border-width) solid var(--border-color);  }
 
-    //- BASE (all four sides)
+    //- BASE (all four sides) — unchanged, still general
     &[pgs*="'brdThin'"] { border: 1px solid var(--border-color); }
     &[pgs*="'brdThick'"] { border: 3px solid var(--border-color); }
     &[pgs*="'brdThicker'"] { border: 4.5px solid var(--border-color); }
+}
 
-    //- BLOCK
-    &[pgs*="'brdBlock'"] { border-block: var(--border-width) solid var(--border-color); }
-    &[pgs*="'brdBlockThin'"] { border-block: 1px solid var(--border-color); }
-    &[pgs*="'brdBlockThick'"] { border-block: 3px solid var(--border-color); }
-    &[pgs*="'brdBlockThicker'"] { border-block: 4.5px solid var(--border-color); }
+//- COLOR
+:is([pgs*="border\5B"],[pgs*="borderBlock\5B"], [pgs*="borderInline\5B"], [pgs*="borderTop\5B"], [pgs*="borderRight\5B"], [pgs*="borderBottom\5B"], [pgs*="borderLeft\5B"]) {
+    [pgs*="'brPrimary'"] { --border-color: var(--color-primary); }
+    [pgs*="'brSecondary'"] { --border-color: var(--color-secondary); }
+    [pgs*="'brTertiary'"] { --border-color: var(--color-tertiary); }
+    [pgs*="'brQuaternary'"] { --border-color: var(--color-quaternary); }
+    [pgs*="'brWhite'"] { --border-color: var(--color-white); }
+    [pgs*="'brBlack'"] { --border-color: var(--color-black); }
+    [pgs*="'brBox'"] { --border-color: var(--color-box); }
+    [pgs*="'brBoxDark'"] { --border-color: var(--color-boxDark); }
+    [pgs*="'brLink'"] { --border-color: var(--color-link); }
+    [pgs*="'brInfo'"] { --border-color: var(--color-info); }
+    [pgs*="'brError'"] { --border-color: var(--color-error); }
+    [pgs*="'brWarning'"] { --border-color: var(--color-warning); }
+    [pgs*="'brSuccess'"] { --border-color: var(--color-success); }
+    [pgs*="'brGray'"] { --border-color: var(--color-gray); }
+}
 
-    //- INLINE
-    &[pgs*="'brdInline'"] { border-inline: var(--border-width) solid var(--border-color); }
-    &[pgs*="'brdInlineThin'"] { border-inline: 1px solid var(--border-color); }
-    &[pgs*="'brdInlineThick'"] { border-inline: 3px solid var(--border-color); }
-    &[pgs*="'brdInlineThicker'"] { border-inline: 4.5px solid var(--border-color); }
+//- BLOCK
+:is([pgs~="borderBlock"], [pgs*="borderBlock\5B"]) {
+    &:not([pgs*="borderBlock\5B"]) { border-block: var(--border-width) solid var(--border-color); }
+    &[pgs*="'brdblThin'"] { border-block: 1px solid var(--border-color); }
+    &[pgs*="'brdblThick'"] { border-block: 3px solid var(--border-color); }
+    &[pgs*="'brdblThicker'"] { border-block: 4.5px solid var(--border-color); }
+}
 
-    //- TOP
-    &[pgs*="'brdTop'"] { border-top: var(--border-width) solid var(--border-color); }
-    &[pgs*="'brdTopThin'"] { border-top: 1px solid var(--border-color); }
-    &[pgs*="'brdTopThick'"] { border-top: 3px solid var(--border-color); }
-    &[pgs*="'brdTopThicker'"] { border-top: 4.5px solid var(--border-color); }
+//- INLINE
+:is([pgs~="borderInline"], [pgs*="borderInline\5B"]) {
+    &:not([pgs*="borderInline\5B"]) { border-inline: var(--border-width) solid var(--border-color); }
+    &[pgs*="'brdiThin'"] { border-inline: 1px solid var(--border-color); }
+    &[pgs*="'brdiThick'"] { border-inline: 3px solid var(--border-color); }
+    &[pgs*="'brdiThicker'"] { border-inline: 4.5px solid var(--border-color); }
+}
 
-    //- RIGHT
-    &[pgs*="'brdRight'"] { border-right: var(--border-width) solid var(--border-color); }
-    &[pgs*="'brdRightThin'"] { border-right: 1px solid var(--border-color); }
-    &[pgs*="'brdRightThick'"] { border-right: 3px solid var(--border-color); }
-    &[pgs*="'brdRightThicker'"] { border-right: 4.5px solid var(--border-color); }
+//- TOP
+:is([pgs~="borderTop"], [pgs*="borderTop\5B"]) {
+    &:not([pgs*="borderTop\5B"]) { border-top: var(--border-width) solid var(--border-color); }
+    &[pgs*="'brdtThin'"] { border-top: 1px solid var(--border-color); }
+    &[pgs*="'brdtThick'"] { border-top: 3px solid var(--border-color); }
+    &[pgs*="'brdtThicker'"] { border-top: 4.5px solid var(--border-color); }
+}
 
-    //- BOTTOM
-    &[pgs*="'brdBottom'"] { border-bottom: var(--border-width) solid var(--border-color); }
-    &[pgs*="'brdBottomThin'"] { border-bottom: 1px solid var(--border-color); }
-    &[pgs*="'brdBottomThick'"] { border-bottom: 3px solid var(--border-color); }
-    &[pgs*="'brdBottomThicker'"] { border-bottom: 4.5px solid var(--border-color); }
+//- RIGHT
+:is([pgs~="borderRight"], [pgs*="borderRight\5B"]) {
+    &:not([pgs*="borderRight\5B"]) { border-right: var(--border-width) solid var(--border-color); }
+    &[pgs*="'brdrThin'"] { border-right: 1px solid var(--border-color); }
+    &[pgs*="'brdrThick'"] { border-right: 3px solid var(--border-color); }
+    &[pgs*="'brdrThicker'"] { border-right: 4.5px solid var(--border-color); }
+}
 
-    //- LEFT
-    &[pgs*="'brdLeft'"] { border-left: var(--border-width) solid var(--border-color); }
-    &[pgs*="'brdLeftThin'"] { border-left: 1px solid var(--border-color); }
-    &[pgs*="'brdLeftThick'"] { border-left: 3px solid var(--border-color); }
-    &[pgs*="'brdLeftThicker'"] { border-left: 4.5px solid var(--border-color); }
+//- BOTTOM
+:is([pgs~="borderBottom"], [pgs*="borderBottom\5B"]) {
+    &:not([pgs*="borderBottom\5B"]) { border-bottom: var(--border-width) solid var(--border-color); }
+    &[pgs*="'brdbThin'"] { border-bottom: 1px solid var(--border-color); }
+    &[pgs*="'brdbThick'"] { border-bottom: 3px solid var(--border-color); }
+    &[pgs*="'brdbThicker'"] { border-bottom: 4.5px solid var(--border-color); }
+}
 
-    //- COLOR
-    //== every brd* rule above already reads var(--border-color), so setting the custom property
-    //== alone is enough — no need to also set the real border-color property, same as outline's
-    //== colour flags below already do
-    &[pgs*="'brPrimary'"] { --border-color: var(--color-primary); }
-    &[pgs*="'brSecondary'"] { --border-color: var(--color-secondary); }
-    &[pgs*="'brTertiary'"] { --border-color: var(--color-tertiary); }
-    &[pgs*="'brQuaternary'"] { --border-color: var(--color-quaternary); }
-    &[pgs*="'brWhite'"] { --border-color: var(--color-white); }
-    &[pgs*="'brBlack'"] { --border-color: var(--color-black); }
-    &[pgs*="'brBox'"] { --border-color: var(--color-box); }
-    &[pgs*="'brBoxDark'"] { --border-color: var(--color-boxDark); }
-    &[pgs*="'brLink'"] { --border-color: var(--color-link); }
-    &[pgs*="'brInfo'"] { --border-color: var(--color-info); }
-    &[pgs*="'brError'"] { --border-color: var(--color-error); }
-    &[pgs*="'brWarning'"] { --border-color: var(--color-warning); }
-    &[pgs*="'brSuccess'"] { --border-color: var(--color-success); }
-    &[pgs*="'brGray'"] { --border-color: var(--color-gray); }
+//- LEFT
+:is([pgs~="borderLeft"], [pgs*="borderLeft\5B"]) {
+    &:not([pgs*="borderLeft\5B"]) { border-left: var(--border-width) solid var(--border-color); }
+    &[pgs*="'brdlThin'"] { border-left: 1px solid var(--border-color); }
+    &[pgs*="'brdlThick'"] { border-left: 3px solid var(--border-color); }
+    &[pgs*="'brdlThicker'"] { border-left: 4.5px solid var(--border-color); }
 }
 
 //= BORDER RADIUS
@@ -90,18 +97,18 @@
     &[pgs*="'otlThicker'"] { --outline-width: 4.5px; }
 
     //- COLOR
-    &[pgs*="'olPrimary'"] { --outline-color: var(--color-primary); }
-    &[pgs*="'olSecondary'"] { --outline-color: var(--color-secondary); }
-    &[pgs*="'olTertiary'"] { --outline-color: var(--color-tertiary); }
-    &[pgs*="'olQuaternary'"] { --outline-color: var(--color-quaternary); }
-    &[pgs*="'olWhite'"] { --outline-color: var(--color-white); }
-    &[pgs*="'olBlack'"] { --outline-color: var(--color-black); }
-    &[pgs*="'olBox'"] { --outline-color: var(--color-box); }
-    &[pgs*="'olBoxDark'"] { --outline-color: var(--color-boxDark); }
-    &[pgs*="'olLink'"] { --outline-color: var(--color-link); }
-    &[pgs*="'olInfo'"] { --outline-color: var(--color-info); }
-    &[pgs*="'olError'"] { --outline-color: var(--color-error); }
-    &[pgs*="'olWarning'"] { --outline-color: var(--color-warning); }
-    &[pgs*="'olSuccess'"] { --outline-color: var(--color-success); }
-    &[pgs*="'olGray'"] { --outline-color: var(--color-gray); }
+    &[pgs*="'otlPrimary'"] { --outline-color: var(--color-primary); }
+    &[pgs*="'otlSecondary'"] { --outline-color: var(--color-secondary); }
+    &[pgs*="'otlTertiary'"] { --outline-color: var(--color-tertiary); }
+    &[pgs*="'otlQuaternary'"] { --outline-color: var(--color-quaternary); }
+    &[pgs*="'otlWhite'"] { --outline-color: var(--color-white); }
+    &[pgs*="'otlBlack'"] { --outline-color: var(--color-black); }
+    &[pgs*="'otlBox'"] { --outline-color: var(--color-box); }
+    &[pgs*="'otlBoxDark'"] { --outline-color: var(--color-boxDark); }
+    &[pgs*="'otlLink'"] { --outline-color: var(--color-link); }
+    &[pgs*="'otlInfo'"] { --outline-color: var(--color-info); }
+    &[pgs*="'otlError'"] { --outline-color: var(--color-error); }
+    &[pgs*="'otlWarning'"] { --outline-color: var(--color-warning); }
+    &[pgs*="'otlSuccess'"] { --outline-color: var(--color-success); }
+    &[pgs*="'otlGray'"] { --outline-color: var(--color-gray); }
 }

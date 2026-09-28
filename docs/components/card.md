@@ -24,11 +24,7 @@ Reusable surfaces for presenting structured card content or grouping simpler con
 ### PGS
 
 - `button`: presents the card action as a standard button.
-- `margin`: provides the spacing utility used here.
-
-### PGS Options (component brackets)
-
-- `mrgTop`: inside margin's own bracket, separates the card action from the preceding text.
+- `marginTop`: provides the spacing utility used here, separating the card action from the preceding text.
 
 ### Other
 
@@ -64,7 +60,7 @@ Descriptive card content suitable for lists, previews, and grids.
     <div pgs="card-content">
         <h3>Lorem ipsum dolor</h3>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        <a pgs="button margin['mrgTop']" href="#">Read more</a>
+        <a pgs="button marginTop" href="#">Read more</a>
     </div>
 </article>
 ```

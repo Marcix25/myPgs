@@ -7,10 +7,9 @@
 //== this element anywhere in the document independently of the wrapper. The flag selectors below
 //== don't check _dialog specifically — see AGENTS-DEVELOPMENT.md for why a bracket flag never
 //== needs to be scoped to the token that carries it.
-
-html:has(dialog[open]) { 
-    cursor: pointer; 
-    // overflow: hidden;
+html:has(dialog[open]) {
+    cursor: pointer;
+    overflow: hidden;
 }
 
 //= MODAL
@@ -18,6 +17,16 @@ html:has(dialog[open]) {
 
     //== MODAL BUTTON
     :where([pgs~="modal-button"]) {}
+
+    //== CLOSE
+    // a hand-written close button keeps the bare name; a generated one gets the underscore
+    // (see _modal.js), so this needs both
+    :where([pgs~="modal-close"]) {
+
+        //=== IS OPEN
+        // swaps the drawn glyph via the --icon custom property (see _icon.scss)
+        &[aria-expanded="true"] i { --icon: var(--icon-glyph-close); }
+    }
 
     //- DATA
     //== read by the JavaScript only: declared here so editors suggest them
@@ -48,7 +57,7 @@ html:has(dialog[open]) {
 
 //= DIALOG
 :where(dialog[pgs~="modal-dialog"]) {
-    --modal-backdrop: var(--backdrop);
+    --modal-backdrop: linear-gradient(180deg, #0000007a 90%, transparent);
     --modal-background: var(--color-background);
     --modal-color: var(--color-black);
     --modal-content-padding: var(--padding);
@@ -140,8 +149,6 @@ html:has(dialog[open]) {
     }
 
     //== CLOSE
-    //== a hand-written close button keeps the bare name; a generated one gets the underscore
-    //== (see _modal.js), so this needs both
     >:where([pgs~="modal-close"]),
     >:where([pgs~="_modal-close"]) {
         position: fixed !important;
@@ -170,6 +177,19 @@ html:has(dialog[open]) {
     // _modal.js waits for before it really closes the dialog
     &[pgs*="'dialogDragClose'"] {
         transition: opacity 600ms ease, background-color var(--modal-animation-timing) var(--modal-animation-easing);
+
+        [pgs~="modal-dialog-content"]::before {
+            content: "";
+            position: absolute;
+            height: 4px;
+            width: max(50%);
+            max-width: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-gray);
+            top: 11px;
+            border-radius: 4px;
+        }
 
         &::backdrop { transition: opacity var(--modal-animation-timing) var(--modal-animation-easing); }
         :where([pgs~="modal-dialog-content"]) { transition: transform var(--modal-animation-timing) var(--modal-animation-easing); }
@@ -203,6 +223,7 @@ html:has(dialog[open]) {
         //== the panel still follows the finger, but springs back and leaves at once: _modal.js
         //== finds no transition to wait for and closes straight away
         @media (prefers-reduced-motion: reduce) {
+
             &,
             &::backdrop,
             :where([pgs~="modal-dialog-content"]) {
@@ -276,11 +297,14 @@ html:has(dialog[open]) {
         //== from the other side, or to overshoot and settle. clip is no scroll container at all,
         //== so nothing can scroll it; only on the way in, when the dialog has not been scrolled
         //== yet — on the way out, clip would throw away the reader's scroll position
-        &[pgs-state~="animationIn"] { overflow: clip; }
+        &[pgs-state~="animationIn"] {
+            overflow: clip;
+        }
 
         //=== OUT
         //== the same keyframes played backwards: the panel goes back where it came from
         &[pgs-state~="animationOut"] {
+
             &,
             &::backdrop,
             :where([pgs~="modal-dialog-content"]) {
@@ -293,6 +317,7 @@ html:has(dialog[open]) {
         //== (the panel's own keyframes are turned off after the options that name them, below)
         @media (prefers-reduced-motion: reduce) {
             &:is([pgs-state~="animationIn"], [pgs-state~="animationOut"]) {
+
                 &,
                 &::backdrop {
                     animation: none;

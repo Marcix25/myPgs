@@ -66,14 +66,14 @@ Width and height utilities, each driven by its own custom property: --width-size
 - `main`: sets --main-padding-top, which underMain subtracts from the viewport height.
 - `box`: makes the measured elements visible.
 - `overflow`: scrolls the content a heightMax element cannot show.
-- `margin`: provides the spacing utility used here.
+- `marginInline`: provides the spacing utility used here.
 
 ### PGS Options (component brackets)
 
 - `column`: arranges the groups vertically.
 - `row`: places the column and viewport examples side by side.
 - `ovAuto`: inside overflow's own bracket, adds scrolling only when content overflows.
-- `mrgInlineAuto`: inside margin's own bracket, pairs with auto to centre a constrained element.
+- `mriAuto`: inside marginInline's own bracket, pairs with auto to centre a constrained element.
 - `gapTexts`: separates the examples inside a group.
 - `gapElements`: separates the side by side examples.
 - `flexCenter`: centres the label inside each measured block.
@@ -109,7 +109,7 @@ Without an option the value comes from the utility's own -size property (--width
 <strong>Arbitrary width</strong>
 <p pgs="box width" style="--width-size: 600px">Six hundred pixels, capped at the container.</p>
 <p pgs="box widthMin" style="--widthMin-size: 400px">At least four hundred pixels.</p>
-<p pgs="box widthMax margin['mrgInlineAuto']" style="--widthMax-size: 500px">Capped at five hundred pixels and centred.</p>
+<p pgs="box widthMax marginInline['mriAuto']" style="--widthMax-size: 500px">Capped at five hundred pixels and centred.</p>
 ```
 
 ### Two columns

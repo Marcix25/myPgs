@@ -2,86 +2,123 @@ import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
 
 const API = new WeakMap();
 
-function pageNavRoots(root) {
-    const roots = [];
-    if (root instanceof Element && pgs(root).contains("pageNav")) roots.push(root);
-    roots.push(...pgs(root).querySelectorAll("pageNav"));
-    return roots;
-}
+const pageNavUtil = {
+    // the browser retries "scroll to #fragment" for a while after load if the target wasn't ready
+    // yet on the first pass (still true once a panel becomes visible and images further down
+    // shift the layout) — by the time it retries, the reader may already have scrolled elsewhere
+    // themselves, and the retry yanks them back. Captured once here, as early as this module
+    // runs, so the panel it names can still be selected below after the URL is stripped of it.
+    initialHash: window.location.hash,
+
+    stripHash() {
+        history.replaceState(history.state, "", window.location.pathname + window.location.search);
+    },
+
+    // replaceState never triggers a scroll on its own (only real navigation does), so removing
+    // the fragment now leaves the browser nothing to retry-scroll to, first pass or later, and
+    // adding it straight back afterwards is just as inert — a reload or a bookmark still lands on
+    // the same panel, only the browser's own automatic scroll attempt is skipped
+    restoreHash(id) {
+        history.replaceState(history.state, "", window.location.pathname + window.location.search + "#" + id);
+    },
+
+    roots(root) {
+        const roots = [];
+        if (root instanceof Element && pgs(root).contains("pageNav")) roots.push(root);
+        roots.push(...pgs(root).querySelectorAll("pageNav"));
+        return roots;
+    },
+};
 
 function PGS_pageNav_init(root = document) {
-    pageNavRoots(root).forEach((pageNav) => {
+    pageNavUtil.roots(root).forEach((pageNav) => {
         if (API.has(pageNav)) return;
 
-        const panelsRoot = pgs(pageNav).querySelector("pageNav-panels");
-        const panelItems = panelsRoot ? Array.from(pgs(panelsRoot).querySelectorAll("pageNav-panels-content")) : [];
-        //== every pageNav-list is its own <nav>: the desktop sidebar and the one inside the mobile
-        //== dialog both hold the same links, kept in sync together, so items are read across every
-        //== list at once instead of assuming there is only one
-        const items = Array.from(pgs(pageNav).querySelectorAll("pageNav-list-item"));
-        if (!panelItems.length || !items.length) return;
+        const nav = {
+            panelsRoot: pgs(pageNav).querySelector("pageNav-panels"),
+            // every pageNav-list is its own <nav>: the desktop sidebar and the one inside the
+            // mobile dialog both hold the same links, kept in sync together, so items are read
+            // across every list at once instead of assuming there is only one
+            items: Array.from(pgs(pageNav).querySelectorAll("pageNav-list-item")),
+            panelItems: [],
+            current: null,
 
-        //== a panel is addressed by its own id, matched against an item's href fragment: the same
-        //== mechanism the browser already uses to jump to it, so no extra bookkeeping is needed to
-        //== keep several lists and one panel set in agreement
-        function panelIdFor(item) {
-            const href = item.getAttribute("href") || "";
-            return href.startsWith("#") ? href.slice(1) : null;
-        }
+            // a panel is addressed by its own id, matched against an item's href fragment: the
+            // same mechanism the browser already uses to jump to it, so no extra bookkeeping is
+            // needed to keep several lists and one panel set in agreement
+            panelIdFor(item) {
+                const href = item.getAttribute("href") || "";
+                return href.startsWith("#") ? href.slice(1) : null;
+            },
 
-        function itemsFor(panelId) {
-            return items.filter(item => panelIdFor(item) === panelId);
-        }
+            itemsFor(panelId) {
+                return this.items.filter(item => this.panelIdFor(item) === panelId);
+            },
 
-        //== active is the mark of the one panel to show, matching the same convention tabs uses:
-        //== a panel already marked active in the markup is where a hashless load lands
-        let current = panelItems.find(panel => pgs(panel).state.contains("active")) || panelItems[0];
+            select(panelId, { resetScroll = true } = {}) {
+                const panel = this.panelItems.find(item => item.id === panelId);
+                if (!panel) return;
+                this.current = panel;
 
-        function select(panelId, { resetScroll = true } = {}) {
-            const panel = panelItems.find(item => item.id === panelId);
-            if (!panel) return;
-            current = panel;
+                this.panelItems.forEach(item => pgs(item).state.toggle("active", item === panel));
+                this.items.forEach(item => {
+                    if (this.panelIdFor(item) === panel.id) item.setAttribute("aria-current", "page");
+                    else item.removeAttribute("aria-current");
+                });
 
-            panelItems.forEach(item => pgs(item).state.toggle("active", item === panel));
-            items.forEach(item => {
-                if (panelIdFor(item) === panel.id) item.setAttribute("aria-current", "page");
-                else item.removeAttribute("aria-current");
-            });
+                // closes whichever nav the reader just used when it lives inside a dialog (the
+                // mobile "Browse docs" panel), the same way any other navigation should tidy up
+                // after itself
+                this.itemsFor(panel.id).forEach(item => item.closest("dialog[open]")?.close());
 
-            //== closes whichever nav the reader just used when it lives inside a dialog (the
-            //== mobile "Browse docs" panel), the same way any other navigation should tidy up
-            //== after itself
-            itemsFor(panel.id).forEach(item => item.closest("dialog[open]")?.close());
+                if (resetScroll) window.scrollTo({ top: 0, behavior: "instant" });
 
-            if (resetScroll) window.scrollTo({ top: 0, behavior: "instant" });
+                pageNav.dispatchEvent(new CustomEvent("pgs:pageNav:change", {
+                    detail: { panel, items: this.itemsFor(panel.id) },
+                }));
+            },
 
-            pageNav.dispatchEvent(new CustomEvent("pgs:pageNav:change", {
-                detail: { panel, items: itemsFor(panel.id) },
-            }));
-        }
+            idFromHash(hash) {
+                const id = hash.slice(1);
+                return id && this.panelItems.some(panel => panel.id === id) ? id : null;
+            },
 
-        function fromHash() {
-            const id = window.location.hash.slice(1);
-            return id && panelItems.some(panel => panel.id === id) ? id : null;
-        }
+            fromHash() {
+                return this.idFromHash(window.location.hash);
+            },
+        };
+
+        nav.panelItems = nav.panelsRoot ? Array.from(pgs(nav.panelsRoot).querySelectorAll("pageNav-panels-content")) : [];
+        if (!nav.panelItems.length || !nav.items.length) return;
+
+        // active is the mark of the one panel to show, matching the same convention tabs uses:
+        // a panel already marked active in the markup is where a hashless load lands
+        nav.current = nav.panelItems.find(panel => pgs(panel).state.contains("active")) || nav.panelItems[0];
 
         window.addEventListener("hashchange", () => {
-            const id = fromHash();
-            if (id) select(id);
+            const id = nav.fromHash();
+            if (id) nav.select(id);
         });
 
-        //== the URL wins over whatever the markup already shows: a reload lands on the panel the
-        //== reader left, and the first pass never resets the scroll position it starts at
-        select(fromHash() || current.id, { resetScroll: false });
+        // the URL wins over whatever the markup already shows: a reload lands on the panel the
+        // reader left, and the first pass never resets the scroll position it starts at. Reads
+        // the hash captured once at the top of this module, not the live window.location.hash,
+        // which another pageNav root's own init pass may have already stripped or restored by
+        // the time this one runs.
+        const initialPanelId = nav.idFromHash(pageNavUtil.initialHash);
+
+        if (initialPanelId) pageNavUtil.stripHash();
+        nav.select(initialPanelId || nav.current.id, { resetScroll: false });
+        if (initialPanelId) pageNavUtil.restoreHash(initialPanelId);
 
         API.set(pageNav, {
             element: pageNav,
-            panels: panelsRoot,
+            panels: nav.panelsRoot,
             select: (panelId) => {
                 window.location.hash = panelId;
-                select(panelId);
+                nav.select(panelId);
             },
-            getCurrent: () => current,
+            getCurrent: () => nav.current,
             refresh: () => {
                 API.delete(pageNav);
                 PGS_pageNav_init(pageNav.parentNode || document);

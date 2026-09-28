@@ -212,36 +212,52 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "brdThick",
+            "brdThicker",
+            "brdThin"
+        ],
+        "pgs-data": []
+    },
+    "borderBlock": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "brdblThick",
+            "brdblThicker",
+            "brdblThin"
+        ],
+        "pgs-data": []
+    },
+    "borderBottom": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "brdbThick",
+            "brdbThicker",
+            "brdbThin"
+        ],
+        "pgs-data": []
+    },
+    "borderInline": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "brdiThick",
+            "brdiThicker",
+            "brdiThin"
+        ],
+        "pgs-data": []
+    },
+    "borderLeft": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
             "brBlack",
             "brBox",
             "brBoxDark",
-            "brdBlock",
-            "brdBlockThick",
-            "brdBlockThicker",
-            "brdBlockThin",
-            "brdBottom",
-            "brdBottomThick",
-            "brdBottomThicker",
-            "brdBottomThin",
-            "brdInline",
-            "brdInlineThick",
-            "brdInlineThicker",
-            "brdInlineThin",
-            "brdLeft",
-            "brdLeftThick",
-            "brdLeftThicker",
-            "brdLeftThin",
-            "brdRight",
-            "brdRightThick",
-            "brdRightThicker",
-            "brdRightThin",
-            "brdThick",
-            "brdThicker",
-            "brdThin",
-            "brdTop",
-            "brdTopThick",
-            "brdTopThicker",
-            "brdTopThin",
+            "brdlThick",
+            "brdlThicker",
+            "brdlThin",
             "brError",
             "brGray",
             "brInfo",
@@ -262,6 +278,26 @@
         "pgs-options": [
             "radExternal",
             "radInput"
+        ],
+        "pgs-data": []
+    },
+    "borderRight": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "brdrThick",
+            "brdrThicker",
+            "brdrThin"
+        ],
+        "pgs-data": []
+    },
+    "borderTop": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "brdtThick",
+            "brdtThicker",
+            "brdtThin"
         ],
         "pgs-data": []
     },
@@ -303,8 +339,7 @@
             "btnStrong",
             "btnTertiary",
             "btnText",
-            "btnTransparent",
-            "icon-hamburgerTwo"
+            "btnTransparent"
         ],
         "pgs-data": []
     },
@@ -876,62 +911,104 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "mrgAuto",
-            "mrgBlock",
-            "mrgBlockAuto",
-            "mrgBlockElements",
-            "mrgBlockHalf",
-            "mrgBlockPage",
-            "mrgBlockSections",
-            "mrgBlockTexts",
-            "mrgBlockUnset",
-            "mrgBottom",
-            "mrgBottomAuto",
-            "mrgBottomElements",
-            "mrgBottomHalf",
-            "mrgBottomPage",
-            "mrgBottomSections",
-            "mrgBottomTexts",
-            "mrgBottomUnset",
-            "mrgElements",
-            "mrgHalf",
-            "mrgInline",
-            "mrgInlineAuto",
-            "mrgInlineElements",
-            "mrgInlineHalf",
-            "mrgInlinePage",
-            "mrgInlineSections",
-            "mrgInlineTexts",
-            "mrgInlineUnset",
-            "mrgLeft",
-            "mrgLeftAuto",
-            "mrgLeftElements",
-            "mrgLeftHalf",
-            "mrgLeftPage",
-            "mrgLeftSections",
-            "mrgLeftTexts",
-            "mrgLeftUnset",
-            "mrgNegative",
-            "mrgPage",
-            "mrgRight",
-            "mrgRightAuto",
-            "mrgRightElements",
-            "mrgRightHalf",
-            "mrgRightPage",
-            "mrgRightSections",
-            "mrgRightTexts",
-            "mrgRightUnset",
-            "mrgSections",
-            "mrgTexts",
-            "mrgTop",
-            "mrgTopAuto",
-            "mrgTopElements",
-            "mrgTopHalf",
-            "mrgTopPage",
-            "mrgTopSections",
-            "mrgTopTexts",
-            "mrgTopUnset",
-            "mrgUnset"
+            "mrAuto",
+            "mrElements",
+            "mrHalf",
+            "mrNegative",
+            "mrPage",
+            "mrSections",
+            "mrTexts",
+            "mrUnset"
+        ],
+        "pgs-data": []
+    },
+    "marginBlock": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "mrblAuto",
+            "mrblElements",
+            "mrblHalf",
+            "mrblNegative",
+            "mrblPage",
+            "mrblSections",
+            "mrblTexts",
+            "mrblUnset"
+        ],
+        "pgs-data": []
+    },
+    "marginBottom": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "mrbAuto",
+            "mrbElements",
+            "mrbHalf",
+            "mrbNegative",
+            "mrbPage",
+            "mrbSections",
+            "mrbTexts",
+            "mrbUnset"
+        ],
+        "pgs-data": []
+    },
+    "marginInline": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "mriAuto",
+            "mriElements",
+            "mriHalf",
+            "mriNegative",
+            "mriPage",
+            "mriSections",
+            "mriTexts",
+            "mriUnset"
+        ],
+        "pgs-data": []
+    },
+    "marginLeft": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "mrlAuto",
+            "mrlElements",
+            "mrlHalf",
+            "mrlNegative",
+            "mrlPage",
+            "mrlSections",
+            "mrlTexts",
+            "mrlUnset"
+        ],
+        "pgs-data": []
+    },
+    "marginRight": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "mrrAuto",
+            "mrrElements",
+            "mrrHalf",
+            "mrrNegative",
+            "mrrPage",
+            "mrrSections",
+            "mrrTexts",
+            "mrrUnset"
+        ],
+        "pgs-data": []
+    },
+    "marginTop": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "mrtAuto",
+            "mrtElements",
+            "mrtHalf",
+            "mrtNegative",
+            "mrtPage",
+            "mrtSections",
+            "mrtTexts",
+            "mrtUnset"
         ],
         "pgs-data": []
     },
@@ -1019,23 +1096,23 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "olBlack",
-            "olBox",
-            "olBoxDark",
-            "olError",
-            "olGray",
-            "olInfo",
-            "olLink",
-            "olPrimary",
-            "olQuaternary",
-            "olSecondary",
-            "olSuccess",
-            "olTertiary",
-            "olWarning",
-            "olWhite",
+            "otlBlack",
+            "otlBox",
+            "otlBoxDark",
+            "otlError",
+            "otlGray",
+            "otlInfo",
+            "otlLink",
+            "otlPrimary",
+            "otlQuaternary",
+            "otlSecondary",
+            "otlSuccess",
+            "otlTertiary",
             "otlThick",
             "otlThicker",
-            "otlThin"
+            "otlThin",
+            "otlWarning",
+            "otlWhite"
         ],
         "pgs-data": []
     },
@@ -1056,54 +1133,90 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "padBlock",
-            "padBlockElements",
-            "padBlockHalf",
-            "padBlockPage",
-            "padBlockSections",
-            "padBlockTexts",
-            "padBlockUnset",
-            "padBottom",
-            "padBottomElements",
-            "padBottomHalf",
-            "padBottomPage",
-            "padBottomSections",
-            "padBottomTexts",
-            "padBottomUnset",
-            "padElements",
-            "padHalf",
-            "padInline",
-            "padInlineElements",
-            "padInlineHalf",
-            "padInlinePage",
-            "padInlineSections",
-            "padInlineTexts",
-            "padInlineUnset",
-            "padLeft",
-            "padLeftElements",
-            "padLeftHalf",
-            "padLeftPage",
-            "padLeftSections",
-            "padLeftTexts",
-            "padLeftUnset",
-            "padPage",
-            "padRight",
-            "padRightElements",
-            "padRightHalf",
-            "padRightPage",
-            "padRightSections",
-            "padRightTexts",
-            "padRightUnset",
-            "padSections",
-            "padTexts",
-            "padTop",
-            "padTopElements",
-            "padTopHalf",
-            "padTopPage",
-            "padTopSections",
-            "padTopTexts",
-            "padTopUnset",
-            "padUnset"
+            "pdElements",
+            "pdHalf",
+            "pdPage",
+            "pdSections",
+            "pdTexts",
+            "pdUnset"
+        ],
+        "pgs-data": []
+    },
+    "paddingBlock": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "pdblElements",
+            "pdblHalf",
+            "pdblPage",
+            "pdblSections",
+            "pdblTexts",
+            "pdblUnset"
+        ],
+        "pgs-data": []
+    },
+    "paddingBottom": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "pdbElements",
+            "pdbHalf",
+            "pdbPage",
+            "pdbSections",
+            "pdbTexts",
+            "pdbUnset"
+        ],
+        "pgs-data": []
+    },
+    "paddingInline": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "pdiElements",
+            "pdiHalf",
+            "pdiPage",
+            "pdiSections",
+            "pdiTexts",
+            "pdiUnset"
+        ],
+        "pgs-data": []
+    },
+    "paddingLeft": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "pdlElements",
+            "pdlHalf",
+            "pdlPage",
+            "pdlSections",
+            "pdlTexts",
+            "pdlUnset"
+        ],
+        "pgs-data": []
+    },
+    "paddingRight": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "pdrElements",
+            "pdrHalf",
+            "pdrPage",
+            "pdrSections",
+            "pdrTexts",
+            "pdrUnset"
+        ],
+        "pgs-data": []
+    },
+    "paddingTop": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "pdtElements",
+            "pdtHalf",
+            "pdtPage",
+            "pdtSections",
+            "pdtTexts",
+            "pdtUnset"
         ],
         "pgs-data": []
     },

@@ -17,7 +17,7 @@
     width: 100%;
     top: 0;
 
-    //= HEADER TOP
+    //= HEADER ELEMENT
     :where([pgs~="header-element"]) {
         background: var(--header-background);
         color: var(--header-color);
@@ -48,15 +48,8 @@
         :where([pgs~="header-element-onlyCompact"]) {
             display: none;
             gap: var(--header-gap);
-
-            :is([pgs~="button"], [pgs*="button\5B"]) {
-
-                //=== OPEN
-                //== swaps the drawn glyph via the --icon custom property (see _icon.scss)
-                //== instead of animating two mask layers into an X: a plain CSS override, no JS
-                &[aria-expanded="true"] [pgs*="'icon-hamburgerTwo'"] { --icon: var(--icon-glyph-close); }
-            }
         }
+
     }
 
     //= DIALOG

@@ -1,465 +1,200 @@
 //# SPACING: margin, padding
-//== one root each for margin and padding, every direction folded into the flag name (mrgLeft,
-//== padTop, ...) instead of a separate root token per direction — no anchoring assumptions about
-//== flag order or position survive combining two flags in a single bracket, because every flag
-//== name is unique across the whole system. Compiled least-specific-first: base (all four sides),
-//== then block/inline (each a shorthand for two physical sides), then the four single sides — a
-//== physical side always wins over its logical shorthand when both are written, because CSS
-//== resolves that by which one comes later in the cascade, not by specificity. There is a single
-//== shared --margin-sign custom property, flipped to -1 by the base mrgNegative flag alone and
-//== read with a plain `, 1)` fallback in every branch, every direction included — mrgNegative
-//== negates whatever direction/scale is combined with it in the same bracket, since the sign and
-//== the value are two independent properties resolved by the normal cascade, not by which literal
-//== substring happens to sit first inside the bracket. There is no per-direction negative flag.
-//== Padding has no negative variant at all, since negative padding isn't a real thing.
+//== a shared base root for margin and padding (all four sides), plus a separate root per
+//== direction (marginBlock, paddingTop, ...) — each direction's own root reads its own
+//== --{property}-{direction}-sign custom property (base uses the shared --margin-sign), flipped
+//== to -1 by that direction's own Negative flag (mrblNegative, mrtNegative, ...) and read with a
+//== plain `, 1)` fallback, so mrtNegative negates only margin-top even when combined with a
+//== base-level mrHalf/mrTexts/etc in the same bracket. Padding has no negative variant at all,
+//== since negative padding isn't a real thing.
 //= MARGIN
+//== TEST, same as padding above: direction split back out into its own root per side
+//== (marginBlock, marginTop, ...) with a short direction-prefixed scale flag inside each
+//== (mrblHalf, mrtPage, ...) instead of folded into margin's own bracket. Base margin keeps
+//== the short "mr" prefix (mrHalf, ...); direction roots add a direction letter (mrbl, mri, mrt,
+//== mrr, mrb, mrl).
 :is([pgs~="margin"], [pgs*="margin\5B"]) {
+    &:not([pgs*="margin\5B"]) { margin: calc(var(--padding) * var(--margin-sign, 1)); }
 
-    //- BASE (all four sides)
-    //== the default value lives here too, not just below: mrgNegative alone (no scale flag next
+    //- BASE (all four sides) — unchanged, still general
+    //== the default value lives here too, not just below: mrNegative alone (no scale flag next
     //== to it) still needs a value to negate, same as bare margin with no bracket at all
-    &[pgs*="'mrgNegative'"] {
-        --margin-sign: -1;
-    }
+    &[pgs*="'mrNegative'"] { --margin-sign: -1; }
+    &[pgs~="margin['mrNegative']"] { margin: calc(var(--padding) * var(--margin-sign, 1)); }
+    &[pgs*="'mrHalf'"] { margin: calc(var(--padding-half) * var(--margin-sign, 1)); }
+    &[pgs*="'mrTexts'"] { margin: calc(var(--gap-texts) * var(--margin-sign, 1)); }
+    &[pgs*="'mrElements'"] { margin: calc(var(--gap-elements) * var(--margin-sign, 1)); }
+    &[pgs*="'mrSections'"] { margin: calc(var(--gap-sections) * var(--margin-sign, 1)); }
+    &[pgs*="'mrPage'"] { margin: calc(var(--page-padding) * var(--margin-sign, 1)); }
+    &[pgs*="'mrAuto'"] { margin: auto; }
+    &[pgs*="'mrUnset'"] { margin: unset; }
+}
 
-    &[pgs~="margin['mrgNegative']"] {
-        margin: calc(var(--padding) * var(--margin-sign, 1));
-    }
+//- BLOCK
+:is([pgs~="marginBlock"], [pgs*="marginBlock\5B"]) {
+    &:not([pgs*="marginBlock\5B"]) { margin-block: calc(var(--padding) * var(--margin-block-sign, 1)); }
+    &[pgs*="'mrblNegative'"] { --margin-block-sign: -1; }
+    &[pgs~="marginBlock['mrblNegative']"] { margin-block: calc(var(--padding) * var(--margin-block-sign, 1)); }
+    &[pgs*="'mrblHalf'"] { margin-block: calc(var(--padding-half) * var(--margin-block-sign, 1)); }
+    &[pgs*="'mrblTexts'"] { margin-block: calc(var(--gap-texts) * var(--margin-block-sign, 1)); }
+    &[pgs*="'mrblElements'"] { margin-block: calc(var(--gap-elements) * var(--margin-block-sign, 1)); }
+    &[pgs*="'mrblSections'"] { margin-block: calc(var(--gap-sections) * var(--margin-block-sign, 1)); }
+    &[pgs*="'mrblPage'"] { margin-block: calc(var(--page-padding) * var(--margin-block-sign, 1)); }
+    &[pgs*="'mrblAuto'"] { margin-block: auto; }
+    &[pgs*="'mrblUnset'"] { margin-block: unset; }
+}
 
-    &:not([pgs*="margin\5B"]) {
-        margin: calc(var(--padding) * var(--margin-sign, 1));
-    }
+//- INLINE
+:is([pgs~="marginInline"], [pgs*="marginInline\5B"]) {
+    &:not([pgs*="marginInline\5B"]) { margin-inline: calc(var(--padding) * var(--margin-inline-sign, 1)); }
+    &[pgs*="'mriNegative'"] { --margin-inline-sign: -1; }
+    &[pgs~="marginInline['mriNegative']"] { margin-inline: calc(var(--padding) * var(--margin-inline-sign, 1)); }
+    &[pgs*="'mriHalf'"] { margin-inline: calc(var(--padding-half) * var(--margin-inline-sign, 1)); }
+    &[pgs*="'mriTexts'"] { margin-inline: calc(var(--gap-texts) * var(--margin-inline-sign, 1)); }
+    &[pgs*="'mriElements'"] { margin-inline: calc(var(--gap-elements) * var(--margin-inline-sign, 1)); }
+    &[pgs*="'mriSections'"] { margin-inline: calc(var(--gap-sections) * var(--margin-inline-sign, 1)); }
+    &[pgs*="'mriPage'"] { margin-inline: calc(var(--page-padding) * var(--margin-inline-sign, 1)); }
+    &[pgs*="'mriAuto'"] { margin-inline: auto; }
+    &[pgs*="'mriUnset'"] { margin-inline: unset; }
+}
 
-    &[pgs*="'mrgHalf'"] {
-        margin: calc(var(--padding-half) * var(--margin-sign, 1));
-    }
+//- TOP
+:is([pgs~="marginTop"], [pgs*="marginTop\5B"]) {
+    &:not([pgs*="marginTop\5B"]) { margin-top: calc(var(--padding) * var(--margin-top-sign, 1)); }
+    &[pgs*="'mrtNegative'"] { --margin-top-sign: -1; }
+    &[pgs~="marginTop['mrtNegative']"] { margin-top: calc(var(--padding) * var(--margin-top-sign, 1)); }
+    &[pgs*="'mrtHalf'"] { margin-top: calc(var(--padding-half) * var(--margin-top-sign, 1)); }
+    &[pgs*="'mrtTexts'"] { margin-top: calc(var(--gap-texts) * var(--margin-top-sign, 1)); }
+    &[pgs*="'mrtElements'"] { margin-top: calc(var(--gap-elements) * var(--margin-top-sign, 1)); }
+    &[pgs*="'mrtSections'"] { margin-top: calc(var(--gap-sections) * var(--margin-top-sign, 1)); }
+    &[pgs*="'mrtPage'"] { margin-top: calc(var(--page-padding) * var(--margin-top-sign, 1)); }
+    &[pgs*="'mrtAuto'"] { margin-top: auto; }
+    &[pgs*="'mrtUnset'"] { margin-top: unset; }
+}
 
-    &[pgs*="'mrgTexts'"] {
-        margin: calc(var(--gap-texts) * var(--margin-sign, 1));
-    }
+//- RIGHT
+:is([pgs~="marginRight"], [pgs*="marginRight\5B"]) {
+    &:not([pgs*="marginRight\5B"]) { margin-right: calc(var(--padding) * var(--margin-right-sign, 1)); }
+    &[pgs*="'mrrNegative'"] { --margin-right-sign: -1; }
+    &[pgs~="marginRight['mrrNegative']"] { margin-right: calc(var(--padding) * var(--margin-right-sign, 1)); }
+    &[pgs*="'mrrHalf'"] { margin-right: calc(var(--padding-half) * var(--margin-right-sign, 1)); }
+    &[pgs*="'mrrTexts'"] { margin-right: calc(var(--gap-texts) * var(--margin-right-sign, 1)); }
+    &[pgs*="'mrrElements'"] { margin-right: calc(var(--gap-elements) * var(--margin-right-sign, 1)); }
+    &[pgs*="'mrrSections'"] { margin-right: calc(var(--gap-sections) * var(--margin-right-sign, 1)); }
+    &[pgs*="'mrrPage'"] { margin-right: calc(var(--page-padding) * var(--margin-right-sign, 1)); }
+    &[pgs*="'mrrAuto'"] { margin-right: auto; }
+    &[pgs*="'mrrUnset'"] { margin-right: unset; }
+}
 
-    &[pgs*="'mrgElements'"] {
-        margin: calc(var(--gap-elements) * var(--margin-sign, 1));
-    }
+//- BOTTOM
+:is([pgs~="marginBottom"], [pgs*="marginBottom\5B"]) {
+    &:not([pgs*="marginBottom\5B"]) { margin-bottom: calc(var(--padding) * var(--margin-bottom-sign, 1)); }
+    &[pgs*="'mrbNegative'"] { --margin-bottom-sign: -1; }
+    &[pgs~="marginBottom['mrbNegative']"] { margin-bottom: calc(var(--padding) * var(--margin-bottom-sign, 1)); }
+    &[pgs*="'mrbHalf'"] { margin-bottom: calc(var(--padding-half) * var(--margin-bottom-sign, 1)); }
+    &[pgs*="'mrbTexts'"] { margin-bottom: calc(var(--gap-texts) * var(--margin-bottom-sign, 1)); }
+    &[pgs*="'mrbElements'"] { margin-bottom: calc(var(--gap-elements) * var(--margin-bottom-sign, 1)); }
+    &[pgs*="'mrbSections'"] { margin-bottom: calc(var(--gap-sections) * var(--margin-bottom-sign, 1)); }
+    &[pgs*="'mrbPage'"] { margin-bottom: calc(var(--page-padding) * var(--margin-bottom-sign, 1)); }
+    &[pgs*="'mrbAuto'"] { margin-bottom: auto; }
+    &[pgs*="'mrbUnset'"] { margin-bottom: unset; }
+}
 
-    &[pgs*="'mrgSections'"] {
-        margin: calc(var(--gap-sections) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgPage'"] {
-        margin: calc(var(--page-padding) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgAuto'"] {
-        margin: auto;
-    }
-
-    &[pgs*="'mrgUnset'"] {
-        margin: unset;
-    }
-
-    //- BLOCK
-    &[pgs*="'mrgBlock'"] {
-        margin-block: calc(var(--padding) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgBlockHalf'"] {
-        margin-block: calc(var(--padding-half) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgBlockTexts'"] {
-        margin-block: calc(var(--gap-texts) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgBlockElements'"] {
-        margin-block: calc(var(--gap-elements) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgBlockSections'"] {
-        margin-block: calc(var(--gap-sections) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgBlockPage'"] {
-        margin-block: calc(var(--page-padding) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgBlockAuto'"] {
-        margin-block: auto;
-    }
-
-    &[pgs*="'mrgBlockUnset'"] {
-        margin-block: unset;
-    }
-
-    //- INLINE
-    &[pgs*="'mrgInline'"] {
-        margin-inline: calc(var(--padding) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgInlineHalf'"] {
-        margin-inline: calc(var(--padding-half) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgInlineTexts'"] {
-        margin-inline: calc(var(--gap-texts) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgInlineElements'"] {
-        margin-inline: calc(var(--gap-elements) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgInlineSections'"] {
-        margin-inline: calc(var(--gap-sections) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgInlinePage'"] {
-        margin-inline: calc(var(--page-padding) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgInlineAuto'"] {
-        margin-inline: auto;
-    }
-
-    &[pgs*="'mrgInlineUnset'"] {
-        margin-inline: unset;
-    }
-
-    //- TOP
-    &[pgs*="'mrgTop'"] {
-        margin-top: calc(var(--padding) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgTopHalf'"] {
-        margin-top: calc(var(--padding-half) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgTopTexts'"] {
-        margin-top: calc(var(--gap-texts) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgTopElements'"] {
-        margin-top: calc(var(--gap-elements) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgTopSections'"] {
-        margin-top: calc(var(--gap-sections) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgTopPage'"] {
-        margin-top: calc(var(--page-padding) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgTopAuto'"] {
-        margin-top: auto;
-    }
-
-    &[pgs*="'mrgTopUnset'"] {
-        margin-top: unset;
-    }
-
-    //- RIGHT
-    &[pgs*="'mrgRight'"] {
-        margin-right: calc(var(--padding) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgRightHalf'"] {
-        margin-right: calc(var(--padding-half) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgRightTexts'"] {
-        margin-right: calc(var(--gap-texts) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgRightElements'"] {
-        margin-right: calc(var(--gap-elements) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgRightSections'"] {
-        margin-right: calc(var(--gap-sections) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgRightPage'"] {
-        margin-right: calc(var(--page-padding) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgRightAuto'"] {
-        margin-right: auto;
-    }
-
-    &[pgs*="'mrgRightUnset'"] {
-        margin-right: unset;
-    }
-
-    //- BOTTOM
-    &[pgs*="'mrgBottom'"] {
-        margin-bottom: calc(var(--padding) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgBottomHalf'"] {
-        margin-bottom: calc(var(--padding-half) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgBottomTexts'"] {
-        margin-bottom: calc(var(--gap-texts) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgBottomElements'"] {
-        margin-bottom: calc(var(--gap-elements) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgBottomSections'"] {
-        margin-bottom: calc(var(--gap-sections) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgBottomPage'"] {
-        margin-bottom: calc(var(--page-padding) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgBottomAuto'"] {
-        margin-bottom: auto;
-    }
-
-    &[pgs*="'mrgBottomUnset'"] {
-        margin-bottom: unset;
-    }
-
-    //- LEFT
-    &[pgs*="'mrgLeft'"] {
-        margin-left: calc(var(--padding) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgLeftHalf'"] {
-        margin-left: calc(var(--padding-half) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgLeftTexts'"] {
-        margin-left: calc(var(--gap-texts) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgLeftElements'"] {
-        margin-left: calc(var(--gap-elements) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgLeftSections'"] {
-        margin-left: calc(var(--gap-sections) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgLeftPage'"] {
-        margin-left: calc(var(--page-padding) * var(--margin-sign, 1));
-    }
-
-    &[pgs*="'mrgLeftAuto'"] {
-        margin-left: auto;
-    }
-
-    &[pgs*="'mrgLeftUnset'"] {
-        margin-left: unset;
-    }
+//- LEFT
+:is([pgs~="marginLeft"], [pgs*="marginLeft\5B"]) {
+    &:not([pgs*="marginLeft\5B"]) { margin-left: calc(var(--padding) * var(--margin-left-sign, 1)); }
+    &[pgs*="'mrlNegative'"] { --margin-left-sign: -1; }
+    &[pgs~="marginLeft['mrlNegative']"] { margin-left: calc(var(--padding) * var(--margin-left-sign, 1)); }
+    &[pgs*="'mrlHalf'"] { margin-left: calc(var(--padding-half) * var(--margin-left-sign, 1)); }
+    &[pgs*="'mrlTexts'"] { margin-left: calc(var(--gap-texts) * var(--margin-left-sign, 1)); }
+    &[pgs*="'mrlElements'"] { margin-left: calc(var(--gap-elements) * var(--margin-left-sign, 1)); }
+    &[pgs*="'mrlSections'"] { margin-left: calc(var(--gap-sections) * var(--margin-left-sign, 1)); }
+    &[pgs*="'mrlPage'"] { margin-left: calc(var(--page-padding) * var(--margin-left-sign, 1)); }
+    &[pgs*="'mrlAuto'"] { margin-left: auto; }
+    &[pgs*="'mrlUnset'"] { margin-left: unset; }
 }
 
 //= PADDING
+//== TEST: direction split back out into its own root per side (paddingBlock, paddingTop, ...)
+//== instead of folded into padding's own bracket, with a short direction-prefixed scale flag
+//== inside each (pdblHalf, pdtPage, ...) — shorter to read than padBlockHalf/padTopPage, at the
+//== cost of no longer combining two directions in one bracket (paddingBlock['pdblHalf']
+//== paddingTop['pdtPage'] instead of padding['padBlockHalf' 'padTopPage']). Base padding also
+//== uses the short "pd" prefix (pdHalf, ...), matching the direction roots below. Not migrated
+//== to docs yet.
 :is([pgs~="padding"], [pgs*="padding\5B"]) {
+    &:not([pgs*="padding\5B"]) { padding: var(--padding); }
 
-    //- BASE (all four sides)
-    &:not([pgs*="padding\5B"]) {
-        padding: var(--padding);
-    }
+    //- BASE (all four sides) — unchanged, still general
+    &[pgs*="'pdHalf'"] { padding: var(--padding-half); }
+    &[pgs*="'pdTexts'"] { padding: var(--gap-texts); }
+    &[pgs*="'pdElements'"] { padding: var(--gap-elements); }
+    &[pgs*="'pdSections'"] { padding: var(--gap-sections); }
+    &[pgs*="'pdPage'"] { padding: var(--page-padding); }
+    &[pgs*="'pdUnset'"] { padding: unset; }
+}
 
-    &[pgs*="'padHalf'"] {
-        padding: var(--padding-half);
-    }
+//- BLOCK
+:is([pgs~="paddingBlock"], [pgs*="paddingBlock\5B"]) {
+    &:not([pgs*="paddingBlock\5B"]) { padding-block: var(--padding); }
+    &[pgs*="'pdblHalf'"] { padding-block: var(--padding-half); }
+    &[pgs*="'pdblTexts'"] { padding-block: var(--gap-texts); }
+    &[pgs*="'pdblElements'"] { padding-block: var(--gap-elements); }
+    &[pgs*="'pdblSections'"] { padding-block: var(--gap-sections); }
+    &[pgs*="'pdblPage'"] { padding-block: var(--page-padding); }
+    &[pgs*="'pdblUnset'"] { padding-block: unset; }
+}
 
-    &[pgs*="'padTexts'"] {
-        padding: var(--gap-texts);
-    }
+//- INLINE
+:is([pgs~="paddingInline"], [pgs*="paddingInline\5B"]) {
+    &:not([pgs*="paddingInline\5B"]) { padding-inline: var(--padding); }
+    &[pgs*="'pdiHalf'"] { padding-inline: var(--padding-half); }
+    &[pgs*="'pdiTexts'"] { padding-inline: var(--gap-texts); }
+    &[pgs*="'pdiElements'"] { padding-inline: var(--gap-elements); }
+    &[pgs*="'pdiSections'"] { padding-inline: var(--gap-sections); }
+    &[pgs*="'pdiPage'"] { padding-inline: var(--page-padding); }
+    &[pgs*="'pdiUnset'"] { padding-inline: unset; }
+}
 
-    &[pgs*="'padElements'"] {
-        padding: var(--gap-elements);
-    }
+//- TOP
+:is([pgs~="paddingTop"], [pgs*="paddingTop\5B"]) {
+    &:not([pgs*="paddingTop\5B"]) { padding-top: var(--padding); }
+    &[pgs*="'pdtHalf'"] { padding-top: var(--padding-half); }
+    &[pgs*="'pdtTexts'"] { padding-top: var(--gap-texts); }
+    &[pgs*="'pdtElements'"] { padding-top: var(--gap-elements); }
+    &[pgs*="'pdtSections'"] { padding-top: var(--gap-sections); }
+    &[pgs*="'pdtPage'"] { padding-top: var(--page-padding); }
+    &[pgs*="'pdtUnset'"] { padding-top: unset; }
+}
 
-    &[pgs*="'padSections'"] {
-        padding: var(--gap-sections);
-    }
+//- RIGHT
+:is([pgs~="paddingRight"], [pgs*="paddingRight\5B"]) {
+    &:not([pgs*="paddingRight\5B"]) { padding-right: var(--padding); }
+    &[pgs*="'pdrHalf'"] { padding-right: var(--padding-half); }
+    &[pgs*="'pdrTexts'"] { padding-right: var(--gap-texts); }
+    &[pgs*="'pdrElements'"] { padding-right: var(--gap-elements); }
+    &[pgs*="'pdrSections'"] { padding-right: var(--gap-sections); }
+    &[pgs*="'pdrPage'"] { padding-right: var(--page-padding); }
+    &[pgs*="'pdrUnset'"] { padding-right: unset; }
+}
 
-    &[pgs*="'padPage'"] {
-        padding: var(--page-padding);
-    }
+//- BOTTOM
+:is([pgs~="paddingBottom"], [pgs*="paddingBottom\5B"]) {
+    &:not([pgs*="paddingBottom\5B"]) { padding-bottom: var(--padding); }
+    &[pgs*="'pdbHalf'"] { padding-bottom: var(--padding-half); }
+    &[pgs*="'pdbTexts'"] { padding-bottom: var(--gap-texts); }
+    &[pgs*="'pdbElements'"] { padding-bottom: var(--gap-elements); }
+    &[pgs*="'pdbSections'"] { padding-bottom: var(--gap-sections); }
+    &[pgs*="'pdbPage'"] { padding-bottom: var(--page-padding); }
+    &[pgs*="'pdbUnset'"] { padding-bottom: unset; }
+}
 
-    &[pgs*="'padUnset'"] {
-        padding: unset;
-    }
-
-    //- BLOCK
-    &[pgs*="'padBlock'"] {
-        padding-block: var(--padding);
-    }
-
-    &[pgs*="'padBlockHalf'"] {
-        padding-block: var(--padding-half);
-    }
-
-    &[pgs*="'padBlockTexts'"] {
-        padding-block: var(--gap-texts);
-    }
-
-    &[pgs*="'padBlockElements'"] {
-        padding-block: var(--gap-elements);
-    }
-
-    &[pgs*="'padBlockSections'"] {
-        padding-block: var(--gap-sections);
-    }
-
-    &[pgs*="'padBlockPage'"] {
-        padding-block: var(--page-padding);
-    }
-
-    &[pgs*="'padBlockUnset'"] {
-        padding-block: unset;
-    }
-
-    //- INLINE
-    &[pgs*="'padInline'"] {
-        padding-inline: var(--padding);
-    }
-
-    &[pgs*="'padInlineHalf'"] {
-        padding-inline: var(--padding-half);
-    }
-
-    &[pgs*="'padInlineTexts'"] {
-        padding-inline: var(--gap-texts);
-    }
-
-    &[pgs*="'padInlineElements'"] {
-        padding-inline: var(--gap-elements);
-    }
-
-    &[pgs*="'padInlineSections'"] {
-        padding-inline: var(--gap-sections);
-    }
-
-    &[pgs*="'padInlinePage'"] {
-        padding-inline: var(--page-padding);
-    }
-
-    &[pgs*="'padInlineUnset'"] {
-        padding-inline: unset;
-    }
-
-    //- TOP
-    &[pgs*="'padTop'"] {
-        padding-top: var(--padding);
-    }
-
-    &[pgs*="'padTopHalf'"] {
-        padding-top: var(--padding-half);
-    }
-
-    &[pgs*="'padTopTexts'"] {
-        padding-top: var(--gap-texts);
-    }
-
-    &[pgs*="'padTopElements'"] {
-        padding-top: var(--gap-elements);
-    }
-
-    &[pgs*="'padTopSections'"] {
-        padding-top: var(--gap-sections);
-    }
-
-    &[pgs*="'padTopPage'"] {
-        padding-top: var(--page-padding);
-    }
-
-    &[pgs*="'padTopUnset'"] {
-        padding-top: unset;
-    }
-
-    //- RIGHT
-    &[pgs*="'padRight'"] {
-        padding-right: var(--padding);
-    }
-
-    &[pgs*="'padRightHalf'"] {
-        padding-right: var(--padding-half);
-    }
-
-    &[pgs*="'padRightTexts'"] {
-        padding-right: var(--gap-texts);
-    }
-
-    &[pgs*="'padRightElements'"] {
-        padding-right: var(--gap-elements);
-    }
-
-    &[pgs*="'padRightSections'"] {
-        padding-right: var(--gap-sections);
-    }
-
-    &[pgs*="'padRightPage'"] {
-        padding-right: var(--page-padding);
-    }
-
-    &[pgs*="'padRightUnset'"] {
-        padding-right: unset;
-    }
-
-    //- BOTTOM
-    &[pgs*="'padBottom'"] {
-        padding-bottom: var(--padding);
-    }
-
-    &[pgs*="'padBottomHalf'"] {
-        padding-bottom: var(--padding-half);
-    }
-
-    &[pgs*="'padBottomTexts'"] {
-        padding-bottom: var(--gap-texts);
-    }
-
-    &[pgs*="'padBottomElements'"] {
-        padding-bottom: var(--gap-elements);
-    }
-
-    &[pgs*="'padBottomSections'"] {
-        padding-bottom: var(--gap-sections);
-    }
-
-    &[pgs*="'padBottomPage'"] {
-        padding-bottom: var(--page-padding);
-    }
-
-    &[pgs*="'padBottomUnset'"] {
-        padding-bottom: unset;
-    }
-
-    //- LEFT
-    &[pgs*="'padLeft'"] {
-        padding-left: var(--padding);
-    }
-
-    &[pgs*="'padLeftHalf'"] {
-        padding-left: var(--padding-half);
-    }
-
-    &[pgs*="'padLeftTexts'"] {
-        padding-left: var(--gap-texts);
-    }
-
-    &[pgs*="'padLeftElements'"] {
-        padding-left: var(--gap-elements);
-    }
-
-    &[pgs*="'padLeftSections'"] {
-        padding-left: var(--gap-sections);
-    }
-
-    &[pgs*="'padLeftPage'"] {
-        padding-left: var(--page-padding);
-    }
-
-    &[pgs*="'padLeftUnset'"] {
-        padding-left: unset;
-    }
+//- LEFT
+:is([pgs~="paddingLeft"], [pgs*="paddingLeft\5B"]) {
+    &:not([pgs*="paddingLeft\5B"]) { padding-left: var(--padding); }
+    &[pgs*="'pdlHalf'"] { padding-left: var(--padding-half); }
+    &[pgs*="'pdlTexts'"] { padding-left: var(--gap-texts); }
+    &[pgs*="'pdlElements'"] { padding-left: var(--gap-elements); }
+    &[pgs*="'pdlSections'"] { padding-left: var(--gap-sections); }
+    &[pgs*="'pdlPage'"] { padding-left: var(--page-padding); }
+    &[pgs*="'pdlUnset'"] { padding-left: unset; }
 }

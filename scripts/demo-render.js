@@ -596,7 +596,7 @@ function renderNavMenuHtml(items, category) {
         return `<li><a href="#${escapeHtml(getSlug(path))}" pgs="pageNav-list-item button['btnText' 'btnPaddingEqual']">` +
             `<i class="fa-solid ${icon}" aria-hidden="true"></i><span>${escapeHtml(getEntryLabel(path))}</span></a></li>`;
     }).join("");
-    return `<nav pgs="pageNav-list menu['menuVertical']" aria-label="Menu ${escapeHtml(category || "")}"><ul pgs="border['brdLeft']">${rows}</ul></nav>`;
+    return `<nav pgs="pageNav-list menu['menuVertical']" aria-label="Menu ${escapeHtml(category || "")}"><ul pgs="borderLeft">${rows}</ul></nav>`;
 }
 
 function renderNavHtml(entries, withHeadingIds = true) {

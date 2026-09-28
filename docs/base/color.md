@@ -130,20 +130,20 @@ Interactive palette of the current MyPGS background and text color utilities.
 - `brSuccess`: inside border's own bracket, recolours it with the success colour.
 - `brWarning`: inside border's own bracket, recolours it with the warning colour.
 - `brError`: inside border's own bracket, recolours it with the error colour.
-- `olPrimary`: inside outline's own bracket, recolours it with the primary colour; see Border for the whole ol* family.
-- `olSecondary`: inside outline's own bracket, recolours it with the secondary colour.
-- `olTertiary`: inside outline's own bracket, recolours it with the tertiary colour.
-- `olQuaternary`: inside outline's own bracket, recolours it with the quaternary colour.
-- `olWhite`: inside outline's own bracket, recolours it white.
-- `olBlack`: inside outline's own bracket, recolours it black.
-- `olBox`: inside outline's own bracket, recolours it with the box surface colour.
-- `olBoxDark`: inside outline's own bracket, recolours it with the dark box surface colour.
-- `olLink`: inside outline's own bracket, recolours it with the link colour.
-- `olGray`: inside outline's own bracket, recolours it gray.
-- `olInfo`: inside outline's own bracket, recolours it with the info colour.
-- `olSuccess`: inside outline's own bracket, recolours it with the success colour.
-- `olWarning`: inside outline's own bracket, recolours it with the warning colour.
-- `olError`: inside outline's own bracket, recolours it with the error colour.
+- `otlPrimary`: inside outline's own bracket, recolours it with the primary colour; see Border for the whole otl* family.
+- `otlSecondary`: inside outline's own bracket, recolours it with the secondary colour.
+- `otlTertiary`: inside outline's own bracket, recolours it with the tertiary colour.
+- `otlQuaternary`: inside outline's own bracket, recolours it with the quaternary colour.
+- `otlWhite`: inside outline's own bracket, recolours it white.
+- `otlBlack`: inside outline's own bracket, recolours it black.
+- `otlBox`: inside outline's own bracket, recolours it with the box surface colour.
+- `otlBoxDark`: inside outline's own bracket, recolours it with the dark box surface colour.
+- `otlLink`: inside outline's own bracket, recolours it with the link colour.
+- `otlGray`: inside outline's own bracket, recolours it gray.
+- `otlInfo`: inside outline's own bracket, recolours it with the info colour.
+- `otlSuccess`: inside outline's own bracket, recolours it with the success colour.
+- `otlWarning`: inside outline's own bracket, recolours it with the warning colour.
+- `otlError`: inside outline's own bracket, recolours it with the error colour.
 - `flexFull`: inside flexChild's own bracket, makes palette headings occupy a full flex row.
 - `boxMini`: applies the compact box presentation to each palette group.
 - `btnIconOnly`: makes each background color trigger a compact circular button.

@@ -63,8 +63,8 @@
  * - box: makes the measured elements visible.
  * - overflow: scrolls the content a heightMax element cannot show.
  * - ovAuto: inside overflow's own bracket, adds scrolling only when content overflows.
- * - margin: provides the spacing utility used here.
- * - mrgInlineAuto: inside margin's own bracket, pairs with auto to centre a constrained element.
+ * - marginInline: provides the spacing utility used here.
+ * - mriAuto: inside marginInline's own bracket, pairs with auto to centre a constrained element.
  * - gapTexts: separates the examples inside a group.
  * - gapElements: separates the side by side examples.
  * - gapSections: separates the groups.
@@ -91,7 +91,7 @@
         <strong>Arbitrary width</strong>
         <p pgs="box width" style="--width-size: 600px">Six hundred pixels, capped at the container.</p>
         <p pgs="box widthMin" style="--widthMin-size: 400px">At least four hundred pixels.</p>
-        <p pgs="box widthMax margin['mrgInlineAuto']" style="--widthMax-size: 500px">Capped at five hundred pixels and centred.</p>
+        <p pgs="box widthMax marginInline['mriAuto']" style="--widthMax-size: 500px">Capped at five hundred pixels and centred.</p>
     </section>
 
     <demo demo-h3="Two columns" demo-description="Half the page width on each side of a row, so the text keeps the page rhythm while the row bleeds past the edge."></demo>

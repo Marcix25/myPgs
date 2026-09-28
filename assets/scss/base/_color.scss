@@ -8,224 +8,122 @@
 //== they share a bracket with.
 //= BACKGROUND COLORS
 [pgs*="background\5B"] {
-    &[pgs*="'bgWhite'"] {
-        background-color: var(--color-white);
-    }
-
-    &[pgs*="'bgBlack'"] { background-color: var(--color-black); }
-
-    &[pgs*="'bgWhiteTransparent'"] { background-color: var(--color-white-transparent); }
-
-    &[pgs*="'bgBlackTransparent'"] { background-color: var(--color-black-transparent); }
-
-    &[pgs*="'bgText'"] { background-color: var(--color-text); }
-
-    &[pgs*="'bgBox'"] { background-color: var(--color-box); }
-
-    &[pgs*="'bgBoxDark'"] { background-color: var(--color-boxDark); }
-
-    &[pgs*="'bgBoxTransparent'"] { background-color: var(--color-box-transparent); }
-
-    &[pgs*="'bgBoxDarkTransparent'"] { background-color: var(--color-boxDark-transparent); }
-
-    &[pgs*="'bgLinkSoft'"] { background-color: var(--color-link-soft); }
-
-    &[pgs*="'bgBackground'"] { background-color: var(--color-background); }
-
-    &[pgs*="'bgWhiteFixed'"] { background-color: var(--color-whiteFixed); }
-
-    &[pgs*="'bgBlackFixed'"] { background-color: var(--color-blackFixed); }
-
-    &[pgs*="'bgLink'"] { background-color: var(--color-link); }
-
-    &[pgs*="'bgGray'"] { background-color: var(--color-gray); }
+    &[pgs*="'bgWhite'"] { background: var(--color-white); }
+    &[pgs*="'bgBlack'"] { background: var(--color-black); }
+    &[pgs*="'bgWhiteTransparent'"] { background: var(--color-white-transparent); }
+    &[pgs*="'bgBlackTransparent'"] { background: var(--color-black-transparent); }
+    &[pgs*="'bgText'"] { background: var(--color-text); }
+    &[pgs*="'bgBox'"] { background: var(--color-box); }
+    &[pgs*="'bgBoxDark'"] { background: var(--color-boxDark); }
+    &[pgs*="'bgBoxTransparent'"] { background: var(--color-box-transparent); }
+    &[pgs*="'bgBoxDarkTransparent'"] { background: var(--color-boxDark-transparent); }
+    &[pgs*="'bgLinkSoft'"] { background: var(--color-link-soft); }
+    &[pgs*="'bgBackground'"] { background: var(--color-background); }
+    &[pgs*="'bgWhiteFixed'"] { background: var(--color-whiteFixed); }
+    &[pgs*="'bgBlackFixed'"] { background: var(--color-blackFixed); }
+    &[pgs*="'bgLink'"] { background: var(--color-link); }
+    &[pgs*="'bgGray'"] { background: var(--color-gray); }
 
     //== PRIMARY VARIANTS
-    &[pgs*="'bgPrimary'"] {
-        background-color: var(--color-primary);
-    }
-
-    &[pgs*="'bgPrimarySoft'"] { background-color: var(--color-primary-soft); }
-
-    &[pgs*="'bgPrimaryLight'"] { background-color: var(--color-primary-light); }
-
-    &[pgs*="'bgPrimaryStrong'"] { background-color: var(--color-primary-strong); }
-
-    &[pgs*="'bgPrimaryDark'"] { background-color: var(--color-primary-dark); }
+    &[pgs*="'bgPrimary'"] { background: var(--color-primary); }
+    &[pgs*="'bgPrimarySoft'"] { background: var(--color-primary-soft); }
+    &[pgs*="'bgPrimaryLight'"] { background: var(--color-primary-light); }
+    &[pgs*="'bgPrimaryStrong'"] { background: var(--color-primary-strong); }
+    &[pgs*="'bgPrimaryDark'"] { background: var(--color-primary-dark); }
 
     //== SECONDARY VARIANTS
-    &[pgs*="'bgSecondary'"] {
-        background-color: var(--color-secondary);
-    }
-
-    &[pgs*="'bgSecondarySoft'"] { background-color: var(--color-secondary-soft); }
-
-    &[pgs*="'bgSecondaryLight'"] { background-color: var(--color-secondary-light); }
-
-    &[pgs*="'bgSecondaryStrong'"] { background-color: var(--color-secondary-strong); }
-
-    &[pgs*="'bgSecondaryDark'"] { background-color: var(--color-secondary-dark); }
+    &[pgs*="'bgSecondary'"] { background: var(--color-secondary); }
+    &[pgs*="'bgSecondarySoft'"] { background: var(--color-secondary-soft); }
+    &[pgs*="'bgSecondaryLight'"] { background: var(--color-secondary-light); }
+    &[pgs*="'bgSecondaryStrong'"] { background: var(--color-secondary-strong); }
+    &[pgs*="'bgSecondaryDark'"] { background: var(--color-secondary-dark); }
 
     //== TERTIARY VARIANTS
-    &[pgs*="'bgTertiary'"] {
-        background-color: var(--color-tertiary);
-    }
-
-    &[pgs*="'bgTertiarySoft'"] { background-color: var(--color-tertiary-soft); }
-
-    &[pgs*="'bgTertiaryLight'"] { background-color: var(--color-tertiary-light); }
-
-    &[pgs*="'bgTertiaryStrong'"] { background-color: var(--color-tertiary-strong); }
-
-    &[pgs*="'bgTertiaryDark'"] { background-color: var(--color-tertiary-dark); }
+    &[pgs*="'bgTertiary'"] { background: var(--color-tertiary); }
+    &[pgs*="'bgTertiarySoft'"] { background: var(--color-tertiary-soft); }
+    &[pgs*="'bgTertiaryLight'"] { background: var(--color-tertiary-light); }
+    &[pgs*="'bgTertiaryStrong'"] { background: var(--color-tertiary-strong); }
+    &[pgs*="'bgTertiaryDark'"] { background: var(--color-tertiary-dark); }
 
     //== QUATERNARY VARIANTS
-    &[pgs*="'bgQuaternary'"] {
-        background-color: var(--color-quaternary);
-    }
-
-    &[pgs*="'bgQuaternarySoft'"] { background-color: var(--color-quaternary-soft); }
-
-    &[pgs*="'bgQuaternaryLight'"] { background-color: var(--color-quaternary-light); }
-
-    &[pgs*="'bgQuaternaryStrong'"] { background-color: var(--color-quaternary-strong); }
-
-    &[pgs*="'bgQuaternaryDark'"] { background-color: var(--color-quaternary-dark); }
+    &[pgs*="'bgQuaternary'"] { background: var(--color-quaternary); }
+    &[pgs*="'bgQuaternarySoft'"] { background: var(--color-quaternary-soft); }
+    &[pgs*="'bgQuaternaryLight'"] { background: var(--color-quaternary-light); }
+    &[pgs*="'bgQuaternaryStrong'"] { background: var(--color-quaternary-strong); }
+    &[pgs*="'bgQuaternaryDark'"] { background: var(--color-quaternary-dark); }
 
     //== STATUS
-    &[pgs*="'bgInfo'"] {
-        background-color: var(--color-info);
-    }
-
-    &[pgs*="'bgError'"] { background-color: var(--color-error); }
-
-    &[pgs*="'bgWarning'"] { background-color: var(--color-warning); }
-
-    &[pgs*="'bgSuccess'"] { background-color: var(--color-success); }
+    &[pgs*="'bgInfo'"] { background: var(--color-info); }
+    &[pgs*="'bgError'"] { background: var(--color-error); }
+    &[pgs*="'bgWarning'"] { background: var(--color-warning); }
+    &[pgs*="'bgSuccess'"] { background: var(--color-success); }
 
     //== STATUS BACKGROUNDS
-    &[pgs*="'bgInfoSoft'"] {
-        background-color: var(--color-info-soft);
-    }
-
-    &[pgs*="'bgErrorSoft'"] { background-color: var(--color-error-soft); }
-
-    &[pgs*="'bgWarningSoft'"] { background-color: var(--color-warning-soft); }
-
-    &[pgs*="'bgSuccessSoft'"] { background-color: var(--color-success-soft); }
+    &[pgs*="'bgInfoSoft'"] { background: var(--color-info-soft); }
+    &[pgs*="'bgErrorSoft'"] { background: var(--color-error-soft); }
+    &[pgs*="'bgWarningSoft'"] { background: var(--color-warning-soft); }
+    &[pgs*="'bgSuccessSoft'"] { background: var(--color-success-soft); }
 }
 
 //= TEXT COLORS
 [pgs*="textColor\5B"] {
-    &[pgs*="'txtWhite'"] {
-        color: var(--color-white);
-    }
-
+    &[pgs*="'txtWhite'"] { color: var(--color-white); }
     &[pgs*="'txtBlack'"] { color: var(--color-black); }
-
     &[pgs*="'txtGray'"] { color: var(--color-gray); }
-
     &[pgs*="'txtText'"] { color: var(--color-text); }
-
     &[pgs*="'txtBox'"] { color: var(--color-box); }
-
     &[pgs*="'txtBoxDark'"] { color: var(--color-boxDark); }
-
     &[pgs*="'txtLinkSoft'"] { color: var(--color-link-soft); }
-
     &[pgs*="'txtWhiteFixed'"] { color: var(--color-whiteFixed); }
-
     &[pgs*="'txtBlackFixed'"] { color: var(--color-blackFixed); }
-
     &[pgs*="'txtLink'"] { color: var(--color-link); }
 
     //== PRIMARY VARIANTS
-    &[pgs*="'txtPrimary'"] {
-        color: var(--color-primary);
-    }
-
+    &[pgs*="'txtPrimary'"] { color: var(--color-primary); }
     &[pgs*="'txtPrimaryText'"] { color: var(--color-primary-text); }
-
     &[pgs*="'txtPrimarySoft'"] { color: var(--color-primary-soft); }
-
     &[pgs*="'txtPrimaryLight'"] { color: var(--color-primary-light); }
-
     &[pgs*="'txtPrimaryStrong'"] { color: var(--color-primary-strong); }
-
     &[pgs*="'txtPrimaryDark'"] { color: var(--color-primary-dark); }
 
     //== SECONDARY VARIANTS
-    &[pgs*="'txtSecondary'"] {
-        color: var(--color-secondary);
-    }
-
+    &[pgs*="'txtSecondary'"] { color: var(--color-secondary); }
     &[pgs*="'txtSecondaryText'"] { color: var(--color-secondary-text); }
-
     &[pgs*="'txtSecondarySoft'"] { color: var(--color-secondary-soft); }
-
     &[pgs*="'txtSecondaryLight'"] { color: var(--color-secondary-light); }
-
     &[pgs*="'txtSecondaryStrong'"] { color: var(--color-secondary-strong); }
-
     &[pgs*="'txtSecondaryDark'"] { color: var(--color-secondary-dark); }
 
     //== TERTIARY VARIANTS
-    &[pgs*="'txtTertiary'"] {
-        color: var(--color-tertiary);
-    }
-
+    &[pgs*="'txtTertiary'"] { color: var(--color-tertiary); }
     &[pgs*="'txtTertiaryText'"] { color: var(--color-tertiary-text); }
-
     &[pgs*="'txtTertiarySoft'"] { color: var(--color-tertiary-soft); }
-
     &[pgs*="'txtTertiaryLight'"] { color: var(--color-tertiary-light); }
-
     &[pgs*="'txtTertiaryStrong'"] { color: var(--color-tertiary-strong); }
-
     &[pgs*="'txtTertiaryDark'"] { color: var(--color-tertiary-dark); }
 
     //== QUATERNARY VARIANTS
-    &[pgs*="'txtQuaternary'"] {
-        color: var(--color-quaternary);
-    }
-
+    &[pgs*="'txtQuaternary'"] { color: var(--color-quaternary); }
     &[pgs*="'txtQuaternaryText'"] { color: var(--color-quaternary-text); }
-
     &[pgs*="'txtQuaternarySoft'"] { color: var(--color-quaternary-soft); }
-
     &[pgs*="'txtQuaternaryLight'"] { color: var(--color-quaternary-light); }
-
     &[pgs*="'txtQuaternaryStrong'"] { color: var(--color-quaternary-strong); }
-
     &[pgs*="'txtQuaternaryDark'"] { color: var(--color-quaternary-dark); }
 
     //== STATUS
-    &[pgs*="'txtInfo'"] {
-        color: var(--color-info);
-    }
-
+    &[pgs*="'txtInfo'"] { color: var(--color-info); }
     &[pgs*="'txtError'"] { color: var(--color-error); }
-
     &[pgs*="'txtWarning'"] { color: var(--color-warning); }
-
     &[pgs*="'txtSuccess'"] { color: var(--color-success); }
 
     //== STATUS BACKGROUNDS
-    &[pgs*="'txtInfoSoft'"] {
-        color: var(--color-info-soft);
-    }
-
+    &[pgs*="'txtInfoSoft'"] { color: var(--color-info-soft); }
     &[pgs*="'txtErrorSoft'"] { color: var(--color-error-soft); }
-
     &[pgs*="'txtWarningSoft'"] { color: var(--color-warning-soft); }
-
     &[pgs*="'txtSuccessSoft'"] { color: var(--color-success-soft); }
 }
 
 //= ICON COLORS
-[pgs~="iconColorPrimary"] {
-    color: var(--color-icon-primary);
-}
-
+[pgs~="iconColorPrimary"] { color: var(--color-icon-primary); }
 [pgs~="iconColorSecondary"] { color: var(--color-icon-secondary); }
 

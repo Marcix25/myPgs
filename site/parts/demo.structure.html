@@ -10,16 +10,17 @@
     <aside pgs="pageShell-aside container['cntNone']" id="reference-demo-aside">
 
         <!-- Desktop -->
-        <div pgs="flex['column' 'gapElements'] hide['hideContainerDownBigTablet'] padding['padBottom']" class="reference-demo-nav"></div>
+        <div pgs="flex['column' 'gapElements'] hide['hideContainerDownBigTablet'] paddingBottom" class="reference-demo-nav"></div>
 
         <!-- mobile -->
-        <div pgs="flex['column' 'gapElements'] hide['hideContainerUpBigTablet'] modal['dialogLeft' 'dialogSmall' 'dialogAnimationLeft'] padding['padHalf']">
-            <button type="button" pgs="button modal-button"> <i pgs="icon['icon-ellipsis']"></i> Browse docs</button>
+        <div pgs="flex['column' 'gapElements'] hide['hideContainerUpBigTablet'] modal['dialogLeft' 'dialogSmall' 'dialogAnimationLeft'] ">
+            <button type="button" pgs="button modal-button background['bgBlack'] border['brBlack'] textColor['txtWhite']"> <i pgs="icon['icon-chevronDown'] rotate['rot270']"></i> Browse docs</button>
 
             <dialog>
                 <div pgs="modal-dialog-content">
                     <div pgs="modal-dialog-content-header">
                         <h3><i class="fa-solid fa-book-bookmark"></i> Browse docs!</h3>
+                        <button pgs="button['btnIconOnly' 'btnMini'] modal-close" type="button" tabindex="0" aria-label="Close"><i pgs="icon['icon-chevronDown'] rotate['rot90']"></i></button>
                     </div>
                     <div pgs="modal-dialog-content-scroll">
                         <div pgs="flex['column' 'gapElements']" class="reference-demo-nav"></div>
@@ -28,5 +29,5 @@
             </dialog>
         </div>
     </aside>
-    <main pgs="pageNav-panels pageShell-content margin['mrgBottomSections']" id="reference-demo-main"></main>
+    <main pgs="pageNav-panels pageShell-content marginBottom['mrbSections']" id="reference-demo-main"></main>
 </div>
