@@ -18,24 +18,31 @@ Border, outline and radius utilities, split out from the general-purpose set sin
 
 ## PGS Options (component brackets)
 
+- `bd`: inside border's own bracket, an explicit way to write the same default a bare border with no bracket already gets.
 - `bdThin`: inside border's own bracket, draws it at 1px instead of the default 1.5px, on every side.
 - `bdThick`: inside border's own bracket, draws it at 3px, on every side.
 - `bdThicker`: inside border's own bracket, draws it at 4.5px, on every side.
+- `bdbl`: inside borderBlock's own bracket, an explicit way to write the same default a bare borderBlock with no bracket already gets.
 - `bdblThin`: inside borderBlock's own bracket, draws it on both sides of the block axis, at 1px.
 - `bdblThick`: inside borderBlock's own bracket, draws it on both sides of the block axis, at 3px.
 - `bdblThicker`: inside borderBlock's own bracket, draws it on both sides of the block axis, at 4.5px.
+- `bdi`: inside borderInline's own bracket, an explicit way to write the same default a bare borderInline with no bracket already gets.
 - `bdiThin`: inside borderInline's own bracket, draws it on both sides of the inline axis, at 1px.
 - `bdiThick`: inside borderInline's own bracket, draws it on both sides of the inline axis, at 3px.
 - `bdiThicker`: inside borderInline's own bracket, draws it on both sides of the inline axis, at 4.5px.
+- `bdt`: inside borderTop's own bracket, an explicit way to write the same default a bare borderTop with no bracket already gets.
 - `bdtThin`: inside borderTop's own bracket, draws it above only, at 1px.
 - `bdtThick`: inside borderTop's own bracket, draws it above only, at 3px.
 - `bdtThicker`: inside borderTop's own bracket, draws it above only, at 4.5px.
+- `bdr`: inside borderRight's own bracket, an explicit way to write the same default a bare borderRight with no bracket already gets.
 - `bdrThin`: inside borderRight's own bracket, draws it on the right only, at 1px.
 - `bdrThick`: inside borderRight's own bracket, draws it on the right only, at 3px.
 - `bdrThicker`: inside borderRight's own bracket, draws it on the right only, at 4.5px.
+- `bdb`: inside borderBottom's own bracket, an explicit way to write the same default a bare borderBottom with no bracket already gets.
 - `bdbThin`: inside borderBottom's own bracket, draws it below only, at 1px.
 - `bdbThick`: inside borderBottom's own bracket, draws it below only, at 3px.
 - `bdbThicker`: inside borderBottom's own bracket, draws it below only, at 4.5px.
+- `bdl`: inside borderLeft's own bracket, an explicit way to write the same default a bare borderLeft with no bracket already gets.
 - `bdlThin`: inside borderLeft's own bracket, draws it on the left only, at 1px.
 - `bdlThick`: inside borderLeft's own bracket, draws it on the left only, at 3px.
 - `bdlThicker`: inside borderLeft's own bracket, draws it on the left only, at 4.5px.

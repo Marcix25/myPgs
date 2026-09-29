@@ -3268,18 +3268,26 @@ class PGS_Slides {
         slide.focus({ preventScroll: true });
     }
 
+    //+ LOOP
+    #isLoop() {
+        return pgs(this.element).option.contains('slidesLoop');
+    }
+
     //+ PREV
     //== no slide left to move to, but the scroll has not run out: the edge slide is showing with
-    //== its margin still to come, so the arrow finishes the scroll instead of doing nothing
+    //== its margin still to come, so the arrow finishes the scroll instead of doing nothing.
+    //== slidesLoop replaces that fallback with the last slide instead of staying put
     #previousSlide() {
         const all = this.container.children;
-        this.#goToSlide(this.#currentSlide(false)?.previousElementSibling ?? all[0]);
+        const previous = this.#currentSlide(false)?.previousElementSibling;
+        this.#goToSlide(previous ?? (this.#isLoop() ? all[all.length - 1] : all[0]));
     }
 
     //+ NEXT
     #nextSlide() {
         const all = this.container.children;
-        this.#goToSlide(this.#currentSlide(true)?.nextElementSibling ?? all[all.length - 1]);
+        const next = this.#currentSlide(true)?.nextElementSibling;
+        this.#goToSlide(next ?? (this.#isLoop() ? all[0] : all[all.length - 1]));
     }
 
     //+ GO TO NUMBER SLIDE
@@ -3322,10 +3330,12 @@ class PGS_Slides {
     //+ ARROWS STATE
     //== an arrow goes off only at the end of the scroll, not as soon as the edge slide is in view:
     //== that slide carries a margin, so it can be entirely on screen with a stretch still to run,
-    //== and the arrow is what runs it
+    //== and the arrow is what runs it. slidesLoop wraps around instead, so neither arrow ever
+    //== goes off
     #updateArrows(precButton, nextButton) {
-        const atStart = this.container.scrollLeft <= 1;
-        const atEnd = this.container.scrollLeft >= this.container.scrollWidth - this.container.clientWidth - 1;
+        const loop = this.#isLoop();
+        const atStart = !loop && this.container.scrollLeft <= 1;
+        const atEnd = !loop && this.container.scrollLeft >= this.container.scrollWidth - this.container.clientWidth - 1;
 
         nextButton.disabled = atEnd;
         precButton.disabled = atStart;

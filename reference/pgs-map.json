@@ -212,6 +212,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "bd",
             "bdThick",
             "bdThicker",
             "bdThin"
@@ -222,6 +223,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "bdbl",
             "bdblThick",
             "bdblThicker",
             "bdblThin"
@@ -232,6 +234,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "bdb",
             "bdbThick",
             "bdbThicker",
             "bdbThin"
@@ -242,6 +245,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "bdi",
             "bdiThick",
             "bdiThicker",
             "bdiThin"
@@ -258,6 +262,7 @@
             "bdError",
             "bdGray",
             "bdInfo",
+            "bdl",
             "bdLink",
             "bdlThick",
             "bdlThicker",
@@ -285,6 +290,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "bdr",
             "bdrThick",
             "bdrThicker",
             "bdrThin"
@@ -295,6 +301,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "bdt",
             "bdtThick",
             "bdtThicker",
             "bdtThin"
@@ -911,14 +918,15 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "mrAuto",
-            "mrElements",
-            "mrHalf",
-            "mrNegative",
-            "mrPage",
-            "mrSections",
-            "mrTexts",
-            "mrUnset"
+            "mg",
+            "mgAuto",
+            "mgElements",
+            "mgHalf",
+            "mgNegative",
+            "mgPage",
+            "mgSections",
+            "mgTexts",
+            "mgUnset"
         ],
         "pgs-data": []
     },
@@ -926,14 +934,15 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "mrblAuto",
-            "mrblElements",
-            "mrblHalf",
-            "mrblNegative",
-            "mrblPage",
-            "mrblSections",
-            "mrblTexts",
-            "mrblUnset"
+            "mgbl",
+            "mgblAuto",
+            "mgblElements",
+            "mgblHalf",
+            "mgblNegative",
+            "mgblPage",
+            "mgblSections",
+            "mgblTexts",
+            "mgblUnset"
         ],
         "pgs-data": []
     },
@@ -941,14 +950,15 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "mrbAuto",
-            "mrbElements",
-            "mrbHalf",
-            "mrbNegative",
-            "mrbPage",
-            "mrbSections",
-            "mrbTexts",
-            "mrbUnset"
+            "mgb",
+            "mgbAuto",
+            "mgbElements",
+            "mgbHalf",
+            "mgbNegative",
+            "mgbPage",
+            "mgbSections",
+            "mgbTexts",
+            "mgbUnset"
         ],
         "pgs-data": []
     },
@@ -956,14 +966,15 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "mriAuto",
-            "mriElements",
-            "mriHalf",
-            "mriNegative",
-            "mriPage",
-            "mriSections",
-            "mriTexts",
-            "mriUnset"
+            "mgi",
+            "mgiAuto",
+            "mgiElements",
+            "mgiHalf",
+            "mgiNegative",
+            "mgiPage",
+            "mgiSections",
+            "mgiTexts",
+            "mgiUnset"
         ],
         "pgs-data": []
     },
@@ -971,14 +982,15 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "mrlAuto",
-            "mrlElements",
-            "mrlHalf",
-            "mrlNegative",
-            "mrlPage",
-            "mrlSections",
-            "mrlTexts",
-            "mrlUnset"
+            "mgl",
+            "mglAuto",
+            "mglElements",
+            "mglHalf",
+            "mglNegative",
+            "mglPage",
+            "mglSections",
+            "mglTexts",
+            "mglUnset"
         ],
         "pgs-data": []
     },
@@ -986,14 +998,15 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "mrrAuto",
-            "mrrElements",
-            "mrrHalf",
-            "mrrNegative",
-            "mrrPage",
-            "mrrSections",
-            "mrrTexts",
-            "mrrUnset"
+            "mgr",
+            "mgrAuto",
+            "mgrElements",
+            "mgrHalf",
+            "mgrNegative",
+            "mgrPage",
+            "mgrSections",
+            "mgrTexts",
+            "mgrUnset"
         ],
         "pgs-data": []
     },
@@ -1001,14 +1014,15 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "mrtAuto",
-            "mrtElements",
-            "mrtHalf",
-            "mrtNegative",
-            "mrtPage",
-            "mrtSections",
-            "mrtTexts",
-            "mrtUnset"
+            "mgt",
+            "mgtAuto",
+            "mgtElements",
+            "mgtHalf",
+            "mgtNegative",
+            "mgtPage",
+            "mgtSections",
+            "mgtTexts",
+            "mgtUnset"
         ],
         "pgs-data": []
     },
@@ -1133,6 +1147,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "pd",
             "pdElements",
             "pdHalf",
             "pdPage",
@@ -1146,6 +1161,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "pdbl",
             "pdblElements",
             "pdblHalf",
             "pdblPage",
@@ -1159,6 +1175,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "pdb",
             "pdbElements",
             "pdbHalf",
             "pdbPage",
@@ -1172,6 +1189,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "pdi",
             "pdiElements",
             "pdiHalf",
             "pdiPage",
@@ -1185,6 +1203,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "pdl",
             "pdlElements",
             "pdlHalf",
             "pdlPage",
@@ -1198,6 +1217,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "pdr",
             "pdrElements",
             "pdrHalf",
             "pdrPage",
@@ -1211,6 +1231,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "pdt",
             "pdtElements",
             "pdtHalf",
             "pdtPage",
@@ -1364,6 +1385,7 @@
         "pgs-options": [
             "slidesAnimationScale",
             "slidesFullWidth",
+            "slidesLoop",
             "slidesScrollMouse",
             "slidesShadowDesktop",
             "slidesSingleScroll"

@@ -27,6 +27,7 @@ A horizontal, scroll-snapped track of slides with its own arrows and position do
 - `slidesSingleScroll`: an arrow advances by a single slide, counted from the one the snap is resting on, instead of jumping past every slide currently in view.
 - `slidesScrollMouse`: turns the vertical mouse wheel into horizontal scrolling over the slides; off by default.
 - `slidesFullWidth`: each slide fills the full width of the track instead of the default fixed measure, at every breakpoint.
+- `slidesLoop`: the prec/next arrows wrap around at the ends instead of stopping, so prec from the first slide goes to the last one and next from the last goes to the first; neither arrow is ever disabled.
 
 ## PGS States
 
@@ -72,8 +73,6 @@ A horizontal, scroll-snapped track of slides with its own arrows and position do
 
 - `--slides-maskEnd`
 - `--slides-maskStart`
-- `--slides-padding-inline-mobile`
-- `--slides-padding-inline-tablet`
 - `--slides-sizeMaskImage`
 - `--slides-width`
 - `--slides-width-mobile`
@@ -267,6 +266,46 @@ Each slide fills the full width of the track instead of the default fixed measur
                 <div pgs="card-content">
                     <h3>Sit amet consectetur</h3>
                     <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                </div>
+            </article>
+        </li>
+    </ul>
+</div>
+```
+
+### Loop
+
+The prec/next arrows wrap around at the ends instead of stopping, using pgs=&quot;slides['slidesLoop']&quot;; neither arrow is ever disabled.
+
+```html
+<div pgs="slides['slidesLoop']">
+    <ul pgs="slides-container">
+        <li pgs="slides-container-slide">
+            <article pgs="card">
+                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 1">
+                <div pgs="card-content">
+                    <h3>Lorem ipsum dolor</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            </article>
+        </li>
+
+        <li pgs="slides-container-slide">
+            <article pgs="card">
+                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 2">
+                <div pgs="card-content">
+                    <h3>Sit amet consectetur</h3>
+                    <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                </div>
+            </article>
+        </li>
+
+        <li pgs="slides-container-slide">
+            <article pgs="card">
+                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 3">
+                <div pgs="card-content">
+                    <h3>Adipiscing elit sed</h3>
+                    <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
                 </div>
             </article>
         </li>

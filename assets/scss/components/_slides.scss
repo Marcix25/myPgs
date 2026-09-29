@@ -173,7 +173,8 @@
 
     //+ option for suggestions
     &[pgs*="'slidesSingleScroll'"],
-    &[pgs*="'slidesScrollMouse'"] {}
+    &[pgs*="'slidesScrollMouse'"],
+    &[pgs*="'slidesLoop'"] {}
 
     //+ slidesFullWidth
     &[pgs*="'slidesFullWidth'"] {
