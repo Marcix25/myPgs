@@ -136,7 +136,9 @@
  * @related
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - column: arranges the spacing groups vertically.
- * - box: makes the centred example visible, so mgiAuto is actually observable.
+ * - row: arranges the scale examples in a row.
+ * - wrap: lets the scale examples flow onto a second row.
+ * - box: makes the padding and the centred margin example visible, so pdTexts/mgiAuto are actually observable.
  * - gapTexts: separates the examples inside a group.
  * - gapSections: separates the groups.
  *
@@ -144,50 +146,45 @@
  */
 -->
 
+    <demo demo-h2="Scales"></demo>
+    <demo demo-h3="Scales" demo-description="The four spacing scales, from smallest to biggest, plus unset, shown with padding and box so the size difference is visible on the page. Texts is also the default with no option at all — margin uses the exact same scale, just on the outside of the box instead of the inside."></demo>
+    <section pgs="flex['row' 'gapTexts' 'wrap']" demo="component">
+        <span pgs="box padding['pdTexts']">pdTexts</span>
+        <span pgs="box padding['pdElements']">pdElements</span>
+        <span pgs="box padding['pdGroups']">pdGroups</span>
+        <span pgs="box padding['pdSections']">pdSections</span>
+        <span pgs="box padding['pdPage']">pdPage</span>
+        <span pgs="box padding['pdUnset']">pdUnset</span>
+    </section>
+
     <demo demo-h2="Margin"></demo>
-    <demo demo-h3="Directions" demo-description="Each direction is its own root component, paired with a spacing scale option in its own bracket."></demo>
+    <demo demo-h3="Extra options" demo-description="Margin adds two options padding doesn't have: mgAuto pushes the element away to centre it, and mgNegative negates whatever else is combined with it in the same bracket — each direction's own root has its own Negative flag (mgiNegative, mgtNegative, ...), independent of the base one, and is how a child reaches past the padding of the box it sits in."></demo>
     <section pgs="flex['column' 'gapTexts']" demo="component">
-        <strong>Directions</strong>
-        <p pgs="marginLeft['mglTexts']">Text spacing on the left.</p>
-        <p pgs="marginRight['mgrElements']">Element spacing on the right.</p>
-        <p pgs="marginBottom['mgbSections']">Section spacing below.</p>
-        <p pgs="marginTop['mgtTexts']">Text spacing above.</p>
-        <p pgs="marginInline['mgiElements']">Element spacing on the inline axis.</p>
-        <p pgs="marginBlock['mgblSections']">Section spacing on the block axis.</p>
-        <p pgs="margin['mgElements']">Element spacing on every side.</p>
-        <p pgs="margin['mgUnset']">No margin at all.</p>
-    </section>
-
-    <demo demo-h3="Scales" demo-description="Besides the text, element and section scales, the double (group) scale, the page padding token and auto are available on the same utilities."></demo>
-    <section pgs="flex['column' 'gapTexts']" demo="component">
-        <strong>Scales</strong>
-        <p pgs="marginLeft['mglGroups']">Double spacing on the left.</p>
-        <p pgs="marginLeft['mglPage']">Page padding on the left.</p>
         <p pgs="box marginInline['mgiAuto']">Centred by auto.</p>
+        <div pgs="box padding['pdElements']">
+            <p pgs="box marginInline['mgiNegative' 'mgiElements']">Pulled out to the edges of the padded box.</p>
+        </div>
     </section>
 
-    <demo demo-h3="Negative" demo-description="mgNegative negates whatever else is combined with it in the same bracket — the default padding on its own, or a scale flag paired with it. Each direction's own root has its own Negative flag (mgiNegative, mgtNegative, ...), independent of the base one. It is how a child reaches past the padding of the box it sits in."></demo>
-    <section pgs="box padding['pdElements']" demo="component">
-        <p pgs="box marginInline['mgiNegative' 'mgiElements']">Pulled out to the edges of the padded box.</p>
+    <demo demo-h3="Directions" demo-description="Each direction is its own root component; bare, with no bracket, it already carries the default scale shown above."></demo>
+    <section pgs="flex['column' 'gapTexts']" demo="component">
+        <p pgs="marginLeft">Spacing on the left.</p>
+        <p pgs="marginRight">Spacing on the right.</p>
+        <p pgs="marginTop">Spacing above.</p>
+        <p pgs="marginBottom">Spacing below.</p>
+        <p pgs="marginInline">Spacing on the inline axis.</p>
+        <p pgs="marginBlock">Spacing on the block axis.</p>
+        <p pgs="margin">Spacing on every side.</p>
     </section>
 
     <demo demo-h2="Padding"></demo>
-    <demo demo-h3="Directions" demo-description="Each direction is its own root component, paired with a spacing scale option in its own bracket."></demo>
+    <demo demo-h3="Directions" demo-description="Each direction is its own root component; bare, with no bracket, it already carries the default scale shown above."></demo>
     <section pgs="flex['column' 'gapTexts']" demo="component">
-        <strong>Directions</strong>
-        <p pgs="box paddingLeft['pdlTexts']">Text spacing on the left.</p>
-        <p pgs="box paddingRight['pdrElements']">Element spacing on the right.</p>
-        <p pgs="box paddingBottom['pdbSections']">Section spacing below.</p>
-        <p pgs="box paddingTop['pdtTexts']">Text spacing above.</p>
-        <p pgs="box paddingInline['pdiElements']">Element spacing on the inline axis.</p>
-        <p pgs="box paddingBlock['pdblSections']">Section spacing on the block axis.</p>
-        <p pgs="box padding['pdElements']">Element spacing on every side.</p>
-        <p pgs="box padding['pdUnset']">No padding at all.</p>
-    </section>
-
-    <demo demo-h3="Scales" demo-description="Besides the text, element and section scales, the double (group) scale and the page padding token are also available on the same utilities."></demo>
-    <section pgs="flex['column' 'gapTexts']" demo="component">
-        <strong>Scales</strong>
-        <p pgs="box paddingInline['pdiGroups']">Double padding on the inline axis.</p>
-        <p pgs="box paddingInline['pdiPage']">Page padding on the inline axis.</p>
+        <p pgs="box paddingLeft">Spacing on the left.</p>
+        <p pgs="box paddingRight">Spacing on the right.</p>
+        <p pgs="box paddingTop">Spacing above.</p>
+        <p pgs="box paddingBottom">Spacing below.</p>
+        <p pgs="box paddingInline">Spacing on the inline axis.</p>
+        <p pgs="box paddingBlock">Spacing on the block axis.</p>
+        <p pgs="box padding">Spacing on every side.</p>
     </section>

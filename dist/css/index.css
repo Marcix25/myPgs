@@ -1865,12 +1865,12 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   margin: calc(var(--page-padding) * var(--margin-sign, 1));
 }
 
-:is([pgs~=margin], [pgs*="margin["])[pgs*="'mgAuto'"] {
-  margin: auto;
-}
-
 :is([pgs~=margin], [pgs*="margin["])[pgs*="'mgUnset'"] {
   margin: unset;
+}
+
+:is([pgs~=margin], [pgs*="margin["])[pgs*="'mgAuto'"] {
+  margin: auto;
 }
 
 :is([pgs~=marginBlock], [pgs*="marginBlock["]) {
@@ -1905,12 +1905,12 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   margin-block: calc(var(--page-padding) * var(--margin-block-sign, 1));
 }
 
-:is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'mgblAuto'"] {
-  margin-block: auto;
-}
-
 :is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'mgblUnset'"] {
   margin-block: unset;
+}
+
+:is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'mgblAuto'"] {
+  margin-block: auto;
 }
 
 :is([pgs~=marginInline], [pgs*="marginInline["]) {
@@ -1945,12 +1945,12 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   margin-inline: calc(var(--page-padding) * var(--margin-inline-sign, 1));
 }
 
-:is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'mgiAuto'"] {
-  margin-inline: auto;
-}
-
 :is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'mgiUnset'"] {
   margin-inline: unset;
+}
+
+:is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'mgiAuto'"] {
+  margin-inline: auto;
 }
 
 :is([pgs~=marginTop], [pgs*="marginTop["]) {
@@ -1985,12 +1985,12 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   margin-top: calc(var(--page-padding) * var(--margin-top-sign, 1));
 }
 
-:is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'mgtAuto'"] {
-  margin-top: auto;
-}
-
 :is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'mgtUnset'"] {
   margin-top: unset;
+}
+
+:is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'mgtAuto'"] {
+  margin-top: auto;
 }
 
 :is([pgs~=marginRight], [pgs*="marginRight["]) {
@@ -2025,12 +2025,12 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   margin-right: calc(var(--page-padding) * var(--margin-right-sign, 1));
 }
 
-:is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'mgrAuto'"] {
-  margin-right: auto;
-}
-
 :is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'mgrUnset'"] {
   margin-right: unset;
+}
+
+:is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'mgrAuto'"] {
+  margin-right: auto;
 }
 
 :is([pgs~=marginBottom], [pgs*="marginBottom["]) {
@@ -2065,12 +2065,12 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   margin-bottom: calc(var(--page-padding) * var(--margin-bottom-sign, 1));
 }
 
-:is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'mgbAuto'"] {
-  margin-bottom: auto;
-}
-
 :is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'mgbUnset'"] {
   margin-bottom: unset;
+}
+
+:is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'mgbAuto'"] {
+  margin-bottom: auto;
 }
 
 :is([pgs~=marginLeft], [pgs*="marginLeft["]) {
@@ -2105,12 +2105,12 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   margin-left: calc(var(--page-padding) * var(--margin-left-sign, 1));
 }
 
-:is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'mglAuto'"] {
-  margin-left: auto;
-}
-
 :is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'mglUnset'"] {
   margin-left: unset;
+}
+
+:is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'mglAuto'"] {
+  margin-left: auto;
 }
 
 :is([pgs~=padding], [pgs*="padding["]) {
