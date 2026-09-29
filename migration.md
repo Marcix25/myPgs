@@ -335,7 +335,7 @@ with the `--button-*` properties you already know:
 | --- | --- |
 | `pgs-option="slideScale"` | `pgs-option="slideAnimationScale"` |
 | `pgs-option="notScrollAnimation"` | `pgs-option="notScrollWithMouse"` |
-| `--slide-shadow-color`, `--slide-shadow-width` | `--slides-maskStart`, `--slides-maskEnd`, `--slides-sizeMaskImage` |
+| `--slides-shadow-color`, `--slides-shadow-width` | `--slides-maskStart`, `--slides-maskEnd`, `--slides-sizeMaskImage` |
 | `pgs-option="slidesNotScrollWithMouse"` | `pgs-option="slidesScrollMouse"` |
 
 The edge fade is a mask now, not a shadow, so it fades to whatever is behind instead of to one colour.

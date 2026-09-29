@@ -6007,11 +6007,9 @@ html:has(dialog[open]) {
   isolation: isolate;
   height: max-content;
   --slides-sizeMaskImage: 40px;
-  --slide-width: calc(var(--page-width) /2.3);
-  --slide-width-tablet: 100%;
-  --slide-width-mobile: 100%;
-  --slides-paddingInline-tablet: var(--page-padding);
-  --slides-paddingInline-mobile: 0px;
+  --slides-width: calc(var(--page-width) /2.3);
+  --slides-width-tablet: 100%;
+  --slides-width-mobile: 100%;
 }
 
 :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-container]) {
@@ -6038,7 +6036,7 @@ html:has(dialog[open]) {
   scroll-snap-align: center !important;
   scroll-snap-stop: always;
   position: relative;
-  min-width: var(--slide-width);
+  min-width: var(--slides-width);
   max-width: 100%;
   height: auto;
 }
@@ -6051,18 +6049,14 @@ html:has(dialog[open]) {
   margin-right: var(--page-edgeFlush);
 }
 
-@container (max-width: 800px) {
+@media (max-width: 800px) {
   :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-container]) :where([pgs~=slides-container-slide]) {
-    gap: 1px;
-    padding-inline: var(--slides-paddingInline-tablet);
-    min-width: var(--slide-width-tablet);
+    min-width: var(--slides-width-tablet);
   }
 }
-@container (max-width: 430px) {
+@media (max-width: 430px) {
   :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-container]) :where([pgs~=slides-container-slide]) {
-    gap: 1px;
-    padding-inline: var(--slides-paddingInline-mobile);
-    min-width: var(--slide-width-mobile);
+    min-width: var(--slides-width-mobile);
   }
 }
 :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec],
@@ -6105,6 +6099,10 @@ html:has(dialog[open]) {
     right: calc(var(--page-padding) * -1 + 0.4rem);
   }
 }
+:is([pgs~=slides], [pgs*="slides["]):has([pgs~=_slides-dots]) {
+  margin-bottom: calc(var(--gap-elements) * 2);
+}
+
 :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-dots]),
 :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-dots]) {
   display: flex;
@@ -6149,11 +6147,18 @@ html:has(dialog[open]) {
   background-color: var(--color-primary);
 }
 
-:is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-dots]) :where([pgs~=slides-dots-dot]):hover,
-:is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-dots]) :where([pgs~=_slides-dots-dot]):hover,
-:is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-dots]) :where([pgs~=slides-dots-dot]):hover,
-:is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-dots]) :where([pgs~=_slides-dots-dot]):hover {
-  background-color: var(--color-primary-soft);
+@media (hover: hover) and (pointer: fine) {
+  :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-dots]) :where([pgs~=slides-dots-dot]):hover,
+  :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-dots]) :where([pgs~=_slides-dots-dot]):hover,
+  :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-dots]) :where([pgs~=slides-dots-dot]):hover,
+  :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-dots]) :where([pgs~=_slides-dots-dot]):hover {
+    background-color: var(--color-primary-soft);
+  }
+}
+:is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesFullWidth'"] {
+  --slides-width: 100%;
+  --slides-width-mobile: 100%;
+  --slides-width-tablet: 100%;
 }
 
 :is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesAnimationScale'"] :where([pgs~=slides-container]) :where([pgs~=slides-container-slide]) > * {

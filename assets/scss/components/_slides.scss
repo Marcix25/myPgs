@@ -36,11 +36,9 @@
     isolation: isolate;
     height: max-content;
     --slides-sizeMaskImage: 40px;
-    --slide-width: calc(var(--page-width) /2.3);
-    --slide-width-tablet: 100%;
-    --slide-width-mobile: 100%;
-    --slides-paddingInline-tablet: var(--page-padding);
-    --slides-paddingInline-mobile: 0px;
+    --slides-width: calc(var(--page-width) /2.3);
+    --slides-width-tablet: 100%;
+    --slides-width-mobile: 100%;
 
     //== CONTAINER SLIDES
     :where([pgs~="slides-container"]) {
@@ -71,27 +69,18 @@
             scroll-snap-align: center !important;
             scroll-snap-stop: always;
             position: relative;
-            min-width: var(--slide-width);
+            min-width: var(--slides-width);
             max-width: 100%;
             height: auto;
 
             &:first-child { margin-left: var(--page-edgeFlush); }
-
             &:last-child { margin-right: var(--page-edgeFlush); }
 
-            //-( tablet
-            @container (max-width: #{$tablet}) {
-                gap: 1px;
-                padding-inline: var(--slides-paddingInline-tablet);
-                min-width: var(--slide-width-tablet);
-            }
+            //- tablet
+            @media (max-width: #{$tablet}) { min-width: var(--slides-width-tablet); }
 
-            //-( mobile
-            @container (max-width: #{$mobile}) {
-                gap: 1px;
-                padding-inline: var(--slides-paddingInline-mobile);
-                min-width: var(--slide-width-mobile);
-            }
+            //- mobile
+            @media (max-width: #{$mobile}) { min-width: var(--slides-width-mobile); }
         }
     }
 
@@ -122,12 +111,12 @@
             --button-size: .8rem;
 
             &:is(:where([pgs~="slides-prec"]),
-            &:where([pgs~="_slides-prec"])) {
+                &:where([pgs~="_slides-prec"])) {
                 left: calc(var(--page-padding) * -1 + .4rem);
             }
 
             &:is(:where([pgs~="slides-next"]),
-            &:where([pgs~="_slides-next"])) {
+                &:where([pgs~="_slides-next"])) {
                 right: calc(var(--page-padding) * -1 + .4rem);
             }
         }
@@ -135,6 +124,10 @@
 
     //== DOTS
     // a hand-written dots row keeps the bare name; a generated one gets the underscore
+    &:has([pgs~="_slides-dots"]) {
+        margin-bottom: calc(var(--gap-elements)* 2);
+    }
+
     :where([pgs~="slides-dots"]),
     :where([pgs~="_slides-dots"]) {
         display: flex;
@@ -169,13 +162,25 @@
 
             &[pgs-state~="active"] { background-color: var(--color-primary); }
 
-            &:hover { background-color: var(--color-primary-soft); }
+            //== unguarded, a tap on iOS/mobile Safari simulates a persistent :hover after release —
+            //== same specificity as the active rule above it, so the sticky hover would win by
+            //== source order and the dot would never look active on a touch device
+            @media (hover: hover) and (pointer: fine) {
+                &:hover { background-color: var(--color-primary-soft); }
+            }
         }
     }
 
     //+ option for suggestions
     &[pgs*="'slidesSingleScroll'"],
     &[pgs*="'slidesScrollMouse'"] {}
+
+    //+ slidesFullWidth
+    &[pgs*="'slidesFullWidth'"] {
+        --slides-width: 100%;
+        --slides-width-mobile: 100%;
+        --slides-width-tablet: 100%;
+    }
 
     //+ slidesAnimationScale
     &[pgs*="'slidesAnimationScale'"] {
@@ -190,15 +195,11 @@
             }
 
             :where([pgs~="slides-container-slide"]):has(~ [pgs-state~="view"]) {
-                >* {
-                    transform-origin: right;
-                }
+                >* { transform-origin: right; }
             }
 
             :where([pgs-state~="view"])~ :where([pgs~="slides-container-slide"]) {
-                >* {
-                    transform-origin: left;
-                }
+                >* { transform-origin: left; }
             }
         }
     }
@@ -215,14 +216,10 @@
             }
 
             //== fade on the left until the first slide is reached
-            &:not(:has(:where([pgs~="slides-container"]) li:first-child[pgs-state~="view"])) :where([pgs~="slides-container"]) {
-                --slides-maskStart: var(--slides-sizeMaskImage);
-            }
+            &:not(:has(:where([pgs~="slides-container"]) li:first-child[pgs-state~="view"])) :where([pgs~="slides-container"]) { --slides-maskStart: var(--slides-sizeMaskImage); }
 
             //== fade on the right until the last slide is reached
-            &:not(:has(:where([pgs~="slides-container"]) li:last-child[pgs-state~="view"])) :where([pgs~="slides-container"]) {
-                --slides-maskEnd: var(--slides-sizeMaskImage);
-            }
+            &:not(:has(:where([pgs~="slides-container"]) li:last-child[pgs-state~="view"])) :where([pgs~="slides-container"]) { --slides-maskEnd: var(--slides-sizeMaskImage); }
         }
     }
 }
