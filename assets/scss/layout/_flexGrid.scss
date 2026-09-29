@@ -8,6 +8,7 @@
     // with, so the gap it draws and the gap it counts are always the same
     &[pgs*="'gapTexts'"] { --flex-gap: var(--gap-texts); gap: var(--flex-gap); }
     &[pgs*="'gapElements'"] { --flex-gap: var(--gap-elements); gap: var(--flex-gap); }
+    &[pgs*="'gapGroups'"] { --flex-gap: var(--gap-groups); gap: var(--flex-gap); }
     &[pgs*="'gapSections'"] { --flex-gap: var(--gap-sections); gap: var(--flex-gap); }
     &[pgs*="'gapNone'"] { --flex-gap: 0px; gap: 0; }
 

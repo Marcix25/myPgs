@@ -34,9 +34,7 @@
     }
 
     &:has(:where([pgs~="summary-button"])[hidden]) {
-        :where([pgs~="summary-content"]){
-            max-height: unset;
-        }
+        :where([pgs~="summary-content"]){ max-height: unset; }
     }
 
     :where([pgs~="summary-button"]) {
@@ -51,8 +49,6 @@
         font-weight: var(--font-weight-bold);
         font-size: var(--font-size-text);
 
-        &[hidden] {
-            display: none !important;
-        }
+        &[hidden] { display: none !important; }
     }
 }

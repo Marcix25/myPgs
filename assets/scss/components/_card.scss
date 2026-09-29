@@ -3,7 +3,7 @@
 //# CARD, BOX
 //= CARD
 :is([pgs~="card"], [pgs*="card\5B"]) {
-    --card-padding: var(--padding);
+    --card-padding: var(--padding-elements);
     --card-borderRadius: calc(var(--border-radius-input) + var(--card-padding));
     --card-borderRadius-item: var(--card-borderRadius) var(--card-borderRadius) 0 0;
     --card-background: var(--color-box-transparent);
@@ -67,7 +67,7 @@
 
     //+ card Mini
     // not 'mini': button and box already have that option
-    &[pgs*="'cardMini'"] { --card-padding: var(--padding-half); }
+    &[pgs*="'cardMini'"] { --card-padding: var(--padding-texts); }
 
     //+ Horizontal
     // row layout shared by cardHorizontal and cardHorizontalFixed
@@ -113,7 +113,7 @@
     //+ mini
     // not 'mini': button and card already have that option
     &[pgs*="'boxMini'"] {
-        --box-padding: var(--padding-half);
+        --box-padding: var(--padding-texts);
         --box-borderRadius: var(--border-radius-input);
     }
 }

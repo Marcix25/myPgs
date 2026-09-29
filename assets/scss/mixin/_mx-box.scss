@@ -1,7 +1,7 @@
 //# BOX
 //= BOX
 @mixin box() {
-    --box-padding: var(--padding);
+    --box-padding: var(--padding-elements);
     --box-borderRadius: calc(var(--border-radius-input) + var(--box-padding));
     --box-background: var(--color-box-transparent);
     padding: var(--box-padding);
@@ -19,9 +19,7 @@
         //== clickable box on a page with bodyHoverAuto; without it, boxHover below is the fallback
         outline: var(--border-complete);
 
-        &:not(:where([pgs*="body\5B"][pgs*="'bodyHoverAuto'"] [pgs~="box"])) {
-            @include boxHover();
-        }
+        &:not(:where([pgs*="body\5B"][pgs*="'bodyHoverAuto'"] [pgs~="box"])) { @include boxHover(); }
     }
 }
 
@@ -31,9 +29,7 @@
 @mixin boxHover() {
     @media (hover: hover) and (pointer: fine) {
         &:hover {
-            &:not(:where(:is([pgs~="hoverNot"], [pgs*="'hoverNot'"]))) {
-                --box-background: var(--color-primary-soft);
-            }
+            &:not(:where(:is([pgs~="hoverNot"], [pgs*="'hoverNot'"]))) { --box-background: var(--color-primary-soft); }
         }
     }
 }

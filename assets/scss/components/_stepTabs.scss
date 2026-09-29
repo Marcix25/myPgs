@@ -8,9 +8,7 @@
 
             display: none;
 
-            &[pgs-state~=is-active] {
-                display: flex;
-            }
+            &[pgs-state~=is-active] { display: flex; }
         }
     }
 
@@ -55,9 +53,7 @@
                 background: var(--color-primary);
                 scale: 1.2;
 
-                i, :is([pgs~="icon"], [pgs*="icon\5B"]) {
-                    color: var(--color-whiteFixed);
-                }
+                i, :is([pgs~="icon"], [pgs*="icon\5B"]) { color: var(--color-whiteFixed); }
             }
         }
     }

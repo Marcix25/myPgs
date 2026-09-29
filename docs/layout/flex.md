@@ -44,6 +44,7 @@ Flex layouts: direction, wrapping, centering, a responsive column-N row that dro
 - `flexOrderLast`: inside flexChild's own bracket, places a flex child after its siblings.
 - `gapTexts`: the text gap between the items; also sets --flex-gap, the gap a column-N row computes its widths with.
 - `gapElements`: the element gap between the items, and --flex-gap with it.
+- `gapGroups`: the double gap between the items, and --flex-gap with it.
 - `gapSections`: the section gap between the items, and --flex-gap with it; meant for large page blocks, since it also spaces the rows.
 - `gapNone`: removes the gap, and sets --flex-gap to 0.
 - `itemStart`: sets align-items to start on the flex or grid container.

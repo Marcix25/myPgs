@@ -5,7 +5,7 @@
 //= checkboxBackground 
 @mixin checkboxBackground() {
     --checkboxBackground-color: var(--color-text);
-    --checkboxBackground-padding: var(--padding-half);
+    --checkboxBackground-padding: var(--padding-texts);
     --checkboxBackground-borderRadius: var(--border-radius-input);
     --checkboxBackground-background: var(--color-box-transparent);
     --checkboxBackground-background-checked: var(--color-primary-soft);
@@ -18,14 +18,10 @@
     background-color: var(--checkboxBackground-background);
     margin-bottom: 0;
 
-    input {
-        margin-right: var(--checkboxBackground-padding);
-    }
+    input { margin-right: var(--checkboxBackground-padding); }
 
     //== checked
-    &:has(input:checked) {
-        background-color: var(--checkboxBackground-background-checked);
-    }
+    &:has(input:checked) { background-color: var(--checkboxBackground-background-checked); }
 }
 
 //= TOGGLE 
@@ -40,9 +36,7 @@
     gap: var(--gap-texts);
     margin-bottom: var(--gap-texts);
 
-    label {
-        cursor: pointer;
-    }
+    label { cursor: pointer; }
 
     //== rail & thumb
     input {
@@ -96,9 +90,7 @@
 
         //== CHECKED
         &:checked {
-            &::before {
-                background: var(--toggle-color-rail-checked);
-            }
+            &::before { background: var(--toggle-color-rail-checked); }
 
             &::after {
                 left: unset;
@@ -107,9 +99,7 @@
         }
 
         //== FOCUS
-        &:focus-visible::after {
-            outline: var(--focus-visible) !important;
-        }
+        &:focus-visible::after { outline: var(--focus-visible) !important; }
     }
 }
 
@@ -179,9 +169,7 @@
         &:not(:has(i)) {
             padding-right: var(--button-size);
 
-            &::after {
-                content: "×";
-            }
+            &::after { content: "×"; }
         }
     }
 
@@ -192,9 +180,7 @@
         &:not(:has(i)) {
             padding-left: var(--button-size);
 
-            &::after {
-                content: "";
-            }
+            &::after { content: ""; }
         }
     }
 }
@@ -204,7 +190,5 @@
     border: unset;
     @include row();
 
-    label {
-        @include chip();
-    }
+    label { @include chip(); }
 }

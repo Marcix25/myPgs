@@ -25,9 +25,7 @@
         font-weight: var(--font-weight-text);
     }
 
-    &:hover {
-        outline: solid var(--color-primary);
-    }
+    &:hover { outline: solid var(--color-primary); }
 }
 
 //== LABEL 
@@ -74,9 +72,7 @@
     }
 
     :where([pgs~="form-requiredHere"]) {
-        &::after {
-            position: relative;
-        }
+        &::after { position: relative; }
     }
 }
 
@@ -177,9 +173,7 @@
     }
 
     //=== disabled
-    &:disabled {
-        @include disabled();
-    }
+    &:disabled { @include disabled(); }
 }
 
 @mixin checkbox() {
@@ -208,14 +202,10 @@
         padding-inline: var(--checkbox-padding-inline);
 
         //=== Disabled
-        &:has(input:disabled) {
-            opacity: 0.5;
-        }
+        &:has(input:disabled) { opacity: 0.5; }
 
         //=== Focus
-        &:has(input[type=checkbox]:required) {
-            @include required();
-        }
+        &:has(input[type=checkbox]:required) { @include required(); }
     }
 
     //== ICON & BOX
@@ -251,14 +241,10 @@
         }
 
         //=== Checked
-        &:checked::after {
-            opacity: 1;
-        }
+        &:checked::after { opacity: 1; }
 
         //=== Focus
-        &:focus-visible::before {
-            outline: var(--focus-visible) !important;
-        }
+        &:focus-visible::before { outline: var(--focus-visible) !important; }
 
         //=== Checkbox
         &[type=checkbox] {
@@ -283,13 +269,8 @@
 
         //=== Radio
         &[type=radio] {
-            &::before {
-                border-radius: 50%;
-            }
-
-            &::after {
-                display: none;
-            }
+            &::before { border-radius: 50%; }
+            &::after { display: none; }
 
             &:checked::before {
                 background-color: var(--checkbox-check-color);
@@ -327,13 +308,8 @@
             font-weight: var(--font-weight-bold);
         }
 
-        &:hover {
-            background-color: var(--color-primary-soft);
-        }
-
-        &:checked:hover {
-            background-color: var(--color-primary-dark);
-        }
+        &:hover { background-color: var(--color-primary-soft); }
+        &:checked:hover { background-color: var(--color-primary-dark); }
     }
 }
 
@@ -355,9 +331,7 @@
     margin-right: auto;
     display: flex;
 
-    &::-webkit-color-swatch-wrapper {
-        padding: $padding;
-    }
+    &::-webkit-color-swatch-wrapper { padding: $padding; }
 
     &::-webkit-color-swatch {
         border: var(--border-complete);
@@ -381,9 +355,7 @@
         display: block;
 
         &:not(:has([pgs~="label"], [pgs~="labelUnset"], +input[type=checkbox], +input[type=radio])) {
-            &:has(+input, +select, +textarea) {
-                @include label();
-            }
+            &:has(+input, +select, +textarea) { @include label(); }
         }
 
         &:has(+[hidden], [pgs~="hidden"]),
@@ -394,18 +366,14 @@
 
     //=== INPUT
     input {
-        &:not([pgs~="inputUnset"], [type=checkbox], [type=file], [type=radio], [type=range]) {
-            @include input();
-        }
+        &:not([pgs~="inputUnset"], [type=checkbox], [type=file], [type=radio], [type=range]) { @include input(); }
 
         &[type="password"] {
             font-family: initial;
             font-size: calc(1.74rem);
         }
 
-        &[type="file"] {
-            min-height: 5.3rem;
-        }
+        &[type="file"] { min-height: 5.3rem; }
 
         &[type=search],
         &[type=number],
@@ -436,9 +404,7 @@
     $not-checkbox: ':is([pgs~="button"], [pgs*="button\5B"]), [pgs~="toggle"], [pgs~="chip"], [pgs~="checkboxBackground"], [pgs~="chips"] label';
 
     label:has(input[type=checkbox]):not(#{$not-checkbox}),
-    label:has(input[type=radio]):not(#{$not-checkbox}) {
-        @include checkbox();
-    }
+    label:has(input[type=radio]):not(#{$not-checkbox}) { @include checkbox(); }
 
     //=== TEXTAREA
     textarea {
@@ -446,31 +412,20 @@
     }
 
     //=== RAGE
-    input[type=range] {
-        @include rage();
-    }
+    input[type=range] { @include rage(); }
 
     //=== COLOR
-    input[type=color] {
-        @include inputcolor();
-    }
+    input[type=color] { @include inputcolor(); }
 
     //=== RAGE
-    select {
-        @include select();
-    }
+    select { @include select(); }
 
     //===FIELDSET 
     fieldset {
         border: unset;
 
-        legend {
-            @include legend();
-        }
-
-        &[required] legend {
-            @include required();
-        }
+        legend { @include legend(); }
+        &[required] legend { @include required(); }
     }
 
     //=== REQUIRED
@@ -481,13 +436,8 @@
         > select[required],
         > textarea[required]),
     fieldset:has(input[type="checkbox"][required], input[type="radio"][required]) legend {
-        &:not(:has([pgs~="label"])) {
-            @include required();
-        }
-
-        [pgs~="label"] {
-            @include required();
-        }
+        &:not(:has([pgs~="label"])) { @include required(); }
+        [pgs~="label"] { @include required(); }
     }
 
     //=== DISABLED
@@ -507,9 +457,7 @@
         display: none;
     }
 
-    input[type="file"] {
-        @include file();
-    }
+    input[type="file"] { @include file(); }
 }
 
 //== formValidate
@@ -531,9 +479,7 @@
             }
 
             :is(input[type=radio], input[type=checkbox]) {
-                &::before {
-                    outline: var(--formValidate-outline);
-                }
+                &::before { outline: var(--formValidate-outline); }
             }
         }
 
@@ -541,9 +487,7 @@
             border-radius: 10px;
 
             :is(input[type=radio], input[type=checkbox]) {
-                &::before {
-                    outline: var(--formValidate-outline);
-                }
+                &::before { outline: var(--formValidate-outline); }
             }
 
             legend {

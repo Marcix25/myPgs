@@ -7,13 +7,8 @@
     transition: transform 0.35s ease, opacity 0.35s ease;
     box-sizing: border-box;
 
-    >* {
-        box-sizing: border-box;
-    }
-
-    &[hidden] {
-        display: none !important;
-    }
+    >* { box-sizing: border-box; }
+    &[hidden] { display: none !important; }
 
     &[aria-hidden="true"] {
         transform: translate3d(0, 30px, 0);
@@ -79,18 +74,16 @@
         display: none;
     }
 
-    :where([pgs~="_cookieConsent-header"]) {
-        --icon-size: 2.5rem;
-    }
+    :where([pgs~="_cookieConsent-header"]) { --icon-size: 2.5rem; }
 
     :where([pgs~="_cookieConsent-panel"]) {
         border: var(--border-complete);
         border-radius: calc(var(--modal-borderRadius) - var(--gap-texts));
         background-color: var(--color-white);
         container-type: inline-size;
-        padding: var(--padding);
-        margin: calc(var(--padding) * -1);
-        margin-top: var(--padding);
+        padding: var(--padding-elements);
+        margin: calc(var(--padding-elements) * -1);
+        margin-top: var(--padding-elements);
 
         :where([pgs~="_cookieConsent-panel-badge"]) {
             font-size: 1.35rem;
@@ -101,9 +94,7 @@
         }
     }
 
-    :where([pgs~="_cookieConsent-panel-featureAnalytics"]) label {
-        width: 100%;
-    }
+    :where([pgs~="_cookieConsent-panel-featureAnalytics"]) label { width: 100%; }
 
     &:where([pgs~="cookieConsent-gaUnavailable"]) :where([pgs~="_cookieConsent-panel-featureAnalytics"]) label {
         opacity: 0.5;

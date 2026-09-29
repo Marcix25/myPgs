@@ -8,9 +8,7 @@
     @include column();
     @include list;
 
-    hr {
-        align-self: stretch;
-    }
+    hr { align-self: stretch; }
 
     h1,
     h3,
@@ -34,9 +32,7 @@
                 list-style: circle;
                 margin-top: var(--gap-texts);
 
-                ul>li {
-                    list-style: "-";
-                }
+                ul>li { list-style: "-"; }
             }
         }
     }
@@ -45,9 +41,7 @@
     &:is(ol) {
         list-style: decimal;
 
-        li {
-            list-style-type: decimal;
-        }
+        li { list-style-type: decimal; }
     }
 
     li {

@@ -8,7 +8,7 @@
     --alert-background: var(--color-primary-soft);
     --alert-color: var(--color-text);
     --alert-content-title-color: var(--alert-accent);
-    --alert-padding: var(--padding-half);
+    --alert-padding: var(--padding-texts);
     --alert-gap: var(--gap-texts);
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
@@ -48,9 +48,7 @@
         }
     }
 
-    p {
-        color: var(--alert-color);
-    }
+    p { color: var(--alert-color); }
 
     &[pgs-state~="info"] {
         --alert-accent: var(--color-info);

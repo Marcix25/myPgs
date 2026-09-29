@@ -38,9 +38,7 @@ ol[pgs~="steps"] {
             font-weight: var(--font-weight-bold);
             text-align: center;
 
-            i, :is([pgs~="icon"], [pgs*="icon\5B"]) {
-                color: var(--color-black);
-            }
+            i, :is([pgs~="icon"], [pgs*="icon\5B"]) { color: var(--color-black); }
         }
 
         //== LINE
@@ -82,9 +80,7 @@ ol[pgs~="steps"] {
                 background-color: var(--color-primary);
                 color: var(--color-whiteFixed);
 
-                i, :is([pgs~="icon"], [pgs*="icon\5B"]) {
-                    color: var(--color-whiteFixed);
-                }
+                i, :is([pgs~="icon"], [pgs*="icon\5B"]) { color: var(--color-whiteFixed); }
             }
 
             :where([pgs~="steps-step-line"]),

@@ -1,13 +1,8 @@
 @use "../mixin/mixin" as *;
 
 //# GENERAL
-[pgs~="darkmode"] {
-    color-scheme: dark;
-}
-
-[pgs~="lightmode"] {
-    color-scheme: light;
-}
+[pgs~="darkmode"] { color-scheme: dark; }
+[pgs~="lightmode"] { color-scheme: light; }
 
 [pgs~="blur"] {
     -webkit-backdrop-filter: var(--blur);
@@ -19,26 +14,13 @@
     appearance: none;
 }
 
-[pgs~="pointer"] {
-    cursor: pointer;
-}
-
-[pgs~="hidden"] {
-    display: none !important;
-}
+[pgs~="pointer"] { cursor: pointer; }
+[pgs~="hidden"] { display: none !important; }
 
 //= LIST
-[pgs~="list"] {
-    @include list();
-}
-
-[pgs~="textShadow"] {
-    text-shadow: var(--text-shadow);
-}
-
-[pgs~="boxShadow"] {
-    box-shadow: var(--box-shadow);
-}
+[pgs~="list"] { @include list(); }
+[pgs~="textShadow"] { text-shadow: var(--text-shadow); }
+[pgs~="boxShadow"] { box-shadow: var(--box-shadow); }
 
 //= ACCESSIBILITY
 [pgs~="visuallyHidden"],
@@ -65,7 +47,7 @@
     top: var(--gap-texts);
     left: var(--gap-texts);
     z-index: 9999;
-    padding: var(--padding-half);
+    padding: var(--padding-texts);
     border-radius: var(--border-radius-input);
     background-color: var(--color-background);
     color: var(--color-link);
@@ -87,11 +69,6 @@
 
 //= IMG
 [pgs*="img\5B"] {
-    &[pgs*="'imgCover'"] {
-        object-fit: cover;
-    }
-
-    &[pgs*="'imgContain'"] {
-        object-fit: contain;
-    }
+    &[pgs*="'imgCover'"] { object-fit: cover; }
+    &[pgs*="'imgContain'"] { object-fit: contain; }
 }

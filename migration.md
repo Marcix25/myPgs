@@ -423,11 +423,11 @@ each family has its own thickness options (`brd*`, `otl*`); see "Every utility f
 
 | was | now |
 | --- | --- |
-| `--padding-2` | `--padding-half` |
+| `--padding-2` | `--padding-texts` |
 | `--padding-page` | `--page-padding` |
 | `--font-titoli` | `--font-heading` |
 
-The spacing rhythm now comes off a single root value, `--SIZE`. `--padding`, `--padding-half`,
+The spacing rhythm now comes off a single root value, `--SIZE`. `--padding`, `--padding-texts`,
 `--page-padding`, `--border-radius`, `--border-radius-input`, `--gap-texts` and `--gap-elements` are
 all derived from it, so retheming the whole scale is one number instead of seven. The three renames
 are a consequence: `-2` said "divided by two" rather than what it is, and `--padding-page` was the
@@ -436,14 +436,14 @@ already shared.
 
 Two behaviours moved with the names, so a project that only renames still gets a different result:
 
-- `--page-padding` is a plain measure, where `--padding-page` was `min(5vw, var(--padding))`. The
+- `--page-padding` is a plain measure, where `--padding-page` was `min(5vw, var(--padding-elements))`. The
   page gutter no longer shrinks on a narrow screen. Put the clamp back on the new name if a project
-  wants it: `--page-padding: min(5vw, var(--padding))`.
+  wants it: `--page-padding: min(5vw, var(--padding-elements))`.
 - `--page-edgeFlush` is now one `--page-padding` shorter than `--page-edge`, so it lands on the outer
   edge of a section box rather than on its text, and reaches zero as soon as that box stops fitting
   rather than when the bare column does.
 
-The `margin2` and `padding2` options read `--padding-half`; they are now `margin['mrgHalf']` and
+The `margin2` and `padding2` options read `--padding-texts`; they are now `margin['mrgHalf']` and
 `padding['padHalf']`, see "Every utility family is one bracket".
 
 ### Flex/grid gap and wrap, bare `pgs` support removed

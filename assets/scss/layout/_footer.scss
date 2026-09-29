@@ -20,9 +20,7 @@
         --heading-size-h3: var(--font-size-text);
 
         :where([pgs~="footer-top-content"]) { row-gap: var(--gap-elements); }
-
         &::after { content: unset; }
-
         p { color: var(--footer-color); }
 
         a {
@@ -71,7 +69,6 @@
                             font-size: 15px;
 
                             &::before { color: var(--footer-color); }
-
                             &::after { color: var(--footer-color); }
                         }
                     }
@@ -101,9 +98,7 @@
 
             //- tablet 
             @media (max-width: $tablet) {
-                :is([pgs~="logo"], [pgs*="logo\5B"]) {
-                    width: 100%;
-                }
+                :is([pgs~="logo"], [pgs*="logo\5B"]) { width: 100%; }
             }
         }
 
