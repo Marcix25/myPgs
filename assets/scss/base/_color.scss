@@ -8,6 +8,7 @@
 //== they share a bracket with.
 //= BACKGROUND COLORS
 [pgs*="background\5B"] {
+    &[pgs*="'bgTransparent'"] { background: transparent; }
     &[pgs*="'bgWhite'"] { background: var(--color-white); }
     &[pgs*="'bgBlack'"] { background: var(--color-black); }
     &[pgs*="'bgWhiteTransparent'"] { background: var(--color-white-transparent); }

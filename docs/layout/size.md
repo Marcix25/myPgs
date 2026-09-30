@@ -73,7 +73,7 @@ Width and height utilities, each driven by its own custom property: --width-size
 - `column`: arranges the groups vertically.
 - `row`: places the column and viewport examples side by side.
 - `ovAuto`: inside overflow's own bracket, adds scrolling only when content overflows.
-- `mgiAuto`: inside marginInline's own bracket, pairs with auto to centre a constrained element.
+- `mgInAuto`: inside marginInline's own bracket, pairs with auto to centre a constrained element.
 - `gapTexts`: separates the examples inside a group.
 - `gapElements`: separates the side by side examples.
 - `flexCenter`: centres the label inside each measured block.
@@ -109,7 +109,7 @@ Without an option the value comes from the utility's own -size property (--width
 <strong>Arbitrary width</strong>
 <p pgs="box width" style="--width-size: 600px">Six hundred pixels, capped at the container.</p>
 <p pgs="box widthMin" style="--widthMin-size: 400px">At least four hundred pixels.</p>
-<p pgs="box widthMax marginInline['mgiAuto']" style="--widthMax-size: 500px">Capped at five hundred pixels and centred.</p>
+<p pgs="box widthMax marginInline['mgInAuto']" style="--widthMax-size: 500px">Capped at five hundred pixels and centred.</p>
 ```
 
 ### Two columns

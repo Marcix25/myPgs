@@ -4,9 +4,12 @@
 //= BORDER
 
 //- WIDTH
+//== the bracket-presence guard used everywhere else (marginBlock, paddingTop, ...) is safe again
+//== now that colour lives in its own borderColor component below: border's own bracket only ever
+//== holds width flags, never a colour flag that would otherwise need this default to still apply
 :is([pgs~="border"], [pgs*="border\5B"]) {
 
-    &:not([pgs*="'bd"]) { border: var(--border-width) solid var(--border-color);  }
+    &:not([pgs*="border\5B"]) { border: var(--border-width) solid var(--border-color); }
 
     //== the base scale prefix alone as a flag, e.g. border['bd'], is an explicit way to write the
     //== same default a bare border with no bracket already gets
@@ -19,75 +22,80 @@
 }
 
 //- COLOR
-:is([pgs*="border\5B"],[pgs*="borderBlock\5B"], [pgs*="borderInline\5B"], [pgs*="borderTop\5B"], [pgs*="borderRight\5B"], [pgs*="borderBottom\5B"], [pgs*="borderLeft\5B"]) {
-    [pgs*="'bdPrimary'"] { --border-color: var(--color-primary); }
-    [pgs*="'bdSecondary'"] { --border-color: var(--color-secondary); }
-    [pgs*="'bdTertiary'"] { --border-color: var(--color-tertiary); }
-    [pgs*="'bdQuaternary'"] { --border-color: var(--color-quaternary); }
-    [pgs*="'bdWhite'"] { --border-color: var(--color-white); }
-    [pgs*="'bdBlack'"] { --border-color: var(--color-black); }
-    [pgs*="'bdBox'"] { --border-color: var(--color-box); }
-    [pgs*="'bdBoxDark'"] { --border-color: var(--color-boxDark); }
-    [pgs*="'bdLink'"] { --border-color: var(--color-link); }
-    [pgs*="'bdInfo'"] { --border-color: var(--color-info); }
-    [pgs*="'bdError'"] { --border-color: var(--color-error); }
-    [pgs*="'bdWarning'"] { --border-color: var(--color-warning); }
-    [pgs*="'bdSuccess'"] { --border-color: var(--color-success); }
-    [pgs*="'bdGray'"] { --border-color: var(--color-gray); }
+//== its own root, independent of border/borderX's own bracket: pgs="borderTop['bdTpThin']
+//== borderColor['bdPrimary']" recolours the top side without needing a base border['...'] bracket
+//== of its own, since --border-color is shared by every border*/borderX width rule regardless of
+//== which root's bracket set it
+:is([pgs~="borderColor"], [pgs*="borderColor\5B"]) {
+    &[pgs*="'bdTransparent'"] { --border-color: transparent; }
+    &[pgs*="'bdPrimary'"] { --border-color: var(--color-primary); }
+    &[pgs*="'bdSecondary'"] { --border-color: var(--color-secondary); }
+    &[pgs*="'bdTertiary'"] { --border-color: var(--color-tertiary); }
+    &[pgs*="'bdQuaternary'"] { --border-color: var(--color-quaternary); }
+    &[pgs*="'bdWhite'"] { --border-color: var(--color-white); }
+    &[pgs*="'bdBlack'"] { --border-color: var(--color-black); }
+    &[pgs*="'bdBox'"] { --border-color: var(--color-box); }
+    &[pgs*="'bdBoxDark'"] { --border-color: var(--color-boxDark); }
+    &[pgs*="'bdLink'"] { --border-color: var(--color-link); }
+    &[pgs*="'bdInfo'"] { --border-color: var(--color-info); }
+    &[pgs*="'bdError'"] { --border-color: var(--color-error); }
+    &[pgs*="'bdWarning'"] { --border-color: var(--color-warning); }
+    &[pgs*="'bdSuccess'"] { --border-color: var(--color-success); }
+    &[pgs*="'bdGray'"] { --border-color: var(--color-gray); }
 }
 
 //- BLOCK
 :is([pgs~="borderBlock"], [pgs*="borderBlock\5B"]) {
     &:not([pgs*="borderBlock\5B"]) { border-block: var(--border-width) solid var(--border-color); }
-    &[pgs*="'bdbl'"] { border-block: var(--border-width) solid var(--border-color); }
-    &[pgs*="'bdblThin'"] { border-block: 1px solid var(--border-color); }
-    &[pgs*="'bdblThick'"] { border-block: 3px solid var(--border-color); }
-    &[pgs*="'bdblThicker'"] { border-block: 4.5px solid var(--border-color); }
+    &[pgs*="'bdBl'"] { border-block: var(--border-width) solid var(--border-color); }
+    &[pgs*="'bdBlThin'"] { border-block: 1px solid var(--border-color); }
+    &[pgs*="'bdBlThick'"] { border-block: 3px solid var(--border-color); }
+    &[pgs*="'bdBlThicker'"] { border-block: 4.5px solid var(--border-color); }
 }
 
 //- INLINE
 :is([pgs~="borderInline"], [pgs*="borderInline\5B"]) {
     &:not([pgs*="borderInline\5B"]) { border-inline: var(--border-width) solid var(--border-color); }
-    &[pgs*="'bdi'"] { border-inline: var(--border-width) solid var(--border-color); }
-    &[pgs*="'bdiThin'"] { border-inline: 1px solid var(--border-color); }
-    &[pgs*="'bdiThick'"] { border-inline: 3px solid var(--border-color); }
-    &[pgs*="'bdiThicker'"] { border-inline: 4.5px solid var(--border-color); }
+    &[pgs*="'bdIn'"] { border-inline: var(--border-width) solid var(--border-color); }
+    &[pgs*="'bdInThin'"] { border-inline: 1px solid var(--border-color); }
+    &[pgs*="'bdInThick'"] { border-inline: 3px solid var(--border-color); }
+    &[pgs*="'bdInThicker'"] { border-inline: 4.5px solid var(--border-color); }
 }
 
 //- TOP
 :is([pgs~="borderTop"], [pgs*="borderTop\5B"]) {
     &:not([pgs*="borderTop\5B"]) { border-top: var(--border-width) solid var(--border-color); }
-    &[pgs*="'bdt'"] { border-top: var(--border-width) solid var(--border-color); }
-    &[pgs*="'bdtThin'"] { border-top: 1px solid var(--border-color); }
-    &[pgs*="'bdtThick'"] { border-top: 3px solid var(--border-color); }
-    &[pgs*="'bdtThicker'"] { border-top: 4.5px solid var(--border-color); }
+    &[pgs*="'bdTp'"] { border-top: var(--border-width) solid var(--border-color); }
+    &[pgs*="'bdTpThin'"] { border-top: 1px solid var(--border-color); }
+    &[pgs*="'bdTpThick'"] { border-top: 3px solid var(--border-color); }
+    &[pgs*="'bdTpThicker'"] { border-top: 4.5px solid var(--border-color); }
 }
 
 //- RIGHT
 :is([pgs~="borderRight"], [pgs*="borderRight\5B"]) {
     &:not([pgs*="borderRight\5B"]) { border-right: var(--border-width) solid var(--border-color); }
-    &[pgs*="'bdr'"] { border-right: var(--border-width) solid var(--border-color); }
-    &[pgs*="'bdrThin'"] { border-right: 1px solid var(--border-color); }
-    &[pgs*="'bdrThick'"] { border-right: 3px solid var(--border-color); }
-    &[pgs*="'bdrThicker'"] { border-right: 4.5px solid var(--border-color); }
+    &[pgs*="'bdRt'"] { border-right: var(--border-width) solid var(--border-color); }
+    &[pgs*="'bdRtThin'"] { border-right: 1px solid var(--border-color); }
+    &[pgs*="'bdRtThick'"] { border-right: 3px solid var(--border-color); }
+    &[pgs*="'bdRtThicker'"] { border-right: 4.5px solid var(--border-color); }
 }
 
 //- BOTTOM
 :is([pgs~="borderBottom"], [pgs*="borderBottom\5B"]) {
     &:not([pgs*="borderBottom\5B"]) { border-bottom: var(--border-width) solid var(--border-color); }
-    &[pgs*="'bdb'"] { border-bottom: var(--border-width) solid var(--border-color); }
-    &[pgs*="'bdbThin'"] { border-bottom: 1px solid var(--border-color); }
-    &[pgs*="'bdbThick'"] { border-bottom: 3px solid var(--border-color); }
-    &[pgs*="'bdbThicker'"] { border-bottom: 4.5px solid var(--border-color); }
+    &[pgs*="'bdBt'"] { border-bottom: var(--border-width) solid var(--border-color); }
+    &[pgs*="'bdBtThin'"] { border-bottom: 1px solid var(--border-color); }
+    &[pgs*="'bdBtThick'"] { border-bottom: 3px solid var(--border-color); }
+    &[pgs*="'bdBtThicker'"] { border-bottom: 4.5px solid var(--border-color); }
 }
 
 //- LEFT
 :is([pgs~="borderLeft"], [pgs*="borderLeft\5B"]) {
     &:not([pgs*="borderLeft\5B"]) { border-left: var(--border-width) solid var(--border-color); }
-    &[pgs*="'bdl'"] { border-left: var(--border-width) solid var(--border-color); }
-    &[pgs*="'bdlThin'"] { border-left: 1px solid var(--border-color); }
-    &[pgs*="'bdlThick'"] { border-left: 3px solid var(--border-color); }
-    &[pgs*="'bdlThicker'"] { border-left: 4.5px solid var(--border-color); }
+    &[pgs*="'bdLt'"] { border-left: var(--border-width) solid var(--border-color); }
+    &[pgs*="'bdLtThin'"] { border-left: 1px solid var(--border-color); }
+    &[pgs*="'bdLtThick'"] { border-left: 3px solid var(--border-color); }
+    &[pgs*="'bdLtThicker'"] { border-left: 4.5px solid var(--border-color); }
 }
 
 //= BORDER RADIUS

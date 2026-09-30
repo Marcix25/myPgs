@@ -2,16 +2,16 @@
 // a shared base root for margin and padding (all four sides), plus a separate root per
 // direction (marginBlock, paddingTop, ...) — each direction's own root reads its own
 // --{property}-{direction}-sign custom property (base uses the shared --margin-sign), flipped
-// to -1 by that direction's own Negative flag (mgblNegative, mgtNegative, ...) and read with a
-// plain `, 1)` fallback, so mgtNegative negates only margin-top even when combined with a
+// to -1 by that direction's own Negative flag (mgBlNegative, mgTpNegative, ...) and read with a
+// plain `, 1)` fallback, so mgTpNegative negates only margin-top even when combined with a
 // base-level mgTexts/mgElements/etc in the same bracket. Padding has no negative variant at all,
 // since negative padding isn't a real thing. The scale is the same one gap uses: texts (smallest,
 // also the default), elements (base size), groups (double), sections (viewport-based, biggest).
 //= MARGIN
 // direction split back out into its own root per side (marginBlock, marginTop, ...) with a short
-// direction-prefixed scale flag inside each (mgblTexts, mgtPage, ...) instead of folded into
+// direction-prefixed scale flag inside each (mgBlTexts, mgTpPage, ...) instead of folded into
 // margin's own bracket. Base margin keeps the short "mg" prefix (mgTexts, ...); direction roots
-// add a direction letter (mgbl, mgi, mgt, mgr, mgb, mgl).
+// add a direction letter (mgBl, mgIn, mgTp, mgRt, mgBt, mgLt).
 :is([pgs~="margin"], [pgs*="margin\5B"]) {
     margin: calc(var(--margin-texts) * var(--margin-sign, 1));
 
@@ -30,96 +30,96 @@
 :is([pgs~="marginBlock"], [pgs*="marginBlock\5B"]) {
     margin-block: calc(var(--margin-texts) * var(--margin-block-sign, 1));
 
-    &[pgs*="'mgbl'"] { margin-block: calc(var(--margin-texts) * var(--margin-block-sign, 1)); }
-    &[pgs*="'mgblNegative'"] { --margin-block-sign: -1; }
-    &[pgs*="'mgblTexts'"] { margin-block: calc(var(--margin-texts) * var(--margin-block-sign, 1)); }
-    &[pgs*="'mgblElements'"] { margin-block: calc(var(--margin-elements) * var(--margin-block-sign, 1)); }
-    &[pgs*="'mgblGroups'"] { margin-block: calc(var(--margin-groups) * var(--margin-block-sign, 1)); }
-    &[pgs*="'mgblSections'"] { margin-block: calc(var(--margin-sections) * var(--margin-block-sign, 1)); }
-    &[pgs*="'mgblPage'"] { margin-block: calc(var(--page-padding) * var(--margin-block-sign, 1)); }
-    &[pgs*="'mgblUnset'"] { margin-block: unset; }
-    &[pgs*="'mgblAuto'"] { margin-block: auto; }
+    &[pgs*="'mgBl'"] { margin-block: calc(var(--margin-texts) * var(--margin-block-sign, 1)); }
+    &[pgs*="'mgBlNegative'"] { --margin-block-sign: -1; }
+    &[pgs*="'mgBlTexts'"] { margin-block: calc(var(--margin-texts) * var(--margin-block-sign, 1)); }
+    &[pgs*="'mgBlElements'"] { margin-block: calc(var(--margin-elements) * var(--margin-block-sign, 1)); }
+    &[pgs*="'mgBlGroups'"] { margin-block: calc(var(--margin-groups) * var(--margin-block-sign, 1)); }
+    &[pgs*="'mgBlSections'"] { margin-block: calc(var(--margin-sections) * var(--margin-block-sign, 1)); }
+    &[pgs*="'mgBlPage'"] { margin-block: calc(var(--page-padding) * var(--margin-block-sign, 1)); }
+    &[pgs*="'mgBlUnset'"] { margin-block: unset; }
+    &[pgs*="'mgBlAuto'"] { margin-block: auto; }
 }
 
 //- INLINE
 :is([pgs~="marginInline"], [pgs*="marginInline\5B"]) {
     margin-inline: calc(var(--margin-texts) * var(--margin-inline-sign, 1));
 
-    &[pgs*="'mgi'"] { margin-inline: calc(var(--margin-texts) * var(--margin-inline-sign, 1)); }
-    &[pgs*="'mgiNegative'"] { --margin-inline-sign: -1; }
-    &[pgs*="'mgiTexts'"] { margin-inline: calc(var(--margin-texts) * var(--margin-inline-sign, 1)); }
-    &[pgs*="'mgiElements'"] { margin-inline: calc(var(--margin-elements) * var(--margin-inline-sign, 1)); }
-    &[pgs*="'mgiGroups'"] { margin-inline: calc(var(--margin-groups) * var(--margin-inline-sign, 1)); }
-    &[pgs*="'mgiSections'"] { margin-inline: calc(var(--margin-sections) * var(--margin-inline-sign, 1)); }
-    &[pgs*="'mgiPage'"] { margin-inline: calc(var(--page-padding) * var(--margin-inline-sign, 1)); }
-    &[pgs*="'mgiUnset'"] { margin-inline: unset; }
-    &[pgs*="'mgiAuto'"] { margin-inline: auto; }
+    &[pgs*="'mgIn'"] { margin-inline: calc(var(--margin-texts) * var(--margin-inline-sign, 1)); }
+    &[pgs*="'mgInNegative'"] { --margin-inline-sign: -1; }
+    &[pgs*="'mgInTexts'"] { margin-inline: calc(var(--margin-texts) * var(--margin-inline-sign, 1)); }
+    &[pgs*="'mgInElements'"] { margin-inline: calc(var(--margin-elements) * var(--margin-inline-sign, 1)); }
+    &[pgs*="'mgInGroups'"] { margin-inline: calc(var(--margin-groups) * var(--margin-inline-sign, 1)); }
+    &[pgs*="'mgInSections'"] { margin-inline: calc(var(--margin-sections) * var(--margin-inline-sign, 1)); }
+    &[pgs*="'mgInPage'"] { margin-inline: calc(var(--page-padding) * var(--margin-inline-sign, 1)); }
+    &[pgs*="'mgInUnset'"] { margin-inline: unset; }
+    &[pgs*="'mgInAuto'"] { margin-inline: auto; }
 }
 
 //- TOP
 :is([pgs~="marginTop"], [pgs*="marginTop\5B"]) {
     margin-top: calc(var(--margin-texts) * var(--margin-top-sign, 1));
 
-    &[pgs*="'mgt'"] { margin-top: calc(var(--margin-texts) * var(--margin-top-sign, 1)); }
-    &[pgs*="'mgtNegative'"] { --margin-top-sign: -1; }
-    &[pgs*="'mgtTexts'"] { margin-top: calc(var(--margin-texts) * var(--margin-top-sign, 1)); }
-    &[pgs*="'mgtElements'"] { margin-top: calc(var(--margin-elements) * var(--margin-top-sign, 1)); }
-    &[pgs*="'mgtGroups'"] { margin-top: calc(var(--margin-groups) * var(--margin-top-sign, 1)); }
-    &[pgs*="'mgtSections'"] { margin-top: calc(var(--margin-sections) * var(--margin-top-sign, 1)); }
-    &[pgs*="'mgtPage'"] { margin-top: calc(var(--page-padding) * var(--margin-top-sign, 1)); }
-    &[pgs*="'mgtUnset'"] { margin-top: unset; }
-    &[pgs*="'mgtAuto'"] { margin-top: auto; }
+    &[pgs*="'mgTp'"] { margin-top: calc(var(--margin-texts) * var(--margin-top-sign, 1)); }
+    &[pgs*="'mgTpNegative'"] { --margin-top-sign: -1; }
+    &[pgs*="'mgTpTexts'"] { margin-top: calc(var(--margin-texts) * var(--margin-top-sign, 1)); }
+    &[pgs*="'mgTpElements'"] { margin-top: calc(var(--margin-elements) * var(--margin-top-sign, 1)); }
+    &[pgs*="'mgTpGroups'"] { margin-top: calc(var(--margin-groups) * var(--margin-top-sign, 1)); }
+    &[pgs*="'mgTpSections'"] { margin-top: calc(var(--margin-sections) * var(--margin-top-sign, 1)); }
+    &[pgs*="'mgTpPage'"] { margin-top: calc(var(--page-padding) * var(--margin-top-sign, 1)); }
+    &[pgs*="'mgTpUnset'"] { margin-top: unset; }
+    &[pgs*="'mgTpAuto'"] { margin-top: auto; }
 }
 
 //- RIGHT
 :is([pgs~="marginRight"], [pgs*="marginRight\5B"]) {
     margin-right: calc(var(--margin-texts) * var(--margin-right-sign, 1));
 
-    &[pgs*="'mgr'"] { margin-right: calc(var(--margin-texts) * var(--margin-right-sign, 1)); }
-    &[pgs*="'mgrNegative'"] { --margin-right-sign: -1; }
-    &[pgs*="'mgrTexts'"] { margin-right: calc(var(--margin-texts) * var(--margin-right-sign, 1)); }
-    &[pgs*="'mgrElements'"] { margin-right: calc(var(--margin-elements) * var(--margin-right-sign, 1)); }
-    &[pgs*="'mgrGroups'"] { margin-right: calc(var(--margin-groups) * var(--margin-right-sign, 1)); }
-    &[pgs*="'mgrSections'"] { margin-right: calc(var(--margin-sections) * var(--margin-right-sign, 1)); }
-    &[pgs*="'mgrPage'"] { margin-right: calc(var(--page-padding) * var(--margin-right-sign, 1)); }
-    &[pgs*="'mgrUnset'"] { margin-right: unset; }
-    &[pgs*="'mgrAuto'"] { margin-right: auto; }
+    &[pgs*="'mgRt'"] { margin-right: calc(var(--margin-texts) * var(--margin-right-sign, 1)); }
+    &[pgs*="'mgRtNegative'"] { --margin-right-sign: -1; }
+    &[pgs*="'mgRtTexts'"] { margin-right: calc(var(--margin-texts) * var(--margin-right-sign, 1)); }
+    &[pgs*="'mgRtElements'"] { margin-right: calc(var(--margin-elements) * var(--margin-right-sign, 1)); }
+    &[pgs*="'mgRtGroups'"] { margin-right: calc(var(--margin-groups) * var(--margin-right-sign, 1)); }
+    &[pgs*="'mgRtSections'"] { margin-right: calc(var(--margin-sections) * var(--margin-right-sign, 1)); }
+    &[pgs*="'mgRtPage'"] { margin-right: calc(var(--page-padding) * var(--margin-right-sign, 1)); }
+    &[pgs*="'mgRtUnset'"] { margin-right: unset; }
+    &[pgs*="'mgRtAuto'"] { margin-right: auto; }
 }
 
 //- BOTTOM
 :is([pgs~="marginBottom"], [pgs*="marginBottom\5B"]) {
     margin-bottom: calc(var(--margin-texts) * var(--margin-bottom-sign, 1));
 
-    &[pgs*="'mgb'"] { margin-bottom: calc(var(--margin-texts) * var(--margin-bottom-sign, 1)); }
-    &[pgs*="'mgbNegative'"] { --margin-bottom-sign: -1; }
-    &[pgs*="'mgbTexts'"] { margin-bottom: calc(var(--margin-texts) * var(--margin-bottom-sign, 1)); }
-    &[pgs*="'mgbElements'"] { margin-bottom: calc(var(--margin-elements) * var(--margin-bottom-sign, 1)); }
-    &[pgs*="'mgbGroups'"] { margin-bottom: calc(var(--margin-groups) * var(--margin-bottom-sign, 1)); }
-    &[pgs*="'mgbSections'"] { margin-bottom: calc(var(--margin-sections) * var(--margin-bottom-sign, 1)); }
-    &[pgs*="'mgbPage'"] { margin-bottom: calc(var(--page-padding) * var(--margin-bottom-sign, 1)); }
-    &[pgs*="'mgbUnset'"] { margin-bottom: unset; }
-    &[pgs*="'mgbAuto'"] { margin-bottom: auto; }
+    &[pgs*="'mgBt'"] { margin-bottom: calc(var(--margin-texts) * var(--margin-bottom-sign, 1)); }
+    &[pgs*="'mgBtNegative'"] { --margin-bottom-sign: -1; }
+    &[pgs*="'mgBtTexts'"] { margin-bottom: calc(var(--margin-texts) * var(--margin-bottom-sign, 1)); }
+    &[pgs*="'mgBtElements'"] { margin-bottom: calc(var(--margin-elements) * var(--margin-bottom-sign, 1)); }
+    &[pgs*="'mgBtGroups'"] { margin-bottom: calc(var(--margin-groups) * var(--margin-bottom-sign, 1)); }
+    &[pgs*="'mgBtSections'"] { margin-bottom: calc(var(--margin-sections) * var(--margin-bottom-sign, 1)); }
+    &[pgs*="'mgBtPage'"] { margin-bottom: calc(var(--page-padding) * var(--margin-bottom-sign, 1)); }
+    &[pgs*="'mgBtUnset'"] { margin-bottom: unset; }
+    &[pgs*="'mgBtAuto'"] { margin-bottom: auto; }
 }
 
 //- LEFT
 :is([pgs~="marginLeft"], [pgs*="marginLeft\5B"]) {
     margin-left: calc(var(--margin-texts) * var(--margin-left-sign, 1));
 
-    &[pgs*="'mgl'"] { margin-left: calc(var(--margin-texts) * var(--margin-left-sign, 1)); }
-    &[pgs*="'mglNegative'"] { --margin-left-sign: -1; }
-    &[pgs*="'mglTexts'"] { margin-left: calc(var(--margin-texts) * var(--margin-left-sign, 1)); }
-    &[pgs*="'mglElements'"] { margin-left: calc(var(--margin-elements) * var(--margin-left-sign, 1)); }
-    &[pgs*="'mglGroups'"] { margin-left: calc(var(--margin-groups) * var(--margin-left-sign, 1)); }
-    &[pgs*="'mglSections'"] { margin-left: calc(var(--margin-sections) * var(--margin-left-sign, 1)); }
-    &[pgs*="'mglPage'"] { margin-left: calc(var(--page-padding) * var(--margin-left-sign, 1)); }
-    &[pgs*="'mglUnset'"] { margin-left: unset; }
-    &[pgs*="'mglAuto'"] { margin-left: auto; }
+    &[pgs*="'mgLt'"] { margin-left: calc(var(--margin-texts) * var(--margin-left-sign, 1)); }
+    &[pgs*="'mgLtNegative'"] { --margin-left-sign: -1; }
+    &[pgs*="'mgLtTexts'"] { margin-left: calc(var(--margin-texts) * var(--margin-left-sign, 1)); }
+    &[pgs*="'mgLtElements'"] { margin-left: calc(var(--margin-elements) * var(--margin-left-sign, 1)); }
+    &[pgs*="'mgLtGroups'"] { margin-left: calc(var(--margin-groups) * var(--margin-left-sign, 1)); }
+    &[pgs*="'mgLtSections'"] { margin-left: calc(var(--margin-sections) * var(--margin-left-sign, 1)); }
+    &[pgs*="'mgLtPage'"] { margin-left: calc(var(--page-padding) * var(--margin-left-sign, 1)); }
+    &[pgs*="'mgLtUnset'"] { margin-left: unset; }
+    &[pgs*="'mgLtAuto'"] { margin-left: auto; }
 }
 
 //= PADDING
 // direction split back out into its own root per side (paddingBlock, paddingTop, ...) instead of
 // folded into padding's own bracket, with a short direction-prefixed scale flag inside each
-// (pdblTexts, pdtPage, ...). Base padding also uses the short "pd" prefix (pdTexts, ...), matching
+// (pdBlTexts, pdTpPage, ...). Base padding also uses the short "pd" prefix (pdTexts, ...), matching
 // the direction roots below. Same scale as margin and gap: texts (smallest, also the default),
 // elements (base size), groups (double), sections (viewport-based, biggest).
 :is([pgs~="padding"], [pgs*="padding\5B"]) {
@@ -138,76 +138,76 @@
 :is([pgs~="paddingBlock"], [pgs*="paddingBlock\5B"]) {
     padding-block: var(--padding-texts);
 
-    &[pgs*="'pdbl'"] { padding-block: var(--padding-texts); }
-    &[pgs*="'pdblTexts'"] { padding-block: var(--padding-texts); }
-    &[pgs*="'pdblElements'"] { padding-block: var(--padding-elements); }
-    &[pgs*="'pdblGroups'"] { padding-block: var(--padding-groups); }
-    &[pgs*="'pdblSections'"] { padding-block: var(--padding-sections); }
-    &[pgs*="'pdblPage'"] { padding-block: var(--page-padding); }
-    &[pgs*="'pdblUnset'"] { padding-block: unset; }
+    &[pgs*="'pdBl'"] { padding-block: var(--padding-texts); }
+    &[pgs*="'pdBlTexts'"] { padding-block: var(--padding-texts); }
+    &[pgs*="'pdBlElements'"] { padding-block: var(--padding-elements); }
+    &[pgs*="'pdBlGroups'"] { padding-block: var(--padding-groups); }
+    &[pgs*="'pdBlSections'"] { padding-block: var(--padding-sections); }
+    &[pgs*="'pdBlPage'"] { padding-block: var(--page-padding); }
+    &[pgs*="'pdBlUnset'"] { padding-block: unset; }
 }
 
 //- INLINE
 :is([pgs~="paddingInline"], [pgs*="paddingInline\5B"]) {
     padding-inline: var(--padding-texts);
 
-    &[pgs*="'pdi'"] { padding-inline: var(--padding-texts); }
-    &[pgs*="'pdiTexts'"] { padding-inline: var(--padding-texts); }
-    &[pgs*="'pdiElements'"] { padding-inline: var(--padding-elements); }
-    &[pgs*="'pdiGroups'"] { padding-inline: var(--padding-groups); }
-    &[pgs*="'pdiSections'"] { padding-inline: var(--padding-sections); }
-    &[pgs*="'pdiPage'"] { padding-inline: var(--page-padding); }
-    &[pgs*="'pdiUnset'"] { padding-inline: unset; }
+    &[pgs*="'pdIn'"] { padding-inline: var(--padding-texts); }
+    &[pgs*="'pdInTexts'"] { padding-inline: var(--padding-texts); }
+    &[pgs*="'pdInElements'"] { padding-inline: var(--padding-elements); }
+    &[pgs*="'pdInGroups'"] { padding-inline: var(--padding-groups); }
+    &[pgs*="'pdInSections'"] { padding-inline: var(--padding-sections); }
+    &[pgs*="'pdInPage'"] { padding-inline: var(--page-padding); }
+    &[pgs*="'pdInUnset'"] { padding-inline: unset; }
 }
 
 //- TOP
 :is([pgs~="paddingTop"], [pgs*="paddingTop\5B"]) {
     padding-top: var(--padding-texts);
 
-    &[pgs*="'pdt'"] { padding-top: var(--padding-texts); }
-    &[pgs*="'pdtTexts'"] { padding-top: var(--padding-texts); }
-    &[pgs*="'pdtElements'"] { padding-top: var(--padding-elements); }
-    &[pgs*="'pdtGroups'"] { padding-top: var(--padding-groups); }
-    &[pgs*="'pdtSections'"] { padding-top: var(--padding-sections); }
-    &[pgs*="'pdtPage'"] { padding-top: var(--page-padding); }
-    &[pgs*="'pdtUnset'"] { padding-top: unset; }
+    &[pgs*="'pdTp'"] { padding-top: var(--padding-texts); }
+    &[pgs*="'pdTpTexts'"] { padding-top: var(--padding-texts); }
+    &[pgs*="'pdTpElements'"] { padding-top: var(--padding-elements); }
+    &[pgs*="'pdTpGroups'"] { padding-top: var(--padding-groups); }
+    &[pgs*="'pdTpSections'"] { padding-top: var(--padding-sections); }
+    &[pgs*="'pdTpPage'"] { padding-top: var(--page-padding); }
+    &[pgs*="'pdTpUnset'"] { padding-top: unset; }
 }
 
 //- RIGHT
 :is([pgs~="paddingRight"], [pgs*="paddingRight\5B"]) {
     padding-right: var(--padding-texts);
 
-    &[pgs*="'pdr'"] { padding-right: var(--padding-texts); }
-    &[pgs*="'pdrTexts'"] { padding-right: var(--padding-texts); }
-    &[pgs*="'pdrElements'"] { padding-right: var(--padding-elements); }
-    &[pgs*="'pdrGroups'"] { padding-right: var(--padding-groups); }
-    &[pgs*="'pdrSections'"] { padding-right: var(--padding-sections); }
-    &[pgs*="'pdrPage'"] { padding-right: var(--page-padding); }
-    &[pgs*="'pdrUnset'"] { padding-right: unset; }
+    &[pgs*="'pdRt'"] { padding-right: var(--padding-texts); }
+    &[pgs*="'pdRtTexts'"] { padding-right: var(--padding-texts); }
+    &[pgs*="'pdRtElements'"] { padding-right: var(--padding-elements); }
+    &[pgs*="'pdRtGroups'"] { padding-right: var(--padding-groups); }
+    &[pgs*="'pdRtSections'"] { padding-right: var(--padding-sections); }
+    &[pgs*="'pdRtPage'"] { padding-right: var(--page-padding); }
+    &[pgs*="'pdRtUnset'"] { padding-right: unset; }
 }
 
 //- BOTTOM
 :is([pgs~="paddingBottom"], [pgs*="paddingBottom\5B"]) {
     padding-bottom: var(--padding-texts);
 
-    &[pgs*="'pdb'"] { padding-bottom: var(--padding-texts); }
-    &[pgs*="'pdbTexts'"] { padding-bottom: var(--padding-texts); }
-    &[pgs*="'pdbElements'"] { padding-bottom: var(--padding-elements); }
-    &[pgs*="'pdbGroups'"] { padding-bottom: var(--padding-groups); }
-    &[pgs*="'pdbSections'"] { padding-bottom: var(--padding-sections); }
-    &[pgs*="'pdbPage'"] { padding-bottom: var(--page-padding); }
-    &[pgs*="'pdbUnset'"] { padding-bottom: unset; }
+    &[pgs*="'pdBt'"] { padding-bottom: var(--padding-texts); }
+    &[pgs*="'pdBtTexts'"] { padding-bottom: var(--padding-texts); }
+    &[pgs*="'pdBtElements'"] { padding-bottom: var(--padding-elements); }
+    &[pgs*="'pdBtGroups'"] { padding-bottom: var(--padding-groups); }
+    &[pgs*="'pdBtSections'"] { padding-bottom: var(--padding-sections); }
+    &[pgs*="'pdBtPage'"] { padding-bottom: var(--page-padding); }
+    &[pgs*="'pdBtUnset'"] { padding-bottom: unset; }
 }
 
 //- LEFT
 :is([pgs~="paddingLeft"], [pgs*="paddingLeft\5B"]) {
     padding-left: var(--padding-texts);
 
-    &[pgs*="'pdl'"] { padding-left: var(--padding-texts); }
-    &[pgs*="'pdlTexts'"] { padding-left: var(--padding-texts); }
-    &[pgs*="'pdlElements'"] { padding-left: var(--padding-elements); }
-    &[pgs*="'pdlGroups'"] { padding-left: var(--padding-groups); }
-    &[pgs*="'pdlSections'"] { padding-left: var(--padding-sections); }
-    &[pgs*="'pdlPage'"] { padding-left: var(--page-padding); }
-    &[pgs*="'pdlUnset'"] { padding-left: unset; }
+    &[pgs*="'pdLt'"] { padding-left: var(--padding-texts); }
+    &[pgs*="'pdLtTexts'"] { padding-left: var(--padding-texts); }
+    &[pgs*="'pdLtElements'"] { padding-left: var(--padding-elements); }
+    &[pgs*="'pdLtGroups'"] { padding-left: var(--padding-groups); }
+    &[pgs*="'pdLtSections'"] { padding-left: var(--padding-sections); }
+    &[pgs*="'pdLtPage'"] { padding-left: var(--page-padding); }
+    &[pgs*="'pdLtUnset'"] { padding-left: unset; }
 }

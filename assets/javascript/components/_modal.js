@@ -321,7 +321,14 @@ function initializeModal(MODAL, existingDialog = null) {
 
     //= OPEN
     BUTTON_OPEN?.addEventListener("click", (e) => openModal(e), { signal });
-    BUTTON_OPEN?.addEventListener("keypress", (e) => !DIALOG.open && (e.key === "Enter" || e.key === " ") && openModal(e), { signal });
+    //== preventDefault suppresses the native click a real <button>/<a> already fires for Enter/Space
+    //== on its own — without it, that native click ran right after this one and, finding the dialog
+    //== already open, toggled it straight back closed
+    BUTTON_OPEN?.addEventListener("keydown", (e) => {
+        if (DIALOG.open || (e.key !== "Enter" && e.key !== " ")) return;
+        e.preventDefault();
+        openModal(e);
+    }, { signal });
 
     //= CLOSE
     DIALOG.addEventListener("close", () => {

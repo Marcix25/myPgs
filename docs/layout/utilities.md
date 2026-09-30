@@ -17,6 +17,7 @@ Focused layout, content, interaction, accessibility, and semantic-color utilitie
 - `select`: allows or prevents text selection depending on the option in its bracket; written bare it does nothing.
 - `textAlign`: aligns text the way the option in its bracket says; written bare it does nothing.
 - `truncate`: limits text to one line and adds an ellipsis when it overflows.
+- `zIndex`: sets the element's stack order to its own --zIndex property, set inline for the actual number, or picked from the two common shortcuts in its bracket; written bare with none set, it does nothing.
 
 ## PGS Options (component brackets)
 
@@ -43,6 +44,8 @@ Focused layout, content, interaction, accessibility, and semantic-color utilitie
 - `taCenter`: inside textAlign's own bracket, centers text.
 - `taRight`: inside textAlign's own bracket, aligns text to the end of the line.
 - `taJustify`: inside textAlign's own bracket, stretches text to fill each full line.
+- `ziOne`: inside zIndex's own bracket, sets --zIndex to 1.
+- `ziTen`: inside zIndex's own bracket, sets --zIndex to 10.
 
 ## Related elements
 
@@ -51,7 +54,8 @@ Focused layout, content, interaction, accessibility, and semantic-color utilitie
 - `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `box`: makes demonstration cells visible.
 - `background`: applies the semantic info color as the background here.
-- `border`: applies the semantic info color as the border color here.
+- `border`: draws the border shown here; borderColor is what recolours it.
+- `borderColor`: applies the semantic info color as the border color here.
 - `textColor`: applies the semantic info color to text here.
 - `flexChild`: sizes or orders one item inside a flex (or grid) container, the option in its bracket picking how.
 - `focusRing`: shows the shared focus ring when keyboard focus is visible.
@@ -64,7 +68,7 @@ Focused layout, content, interaction, accessibility, and semantic-color utilitie
 ### PGS Options (component brackets)
 
 - `bgInfo`: inside background's own bracket, applies the semantic info color.
-- `bdInfo`: inside border's own bracket, applies the semantic info color.
+- `bdInfo`: inside borderColor's own bracket, applies the semantic info color.
 - `txtInfo`: inside textColor's own bracket, applies the semantic info color.
 - `column`: stacks demonstration groups vertically.
 - `flex1`: inside flexChild's own bracket, lets a flex item grow and shrink to occupy available space.
@@ -111,6 +115,11 @@ Examples of the standalone MyPGS utility API.
             <span pgs="position['posAbsolute']">Absolute child</span>
         </div>
         <aside pgs="box position['posSticky']">Sticky element</aside>
+        <div pgs="box position['posRelative']">
+            Base
+            <span pgs="box position['posAbsolute'] zIndex" style="inset: 1rem auto auto 1rem; --zIndex: 2;">On top (zIndex: 2)</span>
+            <span pgs="box position['posAbsolute'] zIndex['ziTen']" style="inset: 1rem auto auto 6rem;">ziTen</span>
+        </div>
         <div pgs="flex['row' 'gapTexts']">
             <i pgs="icon['icon-chevronDown'] rotate['rot0']" aria-hidden="true"></i>
             <i pgs="icon['icon-chevronDown'] rotate['rot90']" aria-hidden="true"></i>
@@ -141,7 +150,7 @@ Examples of the standalone MyPGS utility API.
         <span pgs="visuallyHidden">Screen-reader-only description.</span>
         <a pgs="visuallyHiddenFocusable" href="#utility-content">Visible while focused</a>
         <span pgs="motionReduce">Motion is reduced for users who request it.</span>
-        <span pgs="background['bgInfo'] border['bdInfo']">Info background</span>
+        <span pgs="background['bgInfo'] border borderColor['bdInfo']">Info background</span>
         <span pgs="textColor['txtInfo']">Info text</span>
     </section>
 </main>

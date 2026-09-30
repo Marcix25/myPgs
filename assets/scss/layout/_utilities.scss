@@ -1,30 +1,19 @@
 //# LAYOUT, CONTENT & INTERACTION UTILITIES
-
 //= DISPLAY & FLEX ITEMS
-[pgs~="block"] {
-    display: block;
-}
-
-[pgs~="minWidth0"] {
-    min-width: 0;
-}
-
+[pgs~="block"] { display: block; }
+[pgs~="minWidth0"] { min-width: 0; }
 
 //= POSITION
 //== each value gets its own unique flag (posRelative, posAbsolute, posSticky) instead of a bare
 //== 'relative'/'absolute'/'sticky', so the inner checks need no anchoring at all — no other
 //== component can ever produce the same quoted substring
 [pgs*="position\5B"] {
-    &[pgs*="'posRelative'"] {
-        position: relative;
-    }
-
-    &[pgs*="'posAbsolute'"] {
-        position: absolute;
-    }
+    &[pgs*="'posRelative'"] { position: relative; }
+    &[pgs*="'posAbsolute'"] { position: absolute; }
 
     &[pgs*="'posSticky'"] {
         position: sticky;
+        top: 0;
     }
 }
 
@@ -34,48 +23,20 @@
 //== same bracket, which used to assume 'auto' came first — folding the axis into the name removes
 //== that ordering assumption entirely, the same fix already applied to margin and padding
 [pgs*="overflow\5B"] {
-    &[pgs*="'ovAuto'"] {
-        overflow: auto;
-    }
-
-    &[pgs*="'ovHidden'"] {
-        overflow: hidden;
-    }
-
-    &[pgs*="'ovAutoX'"] {
-        overflow-x: auto;
-    }
-
-    &[pgs*="'ovAutoY'"] {
-        overflow-y: auto;
-    }
-
-    &[pgs*="'ovHiddenX'"] {
-        overflow-x: hidden;
-    }
-
-    &[pgs*="'ovHiddenY'"] {
-        overflow-y: hidden;
-    }
+    &[pgs*="'ovAuto'"] { overflow: auto; }
+    &[pgs*="'ovHidden'"] { overflow: hidden; }
+    &[pgs*="'ovAutoX'"] { overflow-x: auto; }
+    &[pgs*="'ovAutoY'"] { overflow-y: auto; }
+    &[pgs*="'ovHiddenX'"] { overflow-x: hidden; }
+    &[pgs*="'ovHiddenY'"] { overflow-y: hidden; }
 }
 
 //= TEXT ALIGN
 [pgs*="textAlign\5B"] {
-    &[pgs*="'taLeft'"] {
-        text-align: left;
-    }
-
-    &[pgs*="'taCenter'"] {
-        text-align: center;
-    }
-
-    &[pgs*="'taRight'"] {
-        text-align: right;
-    }
-
-    &[pgs*="'taJustify'"] {
-        text-align: justify;
-    }
+    &[pgs*="'taLeft'"] { text-align: left; }
+    &[pgs*="'taCenter'"] { text-align: center; }
+    &[pgs*="'taRight'"] { text-align: right; }
+    &[pgs*="'taJustify'"] { text-align: justify; }
 }
 
 [pgs~="truncate"] {
@@ -87,13 +48,8 @@
 
 //= ASPECT RATIO
 [pgs*="aspect\5B"] {
-    &[pgs*="'aspSquare'"] {
-        aspect-ratio: 1 / 1;
-    }
-
-    &[pgs*="'aspVideo'"] {
-        aspect-ratio: 16 / 9;
-    }
+    &[pgs*="'aspSquare'"] { aspect-ratio: 1 / 1; }
+    &[pgs*="'aspVideo'"] { aspect-ratio: 16 / 9; }
 }
 
 //= ROTATION
@@ -102,46 +58,39 @@
 :is([pgs~="rotate"], [pgs*="rotate\5B"]) {
     transform: rotate(180deg);
 
-    &[pgs*="'rot0'"] {
-        transform: rotate(0deg);
-    }
-
-    &[pgs*="'rot90'"] {
-        transform: rotate(90deg);
-    }
-
-    &[pgs*="'rot180'"] {
-        transform: rotate(180deg);
-    }
-
-    &[pgs*="'rot270'"] {
-        transform: rotate(270deg);
-    }
+    &[pgs*="'rot0'"] { transform: rotate(0deg); }
+    &[pgs*="'rot90'"] { transform: rotate(90deg); }
+    &[pgs*="'rot180'"] { transform: rotate(180deg); }
+    &[pgs*="'rot270'"] { transform: rotate(270deg); }
 }
 
 //= INTERACTION
 [pgs*="select\5B"] {
     &[pgs*="'selNone'"] {
-        -webkit-user-select:none;
+        -webkit-user-select: none;
         user-select: none;
     }
 
     &[pgs*="'selText'"] {
-        -webkit-user-select:text;
+        -webkit-user-select: text;
         user-select: text;
     }
 }
 
 [pgs*="pointerEvents\5B"] {
-    &[pgs*="'peNone'"] {
-        pointer-events: none;
-    }
-
-    &[pgs*="'peAuto'"] {
-        pointer-events: auto;
-    }
+    &[pgs*="'peNone'"] { pointer-events: none; }
+    &[pgs*="'peAuto'"] { pointer-events: auto; }
 }
 
-[pgs~="cursorNotAllowed"] {
-    cursor: not-allowed;
+[pgs~="cursorNotAllowed"] { cursor: not-allowed; }
+
+//= Z-INDEX
+//== an arbitrary value has no small enumerable set the way rotate/position do, so it works like
+//== width/height's own -size property: set --zIndex inline for the actual number, or pick one of
+//== the two common shortcuts below
+:is([pgs~="zIndex"], [pgs*="zIndex\5B"]) {
+    z-index: var(--zIndex, auto);
+
+    &[pgs*="'ziOne'"] { --zIndex: 1; }
+    &[pgs*="'ziTen'"] { --zIndex: 10; }
 }

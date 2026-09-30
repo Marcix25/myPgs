@@ -1,7 +1,7 @@
 <!--
 /**
  * @title Spacing
- * @description Margin and padding utilities based on the same spacing scale gap uses: texts (smallest, also the default), elements (base size), group (double), sections (viewport-based, biggest). A shared base root for each property (margin, padding) covers all four sides at once, with the direction folded into a short prefix (mgTexts, pdPage, ...) instead of a separate root token per direction. Each direction also has its own root component (marginBlock, paddingTop, ...), using the same short direction-prefixed flags (mgblTexts, pdtPage, ...) — a physical side always wins over its logical shorthand when both are written, because CSS resolves that by which one comes later in the cascade, not by specificity. The gap utilities live in Flex and Grid instead, because they only take effect on a flex or grid container.
+ * @description Margin and padding utilities based on the same spacing scale gap uses: texts (smallest, also the default), elements (base size), group (double), sections (viewport-based, biggest). A shared base root for each property (margin, padding) covers all four sides at once, with the direction folded into a short prefix (mgTexts, pdPage, ...) instead of a separate root token per direction. Each direction also has its own root component (marginBlock, paddingTop, ...), using the same short direction-prefixed flags (mgBlTexts, pdTpPage, ...) — a physical side always wins over its logical shorthand when both are written, because CSS resolves that by which one comes later in the cascade, not by specificity. The gap utilities live in Flex and Grid instead, because they only take effect on a flex or grid container.
  *
  * @pgs
  * - margin: applies configurable spacing on every side.
@@ -29,60 +29,60 @@
  * - mgAuto: inside margin's own bracket, auto on every side, to centre an element or push it away.
  * - mgUnset: inside margin's own bracket, resets every side to its initial value.
  * - mgNegative: inside margin's own bracket, negates the base (all four sides) value it's combined with, or the default padding on its own — every direction below has its own Negative instead, independent of this one.
- * - mgbl: inside marginBlock's own bracket, an explicit way to write the same default a bare marginBlock with no bracket already gets.
- * - mgblTexts: inside marginBlock's own bracket, the text spacing scale, on the block axis only; also the default with no option at all.
- * - mgblElements: inside marginBlock's own bracket, the element spacing scale, on the block axis only.
- * - mgblGroups: inside marginBlock's own bracket, the double scale, on the block axis only.
- * - mgblSections: inside marginBlock's own bracket, the section spacing scale, on the block axis only.
- * - mgblPage: inside marginBlock's own bracket, the page padding token, on the block axis only.
- * - mgblAuto: inside marginBlock's own bracket, auto on the block axis only, to centre an element or push it away.
- * - mgblUnset: inside marginBlock's own bracket, resets the block axis to its initial value.
- * - mgblNegative: inside marginBlock's own bracket, negates whatever value is combined with it in the same bracket, independently of the base mgNegative sign.
- * - mgi: inside marginInline's own bracket, an explicit way to write the same default a bare marginInline with no bracket already gets.
- * - mgiTexts: inside marginInline's own bracket, the text spacing scale, on the inline axis only; also the default with no option at all.
- * - mgiElements: inside marginInline's own bracket, the element spacing scale, on the inline axis only.
- * - mgiGroups: inside marginInline's own bracket, the double scale, on the inline axis only.
- * - mgiSections: inside marginInline's own bracket, the section spacing scale, on the inline axis only.
- * - mgiPage: inside marginInline's own bracket, the page padding token, on the inline axis only.
- * - mgiAuto: inside marginInline's own bracket, auto on the inline axis only, to centre an element or push it away.
- * - mgiUnset: inside marginInline's own bracket, resets the inline axis to its initial value.
- * - mgiNegative: inside marginInline's own bracket, negates whatever value is combined with it in the same bracket, independently of the base mgNegative sign.
- * - mgt: inside marginTop's own bracket, an explicit way to write the same default a bare marginTop with no bracket already gets.
- * - mgtTexts: inside marginTop's own bracket, the text spacing scale, on the top only; also the default with no option at all.
- * - mgtElements: inside marginTop's own bracket, the element spacing scale, on the top only.
- * - mgtGroups: inside marginTop's own bracket, the double scale, on the top only.
- * - mgtSections: inside marginTop's own bracket, the section spacing scale, on the top only.
- * - mgtPage: inside marginTop's own bracket, the page padding token, on the top only.
- * - mgtAuto: inside marginTop's own bracket, auto on the top only, to centre an element or push it away.
- * - mgtUnset: inside marginTop's own bracket, resets the top to its initial value.
- * - mgtNegative: inside marginTop's own bracket, negates whatever value is combined with it in the same bracket, independently of the base mgNegative sign.
- * - mgr: inside marginRight's own bracket, an explicit way to write the same default a bare marginRight with no bracket already gets.
- * - mgrTexts: inside marginRight's own bracket, the text spacing scale, on the right only; also the default with no option at all.
- * - mgrElements: inside marginRight's own bracket, the element spacing scale, on the right only.
- * - mgrGroups: inside marginRight's own bracket, the double scale, on the right only.
- * - mgrSections: inside marginRight's own bracket, the section spacing scale, on the right only.
- * - mgrPage: inside marginRight's own bracket, the page padding token, on the right only.
- * - mgrAuto: inside marginRight's own bracket, auto on the right only, to centre an element or push it away.
- * - mgrUnset: inside marginRight's own bracket, resets the right to its initial value.
- * - mgrNegative: inside marginRight's own bracket, negates whatever value is combined with it in the same bracket, independently of the base mgNegative sign.
- * - mgb: inside marginBottom's own bracket, an explicit way to write the same default a bare marginBottom with no bracket already gets.
- * - mgbTexts: inside marginBottom's own bracket, the text spacing scale, on the bottom only; also the default with no option at all.
- * - mgbElements: inside marginBottom's own bracket, the element spacing scale, on the bottom only.
- * - mgbGroups: inside marginBottom's own bracket, the double scale, on the bottom only.
- * - mgbSections: inside marginBottom's own bracket, the section spacing scale, on the bottom only.
- * - mgbPage: inside marginBottom's own bracket, the page padding token, on the bottom only.
- * - mgbAuto: inside marginBottom's own bracket, auto on the bottom only, to centre an element or push it away.
- * - mgbUnset: inside marginBottom's own bracket, resets the bottom to its initial value.
- * - mgbNegative: inside marginBottom's own bracket, negates whatever value is combined with it in the same bracket, independently of the base mgNegative sign.
- * - mgl: inside marginLeft's own bracket, an explicit way to write the same default a bare marginLeft with no bracket already gets.
- * - mglTexts: inside marginLeft's own bracket, the text spacing scale, on the left only; also the default with no option at all.
- * - mglElements: inside marginLeft's own bracket, the element spacing scale, on the left only.
- * - mglGroups: inside marginLeft's own bracket, the double scale, on the left only.
- * - mglSections: inside marginLeft's own bracket, the section spacing scale, on the left only.
- * - mglPage: inside marginLeft's own bracket, the page padding token, on the left only.
- * - mglAuto: inside marginLeft's own bracket, auto on the left only, to centre an element or push it away.
- * - mglUnset: inside marginLeft's own bracket, resets the left to its initial value.
- * - mglNegative: inside marginLeft's own bracket, negates whatever value is combined with it in the same bracket, independently of the base mgNegative sign.
+ * - mgBl: inside marginBlock's own bracket, an explicit way to write the same default a bare marginBlock with no bracket already gets.
+ * - mgBlTexts: inside marginBlock's own bracket, the text spacing scale, on the block axis only; also the default with no option at all.
+ * - mgBlElements: inside marginBlock's own bracket, the element spacing scale, on the block axis only.
+ * - mgBlGroups: inside marginBlock's own bracket, the double scale, on the block axis only.
+ * - mgBlSections: inside marginBlock's own bracket, the section spacing scale, on the block axis only.
+ * - mgBlPage: inside marginBlock's own bracket, the page padding token, on the block axis only.
+ * - mgBlAuto: inside marginBlock's own bracket, auto on the block axis only, to centre an element or push it away.
+ * - mgBlUnset: inside marginBlock's own bracket, resets the block axis to its initial value.
+ * - mgBlNegative: inside marginBlock's own bracket, negates whatever value is combined with it in the same bracket, independently of the base mgNegative sign.
+ * - mgIn: inside marginInline's own bracket, an explicit way to write the same default a bare marginInline with no bracket already gets.
+ * - mgInTexts: inside marginInline's own bracket, the text spacing scale, on the inline axis only; also the default with no option at all.
+ * - mgInElements: inside marginInline's own bracket, the element spacing scale, on the inline axis only.
+ * - mgInGroups: inside marginInline's own bracket, the double scale, on the inline axis only.
+ * - mgInSections: inside marginInline's own bracket, the section spacing scale, on the inline axis only.
+ * - mgInPage: inside marginInline's own bracket, the page padding token, on the inline axis only.
+ * - mgInAuto: inside marginInline's own bracket, auto on the inline axis only, to centre an element or push it away.
+ * - mgInUnset: inside marginInline's own bracket, resets the inline axis to its initial value.
+ * - mgInNegative: inside marginInline's own bracket, negates whatever value is combined with it in the same bracket, independently of the base mgNegative sign.
+ * - mgTp: inside marginTop's own bracket, an explicit way to write the same default a bare marginTop with no bracket already gets.
+ * - mgTpTexts: inside marginTop's own bracket, the text spacing scale, on the top only; also the default with no option at all.
+ * - mgTpElements: inside marginTop's own bracket, the element spacing scale, on the top only.
+ * - mgTpGroups: inside marginTop's own bracket, the double scale, on the top only.
+ * - mgTpSections: inside marginTop's own bracket, the section spacing scale, on the top only.
+ * - mgTpPage: inside marginTop's own bracket, the page padding token, on the top only.
+ * - mgTpAuto: inside marginTop's own bracket, auto on the top only, to centre an element or push it away.
+ * - mgTpUnset: inside marginTop's own bracket, resets the top to its initial value.
+ * - mgTpNegative: inside marginTop's own bracket, negates whatever value is combined with it in the same bracket, independently of the base mgNegative sign.
+ * - mgRt: inside marginRight's own bracket, an explicit way to write the same default a bare marginRight with no bracket already gets.
+ * - mgRtTexts: inside marginRight's own bracket, the text spacing scale, on the right only; also the default with no option at all.
+ * - mgRtElements: inside marginRight's own bracket, the element spacing scale, on the right only.
+ * - mgRtGroups: inside marginRight's own bracket, the double scale, on the right only.
+ * - mgRtSections: inside marginRight's own bracket, the section spacing scale, on the right only.
+ * - mgRtPage: inside marginRight's own bracket, the page padding token, on the right only.
+ * - mgRtAuto: inside marginRight's own bracket, auto on the right only, to centre an element or push it away.
+ * - mgRtUnset: inside marginRight's own bracket, resets the right to its initial value.
+ * - mgRtNegative: inside marginRight's own bracket, negates whatever value is combined with it in the same bracket, independently of the base mgNegative sign.
+ * - mgBt: inside marginBottom's own bracket, an explicit way to write the same default a bare marginBottom with no bracket already gets.
+ * - mgBtTexts: inside marginBottom's own bracket, the text spacing scale, on the bottom only; also the default with no option at all.
+ * - mgBtElements: inside marginBottom's own bracket, the element spacing scale, on the bottom only.
+ * - mgBtGroups: inside marginBottom's own bracket, the double scale, on the bottom only.
+ * - mgBtSections: inside marginBottom's own bracket, the section spacing scale, on the bottom only.
+ * - mgBtPage: inside marginBottom's own bracket, the page padding token, on the bottom only.
+ * - mgBtAuto: inside marginBottom's own bracket, auto on the bottom only, to centre an element or push it away.
+ * - mgBtUnset: inside marginBottom's own bracket, resets the bottom to its initial value.
+ * - mgBtNegative: inside marginBottom's own bracket, negates whatever value is combined with it in the same bracket, independently of the base mgNegative sign.
+ * - mgLt: inside marginLeft's own bracket, an explicit way to write the same default a bare marginLeft with no bracket already gets.
+ * - mgLtTexts: inside marginLeft's own bracket, the text spacing scale, on the left only; also the default with no option at all.
+ * - mgLtElements: inside marginLeft's own bracket, the element spacing scale, on the left only.
+ * - mgLtGroups: inside marginLeft's own bracket, the double scale, on the left only.
+ * - mgLtSections: inside marginLeft's own bracket, the section spacing scale, on the left only.
+ * - mgLtPage: inside marginLeft's own bracket, the page padding token, on the left only.
+ * - mgLtAuto: inside marginLeft's own bracket, auto on the left only, to centre an element or push it away.
+ * - mgLtUnset: inside marginLeft's own bracket, resets the left to its initial value.
+ * - mgLtNegative: inside marginLeft's own bracket, negates whatever value is combined with it in the same bracket, independently of the base mgNegative sign.
  * - pd: inside padding's own bracket, an explicit way to write the same default a bare padding with no bracket already gets.
  * - pdTexts: inside padding's own bracket, the text spacing scale, on every side; also the default with no option at all.
  * - pdElements: inside padding's own bracket, the element spacing scale, on every side.
@@ -90,55 +90,55 @@
  * - pdSections: inside padding's own bracket, the section spacing scale, on every side.
  * - pdPage: inside padding's own bracket, the page padding token, on every side.
  * - pdUnset: inside padding's own bracket, resets every side to its initial value.
- * - pdbl: inside paddingBlock's own bracket, an explicit way to write the same default a bare paddingBlock with no bracket already gets.
- * - pdblTexts: inside paddingBlock's own bracket, the text spacing scale, on the block axis only; also the default with no option at all.
- * - pdblElements: inside paddingBlock's own bracket, the element spacing scale, on the block axis only.
- * - pdblGroups: inside paddingBlock's own bracket, the double scale, on the block axis only.
- * - pdblSections: inside paddingBlock's own bracket, the section spacing scale, on the block axis only.
- * - pdblPage: inside paddingBlock's own bracket, the page padding token, on the block axis only.
- * - pdblUnset: inside paddingBlock's own bracket, resets the block axis to its initial value.
- * - pdi: inside paddingInline's own bracket, an explicit way to write the same default a bare paddingInline with no bracket already gets.
- * - pdiTexts: inside paddingInline's own bracket, the text spacing scale, on the inline axis only; also the default with no option at all.
- * - pdiElements: inside paddingInline's own bracket, the element spacing scale, on the inline axis only.
- * - pdiGroups: inside paddingInline's own bracket, the double scale, on the inline axis only.
- * - pdiSections: inside paddingInline's own bracket, the section spacing scale, on the inline axis only.
- * - pdiPage: inside paddingInline's own bracket, the page padding token, on the inline axis only.
- * - pdiUnset: inside paddingInline's own bracket, resets the inline axis to its initial value.
- * - pdt: inside paddingTop's own bracket, an explicit way to write the same default a bare paddingTop with no bracket already gets.
- * - pdtTexts: inside paddingTop's own bracket, the text spacing scale, on the top only; also the default with no option at all.
- * - pdtElements: inside paddingTop's own bracket, the element spacing scale, on the top only.
- * - pdtGroups: inside paddingTop's own bracket, the double scale, on the top only.
- * - pdtSections: inside paddingTop's own bracket, the section spacing scale, on the top only.
- * - pdtPage: inside paddingTop's own bracket, the page padding token, on the top only.
- * - pdtUnset: inside paddingTop's own bracket, resets the top to its initial value.
- * - pdr: inside paddingRight's own bracket, an explicit way to write the same default a bare paddingRight with no bracket already gets.
- * - pdrTexts: inside paddingRight's own bracket, the text spacing scale, on the right only; also the default with no option at all.
- * - pdrElements: inside paddingRight's own bracket, the element spacing scale, on the right only.
- * - pdrGroups: inside paddingRight's own bracket, the double scale, on the right only.
- * - pdrSections: inside paddingRight's own bracket, the section spacing scale, on the right only.
- * - pdrPage: inside paddingRight's own bracket, the page padding token, on the right only.
- * - pdrUnset: inside paddingRight's own bracket, resets the right to its initial value.
- * - pdb: inside paddingBottom's own bracket, an explicit way to write the same default a bare paddingBottom with no bracket already gets.
- * - pdbTexts: inside paddingBottom's own bracket, the text spacing scale, on the bottom only; also the default with no option at all.
- * - pdbElements: inside paddingBottom's own bracket, the element spacing scale, on the bottom only.
- * - pdbGroups: inside paddingBottom's own bracket, the double scale, on the bottom only.
- * - pdbSections: inside paddingBottom's own bracket, the section spacing scale, on the bottom only.
- * - pdbPage: inside paddingBottom's own bracket, the page padding token, on the bottom only.
- * - pdbUnset: inside paddingBottom's own bracket, resets the bottom to its initial value.
- * - pdl: inside paddingLeft's own bracket, an explicit way to write the same default a bare paddingLeft with no bracket already gets.
- * - pdlTexts: inside paddingLeft's own bracket, the text spacing scale, on the left only; also the default with no option at all.
- * - pdlElements: inside paddingLeft's own bracket, the element spacing scale, on the left only.
- * - pdlGroups: inside paddingLeft's own bracket, the double scale, on the left only.
- * - pdlSections: inside paddingLeft's own bracket, the section spacing scale, on the left only.
- * - pdlPage: inside paddingLeft's own bracket, the page padding token, on the left only.
- * - pdlUnset: inside paddingLeft's own bracket, resets the left to its initial value.
+ * - pdBl: inside paddingBlock's own bracket, an explicit way to write the same default a bare paddingBlock with no bracket already gets.
+ * - pdBlTexts: inside paddingBlock's own bracket, the text spacing scale, on the block axis only; also the default with no option at all.
+ * - pdBlElements: inside paddingBlock's own bracket, the element spacing scale, on the block axis only.
+ * - pdBlGroups: inside paddingBlock's own bracket, the double scale, on the block axis only.
+ * - pdBlSections: inside paddingBlock's own bracket, the section spacing scale, on the block axis only.
+ * - pdBlPage: inside paddingBlock's own bracket, the page padding token, on the block axis only.
+ * - pdBlUnset: inside paddingBlock's own bracket, resets the block axis to its initial value.
+ * - pdIn: inside paddingInline's own bracket, an explicit way to write the same default a bare paddingInline with no bracket already gets.
+ * - pdInTexts: inside paddingInline's own bracket, the text spacing scale, on the inline axis only; also the default with no option at all.
+ * - pdInElements: inside paddingInline's own bracket, the element spacing scale, on the inline axis only.
+ * - pdInGroups: inside paddingInline's own bracket, the double scale, on the inline axis only.
+ * - pdInSections: inside paddingInline's own bracket, the section spacing scale, on the inline axis only.
+ * - pdInPage: inside paddingInline's own bracket, the page padding token, on the inline axis only.
+ * - pdInUnset: inside paddingInline's own bracket, resets the inline axis to its initial value.
+ * - pdTp: inside paddingTop's own bracket, an explicit way to write the same default a bare paddingTop with no bracket already gets.
+ * - pdTpTexts: inside paddingTop's own bracket, the text spacing scale, on the top only; also the default with no option at all.
+ * - pdTpElements: inside paddingTop's own bracket, the element spacing scale, on the top only.
+ * - pdTpGroups: inside paddingTop's own bracket, the double scale, on the top only.
+ * - pdTpSections: inside paddingTop's own bracket, the section spacing scale, on the top only.
+ * - pdTpPage: inside paddingTop's own bracket, the page padding token, on the top only.
+ * - pdTpUnset: inside paddingTop's own bracket, resets the top to its initial value.
+ * - pdRt: inside paddingRight's own bracket, an explicit way to write the same default a bare paddingRight with no bracket already gets.
+ * - pdRtTexts: inside paddingRight's own bracket, the text spacing scale, on the right only; also the default with no option at all.
+ * - pdRtElements: inside paddingRight's own bracket, the element spacing scale, on the right only.
+ * - pdRtGroups: inside paddingRight's own bracket, the double scale, on the right only.
+ * - pdRtSections: inside paddingRight's own bracket, the section spacing scale, on the right only.
+ * - pdRtPage: inside paddingRight's own bracket, the page padding token, on the right only.
+ * - pdRtUnset: inside paddingRight's own bracket, resets the right to its initial value.
+ * - pdBt: inside paddingBottom's own bracket, an explicit way to write the same default a bare paddingBottom with no bracket already gets.
+ * - pdBtTexts: inside paddingBottom's own bracket, the text spacing scale, on the bottom only; also the default with no option at all.
+ * - pdBtElements: inside paddingBottom's own bracket, the element spacing scale, on the bottom only.
+ * - pdBtGroups: inside paddingBottom's own bracket, the double scale, on the bottom only.
+ * - pdBtSections: inside paddingBottom's own bracket, the section spacing scale, on the bottom only.
+ * - pdBtPage: inside paddingBottom's own bracket, the page padding token, on the bottom only.
+ * - pdBtUnset: inside paddingBottom's own bracket, resets the bottom to its initial value.
+ * - pdLt: inside paddingLeft's own bracket, an explicit way to write the same default a bare paddingLeft with no bracket already gets.
+ * - pdLtTexts: inside paddingLeft's own bracket, the text spacing scale, on the left only; also the default with no option at all.
+ * - pdLtElements: inside paddingLeft's own bracket, the element spacing scale, on the left only.
+ * - pdLtGroups: inside paddingLeft's own bracket, the double scale, on the left only.
+ * - pdLtSections: inside paddingLeft's own bracket, the section spacing scale, on the left only.
+ * - pdLtPage: inside paddingLeft's own bracket, the page padding token, on the left only.
+ * - pdLtUnset: inside paddingLeft's own bracket, resets the left to its initial value.
  *
  * @related
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - column: arranges the spacing groups vertically.
  * - row: arranges the scale examples in a row.
  * - wrap: lets the scale examples flow onto a second row.
- * - box: makes the padding and the centred margin example visible, so pdTexts/mgiAuto are actually observable.
+ * - box: makes the padding and the centred margin example visible, so pdTexts/mgInAuto are actually observable.
  * - gapTexts: separates the examples inside a group.
  * - gapSections: separates the groups.
  *
@@ -146,45 +146,45 @@
  */
 -->
 
-    <demo demo-h2="Scales"></demo>
-    <demo demo-h3="Scales" demo-description="The four spacing scales, from smallest to biggest, plus unset, shown with padding and box so the size difference is visible on the page. Texts is also the default with no option at all — margin uses the exact same scale, just on the outside of the box instead of the inside."></demo>
-    <section pgs="flex['row' 'gapTexts' 'wrap']" demo="component">
-        <span pgs="box padding['pdTexts']">pdTexts</span>
-        <span pgs="box padding['pdElements']">pdElements</span>
-        <span pgs="box padding['pdGroups']">pdGroups</span>
-        <span pgs="box padding['pdSections']">pdSections</span>
-        <span pgs="box padding['pdPage']">pdPage</span>
-        <span pgs="box padding['pdUnset']">pdUnset</span>
-    </section>
+<demo demo-h2="Scales"></demo>
+<demo demo-h3="Scales" demo-description="The four spacing scales, from smallest to biggest, plus unset, shown with padding and box so the size difference is visible on the page. Texts is also the default with no option at all — margin uses the exact same scale, just on the outside of the box instead of the inside."></demo>
+<section pgs="flex['row' 'gapTexts' 'wrap']" demo="component">
+    <span pgs="box padding['pdTexts']">pdTexts</span>
+    <span pgs="box padding['pdElements']">pdElements</span>
+    <span pgs="box padding['pdGroups']">pdGroups</span>
+    <span pgs="box padding['pdSections']">pdSections</span>
+    <span pgs="box padding['pdPage']">pdPage</span>
+    <span pgs="box padding['pdUnset']">pdUnset</span>
+</section>
 
-    <demo demo-h2="Margin"></demo>
-    <demo demo-h3="Extra options" demo-description="Margin adds two options padding doesn't have: mgAuto pushes the element away to centre it, and mgNegative negates whatever else is combined with it in the same bracket — each direction's own root has its own Negative flag (mgiNegative, mgtNegative, ...), independent of the base one, and is how a child reaches past the padding of the box it sits in."></demo>
-    <section pgs="flex['column' 'gapTexts']" demo="component">
-        <p pgs="box marginInline['mgiAuto']">Centred by auto.</p>
-        <div pgs="box padding['pdElements']">
-            <p pgs="box marginInline['mgiNegative' 'mgiElements']">Pulled out to the edges of the padded box.</p>
-        </div>
-    </section>
+<demo demo-h2="Margin"></demo>
+<demo demo-h3="Extra options" demo-description="Margin adds two options padding doesn't have: mgAuto pushes the element away to centre it, and mgNegative negates whatever else is combined with it in the same bracket — each direction's own root has its own Negative flag (mgInNegative, mgTpNegative, ...), independent of the base one, and is how a child reaches past the padding of the box it sits in."></demo>
+<section pgs="flex['column' 'gapTexts']" demo="component">
+    <p pgs="box marginInline['mgInAuto']">Centred by auto.</p>
+    <div pgs="box padding['pdElements']">
+        <p pgs="box marginInline['mgInNegative' 'mgInElements']">Pulled out to the edges of the padded box.</p>
+    </div>
+</section>
 
-    <demo demo-h3="Directions" demo-description="Each direction is its own root component; bare, with no bracket, it already carries the default scale shown above."></demo>
-    <section pgs="flex['column' 'gapTexts']" demo="component">
-        <p pgs="marginLeft">Spacing on the left.</p>
-        <p pgs="marginRight">Spacing on the right.</p>
-        <p pgs="marginTop">Spacing above.</p>
-        <p pgs="marginBottom">Spacing below.</p>
-        <p pgs="marginInline">Spacing on the inline axis.</p>
-        <p pgs="marginBlock">Spacing on the block axis.</p>
-        <p pgs="margin">Spacing on every side.</p>
-    </section>
+<demo demo-h3="Directions" demo-description="Each direction is its own root component; bare, with no bracket, it already carries the default scale shown above."></demo>
+<section pgs="flex['column' 'gapTexts']" demo="component">
+    <p pgs="marginLeft">Spacing on the left.</p>
+    <p pgs="marginRight">Spacing on the right.</p>
+    <p pgs="marginTop">Spacing above.</p>
+    <p pgs="marginBottom">Spacing below.</p>
+    <p pgs="marginInline">Spacing on the inline axis.</p>
+    <p pgs="marginBlock">Spacing on the block axis.</p>
+    <p pgs="margin">Spacing on every side.</p>
+</section>
 
-    <demo demo-h2="Padding"></demo>
-    <demo demo-h3="Directions" demo-description="Each direction is its own root component; bare, with no bracket, it already carries the default scale shown above."></demo>
-    <section pgs="flex['column' 'gapTexts']" demo="component">
-        <p pgs="box paddingLeft">Spacing on the left.</p>
-        <p pgs="box paddingRight">Spacing on the right.</p>
-        <p pgs="box paddingTop">Spacing above.</p>
-        <p pgs="box paddingBottom">Spacing below.</p>
-        <p pgs="box paddingInline">Spacing on the inline axis.</p>
-        <p pgs="box paddingBlock">Spacing on the block axis.</p>
-        <p pgs="box padding">Spacing on every side.</p>
-    </section>
+<demo demo-h2="Padding"></demo>
+<demo demo-h3="Directions" demo-description="Each direction is its own root component; bare, with no bracket, it already carries the default scale shown above."></demo>
+<section pgs="flex['column' 'gapTexts']" demo="component">
+    <p pgs="box paddingLeft">Spacing on the left.</p>
+    <p pgs="box paddingRight">Spacing on the right.</p>
+    <p pgs="box paddingTop">Spacing above.</p>
+    <p pgs="box paddingBottom">Spacing below.</p>
+    <p pgs="box paddingInline">Spacing on the inline axis.</p>
+    <p pgs="box paddingBlock">Spacing on the block axis.</p>
+    <p pgs="box padding">Spacing on every side.</p>
+</section>

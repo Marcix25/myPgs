@@ -161,6 +161,7 @@
             "bgTertiarySoft",
             "bgTertiaryStrong",
             "bgText",
+            "bgTransparent",
             "bgWarning",
             "bgWarningSoft",
             "bgWhite",
@@ -223,10 +224,10 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "bdbl",
-            "bdblThick",
-            "bdblThicker",
-            "bdblThin"
+            "bdBl",
+            "bdBlThick",
+            "bdBlThicker",
+            "bdBlThin"
         ],
         "pgs-data": []
     },
@@ -234,25 +235,14 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "bdb",
-            "bdbThick",
-            "bdbThicker",
-            "bdbThin"
+            "bdBt",
+            "bdBtThick",
+            "bdBtThicker",
+            "bdBtThin"
         ],
         "pgs-data": []
     },
-    "borderInline": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [
-            "bdi",
-            "bdiThick",
-            "bdiThicker",
-            "bdiThin"
-        ],
-        "pgs-data": []
-    },
-    "borderLeft": {
+    "borderColor": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
@@ -262,18 +252,37 @@
             "bdError",
             "bdGray",
             "bdInfo",
-            "bdl",
             "bdLink",
-            "bdlThick",
-            "bdlThicker",
-            "bdlThin",
             "bdPrimary",
             "bdQuaternary",
             "bdSecondary",
             "bdSuccess",
             "bdTertiary",
+            "bdTransparent",
             "bdWarning",
             "bdWhite"
+        ],
+        "pgs-data": []
+    },
+    "borderInline": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "bdIn",
+            "bdInThick",
+            "bdInThicker",
+            "bdInThin"
+        ],
+        "pgs-data": []
+    },
+    "borderLeft": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "bdLt",
+            "bdLtThick",
+            "bdLtThicker",
+            "bdLtThin"
         ],
         "pgs-data": []
     },
@@ -290,10 +299,10 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "bdr",
-            "bdrThick",
-            "bdrThicker",
-            "bdrThin"
+            "bdRt",
+            "bdRtThick",
+            "bdRtThicker",
+            "bdRtThin"
         ],
         "pgs-data": []
     },
@@ -301,10 +310,10 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "bdt",
-            "bdtThick",
-            "bdtThicker",
-            "bdtThin"
+            "bdTp",
+            "bdTpThick",
+            "bdTpThicker",
+            "bdTpThin"
         ],
         "pgs-data": []
     },
@@ -936,15 +945,15 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "mgbl",
-            "mgblAuto",
-            "mgblElements",
-            "mgblGroups",
-            "mgblNegative",
-            "mgblPage",
-            "mgblSections",
-            "mgblTexts",
-            "mgblUnset"
+            "mgBl",
+            "mgBlAuto",
+            "mgBlElements",
+            "mgBlGroups",
+            "mgBlNegative",
+            "mgBlPage",
+            "mgBlSections",
+            "mgBlTexts",
+            "mgBlUnset"
         ],
         "pgs-data": []
     },
@@ -952,15 +961,15 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "mgb",
-            "mgbAuto",
-            "mgbElements",
-            "mgbGroups",
-            "mgbNegative",
-            "mgbPage",
-            "mgbSections",
-            "mgbTexts",
-            "mgbUnset"
+            "mgBt",
+            "mgBtAuto",
+            "mgBtElements",
+            "mgBtGroups",
+            "mgBtNegative",
+            "mgBtPage",
+            "mgBtSections",
+            "mgBtTexts",
+            "mgBtUnset"
         ],
         "pgs-data": []
     },
@@ -968,15 +977,15 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "mgi",
-            "mgiAuto",
-            "mgiElements",
-            "mgiGroups",
-            "mgiNegative",
-            "mgiPage",
-            "mgiSections",
-            "mgiTexts",
-            "mgiUnset"
+            "mgIn",
+            "mgInAuto",
+            "mgInElements",
+            "mgInGroups",
+            "mgInNegative",
+            "mgInPage",
+            "mgInSections",
+            "mgInTexts",
+            "mgInUnset"
         ],
         "pgs-data": []
     },
@@ -984,15 +993,15 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "mgl",
-            "mglAuto",
-            "mglElements",
-            "mglGroups",
-            "mglNegative",
-            "mglPage",
-            "mglSections",
-            "mglTexts",
-            "mglUnset"
+            "mgLt",
+            "mgLtAuto",
+            "mgLtElements",
+            "mgLtGroups",
+            "mgLtNegative",
+            "mgLtPage",
+            "mgLtSections",
+            "mgLtTexts",
+            "mgLtUnset"
         ],
         "pgs-data": []
     },
@@ -1000,15 +1009,15 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "mgr",
-            "mgrAuto",
-            "mgrElements",
-            "mgrGroups",
-            "mgrNegative",
-            "mgrPage",
-            "mgrSections",
-            "mgrTexts",
-            "mgrUnset"
+            "mgRt",
+            "mgRtAuto",
+            "mgRtElements",
+            "mgRtGroups",
+            "mgRtNegative",
+            "mgRtPage",
+            "mgRtSections",
+            "mgRtTexts",
+            "mgRtUnset"
         ],
         "pgs-data": []
     },
@@ -1016,15 +1025,15 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "mgt",
-            "mgtAuto",
-            "mgtElements",
-            "mgtGroups",
-            "mgtNegative",
-            "mgtPage",
-            "mgtSections",
-            "mgtTexts",
-            "mgtUnset"
+            "mgTp",
+            "mgTpAuto",
+            "mgTpElements",
+            "mgTpGroups",
+            "mgTpNegative",
+            "mgTpPage",
+            "mgTpSections",
+            "mgTpTexts",
+            "mgTpUnset"
         ],
         "pgs-data": []
     },
@@ -1163,13 +1172,13 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "pdbl",
-            "pdblElements",
-            "pdblGroups",
-            "pdblPage",
-            "pdblSections",
-            "pdblTexts",
-            "pdblUnset"
+            "pdBl",
+            "pdBlElements",
+            "pdBlGroups",
+            "pdBlPage",
+            "pdBlSections",
+            "pdBlTexts",
+            "pdBlUnset"
         ],
         "pgs-data": []
     },
@@ -1177,13 +1186,13 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "pdb",
-            "pdbElements",
-            "pdbGroups",
-            "pdbPage",
-            "pdbSections",
-            "pdbTexts",
-            "pdbUnset"
+            "pdBt",
+            "pdBtElements",
+            "pdBtGroups",
+            "pdBtPage",
+            "pdBtSections",
+            "pdBtTexts",
+            "pdBtUnset"
         ],
         "pgs-data": []
     },
@@ -1191,13 +1200,13 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "pdi",
-            "pdiElements",
-            "pdiGroups",
-            "pdiPage",
-            "pdiSections",
-            "pdiTexts",
-            "pdiUnset"
+            "pdIn",
+            "pdInElements",
+            "pdInGroups",
+            "pdInPage",
+            "pdInSections",
+            "pdInTexts",
+            "pdInUnset"
         ],
         "pgs-data": []
     },
@@ -1205,13 +1214,13 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "pdl",
-            "pdlElements",
-            "pdlGroups",
-            "pdlPage",
-            "pdlSections",
-            "pdlTexts",
-            "pdlUnset"
+            "pdLt",
+            "pdLtElements",
+            "pdLtGroups",
+            "pdLtPage",
+            "pdLtSections",
+            "pdLtTexts",
+            "pdLtUnset"
         ],
         "pgs-data": []
     },
@@ -1219,13 +1228,13 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "pdr",
-            "pdrElements",
-            "pdrGroups",
-            "pdrPage",
-            "pdrSections",
-            "pdrTexts",
-            "pdrUnset"
+            "pdRt",
+            "pdRtElements",
+            "pdRtGroups",
+            "pdRtPage",
+            "pdRtSections",
+            "pdRtTexts",
+            "pdRtUnset"
         ],
         "pgs-data": []
     },
@@ -1233,13 +1242,13 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "pdt",
-            "pdtElements",
-            "pdtGroups",
-            "pdtPage",
-            "pdtSections",
-            "pdtTexts",
-            "pdtUnset"
+            "pdTp",
+            "pdTpElements",
+            "pdTpGroups",
+            "pdTpPage",
+            "pdTpSections",
+            "pdTpTexts",
+            "pdTpUnset"
         ],
         "pgs-data": []
     },
@@ -1330,7 +1339,9 @@
             "_search-suggestions-item",
             "_search-suggestions-placeholder"
         ],
-        "pgs-options": [],
+        "pgs-options": [
+            "searchMinWidth"
+        ],
         "pgs-data": [
             "searchNoResults",
             "searchPlaceholder"
@@ -1636,6 +1647,15 @@
             "widthMinPageHalf",
             "widthMinPageThird",
             "widthMinText"
+        ],
+        "pgs-data": []
+    },
+    "zIndex": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "ziOne",
+            "ziTen"
         ],
         "pgs-data": []
     }

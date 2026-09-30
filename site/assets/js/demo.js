@@ -155,6 +155,54 @@ function configureSearchDemo() {
     section.append(note);
 }
 
+//= Nav Search (sidebar + mobile "Browse docs" search over the reference pages listed below it)
+function configureNavSearchDemo() {
+    const pgsApi = globalThis.pgs;
+    if (!pgsApi?.search) return;
+
+    const navLinks = Array.from(document.querySelectorAll(".reference-demo-nav a[href]"));
+    if (!navLinks.length) return;
+
+    const seen = new Set();
+    const source = [];
+    navLinks.forEach(link => {
+        const value = link.getAttribute("href");
+        if (seen.has(value)) return;
+        seen.add(value);
+        source.push({ label: link.textContent.trim(), value });
+    });
+
+    document.querySelectorAll(".reference-demo-nav-search").forEach(form => {
+        //== the component's own submit handler never calls preventDefault, so Enter with no suggestion highlighted would otherwise reload the page
+        form.addEventListener("submit", event => {
+            event.preventDefault();
+            const instance = pgsApi.search.api(form);
+            //== with matches, pick the first one; with none, select() never runs so the empty-state dropdown has to be closed by hand
+            if (instance?.items().length) instance.select(0);
+            else instance?.close();
+        });
+
+        const instance = pgsApi.search.api(form)?.configure({
+            minLength: 1,
+            debounce: 100,
+            limit: 8,
+            source,
+            onSelect: ({ value, input }) => {
+                //== click the real anchor instead of just setting location.hash, so pgs.pageNav (which switches panels on click, not on hashchange) runs as usual
+                navLinks.find(link => link.getAttribute("href") === value)?.click();
+                pgsApi.modal.api(pgsApi(form).closest("modal"))?.close();
+                input.value = "";
+                //== deferred past select()'s own input.focus(): that refocus would otherwise reschedule a search for the now-empty field and reopen the placeholder
+                setTimeout(() => {
+                    instance.cancel();
+                    instance.close();
+                    input.blur();
+                }, 0);
+            },
+        });
+    });
+}
+
 //= Form Demo
 function configureFormDemo() {
     const pgsApi = globalThis.pgs;
@@ -283,6 +331,7 @@ function boot() {
         pgsApi.init(document);
 
         configureSearchDemo();
+        configureNavSearchDemo();
         configureFormDemo();
         configureNotificationDemo();
         configureInitDemo();

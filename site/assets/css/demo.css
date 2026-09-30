@@ -149,7 +149,15 @@ body {
     }
 }
 
+.reference-demo-menuAside-search {
+    .reference-demo-nav {
+        transition: opacity 500ms;
+    }
 
+    &:has(input[type="search"]:focus) .reference-demo-nav {
+        opacity: 0.3;
+    }
+}
 
 
 

@@ -2,17 +2,18 @@
 
 # Border
 
-Border, outline and radius utilities, split out from the general-purpose set since together they cover an entire surface treatment on their own. Border's width has a shared base root (all four sides) plus one root per direction (borderTop, borderBlock, ...), each using a short direction-prefixed thickness flag (bdtThin, bdblThick, ...); colour is shared across all of them through a single bd* set of flags.
+Border, outline and radius utilities, split out from the general-purpose set since together they cover an entire surface treatment on their own. Border's width has a shared base root (all four sides) plus one root per direction (borderTop, borderBlock, ...), each using a short direction-prefixed thickness flag (bdTpThin, bdBlThick, ...); colour is a separate component, borderColor, independent of which of those draws the width.
 
 ## PGS
 
-- `border`: draws the shared border, on every side by default; what the bd* colour utilities recolour.
+- `border`: draws the shared border, on every side by default.
 - `borderBlock`: draws the shared border on both sides of the block axis only.
 - `borderInline`: draws the shared border on both sides of the inline axis only.
 - `borderTop`: draws the shared border above only.
 - `borderRight`: draws the shared border on the right only.
 - `borderBottom`: draws the shared border below only.
 - `borderLeft`: draws the shared border on the left only.
+- `borderColor`: recolours the border, whichever of the roots above draws its width.
 - `outline`: draws the same line outside the box, taking no space in the layout; the ol* colour utilities recolour it.
 - `borderRadius`: applies the standard radius token to any surface, or one of its own two other scales.
 
@@ -22,47 +23,48 @@ Border, outline and radius utilities, split out from the general-purpose set sin
 - `bdThin`: inside border's own bracket, draws it at 1px instead of the default 1.5px, on every side.
 - `bdThick`: inside border's own bracket, draws it at 3px, on every side.
 - `bdThicker`: inside border's own bracket, draws it at 4.5px, on every side.
-- `bdbl`: inside borderBlock's own bracket, an explicit way to write the same default a bare borderBlock with no bracket already gets.
-- `bdblThin`: inside borderBlock's own bracket, draws it on both sides of the block axis, at 1px.
-- `bdblThick`: inside borderBlock's own bracket, draws it on both sides of the block axis, at 3px.
-- `bdblThicker`: inside borderBlock's own bracket, draws it on both sides of the block axis, at 4.5px.
-- `bdi`: inside borderInline's own bracket, an explicit way to write the same default a bare borderInline with no bracket already gets.
-- `bdiThin`: inside borderInline's own bracket, draws it on both sides of the inline axis, at 1px.
-- `bdiThick`: inside borderInline's own bracket, draws it on both sides of the inline axis, at 3px.
-- `bdiThicker`: inside borderInline's own bracket, draws it on both sides of the inline axis, at 4.5px.
-- `bdt`: inside borderTop's own bracket, an explicit way to write the same default a bare borderTop with no bracket already gets.
-- `bdtThin`: inside borderTop's own bracket, draws it above only, at 1px.
-- `bdtThick`: inside borderTop's own bracket, draws it above only, at 3px.
-- `bdtThicker`: inside borderTop's own bracket, draws it above only, at 4.5px.
-- `bdr`: inside borderRight's own bracket, an explicit way to write the same default a bare borderRight with no bracket already gets.
-- `bdrThin`: inside borderRight's own bracket, draws it on the right only, at 1px.
-- `bdrThick`: inside borderRight's own bracket, draws it on the right only, at 3px.
-- `bdrThicker`: inside borderRight's own bracket, draws it on the right only, at 4.5px.
-- `bdb`: inside borderBottom's own bracket, an explicit way to write the same default a bare borderBottom with no bracket already gets.
-- `bdbThin`: inside borderBottom's own bracket, draws it below only, at 1px.
-- `bdbThick`: inside borderBottom's own bracket, draws it below only, at 3px.
-- `bdbThicker`: inside borderBottom's own bracket, draws it below only, at 4.5px.
-- `bdl`: inside borderLeft's own bracket, an explicit way to write the same default a bare borderLeft with no bracket already gets.
-- `bdlThin`: inside borderLeft's own bracket, draws it on the left only, at 1px.
-- `bdlThick`: inside borderLeft's own bracket, draws it on the left only, at 3px.
-- `bdlThicker`: inside borderLeft's own bracket, draws it on the left only, at 4.5px.
+- `bdBl`: inside borderBlock's own bracket, an explicit way to write the same default a bare borderBlock with no bracket already gets.
+- `bdBlThin`: inside borderBlock's own bracket, draws it on both sides of the block axis, at 1px.
+- `bdBlThick`: inside borderBlock's own bracket, draws it on both sides of the block axis, at 3px.
+- `bdBlThicker`: inside borderBlock's own bracket, draws it on both sides of the block axis, at 4.5px.
+- `bdIn`: inside borderInline's own bracket, an explicit way to write the same default a bare borderInline with no bracket already gets.
+- `bdInThin`: inside borderInline's own bracket, draws it on both sides of the inline axis, at 1px.
+- `bdInThick`: inside borderInline's own bracket, draws it on both sides of the inline axis, at 3px.
+- `bdInThicker`: inside borderInline's own bracket, draws it on both sides of the inline axis, at 4.5px.
+- `bdTp`: inside borderTop's own bracket, an explicit way to write the same default a bare borderTop with no bracket already gets.
+- `bdTpThin`: inside borderTop's own bracket, draws it above only, at 1px.
+- `bdTpThick`: inside borderTop's own bracket, draws it above only, at 3px.
+- `bdTpThicker`: inside borderTop's own bracket, draws it above only, at 4.5px.
+- `bdRt`: inside borderRight's own bracket, an explicit way to write the same default a bare borderRight with no bracket already gets.
+- `bdRtThin`: inside borderRight's own bracket, draws it on the right only, at 1px.
+- `bdRtThick`: inside borderRight's own bracket, draws it on the right only, at 3px.
+- `bdRtThicker`: inside borderRight's own bracket, draws it on the right only, at 4.5px.
+- `bdBt`: inside borderBottom's own bracket, an explicit way to write the same default a bare borderBottom with no bracket already gets.
+- `bdBtThin`: inside borderBottom's own bracket, draws it below only, at 1px.
+- `bdBtThick`: inside borderBottom's own bracket, draws it below only, at 3px.
+- `bdBtThicker`: inside borderBottom's own bracket, draws it below only, at 4.5px.
+- `bdLt`: inside borderLeft's own bracket, an explicit way to write the same default a bare borderLeft with no bracket already gets.
+- `bdLtThin`: inside borderLeft's own bracket, draws it on the left only, at 1px.
+- `bdLtThick`: inside borderLeft's own bracket, draws it on the left only, at 3px.
+- `bdLtThicker`: inside borderLeft's own bracket, draws it on the left only, at 4.5px.
 - `otlThin`: inside outline's own bracket, draws it at 1px instead of the default 1.5px.
 - `otlThick`: inside outline's own bracket, draws it at 3px.
 - `otlThicker`: inside outline's own bracket, draws it at 4.5px.
-- `bdPrimary`: recolours the border with the primary colour, whichever border-family bracket carries it.
-- `bdSecondary`: recolours the border with the secondary colour, whichever border-family bracket carries it.
-- `bdTertiary`: recolours the border with the tertiary colour, whichever border-family bracket carries it.
-- `bdQuaternary`: recolours the border with the quaternary colour, whichever border-family bracket carries it.
-- `bdWhite`: recolours the border white, whichever border-family bracket carries it.
-- `bdBlack`: recolours the border black, whichever border-family bracket carries it.
-- `bdBox`: recolours the border with the box surface colour, whichever border-family bracket carries it.
-- `bdBoxDark`: recolours the border with the dark box surface colour, whichever border-family bracket carries it.
-- `bdLink`: recolours the border with the link colour, whichever border-family bracket carries it.
-- `bdInfo`: recolours the border with the info colour, whichever border-family bracket carries it.
-- `bdError`: recolours the border with the error colour, whichever border-family bracket carries it.
-- `bdWarning`: recolours the border with the warning colour, whichever border-family bracket carries it.
-- `bdSuccess`: recolours the border with the success colour, whichever border-family bracket carries it.
-- `bdGray`: recolours the border gray, whichever border-family bracket carries it.
+- `bdTransparent`: inside borderColor's own bracket, makes the border fully transparent.
+- `bdPrimary`: inside borderColor's own bracket, recolours the border with the primary colour.
+- `bdSecondary`: inside borderColor's own bracket, recolours the border with the secondary colour.
+- `bdTertiary`: inside borderColor's own bracket, recolours the border with the tertiary colour.
+- `bdQuaternary`: inside borderColor's own bracket, recolours the border with the quaternary colour.
+- `bdWhite`: inside borderColor's own bracket, recolours the border white.
+- `bdBlack`: inside borderColor's own bracket, recolours the border black.
+- `bdBox`: inside borderColor's own bracket, recolours the border with the box surface colour.
+- `bdBoxDark`: inside borderColor's own bracket, recolours the border with the dark box surface colour.
+- `bdLink`: inside borderColor's own bracket, recolours the border with the link colour.
+- `bdInfo`: inside borderColor's own bracket, recolours the border with the info colour.
+- `bdError`: inside borderColor's own bracket, recolours the border with the error colour.
+- `bdWarning`: inside borderColor's own bracket, recolours the border with the warning colour.
+- `bdSuccess`: inside borderColor's own bracket, recolours the border with the success colour.
+- `bdGray`: inside borderColor's own bracket, recolours the border gray.
 - `otlPrimary`: inside outline's own bracket, recolours it with the primary colour.
 - `otlSecondary`: inside outline's own bracket, recolours it with the secondary colour.
 - `otlTertiary`: inside outline's own bracket, recolours it with the tertiary colour.
@@ -86,6 +88,7 @@ Border, outline and radius utilities, split out from the general-purpose set sin
 
 - `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `padding`: applies the shared padding utility to each example.
+- `box`: gives the transparent-border example a visible surface to sit on, so the missing border actually reads as missing.
 
 ### PGS Options (component brackets)
 
@@ -116,23 +119,24 @@ One example per utility, grouped by border, outline and radius.
 
 ### Border
 
-A line drawn on the edge of the box, taking its space in the layout. Each direction is its own root component, named like the margin and padding utilities. Recolour it with a bd* utility from Colors — it applies no matter which border-family bracket carries it — and change its weight with a thickness option.
+A line drawn on the edge of the box, taking its space in the layout. Each direction is its own root component, named like the margin and padding utilities. Recolour it with borderColor, its own dedicated component — it works alongside border or any of its directions, whichever draws the width — and change its weight with a thickness option.
 
 ```html
 <span pgs="padding border">border</span>
-<span pgs="padding border['bdPrimary']">border['bdPrimary']</span>
-<span pgs="padding border['bdError']">border['bdError']</span>
+<span pgs="padding border borderColor['bdPrimary']">borderColor['bdPrimary']</span>
+<span pgs="padding border borderColor['bdError']">borderColor['bdError']</span>
+<span pgs="padding box border borderColor['bdTransparent']">borderColor['bdTransparent']</span>
 
 <span pgs="padding border['bdThin']">thin</span>
 <span pgs="padding border['bdThick']">thick</span>
 <span pgs="padding border['bdThicker']">thicker</span>
 
-<span pgs="padding borderTop['bdtThin'] border['bdPrimary']">borderTop</span>
-<span pgs="padding borderRight['bdrThin'] border['bdPrimary']">borderRight</span>
-<span pgs="padding borderBottom['bdbThin'] border['bdPrimary']">borderBottom</span>
-<span pgs="padding borderLeft['bdlThin'] border['bdPrimary']">borderLeft</span>
-<span pgs="padding borderInline['bdiThin'] border['bdPrimary']">borderInline</span>
-<span pgs="padding borderBlock['bdblThin'] border['bdPrimary']">borderBlock</span>
+<span pgs="padding borderTop['bdTpThin'] borderColor['bdPrimary']">borderTop</span>
+<span pgs="padding borderRight['bdRtThin'] borderColor['bdPrimary']">borderRight</span>
+<span pgs="padding borderBottom['bdBtThin'] borderColor['bdPrimary']">borderBottom</span>
+<span pgs="padding borderLeft['bdLtThin'] borderColor['bdPrimary']">borderLeft</span>
+<span pgs="padding borderInline['bdInThin'] borderColor['bdPrimary']">borderInline</span>
+<span pgs="padding borderBlock['bdBlThin'] borderColor['bdPrimary']">borderBlock</span>
 ```
 
 ### Outline
