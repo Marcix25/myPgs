@@ -9,7 +9,7 @@
 
 //== BUTTON BASE
 @mixin buttonBase() {
-    --button-size: 1.3rem;
+    --button-size: var(--SIZE-texts);
     --button-primaryColor: var(--color-primary-strong);
     /// color
     --button-color: var(--color-black);
@@ -29,7 +29,7 @@
     --button-border-width: var(--border-width);
     --button-border-style: var(--border-style);
     --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
-    --button-borderRadius: calc(var(--button-size) * 2.5);
+    --button-borderRadius: var(--border-radius);
     /// size
     --button-font-size: var(--font-size-text);
     --button-padding-block: var(--button-size);
@@ -43,6 +43,10 @@
     font-family: var(--font);
     font-size: var(--button-font-size);
     font-weight: var(--font-weight-bold);
+    //== unset, the content height comes from the loaded font's own "normal" metric instead of the
+    //== padding — Urbanist resolves that to ~1.2x the font size, taller than expected and different
+    //== again if the font ever changes
+    line-height: 1;
     //== written here and not left to the hover token: pgs.hover adds that one from JavaScript, so
     //== until it runs a link would keep the underline and the text cursor of a plain anchor
     text-decoration: none;
@@ -193,8 +197,8 @@
 //== HEADER
 //=== BUTTON HEADER
 @mixin buttonForHeader() {
-    --button-size: 1.2rem;
-    --button-border-width: 0;
+    --buttonHeader-border-width: 0px;
+    --button-border-width: var(--buttonHeader-border-width);
     min-height: var(--header-size);
     overflow-wrap: break-word;
 }

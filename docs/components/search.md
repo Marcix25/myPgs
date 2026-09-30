@@ -17,10 +17,15 @@ Search markup, configuration, behavior, and usage example. Two custom events bub
 - `_search-suggestions-placeholder`: shown instead of the suggestion list while the query is shorter than minLength, guiding how many more characters to type.
 - `_search-suggestions-empty`: shown instead of the suggestion list when a completed search returns no items.
 
+## PGS Options (component brackets)
+
+- `searchMinWidth`: inside search's own bracket, sets a minimum width for the field from the mobile breakpoint up, so it doesn't shrink to fit a narrow container.
+
 ## PGS Data
 
 - `searchPlaceholder`: overrides the placeholder message shown below minLength, as searchPlaceholder[your text]. Write {minLength} in it to insert the configured minLength; defaults to "Type at least {minLength} characters".
 - `searchNoResults`: overrides the message shown when a search returns no items, as searchNoResults[your text]. Defaults to "No results found".
+- `searchIconSuggestion`: overrides the markup shown before each suggestion's label, as searchIconSuggestion[your markup]. Defaults to a magnifying glass icon.
 
 ## PGS States
 
@@ -57,13 +62,16 @@ Search markup, configuration, behavior, and usage example. Two custom events bub
 - `modal`: uses the related modal component or utility in this example.
 - `modal-button`: uses the related modal-button component or utility in this example.
 - `modal-close`: uses the related modal-close component or utility in this example.
-- `section`: uses the related section component or utility in this example.
+- `modal-dialog-content`: the panel drawn inside the dialog, and the element every position and width option sizes.
+- `background`: applies a background color, one of the palette below picked in its bracket.
+- `blur`: applies a backdrop blur behind the dialog for a frosted-glass effect.
 - `icon`: draws the glyph at the start of every suggestion; see Icon for the whole set.
 
 ### PGS Options (component brackets)
 
+- `dialogSmall`: shrinks the dialog content to a compact width (max 400px) instead of filling the viewport.
+- `bgTransparent`: inside background's own bracket, sets a fully transparent background.
 - `row`: sets the horizontal direction inside the flex bracket.
-- `hoverNot`: disables hover behavior on the search container.
 - `btnIconOnly`: presents search and close actions as icon buttons.
 - `btnTransparent`: keeps the submit button flat inside the field, so only the icon shows.
 - `icon-magnifyingGlass`: the glyph used there.
@@ -73,17 +81,20 @@ Search markup, configuration, behavior, and usage example. Two custom events bub
 
 - `modalContainerPGS`: identifies the modalContainerPGS element used by Search.
 
+### Other
+
+- `section`: uses the related section component or utility in this example.
+- `hoverNot`: disables hover behavior on the search container.
+
 ## CSS Variables
 
-- `--search-suggestions`
-- `--search-suggestions-background`
-- `--search-suggestions-border`
-- `--search-suggestions-borderRadius`
-- `--search-suggestions-boxShadow`
-- `--search-suggestions-color`
-- `--search-suggestions-gap`
+- `--search-background`
+- `--search-border`
+- `--search-borderRadius`
+- `--search-color`
+- `--search-height`
+- `--search-marginBlock`
 - `--search-suggestions-item-padding`
-- `--search-suggestions-item-selected`
 - `--search-suggestions-item-selected-background`
 - `--search-suggestions-item-selected-color`
 - `--search-suggestions-maxHeight`
@@ -100,7 +111,7 @@ Complete HTML markup and usage example for Search.
 Search field with live suggestions embedded directly in the page.
 
 ```html
-<form pgs="button['hoverNot'] search" pgs-data="searchPlaceholder[Type a component name] searchNoResults[No component matches]" autocomplete="off" action="" method="get">
+<form pgs="search" pgs-data="searchPlaceholder[Type a component name] searchNoResults[No component matches]" autocomplete="off" action="" method="get">
     <button pgs="button['btnIconOnly' 'btnTransparent']" type="submit" title="Search">
         <i pgs="icon['icon-magnifyingGlass']"></i>
     </button>
@@ -114,16 +125,16 @@ Search field with live suggestions embedded directly in the page.
 Search opened from an icon button inside a full-width modal, intended for the mobile navigation.
 
 ```html
-<div pgs="modal search-modal" pgs-data="modalContainerPGS[header]">
+<div pgs="modal['dialogSmall'] search-modal" pgs-data="modalContainerPGS[header]">
 
     <button type="button" pgs="modal-button button['btnIconOnly']" title="Search">
         <i pgs="icon['icon-magnifyingGlass']"></i>
     </button>
 
-    <dialog>
-        <div pgs="flex['row'] section search-mobile">
+    <dialog pgs="blur">
+        <div pgs="flex['row'] modal-dialog-content background['bgTransparent'] search-mobile">
 
-            <form pgs="button['hoverNot'] search" autocomplete="off" action="/" method="get">
+            <form pgs="search" autocomplete="off" action="/" method="get">
                 <button pgs="button['btnIconOnly' 'btnTransparent']" type="submit" title="Search">
                     <i pgs="icon['icon-magnifyingGlass']"></i>
                 </button>

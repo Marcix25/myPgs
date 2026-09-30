@@ -5,11 +5,14 @@
 
     // = SETTINGS 
     &:root {
-        --SIZE: 3.0rem;
         $SIZE: var(--SIZE);
-        $SIZE-texts: calc($SIZE/2);
-        $SIZE-groups: calc($SIZE*2);
-        $SIZE-sections: calc(calc($SIZE*2) + 10svh);
+        $SIZE-texts: var(--SIZE-texts);
+        $SIZE-groups: var(--SIZE-groups);
+        $SIZE-sections: var(--SIZE-sections);
+        --SIZE: 3.0rem;
+        --SIZE-texts: calc(#{$SIZE} / 2);
+        --SIZE-groups: calc(#{$SIZE} * 2);
+        --SIZE-sections: calc(var(--SIZE-groups) + 10svh);
         // Padding
         --padding-texts: #{$SIZE-texts};
         --padding-elements: #{$SIZE};
@@ -117,8 +120,8 @@
         --color-white-transparent: color-mix(in srgb, var(--color-white) 50%, transparent 100%);
         --color-black-transparent: color-mix(in srgb, var(--color-black) 50%, transparent 100%);
         --color-text: light-dark(#4a4a4a, #e3e3e3);
-        --color-box: light-dark(#F8F8F8, #222121);
-        --color-boxDark: light-dark(#222121, #F8F8F8);
+        --color-box: light-dark(#f5f5f8, #222121);
+        --color-boxDark: light-dark(#222121, #f5f5f8);
         --color-box-transparent: light-dark(color-mix(in srgb, #eeeeee 50%, transparent 50%), color-mix(in srgb, #222121 50%, transparent 50%));
         --color-boxDark-transparent: light-dark(color-mix(in srgb, #222121 50%, transparent 50%), color-mix(in srgb, #eeeeee 50%, transparent 50%));
         --color-link-soft: light-dark(#c1e7ff, #002a44);

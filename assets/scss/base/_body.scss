@@ -72,12 +72,6 @@
     //== IMG
     &:where([pgs*="'bodyImg'"]) {
 
-        i,
-        :is([pgs~="icon"], [pgs*="icon\5B"]) {
-            line-height: 1.2;
-            font-size: var(--fa-size, var(--icon-size));
-        }
-
         img,
         object,
         lottie-player {

@@ -14,6 +14,8 @@
 //== on the element itself always beats an inherited one.
 @mixin iconBase($on: "::before") {
     &#{$on} {
+        line-height: 1;
+        font-size: var(--icon-size);
         display: inline-block;
         width: var(--icon-size, 1em);
         height: var(--icon-size, 1em);
@@ -28,9 +30,7 @@
     --icon: #{$icon};
     @include iconBase($on);
 
-    &#{$on} {
-        @include svgBase64(var(--icon));
-    }
+    &#{$on} { @include svgBase64(var(--icon)); }
 }
 
 //+ ICON DUO
@@ -43,7 +43,6 @@
     place-items: center;
     inline-size: var(--icon-size);
     block-size: var(--icon-size);
-    line-height: 1;
 
     &::before,
     &::after {
@@ -87,7 +86,6 @@
         display: inline-grid;
         place-items: center;
         block-size: var(--boxed-size);
-        line-height: 1;
         aspect-ratio: 1;
     }
 }

@@ -1343,6 +1343,7 @@
             "searchMinWidth"
         ],
         "pgs-data": [
+            "searchIconSuggestion",
             "searchNoResults",
             "searchPlaceholder"
         ]

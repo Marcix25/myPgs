@@ -9,18 +9,21 @@
 */
 :where([pgs~=htmlBase]):root {
   --SIZE: 3.0rem;
-  --padding-texts: calc(var(--SIZE) / 2);
+  --SIZE-texts: calc(var(--SIZE) / 2);
+  --SIZE-groups: calc(var(--SIZE) * 2);
+  --SIZE-sections: calc(var(--SIZE-groups) + 10svh);
+  --padding-texts: var(--SIZE-texts);
   --padding-elements: var(--SIZE);
-  --padding-groups: calc(var(--SIZE) * 2);
-  --padding-sections: calc(var(--SIZE) * 2 + 10svh);
-  --margin-texts: calc(var(--SIZE) / 2);
+  --padding-groups: var(--SIZE-groups);
+  --padding-sections: var(--SIZE-sections);
+  --margin-texts: var(--SIZE-texts);
   --margin-elements: var(--SIZE);
-  --margin-groups: calc(var(--SIZE) * 2);
-  --margin-sections: calc(var(--SIZE) * 2 + 10svh);
-  --gap-texts: calc(var(--SIZE) / 2);
+  --margin-groups: var(--SIZE-groups);
+  --margin-sections: var(--SIZE-sections);
+  --gap-texts: var(--SIZE-texts);
   --gap-elements: var(--SIZE);
-  --gap-groups: calc(var(--SIZE) * 2);
-  --gap-sections: calc(var(--SIZE) * 2 + 10svh);
+  --gap-groups: var(--SIZE-groups);
+  --gap-sections: var(--SIZE-sections);
   --font: 'Urbanist', sans-serif;
   --font-heading: var(--font);
   --font-weight-title: 800;
@@ -29,7 +32,7 @@
   --font-size-text: 1.6rem;
   --border-radius: var(--SIZE);
   --border-radius-external: calc(var(--border-radius) + var(--SIZE));
-  --border-radius-input: calc(var(--SIZE) / 2);
+  --border-radius-input: var(--SIZE-texts);
   --border-width: 1.5px;
   --border-style: solid;
   --border-color: light-dark(#ebebeb, #353535);
@@ -102,8 +105,8 @@
   --color-white-transparent: color-mix(in srgb, var(--color-white) 50%, transparent 100%);
   --color-black-transparent: color-mix(in srgb, var(--color-black) 50%, transparent 100%);
   --color-text: light-dark(#4a4a4a, #e3e3e3);
-  --color-box: light-dark(#F8F8F8, #222121);
-  --color-boxDark: light-dark(#222121, #F8F8F8);
+  --color-box: light-dark(#f5f5f8, #222121);
+  --color-boxDark: light-dark(#222121, #f5f5f8);
   --color-box-transparent: light-dark(color-mix(in srgb, #eeeeee 50%, transparent 50%), color-mix(in srgb, #222121 50%, transparent 50%));
   --color-boxDark-transparent: light-dark(color-mix(in srgb, #222121 50%, transparent 50%), color-mix(in srgb, #eeeeee 50%, transparent 50%));
   --color-link-soft: light-dark(#c1e7ff, #002a44);
@@ -187,12 +190,6 @@
 :where([pgs*="body["]):where([pgs*="'bodyBase'"]) :focus-visible {
   outline: var(--focus-visible);
   outline-offset: 3px;
-}
-
-:where([pgs*="body["]):where([pgs*="'bodyImg'"]) i,
-:where([pgs*="body["]):where([pgs*="'bodyImg'"]) :is([pgs~=icon], [pgs*="icon["]) {
-  line-height: 1.2;
-  font-size: var(--fa-size, var(--icon-size));
 }
 
 :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img,
@@ -3502,6 +3499,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 [pgs~=radio] input[type=checkbox]::after,
 [pgs~=checkbox] input[type=checkbox]::after {
+  line-height: 1;
+  font-size: var(--icon-size);
   display: inline-block;
   width: var(--icon-size, 1em);
   height: var(--icon-size, 1em);
@@ -3766,6 +3765,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 [pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=checkbox]::after,
 [pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=checkbox]::after {
+  line-height: 1;
+  font-size: var(--icon-size);
   display: inline-block;
   width: var(--icon-size, 1em);
   height: var(--icon-size, 1em);
@@ -4230,7 +4231,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=button], [pgs*="button["]) {
-  --button-size: 1.3rem;
+  --button-size: var(--SIZE-texts);
   --button-primaryColor: var(--color-primary-strong);
   --button-color: var(--color-black);
   --button-color-strong: var(--color-white);
@@ -4261,6 +4262,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   font-family: var(--font);
   font-size: var(--button-font-size);
   font-weight: var(--font-weight-bold);
+  line-height: 1;
   text-decoration: none;
   cursor: pointer;
   -moz-user-select: none;
@@ -4393,8 +4395,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=button], [pgs*="button["])[pgs*="'btnForHeader'"] {
-  --button-size: 1.2rem;
-  --button-border-width: 0;
+  --buttonHeader-border-width: 0px;
+  --button-border-width: var(--buttonHeader-border-width);
   min-height: var(--header-size);
   overflow-wrap: break-word;
 }
@@ -4462,6 +4464,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=icon], [pgs*="icon["])::before {
+  line-height: 1;
+  font-size: var(--icon-size);
   display: inline-block;
   width: var(--icon-size, 1em);
   height: var(--icon-size, 1em);
@@ -4830,7 +4834,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   place-items: center;
   inline-size: var(--icon-size);
   block-size: var(--icon-size);
-  line-height: 1;
 }
 
 :is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-hamburgerTwo'"][pgs*="'iconDuo'"]::before, :is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-hamburgerTwo'"][pgs*="'iconDuo'"]::after {
@@ -4875,7 +4878,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   display: inline-grid;
   place-items: center;
   block-size: var(--boxed-size);
-  line-height: 1;
   aspect-ratio: 1;
 }
 
@@ -4994,6 +4996,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 [pgs~=checkboxBackground] input[type=checkbox]::after {
+  line-height: 1;
+  font-size: var(--icon-size);
   display: inline-block;
   width: var(--icon-size, 1em);
   height: var(--icon-size, 1em);
@@ -5476,6 +5480,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=accordion], [pgs*="accordion["]) :where([pgs~=accordion-button])::after {
+  line-height: 1;
+  font-size: var(--icon-size);
   display: inline-block;
   width: var(--icon-size, 1em);
   height: var(--icon-size, 1em);
@@ -6963,11 +6969,12 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 }
 
 :is([pgs~=search], [pgs*="search["]) {
-  --search-borderRadius: var(--border-radius);
+  --search-marginBlock: var(--border-radius-input);
+  --search-height: var(--font-size-text);
+  --search-borderRadius: calc(var(--border-radius-input) + ( var(--search-height) /2 ));
   --search-background: var(--color-box);
-  --search-color: var(--color-text);
+  --search-color: var(--color-black);
   --search-border: var(--border-complete);
-  --search-suggestions-gap: 0;
   --search-suggestions-maxHeight: 33rem;
   --search-suggestions-offset: 0rem;
   --search-suggestions-padding: .5rem;
@@ -6993,21 +7000,13 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   border-bottom-left-radius: 0;
 }
 
-:is([pgs~=search], [pgs*="search["]) button {
-  height: 100%;
-  --button-background: transparent;
-}
-
-:is([pgs~=search], [pgs*="search["]) input {
-  width: 100%;
-  min-width: auto;
-  height: calc(var(--font-size-text) + var(--button-size, 1.2rem) * 2);
-  padding: var(--button-size, 1.2rem);
-  padding-left: 0;
-  margin-left: 0;
+:is([pgs~=search], [pgs*="search["]) > input {
   border: 0;
-  border-radius: var(--border-radius-input);
   background-color: transparent;
+  width: 100%;
+  height: var(--search-height);
+  min-width: auto;
+  margin-block: var(--search-marginBlock);
   color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
   font-family: var(--font);
   font-size: var(--font-size-text);
@@ -7015,18 +7014,18 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   cursor: text !important;
 }
 
-@media (max-width: 430px) {
-  :is([pgs~=search], [pgs*="search["]) input {
-    min-width: 21.4rem;
-  }
-}
-:is([pgs~=search], [pgs*="search["]) input::placeholder {
+:is([pgs~=search], [pgs*="search["]) > input::placeholder {
   color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
   opacity: 0.6;
 }
 
-:is([pgs~=search], [pgs*="search["]) input:focus-visible {
+:is([pgs~=search], [pgs*="search["]) > input:focus-visible {
   outline: unset;
+}
+
+:is([pgs~=search], [pgs*="search["]) > input::-webkit-search-cancel-button, :is([pgs~=search], [pgs*="search["]) > input::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 :is([pgs~=search], [pgs*="search["]) :where([pgs~=search-suggestions]) {
@@ -7035,7 +7034,6 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   inset: calc(100% + var(--search-suggestions-offset)) 0 auto;
   z-index: 1000;
   flex-direction: column;
-  gap: var(--search-suggestions-gap);
   max-height: var(--search-suggestions-maxHeight);
   overflow-y: auto;
   padding: var(--search-suggestions-padding);
@@ -7054,6 +7052,9 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   padding: var(--search-suggestions-item-padding);
   cursor: pointer;
   flex-wrap: nowrap;
+  display: flex;
+  flex-direction: row;
+  gap: var(--search-suggestions-item-padding);
 }
 
 :is([pgs~=search], [pgs*="search["]) :where([pgs~=search-suggestions]) :where([pgs~=_search-suggestions-item])[aria-selected=true], :is([pgs~=search], [pgs*="search["]) :where([pgs~=search-suggestions]) :where([pgs~=_search-suggestions-item]):hover {
@@ -7911,14 +7912,14 @@ dialog :is([pgs~=search], [pgs*="search["]) :where([pgs~=_modal-close]) {
 
 :is([pgs~=hover], [pgs*="hover["]):not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))):where(:not(:disabled, [disabled]))::before {
   content: "";
-  width: calc(100% + 2px);
-  height: calc(100% + 2px);
+  width: 100%;
+  height: 100%;
   aspect-ratio: 1;
   border-radius: inherit;
   background: transparent;
   position: absolute;
-  bottom: -1px;
-  left: -1px;
+  bottom: 0;
+  left: 0;
   z-index: -1;
   transform: scale(0);
   transform-origin: var(--hover-st1-transform-origin);

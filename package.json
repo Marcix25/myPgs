@@ -34,15 +34,17 @@
         "migration.md"
     ],
     "scripts": {
+        "sitebuild": "node scripts/build-site-static.js",
+        "webpack": "webpack",
         "docs:generate": "node scripts/generate-component-docs.js && node scripts/generate-guide-docs.js",
         "icons:sync": "node scripts/sync-icons.js",
         "pgs-map": "webpack && node scripts/generate-pgs-map.js",
-        "serve:lan": "node scripts/serve-lan.js",
-        "sitebuild": "node scripts/build-site-static.js",
-        "sitebuild:watch": "node scripts/watch-site.js",
-        "start": "webpack",
-        "start:watch": "webpack --watch",
         "test": "node --test scripts/pgs.test.cjs",
+        "- WATCH -": "",
+        "sitebuild:watch": "node scripts/watch-site.js",
+        "webpack:watch": "webpack --watch",
+        "serve:lan": "node scripts/serve-lan.js",
+        "- GIT -": "",
         "precommit": "node scripts/precommit.js",
         "syncmaster": "git fetch origin && git checkout master && git pull --ff-only origin master && git merge --no-edit origin/dev && git push origin master && git checkout dev",
         "syncmaster:commit": "printf 'Merge message: ' && IFS= read -r merge_message && test -n \"$merge_message\" && git fetch origin && git checkout master && git pull --ff-only origin master && git merge --no-ff origin/dev -m \"$merge_message\" && git push origin master && git checkout dev"
