@@ -259,6 +259,23 @@ In PHP, a value an ACF field or a helper writes straight into `pgs` needs the sa
 `PGS_theme`'s `bl-section.php` maps the old section names for content already published; any other
 template that builds these names by concatenation will not show up in a plain search.
 
+### Height flags named by their unit
+
+The viewport-height flags of `height`, `heightMax` and `heightMin` say the value they set instead of
+a word for it. Nothing else in those three brackets changed (`heightFull`, `heightUnderHeader`,
+`heightUnderMain`, `heightAuto` keep their names).
+
+| was | is now |
+| --- | --- |
+| `height['heightScreen']` / `heightMax['heightMaxScreen']` / `heightMin['heightMinScreen']` | `height['height100svh']` / `heightMax['heightMax100svh']` / `heightMin['heightMin100svh']` |
+| `heightScreenLive` / `heightMaxScreenLive` / `heightMinScreenLive` | `height100dvh` / `heightMax100dvh` / `heightMin100dvh` |
+| `heightScreenLarge` / `heightMaxScreenLarge` / `heightMinScreenLarge` | `height100lvh` / `heightMax100lvh` / `heightMin100lvh` |
+| `heightScreenHalf` / `heightMaxScreenHalf` / `heightMinScreenHalf` | `height50svh` / `heightMax50svh` / `heightMin50svh` |
+
+The width scales also go further down the page: a quarter, fifth, sixth, seventh and eighth of it, as
+`widthPageQuarter` ... `widthPageEighth`, and the same under `widthMax` and `widthMin`
+(`widthMaxPageQuarter`, `widthMinPageEighth`, ...).
+
 ### Text colour utilities — `color*` becomes `txt*`
 
 Thirty-eight tokens, one straight substitution: `colorPrimary` → `txtPrimary`, `colorError` →
@@ -750,7 +767,7 @@ border above the footer legal row — now has both its rule and the library's.
   `hide['hideMediaDownMobile']`, `hide['hideContainerUpLaptop']`, ... hide past one breakpoint, by viewport
   or by container, across all six breakpoints, and several options combine for a range.
 - **Size utilities.** `width`/`widthMax`/`widthMin`/`height`/`heightMax`/`heightMin`, each with its
-  own scale (`width['widthPage']`, `heightMin['heightMinScreen']`, `height['heightUnderMain']`, ...)
+  own scale (`width['widthPage']`, `heightMin['heightMin100svh']`, `height['heightUnderMain']`, ...)
   and its own inline custom property (`--width-size`, `--widthMax-size`, `--heightMin-size`, ...).
 - **Proportional flex children.** `flexChild['flexS'/'flexM'/'flexL'/'flexXl'/'flexXxl']` grow in
   proportion 1:2:3:4:5 on a zero basis, so a `flexS` next to a `flexL` splits the row 1:3; each

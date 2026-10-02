@@ -2349,6 +2349,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 :is([pgs~=width], [pgs*="width["]) {
   --width-size: 100%;
+  width: min(100%, var(--width-size));
 }
 
 :is([pgs~=width], [pgs*="width["])[pgs*="'widthFull'"] {
@@ -2367,12 +2368,28 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --width-size: calc(var(--page-width) / 3);
 }
 
-:is([pgs~=width], [pgs*="width["])[pgs*="'widthText'"] {
-  --width-size: 65ch;
+:is([pgs~=width], [pgs*="width["])[pgs*="'widthPageQuarter'"] {
+  --width-size: calc(var(--page-width) / 4);
 }
 
-:is([pgs~=width], [pgs*="width["]) {
-  width: min(100%, var(--width-size));
+:is([pgs~=width], [pgs*="width["])[pgs*="'widthPageFifth'"] {
+  --width-size: calc(var(--page-width) / 5);
+}
+
+:is([pgs~=width], [pgs*="width["])[pgs*="'widthPageSixth'"] {
+  --width-size: calc(var(--page-width) / 6);
+}
+
+:is([pgs~=width], [pgs*="width["])[pgs*="'widthPageSeventh'"] {
+  --width-size: calc(var(--page-width) / 7);
+}
+
+:is([pgs~=width], [pgs*="width["])[pgs*="'widthPageEighth'"] {
+  --width-size: calc(var(--page-width) / 8);
+}
+
+:is([pgs~=width], [pgs*="width["])[pgs*="'widthText'"] {
+  --width-size: 65ch;
 }
 
 :is([pgs~=width], [pgs*="width["])[pgs*="'widthFillAvailable'"] {
@@ -2381,6 +2398,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 :is([pgs~=widthMax], [pgs*="widthMax["]) {
   --widthMax-size: 100%;
+  max-width: min(100%, var(--widthMax-size));
 }
 
 :is([pgs~=widthMax], [pgs*="widthMax["])[pgs*="'widthMaxFull'"] {
@@ -2399,12 +2417,28 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --widthMax-size: calc(var(--page-width) / 3);
 }
 
-:is([pgs~=widthMax], [pgs*="widthMax["])[pgs*="'widthMaxText'"] {
-  --widthMax-size: 65ch;
+:is([pgs~=widthMax], [pgs*="widthMax["])[pgs*="'widthMaxPageQuarter'"] {
+  --widthMax-size: calc(var(--page-width) / 4);
 }
 
-:is([pgs~=widthMax], [pgs*="widthMax["]) {
-  max-width: min(100%, var(--widthMax-size));
+:is([pgs~=widthMax], [pgs*="widthMax["])[pgs*="'widthMaxPageFifth'"] {
+  --widthMax-size: calc(var(--page-width) / 5);
+}
+
+:is([pgs~=widthMax], [pgs*="widthMax["])[pgs*="'widthMaxPageSixth'"] {
+  --widthMax-size: calc(var(--page-width) / 6);
+}
+
+:is([pgs~=widthMax], [pgs*="widthMax["])[pgs*="'widthMaxPageSeventh'"] {
+  --widthMax-size: calc(var(--page-width) / 7);
+}
+
+:is([pgs~=widthMax], [pgs*="widthMax["])[pgs*="'widthMaxPageEighth'"] {
+  --widthMax-size: calc(var(--page-width) / 8);
+}
+
+:is([pgs~=widthMax], [pgs*="widthMax["])[pgs*="'widthMaxText'"] {
+  --widthMax-size: 65ch;
 }
 
 :is([pgs~=widthMax], [pgs*="widthMax["])[pgs*="'widthMaxFillAvailable'"] {
@@ -2413,6 +2447,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 :is([pgs~=widthMin], [pgs*="widthMin["]) {
   --widthMin-size: 100%;
+  min-width: min(100%, var(--widthMin-size));
 }
 
 :is([pgs~=widthMin], [pgs*="widthMin["])[pgs*="'widthMinFull'"] {
@@ -2431,12 +2466,28 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --widthMin-size: calc(var(--page-width) / 3);
 }
 
-:is([pgs~=widthMin], [pgs*="widthMin["])[pgs*="'widthMinText'"] {
-  --widthMin-size: 65ch;
+:is([pgs~=widthMin], [pgs*="widthMin["])[pgs*="'widthMinPageQuarter'"] {
+  --widthMin-size: calc(var(--page-width) / 4);
 }
 
-:is([pgs~=widthMin], [pgs*="widthMin["]) {
-  min-width: min(100%, var(--widthMin-size));
+:is([pgs~=widthMin], [pgs*="widthMin["])[pgs*="'widthMinPageFifth'"] {
+  --widthMin-size: calc(var(--page-width) / 5);
+}
+
+:is([pgs~=widthMin], [pgs*="widthMin["])[pgs*="'widthMinPageSixth'"] {
+  --widthMin-size: calc(var(--page-width) / 6);
+}
+
+:is([pgs~=widthMin], [pgs*="widthMin["])[pgs*="'widthMinPageSeventh'"] {
+  --widthMin-size: calc(var(--page-width) / 7);
+}
+
+:is([pgs~=widthMin], [pgs*="widthMin["])[pgs*="'widthMinPageEighth'"] {
+  --widthMin-size: calc(var(--page-width) / 8);
+}
+
+:is([pgs~=widthMin], [pgs*="widthMin["])[pgs*="'widthMinText'"] {
+  --widthMin-size: 65ch;
 }
 
 :is([pgs~=widthMin], [pgs*="widthMin["])[pgs*="'widthMinFillAvailable'"] {
@@ -2445,25 +2496,26 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 :is([pgs~=height], [pgs*="height["]) {
   --height-size: 100%;
+  height: var(--height-size);
 }
 
 :is([pgs~=height], [pgs*="height["])[pgs*="'heightFull'"] {
   --height-size: 100%;
 }
 
-:is([pgs~=height], [pgs*="height["])[pgs*="'heightScreen'"] {
+:is([pgs~=height], [pgs*="height["])[pgs*="'height100svh'"] {
   --height-size: 100svh;
 }
 
-:is([pgs~=height], [pgs*="height["])[pgs*="'heightScreenLive'"] {
+:is([pgs~=height], [pgs*="height["])[pgs*="'height100dvh'"] {
   --height-size: 100dvh;
 }
 
-:is([pgs~=height], [pgs*="height["])[pgs*="'heightScreenLarge'"] {
+:is([pgs~=height], [pgs*="height["])[pgs*="'height100lvh'"] {
   --height-size: 100lvh;
 }
 
-:is([pgs~=height], [pgs*="height["])[pgs*="'heightScreenHalf'"] {
+:is([pgs~=height], [pgs*="height["])[pgs*="'height50svh'"] {
   --height-size: 50svh;
 }
 
@@ -2479,31 +2531,28 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --height-size: auto;
 }
 
-:is([pgs~=height], [pgs*="height["]) {
-  height: var(--height-size);
-}
-
 :is([pgs~=heightMax], [pgs*="heightMax["]) {
   --heightMax-size: 100%;
+  max-height: var(--heightMax-size);
 }
 
 :is([pgs~=heightMax], [pgs*="heightMax["])[pgs*="'heightMaxFull'"] {
   --heightMax-size: 100%;
 }
 
-:is([pgs~=heightMax], [pgs*="heightMax["])[pgs*="'heightMaxScreen'"] {
+:is([pgs~=heightMax], [pgs*="heightMax["])[pgs*="'heightMax100svh'"] {
   --heightMax-size: 100svh;
 }
 
-:is([pgs~=heightMax], [pgs*="heightMax["])[pgs*="'heightMaxScreenLive'"] {
+:is([pgs~=heightMax], [pgs*="heightMax["])[pgs*="'heightMax100dvh'"] {
   --heightMax-size: 100dvh;
 }
 
-:is([pgs~=heightMax], [pgs*="heightMax["])[pgs*="'heightMaxScreenLarge'"] {
+:is([pgs~=heightMax], [pgs*="heightMax["])[pgs*="'heightMax100lvh'"] {
   --heightMax-size: 100lvh;
 }
 
-:is([pgs~=heightMax], [pgs*="heightMax["])[pgs*="'heightMaxScreenHalf'"] {
+:is([pgs~=heightMax], [pgs*="heightMax["])[pgs*="'heightMax50svh'"] {
   --heightMax-size: 50svh;
 }
 
@@ -2519,31 +2568,28 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --heightMax-size: auto;
 }
 
-:is([pgs~=heightMax], [pgs*="heightMax["]) {
-  max-height: var(--heightMax-size);
-}
-
 :is([pgs~=heightMin], [pgs*="heightMin["]) {
   --heightMin-size: 100%;
+  min-height: var(--heightMin-size);
 }
 
 :is([pgs~=heightMin], [pgs*="heightMin["])[pgs*="'heightMinFull'"] {
   --heightMin-size: 100%;
 }
 
-:is([pgs~=heightMin], [pgs*="heightMin["])[pgs*="'heightMinScreen'"] {
+:is([pgs~=heightMin], [pgs*="heightMin["])[pgs*="'heightMin100svh'"] {
   --heightMin-size: 100svh;
 }
 
-:is([pgs~=heightMin], [pgs*="heightMin["])[pgs*="'heightMinScreenLive'"] {
+:is([pgs~=heightMin], [pgs*="heightMin["])[pgs*="'heightMin100dvh'"] {
   --heightMin-size: 100dvh;
 }
 
-:is([pgs~=heightMin], [pgs*="heightMin["])[pgs*="'heightMinScreenLarge'"] {
+:is([pgs~=heightMin], [pgs*="heightMin["])[pgs*="'heightMin100lvh'"] {
   --heightMin-size: 100lvh;
 }
 
-:is([pgs~=heightMin], [pgs*="heightMin["])[pgs*="'heightMinScreenHalf'"] {
+:is([pgs~=heightMin], [pgs*="heightMin["])[pgs*="'heightMin50svh'"] {
   --heightMin-size: 50svh;
 }
 
@@ -2557,10 +2603,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 :is([pgs~=heightMin], [pgs*="heightMin["])[pgs*="'heightMinAuto'"] {
   --heightMin-size: auto;
-}
-
-:is([pgs~=heightMin], [pgs*="heightMin["]) {
-  min-height: var(--heightMin-size);
 }
 
 :is([pgs~=pageShell], [pgs*="pageShell["]) {

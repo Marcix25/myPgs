@@ -15,42 +15,57 @@
  * - widthPage: inside width's own bracket, uses the page width and is the default for every width utility.
  * - widthPageHalf: inside width's own bracket, uses half the page width, for two columns that line up with the page content.
  * - widthPageThird: inside width's own bracket, uses a third of the page width.
+ * - widthPageQuarter: inside width's own bracket, uses a quarter of the page width.
+ * - widthPageFifth: inside width's own bracket, uses a fifth of the page width.
+ * - widthPageSixth: inside width's own bracket, uses a sixth of the page width.
+ * - widthPageSeventh: inside width's own bracket, uses a seventh of the page width.
+ * - widthPageEighth: inside width's own bracket, uses an eighth of the page width.
  * - widthText: inside width's own bracket, uses a 65 character measure, the width a line of text stays readable at, independent of the page width.
  * - widthFull: inside width's own bracket, uses the whole container width.
  * - widthFillAvailable: inside width's own bracket, uses -webkit-fill-available, the space actually left after margins and padding on iOS Safari, where percentages and viewport units miscompute against the address bar. Unsupported outside Chromium/Safari, where the invalid value is dropped and the element falls back to whichever other option, or its own -size property, it also carries.
  * - widthMaxPage: inside widthMax's own bracket, the same page width scale as widthPage, capping instead of setting.
  * - widthMaxPageHalf: inside widthMax's own bracket, the same half-page scale as widthPageHalf.
  * - widthMaxPageThird: inside widthMax's own bracket, the same third-page scale as widthPageThird.
+ * - widthMaxPageQuarter: inside widthMax's own bracket, the same quarter-page scale as widthPageQuarter.
+ * - widthMaxPageFifth: inside widthMax's own bracket, the same fifth-page scale as widthPageFifth.
+ * - widthMaxPageSixth: inside widthMax's own bracket, the same sixth-page scale as widthPageSixth.
+ * - widthMaxPageSeventh: inside widthMax's own bracket, the same seventh-page scale as widthPageSeventh.
+ * - widthMaxPageEighth: inside widthMax's own bracket, the same eighth-page scale as widthPageEighth.
  * - widthMaxText: inside widthMax's own bracket, the same 65 character measure as widthText.
  * - widthMaxFull: inside widthMax's own bracket, the same whole container width as widthFull.
  * - widthMaxFillAvailable: inside widthMax's own bracket, the same -webkit-fill-available as widthFillAvailable.
  * - widthMinPage: inside widthMin's own bracket, the same page width scale as widthPage, flooring instead of setting.
  * - widthMinPageHalf: inside widthMin's own bracket, the same half-page scale as widthPageHalf.
  * - widthMinPageThird: inside widthMin's own bracket, the same third-page scale as widthPageThird.
+ * - widthMinPageQuarter: inside widthMin's own bracket, the same quarter-page scale as widthPageQuarter.
+ * - widthMinPageFifth: inside widthMin's own bracket, the same fifth-page scale as widthPageFifth.
+ * - widthMinPageSixth: inside widthMin's own bracket, the same sixth-page scale as widthPageSixth.
+ * - widthMinPageSeventh: inside widthMin's own bracket, the same seventh-page scale as widthPageSeventh.
+ * - widthMinPageEighth: inside widthMin's own bracket, the same eighth-page scale as widthPageEighth.
  * - widthMinText: inside widthMin's own bracket, the same 65 character measure as widthText.
  * - widthMinFull: inside widthMin's own bracket, the same whole container width as widthFull.
  * - widthMinFillAvailable: inside widthMin's own bracket, the same -webkit-fill-available as widthFillAvailable.
  * - heightFull: inside height's own bracket, uses the whole parent height, which only resolves when the parent has a definite height of its own.
- * - heightScreen: inside height's own bracket, uses the small viewport height, the screen with the browser toolbars expanded, and is the default for every height utility. The element never grows past the screen as the toolbars retract.
- * - heightScreenLive: inside height's own bracket, uses the dynamic viewport height, which follows the visible area as the toolbars come and go, at the cost of resizing during the scroll.
- * - heightScreenLarge: inside height's own bracket, uses the large viewport height, the screen with the toolbars retracted, for something meant to run under them.
- * - heightScreenHalf: inside height's own bracket, uses half the small viewport height.
+ * - height100svh: inside height's own bracket, uses the small viewport height, the screen with the browser toolbars expanded, and is the default for every height utility. The element never grows past the screen as the toolbars retract.
+ * - height100dvh: inside height's own bracket, uses the dynamic viewport height, which follows the visible area as the toolbars come and go, at the cost of resizing during the scroll.
+ * - height100lvh: inside height's own bracket, uses the large viewport height, the screen with the toolbars retracted, for something meant to run under them.
+ * - height50svh: inside height's own bracket, uses half the small viewport height.
  * - heightUnderHeader: inside height's own bracket, uses what is left of the screen below the header, for a hero that fills the first view.
  * - heightUnderMain: inside height's own bracket, the same idea for an element that is the first child of main instead, subtracting --main-padding-top rather than just the header height, since main already carries the extra room --page-top adds.
  * - heightAuto: inside height's own bracket, drops the height constraint on one element without dropping the utility.
  * - heightMaxFull: inside heightMax's own bracket, the same whole parent height as heightFull.
- * - heightMaxScreen: inside heightMax's own bracket, the same small viewport height as heightScreen, and the default for heightMax.
- * - heightMaxScreenLive: inside heightMax's own bracket, the same dynamic viewport height as heightScreenLive.
- * - heightMaxScreenLarge: inside heightMax's own bracket, the same large viewport height as heightScreenLarge.
- * - heightMaxScreenHalf: inside heightMax's own bracket, the same half viewport height as heightScreenHalf.
+ * - heightMax100svh: inside heightMax's own bracket, the same small viewport height as height100svh, and the default for heightMax.
+ * - heightMax100dvh: inside heightMax's own bracket, the same dynamic viewport height as height100dvh.
+ * - heightMax100lvh: inside heightMax's own bracket, the same large viewport height as height100lvh.
+ * - heightMax50svh: inside heightMax's own bracket, the same half viewport height as height50svh.
  * - heightMaxUnderHeader: inside heightMax's own bracket, the same header-relative height as heightUnderHeader.
  * - heightMaxUnderMain: inside heightMax's own bracket, the same main-relative height as heightUnderMain.
  * - heightMaxAuto: inside heightMax's own bracket, drops the ceiling on one element without dropping the utility.
  * - heightMinFull: inside heightMin's own bracket, the same whole parent height as heightFull.
- * - heightMinScreen: inside heightMin's own bracket, the same small viewport height as heightScreen, and the default for heightMin.
- * - heightMinScreenLive: inside heightMin's own bracket, the same dynamic viewport height as heightScreenLive.
- * - heightMinScreenLarge: inside heightMin's own bracket, the same large viewport height as heightScreenLarge.
- * - heightMinScreenHalf: inside heightMin's own bracket, the same half viewport height as heightScreenHalf.
+ * - heightMin100svh: inside heightMin's own bracket, the same small viewport height as height100svh, and the default for heightMin.
+ * - heightMin100dvh: inside heightMin's own bracket, the same dynamic viewport height as height100dvh.
+ * - heightMin100lvh: inside heightMin's own bracket, the same large viewport height as height100lvh.
+ * - heightMin50svh: inside heightMin's own bracket, the same half viewport height as height50svh.
  * - heightMinUnderHeader: inside heightMin's own bracket, the same header-relative height as heightUnderHeader.
  * - heightMinUnderMain: inside heightMin's own bracket, the same main-relative height as heightUnderMain.
  * - heightMinAuto: inside heightMin's own bracket, drops the floor on one element without dropping the utility.
@@ -75,12 +90,17 @@
 -->
 
     <demo demo-h2="Width"></demo>
-    <demo demo-h3="Width scales" demo-description="The width scales come off the page, so a constrained element lines up with the page content. The option chooses the value, the pgs token chooses the property it lands on."></demo>
+    <demo demo-h3="Width scales" demo-description="The width scales come off the page, from the whole page down to an eighth of it, so a constrained element lines up with the page content. The option chooses the value, the pgs token chooses the property it lands on."></demo>
     <section pgs="flex['column' 'gapTexts']" demo="component">
         <strong>Width scales</strong>
         <p pgs="box width['widthPage']">Page width.</p>
         <p pgs="box width['widthPageHalf']">Half the page width.</p>
         <p pgs="box width['widthPageThird']">A third of the page width.</p>
+        <p pgs="box width['widthPageQuarter']">A quarter of the page width.</p>
+        <p pgs="box width['widthPageFifth']">A fifth of the page width.</p>
+        <p pgs="box width['widthPageSixth']">A sixth of the page width.</p>
+        <p pgs="box width['widthPageSeventh']">A seventh of the page width.</p>
+        <p pgs="box width['widthPageEighth']">An eighth of the page width.</p>
         <p pgs="box width['widthText']">A 65 character measure, the width a line of text stays readable at.</p>
         <p pgs="box width['widthFull']">The whole container width.</p>
         <p pgs="box width['widthFillAvailable']">-webkit-fill-available, Chromium/Safari only.</p>
@@ -103,7 +123,7 @@
     <demo demo-h2="Height"></demo>
     <demo demo-h3="Viewport scales" demo-description="Each scale is a different reading of what the screen is: svh with the browser toolbars expanded, lvh with them retracted, dvh following them as they move."></demo>
     <section pgs="flex['row' 'gapElements']" demo="component">
-        <div pgs="box heightMin['heightMinScreenHalf'] flex['column' 'flexCenter']">Half the screen.</div>
+        <div pgs="box heightMin['heightMin50svh'] flex['column' 'flexCenter']">Half the screen.</div>
         <div pgs="box heightMin['heightMinUnderHeader'] flex['column' 'flexCenter']">What is left below the header.</div>
     </section>
 
