@@ -1,237 +1,83 @@
 <main pgs="main">
     <section pgs="section flex['column' 'gapElements']">
-        <h2>Modal — dialogDragClose</h2>
-        <p>On a phone (or the device toolbar in DevTools): pull the panel down. A short drag springs back, a long one or a quick flick closes it. Sideways and upward drags are left to the page.</p>
-
-        <div pgs="flex['row' 'gapElements']">
-            <div pgs="modal['dialogDragClose' 'dialogBottom' 'dialogFull' 'dialogAnimationBottom']">
-                <button pgs="modal-button button" type="button">Bottom sheet</button>
-                <dialog>
-                    <div pgs="modal-dialog-content">
-                        <div pgs="modal-dialog-content-header">
-                            <h3>Bottom sheet</h3>
-                        </div>
-                        <div pgs="modal-dialog-content-scroll">
-                            <p>Full-width sheet docked at the bottom, slides up on open.</p>
-                        </div>
-                    </div>
-                </dialog>
+        <h2>Alerts — unified card skin (static)</h2>
+        <div pgs="alertContainer flex['column']">
+            <div pgs="alert" role="status">
+                <i pgs="icon['icon-circleInfo'] alert-icon" aria-hidden="true"></i>
+                <div pgs="alert-content">
+                    <strong pgs="alert-content-title">Default</strong>
+                    <p>No pgs-state at all: plain box surface, no accent.</p>
+                </div>
             </div>
-            <div pgs="modal['dialogDragClose' 'dialogCenter' 'dialogMedium' 'dialogAnimationZoom']">
-                <button pgs="modal-button button" type="button">Zoom + drag</button>
-                <dialog>
-                    <div pgs="modal-dialog-content">
-                        <div pgs="modal-dialog-content-header">
-                            <h3>Zoom + drag</h3>
-                        </div>
-                        <div pgs="modal-dialog-content-scroll">
-                            <p>Zooms out of the button; drag it down to close.</p>
-                        </div>
-                    </div>
-                </dialog>
+            <div pgs="alert['neutral']" role="status">
+                <i pgs="icon['icon-circleInfo'] alert-icon" aria-hidden="true"></i>
+                <div pgs="alert-content">
+                    <strong pgs="alert-content-title">Neutral</strong>
+                    <p>Same look, explicit option.</p>
+                </div>
             </div>
-            <div pgs="modal['dialogDragClose']">
-                <button pgs="modal-button button" type="button">Default + drag</button>
-                <dialog>
-                    <div pgs="modal-dialog-content">
-                        <div pgs="modal-dialog-content-header">
-                            <h3>Default + drag</h3>
-                        </div>
-                        <div pgs="modal-dialog-content-scroll">
-                            <p>Default full-width panel at the top, no opening animation.</p>
-                        </div>
-                    </div>
-                </dialog>
+            <div pgs="alert['info']" role="status">
+                <i pgs="icon['icon-circleInfo'] alert-icon" aria-hidden="true"></i>
+                <div pgs="alert-content">
+                    <strong pgs="alert-content-title">Information</strong>
+                    <p>Your profile information can be updated at any time.</p>
+                </div>
             </div>
-            <div pgs="modal['dialogDragClose' 'dialogTopLevel' 'dialogCenter' 'dialogSmall']">
-                <button pgs="modal-button button" type="button">Top level + drag</button>
-                <dialog>
-                    <div pgs="modal-dialog-content">
-                        <div pgs="modal-dialog-content-header">
-                            <h3>Top level + drag</h3>
-                        </div>
-                        <div pgs="modal-dialog-content-scroll">
-                            <p>showModal() on the top layer: the native ::backdrop fades with the drag.</p>
-                        </div>
-                    </div>
-                </dialog>
+            <div pgs="alert['success']" role="status">
+                <i pgs="icon['icon-circleCheck'] alert-icon" aria-hidden="true"></i>
+                <div pgs="alert-content">
+                    <strong pgs="alert-content-title">Changes saved</strong>
+                    <p>Your preferences were updated successfully.</p>
+                </div>
             </div>
-            <div pgs="modal['dialogDragClose' 'dialogCenter' 'dialogMedium']">
-                <button pgs="modal-button button" type="button">Long content + drag</button>
-                <dialog>
-                    <div pgs="modal-dialog-content">
-                        <div pgs="modal-dialog-content-header">
-                            <h3>Long content</h3>
-                        </div>
-                        <div pgs="modal-dialog-content-scroll">
-                            <p>Paragraph 1. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
-                            <p>Paragraph 2. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
-                            <p>Paragraph 3. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
-                            <p>Paragraph 4. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
-                            <p>Paragraph 5. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
-                            <p>Paragraph 6. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
-                            <p>Paragraph 7. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
-                            <p>Paragraph 8. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
-                            <p>Paragraph 9. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
-                            <p>Paragraph 10. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
-                            <p>Paragraph 11. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
-                            <p>Paragraph 12. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
-                            <p>Paragraph 13. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
-                            <p>Paragraph 14. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
-                            <p>Paragraph 15. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
-                            <p>Paragraph 16. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
-                            <p>Paragraph 17. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
-                            <p>Paragraph 18. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
-                            <p>Paragraph 19. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
-                            <p>Paragraph 20. Scroll down inside the panel first: dragging down only closes once it is back at its top.</p>
-                        </div>
-                    </div>
-                </dialog>
+            <div pgs="alert['warning']" role="alert">
+                <i pgs="icon['icon-triangleExclamation'] alert-icon" aria-hidden="true"></i>
+                <div pgs="alert-content">
+                    <strong pgs="alert-content-title">Check your information</strong>
+                    <p>Some fields may require your attention before continuing.</p>
+                </div>
             </div>
-        </div>
-    </section>
-    <section pgs="section flex['column' 'gapElements']">
-        <h2>Modal — dialogAnimationLeft / Right / Top / Bottom</h2>
-        <p>Each panel slides in from its edge of the screen and goes back there on close (X, backdrop click, Esc).</p>
-
-        <div pgs="flex['row' 'gapElements']">
-            <div pgs="modal['dialogAnimationLeft' 'dialogLeft' 'dialogMedium']">
-                <button pgs="modal-button button['btnStrong']" type="button">Left</button>
-                <dialog>
-                    <div pgs="modal-dialog-content">
-                        <div pgs="modal-dialog-content-header">
-                            <h3>Left</h3>
-                        </div>
-                        <div pgs="modal-dialog-content-scroll">
-                            <p>Slides in from the left edge, docked on the left.</p>
-                        </div>
-                    </div>
-                </dialog>
-            </div>
-            <div pgs="modal['dialogAnimationRight' 'dialogRight' 'dialogMedium']">
-                <button pgs="modal-button button['btnStrong']" type="button">Right</button>
-                <dialog>
-                    <div pgs="modal-dialog-content">
-                        <div pgs="modal-dialog-content-header">
-                            <h3>Right</h3>
-                        </div>
-                        <div pgs="modal-dialog-content-scroll">
-                            <p>Slides in from the right edge, docked on the right.</p>
-                        </div>
-                    </div>
-                </dialog>
-            </div>
-            <div pgs="modal['dialogAnimationTop' 'dialogCenter' 'dialogMedium']">
-                <button pgs="modal-button button['btnStrong']" type="button">Top</button>
-                <dialog>
-                    <div pgs="modal-dialog-content">
-                        <div pgs="modal-dialog-content-header">
-                            <h3>Top</h3>
-                        </div>
-                        <div pgs="modal-dialog-content-scroll">
-                            <p>Comes down from the top edge to the center.</p>
-                        </div>
-                    </div>
-                </dialog>
-            </div>
-            <div pgs="modal['dialogAnimationBottom' 'dialogCenter' 'dialogMedium']">
-                <button pgs="modal-button button['btnStrong']" type="button">Bottom</button>
-                <dialog>
-                    <div pgs="modal-dialog-content">
-                        <div pgs="modal-dialog-content-header">
-                            <h3>Bottom</h3>
-                        </div>
-                        <div pgs="modal-dialog-content-scroll">
-                            <p>Comes up from the bottom edge to the center.</p>
-                        </div>
-                    </div>
-                </dialog>
+            <div pgs="alert['error']" role="alert">
+                <i pgs="icon['icon-circleXmark'] alert-icon" aria-hidden="true"></i>
+                <div pgs="alert-content">
+                    <strong pgs="alert-content-title">Unable to save</strong>
+                    <p>Correct the reported errors and try again.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <section pgs="section flex['column' 'gapElements']">
-        <h2>Combined with position and size</h2>
-
+        <h2>Notification — same skin, panel-managed</h2>
         <div pgs="flex['row' 'gapElements']">
-            <div pgs="modal['dialogAnimationLeft' 'dialogCenter' 'dialogSmall']">
-                <button pgs="modal-button button" type="button">Left — center mini</button>
-                <dialog>
-                    <div pgs="modal-dialog-content">
-                        <div pgs="modal-dialog-content-header">
-                            <h3>Left — center mini</h3>
-                        </div>
-                        <div pgs="modal-dialog-content-scroll">
-                            <p>From the left, stopping in the center.</p>
-                        </div>
-                    </div>
-                </dialog>
-            </div>
-            <div pgs="modal['dialogAnimationBottom' 'dialogBottom' 'dialogFull']">
-                <button pgs="modal-button button" type="button">Bottom — sheet</button>
-                <dialog>
-                    <div pgs="modal-dialog-content">
-                        <div pgs="modal-dialog-content-header">
-                            <h3>Bottom — sheet</h3>
-                        </div>
-                        <div pgs="modal-dialog-content-scroll">
-                            <p>A full-width sheet docked at the bottom.</p>
-                        </div>
-                    </div>
-                </dialog>
-            </div>
-            <div pgs="modal['dialogAnimationTop' 'dialogTopLevel' 'dialogCenter' 'dialogMedium']">
-                <button pgs="modal-button button" type="button">Top — top level</button>
-                <dialog>
-                    <div pgs="modal-dialog-content">
-                        <div pgs="modal-dialog-content-header">
-                            <h3>Top — top level</h3>
-                        </div>
-                        <div pgs="modal-dialog-content-scroll">
-                            <p>Opened with showModal(): Esc still slides it back up.</p>
-                        </div>
-                    </div>
-                </dialog>
-            </div>
-            <div pgs="modal['dialogAnimationZoom' 'dialogCenter' 'dialogMedium']">
-                <button pgs="modal-button button" type="button">Zoom</button>
-                <dialog>
-                    <div pgs="modal-dialog-content">
-                        <div pgs="modal-dialog-content-header">
-                            <h3>Zoom</h3>
-                        </div>
-                        <div pgs="modal-dialog-content-scroll">
-                            <p>Grows out of the button, for comparison.</p>
-                        </div>
-                    </div>
-                </dialog>
-            </div>
-            <div pgs="modal['dialogCenter' 'dialogMedium']">
-                <button pgs="modal-button button" type="button">No animation</button>
-                <dialog>
-                    <div pgs="modal-dialog-content">
-                        <div pgs="modal-dialog-content-header">
-                            <h3>No animation</h3>
-                        </div>
-                        <div pgs="modal-dialog-content-scroll">
-                            <p>The same modal with no dialogAnimation* option.</p>
-                        </div>
-                    </div>
-                </dialog>
-            </div>
-            <div pgs="modal['dialogAnimationRight' 'dialogRight' 'dialogMedium']">
-                <button pgs="modal-button button" type="button">Right — slow (900ms)</button>
-                <dialog style="--modal-animation-timing: 900ms;">
-                    <div pgs="modal-dialog-content">
-                        <div pgs="modal-dialog-content-header">
-                            <h3>Right — slow (900ms)</h3>
-                        </div>
-                        <div pgs="modal-dialog-content-scroll">
-                            <p>Same slide with --modal-animation-timing: 900ms, to watch it frame by frame.</p>
-                        </div>
-                    </div>
-                </dialog>
-            </div>
+            <button type="button" pgs="button" id="btn-notif-success">Notify success + buttons</button>
+            <button type="button" pgs="button" id="btn-notif-neutral">Notify neutral, no icon</button>
+            <button pgs="button notificationBell" type="button">Open panel</button>
         </div>
     </section>
+
+    <section pgs="section flex['column' 'gapElements']">
+        <h2>Toast — same skin, floating + countdown bar</h2>
+        <div pgs="flex['row' 'gapElements']">
+            <button type="button" pgs="button" id="btn-toast-warning">Toast warning + link</button>
+            <button type="button" pgs="button" id="btn-toast-error">Toast error</button>
+        </div>
+    </section>
+
+    <script type="module">
+        import { pgs } from "mypgs";
+
+        document.getElementById("btn-notif-success").addEventListener("click", () => {
+            pgs.notification.success({ title: "Saved", description: "Your changes were saved.", buttons: [{ title: "Undo" }, { title: "Details", link: "#" }] });
+        });
+        document.getElementById("btn-notif-neutral").addEventListener("click", () => {
+            pgs.notification.neutral({ description: "Plain message, no title, no icon." });
+        });
+        document.getElementById("btn-toast-warning").addEventListener("click", () => {
+            pgs.toast.warning({ title: "Heads up", description: "Something needs attention.", buttons: [{ title: "View", link: "#", close: false }] });
+        });
+        document.getElementById("btn-toast-error").addEventListener("click", () => {
+            pgs.toast.error({ title: "Failed", description: "The request could not be completed." });
+        });
+    </script>
 </main>

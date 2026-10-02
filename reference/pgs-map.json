@@ -1,8 +1,13 @@
 {
-    "_dialog": {
+    "_alert": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "error",
+            "info",
+            "success",
+            "warning"
+        ],
         "pgs-data": []
     },
     "_notifications": {
@@ -12,36 +17,6 @@
         "pgs-data": []
     },
     "_notifications-close": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "_notifications-element": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "_notifications-element-buttons": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "_notifications-element-content": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "_notifications-element-content-delete": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "_notifications-element-content-icon": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [],
@@ -62,7 +37,12 @@
     "_toast": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "toastBottom",
+            "toastCenter",
+            "toastLeft",
+            "toastRight"
+        ],
         "pgs-data": []
     },
     "accordion": {
@@ -91,17 +71,26 @@
             "alert-icon"
         ],
         "pgs-generated": [
+            "_alert-buttons",
             "_alert-content",
             "_alert-content-title",
+            "_alert-dismiss",
             "_alert-icon"
         ],
-        "pgs-options": [],
+        "pgs-options": [
+            "error",
+            "info",
+            "success",
+            "warning"
+        ],
         "pgs-data": []
     },
     "alertContainer": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "neutral"
+        ],
         "pgs-data": []
     },
     "appearanceNone": {
@@ -420,9 +409,7 @@
             "_cookieConsent-panel-featureEssential",
             "_cookieConsent-panel-toggleAnalytics"
         ],
-        "pgs-options": [
-            "success"
-        ],
+        "pgs-options": [],
         "pgs-data": [
             "cookieConsent"
         ]
@@ -1554,14 +1541,13 @@
     },
     "toast": {
         "pgs": [],
-        "pgs-generated": [
-            "_toast-element",
-            "_toast-element-buttons",
-            "_toast-element-content",
-            "_toast-element-content-delete",
-            "_toast-element-content-icon"
+        "pgs-generated": [],
+        "pgs-options": [
+            "toastBottom",
+            "toastCenter",
+            "toastLeft",
+            "toastRight"
         ],
-        "pgs-options": [],
         "pgs-data": [
             "toast"
         ]
@@ -1569,13 +1555,23 @@
     "toastExe": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "toastBottom",
+            "toastCenter",
+            "toastLeft",
+            "toastRight"
+        ],
         "pgs-data": []
     },
     "toastLoad": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "toastBottom",
+            "toastCenter",
+            "toastLeft",
+            "toastRight"
+        ],
         "pgs-data": [
             "toast"
         ]

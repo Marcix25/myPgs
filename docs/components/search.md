@@ -93,11 +93,14 @@ Search markup, configuration, behavior, and usage example. Two custom events bub
 - `--search-borderRadius`
 - `--search-color`
 - `--search-height`
-- `--search-marginBlock`
+- `--search-paddingBlock`
+- `--search-suggestions-item-hover-background`
+- `--search-suggestions-item-hover-color`
 - `--search-suggestions-item-padding`
 - `--search-suggestions-item-selected-background`
 - `--search-suggestions-item-selected-color`
 - `--search-suggestions-maxHeight`
+- `--search-suggestions-maxRowView`
 - `--search-suggestions-offset`
 - `--search-suggestions-padding`
 

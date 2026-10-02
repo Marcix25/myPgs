@@ -1231,16 +1231,40 @@ const PGS_accordion = {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PGS_alert: () => (/* binding */ PGS_alert)
+/* harmony export */   PGS_alert: () => (/* binding */ PGS_alert),
+/* harmony export */   fn_alert: () => (/* binding */ fn_alert)
 /* harmony export */ });
 /* harmony import */ var _helper_text_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_text.js */ "./assets/javascript/helper/_text.js");
 
 
 //= PGS_alert
+// the shared engine behind Alerts, Notification and Toast: builds the card (icon, title,
+// description), and optionally a dismiss button, a row of action buttons, and an auto-dismiss
+// timeout — all off by default, since a bare alert is a static message. Notification turns on
+// dismissible + buttons and appends every card into its own managed panel; Toast turns on
+// dismissible + buttons + timeout and replaces its own single floating card. Either way, the
+// card itself, its close animation and its pgs:alert:* events live here, once.
 const fn_alert = {
+    _uid: 0,
     _defaults: {
         description: "",
+        closeTitle: "Close",
+        dismissible: false,
+        timeout: undefined,
+        buttons: [],
+        button: {
+            id: undefined,
+            title: "",
+            link: null,
+            close: true,
+            optionButton: null
+        },
         type: {
+            // the plain one: no severity colour, no glyph and no title of its own, so it stays on the box surface
+            neutral: {
+                title: "",
+                icon: ""
+            },
             error: {
                 title: "Error",
                 icon: "<i pgs=\"icon['icon-circleXmark']\"></i>"
@@ -1286,42 +1310,196 @@ const fn_alert = {
         return container;
     },
 
+    // built to match the shared alert card's own content shape (see _alerts.scss): a title in
+    // alert-content-title, a description in its own paragraph, either one optional
+    _getContent(title, description) {
+        const safeDescription = (0,_helper_text_js__WEBPACK_IMPORTED_MODULE_0__.PGS_formatText)(description);
+        const safeTitle = (0,_helper_text_js__WEBPACK_IMPORTED_MODULE_0__.PGS_formatText)(title);
+        const titleHtml = safeTitle ? `<strong pgs="_alert-content-title">${safeTitle}</strong>` : "";
+        const descriptionHtml = safeDescription ? `<p>${safeDescription}</p>` : "";
+
+        return `${titleHtml}${descriptionHtml}`;
+    },
+
+    _getType(type) {
+        const name = String(type || "info").trim();
+        return name in this._defaults.type ? name : "info";
+    },
+
+    // what a host component (Notification, Toast) hands over: a title string, or an options
+    // object. null is not a value here, it is "leave it to the type" (icon: null keeps the icon
+    // of the type), so it is dropped together with undefined
+    _toOptions(options, label = "alert") {
+        if (typeof options === "string") options = { title: options };
+
+        if (!options || typeof options !== "object" || Array.isArray(options)) {
+            throw new TypeError(`PGS ${label}: options must be an object or a string`);
+        }
+
+        return Object.fromEntries(
+            Object.entries(options).filter(([, value]) => value !== undefined && value !== null)
+        );
+    },
+
+    // reads the pgs-data of one host element — notificationLoad carries pgs-data="notification[...]",
+    // so name is "notification" — as a list of comma-separated JSON objects
+    _getData(root, name) {
+        const rawData = pgs(root).data.getValueBrackets(name) || "{}";
+
+        try {
+            const items = JSON.parse(`[${rawData}]`);
+
+            if (items.some(item => !item || typeof item !== "object" || Array.isArray(item))) {
+                throw new TypeError(`Each ${name} must be a JSON object`);
+            }
+
+            return items;
+        } catch (error) {
+            console.error(`PGS ${name}: Invalid JSON configuration`, error);
+            return [];
+        }
+    },
+
+    // the same data, already in the shape create() takes: the fields every host shares, with
+    // their old aliases (message, title-close, duration). raw rides along for a host that
+    // reads fields of its own (Toast's link). An entry with neither title nor description is
+    // skipped: there would be nothing to show
+    fromData(root, name) {
+        return this._getData(root, name).flatMap(raw => {
+            const title = String(raw.title || "").trim();
+            const description = String(raw.description ?? raw.message ?? "").trim();
+            if (!title && !description) return [];
+
+            const duration = Number.parseInt(raw.timeout ?? raw.duration, 10);
+
+            return [{
+                type: this._getType(raw.type),
+                raw,
+                options: {
+                    title,
+                    description,
+                    icon: raw.icon || undefined,
+                    id: raw.id || undefined,
+                    closeTitle: String(raw.closeTitle || raw["title-close"] || "").trim() || undefined,
+                    buttons: Array.isArray(raw.buttons) ? raw.buttons : undefined,
+                    timeout: Number.isNaN(duration) ? undefined : duration
+                }
+            }];
+        });
+    },
+
+    // builds the card and wires its own behavior (dismiss, buttons, timeout); does not attach it
+    // anywhere. The returned element carries a .pgsAlertClose() so a host container (e.g.
+    // notification's deleteAll) can trigger the same close animation and event from the outside
     create(type, options = {}) {
         const typeDefaults = this._defaults.type[type] || this._defaults.type.info;
         const definedOptions = Object.fromEntries(
-            Object.entries(options).filter(([, value]) => value !== undefined)
+            Object.entries(options).filter(([, value]) => value !== undefined && value !== null)
         );
         const config = {
             description: this._defaults.description,
+            closeTitle: this._defaults.closeTitle,
+            dismissible: this._defaults.dismissible,
+            timeout: this._defaults.timeout,
+            buttons: this._defaults.buttons,
+            // a hand-written alert keeps the bare name even when the JS API builds it (see
+            // alerts.html); notification/toast are never hand-authored this way, so they pass
+            // "_alert" instead — every child token below always gets the underscore regardless
+            component: "alert",
             ...typeDefaults,
             ...definedOptions
         };
-        const alert = document.createElement("div");
-        const title = (0,_helper_text_js__WEBPACK_IMPORTED_MODULE_0__.PGS_formatText)(config.title);
-        const description = (0,_helper_text_js__WEBPACK_IMPORTED_MODULE_0__.PGS_formatText)(config.description);
 
-        pgs(alert).add("alert");
-        pgs(alert).state.add(type);
+        const id = config.id ?? `alert-${++this._uid}`;
+        const alert = document.createElement("div");
+        alert.dataset.alertId = id;
+        // the severity is a flag in the component's own bracket, like any other option, not a pgs-state
+        pgs(alert).add(config.component, `${config.component}['${type}']`);
+        // error and warning are both urgent enough to interrupt a screen reader; the others only
+        // announce once idle
         alert.setAttribute("role", type === "error" || type === "warning" ? "alert" : "status");
-        //== generated from scratch, so every child token here gets the underscore; the same
-        //== markup written by hand in the page instead keeps the bare names (see alerts.html)
+
+        const iconHtml = config.icon ? `<div pgs="_alert-icon" aria-hidden="true">${config.icon}</div>` : "";
+        const dismissHtml = config.dismissible ? `<button type="button" pgs="button['btnIconOnly'] _alert-dismiss"><i pgs="icon['icon-close']"></i></button>` : "";
+
+        // generated from scratch, so every child token here gets the underscore; the same
+        // markup written by hand in the page instead keeps the bare names (see alerts.html)
         alert.innerHTML = `
-            <div pgs="_alert-icon" aria-hidden="true">${config.icon}</div>
-            <div pgs="_alert-content">
-                <strong pgs="_alert-content-title">${title}</strong>
-                ${description ? `<p>${description}</p>` : ""}
-            </div>
+            ${iconHtml}
+            <div pgs="_alert-content">${this._getContent(config.title, config.description)}</div>
+            ${dismissHtml}
+            <div pgs="_alert-buttons"></div>
         `;
+
+        const buttonsRow = pgs(alert).querySelector("_alert-buttons");
+        const btnDismiss = pgs(alert).querySelector("_alert-dismiss");
+
+        const close = () => {
+            alert.style.opacity = "0";
+            setTimeout(() => {
+                alert.dispatchEvent(new CustomEvent("pgs:alert:close", {
+                    bubbles: true,
+                    detail: { id, type, title: config.title, description: config.description }
+                }));
+                alert.remove();
+            }, 300);
+        };
+
+        alert.pgsAlertClose = close;
+
+        if (btnDismiss) {
+            // the dismiss button draws a cross, so closeTitle is its accessible name and nothing else
+            btnDismiss.ariaLabel = config.closeTitle;
+            btnDismiss.addEventListener("click", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                close();
+            });
+        }
+
+        (config.buttons || []).forEach((button, index) => {
+            const { id: buttonId = `${id}-button-${index + 1}`, title, link, close: closeAfterClick, optionButton } =
+                { ...this._defaults.button, ...button };
+
+            const buttonElement = document.createElement(link ? "a" : "button");
+            buttonElement.textContent = title;
+            if (link) buttonElement.href = link;
+            else buttonElement.type = "button";
+
+            pgs(buttonElement).add("button['btnTransparent']");
+            if (optionButton) pgs(buttonElement).add(`button['${optionButton}']`);
+
+            buttonElement.addEventListener("click", (e) => {
+                const proceed = buttonElement.dispatchEvent(new CustomEvent("pgs:alert:buttonClick", {
+                    bubbles: true,
+                    cancelable: true,
+                    detail: { id, buttonId, type, title: config.title, description: config.description, link }
+                }));
+
+                if (link && !proceed) e.preventDefault();
+                if (closeAfterClick !== false) close();
+            });
+
+            buttonsRow.appendChild(buttonElement);
+        });
+
+        // the row carries a padding and a tinted strip of its own, so an empty one is not
+        // invisible: it has to be taken out of the layout. The default is [], never a falsy value
+        if (!config.buttons?.length) pgs(buttonsRow).add("hidden");
+
+        // the countdown bar is dormant by default (see _alerts.scss); setting its own duration is
+        // what switches it on, wherever a timeout is actually used — not just inside Toast
+        if (config.timeout > 0) {
+            alert.style.setProperty("--_alert-timeout", config.timeout + "ms");
+            setTimeout(close, config.timeout);
+        }
 
         return alert;
     },
 
     show(type, options = {}) {
-        if (!options || typeof options !== "object" || Array.isArray(options)) {
-            throw new TypeError("PGS alert: options must be an object");
-        }
-
-        const { root, container, ...contentOptions } = options;
+        const { root, container, ...contentOptions } = this._toOptions(options);
         const alert = this.create(type, contentOptions);
 
         if (root !== undefined || container !== undefined) {
@@ -1332,11 +1510,14 @@ const fn_alert = {
     }
 };
 
+
+
 const PGS_alert = {
     error: (options = {}) => fn_alert.show("error", options),
     success: (options = {}) => fn_alert.show("success", options),
     info: (options = {}) => fn_alert.show("info", options),
-    warning: (options = {}) => fn_alert.show("warning", options)
+    warning: (options = {}) => fn_alert.show("warning", options),
+    neutral: (options = {}) => fn_alert.show("neutral", options)
 };
 
 
@@ -2167,235 +2348,140 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_notification: () => (/* binding */ PGS_notification)
 /* harmony export */ });
 /* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
-/* harmony import */ var _helper_text_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_text.js */ "./assets/javascript/helper/_text.js");
+/* harmony import */ var _alerts_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_alerts.js */ "./assets/javascript/components/_alerts.js");
+/* harmony import */ var _modal_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_modal.js */ "./assets/javascript/components/_modal.js");
+
 
 
 
 //= PGS_notification
+//+ the group manager: one modal that holds the scrollable panel, every notificationBell that opens
+//+ it, and the counter and empty state. It only reads its data and hands it to the shared alert
+//+ engine (see _alerts.js): every message inside the panel is that alert card, built dismissible,
+//+ with its buttons, never timed by default.
 const fn_notification = {
-    _uid: 0,
     _defaults: {
-        id: null,
-        buttons: [],
-        description: "",
-        closeTitle: "Close",
         emptyMessage: "No notifications",
-        panelCloseTitle: "Close",
-        type: {
-            //== the plain one: no severity colour, no glyph, no title of its own — just the
-            //== message on the box surface the panel already defaults to
-            neutral: {
-                title: "",
-                icon: ""
-            },
-            error: {
-                title: "Error",
-                icon: "<i pgs=\"icon['icon-circleXmark']\"></i>"
-            },
-            success: {
-                title: "Success",
-                icon: "<i pgs=\"icon['icon-circleCheck']\"></i>"
-            },
-            info: {
-                title: "Information",
-                icon: "<i pgs=\"icon['icon-circleInfo']\"></i>"
-            },
-            warning: {
-                title: "Warning",
-                icon: "<i pgs=\"icon['icon-triangleExclamation']\"></i>"
-            }
-        }
+        panelCloseTitle: "Close"
     },
-
-    _getType(notification) {
-        const type = String(notification.type || "info").trim();
-        return typeof PGS_notification[type] === "function" ? type : "info";
-    },
-
-    _getData(root) {
-        const rawNotification = pgs(root).data.getValueBrackets("notification") || "{}";
-
-        try {
-            const notifications = JSON.parse(`[${rawNotification}]`);
-
-            if (notifications.some(notification => !notification || typeof notification !== "object" || Array.isArray(notification))) {
-                throw new TypeError("Each notification must be a JSON object");
-            }
-
-            return notifications;
-        } catch (error) {
-            console.warn("PGS notification: Invalid JSON configuration", error);
-            return [];
-        }
-    },
-
-    _getContent(title, description) {
-        const safeDescription = (0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(description);
-        const safeTitle = (0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(title);
-
-        if (!safeTitle) return `<span>${safeDescription}</span>`;
-        if (!safeDescription) return `<strong>${safeTitle}</strong>`;
-
-        return `
-            <strong>${safeTitle}</strong>
-            <span>${safeDescription}</span>
-        `;
-    },
+    _modal: null,
+    _missingBellReported: false,
 
     _getContainer() {
         return pgs(document).querySelector("_notifications");
     },
 
-    _getOrCreateContainer() {
-        let containerNotification = this._getContainer();
-
-        if (!containerNotification) {
-            containerNotification = document.createElement("div");
-            pgs(containerNotification).add("_notifications");
-            containerNotification.setAttribute("aria-live", "polite");
-            containerNotification.setAttribute("aria-relevant", "additions");
-            document.body.appendChild(containerNotification);
-        }
-
-        return containerNotification;
-    },
-
-    show(type, options = {}) {
-        if (typeof options === "string") options = { title: options };
-
-        if (!options || typeof options !== "object" || Array.isArray(options)) {
-            throw new TypeError("PGS notification: options must be an object or a string");
-        }
-
-        const { type: typeDefaults, ...defaults } = this._defaults;
-        //== null is not a value here, it is "leave it to the type": the JSON path already reads it
-        //== that way (notification.icon || undefined), so the JS API answers the same
-        const definedOptions = Object.fromEntries(
-            Object.entries(options).filter(([, value]) => value !== undefined && value !== null)
-        );
-        const config = {
-            ...defaults,
-            ...typeDefaults[type],
-            ...definedOptions,
-            type
-        };
-
-        return this.initNotification(config);
-    },
-
-    initNotification({
-        type,
-        id,
-        title,
-        icon,
-        description,
-        buttons,
-        closeTitle
-    }) {
-        const containerNotification = this._getOrCreateContainer();
-        const text = this._getContent(title, description);
-        const notificationId = id ?? `notification-${++this._uid}`;
-
-        //== Create Notification
-        const notification = document.createElement("div");
-        notification.dataset.notificationId = notificationId;
-        pgs(notification).state.add(type);
-        pgs(notification).add("_notifications-element");
-        notification.setAttribute("role", type == "error" ? "alert" : "status");
-        //== a type without a glyph (neutral, or an explicit icon: "") must not leave an empty box
-        //== behind: the row is a grid with a gap, so the empty div would still push the text over
-        const iconHtml = icon ? `<div pgs="_notifications-element-content-icon">${icon}</div>` : "";
-
-        notification.innerHTML = `
-            <div pgs="_notifications-element-content">
-                ${iconHtml}
-                <p>${text}</p>
-                <button type="button" pgs="button['btnIconOnly'] _notifications-element-content-delete"><i pgs="icon['icon-close']"></i></button>
-            </div>
-            <div pgs="_notifications-element-buttons">
-            </div>
-        `;
-
-        const notificationButtons = pgs(notification).querySelector("_notifications-element-buttons");
-        const btnDelete = pgs(notification).querySelector("_notifications-element-content-delete");
-        //== the dismiss button draws a cross, so closeTitle is its accessible name and nothing else.
-        //== Set as a property rather than written into the template above: no escaping to get wrong
-        btnDelete.ariaLabel = closeTitle === "Close" ? "Close notification" : closeTitle;
-
-        //+ Animation delete
-        function deleteNotification() {
-            notification.style.opacity = "0";
-            setTimeout(() => {
-                notification.dispatchEvent(new CustomEvent("pgs:notification:close", {
-                    bubbles: true,
-                    detail: { id: notificationId, type, title, description }
-                }));
-                notification.remove();
-                fn_notification._updateBellCounter();
-            }, 300);
-        }
-
-        (buttons || []).forEach((button, index) => {
-            const buttonId = button.id ?? `${notificationId}-button-${index + 1}`;
-            const buttonElement = button.link ? document.createElement("a") : document.createElement("button");
-            if (button.link) buttonElement.href = button.link;
-            else buttonElement.type = "button";
-            buttonElement.textContent = button.title;
-            pgs(buttonElement).add("button['btnTransparent']");
-            if (button.optionButton) pgs(buttonElement).add(`button['${button.optionButton}']`);
-
-            buttonElement.addEventListener("click", (e) => {
-                const proceed = buttonElement.dispatchEvent(new CustomEvent("pgs:notification:buttonClick", {
-                    bubbles: true,
-                    cancelable: true,
-                    detail: { id: notificationId, buttonId, type, title, description, link: button.link }
-                }));
-
-                if (button.link && !proceed) e.preventDefault();
-                if (button.close !== false) deleteNotification();
-            });
-
-            notificationButtons.appendChild(buttonElement);
+    //== the count only ever changes through a card's own close animation (dismiss click, a button
+    //== that closes, or deleteAll below), so this one listener covers every case.
+    //== Deferred a tick: the event fires before the card is actually removed from the DOM
+    _bindContainer(container) {
+        container.addEventListener("pgs:alert:close", () => {
+            setTimeout(() => fn_notification._updateBellCounter(), 0);
         });
+    },
 
-        //== the row carries a padding and a tinted strip of its own, so an empty one is not
-        //== invisible: it has to be taken out of the layout. The default is [], never a falsy value
-        if (!buttons?.length) pgs(notificationButtons).add("hidden");
+    //== the one modal every bell opens, built the first time anything needs it: the first
+    //== notification, or the first click on a bell. It is not authored anywhere on the page
+    _ensureModal() {
+        if (this._modal?.isConnected) return this._modal;
 
-        containerNotification.appendChild(notification);
+        const modal = document.createElement("div");
+        pgs(modal).add("modal['dialogRight' 'dialogTop' 'dialogSmall' 'dialogAnimationRight']");
+
+        const dialog = document.createElement("dialog");
+        pgs(dialog).add("modal-dialog", "_notificationsDialog");
+
+        const content = document.createElement("div");
+        pgs(content).add("modal-dialog-content", "_notifications");
+        content.setAttribute("aria-live", "polite");
+        content.setAttribute("aria-relevant", "additions");
+        this._bindContainer(content);
+
+        //== the panel closes from its own button, the one pgs.modal picks up inside the dialog. Written
+        //== first, it sits above the first notification
+        const closeButton = document.createElement("button");
+        closeButton.type = "button";
+        closeButton.textContent = this._defaults.panelCloseTitle;
+        pgs(closeButton).add("button['btnMini']", "_modal-close", "_notifications-close");
+        content.appendChild(closeButton);
+
+        dialog.appendChild(content);
+        modal.appendChild(dialog);
+        document.body.appendChild(modal);
+        _modal_js__WEBPACK_IMPORTED_MODULE_2__.PGS_modal.init(modal);
+
+        //== the bells say whether the panel is open, whichever way it got opened or closed
+        modal.addEventListener("pgs:modal:open", () => this._setBellsExpanded(true));
+        dialog.addEventListener("close", () => this._setBellsExpanded(false));
+
+        this._modal = modal;
         this._updateBellCounter();
+        return modal;
+    },
 
-        //== event
-        btnDelete.addEventListener("click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            e.stopImmediatePropagation()
-            deleteNotification();
+    _getBells(root = document) {
+        return pgs(root).querySelectorAll("notificationBell");
+    },
+
+    _setBellsExpanded(expanded) {
+        this._getBells().forEach(bell => bell.setAttribute("aria-expanded", String(expanded)));
+    },
+
+    //== a bell is a plain button: it only asks the one modal to toggle
+    _bindBells(root = document) {
+        this._getBells(root).forEach(bell => {
+            //== a hand-written counter keeps the bare name; a generated one gets the underscore,
+            //== so this is the one place that has to check for either
+            if (!pgs(bell).querySelector(["notificationBell-counter", "_notificationBell-counter"])) {
+                const counter = document.createElement("span");
+                pgs(counter).add("_notificationBell-counter");
+                bell.appendChild(counter);
+            }
+
+            if (bell.dataset.notificationBellBound === "true") return;
+            bell.dataset.notificationBellBound = "true";
+            this._missingBellReported = false;
+
+            bell.setAttribute("aria-haspopup", "dialog");
+            bell.setAttribute("aria-expanded", String(Boolean(this._modal?.isConnected && _modal_js__WEBPACK_IMPORTED_MODULE_2__.PGS_modal.api(this._modal)?.isOpen())));
+            bell.addEventListener("click", () => _modal_js__WEBPACK_IMPORTED_MODULE_2__.PGS_modal.api(this._ensureModal())?.toggle());
         });
     },
 
+    _add(type, options) {
+        const config = _alerts_js__WEBPACK_IMPORTED_MODULE_1__.fn_alert._toOptions(options, "notification");
+        const notification = _alerts_js__WEBPACK_IMPORTED_MODULE_1__.fn_alert.create(type, {
+            ...config,
+            component: "_alert",
+            dismissible: true,
+            //== the dismiss button draws a cross, so closeTitle is its accessible name and nothing else
+            closeTitle: config.closeTitle ?? "Close notification"
+        });
+
+        //== the notification is kept either way, so a bell added later still shows it; but with no
+        //== bell there is nothing to open the panel from, and that is worth saying out loud
+        if (!this._getBells().length && !this._missingBellReported) {
+            this._missingBellReported = true;
+            console.error("PGS notification: no notificationBell on the page, so nothing can open the panel that holds this notification.");
+        }
+
+        this._ensureModal();
+        this._getContainer().appendChild(notification);
+        this._updateBellCounter();
+    },
+
+    //== only loops and asks each card to close itself the same way its own dismiss button would;
+    //== the close animation and the pgs:alert:close event are the engine's job, not this one's
     deleteAll() {
         const containerNotification = this._getContainer();
+        if (!containerNotification) return;
 
-        if (containerNotification) {
-            //== only the notifications go: the panel also holds its own close button, and emptying
-            //== the whole container would take that with them
-            const elements = Array.from(pgs(containerNotification).querySelectorAll("_notifications-element"));
-            const ids = elements.map(element => element.dataset.notificationId);
-
-            elements.forEach(element => element.remove());
-            containerNotification.dispatchEvent(new CustomEvent("pgs:notification:deleteAll", {
-                bubbles: true,
-                detail: { ids }
-            }));
-        }
-
-        this._updateBellCounter();
+        pgs(containerNotification).querySelectorAll("_alert").forEach(element => element.pgsAlertClose());
     },
 
     _updateBellCounter() {
         const container = this._getContainer();
-        const count = container ? pgs(container).querySelectorAll("_notifications-element").length : 0;
+        const count = container ? pgs(container).querySelectorAll("_alert").length : 0;
 
         pgs(document).querySelectorAll(["notificationBell-counter", "_notificationBell-counter"]).forEach(counter => {
             counter.textContent = count > 0 ? count : "";
@@ -2417,95 +2503,21 @@ const fn_notification = {
         }
     },
 
-    _dispatch(element) {
-        this._getData(element).forEach(notification => {
-            const title = String(notification.title || "").trim();
-            const description = String(notification.description ?? notification.message ?? "").trim();
-            const closeTitle = String(notification.closeTitle || notification["title-close"] || this._defaults.closeTitle).trim();
-
-            if (!title && !description) return;
-
-            const icon = notification.icon || undefined;
-            const id = notification.id || this._defaults.id;
-            const buttons = Array.isArray(notification.buttons) ? notification.buttons : this._defaults.buttons;
-            const type = this._getType(notification);
-
-            PGS_notification[type]({
-                title,
-                description,
-                icon,
-                buttons,
-                closeTitle,
-                id
-            });
-        });
-    },
-
     load(root = document) {
         pgs(root).querySelectorAll("notificationLoad").forEach(element => {
             if (!element || element.dataset.initialize === "true") return;
 
             element.dataset.initialize = "true";
-            this._dispatch(element);
+            _alerts_js__WEBPACK_IMPORTED_MODULE_1__.fn_alert.fromData(element, "notification").forEach(({ type, options }) => this._add(type, options));
             element.remove();
         });
-    },
-
-    //+ generates <dialog pgs="modal-dialog _dialog['dialogRight' 'dialogSmall' 'dialogTop']"><div pgs="modal-dialog-content"><div pgs="_notifications"></div></div></dialog>
-    //+ inside the modal wrapping notificationBell, then asks pgs.modal to (re)initialize it.
-    _ensureDialog(root = document) {
-        let created = false;
-
-        pgs(root).querySelectorAll("notificationBell").forEach(bell => {
-            //== a hand-written counter keeps the bare name; a generated one gets the underscore,
-            //== so this is the one place that has to check for either
-            if (!pgs(bell).querySelector(["notificationBell-counter", "_notificationBell-counter"])) {
-                const counter = document.createElement("span");
-                pgs(counter).add("_notificationBell-counter");
-                bell.appendChild(counter);
-            }
-
-            const modalWrapper = pgs(bell).closest("modal");
-            if (!modalWrapper || modalWrapper.querySelector("dialog")) return;
-
-            //== modalContainerID/modalContainerPGS move the dialog out of the wrapper, so on a later
-            //== pgs.init() the wrapper looks empty again: without this marker every re-init
-            //== would mint another empty panel and the bell would end up opening one of those.
-            if (modalWrapper.dataset.notificationDialog === "true") return;
-            modalWrapper.dataset.notificationDialog = "true";
-
-            const dialog = document.createElement("dialog");
-            pgs(dialog).add("modal-dialog");
-            pgs(dialog).add("_notificationsDialog");
-            pgs(modalWrapper).add("modal['dialogRight' 'dialogSmall' 'dialogTop']");
-
-            const content = document.createElement("div");
-            pgs(content).add("modal-dialog-content");
-            pgs(content).add("_notifications");
-
-            //== the panel had no closer of its own: the bell was the only one, so the modal wired
-            //== its close to that. Written first, it sits above the first notification, and being
-            //== inside the dialog it is the one pgs.modal picks up (the bell keeps toggling on its
-            //== own modal-button, since openModal already closes an open dialog)
-            const closeButton = document.createElement("button");
-            closeButton.type = "button";
-            closeButton.textContent = this._defaults.panelCloseTitle;
-            pgs(closeButton).add("button['btnMini']", "_modal-close", "_notifications-close");
-            content.appendChild(closeButton);
-
-            dialog.appendChild(content);
-            modalWrapper.appendChild(dialog);
-            created = true;
-        });
-
-        if (created) globalThis.pgs?.modal?.init(document);
     }
 };
 
 //# TRIGGER
-//+ opening/closing the panel is handled entirely by the modal wrapping notificationBell + the dialog; see reference markup.
+//+ opening/closing the panel is the one modal's job; every notificationBell just asks it to toggle
 function PGS_notificationLoad_init(root = document) {
-    fn_notification._ensureDialog(root);
+    fn_notification._bindBells(root);
     fn_notification.load(root);
     fn_notification._updateBellCounter();
 }
@@ -2513,11 +2525,11 @@ function PGS_notificationLoad_init(root = document) {
 const PGS_notification = {
     init: PGS_notificationLoad_init,
     trigger: PGS_notificationLoad_init,
-    error: (options = {}) => fn_notification.show("error", options),
-    success: (options = {}) => fn_notification.show("success", options),
-    info: (options = {}) => fn_notification.show("info", options),
-    warning: (options = {}) => fn_notification.show("warning", options),
-    neutral: (options = {}) => fn_notification.show("neutral", options),
+    error: (options = {}) => fn_notification._add("error", options),
+    success: (options = {}) => fn_notification._add("success", options),
+    info: (options = {}) => fn_notification._add("info", options),
+    warning: (options = {}) => fn_notification._add("warning", options),
+    neutral: (options = {}) => fn_notification._add("neutral", options),
     deleteAll: () => fn_notification.deleteAll()
 };
 
@@ -4128,88 +4140,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_toast: () => (/* binding */ PGS_toast)
 /* harmony export */ });
 /* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
-/* harmony import */ var _helper_text_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_text.js */ "./assets/javascript/helper/_text.js");
+/* harmony import */ var _alerts_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_alerts.js */ "./assets/javascript/components/_alerts.js");
 
 
 
 //= PGS_toast
+//+ the single floating stack: one message at a time, fixed on screen. It only owns the container
+//+ and reads its data (pgs-data="toast[...]"), then hands everything to the shared alert engine
+//+ (see _alerts.js) — dismiss, timeout, countdown bar and events are the alert's own.
 const fn_toast = {
     _defaults: {
-        element: "toast",
-        link: null,
-        timeout: 4000,
-        description: "",
-        linkTitle: "Open",
-        closeTitle: "Close",
-        type: {
-            //== the plain one: no severity colour, no glyph, no title of its own — just the
-            //== message on the box surface the container already defaults to
-            neutral: {
-                title: "",
-                icon: ""
-            },
-            error: {
-                title: "Error",
-                icon: "<i pgs=\"icon['icon-circleXmark']\"></i>"
-            },
-            success: {
-                title: "Success",
-                icon: "<i pgs=\"icon['icon-circleCheck']\"></i>"
-            },
-            info: {
-                title: "Information",
-                icon: "<i pgs=\"icon['icon-circleInfo']\"></i>"
-            },
-            warning: {
-                title: "Warning",
-                icon: "<i pgs=\"icon['icon-triangleExclamation']\"></i>"
-            }
-        }
+        timeout: 4000
     },
+    _options: ["toastLeft", "toastRight", "toastCenter", "toastBottom"],
 
-    _getDuration(toast) {
-        const rawDuration = toast.timeout ?? toast.duration;
-        const duration = Number.parseInt(rawDuration, 10);
-        return Number.isNaN(duration) ? undefined : duration;
-    },
-
-    _getType(toast) {
-        const type = String(toast.type || "info").trim();
-        return typeof PGS_toast[type] === "function" ? type : "info";
-    },
-
-    _getData(root) {
-        const rawToast = pgs(root).data.getValueBrackets("toast") || "{}";
-
-        try {
-            const toasts = JSON.parse(`[${rawToast}]`);
-
-            if (toasts.some(toast => !toast || typeof toast !== "object" || Array.isArray(toast))) {
-                throw new TypeError("Each toast must be a JSON object");
-            }
-
-            return toasts;
-        } catch (error) {
-            console.warn("PGS toast: Invalid JSON configuration", error);
-            return [];
-        }
-    },
-
-    _getContent(title, description) {
-        const safeDescription = (0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(description);
-        const safeTitle = (0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(title);
-
-        if (!safeTitle) return `<span>${safeDescription}</span>`;
-        if (!safeDescription) return `<strong>${safeTitle}</strong>`;
-
-        return `
-            <strong>${safeTitle}</strong>
-            <span>${safeDescription}</span>
-        `;
-    },
-
-    //== a hand-written container keeps the bare name; a generated one gets the underscore, so
-    //== this needs both
+    //== a hand-written container keeps the bare name; a generated one gets the underscore, so this needs both
     _getContainer() {
         return pgs(document).querySelector(["toast", "_toast"]);
     },
@@ -4228,131 +4173,55 @@ const fn_toast = {
         return containerToast;
     },
 
-    show(type, options = {}) {
-        if (typeof options === "string") options = { title: options };
+    //== position flags land on the container, the way Modal copies the ones on its wrapper to _dialog:
+    //== _toast is the pgs-generated-only token that carries them, rebuilt at every toast so one toast's
+    //== position never leaks into the next. They come from the trigger (toastExe['toastLeft'],
+    //== toastLoad['toastRight']) and from the position option of a pgs.toast call, together. A
+    //== container written by hand keeps its own as the baseline
+    _applyOptions(container, trigger, position = []) {
+        const wanted = [Array.isArray(position) ? position : String(position).split(/\s+/)].flat().filter(Boolean);
+        const unknown = wanted.filter(key => !this._options.includes(key));
 
-        if (!options || typeof options !== "object" || Array.isArray(options)) {
-            throw new TypeError("PGS toast: options must be an object or a string");
-        }
+        if (unknown.length) console.error(`PGS toast: unknown position ${unknown.join(", ")}; use ${this._options.join(", ")}.`);
 
-        const { type: typeDefaults, ...defaults } = this._defaults;
-        //== null is not a value here, it is "leave it to the type": the JSON path already reads it
-        //== that way (toast.icon || undefined), so the JS API answers the same
-        const definedOptions = Object.fromEntries(
-            Object.entries(options).filter(([, value]) => value !== undefined && value !== null)
-        );
-        const config = {
-            ...defaults,
-            ...typeDefaults[type],
-            ...definedOptions,
-            type,
-            timeout: definedOptions.timeout ?? defaults.timeout
-        };
+        const keys = this._options.filter(key => wanted.includes(key) || (trigger && pgs(trigger).option.contains(key)));
 
-        return this.initToast(config);
+        pgs(container).remove("_toast");
+        pgs(container).add("_toast", ...keys.map(key => `_toast['${key}']`));
     },
 
-    initToast({
-        type,
-        title,
-        icon,
-        description,
-        timeout,
-        link,
-        linkTitle,
-        closeTitle
-    }) {
-        const containerToast = this._getOrCreateContainer();
-        const text = this._getContent(title, description);
+    _add(type, options, trigger) {
+        const { timeout = this._defaults.timeout, position, ...config } = _alerts_js__WEBPACK_IMPORTED_MODULE_1__.fn_alert._toOptions(options, "toast");
 
-        //== Create Toast
-        containerToast.innerHTML = "";
-        const toast = document.createElement("div");
-        if (timeout > 0) toast.style.setProperty("--_toast-timeout", timeout + "ms");
-        pgs(toast).state.add(type);
-        pgs(toast).add("_toast-element");
-        toast.setAttribute("role", type == "error" ? "alert" : "status");
-        //== a type without a glyph (neutral, or an explicit icon: "") must not leave an empty box
-        //== behind: the row is a flex with a gap, so the empty div would still push the text over
-        const iconHtml = icon ? `<div pgs="_toast-element-content-icon">${icon}</div>` : "";
-
-        toast.innerHTML = `
-            <div pgs="_toast-element-content">
-                ${iconHtml}
-                <p>${text}</p>
-                <button type="button" pgs="button['btnIconOnly'] _toast-element-content-delete"><i pgs="icon['icon-close']"></i></button>
-            </div>
-            <div pgs="_toast-element-buttons">
-            </div>
-        `;
-
-        const toastButtons = pgs(toast).querySelector("_toast-element-buttons");
-        const btnDelete = pgs(toast).querySelector("_toast-element-content-delete");
-        //== the dismiss button draws a cross, so closeTitle is its accessible name and nothing else.
-        //== Set as a property rather than written into the template above: no escaping to get wrong
-        btnDelete.ariaLabel = closeTitle === "Close" ? "Close toast" : closeTitle;
-
-        if (link) {
-            const toastLink = document.createElement("a");
-            toastLink.href = link;
-            toastLink.textContent = linkTitle;
-            pgs(toastLink).add("button");
-            toastButtons.appendChild(toastLink);
-        } else{
-            pgs(toastButtons).add("hidden");
-        }
-
-        containerToast.appendChild(toast);
-
-        //+ Animation delete
-        function deleteToast() {
-            toast.style.opacity = "0";
-            setTimeout(() => toast.remove(), 300);
-        }
-
-        //== Timeout delete
-        if (timeout > 0) setTimeout(() => { deleteToast() }, timeout);
-
-        //== event
-        btnDelete.addEventListener("click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            e.stopImmediatePropagation();
-            deleteToast(e);
+        const toast = _alerts_js__WEBPACK_IMPORTED_MODULE_1__.fn_alert.create(type, {
+            ...config,
+            component: "_alert",
+            dismissible: true,
+            timeout,
+            //== the dismiss button draws a cross, so closeTitle is its accessible name and nothing else
+            closeTitle: config.closeTitle ?? "Close toast"
         });
-    },
 
-    deleteAll() {
-        const containerToast = this._getContainer();
-        if (containerToast) containerToast.innerHTML = "";
+        //== only one toast is shown at a time: a new one simply replaces whatever was there
+        const container = this._getOrCreateContainer();
+        this._applyOptions(container, trigger, position);
+        container.replaceChildren(toast);
     },
 
     _dispatch(element) {
-        this._getData(element).forEach(toast => {
-            const title = String(toast.title || "").trim();
-            const description = String(toast.description ?? toast.message ?? "").trim();
-            const linkTitle = String(toast.linkTitle || toast["title-link"] || this._defaults.linkTitle).trim();
-            const closeTitle = String(toast.closeTitle || toast["title-close"] || this._defaults.closeTitle).trim();
-
-            if (!title && !description) return;
-
-            const link = toast.link || this._defaults.link;
-            const icon = toast.icon || undefined;
-            const duration = this._getDuration(toast);
-            const type = this._getType(toast);
-
-            PGS_toast[type]({
-                title,
-                description,
-                timeout: duration,
-                icon,
-                link,
-                linkTitle,
-                closeTitle
-            });
-        });
+        _alerts_js__WEBPACK_IMPORTED_MODULE_1__.fn_alert.fromData(element, "toast").forEach(({ type, options }) => this._add(type, options, element));
     },
 
+    //== DELETE
+    deleteAll() {
+        const containerToast = this._getContainer();
+        if (!containerToast) return;
+
+        pgs(containerToast).querySelectorAll("_alert").forEach(element => element.pgsAlertClose());
+    },
+
+
+    //== TRIGGER
     trigger(root = document) {
         pgs(root).querySelectorAll("toastLoad").forEach(element => {
             if (!element || element.dataset.initialize === "true") return;
@@ -4363,6 +4232,7 @@ const fn_toast = {
         });
     },
 
+    //== EXECUTE
     execute(root = document) {
         pgs(root).querySelectorAll("toastExe").forEach(element => {
             if (!element || element.dataset.initialize === "true") return;
@@ -4373,7 +4243,6 @@ const fn_toast = {
     }
 };
 
-//# TRIGGER
 function PGS_toastLoad_init(root = document) {
     fn_toast.trigger(root);
     fn_toast.execute(root);
@@ -4382,11 +4251,11 @@ function PGS_toastLoad_init(root = document) {
 const PGS_toast = {
     init: PGS_toastLoad_init,
     trigger: PGS_toastLoad_init,
-    error: (options = {}) => fn_toast.show("error", options),
-    success: (options = {}) => fn_toast.show("success", options),
-    info: (options = {}) => fn_toast.show("info", options),
-    warning: (options = {}) => fn_toast.show("warning", options),
-    neutral: (options = {}) => fn_toast.show("neutral", options),
+    error: (options = {}) => fn_toast._add("error", options),
+    success: (options = {}) => fn_toast._add("success", options),
+    info: (options = {}) => fn_toast._add("info", options),
+    warning: (options = {}) => fn_toast._add("warning", options),
+    neutral: (options = {}) => fn_toast._add("neutral", options),
     deleteAll: () => fn_toast.deleteAll()
 };
 

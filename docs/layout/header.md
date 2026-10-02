@@ -46,7 +46,7 @@ Responsive header that measures available space, switches between its full and c
 - `logo-text`: uses the text variant of the logo.
 - `menu`: provides both the full and the compact navigation.
 - `blur`: applies a backdrop blur behind header-element for a frosted-glass effect.
-- `notificationBell`: opens and closes the notification panel from the header.
+- `notificationBell`: a plain button that opens and closes the notification panel from the header; the panel itself is built by pgs.notification, not written here.
 - `toggleDarkmode`: connects the control to the global theme handler.
 - `modal`: provides opening and closing behavior for the compact navigation.
 - `modal-button`: opens the compact panel.
@@ -126,12 +126,10 @@ Full navigation on the left, always-visible controls on the right, and the same 
 				</ul>
 			</nav>
 			<div pgs="flex['row' 'nowrap']">
-				<div pgs="modal" pgs-data="modalContainerPGS[header]">
-					<button type="button" pgs="modal-button modal-close button['btnIconOnly'] notificationBell" aria-label="Open notifications">
-						<i pgs="icon['icon-bell']"></i>
-					</button>
-				</div>
-				<button pgs="button['btnIconOnly'] toggleDarkmode" type="button" aria-label="Change theme">
+				<button type="button" pgs="button['btnIconOnly' 'btnForHeader'] notificationBell" aria-label="Open notifications">
+					<i pgs="icon['icon-bell']"></i>
+				</button>
+				<button pgs="button['btnIconOnly' 'btnForHeader'] toggleDarkmode" type="button" aria-label="Change theme">
 					<i pgs="icon"></i>
 				</button>
 			</div>
@@ -139,17 +137,15 @@ Full navigation on the left, always-visible controls on the right, and the same 
 
 		<div pgs="header-element-onlyCompact">
 			<div pgs="flex['row' 'nowrap']">
-				<div pgs="modal" pgs-data="modalContainerPGS[header]">
-					<button type="button" pgs="modal-button modal-close button['btnIconOnly'] notificationBell" aria-label="Open notifications">
-						<i pgs="icon['icon-bell']"></i>
-					</button>
-				</div>
-				<button pgs="button['btnIconOnly'] toggleDarkmode" type="button" aria-label="Change theme">
+				<button type="button" pgs="button['btnIconOnly' 'btnForHeader'] notificationBell" aria-label="Open notifications">
+					<i pgs="icon['icon-bell']"></i>
+				</button>
+				<button pgs="button['btnIconOnly' 'btnForHeader'] toggleDarkmode" type="button" aria-label="Change theme">
 					<i pgs="icon"></i>
 				</button>
 				<div pgs="modal['dialogRight']" pgs-data="modalContainerPGS[header]">
 
-					<button pgs="button['btnIconOnly'] modal-button modal-close" type="button" aria-label="Open menu">
+					<button pgs="button['btnIconOnly' 'btnForHeader'] modal-button modal-close" type="button" aria-label="Open menu">
 						<i pgs="icon['icon-hamburgerTwo']" aria-hidden="true"></i>
 					</button>
 

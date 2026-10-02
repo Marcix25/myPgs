@@ -9,7 +9,8 @@
 //== needs to be scoped to the token that carries it.
 html:has(dialog[open]) {
     cursor: pointer;
-    overflow: hidden;
+    overflow: clip;
+    scrollbar-gutter: stable ;
 }
 
 //= MODAL

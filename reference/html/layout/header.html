@@ -48,7 +48,7 @@
  * - modalContainerPGS: uses modalContainerPGS[header] on the modal wrapper to move the dialog into the header.
  * - dialogRight: presents the compact navigation dialog content from the right side.
  * - btnIconOnly: presents theme and hamburger controls as icon buttons.
- * - notificationBell: opens and closes the notification panel from the header.
+ * - notificationBell: a plain button that opens and closes the notification panel from the header; the panel itself is built by pgs.notification, not written here.
  * - notificationBell-counter: generated automatically inside notificationBell; not written by hand in this example.
  * - toggleDarkmode: connects the control to the global theme handler.
  * - modal: provides opening and closing behavior for the compact navigation.
@@ -87,11 +87,9 @@
 					</ul>
 				</nav>
 				<div pgs="flex['row' 'nowrap']">
-					<div pgs="modal" pgs-data="modalContainerPGS[header]">
-						<button type="button" pgs="modal-button modal-close button['btnIconOnly' 'btnForHeader'] notificationBell" aria-label="Open notifications">
-							<i pgs="icon['icon-bell']"></i>
-						</button>
-					</div>
+					<button type="button" pgs="button['btnIconOnly' 'btnForHeader'] notificationBell" aria-label="Open notifications">
+						<i pgs="icon['icon-bell']"></i>
+					</button>
 					<button pgs="button['btnIconOnly' 'btnForHeader'] toggleDarkmode" type="button" aria-label="Change theme">
 						<i pgs="icon"></i>
 					</button>
@@ -100,11 +98,9 @@
 
 			<div pgs="header-element-onlyCompact">
 				<div pgs="flex['row' 'nowrap']">
-					<div pgs="modal" pgs-data="modalContainerPGS[header]">
-						<button type="button" pgs="modal-button modal-close button['btnIconOnly' 'btnForHeader'] notificationBell" aria-label="Open notifications">
-							<i pgs="icon['icon-bell']"></i>
-						</button>
-					</div>
+					<button type="button" pgs="button['btnIconOnly' 'btnForHeader'] notificationBell" aria-label="Open notifications">
+						<i pgs="icon['icon-bell']"></i>
+					</button>
 					<button pgs="button['btnIconOnly' 'btnForHeader'] toggleDarkmode" type="button" aria-label="Change theme">
 						<i pgs="icon"></i>
 					</button>

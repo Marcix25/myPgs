@@ -75,31 +75,10 @@ function setupCopyButtons() {
 
 //== the demo renders page-level layouts (header.html) inside the main area, so their modals would
 //== resolve modalContainerPGS[header] against the *real* page header and move their dialog in
-//== there, hijacking the header's own bell and hamburger: keep those dialogs local instead.
-function removeToken(element, attribute, token) {
-    if (!element) return;
-    if (attribute === "pgs") {
-        pgs(element).remove(token);
-        return;
-    }
-    const value = (element.getAttribute(attribute) || "").split(/\s+/).filter(item => item && item !== token).join(" ");
-    if (value) element.setAttribute(attribute, value);
-    else element.removeAttribute(attribute);
-}
-
+//== there, hijacking the header's own hamburger: keep those dialogs local instead.
 function isolateDemoModals(root) {
     pgs(root).querySelectorAll("modal").forEach(modal => {
         pgs(modal).option.remove("modalContainerPGS");
-    });
-
-    //== every notificationBell shares one "_notifications" container/panel: with several bells
-    //== rendered at once (the header pattern demo, the notification component's own demo) only
-    //== one can own it. See configureNotificationDemo.
-    root.querySelectorAll('[pgs~="notificationBell"]').forEach(bell => {
-        if (bell.closest('[data-reference="components/notification.html"]')) return;
-        removeToken(pgs(bell).closest("modal"), "pgs", "modal");
-        removeToken(bell, "pgs", "modal-button");
-        removeToken(bell, "pgs", "modal-close");
     });
 }
 
@@ -241,14 +220,8 @@ function configureNotificationDemo() {
     const section = document.querySelector('[data-reference="components/notification.html"]');
     if (!pgsApi?.notification || !section) return;
 
-    const realBell = section.querySelector('[pgs~="notificationBell"]');
-    document.querySelectorAll('[pgs~="notificationBell"]').forEach(bell => {
-        if (bell === realBell) return;
-        bell.addEventListener("click", () => realBell?.click());
-    });
-
-    document.addEventListener("pgs:notification:buttonClick", (event) => {
-        console.log("pgs:notification:buttonClick", event.detail);
+    document.addEventListener("pgs:alert:buttonClick", (event) => {
+        console.log("pgs:alert:buttonClick", event.detail);
 
         if (event.detail.buttonId === "yes" || event.detail.buttonId === "no") {
             console.log("Invio risposta sondaggio al server:", event.detail.buttonId);

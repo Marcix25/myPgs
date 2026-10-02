@@ -1,89 +1,222 @@
 <!--
 /**
  * @title Alerts
- * @description Inline feedback messages for contextual information, successful operations, warnings, and errors, written in markup or created through JavaScript.
+ * @description Feedback messages for information, success, warnings and errors. It is one component that does several things, and which of them are on depends on where it is used. Written by hand in markup it is a static message. Created through pgs.alert.* it can also be dismissed, carry action buttons and close itself after a timeout — all off until asked for. Notification and Toast are this same alert with those features switched on and their own container around it: a scrollable panel for Notification, a single floating card for Toast. Nothing about the card itself is redone there. Two custom events come from the card whenever it has a dismiss button, buttons or a timeout: pgs:alert:buttonClick on a buttons[] element when clicked (detail: id, buttonId, type, title, description, link; cancelable — call event.preventDefault() to stop a link's navigation and finish async work first), and pgs:alert:close on the card right before it is removed, whether by its own dismiss button, by its timeout, by a button that closes, or by a host closing it programmatically with its pgsAlertClose() method (detail: id, type, title, description).
  *
  * @pgs
- * - alertContainer: identifies a target that can receive alerts created through JavaScript.
- * - alert: identifies the inline alert container, written by hand like this or returned by the JS API.
- * - alert-icon: write it yourself, bare like this, when authoring the alert directly in markup; identifies the decorative status icon.
- * - alert-content: the same, for the element grouping the title and descriptive message.
- * - alert-content-title: the same, for the alert heading.
+ * - alertContainer: marks the element that receives the alerts created through JavaScript with root or container; with none present the JavaScript creates one before the submit button, or at the start of root.
+ * - alert: identifies the card, written by hand like this or built by the JS API. Its severity is a flag in its own bracket, as in alert['info'].
+ * - alert-icon: write it yourself, bare like this, when authoring the alert in markup: the status icon. It is optional; without it the text takes the whole card.
+ * - alert-content: the same, for the element that groups the title and the descriptive message.
+ * - alert-content-title: the same, for the heading. It is optional too.
  *
  * @pgs-generated
- * - _alert-icon: the icon, built with this token instead when the alert is created through the JS API.
+ * - _alert-icon: the icon, with this token instead when the card is built through the JS API.
  * - _alert-content: the same, for the content wrapper.
  * - _alert-content-title: the same, for the heading.
+ * - _alert-dismiss: the close button, built only when the dismissible option is set. It draws a cross, and closeTitle is its accessible name. A hand-written alert has no JavaScript to answer a click, so it never has one.
+ * - _alert-buttons: the row of action buttons, built only when the buttons option carries something; marked hidden otherwise.
  *
- * @pgs-state
+ * @pgs-options
+ * - neutral: no severity of its own, so it keeps a plain box surface; the same look a bare alert has with no option at all.
  * - info: presents neutral informational feedback.
  * - success: presents confirmation of a successful operation.
  * - warning: presents a condition that requires attention.
  * - error: presents a failure or blocking problem.
  *
  * @api
- * - pgs.alert.error(options): creates an error alert and renders it in a managed container when root or container is provided.
- * - pgs.alert.success(options): creates a success alert and renders it in a managed container when root or container is provided.
- * - pgs.alert.info(options): creates an informational alert and renders it in a managed container when root or container is provided.
- * - pgs.alert.warning(options): creates a warning alert and renders it in a managed container when root or container is provided.
+ * - pgs.alert.error(options): builds an error alert and returns its element. With root or container in options it also places it in the matching alertContainer, replacing whatever that holds; without them the element is only returned and placing it is up to the caller. Every option, with its default, is listed in the commented example below.
+ * - pgs.alert.success(options): the same, for a success alert.
+ * - pgs.alert.info(options): the same, for an informational alert.
+ * - pgs.alert.warning(options): the same, for a warning alert.
+ * - pgs.alert.neutral(options): the same, for the plain alert with no severity.
  *
  * @related
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
- * - column: arranges the static alert examples vertically.
- * - notification: provides dynamic floating alerts and toast messages.
+ * - column: stacks a trigger button above the alert it creates in the live examples.
+ * - button: the trigger of every live example, and the look of the buttons the JavaScript builds.
+ * - btnIconOnly: shapes the generated close button as an icon-only button; see Button.
+ * - btnTransparent: the look the JavaScript gives the buttons passed in buttons; see Button.
+ * - notification: a persistent, manually-dismissed panel of alerts, always dismissible, never timed by default.
+ * - toast: a single floating alert, always dismissible and timed.
  * - icon: draws the glyph that marks the alert type; see Icon for the whole set.
  * - icon-circleXmark: the glyph of the error type.
  * - icon-circleCheck: the glyph of the success type.
  * - icon-circleInfo: the glyph of the info type.
  * - icon-triangleExclamation: the glyph of the warning type.
+ * - icon-close: the cross the close button draws.
  *
- * @return Accessible HTML examples of the four inline alert states; JavaScript methods return an HTMLElement that can be appended where needed.
+ * @return Accessible HTML examples of the five severities and of a card without icon or title, plus live examples of what the JavaScript adds: a close button, a countdown to closing, and action buttons with the events they raise. The JavaScript methods return the alert's HTMLElement.
  */
 -->
 
-<div pgs="alertContainer flex['column']" demo="component">
-    <demo demo-h2="Examples"></demo>
-    <demo demo-h3="Information" demo-description="Neutral informational feedback."></demo>
-    <section demo="component">
-        <div pgs="alert" pgs-state="info" role="status">
-            <i pgs="icon['icon-circleInfo'] alert-icon" aria-hidden="true"></i>
-            <div pgs="alert-content">
-                <strong pgs="alert-content-title">Information</strong>
-                <p>Your profile information can be updated at any time.</p>
-            </div>
+<demo demo-h2="Written in markup"></demo>
+<demo demo-h3="Neutral" demo-description="No severity of its own: a plain box surface, the same look a bare alert has with no option at all."></demo>
+<section demo="component">
+    <div pgs="alert['neutral']" role="status">
+        <i pgs="icon['icon-circleInfo'] alert-icon" aria-hidden="true"></i>
+        <div pgs="alert-content">
+            <strong pgs="alert-content-title">Heads up</strong>
+            <p>Nothing to signal here, just a message.</p>
         </div>
-    </section>
+    </div>
+</section>
 
-    <demo demo-h3="Changes saved" demo-description="Confirmation of a successful operation."></demo>
-    <section demo="component">
-        <div pgs="alert" pgs-state="success" role="status">
-            <i pgs="icon['icon-circleCheck'] alert-icon" aria-hidden="true"></i>
-            <div pgs="alert-content">
-                <strong pgs="alert-content-title">Changes saved</strong>
-                <p>Your preferences were updated successfully.</p>
-            </div>
+<demo demo-h3="Information" demo-description="Neutral informational feedback."></demo>
+<section demo="component">
+    <div pgs="alert['info']" role="status">
+        <i pgs="icon['icon-circleInfo'] alert-icon" aria-hidden="true"></i>
+        <div pgs="alert-content">
+            <strong pgs="alert-content-title">Information</strong>
+            <p>Your profile information can be updated at any time.</p>
         </div>
-    </section>
+    </div>
+</section>
 
-    <demo demo-h3="Check your information" demo-description="A condition that requires the user's attention."></demo>
-    <section demo="component">
-        <div pgs="alert" pgs-state="warning" role="alert">
-            <i pgs="icon['icon-triangleExclamation'] alert-icon" aria-hidden="true"></i>
-            <div pgs="alert-content">
-                <strong pgs="alert-content-title">Check your information</strong>
-                <p>Some fields may require your attention before continuing.</p>
-            </div>
+<demo demo-h3="Changes saved" demo-description="Confirmation of a successful operation."></demo>
+<section demo="component">
+    <div pgs="alert['success']" role="status">
+        <i pgs="icon['icon-circleCheck'] alert-icon" aria-hidden="true"></i>
+        <div pgs="alert-content">
+            <strong pgs="alert-content-title">Changes saved</strong>
+            <p>Your preferences were updated successfully.</p>
         </div>
-    </section>
+    </div>
+</section>
 
-    <demo demo-h3="Unable to save" demo-description="A failure or blocking problem."></demo>
-    <section demo="component">
-        <div pgs="alert" pgs-state="error" role="alert">
-            <i pgs="icon['icon-circleXmark'] alert-icon" aria-hidden="true"></i>
-            <div pgs="alert-content">
-                <strong pgs="alert-content-title">Unable to save</strong>
-                <p>Correct the reported errors and try again.</p>
-            </div>
+<demo demo-h3="Check your information" demo-description="A condition that requires the user's attention. Error and warning carry role alert, so a screen reader announces them at once; the others carry role status and wait until it is idle."></demo>
+<section demo="component">
+    <div pgs="alert['warning']" role="alert">
+        <i pgs="icon['icon-triangleExclamation'] alert-icon" aria-hidden="true"></i>
+        <div pgs="alert-content">
+            <strong pgs="alert-content-title">Check your information</strong>
+            <p>Some fields may require your attention before continuing.</p>
         </div>
-    </section>
-</div>
+    </div>
+</section>
+
+<demo demo-h3="Unable to save" demo-description="A failure or blocking problem."></demo>
+<section demo="component">
+    <div pgs="alert['error']" role="alert">
+        <i pgs="icon['icon-circleXmark'] alert-icon" aria-hidden="true"></i>
+        <div pgs="alert-content">
+            <strong pgs="alert-content-title">Unable to save</strong>
+            <p>Correct the reported errors and try again.</p>
+        </div>
+    </div>
+</section>
+
+<demo demo-h3="Without icon or title" demo-description="Both are optional. Leave them out and the text simply takes the whole card."></demo>
+<section demo="component">
+    <div pgs="alert['info']" role="status">
+        <div pgs="alert-content">
+            <p>A short note that needs neither a glyph nor a heading.</p>
+        </div>
+    </div>
+</section>
+
+<demo demo-h2="Created with JavaScript"></demo>
+<demo demo-h3="Basic" demo-description="pgs.alert.success() builds the card and, with root, places it in the alertContainer found inside that element. A new alert replaces the previous one in the same container. Everything below is off unless an option turns it on."></demo>
+<section pgs="flex['column']" demo="component" data-alert-demo="basic">
+    <button type="button" pgs="button" data-alert-trigger>Show an alert</button>
+    <div pgs="alertContainer"></div>
+</section>
+
+<demo demo-h3="Dismissible" demo-description="dismissible adds the close button. Clicking it fades the card out and raises pgs:alert:close."></demo>
+<section pgs="flex['column']" demo="component" data-alert-demo="dismissible">
+    <button type="button" pgs="button" data-alert-trigger>Show a dismissible alert</button>
+    <div pgs="alertContainer"></div>
+</section>
+
+<demo demo-h3="With a timeout" demo-description="timeout is the time, in milliseconds, before the alert closes itself. It also switches on the countdown bar behind the text, which empties as the time runs out."></demo>
+<section pgs="flex['column']" demo="component" data-alert-demo="timeout">
+    <button type="button" pgs="button" data-alert-trigger>Show an alert that closes in 5 seconds</button>
+    <div pgs="alertContainer"></div>
+</section>
+
+<demo demo-h3="With buttons and events" demo-description="Each entry of buttons becomes a button, or a link when it has link. Clicking one raises pgs:alert:buttonClick, which can be cancelled, and then closes the alert unless the entry says close: false. The log shows what the listener receives."></demo>
+<section pgs="flex['column']" demo="component" data-alert-demo="buttons">
+    <button type="button" pgs="button" data-alert-trigger>Show an alert with buttons</button>
+    <div pgs="alertContainer"></div>
+    <p data-alert-log>No event yet.</p>
+</section>
+
+<demo demo-h3="The wiring" demo-description="What the four examples above run: one click listener per trigger button that calls pgs.alert.success() with the options of its example and root set to the example itself, plus a listener for each of the two events."></demo>
+<section demo="component">
+    <script type="module">
+        import { pgs } from "mypgs";
+
+        const options = {
+            basic: { title: "Saved", description: "Your changes were saved." },
+            dismissible: { title: "Heads up", description: "Close me whenever you like.", dismissible: true },
+            timeout: { title: "Closing soon", description: "Watch the bar behind this text.", timeout: 5000, dismissible: true },
+            buttons: {
+                title: "New message",
+                description: "Reply now or read the details.",
+                buttons: [
+                    { id: "reply", title: "Reply" },
+                    { id: "details", title: "Details", link: "#details", close: false }
+                ]
+            }
+        };
+
+        document.querySelectorAll("[data-alert-demo]").forEach(demo => {
+            demo.querySelector("[data-alert-trigger]").addEventListener("click", () => {
+                pgs.alert.success({ ...options[demo.dataset.alertDemo], root: demo });
+            });
+        });
+
+        const log = document.querySelector("[data-alert-demo='buttons'] [data-alert-log]");
+
+        document.addEventListener("pgs:alert:buttonClick", event => {
+            if (!log || !event.target.closest("[data-alert-demo='buttons']")) return;
+
+            //== the link would jump the page to #details; cancelling it shows the event is cancelable
+            event.preventDefault();
+            log.textContent = `pgs:alert:buttonClick — buttonId: ${event.detail.buttonId}, link: ${event.detail.link ?? "none"}`;
+        });
+
+        document.addEventListener("pgs:alert:close", event => {
+            if (!log || !event.target.closest("[data-alert-demo='buttons']")) return;
+
+            log.textContent += ` · pgs:alert:close — id: ${event.detail.id}`;
+        });
+    </script>
+</section>
+
+<script type="text/x-example-js">
+pgs.alert.info({
+    title: "Information",       // omitted falls back to the title of the type; "" shows none
+    description: "",            // plain text under the title; a newline becomes a line break
+    icon: null,                 // HTML string; omitted or null uses the icon of the type; "" shows none
+    id: undefined,              // reported by every event; generated (alert-1, alert-2...) when omitted
+    dismissible: false,         // true adds the close button
+    closeTitle: "Close",        // accessible name of the close button, which only draws a cross
+    timeout: undefined,         // milliseconds before it closes itself, with the countdown bar; omitted or 0 never closes
+    buttons: [                  // omitted or empty leaves no button row
+        {
+            id: undefined,      // reported as buttonId by pgs:alert:buttonClick; generated when omitted
+            title: "",          // label of the button
+            link: null,         // makes it a link and navigates there; omit it to only raise the event
+            close: true,        // closes the alert after the click; false keeps it
+            optionButton: null  // option added to the button, e.g. btnMini; see Button
+        }
+    ],
+    root: undefined,            // element holding the alertContainer to fill; without root and container the alert is only returned
+    container: undefined        // selector, or element inside root, to use instead of the alertContainer
+});
+
+// without root or container nothing is placed: the caller does it
+const alert = pgs.alert.success({ title: "Saved", dismissible: true });
+document.body.append(alert);
+
+// closes it exactly as its own close button would, raising pgs:alert:close
+alert.pgsAlertClose();
+
+// events come from the card and bubble up, so one listener covers every alert on the page
+document.addEventListener("pgs:alert:close", event => event.detail.id);
+document.addEventListener("pgs:alert:buttonClick", event => {
+    event.detail.buttonId;      // which button
+    event.preventDefault();     // only needed to stop a link from navigating
+});
+</script>

@@ -5703,7 +5703,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 html:has(dialog[open]) {
   cursor: pointer;
-  overflow: hidden;
+  overflow: clip;
+  scrollbar-gutter: stable;
 }
 
 :is([pgs~=modal], [pgs*="modal["]) :where([pgs~=modal-close])[aria-expanded=true] i {
@@ -6583,38 +6584,56 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   background: currentColor;
 }
 
-[pgs~=alert] {
-  --alert-accent: var(--color-primary);
-  --alert-background: var(--color-primary-soft);
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) {
+  --alert-accent: unset;
+  --alert-background: var(--color-box);
   --alert-color: var(--color-text);
   --alert-content-title-color: var(--alert-accent);
   --alert-padding: var(--padding-texts);
   --alert-gap: var(--gap-texts);
+  --alert-iconSize: 3.5rem;
+  --_alert-timeout: unset;
+  --_alert-timer: color-mix(in srgb, var(--alert-background) 95%, var(--color-black) 5%);
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas: "icon content dismiss" "buttons buttons buttons";
+  column-gap: var(--alert-gap);
+  row-gap: 0;
   align-items: start;
-  gap: var(--alert-gap);
   width: 100%;
   padding: var(--alert-padding);
-  border-radius: var(--border-radius-input);
+  border: var(--border-complete);
+  border-radius: var(--border-radius);
   background: var(--alert-background);
   color: var(--alert-color);
+  overflow: hidden;
+  position: relative;
   margin-block: calc(var(--gap-texts) / 2);
 }
 
-[pgs~=alert] :where([pgs~=alert-icon]),
-[pgs~=alert] :where([pgs~=_alert-icon]) {
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=alert-icon]),
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=_alert-icon]) {
+  grid-area: icon;
+  z-index: 1;
   display: grid;
   place-items: center;
   min-inline-size: 2.4rem;
   min-block-size: 2.4rem;
   color: var(--alert-accent);
   line-height: 1;
-  --icon-size: 3rem;
+  --icon-size: var(--alert-iconSize);
 }
 
-[pgs~=alert] :where([pgs~=alert-content]),
-[pgs~=alert] :where([pgs~=_alert-content]) {
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=alert-icon]) img,
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=_alert-icon]) img {
+  width: var(--alert-iconSize);
+  aspect-ratio: 1;
+}
+
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=alert-content]),
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=_alert-content]) {
+  grid-area: content;
+  z-index: 1;
   display: flex;
   gap: calc(var(--alert-gap) / 2);
   --flex-gap: calc(var(--alert-gap) / 2);
@@ -6622,37 +6641,101 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   min-width: 0;
 }
 
-[pgs~=alert] :where([pgs~=alert-content]) :where([pgs~=alert-content-title]),
-[pgs~=alert] :where([pgs~=alert-content]) :where([pgs~=_alert-content-title]),
-[pgs~=alert] :where([pgs~=_alert-content]) :where([pgs~=alert-content-title]),
-[pgs~=alert] :where([pgs~=_alert-content]) :where([pgs~=_alert-content-title]) {
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=alert-content]) :where([pgs~=alert-content-title]),
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=alert-content]) :where([pgs~=_alert-content-title]),
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=_alert-content]) :where([pgs~=alert-content-title]),
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=_alert-content]) :where([pgs~=_alert-content-title]) {
   color: var(--alert-content-title-color);
   font-weight: var(--font-weight-title);
   line-height: 1.2;
 }
 
-[pgs~=alert] p {
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=alert-content]) p,
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=_alert-content]) p {
+  margin: 0;
+}
+
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) p {
   color: var(--alert-color);
 }
 
-[pgs~=alert][pgs-state~=info] {
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["])::before {
+  content: "";
+  width: 0%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--_alert-timer);
+  animation: alert-timeline var(--_alert-timeout) linear;
+}
+
+@keyframes alert-timeline {
+  0% {
+    width: 100%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    width: 0%;
+    opacity: 0;
+  }
+}
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=_alert-dismiss]) {
+  grid-area: dismiss;
+  z-index: 1;
+  --button-size: .7rem;
+  align-self: start;
+}
+
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=_alert-buttons]) {
+  grid-area: buttons;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--alert-gap);
+  margin: var(--alert-gap) calc(var(--alert-padding) * -1) calc(var(--alert-padding) * -1);
+  padding: calc(var(--alert-padding) / 2) var(--alert-padding);
+  background: color-mix(in srgb, var(--alert-background) 50%, var(--color-white) 50%);
+}
+
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=_alert-buttons]) :is(a, button, input) {
+  --button-size: .7rem;
+  --hover-background: var(--color-white);
+  --hover-color: var(--color-black);
+  flex: 1;
+  justify-content: center;
+  font-size: small;
+  min-width: max-content;
+}
+
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["])[pgs*="'info'"] {
   --alert-accent: var(--color-info);
   --alert-background: var(--color-info-soft);
+  --_alert-timer: color-mix(in srgb, var(--alert-background) 70%, var(--color-white) 30%);
 }
 
-[pgs~=alert][pgs-state~=success] {
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["])[pgs*="'success'"] {
   --alert-accent: var(--color-success);
   --alert-background: var(--color-success-soft);
+  --_alert-timer: color-mix(in srgb, var(--alert-background) 70%, var(--color-white) 30%);
 }
 
-[pgs~=alert][pgs-state~=warning] {
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["])[pgs*="'warning'"] {
   --alert-accent: var(--color-warning);
   --alert-background: var(--color-warning-soft);
+  --_alert-timer: color-mix(in srgb, var(--alert-background) 70%, var(--color-white) 30%);
 }
 
-[pgs~=alert][pgs-state~=error] {
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["])[pgs*="'error'"] {
   --alert-accent: var(--color-error);
   --alert-background: var(--color-error-soft);
+  --_alert-timer: color-mix(in srgb, var(--alert-background) 70%, var(--color-white) 30%);
 }
 
 [pgs~=notificationBell] {
@@ -6689,12 +6772,8 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 }
 
 [pgs~=_notifications] {
-  --notification-background: var(--color-box);
-  --notification-color: unset;
-  --notification-shadow-color: unset;
   display: flex;
   flex-direction: column;
-  gap: var(--gap-texts);
   scrollbar-color: var(--color-black) transparent;
 }
 
@@ -6716,254 +6795,38 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   background-color: var(--color-black-transparent);
 }
 
-[pgs~=_notifications] :where([pgs~=_notifications-element]) {
-  display: flex;
-  background: var(--notification-background);
-  flex-direction: column;
-  opacity: 1;
-  font-weight: var(--font-weight-bold);
-  overflow: hidden;
-  align-items: stretch;
-  border-radius: var(--border-radius-input);
-  width: 100%;
-  height: max-content;
-  flex-shrink: 0;
-  position: relative;
-  border: var(--border-complete);
-  transition: opacity 280ms ease;
-}
-
-[pgs~=_notifications] :where([pgs~=_notifications-element]) :where([pgs~=_notifications-element-content]),
-[pgs~=_notifications] :where([pgs~=_notifications-element]) :where([pgs~=_notifications-element-buttons]) {
-  display: flex;
-  align-items: flex-start;
-  flex-direction: row;
-  gap: calc(var(--padding-elements) / 4);
-  z-index: 1;
-}
-
-[pgs~=_notifications] :where([pgs~=_notifications-element]) :where([pgs~=_notifications-element-content]) {
-  min-height: 5rem;
-  padding: var(--padding-texts);
-}
-
-[pgs~=_notifications] :where([pgs~=_notifications-element]) :where([pgs~=_notifications-element-content]) :where([pgs~=_notifications-element-content-icon]) {
-  --icon-size: 3.5rem;
-  flex: 0 0 auto;
-  color: var(--notification-shadow-color);
-}
-
-[pgs~=_notifications] :where([pgs~=_notifications-element]) :where([pgs~=_notifications-element-content]) p {
-  display: flex;
-  flex: 1 1 auto;
-  flex-direction: column;
-  gap: calc(var(--gap-texts) / 2);
-  margin: 0;
-  color: var(--notification-color);
-  line-height: unset;
-}
-
-[pgs~=_notifications] :where([pgs~=_notifications-element]) :where([pgs~=_notifications-element-content]) p span {
-  font-size: 1.4rem;
-}
-
-[pgs~=_notifications] :where([pgs~=_notifications-element]) :where([pgs~=_notifications-element-content]) :where([pgs~=_notifications-element-content-delete]) {
-  --button-size: .7rem;
-  flex: 0 0 auto;
-  margin-inline-start: auto;
-  align-self: flex-start;
-}
-
-[pgs~=_notifications] :where([pgs~=_notifications-element]) :where([pgs~=_notifications-element-buttons]) {
-  flex-wrap: wrap;
-  padding: calc(var(--padding-elements) / 4);
-  background: color-mix(in srgb, var(--notification-background) 50%, var(--color-white) 50%);
-}
-
-[pgs~=_notifications] :where([pgs~=_notifications-element]) :where([pgs~=_notifications-element-buttons]) :is(a, button, input) {
-  --button-size: .7rem;
-  --hover-background: var(--color-white);
-  --hover-color: var(--color-black);
-  flex: 1;
-  justify-content: center;
-  font-size: small;
-  min-width: max-content;
-}
-
-[pgs~=_notifications] [pgs-state~=neutral] {
-  --notification-background: var(--color-box);
-  --notification-shadow-color: unset;
-}
-
-[pgs~=_notifications] [pgs-state~=success] {
-  --notification-background: var(--color-success-soft);
-  --notification-shadow-color: var(--color-success);
-}
-
-[pgs~=_notifications] [pgs-state~=error] {
-  --notification-background: var(--color-error-soft);
-  --notification-shadow-color: var(--color-error);
-}
-
-[pgs~=_notifications] [pgs-state~=warning] {
-  --notification-background: var(--color-warning-soft);
-  --notification-shadow-color: var(--color-warning);
-}
-
-[pgs~=_notifications] [pgs-state~=info] {
-  --notification-background: var(--color-info-soft);
-  --notification-shadow-color: var(--color-info);
-}
-
-:is([pgs~=toast], [pgs~=_toast]) {
-  --toast-background: var(--color-box);
-  --toast-background-timer: color-mix(in srgb, var(--color-box) 95%, var(--color-black) 5%);
-  --toast-color: unset;
-  --toast-shadow-color: unset;
-  --_toast-timeout: unset;
+:is([pgs~=toast], [pgs*="toast["], [pgs~=_toast], [pgs*="_toast["]) {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
   position: fixed;
+  inset: 0;
   z-index: 98;
   isolation: isolate;
-  inset-inline: 0;
+  padding: calc(var(--heightOfHeaderScroll) + 1rem) var(--page-padding) var(--page-padding);
   pointer-events: none;
-  top: calc(var(--heightOfHeaderScroll) + 1rem);
 }
 
-:is([pgs~=toast], [pgs~=_toast]) :where([pgs~=_toast-element]) {
-  display: flex;
-  gap: var(--padding-texts);
-  background: var(--toast-background);
-  flex-direction: column;
-  opacity: 1;
-  font-weight: var(--font-weight-bold);
-  overflow: hidden;
-  transition: all 280ms;
-  align-items: stretch;
-  box-shadow: 0px 0px 100px 0px var(--toast-shadow-color);
-  border-radius: var(--border-radius);
-  max-width: calc(99vw - var(--page-padding));
-  min-width: min(300px, 50vw);
-  height: max-content;
-  padding: var(--padding-texts);
-  position: relative;
+:is([pgs~=toast], [pgs*="toast["], [pgs~=_toast], [pgs*="_toast["]) [pgs*="_alert["] {
+  max-width: 430px;
   pointer-events: initial;
 }
 
-@media (max-width: 430px) {
-  :is([pgs~=toast], [pgs~=_toast]) :where([pgs~=_toast-element]) {
-    padding: calc(var(--padding-elements) / 1.5);
-  }
-}
-:is([pgs~=toast], [pgs~=_toast]) :where([pgs~=_toast-element]) :where([pgs~=_toast-element-content]) {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  gap: var(--padding-texts);
-  min-width: 0;
-  z-index: 1;
-}
-
-:is([pgs~=toast], [pgs~=_toast]) :where([pgs~=_toast-element]) :where([pgs~=_toast-element-content]) :where([pgs~=_toast-element-content-icon]) > * {
-  --icon-size: 3.5rem;
-  --icon-color: var(--toast-shadow-color);
-  flex: 0 0 auto;
-}
-
-:is([pgs~=toast], [pgs~=_toast]) :where([pgs~=_toast-element]) :where([pgs~=_toast-element-content]) p {
-  display: flex;
-  flex: 1 1 auto;
-  flex-direction: column;
-  gap: calc(var(--gap-texts) / 2);
-  margin: 0;
-  color: var(--toast-color);
-  line-height: unset;
-}
-
-:is([pgs~=toast], [pgs~=_toast]) :where([pgs~=_toast-element]) :where([pgs~=_toast-element-content]) p span {
-  font-size: 1.4rem;
-}
-
-:is([pgs~=toast], [pgs~=_toast]) :where([pgs~=_toast-element]) :where([pgs~=_toast-element-content]) :where([pgs~=_toast-element-content-delete]) {
-  --button-size: .7rem;
-  flex: 0 0 auto;
-}
-
-:is([pgs~=toast], [pgs~=_toast]) :where([pgs~=_toast-element]) :where([pgs~=_toast-element-buttons]) {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  gap: var(--gap-texts);
-  z-index: 1;
-  flex-wrap: wrap;
-}
-
-:is([pgs~=toast], [pgs~=_toast]) :where([pgs~=_toast-element]) :where([pgs~=_toast-element-buttons]) :is(a, button, input) {
-  --button-size: .7rem;
-  flex: 1;
+:is([pgs~=toast], [pgs*="toast["], [pgs~=_toast], [pgs*="_toast["])[pgs*="'toastCenter'"] {
   justify-content: center;
-  font-size: small;
 }
 
-:is([pgs~=toast], [pgs~=_toast]) :where([pgs~=_toast-element])::before {
-  content: "";
-  width: 0%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: var(--toast-background-timer);
-  border-top-left-radius: var(--border-radius-input);
-  border-bottom-left-radius: var(--border-radius-input);
-  animation: toast-timeline var(--_toast-timeout) linear;
+:is([pgs~=toast], [pgs*="toast["], [pgs~=_toast], [pgs*="_toast["])[pgs*="'toastBottom'"] {
+  justify-content: flex-end;
 }
 
-@keyframes toast-timeline {
-  0% {
-    width: 100%;
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    width: 0%;
-    opacity: 0;
-  }
-}
-:is([pgs~=toast], [pgs~=_toast]) [pgs-state~=neutral] {
-  --toast-background: var(--color-box);
-  --toast-background-timer: color-mix(in srgb, var(--color-box) 95%, var(--color-black) 5%);
-  --toast-shadow-color: unset;
+:is([pgs~=toast], [pgs*="toast["], [pgs~=_toast], [pgs*="_toast["])[pgs*="'toastLeft'"] {
+  align-items: flex-start;
 }
 
-:is([pgs~=toast], [pgs~=_toast]) [pgs-state~=success] {
-  --toast-background: var(--color-success-soft);
-  --toast-background-timer: color-mix(in srgb, var(--color-success-soft) 70%, var(--color-white) 30%);
-  --toast-shadow-color: var(--color-success);
-}
-
-:is([pgs~=toast], [pgs~=_toast]) [pgs-state~=error] {
-  --toast-background: var(--color-error-soft);
-  --toast-background-timer: color-mix(in srgb, var(--color-error-soft) 70%, var(--color-white) 30%);
-  --toast-shadow-color: var(--color-error);
-}
-
-:is([pgs~=toast], [pgs~=_toast]) [pgs-state~=warning] {
-  --toast-background: var(--color-warning-soft);
-  --toast-background-timer: color-mix(in srgb, var(--color-warning-soft) 70%, var(--color-white) 30%);
-  --toast-shadow-color: var(--color-warning);
-}
-
-:is([pgs~=toast], [pgs~=_toast]) [pgs-state~=info] {
-  --toast-background: var(--color-info-soft);
-  --toast-background-timer: color-mix(in srgb, var(--color-info-soft) 70%, var(--color-white) 30%);
-  --toast-shadow-color: var(--color-info);
+:is([pgs~=toast], [pgs*="toast["], [pgs~=_toast], [pgs*="_toast["])[pgs*="'toastRight'"] {
+  align-items: flex-end;
 }
 
 :is([pgs~=search], [pgs*="search["]) {
