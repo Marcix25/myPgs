@@ -2,7 +2,7 @@
 
 # Modal
 
-A native dialog driven by the library. The dialog is moved out of its wrapper on initialization — to the body by default, or into the container named by modalContainerID or modalContainerPGS — so a modal written inside a header or a card is never clipped by it; dialogTopLevel keeps it in place and opens it with showModal(), on the browser's top layer. Options are authored on the wrapper — modal-dialog stays bare, like every other generated child token, and the module copies each option it finds onto _dialog, a second generated token on the dialog element itself that exists to carry them. A close button is generated when neither element holds one, and focus moves to the content header on open, or to the dialog itself when there is no header, instead of the first focusable descendant the dialog spec would otherwise pick. Opening and closing dispatch pgs:modal:open and pgs:modal:close on the wrapper and on the dialog, neither of them bubbling, so a listener sits on whichever of the two it already holds and never hears the same opening twice.
+A native dialog driven by the library. The dialog is moved out of its wrapper on initialization — to the body by default, or into the container named by modalContainerID or modalContainerPGS — so a modal written inside a header or a card is never clipped by it; dialogTopLevel keeps it in place and opens it with showModal(), on the browser's top layer. Options are authored on the wrapper — modal-dialog stays bare, like every other generated child token, and the module copies each option it finds onto _dialog, a second generated token on the dialog element itself that exists to carry them. A close button is generated when neither element holds one, and focus moves to the content header on open, or to the dialog itself when there is no header, instead of the first focusable descendant the dialog spec would otherwise pick. Position and size options are placed by CSS alone, so a script that owns a modal can swap them while the dialog is closed — Notification does, to open its one panel where the clicked bell asks. Opening and closing dispatch pgs:modal:open and pgs:modal:close on the wrapper and on the dialog, neither of them bubbling, so a listener sits on whichever of the two it already holds and never hears the same opening twice.
 
 ## PGS
 
@@ -21,16 +21,16 @@ A native dialog driven by the library. The dialog is moved out of its wrapper on
 
 ## PGS Options (component brackets)
 
-- `dialogBottom`: aligns the dialog content to the bottom of the viewport.
-- `dialogCenter`: centers the dialog content both horizontally and vertically; this is also the default, so it only matters when combined with a component that changes that default.
+- `dialogBottom`: aligns the dialog content to the bottom of the viewport, instead of the top.
+- `dialogCenter`: centers the dialog content both horizontally and vertically. Without it the content sits at the top and is centered only horizontally; it replaces that default on both axes, so it is not combined with dialogLeft, dialogRight, dialogTop or dialogBottom.
 - `dialogDisableBackdropClose`: keeps a click on the backdrop from closing the dialog, so it only closes through its own controls or its API.
 - `dialogDragClose`: on a touch screen, dragging the panel down follows the finger and fades the backdrop, the way PhotoSwipe pulls a photo away; let go past 15% of the screen height, or with a quick flick, and it carries on down and the dialog closes, otherwise it springs back. A drag only starts where nothing would scroll instead: outside form fields, and with the panel and the dialog scrolled to their top.
 - `dialogFull`: expands the dialog content to the full width of the viewport, instead of capping it at the page width.
-- `dialogLeft`: aligns the dialog content to the left of the viewport.
+- `dialogLeft`: aligns the dialog content to the left edge of the viewport, instead of the horizontal centre.
 - `dialogMedium`: shrinks the dialog content to half the page width instead of filling the viewport.
-- `dialogSmall`: shrinks the dialog content to a compact width (max 400px) instead of filling the viewport.
-- `dialogRight`: aligns the dialog content to the right of the viewport.
-- `dialogTop`: aligns the dialog content to the top of the viewport.
+- `dialogSmall`: shrinks the dialog content to a third of the page width instead of filling the viewport.
+- `dialogRight`: aligns the dialog content to the right edge of the viewport, instead of the horizontal centre.
+- `dialogTop`: aligns the dialog content to the top of the viewport. This is already the default height, so it only changes anything when it replaces dialogBottom or dialogCenter, as a script that swaps position options does.
 - `dialogTopLevel`: leaves the dialog inside its wrapper and opens it with showModal(), on the browser's top layer above everything else, instead of moving it into a container and opening it with show().
 - `dialogAnimationZoom`: grows the panel out of the modal-button that opened it and shrinks it back into the button on close, with the backdrop fading alongside; the animation lives in the stylesheet, tuned by --modal-animation-timing and --modal-animation-easing and turned off under prefers-reduced-motion, while the module only measures the button and the panel; it is skipped when there is no visible button to zoom from.
 - `dialogAnimationLeft`: slides the panel in from the left edge of the screen and back out to it on close, with the backdrop fading alongside; timing, curve and reduced motion as dialogAnimationZoom. Use one dialogAnimation* option at a time.
@@ -100,7 +100,7 @@ Complete HTML markup and usage example for Modal.
 
 ### Standard modal
 
-Basic modal dialog centered in the page; the close button is added automatically when missing.
+Basic modal dialog, at the top of the page and centered horizontally, which is where it sits without any option; the close button is added automatically when missing.
 
 ```html
 <div pgs="modal">
@@ -122,14 +122,14 @@ Basic modal dialog centered in the page; the close button is added automatically
 </div>
 ```
 
-## Modal Positon
+## Modal Position
 
 ### Right-aligned modal
 
-Modal dialog content aligned to the right of the viewport using pgs=&quot;modal['dialogRight']&quot;.
+Dialog content against the right edge of the viewport, using pgs=&quot;modal['dialogRight']&quot;; it stays at the top, the default height.
 
 ```html
-<div pgs="modal['dialogRight']" pgs-data="modalContainerID[modal-container]">
+<div pgs="modal['dialogRight']">
     <button pgs="modal-button button" type="button">
         Open modal right
     </button>
@@ -150,10 +150,10 @@ Modal dialog content aligned to the right of the viewport using pgs=&quot;modal[
 
 ### Left-aligned modal
 
-Modal dialog content aligned to the left of the viewport using pgs=&quot;modal['dialogLeft']&quot;.
+Dialog content against the left edge of the viewport, using pgs=&quot;modal['dialogLeft']&quot;; it stays at the top, the default height.
 
 ```html
-<div pgs="modal['dialogLeft']" pgs-data="modalContainerID[modal-container]">
+<div pgs="modal['dialogLeft']">
     <button pgs="modal-button button" type="button">
         Open modal left
     </button>
@@ -174,10 +174,10 @@ Modal dialog content aligned to the left of the viewport using pgs=&quot;modal['
 
 ### Top-aligned modal
 
-Modal dialog content aligned to the top of the viewport using pgs=&quot;modal['dialogTop']&quot;.
+Dialog content at the top of the viewport, centered horizontally, using pgs=&quot;modal['dialogTop']&quot;. This is the default height, so the example looks like the standard modal.
 
 ```html
-<div pgs="modal['dialogTop']" pgs-data="modalContainerID[modal-container]">
+<div pgs="modal['dialogTop']">
     <button pgs="modal-button button" type="button">
         Open modal top
     </button>
@@ -198,10 +198,10 @@ Modal dialog content aligned to the top of the viewport using pgs=&quot;modal['d
 
 ### Bottom-aligned modal
 
-Modal dialog content aligned to the bottom of the viewport using pgs=&quot;modal['dialogBottom']&quot;.
+Dialog content at the bottom of the viewport, centered horizontally, using pgs=&quot;modal['dialogBottom']&quot;.
 
 ```html
-<div pgs="modal['dialogBottom']" pgs-data="modalContainerID[modal-container]">
+<div pgs="modal['dialogBottom']">
     <button pgs="modal-button button" type="button">
         Open modal bottom
     </button>
@@ -222,12 +222,12 @@ Modal dialog content aligned to the bottom of the viewport using pgs=&quot;modal
 
 ### Centered modal
 
-Modal dialog content explicitly centered using pgs=&quot;modal['dialogCenter']&quot;.
+Dialog content in the middle of the viewport, on both axes, using pgs=&quot;modal['dialogCenter']&quot;.
 
 ```html
-<div pgs="modal['dialogCenter']" pgs-data="modalContainerID[modal-container]">
+<div pgs="modal['dialogCenter']">
     <button pgs="modal-button button" type="button">
-        Open modal centered 
+        Open modal centered
     </button>
 
     <dialog>
@@ -246,20 +246,20 @@ Modal dialog content explicitly centered using pgs=&quot;modal['dialogCenter']&q
 
 ## Modal Size
 
-### Mini modal
+### Small modal
 
-Compact dialog width using pgs=&quot;modal['dialogSmall']&quot;, for short confirmations rather than full content.
+Dialog width of a third of the page, using pgs=&quot;modal['dialogSmall']&quot;, for short confirmations rather than full content.
 
 ```html
-<div pgs="modal['dialogSmall']" pgs-data="modalContainerID[modal-container]">
+<div pgs="modal['dialogSmall']">
     <button pgs="modal-button button" type="button">
-        Open mini modal
+        Open small modal
     </button>
 
     <dialog>
         <div pgs="modal-dialog-content">
             <div pgs="modal-dialog-content-header">
-                <h3>Mini modal</h3>
+                <h3>Small modal</h3>
             </div>
 
             <div pgs="modal-dialog-content-scroll">
@@ -272,10 +272,10 @@ Compact dialog width using pgs=&quot;modal['dialogSmall']&quot;, for short confi
 
 ### Medium modal
 
-Half-page dialog width using pgs=&quot;modal['dialogMedium']&quot;, between the mini and full-width sizes.
+Dialog width of half the page, using pgs=&quot;modal['dialogMedium']&quot;, between the small and full-width sizes.
 
 ```html
-<div pgs="modal['dialogMedium']" pgs-data="modalContainerID[modal-container]">
+<div pgs="modal['dialogMedium']">
     <button pgs="modal-button button" type="button">
         Open medium modal
     </button>
@@ -299,7 +299,7 @@ Half-page dialog width using pgs=&quot;modal['dialogMedium']&quot;, between the 
 Dialog content expanded to the full viewport width using pgs=&quot;modal['dialogFull']&quot;, instead of capping it at the page width.
 
 ```html
-<div pgs="modal['dialogFull']" pgs-data="modalContainerID[modal-container]">
+<div pgs="modal['dialogFull']">
     <button pgs="modal-button button" type="button">
         Open full-width modal
     </button>
@@ -325,7 +325,7 @@ Dialog content expanded to the full viewport width using pgs=&quot;modal['dialog
 The panel grows out of the button that opened it and shrinks back into it on close, using pgs=&quot;modal['dialogAnimationZoom']&quot;; it combines with every position and size option.
 
 ```html
-<div pgs="modal['dialogAnimationZoom' 'dialogCenter' 'dialogMedium']" pgs-data="modalContainerID[modal-container]">
+<div pgs="modal['dialogAnimationZoom' 'dialogCenter' 'dialogMedium']">
     <button pgs="modal-button button" type="button">
         Open zoom modal
     </button>
@@ -349,7 +349,7 @@ The panel grows out of the button that opened it and shrinks back into it on clo
 The panel slides in from the left edge of the screen and goes back there on close, using pgs=&quot;modal['dialogAnimationLeft']&quot;.
 
 ```html
-<div pgs="modal['dialogAnimationLeft' 'dialogLeft' 'dialogMedium']" pgs-data="modalContainerID[modal-container]">
+<div pgs="modal['dialogAnimationLeft' 'dialogLeft' 'dialogMedium']">
     <button pgs="modal-button button" type="button">
         Open modal from left
     </button>
@@ -373,7 +373,7 @@ The panel slides in from the left edge of the screen and goes back there on clos
 The panel slides in from the right edge of the screen and goes back there on close, using pgs=&quot;modal['dialogAnimationRight']&quot;.
 
 ```html
-<div pgs="modal['dialogAnimationRight' 'dialogRight' 'dialogMedium']" pgs-data="modalContainerID[modal-container]">
+<div pgs="modal['dialogAnimationRight' 'dialogRight' 'dialogMedium']">
     <button pgs="modal-button button" type="button">
         Open modal from right
     </button>
@@ -397,7 +397,7 @@ The panel slides in from the right edge of the screen and goes back there on clo
 The panel slides in from the top edge of the screen and goes back there on close, using pgs=&quot;modal['dialogAnimationTop']&quot;.
 
 ```html
-<div pgs="modal['dialogAnimationTop' 'dialogCenter' 'dialogMedium']" pgs-data="modalContainerID[modal-container]">
+<div pgs="modal['dialogAnimationTop' 'dialogCenter' 'dialogMedium']">
     <button pgs="modal-button button" type="button">
         Open modal from top
     </button>
@@ -421,7 +421,7 @@ The panel slides in from the top edge of the screen and goes back there on close
 The panel slides in from the bottom edge of the screen and goes back there on close, using pgs=&quot;modal['dialogAnimationBottom']&quot;.
 
 ```html
-<div pgs="modal['dialogAnimationBottom' 'dialogCenter' 'dialogMedium']" pgs-data="modalContainerID[modal-container]">
+<div pgs="modal['dialogAnimationBottom' 'dialogCenter' 'dialogMedium']">
     <button pgs="modal-button button" type="button">
         Open modal from bottom
     </button>
@@ -447,7 +447,7 @@ The panel slides in from the bottom edge of the screen and goes back there on cl
 On a touch screen, pull the panel down to close it, using pgs=&quot;modal['dialogDragClose']&quot;: it follows the finger, the backdrop fades, and a short drag springs back. Here it is a bottom sheet, with dialogBottom, dialogFull and dialogAnimationBottom.
 
 ```html
-<div pgs="modal['dialogDragClose' 'dialogBottom' 'dialogFull' 'dialogAnimationBottom']" pgs-data="modalContainerID[modal-container]">
+<div pgs="modal['dialogDragClose' 'dialogBottom' 'dialogFull' 'dialogAnimationBottom']">
     <button pgs="modal-button button" type="button">
         Open drag-to-close modal
     </button>
@@ -466,11 +466,37 @@ On a touch screen, pull the panel down to close it, using pgs=&quot;modal['dialo
 </div>
 ```
 
+## Modal container by an HTML ID
+
+### Container by id
+
+The dialog is moved into the element with this id instead of the body, using pgs-data=&quot;modalContainerID[modal-container]&quot;; the id is written without the #. A modal written inside a header or a card is then never clipped by it.
+
+```html
+<div pgs="modal" pgs-data="modalContainerID[modal-container]">
+    <button pgs="modal-button button" type="button">
+        Open container ID
+    </button>
+
+    <dialog>
+        <div pgs="modal-dialog-content">
+            <div pgs="modal-dialog-content-header">
+                <h3>Moved by id</h3>
+            </div>
+
+            <div pgs="modal-dialog-content-scroll">
+                <p>Modal content with <code>pgs-data="modalContainerID[modal-container]"</code>.</p>
+            </div>
+        </div>
+    </dialog>
+</div>
+```
+
 ## Other Modal
 
-### Modal moved by a pgs token
+### Container by a pgs token
 
-Modal dialog moved into the element carrying the target pgs token, using pgs-data=&quot;modalContainerPGS[modal-container-pgs-demo]&quot;.
+The dialog is moved into the first element carrying this pgs token instead of the body, using pgs-data=&quot;modalContainerPGS[modal-container-pgs-demo]&quot;.
 
 ```html
 <div pgs="modal" pgs-data="modalContainerPGS[modal-container-pgs-demo]">
@@ -494,11 +520,11 @@ Modal dialog moved into the element carrying the target pgs token, using pgs-dat
 
 ### Modal with history
 
-Modal dialog that pushes a browser history entry when opened, using pgs=&quot;modal['dialogHistory']&quot;, so the back button closes it.
+The dialog pushes a browser history entry when it opens, using pgs=&quot;modal['dialogHistory']&quot;, so the back button closes it. It needs a modal-button with an id.
 
 ```html
-<div pgs="modal['dialogHistory']" pgs-data="modalContainerID[modal-container]">
-    <button pgs="modal-button button" type="button">
+<div pgs="modal['dialogHistory']">
+    <button pgs="modal-button button" id="modal-history-demo" type="button">
         Open modal with history
     </button>
 
@@ -516,9 +542,9 @@ Modal dialog that pushes a browser history entry when opened, using pgs=&quot;mo
 </div>
 ```
 
-### dialogTopLevel
+### Top-level confirmation
 
-Top-level confirmation dialog with cancel and save actions, using pgs=&quot;modal['dialogTopLevel']&quot; and strong for the primary action; dialogDisableBackdropClose keeps it open on an accidental outside click.
+A confirmation with cancel and save actions, using pgs=&quot;modal['dialogTopLevel']&quot;: the dialog stays in its wrapper and opens on the browser's top layer, above everything else. btnStrong marks the primary action, and dialogDisableBackdropClose keeps the dialog open on an accidental click outside it.
 
 ```html
 <div pgs="modal['dialogTopLevel' 'dialogDisableBackdropClose']">

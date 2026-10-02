@@ -17,6 +17,7 @@
     padding: calc(var(--heightOfHeaderScroll) + $size) var(--page-padding) var(--page-padding);
     pointer-events: none;
 
+    &:not(:has([pgs*="_alert\5B"])) { display: none; }
     // &:has([pgs*="_alert['success']"]) {
     //     //
     //     background: linear-gradient(var(--color-success) calc(var(--heightOfHeaderScroll)* -1), transparent calc(var(--heightOfHeaderScroll)*2));
@@ -30,6 +31,7 @@
         pointer-events: initial;
         // width: fit-content;
     }
+
 
     &[pgs*="'toastCenter'"] { justify-content: center; }
     &[pgs*="'toastBottom'"] { justify-content: flex-end; }

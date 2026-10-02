@@ -12,6 +12,11 @@ const fn_notification = {
         emptyMessage: "No notifications",
         panelCloseTitle: "Close"
     },
+    //== a bell can say where the panel opens: a side (dialogLeft, dialogRight), a height (dialogTop,
+    //== dialogBottom), or dialogCenter for the middle. Each axis it leaves out keeps the default,
+    //== and the size is never a bell's business
+    _positions: ["dialogLeft", "dialogRight", "dialogTop", "dialogBottom", "dialogCenter"],
+    _animations: ["dialogAnimationLeft", "dialogAnimationRight"],
     _modal: null,
     _missingBellReported: false,
 
@@ -75,6 +80,24 @@ const fn_notification = {
         this._getBells().forEach(bell => bell.setAttribute("aria-expanded", String(expanded)));
     },
 
+    //== puts the position this bell asks for on the one modal. Only ever called while the panel is
+    //== closed: moving an open panel would make it jump. The slide comes in from the side it ends up on
+    _applyPosition(bell) {
+        const wanted = this._positions.filter(key => pgs(bell).option.contains(key));
+        const side = wanted.find(key => key === "dialogLeft" || key === "dialogRight") ?? "dialogRight";
+        const height = wanted.find(key => key === "dialogTop" || key === "dialogBottom") ?? "dialogTop";
+        const flags = wanted.includes("dialogCenter")
+            ? ["dialogCenter"]
+            : [side, height, side === "dialogLeft" ? "dialogAnimationLeft" : "dialogAnimationRight"];
+
+        //== pgs.modal moves the dialog out of its wrapper, so it is asked for rather than searched for
+        const dialog = PGS_modal.api(this._modal).dialog;
+        [[this._modal, "modal"], [dialog, "_dialog"]].forEach(([element, token]) => {
+            pgs(element).option.remove(...this._positions, ...this._animations);
+            pgs(element).add(`${token}[${flags.map(flag => `'${flag}'`).join(" ")}]`);
+        });
+    },
+
     //== a bell is a plain button: it only asks the one modal to toggle
     _bindBells(root = document) {
         this._getBells(root).forEach(bell => {
@@ -92,7 +115,14 @@ const fn_notification = {
 
             bell.setAttribute("aria-haspopup", "dialog");
             bell.setAttribute("aria-expanded", String(Boolean(this._modal?.isConnected && PGS_modal.api(this._modal)?.isOpen())));
-            bell.addEventListener("click", () => PGS_modal.api(this._ensureModal())?.toggle());
+            bell.addEventListener("click", () => {
+                const modal = this._ensureModal();
+                const api = PGS_modal.api(modal);
+
+                //== open already: this click closes it, and nothing moves
+                if (!api.isOpen()) this._applyPosition(bell);
+                api.toggle();
+            });
         });
     },
 

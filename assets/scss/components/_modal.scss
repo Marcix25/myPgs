@@ -58,7 +58,7 @@ html:has(dialog[open]) {
 
 //= DIALOG
 :where(dialog[pgs~="modal-dialog"]) {
-    --modal-backdrop: linear-gradient(180deg, #0000007a 90%, transparent);
+    --modal-backdrop: var(--backdrop);
     --modal-background: var(--color-background);
     --modal-color: var(--color-black);
     --modal-content-padding: var(--padding-elements);
@@ -77,17 +77,18 @@ html:has(dialog[open]) {
     padding-inline: var(--page-padding);
     padding-bottom: var(--modal-offset);
     padding-top: calc(var(--heightOfHeaderScroll) + var(--modal-offset));
-    background: var(--modal-backdrop);
     transition: opacity 600ms ease;
     margin: 0;
     opacity: 1;
     transition-behavior: allow-discrete;
     overscroll-behavior: contain;
     overflow-y: auto;
+    overflow-x: hidden;
     z-index: 90;
     position: fixed;
     inset: 0;
     cursor: pointer;
+    background: var(--modal-backdrop);
 
     //== reachable only programmatically (tabindex="-1", see _modal.js), never via Tab: the
     //== default outline would look like a stray highlight around the whole dialog
@@ -98,9 +99,6 @@ html:has(dialog[open]) {
         align-items: safe flex-start;
         justify-content: safe center;
     }
-
-    //- big-mobile
-    @media (max-width: $big-mobile) { padding-inline: 0; }
 
     //=== CONTENT
     :where([pgs~="modal-dialog-content"]) {

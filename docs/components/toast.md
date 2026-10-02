@@ -178,7 +178,7 @@ toastCenter puts the toast in the middle of the screen.
     "title": "In the middle",
     "description": "Centred on the screen.",
     "type": "info",
-    "timeout": "700000"
+    "timeout": "7000"
 }]'>Toast in the center</button>
 ```
 

@@ -1093,7 +1093,13 @@
         "pgs-generated": [
             "_notificationBell-counter"
         ],
-        "pgs-options": [],
+        "pgs-options": [
+            "dialogBottom",
+            "dialogCenter",
+            "dialogLeft",
+            "dialogRight",
+            "dialogTop"
+        ],
         "pgs-data": []
     },
     "notificationLoad": {

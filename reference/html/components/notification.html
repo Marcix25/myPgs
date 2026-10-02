@@ -5,7 +5,7 @@
  *
  * @pgs
  * - notificationLoad: creates one or more notifications from comma-separated JSON objects on page load; see @pgs-data "notification" for every accepted field.
- * - notificationBell: a plain button that opens and closes the notification panel each time it is clicked. The JavaScript gives it aria-haspopup and keeps aria-expanded in step with the panel, for every bell on the page.
+ * - notificationBell: a plain button that opens and closes the notification panel each time it is clicked. Flags in its bracket (dialogLeft, dialogRight, dialogTop, dialogBottom, dialogCenter) say where the panel opens when this bell is the one clicked; an axis it leaves out keeps the default, and the size is never the bell's choice. The JavaScript gives it aria-haspopup and keeps aria-expanded in step with the panel, for every bell on the page.
  * - notificationBell-counter: write one yourself, bare like this, inside notificationBell to place it yourself; the module leaves it alone and never generates a second one.
  *
  * @pgs-generated
@@ -38,6 +38,7 @@
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - hidden: keeps every notificationLoad out of the layout, since it only carries a payload.
  * - column: stacks the examples vertically.
+ * - row: lays the bells of the position examples side by side.
  * - gapSections: separates the examples.
  * - gapTexts: spaces the content inside each example.
  * - button: uses the related button component or utility in this example.
@@ -46,7 +47,11 @@
  * - modal-dialog-content: identifies the JS-generated styled content area inside the dialog, wrapping notifications.
  * - btnIconOnly: presents notificationBell, and the generated dismiss button, as icon buttons.
  * - btnMini: keeps the generated panel-close button small; see Button.
- * - dialogRight: slides the notification dialog in from the right; see Modal for other positions.
+ * - dialogRight: where the panel opens by default, against the right edge; also a flag a notificationBell can carry to open it there. See Modal.
+ * - dialogLeft: a flag a notificationBell can carry to open the panel against the left edge; see Modal.
+ * - dialogTop: the default height of the panel, and a flag a notificationBell can carry; see Modal.
+ * - dialogBottom: a flag a notificationBell can carry to open the panel against the bottom edge; see Modal.
+ * - dialogCenter: a flag a notificationBell can carry to open the panel in the middle of the screen; see Modal.
  * - icon: draws the glyph that marks the notification type; see Icon for the whole set.
  * - icon-circleXmark: the glyph of the error type.
  * - icon-circleCheck: the glyph of the success type.
@@ -70,6 +75,24 @@
 <demo demo-h3="Several bells" demo-description="Put as many as the page needs, in the header, in a menu, in a footer: they all open the same panel and show the same count."></demo>
 <section pgs="flex['column' 'gapTexts']" demo="component">
     <button type="button" pgs="button notificationBell">Notifications</button>
+</section>
+
+<demo demo-h2="Position"></demo>
+<demo demo-h3="Left and right" demo-description="Each bell can say where the panel opens, with the flags a Modal takes: the one you click decides. The panel is placed while it is closed, so clicking a bell with the panel already open only closes it, and nothing moves."></demo>
+<section pgs="flex['row' 'gapTexts']" demo="component">
+    <button type="button" pgs="button notificationBell['dialogLeft']">Opens on the left</button>
+    <button type="button" pgs="button notificationBell['dialogRight']">Opens on the right</button>
+</section>
+
+<demo demo-h3="Height" demo-description="dialogTop and dialogBottom set the height, alone or next to a side: an axis the bell leaves out keeps the default, which is right and top."></demo>
+<section pgs="flex['row' 'gapTexts']" demo="component">
+    <button type="button" pgs="button notificationBell['dialogLeft' 'dialogBottom']">Bottom left</button>
+    <button type="button" pgs="button notificationBell['dialogBottom']">Bottom right</button>
+</section>
+
+<demo demo-h3="Center" demo-description="dialogCenter opens the panel in the middle of the screen."></demo>
+<section pgs="flex['row' 'gapTexts']" demo="component">
+    <button type="button" pgs="button notificationBell['dialogCenter']">In the center</button>
 </section>
 
 <demo demo-h3="Examples - Type"></demo>

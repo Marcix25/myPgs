@@ -48,7 +48,7 @@
   --page-edgeFlush: max(0px, calc((100cqw - var(--page-width)) / 2 - var(--page-padding)));
   --box-shadow: 0px 0px 38px 0px #0000000d;
   --text-shadow: 0px 0px 4px #00000040, 0px 0px 4px #0000002d;
-  --backdrop: linear-gradient(180deg, #0000007a 90%, transparent);
+  --backdrop: #0000007a;
   --blur: blur(20px);
   --icon-size: inherit;
   --focus-visible: 3px solid var(--color-focus);
@@ -5712,7 +5712,7 @@ html:has(dialog[open]) {
 }
 
 :where(dialog[pgs~=modal-dialog]) {
-  --modal-backdrop: linear-gradient(180deg, #0000007a 90%, transparent);
+  --modal-backdrop: var(--backdrop);
   --modal-background: var(--color-background);
   --modal-color: var(--color-black);
   --modal-content-padding: var(--padding-elements);
@@ -5727,17 +5727,18 @@ html:has(dialog[open]) {
   padding-inline: var(--page-padding);
   padding-bottom: var(--modal-offset);
   padding-top: calc(var(--heightOfHeaderScroll) + var(--modal-offset));
-  background: var(--modal-backdrop);
   transition: opacity 600ms ease;
   margin: 0;
   opacity: 1;
   transition-behavior: allow-discrete;
   overscroll-behavior: contain;
   overflow-y: auto;
+  overflow-x: hidden;
   z-index: 90;
   position: fixed;
   inset: 0;
   cursor: pointer;
+  background: var(--modal-backdrop);
 }
 
 :where(dialog[pgs~=modal-dialog]):focus {
@@ -5750,11 +5751,6 @@ html:has(dialog[open]) {
   justify-content: safe center;
 }
 
-@media (max-width: 615px) {
-  :where(dialog[pgs~=modal-dialog]) {
-    padding-inline: 0;
-  }
-}
 :where(dialog[pgs~=modal-dialog]) :where([pgs~=modal-dialog-content]) {
   --section-width: var(--page-width);
   margin-inline: auto;
@@ -6738,12 +6734,12 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   --_alert-timer: color-mix(in srgb, var(--alert-background) 70%, var(--color-white) 30%);
 }
 
-[pgs~=notificationBell] {
+:is([pgs~=notificationBell], [pgs*="notificationBell["]) {
   position: relative;
 }
 
-[pgs~=notificationBell] :where([pgs~=notificationBell-counter]),
-[pgs~=notificationBell] :where([pgs~=_notificationBell-counter]) {
+:is([pgs~=notificationBell], [pgs*="notificationBell["]) :where([pgs~=notificationBell-counter]),
+:is([pgs~=notificationBell], [pgs*="notificationBell["]) :where([pgs~=_notificationBell-counter]) {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -6761,8 +6757,8 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   top: -5px;
 }
 
-[pgs~=notificationBell] :where([pgs~=notificationBell-counter]):empty,
-[pgs~=notificationBell] :where([pgs~=_notificationBell-counter]):empty {
+:is([pgs~=notificationBell], [pgs*="notificationBell["]) :where([pgs~=notificationBell-counter]):empty,
+:is([pgs~=notificationBell], [pgs*="notificationBell["]) :where([pgs~=_notificationBell-counter]):empty {
   display: none;
 }
 
@@ -6806,6 +6802,10 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   isolation: isolate;
   padding: calc(var(--heightOfHeaderScroll) + 1rem) var(--page-padding) var(--page-padding);
   pointer-events: none;
+}
+
+:is([pgs~=toast], [pgs*="toast["], [pgs~=_toast], [pgs*="_toast["]):not(:has([pgs*="_alert["])) {
+  display: none;
 }
 
 :is([pgs~=toast], [pgs*="toast["], [pgs~=_toast], [pgs*="_toast["]) [pgs*="_alert["] {

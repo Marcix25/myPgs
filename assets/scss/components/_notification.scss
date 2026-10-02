@@ -7,8 +7,15 @@
     &[pgs-data~="notification[]"] {}
 }
 
-[pgs~="notificationBell"] {
+:is([pgs~="notificationBell"], [pgs*="notificationBell\5B"]) {
     position: relative;
+
+    //option for suggestions: where the panel opens when this bell is clicked
+    &[pgs*="'dialogLeft'"],
+    &[pgs*="'dialogRight'"],
+    &[pgs*="'dialogTop'"],
+    &[pgs*="'dialogBottom'"],
+    &[pgs*="'dialogCenter'"] {}
 
     //== a hand-written counter keeps the bare name; a generated one gets the underscore (see
     //== _notification.js), so this needs both
