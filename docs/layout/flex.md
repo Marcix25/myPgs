@@ -42,11 +42,11 @@ Flex layouts: direction, wrapping, centering, a responsive column-N row that dro
 - `colXxl`: inside flexChild's own bracket, takes 5 columns (--flexChild-col-xxl) of a column-N row.
 - `flexOrderFirst`: inside flexChild's own bracket, places a flex child before its siblings.
 - `flexOrderLast`: inside flexChild's own bracket, places a flex child after its siblings.
-- `gapTexts`: the text gap between the items; also sets --flex-gap, the gap a column-N row computes its widths with.
-- `gapElements`: the element gap between the items, and --flex-gap with it.
-- `gapGroups`: the double gap between the items, and --flex-gap with it.
-- `gapSections`: the section gap between the items, and --flex-gap with it; meant for large page blocks, since it also spaces the rows.
-- `gapNone`: removes the gap, and sets --flex-gap to 0.
+- `gapTexts`: the text gap between the items; also sets --gap, the gap a column-N row computes its widths with.
+- `gapElements`: the element gap between the items, and --gap with it.
+- `gapGroups`: the double gap between the items, and --gap with it.
+- `gapSections`: the section gap between the items, and --gap with it; meant for large page blocks, since it also spaces the rows.
+- `gapNone`: removes the gap, and sets --gap to 0.
 - `itemStart`: sets align-items to start on the flex or grid container.
 - `itemCenter`: sets align-items to center on the flex or grid container.
 - `itemEnd`: sets align-items to end on the flex or grid container.
@@ -84,7 +84,6 @@ Flex layouts: direction, wrapping, centering, a responsive column-N row that dro
 ## CSS Variables
 
 - `--flex-flexValue`
-- `--flex-gap`
 
 ## Output
 

@@ -84,9 +84,7 @@
         :where([pgs~="footer-legal-content"]) {
             border-top: var(--border-width) var(--border-style) var(--color-boxDark-transparent);
             padding-block: 60px;
-            display: flex;
-            flex-direction: row;
-            gap: calc(var(--gap-texts)*2);
+            @include row(nowrap);
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;

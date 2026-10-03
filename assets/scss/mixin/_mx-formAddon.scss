@@ -32,8 +32,7 @@
     --toggle-color-rail-checked: var(--color-primary);
     $space: 2px;
     isolation: isolate;
-    display: flex;
-    gap: var(--gap-texts);
+    @include row(nowrap);
     margin-bottom: var(--gap-texts);
 
     label { cursor: pointer; }
@@ -144,8 +143,7 @@
 
         &:not(:has(:is([pgs~="icon"], [pgs*="icon\5B"]))),
         &:not(:has(i)) {
-
-            &::after{
+            &::after {
                 display: grid;
                 place-items: center;
                 width: 1.5rem;
@@ -156,7 +154,6 @@
                 font-weight: bold;
                 color: var(--color-blackFixed);
                 background-color: var(--color-whiteFixed);
-                padding: 0.2rem;
                 cursor: pointer;
             }
         }

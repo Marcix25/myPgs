@@ -6,7 +6,7 @@
 @mixin column($gap: var(--gap-texts)) {
     display: flex;
     gap: $gap;
-    --flex-gap: #{$gap};
+    --gap: #{$gap};
     flex-direction: column;
 }
 
@@ -14,7 +14,7 @@
 @mixin row($wrap: wrap, $gap: var(--gap-texts)) {
     display: flex;
     gap: $gap;
-    --flex-gap: #{$gap};
+    --gap: #{$gap};
     flex-direction: row;
     flex-wrap: $wrap;
 }
@@ -23,7 +23,7 @@
 @mixin center($gap: var(--gap-texts)) {
     display: flex;
     gap: $gap;
-    --flex-gap: #{$gap};
+    --gap: #{$gap};
     align-items: center;
     justify-content: center;
 }
@@ -39,13 +39,13 @@
 }
 
 //== Column
-// the real gap and the one the bases are computed with are the same --flex-gap, so they can never
+// the real gap and the one the bases are computed with are the same --gap, so they can never
 // drift apart: the default matches the plain flex's own gap (--gap-texts), and the gap* options
-// set --flex-gap rather than gap alone
-@mixin columnFlex($columns: 4) {
-    --flex-gap: var(--gap-texts);
-    $gap: var(--flex-gap);
-    gap: var(--flex-gap);
+// set --gap rather than gap alone
+@mixin columnFlex($columns) {
+    --gap: var(--gap-texts);
+    $gap: var(--gap);
+    gap: var(--gap);
 
     >* {
         flex: 1 0;
@@ -178,11 +178,11 @@
 @mixin _columnAdaptiveFlex($columns: 4, $width: 1500px) {
     // the thresholds are fractions of $width, resolved by Sass: a container query condition does not
     // accept var(), so a custom property there would make every step below silently never match.
-    // Same --flex-gap / --_flex-cols contract as columnFlex, so the gap* options and flexChild's
+    // Same --gap / --_flex-cols contract as columnFlex, so the gap* options and flexChild's
     // col* work here too
-    --flex-gap: var(--gap-texts);
-    $gap: var(--flex-gap);
-    gap: var(--flex-gap);
+    --gap: var(--gap-texts);
+    $gap: var(--gap);
+    gap: var(--gap);
 
     >* {
         flex: 1 0;

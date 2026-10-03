@@ -6,9 +6,7 @@
     // how many lines stay visible while the content is closed
     --summary-lines: 3;
     position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-texts);
+    @include column();
     isolation: isolate;
 
     :where([pgs~="summary-content"]) {
@@ -34,7 +32,7 @@
     }
 
     &:has(:where([pgs~="summary-button"])[hidden]) {
-        :where([pgs~="summary-content"]){ max-height: unset; }
+        :where([pgs~="summary-content"]) { max-height: unset; }
     }
 
     :where([pgs~="summary-button"]) {

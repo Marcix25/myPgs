@@ -8,9 +8,9 @@
 
     &[pgs*="'inlineFlex'"] { display: inline-flex; }
 
-    //== flexPlaceCenter, not the shortened center: textAlign also has a 'center' option. Named
-    //== after place-content/place-items (the CSS shorthand this mirrors); flexCenter below is
-    //== the same align-items/justify-content pair without this one's default gap
+    // flexPlaceCenter, not the shortened center: textAlign also has a 'center' option. Named
+    // after place-content/place-items (the CSS shorthand this mirrors); flexCenter below is
+    // the same align-items/justify-content pair without this one's default gap
     &[pgs*="'flexPlaceCenter'"] {
         @include center();
     }
@@ -25,24 +25,13 @@
         flex-wrap: nowrap;
     }
 
-    &[pgs*="'row'"] {
-        flex-direction: row
-    }
-
-    &[pgs*="'columnReverse'"] {
-        flex-direction: column-reverse
-    }
-
-    &[pgs*="'rowReverse'"] {
-        flex-direction: row-reverse
-    }
+    &[pgs*="'row'"] { flex-direction: row; }
+    &[pgs*="'columnReverse'"] { flex-direction: column-reverse; }
+    &[pgs*="'rowReverse'"] { flex-direction: row-reverse; }
 
     //=== WRAP
-    //== A column keeps the old column layout's nowrap default; an explicit flag wins.
-    &[pgs*="'nowrap'"] {
-        flex-wrap: nowrap;
-    }
-
+    // A column keeps the old column layout's nowrap default; an explicit flag wins.
+    &[pgs*="'nowrap'"] {flex-wrap: nowrap;}
     &[pgs*="'wrap'"] { flex-wrap: wrap; }
 }
 
@@ -74,10 +63,7 @@
     // column spans: how many columns the item takes inside a flex['column-N'], capped by the
     // columns the current breakpoint leaves; outside it they do nothing, see COLUMN below.
     // gridChild has the same set for grid['column-N']
-    &[pgs*="'colS'"] {
-        --_flexChild-col: var(--flexChild-col-s, 1);
-    }
-
+    &[pgs*="'colS'"] {--_flexChild-col: var(--flexChild-col-s, 1); }
     &[pgs*="'colM'"] { --_flexChild-col: var(--flexChild-col-m, 2); }
     &[pgs*="'colL'"] { --_flexChild-col: var(--flexChild-col-l, 3); }
     &[pgs*="'colXl'"] { --_flexChild-col: var(--flexChild-col-xl, 4); }
@@ -115,10 +101,9 @@
         > :is([pgs~="flexChild"], [pgs*="flexChild\5B"]) {
             &:is([pgs*="'colS'"], [pgs*="'colM'"], [pgs*="'colL'"], [pgs*="'colXl'"], [pgs*="'colXxl'"]) {
                 --_flexChild-span: min(var(--_flexChild-col), var(--_flex-cols, 1));
-                // flex: var(--_flexChild-span) 0 calc((100% - var(--flex-gap) * (var(--_flex-cols, 1) - 1)) / var(--_flex-cols, 1) * var(--_flexChild-span) + var(--flex-gap) * (var(--_flexChild-span) - 1));
                 flex-grow: var(--_flexChild-span);
                 flex-shrink: 0;
-                flex-basis: calc((100% + var(--flex-gap)) * var(--_flexChild-span) / var(--_flex-cols, 1) - var(--flex-gap));
+                flex-basis: calc((100% + var(--gap)) * var(--_flexChild-span) / var(--_flex-cols, 1) - var(--gap));
             }
         }
     }

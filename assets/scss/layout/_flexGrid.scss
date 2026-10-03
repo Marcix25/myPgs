@@ -4,13 +4,13 @@
 :is([pgs~="grid"], [pgs*="grid\5B"], [pgs~="flex"], [pgs*="flex\5B"]) {
 
     //== GAP
-    // each one also sets --flex-gap, the value a flex['column-N'] computes its column widths
+    // each one also sets --gap, the value a flex['column-N'] computes its column widths
     // with, so the gap it draws and the gap it counts are always the same
-    &[pgs*="'gapTexts'"] { --flex-gap: var(--gap-texts); gap: var(--flex-gap); }
-    &[pgs*="'gapElements'"] { --flex-gap: var(--gap-elements); gap: var(--flex-gap); }
-    &[pgs*="'gapGroups'"] { --flex-gap: var(--gap-groups); gap: var(--flex-gap); }
-    &[pgs*="'gapSections'"] { --flex-gap: var(--gap-sections); gap: var(--flex-gap); }
-    &[pgs*="'gapNone'"] { --flex-gap: 0px; gap: 0; }
+    &[pgs*="'gapTexts'"] { --gap: var(--gap-texts); gap: var(--gap); }
+    &[pgs*="'gapElements'"] { --gap: var(--gap-elements); gap: var(--gap); }
+    &[pgs*="'gapGroups'"] { --gap: var(--gap-groups); gap: var(--gap); }
+    &[pgs*="'gapSections'"] { --gap: var(--gap-sections); gap: var(--gap); }
+    &[pgs*="'gapNone'"] { --gap: 0px; gap: 0; }
 
     //== ALIGN ITEMS
     &[pgs*="'itemStart'"] { align-items: start; }

@@ -78,9 +78,9 @@
 
     p { color: var(--alert-color); }
 
-    //== the countdown bar itself: sits behind every real child (they all carry z-index: 1), and
-    //== with no timeout its animation-duration is invalid, so it never runs and the bar stays
-    //== collapsed at 0% width — nothing to see on a plain alert or a non-timed notification
+    // the countdown bar itself: sits behind every real child (they all carry z-index: 1), and
+    // with no timeout its animation-duration is invalid, so it never runs and the bar stays
+    // collapsed at 0% width — nothing to see on a plain alert or a non-timed notification
     &::before {
         content: "";
         width: 0%;
@@ -140,11 +140,11 @@
         }
     }
 
-    //== the severity is a style variant, not a runtime state, so it is a flag in the component's own
-    //== bracket (alert['info'], _alert['info']) like any other option, not a pgs-state. A colored
-    //== severity also tints its countdown bar a shade lighter than its own background; the plain
-    //== default/neutral one has no color of its own, so its bar mixes toward black for contrast
-    //== instead (see --_alert-timer above)
+    // the severity is a style variant, not a runtime state, so it is a flag in the component's own
+    // bracket (alert['info'], _alert['info']) like any other option, not a pgs-state. A colored
+    // severity also tints its countdown bar a shade lighter than its own background; the plain
+    // default/neutral one has no color of its own, so its bar mixes toward black for contrast
+    // instead (see --_alert-timer above)
     &[pgs*="'info'"] {
         --alert-accent: var(--color-info);
         --alert-background: var(--color-info-soft);

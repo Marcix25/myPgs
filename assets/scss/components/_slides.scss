@@ -42,7 +42,6 @@
 
     //== CONTAINER SLIDES
     :where([pgs~="slides-container"]) {
-        display: flex;
         width: 100%;
         overflow-x: scroll;
         overflow-y: hidden;
@@ -53,7 +52,7 @@
         -webkit-user-select: none;
         user-select: none;
         padding: .3rem;
-        gap: var(--gap-texts);
+        @include row(nowrap);
 
         &::-webkit-scrollbar {
             height: 0;

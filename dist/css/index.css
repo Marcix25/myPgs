@@ -458,11 +458,12 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --main-padding-top: var(--page-top);
   --main-padding-bottom: var(--page-top);
   --main-gap: var(--gap-sections);
-  display: flex;
-  flex-direction: column;
-  gap: var(--main-gap);
-  align-items: flex-start;
   min-height: 100svh;
+  display: flex;
+  gap: var(--main-gap);
+  --gap: var(--main-gap);
+  flex-direction: column;
+  align-items: flex-start;
   isolation: isolate;
   padding-top: var(--main-padding-top);
   padding-bottom: var(--main-padding-bottom);
@@ -487,8 +488,9 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   position: relative;
   width: 100%;
   display: flex;
-  flex-direction: column;
   gap: var(--gap-elements);
+  --gap: var(--gap-elements);
+  flex-direction: column;
 }
 
 :is([pgs~=section], [pgs*="section["])[pgs*="'sctNoPadding'"] {
@@ -496,9 +498,10 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   margin-inline: auto;
   max-width: var(--section-width);
   width: 100%;
-  display: flex;
   position: relative;
+  display: flex;
   gap: var(--gap-texts);
+  --gap: var(--gap-texts);
   flex-direction: column;
 }
 
@@ -615,7 +618,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 :is([pgs~=flex], [pgs*="flex["]) {
   display: flex;
   gap: var(--gap-texts);
-  --flex-gap: var(--gap-texts);
+  --gap: var(--gap-texts);
   flex-direction: row;
   flex-wrap: wrap;
 }
@@ -627,7 +630,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'flexPlaceCenter'"] {
   display: flex;
   gap: var(--gap-texts);
-  --flex-gap: var(--gap-texts);
+  --gap: var(--gap-texts);
   align-items: center;
   justify-content: center;
 }
@@ -738,48 +741,48 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   width: 100%;
   flex-wrap: wrap;
   flex-direction: row;
-  --flex-gap: var(--gap-texts);
-  gap: var(--flex-gap);
+  --gap: var(--gap-texts);
+  gap: var(--gap);
 }
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-"] > * {
   flex: 1 0;
   --_flex-cols: 8;
-  flex-basis: calc((100% - var(--flex-gap) * 7) / 8);
+  flex-basis: calc((100% - var(--gap) * 7) / 8);
 }
 
 @container (max-width: 1100px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-"] > * {
     --_flex-cols: 6;
-    flex-basis: calc((100% - var(--flex-gap) * 5) / 6);
+    flex-basis: calc((100% - var(--gap) * 5) / 6);
   }
 }
 @container (max-width: 900px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-"] > * {
     --_flex-cols: 4;
-    flex-basis: calc((100% - var(--flex-gap) * 3) / 4);
+    flex-basis: calc((100% - var(--gap) * 3) / 4);
   }
 }
 @container (max-width: 800px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-"] > * {
     --_flex-cols: 3;
-    flex-basis: calc((100% - var(--flex-gap) * 2) / 3);
+    flex-basis: calc((100% - var(--gap) * 2) / 3);
   }
 }
 @container (max-width: 615px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-"] > * {
     --_flex-cols: 2;
-    flex-basis: calc((100% - var(--flex-gap) * 1) / 2);
+    flex-basis: calc((100% - var(--gap) * 1) / 2);
   }
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-"][pgs*="'m2e'"] > * {
     --_flex-cols: 3;
-    flex-basis: calc((100% - var(--flex-gap) * 2) / 3);
+    flex-basis: calc((100% - var(--gap) * 2) / 3);
   }
 }
 @container (max-width: 315px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-"] > * {
     --_flex-cols: 2;
-    flex-basis: calc((100% - var(--flex-gap) * 1) / 2);
+    flex-basis: calc((100% - var(--gap) * 1) / 2);
   }
 }
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-1'"] {
@@ -788,330 +791,331 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-2'"] {
-  --flex-gap: var(--gap-texts);
-  gap: var(--flex-gap);
+  --gap: var(--gap-texts);
+  gap: var(--gap);
 }
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-2'"] > * {
   flex: 1 0;
   --_flex-cols: 2;
-  flex-basis: calc((100% - var(--flex-gap) * 1) / 2);
+  flex-basis: calc((100% - var(--gap) * 1) / 2);
 }
 
 @container (max-width: 1100px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-2'"] > * {
     --_flex-cols: 2;
-    flex-basis: calc((100% - var(--flex-gap) * 1) / 2);
+    flex-basis: calc((100% - var(--gap) * 1) / 2);
   }
 }
 @container (max-width: 900px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-2'"] > * {
     --_flex-cols: 1;
-    flex-basis: calc((100% - var(--flex-gap) * 0) / 1);
+    flex-basis: calc((100% - var(--gap) * 0) / 1);
   }
 }
 @container (max-width: 800px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-2'"] > * {
     --_flex-cols: 1;
-    flex-basis: calc((100% - var(--flex-gap) * 0) / 1);
+    flex-basis: calc((100% - var(--gap) * 0) / 1);
   }
 }
 @container (max-width: 615px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-2'"] > * {
     --_flex-cols: 1;
-    flex-basis: calc((100% - var(--flex-gap) * 0) / 1);
+    flex-basis: calc((100% - var(--gap) * 0) / 1);
   }
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-2'"][pgs*="'m2e'"] > * {
     --_flex-cols: 1;
-    flex-basis: calc((100% - var(--flex-gap) * 0) / 1);
+    flex-basis: calc((100% - var(--gap) * 0) / 1);
   }
 }
 @container (max-width: 315px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-2'"] > * {
     --_flex-cols: 1;
-    flex-basis: calc((100% - var(--flex-gap) * 0) / 1);
+    flex-basis: calc((100% - var(--gap) * 0) / 1);
   }
 }
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-3'"] {
-  --flex-gap: var(--gap-texts);
-  gap: var(--flex-gap);
+  --gap: var(--gap-texts);
+  gap: var(--gap);
 }
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-3'"] > * {
   flex: 1 0;
   --_flex-cols: 3;
-  flex-basis: calc((100% - var(--flex-gap) * 2) / 3);
+  flex-basis: calc((100% - var(--gap) * 2) / 3);
 }
 
 @container (max-width: 1100px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-3'"] > * {
     --_flex-cols: 3;
-    flex-basis: calc((100% - var(--flex-gap) * 2) / 3);
+    flex-basis: calc((100% - var(--gap) * 2) / 3);
   }
 }
 @container (max-width: 900px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-3'"] > * {
     --_flex-cols: 2;
-    flex-basis: calc((100% - var(--flex-gap) * 1) / 2);
+    flex-basis: calc((100% - var(--gap) * 1) / 2);
   }
 }
 @container (max-width: 800px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-3'"] > * {
     --_flex-cols: 1;
-    flex-basis: calc((100% - var(--flex-gap) * 0) / 1);
+    flex-basis: calc((100% - var(--gap) * 0) / 1);
   }
 }
 @container (max-width: 615px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-3'"] > * {
     --_flex-cols: 1;
-    flex-basis: calc((100% - var(--flex-gap) * 0) / 1);
+    flex-basis: calc((100% - var(--gap) * 0) / 1);
   }
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-3'"][pgs*="'m2e'"] > * {
     --_flex-cols: 1;
-    flex-basis: calc((100% - var(--flex-gap) * 0) / 1);
+    flex-basis: calc((100% - var(--gap) * 0) / 1);
   }
 }
 @container (max-width: 315px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-3'"] > * {
     --_flex-cols: 1;
-    flex-basis: calc((100% - var(--flex-gap) * 0) / 1);
+    flex-basis: calc((100% - var(--gap) * 0) / 1);
   }
 }
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-4'"] {
-  --flex-gap: var(--gap-texts);
-  gap: var(--flex-gap);
+  --gap: var(--gap-texts);
+  gap: var(--gap);
 }
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-4'"] > * {
   flex: 1 0;
   --_flex-cols: 4;
-  flex-basis: calc((100% - var(--flex-gap) * 3) / 4);
+  flex-basis: calc((100% - var(--gap) * 3) / 4);
 }
 
 @container (max-width: 1100px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-4'"] > * {
     --_flex-cols: 3;
-    flex-basis: calc((100% - var(--flex-gap) * 2) / 3);
+    flex-basis: calc((100% - var(--gap) * 2) / 3);
   }
 }
 @container (max-width: 900px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-4'"] > * {
     --_flex-cols: 2;
-    flex-basis: calc((100% - var(--flex-gap) * 1) / 2);
+    flex-basis: calc((100% - var(--gap) * 1) / 2);
   }
 }
 @container (max-width: 800px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-4'"] > * {
     --_flex-cols: 2;
-    flex-basis: calc((100% - var(--flex-gap) * 1) / 2);
+    flex-basis: calc((100% - var(--gap) * 1) / 2);
   }
 }
 @container (max-width: 615px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-4'"] > * {
     --_flex-cols: 1;
-    flex-basis: calc((100% - var(--flex-gap) * 0) / 1);
+    flex-basis: calc((100% - var(--gap) * 0) / 1);
   }
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-4'"][pgs*="'m2e'"] > * {
     --_flex-cols: 2;
-    flex-basis: calc((100% - var(--flex-gap) * 1) / 2);
+    flex-basis: calc((100% - var(--gap) * 1) / 2);
   }
 }
 @container (max-width: 315px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-4'"] > * {
     --_flex-cols: 1;
-    flex-basis: calc((100% - var(--flex-gap) * 0) / 1);
+    flex-basis: calc((100% - var(--gap) * 0) / 1);
   }
 }
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-5'"] {
-  --flex-gap: var(--gap-texts);
-  gap: var(--flex-gap);
+  --gap: var(--gap-texts);
+  gap: var(--gap);
 }
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-5'"] > * {
   flex: 1 0;
   --_flex-cols: 5;
-  flex-basis: calc((100% - var(--flex-gap) * 4) / 5);
+  flex-basis: calc((100% - var(--gap) * 4) / 5);
 }
 
 @container (max-width: 1100px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-5'"] > * {
     --_flex-cols: 4;
-    flex-basis: calc((100% - var(--flex-gap) * 3) / 4);
+    flex-basis: calc((100% - var(--gap) * 3) / 4);
   }
 }
 @container (max-width: 900px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-5'"] > * {
     --_flex-cols: 3;
-    flex-basis: calc((100% - var(--flex-gap) * 2) / 3);
+    flex-basis: calc((100% - var(--gap) * 2) / 3);
   }
 }
 @container (max-width: 800px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-5'"] > * {
     --_flex-cols: 2;
-    flex-basis: calc((100% - var(--flex-gap) * 1) / 2);
+    flex-basis: calc((100% - var(--gap) * 1) / 2);
   }
 }
 @container (max-width: 615px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-5'"] > * {
     --_flex-cols: 1;
-    flex-basis: calc((100% - var(--flex-gap) * 0) / 1);
+    flex-basis: calc((100% - var(--gap) * 0) / 1);
   }
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-5'"][pgs*="'m2e'"] > * {
     --_flex-cols: 2;
-    flex-basis: calc((100% - var(--flex-gap) * 1) / 2);
+    flex-basis: calc((100% - var(--gap) * 1) / 2);
   }
 }
 @container (max-width: 315px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-5'"] > * {
     --_flex-cols: 1;
-    flex-basis: calc((100% - var(--flex-gap) * 0) / 1);
+    flex-basis: calc((100% - var(--gap) * 0) / 1);
   }
 }
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-6'"] {
-  --flex-gap: var(--gap-texts);
-  gap: var(--flex-gap);
+  --gap: var(--gap-texts);
+  gap: var(--gap);
 }
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-6'"] > * {
   flex: 1 0;
   --_flex-cols: 6;
-  flex-basis: calc((100% - var(--flex-gap) * 5) / 6);
+  flex-basis: calc((100% - var(--gap) * 5) / 6);
 }
 
 @container (max-width: 1100px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-6'"] > * {
     --_flex-cols: 5;
-    flex-basis: calc((100% - var(--flex-gap) * 4) / 5);
+    flex-basis: calc((100% - var(--gap) * 4) / 5);
   }
 }
 @container (max-width: 900px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-6'"] > * {
     --_flex-cols: 3;
-    flex-basis: calc((100% - var(--flex-gap) * 2) / 3);
+    flex-basis: calc((100% - var(--gap) * 2) / 3);
   }
 }
 @container (max-width: 800px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-6'"] > * {
     --_flex-cols: 2;
-    flex-basis: calc((100% - var(--flex-gap) * 1) / 2);
+    flex-basis: calc((100% - var(--gap) * 1) / 2);
   }
 }
 @container (max-width: 615px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-6'"] > * {
     --_flex-cols: 1;
-    flex-basis: calc((100% - var(--flex-gap) * 0) / 1);
+    flex-basis: calc((100% - var(--gap) * 0) / 1);
   }
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-6'"][pgs*="'m2e'"] > * {
     --_flex-cols: 2;
-    flex-basis: calc((100% - var(--flex-gap) * 1) / 2);
+    flex-basis: calc((100% - var(--gap) * 1) / 2);
   }
 }
 @container (max-width: 315px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-6'"] > * {
     --_flex-cols: 1;
-    flex-basis: calc((100% - var(--flex-gap) * 0) / 1);
+    flex-basis: calc((100% - var(--gap) * 0) / 1);
   }
 }
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-7'"] {
-  --flex-gap: var(--gap-texts);
-  gap: var(--flex-gap);
+  --gap: var(--gap-texts);
+  gap: var(--gap);
 }
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-7'"] > * {
   flex: 1 0;
   --_flex-cols: 7;
-  flex-basis: calc((100% - var(--flex-gap) * 6) / 7);
+  flex-basis: calc((100% - var(--gap) * 6) / 7);
 }
 
 @container (max-width: 1100px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-7'"] > * {
     --_flex-cols: 6;
-    flex-basis: calc((100% - var(--flex-gap) * 5) / 6);
+    flex-basis: calc((100% - var(--gap) * 5) / 6);
   }
 }
 @container (max-width: 900px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-7'"] > * {
     --_flex-cols: 4;
-    flex-basis: calc((100% - var(--flex-gap) * 3) / 4);
+    flex-basis: calc((100% - var(--gap) * 3) / 4);
   }
 }
 @container (max-width: 800px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-7'"] > * {
     --_flex-cols: 3;
-    flex-basis: calc((100% - var(--flex-gap) * 2) / 3);
+    flex-basis: calc((100% - var(--gap) * 2) / 3);
   }
 }
 @container (max-width: 615px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-7'"] > * {
     --_flex-cols: 2;
-    flex-basis: calc((100% - var(--flex-gap) * 1) / 2);
+    flex-basis: calc((100% - var(--gap) * 1) / 2);
   }
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-7'"][pgs*="'m2e'"] > * {
     --_flex-cols: 3;
-    flex-basis: calc((100% - var(--flex-gap) * 2) / 3);
+    flex-basis: calc((100% - var(--gap) * 2) / 3);
   }
 }
 @container (max-width: 315px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-7'"] > * {
     --_flex-cols: 2;
-    flex-basis: calc((100% - var(--flex-gap) * 1) / 2);
+    flex-basis: calc((100% - var(--gap) * 1) / 2);
   }
 }
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-8'"] {
-  --flex-gap: var(--gap-texts);
-  gap: var(--flex-gap);
+  --gap: var(--gap-texts);
+  gap: var(--gap);
 }
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-8'"] > * {
   flex: 1 0;
   --_flex-cols: 8;
-  flex-basis: calc((100% - var(--flex-gap) * 7) / 8);
+  flex-basis: calc((100% - var(--gap) * 7) / 8);
 }
 
 @container (max-width: 1100px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-8'"] > * {
     --_flex-cols: 6;
-    flex-basis: calc((100% - var(--flex-gap) * 5) / 6);
+    flex-basis: calc((100% - var(--gap) * 5) / 6);
   }
 }
 @container (max-width: 900px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-8'"] > * {
     --_flex-cols: 4;
-    flex-basis: calc((100% - var(--flex-gap) * 3) / 4);
+    flex-basis: calc((100% - var(--gap) * 3) / 4);
   }
 }
 @container (max-width: 800px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-8'"] > * {
     --_flex-cols: 3;
-    flex-basis: calc((100% - var(--flex-gap) * 2) / 3);
+    flex-basis: calc((100% - var(--gap) * 2) / 3);
   }
 }
 @container (max-width: 615px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-8'"] > * {
     --_flex-cols: 2;
-    flex-basis: calc((100% - var(--flex-gap) * 1) / 2);
+    flex-basis: calc((100% - var(--gap) * 1) / 2);
   }
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-8'"][pgs*="'m2e'"] > * {
     --_flex-cols: 3;
-    flex-basis: calc((100% - var(--flex-gap) * 2) / 3);
+    flex-basis: calc((100% - var(--gap) * 2) / 3);
   }
 }
 @container (max-width: 315px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-8'"] > * {
     --_flex-cols: 2;
-    flex-basis: calc((100% - var(--flex-gap) * 1) / 2);
+    flex-basis: calc((100% - var(--gap) * 1) / 2);
   }
 }
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-"]:not([pgs*="'column-1'"]) > :is([pgs~=flexChild], [pgs*="flexChild["]):is([pgs*="'colS'"], [pgs*="'colM'"], [pgs*="'colL'"], [pgs*="'colXl'"], [pgs*="'colXxl'"]) {
   --_flexChild-span: min(var(--_flexChild-col), var(--_flex-cols, 1));
   flex-grow: var(--_flexChild-span);
   flex-shrink: 0;
-  flex-basis: calc((100% + var(--flex-gap)) * var(--_flexChild-span) / var(--_flex-cols, 1) - var(--flex-gap));
+  flex-basis: calc((100% + var(--gap)) * var(--_flexChild-span) / var(--_flex-cols, 1) - var(--gap));
 }
 
 :is([pgs~=grid], [pgs*="grid["]) {
   display: grid;
-  gap: var(--gap-texts);
+  --gap: var(--gap-texts);
+  gap: var(--gap);
   width: 100%;
 }
 
@@ -1477,27 +1481,27 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=grid], [pgs*="grid["], [pgs~=flex], [pgs*="flex["])[pgs*="'gapTexts'"] {
-  --flex-gap: var(--gap-texts);
-  gap: var(--flex-gap);
+  --gap: var(--gap-texts);
+  gap: var(--gap);
 }
 
 :is([pgs~=grid], [pgs*="grid["], [pgs~=flex], [pgs*="flex["])[pgs*="'gapElements'"] {
-  --flex-gap: var(--gap-elements);
-  gap: var(--flex-gap);
+  --gap: var(--gap-elements);
+  gap: var(--gap);
 }
 
 :is([pgs~=grid], [pgs*="grid["], [pgs~=flex], [pgs*="flex["])[pgs*="'gapGroups'"] {
-  --flex-gap: var(--gap-groups);
-  gap: var(--flex-gap);
+  --gap: var(--gap-groups);
+  gap: var(--gap);
 }
 
 :is([pgs~=grid], [pgs*="grid["], [pgs~=flex], [pgs*="flex["])[pgs*="'gapSections'"] {
-  --flex-gap: var(--gap-sections);
-  gap: var(--flex-gap);
+  --gap: var(--gap-sections);
+  gap: var(--gap);
 }
 
 :is([pgs~=grid], [pgs*="grid["], [pgs~=flex], [pgs*="flex["])[pgs*="'gapNone'"] {
-  --flex-gap: 0px;
+  --gap: 0px;
   gap: 0;
 }
 
@@ -2972,7 +2976,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 [pgs~=footer] :where([pgs~=footer-top]) :where([pgs~=footer-brand]) {
   display: flex;
   gap: var(--gap-texts);
-  --flex-gap: var(--gap-texts);
+  --gap: var(--gap-texts);
   flex-direction: column;
 }
 
@@ -3028,8 +3032,10 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   border-top: var(--border-width) var(--border-style) var(--color-boxDark-transparent);
   padding-block: 60px;
   display: flex;
+  gap: var(--gap-texts);
+  --gap: var(--gap-texts);
   flex-direction: row;
-  gap: calc(var(--gap-texts) * 2);
+  flex-wrap: nowrap;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
@@ -3223,7 +3229,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   align-items: flex-start;
   display: flex;
   gap: var(--gap-texts);
-  --flex-gap: var(--gap-texts);
+  --gap: var(--gap-texts);
   flex-direction: column;
 }
 
@@ -3498,7 +3504,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   cursor: pointer;
   display: flex;
   gap: var(--gap-texts);
-  --flex-gap: var(--gap-texts);
+  --gap: var(--gap-texts);
   align-items: center;
   justify-content: center;
 }
@@ -3764,7 +3770,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   cursor: pointer;
   display: flex;
   gap: var(--gap-texts);
-  --flex-gap: var(--gap-texts);
+  --gap: var(--gap-texts);
   align-items: center;
   justify-content: center;
 }
@@ -5001,7 +5007,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   cursor: pointer;
   display: flex;
   gap: var(--gap-texts);
-  --flex-gap: var(--gap-texts);
+  --gap: var(--gap-texts);
   align-items: center;
   justify-content: center;
 }
@@ -5116,6 +5122,9 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   isolation: isolate;
   display: flex;
   gap: var(--gap-texts);
+  --gap: var(--gap-texts);
+  flex-direction: row;
+  flex-wrap: nowrap;
   margin-bottom: var(--gap-texts);
 }
 
@@ -5186,7 +5195,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   border: unset;
   display: flex;
   gap: var(--gap-texts);
-  --flex-gap: var(--gap-texts);
+  --gap: var(--gap-texts);
   flex-direction: row;
   flex-wrap: wrap;
 }
@@ -5234,7 +5243,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   font-weight: bold;
   color: var(--color-blackFixed);
   background-color: var(--color-whiteFixed);
-  padding: 0.2rem;
   cursor: pointer;
 }
 
@@ -5297,7 +5305,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   font-weight: bold;
   color: var(--color-blackFixed);
   background-color: var(--color-whiteFixed);
-  padding: 0.2rem;
   cursor: pointer;
 }
 
@@ -5351,9 +5358,10 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=menu], [pgs*="menu["]) ul ul {
-  display: none;
-  flex-direction: column;
+  display: flex;
   gap: var(--gap-texts);
+  --gap: var(--gap-texts);
+  flex-direction: column;
   --dropdown-borderRadius: calc(var(--border-radius-input) + var(--dropdown-padding));
   --dropdown-background: var(--color-box);
   --dropdown-display: flex;
@@ -5408,7 +5416,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 :is([pgs~=menu], [pgs*="menu["]) ul :is(ul) > li:has(ul), :is([pgs~=menu], [pgs*="menu["])[pgs*="'menuVertical'"] :is(ul) > li:has(ul), :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :is(ul) > li:has(ul) {
   display: flex;
   gap: var(--gap-texts);
-  --flex-gap: var(--gap-texts);
+  --gap: var(--gap-texts);
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
@@ -5462,7 +5470,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=accordionContainer], [pgs*="accordionContainer["]) {
-  --accordionContainer-gap: 10px;
+  --accordionContainer-gap: 1rem;
   display: flex;
   flex-direction: column;
   gap: var(--accordionContainer-gap);
@@ -5491,7 +5499,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   width: 100%;
   border-bottom: var(--border-complete);
   position: absolute;
-  top: calc(var(--accordionContainer-gap, 10px) / 2 * -1);
+  top: calc(var(--accordionContainer-gap, 1rem) / 2 * -1);
   left: 0;
 }
 
@@ -5504,7 +5512,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   cursor: pointer;
   display: flex;
   gap: var(--gap-texts);
-  --flex-gap: var(--gap-texts);
+  --gap: var(--gap-texts);
   flex-direction: row;
   flex-wrap: nowrap;
   box-shadow: none;
@@ -5545,7 +5553,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 :is([pgs~=accordion], [pgs*="accordion["]) :where([pgs~=accordion-content]) {
   display: flex;
   gap: var(--gap-texts);
-  --flex-gap: var(--gap-texts);
+  --gap: var(--gap-texts);
   flex-direction: column;
   visibility: hidden;
   opacity: 0;
@@ -5565,6 +5573,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 :is([pgs~=accordion], [pgs*="accordion["])[pgs-state~=open] {
   display: flex;
   gap: var(--gap-texts);
+  --gap: var(--gap-texts);
+  flex-direction: column;
   background: var(--accordion-background-open);
 }
 
@@ -5798,9 +5808,10 @@ html:has(dialog[open]) {
   margin-inline: auto;
   max-width: var(--section-width);
   width: 100%;
-  display: flex;
   position: relative;
+  display: flex;
   gap: var(--gap-texts);
+  --gap: var(--gap-texts);
   flex-direction: column;
   margin-inline: unset;
   padding: 0;
@@ -5817,7 +5828,7 @@ html:has(dialog[open]) {
 :where(dialog[pgs~=modal-dialog]) :where([pgs~=modal-dialog-content]) :where([pgs~=modal-dialog-content-header]) {
   display: flex;
   gap: var(--gap-texts);
-  --flex-gap: var(--gap-texts);
+  --gap: var(--gap-texts);
   flex-direction: row;
   flex-wrap: nowrap;
   z-index: 1;
@@ -6111,7 +6122,6 @@ html:has(dialog[open]) {
 }
 
 :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-container]) {
-  display: flex;
   width: 100%;
   overflow-x: scroll;
   overflow-y: hidden;
@@ -6122,7 +6132,11 @@ html:has(dialog[open]) {
   -webkit-user-select: none;
   user-select: none;
   padding: 0.3rem;
+  display: flex;
   gap: var(--gap-texts);
+  --gap: var(--gap-texts);
+  flex-direction: row;
+  flex-wrap: nowrap;
 }
 
 :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-container])::-webkit-scrollbar {
@@ -6302,7 +6316,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]) {
 ol[pgs~=steps] :where([pgs~=steps-step]) :where([pgs~=steps-step-content]) {
   display: flex;
   gap: var(--gap-texts);
-  --flex-gap: var(--gap-texts);
+  --gap: var(--gap-texts);
   flex-direction: column;
   margin-bottom: calc(var(--gap-elements) / 2 - 8px);
   padding-bottom: calc(var(--gap-elements) / 2);
@@ -6458,6 +6472,9 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 [pgs~=stepTabs] :where([pgs~=stepTabs-dots]) {
   display: flex;
   gap: var(--gap-texts);
+  --gap: var(--gap-texts);
+  flex-direction: row;
+  flex-wrap: nowrap;
   justify-content: space-between;
   align-items: center;
   position: relative;
@@ -6500,8 +6517,9 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   --summary-lines: 3;
   position: relative;
   display: flex;
-  flex-direction: column;
   gap: var(--gap-texts);
+  --gap: var(--gap-texts);
+  flex-direction: column;
   isolation: isolate;
 }
 
@@ -6674,7 +6692,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   z-index: 1;
   display: flex;
   gap: calc(var(--alert-gap) / 2);
-  --flex-gap: calc(var(--alert-gap) / 2);
+  --gap: calc(var(--alert-gap) / 2);
   flex-direction: column;
   min-width: 0;
 }
@@ -7060,8 +7078,9 @@ dialog :is([pgs~=search], [pgs*="search["]) :where([pgs~=_modal-close]) {
 */
 [pgs~=cookieConsent] {
   display: flex;
-  flex-direction: column;
   gap: var(--gap-texts);
+  --gap: var(--gap-texts);
+  flex-direction: column;
   transition: transform 0.35s ease, opacity 0.35s ease;
   box-sizing: border-box;
 }

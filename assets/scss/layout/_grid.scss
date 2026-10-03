@@ -5,7 +5,8 @@
 //== COLUMN
 :is([pgs~="grid"], [pgs*="grid\5B"]) {
     display: grid;
-    gap: var(--gap-texts);
+    --gap: var(--gap-texts);
+    gap: var(--gap);
     width: 100%;
 
     // fills the holes a wide item leaves at the end of a row with the items that come after it,

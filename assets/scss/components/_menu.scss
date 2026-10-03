@@ -34,9 +34,7 @@
 
         //== submenu
         ul {
-            display: none;
-            flex-direction: column;
-            gap: var(--gap-texts);
+            @include column();
             --dropdown-borderRadius: calc(var(--border-radius-input) + var(--dropdown-padding));
             --dropdown-background: var(--color-box);
             --dropdown-display: flex;

@@ -22,8 +22,7 @@
     :where([pgs~="stepTabs-restart"]) {}
 
     :where([pgs~="stepTabs-dots"]) {
-        display: flex;
-        gap: var(--gap-texts);
+        @include row(nowrap);
         justify-content: space-between;
         align-items: center;
         position: relative;
