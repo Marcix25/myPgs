@@ -22,7 +22,7 @@
     >:where([pgs~="dropdown-content"]) {
         position: fixed;
         inset: var(--_dropdown-top) auto auto var(--_dropdown-left);
-        z-index: 1000;
+        z-index: var(--zIndex-dropdown);
         inline-size: var(--dropdown-inline-size);
         width: var(--dropdown-max-inline-size);
         overflow: auto;

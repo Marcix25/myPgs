@@ -24,6 +24,7 @@
  * - instance.refresh(): returns the existing instance after initialization is requested again.
  *
  * @related
+ * - btnCurrent: gives the selected tab the current look while it carries aria-selected="true"; belongs to the button component.
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - card: provides the outer surface for this example.
  * - card-content: provides the spacing wrapper around the tab list and panels.
@@ -40,11 +41,11 @@
 <section demo="component">
     <div pgs="tabs card">
         <div pgs="tabs-list card-content flex['row']" aria-label="Code formats">
-            <button pgs="tabs-list-tab button['btnMini']" type="button">HTML</button>
-            <button pgs="tabs-list-tab button['btnMini']" type="button">React</button>
-            <button pgs="tabs-list-tab button['btnMini']" type="button">Vue</button>
-            <button pgs="tabs-list-tab button['btnMini']" type="button">SVG</button>
-            <button pgs="tabs-list-tab button['btnMini']" type="button">XML</button>
+            <button pgs="tabs-list-tab button['btnMini' 'btnCurrent']" type="button">HTML</button>
+            <button pgs="tabs-list-tab button['btnMini' 'btnCurrent']" type="button">React</button>
+            <button pgs="tabs-list-tab button['btnMini' 'btnCurrent']" type="button">Vue</button>
+            <button pgs="tabs-list-tab button['btnMini' 'btnCurrent']" type="button">SVG</button>
+            <button pgs="tabs-list-tab button['btnMini' 'btnCurrent']" type="button">XML</button>
         </div>
 
         <div pgs="tabs-panels card-content">
@@ -76,9 +77,9 @@
 <section demo="component">
     <div pgs="tabs card" pgs-data="tabsHistory[format]">
         <div pgs="tabs-list card-content flex['row']" aria-label="Code formats">
-            <button id="html" pgs="tabs-list-tab button['btnMini']" type="button">HTML</button>
-            <button id="react" pgs="tabs-list-tab button['btnMini']" type="button">React</button>
-            <button id="vue" pgs="tabs-list-tab button['btnMini']" type="button">Vue</button>
+            <button id="html" pgs="tabs-list-tab button['btnMini' 'btnCurrent']" type="button">HTML</button>
+            <button id="react" pgs="tabs-list-tab button['btnMini' 'btnCurrent']" type="button">React</button>
+            <button id="vue" pgs="tabs-list-tab button['btnMini' 'btnCurrent']" type="button">Vue</button>
         </div>
 
         <div pgs="tabs-panels card-content">

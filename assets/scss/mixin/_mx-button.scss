@@ -5,6 +5,7 @@
     color: var(--button-color#{$for});
     background: var(--button-background#{$for});
     border-color: var(--button-border-color#{$for});
+    box-shadow: var(--button-shadow#{$for});
 }
 
 //== BUTTON BASE
@@ -13,24 +14,25 @@
     --button-primaryColor: var(--color-primary-strong);
     /// color
     --button-color: var(--color-black);
-    --button-color-strong: var(--color-white);
-    --button-color-current: var(--color-white);
+    --button-color-current: var(--color-primary);
     --button-color-checked: var(--color-white);
     /// background
     --button-background: var(--color-box);
-    --button-background-strong: var(--button-primaryColor);
-    --button-background-current: var(--button-primaryColor);
+    --button-background-current: var(--color-box);
     --button-background-checked: var(--button-primaryColor);
+    /// shadow
+    --button-shadow: unset;
+    --button-shadow-current: 0 .2rem .8rem color-mix(in srgb, var(--color-blackFixed) 10%, transparent);
+    --button-shadow-checked: unset;
     /// border
     --button-border-color: var(--border-color);
-    --button-border-color-strong: var(--button-primaryColor);
     --button-border-color-current: var(--button-primaryColor);
     --button-border-color-checked: var(--button-primaryColor);
     --button-border-width: var(--border-width);
     --button-border-style: var(--border-style);
-    --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
     --button-borderRadius: var(--border-radius);
     /// size
+    --button-gap: calc(var(--button-size) / 3);
     --button-font-size: var(--font-size-text);
     --button-padding-block: var(--button-size);
     --button-padding-left: calc(var(--button-size) * 2);
@@ -40,26 +42,19 @@
     --button-height: max-content;
     /// color
     @include _buttonColor();
-    font-family: var(--font);
-    font-size: var(--button-font-size);
-    font-weight: var(--font-weight-bold);
-    //== unset, the content height comes from the loaded font's own "normal" metric instead of the
-    //== padding — Urbanist resolves that to ~1.2x the font size, taller than expected and different
-    //== again if the font ever changes
-    line-height: 1;
-    //== written here and not left to the hover token: pgs.hover adds that one from JavaScript, so
-    //== until it runs a link would keep the underline and the text cursor of a plain anchor
-    text-decoration: none;
     cursor: pointer;
     -moz-user-select: none;
     -webkit-user-select: none;
+    font-family: var(--font);
+    font-size: var(--button-font-size);
+    font-weight: var(--font-weight-bold);
+    line-height: 1;
+    text-decoration: none;
     user-select: none;
-    border-width: var(--button-border-width);
-    border-style: var(--button-border-style);
-    border-color: var(--button-border-color);
+    border: var(--button-border-width) var(--button-border-style) var(--button-border-color);
     border-radius: var(--button-borderRadius);
     display: flex;
-    gap: calc(var(--button-size) / 2);
+    gap: var(--button-gap);
     align-items: center;
     justify-content: center;
     padding: var(--button-padding);
@@ -83,36 +78,63 @@
         --button-padding-right: var(--button-padding-left-icon);
         --button-padding-left: var(--button-padding-right);
     }
+}
 
-    //== BUTTON CURRENT
+//= STATE
+//== BUTTON CURRENT
+@mixin buttonCurrent() {
     &[aria-current=page],
     &[aria-selected=true] {
         @include _buttonColor("-current");
     }
+}
 
-    //== BUTTON TWO-STATE
-    &:has(input:is([type=checkbox], [type=radio])) {
-        position: relative;
-        isolation: isolate;
-        cursor: pointer;
+//== BUTTON TWO-STATE
+// a label marked as a button that wraps its own checkbox or radio: the input is hidden but still
+// carries the semantics and the keyboard, and the button draws its checked state
+@mixin buttonTwoState() {
+    position: relative;
+    isolation: isolate;
+    cursor: pointer;
 
-        input:is([type=checkbox], [type=radio]) {
-            opacity: 0;
-            z-index: -1;
-            position: absolute;
-            appearance: none;
-        }
+    input:is([type=checkbox], [type=radio]) {
+        opacity: 0;
+        z-index: -1;
+        position: absolute;
+        appearance: none;
     }
 
-    //== BUTTON ACTIVE
+    //== BUTTON CHECKED
     &:has(input:checked) {
         --button-background: var(--button-background-checked);
         --button-color: var(--button-color-checked);
         --button-border-color: var(--button-border-color-checked);
+        --button-shadow: var(--button-shadow-checked);
     }
 }
 
-//=== BUTTON ICON
+
+//== HOVER
+@mixin buttonHover() {
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            &:not(:where(:is([pgs~="hoverNot"], [pgs*="'hoverNot'"]))) {
+                &:where(:not(:disabled, [disabled])) {
+                    @include _buttonColor("-hover");
+                    --button-background-hover: var(--color-primary-soft);
+                    --button-border-color-hover: var(--color-primary-soft);
+                    --button-shadow-hover: var(--button-shadow);
+                    --button-color-hover: var(--color-black);
+                }
+            }
+        }
+    }
+}
+
+//= TYPE
+
+
+//== BUTTON ICON
 @mixin buttonIconOnly() {
     --button-padding: var(--button-padding-block);
     flex: 0 0;
@@ -131,25 +153,6 @@
     }
 }
 
-//== HVOER
-@mixin buttonHover() {
-    @media (hover: hover) and (pointer: fine) {
-        &:hover {
-            &:not(:where(:is([pgs~="hoverNot"], [pgs*="'hoverNot'"]))) {
-                &:where(:not(:disabled, [disabled])) {
-                    @include _buttonColor("-hover");
-                    --button-background-hover: var(--color-primary-soft);
-                    --button-border-color-hover: var(--color-primary-soft);
-                    --button-color-hover: var(--color-black);
-                }
-            }
-        }
-    }
-}
-
-//== BUTTON STRONG
-@mixin buttonStrong() { @include _buttonColor("-strong"); }
-
 //== BUTTON MINI
 @mixin buttonMini() {
     --button-size: 0.9rem;
@@ -157,14 +160,20 @@
 }
 
 //== BUTTON BIG
-@mixin buttonBig() {
+@mixin buttonVertical() {
     --button-padding: var(--button-padding-right);
     --button-height: 100%;
-    --icon-size: 2em;
+    --icon-size: 1.2em;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     text-align: center;
+}
+
+//== BUTTON TRANSPARENT
+@mixin buttonTransparent() {
+    --button-border-width: 0;
+    --button-background: transparent;
 }
 
 //== BUTTON TEXT
@@ -177,28 +186,58 @@
     --button-background-current: transparent;
     --button-background-checked: transparent;
     --button-background-hover: transparent;
-    --hover-background: transparent;
     --button-color-strong: #{$color};
     --button-color-current: #{$color};
     --button-color-checked: #{$color};
     --button-color-hover: #{$color};
+    --button-shadow: unset;
+    --button-shadow-strong: unset;
+    --button-shadow-current: unset;
+    --button-shadow-checked: unset;
+    --button-shadow-hover: unset;
+    --hover-background: transparent;
     --hover-color: #{$color};
 }
 
-//== BUTTON TRANSPARENT
-@mixin buttonTransparent() {
-    --button-border-width: 0;
-    --button-background: transparent;
-}
 
 //== BUTTON PADDING EQUAL
 @mixin buttonPaddingEqual() { --button-padding: var(--button-padding-block); }
 
+
+//= HEADER & NAVSMART
 //== HEADER
-//=== BUTTON HEADER
 @mixin buttonForHeader() {
     --buttonHeader-border-width: 0px;
     --button-border-width: var(--buttonHeader-border-width);
     min-height: var(--header-size);
     overflow-wrap: break-word;
+}
+
+//== NAV SMART
+// an item of the floating navSmart bar: the icon above its label inside a pill, with no background
+// of its own. It reads the bar's own properties (--navSmart-iconSize, --navSmart-itemMinWidth) with a
+// fallback, so the button still draws outside a bar. The page you are on (aria-current), or the
+// panel that is open (aria-expanded), takes the current look as a smaller pill inside the bigger one
+@mixin buttonForNavSmart() {
+    @include buttonVertical();
+    @include buttonTransparent();
+    @include buttonCurrent();
+    --button-size: .35rem;
+    --button-height: auto;
+    --button-font-size: 1.1rem;
+    --button-borderRadius: 999px;
+    --button-gap: .2rem;
+    --icon-size: var(--navSmart-iconSize, 2.2rem);
+    min-width: var(--navSmart-itemMinWidth, auto);
+    min-height: var(--navSmart-itemHeight, auto);
+    white-space: nowrap;
+
+    // with btnIconOnly there is no label to set the width: the item is as wide as every item is tall
+    // (--navSmart-itemHeight, which every item shares as its minimum height), so it is a square,
+    // and the floor an item with a label keeps does not apply
+    &[pgs*="'btnIconOnly'"] {
+        flex: 0 0 auto;
+        min-width: 0;
+        width: var(--navSmart-itemHeight, auto);
+    }
 }

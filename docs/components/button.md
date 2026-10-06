@@ -15,7 +15,10 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `btnStrong`: applies the variant with stronger visual emphasis.
 - `btnIconOnly`: identifies a compact button composed primarily of an icon.
 - `btnMini`: applies the smallest size variant.
-- `btnBig`: applies the large size variant.
+- `btnVertical`: stacks the content vertically, the icon above the label, with the same padding on every side.
+- `btnTwoState`: for a label marked as a button that wraps its own checkbox or radio: hides the input, which still carries the semantics and the keyboard, and draws the checked state with --button-background-checked, --button-color-checked, --button-border-color-checked and --button-shadow-checked. Without it the input stays visible and nothing changes when it is checked.
+- `btnCurrent`: gives the button the current look — the colour, background, border and shadow of --button-*-current — while it carries aria-current="page" or aria-selected="true". Without it those attributes change nothing, so a button that is never marked current does not pay for the rule.
+- `btnForNavSmart`: sizes the button as an item of the floating navSmart bar: icon above the label, no background, pill-shaped, and the current look for the page you are on (aria-current) or the panel that is open (aria-expanded). Next to btnIconOnly it drops the label's minimum width and becomes a square as wide as the bar is tall.
 - `btnTransparent`: drops the background and the border at rest, so only the label shows, and colours the label on hover. Unlike btnText it leaves the other states alone, so the same button still fills in when it carries btnStrong or aria-current.
 - `btnText`: removes the default background and outline while preserving the button layout and hover behavior.
 - `btnPrimary`: applies the primary color palette.
@@ -53,12 +56,10 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `--button-background-current`
 - `--button-background-hover`
 - `--button-background-strong`
-- `--button-border`
 - `--button-border-color`
 - `--button-border-color-checked`
 - `--button-border-color-current`
 - `--button-border-color-hover`
-- `--button-border-color-strong`
 - `--button-border-style`
 - `--button-border-width`
 - `--button-borderRadius`
@@ -68,6 +69,7 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `--button-color-hover`
 - `--button-color-strong`
 - `--button-font-size`
+- `--button-gap`
 - `--button-height`
 - `--button-padding`
 - `--button-padding-block`
@@ -75,6 +77,11 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `--button-padding-left-icon`
 - `--button-padding-right`
 - `--button-primaryColor`
+- `--button-shadow`
+- `--button-shadow-checked`
+- `--button-shadow-current`
+- `--button-shadow-hover`
+- `--button-shadow-strong`
 - `--button-size`
 
 ## Output
@@ -149,7 +156,7 @@ Smallest button size using mini.
 Largest button size using big, combined with an icon.
 
 ```html
-<button pgs="button['btnBig']" type="button" aria-label="Large button">
+<button pgs="button['btnVertical']" type="button" aria-label="Large button">
     <i pgs="icon['icon-star']"></i>
     Large
 </button>
@@ -163,6 +170,15 @@ Only the label shows at rest, and it takes the accent colour on hover; strong an
 <button pgs="button['btnTransparent']" type="button">
     Read more
 </button>
+```
+
+### Current
+
+btnCurrent turns on the look of the button the page is on: aria-current=&quot;page&quot; (a link) or aria-selected=&quot;true&quot; (a tab). It is the flag that reads those attributes, so write it on every button that can be marked current.
+
+```html
+<a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">Current page</a>
+<a pgs="button['btnTransparent' 'btnCurrent']" href="/other">Another page</a>
 ```
 
 ### Text only
@@ -230,16 +246,16 @@ Strong button using the quaternary color palette.
 A label marked as a button wrapping its own checkbox or radio: the input carries the semantics and the keyboard behaviour, the button draws the state. Retune the checked look with --button-background-checked, --button-color-checked and --button-border-color-checked.
 
 ```html
-<label pgs="button">
+<label pgs="button['btnTwoState']">
     <input type="checkbox" name="favorite" value="yes">
     <i pgs="icon['icon-star']"></i>
     Add to favorites
 </label>
-<label pgs="button">
+<label pgs="button['btnTwoState']">
     <input type="radio" name="plan" value="monthly" checked>
     Monthly
 </label>
-<label pgs="button">
+<label pgs="button['btnTwoState']">
     <input type="radio" name="plan" value="yearly">
     Yearly
 </label>

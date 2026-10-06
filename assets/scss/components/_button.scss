@@ -7,12 +7,19 @@
     &:where(:not([pgs*="body\5B"][pgs*="'bodyHoverAuto'"] :is([pgs~="button"], [pgs*="button\5B"]))) { @include buttonHover(); }
     &[pgs*="'btnIconOnly'"] { @include buttonIconOnly(); }
     &[pgs*="'btnMini'"] { @include buttonMini(); }
-    &[pgs*="'btnBig'"] { @include buttonBig(); }
+    &[pgs*="'btnVertical'"] { @include buttonVertical(); }
     &[pgs*="'btnTransparent'"] { @include buttonTransparent(); }
-    &[pgs*="'btnStrong'"] { @include buttonStrong(); }
     &[pgs*="'btnText'"] { @include buttonText(); }
     &[pgs*="'btnPaddingEqual'"] { @include buttonPaddingEqual(); }
+    &[pgs*="'btnCurrent'"] { @include buttonCurrent(); }
+    &[pgs*="'btnTwoState'"] { @include buttonTwoState(); }
     &[pgs*="'btnForHeader'"] { @include buttonForHeader(); }
+    &[pgs*="'btnForNavSmart'"] { @include buttonForNavSmart(); }
+
+    &[pgs*="'btnStrong'"] {
+        --button-background: var(--button-primaryColor);
+        --button-color: var(--color-white);
+    }
 
     &[pgs*="'btnPrimary'"] {
         --button-background: var(--color-primary);

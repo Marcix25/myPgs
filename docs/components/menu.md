@@ -40,6 +40,7 @@ Menu markup with horizontal, vertical and recursively nested navigation examples
 
 ### PGS Options (component brackets)
 
+- `btnCurrent`: gives the link the current look while it carries aria-current="page"; belongs to the button component.
 - `btnTransparent`: the appearance a navigation link takes, whatever the menu's direction; see Button for the whole set of variants.
 - `row`: lays the top-level list out as a row, so a long menu can be measured against the space it has.
 - `wrap`: lets that row break onto a second line instead of overflowing.
@@ -73,7 +74,7 @@ Top-level navigation arranged horizontally, with one nested submenu.
 <nav pgs="menu['menuHorizontal']" aria-label="Menu orizzontale">
     <ul pgs="flex['row' 'wrap']">
         <li>
-            <a pgs="button['btnTransparent']" href="/" aria-current="page">
+            <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
                 <i pgs="icon['icon-circle']" aria-hidden="true"></i>
                 <span>Home</span>
             </a>
@@ -116,7 +117,7 @@ Vertical navigation with recursively nested submenus, showing icons only on the 
 <nav pgs="menu['menuVertical']" aria-label="Menu verticale">
     <ul>
         <li>
-            <a pgs="button['btnTransparent']" href="/" aria-current="page">
+            <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
                 <i pgs="icon['icon-circle']" aria-hidden="true"></i>
                 <span>Home</span>
             </a>
@@ -159,7 +160,7 @@ Top-level navigation arranged horizontally, with one nested submenu.
 <nav pgs="menu['menuHorizontal' 'menuIconOnlyCurrent']" aria-label="Menu orizzontale">
     <ul pgs="flex['row' 'wrap']">
         <li>
-            <a pgs="button['btnTransparent']" href="/" aria-current="page">
+            <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
                 <i pgs="icon['icon-circle']" aria-hidden="true"></i>
                 <span>Home</span>
             </a>
@@ -188,7 +189,7 @@ Top-level navigation with short, overlapping the horizontal spacing between adja
 <nav pgs="menu['menuHorizontal' 'menuShort']" aria-label="Menu orizzontale">
     <ul pgs="flex['row' 'wrap']">
         <li>
-            <a pgs="button['btnTransparent']" href="/" aria-current="page">
+            <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
                 <i pgs="icon['icon-circle']" aria-hidden="true"></i>
                 <span>Home</span>
             </a>

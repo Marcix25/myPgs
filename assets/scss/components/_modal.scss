@@ -69,13 +69,10 @@ html:has(dialog[open]) {
     --modal-animation-easing: cubic-bezier(0.4, 0, 0.22, 1);
     border: none;
     min-width: 100%;
-    //== dvh, not svh: svh is the viewport with the browser's toolbars expanded, so on iOS Safari
-    //== with the toolbars collapsed the dialog ends short of the screen and the page shows through
-    //== underneath. dvh follows the visible area as the toolbars come and go
     height: 100dvh;
     min-height: 100dvh;
     padding-inline: var(--page-padding);
-    padding-bottom: var(--modal-offset);
+    padding-bottom: calc(var(--heightOfNavSmartScroll) + var(--modal-offset));
     padding-top: calc(var(--heightOfHeaderScroll) + var(--modal-offset));
     transition: opacity 600ms ease;
     margin: 0;
@@ -84,14 +81,12 @@ html:has(dialog[open]) {
     overscroll-behavior: contain;
     overflow-y: auto;
     overflow-x: hidden;
-    z-index: 90;
+    z-index: var(--zIndex-modal);
     position: fixed;
     inset: 0;
     cursor: pointer;
     background: var(--modal-backdrop);
 
-    //== reachable only programmatically (tabindex="-1", see _modal.js), never via Tab: the
-    //== default outline would look like a stray highlight around the whole dialog
     &:focus { outline: none; }
 
     &[open] {

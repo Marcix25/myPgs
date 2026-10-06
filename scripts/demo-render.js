@@ -3,8 +3,7 @@
 //+ shows — no DOM, no fetch, no browser globals, so this file runs unchanged in Node
 //+ (scripts/build-site-static.js, at build time) and, if ever loaded as a plain <script>, in the
 //+ browser too. It is the only "how a reference renders" implementation: build-site-static.js uses
-//+ it to pre-bake site/build/demo.content.html and site/page/demo.html (parked there, not yet
-//+ promoted to a top-level page), and nothing renders a reference at runtime any more. Keep it in
+//+ it to pre-bake site/build/demo.html, and nothing renders a reference at runtime any more. Keep it in
 //+ sync with
 //+ scripts/generate-component-docs.js whenever the doc-comment format or the demo markup
 //+ conventions (demo="component"/"wrapper", demo-h2/demo-h3, codeNone, previewNone) change.
@@ -70,6 +69,7 @@ const referenceFiles = [
     "components/toast.html",
     "patterns/cookieConsent.html",
     "layout/header.html",
+    "layout/navSmart.html",
     "layout/flex.html",
     "layout/grid.html",
     "layout/breakpoints.html",
@@ -128,6 +128,7 @@ const ENTRY_ICONS = {
     "layout/section.html": "fa-table-cells",
     "layout/pageShell.html": "fa-table-columns",
     "layout/header.html": "fa-arrow-up",
+    "layout/navSmart.html": "fa-grip-lines",
     "layout/footer.html": "fa-arrow-down",
     "helper/pgs.html": "fa-code",
     "helper/init.html": "fa-rotate",
@@ -593,7 +594,7 @@ function renderExamplePairsHtml(exampleMarkup) {
 function renderNavMenuHtml(items, category) {
     const rows = items.map(({ path }) => {
         const icon = ENTRY_ICONS[path] || DEFAULT_ENTRY_ICON;
-        return `<li><a href="#${escapeHtml(getSlug(path))}" pgs="pageNav-list-item button['btnText' 'btnPaddingEqual']">` +
+        return `<li><a href="#${escapeHtml(getSlug(path))}" pgs="pageNav-list-item button['btnText' 'btnPaddingEqual' 'btnCurrent']">` +
             `<i class="fa-solid ${icon}" aria-hidden="true"></i><span>${escapeHtml(getEntryLabel(path))}</span></a></li>`;
     }).join("");
     return `<nav pgs="pageNav-list menu['menuVertical']" aria-label="Menu ${escapeHtml(category || "")}"><ul pgs="borderLeft">${rows}</ul></nav>`;

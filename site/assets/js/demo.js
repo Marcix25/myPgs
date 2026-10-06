@@ -5,7 +5,7 @@
 //+ "copy to clipboard" buttons. Nav click / hash navigation between reference panels is pgs.pageNav's
 //+ own job now (pgs="pageNav" on <body>, see site.structure.html + demo.structure.html), not this
 //+ file's. Most of what is left here only matters on the page that actually carries the reference
-//+ panels — currently site/page/demo.html, parked there and not yet promoted to a top-level page —
+//+ panels — site/build/demo.html, built in memory from demo.structure.html and the reference panels —
 //+ and no-ops harmlessly on any other. The configure*Demo functions only ever look for
 //+ [data-reference="..."] in the page, so a new interactive example is wired up here and nowhere else.
 
@@ -294,8 +294,20 @@ function configureFormValidateHelperDemo() {
     });
 }
 
+//== the shell's own bar, not the navSmart written as an example inside a reference page: it is
+//== the direct child of body. The link whose file is the one on screen is the page you are on
+function markCurrentPage() {
+    const current = location.pathname.split("/").pop() || "home.html";
+
+    document.querySelectorAll('body > [pgs~="navSmart"] a').forEach(link => {
+        if (link.getAttribute("href") === current) link.setAttribute("aria-current", "page");
+        else link.removeAttribute("aria-current");
+    });
+}
+
 function boot() {
     setupCopyButtons();
+    markCurrentPage();
 
     try {
         isolateDemoModals(document.getElementById("reference-demo-main") || document);

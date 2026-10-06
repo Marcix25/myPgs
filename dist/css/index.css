@@ -54,6 +54,8 @@
   --focus-visible: 3px solid var(--color-focus);
   --heightOfHeader: 6.8rem;
   --heightOfHeaderScroll: 6.8rem;
+  --heightOfNavSmart: 8.9rem;
+  --heightOfNavSmartScroll: 8.9rem;
 }
 
 @media (max-width: 430px) {
@@ -127,6 +129,16 @@
   --color-error-soft: color-mix(in srgb, var(--color-error) 20%, var(--color-white) 80%);
   --color-warning-soft: color-mix(in srgb, var(--color-warning) 20%, var(--color-white) 80%);
   --color-success-soft: color-mix(in srgb, var(--color-success) 20%, var(--color-white) 80%);
+}
+
+:where([pgs~=htmlBase]):root {
+  --zIndex-skipLink: 9999;
+  --zIndex-dropdown: 1000;
+  --zIndex-search: 1000;
+  --zIndex-header: 100;
+  --zIndex-navSmart: 100;
+  --zIndex-toast: 98;
+  --zIndex-modal: 90;
 }
 
 :where([pgs~=htmlBase]) {
@@ -2835,7 +2847,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --header-color: var(--color-black);
   --header-compactBottom-active: 0;
   --header-compact-breakpoint: 100px;
-  z-index: 100;
+  z-index: var(--zIndex-header);
   position: fixed;
   isolation: isolate;
   display: flex;
@@ -2911,6 +2923,20 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --header-compact-breakpoint: 1100px;
 }
 
+:is([pgs~=header], [pgs*="header["])[pgs*="'headerBottom'"] {
+  bottom: var(--margin-texts);
+  top: unset;
+  align-items: center;
+}
+
+:is([pgs~=header], [pgs*="header["])[pgs*="'headerBottom'"] :where([pgs~=header-element]) {
+  gap: var(--gap-texts);
+  width: max-content;
+  background-color: var(--color-box-transparent);
+  border-radius: calc(var(--border-radius) + var(--padding-texts));
+  padding: var(--padding-texts);
+}
+
 :is([pgs~=header], [pgs*="header["])[pgs-state~=compact] {
   --header-gap: var(--gap-texts);
 }
@@ -2931,6 +2957,55 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --header-compactBottom-active: 1;
 }
 
+:is([pgs~=navSmart], [pgs*="navSmart["]) {
+  --navSmart-gap: .8rem;
+  --navSmart-padding: .4rem;
+  --navSmart-bottom: var(--page-padding);
+  --navSmart-background: color-mix(in srgb, var(--color-box) 65%, transparent);
+  --navSmart-border: 1px solid color-mix(in srgb, var(--color-black) 8%, transparent);
+  --navSmart-shadow: 0 .8rem 3rem color-mix(in srgb, var(--color-blackFixed) 14%, transparent);
+  --navSmart-itemMinWidth: min(7.2rem, 16vw);
+  --navSmart-iconSize: 2.2rem;
+  --navSmart-itemHeight: 4.9rem;
+  position: fixed;
+  inset-inline: 0;
+  bottom: calc(var(--navSmart-bottom) + env(safe-area-inset-bottom, 0px));
+  z-index: var(--zIndex-navSmart);
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: var(--navSmart-gap);
+  padding-inline: var(--page-padding);
+  pointer-events: none;
+}
+
+:is([pgs~=navSmart], [pgs*="navSmart["]) :where([pgs~=navSmart-element]) {
+  display: flex;
+  align-items: stretch;
+  padding: var(--navSmart-padding);
+  border-radius: 999px;
+  border: var(--navSmart-border);
+  background: var(--navSmart-background);
+  box-shadow: var(--navSmart-shadow);
+  -webkit-backdrop-filter: var(--blur) saturate(1.8);
+  backdrop-filter: var(--blur) saturate(1.8);
+  pointer-events: auto;
+}
+
+:is([pgs~=navSmart], [pgs*="navSmart["]) :where([pgs~=navSmart-element]) ul:not(dialog *) {
+  display: flex;
+  align-items: stretch;
+  gap: 0.2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+:is([pgs~=navSmart], [pgs*="navSmart["]) :where([pgs~=navSmart-element]) li,
+:is([pgs~=navSmart], [pgs*="navSmart["]) :where([pgs~=navSmart-element]) :where([pgs~=modal], [pgs*="modal["]) {
+  display: flex;
+}
+
 [pgs~=footer] {
   --footer-color: var(--color-black);
   --footer-background: var(--color-box);
@@ -2942,6 +3017,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   container-type: inline-size;
   position: relative;
   isolation: isolate;
+  padding-bottom: var(--heightOfNavSmartScroll);
 }
 
 [pgs~=footer] :where([pgs~=footer-top]) {
@@ -4282,21 +4358,21 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --button-size: var(--SIZE-texts);
   --button-primaryColor: var(--color-primary-strong);
   --button-color: var(--color-black);
-  --button-color-strong: var(--color-white);
-  --button-color-current: var(--color-white);
+  --button-color-current: var(--color-primary);
   --button-color-checked: var(--color-white);
   --button-background: var(--color-box);
-  --button-background-strong: var(--button-primaryColor);
-  --button-background-current: var(--button-primaryColor);
+  --button-background-current: var(--color-box);
   --button-background-checked: var(--button-primaryColor);
+  --button-shadow: unset;
+  --button-shadow-current: 0 .2rem .8rem color-mix(in srgb, var(--color-blackFixed) 10%, transparent);
+  --button-shadow-checked: unset;
   --button-border-color: var(--border-color);
-  --button-border-color-strong: var(--button-primaryColor);
   --button-border-color-current: var(--button-primaryColor);
   --button-border-color-checked: var(--button-primaryColor);
   --button-border-width: var(--border-width);
   --button-border-style: var(--border-style);
-  --button-border: var(--button-border-width) var(--button-border-color) var(--button-border-style);
   --button-borderRadius: var(--border-radius);
+  --button-gap: calc(var(--button-size) / 3);
   --button-font-size: var(--font-size-text);
   --button-padding-block: var(--button-size);
   --button-padding-left: calc(var(--button-size) * 2);
@@ -4307,21 +4383,20 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   color: var(--button-color);
   background: var(--button-background);
   border-color: var(--button-border-color);
+  box-shadow: var(--button-shadow);
+  cursor: pointer;
+  -moz-user-select: none;
+  -webkit-user-select: none;
   font-family: var(--font);
   font-size: var(--button-font-size);
   font-weight: var(--font-weight-bold);
   line-height: 1;
   text-decoration: none;
-  cursor: pointer;
-  -moz-user-select: none;
-  -webkit-user-select: none;
   user-select: none;
-  border-width: var(--button-border-width);
-  border-style: var(--button-border-style);
-  border-color: var(--button-border-color);
+  border: var(--button-border-width) var(--button-border-style) var(--button-border-color);
   border-radius: var(--button-borderRadius);
   display: flex;
-  gap: calc(var(--button-size) / 2);
+  gap: var(--button-gap);
   align-items: center;
   justify-content: center;
   padding: var(--button-padding);
@@ -4343,38 +4418,15 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --button-padding-left: var(--button-padding-right);
 }
 
-:is([pgs~=button], [pgs*="button["])[aria-current=page], :is([pgs~=button], [pgs*="button["])[aria-selected=true] {
-  color: var(--button-color-current);
-  background: var(--button-background-current);
-  border-color: var(--button-border-color-current);
-}
-
-:is([pgs~=button], [pgs*="button["]):has(input:is([type=checkbox], [type=radio])) {
-  position: relative;
-  isolation: isolate;
-  cursor: pointer;
-}
-
-:is([pgs~=button], [pgs*="button["]):has(input:is([type=checkbox], [type=radio])) input:is([type=checkbox], [type=radio]) {
-  opacity: 0;
-  z-index: -1;
-  position: absolute;
-  appearance: none;
-}
-
-:is([pgs~=button], [pgs*="button["]):has(input:checked) {
-  --button-background: var(--button-background-checked);
-  --button-color: var(--button-color-checked);
-  --button-border-color: var(--button-border-color-checked);
-}
-
 @media (hover: hover) and (pointer: fine) {
   :is([pgs~=button], [pgs*="button["]):where(:not([pgs*="body["][pgs*="'bodyHoverAuto'"] :is([pgs~=button], [pgs*="button["]))):hover:not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))):where(:not(:disabled, [disabled])) {
     color: var(--button-color-hover);
     background: var(--button-background-hover);
     border-color: var(--button-border-color-hover);
+    box-shadow: var(--button-shadow-hover);
     --button-background-hover: var(--color-primary-soft);
     --button-border-color-hover: var(--color-primary-soft);
+    --button-shadow-hover: var(--button-shadow);
     --button-color-hover: var(--color-black);
   }
 }
@@ -4401,10 +4453,10 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   display: inline-flex;
 }
 
-:is([pgs~=button], [pgs*="button["])[pgs*="'btnBig'"] {
+:is([pgs~=button], [pgs*="button["])[pgs*="'btnVertical'"] {
   --button-padding: var(--button-padding-right);
   --button-height: 100%;
-  --icon-size: 2em;
+  --icon-size: 1.2em;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -4416,12 +4468,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --button-background: transparent;
 }
 
-:is([pgs~=button], [pgs*="button["])[pgs*="'btnStrong'"] {
-  color: var(--button-color-strong);
-  background: var(--button-background-strong);
-  border-color: var(--button-border-color-strong);
-}
-
 :is([pgs~=button], [pgs*="button["])[pgs*="'btnText'"] {
   --button-border-width: 0;
   --button-borderRadius: 0px;
@@ -4430,11 +4476,16 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --button-background-current: transparent;
   --button-background-checked: transparent;
   --button-background-hover: transparent;
-  --hover-background: transparent;
   --button-color-strong: var(--button-primaryColor);
   --button-color-current: var(--button-primaryColor);
   --button-color-checked: var(--button-primaryColor);
   --button-color-hover: var(--button-primaryColor);
+  --button-shadow: unset;
+  --button-shadow-strong: unset;
+  --button-shadow-current: unset;
+  --button-shadow-checked: unset;
+  --button-shadow-hover: unset;
+  --hover-background: transparent;
   --hover-color: var(--button-primaryColor);
 }
 
@@ -4442,11 +4493,80 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --button-padding: var(--button-padding-block);
 }
 
+:is([pgs~=button], [pgs*="button["])[pgs*="'btnCurrent'"][aria-current=page], :is([pgs~=button], [pgs*="button["])[pgs*="'btnCurrent'"][aria-selected=true] {
+  color: var(--button-color-current);
+  background: var(--button-background-current);
+  border-color: var(--button-border-color-current);
+  box-shadow: var(--button-shadow-current);
+}
+
+:is([pgs~=button], [pgs*="button["])[pgs*="'btnTwoState'"] {
+  position: relative;
+  isolation: isolate;
+  cursor: pointer;
+}
+
+:is([pgs~=button], [pgs*="button["])[pgs*="'btnTwoState'"] input:is([type=checkbox], [type=radio]) {
+  opacity: 0;
+  z-index: -1;
+  position: absolute;
+  appearance: none;
+}
+
+:is([pgs~=button], [pgs*="button["])[pgs*="'btnTwoState'"]:has(input:checked) {
+  --button-background: var(--button-background-checked);
+  --button-color: var(--button-color-checked);
+  --button-border-color: var(--button-border-color-checked);
+  --button-shadow: var(--button-shadow-checked);
+}
+
 :is([pgs~=button], [pgs*="button["])[pgs*="'btnForHeader'"] {
   --buttonHeader-border-width: 0px;
   --button-border-width: var(--buttonHeader-border-width);
   min-height: var(--header-size);
   overflow-wrap: break-word;
+}
+
+:is([pgs~=button], [pgs*="button["])[pgs*="'btnForNavSmart'"] {
+  --button-padding: var(--button-padding-right);
+  --button-height: 100%;
+  --icon-size: 1.2em;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  --button-border-width: 0;
+  --button-background: transparent;
+}
+
+:is([pgs~=button], [pgs*="button["])[pgs*="'btnForNavSmart'"][aria-current=page], :is([pgs~=button], [pgs*="button["])[pgs*="'btnForNavSmart'"][aria-selected=true] {
+  color: var(--button-color-current);
+  background: var(--button-background-current);
+  border-color: var(--button-border-color-current);
+  box-shadow: var(--button-shadow-current);
+}
+
+:is([pgs~=button], [pgs*="button["])[pgs*="'btnForNavSmart'"] {
+  --button-size: .35rem;
+  --button-height: auto;
+  --button-font-size: 1.1rem;
+  --button-borderRadius: 999px;
+  --button-gap: .2rem;
+  --icon-size: var(--navSmart-iconSize, 2.2rem);
+  min-width: var(--navSmart-itemMinWidth, auto);
+  min-height: var(--navSmart-itemHeight, auto);
+  white-space: nowrap;
+}
+
+:is([pgs~=button], [pgs*="button["])[pgs*="'btnForNavSmart'"][pgs*="'btnIconOnly'"] {
+  flex: 0 0 auto;
+  min-width: 0;
+  width: var(--navSmart-itemHeight, auto);
+}
+
+:is([pgs~=button], [pgs*="button["])[pgs*="'btnStrong'"] {
+  --button-background: var(--button-primaryColor);
+  --button-color: var(--color-white);
 }
 
 :is([pgs~=button], [pgs*="button["])[pgs*="'btnPrimary'"] {
@@ -5670,7 +5790,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 :is([pgs~=dropdown], [pgs*="dropdown["]) > :where([pgs~=dropdown-content]) {
   position: fixed;
   inset: var(--_dropdown-top) auto auto var(--_dropdown-left);
-  z-index: 1000;
+  z-index: var(--zIndex-dropdown);
   inline-size: var(--dropdown-inline-size);
   width: var(--dropdown-max-inline-size);
   overflow: auto;
@@ -5777,7 +5897,7 @@ html:has(dialog[open]) {
   height: 100dvh;
   min-height: 100dvh;
   padding-inline: var(--page-padding);
-  padding-bottom: var(--modal-offset);
+  padding-bottom: calc(var(--heightOfNavSmartScroll) + var(--modal-offset));
   padding-top: calc(var(--heightOfHeaderScroll) + var(--modal-offset));
   transition: opacity 600ms ease;
   margin: 0;
@@ -5786,7 +5906,7 @@ html:has(dialog[open]) {
   overscroll-behavior: contain;
   overflow-y: auto;
   overflow-x: hidden;
-  z-index: 90;
+  z-index: var(--zIndex-modal);
   position: fixed;
   inset: 0;
   cursor: pointer;
@@ -6858,9 +6978,11 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   justify-content: flex-start;
   position: fixed;
   inset: 0;
-  z-index: 98;
+  z-index: var(--zIndex-toast);
   isolation: isolate;
-  padding: calc(var(--heightOfHeaderScroll) + 1rem) var(--page-padding) var(--page-padding);
+  padding: var(--page-padding);
+  padding-top: calc(var(--heightOfHeaderScroll) + var(--page-padding));
+  padding-bottom: calc(var(--heightOfNavSmartScroll) + 1rem);
   pointer-events: none;
 }
 
@@ -6957,7 +7079,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   display: none;
   position: absolute;
   inset: calc(100% + var(--search-suggestions-offset)) 0 auto;
-  z-index: 1000;
+  z-index: var(--zIndex-search);
   flex-direction: column;
   max-height: var(--search-suggestions-maxHeight);
   overflow-y: auto;
@@ -8229,7 +8351,7 @@ dialog :is([pgs~=search], [pgs*="search["]) :where([pgs~=_modal-close]) {
   position: fixed;
   top: var(--gap-texts);
   left: var(--gap-texts);
-  z-index: 9999;
+  z-index: var(--zIndex-skipLink);
   padding: var(--padding-texts);
   border-radius: var(--border-radius-input);
   background-color: var(--color-background);

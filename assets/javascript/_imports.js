@@ -18,6 +18,7 @@ import { PGS_steps } from "./components/_steps.js";
 import { PGS_summary } from "./components/_summary.js";
 import { PGS_tabs } from "./components/_tabs.js";
 import { PGS_header } from "./layout/_header.js";
+import { PGS_navSmart } from "./layout/_navSmart.js";
 import { PGS_formValidate } from "./helper/_formValidate.js";
 import { PGS_init } from "./helper/_init.js";
 import { PGS_scrollHorizontal, PGS_scrollHorizontalWithMouse } from "./helper/_scrollHorizontal.js";
@@ -35,6 +36,7 @@ pgs.registerModules({
     modal: PGS_modal,
     pageNav: PGS_pageNav,
     header: PGS_header,
+    navSmart: PGS_navSmart,
     cookieConsent: PGS_cookieConsent,
     notification: PGS_notification,
     toast: PGS_toast,

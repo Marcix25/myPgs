@@ -332,8 +332,9 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "btnBig",
+            "btnCurrent",
             "btnForHeader",
+            "btnForNavSmart",
             "btnIconOnly",
             "btnMini",
             "btnPaddingEqual",
@@ -344,7 +345,9 @@
             "btnStrong",
             "btnTertiary",
             "btnText",
-            "btnTransparent"
+            "btnTransparent",
+            "btnTwoState",
+            "btnVertical"
         ],
         "pgs-data": []
     },
@@ -1082,6 +1085,14 @@
     },
     "motionReduce": {
         "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "navSmart": {
+        "pgs": [
+            "navSmart-element"
+        ],
         "pgs-generated": [],
         "pgs-options": [],
         "pgs-data": []

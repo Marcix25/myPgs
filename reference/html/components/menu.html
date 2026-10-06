@@ -25,6 +25,7 @@
  * - instance.refresh(): refreshes the component and returns its updated instance.
  *
  * @related
+ * - btnCurrent: gives the link the current look while it carries aria-current="page"; belongs to the button component.
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - button: styles a menu link, now that the menu no longer does it itself.
  * - btnTransparent: the appearance a navigation link takes, whatever the menu's direction; see Button for the whole set of variants.
@@ -50,7 +51,7 @@
     <nav pgs="menu['menuHorizontal']" aria-label="Menu orizzontale">
         <ul pgs="flex['row' 'wrap']">
             <li>
-                <a pgs="button['btnTransparent']" href="/" aria-current="page">
+                <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
                     <i pgs="icon['icon-circle']" aria-hidden="true"></i>
                     <span>Home</span>
                 </a>
@@ -90,7 +91,7 @@
     <nav pgs="menu['menuVertical']" aria-label="Menu verticale">
         <ul>
             <li>
-                <a pgs="button['btnTransparent']" href="/" aria-current="page">
+                <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
                     <i pgs="icon['icon-circle']" aria-hidden="true"></i>
                     <span>Home</span>
                 </a>
@@ -131,7 +132,7 @@
     <nav pgs="menu['menuHorizontal' 'menuIconOnlyCurrent']" aria-label="Menu orizzontale">
         <ul pgs="flex['row' 'wrap']">
             <li>
-                <a pgs="button['btnTransparent']" href="/" aria-current="page">
+                <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
                     <i pgs="icon['icon-circle']" aria-hidden="true"></i>
                     <span>Home</span>
                 </a>
@@ -157,7 +158,7 @@
     <nav pgs="menu['menuHorizontal' 'menuShort']" aria-label="Menu orizzontale">
         <ul pgs="flex['row' 'wrap']">
             <li>
-                <a pgs="button['btnTransparent']" href="/" aria-current="page">
+                <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
                     <i pgs="icon['icon-circle']" aria-hidden="true"></i>
                     <span>Home</span>
                 </a>

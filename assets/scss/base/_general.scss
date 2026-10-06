@@ -46,7 +46,7 @@
     position: fixed;
     top: var(--gap-texts);
     left: var(--gap-texts);
-    z-index: 9999;
+    z-index: var(--zIndex-skipLink);
     padding: var(--padding-texts);
     border-radius: var(--border-radius-input);
     background-color: var(--color-background);

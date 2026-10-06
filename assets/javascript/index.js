@@ -10,6 +10,7 @@ import "./base/_object.js";
 
 //= HEADER
 import "./layout/_header.js";
+import "./layout/_navSmart.js";
 
 //= COMPONENTS
 import "./components/_accordion.js";

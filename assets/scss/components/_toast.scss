@@ -12,20 +12,22 @@
     justify-content: flex-start;
     position: fixed;
     inset: 0;
-    z-index: 98;
+    z-index: var(--zIndex-toast);
     isolation: isolate;
-    padding: calc(var(--heightOfHeaderScroll) + $size) var(--page-padding) var(--page-padding);
+    padding: var(--page-padding);
+    padding-top: calc(var(--heightOfHeaderScroll) + var(--page-padding)) ;
+    padding-bottom: calc(var(--heightOfNavSmartScroll) + $size);
     pointer-events: none;
 
     &:not(:has([pgs*="_alert\5B"])) { display: none; }
+
     // &:has([pgs*="_alert['success']"]) {
-    //     //
     //     background: linear-gradient(var(--color-success) calc(var(--heightOfHeaderScroll)* -1), transparent calc(var(--heightOfHeaderScroll)*2));
     // }
     // &:has([pgs*="_alert['error']"]) {
-    //     //
     //     background: linear-gradient(var(--color-error) calc(var(--heightOfHeaderScroll)* -1), transparent calc(var(--heightOfHeaderScroll)*2));
     // }
+
     [pgs*="_alert\5B"] {
         max-width: $mobile;
         pointer-events: initial;

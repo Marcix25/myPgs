@@ -150,20 +150,19 @@ live under `site/assets/css/`, `site/assets/js/`, `site/assets/img/` and `site/a
 two shells under `site/parts/`; `npm run sitebuild`
 (`scripts/build-site-static.js`) combines
 them with the rendered reference files into generated output across two places:
-`site/page/*.html` (one page's own content each, no shell around it — `demo.html` generated from
-demo.structure.html merged with demo.content.html, alongside whatever else is hand-kept there, such
-as `home.html` and `test.html`) and `site/build/*.html` — one output per file in `page/`, `demo.html`
-included, named the same, with `site.structure.html` and `assets/js/demo.js` wrapped around it.
-`site/build/` also holds `demo.content.html`, the pre-baked nav+panels markup produced by
-`scripts/demo-render.js`, a fragment nobody opens directly, next to the real pages it feeds into
-`page/demo.html`. Every page renders nothing at runtime, so it opens instantly whatever the
+`site/page/*.html` — one page's own content each, no shell around it, all of it hand-kept (`home.html`,
+`test.html`; nothing generated is written there) — and `site/build/*.html`: one output per file in
+`page/`, named the same, plus `demo.html`, with `site.structure.html` and `assets/js/demo.js`
+wrapped around it. The demo page's own content (demo.structure.html merged with the nav+panels that
+`scripts/demo-render.js` renders from `reference/html`) is built in memory and goes straight into
+`build/demo.html`, with no file of its own. Every page renders nothing at runtime, so it opens instantly whatever the
 reference count, and `demo.js` only wires navigation, copy buttons and the interactive examples —
 most of that specific to whichever page carries the reference panels, harmless on any other.
 `site/index.html` redirects to `build/home.html`, so nothing else needs to know the current home
 page's filename. Adding a brand-new page needs no script change: drop its own content in
 `site/page/<name>.html` and the next `npm run sitebuild` produces `site/build/<name>.html` from it,
-sharing the same shell as every other page. All of it is generated except that hand-kept content:
-never edit `demo.content.html`, `page/demo.html` or any `site/build/*.html` by hand — edit
+sharing the same shell as every other page (`demo.html` is the one name taken, since that page is built by the script). Everything in `site/build/` is generated; `site/page/` is all hand-kept:
+never edit any `site/build/*.html` by hand — edit
 `reference/html/`, the two `site/parts/*.structure.html` files, or a page's own file under
 `site/page/`, and rerun the script.
 

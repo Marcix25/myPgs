@@ -79,7 +79,7 @@ rename it where it changed.
 | border (and its variants) | `borderThick` / `borderThicker` / `borderThin` | `brdThick` / `brdThicker` / `brdThin`, one `border[...]` bracket for every side (`brdTop`, `brdLeftThick`, ...) |
 | outline | `outlineThick` / `outlineThicker` / `outlineThin` | `otlThick` / `otlThicker` / `otlThin` |
 | box | `boxMini` | `boxMini` (unchanged: button and card also have a mini) |
-| button | `buttonBig` / `buttonMini` / `buttonPaddingEqual` / `buttonPrimary` / `buttonQuaternary` / `buttonReverse` / `buttonSecondary` / `buttonStrong` / `buttonTertiary` / `buttonText` / `buttonTransparent` | `btnBig` / `btnMini` / `btnPaddingEqual` / `btnPrimary` / `btnQuaternary` / `btnReverse` / `btnSecondary` / `btnStrong` / `btnTertiary` / `btnText` / `btnTransparent` (every button flag carries `btn`) |
+| button | `buttonVertical` / `buttonMini` / `buttonPaddingEqual` / `buttonPrimary` / `buttonQuaternary` / `buttonReverse` / `buttonSecondary` / `buttonStrong` / `buttonTertiary` / `buttonText` / `buttonTransparent` | `btnVertical` / `btnMini` / `btnPaddingEqual` / `btnPrimary` / `btnQuaternary` / `btnReverse` / `btnSecondary` / `btnStrong` / `btnTertiary` / `btnText` / `btnTransparent` (every button flag carries `btn`) |
 | button | `buttonHeader` | `btnForHeader` |
 | button | `buttonIcon` | `btnIconOnly` |
 | card | `cardHorizontal` / `cardHorizontalFixed` / `cardLegacy` / `cardMini` | `cardHorizontal` / `cardHorizontalFixed` / `legacy` (since removed, see section 2) / `cardMini` |

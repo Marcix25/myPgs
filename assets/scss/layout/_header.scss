@@ -9,7 +9,7 @@
     --header-color: var(--color-black);
     --header-compactBottom-active: 0;
     --header-compact-breakpoint: 100px;
-    z-index: 100;
+    z-index: var(--zIndex-header);
     position: fixed;
     isolation: isolate;
     display: flex;
@@ -49,7 +49,6 @@
             display: none;
             gap: var(--header-gap);
         }
-
     }
 
     //= DIALOG
@@ -95,6 +94,20 @@
 
     //option for suggestions: headerCompactFrom[600] carries its own pixel value, read from pgs-data
     &[pgs-data~="headerCompactFrom[]"] {}
+
+    &[pgs*="'headerBottom'"] {
+        bottom: var(--margin-texts);
+        top: unset;
+        align-items: center;
+
+        :where([pgs~="header-element"]) {
+            gap: var(--gap-texts);
+            width: max-content;
+            background-color: var(--color-box-transparent);
+            border-radius: calc(var(--border-radius) + var(--padding-texts));
+            padding: var(--padding-texts);
+        }
+    }
 
     //- compact
     &[pgs-state~="compact"] {

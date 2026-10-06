@@ -28,6 +28,7 @@ Additional form controls for selectable cards, switches, and compact chip groups
 - `gapElements`: applies element spacing between the form add-on examples.
 - `icon-star`: the neutral stand-in glyph, used where the example needs an icon but not a particular one.
 - `btnMini`: sizes that button down to the chip's compact size.
+- `btnTwoState`: hides the checkbox or radio the label wraps and draws its checked state; belongs to the button component.
 
 ## Output
 
@@ -88,12 +89,12 @@ Individual checkbox options presented as compact selectable chip buttons.
 
 ```html
 <div pgs="flex['row']" role="group" aria-label="Chip actions">
-    <label pgs="button['btnMini'] chip">
+    <label pgs="button['btnMini' 'btnTwoState'] chip">
         <input type="checkbox" name="like" value="basic">
         <i pgs="icon['icon-star']"></i>
         Like
     </label>
-    <label pgs="button['btnMini'] chip">
+    <label pgs="button['btnMini' 'btnTwoState'] chip">
         <input type="checkbox" name="share" value="basic">
         <i pgs="icon['icon-star']"></i>
         Share
@@ -108,17 +109,17 @@ Multiple checkbox chips grouped into a compact segmented selector.
 ```html
 <fieldset pgs="chips">
     <legend pgs="legend">Chip checkbox</legend>
-    <label pgs="button['btnMini']">
+    <label pgs="button['btnMini' 'btnTwoState']">
         <input type="checkbox" name="plan" value="red" checked>
         Red
     </label>
 
-    <label pgs="button['btnMini']">
+    <label pgs="button['btnMini' 'btnTwoState']">
         <input type="checkbox" name="plan" value="blue">
         Blue
     </label>
 
-    <label pgs="button['btnMini']">
+    <label pgs="button['btnMini' 'btnTwoState']">
         <input type="checkbox" name="plan" value="green">
         Green
     </label>
@@ -132,19 +133,19 @@ Multiple radio chips grouped into a compact segmented selector, each paired with
 ```html
 <fieldset pgs="chips">
     <legend pgs="legend">Chips radio</legend>
-    <label pgs="button['btnMini']">
+    <label pgs="button['btnMini' 'btnTwoState']">
         <input type="radio" name="characters" value="Crow" checked>
         <i pgs="icon['icon-star']"></i>
         Crow
     </label>
 
-    <label pgs="button['btnMini']">
+    <label pgs="button['btnMini' 'btnTwoState']">
         <input type="radio" name="characters" value="Dove">
         <i pgs="icon['icon-star']"></i>
         Dove
     </label>
 
-    <label pgs="button['btnMini']">
+    <label pgs="button['btnMini' 'btnTwoState']">
         <input type="radio" name="characters" value="dragon">
         <i pgs="icon['icon-star']"></i>
         dragon

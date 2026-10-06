@@ -63,6 +63,8 @@
         --focus-visible: 3px solid var(--color-focus);
         --heightOfHeader: 6.8rem; ///preload fittizio
         --heightOfHeaderScroll: 6.8rem; ///preload fittizio
+        --heightOfNavSmart: 8.9rem; ///preload fittizio
+        --heightOfNavSmartScroll: 8.9rem; ///preload fittizio
 
         //- mobile 
         @media (max-width: $mobile) { --gap-sections: calc(7.3rem + 8svh); }

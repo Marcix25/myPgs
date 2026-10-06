@@ -11,6 +11,7 @@
     container-type: inline-size;
     position: relative;
     isolation: isolate;
+    padding-bottom: var(--heightOfNavSmartScroll);
 
     //= TOP
     :where([pgs~="footer-top"]) {

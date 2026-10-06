@@ -28,10 +28,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
 /* harmony import */ var _components_tabs_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/_tabs.js */ "./assets/javascript/components/_tabs.js");
 /* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./layout/_header.js */ "./assets/javascript/layout/_header.js");
-/* harmony import */ var _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./helper/_formValidate.js */ "./assets/javascript/helper/_formValidate.js");
-/* harmony import */ var _helper_init_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./helper/_init.js */ "./assets/javascript/helper/_init.js");
-/* harmony import */ var _helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./helper/_scrollHorizontal.js */ "./assets/javascript/helper/_scrollHorizontal.js");
-/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
+/* harmony import */ var _layout_navSmart_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./layout/_navSmart.js */ "./assets/javascript/layout/_navSmart.js");
+/* harmony import */ var _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./helper/_formValidate.js */ "./assets/javascript/helper/_formValidate.js");
+/* harmony import */ var _helper_init_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./helper/_init.js */ "./assets/javascript/helper/_init.js");
+/* harmony import */ var _helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./helper/_scrollHorizontal.js */ "./assets/javascript/helper/_scrollHorizontal.js");
+/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
+
 
 
 
@@ -58,7 +60,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
-    init: _helper_init_js__WEBPACK_IMPORTED_MODULE_20__.PGS_init,
+    init: _helper_init_js__WEBPACK_IMPORTED_MODULE_21__.PGS_init,
     darkmode: _base_darkmode_js__WEBPACK_IMPORTED_MODULE_1__.PGS_darkmode,
     svg: _base_svg_js__WEBPACK_IMPORTED_MODULE_3__.PGS_svg,
     hover: _base_hover_js__WEBPACK_IMPORTED_MODULE_2__.PGS_hover,
@@ -69,7 +71,8 @@ _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
     modal: _components_modal_js__WEBPACK_IMPORTED_MODULE_8__.PGS_modal,
     pageNav: _components_pageNav_js__WEBPACK_IMPORTED_MODULE_9__.PGS_pageNav,
     header: _layout_header_js__WEBPACK_IMPORTED_MODULE_18__.PGS_header,
-    cookieConsent: _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_22__.PGS_cookieConsent,
+    navSmart: _layout_navSmart_js__WEBPACK_IMPORTED_MODULE_19__.PGS_navSmart,
+    cookieConsent: _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_23__.PGS_cookieConsent,
     notification: _components_notification_js__WEBPACK_IMPORTED_MODULE_10__.PGS_notification,
     toast: _components_toast_js__WEBPACK_IMPORTED_MODULE_11__.PGS_toast,
     search: _components_search_js__WEBPACK_IMPORTED_MODULE_12__.PGS_search,
@@ -78,9 +81,9 @@ _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
     steps: _components_steps_js__WEBPACK_IMPORTED_MODULE_15__.PGS_steps,
     summary: _components_summary_js__WEBPACK_IMPORTED_MODULE_16__.PGS_summary,
     tabs: _components_tabs_js__WEBPACK_IMPORTED_MODULE_17__.PGS_tabs,
-    formValidate: _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_19__.PGS_formValidate,
-    scrollHorizontal: _helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_21__.PGS_scrollHorizontal,
-    scrollHorizontalWithMouse: _helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_21__.PGS_scrollHorizontalWithMouse,
+    formValidate: _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_20__.PGS_formValidate,
+    scrollHorizontal: _helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_22__.PGS_scrollHorizontal,
+    scrollHorizontalWithMouse: _helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_22__.PGS_scrollHorizontalWithMouse,
 });
 
 
@@ -5118,6 +5121,111 @@ const PGS_header = {
 
 /***/ },
 
+/***/ "./assets/javascript/layout/_navSmart.js"
+/*!***********************************************!*\
+  !*** ./assets/javascript/layout/_navSmart.js ***!
+  \***********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_navSmart: () => (/* binding */ PGS_navSmart)
+/* harmony export */ });
+//# NAV SMART
+//+ publishes the room the bar takes at the bottom of the screen, the way the header publishes its own:
+//+ --heightOfNavSmart is the whole distance from the bottom edge of the screen to the top of the bar
+//+ (the pills plus the gap the bar keeps from the edge, and the safe area on a phone), and
+//+ --heightOfNavSmartScroll is the same distance while the bar is on screen and 0 while it is tucked
+//+ away, which is marked by data-navsmart-scroll="true" on the bar. Both are 0 while a media query
+//+ hides the bar. Padding the end of a page by either one keeps its last lines from sitting under it.
+
+const INITIALIZED_NAVSMART = new WeakSet();
+
+//+ a bar is only ready once it holds a navSmart-element, which is where the pills are
+function getReadyNavSmart() {
+    return Array.from(pgs(document).querySelectorAll("navSmart")).filter(bar => pgs(bar).querySelector("navSmart-element"));
+}
+
+//== only one bar can own the variables. The bar that is pinned to the screen does: a navSmart written
+//== as an example inside a page flows with it, takes no room at the bottom, and so never owns them.
+//== One that is on screen wins over one a media query has hidden; with none on screen the first
+//== pinned one still owns them, and publishes 0. Ownership is checked at every measure, so a bar
+//== added later takes over from a missing one
+function getPrimaryNavSmart() {
+    const pinned = getReadyNavSmart().filter(bar => window.getComputedStyle(bar).position === "fixed");
+    return pinned.find(bar => bar.getClientRects().length) || pinned[0] || null;
+}
+
+function initNavSmart(bar) {
+    if (INITIALIZED_NAVSMART.has(bar)) return;
+    INITIALIZED_NAVSMART.add(bar);
+
+    let rafId = 0;
+
+    function measure() {
+        if (getPrimaryNavSmart() !== bar) return;
+
+        //== from the top of the bar to the bottom of the screen: whatever the bar sits on counts, whether
+        //== it is its own offset from the edge or the safe area of a phone
+        //== a bar a media query has hidden (display: none) has no box and takes no room
+        const height = bar.getClientRects().length
+            ? Math.max(0, Math.round(window.innerHeight - bar.getBoundingClientRect().top))
+            : 0;
+        const scrollHeight = bar.getAttribute("data-navsmart-scroll") === "true" ? 0 : height;
+
+        document.documentElement.style.setProperty("--heightOfNavSmart", `${height}px`);
+        document.documentElement.style.setProperty("--heightOfNavSmartScroll", `${scrollHeight}px`);
+    }
+
+    function schedule() {
+        if (rafId) return;
+        rafId = requestAnimationFrame(() => {
+            rafId = 0;
+            measure();
+        });
+    }
+
+    const observer = new ResizeObserver(schedule);
+    observer.observe(bar);
+    pgs(bar).querySelectorAll("navSmart-element").forEach(element => observer.observe(element));
+
+    new MutationObserver(schedule).observe(bar, { attributes: true, attributeFilter: ["data-navsmart-scroll", "class", "style"] });
+
+    document.fonts?.ready?.then(schedule);
+    window.addEventListener("resize", schedule);
+    schedule();
+}
+
+function PGS_navSmart_init(root = document) {
+    const candidates = [
+        ...(root instanceof Element && pgs(root).contains("navSmart") ? [root] : []),
+        ...pgs(root).querySelectorAll("navSmart")
+    ];
+
+    candidates.filter(bar => pgs(bar).querySelector("navSmart-element")).forEach(initNavSmart);
+}
+
+PGS_navSmart_init();
+
+//== a bar can arrive later, and there may be several, so the watch stays on: a pass is cheap and
+//== every bar is initialized only once
+let navSmartScanRafId = 0;
+new MutationObserver(() => {
+    if (navSmartScanRafId) return;
+    navSmartScanRafId = requestAnimationFrame(() => {
+        navSmartScanRafId = 0;
+        PGS_navSmart_init();
+    });
+}).observe(document.documentElement, { childList: true, subtree: true });
+
+//# EXPORT
+const PGS_navSmart = {
+    init: PGS_navSmart_init
+};
+
+
+/***/ },
+
 /***/ "./assets/javascript/patterns/_cookieConsent.js"
 /*!******************************************************!*\
   !*** ./assets/javascript/patterns/_cookieConsent.js ***!
@@ -5493,21 +5601,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _base_hover_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./base/_hover.js */ "./assets/javascript/base/_hover.js");
 /* harmony import */ var _base_object_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./base/_object.js */ "./assets/javascript/base/_object.js");
 /* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./layout/_header.js */ "./assets/javascript/layout/_header.js");
-/* harmony import */ var _components_accordion_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/_accordion.js */ "./assets/javascript/components/_accordion.js");
-/* harmony import */ var _components_alerts_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_alerts.js */ "./assets/javascript/components/_alerts.js");
-/* harmony import */ var _components_dropdown_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_dropdown.js */ "./assets/javascript/components/_dropdown.js");
-/* harmony import */ var _components_menu_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_menu.js */ "./assets/javascript/components/_menu.js");
-/* harmony import */ var _components_modal_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_modal.js */ "./assets/javascript/components/_modal.js");
-/* harmony import */ var _components_search_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/_search.js */ "./assets/javascript/components/_search.js");
-/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
-/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
-/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
-/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
-/* harmony import */ var _components_tabs_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/_tabs.js */ "./assets/javascript/components/_tabs.js");
-/* harmony import */ var _components_toast_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/_toast.js */ "./assets/javascript/components/_toast.js");
-/* harmony import */ var _components_notification_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/_notification.js */ "./assets/javascript/components/_notification.js");
-/* harmony import */ var _imports_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./_imports.js */ "./assets/javascript/_imports.js");
-/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
+/* harmony import */ var _layout_navSmart_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./layout/_navSmart.js */ "./assets/javascript/layout/_navSmart.js");
+/* harmony import */ var _components_accordion_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_accordion.js */ "./assets/javascript/components/_accordion.js");
+/* harmony import */ var _components_alerts_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_alerts.js */ "./assets/javascript/components/_alerts.js");
+/* harmony import */ var _components_dropdown_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_dropdown.js */ "./assets/javascript/components/_dropdown.js");
+/* harmony import */ var _components_menu_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_menu.js */ "./assets/javascript/components/_menu.js");
+/* harmony import */ var _components_modal_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/_modal.js */ "./assets/javascript/components/_modal.js");
+/* harmony import */ var _components_search_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/_search.js */ "./assets/javascript/components/_search.js");
+/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
+/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
+/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
+/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
+/* harmony import */ var _components_tabs_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/_tabs.js */ "./assets/javascript/components/_tabs.js");
+/* harmony import */ var _components_toast_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/_toast.js */ "./assets/javascript/components/_toast.js");
+/* harmony import */ var _components_notification_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/_notification.js */ "./assets/javascript/components/_notification.js");
+/* harmony import */ var _imports_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./_imports.js */ "./assets/javascript/_imports.js");
+/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
 //= PGS
 
 
@@ -5519,6 +5628,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 //= HEADER
+
 
 
 //= COMPONENTS

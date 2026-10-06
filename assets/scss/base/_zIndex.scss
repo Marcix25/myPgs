@@ -1,0 +1,19 @@
+@use "../mixin/mixin" as *;
+
+//# Z-INDEX
+//== the layers of the page, from the one that has to cover everything down to the one that stays
+//== under the others. Only what sits above the content has a name here: the small values a
+//== component keeps for its own parts (1, 2, -1...) stay in the component, since they only
+//== order things inside it. Two layers can share a number when they are never on screen together
+//== or never overlap (the dropdown and the search suggestions)
+:where([pgs~="htmlBase"]) {
+    &:root {
+        --zIndex-skipLink: 9999;
+        --zIndex-dropdown: 1000;
+        --zIndex-search: 1000;
+        --zIndex-header: 100;
+        --zIndex-navSmart: 100;
+        --zIndex-toast: 98;
+        --zIndex-modal: 90;
+    }
+}

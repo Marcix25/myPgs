@@ -6,10 +6,9 @@
 //+ - reference/html/**/*.html — the panels and the nav come from here;
 //+ - site/parts/demo.structure.html, site/parts/site.structure.html and
 //+   scripts/demo-render.js — the two shells and the renderer the build calls;
-//+ - site/page/*.html, except demo.html — every other page's own hand-authored content
-//+   (home.html, test.html, and any future page dropped in there the same way). demo.html is
-//+   excluded on purpose: the build writes it itself from demo.structure.html, so watching it too
-//+   would have every build retrigger the next one;
+//+ - site/page/*.html — every page's own hand-authored content (home.html, test.html, and any future
+//+   page dropped in there the same way). The build writes nothing there, so watching it can never
+//+   have a build retrigger the next one;
 //+ - dist/css/index.css — read to list each component's CSS variables, so a webpack rebuild has to
 //+   reach the demo too.
 //+ demo.js and demo.css are only linked by the generated page, never read into it: editing one
@@ -51,10 +50,9 @@ const TARGETS = [
         accept: name => name === "demo.structure.html" || name === "site.structure.html"
     },
     {
-        //== demo.html excluded: the build writes it itself (see the header comment above)
         root: path.join(PROJECT_ROOT, "site", "page"),
         recursive: false,
-        accept: name => name.endsWith(".html") && name !== "demo.html"
+        accept: name => name.endsWith(".html")
     },
     {
         root: path.join(PROJECT_ROOT, "dist", "css"),
