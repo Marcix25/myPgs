@@ -23,9 +23,17 @@ function getPrimaryNavSmart() {
     return pinned.find(bar => bar.getClientRects().length) || pinned[0] || null;
 }
 
+//== a site added to the Home Screen of an iPhone reports navigator.standalone, but not the
+//== display-mode media query that every other browser answers
+function isInstalledApp() {
+    return navigator.standalone === true || window.matchMedia("(display-mode: standalone)").matches;
+}
+
 function initNavSmart(bar) {
     if (INITIALIZED_NAVSMART.has(bar)) return;
     INITIALIZED_NAVSMART.add(bar);
+
+    pgs(bar).state.toggle("installedApp", isInstalledApp());
 
     let rafId = 0;
 

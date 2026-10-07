@@ -31,14 +31,13 @@ Responsive page layout that combines main content with zero, one or two sidebars
 
 - `--pageShell-aside-width`
 - `--pageShell-asideScroll-maxHeight`
-- `--pageShell-asideScroll-padding-top`
 - `--pageShell-asideScroll-top`
 - `--pageShell-asideShadow-sizeMaskImage`
 - `--pageShell-content-width`
 - `--pageShell-gap`
+- `--pageShell-offsetTop`
 - `--pageShell-padding-bottom`
 - `--pageShell-padding-inline`
-- `--pageShell-padding-top`
 - `--pageShell-width`
 
 ## Output

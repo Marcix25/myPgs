@@ -4,10 +4,10 @@
 //= HOVER BASE
 @mixin hoverBase() {
     &:not(:where(:is([pgs~="hoverNot"], [pgs*="'hoverNot'"]))) {
-        --hover-primaryColor: var(--color-primary-soft);
+        --hover-primaryColor: var(--color-secondary-soft);
         --hover-background: var(--hover-primaryColor);
         --hover-color: var(--color-black);
-        --hover-border: var(--color-primary-soft);
+        --hover-border: var(--hover-primaryColor);
         --hover-timing: 400ms;
         --hover-behavior: ease-out;
         position: relative;
@@ -19,16 +19,16 @@
     }
 }
 
-//== the shared hover/focus treatment, as mixins any selector can compose — see base/_hover.scss for
-//== the :is([pgs~="hover"], [pgs*="hover\5B"]) rule that applies them to the token, and AGENTS-DEVELOPMENT.md for when an
-//== element needs the treatment without carrying that token
+// the shared hover/focus treatment, as mixins any selector can compose — see base/_hover.scss for
+// the :is([pgs~="hover"], [pgs*="hover\5B"]) rule that applies them to the token, and AGENTS-DEVELOPMENT.md for when an
+// element needs the treatment without carrying that token
 //= STYLE NORMAL
 @mixin hoverStyleNormal($delay: 0ms) {
     &:not(:where(:is([pgs~="hoverNot"], [pgs*="'hoverNot'"]))) {
         &:where(:not(:disabled, [disabled])) {
             //== CONTENT
-            //== the easing goes inside every shorthand entry: transition-behavior is not where it lives
-            //== (that one only takes normal or allow-discrete), and the shorthand would reset it anyway
+            // the easing goes inside every shorthand entry: transition-behavior is not where it lives
+            // (that one only takes normal or allow-discrete), and the shorthand would reset it anyway
             transition:
                 border-color var(--hover-timing) var(--hover-behavior),
                 outline-color var(--hover-timing) var(--hover-behavior),
@@ -121,9 +121,9 @@
 }
 
 //= HOVER COMPLETE
-//== the three composed together, which is what :is([pgs~="hover"], [pgs*="hover\5B"]) itself includes; an element that wants
-//== the treatment without carrying that token composes hoverBase, hoverStyle1 and focus directly
-//== instead, in whatever order it needs to interleave them with its own rules
+// the three composed together, which is what :is([pgs~="hover"], [pgs*="hover\5B"]) itself includes; an element that wants
+// the treatment without carrying that token composes hoverBase, hoverStyle1 and focus directly
+// instead, in whatever order it needs to interleave them with its own rules
 @mixin hover($Style1: true) {
     @include hoverBase();
 

@@ -63,7 +63,7 @@ Brand and navigation columns in the upper section, legal links and cookie prefer
                 </a>
                 <p pgs="footer-brand-motto">Reusable frontend components.</p>
                 <button pgs="button toggleDarkmode['tglLabelled']" type="button" aria-label="Change theme">
-                    <i class="fa-solid fa-moon"></i>
+                    <i pgs="icon['icon-moon']"></i>
                 </button>
             </div>
 

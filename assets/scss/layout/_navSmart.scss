@@ -3,53 +3,47 @@
 //# NAV SMART
 // a floating bar of pills pinned to the bottom of the screen, the way a phone's tab bar looks:
 // every navSmart-element is one frosted pill, and the elements sit side by side, so a group of
-// links and a lone button (a profile, a search) read as separate shapes. The pill is drawn here;
+// links and a lone button (a profile, a search) read as separate shapes. The pill is a box with boxNavSmart;
 // the items inside it are plain buttons of the button component, with btnForNavSmart
+//= NAVSMART
 :is([pgs~="navSmart"], [pgs*="navSmart\5B"]) {
     --navSmart-gap: .8rem;
-    --navSmart-padding: .4rem;
-    --navSmart-bottom: var(--page-padding);
-    --navSmart-background: color-mix(in srgb, var(--color-box) 65%, transparent);
-    --navSmart-border: 1px solid color-mix(in srgb, var(--color-black) 8%, transparent);
-    --navSmart-shadow: 0 .8rem 3rem color-mix(in srgb, var(--color-blackFixed) 14%, transparent);
-    //== a floor for the width of an item, so the bar looks even on a wide screen; it follows the
-    //== viewport below that, so on a small one an item takes only the room its icon and label need
+    //== the distance from the edges of the screen: the page's own padding on a site, and
+    //== --navSmart-edgePWA when it runs installed as an app (see below)
+    --navSmart-edgePWA: 2.0rem;
+    --navSmart-edge: calc(var(--page-padding) / 2);
     --navSmart-itemMinWidth: min(7.2rem, 16vw);
     --navSmart-iconSize: 2.2rem;
-    //== the height every item keeps at least, so one with only an icon is as tall as one with a label;
-    //== an icon-only item is also this wide, which makes it a square
     --navSmart-itemHeight: 4.9rem;
     position: fixed;
     inset-inline: 0;
-    bottom: calc(var(--navSmart-bottom) + env(safe-area-inset-bottom, 0px));
+    bottom: calc(var(--navSmart-edge) + env(safe-area-inset-bottom, 0px));
     z-index: var(--zIndex-navSmart);
     display: flex;
     justify-content: center;
-    //== every pill as tall as the tallest: a pill holding only an icon would otherwise be shorter
-    //== than one whose items carry a label
     align-items: stretch;
     gap: var(--navSmart-gap);
-    padding-inline: var(--page-padding);
-    //== the bar spans the width only to centre its pills: the empty space on either side must not
-    //== swallow the clicks meant for the page underneath, so only the pills answer the pointer
+    padding-inline: var(--navSmart-edge);
     pointer-events: none;
 
-    //= ELEMENT
-    // one pill. Its own padding is the gap between the highlighted item and the edge, so the
-    // highlight reads as a smaller pill sliding inside it
+    //== INSTALLED APP
+    // an installed app has no browser bar, and a phone draws its home indicator over the bottom
+    // of the page. env(safe-area-inset-bottom) does not report it unless the page asks for
+    // viewport-fit=cover, so the bar keeps a fixed distance there instead. Safari on iOS does not
+    // answer the display-mode media query for a site added to the Home Screen, so _navSmart.js
+    // marks the bar with the installedApp state too
+    @media (display-mode: standalone) { --navSmart-edge: var(--navSmart-edgePWA); }
+    &[pgs-state~="installedApp"] { --navSmart-edge: var(--navSmart-edgePWA); }
+
+    //== ELEMENT
+    // one pill, drawn by box with boxNavSmart. Its padding is the gap between the highlighted item
+    // and the edge, so the highlight reads as a smaller pill sliding inside it
     :where([pgs~="navSmart-element"]) {
         display: flex;
         align-items: stretch;
-        padding: var(--navSmart-padding);
-        border-radius: 999px;
-        border: var(--navSmart-border);
-        background: var(--navSmart-background);
-        box-shadow: var(--navSmart-shadow);
-        -webkit-backdrop-filter: var(--blur) saturate(1.8);
-        backdrop-filter: var(--blur) saturate(1.8);
         pointer-events: auto;
 
-        //== the dialog of a modal written inside the pill has its own lists and buttons, which are not items
+        // the dialog of a modal written inside the pill has its own lists and buttons, which are not items
         ul:not(dialog *) {
             display: flex;
             align-items: stretch;
@@ -59,8 +53,8 @@
             list-style: none;
         }
 
-        //== what holds an item (a list entry, a modal wrapper) is a flex box too, so the button inside
-        //== stretches to the height of the pill instead of keeping its own, shorter one
+        // what holds an item (a list entry, a modal wrapper) is a flex box too, so the button inside
+        // stretches to the height of the pill instead of keeping its own, shorter one
         li,
         :where([pgs~="modal"], [pgs*="modal\5B"]) { display: flex; }
     }

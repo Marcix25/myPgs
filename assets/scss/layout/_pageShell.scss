@@ -21,18 +21,17 @@
 :is([pgs~="pageShell"], [pgs*="pageShell\5B"]) {
     --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-padding-inline) * 2));
     --pageShell-padding-inline: var(--page-padding);
-    --pageShell-padding-top: var(--page-top);
+    --pageShell-offsetTop: var(--page-top);
     --pageShell-padding-bottom: var(--gap-elements);
     --pageShell-gap: var(--gap-elements);
     // content
     --pageShell-content-width: var(--page-width);
     // aside
     --pageShell-aside-width: 20rem;
-    //++ shellAsideScroll
+    // shellAsideScroll
     --pageShell-asideScroll-top: var(--heightOfHeader);
-    --pageShell-asideScroll-padding-top: var(--pageShell-padding-top);
     --pageShell-asideScroll-maxHeight: calc(100dvh - var(--pageShell-asideScroll-top));
-    //++ shellAsideShadow
+    // shellAsideShadow
     --pageShell-asideShadow-sizeMaskImage: 40px;
     display: grid;
     grid-template-columns: 1fr;
@@ -45,7 +44,7 @@
     position: relative;
     padding-inline: var(--pageShell-padding-inline);
     padding-bottom: var(--pageShell-padding-bottom);
-    padding-top: var(--pageShell-padding-top);
+    padding-top: var(--pageShell-offsetTop);
     container-type: inline-size;
     max-width: var(--pageShell-width);
 
@@ -176,22 +175,22 @@
         }
     }
 
-    //+ OPTION
-    //++ shellFullPage
+    //++ OPTION
+    //+ shellFullPage
     &[pgs*="'shellFullPage'"] {
         --pageShell-width: 100%;
 
         :where([pgs~="pageShell-content"]) { margin-inline: auto; }
     }
 
-    //++ shellAsideScroll
+    //+ shellAsideScroll
     &[pgs*="'shellAsideScroll'"] {
         padding-top: 0;
 
-        //=== vertical: the sidebar stacks, so it stops being its own scroller
+        // vertical: the sidebar stacks, so it stops being its own scroller
         //-( big-tablet
         @container (max-width: #{$big-tablet}) {
-            >*:first-child { padding-top: var(--pageShell-padding-top); }
+            >*:first-child { padding-top: var(--pageShell-offsetTop); }
         }
 
         //+( big-tablet
@@ -202,19 +201,22 @@
                 top: var(--pageShell-asideScroll-top);
                 scrollbar-color: transparent transparent;
                 max-height: var(--pageShell-asideScroll-maxHeight);
-                padding-top: var(--pageShell-asideScroll-padding-top);
+                margin-top: var(--pageShell-asideScroll-top);
+                padding-top: max(0px, calc(var(--pageShell-offsetTop) - var(--pageShell-asideScroll-top)));
 
                 &:hover { scrollbar-color: var(--color-gray) transparent; }
             }
 
+            // the content never starts above the header height, which is where the sidebar sticks: a
+            // smaller --pageShell-offsetTop would otherwise leave the sidebar lower than the content
             :where([pgs~="pageShell-content"]) {
-                padding-top: var(--pageShell-padding-top);
+                padding-top: max(var(--pageShell-offsetTop), var(--pageShell-asideScroll-top));
                 min-height: 100dvh;
             }
         }
     }
 
-    //++ shellAsideShadow
+    //+ shellAsideShadow
     &[pgs*="'shellAsideShadow'"] {
 
         //+( big-tablet

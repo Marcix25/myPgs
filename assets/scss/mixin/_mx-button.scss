@@ -14,11 +14,11 @@
     --button-primaryColor: var(--color-primary-strong);
     /// color
     --button-color: var(--color-black);
-    --button-color-current: var(--color-primary);
+    --button-color-current: var(--color-primary-strong);
     --button-color-checked: var(--color-white);
     /// background
     --button-background: var(--color-box);
-    --button-background-current: var(--color-box);
+    --button-background-current: var(--color-primary-soft);
     --button-background-checked: var(--button-primaryColor);
     /// shadow
     --button-shadow: unset;
@@ -81,10 +81,31 @@
 }
 
 //= STATE
+//== HOVER
+// the values (--button-*-hover) are set at the usual weight, so a flag such as btnText can still
+// replace them; the properties that draw them are set heavier, so the hover also wins over the
+// current and checked looks, which would otherwise paint over it
+@mixin buttonHover() {
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            &:not(:where(:is([pgs~="hoverNot"], [pgs*="'hoverNot'"]))) {
+                &:where(:not(:disabled, [disabled])) {
+                    --button-background-hover: var(--color-primary-soft);
+                    --button-border-color-hover: var(--color-primary-soft);
+                    --button-shadow-hover: var(--button-shadow);
+                    --button-color-hover: var(--color-black);
+                    @include _buttonColor("-hover");
+                }
+            }
+        }
+    }
+}
+
 //== BUTTON CURRENT
 @mixin buttonCurrent() {
-    &[aria-current=page],
-    &[aria-selected=true] {
+
+    &:where([aria-current=page]),
+    &:where([aria-selected=true]) {
         @include _buttonColor("-current");
     }
 }
@@ -113,27 +134,7 @@
     }
 }
 
-
-//== HOVER
-@mixin buttonHover() {
-    @media (hover: hover) and (pointer: fine) {
-        &:hover {
-            &:not(:where(:is([pgs~="hoverNot"], [pgs*="'hoverNot'"]))) {
-                &:where(:not(:disabled, [disabled])) {
-                    @include _buttonColor("-hover");
-                    --button-background-hover: var(--color-primary-soft);
-                    --button-border-color-hover: var(--color-primary-soft);
-                    --button-shadow-hover: var(--button-shadow);
-                    --button-color-hover: var(--color-black);
-                }
-            }
-        }
-    }
-}
-
 //= TYPE
-
-
 //== BUTTON ICON
 @mixin buttonIconOnly() {
     --button-padding: var(--button-padding-block);
@@ -199,10 +200,8 @@
     --hover-color: #{$color};
 }
 
-
 //== BUTTON PADDING EQUAL
 @mixin buttonPaddingEqual() { --button-padding: var(--button-padding-block); }
-
 
 //= HEADER & NAVSMART
 //== HEADER

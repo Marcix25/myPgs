@@ -71,7 +71,7 @@
                 </nav>
                 <div pgs="flex['row' 'nowrap']">
                     <button pgs="button['btnIconOnly' 'btnForHeader'] toggleDarkmode" type="button" aria-label="Change theme">
-                        <i class="fa-solid fa-moon"></i>
+                        <i pgs="icon['icon-moon']"></i>
                     </button>
                 </div>
             </div>
@@ -79,7 +79,7 @@
             <div pgs="header-element-onlyCompact hide['hideMediaDownBigMobile']">
                 <div pgs="flex['row' 'nowrap']">
                     <button pgs="button['btnIconOnly' 'btnForHeader'] toggleDarkmode" type="button" aria-label="Change theme">
-                        <i class="fa-solid fa-moon"></i>
+                        <i pgs="icon['icon-moon']"></i>
                     </button>
                     <div pgs="modal['dialogRight' ''dialogSmall' 'dialogAnimationZoom']" pgs-data="modalContainerPGS[header]">
                         <button pgs="button['btnIconOnly' 'btnForHeader'] modal-button modal-close" type="button" title="menu">
@@ -87,9 +87,9 @@
                         </button>
 
                         <dialog pgs="background['bgBackground']">
-                            <div pgs="modal-dialog-content padding['pdUnset'] paddingBlock">
+                            <div pgs="modal-dialog-content padding['pdUnset']">
                                 <div pgs="modal-dialog-content-scroll">
-                                    <nav pgs="menu['menuVertical']" aria-label="Main menu">
+                                    <nav pgs="menu['menuVertical'] padding" aria-label="Main menu">
                                         <ul>
                                             <li><a pgs="button['btnTransparent' 'btnForHeader' 'btnCurrent'] h3 paddingBlock" href="home.html">Home</a></li>
                                             <li><a pgs="button['btnTransparent' 'btnForHeader' 'btnCurrent'] h3 paddingBlock" href="demo.html">Docs</a></li>
@@ -108,7 +108,7 @@
     <!-- = NAV SMART (the bar that floats at the bottom of the screen; the link of the page you are on gets
          aria-current from site/assets/js/demo.js) -->
     <header pgs="navSmart hide['hideMediaUpBigMobile']">
-        <div pgs="navSmart-element">
+        <div pgs="navSmart-element box['boxNavSmart']">
             <nav aria-label="Pages">
                 <ul>
                     <li><a pgs="button['btnForNavSmart']" href="home.html"><i pgs="icon['icon-home']"></i> Home</a></li>
@@ -117,9 +117,9 @@
                 </ul>
             </nav>
         </div>
-        <div pgs="navSmart-element">
+        <div pgs="navSmart-element box['boxNavSmart']">
             <button pgs="button['btnForNavSmart' 'btnIconOnly'] toggleDarkmode" type="button" aria-label="Change theme">
-                <i class="fa-solid fa-moon"></i>
+                <i pgs="icon['icon-moon']"></i>
             </button>
         </div>
     </header>
@@ -138,7 +138,7 @@
                     </a>
                     <p pgs="footer-brand-motto">Reusable frontend components.</p>
                     <button pgs="button toggleDarkmode['tglLabelled']" type="button" aria-label="Change theme">
-                        <i class="fa-solid fa-moon"></i>
+                        <i pgs="icon['icon-moon']"></i>
                     </button>
                 </div>
 

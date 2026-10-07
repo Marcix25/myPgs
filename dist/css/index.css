@@ -2624,13 +2624,12 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 :is([pgs~=pageShell], [pgs*="pageShell["]) {
   --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-padding-inline) * 2));
   --pageShell-padding-inline: var(--page-padding);
-  --pageShell-padding-top: var(--page-top);
+  --pageShell-offsetTop: var(--page-top);
   --pageShell-padding-bottom: var(--gap-elements);
   --pageShell-gap: var(--gap-elements);
   --pageShell-content-width: var(--page-width);
   --pageShell-aside-width: 20rem;
   --pageShell-asideScroll-top: var(--heightOfHeader);
-  --pageShell-asideScroll-padding-top: var(--pageShell-padding-top);
   --pageShell-asideScroll-maxHeight: calc(100dvh - var(--pageShell-asideScroll-top));
   --pageShell-asideShadow-sizeMaskImage: 40px;
   display: grid;
@@ -2644,7 +2643,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   position: relative;
   padding-inline: var(--pageShell-padding-inline);
   padding-bottom: var(--pageShell-padding-bottom);
-  padding-top: var(--pageShell-padding-top);
+  padding-top: var(--pageShell-offsetTop);
   container-type: inline-size;
   max-width: var(--pageShell-width);
 }
@@ -2812,7 +2811,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 @container (max-width: 900px) {
   :is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'shellAsideScroll'"] > *:first-child {
-    padding-top: var(--pageShell-padding-top);
+    padding-top: var(--pageShell-offsetTop);
   }
 }
 @container (min-width: 900px) {
@@ -2822,13 +2821,14 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
     top: var(--pageShell-asideScroll-top);
     scrollbar-color: transparent transparent;
     max-height: var(--pageShell-asideScroll-maxHeight);
-    padding-top: var(--pageShell-asideScroll-padding-top);
+    margin-top: var(--pageShell-asideScroll-top);
+    padding-top: max(0px, var(--pageShell-offsetTop) - var(--pageShell-asideScroll-top));
   }
   :is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'shellAsideScroll'"] :where([pgs~=pageShell-aside]):hover {
     scrollbar-color: var(--color-gray) transparent;
   }
   :is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'shellAsideScroll'"] :where([pgs~=pageShell-content]) {
-    padding-top: var(--pageShell-padding-top);
+    padding-top: max(var(--pageShell-offsetTop), var(--pageShell-asideScroll-top));
     min-height: 100dvh;
   }
 }
@@ -2959,36 +2959,35 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 :is([pgs~=navSmart], [pgs*="navSmart["]) {
   --navSmart-gap: .8rem;
-  --navSmart-padding: .4rem;
-  --navSmart-bottom: var(--page-padding);
-  --navSmart-background: color-mix(in srgb, var(--color-box) 65%, transparent);
-  --navSmart-border: 1px solid color-mix(in srgb, var(--color-black) 8%, transparent);
-  --navSmart-shadow: 0 .8rem 3rem color-mix(in srgb, var(--color-blackFixed) 14%, transparent);
+  --navSmart-edgePWA: 2.0rem;
+  --navSmart-edge: calc(var(--page-padding) / 2);
   --navSmart-itemMinWidth: min(7.2rem, 16vw);
   --navSmart-iconSize: 2.2rem;
   --navSmart-itemHeight: 4.9rem;
   position: fixed;
   inset-inline: 0;
-  bottom: calc(var(--navSmart-bottom) + env(safe-area-inset-bottom, 0px));
+  bottom: calc(var(--navSmart-edge) + env(safe-area-inset-bottom, 0px));
   z-index: var(--zIndex-navSmart);
   display: flex;
   justify-content: center;
   align-items: stretch;
   gap: var(--navSmart-gap);
-  padding-inline: var(--page-padding);
+  padding-inline: var(--navSmart-edge);
   pointer-events: none;
+}
+
+@media (display-mode: standalone) {
+  :is([pgs~=navSmart], [pgs*="navSmart["]) {
+    --navSmart-edge: var(--navSmart-edgePWA);
+  }
+}
+:is([pgs~=navSmart], [pgs*="navSmart["])[pgs-state~=installedApp] {
+  --navSmart-edge: var(--navSmart-edgePWA);
 }
 
 :is([pgs~=navSmart], [pgs*="navSmart["]) :where([pgs~=navSmart-element]) {
   display: flex;
   align-items: stretch;
-  padding: var(--navSmart-padding);
-  border-radius: 999px;
-  border: var(--navSmart-border);
-  background: var(--navSmart-background);
-  box-shadow: var(--navSmart-shadow);
-  -webkit-backdrop-filter: var(--blur) saturate(1.8);
-  backdrop-filter: var(--blur) saturate(1.8);
   pointer-events: auto;
 }
 
@@ -3299,6 +3298,18 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 :is([pgs~=box], [pgs*="box["])[pgs*="'boxMini'"] {
   --box-padding: var(--padding-texts);
   --box-borderRadius: var(--border-radius-input);
+}
+
+:is([pgs~=box], [pgs*="box["])[pgs*="'boxNavSmart'"] {
+  --box-padding: .4rem;
+  --box-borderRadius: 999px;
+  --box-background: color-mix(in srgb, var(--color-box) 65%, transparent);
+  --box-border: 1px solid color-mix(in srgb, var(--color-black) 8%, transparent);
+  --box-shadow: 0 .8rem 3rem color-mix(in srgb, var(--color-blackFixed) 14%, transparent);
+  border: var(--box-border);
+  box-shadow: var(--box-shadow);
+  -webkit-backdrop-filter: var(--blur) saturate(1.8);
+  backdrop-filter: var(--blur) saturate(1.8);
 }
 
 [pgs~=textarea] {
@@ -4358,10 +4369,10 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --button-size: var(--SIZE-texts);
   --button-primaryColor: var(--color-primary-strong);
   --button-color: var(--color-black);
-  --button-color-current: var(--color-primary);
+  --button-color-current: var(--color-primary-strong);
   --button-color-checked: var(--color-white);
   --button-background: var(--color-box);
-  --button-background-current: var(--color-box);
+  --button-background-current: var(--color-primary-soft);
   --button-background-checked: var(--button-primaryColor);
   --button-shadow: unset;
   --button-shadow-current: 0 .2rem .8rem color-mix(in srgb, var(--color-blackFixed) 10%, transparent);
@@ -4420,14 +4431,14 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 @media (hover: hover) and (pointer: fine) {
   :is([pgs~=button], [pgs*="button["]):where(:not([pgs*="body["][pgs*="'bodyHoverAuto'"] :is([pgs~=button], [pgs*="button["]))):hover:not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))):where(:not(:disabled, [disabled])) {
-    color: var(--button-color-hover);
-    background: var(--button-background-hover);
-    border-color: var(--button-border-color-hover);
-    box-shadow: var(--button-shadow-hover);
     --button-background-hover: var(--color-primary-soft);
     --button-border-color-hover: var(--color-primary-soft);
     --button-shadow-hover: var(--button-shadow);
     --button-color-hover: var(--color-black);
+    color: var(--button-color-hover);
+    background: var(--button-background-hover);
+    border-color: var(--button-border-color-hover);
+    box-shadow: var(--button-shadow-hover);
   }
 }
 :is([pgs~=button], [pgs*="button["])[pgs*="'btnIconOnly'"] {
@@ -4493,7 +4504,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --button-padding: var(--button-padding-block);
 }
 
-:is([pgs~=button], [pgs*="button["])[pgs*="'btnCurrent'"][aria-current=page], :is([pgs~=button], [pgs*="button["])[pgs*="'btnCurrent'"][aria-selected=true] {
+:is([pgs~=button], [pgs*="button["])[pgs*="'btnCurrent'"]:where([aria-current=page]), :is([pgs~=button], [pgs*="button["])[pgs*="'btnCurrent'"]:where([aria-selected=true]) {
   color: var(--button-color-current);
   background: var(--button-background-current);
   border-color: var(--button-border-color-current);
@@ -4539,7 +4550,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --button-background: transparent;
 }
 
-:is([pgs~=button], [pgs*="button["])[pgs*="'btnForNavSmart'"][aria-current=page], :is([pgs~=button], [pgs*="button["])[pgs*="'btnForNavSmart'"][aria-selected=true] {
+:is([pgs~=button], [pgs*="button["])[pgs*="'btnForNavSmart'"]:where([aria-current=page]), :is([pgs~=button], [pgs*="button["])[pgs*="'btnForNavSmart'"]:where([aria-selected=true]) {
   color: var(--button-color-current);
   background: var(--button-background-current);
   border-color: var(--button-border-color-current);
@@ -7942,10 +7953,10 @@ dialog :is([pgs~=search], [pgs*="search["]) :where([pgs~=_modal-close]) {
 }
 
 :is([pgs~=hover], [pgs*="hover["]):not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))) {
-  --hover-primaryColor: var(--color-primary-soft);
+  --hover-primaryColor: var(--color-secondary-soft);
   --hover-background: var(--hover-primaryColor);
   --hover-color: var(--color-black);
-  --hover-border: var(--color-primary-soft);
+  --hover-border: var(--hover-primaryColor);
   --hover-timing: 400ms;
   --hover-behavior: ease-out;
   position: relative;

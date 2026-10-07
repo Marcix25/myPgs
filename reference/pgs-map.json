@@ -310,7 +310,8 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "boxMini"
+            "boxMini",
+            "boxNavSmart"
         ],
         "pgs-data": []
     },
@@ -666,6 +667,7 @@
         ],
         "pgs-generated": [],
         "pgs-options": [
+            "headerBottom",
             "headerCompactBigMobile",
             "headerCompactBigTablet",
             "headerCompactBottom",
