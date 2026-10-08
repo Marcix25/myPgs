@@ -18,6 +18,7 @@ Reusable surfaces for presenting structured card content or grouping simpler con
 - `cardHorizontalFixed`: the same 40/60 layout as cardHorizontal, with no container query behind it — the card reads side-by-side whatever its own width is, which is what a card already known to be wide enough, or one deliberately narrow but still meant to stay horizontal, wants instead of the responsive switch.
 - `cardMini`: reduces the content padding on the card's own card-content.
 - `boxMini`: inside box's own bracket, the same reduced padding on the box itself.
+- `boxNavSmart`: inside box's own bracket, a frosted pill: fully rounded, with a thin border, a soft shadow and the page behind it blurred. It is the pill of a navSmart-element, and fits any floating surface that sits on top of other content.
 
 ## Related elements
 
@@ -174,5 +175,15 @@ The compact option reduces the internal spacing.
 <div pgs="box['boxMini']">
     <h3>Enim ad minim</h3>
     <p>Ut labore et dolore magna aliqua ut enim.</p>
+</div>
+```
+
+### Frosted pill
+
+boxNavSmart draws a fully rounded, frosted surface. It blurs what is behind it, so it reads on top of other content.
+
+```html
+<div pgs="box['boxNavSmart']">
+    <p>Frosted pill</p>
 </div>
 ```

@@ -1,11 +1,11 @@
 <!--
 /**
  * @title NavSmart
- * @description A floating navigation bar pinned to the bottom of the screen, made of frosted pills: the way a phone's tab bar looks. Every navSmart-element is one pill, and the pills sit side by side, so a group of links and a lone button (a profile, a search) read as separate shapes. The pill is a box with boxNavSmart, and every item inside it is a plain button of the button component with btnForNavSmart: a link of a nav list, or a button written straight in the element. An item shows its icon above its label. The item the page is on, marked with aria-current="page", or the one whose panel is open, kept in step by modal-button through aria-expanded, is highlighted as a smaller pill inside the bigger one. The bar spans the width only to centre its pills: the empty space on either side lets the clicks through to the page.
+ * @description A floating navigation bar pinned to the bottom of the screen, made of frosted pills: the way a phone's tab bar looks. Every navSmart-element is one pill, and the pills sit side by side, so a group of links and a lone button (a profile, a search) read as separate shapes. The pill takes the frosted surface of the box component (the same look as boxNavSmart), so it needs no other token, and every item inside it is a plain button of the button component with btnForNavSmart: a link of a nav list, or a button written straight in the element. An item shows its icon above its label. The item the page is on, marked with aria-current="page", or the one whose panel is open, kept in step by modal-button through aria-expanded, is highlighted as a smaller pill inside the bigger one. The bar spans the width only to centre its pills: the empty space on either side lets the clicks through to the page.
  *
  * @pgs
  * - navSmart: identifies the bar, pinned to the bottom of the viewport and centred; it is a header element, so write it on header.
- * - navSmart-element: identifies one pill: it lays its items out side by side. Write it as many times as the bar needs pills, each with box['boxNavSmart'], which draws the frosted surface.
+ * - navSmart-element: identifies one pill: it lays its items out side by side. Write it as many times as the bar needs pills; each one draws its own frosted surface.
  *
  * @pgs-state
  * - installedApp: set by pgs.navSmart on a bar when the site runs as an installed app (added to the Home Screen), where the bar keeps --navSmart-edgePWA from the edges of the screen instead of the page padding, to stay clear of the phone's home indicator. Safari on iOS reports it through navigator.standalone, not through the display-mode media query.
@@ -14,8 +14,8 @@
  * - pgs.navSmart.init(root): measures the bars inside the specified root, or the root itself when it is one; runs automatically on page load and again via pgs.init(root) for a bar added later. The bar pinned to the screen publishes --heightOfNavSmart, the whole distance from the bottom edge of the screen to the top of the bar (the pills plus the gap the bar keeps from the edge, and the safe area on a phone), and --heightOfNavSmartScroll, the same distance while the bar is on screen and 0 while it is tucked away, which is marked by data-navsmart-scroll="true" on the bar. Both are 0 while the bar is hidden, for instance by a media query. A navSmart written as an example inside a page flows with it, takes no room at the bottom and never owns them. Padding the end of a page by either one keeps its last lines from sitting under the bar.
  *
  * @related
- * - box: the surface of every pill.
- * - boxNavSmart: draws the pill, frosting the page behind it; belongs to the box component, so any other floating surface can use it too.
+ * - box: the component whose surface every pill takes.
+ * - boxNavSmart: the option of box that gives the same frosted pill to any other floating surface; navSmart-element takes it without being written.
  * - button: the component every item is: btnForNavSmart is its override for this bar, the way btnForHeader is for the header.
  * - btnIconOnly: next to btnForNavSmart, an item with only an icon becomes a square as wide as the pill is tall; see Button.
  * - btnForNavSmart: sizes a button or a link as an item of the bar: icon above the label, no background, pill-shaped, with the current look for the page you are on or the panel that is open; belongs to the button component.
@@ -40,7 +40,7 @@
 <demo demo-h3="Tab bar" demo-description="A pill of links and a pill with one button, side by side. aria-current=&quot;page&quot; marks the link of the page you are on, and the button is highlighted while its dialog is open."></demo>
 <div demo="component" style="transform: translateY(0); height: 100px;">
     <header pgs="navSmart">
-        <div pgs="navSmart-element box['boxNavSmart']">
+        <div pgs="navSmart-element">
             <nav aria-label="Main menu">
                 <ul>
                     <li><a pgs="button['btnForNavSmart']" href="/" aria-current="page"><i pgs="icon['icon-home']"></i> Home</a></li>
@@ -50,7 +50,7 @@
             </nav>
         </div>
 
-        <div pgs="navSmart-element box['boxNavSmart']">
+        <div pgs="navSmart-element">
             <div pgs="modal['dialogBottom']">
                 <button pgs="button['btnForNavSmart'] modal-button" type="button" aria-label="Open profile">
                     <i pgs="icon['icon-user']" aria-hidden="true"></i>
@@ -76,7 +76,7 @@
 <demo demo-h3="Icon only" demo-description="An item with no label takes no minimum width: add btnIconOnly next to btnForNavSmart and it becomes a square as wide as the pill is tall. Give it an aria-label, since the text is what named it."></demo>
 <div demo="component" style="transform: translateY(0); height: 100px;">
     <header pgs="navSmart">
-        <div pgs="navSmart-element box['boxNavSmart']">
+        <div pgs="navSmart-element">
             <nav aria-label="Main menu">
                 <ul>
                     <li><a pgs="button['btnForNavSmart']" href="/" aria-current="page"><i pgs="icon['icon-home']"></i> Home</a></li>
@@ -86,7 +86,7 @@
             </nav>
         </div>
 
-        <div pgs="navSmart-element box['boxNavSmart']">
+        <div pgs="navSmart-element">
             <button pgs="button['btnForNavSmart' 'btnIconOnly']" type="button" aria-label="Search">
                 <i pgs="icon['icon-magnifyingGlass']" aria-hidden="true"></i>
             </button>

@@ -3,9 +3,9 @@
 //+ parses a reference file, whatever it runs against. It wires up the parts that must run in a
 //+ real browser: the actual pgs component library (notification, modal, accordion, ...), and the
 //+ "copy to clipboard" buttons. Nav click / hash navigation between reference panels is pgs.pageNav's
-//+ own job now (pgs="pageNav" on <body>, see site.structure.html + demo.structure.html), not this
+//+ own job now (pgs="pageNav" on <body>, see site/index.html + page/demo.html), not this
 //+ file's. Most of what is left here only matters on the page that actually carries the reference
-//+ panels — site/build/demo.html, built in memory from demo.structure.html and the reference panels —
+//+ panels — site/build/demo.html, built in memory from page/demo.html and the reference panels —
 //+ and no-ops harmlessly on any other. The configure*Demo functions only ever look for
 //+ [data-reference="..."] in the page, so a new interactive example is wired up here and nowhere else.
 

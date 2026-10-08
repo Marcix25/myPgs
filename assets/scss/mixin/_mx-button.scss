@@ -51,7 +51,8 @@
     line-height: 1;
     text-decoration: none;
     user-select: none;
-    border: var(--button-border-width) var(--button-border-style) var(--button-border-color);
+    border: 0 var(--button-border-style) var(--button-border-color);
+    border-width: var(--button-border-width);
     border-radius: var(--button-borderRadius);
     display: flex;
     gap: var(--button-gap);

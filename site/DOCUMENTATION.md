@@ -17,11 +17,10 @@ is assembled — and what to do when you add or change something.
    `scripts/build-site-static.js` merges it with a hand-authored shell into `site/build/home.html` —
    see "Pre-baking the demo" below for the full split between `assets/`, `parts/`, `build/` and
    `page/`. The site's own CSS/JS/images live under `site/assets/css/`, `site/assets/js/`,
-   `site/assets/img/` and `site/assets/font/`, the two shells under `site/parts/`; every
+   `site/assets/img/` and `site/assets/font/`, the shell in `site/index.html` and its fragments under `site/parts/`; every
    generated output lives under `site/build/` (both the fragments nobody opens directly and the
-   complete, directly-openable pages); `site/page/` holds only hand-kept content, one page's own each. `site/index.html`
-   redirects to `build/home.html`, the current home page, and `index.html` at the repo root
-   redirects to it in turn, for GitHub Pages. Nothing is fetched or parsed at runtime: `assets/js/demo.js`
+   complete, directly-openable pages); `site/page/` holds only hand-kept content, one page's own each. The
+   `index.html` at the repo root redirects to `site/build/home.html`, the current home page, for GitHub Pages. Nothing is fetched or parsed at runtime: `assets/js/demo.js`
    only wires up navigation, copy buttons and the interactive examples.
 
 Two things parse the doc-comment format, both in Node: `scripts/generate-component-docs.js` for the
@@ -302,8 +301,8 @@ While iterating, two watchers replace the first and the last step, so nothing ha
 ```sh
 npm run start:watch                # webpack --watch: recompiles dist/ on every assets/ change
 npm run sitebuild:watch            # scripts/watch-site.js: rebuilds every site/build/*.html on
-                                    # every change to reference/html/, demo.structure.html,
-                                    # site.structure.html, demo-render.js, a page's own file under
+                                    # every change to reference/html/, a site/parts/*.html,
+                                    # demo-render.js, a page's own file under
                                     # site/page/, or
                                     # dist/css/index.css — so a webpack rebuild reaches the demo too
 ```
@@ -314,41 +313,43 @@ anyway.
 
 ## Pre-baking the demo (`npm run sitebuild`)
 
-`site/` separates hand-authored source from generated output, across four folders (plus
-`site/index.html`, a hand-kept redirect stub — see below):
+`site/` separates hand-authored source from generated output, across these places:
 
-- **`site/parts/`** — hand-authored, nothing generated. Two shells, neither a page on its own:
-  - `demo.structure.html` — the pageShell that hosts the reference nav and panels (nav+main empty
-    until the build fills them in). Edit this for the reference demo's own layout — the part
-    specific to browsing components.
-  - `site.structure.html` — the page around every page: head, header, footer, and an
-    `id="reference-demo-content"` placeholder (`display: contents`, so it adds no box of its own)
-    that one page's own content is spliced into. Edit this for the surrounding page — everything
+- **`site/index.html`** — hand-authored, nothing generated: the shell, the page around every page — head, and an
+    `<!-- include: page site/page/<name>.html -->` comment, where one page's own content is spliced in: its
+    path, relative to the repo root, says where the pages live, and `<name>` stands for each page's name. Edit this for the surrounding page — everything
     that would still be there without a single reference panel — since every generated page shares
-    this one shell.
+    this one shell. It names the two fragments below with `<!-- include: <file name> -->` comments,
+    which the build replaces with the file before anything else, so opening it directly shows
+    neither; `include: page` is the one include that is not a file of `site/parts/`. Its asset links are written relative to `site/build/`, where every generated page ends up.
+- **`site/parts/`** — hand-authored, nothing generated. The fragments the shell includes, none of them a page on its own:
+  - `header.html` — the header and navSmart, the bar that floats at the bottom of the
+    screen. Edit this to change either on every page.
+  - `footer.html` — the footer. Edit this to change it on every page.
 
-  Both files' asset links (`<script>`/`<link>` hrefs) are written relative to `site/build/`, where
-  every generated page ends up — not relative to either file's own location in `site/parts/`.
+  The asset links of the fragments (`<script>`/`<link>` hrefs) are written relative to `site/build/` too, not relative
+  to their own location in `site/parts/`.
 - **`site/page/`** — one page's own content, no shell around any of it, all of it hand-kept and
   never written by the build:
   - `home.html` and `test.html` — just a `<main>` and nothing else. `home.html` is the home page;
     `test.html` is a fixture for trying components out.
+  - `demo.html` — the pageShell that hosts the reference nav and panels, with the nav and the main
+    empty: the build fills them in, in memory, with what it renders from `reference/html`. Edit it for
+    the reference demo's own layout — the part specific to browsing components. It has to exist.
   - a future page follows the same rule: drop its own content here, as `<name>.html`, and the build
-    picks it up on its own — nothing else has to change. `demo.html` is the one name the build
-    keeps for itself: the demo page is built from `demo.structure.html` plus the panels rendered from
-    `reference/html`, in memory, so a file of that name here is ignored, with a warning.
+    picks it up on its own — nothing else has to change. `demo.html` is the one page the build
+    does not use as written: it is merged in memory with the panels rendered from `reference/html`.
 - **`site/build/`** — the complete, directly-openable pages, all generated:
-  - one output per file in `page/`, named the same, plus `demo.html`: `site.structure.html` with
+  - one output per file in `page/`, named the same, plus `demo.html`: `site/index.html` with
     that page's own content spliced into the placeholder, plus `assets/js/demo.js`. `demo.html` goes
-    through the same shell as `home.html` and `test.html`; only its own content is generated, in
-    memory, instead of read from a file. `demo.js` only runs `pgs.init()` and the demo's own interactive wiring
+    through the same shell as `home.html` and `test.html`; only its own content is merged, in
+    memory, with the rendered panels. `demo.js` only runs `pgs.init()` and the demo's own interactive wiring
     (nav clicks, copy buttons, the `configureXDemo` functions) — nothing in it fetches or parses a
     reference file, since each page already has everything written out. Every page opens
     instantly, whatever the reference count.
-- **`site/index.html`** — hand-kept, not touched by the build: a redirect stub, exactly like the
-  one at the repo root, pointing to `build/home.html`. It is the one place that names the current
-  home page's filename, so a future rename touches only this file, not the repo-root `index.html`
-  or anything else.
+- **`index.html` at the repo root** — hand-kept, not touched by the build: the GitHub Pages entry point, a
+  redirect to `site/build/home.html`. It is the one place that names the current home page's filename,
+  so a future rename touches only this file.
 
 `scripts/demo-render.js` is what renders the demo's nav and panels — it never reaches the
 browser, only `scripts/build-site-static.js` (in Node) requires it. Plain string/data functions with
@@ -362,7 +363,7 @@ untouched by any of this: their source markup is baked in like everything else, 
 still builds them for real when the page loads.
 
 Never hand-edit any page under `site/build/` — edit
-`reference/html/`, either `site/parts/*.structure.html` file, or a page's own file under
+`reference/html/`, `site/index.html`, either `site/parts/*.html` file, or a page's own file under
 `site/page/`, and run `npm run sitebuild` again.
 
 ## Adding a brand-new reference page, step by step

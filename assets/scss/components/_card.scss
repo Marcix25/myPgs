@@ -121,14 +121,6 @@
     // a frosted pill, the surface of a navSmart-element: it frosts what is behind it, so it only
     // reads on top of other content. Any pill-shaped floating surface can use it
     &[pgs*="'boxNavSmart'"] {
-        --box-padding: .4rem;
-        --box-borderRadius: 999px;
-        --box-background: color-mix(in srgb, var(--color-box) 65%, transparent);
-        --box-border: 1px solid color-mix(in srgb, var(--color-black) 8%, transparent);
-        --box-shadow: 0 .8rem 3rem color-mix(in srgb, var(--color-blackFixed) 14%, transparent);
-        border: var(--box-border);
-        box-shadow: var(--box-shadow);
-        -webkit-backdrop-filter: var(--blur) saturate(1.8);
-        backdrop-filter: var(--blur) saturate(1.8);
+        @include boxNavSmart()
     }
 }

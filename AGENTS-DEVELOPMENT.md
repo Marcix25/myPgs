@@ -143,27 +143,29 @@ source feeds two renderers, which must stay in agreement:
 - `scripts/generate-component-docs.js` writes `docs/**/*.md` and validates the reference;
 - `scripts/demo-render.js` renders the same file as a demo panel, at build time, in Node.
 
-Two hand-authored shells feed the build, neither a page on its own: `site/parts/demo.structure.html`
-(the pageShell that hosts the reference nav and panels) and `site/parts/site.structure.html` (the
-page around every page — head, header, footer, shared by all of them). The site's own CSS/JS/images
-live under `site/assets/css/`, `site/assets/js/`, `site/assets/img/` and `site/assets/font/`, the
-two shells under `site/parts/`; `npm run sitebuild`
+Hand-authored shells feed the build, none of them a page on its own: `site/page/demo.html` (the
+pageShell that hosts the reference nav and panels, empty until the build fills it in) and
+`site/index.html` (the page around every page — the head, shared by all of them),
+which names `header.html` (header and navSmart) and `footer.html` with `<!-- include: <file name> -->` comments, one
+fragment per component. The site's own CSS/JS/images live under `site/assets/css/`,
+`site/assets/js/`, `site/assets/img/` and `site/assets/font/`, the shells and fragments under
+`site/parts/`; `npm run sitebuild`
 (`scripts/build-site-static.js`) combines
 them with the rendered reference files into generated output across two places:
 `site/page/*.html` — one page's own content each, no shell around it, all of it hand-kept (`home.html`,
 `test.html`; nothing generated is written there) — and `site/build/*.html`: one output per file in
-`page/`, named the same, plus `demo.html`, with `site.structure.html` and `assets/js/demo.js`
-wrapped around it. The demo page's own content (demo.structure.html merged with the nav+panels that
+`page/`, named the same, plus `demo.html`, with `site/index.html` and `assets/js/demo.js`
+wrapped around it. The demo page's own content (page/demo.html merged with the nav+panels that
 `scripts/demo-render.js` renders from `reference/html`) is built in memory and goes straight into
 `build/demo.html`, with no file of its own. Every page renders nothing at runtime, so it opens instantly whatever the
 reference count, and `demo.js` only wires navigation, copy buttons and the interactive examples —
 most of that specific to whichever page carries the reference panels, harmless on any other.
-`site/index.html` redirects to `build/home.html`, so nothing else needs to know the current home
-page's filename. Adding a brand-new page needs no script change: drop its own content in
+The `index.html` at the repo root redirects to `site/build/home.html`, the one place that names
+the current home page's filename. Adding a brand-new page needs no script change: drop its own content in
 `site/page/<name>.html` and the next `npm run sitebuild` produces `site/build/<name>.html` from it,
-sharing the same shell as every other page (`demo.html` is the one name taken, since that page is built by the script). Everything in `site/build/` is generated; `site/page/` is all hand-kept:
+sharing the same shell as every other page (`demo.html` is the one page the script fills in with the rendered reference, and it has to exist). Everything in `site/build/` is generated; `site/page/` is all hand-kept:
 never edit any `site/build/*.html` by hand — edit
-`reference/html/`, the two `site/parts/*.structure.html` files, or a page's own file under
+`reference/html/`, the two `site/parts/*.html` files, or a page's own file under
 `site/page/`, and rerun the script.
 
 Every reference opens with a JSDoc-style block. Tags must appear in this order, and each entry is a

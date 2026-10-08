@@ -1,16 +1,23 @@
 //# FLEX & GRID
 // gap and alignment options shared by flex and grid (and by the layout mixins other components
 // compose), kept apart from both so neither page owns them
-:is([pgs~="grid"], [pgs*="grid\5B"], [pgs~="flex"], [pgs*="flex\5B"]) {
 
-    //== GAP
-    // each one also sets --gap, the value a flex['column-N'] computes its column widths
-    // with, so the gap it draws and the gap it counts are always the same
+//= GAP
+// the gap options also work under a root of their own, gap, so an element that is already a flex or
+// grid container by other means (a main, a section) can take one without being written as flex or
+// grid. Only the gap: the alignment options below stay with flex and grid. Each one also sets --gap,
+// the value a flex['column-N'] computes its column widths with, so the gap it draws and the gap it
+// counts are always the same
+:is([pgs~="grid"], [pgs*="grid\5B"], [pgs~="flex"], [pgs*="flex\5B"], [pgs~="gap"], [pgs*="gap\5B"]) {
     &[pgs*="'gapTexts'"] { --gap: var(--gap-texts); gap: var(--gap); }
     &[pgs*="'gapElements'"] { --gap: var(--gap-elements); gap: var(--gap); }
     &[pgs*="'gapGroups'"] { --gap: var(--gap-groups); gap: var(--gap); }
     &[pgs*="'gapSections'"] { --gap: var(--gap-sections); gap: var(--gap); }
     &[pgs*="'gapNone'"] { --gap: 0px; gap: 0; }
+}
+
+//= ALIGNMENT
+:is([pgs~="grid"], [pgs*="grid\5B"], [pgs~="flex"], [pgs*="flex\5B"]) {
 
     //== ALIGN ITEMS
     &[pgs*="'itemStart'"] { align-items: start; }

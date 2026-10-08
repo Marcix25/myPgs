@@ -2,7 +2,7 @@
 
 # Spacing
 
-Margin and padding utilities based on the same spacing scale gap uses: texts (smallest, also the default), elements (base size), group (double), sections (viewport-based, biggest). A shared base root for each property (margin, padding) covers all four sides at once, with the direction folded into a short prefix (mgTexts, pdPage, ...) instead of a separate root token per direction. Each direction also has its own root component (marginBlock, paddingTop, ...), using the same short direction-prefixed flags (mgBlTexts, pdTpPage, ...) — a physical side always wins over its logical shorthand when both are written, because CSS resolves that by which one comes later in the cascade, not by specificity. The gap utilities live in Flex and Grid instead, because they only take effect on a flex or grid container.
+Margin and padding utilities based on the same spacing scale gap uses: texts (smallest, also the default), elements (base size), group (double), sections (viewport-based, biggest). A shared base root for each property (margin, padding) covers all four sides at once, with the direction folded into a short prefix (mgTexts, pdPage, ...) instead of a separate root token per direction. Each direction also has its own root component (marginBlock, paddingTop, ...), using the same short direction-prefixed flags (mgBlTexts, pdTpPage, ...) — a physical side always wins over its logical shorthand when both are written, because CSS resolves that by which one comes later in the cascade, not by specificity. The gap utilities live in Flex and Grid instead, because they only take effect on a flex or grid container; they also work under a root of their own, gap, for an element that is a container by other means.
 
 ## PGS
 

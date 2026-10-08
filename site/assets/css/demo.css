@@ -11,7 +11,7 @@
     font-display: swap;
 }
 
-#reference-demo-content .demoContent-heading {
+.demoContent-heading {
     --heading-family-h1: "MyPix", var(--font);
     --heading-family-h2: "MyPix", var(--font);
     /* --heading-color-h1: var(--color-primary-strong);

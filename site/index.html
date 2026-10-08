@@ -1,15 +1,59 @@
+<!-- Site shell — doctype and head; no page content of its own, and not a page to open: the build
+     writes every page from it, and the repo-root index.html is what redirects to the home page. The
+     header (with navSmart) and the footer are not written here: each is a file of its own in site/parts/ (header.html,
+     footer.html), named below by an include comment that scripts/build-site-static.js
+     replaces with the file. Opening this file directly therefore shows neither of them. The
+     "include: page" comment between them says where the build reads one page's own content from
+     (the path, relative to the repo root, with <name> standing for the page's name) to splice it
+     in and produce site/build/<name>.html. Every generated page shares this one
+     shell: edit this file for anything that should change on all of them (the head), a fragment for
+     one component of them (header, footer), and a file under site/page/ for one page's own
+     content. The asset paths are written relative to site/build/ (where every generated page ends
+     up, two levels down from the repo root), not relative to this file's own location in
+     site/. -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" pgs="htmlBase">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=build/home.html">
-    <title>MyPGS</title>
-    <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyPGS reference demo</title>
+    <meta name="description" content="MyPGS is a shared frontend library for building consistent UIs across projects through pgs attributes: SCSS sources, UI components and reusable JavaScript modules defined once and reused across every project.">
+    <link rel="icon" type="image/svg+xml" href="../assets/img/logo.svg">
+    <link rel="stylesheet" href="../../dist/css/index.min.css">
+    <link rel="stylesheet" href="../assets/css/demo.css">
+    <link rel="stylesheet" href="../assets/css/home.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- after the stylesheets so the browser starts fetching them first, and still synchronous:
+         darkmode writes the theme on the html element before the first paint -->
+    <script src="../../dist/javascript/index.min.js"></script>
+
+    <!-- the reference examples import from "mypgs" like a real project; a browser cannot resolve a
+         bare specifier on its own, so it is mapped to a module that re-exports the global the
+         library already published. Must come before any type="module" script -->
+    <script type="importmap">
+        {
+            "imports": {
+                "mypgs": "../assets/js/mypgs-module.js"
+            }
+        }
+    </script>
 </head>
-<body>
-    <!-- Redirect stub: the current home page's filename is known only here, so nothing else — not
-         the repo-root index.html, not a bookmark, not GitHub Pages — needs to track it. This file
-         only redirects to it; edit site/page/home.html for its content and run npm run sitebuild. -->
-    <p>Redirecting to <a href="build/home.html">MyPGS</a>…</p>
+
+<body pgs="pageNav body['bodyBase' 'bodyImg' 'bodyText' 'bodyHeading' 'bodyHoverAuto']">
+
+    <!-- include: header.html -->
+
+    <!-- include: page site/page/<name>.html-->
+
+    <!-- include: footer.html -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
 </body>
+
 </html>

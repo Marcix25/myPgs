@@ -10,13 +10,7 @@
 
     &:where(a) {
         --box-background: var(--color-white);
-        //== an anchor is inline by default, and the shared hover treatment sizes a ::before against
-        //== this element's own box: left inline the padding, the radius and that overlay all
-        //== misrender unless a flex or grid parent happens to blockify it. A clickable surface is
-        //== always a block, so it says so itself instead of depending on where it is placed
         display: block;
-        //== hover, focus ring included, comes from the "hover" token that pgs.hover adds to a
-        //== clickable box on a page with bodyHoverAuto; without it, boxHover below is the fallback
         outline: var(--border-complete);
 
         &:not(:where([pgs*="body\5B"][pgs*="'bodyHoverAuto'"] [pgs~="box"])) { @include boxHover(); }
@@ -24,12 +18,25 @@
 }
 
 //== HOVER
-//== the fallback for a page with no bodyHoverAuto: pgs.hover never marks a link box with the hover
-//== token there, so nothing under :is([pgs~="hover"], [pgs*="hover\5B"]) ever applies
+// the fallback for a page with no bodyHoverAuto: pgs.hover never marks a link box with the hover
+// token there, so nothing under :is([pgs~="hover"], [pgs*="hover\5B"]) ever applies
 @mixin boxHover() {
     @media (hover: hover) and (pointer: fine) {
         &:hover {
             &:not(:where(:is([pgs~="hoverNot"], [pgs*="'hoverNot'"]))) { --box-background: var(--color-primary-soft); }
         }
     }
+}
+
+//+ Nav Smart
+@mixin boxNavSmart() {
+    --box-padding: .4rem;
+    --box-borderRadius: 999px;
+    --box-background: var(--color-box-transparent);
+    --box-border: 1px solid color-mix(in srgb, var(--color-black) 8%, transparent);
+    --box-shadow: 0 .8rem 3rem color-mix(in srgb, var(--color-blackFixed) 14%, transparent);
+    border: var(--box-border);
+    box-shadow: var(--box-shadow);
+    -webkit-backdrop-filter: var(--blur) saturate(1.8);
+    backdrop-filter: var(--blur) saturate(1.8);
 }

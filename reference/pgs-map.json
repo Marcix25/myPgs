@@ -565,6 +565,18 @@
             "formMessageTitle"
         ]
     },
+    "gap": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "gapElements",
+            "gapGroups",
+            "gapNone",
+            "gapSections",
+            "gapTexts"
+        ],
+        "pgs-data": []
+    },
     "grid": {
         "pgs": [],
         "pgs-generated": [],

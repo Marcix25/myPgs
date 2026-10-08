@@ -26,16 +26,14 @@ Complete footer with theme control, brand area, navigation, informational conten
 - `logo`: inserts the brand into the footer.
 - `logo-text`: uses the text variant of the logo.
 - `cookieConsent-actionOpen`: opens the Cookie Consent preference panel.
+- `icon`: draws the glyphs this example shows; see Icon for the whole set.
 
 ### PGS Options (component brackets)
 
 - `tglLabelled`: labels that control with the theme the click leads to; see Darkmode.
 - `row`: distributes the upper columns responsively.
 - `column-3`: configures the footer flex layout with three columns.
-
-### Other
-
-- `icon`: draws the glyphs this example shows; see Icon for the whole set.
+- `icon-moon`: the glyph of the theme control; belongs to the icon component.
 
 ## CSS Variables
 

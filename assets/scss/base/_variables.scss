@@ -5,14 +5,14 @@
 
     // = SETTINGS 
     &:root {
+        --SIZE: 3.0rem;
+        --SIZE-texts: calc(var(--SIZE) / 2);
+        --SIZE-groups: calc(var(--SIZE) * 2);
+        --SIZE-sections: calc(var(--SIZE-groups) + 10svh);
         $SIZE: var(--SIZE);
         $SIZE-texts: var(--SIZE-texts);
         $SIZE-groups: var(--SIZE-groups);
         $SIZE-sections: var(--SIZE-sections);
-        --SIZE: 3.0rem;
-        --SIZE-texts: calc(#{$SIZE} / 2);
-        --SIZE-groups: calc(#{$SIZE} * 2);
-        --SIZE-sections: calc(var(--SIZE-groups) + 10svh);
         // Padding
         --padding-texts: #{$SIZE-texts};
         --padding-elements: #{$SIZE};
@@ -39,14 +39,14 @@
         --border-radius: #{$SIZE};
         --border-radius-external: calc(var(--border-radius) + #{$SIZE});
         --border-radius-input: #{$SIZE-texts};
-        --border-width: 1.5px;
+        --border-width: 1px;
         --border-style: solid;
-        --border-color: light-dark(#ebebeb, #353535);
+        --border-color: color-mix(in srgb, var(--color-black) 8%, transparent);
         --border-complete: var(--border-width) var(--border-color) var(--border-style);
         // Outline
-        --outline-width: 1.5px;
+        --outline-width: 1px;
         --outline-style: solid;
-        --outline-color: light-dark(#ebebeb, #353535);
+        --outline-color: color-mix(in srgb, var(--color-black) 8%, transparent);
         // Page
         --page-padding: min(3vw, #{$SIZE});
         --page-top: calc(var(--heightOfHeader) + 7lvh);

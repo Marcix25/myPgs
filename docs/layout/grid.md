@@ -21,7 +21,7 @@ Grid layouts: a responsive column-N grid that drops to fewer columns at each bre
 - `colL`: inside gridChild's own bracket, spans 3 columns (--gridChild-col-l): three of a column-4, and the full row where the breakpoint leaves only two.
 - `colXl`: inside gridChild's own bracket, spans 4 columns (--gridChild-col-xl).
 - `colXxl`: inside gridChild's own bracket, spans 5 columns (--gridChild-col-xxl).
-- `gapTexts`: the text gap between the items; also sets --gap, the gap a column-N row computes its widths with.
+- `gapTexts`: the text gap between the items, written inside grid, flex or gap's own bracket; also sets --gap, the gap a column-N row computes its widths with.
 - `gapElements`: the element gap between the items, and --gap with it.
 - `gapGroups`: the double gap between the items, and --gap with it.
 - `gapSections`: the section gap between the items, and --gap with it; meant for large page blocks, since it also spaces the rows.

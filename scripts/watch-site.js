@@ -4,8 +4,8 @@
 //+ site/build/*.html is ever the previous version of itself while iterating. Those inputs are
 //+ exactly five things:
 //+ - reference/html/**/*.html — the panels and the nav come from here;
-//+ - site/parts/demo.structure.html, site/parts/site.structure.html and
-//+   scripts/demo-render.js — the two shells and the renderer the build calls;
+//+ - site/index.html (the shell), site/parts/*.html (the fragments it includes) and
+//+   scripts/demo-render.js — the renderer the build calls;
 //+ - site/page/*.html — every page's own hand-authored content (home.html, test.html, and any future
 //+   page dropped in there the same way). The build writes nothing there, so watching it can never
 //+   have a build retrigger the next one;
@@ -45,9 +45,14 @@ const TARGETS = [
         accept: name => name === "demo-render.js"
     },
     {
+        root: path.join(PROJECT_ROOT, "site"),
+        recursive: false,
+        accept: name => name === "index.html"
+    },
+    {
         root: path.join(PROJECT_ROOT, "site", "parts"),
         recursive: false,
-        accept: name => name === "demo.structure.html" || name === "site.structure.html"
+        accept: name => name.endsWith(".html")
     },
     {
         root: path.join(PROJECT_ROOT, "site", "page"),
