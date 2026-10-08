@@ -15,11 +15,20 @@ const pageNavUtil = {
     },
 
     // replaceState never triggers a scroll on its own (only real navigation does), so removing
-    // the fragment now leaves the browser nothing to retry-scroll to, first pass or later, and
-    // adding it straight back afterwards is just as inert — a reload or a bookmark still lands on
-    // the same panel, only the browser's own automatic scroll attempt is skipped
-    restoreHash(id) {
-        history.replaceState(history.state, "", window.location.pathname + window.location.search + "#" + id);
+    // the fragment now leaves the browser nothing to retry-scroll to. Putting it straight back
+    // is not as inert as it looks: while the page is still loading, a fragment that is in the URL
+    // again is a fragment the browser has yet to scroll to, and it does so when the load ends,
+    // yanking back a reader who had already started scrolling. So it goes back only once the page
+    // has loaded, and only if nothing else has changed the URL or the panel in the meantime — a
+    // reload or a bookmark still lands on the same panel, only the automatic scroll is skipped
+    restoreHash(id, isCurrent) {
+        const put = () => {
+            if (window.location.hash || !isCurrent()) return;
+            history.replaceState(history.state, "", window.location.pathname + window.location.search + "#" + id);
+        };
+
+        if (document.readyState === "complete") put();
+        else window.addEventListener("load", put, { once: true });
     },
 
     roots(root) {
@@ -109,7 +118,7 @@ function PGS_pageNav_init(root = document) {
 
         if (initialPanelId) pageNavUtil.stripHash();
         nav.select(initialPanelId || nav.current.id, { resetScroll: false });
-        if (initialPanelId) pageNavUtil.restoreHash(initialPanelId);
+        if (initialPanelId) pageNavUtil.restoreHash(initialPanelId, () => nav.current.id === initialPanelId);
 
         API.set(pageNav, {
             element: pageNav,
