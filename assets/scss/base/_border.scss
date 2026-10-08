@@ -19,6 +19,9 @@
     &[pgs*="'bdThin'"] { border: 1px solid var(--border-color); }
     &[pgs*="'bdThick'"] { border: 3px solid var(--border-color); }
     &[pgs*="'bdThicker'"] { border: 4.5px solid var(--border-color); }
+
+    //- UNSET: takes the border off an element that has one of its own, on every side
+    &[pgs*="'bdUnset'"] { border: none; }
 }
 
 //- COLOR
@@ -51,6 +54,7 @@
     &[pgs*="'bdBlThin'"] { border-block: 1px solid var(--border-color); }
     &[pgs*="'bdBlThick'"] { border-block: 3px solid var(--border-color); }
     &[pgs*="'bdBlThicker'"] { border-block: 4.5px solid var(--border-color); }
+    &[pgs*="'bdBlUnset'"] { border-block: none; }
 }
 
 //- INLINE
@@ -60,6 +64,7 @@
     &[pgs*="'bdInThin'"] { border-inline: 1px solid var(--border-color); }
     &[pgs*="'bdInThick'"] { border-inline: 3px solid var(--border-color); }
     &[pgs*="'bdInThicker'"] { border-inline: 4.5px solid var(--border-color); }
+    &[pgs*="'bdInUnset'"] { border-inline: none; }
 }
 
 //- TOP
@@ -69,6 +74,7 @@
     &[pgs*="'bdTpThin'"] { border-top: 1px solid var(--border-color); }
     &[pgs*="'bdTpThick'"] { border-top: 3px solid var(--border-color); }
     &[pgs*="'bdTpThicker'"] { border-top: 4.5px solid var(--border-color); }
+    &[pgs*="'bdTpUnset'"] { border-top: none; }
 }
 
 //- RIGHT
@@ -78,6 +84,7 @@
     &[pgs*="'bdRtThin'"] { border-right: 1px solid var(--border-color); }
     &[pgs*="'bdRtThick'"] { border-right: 3px solid var(--border-color); }
     &[pgs*="'bdRtThicker'"] { border-right: 4.5px solid var(--border-color); }
+    &[pgs*="'bdRtUnset'"] { border-right: none; }
 }
 
 //- BOTTOM
@@ -87,6 +94,7 @@
     &[pgs*="'bdBtThin'"] { border-bottom: 1px solid var(--border-color); }
     &[pgs*="'bdBtThick'"] { border-bottom: 3px solid var(--border-color); }
     &[pgs*="'bdBtThicker'"] { border-bottom: 4.5px solid var(--border-color); }
+    &[pgs*="'bdBtUnset'"] { border-bottom: none; }
 }
 
 //- LEFT
@@ -96,6 +104,7 @@
     &[pgs*="'bdLtThin'"] { border-left: 1px solid var(--border-color); }
     &[pgs*="'bdLtThick'"] { border-left: 3px solid var(--border-color); }
     &[pgs*="'bdLtThicker'"] { border-left: 4.5px solid var(--border-color); }
+    &[pgs*="'bdLtUnset'"] { border-left: none; }
 }
 
 //= BORDER RADIUS
@@ -104,6 +113,7 @@
 
     &[pgs*="'radInput'"] { border-radius: var(--border-radius-input); }
     &[pgs*="'radExternal'"] { border-radius: var(--border-radius-external); }
+    &[pgs*="'radUnset'"] { border-radius: 0; }
 }
 
 //= OUTLINE
@@ -113,6 +123,9 @@
     &[pgs*="'otlThin'"] { --outline-width: 1px; }
     &[pgs*="'otlThick'"] { --outline-width: 3px; }
     &[pgs*="'otlThicker'"] { --outline-width: 4.5px; }
+
+    //- UNSET: takes the outline off
+    &[pgs*="'otlUnset'"] { outline: none; }
 
     //- COLOR
     &[pgs*="'otlPrimary'"] { --outline-color: var(--color-primary); }

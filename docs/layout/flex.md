@@ -7,7 +7,6 @@ Flex layouts: direction, wrapping, centering, a responsive column-N row that dro
 ## PGS
 
 - `flex`: creates a horizontal, wrapping flex layout by default.
-- `gap`: a root of its own for the gap options below, so an element that is already a flex or grid container by other means (a main, a section) can take a gap without being written as flex or grid; only the gap options work under it, the alignment options stay with flex and grid. It has no effect on an element that is neither a flex nor a grid container.
 - `flexChild`: sizes or orders one item inside a flex container, the option in its bracket picking how; a separate component from flex itself, so it stands on its own without needing a flex/flex[...] ancestor. A grid item uses gridChild instead.
 
 ## PGS Options (component brackets)
@@ -43,7 +42,7 @@ Flex layouts: direction, wrapping, centering, a responsive column-N row that dro
 - `colXxl`: inside flexChild's own bracket, takes 5 columns (--flexChild-col-xxl) of a column-N row.
 - `flexOrderFirst`: inside flexChild's own bracket, places a flex child before its siblings.
 - `flexOrderLast`: inside flexChild's own bracket, places a flex child after its siblings.
-- `gapTexts`: the text gap between the items, written inside flex, grid or gap's own bracket; also sets --gap, the gap a column-N row computes its widths with.
+- `gapTexts`: the text gap between the items; also sets --gap, the gap a column-N row computes its widths with.
 - `gapElements`: the element gap between the items, and --gap with it.
 - `gapGroups`: the double gap between the items, and --gap with it.
 - `gapSections`: the section gap between the items, and --gap with it; meant for large page blocks, since it also spaces the rows.
@@ -113,14 +112,31 @@ Three-column flex layout using column-2 with m2e to collapse to two columns per 
 </div>
 ```
 
-### Gap on its own
+### Gap
 
-gap is a root of its own for the gap options: an element that is already a flex container by other means takes a gap without being written as flex.
+The four gap scales between flex items, from the text gap to the section gap, plus gapNone. A bare gap root takes the same options for an element that is a container by other means; see Spacing.
 
 ```html
-<span pgs="box">First</span>
-<span pgs="box">Second</span>
-<span pgs="box">Third</span>
+<div pgs="flex['row' 'gapTexts']">
+    <span pgs="box">gapTexts</span>
+    <span pgs="box">gapTexts</span>
+</div>
+<div pgs="flex['row' 'gapElements']">
+    <span pgs="box">gapElements</span>
+    <span pgs="box">gapElements</span>
+</div>
+<div pgs="flex['row' 'gapGroups']">
+    <span pgs="box">gapGroups</span>
+    <span pgs="box">gapGroups</span>
+</div>
+<div pgs="flex['row' 'gapSections']">
+    <span pgs="box">gapSections</span>
+    <span pgs="box">gapSections</span>
+</div>
+<div pgs="flex['row' 'gapNone']">
+    <span pgs="box">gapNone</span>
+    <span pgs="box">gapNone</span>
+</div>
 ```
 
 ### Wrap

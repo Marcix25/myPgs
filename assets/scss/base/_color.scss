@@ -78,6 +78,7 @@
     &[pgs*="'txtWhiteFixed'"] { color: var(--color-whiteFixed); }
     &[pgs*="'txtBlackFixed'"] { color: var(--color-blackFixed); }
     &[pgs*="'txtLink'"] { color: var(--color-link); }
+    &[pgs*="'txtInherit'"] { color: inherit; }
 
     //== PRIMARY VARIANTS
     &[pgs*="'txtPrimary'"] { color: var(--color-primary); }

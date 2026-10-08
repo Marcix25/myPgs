@@ -23,33 +23,41 @@ Border, outline and radius utilities, split out from the general-purpose set sin
 - `bdThin`: inside border's own bracket, draws it at 1px instead of the default 1.5px, on every side.
 - `bdThick`: inside border's own bracket, draws it at 3px, on every side.
 - `bdThicker`: inside border's own bracket, draws it at 4.5px, on every side.
+- `bdUnset`: inside border's own bracket, takes the border off an element that has one of its own, on every side.
 - `bdBl`: inside borderBlock's own bracket, an explicit way to write the same default a bare borderBlock with no bracket already gets.
 - `bdBlThin`: inside borderBlock's own bracket, draws it on both sides of the block axis, at 1px.
 - `bdBlThick`: inside borderBlock's own bracket, draws it on both sides of the block axis, at 3px.
 - `bdBlThicker`: inside borderBlock's own bracket, draws it on both sides of the block axis, at 4.5px.
+- `bdBlUnset`: inside borderBlock's own bracket, takes the border off an element that has one of its own, on both sides of the block axis.
 - `bdIn`: inside borderInline's own bracket, an explicit way to write the same default a bare borderInline with no bracket already gets.
 - `bdInThin`: inside borderInline's own bracket, draws it on both sides of the inline axis, at 1px.
 - `bdInThick`: inside borderInline's own bracket, draws it on both sides of the inline axis, at 3px.
 - `bdInThicker`: inside borderInline's own bracket, draws it on both sides of the inline axis, at 4.5px.
+- `bdInUnset`: inside borderInline's own bracket, takes the border off an element that has one of its own, on both sides of the inline axis.
 - `bdTp`: inside borderTop's own bracket, an explicit way to write the same default a bare borderTop with no bracket already gets.
 - `bdTpThin`: inside borderTop's own bracket, draws it above only, at 1px.
 - `bdTpThick`: inside borderTop's own bracket, draws it above only, at 3px.
 - `bdTpThicker`: inside borderTop's own bracket, draws it above only, at 4.5px.
+- `bdTpUnset`: inside borderTop's own bracket, takes the border off an element that has one of its own, above only.
 - `bdRt`: inside borderRight's own bracket, an explicit way to write the same default a bare borderRight with no bracket already gets.
 - `bdRtThin`: inside borderRight's own bracket, draws it on the right only, at 1px.
 - `bdRtThick`: inside borderRight's own bracket, draws it on the right only, at 3px.
 - `bdRtThicker`: inside borderRight's own bracket, draws it on the right only, at 4.5px.
+- `bdRtUnset`: inside borderRight's own bracket, takes the border off an element that has one of its own, on the right only.
 - `bdBt`: inside borderBottom's own bracket, an explicit way to write the same default a bare borderBottom with no bracket already gets.
 - `bdBtThin`: inside borderBottom's own bracket, draws it below only, at 1px.
 - `bdBtThick`: inside borderBottom's own bracket, draws it below only, at 3px.
 - `bdBtThicker`: inside borderBottom's own bracket, draws it below only, at 4.5px.
+- `bdBtUnset`: inside borderBottom's own bracket, takes the border off an element that has one of its own, below only.
 - `bdLt`: inside borderLeft's own bracket, an explicit way to write the same default a bare borderLeft with no bracket already gets.
 - `bdLtThin`: inside borderLeft's own bracket, draws it on the left only, at 1px.
 - `bdLtThick`: inside borderLeft's own bracket, draws it on the left only, at 3px.
 - `bdLtThicker`: inside borderLeft's own bracket, draws it on the left only, at 4.5px.
+- `bdLtUnset`: inside borderLeft's own bracket, takes the border off an element that has one of its own, on the left only.
 - `otlThin`: inside outline's own bracket, draws it at 1px instead of the default 1.5px.
 - `otlThick`: inside outline's own bracket, draws it at 3px.
 - `otlThicker`: inside outline's own bracket, draws it at 4.5px.
+- `otlUnset`: inside outline's own bracket, takes the outline off an element that has one of its own.
 - `bdTransparent`: inside borderColor's own bracket, makes the border fully transparent.
 - `bdPrimary`: inside borderColor's own bracket, recolours the border with the primary colour.
 - `bdSecondary`: inside borderColor's own bracket, recolours the border with the secondary colour.
@@ -81,6 +89,7 @@ Border, outline and radius utilities, split out from the general-purpose set sin
 - `otlGray`: inside outline's own bracket, recolours it gray.
 - `radInput`: inside borderRadius's own bracket, uses the smaller radius used by form controls instead of the standard one.
 - `radExternal`: inside borderRadius's own bracket, uses the wider radius used by outer containers instead of the standard one.
+- `radUnset`: inside borderRadius's own bracket, squares the corners off an element that has a radius of its own.
 
 ## Related elements
 

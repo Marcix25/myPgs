@@ -21,7 +21,7 @@ Grid layouts: a responsive column-N grid that drops to fewer columns at each bre
 - `colL`: inside gridChild's own bracket, spans 3 columns (--gridChild-col-l): three of a column-4, and the full row where the breakpoint leaves only two.
 - `colXl`: inside gridChild's own bracket, spans 4 columns (--gridChild-col-xl).
 - `colXxl`: inside gridChild's own bracket, spans 5 columns (--gridChild-col-xxl).
-- `gapTexts`: the text gap between the items, written inside grid, flex or gap's own bracket; also sets --gap, the gap a column-N row computes its widths with.
+- `gapTexts`: the text gap between the items; also sets --gap, the gap a column-N row computes its widths with.
 - `gapElements`: the element gap between the items, and --gap with it.
 - `gapGroups`: the double gap between the items, and --gap with it.
 - `gapSections`: the section gap between the items, and --gap with it; meant for large page blocks, since it also spaces the rows.
@@ -88,6 +88,33 @@ Four-column grid layout using column-4 with m2e to collapse to two columns per r
         <strong>Enim ad minim</strong>
         <p>Ut labore et dolore magna aliqua ut enim.</p>
     </article>
+</div>
+```
+
+### Gap
+
+The four gap scales between grid items, from the text gap to the section gap, plus gapNone. A bare gap root takes the same options for an element that is a container by other means; see Spacing.
+
+```html
+<div pgs="grid['column-4' 'gapTexts']">
+    <span pgs="box">gapTexts</span>
+    <span pgs="box">gapTexts</span>
+    <span pgs="box">gapTexts</span>
+</div>
+<div pgs="grid['column-4' 'gapElements']">
+    <span pgs="box">gapElements</span>
+    <span pgs="box">gapElements</span>
+    <span pgs="box">gapElements</span>
+</div>
+<div pgs="grid['column-4' 'gapGroups']">
+    <span pgs="box">gapGroups</span>
+    <span pgs="box">gapGroups</span>
+    <span pgs="box">gapGroups</span>
+</div>
+<div pgs="grid['column-4' 'gapNone']">
+    <span pgs="box">gapNone</span>
+    <span pgs="box">gapNone</span>
+    <span pgs="box">gapNone</span>
 </div>
 ```
 

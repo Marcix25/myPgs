@@ -8,6 +8,7 @@ Standalone utilities for shadow, cursor, image fitting, list styling and forced 
 
 - `boxShadow`: applies the shared box shadow token.
 - `textShadow`: applies the shared text shadow token.
+- `blur`: blurs what is behind the element, the frosted-glass effect the header and the search panel use; a bracket takes blrUnset to take it off.
 - `pointer`: shows the pointer cursor on an element that is clickable but is not a control.
 - `appearanceNone`: strips every inherited style and the native appearance, to build a control from scratch.
 - `img`: fits or crops an image depending on the option in its bracket; written bare it does nothing.
@@ -18,6 +19,10 @@ Standalone utilities for shadow, cursor, image fitting, list styling and forced 
 ## PGS Options (component brackets)
 
 - `imgContain`: inside img's own bracket, fits the whole image inside its box without cropping it.
+- `imgFill`: inside img's own bracket, stretches the image to fill its box, which is what an image does with no fit at all; to take a cover or contain off an image that has one.
+- `bxsUnset`: inside boxShadow's own bracket, takes the shadow off an element that has one of its own.
+- `txsUnset`: inside textShadow's own bracket, takes the text shadow off an element that has one of its own.
+- `blrUnset`: inside blur's own bracket, takes the backdrop blur off an element that has one of its own.
 - `imgCover`: inside img's own bracket, crops the image to fill its box, the counterpart of contain.
 
 ## Related elements

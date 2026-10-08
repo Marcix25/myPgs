@@ -23,6 +23,7 @@
  * - widthText: inside width's own bracket, uses a 65 character measure, the width a line of text stays readable at, independent of the page width.
  * - widthFull: inside width's own bracket, uses the whole container width.
  * - widthFillAvailable: inside width's own bracket, uses -webkit-fill-available, the space actually left after margins and padding on iOS Safari, where percentages and viewport units miscompute against the address bar. Unsupported outside Chromium/Safari, where the invalid value is dropped and the element falls back to whichever other option, or its own -size property, it also carries.
+ * - widthAuto: inside width's own bracket, takes the width constraint off one element without dropping the utility; sets width itself, since the scale goes through min(), where auto is not valid.
  * - widthMaxPage: inside widthMax's own bracket, the same page width scale as widthPage, capping instead of setting.
  * - widthMaxPageHalf: inside widthMax's own bracket, the same half-page scale as widthPageHalf.
  * - widthMaxPageThird: inside widthMax's own bracket, the same third-page scale as widthPageThird.
@@ -34,6 +35,7 @@
  * - widthMaxText: inside widthMax's own bracket, the same 65 character measure as widthText.
  * - widthMaxFull: inside widthMax's own bracket, the same whole container width as widthFull.
  * - widthMaxFillAvailable: inside widthMax's own bracket, the same -webkit-fill-available as widthFillAvailable.
+ * - widthMaxNone: inside widthMax's own bracket, takes the maximum width off one element.
  * - widthMinPage: inside widthMin's own bracket, the same page width scale as widthPage, flooring instead of setting.
  * - widthMinPageHalf: inside widthMin's own bracket, the same half-page scale as widthPageHalf.
  * - widthMinPageThird: inside widthMin's own bracket, the same third-page scale as widthPageThird.
@@ -45,6 +47,7 @@
  * - widthMinText: inside widthMin's own bracket, the same 65 character measure as widthText.
  * - widthMinFull: inside widthMin's own bracket, the same whole container width as widthFull.
  * - widthMinFillAvailable: inside widthMin's own bracket, the same -webkit-fill-available as widthFillAvailable.
+ * - widthMinAuto: inside widthMin's own bracket, takes the minimum width off one element, back to the initial auto.
  * - heightFull: inside height's own bracket, uses the whole parent height, which only resolves when the parent has a definite height of its own.
  * - height100svh: inside height's own bracket, uses the small viewport height, the screen with the browser toolbars expanded, and is the default for every height utility. The element never grows past the screen as the toolbars retract.
  * - height100dvh: inside height's own bracket, uses the dynamic viewport height, which follows the visible area as the toolbars come and go, at the cost of resizing during the scroll.

@@ -2,7 +2,7 @@
 
 # Spacing
 
-Margin and padding utilities based on the same spacing scale gap uses: texts (smallest, also the default), elements (base size), group (double), sections (viewport-based, biggest). A shared base root for each property (margin, padding) covers all four sides at once, with the direction folded into a short prefix (mgTexts, pdPage, ...) instead of a separate root token per direction. Each direction also has its own root component (marginBlock, paddingTop, ...), using the same short direction-prefixed flags (mgBlTexts, pdTpPage, ...) — a physical side always wins over its logical shorthand when both are written, because CSS resolves that by which one comes later in the cascade, not by specificity. The gap utilities live in Flex and Grid instead, because they only take effect on a flex or grid container; they also work under a root of their own, gap, for an element that is a container by other means.
+Margin and padding utilities based on the same spacing scale gap uses: texts (smallest, also the default), elements (base size), group (double), sections (viewport-based, biggest). A shared base root for each property (margin, padding) covers all four sides at once, with the direction folded into a short prefix (mgTexts, pdPage, ...) instead of a separate root token per direction. Each direction also has its own root component (marginBlock, paddingTop, ...), using the same short direction-prefixed flags (mgBlTexts, pdTpPage, ...) — a physical side always wins over its logical shorthand when both are written, because CSS resolves that by which one comes later in the cascade, not by specificity. The gap has a root of its own too, with the same scales plus gapNone: it only takes effect on a flex or grid container, and Flex and Grid take the same options in their own bracket.
 
 ## PGS
 
@@ -20,6 +20,7 @@ Margin and padding utilities based on the same spacing scale gap uses: texts (sm
 - `paddingRight`: applies configurable inner spacing on the right only.
 - `paddingBottom`: applies configurable inner spacing on the bottom only.
 - `paddingLeft`: applies configurable inner spacing on the left only.
+- `gap`: applies a configurable gap between the children of an element that is a flex or grid container by other means (a main, a section), without writing it as flex or grid. Alone it draws nothing; the option says which gap. It has no effect on an element that is neither a flex nor a grid container.
 
 ## PGS Options (component brackets)
 
@@ -135,6 +136,11 @@ Margin and padding utilities based on the same spacing scale gap uses: texts (sm
 - `pdLtSections`: inside paddingLeft's own bracket, the section spacing scale, on the left only.
 - `pdLtPage`: inside paddingLeft's own bracket, the page padding token, on the left only.
 - `pdLtUnset`: inside paddingLeft's own bracket, resets the left to its initial value.
+- `gapTexts`: inside gap's own bracket, the text gap between the children; also sets --gap.
+- `gapElements`: inside gap's own bracket, the element gap between the children, and --gap with it.
+- `gapGroups`: inside gap's own bracket, the double gap between the children, and --gap with it.
+- `gapSections`: inside gap's own bracket, the section gap between the children, and --gap with it.
+- `gapNone`: inside gap's own bracket, removes the gap, and sets --gap to 0.
 
 ## Related elements
 
@@ -213,4 +219,29 @@ Each direction is its own root component; bare, with no bracket, it already carr
 <p pgs="box paddingInline">Spacing on the inline axis.</p>
 <p pgs="box paddingBlock">Spacing on the block axis.</p>
 <p pgs="box padding">Spacing on every side.</p>
+```
+
+## Gap
+
+### Gap on its own
+
+gap is a root of its own for the gap options: an element that is already a flex container by other means takes a gap without being written as flex. Here the containers are plain elements made flex with an inline style, to show the gap root alone.
+
+```html
+<div pgs="gap['gapTexts']" style="display: flex">
+    <span pgs="box">gapTexts</span>
+    <span pgs="box">gapTexts</span>
+</div>
+<div pgs="gap['gapElements']" style="display: flex">
+    <span pgs="box">gapElements</span>
+    <span pgs="box">gapElements</span>
+</div>
+<div pgs="gap['gapGroups']" style="display: flex">
+    <span pgs="box">gapGroups</span>
+    <span pgs="box">gapGroups</span>
+</div>
+<div pgs="gap['gapNone']" style="display: flex">
+    <span pgs="box">gapNone</span>
+    <span pgs="box">gapNone</span>
+</div>
 ```

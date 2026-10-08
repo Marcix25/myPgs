@@ -32,6 +32,10 @@
     &[pgs*="'widthPageEighth'"] { --width-size: calc(var(--page-width) / 8); }
     &[pgs*="'widthText'"] { --width-size: 65ch; }
     &[pgs*="'widthFillAvailable'"] { width: -webkit-fill-available; }
+
+    // drops the constraint on one element without dropping the utility. It sets the property itself:
+    // the value goes through min(), where auto is not valid, so a custom property would not do
+    &[pgs*="'widthAuto'"] { width: auto; }
 }
 
 :is([pgs~="widthMax"], [pgs*="widthMax\5B"]) {
@@ -49,6 +53,7 @@
     &[pgs*="'widthMaxPageEighth'"] { --widthMax-size: calc(var(--page-width) / 8); }
     &[pgs*="'widthMaxText'"] { --widthMax-size: 65ch; }
     &[pgs*="'widthMaxFillAvailable'"] { max-width: -webkit-fill-available; }
+    &[pgs*="'widthMaxNone'"] { max-width: none; }
 }
 
 :is([pgs~="widthMin"], [pgs*="widthMin\5B"]) {
@@ -66,6 +71,7 @@
     &[pgs*="'widthMinPageEighth'"] { --widthMin-size: calc(var(--page-width) / 8); }
     &[pgs*="'widthMinText'"] { --widthMin-size: 65ch; }
     &[pgs*="'widthMinFillAvailable'"] { min-width: -webkit-fill-available; }
+    &[pgs*="'widthMinAuto'"] { min-width: auto; }
 }
 
 //= HEIGHT

@@ -103,6 +103,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "aspAuto",
             "aspSquare",
             "aspVideo"
         ],
@@ -183,7 +184,9 @@
     "blur": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "blrUnset"
+        ],
         "pgs-data": []
     },
     "body": {
@@ -205,7 +208,8 @@
             "bd",
             "bdThick",
             "bdThicker",
-            "bdThin"
+            "bdThin",
+            "bdUnset"
         ],
         "pgs-data": []
     },
@@ -216,7 +220,8 @@
             "bdBl",
             "bdBlThick",
             "bdBlThicker",
-            "bdBlThin"
+            "bdBlThin",
+            "bdBlUnset"
         ],
         "pgs-data": []
     },
@@ -227,7 +232,8 @@
             "bdBt",
             "bdBtThick",
             "bdBtThicker",
-            "bdBtThin"
+            "bdBtThin",
+            "bdBtUnset"
         ],
         "pgs-data": []
     },
@@ -260,7 +266,8 @@
             "bdIn",
             "bdInThick",
             "bdInThicker",
-            "bdInThin"
+            "bdInThin",
+            "bdInUnset"
         ],
         "pgs-data": []
     },
@@ -271,7 +278,8 @@
             "bdLt",
             "bdLtThick",
             "bdLtThicker",
-            "bdLtThin"
+            "bdLtThin",
+            "bdLtUnset"
         ],
         "pgs-data": []
     },
@@ -280,7 +288,8 @@
         "pgs-generated": [],
         "pgs-options": [
             "radExternal",
-            "radInput"
+            "radInput",
+            "radUnset"
         ],
         "pgs-data": []
     },
@@ -291,7 +300,8 @@
             "bdRt",
             "bdRtThick",
             "bdRtThicker",
-            "bdRtThin"
+            "bdRtThin",
+            "bdRtUnset"
         ],
         "pgs-data": []
     },
@@ -302,7 +312,8 @@
             "bdTp",
             "bdTpThick",
             "bdTpThicker",
-            "bdTpThin"
+            "bdTpThin",
+            "bdTpUnset"
         ],
         "pgs-data": []
     },
@@ -318,7 +329,9 @@
     "boxShadow": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "bxsUnset"
+        ],
         "pgs-data": []
     },
     "breadcrumb": {
@@ -865,7 +878,8 @@
         "pgs-generated": [],
         "pgs-options": [
             "imgContain",
-            "imgCover"
+            "imgCover",
+            "imgFill"
         ],
         "pgs-data": []
     },
@@ -1154,6 +1168,7 @@
             "otlThick",
             "otlThicker",
             "otlThin",
+            "otlUnset",
             "otlWarning",
             "otlWhite"
         ],
@@ -1168,7 +1183,8 @@
             "ovAutoY",
             "ovHidden",
             "ovHiddenX",
-            "ovHiddenY"
+            "ovHiddenY",
+            "ovVisible"
         ],
         "pgs-data": []
     },
@@ -1315,6 +1331,7 @@
         "pgs-options": [
             "posAbsolute",
             "posRelative",
+            "posStatic",
             "posSticky"
         ],
         "pgs-data": []
@@ -1505,7 +1522,8 @@
             "taCenter",
             "taJustify",
             "taLeft",
-            "taRight"
+            "taRight",
+            "taStart"
         ],
         "pgs-data": []
     },
@@ -1528,6 +1546,7 @@
             "txtGray",
             "txtInfo",
             "txtInfoSoft",
+            "txtInherit",
             "txtLink",
             "txtLinkSoft",
             "txtPrimary",
@@ -1567,7 +1586,9 @@
     "textShadow": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "txsUnset"
+        ],
         "pgs-data": []
     },
     "toast": {
@@ -1643,6 +1664,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "widthAuto",
             "widthFillAvailable",
             "widthFull",
             "widthPage",
@@ -1663,6 +1685,7 @@
         "pgs-options": [
             "widthMaxFillAvailable",
             "widthMaxFull",
+            "widthMaxNone",
             "widthMaxPage",
             "widthMaxPageEighth",
             "widthMaxPageFifth",
@@ -1679,6 +1702,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "widthMinAuto",
             "widthMinFillAvailable",
             "widthMinFull",
             "widthMinPage",
@@ -1697,6 +1721,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "ziAuto",
             "ziOne",
             "ziTen"
         ],

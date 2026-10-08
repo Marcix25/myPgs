@@ -4,9 +4,14 @@
 [pgs~="darkmode"] { color-scheme: dark; }
 [pgs~="lightmode"] { color-scheme: light; }
 
-[pgs~="blur"] {
+:is([pgs~="blur"], [pgs*="blur\5B"]) {
     -webkit-backdrop-filter: var(--blur);
     backdrop-filter: var(--blur);
+
+    &[pgs*="'blrUnset'"] {
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
 }
 
 [pgs~="appearanceNone"] {
@@ -19,8 +24,17 @@
 
 //= LIST
 [pgs~="list"] { @include list(); }
-[pgs~="textShadow"] { text-shadow: var(--text-shadow); }
-[pgs~="boxShadow"] { box-shadow: var(--box-shadow); }
+:is([pgs~="textShadow"], [pgs*="textShadow\5B"]) {
+    text-shadow: var(--text-shadow);
+
+    &[pgs*="'txsUnset'"] { text-shadow: none; }
+}
+
+:is([pgs~="boxShadow"], [pgs*="boxShadow\5B"]) {
+    box-shadow: var(--box-shadow);
+
+    &[pgs*="'bxsUnset'"] { box-shadow: none; }
+}
 
 //= ACCESSIBILITY
 [pgs~="visuallyHidden"],
@@ -71,4 +85,5 @@
 [pgs*="img\5B"] {
     &[pgs*="'imgCover'"] { object-fit: cover; }
     &[pgs*="'imgContain'"] { object-fit: contain; }
+    &[pgs*="'imgFill'"] { object-fit: fill; }
 }

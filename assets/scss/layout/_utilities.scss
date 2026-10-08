@@ -10,6 +10,7 @@
 [pgs*="position\5B"] {
     &[pgs*="'posRelative'"] { position: relative; }
     &[pgs*="'posAbsolute'"] { position: absolute; }
+    &[pgs*="'posStatic'"] { position: static; }
 
     &[pgs*="'posSticky'"] {
         position: sticky;
@@ -25,6 +26,7 @@
 [pgs*="overflow\5B"] {
     &[pgs*="'ovAuto'"] { overflow: auto; }
     &[pgs*="'ovHidden'"] { overflow: hidden; }
+    &[pgs*="'ovVisible'"] { overflow: visible; }
     &[pgs*="'ovAutoX'"] { overflow-x: auto; }
     &[pgs*="'ovAutoY'"] { overflow-y: auto; }
     &[pgs*="'ovHiddenX'"] { overflow-x: hidden; }
@@ -37,6 +39,7 @@
     &[pgs*="'taCenter'"] { text-align: center; }
     &[pgs*="'taRight'"] { text-align: right; }
     &[pgs*="'taJustify'"] { text-align: justify; }
+    &[pgs*="'taStart'"] { text-align: start; }
 }
 
 [pgs~="truncate"] {
@@ -50,6 +53,7 @@
 [pgs*="aspect\5B"] {
     &[pgs*="'aspSquare'"] { aspect-ratio: 1 / 1; }
     &[pgs*="'aspVideo'"] { aspect-ratio: 16 / 9; }
+    &[pgs*="'aspAuto'"] { aspect-ratio: auto; }
 }
 
 //= ROTATION
@@ -93,4 +97,5 @@
 
     &[pgs*="'ziOne'"] { --zIndex: 1; }
     &[pgs*="'ziTen'"] { --zIndex: 10; }
+    &[pgs*="'ziAuto'"] { --zIndex: auto; }
 }

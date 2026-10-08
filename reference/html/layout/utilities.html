@@ -20,8 +20,10 @@
  * @pgs-options
  * - aspSquare: inside aspect's own bracket, gives it a 1:1 aspect ratio.
  * - aspVideo: inside aspect's own bracket, gives it a 16:9 aspect ratio.
+ * - aspAuto: inside aspect's own bracket, takes the aspect ratio off an element that has one of its own.
  * - ovAuto: inside overflow's own bracket, adds scrolling only when content overflows, on both axes.
  * - ovHidden: inside overflow's own bracket, clips overflowing content on both axes.
+ * - ovVisible: inside overflow's own bracket, lets overflowing content show, which takes an overflow off an element that has one of its own. There is no per-axis version: CSS turns a visible axis into auto as soon as the other one is not visible.
  * - ovAutoX: inside overflow's own bracket, adds scrolling only when content overflows, on the horizontal axis only.
  * - ovAutoY: inside overflow's own bracket, adds scrolling only when content overflows, on the vertical axis only.
  * - ovHiddenX: inside overflow's own bracket, clips overflowing content on the horizontal axis only.
@@ -30,6 +32,7 @@
  * - peAuto: inside pointerEvents's own bracket, restores pointer interaction.
  * - posRelative: inside position's own bracket, creates a positioning context.
  * - posAbsolute: inside position's own bracket, positions an element absolutely.
+ * - posStatic: inside position's own bracket, takes the positioning off an element that has one of its own, back to the normal flow.
  * - posSticky: inside position's own bracket, keeps an element sticky when offsets are supplied by the surrounding layout.
  * - rot0: inside rotate's own bracket, resets the rotation back to 0 degrees.
  * - rot90: inside rotate's own bracket, rotates 90 degrees clockwise.
@@ -41,8 +44,10 @@
  * - taCenter: inside textAlign's own bracket, centers text.
  * - taRight: inside textAlign's own bracket, aligns text to the end of the line.
  * - taJustify: inside textAlign's own bracket, stretches text to fill each full line.
+ * - taStart: inside textAlign's own bracket, aligns text to the start of the line, which takes a left, centre or right alignment off an element that has one of its own.
  * - ziOne: inside zIndex's own bracket, sets --zIndex to 1.
  * - ziTen: inside zIndex's own bracket, sets --zIndex to 10.
+ * - ziAuto: inside zIndex's own bracket, sets --zIndex to auto, which takes a stacking order off an element that has one of its own.
  *
  * @related
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.

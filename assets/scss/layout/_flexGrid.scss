@@ -13,7 +13,7 @@
     &[pgs*="'gapElements'"] { --gap: var(--gap-elements); gap: var(--gap); }
     &[pgs*="'gapGroups'"] { --gap: var(--gap-groups); gap: var(--gap); }
     &[pgs*="'gapSections'"] { --gap: var(--gap-sections); gap: var(--gap); }
-    &[pgs*="'gapNone'"] { --gap: 0px; gap: 0; }
+    &[pgs*="'gapNone'"] { --gap: 0px; gap: 0px; }
 }
 
 //= ALIGNMENT

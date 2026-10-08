@@ -90,6 +90,7 @@ Interactive palette of the current MyPGS background and text color utilities.
 - `txtWhiteFixed`: inside textColor's own bracket, applies --color-whiteFixed to text.
 - `txtBlackFixed`: inside textColor's own bracket, applies --color-blackFixed to text.
 - `txtLink`: inside textColor's own bracket, applies --color-link to text.
+- `txtInherit`: inside textColor's own bracket, takes the colour off an element that has one of its own, so the text takes the colour of its parent.
 - `txtInfo`: inside textColor's own bracket, applies --color-info to text.
 - `txtInfoSoft`: inside textColor's own bracket, applies --color-info-soft to text.
 - `txtError`: inside textColor's own bracket, applies --color-error to text.
