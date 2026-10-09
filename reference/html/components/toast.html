@@ -5,23 +5,22 @@
  *
  * @pgs
  * - toastLoad: creates one toast from a JSON object on page load; see @pgs-data "toast" for every accepted field.
- * - toastExe: creates one toast from a JSON object each time the element is clicked; same fields as toastLoad.
  * - toast: write it yourself, bare like this, to place the container elsewhere; the module leaves it alone and never generates a second one. Leave it empty, because its content is replaced at every toast.
  *
  * @pgs-generated
  * - _toast: the container the toasts are shown in, appended at the end of the body when no toast was written by hand. It also carries, for the toast being shown, the position written in its pgs-data.
  *
  * @pgs-options
- * - toastLeft: a value of the position field: shows the toast against the left edge instead of the centre. Written in the pgs-data of toastLoad or toastExe, or in the position option of pgs.toast; the JavaScript copies it to the container, for that toast only.
+ * - toastLeft: a value of the position field: shows the toast against the left edge instead of the centre. Written in the pgs-data of toastLoad, or in the position option of pgs.toast; the JavaScript copies it to the container, for that toast only.
  * - toastRight: a value of the position field: the same, against the right edge.
  * - toastCenter: a value of the position field: the same, in the middle of the screen.
  * - toastBottom: a value of the position field: the same, against the bottom edge instead of the top.
  *
  * @pgs-data
- * - toast: JSON object read by toastLoad/toastExe on page load or click; a new toast replaces whatever is currently shown — every field, with its accepted values and its default, is annotated in the reference below.
+ * - toast: JSON object read by toastLoad on page load; a new toast replaces whatever is currently shown — every field, with its accepted values and its default, is annotated in the reference below.
  *
  * @api
- * - pgs.toast.init(root): scans root for toastLoad and toastExe and initializes them; runs automatically on page load and again via pgs.init(root) for content added later.
+ * - pgs.toast.init(root): scans root for toastLoad and shows its toast; runs automatically on page load and again via pgs.init(root) for content added later.
  * - pgs.toast.trigger(root): alias of pgs.toast.init(root).
  * - pgs.toast.error(optionsOrTitle): a title string, or an options object — see the full field reference in the commented example below.
  * - pgs.toast.success(optionsOrTitle): a title string, or an options object — see the full field reference in the commented example below.
@@ -53,20 +52,7 @@
 
 <!-- <div pgs="toast" aria-live="polite"></div> -->
 
-<demo demo-h2="Trigger"></demo>
-<demo demo-h3="toastExe" demo-description="Shows the toast described in its pgs-data each time the element is clicked. A new toast replaces the one still on screen."></demo>
-<section demo="component">
-    <button pgs="button toastExe" pgs-data='toast[{
-        "title": "Toast trigger",
-        "description": "Your action was completed successfully.",
-        "type": "success",
-        "icon": null,
-        "timeout": "7000",
-        "buttons": [{ "title": "Open", "link": "#", "close": true }],
-        "closeTitle": "Close"
-    }]'> Trigger Toast</button>
-</section>
-
+<demo demo-h2="Load"></demo>
 <demo demo-h3="toastLoad" demo-description="Shows the toast described in its pgs-data once, when the page loads. The element is hidden and consumed: nothing of it stays in the page."></demo>
 <section demo="component">
     <div pgs="hidden toastLoad" pgs-data='toast[{
@@ -80,49 +66,31 @@
         }]'></div>
 </section>
 
+<demo demo-h2="From JavaScript"></demo>
+<demo demo-h3="On a click" demo-description="A toast on demand is a call to pgs.toast.success() (or error, info, warning, neutral) from whatever code runs on the click: after the work it reports, not before. A new toast replaces the one still on screen."></demo>
+<section demo="component" data-toast-demo="click">
+    <button type="button" pgs="button" data-toast-trigger>Show a toast</button>
+</section>
+
 <demo demo-h2="Position"></demo>
-<demo demo-h3="Left" demo-description="&quot;position&quot;: [&quot;toastLeft&quot;] in the pgs-data shows that toast against the left edge instead of the centre. The JavaScript copies it to the container for that toast only, so the next one starts again from its own options."></demo>
-<section demo="component">
-    <button pgs="button toastExe" pgs-data='toast[{
-        "title": "On the left",
-        "description": "Against the left edge.",
-        "type": "info",
-        "timeout": "7000",
-        "position": ["toastLeft"]
-    }]'>Toast on the left</button>
+<demo demo-h3="Left" demo-description="The position option, &quot;toastLeft&quot; in the array, shows that toast against the left edge instead of the centre. The JavaScript copies it to the container for that toast only, so the next one starts again from its own options."></demo>
+<section demo="component" data-toast-demo="left">
+    <button type="button" pgs="button" data-toast-trigger>Toast on the left</button>
 </section>
 
-<demo demo-h3="Right" demo-description="The same, against the right edge, with &quot;position&quot;: [&quot;toastRight&quot;]."></demo>
-<section demo="component">
-    <button pgs="button toastExe" pgs-data='toast[{
-        "title": "On the right",
-        "description": "Against the right edge.",
-        "type": "info",
-        "timeout": "7000",
-        "position": ["toastRight"]
-    }]'>Toast on the right</button>
+<demo demo-h3="Right" demo-description="The same, against the right edge, with &quot;toastRight&quot;."></demo>
+<section demo="component" data-toast-demo="right">
+    <button type="button" pgs="button" data-toast-trigger>Toast on the right</button>
 </section>
 
-<demo demo-h3="Center" demo-description="&quot;position&quot;: [&quot;toastCenter&quot;] puts the toast in the middle of the screen."></demo>
-<section demo="component">
-    <button pgs="button toastExe" pgs-data='toast[{
-        "title": "In the middle",
-        "description": "Centred on the screen.",
-        "type": "info",
-        "timeout": "7000",
-        "position": ["toastCenter"]
-    }]'>Toast in the center</button>
+<demo demo-h3="Center" demo-description="&quot;toastCenter&quot; puts the toast in the middle of the screen."></demo>
+<section demo="component" data-toast-demo="center">
+    <button type="button" pgs="button" data-toast-trigger>Toast in the center</button>
 </section>
 
-<demo demo-h3="Bottom" demo-description="&quot;position&quot;: [&quot;toastBottom&quot;] moves the toast to the bottom edge, instead of under the header."></demo>
-<section demo="component">
-    <button pgs="button toastExe" pgs-data='toast[{
-        "title": "At the bottom",
-        "description": "Against the bottom edge.",
-        "type": "info",
-        "timeout": "7000",
-        "position": ["toastBottom"]
-    }]'>Toast at the bottom</button>
+<demo demo-h3="Bottom" demo-description="&quot;toastBottom&quot; moves the toast to the bottom edge, instead of under the header."></demo>
+<section demo="component" data-toast-demo="bottom">
+    <button type="button" pgs="button" data-toast-trigger>Toast at the bottom</button>
 </section>
 
 <script type="application/json">

@@ -41,8 +41,6 @@
     &[pgs*="'toastRight'"] { align-items: flex-end; }
 }
 
-:is([pgs~="toastExe"], [pgs*="toastExe\5B"]) {}
-
 :is([pgs~="toastLoad"], [pgs*="toastLoad\5B"]) {
     &[pgs-data~="toast[]"] {}
 }

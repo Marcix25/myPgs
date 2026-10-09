@@ -231,6 +231,27 @@ function configureNotificationDemo() {
     });
 }
 
+//= Toast Demo
+function configureToastDemo() {
+    const pgsApi = globalThis.pgs;
+    const section = document.querySelector('[data-reference="components/toast.html"]');
+    if (!pgsApi?.toast || !section) return;
+
+    const options = {
+        click: { title: "Saved", description: "Your changes were saved.", timeout: 7000 },
+        left: { title: "On the left", description: "Against the left edge.", timeout: 7000, position: ["toastLeft"] },
+        right: { title: "On the right", description: "Against the right edge.", timeout: 7000, position: ["toastRight"] },
+        center: { title: "In the middle", description: "Centred on the screen.", timeout: 7000, position: ["toastCenter"] },
+        bottom: { title: "At the bottom", description: "Against the bottom edge.", timeout: 7000, position: ["toastBottom"] }
+    };
+
+    section.querySelectorAll("[data-toast-demo]").forEach(demo => {
+        demo.querySelector("[data-toast-trigger]")?.addEventListener("click", () => {
+            pgsApi.toast.info(options[demo.dataset.toastDemo]);
+        });
+    });
+}
+
 //= Init Demo
 function configureInitDemo() {
     const pgsApi = globalThis.pgs;
@@ -299,6 +320,7 @@ function boot() {
         configureNavSearchDemo();
         configureFormDemo();
         configureNotificationDemo();
+        configureToastDemo();
         configureInitDemo();
         configureFormValidateHelperDemo();
 

@@ -4202,7 +4202,7 @@ const fn_toast = {
     //== position flags land on the container, the way Modal copies the ones on its wrapper to _dialog:
     //== _toast is the pgs-generated-only token that carries them, rebuilt at every toast so one toast's
     //== position never leaks into the next. They come from the position of the toast: the field of its
-    //== pgs-data (toastLoad, toastExe) or the position option of a pgs.toast call. A container written
+    //== pgs-data of a toastLoad or the position option of a pgs.toast call. A container written
     //== by hand keeps its own as the baseline
     _applyOptions(container, position = []) {
         const wanted = [Array.isArray(position) ? position : String(position).split(/\s+/)].flat().filter(Boolean);
@@ -4256,22 +4256,11 @@ const fn_toast = {
             this._dispatch(element);
             element.remove();
         });
-    },
-
-    //== EXECUTE
-    execute(root = document) {
-        pgs(root).querySelectorAll("toastExe").forEach(element => {
-            if (!element || element.dataset.initialize === "true") return;
-
-            element.dataset.initialize = "true";
-            element.addEventListener("click", () => this._dispatch(element));
-        });
     }
 };
 
 function PGS_toastLoad_init(root = document) {
     fn_toast.trigger(root);
-    fn_toast.execute(root);
 }
 
 const PGS_toast = {

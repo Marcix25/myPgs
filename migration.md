@@ -806,7 +806,7 @@ border above the footer legal row — now has both its rule and the library's.
 - **A button can be a two-state control.** `<label pgs="button">` around a checkbox or radio hides
   the input, keeps its semantics, and paints the checked state from `--button-*-checked` — with
   every button option available on it. This is what replaced `twoState`.
-- **`alertContainer`, `notificationTrigger`, `toastExe`** are new public tokens.
+- **`alertContainer`, `notificationTrigger`** are new public tokens.
 - **A theme switch can carry its label anywhere.** `pgs-option="toggleDarkmodeExtended"` writes the
   theme the click leads to next to the glyph. The rule used to be baked into the footer, where it
   applied whether or not the page wanted it and reached no switch outside; it now lives in the
