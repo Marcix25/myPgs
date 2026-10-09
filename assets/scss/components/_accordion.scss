@@ -1,8 +1,6 @@
 @use "../mixin/mixin" as *;
 //# ACCORDION
-//read by the JavaScript only, declared here so editors suggest them: accordionContainer groups the
-//accordions inside it, so that opening one closes the others, and accMultiOpen on that same
-//container lifts the rule and lets them stay open together
+// the space between the accordions of a container: the divider line above each one sits in the middle of it
 $accordionGap: 1.0rem;
 
 //= ACCORDION CONTAINER
@@ -12,6 +10,9 @@ $accordionGap: 1.0rem;
     flex-direction: column;
     gap: var(--accordionContainer-gap);
 
+    // read by the JavaScript only, declared here so editors suggest it: accordionContainer groups the
+    // accordions inside it, so that opening one closes the others, and accMultiOpen on that same
+    // container lifts the rule and lets them stay open together
     &[pgs*="'accMultiOpen'"] {}
 }
 
@@ -66,7 +67,7 @@ $accordionGap: 1.0rem;
 
         &::after {
             margin-left: auto;
-            transition: rotate var(--accordion-timing, 300ms) ease;
+            transition: rotate var(--accordion-timing) ease;
         }
     }
 
@@ -76,8 +77,6 @@ $accordionGap: 1.0rem;
         visibility: hidden;
         opacity: 0;
         height: 0;
-        top: 20px;
-        left: 0;
         width: 100%;
         font-weight: normal;
         transition: height var(--accordion-timing) ease, opacity var(--accordion-timing) ease, visibility var(--accordion-timing);

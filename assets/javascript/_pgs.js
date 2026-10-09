@@ -105,7 +105,7 @@ export function pgs(root) {
     };
 
     //+
-    function concactSelector(value, attribute = ATTR) {
+    function concatSelector(value, attribute = ATTR) {
         if (Array.isArray(value)) value = value.join(",");
         return String(value)
             .split(",")
@@ -129,16 +129,16 @@ export function pgs(root) {
         }
 
         api.querySelector = function (value) {
-            return root.querySelector(concactSelector(value));
+            return root.querySelector(concatSelector(value));
         };
 
         api.querySelectorAll = function (value) {
-            return root.querySelectorAll(concactSelector(value));
+            return root.querySelectorAll(concatSelector(value));
         };
 
         api.closest = function (value) {
             if (!canAttr) return attrOnlyForElements("closest");
-            return root.closest(concactSelector(value));
+            return root.closest(concatSelector(value));
         };
 
         api.add = function (...values) {
@@ -210,7 +210,7 @@ export function pgs(root) {
         const write = (vals, sep = " ") =>
             root.setAttribute(attribute, vals.join(sep));
 
-        // funzione chiamabile: state("active") == add("active")
+        // callable form: state("active") is the same as state.add("active")
         function api(...values) {
             api.add(...values);
             return api;
@@ -267,15 +267,15 @@ export function pgs(root) {
         };
 
         api.querySelector = function (value) {
-            return root.querySelector(concactSelector(value, attribute));
+            return root.querySelector(concatSelector(value, attribute));
         };
 
         api.querySelectorAll = function (value) {
-            return root.querySelectorAll(concactSelector(value, attribute));
+            return root.querySelectorAll(concatSelector(value, attribute));
         };
 
         api.closest = function (value) {
-            return root.closest(concactSelector(value, attribute));
+            return root.closest(concatSelector(value, attribute));
         };
 
         Object.defineProperty(api, "value", {

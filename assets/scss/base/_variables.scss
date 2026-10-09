@@ -59,12 +59,11 @@
         --text-shadow: 0px 0px 4px #00000040, 0px 0px 4px #0000002d;
         --backdrop: #0000007a;
         --blur: blur(20px);
-        --icon-size: inherit;
         --focus-visible: 3px solid var(--color-focus);
-        --heightOfHeader: 6.8rem; ///preload fittizio
-        --heightOfHeaderScroll: 6.8rem; ///preload fittizio
-        --heightOfNavSmart: 8.9rem; ///preload fittizio
-        --heightOfNavSmartScroll: 8.9rem; ///preload fittizio
+        --heightOfHeader: 6.8rem; ///dummy preload value
+        --heightOfHeaderScroll: 6.8rem; ///dummy preload value
+        --heightOfNavSmart: 8.9rem; ///dummy preload value
+        --heightOfNavSmartScroll: 8.9rem; ///dummy preload value
 
         //- mobile 
         @media (max-width: $mobile) { --gap-sections: calc(7.3rem + 8svh); }
@@ -87,12 +86,6 @@
         --color-secondary-text: #492f00;
         --color-tertiary-text: #004a4e;
         --color-quaternary-text: #323900;
-        /*         
-        --color-primary: #5c7d6f;
-        --color-secondary: #3d5f4f;
-        --color-tertiary: #8fb082;
-        --color-quaternary: #10201c; 
-        */
         //== Variant color
         $percentage-light: 78%;
         $percentage-dark: 60%;
@@ -126,7 +119,6 @@
         --color-boxDark: light-dark(#222121, #f5f5f8);
         --color-box-transparent: light-dark(color-mix(in srgb, #eeeeee 50%, transparent 50%), color-mix(in srgb, #222121 50%, transparent 50%));
         --color-boxDark-transparent: light-dark(color-mix(in srgb, #222121 50%, transparent 50%), color-mix(in srgb, #eeeeee 50%, transparent 50%));
-        --color-link-soft: light-dark(#c1e7ff, #002a44);
         --color-background: light-dark(#ffffff, #080808);
         --color-whiteFixed: #FFFFFF;
         --color-blackFixed: #000000;

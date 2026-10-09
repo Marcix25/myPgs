@@ -523,7 +523,7 @@ function renderExampleSourceHtml(markup, title = "Example HTML", kind = "html") 
     const langClass = kind === "html" ? "markup" : kind;
     return `<div class="exampleSource" data-kind="${escapeHtml(kind)}">` +
         `<strong class="exampleSource-title">${escapeHtml(title)}</strong>` +
-        `<button type="button" class="exampleSource-copy" aria-label="Copia il codice HTML"><i class="fa-solid fa-copy" aria-hidden="true"></i></button>` +
+        `<button type="button" class="exampleSource-copy" aria-label="Copy the HTML code"><i class="fa-solid fa-copy" aria-hidden="true"></i></button>` +
         `<pre><code class="language-${langClass}">${escapeHtml(markup)}</code></pre>` +
         `</div>`;
 }
@@ -653,7 +653,7 @@ function renderReferencePanelHtml(path, rawFileText, cssText) {
             ? renderExampleSourceHtml(exampleMarkup.trim())
             : renderExamplePairsHtml(exampleMarkup);
     } catch (error) {
-        bodyHtml = renderHeadingBlockHtml(title, "", "h1") + `<p>Riferimento non caricato: ${escapeHtml(error.message)}</p>`;
+        bodyHtml = renderHeadingBlockHtml(title, "", "h1") + `<p>Reference not loaded: ${escapeHtml(error.message)}</p>`;
     }
 
     const sectionTag = isSection ? "section" : "div";

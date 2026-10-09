@@ -1,7 +1,7 @@
 <!--
 /**
  * @title Modal
- * @description A native dialog driven by the library. The dialog is moved out of its wrapper on initialization — to the body by default, or into the container named by modalContainerID or modalContainerPGS — so a modal written inside a header or a card is never clipped by it; dialogTopLevel keeps it in place and opens it with showModal(), on the browser's top layer. Options are authored on the wrapper — modal-dialog stays bare, like every other generated child token, and the module copies each option it finds onto _dialog, a second generated token on the dialog element itself that exists to carry them. A close button is generated when neither element holds one, and focus moves to the content header on open, or to the dialog itself when there is no header, instead of the first focusable descendant the dialog spec would otherwise pick. Position and size options are placed by CSS alone, so a script that owns a modal can swap them while the dialog is closed — Notification does, to open its one panel where the clicked bell asks. Opening and closing dispatch pgs:modal:open and pgs:modal:close on the wrapper and on the dialog, neither of them bubbling, so a listener sits on whichever of the two it already holds and never hears the same opening twice.
+ * @description A native dialog driven by the library. The dialog is moved out of its wrapper on initialization — to the body by default, or into the container named by modalContainerID or modalContainerPGS — so a modal written inside a header or a card is never clipped by it; dialogTopLevel keeps it in place and opens it with showModal(), on the browser's top layer. Options are authored on the wrapper — modal-dialog stays bare, like every other generated child token, and the module copies each option it finds onto _dialog, a second generated token on the dialog element itself that exists to carry them. A close button is generated when neither element holds one, and focus moves to the content header on open, or to the dialog itself when there is no header, instead of the first focusable descendant the dialog spec would otherwise pick. Position and size options are placed by CSS alone, so a script that owns a modal can swap them while the dialog is closed — Notification does, to open its one panel where the clicked bell asks. Opening and closing raise pgs:modal:open and pgs:modal:close, both bubbling, with detail.modal and detail.dialog always naming the wrapper and the dialog, and detail.element the element the event was raised on. pgs:modal:close is raised once the dialog has actually closed, whatever closed it — the close button, the backdrop, Escape, a drag, the browser's back button or a plain dialog.close() — and pgs:modal:open when the module opens it. A listener hears each of them once wherever it sits: the event goes out on the dialog and bubbles up from there, which already passes through the wrapper when dialogTopLevel keeps the dialog inside it; a dialog moved elsewhere is not under the wrapper, so the wrapper gets an event of its own, held back from the ancestors the two share, and a listener on the wrapper, one on the dialog, and one on the body or document each hear it once. A wrapper with no dialog inside it is left alone, with a warning in the console.
  *
  * @pgs
  * - modal: identifies the wrapper the module initializes, and the element the instance is stored against; write every option here.
@@ -46,12 +46,13 @@
  * - dragClose: set on the dialog while dialogDragClose carries a released panel off the bottom of the screen; the dialog really closes when it has finished.
  *
  * @api
- * - pgs.modal.init(root): initializes matching elements within the specified root.
+ * - pgs.modal.init(root): initializes matching elements within the specified root, the root itself included.
  * - pgs.modal.api(element): returns the instance associated with the specified initialized element.
  * - instance.open(): opens the dialog, and does nothing when it is already open.
  * - instance.close(): closes the dialog.
  * - instance.toggle(): opens the dialog, or closes it when it is already open.
- * - instance.refresh(): re-reads the dialog and the options, and returns the updated instance.
+ * - instance.refresh(): destroys the instance and builds it again from the markup, re-reading the dialog and the options, and returns the new instance.
+ * - instance.destroy(): removes every listener, observer and pending timer of the instance and releases it, leaving the generated markup where it is; pgs.modal.init(root) builds the instance again.
  * - instance.isOpen(): returns true while the dialog is open.
  *
  * @related

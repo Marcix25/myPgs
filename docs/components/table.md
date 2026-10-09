@@ -30,8 +30,8 @@ Complete HTML table wrapped in the dedicated PGS container.
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Stato</th>
-                <th>Data</th>
+                <th>Status</th>
+                <th>Date</th>
             </tr>
         </thead>
 

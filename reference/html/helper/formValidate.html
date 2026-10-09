@@ -12,14 +12,15 @@
  * - success: applied to the form once validate() passes, replacing errorForm.
  *
  * @api
- * - new pgs.formValidate(form, options): creates a utility associated directly with the form, adds novalidate, and completes missing form message options (formFieldErrorTitle, formFieldError, formFieldsError, formSuccessTitle, formSuccess) from options.message and then from library defaults; existing pgs-data values are preserved.
- * - instance.validator(callback, eventName): intercepts the specified event, clears previous temporary field errors, validates the form, shows the success message, and invokes callback only when valid; eventName defaults to submit.
+ * - new pgs.formValidate(form, options): creates a utility associated directly with the form, adds novalidate, and completes missing form message options (formFieldErrorTitle, formFieldError, formFieldsError, formSuccessTitle, formSuccess) from options.message and then from library defaults; existing pgs-data values are preserved. Throws a TypeError when form is not an element, options is not an object, or options.message holds an unknown key or a value that is not a string. It adds one click listener to the form, which clears the error of the field that was clicked, however many times validate() runs.
+ * - instance.validator(callback, eventName): intercepts the specified event, clears previous temporary field errors, validates the form, shows the success message, and invokes callback only when valid; eventName defaults to submit. Throws a TypeError when callback is not a function or eventName is not a non-empty string.
  * - instance.validate(): validates required fields, updates state attributes, and returns true or false.
  * - instance.success(description, title): validates the form and shows a success alert or toast when there are no errors.
- * - instance.addNewRule(rule): adds a function that returns one or more invalid fields; validate automatically marks each returned field as invalid.
+ * - instance.addNewRule(rule): adds a function that returns one or more invalid fields; validate automatically marks each returned field as invalid. Throws a TypeError when rule is not a function.
  * - instance.temporaryFieldError.set(field, options): registers a temporary field error and validates the form; options accepts title and message, or it can be the message string.
  * - instance.temporaryFieldError.remove(field): removes a temporary error and its visual state from one field.
  * - instance.temporaryFieldError.clear(): removes all temporary field errors and their visual states.
+ * - instance.destroy(): removes the listeners the instance added to the form, the click one and every validator(); the pgs-state, the novalidate attribute and the messages stay as they are.
  *
  * @related
  * - form: uses the related form component or utility in this example.

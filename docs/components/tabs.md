@@ -2,7 +2,7 @@
 
 # Tabs
 
-A tabbed interface with a wrapping list of controls and one visible panel at a time. Click a tab or use Arrow keys, Home, or End while a tab is focused to select its panel. Every selection dispatches pgs:tabs:change on the tabs root, with detail { current, tab, panel } — current being the zero-based index — and the event does not bubble, so the listener goes on the root itself.
+A tabbed interface with a wrapping list of controls and one visible panel at a time. Click a tab or use Arrow keys, Home, or End while a tab is focused to select its panel. Every selection dispatches pgs:tabs:change on the tabs root, with detail { element, current, tab, panel } — element being the tabs root and current the zero-based index. The event bubbles, so one listener on a parent can follow several tab sets and tell them apart by detail.element. Selecting the tab that is already selected changes nothing: no event and no history entry. Initialization dispatches the event once, for the tab it starts on.
 
 ## PGS
 
@@ -22,11 +22,12 @@ A tabbed interface with a wrapping list of controls and one visible panel at a t
 
 ## JavaScript API
 
-- `pgs.tabs.init(root)`: initializes tabs inside the specified Document or Element, including the root when it is tabs.
+- `pgs.tabs.init(root)`: initializes tabs inside the specified Document or Element, including the root when it is tabs. Tabs without a direct tabs-list and tabs-panels, or with a different number of tabs and panels, are skipped with a warning in the console.
 - `pgs.tabs.api(element)`: returns the instance associated with an initialized tabs root.
-- `instance.select(index)`: selects the zero-based tab and its matching panel.
+- `instance.goTo(index)`: selects the zero-based tab and its matching panel, and throws a TypeError when the index is not an integer inside the range.
 - `instance.getCurrent()`: returns the zero-based index of the selected tab.
-- `instance.refresh()`: returns the existing instance after initialization is requested again.
+- `instance.refresh()`: destroys the instance and initializes these tabs again from their current markup and state, then returns the new instance.
+- `instance.destroy()`: releases the listeners of these tabs, the popstate one included, and forgets the instance. The markup and the selection stay as they are.
 
 ## Related elements
 

@@ -1,7 +1,7 @@
 # Migrating a project onto this branch
 
-Everything below is what changed in `mypgs` since the last merge into `master` — over twenty commits,
-still versioned 4.7.1. It is written to be handed to whoever updates a consuming project: each entry
+Everything below is what changed in `mypgs` since the last merge into `master`, still versioned
+4.7.1. It is written to be handed to whoever updates a consuming project: each entry
 says what to search for and what to write instead.
 
 Read section 1 first. Those are the changes that break nothing loudly: the names survived and the
@@ -16,15 +16,19 @@ meaning moved under them, so nothing errors and the page just looks wrong.
 | `--icon-size` | the width driver of that surface | the size of a glyph, read as a font-size |
 | `pgs-option="menuVertical"` (and any submenu below a horizontal menu's first level) | floated as a dropdown, same as every other submenu | expands in place as an accordion |
 | a plain `<a>` in body content | `color: var(--color-black)`, underline on hover | `color: var(--color-link)`, background highlight on hover |
-| `pgs-state="info"` (alert/badge/notification/toast) | read `--color-link`/`--color-linkBackground` directly | reads `--color-info`/`--color-info-soft`, which only default to the link colours |
+| `pgs-state="info"` (alert/badge/notification/toast) | read `--color-link`/`--color-linkBackground` directly | reads `--color-info`/`--color-info-soft`, which only default to the link colors |
 | `pgs="header"` with no options | hid itself on scroll-down automatically | does nothing on scroll unless `pgs-option="headerScroll"` is also written |
-| `pgs="button"`, a link `pgs="card"`, a link `pgs="box"` | the hover treatment was baked into each component's CSS | the treatment lives only under `pgs="hover"`, which the JS adds to these at load |
+| `pgs="button"`, a link `pgs="card"`, a link `pgs="box"` | the hover treatment was baked into each component's CSS | the treatment lives under `pgs="hover"`, which the JS adds to these at load when `<body>` has `bodyHoverAuto`; without it they keep a plain CSS hover |
 | a bare `<button type="submit">` inside `pgs="form"` | the form styled it as a strong button on its own | draws nothing: mark it `pgs="button"` yourself |
-| several `pgs="accordion"` next to each other | opening one closed every other accordion on the page | each one answers for itself: wrap them in `pgs="accordionContainer"` to get the old behaviour |
+| several `pgs="accordion"` next to each other | opening one closed every other accordion on the page | each one answers for itself: wrap them in `pgs="accordionContainer"` to get the old behavior |
 | `pgs-option="buttonText"` and `pgs-option="buttonTransparent"` | `buttonTransparent` stripped every state, `buttonText` only the resting one | the two traded places: `buttonText` strips every state, `buttonTransparent` only the resting one |
-| `pgs="toggleDarkmode"` inside `pgs="footer"` | the footer wrote "Dark mode"/"Light mode" next to the glyph on its own | the label is opt-in, and available everywhere: add `pgs-option="toggleDarkmodeExtended"` |
-| `pgs.hover`'s marking (a button, and a card or box written as a link) | ran on every page as soon as the bundle loaded, and `pgs.hover.init(root)` always ran on request | needs `pgs="bodyHoverAuto"` on `<body>` to run at all, by any path — the automatic pass, a direct `pgs.hover.init(root)` call, or `pgs.init(root)`, which reaches every module's `init(root)` regardless of what the caller meant to touch |
+| `pgs="toggleDarkmode"` inside `pgs="footer"` | the footer wrote "Dark mode"/"Light mode" next to the glyph on its own | the label is opt-in, and available everywhere: add `tglLabeled` to its bracket, `toggleDarkmode['tglLabeled']` |
+| `pgs.hover`'s marking (a button, and a card or box written as a link) | ran on every page as soon as the bundle loaded, and `pgs.hover.init(root)` always ran on request | needs `bodyHoverAuto` in the `body[...]` bracket of `<body>` to run at all, by any path — the automatic pass, a direct `pgs.hover.init(root)` call, or `pgs.init(root)`, which reaches every module's `init(root)` regardless of what the caller meant to touch |
 | `pgs="dropdown"` (and the floating first-level submenus of a horizontal menu) | the content floated with no arrow | the content draws an arrow pointing back at the trigger: add `drpNotArrow` to the bracket to keep the old look |
+| `pgs.<module>.init(root)` on an accordion, menu, steps, stepTabs, summary, notification or toast | looked only at what is inside `root`, so `pgs.init(el)` on a freshly inserted `pgs="accordion"` did nothing | the root element itself is initialized too, like it already was for tabs, modal, dropdown, search, slides and pageNav |
+| `refresh()` on a component instance | six different things: re-run the parent's init (a no-op for the element), re-measure, re-run a search | one meaning everywhere: `destroy()` then initialize that element again, and return the new instance. Search's old `refresh()` is `search()` now |
+| every `pgs:*` event (`pgs:tabs:change`, `pgs:stepTabs:change`, `pgs:pageNav:change`, `pgs:modal:open`, `pgs:modal:close`, `pgs:alert:*`, `pgs:search:*`) | some bubbled, some did not | all bubble, and `detail.element` is always there. A listener on an ancestor now also hears the events of components nested inside it |
+| `pgs.pageNav.api(el).getCurrent()` | the current panel element | the zero-based index, like tabs and stepTabs; the element is `getCurrentPanel()` |
 
 ### Retired option attribute: migrate every occurrence manually
 
@@ -53,8 +57,9 @@ the component it belongs to — that attribute is flat, with no bracket to give 
 
 Every boolean flag with no payload stays in `pgs`, whether it is CSS-facing or read by JavaScript
 only, written as `component['flagName']` next to the flags that also carry a CSS rule. `hoverNot`
-is the one exception: it opts out on whichever component carries it (button, card, box, hover), so
-it has no single owner — write it bare, `pgs="button hoverNot"`, not nested in a bracket.
+is the one flag with no single owner: it opts out on whichever component carries it (button, card,
+box), so write it in that component's bracket, `box['hoverNot']`, as `reference/html/base/hover.html`
+shows. The bare token `hoverNot` matches too, and it is what `option.add("hoverNot")` writes.
 
 ### Every flag carries its component's prefix
 
@@ -64,9 +69,9 @@ the same element matches both — `[pgs*="'mini'"]` cannot tell button's from ca
 now carries a prefix of its own component, even where no collision exists today. A short component
 name is written in full (`cardMini`, `badgeDot`, `iconLarge`, `menuVertical`, `slidesSingleScroll`,
 `headerScroll`), which is why many flags simply keep the name they had under `pgs-option`; a long one
-is abbreviated (`btn`, `acc`, `drp`, `shell`, `tgl`, `mrg`, `pad`, `brd`, `otl`). flex/grid's layout
+is abbreviated (`btn`, `acc`, `drp`, `shell`, `tgl`, `mg`, `pd`, `bd`, `otl`). flex/grid's layout
 flags (`column`, `row`, `gapTexts`, `itemCenter`, ...) are the one family still bare, and `hoverNot`
-stays bare because it has no single owner. The `icon-*` glyphs and every `pgs-data` key keep their
+has no single owner, so it is written in the bracket of whichever component it opts out. The `icon-*` glyphs and every `pgs-data` key keep their
 prefix too. The table gives the current name; search for every occurrence of the left column and
 rename it where it changed.
 
@@ -75,7 +80,7 @@ rename it where it changed.
 | accordion | `accordionAutoOpen` | `accAutoOpen` |
 | accordionContainer | `accordionMultiOpen` | `accMultiOpen` |
 | badge | `badgeDot` / `badgeError` / `badgeInfo` / `badgeNeutral` / `badgePrimary` / `badgeStrong` / `badgeSuccess` / `badgeWarning` | unchanged: every badge flag keeps `badge` |
-| border (and its variants) | `borderThick` / `borderThicker` / `borderThin` | `brdThick` / `brdThicker` / `brdThin`, one `border[...]` bracket for every side (`brdTop`, `brdLeftThick`, ...) |
+| border (and its variants) | `borderThick` / `borderThicker` / `borderThin` | `bdThick` / `bdThicker` / `bdThin`; each side keeps its own root and folds its side code into the flag (`borderTop['bdTpThin']`, `borderLeft['bdLtThick']`, ...), and the color has its own root, `borderColor['bdPrimary']` |
 | outline | `outlineThick` / `outlineThicker` / `outlineThin` | `otlThick` / `otlThicker` / `otlThin` |
 | box | `boxMini` | `boxMini` (unchanged: button and card also have a mini) |
 | button | `buttonVertical` / `buttonMini` / `buttonPaddingEqual` / `buttonPrimary` / `buttonQuaternary` / `buttonReverse` / `buttonSecondary` / `buttonStrong` / `buttonTertiary` / `buttonText` / `buttonTransparent` | `btnVertical` / `btnMini` / `btnPaddingEqual` / `btnPrimary` / `btnQuaternary` / `btnReverse` / `btnSecondary` / `btnStrong` / `btnTertiary` / `btnText` / `btnTransparent` (every button flag carries `btn`) |
@@ -92,11 +97,11 @@ rename it where it changed.
 | logo | `logoDarkmode` / `logoDarkmodeFixed` | unchanged |
 | menu | `menuHorizontal` / `menuIconOnlyCurrent` / `menuShort` / `menuVertical` | unchanged |
 | modal / modal-dialog | `modalBottom` / `modalCenter` / `modalDisableBackdropClose` / `modalFull` / `modalHistory` / `modalLeft` / `modalMedium` / `modalMini` / `modalRight` / `modalTop` / `modalTopLevel` | `dialogBottom` / `dialogCenter` / `dialogDisableBackdropClose` / `dialogFull` / `dialogHistory` / `dialogLeft` / `dialogMedium` / `dialogSmall` / `dialogRight` / `dialogTop` / `dialogTopLevel` (renamed to `dialog*`, not stripped bare — these flags act on the `<dialog>`, not the wrapper) |
-| margin (and its variants) | `marginAuto` / `marginElements` / `marginNegative` / `marginPage` / `marginSections` / `marginTexts` / `marginUnset` | `mrgAuto` / `mrgElements` / `mrgNegative` / `mrgPage` / `mrgSections` / `mrgTexts` / `mrgUnset`, and `margin2` → `mrgHalf`; one `margin[...]` bracket for every side (`mrgTop`, `mrgInlineAuto`, ...) |
-| padding (and its variants) | same list as margin, `padding*` | the same with `pad` (`padPage`, `padTopHalf`, ...), `padding2` → `padHalf`; padding has no `auto` or `negative` |
+| margin (and its variants) | `marginAuto` / `marginElements` / `marginNegative` / `marginPage` / `marginSections` / `marginTexts` / `marginUnset` | `mgAuto` / `mgElements` / `mgNegative` / `mgPage` / `mgSections` / `mgTexts` / `mgUnset`; each side keeps its own root and folds its side code into the flag (`marginTop['mgTpElements']`, `marginInline['mgInAuto']`, ...) |
+| padding (and its variants) | same list as margin, `padding*` | the same with `pd` (`pdPage`, `paddingTop['pdTpTexts']`, ...); padding has no `auto` or `negative` |
 | pageShell | `pageShellAsideScroll` / `pageShellAsideShadow` / `pageShellFullPage` | `shellAsideScroll` / `shellAsideShadow` / `shellFullPage` |
 | slides | `slidesAnimationScale` / `slidesShadowDesktop` / `slidesSingleScroll` | unchanged (`slidesScrollMouse` was removed, see section 2) |
-| toggleDarkmode | `toggleDarkmodeExtended` | `tglLabelled` |
+| toggleDarkmode | `toggleDarkmodeExtended` | `tglLabeled` |
 
 `.option` and `.data` are two separate accessors, split by attribute as well as by purpose:
 `.option` (`contains`/`add`/`remove`/`toggle`/queries/`closest`) only ever touches the `pgs`
@@ -105,8 +110,8 @@ Neither reads nor writes the other's attribute. `option.add(key)` derives the ow
 from `key`'s own name — the lowercase run before the first uppercase letter or a `-` — and merges
 into that component's existing bracket. Most flags lost that derivable prefix in the table above,
 so this now only actually resolves an owner for the few that kept the component's own full name
-(`icon-moon` → `icon`, `cardMini` → `card`); an abbreviated prefix does not count (`mrgTop` derives
-`mrg`, not `margin`; `btnMini` derives `btn`, not `button`), and every other flag falls through to becoming its own bare `pgs` token, same as
+(`icon-moon` → `icon`, `cardMini` → `card`); an abbreviated prefix does not count (`mgTp` derives
+`mg`, not `margin`; `btnMini` derives `btn`, not `button`), and every other flag falls through to becoming its own bare `pgs` token, same as
 `hoverNot` (which never had an owner to derive). To add a shortened flag into its bracket from
 JavaScript, call the base `pgs(el).add("component['flag']")` directly, naming the component — this
 is the normal way to add a bracket flag now, not a fallback. `option.remove`/`option.toggle` strip
@@ -119,9 +124,9 @@ written bare goes through `data.value` directly, since it has no owner to derive
 in the `pgs` bracket. The base `pgs()` API recognizes components with brackets and preserves their
 options when another token is added. There is no fallback to the retired attribute.
 
-Update consumer selectors too: `[pgs~="button"]` alone does not match `button['mini']`.
+Update consumer selectors too: `[pgs~="button"]` alone does not match `button['btnMini']`.
 Use `:is([pgs~="button"], [pgs*="button\5B"])` for the component and
-`[pgs*="'mini'"]` for the flag. In SCSS, spell the opening bracket as `\5B`. A selector for a true
+`[pgs*="'btnMini'"]` for the flag. In SCSS, spell the opening bracket as `\5B`. A selector for a true
 child token needs only the plain `[pgs~="X"]` form — no child keeps the full `:is(...)` form
 anymore, not even `modal-dialog`: its own options (`dialogRight`, `dialogSmall`, ...) now land on
 `_dialog`, a second, pgs-generated-only token added alongside it, so `modal-dialog` itself simplifies
@@ -137,8 +142,8 @@ So `<span pgs="icon"><i class="fa-solid fa-star"></i></span>` no longer draws a 
 is now an option on an icon element:
 
 ```html
-<span pgs="icon" pgs-option="iconBox">
-    <i pgs="icon" pgs-option="icon-star"></i>
+<span pgs="icon['iconBoxed']">
+    <i pgs="icon['icon-star']"></i>
 </span>
 ```
 
@@ -147,29 +152,29 @@ Every other submenu — a nested level inside that same horizontal menu, or anyt
 menu — now expands in place instead, via a generated `_menu-accordion` token and `pgs-state="open"`.
 Nothing to rename, but a vertical menu with submenus will look different: check it visually.
 
-Links: recolour `--color-link`/`--color-link-soft` if the previous black-with-underline look was
+Links: recolor `--color-link`/`--color-link-soft` if the previous black-with-underline look was
 intentional rather than inherited from never having set them.
 
 Info state: if you retheme "info" surfaces by overriding `--color-link`, set `--color-info` (and
-`--color-info-soft`) instead — they used to be the same colour by coincidence, now only by default.
+`--color-info-soft`) instead — they used to be the same color by coincidence, now only by default.
 
 Header scroll-hide: this used to run unconditionally on every `pgs="header"`. A header with no
 `pgs-option` at all — which is what `PGS_theme`'s own header currently has — silently stops hiding on
 scroll after this merge unless `headerScroll` is added to it.
 
-Hover: the shared treatment is no longer written three times. `[pgs~=button]`, `[pgs~=card]:where(a)`
-and `[pgs~=box]:where(a)` dropped their own copy, and `pgs.hover` — a new base module, loaded by the
-bundle — marks those surfaces with `hover` when the page loads and keeps them in sync afterwards
-(markup the library injects later, a token added at runtime, `hoverNot` toggled on or off). The
-output is the same and there is nothing to rename, with two consequences: a project that loads
-`dist/css` **without** `dist/javascript` loses hover on buttons, clickable cards and clickable boxes
-— and with it the keyboard focus ring, which is part of the same treatment, so write `hover` in the
-markup there — and the `buttonHover()` mixin no longer exists, since nothing composed it any more. A
-custom element that wants the treatment in CSS includes `hoverBase()`, `hoverStyle1()` and
-`focus()`, the three it was an alias for.
+Hover: the shared treatment is no longer written three times. It lives under `[pgs~=hover]`, and
+`pgs.hover` — a new base module, loaded by the bundle — marks `button`, a link `card` and a link `box`
+with `hover` when the page loads and keeps them in sync afterwards (markup the library injects later,
+a token added at runtime, `hoverNot` toggled on or off), as long as the page's `<body>` carries
+`bodyHoverAuto`. There is nothing to rename. Where `bodyHoverAuto` is missing — a project that loads
+`dist/css` **without** `dist/javascript`, or a body that never wrote it — those three keep only a
+plain CSS hover of their own (the `buttonHover()` and `boxHover()` mixins, and the link rule of
+`card`), and lose the shared treatment with the keyboard focus ring that is part of it, so write
+`hover` in the markup there. A custom element that wants the treatment in CSS includes
+`hoverBase()`, `hoverStyle1()` and `focus()`, the three it was an alias for.
 
-Form submit: `[pgs~=form]` no longer styles `button[type="submit"]`. It used to give any bare submit
-button inside a form `buttonBase` + `buttonContent` + `buttonStrong` + `buttonHover`, styling it by
+Form submit: `[pgs~=form]` no longer styles `button[type="submit"]`. It used to style any bare submit
+button inside a form as a strong button (the button base, content, strong and hover mixins), styling it by
 tag instead of by token — the one place left where writing no `pgs` still produced a component. Now
 nothing errors and nothing is renamed: the button simply falls back to the browser's own look. Write
 it out to get the same button as before:
@@ -178,7 +183,7 @@ it out to get the same button as before:
 <button pgs="button" pgs-option="buttonStrong" type="submit">Send</button>
 ```
 
-`buttonHover` needs no equivalent — `pgs.hover` adds the hover token to anything marked `pgs="button"`.
+The hover needs nothing written on it: `pgs.hover` adds the hover token to anything marked `pgs="button"` when the body carries `bodyHoverAuto`, and the button keeps its own CSS hover when it does not.
 This one is worth a pass over every form in the project, since the markup keeps working and only the
 look changes.
 
@@ -187,7 +192,7 @@ two unrelated groups on the same page fought each other, and a single standalone
 somebody else's. The rule now needs a group: `pgs="accordionContainer"` on the element that wraps a
 set of accordions, typically the `<ul>`, and only the panels of that same group close each other.
 Nothing errors, and a lone accordion is better off than before; what changes silently is a set that
-relied on the old behaviour, which now lets all of its panels stay open:
+relied on the old behavior, which now lets all of its panels stay open:
 
 ```html
 <ul pgs="flexColumn accordionContainer">
@@ -204,7 +209,7 @@ while the rest of the group is used, until the reader works that panel themselve
 Buttons, `buttonText` and `buttonTransparent`: the two names swapped implementations. Neither was
 renamed and neither was removed, so nothing errors — a button carrying either one simply looks like
 the other one now. `buttonTransparent` is the light touch: no background and no border at rest, the
-label taking the accent colour on hover, and `buttonStrong` or `aria-current` still filling the
+label taking the accent color on hover, and `buttonStrong` or `aria-current` still filling the
 button in. `buttonText` is the absolute one: every state transparent, so the button never fills,
 not even when it is the current page. Navigation links want the first, which is why every menu,
 header and notification example in the library now writes `buttonTransparent` where it used to write
@@ -218,27 +223,28 @@ header and notification example in the library now writes `buttonTransparent` wh
 
 ### Every utility family is one bracket
 
-The last round of the naming work folds each family of utility tokens into a single root with its
-own bracket, the same shape every component already has: one `margin[...]` instead of eleven
-`margin*` roots, one `section[...]` instead of eight `section*` ones. The flags inside carry a short
-prefix of their family (`mrg`, `pad`, `brd`, `sct`, `pos`, ...), so two families written on the same
-element can never match each other's flags. Nothing keeps working under the old name.
+The last round of the naming work gives each family of utility tokens a root with its own bracket,
+the same shape every component already has: one `section[...]` instead of eight `section*` roots.
+Margin, padding and border keep one root per side (`marginTop`, `paddingInline`, `borderLeft`, ...),
+each with its own bracket. The flags inside carry a short prefix of their family (`mg`, `pd`, `bd`,
+`sct`, `pos`, ...), so two families written on the same element can never match each other's flags.
+Nothing keeps working under the old name.
 
 | family | was | is now |
 | --- | --- | --- |
-| margin | `marginTop` / `marginBlock` / `marginAuto` / `marginTexts` / `margin2` / ... | `margin['mrgTop']` / `margin['mrgBlock']` / `margin['mrgAuto']` / `margin['mrgTexts']` / `margin['mrgHalf']`. A side and a scale fold into one flag: `marginTop` + `texts` → `margin['mrgTopTexts']`, `marginLeft` + `auto` → `margin['mrgLeftAuto']`. `mrgNegative` negates whatever else is in the bracket |
-| padding | `paddingTop` / `paddingInline` / `paddingElements` / `padding2` / ... | the same with `pad`: `padding['padTop']`, `padding['padInlineElements']`, `padding['padHalf']`. Padding has no `auto` and no `negative` |
-| border | `pgs="border"` + `borderThin`/`borderThick`/`borderThicker`, the per-side `borderTop`/`borderLeft`/..., and a colour `brPrimary`/... | one bracket for all three: `border['brdTop' 'brdThick' 'brPrimary']` — thickness and side fold into one flag (`brdLeftThick`), the colour sits next to it. `border['brPrimary']` alone draws the default width in that colour |
-| outline | `pgs="outline"` + `olPrimary`/... and `outlineThin`/... | `outline['olPrimary' 'otlThick']` |
+| margin | `marginTop` / `marginBlock` / `marginAuto` / `marginTexts` / ... | `marginTop['mgTp']` / `marginBlock['mgBl']` / `margin['mgAuto']` / `margin['mgTexts']`. Each side keeps its own root, and a side and a scale fold into one flag inside it: `marginTop` + `texts` → `marginTop['mgTpTexts']`, `marginLeft` + `auto` → `marginLeft['mgLtAuto']`. `mgNegative` negates the base margin, `mgTpNegative` (and the other sides') only its own side |
+| padding | `paddingTop` / `paddingInline` / `paddingElements` / ... | the same with `pd`: `paddingTop['pdTp']`, `paddingInline['pdInElements']`, `padding['pdPage']`. Padding has no `auto` and no `negative` |
+| border | `pgs="border"` + `borderThin`/`borderThick`/`borderThicker`, the per-side `borderTop`/`borderLeft`/..., and a color `brPrimary`/... | width and side fold into one flag inside the root of that side (`border['bdThick']`, `borderTop['bdTpThin']`, `borderLeft['bdLtThick']`), and the color has its own root, `borderColor['bdPrimary']` replacing `brPrimary`, written next to the side: `borderTop['bdTpThin'] borderColor['bdPrimary']`. `border` with `borderColor['bdPrimary']` alone draws the default width in that color |
+| outline | `pgs="outline"` + `olPrimary`/... and `outlineThin`/... | `outline['otlPrimary' 'otlThick']` |
 | border radius | `borderRadius` / `borderRadiusInput` / `borderRadiusExternal` | `borderRadius` / `borderRadius['radInput']` / `borderRadius['radExternal']` |
-| section | `section` / `sectionFull` / `sectionMax` / `sectionNoPadding` / `sectionSpecificity` (and the dev-only `sectionEdge*`) | `section` / `section['sctFull']` / `section['sctMax']` / `section['sctNoPadding']` / `section['sctSpecificity']` / `section['sctEdgeLeft']`...; its child `sectionSpecificity-child` → `sctSpecificity-child` |
+| section | `section` / `sectionFull` / `sectionMax` / `sectionNoPadding` / `sectionSpecificity` (and the dev-only `sectionEdge*`) | `section` / `section['sctFull']` / `section['sctMax']` / `section['sctNoPadding']` / `section['sctSpecificity']` / `section['sctEdgeLeft']`...; its child `sectionSpecificity-child` → `section-specificity` |
 | body | `bodyBase` / `bodyImg` / `bodyText` / `bodyHeading` / `bodyHoverAuto` on `<body>` | `body['bodyBase' 'bodyImg' 'bodyText' 'bodyHeading' 'bodyHoverAuto']` |
-| background colour | `bgPrimary` / `bgBoxDark` / ... | `background['bgPrimary']` / `background['bgBoxDark']` |
-| text colour | `colorPrimary` / ... (the dev-only `txtPrimary` / ...) | `textColor['txtPrimary']` — not `text[...]`, which is the typography utility |
+| background color | `bgPrimary` / `bgBoxDark` / ... | `background['bgPrimary']` / `background['bgBoxDark']` |
+| text color | `colorPrimary` / ... (the dev-only `txtPrimary` / ...) | `textColor['txtPrimary']` — not `text[...]`, which is the typography utility |
 | position | `positionRelative` / `positionAbsolute` / `positionSticky` | `position['posRelative']` / `position['posAbsolute']` / `position['posSticky']` |
 | overflow | `overflowAuto` / `overflowXAuto` / `overflowHidden` | `overflow['ovAuto']` / `overflow['ovAutoX']` / `overflow['ovHidden']` (and the new `ovAutoY` / `ovHiddenX` / `ovHiddenY`) |
 | aspect ratio | `aspectSquare` / `aspectVideo` | `aspect['aspSquare']` / `aspect['aspVideo']` |
-| selection | `selectNone` / `selectText` | `select['selNone']` / `select['selText']` |
+| selection | `selectNone` / `selectText` | `userSelect['selNone']` / `userSelect['selText']` |
 | pointer events | `pointerEventsNone` / `pointerEventsAuto` | `pointerEvents['peNone']` / `pointerEvents['peAuto']` |
 | image fit | `imgCover` / `imgContain` | `img['imgCover']` / `img['imgContain']` |
 | flex item | `flex-flex1` / `flex-flexFull` / `flex-flexInitial` / `flex-flexNone` / `flex-flexOrderFirst` / `flex-flexOrderLast` | `flexChild['flex1']` / `flexChild['flexFull']` / ...: its own component, so it works inside any flex or grid container, not only under `flex` |
@@ -246,7 +252,7 @@ element can never match each other's flags. Nothing keeps working under the old 
 Unchanged: `block`, `minWidth0`, `truncate`, `cursorNotAllowed`, `container`, and
 `iconColorPrimary`/`iconColorSecondary`, which stay bare.
 
-`svgChangeColor` now recolours Lottie animations too, from the same `--svg-color-N` pairs. The
+`svgChangeColor` now recolors Lottie animations too, from the same `--svg-color-N` pairs. The
 `lottieChangeColor` token that briefly existed on this branch is gone; write `svgChangeColor`.
 
 In PHP, a value an ACF field or a helper writes straight into `pgs` needs the same rename.
@@ -270,7 +276,7 @@ The width scales also go further down the page: a quarter, fifth, sixth, seventh
 `widthPageQuarter` ... `widthPageEighth`, and the same under `widthMax` and `widthMin`
 (`widthMaxPageQuarter`, `widthMinPageEighth`, ...).
 
-### Text colour utilities — `color*` becomes `txt*`
+### Text color utilities — `color*` becomes `txt*`
 
 Thirty-eight tokens, one straight substitution: `colorPrimary` → `txtPrimary`, `colorError` →
 `txtError`, `colorWhiteFixed` → `txtWhiteFixed`, and so on for every `color*` you were using. The
@@ -287,7 +293,9 @@ write them by hand.
 `toast-element-content` `toast-element-icon` `search-suggestions-item` `stepTabs-dots-dot`
 → each one gains a
 leading `_`. `menu-buttonIcon` also changes name, to `_menu-submenuButton`: the toggle the menu
-inserts next to every link with a submenu.
+inserts next to every link with a submenu. The notification panel's own tokens end up singular, as
+the component is: `notifications-empty` is `_notification-empty`, the list `_notification`, its close
+button `_notification-close` and its dialog `_notification-dialog` (see "Consolidation pass" below).
 
 ### Header
 
@@ -345,12 +353,12 @@ with the `--button-*` properties you already know:
 | `pgs-option="notScrollAnimation"` | `pgs-option="notScrollWithMouse"` |
 | `--slides-shadow-color`, `--slides-shadow-width` | `--slides-maskStart`, `--slides-maskEnd`, `--slides-sizeMaskImage` |
 
-The edge fade is a mask now, not a shadow, so it fades to whatever is behind instead of to one colour.
+The edge fade is a mask now, not a shadow, so it fades to whatever is behind instead of to one color.
 
 The arrows the module builds changed place: they now sit in a row above the slides, at the end, instead
 of lying over them at the middle of their height. `slidesArrowsCenter` brings the old placement back,
 so a slides that should keep its arrows over the slides needs it written. Arrows written by hand
-(`slides-prec`, `slides-next`) are not moved by either. The dots can be taken off too, with `slidesNotDots`.
+(`slides-prev`, `slides-next`) are not moved by either. The dots can be taken off too, with `slidesNotDots`.
 Check sweep step 35.
 
 ### Cookie consent is gone from the library
@@ -369,7 +377,7 @@ needs the `PGS_theme` one, or its own: the hidden marker is now
 that turned the vertical wheel into horizontal scrolling — are removed, and so is the Slides option
 that used them, `slidesScrollMouse`. A slides track no longer takes over the mouse wheel: it scrolls
 sideways with a swipe, a trackpad, the arrows or the dots, like any other horizontal scroller. A
-project that wants the old behaviour needs to write its own `wheel` listener. Check sweep step 11.
+project that wants the old behavior needs to write its own `wheel` listener. Check sweep step 11.
 
 ### Header: the hamburger group is an onlyCompact group
 
@@ -441,12 +449,13 @@ The three button custom properties were renamed to say what they actually do: "a
 read under `:has(input:checked)`, so a checked state wearing the name of a generic one. The reading
 also moved — it used to sit inside the `twoState` mixin, so only that control picked it up; it is now
 in `buttonBase()`, so any element marked `pgs="button"` that wraps a checked input takes the checked
-colours. That is what let `twoState` be dropped altogether — see just below. Retheming stays the same
+colors. That is what let `twoState` be dropped altogether — see just below. Retheming stays the same
 otherwise: set the three properties on the element or a container, under the new names. Nothing reads
 the old ones any more, so a project that overrode them silently loses the override.
 
-Border and outline are now separate: `br*` colours go in `border[...]`, `ol*` in `outline[...]`, and
-each family has its own thickness options (`brd*`, `otl*`); see "Every utility family is one bracket".
+Border and outline are now separate: `br*` colors become `bd*` flags in `borderColor[...]`, `ol*` become
+`otl*` flags in `outline[...]`, and each family has its own thickness options (`bd*`, `otl*`); see
+"Every utility family is one bracket".
 
 ### Global tokens — one `--SIZE` scale
 
@@ -463,7 +472,7 @@ are a consequence: `-2` said "divided by two" rather than what it is, and `--pad
 only page token not on the `--page-*` prefix that `--page-width`, `--page-top` and `--page-edge`
 already shared.
 
-Two behaviours moved with the names, so a project that only renames still gets a different result:
+Two behaviors moved with the names, so a project that only renames still gets a different result:
 
 - `--page-padding` is a plain measure, where `--padding-page` was `min(5vw, var(--padding-elements))`. The
   page gutter no longer shrinks on a narrow screen. Put the clamp back on the new name if a project
@@ -471,9 +480,6 @@ Two behaviours moved with the names, so a project that only renames still gets a
 - `--page-edgeFlush` is now one `--page-padding` shorter than `--page-edge`, so it lands on the outer
   edge of a section box rather than on its text, and reaches zero as soon as that box stops fitting
   rather than when the bare column does.
-
-The `margin2` and `padding2` options read `--padding-texts`; they are now `margin['mrgHalf']` and
-`padding['padHalf']`, see "Every utility family is one bracket".
 
 ### Flex/grid gap and wrap, bare `pgs` support removed
 
@@ -544,7 +550,7 @@ components respectively, even where another component's example or generated mar
 | --- | --- |
 | `pgs-option="buttonNohover"` | `pgs-option="hoverNot"` |
 
-The mixin `buttonNohover()` is gone with it, replaced by `hoverNot()` in the hover set, and `buttonHover()` was removed too (see the hover note in section 1). There is one
+The mixin `buttonNohover()` is gone with it, and no mixin replaces it: the hover mixins skip a surface that carries `hoverNot` on their own. `buttonHover()` stays, as the CSS fallback for a page without `bodyHoverAuto` (see the hover note in section 1). There is one
 opt-out now instead of one per component, because there is one hover treatment: `hoverNot` works on
 a button, on a clickable card and on a clickable box alike — the last two had no opt-out at all
 before. `pgs.hover` skips a surface that carries it, and the SCSS guard covers a `hover` written by
@@ -558,9 +564,9 @@ hand. Menu's generated toggle and Step tabs' generated dots write the new name t
 
 The control was a button that showed whether its own checkbox or radio was checked, so it is now the
 button itself: `[pgs~=button]` hides a nested `input[type=checkbox]`/`input[type=radio]`, keeps the
-input's semantics and keyboard behaviour, and paints the checked colours through
+input's semantics and keyboard behavior, and paints the checked colors through
 `--button-*-checked`. Every button option comes along with it — `buttonStrong`, `buttonMini`,
-`buttonIcon`, the colour palettes — which the old token could not take. The `twoState()` mixin and
+`buttonIcon`, the color palettes — which the old token could not take. The `twoState()` mixin and
 the `[pgs~=twoState]` selector no longer exist; `chip`, `chips`, `toggle` and `checkboxBackground`
 are unchanged. Inside `pgs="form"` a label marked as a button is left alone by the generic checkbox
 styling, exactly as `twoState` was.
@@ -569,7 +575,7 @@ styling, exactly as `twoState` was.
 
 | was | now |
 | --- | --- |
-| `--icon-padding`, `--icon-background` | `--iconBox-padding`, `--iconBox-background` |
+| `--icon-padding`, `--icon-background` | `--boxed-padding`, `--boxed-background` |
 | `--icon-close`, `--icon-chevronDown`, ... (every built-in glyph) | `--icon-glyph-close`, `--icon-glyph-chevronDown`, ... |
 | `pgs-option="iconDuo-hamburger"` | `pgs-option="icon-hamburgerTwo iconDuo"` |
 
@@ -583,7 +589,7 @@ stylesheet that read a glyph by hand, e.g. `--icon: var(--icon-close)` becomes
 `iconDuo-hamburger` was NOT left alone as an earlier note here claimed — it no longer exists.
 `iconDuo` is now a general-purpose option: it draws the two-layer version of any glyph that has one
 (currently only `icon-hamburgerTwo`) when written alongside that glyph's name, instead of being its
-own baked-in glyph name. Two new custom properties, `--icon`, `--iconBefore` and `--iconAfter`, let a
+own baked-in glyph name. Three new custom properties, `--icon`, `--iconBefore` and `--iconAfter`, let a
 later, more specific rule swap the drawn glyph in pure CSS — see the header's expanded hamburger for
 the pattern.
 
@@ -610,8 +616,8 @@ every other child token.
 
 Four events were dispatched with a bare component prefix, while `pgs:notification:*`,
 `pgs:search:*` and `pgs:svg:changeColor` already carried `pgs:`. Every listener needs the new name.
-The events themselves are unchanged: same element, same detail, and still not bubbling, so the
-listener stays where it is.
+The events keep their element and their detail. They bubble now, which is the one difference worth a
+look: see "Consolidation pass" below.
 
 ### Card — cardHorizontal switches on a real container query
 
@@ -715,7 +721,7 @@ since the inline value always won. Rename any read of it:
 | `--dropdown-arrowLeft` / `--dropdown-arrowTop` | `--_dropdown-arrowLeft` / `--_dropdown-arrowTop` |
 | `--slides-visiblePercent` | `--_slides-visiblePercent` |
 | `--slides-height` | `--_slides-height` |
-| `--toast-timeout` | `--_toast-timeout` |
+| `--notification-timeout` / `--toast-timeout` | `--_alert-timeout` |
 
 `--summary-content-max-height` is gone rather than renamed: the module always overwrote it with
 three lines' worth of height, so a value set from a stylesheet only lasted until the script ran.
@@ -735,9 +741,9 @@ set `--summary-content-max-height` converts it to a line count.
 Slides was the one component still writing plain classes, which the rest of the library had already
 left behind: runtime state lives in `pgs-state`. A stylesheet that hooked into `.view` — to animate
 the slide in view, or to style the current dot — needs the attribute selector instead, e.g.
-`[pgs-state~="view"]`. The classes on the two arrows, `precButton` and `nextButton`, are untouched
-in this pass, though `[pgs~="slides-prec"]` and `[pgs~="slides-next"]` sit on the same buttons and
-are the selectors to move to.
+`[pgs-state~="view"]`. The classes on the two arrows, `precButton` and `nextButton`, are gone as
+well (see "Consolidation pass" below): `[pgs~="_slides-prev"]` and `[pgs~="_slides-next"]` sit on the
+same buttons and are the selectors to move to.
 
 ### Three broken custom property references, fixed
 
@@ -752,6 +758,65 @@ the browser and now apply. Three surfaces change look without any markup changin
 A project that worked around any of the three — its own zebra striping on a `pgs="table"`, its own
 border above the footer legal row — now has both its rule and the library's.
 
+### Consolidation pass — one contract for every module, and the last names
+
+The components were written one at a time, and the same job was done five different ways. This pass
+makes it one way. The renames come first, then what behaves differently under a name that stayed.
+
+| was | now |
+| --- | --- |
+| `pgs-state="is-active"`, `"is-completed"`, `"is-locked"` on a stepTabs tab or dot | `active`, `completed`, `locked` — also in `pgs(tab).state.remove("is-locked")` and in the CSS that reads them |
+| `alert['info']`, `['success']`, `['warning']`, `['error']`, `['neutral']` (also `_alert[...]`, on alert, notification and toast cards) | `alertInfo`, `alertSuccess`, `alertWarning`, `alertError`, `alertNeutral`. The JSON `type` values and the method names (`pgs.toast.info(...)`) do not change |
+| `pgs-data="showMore[...] showLess[...]"` on a summary | `summaryShowMore[...]`, `summaryShowLess[...]`. The `message` object given to `pgs.summary.init(root, { message })` keeps `showMore`/`showLess` |
+| `slides-prec`, `_slides-prec`; the `precButton` and `nextButton` classes on the generated arrows | `slides-prev`, `_slides-prev`; the classes are gone — select by `[pgs~="_slides-prev"]` and `[pgs~="_slides-next"]` |
+| `_notifications`, `_notifications-close`, `_notifications-empty`, `_notificationsDialog` | `_notification`, `_notification-close`, `_notification-empty`, `_notification-dialog` |
+| the user-select utility `select['selNone']`, `select['selText']` | `userSelect['selNone']`, `userSelect['selText']`. The `select` of a form field keeps its name |
+| `sctSpecificity-child` (and the mixin `sectionSpecifity-child`) | `section-specificity` (and `sectionSpecificity-child`) |
+| `data-dropdown-side="bottom"` on `dropdown-content` | `pgs-state="sideBottom"` (`sideTop`, `sideRight`, `sideLeft`) |
+| `data-header-scroll="true"` on a header | `pgs-state="hiddenByScroll"`. `data-navsmart-scroll` is gone: nothing ever wrote it |
+| `--logo-finter` | `--logo-filter` |
+| `--header-letter-spacing`, `--header-letter-spacing-h1` … `-h6` | `--heading-letter-spacing`, `--heading-letter-spacing-h1` … `-h6`. They sat in the header's namespace and the `heading()` mixin never read them |
+| mixins `rage()`, `inputcolor()`; `label($borderadius)` and `--label-borderadius` | `range()`, `inputColor()`; `label($borderRadius)` and `--label-borderRadius` |
+| `pgs.tabs.api(el).select(index)` | `goTo(index)` |
+| `pgs.slides.api(el).previous()` | `prev()` |
+| `pgs.search.api(el).refresh()`, which re-ran the current query and returned a Promise | `search()` does that; `refresh()` rebuilds the instance, like everywhere else |
+
+Gone with nothing to put in their place, because nothing used them: the `precButton`/`nextButton`
+classes, `data-alert-id`, the init markers `data-initialize`, `data-notification-bell-bound` and
+`data-step-tabs-initialized` (a `WeakMap` guards a double init now), the `--button-background-strong`,
+`--button-color-strong` and `--button-shadow-strong` that `buttonText()` set and no rule read,
+`--search-suggestions-maxRowView`, and the documented-but-never-implemented `search-modal`,
+`search-mobile` and `footer-brand-motto`. A project may keep writing those last three as plain hooks
+of its own: the library never styled or read them. `slidesNotDots` was documented in the previous
+pass without a rule behind it; it works now, and it hides a hand-written `slides-dots` too.
+
+Same name, different behavior:
+
+- **One lifecycle.** Every component instance has `element`, `destroy()` and `refresh()`. `destroy()`
+  releases its listeners, observers and timers and forgets the instance; the markup the module
+  generated stays, and a new `init` reuses it. `refresh()` is `destroy()` plus a fresh `init` of that
+  element, and returns the new instance. `pgs.<module>.api(el)` returns `undefined` after a `destroy()`
+  until `pgs.<module>.init(el)` runs again.
+- **Invalid arguments throw.** `tabs.goTo`, `slides.goTo`, `stepTabs.goTo`, `stepTabs.toggleLock` and
+  `pageNav.select` throw a `TypeError` for an index or an id that does not exist, where they used to
+  clamp or return silently (`stepTabs.next()`/`prev()` still stop at the ends). Invalid *markup* is a
+  `console.warn` of the form `pgs.<module>.<method>(): ...` and the element is skipped.
+- **Events bubble, once.** A listener on `document` hears every `pgs:*` event. `pgs:modal:close` is
+  dispatched for every close, `Escape` and `dialog.close()` included; its `detail` carries `modal` and
+  `dialog` next to `element`. A dialog that was moved out of its wrapper still delivers the event to
+  its own listeners and to the wrapper, each exactly once.
+- **Direct children.** stepTabs reads its tabs, and steps reads its `steps-step`, as direct children
+  of the container, so a list nested inside a step no longer leaks into the outer one. A menu item with
+  a submenu needs a direct `<a>` (a nested link was picked up before); one without is skipped with a
+  warning. A summary needs its `summary-button`: the module does not generate one.
+- **`pgs.init(root)` is idempotent.** On a page that is already running, `pgs.darkmode.init` binds only
+  the switches it has not bound yet, and no longer re-applies the theme or fires `pgs:svg:changeColor`.
+- **Smaller fixes that follow.** A stepTabs wizard without a `stepTabs-container` is skipped with a
+  warning instead of aborting the others; the search suggestions are escaped; `formValidate.validate()`
+  adds no listener, and `formValidate` has a `destroy()`; the dropdown's four global listeners are
+  registered once, not once per `init()`; `<object>` svgs keep their `preserveAspectRatio` when their
+  `data` is swapped; an alert closes once even when dismissed right before its timeout.
+
 ## 3. New, worth adopting
 
 - **`cardHorizontalFixed`.** The same 40/60 row layout `cardHorizontal` switches to, minus the
@@ -760,7 +825,7 @@ border above the footer legal row — now has both its rule and the library's.
   `cardHorizontal` would stack, this one never does.
 - **The dropdown arrow.** The arrow the tooltip used to draw, now on every dropdown by default and
   removed with `dropdown['drpNotArrow']`. It follows the trigger even when the viewport clamp
-  pushes the content off-centre, and `--dropdown-arrow-size` sizes it. It is what replaced the
+  pushes the content off-center, and `--dropdown-arrow-size` sizes it. It is what replaced the
   tooltip component; see section 2.
 - **`card-imgForChild`.** A wrapper for card media the card does not write itself — an `<img>`
   printed by a helper, a block of elements: the `card-img` treatment lands on its
@@ -768,12 +833,12 @@ border above the footer legal row — now has both its rule and the library's.
 - **Icons with no font.** `pgs="icon"` plus a glyph option covers dozens of shapes and needs nothing
   loaded. Written bare it only marks an element as an icon, which is how a set that does not use
   `<i>` — Material Symbols, Lucide, Iconify — gets the same box and placement.
-- **`tabIcon` takes markup.** `tabIcon[<span pgs='icon' class='material-symbols-outlined'>check</span>]`
+- **`stepTabsIcon` takes markup.** `stepTabsIcon[<span pgs='icon' class='material-symbols-outlined'>check</span>]`
   works, as does a glyph name or a class list. Inner attributes use single quotes.
-- **Border and outline sizing.** `border['brdThin'/'brdThick'/'brdThicker']`, per side too
-  (`brdTopThick`, `brdInlineThin`, ...), and `outline['otlThin'/'otlThick'/'otlThicker']`.
-- **Spacing utilities.** Every side and scale of `margin[...]`/`padding[...]`: `mrgPage`,
-  `padUnset`, `mrgBlockHalf`, `mrgNegative`, ...
+- **Border and outline sizing.** `border['bdThin'/'bdThick'/'bdThicker']`, per side too
+  (`borderTop['bdTpThick']`, `borderInline['bdInThin']`, ...), and `outline['otlThin'/'otlThick'/'otlThicker']`.
+- **Spacing utilities.** Every side and scale of `margin`/`padding`: `margin['mgPage']`,
+  `padding['pdUnset']`, `marginBlock['mgBlGroups']`, `margin['mgNegative']`, ...
 - **Responsive hiding.** `hide` alone hides unconditionally; `hide['hideMediaUpTablet']`,
   `hide['hideMediaDownMobile']`, `hide['hideContainerUpLaptop']`, ... hide past one breakpoint, by viewport
   or by container, across all six breakpoints, and several options combine for a range.
@@ -800,20 +865,20 @@ border above the footer legal row — now has both its rule and the library's.
   While any of them runs, the dialog carries `pgs-state="animationIn"` / `animationOut`.
 - **`column-1`** stacks a flex or grid layout in a single column.
 - **`pgs.header.init(root)`** is registered, several headers on one page are supported, and
-  `headerPrimary` says which one drives `--heightOfHeader`.
+  `headerMain` says which one drives `--heightOfHeader`.
 - **Focus is separate from hover.** The focus ring is identical everywhere and no longer sits inside
   a hover media query, so a keyboard user on a touch device gets one. It is drawn by `pgs="hover"`
   along with the rest of the treatment, so it reaches a button, a clickable card or box through the
   token `pgs.hover` marks them with.
-- **`pgs="hover"` is a token you can write.** The whole treatment — surface recolour, `hover-text`,
+- **`pgs="hover"` is a token you can write.** The whole treatment — surface recolor, `hover-text`,
   focus ring — comes from one place, so any element can take it, not just the components that used
   to bake it in. `pgs.hover` writes it for you on buttons and clickable cards/boxes, and
   `pgs-option="hoverNot"` takes it back off.
 - **A button can be a two-state control.** `<label pgs="button">` around a checkbox or radio hides
   the input, keeps its semantics, and paints the checked state from `--button-*-checked` — with
   every button option available on it. This is what replaced `twoState`.
-- **`alertContainer`, `notificationTrigger`** are new public tokens.
-- **A theme switch can carry its label anywhere.** `pgs-option="toggleDarkmodeExtended"` writes the
+- **`alertContainer`, `notificationBell`** are new public tokens.
+- **A theme switch can carry its label anywhere.** `toggleDarkmode['tglLabeled']` writes the
   theme the click leads to next to the glyph. The rule used to be baked into the footer, where it
   applied whether or not the page wanted it and reached no switch outside; it now lives in the
   darkmode layer, opt-in, with `--darkmode-label-toDark` and `--darkmode-label-toLight`
@@ -822,11 +887,11 @@ border above the footer legal row — now has both its rule and the library's.
 ## 4. A sweep to run on the project
 
 ```sh
-# 1. colour utilities that moved to txt*
+# 1. color utilities that moved to txt*
 grep -rnE 'pgs="[^"]*\bcolor[A-Z]' .
 
 # 2. generated markup now prefixed
-grep -rnE '\b(notifications-element|notifications-empty|toast-element|search-suggestions-item|stepTabs-dots-dot|menu-buttonIcon)' .
+grep -rnE '\b(notifications-element|_?notifications(-empty|-close|Dialog)?|toast-element|search-suggestions-item|stepTabs-dots-dot|menu-buttonIcon)\b' .
 
 # 3. options and states that were renamed
 grep -rnE '\b(menuHeader|buttonClose|mobileBottom|mobileActive|slideScale|notScrollAnimation|pageShell-aside-scroll|header-element-onlyDesktop|header-element-onlyMobile)\b' .
@@ -843,7 +908,7 @@ grep -rnE 'pgs-option="(singleScroll|shadowDesktop|notScrollWithMouse|slideAnima
 # 7. Step tabs' bare token, and the old hamburger duo option
 grep -rnE 'pgs="[^"]*\btab\b|pgs-option="[^"]*\biconDuo-hamburger\b' .
 
-# 8. menus that may rely on the old unconditional-dropdown submenu behaviour
+# 8. menus that may rely on the old unconditional-dropdown submenu behavior
 grep -rnE 'pgs="menu"|pgs-option="[^"]*\bmenuVertical\b' . -A2 -B2
 
 # 9. a header with no pgs-option, which silently lost scroll-hide
@@ -915,10 +980,10 @@ grep -rnE -A3 'pgs="card(\[|")' . | grep -E '<(img|object|picture)\b' | grep -v 
 grep -rnE 'tooltip(-button|-content)?\b|--tooltip-arrow-size' .
 
 # 31. custom properties written by JavaScript, now _-prefixed
-grep -rnE -- '--(dropdown-left|dropdown-top|dropdown-arrowLeft|dropdown-arrowTop|slides-visiblePercent|slides-height|toast-timeout|summary-content-max-height)\b' .
+grep -rnE -- '--(dropdown-left|dropdown-top|dropdown-arrowLeft|dropdown-arrowTop|slides-visiblePercent|slides-height|notification-timeout|toast-timeout|summary-content-max-height)\b' .
 
 # 32. utility families folded into one bracket each (read, then rename by the table)
-grep -rnE '\b(margin|padding)(Top|Bottom|Left|Right|Block|Inline|Auto|Texts|Elements|Sections|2)\b' .
+grep -rnE '\b(margin|padding)(Top|Bottom|Left|Right|Block|Inline|Auto|Texts|Elements|Sections)\b' .
 grep -rnE '\b(border(Top|Bottom|Left|Right|Block|Inline|Thin|Thick|Thicker|RadiusInput|RadiusExternal)|outline(Thin|Thick|Thicker))\b' .
 grep -rnE 'pgs="([^"]* )?(br|ol|bg|txt|color)[A-Z]' .
 grep -rnE '\b(section(Full|Max|NoPadding|Specificity|Edge[A-Za-z]*)|sectionSpecificity-child)\b' .
@@ -930,12 +995,33 @@ grep -rnE "accordion(Container)?\[[^]]*'(autoOpen|multiOpen)'|badge\[[^]]*'(dot|
 grep -rnE "icon\[[^]]*'(boxed|duo|large|medium)'|logo\[[^]]*'darkmode|menu\[[^]]*'(iconOnlyCurrent|short|vertical)'|slides\[[^]]*'(animationScale|shadowDesktop|singleScroll)'" .
 grep -rnE "header\[[^]]*'(compact[A-Za-z]+|main|scroll)'|pageShell\[[^]]*'(asideScroll|asideShadow|fullPage)'|toggleDarkmode\[[^]]*'labelled'" .
 grep -rnE "container\[[^]]*'none'|img\[[^]]*'(cover|contain)'|borderRadius\[[^]]*'(input|external)'|hide\[[^]]*'(media|container)(Up|Down)" .
+
+# 34. the cookie consent that left the library
+grep -rnE "cookieConsent(-actionOpen)?\b|pgs\.cookieConsent" .
+
+# 35. every slides, to decide whether its arrows stay over the slides (read, don't replace)
+grep -rnE "pgs=\"[^\"]*slides(\[|\"| )" .
+
+# 36. stepTabs states, alert flags, the summary data keys, the slides arrows (rename by the "Consolidation pass" table)
+grep -rnE 'pgs-state="[^"]*\bis-(active|completed|locked)|state\.[a-z]+\("is-(active|completed|locked)"' .
+grep -rnE "(alert|_alert|toast|notification)\[[^]]*'(info|success|warning|error|neutral)'" .
+grep -rnE '\b(showMore|showLess)\[|\bslides-prec\b|_slides-prec|class="[^"]*\b(precButton|nextButton)\b|\.(precButton|nextButton)\b' .
+
+# 37. generated tokens and the two utilities that changed owner
+grep -rnE '\bsctSpecificity-child\b|sectionSpecifity-child|select\[[^]]*.(selNone|selText)' .
+
+# 38. data attributes that became pgs-state, and the custom properties and mixins that were misspelled
+grep -rnE 'data-(dropdown-side|header-scroll|navsmart-scroll|alert-id)' .
+grep -rnE -- '--(logo-finter|header-letter-spacing|label-borderadius)|@include (rage|inputcolor)\b' .
+
+# 39. calls that changed name or meaning (read, don't replace)
+grep -rnE '\.(select|previous)\(|\bgetCurrent\(\)|\.refresh\(\)' .
 ```
 
 Hit 5 needs reading rather than replacing: an `icon` that wraps another element wanted the surface
-and needs `pgs-option="iconBox"`; one that was empty next to a label wanted the glyph and needs an
+and needs `icon['iconBoxed']`; one that was empty next to a label wanted the glyph and needs an
 `icon-*` option. Hits 8 and 9 need reading too, not replacing: they flag menus and headers whose
-*behaviour* changed under an unchanged name (see section 1), so add `headerScroll` or accept the new
+*behavior* changed under an unchanged name (see section 1), so add `headerScroll` or accept the new
 accordion submenus, whichever the page actually wants. Hit 15 is the same kind: a submit button that
 sits inside a `pgs="form"` and carries no `pgs` used to be styled by the form and now is not, so it
 needs `pgs="button"` written on it — one outside a form was never styled and needs nothing. Hit 16
@@ -944,11 +1030,11 @@ on its wrapper, while a standalone one needs nothing. Hit 21 too: `buttonText` a
 swapped implementations, so every hit needs the other name — but read each one, because a link that
 should stay filled when it is the current page wants `buttonTransparent`, and only a button that
 must never fill wants `buttonText`. Hit 22 closes the set: a switch that sat in a footer and
-showed a written label needs `pgs-option="toggleDarkmodeExtended"` to keep it, while one that was
+showed a written label needs `toggleDarkmode['tglLabeled']` to keep it, while one that was
 icon-only — in a header, or anywhere outside the footer — needs nothing. Hits 23 and 24 are plain substitutions:
 `bglink-soft` → `bgLinkSoft`, `required-here` → `form-requiredHere`, and each of the four events
 gains its `pgs:` prefix, and the slides classes each become the `pgs-state` or generated token named
-after them. Hit 26 needs reading, not replacing: a `<body>` that never wrote `pgs="bodyHoverAuto"` simply
+after them. Hit 26 needs reading, not replacing: a `<body>` that never wrote `bodyHoverAuto` simply
 never got the automatic marking, so this only flags pages that carry some other `pgs` value on
 `<body>` already — a bare `<body>` with none at all was never in scope for the grep and needs
 `bodyHoverAuto` added regardless if it uses `pgs="button"`, a link `card` or `box` anywhere and relied on
@@ -967,8 +1053,12 @@ sees an image written within three lines of the card, so an image printed by a h
 (`PGS_fn_img()` and the like) has to be found by reading the card templates, and wrapped in
 `card-imgForChild`.
 
-# 34. the cookie consent that left the library
-grep -rnE "cookieConsent(-actionOpen)?\b|pgs\.cookieConsent" .
-
-# 35. every slides, to decide whether its arrows stay over the slides (read, don't replace)
-grep -rnE "pgs=\"[^\"]*slides(\[|\"| )" .
+Hits 36 and 37 are plain substitutions by the "Consolidation pass" table, with one caution for 37:
+`select[...]` is only the user-select utility when its flag is `selNone` or `selText`; the `select` of
+a form field is unchanged. Hit 38 is a substitution too, except a stylesheet that read
+`[data-dropdown-side="bottom"]` or `[data-header-scroll="true"]` needs `[pgs-state~="sideBottom"]` and
+`[pgs-state~="hiddenByScroll"]`. Hit 39 needs reading: `.select(i)` on a tabs instance is now `.goTo(i)`
+and `.previous()` on a slides instance is `.prev()`, but the pattern also matches `.select()` on a
+search instance (unchanged) and every `.refresh()` — check that a caller of `refresh()` expects the
+new instance back and not a re-run of the parent, and that a `getCurrent()` on a pageNav wanted an
+index and not the panel (`getCurrentPanel()`).

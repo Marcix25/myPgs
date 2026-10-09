@@ -1,5 +1,7 @@
 import { pgs } from "../_pgs.js";
 import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
+import { PGS_rafThrottle } from "../helper/_throttle.js";
+import { PGS_invalid } from "../helper/_warn.js";
 
 //# HOVER
 //== every clickable surface of the library shares the same hover treatment, and it is written once
@@ -48,9 +50,9 @@ function syncHover(element) {
 //== every registered module and calls its init(root) whether or not the caller meant to touch
 //== hover specifically, so the check has to live in the one function every path funnels through,
 //== not in the block that only covers this module's own unprompted call
-function initHover(root = document) {
+function PGS_hover_init(root = document) {
     if (!(root instanceof Document || root instanceof Element)) {
-        throw new TypeError("pgs.hover.init(): root must be a Document or an Element");
+        throw PGS_invalid("hover.init", "root must be a Document or an Element");
     }
 
     if (!pgs(document.body).option.contains("bodyHoverAuto")) return root;
@@ -63,22 +65,20 @@ function initHover(root = document) {
 
 //= WATCH
 //== the surfaces to mark do not all exist when the page is ready: the library injects its own
-//== markup (a toast, a notification row, the cookie banner) and an author can add or remove a token
+//== markup (a toast, a notification row) and an author can add or remove a token
 //== at runtime. The watch stays on, batched per frame, and re-marking is idempotent so the pass our
 //== own attribute write triggers back settles at once
 const PENDING = new Set();
-let hoverScanRafId = 0;
+
+const flushPending = PGS_rafThrottle(() => {
+    const roots = [...PENDING];
+    PENDING.clear();
+    roots.forEach(root => root.isConnected && PGS_hover_init(root));
+});
 
 function scheduleSync(nodes) {
     nodes.forEach(node => PENDING.add(node));
-    if (hoverScanRafId) return;
-
-    hoverScanRafId = requestAnimationFrame(() => {
-        hoverScanRafId = 0;
-        const roots = [...PENDING];
-        PENDING.clear();
-        roots.forEach(root => root.isConnected && initHover(root));
-    });
+    flushPending();
 }
 
 const hoverObserver = new MutationObserver(mutations => {
@@ -95,12 +95,12 @@ const hoverObserver = new MutationObserver(mutations => {
 //= AUTO-MARK
 //== bodyHoverAuto is the author's own switch, one of the flags in <body>'s own body[...] bracket
 //== alongside bodyBase/bodyImg/bodyText/bodyHeading: without it nothing is marked on load, and —
-//== separately from the check inside initHover — the observer below never even starts, so a page
+//== separately from the check inside PGS_hover_init — the observer below never even starts, so a page
 //== that only ever writes pgs="hover" by hand never pays for it running for its whole lifetime
 PGS_onDocumentReady(() => {
     if (!pgs(document.body).option.contains("bodyHoverAuto")) return;
 
-    initHover(document);
+    PGS_hover_init(document);
     hoverObserver.observe(document.documentElement, {
         childList: true,
         subtree: true,
@@ -111,5 +111,5 @@ PGS_onDocumentReady(() => {
 
 //# EXPORT
 export const PGS_hover = {
-    init: initHover
+    init: PGS_hover_init
 };

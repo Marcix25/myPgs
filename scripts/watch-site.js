@@ -20,7 +20,7 @@
 //+ filtering by name survives that. fs.watch is not recursive on Linux, so every directory under
 //+ reference/html gets its own watcher, re-synced after each build to pick up new ones.
 //+
-//+ Run with: npm run sitebuild:watch (alongside npm run start:watch, which keeps dist/ fresh)
+//+ Run with: npm run sitebuild:watch (alongside npm run webpack:watch, which keeps dist/ fresh)
 
 "use strict";
 
@@ -138,7 +138,7 @@ function syncWatchers() {
 
                 watchers.set(directory, watcher);
             } catch (error) {
-                console.warn(`[watch-site] impossibile osservare ${path.relative(PROJECT_ROOT, directory)}: ${error.message}`);
+                console.warn(`[watch-site] cannot watch ${path.relative(PROJECT_ROOT, directory)}: ${error.message}`);
             }
         });
     });
@@ -175,17 +175,17 @@ function runBuild(reason) {
     }
 
     running = true;
-    if (reason) console.log(`[watch-site] ${reason} cambiato, ricostruisco...`);
+    if (reason) console.log(`[watch-site] ${reason} changed, rebuilding...`);
 
     const child = spawn(process.execPath, [BUILD_SCRIPT], { stdio: "inherit" });
 
     child.on("error", error => {
-        console.error(`[watch-site] build non avviata: ${error.message}`);
+        console.error(`[watch-site] build could not start: ${error.message}`);
     });
 
     child.on("exit", code => {
         running = false;
-        if (code !== 0) console.error(`[watch-site] build fallita (codice ${code}), resto in ascolto.`);
+        if (code !== 0) console.error(`[watch-site] build failed (code ${code}), still watching.`);
 
         syncWatchers();
 
@@ -200,20 +200,20 @@ function runBuild(reason) {
 syncWatchers();
 
 if (!watchers.size) {
-    console.error("[watch-site] nessuna directory da osservare: esegui dalla radice del progetto.");
+    console.error("[watch-site] no directory to watch: run it from the project root.");
     process.exit(1);
 }
 
-console.log("[watch-site] osservo:");
+console.log("[watch-site] watching:");
 TARGETS.forEach(target => console.log(`  ${path.relative(PROJECT_ROOT, target.root)}${target.recursive ? "/**" : ""}`));
-console.log("[watch-site] Ctrl+C per uscire.");
+console.log("[watch-site] Ctrl+C to quit.");
 
 runBuild("");
 
 ["SIGINT", "SIGTERM"].forEach(signal => {
     process.on(signal, () => {
         watchers.forEach(watcher => watcher.close());
-        console.log("\n[watch-site] fermato.");
+        console.log("\n[watch-site] stopped.");
         process.exit(0);
     });
 });

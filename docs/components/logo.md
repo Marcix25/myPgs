@@ -21,7 +21,7 @@ Component for displaying a graphical or text logo, with image variants that supp
 
 ## CSS Variables
 
-- `--logo-finter`
+- `--logo-filter`
 - `--logo-height`
 
 ## Output

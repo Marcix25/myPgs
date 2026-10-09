@@ -50,7 +50,6 @@
   --text-shadow: 0px 0px 4px #00000040, 0px 0px 4px #0000002d;
   --backdrop: #0000007a;
   --blur: blur(20px);
-  --icon-size: inherit;
   --focus-visible: 3px solid var(--color-focus);
   --heightOfHeader: 6.8rem;
   --heightOfHeaderScroll: 6.8rem;
@@ -80,12 +79,6 @@
   --color-secondary-text: #492f00;
   --color-tertiary-text: #004a4e;
   --color-quaternary-text: #323900;
-  /*         
-  --color-primary: #5c7d6f;
-  --color-secondary: #3d5f4f;
-  --color-tertiary: #8fb082;
-  --color-quaternary: #10201c; 
-  */
   --color-primary-soft: light-dark(color-mix(in srgb, var(--color-primary), var(--color-white) 78%), color-mix(in srgb, var(--color-primary), var(--color-white) 60%));
   --color-secondary-soft: light-dark(color-mix(in srgb, var(--color-secondary), var(--color-white) 78%), color-mix(in srgb, var(--color-secondary), var(--color-white) 60%));
   --color-quaternary-soft: light-dark(color-mix(in srgb, var(--color-quaternary), var(--color-white) 78%), color-mix(in srgb, var(--color-quaternary), var(--color-white) 60%));
@@ -111,7 +104,6 @@
   --color-boxDark: light-dark(#222121, #f5f5f8);
   --color-box-transparent: light-dark(color-mix(in srgb, #eeeeee 50%, transparent 50%), color-mix(in srgb, #222121 50%, transparent 50%));
   --color-boxDark-transparent: light-dark(color-mix(in srgb, #222121 50%, transparent 50%), color-mix(in srgb, #eeeeee 50%, transparent 50%));
-  --color-link-soft: light-dark(#c1e7ff, #002a44);
   --color-background: light-dark(#ffffff, #080808);
   --color-whiteFixed: #FFFFFF;
   --color-blackFixed: #000000;
@@ -286,7 +278,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   font-size: var(--heading-size-h1, 7.2rem);
   line-height: var(--heading-line-height-h1, var(--heading-line-height));
   color: var(--heading-color-h1, var(--color-black));
-  letter-spacing: var(--header-letter-spacing-h1, var(--heading-letter-spacing));
+  letter-spacing: var(--heading-letter-spacing-h1, var(--heading-letter-spacing));
   min-width: 0;
   font-weight: 900;
   overflow-wrap: anywhere;
@@ -314,7 +306,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   font-size: var(--heading-size-h2, 4.45rem);
   line-height: var(--heading-line-height-h2, var(--heading-line-height));
   color: var(--heading-color-h2, var(--color-black));
-  letter-spacing: var(--header-letter-spacing-h2, var(--heading-letter-spacing));
+  letter-spacing: var(--heading-letter-spacing-h2, var(--heading-letter-spacing));
   min-width: 0;
   font-weight: 900;
   overflow-wrap: anywhere;
@@ -342,7 +334,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   font-size: var(--heading-size-h3, 2.75rem);
   line-height: var(--heading-line-height-h3, var(--heading-line-height));
   color: var(--heading-color-h3, var(--color-black));
-  letter-spacing: var(--header-letter-spacing-h3, var(--heading-letter-spacing));
+  letter-spacing: var(--heading-letter-spacing-h3, var(--heading-letter-spacing));
   min-width: 0;
   font-weight: 900;
   overflow-wrap: anywhere;
@@ -370,7 +362,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   font-size: var(--heading-size-h4, 1.7rem);
   line-height: var(--heading-line-height-h4, var(--heading-line-height));
   color: var(--heading-color-h4, var(--color-black));
-  letter-spacing: var(--header-letter-spacing-h4, var(--heading-letter-spacing));
+  letter-spacing: var(--heading-letter-spacing-h4, var(--heading-letter-spacing));
   min-width: 0;
   font-weight: 900;
   overflow-wrap: anywhere;
@@ -398,7 +390,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   font-size: var(--heading-size-h5, 1.7rem);
   line-height: var(--heading-line-height-h5, var(--heading-line-height));
   color: var(--heading-color-h5, var(--color-black));
-  letter-spacing: var(--header-letter-spacing-h5, var(--heading-letter-spacing));
+  letter-spacing: var(--heading-letter-spacing-h5, var(--heading-letter-spacing));
   min-width: 0;
   font-weight: 700;
   overflow-wrap: anywhere;
@@ -426,7 +418,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   font-size: var(--heading-size-h6, 1.7rem);
   line-height: var(--heading-line-height-h6, var(--heading-line-height));
   color: var(--heading-color-h6, var(--color-black));
-  letter-spacing: var(--header-letter-spacing-h6, var(--heading-letter-spacing));
+  letter-spacing: var(--heading-letter-spacing-h6, var(--heading-letter-spacing));
   min-width: 0;
   font-weight: 500;
   overflow-wrap: anywhere;
@@ -453,11 +445,11 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --darkmode-label-toLight: "Light mode";
 }
 
-:is([pgs~=toggleDarkmode], [pgs*="toggleDarkmode["])[pgs*="'tglLabelled'"]::after {
+:is([pgs~=toggleDarkmode], [pgs*="toggleDarkmode["])[pgs*="'tglLabeled'"]::after {
   content: var(--darkmode-label-toDark);
 }
 
-:root[pgs-state~=darkmode] :is([pgs~=toggleDarkmode], [pgs*="toggleDarkmode["])[pgs*="'tglLabelled'"]::after {
+:root[pgs-state~=darkmode] :is([pgs~=toggleDarkmode], [pgs*="toggleDarkmode["])[pgs*="'tglLabeled'"]::after {
   content: var(--darkmode-label-toLight);
 }
 
@@ -548,7 +540,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   width: 100%;
 }
 
-:is([pgs~=section], [pgs*="section["])[pgs*="'sctSpecificity'"] :where([pgs~=sctSpecificity-child]) {
+:is([pgs~=section], [pgs*="section["])[pgs*="'sctSpecificity'"] :where([pgs~=section-specificity]) {
   container-type: inline-size;
   margin-inline: auto;
   max-width: var(--section-width);
@@ -557,7 +549,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   width: 100%;
 }
 
-:is([pgs~=section], [pgs*="section["])[pgs*="'sctSpecificity'"] :where([pgs~=sctSpecificity-child]) :where([pgs~=sctSpecificity-child]) {
+:is([pgs~=section], [pgs*="section["])[pgs*="'sctSpecificity'"] :where([pgs~=section-specificity]) :where([pgs~=section-specificity]) {
   padding-inline: 0;
 }
 
@@ -1841,12 +1833,12 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   transform: rotate(270deg);
 }
 
-[pgs*="select["][pgs*="'selNone'"] {
+[pgs*="userSelect["][pgs*="'selNone'"] {
   -webkit-user-select: none;
   user-select: none;
 }
 
-[pgs*="select["][pgs*="'selText'"] {
+[pgs*="userSelect["][pgs*="'selText'"] {
   -webkit-user-select: text;
   user-select: text;
 }
@@ -2899,7 +2891,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   width: 100%;
   padding-block: var(--header-padding-block);
   padding-inline: var(--header-padding-inline);
-  color: var(--header-color);
   pointer-events: auto;
 }
 
@@ -3145,7 +3136,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   margin-right: 10px;
   display: block;
   width: 18px;
-  color: var(--color-white);
   text-align: center;
   font-size: 15px;
 }
@@ -3171,7 +3161,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   gap: var(--gap-texts);
   --gap: var(--gap-texts);
   flex-direction: row;
-  flex-wrap: nowrap;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
@@ -3424,7 +3413,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 [pgs~=label] {
-  --label-borderadius: 1rem 1rem 0 0;
+  --label-borderRadius: 1rem 1rem 0 0;
   --label-left: var(--border-radius-input);
   --label-padding: 0.7rem 1.2rem;
   --label-color: var(--color-black);
@@ -3437,7 +3426,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   left: var(--label-left);
   color: var(--label-color);
   padding: var(--label-padding);
-  border-radius: var(--label-borderadius);
+  border-radius: var(--label-borderRadius);
   background-color: var(--label-background);
 }
 
@@ -3448,7 +3437,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 [pgs~=legend] {
-  --label-borderadius: 1rem;
+  --label-borderRadius: 1rem;
   --label-left: 0;
   --label-padding: 0.7rem 1.2rem;
   --label-color: var(--color-black);
@@ -3461,7 +3450,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   left: var(--label-left);
   color: var(--label-color);
   padding: var(--label-padding);
-  border-radius: var(--label-borderadius);
+  border-radius: var(--label-borderRadius);
   background-color: var(--label-background);
 }
 
@@ -3592,8 +3581,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   user-select: none;
   color: var(--color-black);
   position: relative;
-  width: auto;
-  display: block;
   text-align: left;
   line-height: var(--checkbox-size);
   margin-bottom: var(--gap-texts);
@@ -3760,7 +3747,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 [pgs~=form] label:not(:has([pgs~=label], [pgs~=labelUnset], + input[type=checkbox], + input[type=radio])):has(+ input, + select, + textarea) {
-  --label-borderadius: 1rem 1rem 0 0;
+  --label-borderRadius: 1rem 1rem 0 0;
   --label-left: var(--border-radius-input);
   --label-padding: 0.7rem 1.2rem;
   --label-color: var(--color-black);
@@ -3773,7 +3760,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   left: var(--label-left);
   color: var(--label-color);
   padding: var(--label-padding);
-  border-radius: var(--label-borderadius);
+  border-radius: var(--label-borderRadius);
   background-color: var(--label-background);
 }
 
@@ -3828,8 +3815,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 [pgs~=form] input[type=search]::-webkit-calendar-picker-indicator, [pgs~=form] input[type=number]::-webkit-calendar-picker-indicator, [pgs~=form] input[type=datetime-local]::-webkit-calendar-picker-indicator, [pgs~=form] input[type=date]::-webkit-calendar-picker-indicator, [pgs~=form] input[type=month]::-webkit-calendar-picker-indicator, [pgs~=form] input[type=week]::-webkit-calendar-picker-indicator, [pgs~=form] input[type=time]::-webkit-calendar-picker-indicator {
   order: -1;
-  margin: 0;
-  margin-right: var(--gap-texts);
   font-size: 1.5em;
   background-color: var(--border-color);
   border-radius: var(--input-padding);
@@ -3858,8 +3843,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   user-select: none;
   color: var(--color-black);
   position: relative;
-  width: auto;
-  display: block;
   text-align: left;
   line-height: var(--checkbox-size);
   margin-bottom: var(--gap-texts);
@@ -4213,7 +4196,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 [pgs~=form] fieldset legend {
-  --label-borderadius: 1rem;
+  --label-borderRadius: 1rem;
   --label-left: 0;
   --label-padding: 0.7rem 1.2rem;
   --label-color: var(--color-black);
@@ -4226,7 +4209,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   left: var(--label-left);
   color: var(--label-color);
   padding: var(--label-padding);
-  border-radius: var(--label-borderadius);
+  border-radius: var(--label-borderRadius);
   background-color: var(--label-background);
 }
 
@@ -4545,16 +4528,13 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --button-border-width: 0;
   --button-borderRadius: 0px;
   --button-background: transparent;
-  --button-background-strong: transparent;
   --button-background-current: transparent;
   --button-background-checked: transparent;
   --button-background-hover: transparent;
-  --button-color-strong: var(--button-primaryColor);
   --button-color-current: var(--button-primaryColor);
   --button-color-checked: var(--button-primaryColor);
   --button-color-hover: var(--button-primaryColor);
   --button-shadow: unset;
-  --button-shadow-strong: unset;
   --button-shadow-current: unset;
   --button-shadow-checked: unset;
   --button-shadow-hover: unset;
@@ -5084,7 +5064,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   background-color: var(--icon-color, currentColor);
   vertical-align: -0.125em;
   grid-area: 1/1;
-  vertical-align: -0.125em;
 }
 
 :is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-hamburgerTwo'"][pgs*="'iconDuo'"]::before {
@@ -5111,7 +5090,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   background-color: var(--boxed-background);
   padding: var(--boxed-padding);
   width: calc(var(--boxed-size, var(--font-size-text)) * 3);
-  justify-content: center;
 }
 
 :is([pgs~=icon], [pgs*="icon["])[pgs*="'iconBoxed'"] i,
@@ -5151,8 +5129,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   user-select: none;
   color: var(--color-black);
   position: relative;
-  width: auto;
-  display: block;
   text-align: left;
   line-height: var(--checkbox-size);
   margin-bottom: var(--gap-texts);
@@ -5533,7 +5509,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 :is([pgs~=menu], [pgs*="menu["]) ul > li > a {
   flex-grow: 1;
-  min-width: -webkit-fill-available;
   min-width: fit-content;
 }
 
@@ -5558,10 +5533,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --dropdown-borderRadius: calc(var(--border-radius-input) + var(--dropdown-padding));
   --dropdown-background: var(--color-box);
   --dropdown-display: flex;
-}
-
-:is([pgs~=menu], [pgs*="menu["]) :where([pgs~=_menu-accordion])[pgs-state~=open] > ul {
-  display: flex;
 }
 
 :is([pgs~=menu], [pgs*="menu["]) :where([pgs~=_menu-submenuButton]) {
@@ -5740,7 +5711,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 :is([pgs~=accordion], [pgs*="accordion["]) :where([pgs~=accordion-button])::after {
   margin-left: auto;
-  transition: rotate var(--accordion-timing, 300ms) ease;
+  transition: rotate var(--accordion-timing) ease;
 }
 
 :is([pgs~=accordion], [pgs*="accordion["]) :where([pgs~=accordion-content]) {
@@ -5751,8 +5722,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   visibility: hidden;
   opacity: 0;
   height: 0;
-  top: 20px;
-  left: 0;
   width: 100%;
   font-weight: normal;
   transition: height var(--accordion-timing) ease, opacity var(--accordion-timing) ease, visibility var(--accordion-timing);
@@ -5886,62 +5855,62 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   border: var(--dropdown-arrow-size) solid transparent;
 }
 
-:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=bottom]::before, :is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=bottom]::after {
+:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[pgs-state~=sideBottom]::before, :is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[pgs-state~=sideBottom]::after {
   bottom: 100%;
   left: clamp(var(--_dropdown-arrow-inset), var(--_dropdown-arrowLeft, 50%) - var(--border-width), 100% - var(--_dropdown-arrow-inset));
   translate: -50% 0;
 }
 
-:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=bottom]::before {
+:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[pgs-state~=sideBottom]::before {
   border-bottom-color: var(--border-color);
 }
 
-:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=bottom]::after {
+:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[pgs-state~=sideBottom]::after {
   margin-bottom: calc(var(--border-width) * -1);
   border-bottom-color: var(--dropdown-background);
 }
 
-:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=top]::before, :is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=top]::after {
+:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[pgs-state~=sideTop]::before, :is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[pgs-state~=sideTop]::after {
   top: 100%;
   left: clamp(var(--_dropdown-arrow-inset), var(--_dropdown-arrowLeft, 50%) - var(--border-width), 100% - var(--_dropdown-arrow-inset));
   translate: -50% 0;
 }
 
-:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=top]::before {
+:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[pgs-state~=sideTop]::before {
   border-top-color: var(--border-color);
 }
 
-:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=top]::after {
+:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[pgs-state~=sideTop]::after {
   margin-top: calc(var(--border-width) * -1);
   border-top-color: var(--dropdown-background);
 }
 
-:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=right]::before, :is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=right]::after {
+:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[pgs-state~=sideRight]::before, :is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[pgs-state~=sideRight]::after {
   right: 100%;
   top: clamp(var(--_dropdown-arrow-inset), var(--_dropdown-arrowTop, 50%) - var(--border-width), 100% - var(--_dropdown-arrow-inset));
   translate: 0 -50%;
 }
 
-:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=right]::before {
+:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[pgs-state~=sideRight]::before {
   border-right-color: var(--border-color);
 }
 
-:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=right]::after {
+:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[pgs-state~=sideRight]::after {
   margin-right: calc(var(--border-width) * -1);
   border-right-color: var(--dropdown-background);
 }
 
-:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=left]::before, :is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=left]::after {
+:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[pgs-state~=sideLeft]::before, :is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[pgs-state~=sideLeft]::after {
   left: 100%;
   top: clamp(var(--_dropdown-arrow-inset), var(--_dropdown-arrowTop, 50%) - var(--border-width), 100% - var(--_dropdown-arrow-inset));
   translate: 0 -50%;
 }
 
-:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=left]::before {
+:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[pgs-state~=sideLeft]::before {
   border-left-color: var(--border-color);
 }
 
-:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[data-dropdown-side=left]::after {
+:is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[pgs-state~=sideLeft]::after {
   margin-left: calc(var(--border-width) * -1);
   border-left-color: var(--dropdown-background);
 }
@@ -6367,26 +6336,26 @@ html:has(dialog[open]) {
     min-width: var(--slides-width-mobile);
   }
 }
-:is([pgs~=slides], [pgs*="slides["]):has([pgs~=_slides-prec], [pgs~=_slides-next]) {
+:is([pgs~=slides], [pgs*="slides["]):has([pgs~=_slides-prev], [pgs~=_slides-next]) {
   display: grid;
   grid-template-columns: 1fr auto auto;
   gap: var(--gap-texts);
   align-items: center;
 }
 
-:is([pgs~=slides], [pgs*="slides["]):has([pgs~=_slides-prec], [pgs~=_slides-next]) :where([pgs~=slides-container]) {
+:is([pgs~=slides], [pgs*="slides["]):has([pgs~=_slides-prev], [pgs~=_slides-next]) :where([pgs~=slides-container]) {
   grid-column: 1/-1;
   grid-row: 2;
 }
 
-:is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec],
+:is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prev],
 :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next] {
   position: relative;
   z-index: 4;
   grid-row: 1;
 }
 
-:is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec] {
+:is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prev] {
   grid-column: 2;
 }
 
@@ -6399,7 +6368,7 @@ html:has(dialog[open]) {
   flex-direction: column;
 }
 
-:is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesArrowsCenter'"] [pgs~=_slides-prec],
+:is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesArrowsCenter'"] [pgs~=_slides-prev],
 :is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesArrowsCenter'"] [pgs~=_slides-next] {
   position: absolute;
   grid-row: auto;
@@ -6408,7 +6377,7 @@ html:has(dialog[open]) {
   translate: 0 -50%;
 }
 
-:is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesArrowsCenter'"] [pgs~=_slides-prec] {
+:is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesArrowsCenter'"] [pgs~=_slides-prev] {
   left: 0.4rem;
 }
 
@@ -6417,18 +6386,18 @@ html:has(dialog[open]) {
 }
 
 @container (max-width: $tablet) {
-  :is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesArrowsCenter'"] [pgs~=_slides-prec],
+  :is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesArrowsCenter'"] [pgs~=_slides-prev],
   :is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesArrowsCenter'"] [pgs~=_slides-next] {
     --button-size: .8rem;
   }
-  :is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesArrowsCenter'"] [pgs~=_slides-prec] {
+  :is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesArrowsCenter'"] [pgs~=_slides-prev] {
     left: calc(var(--page-padding) * -1 + 0.4rem);
   }
   :is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesArrowsCenter'"] [pgs~=_slides-next] {
     right: calc(var(--page-padding) * -1 + 0.4rem);
   }
 }
-:is([pgs~=slides], [pgs*="slides["]):has([pgs~=_slides-dots]) {
+:is([pgs~=slides], [pgs*="slides["]):has([pgs~=_slides-dots]):not([pgs*="'slidesNotDots'"]) {
   margin-bottom: calc(var(--gap-elements) * 2);
 }
 
@@ -6484,6 +6453,11 @@ html:has(dialog[open]) {
     background-color: var(--color-primary-soft);
   }
 }
+:is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesNotDots'"] :where([pgs~=slides-dots]),
+:is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesNotDots'"] :where([pgs~=_slides-dots]) {
+  display: none;
+}
+
 :is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesFullWidth'"] {
   --slides-width: 100%;
   --slides-width-mobile: 100%;
@@ -6677,7 +6651,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   display: none;
 }
 
-[pgs~=stepTabs] :where([pgs~=stepTabs-container]) :where([pgs~=stepTabs-container-tab])[pgs-state~=is-active] {
+[pgs~=stepTabs] :where([pgs~=stepTabs-container]) :where([pgs~=stepTabs-container-tab])[pgs-state~=active] {
   display: flex;
 }
 
@@ -6714,17 +6688,17 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   --icon-size: 1.8rem;
 }
 
-[pgs~=stepTabs] :where([pgs~=stepTabs-dots]) :where([pgs~=_stepTabs-dots-dot])[pgs-state~=is-completed] {
+[pgs~=stepTabs] :where([pgs~=stepTabs-dots]) :where([pgs~=_stepTabs-dots-dot])[pgs-state~=completed] {
   cursor: pointer;
   background: var(--color-primary-soft);
 }
 
-[pgs~=stepTabs] :where([pgs~=stepTabs-dots]) :where([pgs~=_stepTabs-dots-dot])[pgs-state~=is-active] {
+[pgs~=stepTabs] :where([pgs~=stepTabs-dots]) :where([pgs~=_stepTabs-dots-dot])[pgs-state~=active] {
   background: var(--color-primary);
   scale: 1.2;
 }
 
-[pgs~=stepTabs] :where([pgs~=stepTabs-dots]) :where([pgs~=_stepTabs-dots-dot])[pgs-state~=is-active] i, [pgs~=stepTabs] :where([pgs~=stepTabs-dots]) :where([pgs~=_stepTabs-dots-dot])[pgs-state~=is-active] :is([pgs~=icon], [pgs*="icon["]) {
+[pgs~=stepTabs] :where([pgs~=stepTabs-dots]) :where([pgs~=_stepTabs-dots-dot])[pgs-state~=active] i, [pgs~=stepTabs] :where([pgs~=stepTabs-dots]) :where([pgs~=_stepTabs-dots-dot])[pgs-state~=active] :is([pgs~=icon], [pgs*="icon["]) {
   color: var(--color-whiteFixed);
 }
 
@@ -6987,25 +6961,25 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   min-width: max-content;
 }
 
-:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["])[pgs*="'info'"] {
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["])[pgs*="'alertInfo'"] {
   --alert-accent: var(--color-info);
   --alert-background: var(--color-info-soft);
   --_alert-timer: color-mix(in srgb, var(--alert-background) 70%, var(--color-white) 30%);
 }
 
-:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["])[pgs*="'success'"] {
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["])[pgs*="'alertSuccess'"] {
   --alert-accent: var(--color-success);
   --alert-background: var(--color-success-soft);
   --_alert-timer: color-mix(in srgb, var(--alert-background) 70%, var(--color-white) 30%);
 }
 
-:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["])[pgs*="'warning'"] {
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["])[pgs*="'alertWarning'"] {
   --alert-accent: var(--color-warning);
   --alert-background: var(--color-warning-soft);
   --_alert-timer: color-mix(in srgb, var(--alert-background) 70%, var(--color-white) 30%);
 }
 
-:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["])[pgs*="'error'"] {
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["])[pgs*="'alertError'"] {
   --alert-accent: var(--color-error);
   --alert-background: var(--color-error-soft);
   --_alert-timer: color-mix(in srgb, var(--alert-background) 70%, var(--color-white) 30%);
@@ -7039,26 +7013,26 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   display: none;
 }
 
-[pgs~=_notificationsDialog] {
+[pgs~=_notification-dialog] {
   --modal-content-padding: 0;
   --modal-background: transparent;
 }
 
-[pgs~=_notifications] {
+[pgs~=_notification] {
   display: flex;
   flex-direction: column;
   scrollbar-color: var(--color-black) transparent;
 }
 
-[pgs~=_notifications]::-webkit-scrollbar-track {
+[pgs~=_notification]::-webkit-scrollbar-track {
   background: transparent;
 }
 
-[pgs~=_notifications] :where([pgs~=_notifications-close]) {
+[pgs~=_notification] :where([pgs~=_notification-close]) {
   align-self: flex-end;
 }
 
-[pgs~=_notifications] :where([pgs~=_notifications-empty]) {
+[pgs~=_notification] :where([pgs~=_notification-empty]) {
   margin: 0;
   padding: var(--padding-texts);
   color: var(--color-white);
@@ -7115,7 +7089,6 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   --search-background: var(--color-box);
   --search-color: var(--color-black);
   --search-border: var(--border-complete);
-  --search-suggestions-maxRowView: 8;
   --search-suggestions-offset: 0rem;
   --search-suggestions-padding: .5rem;
   --search-suggestions-maxHeight: 70vh;
@@ -7248,15 +7221,15 @@ dialog :is([pgs~=search], [pgs*="search["]) :where([pgs~=_modal-close]) {
   background-color: transparent;
   color: var(--color-black);
   --logo-height: var(--header-size, 6.0rem);
-  --logo-finter: invert(1) hue-rotate(180deg) brightness(1.5);
+  --logo-filter: invert(1) hue-rotate(180deg) brightness(1.5);
 }
 
 :is([pgs~=logo], [pgs*="logo["]):is([pgs-state~=darkmode] [pgs*="'logoDarkmode'"]) :where([pgs~=logo-image]) {
-  filter: var(--logo-finter);
+  filter: var(--logo-filter);
 }
 
 :is([pgs~=logo], [pgs*="logo["])[pgs*="'logoDarkmodeFixed'"] :where([pgs~=logo-image]) {
-  filter: var(--logo-finter);
+  filter: var(--logo-filter);
 }
 
 @media (max-width: 800px) {
@@ -7278,7 +7251,6 @@ dialog :is([pgs~=search], [pgs*="search["]) :where([pgs~=_modal-close]) {
 }
 
 :is([pgs~=logo], [pgs*="logo["]):has(:where([pgs~=logo-text])) {
-  display: flex;
   align-items: center;
   filter: unset !important;
 }
@@ -8064,37 +8036,37 @@ dialog :is([pgs~=search], [pgs*="search["]) :where([pgs~=_modal-close]) {
   --heading-color: var(--color-black);
   --heading-family: var(--font-heading);
   --heading-line-height: 1.1;
-  --header-letter-spacing: normal;
+  --heading-letter-spacing: normal;
   --heading-size-h1: 7.2rem;
   --heading-color-h1: var(--heading-color);
   --heading-family-h1: var(--font-heading);
   --heading-line-height-h1: var(--heading-line-height);
-  --header-letter-spacing-h1: var(--header-letter-spacing);
+  --heading-letter-spacing-h1: var(--heading-letter-spacing);
   --heading-size-h2: 4.45rem;
   --heading-color-h2: var(--heading-color);
   --heading-family-h2: var(--font-heading);
   --heading-line-height-h2: var(--heading-line-height);
-  --header-letter-spacing-h2: var(--header-letter-spacing);
+  --heading-letter-spacing-h2: var(--heading-letter-spacing);
   --heading-size-h3: 2.75rem;
   --heading-color-h3: var(--heading-color);
   --heading-family-h3: var(--font-heading);
   --heading-line-height-h3: var(--heading-line-height);
-  --header-letter-spacing-h3: var(--header-letter-spacing);
+  --heading-letter-spacing-h3: var(--heading-letter-spacing);
   --heading-size-h4: 1.7rem;
   --heading-color-h4: var(--heading-color);
   --heading-family-h4: var(--font-heading);
   --heading-line-height-h4: var(--heading-line-height);
-  --header-letter-spacing-h4: var(--header-letter-spacing);
+  --heading-letter-spacing-h4: var(--heading-letter-spacing);
   --heading-size-h5: calc(1.7rem - 0.1rem);
   --heading-color-h5: var(--heading-color);
   --heading-family-h5: var(--font-heading);
   --heading-line-height-h5: var(--heading-line-height);
-  --header-letter-spacing-h5: var(--header-letter-spacing);
+  --heading-letter-spacing-h5: var(--heading-letter-spacing);
   --heading-size-h6: calc(1.7rem - 0.1rem);
   --heading-color-h6: var(--heading-color);
   --heading-family-h6: var(--font-heading);
   --heading-line-height-h6: var(--heading-line-height);
-  --header-letter-spacing-h6: var(--header-letter-spacing);
+  --heading-letter-spacing-h6: var(--heading-letter-spacing);
 }
 
 [pgs~=h1] {
@@ -8103,7 +8075,7 @@ dialog :is([pgs~=search], [pgs*="search["]) :where([pgs~=_modal-close]) {
   font-size: var(--heading-size-h1, 7.2rem);
   line-height: var(--heading-line-height-h1, var(--heading-line-height));
   color: var(--heading-color-h1, var(--color-black));
-  letter-spacing: var(--header-letter-spacing-h1, var(--heading-letter-spacing));
+  letter-spacing: var(--heading-letter-spacing-h1, var(--heading-letter-spacing));
   min-width: 0;
   font-weight: 900;
   overflow-wrap: anywhere;
@@ -8131,7 +8103,7 @@ dialog :is([pgs~=search], [pgs*="search["]) :where([pgs~=_modal-close]) {
   font-size: var(--heading-size-h2, 4.45rem);
   line-height: var(--heading-line-height-h2, var(--heading-line-height));
   color: var(--heading-color-h2, var(--color-black));
-  letter-spacing: var(--header-letter-spacing-h2, var(--heading-letter-spacing));
+  letter-spacing: var(--heading-letter-spacing-h2, var(--heading-letter-spacing));
   min-width: 0;
   font-weight: 900;
   overflow-wrap: anywhere;
@@ -8159,7 +8131,7 @@ dialog :is([pgs~=search], [pgs*="search["]) :where([pgs~=_modal-close]) {
   font-size: var(--heading-size-h3, 2.75rem);
   line-height: var(--heading-line-height-h3, var(--heading-line-height));
   color: var(--heading-color-h3, var(--color-black));
-  letter-spacing: var(--header-letter-spacing-h3, var(--heading-letter-spacing));
+  letter-spacing: var(--heading-letter-spacing-h3, var(--heading-letter-spacing));
   min-width: 0;
   font-weight: 900;
   overflow-wrap: anywhere;
@@ -8187,7 +8159,7 @@ dialog :is([pgs~=search], [pgs*="search["]) :where([pgs~=_modal-close]) {
   font-size: var(--heading-size-h4, 1.7rem);
   line-height: var(--heading-line-height-h4, var(--heading-line-height));
   color: var(--heading-color-h4, var(--color-black));
-  letter-spacing: var(--header-letter-spacing-h4, var(--heading-letter-spacing));
+  letter-spacing: var(--heading-letter-spacing-h4, var(--heading-letter-spacing));
   min-width: 0;
   font-weight: 900;
   overflow-wrap: anywhere;
@@ -8215,7 +8187,7 @@ dialog :is([pgs~=search], [pgs*="search["]) :where([pgs~=_modal-close]) {
   font-size: var(--heading-size-h5, 1.7rem);
   line-height: var(--heading-line-height-h5, var(--heading-line-height));
   color: var(--heading-color-h5, var(--color-black));
-  letter-spacing: var(--header-letter-spacing-h5, var(--heading-letter-spacing));
+  letter-spacing: var(--heading-letter-spacing-h5, var(--heading-letter-spacing));
   min-width: 0;
   font-weight: 700;
   overflow-wrap: anywhere;
@@ -8243,7 +8215,7 @@ dialog :is([pgs~=search], [pgs*="search["]) :where([pgs~=_modal-close]) {
   font-size: var(--heading-size-h6, 1.7rem);
   line-height: var(--heading-line-height-h6, var(--heading-line-height));
   color: var(--heading-color-h6, var(--color-black));
-  letter-spacing: var(--header-letter-spacing-h6, var(--heading-letter-spacing));
+  letter-spacing: var(--heading-letter-spacing-h6, var(--heading-letter-spacing));
   min-width: 0;
   font-weight: 500;
   overflow-wrap: anywhere;

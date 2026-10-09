@@ -1,5 +1,11 @@
+import { pgs } from "../_pgs.js";
+import { PGS_roots } from "../helper/_dom.js";
 import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
+import { PGS_warn } from "../helper/_warn.js";
 import { fn_alert } from "./_alerts.js";
+
+//== the toastLoad elements already read
+const LOADED = new WeakSet();
 
 //= PGS_toast
 //+ the single floating stack: one message at a time, fixed on screen. It only owns the container
@@ -35,11 +41,11 @@ const fn_toast = {
     //== position never leaks into the next. They come from the position of the toast: the field of its
     //== pgs-data of a toastLoad or the position option of a pgs.toast call. A container written
     //== by hand keeps its own as the baseline
-    _applyOptions(container, position = []) {
+    _applyOptions(container, position = [], scope) {
         const wanted = [Array.isArray(position) ? position : String(position).split(/\s+/)].flat().filter(Boolean);
         const unknown = wanted.filter(key => !this._options.includes(key));
 
-        if (unknown.length) console.error(`PGS toast: unknown position ${unknown.join(", ")}; use ${this._options.join(", ")}.`);
+        if (unknown.length) PGS_warn(scope, `unknown position ${unknown.join(", ")}; use ${this._options.join(", ")}`);
 
         const keys = this._options.filter(key => wanted.includes(key));
 
@@ -48,7 +54,8 @@ const fn_toast = {
     },
 
     _add(type, options) {
-        const { timeout = this._defaults.timeout, position, ...config } = fn_alert._toOptions(options, "toast");
+        const scope = `toast.${type}`;
+        const { timeout = this._defaults.timeout, position, ...config } = fn_alert._toOptions(options, scope);
 
         const toast = fn_alert.create(type, {
             ...config,
@@ -61,7 +68,7 @@ const fn_toast = {
 
         //== only one toast is shown at a time: a new one simply replaces whatever was there
         const container = this._getOrCreateContainer();
-        this._applyOptions(container, position);
+        this._applyOptions(container, position, scope);
         container.replaceChildren(toast);
     },
 
@@ -80,10 +87,10 @@ const fn_toast = {
 
     //== TRIGGER
     trigger(root = document) {
-        pgs(root).querySelectorAll("toastLoad").forEach(element => {
-            if (!element || element.dataset.initialize === "true") return;
+        PGS_roots(root, "toastLoad").forEach(element => {
+            if (LOADED.has(element)) return;
 
-            element.dataset.initialize = "true";
+            LOADED.add(element);
             this._dispatch(element);
             element.remove();
         });

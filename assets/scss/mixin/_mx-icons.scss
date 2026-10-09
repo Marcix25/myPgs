@@ -52,7 +52,6 @@
         background-color: var(--icon-color, currentColor);
         vertical-align: -0.125em;
         grid-area: 1 / 1;
-        vertical-align: -0.125em;
     }
 
     &::before {
@@ -79,7 +78,6 @@
     background-color: var(--boxed-background);
     padding: var(--boxed-padding);
     width: calc(var(--boxed-size, var(--font-size-text)) * 3);
-    justify-content: center;
 
     i,
     :is([pgs~="icon"], [pgs*="icon\5B"]) {
@@ -186,7 +184,7 @@ $icons-builtin: (
     ellipsis: $icon-ellipsis,
 );
 //Two-layer glyphs. Unlike the single-path set above, their paths are drawn on ::before and ::after
-//so a component can colour or animate each layer independently.
+//so a component can color or animate each layer independently.
 $icons-duo: (
     hamburgerTwo: ($icon-hamburgerTwo-before, $icon-hamburgerTwo-after),
 );

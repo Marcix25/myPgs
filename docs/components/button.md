@@ -17,9 +17,9 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `btnMini`: applies the smallest size variant.
 - `btnVertical`: stacks the content vertically, the icon above the label, with the same padding on every side.
 - `btnTwoState`: for a label marked as a button that wraps its own checkbox or radio: hides the input, which still carries the semantics and the keyboard, and draws the checked state with --button-background-checked, --button-color-checked, --button-border-color-checked and --button-shadow-checked. Without it the input stays visible and nothing changes when it is checked.
-- `btnCurrent`: gives the button the current look — the colour, background, border and shadow of --button-*-current — while it carries aria-current="page" or aria-selected="true". Without it those attributes change nothing, so a button that is never marked current does not pay for the rule.
+- `btnCurrent`: gives the button the current look — the color, background, border and shadow of --button-*-current — while it carries aria-current="page" or aria-selected="true". Without it those attributes change nothing, so a button that is never marked current does not pay for the rule.
 - `btnForNavSmart`: sizes the button as an item of the floating navSmart bar: icon above the label, no background, pill-shaped, and the current look for the page you are on (aria-current) or the panel that is open (aria-expanded). Next to btnIconOnly it drops the label's minimum width and becomes a square as wide as the bar is tall.
-- `btnTransparent`: drops the background and the border at rest, so only the label shows, and colours the label on hover. Unlike btnText it leaves the other states alone, so the same button still fills in when it carries btnStrong or aria-current.
+- `btnTransparent`: drops the background and the border at rest, so only the label shows, and colors the label on hover. Unlike btnText it leaves the other states alone, so the same button still fills in when it carries btnStrong or aria-current.
 - `btnText`: removes the default background and outline while preserving the button layout and hover behavior.
 - `btnPrimary`: applies the primary color palette.
 - `btnSecondary`: replaces the primary button accent with the secondary color palette.
@@ -55,7 +55,6 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `--button-background-checked`
 - `--button-background-current`
 - `--button-background-hover`
-- `--button-background-strong`
 - `--button-border-color`
 - `--button-border-color-checked`
 - `--button-border-color-current`
@@ -67,7 +66,6 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `--button-color-checked`
 - `--button-color-current`
 - `--button-color-hover`
-- `--button-color-strong`
 - `--button-font-size`
 - `--button-gap`
 - `--button-height`
@@ -81,7 +79,6 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `--button-shadow-checked`
 - `--button-shadow-current`
 - `--button-shadow-hover`
-- `--button-shadow-strong`
 - `--button-size`
 
 ## Output
@@ -100,9 +97,9 @@ Anchor element styled as a standard button, combining an icon with text.
 </a>
 ```
 
-### disabled order
+### Disabled
 
-button disabled
+A disabled button is dimmed, shows the not-allowed cursor and does not react to hover.
 
 ```html
 <button pgs="button" type="button" disabled>
@@ -133,7 +130,7 @@ Applies the higher-emphasis strong variant.
 
 ### Icon only
 
-Compact icon-only button using iconOnly.
+Compact icon-only button using btnIconOnly.
 
 ```html
 <button pgs="button['btnIconOnly']" type="button" aria-label="Settings">
@@ -143,28 +140,28 @@ Compact icon-only button using iconOnly.
 
 ### Mini size
 
-Smallest button size using mini.
+Smallest button size using btnMini.
 
 ```html
-<button pgs="button['btnMini']" type="button" aria-label="Information">
+<button pgs="button['btnMini']" type="button">
     Mini
 </button>
 ```
 
-### Large size
+### Vertical
 
-Largest button size using big, combined with an icon.
+Stacks the icon above the label using btnVertical, with the same padding on every side.
 
 ```html
-<button pgs="button['btnVertical']" type="button" aria-label="Large button">
+<button pgs="button['btnVertical']" type="button">
     <i pgs="icon['icon-star']"></i>
-    Large
+    Vertical
 </button>
 ```
 
 ### Transparent
 
-Only the label shows at rest, and it takes the accent colour on hover; strong and aria-current still fill in.
+Only the label shows at rest, and it takes the accent color on hover; strong and aria-current still fill in.
 
 ```html
 <button pgs="button['btnTransparent']" type="button">
@@ -193,7 +190,7 @@ Removes the default background and outline while keeping the button layout using
 
 ### Equal padding
 
-Sets the same padding on every side using paddingEqual, instead of the wider left/right default.
+Sets the same padding on every side using btnPaddingEqual, instead of the wider left/right default.
 
 ```html
 <button pgs="button['btnPaddingEqual']" type="button">
@@ -243,7 +240,7 @@ Strong button using the quaternary color palette.
 
 ### Checked
 
-A label marked as a button wrapping its own checkbox or radio: the input carries the semantics and the keyboard behaviour, the button draws the state. Retune the checked look with --button-background-checked, --button-color-checked and --button-border-color-checked.
+A label marked as a button wrapping its own checkbox or radio: the input carries the semantics and the keyboard behavior, the button draws the state. Retune the checked look with --button-background-checked, --button-color-checked and --button-border-color-checked.
 
 ```html
 <label pgs="button['btnTwoState']">

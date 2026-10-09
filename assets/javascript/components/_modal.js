@@ -1,23 +1,27 @@
+import { pgs } from "../_pgs.js";
+import { PGS_dispatch, PGS_roots } from "../helper/_dom.js";
 import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
+import { PGS_warn } from "../helper/_warn.js";
 
 //# MODAL
 const EVENT_OPEN = "pgs:modal:open";
 const EVENT_CLOSE = "pgs:modal:close";
 const API = new WeakMap();
+//== the dialog of every wrapper, because the dialog leaves its wrapper on init: a destroy() and a new init
+//== of the same wrapper, or a refresh(), still find it
+const DIALOGS = new WeakMap();
 const ANIMATIONS = ["dialogAnimationZoom", "dialogAnimationLeft", "dialogAnimationRight", "dialogAnimationTop", "dialogAnimationBottom"];
 
-function getModals(root) {
-    const modals = root instanceof Element && pgs(root).contains("modal") ? [root] : [];
-    modals.push(...pgs(root).querySelectorAll("modal"));
-    return modals;
-}
-
-function initializeModal(MODAL, existingDialog = null) {
-    if (API.has(MODAL)) return;
+function initializeModal(MODAL) {
+    if (API.has(MODAL)) return API.get(MODAL);
 
     const BUTTON_OPEN = pgs(MODAL).querySelector("modal-button");
-    const DIALOG = existingDialog || MODAL.querySelector("dialog");
-    if (!DIALOG) return;
+    const DIALOG = MODAL.querySelector("dialog") || DIALOGS.get(MODAL);
+    if (!DIALOG) {
+        PGS_warn("modal.init", "a modal needs a <dialog> inside its wrapper", MODAL);
+        return;
+    }
+    DIALOGS.set(MODAL, DIALOG);
     const eventController = new AbortController();
     const { signal } = eventController;
     let historyObserver = null;
@@ -25,7 +29,7 @@ function initializeModal(MODAL, existingDialog = null) {
 
     //== SELECTOR
     //== a hand-written close button keeps the bare name; a generated one gets the underscore
-    const DOMButtonClose = "<button pgs=\"button['btnIconOnly' 'btnMini'] _modal-close\" type=\"button\" tabindex=\"0\" aria-label=\"Close\"><i pgs=\"icon['icon-close']\"></i></button>";
+    const DOMButtonClose = "<button pgs=\"button['btnIconOnly' 'btnMini'] _modal-close\" type=\"button\" aria-label=\"Close\"><i pgs=\"icon['icon-close']\"></i></button>";
     const modalContentHeader = pgs(DIALOG).querySelector("modal-dialog-content-header");
 
     //== FOCUS
@@ -67,9 +71,9 @@ function initializeModal(MODAL, existingDialog = null) {
 
     //== OPTION ATTRIBUTES MODAL
     const dialogDisableBackdropClose = pgs(MODAL).option.contains("dialogDisableBackdropClose");
-    const data_history = pgs(MODAL).option.contains("dialogHistory");
-    const data_container = pgs(MODAL).data.getValueBrackets("modalContainerID");
-    const data_modalContainerPGS = pgs(MODAL).data.getValueBrackets("modalContainerPGS");
+    const dialogHistory = pgs(MODAL).option.contains("dialogHistory");
+    const modalContainerID = pgs(MODAL).data.getValueBrackets("modalContainerID");
+    const modalContainerPGS = pgs(MODAL).data.getValueBrackets("modalContainerPGS");
 
     //== OPTION ATTRIBUTES DIALOG
     const dialogTopLevel = pgs(DIALOG).option.contains("dialogTopLevel");
@@ -88,9 +92,6 @@ function initializeModal(MODAL, existingDialog = null) {
     const BUTTON_CLOSE = pgs(DIALOG).querySelector(["modal-close", "_modal-close"]) || pgs(MODAL).querySelector(["modal-close", "_modal-close"]);
 
 
-    //== SET
-    pgs(DIALOG).add("modal-dialog");
-
     //== BUTTON OPEN
     //== the label is a fallback, not a correction: a control the author has already named keeps
     //== that name, which is the one the page is written around
@@ -101,8 +102,8 @@ function initializeModal(MODAL, existingDialog = null) {
     //== POSITION
     if (dialogTopLevel && !MODAL.contains(DIALOG)) MODAL.append(DIALOG);
     else if (!dialogTopLevel) {
-        if (data_container) document.querySelector("#" + data_container)?.append(DIALOG);
-        else if (data_modalContainerPGS) pgs(document).querySelector(data_modalContainerPGS)?.append(DIALOG);
+        if (modalContainerID) document.querySelector("#" + modalContainerID)?.append(DIALOG);
+        else if (modalContainerPGS) pgs(document).querySelector(modalContainerPGS)?.append(DIALOG);
         else document.body.append(DIALOG);
     }
 
@@ -110,7 +111,27 @@ function initializeModal(MODAL, existingDialog = null) {
     //+ FN STATUS
     function statusModal(status = true) {
         BUTTON_OPEN?.setAttribute("aria-expanded", status);
-        DIALOG?.setAttribute("aria-expanded", status);
+        DIALOG.setAttribute("aria-expanded", status);
+    }
+
+    //+ FN EVENT
+    //+ pgs:modal:open and pgs:modal:close reach every listener once, wherever it sits. The event goes
+    //+ out on the dialog and bubbles up from there: with dialogTopLevel the dialog is still inside its
+    //+ wrapper, so that already passes through the wrapper. A dialog moved elsewhere is not under the
+    //+ wrapper, so the wrapper gets an event of its own, and that one would reach the ancestors the two
+    //+ share a second time: it is stopped at the wrapper's ancestor just below the first one that
+    //+ holds the dialog, so the shared ancestors and everything above only hear the dialog's
+    function dispatchModal(name) {
+        const detail = { modal: MODAL, dialog: DIALOG };
+        PGS_dispatch(DIALOG, name, detail);
+        if (MODAL.contains(DIALOG)) return;
+
+        let last = MODAL;
+        while (last.parentNode && !last.parentNode.contains(DIALOG)) last = last.parentNode;
+        const stop = event => event.stopPropagation();
+        last.addEventListener(name, stop);
+        PGS_dispatch(MODAL, name, detail);
+        last.removeEventListener(name, stop);
     }
 
     //+ FN ANIMATION
@@ -265,7 +286,7 @@ function initializeModal(MODAL, existingDialog = null) {
         }
         closing = false;
 
-        if (!DIALOG.open) document.querySelectorAll("dialog[open]").forEach((dlg) => dlg.close());
+        document.querySelectorAll("dialog[open]").forEach((dlg) => dlg.close());
         statusModal(true);
         dialogTopLevel ? DIALOG.showModal() : DIALOG.show();
         //== respect an explicit autofocus target inside the dialog when the author set one
@@ -273,10 +294,7 @@ function initializeModal(MODAL, existingDialog = null) {
         //== screen, and Safari would scroll the dialog to follow it there
         if (!DIALOG.querySelector("[autofocus]")) focusTarget.focus({ preventScroll: true });
         animate("animationIn")?.then(stopAnimation, () => { });
-        //== dispatched on both, and neither bubbles: a listener sits on whichever of the two it
-        //== already holds, and never receives the same opening twice
-        MODAL.dispatchEvent(new CustomEvent(EVENT_OPEN));
-        DIALOG.dispatchEvent(new CustomEvent(EVENT_OPEN));
+        dispatchModal(EVENT_OPEN);
     }
 
     //+ FN CLOSE
@@ -298,8 +316,6 @@ function initializeModal(MODAL, existingDialog = null) {
         DIALOG.close();
         stopAnimation();
         dragClose.stop();
-        MODAL.dispatchEvent(new CustomEvent(EVENT_CLOSE));
-        DIALOG.dispatchEvent(new CustomEvent(EVENT_CLOSE));
     }
 
     function forceOpen(e) {
@@ -314,7 +330,7 @@ function initializeModal(MODAL, existingDialog = null) {
     function openModalOnHistory() {
         const params = new URLSearchParams(window.location.search);
         if (params.get('modal') !== BUTTON_OPEN?.id) return;
-        document.getElementById(BUTTON_OPEN.id)?.scrollIntoView({ behavior: 'smooth' });
+        BUTTON_OPEN.scrollIntoView({ behavior: 'smooth' });
         openModal();
     }
 
@@ -331,11 +347,14 @@ function initializeModal(MODAL, existingDialog = null) {
     }, { signal });
 
     //= CLOSE
+    //== every way the dialog closes ends in this native event — the close button, the backdrop, Escape, a
+    //== drag, the browser's back button, or a plain dialog.close() — so pgs:modal:close goes out from here
     DIALOG.addEventListener("close", () => {
         statusModal(false);
         closing = false;
         stopAnimation();
         dragClose.stop();
+        dispatchModal(EVENT_CLOSE);
     }, { signal });
     //== Escape on a showModal() dialog closes it natively, with no time left for the closing
     //== animation: take the cancel over and close through closeModal instead
@@ -356,7 +375,7 @@ function initializeModal(MODAL, existingDialog = null) {
     }
 
     //= UPDATE HISTORY
-    if (data_history && BUTTON_OPEN?.id) {
+    if (dialogHistory && BUTTON_OPEN?.id) {
         historyTimeout = window.setTimeout(openModalOnHistory, 1);
 
         //== keeps the URL in step with the dialog's own "open" attribute
@@ -392,7 +411,7 @@ function initializeModal(MODAL, existingDialog = null) {
         API.delete(MODAL);
     }
 
-    API.set(MODAL, {
+    const api = {
         element: MODAL,
         button: BUTTON_OPEN,
         dialog: DIALOG,
@@ -401,17 +420,19 @@ function initializeModal(MODAL, existingDialog = null) {
         close: forceClose,
         toggle: openModal,
         refresh: () => {
-            const nextDialog = MODAL.querySelector("dialog") || DIALOG;
             destroy();
-            initializeModal(MODAL, nextDialog);
-            return API.get(MODAL);
+            return initializeModal(MODAL);
         },
+        destroy,
         isOpen: () => DIALOG.open,
-    });
+    };
+
+    API.set(MODAL, api);
+    return api;
 }
 
 function PGS_modal_init(root = document) {
-    getModals(root).forEach(MODAL => initializeModal(MODAL));
+    PGS_roots(root, "modal").forEach(MODAL => initializeModal(MODAL));
 }
 
 //# INIT PGS_modal

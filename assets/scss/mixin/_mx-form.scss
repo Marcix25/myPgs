@@ -1,6 +1,4 @@
 @use "mx-icons" as *;
-@use "mx-elements" as *;
-@use "mx-button" as *;
 @use "mx-responsive" as *;
 
 //=FORM
@@ -29,8 +27,8 @@
 }
 
 //== LABEL 
-@mixin label($borderadius: 1.0rem 1.0rem 0 0, $left: var(--border-radius-input)) {
-    --label-borderadius: #{$borderadius};
+@mixin label($borderRadius: 1.0rem 1.0rem 0 0, $left: var(--border-radius-input)) {
+    --label-borderRadius: #{$borderRadius};
     --label-left: #{$left};
     --label-padding: 0.7rem 1.2rem;
     --label-color: var(--color-black);
@@ -43,7 +41,7 @@
     left: var(--label-left);
     color: var(--label-color);
     padding: var(--label-padding);
-    border-radius: var(--label-borderadius);
+    border-radius: var(--label-borderRadius);
     background-color: var(--label-background);
 
     i,
@@ -82,7 +80,7 @@
     cursor: not-allowed !important;
 }
 
-//== DISABLED
+//== FILE
 @mixin file() {
     width: 100%;
     background-color: var(--color-white);
@@ -115,7 +113,7 @@
 }
 
 //== RANGE 
-@mixin rage() {
+@mixin range() {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -129,7 +127,7 @@
     z-index: 1;
     position: relative;
 
-    //=== thumb
+    //=== thumb (WebKit)
     &::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
@@ -147,7 +145,7 @@
         }
     }
 
-    //=== rail
+    //=== thumb (Firefox)
     &::-moz-range-thumb {
         -moz-appearance: none;
         appearance: none;
@@ -191,8 +189,6 @@
         user-select: none;
         color: var(--color-black);
         position: relative;
-        width: auto;
-        display: block;
         text-align: left;
         line-height: var(--checkbox-size);
         margin-bottom: var(--gap-texts);
@@ -204,7 +200,7 @@
         //=== Disabled
         &:has(input:disabled) { opacity: 0.5; }
 
-        //=== Focus
+        //=== Required
         &:has(input[type=checkbox]:required) { @include required(); }
     }
 
@@ -249,7 +245,7 @@
         //=== Checkbox
         &[type=checkbox] {
             //== icon() draws on ::after and blanks ::before, which here is not a leftover — it is
-            //== the box below — so it is reclaimed right after; the size and colour come after the
+            //== the box below — so it is reclaimed right after; the size and color come after the
             //== include too, since they override the mixin's own --icon-size/--icon-color and a
             //== declaration only wins over an earlier one on the same selector
             @include icon(var(--checkbox-icon), "::after");
@@ -322,7 +318,7 @@
     appearance: none;
 }
 
-@mixin inputcolor() {
+@mixin inputColor() {
     $size: 50px;
     $padding: 5px;
     @include input(0);
@@ -387,8 +383,6 @@
 
             &::-webkit-calendar-picker-indicator {
                 order: -1;
-                margin: 0;
-                margin-right: var(--gap-texts);
                 font-size: 1.5em;
                 background-color: var(--border-color);
                 border-radius: var(--input-padding);
@@ -411,13 +405,13 @@
         @include formTextarea()
     }
 
-    //=== RAGE
-    input[type=range] { @include rage(); }
+    //=== RANGE
+    input[type=range] { @include range(); }
 
     //=== COLOR
-    input[type=color] { @include inputcolor(); }
+    input[type=color] { @include inputColor(); }
 
-    //=== RAGE
+    //=== SELECT
     select { @include select(); }
 
     //===FIELDSET 

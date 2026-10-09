@@ -2,7 +2,7 @@
 
 # Typography
 
-The six heading levels, and one look for body copy — size (or font-size for text), family, color and line-height together — available as utilities, so any element can look like a title or read like running text without changing what tag it actually is. Each one reads its look from its own set of custom properties (--heading-size-h1, --heading-color-h1, --heading-family-h1, --heading-line-height-h1 and so on through h6; --text-color, --text-family, --text-size, --text-line-height, --text-overflowWrap for text), declared once for the whole page in a :root block; override one there instead of passing a different value at every place that level is used.
+The six heading levels, and one look for body copy — size (or font-size for text), family, color, line-height and letter-spacing together — available as utilities, so any element can look like a title or read like running text without changing what tag it actually is. Each one reads its look from its own set of custom properties (--heading-size-h1, --heading-color-h1, --heading-family-h1, --heading-line-height-h1, --heading-letter-spacing-h1 and so on through h6; --text-color, --text-family, --text-size, --text-line-height, --text-overflowWrap for text), declared once for the whole page in a :root block; override one there instead of passing a different value at every place that level is used.
 
 ## PGS
 
@@ -35,14 +35,15 @@ Real h1 to h6 tags for comparison, then the same six levels applied to plain par
 Real h1 to h6 tags with no utility at all, shown as code only: compare it against the styled markup below to see what each one is actually adding.
 
 ```html
-<h1>h1 on a paragraph</h1>
-<h2>h2 on a paragraph</h2>
-<h3>h3 on a paragraph</h3>
-<h4>h4 on a paragraph</h4>
-<h5>h5 on a paragraph</h5>
-<h6>h6 on a paragraph</h6>
+<h1>Heading level 1</h1>
+<h2>Heading level 2</h2>
+<h3>Heading level 3</h3>
+<h4>Heading level 4</h4>
+<h5>Heading level 5</h5>
+<h6>Heading level 6</h6>
 ```
 
+### Heading looks on paragraphs
 
 The same look as h1 to h6, applied to paragraphs: use them when the right look and the right heading level do not match.
 

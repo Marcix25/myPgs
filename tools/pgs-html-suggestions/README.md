@@ -1,24 +1,24 @@
 # PGS HTML Suggestions
 
-Autocomplete per `pgs="..."` e `pgs-data="..."` in HTML/PHP, letto direttamente da
-`reference/pgs-map.json` (generato con `node scripts/generate-pgs-map.js`).
+Autocomplete for `pgs="..."` and `pgs-data="..."` in HTML/PHP, read directly from
+`reference/pgs-map.json` (generated with `node scripts/generate-pgs-map.js`).
 
-- `pgs="flex["` suggerisce solo le opzioni di `flex` (mai quelle di `grid`, `modal`, ecc.).
-- `pgs-data="` suggerisce le chiavi dei componenti già scritti nel `pgs="..."` dello stesso tag,
-  con fallback a tutte le chiavi se non ne trova nessuno.
-- Le parentesi si suggeriscono solo su una vera radice della mappa: un figlio generato (anche
-  se indirizzabile a mano, come `modal-dialog`) non porta mai un proprio bracket, quindi non
-  riceve mai queste opzioni — solo `pgs-data`, se la radice ne documenta, resta suggerito anche lì.
-- Riconosce anche `pgs(el).option.*(...)` e `pgs(el).data.*(...)` in JS/TS, senza scoping (non
-  c'è un elemento da cui dedurre il componente).
+- `pgs="flex["` suggests only the options of `flex` (never those of `grid`, `modal`, etc.).
+- `pgs-data="` suggests the keys of the components already written in the `pgs="..."` of the same tag,
+  falling back to all keys if it finds none.
+- Brackets are suggested only on a real root of the map: a generated child (even
+  one that can be addressed by hand, like `modal-dialog`) never carries a bracket of its own, so it
+  never receives these options — only `pgs-data`, if the root documents any, is still suggested there too.
+- It also recognizes `pgs(el).option.*(...)` and `pgs(el).data.*(...)` in JS/TS, without scoping (there
+  is no element to infer the component from).
 
-## Sviluppo
+## Development
 
 ```sh
 npm install
-npm run compile      # o npm run watch
-npm run package      # produce ../../pgs-html-suggestions.vsix
+npm run compile      # or npm run watch
+npm run package      # produces ../../pgs-html-suggestions.vsix
 ```
 
-Ricarica la mappa da comando (`PGS: ricarica pgs-map.json`) o automaticamente: un file watcher
-osserva `reference/pgs-map.json` e si aggiorna da solo a ogni `node scripts/generate-pgs-map.js`.
+Reload the map from the command (`PGS: Reload pgs-map.json`) or automatically: a file watcher
+watches `reference/pgs-map.json` and updates itself on every `node scripts/generate-pgs-map.js`.

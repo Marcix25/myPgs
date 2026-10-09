@@ -2,15 +2,15 @@
 
 # SVG colors
 
-Recolours external SVG and Lottie files when the theme changes, swapping each declared colour pair between its light and dark value. One token enables both passes, since they read the same --svg-color-N pairs: any object type="image/svg+xml" and any lottie-player on the page recolour together. Alongside it, and needing no token at all, every <object type="image/svg+xml"> on the page has its preserveAspectRatio kept in step with the object-fit it is given in CSS — slice for cover, meet for anything else — and re-read whenever the element is resized, so an external SVG crops and scales the way an <img> in the same box would. Both passes need the file to be same-origin, since they reach inside its document.
+Recolors external SVG and Lottie files when the theme changes, swapping each declared color pair between its light and dark value. One token enables both passes, since they read the same --svg-color-N pairs: any object type="image/svg+xml" and any lottie-player on the page recolor together. Alongside it, and needing no token at all, every <object type="image/svg+xml"> on the page has its preserveAspectRatio kept in step with the object-fit it is given in CSS — slice for cover, meet for anything else — and re-read whenever the element is resized, so an external SVG crops and scales the way an <img> in the same box would. Both passes need the file to be same-origin, since they reach inside its document.
 
 ## PGS
 
-- `svgChangeColor`: enables the whole recolouring pass, for every matching object and lottie-player on the page — a Lottie player needs no marker of its own, since there is nothing left to opt out of it independently.
+- `svgChangeColor`: enables the whole recoloring pass, for every matching object and lottie-player on the page — a Lottie player needs no marker of its own, since there is nothing left to opt out of it independently.
 
 ## PGS States
 
-- `darkmode`: read on the document to decide which side of every colour pair to apply.
+- `darkmode`: read on the document to decide which side of every color pair to apply.
 
 ## JavaScript API
 
@@ -34,12 +34,12 @@ Recolours external SVG and Lottie files when the theme changes, swapping each de
 
 ## Output
 
-An external SVG marked for recolouring, with the colour pairs it reads from the document.
+An external SVG marked for recoloring, with the color pairs it reads from the document.
 ## Examples
 
 ### Theme-aware SVG
 
-Colours are declared on the document as pairs, light value first and dark value second, and every --svg-color-N from 0 to 19 is read. The file must be same-origin, because the pass rewrites the fill and stroke attributes inside its document. The same svgChangeColor token also recolours every lottie-player on the page, from these same pairs.
+Colors are declared on the document as pairs, light value first and dark value second, and every --svg-color-N from 0 to 19 is read. The file must be same-origin, because the pass rewrites the fill and stroke attributes inside its document. The same svgChangeColor token also recolors every lottie-player on the page, from these same pairs.
 
 
 ```html

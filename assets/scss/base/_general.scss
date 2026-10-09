@@ -22,7 +22,7 @@
 [pgs~="pointer"] { cursor: pointer; }
 [pgs~="hidden"] { display: none !important; }
 
-//= LIST
+//= LIST, TEXT SHADOW & BOX SHADOW
 [pgs~="list"] { @include list(); }
 :is([pgs~="textShadow"], [pgs*="textShadow\5B"]) {
     text-shadow: var(--text-shadow);

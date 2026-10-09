@@ -34,7 +34,7 @@
     }
 
     //== ARROW
-    // two stacked triangles pointing at the trigger: the outer one in the border colour, the inner
+    // two stacked triangles pointing at the trigger: the outer one in the border color, the inner
     // one in the background. On by default, drpNotArrow removes it
     &:not([pgs*="'drpNotArrow'"])> :where([pgs~="dropdown-content"]) {
         overflow: visible;
@@ -48,7 +48,7 @@
             border: var(--dropdown-arrow-size) solid transparent;
         }
 
-        &[data-dropdown-side="bottom"] {
+        &[pgs-state~="sideBottom"] {
 
             &::before,
             &::after {
@@ -65,7 +65,7 @@
             }
         }
 
-        &[data-dropdown-side="top"] {
+        &[pgs-state~="sideTop"] {
 
             &::before,
             &::after {
@@ -82,7 +82,7 @@
             }
         }
 
-        &[data-dropdown-side="right"] {
+        &[pgs-state~="sideRight"] {
 
             &::before,
             &::after {
@@ -99,7 +99,7 @@
             }
         }
 
-        &[data-dropdown-side="left"] {
+        &[pgs-state~="sideLeft"] {
 
             &::before,
             &::after {

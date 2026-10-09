@@ -29,7 +29,6 @@
         width: 100%;
         padding-block: var(--header-padding-block);
         padding-inline: var(--header-padding-inline);
-        color: var(--header-color);
         pointer-events: auto;
 
         :where([pgs~="header-element-onlyCompact"]),
@@ -87,7 +86,7 @@
         --header-compact-breakpoint: #{$laptop};
     }
 
-    //option for suggestions: scroll and main are plain flags, read by the
+    //option for suggestions: headerMain and headerScroll are plain flags, read by the
     //JavaScript only
     &[pgs*="'headerMain'"],
     &[pgs*="'headerScroll'"] {}
@@ -120,7 +119,7 @@
             :where([pgs~="header-element-onlyCompact"]) { display: contents; }
         }
 
-        //== bottom: follows the compact state, so it honours the chosen breakpoint
+        //== bottom: follows the compact state, so it honors the chosen breakpoint
         &[pgs*="'headerCompactBottom'"] { --header-compactBottom-active: 1; }
     }
 }

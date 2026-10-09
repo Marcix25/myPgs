@@ -2,7 +2,7 @@
 
 # Darkmode
 
-Global light and dark theme switch. The choice is persisted in localStorage under screenIsDarkMode and re-applied to the html element as soon as the bundle is parsed, before the page paints, so a reload never flashes the wrong theme. Every control marked toggleDarkmode flips the theme and stays in sync with the others, and its inner icon is swapped between the built-in icon-moon and icon-sun glyphs automatically, so the control is never blank even with no icon set loaded; the fa-moon and fa-sun classes are still set alongside, for pages that style them. Each switch dispatches pgs:svg:changeColor on the document with detail { isDarkMode }, which is what recolours the SVG and Lottie files; see SVG colors.
+Global light and dark theme switch. The choice is persisted in localStorage under screenIsDarkMode and re-applied to the html element as soon as the bundle is parsed, before the page paints, so a reload never flashes the wrong theme. Every control marked toggleDarkmode flips the theme and stays in sync with the others, and its inner icon is swapped between the built-in icon-moon and icon-sun glyphs automatically, so the control is never blank even with no icon set loaded; the fa-moon and fa-sun classes are still set alongside, for pages that style them. Each switch dispatches pgs:svg:changeColor on the document with detail { isDarkMode }, which is what recolors the SVG and Lottie files; see SVG colors.
 
 ## PGS
 
@@ -10,15 +10,15 @@ Global light and dark theme switch. The choice is persisted in localStorage unde
 
 ## PGS Options (component brackets)
 
-- `tglLabelled`: writes the theme the click leads to next to the glyph, "Dark mode" while the page is light and "Light mode" while it is dark. It reads the theme from the html element rather than the glyph on the button, so it keeps working whatever icon set drew it; retitle or translate it with --darkmode-label-toDark and --darkmode-label-toLight, whose values are CSS strings, quotes included.
+- `tglLabeled`: writes the theme the click leads to next to the glyph, "Dark mode" while the page is light and "Light mode" while it is dark. It reads the theme from the html element rather than the glyph on the button, so it keeps working whatever icon set drew it; retitle or translate it with --darkmode-label-toDark and --darkmode-label-toLight, whose values are CSS strings, quotes included.
 
 ## PGS States
 
-- `darkmode`: applied to the html and body elements while the dark theme is active, and read by the whole colour layer.
+- `darkmode`: applied to the html and body elements while the dark theme is active, and read by the whole color layer.
 
 ## JavaScript API
 
-- `pgs.darkmode.init(root)`: initializes the switches within the specified root, and re-applies the stored theme.
+- `pgs.darkmode.init(root)`: initializes the switches within the specified root that are not bound yet and draws their glyph. Switches that are already bound, and the theme itself, are left untouched.
 
 ## Related elements
 
@@ -65,7 +65,7 @@ localStorage.getItem("screenIsDarkMode");
 
 ### Theme switch
 
-The icon is swapped by the library, so author it as fa-moon and leave it alone. Several switches can coexist: they all read and write the same stored value.
+The icon is swapped by the library, so write only an icon element and leave it alone. Several switches can coexist: they all read and write the same stored value.
 
 ```html
 <button pgs="button['btnIconOnly'] toggleDarkmode" type="button" aria-label="Change theme">
@@ -73,12 +73,12 @@ The icon is swapped by the library, so author it as fa-moon and leave it alone. 
 </button>
 ```
 
-### Labelled switch
+### Labeled switch
 
-tglLabelled adds the written label, so the control says where the click leads instead of relying on the glyph alone. Override --darkmode-label-toDark and --darkmode-label-toLight to write it in another language: both take a CSS string, quotes included.
+tglLabeled adds the written label, so the control says where the click leads instead of relying on the glyph alone. Override --darkmode-label-toDark and --darkmode-label-toLight to write it in another language: both take a CSS string, quotes included.
 
 ```html
-<button pgs="button toggleDarkmode['tglLabelled']" type="button" aria-label="Change theme">
+<button pgs="button toggleDarkmode['tglLabeled']" type="button" aria-label="Change theme">
     <i pgs="icon"></i>
 </button>
 ```

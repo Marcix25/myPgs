@@ -1,4 +1,4 @@
-<!-- Landing panel for the demo: fetched and injected by demo.js as the first nav entry, so the
+<!-- Landing panel for the demo: read by scripts/build-site-static.js and baked in as the first nav entry, so the
      demo opens on something that explains the library instead of on a reference. Hand-maintained,
      kept in sync in substance with the project README, but free to look different since this is
      the demo's own page rather than a generated reference. -->
@@ -6,7 +6,7 @@
 <section pgs="flex['column']">
     <div pgs="flex['column' 'gapTexts']">
         <h1 class="demoContent-heading demoContent-heading-h1">MyPGS</h1>
-        <p>A shared frontend library for building consistent interfaces through <strong>pgs attributes</strong>, SCSS sources, UI components and reusable JavaScript behaviours. Layouts, spacing, colours, buttons, forms, alerts, menus, modals, dropdowns, suggestion search, slides and notifications are defined once and reused across projects.</p>
+        <p>A shared frontend library for building consistent interfaces through <strong>pgs attributes</strong>, SCSS sources, UI components and reusable JavaScript behaviors. Layouts, spacing, colors, buttons, forms, alerts, menus, modals, dropdowns, suggestion search, slides and notifications are defined once and reused across projects.</p>
     </div>
 
     <div pgs="flex['column' 'gapTexts']">
@@ -24,7 +24,7 @@
             </div>
             <div pgs="box['boxMini'] flex['column' 'gapTexts'] background['bgTertiarySoft']">
                 <strong>pgs-state</strong>
-                <p>What it is doing right now. The library writes these at runtime: <code>open</code>, <code>is-active</code>, <code>errorField</code>.</p>
+                <p>What it is doing right now. The library writes these at runtime: <code>open</code>, <code>active</code>, <code>errorField</code>.</p>
             </div>
         </div>
 
@@ -32,14 +32,14 @@
 
     <div pgs="flex['column' 'gapTexts']">
         <h2 class="demoContent-heading demoContent-heading-h2">Getting started</h2>
-        <div pgs="box['boxMini'] background['bgPrimarySoft'] textColor['txtPrimaryStrong']"><code>npm install myPGS</code></div>
+        <div pgs="box['boxMini'] background['bgPrimarySoft'] textColor['txtPrimaryStrong']"><code>npm install mypgs</code></div>
         <div pgs="box['boxMini'] background['bgPrimarySoft'] textColor['txtPrimaryStrong']">
             <code>
                 import "mypgs"; <br>
                 import "mypgs/style.css";
             </code>
         </div>
-        <p>The bundle initializes the registered behaviours on load. For markup added later, by JavaScript, JSX or a fetch, initialize its container with <code>pgs.init(container)</code>.</p>
+        <p>The bundle initializes the registered behaviors on load. For markup added later, by JavaScript, JSX or a fetch, initialize its container with <code>pgs.init(container)</code>.</p>
     </div>
 
     <div pgs="flex['column' 'gapTexts']">
@@ -53,12 +53,12 @@
                 }
             </code>
         </div>
-        <p>Component styling composes from small mixins instead of one bundled rule, so each consumer only includes what it needs: a standard button is <code>buttonBase</code> + <code>buttonContent</code>, an icon-only one swaps in <code>iconOnly</code>. The hover treatment is no longer part of any component's composition: it lives under <code>pgs="hover"</code>, which the library marks on clickable surfaces by itself, and <code>hoverNot</code> opts any surface out of it. Variant mixins such as <code>strong</code> or <code>text</code> only add their own declarations and must follow that base. Menus, accordions, forms and step tabs follow the same explicit-composition pattern.</p>
+        <p>Component styling composes from small mixins instead of one bundled rule, so each consumer only includes what it needs: a standard button is <code>buttonBase</code>, an icon-only one adds <code>buttonIconOnly</code>. The shared hover treatment is not part of any component's composition: it lives under <code>pgs="hover"</code>, which the library marks on clickable surfaces by itself once the <code>body</code> carries <code>bodyHoverAuto</code>, and <code>hoverNot</code> opts a surface out of it; without <code>bodyHoverAuto</code>, buttons and link cards and boxes keep a plain CSS hover. Variant mixins such as <code>buttonTransparent</code> or <code>buttonText</code> only add their own declarations and must follow that base. Menus, accordions, forms and step tabs follow the same explicit-composition pattern.</p>
     </div>
 
     <div pgs="flex['column' 'gapTexts']">
         <h2 class="demoContent-heading demoContent-heading-h2">JavaScript helpers</h2>
-        <p>Helpers collect reusable behaviour that is not a component of its own. They are registered on <code>PGS</code> by the library entrypoint, and their sources live in <code>assets/javascript/helper/</code>:</p>
+        <p>Helpers collect reusable behavior that is not a component of its own. They are registered on <code>PGS</code> by the library entrypoint, and their sources live in <code>assets/javascript/helper/</code>:</p>
         <ul pgs="list">
             <li><code>pgs(root)</code>: finds and edits PGS tokens, states and options.</li>
             <li><code>pgs.init(root)</code>: initializes components added through JavaScript, JSX or an asynchronous request.</li>

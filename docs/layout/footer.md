@@ -10,7 +10,6 @@ Complete footer with theme control, brand area, navigation, informational conten
 - `footer-top`: identifies the upper section containing the brand and content.
 - `footer-top-content`: identifies the responsive inner layout of the upper section.
 - `footer-brand`: identifies the group dedicated to the brand.
-- `footer-brand-motto`: identifies the descriptive text associated with the brand.
 - `footer-content`: identifies an informational footer column.
 - `footer-legal`: identifies the lower section dedicated to legal information.
 - `footer-legal-content`: identifies the content of the legal section.
@@ -29,7 +28,7 @@ Complete footer with theme control, brand area, navigation, informational conten
 
 ### PGS Options (component brackets)
 
-- `tglLabelled`: labels that control with the theme the click leads to; see Darkmode.
+- `tglLabeled`: labels that control with the theme the click leads to; see Darkmode.
 - `row`: distributes the upper columns responsively.
 - `column-3`: configures the footer flex layout with three columns.
 - `icon-moon`: the glyph of the theme control; belongs to the icon component.
@@ -58,18 +57,17 @@ Brand and navigation columns in the upper section, legal links in the lower one.
                 <a aria-label="Logo" pgs="logo" href="/">
                     <span pgs="logo-text">MyPGS</span>
                 </a>
-                <p pgs="footer-brand-motto">Reusable frontend components.</p>
-                <button pgs="button toggleDarkmode['tglLabelled']" type="button" aria-label="Change theme">
+                <button pgs="button toggleDarkmode['tglLabeled']" type="button" aria-label="Change theme">
                     <i pgs="icon['icon-moon']"></i>
                 </button>
             </div>
 
             <div pgs="footer-content">
                 <h2>Menu</h2>
-                <nav aria-label="Menu footer">
+                <nav aria-label="Footer menu">
                     <ul>
                         <li><a href="/">Home</a></li>
-                        <li><a href="/contatti">Contacts</a></li>
+                        <li><a href="/contact">Contact</a></li>
                     </ul>
                 </nav>
             </div>
@@ -80,8 +78,8 @@ Brand and navigation columns in the upper section, legal links in the lower one.
         <div pgs="footer-legal-content">
             <a href="">Privacy Policy</a>
             <a href="">Cookie Policy</a>
-            <a href="">Termini e Condizioni</a>
-            <p>© 2026 MyPgs. No rights reserved.</p>
+            <a href="">Terms and Conditions</a>
+            <p>© 2026 MyPGS. No rights reserved.</p>
         </div>
     </section>
 </footer>

@@ -30,9 +30,9 @@ function normalizeEol(value) {
 }
 
 //== welcome.html lives here too (so every hand-authored demo/reference page sits under
-//== reference/), but it's the demo's landing panel: a richer layout (coloured cards, component options
+//== reference/), but it's the demo's landing panel: a richer layout (colored cards, component options
 //== boxes) than the small prose vocabulary below can convert, and it isn't meant to produce a
-//== docs/guides/welcome.md anyway. demo.js fetches it directly instead.
+//== docs/guides/welcome.md anyway. build-site-static.js reads it directly instead.
 const EXCLUDED_FILES = new Set(["welcome.html"]);
 
 function listGuideFiles() {
@@ -180,11 +180,11 @@ function main() {
 
     if (errors.length) {
         errors.forEach(error => {
-            console.error(`[ERRORE] ${error.file}`);
+            console.error(`[ERROR] ${error.file}`);
             console.error(error.message);
             console.error("");
         });
-        console.error(`Generazione guide annullata: ${errors.length} errori bloccanti.`);
+        console.error(`Guide generation aborted: ${errors.length} blocking errors.`);
         process.exitCode = 1;
         return;
     }
@@ -198,26 +198,26 @@ function main() {
         const outputPath = path.join(DOCS_ROOT, `${path.basename(file, ".html")}.md`);
         expected.add(path.resolve(outputPath));
 
-        const marker = `<!-- Automatically generated from ${relativeSource}. Edit ${relativeSource} and run npm run docs:generate:guides again. -->`;
+        const marker = `<!-- Automatically generated from ${relativeSource}. Edit ${relativeSource} and run npm run docs:generate again. -->`;
         const content = [marker, "", `# ${title}`, "", description, "", markdown, ""].join("\n");
 
         if (!fs.existsSync(outputPath)) {
             fs.writeFileSync(outputPath, content, "utf8");
             counts.created += 1;
-            console.log(`[CREATO] ${relativeToProject(outputPath)}`);
+            console.log(`[CREATED] ${relativeToProject(outputPath)}`);
             return;
         }
 
         const existing = normalizeEol(fs.readFileSync(outputPath, "utf8"));
         if (existing === content) {
             counts.unchanged += 1;
-            console.log(`[INVARIATO] ${relativeToProject(outputPath)}`);
+            console.log(`[UNCHANGED] ${relativeToProject(outputPath)}`);
             return;
         }
 
         fs.writeFileSync(outputPath, content, "utf8");
         counts.updated += 1;
-        console.log(`[AGGIORNATO] ${relativeToProject(outputPath)}`);
+        console.log(`[UPDATED] ${relativeToProject(outputPath)}`);
     });
 
     //== stale generated guide left behind by a renamed/removed .html source
@@ -231,17 +231,17 @@ function main() {
                 if (!/^<!-- Automatically generated from reference\/html\/guides\//.test(firstLine)) return;
                 fs.unlinkSync(file);
                 counts.removed += 1;
-                console.log(`[RIMOSSO] ${relativeToProject(file)}`);
+                console.log(`[REMOVED] ${relativeToProject(file)}`);
             });
     }
 
     console.log("");
-    console.log(`Riepilogo guide: ${parsed.length} riferimenti validati; ${counts.created} creati; ${counts.updated} aggiornati; ${counts.unchanged} invariati; ${counts.removed} obsoleti rimossi.`);
+    console.log(`Guides summary: ${parsed.length} references validated; ${counts.created} created; ${counts.updated} updated; ${counts.unchanged} unchanged; ${counts.removed} stale removed.`);
 }
 
 try {
     main();
 } catch (error) {
-    console.error(`[ERRORE] ${error.message}`);
+    console.error(`[ERROR] ${error.message}`);
     process.exitCode = 1;
 }

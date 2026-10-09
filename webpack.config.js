@@ -1,5 +1,5 @@
 //# PGS THEME
-/// per eseguirlo premi Ctrl+Shift+B
+/// run it with Ctrl+Shift+B
 
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -66,12 +66,6 @@ const js = {
         path: path.resolve(__dirname, "dist/javascript"),
         filename: "[name].js",
     },
-    module: {
-        rules: [{
-            test: /\.css$/i,
-            use: ['style-loader', 'css-loader'],
-        }],
-    },
     plugins: [successMessagePluginJs],
 };
 
@@ -85,7 +79,6 @@ const jsMin = {
         path: path.resolve(__dirname, "dist/javascript"),
         filename: "[name].min.js",
     },
-    module: js.module,
     plugins: [successMessagePluginScss],
 };
 

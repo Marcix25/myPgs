@@ -1,5 +1,4 @@
 @use "settings" as *;
-@use "mx-responsive" as *;
 
 //# HEADING, TEXT
 //= HEADING
@@ -14,7 +13,7 @@
     font-size: var(--heading-size#{$tag}, #{$size});
     line-height: var(--heading-line-height#{$tag}, var(--heading-line-height));
     color: var(--heading-color#{$tag}, var(--color-black));
-    letter-spacing: var(--header-letter-spacing#{$tag}, var(--heading-letter-spacing));
+    letter-spacing: var(--heading-letter-spacing#{$tag}, var(--heading-letter-spacing));
     min-width: 0;
     font-weight: $weight;
     overflow-wrap: anywhere;

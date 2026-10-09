@@ -7,7 +7,7 @@ Ordered list of steps showing a number, content, and connecting line, with missi
 ## PGS
 
 - `steps`: identifies the ordered list initialized by the steps module.
-- `steps-step`: identifies each step in the sequence.
+- `steps-step`: identifies each step in the sequence, a direct child of the list.
 - `steps-step-circle`: write one yourself, bare like this, to place the numeric indicator with your own markup inside; the module leaves it alone and never generates a second one.
 - `steps-step-line`: the same, for the line joining one step to the next.
 - `steps-step-content`: identifies the text content of the step.
@@ -22,9 +22,10 @@ Ordered list of steps showing a number, content, and connecting line, with missi
 - `pgs.steps.init(root)`: initializes unregistered step lists within the specified Document or Element.
 - `pgs.steps.api(element)`: returns the instance associated with an initialized steps root.
 - `instance.steps()`: returns an array containing every steps-step element.
-- `instance.getStep(index)`: returns the step at the specified index.
+- `instance.getStep(index)`: returns the step at the specified zero-based index, or undefined when there is none.
 - `instance.getTotal()`: returns the total number of steps.
-- `instance.refresh()`: reinitializes the list, recreates missing elements, and returns the new instance.
+- `instance.destroy()`: forgets the instance; the circles and lines the module generated stay in the markup, and a later init finds and reuses them.
+- `instance.refresh()`: destroys the instance and builds a new one on the same list, adding the circle and line a step is still missing, and returns it.
 
 ## CSS Variables
 

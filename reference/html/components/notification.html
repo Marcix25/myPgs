@@ -1,7 +1,7 @@
 <!--
 /**
  * @title Notification
- * @description Notification markup, configuration, behavior, and usage example. A persistent, manually-dismissed panel of messages. Author only notificationBell, a plain button: there can be as many as the page needs, and every one of them opens and closes the same single panel. pgs.notification builds that panel, a modal (see Modal), the first time a notification arrives or a bell is clicked, so nothing else is written on the page. Opening any other dialog on the page (e.g. the mobile menu) closes it automatically, and vice versa. With no notificationBell on the page the notifications are still kept, but nothing can open the panel, so an error is written to the console. Split from Toast, which is ephemeral and auto-dismissing. Both are the shared alert card underneath (see Alerts): this component only manages the group around it. Full JSON field list is under @pgs-data "notification"; full JS options list is under each @api method below. The JSON form and the JS options now use the same names; the previous message and title-close keys are still accepted as aliases. Two custom events are dispatched, owned by the shared alert engine (see Alerts): pgs:alert:buttonClick on a buttons[] element when clicked (detail: id, buttonId, type, title, description, link; cancelable — call event.preventDefault() to stop a link's navigation and finish async work first), and pgs:alert:close on a notification element right before it is removed, whether by its own dismiss button or by deleteAll() below (detail: id, type, title, description).
+ * @description Notification markup, configuration, behavior, and usage example. A persistent, manually-dismissed panel of messages. Author only notificationBell, a plain button: there can be as many as the page needs, and every one of them opens and closes the same single panel. pgs.notification builds that panel, a modal (see Modal), the first time a notification arrives or a bell is clicked, so nothing else is written on the page. Opening any other dialog on the page (e.g. the mobile menu) closes it automatically, and vice versa. With no notificationBell on the page the notifications are still kept, but nothing can open the panel, so a warning is written to the console. Split from Toast, which is ephemeral and auto-dismissing. Both are the shared alert card underneath (see Alerts): this component only manages the group around it. Full JSON field list is under @pgs-data "notification"; full JS options list is under each @api method below. The JSON form and the JS options now use the same names; the previous message and title-close keys are still accepted as aliases. Two custom events are dispatched, owned by the shared alert engine (see Alerts), both bubbling: pgs:alert:buttonClick on a buttons[] element when clicked (detail: element, id, buttonId, type, title, description, link; cancelable — call event.preventDefault() to stop a link's navigation and finish async work first), and pgs:alert:close on a notification element right before it is removed, whether by its own dismiss button or by deleteAll() below (detail: element, id, type, title, description).
  *
  * @pgs
  * - notificationLoad: creates one or more notifications from comma-separated JSON objects on page load; see @pgs-data "notification" for every accepted field.
@@ -10,10 +10,10 @@
  *
  * @pgs-generated
  * - _notificationBell-counter: appended inside notificationBell when no notificationBell-counter was written by hand. Either form displays the current count of _alert elements inside the panel.
- * - _notificationsDialog: identifies the dialog generated to hold the notification panel, inside the one modal built for all the bells.
- * - _notifications: the scrollable list of notifications, created inside that dialog together with it.
- * - _notifications-close: the button generated at the top of that list, above the first notification, which closes the panel; its label is the internal panelCloseTitle default. It also carries _modal-close, Modal's own generated form of the close control it hands off to.
- * - _notifications-empty: shown inside the panel whenever it holds no notifications; its text comes from the internal emptyMessage default.
+ * - _notification-dialog: identifies the dialog generated to hold the notification panel, inside the one modal built for all the bells.
+ * - _notification: the scrollable list of notifications, created inside that dialog together with it.
+ * - _notification-close: the button generated at the top of that list, above the first notification, which closes the panel; its label is the internal panelCloseTitle default. It also carries _modal-close, Modal's own generated form of the close control it hands off to.
+ * - _notification-empty: shown inside the panel whenever it holds no notifications; its text comes from the internal emptyMessage default.
  *
  * @pgs-data
  * - notification: JSON object (or several, comma-separated) read by notificationLoad on page load — every field, with its accepted values and its default, is annotated in the reference below.
@@ -30,11 +30,11 @@
  *
  * @related
  * - alerts: owns the card itself and the engine that builds it (icon, content, dismiss button, action buttons, events — see its own @pgs-generated for every _alert* token); this component only manages the panel, the bell and the stacking list around it.
- * - neutral: the plain severity option owned by Alerts; no colour, no glyph and no title of its own, so the card stays on the box surface.
- * - success: the success severity option owned by Alerts.
- * - error: the error severity option owned by Alerts.
- * - warning: the warning severity option owned by Alerts.
- * - info: the info severity option owned by Alerts.
+ * - alertNeutral: the plain severity option owned by Alerts, carried by a card of type neutral; no colour, no glyph and no title of its own, so the card stays on the box surface.
+ * - alertSuccess: the success severity option owned by Alerts, carried by a card of type success.
+ * - alertError: the error severity option owned by Alerts, carried by a card of type error.
+ * - alertWarning: the warning severity option owned by Alerts, carried by a card of type warning.
+ * - alertInfo: the info severity option owned by Alerts, carried by a card of type info.
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - hidden: keeps every notificationLoad out of the layout, since it only carries a payload.
  * - column: stacks the examples vertically.
@@ -94,8 +94,6 @@
 <section pgs="flex['row' 'gapTexts']" demo="component">
     <button type="button" pgs="button notificationBell['dialogCenter']">In the center</button>
 </section>
-
-<demo demo-h3="Examples - Type"></demo>
 
 <demo demo-h3="Neutral" demo-description="A message with nothing to signal: no severity colour, no glyph, and the title left out so only the text shows."></demo>
 <section pgs="flex['column' 'gapTexts']" demo="component previewNone">
@@ -161,14 +159,14 @@
         "description": "",           // plain text under the title
         "type": "info",              // neutral | error | success | warning | info
         "icon": null,                // HTML string; null uses the icon of the type
-        "closeTitle": "Close",       // accessible name of the dismiss button, which always draws a cross
+        "closeTitle": "Close notification", // accessible name of the dismiss button, which always draws a cross
         "buttons": [                 // omitted or empty leaves only the dismiss button
             {
                 "id": null,          // reported as buttonId by pgs:alert:buttonClick
                 "title": "",         // label of the button
                 "link": null,        // navigates there; omit it to only dispatch the event
                 "close": true,       // dismisses the notification after the click
-                "optionButton": null // pgs-data token added to the button, e.g. btnMini
+                "optionButton": null // option added to the button's own bracket, e.g. btnMini; see Button
             }
         ]
     }]
@@ -180,7 +178,7 @@
         title: "",
         description: "",
         icon: null,
-        closeTitle: "Close",
+        closeTitle: "Close notification",
         buttons: [
             { id: undefined, title: "", link: undefined, close: true, optionButton: undefined }
         ]

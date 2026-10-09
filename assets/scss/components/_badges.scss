@@ -1,5 +1,3 @@
-@use "../mixin/mixin" as *;
-
 @mixin _badge() {
     --badge-background: var(--color-box);
     --badge-color: var(--color-black);

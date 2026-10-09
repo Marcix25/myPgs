@@ -15,7 +15,7 @@ Width and height utilities, each driven by its own custom property: --width-size
 
 ## PGS Options (component brackets)
 
-- `widthPage`: inside width's own bracket, uses the page width and is the default for every width utility.
+- `widthPage`: inside width's own bracket, uses the page width.
 - `widthPageHalf`: inside width's own bracket, uses half the page width, for two columns that line up with the page content.
 - `widthPageThird`: inside width's own bracket, uses a third of the page width.
 - `widthPageQuarter`: inside width's own bracket, uses a quarter of the page width.
@@ -24,7 +24,7 @@ Width and height utilities, each driven by its own custom property: --width-size
 - `widthPageSeventh`: inside width's own bracket, uses a seventh of the page width.
 - `widthPageEighth`: inside width's own bracket, uses an eighth of the page width.
 - `widthText`: inside width's own bracket, uses a 65 character measure, the width a line of text stays readable at, independent of the page width.
-- `widthFull`: inside width's own bracket, uses the whole container width.
+- `widthFull`: inside width's own bracket, uses the whole container width, which is also the default with no option at all.
 - `widthFillAvailable`: inside width's own bracket, uses -webkit-fill-available, the space actually left after margins and padding on iOS Safari, where percentages and viewport units miscompute against the address bar. Unsupported outside Chromium/Safari, where the invalid value is dropped and the element falls back to whichever other option, or its own -size property, it also carries.
 - `widthAuto`: inside width's own bracket, takes the width constraint off one element without dropping the utility; sets width itself, since the scale goes through min(), where auto is not valid.
 - `widthMaxPage`: inside widthMax's own bracket, the same page width scale as widthPage, capping instead of setting.
@@ -51,8 +51,8 @@ Width and height utilities, each driven by its own custom property: --width-size
 - `widthMinFull`: inside widthMin's own bracket, the same whole container width as widthFull.
 - `widthMinFillAvailable`: inside widthMin's own bracket, the same -webkit-fill-available as widthFillAvailable.
 - `widthMinAuto`: inside widthMin's own bracket, takes the minimum width off one element, back to the initial auto.
-- `heightFull`: inside height's own bracket, uses the whole parent height, which only resolves when the parent has a definite height of its own.
-- `height100svh`: inside height's own bracket, uses the small viewport height, the screen with the browser toolbars expanded, and is the default for every height utility. The element never grows past the screen as the toolbars retract.
+- `heightFull`: inside height's own bracket, uses the whole parent height, which only resolves when the parent has a definite height of its own; also the default with no option at all.
+- `height100svh`: inside height's own bracket, uses the small viewport height, the screen with the browser toolbars expanded. The element never grows past the screen as the toolbars retract.
 - `height100dvh`: inside height's own bracket, uses the dynamic viewport height, which follows the visible area as the toolbars come and go, at the cost of resizing during the scroll.
 - `height100lvh`: inside height's own bracket, uses the large viewport height, the screen with the toolbars retracted, for something meant to run under them.
 - `height50svh`: inside height's own bracket, uses half the small viewport height.
@@ -60,7 +60,7 @@ Width and height utilities, each driven by its own custom property: --width-size
 - `heightUnderMain`: inside height's own bracket, the same idea for an element that is the first child of main instead, subtracting --main-padding-top rather than just the header height, since main already carries the extra room --page-top adds.
 - `heightAuto`: inside height's own bracket, drops the height constraint on one element without dropping the utility.
 - `heightMaxFull`: inside heightMax's own bracket, the same whole parent height as heightFull.
-- `heightMax100svh`: inside heightMax's own bracket, the same small viewport height as height100svh, and the default for heightMax.
+- `heightMax100svh`: inside heightMax's own bracket, the same small viewport height as height100svh.
 - `heightMax100dvh`: inside heightMax's own bracket, the same dynamic viewport height as height100dvh.
 - `heightMax100lvh`: inside heightMax's own bracket, the same large viewport height as height100lvh.
 - `heightMax50svh`: inside heightMax's own bracket, the same half viewport height as height50svh.
@@ -68,7 +68,7 @@ Width and height utilities, each driven by its own custom property: --width-size
 - `heightMaxUnderMain`: inside heightMax's own bracket, the same main-relative height as heightUnderMain.
 - `heightMaxAuto`: inside heightMax's own bracket, drops the ceiling on one element without dropping the utility.
 - `heightMinFull`: inside heightMin's own bracket, the same whole parent height as heightFull.
-- `heightMin100svh`: inside heightMin's own bracket, the same small viewport height as height100svh, and the default for heightMin.
+- `heightMin100svh`: inside heightMin's own bracket, the same small viewport height as height100svh.
 - `heightMin100dvh`: inside heightMin's own bracket, the same dynamic viewport height as height100dvh.
 - `heightMin100lvh`: inside heightMin's own bracket, the same large viewport height as height100lvh.
 - `heightMin50svh`: inside heightMin's own bracket, the same half viewport height as height50svh.
@@ -91,10 +91,10 @@ Width and height utilities, each driven by its own custom property: --width-size
 - `column`: arranges the groups vertically.
 - `row`: places the column and viewport examples side by side.
 - `ovAuto`: inside overflow's own bracket, adds scrolling only when content overflows.
-- `mgInAuto`: inside marginInline's own bracket, pairs with auto to centre a constrained element.
+- `mgInAuto`: inside marginInline's own bracket, pairs with auto to center a constrained element.
 - `gapTexts`: separates the examples inside a group.
 - `gapElements`: separates the side by side examples.
-- `flexCenter`: centres the label inside each measured block.
+- `flexCenter`: centers the label inside each measured block.
 
 ### Other
 
@@ -132,7 +132,7 @@ Without an option the value comes from the utility's own -size property (--width
 <strong>Arbitrary width</strong>
 <p pgs="box width" style="--width-size: 600px">Six hundred pixels, capped at the container.</p>
 <p pgs="box widthMin" style="--widthMin-size: 400px">At least four hundred pixels.</p>
-<p pgs="box widthMax marginInline['mgInAuto']" style="--widthMax-size: 500px">Capped at five hundred pixels and centred.</p>
+<p pgs="box widthMax marginInline['mgInAuto']" style="--widthMax-size: 500px">Capped at five hundred pixels and centered.</p>
 ```
 
 ### Two columns

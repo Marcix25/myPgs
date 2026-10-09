@@ -1,5 +1,5 @@
-/* //= HOME PAGE — layout only used by site.html (site/page/site.html). Everything visual that the
-   library already provides (box, card, button, icon, flexRow/flexColumn, gapElements/gapTexts) is
+/* //= HOME PAGE — layout only used by home.html (site/page/home.html). Everything visual that the
+   library already provides (box, card, button, icon, flex, gapElements/gapTexts) is
    left to it; this file only adds what a one-off landing page needs on top: the hero layout, the
    feature grid, and the two floating badges. Classes are plain CSS (not pgs), since none of this
    is a reusable component — see demo.css's own .exampleSource for the same convention. */

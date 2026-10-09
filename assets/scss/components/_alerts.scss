@@ -7,7 +7,7 @@
 // names; one built through the JS API (_notification.js, _toast.js) gets the underscore, so
 // every child here needs both. notification/toast add their own stacking/positioning on top of
 // this (see _notification.scss, _toast.scss) but never redeclare the card's own look. The
-// severity is a flag in this same bracket (alert['info'], _alert['info']), so both the bare
+// severity is a flag in this same bracket (alert['alertInfo'], _alert['alertInfo']), so both the bare
 // token and the bracketed form have to match
 :is([pgs~="alert"], [pgs*="alert\5B"], [pgs~="_alert"], [pgs*="_alert\5B"]) {
     --alert-accent: unset;
@@ -141,29 +141,32 @@
     }
 
     // the severity is a style variant, not a runtime state, so it is a flag in the component's own
-    // bracket (alert['info'], _alert['info']) like any other option, not a pgs-state. A colored
-    // severity also tints its countdown bar a shade lighter than its own background; the plain
-    // default/neutral one has no color of its own, so its bar mixes toward black for contrast
+    // bracket (alert['alertInfo'], _alert['alertInfo']) like any other option, not a pgs-state. A
+    // colored severity also tints its countdown bar a shade lighter than its own background; the
+    // plain default/neutral one has no color of its own, so its bar mixes toward black for contrast
     // instead (see --_alert-timer above)
-    &[pgs*="'info'"] {
+    // the plain one overrides nothing: declared so editors suggest it
+    &[pgs*="'alertNeutral'"] {}
+
+    &[pgs*="'alertInfo'"] {
         --alert-accent: var(--color-info);
         --alert-background: var(--color-info-soft);
         --_alert-timer: color-mix(in srgb, var(--alert-background) 70%, var(--color-white) 30%);
     }
 
-    &[pgs*="'success'"] {
+    &[pgs*="'alertSuccess'"] {
         --alert-accent: var(--color-success);
         --alert-background: var(--color-success-soft);
         --_alert-timer: color-mix(in srgb, var(--alert-background) 70%, var(--color-white) 30%);
     }
 
-    &[pgs*="'warning'"] {
+    &[pgs*="'alertWarning'"] {
         --alert-accent: var(--color-warning);
         --alert-background: var(--color-warning-soft);
         --_alert-timer: color-mix(in srgb, var(--alert-background) 70%, var(--color-white) 30%);
     }
 
-    &[pgs*="'error'"] {
+    &[pgs*="'alertError'"] {
         --alert-accent: var(--color-error);
         --alert-background: var(--color-error-soft);
         --_alert-timer: color-mix(in srgb, var(--alert-background) 70%, var(--color-white) 30%);

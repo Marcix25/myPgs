@@ -2,7 +2,7 @@
 
 //# GRID
 //= GRID
-//== COLUMN
+//== GRID OPTIONS
 :is([pgs~="grid"], [pgs*="grid\5B"]) {
     display: grid;
     --gap: var(--gap-texts);
@@ -44,7 +44,7 @@
 :is([pgs~="gridChild"], [pgs*="gridChild\5B"]) {
 
     // column spans: how many columns the item takes inside a grid['column-N'], capped by the
-    // columns the current breakpoint leaves; outside it they do nothing, see COLUMN above
+    // columns the current breakpoint leaves; outside it they do nothing, see the column rules of grid above
     &[pgs*="'colS'"] {
         --_gridChild-col: var(--gridChild-col-s, 1);
     }

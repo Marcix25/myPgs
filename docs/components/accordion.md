@@ -2,7 +2,7 @@
 
 # Accordion
 
-Expandable panels with synchronized visibility, ARIA attributes and keyboard navigation. An accordion on its own answers for itself: opening it leaves every other panel on the page alone. Wrap a set of them in an accordionContainer to get the one-at-a-time behaviour, scoped to that group. When opening one closes a taller panel above it, the page scrolls with the change, so the button just clicked stays where it was on screen instead of the page jumping below it.
+Expandable panels with synchronized visibility, ARIA attributes and keyboard navigation. An accordion on its own answers for itself: opening it leaves every other panel on the page alone. Wrap a set of them in an accordionContainer to get the one-at-a-time behavior, scoped to that group. When opening one closes a taller panel above it, the page scrolls with the change, so the button just clicked stays where it was on screen instead of the page jumping below it.
 
 ## PGS
 
@@ -14,7 +14,7 @@ Expandable panels with synchronized visibility, ARIA attributes and keyboard nav
 ## PGS Options (component brackets)
 
 - `accAutoOpen`: written on an accordion, the module opens that panel by itself on load and leaves it open while the rest of its group is used, so opening a sibling does not take it down. That protection lasts until the reader works that panel themselves: the first time it is opened or closed by hand the module drops the token, and from there it is an ordinary panel of the group. It is the authored form of the open state: pgs-state belongs to the runtime, and the module writes it from here.
-- `accMultiOpen`: written on an accordionContainer, it lifts the one-at-a-time rule for that group, so its panels can be open together. Without a container this is already the behaviour, so the option only means something on the container.
+- `accMultiOpen`: written on an accordionContainer, it lifts the one-at-a-time rule for that group, so its panels can be open together. Without a container this is already the behavior, so the option only means something on the container.
 
 ## PGS States
 
@@ -22,12 +22,13 @@ Expandable panels with synchronized visibility, ARIA attributes and keyboard nav
 
 ## JavaScript API
 
-- `pgs.accordion.init(root)`: initializes unregistered accordions within the specified Document or Element.
+- `pgs.accordion.init(root)`: initializes unregistered accordions within the specified Document or Element, including the element itself when it is an accordion. An accordion without a direct accordion-button and a direct accordion-content child is skipped, with a warning in the console.
 - `pgs.accordion.api(element)`: returns the instance associated with an initialized accordion root.
 - `instance.open()`: opens the panel and, inside an accordionContainer without accMultiOpen, closes the other panels of the same group.
 - `instance.close()`: closes the current panel.
 - `instance.toggle()`: toggles the panel between its open and closed states.
-- `instance.refresh()`: reruns initialization within the accordion container and returns the instance.
+- `instance.refresh()`: destroys the instance and initializes this accordion again from its current markup and state, then returns the new instance.
+- `instance.destroy()`: releases the listeners of this accordion and forgets its instance. The markup and the open state stay as they are, and pgs.accordion.init() can enhance it again.
 - `instance.isOpen()`: returns true when the open state is active.
 
 ## CSS Variables

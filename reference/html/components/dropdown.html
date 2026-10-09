@@ -9,7 +9,7 @@
  * - dropdown-content: identifies the panel positioned relative to the control.
  *
  * @pgs-options
- * - drpNotArrow: removes the small arrow every dropdown draws on its content by default. The arrow points back at the trigger on whichever side the content was placed, and follows it even when the viewport pushes the content off-centre.
+ * - drpNotArrow: removes the small arrow every dropdown draws on its content by default. The arrow points back at the trigger on whichever side the content was placed, and follows it even when the viewport pushes the content off-center.
  * - drpHover: opens the dropdown when the pointer enters its trigger and closes it after the pointer leaves; click and keyboard activation remain available.
  *
  * @pgs-data
@@ -17,14 +17,20 @@
  *
  * @pgs-state
  * - open: indicates that the dropdown is open and its content is visible.
+ * - sideTop: written by the module on the dropdown-content when it places the content above its trigger; the arrow reads it to point back at the trigger. Never write it yourself.
+ * - sideRight: written on the dropdown-content in the same way, when the content is placed to the right of its trigger.
+ * - sideBottom: written on the dropdown-content in the same way, when the content is placed below its trigger, which is also where every dropdown falls back to.
+ * - sideLeft: written on the dropdown-content in the same way, when the content is placed to the left of its trigger.
  *
  * @api
- * - pgs.dropdown.init(root): initializes unregistered dropdowns within the specified Document or Element.
+ * - pgs.dropdown.init(root): initializes unregistered dropdowns within the specified Document or Element, including the element itself when it is a dropdown. A dropdown without a dropdown-content is skipped, with a warning in the console.
  * - pgs.dropdown.api(element): returns the instance associated with an initialized dropdown root.
  * - instance.open(): opens the dropdown and closes any other open dropdowns.
  * - instance.close(): closes the current dropdown.
  * - instance.toggle(): toggles between the open and closed states.
- * - instance.refresh(): reinitializes the context and recalculates content positioning.
+ * - instance.reposition(): recalculates where the content sits, for when its size changed without reopening.
+ * - instance.refresh(): destroys the instance and initializes this dropdown again from its current markup and state, which also recalculates the content position, then returns the new instance.
+ * - instance.destroy(): releases the listeners of this dropdown and forgets its instance. The markup and the open state stay as they are, and pgs.dropdown.init() can enhance it again.
  * - instance.isOpen(): returns true when the dropdown is open.
  *
  * @related

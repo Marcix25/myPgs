@@ -1,7 +1,7 @@
 <!--
 /**
  * @title Border
- * @description Border, outline and radius utilities, split out from the general-purpose set since together they cover an entire surface treatment on their own. Border's width has a shared base root (all four sides) plus one root per direction (borderTop, borderBlock, ...), each using a short direction-prefixed thickness flag (bdTpThin, bdBlThick, ...); colour is a separate component, borderColor, independent of which of those draws the width.
+ * @description Border, outline and radius utilities, split out from the general-purpose set since together they cover an entire surface treatment on their own. Border's width has a shared base root (all four sides) plus one root per direction (borderTop, borderBlock, ...), each using a short direction-prefixed thickness flag (bdTpThin, bdBlThick, ...); color is a separate component, borderColor, independent of which of those draws the width.
  *
  * @pgs
  * - border: draws the shared border, on every side by default.
@@ -11,13 +11,13 @@
  * - borderRight: draws the shared border on the right only.
  * - borderBottom: draws the shared border below only.
  * - borderLeft: draws the shared border on the left only.
- * - borderColor: recolours the border, whichever of the roots above draws its width.
- * - outline: draws the same line outside the box, taking no space in the layout; the ol* colour utilities recolour it.
+ * - borderColor: recolors the border, whichever of the roots above draws its width.
+ * - outline: draws the same line outside the box, taking no space in the layout; the otl* color utilities recolor it.
  * - borderRadius: applies the standard radius token to any surface, or one of its own two other scales.
  *
  * @pgs-options
  * - bd: inside border's own bracket, an explicit way to write the same default a bare border with no bracket already gets.
- * - bdThin: inside border's own bracket, draws it at 1px instead of the default 1.5px, on every side.
+ * - bdThin: inside border's own bracket, draws it at a fixed 1px instead of the --border-width default, on every side.
  * - bdThick: inside border's own bracket, draws it at 3px, on every side.
  * - bdThicker: inside border's own bracket, draws it at 4.5px, on every side.
  * - bdUnset: inside border's own bracket, takes the border off an element that has one of its own, on every side.
@@ -51,39 +51,39 @@
  * - bdLtThick: inside borderLeft's own bracket, draws it on the left only, at 3px.
  * - bdLtThicker: inside borderLeft's own bracket, draws it on the left only, at 4.5px.
  * - bdLtUnset: inside borderLeft's own bracket, takes the border off an element that has one of its own, on the left only.
- * - otlThin: inside outline's own bracket, draws it at 1px instead of the default 1.5px.
+ * - otlThin: inside outline's own bracket, draws it at a fixed 1px instead of the --outline-width default.
  * - otlThick: inside outline's own bracket, draws it at 3px.
  * - otlThicker: inside outline's own bracket, draws it at 4.5px.
  * - otlUnset: inside outline's own bracket, takes the outline off an element that has one of its own.
  * - bdTransparent: inside borderColor's own bracket, makes the border fully transparent.
- * - bdPrimary: inside borderColor's own bracket, recolours the border with the primary colour.
- * - bdSecondary: inside borderColor's own bracket, recolours the border with the secondary colour.
- * - bdTertiary: inside borderColor's own bracket, recolours the border with the tertiary colour.
- * - bdQuaternary: inside borderColor's own bracket, recolours the border with the quaternary colour.
- * - bdWhite: inside borderColor's own bracket, recolours the border white.
- * - bdBlack: inside borderColor's own bracket, recolours the border black.
- * - bdBox: inside borderColor's own bracket, recolours the border with the box surface colour.
- * - bdBoxDark: inside borderColor's own bracket, recolours the border with the dark box surface colour.
- * - bdLink: inside borderColor's own bracket, recolours the border with the link colour.
- * - bdInfo: inside borderColor's own bracket, recolours the border with the info colour.
- * - bdError: inside borderColor's own bracket, recolours the border with the error colour.
- * - bdWarning: inside borderColor's own bracket, recolours the border with the warning colour.
- * - bdSuccess: inside borderColor's own bracket, recolours the border with the success colour.
- * - bdGray: inside borderColor's own bracket, recolours the border gray.
- * - otlPrimary: inside outline's own bracket, recolours it with the primary colour.
- * - otlSecondary: inside outline's own bracket, recolours it with the secondary colour.
- * - otlTertiary: inside outline's own bracket, recolours it with the tertiary colour.
- * - otlQuaternary: inside outline's own bracket, recolours it with the quaternary colour.
- * - otlWhite: inside outline's own bracket, recolours it white.
- * - otlBlack: inside outline's own bracket, recolours it black.
- * - otlBox: inside outline's own bracket, recolours it with the box surface colour.
- * - otlBoxDark: inside outline's own bracket, recolours it with the dark box surface colour.
- * - otlLink: inside outline's own bracket, recolours it with the link colour.
- * - otlInfo: inside outline's own bracket, recolours it with the info colour.
- * - otlError: inside outline's own bracket, recolours it with the error colour.
- * - otlWarning: inside outline's own bracket, recolours it with the warning colour.
- * - otlSuccess: inside outline's own bracket, recolours it with the success colour.
- * - otlGray: inside outline's own bracket, recolours it gray.
+ * - bdPrimary: inside borderColor's own bracket, recolors the border with the primary color.
+ * - bdSecondary: inside borderColor's own bracket, recolors the border with the secondary color.
+ * - bdTertiary: inside borderColor's own bracket, recolors the border with the tertiary color.
+ * - bdQuaternary: inside borderColor's own bracket, recolors the border with the quaternary color.
+ * - bdWhite: inside borderColor's own bracket, recolors the border white.
+ * - bdBlack: inside borderColor's own bracket, recolors the border black.
+ * - bdBox: inside borderColor's own bracket, recolors the border with the box surface color.
+ * - bdBoxDark: inside borderColor's own bracket, recolors the border with the dark box surface color.
+ * - bdLink: inside borderColor's own bracket, recolors the border with the link color.
+ * - bdInfo: inside borderColor's own bracket, recolors the border with the info color.
+ * - bdError: inside borderColor's own bracket, recolors the border with the error color.
+ * - bdWarning: inside borderColor's own bracket, recolors the border with the warning color.
+ * - bdSuccess: inside borderColor's own bracket, recolors the border with the success color.
+ * - bdGray: inside borderColor's own bracket, recolors the border gray.
+ * - otlPrimary: inside outline's own bracket, recolors it with the primary color.
+ * - otlSecondary: inside outline's own bracket, recolors it with the secondary color.
+ * - otlTertiary: inside outline's own bracket, recolors it with the tertiary color.
+ * - otlQuaternary: inside outline's own bracket, recolors it with the quaternary color.
+ * - otlWhite: inside outline's own bracket, recolors it white.
+ * - otlBlack: inside outline's own bracket, recolors it black.
+ * - otlBox: inside outline's own bracket, recolors it with the box surface color.
+ * - otlBoxDark: inside outline's own bracket, recolors it with the dark box surface color.
+ * - otlLink: inside outline's own bracket, recolors it with the link color.
+ * - otlInfo: inside outline's own bracket, recolors it with the info color.
+ * - otlError: inside outline's own bracket, recolors it with the error color.
+ * - otlWarning: inside outline's own bracket, recolors it with the warning color.
+ * - otlSuccess: inside outline's own bracket, recolors it with the success color.
+ * - otlGray: inside outline's own bracket, recolors it gray.
  * - radInput: inside borderRadius's own bracket, uses the smaller radius used by form controls instead of the standard one.
  * - radExternal: inside borderRadius's own bracket, uses the wider radius used by outer containers instead of the standard one.
  * - radUnset: inside borderRadius's own bracket, squares the corners off an element that has a radius of its own.
@@ -104,7 +104,7 @@
 -->
 
 <demo demo-h2="Examples"></demo>
-<demo demo-h3="Border" demo-description="A line drawn on the edge of the box, taking its space in the layout. Each direction is its own root component, named like the margin and padding utilities. Recolour it with borderColor, its own dedicated component — it works alongside border or any of its directions, whichever draws the width — and change its weight with a thickness option."></demo>
+<demo demo-h3="Border" demo-description="A line drawn on the edge of the box, taking its space in the layout. Each direction is its own root component, named like the margin and padding utilities. Recolor it with borderColor, its own dedicated component — it works alongside border or any of its directions, whichever draws the width — and change its weight with a thickness option."></demo>
 <section pgs="flex['column' 'gapTexts']" demo="component">
     <div pgs="flex['row' 'gapTexts' 'wrap']" demo="wrapper">
         <span pgs="padding border">border</span>
@@ -129,7 +129,7 @@
     </div>
 </section>
 
-<demo demo-h3="Outline" demo-description="The same line drawn outside the padding  so it takes no space and never moves what sits around it. CSS draws it as a single ring, which is why there is no per-side form. It has its own colour utilities, ol*, and its own thickness options: an element carrying both a border and an outline needs one from each family."></demo>
+<demo demo-h3="Outline" demo-description="The same line drawn outside the box, so it takes no space and never moves what sits around it. CSS draws it as a single ring, which is why there is no per-side form. It has its own color utilities, otl*, and its own thickness options: an element carrying both a border and an outline needs one from each family."></demo>
 <section pgs="flex['column' 'gapTexts']" demo="component">
     <div pgs="flex['row' 'gapTexts' 'wrap']" demo="wrapper">
         <span pgs="padding outline">outline</span>

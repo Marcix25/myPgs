@@ -1,8 +1,9 @@
 import { pgs } from "../_pgs.js";
+import { PGS_invalid } from "./_warn.js";
 
 export function PGS_init(root = document) {
     if (!(root instanceof Document || root instanceof Element)) {
-        throw new TypeError("pgs.init(): root must be a Document or an Element");
+        throw PGS_invalid("init", "root must be a Document or an Element");
     }
 
     const initialized = new Set();

@@ -16,8 +16,8 @@
     --heading-family-h2: "MyPix", var(--font);
     /* --heading-color-h1: var(--color-primary-strong);
     --heading-color-h2: var(--color-primary-strong); */
-    --header-letter-spacing-h1: 2.5px;
-    --header-letter-spacing-h2: 1.2px;
+    --heading-letter-spacing-h1: 2.5px;
+    --heading-letter-spacing-h2: 1.2px;
 }
 
 body {
@@ -110,7 +110,7 @@ body {
         }
     }
 
-    /* Prism tokenizes the markup, the colours here just theme it to match the pill's own
+    /* Prism tokenizes the markup, the colors here just theme it to match the pill's own
        light-dark background instead of pulling in a stock Prism theme */
     .token {
 

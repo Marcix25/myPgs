@@ -111,11 +111,11 @@ test('option.add never writes to pgs-data; a flag with no owner present becomes 
 });
 
 test("option.add derives the owning component from the flag's own name and merges into its bracket", () => {
-    //== most flags were shortened once bracket scoping made the component prefix redundant
-    //== (button['mini'], not button['buttonMini']) — margin2/padding2 and the icon-* glyphs kept
-    //== theirs on purpose, precisely so a bare add() can still find its way home without the
-    //== caller naming the component explicitly. auto/unset lost that prefix along with the rest,
-    //== so only margin2 can still be derived here — see the next test for what happens to auto
+    //== most flags carry an abbreviated prefix (btnMini, mgAuto), which derives btn/mg and not the
+    //== component name — only a flag that starts with its component's own full name (cardMini,
+    //== menuVertical, the icon-* glyphs) can be derived here, so a bare add() finds its way home
+    //== without the caller naming the component. margin2 stands in for such a flag in this test;
+    //== see the next test for what happens to a flag with an abbreviated prefix
     const el = element({ pgs: 'margin' });
     pgs(el).option.add('margin2');
     assert.equal(el.getAttribute('pgs'), "margin['margin2']");
@@ -123,7 +123,7 @@ test("option.add derives the owning component from the flag's own name and merge
 });
 
 test("option.add cannot derive an owner from a shortened flag name; it lands bare like hoverNot", () => {
-    //== this is the real cost of shortening: button['mini'] and margin['auto'] must be written
+    //== this is the real cost of abbreviating: button['btnMini'] and margin['mgAuto'] must be written
     //== explicitly through the base pgs(el).add() — option.add('mini') / option.add('auto') alone
     //== have no component name left in them to find
     const button = element({ pgs: 'button' });

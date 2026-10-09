@@ -2,19 +2,19 @@
 
 # Icon
 
-The glyphs the library draws itself, as inline SVG rather than a font. The token marks the element as an icon and the option chooses which one, so the set is closed: what the stylesheet holds is what can be drawn. Everything myPGS builds and needs to show goes through here — the slide arrows, the close buttons, the marks on alerts, toasts and notifications — which is why the library needs no icon font of its own. The same token is yours to write, so an icon you place by hand costs no dependency either. Written on its own, with no option, it draws nothing and only marks the element as an icon: that is how any icon set you bring gets the same box and placement the library gives an <i>, so a span, an svg or a custom element is sized and positioned like one. It is not boxed: that one is the circular surface a glyph can sit inside, this one is the drawing.
+The glyphs the library draws itself, as inline SVG rather than a font. The token marks the element as an icon and the option chooses which one, so the set is closed: what the stylesheet holds is what can be drawn. Everything MyPGS builds and needs to show goes through here — the slide arrows, the close buttons, the marks on alerts, toasts and notifications — which is why the library needs no icon font of its own. The same token is yours to write, so an icon you place by hand costs no dependency either. Written on its own, with no option, it draws nothing and only marks the element as an icon: that is how any icon set you bring gets the same box and placement the library gives an <i>, so a span, an svg or a custom element is sized and positioned like one. It is not iconBoxed: that one is the circular surface a glyph can sit inside, this one is the drawing.
 
 ## PGS
 
-- `icon`: draws a glyph on the element, taking its size from the font size and its colour from the text colour, so it follows whatever surrounds it. Set --icon-size on it, or on anything above it, to size a glyph away from the text around it, and --icon-color to paint it away from the text colour; both are read with a fallback, so an icon that is given neither keeps following its surroundings.
+- `icon`: draws a glyph on the element, taking its size from the font size and its color from the text color, so it follows whatever surrounds it. Set --icon-size on it, or on anything above it, to size a glyph away from the text around it, and --icon-color to paint it away from the text color; both are read with a fallback, so an icon that is given neither keeps following its surroundings.
 
 ## PGS Options (component brackets)
 
 - `icon-arrowLeft`: arrow pointing left, for stepping back through a sequence.
 - `iconBoxed`: turns the element into the circular surface a glyph sits inside. It is the container and says nothing about what it holds, so a built-in glyph and an icon from any other set sit in it alike.
-- `iconDuo`: draws a two-layer version of a glyph instead of the flat one, when that glyph has one (icon-hamburgerTwo does); write it alongside the glyph name, as pgs="icon['icon-hamburgerTwo' 'iconDuo']". Each layer paints on its own pseudo-element, so a component can animate or colour them independently.
-- `iconMedium`: sets --icon-size to 2rem, a preset for a glyph that needs to stand out more than the size it inherits from the surrounding text.
-- `iconLarge`: sets --icon-size to 3rem, a preset for a glyph large enough to anchor its own section.
+- `iconDuo`: draws a two-layer version of a glyph instead of the flat one, when that glyph has one (icon-hamburgerTwo does); write it alongside the glyph name, as pgs="icon['icon-hamburgerTwo' 'iconDuo']". Each layer paints on its own pseudo-element, so a component can animate or color them independently.
+- `iconMedium`: sets --icon-size to 1.25em, a preset for a glyph that needs to stand out a little more than the size it inherits from the surrounding text.
+- `iconLarge`: sets --icon-size to 1.5em, the next preset up from iconMedium, for a glyph that has to stand out clearly from the text around it.
 - `icon-arrowRight`: arrow pointing right, for stepping forward.
 - `icon-chevronDown`: chevron pointing down, for anything that expands in place.
 - `icon-check`: tick, for a confirmed or checked state.
@@ -22,7 +22,7 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 - `icon-magnifyingGlass`: magnifying glass, for a search affordance.
 - `icon-moon`: crescent moon, the dark half of a theme switch.
 - `icon-sun`: sun, the light half of a theme switch.
-- `icon-cookie`: biscuit, used by the consent notice.
+- `icon-cookie`: cookie, for anything about cookies or stored preferences.
 - `icon-sliders`: three sliders, for preferences.
 - `icon-circle`: plain disc, for a step that is only a position in a sequence.
 - `icon-circleXmark`: cross inside a disc, the error mark.
@@ -32,7 +32,7 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 - `icon-bell`: bell, for anything that announces something arriving.
 - `icon-star`: star, the neutral stand-in glyph for an example that needs one without it meaning anything.
 - `icon-hamburger`: three horizontal bars, the classic static hamburger menu glyph.
-- `icon-hamburgerTwo`: two horizontal bars, a lighter static hamburger menu glyph; add duo for the two-layer version, each bar on its own pseudo-element so a component can animate them into a close mark.
+- `icon-hamburgerTwo`: two horizontal bars, a lighter static hamburger menu glyph; add iconDuo for the two-layer version, each bar on its own pseudo-element so a component can animate them into a close mark.
 - `icon-calendar`: calendar, for a date.
 - `icon-chatBubble`: chat bubble, for a message or a comment.
 - `icon-clock`: clock, for a time or a duration.
@@ -40,7 +40,7 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 - `icon-envelope`: envelope, for an email or a message.
 - `icon-eye`: eye, for showing or previewing something hidden.
 - `icon-gear`: gear, for settings or configuration.
-- `icon-heart`: heart, for favouriting or liking something.
+- `icon-heart`: heart, for favoriting or liking something.
 - `icon-home`: house, for a homepage or a starting point.
 - `icon-lock`: padlock, for something protected or restricted.
 - `icon-mapPin`: map pin, for a location or an address.
@@ -59,7 +59,7 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 ### PGS
 
 - `flex`: provides the flex layout; direction and spacing are flags in its bracket.
-- `textColor`: provides the text-color utility used here, to show that a glyph follows the text colour.
+- `textColor`: provides the text-color utility used here, to show that a glyph follows the text color.
 
 ### PGS Options (component brackets)
 
@@ -67,8 +67,8 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 - `row`: lays each group out in a row.
 - `gapTexts`: spaces the icons inside a group.
 - `wrap`: lets the full set flow onto more rows.
-- `txtPrimary`: inside textColor's own bracket, recolours one example.
-- `txtError`: inside textColor's own bracket, recolours another the same way.
+- `txtPrimary`: inside textColor's own bracket, recolors one example.
+- `txtError`: inside textColor's own bracket, recolors another the same way.
 
 ### Other
 
@@ -83,7 +83,7 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 
 ## Output
 
-One example per glyph, the sizing and colour behaviour, and the surface a glyph sits inside.
+One example per glyph, the sizing and color behavior, and the surface a glyph sits inside.
 ## Examples
 
 ### The set
@@ -133,9 +133,9 @@ Every glyph the library can draw. The token marks the element, the option names 
 <i pgs="icon['icon-hamburgerTwo' 'iconDuo']"></i>
 ```
 
-### Size and colour
+### Size and color
 
-A glyph is drawn at the font size of its element and painted in the text colour, so it needs no settings of its own: size it and colour it the way you would the text around it.
+A glyph is drawn at the font size of its element and painted in the text color, so it needs no settings of its own: size it and color it the way you would the text around it. iconMedium and iconLarge are presets for a bigger glyph.
 
 ```html
 <p><i pgs="icon['icon-circleInfo']"></i> Inside a paragraph, matching the text.</p>
@@ -151,7 +151,7 @@ A glyph is drawn at the font size of its element and painted in the text colour,
 
 ### Inside a surface
 
-A glyph placed in boxed, the circular surface that holds one icon.
+A glyph placed in iconBoxed, the circular surface that holds one icon.
 
 ```html
 <i pgs="icon['iconBoxed' 'icon-check']"></i>

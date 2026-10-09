@@ -1,15 +1,13 @@
+import { pgs } from "../_pgs.js";
 import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
+import { PGS_directChild, PGS_roots, PGS_uniqueId } from "../helper/_dom.js";
+import { PGS_warn } from "../helper/_warn.js";
 
 // + dropdown
 const API = new WeakMap();
 const OPEN_DROPDOWNS = new Set();
 const VIEWPORT_GAP = 8;
-let dropdownId = 0;
-
-function nextDropdownId() {
-    dropdownId += 1;
-    return dropdownId;
-}
+const SIDE_STATES = { top: "sideTop", right: "sideRight", bottom: "sideBottom", left: "sideLeft" };
 
 function isDropdownContent(element) {
     return element instanceof Element && pgs(element).contains("dropdown-content");
@@ -17,22 +15,16 @@ function isDropdownContent(element) {
 
 function getDropdownTrigger(dropdown, content) {
     const children = Array.from(dropdown.children).filter(child => child !== content);
-    const dropdownButton = children.find(child => pgs(child).contains("dropdown-button"));
+    const dropdownButton = PGS_directChild(dropdown, "dropdown-button");
 
     return dropdownButton || children.find(child => !isDropdownContent(child)) || dropdown;
 }
 
 function getDropdownContent(dropdown) {
-    return Array.from(dropdown.children).find(isDropdownContent) || pgs(dropdown).querySelector("dropdown-content");
+    return PGS_directChild(dropdown, "dropdown-content") || pgs(dropdown).querySelector("dropdown-content");
 }
 
-function getDropdowns(root) {
-    const dropdowns = root instanceof Element && pgs(root).contains("dropdown") ? [root] : [];
-    dropdowns.push(...pgs(root).querySelectorAll("dropdown"));
-    return dropdowns;
-}
-
-function getposition(dropdown) {
+function getPosition(dropdown) {
     const optionValue = pgs(dropdown).data.getValueBrackets("dropdownPosition");
     const raw = (optionValue || "bottom center").trim().toLowerCase();
     const parts = raw.split(/\s+/).filter(Boolean);
@@ -46,12 +38,12 @@ function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
 }
 
-function updateposition(dropdown) {
+function updatePosition(dropdown) {
     const data = API.get(dropdown);
     if (!data || !data.isOpen()) return;
 
     const { trigger, content } = data;
-    const { side, align } = getposition(dropdown);
+    const { side, align } = getPosition(dropdown);
     const triggerRect = trigger.getBoundingClientRect();
     const contentRect = content.getBoundingClientRect();
     const viewportWidth = document.documentElement.clientWidth;
@@ -88,21 +80,26 @@ function updateposition(dropdown) {
 
     left = clamp(left, VIEWPORT_GAP, maxLeft);
 
-    //== exposes the resolved side so the arrow (or a component built on dropdown) can
-    //== point at the trigger purely in CSS, without recomputing the layout itself
-    content.dataset.dropdownSide = side;
+    //== exposes the resolved side, as a pgs-state token on the content, so the arrow (or a
+    //== component built on dropdown) can point at the trigger purely in CSS, without recomputing
+    //== the layout itself
+    const sideState = SIDE_STATES[side];
+    if (!pgs(content).state.contains(sideState)) {
+        pgs(content).state.remove(...Object.values(SIDE_STATES));
+        pgs(content).state.add(sideState);
+    }
 
     content.style.setProperty("--_dropdown-left", `${Math.round(left)}px`);
     content.style.setProperty("--_dropdown-top", `${Math.round(top)}px`);
 
-    //== where the trigger's centre falls inside the panel, after the viewport clamp above may
+    //== where the trigger's center falls inside the panel, after the viewport clamp above may
     //== have shifted it: an arrow placed at 50% would stop pointing at the trigger
     content.style.setProperty("--_dropdown-arrowLeft", `${Math.round(triggerRect.left + triggerRect.width / 2 - left)}px`);
     content.style.setProperty("--_dropdown-arrowTop", `${Math.round(triggerRect.top + triggerRect.height / 2 - top)}px`);
 }
 
 function updateOpenDropdowns() {
-    OPEN_DROPDOWNS.forEach(updateposition);
+    OPEN_DROPDOWNS.forEach(updatePosition);
 }
 
 function closeDropdown(dropdown) {
@@ -130,7 +127,7 @@ function openDropdown(dropdown) {
     pgs(dropdown).state.add("open");
     data.trigger.setAttribute("aria-expanded", "true");
     OPEN_DROPDOWNS.add(dropdown);
-    updateposition(dropdown);
+    updatePosition(dropdown);
 }
 
 function toggleDropdown(dropdown) {
@@ -145,92 +142,107 @@ function isInsideAnyDropdown(target) {
     return Array.from(OPEN_DROPDOWNS).some(dropdown => dropdown.contains(target));
 }
 
-function PGS_dropdown_init(root = document) {
-    getDropdowns(root).forEach((DROPDOWN) => {
-        if (API.has(DROPDOWN)) return;
+//== the listeners that serve every dropdown on the page: registered once, when the module loads,
+//== so a later init() or refresh() cannot stack another copy of them
+document.addEventListener("click", (event) => {
+    if (isInsideAnyDropdown(event.target)) return;
+    OPEN_DROPDOWNS.forEach(closeDropdown);
+});
 
-        const CONTENT = getDropdownContent(DROPDOWN);
-        if (!CONTENT) return;
+document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    OPEN_DROPDOWNS.forEach(closeDropdown);
+});
 
-        const TRIGGER = getDropdownTrigger(DROPDOWN, CONTENT);
-        const id = nextDropdownId();
+window.addEventListener("resize", updateOpenDropdowns);
+window.addEventListener("scroll", updateOpenDropdowns, true);
 
-        if (!TRIGGER.id) TRIGGER.id = `dropdown-btn-${id}`;
-        if (!CONTENT.id) CONTENT.id = `dropdown-panel-${id}`;
+function initializeDropdown(DROPDOWN) {
+    if (API.has(DROPDOWN)) return;
 
-        if (TRIGGER.matches("button") && !TRIGGER.hasAttribute("type")) {
-            TRIGGER.setAttribute("type", "button");
-        }
+    const CONTENT = getDropdownContent(DROPDOWN);
+    if (!CONTENT) {
+        PGS_warn("dropdown.init", "a dropdown needs a dropdown-content child, skipped", DROPDOWN);
+        return;
+    }
 
-        TRIGGER.setAttribute("aria-haspopup", "true");
-        TRIGGER.setAttribute("aria-controls", CONTENT.id);
-        TRIGGER.setAttribute("aria-expanded", String(pgs(DROPDOWN).state.contains("open")));
-        CONTENT.setAttribute("aria-labelledby", TRIGGER.id);
+    const TRIGGER = getDropdownTrigger(DROPDOWN, CONTENT);
+    const controller = new AbortController();
+    const { signal } = controller;
+    let hoverCloseTimeout = 0;
 
-        const data = {
-            element: DROPDOWN,
-            trigger: TRIGGER,
-            content: CONTENT,
-            open: () => openDropdown(DROPDOWN),
-            close: () => closeDropdown(DROPDOWN),
-            toggle: () => toggleDropdown(DROPDOWN),
-            //+ recompute where the panel sits, for when its content changed size without reopening
-            reposition: () => updateposition(DROPDOWN),
-            refresh: () => {
-                PGS_dropdown_init(DROPDOWN.parentNode || document);
-                updateposition(DROPDOWN);
-                return API.get(DROPDOWN);
-            },
-            isOpen: () => pgs(DROPDOWN).state.contains("open")
+    if (!TRIGGER.id) TRIGGER.id = PGS_uniqueId("dropdown-btn");
+    if (!CONTENT.id) CONTENT.id = PGS_uniqueId("dropdown-panel");
+
+    if (TRIGGER.matches("button") && !TRIGGER.hasAttribute("type")) {
+        TRIGGER.setAttribute("type", "button");
+    }
+
+    TRIGGER.setAttribute("aria-haspopup", "true");
+    TRIGGER.setAttribute("aria-controls", CONTENT.id);
+    TRIGGER.setAttribute("aria-expanded", String(pgs(DROPDOWN).state.contains("open")));
+    CONTENT.setAttribute("aria-labelledby", TRIGGER.id);
+
+    function destroy() {
+        controller.abort();
+        window.clearTimeout(hoverCloseTimeout);
+        OPEN_DROPDOWNS.delete(DROPDOWN);
+        API.delete(DROPDOWN);
+    }
+
+    const data = {
+        element: DROPDOWN,
+        trigger: TRIGGER,
+        content: CONTENT,
+        open: () => openDropdown(DROPDOWN),
+        close: () => closeDropdown(DROPDOWN),
+        toggle: () => toggleDropdown(DROPDOWN),
+        //+ recompute where the panel sits, for when its content changed size without reopening
+        reposition: () => updatePosition(DROPDOWN),
+        destroy,
+        refresh: () => {
+            destroy();
+            initializeDropdown(DROPDOWN);
+            return API.get(DROPDOWN);
+        },
+        isOpen: () => pgs(DROPDOWN).state.contains("open")
+    };
+
+    //== click behavior
+    TRIGGER.addEventListener("click", (event) => {
+        if (isDropdownContent(event.target)) return;
+        event.preventDefault();
+        event.stopPropagation();
+        toggleDropdown(DROPDOWN);
+    }, { signal });
+
+    //== Hover behavior
+    if (pgs(DROPDOWN).option.contains("drpHover")) {
+        const clearHoverCloseTimeout = () => {
+            window.clearTimeout(hoverCloseTimeout);
         };
 
-        //== click behavior
-        TRIGGER.addEventListener("click", (event) => {
-            if (isDropdownContent(event.target)) return;
-            event.preventDefault();
-            event.stopPropagation();
-            toggleDropdown(DROPDOWN);
-        });
+        TRIGGER.addEventListener("mouseenter", () => {
+            clearHoverCloseTimeout();
+            if (!API.get(DROPDOWN)?.isOpen()) openDropdown(DROPDOWN);
+        }, { signal });
 
-        //== Hover behavior
-        if (pgs(DROPDOWN).option.contains("drpHover")) {
-            let hoverCloseTimeout;
-            const clearHoverCloseTimeout = () => {
-                window.clearTimeout(hoverCloseTimeout);
-            };
+        CONTENT.addEventListener("mouseenter", clearHoverCloseTimeout, { signal });
+        DROPDOWN.addEventListener("mouseleave", () => {
+            hoverCloseTimeout = window.setTimeout(() => closeDropdown(DROPDOWN), 120);
+        }, { signal });
+    }
 
-            TRIGGER.addEventListener("mouseenter", () => {
-                clearHoverCloseTimeout();
-                if (!API.get(DROPDOWN)?.isOpen()) openDropdown(DROPDOWN);
-            });
+    CONTENT.addEventListener("click", event => event.stopPropagation(), { signal });
+    API.set(DROPDOWN, data);
 
-            CONTENT.addEventListener("mouseenter", clearHoverCloseTimeout);
-            DROPDOWN.addEventListener("mouseleave", () => {
-                hoverCloseTimeout = window.setTimeout(() => closeDropdown(DROPDOWN), 120);
-            });
-        }
-
-        CONTENT.addEventListener("click", event => event.stopPropagation());
-        API.set(DROPDOWN, data);
-
-        if (data.isOpen()) OPEN_DROPDOWNS.add(DROPDOWN);
-        updateposition(DROPDOWN);
-    });
-    
-    document.addEventListener("click", (event) => {
-        if (isInsideAnyDropdown(event.target)) return;
-        OPEN_DROPDOWNS.forEach(closeDropdown);
-    });
-    
-    document.addEventListener("keydown", (event) => {
-        if (event.key !== "Escape") return;
-        OPEN_DROPDOWNS.forEach(closeDropdown);
-    });
-    
-    window.addEventListener("resize", updateOpenDropdowns);
-    window.addEventListener("scroll", updateOpenDropdowns, true);
+    if (data.isOpen()) OPEN_DROPDOWNS.add(DROPDOWN);
+    updatePosition(DROPDOWN);
 }
 
+function PGS_dropdown_init(root = document) {
+    PGS_roots(root, "dropdown").forEach(dropdown => initializeDropdown(dropdown));
+}
 
 // # INIT
 PGS_onDocumentReady(PGS_dropdown_init);

@@ -2,7 +2,7 @@
 
 # General
 
-Standalone utilities for shadow, cursor, image fitting, list styling and forced colour scheme. Border, outline and radius utilities moved to their own reference, Border; the hover treatment moved to Hover.
+Standalone utilities for shadow, cursor, image fitting, list styling and forced color scheme. Border, outline and radius utilities moved to their own reference, Border; the hover treatment moved to Hover.
 
 ## PGS
 
@@ -13,8 +13,8 @@ Standalone utilities for shadow, cursor, image fitting, list styling and forced 
 - `appearanceNone`: strips every inherited style and the native appearance, to build a control from scratch.
 - `img`: fits or crops an image depending on the option in its bracket; written bare it does nothing.
 - `list`: styles a plain ul or ol with the shared marker and spacing.
-- `lightmode`: forces the light colour scheme on a subtree, whatever the page theme is.
-- `darkmode`: forces the dark colour scheme on a subtree, whatever the page theme is.
+- `lightmode`: forces the light color scheme on a subtree, whatever the page theme is.
+- `darkmode`: forces the dark color scheme on a subtree, whatever the page theme is.
 
 ## PGS Options (component brackets)
 
@@ -47,7 +47,7 @@ Standalone utilities for shadow, cursor, image fitting, list styling and forced 
 
 ## Output
 
-One example per utility, grouped by shadow, interaction, images, lists and colour scheme.
+One example per utility, grouped by shadow, interaction, images, lists and color scheme.
 ## Examples
 
 ### Shadow
@@ -79,7 +79,7 @@ img['imgContain'] keeps the whole image inside the box, img['imgCover'] crops it
 
 ### List
 
-Shared marker and spacing for a plain list, without any component behaviour.
+Shared marker and spacing for a plain list, without any component behavior.
 
 ```html
 <ul pgs="list">
@@ -89,17 +89,15 @@ Shared marker and spacing for a plain list, without any component behaviour.
 </ul>
 ```
 
-### Forced colour scheme
+### Forced color scheme
 
-Pins a subtree to one colour scheme, ignoring the current page theme.
+Pins a subtree to one color scheme, ignoring the current page theme.
 
 ```html
-<div pgs="flex['row' 'gapTexts'] background['bgWhiteFixed']">
-    <div pgs="box lightmode">
-        <p>lightmode</p>
-    </div>
-    <div pgs="box darkmode">
-        <p>darkmode</p>
-    </div>
+<div pgs="box lightmode">
+    <p>lightmode</p>
+</div>
+<div pgs="box darkmode">
+    <p>darkmode</p>
 </div>
 ```

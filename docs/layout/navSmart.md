@@ -2,11 +2,11 @@
 
 # NavSmart
 
-A floating navigation bar pinned to the bottom of the screen, made of frosted pills: the way a phone's tab bar looks. Every navSmart-element is one pill, and the pills sit side by side, so a group of links and a lone button (a profile, a search) read as separate shapes. The pill takes the frosted surface of the box component (the same look as boxNavSmart), so it needs no other token, and every item inside it is a plain button of the button component with btnForNavSmart: a link of a nav list, or a button written straight in the element. An item shows its icon above its label. The item the page is on, marked with aria-current="page", or the one whose panel is open, kept in step by modal-button through aria-expanded, is highlighted as a smaller pill inside the bigger one. The bar spans the width only to centre its pills: the empty space on either side lets the clicks through to the page.
+A floating navigation bar pinned to the bottom of the screen, made of frosted pills: the way a phone's tab bar looks. Every navSmart-element is one pill, and the pills sit side by side, so a group of links and a lone button (a profile, a search) read as separate shapes. The pill takes the frosted surface of the box component (the same look as boxNavSmart), so it needs no other token, and every item inside it is a plain button of the button component with btnForNavSmart: a link of a nav list, or a button written straight in the element. An item shows its icon above its label. The item the page is on, marked with aria-current="page", or the one whose panel is open, kept in step by modal-button through aria-expanded, is highlighted as a smaller pill inside the bigger one. The bar spans the width only to center its pills: the empty space on either side lets the clicks through to the page.
 
 ## PGS
 
-- `navSmart`: identifies the bar, pinned to the bottom of the viewport and centred; it is a header element, so write it on header.
+- `navSmart`: identifies the bar, pinned to the bottom of the viewport and centered; it is a header element, so write it on header.
 - `navSmart-element`: identifies one pill: it lays its items out side by side. Write it as many times as the bar needs pills; each one draws its own frosted surface.
 
 ## PGS States
@@ -15,7 +15,7 @@ A floating navigation bar pinned to the bottom of the screen, made of frosted pi
 
 ## JavaScript API
 
-- `pgs.navSmart.init(root)`: measures the bars inside the specified root, or the root itself when it is one; runs automatically on page load and again via pgs.init(root) for a bar added later. The bar pinned to the screen publishes --heightOfNavSmart, the whole distance from the bottom edge of the screen to the top of the bar (the pills plus the gap the bar keeps from the edge, and the safe area on a phone), and --heightOfNavSmartScroll, the same distance while the bar is on screen and 0 while it is tucked away, which is marked by data-navsmart-scroll="true" on the bar. Both are 0 while the bar is hidden, for instance by a media query. A navSmart written as an example inside a page flows with it, takes no room at the bottom and never owns them. Padding the end of a page by either one keeps its last lines from sitting under the bar.
+- `pgs.navSmart.init(root)`: measures the bars inside the specified root, or the root itself when it is one; runs automatically on page load and again via pgs.init(root) for a bar added later. The bar pinned to the screen publishes --heightOfNavSmart, the whole distance from the bottom edge of the screen to the top of the bar (the pills plus the gap the bar keeps from the edge, and the safe area on a phone), and --heightOfNavSmartScroll, kept equal to it (the header publishes the same pair). Both are 0 while the bar is hidden, for instance by a media query. A navSmart written as an example inside a page flows with it, takes no room at the bottom and never owns them. Padding the end of a page by either one keeps its last lines from sitting under the bar.
 
 ## Related elements
 

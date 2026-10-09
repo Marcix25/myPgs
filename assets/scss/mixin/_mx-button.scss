@@ -67,13 +67,13 @@
         cursor: not-allowed;
     }
 
-    //== BUTTON CONTENT
+    //== BUTTON WITH ICON
     &:where(:has(i)),
     &:where(:has(:is([pgs~="icon"], [pgs*="icon\5B"]))) {
         --button-padding-left: var(--button-padding-left-icon);
     }
 
-    //=== BUTTON CONTENT - REVERSE
+    //=== BUTTON WITH ICON - REVERSE
     &:where([pgs*="'btnReverse'"]:has(i)),
     &:where([pgs*="'btnReverse'"]:has(:is([pgs~="icon"], [pgs*="icon\5B"]))) {
         --button-padding-right: var(--button-padding-left-icon);
@@ -136,7 +136,7 @@
 }
 
 //= TYPE
-//== BUTTON ICON
+//== BUTTON ICON ONLY
 @mixin buttonIconOnly() {
     --button-padding: var(--button-padding-block);
     flex: 0 0;
@@ -161,7 +161,7 @@
     display: inline-flex;
 }
 
-//== BUTTON BIG
+//== BUTTON VERTICAL
 @mixin buttonVertical() {
     --button-padding: var(--button-padding-right);
     --button-height: 100%;
@@ -184,16 +184,13 @@
     --button-border-width: 0;
     --button-borderRadius: 0px;
     --button-background: transparent;
-    --button-background-strong: transparent;
     --button-background-current: transparent;
     --button-background-checked: transparent;
     --button-background-hover: transparent;
-    --button-color-strong: #{$color};
     --button-color-current: #{$color};
     --button-color-checked: #{$color};
     --button-color-hover: #{$color};
     --button-shadow: unset;
-    --button-shadow-strong: unset;
     --button-shadow-current: unset;
     --button-shadow-checked: unset;
     --button-shadow-hover: unset;

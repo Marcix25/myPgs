@@ -77,7 +77,7 @@
         }
     }
 
-    //-( big-mobile: 1 o 2 colonne
+    //-( big-mobile: 1 or 2 columns
     @container (max-width: #{$big-mobile}) {
         >* {
             --_flex-cols: #{_cols(0.15, $columns)};
@@ -92,7 +92,7 @@
         }
     }
 
-    //-( mobile small / watch: sempre 1 colonna
+    //-( mobile small / watch: always 1 column
     @container (max-width: #{$watch}) {
         >* {
             --_flex-cols: #{_cols(0.15, $columns)};
@@ -109,177 +109,41 @@
     grid-template-columns: repeat($columns, 1fr);
     --_grid-cols: #{$columns};
 
-    /// dispari
-    @if $columns % 2==1 {
-
-        //-( laptop 
-        @container (max-width: #{$laptop}) {
-            grid-template-columns: repeat(math.ceil($columns * 0.75), 1fr); // 75% of the declared columns
-            --_grid-cols: #{math.ceil($columns * 0.75)};
-        }
-
-        //-( big-tablet 
-        @container (max-width: #{$big-tablet}) {
-            grid-template-columns: repeat(math.ceil($columns * 0.5), 1fr); // 50% of the declared columns
-            --_grid-cols: #{math.ceil($columns * 0.5)};
-        }
-
-        //-( tablet 
-        @container (max-width: #{$tablet}) {
-            grid-template-columns: repeat(math.ceil($columns * 0.33), 1fr); // 33% of the declared columns
-            --_grid-cols: #{math.ceil($columns * 0.33)};
-        }
+    //-( laptop
+    @container (max-width: #{$laptop}) {
+        grid-template-columns: repeat(math.ceil($columns * 0.75), 1fr); // 75% of the declared columns
+        --_grid-cols: #{math.ceil($columns * 0.75)};
     }
 
-    @else {
+    //-( big-tablet
+    @container (max-width: #{$big-tablet}) {
+        grid-template-columns: repeat(math.ceil($columns * 0.5), 1fr); // 50% of the declared columns
+        --_grid-cols: #{math.ceil($columns * 0.5)};
+    }
 
-        //-( laptop 
-        @container (max-width: #{$laptop}) {
-            grid-template-columns: repeat(math.ceil($columns * 0.75), 1fr); // 75% of the declared columns
-            --_grid-cols: #{math.ceil($columns * 0.75)};
-        }
-
-        //-( big-tablet 
-        @container (max-width: #{$big-tablet}) {
-            grid-template-columns: repeat(math.ceil($columns * 0.5), 1fr); // 50% of the declared columns
-            --_grid-cols: #{math.ceil($columns * 0.5)};
-        }
-
-        //-( tablet 
-        @container (max-width: #{$tablet}) {
-            grid-template-columns: repeat(math.ceil($columns * 0.33), 1fr); // 33% of the declared columns
-            --_grid-cols: #{math.ceil($columns * 0.33)};
-        }
+    //-( tablet
+    @container (max-width: #{$tablet}) {
+        grid-template-columns: repeat(math.ceil($columns * 0.33), 1fr); // 33% of the declared columns
+        --_grid-cols: #{math.ceil($columns * 0.33)};
     }
 
     //-( big mobile
     @container (max-width: #{$big-mobile}) {
-        grid-template-columns: 1fr; // 1 colonna
+        grid-template-columns: 1fr; // 1 column
         --_grid-cols: 1;
     }
 
     //-( big mobile m2e
     &[pgs*="'m2e'"] {
         @container (max-width: #{$big-mobile}) {
-            grid-template-columns: 1fr 1fr; // 2 colonne su mobile
+            grid-template-columns: 1fr 1fr; // 2 columns on mobile
             --_grid-cols: 2;
         }
     }
 
     //-( mobile small
     @container (max-width: #{$watch}) {
-        grid-template-columns: 1fr; // 1 colonna su mobile small
-        --_grid-cols: 1;
-    }
-}
-
-//= ADAPTIVE
-//== adaptive flex
-@mixin _columnAdaptiveFlex($columns: 4, $width: 1500px) {
-    // the thresholds are fractions of $width, resolved by Sass: a container query condition does not
-    // accept var(), so a custom property there would make every step below silently never match.
-    // Same --gap / --_flex-cols contract as columnFlex, so the gap* options and flexChild's
-    // col* work here too
-    --gap: var(--gap-texts);
-    $gap: var(--gap);
-    gap: var(--gap);
-
-    >* {
-        flex: 1 0;
-        --_flex-cols: #{_cols(1, $columns)};
-        flex-basis: #{_basis(1, $gap, $columns)};
-    }
-
-    // ↓ da $width (es. 1500px): ratio = 0.75
-    @container (max-width: #{$width}) {
-        >* {
-            --_flex-cols: #{_cols(0.75, $columns)};
-            flex-basis: #{_basis(0.75, $gap, $columns)};
-        }
-    }
-
-    // ↓ 75% di $width: ratio = 0.5
-    @container (max-width: #{$width * 0.75}) {
-        >* {
-            --_flex-cols: #{_cols(0.5, $columns)};
-            flex-basis: #{_basis(0.5, $gap, $columns)};
-        }
-    }
-
-    // ↓ 50% di $width: ratio = 0.33
-    @container (max-width: #{$width * 0.5}) {
-        >* {
-            --_flex-cols: #{_cols(0.33, $columns)};
-            flex-basis: #{_basis(0.33, $gap, $columns)};
-        }
-    }
-
-    // ↓ 33% di $width: mobile (1 o 2 colonne)
-    @container (max-width: #{$width * 0.33}) {
-        >* {
-            --_flex-cols: #{_cols(0.15, $columns)};
-            flex-basis: #{_basis(0.15, $gap, $columns)};
-        }
-
-        &[pgs*="'m2e'"] {
-            >* {
-                --_flex-cols: #{_cols(0.33, $columns)};
-                flex-basis: #{_basis(0.33, $gap, $columns)};
-            }
-        }
-    }
-
-    // ↓ 20% di $width: mobile small / watch (sempre 1 colonna)
-    @container (max-width: #{$width * 0.2}) {
-        >* {
-            --_flex-cols: #{_cols(0.15, $columns)};
-            flex-basis: #{_basis(0.15, $gap, $columns)};
-        }
-    }
-}
-
-//== adaptive Grid
-@mixin _columnAdaptiveGrid($columns: 4, $width: 1500px) {
-    // thresholds resolved by Sass from $width, see _columnAdaptiveFlex; --_grid-cols follows
-    // grid-template-columns at every step, the same contract as columnGrid
-    grid-template-columns: repeat($columns, 1fr);
-    --_grid-cols: #{$columns};
-
-    //-( da $width
-    @container (max-width: #{$width}) {
-        grid-template-columns: repeat(math.ceil($columns * 0.75), 1fr);
-        --_grid-cols: #{math.ceil($columns * 0.75)};
-    }
-
-    //-( 75% di $width, circa tablet landscape
-    @container (max-width: #{$width * 0.75}) {
-        grid-template-columns: repeat(math.ceil($columns * 0.5), 1fr);
-        --_grid-cols: #{math.ceil($columns * 0.5)};
-    }
-
-    //-( 50% di $width, tablet
-    @container (max-width: #{$width * 0.5}) {
-        grid-template-columns: repeat(math.ceil($columns * 0.33), 1fr);
-        --_grid-cols: #{math.ceil($columns * 0.33)};
-    }
-
-    //-( 33% di $width, mobile
-    @container (max-width: #{$width * 0.33}) {
-        grid-template-columns: 1fr;
-        --_grid-cols: 1;
-    }
-
-    //-( mobile m2e
-    &[pgs*="'m2e'"] {
-        @container (max-width: #{$width * 0.33}) {
-            grid-template-columns: 1fr 1fr;
-            --_grid-cols: 2;
-        }
-    }
-
-    //-( 20% di $width, mobile small / watch
-    @container (max-width: #{$width * 0.2}) {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; // 1 column on small mobile
         --_grid-cols: 1;
     }
 }

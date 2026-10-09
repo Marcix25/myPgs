@@ -1,12 +1,10 @@
-@use "../mixin/mixin" as *;
-
 //# BORDER - BORDER RADIUS - OUTLINE
 //= BORDER
 
 //- WIDTH
 //== the bracket-presence guard used everywhere else (marginBlock, paddingTop, ...) is safe again
-//== now that colour lives in its own borderColor component below: border's own bracket only ever
-//== holds width flags, never a colour flag that would otherwise need this default to still apply
+//== now that color lives in its own borderColor component below: border's own bracket only ever
+//== holds width flags, never a color flag that would otherwise need this default to still apply
 :is([pgs~="border"], [pgs*="border\5B"]) {
 
     &:not([pgs*="border\5B"]) { border: var(--border-width) solid var(--border-color); }
@@ -26,7 +24,7 @@
 
 //- COLOR
 //== its own root, independent of border/borderX's own bracket: pgs="borderTop['bdTpThin']
-//== borderColor['bdPrimary']" recolours the top side without needing a base border['...'] bracket
+//== borderColor['bdPrimary']" recolors the top side without needing a base border['...'] bracket
 //== of its own, since --border-color is shared by every border*/borderX width rule regardless of
 //== which root's bracket set it
 :is([pgs~="borderColor"], [pgs*="borderColor\5B"]) {

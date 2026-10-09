@@ -1,4 +1,7 @@
+import { pgs } from "../_pgs.js";
+import { PGS_dispatch, PGS_uniqueId } from "../helper/_dom.js";
 import { PGS_formatText } from "../helper/_text.js";
+import { PGS_invalid, PGS_warn } from "../helper/_warn.js";
 
 //= PGS_alert
 // the shared engine behind Alerts, Notification and Toast: builds the card (icon, title,
@@ -8,7 +11,6 @@ import { PGS_formatText } from "../helper/_text.js";
 // dismissible + buttons + timeout and replaces its own single floating card. Either way, the
 // card itself, its close animation and its pgs:alert:* events live here, once.
 const fn_alert = {
-    _uid: 0,
     _defaults: {
         description: "",
         closeTitle: "Close",
@@ -22,34 +24,41 @@ const fn_alert = {
             close: true,
             optionButton: null
         },
+        // the type names are the values of the JSON "type" field and the name of each method; flag
+        // is what the card carries in its bracket for that severity (see _alerts.scss)
         type: {
             // the plain one: no severity colour, no glyph and no title of its own, so it stays on the box surface
             neutral: {
+                flag: "alertNeutral",
                 title: "",
                 icon: ""
             },
             error: {
+                flag: "alertError",
                 title: "Error",
                 icon: "<i pgs=\"icon['icon-circleXmark']\"></i>"
             },
             success: {
+                flag: "alertSuccess",
                 title: "Success",
                 icon: "<i pgs=\"icon['icon-circleCheck']\"></i>"
             },
             info: {
+                flag: "alertInfo",
                 title: "Information",
                 icon: "<i pgs=\"icon['icon-circleInfo']\"></i>"
             },
             warning: {
+                flag: "alertWarning",
                 title: "Warning",
                 icon: "<i pgs=\"icon['icon-triangleExclamation']\"></i>"
             }
         }
     },
 
-    _getContainer(root = document, configuredContainer) {
+    _getContainer(root = document, configuredContainer, scope = "alert.show") {
         if (!(root instanceof Document) && !(root instanceof Element)) {
-            throw new TypeError("PGS alert: root must be a Document or an Element");
+            throw PGS_invalid(scope, "root must be a Document or an Element");
         }
 
         let container = configuredContainer;
@@ -57,7 +66,7 @@ const fn_alert = {
         if (!container) container = pgs(root).querySelector("alertContainer");
 
         if (container && (!(container instanceof Element) || container === root || !root.contains(container))) {
-            throw new TypeError("PGS alert: container must be an element contained in root");
+            throw PGS_invalid(scope, "container must be an element contained in root");
         }
 
         if (!container) {
@@ -92,11 +101,11 @@ const fn_alert = {
     // what a host component (Notification, Toast) hands over: a title string, or an options
     // object. null is not a value here, it is "leave it to the type" (icon: null keeps the icon
     // of the type), so it is dropped together with undefined
-    _toOptions(options, label = "alert") {
+    _toOptions(options, scope = "alert.show") {
         if (typeof options === "string") options = { title: options };
 
         if (!options || typeof options !== "object" || Array.isArray(options)) {
-            throw new TypeError(`PGS ${label}: options must be an object or a string`);
+            throw PGS_invalid(scope, "options must be an object or a string");
         }
 
         return Object.fromEntries(
@@ -108,19 +117,21 @@ const fn_alert = {
     // so name is "notification" — as a list of comma-separated JSON objects
     _getData(root, name) {
         const rawData = pgs(root).data.getValueBrackets(name) || "{}";
+        let items;
 
         try {
-            const items = JSON.parse(`[${rawData}]`);
-
-            if (items.some(item => !item || typeof item !== "object" || Array.isArray(item))) {
-                throw new TypeError(`Each ${name} must be a JSON object`);
-            }
-
-            return items;
+            items = JSON.parse(`[${rawData}]`);
         } catch (error) {
-            console.error(`PGS ${name}: Invalid JSON configuration`, error);
+            PGS_warn(`${name}.init`, "invalid JSON in pgs-data", error);
             return [];
         }
+
+        if (items.some(item => !item || typeof item !== "object" || Array.isArray(item))) {
+            PGS_warn(`${name}.init`, "every entry of pgs-data must be a JSON object", root);
+            return [];
+        }
+
+        return items;
     },
 
     // the same data, already in the shape create() takes: the fields every host shares, with
@@ -175,11 +186,10 @@ const fn_alert = {
             ...definedOptions
         };
 
-        const id = config.id ?? `alert-${++this._uid}`;
+        const id = config.id ?? PGS_uniqueId("alert");
         const alert = document.createElement("div");
-        alert.dataset.alertId = id;
         // the severity is a flag in the component's own bracket, like any other option, not a pgs-state
-        pgs(alert).add(config.component, `${config.component}['${type}']`);
+        pgs(alert).add(config.component, `${config.component}['${typeDefaults.flag}']`);
         // error and warning are both urgent enough to interrupt a screen reader; the others only
         // announce once idle
         alert.setAttribute("role", type === "error" || type === "warning" ? "alert" : "status");
@@ -199,14 +209,23 @@ const fn_alert = {
         const buttonsRow = pgs(alert).querySelector("_alert-buttons");
         const btnDismiss = pgs(alert).querySelector("_alert-dismiss");
 
+        // every listener of this card goes with it once it is gone
+        const controller = new AbortController();
+        const { signal } = controller;
+        let timeoutTimer = 0;
+        let closed = false;
+
+        // closing twice (a dismiss while the timeout is still counting, or the timeout after a
+        // button) changes nothing: the event is dispatched once
         const close = () => {
+            if (closed) return;
+            closed = true;
+            clearTimeout(timeoutTimer);
             alert.style.opacity = "0";
             setTimeout(() => {
-                alert.dispatchEvent(new CustomEvent("pgs:alert:close", {
-                    bubbles: true,
-                    detail: { id, type, title: config.title, description: config.description }
-                }));
+                PGS_dispatch(alert, "pgs:alert:close", { id, type, title: config.title, description: config.description });
                 alert.remove();
+                controller.abort();
             }, 300);
         };
 
@@ -220,7 +239,7 @@ const fn_alert = {
                 e.stopPropagation();
                 e.stopImmediatePropagation();
                 close();
-            });
+            }, { signal });
         }
 
         (config.buttons || []).forEach((button, index) => {
@@ -236,15 +255,13 @@ const fn_alert = {
             if (optionButton) pgs(buttonElement).add(`button['${optionButton}']`);
 
             buttonElement.addEventListener("click", (e) => {
-                const proceed = buttonElement.dispatchEvent(new CustomEvent("pgs:alert:buttonClick", {
-                    bubbles: true,
-                    cancelable: true,
-                    detail: { id, buttonId, type, title: config.title, description: config.description, link }
-                }));
+                const event = PGS_dispatch(buttonElement, "pgs:alert:buttonClick", {
+                    id, buttonId, type, title: config.title, description: config.description, link
+                }, { cancelable: true });
 
-                if (link && !proceed) e.preventDefault();
+                if (link && event.defaultPrevented) e.preventDefault();
                 if (closeAfterClick !== false) close();
-            });
+            }, { signal });
 
             buttonsRow.appendChild(buttonElement);
         });
@@ -257,20 +274,20 @@ const fn_alert = {
         // what switches it on, wherever a timeout is actually used — not just inside Toast
         if (config.timeout > 0) {
             alert.style.setProperty("--_alert-timeout", config.timeout + "ms");
-            setTimeout(close, config.timeout);
+            timeoutTimer = setTimeout(close, config.timeout);
         }
 
         return alert;
     },
 
     show(type, options = {}) {
-        const { root, container, ...contentOptions } = this._toOptions(options);
+        const scope = `alert.${type}`;
+        const { root, container, ...contentOptions } = this._toOptions(options, scope);
+        //== the placement is checked before the card is built, so a wrong root leaves nothing behind
+        const target = root !== undefined || container !== undefined ? this._getContainer(root, container, scope) : null;
         const alert = this.create(type, contentOptions);
 
-        if (root !== undefined || container !== undefined) {
-            this._getContainer(root, container).replaceChildren(alert);
-        }
-
+        target?.replaceChildren(alert);
         return alert;
     }
 };

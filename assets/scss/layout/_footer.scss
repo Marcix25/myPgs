@@ -65,7 +65,6 @@
                             margin-right: 10px;
                             display: block;
                             width: 18px;
-                            color: var(--color-white);
                             text-align: center;
                             font-size: 15px;
 
@@ -85,8 +84,7 @@
         :where([pgs~="footer-legal-content"]) {
             border-top: var(--border-width) var(--border-style) var(--color-boxDark-transparent);
             padding-block: 60px;
-            @include row(nowrap);
-            flex-wrap: wrap;
+            @include row();
             justify-content: center;
             align-items: center;
 

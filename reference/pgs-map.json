@@ -3,32 +3,33 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "error",
-            "info",
-            "success",
-            "warning"
+            "alertError",
+            "alertInfo",
+            "alertNeutral",
+            "alertSuccess",
+            "alertWarning"
         ],
         "pgs-data": []
     },
-    "_notifications": {
+    "_notification": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [],
         "pgs-data": []
     },
-    "_notifications-close": {
+    "_notification-close": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [],
         "pgs-data": []
     },
-    "_notifications-empty": {
+    "_notification-dialog": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [],
         "pgs-data": []
     },
-    "_notificationsDialog": {
+    "_notification-empty": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [],
@@ -78,19 +79,17 @@
             "_alert-icon"
         ],
         "pgs-options": [
-            "error",
-            "info",
-            "success",
-            "warning"
+            "alertError",
+            "alertInfo",
+            "alertSuccess",
+            "alertWarning"
         ],
         "pgs-data": []
     },
     "alertContainer": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [
-            "neutral"
-        ],
+        "pgs-options": [],
         "pgs-data": []
     },
     "appearanceNone": {
@@ -1339,12 +1338,6 @@
         ],
         "pgs-data": []
     },
-    "sctSpecificity-child": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
     "search": {
         "pgs": [
             "search-suggestions"
@@ -1364,7 +1357,9 @@
         ]
     },
     "section": {
-        "pgs": [],
+        "pgs": [
+            "section-specificity"
+        ],
         "pgs-generated": [],
         "pgs-options": [
             "sctEdgeFlushLeft",
@@ -1384,10 +1379,7 @@
     "select": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [
-            "selNone",
-            "selText"
-        ],
+        "pgs-options": [],
         "pgs-data": []
     },
     "skipLink": {
@@ -1403,13 +1395,13 @@
             "slides-dots",
             "slides-dots-dot",
             "slides-next",
-            "slides-prec"
+            "slides-prev"
         ],
         "pgs-generated": [
             "_slides-dots",
             "_slides-dots-dot",
             "_slides-next",
-            "_slides-prec"
+            "_slides-prev"
         ],
         "pgs-options": [
             "slidesAnimationScale",
@@ -1461,8 +1453,8 @@
         "pgs-generated": [],
         "pgs-options": [],
         "pgs-data": [
-            "showLess",
-            "showMore"
+            "summaryShowLess",
+            "summaryShowMore"
         ]
     },
     "svgChangeColor": {
@@ -1603,7 +1595,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "tglLabelled"
+            "tglLabeled"
         ],
         "pgs-data": []
     },
@@ -1611,6 +1603,15 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [],
+        "pgs-data": []
+    },
+    "userSelect": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "selNone",
+            "selText"
+        ],
         "pgs-data": []
     },
     "visuallyHidden": {

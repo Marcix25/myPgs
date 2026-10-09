@@ -22,8 +22,7 @@ Flex layouts: direction, wrapping, centering, a responsive column-N row that dro
 - `nowrap`: prevents flex items from wrapping.
 - `column-`: inside flex's own bracket, lays the children out on a responsive row of N equal columns, column-1 through column-8, dropping to fewer columns at each breakpoint.
 - `column-1`: inside flex's own bracket, stacks the children in a single column.
-- `column-2`: inside flex's own bracket, two columns per row; values from 1 through 8 are supported.
-- `column-4`: inside flex's own bracket, four columns per row.
+- `column-4`: inside flex's own bracket, four columns per row; values from 1 through 8 are supported.
 - `m2e`: inside flex's own bracket, keeps two items per row at the mobile breakpoint instead of one, returning to one on watch-sized containers.
 - `flexInitial`: inside flexChild's own bracket, uses the flex initial sizing behavior on a flex child.
 - `flexNone`: inside flexChild's own bracket, prevents a flex child from growing or shrinking.
@@ -92,11 +91,11 @@ Flex layout, wrapping, direction, alignment, flex children, proportional sizes a
 
 ### Flex layout
 
-Three-column flex layout using column-2 with m2e to collapse to two columns per row on mobile.
+Four-column flex layout using column-4, with m2e to keep two columns per row on mobile instead of one.
 
 ```html
 <strong>Flex</strong>
-<div pgs="flex['row' 'column-2' 'm2e']">
+<div pgs="flex['row' 'column-4' 'm2e']">
     <article pgs="box flex['column']">
         <strong>Lorem ipsum dolor</strong>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -108,6 +107,10 @@ Three-column flex layout using column-2 with m2e to collapse to two columns per 
     <article pgs="box flex['column']">
         <strong>Adipiscing elit sed</strong>
         <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
+    </article>
+    <article pgs="box flex['column']">
+        <strong>Do eiusmod tempor</strong>
+        <p>Duis aute irure dolor in reprehenderit in voluptate.</p>
     </article>
 </div>
 ```

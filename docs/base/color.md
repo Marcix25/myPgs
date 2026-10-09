@@ -90,7 +90,7 @@ Interactive palette of the current MyPGS background and text color utilities.
 - `txtWhiteFixed`: inside textColor's own bracket, applies --color-whiteFixed to text.
 - `txtBlackFixed`: inside textColor's own bracket, applies --color-blackFixed to text.
 - `txtLink`: inside textColor's own bracket, applies --color-link to text.
-- `txtInherit`: inside textColor's own bracket, takes the colour off an element that has one of its own, so the text takes the colour of its parent.
+- `txtInherit`: inside textColor's own bracket, takes the color off an element that has one of its own, so the text takes the color of its parent.
 - `txtInfo`: inside textColor's own bracket, applies --color-info to text.
 - `txtInfoSoft`: inside textColor's own bracket, applies --color-info-soft to text.
 - `txtError`: inside textColor's own bracket, applies --color-error to text.
@@ -110,43 +110,43 @@ Interactive palette of the current MyPGS background and text color utilities.
 - `dropdown-button`: identifies the control that opens a color's name.
 - `dropdown-content`: identifies the panel holding a color's name.
 - `box`: makes each palette group visible.
-- `border`: draws the border that borderColor recolours; without it there is nothing to colour.
-- `borderColor`: recolours the border drawn by border; see Border for the whole bd* family.
-- `outline`: draws the outline that the otl* utilities recolour; it sits outside the box and takes no space.
+- `border`: draws the border that borderColor recolors; without it there is nothing to color.
+- `borderColor`: recolors the border drawn by border; see Border for the whole bd* family.
+- `outline`: draws the outline that the otl* utilities recolor; it sits outside the box and takes no space.
 - `button`: supplies the shared button base used by background color triggers.
 - `flexChild`: sizes or orders an item inside a flex container; the option in its bracket picking how.
 
 ### PGS Options (component brackets)
 
 - `btnMini`: inside button's own bracket, applies the smallest button variant to each color circle.
-- `bdPrimary`: inside borderColor's own bracket, recolours it with the primary colour.
-- `bdSecondary`: inside borderColor's own bracket, recolours it with the secondary colour.
-- `bdTertiary`: inside borderColor's own bracket, recolours it with the tertiary colour.
-- `bdQuaternary`: inside borderColor's own bracket, recolours it with the quaternary colour.
-- `bdWhite`: inside borderColor's own bracket, recolours it white.
-- `bdBlack`: inside borderColor's own bracket, recolours it black.
-- `bdBox`: inside borderColor's own bracket, recolours it with the box surface colour.
-- `bdBoxDark`: inside borderColor's own bracket, recolours it with the dark box surface colour.
-- `bdLink`: inside borderColor's own bracket, recolours it with the link colour.
-- `bdGray`: inside borderColor's own bracket, recolours it gray.
-- `bdInfo`: inside borderColor's own bracket, recolours it with the info colour.
-- `bdSuccess`: inside borderColor's own bracket, recolours it with the success colour.
-- `bdWarning`: inside borderColor's own bracket, recolours it with the warning colour.
-- `bdError`: inside borderColor's own bracket, recolours it with the error colour.
-- `otlPrimary`: inside outline's own bracket, recolours it with the primary colour; see Border for the whole otl* family.
-- `otlSecondary`: inside outline's own bracket, recolours it with the secondary colour.
-- `otlTertiary`: inside outline's own bracket, recolours it with the tertiary colour.
-- `otlQuaternary`: inside outline's own bracket, recolours it with the quaternary colour.
-- `otlWhite`: inside outline's own bracket, recolours it white.
-- `otlBlack`: inside outline's own bracket, recolours it black.
-- `otlBox`: inside outline's own bracket, recolours it with the box surface colour.
-- `otlBoxDark`: inside outline's own bracket, recolours it with the dark box surface colour.
-- `otlLink`: inside outline's own bracket, recolours it with the link colour.
-- `otlGray`: inside outline's own bracket, recolours it gray.
-- `otlInfo`: inside outline's own bracket, recolours it with the info colour.
-- `otlSuccess`: inside outline's own bracket, recolours it with the success colour.
-- `otlWarning`: inside outline's own bracket, recolours it with the warning colour.
-- `otlError`: inside outline's own bracket, recolours it with the error colour.
+- `bdPrimary`: inside borderColor's own bracket, recolors it with the primary color.
+- `bdSecondary`: inside borderColor's own bracket, recolors it with the secondary color.
+- `bdTertiary`: inside borderColor's own bracket, recolors it with the tertiary color.
+- `bdQuaternary`: inside borderColor's own bracket, recolors it with the quaternary color.
+- `bdWhite`: inside borderColor's own bracket, recolors it white.
+- `bdBlack`: inside borderColor's own bracket, recolors it black.
+- `bdBox`: inside borderColor's own bracket, recolors it with the box surface color.
+- `bdBoxDark`: inside borderColor's own bracket, recolors it with the dark box surface color.
+- `bdLink`: inside borderColor's own bracket, recolors it with the link color.
+- `bdGray`: inside borderColor's own bracket, recolors it gray.
+- `bdInfo`: inside borderColor's own bracket, recolors it with the info color.
+- `bdSuccess`: inside borderColor's own bracket, recolors it with the success color.
+- `bdWarning`: inside borderColor's own bracket, recolors it with the warning color.
+- `bdError`: inside borderColor's own bracket, recolors it with the error color.
+- `otlPrimary`: inside outline's own bracket, recolors it with the primary color; see Border for the whole otl* family.
+- `otlSecondary`: inside outline's own bracket, recolors it with the secondary color.
+- `otlTertiary`: inside outline's own bracket, recolors it with the tertiary color.
+- `otlQuaternary`: inside outline's own bracket, recolors it with the quaternary color.
+- `otlWhite`: inside outline's own bracket, recolors it white.
+- `otlBlack`: inside outline's own bracket, recolors it black.
+- `otlBox`: inside outline's own bracket, recolors it with the box surface color.
+- `otlBoxDark`: inside outline's own bracket, recolors it with the dark box surface color.
+- `otlLink`: inside outline's own bracket, recolors it with the link color.
+- `otlGray`: inside outline's own bracket, recolors it gray.
+- `otlInfo`: inside outline's own bracket, recolors it with the info color.
+- `otlSuccess`: inside outline's own bracket, recolors it with the success color.
+- `otlWarning`: inside outline's own bracket, recolors it with the warning color.
+- `otlError`: inside outline's own bracket, recolors it with the error color.
 - `flexFull`: inside flexChild's own bracket, makes palette headings occupy a full flex row.
 - `boxMini`: applies the compact box presentation to each palette group.
 - `btnIconOnly`: makes each background color trigger a compact circular button.

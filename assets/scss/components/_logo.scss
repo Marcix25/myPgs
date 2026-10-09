@@ -7,16 +7,16 @@
     background-color: transparent;
     color: var(--color-black);
     --logo-height: var(--header-size, 6.0rem);
-    --logo-finter: invert(1) hue-rotate(180deg) brightness(1.5);
+    --logo-filter: invert(1) hue-rotate(180deg) brightness(1.5);
 
     //== DARKMODE
     &:is([pgs-state~="darkmode"] [pgs*="'logoDarkmode'"]) :where([pgs~="logo-image"]) {
-        filter: var(--logo-finter);
+        filter: var(--logo-filter);
     }
 
     //== FIXED DARKMODE
     &[pgs*="'logoDarkmodeFixed'"] :where([pgs~="logo-image"]) {
-        filter: var(--logo-finter);
+        filter: var(--logo-filter);
     }
 
     //- tablet 
@@ -40,8 +40,9 @@
 
     //= TEXT ONLY
     &:has(:where([pgs~="logo-text"])) {
-        display: flex;
         align-items: center;
+        // the text already follows the theme through --color-black, so a filter a project puts on the
+        // logo to invert an image must not reach it
         filter: unset !important;
 
         :where([pgs~="logo-text"]) {

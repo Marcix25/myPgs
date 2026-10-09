@@ -1,10 +1,8 @@
-@use "../mixin/mixin" as *;
-
 //# COLOR
 //== every color family below is one root with its palette folded into the flag name (bgPrimary,
-//== txtQuaternaryDark, ...) instead of a separate bare token per colour — the same fold applied to
-//== margin/padding/border/section/utilities this cycle. border and outline's own colour flags
-//== (brPrimary, olPrimary, ...) live in base/_border.scss instead, alongside the thickness flags
+//== txtQuaternaryDark, ...) instead of a separate bare token per color — the same fold applied to
+//== margin/padding/border/section/utilities this cycle. border and outline's own color flags
+//== (bdPrimary, otlPrimary, ...) live in base/_border.scss instead, alongside the thickness flags
 //== they share a bracket with.
 //= BACKGROUND COLORS
 [pgs*="background\5B"] {
@@ -118,7 +116,7 @@
     &[pgs*="'txtWarning'"] { color: var(--color-warning); }
     &[pgs*="'txtSuccess'"] { color: var(--color-success); }
 
-    //== STATUS BACKGROUNDS
+    //== STATUS SOFT
     &[pgs*="'txtInfoSoft'"] { color: var(--color-info-soft); }
     &[pgs*="'txtErrorSoft'"] { color: var(--color-error-soft); }
     &[pgs*="'txtWarningSoft'"] { color: var(--color-warning-soft); }

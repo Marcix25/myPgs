@@ -1,7 +1,7 @@
 <!--
 /**
  * @title Toast
- * @description Toast markup, configuration, behavior, and usage example. An ephemeral, auto-dismissing message shown one at a time (e.g. "saved", "error"). Split from Notification, which is a persistent, manually-dismissed panel: the toast is the same card, only one at a time and timed, in its own fixed container. Both are the shared alert card underneath (see Alerts): this component only manages the single floating stack and the countdown bar around it. Full JSON field list is under @pgs-data "toast"; full JS options list is under each @api method below. The JSON form and the JS options now use the same names; the previous message, title-close and duration keys are still accepted as aliases. Two custom events are dispatched, owned by the shared alert engine: pgs:alert:buttonClick on a buttons[] element when clicked (detail: id, buttonId, type, title, description, link; cancelable — call event.preventDefault() to stop the navigation), and pgs:alert:close on the toast element right before it is removed, whether by the dismiss button or by its own timeout (detail: id, type, title, description).
+ * @description Toast markup, configuration, behavior, and usage example. An ephemeral, auto-dismissing message shown one at a time (e.g. "saved", "error"). Split from Notification, which is a persistent, manually-dismissed panel: the toast is the same card, only one at a time and timed, in its own fixed container. Both are the shared alert card underneath (see Alerts): this component only manages the single floating stack and the countdown bar around it. Full JSON field list is under @pgs-data "toast"; full JS options list is under each @api method below. The JSON form and the JS options now use the same names; the previous message, title-close and duration keys are still accepted as aliases. Two custom events are dispatched, owned by the shared alert engine, both bubbling: pgs:alert:buttonClick on a buttons[] element when clicked (detail: element, id, buttonId, type, title, description, link; cancelable — call event.preventDefault() to stop the navigation), and pgs:alert:close on the toast element right before it is removed, whether by the dismiss button or by its own timeout (detail: element, id, type, title, description), once however the two overlap.
  *
  * @pgs
  * - toastLoad: creates one toast from a JSON object on page load; see @pgs-data "toast" for every accepted field.
@@ -31,11 +31,11 @@
  *
  * @related
  * - alerts: owns the card itself and the engine that builds it (icon, content, dismiss button, action buttons, timeout, events — see its own @pgs-generated for every _alert* token); this component only manages the fixed stacking container and the countdown bar around it.
- * - neutral: the plain severity option owned by Alerts; no colour, no glyph and no title of its own, so the card stays on the box surface.
- * - success: the success severity option owned by Alerts.
- * - error: the error severity option owned by Alerts.
- * - warning: the warning severity option owned by Alerts.
- * - info: the info severity option owned by Alerts.
+ * - alertNeutral: the plain severity option owned by Alerts, carried by a card of type neutral; no colour, no glyph and no title of its own, so the card stays on the box surface.
+ * - alertSuccess: the success severity option owned by Alerts, carried by a card of type success.
+ * - alertError: the error severity option owned by Alerts, carried by a card of type error.
+ * - alertWarning: the warning severity option owned by Alerts, carried by a card of type warning.
+ * - alertInfo: the info severity option owned by Alerts, carried by a card of type info.
  * - hidden: uses the related hidden component or utility in this example.
  * - button: uses the related button component or utility in this example.
  * - icon: draws the glyph that marks the toast type; see Icon for the whole set.
@@ -100,7 +100,7 @@
         "type": "info",                 // neutral | error | success | warning | info, and anything else falls back to info
         "icon": null,                   // HTML string; null uses the icon of the type
         "timeout": 4000,                // milliseconds before it dismisses itself; a value that is not a number is ignored
-        "closeTitle": "Close",          // accessible name of the dismiss button, which always draws a cross
+        "closeTitle": "Close toast",    // accessible name of the dismiss button, which always draws a cross
         "position": [],                 // toastLeft | toastRight | toastCenter | toastBottom, alone or together, e.g. ["toastLeft", "toastBottom"]; for this toast only
         "buttons": [                    // omitted or empty leaves only the dismiss button; same shape as Notification
             {  
@@ -108,7 +108,7 @@
                 "title": "",            // label of the button
                 "link": null,           // navigates there; omit it to only dispatch the event
                 "close": true,          // dismisses the toast after the click; false keeps it, e.g. for a link
-                "optionButton": null    // pgs-data token added to the button, e.g. btnMini
+                "optionButton": null    // option added to the button's own bracket, e.g. btnMini; see Button
             }
         ],
     }]
@@ -129,7 +129,7 @@
                 optionButton: undefined 
             }
         ],
-        closeTitle: "Close",
+        closeTitle: "Close toast",
         position: []            // toastLeft | toastRight | toastCenter | toastBottom, alone or together, e.g. ["toastLeft", "toastBottom"]; for this toast only
     });
 </script>

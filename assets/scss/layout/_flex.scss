@@ -8,7 +8,7 @@
 
     &[pgs*="'inlineFlex'"] { display: inline-flex; }
 
-    // flexPlaceCenter, not the shortened center: textAlign also has a 'center' option. Named
+    // flexPlaceCenter, not a bare center, which would read like textAlign's taCenter. Named
     // after place-content/place-items (the CSS shorthand this mirrors); flexCenter below is
     // the same align-items/justify-content pair without this one's default gap
     &[pgs*="'flexPlaceCenter'"] {
@@ -86,7 +86,6 @@
     &[pgs*="'column-1'"] {
         flex-direction: column;
         flex-wrap: nowrap;
-        // grid-template-columns: unset;
     }
 
     @for $i from 2 through $maxColumns {

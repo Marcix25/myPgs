@@ -93,7 +93,7 @@ Four-column grid layout using column-4 with m2e to collapse to two columns per r
 
 ### Gap
 
-The four gap scales between grid items, from the text gap to the section gap, plus gapNone. A bare gap root takes the same options for an element that is a container by other means; see Spacing.
+The three smaller gap scales between grid items, from the text gap to the group gap, plus gapNone; gapSections, the page-block scale, is too large to show here. A bare gap root takes the same options for an element that is a container by other means; see Spacing.
 
 ```html
 <div pgs="grid['column-4' 'gapTexts']">
@@ -151,7 +151,7 @@ The same three items twice: without gridDense the last one waits for its own row
 
 ### Alignment
 
-The shared alignment options on a grid: items centred in their row, one of them aligned to the end on its own.
+The shared alignment options on a grid: items centered in their row, one of them aligned to the end on its own.
 
 ```html
 <div pgs="grid['column-4' 'gapElements' 'itemCenter']">

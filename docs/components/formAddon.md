@@ -146,9 +146,9 @@ Multiple radio chips grouped into a compact segmented selector, each paired with
     </label>
 
     <label pgs="button['btnMini' 'btnTwoState']">
-        <input type="radio" name="characters" value="dragon">
+        <input type="radio" name="characters" value="Dragon">
         <i pgs="icon['icon-star']"></i>
-        dragon
+        Dragon
     </label>
 </fieldset>
 ```

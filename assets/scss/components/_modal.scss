@@ -227,7 +227,7 @@ html:has(dialog[open]) {
     }
 
     //+ SIZE
-    //=== MINI
+    //=== SMALL
     &[pgs*="'dialogSmall'"] {
         :where([pgs~="modal-dialog-content"]) { --section-width: min(calc(var(--page-width)/3), 100%); }
     }

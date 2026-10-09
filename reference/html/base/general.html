@@ -1,7 +1,7 @@
 <!--
 /**
  * @title General
- * @description Standalone utilities for shadow, cursor, image fitting, list styling and forced colour scheme. Border, outline and radius utilities moved to their own reference, Border; the hover treatment moved to Hover.
+ * @description Standalone utilities for shadow, cursor, image fitting, list styling and forced color scheme. Border, outline and radius utilities moved to their own reference, Border; the hover treatment moved to Hover.
  *
  * @pgs
  * - boxShadow: applies the shared box shadow token.
@@ -11,8 +11,8 @@
  * - appearanceNone: strips every inherited style and the native appearance, to build a control from scratch.
  * - img: fits or crops an image depending on the option in its bracket; written bare it does nothing.
  * - list: styles a plain ul or ol with the shared marker and spacing.
- * - lightmode: forces the light colour scheme on a subtree, whatever the page theme is.
- * - darkmode: forces the dark colour scheme on a subtree, whatever the page theme is.
+ * - lightmode: forces the light color scheme on a subtree, whatever the page theme is.
+ * - darkmode: forces the dark color scheme on a subtree, whatever the page theme is.
  *
  * @pgs-options
  * - imgContain: inside img's own bracket, fits the whole image inside its box without cropping it.
@@ -33,7 +33,7 @@
  * - gapTexts: spaces the examples inside a group.
  * - gapSections: separates the groups.
  *
- * @return One example per utility, grouped by shadow, interaction, images, lists and colour scheme.
+ * @return One example per utility, grouped by shadow, interaction, images, lists and color scheme.
  */
 -->
 
@@ -62,7 +62,7 @@
     </div>
 </section>
 
-<demo demo-h3="List" demo-description="Shared marker and spacing for a plain list, without any component behaviour."></demo>
+<demo demo-h3="List" demo-description="Shared marker and spacing for a plain list, without any component behavior."></demo>
 <section pgs="flex['column' 'gapTexts']" demo="component">
     <ul pgs="list">
         <li>Plain list item</li>
@@ -71,9 +71,9 @@
     </ul>
 </section>
 
-<demo demo-h3="Forced colour scheme" demo-description="Pins a subtree to one colour scheme, ignoring the current page theme."></demo>
+<demo demo-h3="Forced color scheme" demo-description="Pins a subtree to one color scheme, ignoring the current page theme."></demo>
 <section pgs="flex['column' 'gapTexts']" demo="component">
-    <div pgs="flex['row' 'gapTexts'] background['bgWhiteFixed']">
+    <div pgs="flex['row' 'gapTexts'] background['bgWhiteFixed']" demo="wrapper">
         <div pgs="box lightmode">
             <p>lightmode</p>
         </div>

@@ -1,13 +1,11 @@
 <!--
 /**
  * @title Search
- * @description Search markup, configuration, behavior, and usage example. Two custom events bubble from the search root: pgs:search:select when a suggestion is chosen (detail: item, index, value, input, element) and pgs:search:error when the source rejects (detail: error, query), which also adds the error state. An aborted request is not an error and dispatches nothing.
+ * @description Search markup, configuration, behavior, and usage example. Two custom events bubble from the search root: pgs:search:select when a suggestion is chosen (detail: element, item, index, value, input) and pgs:search:error when the source rejects (detail: element, error, query), which also adds the error state. An aborted request is not an error and dispatches nothing. The label of a suggestion is escaped, so a source can return any text. Leaving the field with Tab, or pressing outside the search, closes the list and cancels the pending debounce and the request in flight, so the list cannot open again afterwards. A search with no input[type=search] or no search-suggestions list as a direct child is left alone, with a warning in the console.
  *
  * @pgs
  * - search: identifies the search element used by Search.
  * - search-suggestions: identifies the search-suggestions element used by Search.
- * - search-modal: identifies the search-modal element used by Search.
- * - search-mobile: identifies the search-mobile element used by Search.
  *
  * @pgs-generated
  * - _search-suggestions-item: one suggestion in the list, rebuilt from the configured source at every keystroke.
@@ -33,14 +31,14 @@
  * - pgs.search.api(element): returns the instance associated with the specified initialized element.
  * - instance.configure(options): provides the documented operation through the component public API.
  * - instance.setSource(source): provides the documented operation through the component public API.
- * - instance.search(query): provides the documented operation through the component public API.
+ * - instance.search(query): runs the search for the query, the current value of the input when omitted, and resolves with the items it rendered; it is what re-runs the current query.
  * - instance.open(): opens the component.
  * - instance.close(): closes the component.
  * - instance.clear(): provides the documented operation through the component public API.
- * - instance.cancel(): annulla debounce e richiesta attiva.
+ * - instance.cancel(): cancels the pending debounce and the request in flight.
  * - instance.select(index, submit): provides the documented operation through the component public API.
- * - instance.refresh(): refreshes the component and returns its updated instance.
- * - instance.destroy(): removes listeners and releases the component instance.
+ * - instance.refresh(): destroys the instance and builds it again from the markup, keeping the options given to configure(), and returns the new instance; it no longer re-runs the query, search() does.
+ * - instance.destroy(): cancels what is pending, empties the list, removes every listener and releases the instance; pgs.search.init(root) builds it again.
  * - instance.items(): provides the documented operation through the component public API.
  * - instance.isOpen(): returns true when the component is open.
  * - instance.isLoading(): returns true while the component is loading.
@@ -53,7 +51,7 @@
  * - modal-button: uses the related modal-button component or utility in this example.
  * - modal-close: uses the related modal-close component or utility in this example.
  * - modal-dialog-content: the panel drawn inside the dialog, and the element every position and width option sizes.
- * - dialogSmall: shrinks the dialog content to a compact width (max 400px) instead of filling the viewport.
+ * - dialogSmall: shrinks the dialog content to a third of the page width instead of filling the viewport.
  * - background: applies a background color, one of the palette below picked in its bracket.
  * - bgTransparent: inside background's own bracket, sets a fully transparent background.
  * - blur: applies a backdrop blur behind the dialog for a frosted-glass effect.
@@ -83,16 +81,16 @@
     </form>
 </section>
 
-<demo demo-h3="Mobile search overlay" demo-description="Search opened from an icon button inside a full-width modal, intended for the mobile navigation."></demo>
+<demo demo-h3="Mobile search overlay" demo-description="Search opened from an icon button inside a small modal, intended for the mobile navigation."></demo>
 <section demo="component">
-    <div pgs="modal['dialogSmall'] search-modal" pgs-data="modalContainerPGS[header]">
+    <div pgs="modal['dialogSmall']" pgs-data="modalContainerPGS[header]">
 
         <button type="button" pgs="modal-button button['btnIconOnly']" title="Search">
             <i pgs="icon['icon-magnifyingGlass']"></i>
         </button>
 
         <dialog pgs="blur">
-            <div pgs="flex['row'] modal-dialog-content background['bgTransparent'] search-mobile">
+            <div pgs="flex['row'] modal-dialog-content background['bgTransparent']">
 
                 <form pgs="search" autocomplete="off" action="/" method="get">
                     <button pgs="button['btnIconOnly' 'btnTransparent']" type="submit" title="Search">
@@ -117,10 +115,10 @@
     import { pgs } from "mypgs";
 
     const components = [
-        { label: "Accordion", value: "/componenti/accordion", data: { category: "component" } },
-        { label: "Dropdown", value: "/componenti/dropdown", data: { category: "component" } },
-        { label: "Modal", value: "/componenti/modal", data: { category: "component" } },
-        { label: "Search", value: "/componenti/search", data: { category: "component" } },
+        { label: "Accordion", value: "/components/accordion", data: { category: "component" } },
+        { label: "Dropdown", value: "/components/dropdown", data: { category: "component" } },
+        { label: "Modal", value: "/components/modal", data: { category: "component" } },
+        { label: "Search", value: "/components/search", data: { category: "component" } },
         { label: "Page Shell", value: "/layout/page-shell", data: { category: "layout" } },
     ];
 
@@ -131,7 +129,7 @@
             limit: 5,
             source: components,
             onSelect: ({ item, value }) => {
-                console.log(`Selezionato ${item.label}: ${value}`);
+                console.log(`Selected ${item.label}: ${value}`);
             },
         });
     });

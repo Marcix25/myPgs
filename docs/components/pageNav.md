@@ -2,7 +2,7 @@
 
 # Page Nav
 
-Full-page panels switched by the URL hash instead of an index, so the current one survives a reload or a shared link with no extra bookkeeping. A panel is addressed by its own id, matched against the fragment of whichever pageNav-list-item link points at it: write as many pageNav-list navs as the layout needs — a sidebar and a copy inside a mobile dialog, say — and every one of them stays in sync, since matching goes by id rather than by counting positions in a single list. Clicking a link is a native hash navigation the browser already handles; the module only reacts to it (and to a direct back/forward move) to hide every panel but the one now named by the hash. A link inside an open dialog closes it on selection. Every selection dispatches pgs:pageNav:change on the pageNav root, with detail { panel, items }, and the event does not bubble, so the listener goes on the root itself.
+Full-page panels switched by the URL hash instead of an index, so the current one survives a reload or a shared link with no extra bookkeeping. A panel is addressed by its own id, matched against the fragment of whichever pageNav-list-item link points at it: write as many pageNav-list navs as the layout needs — a sidebar and a copy inside a mobile dialog, say — and every one of them stays in sync, since matching goes by id rather than by counting positions in a single list. Clicking a link is a native hash navigation the browser already handles; the module only reacts to it (and to a direct back/forward move) to hide every panel but the one now named by the hash. A link inside an open dialog closes it on selection. Every selection dispatches pgs:pageNav:change on the pageNav root, once, with detail { element, panel, items }; the event bubbles, so a listener can sit on the root or above it. A root with no panel or no link is reported in the console and left alone. The hash the page was opened with is taken once, on the first initialization of the root; initializing it again with refresh() follows the URL as it is by then.
 
 ## PGS
 
@@ -14,15 +14,17 @@ Full-page panels switched by the URL hash instead of an index, so the current on
 
 ## PGS States
 
-- `active`: identifies the visible panel; the module writes it, and reads it back on a hashless load to honour one already marked in the markup, the same convention Tabs uses. A link's own selected state is separate, aria-current="page", not pgs-state.
+- `active`: identifies the visible panel; the module writes it, and reads it back on a hashless load to honor one already marked in the markup, the same convention Tabs uses. A link's own selected state is separate, aria-current="page", not pgs-state.
 
 ## JavaScript API
 
 - `pgs.pageNav.init(root)`: initializes pageNav inside the specified Document or Element, including the root when it is pageNav.
 - `pgs.pageNav.api(element)`: returns the instance associated with an initialized pageNav root.
-- `instance.select(id)`: navigates to the panel with that id, the same as following a link to #id.
-- `instance.getCurrent()`: returns the currently visible panel element.
-- `instance.refresh()`: re-initializes the root and returns the new instance.
+- `instance.select(id)`: navigates to the panel with that id, the same as following a link to #id, and applies it right away; throws a TypeError when no panel has that id.
+- `instance.getCurrent()`: returns the zero-based index of the currently visible panel, in document order.
+- `instance.getCurrentPanel()`: returns the currently visible panel element.
+- `instance.destroy()`: removes the listeners of the instance and forgets it; the panels keep their active state.
+- `instance.refresh()`: destroys the instance and builds a new one on the same root, and returns it.
 
 ## Output
 

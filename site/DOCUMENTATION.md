@@ -80,7 +80,7 @@ each line prefixed with `*`, tags in this order:
 - **`@pgs-generated`** is markup the library builds at runtime that you don't author by hand
   (`dialog` above, or anything the JS inserts as a new element, which additionally gets an `_`
   prefix — see Naming conventions below).
-- **`@pgs-options`** documents CSS flags inside component brackets; **`@pgs-data`** documents JavaScript-only flags and key[payload] values; **`@pgs-state`** documents runtime states.
+- **`@pgs-options`** documents the flags inside component brackets, whether they carry a CSS rule or are read only by JavaScript; **`@pgs-data`** documents `key[payload]` values passed to JavaScript; **`@pgs-state`** documents runtime states.
   An option or state that belongs to a *different* component (reused in this file's example) goes
   under `@related` instead, not here.
 - **`@api`** documents callable JavaScript. The signature must be `pgs.x.y(args)` or
@@ -134,14 +134,14 @@ built by an entirely separate pipeline from everything else on this page.
 One file in `reference/html/guides/` is an explicit exception to all of the above:
 **`welcome.html`**, the demo's own landing panel. It's excluded by name in
 `generate-guide-docs.js` (`EXCLUDED_FILES`) and produces no `docs/guides/welcome.md`, because its
-layout — coloured cards, component-option boxes — is richer than the small prose vocabulary can
+layout — colored cards, component-option boxes — is richer than the small prose vocabulary can
 convert. The build bakes its markup in verbatim as the demo's first panel, and it's hand-kept in
 sync in substance with the project `README.md`, on purpose looking different rather than reusing
 either pipeline.
 
 ## Categories and file layout
 
-`reference/html/` has six top-level folders — `base/`, `components/`, `layout/`, `patterns/`,
+`reference/html/` has five top-level folders — `base/`, `components/`, `layout/`,
 `helper/`, `guides/` — each becoming its own section in the demo's side menu, in the order that
 `referenceFiles` in `scripts/demo-render.js` lists them; a file's position within a category
 follows that same array. `docs/` mirrors the same folder structure and filenames for every category
@@ -186,7 +186,7 @@ Details and cross-references, past what the table already says:
   right above its `<div pgs="modal" ... demo="component">`. The heading is never an attribute on the
   example itself, so it can't compete with the real `pgs-state` the example is documenting.
 - `<demo demo-h2>` — used when a file's examples split into named sets (see `layout/pageShell.html`'s
-  "Page Shell simple" vs. "Page Shell - Not scroll" groups). Most files only ever need `demo-h3`.
+  "Page Shell" and "Page Shell - Scroll" groups). Most files only ever need `demo-h3`.
   Both `demo-render.js`'s `extractDemoBlocks` and the doc generator's own in
   `scripts/generate-component-docs.js` walk the markup in document order, pairing a `demo-h3` marker
   with the next `demo="component"` leaf and recursing straight through anything that isn't one (a
@@ -261,25 +261,28 @@ Then rebuild with `npm run sitebuild`, and only if the example needs real intera
 
 ## Naming conventions worth knowing
 
-- **Markup the library builds at runtime gets an `_` prefix** (`_toast-element`,
-  `_notifications-element-content-icon`, ...) and is documented under `@pgs-generated`, never `@pgs`. An
+- **Markup the library builds at runtime gets an `_` prefix** (`_slides-dots-dot`,
+  `_notification-close`, ...) and is documented under `@pgs-generated`, never `@pgs`. An
   exception: a token merely *added* to an element the author already wrote (`formValidate` added to
   an existing `<form>`, `dialog`/`modal-dialog` added to an existing `<dialog>`) stays unprefixed
   and still goes under `@pgs-generated` — the prefix marks a whole new element, not an added token.
-- **A CSS flag or JavaScript-only bracket flag drops its component's name**, since the bracket it
-  lives in already says which component owns it (`button['mini']`, `header['headerScroll']`, not
-  `button['buttonMini']`). A handful kept the prefix on purpose because a bare word would mean
-  nothing on its own — `margin2`/`padding2` (a lone digit) and the `icon-*` glyphs — and `hoverNot`
-  never had a single owner to drop a prefix from. A `pgs-data` key keeps its prefix always
-  (`formFieldError`, `headerCompactFrom`): that attribute is flat, with no bracket to give a bare
-  key context. See `migration.md` for the history of both conventions.
-- **A plain reusable utility has no prefix** and is written directly as a `pgs` value, not inside a
-  component bracket (`column`, `gapElements`, `truncate`, `icon-close`, ...).
+- **A CSS flag or JavaScript-only bracket flag carries its component's prefix**, inside the
+  component's bracket (`button['btnMini']`, `header['headerScroll']`, `card['cardMini']`). A short
+  component name is written in full; a long one is abbreviated (`btn`, `acc`, `drp`, `sct`, `shell`,
+  `tgl`, `mg`, `pd`, `bd`, `otl`, ...) — `AGENTS-DEVELOPMENT.md` §3 has the complete prefix table.
+  Margin, padding and border have one root per side, each with its own side code in the flag
+  (`marginTop['mgTpElements']`, `borderTop['bdTpThin']`). The documented exceptions are flex/grid's
+  layout flags (`column`, `gapElements`, `itemCenter`, ...), the `icon-*` glyphs and `hoverNot`, which
+  never had a single owner. A `pgs-data` key keeps its prefix always (`formFieldError`,
+  `headerCompactFrom`): that attribute is flat, with no bracket to give a bare key context. See
+  `migration.md` for the history of both conventions.
+- **A plain reusable utility with no component family** (`block`, `minWidth0`, `truncate`,
+  `cursorNotAllowed`) has no prefix and no bracket: it is written directly as a `pgs` value.
 
 ## The tools
 
 ```sh
-npm run start                      # webpack: compiles assets/ into dist/
+npm run webpack                    # webpack: compiles assets/ into dist/
 node scripts/generate-pgs-map.js   # scans compiled CSS + source, writes reference/pgs-map.json
 npm run docs:generate              # validates every reference/html file, writes docs/**/*.md
                                     # (runs generate-component-docs.js, then generate-guide-docs.js)
@@ -299,7 +302,7 @@ reports before it will write anything.
 While iterating, two watchers replace the first and the last step, so nothing has to be remembered:
 
 ```sh
-npm run start:watch                # webpack --watch: recompiles dist/ on every assets/ change
+npm run webpack:watch              # webpack --watch: recompiles dist/ on every assets/ change
 npm run sitebuild:watch            # scripts/watch-site.js: rebuilds every site/build/*.html on
                                     # every change to reference/html/, a site/parts/*.html,
                                     # demo-render.js, a page's own file under

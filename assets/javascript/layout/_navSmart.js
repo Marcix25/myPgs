@@ -1,10 +1,15 @@
+import { pgs } from "../_pgs.js";
+import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
+import { PGS_roots } from "../helper/_dom.js";
+import { PGS_rafThrottle, PGS_watchDocument } from "../helper/_throttle.js";
+
 //# NAV SMART
 //+ publishes the room the bar takes at the bottom of the screen, the way the header publishes its own:
 //+ --heightOfNavSmart is the whole distance from the bottom edge of the screen to the top of the bar
 //+ (the pills plus the gap the bar keeps from the edge, and the safe area on a phone), and
-//+ --heightOfNavSmartScroll is the same distance while the bar is on screen and 0 while it is tucked
-//+ away, which is marked by data-navsmart-scroll="true" on the bar. Both are 0 while a media query
-//+ hides the bar. Padding the end of a page by either one keeps its last lines from sitting under it.
+//+ --heightOfNavSmartScroll is kept equal to it, the same name the header gives its own pair. Both
+//+ are 0 while a media query hides the bar. Padding the end of a page by either one keeps its last
+//+ lines from sitting under it.
 
 const INITIALIZED_NAVSMART = new WeakSet();
 
@@ -35,8 +40,6 @@ function initNavSmart(bar) {
 
     pgs(bar).state.toggle("installedApp", isInstalledApp());
 
-    let rafId = 0;
-
     function measure() {
         if (getPrimaryNavSmart() !== bar) return;
 
@@ -46,25 +49,18 @@ function initNavSmart(bar) {
         const height = bar.getClientRects().length
             ? Math.max(0, Math.round(window.innerHeight - bar.getBoundingClientRect().top))
             : 0;
-        const scrollHeight = bar.getAttribute("data-navsmart-scroll") === "true" ? 0 : height;
 
         document.documentElement.style.setProperty("--heightOfNavSmart", `${height}px`);
-        document.documentElement.style.setProperty("--heightOfNavSmartScroll", `${scrollHeight}px`);
+        document.documentElement.style.setProperty("--heightOfNavSmartScroll", `${height}px`);
     }
 
-    function schedule() {
-        if (rafId) return;
-        rafId = requestAnimationFrame(() => {
-            rafId = 0;
-            measure();
-        });
-    }
+    const schedule = PGS_rafThrottle(measure);
 
     const observer = new ResizeObserver(schedule);
     observer.observe(bar);
     pgs(bar).querySelectorAll("navSmart-element").forEach(element => observer.observe(element));
 
-    new MutationObserver(schedule).observe(bar, { attributes: true, attributeFilter: ["data-navsmart-scroll", "class", "style"] });
+    new MutationObserver(schedule).observe(bar, { attributes: true, attributeFilter: ["class", "style"] });
 
     document.fonts?.ready?.then(schedule);
     window.addEventListener("resize", schedule);
@@ -72,26 +68,13 @@ function initNavSmart(bar) {
 }
 
 function PGS_navSmart_init(root = document) {
-    const candidates = [
-        ...(root instanceof Element && pgs(root).contains("navSmart") ? [root] : []),
-        ...pgs(root).querySelectorAll("navSmart")
-    ];
-
-    candidates.filter(bar => pgs(bar).querySelector("navSmart-element")).forEach(initNavSmart);
+    PGS_roots(root, "navSmart").filter(bar => pgs(bar).querySelector("navSmart-element")).forEach(initNavSmart);
 }
-
-PGS_navSmart_init();
 
 //== a bar can arrive later, and there may be several, so the watch stays on: a pass is cheap and
 //== every bar is initialized only once
-let navSmartScanRafId = 0;
-new MutationObserver(() => {
-    if (navSmartScanRafId) return;
-    navSmartScanRafId = requestAnimationFrame(() => {
-        navSmartScanRafId = 0;
-        PGS_navSmart_init();
-    });
-}).observe(document.documentElement, { childList: true, subtree: true });
+PGS_onDocumentReady(PGS_navSmart_init);
+PGS_watchDocument(() => PGS_navSmart_init());
 
 //# EXPORT
 export const PGS_navSmart = {

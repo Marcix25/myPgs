@@ -1,8 +1,10 @@
+import { pgs } from "../_pgs.js";
 import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
+import { PGS_roots } from "../helper/_dom.js";
+import { PGS_svg } from "./_svg.js";
 
 //# DARKMODE
 
-const EVENT_SVG_CHANGE_COLOR = "pgs:svg:changeColor";
 const INITIALIZED_BUTTONS = new WeakSet();
 
 //+ CHANGE ICON
@@ -38,7 +40,7 @@ function setDarkmodeStatus(toggle = false, button = []) {
     // END SET
 
     changeIcon(button, isDarkMode);
-    document.dispatchEvent(new CustomEvent(EVENT_SVG_CHANGE_COLOR, { detail: { isDarkMode } }));
+    document.dispatchEvent(new CustomEvent(PGS_svg.eventChangeColor, { detail: { isDarkMode } }));
 }
 
 
@@ -48,16 +50,16 @@ function setDarkmodeStatus(toggle = false, button = []) {
 //== reload never paints the wrong one first
 setDarkmodeStatus();
 
-function initDarkmode(root = document) {
-    const toggleDarkmode = [
-        ...(root instanceof Element && pgs(root).contains("toggleDarkmode") ? [root] : []),
-        ...pgs(root).querySelectorAll("toggleDarkmode")
-    ];
-    setDarkmodeStatus(false, pgs(document).querySelectorAll("toggleDarkmode"));
+//== binds the switches in root that are not bound yet and draws their glyph. Switches already
+//== bound are left untouched, so pgs.init(el) on a page that is already running changes nothing
+//== else: it does not re-apply the theme or fire the color event again
+function PGS_darkmode_init(root = document) {
+    const isDarkMode = pgs(document.documentElement).state.contains("darkmode");
+    const buttons = PGS_roots(root, "toggleDarkmode").filter(button => !INITIALIZED_BUTTONS.has(button));
 
-    //== BUTTON DARKMODE
-    toggleDarkmode.forEach(button => {
-        if (INITIALIZED_BUTTONS.has(button)) return;
+    changeIcon(buttons, isDarkMode);
+
+    buttons.forEach(button => {
         INITIALIZED_BUTTONS.add(button);
         button.addEventListener("click", () => {
             setDarkmodeStatus(true, pgs(document).querySelectorAll("toggleDarkmode"));
@@ -65,8 +67,12 @@ function initDarkmode(root = document) {
     });
 }
 
-PGS_onDocumentReady(initDarkmode);
+//== the first pass once the page is ready: the body exists now, so it takes the theme too
+PGS_onDocumentReady(() => {
+    setDarkmodeStatus(false, pgs(document).querySelectorAll("toggleDarkmode"));
+    PGS_darkmode_init();
+});
 
 export const PGS_darkmode = {
-    init: initDarkmode
+    init: PGS_darkmode_init
 };

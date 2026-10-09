@@ -68,20 +68,20 @@ To import only the mixins:
 ### Markup
 
 `pgs` identifies components and holds their CSS flags, quoted inside each component's bracket.
-`pgs-data` holds JavaScript configuration: boolean flags and `key[payload]` values.
+`pgs-data` holds JavaScript configuration, only as `key[payload]` values.
 `pgs-state` holds runtime state. See [migration.md](migration.md) when updating older markup;
 the retired `pgs-option` attribute is no longer supported.
 
 ```html
 <div pgs="flex['column' 'wrap' 'flexCenter']">
-  <button pgs="button['strong']">Save</button>
+  <button pgs="button['btnStrong']">Save</button>
 </div>
 <header pgs="header['headerCompactTablet' 'headerScroll']" pgs-data="headerCompactFrom[600]"></header>
 ```
 
 ```html
 <html lang="en" pgs="htmlBase">
-  <body pgs="bodyBase bodyImg bodyText bodyHeading bodyHoverAuto">
+  <body pgs="body['bodyBase' 'bodyImg' 'bodyText' 'bodyHeading' 'bodyHoverAuto']">
     <main pgs="main"></main>
   </body>
 </html>
@@ -102,7 +102,7 @@ reference source before creating new markup.
 
 - [body](docs/base/body.md)
 - [general](docs/base/general.md)
-- [heading](docs/base/heading.md)
+- [typography](docs/base/typography.md)
 - [color](docs/base/color.md)
 - [darkmode](docs/base/darkmode.md)
 - [svg](docs/base/svg.md)
@@ -125,6 +125,7 @@ reference source before creating new markup.
 - [menu](docs/components/menu.md)
 - [modal](docs/components/modal.md)
 - [notification](docs/components/notification.md)
+- [pageNav](docs/components/pageNav.md)
 - [search](docs/components/search.md)
 - [slides](docs/components/slides.md)
 - [steps](docs/components/steps.md)
@@ -138,6 +139,7 @@ reference source before creating new markup.
 
 - [section](docs/layout/section.md)
 - [header](docs/layout/header.md)
+- [navSmart](docs/layout/navSmart.md)
 - [footer](docs/layout/footer.md)
 - [pageShell](docs/layout/pageShell.md)
 - [flex](docs/layout/flex.md)

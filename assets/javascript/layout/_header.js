@@ -1,6 +1,7 @@
-
-
-
+import { pgs } from "../_pgs.js";
+import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
+import { PGS_roots } from "../helper/_dom.js";
+import { PGS_rafThrottle, PGS_watchDocument } from "../helper/_throttle.js";
 
 //# HEADER
 //+ COMPACT BREAKPOINT
@@ -9,7 +10,7 @@
 // headerCompactFrom[600] wins with its own pixel value, otherwise the named options
 // (headerCompactTablet, headerCompactLaptop, ...) set --header-compact-breakpoint in the
 // SCSS, so the breakpoint values stay defined in one place.
-function getHeader_CompactBreakpoint(header) {
+function getCompactBreakpoint(header) {
     const custom = parseFloat(pgs(header).data.getValueBrackets("headerCompactFrom"));
     if (Number.isFinite(custom)) return custom;
 
@@ -30,16 +31,9 @@ function getHeader_CompactBreakpoint(header) {
 const OVERFLOW_TOLERANCE = 2;
 
 //= RESIZE
-function initHeader_Resize(header) {
-
-    if (!header) return;
-
+//== a header only reaches here once it holds a header-element (see getReadyHeaders)
+function initResize(header) {
     const headerElements = pgs(header).querySelectorAll("header-element");
-
-    if (!headerElements.length) {
-        console.warn('pgs.header: a header needs at least one "header-element" under it, or it draws nothing.');
-        return;
-    }
 
     headerElements.forEach(selectHeader => {
 
@@ -62,7 +56,7 @@ function initHeader_Resize(header) {
             if (!isCompact && overflows) requiredWidth = headerElement.scrollWidth;
 
             //=== a breakpoint declared on the header wins over any measurement
-            if (window.innerWidth <= getHeader_CompactBreakpoint(header)) return setCompact(true);
+            if (window.innerWidth <= getCompactBreakpoint(header)) return setCompact(true);
 
             //=== compact: stay only while the room that was missing is still missing. With nothing learned
             //=== the page loaded compact and the full layout fitted at that width, so let it back in
@@ -70,26 +64,15 @@ function initHeader_Resize(header) {
             setCompact(overflows);
         }
 
-        //= Schedule Compact
-        //== throttled to avoid ResizeObserver loop warnings; state is an object (not a plain
-        //== number) because scheduleCompact needs to write the pending id back to the caller's
-        //== own counter, and a number argument would only update a local copy
-        const scheduleCompact = (state) => {
-            if (state.id) return;
-            state.id = requestAnimationFrame(() => {
-                state.id = 0;
-                compact(selectHeader);
-            });
-        };
+        //== Resize
+        //== throttled to avoid ResizeObserver loop warnings
+        const scheduleCompact = PGS_rafThrottle(() => compact(selectHeader));
 
-        //== Resize 
-        const resizeState = { id: 0 };
-        let observer = new ResizeObserver(() => scheduleCompact(resizeState));
+        const observer = new ResizeObserver(scheduleCompact);
         observer.observe(selectHeader);
 
         //== MutationObserver, not ResizeObserver: won't loop back from compact()'s own show/hide toggles
-        const childState = { id: 0 };
-        const childObserver = new MutationObserver(() => scheduleCompact(childState));
+        const childObserver = new MutationObserver(scheduleCompact);
         childObserver.observe(selectHeader, { childList: true, subtree: true });
 
         //== initial check
@@ -99,18 +82,14 @@ function initHeader_Resize(header) {
 
 
 //= HEADER HEIGHT
-function initHeader_Height(header) {
-    if (!header) return;
-
-    let headerHeightRafId = 0;
-
+function initHeight(header) {
     //+ GET HEADER HEIGHT ELEMENT
     function getHeaderHeightElement(header) {
         const isCompactBottom = window.getComputedStyle(header).getPropertyValue("--header-compactBottom-active").trim() === "1";
         return isCompactBottom ? pgs(header).querySelector("header-element") || header : header;
     }
 
-    //+ FOR --heightOfHeader e --heightOfHeaderScroll
+    //+ FOR --heightOfHeader and --heightOfHeaderScroll
     function getPrimaryHeader() {
         const headers = getReadyHeaders();
         return headers.find(header => pgs(header).option.contains("headerMain")) || headers[0] || null;
@@ -125,19 +104,13 @@ function initHeader_Height(header) {
 
         const wordPressBar = parseInt(window.getComputedStyle(document.documentElement).marginTop, 10) || 0;
         const height = getHeaderHeightElement(header).offsetHeight + wordPressBar;
-        const scrollHeight = header.getAttribute("data-header-scroll") === "true" ? 0 : height;
+        const scrollHeight = pgs(header).state.contains("hiddenByScroll") ? 0 : height;
 
         document.documentElement.style.setProperty("--heightOfHeader", `${height}px`);
         document.documentElement.style.setProperty("--heightOfHeaderScroll", `${scrollHeight}px`);
     }
 
-    function scheduleHeaderHeight() {
-        if (headerHeightRafId) return;
-        headerHeightRafId = requestAnimationFrame(() => {
-            headerHeightRafId = 0;
-            headerHeight();
-        });
-    }
+    const scheduleHeaderHeight = PGS_rafThrottle(headerHeight);
 
     const headerHeightObserver = new ResizeObserver(scheduleHeaderHeight);
     headerHeightObserver.observe(header);
@@ -157,31 +130,26 @@ function initHeader_Height(header) {
 //= SCROLL
 //== hides the header while the reader scrolls down and brings it back on the way up, on screens
 //== up to 900px tall, where a pinned header costs too much of the page
-function initHeader_Scroll(header) {
+function initScroll(header) {
+    if (!pgs(header).option.contains("headerScroll")) return;
+
     let lastScrollY = window.scrollY;
-    if (!header || !pgs(header).option.contains("headerScroll")) return;
     const headerElements = pgs(header).querySelectorAll("header-element");
 
+    function setHidden(hidden) {
+        headerElements.forEach(element => element.style.transform = hidden ? "translateY(-100%)" : "translateY(0)");
+        pgs(header).state.toggle("hiddenByScroll", hidden);
+    }
+
     window.addEventListener("scroll", () => {
-        if (!header) return;
-        let currentScrollY = window.scrollY;
+        const currentScrollY = window.scrollY;
 
         if (window.innerHeight <= 900) {
-            if (currentScrollY >= 80) {
-                if (currentScrollY > lastScrollY) {
-                    headerElements.forEach(element => element.style.transform = "translateY(-100%)");
-                    header.setAttribute("data-header-scroll", true)
-                } else {
-                    headerElements.forEach(element => element.style.transform = "translateY(0px)");
-                    header.setAttribute("data-header-scroll", false)
-                }
-            } else {
-                headerElements.forEach(element => element.style.transform = "translateY(0)");
-                header.setAttribute("data-header-scroll", false)
-            }
+            setHidden(currentScrollY >= 80 && currentScrollY > lastScrollY);
         }
+
         lastScrollY = currentScrollY;
-    });
+    }, { passive: true });
 }
 
 
@@ -192,9 +160,9 @@ function initHeader(header) {
     if (INITIALIZED_HEADERS.has(header)) return;
     INITIALIZED_HEADERS.add(header);
 
-    initHeader_Resize(header);
-    initHeader_Height(header);
-    initHeader_Scroll(header);
+    initResize(header);
+    initHeight(header);
+    initScroll(header);
 }
 
 //+ a header is only ready once it holds a header-element, which is where every measurement happens
@@ -203,31 +171,13 @@ function getReadyHeaders() {
 }
 
 function PGS_header_init(root = document) {
-    const candidates = [
-        ...(root instanceof Element && pgs(root).contains("header") ? [root] : []),
-        ...pgs(root).querySelectorAll("header"),
-    ];
-
-    candidates.filter(header => pgs(header).querySelector("header-element")).forEach(header => initHeader(header));
+    PGS_roots(root, "header").filter(header => pgs(header).querySelector("header-element")).forEach(initHeader);
 }
-
-PGS_header_init();
 
 //== headers can arrive later, and there may be more than one, so the watch stays on instead of
 //== stopping at the first: a pass is cheap and every header is initialized only once
-let headerScanRafId = 0;
-const headerObserver = new MutationObserver(() => {
-    if (headerScanRafId) return;
-    headerScanRafId = requestAnimationFrame(() => {
-        headerScanRafId = 0;
-        PGS_header_init();
-    });
-});
-
-headerObserver.observe(document.documentElement, {
-    childList: true,
-    subtree: true
-});
+PGS_onDocumentReady(PGS_header_init);
+PGS_watchDocument(() => PGS_header_init());
 
 //# EXPORT
 export const PGS_header = {

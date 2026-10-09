@@ -2,7 +2,7 @@
 
 //# MENU
 :is([pgs~="menu"], [pgs*="menu\5B"]) {
-    // Menu colours inherit the button theme by default.  A consumer can set the
+    // Menu colors inherit the button theme by default.  A consumer can set the
     // --menu-* variables on this element to theme menus independently.
     --menu-gap-column: .5rem;
     --menu-gap-row: 1.0rem;
@@ -19,7 +19,6 @@
         >li {
             >a {
                 flex-grow: 1;
-                min-width: -webkit-fill-available;
                 min-width: fit-content;
 
                 >span {
@@ -39,12 +38,6 @@
             --dropdown-background: var(--color-box);
             --dropdown-display: flex;
         }
-    }
-
-    //== accordion submenu: the base rule hides every nested ul, so the open branch has to say so.
-    //== The floating counterpart is handled by the dropdown component instead
-    :where([pgs~="_menu-accordion"])[pgs-state~=open] {
-        >ul { display: flex; }
     }
 
     //== submenuButton
@@ -81,7 +74,7 @@
         }
     }
 
-    //== verical
+    //== vertical
     ul,
     &[pgs*="'menuVertical'"],
     &:not([pgs*="'menuHorizontal'"]) {

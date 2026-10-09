@@ -7,7 +7,6 @@ Form structure with labels, text fields, a textarea, a checkbox, and a radio gro
 ## PGS
 
 - `form`: identifies the form container and applies the field layout.
-- `formValidate`: is added automatically by PGS_formValidate and enables its validation-state styles.
 - `label`: identifies labels associated with controls.
 - `input`: applies shared styling to text inputs.
 - `textarea`: applies shared styling to the text area.
@@ -38,14 +37,7 @@ Form structure with labels, text fields, a textarea, a checkbox, and a radio gro
 
 ## JavaScript API
 
-- `new pgs.formValidate(form, options)`: creates a utility associated directly with the form, adds novalidate, and completes missing form message options (formFieldErrorTitle, formFieldError, formFieldsError, formSuccessTitle, formSuccess) from options.message and then from library defaults; existing pgs-data values are preserved.
-- `instance.validator(callback, eventName)`: intercepts the specified event, clears previous temporary field errors, validates the form, shows the success message, and invokes callback only when valid; eventName defaults to submit.
-- `instance.validate()`: validates required fields, updates state attributes, and returns true or false.
-- `instance.success(description, title)`: validates the form and shows a success alert or toast when there are no errors.
-- `instance.addNewRule(rule)`: adds a function that returns one or more invalid fields; validate automatically marks each returned field as invalid.
-- `instance.temporaryFieldError.set(field, options)`: registers a temporary field error and validates the form; options accepts title and message, or it can be the message string.
-- `instance.temporaryFieldError.remove(field)`: removes a temporary error and its visual state from one field.
-- `instance.temporaryFieldError.clear()`: removes all temporary field errors and their visual states.
+- `new pgs.formValidate(form, options)`: the JavaScript side of this component, which validates the form and drives the pgs-state and the pgs-data messages above. Its constructor and instance methods are documented in Form validate, not repeated here.
 
 ## Related elements
 
@@ -61,6 +53,7 @@ Form structure with labels, text fields, a textarea, a checkbox, and a radio gro
 
 ### Other
 
+- `formValidate`: belongs to Form validate, which lists it as generated: the PGS_formValidate constructor adds it to the form, and it enables the validation-state styles.
 - `alertContainer`: is found or created automatically by the alert API when form validation uses inline alerts.
 
 ## Output
@@ -82,7 +75,7 @@ const formValidate = new pgs.formValidate(form, {
     typeNotice: "alert"
 });
 
-//== new roules
+//== new rules
 formValidate.addNewRule(() => {
     if (password.value && confirmPassword.value && password.value !== confirmPassword.value) {
         pgs(confirmPassword).data.setValueBrackets("formMessage", "Passwords do not match");

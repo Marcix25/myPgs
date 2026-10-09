@@ -61,14 +61,14 @@ function setupCopyButtons() {
 
         const icon = button.querySelector("i");
         const copied = await copyText(code.textContent);
-        if (!copied) console.error("Copia negli appunti non riuscita.");
+        if (!copied) console.error("Copying to the clipboard failed.");
 
         //== the button says how it went either way: a silent failure looks like a dead button
         if (icon) icon.className = copied ? "fa-solid fa-check" : "fa-solid fa-xmark";
-        button.setAttribute("aria-label", copied ? "Copiato" : "Copia non riuscita");
+        button.setAttribute("aria-label", copied ? "Copied" : "Copy failed");
         setTimeout(() => {
             if (icon) icon.className = "fa-solid fa-copy";
-            button.setAttribute("aria-label", "Copia il codice HTML");
+            button.setAttribute("aria-label", "Copy the HTML code");
         }, 1500);
     });
 }
@@ -124,13 +124,13 @@ function configureSearchDemo() {
     });
 
     const note = document.createElement("small");
-    note.append("Suggerimenti dimostrativi forniti da ");
+    note.append("Demo suggestions provided by ");
     const link = document.createElement("a");
-    link.href = "https://www.mediawiki.org/wiki/API:Opensearch/it";
+    link.href = "https://www.mediawiki.org/wiki/API:Opensearch";
     link.target = "_blank";
     link.rel = "noopener noreferrer";
     link.textContent = "Wikipedia OpenSearch";
-    note.append(link, ". Prova a scrivere prodotti di o come fare.");
+    note.append(link, " (Italian Wikipedia). Try typing \"prodotti di\" or \"come fare\".");
     section.append(note);
 }
 
@@ -202,14 +202,14 @@ function configureFormDemo() {
         const confirmPassword = form.querySelector('input[name="confirmPassword"]');
         if (!password || !confirmPassword) return;
         if (password.value && confirmPassword.value && password.value !== confirmPassword.value) {
-            pgsApi(confirmPassword).option.setValueBrackets("formMessage", "Le password non coincidono");
+            pgsApi(confirmPassword).option.setValueBrackets("formMessage", "The passwords do not match");
             return [confirmPassword, password];
         }
     });
 
     formValidate.validator(event => {
         const values = Object.fromEntries(new FormData(form));
-        //// Sostituisci questo log con l'invio dei dati al tuo backend.
+        //// Replace this log with sending the data to your backend.
         console.log(values);
     }, "submit");
 }
@@ -224,7 +224,7 @@ function configureNotificationDemo() {
         console.log("pgs:alert:buttonClick", event.detail);
 
         if (event.detail.buttonId === "yes" || event.detail.buttonId === "no") {
-            console.log("Invio risposta sondaggio al server:", event.detail.buttonId);
+            console.log("Sending the poll answer to the server:", event.detail.buttonId);
         }
 
         setTimeout(() => console.log("Async work finished for", event.detail.buttonId), 1000);
@@ -241,7 +241,7 @@ function configureToastDemo() {
         click: { title: "Saved", description: "Your changes were saved.", timeout: 7000 },
         left: { title: "On the left", description: "Against the left edge.", timeout: 7000, position: ["toastLeft"] },
         right: { title: "On the right", description: "Against the right edge.", timeout: 7000, position: ["toastRight"] },
-        center: { title: "In the middle", description: "Centred on the screen.", timeout: 7000, position: ["toastCenter"] },
+        center: { title: "In the middle", description: "Centered on the screen.", timeout: 7000, position: ["toastCenter"] },
         bottom: { title: "At the bottom", description: "Against the bottom edge.", timeout: 7000, position: ["toastBottom"] }
     };
 
@@ -313,7 +313,7 @@ function boot() {
     try {
         isolateDemoModals(document.getElementById("reference-demo-main") || document);
         const pgsApi = globalThis.pgs;
-        if (!pgsApi) throw new Error("Bundle PGS non caricato");
+        if (!pgsApi) throw new Error("PGS bundle not loaded");
         pgsApi.init(document);
 
         configureSearchDemo();
@@ -326,7 +326,7 @@ function boot() {
 
         document.querySelectorAll("pre code").forEach(code => window.Prism?.highlightElement(code));
     } catch (error) {
-        console.error("Demo PGS non inizializzata.", error);
+        console.error("PGS demo not initialized.", error);
     }
 
     const target = document.getElementById(location.hash.slice(1));

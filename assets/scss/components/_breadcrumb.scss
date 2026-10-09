@@ -1,6 +1,6 @@
 //# BREADCRUMB
 // the path itself is a plain list: what the component owns is the spacing between the levels,
-// the separator and the colour of the step the reader is on
+// the separator and the color of the step the reader is on
 [pgs~="breadcrumb"] {
     --breadcrumb-size: 1.4rem;
     --breadcrumb-color: var(--color-primary-strong);

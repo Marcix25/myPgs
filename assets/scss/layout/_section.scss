@@ -1,6 +1,6 @@
 @use "../mixin/mixin" as *;
 
-//# SEMANTIC
+//# MAIN, SECTION, CONTAINER
 [pgs~="main"] { @include main; }
 
 //= SECTION
@@ -9,7 +9,7 @@
 // this cycle. The variants are mutually exclusive alternatives to the same base layout, so they
 // share one bracket the same way margin's scale options do; sctRemoveGap/sctRemoveGapTop/
 // sctRemoveGapBottom are modifiers instead, meant to combine with whichever variant is also
-// present. sctSpecificity keeps its own child token, renamed to match: sctSpecificity-child.
+// present. sctSpecificity keeps its own child token, section-specificity.
 :is([pgs~="section"], [pgs*="section\5B"]) {
     --section-parentGap: var(--main-gap, var(--gap-sections));
     --section-marginBase: calc(var(--section-parentGap) / 2 * -1);
@@ -26,7 +26,7 @@
     &[pgs*="'sctNoPadding'"] { @include sectionNoPadding; }
     &[pgs*="'sctMax'"] { @include sectionMax; }
     &[pgs*="'sctFull'"] { @include sectionFull; }
-    &[pgs*="'sctSpecificity'"] { @include sectionSpecifity-child(':where([pgs~="sctSpecificity-child"])'); }
+    &[pgs*="'sctSpecificity'"] { @include sectionSpecificity-child(':where([pgs~="section-specificity"])'); }
 
     //++ Edge
     &[pgs*="'sctEdgeLeft'"] { @include sectionEdgeLeft; }

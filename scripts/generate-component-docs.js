@@ -23,7 +23,7 @@ const REQUIRED_TAGS = ["title", "description", "pgs"];
 //== owns: it may touch no pgs token of its own at all, so @api carries the weight @pgs carries
 //== everywhere else, and @pgs is optional there instead of required
 const HELPER_REQUIRED_TAGS = ["title", "description", "api"];
-const GENERATED_MARKER = /^<!-- (?:Automatically generated from ((?:reference|templates)\/html\/.+\.html)\. Edit \1 and run npm run docs:generate again\.|File generato automaticamente da ((?:reference|templates)\/html\/.+\.html)\. Modificare \2 e rieseguire npm run docs:generate\.) -->$/;
+const GENERATED_MARKER = /^<!-- Automatically generated from ((?:reference|templates)\/html\/.+\.html)\. Edit \1 and run npm run docs:generate again\. -->$/;
 
 function toPosix(value) {
     return value.split(path.sep).join("/");
@@ -75,12 +75,12 @@ function parseDocumentationBlock(file, source) {
     const initialHtmlComment = content.match(/^<!--[\t\r\n ]*(\/\*\*[\s\S]*?\*\/)[\t\r\n ]*-->/);
 
     if (taggedBlocks.length === 0) {
-        errors.push(createError(relativeFile, "Commento strutturato iniziale mancante.", "Aggiungi un blocco <!-- /** ... */ --> come primo contenuto del file."));
+        errors.push(createError(relativeFile, "Missing the initial structured comment.", "Add a <!-- /** ... */ --> block as the first content of the file."));
         return { errors };
     }
 
     if (taggedBlocks.length > 1) {
-        errors.push(createError(relativeFile, `Trovati ${taggedBlocks.length} commenti strutturati.`, "Mantieni un solo blocco di documentazione iniziale."));
+        errors.push(createError(relativeFile, `Found ${taggedBlocks.length} structured comments.`, "Keep a single initial documentation block."));
     }
 
     const first = taggedBlocks[0];
@@ -88,14 +88,14 @@ function parseDocumentationBlock(file, source) {
     if (!hasValidHtmlWrapper) {
         errors.push(createError(
             relativeFile,
-            "Il commento strutturato non è un commento HTML iniziale valido.",
-            "Posizionalo all'inizio e racchiudi il blocco /** ... */ tra <!-- e -->, così il browser non lo mostra nella pagina.",
+            "The structured comment is not a valid initial HTML comment.",
+            "Place it at the start and wrap the /** ... */ block between <!-- and -->, so the browser does not show it on the page.",
         ));
     }
 
     const lines = normalizeEol(first[0]).split("\n");
     if (lines[0].trim() !== "/**" || lines.at(-1).trim() !== "*/") {
-        errors.push(createError(relativeFile, "Delimitatori del commento strutturato non validi.", "Usa /** su una riga e */ su una riga separata."));
+        errors.push(createError(relativeFile, "Invalid delimiters for the structured comment.", "Put /** on one line and */ on a separate line."));
         return { errors };
     }
 
@@ -103,7 +103,7 @@ function parseDocumentationBlock(file, source) {
     for (let index = 1; index < lines.length - 1; index += 1) {
         const match = lines[index].match(/^\s*\*(?: ?(.*))?$/);
         if (!match) {
-            errors.push(createError(relativeFile, `Riga ${index + 1} del commento non valida.`, "Prefissa ogni riga interna con *.", "commento"));
+            errors.push(createError(relativeFile, `Line ${index + 1} of the comment is invalid.`, "Prefix every inner line with *.", "comment"));
             continue;
         }
         bodyLines.push(match[1] || "");
@@ -136,15 +136,15 @@ function parseDocumentationBlock(file, source) {
             const order = TAG_ORDER.indexOf(tag);
 
             if (order === -1) {
-                errors.push(createError(relativeFile, `Tag sconosciuto @${tag}.`, "Usa solamente i tag previsti dal formato.", `@${tag}`));
+                errors.push(createError(relativeFile, `Unknown tag @${tag}.`, "Use only the tags the format provides.", `@${tag}`));
                 activeTag = null;
                 return;
             }
             if (seenTags.has(tag)) {
-                errors.push(createError(relativeFile, `Sezione @${tag} duplicata.`, "Mantieni una sola sezione per tag.", `@${tag}`));
+                errors.push(createError(relativeFile, `Duplicate section @${tag}.`, "Keep a single section per tag.", `@${tag}`));
             }
             if (order < previousOrder) {
-                errors.push(createError(relativeFile, `La sezione @${tag} non rispetta l'ordine canonico.`, `Usa l'ordine: ${TAG_ORDER.map(item => `@${item}`).join(", ")}.`, `@${tag}`));
+                errors.push(createError(relativeFile, `Section @${tag} breaks the canonical order.`, `Use the order: ${TAG_ORDER.map(item => `@${item}`).join(", ")}.`, `@${tag}`));
             }
 
             seenTags.add(tag);
@@ -152,9 +152,9 @@ function parseDocumentationBlock(file, source) {
             activeTag = tag;
 
             if (LIST_TAGS.has(tag)) {
-                if (value) errors.push(createError(relativeFile, `La sezione @${tag} deve iniziare su una riga senza contenuto.`, "Sposta le voci nelle righe successive con il formato - valore: descrizione.", `@${tag}`));
+                if (value) errors.push(createError(relativeFile, `Section @${tag} must start on a line with no content.`, "Move the entries to the following lines in the format - value: description.", `@${tag}`));
             } else {
-                if (!value) errors.push(createError(relativeFile, `Il tag @${tag} è vuoto.`, "Aggiungi il testo sulla stessa riga del tag.", `@${tag}`));
+                if (!value) errors.push(createError(relativeFile, `The tag @${tag} is empty.`, "Add the text on the same line as the tag.", `@${tag}`));
                 data[tag] = value;
                 activeTag = null;
             }
@@ -162,28 +162,28 @@ function parseDocumentationBlock(file, source) {
         }
 
         if (!activeTag || !LIST_TAGS.has(activeTag)) {
-            errors.push(createError(relativeFile, `Contenuto non associato a un tag alla riga ${lineIndex + 2}.`, "Inserisci il contenuto in una sezione riconosciuta."));
+            errors.push(createError(relativeFile, `Content not attached to a tag at line ${lineIndex + 2}.`, "Put the content in a recognized section."));
             return;
         }
 
         const itemMatch = line.match(/^-\s+([^:]+):\s+(.+)$/);
         if (!itemMatch) {
-            errors.push(createError(relativeFile, `Voce non valida nella sezione @${activeTag}: "${line}".`, "Usa il formato - valore: descrizione.", `@${activeTag}`));
+            errors.push(createError(relativeFile, `Invalid entry in section @${activeTag}: "${line}".`, "Use the format - value: description.", `@${activeTag}`));
             return;
         }
 
         const key = itemMatch[1].trim();
         const description = itemMatch[2].trim();
         if (!key || !description) {
-            errors.push(createError(relativeFile, `Voce incompleta nella sezione @${activeTag}.`, "Specifica sia il valore sia la descrizione.", `@${activeTag}`, key));
+            errors.push(createError(relativeFile, `Incomplete entry in section @${activeTag}.`, "Give both the value and the description.", `@${activeTag}`, key));
             return;
         }
         if (data[activeTag].some(item => item.key === key)) {
-            errors.push(createError(relativeFile, `Valore duplicato "${key}" nella sezione @${activeTag}.`, "Rimuovi la voce duplicata.", `@${activeTag}`, key));
+            errors.push(createError(relativeFile, `Duplicate value "${key}" in section @${activeTag}.`, "Remove the duplicate entry.", `@${activeTag}`, key));
             return;
         }
         if (["pgs-options", "pgs-data"].includes(activeTag) && /[\s[\]]/.test(key)) {
-            errors.push(createError(relativeFile, `La voce @pgs-options "${key}" non è una chiave valida.`, "Documenta la chiave senza payload, per esempio position invece di position[top left].", "@pgs-options", key));
+            errors.push(createError(relativeFile, `The @pgs-options entry "${key}" is not a valid key.`, "Document the key without its payload, for example position instead of position[top left].", "@pgs-options", key));
             return;
         }
         data[activeTag].push({ key, description });
@@ -194,13 +194,13 @@ function parseDocumentationBlock(file, source) {
     requiredTags.forEach(tag => {
         const value = data[tag];
         if (!seenTags.has(tag) || (Array.isArray(value) ? value.length === 0 : !value)) {
-            errors.push(createError(relativeFile, `Sezione obbligatoria @${tag} mancante o vuota.`, `Aggiungi una sezione @${tag} valida.`, `@${tag}`));
+            errors.push(createError(relativeFile, `Required section @${tag} is missing or empty.`, `Add a valid @${tag} section.`, `@${tag}`));
         }
     });
 
     LIST_TAGS.forEach(tag => {
         if (seenTags.has(tag) && data[tag].length === 0) {
-            errors.push(createError(relativeFile, `Sezione @${tag} dichiarata ma vuota.`, `Aggiungi almeno una voce oppure rimuovi la sezione @${tag}.`, `@${tag}`));
+            errors.push(createError(relativeFile, `Section @${tag} is declared but empty.`, `Add at least one entry or remove the @${tag} section.`, `@${tag}`));
         }
     });
 
@@ -208,7 +208,7 @@ function parseDocumentationBlock(file, source) {
     const markupStart = hasValidHtmlWrapper ? documentationContainer.length : first.index + documentationContainer.length;
     const markup = normalizeEol(content.slice(markupStart)).trim();
     if (!markup) {
-        errors.push(createError(relativeFile, "Contenuto HTML mancante sotto il commento.", "Mantieni l'esempio HTML ufficiale dopo il blocco di documentazione."));
+        errors.push(createError(relativeFile, "Missing HTML content below the comment.", "Keep the official HTML example after the documentation block."));
     }
 
     return { errors, data, markup, block: documentationContainer, hasBom };
@@ -403,7 +403,7 @@ function validatePosition(file, option, errors) {
     };
 
     if (parts.length !== 2 || !allowed[side]?.has(align)) {
-        errors.push(createError(file, `Payload non valido per pgs-data dropdownPosition: "${option.payload}".`, "Usa una coppia lato/allineamento compatibile, per esempio dropdownPosition[bottom center].", "@pgs-options", "dropdownPosition"));
+        errors.push(createError(file, `Invalid payload for pgs-data dropdownPosition: "${option.payload}".`, "Use a compatible side/alignment pair, for example dropdownPosition[bottom center].", "@pgs-options", "dropdownPosition"));
     }
 }
 
@@ -427,7 +427,7 @@ function validateTemplate(template, parsed, sources, allSourceContent) {
         for (const value of values) {
             const key = splitOption(value).key;
             if (!ownKeys.has(key) && !documentedRelated.has(key)) {
-                errors.push(createError(file, `Opzione "${key}" non documentata per ${attribute}.`, `Documentala in @${tag} o @related.`, tag, key));
+                errors.push(createError(file, `Option "${key}" is not documented for ${attribute}.`, `Document it in @${tag} or @related.`, tag, key));
             }
         }
     }
@@ -436,7 +436,7 @@ function validateTemplate(template, parsed, sources, allSourceContent) {
 
     attributes.pgs.forEach(token => {
         if (!documentedPgs.has(token) && !documentedGenerated.has(token) && !documentedRelated.has(token)) {
-            errors.push(createError(file, `Valore pgs non documentato: "${token}".`, "Aggiungilo a @pgs oppure a @related.", "@pgs", token));
+            errors.push(createError(file, `Undocumented pgs value: "${token}".`, "Add it to @pgs or to @related.", "@pgs", token));
         }
     });
 
@@ -445,13 +445,13 @@ function validateTemplate(template, parsed, sources, allSourceContent) {
     [...documentedPgs, ...documentedRelated].forEach(token => {
         if (!token.startsWith("_")) return;
 
-        errors.push(createError(file, `Il valore "${token}" inizia con "_" ma non è in @pgs-generated.`, "L'underscore marca solo il markup costruito dalla libreria: spostalo in @pgs-generated oppure togli il prefisso.", documentedPgs.has(token) ? "@pgs" : "@related", token));
+        errors.push(createError(file, `The value "${token}" starts with "_" but is not in @pgs-generated.`, "The underscore only marks markup the library builds: move it to @pgs-generated or drop the prefix.", documentedPgs.has(token) ? "@pgs" : "@related", token));
     });
 
     //== the declaration has to keep matching the JavaScript, otherwise the tag rots into a comment
     documentedGenerated.forEach(token => {
         if (!associatedFacts.emitted.has(token)) {
-            errors.push(createError(file, `Il valore @pgs-generated "${token}" non è generato dal JavaScript.`, "Spostalo in @pgs se ora si scrive a mano, oppure correggi il nome.", "@pgs-generated", token));
+            errors.push(createError(file, `The @pgs-generated value "${token}" is not generated by the JavaScript.`, "Move it to @pgs if it is now written by hand, or fix the name.", "@pgs-generated", token));
         }
     });
 
@@ -460,48 +460,48 @@ function validateTemplate(template, parsed, sources, allSourceContent) {
     associatedFacts.emitted.forEach(token => {
         if (!documentedPgs.has(token) || authoredPgs.has(token)) return;
 
-        errors.push(createError(file, `Il valore @pgs "${token}" è generato dal JavaScript e non compare nell'esempio.`, "Spostalo in @pgs-generated, oppure scrivilo nell'esempio se si può comporre a mano.", "@pgs", token));
+        errors.push(createError(file, `The @pgs value "${token}" is generated by the JavaScript and does not appear in the example.`, "Move it to @pgs-generated, or write it in the example if it can be composed by hand.", "@pgs", token));
     });
 
     documentedPgs.forEach(token => {
         if (documentedGenerated.has(token)) {
-            errors.push(createError(file, `Il valore "${token}" compare sia in @pgs sia in @pgs-generated.`, "Documentalo in una sola sezione.", "@pgs", token));
+            errors.push(createError(file, `The value "${token}" appears in both @pgs and @pgs-generated.`, "Document it in one section only.", "@pgs", token));
         }
 
         if (documentedRelated.has(token)) {
-            errors.push(createError(file, `Il valore "${token}" compare sia in @pgs sia in @related.`, "Documentalo in una sola sezione.", "@pgs", token));
+            errors.push(createError(file, `The value "${token}" appears in both @pgs and @related.`, "Document it in one section only.", "@pgs", token));
         }
     });
 
     [...documentedPgs, ...documentedGenerated, ...documentedRelated].forEach(token => {
         const usedAsOption = [...attributes.options, ...attributes.data].some(value => splitOption(value).key === token);
         if (!attributes.pgs.includes(token) && !usedAsOption && !containsExactToken(allSourceContent, token)) {
-            errors.push(createError(file, `Valore documentato non trovato nel template, JavaScript o SCSS: "${token}".`, "Correggi il nome oppure rimuovi la voce non implementata.", documentedPgs.has(token) ? "@pgs" : "@related", token));
+            errors.push(createError(file, `Documented value not found in the template, JavaScript or SCSS: "${token}".`, "Fix the name or remove the entry that is not implemented.", documentedPgs.has(token) ? "@pgs" : "@related", token));
         }
     });
 
     [...attributes.options, ...attributes.data].forEach(rawOption => {
         const option = splitOption(rawOption);
         if (!option.key) {
-            errors.push(createError(file, `Valore pgs-options non valido: "${rawOption}".`, "Correggi la sintassi dell'attributo pgs-options.", "@pgs-options", rawOption));
+            errors.push(createError(file, `Invalid pgs-options value: "${rawOption}".`, "Fix the syntax of the pgs-options attribute.", "@pgs-options", rawOption));
             return;
         }
         if (!documentedOptions.has(option.key) && !documentedRelated.has(option.key)) {
-            errors.push(createError(file, `Valore pgs-options non documentato: "${option.key}".`, "Aggiungi la chiave alla sezione @pgs-options oppure a @related.", "@pgs-options", option.key));
+            errors.push(createError(file, `Undocumented pgs-options value: "${option.key}".`, "Add the key to the @pgs-options section or to @related.", "@pgs-options", option.key));
         }
         if (["modalContainerID", "modalContainerPGS", "stepTabsIcon"].includes(option.key) && (!option.payload || !option.payload.trim())) {
-            errors.push(createError(file, `Payload mancante per pgs-data "${option.key}".`, `Usa ${option.key}[valore] con un valore non vuoto.`, "@pgs-options", option.key));
+            errors.push(createError(file, `Missing payload for pgs-data "${option.key}".`, `Use ${option.key}[value] with a non-empty value.`, "@pgs-options", option.key));
         }
-        //== stepTabsIcon accetta tre forme: markup completo (da "<"), il nome di un glifo interno, o una
-        //== lista di classi. Solo la seconda deve restare una parola sola, perche' e' una chiave:
-        //== le classi possono essere piu' di una e il markup contiene spazi per costruzione
+        //== stepTabsIcon takes three shapes: full markup (opening with "<"), the name of an internal glyph, or a
+        //== list of classes. Only the second must stay a single word, because it is a key:
+        //== there can be several classes and the markup contains spaces by construction
         if (option.key === "stepTabsIcon") {
             const payload = (option.payload || "").trim();
             if (payload.startsWith("icon-") && /\s/.test(payload)) {
-                errors.push(createError(file, `Il nome di un glifo in stepTabsIcon deve essere una parola sola: "${option.payload}".`, "Usa il markup completo, il nome di un glifo, oppure una lista di classi: stepTabsIcon[icon-check], stepTabsIcon[icon-check], stepTabsIcon[fa-regular fa-star].", "@pgs-options", option.key));
+                errors.push(createError(file, `The name of a glyph in stepTabsIcon must be a single word: "${option.payload}".`, "Use the full markup, the name of a glyph, or a list of classes: stepTabsIcon[<i class='fa-solid fa-check'></i>], stepTabsIcon[icon-check], stepTabsIcon[fa-regular fa-star].", "@pgs-options", option.key));
             }
             if (payload.startsWith("<") && !/<[a-zA-Z][^>]*>/.test(payload)) {
-                errors.push(createError(file, `Il markup di stepTabsIcon non e' un tag valido: "${option.payload}".`, "Scrivi un elemento completo, con gli attributi interni fra apici singoli.", "@pgs-options", option.key));
+                errors.push(createError(file, `The stepTabsIcon markup is not a valid tag: "${option.payload}".`, "Write a complete element, with its inner attributes in single quotes.", "@pgs-options", option.key));
             }
         }
         if (option.key === "dropdownPosition") validatePosition(file, option, errors);
@@ -510,7 +510,7 @@ function validateTemplate(template, parsed, sources, allSourceContent) {
     [...documentation["pgs-options"], ...documentation["pgs-data"]].forEach(item => {
         const inTemplate = [...attributes.options, ...attributes.data].some(value => splitOption(value).key === item.key);
         if (!inTemplate && !associatedFacts.options.has(item.key) && !containsExactToken(allSourceContent, item.key)) {
-            errors.push(createError(file, `Il valore @pgs-options "${item.key}" non è stato trovato nei sorgenti collegati.`, "Correggi il nome o rimuovi l'opzione non implementata.", "@pgs-options", item.key));
+            errors.push(createError(file, `The @pgs-options value "${item.key}" was not found in the linked sources.`, "Fix the name or remove the option that is not implemented.", "@pgs-options", item.key));
         }
     });
 
@@ -520,39 +520,39 @@ function validateTemplate(template, parsed, sources, allSourceContent) {
     //== reads as an offer to configure something this component does not own
     associatedFacts.options.forEach(option => {
         if (!documentedOptions.has(option) && !documentedRelated.has(option)) {
-            errors.push(createError(file, `Opzione supportata ma non documentata: "${option}".`, "Aggiungila alla sezione @pgs-options, oppure a @related se appartiene a un altro componente.", "@pgs-options", option));
+            errors.push(createError(file, `Supported option that is not documented: "${option}".`, "Add it to the @pgs-options section, or to @related if it belongs to another component.", "@pgs-options", option));
         }
     });
 
     attributes.states.forEach(state => {
         if (!documentedStates.has(state)) {
-            errors.push(createError(file, `Valore pgs-state non documentato: "${state}".`, "Aggiungilo alla sezione @pgs-state.", "@pgs-state", state));
+            errors.push(createError(file, `Undocumented pgs-state value: "${state}".`, "Add it to the @pgs-state section.", "@pgs-state", state));
         }
     });
 
     documentation["pgs-state"].forEach(item => {
         if (!attributes.states.includes(item.key) && !associatedFacts.states.has(item.key) && !containsExactToken(allSourceContent, item.key)) {
-            errors.push(createError(file, `Il valore @pgs-state "${item.key}" non è stato trovato nel template, JavaScript o SCSS collegato.`, "Correggi il nome o rimuovi lo stato non implementato.", "@pgs-state", item.key));
+            errors.push(createError(file, `The @pgs-state value "${item.key}" was not found in the linked template, JavaScript or SCSS.`, "Fix the name or remove the state that is not implemented.", "@pgs-state", item.key));
         }
     });
 
     associatedFacts.states.forEach(state => {
         if (!documentedStates.has(state)) {
-            errors.push(createError(file, `Stato supportato ma non documentato: "${state}".`, "Aggiungilo alla sezione @pgs-state.", "@pgs-state", state));
+            errors.push(createError(file, `Supported state that is not documented: "${state}".`, "Add it to the @pgs-state section.", "@pgs-state", state));
         }
     });
 
     documentation.api.forEach(item => {
         const signature = item.key.match(/^(?:new\s+)?((?:pgs|instance)(?:\.[A-Za-z_$][\w$]*)+)\([^)]*\)$/);
         if (!signature) {
-            errors.push(createError(file, `Firma API non valida: "${item.key}".`, "Usa una firma chiamabile, per esempio pgs.modal.api(element) oppure instance.open().", "@api", item.key));
+            errors.push(createError(file, `Invalid API signature: "${item.key}".`, "Use a callable signature, for example pgs.modal.api(element) or instance.open().", "@api", item.key));
             return;
         }
 
         const identifiers = signature[1].split(".");
         const implementationName = identifiers.at(-1);
         if (!containsExactToken(allSourceContent, implementationName)) {
-            errors.push(createError(file, `API documentata non trovata nei sorgenti: "${item.key}".`, "Correggi la firma oppure rimuovi il metodo non esposto.", "@api", item.key));
+            errors.push(createError(file, `Documented API not found in the sources: "${item.key}".`, "Fix the signature or remove the method that is not exposed.", "@api", item.key));
         }
     });
 
@@ -850,14 +850,14 @@ function renderMarkdown(template, documentation, markup, allSourceContent) {
 
 function printErrors(errors) {
     errors.forEach(error => {
-        console.error(`[ERRORE] ${error.file}`);
+        console.error(`[ERROR] ${error.file}`);
         console.error(error.message);
-        if (error.section) console.error(`Sezione: ${error.section}`);
-        if (error.value) console.error(`Valore: ${error.value}`);
-        console.error(`Suggerimento: ${error.suggestion}`);
+        if (error.section) console.error(`Section: ${error.section}`);
+        if (error.value) console.error(`Value: ${error.value}`);
+        console.error(`Hint: ${error.suggestion}`);
         console.error("");
     });
-    console.error(`Generazione annullata: ${errors.length} errori bloccanti.`);
+    console.error(`Generation aborted: ${errors.length} blocking errors.`);
 }
 
 function main() {
@@ -875,7 +875,7 @@ function main() {
     });
     outputPaths.forEach((files, output) => {
         if (files.length < 2) return;
-        errors.push(createError(relativeToProject(files[0]), `Collisione del percorso di output "docs/${output}" tra: ${files.map(relativeToProject).join(", ")}.`, "Rinomina uno dei template per ottenere percorsi Markdown distinti."));
+        errors.push(createError(relativeToProject(files[0]), `Output path collision "docs/${output}" between: ${files.map(relativeToProject).join(", ")}.`, "Rename one of the templates to get distinct Markdown paths."));
     });
 
     const sources = loadSources();
@@ -905,20 +905,20 @@ function main() {
         if (!fs.existsSync(output)) {
             fs.writeFileSync(output, content, "utf8");
             counts.created += 1;
-            console.log(`[CREATO] ${relativeToProject(output)}`);
+            console.log(`[CREATED] ${relativeToProject(output)}`);
             return;
         }
 
         const existing = normalizeEol(fs.readFileSync(output, "utf8"));
         if (existing === content) {
             counts.unchanged += 1;
-            console.log(`[INVARIATO] ${relativeToProject(output)}`);
+            console.log(`[UNCHANGED] ${relativeToProject(output)}`);
             return;
         }
 
         fs.writeFileSync(output, content, "utf8");
         counts.updated += 1;
-        console.log(`[AGGIORNATO] ${relativeToProject(output)}`);
+        console.log(`[UPDATED] ${relativeToProject(output)}`);
     });
 
     MANAGED_DOC_DIRECTORIES
@@ -929,16 +929,16 @@ function main() {
         if (!GENERATED_MARKER.test(firstLine)) return;
         fs.unlinkSync(file);
         counts.removed += 1;
-        console.log(`[RIMOSSO] ${relativeToProject(file)}`);
+        console.log(`[REMOVED] ${relativeToProject(file)}`);
         });
 
     console.log("");
-    console.log(`Riepilogo: ${references.length} riferimenti HTML validati; ${counts.created} creati; ${counts.updated} aggiornati; ${counts.unchanged} invariati; ${counts.removed} obsoleti rimossi.`);
+    console.log(`Summary: ${references.length} HTML references validated; ${counts.created} created; ${counts.updated} updated; ${counts.unchanged} unchanged; ${counts.removed} stale removed.`);
 }
 
 try {
     main();
 } catch (error) {
-    console.error(`[ERRORE] ${error.message}`);
+    console.error(`[ERROR] ${error.message}`);
     process.exitCode = 1;
 }

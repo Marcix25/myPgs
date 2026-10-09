@@ -2,12 +2,12 @@
 
 # Alerts
 
-Feedback messages for information, success, warnings and errors. It is one component that does several things, and which of them are on depends on where it is used. Written by hand in markup it is a static message. Created through pgs.alert.* it can also be dismissed, carry action buttons and close itself after a timeout — all off until asked for. Notification and Toast are this same alert with those features switched on and their own container around it: a scrollable panel for Notification, a single floating card for Toast. Nothing about the card itself is redone there. Two custom events come from the card whenever it has a dismiss button, buttons or a timeout: pgs:alert:buttonClick on a buttons[] element when clicked (detail: id, buttonId, type, title, description, link; cancelable — call event.preventDefault() to stop a link's navigation and finish async work first), and pgs:alert:close on the card right before it is removed, whether by its own dismiss button, by its timeout, by a button that closes, or by a host closing it programmatically with its pgsAlertClose() method (detail: id, type, title, description).
+Feedback messages for information, success, warnings and errors. It is one component that does several things, and which of them are on depends on where it is used. Written by hand in markup it is a static message. Created through pgs.alert.* it can also be dismissed, carry action buttons and close itself after a timeout — all off until asked for. Notification and Toast are this same alert with those features switched on and their own container around it: a scrollable panel for Notification, a single floating card for Toast. Nothing about the card itself is redone there. Two custom events come from the card whenever it has a dismiss button, buttons or a timeout, both bubbling and both with the element they were raised on as detail.element: pgs:alert:buttonClick on a buttons[] element when clicked (detail: element, id, buttonId, type, title, description, link; cancelable — call event.preventDefault() to stop a link's navigation and finish async work first), and pgs:alert:close on the card right before it is removed, whether by its own dismiss button, by its timeout, by a button that closes, or by a host closing it programmatically with its pgsAlertClose() method (detail: element, id, type, title, description). A card closes once: a second way of closing it while it fades out, such as a dismiss with the timeout still counting, changes nothing and raises nothing, and the timeout is cleared. An invalid argument to a pgs.alert.* method throws a TypeError that starts with pgs.alert.<severity>().
 
 ## PGS
 
 - `alertContainer`: marks the element that receives the alerts created through JavaScript with root or container; with none present the JavaScript creates one before the submit button, or at the start of root.
-- `alert`: identifies the card, written by hand like this or built by the JS API. Its severity is a flag in its own bracket, as in alert['info'].
+- `alert`: identifies the card, written by hand like this or built by the JS API. Its severity is a flag in its own bracket, as in alert['alertInfo'].
 - `alert-icon`: write it yourself, bare like this, when authoring the alert in markup: the status icon. It is optional; without it the text takes the whole card.
 - `alert-content`: the same, for the element that groups the title and the descriptive message.
 - `alert-content-title`: the same, for the heading. It is optional too.
@@ -22,11 +22,11 @@ Feedback messages for information, success, warnings and errors. It is one compo
 
 ## PGS Options (component brackets)
 
-- `neutral`: no severity of its own, so it keeps a plain box surface; the same look a bare alert has with no option at all.
-- `info`: presents neutral informational feedback.
-- `success`: presents confirmation of a successful operation.
-- `warning`: presents a condition that requires attention.
-- `error`: presents a failure or blocking problem.
+- `alertNeutral`: no severity of its own, so it keeps a plain box surface; the same look a bare alert has with no option at all.
+- `alertInfo`: presents neutral informational feedback.
+- `alertSuccess`: presents confirmation of a successful operation.
+- `alertWarning`: presents a condition that requires attention.
+- `alertError`: presents a failure or blocking problem.
 
 ## JavaScript API
 
@@ -110,7 +110,7 @@ document.addEventListener("pgs:alert:buttonClick", event => {
 No severity of its own: a plain box surface, the same look a bare alert has with no option at all.
 
 ```html
-<div pgs="alert['neutral']" role="status">
+<div pgs="alert['alertNeutral']" role="status">
     <i pgs="icon['icon-circleInfo'] alert-icon" aria-hidden="true"></i>
     <div pgs="alert-content">
         <strong pgs="alert-content-title">Heads up</strong>
@@ -124,7 +124,7 @@ No severity of its own: a plain box surface, the same look a bare alert has with
 Neutral informational feedback.
 
 ```html
-<div pgs="alert['info']" role="status">
+<div pgs="alert['alertInfo']" role="status">
     <i pgs="icon['icon-circleInfo'] alert-icon" aria-hidden="true"></i>
     <div pgs="alert-content">
         <strong pgs="alert-content-title">Information</strong>
@@ -138,7 +138,7 @@ Neutral informational feedback.
 Confirmation of a successful operation.
 
 ```html
-<div pgs="alert['success']" role="status">
+<div pgs="alert['alertSuccess']" role="status">
     <i pgs="icon['icon-circleCheck'] alert-icon" aria-hidden="true"></i>
     <div pgs="alert-content">
         <strong pgs="alert-content-title">Changes saved</strong>
@@ -152,7 +152,7 @@ Confirmation of a successful operation.
 A condition that requires the user's attention. Error and warning carry role alert, so a screen reader announces them at once; the others carry role status and wait until it is idle.
 
 ```html
-<div pgs="alert['warning']" role="alert">
+<div pgs="alert['alertWarning']" role="alert">
     <i pgs="icon['icon-triangleExclamation'] alert-icon" aria-hidden="true"></i>
     <div pgs="alert-content">
         <strong pgs="alert-content-title">Check your information</strong>
@@ -166,7 +166,7 @@ A condition that requires the user's attention. Error and warning carry role ale
 A failure or blocking problem.
 
 ```html
-<div pgs="alert['error']" role="alert">
+<div pgs="alert['alertError']" role="alert">
     <i pgs="icon['icon-circleXmark'] alert-icon" aria-hidden="true"></i>
     <div pgs="alert-content">
         <strong pgs="alert-content-title">Unable to save</strong>
@@ -180,7 +180,7 @@ A failure or blocking problem.
 Both are optional. Leave them out and the text simply takes the whole card.
 
 ```html
-<div pgs="alert['info']" role="status">
+<div pgs="alert['alertInfo']" role="status">
     <div pgs="alert-content">
         <p>A short note that needs neither a glyph nor a heading.</p>
     </div>
