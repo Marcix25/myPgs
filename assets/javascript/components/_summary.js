@@ -111,7 +111,7 @@ function initializeSummary(summary, initialMessages) {
         content.style.setProperty("--_summary-content-height", `${nextHeight}px`);
     }
 
-    //+ measures the content again, keeping it open or closed as it was
+    // measures the content again, keeping it open or closed as it was
     function measure() {
         const wasOpen = isOpen();
         content.style.setProperty("--_summary-content-height", "none");
@@ -178,10 +178,10 @@ function PGS_summary_init(root = document, options = {}) {
     PGS_roots(root, "summary").forEach(summary => initializeSummary(summary, initialMessages));
 }
 
-//= INIT
+//# INIT
 PGS_onDocumentReady(PGS_summary_init);
 
-//= API
+//# API
 function PGS_summary_api(selector) {
     return API.get(selector);
 }

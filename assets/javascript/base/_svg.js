@@ -7,7 +7,7 @@ import { PGS_invalid } from "../helper/_warn.js";
 
 const SVG_OBJECT = 'object[type="image/svg+xml"]';
 
-//+ the <object> elements that hold an svg: the root itself when it is one, then everything under it
+// the <object> elements that hold an svg: the root itself when it is one, then everything under it
 function svgObjects(root = document) {
     const objects = Array.from(root.querySelectorAll(SVG_OBJECT));
     if (root instanceof Element && root.matches(SVG_OBJECT)) objects.unshift(root);
@@ -27,7 +27,7 @@ const svgColors = {
         return pgs(document.documentElement).state.contains("darkmode");
     },
 
-    //+ the "old & new" pairs an author declares as --svg-color-1 … --svg-color-19
+    // the "old & new" pairs an author declares as --svg-color-1 … --svg-color-19
     searchColor() {
         const ROOT = getComputedStyle(document.documentElement);
         const colors = [];

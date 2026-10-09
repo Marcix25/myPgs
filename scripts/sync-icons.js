@@ -1,21 +1,21 @@
 //= SYNC ICONS
-//+ reads the plain .svg files in assets/icons/ and writes their content into
-//+ assets/scss/mixin/_mx-icons.scss as the url("data:image/svg+xml,...") data URIs the icon
-//+ component consumes. Run it after adding or editing a file in assets/icons/:
-//+ node scripts/sync-icons.js
-//+
-//+ Naming convention read from assets/icons/:
-//+ - "icon-name.svg" is a single-layer glyph -> $icon-name, added to $icons-builtin under the bare
-//+   key "name", which _icon.scss turns into the icon bracket flag icon-name and the --icon-glyph-name
-//+   custom property.
-//+ - "iconDuo-name-before.svg" + "iconDuo-name-after.svg" (same base name, -before/-after
-//+   suffix) are the two layers of a duo glyph -> $iconDuo-name-before/-after, paired as
-//+   iconDuo-name in $icons-duo. -before draws on ::before, -after on ::after.
-//+
-//+ Existing entries are updated in place (their surrounding comments are left untouched); new
-//+ ones are appended before the $icons-builtin / $icons-duo maps. Nothing is ever removed here,
-//+ even if its .svg file disappears from assets/icons/, since another part of the library may
-//+ still reference the option.
+// reads the plain .svg files in assets/icons/ and writes their content into
+// assets/scss/mixin/_mx-icons.scss as the url("data:image/svg+xml,...") data URIs the icon
+// component consumes. Run it after adding or editing a file in assets/icons/:
+// node scripts/sync-icons.js
+//
+// Naming convention read from assets/icons/:
+// - "icon-name.svg" is a single-layer glyph -> $icon-name, added to $icons-builtin under the bare
+//   key "name", which _icon.scss turns into the icon bracket flag icon-name and the --icon-glyph-name
+//   custom property.
+// - "iconDuo-name-before.svg" + "iconDuo-name-after.svg" (same base name, -before/-after
+//   suffix) are the two layers of a duo glyph -> $iconDuo-name-before/-after, paired as
+//   iconDuo-name in $icons-duo. -before draws on ::before, -after on ::after.
+//
+// Existing entries are updated in place (their surrounding comments are left untouched); new
+// ones are appended before the $icons-builtin / $icons-duo maps. Nothing is ever removed here,
+// even if its .svg file disappears from assets/icons/, since another part of the library may
+// still reference the option.
 const fs = require("fs");
 const path = require("path");
 
@@ -36,9 +36,9 @@ function encodeSvg(raw) {
         .trim();
 }
 
-//+ the SCSS variable keeps the file's own name ($icon-star), while the map key is the bare glyph
-//+ name: _icon.scss writes the two prefixes where they are used, icon- for the public option and
-//+ --icon-glyph- for the custom property that carries the drawing
+// the SCSS variable keeps the file's own name ($icon-star), while the map key is the bare glyph
+// name: _icon.scss writes the two prefixes where they are used, icon- for the public option and
+// --icon-glyph- for the custom property that carries the drawing
 function mapKey(name) {
     return name.startsWith("icon-") ? name.slice("icon-".length) : name;
 }

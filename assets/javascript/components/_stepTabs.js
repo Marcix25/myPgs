@@ -5,7 +5,7 @@ import { PGS_warn, PGS_invalid } from "../helper/_warn.js";
 
 const API = new WeakMap();
 
-//+ BUILD
+//# BUILD
 // builds the instance of one wizard and returns its API, or null when its markup cannot be initialized
 function PGS_stepTabs_build(tabsWizard) {
     //# SELECTOR
@@ -33,7 +33,7 @@ function PGS_stepTabs_build(tabsWizard) {
     const eventController = new AbortController();
     const { signal } = eventController;
 
-    //- CREATE DOTS
+    //## CREATE DOTS
     const tabDots = [];
     if (dots) {
         dots.innerHTML = "";
@@ -85,7 +85,7 @@ function PGS_stepTabs_build(tabsWizard) {
         });
     }
 
-    //+ DOTS
+    //## DOTS
     function updateDots() {
         tabDots.forEach((dot, i) => {
             pgs(dot).state.toggle("active", i === current);
@@ -93,14 +93,14 @@ function PGS_stepTabs_build(tabsWizard) {
         });
     }
 
-    //+ CONTROLS
+    //## CONTROLS
     function updateControls() {
         const tab = allTab[current];
         if (prev) prev.disabled = current === 0;
         if (next) next.disabled = current === total - 1 || pgs(tab).state.contains("locked");
     }
 
-    //+ Step
+    //## Step
     function goTo(index, scroll = true) {
         current = Math.min(Math.max(index, 0), total - 1);
         const tab = allTab[current];
@@ -117,7 +117,7 @@ function PGS_stepTabs_build(tabsWizard) {
         PGS_dispatch(tabsWizard, "pgs:stepTabs:change", { current, total });
     }
 
-    //+ restart
+    //## restart
     // the locks go back first, so the controls goTo redraws already see them
     function restartTab() {
         defaultTabLocked.forEach(tab => pgs(tab).state.add("locked"));
@@ -145,7 +145,7 @@ function PGS_stepTabs_build(tabsWizard) {
         API.delete(tabsWizard);
     };
 
-    //-(API)
+    //## API
     const api = {
         element: tabsWizard,
         container: tabsContainer,

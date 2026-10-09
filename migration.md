@@ -441,6 +441,7 @@ exist while `pageShellAsideScroll` is on, and the old names read as if every sid
 | `pgs-option="buttonClose"` | `pgs-option="buttonIcon buttonMini"` |
 | `--border` | `--border-width`, alongside the new `--border-style` |
 | `--border-complete-hover` | gone; nothing replaces it |
+| `--hover-primaryColor` | gone: it only held `--color-secondary-soft`; `--hover-background` and `--hover-border` now hold that color directly, so set those two to change a hover |
 | `--button-background-active` | `--button-background-checked` |
 | `--button-color-active` | `--button-color-checked` |
 | `--button-border-color-active` | `--button-border-color-checked` |

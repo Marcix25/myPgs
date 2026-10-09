@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 
 
-//- ENTRY
+//# ENTRY
 const entryJs = {
     index: "./assets/javascript/index.js",
 };

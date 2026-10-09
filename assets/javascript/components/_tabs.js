@@ -5,8 +5,8 @@ import { PGS_invalid, PGS_warn } from "../helper/_warn.js";
 
 const API = new WeakMap();
 
-//+ the tab buttons whose id the module generated: an id the author wrote is what reaches the URL, and
-//+ a refresh has to keep telling the two apart
+// the tab buttons whose id the module generated: an id the author wrote is what reaches the URL, and
+// a refresh has to keep telling the two apart
 const GENERATED_IDS = new WeakSet();
 
 function initializeTabs(tabs) {
@@ -83,7 +83,7 @@ function initializeTabs(tabs) {
         pgs(element).state.toggle("active", active);
     }
 
-    //+ writes the selection to the DOM and announces it
+    // writes the selection to the DOM and announces it
     function show(index, { focus = false, history = true } = {}) {
         current = index;
         if (history) writeHistory();

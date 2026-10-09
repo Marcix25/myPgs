@@ -6,12 +6,12 @@ import { PGS_warn } from "../helper/_warn.js";
 //# ACCORDION
 const API = new WeakMap();
 
-//+ the buttons whose aria-label the module composed itself: an aria-label on a button that is not in
-//+ here is the author's own and is never overwritten. It has to be remembered outside the DOM, or a
-//+ refresh would take the label the module wrote for the author's
+// the buttons whose aria-label the module composed itself: an aria-label on a button that is not in
+// here is the author's own and is never overwritten. It has to be remembered outside the DOM, or a
+// refresh would take the label the module wrote for the author's
 const COMPOSED_LABELS = new WeakSet();
 
-//+ how long the open/close transition runs, read from the same --accordion-timing the CSS uses
+// how long the open/close transition runs, read from the same --accordion-timing the CSS uses
 function accordionTiming(accordion) {
     const raw = window.getComputedStyle(accordion).getPropertyValue("--accordion-timing").trim();
     const value = parseFloat(raw);
@@ -19,11 +19,11 @@ function accordionTiming(accordion) {
     return raw.endsWith("ms") ? value : value * 1000;
 }
 
-//+ keeps an element where it is on screen while the layout above it moves: closing a tall sibling
-//+ pulls everything below it up, so the panel the reader just clicked would slide away under the
-//+ pointer and leave them far down the page. Follows it for as long as the transition runs.
-//+ behavior "instant", so a page with scroll-behavior: smooth does not turn each correction into
-//+ an animation of its own. Stops as soon as the signal of the accordion that asked is aborted
+// keeps an element where it is on screen while the layout above it moves: closing a tall sibling
+// pulls everything below it up, so the panel the reader just clicked would slide away under the
+// pointer and leave them far down the page. Follows it for as long as the transition runs.
+// behavior "instant", so a page with scroll-behavior: smooth does not turn each correction into
+// an animation of its own. Stops as soon as the signal of the accordion that asked is aborted
 function keepInPlace(element, duration, signal) {
     const startTop = element.getBoundingClientRect().top;
     const end = performance.now() + duration + 50;
@@ -39,7 +39,7 @@ function keepInPlace(element, duration, signal) {
     requestAnimationFrame(step);
 }
 
-//+ Accessibility (writes the open/closed state)
+//## Accessibility (writes the open/closed state)
 // the composed label says what the click does, and is only written when the author has
 // not named the control themselves: a hand-written aria-label is the page's own wording
 // and survives every toggle
@@ -87,7 +87,7 @@ function initializeAccordion(accordion) {
     CONTENT.setAttribute("role", "region");
     CONTENT.setAttribute("aria-labelledby", BUTTON.id);
 
-    //+ Close the others of the group
+    //## Close the others of the group
     // only the accordions of this same group: an accordionContainer nested in another one
     // keeps its own panels to itself, which is why the nearest container is compared rather
     // than trusting the descendant search. accAutoOpen is left alone on purpose — it
@@ -108,7 +108,7 @@ function initializeAccordion(accordion) {
         }
     }
 
-    //+ FN ACCORDION
+    //## FN ACCORDION
     function accordionFunction() {
         const isOpen = pgs(accordion).state.contains("open");
         const nowOpen = !isOpen;
@@ -149,10 +149,10 @@ function initializeAccordion(accordion) {
     pgs(accordion).state.toggle("open", isOpenInit);
     accordionAccessibility(isOpenInit, BUTTON, CONTENT);
 
-    //- Events
+    //## Events
     BUTTON.addEventListener("click", accordionFunction, { signal });
 
-    //- Keyboard: Enter / Space
+    //## Keyboard: Enter / Space
     BUTTON.addEventListener("keydown", (e) => {
         if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
@@ -187,10 +187,10 @@ function PGS_accordion_init(root = document) {
     PGS_roots(root, "accordion").forEach(accordion => initializeAccordion(accordion));
 }
 
-//= INIT
+//# INIT
 PGS_onDocumentReady(PGS_accordion_init);
 
-//= API
+//# API
 function PGS_accordion_api(selector) {
     return API.get(selector);
 }

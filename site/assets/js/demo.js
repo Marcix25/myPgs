@@ -1,17 +1,17 @@
 //= DEMO (browser-only runtime, shared by every generated site/*.html page)
-//+ Every page built by scripts/build-site-static.js loads this file — nothing here fetches or
-//+ parses a reference file, whatever it runs against. It wires up the parts that must run in a
-//+ real browser: the actual pgs component library (notification, modal, accordion, ...), and the
-//+ "copy to clipboard" buttons. Nav click / hash navigation between reference panels is pgs.pageNav's
-//+ own job now (pgs="pageNav" on <body>, see site/index.html + page/demo.html), not this
-//+ file's. Most of what is left here only matters on the page that actually carries the reference
-//+ panels — site/build/demo.html, built in memory from page/demo.html and the reference panels —
-//+ and no-ops harmlessly on any other. The configure*Demo functions only ever look for
-//+ [data-reference="..."] in the page, so a new interactive example is wired up here and nowhere else.
+// Every page built by scripts/build-site-static.js loads this file — nothing here fetches or
+// parses a reference file, whatever it runs against. It wires up the parts that must run in a
+// real browser: the actual pgs component library (notification, modal, accordion, ...), and the
+// "copy to clipboard" buttons. Nav click / hash navigation between reference panels is pgs.pageNav's
+// own job now (pgs="pageNav" on <body>, see site/index.html + page/demo.html), not this
+// file's. Most of what is left here only matters on the page that actually carries the reference
+// panels — site/build/demo.html, built in memory from page/demo.html and the reference panels —
+// and no-ops harmlessly on any other. The configure*Demo functions only ever look for
+// [data-reference="..."] in the page, so a new interactive example is wired up here and nowhere else.
 
-//+ the pre-navigator.clipboard way of copying: put the text in a field, select it, let the browser
-//+ copy the selection. setSelectionRange as well as select(), because iOS Safari ignores the latter
-//+ on its own; off-screen rather than hidden, since a display:none field cannot be selected at all
+// the pre-navigator.clipboard way of copying: put the text in a field, select it, let the browser
+// copy the selection. setSelectionRange as well as select(), because iOS Safari ignores the latter
+// on its own; off-screen rather than hidden, since a display:none field cannot be selected at all
 function copyBySelection(text) {
     const field = document.createElement("textarea");
     field.value = text;
@@ -33,9 +33,9 @@ function copyBySelection(text) {
     return copied;
 }
 
-//+ navigator.clipboard only exists in a secure context: opening the demo over plain http from
-//+ another device (npm run serve:lan, a phone on the same network) or straight from file:// leaves
-//+ it undefined, which is why the fallback above is still here
+// navigator.clipboard only exists in a secure context: opening the demo over plain http from
+// another device (npm run serve:lan, a phone on the same network) or straight from file:// leaves
+// it undefined, which is why the fallback above is still here
 async function copyText(text) {
     if (navigator.clipboard?.writeText) {
         try {

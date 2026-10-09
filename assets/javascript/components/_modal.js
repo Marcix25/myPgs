@@ -108,19 +108,19 @@ function initializeModal(MODAL) {
     }
 
 
-    //+ FN STATUS
+    //## FN STATUS
     function statusModal(status = true) {
         BUTTON_OPEN?.setAttribute("aria-expanded", status);
         DIALOG.setAttribute("aria-expanded", status);
     }
 
-    //+ FN EVENT
-    //+ pgs:modal:open and pgs:modal:close reach every listener once, wherever it sits. The event goes
-    //+ out on the dialog and bubbles up from there: with dialogTopLevel the dialog is still inside its
-    //+ wrapper, so that already passes through the wrapper. A dialog moved elsewhere is not under the
-    //+ wrapper, so the wrapper gets an event of its own, and that one would reach the ancestors the two
-    //+ share a second time: it is stopped at the wrapper's ancestor just below the first one that
-    //+ holds the dialog, so the shared ancestors and everything above only hear the dialog's
+    //## FN EVENT
+    // pgs:modal:open and pgs:modal:close reach every listener once, wherever it sits. The event goes
+    // out on the dialog and bubbles up from there: with dialogTopLevel the dialog is still inside its
+    // wrapper, so that already passes through the wrapper. A dialog moved elsewhere is not under the
+    // wrapper, so the wrapper gets an event of its own, and that one would reach the ancestors the two
+    // share a second time: it is stopped at the wrapper's ancestor just below the first one that
+    // holds the dialog, so the shared ancestors and everything above only hear the dialog's
     function dispatchModal(name) {
         const detail = { modal: MODAL, dialog: DIALOG };
         PGS_dispatch(DIALOG, name, detail);
@@ -134,7 +134,7 @@ function initializeModal(MODAL) {
         last.removeEventListener(name, stop);
     }
 
-    //+ FN ANIMATION
+    //## FN ANIMATION
     // dialogAnimation*: the panel comes in on open and goes back on close — dialogAnimationZoom
     // grows it out of the button that opened it, the way PhotoSwipe zooms a thumbnail, and
     // dialogAnimationLeft/Right/Top/Bottom slide it in from that edge of the screen. The
@@ -181,13 +181,13 @@ function initializeModal(MODAL) {
         return Promise.all(animations.map(animation => animation.finished));
     }
 
-    //+ FN DRAG CLOSE
-    //+ dialogDragClose: on a touch screen, dragging the panel down follows the finger and fades
-    //+ the backdrop, the way PhotoSwipe lets a photo be pulled away. Let go far or fast enough and
-    //+ the panel carries on down and the dialog closes; otherwise it springs back. The JavaScript
-    //+ only tracks the finger — the distance goes to --_modal-drag-y and the fade to
-    //+ --_modal-drag-progress on the dialog — and the dragging/dragClose states hand following,
-    //+ springing back and leaving to _modal.scss.
+    //## FN DRAG CLOSE
+    // dialogDragClose: on a touch screen, dragging the panel down follows the finger and fades
+    // the backdrop, the way PhotoSwipe lets a photo be pulled away. Let go far or fast enough and
+    // the panel carries on down and the dialog closes; otherwise it springs back. The JavaScript
+    // only tracks the finger — the distance goes to --_modal-drag-y and the fade to
+    // --_modal-drag-progress on the dialog — and the dragging/dragClose states hand following,
+    // springing back and leaving to _modal.scss.
     const dragClose = {
         START: 10, // px of vertical travel before a touch counts as a drag
         CLOSE: 0.15, // share of the viewport height that closes on release
@@ -277,7 +277,7 @@ function initializeModal(MODAL) {
         },
     };
 
-    //+ FN OPEN
+    //## FN OPEN
     function openModal(e) {
         e?.stopImmediatePropagation();
         if (DIALOG.open) {
@@ -297,7 +297,7 @@ function initializeModal(MODAL) {
         dispatchModal(EVENT_OPEN);
     }
 
-    //+ FN CLOSE
+    //## FN CLOSE
     function closeModal(e) {
         e?.stopImmediatePropagation()
         // a second request while the closing animation is still running changes nothing
@@ -326,7 +326,7 @@ function initializeModal(MODAL) {
         if (DIALOG.open) closeModal(e);
     }
 
-    //+ fn OPEN ON HISTORY
+    //## fn OPEN ON HISTORY
     function openModalOnHistory() {
         const params = new URLSearchParams(window.location.search);
         if (params.get('modal') !== BUTTON_OPEN?.id) return;
@@ -438,10 +438,10 @@ function PGS_modal_init(root = document) {
     PGS_roots(root, "modal").forEach(MODAL => initializeModal(MODAL));
 }
 
-//= INIT PGS_modal
+//# INIT PGS_modal
 PGS_onDocumentReady(PGS_modal_init);
 
-//= API
+//# API
 function PGS_modal_api(element) {
     return API.get(element);
 }

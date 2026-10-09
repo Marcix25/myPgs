@@ -38,7 +38,7 @@ const pageNavUtil = {
     },
 };
 
-//+ BUILD
+//# BUILD
 // builds the instance of one pageNav root and returns its API, or null when its markup cannot be initialized
 function PGS_pageNav_build(pageNav) {
     const panelsRoot = pgs(pageNav).querySelector("pageNav-panels");

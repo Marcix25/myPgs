@@ -44,8 +44,8 @@ function listGuideFiles() {
         .sort((a, b) => toPosix(a).localeCompare(toPosix(b), "en"));
 }
 
-//+ a guide only ever needs @title and @description, both single-line: it has no pgs tokens, no
-//+ options, no API of its own to list, so there is nothing else to require or validate
+// a guide only ever needs @title and @description, both single-line: it has no pgs tokens, no
+// options, no API of its own to list, so there is nothing else to require or validate
 function parseGuide(file, source) {
     const errors = [];
     const relativeFile = relativeToProject(file);
@@ -97,8 +97,8 @@ function unescapeHtml(value) {
         .replace(/&amp;/g, "&");
 }
 
-//+ inline formatting inside a paragraph or list item: code/strong/em/a, then flatten any
-//+ line-wrapping from the source into single spaces, matching how a browser would collapse it
+// inline formatting inside a paragraph or list item: code/strong/em/a, then flatten any
+// line-wrapping from the source into single spaces, matching how a browser would collapse it
 function convertInline(html) {
     return unescapeHtml(
         html
@@ -109,8 +109,8 @@ function convertInline(html) {
     ).replace(/\s+/g, " ").trim();
 }
 
-//+ the whole supported vocabulary: h2-h4, p, ul/ol > li, and pre>code (fenced, left verbatim
-//+ aside from unescaping). Anything else in a guide's body is a mistake, not a silent pass-through.
+// the whole supported vocabulary: h2-h4, p, ul/ol > li, and pre>code (fenced, left verbatim
+// aside from unescaping). Anything else in a guide's body is a mistake, not a silent pass-through.
 const BLOCK_PATTERN = /<h([234])>([\s\S]*?)<\/h\1>|<p>([\s\S]*?)<\/p>|<(ul|ol)>([\s\S]*?)<\/\4>|<pre><code(?:\s+class="language-([\w-]+)")?>([\s\S]*?)<\/code><\/pre>/g;
 const LIST_ITEM_PATTERN = /<li>([\s\S]*?)<\/li>/g;
 

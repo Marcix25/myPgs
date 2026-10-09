@@ -8,9 +8,9 @@ import { fn_alert } from "./_alerts.js";
 const LOADED = new WeakSet();
 
 //# PGS_toast
-//+ the single floating stack: one message at a time, fixed on screen. It only owns the container
-//+ and reads its data (pgs-data="toast[...]"), then hands everything to the shared alert engine
-//+ (see _alerts.js) — dismiss, timeout, countdown bar and events are the alert's own.
+// the single floating stack: one message at a time, fixed on screen. It only owns the container
+// and reads its data (pgs-data="toast[...]"), then hands everything to the shared alert engine
+// (see _alerts.js) — dismiss, timeout, countdown bar and events are the alert's own.
 const fn_toast = {
     _defaults: {
         timeout: 4000

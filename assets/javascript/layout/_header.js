@@ -4,7 +4,7 @@ import { PGS_roots } from "../helper/_dom.js";
 import { PGS_rafThrottle, PGS_watchDocument } from "../helper/_throttle.js";
 
 //= HEADER
-//+ COMPACT BREAKPOINT
+//# COMPACT BREAKPOINT
 // Width at or below which the header switches to its compact layout even when the content
 // still fits, so a wide header can be compact on purpose.
 // headerCompactFrom[600] wins with its own pixel value, otherwise the named options
@@ -18,7 +18,7 @@ function getCompactBreakpoint(header) {
     return Number.isFinite(declared) ? declared : 600;
 }
 
-//+ OVERFLOW TOLERANCE
+//# OVERFLOW TOLERANCE
 // scrollWidth and clientWidth are whole pixels while the layout underneath is fractional, so a
 // header whose content almost exactly fills the row can report a pixel of overflow that is not
 // there. Two pixels absorb that without letting real overflow through.
@@ -83,19 +83,19 @@ function initResize(header) {
 
 //# HEADER HEIGHT
 function initHeight(header) {
-    //+ GET HEADER HEIGHT ELEMENT
+    //## GET HEADER HEIGHT ELEMENT
     function getHeaderHeightElement(header) {
         const isCompactBottom = window.getComputedStyle(header).getPropertyValue("--header-compactBottom-active").trim() === "1";
         return isCompactBottom ? pgs(header).querySelector("header-element") || header : header;
     }
 
-    //+ FOR --_header-height and --_header-heightScroll
+    // FOR --_header-height and --_header-heightScroll
     function getPrimaryHeader() {
         const headers = getReadyHeaders();
         return headers.find(header => pgs(header).option.contains("headerMain")) || headers[0] || null;
     }
 
-    //+ HEIGHT
+    //## HEIGHT
     function headerHeight() {
         // --_header-height is what pushes the page down, so only one header can own it. Ownership
         // is checked here rather than at init, so a header declaring main later still
@@ -153,7 +153,7 @@ function initScroll(header) {
 }
 
 
-//= INIT
+//# INIT
 const INITIALIZED_HEADERS = new WeakSet();
 
 function initHeader(header) {
@@ -165,7 +165,7 @@ function initHeader(header) {
     initScroll(header);
 }
 
-//+ a header is only ready once it holds a header-element, which is where every measurement happens
+// a header is only ready once it holds a header-element, which is where every measurement happens
 function getReadyHeaders() {
     return Array.from(pgs(document).querySelectorAll("header")).filter(header => pgs(header).querySelector("header-element"));
 }
@@ -179,7 +179,7 @@ function PGS_header_init(root = document) {
 PGS_onDocumentReady(PGS_header_init);
 PGS_watchDocument(() => PGS_header_init());
 
-//= EXPORT
+//# EXPORT
 export const PGS_header = {
     init: PGS_header_init
 };

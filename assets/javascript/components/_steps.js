@@ -4,7 +4,7 @@ import { PGS_roots, PGS_directChildren, PGS_directChild } from "../helper/_dom.j
 
 const API = new WeakMap();
 
-//+ BUILD
+//# BUILD
 // completes every step of one list and returns its API
 function PGS_steps_build(steps) {
     PGS_directChildren(steps, "steps-step").forEach((li, index) => {
@@ -62,7 +62,7 @@ function PGS_steps_init(root = document) {
 
 PGS_onDocumentReady(PGS_steps_init);
 
-//= API
+//# API
 function PGS_steps_api(selector) {
     return API.get(selector);
 }

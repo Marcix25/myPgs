@@ -1,6 +1,6 @@
 //= PGS MAP
-//+ builds reference/pgs-map.json: every pgs root with the pgs children and its CSS flags / pgs-data keys
-//+ it accepts. Run it after adding or renaming a token: node scripts/generate-pgs-map.js
+// builds reference/pgs-map.json: every pgs root with the pgs children and its CSS flags / pgs-data keys
+// it accepts. Run it after adding or renaming a token: node scripts/generate-pgs-map.js
 const fs = require("fs");
 const path = require("path");
 const postcss = require("postcss");

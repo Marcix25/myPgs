@@ -92,26 +92,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   pgs: () => (/* binding */ pgs)
 /* harmony export */ });
-//+ shared helpers for the "key", "key['flag' ...]" and "key[payload]" bracket syntax — used by
-//+ the pgs attribute itself and by every pgs-data accessor below, so a fix here fixes all of them
+// shared helpers for the "key", "key['flag' ...]" and "key[payload]" bracket syntax — used by
+// the pgs attribute itself and by every pgs-data accessor below, so a fix here fixes all of them
 const BracketToken = {
-    //+ the part before an opening "[", or the whole token when there is none
+    // the part before an opening "[", or the whole token when there is none
     key(value) {
         return String(value).trim().match(/^[^\s[\]]+/)?.[0] || "";
     },
 
-    //+ every quoted 'flag' inside a token's own ['flag' ...] bracket
+    // every quoted 'flag' inside a token's own ['flag' ...] bracket
     flags(token) {
         const open = token.indexOf("[");
         return open === -1 ? [] : [...token.slice(open + 1).matchAll(/'([^']+)'/g)].map(match => match[1]);
     },
 
-    //+ rebuilds "key['flag' ...]", or the bare key when there is nothing to carry
+    // rebuilds "key['flag' ...]", or the bare key when there is nothing to carry
     component(key, flags) {
         return flags.length ? `${key}[${[...new Set(flags)].map(flag => `'${flag}'`).join(" ")}]` : key;
     },
 
-    //+ index of the "]" matching the "[" at openIndex, counting nested brackets and ignoring any "[" / "]" inside a JSON string (respects \" escapes)
+    // index of the "]" matching the "[" at openIndex, counting nested brackets and ignoring any "[" / "]" inside a JSON string (respects \" escapes)
     findClose(source, openIndex) {
         let depth = 0;
         let inString = false;
@@ -142,7 +142,7 @@ const BracketToken = {
         return -1;
     },
 
-    //+ splits a pgs or pgs-data value into tokens, keeping "key[...]" whole even when the payload contains its own [...] (e.g. a JSON array)
+    // splits a pgs or pgs-data value into tokens, keeping "key[...]" whole even when the payload contains its own [...] (e.g. a JSON array)
     split(source) {
         const tokens = [];
         let i = 0;
@@ -166,9 +166,9 @@ const BracketToken = {
     },
 };
 
-//+ read/rebuild helper for one element's attribute, in bracket-token form: shared by the pgs
-//+ attribute and by every pgs-data accessor, since each of them only ever reads/writes its own
-//+ element this way — traversal code that needs an arbitrary element reads it directly instead
+// read/rebuild helper for one element's attribute, in bracket-token form: shared by the pgs
+// attribute and by every pgs-data accessor, since each of them only ever reads/writes its own
+// element this way — traversal code that needs an arbitrary element reads it directly instead
 function createBracketAttribute(element, attribute) {
     return {
         read: () => BracketToken.split(element.getAttribute(attribute) || ""),
@@ -193,12 +193,12 @@ function pgs(root) {
         throw new TypeError("pgs(root): root must support querySelector/querySelectorAll");
     }
 
-    //+
+    //
     function attrOnlyForElements(methodName) {
         throw new TypeError(`pgs(${root.nodeName || "root"}).${methodName}(): available on an Element only, not on a Document`);
     };
 
-    //+
+    //
     function concatSelector(value, attribute = ATTR) {
         if (Array.isArray(value)) value = value.join(",");
         return String(value)
@@ -544,7 +544,7 @@ function pgs(root) {
         return api;
     }
 
-    //= RETURN
+    //# RETURN
     const api = createPgs();
     api.state = createState("pgs-state");
     api.option = createOption();
@@ -601,7 +601,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const INITIALIZED_BUTTONS = new WeakSet();
 
-//+ CHANGE ICON
+//# CHANGE ICON
 // the glyph is not the author's choice here: the library owns it, because it has to say which way
 // the switch is pointing. It draws it from the built-in set so the control is never blank, and
 // looks for a marked element as well as an <i>, so an icon set that renders anything else still
@@ -619,7 +619,7 @@ function changeIcon(selector, isDarkMode) {
     });
 }
 
-//+ STORED CHOICE
+//# STORED CHOICE
 // localStorage throws when the browser blocks site data, and answers null in some private windows:
 // either way the choice lives in memory for the rest of the page, so the switch still works
 const STORAGE_KEY = "screenIsDarkMode";
@@ -638,7 +638,7 @@ function writeStoredChoice(isDarkMode) {
     try { localStorage.setItem(STORAGE_KEY, isDarkMode); } catch (_) { }
 }
 
-//+ SET STATUS
+//# SET STATUS
 function setDarkmodeStatus(toggle = false, button = []) {
     let isDarkMode = readStoredChoice();
 
@@ -718,7 +718,7 @@ __webpack_require__.r(__webpack_exports__);
 // surfaces that are clickable by definition, so the author keeps writing only the component token
 // while the element still carries a real pgs value that SCSS, JavaScript and the inspector read.
 
-//+ tokens that get the hover treatment, with the extra condition each one has to satisfy
+// tokens that get the hover treatment, with the extra condition each one has to satisfy
 const HOVER_TARGETS = {
     // a button is clickable whatever its tag
     button: () => true,
@@ -733,7 +733,7 @@ const TOKENS = Object.keys(HOVER_TARGETS);
 // and stays, whatever the element turns into later
 const MARKED = new WeakSet();
 
-//+ SYNC HOVER
+//# SYNC HOVER
 function syncHover(element) {
     if (!(element instanceof Element)) return;
 
@@ -818,7 +818,7 @@ function handleMutations(mutations) {
     });
 });
 
-//= EXPORT
+//# EXPORT
 const PGS_hover = {
     init: PGS_hover_init
 };
@@ -849,7 +849,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const SVG_OBJECT = 'object[type="image/svg+xml"]';
 
-//+ the <object> elements that hold an svg: the root itself when it is one, then everything under it
+// the <object> elements that hold an svg: the root itself when it is one, then everything under it
 function svgObjects(root = document) {
     const objects = Array.from(root.querySelectorAll(SVG_OBJECT));
     if (root instanceof Element && root.matches(SVG_OBJECT)) objects.unshift(root);
@@ -869,7 +869,7 @@ const svgColors = {
         return (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document.documentElement).state.contains("darkmode");
     },
 
-    //+ the "old & new" pairs an author declares as --svg-color-1 … --svg-color-19
+    // the "old & new" pairs an author declares as --svg-color-1 … --svg-color-19
     searchColor() {
         const ROOT = getComputedStyle(document.documentElement);
         const colors = [];
@@ -1037,12 +1037,12 @@ __webpack_require__.r(__webpack_exports__);
 //# ACCORDION
 const API = new WeakMap();
 
-//+ the buttons whose aria-label the module composed itself: an aria-label on a button that is not in
-//+ here is the author's own and is never overwritten. It has to be remembered outside the DOM, or a
-//+ refresh would take the label the module wrote for the author's
+// the buttons whose aria-label the module composed itself: an aria-label on a button that is not in
+// here is the author's own and is never overwritten. It has to be remembered outside the DOM, or a
+// refresh would take the label the module wrote for the author's
 const COMPOSED_LABELS = new WeakSet();
 
-//+ how long the open/close transition runs, read from the same --accordion-timing the CSS uses
+// how long the open/close transition runs, read from the same --accordion-timing the CSS uses
 function accordionTiming(accordion) {
     const raw = window.getComputedStyle(accordion).getPropertyValue("--accordion-timing").trim();
     const value = parseFloat(raw);
@@ -1050,11 +1050,11 @@ function accordionTiming(accordion) {
     return raw.endsWith("ms") ? value : value * 1000;
 }
 
-//+ keeps an element where it is on screen while the layout above it moves: closing a tall sibling
-//+ pulls everything below it up, so the panel the reader just clicked would slide away under the
-//+ pointer and leave them far down the page. Follows it for as long as the transition runs.
-//+ behavior "instant", so a page with scroll-behavior: smooth does not turn each correction into
-//+ an animation of its own. Stops as soon as the signal of the accordion that asked is aborted
+// keeps an element where it is on screen while the layout above it moves: closing a tall sibling
+// pulls everything below it up, so the panel the reader just clicked would slide away under the
+// pointer and leave them far down the page. Follows it for as long as the transition runs.
+// behavior "instant", so a page with scroll-behavior: smooth does not turn each correction into
+// an animation of its own. Stops as soon as the signal of the accordion that asked is aborted
 function keepInPlace(element, duration, signal) {
     const startTop = element.getBoundingClientRect().top;
     const end = performance.now() + duration + 50;
@@ -1070,7 +1070,7 @@ function keepInPlace(element, duration, signal) {
     requestAnimationFrame(step);
 }
 
-//+ Accessibility (writes the open/closed state)
+//## Accessibility (writes the open/closed state)
 // the composed label says what the click does, and is only written when the author has
 // not named the control themselves: a hand-written aria-label is the page's own wording
 // and survives every toggle
@@ -1118,7 +1118,7 @@ function initializeAccordion(accordion) {
     CONTENT.setAttribute("role", "region");
     CONTENT.setAttribute("aria-labelledby", BUTTON.id);
 
-    //+ Close the others of the group
+    //## Close the others of the group
     // only the accordions of this same group: an accordionContainer nested in another one
     // keeps its own panels to itself, which is why the nearest container is compared rather
     // than trusting the descendant search. accAutoOpen is left alone on purpose — it
@@ -1139,7 +1139,7 @@ function initializeAccordion(accordion) {
         }
     }
 
-    //+ FN ACCORDION
+    //## FN ACCORDION
     function accordionFunction() {
         const isOpen = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).state.contains("open");
         const nowOpen = !isOpen;
@@ -1180,10 +1180,10 @@ function initializeAccordion(accordion) {
     ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).state.toggle("open", isOpenInit);
     accordionAccessibility(isOpenInit, BUTTON, CONTENT);
 
-    //- Events
+    //## Events
     BUTTON.addEventListener("click", accordionFunction, { signal });
 
-    //- Keyboard: Enter / Space
+    //## Keyboard: Enter / Space
     BUTTON.addEventListener("keydown", (e) => {
         if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
@@ -1218,10 +1218,10 @@ function PGS_accordion_init(root = document) {
     ;(0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_roots)(root, "accordion").forEach(accordion => initializeAccordion(accordion));
 }
 
-//= INIT
+//# INIT
 ;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(PGS_accordion_init);
 
-//= API
+//# API
 function PGS_accordion_api(selector) {
     return API.get(selector);
 }
@@ -1771,7 +1771,7 @@ function initializeDropdown(DROPDOWN) {
         open: () => openDropdown(DROPDOWN),
         close: () => closeDropdown(DROPDOWN),
         toggle: () => toggleDropdown(DROPDOWN),
-        //+ recompute where the panel sits, for when its content changed size without reopening
+        // recompute where the panel sits, for when its content changed size without reopening
         reposition: () => updatePosition(DROPDOWN),
         destroy,
         refresh: () => {
@@ -1857,7 +1857,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const API = new WeakMap();
 
-//+ the toggle looks and sits the same whichever behavior it drives, so it is built once here
+// the toggle looks and sits the same whichever behavior it drives, so it is built once here
 function createToggle(link) {
     const button = document.createElement("button");
     button.type = "button";
@@ -1869,8 +1869,8 @@ function createToggle(link) {
     return button;
 }
 
-//+ opens the submenu in place instead of floating it: used everywhere a dropdown would either
-//+ overflow the viewport or hide the branch the reader is already inside
+// opens the submenu in place instead of floating it: used everywhere a dropdown would either
+// overflow the viewport or hide the branch the reader is already inside
 function setupAccordion(li, button, ul, signal) {
     ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(li).add("_menu-accordion");
 
@@ -1966,7 +1966,7 @@ function PGS_menu_api(selector) {
     return API.get(selector);
 }
 
-//= EXPORT
+//# EXPORT
 const PGS_menu = {
     init: PGS_menu_init,
     api: PGS_menu_api
@@ -2099,19 +2099,19 @@ function initializeModal(MODAL) {
     }
 
 
-    //+ FN STATUS
+    //## FN STATUS
     function statusModal(status = true) {
         BUTTON_OPEN?.setAttribute("aria-expanded", status);
         DIALOG.setAttribute("aria-expanded", status);
     }
 
-    //+ FN EVENT
-    //+ pgs:modal:open and pgs:modal:close reach every listener once, wherever it sits. The event goes
-    //+ out on the dialog and bubbles up from there: with dialogTopLevel the dialog is still inside its
-    //+ wrapper, so that already passes through the wrapper. A dialog moved elsewhere is not under the
-    //+ wrapper, so the wrapper gets an event of its own, and that one would reach the ancestors the two
-    //+ share a second time: it is stopped at the wrapper's ancestor just below the first one that
-    //+ holds the dialog, so the shared ancestors and everything above only hear the dialog's
+    //## FN EVENT
+    // pgs:modal:open and pgs:modal:close reach every listener once, wherever it sits. The event goes
+    // out on the dialog and bubbles up from there: with dialogTopLevel the dialog is still inside its
+    // wrapper, so that already passes through the wrapper. A dialog moved elsewhere is not under the
+    // wrapper, so the wrapper gets an event of its own, and that one would reach the ancestors the two
+    // share a second time: it is stopped at the wrapper's ancestor just below the first one that
+    // holds the dialog, so the shared ancestors and everything above only hear the dialog's
     function dispatchModal(name) {
         const detail = { modal: MODAL, dialog: DIALOG };
         (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_1__.PGS_dispatch)(DIALOG, name, detail);
@@ -2125,7 +2125,7 @@ function initializeModal(MODAL) {
         last.removeEventListener(name, stop);
     }
 
-    //+ FN ANIMATION
+    //## FN ANIMATION
     // dialogAnimation*: the panel comes in on open and goes back on close — dialogAnimationZoom
     // grows it out of the button that opened it, the way PhotoSwipe zooms a thumbnail, and
     // dialogAnimationLeft/Right/Top/Bottom slide it in from that edge of the screen. The
@@ -2172,13 +2172,13 @@ function initializeModal(MODAL) {
         return Promise.all(animations.map(animation => animation.finished));
     }
 
-    //+ FN DRAG CLOSE
-    //+ dialogDragClose: on a touch screen, dragging the panel down follows the finger and fades
-    //+ the backdrop, the way PhotoSwipe lets a photo be pulled away. Let go far or fast enough and
-    //+ the panel carries on down and the dialog closes; otherwise it springs back. The JavaScript
-    //+ only tracks the finger — the distance goes to --_modal-drag-y and the fade to
-    //+ --_modal-drag-progress on the dialog — and the dragging/dragClose states hand following,
-    //+ springing back and leaving to _modal.scss.
+    //## FN DRAG CLOSE
+    // dialogDragClose: on a touch screen, dragging the panel down follows the finger and fades
+    // the backdrop, the way PhotoSwipe lets a photo be pulled away. Let go far or fast enough and
+    // the panel carries on down and the dialog closes; otherwise it springs back. The JavaScript
+    // only tracks the finger — the distance goes to --_modal-drag-y and the fade to
+    // --_modal-drag-progress on the dialog — and the dragging/dragClose states hand following,
+    // springing back and leaving to _modal.scss.
     const dragClose = {
         START: 10, // px of vertical travel before a touch counts as a drag
         CLOSE: 0.15, // share of the viewport height that closes on release
@@ -2268,7 +2268,7 @@ function initializeModal(MODAL) {
         },
     };
 
-    //+ FN OPEN
+    //## FN OPEN
     function openModal(e) {
         e?.stopImmediatePropagation();
         if (DIALOG.open) {
@@ -2288,7 +2288,7 @@ function initializeModal(MODAL) {
         dispatchModal(EVENT_OPEN);
     }
 
-    //+ FN CLOSE
+    //## FN CLOSE
     function closeModal(e) {
         e?.stopImmediatePropagation()
         // a second request while the closing animation is still running changes nothing
@@ -2317,7 +2317,7 @@ function initializeModal(MODAL) {
         if (DIALOG.open) closeModal(e);
     }
 
-    //+ fn OPEN ON HISTORY
+    //## fn OPEN ON HISTORY
     function openModalOnHistory() {
         const params = new URLSearchParams(window.location.search);
         if (params.get('modal') !== BUTTON_OPEN?.id) return;
@@ -2429,10 +2429,10 @@ function PGS_modal_init(root = document) {
     ;(0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_1__.PGS_roots)(root, "modal").forEach(MODAL => initializeModal(MODAL));
 }
 
-//= INIT PGS_modal
+//# INIT PGS_modal
 ;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_2__.PGS_onDocumentReady)(PGS_modal_init);
 
-//= API
+//# API
 function PGS_modal_api(element) {
     return API.get(element);
 }
@@ -2473,10 +2473,10 @@ const BELLS = new WeakMap();
 const LOADED = new WeakSet();
 
 //# PGS_notification
-//+ the group manager: one modal that holds the scrollable panel, every notificationBell that opens
-//+ it, and the counter and empty state. It only reads its data and hands it to the shared alert
-//+ engine (see _alerts.js): every message inside the panel is that alert card, built dismissible,
-//+ with its buttons, never timed by default.
+// the group manager: one modal that holds the scrollable panel, every notificationBell that opens
+// it, and the counter and empty state. It only reads its data and hands it to the shared alert
+// engine (see _alerts.js): every message inside the panel is that alert card, built dismissible,
+// with its buttons, never timed by default.
 const fn_notification = {
     _defaults: {
         emptyMessage: "No notifications",
@@ -2671,8 +2671,8 @@ const fn_notification = {
     }
 };
 
-//= TRIGGER
-//+ opening/closing the panel is the one modal's job; every notificationBell just asks it to toggle
+//# TRIGGER
+// opening/closing the panel is the one modal's job; every notificationBell just asks it to toggle
 function PGS_notificationLoad_init(root = document) {
     fn_notification._bindBells(root);
     fn_notification.load(root);
@@ -2751,7 +2751,7 @@ const pageNavUtil = {
     },
 };
 
-//+ BUILD
+//# BUILD
 // builds the instance of one pageNav root and returns its API, or null when its markup cannot be initialized
 function PGS_pageNav_build(pageNav) {
     const panelsRoot = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(pageNav).querySelector("pageNav-panels");
@@ -3404,13 +3404,13 @@ const THRESHOLDS = Array.from({ length: 101 }, (_, i) => i / 100); // 0%,1%,2%..
 const SCROLL_BEHAVIOR = "smooth";
 
 class PGS_Slides {
-    //- CONSTRUCTOR
+    //## CONSTRUCTOR
     constructor({ element } = {}) {
         this.element = element;
         this.container = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.element).querySelector("slides-container");
     }
     
-    //+ CREATE BUTTON 
+    //## CREATE BUTTON
     #createButtonsAndDots() {
         const EL = this.element;
 
@@ -3444,7 +3444,7 @@ class PGS_Slides {
         });
     }
 
-    //+ SLIDE THE ARROWS MOVE FROM
+    //## SLIDE THE ARROWS MOVE FROM
     // slidesSingleScroll starts from the middle one in view, the one the snap is resting on: from the
     // first, with three slides showing, the next sibling is already centered and nothing scrolls
     #currentSlide(towardsEnd) {
@@ -3475,7 +3475,7 @@ class PGS_Slides {
         return towardsEnd ? currents[currents.length - 1] : currents[0];
     }
 
-    //+ GO TO A SLIDE
+    //## GO TO A SLIDE
     // the two ends run the scroll out instead of centering, so the margin they carry is scrolled
     // through and the card lines up with the page content
     #goToSlide(slide) {
@@ -3504,12 +3504,12 @@ class PGS_Slides {
         slide.focus({ preventScroll: true });
     }
 
-    //+ LOOP
+    //## LOOP
     #isLoop() {
         return (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.element).option.contains('slidesLoop');
     }
 
-    //+ PREV
+    //## PREV
     // no slide left to move to, but the scroll has not run out: the edge slide is showing with
     // its margin still to come, so the arrow finishes the scroll instead of doing nothing.
     // slidesLoop replaces that fallback with the last slide instead of staying put
@@ -3519,19 +3519,19 @@ class PGS_Slides {
         this.#goToSlide(previous ?? (this.#isLoop() ? all[all.length - 1] : all[0]));
     }
 
-    //+ NEXT
+    //## NEXT
     #nextSlide() {
         const all = this.container.children;
         const next = this.#currentSlide(true)?.nextElementSibling;
         this.#goToSlide(next ?? (this.#isLoop() ? all[0] : all[all.length - 1]));
     }
 
-    //+ GO TO NUMBER SLIDE
+    //## GO TO NUMBER SLIDE
     #goToNumberSlide(index) {
         this.#goToSlide(this.container.children[index]);
     }
 
-    //+ CALLBACK
+    //## CALLBACK
     #callback(allLi, container, prevButton, nextButton, dots) {
         allLi.forEach(LI => {
             // visiblePercent only feeds the scale animation; a slide is in view from VIEW_RATIO
@@ -3558,7 +3558,7 @@ class PGS_Slides {
         this.#updateArrows(prevButton, nextButton);
     }
 
-    //+ ARROWS STATE
+    //## ARROWS STATE
     // an arrow goes off only at the end of the scroll, not as soon as the edge slide is in view:
     // that slide carries a margin, so it can be entirely on screen with a stretch still to run,
     // and the arrow is what runs it. slidesLoop wraps around instead, so neither arrow ever
@@ -3632,7 +3632,7 @@ class PGS_Slides {
             API.delete(this.element);
         };
 
-        //- API
+        //## API
         const api = {
             element: this.element,
             container: this.container,
@@ -3664,7 +3664,7 @@ class PGS_Slides {
     }
 }
 
-//= INIT 
+//# INIT
 function PGS_slides_init(root = document) {
     ;(0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_roots)(root, "slides").forEach(element => {
         if (API.has(element)) return;
@@ -3675,7 +3675,7 @@ function PGS_slides_init(root = document) {
 
 ;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(PGS_slides_init);
 
-//= API 
+//# API
 function PGS_slides_api(element) {
     return API.get(element);
 }
@@ -3709,7 +3709,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const API = new WeakMap();
 
-//+ BUILD
+//# BUILD
 // builds the instance of one wizard and returns its API, or null when its markup cannot be initialized
 function PGS_stepTabs_build(tabsWizard) {
     //# SELECTOR
@@ -3737,7 +3737,7 @@ function PGS_stepTabs_build(tabsWizard) {
     const eventController = new AbortController();
     const { signal } = eventController;
 
-    //- CREATE DOTS
+    //## CREATE DOTS
     const tabDots = [];
     if (dots) {
         dots.innerHTML = "";
@@ -3789,7 +3789,7 @@ function PGS_stepTabs_build(tabsWizard) {
         });
     }
 
-    //+ DOTS
+    //## DOTS
     function updateDots() {
         tabDots.forEach((dot, i) => {
             ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dot).state.toggle("active", i === current);
@@ -3797,14 +3797,14 @@ function PGS_stepTabs_build(tabsWizard) {
         });
     }
 
-    //+ CONTROLS
+    //## CONTROLS
     function updateControls() {
         const tab = allTab[current];
         if (prev) prev.disabled = current === 0;
         if (next) next.disabled = current === total - 1 || (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(tab).state.contains("locked");
     }
 
-    //+ Step
+    //## Step
     function goTo(index, scroll = true) {
         current = Math.min(Math.max(index, 0), total - 1);
         const tab = allTab[current];
@@ -3821,7 +3821,7 @@ function PGS_stepTabs_build(tabsWizard) {
         ;(0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_dispatch)(tabsWizard, "pgs:stepTabs:change", { current, total });
     }
 
-    //+ restart
+    //## restart
     // the locks go back first, so the controls goTo redraws already see them
     function restartTab() {
         defaultTabLocked.forEach(tab => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(tab).state.add("locked"));
@@ -3849,7 +3849,7 @@ function PGS_stepTabs_build(tabsWizard) {
         API.delete(tabsWizard);
     };
 
-    //-(API)
+    //## API
     const api = {
         element: tabsWizard,
         container: tabsContainer,
@@ -3929,7 +3929,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const API = new WeakMap();
 
-//+ BUILD
+//# BUILD
 // completes every step of one list and returns its API
 function PGS_steps_build(steps) {
     (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_directChildren)(steps, "steps-step").forEach((li, index) => {
@@ -3987,7 +3987,7 @@ function PGS_steps_init(root = document) {
 
 ;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(PGS_steps_init);
 
-//= API
+//# API
 function PGS_steps_api(selector) {
     return API.get(selector);
 }
@@ -4127,7 +4127,7 @@ function initializeSummary(summary, initialMessages) {
         content.style.setProperty("--_summary-content-height", `${nextHeight}px`);
     }
 
-    //+ measures the content again, keeping it open or closed as it was
+    // measures the content again, keeping it open or closed as it was
     function measure() {
         const wasOpen = isOpen();
         content.style.setProperty("--_summary-content-height", "none");
@@ -4194,10 +4194,10 @@ function PGS_summary_init(root = document, options = {}) {
     (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_roots)(root, "summary").forEach(summary => initializeSummary(summary, initialMessages));
 }
 
-//= INIT
+//# INIT
 ;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(PGS_summary_init);
 
-//= API
+//# API
 function PGS_summary_api(selector) {
     return API.get(selector);
 }
@@ -4231,8 +4231,8 @@ __webpack_require__.r(__webpack_exports__);
 
 const API = new WeakMap();
 
-//+ the tab buttons whose id the module generated: an id the author wrote is what reaches the URL, and
-//+ a refresh has to keep telling the two apart
+// the tab buttons whose id the module generated: an id the author wrote is what reaches the URL, and
+// a refresh has to keep telling the two apart
 const GENERATED_IDS = new WeakSet();
 
 function initializeTabs(tabs) {
@@ -4309,7 +4309,7 @@ function initializeTabs(tabs) {
         (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).state.toggle("active", active);
     }
 
-    //+ writes the selection to the DOM and announces it
+    // writes the selection to the DOM and announces it
     function show(index, { focus = false, history = true } = {}) {
         current = index;
         if (history) writeHistory();
@@ -4448,9 +4448,9 @@ __webpack_require__.r(__webpack_exports__);
 const LOADED = new WeakSet();
 
 //# PGS_toast
-//+ the single floating stack: one message at a time, fixed on screen. It only owns the container
-//+ and reads its data (pgs-data="toast[...]"), then hands everything to the shared alert engine
-//+ (see _alerts.js) — dismiss, timeout, countdown bar and events are the alert's own.
+// the single floating stack: one message at a time, fixed on screen. It only owns the container
+// and reads its data (pgs-data="toast[...]"), then hands everything to the shared alert engine
+// (see _alerts.js) — dismiss, timeout, countdown bar and events are the alert's own.
 const fn_toast = {
     _defaults: {
         timeout: 4000
@@ -4578,10 +4578,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-//+ the elements a module's init(root) has to look at: the root itself when it carries the token,
-//+ then everything under it. Every module resolves its roots through here, so pgs.init(el) on a
-//+ node that was just inserted behaves the same whichever component the node is. `token` takes the
-//+ same string or array that pgs().querySelectorAll does
+// the elements a module's init(root) has to look at: the root itself when it carries the token,
+// then everything under it. Every module resolves its roots through here, so pgs.init(el) on a
+// node that was just inserted behaves the same whichever component the node is. `token` takes the
+// same string or array that pgs().querySelectorAll does
 function PGS_roots(root, token) {
     if (!(root instanceof Document || root instanceof Element)) {
         throw (0,_warn_js__WEBPACK_IMPORTED_MODULE_1__.PGS_invalid)("init", "root must be a Document or an Element");
@@ -4594,18 +4594,18 @@ function PGS_roots(root, token) {
     return roots;
 }
 
-//+ the children of `parent` (not the descendants) that carry the token, or any of them
+// the children of `parent` (not the descendants) that carry the token, or any of them
 function PGS_directChildren(parent, token) {
     const tokens = [].concat(token);
     return Array.from(parent.children).filter(child => tokens.some(item => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(child).contains(item)));
 }
 
-//+ the first of them, or null
+// the first of them, or null
 function PGS_directChild(parent, token) {
     return PGS_directChildren(parent, token)[0] || null;
 }
 
-//+ "prefix-1", "prefix-2", ... one counter per prefix, for the ids a module generates
+// "prefix-1", "prefix-2", ... one counter per prefix, for the ids a module generates
 const ID_COUNTERS = new Map();
 
 function PGS_uniqueId(prefix) {
@@ -4614,9 +4614,9 @@ function PGS_uniqueId(prefix) {
     return `${prefix}-${next}`;
 }
 
-//+ every pgs:* event goes through here: it bubbles, and its detail always carries the element it
-//+ was dispatched on, next to whatever the module adds. Pass { cancelable: true } only for an
-//+ event whose default action the author can stop (pgs:alert:buttonClick)
+// every pgs:* event goes through here: it bubbles, and its detail always carries the element it
+// was dispatched on, next to whatever the module adds. Pass { cancelable: true } only for an
+// event whose default action the author can stop (pgs:alert:buttonClick)
 function PGS_dispatch(target, name, detail = {}, { cancelable = false } = {}) {
     const event = new CustomEvent(name, { bubbles: true, cancelable, detail: { element: target, ...detail } });
     target.dispatchEvent(event);
@@ -4645,8 +4645,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-//+ formMessage/formMessageTitle live only in pgs-data, and .data has no querySelector — find
-//+ the nearest descendant carrying either key's payload directly
+// formMessage/formMessageTitle live only in pgs-data, and .data has no querySelector — find
+// the nearest descendant carrying either key's payload directly
 function findDataDescendant(root, keys) {
     for (const element of root.querySelectorAll("[pgs-data]")) {
         if (keys.some(key => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).data.getValueBrackets(key) !== undefined)) return element;
@@ -4796,7 +4796,7 @@ class PGS_formValidate {
     // + --------------------------
     #inputValue(container) {
 
-        //++ add rule
+        //## add rule
         const ruleInvalidFields = [];
         for (const rule of this._rules) {
             const res = rule(container);
@@ -4915,7 +4915,7 @@ class PGS_formValidate {
         return [...new Set(invalidFields.flat())];
     }
 
-    //+ ADD
+    //## ADD
     #addFieldError(field, i = 0, total = 1) {
         ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(field).state.add("errorField");
 
@@ -4950,7 +4950,7 @@ class PGS_formValidate {
         }
     }
 
-    //+ REMOVE
+    //## REMOVE
     #removeFieldError(field) {
         this.#temporaryFieldErrors.delete(field);
         (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(field).state.remove("errorField");
@@ -5079,8 +5079,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_onDocumentReady: () => (/* binding */ PGS_onDocumentReady)
 /* harmony export */ });
-//+ runs the callback once the DOM is parsed. Without a document (server-side rendering, a test
-//+ runner) there is nothing to wait for or to run against, so it does nothing
+// runs the callback once the DOM is parsed. Without a document (server-side rendering, a test
+// runner) there is nothing to wait for or to run against, so it does nothing
 function PGS_onDocumentReady(callback) {
     if (typeof document === "undefined") return;
 
@@ -5106,9 +5106,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_escapeHtml: () => (/* binding */ PGS_escapeHtml),
 /* harmony export */   PGS_formatText: () => (/* binding */ PGS_formatText)
 /* harmony export */ });
-//+ escapes text that gets interpolated into innerHTML, shared by the components that build their own
-//+ markup from supplied strings: the alert card (the titles and descriptions of alerts, and of
-//+ the notifications and toasts built on it) and the search suggestions (their labels)
+// escapes text that gets interpolated into innerHTML, shared by the components that build their own
+// markup from supplied strings: the alert card (the titles and descriptions of alerts, and of
+// the notifications and toasts built on it) and the search suggestions (their labels)
 function PGS_escapeHtml(value) {
     return String(value ?? "")
         .replaceAll("&", "&amp;")
@@ -5118,8 +5118,8 @@ function PGS_escapeHtml(value) {
         .replaceAll("'", "&#039;");
 }
 
-//+ the shared bit of markdown the alert card accepts in its title and description: **bold** and line
-//+ breaks, applied after escaping so the source text can contain < > & unescaped
+// the shared bit of markdown the alert card accepts in its title and description: **bold** and line
+// breaks, applied after escaping so the source text can contain < > & unescaped
 function PGS_formatText(value) {
     return PGS_escapeHtml(value)
         .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
@@ -5140,9 +5140,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_rafThrottle: () => (/* binding */ PGS_rafThrottle),
 /* harmony export */   PGS_watchDocument: () => (/* binding */ PGS_watchDocument)
 /* harmony export */ });
-//+ runs the callback at most once per frame, however many times the returned function is called.
-//+ The arguments of the last call in the frame are the ones it receives. `.cancel()` drops a call
-//+ that has not run yet, for the destroy() of a module
+// runs the callback at most once per frame, however many times the returned function is called.
+// The arguments of the last call in the frame are the ones it receives. `.cancel()` drops a call
+// that has not run yet, for the destroy() of a module
 function PGS_rafThrottle(callback) {
     let frame = 0;
     let lastArgs = [];
@@ -5165,9 +5165,9 @@ function PGS_rafThrottle(callback) {
     return throttled;
 }
 
-//+ watches the whole document for nodes that arrive later and calls back once per frame, for the
-//+ modules that have to find their own markup after the page is ready (header, navSmart). Returns
-//+ the observer so a caller can disconnect it, or null when there is no document to watch
+// watches the whole document for nodes that arrive later and calls back once per frame, for the
+// modules that have to find their own markup after the page is ready (header, navSmart). Returns
+// the observer so a caller can disconnect it, or null when there is no document to watch
 function PGS_watchDocument(callback, options = { childList: true, subtree: true }) {
     if (typeof document === "undefined" || typeof MutationObserver === "undefined") return null;
 
@@ -5190,16 +5190,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_invalid: () => (/* binding */ PGS_invalid),
 /* harmony export */   PGS_warn: () => (/* binding */ PGS_warn)
 /* harmony export */ });
-//+ one voice for every message the library prints or throws: "pgs.<module>.<method>(): <what>".
-//+ The scope is the call the author made ("tabs.init", "modal.open", "header.init"), so a line in
-//+ the console says which module spoke without anybody having to search for the text
+// one voice for every message the library prints or throws: "pgs.<module>.<method>(): <what>".
+// The scope is the call the author made ("tabs.init", "modal.open", "header.init"), so a line in
+// the console says which module spoke without anybody having to search for the text
 
-//+ invalid markup or a request that can be skipped: the page keeps working, the author is told
+// invalid markup or a request that can be skipped: the page keeps working, the author is told
 function PGS_warn(scope, message, ...details) {
     console.warn(`pgs.${scope}(): ${message}`, ...details);
 }
 
-//+ invalid input to a public method: `throw PGS_invalid("summary.init", "message must be an object")`
+// invalid input to a public method: `throw PGS_invalid("summary.init", "message must be an object")`
 function PGS_invalid(scope, message) {
     return new TypeError(`pgs.${scope}(): ${message}`);
 }
@@ -5227,7 +5227,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 //= HEADER
-//+ COMPACT BREAKPOINT
+//# COMPACT BREAKPOINT
 // Width at or below which the header switches to its compact layout even when the content
 // still fits, so a wide header can be compact on purpose.
 // headerCompactFrom[600] wins with its own pixel value, otherwise the named options
@@ -5241,7 +5241,7 @@ function getCompactBreakpoint(header) {
     return Number.isFinite(declared) ? declared : 600;
 }
 
-//+ OVERFLOW TOLERANCE
+//# OVERFLOW TOLERANCE
 // scrollWidth and clientWidth are whole pixels while the layout underneath is fractional, so a
 // header whose content almost exactly fills the row can report a pixel of overflow that is not
 // there. Two pixels absorb that without letting real overflow through.
@@ -5306,19 +5306,19 @@ function initResize(header) {
 
 //# HEADER HEIGHT
 function initHeight(header) {
-    //+ GET HEADER HEIGHT ELEMENT
+    //## GET HEADER HEIGHT ELEMENT
     function getHeaderHeightElement(header) {
         const isCompactBottom = window.getComputedStyle(header).getPropertyValue("--header-compactBottom-active").trim() === "1";
         return isCompactBottom ? (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).querySelector("header-element") || header : header;
     }
 
-    //+ FOR --_header-height and --_header-heightScroll
+    // FOR --_header-height and --_header-heightScroll
     function getPrimaryHeader() {
         const headers = getReadyHeaders();
         return headers.find(header => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).option.contains("headerMain")) || headers[0] || null;
     }
 
-    //+ HEIGHT
+    //## HEIGHT
     function headerHeight() {
         // --_header-height is what pushes the page down, so only one header can own it. Ownership
         // is checked here rather than at init, so a header declaring main later still
@@ -5376,7 +5376,7 @@ function initScroll(header) {
 }
 
 
-//= INIT
+//# INIT
 const INITIALIZED_HEADERS = new WeakSet();
 
 function initHeader(header) {
@@ -5388,7 +5388,7 @@ function initHeader(header) {
     initScroll(header);
 }
 
-//+ a header is only ready once it holds a header-element, which is where every measurement happens
+// a header is only ready once it holds a header-element, which is where every measurement happens
 function getReadyHeaders() {
     return Array.from((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document).querySelectorAll("header")).filter(header => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).querySelector("header-element"));
 }
@@ -5402,7 +5402,7 @@ function PGS_header_init(root = document) {
 ;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(PGS_header_init);
 (0,_helper_throttle_js__WEBPACK_IMPORTED_MODULE_3__.PGS_watchDocument)(() => PGS_header_init());
 
-//= EXPORT
+//# EXPORT
 const PGS_header = {
     init: PGS_header_init
 };
@@ -5430,16 +5430,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 //= NAV SMART
-//+ publishes the room the bar takes at the bottom of the screen, the way the header publishes its own:
-//+ --_navSmart-height is the whole distance from the bottom edge of the screen to the top of the bar
-//+ (the pills plus the gap the bar keeps from the edge, and the safe area on a phone), and
-//+ --_navSmart-heightScroll is kept equal to it, the same name the header gives its own pair. Both
-//+ are 0 while a media query hides the bar. Padding the end of a page by either one keeps its last
-//+ lines from sitting under it.
+// publishes the room the bar takes at the bottom of the screen, the way the header publishes its own:
+// --_navSmart-height is the whole distance from the bottom edge of the screen to the top of the bar
+// (the pills plus the gap the bar keeps from the edge, and the safe area on a phone), and
+// --_navSmart-heightScroll is kept equal to it, the same name the header gives its own pair. Both
+// are 0 while a media query hides the bar. Padding the end of a page by either one keeps its last
+// lines from sitting under it.
 
 const INITIALIZED_NAVSMART = new WeakSet();
 
-//+ a bar is only ready once it holds a navSmart-element, which is where the pills are
+// a bar is only ready once it holds a navSmart-element, which is where the pills are
 function getReadyNavSmart() {
     return Array.from((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document).querySelectorAll("navSmart")).filter(bar => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(bar).querySelector("navSmart-element"));
 }
@@ -5502,7 +5502,7 @@ function PGS_navSmart_init(root = document) {
 ;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(PGS_navSmart_init);
 (0,_helper_throttle_js__WEBPACK_IMPORTED_MODULE_3__.PGS_watchDocument)(() => PGS_navSmart_init());
 
-//= EXPORT
+//# EXPORT
 const PGS_navSmart = {
     init: PGS_navSmart_init
 };

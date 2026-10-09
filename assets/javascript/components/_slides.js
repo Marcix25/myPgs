@@ -13,13 +13,13 @@ const THRESHOLDS = Array.from({ length: 101 }, (_, i) => i / 100); // 0%,1%,2%..
 const SCROLL_BEHAVIOR = "smooth";
 
 class PGS_Slides {
-    //- CONSTRUCTOR
+    //## CONSTRUCTOR
     constructor({ element } = {}) {
         this.element = element;
         this.container = pgs(this.element).querySelector("slides-container");
     }
     
-    //+ CREATE BUTTON 
+    //## CREATE BUTTON
     #createButtonsAndDots() {
         const EL = this.element;
 
@@ -53,7 +53,7 @@ class PGS_Slides {
         });
     }
 
-    //+ SLIDE THE ARROWS MOVE FROM
+    //## SLIDE THE ARROWS MOVE FROM
     // slidesSingleScroll starts from the middle one in view, the one the snap is resting on: from the
     // first, with three slides showing, the next sibling is already centered and nothing scrolls
     #currentSlide(towardsEnd) {
@@ -84,7 +84,7 @@ class PGS_Slides {
         return towardsEnd ? currents[currents.length - 1] : currents[0];
     }
 
-    //+ GO TO A SLIDE
+    //## GO TO A SLIDE
     // the two ends run the scroll out instead of centering, so the margin they carry is scrolled
     // through and the card lines up with the page content
     #goToSlide(slide) {
@@ -113,12 +113,12 @@ class PGS_Slides {
         slide.focus({ preventScroll: true });
     }
 
-    //+ LOOP
+    //## LOOP
     #isLoop() {
         return pgs(this.element).option.contains('slidesLoop');
     }
 
-    //+ PREV
+    //## PREV
     // no slide left to move to, but the scroll has not run out: the edge slide is showing with
     // its margin still to come, so the arrow finishes the scroll instead of doing nothing.
     // slidesLoop replaces that fallback with the last slide instead of staying put
@@ -128,19 +128,19 @@ class PGS_Slides {
         this.#goToSlide(previous ?? (this.#isLoop() ? all[all.length - 1] : all[0]));
     }
 
-    //+ NEXT
+    //## NEXT
     #nextSlide() {
         const all = this.container.children;
         const next = this.#currentSlide(true)?.nextElementSibling;
         this.#goToSlide(next ?? (this.#isLoop() ? all[0] : all[all.length - 1]));
     }
 
-    //+ GO TO NUMBER SLIDE
+    //## GO TO NUMBER SLIDE
     #goToNumberSlide(index) {
         this.#goToSlide(this.container.children[index]);
     }
 
-    //+ CALLBACK
+    //## CALLBACK
     #callback(allLi, container, prevButton, nextButton, dots) {
         allLi.forEach(LI => {
             // visiblePercent only feeds the scale animation; a slide is in view from VIEW_RATIO
@@ -167,7 +167,7 @@ class PGS_Slides {
         this.#updateArrows(prevButton, nextButton);
     }
 
-    //+ ARROWS STATE
+    //## ARROWS STATE
     // an arrow goes off only at the end of the scroll, not as soon as the edge slide is in view:
     // that slide carries a margin, so it can be entirely on screen with a stretch still to run,
     // and the arrow is what runs it. slidesLoop wraps around instead, so neither arrow ever
@@ -241,7 +241,7 @@ class PGS_Slides {
             API.delete(this.element);
         };
 
-        //- API
+        //## API
         const api = {
             element: this.element,
             container: this.container,
@@ -273,7 +273,7 @@ class PGS_Slides {
     }
 }
 
-//= INIT 
+//# INIT
 function PGS_slides_init(root = document) {
     PGS_roots(root, "slides").forEach(element => {
         if (API.has(element)) return;
@@ -284,7 +284,7 @@ function PGS_slides_init(root = document) {
 
 PGS_onDocumentReady(PGS_slides_init);
 
-//= API 
+//# API
 function PGS_slides_api(element) {
     return API.get(element);
 }

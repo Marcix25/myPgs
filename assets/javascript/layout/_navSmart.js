@@ -4,16 +4,16 @@ import { PGS_roots } from "../helper/_dom.js";
 import { PGS_rafThrottle, PGS_watchDocument } from "../helper/_throttle.js";
 
 //= NAV SMART
-//+ publishes the room the bar takes at the bottom of the screen, the way the header publishes its own:
-//+ --_navSmart-height is the whole distance from the bottom edge of the screen to the top of the bar
-//+ (the pills plus the gap the bar keeps from the edge, and the safe area on a phone), and
-//+ --_navSmart-heightScroll is kept equal to it, the same name the header gives its own pair. Both
-//+ are 0 while a media query hides the bar. Padding the end of a page by either one keeps its last
-//+ lines from sitting under it.
+// publishes the room the bar takes at the bottom of the screen, the way the header publishes its own:
+// --_navSmart-height is the whole distance from the bottom edge of the screen to the top of the bar
+// (the pills plus the gap the bar keeps from the edge, and the safe area on a phone), and
+// --_navSmart-heightScroll is kept equal to it, the same name the header gives its own pair. Both
+// are 0 while a media query hides the bar. Padding the end of a page by either one keeps its last
+// lines from sitting under it.
 
 const INITIALIZED_NAVSMART = new WeakSet();
 
-//+ a bar is only ready once it holds a navSmart-element, which is where the pills are
+// a bar is only ready once it holds a navSmart-element, which is where the pills are
 function getReadyNavSmart() {
     return Array.from(pgs(document).querySelectorAll("navSmart")).filter(bar => pgs(bar).querySelector("navSmart-element"));
 }
@@ -76,7 +76,7 @@ function PGS_navSmart_init(root = document) {
 PGS_onDocumentReady(PGS_navSmart_init);
 PGS_watchDocument(() => PGS_navSmart_init());
 
-//= EXPORT
+//# EXPORT
 export const PGS_navSmart = {
     init: PGS_navSmart_init
 };

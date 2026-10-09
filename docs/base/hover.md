@@ -33,7 +33,6 @@ The shared hover treatment for a surface and the text marked inside it. It is wr
 - `--hover-behavior`
 - `--hover-border`
 - `--hover-color`
-- `--hover-primaryColor`
 - `--hover-st1-background-delay`
 - `--hover-st1-transform-origin`
 - `--hover-timing`

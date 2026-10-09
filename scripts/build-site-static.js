@@ -1,39 +1,39 @@
 #!/usr/bin/env node
 //= BUILD STATIC SITE
-//+ Hand-authored shells and fragments, none of them a page on its own, combined with each page's own
-//+ content into every site/build/<name>.html:
-//+ - site/index.html — the page around every page: head, and the <!-- include: page <path> --> comment
-//+   each page's own content is spliced into. Edit this
-//+   for the surrounding page — everything that would still be there without a single reference
-//+   panel, shared by every generated page.
-//+ - site/parts/header.html (the header and navSmart) and site/parts/footer.html
-//+   — one fragment per component of that surrounding page. site/index.html names each one
-//+   with an <!-- include: <file name> --> comment on a line of its own, and this script splices the
-//+   file in before anything else happens. Edit a fragment to change one component on every page.
-//+   <!-- include: page site/page/<name>.html --> is the one include that is not a file of parts/: its path,
-//+   relative to the repo root, says where the pages live, and <name> stands for each page's name.
-//+
-//+ Nothing in site/page/ is generated: it holds only hand-authored content, one page's own content
-//+ per file with no shell around it (home.html, test.html, demo.html, and any future page, following
-//+ the same one-file-per-page convention). demo.html is the one that is not used as written: it is the
-//+ pageShell that hosts the reference nav and panels, with the nav and the main empty until this
-//+ script fills them in from reference/html. Everything this script writes lives in site/build/:
-//+ - site/build/*.html — one output per page: site/index.html with that page's own content
-//+   spliced into its placeholder, plus demo.js. Every page in site/page/ gets one; for demo.html
-//+   the content is first merged with the nav and panels rendered from reference/html, in memory, and
-//+   never written back to page/. Every page opens instantly,
-//+   no fetch, no per-file parsing. Components built entirely by JS at runtime (notification, toast,
-//+   modal, accordion, ...) are untouched: their source markup is baked in like everything else,
-//+   and pgs.init() still builds them for real when the page loads.
-//+
-//+ The index.html at the repo root, the GitHub Pages entry point, redirects to build/home.html: it is
-//+ the one place that names the current home page.
-//+
-//+ Adding a brand-new page needs no change here: drop its own content in site/page/<name>.html and
-//+ this script produces site/build/<name>.html from it, sharing the same site/index.html as
-//+ every other page. demo.html is the one name this script treats differently, as above, and it has to exist.
-//+
-//+ Run with: npm run sitebuild
+// Hand-authored shells and fragments, none of them a page on its own, combined with each page's own
+// content into every site/build/<name>.html:
+// - site/index.html — the page around every page: head, and the <!-- include: page <path> --> comment
+//   each page's own content is spliced into. Edit this
+//   for the surrounding page — everything that would still be there without a single reference
+//   panel, shared by every generated page.
+// - site/parts/header.html (the header and navSmart) and site/parts/footer.html
+//   — one fragment per component of that surrounding page. site/index.html names each one
+//   with an <!-- include: <file name> --> comment on a line of its own, and this script splices the
+//   file in before anything else happens. Edit a fragment to change one component on every page.
+//   <!-- include: page site/page/<name>.html --> is the one include that is not a file of parts/: its path,
+//   relative to the repo root, says where the pages live, and <name> stands for each page's name.
+//
+// Nothing in site/page/ is generated: it holds only hand-authored content, one page's own content
+// per file with no shell around it (home.html, test.html, demo.html, and any future page, following
+// the same one-file-per-page convention). demo.html is the one that is not used as written: it is the
+// pageShell that hosts the reference nav and panels, with the nav and the main empty until this
+// script fills them in from reference/html. Everything this script writes lives in site/build/:
+// - site/build/*.html — one output per page: site/index.html with that page's own content
+//   spliced into its placeholder, plus demo.js. Every page in site/page/ gets one; for demo.html
+//   the content is first merged with the nav and panels rendered from reference/html, in memory, and
+//   never written back to page/. Every page opens instantly,
+//   no fetch, no per-file parsing. Components built entirely by JS at runtime (notification, toast,
+//   modal, accordion, ...) are untouched: their source markup is baked in like everything else,
+//   and pgs.init() still builds them for real when the page loads.
+//
+// The index.html at the repo root, the GitHub Pages entry point, redirects to build/home.html: it is
+// the one place that names the current home page.
+//
+// Adding a brand-new page needs no change here: drop its own content in site/page/<name>.html and
+// this script produces site/build/<name>.html from it, sharing the same site/index.html as
+// every other page. demo.html is the one name this script treats differently, as above, and it has to exist.
+//
+// Run with: npm run sitebuild
 
 "use strict";
 
@@ -53,9 +53,9 @@ const PAGE_INCLUDE_PATTERN = /<!--\s*include:\s*page\s+(\S+?)\s*-->/;
 const COMPILED_CSS = path.join(PROJECT_ROOT, "dist", "css", "index.css");
 const WELCOME_FILE = path.join(REFERENCE_ROOT, "guides", "welcome.html");
 
-//+ every <!-- include: name.html --> comment in the shell is replaced by that file from site/parts/,
-//+ so a component lives in a file of its own. A missing file stops the build instead of leaving the
-//+ comment behind, which would be stripped later and take the component with it without a trace.
+// every <!-- include: name.html --> comment in the shell is replaced by that file from site/parts/,
+// so a component lives in a file of its own. A missing file stops the build instead of leaving the
+// comment behind, which would be stripped later and take the component with it without a trace.
 function resolveIncludes(html) {
     return html.replace(/<!--\s*include:\s*([\w.-]+)\s*-->/g, (match, name) => {
         const file = path.join(SITE_ROOT, "parts", name);
@@ -103,12 +103,12 @@ function insertBeforeBodyClose(html, scriptsBlock) {
     return html.replace(/<\/body>/, `    ${scriptsBlock}\n</body>`);
 }
 
-//+ Strips comments and collapses whitespace runs to a single space in the final generated pages —
-//+ demo.html bakes in ~45 reference panels verbatim, indentation and all, so this trims real weight
-//+ off the file. <script>/<pre>/<textarea> blocks are left untouched: example code and JSON payloads
-//+ (both copied verbatim into "Example HTML"/"PGS Option fields" panels) depend on their exact
-//+ whitespace. Collapsing to one space rather than removing it entirely avoids merging adjacent
-//+ inline elements that relied on that space to stay visually separated.
+// Strips comments and collapses whitespace runs to a single space in the final generated pages —
+// demo.html bakes in ~45 reference panels verbatim, indentation and all, so this trims real weight
+// off the file. <script>/<pre>/<textarea> blocks are left untouched: example code and JSON payloads
+// (both copied verbatim into "Example HTML"/"PGS Option fields" panels) depend on their exact
+// whitespace. Collapsing to one space rather than removing it entirely avoids merging adjacent
+// inline elements that relied on that space to stay visually separated.
 function minifyHtml(html) {
     const protectedBlocks = [];
     let output = html.replace(/<(script|pre|textarea)\b[^>]*>[\s\S]*?<\/\1>/gi, match => {
@@ -122,9 +122,9 @@ function minifyHtml(html) {
     return output.replace(/\x00(\d+)\x00/g, (match, index) => protectedBlocks[Number(index)]);
 }
 
-//+ page/demo.html with the rendered nav and panels spliced into its empty containers — the demo
-//+ page's own content, still no <html>/<head> of its own. The result goes straight to the page loop
-//+ and is never written back to page/.
+// page/demo.html with the rendered nav and panels spliced into its empty containers — the demo
+// page's own content, still no <html>/<head> of its own. The result goes straight to the page loop
+// and is never written back to page/.
 function buildDemoPageContent(structureHtml, navHtml, panelsHtml) {
     let output = structureHtml;
 
@@ -147,10 +147,10 @@ function buildDemoPageContent(structureHtml, navHtml, panelsHtml) {
     return header + output;
 }
 
-//+ menu's own SCSS (_menu.scss) already styles [aria-current=page] — it just expects the attribute
-//+ to be there on the right link, which a hand-authored shell shared by every page can't do by
-//+ itself. Every nav link's href is the plain page filename (e.g. "home.html"), so the one matching
-//+ this page's own filename is the current one, in both the desktop nav and its mobile dialog copy.
+// menu's own SCSS (_menu.scss) already styles [aria-current=page] — it just expects the attribute
+// to be there on the right link, which a hand-authored shell shared by every page can't do by
+// itself. Every nav link's href is the plain page filename (e.g. "home.html"), so the one matching
+// this page's own filename is the current one, in both the desktop nav and its mobile dialog copy.
 function markCurrentNavLink(html, pageFileName) {
     const escapedFileName = pageFileName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     const pattern = new RegExp(`(<a\\b[^>]*\\bhref="${escapedFileName}"[^>]*)(>)`, "g");
@@ -159,9 +159,9 @@ function markCurrentNavLink(html, pageFileName) {
     );
 }
 
-//+ site/index.html with one page's own content (read from page/<name>.html) spliced into its
-//+ <!-- include: page <path> --> comment, plus demo.js. demo-render.js is a build-time-only dependency (used by this script,
-//+ in Node) — nothing in the browser reads it, so it has no reason to be on the page.
+// site/index.html with one page's own content (read from page/<name>.html) spliced into its
+// <!-- include: page <path> --> comment, plus demo.js. demo-render.js is a build-time-only dependency (used by this script,
+// in Node) — nothing in the browser reads it, so it has no reason to be on the page.
 function buildFinalHtml(siteHtml, pageContent, pageFileName, source) {
     let output = markCurrentNavLink(siteHtml, pageFileName);
 
@@ -173,8 +173,8 @@ function buildFinalHtml(siteHtml, pageContent, pageFileName, source) {
     return `<!-- Automatically generated by scripts/build-site-static.js from index.html + ${source}. Do not edit — run npm run sitebuild again after changing either. -->\n${minifyHtml(output)}`;
 }
 
-//+ where a page's own content is read from: the path written in the page include of index.html, relative
-//+ to the repo root, with <name> replaced by the page's name
+// where a page's own content is read from: the path written in the page include of index.html, relative
+// to the repo root, with <name> replaced by the page's name
 function getPageTemplate(siteHtml) {
     const match = siteHtml.match(PAGE_INCLUDE_PATTERN);
     if (!match) throw new Error("no <!-- include: page <path> --> found in index.html");

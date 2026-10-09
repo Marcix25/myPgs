@@ -199,7 +199,7 @@ function initializeDropdown(DROPDOWN) {
         open: () => openDropdown(DROPDOWN),
         close: () => closeDropdown(DROPDOWN),
         toggle: () => toggleDropdown(DROPDOWN),
-        //+ recompute where the panel sits, for when its content changed size without reopening
+        // recompute where the panel sits, for when its content changed size without reopening
         reposition: () => updatePosition(DROPDOWN),
         destroy,
         refresh: () => {

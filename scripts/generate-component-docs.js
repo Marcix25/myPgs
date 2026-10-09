@@ -214,7 +214,7 @@ function parseDocumentationBlock(file, source) {
     return { errors, data, markup, block: documentationContainer, hasBom };
 }
 
-//+ index of the "]" matching the "[" at openIndex, counting nested brackets and ignoring any "[" / "]" inside a JSON string (respects \" escapes)
+// index of the "]" matching the "[" at openIndex, counting nested brackets and ignoring any "[" / "]" inside a JSON string (respects \" escapes)
 function splitOption(value) {
     const openIndex = value.indexOf("[");
     if (openIndex === -1) return /^[^\s[\]]+$/.test(value) ? { key: value, payload: undefined } : { key: "", payload: undefined };
@@ -226,12 +226,12 @@ function splitOption(value) {
     return { key, payload: value.slice(openIndex + 1, closeIndex) };
 }
 
-//+ a demo="component" element is grouping-only (and never rendered in the docs Example section, see
-//+ extractDemoItems) ONLY when it actually contains a nested demo="component" — in that case its
-//+ own pgs/pgs-options/pgs-state attributes are incidental layout and shouldn't force a doc
-//+ requirement. Without a nested component the element itself is the rendered example and its
-//+ attributes are the real subject (see formAddon.html's outer <form demo="component"> against its
-//+ inner, once-nested <section demo="component"> examples).
+// a demo="component" element is grouping-only (and never rendered in the docs Example section, see
+// extractDemoItems) ONLY when it actually contains a nested demo="component" — in that case its
+// own pgs/pgs-options/pgs-state attributes are incidental layout and shouldn't force a doc
+// requirement. Without a nested component the element itself is the rendered example and its
+// attributes are the real subject (see formAddon.html's outer <form demo="component"> against its
+// inner, once-nested <section demo="component"> examples).
 function stripComponentWrapperAttributes(markup) {
     const openTagPattern = /<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*\bdemo\s*=\s*["'][^"']*\bcomponent\b[^"']*["'][^>]*>/g;
     let result = "";
@@ -300,9 +300,9 @@ function loadSources() {
         }));
 }
 
-//+ every custom property a component exposes carries its own name as an exact, unhyphenated-free
-//+ prefix (slides.html -> --slides-*, pageShell.html -> --pageShell-*, casing included) — unlike
-//+ pgs-options matching this needs no fuzzy/singular fallback, the prefix alone is already specific
+// every custom property a component exposes carries its own name as an exact, unhyphenated-free
+// prefix (slides.html -> --slides-*, pageShell.html -> --pageShell-*, casing included) — unlike
+// pgs-options matching this needs no fuzzy/singular fallback, the prefix alone is already specific
 function extractCssVariables(template, allSourceContent) {
     const basename = path.basename(template, ".html");
     const pattern = new RegExp(`--${escapeRegExp(basename)}-[A-Za-z0-9-]+`, "g");
@@ -563,7 +563,7 @@ function renderList(items) {
     return items.map(item => `- \`${item.key}\`: ${item.description}`).join("\n");
 }
 
-//+ dedents a block by the smallest leading whitespace found among its non-empty lines
+// dedents a block by the smallest leading whitespace found among its non-empty lines
 function dedent(text) {
     const lines = text.replace(/^\n/, "").replace(/\s+$/, "").split("\n");
     const indents = lines.filter(line => line.trim().length > 0).map(line => line.match(/^\s*/)[0].length);
@@ -571,7 +571,7 @@ function dedent(text) {
     return lines.map(line => line.slice(minIndent)).join("\n");
 }
 
-//+ pulls a <script type="..."> reference block out of the markup so it can render as its own titled section
+// pulls a <script type="..."> reference block out of the markup so it can render as its own titled section
 function extractScriptBlock(markup, typeValue) {
     const safeType = escapeRegExp(typeValue);
     const pattern = new RegExp(`<script\\b[^>]*\\btype\\s*=\\s*["']${safeType}["'][^>]*>([\\s\\S]*?)<\\/script>`, "i");
@@ -589,11 +589,11 @@ function stripDemoAttributesFromMarkup(html) {
     return html.replace(/\s+demo(?:-title|-description)?\s*=\s*("[^"]*"|'[^']*')/g, "");
 }
 
-//+ an element that only groups the example for the demo is not part of the example: demo="wrapper"
-//+ keeps it in the live preview but prints what is inside it instead of itself. It can repeat at
-//+ several levels side by side within one example (see Border's rows of spans), not just a single
-//+ nested chain, so this scans the whole string for a match rather than assuming the next one is
-//+ always at the very start.
+// an element that only groups the example for the demo is not part of the example: demo="wrapper"
+// keeps it in the live preview but prints what is inside it instead of itself. It can repeat at
+// several levels side by side within one example (see Border's rows of spans), not just a single
+// nested chain, so this scans the whole string for a match rather than assuming the next one is
+// always at the very start.
 function unwrapScaffold(markup) {
     let current = markup.trim();
     const openTagPattern = /<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*>/g;
@@ -623,8 +623,8 @@ function unwrapScaffold(markup) {
     }
 }
 
-//+ finds the index right after the closing tag matching an opening tag of tagName starting at fromIndex,
-//+ counting nested occurrences of that same tag name (ignores every other tag, including void elements like <img>)
+// finds the index right after the closing tag matching an opening tag of tagName starting at fromIndex,
+// counting nested occurrences of that same tag name (ignores every other tag, including void elements like <img>)
 function findMatchingCloseTag(markup, tagName, fromIndex) {
     const tagPattern = new RegExp(`<(\\/?)${tagName}\\b[^>]*>`, "gi");
     tagPattern.lastIndex = fromIndex;
@@ -644,9 +644,9 @@ function findMatchingCloseTag(markup, tagName, fromIndex) {
     return -1;
 }
 
-//+ removes every demo="disabled" element (whole subtree) from the rendered "## Example" output — test-only
-//+ markup that shouldn't appear in the generated docs, even though it stays in the file and still counts
-//+ for @pgs/@pgs-options/@related validation (which runs on the untouched markup, not this output)
+// removes every demo="disabled" element (whole subtree) from the rendered "## Example" output — test-only
+// markup that shouldn't appear in the generated docs, even though it stays in the file and still counts
+// for @pgs/@pgs-options/@related validation (which runs on the untouched markup, not this output)
 function stripDisabledElements(markup) {
     const openTagPattern = /<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*\bdemo\s*=\s*["']disabled["'][^>]*>/g;
     let result = "";
@@ -668,26 +668,26 @@ function stripDisabledElements(markup) {
     return result.replace(/\n{3,}/g, "\n\n").trim();
 }
 
-//+ true when a demo="component" element actually has a nested demo="component" descendant, meaning
-//+ it's transparent grouping markup rather than the rendered example itself (shared with
-//+ stripComponentWrapperAttributes's own check, same rule). The boundary check (rather than an
-//+ exact-value match) is what lets "component" combine with codeNone/previewNone in the same demo
-//+ attribute, e.g. demo="component previewNone".
+// true when a demo="component" element actually has a nested demo="component" descendant, meaning
+// it's transparent grouping markup rather than the rendered example itself (shared with
+// stripComponentWrapperAttributes's own check, same rule). The boundary check (rather than an
+// exact-value match) is what lets "component" combine with codeNone/previewNone in the same demo
+// attribute, e.g. demo="component previewNone".
 function hasNestedComponent(markup, start, end) {
     return /\bdemo\s*=\s*["'][^"']*\bcomponent\b[^"']*["']/.test(markup.slice(start, end));
 }
 
-//+ walks the example markup in document order, matching every <demo demo-h2=.../demo-h3=...> marker
-//+ and every demo="component" element as it's encountered. A <demo demo-h2> marker becomes its own
-//+ heading block immediately; a <demo demo-h3> marker is held as "pending" until the next titleable
-//+ leaf consumes it. A demo="component" that contains a nested demo="component" is transparent — the
-//+ walk doesn't stop at it, it just keeps scanning through its content for the nested demo-h3 +
-//+ demo="component" pairs (see formAddon.html's outer <form demo="component"> around several inner
-//+ ones), exactly the same way stripComponentWrapperAttributes decides whether the wrapper's own
-//+ attributes are incidental. demo="wrapper" never appears in this top-level match at all — it's a
-//+ purely nested instruction, unwrapped afterwards by unwrapScaffold, never its own block boundary.
-//+ Matching "component" by boundary inside the quoted value (not requiring it to be the *whole*
-//+ value) is what lets it combine with codeNone/previewNone, e.g. demo="component codeNone".
+// walks the example markup in document order, matching every <demo demo-h2=.../demo-h3=...> marker
+// and every demo="component" element as it's encountered. A <demo demo-h2> marker becomes its own
+// heading block immediately; a <demo demo-h3> marker is held as "pending" until the next titleable
+// leaf consumes it. A demo="component" that contains a nested demo="component" is transparent — the
+// walk doesn't stop at it, it just keeps scanning through its content for the nested demo-h3 +
+// demo="component" pairs (see formAddon.html's outer <form demo="component"> around several inner
+// ones), exactly the same way stripComponentWrapperAttributes decides whether the wrapper's own
+// attributes are incidental. demo="wrapper" never appears in this top-level match at all — it's a
+// purely nested instruction, unwrapped afterwards by unwrapScaffold, never its own block boundary.
+// Matching "component" by boundary inside the quoted value (not requiring it to be the *whole*
+// value) is what lets it combine with codeNone/previewNone, e.g. demo="component codeNone".
 function extractDemoBlocks(markup) {
     const pattern = /<(demo)\b[^>]*>|<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*\bdemo\s*=\s*["'][^"']*\bcomponent\b[^"']*["'][^>]*>/g;
     const blocks = [];
@@ -752,9 +752,9 @@ function fenceFor(text) {
     return "`".repeat(Math.max(3, (runs.length ? Math.max(...runs) : 0) + 1));
 }
 
-//+ related elements can be borrowed from any of the three attribute kinds (pgs/pgs-options/pgs-state);
-//+ split them into labeled subgroups by how they're actually used in this template's markup, so a
-//+ reader can tell which attribute to put each one in without re-checking the source
+// related elements can be borrowed from any of the three attribute kinds (pgs/pgs-options/pgs-state);
+// split them into labeled subgroups by how they're actually used in this template's markup, so a
+// reader can tell which attribute to put each one in without re-checking the source
 function renderRelatedSection(items, markup) {
     const attributes = extractAttributes(markup);
     const isOption = key => attributes.options.includes(key);

@@ -9,7 +9,7 @@ import { PGS_invalid } from "../helper/_warn.js";
 // surfaces that are clickable by definition, so the author keeps writing only the component token
 // while the element still carries a real pgs value that SCSS, JavaScript and the inspector read.
 
-//+ tokens that get the hover treatment, with the extra condition each one has to satisfy
+// tokens that get the hover treatment, with the extra condition each one has to satisfy
 const HOVER_TARGETS = {
     // a button is clickable whatever its tag
     button: () => true,
@@ -24,7 +24,7 @@ const TOKENS = Object.keys(HOVER_TARGETS);
 // and stays, whatever the element turns into later
 const MARKED = new WeakSet();
 
-//+ SYNC HOVER
+//# SYNC HOVER
 function syncHover(element) {
     if (!(element instanceof Element)) return;
 
@@ -109,7 +109,7 @@ PGS_onDocumentReady(() => {
     });
 });
 
-//= EXPORT
+//# EXPORT
 export const PGS_hover = {
     init: PGS_hover_init
 };

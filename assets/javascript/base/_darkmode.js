@@ -7,7 +7,7 @@ import { PGS_svg } from "./_svg.js";
 
 const INITIALIZED_BUTTONS = new WeakSet();
 
-//+ CHANGE ICON
+//# CHANGE ICON
 // the glyph is not the author's choice here: the library owns it, because it has to say which way
 // the switch is pointing. It draws it from the built-in set so the control is never blank, and
 // looks for a marked element as well as an <i>, so an icon set that renders anything else still
@@ -25,7 +25,7 @@ function changeIcon(selector, isDarkMode) {
     });
 }
 
-//+ STORED CHOICE
+//# STORED CHOICE
 // localStorage throws when the browser blocks site data, and answers null in some private windows:
 // either way the choice lives in memory for the rest of the page, so the switch still works
 const STORAGE_KEY = "screenIsDarkMode";
@@ -44,7 +44,7 @@ function writeStoredChoice(isDarkMode) {
     try { localStorage.setItem(STORAGE_KEY, isDarkMode); } catch (_) { }
 }
 
-//+ SET STATUS
+//# SET STATUS
 function setDarkmodeStatus(toggle = false, button = []) {
     let isDarkMode = readStoredChoice();
 

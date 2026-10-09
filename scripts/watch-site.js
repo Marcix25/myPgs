@@ -1,26 +1,26 @@
 #!/usr/bin/env node
 //= WATCH SITE
-//+ Re-runs scripts/build-site-static.js whenever one of its inputs changes, so none of
-//+ site/build/*.html is ever the previous version of itself while iterating. Those inputs are
-//+ exactly five things:
-//+ - reference/html/**/*.html — the panels and the nav come from here;
-//+ - site/index.html (the shell), site/parts/*.html (the fragments it includes) and
-//+   scripts/demo-render.js — the renderer the build calls;
-//+ - site/page/*.html — every page's own hand-authored content (home.html, test.html, and any future
-//+   page dropped in there the same way). The build writes nothing there, so watching it can never
-//+   have a build retrigger the next one;
-//+ - dist/css/index.css — read to list each component's CSS variables, so a webpack rebuild has to
-//+   reach the demo too.
-//+ demo.js and demo.css are only linked by the generated page, never read into it: editing one
-//+ needs a browser refresh, not a rebuild, so they are deliberately not watched.
-//+
-//+ Directories are watched, not files: an editor that saves by writing a temporary file and renaming
-//+ it over the original — and webpack, which does the same to dist/css/index.css — leaves a watcher
-//+ bound to a file pointing at an inode nothing writes to again. Watching the parent directory and
-//+ filtering by name survives that. fs.watch is not recursive on Linux, so every directory under
-//+ reference/html gets its own watcher, re-synced after each build to pick up new ones.
-//+
-//+ Run with: npm run sitebuild:watch (alongside npm run webpack:watch, which keeps dist/ fresh)
+// Re-runs scripts/build-site-static.js whenever one of its inputs changes, so none of
+// site/build/*.html is ever the previous version of itself while iterating. Those inputs are
+// exactly five things:
+// - reference/html/**/*.html — the panels and the nav come from here;
+// - site/index.html (the shell), site/parts/*.html (the fragments it includes) and
+//   scripts/demo-render.js — the renderer the build calls;
+// - site/page/*.html — every page's own hand-authored content (home.html, test.html, and any future
+//   page dropped in there the same way). The build writes nothing there, so watching it can never
+//   have a build retrigger the next one;
+// - dist/css/index.css — read to list each component's CSS variables, so a webpack rebuild has to
+//   reach the demo too.
+// demo.js and demo.css are only linked by the generated page, never read into it: editing one
+// needs a browser refresh, not a rebuild, so they are deliberately not watched.
+//
+// Directories are watched, not files: an editor that saves by writing a temporary file and renaming
+// it over the original — and webpack, which does the same to dist/css/index.css — leaves a watcher
+// bound to a file pointing at an inode nothing writes to again. Watching the parent directory and
+// filtering by name survives that. fs.watch is not recursive on Linux, so every directory under
+// reference/html gets its own watcher, re-synced after each build to pick up new ones.
+//
+// Run with: npm run sitebuild:watch (alongside npm run webpack:watch, which keeps dist/ fresh)
 
 "use strict";
 
@@ -32,7 +32,7 @@ const PROJECT_ROOT = path.resolve(__dirname, "..");
 const BUILD_SCRIPT = path.join(__dirname, "build-site-static.js");
 const DEBOUNCE_MS = 200;
 
-//+ what to watch: a root directory, whether to descend into it, and which filenames matter
+// what to watch: a root directory, whether to descend into it, and which filenames matter
 const TARGETS = [
     {
         root: path.join(PROJECT_ROOT, "reference", "html"),
@@ -72,7 +72,7 @@ let pendingReason = "";
 let running = false;
 let queued = false;
 
-//+
+//
 function isDirectory(target) {
     try {
         return fs.statSync(target).isDirectory();
@@ -81,7 +81,7 @@ function isDirectory(target) {
     }
 }
 
-//+ every directory under root, root included
+// every directory under root, root included
 function listDirectories(root) {
     if (!fs.existsSync(root)) return [];
 
@@ -100,7 +100,7 @@ function listDirectories(root) {
     return found;
 }
 
-//+ SYNC WATCHERS
+//# SYNC WATCHERS
 // called again after every build: a new reference/html subdirectory is watched from then on, and
 // one that disappeared drops its watcher instead of throwing later
 function syncWatchers() {
@@ -150,7 +150,7 @@ function syncWatchers() {
     });
 }
 
-//+ SCHEDULE BUILD
+//# SCHEDULE BUILD
 // one save can fire several events, and saving a handful of files at once should still cost one
 // build: the timer restarts on every event and only the first file is worth naming
 function scheduleBuild(reason) {
@@ -165,7 +165,7 @@ function scheduleBuild(reason) {
     }, DEBOUNCE_MS);
 }
 
-//+ RUN BUILD
+//# RUN BUILD
 // a child process, not a require(): the build reads its inputs at module load, and a syntax error
 // in a source file it pulls in must not take the watcher down with it
 function runBuild(reason) {

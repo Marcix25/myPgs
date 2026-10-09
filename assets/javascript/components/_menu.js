@@ -6,7 +6,7 @@ import { PGS_warn } from "../helper/_warn.js";
 
 const API = new WeakMap();
 
-//+ the toggle looks and sits the same whichever behavior it drives, so it is built once here
+// the toggle looks and sits the same whichever behavior it drives, so it is built once here
 function createToggle(link) {
     const button = document.createElement("button");
     button.type = "button";
@@ -18,8 +18,8 @@ function createToggle(link) {
     return button;
 }
 
-//+ opens the submenu in place instead of floating it: used everywhere a dropdown would either
-//+ overflow the viewport or hide the branch the reader is already inside
+// opens the submenu in place instead of floating it: used everywhere a dropdown would either
+// overflow the viewport or hide the branch the reader is already inside
 function setupAccordion(li, button, ul, signal) {
     pgs(li).add("_menu-accordion");
 
@@ -115,7 +115,7 @@ function PGS_menu_api(selector) {
     return API.get(selector);
 }
 
-//= EXPORT
+//# EXPORT
 export const PGS_menu = {
     init: PGS_menu_init,
     api: PGS_menu_api

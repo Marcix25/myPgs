@@ -1,14 +1,14 @@
 //= PGS BRACKET AUDIT (dev-only, not part of the library bundle)
-//+ Drop this on any page while testing — <script src="pgs-bracket-audit.js"> anywhere after the
-//+ markup — to find every element whose "pgs" attribute puts brackets on a generated child token.
-//+ A child token is named after the component it belongs to (the part before its first dash, the
-//+ same convention scripts/generate-pgs-map.js reads the tree by) and never carries its own
-//+ options, no exceptions: a component shaped like modal-dialog, its own DOM element the
-//+ JavaScript can move independently of its nominal parent, gets its options through a second,
-//+ underscore-prefixed token added alongside it instead (see AGENTS-DEVELOPMENT.md and _dialog in
-//+ _modal.js) — an underscore-prefixed token is never hand-written, so it never counts as a
-//+ mistake either. Runs once on load and logs one console.error per offending element, with the
-//+ token text and the element itself so devtools can jump straight to it.
+// Drop this on any page while testing — <script src="pgs-bracket-audit.js"> anywhere after the
+// markup — to find every element whose "pgs" attribute puts brackets on a generated child token.
+// A child token is named after the component it belongs to (the part before its first dash, the
+// same convention scripts/generate-pgs-map.js reads the tree by) and never carries its own
+// options, no exceptions: a component shaped like modal-dialog, its own DOM element the
+// JavaScript can move independently of its nominal parent, gets its options through a second,
+// underscore-prefixed token added alongside it instead (see AGENTS-DEVELOPMENT.md and _dialog in
+// _modal.js) — an underscore-prefixed token is never hand-written, so it never counts as a
+// mistake either. Runs once on load and logs one console.error per offending element, with the
+// token text and the element itself so devtools can jump straight to it.
 (function () {
     const isGeneratedOnly = key => key.startsWith("_");
 

@@ -7960,10 +7960,9 @@ dialog :is([pgs~=search], [pgs*="search["]) :where([pgs~=_modal-close]) {
 }
 
 :is([pgs~=hover], [pgs*="hover["]):not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))) {
-  --hover-primaryColor: var(--color-secondary-soft);
-  --hover-background: var(--hover-primaryColor);
+  --hover-background: var(--color-secondary-soft);
   --hover-color: var(--color-black);
-  --hover-border: var(--hover-primaryColor);
+  --hover-border: var(--color-secondary-soft);
   --hover-timing: 400ms;
   --hover-behavior: ease-out;
   position: relative;

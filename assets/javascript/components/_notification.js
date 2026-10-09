@@ -10,10 +10,10 @@ const BELLS = new WeakMap();
 const LOADED = new WeakSet();
 
 //# PGS_notification
-//+ the group manager: one modal that holds the scrollable panel, every notificationBell that opens
-//+ it, and the counter and empty state. It only reads its data and hands it to the shared alert
-//+ engine (see _alerts.js): every message inside the panel is that alert card, built dismissible,
-//+ with its buttons, never timed by default.
+// the group manager: one modal that holds the scrollable panel, every notificationBell that opens
+// it, and the counter and empty state. It only reads its data and hands it to the shared alert
+// engine (see _alerts.js): every message inside the panel is that alert card, built dismissible,
+// with its buttons, never timed by default.
 const fn_notification = {
     _defaults: {
         emptyMessage: "No notifications",
@@ -208,8 +208,8 @@ const fn_notification = {
     }
 };
 
-//= TRIGGER
-//+ opening/closing the panel is the one modal's job; every notificationBell just asks it to toggle
+//# TRIGGER
+// opening/closing the panel is the one modal's job; every notificationBell just asks it to toggle
 function PGS_notificationLoad_init(root = document) {
     fn_notification._bindBells(root);
     fn_notification.load(root);

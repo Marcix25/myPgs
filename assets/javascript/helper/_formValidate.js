@@ -3,8 +3,8 @@ import { PGS_toast } from "../components/_toast.js";
 import { PGS_alert } from "../components/_alerts.js";
 import { PGS_invalid } from "./_warn.js";
 
-//+ formMessage/formMessageTitle live only in pgs-data, and .data has no querySelector — find
-//+ the nearest descendant carrying either key's payload directly
+// formMessage/formMessageTitle live only in pgs-data, and .data has no querySelector — find
+// the nearest descendant carrying either key's payload directly
 function findDataDescendant(root, keys) {
     for (const element of root.querySelectorAll("[pgs-data]")) {
         if (keys.some(key => pgs(element).data.getValueBrackets(key) !== undefined)) return element;
@@ -154,7 +154,7 @@ export class PGS_formValidate {
     // + --------------------------
     #inputValue(container) {
 
-        //++ add rule
+        //## add rule
         const ruleInvalidFields = [];
         for (const rule of this._rules) {
             const res = rule(container);
@@ -273,7 +273,7 @@ export class PGS_formValidate {
         return [...new Set(invalidFields.flat())];
     }
 
-    //+ ADD
+    //## ADD
     #addFieldError(field, i = 0, total = 1) {
         pgs(field).state.add("errorField");
 
@@ -308,7 +308,7 @@ export class PGS_formValidate {
         }
     }
 
-    //+ REMOVE
+    //## REMOVE
     #removeFieldError(field) {
         this.#temporaryFieldErrors.delete(field);
         pgs(field).state.remove("errorField");

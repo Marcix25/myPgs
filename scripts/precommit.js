@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 //= PRECOMMIT
-//+ Runs the same checks in the same order documented in AGENTS-DEVELOPMENT.md's "Build and
-//+ Verification" section, stopping at the first failure, and always prints the full checklist —
-//+ steps already run get a tick, the one that broke gets a cross, the ones never reached stay
-//+ plain — so a broken run still shows the whole picture instead of scrollback to interpret.
-//+
-//+ Run with: npm run precommit
+// Runs the same checks in the same order documented in AGENTS-DEVELOPMENT.md's "Build and
+// Verification" section, stopping at the first failure, and always prints the full checklist —
+// steps already run get a tick, the one that broke gets a cross, the ones never reached stay
+// plain — so a broken run still shows the whole picture instead of scrollback to interpret.
+//
+// Run with: npm run precommit
 
 "use strict";
 

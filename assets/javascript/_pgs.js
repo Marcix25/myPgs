@@ -1,23 +1,23 @@
-//+ shared helpers for the "key", "key['flag' ...]" and "key[payload]" bracket syntax — used by
-//+ the pgs attribute itself and by every pgs-data accessor below, so a fix here fixes all of them
+// shared helpers for the "key", "key['flag' ...]" and "key[payload]" bracket syntax — used by
+// the pgs attribute itself and by every pgs-data accessor below, so a fix here fixes all of them
 const BracketToken = {
-    //+ the part before an opening "[", or the whole token when there is none
+    // the part before an opening "[", or the whole token when there is none
     key(value) {
         return String(value).trim().match(/^[^\s[\]]+/)?.[0] || "";
     },
 
-    //+ every quoted 'flag' inside a token's own ['flag' ...] bracket
+    // every quoted 'flag' inside a token's own ['flag' ...] bracket
     flags(token) {
         const open = token.indexOf("[");
         return open === -1 ? [] : [...token.slice(open + 1).matchAll(/'([^']+)'/g)].map(match => match[1]);
     },
 
-    //+ rebuilds "key['flag' ...]", or the bare key when there is nothing to carry
+    // rebuilds "key['flag' ...]", or the bare key when there is nothing to carry
     component(key, flags) {
         return flags.length ? `${key}[${[...new Set(flags)].map(flag => `'${flag}'`).join(" ")}]` : key;
     },
 
-    //+ index of the "]" matching the "[" at openIndex, counting nested brackets and ignoring any "[" / "]" inside a JSON string (respects \" escapes)
+    // index of the "]" matching the "[" at openIndex, counting nested brackets and ignoring any "[" / "]" inside a JSON string (respects \" escapes)
     findClose(source, openIndex) {
         let depth = 0;
         let inString = false;
@@ -48,7 +48,7 @@ const BracketToken = {
         return -1;
     },
 
-    //+ splits a pgs or pgs-data value into tokens, keeping "key[...]" whole even when the payload contains its own [...] (e.g. a JSON array)
+    // splits a pgs or pgs-data value into tokens, keeping "key[...]" whole even when the payload contains its own [...] (e.g. a JSON array)
     split(source) {
         const tokens = [];
         let i = 0;
@@ -72,9 +72,9 @@ const BracketToken = {
     },
 };
 
-//+ read/rebuild helper for one element's attribute, in bracket-token form: shared by the pgs
-//+ attribute and by every pgs-data accessor, since each of them only ever reads/writes its own
-//+ element this way — traversal code that needs an arbitrary element reads it directly instead
+// read/rebuild helper for one element's attribute, in bracket-token form: shared by the pgs
+// attribute and by every pgs-data accessor, since each of them only ever reads/writes its own
+// element this way — traversal code that needs an arbitrary element reads it directly instead
 function createBracketAttribute(element, attribute) {
     return {
         read: () => BracketToken.split(element.getAttribute(attribute) || ""),
@@ -99,12 +99,12 @@ export function pgs(root) {
         throw new TypeError("pgs(root): root must support querySelector/querySelectorAll");
     }
 
-    //+
+    //
     function attrOnlyForElements(methodName) {
         throw new TypeError(`pgs(${root.nodeName || "root"}).${methodName}(): available on an Element only, not on a Document`);
     };
 
-    //+
+    //
     function concatSelector(value, attribute = ATTR) {
         if (Array.isArray(value)) value = value.join(",");
         return String(value)
@@ -450,7 +450,7 @@ export function pgs(root) {
         return api;
     }
 
-    //= RETURN
+    //# RETURN
     const api = createPgs();
     api.state = createState("pgs-state");
     api.option = createOption();

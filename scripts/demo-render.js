@@ -1,12 +1,12 @@
 //= DEMO RENDER (shared)
-//+ Pure data/string functions that turn one reference/html/*.html file into the HTML the demo
-//+ shows — no DOM, no fetch, no browser globals, so this file runs unchanged in Node
-//+ (scripts/build-site-static.js, at build time) and, if ever loaded as a plain <script>, in the
-//+ browser too. It is the only "how a reference renders" implementation: build-site-static.js uses
-//+ it to pre-bake site/build/demo.html, and nothing renders a reference at runtime any more. Keep it in
-//+ sync with
-//+ scripts/generate-component-docs.js whenever the doc-comment format or the demo markup
-//+ conventions (demo="component"/"wrapper", demo-h2/demo-h3, codeNone, previewNone) change.
+// Pure data/string functions that turn one reference/html/*.html file into the HTML the demo
+// shows — no DOM, no fetch, no browser globals, so this file runs unchanged in Node
+// (scripts/build-site-static.js, at build time) and, if ever loaded as a plain <script>, in the
+// browser too. It is the only "how a reference renders" implementation: build-site-static.js uses
+// it to pre-bake site/build/demo.html, and nothing renders a reference at runtime any more. Keep it in
+// sync with
+// scripts/generate-component-docs.js whenever the doc-comment format or the demo markup
+// conventions (demo="component"/"wrapper", demo-h2/demo-h3, codeNone, previewNone) change.
 
 const { extractAttributes } = require("./pgs-attributes.js");
 
@@ -254,7 +254,7 @@ function extractAttributeUsage(markup) {
     };
 }
 
-//+ finds the index right after the closing tag matching an opening tag of tagName starting at fromIndex
+// finds the index right after the closing tag matching an opening tag of tagName starting at fromIndex
 function findMatchingCloseTag(markup, tagName, fromIndex) {
     const tagPattern = new RegExp(`<(\\/?)${tagName}\\b[^>]*>`, "gi");
     tagPattern.lastIndex = fromIndex;
@@ -278,12 +278,12 @@ function stripDemoAttributesFromMarkup(html) {
     return html.replace(/\s+demo(?:-h2|-h3|-title|-description)?\s*=\s*("[^"]*"|'[^']*')/g, "");
 }
 
-//+ an element that only groups the example for the demo is not part of the example: demo="wrapper"
-//+ keeps it in the live preview but prints what is inside it instead of itself — only meaningful for
-//+ the copyable "Example HTML" text, never for the live preview markup. It can repeat at several
-//+ levels side by side within one example (see Border's rows of spans), not just a single nested
-//+ chain, so this scans the whole string for a match rather than assuming the next one is always at
-//+ the very start.
+// an element that only groups the example for the demo is not part of the example: demo="wrapper"
+// keeps it in the live preview but prints what is inside it instead of itself — only meaningful for
+// the copyable "Example HTML" text, never for the live preview markup. It can repeat at several
+// levels side by side within one example (see Border's rows of spans), not just a single nested
+// chain, so this scans the whole string for a match rather than assuming the next one is always at
+// the very start.
 function unwrapScaffold(markup) {
     let current = markup.trim();
     const openTagPattern = /<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*>/g;
@@ -313,8 +313,8 @@ function unwrapScaffold(markup) {
     }
 }
 
-//+ removes every demo="disabled" element (whole subtree) — used only for the copyable code text,
-//+ the live preview always keeps the untouched original markup
+// removes every demo="disabled" element (whole subtree) — used only for the copyable code text,
+// the live preview always keeps the untouched original markup
 function stripDisabledElements(markup) {
     const openTagPattern = /<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*\bdemo\s*=\s*["']disabled["'][^>]*>/g;
     let result = "";
@@ -336,31 +336,31 @@ function stripDisabledElements(markup) {
     return result.replace(/\n{3,}/g, "\n\n").trim();
 }
 
-//+ every custom property a component exposes carries its own name as an exact prefix
-//+ (slides.html -> --slides-*), matching extractCssVariables in scripts/generate-component-docs.js
+// every custom property a component exposes carries its own name as an exact prefix
+// (slides.html -> --slides-*), matching extractCssVariables in scripts/generate-component-docs.js
 function extractCssVariables(basename, cssText) {
     const pattern = new RegExp(`--${escapeRegExp(basename)}-[A-Za-z0-9-]+`, "g");
     return [...new Set((cssText || "").match(pattern) || [])].sort((a, b) => a.localeCompare(b, "en"));
 }
 
-//+ true when a demo="component" element has a nested demo="component" descendant, meaning it's
-//+ transparent grouping markup rather than the rendered example itself. The boundary check (rather
-//+ than an exact-value match) is what lets "component" combine with codeNone/previewNone in the same
-//+ demo attribute, e.g. demo="component previewNone".
+// true when a demo="component" element has a nested demo="component" descendant, meaning it's
+// transparent grouping markup rather than the rendered example itself. The boundary check (rather
+// than an exact-value match) is what lets "component" combine with codeNone/previewNone in the same
+// demo attribute, e.g. demo="component previewNone".
 function hasNestedComponent(markup, start, end) {
     return /\bdemo\s*=\s*["'][^"']*\bcomponent\b[^"']*["']/.test(markup.slice(start, end));
 }
 
-//+ walks the example markup in document order (same rule as extractDemoBlocks in
-//+ scripts/generate-component-docs.js): a <demo demo-h2> marker
-//+ becomes a heading block, a <demo demo-h3> marker is held as "pending" until the next titleable
-//+ leaf consumes it, and a demo="component" with a nested demo="component" is transparent (the walk
-//+ keeps scanning through its content instead of treating it as one block, see formAddon.html's
-//+ outer <form demo="component"> around several inner ones). demo="wrapper" never appears in this
-//+ top-level match at all — it's a purely nested instruction, unwrapped afterwards by unwrapScaffold,
-//+ never its own block boundary. `unwrap` controls whether demo="wrapper" elements are unwrapped in
-//+ the returned markup — true for the copyable code text, false for the live-preview markup, which
-//+ must keep them (removing a real, styled element there would break layout).
+// walks the example markup in document order (same rule as extractDemoBlocks in
+// scripts/generate-component-docs.js): a <demo demo-h2> marker
+// becomes a heading block, a <demo demo-h3> marker is held as "pending" until the next titleable
+// leaf consumes it, and a demo="component" with a nested demo="component" is transparent (the walk
+// keeps scanning through its content instead of treating it as one block, see formAddon.html's
+// outer <form demo="component"> around several inner ones). demo="wrapper" never appears in this
+// top-level match at all — it's a purely nested instruction, unwrapped afterwards by unwrapScaffold,
+// never its own block boundary. `unwrap` controls whether demo="wrapper" elements are unwrapped in
+// the returned markup — true for the copyable code text, false for the live-preview markup, which
+// must keep them (removing a real, styled element there would break layout).
 function extractDemoBlocks(markup, { unwrap = true } = {}) {
     const pattern = /<(demo)\b[^>]*>|<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*\bdemo\s*=\s*["'][^"']*\bcomponent\b[^"']*["'][^>]*>/g;
     const blocks = [];
@@ -430,8 +430,8 @@ function extractDemoBlocks(markup, { unwrap = true } = {}) {
 
 // HTML STRING RENDERING (the part with no generate-component-docs.js equivalent: that script
 // renders Markdown, this renders the demo's own panel HTML)
-//+ isPanel turns the list into the accordion's own panel: the token and the initial hidden go on
-//+ the <ul> itself, since there is nothing else between it and the accordion root
+// isPanel turns the list into the accordion's own panel: the token and the initial hidden go on
+// the <ul> itself, since there is nothing else between it and the accordion root
 function renderDocListHtml(items, isPanel = false) {
     const rows = items.map(item => `<li><code>${escapeHtml(item.key)}</code>: ${escapeHtml(item.description)}</li>`).join("");
     return `<ul pgs="flex['column' 'gapTexts']${isPanel ? " accordion-content" : ""}"${isPanel ? " hidden" : ""}>${rows}</ul>`;
@@ -441,13 +441,13 @@ function renderDocListHtml(items, isPanel = false) {
 // push the examples below the fold
 const DOC_GROUPS_OPEN = new Set([LIST_TAG_LABELS.pgs, LIST_TAG_LABELS["pgs-options"]]);
 
-//+ every top-level group of the doc block is an accordion: the lists are long and a reader is
-//+ usually after one of them. The heading is the control — pgs.accordion gives it role="button"
-//+ and tabindex, so a heading stays operable — and both it and the panel have to be direct
-//+ children of the root, which is what the module looks for. The panel is always written hidden so
-//+ it does not flash open before the JavaScript runs; accAutoOpen is what reopens the two
-//+ groups above at init. There is no accordionContainer around these on purpose — without a group
-//+ each panel answers for itself, so reading one does not collapse the rest of the block
+// every top-level group of the doc block is an accordion: the lists are long and a reader is
+// usually after one of them. The heading is the control — pgs.accordion gives it role="button"
+// and tabindex, so a heading stays operable — and both it and the panel have to be direct
+// children of the root, which is what the module looks for. The panel is always written hidden so
+// it does not flash open before the JavaScript runs; accAutoOpen is what reopens the two
+// groups above at init. There is no accordionContainer around these on purpose — without a group
+// each panel answers for itself, so reading one does not collapse the rest of the block
 function renderDocAccordionHtml(label, panelHtml, className = "") {
     const classAttribute = className ? ` class="${className}"` : "";
     const accordion = DOC_GROUPS_OPEN.has(label) ? "accordion['accAutoOpen']" : "accordion";
