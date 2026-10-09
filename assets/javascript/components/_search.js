@@ -426,16 +426,18 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
 
 //== a pointerdown outside an open search closes it, and cancels what it was still waiting for: a
 //== debounce or a request that finishes after the click would open the list again behind it
-document.addEventListener("pointerdown", event => {
-    ACTIVE_SEARCHES.forEach(search => {
-        if (search.contains(event.target)) return;
+if (typeof document !== "undefined") {
+    document.addEventListener("pointerdown", event => {
+        ACTIVE_SEARCHES.forEach(search => {
+            if (search.contains(event.target)) return;
 
-        const instance = API.get(search);
-        instance?.cancel();
-        instance?.close();
-        ACTIVE_SEARCHES.delete(search);
+            const instance = API.get(search);
+            instance?.cancel();
+            instance?.close();
+            ACTIVE_SEARCHES.delete(search);
+        });
     });
-});
+}
 
 function PGS_search_init(root = document) {
     PGS_roots(root, "search").forEach(search => initializeSearch(search));

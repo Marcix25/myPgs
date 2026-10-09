@@ -12,7 +12,7 @@ const API = new WeakMap();
 // runs, so the panel it names can still be selected below after the URL is stripped of it.
 // Every root takes it once, on its own first init (loadHashTaken): a refresh() reads the URL as
 // it is by then, so it can never force the hash the page was opened with back onto the reader
-const loadHash = window.location.hash;
+const loadHash = typeof window === "undefined" ? "" : window.location.hash;
 const loadHashTaken = new WeakSet();
 
 const pageNavUtil = {

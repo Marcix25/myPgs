@@ -66,6 +66,8 @@ const svgColors = {
     },
 
     init() {
+        if (typeof document === "undefined") return;
+
         document.addEventListener(svgColors.eventChangeColor, event => {
             svgColors.applyColorsSVG(event.detail?.isDarkMode ?? svgColors._getCurrentDarkmode());
             svgColors.applyColorsLottie(event.detail?.isDarkMode ?? svgColors._getCurrentDarkmode());

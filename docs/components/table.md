@@ -11,10 +11,10 @@ Responsive container for a semantic table with headers and data rows consistent 
 ## CSS Variables
 
 - `--table-row-background-even`
+- `--table-row-background-hover`
 - `--table-row-background-odd`
 - `--table-row-color`
-- `--table-row-hover-background`
-- `--table-row-hover-color`
+- `--table-row-color-hover`
 - `--table-title-background`
 - `--table-title-color`
 

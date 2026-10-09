@@ -72,8 +72,8 @@ html:has(dialog[open]) {
     height: 100dvh;
     min-height: 100dvh;
     padding-inline: var(--page-padding);
-    padding-bottom: calc(var(--heightOfNavSmartScroll) + var(--modal-offset));
-    padding-top: calc(var(--heightOfHeaderScroll) + var(--modal-offset));
+    padding-bottom: calc(var(--_navSmart-heightScroll) + var(--modal-offset));
+    padding-top: calc(var(--_header-heightScroll) + var(--modal-offset));
     transition: opacity 600ms ease;
     margin: 0;
     opacity: 1;
@@ -147,7 +147,7 @@ html:has(dialog[open]) {
     >:where([pgs~="_modal-close"]) {
         position: fixed !important;
         right: var(--page-padding);
-        top: calc(var(--heightOfHeaderScroll) + var(--padding-elements));
+        top: calc(var(--_header-heightScroll) + var(--padding-elements));
         z-index: 1;
     }
 

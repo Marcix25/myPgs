@@ -202,7 +202,7 @@ function configureFormDemo() {
         const confirmPassword = form.querySelector('input[name="confirmPassword"]');
         if (!password || !confirmPassword) return;
         if (password.value && confirmPassword.value && password.value !== confirmPassword.value) {
-            pgsApi(confirmPassword).option.setValueBrackets("formMessage", "The passwords do not match");
+            pgsApi(confirmPassword).data.setValueBrackets("formMessage", "The passwords do not match");
             return [confirmPassword, password];
         }
     });
@@ -286,7 +286,7 @@ function configureFormValidateHelperDemo() {
     formValidate.addNewRule(() => {
         if (username.value.toLowerCase() !== "admin") return null;
 
-        pgsApi(username).option.setValueBrackets("formMessage", "That username is taken");
+        pgsApi(username).data.setValueBrackets("formMessage", "That username is taken");
         return username;
     });
 

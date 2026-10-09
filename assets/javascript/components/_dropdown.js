@@ -144,18 +144,20 @@ function isInsideAnyDropdown(target) {
 
 //== the listeners that serve every dropdown on the page: registered once, when the module loads,
 //== so a later init() or refresh() cannot stack another copy of them
-document.addEventListener("click", (event) => {
-    if (isInsideAnyDropdown(event.target)) return;
-    OPEN_DROPDOWNS.forEach(closeDropdown);
-});
+if (typeof document !== "undefined") {
+    document.addEventListener("click", (event) => {
+        if (isInsideAnyDropdown(event.target)) return;
+        OPEN_DROPDOWNS.forEach(closeDropdown);
+    });
 
-document.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape") return;
-    OPEN_DROPDOWNS.forEach(closeDropdown);
-});
+    document.addEventListener("keydown", (event) => {
+        if (event.key !== "Escape") return;
+        OPEN_DROPDOWNS.forEach(closeDropdown);
+    });
 
-window.addEventListener("resize", updateOpenDropdowns);
-window.addEventListener("scroll", updateOpenDropdowns, true);
+    window.addEventListener("resize", updateOpenDropdowns);
+    window.addEventListener("scroll", updateOpenDropdowns, true);
+}
 
 function initializeDropdown(DROPDOWN) {
     if (API.has(DROPDOWN)) return;

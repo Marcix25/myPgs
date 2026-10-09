@@ -24,9 +24,11 @@ export function PGS_rafThrottle(callback) {
 }
 
 //+ watches the whole document for nodes that arrive later and calls back once per frame, for the
-//+ modules that have to find their own markup after the page is ready (header, navSmart, hover).
-//+ Returns the observer, so a caller can disconnect it
+//+ modules that have to find their own markup after the page is ready (header, navSmart). Returns
+//+ the observer so a caller can disconnect it, or null when there is no document to watch
 export function PGS_watchDocument(callback, options = { childList: true, subtree: true }) {
+    if (typeof document === "undefined" || typeof MutationObserver === "undefined") return null;
+
     const observer = new MutationObserver(PGS_rafThrottle(() => callback()));
     observer.observe(document.documentElement, options);
     return observer;

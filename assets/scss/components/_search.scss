@@ -2,7 +2,7 @@
 
 :is([pgs~="search"], [pgs*="search\5B"]) {
     --search-height: var(--font-size-text);
-    --search-paddingBlock: var(--border-radius-input);
+    --search-padding-block: var(--border-radius-input);
     --search-borderRadius: calc(var(--border-radius-input) + (var(--search-height) /2));
     --search-background: var(--color-box);
     --search-color: var(--color-black);
@@ -11,10 +11,10 @@
     --search-suggestions-padding: .5rem;
     --search-suggestions-maxHeight: 70vh;
     --search-suggestions-item-padding: 1rem;
-    --search-suggestions-item-selected-background: var(--color-primary);
-    --search-suggestions-item-selected-color: var(--color-whiteFixed);
-    --search-suggestions-item-hover-background: var(--color-primary-soft);
-    --search-suggestions-item-hover-color: var(--color-black);
+    --search-suggestions-item-background-selected: var(--color-primary);
+    --search-suggestions-item-color-selected: var(--color-whiteFixed);
+    --search-suggestions-item-background-hover: var(--color-primary-soft);
+    --search-suggestions-item-color-hover: var(--color-black);
     position: relative;
     display: flex;
     flex-direction: row;
@@ -40,7 +40,7 @@
         height: var(--search-height);
         min-width: auto;
         box-sizing: content-box;
-        padding-block: var(--search-paddingBlock);
+        padding-block: var(--search-padding-block);
         color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
         font-family: var(--font);
         font-size: var(--font-size-text);
@@ -92,13 +92,13 @@
             gap: var(--search-suggestions-item-padding);
 
             &:hover {
-                background: var(--search-suggestions-item-hover-background);
-                color: var(--search-suggestions-item-hover-color);
+                background: var(--search-suggestions-item-background-hover);
+                color: var(--search-suggestions-item-color-hover);
             }
 
             &[aria-selected="true"] {
-                background: var(--search-suggestions-item-selected-background);
-                color: var(--search-suggestions-item-selected-color);
+                background: var(--search-suggestions-item-background-selected);
+                color: var(--search-suggestions-item-color-selected);
             }
 
             &[aria-disabled="true"] {

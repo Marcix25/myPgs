@@ -91,12 +91,12 @@ Search markup, configuration, behavior, and usage example. Two custom events bub
 - `--search-borderRadius`
 - `--search-color`
 - `--search-height`
-- `--search-paddingBlock`
-- `--search-suggestions-item-hover-background`
-- `--search-suggestions-item-hover-color`
+- `--search-padding-block`
+- `--search-suggestions-item-background-hover`
+- `--search-suggestions-item-background-selected`
+- `--search-suggestions-item-color-hover`
+- `--search-suggestions-item-color-selected`
 - `--search-suggestions-item-padding`
-- `--search-suggestions-item-selected-background`
-- `--search-suggestions-item-selected-color`
 - `--search-suggestions-maxHeight`
 - `--search-suggestions-offset`
 - `--search-suggestions-padding`

@@ -41,8 +41,12 @@
     &[pgs*="'contentBetween'"] { align-content: space-between; }
     &[pgs*="'contentAround'"] { align-content: space-around; }
     &[pgs*="'contentEvenly'"] { align-content: space-evenly; }
+}
 
-    //== SELF ALIGN (on the child of a flex or grid container, not the container itself)
+//= SELF ALIGN
+// a child overriding its container's alignment: the flag belongs to the bracket of flexChild or
+// gridChild, so it can only be written on an item of a flex or grid container
+:is([pgs~="flexChild"], [pgs*="flexChild\5B"], [pgs~="gridChild"], [pgs*="gridChild\5B"]) {
     &[pgs*="'selfStart'"] { align-self: start; }
     &[pgs*="'selfCenter'"] { align-self: center; }
     &[pgs*="'selfEnd'"] { align-self: end; }

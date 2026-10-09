@@ -53,7 +53,7 @@
 
 .home-features-grid [pgs~="icon"] {
     --icon-size: 1.8rem;
-    --iconBox-background: var(--color-primary-soft);
+    --boxed-background: var(--color-primary-soft);
     --icon-color: var(--color-primary-strong);
     margin-bottom: 0.5rem;
 }
@@ -89,7 +89,7 @@
 }
 
 .home-icons-grid [pgs~="icon"] {
-    --iconBox-background: var(--color-box-transparent);
+    --boxed-background: var(--color-box-transparent);
     --icon-color: var(--color-primary-strong);
 }
 

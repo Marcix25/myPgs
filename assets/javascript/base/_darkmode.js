@@ -25,13 +25,32 @@ function changeIcon(selector, isDarkMode) {
     });
 }
 
+//+ STORED CHOICE
+//== localStorage throws when the browser blocks site data, and answers null in some private windows:
+//== either way the choice lives in memory for the rest of the page, so the switch still works
+const STORAGE_KEY = "screenIsDarkMode";
+let memoryChoice = false;
+
+function readStoredChoice() {
+    try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored !== null) return stored === "true";
+    } catch (_) { }
+    return memoryChoice;
+}
+
+function writeStoredChoice(isDarkMode) {
+    memoryChoice = isDarkMode;
+    try { localStorage.setItem(STORAGE_KEY, isDarkMode); } catch (_) { }
+}
+
 //+ SET STATUS
 function setDarkmodeStatus(toggle = false, button = []) {
-    let isDarkMode = localStorage.getItem("screenIsDarkMode") === "true";
+    let isDarkMode = readStoredChoice();
 
     if (toggle) {
         isDarkMode = !isDarkMode;
-        localStorage.setItem("screenIsDarkMode", isDarkMode);
+        writeStoredChoice(isDarkMode);
     }
 
     // SET
@@ -48,7 +67,7 @@ function setDarkmodeStatus(toggle = false, button = []) {
 //= INIT
 //== applies the stored theme to the root as soon as the bundle is parsed in the head, so a
 //== reload never paints the wrong one first
-setDarkmodeStatus();
+if (typeof document !== "undefined") setDarkmodeStatus();
 
 //== binds the switches in root that are not bound yet and draws their glyph. Switches already
 //== bound are left untouched, so pgs.init(el) on a page that is already running changes nothing

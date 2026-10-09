@@ -34,7 +34,11 @@
 @function _cols($ratio, $columns) { @return math.ceil($columns * $ratio); }
 
 @function _basis($ratio, $gap, $columns) {
-    $cols: math.ceil($columns * $ratio);
+    @return _basisOf(math.ceil($columns * $ratio), $gap);
+}
+
+// the same basis for a column count given directly
+@function _basisOf($cols, $gap) {
     @return calc((100% - ($gap * ($cols - 1))) / $cols);
 }
 
@@ -84,10 +88,11 @@
             flex-basis:#{_basis(0.15, $gap, $columns)};
         }
 
+        // two per row, or the one there is when only one column was declared
         &[pgs*="'m2e'"] {
             >* {
-                --_flex-cols: #{_cols(0.33, $columns)};
-                flex-basis:#{_basis(0.33, $gap, $columns)};
+                --_flex-cols: #{math.min(2, $columns)};
+                flex-basis:#{_basisOf(math.min(2, $columns), $gap)};
             }
         }
     }
@@ -136,8 +141,8 @@
     //-( big mobile m2e
     &[pgs*="'m2e'"] {
         @container (max-width: #{$big-mobile}) {
-            grid-template-columns: 1fr 1fr; // 2 columns on mobile
-            --_grid-cols: 2;
+            grid-template-columns: repeat(#{math.min(2, $columns)}, 1fr); // 2 columns on mobile, or the one declared
+            --_grid-cols: #{math.min(2, $columns)};
         }
     }
 

@@ -94,11 +94,11 @@
     &[pgs*="'height50svh'"] { --height-size: 50svh; }
 
     // what is left of the screen below the header, for a hero that fills the first view
-    &[pgs*="'heightUnderHeader'"] { --height-size: calc(100dvh - var(--heightOfHeader)); }
+    &[pgs*="'heightUnderHeader'"] { --height-size: calc(100dvh - var(--_header-height)); }
 
     // the same idea for an element that is the first child of main instead: main already
     // carries --main-padding-top (the header height plus the extra breathing room --page-top
-    // adds), so subtracting only --heightOfHeader would leave that padding counted twice
+    // adds), so subtracting only --_header-height would leave that padding counted twice
     &[pgs*="'heightUnderMain'"] { --height-size: calc(100dvh - var(--main-padding-top)); }
 
     // drops the constraint on one element without dropping the utility: auto is valid on
@@ -115,7 +115,7 @@
     &[pgs*="'heightMax100dvh'"] { --heightMax-size: 100dvh; }
     &[pgs*="'heightMax100lvh'"] { --heightMax-size: 100lvh; }
     &[pgs*="'heightMax50svh'"] { --heightMax-size: 50svh; }
-    &[pgs*="'heightMaxUnderHeader'"] { --heightMax-size: calc(100dvh - var(--heightOfHeader)); }
+    &[pgs*="'heightMaxUnderHeader'"] { --heightMax-size: calc(100dvh - var(--_header-height)); }
     &[pgs*="'heightMaxUnderMain'"] { --heightMax-size: calc(100dvh - var(--main-padding-top)); }
     &[pgs*="'heightMaxAuto'"] { --heightMax-size: auto; }
 }
@@ -129,7 +129,7 @@
     &[pgs*="'heightMin100dvh'"] { --heightMin-size: 100dvh; }
     &[pgs*="'heightMin100lvh'"] { --heightMin-size: 100lvh; }
     &[pgs*="'heightMin50svh'"] { --heightMin-size: 50svh; }
-    &[pgs*="'heightMinUnderHeader'"] { --heightMin-size: calc(100dvh - var(--heightOfHeader)); }
+    &[pgs*="'heightMinUnderHeader'"] { --heightMin-size: calc(100dvh - var(--_header-height)); }
     &[pgs*="'heightMinUnderMain'"] { --heightMin-size: calc(100dvh - var(--main-padding-top)); }
     &[pgs*="'heightMinAuto'"] { --heightMin-size: auto; }
 }

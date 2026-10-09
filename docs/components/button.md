@@ -66,7 +66,7 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `--button-color-checked`
 - `--button-color-current`
 - `--button-color-hover`
-- `--button-font-size`
+- `--button-fontSize`
 - `--button-gap`
 - `--button-height`
 - `--button-padding`

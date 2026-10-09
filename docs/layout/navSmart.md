@@ -15,7 +15,7 @@ A floating navigation bar pinned to the bottom of the screen, made of frosted pi
 
 ## JavaScript API
 
-- `pgs.navSmart.init(root)`: measures the bars inside the specified root, or the root itself when it is one; runs automatically on page load and again via pgs.init(root) for a bar added later. The bar pinned to the screen publishes --heightOfNavSmart, the whole distance from the bottom edge of the screen to the top of the bar (the pills plus the gap the bar keeps from the edge, and the safe area on a phone), and --heightOfNavSmartScroll, kept equal to it (the header publishes the same pair). Both are 0 while the bar is hidden, for instance by a media query. A navSmart written as an example inside a page flows with it, takes no room at the bottom and never owns them. Padding the end of a page by either one keeps its last lines from sitting under the bar.
+- `pgs.navSmart.init(root)`: measures the bars inside the specified root, or the root itself when it is one; runs automatically on page load and again via pgs.init(root) for a bar added later. The bar pinned to the screen publishes --_navSmart-height, the whole distance from the bottom edge of the screen to the top of the bar (the pills plus the gap the bar keeps from the edge, and the safe area on a phone), and --_navSmart-heightScroll, kept equal to it (the header publishes the same pair). Both are 0 while the bar is hidden, for instance by a media query. A navSmart written as an example inside a page flows with it, takes no room at the bottom and never owns them. Padding the end of a page by either one keeps its last lines from sitting under the bar.
 
 ## Related elements
 

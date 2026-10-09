@@ -552,32 +552,6 @@ function pgs(root) {
     return api;
 }
 
-const PGS_IMPORTS = {};
-
-function registerImportModule(name, module) {
-    const key = String(name || "").trim().replace(/^pgs[_-\s]*/i, "").toLowerCase();
-
-    if (!key) throw new TypeError("pgs.registerImport(...modules): every module needs a name or a PGS_name");
-
-    PGS_IMPORTS[key] = {
-        name,
-        module
-    };
-}
-
-pgs.registerImport = function (...modules) {
-    modules.flat().forEach(item => {
-        if (item && typeof item === "object" && !item.PGS_name && !item.name) {
-            Object.entries(item).forEach(([name, module]) => registerImportModule(name, module));
-            return;
-        }
-
-        registerImportModule(item?.PGS_name || item?.name, item);
-    });
-
-    return pgs;
-};
-
 pgs.registerModules = function (modules = {}) {
     Object.entries(modules).forEach(([name, module]) => {
         const key = String(name || "").trim();
@@ -592,18 +566,6 @@ pgs.registerModules = function (modules = {}) {
     });
 
     return pgs;
-};
-
-pgs.import = function (...names) {
-    return names.flat().reduce((imports, name) => {
-        const key = String(name || "").trim().replace(/^pgs[_-\s]*/i, "").toLowerCase();
-        const item = PGS_IMPORTS[key];
-
-        if (!item) throw new Error(`pgs.import(): module "${name}" is not registered`);
-
-        imports[item.name] = item.module;
-        return imports;
-    }, {});
 };
 
 globalThis.pgs ??= pgs;
@@ -657,13 +619,32 @@ function changeIcon(selector, isDarkMode) {
     });
 }
 
+//+ STORED CHOICE
+//== localStorage throws when the browser blocks site data, and answers null in some private windows:
+//== either way the choice lives in memory for the rest of the page, so the switch still works
+const STORAGE_KEY = "screenIsDarkMode";
+let memoryChoice = false;
+
+function readStoredChoice() {
+    try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored !== null) return stored === "true";
+    } catch (_) { }
+    return memoryChoice;
+}
+
+function writeStoredChoice(isDarkMode) {
+    memoryChoice = isDarkMode;
+    try { localStorage.setItem(STORAGE_KEY, isDarkMode); } catch (_) { }
+}
+
 //+ SET STATUS
 function setDarkmodeStatus(toggle = false, button = []) {
-    let isDarkMode = localStorage.getItem("screenIsDarkMode") === "true";
+    let isDarkMode = readStoredChoice();
 
     if (toggle) {
         isDarkMode = !isDarkMode;
-        localStorage.setItem("screenIsDarkMode", isDarkMode);
+        writeStoredChoice(isDarkMode);
     }
 
     // SET
@@ -680,7 +661,7 @@ function setDarkmodeStatus(toggle = false, button = []) {
 //= INIT
 //== applies the stored theme to the root as soon as the bundle is parsed in the head, so a
 //== reload never paints the wrong one first
-setDarkmodeStatus();
+if (typeof document !== "undefined") setDarkmodeStatus();
 
 //== binds the switches in root that are not bound yet and draws their glyph. Switches already
 //== bound are left untouched, so pgs.init(el) on a page that is already running changes nothing
@@ -809,7 +790,7 @@ function scheduleSync(nodes) {
     flushPending();
 }
 
-const hoverObserver = new MutationObserver(mutations => {
+function handleMutations(mutations) {
     mutations.forEach(mutation => {
         if (mutation.type === "attributes") {
             scheduleSync([mutation.target]);
@@ -818,18 +799,18 @@ const hoverObserver = new MutationObserver(mutations => {
 
         scheduleSync([...mutation.addedNodes].filter(node => node instanceof Element));
     });
-});
+}
 
 //= AUTO-MARK
 //== bodyHoverAuto is the author's own switch, one of the flags in <body>'s own body[...] bracket
 //== alongside bodyBase/bodyImg/bodyText/bodyHeading: without it nothing is marked on load, and —
 //== separately from the check inside PGS_hover_init — the observer below never even starts, so a page
 //== that only ever writes pgs="hover" by hand never pays for it running for its whole lifetime
-(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(() => {
+;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(() => {
     if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document.body).option.contains("bodyHoverAuto")) return;
 
     PGS_hover_init(document);
-    hoverObserver.observe(document.documentElement, {
+    new MutationObserver(handleMutations).observe(document.documentElement, {
         childList: true,
         subtree: true,
         attributes: true,
@@ -927,6 +908,8 @@ const svgColors = {
     },
 
     init() {
+        if (typeof document === "undefined") return;
+
         document.addEventListener(svgColors.eventChangeColor, event => {
             svgColors.applyColorsSVG(event.detail?.isDarkMode ?? svgColors._getCurrentDarkmode());
             svgColors.applyColorsLottie(event.detail?.isDarkMode ?? svgColors._getCurrentDarkmode());
@@ -1733,18 +1716,20 @@ function isInsideAnyDropdown(target) {
 
 //== the listeners that serve every dropdown on the page: registered once, when the module loads,
 //== so a later init() or refresh() cannot stack another copy of them
-document.addEventListener("click", (event) => {
-    if (isInsideAnyDropdown(event.target)) return;
-    OPEN_DROPDOWNS.forEach(closeDropdown);
-});
+if (typeof document !== "undefined") {
+    document.addEventListener("click", (event) => {
+        if (isInsideAnyDropdown(event.target)) return;
+        OPEN_DROPDOWNS.forEach(closeDropdown);
+    });
 
-document.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape") return;
-    OPEN_DROPDOWNS.forEach(closeDropdown);
-});
+    document.addEventListener("keydown", (event) => {
+        if (event.key !== "Escape") return;
+        OPEN_DROPDOWNS.forEach(closeDropdown);
+    });
 
-window.addEventListener("resize", updateOpenDropdowns);
-window.addEventListener("scroll", updateOpenDropdowns, true);
+    window.addEventListener("resize", updateOpenDropdowns);
+    window.addEventListener("scroll", updateOpenDropdowns, true);
+}
 
 function initializeDropdown(DROPDOWN) {
     if (API.has(DROPDOWN)) return;
@@ -2392,6 +2377,9 @@ function initializeModal(MODAL) {
                 const params = new URLSearchParams(url.search);
                 isOpen ? params.set('modal', BUTTON_OPEN.id) : params.delete('modal');
                 url.search = params.toString() ? `?${params.toString()}` : "";
+                //== the address already says so when the change came from the history itself (back,
+                //== forward, or a page loaded with ?modal=): a second entry would wipe the forward stack
+                if (url.href === window.location.href) return;
                 window.history.pushState({ modal: BUTTON_OPEN.id, open: isOpen }, "", url);
             } catch (_) { }
         });
@@ -2402,7 +2390,7 @@ function initializeModal(MODAL) {
             try {
                 const params = new URLSearchParams(window.location.search);
                 const shouldOpen = params.get('modal') === BUTTON_OPEN.id;
-                if (shouldOpen && !DIALOG.open) DIALOG.showModal();
+                if (shouldOpen && !DIALOG.open) openModal();
                 if (!shouldOpen && DIALOG.open) closeModal()
             } catch (_) { }
         }, { signal });
@@ -2737,7 +2725,7 @@ const API = new WeakMap();
 // runs, so the panel it names can still be selected below after the URL is stripped of it.
 // Every root takes it once, on its own first init (loadHashTaken): a refresh() reads the URL as
 // it is by then, so it can never force the hash the page was opened with back onto the reader
-const loadHash = window.location.hash;
+const loadHash = typeof window === "undefined" ? "" : window.location.hash;
 const loadHashTaken = new WeakSet();
 
 const pageNavUtil = {
@@ -3355,19 +3343,21 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
 
 //== a pointerdown outside an open search closes it, and cancels what it was still waiting for: a
 //== debounce or a request that finishes after the click would open the list again behind it
-document.addEventListener("pointerdown", event => {
-    ACTIVE_SEARCHES.forEach(search => {
-        if (search.contains(event.target)) return;
+if (typeof document !== "undefined") {
+    document.addEventListener("pointerdown", event => {
+        ACTIVE_SEARCHES.forEach(search => {
+            if (search.contains(event.target)) return;
 
-        const instance = API.get(search);
-        instance?.cancel();
-        instance?.close();
-        ACTIVE_SEARCHES.delete(search);
+            const instance = API.get(search);
+            instance?.cancel();
+            instance?.close();
+            ACTIVE_SEARCHES.delete(search);
+        });
     });
-});
+}
 
 function PGS_search_init(root = document) {
-    (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_1__.PGS_roots)(root, "search").forEach(search => initializeSearch(search));
+    ;(0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_1__.PGS_roots)(root, "search").forEach(search => initializeSearch(search));
 }
 
 ;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_2__.PGS_onDocumentReady)(PGS_search_init);
@@ -5089,7 +5079,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_onDocumentReady: () => (/* binding */ PGS_onDocumentReady)
 /* harmony export */ });
+//+ runs the callback once the DOM is parsed. Without a document (server-side rendering, a test
+//+ runner) there is nothing to wait for or to run against, so it does nothing
 function PGS_onDocumentReady(callback) {
+    if (typeof document === "undefined") return;
+
     if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", () => callback(), { once: true });
         return;
@@ -5172,9 +5166,11 @@ function PGS_rafThrottle(callback) {
 }
 
 //+ watches the whole document for nodes that arrive later and calls back once per frame, for the
-//+ modules that have to find their own markup after the page is ready (header, navSmart, hover).
-//+ Returns the observer, so a caller can disconnect it
+//+ modules that have to find their own markup after the page is ready (header, navSmart). Returns
+//+ the observer so a caller can disconnect it, or null when there is no document to watch
 function PGS_watchDocument(callback, options = { childList: true, subtree: true }) {
+    if (typeof document === "undefined" || typeof MutationObserver === "undefined") return null;
+
     const observer = new MutationObserver(PGS_rafThrottle(() => callback()));
     observer.observe(document.documentElement, options);
     return observer;
@@ -5316,7 +5312,7 @@ function initHeight(header) {
         return isCompactBottom ? (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).querySelector("header-element") || header : header;
     }
 
-    //+ FOR --heightOfHeader and --heightOfHeaderScroll
+    //+ FOR --_header-height and --_header-heightScroll
     function getPrimaryHeader() {
         const headers = getReadyHeaders();
         return headers.find(header => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).option.contains("headerMain")) || headers[0] || null;
@@ -5324,7 +5320,7 @@ function initHeight(header) {
 
     //+ HEIGHT
     function headerHeight() {
-        //== --heightOfHeader is what pushes the page down, so only one header can own it. Ownership
+        //== --_header-height is what pushes the page down, so only one header can own it. Ownership
         //== is checked here rather than at init, so a header declaring main later still
         //== takes over from the fallback
         if (getPrimaryHeader() !== header) return;
@@ -5333,8 +5329,8 @@ function initHeight(header) {
         const height = getHeaderHeightElement(header).offsetHeight + wordPressBar;
         const scrollHeight = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).state.contains("hiddenByScroll") ? 0 : height;
 
-        document.documentElement.style.setProperty("--heightOfHeader", `${height}px`);
-        document.documentElement.style.setProperty("--heightOfHeaderScroll", `${scrollHeight}px`);
+        document.documentElement.style.setProperty("--_header-height", `${height}px`);
+        document.documentElement.style.setProperty("--_header-heightScroll", `${scrollHeight}px`);
     }
 
     const scheduleHeaderHeight = (0,_helper_throttle_js__WEBPACK_IMPORTED_MODULE_3__.PGS_rafThrottle)(headerHeight);
@@ -5435,9 +5431,9 @@ __webpack_require__.r(__webpack_exports__);
 
 //# NAV SMART
 //+ publishes the room the bar takes at the bottom of the screen, the way the header publishes its own:
-//+ --heightOfNavSmart is the whole distance from the bottom edge of the screen to the top of the bar
+//+ --_navSmart-height is the whole distance from the bottom edge of the screen to the top of the bar
 //+ (the pills plus the gap the bar keeps from the edge, and the safe area on a phone), and
-//+ --heightOfNavSmartScroll is kept equal to it, the same name the header gives its own pair. Both
+//+ --_navSmart-heightScroll is kept equal to it, the same name the header gives its own pair. Both
 //+ are 0 while a media query hides the bar. Padding the end of a page by either one keeps its last
 //+ lines from sitting under it.
 
@@ -5480,8 +5476,8 @@ function initNavSmart(bar) {
             ? Math.max(0, Math.round(window.innerHeight - bar.getBoundingClientRect().top))
             : 0;
 
-        document.documentElement.style.setProperty("--heightOfNavSmart", `${height}px`);
-        document.documentElement.style.setProperty("--heightOfNavSmartScroll", `${height}px`);
+        document.documentElement.style.setProperty("--_navSmart-height", `${height}px`);
+        document.documentElement.style.setProperty("--_navSmart-heightScroll", `${height}px`);
     }
 
     const schedule = (0,_helper_throttle_js__WEBPACK_IMPORTED_MODULE_3__.PGS_rafThrottle)(measure);

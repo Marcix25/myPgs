@@ -386,6 +386,9 @@ function initializeModal(MODAL) {
                 const params = new URLSearchParams(url.search);
                 isOpen ? params.set('modal', BUTTON_OPEN.id) : params.delete('modal');
                 url.search = params.toString() ? `?${params.toString()}` : "";
+                //== the address already says so when the change came from the history itself (back,
+                //== forward, or a page loaded with ?modal=): a second entry would wipe the forward stack
+                if (url.href === window.location.href) return;
                 window.history.pushState({ modal: BUTTON_OPEN.id, open: isOpen }, "", url);
             } catch (_) { }
         });
@@ -396,7 +399,7 @@ function initializeModal(MODAL) {
             try {
                 const params = new URLSearchParams(window.location.search);
                 const shouldOpen = params.get('modal') === BUTTON_OPEN.id;
-                if (shouldOpen && !DIALOG.open) DIALOG.showModal();
+                if (shouldOpen && !DIALOG.open) openModal();
                 if (!shouldOpen && DIALOG.open) closeModal()
             } catch (_) { }
         }, { signal });

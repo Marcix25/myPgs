@@ -13,6 +13,8 @@
 // margin's own bracket. Base margin keeps the short "mg" prefix (mgTexts, ...); direction roots
 // add a direction letter (mgBl, mgIn, mgTp, mgRt, mgBt, mgLt).
 :is([pgs~="margin"], [pgs*="margin\5B"]) {
+    // reset on every element, so a negative parent does not flip its descendants
+    --margin-sign: 1;
     margin: calc(var(--margin-texts) * var(--margin-sign, 1));
 
     &[pgs*="'mg'"] { margin: calc(var(--margin-texts) * var(--margin-sign, 1)); }
@@ -28,6 +30,8 @@
 
 //- BLOCK
 :is([pgs~="marginBlock"], [pgs*="marginBlock\5B"]) {
+    // reset on every element, so a negative parent does not flip its descendants
+    --margin-block-sign: 1;
     margin-block: calc(var(--margin-texts) * var(--margin-block-sign, 1));
 
     &[pgs*="'mgBl'"] { margin-block: calc(var(--margin-texts) * var(--margin-block-sign, 1)); }
@@ -43,6 +47,8 @@
 
 //- INLINE
 :is([pgs~="marginInline"], [pgs*="marginInline\5B"]) {
+    // reset on every element, so a negative parent does not flip its descendants
+    --margin-inline-sign: 1;
     margin-inline: calc(var(--margin-texts) * var(--margin-inline-sign, 1));
 
     &[pgs*="'mgIn'"] { margin-inline: calc(var(--margin-texts) * var(--margin-inline-sign, 1)); }
@@ -58,6 +64,8 @@
 
 //- TOP
 :is([pgs~="marginTop"], [pgs*="marginTop\5B"]) {
+    // reset on every element, so a negative parent does not flip its descendants
+    --margin-top-sign: 1;
     margin-top: calc(var(--margin-texts) * var(--margin-top-sign, 1));
 
     &[pgs*="'mgTp'"] { margin-top: calc(var(--margin-texts) * var(--margin-top-sign, 1)); }
@@ -73,6 +81,8 @@
 
 //- RIGHT
 :is([pgs~="marginRight"], [pgs*="marginRight\5B"]) {
+    // reset on every element, so a negative parent does not flip its descendants
+    --margin-right-sign: 1;
     margin-right: calc(var(--margin-texts) * var(--margin-right-sign, 1));
 
     &[pgs*="'mgRt'"] { margin-right: calc(var(--margin-texts) * var(--margin-right-sign, 1)); }
@@ -88,6 +98,8 @@
 
 //- BOTTOM
 :is([pgs~="marginBottom"], [pgs*="marginBottom\5B"]) {
+    // reset on every element, so a negative parent does not flip its descendants
+    --margin-bottom-sign: 1;
     margin-bottom: calc(var(--margin-texts) * var(--margin-bottom-sign, 1));
 
     &[pgs*="'mgBt'"] { margin-bottom: calc(var(--margin-texts) * var(--margin-bottom-sign, 1)); }
@@ -103,6 +115,8 @@
 
 //- LEFT
 :is([pgs~="marginLeft"], [pgs*="marginLeft\5B"]) {
+    // reset on every element, so a negative parent does not flip its descendants
+    --margin-left-sign: 1;
     margin-left: calc(var(--margin-texts) * var(--margin-left-sign, 1));
 
     &[pgs*="'mgLt'"] { margin-left: calc(var(--margin-texts) * var(--margin-left-sign, 1)); }

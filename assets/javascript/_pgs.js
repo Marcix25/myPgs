@@ -458,32 +458,6 @@ export function pgs(root) {
     return api;
 }
 
-const PGS_IMPORTS = {};
-
-function registerImportModule(name, module) {
-    const key = String(name || "").trim().replace(/^pgs[_-\s]*/i, "").toLowerCase();
-
-    if (!key) throw new TypeError("pgs.registerImport(...modules): every module needs a name or a PGS_name");
-
-    PGS_IMPORTS[key] = {
-        name,
-        module
-    };
-}
-
-pgs.registerImport = function (...modules) {
-    modules.flat().forEach(item => {
-        if (item && typeof item === "object" && !item.PGS_name && !item.name) {
-            Object.entries(item).forEach(([name, module]) => registerImportModule(name, module));
-            return;
-        }
-
-        registerImportModule(item?.PGS_name || item?.name, item);
-    });
-
-    return pgs;
-};
-
 pgs.registerModules = function (modules = {}) {
     Object.entries(modules).forEach(([name, module]) => {
         const key = String(name || "").trim();
@@ -498,18 +472,6 @@ pgs.registerModules = function (modules = {}) {
     });
 
     return pgs;
-};
-
-pgs.import = function (...names) {
-    return names.flat().reduce((imports, name) => {
-        const key = String(name || "").trim().replace(/^pgs[_-\s]*/i, "").toLowerCase();
-        const item = PGS_IMPORTS[key];
-
-        if (!item) throw new Error(`pgs.import(): module "${name}" is not registered`);
-
-        imports[item.name] = item.module;
-        return imports;
-    }, {});
 };
 
 globalThis.pgs ??= pgs;

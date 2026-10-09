@@ -23,7 +23,7 @@ Flex layouts: direction, wrapping, centering, a responsive column-N row that dro
 - `column-`: inside flex's own bracket, lays the children out on a responsive row of N equal columns, column-1 through column-8, dropping to fewer columns at each breakpoint.
 - `column-1`: inside flex's own bracket, stacks the children in a single column.
 - `column-4`: inside flex's own bracket, four columns per row; values from 1 through 8 are supported.
-- `m2e`: inside flex's own bracket, keeps two items per row at the mobile breakpoint instead of one, returning to one on watch-sized containers.
+- `m2e`: inside flex's own bracket, keeps two items per row at the mobile breakpoint instead of one (or the one there is, when a single column was declared), returning to one on watch-sized containers.
 - `flexInitial`: inside flexChild's own bracket, uses the flex initial sizing behavior on a flex child.
 - `flexNone`: inside flexChild's own bracket, prevents a flex child from growing or shrinking.
 - `flex1`: inside flexChild's own bracket, lets a flex child grow and shrink to fill available space.
@@ -63,11 +63,11 @@ Flex layouts: direction, wrapping, centering, a responsive column-N row that dro
 - `contentBetween`: sets align-content to space-between on the flex or grid container.
 - `contentAround`: sets align-content to space-around on the flex or grid container.
 - `contentEvenly`: sets align-content to space-evenly on the flex or grid container.
-- `selfStart`: sets align-self to start on a single flex or grid child, overriding the container alignment.
-- `selfCenter`: sets align-self to center on a single flex or grid child, overriding the container alignment.
-- `selfEnd`: sets align-self to end on a single flex or grid child, overriding the container alignment.
-- `selfStretch`: sets align-self to stretch on a single flex or grid child, overriding the container alignment.
-- `selfBaseline`: sets align-self to baseline on a single flex or grid child, overriding the container alignment.
+- `selfStart`: inside flexChild's own bracket, sets align-self to start on that item, overriding the container alignment.
+- `selfCenter`: inside flexChild's own bracket, sets align-self to center on that item, overriding the container alignment.
+- `selfEnd`: inside flexChild's own bracket, sets align-self to end on that item, overriding the container alignment.
+- `selfStretch`: inside flexChild's own bracket, sets align-self to stretch on that item, overriding the container alignment.
+- `selfBaseline`: inside flexChild's own bracket, sets align-self to baseline on that item, overriding the container alignment.
 
 ## Related elements
 
@@ -184,7 +184,7 @@ Aligning and justifying flex items, including overriding a single child's alignm
 <div pgs="flex['row' 'gapTexts' 'itemCenter' 'justifyBetween' 'contentCenter']">
     <span pgs="box">Short item</span>
     <span pgs="box">Taller item<br>with two lines</span>
-    <span pgs="box['selfEnd']">Self-aligned item</span>
+    <span pgs="box flexChild['selfEnd']">Self-aligned item</span>
 </div>
 ```
 

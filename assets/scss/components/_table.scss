@@ -9,8 +9,8 @@
         --table-row-background-odd: var(--color-box);
         --table-row-color: var(--color-black);
 
-        --table-row-hover-background: var(--color-primary-soft);
-        --table-row-hover-color: var(--color-blackFixed);
+        --table-row-background-hover: var(--color-primary-soft);
+        --table-row-color-hover: var(--color-blackFixed);
         
         width: 100%;
         max-width: 100%; // never wider than its container
@@ -47,8 +47,8 @@
             }
 
             &:hover {
-                background-color: var(--table-row-hover-background);
-                color: var(--table-row-hover-color);
+                background-color: var(--table-row-background-hover);
+                color: var(--table-row-color-hover);
             }
         }
 

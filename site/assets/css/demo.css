@@ -226,7 +226,7 @@ body {
     }
 }
 
-:is([pgs~="button"], [pgs*="button\5B"])[pgs*="'buttonVertical'"] {
+:is([pgs~="button"], [pgs*="button\5B"])[pgs*="'btnVertical'"] {
     max-width: 300px;
 }
 
@@ -250,9 +250,9 @@ body {
         z-index: 0;
     }
 
-    /* the bar written with navSmartFixedBottom is pinned to the bottom of the screen: inside its
-       example panel it stays in the flow. Without the option it already is */
-    [pgs~=navSmart][pgs*="'navSmartFixedBottom'"], [pgs*="navSmart["][pgs*="'navSmartFixedBottom'"] {
+    /* a navSmart bar is pinned to the bottom of the screen: inside its example panel it stays in
+       the flow */
+    [pgs~=navSmart], [pgs*="navSmart["] {
         position: relative;
         inset: auto;
         padding-block: 2rem;

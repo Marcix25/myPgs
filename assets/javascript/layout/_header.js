@@ -89,7 +89,7 @@ function initHeight(header) {
         return isCompactBottom ? pgs(header).querySelector("header-element") || header : header;
     }
 
-    //+ FOR --heightOfHeader and --heightOfHeaderScroll
+    //+ FOR --_header-height and --_header-heightScroll
     function getPrimaryHeader() {
         const headers = getReadyHeaders();
         return headers.find(header => pgs(header).option.contains("headerMain")) || headers[0] || null;
@@ -97,7 +97,7 @@ function initHeight(header) {
 
     //+ HEIGHT
     function headerHeight() {
-        //== --heightOfHeader is what pushes the page down, so only one header can own it. Ownership
+        //== --_header-height is what pushes the page down, so only one header can own it. Ownership
         //== is checked here rather than at init, so a header declaring main later still
         //== takes over from the fallback
         if (getPrimaryHeader() !== header) return;
@@ -106,8 +106,8 @@ function initHeight(header) {
         const height = getHeaderHeightElement(header).offsetHeight + wordPressBar;
         const scrollHeight = pgs(header).state.contains("hiddenByScroll") ? 0 : height;
 
-        document.documentElement.style.setProperty("--heightOfHeader", `${height}px`);
-        document.documentElement.style.setProperty("--heightOfHeaderScroll", `${scrollHeight}px`);
+        document.documentElement.style.setProperty("--_header-height", `${height}px`);
+        document.documentElement.style.setProperty("--_header-heightScroll", `${scrollHeight}px`);
     }
 
     const scheduleHeaderHeight = PGS_rafThrottle(headerHeight);

@@ -397,9 +397,7 @@ declare global {
     (root: Document): PgsDocumentApi;
     (root: Element): PgsElementApi;
     (root: Document | Element): PgsApi;
-    registerImport(...modules: unknown[]): PgsFunction;
     registerModules(modules: Record<string, any>): PgsFunction;
-    import(...names: string[]): Record<string, any>;
     init(root?: Document | Element): Document | Element;
     darkmode?: PgsInitOnlyModule;
     svg?: PgsSvgModule;

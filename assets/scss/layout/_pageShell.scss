@@ -29,7 +29,7 @@
     // aside
     --pageShell-aside-width: 20rem;
     // shellAsideScroll
-    --pageShell-asideScroll-top: var(--heightOfHeader);
+    --pageShell-asideScroll-top: var(--_header-height);
     --pageShell-asideScroll-maxHeight: calc(100dvh - var(--pageShell-asideScroll-top));
     // shellAsideShadow
     --pageShell-asideShadow-sizeMaskImage: 40px;

@@ -14,7 +14,7 @@ Grid layouts: a responsive column-N grid that drops to fewer columns at each bre
 - `column-`: inside grid's own bracket, lays the children out in N equal columns, column-1 through column-8, dropping to fewer columns at each breakpoint.
 - `column-1`: inside grid's own bracket, a single column.
 - `column-4`: inside grid's own bracket, four columns; values from 1 through 8 are supported.
-- `m2e`: inside grid's own bracket, keeps two columns at the mobile breakpoint instead of one, returning to one on watch-sized containers.
+- `m2e`: inside grid's own bracket, keeps two columns at the mobile breakpoint instead of one (or the one there is, when a single column was declared), returning to one on watch-sized containers.
 - `gridDense`: inside grid's own bracket, lets later items fill the holes a wider one leaves at the end of a row (grid-auto-flow: dense), so the visual order can differ from the source order.
 - `colS`: inside gridChild's own bracket, makes the item span 1 column (--gridChild-col-s) of a grid['column-N'], capped by the columns the current breakpoint leaves, so a span never makes the grid add columns of its own; outside a column-N grid it does nothing.
 - `colM`: inside gridChild's own bracket, spans 2 columns (--gridChild-col-m).
@@ -43,11 +43,11 @@ Grid layouts: a responsive column-N grid that drops to fewer columns at each bre
 - `contentBetween`: sets align-content to space-between on the flex or grid container.
 - `contentAround`: sets align-content to space-around on the flex or grid container.
 - `contentEvenly`: sets align-content to space-evenly on the flex or grid container.
-- `selfStart`: sets align-self to start on a single flex or grid child, overriding the container alignment.
-- `selfCenter`: sets align-self to center on a single flex or grid child, overriding the container alignment.
-- `selfEnd`: sets align-self to end on a single flex or grid child, overriding the container alignment.
-- `selfStretch`: sets align-self to stretch on a single flex or grid child, overriding the container alignment.
-- `selfBaseline`: sets align-self to baseline on a single flex or grid child, overriding the container alignment.
+- `selfStart`: inside gridChild's own bracket, sets align-self to start on that item, overriding the container alignment.
+- `selfCenter`: inside gridChild's own bracket, sets align-self to center on that item, overriding the container alignment.
+- `selfEnd`: inside gridChild's own bracket, sets align-self to end on that item, overriding the container alignment.
+- `selfStretch`: inside gridChild's own bracket, sets align-self to stretch on that item, overriding the container alignment.
+- `selfBaseline`: inside gridChild's own bracket, sets align-self to baseline on that item, overriding the container alignment.
 
 ## Related elements
 
@@ -157,7 +157,7 @@ The shared alignment options on a grid: items centered in their row, one of them
 <div pgs="grid['column-4' 'gapElements' 'itemCenter']">
     <span pgs="box">Short item</span>
     <span pgs="box">Taller item<br>with two lines</span>
-    <span pgs="box['selfEnd']">Self-aligned item</span>
+    <span pgs="box gridChild['selfEnd']">Self-aligned item</span>
     <span pgs="box">Short item</span>
 </div>
 ```

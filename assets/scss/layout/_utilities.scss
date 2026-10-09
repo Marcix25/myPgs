@@ -92,6 +92,10 @@
 //== an arbitrary value has no small enumerable set the way rotate/position do, so it works like
 //== width/height's own -size property: set --zIndex inline for the actual number, or pick one of
 //== the two common shortcuts below
+// reset on every element so a parent's z-index flag is not inherited; :where keeps it at zero
+// specificity, so a value written by the author on the element still wins
+:where([pgs~="zIndex"], [pgs*="zIndex\5B"]) { --zIndex: auto; }
+
 :is([pgs~="zIndex"], [pgs*="zIndex\5B"]) {
     z-index: var(--zIndex, auto);
 

@@ -127,7 +127,7 @@
         [pgs~="_slides-next"] { right: .4rem; }
 
         //-( tablet
-        @container (max-width: $tablet) {
+        @container (max-width: #{$tablet}) {
             [pgs~="_slides-prev"],
             [pgs~="_slides-next"] { --button-size: .8rem; }
 

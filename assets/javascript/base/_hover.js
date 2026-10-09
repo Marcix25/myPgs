@@ -81,7 +81,7 @@ function scheduleSync(nodes) {
     flushPending();
 }
 
-const hoverObserver = new MutationObserver(mutations => {
+function handleMutations(mutations) {
     mutations.forEach(mutation => {
         if (mutation.type === "attributes") {
             scheduleSync([mutation.target]);
@@ -90,7 +90,7 @@ const hoverObserver = new MutationObserver(mutations => {
 
         scheduleSync([...mutation.addedNodes].filter(node => node instanceof Element));
     });
-});
+}
 
 //= AUTO-MARK
 //== bodyHoverAuto is the author's own switch, one of the flags in <body>'s own body[...] bracket
@@ -101,7 +101,7 @@ PGS_onDocumentReady(() => {
     if (!pgs(document.body).option.contains("bodyHoverAuto")) return;
 
     PGS_hover_init(document);
-    hoverObserver.observe(document.documentElement, {
+    new MutationObserver(handleMutations).observe(document.documentElement, {
         childList: true,
         subtree: true,
         attributes: true,

@@ -20,7 +20,7 @@
             }
         }
 
-        &:not:has([pgs~="pageNav-panels-content"][pgs-state~="active"]) {
+        &:not(:has([pgs~="pageNav-panels-content"][pgs-state~="active"])) {
         position: relative;
         overflow: hidden;
 

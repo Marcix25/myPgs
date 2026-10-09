@@ -5,9 +5,9 @@ import { PGS_rafThrottle, PGS_watchDocument } from "../helper/_throttle.js";
 
 //# NAV SMART
 //+ publishes the room the bar takes at the bottom of the screen, the way the header publishes its own:
-//+ --heightOfNavSmart is the whole distance from the bottom edge of the screen to the top of the bar
+//+ --_navSmart-height is the whole distance from the bottom edge of the screen to the top of the bar
 //+ (the pills plus the gap the bar keeps from the edge, and the safe area on a phone), and
-//+ --heightOfNavSmartScroll is kept equal to it, the same name the header gives its own pair. Both
+//+ --_navSmart-heightScroll is kept equal to it, the same name the header gives its own pair. Both
 //+ are 0 while a media query hides the bar. Padding the end of a page by either one keeps its last
 //+ lines from sitting under it.
 
@@ -50,8 +50,8 @@ function initNavSmart(bar) {
             ? Math.max(0, Math.round(window.innerHeight - bar.getBoundingClientRect().top))
             : 0;
 
-        document.documentElement.style.setProperty("--heightOfNavSmart", `${height}px`);
-        document.documentElement.style.setProperty("--heightOfNavSmartScroll", `${height}px`);
+        document.documentElement.style.setProperty("--_navSmart-height", `${height}px`);
+        document.documentElement.style.setProperty("--_navSmart-heightScroll", `${height}px`);
     }
 
     const schedule = PGS_rafThrottle(measure);

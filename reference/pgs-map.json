@@ -480,11 +480,6 @@
             "nowrap",
             "row",
             "rowReverse",
-            "selfBaseline",
-            "selfCenter",
-            "selfEnd",
-            "selfStart",
-            "selfStretch",
             "wrap"
         ],
         "pgs-data": []
@@ -509,7 +504,12 @@
             "flexS",
             "flexValue",
             "flexXl",
-            "flexXxl"
+            "flexXxl",
+            "selfBaseline",
+            "selfCenter",
+            "selfEnd",
+            "selfStart",
+            "selfStretch"
         ],
         "pgs-data": []
     },
@@ -605,12 +605,7 @@
             "justifyEnd",
             "justifyEvenly",
             "justifyStart",
-            "m2e",
-            "selfBaseline",
-            "selfCenter",
-            "selfEnd",
-            "selfStart",
-            "selfStretch"
+            "m2e"
         ],
         "pgs-data": []
     },
@@ -622,7 +617,12 @@
             "colM",
             "colS",
             "colXl",
-            "colXxl"
+            "colXxl",
+            "selfBaseline",
+            "selfCenter",
+            "selfEnd",
+            "selfStart",
+            "selfStretch"
         ],
         "pgs-data": []
     },

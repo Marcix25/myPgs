@@ -15,8 +15,8 @@
     z-index: var(--zIndex-toast);
     isolation: isolate;
     padding: var(--page-padding);
-    padding-top: calc(var(--heightOfHeaderScroll) + var(--page-padding)) ;
-    padding-bottom: calc(var(--heightOfNavSmartScroll) + $size);
+    padding-top: calc(var(--_header-heightScroll) + var(--page-padding)) ;
+    padding-bottom: calc(var(--_navSmart-heightScroll) + $size);
     pointer-events: none;
 
     &:not(:has([pgs*="_alert\5B"])) { display: none; }

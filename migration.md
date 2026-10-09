@@ -780,6 +780,10 @@ makes it one way. The renames come first, then what behaves differently under a 
 | `pgs.tabs.api(el).select(index)` | `goTo(index)` |
 | `pgs.slides.api(el).previous()` | `prev()` |
 | `pgs.search.api(el).refresh()`, which re-ran the current query and returned a Promise | `search()` does that; `refresh()` rebuilds the instance, like everywhere else |
+| `--heightOfHeader`, `--heightOfHeaderScroll`, `--heightOfNavSmart`, `--heightOfNavSmartScroll` | `--_header-height`, `--_header-heightScroll`, `--_navSmart-height`, `--_navSmart-heightScroll`. The JS writes them, so they take the `_`: read them, never set them (a theme that declared `--heightOfHeader: 75px` as a first-paint fallback now declares `--_header-height: 75px`) |
+| `--button-font-size`, `--badge-icon-size`, `--badge-text-size`, `--search-paddingBlock` | `--button-fontSize`, `--badge-iconSize`, `--badge-textSize`, `--search-padding-block` |
+| `--search-suggestions-item-hover-background` and `-color`, `--search-suggestions-item-selected-background` and `-color`, `--table-row-hover-background` and `-color` | the state goes last, like on button and breadcrumb: `--search-suggestions-item-background-hover`, `-color-hover`, `-background-selected`, `-color-selected`; `--table-row-background-hover`, `--table-row-color-hover` |
+| `pgs.registerImport(...)`, `pgs.import(...)` | gone; nothing used them. Modules stay reachable as `pgs.modal`, `pgs.toast`, `pgs.tabs`… |
 
 Gone with nothing to put in their place, because nothing used them: the `precButton`/`nextButton`
 classes, `data-alert-id`, the init markers `data-initialize`, `data-notification-bell-bound` and
@@ -792,6 +796,23 @@ pass without a rule behind it; it works now, and it hides a hand-written `slides
 
 Same name, different behavior:
 
+- **Fixed rules that never applied.** `slidesArrowsCenter`'s tablet rules (the `@container` condition
+  was never interpolated), the pageNav skeleton shimmer shown while no panel is active, and the
+  `selfStart`…`selfBaseline` flags, which only matched an element that was itself a flex or grid
+  root: they belong to the bracket of `flexChild` or `gridChild` now (`flexChild['selfEnd']`), the
+  way `flexValue` and `colM` do, and work on any item of the container. `btnReverse` with an icon now swaps its
+  two paddings (it gave both sides the icon padding). `m2e` keeps two columns on mobile also with `column-2` and `column-3` flex layouts (it gave one), and `grid['column-1' 'm2e']` stays at one column (it gave two). Check a page that relied on the old rendering.
+- **Looks that change.** `--color-white-transparent` and `--color-black-transparent` are really 50%
+  now (they computed to 33%), which makes the header background and `bgWhiteTransparent`,
+  `bgBlackTransparent` fuller. A dropdown panel is as wide as its content up to
+  `--dropdown-max-inline-size` instead of always 400px.
+- **Negative margins and z-index stop leaking.** `mgNegative` (and the per-side `Negative` flags)
+  negated every margin utility of every descendant; each root now resets its own sign. A `zIndex`
+  flag no longer reaches a descendant that carries a `zIndex` root of its own.
+- **Modal history.** Back and forward open and close the dialog through the normal path (events,
+  animation, focus), and no longer push a second history entry.
+- **Safe where there is no browser.** Importing the library in Node (SSR) does nothing instead of
+  throwing, and the darkmode switch keeps working in memory when `localStorage` is blocked.
 - **One lifecycle.** Every component instance has `element`, `destroy()` and `refresh()`. `destroy()`
   releases its listeners, observers and timers and forgets the instance; the markup the module
   generated stays, and a new `init` reuses it. `refresh()` is `destroy()` plus a fresh `init` of that
@@ -1012,7 +1033,7 @@ grep -rnE '\bsctSpecificity-child\b|sectionSpecifity-child|select\[[^]]*.(selNon
 
 # 38. data attributes that became pgs-state, and the custom properties and mixins that were misspelled
 grep -rnE 'data-(dropdown-side|header-scroll|navsmart-scroll|alert-id)' .
-grep -rnE -- '--(logo-finter|header-letter-spacing|label-borderadius)|@include (rage|inputcolor)\b' .
+grep -rnE -- '--(logo-finter|header-letter-spacing|label-borderadius|heightOf(Header|NavSmart)(Scroll)?|button-font-size|badge-(icon|text)-size|search-paddingBlock|search-suggestions-item-(hover|selected)-(background|color)|table-row-hover-(background|color))\b|@include (rage|inputcolor)\b' .
 
 # 39. calls that changed name or meaning (read, don't replace)
 grep -rnE '\.(select|previous)\(|\bgetCurrent\(\)|\.refresh\(\)' .

@@ -79,7 +79,7 @@ const jsMin = {
         path: path.resolve(__dirname, "dist/javascript"),
         filename: "[name].min.js",
     },
-    plugins: [successMessagePluginScss],
+    plugins: [successMessagePluginJs],
 };
 
 //== SCSS
@@ -101,7 +101,7 @@ const scss = {
     plugins: [
         new MiniCssExtractPlugin({ filename: "[name].css" }),
         new RemoveEmptyScriptsPlugin(),
-        successMessagePluginJs
+        successMessagePluginScss
     ],
 };
 

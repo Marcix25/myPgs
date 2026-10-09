@@ -22,6 +22,12 @@
     &[pgs*="'column-1'"] {
         grid-template-columns: auto;
         --_grid-cols: 1;
+
+        // m2e keeps two columns on mobile, and there is only the one: it stays one
+        &[pgs*="'m2e'"] {
+            grid-template-columns: auto;
+            --_grid-cols: 1;
+        }
     }
 
     @for $i from 2 through $maxColumns {

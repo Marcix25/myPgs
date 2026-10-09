@@ -2,8 +2,8 @@
     --badge-background: var(--color-box);
     --badge-color: var(--color-black);
     --badge-size: 0.85rem;
-    --badge-text-size: 1.25rem;
-    --badge-icon-size: 1.10rem;
+    --badge-textSize: 1.25rem;
+    --badge-iconSize: 1.10rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -15,7 +15,7 @@
     border-radius: var(--border-radius-input);
     background: var(--badge-background);
     color: var(--badge-color);
-    font-size: var(--badge-text-size);
+    font-size: var(--badge-textSize);
     font-weight: var(--font-weight-title);
     line-height: 1;
     text-decoration: none;
@@ -24,8 +24,8 @@
 
     i, :is([pgs~="icon"], [pgs*="icon\5B"]) {
         color: var(--badge-color);
-        font-size: var(--badge-icon-size);
-        --icon-size: var(--badge-icon-size);
+        font-size: var(--badge-iconSize);
+        --icon-size: var(--badge-iconSize);
         scale: 1.3;
     }
 }
