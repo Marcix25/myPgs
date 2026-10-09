@@ -37,7 +37,7 @@ Form structure with labels, text fields, a textarea, a checkbox, and a radio gro
 
 ## JavaScript API
 
-- `new pgs.formValidate(form, options)`: the JavaScript side of this component, which validates the form and drives the pgs-state and the pgs-data messages above. Its constructor and instance methods are documented in Form validate, not repeated here.
+- `new pgs.helper.formValidate(form, options)`: the JavaScript side of this component, which validates the form and drives the pgs-state and the pgs-data messages above. Its constructor and instance methods are documented in Form validate, not repeated here.
 
 ## Related elements
 
@@ -71,7 +71,7 @@ const password = form.querySelector('input[name="password"]');
 const confirmPassword = form.querySelector('input[name="confirmPassword"]');
 if (!password || !confirmPassword) return;
 
-const formValidate = new pgs.formValidate(form, {
+const formValidate = new pgs.helper.formValidate(form, {
     typeNotice: "alert"
 });
 

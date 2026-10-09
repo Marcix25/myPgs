@@ -1,7 +1,7 @@
 <!--
 /**
  * @title Form validate
- * @description pgs.formValidate is the JavaScript side of Form: validates required fields, applies errorForm/errorField/success pgs-state, shows an alert or a toast, and lets you register custom rules and errors that only your backend knows about. See Form for the full markup and pgs-data reference; this page focuses on the constructor and its instance methods.
+ * @description pgs.helper.formValidate is the JavaScript side of Form: validates required fields, applies errorForm/errorField/success pgs-state, shows an alert or a toast, and lets you register custom rules and errors that only your backend knows about. See Form for the full markup and pgs-data reference; this page focuses on the constructor and its instance methods.
  *
  * @pgs-generated
  * - formValidate: added to the form element by the constructor, which is why the example writes a bare form tag; it enables the validation-state styles.
@@ -12,7 +12,7 @@
  * - success: applied to the form once validate() passes, replacing errorForm.
  *
  * @api
- * - new pgs.formValidate(form, options): creates a utility associated directly with the form, adds novalidate, and completes missing form message options (formFieldErrorTitle, formFieldError, formFieldsError, formSuccessTitle, formSuccess) from options.message and then from library defaults; existing pgs-data values are preserved. Throws a TypeError when form is not an element, options is not an object, or options.message holds an unknown key or a value that is not a string. It adds one click listener to the form, which clears the error of the field that was clicked, however many times validate() runs.
+ * - new pgs.helper.formValidate(form, options): creates a utility associated directly with the form, adds novalidate, and completes missing form message options (formFieldErrorTitle, formFieldError, formFieldsError, formSuccessTitle, formSuccess) from options.message and then from library defaults; existing pgs-data values are preserved. Throws a TypeError when form is not an element, options is not an object, or options.message holds an unknown key or a value that is not a string. It adds one click listener to the form, which clears the error of the field that was clicked, however many times validate() runs.
  * - instance.validator(callback, eventName): intercepts the specified event, clears previous temporary field errors, validates the form, shows the success message, and invokes callback only when valid; eventName defaults to submit. Throws a TypeError when callback is not a function or eventName is not a non-empty string.
  * - instance.validate(): validates required fields, updates state attributes, and returns true or false.
  * - instance.success(description, title): validates the form and shows a success alert or toast when there are no errors.
@@ -35,7 +35,7 @@
  * - formMessage: belongs to the Form component; the field-specific message the custom rule below rewrites.
  * - formMessageTitle: belongs to the Form component; the field-specific alert title.
  *
- * @return A minimal form wired to pgs.formValidate with one custom rule, focused on the JavaScript API rather than the markup options.
+ * @return A minimal form wired to pgs.helper.formValidate with one custom rule, focused on the JavaScript API rather than the markup options.
  */
 -->
 
@@ -54,7 +54,7 @@
     const form = pgs(document).querySelector("form");
     const username = form.querySelector('input[name="username"]');
 
-    const formValidate = new pgs.formValidate(form, {
+    const formValidate = new pgs.helper.formValidate(form, {
         typeNotice: "alert"
     });
 

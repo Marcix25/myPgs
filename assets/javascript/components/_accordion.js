@@ -1,7 +1,4 @@
 import { pgs } from "../_pgs.js";
-import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
-import { PGS_directChild, PGS_roots, PGS_uniqueId } from "../helper/_dom.js";
-import { PGS_warn } from "../helper/_warn.js";
 
 //# ACCORDION
 const API = new WeakMap();
@@ -56,10 +53,10 @@ function accordionAccessibility(isOpen, button, content) {
 function initializeAccordion(accordion) {
     if (API.has(accordion)) return;
 
-    const BUTTON = PGS_directChild(accordion, "accordion-button");
-    const CONTENT = PGS_directChild(accordion, "accordion-content");
+    const BUTTON = pgs.helper.directChild(accordion, "accordion-button");
+    const CONTENT = pgs.helper.directChild(accordion, "accordion-content");
     if (!BUTTON || !CONTENT) {
-        PGS_warn("accordion.init", "an accordion needs a direct accordion-button and a direct accordion-content child, skipped", accordion);
+        pgs.helper.warn("accordion.init", "an accordion needs a direct accordion-button and a direct accordion-content child, skipped", accordion);
         return;
     }
 
@@ -80,8 +77,8 @@ function initializeAccordion(accordion) {
     // accessibility, written once, with ids of its own for aria-controls / aria-labelledby
     BUTTON.setAttribute("role", "button");
     BUTTON.setAttribute("tabindex", "0");
-    if (!BUTTON.id) BUTTON.id = PGS_uniqueId("acc-btn");
-    if (!CONTENT.id) CONTENT.id = PGS_uniqueId("acc-panel");
+    if (!BUTTON.id) BUTTON.id = pgs.helper.uniqueId("acc-btn");
+    if (!CONTENT.id) CONTENT.id = pgs.helper.uniqueId("acc-panel");
 
     BUTTON.setAttribute("aria-controls", CONTENT.id);
     CONTENT.setAttribute("role", "region");
@@ -99,8 +96,8 @@ function initializeAccordion(accordion) {
             if (pgs(otherLi).closest("accordionContainer") !== CONTAINER) continue;
             if (pgs(otherLi).option.contains("accAutoOpen")) continue;
 
-            const otherBtn = PGS_directChild(otherLi, "accordion-button");
-            const otherContent = PGS_directChild(otherLi, "accordion-content");
+            const otherBtn = pgs.helper.directChild(otherLi, "accordion-button");
+            const otherContent = pgs.helper.directChild(otherLi, "accordion-content");
             if (!otherBtn || !otherContent) continue;
 
             pgs(otherLi).state.remove("open");
@@ -184,11 +181,11 @@ function initializeAccordion(accordion) {
 }
 
 function PGS_accordion_init(root = document) {
-    PGS_roots(root, "accordion").forEach(accordion => initializeAccordion(accordion));
+    pgs.helper.roots(root, "accordion").forEach(accordion => initializeAccordion(accordion));
 }
 
 //# INIT
-PGS_onDocumentReady(PGS_accordion_init);
+pgs.helper.onDocumentReady(PGS_accordion_init);
 
 //# API
 function PGS_accordion_api(selector) {

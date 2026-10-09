@@ -1,7 +1,4 @@
 import { pgs } from "../_pgs.js";
-import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
-import { PGS_rafThrottle } from "../helper/_throttle.js";
-import { PGS_invalid } from "../helper/_warn.js";
 
 //= SVG & LOTTIE COLORS
 
@@ -73,7 +70,7 @@ const svgColors = {
             svgColors.applyColorsLottie(event.detail?.isDarkMode ?? svgColors._getCurrentDarkmode());
         });
 
-        PGS_onDocumentReady(PGS_svg_init);
+        pgs.helper.onDocumentReady(PGS_svg_init);
     },
 
     applyColorsSVG(isDarkMode = svgColors._getCurrentDarkmode()) {
@@ -131,7 +128,7 @@ function syncAspectRatio(obj) {
 
     applyAspectRatio(obj);
 
-    const observer = new ResizeObserver(PGS_rafThrottle(() => applyAspectRatio(obj)));
+    const observer = new ResizeObserver(pgs.helper.rafThrottle(() => applyAspectRatio(obj)));
     observer.observe(obj);
     ASPECT_OBSERVERS.set(obj, observer);
 }
@@ -150,7 +147,7 @@ function initAspectRatio(root) {
 //# INIT
 function PGS_svg_init(root = document) {
     if (!(root instanceof Document || root instanceof Element)) {
-        throw PGS_invalid("svg.init", "root must be a Document or an Element");
+        throw pgs.helper.invalid("svg.init", "root must be a Document or an Element");
     }
 
     initAspectRatio(root);

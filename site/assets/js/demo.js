@@ -189,7 +189,7 @@ function configureFormDemo() {
     const form = section?.querySelector('[pgs~="form"]');
     if (!form) return;
 
-    const formValidate = new pgsApi.formValidate(form, {
+    const formValidate = new pgsApi.helper.formValidate(form, {
         message: {
             formFieldError: "Please complete this field",
             formFieldsError: "Please complete all required fields",
@@ -267,7 +267,26 @@ function configureInitDemo() {
                 <div pgs="dropdown-content">This dropdown did not exist when the page loaded.</div>
             </span>
         `;
-        pgsApi.init(target);
+        pgsApi.helper.init(target);
+    });
+}
+
+//# Helper Demo
+function configureHelperDemo() {
+    const pgsApi = globalThis.pgs;
+    const section = document.querySelector('[data-reference="helper/helper.html"]');
+    const button = section?.querySelector('#pgsHelper-add');
+    const target = section?.querySelector('#pgsHelper-target');
+    if (!button || !target) return;
+
+    button.addEventListener('click', () => {
+        const card = document.createElement('article');
+        card.id = pgsApi.helper.uniqueId('pgsHelper-card');
+        card.setAttribute('pgs', 'card');
+        card.innerHTML = `<div pgs="card-content"><h3>${pgsApi.helper.escapeHtml('<Generated> & escaped')}</h3></div>`;
+        target.append(card);
+
+        pgsApi.helper.dispatch(card, 'pgs:example:added');
     });
 }
 
@@ -279,7 +298,7 @@ function configureFormValidateHelperDemo() {
     const username = form?.querySelector('input[name="username"]');
     if (!form || !username) return;
 
-    const formValidate = new pgsApi.formValidate(form, {
+    const formValidate = new pgsApi.helper.formValidate(form, {
         typeNotice: "alert"
     });
 
@@ -314,7 +333,7 @@ function boot() {
         isolateDemoModals(document.getElementById("reference-demo-main") || document);
         const pgsApi = globalThis.pgs;
         if (!pgsApi) throw new Error("PGS bundle not loaded");
-        pgsApi.init(document);
+        pgsApi.helper.init(document);
 
         configureSearchDemo();
         configureNavSearchDemo();
@@ -322,6 +341,7 @@ function boot() {
         configureNotificationDemo();
         configureToastDemo();
         configureInitDemo();
+        configureHelperDemo();
         configureFormValidateHelperDemo();
 
         document.querySelectorAll("pre code").forEach(code => window.Prism?.highlightElement(code));

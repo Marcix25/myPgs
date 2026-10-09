@@ -2,11 +2,11 @@
 
 # Init
 
-Every component initializes itself on page load. pgs.init(root) re-runs that same initialization for whatever a Document or Element received later — markup inserted from an AJAX response, rendered by React or Vue, or built by hand with a template string — since none of that existed yet for the automatic pass to find.
+Every component initializes itself on page load. pgs.helper.init(root) re-runs that same initialization for whatever a Document or Element received later — markup inserted from an AJAX response, rendered by React or Vue, or built by hand with a template string — since none of that existed yet for the automatic pass to find.
 
 ## JavaScript API
 
-- `pgs.init(root)`: finds every registered module that exposes init(root) and runs it again against the given Document or Element; already-initialized markup inside it is left untouched.
+- `pgs.helper.init(root)`: finds every registered module that exposes init(root) and runs it again against the given Document or Element; already-initialized markup inside it is left untouched.
 
 ## Related elements
 
@@ -25,7 +25,7 @@ Every component initializes itself on page load. pgs.init(root) re-runs that sam
 
 ## Output
 
-A dropdown built and inserted after the page has already loaded, working only because pgs.init(root) is called on it.
+A dropdown built and inserted after the page has already loaded, working only because pgs.helper.init(root) is called on it.
 
 ## Example
 
@@ -49,7 +49,7 @@ A dropdown built and inserted after the page has already loaded, working only be
         `;
 
         // Without this call pgs.dropdown never saw the new markup, and it would stay inert.
-        pgs.init(target);
+        pgs.helper.init(target);
     });
 </script>
 ```

@@ -15,7 +15,7 @@ The shared hover treatment for a surface and the text marked inside it. It is wr
 
 ## JavaScript API
 
-- `pgs.hover.init(root)`: marks the clickable surfaces inside the given root, and unmarks the ones that stopped being clickable. It does nothing at all without bodyHoverAuto on the page, whether it runs on its own — at load and on every later change — or is called by hand, directly or through pgs.init(root); with bodyHoverAuto the automatic pass already covers the whole document, so a call is only needed for markup outside it, such as a shadow root.
+- `pgs.hover.init(root)`: marks the clickable surfaces inside the given root, and unmarks the ones that stopped being clickable. It does nothing at all without bodyHoverAuto on the page, whether it runs on its own — at load and on every later change — or is called by hand, directly or through pgs.helper.init(root); with bodyHoverAuto the automatic pass already covers the whole document, so a call is only needed for markup outside it, such as a shadow root.
 
 ## Related elements
 

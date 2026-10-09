@@ -24,7 +24,7 @@ Notification markup, configuration, behavior, and usage example. A persistent, m
 
 ## JavaScript API
 
-- `pgs.notification.init(root)`: scans root for notificationLoad and initializes them (including the bell counter); runs automatically on page load and again via pgs.init(root) for content added later. Opening/closing the dialog itself is handled by pgs.modal (see Modal).
+- `pgs.notification.init(root)`: scans root for notificationLoad and initializes them (including the bell counter); runs automatically on page load and again via pgs.helper.init(root) for content added later. Opening/closing the dialog itself is handled by pgs.modal (see Modal).
 - `pgs.notification.trigger(root)`: alias of pgs.notification.init(root).
 - `pgs.notification.error(optionsOrTitle)`: a title string, or an options object — see the full field reference in the commented example below.
 - `pgs.notification.success(optionsOrTitle)`: a title string, or an options object — see the full field reference in the commented example below.

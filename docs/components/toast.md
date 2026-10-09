@@ -26,7 +26,7 @@ Toast markup, configuration, behavior, and usage example. An ephemeral, auto-dis
 
 ## JavaScript API
 
-- `pgs.toast.init(root)`: scans root for toastLoad and shows its toast; runs automatically on page load and again via pgs.init(root) for content added later.
+- `pgs.toast.init(root)`: scans root for toastLoad and shows its toast; runs automatically on page load and again via pgs.helper.init(root) for content added later.
 - `pgs.toast.trigger(root)`: alias of pgs.toast.init(root).
 - `pgs.toast.error(optionsOrTitle)`: a title string, or an options object — see the full field reference in the commented example below.
 - `pgs.toast.success(optionsOrTitle)`: a title string, or an options object — see the full field reference in the commented example below.

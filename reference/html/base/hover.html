@@ -11,7 +11,7 @@
  * - hoverNot: opts the surface out of the treatment, whatever component it is. `pgs.hover` leaves it unmarked and the surface stops answering the pointer.
  *
  * @api
- * - pgs.hover.init(root): marks the clickable surfaces inside the given root, and unmarks the ones that stopped being clickable. It does nothing at all without bodyHoverAuto on the page, whether it runs on its own — at load and on every later change — or is called by hand, directly or through pgs.init(root); with bodyHoverAuto the automatic pass already covers the whole document, so a call is only needed for markup outside it, such as a shadow root.
+ * - pgs.hover.init(root): marks the clickable surfaces inside the given root, and unmarks the ones that stopped being clickable. It does nothing at all without bodyHoverAuto on the page, whether it runs on its own — at load and on every later change — or is called by hand, directly or through pgs.helper.init(root); with bodyHoverAuto the automatic pass already covers the whole document, so a call is only needed for markup outside it, such as a shadow root.
  *
  * @related
  * - box: makes the example visible as a surface.

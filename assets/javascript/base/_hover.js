@@ -1,7 +1,4 @@
 import { pgs } from "../_pgs.js";
-import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
-import { PGS_rafThrottle } from "../helper/_throttle.js";
-import { PGS_invalid } from "../helper/_warn.js";
 
 //= HOVER
 // every clickable surface of the library shares the same hover treatment, and it is written once
@@ -46,13 +43,13 @@ function syncHover(element) {
 }
 
 //# INIT
-// bodyHoverAuto gates every caller here, not only the automatic pass below: pgs.init(root) walks
+// bodyHoverAuto gates every caller here, not only the automatic pass below: pgs.helper.init(root) walks
 // every registered module and calls its init(root) whether or not the caller meant to touch
 // hover specifically, so the check has to live in the one function every path funnels through,
 // not in the block that only covers this module's own unprompted call
 function PGS_hover_init(root = document) {
     if (!(root instanceof Document || root instanceof Element)) {
-        throw PGS_invalid("hover.init", "root must be a Document or an Element");
+        throw pgs.helper.invalid("hover.init", "root must be a Document or an Element");
     }
 
     if (!pgs(document.body).option.contains("bodyHoverAuto")) return root;
@@ -70,7 +67,7 @@ function PGS_hover_init(root = document) {
 // own attribute write triggers back settles at once
 const PENDING = new Set();
 
-const flushPending = PGS_rafThrottle(() => {
+const flushPending = pgs.helper.rafThrottle(() => {
     const roots = [...PENDING];
     PENDING.clear();
     roots.forEach(root => root.isConnected && PGS_hover_init(root));
@@ -97,7 +94,7 @@ function handleMutations(mutations) {
 // alongside bodyBase/bodyImg/bodyText/bodyHeading: without it nothing is marked on load, and —
 // separately from the check inside PGS_hover_init — the observer below never even starts, so a page
 // that only ever writes pgs="hover" by hand never pays for it running for its whole lifetime
-PGS_onDocumentReady(() => {
+pgs.helper.onDocumentReady(() => {
     if (!pgs(document.body).option.contains("bodyHoverAuto")) return;
 
     PGS_hover_init(document);

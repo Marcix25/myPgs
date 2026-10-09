@@ -1,18 +1,16 @@
 import { pgs } from "../_pgs.js";
-import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
-import { PGS_roots, PGS_directChildren, PGS_directChild } from "../helper/_dom.js";
 
 const API = new WeakMap();
 
 //# BUILD
 // completes every step of one list and returns its API
 function PGS_steps_build(steps) {
-    PGS_directChildren(steps, "steps-step").forEach((li, index) => {
+    pgs.helper.directChildren(steps, "steps-step").forEach((li, index) => {
 
         //# CIRCLE
         // a hand-written circle keeps the bare name; a generated one gets the underscore,
         // so the check below has to look for either
-        if (!PGS_directChild(li, ["steps-step-circle", "_steps-step-circle"])) {
+        if (!pgs.helper.directChild(li, ["steps-step-circle", "_steps-step-circle"])) {
             const circle = document.createElement("span");
             pgs(circle).add("_steps-step-circle")
             circle.textContent = index + 1;
@@ -21,7 +19,7 @@ function PGS_steps_build(steps) {
 
         //# line
         // same dual form as the circle above
-        if (!PGS_directChild(li, ["steps-step-line", "_steps-step-line"])) {
+        if (!pgs.helper.directChild(li, ["steps-step-line", "_steps-step-line"])) {
             const line = document.createElement("span");
             pgs(line).add("_steps-step-line")
             li.insertAdjacentElement("afterbegin", line);
@@ -36,9 +34,9 @@ function PGS_steps_build(steps) {
 
     const api = {
         element: steps,
-        steps: () => PGS_directChildren(steps, "steps-step"),
-        getStep: (index) => PGS_directChildren(steps, "steps-step")[index],
-        getTotal: () => PGS_directChildren(steps, "steps-step").length,
+        steps: () => pgs.helper.directChildren(steps, "steps-step"),
+        getStep: (index) => pgs.helper.directChildren(steps, "steps-step")[index],
+        getTotal: () => pgs.helper.directChildren(steps, "steps-step").length,
         destroy,
         refresh: () => {
             const live = API.get(steps);
@@ -53,14 +51,14 @@ function PGS_steps_build(steps) {
 }
 
 function PGS_steps_init(root = document) {
-    PGS_roots(root, "steps").forEach(steps => {
+    pgs.helper.roots(root, "steps").forEach(steps => {
         if (API.has(steps)) return;
 
         PGS_steps_build(steps);
     });
 }
 
-PGS_onDocumentReady(PGS_steps_init);
+pgs.helper.onDocumentReady(PGS_steps_init);
 
 //# API
 function PGS_steps_api(selector) {

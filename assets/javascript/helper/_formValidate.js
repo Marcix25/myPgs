@@ -1,7 +1,6 @@
 import { pgs } from "../_pgs.js";
 import { PGS_toast } from "../components/_toast.js";
 import { PGS_alert } from "../components/_alerts.js";
-import { PGS_invalid } from "./_warn.js";
 
 // formMessage/formMessageTitle live only in pgs-data, and .data has no querySelector — find
 // the nearest descendant carrying either key's payload directly
@@ -28,10 +27,10 @@ export class PGS_formValidate {
 
     constructor(form, options = {}) {
         if (!(form instanceof Element)) {
-            throw PGS_invalid("formValidate", "form must be an element");
+            throw pgs.helper.invalid("helper.formValidate", "form must be an element");
         }
         if (!options || typeof options !== "object" || Array.isArray(options)) {
-            throw PGS_invalid("formValidate", "options must be an object");
+            throw pgs.helper.invalid("helper.formValidate", "options must be an object");
         }
 
         this.container = form;
@@ -68,15 +67,15 @@ export class PGS_formValidate {
     #validateMessages(value) {
         if (value === undefined) return;
         if (!value || typeof value !== "object" || Array.isArray(value)) {
-            throw PGS_invalid("formValidate", "message must be an object");
+            throw pgs.helper.invalid("helper.formValidate", "message must be an object");
         }
 
         Object.entries(value).forEach(([key, message]) => {
             if (!(key in this.#messageDefaults)) {
-                throw PGS_invalid("formValidate", `unknown form message option "${key}"`);
+                throw pgs.helper.invalid("helper.formValidate", `unknown form message option "${key}"`);
             }
             if (message !== undefined && typeof message !== "string") {
-                throw PGS_invalid("formValidate", `form message option "${key}" must be a string`);
+                throw pgs.helper.invalid("helper.formValidate", `form message option "${key}" must be a string`);
             }
         });
     }
@@ -104,12 +103,12 @@ export class PGS_formValidate {
     temporaryFieldError = {
         set: (field, options = {}) => {
             if (!field || typeof field.matches !== "function" || !this.container.contains(field)) {
-                throw PGS_invalid("formValidate.temporaryFieldError.set", "field must be an element contained in the form");
+                throw pgs.helper.invalid("helper.formValidate.temporaryFieldError.set", "field must be an element contained in the form");
             }
 
             if (typeof options === "string") options = { message: options };
             if (!options || typeof options !== "object" || Array.isArray(options)) {
-                throw PGS_invalid("formValidate.temporaryFieldError.set", "options must be an object or a string");
+                throw pgs.helper.invalid("helper.formValidate.temporaryFieldError.set", "options must be an object or a string");
             }
 
             this.#temporaryFieldErrors.set(field, {
@@ -359,8 +358,8 @@ export class PGS_formValidate {
 
     //# EVENT VALIDATOR
     validator(callback, eventName = "submit") {
-        if (typeof callback !== "function") throw PGS_invalid("formValidate.validator", "callback must be a function");
-        if (typeof eventName !== "string" || !eventName.trim()) throw PGS_invalid("formValidate.validator", "eventName must be a non-empty string");
+        if (typeof callback !== "function") throw pgs.helper.invalid("helper.formValidate.validator", "callback must be a function");
+        if (typeof eventName !== "string" || !eventName.trim()) throw pgs.helper.invalid("helper.formValidate.validator", "eventName must be a non-empty string");
 
         this.container.addEventListener(eventName, event => {
             event.preventDefault();
@@ -382,7 +381,7 @@ export class PGS_formValidate {
 
     //# ADD RULE
     addNewRule(rule) {
-        if (typeof rule !== "function") throw PGS_invalid("formValidate.addNewRule", "rule must be a function");
+        if (typeof rule !== "function") throw pgs.helper.invalid("helper.formValidate.addNewRule", "rule must be a function");
         this._rules.push(rule);
         return this;
     }

@@ -1,7 +1,4 @@
 import { pgs } from "../_pgs.js";
-import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
-import { PGS_roots } from "../helper/_dom.js";
-import { PGS_rafThrottle, PGS_watchDocument } from "../helper/_throttle.js";
 
 //= NAV SMART
 // publishes the room the bar takes at the bottom of the screen, the way the header publishes its own:
@@ -54,7 +51,7 @@ function initNavSmart(bar) {
         document.documentElement.style.setProperty("--_navSmart-heightScroll", `${height}px`);
     }
 
-    const schedule = PGS_rafThrottle(measure);
+    const schedule = pgs.helper.rafThrottle(measure);
 
     const observer = new ResizeObserver(schedule);
     observer.observe(bar);
@@ -68,13 +65,13 @@ function initNavSmart(bar) {
 }
 
 function PGS_navSmart_init(root = document) {
-    PGS_roots(root, "navSmart").filter(bar => pgs(bar).querySelector("navSmart-element")).forEach(initNavSmart);
+    pgs.helper.roots(root, "navSmart").filter(bar => pgs(bar).querySelector("navSmart-element")).forEach(initNavSmart);
 }
 
 // a bar can arrive later, and there may be several, so the watch stays on: a pass is cheap and
 // every bar is initialized only once
-PGS_onDocumentReady(PGS_navSmart_init);
-PGS_watchDocument(() => PGS_navSmart_init());
+pgs.helper.onDocumentReady(PGS_navSmart_init);
+pgs.helper.watchDocument(() => PGS_navSmart_init());
 
 //# EXPORT
 export const PGS_navSmart = {

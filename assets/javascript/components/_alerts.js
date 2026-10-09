@@ -1,7 +1,4 @@
 import { pgs } from "../_pgs.js";
-import { PGS_dispatch, PGS_uniqueId } from "../helper/_dom.js";
-import { PGS_formatText } from "../helper/_text.js";
-import { PGS_invalid, PGS_warn } from "../helper/_warn.js";
 
 //# PGS_alert
 // the shared engine behind Alerts, Notification and Toast: builds the card (icon, title,
@@ -58,7 +55,7 @@ const fn_alert = {
 
     _getContainer(root = document, configuredContainer, scope = "alert.show") {
         if (!(root instanceof Document) && !(root instanceof Element)) {
-            throw PGS_invalid(scope, "root must be a Document or an Element");
+            throw pgs.helper.invalid(scope, "root must be a Document or an Element");
         }
 
         let container = configuredContainer;
@@ -66,7 +63,7 @@ const fn_alert = {
         if (!container) container = pgs(root).querySelector("alertContainer");
 
         if (container && (!(container instanceof Element) || container === root || !root.contains(container))) {
-            throw PGS_invalid(scope, "container must be an element contained in root");
+            throw pgs.helper.invalid(scope, "container must be an element contained in root");
         }
 
         if (!container) {
@@ -85,8 +82,8 @@ const fn_alert = {
     // built to match the shared alert card's own content shape (see _alerts.scss): a title in
     // alert-content-title, a description in its own paragraph, either one optional
     _getContent(title, description) {
-        const safeDescription = PGS_formatText(description);
-        const safeTitle = PGS_formatText(title);
+        const safeDescription = pgs.helper.formatText(description);
+        const safeTitle = pgs.helper.formatText(title);
         const titleHtml = safeTitle ? `<strong pgs="_alert-content-title">${safeTitle}</strong>` : "";
         const descriptionHtml = safeDescription ? `<p>${safeDescription}</p>` : "";
 
@@ -105,7 +102,7 @@ const fn_alert = {
         if (typeof options === "string") options = { title: options };
 
         if (!options || typeof options !== "object" || Array.isArray(options)) {
-            throw PGS_invalid(scope, "options must be an object or a string");
+            throw pgs.helper.invalid(scope, "options must be an object or a string");
         }
 
         return Object.fromEntries(
@@ -122,12 +119,12 @@ const fn_alert = {
         try {
             items = JSON.parse(`[${rawData}]`);
         } catch (error) {
-            PGS_warn(`${name}.init`, "invalid JSON in pgs-data", error);
+            pgs.helper.warn(`${name}.init`, "invalid JSON in pgs-data", error);
             return [];
         }
 
         if (items.some(item => !item || typeof item !== "object" || Array.isArray(item))) {
-            PGS_warn(`${name}.init`, "every entry of pgs-data must be a JSON object", root);
+            pgs.helper.warn(`${name}.init`, "every entry of pgs-data must be a JSON object", root);
             return [];
         }
 
@@ -186,7 +183,7 @@ const fn_alert = {
             ...definedOptions
         };
 
-        const id = config.id ?? PGS_uniqueId("alert");
+        const id = config.id ?? pgs.helper.uniqueId("alert");
         const alert = document.createElement("div");
         // the severity is a flag in the component's own bracket, like any other option, not a pgs-state
         pgs(alert).add(config.component, `${config.component}['${typeDefaults.flag}']`);
@@ -223,7 +220,7 @@ const fn_alert = {
             clearTimeout(timeoutTimer);
             alert.style.opacity = "0";
             setTimeout(() => {
-                PGS_dispatch(alert, "pgs:alert:close", { id, type, title: config.title, description: config.description });
+                pgs.helper.dispatch(alert, "pgs:alert:close", { id, type, title: config.title, description: config.description });
                 alert.remove();
                 controller.abort();
             }, 300);
@@ -255,7 +252,7 @@ const fn_alert = {
             if (optionButton) pgs(buttonElement).add(`button['${optionButton}']`);
 
             buttonElement.addEventListener("click", (e) => {
-                const event = PGS_dispatch(buttonElement, "pgs:alert:buttonClick", {
+                const event = pgs.helper.dispatch(buttonElement, "pgs:alert:buttonClick", {
                     id, buttonId, type, title: config.title, description: config.description, link
                 }, { cancelable: true });
 

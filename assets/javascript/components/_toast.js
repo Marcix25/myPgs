@@ -1,7 +1,4 @@
 import { pgs } from "../_pgs.js";
-import { PGS_roots } from "../helper/_dom.js";
-import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
-import { PGS_warn } from "../helper/_warn.js";
 import { fn_alert } from "./_alerts.js";
 
 // the toastLoad elements already read
@@ -45,7 +42,7 @@ const fn_toast = {
         const wanted = [Array.isArray(position) ? position : String(position).split(/\s+/)].flat().filter(Boolean);
         const unknown = wanted.filter(key => !this._options.includes(key));
 
-        if (unknown.length) PGS_warn(scope, `unknown position ${unknown.join(", ")}; use ${this._options.join(", ")}`);
+        if (unknown.length) pgs.helper.warn(scope, `unknown position ${unknown.join(", ")}; use ${this._options.join(", ")}`);
 
         const keys = this._options.filter(key => wanted.includes(key));
 
@@ -87,7 +84,7 @@ const fn_toast = {
 
     //## TRIGGER
     trigger(root = document) {
-        PGS_roots(root, "toastLoad").forEach(element => {
+        pgs.helper.roots(root, "toastLoad").forEach(element => {
             if (LOADED.has(element)) return;
 
             LOADED.add(element);
@@ -114,4 +111,4 @@ export const PGS_toast = {
 
 
 //# EXECUTE
-PGS_onDocumentReady(PGS_toastLoad_init);
+pgs.helper.onDocumentReady(PGS_toastLoad_init);

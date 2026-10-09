@@ -1,7 +1,4 @@
 import { pgs } from "../_pgs.js";
-import { PGS_roots } from "../helper/_dom.js";
-import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
-import { PGS_warn } from "../helper/_warn.js";
 import { fn_alert } from "./_alerts.js";
 import { PGS_modal } from "./_modal.js";
 
@@ -86,7 +83,7 @@ const fn_notification = {
     },
 
     _getBells(root = document) {
-        return PGS_roots(root, "notificationBell");
+        return pgs.helper.roots(root, "notificationBell");
     },
 
     _setBellsExpanded(expanded) {
@@ -156,7 +153,7 @@ const fn_notification = {
         // bell there is nothing to open the panel from, and that is worth saying out loud
         if (!this._getBells().length && !this._missingBellReported) {
             this._missingBellReported = true;
-            PGS_warn(scope, "no notificationBell on the page, so nothing can open the panel that holds this notification");
+            pgs.helper.warn(scope, "no notificationBell on the page, so nothing can open the panel that holds this notification");
         }
 
         this._ensureModal();
@@ -198,7 +195,7 @@ const fn_notification = {
     },
 
     load(root = document) {
-        PGS_roots(root, "notificationLoad").forEach(element => {
+        pgs.helper.roots(root, "notificationLoad").forEach(element => {
             if (LOADED.has(element)) return;
 
             LOADED.add(element);
@@ -229,4 +226,4 @@ export const PGS_notification = {
 
 
 //# EXECUTE
-PGS_onDocumentReady(PGS_notificationLoad_init);
+pgs.helper.onDocumentReady(PGS_notificationLoad_init);

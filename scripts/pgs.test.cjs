@@ -4,8 +4,13 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 
-const context = {};
+// _pgs.js is an ES module that imports the helpers pgs.helper publishes; the vm runs it as a plain
+// script, so the import lines go and the helpers are stand-ins (none of them is under test here)
+const helperNames = ['directChild', 'directChildren', 'dispatch', 'roots', 'uniqueId', 'onDocumentReady',
+    'escapeHtml', 'formatText', 'rafThrottle', 'watchDocument', 'invalid', 'warn'];
+const context = Object.fromEntries(helperNames.map(name => ['PGS_' + name, () => {}]));
 vm.runInNewContext(fs.readFileSync(path.join(__dirname, '../assets/javascript/_pgs.js'), 'utf8')
+    .replace(/^import .*\n/gm, '')
     .replace('export function pgs', 'function pgs'), context);
 const { pgs } = context;
 

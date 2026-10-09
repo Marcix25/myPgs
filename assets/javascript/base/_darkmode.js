@@ -1,6 +1,4 @@
 import { pgs } from "../_pgs.js";
-import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
-import { PGS_roots } from "../helper/_dom.js";
 import { PGS_svg } from "./_svg.js";
 
 //= DARKMODE
@@ -70,11 +68,11 @@ function setDarkmodeStatus(toggle = false, button = []) {
 if (typeof document !== "undefined") setDarkmodeStatus();
 
 // binds the switches in root that are not bound yet and draws their glyph. Switches already
-// bound are left untouched, so pgs.init(el) on a page that is already running changes nothing
+// bound are left untouched, so pgs.helper.init(el) on a page that is already running changes nothing
 // else: it does not re-apply the theme or fire the color event again
 function PGS_darkmode_init(root = document) {
     const isDarkMode = pgs(document.documentElement).state.contains("darkmode");
-    const buttons = PGS_roots(root, "toggleDarkmode").filter(button => !INITIALIZED_BUTTONS.has(button));
+    const buttons = pgs.helper.roots(root, "toggleDarkmode").filter(button => !INITIALIZED_BUTTONS.has(button));
 
     changeIcon(buttons, isDarkMode);
 
@@ -87,7 +85,7 @@ function PGS_darkmode_init(root = document) {
 }
 
 // the first pass once the page is ready: the body exists now, so it takes the theme too
-PGS_onDocumentReady(() => {
+pgs.helper.onDocumentReady(() => {
     setDarkmodeStatus(false, pgs(document).querySelectorAll("toggleDarkmode"));
     PGS_darkmode_init();
 });

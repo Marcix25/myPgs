@@ -95,7 +95,7 @@ write it. It's rendered live in the demo *and* copied verbatim into the generate
 ### The helper exception
 
 `reference/html/helper/*.html` documents a JavaScript utility rather than a component's markup —
-`pgs()` itself, `pgs.init`, `pgs.formValidate`. These often touch no `pgs`
+`pgs()` itself, `pgs.helper.init`, `pgs.helper.formValidate`. These often touch no `pgs`
 token of their own, so `@pgs` is optional there and `@api` is required instead (enforced in
 `scripts/generate-component-docs.js` by `HELPER_REQUIRED_TAGS`). Everything else about the format
 is unchanged — see `reference/html/helper/formValidate.html` for a full example.
@@ -223,7 +223,7 @@ markup and never shown mixed in with the "Example HTML":
 ### Making an example actually interactive
 
 Because none of the embedded `<script>` tags run, any demo that needs real interactivity — a form
-with custom validation, a live search, a button that inserts markup and calls `pgs.init()` on it —
+with custom validation, a live search, a button that inserts markup and calls `pgs.helper.init()` on it —
 needs matching wire-up code written directly in `assets/js/demo.js`, scoped to that file's section:
 
 ```js
@@ -346,7 +346,7 @@ anyway.
   - one output per file in `page/`, named the same, plus `demo.html`: `site/index.html` with
     that page's own content spliced into the placeholder, plus `assets/js/demo.js`. `demo.html` goes
     through the same shell as `home.html` and `test.html`; only its own content is merged, in
-    memory, with the rendered panels. `demo.js` only runs `pgs.init()` and the demo's own interactive wiring
+    memory, with the rendered panels. `demo.js` only runs `pgs.helper.init()` and the demo's own interactive wiring
     (nav clicks, copy buttons, the `configureXDemo` functions) — nothing in it fetches or parses a
     reference file, since each page already has everything written out. Every page opens
     instantly, whatever the reference count.
@@ -362,7 +362,7 @@ page used to exist alongside it (`demo-fetch.html` plus `assets/demo-fetch.js`) 
 there is no second implementation to keep in step any more.
 
 Components built entirely by JS at runtime (notification, toast, modal, accordion, ...) are
-untouched by any of this: their source markup is baked in like everything else, and `pgs.init()`
+untouched by any of this: their source markup is baked in like everything else, and `pgs.helper.init()`
 still builds them for real when the page loads.
 
 Never hand-edit any page under `site/build/` — edit

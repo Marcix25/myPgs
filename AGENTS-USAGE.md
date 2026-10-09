@@ -136,9 +136,10 @@ pgs.search.api(searchElement)?.setSource(async ({ query, signal }) => []);
 When JavaScript, JSX or an asynchronous request adds new markup, initialize its container:
 
 ```js
-pgs.init(container);
+pgs.helper.init(container);
 ```
 
+- The small utilities the library is built on (`warn`, `dispatch`, `uniqueId`, `escapeHtml`, ...) are public under `pgs.helper`; see `reference/html/helper/helper.html`.
 - Verify the current public shortcut before using `pgs.moduleName`.
 - Do not duplicate initialization, open/close, state, notification, form-validation, or accessibility logic.
 - Do not use parallel `.open` classes when a component reads `pgs-state~="open"`.

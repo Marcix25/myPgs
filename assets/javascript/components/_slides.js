@@ -1,8 +1,4 @@
 import { pgs } from "../_pgs.js";
-import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
-import { PGS_roots } from "../helper/_dom.js";
-import { PGS_rafThrottle } from "../helper/_throttle.js";
-import { PGS_warn, PGS_invalid } from "../helper/_warn.js";
 
 const API = new WeakMap();
 
@@ -188,7 +184,7 @@ class PGS_Slides {
     execute() {
         const slides = this.element;
         if (!this.container) {
-            PGS_warn("slides.init", "the slides has no slides-container, so it was not initialized", slides);
+            pgs.helper.warn("slides.init", "the slides has no slides-container, so it was not initialized", slides);
             return null;
         }
         const eventController = new AbortController();
@@ -207,7 +203,7 @@ class PGS_Slides {
 
         // the observer answers what is visible, not where the scroll is: the last stretch can
         // settle with no threshold left to cross, so the arrows are refreshed on scroll too
-        const updateArrowsOnScroll = PGS_rafThrottle(() => this.#updateArrows(prevButton, nextButton));
+        const updateArrowsOnScroll = pgs.helper.rafThrottle(() => this.#updateArrows(prevButton, nextButton));
         this.container.addEventListener("scroll", updateArrowsOnScroll, { passive: true, signal });
         this.#updateArrows(prevButton, nextButton);
 
@@ -225,7 +221,7 @@ class PGS_Slides {
         // Measured rather than computed because the height comes from the tallest slide, which
         // only the layout knows — through a rAF, like the header does, so a write never lands
         // inside the callback that observed it
-        const publishHeight = PGS_rafThrottle(() => {
+        const publishHeight = pgs.helper.rafThrottle(() => {
             this.element.style.setProperty("--_slides-height", `${this.container.offsetHeight}px`);
         });
         const heightObserver = new ResizeObserver(publishHeight);
@@ -250,7 +246,7 @@ class PGS_Slides {
             goTo: (index) => {
                 const total = this.container.children.length;
                 if (!Number.isInteger(index) || index < 0 || index >= total) {
-                    throw PGS_invalid("slides.goTo", `index must be an integer from 0 to ${total - 1}, got ${index}`);
+                    throw pgs.helper.invalid("slides.goTo", `index must be an integer from 0 to ${total - 1}, got ${index}`);
                 }
                 this.#goToNumberSlide(index);
             },
@@ -275,14 +271,14 @@ class PGS_Slides {
 
 //# INIT
 function PGS_slides_init(root = document) {
-    PGS_roots(root, "slides").forEach(element => {
+    pgs.helper.roots(root, "slides").forEach(element => {
         if (API.has(element)) return;
 
         new PGS_Slides({ element }).execute();
     });
 }
 
-PGS_onDocumentReady(PGS_slides_init);
+pgs.helper.onDocumentReady(PGS_slides_init);
 
 //# API
 function PGS_slides_api(element) {

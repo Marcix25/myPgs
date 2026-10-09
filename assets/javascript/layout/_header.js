@@ -1,7 +1,4 @@
 import { pgs } from "../_pgs.js";
-import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
-import { PGS_roots } from "../helper/_dom.js";
-import { PGS_rafThrottle, PGS_watchDocument } from "../helper/_throttle.js";
 
 //= HEADER
 //# COMPACT BREAKPOINT
@@ -66,7 +63,7 @@ function initResize(header) {
 
         //## Resize
         // throttled to avoid ResizeObserver loop warnings
-        const scheduleCompact = PGS_rafThrottle(() => compact(selectHeader));
+        const scheduleCompact = pgs.helper.rafThrottle(() => compact(selectHeader));
 
         const observer = new ResizeObserver(scheduleCompact);
         observer.observe(selectHeader);
@@ -110,7 +107,7 @@ function initHeight(header) {
         document.documentElement.style.setProperty("--_header-heightScroll", `${scrollHeight}px`);
     }
 
-    const scheduleHeaderHeight = PGS_rafThrottle(headerHeight);
+    const scheduleHeaderHeight = pgs.helper.rafThrottle(headerHeight);
 
     const headerHeightObserver = new ResizeObserver(scheduleHeaderHeight);
     headerHeightObserver.observe(header);
@@ -171,13 +168,13 @@ function getReadyHeaders() {
 }
 
 function PGS_header_init(root = document) {
-    PGS_roots(root, "header").filter(header => pgs(header).querySelector("header-element")).forEach(initHeader);
+    pgs.helper.roots(root, "header").filter(header => pgs(header).querySelector("header-element")).forEach(initHeader);
 }
 
 // headers can arrive later, and there may be more than one, so the watch stays on instead of
 // stopping at the first: a pass is cheap and every header is initialized only once
-PGS_onDocumentReady(PGS_header_init);
-PGS_watchDocument(() => PGS_header_init());
+pgs.helper.onDocumentReady(PGS_header_init);
+pgs.helper.watchDocument(() => PGS_header_init());
 
 //# EXPORT
 export const PGS_header = {

@@ -1,7 +1,4 @@
 import { pgs } from "../_pgs.js";
-import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
-import { PGS_directChild, PGS_roots, PGS_uniqueId } from "../helper/_dom.js";
-import { PGS_warn } from "../helper/_warn.js";
 
 // + dropdown
 const API = new WeakMap();
@@ -15,13 +12,13 @@ function isDropdownContent(element) {
 
 function getDropdownTrigger(dropdown, content) {
     const children = Array.from(dropdown.children).filter(child => child !== content);
-    const dropdownButton = PGS_directChild(dropdown, "dropdown-button");
+    const dropdownButton = pgs.helper.directChild(dropdown, "dropdown-button");
 
     return dropdownButton || children.find(child => !isDropdownContent(child)) || dropdown;
 }
 
 function getDropdownContent(dropdown) {
-    return PGS_directChild(dropdown, "dropdown-content") || pgs(dropdown).querySelector("dropdown-content");
+    return pgs.helper.directChild(dropdown, "dropdown-content") || pgs(dropdown).querySelector("dropdown-content");
 }
 
 function getPosition(dropdown) {
@@ -164,7 +161,7 @@ function initializeDropdown(DROPDOWN) {
 
     const CONTENT = getDropdownContent(DROPDOWN);
     if (!CONTENT) {
-        PGS_warn("dropdown.init", "a dropdown needs a dropdown-content child, skipped", DROPDOWN);
+        pgs.helper.warn("dropdown.init", "a dropdown needs a dropdown-content child, skipped", DROPDOWN);
         return;
     }
 
@@ -173,8 +170,8 @@ function initializeDropdown(DROPDOWN) {
     const { signal } = controller;
     let hoverCloseTimeout = 0;
 
-    if (!TRIGGER.id) TRIGGER.id = PGS_uniqueId("dropdown-btn");
-    if (!CONTENT.id) CONTENT.id = PGS_uniqueId("dropdown-panel");
+    if (!TRIGGER.id) TRIGGER.id = pgs.helper.uniqueId("dropdown-btn");
+    if (!CONTENT.id) CONTENT.id = pgs.helper.uniqueId("dropdown-panel");
 
     if (TRIGGER.matches("button") && !TRIGGER.hasAttribute("type")) {
         TRIGGER.setAttribute("type", "button");
@@ -243,11 +240,11 @@ function initializeDropdown(DROPDOWN) {
 }
 
 function PGS_dropdown_init(root = document) {
-    PGS_roots(root, "dropdown").forEach(dropdown => initializeDropdown(dropdown));
+    pgs.helper.roots(root, "dropdown").forEach(dropdown => initializeDropdown(dropdown));
 }
 
 // # INIT
-PGS_onDocumentReady(PGS_dropdown_init);
+pgs.helper.onDocumentReady(PGS_dropdown_init);
 
 // # API
 function PGS_dropdown_api(selector) {

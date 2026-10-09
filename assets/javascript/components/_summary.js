@@ -1,7 +1,4 @@
 import { pgs } from "../_pgs.js";
-import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
-import { PGS_directChild, PGS_roots, PGS_uniqueId } from "../helper/_dom.js";
-import { PGS_invalid, PGS_warn } from "../helper/_warn.js";
 
 //# SUMMARY
 const API = new WeakMap();
@@ -28,15 +25,15 @@ function getLineHeight(element) {
 function validateMessages(value) {
     if (value === undefined) return;
     if (!value || typeof value !== "object" || Array.isArray(value)) {
-        throw PGS_invalid("summary.init", "message must be an object");
+        throw pgs.helper.invalid("summary.init", "message must be an object");
     }
 
     Object.entries(value).forEach(([key, message]) => {
         if (!(key in MESSAGE_DEFAULTS)) {
-            throw PGS_invalid("summary.init", `unknown message option: ${key}`);
+            throw pgs.helper.invalid("summary.init", `unknown message option: ${key}`);
         }
         if (message !== undefined && typeof message !== "string") {
-            throw PGS_invalid("summary.init", `message option ${key} must be a string`);
+            throw pgs.helper.invalid("summary.init", `message option ${key} must be a string`);
         }
     });
 }
@@ -63,10 +60,10 @@ function initializeMessages(summary, messages) {
 function initializeSummary(summary, initialMessages) {
     if (API.has(summary)) return;
 
-    const content = PGS_directChild(summary, "summary-content");
-    const button = PGS_directChild(summary, "summary-button");
+    const content = pgs.helper.directChild(summary, "summary-content");
+    const button = pgs.helper.directChild(summary, "summary-button");
     if (!content || !button) {
-        PGS_warn("summary.init", "a summary needs a direct summary-content and a direct summary-button child, skipped", summary);
+        pgs.helper.warn("summary.init", "a summary needs a direct summary-content and a direct summary-button child, skipped", summary);
         return;
     }
 
@@ -75,7 +72,7 @@ function initializeSummary(summary, initialMessages) {
 
     initializeMessages(summary, initialMessages);
 
-    if (!content.id) content.id = PGS_uniqueId("summary-content");
+    if (!content.id) content.id = pgs.helper.uniqueId("summary-content");
 
     button.type ||= "button";
     button.setAttribute("aria-controls", content.id);
@@ -170,16 +167,16 @@ function initializeSummary(summary, initialMessages) {
 
 function PGS_summary_init(root = document, options = {}) {
     if (!options || typeof options !== "object" || Array.isArray(options)) {
-        throw PGS_invalid("summary.init", "options must be an object");
+        throw pgs.helper.invalid("summary.init", "options must be an object");
     }
 
     const initialMessages = getInitialMessages(options.message);
 
-    PGS_roots(root, "summary").forEach(summary => initializeSummary(summary, initialMessages));
+    pgs.helper.roots(root, "summary").forEach(summary => initializeSummary(summary, initialMessages));
 }
 
 //# INIT
-PGS_onDocumentReady(PGS_summary_init);
+pgs.helper.onDocumentReady(PGS_summary_init);
 
 //# API
 function PGS_summary_api(selector) {

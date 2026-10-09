@@ -1,3 +1,9 @@
+import { PGS_directChild, PGS_directChildren, PGS_dispatch, PGS_roots, PGS_uniqueId } from "./helper/_dom.js";
+import { PGS_onDocumentReady } from "./helper/_onDocumentReady.js";
+import { PGS_escapeHtml, PGS_formatText } from "./helper/_text.js";
+import { PGS_rafThrottle, PGS_watchDocument } from "./helper/_throttle.js";
+import { PGS_invalid, PGS_warn } from "./helper/_warn.js";
+
 // shared helpers for the "key", "key['flag' ...]" and "key[payload]" bracket syntax — used by
 // the pgs attribute itself and by every pgs-data accessor below, so a fix here fixes all of them
 const BracketToken = {
@@ -457,6 +463,24 @@ export function pgs(root) {
     api.data = createData("pgs-data");
     return api;
 }
+
+// every helper a module or a theme can call, as pgs.helper.<name>. It is filled here, before any
+// module runs, so it is there even for the code that executes while the modules are being imported;
+// init and formValidate join it in _imports.js, since they depend on the registered modules
+pgs.helper = {
+    roots: PGS_roots,
+    directChild: PGS_directChild,
+    directChildren: PGS_directChildren,
+    uniqueId: PGS_uniqueId,
+    dispatch: PGS_dispatch,
+    rafThrottle: PGS_rafThrottle,
+    watchDocument: PGS_watchDocument,
+    onDocumentReady: PGS_onDocumentReady,
+    escapeHtml: PGS_escapeHtml,
+    formatText: PGS_formatText,
+    warn: PGS_warn,
+    invalid: PGS_invalid,
+};
 
 pgs.registerModules = function (modules = {}) {
     Object.entries(modules).forEach(([name, module]) => {

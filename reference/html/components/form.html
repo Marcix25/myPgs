@@ -32,7 +32,7 @@
  * - success: is applied at runtime to the form after successful validation.
  *
  * @api
- * - new pgs.formValidate(form, options): the JavaScript side of this component, which validates the form and drives the pgs-state and the pgs-data messages above. Its constructor and instance methods are documented in Form validate, not repeated here.
+ * - new pgs.helper.formValidate(form, options): the JavaScript side of this component, which validates the form and drives the pgs-state and the pgs-data messages above. Its constructor and instance methods are documented in Form validate, not repeated here.
  *
  * @related
  * - formValidate: belongs to Form validate, which lists it as generated: the PGS_formValidate constructor adds it to the form, and it enables the validation-state styles.
@@ -150,7 +150,7 @@
     const confirmPassword = form.querySelector('input[name="confirmPassword"]');
     if (!password || !confirmPassword) return;
 
-    const formValidate = new pgs.formValidate(form, {
+    const formValidate = new pgs.helper.formValidate(form, {
         typeNotice: "alert"
     });
 

@@ -23,7 +23,6 @@ import { PGS_formValidate } from "./helper/_formValidate.js";
 import { PGS_init } from "./helper/_init.js";
 
 pgs.registerModules({
-    init: PGS_init,
     darkmode: PGS_darkmode,
     svg: PGS_svg,
     hover: PGS_hover,
@@ -43,5 +42,7 @@ pgs.registerModules({
     steps: PGS_steps,
     summary: PGS_summary,
     tabs: PGS_tabs,
-    formValidate: PGS_formValidate,
 });
+
+// the two helpers that need the module system: they walk or build on what is registered above
+Object.assign(pgs.helper, { init: PGS_init, formValidate: PGS_formValidate });

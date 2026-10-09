@@ -1,7 +1,4 @@
 import { pgs } from "../_pgs.js";
-import { PGS_dispatch, PGS_roots } from "../helper/_dom.js";
-import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
-import { PGS_warn } from "../helper/_warn.js";
 
 //= MODAL
 const EVENT_OPEN = "pgs:modal:open";
@@ -18,7 +15,7 @@ function initializeModal(MODAL) {
     const BUTTON_OPEN = pgs(MODAL).querySelector("modal-button");
     const DIALOG = MODAL.querySelector("dialog") || DIALOGS.get(MODAL);
     if (!DIALOG) {
-        PGS_warn("modal.init", "a modal needs a <dialog> inside its wrapper", MODAL);
+        pgs.helper.warn("modal.init", "a modal needs a <dialog> inside its wrapper", MODAL);
         return;
     }
     DIALOGS.set(MODAL, DIALOG);
@@ -123,14 +120,14 @@ function initializeModal(MODAL) {
     // holds the dialog, so the shared ancestors and everything above only hear the dialog's
     function dispatchModal(name) {
         const detail = { modal: MODAL, dialog: DIALOG };
-        PGS_dispatch(DIALOG, name, detail);
+        pgs.helper.dispatch(DIALOG, name, detail);
         if (MODAL.contains(DIALOG)) return;
 
         let last = MODAL;
         while (last.parentNode && !last.parentNode.contains(DIALOG)) last = last.parentNode;
         const stop = event => event.stopPropagation();
         last.addEventListener(name, stop);
-        PGS_dispatch(MODAL, name, detail);
+        pgs.helper.dispatch(MODAL, name, detail);
         last.removeEventListener(name, stop);
     }
 
@@ -435,11 +432,11 @@ function initializeModal(MODAL) {
 }
 
 function PGS_modal_init(root = document) {
-    PGS_roots(root, "modal").forEach(MODAL => initializeModal(MODAL));
+    pgs.helper.roots(root, "modal").forEach(MODAL => initializeModal(MODAL));
 }
 
 //# INIT PGS_modal
-PGS_onDocumentReady(PGS_modal_init);
+pgs.helper.onDocumentReady(PGS_modal_init);
 
 //# API
 function PGS_modal_api(element) {

@@ -1,7 +1,4 @@
 import { pgs } from "../_pgs.js";
-import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
-import { PGS_roots, PGS_dispatch } from "../helper/_dom.js";
-import { PGS_warn, PGS_invalid } from "../helper/_warn.js";
 
 const API = new WeakMap();
 
@@ -49,11 +46,11 @@ function PGS_pageNav_build(pageNav) {
     const panelItems = panelsRoot ? Array.from(pgs(panelsRoot).querySelectorAll("pageNav-panels-content")) : [];
 
     if (!panelItems.length) {
-        PGS_warn("pageNav.init", "the pageNav has no pageNav-panels-content inside a pageNav-panels, so it was not initialized", pageNav);
+        pgs.helper.warn("pageNav.init", "the pageNav has no pageNav-panels-content inside a pageNav-panels, so it was not initialized", pageNav);
         return null;
     }
     if (!items.length) {
-        PGS_warn("pageNav.init", "the pageNav has no pageNav-list-item, so it was not initialized", pageNav);
+        pgs.helper.warn("pageNav.init", "the pageNav has no pageNav-list-item, so it was not initialized", pageNav);
         return null;
     }
 
@@ -102,7 +99,7 @@ function PGS_pageNav_build(pageNav) {
 
             if (resetScroll) window.scrollTo({ top: 0, behavior: "instant" });
 
-            PGS_dispatch(pageNav, "pgs:pageNav:change", { panel, items: this.itemsFor(panel.id) });
+            pgs.helper.dispatch(pageNav, "pgs:pageNav:change", { panel, items: this.itemsFor(panel.id) });
         },
 
         idFromHash(hash) {
@@ -131,7 +128,7 @@ function PGS_pageNav_build(pageNav) {
         panels: nav.panelsRoot,
         select: (panelId) => {
             if (!panelId || !nav.panelItems.some(panel => panel.id === panelId)) {
-                throw PGS_invalid("pageNav.select", `no pageNav-panels-content has the id "${panelId}"`);
+                throw pgs.helper.invalid("pageNav.select", `no pageNav-panels-content has the id "${panelId}"`);
             }
             window.location.hash = panelId;
             nav.select(panelId);
@@ -166,14 +163,14 @@ function PGS_pageNav_build(pageNav) {
 }
 
 function PGS_pageNav_init(root = document) {
-    PGS_roots(root, "pageNav").forEach((pageNav) => {
+    pgs.helper.roots(root, "pageNav").forEach((pageNav) => {
         if (API.has(pageNav)) return;
 
         PGS_pageNav_build(pageNav);
     });
 }
 
-PGS_onDocumentReady(PGS_pageNav_init);
+pgs.helper.onDocumentReady(PGS_pageNav_init);
 
 function PGS_pageNav_api(selector) {
     return API.get(selector);

@@ -24,7 +24,7 @@
 //   never written back to page/. Every page opens instantly,
 //   no fetch, no per-file parsing. Components built entirely by JS at runtime (notification, toast,
 //   modal, accordion, ...) are untouched: their source markup is baked in like everything else,
-//   and pgs.init() still builds them for real when the page loads.
+//   and pgs.helper.init() still builds them for real when the page loads.
 //
 // The index.html at the repo root, the GitHub Pages entry point, redirects to build/home.html: it is
 // the one place that names the current home page.

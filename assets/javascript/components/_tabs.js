@@ -1,7 +1,4 @@
 import { pgs } from "../_pgs.js";
-import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
-import { PGS_directChild, PGS_directChildren, PGS_dispatch, PGS_roots, PGS_uniqueId } from "../helper/_dom.js";
-import { PGS_invalid, PGS_warn } from "../helper/_warn.js";
 
 const API = new WeakMap();
 
@@ -12,17 +9,17 @@ const GENERATED_IDS = new WeakSet();
 function initializeTabs(tabs) {
     if (API.has(tabs)) return;
 
-    const list = PGS_directChild(tabs, "tabs-list");
-    const panels = PGS_directChild(tabs, "tabs-panels");
+    const list = pgs.helper.directChild(tabs, "tabs-list");
+    const panels = pgs.helper.directChild(tabs, "tabs-panels");
     if (!list || !panels) {
-        PGS_warn("tabs.init", "tabs needs a direct tabs-list and a direct tabs-panels child, skipped", tabs);
+        pgs.helper.warn("tabs.init", "tabs needs a direct tabs-list and a direct tabs-panels child, skipped", tabs);
         return;
     }
 
-    const buttons = PGS_directChildren(list, "tabs-list-tab");
-    const panelItems = PGS_directChildren(panels, "tabs-panels-content");
+    const buttons = pgs.helper.directChildren(list, "tabs-list-tab");
+    const panelItems = pgs.helper.directChildren(panels, "tabs-panels-content");
     if (!buttons.length || buttons.length !== panelItems.length) {
-        PGS_warn("tabs.init", `tabs needs as many tabs-panels-content as tabs-list-tab, and at least one (found ${buttons.length} tabs and ${panelItems.length} panels), skipped`, tabs);
+        pgs.helper.warn("tabs.init", `tabs needs as many tabs-panels-content as tabs-list-tab, and at least one (found ${buttons.length} tabs and ${panelItems.length} panels), skipped`, tabs);
         return;
     }
 
@@ -30,8 +27,8 @@ function initializeTabs(tabs) {
     const { signal } = controller;
 
     // ids generated as tabs-list-tab-N-M and tabs-panels-content-N-M: N counts the tabs sets, M the tab
-    const buttonIdBase = PGS_uniqueId("tabs-list-tab");
-    const panelIdBase = PGS_uniqueId("tabs-panels-content");
+    const buttonIdBase = pgs.helper.uniqueId("tabs-list-tab");
+    const panelIdBase = pgs.helper.uniqueId("tabs-panels-content");
     list.setAttribute("role", "tablist");
 
     //## HISTORY
@@ -102,7 +99,7 @@ function initializeTabs(tabs) {
         });
 
         if (focus) buttons[current].focus();
-        PGS_dispatch(tabs, "pgs:tabs:change", { current, tab: buttons[current], panel: panelItems[current] });
+        pgs.helper.dispatch(tabs, "pgs:tabs:change", { current, tab: buttons[current], panel: panelItems[current] });
     }
 
     // the tab that is already selected changes nothing: no second history entry, no second event
@@ -165,7 +162,7 @@ function initializeTabs(tabs) {
         panels,
         goTo: (index) => {
             if (!Number.isInteger(index) || index < 0 || index >= buttons.length) {
-                throw PGS_invalid("tabs.goTo", `index must be an integer from 0 to ${buttons.length - 1}`);
+                throw pgs.helper.invalid("tabs.goTo", `index must be an integer from 0 to ${buttons.length - 1}`);
             }
             select(index);
         },
@@ -180,10 +177,10 @@ function initializeTabs(tabs) {
 }
 
 function PGS_tabs_init(root = document) {
-    PGS_roots(root, "tabs").forEach(tabs => initializeTabs(tabs));
+    pgs.helper.roots(root, "tabs").forEach(tabs => initializeTabs(tabs));
 }
 
-PGS_onDocumentReady(PGS_tabs_init);
+pgs.helper.onDocumentReady(PGS_tabs_init);
 
 function PGS_tabs_api(selector) {
     return API.get(selector);

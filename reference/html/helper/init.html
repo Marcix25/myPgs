@@ -1,10 +1,10 @@
 <!--
 /**
  * @title Init
- * @description Every component initializes itself on page load. pgs.init(root) re-runs that same initialization for whatever a Document or Element received later — markup inserted from an AJAX response, rendered by React or Vue, or built by hand with a template string — since none of that existed yet for the automatic pass to find.
+ * @description Every component initializes itself on page load. pgs.helper.init(root) re-runs that same initialization for whatever a Document or Element received later — markup inserted from an AJAX response, rendered by React or Vue, or built by hand with a template string — since none of that existed yet for the automatic pass to find.
  *
  * @api
- * - pgs.init(root): finds every registered module that exposes init(root) and runs it again against the given Document or Element; already-initialized markup inside it is left untouched.
+ * - pgs.helper.init(root): finds every registered module that exposes init(root) and runs it again against the given Document or Element; already-initialized markup inside it is left untouched.
  *
  * @related
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
@@ -15,7 +15,7 @@
  * - dropdown-button: uses the related dropdown-button component or utility in this example.
  * - dropdown-content: uses the related dropdown-content component or utility in this example.
  *
- * @return A dropdown built and inserted after the page has already loaded, working only because pgs.init(root) is called on it.
+ * @return A dropdown built and inserted after the page has already loaded, working only because pgs.helper.init(root) is called on it.
  */
 -->
 
@@ -38,6 +38,6 @@
         `;
 
         // Without this call pgs.dropdown never saw the new markup, and it would stay inert.
-        pgs.init(target);
+        pgs.helper.init(target);
     });
 </script>

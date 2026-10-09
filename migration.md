@@ -23,9 +23,9 @@ meaning moved under them, so nothing errors and the page just looks wrong.
 | several `pgs="accordion"` next to each other | opening one closed every other accordion on the page | each one answers for itself: wrap them in `pgs="accordionContainer"` to get the old behavior |
 | `pgs-option="buttonText"` and `pgs-option="buttonTransparent"` | `buttonTransparent` stripped every state, `buttonText` only the resting one | the two traded places: `buttonText` strips every state, `buttonTransparent` only the resting one |
 | `pgs="toggleDarkmode"` inside `pgs="footer"` | the footer wrote "Dark mode"/"Light mode" next to the glyph on its own | the label is opt-in, and available everywhere: add `tglLabeled` to its bracket, `toggleDarkmode['tglLabeled']` |
-| `pgs.hover`'s marking (a button, and a card or box written as a link) | ran on every page as soon as the bundle loaded, and `pgs.hover.init(root)` always ran on request | needs `bodyHoverAuto` in the `body[...]` bracket of `<body>` to run at all, by any path — the automatic pass, a direct `pgs.hover.init(root)` call, or `pgs.init(root)`, which reaches every module's `init(root)` regardless of what the caller meant to touch |
+| `pgs.hover`'s marking (a button, and a card or box written as a link) | ran on every page as soon as the bundle loaded, and `pgs.hover.init(root)` always ran on request | needs `bodyHoverAuto` in the `body[...]` bracket of `<body>` to run at all, by any path — the automatic pass, a direct `pgs.hover.init(root)` call, or `pgs.helper.init(root)`, which reaches every module's `init(root)` regardless of what the caller meant to touch |
 | `pgs="dropdown"` (and the floating first-level submenus of a horizontal menu) | the content floated with no arrow | the content draws an arrow pointing back at the trigger: add `drpNotArrow` to the bracket to keep the old look |
-| `pgs.<module>.init(root)` on an accordion, menu, steps, stepTabs, summary, notification or toast | looked only at what is inside `root`, so `pgs.init(el)` on a freshly inserted `pgs="accordion"` did nothing | the root element itself is initialized too, like it already was for tabs, modal, dropdown, search, slides and pageNav |
+| `pgs.<module>.init(root)` on an accordion, menu, steps, stepTabs, summary, notification or toast | looked only at what is inside `root`, so `pgs.helper.init(el)` on a freshly inserted `pgs="accordion"` did nothing | the root element itself is initialized too, like it already was for tabs, modal, dropdown, search, slides and pageNav |
 | `refresh()` on a component instance | six different things: re-run the parent's init (a no-op for the element), re-measure, re-run a search | one meaning everywhere: `destroy()` then initialize that element again, and return the new instance. Search's old `refresh()` is `search()` now |
 | every `pgs:*` event (`pgs:tabs:change`, `pgs:stepTabs:change`, `pgs:pageNav:change`, `pgs:modal:open`, `pgs:modal:close`, `pgs:alert:*`, `pgs:search:*`) | some bubbled, some did not | all bubble, and `detail.element` is always there. A listener on an ancestor now also hears the events of components nested inside it |
 | `pgs.pageNav.api(el).getCurrent()` | the current panel element | the zero-based index, like tabs and stepTabs; the element is `getCurrentPanel()` |
@@ -785,6 +785,7 @@ makes it one way. The renames come first, then what behaves differently under a 
 | `--button-font-size`, `--badge-icon-size`, `--badge-text-size`, `--search-paddingBlock` | `--button-fontSize`, `--badge-iconSize`, `--badge-textSize`, `--search-padding-block` |
 | `--search-suggestions-item-hover-background` and `-color`, `--search-suggestions-item-selected-background` and `-color`, `--table-row-hover-background` and `-color` | the state goes last, like on button and breadcrumb: `--search-suggestions-item-background-hover`, `-color-hover`, `-background-selected`, `-color-selected`; `--table-row-background-hover`, `--table-row-color-hover` |
 | `pgs.registerImport(...)`, `pgs.import(...)` | gone; nothing used them. Modules stay reachable as `pgs.modal`, `pgs.toast`, `pgs.tabs`… |
+| `pgs.init(root)`, `new pgs.formValidate(form, options)` | `pgs.helper.init(root)`, `new pgs.helper.formValidate(form, options)`. Every helper is under `pgs.helper` now, and the others (`warn`, `invalid`, `dispatch`, `roots`, `directChild`, `directChildren`, `uniqueId`, `rafThrottle`, `watchDocument`, `onDocumentReady`, `escapeHtml`, `formatText`) are public there too. The error messages say `pgs.helper.init()` and `pgs.helper.formValidate()` |
 
 Gone with nothing to put in their place, because nothing used them: the `precButton`/`nextButton`
 classes, `data-alert-id`, the init markers `data-initialize`, `data-notification-bell-bound` and
@@ -834,7 +835,7 @@ Same name, different behavior:
   of the container, so a list nested inside a step no longer leaks into the outer one. A menu item with
   a submenu needs a direct `<a>` (a nested link was picked up before); one without is skipped with a
   warning. A summary needs its `summary-button`: the module does not generate one.
-- **`pgs.init(root)` is idempotent.** On a page that is already running, `pgs.darkmode.init` binds only
+- **`pgs.helper.init(root)` is idempotent.** On a page that is already running, `pgs.darkmode.init` binds only
   the switches it has not bound yet, and no longer re-applies the theme or fires `pgs:svg:changeColor`.
 - **Smaller fixes that follow.** A stepTabs wizard without a `stepTabs-container` is skipped with a
   warning instead of aborting the others; the search suggestions are escaped; `formValidate.validate()`
@@ -1041,6 +1042,9 @@ grep -rnE -- '--(logo-finter|header-letter-spacing|label-borderadius|heightOf(He
 
 # 39. calls that changed name or meaning (read, don't replace)
 grep -rnE '\.(select|previous)\(|\bgetCurrent\(\)|\.refresh\(\)' .
+
+# 40. the two helpers that moved under pgs.helper
+grep -rnE '\bpgs\.(init|formValidate)\b|\b(pgsApi|mypgs\.pgs)\.(init|formValidate)\b' .
 ```
 
 Hit 5 needs reading rather than replacing: an `icon` that wraps another element wanted the surface
@@ -1078,7 +1082,8 @@ sees an image written within three lines of the card, so an image printed by a h
 (`PGS_fn_img()` and the like) has to be found by reading the card templates, and wrapped in
 `card-imgForChild`.
 
-Hits 36 and 37 are plain substitutions by the "Consolidation pass" table, with one caution for 37:
+Hit 40 is a plain substitution too: `pgs.init(` becomes `pgs.helper.init(` and `pgs.formValidate` becomes
+`pgs.helper.formValidate`. Hits 36 and 37 are plain substitutions by the "Consolidation pass" table, with one caution for 37:
 `select[...]` is only the user-select utility when its flag is `selNone` or `selText`; the `select` of
 a form field is unchanged. Hit 38 is a substitution too, except a stylesheet that read
 `[data-dropdown-side="bottom"]` or `[data-header-scroll="true"]` needs `[pgs-state~="sideBottom"]` and

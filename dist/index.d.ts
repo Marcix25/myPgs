@@ -393,12 +393,34 @@ declare global {
     init(root?: Document | Element): void;
   }
 
+  interface PgsHelper {
+    /** Initializes every registered module inside root (the root itself included); returns root. */
+    init(root?: Document | Element): Document | Element;
+    formValidate: PgsFormValidateConstructor;
+    /** The elements under root, plus root itself, that carry one of the tokens. */
+    roots(root: Document | Element, token: string | string[]): Element[];
+    directChildren(parent: Element, token: string | string[]): Element[];
+    directChild(parent: Element, token: string | string[]): Element | null;
+    /** "prefix-1", "prefix-2"... one counter per prefix. */
+    uniqueId(prefix: string): string;
+    /** Dispatches a bubbling event whose detail always carries `element`. */
+    dispatch(target: Element | Document, name: string, detail?: Record<string, unknown>, options?: { cancelable?: boolean }): CustomEvent;
+    rafThrottle<Args extends unknown[]>(callback: (...args: Args) => void): ((...args: Args) => void) & { cancel(): void };
+    /** Calls back once per frame when nodes arrive later; null when there is no document. */
+    watchDocument(callback: () => void, options?: MutationObserverInit): MutationObserver | null;
+    onDocumentReady(callback: () => void): void;
+    escapeHtml(value: unknown): string;
+    formatText(value: unknown): string;
+    warn(scope: string, message: string, ...details: unknown[]): void;
+    invalid(scope: string, message: string): TypeError;
+  }
+
   interface PgsFunction {
     (root: Document): PgsDocumentApi;
     (root: Element): PgsElementApi;
     (root: Document | Element): PgsApi;
     registerModules(modules: Record<string, any>): PgsFunction;
-    init(root?: Document | Element): Document | Element;
+    helper?: PgsHelper;
     darkmode?: PgsInitOnlyModule;
     svg?: PgsSvgModule;
     hover?: PgsHoverModule;
@@ -418,7 +440,6 @@ declare global {
     steps?: PgsModule<PgsStepsInstance>;
     summary?: PgsSummaryModule;
     tabs?: PgsModule<PgsTabsInstance>;
-    formValidate?: PgsFormValidateConstructor;
     [moduleName: string]: any;
   }
 

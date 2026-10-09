@@ -2,7 +2,7 @@ import { pgs } from "../_pgs.js";
 import { PGS_invalid } from "./_warn.js";
 
 // the elements a module's init(root) has to look at: the root itself when it carries the token,
-// then everything under it. Every module resolves its roots through here, so pgs.init(el) on a
+// then everything under it. Every module resolves its roots through here, so pgs.helper.init(el) on a
 // node that was just inserted behaves the same whichever component the node is. `token` takes the
 // same string or array that pgs().querySelectorAll does
 export function PGS_roots(root, token) {

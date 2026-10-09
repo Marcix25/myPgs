@@ -56,7 +56,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
-    init: _helper_init_js__WEBPACK_IMPORTED_MODULE_21__.PGS_init,
     darkmode: _base_darkmode_js__WEBPACK_IMPORTED_MODULE_1__.PGS_darkmode,
     svg: _base_svg_js__WEBPACK_IMPORTED_MODULE_3__.PGS_svg,
     hover: _base_hover_js__WEBPACK_IMPORTED_MODULE_2__.PGS_hover,
@@ -76,8 +75,10 @@ _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
     steps: _components_steps_js__WEBPACK_IMPORTED_MODULE_15__.PGS_steps,
     summary: _components_summary_js__WEBPACK_IMPORTED_MODULE_16__.PGS_summary,
     tabs: _components_tabs_js__WEBPACK_IMPORTED_MODULE_17__.PGS_tabs,
-    formValidate: _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_20__.PGS_formValidate,
 });
+
+// the two helpers that need the module system: they walk or build on what is registered above
+Object.assign(_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper, { init: _helper_init_js__WEBPACK_IMPORTED_MODULE_21__.PGS_init, formValidate: _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_20__.PGS_formValidate });
 
 
 /***/ },
@@ -92,6 +93,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   pgs: () => (/* binding */ pgs)
 /* harmony export */ });
+/* harmony import */ var _helper_dom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helper/_dom.js */ "./assets/javascript/helper/_dom.js");
+/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+/* harmony import */ var _helper_text_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helper/_text.js */ "./assets/javascript/helper/_text.js");
+/* harmony import */ var _helper_throttle_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./helper/_throttle.js */ "./assets/javascript/helper/_throttle.js");
+/* harmony import */ var _helper_warn_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./helper/_warn.js */ "./assets/javascript/helper/_warn.js");
+
+
+
+
+
+
 // shared helpers for the "key", "key['flag' ...]" and "key[payload]" bracket syntax — used by
 // the pgs attribute itself and by every pgs-data accessor below, so a fix here fixes all of them
 const BracketToken = {
@@ -552,6 +564,24 @@ function pgs(root) {
     return api;
 }
 
+// every helper a module or a theme can call, as pgs.helper.<name>. It is filled here, before any
+// module runs, so it is there even for the code that executes while the modules are being imported;
+// init and formValidate join it in _imports.js, since they depend on the registered modules
+pgs.helper = {
+    roots: _helper_dom_js__WEBPACK_IMPORTED_MODULE_0__.PGS_roots,
+    directChild: _helper_dom_js__WEBPACK_IMPORTED_MODULE_0__.PGS_directChild,
+    directChildren: _helper_dom_js__WEBPACK_IMPORTED_MODULE_0__.PGS_directChildren,
+    uniqueId: _helper_dom_js__WEBPACK_IMPORTED_MODULE_0__.PGS_uniqueId,
+    dispatch: _helper_dom_js__WEBPACK_IMPORTED_MODULE_0__.PGS_dispatch,
+    rafThrottle: _helper_throttle_js__WEBPACK_IMPORTED_MODULE_3__.PGS_rafThrottle,
+    watchDocument: _helper_throttle_js__WEBPACK_IMPORTED_MODULE_3__.PGS_watchDocument,
+    onDocumentReady: _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady,
+    escapeHtml: _helper_text_js__WEBPACK_IMPORTED_MODULE_2__.PGS_escapeHtml,
+    formatText: _helper_text_js__WEBPACK_IMPORTED_MODULE_2__.PGS_formatText,
+    warn: _helper_warn_js__WEBPACK_IMPORTED_MODULE_4__.PGS_warn,
+    invalid: _helper_warn_js__WEBPACK_IMPORTED_MODULE_4__.PGS_invalid,
+};
+
 pgs.registerModules = function (modules = {}) {
     Object.entries(modules).forEach(([name, module]) => {
         const key = String(name || "").trim();
@@ -589,11 +619,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_darkmode: () => (/* binding */ PGS_darkmode)
 /* harmony export */ });
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
-/* harmony import */ var _helper_dom_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helper/_dom.js */ "./assets/javascript/helper/_dom.js");
-/* harmony import */ var _svg_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_svg.js */ "./assets/javascript/base/_svg.js");
-
-
+/* harmony import */ var _svg_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_svg.js */ "./assets/javascript/base/_svg.js");
 
 
 
@@ -653,7 +679,7 @@ function setDarkmodeStatus(toggle = false, button = []) {
     // END SET
 
     changeIcon(button, isDarkMode);
-    document.dispatchEvent(new CustomEvent(_svg_js__WEBPACK_IMPORTED_MODULE_3__.PGS_svg.eventChangeColor, { detail: { isDarkMode } }));
+    document.dispatchEvent(new CustomEvent(_svg_js__WEBPACK_IMPORTED_MODULE_1__.PGS_svg.eventChangeColor, { detail: { isDarkMode } }));
 }
 
 
@@ -664,11 +690,11 @@ function setDarkmodeStatus(toggle = false, button = []) {
 if (typeof document !== "undefined") setDarkmodeStatus();
 
 // binds the switches in root that are not bound yet and draws their glyph. Switches already
-// bound are left untouched, so pgs.init(el) on a page that is already running changes nothing
+// bound are left untouched, so pgs.helper.init(el) on a page that is already running changes nothing
 // else: it does not re-apply the theme or fire the color event again
 function PGS_darkmode_init(root = document) {
     const isDarkMode = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document.documentElement).state.contains("darkmode");
-    const buttons = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_roots)(root, "toggleDarkmode").filter(button => !INITIALIZED_BUTTONS.has(button));
+    const buttons = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "toggleDarkmode").filter(button => !INITIALIZED_BUTTONS.has(button));
 
     changeIcon(buttons, isDarkMode);
 
@@ -681,7 +707,7 @@ function PGS_darkmode_init(root = document) {
 }
 
 // the first pass once the page is ready: the body exists now, so it takes the theme too
-;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(() => {
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(() => {
     setDarkmodeStatus(false, (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document).querySelectorAll("toggleDarkmode"));
     PGS_darkmode_init();
 });
@@ -704,12 +730,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_hover: () => (/* binding */ PGS_hover)
 /* harmony export */ });
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
-/* harmony import */ var _helper_throttle_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helper/_throttle.js */ "./assets/javascript/helper/_throttle.js");
-/* harmony import */ var _helper_warn_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helper/_warn.js */ "./assets/javascript/helper/_warn.js");
-
-
-
 
 
 //= HOVER
@@ -755,13 +775,13 @@ function syncHover(element) {
 }
 
 //# INIT
-// bodyHoverAuto gates every caller here, not only the automatic pass below: pgs.init(root) walks
+// bodyHoverAuto gates every caller here, not only the automatic pass below: pgs.helper.init(root) walks
 // every registered module and calls its init(root) whether or not the caller meant to touch
 // hover specifically, so the check has to live in the one function every path funnels through,
 // not in the block that only covers this module's own unprompted call
 function PGS_hover_init(root = document) {
     if (!(root instanceof Document || root instanceof Element)) {
-        throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_invalid)("hover.init", "root must be a Document or an Element");
+        throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("hover.init", "root must be a Document or an Element");
     }
 
     if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document.body).option.contains("bodyHoverAuto")) return root;
@@ -779,7 +799,7 @@ function PGS_hover_init(root = document) {
 // own attribute write triggers back settles at once
 const PENDING = new Set();
 
-const flushPending = (0,_helper_throttle_js__WEBPACK_IMPORTED_MODULE_2__.PGS_rafThrottle)(() => {
+const flushPending = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.rafThrottle(() => {
     const roots = [...PENDING];
     PENDING.clear();
     roots.forEach(root => root.isConnected && PGS_hover_init(root));
@@ -806,7 +826,7 @@ function handleMutations(mutations) {
 // alongside bodyBase/bodyImg/bodyText/bodyHeading: without it nothing is marked on load, and —
 // separately from the check inside PGS_hover_init — the observer below never even starts, so a page
 // that only ever writes pgs="hover" by hand never pays for it running for its whole lifetime
-;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(() => {
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(() => {
     if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document.body).option.contains("bodyHoverAuto")) return;
 
     PGS_hover_init(document);
@@ -837,12 +857,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_svg: () => (/* binding */ PGS_svg)
 /* harmony export */ });
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
-/* harmony import */ var _helper_throttle_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helper/_throttle.js */ "./assets/javascript/helper/_throttle.js");
-/* harmony import */ var _helper_warn_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helper/_warn.js */ "./assets/javascript/helper/_warn.js");
-
-
-
 
 
 //= SVG & LOTTIE COLORS
@@ -915,7 +929,7 @@ const svgColors = {
             svgColors.applyColorsLottie(event.detail?.isDarkMode ?? svgColors._getCurrentDarkmode());
         });
 
-        (0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(PGS_svg_init);
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_svg_init);
     },
 
     applyColorsSVG(isDarkMode = svgColors._getCurrentDarkmode()) {
@@ -973,7 +987,7 @@ function syncAspectRatio(obj) {
 
     applyAspectRatio(obj);
 
-    const observer = new ResizeObserver((0,_helper_throttle_js__WEBPACK_IMPORTED_MODULE_2__.PGS_rafThrottle)(() => applyAspectRatio(obj)));
+    const observer = new ResizeObserver(_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.rafThrottle(() => applyAspectRatio(obj)));
     observer.observe(obj);
     ASPECT_OBSERVERS.set(obj, observer);
 }
@@ -992,7 +1006,7 @@ function initAspectRatio(root) {
 //# INIT
 function PGS_svg_init(root = document) {
     if (!(root instanceof Document || root instanceof Element)) {
-        throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_invalid)("svg.init", "root must be a Document or an Element");
+        throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("svg.init", "root must be a Document or an Element");
     }
 
     initAspectRatio(root);
@@ -1026,12 +1040,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_accordion: () => (/* binding */ PGS_accordion)
 /* harmony export */ });
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
-/* harmony import */ var _helper_dom_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helper/_dom.js */ "./assets/javascript/helper/_dom.js");
-/* harmony import */ var _helper_warn_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helper/_warn.js */ "./assets/javascript/helper/_warn.js");
-
-
-
 
 
 //# ACCORDION
@@ -1087,10 +1095,10 @@ function accordionAccessibility(isOpen, button, content) {
 function initializeAccordion(accordion) {
     if (API.has(accordion)) return;
 
-    const BUTTON = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_directChild)(accordion, "accordion-button");
-    const CONTENT = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_directChild)(accordion, "accordion-content");
+    const BUTTON = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(accordion, "accordion-button");
+    const CONTENT = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(accordion, "accordion-content");
     if (!BUTTON || !CONTENT) {
-        (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_warn)("accordion.init", "an accordion needs a direct accordion-button and a direct accordion-content child, skipped", accordion);
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("accordion.init", "an accordion needs a direct accordion-button and a direct accordion-content child, skipped", accordion);
         return;
     }
 
@@ -1111,8 +1119,8 @@ function initializeAccordion(accordion) {
     // accessibility, written once, with ids of its own for aria-controls / aria-labelledby
     BUTTON.setAttribute("role", "button");
     BUTTON.setAttribute("tabindex", "0");
-    if (!BUTTON.id) BUTTON.id = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_uniqueId)("acc-btn");
-    if (!CONTENT.id) CONTENT.id = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_uniqueId)("acc-panel");
+    if (!BUTTON.id) BUTTON.id = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.uniqueId("acc-btn");
+    if (!CONTENT.id) CONTENT.id = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.uniqueId("acc-panel");
 
     BUTTON.setAttribute("aria-controls", CONTENT.id);
     CONTENT.setAttribute("role", "region");
@@ -1130,8 +1138,8 @@ function initializeAccordion(accordion) {
             if ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(otherLi).closest("accordionContainer") !== CONTAINER) continue;
             if ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(otherLi).option.contains("accAutoOpen")) continue;
 
-            const otherBtn = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_directChild)(otherLi, "accordion-button");
-            const otherContent = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_directChild)(otherLi, "accordion-content");
+            const otherBtn = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(otherLi, "accordion-button");
+            const otherContent = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(otherLi, "accordion-content");
             if (!otherBtn || !otherContent) continue;
 
             (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(otherLi).state.remove("open");
@@ -1215,11 +1223,11 @@ function initializeAccordion(accordion) {
 }
 
 function PGS_accordion_init(root = document) {
-    ;(0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_roots)(root, "accordion").forEach(accordion => initializeAccordion(accordion));
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "accordion").forEach(accordion => initializeAccordion(accordion));
 }
 
 //# INIT
-;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(PGS_accordion_init);
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_accordion_init);
 
 //# API
 function PGS_accordion_api(selector) {
@@ -1246,12 +1254,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   fn_alert: () => (/* binding */ fn_alert)
 /* harmony export */ });
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
-/* harmony import */ var _helper_dom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_dom.js */ "./assets/javascript/helper/_dom.js");
-/* harmony import */ var _helper_text_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helper/_text.js */ "./assets/javascript/helper/_text.js");
-/* harmony import */ var _helper_warn_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helper/_warn.js */ "./assets/javascript/helper/_warn.js");
-
-
-
 
 
 //# PGS_alert
@@ -1309,7 +1311,7 @@ const fn_alert = {
 
     _getContainer(root = document, configuredContainer, scope = "alert.show") {
         if (!(root instanceof Document) && !(root instanceof Element)) {
-            throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_invalid)(scope, "root must be a Document or an Element");
+            throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid(scope, "root must be a Document or an Element");
         }
 
         let container = configuredContainer;
@@ -1317,7 +1319,7 @@ const fn_alert = {
         if (!container) container = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).querySelector("alertContainer");
 
         if (container && (!(container instanceof Element) || container === root || !root.contains(container))) {
-            throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_invalid)(scope, "container must be an element contained in root");
+            throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid(scope, "container must be an element contained in root");
         }
 
         if (!container) {
@@ -1336,8 +1338,8 @@ const fn_alert = {
     // built to match the shared alert card's own content shape (see _alerts.scss): a title in
     // alert-content-title, a description in its own paragraph, either one optional
     _getContent(title, description) {
-        const safeDescription = (0,_helper_text_js__WEBPACK_IMPORTED_MODULE_2__.PGS_formatText)(description);
-        const safeTitle = (0,_helper_text_js__WEBPACK_IMPORTED_MODULE_2__.PGS_formatText)(title);
+        const safeDescription = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.formatText(description);
+        const safeTitle = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.formatText(title);
         const titleHtml = safeTitle ? `<strong pgs="_alert-content-title">${safeTitle}</strong>` : "";
         const descriptionHtml = safeDescription ? `<p>${safeDescription}</p>` : "";
 
@@ -1356,7 +1358,7 @@ const fn_alert = {
         if (typeof options === "string") options = { title: options };
 
         if (!options || typeof options !== "object" || Array.isArray(options)) {
-            throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_invalid)(scope, "options must be an object or a string");
+            throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid(scope, "options must be an object or a string");
         }
 
         return Object.fromEntries(
@@ -1373,12 +1375,12 @@ const fn_alert = {
         try {
             items = JSON.parse(`[${rawData}]`);
         } catch (error) {
-            ;(0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_warn)(`${name}.init`, "invalid JSON in pgs-data", error);
+            _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn(`${name}.init`, "invalid JSON in pgs-data", error);
             return [];
         }
 
         if (items.some(item => !item || typeof item !== "object" || Array.isArray(item))) {
-            (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_warn)(`${name}.init`, "every entry of pgs-data must be a JSON object", root);
+            _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn(`${name}.init`, "every entry of pgs-data must be a JSON object", root);
             return [];
         }
 
@@ -1437,7 +1439,7 @@ const fn_alert = {
             ...definedOptions
         };
 
-        const id = config.id ?? (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_1__.PGS_uniqueId)("alert");
+        const id = config.id ?? _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.uniqueId("alert");
         const alert = document.createElement("div");
         // the severity is a flag in the component's own bracket, like any other option, not a pgs-state
         (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(alert).add(config.component, `${config.component}['${typeDefaults.flag}']`);
@@ -1474,7 +1476,7 @@ const fn_alert = {
             clearTimeout(timeoutTimer);
             alert.style.opacity = "0";
             setTimeout(() => {
-                (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_1__.PGS_dispatch)(alert, "pgs:alert:close", { id, type, title: config.title, description: config.description });
+                _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.dispatch(alert, "pgs:alert:close", { id, type, title: config.title, description: config.description });
                 alert.remove();
                 controller.abort();
             }, 300);
@@ -1506,7 +1508,7 @@ const fn_alert = {
             if (optionButton) (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(buttonElement).add(`button['${optionButton}']`);
 
             buttonElement.addEventListener("click", (e) => {
-                const event = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_1__.PGS_dispatch)(buttonElement, "pgs:alert:buttonClick", {
+                const event = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.dispatch(buttonElement, "pgs:alert:buttonClick", {
                     id, buttonId, type, title: config.title, description: config.description, link
                 }, { cancelable: true });
 
@@ -1567,12 +1569,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_dropdown: () => (/* binding */ PGS_dropdown)
 /* harmony export */ });
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
-/* harmony import */ var _helper_dom_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helper/_dom.js */ "./assets/javascript/helper/_dom.js");
-/* harmony import */ var _helper_warn_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helper/_warn.js */ "./assets/javascript/helper/_warn.js");
-
-
-
 
 
 // + dropdown
@@ -1587,13 +1583,13 @@ function isDropdownContent(element) {
 
 function getDropdownTrigger(dropdown, content) {
     const children = Array.from(dropdown.children).filter(child => child !== content);
-    const dropdownButton = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_directChild)(dropdown, "dropdown-button");
+    const dropdownButton = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(dropdown, "dropdown-button");
 
     return dropdownButton || children.find(child => !isDropdownContent(child)) || dropdown;
 }
 
 function getDropdownContent(dropdown) {
-    return (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_directChild)(dropdown, "dropdown-content") || (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dropdown).querySelector("dropdown-content");
+    return _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(dropdown, "dropdown-content") || (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dropdown).querySelector("dropdown-content");
 }
 
 function getPosition(dropdown) {
@@ -1736,7 +1732,7 @@ function initializeDropdown(DROPDOWN) {
 
     const CONTENT = getDropdownContent(DROPDOWN);
     if (!CONTENT) {
-        (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_warn)("dropdown.init", "a dropdown needs a dropdown-content child, skipped", DROPDOWN);
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("dropdown.init", "a dropdown needs a dropdown-content child, skipped", DROPDOWN);
         return;
     }
 
@@ -1745,8 +1741,8 @@ function initializeDropdown(DROPDOWN) {
     const { signal } = controller;
     let hoverCloseTimeout = 0;
 
-    if (!TRIGGER.id) TRIGGER.id = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_uniqueId)("dropdown-btn");
-    if (!CONTENT.id) CONTENT.id = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_uniqueId)("dropdown-panel");
+    if (!TRIGGER.id) TRIGGER.id = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.uniqueId("dropdown-btn");
+    if (!CONTENT.id) CONTENT.id = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.uniqueId("dropdown-panel");
 
     if (TRIGGER.matches("button") && !TRIGGER.hasAttribute("type")) {
         TRIGGER.setAttribute("type", "button");
@@ -1815,11 +1811,11 @@ function initializeDropdown(DROPDOWN) {
 }
 
 function PGS_dropdown_init(root = document) {
-    ;(0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_roots)(root, "dropdown").forEach(dropdown => initializeDropdown(dropdown));
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "dropdown").forEach(dropdown => initializeDropdown(dropdown));
 }
 
 // # INIT
-;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(PGS_dropdown_init);
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_dropdown_init);
 
 // # API
 function PGS_dropdown_api(selector) {
@@ -1846,12 +1842,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
 /* harmony import */ var _dropdown_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_dropdown.js */ "./assets/javascript/components/_dropdown.js");
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
-/* harmony import */ var _helper_dom_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helper/_dom.js */ "./assets/javascript/helper/_dom.js");
-/* harmony import */ var _helper_warn_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../helper/_warn.js */ "./assets/javascript/helper/_warn.js");
-
-
-
 
 
 
@@ -1874,7 +1864,7 @@ function createToggle(link) {
 function setupAccordion(li, button, ul, signal) {
     ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(li).add("_menu-accordion");
 
-    if (!ul.id) ul.id = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_3__.PGS_uniqueId)("menu-submenu");
+    if (!ul.id) ul.id = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.uniqueId("menu-submenu");
     button.setAttribute("aria-controls", ul.id);
 
     // a submenu nested inside a first-level dropdown changes the size of the floating panel,
@@ -1904,7 +1894,7 @@ function initializeMenu(MENU) {
 
     const topLevel = MENU.querySelector("ul");
     if (!topLevel) {
-        (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_4__.PGS_warn)("menu.init", "a menu needs a ul list, skipped", MENU);
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("menu.init", "a menu needs a ul list, skipped", MENU);
         return;
     }
 
@@ -1920,12 +1910,12 @@ function initializeMenu(MENU) {
         // the toggle goes after the item's own link, never after one of a nested submenu
         const link = li.querySelector(":scope > a");
         if (!link) {
-            (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_4__.PGS_warn)("menu.init", "a menu item with a submenu needs a direct link of its own, skipped", li);
+            _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("menu.init", "a menu item with a submenu needs a direct link of its own, skipped", li);
             return;
         }
 
         // a refresh finds the toggle the first pass generated and reuses it
-        const button = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_3__.PGS_directChild)(li, "_menu-submenuButton") || createToggle(link);
+        const button = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(li, "_menu-submenuButton") || createToggle(link);
 
         // only the first level of a horizontal menu floats its submenu: deeper levels would
         // stack dropdown over dropdown, and a vertical menu has the room to expand in place
@@ -1957,10 +1947,10 @@ function initializeMenu(MENU) {
 }
 
 function PGS_menu_init(root = document) {
-    ;(0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_3__.PGS_roots)(root, "menu").forEach(menu => initializeMenu(menu));
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "menu").forEach(menu => initializeMenu(menu));
 }
 
-;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_2__.PGS_onDocumentReady)(PGS_menu_init);
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_menu_init);
 
 function PGS_menu_api(selector) {
     return API.get(selector);
@@ -1986,12 +1976,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_modal: () => (/* binding */ PGS_modal)
 /* harmony export */ });
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
-/* harmony import */ var _helper_dom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_dom.js */ "./assets/javascript/helper/_dom.js");
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
-/* harmony import */ var _helper_warn_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helper/_warn.js */ "./assets/javascript/helper/_warn.js");
-
-
-
 
 
 //= MODAL
@@ -2009,7 +1993,7 @@ function initializeModal(MODAL) {
     const BUTTON_OPEN = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(MODAL).querySelector("modal-button");
     const DIALOG = MODAL.querySelector("dialog") || DIALOGS.get(MODAL);
     if (!DIALOG) {
-        (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_warn)("modal.init", "a modal needs a <dialog> inside its wrapper", MODAL);
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("modal.init", "a modal needs a <dialog> inside its wrapper", MODAL);
         return;
     }
     DIALOGS.set(MODAL, DIALOG);
@@ -2114,14 +2098,14 @@ function initializeModal(MODAL) {
     // holds the dialog, so the shared ancestors and everything above only hear the dialog's
     function dispatchModal(name) {
         const detail = { modal: MODAL, dialog: DIALOG };
-        (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_1__.PGS_dispatch)(DIALOG, name, detail);
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.dispatch(DIALOG, name, detail);
         if (MODAL.contains(DIALOG)) return;
 
         let last = MODAL;
         while (last.parentNode && !last.parentNode.contains(DIALOG)) last = last.parentNode;
         const stop = event => event.stopPropagation();
         last.addEventListener(name, stop);
-        (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_1__.PGS_dispatch)(MODAL, name, detail);
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.dispatch(MODAL, name, detail);
         last.removeEventListener(name, stop);
     }
 
@@ -2426,11 +2410,11 @@ function initializeModal(MODAL) {
 }
 
 function PGS_modal_init(root = document) {
-    ;(0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_1__.PGS_roots)(root, "modal").forEach(MODAL => initializeModal(MODAL));
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "modal").forEach(MODAL => initializeModal(MODAL));
 }
 
 //# INIT PGS_modal
-;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_2__.PGS_onDocumentReady)(PGS_modal_init);
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_modal_init);
 
 //# API
 function PGS_modal_api(element) {
@@ -2456,14 +2440,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_notification: () => (/* binding */ PGS_notification)
 /* harmony export */ });
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
-/* harmony import */ var _helper_dom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_dom.js */ "./assets/javascript/helper/_dom.js");
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
-/* harmony import */ var _helper_warn_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helper/_warn.js */ "./assets/javascript/helper/_warn.js");
-/* harmony import */ var _alerts_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./_alerts.js */ "./assets/javascript/components/_alerts.js");
-/* harmony import */ var _modal_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./_modal.js */ "./assets/javascript/components/_modal.js");
-
-
-
+/* harmony import */ var _alerts_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_alerts.js */ "./assets/javascript/components/_alerts.js");
+/* harmony import */ var _modal_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_modal.js */ "./assets/javascript/components/_modal.js");
 
 
 
@@ -2537,7 +2515,7 @@ const fn_notification = {
         dialog.appendChild(content);
         modal.appendChild(dialog);
         document.body.appendChild(modal);
-        _modal_js__WEBPACK_IMPORTED_MODULE_5__.PGS_modal.init(modal);
+        _modal_js__WEBPACK_IMPORTED_MODULE_2__.PGS_modal.init(modal);
 
         // the bells say whether the panel is open, whichever way it got opened or closed
         modal.addEventListener("pgs:modal:open", () => this._setBellsExpanded(true), { signal });
@@ -2549,7 +2527,7 @@ const fn_notification = {
     },
 
     _getBells(root = document) {
-        return (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_1__.PGS_roots)(root, "notificationBell");
+        return _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "notificationBell");
     },
 
     _setBellsExpanded(expanded) {
@@ -2567,7 +2545,7 @@ const fn_notification = {
             : [side, height, side === "dialogLeft" ? "dialogAnimationLeft" : "dialogAnimationRight"];
 
         // pgs.modal moves the dialog out of its wrapper, so it is asked for rather than searched for
-        const dialog = _modal_js__WEBPACK_IMPORTED_MODULE_5__.PGS_modal.api(this._modal).dialog;
+        const dialog = _modal_js__WEBPACK_IMPORTED_MODULE_2__.PGS_modal.api(this._modal).dialog;
         [[this._modal, "modal"], [dialog, "_dialog"]].forEach(([element, token]) => {
             (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).option.remove(...this._positions, ...this._animations);
             (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).add(`${token}[${flags.map(flag => `'${flag}'`).join(" ")}]`);
@@ -2592,10 +2570,10 @@ const fn_notification = {
             }
 
             bell.setAttribute("aria-haspopup", "dialog");
-            bell.setAttribute("aria-expanded", String(Boolean(this._modal?.isConnected && _modal_js__WEBPACK_IMPORTED_MODULE_5__.PGS_modal.api(this._modal)?.isOpen())));
+            bell.setAttribute("aria-expanded", String(Boolean(this._modal?.isConnected && _modal_js__WEBPACK_IMPORTED_MODULE_2__.PGS_modal.api(this._modal)?.isOpen())));
             bell.addEventListener("click", () => {
                 const modal = this._ensureModal();
-                const api = _modal_js__WEBPACK_IMPORTED_MODULE_5__.PGS_modal.api(modal);
+                const api = _modal_js__WEBPACK_IMPORTED_MODULE_2__.PGS_modal.api(modal);
 
                 // open already: this click closes it, and nothing moves
                 if (!api.isOpen()) this._applyPosition(bell);
@@ -2606,8 +2584,8 @@ const fn_notification = {
 
     _add(type, options) {
         const scope = `notification.${type}`;
-        const config = _alerts_js__WEBPACK_IMPORTED_MODULE_4__.fn_alert._toOptions(options, scope);
-        const notification = _alerts_js__WEBPACK_IMPORTED_MODULE_4__.fn_alert.create(type, {
+        const config = _alerts_js__WEBPACK_IMPORTED_MODULE_1__.fn_alert._toOptions(options, scope);
+        const notification = _alerts_js__WEBPACK_IMPORTED_MODULE_1__.fn_alert.create(type, {
             ...config,
             component: "_alert",
             dismissible: true,
@@ -2619,7 +2597,7 @@ const fn_notification = {
         // bell there is nothing to open the panel from, and that is worth saying out loud
         if (!this._getBells().length && !this._missingBellReported) {
             this._missingBellReported = true;
-            (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_warn)(scope, "no notificationBell on the page, so nothing can open the panel that holds this notification");
+            _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn(scope, "no notificationBell on the page, so nothing can open the panel that holds this notification");
         }
 
         this._ensureModal();
@@ -2661,11 +2639,11 @@ const fn_notification = {
     },
 
     load(root = document) {
-        (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_1__.PGS_roots)(root, "notificationLoad").forEach(element => {
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "notificationLoad").forEach(element => {
             if (LOADED.has(element)) return;
 
             LOADED.add(element);
-            _alerts_js__WEBPACK_IMPORTED_MODULE_4__.fn_alert.fromData(element, "notification").forEach(({ type, options }) => this._add(type, options));
+            _alerts_js__WEBPACK_IMPORTED_MODULE_1__.fn_alert.fromData(element, "notification").forEach(({ type, options }) => this._add(type, options));
             element.remove();
         });
     }
@@ -2692,7 +2670,7 @@ const PGS_notification = {
 
 
 //# EXECUTE
-(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_2__.PGS_onDocumentReady)(PGS_notificationLoad_init);
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_notificationLoad_init);
 
 
 /***/ },
@@ -2708,12 +2686,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_pageNav: () => (/* binding */ PGS_pageNav)
 /* harmony export */ });
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
-/* harmony import */ var _helper_dom_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helper/_dom.js */ "./assets/javascript/helper/_dom.js");
-/* harmony import */ var _helper_warn_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helper/_warn.js */ "./assets/javascript/helper/_warn.js");
-
-
-
 
 
 const API = new WeakMap();
@@ -2762,11 +2734,11 @@ function PGS_pageNav_build(pageNav) {
     const panelItems = panelsRoot ? Array.from((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(panelsRoot).querySelectorAll("pageNav-panels-content")) : [];
 
     if (!panelItems.length) {
-        (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_warn)("pageNav.init", "the pageNav has no pageNav-panels-content inside a pageNav-panels, so it was not initialized", pageNav);
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("pageNav.init", "the pageNav has no pageNav-panels-content inside a pageNav-panels, so it was not initialized", pageNav);
         return null;
     }
     if (!items.length) {
-        (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_warn)("pageNav.init", "the pageNav has no pageNav-list-item, so it was not initialized", pageNav);
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("pageNav.init", "the pageNav has no pageNav-list-item, so it was not initialized", pageNav);
         return null;
     }
 
@@ -2815,7 +2787,7 @@ function PGS_pageNav_build(pageNav) {
 
             if (resetScroll) window.scrollTo({ top: 0, behavior: "instant" });
 
-            (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_dispatch)(pageNav, "pgs:pageNav:change", { panel, items: this.itemsFor(panel.id) });
+            _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.dispatch(pageNav, "pgs:pageNav:change", { panel, items: this.itemsFor(panel.id) });
         },
 
         idFromHash(hash) {
@@ -2844,7 +2816,7 @@ function PGS_pageNav_build(pageNav) {
         panels: nav.panelsRoot,
         select: (panelId) => {
             if (!panelId || !nav.panelItems.some(panel => panel.id === panelId)) {
-                throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_invalid)("pageNav.select", `no pageNav-panels-content has the id "${panelId}"`);
+                throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("pageNav.select", `no pageNav-panels-content has the id "${panelId}"`);
             }
             window.location.hash = panelId;
             nav.select(panelId);
@@ -2879,14 +2851,14 @@ function PGS_pageNav_build(pageNav) {
 }
 
 function PGS_pageNav_init(root = document) {
-    ;(0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_roots)(root, "pageNav").forEach((pageNav) => {
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "pageNav").forEach((pageNav) => {
         if (API.has(pageNav)) return;
 
         PGS_pageNav_build(pageNav);
     });
 }
 
-;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(PGS_pageNav_init);
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_pageNav_init);
 
 function PGS_pageNav_api(selector) {
     return API.get(selector);
@@ -2911,14 +2883,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_search: () => (/* binding */ PGS_search)
 /* harmony export */ });
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
-/* harmony import */ var _helper_dom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_dom.js */ "./assets/javascript/helper/_dom.js");
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
-/* harmony import */ var _helper_text_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helper/_text.js */ "./assets/javascript/helper/_text.js");
-/* harmony import */ var _helper_warn_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../helper/_warn.js */ "./assets/javascript/helper/_warn.js");
-
-
-
-
 
 
 const API = new WeakMap();
@@ -3010,17 +2974,17 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
     if (API.has(search)) return API.get(search);
 
     const input = search.querySelector('input[type="search"]');
-    const list = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_1__.PGS_directChild)(search, "search-suggestions");
+    const list = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(search, "search-suggestions");
     if (!input || !list) {
-        (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_4__.PGS_warn)("search.init", "a search needs an input[type=\"search\"] and a search-suggestions list as its direct child", search);
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("search.init", "a search needs an input[type=\"search\"] and a search-suggestions list as its direct child", search);
         return;
     }
 
     const eventController = new AbortController();
     const { signal } = eventController;
 
-    if (!input.id) input.id = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_1__.PGS_uniqueId)("search-input");
-    if (!list.id) list.id = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_1__.PGS_uniqueId)("search-suggestions");
+    if (!input.id) input.id = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.uniqueId("search-input");
+    if (!list.id) list.id = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.uniqueId("search-suggestions");
 
     input.setAttribute("role", "combobox");
     input.setAttribute("aria-autocomplete", "list");
@@ -3116,7 +3080,7 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
             option.setAttribute("aria-selected", "false");
             option.setAttribute("aria-disabled", String(item.disabled));
             // the icon is markup the author wrote; the label comes from the source, which can be remote
-            option.innerHTML = Search.suggestionIcon(search) + (0,_helper_text_js__WEBPACK_IMPORTED_MODULE_3__.PGS_escapeHtml)(item.label);
+            option.innerHTML = Search.suggestionIcon(search) + _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.escapeHtml(item.label);
             fragment.append(option);
 
         });
@@ -3170,7 +3134,7 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
 
             clear();
             (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(search).state.add("error");
-            (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_1__.PGS_dispatch)(search, "pgs:search:error", { error, query: normalizedQuery });
+            _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.dispatch(search, "pgs:search:error", { error, query: normalizedQuery });
             return [];
         } finally {
             if (controller === currentController) controller = null;
@@ -3229,7 +3193,7 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
         cancel();
         clear();
 
-        const { detail } = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_1__.PGS_dispatch)(search, "pgs:search:select", { item, index, value: item.value, input });
+        const { detail } = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.dispatch(search, "pgs:search:select", { item, index, value: item.value, input });
         options.onSelect?.(detail);
 
         input.focus();
@@ -3357,10 +3321,10 @@ if (typeof document !== "undefined") {
 }
 
 function PGS_search_init(root = document) {
-    ;(0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_1__.PGS_roots)(root, "search").forEach(search => initializeSearch(search));
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "search").forEach(search => initializeSearch(search));
 }
 
-;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_2__.PGS_onDocumentReady)(PGS_search_init);
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_search_init);
 
 function PGS_search_api(element) {
     return API.get(element);
@@ -3385,14 +3349,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_slides: () => (/* binding */ PGS_slides)
 /* harmony export */ });
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
-/* harmony import */ var _helper_dom_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helper/_dom.js */ "./assets/javascript/helper/_dom.js");
-/* harmony import */ var _helper_throttle_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helper/_throttle.js */ "./assets/javascript/helper/_throttle.js");
-/* harmony import */ var _helper_warn_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../helper/_warn.js */ "./assets/javascript/helper/_warn.js");
-
-
-
-
 
 
 const API = new WeakMap();
@@ -3579,7 +3535,7 @@ class PGS_Slides {
     execute() {
         const slides = this.element;
         if (!this.container) {
-            (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_4__.PGS_warn)("slides.init", "the slides has no slides-container, so it was not initialized", slides);
+            _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("slides.init", "the slides has no slides-container, so it was not initialized", slides);
             return null;
         }
         const eventController = new AbortController();
@@ -3598,7 +3554,7 @@ class PGS_Slides {
 
         // the observer answers what is visible, not where the scroll is: the last stretch can
         // settle with no threshold left to cross, so the arrows are refreshed on scroll too
-        const updateArrowsOnScroll = (0,_helper_throttle_js__WEBPACK_IMPORTED_MODULE_3__.PGS_rafThrottle)(() => this.#updateArrows(prevButton, nextButton));
+        const updateArrowsOnScroll = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.rafThrottle(() => this.#updateArrows(prevButton, nextButton));
         this.container.addEventListener("scroll", updateArrowsOnScroll, { passive: true, signal });
         this.#updateArrows(prevButton, nextButton);
 
@@ -3616,7 +3572,7 @@ class PGS_Slides {
         // Measured rather than computed because the height comes from the tallest slide, which
         // only the layout knows — through a rAF, like the header does, so a write never lands
         // inside the callback that observed it
-        const publishHeight = (0,_helper_throttle_js__WEBPACK_IMPORTED_MODULE_3__.PGS_rafThrottle)(() => {
+        const publishHeight = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.rafThrottle(() => {
             this.element.style.setProperty("--_slides-height", `${this.container.offsetHeight}px`);
         });
         const heightObserver = new ResizeObserver(publishHeight);
@@ -3641,7 +3597,7 @@ class PGS_Slides {
             goTo: (index) => {
                 const total = this.container.children.length;
                 if (!Number.isInteger(index) || index < 0 || index >= total) {
-                    throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_4__.PGS_invalid)("slides.goTo", `index must be an integer from 0 to ${total - 1}, got ${index}`);
+                    throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("slides.goTo", `index must be an integer from 0 to ${total - 1}, got ${index}`);
                 }
                 this.#goToNumberSlide(index);
             },
@@ -3666,14 +3622,14 @@ class PGS_Slides {
 
 //# INIT
 function PGS_slides_init(root = document) {
-    ;(0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_roots)(root, "slides").forEach(element => {
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "slides").forEach(element => {
         if (API.has(element)) return;
 
         new PGS_Slides({ element }).execute();
     });
 }
 
-;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(PGS_slides_init);
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_slides_init);
 
 //# API
 function PGS_slides_api(element) {
@@ -3699,12 +3655,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_stepTabs: () => (/* binding */ PGS_stepTabs)
 /* harmony export */ });
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
-/* harmony import */ var _helper_dom_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helper/_dom.js */ "./assets/javascript/helper/_dom.js");
-/* harmony import */ var _helper_warn_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helper/_warn.js */ "./assets/javascript/helper/_warn.js");
-
-
-
 
 
 const API = new WeakMap();
@@ -3715,13 +3665,13 @@ function PGS_stepTabs_build(tabsWizard) {
     //# SELECTOR
     const tabsContainer = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(tabsWizard).querySelector("stepTabs-container");
     if (!tabsContainer) {
-        (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_warn)("stepTabs.init", "the wizard has no stepTabs-container, so it was not initialized", tabsWizard);
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("stepTabs.init", "the wizard has no stepTabs-container, so it was not initialized", tabsWizard);
         return null;
     }
 
-    const allTab = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_directChildren)(tabsContainer, "stepTabs-container-tab");
+    const allTab = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChildren(tabsContainer, "stepTabs-container-tab");
     if (allTab.length === 0) {
-        (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_warn)("stepTabs.init", "stepTabs-container has no stepTabs-container-tab, so the wizard was not initialized", tabsWizard);
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("stepTabs.init", "stepTabs-container has no stepTabs-container-tab, so the wizard was not initialized", tabsWizard);
         return null;
     }
 
@@ -3818,7 +3768,7 @@ function PGS_stepTabs_build(tabsWizard) {
             tabsWizard.scrollIntoView({ behavior: "smooth", block: "start" });
         }
 
-        ;(0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_dispatch)(tabsWizard, "pgs:stepTabs:change", { current, total });
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.dispatch(tabsWizard, "pgs:stepTabs:change", { current, total });
     }
 
     //## restart
@@ -3856,7 +3806,7 @@ function PGS_stepTabs_build(tabsWizard) {
         restart: restartTab,
         goTo: (index, scroll = true) => {
             if (!Number.isInteger(index) || index < 0 || index >= total) {
-                throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_invalid)("stepTabs.goTo", `index must be an integer from 0 to ${total - 1}, got ${index}`);
+                throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("stepTabs.goTo", `index must be an integer from 0 to ${total - 1}, got ${index}`);
             }
             goTo(index, scroll);
         },
@@ -3864,7 +3814,7 @@ function PGS_stepTabs_build(tabsWizard) {
         prev: () => goTo(current - 1),
         toggleLock: (step, lock = true) => {
             if (!Number.isInteger(step) || step < 0 || step >= total) {
-                throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_invalid)("stepTabs.toggleLock", `step must be an integer from 0 to ${total - 1}, got ${step}`);
+                throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("stepTabs.toggleLock", `step must be an integer from 0 to ${total - 1}, got ${step}`);
             }
             ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(allTab[step]).state.toggle("locked", lock);
             updateControls();
@@ -3889,14 +3839,14 @@ function PGS_stepTabs_build(tabsWizard) {
 }
 
 function PGS_stepTabs_init(root = document) {
-    ;(0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_roots)(root, "stepTabs").forEach(tabsWizard => {
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "stepTabs").forEach(tabsWizard => {
         if (API.has(tabsWizard)) return;
 
         PGS_stepTabs_build(tabsWizard);
     });
 }
 
-;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(PGS_stepTabs_init);
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_stepTabs_init);
 
 function PGS_stepTabs_api(selector) {
     return API.get(selector);
@@ -3921,10 +3871,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_steps: () => (/* binding */ PGS_steps)
 /* harmony export */ });
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
-/* harmony import */ var _helper_dom_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helper/_dom.js */ "./assets/javascript/helper/_dom.js");
-
-
 
 
 const API = new WeakMap();
@@ -3932,12 +3878,12 @@ const API = new WeakMap();
 //# BUILD
 // completes every step of one list and returns its API
 function PGS_steps_build(steps) {
-    (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_directChildren)(steps, "steps-step").forEach((li, index) => {
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChildren(steps, "steps-step").forEach((li, index) => {
 
         //# CIRCLE
         // a hand-written circle keeps the bare name; a generated one gets the underscore,
         // so the check below has to look for either
-        if (!(0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_directChild)(li, ["steps-step-circle", "_steps-step-circle"])) {
+        if (!_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(li, ["steps-step-circle", "_steps-step-circle"])) {
             const circle = document.createElement("span");
             (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(circle).add("_steps-step-circle")
             circle.textContent = index + 1;
@@ -3946,7 +3892,7 @@ function PGS_steps_build(steps) {
 
         //# line
         // same dual form as the circle above
-        if (!(0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_directChild)(li, ["steps-step-line", "_steps-step-line"])) {
+        if (!_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(li, ["steps-step-line", "_steps-step-line"])) {
             const line = document.createElement("span");
             (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(line).add("_steps-step-line")
             li.insertAdjacentElement("afterbegin", line);
@@ -3961,9 +3907,9 @@ function PGS_steps_build(steps) {
 
     const api = {
         element: steps,
-        steps: () => (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_directChildren)(steps, "steps-step"),
-        getStep: (index) => (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_directChildren)(steps, "steps-step")[index],
-        getTotal: () => (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_directChildren)(steps, "steps-step").length,
+        steps: () => _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChildren(steps, "steps-step"),
+        getStep: (index) => _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChildren(steps, "steps-step")[index],
+        getTotal: () => _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChildren(steps, "steps-step").length,
         destroy,
         refresh: () => {
             const live = API.get(steps);
@@ -3978,14 +3924,14 @@ function PGS_steps_build(steps) {
 }
 
 function PGS_steps_init(root = document) {
-    ;(0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_roots)(root, "steps").forEach(steps => {
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "steps").forEach(steps => {
         if (API.has(steps)) return;
 
         PGS_steps_build(steps);
     });
 }
 
-;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(PGS_steps_init);
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_steps_init);
 
 //# API
 function PGS_steps_api(selector) {
@@ -4011,12 +3957,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_summary: () => (/* binding */ PGS_summary)
 /* harmony export */ });
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
-/* harmony import */ var _helper_dom_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helper/_dom.js */ "./assets/javascript/helper/_dom.js");
-/* harmony import */ var _helper_warn_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helper/_warn.js */ "./assets/javascript/helper/_warn.js");
-
-
-
 
 
 //# SUMMARY
@@ -4044,15 +3984,15 @@ function getLineHeight(element) {
 function validateMessages(value) {
     if (value === undefined) return;
     if (!value || typeof value !== "object" || Array.isArray(value)) {
-        throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_invalid)("summary.init", "message must be an object");
+        throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("summary.init", "message must be an object");
     }
 
     Object.entries(value).forEach(([key, message]) => {
         if (!(key in MESSAGE_DEFAULTS)) {
-            throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_invalid)("summary.init", `unknown message option: ${key}`);
+            throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("summary.init", `unknown message option: ${key}`);
         }
         if (message !== undefined && typeof message !== "string") {
-            throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_invalid)("summary.init", `message option ${key} must be a string`);
+            throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("summary.init", `message option ${key} must be a string`);
         }
     });
 }
@@ -4079,10 +4019,10 @@ function initializeMessages(summary, messages) {
 function initializeSummary(summary, initialMessages) {
     if (API.has(summary)) return;
 
-    const content = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_directChild)(summary, "summary-content");
-    const button = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_directChild)(summary, "summary-button");
+    const content = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(summary, "summary-content");
+    const button = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(summary, "summary-button");
     if (!content || !button) {
-        (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_warn)("summary.init", "a summary needs a direct summary-content and a direct summary-button child, skipped", summary);
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("summary.init", "a summary needs a direct summary-content and a direct summary-button child, skipped", summary);
         return;
     }
 
@@ -4091,7 +4031,7 @@ function initializeSummary(summary, initialMessages) {
 
     initializeMessages(summary, initialMessages);
 
-    if (!content.id) content.id = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_uniqueId)("summary-content");
+    if (!content.id) content.id = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.uniqueId("summary-content");
 
     button.type ||= "button";
     button.setAttribute("aria-controls", content.id);
@@ -4186,16 +4126,16 @@ function initializeSummary(summary, initialMessages) {
 
 function PGS_summary_init(root = document, options = {}) {
     if (!options || typeof options !== "object" || Array.isArray(options)) {
-        throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_invalid)("summary.init", "options must be an object");
+        throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("summary.init", "options must be an object");
     }
 
     const initialMessages = getInitialMessages(options.message);
 
-    (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_roots)(root, "summary").forEach(summary => initializeSummary(summary, initialMessages));
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "summary").forEach(summary => initializeSummary(summary, initialMessages));
 }
 
 //# INIT
-;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(PGS_summary_init);
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_summary_init);
 
 //# API
 function PGS_summary_api(selector) {
@@ -4221,12 +4161,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_tabs: () => (/* binding */ PGS_tabs)
 /* harmony export */ });
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
-/* harmony import */ var _helper_dom_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helper/_dom.js */ "./assets/javascript/helper/_dom.js");
-/* harmony import */ var _helper_warn_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helper/_warn.js */ "./assets/javascript/helper/_warn.js");
-
-
-
 
 
 const API = new WeakMap();
@@ -4238,17 +4172,17 @@ const GENERATED_IDS = new WeakSet();
 function initializeTabs(tabs) {
     if (API.has(tabs)) return;
 
-    const list = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_directChild)(tabs, "tabs-list");
-    const panels = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_directChild)(tabs, "tabs-panels");
+    const list = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(tabs, "tabs-list");
+    const panels = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(tabs, "tabs-panels");
     if (!list || !panels) {
-        (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_warn)("tabs.init", "tabs needs a direct tabs-list and a direct tabs-panels child, skipped", tabs);
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("tabs.init", "tabs needs a direct tabs-list and a direct tabs-panels child, skipped", tabs);
         return;
     }
 
-    const buttons = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_directChildren)(list, "tabs-list-tab");
-    const panelItems = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_directChildren)(panels, "tabs-panels-content");
+    const buttons = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChildren(list, "tabs-list-tab");
+    const panelItems = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChildren(panels, "tabs-panels-content");
     if (!buttons.length || buttons.length !== panelItems.length) {
-        (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_warn)("tabs.init", `tabs needs as many tabs-panels-content as tabs-list-tab, and at least one (found ${buttons.length} tabs and ${panelItems.length} panels), skipped`, tabs);
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("tabs.init", `tabs needs as many tabs-panels-content as tabs-list-tab, and at least one (found ${buttons.length} tabs and ${panelItems.length} panels), skipped`, tabs);
         return;
     }
 
@@ -4256,8 +4190,8 @@ function initializeTabs(tabs) {
     const { signal } = controller;
 
     // ids generated as tabs-list-tab-N-M and tabs-panels-content-N-M: N counts the tabs sets, M the tab
-    const buttonIdBase = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_uniqueId)("tabs-list-tab");
-    const panelIdBase = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_uniqueId)("tabs-panels-content");
+    const buttonIdBase = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.uniqueId("tabs-list-tab");
+    const panelIdBase = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.uniqueId("tabs-panels-content");
     list.setAttribute("role", "tablist");
 
     //## HISTORY
@@ -4328,7 +4262,7 @@ function initializeTabs(tabs) {
         });
 
         if (focus) buttons[current].focus();
-        (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_dispatch)(tabs, "pgs:tabs:change", { current, tab: buttons[current], panel: panelItems[current] });
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.dispatch(tabs, "pgs:tabs:change", { current, tab: buttons[current], panel: panelItems[current] });
     }
 
     // the tab that is already selected changes nothing: no second history entry, no second event
@@ -4391,7 +4325,7 @@ function initializeTabs(tabs) {
         panels,
         goTo: (index) => {
             if (!Number.isInteger(index) || index < 0 || index >= buttons.length) {
-                throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_invalid)("tabs.goTo", `index must be an integer from 0 to ${buttons.length - 1}`);
+                throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("tabs.goTo", `index must be an integer from 0 to ${buttons.length - 1}`);
             }
             select(index);
         },
@@ -4406,10 +4340,10 @@ function initializeTabs(tabs) {
 }
 
 function PGS_tabs_init(root = document) {
-    ;(0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_roots)(root, "tabs").forEach(tabs => initializeTabs(tabs));
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "tabs").forEach(tabs => initializeTabs(tabs));
 }
 
-;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(PGS_tabs_init);
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_tabs_init);
 
 function PGS_tabs_api(selector) {
     return API.get(selector);
@@ -4434,13 +4368,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_toast: () => (/* binding */ PGS_toast)
 /* harmony export */ });
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
-/* harmony import */ var _helper_dom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_dom.js */ "./assets/javascript/helper/_dom.js");
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
-/* harmony import */ var _helper_warn_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helper/_warn.js */ "./assets/javascript/helper/_warn.js");
-/* harmony import */ var _alerts_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./_alerts.js */ "./assets/javascript/components/_alerts.js");
-
-
-
+/* harmony import */ var _alerts_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_alerts.js */ "./assets/javascript/components/_alerts.js");
 
 
 
@@ -4485,7 +4413,7 @@ const fn_toast = {
         const wanted = [Array.isArray(position) ? position : String(position).split(/\s+/)].flat().filter(Boolean);
         const unknown = wanted.filter(key => !this._options.includes(key));
 
-        if (unknown.length) (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_warn)(scope, `unknown position ${unknown.join(", ")}; use ${this._options.join(", ")}`);
+        if (unknown.length) _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn(scope, `unknown position ${unknown.join(", ")}; use ${this._options.join(", ")}`);
 
         const keys = this._options.filter(key => wanted.includes(key));
 
@@ -4495,9 +4423,9 @@ const fn_toast = {
 
     _add(type, options) {
         const scope = `toast.${type}`;
-        const { timeout = this._defaults.timeout, position, ...config } = _alerts_js__WEBPACK_IMPORTED_MODULE_4__.fn_alert._toOptions(options, scope);
+        const { timeout = this._defaults.timeout, position, ...config } = _alerts_js__WEBPACK_IMPORTED_MODULE_1__.fn_alert._toOptions(options, scope);
 
-        const toast = _alerts_js__WEBPACK_IMPORTED_MODULE_4__.fn_alert.create(type, {
+        const toast = _alerts_js__WEBPACK_IMPORTED_MODULE_1__.fn_alert.create(type, {
             ...config,
             component: "_alert",
             dismissible: true,
@@ -4513,7 +4441,7 @@ const fn_toast = {
     },
 
     _dispatch(element) {
-        _alerts_js__WEBPACK_IMPORTED_MODULE_4__.fn_alert.fromData(element, "toast").forEach(({ type, options }) => this._add(type, options));
+        _alerts_js__WEBPACK_IMPORTED_MODULE_1__.fn_alert.fromData(element, "toast").forEach(({ type, options }) => this._add(type, options));
     },
 
     //## DELETE
@@ -4527,7 +4455,7 @@ const fn_toast = {
 
     //## TRIGGER
     trigger(root = document) {
-        (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_1__.PGS_roots)(root, "toastLoad").forEach(element => {
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "toastLoad").forEach(element => {
             if (LOADED.has(element)) return;
 
             LOADED.add(element);
@@ -4554,7 +4482,7 @@ const PGS_toast = {
 
 
 //# EXECUTE
-(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_2__.PGS_onDocumentReady)(PGS_toastLoad_init);
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_toastLoad_init);
 
 
 /***/ },
@@ -4579,7 +4507,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // the elements a module's init(root) has to look at: the root itself when it carries the token,
-// then everything under it. Every module resolves its roots through here, so pgs.init(el) on a
+// then everything under it. Every module resolves its roots through here, so pgs.helper.init(el) on a
 // node that was just inserted behaves the same whichever component the node is. `token` takes the
 // same string or array that pgs().querySelectorAll does
 function PGS_roots(root, token) {
@@ -4639,8 +4567,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
 /* harmony import */ var _components_toast_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_toast.js */ "./assets/javascript/components/_toast.js");
 /* harmony import */ var _components_alerts_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/_alerts.js */ "./assets/javascript/components/_alerts.js");
-/* harmony import */ var _warn_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_warn.js */ "./assets/javascript/helper/_warn.js");
-
 
 
 
@@ -4670,10 +4596,10 @@ class PGS_formValidate {
 
     constructor(form, options = {}) {
         if (!(form instanceof Element)) {
-            throw (0,_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_invalid)("formValidate", "form must be an element");
+            throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("helper.formValidate", "form must be an element");
         }
         if (!options || typeof options !== "object" || Array.isArray(options)) {
-            throw (0,_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_invalid)("formValidate", "options must be an object");
+            throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("helper.formValidate", "options must be an object");
         }
 
         this.container = form;
@@ -4710,15 +4636,15 @@ class PGS_formValidate {
     #validateMessages(value) {
         if (value === undefined) return;
         if (!value || typeof value !== "object" || Array.isArray(value)) {
-            throw (0,_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_invalid)("formValidate", "message must be an object");
+            throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("helper.formValidate", "message must be an object");
         }
 
         Object.entries(value).forEach(([key, message]) => {
             if (!(key in this.#messageDefaults)) {
-                throw (0,_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_invalid)("formValidate", `unknown form message option "${key}"`);
+                throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("helper.formValidate", `unknown form message option "${key}"`);
             }
             if (message !== undefined && typeof message !== "string") {
-                throw (0,_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_invalid)("formValidate", `form message option "${key}" must be a string`);
+                throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("helper.formValidate", `form message option "${key}" must be a string`);
             }
         });
     }
@@ -4746,12 +4672,12 @@ class PGS_formValidate {
     temporaryFieldError = {
         set: (field, options = {}) => {
             if (!field || typeof field.matches !== "function" || !this.container.contains(field)) {
-                throw (0,_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_invalid)("formValidate.temporaryFieldError.set", "field must be an element contained in the form");
+                throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("helper.formValidate.temporaryFieldError.set", "field must be an element contained in the form");
             }
 
             if (typeof options === "string") options = { message: options };
             if (!options || typeof options !== "object" || Array.isArray(options)) {
-                throw (0,_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_invalid)("formValidate.temporaryFieldError.set", "options must be an object or a string");
+                throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("helper.formValidate.temporaryFieldError.set", "options must be an object or a string");
             }
 
             this.#temporaryFieldErrors.set(field, {
@@ -5001,8 +4927,8 @@ class PGS_formValidate {
 
     //# EVENT VALIDATOR
     validator(callback, eventName = "submit") {
-        if (typeof callback !== "function") throw (0,_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_invalid)("formValidate.validator", "callback must be a function");
-        if (typeof eventName !== "string" || !eventName.trim()) throw (0,_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_invalid)("formValidate.validator", "eventName must be a non-empty string");
+        if (typeof callback !== "function") throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("helper.formValidate.validator", "callback must be a function");
+        if (typeof eventName !== "string" || !eventName.trim()) throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("helper.formValidate.validator", "eventName must be a non-empty string");
 
         this.container.addEventListener(eventName, event => {
             event.preventDefault();
@@ -5024,7 +4950,7 @@ class PGS_formValidate {
 
     //# ADD RULE
     addNewRule(rule) {
-        if (typeof rule !== "function") throw (0,_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_invalid)("formValidate.addNewRule", "rule must be a function");
+        if (typeof rule !== "function") throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("helper.formValidate.addNewRule", "rule must be a function");
         this._rules.push(rule);
         return this;
     }
@@ -5044,18 +4970,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_init: () => (/* binding */ PGS_init)
 /* harmony export */ });
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
-/* harmony import */ var _warn_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_warn.js */ "./assets/javascript/helper/_warn.js");
-
 
 
 function PGS_init(root = document) {
     if (!(root instanceof Document || root instanceof Element)) {
-        throw (0,_warn_js__WEBPACK_IMPORTED_MODULE_1__.PGS_invalid)("init", "root must be a Document or an Element");
+        throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("helper.init", "root must be a Document or an Element");
     }
 
     const initialized = new Set();
 
-    Object.values(_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs).forEach(module => {
+    // pgs.helper holds helper functions, and its own init is this function: it is not a module to walk
+    Object.entries(_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs).forEach(([name, module]) => {
+        if (name === "helper") return;
+
         const init = module?.init;
         if (typeof init !== "function" || initialized.has(init)) return;
 
@@ -5218,12 +5145,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_header: () => (/* binding */ PGS_header)
 /* harmony export */ });
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
-/* harmony import */ var _helper_dom_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helper/_dom.js */ "./assets/javascript/helper/_dom.js");
-/* harmony import */ var _helper_throttle_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helper/_throttle.js */ "./assets/javascript/helper/_throttle.js");
-
-
-
 
 
 //= HEADER
@@ -5289,7 +5210,7 @@ function initResize(header) {
 
         //## Resize
         // throttled to avoid ResizeObserver loop warnings
-        const scheduleCompact = (0,_helper_throttle_js__WEBPACK_IMPORTED_MODULE_3__.PGS_rafThrottle)(() => compact(selectHeader));
+        const scheduleCompact = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.rafThrottle(() => compact(selectHeader));
 
         const observer = new ResizeObserver(scheduleCompact);
         observer.observe(selectHeader);
@@ -5333,7 +5254,7 @@ function initHeight(header) {
         document.documentElement.style.setProperty("--_header-heightScroll", `${scrollHeight}px`);
     }
 
-    const scheduleHeaderHeight = (0,_helper_throttle_js__WEBPACK_IMPORTED_MODULE_3__.PGS_rafThrottle)(headerHeight);
+    const scheduleHeaderHeight = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.rafThrottle(headerHeight);
 
     const headerHeightObserver = new ResizeObserver(scheduleHeaderHeight);
     headerHeightObserver.observe(header);
@@ -5394,13 +5315,13 @@ function getReadyHeaders() {
 }
 
 function PGS_header_init(root = document) {
-    ;(0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_roots)(root, "header").filter(header => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).querySelector("header-element")).forEach(initHeader);
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "header").filter(header => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).querySelector("header-element")).forEach(initHeader);
 }
 
 // headers can arrive later, and there may be more than one, so the watch stays on instead of
 // stopping at the first: a pass is cheap and every header is initialized only once
-;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(PGS_header_init);
-(0,_helper_throttle_js__WEBPACK_IMPORTED_MODULE_3__.PGS_watchDocument)(() => PGS_header_init());
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_header_init);
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.watchDocument(() => PGS_header_init());
 
 //# EXPORT
 const PGS_header = {
@@ -5421,12 +5342,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_navSmart: () => (/* binding */ PGS_navSmart)
 /* harmony export */ });
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
-/* harmony import */ var _helper_dom_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helper/_dom.js */ "./assets/javascript/helper/_dom.js");
-/* harmony import */ var _helper_throttle_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helper/_throttle.js */ "./assets/javascript/helper/_throttle.js");
-
-
-
 
 
 //= NAV SMART
@@ -5480,7 +5395,7 @@ function initNavSmart(bar) {
         document.documentElement.style.setProperty("--_navSmart-heightScroll", `${height}px`);
     }
 
-    const schedule = (0,_helper_throttle_js__WEBPACK_IMPORTED_MODULE_3__.PGS_rafThrottle)(measure);
+    const schedule = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.rafThrottle(measure);
 
     const observer = new ResizeObserver(schedule);
     observer.observe(bar);
@@ -5494,13 +5409,13 @@ function initNavSmart(bar) {
 }
 
 function PGS_navSmart_init(root = document) {
-    ;(0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_roots)(root, "navSmart").filter(bar => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(bar).querySelector("navSmart-element")).forEach(initNavSmart);
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "navSmart").filter(bar => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(bar).querySelector("navSmart-element")).forEach(initNavSmart);
 }
 
 // a bar can arrive later, and there may be several, so the watch stays on: a pass is cheap and
 // every bar is initialized only once
-;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(PGS_navSmart_init);
-(0,_helper_throttle_js__WEBPACK_IMPORTED_MODULE_3__.PGS_watchDocument)(() => PGS_navSmart_init());
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_navSmart_init);
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.watchDocument(() => PGS_navSmart_init());
 
 //# EXPORT
 const PGS_navSmart = {

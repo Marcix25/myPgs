@@ -1,7 +1,4 @@
 import { pgs } from "../_pgs.js";
-import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
-import { PGS_roots, PGS_directChildren, PGS_dispatch } from "../helper/_dom.js";
-import { PGS_warn, PGS_invalid } from "../helper/_warn.js";
 
 const API = new WeakMap();
 
@@ -11,13 +8,13 @@ function PGS_stepTabs_build(tabsWizard) {
     //# SELECTOR
     const tabsContainer = pgs(tabsWizard).querySelector("stepTabs-container");
     if (!tabsContainer) {
-        PGS_warn("stepTabs.init", "the wizard has no stepTabs-container, so it was not initialized", tabsWizard);
+        pgs.helper.warn("stepTabs.init", "the wizard has no stepTabs-container, so it was not initialized", tabsWizard);
         return null;
     }
 
-    const allTab = PGS_directChildren(tabsContainer, "stepTabs-container-tab");
+    const allTab = pgs.helper.directChildren(tabsContainer, "stepTabs-container-tab");
     if (allTab.length === 0) {
-        PGS_warn("stepTabs.init", "stepTabs-container has no stepTabs-container-tab, so the wizard was not initialized", tabsWizard);
+        pgs.helper.warn("stepTabs.init", "stepTabs-container has no stepTabs-container-tab, so the wizard was not initialized", tabsWizard);
         return null;
     }
 
@@ -114,7 +111,7 @@ function PGS_stepTabs_build(tabsWizard) {
             tabsWizard.scrollIntoView({ behavior: "smooth", block: "start" });
         }
 
-        PGS_dispatch(tabsWizard, "pgs:stepTabs:change", { current, total });
+        pgs.helper.dispatch(tabsWizard, "pgs:stepTabs:change", { current, total });
     }
 
     //## restart
@@ -152,7 +149,7 @@ function PGS_stepTabs_build(tabsWizard) {
         restart: restartTab,
         goTo: (index, scroll = true) => {
             if (!Number.isInteger(index) || index < 0 || index >= total) {
-                throw PGS_invalid("stepTabs.goTo", `index must be an integer from 0 to ${total - 1}, got ${index}`);
+                throw pgs.helper.invalid("stepTabs.goTo", `index must be an integer from 0 to ${total - 1}, got ${index}`);
             }
             goTo(index, scroll);
         },
@@ -160,7 +157,7 @@ function PGS_stepTabs_build(tabsWizard) {
         prev: () => goTo(current - 1),
         toggleLock: (step, lock = true) => {
             if (!Number.isInteger(step) || step < 0 || step >= total) {
-                throw PGS_invalid("stepTabs.toggleLock", `step must be an integer from 0 to ${total - 1}, got ${step}`);
+                throw pgs.helper.invalid("stepTabs.toggleLock", `step must be an integer from 0 to ${total - 1}, got ${step}`);
             }
             pgs(allTab[step]).state.toggle("locked", lock);
             updateControls();
@@ -185,14 +182,14 @@ function PGS_stepTabs_build(tabsWizard) {
 }
 
 function PGS_stepTabs_init(root = document) {
-    PGS_roots(root, "stepTabs").forEach(tabsWizard => {
+    pgs.helper.roots(root, "stepTabs").forEach(tabsWizard => {
         if (API.has(tabsWizard)) return;
 
         PGS_stepTabs_build(tabsWizard);
     });
 }
 
-PGS_onDocumentReady(PGS_stepTabs_init);
+pgs.helper.onDocumentReady(PGS_stepTabs_init);
 
 function PGS_stepTabs_api(selector) {
     return API.get(selector);

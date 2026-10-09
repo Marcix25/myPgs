@@ -1,8 +1,4 @@
 import { pgs } from "../_pgs.js";
-import { PGS_directChild, PGS_dispatch, PGS_roots, PGS_uniqueId } from "../helper/_dom.js";
-import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
-import { PGS_escapeHtml } from "../helper/_text.js";
-import { PGS_warn } from "../helper/_warn.js";
 
 const API = new WeakMap();
 // the searches that are open, or have a debounce or a request still pending: what a pointerdown
@@ -93,17 +89,17 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
     if (API.has(search)) return API.get(search);
 
     const input = search.querySelector('input[type="search"]');
-    const list = PGS_directChild(search, "search-suggestions");
+    const list = pgs.helper.directChild(search, "search-suggestions");
     if (!input || !list) {
-        PGS_warn("search.init", "a search needs an input[type=\"search\"] and a search-suggestions list as its direct child", search);
+        pgs.helper.warn("search.init", "a search needs an input[type=\"search\"] and a search-suggestions list as its direct child", search);
         return;
     }
 
     const eventController = new AbortController();
     const { signal } = eventController;
 
-    if (!input.id) input.id = PGS_uniqueId("search-input");
-    if (!list.id) list.id = PGS_uniqueId("search-suggestions");
+    if (!input.id) input.id = pgs.helper.uniqueId("search-input");
+    if (!list.id) list.id = pgs.helper.uniqueId("search-suggestions");
 
     input.setAttribute("role", "combobox");
     input.setAttribute("aria-autocomplete", "list");
@@ -199,7 +195,7 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
             option.setAttribute("aria-selected", "false");
             option.setAttribute("aria-disabled", String(item.disabled));
             // the icon is markup the author wrote; the label comes from the source, which can be remote
-            option.innerHTML = Search.suggestionIcon(search) + PGS_escapeHtml(item.label);
+            option.innerHTML = Search.suggestionIcon(search) + pgs.helper.escapeHtml(item.label);
             fragment.append(option);
 
         });
@@ -253,7 +249,7 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
 
             clear();
             pgs(search).state.add("error");
-            PGS_dispatch(search, "pgs:search:error", { error, query: normalizedQuery });
+            pgs.helper.dispatch(search, "pgs:search:error", { error, query: normalizedQuery });
             return [];
         } finally {
             if (controller === currentController) controller = null;
@@ -312,7 +308,7 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
         cancel();
         clear();
 
-        const { detail } = PGS_dispatch(search, "pgs:search:select", { item, index, value: item.value, input });
+        const { detail } = pgs.helper.dispatch(search, "pgs:search:select", { item, index, value: item.value, input });
         options.onSelect?.(detail);
 
         input.focus();
@@ -440,10 +436,10 @@ if (typeof document !== "undefined") {
 }
 
 function PGS_search_init(root = document) {
-    PGS_roots(root, "search").forEach(search => initializeSearch(search));
+    pgs.helper.roots(root, "search").forEach(search => initializeSearch(search));
 }
 
-PGS_onDocumentReady(PGS_search_init);
+pgs.helper.onDocumentReady(PGS_search_init);
 
 function PGS_search_api(element) {
     return API.get(element);
