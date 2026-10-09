@@ -411,26 +411,6 @@
         ],
         "pgs-data": []
     },
-    "cookieConsent": {
-        "pgs": [
-            "cookieConsent-actionOpen",
-            "cookieConsent-gaUnavailable"
-        ],
-        "pgs-generated": [
-            "_cookieConsent-actionAccept",
-            "_cookieConsent-actionReject",
-            "_cookieConsent-header",
-            "_cookieConsent-panel",
-            "_cookieConsent-panel-badge",
-            "_cookieConsent-panel-featureAnalytics",
-            "_cookieConsent-panel-featureEssential",
-            "_cookieConsent-panel-toggleAnalytics"
-        ],
-        "pgs-options": [],
-        "pgs-data": [
-            "cookieConsent"
-        ]
-    },
     "cursorNotAllowed": {
         "pgs": [],
         "pgs-generated": [],
@@ -1435,7 +1415,6 @@
             "slidesAnimationScale",
             "slidesFullWidth",
             "slidesLoop",
-            "slidesScrollMouse",
             "slidesShadowDesktop",
             "slidesSingleScroll"
         ],
@@ -1607,23 +1586,13 @@
     "toastExe": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [
-            "toastBottom",
-            "toastCenter",
-            "toastLeft",
-            "toastRight"
-        ],
+        "pgs-options": [],
         "pgs-data": []
     },
     "toastLoad": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [
-            "toastBottom",
-            "toastCenter",
-            "toastLeft",
-            "toastRight"
-        ],
+        "pgs-options": [],
         "pgs-data": [
             "toast"
         ]

@@ -2,7 +2,7 @@
 
 # Footer
 
-Complete footer with theme control, brand area, navigation, informational content, and a link to cookie preferences.
+Complete footer with theme control, brand area, navigation, informational content, and legal links.
 
 ## PGS
 
@@ -20,12 +20,11 @@ Complete footer with theme control, brand area, navigation, informational conten
 ### PGS
 
 - `flex`: provides the flex layout; direction and spacing are flags in its bracket.
-- `button`: presents theme and cookie preference controls as buttons.
+- `button`: presents the theme control as a button.
 - `toggleDarkmode`: connects the control to the global light or dark theme handler.
 - `section`: applies the shared section structure to the upper and legal areas.
 - `logo`: inserts the brand into the footer.
 - `logo-text`: uses the text variant of the logo.
-- `cookieConsent-actionOpen`: opens the Cookie Consent preference panel.
 - `icon`: draws the glyphs this example shows; see Icon for the whole set.
 
 ### PGS Options (component brackets)
@@ -48,7 +47,7 @@ Complete footer HTML structure with brand, menu, and legal area.
 
 ### Footer
 
-Brand and navigation columns in the upper section, legal links and cookie preferences in the lower one.
+Brand and navigation columns in the upper section, legal links in the lower one.
 
 ```html
 <footer pgs="footer">
@@ -79,7 +78,6 @@ Brand and navigation columns in the upper section, legal links and cookie prefer
 
     <section pgs="footer-legal section">
         <div pgs="footer-legal-content">
-            <button type="button" pgs="button cookieConsent-actionOpen">Cookie preferences</button>
             <a href="">Privacy Policy</a>
             <a href="">Cookie Policy</a>
             <a href="">Termini e Condizioni</a>

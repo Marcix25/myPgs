@@ -2,13 +2,13 @@
 
 `mypgs` is a shared frontend library for building consistent interfaces through `pgs` attributes, SCSS sources, UI components, and reusable JavaScript behaviors.
 
-The library provides a design-system foundation: layouts, spacing, colors, buttons, forms, alerts, menus, modals, dropdowns, suggestion search, slides, notifications, and recurring patterns are defined once and reused across projects.
+The library provides a design-system foundation: layouts, spacing, colors, buttons, forms, alerts, menus, modals, dropdowns, suggestion search, slides, and notifications are defined once and reused across projects.
 
 ## What it includes
 
-- `assets/scss/`: SCSS sources divided into base, layouts, components, patterns, and mixins.
-- `assets/javascript/`: the `pgs` helper, JavaScript components, helpers, and patterns.
-- `reference/`: canonical HTML references for components, layouts, patterns, and guides.
+- `assets/scss/`: SCSS sources divided into base, layouts, components, and mixins.
+- `assets/javascript/`: the `pgs` helper, JavaScript components, and helpers.
+- `reference/`: canonical HTML references for components, layouts, and guides.
 - `dist/css/`: compiled CSS.
 - `dist/javascript/`: compiled JavaScript bundle.
 - `dist/index.d.ts`: TypeScript declarations exported by the package.
@@ -97,7 +97,6 @@ reference source before creating new markup.
 - [pgs](docs/helper/pgs.md)
 - [init](docs/helper/init.md)
 - [formValidate](docs/helper/formValidate.md)
-- [scrollHorizontal](docs/helper/scrollHorizontal.md)
 
 ### Base
 
@@ -147,7 +146,3 @@ reference source before creating new markup.
 - [spacing](docs/layout/spacing.md)
 - [size](docs/layout/size.md)
 - [utilities](docs/layout/utilities.md)
-
-### Patterns
-
-- [cookieConsent](docs/patterns/cookieConsent.md)

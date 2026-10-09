@@ -29,6 +29,3 @@ import "./components/_notification.js";
 
 //+ IMPORT REGISTRY
 import "./_imports.js";
-
-//= PATTERNS
-import "./patterns/_cookieConsent.js";

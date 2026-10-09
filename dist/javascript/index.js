@@ -31,10 +31,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _layout_navSmart_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./layout/_navSmart.js */ "./assets/javascript/layout/_navSmart.js");
 /* harmony import */ var _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./helper/_formValidate.js */ "./assets/javascript/helper/_formValidate.js");
 /* harmony import */ var _helper_init_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./helper/_init.js */ "./assets/javascript/helper/_init.js");
-/* harmony import */ var _helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./helper/_scrollHorizontal.js */ "./assets/javascript/helper/_scrollHorizontal.js");
-/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
-
-
 
 
 
@@ -72,7 +68,6 @@ _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
     pageNav: _components_pageNav_js__WEBPACK_IMPORTED_MODULE_9__.PGS_pageNav,
     header: _layout_header_js__WEBPACK_IMPORTED_MODULE_18__.PGS_header,
     navSmart: _layout_navSmart_js__WEBPACK_IMPORTED_MODULE_19__.PGS_navSmart,
-    cookieConsent: _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_23__.PGS_cookieConsent,
     notification: _components_notification_js__WEBPACK_IMPORTED_MODULE_10__.PGS_notification,
     toast: _components_toast_js__WEBPACK_IMPORTED_MODULE_11__.PGS_toast,
     search: _components_search_js__WEBPACK_IMPORTED_MODULE_12__.PGS_search,
@@ -82,8 +77,6 @@ _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
     summary: _components_summary_js__WEBPACK_IMPORTED_MODULE_16__.PGS_summary,
     tabs: _components_tabs_js__WEBPACK_IMPORTED_MODULE_17__.PGS_tabs,
     formValidate: _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_20__.PGS_formValidate,
-    scrollHorizontal: _helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_22__.PGS_scrollHorizontal,
-    scrollHorizontalWithMouse: _helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_22__.PGS_scrollHorizontalWithMouse,
 });
 
 
@@ -1385,7 +1378,9 @@ const fn_alert = {
                     id: raw.id || undefined,
                     closeTitle: String(raw.closeTitle || raw["title-close"] || "").trim() || undefined,
                     buttons: Array.isArray(raw.buttons) ? raw.buttons : undefined,
-                    timeout: Number.isNaN(duration) ? undefined : duration
+                    timeout: Number.isNaN(duration) ? undefined : duration,
+                    //== read by the hosts that place their alert (Toast); the others never look at it
+                    position: raw.position || undefined
                 }
             }];
         });
@@ -3203,9 +3198,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_slides: () => (/* binding */ PGS_slides)
 /* harmony export */ });
-/* harmony import */ var _helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_scrollHorizontal.js */ "./assets/javascript/helper/_scrollHorizontal.js");
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
-
+/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
 
 const API = new WeakMap();
 
@@ -3420,14 +3413,6 @@ class PGS_Slides {
         const nextButton = pgs(slides).querySelector(['slides-next', '_slides-next']);
         const dots = Array.from(pgs(slides).querySelector(['slides-dots', '_slides-dots']).children);
 
-        //== option
-        const scrollMouse = pgs(slides).option.contains('slidesScrollMouse');
-
-        //== scroll
-        const removeHorizontalScroll = scrollMouse
-            ? (0,_helper_scrollHorizontal_js__WEBPACK_IMPORTED_MODULE_0__.PGS_scrollHorizontalWithMouse)(this.container, 5)
-            : null;
-
         //==Listener: DOT, PREC, NEXT
         dots.forEach((dot, index) => dot.addEventListener("click", () => this.#goToNumberSlide(index), { signal }));
         precButton.addEventListener("click", () => this.#previousSlide(), { passive: true, signal });
@@ -3477,7 +3462,6 @@ class PGS_Slides {
             observer.disconnect();
             heightObserver.disconnect();
             if (heightFrame) cancelAnimationFrame(heightFrame);
-            removeHorizontalScroll?.();
             API.delete(this.element);
         };
 
@@ -3521,7 +3505,7 @@ function PGS_slides_init(root = document) {
     });
 }
 
-;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(PGS_slides_init);
+;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(PGS_slides_init);
 
 //# API 
 function PGS_slides_api(element) {
@@ -4217,22 +4201,22 @@ const fn_toast = {
 
     //== position flags land on the container, the way Modal copies the ones on its wrapper to _dialog:
     //== _toast is the pgs-generated-only token that carries them, rebuilt at every toast so one toast's
-    //== position never leaks into the next. They come from the trigger (toastExe['toastLeft'],
-    //== toastLoad['toastRight']) and from the position option of a pgs.toast call, together. A
-    //== container written by hand keeps its own as the baseline
-    _applyOptions(container, trigger, position = []) {
+    //== position never leaks into the next. They come from the position of the toast: the field of its
+    //== pgs-data (toastLoad, toastExe) or the position option of a pgs.toast call. A container written
+    //== by hand keeps its own as the baseline
+    _applyOptions(container, position = []) {
         const wanted = [Array.isArray(position) ? position : String(position).split(/\s+/)].flat().filter(Boolean);
         const unknown = wanted.filter(key => !this._options.includes(key));
 
         if (unknown.length) console.error(`PGS toast: unknown position ${unknown.join(", ")}; use ${this._options.join(", ")}.`);
 
-        const keys = this._options.filter(key => wanted.includes(key) || (trigger && pgs(trigger).option.contains(key)));
+        const keys = this._options.filter(key => wanted.includes(key));
 
         pgs(container).remove("_toast");
         pgs(container).add("_toast", ...keys.map(key => `_toast['${key}']`));
     },
 
-    _add(type, options, trigger) {
+    _add(type, options) {
         const { timeout = this._defaults.timeout, position, ...config } = _alerts_js__WEBPACK_IMPORTED_MODULE_1__.fn_alert._toOptions(options, "toast");
 
         const toast = _alerts_js__WEBPACK_IMPORTED_MODULE_1__.fn_alert.create(type, {
@@ -4246,12 +4230,12 @@ const fn_toast = {
 
         //== only one toast is shown at a time: a new one simply replaces whatever was there
         const container = this._getOrCreateContainer();
-        this._applyOptions(container, trigger, position);
+        this._applyOptions(container, position);
         container.replaceChildren(toast);
     },
 
     _dispatch(element) {
-        _alerts_js__WEBPACK_IMPORTED_MODULE_1__.fn_alert.fromData(element, "toast").forEach(({ type, options }) => this._add(type, options, element));
+        _alerts_js__WEBPACK_IMPORTED_MODULE_1__.fn_alert.fromData(element, "toast").forEach(({ type, options }) => this._add(type, options));
     },
 
     //== DELETE
@@ -4752,101 +4736,6 @@ function PGS_onDocumentReady(callback) {
 
 /***/ },
 
-/***/ "./assets/javascript/helper/_scrollHorizontal.js"
-/*!*******************************************************!*\
-  !*** ./assets/javascript/helper/_scrollHorizontal.js ***!
-  \*******************************************************/
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PGS_scrollHorizontal: () => (/* binding */ PGS_scrollHorizontal),
-/* harmony export */   PGS_scrollHorizontalWithMouse: () => (/* binding */ PGS_scrollHorizontalWithMouse)
-/* harmony export */ });
-//+ converts a wheel event into a horizontal scroll delta, honouring the container's own scroll
-//+ boundaries and leaving native horizontal scrolling (and pinch-zoom) alone; shouldSkip lets a
-//+ variant bail out of specific input before any of that runs
-function createHorizontalWheelHandler(element, speed, shouldSkip) {
-    const onWheel = (e) => {
-        //== lets a variant opt out of specific input (e.g. the trackpad) before anything else runs
-        if (shouldSkip?.(e)) return;
-
-        //== avoid interfering with pinch-zoom or native horizontal scroll
-        if (e.ctrlKey) return;
-        if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
-
-        //== convert the delta to px
-        let delta = e.deltaY;
-        if (e.deltaMode === 1) delta *= 16;
-        else if (e.deltaMode === 2) delta *= element.clientHeight;
-
-        //== only take over the event if the container can still scroll further in that direction
-        const atStart = element.scrollLeft <= 0;
-        const atEnd = element.scrollLeft + element.clientWidth >= element.scrollWidth - 1;
-        const scrollingRight = delta > 0;
-        const scrollingLeft = delta < 0;
-        const canScrollHoriz =
-            (scrollingRight && !atEnd) ||
-            (scrollingLeft && !atStart);
-
-        if (!canScrollHoriz) return;
-
-        e.preventDefault();
-        element.scrollLeft += delta * speed;
-    };
-
-    element.addEventListener('wheel', onWheel, { passive: false });
-    return () => element.removeEventListener('wheel', onWheel);
-}
-
-//+ estimates whether the wheel source is a trackpad: small, high-frequency deltas are its signature,
-//+ a physical mouse wheel fires larger, sparser steps
-function createTrackpadDetector() {
-    let lastTs = 0;
-    let smallAndFast = 0;
-    let samples = 0;
-    let isTrackpad = false;
-
-    return function update(e) {
-        const now = performance.now();
-        const dt = now - lastTs;
-
-        let dy = Math.abs(e.deltaY);
-        if (e.deltaMode === 1) dy *= 16;
-        else if (e.deltaMode === 2) dy *= e.currentTarget?.clientHeight || 800;
-
-        const small = dy < 30;
-        const fast = dt < 35;
-        if (small && fast) smallAndFast++;
-
-        samples++;
-        if (samples >= 6) {
-            isTrackpad = smallAndFast >= 3;
-            smallAndFast = 0;
-            samples = 0;
-        }
-
-        lastTs = now;
-        return isTrackpad;
-    };
-}
-
-//= works with any wheel source (mouse, trackpad, Magic Mouse...): any vertical wheel motion over
-//= the container scrolls it horizontally instead
-function PGS_scrollHorizontal(element, speed) {
-    return createHorizontalWheelHandler(element, speed);
-}
-
-//= mouse only: a trackpad or Magic Mouse already scrolls horizontally on its own two-finger swipe,
-//= so their vertical wheel motion is left alone instead of being forced sideways
-function PGS_scrollHorizontalWithMouse(element, speed) {
-    const isTrackpad = createTrackpadDetector();
-    return createHorizontalWheelHandler(element, speed, isTrackpad);
-}
-
-
-/***/ },
-
 /***/ "./assets/javascript/helper/_text.js"
 /*!*******************************************!*\
   !*** ./assets/javascript/helper/_text.js ***!
@@ -4859,8 +4748,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_formatText: () => (/* binding */ PGS_formatText)
 /* harmony export */ });
 //+ escapes text that gets interpolated into innerHTML, shared by every component that builds its
-//+ own markup from author-supplied strings (alert/notification/toast titles and descriptions,
-//+ cookieConsent copy)
+//+ own markup from author-supplied strings (alert/notification/toast titles and descriptions)
 function PGS_escapeHtml(value) {
     return String(value ?? "")
         .replaceAll("&", "&amp;")
@@ -5241,288 +5129,6 @@ const PGS_navSmart = {
 };
 
 
-/***/ },
-
-/***/ "./assets/javascript/patterns/_cookieConsent.js"
-/*!******************************************************!*\
-  !*** ./assets/javascript/patterns/_cookieConsent.js ***!
-  \******************************************************/
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PGS_cookieConsent: () => (/* binding */ PGS_cookieConsent)
-/* harmony export */ });
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
-/* harmony import */ var _helper_text_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_text.js */ "./assets/javascript/helper/_text.js");
-
-
-
-const STORAGE_KEY = 'pgs_cookie_preferences_v1';
-const INITIALIZED_COOKIE_CONSENTS = new WeakSet();
-
-const DEFAULTS = {
-    titleIntro: "Cookies and privacy",
-    titleHeading: "Your privacy comes first",
-    description: "We use essential cookies to provide the service and, with your consent, analytics cookies from **Google Analytics** to measure traffic anonymously and improve our content.\nYou can change your choice at any time.",
-    privacyPolicyUrl: "/privacy-policy/",
-    cookiePolicyUrl: "/cookie-policy/",
-    panelAriaLabel: "Cookie preferences",
-    essentialTitle: "Essential cookies",
-    essentialDescription: "Always active to ensure the website works correctly.",
-    essentialBadge: "Active",
-    analyticsTitle: "Analytics",
-    analyticsDescription: "Browsing data collected in aggregate form for anonymous statistics.",
-    analyticsAriaLabel: "Enable Google Analytics",
-    titleReject: "Selected only",
-    titleAccept: "Accept all",
-    gaId: ""
-};
-
-//+
-function safeJsonParse(value) {
-    try {
-        return value ? JSON.parse(value) : null;
-    } catch (error) {
-        console.warn('PGS cookie consent: impossibile leggere le preferenze', error);
-        return null;
-    }
-}
-
-//+
-function readPreferences() {
-    try {
-        return safeJsonParse(localStorage.getItem(STORAGE_KEY));
-    } catch (error) {
-        return null;
-    }
-}
-
-//+
-function savePreferences(prefs) {
-    try {
-        localStorage.setItem(
-            STORAGE_KEY,
-            JSON.stringify({ ...prefs, updatedAt: new Date().toISOString() })
-        );
-    } catch (error) {
-        console.warn('PGS cookie consent: impossibile salvare le preferenze', error);
-    }
-}
-
-//+
-function bootstrapGtag() {
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = window.gtag || function gtag() {
-        window.dataLayer.push(arguments);
-    };
-}
-
-//+
-function loadGoogleAnalytics(measurementId) {
-    if (!measurementId || window.__PGS_gaLoaded) return;
-    window.__PGS_gaLoaded = true;
-
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
-    document.head.appendChild(script);
-
-    window.gtag('js', new Date());
-    window.gtag('config', measurementId, {
-        anonymize_ip: true,
-        allow_google_signals: false,
-    });
-}
-
-//+
-function applyAnalyticsConsent({ allowAnalytics, measurementId }) {
-    bootstrapGtag();
-    if (allowAnalytics) {
-        window.gtag('consent', 'update', { analytics_storage: 'granted' });
-        loadGoogleAnalytics(measurementId);
-    } else {
-        window.gtag('consent', 'update', { analytics_storage: 'denied' });
-    }
-}
-
-//+
-function setPgsFlag(element, token, enabled) {
-    if (!(element instanceof HTMLElement) || !token) return;
-    pgs(element).toggle(token, enabled);
-    if (!pgs(element).value) element.removeAttribute('pgs');
-}
-
-//+ reads the JSON config off the marker element and builds the whole modal + dialog + content from it,
-//+ so the consuming site never has to hand-author the banner markup — see @pgs-data "cookieConsent".
-function buildCookieConsent(marker) {
-    const config = { ...DEFAULTS, ...(safeJsonParse(pgs(marker).data.getValueBrackets('cookieConsent') || '{}') || {}) };
-
-    const root = document.createElement('div');
-    pgs(root).add("modal['dialogTopLevel' 'dialogBottom' 'dialogRight' 'dialogMedium']", 'cookieConsent');
-
-    root.innerHTML = `
-        <dialog>
-            <div pgs="modal-dialog-content">
-                <div pgs="_cookieConsent-header flex['column']">
-                    <p pgs="flex['row' 'itemCenter']"><i pgs="icon['icon-cookie']"></i> ${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.titleIntro)}</p>
-                    <h2>${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.titleHeading)}</h2>
-                    <p>${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.description)}</p>
-                    <p>
-                        <a href="${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_escapeHtml)(config.privacyPolicyUrl)}" target="_blank" rel="noopener">Privacy Policy</a> -
-                        <a href="${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_escapeHtml)(config.cookiePolicyUrl)}" target="_blank" rel="noopener">Cookie Policy</a>
-                    </p>
-                </div>
-
-                <div pgs="_cookieConsent-panel flex['column']" role="group" aria-label="${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_escapeHtml)(config.panelAriaLabel)}">
-                    <div pgs="flex['row' 'nowrap'] _cookieConsent-panel-featureEssential">
-                        <div>
-                            <p>
-                                <strong>${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.essentialTitle)}</strong>
-                                <br>
-                                <small>${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.essentialDescription)}</small>
-                            </p>
-                        </div>
-
-                        <span pgs="_cookieConsent-panel-badge badge['badgeSuccess']">${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.essentialBadge)}</span>
-                    </div>
-
-                    <div pgs="flex['row'] _cookieConsent-panel-featureAnalytics">
-                        <label pgs="toggle">
-                            <p>
-                                <strong>${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.analyticsTitle)}</strong>
-                                <br>
-                                <small>${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.analyticsDescription)}</small>
-                            </p>
-
-                            <input type="checkbox" pgs="_cookieConsent-panel-toggleAnalytics" aria-label="${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_escapeHtml)(config.analyticsAriaLabel)}">
-                        </label>
-                    </div>
-                    <div pgs="flex['row']">
-                        <button type="button" pgs="button _cookieConsent-actionReject">
-                            ${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.titleReject)}
-                        </button>
-    
-                        <button type="button" pgs="button['btnStrong'] _cookieConsent-actionAccept">
-                            <i pgs="icon['icon-check']"></i> ${(0,_helper_text_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formatText)(config.titleAccept)}
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </dialog>
-    `;
-
-    root.id = marker.id || 'cookieConsent';
-    root.dataset.gaId = config.gaId;
-    document.body.appendChild(root);
-    marker.remove();
-
-    return root;
-}
-
-//+
-function assignCookieRuntimeAttributes({ root, analyticsToggle, acceptAllButton, rejectButton, openButtons }) {
-    root.dataset.cookieComponent = 'consent';
-    analyticsToggle?.setAttribute('data-cookie-toggle', 'analytics');
-    acceptAllButton?.setAttribute('data-cookie-action', 'accept');
-    rejectButton?.setAttribute('data-cookie-action', 'reject');
-
-    pgs(root).querySelector('_cookieConsent-panel-featureEssential')?.setAttribute('data-cookie-feature', 'essential');
-    pgs(root).querySelector('_cookieConsent-panel-featureAnalytics')?.setAttribute('data-cookie-feature', 'analytics');
-
-    openButtons.forEach((button) => {
-        button.setAttribute('data-cookie-action', 'open');
-    });
-}
-
-//= CookieConsent
-//+ open/close, backdrop, focus trap, ESC-to-close, and focus restore are all handled by the native <dialog>
-//+ through pgs.modal; this pattern only owns the JSON-driven markup generation and the consent business logic.
-function initCookieConsent(selectRoot = document) {
-    const marker = selectRoot instanceof Element && pgs(selectRoot).contains('cookieConsent')
-        ? selectRoot
-        : pgs(selectRoot).querySelector('cookieConsent');
-    if (!marker || INITIALIZED_COOKIE_CONSENTS.has(marker)) return;
-    INITIALIZED_COOKIE_CONSENTS.add(marker);
-
-    const root = buildCookieConsent(marker);
-
-    //+ initializes the modal here too (idempotent) so this doesn't depend on pgs.registerModules() order.
-    globalThis.pgs?.modal?.init(root);
-    const modal = globalThis.pgs?.modal?.api(root);
-    if (!modal) return;
-
-    const analyticsToggle = pgs(root).querySelector('_cookieConsent-panel-toggleAnalytics');
-    const acceptAllButton = pgs(root).querySelector('_cookieConsent-actionAccept');
-    const rejectButton = pgs(root).querySelector('_cookieConsent-actionReject');
-    const openButtons = pgs(document).querySelectorAll('cookieConsent-actionOpen');
-    const measurementId = (root.dataset.gaId || '').trim();
-    const prefersGa = measurementId.length > 0;
-
-    assignCookieRuntimeAttributes({ root, analyticsToggle, acceptAllButton, rejectButton, openButtons });
-
-    if (analyticsToggle) {
-        analyticsToggle.disabled = !prefersGa;
-        if (!prefersGa) {
-            analyticsToggle.checked = false;
-            setPgsFlag(root, 'cookieConsent-gaUnavailable', true);
-        } else {
-            setPgsFlag(root, 'cookieConsent-gaUnavailable', false);
-        }
-    }
-
-    bootstrapGtag();
-    window.gtag('consent', 'default', { analytics_storage: 'denied' });
-
-    function persistAndApply(allowAnalytics) {
-        savePreferences({ analytics: allowAnalytics });
-        setPgsFlag(root, 'cookieConsent-accepted', !!allowAnalytics);
-        setPgsFlag(root, 'cookieConsent-declined', !allowAnalytics);
-        applyAnalyticsConsent({ allowAnalytics: !!allowAnalytics, measurementId });
-    }
-
-    acceptAllButton?.addEventListener('click', () => {
-        if (analyticsToggle && prefersGa) analyticsToggle.checked = true;
-        persistAndApply(!!prefersGa);
-        modal.close();
-    });
-
-    rejectButton?.addEventListener('click', () => {
-        const allowAnalytics = analyticsToggle ? analyticsToggle.checked && prefersGa : false;
-        if (!allowAnalytics && analyticsToggle) analyticsToggle.checked = false;
-        persistAndApply(allowAnalytics);
-        modal.close();
-    });
-
-    analyticsToggle?.addEventListener('change', (event) => {
-        if (!prefersGa && event.target instanceof HTMLInputElement) {
-            event.target.checked = false;
-        }
-    });
-
-    openButtons.forEach((button) => {
-        button.addEventListener('click', (event) => {
-            event.preventDefault();
-            modal.open();
-        });
-    });
-
-    const savedPrefs = readPreferences();
-    if (savedPrefs && typeof savedPrefs.analytics === 'boolean') {
-        if (analyticsToggle) analyticsToggle.checked = !!savedPrefs.analytics && prefersGa;
-        persistAndApply(savedPrefs.analytics && prefersGa);
-    } else {
-        modal.open();
-    }
-}
-
-;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(initCookieConsent);
-
-const PGS_cookieConsent = {
-    init: initCookieConsent
-};
-
-
 /***/ }
 
 /******/ 	});
@@ -5633,7 +5239,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_toast_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/_toast.js */ "./assets/javascript/components/_toast.js");
 /* harmony import */ var _components_notification_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/_notification.js */ "./assets/javascript/components/_notification.js");
 /* harmony import */ var _imports_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./_imports.js */ "./assets/javascript/_imports.js");
-/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
 //= PGS
 
 
@@ -5664,9 +5269,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 //+ IMPORT REGISTRY
-
-
-//= PATTERNS
 
 
 })();

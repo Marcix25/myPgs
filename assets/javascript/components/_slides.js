@@ -1,4 +1,3 @@
-import { PGS_scrollHorizontalWithMouse } from "../helper/_scrollHorizontal.js";
 import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
 const API = new WeakMap();
 
@@ -213,14 +212,6 @@ class PGS_Slides {
         const nextButton = pgs(slides).querySelector(['slides-next', '_slides-next']);
         const dots = Array.from(pgs(slides).querySelector(['slides-dots', '_slides-dots']).children);
 
-        //== option
-        const scrollMouse = pgs(slides).option.contains('slidesScrollMouse');
-
-        //== scroll
-        const removeHorizontalScroll = scrollMouse
-            ? PGS_scrollHorizontalWithMouse(this.container, 5)
-            : null;
-
         //==Listener: DOT, PREC, NEXT
         dots.forEach((dot, index) => dot.addEventListener("click", () => this.#goToNumberSlide(index), { signal }));
         precButton.addEventListener("click", () => this.#previousSlide(), { passive: true, signal });
@@ -270,7 +261,6 @@ class PGS_Slides {
             observer.disconnect();
             heightObserver.disconnect();
             if (heightFrame) cancelAnimationFrame(heightFrame);
-            removeHorizontalScroll?.();
             API.delete(this.element);
         };
 

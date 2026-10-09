@@ -4,18 +4,18 @@
  * @description Toast markup, configuration, behavior, and usage example. An ephemeral, auto-dismissing message shown one at a time (e.g. "saved", "error"). Split from Notification, which is a persistent, manually-dismissed panel: the toast is the same card, only one at a time and timed, in its own fixed container. Both are the shared alert card underneath (see Alerts): this component only manages the single floating stack and the countdown bar around it. Full JSON field list is under @pgs-data "toast"; full JS options list is under each @api method below. The JSON form and the JS options now use the same names; the previous message, title-close and duration keys are still accepted as aliases. Two custom events are dispatched, owned by the shared alert engine: pgs:alert:buttonClick on a buttons[] element when clicked (detail: id, buttonId, type, title, description, link; cancelable — call event.preventDefault() to stop the navigation), and pgs:alert:close on the toast element right before it is removed, whether by the dismiss button or by its own timeout (detail: id, type, title, description).
  *
  * @pgs
- * - toastLoad: creates one toast from a JSON object on page load; see @pgs-data "toast" for every accepted field. Its options, like toastLoad['toastRight'], are applied to the container for that toast.
- * - toastExe: creates one toast from a JSON object each time the element is clicked; same fields and options as toastLoad.
+ * - toastLoad: creates one toast from a JSON object on page load; see @pgs-data "toast" for every accepted field.
+ * - toastExe: creates one toast from a JSON object each time the element is clicked; same fields as toastLoad.
  * - toast: write it yourself, bare like this, to place the container elsewhere; the module leaves it alone and never generates a second one. Leave it empty, because its content is replaced at every toast.
  *
  * @pgs-generated
- * - _toast: the container the toasts are shown in, appended at the end of the body when no toast was written by hand. It also carries, for the toast being shown, the options written on its trigger.
+ * - _toast: the container the toasts are shown in, appended at the end of the body when no toast was written by hand. It also carries, for the toast being shown, the position written in its pgs-data.
  *
  * @pgs-options
- * - toastLeft: shows the toast against the left edge instead of the centre. Write it on toastLoad or toastExe, or pass it in the position option of pgs.toast: the JavaScript copies it to the container, for that toast only.
- * - toastRight: the same, against the right edge.
- * - toastCenter: the same, in the middle of the screen.
- * - toastBottom: the same, against the bottom edge instead of the top.
+ * - toastLeft: a value of the position field: shows the toast against the left edge instead of the centre. Written in the pgs-data of toastLoad or toastExe, or in the position option of pgs.toast; the JavaScript copies it to the container, for that toast only.
+ * - toastRight: a value of the position field: the same, against the right edge.
+ * - toastCenter: a value of the position field: the same, in the middle of the screen.
+ * - toastBottom: a value of the position field: the same, against the bottom edge instead of the top.
  *
  * @pgs-data
  * - toast: JSON object read by toastLoad/toastExe on page load or click; a new toast replaces whatever is currently shown — every field, with its accepted values and its default, is annotated in the reference below.
@@ -57,8 +57,8 @@
 <demo demo-h3="toastExe" demo-description="Shows the toast described in its pgs-data each time the element is clicked. A new toast replaces the one still on screen."></demo>
 <section demo="component">
     <button pgs="button toastExe" pgs-data='toast[{
-        "title": "Benvenuto",
-        "description": "Message",
+        "title": "Toast trigger",
+        "description": "Your action was completed successfully.",
         "type": "success",
         "icon": null,
         "timeout": "7000",
@@ -70,53 +70,58 @@
 <demo demo-h3="toastLoad" demo-description="Shows the toast described in its pgs-data once, when the page loads. The element is hidden and consumed: nothing of it stays in the page."></demo>
 <section demo="component">
     <div pgs="hidden toastLoad" pgs-data='toast[{
-            "title": "Benvenuto",
-            "description": "Message",
+            "title": "Welcome",
+            "description": "The page has loaded successfully. You are ready to get started.",
             "type": "neutral",
             "icon": "<img src=\"../assets/img/logo.svg\" alt=\"\">",
             "timeout": "7000",
-            "closeTitle": "Close"
+            "closeTitle": "Close",
+            "position": ["toastRight"]
         }]'></div>
 </section>
 
 <demo demo-h2="Position"></demo>
-<demo demo-h3="Left" demo-description="toastLeft on the trigger shows that toast against the left edge instead of the centre. The JavaScript copies it to the container for that toast only, so the next one starts again from its own options."></demo>
+<demo demo-h3="Left" demo-description="&quot;position&quot;: [&quot;toastLeft&quot;] in the pgs-data shows that toast against the left edge instead of the centre. The JavaScript copies it to the container for that toast only, so the next one starts again from its own options."></demo>
 <section demo="component">
-    <button pgs="button toastExe['toastLeft']" pgs-data='toast[{
+    <button pgs="button toastExe" pgs-data='toast[{
         "title": "On the left",
         "description": "Against the left edge.",
         "type": "info",
-        "timeout": "7000"
+        "timeout": "7000",
+        "position": ["toastLeft"]
     }]'>Toast on the left</button>
 </section>
 
-<demo demo-h3="Right" demo-description="The same, against the right edge, with toastRight."></demo>
+<demo demo-h3="Right" demo-description="The same, against the right edge, with &quot;position&quot;: [&quot;toastRight&quot;]."></demo>
 <section demo="component">
-    <button pgs="button toastExe['toastRight']" pgs-data='toast[{
+    <button pgs="button toastExe" pgs-data='toast[{
         "title": "On the right",
         "description": "Against the right edge.",
         "type": "info",
-        "timeout": "7000"
+        "timeout": "7000",
+        "position": ["toastRight"]
     }]'>Toast on the right</button>
 </section>
 
-<demo demo-h3="Center" demo-description="toastCenter puts the toast in the middle of the screen."></demo>
+<demo demo-h3="Center" demo-description="&quot;position&quot;: [&quot;toastCenter&quot;] puts the toast in the middle of the screen."></demo>
 <section demo="component">
-    <button pgs="button toastExe['toastCenter']" pgs-data='toast[{
+    <button pgs="button toastExe" pgs-data='toast[{
         "title": "In the middle",
         "description": "Centred on the screen.",
         "type": "info",
-        "timeout": "7000"
+        "timeout": "7000",
+        "position": ["toastCenter"]
     }]'>Toast in the center</button>
 </section>
 
-<demo demo-h3="Bottom" demo-description="toastBottom moves the toast to the bottom edge, instead of under the header."></demo>
+<demo demo-h3="Bottom" demo-description="&quot;position&quot;: [&quot;toastBottom&quot;] moves the toast to the bottom edge, instead of under the header."></demo>
 <section demo="component">
-    <button pgs="button toastExe['toastBottom']" pgs-data='toast[{
+    <button pgs="button toastExe" pgs-data='toast[{
         "title": "At the bottom",
         "description": "Against the bottom edge.",
         "type": "info",
-        "timeout": "7000"
+        "timeout": "7000",
+        "position": ["toastBottom"]
     }]'>Toast at the bottom</button>
 </section>
 
@@ -127,7 +132,8 @@
         "type": "info",                 // neutral | error | success | warning | info, and anything else falls back to info
         "icon": null,                   // HTML string; null uses the icon of the type
         "timeout": 4000,                // milliseconds before it dismisses itself; a value that is not a number is ignored
-        "closeTitle": "Close"           // accessible name of the dismiss button, which always draws a cross
+        "closeTitle": "Close",          // accessible name of the dismiss button, which always draws a cross
+        "position": [],                 // toastLeft | toastRight | toastCenter | toastBottom, alone or together, e.g. ["toastLeft", "toastBottom"]; for this toast only
         "buttons": [                    // omitted or empty leaves only the dismiss button; same shape as Notification
             {  
                 "id": null,             // reported as buttonId by pgs:alert:buttonClick

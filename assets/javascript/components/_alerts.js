@@ -145,7 +145,9 @@ const fn_alert = {
                     id: raw.id || undefined,
                     closeTitle: String(raw.closeTitle || raw["title-close"] || "").trim() || undefined,
                     buttons: Array.isArray(raw.buttons) ? raw.buttons : undefined,
-                    timeout: Number.isNaN(duration) ? undefined : duration
+                    timeout: Number.isNaN(duration) ? undefined : duration,
+                    //== read by the hosts that place their alert (Toast); the others never look at it
+                    position: raw.position || undefined
                 }
             }];
         });

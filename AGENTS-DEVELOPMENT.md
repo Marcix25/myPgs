@@ -9,12 +9,10 @@ The source of truth is organized as follows:
 - `assets/scss/base/`: global foundations and variables;
 - `assets/scss/layout/`: reusable layout tokens;
 - `assets/scss/components/`: component selectors;
-- `assets/scss/patterns/`: larger interface patterns;
 - `assets/scss/mixin/`: public and private SCSS mixins;
 - `assets/javascript/base/`: base runtime behavior;
 - `assets/javascript/components/`: reusable component modules;
 - `assets/javascript/helper/`: reusable JavaScript helpers;
-- `assets/javascript/patterns/`: larger runtime patterns;
 - `reference/html/`: canonical markup and documentation metadata, including `reference/html/guides/` for narrative guide pages (rendered as prose, not a component example — see `scripts/generate-guide-docs.js`);
 - `docs/`: generated documentation, entirely produced by `scripts/generate-component-docs.js` and `scripts/generate-guide-docs.js` — there is no hand-maintained file left under `docs/`;
 - `dist/`: compiled package assets;
@@ -65,7 +63,7 @@ prose:
 | `//===` | a sub-subtitle, one level under a subtitle. Example: `//=== SLIDE` |
 | `//` (nothing after the slashes) | a description or explanation, at any depth. Never reuse `//#`/`//=`/`//==`/`//===` for this — those four are reserved for the heading hierarchy above, nothing else. |
 
-- Add reusable styles to the correct `base`, `layout`, `components`, `patterns`, or `mixin` group.
+- Add reusable styles to the correct `base`, `layout`, `components`, or `mixin` group.
 - Import new source files from `assets/scss/index.scss` or forward mixins from `assets/scss/mixin/mixin.scss` as appropriate.
 - Reuse existing custom properties and naming conventions.
 - Prefer configurable custom properties over hardcoded values.
@@ -114,7 +112,7 @@ pgs.registerModules({
 For a reusable component:
 
 1. Add or update its mixins in `assets/scss/mixin/` when composition is useful.
-2. Add its public selector in `assets/scss/components/` or `assets/scss/patterns/`.
+2. Add its public selector in `assets/scss/components/`.
 3. Import it from `assets/scss/index.scss`.
 4. Add JavaScript only when behavior is required.
 5. Register the JavaScript module when it needs a `pgs.*` public API.

@@ -18,7 +18,6 @@ meaning moved under them, so nothing errors and the page just looks wrong.
 | a plain `<a>` in body content | `color: var(--color-black)`, underline on hover | `color: var(--color-link)`, background highlight on hover |
 | `pgs-state="info"` (alert/badge/notification/toast) | read `--color-link`/`--color-linkBackground` directly | reads `--color-info`/`--color-info-soft`, which only default to the link colours |
 | `pgs="header"` with no options | hid itself on scroll-down automatically | does nothing on scroll unless `pgs-option="headerScroll"` is also written |
-| `pgs.scrollHorizontal(element, speed)` | converted a mouse wheel only, ignoring a trackpad/Magic Mouse | converts any wheel source, trackpad included |
 | `pgs="button"`, a link `pgs="card"`, a link `pgs="box"` | the hover treatment was baked into each component's CSS | the treatment lives only under `pgs="hover"`, which the JS adds to these at load |
 | a bare `<button type="submit">` inside `pgs="form"` | the form styled it as a strong button on its own | draws nothing: mark it `pgs="button"` yourself |
 | several `pgs="accordion"` next to each other | opening one closed every other accordion on the page | each one answers for itself: wrap them in `pgs="accordionContainer"` to get the old behaviour |
@@ -47,7 +46,7 @@ cannot match `'columnReverse'`, regardless of its position in the bracket.
 Only a genuine `key[payload]` value moves to `pgs-data`, with the existing format and support for
 nested JSON arrays: `headerCompactFrom[600]`, `modalContainerID[myContainer]`,
 `modalContainerPGS[header]`, `dropdownPosition[top left]`, `stepTabsIcon[...]`, `formMessage[...]`,
-`formMessageTitle[...]`, `notification[...]`, `toast[...]`, `cookieConsent[...]`. `tabsHistory` is
+`formMessageTitle[...]`, `notification[...]`, `toast[...]`. `tabsHistory` is
 the one hybrid case: it belongs in `pgs-data` whether written bare or with its optional
 `tabsHistory[name]` payload, because it can carry one. A `pgs-data` key always keeps the prefix of
 the component it belongs to — that attribute is flat, with no bracket to give a bare key context.
@@ -96,7 +95,7 @@ rename it where it changed.
 | margin (and its variants) | `marginAuto` / `marginElements` / `marginNegative` / `marginPage` / `marginSections` / `marginTexts` / `marginUnset` | `mrgAuto` / `mrgElements` / `mrgNegative` / `mrgPage` / `mrgSections` / `mrgTexts` / `mrgUnset`, and `margin2` → `mrgHalf`; one `margin[...]` bracket for every side (`mrgTop`, `mrgInlineAuto`, ...) |
 | padding (and its variants) | same list as margin, `padding*` | the same with `pad` (`padPage`, `padTopHalf`, ...), `padding2` → `padHalf`; padding has no `auto` or `negative` |
 | pageShell | `pageShellAsideScroll` / `pageShellAsideShadow` / `pageShellFullPage` | `shellAsideScroll` / `shellAsideShadow` / `shellFullPage` |
-| slides | `slidesAnimationScale` / `slidesScrollMouse` / `slidesShadowDesktop` / `slidesSingleScroll` | unchanged |
+| slides | `slidesAnimationScale` / `slidesShadowDesktop` / `slidesSingleScroll` | unchanged (`slidesScrollMouse` was removed, see section 2) |
 | toggleDarkmode | `toggleDarkmodeExtended` | `tglLabelled` |
 
 `.option` and `.data` are two separate accessors, split by attribute as well as by purpose:
@@ -157,11 +156,6 @@ Info state: if you retheme "info" surfaces by overriding `--color-link`, set `--
 Header scroll-hide: this used to run unconditionally on every `pgs="header"`. A header with no
 `pgs-option` at all — which is what `PGS_theme`'s own header currently has — silently stops hiding on
 scroll after this merge unless `headerScroll` is added to it.
-
-Scroll horizontal: the old mouse-only behaviour moved to a new function,
-`pgs.scrollHorizontalWithMouse(element, speed)` — Slides' `slidesScrollMouse` now calls that one
-internally, so its own behaviour is unchanged. If you called `pgs.scrollHorizontal` directly and
-relied on trackpad input being left alone, switch that call to `pgs.scrollHorizontalWithMouse`.
 
 Hover: the shared treatment is no longer written three times. `[pgs~=button]`, `[pgs~=card]:where(a)`
 and `[pgs~=box]:where(a)` dropped their own copy, and `pgs.hover` — a new base module, loaded by the
@@ -291,12 +285,9 @@ write them by hand.
 `notifications-element` `notifications-element-buttons` `notifications-element-content`
 `notifications-element-icon` `notifications-empty` `toast-element` `toast-element-buttons`
 `toast-element-content` `toast-element-icon` `search-suggestions-item` `stepTabs-dots-dot`
-`cookieConsent-panel` `cookieConsent-panel-badge` `cookieConsent-panel-featureAnalytics`
-`cookieConsent-panel-featureEssential` `cookieConsent-panel-toggleAnalytics`
-`cookieConsent-actionReject` `cookieConsent-actionAccept` → each one gains a
+→ each one gains a
 leading `_`. `menu-buttonIcon` also changes name, to `_menu-submenuButton`: the toggle the menu
-inserts next to every link with a submenu. `cookieConsent-actionOpen` is unaffected: you write that trigger yourself, it is not
-generated.
+inserts next to every link with a submenu.
 
 ### Header
 
@@ -353,11 +344,26 @@ with the `--button-*` properties you already know:
 | `pgs-option="slideScale"` | `pgs-option="slideAnimationScale"` |
 | `pgs-option="notScrollAnimation"` | `pgs-option="notScrollWithMouse"` |
 | `--slides-shadow-color`, `--slides-shadow-width` | `--slides-maskStart`, `--slides-maskEnd`, `--slides-sizeMaskImage` |
-| `pgs-option="slidesNotScrollWithMouse"` | `pgs-option="slidesScrollMouse"` |
 
 The edge fade is a mask now, not a shadow, so it fades to whatever is behind instead of to one colour.
 
-The mouse-scroll option's default also flipped, not just its name: `slidesNotScrollWithMouse` opted OUT of mouse-wheel scrolling (on by default), while `slidesScrollMouse` opts IN (off by default). Simply renaming the token in existing markup silently disables the behavior — check each usage and add the option where the effect is still wanted.
+### Cookie consent is gone from the library
+
+`pgs.cookieConsent`, `cookieConsent[...]`, the `cookieConsent-*` tokens and their styles are removed:
+the consent banner was a Google Analytics integration, not a piece of interface, and it now lives in
+`PGS_theme`, which hooks onto classes of its own (`.cookieConsent`, `.cookieConsent-actionOpen`, ...) and
+keeps using the library's modal, buttons, toggle and badge. A project that used the library's version
+needs the `PGS_theme` one, or its own: the hidden marker is now
+`<div hidden data-cookie-consent='{json}'></div>`, and a control that reopens the panel carries the class
+`cookieConsent-actionOpen` instead of the token. Check sweep step 34.
+
+### Scroll horizontal is gone
+
+`pgs.scrollHorizontal(element, speed)` and `pgs.scrollHorizontalWithMouse(element, speed)` — the helpers
+that turned the vertical wheel into horizontal scrolling — are removed, and so is the Slides option
+that used them, `slidesScrollMouse`. A slides track no longer takes over the mouse wheel: it scrolls
+sideways with a swipe, a trackpad, the arrows or the dots, like any other horizontal scroller. A
+project that wants the old behaviour needs to write its own `wheel` listener. Check sweep step 11.
 
 ### Header: the hamburger group is an onlyCompact group
 
@@ -736,7 +742,6 @@ the browser and now apply. Three surfaces change look without any markup changin
 | --- | --- | --- |
 | `pgs="table"` rows | `var(--border-box)` / `var(--border-box-transparent)`, neither of which exists, so no zebra striping at all | `var(--color-box)` / `var(--color-box-transparent)`: the alternating rows are drawn |
 | `pgs="footer-legal-content"` | `border-top: var(--border) ...`, no such property, so no line | the separator above the legal area is drawn |
-| `pgs="cookieConsent"` | `gap: var(--gap-)`, a truncated token, so no gap | `var(--gap-texts)` between heading, text and buttons |
 
 A project that worked around any of the three — its own zebra striping on a `pgs="table"`, its own
 border above the footer legal row — now has both its rule and the library's.
@@ -815,7 +820,7 @@ border above the footer legal row — now has both its rule and the library's.
 grep -rnE 'pgs="[^"]*\bcolor[A-Z]' .
 
 # 2. generated markup now prefixed
-grep -rnE '\b(notifications-element|notifications-empty|toast-element|search-suggestions-item|stepTabs-dots-dot|cookieConsent-panel|cookieConsent-actionReject|cookieConsent-actionAccept|menu-buttonIcon)' .
+grep -rnE '\b(notifications-element|notifications-empty|toast-element|search-suggestions-item|stepTabs-dots-dot|menu-buttonIcon)' .
 
 # 3. options and states that were renamed
 grep -rnE '\b(menuHeader|buttonClose|mobileBottom|mobileActive|slideScale|notScrollAnimation|pageShell-aside-scroll|header-element-onlyDesktop|header-element-onlyMobile)\b' .
@@ -841,8 +846,8 @@ grep -rnE 'pgs="header"\s*>' .
 # 10. gap/wrap written as a bare pgs value instead of pgs-option
 grep -rnE 'pgs="[^"]*\b(gapTexts|gapElements|gapSections|gapNone|nowrap|wrap)\b' .
 
-# 11. direct calls to scrollHorizontal that relied on the old mouse-only behaviour
-grep -rn 'pgs\.scrollHorizontal(' .
+# 11. calls to the removed scrollHorizontal helpers, and the removed Slides option
+grep -rnE 'pgs\.scrollHorizontal(WithMouse)?\(|slides\[[^]]*.slidesScrollMouse.' .
 
 # 12. the hover opt-out, renamed
 grep -rn 'buttonNohover' .
@@ -916,7 +921,7 @@ grep -rnE '\b(position(Relative|Absolute|Sticky)|overflow(Auto|XAuto|Hidden)|asp
 grep -rnE '\bflex-flex[A-Za-z0-9]+|lottieChangeColor' .
 # 33. flags that took their component prefix (read, then rename by the prefix table)
 grep -rnE "accordion(Container)?\[[^]]*'(autoOpen|multiOpen)'|badge\[[^]]*'(dot|error|info|neutral|success|warning)'|card\[[^]]*'horizontalFixed'|dropdown\[[^]]*'hover'" .
-grep -rnE "icon\[[^]]*'(boxed|duo|large|medium)'|logo\[[^]]*'darkmode|menu\[[^]]*'(iconOnlyCurrent|short|vertical)'|slides\[[^]]*'(animationScale|scrollMouse|shadowDesktop|singleScroll)'" .
+grep -rnE "icon\[[^]]*'(boxed|duo|large|medium)'|logo\[[^]]*'darkmode|menu\[[^]]*'(iconOnlyCurrent|short|vertical)'|slides\[[^]]*'(animationScale|shadowDesktop|singleScroll)'" .
 grep -rnE "header\[[^]]*'(compact[A-Za-z]+|main|scroll)'|pageShell\[[^]]*'(asideScroll|asideShadow|fullPage)'|toggleDarkmode\[[^]]*'labelled'" .
 grep -rnE "container\[[^]]*'none'|img\[[^]]*'(cover|contain)'|borderRadius\[[^]]*'(input|external)'|hide\[[^]]*'(media|container)(Up|Down)" .
 ```
@@ -955,3 +960,6 @@ only the markup can tell you how to split. Hit 29 is a starting point, not a com
 sees an image written within three lines of the card, so an image printed by a helper
 (`PGS_fn_img()` and the like) has to be found by reading the card templates, and wrapped in
 `card-imgForChild`.
+
+# 34. the cookie consent that left the library
+grep -rnE "cookieConsent(-actionOpen)?\b|pgs\.cookieConsent" .

@@ -1,7 +1,7 @@
 <!--
 /**
  * @title Footer
- * @description Complete footer with theme control, brand area, navigation, informational content, and a link to cookie preferences.
+ * @description Complete footer with theme control, brand area, navigation, informational content, and legal links.
  *
  * @pgs
  * - footer: identifies the main footer container.
@@ -15,7 +15,7 @@
  *
  * @related
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
- * - button: presents theme and cookie preference controls as buttons.
+ * - button: presents the theme control as a button.
  * - toggleDarkmode: connects the control to the global light or dark theme handler.
  * - tglLabelled: labels that control with the theme the click leads to; see Darkmode.
  * - section: applies the shared section structure to the upper and legal areas.
@@ -23,7 +23,6 @@
  * - column-3: configures the footer flex layout with three columns.
  * - logo: inserts the brand into the footer.
  * - logo-text: uses the text variant of the logo.
- * - cookieConsent-actionOpen: opens the Cookie Consent preference panel.
  * - icon: draws the glyphs this example shows; see Icon for the whole set.
  * - icon-moon: the glyph of the theme control; belongs to the icon component.
  *
@@ -32,7 +31,7 @@
 -->
 
 <demo demo-h2="Examples"></demo>
-<demo demo-h3="Footer" demo-description="Brand and navigation columns in the upper section, legal links and cookie preferences in the lower one."></demo>
+<demo demo-h3="Footer" demo-description="Brand and navigation columns in the upper section, legal links in the lower one."></demo>
 <section demo="component">
     <footer pgs="footer">
     
@@ -62,7 +61,6 @@
 
         <section pgs="footer-legal section">
             <div pgs="footer-legal-content">
-                <button type="button" pgs="button cookieConsent-actionOpen">Cookie preferences</button>
                 <a href="">Privacy Policy</a>
                 <a href="">Cookie Policy</a>
                 <a href="">Termini e Condizioni</a>

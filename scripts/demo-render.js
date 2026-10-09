@@ -67,7 +67,6 @@ const referenceFiles = [
     "components/steps.html",
     "components/table.html",
     "components/toast.html",
-    "patterns/cookieConsent.html",
     "layout/header.html",
     "layout/navSmart.html",
     "layout/flex.html",
@@ -82,7 +81,6 @@ const referenceFiles = [
     "helper/pgs.html",
     "helper/init.html",
     "helper/formValidate.html",
-    "helper/scrollHorizontal.html",
 ];
 
 const ENTRY_ICONS = {
@@ -117,7 +115,6 @@ const ENTRY_ICONS = {
     "components/steps.html": "fa-shoe-prints",
     "components/table.html": "fa-table",
     "components/toast.html": "fa-bread-slice",
-    "patterns/cookieConsent.html": "fa-cookie-bite",
     "base/body.html": "fa-file-code",
     "layout/flex.html": "fa-bars-staggered",
     "layout/grid.html": "fa-table-cells-large",
@@ -133,7 +130,6 @@ const ENTRY_ICONS = {
     "helper/pgs.html": "fa-code",
     "helper/init.html": "fa-rotate",
     "helper/formValidate.html": "fa-pen-to-square",
-    "helper/scrollHorizontal.html": "fa-arrows-left-right",
 };
 const DEFAULT_ENTRY_ICON = "fa-square";
 

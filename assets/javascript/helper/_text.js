@@ -1,6 +1,5 @@
 //+ escapes text that gets interpolated into innerHTML, shared by every component that builds its
-//+ own markup from author-supplied strings (alert/notification/toast titles and descriptions,
-//+ cookieConsent copy)
+//+ own markup from author-supplied strings (alert/notification/toast titles and descriptions)
 export function PGS_escapeHtml(value) {
     return String(value ?? "")
         .replaceAll("&", "&amp;")

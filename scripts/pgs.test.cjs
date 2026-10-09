@@ -166,7 +166,7 @@ test('boolean flags with no payload live in the component bracket, not pgs-data'
     for (const [component, flag] of [
         ['header', 'headerScroll'], ['header', 'headerMain'],
         ['accordion', 'accAutoOpen'], ['accordionContainer', 'accMultiOpen'],
-        ['slides', 'slidesSingleScroll'], ['slides', 'slidesScrollMouse'],
+        ['slides', 'slidesSingleScroll'],
         ['dropdown', 'drpHover'], ['modal', 'dialogHistory'],
     ]) {
         const el = element();

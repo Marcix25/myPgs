@@ -250,26 +250,6 @@ function configureInitDemo() {
     });
 }
 
-//= Scroll Horizontal Demo
-function configureScrollHorizontalDemo() {
-    const pgsApi = globalThis.pgs;
-    const section = document.querySelector('[data-reference="helper/scrollHorizontal.html"]');
-    const container = section?.querySelector('#pgsScrollDemo');
-    if (!container) return;
-
-    pgsApi.scrollHorizontal(container, 5);
-}
-
-//= Scroll Horizontal With Mouse Demo
-function configureScrollHorizontalWithMouseDemo() {
-    const pgsApi = globalThis.pgs;
-    const section = document.querySelector('[data-reference="helper/scrollHorizontal.html"]');
-    const container = section?.querySelector('#pgsScrollWithMouseDemo');
-    if (!container) return;
-
-    pgsApi.scrollHorizontalWithMouse(container, 5);
-}
-
 //= Form Validate Helper Demo
 function configureFormValidateHelperDemo() {
     const pgsApi = globalThis.pgs;
@@ -320,8 +300,6 @@ function boot() {
         configureFormDemo();
         configureNotificationDemo();
         configureInitDemo();
-        configureScrollHorizontalDemo();
-        configureScrollHorizontalWithMouseDemo();
         configureFormValidateHelperDemo();
 
         document.querySelectorAll("pre code").forEach(code => window.Prism?.highlightElement(code));

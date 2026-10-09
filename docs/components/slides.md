@@ -25,7 +25,6 @@ A horizontal, scroll-snapped track of slides with its own arrows and position do
 - `slidesShadowDesktop`: fades the slides out at the edges from the tablet width up, only on the side that still has slides to reach.
 - `slidesAnimationScale`: scales each slide by how much of it is in view, through the --_slides-visiblePercent custom property the module writes on it; a slide sits at 1 before the first pass of the observer.
 - `slidesSingleScroll`: an arrow advances by a single slide, counted from the one the snap is resting on, instead of jumping past every slide currently in view.
-- `slidesScrollMouse`: turns the vertical mouse wheel into horizontal scrolling over the slides; off by default.
 - `slidesFullWidth`: each slide fills the full width of the track instead of the default fixed measure, at every breakpoint.
 - `slidesLoop`: the prec/next arrows wrap around at the ends instead of stopping, so prec from the first slide goes to the last one and next from the last goes to the first; neither arrow is ever disabled.
 
@@ -169,46 +168,6 @@ Scales each slide by its scroll visibility using pgs=&quot;slides['slidesAnimati
 
 ```html
 <div pgs="slides['slidesAnimationScale']">
-    <ul pgs="slides-container">
-        <li pgs="slides-container-slide">
-            <article pgs="card">
-                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 1">
-                <div pgs="card-content">
-                    <h3>Lorem ipsum dolor</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-            </article>
-        </li>
-
-        <li pgs="slides-container-slide">
-            <article pgs="card">
-                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 2">
-                <div pgs="card-content">
-                    <h3>Sit amet consectetur</h3>
-                    <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
-                </div>
-            </article>
-        </li>
-
-        <li pgs="slides-container-slide">
-            <article pgs="card">
-                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 3">
-                <div pgs="card-content">
-                    <h3>Adipiscing elit sed</h3>
-                    <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
-                </div>
-            </article>
-        </li>
-    </ul>
-</div>
-```
-
-### Scroll mouse
-
-Turns the vertical mouse wheel into horizontal scrolling over the slides, using pgs=&quot;slides['slidesScrollMouse']&quot;; off by default.
-
-```html
-<div pgs="slides['slidesScrollMouse']">
     <ul pgs="slides-container">
         <li pgs="slides-container-slide">
             <article pgs="card">

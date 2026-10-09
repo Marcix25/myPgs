@@ -167,7 +167,6 @@ declare global {
     registerModules(modules: Record<string, any>): PgsFunction;
     import(...names: string[]): Record<string, any>;
     init(root?: Document | Element): Document | Element;
-    cookieConsent?: any;
     darkmode?: any;
     svg?: any;
     hover?: PgsHoverModule;
@@ -186,8 +185,6 @@ declare global {
     stepTabs?: any;
     steps?: any;
     formValidate?: any;
-    scrollHorizontal?: any;
-    scrollHorizontalWithMouse?: any;
     [moduleName: string]: any;
   }
 

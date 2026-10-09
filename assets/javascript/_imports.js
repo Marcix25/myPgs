@@ -21,8 +21,6 @@ import { PGS_header } from "./layout/_header.js";
 import { PGS_navSmart } from "./layout/_navSmart.js";
 import { PGS_formValidate } from "./helper/_formValidate.js";
 import { PGS_init } from "./helper/_init.js";
-import { PGS_scrollHorizontal, PGS_scrollHorizontalWithMouse } from "./helper/_scrollHorizontal.js";
-import { PGS_cookieConsent } from "./patterns/_cookieConsent.js";
 
 pgs.registerModules({
     init: PGS_init,
@@ -37,7 +35,6 @@ pgs.registerModules({
     pageNav: PGS_pageNav,
     header: PGS_header,
     navSmart: PGS_navSmart,
-    cookieConsent: PGS_cookieConsent,
     notification: PGS_notification,
     toast: PGS_toast,
     search: PGS_search,
@@ -47,6 +44,4 @@ pgs.registerModules({
     summary: PGS_summary,
     tabs: PGS_tabs,
     formValidate: PGS_formValidate,
-    scrollHorizontal: PGS_scrollHorizontal,
-    scrollHorizontalWithMouse: PGS_scrollHorizontalWithMouse,
 });

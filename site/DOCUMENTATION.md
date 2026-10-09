@@ -95,7 +95,7 @@ write it. It's rendered live in the demo *and* copied verbatim into the generate
 ### The helper exception
 
 `reference/html/helper/*.html` documents a JavaScript utility rather than a component's markup —
-`pgs()` itself, `pgs.init`, `pgs.formValidate`, `pgs.scrollHorizontal`. These often touch no `pgs`
+`pgs()` itself, `pgs.init`, `pgs.formValidate`. These often touch no `pgs`
 token of their own, so `@pgs` is optional there and `@api` is required instead (enforced in
 `scripts/generate-component-docs.js` by `HELPER_REQUIRED_TAGS`). Everything else about the format
 is unchanged — see `reference/html/helper/formValidate.html` for a full example.
@@ -202,8 +202,8 @@ Details and cross-references, past what the table already says:
   `demo="component previewNone"` (see `notification.html`'s payload-only examples).
 - `demo="codeNone"` — the live preview still renders, there's just nothing worth copying (a more
   direct alternative to putting `demo="disabled"` on the item's own root for the same effect).
-  Combine it with `component`, e.g. `demo="component codeNone"` (see `svg.html`'s `<object>` and
-  `scrollHorizontal.html`'s demo rows).
+  Combine it with `component`, e.g. `demo="component codeNone"` (see `svg.html`'s `<object>`
+  demo row).
 
 ## Script blocks
 
@@ -215,7 +215,7 @@ markup and never shown mixed in with the "Example HTML":
 - **`<script type="text/x-example-js">`** — illustrative JavaScript, shown as its own "JavaScript
   Usage" code block. **This one never actually runs on the demo page** — it's inserted via
   `innerHTML`, and a browser does not execute a `<script>` inserted that way. It exists purely to be
-  read and copied (see `pgs.html`, `scrollHorizontal.html`, `svg.html`).
+  read and copied (see `pgs.html`, `svg.html`).
 - **`<script type="module">`** — looks like it should be live, and reads like real wiring code
   (see `form.html`, `search.html`), but it's subject to the exact same `innerHTML` limitation as
   above: **it doesn't execute either.** It's still just documentation.
@@ -238,7 +238,7 @@ function configureFormDemo() {
 
 Every such function is called once from `boot()`. Search `demo.js` for `configure` to see the
 current set (`configureFormDemo`, `configureSearchDemo`, `configureNotificationDemo`,
-`configureInitDemo`, `configureScrollHorizontalDemo`, `configureFormValidateHelperDemo`, ...) — copy
+`configureInitDemo`, `configureFormValidateHelperDemo`, ...) — copy
 that pattern for a new interactive example, always scoping queries to the element's own
 `data-reference` section (never to `document` directly), since every reference file's markup is
 present in the DOM at once, just hidden behind the currently-selected nav entry.

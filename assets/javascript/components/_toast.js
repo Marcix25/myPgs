@@ -32,22 +32,22 @@ const fn_toast = {
 
     //== position flags land on the container, the way Modal copies the ones on its wrapper to _dialog:
     //== _toast is the pgs-generated-only token that carries them, rebuilt at every toast so one toast's
-    //== position never leaks into the next. They come from the trigger (toastExe['toastLeft'],
-    //== toastLoad['toastRight']) and from the position option of a pgs.toast call, together. A
-    //== container written by hand keeps its own as the baseline
-    _applyOptions(container, trigger, position = []) {
+    //== position never leaks into the next. They come from the position of the toast: the field of its
+    //== pgs-data (toastLoad, toastExe) or the position option of a pgs.toast call. A container written
+    //== by hand keeps its own as the baseline
+    _applyOptions(container, position = []) {
         const wanted = [Array.isArray(position) ? position : String(position).split(/\s+/)].flat().filter(Boolean);
         const unknown = wanted.filter(key => !this._options.includes(key));
 
         if (unknown.length) console.error(`PGS toast: unknown position ${unknown.join(", ")}; use ${this._options.join(", ")}.`);
 
-        const keys = this._options.filter(key => wanted.includes(key) || (trigger && pgs(trigger).option.contains(key)));
+        const keys = this._options.filter(key => wanted.includes(key));
 
         pgs(container).remove("_toast");
         pgs(container).add("_toast", ...keys.map(key => `_toast['${key}']`));
     },
 
-    _add(type, options, trigger) {
+    _add(type, options) {
         const { timeout = this._defaults.timeout, position, ...config } = fn_alert._toOptions(options, "toast");
 
         const toast = fn_alert.create(type, {
@@ -61,12 +61,12 @@ const fn_toast = {
 
         //== only one toast is shown at a time: a new one simply replaces whatever was there
         const container = this._getOrCreateContainer();
-        this._applyOptions(container, trigger, position);
+        this._applyOptions(container, position);
         container.replaceChildren(toast);
     },
 
     _dispatch(element) {
-        fn_alert.fromData(element, "toast").forEach(({ type, options }) => this._add(type, options, element));
+        fn_alert.fromData(element, "toast").forEach(({ type, options }) => this._add(type, options));
     },
 
     //== DELETE
