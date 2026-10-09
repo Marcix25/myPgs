@@ -29,12 +29,15 @@
 //= SLIDES 
 :is([pgs~="slides"], [pgs*="slides\5B"]) {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--gap-texts);
     position: relative;
     container-type: inline-size;
     align-items: center;
     isolation: isolate;
     height: max-content;
+    justify-content: center;
     --slides-sizeMaskImage: 40px;
     --slides-width: calc(var(--page-width) /2.3);
     --slides-width-tablet: 100%;
@@ -88,36 +91,60 @@
     :where([pgs~="slides-prec"]),
     :where([pgs~="slides-next"]) {}
 
+    // the arrows the module builds sit in a row above the slides, at the end: the root becomes a grid
+    // for it, with the track on the row below. Only the generated ones have this (the _ prefix tells
+    // them apart): an arrow written by hand keeps wherever it was put. slidesArrowsCenter takes them
+    // out of it again, below
+    &:has([pgs~="_slides-prec"], [pgs~="_slides-next"]) {
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        gap: var(--gap-texts);
+        align-items: center;
+
+        :where([pgs~="slides-container"]) {
+            grid-column: 1 / -1;
+            grid-row: 2;
+        }
+    }
+
+    //== relative, not static: the hover of a button paints a ::before sized 100% of the first positioned
+    //== ancestor, which has to be the button itself and not the whole slides
     [pgs~="_slides-prec"],
     [pgs~="_slides-next"] {
-        position: absolute;
+        position: relative;
         z-index: 4;
-        top: calc(var(--_slides-height, 100%) / 2);
-        translate: 0 -50%;
+        grid-row: 1;
+    }
 
-        &:is(:where([pgs~="slides-prec"]),
-            :where([pgs~="_slides-prec"])) {
-            left: .4rem;
+    [pgs~="_slides-prec"] { grid-column: 2; }
+    [pgs~="_slides-next"] { grid-column: 3; }
+
+    //+ slidesArrowsCenter
+    // the generated arrows go back to lying over the slides, one on each side, at the middle of
+    // the height of the track (--_slides-height, measured by the module); the root is a column again
+    &[pgs*="'slidesArrowsCenter'"] {
+        display: flex;
+        flex-direction: column;
+
+        [pgs~="_slides-prec"],
+        [pgs~="_slides-next"] {
+            position: absolute;
+            grid-row: auto;
+            grid-column: auto;
+            top: calc(var(--_slides-height, 100%) / 2);
+            translate: 0 -50%;
         }
 
-        &:is(:where([pgs~="slides-next"]),
-            :where([pgs~="_slides-next"])) {
-            right: .4rem;
-        }
+        [pgs~="_slides-prec"] { left: .4rem; }
+        [pgs~="_slides-next"] { right: .4rem; }
 
         //-( tablet
         @container (max-width: $tablet) {
-            --button-size: .8rem;
+            [pgs~="_slides-prec"],
+            [pgs~="_slides-next"] { --button-size: .8rem; }
 
-            &:is(:where([pgs~="slides-prec"]),
-                &:where([pgs~="_slides-prec"])) {
-                left: calc(var(--page-padding) * -1 + .4rem);
-            }
-
-            &:is(:where([pgs~="slides-next"]),
-                &:where([pgs~="_slides-next"])) {
-                right: calc(var(--page-padding) * -1 + .4rem);
-            }
+            [pgs~="_slides-prec"] { left: calc(var(--page-padding) * -1 + .4rem); }
+            [pgs~="_slides-next"] { right: calc(var(--page-padding) * -1 + .4rem); }
         }
     }
 

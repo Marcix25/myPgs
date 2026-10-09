@@ -25,6 +25,8 @@ A horizontal, scroll-snapped track of slides with its own arrows and position do
 - `slidesShadowDesktop`: fades the slides out at the edges from the tablet width up, only on the side that still has slides to reach.
 - `slidesAnimationScale`: scales each slide by how much of it is in view, through the --_slides-visiblePercent custom property the module writes on it; a slide sits at 1 before the first pass of the observer.
 - `slidesSingleScroll`: an arrow advances by a single slide, counted from the one the snap is resting on, instead of jumping past every slide currently in view.
+- `slidesArrowsCenter`: puts the arrows the module builds over the slides again, one on each side at the middle of their height, instead of in a row above them at the end. An arrow written by hand (slides-prec, slides-next) is not moved either way: only the generated ones are.
+- `slidesNotDots`: takes the dots the module builds off the slides, and the room kept under them. A dots row written by hand (slides-dots) is not touched: only the generated one is hidden.
 - `slidesFullWidth`: each slide fills the full width of the track instead of the default fixed measure, at every breakpoint.
 - `slidesLoop`: the prec/next arrows wrap around at the ends instead of stopping, so prec from the first slide goes to the last one and next from the last goes to the first; neither arrow is ever disabled.
 
@@ -195,6 +197,76 @@ Scales each slide by its scroll visibility using pgs=&quot;slides['slidesAnimati
                 <div pgs="card-content">
                     <h3>Adipiscing elit sed</h3>
                     <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                </div>
+            </article>
+        </li>
+    </ul>
+</div>
+```
+
+### Arrows over the slides
+
+The arrows the module builds sit in a row above the slides, at the end. slidesArrowsCenter, written as pgs=&quot;slides['slidesArrowsCenter']&quot;, puts them over the slides instead, one on each side at the middle of their height. Arrows written by hand are not moved.
+
+```html
+<div pgs="slides['slidesArrowsCenter']">
+    <ul pgs="slides-container">
+        <li pgs="slides-container-slide">
+            <article pgs="card">
+                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 1">
+                <div pgs="card-content">
+                    <h3>Lorem ipsum dolor</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            </article>
+        </li>
+
+        <li pgs="slides-container-slide">
+            <article pgs="card">
+                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 2">
+                <div pgs="card-content">
+                    <h3>Sit amet consectetur</h3>
+                    <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                </div>
+            </article>
+        </li>
+
+        <li pgs="slides-container-slide">
+            <article pgs="card">
+                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 2">
+                <div pgs="card-content">
+                    <h3>Sit amet consectetur</h3>
+                    <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                </div>
+            </article>
+        </li>
+    </ul>
+</div>
+```
+
+### Without dots
+
+The dots the module builds are taken off the slides, using pgs=&quot;slides['slidesNotDots']&quot;. A dots row written by hand is not hidden.
+
+```html
+<div pgs="slides['slidesNotDots']">
+    <ul pgs="slides-container">
+        <li pgs="slides-container-slide">
+            <article pgs="card">
+                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 1">
+                <div pgs="card-content">
+                    <h3>Lorem ipsum dolor</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            </article>
+        </li>
+
+        <li pgs="slides-container-slide">
+            <article pgs="card">
+                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 2">
+                <div pgs="card-content">
+                    <h3>Sit amet consectetur</h3>
+                    <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
                 </div>
             </article>
         </li>

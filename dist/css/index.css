@@ -6302,12 +6302,15 @@ html:has(dialog[open]) {
 }
 :is([pgs~=slides], [pgs*="slides["]) {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--gap-texts);
   position: relative;
   container-type: inline-size;
   align-items: center;
   isolation: isolate;
   height: max-content;
+  justify-content: center;
   --slides-sizeMaskImage: 40px;
   --slides-width: calc(var(--page-width) /2.3);
   --slides-width-tablet: 100%;
@@ -6364,43 +6367,64 @@ html:has(dialog[open]) {
     min-width: var(--slides-width-mobile);
   }
 }
+:is([pgs~=slides], [pgs*="slides["]):has([pgs~=_slides-prec], [pgs~=_slides-next]) {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: var(--gap-texts);
+  align-items: center;
+}
+
+:is([pgs~=slides], [pgs*="slides["]):has([pgs~=_slides-prec], [pgs~=_slides-next]) :where([pgs~=slides-container]) {
+  grid-column: 1/-1;
+  grid-row: 2;
+}
+
 :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec],
 :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next] {
-  position: absolute;
+  position: relative;
   z-index: 4;
+  grid-row: 1;
+}
+
+:is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec] {
+  grid-column: 2;
+}
+
+:is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next] {
+  grid-column: 3;
+}
+
+:is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesArrowsCenter'"] {
+  display: flex;
+  flex-direction: column;
+}
+
+:is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesArrowsCenter'"] [pgs~=_slides-prec],
+:is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesArrowsCenter'"] [pgs~=_slides-next] {
+  position: absolute;
+  grid-row: auto;
+  grid-column: auto;
   top: calc(var(--_slides-height, 100%) / 2);
   translate: 0 -50%;
 }
 
-:is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec]:is(:where([pgs~=slides-prec]),
-:where([pgs~=_slides-prec])),
-:is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next]:is(:where([pgs~=slides-prec]),
-:where([pgs~=_slides-prec])) {
+:is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesArrowsCenter'"] [pgs~=_slides-prec] {
   left: 0.4rem;
 }
 
-:is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec]:is(:where([pgs~=slides-next]),
-:where([pgs~=_slides-next])),
-:is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next]:is(:where([pgs~=slides-next]),
-:where([pgs~=_slides-next])) {
+:is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesArrowsCenter'"] [pgs~=_slides-next] {
   right: 0.4rem;
 }
 
 @container (max-width: $tablet) {
-  :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec],
-  :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next] {
+  :is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesArrowsCenter'"] [pgs~=_slides-prec],
+  :is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesArrowsCenter'"] [pgs~=_slides-next] {
     --button-size: .8rem;
   }
-  :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec]:is(:where([pgs~=slides-prec]), :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec]:where([pgs~=_slides-prec]),
-  :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next]:where([pgs~=_slides-prec])),
-  :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next]:is(:where([pgs~=slides-prec]), :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec]:where([pgs~=_slides-prec]),
-  :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next]:where([pgs~=_slides-prec])) {
+  :is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesArrowsCenter'"] [pgs~=_slides-prec] {
     left: calc(var(--page-padding) * -1 + 0.4rem);
   }
-  :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec]:is(:where([pgs~=slides-next]), :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec]:where([pgs~=_slides-next]),
-  :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next]:where([pgs~=_slides-next])),
-  :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next]:is(:where([pgs~=slides-next]), :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prec]:where([pgs~=_slides-next]),
-  :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next]:where([pgs~=_slides-next])) {
+  :is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesArrowsCenter'"] [pgs~=_slides-next] {
     right: calc(var(--page-padding) * -1 + 0.4rem);
   }
 }

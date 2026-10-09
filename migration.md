@@ -347,6 +347,12 @@ with the `--button-*` properties you already know:
 
 The edge fade is a mask now, not a shadow, so it fades to whatever is behind instead of to one colour.
 
+The arrows the module builds changed place: they now sit in a row above the slides, at the end, instead
+of lying over them at the middle of their height. `slidesArrowsCenter` brings the old placement back,
+so a slides that should keep its arrows over the slides needs it written. Arrows written by hand
+(`slides-prec`, `slides-next`) are not moved by either. The dots can be taken off too, with `slidesNotDots`.
+Check sweep step 35.
+
 ### Cookie consent is gone from the library
 
 `pgs.cookieConsent`, `cookieConsent[...]`, the `cookieConsent-*` tokens and their styles are removed:
@@ -963,3 +969,6 @@ sees an image written within three lines of the card, so an image printed by a h
 
 # 34. the cookie consent that left the library
 grep -rnE "cookieConsent(-actionOpen)?\b|pgs\.cookieConsent" .
+
+# 35. every slides, to decide whether its arrows stay over the slides (read, don't replace)
+grep -rnE "pgs=\"[^\"]*slides(\[|\"| )" .
