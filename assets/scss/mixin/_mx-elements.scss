@@ -1,7 +1,7 @@
 @use "mx-responsive" as *;
 
-//# TEXTAREA, LIST, FOCUS
-//= TEXTAREA
+//= TEXTAREA, LIST, FOCUS
+//# TEXTAREA
 @mixin textarea() {
     align-items: flex-start;
     @include column();
@@ -16,7 +16,7 @@
     }
 }
 
-//= LIST
+//# LIST
 @mixin list() {
 
     :is(ul),
@@ -50,7 +50,7 @@
     }
 }
 
-//= FOCUS
+//# FOCUS
 @mixin focus() {
     &:where(:not(:disabled, [disabled])):focus-visible {
         outline: var(--focus-visible);

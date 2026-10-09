@@ -1,10 +1,10 @@
 @use "../mixin/mixin" as *;
 
-//# HEADING & TEXT
-//= HEADING
-//== the single place every heading's custom properties are declared, for the whole page: change
-//== --heading-family-h3 here (or override it downstream, same specificity rules as any other
-//== custom property) instead of passing a different value into h3()/heading() at every call site
+//= HEADING & TEXT
+//# HEADING
+//## the single place every heading's custom properties are declared, for the whole page: change
+//## --heading-family-h3 here (or override it downstream, same specificity rules as any other
+//## custom property) instead of passing a different value into h3()/heading() at every call site
 :root {
     --heading-color: var(--color-black);
     --heading-family: var(--font-heading);
@@ -55,7 +55,7 @@
 [pgs~="h5"] { @include h5(); }
 [pgs~="h6"] { @include h6(); }
 
-//= TEXT
+//# TEXT
 :root {
     --text-color: var(--color-text);
     --text-family: var(--font);

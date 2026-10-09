@@ -1,12 +1,12 @@
-//# LAYOUT, CONTENT & INTERACTION UTILITIES
-//= DISPLAY & FLEX ITEMS
+//= LAYOUT, CONTENT & INTERACTION UTILITIES
+//# DISPLAY & FLEX ITEMS
 [pgs~="block"] { display: block; }
 [pgs~="minWidth0"] { min-width: 0; }
 
-//= POSITION
-//== each value gets its own unique flag (posRelative, posAbsolute, posSticky) instead of a bare
-//== 'relative'/'absolute'/'sticky', so the inner checks need no anchoring at all — no other
-//== component can ever produce the same quoted substring
+//# POSITION
+//## each value gets its own unique flag (posRelative, posAbsolute, posSticky) instead of a bare
+//## 'relative'/'absolute'/'sticky', so the inner checks need no anchoring at all — no other
+//## component can ever produce the same quoted substring
 [pgs*="position\5B"] {
     &[pgs*="'posRelative'"] { position: relative; }
     &[pgs*="'posAbsolute'"] { position: absolute; }
@@ -18,11 +18,11 @@
     }
 }
 
-//= OVERFLOW & TEXT
-//== auto/hidden apply to both axes by default; ovAutoX/ovAutoY/ovHiddenX/ovHiddenY fold the axis
-//== into the flag name itself instead of checking for a second 'x'/'y' token next to 'auto' in the
-//== same bracket, which used to assume 'auto' came first — folding the axis into the name removes
-//== that ordering assumption entirely, the same fix already applied to margin and padding
+//# OVERFLOW & TEXT
+//## auto/hidden apply to both axes by default; ovAutoX/ovAutoY/ovHiddenX/ovHiddenY fold the axis
+//## into the flag name itself instead of checking for a second 'x'/'y' token next to 'auto' in the
+//## same bracket, which used to assume 'auto' came first — folding the axis into the name removes
+//## that ordering assumption entirely, the same fix already applied to margin and padding
 [pgs*="overflow\5B"] {
     &[pgs*="'ovAuto'"] { overflow: auto; }
     &[pgs*="'ovHidden'"] { overflow: hidden; }
@@ -33,7 +33,7 @@
     &[pgs*="'ovHiddenY'"] { overflow-y: hidden; }
 }
 
-//= TEXT ALIGN
+//# TEXT ALIGN
 [pgs*="textAlign\5B"] {
     &[pgs*="'taLeft'"] { text-align: left; }
     &[pgs*="'taCenter'"] { text-align: center; }
@@ -49,16 +49,16 @@
     white-space: nowrap;
 }
 
-//= ASPECT RATIO
+//# ASPECT RATIO
 [pgs*="aspect\5B"] {
     &[pgs*="'aspSquare'"] { aspect-ratio: 1 / 1; }
     &[pgs*="'aspVideo'"] { aspect-ratio: 16 / 9; }
     &[pgs*="'aspAuto'"] { aspect-ratio: auto; }
 }
 
-//= ROTATION
-//== bare, with no option, rotate defaults to 180deg — the common case (a chevron that points the
-//== opposite way) doesn't need one written out
+//# ROTATION
+//## bare, with no option, rotate defaults to 180deg — the common case (a chevron that points the
+//## opposite way) doesn't need one written out
 :is([pgs~="rotate"], [pgs*="rotate\5B"]) {
     transform: rotate(180deg);
 
@@ -68,7 +68,7 @@
     &[pgs*="'rot270'"] { transform: rotate(270deg); }
 }
 
-//= INTERACTION
+//# INTERACTION
 [pgs*="userSelect\5B"] {
     &[pgs*="'selNone'"] {
         -webkit-user-select: none;
@@ -88,10 +88,10 @@
 
 [pgs~="cursorNotAllowed"] { cursor: not-allowed; }
 
-//= Z-INDEX
-//== an arbitrary value has no small enumerable set the way rotate/position do, so it works like
-//== width/height's own -size property: set --zIndex inline for the actual number, or pick one of
-//== the two common shortcuts below
+//# Z-INDEX
+//## an arbitrary value has no small enumerable set the way rotate/position do, so it works like
+//## width/height's own -size property: set --zIndex inline for the actual number, or pick one of
+//## the two common shortcuts below
 // reset on every element so a parent's z-index flag is not inherited; :where keeps it at zero
 // specificity, so a value written by the author on the element still wins
 :where([pgs~="zIndex"], [pgs*="zIndex\5B"]) { --zIndex: auto; }

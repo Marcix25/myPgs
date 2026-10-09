@@ -1,8 +1,8 @@
 @use "../mixin/mixin" as *;
 
-//# GRID
 //= GRID
-//== GRID OPTIONS
+//# GRID
+//## GRID OPTIONS
 :is([pgs~="grid"], [pgs*="grid\5B"]) {
     display: grid;
     --gap: var(--gap-texts);
@@ -43,7 +43,7 @@
     }
 }
 
-//== GRID CHILD
+//## GRID CHILD
 // the grid counterpart of flexChild: how one item sits inside the grid it belongs to. Separate
 // from flexChild because a grid item has none of flex's sizing (flex-grow/basis mean nothing
 // there), and its own options stay free to grow into rows and placement

@@ -1,6 +1,6 @@
 @use "mx-responsive" as *;
 
-//= MAIN 
+//# MAIN 
 @mixin main() {
     --main-padding-top: var(--page-top);
     --main-padding-bottom: var(--page-top);
@@ -14,7 +14,7 @@
     width: 100%;
 }
 
-//= SECTION 
+//# SECTION 
 @mixin section {
     --section-width: calc(var(--page-width) + (var(--page-padding) * 2));
     margin-inline: auto;

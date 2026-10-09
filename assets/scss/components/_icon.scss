@@ -28,11 +28,11 @@
 :is([pgs~="icon"], [pgs*="icon\5B"]) {
     @include iconBase();
 
-    //== the key is the bare glyph name, so both prefixes are written out here: the drawing goes on
-    //== --icon-glyph-*, away from the icon's own configuration, and the option keeps the icon-
-    //== form that is written in the markup. The mask has to land on ::before, where iconBase()
-    //== drew the box — masking the wrapper element itself paints nothing, since that element has
-    //== no background of its own.
+    //## the key is the bare glyph name, so both prefixes are written out here: the drawing goes on
+    //## --icon-glyph-*, away from the icon's own configuration, and the option keeps the icon-
+    //## form that is written in the markup. The mask has to land on ::before, where iconBase()
+    //## drew the box — masking the wrapper element itself paints nothing, since that element has
+    //## no background of its own.
     @each $name, $url in $icons-builtin {
         &[pgs*="'icon-#{$name}'"] {
             --icon: var(--icon-glyph-#{$name});

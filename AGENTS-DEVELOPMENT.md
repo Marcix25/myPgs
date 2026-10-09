@@ -86,15 +86,16 @@ When changing a token, update every selector, query, reference, declaration, dem
 ### SCSS comment hierarchy
 
 Every SCSS comment uses one of these markers, chosen by what it introduces, never mixed with plain
-prose. The first group is a heading hierarchy, the second marks what the next block of code is, the
-third is text:
+prose. The headings follow Markdown (`#` is the title, more `#` is one level down); the file index
+is the one marker that uses `=`:
 
 | marker (followed by a space) | use |
 | --- | --- |
-| `//#` | page identifier, once per file, when the file has several components or sections and it helps to know what's inside from the first line — like an HTML `<title>`. Example: `//# BORDER - BORDER RADIUS - OUTLINE` |
-| `//=` | a title, like an `<h1>`; each extra `=` is one level down. Example: `//= SLIDES` |
-| `//==` | a subtitle, like an `<h2>`. Example: `//== CONTAINER SLIDES` |
-| `//===` | a sub-subtitle, like an `<h3>`. Example: `//=== SLIDE` |
+| `//=` | file index, once per file, when the file has several components or sections and it helps to know what's inside from the first line — like an HTML `<title>`. Example: `//= BORDER - BORDER RADIUS - OUTLINE` |
+| `//#` | a title, like an `<h1>`. Example: `//# SLIDES` |
+| `//##` | a subtitle, like an `<h2>`. Example: `//## CONTAINER SLIDES` |
+| `//###` | a sub-subtitle, like an `<h3>`. Example: `//### SLIDE` |
+| `//####` | one level further down, like an `<h4>` |
 | `//+` | the block that follows is an option, `&[pgs*="'slidesArrowsCenter'"]`, or a `@media (min-width: …)` |
 | `//+(` | the block that follows is a `@container (min-width: …)` |
 | `//-` | the block that follows is a `@media (max-width: …)` |
@@ -102,8 +103,9 @@ third is text:
 | `////` | an important paragraph, such as `//// BREAKING CHANGE !!` |
 | `//` (nothing after the slashes) | a plain paragraph, a description or explanation at any depth. Never reuse the markers above for prose. |
 
-`//=` and `//#` are meant to swap meaning later, to sit closer to Markdown (`#` as the title): when
-that happens, every file changes together.
+The same headings (`//=`, `//#`, `//##`, `//###`, `//####`) are used in the JavaScript and PHP files.
+The `//+`, `//+(`, `//-` and `//-(` markers only make sense in SCSS, where they announce an option or a
+media/container query.
 
 - Add reusable styles to the correct `base`, `layout`, `components`, or `mixin` group.
 - Import new source files from `assets/scss/index.scss` or forward mixins from `assets/scss/mixin/mixin.scss` as appropriate.

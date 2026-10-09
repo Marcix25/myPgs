@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-//# WATCH SITE
+//= WATCH SITE
 //+ Re-runs scripts/build-site-static.js whenever one of its inputs changes, so none of
 //+ site/build/*.html is ever the previous version of itself while iterating. Those inputs are
 //+ exactly five things:
@@ -101,8 +101,8 @@ function listDirectories(root) {
 }
 
 //+ SYNC WATCHERS
-//== called again after every build: a new reference/html subdirectory is watched from then on, and
-//== one that disappeared drops its watcher instead of throwing later
+//## called again after every build: a new reference/html subdirectory is watched from then on, and
+//## one that disappeared drops its watcher instead of throwing later
 function syncWatchers() {
     const wanted = new Set();
 
@@ -119,9 +119,9 @@ function syncWatchers() {
 
                     const changed = path.join(directory, filename);
 
-                    //== a subdirectory that appears has to start being watched at once: nothing
-                    //== written inside it would be seen otherwise, and the event name alone does
-                    //== not say whether it is a file or a directory
+                    //## a subdirectory that appears has to start being watched at once: nothing
+                    //## written inside it would be seen otherwise, and the event name alone does
+                    //## not say whether it is a file or a directory
                     if (target.recursive && isDirectory(changed)) {
                         syncWatchers();
                         return;
@@ -151,8 +151,8 @@ function syncWatchers() {
 }
 
 //+ SCHEDULE BUILD
-//== one save can fire several events, and saving a handful of files at once should still cost one
-//== build: the timer restarts on every event and only the first file is worth naming
+//## one save can fire several events, and saving a handful of files at once should still cost one
+//## build: the timer restarts on every event and only the first file is worth naming
 function scheduleBuild(reason) {
     if (!pendingReason) pendingReason = reason;
     if (debounceId) clearTimeout(debounceId);
@@ -166,8 +166,8 @@ function scheduleBuild(reason) {
 }
 
 //+ RUN BUILD
-//== a child process, not a require(): the build reads its inputs at module load, and a syntax error
-//== in a source file it pulls in must not take the watcher down with it
+//## a child process, not a require(): the build reads its inputs at module load, and a syntax error
+//## in a source file it pulls in must not take the watcher down with it
 function runBuild(reason) {
     if (running) {
         queued = true;
@@ -196,7 +196,7 @@ function runBuild(reason) {
     });
 }
 
-//= START
+//# START
 syncWatchers();
 
 if (!watchers.size) {

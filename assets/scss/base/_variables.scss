@@ -3,7 +3,7 @@
 //+ MIXIN
 :where([pgs~="htmlBase"]) {
 
-    // = SETTINGS 
+    //# SETTINGS 
     &:root {
         --SIZE: 3.0rem;
         --SIZE-texts: calc(var(--SIZE) / 2);
@@ -69,47 +69,47 @@
         @media (max-width: $mobile) { --gap-sections: calc(7.3rem + 8svh); }
     }
 
-    //= COLOR 
-    //== LIGHTMODE & DARKMODE
+    //# COLOR 
+    //## LIGHTMODE & DARKMODE
     &:root {
         color-scheme: light;
 
         &[pgs-state~=darkmode] { color-scheme: dark; }
 
-        //== Primary colors
+        //## Primary colors
         --color-primary: #3aa561;
         --color-secondary: #ffa600;
         --color-tertiary: #00f2ff;
         --color-quaternary: #ddff00;
-        //=== Primary Texts
+        //### Primary Texts
         --color-primary-text: #87ffb3;
         --color-secondary-text: #492f00;
         --color-tertiary-text: #004a4e;
         --color-quaternary-text: #323900;
-        //== Variant color
+        //## Variant color
         $percentage-light: 78%;
         $percentage-dark: 60%;
-        //=== soft
+        //### soft
         --color-primary-soft: light-dark(color-mix(in srgb, var(--color-primary), var(--color-white) #{$percentage-light}), color-mix(in srgb, var(--color-primary), var(--color-white) #{$percentage-dark}));
         --color-secondary-soft: light-dark(color-mix(in srgb, var(--color-secondary), var(--color-white) #{$percentage-light}), color-mix(in srgb, var(--color-secondary), var(--color-white) #{$percentage-dark}));
         --color-quaternary-soft: light-dark(color-mix(in srgb, var(--color-quaternary), var(--color-white) #{$percentage-light}), color-mix(in srgb, var(--color-quaternary), var(--color-white) #{$percentage-dark}));
         --color-tertiary-soft: light-dark(color-mix(in srgb, var(--color-tertiary), var(--color-white) #{$percentage-light}), color-mix(in srgb, var(--color-tertiary), var(--color-white) #{$percentage-dark}));
-        //=== light
+        //### light
         --color-primary-light: color-mix(in srgb, var(--color-primary), var(--color-whiteFixed) #{$percentage-light});
         --color-secondary-light: color-mix(in srgb, var(--color-secondary), var(--color-whiteFixed) #{$percentage-light});
         --color-quaternary-light: color-mix(in srgb, var(--color-quaternary), var(--color-whiteFixed) #{$percentage-light});
         --color-tertiary-light: color-mix(in srgb, var(--color-tertiary), var(--color-whiteFixed) #{$percentage-light});
-        //=== strong    
+        //### strong    
         --color-primary-strong: light-dark(color-mix(in srgb, var(--color-primary), var(--color-black) #{$percentage-dark}), color-mix(in srgb, var(--color-primary), var(--color-black) #{$percentage-light}));
         --color-secondary-strong: light-dark(color-mix(in srgb, var(--color-secondary), var(--color-black) #{$percentage-dark}), color-mix(in srgb, var(--color-secondary), var(--color-black) #{$percentage-light}));
         --color-quaternary-strong: light-dark(color-mix(in srgb, var(--color-quaternary), var(--color-black) #{$percentage-dark}), color-mix(in srgb, var(--color-quaternary), var(--color-black) #{$percentage-light}));
         --color-tertiary-strong: light-dark(color-mix(in srgb, var(--color-tertiary), var(--color-black) #{$percentage-dark}), color-mix(in srgb, var(--color-tertiary), var(--color-black) #{$percentage-light}));
-        //=== dark
+        //### dark
         --color-primary-dark: color-mix(in srgb, var(--color-primary), var(--color-blackFixed) #{$percentage-dark});
         --color-secondary-dark: color-mix(in srgb, var(--color-secondary), var(--color-blackFixed) #{$percentage-dark});
         --color-quaternary-dark: color-mix(in srgb, var(--color-quaternary), var(--color-blackFixed) #{$percentage-dark});
         --color-tertiary-dark: color-mix(in srgb, var(--color-tertiary), var(--color-blackFixed) #{$percentage-dark});
-        // == Base colors
+        //## Base colors
         --color-white: light-dark(#FFFFFF, #000000);
         --color-black: light-dark(#000000, #FFFFFF);
         --color-white-transparent: color-mix(in srgb, var(--color-white) 50%, transparent 50%);
@@ -128,7 +128,7 @@
         --color-icon-primary: var(--color-primary);
         --color-icon-secondary: var(--color-primary-soft);
         --color-focus: var(--color-link);
-        // == status 
+        //## status 
         --color-info: var(--color-link);
         --color-error: #ff6161;
         --color-warning: #ffa900;

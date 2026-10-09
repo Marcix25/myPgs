@@ -3,7 +3,7 @@ import { PGS_dispatch, PGS_uniqueId } from "../helper/_dom.js";
 import { PGS_formatText } from "../helper/_text.js";
 import { PGS_invalid, PGS_warn } from "../helper/_warn.js";
 
-//= PGS_alert
+//# PGS_alert
 // the shared engine behind Alerts, Notification and Toast: builds the card (icon, title,
 // description), and optionally a dismiss button, a row of action buttons, and an auto-dismiss
 // timeout — all off by default, since a bare alert is a static message. Notification turns on
@@ -157,7 +157,7 @@ const fn_alert = {
                     closeTitle: String(raw.closeTitle || raw["title-close"] || "").trim() || undefined,
                     buttons: Array.isArray(raw.buttons) ? raw.buttons : undefined,
                     timeout: Number.isNaN(duration) ? undefined : duration,
-                    //== read by the hosts that place their alert (Toast); the others never look at it
+                    //## read by the hosts that place their alert (Toast); the others never look at it
                     position: raw.position || undefined
                 }
             }];
@@ -283,7 +283,7 @@ const fn_alert = {
     show(type, options = {}) {
         const scope = `alert.${type}`;
         const { root, container, ...contentOptions } = this._toOptions(options, scope);
-        //== the placement is checked before the card is built, so a wrong root leaves nothing behind
+        //## the placement is checked before the card is built, so a wrong root leaves nothing behind
         const target = root !== undefined || container !== undefined ? this._getContainer(root, container, scope) : null;
         const alert = this.create(type, contentOptions);
 

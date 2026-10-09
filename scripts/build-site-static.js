@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-//# BUILD STATIC SITE
+//= BUILD STATIC SITE
 //+ Hand-authored shells and fragments, none of them a page on its own, combined with each page's own
 //+ content into every site/build/<name>.html:
 //+ - site/index.html — the page around every page: head, and the <!-- include: page <path> --> comment
@@ -47,8 +47,8 @@ const SITE_ROOT = path.join(PROJECT_ROOT, "site");
 const SITE_STRUCTURE_HTML = path.join(SITE_ROOT, "index.html");
 const BUILD_DIR = path.join(SITE_ROOT, "build");
 const DEMO_PAGE = "demo.html";
-//== <!-- include: page site/page/<name>.html --> is the one include that is not a file of parts/: it says
-//== where each page's own content is read from, <name> standing for the page's name
+//## <!-- include: page site/page/<name>.html --> is the one include that is not a file of parts/: it says
+//## where each page's own content is read from, <name> standing for the page's name
 const PAGE_INCLUDE_PATTERN = /<!--\s*include:\s*page\s+(\S+?)\s*-->/;
 const COMPILED_CSS = path.join(PROJECT_ROOT, "dist", "css", "index.css");
 const WELCOME_FILE = path.join(REFERENCE_ROOT, "guides", "welcome.html");
@@ -128,8 +128,8 @@ function minifyHtml(html) {
 function buildDemoPageContent(structureHtml, navHtml, panelsHtml) {
     let output = structureHtml;
 
-    //== both the desktop aside and the mobile dialog copy share the same empty
-    //== `class="reference-demo-nav"` wrapper, and demo.js drives them together, so both get filled
+    //## both the desktop aside and the mobile dialog copy share the same empty
+    //## `class="reference-demo-nav"` wrapper, and demo.js drives them together, so both get filled
     const navWrapperPattern = /(<div\b[^>]*class="reference-demo-nav"[^>]*>)(\s*)(<\/div>)/g;
     let navMatches = 0;
     output = output.replace(navWrapperPattern, (match, openTag, _whitespace, closeTag) => {
@@ -194,9 +194,9 @@ function main() {
     const pageDir = path.dirname(getPageFile(pageTemplate, "x"));
     fs.mkdirSync(pageDir, { recursive: true });
 
-    //== every page is a hand-authored file at the path of the page include. demo.html is the one whose
-    //== content is not used as written: it is merged in memory with the nav and panels rendered from
-    //== reference/html first, and nothing generated is written back there
+    //## every page is a hand-authored file at the path of the page include. demo.html is the one whose
+    //## content is not used as written: it is merged in memory with the nav and panels rendered from
+    //## reference/html first, and nothing generated is written back there
     const demoName = path.basename(DEMO_PAGE, ".html");
     if (!fs.existsSync(getPageFile(pageTemplate, demoName))) throw new Error(`${path.relative(PROJECT_ROOT, getPageFile(pageTemplate, demoName))} not found: it is the container of the demo page, with an empty nav and main.`);
     const { navHtml, panelsHtml, count } = buildNavAndPanels();
@@ -211,7 +211,7 @@ function main() {
             : { fileName, content: raw, source };
     });
 
-    //== every page becomes site/build/<same name> through the one shared shell
+    //## every page becomes site/build/<same name> through the one shared shell
     pages.forEach(({ fileName, content, source }) => {
         const outputPath = path.join(BUILD_DIR, fileName);
         fs.writeFileSync(outputPath, buildFinalHtml(siteHtml, content, fileName, source));

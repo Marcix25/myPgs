@@ -1,10 +1,10 @@
-//# COLOR
-//== every color family below is one root with its palette folded into the flag name (bgPrimary,
-//== txtQuaternaryDark, ...) instead of a separate bare token per color — the same fold applied to
-//== margin/padding/border/section/utilities this cycle. border and outline's own color flags
-//== (bdPrimary, otlPrimary, ...) live in base/_border.scss instead, alongside the thickness flags
-//== they share a bracket with.
-//= BACKGROUND COLORS
+//= COLOR
+//## every color family below is one root with its palette folded into the flag name (bgPrimary,
+//## txtQuaternaryDark, ...) instead of a separate bare token per color — the same fold applied to
+//## margin/padding/border/section/utilities this cycle. border and outline's own color flags
+//## (bdPrimary, otlPrimary, ...) live in base/_border.scss instead, alongside the thickness flags
+//## they share a bracket with.
+//# BACKGROUND COLORS
 [pgs*="background\5B"] {
     &[pgs*="'bgTransparent'"] { background: transparent; }
     &[pgs*="'bgWhite'"] { background: var(--color-white); }
@@ -23,48 +23,48 @@
     &[pgs*="'bgLink'"] { background: var(--color-link); }
     &[pgs*="'bgGray'"] { background: var(--color-gray); }
 
-    //== PRIMARY VARIANTS
+    //## PRIMARY VARIANTS
     &[pgs*="'bgPrimary'"] { background: var(--color-primary); }
     &[pgs*="'bgPrimarySoft'"] { background: var(--color-primary-soft); }
     &[pgs*="'bgPrimaryLight'"] { background: var(--color-primary-light); }
     &[pgs*="'bgPrimaryStrong'"] { background: var(--color-primary-strong); }
     &[pgs*="'bgPrimaryDark'"] { background: var(--color-primary-dark); }
 
-    //== SECONDARY VARIANTS
+    //## SECONDARY VARIANTS
     &[pgs*="'bgSecondary'"] { background: var(--color-secondary); }
     &[pgs*="'bgSecondarySoft'"] { background: var(--color-secondary-soft); }
     &[pgs*="'bgSecondaryLight'"] { background: var(--color-secondary-light); }
     &[pgs*="'bgSecondaryStrong'"] { background: var(--color-secondary-strong); }
     &[pgs*="'bgSecondaryDark'"] { background: var(--color-secondary-dark); }
 
-    //== TERTIARY VARIANTS
+    //## TERTIARY VARIANTS
     &[pgs*="'bgTertiary'"] { background: var(--color-tertiary); }
     &[pgs*="'bgTertiarySoft'"] { background: var(--color-tertiary-soft); }
     &[pgs*="'bgTertiaryLight'"] { background: var(--color-tertiary-light); }
     &[pgs*="'bgTertiaryStrong'"] { background: var(--color-tertiary-strong); }
     &[pgs*="'bgTertiaryDark'"] { background: var(--color-tertiary-dark); }
 
-    //== QUATERNARY VARIANTS
+    //## QUATERNARY VARIANTS
     &[pgs*="'bgQuaternary'"] { background: var(--color-quaternary); }
     &[pgs*="'bgQuaternarySoft'"] { background: var(--color-quaternary-soft); }
     &[pgs*="'bgQuaternaryLight'"] { background: var(--color-quaternary-light); }
     &[pgs*="'bgQuaternaryStrong'"] { background: var(--color-quaternary-strong); }
     &[pgs*="'bgQuaternaryDark'"] { background: var(--color-quaternary-dark); }
 
-    //== STATUS
+    //## STATUS
     &[pgs*="'bgInfo'"] { background: var(--color-info); }
     &[pgs*="'bgError'"] { background: var(--color-error); }
     &[pgs*="'bgWarning'"] { background: var(--color-warning); }
     &[pgs*="'bgSuccess'"] { background: var(--color-success); }
 
-    //== STATUS BACKGROUNDS
+    //## STATUS BACKGROUNDS
     &[pgs*="'bgInfoSoft'"] { background: var(--color-info-soft); }
     &[pgs*="'bgErrorSoft'"] { background: var(--color-error-soft); }
     &[pgs*="'bgWarningSoft'"] { background: var(--color-warning-soft); }
     &[pgs*="'bgSuccessSoft'"] { background: var(--color-success-soft); }
 }
 
-//= TEXT COLORS
+//# TEXT COLORS
 [pgs*="textColor\5B"] {
     &[pgs*="'txtWhite'"] { color: var(--color-white); }
     &[pgs*="'txtBlack'"] { color: var(--color-black); }
@@ -78,7 +78,7 @@
     &[pgs*="'txtLink'"] { color: var(--color-link); }
     &[pgs*="'txtInherit'"] { color: inherit; }
 
-    //== PRIMARY VARIANTS
+    //## PRIMARY VARIANTS
     &[pgs*="'txtPrimary'"] { color: var(--color-primary); }
     &[pgs*="'txtPrimaryText'"] { color: var(--color-primary-text); }
     &[pgs*="'txtPrimarySoft'"] { color: var(--color-primary-soft); }
@@ -86,7 +86,7 @@
     &[pgs*="'txtPrimaryStrong'"] { color: var(--color-primary-strong); }
     &[pgs*="'txtPrimaryDark'"] { color: var(--color-primary-dark); }
 
-    //== SECONDARY VARIANTS
+    //## SECONDARY VARIANTS
     &[pgs*="'txtSecondary'"] { color: var(--color-secondary); }
     &[pgs*="'txtSecondaryText'"] { color: var(--color-secondary-text); }
     &[pgs*="'txtSecondarySoft'"] { color: var(--color-secondary-soft); }
@@ -94,7 +94,7 @@
     &[pgs*="'txtSecondaryStrong'"] { color: var(--color-secondary-strong); }
     &[pgs*="'txtSecondaryDark'"] { color: var(--color-secondary-dark); }
 
-    //== TERTIARY VARIANTS
+    //## TERTIARY VARIANTS
     &[pgs*="'txtTertiary'"] { color: var(--color-tertiary); }
     &[pgs*="'txtTertiaryText'"] { color: var(--color-tertiary-text); }
     &[pgs*="'txtTertiarySoft'"] { color: var(--color-tertiary-soft); }
@@ -102,7 +102,7 @@
     &[pgs*="'txtTertiaryStrong'"] { color: var(--color-tertiary-strong); }
     &[pgs*="'txtTertiaryDark'"] { color: var(--color-tertiary-dark); }
 
-    //== QUATERNARY VARIANTS
+    //## QUATERNARY VARIANTS
     &[pgs*="'txtQuaternary'"] { color: var(--color-quaternary); }
     &[pgs*="'txtQuaternaryText'"] { color: var(--color-quaternary-text); }
     &[pgs*="'txtQuaternarySoft'"] { color: var(--color-quaternary-soft); }
@@ -110,20 +110,20 @@
     &[pgs*="'txtQuaternaryStrong'"] { color: var(--color-quaternary-strong); }
     &[pgs*="'txtQuaternaryDark'"] { color: var(--color-quaternary-dark); }
 
-    //== STATUS
+    //## STATUS
     &[pgs*="'txtInfo'"] { color: var(--color-info); }
     &[pgs*="'txtError'"] { color: var(--color-error); }
     &[pgs*="'txtWarning'"] { color: var(--color-warning); }
     &[pgs*="'txtSuccess'"] { color: var(--color-success); }
 
-    //== STATUS SOFT
+    //## STATUS SOFT
     &[pgs*="'txtInfoSoft'"] { color: var(--color-info-soft); }
     &[pgs*="'txtErrorSoft'"] { color: var(--color-error-soft); }
     &[pgs*="'txtWarningSoft'"] { color: var(--color-warning-soft); }
     &[pgs*="'txtSuccessSoft'"] { color: var(--color-success-soft); }
 }
 
-//= ICON COLORS
+//# ICON COLORS
 [pgs~="iconColorPrimary"] { color: var(--color-icon-primary); }
 [pgs~="iconColorSecondary"] { color: var(--color-icon-secondary); }
 

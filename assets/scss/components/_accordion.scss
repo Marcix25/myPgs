@@ -1,9 +1,9 @@
 @use "../mixin/mixin" as *;
-//# ACCORDION
+//= ACCORDION
 // the space between the accordions of a container: the divider line above each one sits in the middle of it
 $accordionGap: 1.0rem;
 
-//= ACCORDION CONTAINER
+//# ACCORDION CONTAINER
 :is([pgs~="accordionContainer"], [pgs*="accordionContainer\5B"]) {
     --accordionContainer-gap: #{$accordionGap};
     display: flex;
@@ -16,7 +16,7 @@ $accordionGap: 1.0rem;
     &[pgs*="'accMultiOpen'"] {}
 }
 
-//= ACCORDION
+//# ACCORDION
 :is([pgs~="accordion"], [pgs*="accordion\5B"]) {
     --accordion-icon: var(--icon-glyph-chevronDown);
     --accordion-borderRadius: var(--border-radius);
@@ -46,7 +46,7 @@ $accordionGap: 1.0rem;
 
     &:first-child::after { content: none; }
 
-    //== BUTTON
+    //## BUTTON
     :where([pgs~="accordion-button"]) {
         all: unset;
         cursor: pointer;
@@ -62,7 +62,7 @@ $accordionGap: 1.0rem;
         font-weight: var(--font-weight-title);
         padding-block: var(--accordion-padding);
         margin-block: calc(var(--accordion-padding) * -1);
-        //=== ICON
+        //### ICON
         @include icon(var(--accordion-icon), "::after");
 
         &::after {
@@ -71,7 +71,7 @@ $accordionGap: 1.0rem;
         }
     }
 
-    //== CONTENT
+    //## CONTENT
     :where([pgs~="accordion-content"]) {
         @include column();
         visibility: hidden;
@@ -83,7 +83,7 @@ $accordionGap: 1.0rem;
         overflow: hidden;
     }
 
-    //== Accordion insert
+    //## Accordion insert
     :is([pgs~="accordion"], [pgs*="accordion\5B"]) { padding-inline: 10px; }
 
     //+ OPTION

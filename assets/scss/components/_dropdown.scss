@@ -1,4 +1,4 @@
-//# DROPDOWN
+//= DROPDOWN
 :is([pgs~="dropdown"], [pgs*="dropdown\5B"]) {
     --dropdown-background: var(--color-box);
     --dropdown-color: var(--color-black);
@@ -33,7 +33,7 @@
         color: var(--dropdown-color);
     }
 
-    //== ARROW
+    //## ARROW
     // two stacked triangles pointing at the trigger: the outer one in the border color, the inner
     // one in the background. On by default, drpNotArrow removes it
     &:not([pgs*="'drpNotArrow'"])> :where([pgs~="dropdown-content"]) {

@@ -1,12 +1,12 @@
 @use "settings" as *;
 
-//# HEADING, TEXT
-//= HEADING
-//== $size/$tag/$weight are fallbacks, not the source of truth: the :root block in
-//== base/_typography.scss is the one place that actually sets --heading-size-h1..h6/
-//== --heading-family-h1..h6/--heading-line-height-h1..h6 for the whole page, so overriding e.g.
-//== h3's family means overriding --heading-family-h3 there once, not touching this mixin or its
-//== h3() caller. The var() fallback here only matters if that :root block is ever missing.
+//= HEADING, TEXT
+//# HEADING
+//## $size/$tag/$weight are fallbacks, not the source of truth: the :root block in
+//## base/_typography.scss is the one place that actually sets --heading-size-h1..h6/
+//## --heading-family-h1..h6/--heading-line-height-h1..h6 for the whole page, so overriding e.g.
+//## h3's family means overriding --heading-family-h3 there once, not touching this mixin or its
+//## h3() caller. The var() fallback here only matters if that :root block is ever missing.
 @mixin heading($size, $tag: "", $weight: 900) {
     font-family: var(--heading-family#{$tag}, var(--font-heading));
     margin-bottom: calc(var(--heading-size#{$tag}, #{$size}) / 8);
@@ -32,31 +32,14 @@
     }
 }
 
-@mixin h1() {
-    @include heading($h1, "-h1");
-}
+@mixin h1() { @include heading($h1, "-h1"); }
+@mixin h2() { @include heading($h2, "-h2"); }
+@mixin h3() { @include heading($h3, "-h3"); }
+@mixin h4() { @include heading($h4, "-h4"); }
+@mixin h5() { @include heading($h5, "-h5", 700); }
+@mixin h6() { @include heading($h6, "-h6", 500); }
 
-@mixin h2() {
-    @include heading($h2, "-h2");
-}
-
-@mixin h3() {
-    @include heading($h3, "-h3");
-}
-
-@mixin h4() {
-    @include heading($h4, "-h4");
-}
-
-@mixin h5() {
-    @include heading($h5, "-h5", 700);
-}
-
-@mixin h6() {
-    @include heading($h6, "-h6", 500);
-}
-
-//= TEXT
+//# TEXT
 @mixin text() {
     color: var(--text-color);
     font-family: var(--text-family);

@@ -1,4 +1,4 @@
-//= NOTIFICATION
+//# NOTIFICATION
 [pgs~="notificationLoad"] {
 
     //option for suggestions
@@ -15,8 +15,8 @@
     &[pgs*="'dialogBottom'"],
     &[pgs*="'dialogCenter'"] {}
 
-    //== a hand-written counter keeps the bare name; a generated one gets the underscore (see
-    //== _notification.js), so this needs both
+    //## a hand-written counter keeps the bare name; a generated one gets the underscore (see
+    //## _notification.js), so this needs both
     :where([pgs~="notificationBell-counter"]),
     :where([pgs~="_notificationBell-counter"]) {
         display: flex;
@@ -39,7 +39,7 @@
     }
 }
 
-//= notification-dialog
+//# notification-dialog
 [pgs~="_notification-dialog"] {
     --modal-content-padding: 0;
     --modal-background: transparent;

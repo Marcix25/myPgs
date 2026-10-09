@@ -1,6 +1,6 @@
 @use "../mixin/mixin" as *;
 
-//# MENU
+//= MENU
 :is([pgs~="menu"], [pgs*="menu\5B"]) {
     // Menu colors inherit the button theme by default.  A consumer can set the
     // --menu-* variables on this element to theme menus independently.
@@ -15,7 +15,7 @@
         row-gap: var(--menu-gap-row);
         flex-wrap: nowrap;
 
-        //== Content
+        //## Content
         >li {
             >a {
                 flex-grow: 1;
@@ -31,7 +31,7 @@
             &[pgs-state~=open]>ul { display: flex; }
         }
 
-        //== submenu
+        //## submenu
         ul {
             @include column();
             --dropdown-borderRadius: calc(var(--border-radius-input) + var(--dropdown-padding));
@@ -40,7 +40,7 @@
         }
     }
 
-    //== submenuButton
+    //## submenuButton
     :where([pgs~="_menu-submenuButton"]) {
         --button-size: 0.2rem;
         margin-right: -5px;
@@ -55,8 +55,8 @@
     }
 
     //- OPTION
-    //== horizontal
-    //== menuHorizontal, not the shortened horizontal: card also has a 'horizontal' option
+    //## horizontal
+    //## menuHorizontal, not the shortened horizontal: card also has a 'horizontal' option
     &[pgs*="'menuHorizontal'"] {
         >ul {
             flex-direction: row;
@@ -65,7 +65,7 @@
                 >a { width: max-content; }
             }
 
-            //=== Sub menu
+            //### Sub menu
             >li:has(ul) {
                 display: flex;
                 gap: 0.2rem;
@@ -74,7 +74,7 @@
         }
     }
 
-    //== vertical
+    //## vertical
     ul,
     &[pgs*="'menuVertical'"],
     &:not([pgs*="'menuHorizontal'"]) {
@@ -90,11 +90,11 @@
                 }
             }
 
-            //=== Sub menu
-            //=== link ------ |button|
-            //=== list ---------------|
-            //=== the link and the toggle share the first row, the submenu takes the whole next one:
-            //=== it needs flex-wrap, or flex-basis has no line to break onto
+            //### Sub menu
+            //### link ------ |button|
+            //### list ---------------|
+            //### the link and the toggle share the first row, the submenu takes the whole next one:
+            //### it needs flex-wrap, or flex-basis has no line to break onto
             >li:has(ul) {
                 @include row;
                 align-items: center;

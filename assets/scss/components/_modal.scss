@@ -1,41 +1,41 @@
 @use "../mixin/mixin" as *;
 
-//== modal-dialog stays bare like every other generated child token — it never carries a bracket
-//== of its own. Its own options (dialogRight, dialogSmall, dialogHistory, …) live instead on
-//== _dialog, a second, pgs-generated-only token _modal.js always adds alongside it on the same
-//== <dialog> element: the one place that needs its own bracket, since the JavaScript can move
-//== this element anywhere in the document independently of the wrapper. The flag selectors below
-//== don't check _dialog specifically — see AGENTS-DEVELOPMENT.md for why a bracket flag never
-//== needs to be scoped to the token that carries it.
+//## modal-dialog stays bare like every other generated child token — it never carries a bracket
+//## of its own. Its own options (dialogRight, dialogSmall, dialogHistory, …) live instead on
+//## _dialog, a second, pgs-generated-only token _modal.js always adds alongside it on the same
+//## <dialog> element: the one place that needs its own bracket, since the JavaScript can move
+//## this element anywhere in the document independently of the wrapper. The flag selectors below
+//## don't check _dialog specifically — see AGENTS-DEVELOPMENT.md for why a bracket flag never
+//## needs to be scoped to the token that carries it.
 html:has(dialog[open]) {
     cursor: pointer;
     overflow: clip;
     scrollbar-gutter: stable ;
 }
 
-//= MODAL
+//# MODAL
 :is([pgs~="modal"], [pgs*="modal\5B"]) {
 
-    //== MODAL BUTTON
+    //## MODAL BUTTON
     :where([pgs~="modal-button"]) {}
 
-    //== CLOSE
+    //## CLOSE
     // a hand-written close button keeps the bare name; a generated one gets the underscore
     // (see _modal.js), so this needs both
     :where([pgs~="modal-close"]) {
 
-        //=== IS OPEN
+        //### IS OPEN
         // swaps the drawn glyph via the --icon custom property (see _icon.scss)
         &[aria-expanded="true"] i { --icon: var(--icon-glyph-close); }
     }
 
     //- DATA
-    //== read by the JavaScript only: declared here so editors suggest them
+    //## read by the JavaScript only: declared here so editors suggest them
     &[pgs-data~="modalContainerID[]"],
     &[pgs-data~="modalContainerPGS[]"] {}
 
-    //== the flag-copy loop in _modal.js reads any of these off the wrapper or the dialog alike,
-    //== so they are declared here too, for editors to suggest them on the wrapper as well
+    //## the flag-copy loop in _modal.js reads any of these off the wrapper or the dialog alike,
+    //## so they are declared here too, for editors to suggest them on the wrapper as well
     //+ OPTION
     &[pgs*="'dialogHistory'"],
     &[pgs*="'dialogTopLevel'"],
@@ -56,7 +56,7 @@ html:has(dialog[open]) {
     &[pgs*="'dialogAnimationBottom'"] {}
 }
 
-//= DIALOG
+//# DIALOG
 :where(dialog[pgs~="modal-dialog"]) {
     --modal-backdrop: var(--backdrop);
     --modal-background: var(--color-background);
@@ -64,7 +64,7 @@ html:has(dialog[open]) {
     --modal-content-padding: var(--padding-elements);
     --modal-offset: var(--gap-texts);
     --modal-borderRadius: calc(var(--border-radius-input) + var(--modal-content-padding));
-    //== dialogAnimation*: duration and curve of every opening and closing animation (PhotoSwipe's own defaults)
+    //## dialogAnimation*: duration and curve of every opening and closing animation (PhotoSwipe's own defaults)
     --modal-animation-timing: 333ms;
     --modal-animation-easing: cubic-bezier(0.4, 0, 0.22, 1);
     border: none;
@@ -95,7 +95,7 @@ html:has(dialog[open]) {
         justify-content: safe center;
     }
 
-    //=== CONTENT
+    //### CONTENT
     :where([pgs~="modal-dialog-content"]) {
         @include sectionNoPadding();
         margin-inline: unset;
@@ -109,7 +109,7 @@ html:has(dialog[open]) {
         gap: 0;
         padding: var(--modal-content-padding);
 
-        //==== HEADER
+        //#### HEADER
         :where([pgs~="modal-dialog-content-header"]) {
             @include row(nowrap);
             z-index: 1;
@@ -117,8 +117,8 @@ html:has(dialog[open]) {
             padding-bottom: calc(var(--modal-content-padding) / 2);
             margin-bottom: calc(var(--modal-content-padding) / 2);
 
-            //== same as the dialog's own &:focus above: this is the initial-focus landing
-            //== point (see _modal.js), never reached via Tab
+            //## same as the dialog's own &:focus above: this is the initial-focus landing
+            //## point (see _modal.js), never reached via Tab
             &:focus { outline: none; }
 
             :where([pgs~="modal-close"]),
@@ -127,7 +127,7 @@ html:has(dialog[open]) {
             }
         }
 
-        //=== SCROLL
+        //### SCROLL
         &:has(:where([pgs~="modal-dialog-content-scroll"])) {
             max-height: 100%;
             overflow: hidden;
@@ -142,7 +142,7 @@ html:has(dialog[open]) {
         }
     }
 
-    //== CLOSE
+    //## CLOSE
     >:where([pgs~="modal-close"]),
     >:where([pgs~="_modal-close"]) {
         position: fixed !important;
@@ -151,7 +151,7 @@ html:has(dialog[open]) {
         z-index: 1;
     }
 
-    //=OPTION
+    //#OPTION
     //+ TOP LEVEL
     &[pgs*="'dialogTopLevel'"] {
         overflow-y: auto;
@@ -188,7 +188,7 @@ html:has(dialog[open]) {
         &::backdrop { transition: opacity var(--modal-animation-timing) var(--modal-animation-easing); }
         :where([pgs~="modal-dialog-content"]) { transition: transform var(--modal-animation-timing) var(--modal-animation-easing); }
 
-        //=== DRAGGING
+        //### DRAGGING
         &[pgs-state~="dragging"] {
             background-color: color-mix(in srgb, var(--modal-backdrop) calc((1 - var(--_modal-drag-progress, 0)) * 100%), transparent);
             transition: none;
@@ -204,8 +204,8 @@ html:has(dialog[open]) {
             }
         }
 
-        //=== CLOSE
-        //== a whole viewport further down is always off screen, wherever the panel was let go
+        //### CLOSE
+        //## a whole viewport further down is always off screen, wherever the panel was let go
         &[pgs-state~="dragClose"] {
             background-color: transparent;
 
@@ -214,8 +214,8 @@ html:has(dialog[open]) {
         }
 
         //- reduced motion
-        //== the panel still follows the finger, but springs back and leaves at once: _modal.js
-        //== finds no transition to wait for and closes straight away
+        //## the panel still follows the finger, but springs back and leaves at once: _modal.js
+        //## finds no transition to wait for and closes straight away
         @media (prefers-reduced-motion: reduce) {
 
             &,
@@ -227,44 +227,44 @@ html:has(dialog[open]) {
     }
 
     //+ SIZE
-    //=== SMALL
+    //### SMALL
     &[pgs*="'dialogSmall'"] {
         :where([pgs~="modal-dialog-content"]) { --section-width: min(calc(var(--page-width)/3), 100%); }
     }
 
-    //=== MEDIUM
+    //### MEDIUM
     &[pgs*="'dialogMedium'"] {
         :where([pgs~="modal-dialog-content"]) { --section-width: min(calc(var(--page-width)/2), 100%); }
     }
 
-    //=== Full
+    //### Full
     &[pgs*="'dialogFull'"] {
         :where([pgs~="modal-dialog-content"]) { --section-width: 100%; }
     }
 
     //+ POSITION
-    //=== CENTER
+    //### CENTER
     &[pgs*="'dialogCenter'"] {
         justify-content: safe center;
         align-items: safe center;
     }
 
-    //=== LEFT
+    //### LEFT
     &[pgs*="'dialogLeft'"] {
         justify-content: safe flex-start;
         padding-inline: var(--modal-offset);
     }
 
-    //=== RIGHT
+    //### RIGHT
     &[pgs*="'dialogRight'"] {
         justify-content: safe flex-end;
         padding-inline: var(--modal-offset);
     }
 
-    //=== TOP
+    //### TOP
     &[pgs*="'dialogTop'"] { align-items: safe flex-start; }
 
-    //=== BOTTOM
+    //### BOTTOM
     &[pgs*="'dialogBottom'"] { align-items: safe flex-end; }
 
     //+ ANIMATION
@@ -285,18 +285,18 @@ html:has(dialog[open]) {
             }
         }
 
-        //=== IN
-        //== a panel pushed right or down, off screen, makes the dialog scrollable in that direction
-        //== for as long as it travels back, and Safari scrolls it — the panel seems to come in
-        //== from the other side, or to overshoot and settle. clip is no scroll container at all,
-        //== so nothing can scroll it; only on the way in, when the dialog has not been scrolled
-        //== yet — on the way out, clip would throw away the reader's scroll position
+        //### IN
+        //## a panel pushed right or down, off screen, makes the dialog scrollable in that direction
+        //## for as long as it travels back, and Safari scrolls it — the panel seems to come in
+        //## from the other side, or to overshoot and settle. clip is no scroll container at all,
+        //## so nothing can scroll it; only on the way in, when the dialog has not been scrolled
+        //## yet — on the way out, clip would throw away the reader's scroll position
         &[pgs-state~="animationIn"] {
             overflow: clip;
         }
 
-        //=== OUT
-        //== the same keyframes played backwards: the panel goes back where it came from
+        //### OUT
+        //## the same keyframes played backwards: the panel goes back where it came from
         &[pgs-state~="animationOut"] {
 
             &,
@@ -307,8 +307,8 @@ html:has(dialog[open]) {
         }
 
         //- reduced motion
-        //== no animation at all: _modal.js finds none to wait for and opens and closes at once
-        //== (the panel's own keyframes are turned off after the options that name them, below)
+        //## no animation at all: _modal.js finds none to wait for and opens and closes at once
+        //## (the panel's own keyframes are turned off after the options that name them, below)
         @media (prefers-reduced-motion: reduce) {
             &:is([pgs-state~="animationIn"], [pgs-state~="animationOut"]) {
 
@@ -328,7 +328,7 @@ html:has(dialog[open]) {
         }
     }
 
-    //=== ZOOM
+    //### ZOOM
     // _modal.js measures the button and the panel and writes the offset and scale that lay the
     // panel over the button as --_modal-zoom-* on the panel
     &[pgs*="'dialogAnimationZoom'"]:is([pgs-state~="animationIn"], [pgs-state~="animationOut"]) :where([pgs~="modal-dialog-content"]) {
@@ -336,23 +336,23 @@ html:has(dialog[open]) {
         animation-name: modalAnimationZoom;
     }
 
-    //=== SLIDE
-    //== the panel slides in from the edge of the screen: a whole viewport of travel is always
-    //== enough to start it off screen, wherever the position options put it
+    //### SLIDE
+    //## the panel slides in from the edge of the screen: a whole viewport of travel is always
+    //## enough to start it off screen, wherever the position options put it
     &[pgs*="'dialogAnimationLeft'"]:is([pgs-state~="animationIn"], [pgs-state~="animationOut"]) :where([pgs~="modal-dialog-content"]) { animation-name: modalAnimationLeft; }
     &[pgs*="'dialogAnimationRight'"]:is([pgs-state~="animationIn"], [pgs-state~="animationOut"]) :where([pgs~="modal-dialog-content"]) { animation-name: modalAnimationRight; }
     &[pgs*="'dialogAnimationTop'"]:is([pgs-state~="animationIn"], [pgs-state~="animationOut"]) :where([pgs~="modal-dialog-content"]) { animation-name: modalAnimationTop; }
     &[pgs*="'dialogAnimationBottom'"]:is([pgs-state~="animationIn"], [pgs-state~="animationOut"]) :where([pgs~="modal-dialog-content"]) { animation-name: modalAnimationBottom; }
 
     //- reduced motion
-    //== after the options, so it wins over the animation-name each of them sets
+    //## after the options, so it wins over the animation-name each of them sets
     @media (prefers-reduced-motion: reduce) {
         &:is([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"]):is([pgs-state~="animationIn"], [pgs-state~="animationOut"]) :where([pgs~="modal-dialog-content"]) { animation-name: none; }
     }
 
-    //== ANIMATION KEYFRAMES
-    //== the zoomed panel stays transparent while it still has the button's shape, so the squashed
-    //== text of the first frames never shows: it only appears as it grows past the button
+    //## ANIMATION KEYFRAMES
+    //## the zoomed panel stays transparent while it still has the button's shape, so the squashed
+    //## text of the first frames never shows: it only appears as it grows past the button
     @keyframes modalAnimationZoom {
         from {
             transform: translate(var(--_modal-zoom-x), var(--_modal-zoom-y)) scale(var(--_modal-zoom-scaleX), var(--_modal-zoom-scaleY));

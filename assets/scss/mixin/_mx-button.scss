@@ -1,5 +1,5 @@
 //+ VAR
-//= BUTTON
+//# BUTTON
 //+ BUTTON COLOR
 @mixin _buttonColor($for: "") {
     color: var(--button-color#{$for});
@@ -8,7 +8,7 @@
     box-shadow: var(--button-shadow#{$for});
 }
 
-//== BUTTON BASE
+//## BUTTON BASE
 @mixin buttonBase() {
     --button-size: var(--SIZE-texts);
     --button-primaryColor: var(--color-primary-strong);
@@ -67,13 +67,13 @@
         cursor: not-allowed;
     }
 
-    //== BUTTON WITH ICON
+    //## BUTTON WITH ICON
     &:where(:has(i)),
     &:where(:has(:is([pgs~="icon"], [pgs*="icon\5B"]))) {
         --button-padding-left: var(--button-padding-left-icon);
     }
 
-    //=== BUTTON WITH ICON - REVERSE
+    //### BUTTON WITH ICON - REVERSE
     &:where([pgs*="'btnReverse'"]:has(i)),
     &:where([pgs*="'btnReverse'"]:has(:is([pgs~="icon"], [pgs*="icon\5B"]))) {
         --button-padding-right: var(--button-padding-left-icon);
@@ -81,8 +81,8 @@
     }
 }
 
-//= STATE
-//== HOVER
+//# STATE
+//## HOVER
 // the values (--button-*-hover) are set at the usual weight, so a flag such as btnText can still
 // replace them; the properties that draw them are set heavier, so the hover also wins over the
 // current and checked looks, which would otherwise paint over it
@@ -102,7 +102,7 @@
     }
 }
 
-//== BUTTON CURRENT
+//## BUTTON CURRENT
 @mixin buttonCurrent() {
 
     &:where([aria-current=page]),
@@ -111,7 +111,7 @@
     }
 }
 
-//== BUTTON TWO-STATE
+//## BUTTON TWO-STATE
 // a label marked as a button that wraps its own checkbox or radio: the input is hidden but still
 // carries the semantics and the keyboard, and the button draws its checked state
 @mixin buttonTwoState() {
@@ -126,7 +126,7 @@
         appearance: none;
     }
 
-    //== BUTTON CHECKED
+    //## BUTTON CHECKED
     &:has(input:checked) {
         --button-background: var(--button-background-checked);
         --button-color: var(--button-color-checked);
@@ -135,8 +135,8 @@
     }
 }
 
-//= TYPE
-//== BUTTON ICON ONLY
+//# TYPE
+//## BUTTON ICON ONLY
 @mixin buttonIconOnly() {
     --button-padding: var(--button-padding-block);
     flex: 0 0;
@@ -155,13 +155,13 @@
     }
 }
 
-//== BUTTON MINI
+//## BUTTON MINI
 @mixin buttonMini() {
     --button-size: 0.9rem;
     display: inline-flex;
 }
 
-//== BUTTON VERTICAL
+//## BUTTON VERTICAL
 @mixin buttonVertical() {
     --button-padding: var(--button-padding-right);
     --button-height: 100%;
@@ -172,13 +172,13 @@
     text-align: center;
 }
 
-//== BUTTON TRANSPARENT
+//## BUTTON TRANSPARENT
 @mixin buttonTransparent() {
     --button-border-width: 0;
     --button-background: transparent;
 }
 
-//== BUTTON TEXT
+//## BUTTON TEXT
 @mixin buttonText() {
     $color: var(--button-primaryColor);
     --button-border-width: 0;
@@ -198,11 +198,11 @@
     --hover-color: #{$color};
 }
 
-//== BUTTON PADDING EQUAL
+//## BUTTON PADDING EQUAL
 @mixin buttonPaddingEqual() { --button-padding: var(--button-padding-block); }
 
-//= HEADER & NAVSMART
-//== HEADER
+//# HEADER & NAVSMART
+//## HEADER
 @mixin buttonForHeader() {
     --buttonHeader-border-width: 0px;
     --button-border-width: var(--buttonHeader-border-width);
@@ -210,7 +210,7 @@
     overflow-wrap: break-word;
 }
 
-//== NAV SMART
+//## NAV SMART
 // an item of the floating navSmart bar: the icon above its label inside a pill, with no background
 // of its own. It reads the bar's own properties (--navSmart-iconSize, --navSmart-itemMinWidth) with a
 // fallback, so the button still draws outside a bar. The page you are on (aria-current), or the

@@ -1,4 +1,4 @@
-//# TABS
+//= TABS
 // A horizontal tab list that wraps onto further rows. The active tab shares the panel background
 // and covers its top border, making the selected control visually connect to its content.
 [pgs~="tabs"] {
@@ -8,9 +8,7 @@
 
     :where([pgs~="tabs-panels"]) {
         :where([pgs~="tabs-panels-content"]) {
-            &[hidden] {
-                display: none;
-            }
+            &[hidden] { display: none; }
         }
     }
 }

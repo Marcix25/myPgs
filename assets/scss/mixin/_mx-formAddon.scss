@@ -1,7 +1,7 @@
 @use "mx-form" as *;
 @use "mx-responsive" as *;
 
-//= checkboxBackground 
+//# checkboxBackground 
 @mixin checkboxBackground() {
     --checkboxBackground-color: var(--color-text);
     --checkboxBackground-padding: var(--padding-texts);
@@ -19,11 +19,11 @@
 
     input { margin-right: var(--checkboxBackground-padding); }
 
-    //== checked
+    //## checked
     &:has(input:checked) { background-color: var(--checkboxBackground-background-checked); }
 }
 
-//= TOGGLE 
+//# TOGGLE 
 @mixin toggle() {
     --toggle-size: 2.0rem;
     --toggle-color-thumb: var(--color-white);
@@ -36,7 +36,7 @@
 
     label { cursor: pointer; }
 
-    //== rail & thumb
+    //## rail & thumb
     input {
         position: relative;
         appearance: none;
@@ -57,7 +57,7 @@
             order: 1;
         }
 
-        //=== rail
+        //### rail
         &::before {
             background: var(--toggle-color-rail);
             width: calc(var(--toggle-size) * 2);
@@ -66,7 +66,7 @@
             flex-shrink: 2;
         }
 
-        //=== thumb
+        //### thumb
         &::after {
             content: "";
             opacity: 1;
@@ -79,14 +79,14 @@
             position: absolute;
         }
 
-        //== HOVER
+        //## HOVER
         &:hover::after {
             scale: 1.4;
             background-color: color-mix(in srgb, var(--toggle-color-thumb) 50%, transparent 50%);
             outline: 1.5px solid var(--color-primary);
         }
 
-        //== CHECKED
+        //## CHECKED
         &:checked {
             &::before { background: var(--toggle-color-rail-checked); }
 
@@ -96,14 +96,14 @@
             }
         }
 
-        //== FOCUS
+        //## FOCUS
         &:focus-visible::after { outline: var(--focus-visible) !important; }
     }
 }
 
-//= CHIP
+//# CHIP
 @mixin chip() {
-    //== label
+    //## label
     --button-size: 1rem;
     position: relative;
     isolation: isolate;
@@ -132,7 +132,7 @@
         }
     }
 
-    //== checked
+    //## checked
     &:has(input:checked) {
 
         i,
@@ -158,7 +158,7 @@
         }
     }
 
-    //=== checkbox
+    //### checkbox
     &:has(input[type=checkbox]:checked) {
 
         &:not(:has(:is([pgs~="icon"], [pgs*="icon\5B"]))),
@@ -169,7 +169,7 @@
         }
     }
 
-    //=== radio
+    //### radio
     &:has(input[type=radio]:checked) {
 
         &:not(:has(:is([pgs~="icon"], [pgs*="icon\5B"]))),
@@ -181,7 +181,7 @@
     }
 }
 
-//= CHIPS
+//# CHIPS
 @mixin chips() {
     border: unset;
     @include row();

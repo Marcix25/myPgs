@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-//# PRECOMMIT
+//= PRECOMMIT
 //+ Runs the same checks in the same order documented in AGENTS-DEVELOPMENT.md's "Build and
 //+ Verification" section, stopping at the first failure, and always prints the full checklist —
 //+ steps already run get a tick, the one that broke gets a cross, the ones never reached stay

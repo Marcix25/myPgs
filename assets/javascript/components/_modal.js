@@ -3,12 +3,12 @@ import { PGS_dispatch, PGS_roots } from "../helper/_dom.js";
 import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
 import { PGS_warn } from "../helper/_warn.js";
 
-//# MODAL
+//= MODAL
 const EVENT_OPEN = "pgs:modal:open";
 const EVENT_CLOSE = "pgs:modal:close";
 const API = new WeakMap();
-//== the dialog of every wrapper, because the dialog leaves its wrapper on init: a destroy() and a new init
-//== of the same wrapper, or a refresh(), still find it
+//## the dialog of every wrapper, because the dialog leaves its wrapper on init: a destroy() and a new init
+//## of the same wrapper, or a refresh(), still find it
 const DIALOGS = new WeakMap();
 const ANIMATIONS = ["dialogAnimationZoom", "dialogAnimationLeft", "dialogAnimationRight", "dialogAnimationTop", "dialogAnimationBottom"];
 
@@ -27,27 +27,27 @@ function initializeModal(MODAL) {
     let historyObserver = null;
     let historyTimeout = null;
 
-    //== SELECTOR
-    //== a hand-written close button keeps the bare name; a generated one gets the underscore
+    //## SELECTOR
+    //## a hand-written close button keeps the bare name; a generated one gets the underscore
     const DOMButtonClose = "<button pgs=\"button['btnIconOnly' 'btnMini'] _modal-close\" type=\"button\" aria-label=\"Close\"><i pgs=\"icon['icon-close']\"></i></button>";
     const modalContentHeader = pgs(DIALOG).querySelector("modal-dialog-content-header");
 
-    //== FOCUS
-    //== with no autofocus element inside, showModal() falls back to focusing the first
-    //== focusable descendant (per the HTML dialog spec), which makes whatever happens to sit
-    //== first — often a plain nav link — look pre-selected. Move focus to the header instead
-    //== (its text is what a screen reader should announce on open), or the dialog itself when
-    //== there's no header; tabindex="-1" keeps it out of the normal tab order.
+    //## FOCUS
+    //## with no autofocus element inside, showModal() falls back to focusing the first
+    //## focusable descendant (per the HTML dialog spec), which makes whatever happens to sit
+    //## first — often a plain nav link — look pre-selected. Move focus to the header instead
+    //## (its text is what a screen reader should announce on open), or the dialog itself when
+    //## there's no header; tabindex="-1" keeps it out of the normal tab order.
     const focusTarget = modalContentHeader || DIALOG;
     if (!focusTarget.hasAttribute("tabindex")) focusTarget.setAttribute("tabindex", "-1");
 
 
-    //== MERGE OPTIONS
-    //== Modal configuration may be authored on either wrapper or dialog. Copy only modal
-    //== options: other component brackets (for example flex on the wrapper) stay local.
-    //== modal-dialog itself always stays bare, like every other generated child token — its own
-    //== options land on _dialog instead, a second, pgs-generated-only token on the same <dialog>
-    //== element that exists purely to carry them (see AGENTS-DEVELOPMENT.md).
+    //## MERGE OPTIONS
+    //## Modal configuration may be authored on either wrapper or dialog. Copy only modal
+    //## options: other component brackets (for example flex on the wrapper) stay local.
+    //## modal-dialog itself always stays bare, like every other generated child token — its own
+    //## options land on _dialog instead, a second, pgs-generated-only token on the same <dialog>
+    //## element that exists purely to carry them (see AGENTS-DEVELOPMENT.md).
     pgs(DIALOG).add("modal-dialog", "_dialog");
     for (const key of [
         "dialogHistory", "dialogTopLevel", "dialogDisableBackdropClose", "dialogDragClose", "dialogSmall", "dialogMedium",
@@ -60,8 +60,8 @@ function initializeModal(MODAL) {
         pgs(DIALOG).add(`_dialog['${key}']`);
     }
 
-    //== these two carry a value, so they still live in pgs-data — option never checks pgs-data,
-    //== so presence is a getValueBrackets read instead of an option.contains() call
+    //## these two carry a value, so they still live in pgs-data — option never checks pgs-data,
+    //## so presence is a getValueBrackets read instead of an option.contains() call
     for (const key of ["modalContainerID", "modalContainerPGS"]) {
         const source = [MODAL, DIALOG].find(element => pgs(element).data.getValueBrackets(key) !== undefined);
         if (!source) continue;
@@ -69,13 +69,13 @@ function initializeModal(MODAL) {
         for (const target of [MODAL, DIALOG]) pgs(target).data.setValueBrackets(key, value);
     }
 
-    //== OPTION ATTRIBUTES MODAL
+    //## OPTION ATTRIBUTES MODAL
     const dialogDisableBackdropClose = pgs(MODAL).option.contains("dialogDisableBackdropClose");
     const dialogHistory = pgs(MODAL).option.contains("dialogHistory");
     const modalContainerID = pgs(MODAL).data.getValueBrackets("modalContainerID");
     const modalContainerPGS = pgs(MODAL).data.getValueBrackets("modalContainerPGS");
 
-    //== OPTION ATTRIBUTES DIALOG
+    //## OPTION ATTRIBUTES DIALOG
     const dialogTopLevel = pgs(DIALOG).option.contains("dialogTopLevel");
     const dialogAnimationZoom = pgs(DIALOG).option.contains("dialogAnimationZoom");
     const dialogAnimation = ANIMATIONS.some(key => pgs(DIALOG).option.contains(key));
@@ -84,7 +84,7 @@ function initializeModal(MODAL) {
     let closing = false;
 
 
-    //== BUTTON CLOSE
+    //## BUTTON CLOSE
     if (!pgs(DIALOG).querySelector(["modal-close", "_modal-close"]) && !pgs(MODAL).querySelector(["modal-close", "_modal-close"])) {
         if (modalContentHeader) modalContentHeader.insertAdjacentHTML("beforeend", DOMButtonClose);
         else DIALOG.insertAdjacentHTML("beforeend", DOMButtonClose);
@@ -92,14 +92,14 @@ function initializeModal(MODAL) {
     const BUTTON_CLOSE = pgs(DIALOG).querySelector(["modal-close", "_modal-close"]) || pgs(MODAL).querySelector(["modal-close", "_modal-close"]);
 
 
-    //== BUTTON OPEN
-    //== the label is a fallback, not a correction: a control the author has already named keeps
-    //== that name, which is the one the page is written around
+    //## BUTTON OPEN
+    //## the label is a fallback, not a correction: a control the author has already named keeps
+    //## that name, which is the one the page is written around
     BUTTON_OPEN?.setAttribute("role", "button");
     if (BUTTON_OPEN && !BUTTON_OPEN.hasAttribute("aria-label")) BUTTON_OPEN.setAttribute("aria-label", "Open modal");
 
 
-    //== POSITION
+    //## POSITION
     if (dialogTopLevel && !MODAL.contains(DIALOG)) MODAL.append(DIALOG);
     else if (!dialogTopLevel) {
         if (modalContainerID) document.querySelector("#" + modalContainerID)?.append(DIALOG);
@@ -156,9 +156,9 @@ function initializeModal(MODAL) {
 
         if (dialogAnimationZoom) {
             if (!BUTTON_OPEN) return null;
-            //== measuring right after stopAnimation() also flushes the removed state, so an
-            //== animationOut that follows an animationIn restarts the same keyframes instead of
-            //== carrying on the running ones
+            //## measuring right after stopAnimation() also flushes the removed state, so an
+            //## animationOut that follows an animationIn restarts the same keyframes instead of
+            //## carrying on the running ones
             const from = BUTTON_OPEN.getBoundingClientRect();
             const to = CONTENT.getBoundingClientRect();
             if (!from.width || !from.height || !to.width || !to.height) return null;
@@ -168,7 +168,7 @@ function initializeModal(MODAL) {
             CONTENT.style.setProperty("--_modal-zoom-scaleX", from.width / to.width);
             CONTENT.style.setProperty("--_modal-zoom-scaleY", from.height / to.height);
         } else {
-            //== the same restart, with no measurement to flush it
+            //## the same restart, with no measurement to flush it
             void CONTENT.offsetWidth;
         }
         pgs(DIALOG).state.add(state);
@@ -189,9 +189,9 @@ function initializeModal(MODAL) {
     //+ --_modal-drag-progress on the dialog — and the dragging/dragClose states hand following,
     //+ springing back and leaving to _modal.scss.
     const dragClose = {
-        START: 10, //== px of vertical travel before a touch counts as a drag
-        CLOSE: 0.15, //== share of the viewport height that closes on release
-        VELOCITY: 0.5, //== px/ms that closes on release, whatever the distance
+        START: 10, //## px of vertical travel before a touch counts as a drag
+        CLOSE: 0.15, //## share of the viewport height that closes on release
+        VELOCITY: 0.5, //## px/ms that closes on release, whatever the distance
         touch: null,
 
         stop() {
@@ -202,8 +202,8 @@ function initializeModal(MODAL) {
             DIALOG.style.removeProperty("--_modal-drag-progress");
         },
 
-        //== a drag only starts where nothing would scroll instead: not in a form field, and every
-        //== box between the finger and the dialog (the dialog included) already at its top
+        //## a drag only starts where nothing would scroll instead: not in a form field, and every
+        //## box between the finger and the dialog (the dialog included) already at its top
         canStart(target) {
             if (target.closest("input, textarea, select, [contenteditable]")) return false;
             for (let element = target; element; element = element.parentElement) {
@@ -223,7 +223,7 @@ function initializeModal(MODAL) {
         move(e) {
             const drag = this.touch;
             if (!drag) return;
-            //== a second finger means a pinch, which is the browser's
+            //## a second finger means a pinch, which is the browser's
             if (e.touches.length !== 1) return this.end(e, false);
             const touch = e.touches[0];
 
@@ -231,12 +231,12 @@ function initializeModal(MODAL) {
                 const dx = touch.clientX - drag.x;
                 const dy = touch.clientY - drag.y;
                 if (Math.abs(dx) < this.START && Math.abs(dy) < this.START) return;
-                //== sideways or upwards stays the page's: a horizontal scroller, the panel's own scroll
+                //## sideways or upwards stays the page's: a horizontal scroller, the panel's own scroll
                 if (dy <= 0 || Math.abs(dx) > dy) {
                     this.touch = null;
                     return;
                 }
-                //== counted from here, so the panel does not jump by the threshold
+                //## counted from here, so the panel does not jump by the threshold
                 drag.active = true;
                 drag.y = touch.clientY;
                 stopAnimation();
@@ -256,12 +256,12 @@ function initializeModal(MODAL) {
                 this.touch = null;
                 return;
             }
-            //== speed over the last 100ms of movement; a finger that stopped before lifting has none
+            //## speed over the last 100ms of movement; a finger that stopped before lifting has none
             const [firstTime, firstDistance] = drag.samples[0] || [e.timeStamp, drag.distance];
             const [lastTime, lastDistance] = drag.samples.at(-1) || [e.timeStamp, drag.distance];
             const velocity = e.timeStamp - lastTime > 100 ? 0 : (lastDistance - firstDistance) / Math.max(lastTime - firstTime, 1);
             const shouldClose = release && (drag.distance > window.innerHeight * this.CLOSE || (velocity > this.VELOCITY && drag.distance > this.START));
-            //== back where it was: removing the state lets the stylesheet's transition take it there
+            //## back where it was: removing the state lets the stylesheet's transition take it there
             if (!shouldClose) return this.stop();
 
             this.touch = null;
@@ -269,8 +269,8 @@ function initializeModal(MODAL) {
             statusModal(false);
             pgs(DIALOG).state.remove("dragging");
             pgs(DIALOG).state.add("dragClose");
-            //== the panel leaves from where the finger let it go, through the transitions this state
-            //== starts; none (reduced motion, or a theme that turns them off) closes at once
+            //## the panel leaves from where the finger let it go, through the transitions this state
+            //## starts; none (reduced motion, or a theme that turns them off) closes at once
             const transitions = DIALOG.getAnimations({ subtree: true }).filter(animation => animation instanceof CSSTransition && [DIALOG, CONTENT].includes(animation.effect?.target));
             if (!transitions.length) return finishClose();
             Promise.all(transitions.map(animation => animation.finished)).then(finishClose, () => { });
@@ -289,9 +289,9 @@ function initializeModal(MODAL) {
         document.querySelectorAll("dialog[open]").forEach((dlg) => dlg.close());
         statusModal(true);
         dialogTopLevel ? DIALOG.showModal() : DIALOG.show();
-        //== respect an explicit autofocus target inside the dialog when the author set one
-        //== preventScroll: the dialog is focused before the opening animation moves the panel off
-        //== screen, and Safari would scroll the dialog to follow it there
+        //## respect an explicit autofocus target inside the dialog when the author set one
+        //## preventScroll: the dialog is focused before the opening animation moves the panel off
+        //## screen, and Safari would scroll the dialog to follow it there
         if (!DIALOG.querySelector("[autofocus]")) focusTarget.focus({ preventScroll: true });
         animate("animationIn")?.then(stopAnimation, () => { });
         dispatchModal(EVENT_OPEN);
@@ -300,14 +300,14 @@ function initializeModal(MODAL) {
     //+ FN CLOSE
     function closeModal(e) {
         e?.stopImmediatePropagation()
-        //== a second request while the closing animation is still running changes nothing
+        //## a second request while the closing animation is still running changes nothing
         if (closing) return;
         statusModal(false);
         const animationOut = DIALOG.open ? animate("animationOut") : null;
         if (!animationOut) return finishClose();
         closing = true;
-        //== a rejected promise means the animation was cancelled — by a native close removing
-        //== the state — and whoever cancelled it already owns the dialog's state
+        //## a rejected promise means the animation was cancelled — by a native close removing
+        //## the state — and whoever cancelled it already owns the dialog's state
         animationOut.then(finishClose, () => { });
     }
 
@@ -335,20 +335,20 @@ function initializeModal(MODAL) {
     }
 
 
-    //= OPEN
+    //# OPEN
     BUTTON_OPEN?.addEventListener("click", (e) => openModal(e), { signal });
-    //== preventDefault suppresses the native click a real <button>/<a> already fires for Enter/Space
-    //== on its own — without it, that native click ran right after this one and, finding the dialog
-    //== already open, toggled it straight back closed
+    //## preventDefault suppresses the native click a real <button>/<a> already fires for Enter/Space
+    //## on its own — without it, that native click ran right after this one and, finding the dialog
+    //## already open, toggled it straight back closed
     BUTTON_OPEN?.addEventListener("keydown", (e) => {
         if (DIALOG.open || (e.key !== "Enter" && e.key !== " ")) return;
         e.preventDefault();
         openModal(e);
     }, { signal });
 
-    //= CLOSE
-    //== every way the dialog closes ends in this native event — the close button, the backdrop, Escape, a
-    //== drag, the browser's back button, or a plain dialog.close() — so pgs:modal:close goes out from here
+    //# CLOSE
+    //## every way the dialog closes ends in this native event — the close button, the backdrop, Escape, a
+    //## drag, the browser's back button, or a plain dialog.close() — so pgs:modal:close goes out from here
     DIALOG.addEventListener("close", () => {
         statusModal(false);
         closing = false;
@@ -356,8 +356,8 @@ function initializeModal(MODAL) {
         dragClose.stop();
         dispatchModal(EVENT_CLOSE);
     }, { signal });
-    //== Escape on a showModal() dialog closes it natively, with no time left for the closing
-    //== animation: take the cancel over and close through closeModal instead
+    //## Escape on a showModal() dialog closes it natively, with no time left for the closing
+    //## animation: take the cancel over and close through closeModal instead
     if (dialogAnimation) DIALOG.addEventListener("cancel", e => {
         e.preventDefault();
         closeModal(e);
@@ -365,8 +365,8 @@ function initializeModal(MODAL) {
     DIALOG.addEventListener("click", e => { if (e.target == DIALOG && !dialogDisableBackdropClose) closeModal(e) }, { signal });
     BUTTON_CLOSE?.addEventListener("click", e => closeModal(e), { signal });
 
-    //= DRAG CLOSE
-    //== touchmove is not passive: once a drag has started it has to stop the page from scrolling
+    //# DRAG CLOSE
+    //## touchmove is not passive: once a drag has started it has to stop the page from scrolling
     if (dialogDragClose && CONTENT) {
         DIALOG.addEventListener("touchstart", e => dragClose.start(e), { signal, passive: true });
         DIALOG.addEventListener("touchmove", e => dragClose.move(e), { signal, passive: false });
@@ -374,11 +374,11 @@ function initializeModal(MODAL) {
         DIALOG.addEventListener("touchcancel", e => dragClose.end(e, false), { signal });
     }
 
-    //= UPDATE HISTORY
+    //# UPDATE HISTORY
     if (dialogHistory && BUTTON_OPEN?.id) {
         historyTimeout = window.setTimeout(openModalOnHistory, 1);
 
-        //== keeps the URL in step with the dialog's own "open" attribute
+        //## keeps the URL in step with the dialog's own "open" attribute
         historyObserver = new MutationObserver(() => {
             let isOpen = DIALOG.hasAttribute("open");
             try {
@@ -386,15 +386,15 @@ function initializeModal(MODAL) {
                 const params = new URLSearchParams(url.search);
                 isOpen ? params.set('modal', BUTTON_OPEN.id) : params.delete('modal');
                 url.search = params.toString() ? `?${params.toString()}` : "";
-                //== the address already says so when the change came from the history itself (back,
-                //== forward, or a page loaded with ?modal=): a second entry would wipe the forward stack
+                //## the address already says so when the change came from the history itself (back,
+                //## forward, or a page loaded with ?modal=): a second entry would wipe the forward stack
                 if (url.href === window.location.href) return;
                 window.history.pushState({ modal: BUTTON_OPEN.id, open: isOpen }, "", url);
             } catch (_) { }
         });
         historyObserver.observe(DIALOG, { attributes: true, attributeFilter: ["open"] });
 
-        //== back and forward in the browser open and close the dialog to match
+        //## back and forward in the browser open and close the dialog to match
         window.addEventListener("popstate", () => {
             try {
                 const params = new URLSearchParams(window.location.search);
@@ -438,10 +438,10 @@ function PGS_modal_init(root = document) {
     PGS_roots(root, "modal").forEach(MODAL => initializeModal(MODAL));
 }
 
-//# INIT PGS_modal
+//= INIT PGS_modal
 PGS_onDocumentReady(PGS_modal_init);
 
-//# API
+//= API
 function PGS_modal_api(element) {
     return API.get(element);
 }

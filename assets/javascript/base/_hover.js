@@ -3,33 +3,33 @@ import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
 import { PGS_rafThrottle } from "../helper/_throttle.js";
 import { PGS_invalid } from "../helper/_warn.js";
 
-//# HOVER
-//== every clickable surface of the library shares the same hover treatment, and it is written once
-//== in SCSS under [pgs~=hover]. The component selectors no longer repeat it: this module marks the
-//== surfaces that are clickable by definition, so the author keeps writing only the component token
-//== while the element still carries a real pgs value that SCSS, JavaScript and the inspector read.
+//= HOVER
+//## every clickable surface of the library shares the same hover treatment, and it is written once
+//## in SCSS under [pgs~=hover]. The component selectors no longer repeat it: this module marks the
+//## surfaces that are clickable by definition, so the author keeps writing only the component token
+//## while the element still carries a real pgs value that SCSS, JavaScript and the inspector read.
 
 //+ tokens that get the hover treatment, with the extra condition each one has to satisfy
 const HOVER_TARGETS = {
-    //== a button is clickable whatever its tag
+    //## a button is clickable whatever its tag
     button: () => true,
-    //== a card or a box is only a clickable surface when it is a link
+    //## a card or a box is only a clickable surface when it is a link
     card: element => element.tagName === "A",
     box: element => element.tagName === "A"
 };
 
 const TOKENS = Object.keys(HOVER_TARGETS);
 
-//== only what this module added is ever taken back: a "hover" written by hand belongs to the author
-//== and stays, whatever the element turns into later
+//## only what this module added is ever taken back: a "hover" written by hand belongs to the author
+//## and stays, whatever the element turns into later
 const MARKED = new WeakSet();
 
 //+ SYNC HOVER
 function syncHover(element) {
     if (!(element instanceof Element)) return;
 
-    //== hoverNot is the one opt-out, written on the element whatever the component: a surface that
-    //== must not answer the pointer is never marked, and SCSS guards a "hover" written by hand
+    //## hoverNot is the one opt-out, written on the element whatever the component: a surface that
+    //## must not answer the pointer is never marked, and SCSS guards a "hover" written by hand
     const clickable = !pgs(element).option.contains("hoverNot")
         && TOKENS.some(token => pgs(element).contains(token) && HOVER_TARGETS[token](element));
 
@@ -45,11 +45,11 @@ function syncHover(element) {
     pgs(element).remove("hover");
 }
 
-//= INIT
-//== bodyHoverAuto gates every caller here, not only the automatic pass below: pgs.init(root) walks
-//== every registered module and calls its init(root) whether or not the caller meant to touch
-//== hover specifically, so the check has to live in the one function every path funnels through,
-//== not in the block that only covers this module's own unprompted call
+//# INIT
+//## bodyHoverAuto gates every caller here, not only the automatic pass below: pgs.init(root) walks
+//## every registered module and calls its init(root) whether or not the caller meant to touch
+//## hover specifically, so the check has to live in the one function every path funnels through,
+//## not in the block that only covers this module's own unprompted call
 function PGS_hover_init(root = document) {
     if (!(root instanceof Document || root instanceof Element)) {
         throw PGS_invalid("hover.init", "root must be a Document or an Element");
@@ -63,11 +63,11 @@ function PGS_hover_init(root = document) {
     return root;
 }
 
-//= WATCH
-//== the surfaces to mark do not all exist when the page is ready: the library injects its own
-//== markup (a toast, a notification row) and an author can add or remove a token
-//== at runtime. The watch stays on, batched per frame, and re-marking is idempotent so the pass our
-//== own attribute write triggers back settles at once
+//# WATCH
+//## the surfaces to mark do not all exist when the page is ready: the library injects its own
+//## markup (a toast, a notification row) and an author can add or remove a token
+//## at runtime. The watch stays on, batched per frame, and re-marking is idempotent so the pass our
+//## own attribute write triggers back settles at once
 const PENDING = new Set();
 
 const flushPending = PGS_rafThrottle(() => {
@@ -92,11 +92,11 @@ function handleMutations(mutations) {
     });
 }
 
-//= AUTO-MARK
-//== bodyHoverAuto is the author's own switch, one of the flags in <body>'s own body[...] bracket
-//== alongside bodyBase/bodyImg/bodyText/bodyHeading: without it nothing is marked on load, and —
-//== separately from the check inside PGS_hover_init — the observer below never even starts, so a page
-//== that only ever writes pgs="hover" by hand never pays for it running for its whole lifetime
+//# AUTO-MARK
+//## bodyHoverAuto is the author's own switch, one of the flags in <body>'s own body[...] bracket
+//## alongside bodyBase/bodyImg/bodyText/bodyHeading: without it nothing is marked on load, and —
+//## separately from the check inside PGS_hover_init — the observer below never even starts, so a page
+//## that only ever writes pgs="hover" by hand never pays for it running for its whole lifetime
 PGS_onDocumentReady(() => {
     if (!pgs(document.body).option.contains("bodyHoverAuto")) return;
 
@@ -109,7 +109,7 @@ PGS_onDocumentReady(() => {
     });
 });
 
-//# EXPORT
+//= EXPORT
 export const PGS_hover = {
     init: PGS_hover_init
 };

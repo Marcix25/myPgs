@@ -1,9 +1,9 @@
 @use "../mixin/mixin" as *;
 
-//# MAIN, SECTION, CONTAINER
+//= MAIN, SECTION, CONTAINER
 [pgs~="main"] { @include main; }
 
-//= SECTION
+//# SECTION
 // one root, every variant folded into a flag with the sct prefix (sctMax, sctEdgeLeft, ...)
 // instead of a separate root token per variant — the same fold applied to margin/padding/border
 // this cycle. The variants are mutually exclusive alternatives to the same base layout, so they
@@ -40,7 +40,7 @@
     &[pgs*="'sctRemoveGapBottom'"] { --section-margin-block: 0 var(--section-marginBase); }
 }
 
-//== CONTAINER
+//## CONTAINER
 :is([pgs~="container"], [pgs*="container\5B"]) {
     container-type: inline-size;
 

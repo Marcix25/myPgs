@@ -3,7 +3,7 @@
 ol[pgs~="steps"] {
     color: var(--color-black);
 
-    //== step
+    //## step
     :where([pgs~="steps-step"]) {
         display: flex;
         align-items: start;
@@ -13,7 +13,7 @@ ol[pgs~="steps"] {
         --steps-line-size: 2px;
         --steps-line-color: var(--color-gray);
 
-        //== CONTENT
+        //## CONTENT
         :where([pgs~="steps-step-content"]) {
             @include column();
             margin-bottom: calc(var(--gap-elements) / 2 - 8px);
@@ -22,9 +22,9 @@ ol[pgs~="steps"] {
             width: 100%;
         }
 
-        //== NUMBER
-        //== a hand-written circle keeps the bare name; a generated one gets the underscore (see
-        //== _steps.js), so every check here needs both
+        //## NUMBER
+        //## a hand-written circle keeps the bare name; a generated one gets the underscore (see
+        //## _steps.js), so every check here needs both
         :where([pgs~="steps-step-circle"]),
         :where([pgs~="_steps-step-circle"]) {
             min-width: var(--steps-circle-size);
@@ -41,8 +41,8 @@ ol[pgs~="steps"] {
             i, :is([pgs~="icon"], [pgs*="icon\5B"]) { color: var(--color-black); }
         }
 
-        //== LINE
-        //== same dual form as the circle above
+        //## LINE
+        //## same dual form as the circle above
         :where([pgs~="steps-step-line"]),
         :where([pgs~="_steps-step-line"]) {
             $space: 15px;
@@ -54,7 +54,7 @@ ol[pgs~="steps"] {
             width: var(--steps-circle-size);
             z-index: -1;
 
-            //=== line
+            //### line
             &::before {
                 content: "";
                 width: var(--steps-line-size);
@@ -68,7 +68,7 @@ ol[pgs~="steps"] {
             }
         }
 
-        //== LAST
+        //## LAST
         &:last-child {
             :where([pgs~="steps-step"]) {
                 padding-bottom: 0;

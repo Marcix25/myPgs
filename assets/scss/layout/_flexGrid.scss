@@ -1,8 +1,8 @@
-//# FLEX & GRID
+//= FLEX & GRID
 // gap and alignment options shared by flex and grid (and by the layout mixins other components
 // compose), kept apart from both so neither page owns them
 
-//= GAP
+//# GAP
 // the gap options also work under a root of their own, gap, so an element that is already a flex or
 // grid container by other means (a main, a section) can take one without being written as flex or
 // grid. Only the gap: the alignment options below stay with flex and grid. Each one also sets --gap,
@@ -16,17 +16,17 @@
     &[pgs*="'gapNone'"] { --gap: 0px; gap: 0px; }
 }
 
-//= ALIGNMENT
+//# ALIGNMENT
 :is([pgs~="grid"], [pgs*="grid\5B"], [pgs~="flex"], [pgs*="flex\5B"]) {
 
-    //== ALIGN ITEMS
+    //## ALIGN ITEMS
     &[pgs*="'itemStart'"] { align-items: start; }
     &[pgs*="'itemCenter'"] { align-items: center; }
     &[pgs*="'itemEnd'"] { align-items: end; }
     &[pgs*="'itemStretch'"] { align-items: stretch; }
     &[pgs*="'itemBaseline'"] { align-items: baseline; }
 
-    //== JUSTIFY CONTENT
+    //## JUSTIFY CONTENT
     &[pgs*="'justifyStart'"] { justify-content: start; }
     &[pgs*="'justifyCenter'"] { justify-content: center; }
     &[pgs*="'justifyEnd'"] { justify-content: end; }
@@ -34,7 +34,7 @@
     &[pgs*="'justifyAround'"] { justify-content: space-around; }
     &[pgs*="'justifyEvenly'"] { justify-content: space-evenly; }
 
-    //== ALIGN CONTENT
+    //## ALIGN CONTENT
     &[pgs*="'contentStart'"] { align-content: start; }
     &[pgs*="'contentCenter'"] { align-content: center; }
     &[pgs*="'contentEnd'"] { align-content: end; }
@@ -43,7 +43,7 @@
     &[pgs*="'contentEvenly'"] { align-content: space-evenly; }
 }
 
-//= SELF ALIGN
+//# SELF ALIGN
 // a child overriding its container's alignment: the flag belongs to the bracket of flexChild or
 // gridChild, so it can only be written on an item of a flex or grid container
 :is([pgs~="flexChild"], [pgs*="flexChild\5B"], [pgs~="gridChild"], [pgs*="gridChild\5B"]) {

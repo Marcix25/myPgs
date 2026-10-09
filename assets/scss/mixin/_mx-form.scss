@@ -1,8 +1,8 @@
 @use "mx-icons" as *;
 @use "mx-responsive" as *;
 
-//=FORM
-//== INPUT 
+//#FORM
+//## INPUT 
 @mixin input($padding: 15px) {
     --input-padding: #{$padding};
     appearance: none;
@@ -26,7 +26,7 @@
     &:hover { outline: solid var(--color-primary); }
 }
 
-//== LABEL 
+//## LABEL 
 @mixin label($borderRadius: 1.0rem 1.0rem 0 0, $left: var(--border-radius-input)) {
     --label-borderRadius: #{$borderRadius};
     --label-left: #{$left};
@@ -51,7 +51,7 @@
     }
 }
 
-//== REQUIRED 
+//## REQUIRED 
 @mixin required() {
     position: relative;
 
@@ -74,13 +74,13 @@
     }
 }
 
-//== DISABLED
+//## DISABLED
 @mixin disabled() {
     opacity: 0.5;
     cursor: not-allowed !important;
 }
 
-//== FILE
+//## FILE
 @mixin file() {
     width: 100%;
     background-color: var(--color-white);
@@ -112,7 +112,7 @@
     }
 }
 
-//== RANGE 
+//## RANGE 
 @mixin range() {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -127,7 +127,7 @@
     z-index: 1;
     position: relative;
 
-    //=== thumb (WebKit)
+    //### thumb (WebKit)
     &::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
@@ -145,7 +145,7 @@
         }
     }
 
-    //=== thumb (Firefox)
+    //### thumb (Firefox)
     &::-moz-range-thumb {
         -moz-appearance: none;
         appearance: none;
@@ -163,14 +163,14 @@
         }
     }
 
-    //=== focus
+    //### focus
     &:focus-visible::-webkit-slider-thumb {
         outline: var(--focus-visible) !important;
         background-color: var(--color-focus) !important;
         scale: 1.2;
     }
 
-    //=== disabled
+    //### disabled
     &:disabled { @include disabled(); }
 }
 
@@ -197,14 +197,14 @@
         display: flex;
         padding-inline: var(--checkbox-padding-inline);
 
-        //=== Disabled
+        //### Disabled
         &:has(input:disabled) { opacity: 0.5; }
 
-        //=== Required
+        //### Required
         &:has(input[type=checkbox]:required) { @include required(); }
     }
 
-    //== ICON & BOX
+    //## ICON & BOX
     input {
         appearance: none;
         position: relative;
@@ -215,7 +215,7 @@
         cursor: pointer;
         @include center();
 
-        //=== BOX SQUARE
+        //### BOX SQUARE
         &::before {
             content: "";
             position: absolute;
@@ -226,7 +226,7 @@
             color: var(--color-primary-soft);
         }
 
-        //=== ICON CHECK
+        //### ICON CHECK
         &::after {
             position: absolute;
             line-height: var(--checkbox-size);
@@ -236,18 +236,18 @@
             transform: translateX(0.25rem);
         }
 
-        //=== Checked
+        //### Checked
         &:checked::after { opacity: 1; }
 
-        //=== Focus
+        //### Focus
         &:focus-visible::before { outline: var(--focus-visible) !important; }
 
-        //=== Checkbox
+        //### Checkbox
         &[type=checkbox] {
-            //== icon() draws on ::after and blanks ::before, which here is not a leftover — it is
-            //== the box below — so it is reclaimed right after; the size and color come after the
-            //== include too, since they override the mixin's own --icon-size/--icon-color and a
-            //== declaration only wins over an earlier one on the same selector
+            //## icon() draws on ::after and blanks ::before, which here is not a leftover — it is
+            //## the box below — so it is reclaimed right after; the size and color come after the
+            //## include too, since they override the mixin's own --icon-size/--icon-color and a
+            //## declaration only wins over an earlier one on the same selector
             @include icon(var(--checkbox-icon), "::after");
             --icon-size: calc(2rem + var(--checkbox-size));
             --icon-color: var(--checkbox-check-color);
@@ -263,7 +263,7 @@
             }
         }
 
-        //=== Radio
+        //### Radio
         &[type=radio] {
             &::before { border-radius: 50%; }
             &::after { display: none; }
@@ -285,7 +285,7 @@
     }
 }
 
-//== SELECT 
+//## SELECT 
 @mixin select() {
     @include input();
     overflow: auto;
@@ -343,10 +343,10 @@
     margin-bottom: var(--gap-texts);
 }
 
-//= FORM 
+//# FORM 
 @mixin form() {
 
-    //=== LABEL
+    //### LABEL
     label {
         display: block;
 
@@ -360,7 +360,7 @@
         }
     }
 
-    //=== INPUT
+    //### INPUT
     input {
         &:not([pgs~="inputUnset"], [type=checkbox], [type=file], [type=radio], [type=range]) { @include input(); }
 
@@ -394,27 +394,27 @@
         }
     }
 
-    //==== CHECKBOX
+    //#### CHECKBOX
     $not-checkbox: ':is([pgs~="button"], [pgs*="button\5B"]), [pgs~="toggle"], [pgs~="chip"], [pgs~="checkboxBackground"], [pgs~="chips"] label';
 
     label:has(input[type=checkbox]):not(#{$not-checkbox}),
     label:has(input[type=radio]):not(#{$not-checkbox}) { @include checkbox(); }
 
-    //=== TEXTAREA
+    //### TEXTAREA
     textarea {
         @include formTextarea()
     }
 
-    //=== RANGE
+    //### RANGE
     input[type=range] { @include range(); }
 
-    //=== COLOR
+    //### COLOR
     input[type=color] { @include inputColor(); }
 
-    //=== SELECT
+    //### SELECT
     select { @include select(); }
 
-    //===FIELDSET 
+    //###FIELDSET 
     fieldset {
         border: unset;
 
@@ -422,7 +422,7 @@
         &[required] legend { @include required(); }
     }
 
-    //=== REQUIRED
+    //### REQUIRED
     label:has(+ input[required]:not([type="checkbox"], [type="radio"]),
         + select[required],
         + textarea[required],
@@ -434,7 +434,7 @@
         [pgs~="label"] { @include required(); }
     }
 
-    //=== DISABLED
+    //### DISABLED
     input[disabled],
     input[disabled]:is([type="checkbox"], [type="radio"])+label,
     label:has(+ input[disabled]:not([type="checkbox"], [type="radio"]), > input[disabled]:not([type="checkbox"], [type="radio"])),
@@ -442,7 +442,7 @@
         @include disabled();
     }
 
-    //=== EYE 
+    //### EYE 
     input[type="password"]::-ms-reveal,
     input[type="password"]::-ms-clear,
     input[type="password"]::-webkit-textfield-decoration-container,
@@ -454,11 +454,11 @@
     input[type="file"] { @include file(); }
 }
 
-//== formValidate
+//## formValidate
 @mixin formValidate() {
     --formValidate-outline: solid 3px var(--color-error);
 
-    //=== ERROR
+    //### ERROR
     &[pgs-state~=errorForm] {
         [pgs-state~=errorField]:not([type=checkbox], [type=radio]) {
             outline: var(--formValidate-outline);

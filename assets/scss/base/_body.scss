@@ -1,6 +1,6 @@
 @use "../mixin/mixin" as *;
 
-//== HTML
+//## HTML
 :where([pgs~="htmlBase"]) {
     --font-rem-base: 62.5%;
     scroll-behavior: smooth;
@@ -21,14 +21,14 @@
 
 @view-transition { navigation: auto; }
 
-//== BODY
+//## BODY
 :where([pgs*="body\5B"]) {
-    //== HOVER
-    //== declared here so editors suggest it: without it pgs.hover marks nothing on its own, and
-    //== only a pgs="hover" written by hand gets the treatment. See base/hover
+    //## HOVER
+    //## declared here so editors suggest it: without it pgs.hover marks nothing on its own, and
+    //## only a pgs="hover" written by hand gets the treatment. See base/hover
     &:where([pgs*="'bodyHoverAuto'"]) {}
 
-    //== BASE
+    //## BASE
     &:where([pgs*="'bodyBase'"]) {
         background-color: var(--color-background);
         position: relative;
@@ -69,7 +69,7 @@
         }
     }
 
-    //== IMG
+    //## IMG
     &:where([pgs*="'bodyImg'"]) {
 
         img,
@@ -109,7 +109,7 @@
         }
     }
 
-    //== TEXT
+    //## TEXT
     &:where([pgs*="'bodyText'"]) {
         color: var(--color-black);
         font-family: var(--text-family);
@@ -128,7 +128,7 @@
         }
     }
 
-    //== HEADING
+    //## HEADING
     &:where([pgs*="'bodyHeading'"]) {
         h1 { @include h1(); }
         h2 { @include h2(); }

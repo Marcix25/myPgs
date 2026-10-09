@@ -1,15 +1,15 @@
 @use "../mixin/mixin" as *;
 
-//# NAV SMART
+//= NAV SMART
 // a floating bar of pills pinned to the bottom of the screen, the way a phone's tab bar looks:
 // every navSmart-element is one frosted pill, and the elements sit side by side, so a group of
 // links and a lone button (a profile, a search) read as separate shapes. The pill is a box with boxNavSmart;
 // the items inside it are plain buttons of the button component, with btnForNavSmart
-//= NAVSMART
+//# NAVSMART
 :is([pgs~="navSmart"], [pgs*="navSmart\5B"]) {
     --navSmart-gap: .8rem;
-    //== the distance from the edges of the screen: the page's own padding on a site, and
-    //== --navSmart-edgePWA when it runs installed as an app (see below)
+    //## the distance from the edges of the screen: the page's own padding on a site, and
+    //## --navSmart-edgePWA when it runs installed as an app (see below)
     --navSmart-edgePWA: 2.0rem;
     --navSmart-edge: calc(var(--page-padding) / 2);
     --navSmart-itemMinWidth: min(7.2rem, 16vw);
@@ -26,7 +26,7 @@
     padding-inline: var(--navSmart-edge);
     pointer-events: none;
 
-    //== INSTALLED APP
+    //## INSTALLED APP
     // an installed app has no browser bar, and a phone draws its home indicator over the bottom
     // of the page. env(safe-area-inset-bottom) does not report it unless the page asks for
     // viewport-fit=cover, so the bar keeps a fixed distance there instead. Safari on iOS does not
@@ -35,7 +35,7 @@
     @media (display-mode: standalone) { --navSmart-edge: var(--navSmart-edgePWA); }
     &[pgs-state~="installedApp"] { --navSmart-edge: var(--navSmart-edgePWA); }
 
-    //== ELEMENT
+    //## ELEMENT
     // one pill, drawn by box with boxNavSmart. Its padding is the gap between the highlighted item
     // and the edge, so the highlight reads as a smaller pill sliding inside it
     :where([pgs~="navSmart-element"]) {

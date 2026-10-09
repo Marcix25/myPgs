@@ -1,7 +1,7 @@
 @use "mx-elements" as *;
 
-//# HOVER
-//= HOVER BASE
+//= HOVER
+//# HOVER BASE
 @mixin hoverBase() {
     &:not(:where(:is([pgs~="hoverNot"], [pgs*="'hoverNot'"]))) {
         --hover-primaryColor: var(--color-secondary-soft);
@@ -22,11 +22,11 @@
 // the shared hover/focus treatment, as mixins any selector can compose — see base/_hover.scss for
 // the :is([pgs~="hover"], [pgs*="hover\5B"]) rule that applies them to the token, and AGENTS-DEVELOPMENT.md for when an
 // element needs the treatment without carrying that token
-//= STYLE NORMAL
+//# STYLE NORMAL
 @mixin hoverStyleNormal($delay: 0ms) {
     &:not(:where(:is([pgs~="hoverNot"], [pgs*="'hoverNot'"]))) {
         &:where(:not(:disabled, [disabled])) {
-            //== CONTENT
+            //## CONTENT
             // the easing goes inside every shorthand entry: transition-behavior is not where it lives
             // (that one only takes normal or allow-discrete), and the shorthand would reset it anyway
             transition:
@@ -41,7 +41,7 @@
                     color var(--hover-timing) var(--hover-behavior);
             }
 
-            //== HOVER
+            //## HOVER
             @media (hover: hover) and (pointer: fine) {
                 &:hover {
                     background: var(--hover-background);
@@ -61,7 +61,7 @@
                 }
             }
 
-            //== ACCESSIBILITY
+            //## ACCESSIBILITY
             @media (prefers-reduced-motion: reduce) {
                 transition: unset;
 
@@ -81,7 +81,7 @@
             --hover-st1-background-delay: var(--hover-timing);
             --hover-st1-transform-origin: center center;
 
-            //== CONTENT
+            //## CONTENT
             &::before {
                 content: "";
                 width: 100%;
@@ -100,7 +100,7 @@
                     background-color var(--hover-timing) var(--hover-behavior);
             }
 
-            //== HOVER
+            //## HOVER
             @media (hover: hover) and (pointer: fine) {
                 &:hover {
                     &::before {
@@ -110,7 +110,7 @@
                 }
             }
 
-            //== ACCESSIBILITY
+            //## ACCESSIBILITY
             @media (prefers-reduced-motion: reduce) {
                 &::before { display: none; }
             }
@@ -120,7 +120,7 @@
     @include hoverStyleNormal(var(--hover-st1-background-delay))
 }
 
-//= HOVER COMPLETE
+//# HOVER COMPLETE
 // the three composed together, which is what :is([pgs~="hover"], [pgs*="hover\5B"]) itself includes; an element that wants
 // the treatment without carrying that token composes hoverBase, hoverStyle1 and focus directly
 // instead, in whatever order it needs to interleave them with its own rules

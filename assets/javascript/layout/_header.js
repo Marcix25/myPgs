@@ -3,7 +3,7 @@ import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
 import { PGS_roots } from "../helper/_dom.js";
 import { PGS_rafThrottle, PGS_watchDocument } from "../helper/_throttle.js";
 
-//# HEADER
+//= HEADER
 //+ COMPACT BREAKPOINT
 // Width at or below which the header switches to its compact layout even when the content
 // still fits, so a wide header can be compact on purpose.
@@ -30,16 +30,16 @@ function getCompactBreakpoint(header) {
 // compact, look for what sticks out past the right edge of header-element rather than tuning here.
 const OVERFLOW_TOLERANCE = 2;
 
-//= RESIZE
-//== a header only reaches here once it holds a header-element (see getReadyHeaders)
+//# RESIZE
+//## a header only reaches here once it holds a header-element (see getReadyHeaders)
 function initResize(header) {
     const headerElements = pgs(header).querySelectorAll("header-element");
 
     headerElements.forEach(selectHeader => {
 
-        //== COMPACT LAYOUT
-        //== how much room the full layout needs, learned the first time it does not fit. It cannot be
-        //== measured while compact, because header-element-onlyFull is hidden and reports zero width.
+        //## COMPACT LAYOUT
+        //## how much room the full layout needs, learned the first time it does not fit. It cannot be
+        //## measured while compact, because header-element-onlyFull is hidden and reports zero width.
         let requiredWidth = 0;
 
         function compact(headerElement) {
@@ -51,37 +51,37 @@ function initResize(header) {
                 pgs(headerElement).state.toggle("compact", value);
             };
 
-            //=== while the full layout is on screen its scrollWidth is what it needs, and this is the only
-            //=== moment it can be learned: once compact, header-element-onlyFull is hidden and reports zero
+            //### while the full layout is on screen its scrollWidth is what it needs, and this is the only
+            //### moment it can be learned: once compact, header-element-onlyFull is hidden and reports zero
             if (!isCompact && overflows) requiredWidth = headerElement.scrollWidth;
 
-            //=== a breakpoint declared on the header wins over any measurement
+            //### a breakpoint declared on the header wins over any measurement
             if (window.innerWidth <= getCompactBreakpoint(header)) return setCompact(true);
 
-            //=== compact: stay only while the room that was missing is still missing. With nothing learned
-            //=== the page loaded compact and the full layout fitted at that width, so let it back in
+            //### compact: stay only while the room that was missing is still missing. With nothing learned
+            //### the page loaded compact and the full layout fitted at that width, so let it back in
             if (isCompact) return setCompact(requiredWidth ? headerElement.clientWidth < requiredWidth : false);
             setCompact(overflows);
         }
 
-        //== Resize
-        //== throttled to avoid ResizeObserver loop warnings
+        //## Resize
+        //## throttled to avoid ResizeObserver loop warnings
         const scheduleCompact = PGS_rafThrottle(() => compact(selectHeader));
 
         const observer = new ResizeObserver(scheduleCompact);
         observer.observe(selectHeader);
 
-        //== MutationObserver, not ResizeObserver: won't loop back from compact()'s own show/hide toggles
+        //## MutationObserver, not ResizeObserver: won't loop back from compact()'s own show/hide toggles
         const childObserver = new MutationObserver(scheduleCompact);
         childObserver.observe(selectHeader, { childList: true, subtree: true });
 
-        //== initial check
+        //## initial check
         compact(selectHeader);
     });
 }
 
 
-//= HEADER HEIGHT
+//# HEADER HEIGHT
 function initHeight(header) {
     //+ GET HEADER HEIGHT ELEMENT
     function getHeaderHeightElement(header) {
@@ -97,9 +97,9 @@ function initHeight(header) {
 
     //+ HEIGHT
     function headerHeight() {
-        //== --_header-height is what pushes the page down, so only one header can own it. Ownership
-        //== is checked here rather than at init, so a header declaring main later still
-        //== takes over from the fallback
+        //## --_header-height is what pushes the page down, so only one header can own it. Ownership
+        //## is checked here rather than at init, so a header declaring main later still
+        //## takes over from the fallback
         if (getPrimaryHeader() !== header) return;
 
         const wordPressBar = parseInt(window.getComputedStyle(document.documentElement).marginTop, 10) || 0;
@@ -127,9 +127,9 @@ function initHeight(header) {
 
 
 
-//= SCROLL
-//== hides the header while the reader scrolls down and brings it back on the way up, on screens
-//== up to 900px tall, where a pinned header costs too much of the page
+//# SCROLL
+//## hides the header while the reader scrolls down and brings it back on the way up, on screens
+//## up to 900px tall, where a pinned header costs too much of the page
 function initScroll(header) {
     if (!pgs(header).option.contains("headerScroll")) return;
 
@@ -153,7 +153,7 @@ function initScroll(header) {
 }
 
 
-//# INIT
+//= INIT
 const INITIALIZED_HEADERS = new WeakSet();
 
 function initHeader(header) {
@@ -174,12 +174,12 @@ function PGS_header_init(root = document) {
     PGS_roots(root, "header").filter(header => pgs(header).querySelector("header-element")).forEach(initHeader);
 }
 
-//== headers can arrive later, and there may be more than one, so the watch stays on instead of
-//== stopping at the first: a pass is cheap and every header is initialized only once
+//## headers can arrive later, and there may be more than one, so the watch stays on instead of
+//## stopping at the first: a pass is cheap and every header is initialized only once
 PGS_onDocumentReady(PGS_header_init);
 PGS_watchDocument(() => PGS_header_init());
 
-//# EXPORT
+//= EXPORT
 export const PGS_header = {
     init: PGS_header_init
 };

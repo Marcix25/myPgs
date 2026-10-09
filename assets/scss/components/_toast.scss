@@ -1,6 +1,6 @@
 @use "../mixin/mixin" as *;
 
-//= TOAST GROUP / TRIGGER
+//# TOAST GROUP / TRIGGER
 // a hand-written container keeps the bare name; a generated one gets the underscore (see
 // _toast.js), so this needs both. The toast itself is the shared alert card, countdown bar
 // included (see _alerts.scss); this only stacks it fixed on screen

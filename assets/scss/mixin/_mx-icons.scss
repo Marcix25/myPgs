@@ -1,17 +1,17 @@
-//# ICON, SVG ICON
-//= ICON
-//== Svg Base 64
+//= ICON, SVG ICON
+//# ICON
+//## Svg Base 64
 @mixin svgBase64($url) {
     -webkit-mask: $url center/contain no-repeat;
     mask: $url center/contain no-repeat;
 }
 
-//== iconBase
-//== --icon-size/--icon-color are read with a fallback, never declared here: a wrapper further up
-//== (alert, notification, toast, a button, ...) sets --icon-size on itself and expects the icon
-//== inside to inherit it. Declaring either one here, even at the same 1em/currentColor a bare icon
-//== would resolve to anyway, would win over that inheritance regardless of specificity — a value
-//== on the element itself always beats an inherited one.
+//## iconBase
+//## --icon-size/--icon-color are read with a fallback, never declared here: a wrapper further up
+//## (alert, notification, toast, a button, ...) sets --icon-size on itself and expects the icon
+//## inside to inherit it. Declaring either one here, even at the same 1em/currentColor a bare icon
+//## would resolve to anyway, would win over that inheritance regardless of specificity — a value
+//## on the element itself always beats an inherited one.
 @mixin iconBase($on: "::before") {
     &#{$on} {
         line-height: 1;
@@ -25,7 +25,7 @@
     }
 }
 
-//== Icon for use in scss
+//## Icon for use in scss
 @mixin icon($icon, $on: "::before") {
     --icon: #{$icon};
     @include iconBase($on);
@@ -88,7 +88,7 @@
     }
 }
 
-//= SVG ICON
+//# SVG ICON
 // Icons the stylesheets draw themselves, as inline SVG rather than a font, painted through
 // svgBase64() so each shape follows currentColor instead of carrying its own.
 //

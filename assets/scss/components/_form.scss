@@ -1,42 +1,20 @@
 @use "../mixin/mixin" as *;
 
-//# FORM
-[pgs~="textarea"] {
-    @include textarea();
-}
-
-[pgs~="label"] {
-    @include label();
-}
-
-[pgs~="legend"] {
-    @include legend();
-}
-
-[pgs~="required"] {
-    @include required();
-}
-
-[pgs~="input"] {
-    @include input();
-}
-
-[pgs~="select"] {
-    @include select();
-}
+//= FORM
+[pgs~="textarea"] { @include textarea(); }
+[pgs~="label"] { @include label(); }
+[pgs~="legend"] { @include legend(); }
+[pgs~="required"] { @include required(); }
+[pgs~="input"] { @include input(); }
+[pgs~="select"] { @include select(); }
 
 [pgs~="radio"],
 [pgs~="checkbox"] {
     @include checkbox();
 }
 
-[pgs~="form"] {
-    @include form();
-}
-
-[pgs~="formValidate"] {
-    @include formValidate();
-}
+[pgs~="form"] { @include form(); }
+[pgs~="formValidate"] { @include formValidate(); }
 
 [pgs~="formValidate"] {
     //option for suggestions: set on the field that fails, or on a descendant of the

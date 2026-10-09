@@ -1,6 +1,6 @@
 @use "../mixin/mixin" as *;
 
-//# GENERAL
+//= GENERAL
 [pgs~="darkmode"] { color-scheme: dark; }
 [pgs~="lightmode"] { color-scheme: light; }
 
@@ -22,7 +22,7 @@
 [pgs~="pointer"] { cursor: pointer; }
 [pgs~="hidden"] { display: none !important; }
 
-//= LIST, TEXT SHADOW & BOX SHADOW
+//# LIST, TEXT SHADOW & BOX SHADOW
 [pgs~="list"] { @include list(); }
 :is([pgs~="textShadow"], [pgs*="textShadow\5B"]) {
     text-shadow: var(--text-shadow);
@@ -36,7 +36,7 @@
     &[pgs*="'bxsUnset'"] { box-shadow: none; }
 }
 
-//= ACCESSIBILITY
+//# ACCESSIBILITY
 [pgs~="visuallyHidden"],
 [pgs~="visuallyHiddenFocusable"]:not(:focus):not(:focus-within),
 [pgs~="skipLink"]:not(:focus):not(:focus-visible) {
@@ -81,7 +81,7 @@
     }
 }
 
-//= IMG
+//# IMG
 [pgs*="img\5B"] {
     &[pgs*="'imgCover'"] { object-fit: cover; }
     &[pgs*="'imgContain'"] { object-fit: contain; }

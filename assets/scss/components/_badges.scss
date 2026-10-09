@@ -33,13 +33,13 @@
 :is([pgs~="badge"], [pgs*="badge\5B"]) {
     @include _badge();
 
-    //== badgePrimary, not the shortened primary: button also has a 'primary' option
+    //## badgePrimary, not the shortened primary: button also has a 'primary' option
     &[pgs*="'badgePrimary'"] {
         --badge-background: var(--color-primary-soft);
         --badge-color: var(--color-primary-strong);
     }
 
-    //== badgeStrong, not the shortened strong: button also has a 'strong' option
+    //## badgeStrong, not the shortened strong: button also has a 'strong' option
     &[pgs*="'badgeStrong'"] {
         --badge-background: var(--color-primary);
         --badge-color: var(--color-whiteFixed);

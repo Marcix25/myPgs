@@ -18,9 +18,9 @@ const entryScss = {
 
 
 
-//= SETTINGS
+//# SETTINGS
 
-//== CONFIG
+//## CONFIG
 const config = {
     stats: {
         all: false,
@@ -31,7 +31,7 @@ const config = {
     },
 };
 
-//== MESSAGE SUCCESS
+//## MESSAGE SUCCESS
 const successMessagePluginJs = {
     apply: (compiler) => {
         compiler.hooks.done.tap('SuccessMessagePlugin', (stats) => {
@@ -42,7 +42,7 @@ const successMessagePluginJs = {
         });
     }
 };
-//== MESSAGE SUCCESS
+//## MESSAGE SUCCESS
 const successMessagePluginScss = {
     apply: (compiler) => {
         compiler.hooks.done.tap('SuccessMessagePlugin', (stats) => {
@@ -55,7 +55,7 @@ const successMessagePluginScss = {
     }
 };
 
-//== JS
+//## JS
 const js = {
     ...config,
     name: 'theme:js',
@@ -82,7 +82,7 @@ const jsMin = {
     plugins: [successMessagePluginJs],
 };
 
-//== SCSS
+//## SCSS
 const scss = {
     ...config,
     name: 'theme:scss',
@@ -120,5 +120,5 @@ const scssMin = {
     ],
 };
 
-//= EXPORT
+//# EXPORT
 module.exports = [js, jsMin, scss, scssMin];

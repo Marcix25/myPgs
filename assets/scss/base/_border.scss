@@ -1,16 +1,16 @@
-//# BORDER - BORDER RADIUS - OUTLINE
-//= BORDER
+//= BORDER - BORDER RADIUS - OUTLINE
+//# BORDER
 
 //- WIDTH
-//== the bracket-presence guard used everywhere else (marginBlock, paddingTop, ...) is safe again
-//== now that color lives in its own borderColor component below: border's own bracket only ever
-//== holds width flags, never a color flag that would otherwise need this default to still apply
+//## the bracket-presence guard used everywhere else (marginBlock, paddingTop, ...) is safe again
+//## now that color lives in its own borderColor component below: border's own bracket only ever
+//## holds width flags, never a color flag that would otherwise need this default to still apply
 :is([pgs~="border"], [pgs*="border\5B"]) {
 
     &:not([pgs*="border\5B"]) { border: var(--border-width) solid var(--border-color); }
 
-    //== the base scale prefix alone as a flag, e.g. border['bd'], is an explicit way to write the
-    //== same default a bare border with no bracket already gets
+    //## the base scale prefix alone as a flag, e.g. border['bd'], is an explicit way to write the
+    //## same default a bare border with no bracket already gets
     &[pgs*="'bd'"] { border: var(--border-width) solid var(--border-color); }
 
     //- BASE (all four sides) — unchanged, still general
@@ -23,10 +23,10 @@
 }
 
 //- COLOR
-//== its own root, independent of border/borderX's own bracket: pgs="borderTop['bdTpThin']
-//== borderColor['bdPrimary']" recolors the top side without needing a base border['...'] bracket
-//== of its own, since --border-color is shared by every border*/borderX width rule regardless of
-//== which root's bracket set it
+//## its own root, independent of border/borderX's own bracket: pgs="borderTop['bdTpThin']
+//## borderColor['bdPrimary']" recolors the top side without needing a base border['...'] bracket
+//## of its own, since --border-color is shared by every border*/borderX width rule regardless of
+//## which root's bracket set it
 :is([pgs~="borderColor"], [pgs*="borderColor\5B"]) {
     &[pgs*="'bdTransparent'"] { --border-color: transparent; }
     &[pgs*="'bdPrimary'"] { --border-color: var(--color-primary); }
@@ -105,7 +105,7 @@
     &[pgs*="'bdLtUnset'"] { border-left: none; }
 }
 
-//= BORDER RADIUS
+//# BORDER RADIUS
 :is([pgs~="borderRadius"], [pgs*="borderRadius\5B"]) {
     border-radius: var(--border-radius);
 
@@ -114,7 +114,7 @@
     &[pgs*="'radUnset'"] { border-radius: 0; }
 }
 
-//= OUTLINE
+//# OUTLINE
 :is([pgs~="outline"], [pgs*="outline\5B"]) {
     outline: var(--outline-width) var(--outline-style) var(--outline-color);
 

@@ -5,8 +5,8 @@ import { PGS_escapeHtml } from "../helper/_text.js";
 import { PGS_warn } from "../helper/_warn.js";
 
 const API = new WeakMap();
-//== the searches that are open, or have a debounce or a request still pending: what a pointerdown
-//== outside them has to close and cancel (kept until that pointerdown, so it stays short)
+//## the searches that are open, or have a debounce or a request still pending: what a pointerdown
+//## outside them has to close and cancel (kept until that pointerdown, so it stays short)
 const ACTIVE_SEARCHES = new Set();
 
 const DEFAULT_OPTIONS = {
@@ -87,8 +87,8 @@ const Search = {
     },
 };
 
-//== initialOptions is what a refresh() hands over: the options are not markup, so rebuilding the
-//== instance does not read them again
+//## initialOptions is what a refresh() hands over: the options are not markup, so rebuilding the
+//## instance does not read them again
 function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
     if (API.has(search)) return API.get(search);
 
@@ -198,7 +198,7 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
             option.setAttribute("role", "option");
             option.setAttribute("aria-selected", "false");
             option.setAttribute("aria-disabled", String(item.disabled));
-            //== the icon is markup the author wrote; the label comes from the source, which can be remote
+            //## the icon is markup the author wrote; the label comes from the source, which can be remote
             option.innerHTML = Search.suggestionIcon(search) + PGS_escapeHtml(item.label);
             fragment.append(option);
 
@@ -363,7 +363,7 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
             return;
         }
 
-        //== leaving the field: what is still pending must not open the list again behind the focus
+        //## leaving the field: what is still pending must not open the list again behind the focus
         if (event.key === "Tab") {
             cancel();
             Search.closeSearch(search);
@@ -402,7 +402,7 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
         clear,
         cancel,
         select,
-        //== the options are the one thing a rebuild keeps: they were given by the code, not the markup
+        //## the options are the one thing a rebuild keeps: they were given by the code, not the markup
         refresh: () => {
             const kept = options;
             destroy();
@@ -424,8 +424,8 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
     return api;
 }
 
-//== a pointerdown outside an open search closes it, and cancels what it was still waiting for: a
-//== debounce or a request that finishes after the click would open the list again behind it
+//## a pointerdown outside an open search closes it, and cancels what it was still waiting for: a
+//## debounce or a request that finishes after the click would open the list again behind it
 if (typeof document !== "undefined") {
     document.addEventListener("pointerdown", event => {
         ACTIVE_SEARCHES.forEach(search => {

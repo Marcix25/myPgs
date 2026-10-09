@@ -1,4 +1,4 @@
-//# BREADCRUMB
+//= BREADCRUMB
 // the path itself is a plain list: what the component owns is the spacing between the levels,
 // the separator and the color of the step the reader is on
 [pgs~="breadcrumb"] {
@@ -47,9 +47,7 @@
         }
 
         &:last-child {
-            &::after {
-                display: none;
-            }
+            &::after { display: none; }
         }
     }
 }

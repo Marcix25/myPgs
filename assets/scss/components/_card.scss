@@ -1,7 +1,7 @@
 @use "../mixin/mixin" as *;
 
-//# CARD, BOX
-//= CARD
+//= CARD, BOX
+//# CARD
 :is([pgs~="card"], [pgs*="card\5B"]) {
     --card-padding: var(--padding-elements);
     --card-borderRadius: calc(var(--border-radius-input) + var(--card-padding));
@@ -19,13 +19,13 @@
     padding: 0;
     flex-basis: 100%;
 
-    //== LINK
+    //## LINK
     &:where(a) {
         display: block;
         border: var(--border-complete);
         --card-background: var(--color-white);
 
-        //=== HOVER
+        //### HOVER
         &:not(:where([pgs*="body\5B"][pgs*="'bodyHoverAuto'"] :is([pgs~="card"], [pgs*="card\5B"]))) {
             @media (hover: hover) and (pointer: fine) {
                 &:hover {
@@ -35,7 +35,7 @@
         }
     }
 
-    //== IMG
+    //## IMG
     :where([pgs~="card-img"]),
     :where([pgs~="card-imgForChild"])>* {
         display: block;
@@ -49,14 +49,14 @@
         border-radius: var(--card-borderRadius-item);
     }
 
-    //== card-imgForChild
+    //## card-imgForChild
     // wrapper for external media: the rules above land on its direct child
     :where([pgs~="card-imgForChild"]) {
         display: block;
         min-width: 0;
     }
 
-    //== card-content
+    //## card-content
     :where([pgs~="card-content"]) {
         min-width: 0;
         padding: var(--card-padding);
@@ -106,7 +106,7 @@
     &[pgs*="'cardHorizontalFixed'"] { @include _cardHorizontal(); }
 }
 
-//= BOX
+//# BOX
 :is([pgs~="box"], [pgs*="box\5B"]) {
     @include box();
 

@@ -54,9 +54,9 @@
 
         &:focus-visible { outline: unset; }
 
-        //== the native reset the browser adds on its own to type="search" — Chrome/Safari draw an
-        //== "x" over the field's own submit/suggestion icons unless this is turned off; Firefox
-        //== never adds one, so it has no equivalent to reset
+        //## the native reset the browser adds on its own to type="search" — Chrome/Safari draw an
+        //## "x" over the field's own submit/suggestion icons unless this is turned off; Firefox
+        //## never adds one, so it has no equivalent to reset
         &::-webkit-search-cancel-button,
         &::-webkit-search-decoration {
             -webkit-appearance: none;

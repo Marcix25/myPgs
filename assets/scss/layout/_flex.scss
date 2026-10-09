@@ -1,8 +1,8 @@
 @use "../mixin/mixin" as *;
 
-//# FLEX
 //= FLEX
-//== FLEX OPTIONS
+//# FLEX
+//## FLEX OPTIONS
 :is([pgs~="flex"], [pgs*="flex\5B"]) {
     @include row();
 
@@ -29,13 +29,13 @@
     &[pgs*="'columnReverse'"] { flex-direction: column-reverse; }
     &[pgs*="'rowReverse'"] { flex-direction: row-reverse; }
 
-    //=== WRAP
+    //### WRAP
     // A column keeps the old column layout's nowrap default; an explicit flag wins.
     &[pgs*="'nowrap'"] {flex-wrap: nowrap;}
     &[pgs*="'wrap'"] { flex-wrap: wrap; }
 }
 
-//== FLEX CHILD
+//## FLEX CHILD
 // a separate component from flex itself, not nested under it: flexChild marks how one item
 // behaves inside the flex container it sits in, and stands on its own instead of requiring a
 // flex/flex[...] ancestor to match. A grid item uses gridChild instead
@@ -72,7 +72,7 @@
     &[pgs*="'flexOrderLast'"] { order: 999; }
 }
 
-//== COLUMN
+//## COLUMN
 :is([pgs~="flex"], [pgs*="flex\5B"]) {
     $maxColumns: 8;
 

@@ -1,5 +1,5 @@
-//# BOX
 //= BOX
+//# BOX
 @mixin box() {
     --box-padding: var(--padding-elements);
     --box-borderRadius: calc(var(--border-radius-input) + var(--box-padding));
@@ -17,7 +17,7 @@
     }
 }
 
-//== HOVER
+//## HOVER
 // the fallback for a page with no bodyHoverAuto: pgs.hover never marks a link box with the hover
 // token there, so nothing under :is([pgs~="hover"], [pgs*="hover\5B"]) ever applies
 @mixin boxHover() {

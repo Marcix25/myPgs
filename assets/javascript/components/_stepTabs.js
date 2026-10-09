@@ -6,9 +6,9 @@ import { PGS_warn, PGS_invalid } from "../helper/_warn.js";
 const API = new WeakMap();
 
 //+ BUILD
-//== builds the instance of one wizard and returns its API, or null when its markup cannot be initialized
+//## builds the instance of one wizard and returns its API, or null when its markup cannot be initialized
 function PGS_stepTabs_build(tabsWizard) {
-    //= SELECTOR
+    //# SELECTOR
     const tabsContainer = pgs(tabsWizard).querySelector("stepTabs-container");
     if (!tabsContainer) {
         PGS_warn("stepTabs.init", "the wizard has no stepTabs-container, so it was not initialized", tabsWizard);
@@ -26,7 +26,7 @@ function PGS_stepTabs_build(tabsWizard) {
     const restart = pgs(tabsWizard).querySelector("stepTabs-restart");
     const dots = pgs(tabsWizard).querySelector("stepTabs-dots");
 
-    //= SETTING
+    //# SETTING
     const total = allTab.length;
     const defaultTabLocked = allTab.filter(tab => pgs(tab).state.contains("locked"));
     let current = 0;
@@ -44,15 +44,15 @@ function PGS_stepTabs_build(tabsWizard) {
             dot.type = "button";
             pgs(dot).add("_stepTabs-dots-dot");
             pgs(dot).add("button['btnIconOnly' 'hoverNot']");
-            //== stepTabsIcon takes three shapes, told apart by how the value opens. Markup, from a
-            //== "<", is instantiated as written: that is what puts every icon set in reach,
-            //== including the ones a class list cannot describe because they want their name as
-            //== text content or an attribute of their own. An "icon-" prefix is a built-in
-            //== glyph. Anything else is classes for whatever set the page loaded
+            //## stepTabsIcon takes three shapes, told apart by how the value opens. Markup, from a
+            //## "<", is instantiated as written: that is what puts every icon set in reach,
+            //## including the ones a class list cannot describe because they want their name as
+            //## text content or an attribute of their own. An "icon-" prefix is a built-in
+            //## glyph. Anything else is classes for whatever set the page loaded
             if (authoredIcon.startsWith("<")) {
-                //== a template rather than innerHTML on the dot: template content stays inert
-                //== while it parses, so nothing in the author's markup runs or loads until the
-                //== clone is in the document
+                //## a template rather than innerHTML on the dot: template content stays inert
+                //## while it parses, so nothing in the author's markup runs or loads until the
+                //## clone is in the document
                 const authoredMarkup = document.createElement("template");
                 authoredMarkup.innerHTML = authoredIcon;
                 dot.replaceChildren(authoredMarkup.content.cloneNode(true));
@@ -63,9 +63,9 @@ function PGS_stepTabs_build(tabsWizard) {
                     pgs(dotIcon).add(`icon['${authoredIcon || "icon-circle"}']`);
                 } else {
                     pgs(dotIcon).add("icon");
-                    //== a full list goes through untouched, whatever set it belongs to. A lone
-                    //== Font Awesome name is completed with its style class, because that set
-                    //== needs one and markup written before other sets were supported relies on it
+                    //## a full list goes through untouched, whatever set it belongs to. A lone
+                    //## Font Awesome name is completed with its style class, because that set
+                    //## needs one and markup written before other sets were supported relies on it
                     dotIcon.className = /^fa-\S+$/.test(authoredIcon)
                         ? `fa-solid ${authoredIcon}`
                         : authoredIcon;
@@ -118,18 +118,18 @@ function PGS_stepTabs_build(tabsWizard) {
     }
 
     //+ restart
-    //== the locks go back first, so the controls goTo redraws already see them
+    //## the locks go back first, so the controls goTo redraws already see them
     function restartTab() {
         defaultTabLocked.forEach(tab => pgs(tab).state.add("locked"));
         goTo(0);
     }
 
-    //= tab-locked
-    //== a lock taken off or put on by hand, outside toggleLock, still has to reach the next button
+    //# tab-locked
+    //## a lock taken off or put on by hand, outside toggleLock, still has to reach the next button
     const observer = new MutationObserver(() => updateControls());
     allTab.forEach(tabEl => observer.observe(tabEl, { attributes: true, attributeFilter: ["pgs-state"] }));
 
-    //= click on next/previous
+    //# click on next/previous
     prev?.addEventListener("click", () => goTo(current - 1), { signal });
     next?.addEventListener("click", () => {
         updateControls();
@@ -177,8 +177,8 @@ function PGS_stepTabs_build(tabsWizard) {
     };
     API.set(tabsWizard, api);
 
-    //= INIT
-    //== after the API is stored, so a pgs:stepTabs:change listener can already reach the instance
+    //# INIT
+    //## after the API is stored, so a pgs:stepTabs:change listener can already reach the instance
     goTo(0, false);
 
     return api;

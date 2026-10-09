@@ -1,4 +1,4 @@
-//# DEMO (browser-only runtime, shared by every generated site/*.html page)
+//= DEMO (browser-only runtime, shared by every generated site/*.html page)
 //+ Every page built by scripts/build-site-static.js loads this file — nothing here fetches or
 //+ parses a reference file, whatever it runs against. It wires up the parts that must run in a
 //+ real browser: the actual pgs component library (notification, modal, accordion, ...), and the
@@ -42,15 +42,15 @@ async function copyText(text) {
             await navigator.clipboard.writeText(text);
             return true;
         } catch (error) {
-            //== a denied permission is not the end of it: the selection path may still go through
+            //## a denied permission is not the end of it: the selection path may still go through
         }
     }
 
     return copyBySelection(text);
 }
 
-//= COPY BUTTONS (delegated: works for every .exampleSource-copy button in the page, no per-button
-//= closure needed since the markup was written out as static HTML, not built via document.createElement)
+//# COPY BUTTONS (delegated: works for every .exampleSource-copy button in the page, no per-button
+//# closure needed since the markup was written out as static HTML, not built via document.createElement)
 function setupCopyButtons() {
     document.addEventListener("click", async event => {
         const button = event.target.closest(".exampleSource-copy");
@@ -63,7 +63,7 @@ function setupCopyButtons() {
         const copied = await copyText(code.textContent);
         if (!copied) console.error("Copying to the clipboard failed.");
 
-        //== the button says how it went either way: a silent failure looks like a dead button
+        //## the button says how it went either way: a silent failure looks like a dead button
         if (icon) icon.className = copied ? "fa-solid fa-check" : "fa-solid fa-xmark";
         button.setAttribute("aria-label", copied ? "Copied" : "Copy failed");
         setTimeout(() => {
@@ -73,16 +73,16 @@ function setupCopyButtons() {
     });
 }
 
-//== the demo renders page-level layouts (header.html) inside the main area, so their modals would
-//== resolve modalContainerPGS[header] against the *real* page header and move their dialog in
-//== there, hijacking the header's own hamburger: keep those dialogs local instead.
+//## the demo renders page-level layouts (header.html) inside the main area, so their modals would
+//## resolve modalContainerPGS[header] against the *real* page header and move their dialog in
+//## there, hijacking the header's own hamburger: keep those dialogs local instead.
 function isolateDemoModals(root) {
     pgs(root).querySelectorAll("modal").forEach(modal => {
         pgs(modal).option.remove("modalContainerPGS");
     });
 }
 
-//= Search Demo
+//# Search Demo
 function configureSearchDemo() {
     const pgsApi = globalThis.pgs;
     const section = document.querySelector('[data-reference="components/search.html"]');
@@ -134,7 +134,7 @@ function configureSearchDemo() {
     section.append(note);
 }
 
-//= Nav Search (sidebar + mobile "Browse docs" search over the reference pages listed below it)
+//# Nav Search (sidebar + mobile "Browse docs" search over the reference pages listed below it)
 function configureNavSearchDemo() {
     const pgsApi = globalThis.pgs;
     if (!pgsApi?.search) return;
@@ -152,11 +152,11 @@ function configureNavSearchDemo() {
     });
 
     document.querySelectorAll(".reference-demo-nav-search").forEach(form => {
-        //== the component's own submit handler never calls preventDefault, so Enter with no suggestion highlighted would otherwise reload the page
+        //## the component's own submit handler never calls preventDefault, so Enter with no suggestion highlighted would otherwise reload the page
         form.addEventListener("submit", event => {
             event.preventDefault();
             const instance = pgsApi.search.api(form);
-            //== with matches, pick the first one; with none, select() never runs so the empty-state dropdown has to be closed by hand
+            //## with matches, pick the first one; with none, select() never runs so the empty-state dropdown has to be closed by hand
             if (instance?.items().length) instance.select(0);
             else instance?.close();
         });
@@ -167,11 +167,11 @@ function configureNavSearchDemo() {
             limit: 8,
             source,
             onSelect: ({ value, input }) => {
-                //== click the real anchor instead of just setting location.hash, so pgs.pageNav (which switches panels on click, not on hashchange) runs as usual
+                //## click the real anchor instead of just setting location.hash, so pgs.pageNav (which switches panels on click, not on hashchange) runs as usual
                 navLinks.find(link => link.getAttribute("href") === value)?.click();
                 pgsApi.modal.api(pgsApi(form).closest("modal"))?.close();
                 input.value = "";
-                //== deferred past select()'s own input.focus(): that refocus would otherwise reschedule a search for the now-empty field and reopen the placeholder
+                //## deferred past select()'s own input.focus(): that refocus would otherwise reschedule a search for the now-empty field and reopen the placeholder
                 setTimeout(() => {
                     instance.cancel();
                     instance.close();
@@ -182,7 +182,7 @@ function configureNavSearchDemo() {
     });
 }
 
-//= Form Demo
+//# Form Demo
 function configureFormDemo() {
     const pgsApi = globalThis.pgs;
     const section = document.querySelector('[data-reference="components/form.html"]');
@@ -214,7 +214,7 @@ function configureFormDemo() {
     }, "submit");
 }
 
-//= Notification Demo
+//# Notification Demo
 function configureNotificationDemo() {
     const pgsApi = globalThis.pgs;
     const section = document.querySelector('[data-reference="components/notification.html"]');
@@ -231,7 +231,7 @@ function configureNotificationDemo() {
     });
 }
 
-//= Toast Demo
+//# Toast Demo
 function configureToastDemo() {
     const pgsApi = globalThis.pgs;
     const section = document.querySelector('[data-reference="components/toast.html"]');
@@ -252,7 +252,7 @@ function configureToastDemo() {
     });
 }
 
-//= Init Demo
+//# Init Demo
 function configureInitDemo() {
     const pgsApi = globalThis.pgs;
     const section = document.querySelector('[data-reference="helper/init.html"]');
@@ -271,7 +271,7 @@ function configureInitDemo() {
     });
 }
 
-//= Form Validate Helper Demo
+//# Form Validate Helper Demo
 function configureFormValidateHelperDemo() {
     const pgsApi = globalThis.pgs;
     const section = document.querySelector('[data-reference="helper/formValidate.html"]');
@@ -295,8 +295,8 @@ function configureFormValidateHelperDemo() {
     });
 }
 
-//== the shell's own bar, not the navSmart written as an example inside a reference page: it is
-//== the direct child of body. The link whose file is the one on screen is the page you are on
+//## the shell's own bar, not the navSmart written as an example inside a reference page: it is
+//## the direct child of body. The link whose file is the one on screen is the page you are on
 function markCurrentPage() {
     const current = location.pathname.split("/").pop() || "home.html";
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-//# SERVE LAN
+//= SERVE LAN
 //+ Wraps scripts/serve-lan.py (a no-cache static server) used to browse the demo from another
 //+ device on the same network (a phone, say): prints the LAN URL for the pre-baked demo page before
 //+ starting the server, so there's no need to remember/type the path by hand. Plain

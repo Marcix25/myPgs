@@ -1,4 +1,4 @@
-//# SYNC ICONS
+//= SYNC ICONS
 //+ reads the plain .svg files in assets/icons/ and writes their content into
 //+ assets/scss/mixin/_mx-icons.scss as the url("data:image/svg+xml,...") data URIs the icon
 //+ component consumes. Run it after adding or editing a file in assets/icons/:

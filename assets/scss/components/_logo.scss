@@ -1,6 +1,6 @@
 @use "../mixin/mixin" as *;
 
-//# LOGO 
+//= LOGO 
 :is([pgs~="logo"], [pgs*="logo\5B"]) {
     display: flex;
     min-width: max-content;
@@ -9,22 +9,16 @@
     --logo-height: var(--header-size, 6.0rem);
     --logo-filter: invert(1) hue-rotate(180deg) brightness(1.5);
 
-    //== DARKMODE
-    &:is([pgs-state~="darkmode"] [pgs*="'logoDarkmode'"]) :where([pgs~="logo-image"]) {
-        filter: var(--logo-filter);
-    }
+    //## DARKMODE
+    &:is([pgs-state~="darkmode"] [pgs*="'logoDarkmode'"]) :where([pgs~="logo-image"]) { filter: var(--logo-filter); }
 
-    //== FIXED DARKMODE
-    &[pgs*="'logoDarkmodeFixed'"] :where([pgs~="logo-image"]) {
-        filter: var(--logo-filter);
-    }
+    //## FIXED DARKMODE
+    &[pgs*="'logoDarkmodeFixed'"] :where([pgs~="logo-image"]) { filter: var(--logo-filter); }
 
     //- tablet 
-    @media (max-width: $tablet) {
-        min-width: var(--logo-height);
-    }
+    @media (max-width: $tablet) { min-width: var(--logo-height); }
 
-    //= LOGO
+    //# LOGO
     >*:not(:where([pgs~="logo-text"])) {
         height: var(--logo-height);
         object-fit: contain;
@@ -38,7 +32,7 @@
         }
     }
 
-    //= TEXT ONLY
+    //# TEXT ONLY
     &:has(:where([pgs~="logo-text"])) {
         align-items: center;
         // the text already follows the theme through --color-black, so a filter a project puts on the

@@ -26,8 +26,8 @@ function setupAccordion(li, button, ul, signal) {
     if (!ul.id) ul.id = PGS_uniqueId("menu-submenu");
     button.setAttribute("aria-controls", ul.id);
 
-    //== a submenu nested inside a first-level dropdown changes the size of the floating panel,
-    //== whose position was computed for the size it had when it opened
+    //## a submenu nested inside a first-level dropdown changes the size of the floating panel,
+    //## whose position was computed for the size it had when it opened
     const dropdown = pgs(li).closest("dropdown");
 
     const setOpen = (open) => {
@@ -47,7 +47,7 @@ function setupDropdown(li, button, ul) {
     pgs(ul).add("dropdown-content");
 }
 
-//= DROP DOWN MENU
+//# DROP DOWN MENU
 function initializeMenu(MENU) {
     if (API.has(MENU)) return;
 
@@ -66,18 +66,18 @@ function initializeMenu(MENU) {
         const ul = li.querySelector("ul");
         if (!ul) return;
 
-        //== the toggle goes after the item's own link, never after one of a nested submenu
+        //## the toggle goes after the item's own link, never after one of a nested submenu
         const link = li.querySelector(":scope > a");
         if (!link) {
             PGS_warn("menu.init", "a menu item with a submenu needs a direct link of its own, skipped", li);
             return;
         }
 
-        //== a refresh finds the toggle the first pass generated and reuses it
+        //## a refresh finds the toggle the first pass generated and reuses it
         const button = PGS_directChild(li, "_menu-submenuButton") || createToggle(link);
 
-        //== only the first level of a horizontal menu floats its submenu: deeper levels would
-        //== stack dropdown over dropdown, and a vertical menu has the room to expand in place
+        //## only the first level of a horizontal menu floats its submenu: deeper levels would
+        //## stack dropdown over dropdown, and a vertical menu has the room to expand in place
         const isFirstLevel = li.parentElement === topLevel;
 
         if (isHorizontal && isFirstLevel) {
@@ -115,7 +115,7 @@ function PGS_menu_api(selector) {
     return API.get(selector);
 }
 
-//# EXPORT
+//= EXPORT
 export const PGS_menu = {
     init: PGS_menu_init,
     api: PGS_menu_api

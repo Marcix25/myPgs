@@ -1,4 +1,4 @@
-//# SIZE
+//= SIZE
 // each variant (width, widthMax, widthMin, height, heightMax, heightMin) is its own root, since
 // each sets a genuinely different CSS property that can combine with the others on the same
 // element (a floor and a ceiling together). Every scale option folds its own variant into the
@@ -12,7 +12,7 @@
 
 
 
-//= WIDTH
+//# WIDTH
 // min() is the point of the width side: every value is capped at the container, so a fixed width
 // never overflows on a narrow screen and no media query is needed to take it back. The scales
 // come off the page, so an element lines up with the page content; text is a 65 character
@@ -74,7 +74,7 @@
     &[pgs*="'widthMinAuto'"] { min-width: auto; }
 }
 
-//= HEIGHT
+//# HEIGHT
 // no min() here, on purpose: too wide breaks the page with a horizontal scrollbar, too tall just
 // scrolls, which is what a page does anyway. And a percentage height only resolves against a
 // parent that has a definite height, so wrapping it in min() would make the value indefinite in

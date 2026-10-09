@@ -1,4 +1,4 @@
-//# PAGE NAV
+//= PAGE NAV
 // Full-page panels switched by URL hash instead of index, addressed by native <a href="#id">
 // links kept in sync across as many pageNav-list navs as the markup holds (a desktop sidebar and
 // a mobile one inside a dialog, for example).
@@ -7,17 +7,15 @@
         :where([pgs~="pageNav-list-item"]) {}
     }
 
-    //== hidden until marked active: a positive mark rather than [hidden]'s absence, since with no
-    //== [hidden] left to write by hand every panel would otherwise start "not hidden" and flash at
-    //== once before the first init pass gives one of them the mark. Shown is a plain block — give
-    //== the panel's own content its layout on an inner wrapper, not on this element, so nothing
-    //== here fights a combined utility over `display`
+    //## hidden until marked active: a positive mark rather than [hidden]'s absence, since with no
+    //## [hidden] left to write by hand every panel would otherwise start "not hidden" and flash at
+    //## once before the first init pass gives one of them the mark. Shown is a plain block — give
+    //## the panel's own content its layout on an inner wrapper, not on this element, so nothing
+    //## here fights a combined utility over `display`
     [pgs~="pageNav-panels"] {
         [pgs~="pageNav-panels-content"] {
             display: none;
-            &[pgs-state~="active"] {
-                display: block;
-            }
+            &[pgs-state~="active"] { display: block; }
         }
 
         &:not(:has([pgs~="pageNav-panels-content"][pgs-state~="active"])) {
@@ -37,9 +35,7 @@
         }
 
         @keyframes loading {
-            to {
-                transform: translateX(100%);
-            }
+            to { transform: translateX(100%); }
         }
 
         }

@@ -1,6 +1,6 @@
 @use "../mixin/mixin" as *;
 
-//= BUTTON
+//# BUTTON
 :is([pgs~="button"], [pgs*="button\5B"]) {
     @include buttonBase();
 

@@ -1,6 +1,6 @@
 @use "../mixin/mixin" as *;
 
-//# SLIDES
+//= SLIDES
 // registered so the fade width can be animated: a plain custom property would jump
 @property --slides-maskStart {
     syntax: "<length>";
@@ -14,7 +14,7 @@
     initial-value: 0px;
 }
 
-//= SLIDES 
+//# SLIDES 
 :is([pgs~="slides"], [pgs*="slides\5B"]) {
     display: flex;
     flex-direction: row;
@@ -31,7 +31,7 @@
     --slides-width-tablet: 100%;
     --slides-width-mobile: 100%;
 
-    //== CONTAINER SLIDES
+    //## CONTAINER SLIDES
     :where([pgs~="slides-container"]) {
         width: 100%;
         overflow-x: scroll;
@@ -50,7 +50,7 @@
             display: none;
         }
 
-        //=== SLIDE
+        //### SLIDE
         // the first and the last slide line up with the page content through --page-edge
         // below, and that only holds because the alignment here is center: their centered
         // snap position falls outside the scroll range, so the browser stops at the edge and
@@ -74,7 +74,7 @@
         }
     }
 
-    //== ARROW
+    //## ARROW
     // a hand-written arrow keeps the bare name; a generated one gets the underscore (see #createButtonsAndDots in _slides.js), so every check here needs both
     :where([pgs~="slides-prev"]),
     :where([pgs~="slides-next"]) {}
@@ -95,8 +95,8 @@
         }
     }
 
-    //== relative, not static: the hover of a button paints a ::before sized 100% of the first positioned
-    //== ancestor, which has to be the button itself and not the whole slides
+    //## relative, not static: the hover of a button paints a ::before sized 100% of the first positioned
+    //## ancestor, which has to be the button itself and not the whole slides
     [pgs~="_slides-prev"],
     [pgs~="_slides-next"] {
         position: relative;
@@ -130,13 +130,12 @@
         @container (max-width: #{$tablet}) {
             [pgs~="_slides-prev"],
             [pgs~="_slides-next"] { --button-size: .8rem; }
-
             [pgs~="_slides-prev"] { left: calc(var(--page-padding) * -1 + .4rem); }
             [pgs~="_slides-next"] { right: calc(var(--page-padding) * -1 + .4rem); }
         }
     }
 
-    //== DOTS
+    //## DOTS
     // a hand-written dots row keeps the bare name; a generated one gets the underscore.
     // The room kept under the generated row is not reserved when slidesNotDots takes the row away
     &:has([pgs~="_slides-dots"]):not([pgs*="'slidesNotDots'"]) {
@@ -177,9 +176,9 @@
 
             &[pgs-state~="active"] { background-color: var(--color-primary); }
 
-            //== unguarded, a tap on iOS/mobile Safari simulates a persistent :hover after release —
-            //== same specificity as the active rule above it, so the sticky hover would win by
-            //== source order and the dot would never look active on a touch device
+            //## unguarded, a tap on iOS/mobile Safari simulates a persistent :hover after release —
+            //## same specificity as the active rule above it, so the sticky hover would win by
+            //## source order and the dot would never look active on a touch device
             @media (hover: hover) and (pointer: fine) {
                 &:hover { background-color: var(--color-secondary-soft); }
             }
@@ -235,10 +234,10 @@
                 mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart, 0px), black calc(100% - var(--slides-maskEnd)), transparent 100%);
             }
 
-            //== fade on the left until the first slide is reached
+            //## fade on the left until the first slide is reached
             &:not(:has(:where([pgs~="slides-container"]) li:first-child[pgs-state~="view"])) :where([pgs~="slides-container"]) { --slides-maskStart: var(--slides-sizeMaskImage); }
 
-            //== fade on the right until the last slide is reached
+            //## fade on the right until the last slide is reached
             &:not(:has(:where([pgs~="slides-container"]) li:last-child[pgs-state~="view"])) :where([pgs~="slides-container"]) { --slides-maskEnd: var(--slides-sizeMaskImage); }
         }
     }

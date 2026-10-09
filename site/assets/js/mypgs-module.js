@@ -1,4 +1,4 @@
-//# "mypgs" FOR THE DEMO PAGE
+//= "mypgs" FOR THE DEMO PAGE
 //+ The reference examples import the library the way a real project does:
 //+
 //+     import { pgs } from "mypgs";

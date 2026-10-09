@@ -1,8 +1,8 @@
 @use "sass:math";
 @use "settings" as *;
 
-//= FLEX 
-//== column
+//# FLEX 
+//## column
 @mixin column($gap: var(--gap-texts)) {
     display: flex;
     gap: $gap;
@@ -10,7 +10,7 @@
     flex-direction: column;
 }
 
-//== row
+//## row
 @mixin row($wrap: wrap, $gap: var(--gap-texts)) {
     display: flex;
     gap: $gap;
@@ -19,7 +19,7 @@
     flex-wrap: $wrap;
 }
 
-//== center
+//## center
 @mixin center($gap: var(--gap-texts)) {
     display: flex;
     gap: $gap;
@@ -32,17 +32,12 @@
 // how many columns a ratio of the declared ones leaves: the same count _basis() divides by,
 // published as --_flex-cols so a flexChild col* can span several of them
 @function _cols($ratio, $columns) { @return math.ceil($columns * $ratio); }
-
-@function _basis($ratio, $gap, $columns) {
-    @return _basisOf(math.ceil($columns * $ratio), $gap);
-}
+@function _basis($ratio, $gap, $columns) { @return _basisOf(math.ceil($columns * $ratio), $gap); }
 
 // the same basis for a column count given directly
-@function _basisOf($cols, $gap) {
-    @return calc((100% - ($gap * ($cols - 1))) / $cols);
-}
+@function _basisOf($cols, $gap) { @return calc((100% - ($gap * ($cols - 1))) / $cols); }
 
-//== Column
+//## Column
 // the real gap and the one the bases are computed with are the same --gap, so they can never
 // drift apart: the default matches the plain flex's own gap (--gap-texts), and the gap* options
 // set --gap rather than gap alone
@@ -106,8 +101,8 @@
     }
 }
 
-//= GRID 
-//== column
+//# GRID 
+//## column
 // --_grid-cols follows grid-template-columns at every breakpoint, so a gridChild col* can cap
 // its span at the columns actually there
 @mixin columnGrid($columns: 4) {
