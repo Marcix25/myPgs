@@ -19,9 +19,9 @@ const SOURCE_ROOTS = [
 const TAG_ORDER = ["title", "description", "pgs", "pgs-generated", "pgs-options", "pgs-data", "pgs-state", "api", "related", "return"];
 const LIST_TAGS = new Set(["pgs", "pgs-generated", "pgs-options", "pgs-data", "pgs-state", "api", "related"]);
 const REQUIRED_TAGS = ["title", "description", "pgs"];
-//## a helper (reference/html/helper/*.html) documents a JavaScript utility, not markup a component
-//## owns: it may touch no pgs token of its own at all, so @api carries the weight @pgs carries
-//## everywhere else, and @pgs is optional there instead of required
+// a helper (reference/html/helper/*.html) documents a JavaScript utility, not markup a component
+// owns: it may touch no pgs token of its own at all, so @api carries the weight @pgs carries
+// everywhere else, and @pgs is optional there instead of required
 const HELPER_REQUIRED_TAGS = ["title", "description", "api"];
 const GENERATED_MARKER = /^<!-- Automatically generated from ((?:reference|templates)\/html\/.+\.html)\. Edit \1 and run npm run docs:generate again\. -->$/;
 
@@ -306,8 +306,8 @@ function loadSources() {
 function extractCssVariables(template, allSourceContent) {
     const basename = path.basename(template, ".html");
     const pattern = new RegExp(`--${escapeRegExp(basename)}-[A-Za-z0-9-]+`, "g");
-    //## a name ending in "-" is the head of an interpolated one (--icon-glyph-#{$name}), not a
-    //## property anybody can write: the source text carries it, the documentation should not
+    // a name ending in "-" is the head of an interpolated one (--icon-glyph-#{$name}), not a
+    // property anybody can write: the source text carries it, the documentation should not
     return [...new Set(allSourceContent.match(pattern) || [])]
         .filter(name => !name.endsWith("-"))
         .sort((a, b) => a.localeCompare(b, "en"));
@@ -318,9 +318,9 @@ function associateSources(template, documentation, sources) {
     const singularBasename = singularName(basename);
     const primaryTokens = documentation.pgs.map(item => item.key);
 
-    //## an exact (or singular) name match is the reference's own source, so prefix matches are
-    //## only a fallback: without this, form.scss counts as a source of formAddon.html merely
-    //## because "formaddon" starts with "form", and every option added to one is demanded of both
+    // an exact (or singular) name match is the reference's own source, so prefix matches are
+    // only a fallback: without this, form.scss counts as a source of formAddon.html merely
+    // because "formaddon" starts with "form", and every option added to one is demanded of both
     const exactMatches = sources.filter(source =>
         source.name === basename || singularName(source.name) === singularBasename);
 
@@ -333,9 +333,9 @@ function associateSources(template, documentation, sources) {
     return sources.filter(source => primaryTokens.some(token => containsPgsReference(source.content, token)));
 }
 
-//## a token the JavaScript writes onto an element it builds: pgs().add(), markup assembled as a
-//## string, or a direct setAttribute. Reading a token (querySelector) is deliberately not counted,
-//## because that is how the library finds markup the author wrote.
+// a token the JavaScript writes onto an element it builds: pgs().add(), markup assembled as a
+// string, or a direct setAttribute. Reading a token (querySelector) is deliberately not counted,
+// because that is how the library finds markup the author wrote.
 function extractEmittedPgs(source) {
     if (!source.file.endsWith(".js")) return [];
 
@@ -414,8 +414,8 @@ function validateTemplate(template, parsed, sources, allSourceContent) {
     const file = relativeToProject(template);
     const documentation = parsed.data;
     const attributes = extractAttributes(stripComponentWrapperAttributes(parsed.markup));
-    //## the wrapper's own pgs is stripped from the rendered example, but the author still wrote it,
-    //## so the "is this authored?" question has to be asked of the template as written
+    // the wrapper's own pgs is stripped from the rendered example, but the author still wrote it,
+    // so the "is this authored?" question has to be asked of the template as written
     const authoredPgs = new Set(extractAttributes(parsed.markup).pgs);
     const documentedPgs = new Set(documentation.pgs.map(item => item.key));
     const documentedGenerated = new Set(documentation["pgs-generated"].map(item => item.key));
@@ -440,23 +440,23 @@ function validateTemplate(template, parsed, sources, allSourceContent) {
         }
     });
 
-    //## the underscore is the visible half of the convention: it may only mark markup the library
-    //## builds, and it has to agree with the declaration
+    // the underscore is the visible half of the convention: it may only mark markup the library
+    // builds, and it has to agree with the declaration
     [...documentedPgs, ...documentedRelated].forEach(token => {
         if (!token.startsWith("_")) return;
 
         errors.push(createError(file, `The value "${token}" starts with "_" but is not in @pgs-generated.`, "The underscore only marks markup the library builds: move it to @pgs-generated or drop the prefix.", documentedPgs.has(token) ? "@pgs" : "@related", token));
     });
 
-    //## the declaration has to keep matching the JavaScript, otherwise the tag rots into a comment
+    // the declaration has to keep matching the JavaScript, otherwise the tag rots into a comment
     documentedGenerated.forEach(token => {
         if (!associatedFacts.emitted.has(token)) {
             errors.push(createError(file, `The @pgs-generated value "${token}" is not generated by the JavaScript.`, "Move it to @pgs if it is now written by hand, or fix the name.", "@pgs-generated", token));
         }
     });
 
-    //## a token the JavaScript builds and no example writes by hand is not authorable markup:
-    //## either it belongs in @pgs-generated, or the example should show how to write it
+    // a token the JavaScript builds and no example writes by hand is not authorable markup:
+    // either it belongs in @pgs-generated, or the example should show how to write it
     associatedFacts.emitted.forEach(token => {
         if (!documentedPgs.has(token) || authoredPgs.has(token)) return;
 
@@ -492,9 +492,9 @@ function validateTemplate(template, parsed, sources, allSourceContent) {
         if (["modalContainerID", "modalContainerPGS", "stepTabsIcon"].includes(option.key) && (!option.payload || !option.payload.trim())) {
             errors.push(createError(file, `Missing payload for pgs-data "${option.key}".`, `Use ${option.key}[value] with a non-empty value.`, "@pgs-options", option.key));
         }
-        //## stepTabsIcon takes three shapes: full markup (opening with "<"), the name of an internal glyph, or a
-        //## list of classes. Only the second must stay a single word, because it is a key:
-        //## there can be several classes and the markup contains spaces by construction
+        // stepTabsIcon takes three shapes: full markup (opening with "<"), the name of an internal glyph, or a
+        // list of classes. Only the second must stay a single word, because it is a key:
+        // there can be several classes and the markup contains spaces by construction
         if (option.key === "stepTabsIcon") {
             const payload = (option.payload || "").trim();
             if (payload.startsWith("icon-") && /\s/.test(payload)) {
@@ -514,10 +514,10 @@ function validateTemplate(template, parsed, sources, allSourceContent) {
         }
     });
 
-    //## @related counts here as it does for the options written in the example: a component whose
-    //## markup carries an option owned by another component documents it as a reference, not as one
-    //## of its own. Demanding @pgs-options would put a foreign key in this component's table, which
-    //## reads as an offer to configure something this component does not own
+    // @related counts here as it does for the options written in the example: a component whose
+    // markup carries an option owned by another component documents it as a reference, not as one
+    // of its own. Demanding @pgs-options would put a foreign key in this component's table, which
+    // reads as an offer to configure something this component does not own
     associatedFacts.options.forEach(option => {
         if (!documentedOptions.has(option) && !documentedRelated.has(option)) {
             errors.push(createError(file, `Supported option that is not documented: "${option}".`, "Add it to the @pgs-options section, or to @related if it belongs to another component.", "@pgs-options", option));
@@ -719,14 +719,14 @@ function extractDemoBlocks(markup) {
         }
 
         if (hasNestedComponent(markup, openTagEnd, end)) {
-            //## transparent wrapper: leave the pending marker alone and keep scanning its content
+            // transparent wrapper: leave the pending marker alone and keep scanning its content
             pattern.lastIndex = openTagEnd;
             continue;
         }
 
-        //## a demo="component" only declares where one example starts: it is the grouping element,
-        //## never part of the example itself, so its own tag never reaches the copied code — exactly
-        //## like demo="wrapper". Only what sits inside it prints.
+        // a demo="component" only declares where one example starts: it is the grouping element,
+        // never part of the example itself, so its own tag never reaches the copied code — exactly
+        // like demo="wrapper". Only what sits inside it prints.
         const closing = markup.lastIndexOf("<", end - 1);
         const dedented = dedent(markup.slice(openTagEnd, closing));
 
@@ -734,8 +734,8 @@ function extractDemoBlocks(markup) {
             type: "item",
             title: pendingH3 ? pendingH3.title : "",
             description: pendingH3 ? pendingH3.description : "",
-            //## demo="codeNone" says there's nothing worth copying for this one (see demo.js): the
-            //## heading and description still print, only the fenced code is left out
+            // demo="codeNone" says there's nothing worth copying for this one (see demo.js): the
+            // heading and description still print, only the fenced code is left out
             hideCode: /\bdemo\s*=\s*["'][^"']*\bcodeNone\b[^"']*["']/.test(match[0]),
             markup: stripDemoAttributesFromMarkup(unwrapScaffold(dedented)).trim(),
         });
@@ -808,17 +808,17 @@ function renderMarkdown(template, documentation, markup, allSourceContent) {
     const { content: jsonSchema, markup: markupAfterJson } = extractScriptBlock(markup, "application/json");
     const { content: jsUsage, markup: cleanedMarkup } = extractScriptBlock(markupAfterJson, "text/x-example-js");
 
-    //## the payload is the value of a pgs-data attribute, so print it as one
+    // the payload is the value of a pgs-data attribute, so print it as one
     if (jsonSchema) sections.push("", "## PGS Data fields", "", "```html", `pgs-data='${jsonSchema}'`, "```", "");
     if (jsUsage) sections.push("", "## JavaScript Usage", "", "```js", jsUsage, "```", "");
 
     const exampleMarkup = stripDisabledElements(cleanedMarkup);
     const demoBlocks = extractDemoBlocks(exampleMarkup);
 
-    //## a file whose examples open with <demo demo-h2="..."> already supplies its own top-level
-    //## heading, from the first block in the forEach below — pushing this one too duplicated it
-    //## (Example directly above Examples) on every file following that convention. A file with no
-    //## demo-h2 has nothing of its own, so it still gets this fallback, exactly as before
+    // a file whose examples open with <demo demo-h2="..."> already supplies its own top-level
+    // heading, from the first block in the forEach below — pushing this one too duplicated it
+    // (Example directly above Examples) on every file following that convention. A file with no
+    // demo-h2 has nothing of its own, so it still gets this fallback, exactly as before
     const suppliesOwnHeading = demoBlocks.length > 0 && demoBlocks[0].type === "heading";
     if (!suppliesOwnHeading && (demoBlocks.length > 0 || exampleMarkup)) sections.push("", "## Example", "");
 
@@ -861,8 +861,8 @@ function printErrors(errors) {
 }
 
 function main() {
-    //## reference/html/guides/ is prose, handled entirely by the separate scripts/generate-guide-docs.js
-    //## (its own doc-comment rules, its own Markdown-prose rendering) — skipped here, not validated
+    // reference/html/guides/ is prose, handled entirely by the separate scripts/generate-guide-docs.js
+    // (its own doc-comment rules, its own Markdown-prose rendering) — skipped here, not validated
     const references = walkFiles(REFERENCE_ROOT, file =>
         path.extname(file).toLowerCase() === ".html" && !toPosix(path.relative(REFERENCE_ROOT, file)).startsWith("guides/"));
     const errors = [];

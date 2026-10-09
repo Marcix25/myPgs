@@ -21,11 +21,11 @@ function walk(dir, extension) {
     });
 }
 
-//## the token before the first dash names the component a child belongs to, which is the
-//## convention the whole library follows: slides-container, card-content, pageShell-aside
+// the token before the first dash names the component a child belongs to, which is the
+// convention the whole library follows: slides-container, card-content, pageShell-aside
 function rootOf(token, allTokens) {
-    //## a leading underscore marks a token the library builds and you never write: it is not
-    //## part of the name, so the parent lookup has to see through it
+    // a leading underscore marks a token the library builds and you never write: it is not
+    // part of the name, so the parent lookup has to see through it
     const bare = token.replace(/^_/, "");
     const dash = bare.indexOf("-");
     if (dash === -1) return token;
@@ -34,14 +34,14 @@ function rootOf(token, allTokens) {
     return allTokens.has(prefix) ? prefix : token;
 }
 
-//## the JavaScript never writes attribute selectors: it names tokens through the pgs() helper,
-//## so a few of them exist nowhere else and would be missing from the map
+// the JavaScript never writes attribute selectors: it names tokens through the pgs() helper,
+// so a few of them exist nowhere else and would be missing from the map
 function pgsTokensInJs(text) {
     const found = new Set();
     const pattern = /pgs\([^)]*\)\s*\.\s*(?:querySelectorAll|querySelector|add|remove|contains|toggle)\(\s*["']([A-Za-z_][\w-]*)["']/g;
     for (const match of text.matchAll(pattern)) found.add(match[1]);
 
-    //## Includes component brackets inside generated HTML string literals.
+    // Includes component brackets inside generated HTML string literals.
     extractAttributes(text.replace(/\\"/g, '"')).pgs.forEach(token => {
         if (/^[A-Za-z_][\w-]*$/.test(token)) found.add(token);
     });
@@ -61,8 +61,8 @@ function tokensIn(text, attribute) {
     const pattern = new RegExp(`\\[${attribute}~?=["']?([A-Za-z_][\\w-]*)`, "g");
 
     for (const match of text.matchAll(pattern)) {
-        //## a token cut short by an interpolation is a prefix the loop completes, not an option of
-        //## its own: [pgs*="'icon-#{$name}'"] in the SCSS would otherwise register "icon-"
+        // a token cut short by an interpolation is a prefix the loop completes, not an option of
+        // its own: [pgs*="'icon-#{$name}'"] in the SCSS would otherwise register "icon-"
         if (text[match.index + match[0].length] === "#") continue;
         found.add(match[1]);
     }
@@ -70,17 +70,17 @@ function tokensIn(text, attribute) {
     return found;
 }
 
-//## a component that only ever appears with its bracket (background, textColor, position, img,
-//## ...) has no [pgs~="X"] form at all: its only selector is [pgs*="X\5B"] in the source,
-//## [pgs*="X["] once compiled. Counted as a pgs token too, so it gets its own root and owns its flags
+// a component that only ever appears with its bracket (background, textColor, position, img,
+// ...) has no [pgs~="X"] form at all: its only selector is [pgs*="X\5B"] in the source,
+// [pgs*="X["] once compiled. Counted as a pgs token too, so it gets its own root and owns its flags
 function componentsIn(text) {
     const found = tokensIn(text, "pgs");
     for (const match of text.matchAll(/\[pgs\*="([A-Za-z_][\w-]*)(?:\[|\\5B)/g)) found.add(match[1]);
     return found;
 }
 
-//## :not(...) and :has(...) are conditions on something else (an ancestor, a sibling), never the
-//## element's own component, so their contents are dropped before looking for the owner
+// :not(...) and :has(...) are conditions on something else (an ancestor, a sibling), never the
+// element's own component, so their contents are dropped before looking for the owner
 function stripConditions(text) {
     let out = "";
     for (let i = 0; i < text.length;) {
@@ -102,9 +102,9 @@ function stripConditions(text) {
     return out;
 }
 
-//## every component the flag is checked against: the ones in the last compound selector before it,
-//## inside the innermost group it sits in, so :is([pgs~="grid"], [pgs~="flex"])[pgs*="'gapTexts'"]
-//## belongs to both grid and flex. Quote-aware, since [pgs*="grid["] carries a bracket of its own
+// every component the flag is checked against: the ones in the last compound selector before it,
+// inside the innermost group it sits in, so :is([pgs~="grid"], [pgs~="flex"])[pgs*="'gapTexts'"]
+// belongs to both grid and flex. Quote-aware, since [pgs*="grid["] carries a bracket of its own
 function ownersBefore(selector) {
     let quote = null;
     const parens = [];
@@ -138,19 +138,19 @@ function ownersBefore(selector) {
     return all.length ? [all.at(-1)] : [];
 }
 
-//## options are attached to the component whose selector they appear in, so the compiled CSS
-//## is the honest source: mixins are already expanded and every real pairing is visible
+// options are attached to the component whose selector they appear in, so the compiled CSS
+// is the honest source: mixins are already expanded and every real pairing is visible
 function optionsFromCompiledCss() {
     const css = fs.existsSync(COMPILED_CSS) ? fs.readFileSync(COMPILED_CSS, "utf8") : "";
     const pairs = [];
 
     postcss.parse(css).walkRules(rule => {
         for (const selector of rule.selectors) {
-            //## a flag check is usually bare ([pgs*="'X'"]), but a selector that anchors the flag to
-            //## its own component's bracket, for a component that only ever takes one value at a
-            //## time (see e.g. layout/_utilities.scss's position/userSelect/rotate), writes it as
-            //## [pgs*="position['X'"] instead — the optional prefix here skips past that anchor
-            //## without changing which flag gets captured
+            // a flag check is usually bare ([pgs*="'X'"]), but a selector that anchors the flag to
+            // its own component's bracket, for a component that only ever takes one value at a
+            // time (see e.g. layout/_utilities.scss's position/userSelect/rotate), writes it as
+            // [pgs*="position['X'"] instead — the optional prefix here skips past that anchor
+            // without changing which flag gets captured
             for (const option of selector.matchAll(/\[pgs\*="(?:[A-Za-z_][\w-]*\[)?'([^'"]+)'/g)) {
                 const owners = ownersBefore(selector.slice(0, option.index));
                 if (option[1] === "hoverNot") pairs.push(["hover", option[1], "pgs-options"]);
@@ -163,11 +163,11 @@ function optionsFromCompiledCss() {
     return pairs;
 }
 
-//## empty placeholder rules never reach the compiled CSS, so the options that exist only for
-//## the JavaScript are recovered from the source by tracking the enclosing selectors: a
-//## pgs-data key, and a bracket flag written as an empty &[pgs*="'X'"] {} placeholder (accordion's
-//## accAutoOpen, accordionContainer's accMultiOpen), each attached to the component whose block
-//## it sits in rather than to whichever file happens to read it
+// empty placeholder rules never reach the compiled CSS, so the options that exist only for
+// the JavaScript are recovered from the source by tracking the enclosing selectors: a
+// pgs-data key, and a bracket flag written as an empty &[pgs*="'X'"] {} placeholder (accordion's
+// accAutoOpen, accordionContainer's accMultiOpen), each attached to the component whose block
+// it sits in rather than to whichever file happens to read it
 function optionsFromScss(files) {
     const pairs = [];
 
@@ -185,15 +185,15 @@ function optionsFromScss(files) {
             const flags = [...selector.matchAll(/\[pgs\*="'([A-Za-z_][\w-]*)'"\]/g)];
             if (!dataKeys.size && !flags.length) continue;
 
-            //## the owner is the last component named before the flag, never one written after it
-            //## (&[pgs*="'btnReverse'"] :where([pgs~="icon"]) is a button flag styling an icon)
+            // the owner is the last component named before the flag, never one written after it
+            // (&[pgs*="'btnReverse'"] :where([pgs~="icon"]) is a button flag styling an icon)
             const ownerOf = cut => [...stack, cut]
                 .flatMap(level => [...componentsIn(level)])
                 .pop();
             const dataOwner = ownerOf(selector);
             if (dataOwner) for (const key of dataKeys) pairs.push([dataOwner, key, "pgs-data"]);
             for (const flag of flags) {
-                //## hoverNot has no single owner: it opts out on whatever carries it
+                // hoverNot has no single owner: it opts out on whatever carries it
                 const flagOwner = flag[1] === "hoverNot" ? "hover" : ownerOf(selector.slice(0, flag.index));
                 if (flagOwner) pairs.push([flagOwner, flag[1], "pgs-options"]);
             }
@@ -203,8 +203,8 @@ function optionsFromScss(files) {
     return pairs;
 }
 
-//## which tokens the library builds itself is declared under @pgs-generated in the references,
-//## and docs:generate keeps that declaration honest against the JavaScript
+// which tokens the library builds itself is declared under @pgs-generated in the references,
+// and docs:generate keeps that declaration honest against the JavaScript
 function generatedTokens() {
     const tokens = new Set();
 
@@ -250,10 +250,10 @@ const cssOptions = new Set(cssPairs.map(([, option]) => option));
 const scssPairs = optionsFromScss(scssFiles);
 const knownOptions = new Set([...cssPairs, ...scssPairs].map(([, option]) => option));
 
-//## a last resort, for a flag only the JavaScript reads: the file name is a guess at the owner
-//## (_accordion.js also reads accordionContainer's accMultiOpen), so it never overrides a
-//## pairing the stylesheet already made. .option only ever touches the pgs attribute, so what it
-//## reads is a bracket flag, not a pgs-data key
+// a last resort, for a flag only the JavaScript reads: the file name is a guess at the owner
+// (_accordion.js also reads accordionContainer's accMultiOpen), so it never overrides a
+// pairing the stylesheet already made. .option only ever touches the pgs attribute, so what it
+// reads is a bracket flag, not a pgs-data key
 function optionsFromJs(files) {
     return files.flatMap(file => {
         const owner = path.basename(file, ".js").replace(/^_/, "");
@@ -286,10 +286,10 @@ for (const file of walk(REFERENCE_DIR, ".html")) {
         if (["pgs-options", "pgs-data"].includes(active)) entries.push([active, item[1]]);
     }
     for (const [kind, key] of entries) {
-        //## the reference only fills in what the sources could not place: its fallback is the
-        //## first root the page documents, which for a page with two roots is a guess
-        //## flags only: a pgs-data key is meant to sit on several roots at once (formMessage on both
-        //## form and formValidate), so the reference keeps adding those
+        // the reference only fills in what the sources could not place: its fallback is the
+        // first root the page documents, which for a page with two roots is a guess
+        // flags only: a pgs-data key is meant to sit on several roots at once (formMessage on both
+        // form and formValidate), so the reference keeps adding those
         if (kind === "pgs-options" && assignedOptions.has(key)) continue;
         const owners = roots.filter(name => key.startsWith(name));
         for (const owner of owners.length ? owners : roots.slice(0, 1)) map.get(owner)[kind].add(key);

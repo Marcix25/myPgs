@@ -28,7 +28,7 @@
     &[pgs*="'sctFull'"] { @include sectionFull; }
     &[pgs*="'sctSpecificity'"] { @include sectionSpecificity-child(':where([pgs~="section-specificity"])'); }
 
-    //++ Edge
+    //+ Edge
     &[pgs*="'sctEdgeLeft'"] { @include sectionEdgeLeft; }
     &[pgs*="'sctEdgeRight'"] { @include sectionEdgeRight; }
     &[pgs*="'sctEdgeFlushLeft'"] { @include sectionEdgeFlushLeft; }

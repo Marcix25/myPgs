@@ -91,7 +91,7 @@ $accordionGap: 1.0rem;
     //keeps it open when another one in the group is opened
     &[pgs*="'accAutoOpen'"] {}
 
-    //-- STATE OPEN - NOT OPEN
+    //## STATE OPEN - NOT OPEN
     // only its own button and content, never those of an accordion nested inside the open panel,
     // which keeps its own closed state
     &[pgs-state~=open] {

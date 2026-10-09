@@ -12,8 +12,8 @@
 (function () {
     const isGeneratedOnly = key => key.startsWith("_");
 
-    //## mirrors BracketToken.split/key in assets/javascript/_pgs.js, kept standalone here so this
-    //## file has nothing to import and can run on any page, including a production WordPress site
+    // mirrors BracketToken.split/key in assets/javascript/_pgs.js, kept standalone here so this
+    // file has nothing to import and can run on any page, including a production WordPress site
     function splitTokens(value) {
         const tokens = [];
         let i = 0;

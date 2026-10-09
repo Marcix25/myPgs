@@ -23,7 +23,7 @@ export class PGS_formValidate {
     };
     #temporaryFieldErrors = new Map();
     #insideValidatedCallback = false;
-    //## one controller for every listener the instance adds to the form, so destroy() removes them all
+    // one controller for every listener the instance adds to the form, so destroy() removes them all
     #controller = new AbortController();
 
     constructor(form, options = {}) {
@@ -44,15 +44,15 @@ export class PGS_formValidate {
         this.#initializeMessages(options.message);
         this.container.setAttribute("novalidate", "");
 
-        //## a click on a field clears its error. One listener on the form serves every field, the
-        //## ones added after this point too, so validate() has nothing to attach and can run any
-        //## number of times without stacking listeners
+        // a click on a field clears its error. One listener on the form serves every field, the
+        // ones added after this point too, so validate() has nothing to attach and can run any
+        // number of times without stacking listeners
         this.container.addEventListener("click", event => this.#clearErrorOnClick(event), { signal: this.#controller.signal });
     }
 
     //# DESTROY
-    //## removes the listeners the instance added to the form: the click that clears an error and
-    //## every validator(). The state, the novalidate attribute and the messages stay as they are
+    // removes the listeners the instance added to the form: the click that clears an error and
+    // every validator(). The state, the novalidate attribute and the messages stay as they are
     destroy() {
         this.#controller.abort();
     }
@@ -257,7 +257,7 @@ export class PGS_formValidate {
             return !(f.files && f.files.length > 0);
         });
 
-        //## the result: every field to be marked as failing
+        // the result: every field to be marked as failing
         const invalidFields = [
             textInputs,
             textareas,
@@ -277,7 +277,7 @@ export class PGS_formValidate {
     #addFieldError(field, i = 0, total = 1) {
         pgs(field).state.add("errorField");
 
-        //## the first invalid field is the one that scrolls into view and speaks for all of them
+        // the first invalid field is the one that scrolls into view and speaks for all of them
         if (i !== 0) return;
         field.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
 
@@ -339,12 +339,12 @@ export class PGS_formValidate {
     validate() {
         const invalid = this.#inputValue(this.container);
 
-        //## clean up the errors that no longer apply
+        // clean up the errors that no longer apply
         pgs(this.container).state.querySelectorAll("errorField").forEach(element => {
             if (!invalid.includes(element)) this.#removeFieldError(element);
         });
 
-        //## add the errors where needed
+        // add the errors where needed
         invalid.forEach((el, i) => this.#addFieldError(el, i, invalid.length))
 
         //## status form

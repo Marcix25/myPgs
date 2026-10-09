@@ -29,26 +29,26 @@ function initializeTabs(tabs) {
     const controller = new AbortController();
     const { signal } = controller;
 
-    //## ids generated as tabs-list-tab-N-M and tabs-panels-content-N-M: N counts the tabs sets, M the tab
+    // ids generated as tabs-list-tab-N-M and tabs-panels-content-N-M: N counts the tabs sets, M the tab
     const buttonIdBase = PGS_uniqueId("tabs-list-tab");
     const panelIdBase = PGS_uniqueId("tabs-panels-content");
     list.setAttribute("role", "tablist");
 
     //## HISTORY
-    //## the parameter is named by the option, so two history-backed sets on one page do not
-    //## write over each other. A tab is addressed by its own id when the author gave it one,
-    //## and by its 1-based position otherwise, which is what keeps a shared link readable
-    //## without asking for ids that the markup does not need
-    //## tabsHistory lives only in pgs-data and .data has no contains(), so presence (with or
-    //## without its own payload) is checked directly against the raw attribute value
+    // the parameter is named by the option, so two history-backed sets on one page do not
+    // write over each other. A tab is addressed by its own id when the author gave it one,
+    // and by its 1-based position otherwise, which is what keeps a shared link readable
+    // without asking for ids that the markup does not need
+    // tabsHistory lives only in pgs-data and .data has no contains(), so presence (with or
+    // without its own payload) is checked directly against the raw attribute value
     const rawData = (pgs(tabs).data.value || "").split(/\s+/).filter(Boolean);
     const hasHistory = rawData.some(token => token === "tabsHistory" || token.startsWith("tabsHistory["));
     const historyKey = hasHistory
         ? (pgs(tabs).data.getValueBrackets("tabsHistory") || "tab")
         : null;
 
-    //## read before the loop below fills in the generated ids, so what reaches the URL is the
-    //## author's own name for the tab or nothing at all — never tabs-list-tab-1-2
+    // read before the loop below fills in the generated ids, so what reaches the URL is the
+    // author's own name for the tab or nothing at all — never tabs-list-tab-1-2
     const authoredIds = buttons.map(button => (button.id && !GENERATED_IDS.has(button) ? button.id : ""));
 
     function indexFromHistory() {
@@ -105,7 +105,7 @@ function initializeTabs(tabs) {
         PGS_dispatch(tabs, "pgs:tabs:change", { current, tab: buttons[current], panel: panelItems[current] });
     }
 
-    //## the tab that is already selected changes nothing: no second history entry, no second event
+    // the tab that is already selected changes nothing: no second history entry, no second event
     function select(index, options = {}) {
         if (index === current) {
             if (options.focus) buttons[current].focus();
@@ -142,8 +142,8 @@ function initializeTabs(tabs) {
         }, { signal });
     });
 
-    //## the URL wins over the state written in the markup: a reload lands on the tab the reader
-    //## left, and the first pass only reads it — it never pushes an entry of its own
+    // the URL wins over the state written in the markup: a reload lands on the tab the reader
+    // left, and the first pass only reads it — it never pushes an entry of its own
     const restored = indexFromHistory();
     show(restored === -1 ? current : restored, { history: false });
 

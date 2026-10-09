@@ -1,6 +1,6 @@
-//+ VAR
+//= BUTTON
 //# BUTTON
-//+ BUTTON COLOR
+//## BUTTON COLOR
 @mixin _buttonColor($for: "") {
     color: var(--button-color#{$for});
     background: var(--button-background#{$for});

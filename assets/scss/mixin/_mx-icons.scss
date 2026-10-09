@@ -7,11 +7,11 @@
 }
 
 //## iconBase
-//## --icon-size/--icon-color are read with a fallback, never declared here: a wrapper further up
-//## (alert, notification, toast, a button, ...) sets --icon-size on itself and expects the icon
-//## inside to inherit it. Declaring either one here, even at the same 1em/currentColor a bare icon
-//## would resolve to anyway, would win over that inheritance regardless of specificity — a value
-//## on the element itself always beats an inherited one.
+// --icon-size/--icon-color are read with a fallback, never declared here: a wrapper further up
+// (alert, notification, toast, a button, ...) sets --icon-size on itself and expects the icon
+// inside to inherit it. Declaring either one here, even at the same 1em/currentColor a bare icon
+// would resolve to anyway, would win over that inheritance regardless of specificity — a value
+// on the element itself always beats an inherited one.
 @mixin iconBase($on: "::before") {
     &#{$on} {
         line-height: 1;
@@ -33,7 +33,7 @@
     &#{$on} { @include svgBase64(var(--icon)); }
 }
 
-//+ ICON DUO
+//## ICON DUO
 @mixin duo($iconBefore, $iconAfter) {
     --iconBefore: #{$iconBefore};
     --iconAfter: #{$iconAfter};
@@ -65,7 +65,7 @@
     }
 }
 
-//+ ICON BOX
+//## ICON BOX
 @mixin boxed() {
     --boxed-size: calc(var(--icon-size) / 1.5);
     --boxed-padding: .5rem;

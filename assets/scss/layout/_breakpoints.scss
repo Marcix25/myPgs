@@ -1,13 +1,13 @@
 @use "../mixin/mixin" as *;
 
 //= RESPONSIVE VISIBILITY
-//## hide alone (bare, no bracket) always hides, unconditionally — [pgs~="hide"] matches only that
-//## exact word, never a bracket, so an option below doesn't also trigger this unconditional rule.
-//## Each option instead hides only past one breakpoint threshold, media- or container-relative,
-//## so several can combine on one element for a range (e.g. hidden below Tablet, hidden again
-//## above Laptop, visible in between). Each map spells its option names out in full, rather than
-//## building them by concatenation, so the literal name the docs validator looks for is actually
-//## present in this file — see scripts/generate-component-docs.js's containsExactToken.
+// hide alone (bare, no bracket) always hides, unconditionally — [pgs~="hide"] matches only that
+// exact word, never a bracket, so an option below doesn't also trigger this unconditional rule.
+// Each option instead hides only past one breakpoint threshold, media- or container-relative,
+// so several can combine on one element for a range (e.g. hidden below Tablet, hidden again
+// above Laptop, visible in between). Each map spells its option names out in full, rather than
+// building them by concatenation, so the literal name the docs validator looks for is actually
+// present in this file — see scripts/generate-component-docs.js's containsExactToken.
 $hide-media-down: (
     "hideMediaDownWatch": $watch,
     "hideMediaDownMobile": $mobile,

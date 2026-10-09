@@ -28,7 +28,7 @@
     &[pgs*="'mgAuto'"] { margin: auto; }
 }
 
-//- BLOCK
+//## BLOCK
 :is([pgs~="marginBlock"], [pgs*="marginBlock\5B"]) {
     // reset on every element, so a negative parent does not flip its descendants
     --margin-block-sign: 1;
@@ -45,7 +45,7 @@
     &[pgs*="'mgBlAuto'"] { margin-block: auto; }
 }
 
-//- INLINE
+//## INLINE
 :is([pgs~="marginInline"], [pgs*="marginInline\5B"]) {
     // reset on every element, so a negative parent does not flip its descendants
     --margin-inline-sign: 1;
@@ -62,7 +62,7 @@
     &[pgs*="'mgInAuto'"] { margin-inline: auto; }
 }
 
-//- TOP
+//## TOP
 :is([pgs~="marginTop"], [pgs*="marginTop\5B"]) {
     // reset on every element, so a negative parent does not flip its descendants
     --margin-top-sign: 1;
@@ -79,7 +79,7 @@
     &[pgs*="'mgTpAuto'"] { margin-top: auto; }
 }
 
-//- RIGHT
+//## RIGHT
 :is([pgs~="marginRight"], [pgs*="marginRight\5B"]) {
     // reset on every element, so a negative parent does not flip its descendants
     --margin-right-sign: 1;
@@ -96,7 +96,7 @@
     &[pgs*="'mgRtAuto'"] { margin-right: auto; }
 }
 
-//- BOTTOM
+//## BOTTOM
 :is([pgs~="marginBottom"], [pgs*="marginBottom\5B"]) {
     // reset on every element, so a negative parent does not flip its descendants
     --margin-bottom-sign: 1;
@@ -113,7 +113,7 @@
     &[pgs*="'mgBtAuto'"] { margin-bottom: auto; }
 }
 
-//- LEFT
+//## LEFT
 :is([pgs~="marginLeft"], [pgs*="marginLeft\5B"]) {
     // reset on every element, so a negative parent does not flip its descendants
     --margin-left-sign: 1;
@@ -148,7 +148,7 @@
     &[pgs*="'pdUnset'"] { padding: unset; }
 }
 
-//- BLOCK
+//## BLOCK
 :is([pgs~="paddingBlock"], [pgs*="paddingBlock\5B"]) {
     padding-block: var(--padding-texts);
 
@@ -161,7 +161,7 @@
     &[pgs*="'pdBlUnset'"] { padding-block: unset; }
 }
 
-//- INLINE
+//## INLINE
 :is([pgs~="paddingInline"], [pgs*="paddingInline\5B"]) {
     padding-inline: var(--padding-texts);
 
@@ -174,7 +174,7 @@
     &[pgs*="'pdInUnset'"] { padding-inline: unset; }
 }
 
-//- TOP
+//## TOP
 :is([pgs~="paddingTop"], [pgs*="paddingTop\5B"]) {
     padding-top: var(--padding-texts);
 
@@ -187,7 +187,7 @@
     &[pgs*="'pdTpUnset'"] { padding-top: unset; }
 }
 
-//- RIGHT
+//## RIGHT
 :is([pgs~="paddingRight"], [pgs*="paddingRight\5B"]) {
     padding-right: var(--padding-texts);
 
@@ -200,7 +200,7 @@
     &[pgs*="'pdRtUnset'"] { padding-right: unset; }
 }
 
-//- BOTTOM
+//## BOTTOM
 :is([pgs~="paddingBottom"], [pgs*="paddingBottom\5B"]) {
     padding-bottom: var(--padding-texts);
 
@@ -213,7 +213,7 @@
     &[pgs*="'pdBtUnset'"] { padding-bottom: unset; }
 }
 
-//- LEFT
+//## LEFT
 :is([pgs~="paddingLeft"], [pgs*="paddingLeft\5B"]) {
     padding-left: var(--padding-texts);
 

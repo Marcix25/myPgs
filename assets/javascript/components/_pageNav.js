@@ -39,7 +39,7 @@ const pageNavUtil = {
 };
 
 //+ BUILD
-//## builds the instance of one pageNav root and returns its API, or null when its markup cannot be initialized
+// builds the instance of one pageNav root and returns its API, or null when its markup cannot be initialized
 function PGS_pageNav_build(pageNav) {
     const panelsRoot = pgs(pageNav).querySelector("pageNav-panels");
     // every pageNav-list is its own <nav>: the desktop sidebar and the one inside the

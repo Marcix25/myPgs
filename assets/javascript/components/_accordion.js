@@ -40,9 +40,9 @@ function keepInPlace(element, duration, signal) {
 }
 
 //+ Accessibility (writes the open/closed state)
-//## the composed label says what the click does, and is only written when the author has
-//## not named the control themselves: a hand-written aria-label is the page's own wording
-//## and survives every toggle
+// the composed label says what the click does, and is only written when the author has
+// not named the control themselves: a hand-written aria-label is the page's own wording
+// and survives every toggle
 function accordionAccessibility(isOpen, button, content) {
     if (!button.hasAttribute("aria-label") || COMPOSED_LABELS.has(button)) {
         const text = (button.textContent || "").trim().replace(/\s+/g, " ");
@@ -67,17 +67,17 @@ function initializeAccordion(accordion) {
     const { signal } = controller;
     let scrollTimer = 0;
 
-    //## initial state: accAutoOpen is the authored form, because pgs-state belongs to
-    //## the runtime; a pgs-state="open" already written by hand is honored all the same
+    // initial state: accAutoOpen is the authored form, because pgs-state belongs to
+    // the runtime; a pgs-state="open" already written by hand is honored all the same
     const isOpenInit = pgs(accordion).option.contains("accAutoOpen") || pgs(accordion).state.contains("open");
 
-    //## an accordion closes the others only inside a group, and the group is the nearest
-    //## accordionContainer above it: on its own an accordion answers for itself alone, so a
-    //## single panel dropped anywhere on the page no longer collapses somebody else's
+    // an accordion closes the others only inside a group, and the group is the nearest
+    // accordionContainer above it: on its own an accordion answers for itself alone, so a
+    // single panel dropped anywhere on the page no longer collapses somebody else's
     const CONTAINER = pgs(accordion).closest("accordionContainer");
     const isMultiOpen = !CONTAINER || pgs(CONTAINER).option.contains("accMultiOpen");
 
-    //## accessibility, written once, with ids of its own for aria-controls / aria-labelledby
+    // accessibility, written once, with ids of its own for aria-controls / aria-labelledby
     BUTTON.setAttribute("role", "button");
     BUTTON.setAttribute("tabindex", "0");
     if (!BUTTON.id) BUTTON.id = PGS_uniqueId("acc-btn");
@@ -88,11 +88,11 @@ function initializeAccordion(accordion) {
     CONTENT.setAttribute("aria-labelledby", BUTTON.id);
 
     //+ Close the others of the group
-    //## only the accordions of this same group: an accordionContainer nested in another one
-    //## keeps its own panels to itself, which is why the nearest container is compared rather
-    //## than trusting the descendant search. accAutoOpen is left alone on purpose — it
-    //## is the authored "this one stays open", so a sibling opening does not take it down,
-    //## and only until the reader works that panel themselves, which drops the token
+    // only the accordions of this same group: an accordionContainer nested in another one
+    // keeps its own panels to itself, which is why the nearest container is compared rather
+    // than trusting the descendant search. accAutoOpen is left alone on purpose — it
+    // is the authored "this one stays open", so a sibling opening does not take it down,
+    // and only until the reader works that panel themselves, which drops the token
     function closeOtherAccordion() {
         for (const otherLi of pgs(CONTAINER).querySelectorAll("accordion")) {
             if (otherLi === accordion) continue;
@@ -114,21 +114,21 @@ function initializeAccordion(accordion) {
         const nowOpen = !isOpen;
         const timing = accordionTiming(accordion);
 
-        //## measured before anything changes: this button's position is the one to hold
+        // measured before anything changes: this button's position is the one to hold
         keepInPlace(BUTTON, timing, signal);
 
         pgs(accordion).state.toggle("open", nowOpen);
         accordionAccessibility(nowOpen, BUTTON, CONTENT);
 
-        //## the moment the reader works this panel, accAutoOpen stops being the authored
-        //## "this one stays open": from here on it is an ordinary panel of the group, so a
-        //## sibling opening can close it. Guarded, because remove() would otherwise write an
-        //## empty pgs-option on every accordion that never had one
+        // the moment the reader works this panel, accAutoOpen stops being the authored
+        // "this one stays open": from here on it is an ordinary panel of the group, so a
+        // sibling opening can close it. Guarded, because remove() would otherwise write an
+        // empty pgs-option on every accordion that never had one
         if (pgs(accordion).option.contains("accAutoOpen")) pgs(accordion).option.remove("accAutoOpen");
         if (!isMultiOpen) closeOtherAccordion();
 
-        //## once the layout has settled, only scroll if the button ended up out of view (an
-        //## open() called from code, say): the reader's own click is already held in place
+        // once the layout has settled, only scroll if the button ended up out of view (an
+        // open() called from code, say): the reader's own click is already held in place
         window.clearTimeout(scrollTimer);
         if (nowOpen) scrollTimer = window.setTimeout(() => {
             const rect = BUTTON.getBoundingClientRect();
@@ -144,8 +144,8 @@ function initializeAccordion(accordion) {
         if (pgs(accordion).state.contains("open")) accordionFunction();
     }
 
-    //## writes that initial state, rather than only reading it: with accAutoOpen the
-    //## pgs-state is not there yet, and it is what the CSS reads to turn the arrow
+    // writes that initial state, rather than only reading it: with accAutoOpen the
+    // pgs-state is not there yet, and it is what the CSS reads to turn the arrow
     pgs(accordion).state.toggle("open", isOpenInit);
     accordionAccessibility(isOpenInit, BUTTON, CONTENT);
 

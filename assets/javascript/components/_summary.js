@@ -10,7 +10,7 @@ const MESSAGE_DEFAULTS = {
     showMore: "Show more"
 };
 
-//## the keys of the message option passed to init(), and the pgs-data key each one is written under
+// the keys of the message option passed to init(), and the pgs-data key each one is written under
 const MESSAGE_DATA_KEYS = {
     showLess: "summaryShowLess",
     showMore: "summaryShowMore"
@@ -84,7 +84,7 @@ function initializeSummary(summary, initialMessages) {
         return pgs(summary).state.contains("open");
     }
 
-    //## --summary-lines is the author's setting, read here and never written
+    // --summary-lines is the author's setting, read here and never written
     function getCollapsedHeight() {
         const lines = parseFloat(window.getComputedStyle(content).getPropertyValue("--summary-lines"));
         return getLineHeight(content) * (Number.isFinite(lines) && lines > 0 ? lines : 3);
@@ -124,11 +124,11 @@ function initializeSummary(summary, initialMessages) {
 
     button.addEventListener("click", toggle, { signal });
 
-    //## a window resize is not the only way content's real size changes: a summary
-    //## initialized while its own tab/panel is hidden measures a scrollHeight of 0, so it
-    //## has to redo that measurement once the element actually gets a layout box. A
-    //## ResizeObserver catches both, throttled to a single pending frame so measure()'s own
-    //## max-height write doesn't feed back into itself
+    // a window resize is not the only way content's real size changes: a summary
+    // initialized while its own tab/panel is hidden measures a scrollHeight of 0, so it
+    // has to redo that measurement once the element actually gets a layout box. A
+    // ResizeObserver catches both, throttled to a single pending frame so measure()'s own
+    // max-height write doesn't feed back into itself
     let rafId = 0;
     let firstFrameId = 0;
     const resizeObserver = new ResizeObserver(() => {

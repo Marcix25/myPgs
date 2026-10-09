@@ -33,8 +33,8 @@ const CATEGORY_LABELS = {
     guides: "Guides",
 };
 
-//# the nav, in the order it is shown: a reference file that is not listed here never reaches the
-//# demo, whatever else it is wired into
+// the nav, in the order it is shown: a reference file that is not listed here never reaches the
+// demo, whatever else it is wired into
 const referenceFiles = [
     "base/body.html",
     "base/general.html",
@@ -133,7 +133,7 @@ const ENTRY_ICONS = {
 };
 const DEFAULT_ENTRY_ICON = "fa-square";
 
-//# PATH HELPERS (pure, path-only — no need to open the file to know these)
+// PATH HELPERS (pure, path-only — no need to open the file to know these)
 function getReferenceTitle(path) {
     return path.replace(".html", "").replace("/", " / ");
 }
@@ -161,11 +161,11 @@ function escapeHtml(value) {
         .replace(/'/g, "&#39;");
 }
 
-//# reverses escapeHtml, for text read out of an HTML attribute (demo-h2/demo-h3/demo-description):
-//# those are written with entities so a literal quote or a "pgs=" example fits inside the
-//# attribute's own quotes, but this file only ever regex-matches the raw attribute text, never
-//# parses it as HTML. Decoding once here keeps escapeHtml's later, single re-encode correct,
-//# instead of encoding an already-encoded string into a visibly broken "&amp;quot;"
+// reverses escapeHtml, for text read out of an HTML attribute (demo-h2/demo-h3/demo-description):
+// those are written with entities so a literal quote or a "pgs=" example fits inside the
+// attribute's own quotes, but this file only ever regex-matches the raw attribute text, never
+// parses it as HTML. Decoding once here keeps escapeHtml's later, single re-encode correct,
+// instead of encoding an already-encoded string into a visibly broken "&amp;quot;"
 function unescapeHtml(value) {
     return String(value)
         .replace(/&lt;/g, "<")
@@ -179,7 +179,7 @@ function escapeRegExp(value) {
     return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-//# dedents a block by the smallest leading whitespace found among its non-empty lines
+// dedents a block by the smallest leading whitespace found among its non-empty lines
 function dedent(text) {
     const lines = text.replace(/^\n/, "").replace(/\s+$/, "").split("\n");
     const indents = lines.filter(line => line.trim().length > 0).map(line => line.match(/^\s*/)[0].length);
@@ -187,8 +187,8 @@ function dedent(text) {
     return lines.map(line => line.slice(minIndent)).join("\n");
 }
 
-//# PARSING (pure string/regex, no validation: npm run docs:generate is what enforces the format is
-//# followed correctly)
+// PARSING (pure string/regex, no validation: npm run docs:generate is what enforces the format is
+// followed correctly)
 function parseDocumentation(html) {
     const match = html.match(/<!--[\t\r\n ]*(\/\*\*[\s\S]*?\*\/)[\t\r\n ]*-->[\t\r\n ]*/);
     if (!match) return { data: null, markup: html.trim() };
@@ -223,7 +223,7 @@ function parseDocumentation(html) {
     return { data, markup: html.slice(match.index + match[0].length).trim() };
 }
 
-//# pulls a <script type="..."> reference block out of the markup so it can render as its own titled section
+// pulls a <script type="..."> reference block out of the markup so it can render as its own titled section
 function extractScriptBlock(markup, typeValue) {
     const safeType = escapeRegExp(typeValue);
     const pattern = new RegExp(`<script\\b[^>]*\\btype\\s*=\\s*["']${safeType}["'][^>]*>([\\s\\S]*?)<\\/script>`, "i");
@@ -237,13 +237,13 @@ function extractScriptBlock(markup, typeValue) {
     return { content: dedent(match[1]), markup: cleanedMarkup };
 }
 
-//# a whole page skeleton (<!DOCTYPE>, <html>, <head>) is shown as source only, verbatim
+// a whole page skeleton (<!DOCTYPE>, <html>, <head>) is shown as source only, verbatim
 function isDocumentMarkup(markup) {
     return /<!DOCTYPE\s|<html[\s>]/i.test(markup);
 }
 
-//# mirrors extractAttributes in scripts/generate-component-docs.js: scans the whole markup for
-//# pgs/pgs-options/pgs-state attribute usage, used to group @related entries by how they're used
+// mirrors extractAttributes in scripts/generate-component-docs.js: scans the whole markup for
+// pgs/pgs-options/pgs-state attribute usage, used to group @related entries by how they're used
 function extractAttributeUsage(markup) {
     const attributes = extractAttributes(markup);
     return {
@@ -398,10 +398,10 @@ function extractDemoBlocks(markup, { unwrap = true } = {}) {
 
         let dedented;
         if (unwrap) {
-            //## a demo="component" only declares where one example starts: it is the grouping
-            //## element, never part of the example itself, so its own tag never reaches the copied
-            //## code — exactly like demo="wrapper". The live-preview markup (unwrap: false) always
-            //## keeps the real element, since removing it there could change the layout
+            // a demo="component" only declares where one example starts: it is the grouping
+            // element, never part of the example itself, so its own tag never reaches the copied
+            // code — exactly like demo="wrapper". The live-preview markup (unwrap: false) always
+            // keeps the real element, since removing it there could change the layout
             const closing = markup.lastIndexOf("<", end - 1);
             dedented = dedent(markup.slice(openTagEnd, closing));
         } else {
@@ -428,8 +428,8 @@ function extractDemoBlocks(markup, { unwrap = true } = {}) {
     return blocks;
 }
 
-//# HTML STRING RENDERING (the part with no generate-component-docs.js equivalent: that script
-//# renders Markdown, this renders the demo's own panel HTML)
+// HTML STRING RENDERING (the part with no generate-component-docs.js equivalent: that script
+// renders Markdown, this renders the demo's own panel HTML)
 //+ isPanel turns the list into the accordion's own panel: the token and the initial hidden go on
 //+ the <ul> itself, since there is nothing else between it and the accordion root
 function renderDocListHtml(items, isPanel = false) {
@@ -437,8 +437,8 @@ function renderDocListHtml(items, isPanel = false) {
     return `<ul pgs="flex['column' 'gapTexts']${isPanel ? " accordion-content" : ""}"${isPanel ? " hidden" : ""}>${rows}</ul>`;
 }
 
-//## the two lists a reader opens a reference for; the rest stay closed so the doc block does not
-//## push the examples below the fold
+// the two lists a reader opens a reference for; the rest stay closed so the doc block does not
+// push the examples below the fold
 const DOC_GROUPS_OPEN = new Set([LIST_TAG_LABELS.pgs, LIST_TAG_LABELS["pgs-options"]]);
 
 //+ every top-level group of the doc block is an accordion: the lists are long and a reader is
@@ -457,9 +457,9 @@ function renderDocAccordionHtml(label, panelHtml, className = "") {
         `</div>`;
 }
 
-//## only the h4 groups become accordions: the h5 buckets live inside the Related panel, and an
-//## accordion nested in another one would close its own parent, since opening one closes every
-//## other accordion in the document
+// only the h4 groups become accordions: the h5 buckets live inside the Related panel, and an
+// accordion nested in another one would close its own parent, since opening one closes every
+// other accordion in the document
 function renderDocGroupHtml(label, items, level) {
     if (!items.length) return "";
     if (level === "h4") return renderDocAccordionHtml(label, renderDocListHtml(items, true));
@@ -543,10 +543,10 @@ function renderDemoItemHtml({ previewMarkup, codeMarkup, title, description, sho
     return html;
 }
 
-//# Splits example markup tagged with demo="component" (titled by a
-//# preceding <demo demo-h2/demo-h3> marker, see extractDemoBlocks) into one live-preview + code
-//# pair per item, falling back to a single whole-markup pair for reference files that don't use
-//# those tags yet
+// Splits example markup tagged with demo="component" (titled by a
+// preceding <demo demo-h2/demo-h3> marker, see extractDemoBlocks) into one live-preview + code
+// pair per item, falling back to a single whole-markup pair for reference files that don't use
+// those tags yet
 function renderExamplePairsHtml(exampleMarkup) {
     if (!exampleMarkup.trim()) return "";
 
@@ -558,11 +558,11 @@ function renderExamplePairsHtml(exampleMarkup) {
         return renderReferenceHtml(exampleMarkup) + (code ? renderExampleSourceHtml(code) : "");
     }
 
-    //## a second walk over the un-stripped, non-unwrapped markup for the live-preview text; the two
-    //## walks line up index-for-index in every case seen in this repo (no demo="disabled" element is
-    //## itself a demo="component" root), so the same loop index addresses both
-    //## arrays directly — paired defensively (checked, never assumed) rather than by a separate
-    //## counter that has to remember to advance in lockstep for every block type, headings included
+    // a second walk over the un-stripped, non-unwrapped markup for the live-preview text; the two
+    // walks line up index-for-index in every case seen in this repo (no demo="disabled" element is
+    // itself a demo="component" root), so the same loop index addresses both
+    // arrays directly — paired defensively (checked, never assumed) rather than by a separate
+    // counter that has to remember to advance in lockstep for every block type, headings included
     const previewBlocks = extractDemoBlocks(exampleMarkup, { unwrap: false });
 
     let html = "";
@@ -586,7 +586,7 @@ function renderExamplePairsHtml(exampleMarkup) {
     return html;
 }
 
-//# NAV (path-derived only — never needs to look at a file's content)
+// NAV (path-derived only — never needs to look at a file's content)
 function renderNavMenuHtml(items, category) {
     const rows = items.map(({ path }) => {
         const icon = ENTRY_ICONS[path] || DEFAULT_ENTRY_ICON;
@@ -629,8 +629,8 @@ function renderNavHtml(entries, withHeadingIds = true) {
     return html;
 }
 
-//# TOP LEVEL: turns one reference/html/*.html file's raw text into its full panel HTML — the
-//# header, the doc block, the script-block sections and the rendered examples
+// TOP LEVEL: turns one reference/html/*.html file's raw text into its full panel HTML — the
+// header, the doc block, the script-block sections and the rendered examples
 function renderReferencePanelHtml(path, rawFileText, cssText) {
     const isSection = path !== "layout/section.html" && path !== "layout/pageShell.html";
     let title = getReferenceTitle(path);
@@ -659,8 +659,8 @@ function renderReferencePanelHtml(path, rawFileText, cssText) {
     const sectionTag = isSection ? "section" : "div";
     const sectionExtraAttrs = isSection ? ` pgs="flex['column' 'gapElements']"` : ` style="display:contents"`;
     const section = `<${sectionTag} class="demoContent" data-reference="${escapeHtml(path)}"${sectionExtraAttrs}>${bodyHtml}</${sectionTag}>`;
-    //## no flex utility here: the section above already lays out its own content, and
-    //## pageNav-panels-content's own display is fully owned by _pageNav.scss (see there for why)
+    // no flex utility here: the section above already lays out its own content, and
+    // pageNav-panels-content's own display is fully owned by _pageNav.scss (see there for why)
     const panel = `<div id="${escapeHtml(getSlug(path))}" pgs="pageNav-panels-content">${section}</div>`;
 
     return { title, panelHtml: panel };

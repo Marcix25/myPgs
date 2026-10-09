@@ -5,7 +5,7 @@ import { PGS_warn } from "../helper/_warn.js";
 import { fn_alert } from "./_alerts.js";
 import { PGS_modal } from "./_modal.js";
 
-//## the controller of each bell's click listener, and the notificationLoad elements already read
+// the controller of each bell's click listener, and the notificationLoad elements already read
 const BELLS = new WeakMap();
 const LOADED = new WeakSet();
 
@@ -19,9 +19,9 @@ const fn_notification = {
         emptyMessage: "No notifications",
         panelCloseTitle: "Close"
     },
-    //## a bell can say where the panel opens: a side (dialogLeft, dialogRight), a height (dialogTop,
-    //## dialogBottom), or dialogCenter for the middle. Each axis it leaves out keeps the default,
-    //## and the size is never a bell's business
+    // a bell can say where the panel opens: a side (dialogLeft, dialogRight), a height (dialogTop,
+    // dialogBottom), or dialogCenter for the middle. Each axis it leaves out keeps the default,
+    // and the size is never a bell's business
     _positions: ["dialogLeft", "dialogRight", "dialogTop", "dialogBottom", "dialogCenter"],
     _animations: ["dialogAnimationLeft", "dialogAnimationRight"],
     _modal: null,
@@ -32,21 +32,21 @@ const fn_notification = {
         return pgs(document).querySelector("_notification");
     },
 
-    //## the count only ever changes through a card's own close animation (dismiss click, a button
-    //## that closes, or deleteAll below), so this one listener covers every case.
-    //## Deferred a tick: the event fires before the card is actually removed from the DOM
+    // the count only ever changes through a card's own close animation (dismiss click, a button
+    // that closes, or deleteAll below), so this one listener covers every case.
+    // Deferred a tick: the event fires before the card is actually removed from the DOM
     _bindContainer(container, signal) {
         container.addEventListener("pgs:alert:close", () => {
             setTimeout(() => fn_notification._updateBellCounter(), 0);
         }, { signal });
     },
 
-    //## the one modal every bell opens, built the first time anything needs it: the first
-    //## notification, or the first click on a bell. It is not authored anywhere on the page
+    // the one modal every bell opens, built the first time anything needs it: the first
+    // notification, or the first click on a bell. It is not authored anywhere on the page
     _ensureModal() {
         if (this._modal?.isConnected) return this._modal;
 
-        //## a panel that left the page takes its listeners with it
+        // a panel that left the page takes its listeners with it
         this._panelController?.abort();
         this._panelController = new AbortController();
         const { signal } = this._panelController;
@@ -63,8 +63,8 @@ const fn_notification = {
         content.setAttribute("aria-relevant", "additions");
         this._bindContainer(content, signal);
 
-        //## the panel closes from its own button, the one pgs.modal picks up inside the dialog. Written
-        //## first, it sits above the first notification
+        // the panel closes from its own button, the one pgs.modal picks up inside the dialog. Written
+        // first, it sits above the first notification
         const closeButton = document.createElement("button");
         closeButton.type = "button";
         closeButton.textContent = this._defaults.panelCloseTitle;
@@ -76,7 +76,7 @@ const fn_notification = {
         document.body.appendChild(modal);
         PGS_modal.init(modal);
 
-        //## the bells say whether the panel is open, whichever way it got opened or closed
+        // the bells say whether the panel is open, whichever way it got opened or closed
         modal.addEventListener("pgs:modal:open", () => this._setBellsExpanded(true), { signal });
         modal.addEventListener("pgs:modal:close", () => this._setBellsExpanded(false), { signal });
 
@@ -93,8 +93,8 @@ const fn_notification = {
         this._getBells().forEach(bell => bell.setAttribute("aria-expanded", String(expanded)));
     },
 
-    //## puts the position this bell asks for on the one modal. Only ever called while the panel is
-    //## closed: moving an open panel would make it jump. The slide comes in from the side it ends up on
+    // puts the position this bell asks for on the one modal. Only ever called while the panel is
+    // closed: moving an open panel would make it jump. The slide comes in from the side it ends up on
     _applyPosition(bell) {
         const wanted = this._positions.filter(key => pgs(bell).option.contains(key));
         const side = wanted.find(key => key === "dialogLeft" || key === "dialogRight") ?? "dialogRight";
@@ -103,7 +103,7 @@ const fn_notification = {
             ? ["dialogCenter"]
             : [side, height, side === "dialogLeft" ? "dialogAnimationLeft" : "dialogAnimationRight"];
 
-        //## pgs.modal moves the dialog out of its wrapper, so it is asked for rather than searched for
+        // pgs.modal moves the dialog out of its wrapper, so it is asked for rather than searched for
         const dialog = PGS_modal.api(this._modal).dialog;
         [[this._modal, "modal"], [dialog, "_dialog"]].forEach(([element, token]) => {
             pgs(element).option.remove(...this._positions, ...this._animations);
@@ -111,7 +111,7 @@ const fn_notification = {
         });
     },
 
-    //## a bell is a plain button: it only asks the one modal to toggle
+    // a bell is a plain button: it only asks the one modal to toggle
     _bindBells(root = document) {
         this._getBells(root).forEach(bell => {
             if (BELLS.has(bell)) return;
@@ -120,8 +120,8 @@ const fn_notification = {
             BELLS.set(bell, controller);
             this._missingBellReported = false;
 
-            //## a hand-written counter keeps the bare name; a generated one gets the underscore,
-            //## so this is the one place that has to check for either
+            // a hand-written counter keeps the bare name; a generated one gets the underscore,
+            // so this is the one place that has to check for either
             if (!pgs(bell).querySelector(["notificationBell-counter", "_notificationBell-counter"])) {
                 const counter = document.createElement("span");
                 pgs(counter).add("_notificationBell-counter");
@@ -134,7 +134,7 @@ const fn_notification = {
                 const modal = this._ensureModal();
                 const api = PGS_modal.api(modal);
 
-                //## open already: this click closes it, and nothing moves
+                // open already: this click closes it, and nothing moves
                 if (!api.isOpen()) this._applyPosition(bell);
                 api.toggle();
             }, { signal: controller.signal });
@@ -148,12 +148,12 @@ const fn_notification = {
             ...config,
             component: "_alert",
             dismissible: true,
-            //## the dismiss button draws a cross, so closeTitle is its accessible name and nothing else
+            // the dismiss button draws a cross, so closeTitle is its accessible name and nothing else
             closeTitle: config.closeTitle ?? "Close notification"
         });
 
-        //## the notification is kept either way, so a bell added later still shows it; but with no
-        //## bell there is nothing to open the panel from, and that is worth saying out loud
+        // the notification is kept either way, so a bell added later still shows it; but with no
+        // bell there is nothing to open the panel from, and that is worth saying out loud
         if (!this._getBells().length && !this._missingBellReported) {
             this._missingBellReported = true;
             PGS_warn(scope, "no notificationBell on the page, so nothing can open the panel that holds this notification");
@@ -164,8 +164,8 @@ const fn_notification = {
         this._updateBellCounter();
     },
 
-    //## only loops and asks each card to close itself the same way its own dismiss button would;
-    //## the close animation and the pgs:alert:close event are the engine's job, not this one's
+    // only loops and asks each card to close itself the same way its own dismiss button would;
+    // the close animation and the pgs:alert:close event are the engine's job, not this one's
     deleteAll() {
         const containerNotification = this._getContainer();
         if (!containerNotification) return;

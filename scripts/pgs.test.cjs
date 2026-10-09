@@ -38,8 +38,8 @@ test('bracket flags stay in the matching bracket and do not collide with longer 
     const el = element({ pgs: "button['mini'] icon['icon-moon'] flex['columnReverse']" });
     const options = pgs(el).option;
     assert.equal(options.contains('column'), false);
-    //== turning a bracket flag off still goes through option.remove/toggle (a generic, non-owning
-    //== operation); turning one on needs the base add(), naming the owning component directly
+    // turning a bracket flag off still goes through option.remove/toggle (a generic, non-owning
+    // operation); turning one on needs the base add(), naming the owning component directly
     options.toggle('icon-moon', false);
     pgs(el).add("icon['icon-sun']");
     pgs(el).add("button['strong']", "flex['gapTexts']");
@@ -111,11 +111,11 @@ test('option.add never writes to pgs-data; a flag with no owner present becomes 
 });
 
 test("option.add derives the owning component from the flag's own name and merges into its bracket", () => {
-    //== most flags carry an abbreviated prefix (btnMini, mgAuto), which derives btn/mg and not the
-    //== component name — only a flag that starts with its component's own full name (cardMini,
-    //== menuVertical, the icon-* glyphs) can be derived here, so a bare add() finds its way home
-    //== without the caller naming the component. margin2 stands in for such a flag in this test;
-    //== see the next test for what happens to a flag with an abbreviated prefix
+    // most flags carry an abbreviated prefix (btnMini, mgAuto), which derives btn/mg and not the
+    // component name — only a flag that starts with its component's own full name (cardMini,
+    // menuVertical, the icon-* glyphs) can be derived here, so a bare add() finds its way home
+    // without the caller naming the component. margin2 stands in for such a flag in this test;
+    // see the next test for what happens to a flag with an abbreviated prefix
     const el = element({ pgs: 'margin' });
     pgs(el).option.add('margin2');
     assert.equal(el.getAttribute('pgs'), "margin['margin2']");
@@ -123,9 +123,9 @@ test("option.add derives the owning component from the flag's own name and merge
 });
 
 test("option.add cannot derive an owner from a shortened flag name; it lands bare like hoverNot", () => {
-    //== this is the real cost of abbreviating: button['btnMini'] and margin['mgAuto'] must be written
-    //== explicitly through the base pgs(el).add() — option.add('mini') / option.add('auto') alone
-    //== have no component name left in them to find
+    // this is the real cost of abbreviating: button['btnMini'] and margin['mgAuto'] must be written
+    // explicitly through the base pgs(el).add() — option.add('mini') / option.add('auto') alone
+    // have no component name left in them to find
     const button = element({ pgs: 'button' });
     pgs(button).option.add('mini');
     assert.equal(button.getAttribute('pgs'), 'button mini');

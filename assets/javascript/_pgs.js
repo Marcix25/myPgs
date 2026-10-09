@@ -381,8 +381,8 @@ export function pgs(root) {
             return null;
         };
 
-        //## an Array, where every other querySelectorAll returns a NodeList: the match is computed
-        //## here instead of by the engine, so there is no live list to hand back
+        // an Array, where every other querySelectorAll returns a NodeList: the match is computed
+        // here instead of by the engine, so there is no live list to hand back
         api.querySelectorAll = function (value) {
             const keys = getKeys(value);
             if (!keys.length) return [];
@@ -403,7 +403,7 @@ export function pgs(root) {
         return api;
     }
 
-    //# DATA — key[payload] values only, always in this attribute; never touches the pgs bracket.
+    // DATA — key[payload] values only, always in this attribute; never touches the pgs bracket.
     function createData(attribute) {
         if (!canAttr) return undefined;
 
@@ -437,8 +437,8 @@ export function pgs(root) {
             return api;
         };
 
-        //## a plain passthrough on this attribute, like state's and the base pgs's own value: a
-        //## bracket flag is never read or written back through here, only this attribute ever is.
+        // a plain passthrough on this attribute, like state's and the base pgs's own value: a
+        // bracket flag is never read or written back through here, only this attribute ever is.
         Object.defineProperty(api, "value", {
             get() { return root.getAttribute(attribute); },
             set(value) {
@@ -476,7 +476,7 @@ pgs.registerModules = function (modules = {}) {
 
 globalThis.pgs ??= pgs;
 
-//## published under the package name too, distinct from the pgs() helper above, so a separate
-//## webpack build can mark "mypgs" as external and resolve it to this at runtime instead of
-//## bundling (and re-running) a whole second copy of the library
+// published under the package name too, distinct from the pgs() helper above, so a separate
+// webpack build can mark "mypgs" as external and resolve it to this at runtime instead of
+// bundling (and re-running) a whole second copy of the library
 globalThis.mypgs ??= { pgs };

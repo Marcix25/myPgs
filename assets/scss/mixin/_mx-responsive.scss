@@ -28,7 +28,7 @@
     justify-content: center;
 }
 
-//++ basis
+//## basis
 // how many columns a ratio of the declared ones leaves: the same count _basis() divides by,
 // published as --_flex-cols so a flexChild col* can span several of them
 @function _cols($ratio, $columns) { @return math.ceil($columns * $ratio); }

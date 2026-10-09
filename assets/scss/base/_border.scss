@@ -1,32 +1,32 @@
 //= BORDER - BORDER RADIUS - OUTLINE
 //# BORDER
 
-//- WIDTH
-//## the bracket-presence guard used everywhere else (marginBlock, paddingTop, ...) is safe again
-//## now that color lives in its own borderColor component below: border's own bracket only ever
-//## holds width flags, never a color flag that would otherwise need this default to still apply
+//## WIDTH
+// the bracket-presence guard used everywhere else (marginBlock, paddingTop, ...) is safe again
+// now that color lives in its own borderColor component below: border's own bracket only ever
+// holds width flags, never a color flag that would otherwise need this default to still apply
 :is([pgs~="border"], [pgs*="border\5B"]) {
 
     &:not([pgs*="border\5B"]) { border: var(--border-width) solid var(--border-color); }
 
-    //## the base scale prefix alone as a flag, e.g. border['bd'], is an explicit way to write the
-    //## same default a bare border with no bracket already gets
+    // the base scale prefix alone as a flag, e.g. border['bd'], is an explicit way to write the
+    // same default a bare border with no bracket already gets
     &[pgs*="'bd'"] { border: var(--border-width) solid var(--border-color); }
 
-    //- BASE (all four sides) — unchanged, still general
+    //+ BASE (all four sides) — unchanged, still general
     &[pgs*="'bdThin'"] { border: 1px solid var(--border-color); }
     &[pgs*="'bdThick'"] { border: 3px solid var(--border-color); }
     &[pgs*="'bdThicker'"] { border: 4.5px solid var(--border-color); }
 
-    //- UNSET: takes the border off an element that has one of its own, on every side
+    //+ UNSET: takes the border off an element that has one of its own, on every side
     &[pgs*="'bdUnset'"] { border: none; }
 }
 
-//- COLOR
-//## its own root, independent of border/borderX's own bracket: pgs="borderTop['bdTpThin']
-//## borderColor['bdPrimary']" recolors the top side without needing a base border['...'] bracket
-//## of its own, since --border-color is shared by every border*/borderX width rule regardless of
-//## which root's bracket set it
+//## COLOR
+// its own root, independent of border/borderX's own bracket: pgs="borderTop['bdTpThin']
+// borderColor['bdPrimary']" recolors the top side without needing a base border['...'] bracket
+// of its own, since --border-color is shared by every border*/borderX width rule regardless of
+// which root's bracket set it
 :is([pgs~="borderColor"], [pgs*="borderColor\5B"]) {
     &[pgs*="'bdTransparent'"] { --border-color: transparent; }
     &[pgs*="'bdPrimary'"] { --border-color: var(--color-primary); }
@@ -45,7 +45,7 @@
     &[pgs*="'bdGray'"] { --border-color: var(--color-gray); }
 }
 
-//- BLOCK
+//## BLOCK
 :is([pgs~="borderBlock"], [pgs*="borderBlock\5B"]) {
     &:not([pgs*="borderBlock\5B"]) { border-block: var(--border-width) solid var(--border-color); }
     &[pgs*="'bdBl'"] { border-block: var(--border-width) solid var(--border-color); }
@@ -55,7 +55,7 @@
     &[pgs*="'bdBlUnset'"] { border-block: none; }
 }
 
-//- INLINE
+//## INLINE
 :is([pgs~="borderInline"], [pgs*="borderInline\5B"]) {
     &:not([pgs*="borderInline\5B"]) { border-inline: var(--border-width) solid var(--border-color); }
     &[pgs*="'bdIn'"] { border-inline: var(--border-width) solid var(--border-color); }
@@ -65,7 +65,7 @@
     &[pgs*="'bdInUnset'"] { border-inline: none; }
 }
 
-//- TOP
+//## TOP
 :is([pgs~="borderTop"], [pgs*="borderTop\5B"]) {
     &:not([pgs*="borderTop\5B"]) { border-top: var(--border-width) solid var(--border-color); }
     &[pgs*="'bdTp'"] { border-top: var(--border-width) solid var(--border-color); }
@@ -75,7 +75,7 @@
     &[pgs*="'bdTpUnset'"] { border-top: none; }
 }
 
-//- RIGHT
+//## RIGHT
 :is([pgs~="borderRight"], [pgs*="borderRight\5B"]) {
     &:not([pgs*="borderRight\5B"]) { border-right: var(--border-width) solid var(--border-color); }
     &[pgs*="'bdRt'"] { border-right: var(--border-width) solid var(--border-color); }
@@ -85,7 +85,7 @@
     &[pgs*="'bdRtUnset'"] { border-right: none; }
 }
 
-//- BOTTOM
+//## BOTTOM
 :is([pgs~="borderBottom"], [pgs*="borderBottom\5B"]) {
     &:not([pgs*="borderBottom\5B"]) { border-bottom: var(--border-width) solid var(--border-color); }
     &[pgs*="'bdBt'"] { border-bottom: var(--border-width) solid var(--border-color); }
@@ -95,7 +95,7 @@
     &[pgs*="'bdBtUnset'"] { border-bottom: none; }
 }
 
-//- LEFT
+//## LEFT
 :is([pgs~="borderLeft"], [pgs*="borderLeft\5B"]) {
     &:not([pgs*="borderLeft\5B"]) { border-left: var(--border-width) solid var(--border-color); }
     &[pgs*="'bdLt'"] { border-left: var(--border-width) solid var(--border-color); }
@@ -122,10 +122,10 @@
     &[pgs*="'otlThick'"] { --outline-width: 3px; }
     &[pgs*="'otlThicker'"] { --outline-width: 4.5px; }
 
-    //- UNSET: takes the outline off
+    //+ UNSET: takes the outline off
     &[pgs*="'otlUnset'"] { outline: none; }
 
-    //- COLOR
+    //## COLOR
     &[pgs*="'otlPrimary'"] { --outline-color: var(--color-primary); }
     &[pgs*="'otlSecondary'"] { --outline-color: var(--color-secondary); }
     &[pgs*="'otlTertiary'"] { --outline-color: var(--color-tertiary); }

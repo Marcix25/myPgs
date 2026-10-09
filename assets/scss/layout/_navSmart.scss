@@ -8,8 +8,8 @@
 //# NAVSMART
 :is([pgs~="navSmart"], [pgs*="navSmart\5B"]) {
     --navSmart-gap: .8rem;
-    //## the distance from the edges of the screen: the page's own padding on a site, and
-    //## --navSmart-edgePWA when it runs installed as an app (see below)
+    // the distance from the edges of the screen: the page's own padding on a site, and
+    // --navSmart-edgePWA when it runs installed as an app (see below)
     --navSmart-edgePWA: 2.0rem;
     --navSmart-edge: calc(var(--page-padding) / 2);
     --navSmart-itemMinWidth: min(7.2rem, 16vw);

@@ -54,9 +54,9 @@
         }
     }
 
-    //- OPTION
+    //+ OPTION
     //## horizontal
-    //## menuHorizontal, not the shortened horizontal: card also has a 'horizontal' option
+    // menuHorizontal, not the shortened horizontal: card also has a 'horizontal' option
     &[pgs*="'menuHorizontal'"] {
         >ul {
             flex-direction: row;
@@ -93,8 +93,8 @@
             //### Sub menu
             //### link ------ |button|
             //### list ---------------|
-            //### the link and the toggle share the first row, the submenu takes the whole next one:
-            //### it needs flex-wrap, or flex-basis has no line to break onto
+            // the link and the toggle share the first row, the submenu takes the whole next one:
+            // it needs flex-wrap, or flex-basis has no line to break onto
             >li:has(ul) {
                 @include row;
                 align-items: center;

@@ -4,7 +4,7 @@ import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
 import { PGS_warn } from "../helper/_warn.js";
 import { fn_alert } from "./_alerts.js";
 
-//## the toastLoad elements already read
+// the toastLoad elements already read
 const LOADED = new WeakSet();
 
 //# PGS_toast
@@ -17,7 +17,7 @@ const fn_toast = {
     },
     _options: ["toastLeft", "toastRight", "toastCenter", "toastBottom"],
 
-    //## a hand-written container keeps the bare name; a generated one gets the underscore, so this needs both
+    // a hand-written container keeps the bare name; a generated one gets the underscore, so this needs both
     _getContainer() {
         return pgs(document).querySelector(["toast", "_toast"]);
     },
@@ -36,11 +36,11 @@ const fn_toast = {
         return containerToast;
     },
 
-    //## position flags land on the container, the way Modal copies the ones on its wrapper to _dialog:
-    //## _toast is the pgs-generated-only token that carries them, rebuilt at every toast so one toast's
-    //## position never leaks into the next. They come from the position of the toast: the field of its
-    //## pgs-data of a toastLoad or the position option of a pgs.toast call. A container written
-    //## by hand keeps its own as the baseline
+    // position flags land on the container, the way Modal copies the ones on its wrapper to _dialog:
+    // _toast is the pgs-generated-only token that carries them, rebuilt at every toast so one toast's
+    // position never leaks into the next. They come from the position of the toast: the field of its
+    // pgs-data of a toastLoad or the position option of a pgs.toast call. A container written
+    // by hand keeps its own as the baseline
     _applyOptions(container, position = [], scope) {
         const wanted = [Array.isArray(position) ? position : String(position).split(/\s+/)].flat().filter(Boolean);
         const unknown = wanted.filter(key => !this._options.includes(key));
@@ -62,11 +62,11 @@ const fn_toast = {
             component: "_alert",
             dismissible: true,
             timeout,
-            //## the dismiss button draws a cross, so closeTitle is its accessible name and nothing else
+            // the dismiss button draws a cross, so closeTitle is its accessible name and nothing else
             closeTitle: config.closeTitle ?? "Close toast"
         });
 
-        //## only one toast is shown at a time: a new one simply replaces whatever was there
+        // only one toast is shown at a time: a new one simply replaces whatever was there
         const container = this._getOrCreateContainer();
         this._applyOptions(container, position, scope);
         container.replaceChildren(toast);

@@ -23,8 +23,8 @@ ol[pgs~="steps"] {
         }
 
         //## NUMBER
-        //## a hand-written circle keeps the bare name; a generated one gets the underscore (see
-        //## _steps.js), so every check here needs both
+        // a hand-written circle keeps the bare name; a generated one gets the underscore (see
+        // _steps.js), so every check here needs both
         :where([pgs~="steps-step-circle"]),
         :where([pgs~="_steps-step-circle"]) {
             min-width: var(--steps-circle-size);
@@ -42,7 +42,7 @@ ol[pgs~="steps"] {
         }
 
         //## LINE
-        //## same dual form as the circle above
+        // same dual form as the circle above
         :where([pgs~="steps-step-line"]),
         :where([pgs~="_steps-step-line"]) {
             $space: 15px;

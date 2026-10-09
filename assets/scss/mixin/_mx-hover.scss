@@ -74,7 +74,7 @@
     }
 }
 
-//- HOVER CONTENT
+//# HOVER CONTENT
 @mixin hoverStyle1() {
     &:not(:where(:is([pgs~="hoverNot"], [pgs*="'hoverNot'"]))) {
         &:where(:not(:disabled, [disabled])) {

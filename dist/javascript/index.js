@@ -475,8 +475,8 @@ function pgs(root) {
             return null;
         };
 
-        //## an Array, where every other querySelectorAll returns a NodeList: the match is computed
-        //## here instead of by the engine, so there is no live list to hand back
+        // an Array, where every other querySelectorAll returns a NodeList: the match is computed
+        // here instead of by the engine, so there is no live list to hand back
         api.querySelectorAll = function (value) {
             const keys = getKeys(value);
             if (!keys.length) return [];
@@ -497,7 +497,7 @@ function pgs(root) {
         return api;
     }
 
-    //# DATA — key[payload] values only, always in this attribute; never touches the pgs bracket.
+    // DATA — key[payload] values only, always in this attribute; never touches the pgs bracket.
     function createData(attribute) {
         if (!canAttr) return undefined;
 
@@ -531,8 +531,8 @@ function pgs(root) {
             return api;
         };
 
-        //## a plain passthrough on this attribute, like state's and the base pgs's own value: a
-        //## bracket flag is never read or written back through here, only this attribute ever is.
+        // a plain passthrough on this attribute, like state's and the base pgs's own value: a
+        // bracket flag is never read or written back through here, only this attribute ever is.
         Object.defineProperty(api, "value", {
             get() { return root.getAttribute(attribute); },
             set(value) {
@@ -570,9 +570,9 @@ pgs.registerModules = function (modules = {}) {
 
 globalThis.pgs ??= pgs;
 
-//## published under the package name too, distinct from the pgs() helper above, so a separate
-//## webpack build can mark "mypgs" as external and resolve it to this at runtime instead of
-//## bundling (and re-running) a whole second copy of the library
+// published under the package name too, distinct from the pgs() helper above, so a separate
+// webpack build can mark "mypgs" as external and resolve it to this at runtime instead of
+// bundling (and re-running) a whole second copy of the library
 globalThis.mypgs ??= { pgs };
 
 
@@ -602,10 +602,10 @@ __webpack_require__.r(__webpack_exports__);
 const INITIALIZED_BUTTONS = new WeakSet();
 
 //+ CHANGE ICON
-//## the glyph is not the author's choice here: the library owns it, because it has to say which way
-//## the switch is pointing. It draws it from the built-in set so the control is never blank, and
-//## looks for a marked element as well as an <i>, so an icon set that renders anything else still
-//## gets found. The fa- classes stay on for the pages that style them
+// the glyph is not the author's choice here: the library owns it, because it has to say which way
+// the switch is pointing. It draws it from the built-in set so the control is never blank, and
+// looks for a marked element as well as an <i>, so an icon set that renders anything else still
+// gets found. The fa- classes stay on for the pages that style them
 function changeIcon(selector, isDarkMode) {
     selector.forEach(button => {
         const ICON = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(button).querySelector("icon") || button.querySelector("i");
@@ -620,8 +620,8 @@ function changeIcon(selector, isDarkMode) {
 }
 
 //+ STORED CHOICE
-//## localStorage throws when the browser blocks site data, and answers null in some private windows:
-//## either way the choice lives in memory for the rest of the page, so the switch still works
+// localStorage throws when the browser blocks site data, and answers null in some private windows:
+// either way the choice lives in memory for the rest of the page, so the switch still works
 const STORAGE_KEY = "screenIsDarkMode";
 let memoryChoice = false;
 
@@ -659,13 +659,13 @@ function setDarkmodeStatus(toggle = false, button = []) {
 
 
 //# INIT
-//## applies the stored theme to the root as soon as the bundle is parsed in the head, so a
-//## reload never paints the wrong one first
+// applies the stored theme to the root as soon as the bundle is parsed in the head, so a
+// reload never paints the wrong one first
 if (typeof document !== "undefined") setDarkmodeStatus();
 
-//## binds the switches in root that are not bound yet and draws their glyph. Switches already
-//## bound are left untouched, so pgs.init(el) on a page that is already running changes nothing
-//## else: it does not re-apply the theme or fire the color event again
+// binds the switches in root that are not bound yet and draws their glyph. Switches already
+// bound are left untouched, so pgs.init(el) on a page that is already running changes nothing
+// else: it does not re-apply the theme or fire the color event again
 function PGS_darkmode_init(root = document) {
     const isDarkMode = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document.documentElement).state.contains("darkmode");
     const buttons = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_roots)(root, "toggleDarkmode").filter(button => !INITIALIZED_BUTTONS.has(button));
@@ -680,7 +680,7 @@ function PGS_darkmode_init(root = document) {
     });
 }
 
-//## the first pass once the page is ready: the body exists now, so it takes the theme too
+// the first pass once the page is ready: the body exists now, so it takes the theme too
 ;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(() => {
     setDarkmodeStatus(false, (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document).querySelectorAll("toggleDarkmode"));
     PGS_darkmode_init();
@@ -713,32 +713,32 @@ __webpack_require__.r(__webpack_exports__);
 
 
 //= HOVER
-//## every clickable surface of the library shares the same hover treatment, and it is written once
-//## in SCSS under [pgs~=hover]. The component selectors no longer repeat it: this module marks the
-//## surfaces that are clickable by definition, so the author keeps writing only the component token
-//## while the element still carries a real pgs value that SCSS, JavaScript and the inspector read.
+// every clickable surface of the library shares the same hover treatment, and it is written once
+// in SCSS under [pgs~=hover]. The component selectors no longer repeat it: this module marks the
+// surfaces that are clickable by definition, so the author keeps writing only the component token
+// while the element still carries a real pgs value that SCSS, JavaScript and the inspector read.
 
 //+ tokens that get the hover treatment, with the extra condition each one has to satisfy
 const HOVER_TARGETS = {
-    //## a button is clickable whatever its tag
+    // a button is clickable whatever its tag
     button: () => true,
-    //## a card or a box is only a clickable surface when it is a link
+    // a card or a box is only a clickable surface when it is a link
     card: element => element.tagName === "A",
     box: element => element.tagName === "A"
 };
 
 const TOKENS = Object.keys(HOVER_TARGETS);
 
-//## only what this module added is ever taken back: a "hover" written by hand belongs to the author
-//## and stays, whatever the element turns into later
+// only what this module added is ever taken back: a "hover" written by hand belongs to the author
+// and stays, whatever the element turns into later
 const MARKED = new WeakSet();
 
 //+ SYNC HOVER
 function syncHover(element) {
     if (!(element instanceof Element)) return;
 
-    //## hoverNot is the one opt-out, written on the element whatever the component: a surface that
-    //## must not answer the pointer is never marked, and SCSS guards a "hover" written by hand
+    // hoverNot is the one opt-out, written on the element whatever the component: a surface that
+    // must not answer the pointer is never marked, and SCSS guards a "hover" written by hand
     const clickable = !(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).option.contains("hoverNot")
         && TOKENS.some(token => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).contains(token) && HOVER_TARGETS[token](element));
 
@@ -755,10 +755,10 @@ function syncHover(element) {
 }
 
 //# INIT
-//## bodyHoverAuto gates every caller here, not only the automatic pass below: pgs.init(root) walks
-//## every registered module and calls its init(root) whether or not the caller meant to touch
-//## hover specifically, so the check has to live in the one function every path funnels through,
-//## not in the block that only covers this module's own unprompted call
+// bodyHoverAuto gates every caller here, not only the automatic pass below: pgs.init(root) walks
+// every registered module and calls its init(root) whether or not the caller meant to touch
+// hover specifically, so the check has to live in the one function every path funnels through,
+// not in the block that only covers this module's own unprompted call
 function PGS_hover_init(root = document) {
     if (!(root instanceof Document || root instanceof Element)) {
         throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_invalid)("hover.init", "root must be a Document or an Element");
@@ -773,10 +773,10 @@ function PGS_hover_init(root = document) {
 }
 
 //# WATCH
-//## the surfaces to mark do not all exist when the page is ready: the library injects its own
-//## markup (a toast, a notification row) and an author can add or remove a token
-//## at runtime. The watch stays on, batched per frame, and re-marking is idempotent so the pass our
-//## own attribute write triggers back settles at once
+// the surfaces to mark do not all exist when the page is ready: the library injects its own
+// markup (a toast, a notification row) and an author can add or remove a token
+// at runtime. The watch stays on, batched per frame, and re-marking is idempotent so the pass our
+// own attribute write triggers back settles at once
 const PENDING = new Set();
 
 const flushPending = (0,_helper_throttle_js__WEBPACK_IMPORTED_MODULE_2__.PGS_rafThrottle)(() => {
@@ -802,10 +802,10 @@ function handleMutations(mutations) {
 }
 
 //# AUTO-MARK
-//## bodyHoverAuto is the author's own switch, one of the flags in <body>'s own body[...] bracket
-//## alongside bodyBase/bodyImg/bodyText/bodyHeading: without it nothing is marked on load, and —
-//## separately from the check inside PGS_hover_init — the observer below never even starts, so a page
-//## that only ever writes pgs="hover" by hand never pays for it running for its whole lifetime
+// bodyHoverAuto is the author's own switch, one of the flags in <body>'s own body[...] bracket
+// alongside bodyBase/bodyImg/bodyText/bodyHeading: without it nothing is marked on load, and —
+// separately from the check inside PGS_hover_init — the observer below never even starts, so a page
+// that only ever writes pgs="hover" by hand never pays for it running for its whole lifetime
 ;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(() => {
     if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document.body).option.contains("bodyHoverAuto")) return;
 
@@ -934,8 +934,8 @@ const svgColors = {
     },
 
     applyColorsLottie(isDarkMode = svgColors._getCurrentDarkmode()) {
-        //## svgChangeColor gates both passes: Lottie recolors from the same --svg-color-N pairs,
-        //## so there is no separate lottieChangeColor to opt into any more
+        // svgChangeColor gates both passes: Lottie recolors from the same --svg-color-N pairs,
+        // so there is no separate lottieChangeColor to opt into any more
         if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document).querySelector("svgChangeColor")) return;
 
         const colors = svgColors.searchColor();
@@ -952,9 +952,9 @@ const svgColors = {
 };
 
 //# ASPECT RATIO
-//## an <object> that holds an svg keeps the ratio its object-fit asks for: "cover" slices the
-//## drawing, anything else fits it whole. The ratio is applied on every load of the object, so
-//## swapping its data keeps working, and again whenever the object is resized
+// an <object> that holds an svg keeps the ratio its object-fit asks for: "cover" slices the
+// drawing, anything else fits it whole. The ratio is applied on every load of the object, so
+// swapping its data keeps working, and again whenever the object is resized
 const ASPECT_OBSERVERS = new WeakMap();
 const ASPECT_WATCHED = new WeakSet();
 
@@ -999,7 +999,7 @@ function PGS_svg_init(root = document) {
     svgColors.applyColorsSVG();
     svgColors.applyColorsLottie();
 
-    //## read by SCSS (body:not(.object-loaded)) to hold back <object>s until the first pass is done
+    // read by SCSS (body:not(.object-loaded)) to hold back <object>s until the first pass is done
     document.body?.classList.add("object-loaded");
 }
 
@@ -1071,9 +1071,9 @@ function keepInPlace(element, duration, signal) {
 }
 
 //+ Accessibility (writes the open/closed state)
-//## the composed label says what the click does, and is only written when the author has
-//## not named the control themselves: a hand-written aria-label is the page's own wording
-//## and survives every toggle
+// the composed label says what the click does, and is only written when the author has
+// not named the control themselves: a hand-written aria-label is the page's own wording
+// and survives every toggle
 function accordionAccessibility(isOpen, button, content) {
     if (!button.hasAttribute("aria-label") || COMPOSED_LABELS.has(button)) {
         const text = (button.textContent || "").trim().replace(/\s+/g, " ");
@@ -1098,17 +1098,17 @@ function initializeAccordion(accordion) {
     const { signal } = controller;
     let scrollTimer = 0;
 
-    //## initial state: accAutoOpen is the authored form, because pgs-state belongs to
-    //## the runtime; a pgs-state="open" already written by hand is honored all the same
+    // initial state: accAutoOpen is the authored form, because pgs-state belongs to
+    // the runtime; a pgs-state="open" already written by hand is honored all the same
     const isOpenInit = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).option.contains("accAutoOpen") || (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).state.contains("open");
 
-    //## an accordion closes the others only inside a group, and the group is the nearest
-    //## accordionContainer above it: on its own an accordion answers for itself alone, so a
-    //## single panel dropped anywhere on the page no longer collapses somebody else's
+    // an accordion closes the others only inside a group, and the group is the nearest
+    // accordionContainer above it: on its own an accordion answers for itself alone, so a
+    // single panel dropped anywhere on the page no longer collapses somebody else's
     const CONTAINER = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).closest("accordionContainer");
     const isMultiOpen = !CONTAINER || (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(CONTAINER).option.contains("accMultiOpen");
 
-    //## accessibility, written once, with ids of its own for aria-controls / aria-labelledby
+    // accessibility, written once, with ids of its own for aria-controls / aria-labelledby
     BUTTON.setAttribute("role", "button");
     BUTTON.setAttribute("tabindex", "0");
     if (!BUTTON.id) BUTTON.id = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_uniqueId)("acc-btn");
@@ -1119,11 +1119,11 @@ function initializeAccordion(accordion) {
     CONTENT.setAttribute("aria-labelledby", BUTTON.id);
 
     //+ Close the others of the group
-    //## only the accordions of this same group: an accordionContainer nested in another one
-    //## keeps its own panels to itself, which is why the nearest container is compared rather
-    //## than trusting the descendant search. accAutoOpen is left alone on purpose — it
-    //## is the authored "this one stays open", so a sibling opening does not take it down,
-    //## and only until the reader works that panel themselves, which drops the token
+    // only the accordions of this same group: an accordionContainer nested in another one
+    // keeps its own panels to itself, which is why the nearest container is compared rather
+    // than trusting the descendant search. accAutoOpen is left alone on purpose — it
+    // is the authored "this one stays open", so a sibling opening does not take it down,
+    // and only until the reader works that panel themselves, which drops the token
     function closeOtherAccordion() {
         for (const otherLi of (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(CONTAINER).querySelectorAll("accordion")) {
             if (otherLi === accordion) continue;
@@ -1145,21 +1145,21 @@ function initializeAccordion(accordion) {
         const nowOpen = !isOpen;
         const timing = accordionTiming(accordion);
 
-        //## measured before anything changes: this button's position is the one to hold
+        // measured before anything changes: this button's position is the one to hold
         keepInPlace(BUTTON, timing, signal);
 
         (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).state.toggle("open", nowOpen);
         accordionAccessibility(nowOpen, BUTTON, CONTENT);
 
-        //## the moment the reader works this panel, accAutoOpen stops being the authored
-        //## "this one stays open": from here on it is an ordinary panel of the group, so a
-        //## sibling opening can close it. Guarded, because remove() would otherwise write an
-        //## empty pgs-option on every accordion that never had one
+        // the moment the reader works this panel, accAutoOpen stops being the authored
+        // "this one stays open": from here on it is an ordinary panel of the group, so a
+        // sibling opening can close it. Guarded, because remove() would otherwise write an
+        // empty pgs-option on every accordion that never had one
         if ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).option.contains("accAutoOpen")) (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).option.remove("accAutoOpen");
         if (!isMultiOpen) closeOtherAccordion();
 
-        //## once the layout has settled, only scroll if the button ended up out of view (an
-        //## open() called from code, say): the reader's own click is already held in place
+        // once the layout has settled, only scroll if the button ended up out of view (an
+        // open() called from code, say): the reader's own click is already held in place
         window.clearTimeout(scrollTimer);
         if (nowOpen) scrollTimer = window.setTimeout(() => {
             const rect = BUTTON.getBoundingClientRect();
@@ -1175,8 +1175,8 @@ function initializeAccordion(accordion) {
         if ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).state.contains("open")) accordionFunction();
     }
 
-    //## writes that initial state, rather than only reading it: with accAutoOpen the
-    //## pgs-state is not there yet, and it is what the CSS reads to turn the arrow
+    // writes that initial state, rather than only reading it: with accAutoOpen the
+    // pgs-state is not there yet, and it is what the CSS reads to turn the arrow
     ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).state.toggle("open", isOpenInit);
     accordionAccessibility(isOpenInit, BUTTON, CONTENT);
 
@@ -1408,7 +1408,7 @@ const fn_alert = {
                     closeTitle: String(raw.closeTitle || raw["title-close"] || "").trim() || undefined,
                     buttons: Array.isArray(raw.buttons) ? raw.buttons : undefined,
                     timeout: Number.isNaN(duration) ? undefined : duration,
-                    //## read by the hosts that place their alert (Toast); the others never look at it
+                    // read by the hosts that place their alert (Toast); the others never look at it
                     position: raw.position || undefined
                 }
             }];
@@ -1534,7 +1534,7 @@ const fn_alert = {
     show(type, options = {}) {
         const scope = `alert.${type}`;
         const { root, container, ...contentOptions } = this._toOptions(options, scope);
-        //## the placement is checked before the card is built, so a wrong root leaves nothing behind
+        // the placement is checked before the card is built, so a wrong root leaves nothing behind
         const target = root !== undefined || container !== undefined ? this._getContainer(root, container, scope) : null;
         const alert = this.create(type, contentOptions);
 
@@ -1652,9 +1652,9 @@ function updatePosition(dropdown) {
 
     left = clamp(left, VIEWPORT_GAP, maxLeft);
 
-    //## exposes the resolved side, as a pgs-state token on the content, so the arrow (or a
-    //## component built on dropdown) can point at the trigger purely in CSS, without recomputing
-    //## the layout itself
+    // exposes the resolved side, as a pgs-state token on the content, so the arrow (or a
+    // component built on dropdown) can point at the trigger purely in CSS, without recomputing
+    // the layout itself
     const sideState = SIDE_STATES[side];
     if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(content).state.contains(sideState)) {
         (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(content).state.remove(...Object.values(SIDE_STATES));
@@ -1664,8 +1664,8 @@ function updatePosition(dropdown) {
     content.style.setProperty("--_dropdown-left", `${Math.round(left)}px`);
     content.style.setProperty("--_dropdown-top", `${Math.round(top)}px`);
 
-    //## where the trigger's center falls inside the panel, after the viewport clamp above may
-    //## have shifted it: an arrow placed at 50% would stop pointing at the trigger
+    // where the trigger's center falls inside the panel, after the viewport clamp above may
+    // have shifted it: an arrow placed at 50% would stop pointing at the trigger
     content.style.setProperty("--_dropdown-arrowLeft", `${Math.round(triggerRect.left + triggerRect.width / 2 - left)}px`);
     content.style.setProperty("--_dropdown-arrowTop", `${Math.round(triggerRect.top + triggerRect.height / 2 - top)}px`);
 }
@@ -1714,8 +1714,8 @@ function isInsideAnyDropdown(target) {
     return Array.from(OPEN_DROPDOWNS).some(dropdown => dropdown.contains(target));
 }
 
-//## the listeners that serve every dropdown on the page: registered once, when the module loads,
-//## so a later init() or refresh() cannot stack another copy of them
+// the listeners that serve every dropdown on the page: registered once, when the module loads,
+// so a later init() or refresh() cannot stack another copy of them
 if (typeof document !== "undefined") {
     document.addEventListener("click", (event) => {
         if (isInsideAnyDropdown(event.target)) return;
@@ -1877,8 +1877,8 @@ function setupAccordion(li, button, ul, signal) {
     if (!ul.id) ul.id = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_3__.PGS_uniqueId)("menu-submenu");
     button.setAttribute("aria-controls", ul.id);
 
-    //## a submenu nested inside a first-level dropdown changes the size of the floating panel,
-    //## whose position was computed for the size it had when it opened
+    // a submenu nested inside a first-level dropdown changes the size of the floating panel,
+    // whose position was computed for the size it had when it opened
     const dropdown = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(li).closest("dropdown");
 
     const setOpen = (open) => {
@@ -1917,18 +1917,18 @@ function initializeMenu(MENU) {
         const ul = li.querySelector("ul");
         if (!ul) return;
 
-        //## the toggle goes after the item's own link, never after one of a nested submenu
+        // the toggle goes after the item's own link, never after one of a nested submenu
         const link = li.querySelector(":scope > a");
         if (!link) {
             (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_4__.PGS_warn)("menu.init", "a menu item with a submenu needs a direct link of its own, skipped", li);
             return;
         }
 
-        //## a refresh finds the toggle the first pass generated and reuses it
+        // a refresh finds the toggle the first pass generated and reuses it
         const button = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_3__.PGS_directChild)(li, "_menu-submenuButton") || createToggle(link);
 
-        //## only the first level of a horizontal menu floats its submenu: deeper levels would
-        //## stack dropdown over dropdown, and a vertical menu has the room to expand in place
+        // only the first level of a horizontal menu floats its submenu: deeper levels would
+        // stack dropdown over dropdown, and a vertical menu has the room to expand in place
         const isFirstLevel = li.parentElement === topLevel;
 
         if (isHorizontal && isFirstLevel) {
@@ -1998,8 +1998,8 @@ __webpack_require__.r(__webpack_exports__);
 const EVENT_OPEN = "pgs:modal:open";
 const EVENT_CLOSE = "pgs:modal:close";
 const API = new WeakMap();
-//## the dialog of every wrapper, because the dialog leaves its wrapper on init: a destroy() and a new init
-//## of the same wrapper, or a refresh(), still find it
+// the dialog of every wrapper, because the dialog leaves its wrapper on init: a destroy() and a new init
+// of the same wrapper, or a refresh(), still find it
 const DIALOGS = new WeakMap();
 const ANIMATIONS = ["dialogAnimationZoom", "dialogAnimationLeft", "dialogAnimationRight", "dialogAnimationTop", "dialogAnimationBottom"];
 
@@ -2019,26 +2019,26 @@ function initializeModal(MODAL) {
     let historyTimeout = null;
 
     //## SELECTOR
-    //## a hand-written close button keeps the bare name; a generated one gets the underscore
+    // a hand-written close button keeps the bare name; a generated one gets the underscore
     const DOMButtonClose = "<button pgs=\"button['btnIconOnly' 'btnMini'] _modal-close\" type=\"button\" aria-label=\"Close\"><i pgs=\"icon['icon-close']\"></i></button>";
     const modalContentHeader = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).querySelector("modal-dialog-content-header");
 
     //## FOCUS
-    //## with no autofocus element inside, showModal() falls back to focusing the first
-    //## focusable descendant (per the HTML dialog spec), which makes whatever happens to sit
-    //## first — often a plain nav link — look pre-selected. Move focus to the header instead
-    //## (its text is what a screen reader should announce on open), or the dialog itself when
-    //## there's no header; tabindex="-1" keeps it out of the normal tab order.
+    // with no autofocus element inside, showModal() falls back to focusing the first
+    // focusable descendant (per the HTML dialog spec), which makes whatever happens to sit
+    // first — often a plain nav link — look pre-selected. Move focus to the header instead
+    // (its text is what a screen reader should announce on open), or the dialog itself when
+    // there's no header; tabindex="-1" keeps it out of the normal tab order.
     const focusTarget = modalContentHeader || DIALOG;
     if (!focusTarget.hasAttribute("tabindex")) focusTarget.setAttribute("tabindex", "-1");
 
 
     //## MERGE OPTIONS
-    //## Modal configuration may be authored on either wrapper or dialog. Copy only modal
-    //## options: other component brackets (for example flex on the wrapper) stay local.
-    //## modal-dialog itself always stays bare, like every other generated child token — its own
-    //## options land on _dialog instead, a second, pgs-generated-only token on the same <dialog>
-    //## element that exists purely to carry them (see AGENTS-DEVELOPMENT.md).
+    // Modal configuration may be authored on either wrapper or dialog. Copy only modal
+    // options: other component brackets (for example flex on the wrapper) stay local.
+    // modal-dialog itself always stays bare, like every other generated child token — its own
+    // options land on _dialog instead, a second, pgs-generated-only token on the same <dialog>
+    // element that exists purely to carry them (see AGENTS-DEVELOPMENT.md).
     (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).add("modal-dialog", "_dialog");
     for (const key of [
         "dialogHistory", "dialogTopLevel", "dialogDisableBackdropClose", "dialogDragClose", "dialogSmall", "dialogMedium",
@@ -2051,8 +2051,8 @@ function initializeModal(MODAL) {
         (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).add(`_dialog['${key}']`);
     }
 
-    //## these two carry a value, so they still live in pgs-data — option never checks pgs-data,
-    //## so presence is a getValueBrackets read instead of an option.contains() call
+    // these two carry a value, so they still live in pgs-data — option never checks pgs-data,
+    // so presence is a getValueBrackets read instead of an option.contains() call
     for (const key of ["modalContainerID", "modalContainerPGS"]) {
         const source = [MODAL, DIALOG].find(element => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).data.getValueBrackets(key) !== undefined);
         if (!source) continue;
@@ -2084,8 +2084,8 @@ function initializeModal(MODAL) {
 
 
     //## BUTTON OPEN
-    //## the label is a fallback, not a correction: a control the author has already named keeps
-    //## that name, which is the one the page is written around
+    // the label is a fallback, not a correction: a control the author has already named keeps
+    // that name, which is the one the page is written around
     BUTTON_OPEN?.setAttribute("role", "button");
     if (BUTTON_OPEN && !BUTTON_OPEN.hasAttribute("aria-label")) BUTTON_OPEN.setAttribute("aria-label", "Open modal");
 
@@ -2147,9 +2147,9 @@ function initializeModal(MODAL) {
 
         if (dialogAnimationZoom) {
             if (!BUTTON_OPEN) return null;
-            //## measuring right after stopAnimation() also flushes the removed state, so an
-            //## animationOut that follows an animationIn restarts the same keyframes instead of
-            //## carrying on the running ones
+            // measuring right after stopAnimation() also flushes the removed state, so an
+            // animationOut that follows an animationIn restarts the same keyframes instead of
+            // carrying on the running ones
             const from = BUTTON_OPEN.getBoundingClientRect();
             const to = CONTENT.getBoundingClientRect();
             if (!from.width || !from.height || !to.width || !to.height) return null;
@@ -2159,7 +2159,7 @@ function initializeModal(MODAL) {
             CONTENT.style.setProperty("--_modal-zoom-scaleX", from.width / to.width);
             CONTENT.style.setProperty("--_modal-zoom-scaleY", from.height / to.height);
         } else {
-            //## the same restart, with no measurement to flush it
+            // the same restart, with no measurement to flush it
             void CONTENT.offsetWidth;
         }
         ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).state.add(state);
@@ -2180,9 +2180,9 @@ function initializeModal(MODAL) {
     //+ --_modal-drag-progress on the dialog — and the dragging/dragClose states hand following,
     //+ springing back and leaving to _modal.scss.
     const dragClose = {
-        START: 10, //## px of vertical travel before a touch counts as a drag
-        CLOSE: 0.15, //## share of the viewport height that closes on release
-        VELOCITY: 0.5, //## px/ms that closes on release, whatever the distance
+        START: 10, // px of vertical travel before a touch counts as a drag
+        CLOSE: 0.15, // share of the viewport height that closes on release
+        VELOCITY: 0.5, // px/ms that closes on release, whatever the distance
         touch: null,
 
         stop() {
@@ -2193,8 +2193,8 @@ function initializeModal(MODAL) {
             DIALOG.style.removeProperty("--_modal-drag-progress");
         },
 
-        //## a drag only starts where nothing would scroll instead: not in a form field, and every
-        //## box between the finger and the dialog (the dialog included) already at its top
+        // a drag only starts where nothing would scroll instead: not in a form field, and every
+        // box between the finger and the dialog (the dialog included) already at its top
         canStart(target) {
             if (target.closest("input, textarea, select, [contenteditable]")) return false;
             for (let element = target; element; element = element.parentElement) {
@@ -2214,7 +2214,7 @@ function initializeModal(MODAL) {
         move(e) {
             const drag = this.touch;
             if (!drag) return;
-            //## a second finger means a pinch, which is the browser's
+            // a second finger means a pinch, which is the browser's
             if (e.touches.length !== 1) return this.end(e, false);
             const touch = e.touches[0];
 
@@ -2222,12 +2222,12 @@ function initializeModal(MODAL) {
                 const dx = touch.clientX - drag.x;
                 const dy = touch.clientY - drag.y;
                 if (Math.abs(dx) < this.START && Math.abs(dy) < this.START) return;
-                //## sideways or upwards stays the page's: a horizontal scroller, the panel's own scroll
+                // sideways or upwards stays the page's: a horizontal scroller, the panel's own scroll
                 if (dy <= 0 || Math.abs(dx) > dy) {
                     this.touch = null;
                     return;
                 }
-                //## counted from here, so the panel does not jump by the threshold
+                // counted from here, so the panel does not jump by the threshold
                 drag.active = true;
                 drag.y = touch.clientY;
                 stopAnimation();
@@ -2247,12 +2247,12 @@ function initializeModal(MODAL) {
                 this.touch = null;
                 return;
             }
-            //## speed over the last 100ms of movement; a finger that stopped before lifting has none
+            // speed over the last 100ms of movement; a finger that stopped before lifting has none
             const [firstTime, firstDistance] = drag.samples[0] || [e.timeStamp, drag.distance];
             const [lastTime, lastDistance] = drag.samples.at(-1) || [e.timeStamp, drag.distance];
             const velocity = e.timeStamp - lastTime > 100 ? 0 : (lastDistance - firstDistance) / Math.max(lastTime - firstTime, 1);
             const shouldClose = release && (drag.distance > window.innerHeight * this.CLOSE || (velocity > this.VELOCITY && drag.distance > this.START));
-            //## back where it was: removing the state lets the stylesheet's transition take it there
+            // back where it was: removing the state lets the stylesheet's transition take it there
             if (!shouldClose) return this.stop();
 
             this.touch = null;
@@ -2260,8 +2260,8 @@ function initializeModal(MODAL) {
             statusModal(false);
             (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).state.remove("dragging");
             (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).state.add("dragClose");
-            //## the panel leaves from where the finger let it go, through the transitions this state
-            //## starts; none (reduced motion, or a theme that turns them off) closes at once
+            // the panel leaves from where the finger let it go, through the transitions this state
+            // starts; none (reduced motion, or a theme that turns them off) closes at once
             const transitions = DIALOG.getAnimations({ subtree: true }).filter(animation => animation instanceof CSSTransition && [DIALOG, CONTENT].includes(animation.effect?.target));
             if (!transitions.length) return finishClose();
             Promise.all(transitions.map(animation => animation.finished)).then(finishClose, () => { });
@@ -2280,9 +2280,9 @@ function initializeModal(MODAL) {
         document.querySelectorAll("dialog[open]").forEach((dlg) => dlg.close());
         statusModal(true);
         dialogTopLevel ? DIALOG.showModal() : DIALOG.show();
-        //## respect an explicit autofocus target inside the dialog when the author set one
-        //## preventScroll: the dialog is focused before the opening animation moves the panel off
-        //## screen, and Safari would scroll the dialog to follow it there
+        // respect an explicit autofocus target inside the dialog when the author set one
+        // preventScroll: the dialog is focused before the opening animation moves the panel off
+        // screen, and Safari would scroll the dialog to follow it there
         if (!DIALOG.querySelector("[autofocus]")) focusTarget.focus({ preventScroll: true });
         animate("animationIn")?.then(stopAnimation, () => { });
         dispatchModal(EVENT_OPEN);
@@ -2291,14 +2291,14 @@ function initializeModal(MODAL) {
     //+ FN CLOSE
     function closeModal(e) {
         e?.stopImmediatePropagation()
-        //## a second request while the closing animation is still running changes nothing
+        // a second request while the closing animation is still running changes nothing
         if (closing) return;
         statusModal(false);
         const animationOut = DIALOG.open ? animate("animationOut") : null;
         if (!animationOut) return finishClose();
         closing = true;
-        //## a rejected promise means the animation was cancelled — by a native close removing
-        //## the state — and whoever cancelled it already owns the dialog's state
+        // a rejected promise means the animation was cancelled — by a native close removing
+        // the state — and whoever cancelled it already owns the dialog's state
         animationOut.then(finishClose, () => { });
     }
 
@@ -2328,9 +2328,9 @@ function initializeModal(MODAL) {
 
     //# OPEN
     BUTTON_OPEN?.addEventListener("click", (e) => openModal(e), { signal });
-    //## preventDefault suppresses the native click a real <button>/<a> already fires for Enter/Space
-    //## on its own — without it, that native click ran right after this one and, finding the dialog
-    //## already open, toggled it straight back closed
+    // preventDefault suppresses the native click a real <button>/<a> already fires for Enter/Space
+    // on its own — without it, that native click ran right after this one and, finding the dialog
+    // already open, toggled it straight back closed
     BUTTON_OPEN?.addEventListener("keydown", (e) => {
         if (DIALOG.open || (e.key !== "Enter" && e.key !== " ")) return;
         e.preventDefault();
@@ -2338,8 +2338,8 @@ function initializeModal(MODAL) {
     }, { signal });
 
     //# CLOSE
-    //## every way the dialog closes ends in this native event — the close button, the backdrop, Escape, a
-    //## drag, the browser's back button, or a plain dialog.close() — so pgs:modal:close goes out from here
+    // every way the dialog closes ends in this native event — the close button, the backdrop, Escape, a
+    // drag, the browser's back button, or a plain dialog.close() — so pgs:modal:close goes out from here
     DIALOG.addEventListener("close", () => {
         statusModal(false);
         closing = false;
@@ -2347,8 +2347,8 @@ function initializeModal(MODAL) {
         dragClose.stop();
         dispatchModal(EVENT_CLOSE);
     }, { signal });
-    //## Escape on a showModal() dialog closes it natively, with no time left for the closing
-    //## animation: take the cancel over and close through closeModal instead
+    // Escape on a showModal() dialog closes it natively, with no time left for the closing
+    // animation: take the cancel over and close through closeModal instead
     if (dialogAnimation) DIALOG.addEventListener("cancel", e => {
         e.preventDefault();
         closeModal(e);
@@ -2357,7 +2357,7 @@ function initializeModal(MODAL) {
     BUTTON_CLOSE?.addEventListener("click", e => closeModal(e), { signal });
 
     //# DRAG CLOSE
-    //## touchmove is not passive: once a drag has started it has to stop the page from scrolling
+    // touchmove is not passive: once a drag has started it has to stop the page from scrolling
     if (dialogDragClose && CONTENT) {
         DIALOG.addEventListener("touchstart", e => dragClose.start(e), { signal, passive: true });
         DIALOG.addEventListener("touchmove", e => dragClose.move(e), { signal, passive: false });
@@ -2369,7 +2369,7 @@ function initializeModal(MODAL) {
     if (dialogHistory && BUTTON_OPEN?.id) {
         historyTimeout = window.setTimeout(openModalOnHistory, 1);
 
-        //## keeps the URL in step with the dialog's own "open" attribute
+        // keeps the URL in step with the dialog's own "open" attribute
         historyObserver = new MutationObserver(() => {
             let isOpen = DIALOG.hasAttribute("open");
             try {
@@ -2377,15 +2377,15 @@ function initializeModal(MODAL) {
                 const params = new URLSearchParams(url.search);
                 isOpen ? params.set('modal', BUTTON_OPEN.id) : params.delete('modal');
                 url.search = params.toString() ? `?${params.toString()}` : "";
-                //## the address already says so when the change came from the history itself (back,
-                //## forward, or a page loaded with ?modal=): a second entry would wipe the forward stack
+                // the address already says so when the change came from the history itself (back,
+                // forward, or a page loaded with ?modal=): a second entry would wipe the forward stack
                 if (url.href === window.location.href) return;
                 window.history.pushState({ modal: BUTTON_OPEN.id, open: isOpen }, "", url);
             } catch (_) { }
         });
         historyObserver.observe(DIALOG, { attributes: true, attributeFilter: ["open"] });
 
-        //## back and forward in the browser open and close the dialog to match
+        // back and forward in the browser open and close the dialog to match
         window.addEventListener("popstate", () => {
             try {
                 const params = new URLSearchParams(window.location.search);
@@ -2468,7 +2468,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-//## the controller of each bell's click listener, and the notificationLoad elements already read
+// the controller of each bell's click listener, and the notificationLoad elements already read
 const BELLS = new WeakMap();
 const LOADED = new WeakSet();
 
@@ -2482,9 +2482,9 @@ const fn_notification = {
         emptyMessage: "No notifications",
         panelCloseTitle: "Close"
     },
-    //## a bell can say where the panel opens: a side (dialogLeft, dialogRight), a height (dialogTop,
-    //## dialogBottom), or dialogCenter for the middle. Each axis it leaves out keeps the default,
-    //## and the size is never a bell's business
+    // a bell can say where the panel opens: a side (dialogLeft, dialogRight), a height (dialogTop,
+    // dialogBottom), or dialogCenter for the middle. Each axis it leaves out keeps the default,
+    // and the size is never a bell's business
     _positions: ["dialogLeft", "dialogRight", "dialogTop", "dialogBottom", "dialogCenter"],
     _animations: ["dialogAnimationLeft", "dialogAnimationRight"],
     _modal: null,
@@ -2495,21 +2495,21 @@ const fn_notification = {
         return (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document).querySelector("_notification");
     },
 
-    //## the count only ever changes through a card's own close animation (dismiss click, a button
-    //## that closes, or deleteAll below), so this one listener covers every case.
-    //## Deferred a tick: the event fires before the card is actually removed from the DOM
+    // the count only ever changes through a card's own close animation (dismiss click, a button
+    // that closes, or deleteAll below), so this one listener covers every case.
+    // Deferred a tick: the event fires before the card is actually removed from the DOM
     _bindContainer(container, signal) {
         container.addEventListener("pgs:alert:close", () => {
             setTimeout(() => fn_notification._updateBellCounter(), 0);
         }, { signal });
     },
 
-    //## the one modal every bell opens, built the first time anything needs it: the first
-    //## notification, or the first click on a bell. It is not authored anywhere on the page
+    // the one modal every bell opens, built the first time anything needs it: the first
+    // notification, or the first click on a bell. It is not authored anywhere on the page
     _ensureModal() {
         if (this._modal?.isConnected) return this._modal;
 
-        //## a panel that left the page takes its listeners with it
+        // a panel that left the page takes its listeners with it
         this._panelController?.abort();
         this._panelController = new AbortController();
         const { signal } = this._panelController;
@@ -2526,8 +2526,8 @@ const fn_notification = {
         content.setAttribute("aria-relevant", "additions");
         this._bindContainer(content, signal);
 
-        //## the panel closes from its own button, the one pgs.modal picks up inside the dialog. Written
-        //## first, it sits above the first notification
+        // the panel closes from its own button, the one pgs.modal picks up inside the dialog. Written
+        // first, it sits above the first notification
         const closeButton = document.createElement("button");
         closeButton.type = "button";
         closeButton.textContent = this._defaults.panelCloseTitle;
@@ -2539,7 +2539,7 @@ const fn_notification = {
         document.body.appendChild(modal);
         _modal_js__WEBPACK_IMPORTED_MODULE_5__.PGS_modal.init(modal);
 
-        //## the bells say whether the panel is open, whichever way it got opened or closed
+        // the bells say whether the panel is open, whichever way it got opened or closed
         modal.addEventListener("pgs:modal:open", () => this._setBellsExpanded(true), { signal });
         modal.addEventListener("pgs:modal:close", () => this._setBellsExpanded(false), { signal });
 
@@ -2556,8 +2556,8 @@ const fn_notification = {
         this._getBells().forEach(bell => bell.setAttribute("aria-expanded", String(expanded)));
     },
 
-    //## puts the position this bell asks for on the one modal. Only ever called while the panel is
-    //## closed: moving an open panel would make it jump. The slide comes in from the side it ends up on
+    // puts the position this bell asks for on the one modal. Only ever called while the panel is
+    // closed: moving an open panel would make it jump. The slide comes in from the side it ends up on
     _applyPosition(bell) {
         const wanted = this._positions.filter(key => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(bell).option.contains(key));
         const side = wanted.find(key => key === "dialogLeft" || key === "dialogRight") ?? "dialogRight";
@@ -2566,7 +2566,7 @@ const fn_notification = {
             ? ["dialogCenter"]
             : [side, height, side === "dialogLeft" ? "dialogAnimationLeft" : "dialogAnimationRight"];
 
-        //## pgs.modal moves the dialog out of its wrapper, so it is asked for rather than searched for
+        // pgs.modal moves the dialog out of its wrapper, so it is asked for rather than searched for
         const dialog = _modal_js__WEBPACK_IMPORTED_MODULE_5__.PGS_modal.api(this._modal).dialog;
         [[this._modal, "modal"], [dialog, "_dialog"]].forEach(([element, token]) => {
             (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).option.remove(...this._positions, ...this._animations);
@@ -2574,7 +2574,7 @@ const fn_notification = {
         });
     },
 
-    //## a bell is a plain button: it only asks the one modal to toggle
+    // a bell is a plain button: it only asks the one modal to toggle
     _bindBells(root = document) {
         this._getBells(root).forEach(bell => {
             if (BELLS.has(bell)) return;
@@ -2583,8 +2583,8 @@ const fn_notification = {
             BELLS.set(bell, controller);
             this._missingBellReported = false;
 
-            //## a hand-written counter keeps the bare name; a generated one gets the underscore,
-            //## so this is the one place that has to check for either
+            // a hand-written counter keeps the bare name; a generated one gets the underscore,
+            // so this is the one place that has to check for either
             if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(bell).querySelector(["notificationBell-counter", "_notificationBell-counter"])) {
                 const counter = document.createElement("span");
                 (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(counter).add("_notificationBell-counter");
@@ -2597,7 +2597,7 @@ const fn_notification = {
                 const modal = this._ensureModal();
                 const api = _modal_js__WEBPACK_IMPORTED_MODULE_5__.PGS_modal.api(modal);
 
-                //## open already: this click closes it, and nothing moves
+                // open already: this click closes it, and nothing moves
                 if (!api.isOpen()) this._applyPosition(bell);
                 api.toggle();
             }, { signal: controller.signal });
@@ -2611,12 +2611,12 @@ const fn_notification = {
             ...config,
             component: "_alert",
             dismissible: true,
-            //## the dismiss button draws a cross, so closeTitle is its accessible name and nothing else
+            // the dismiss button draws a cross, so closeTitle is its accessible name and nothing else
             closeTitle: config.closeTitle ?? "Close notification"
         });
 
-        //## the notification is kept either way, so a bell added later still shows it; but with no
-        //## bell there is nothing to open the panel from, and that is worth saying out loud
+        // the notification is kept either way, so a bell added later still shows it; but with no
+        // bell there is nothing to open the panel from, and that is worth saying out loud
         if (!this._getBells().length && !this._missingBellReported) {
             this._missingBellReported = true;
             (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_3__.PGS_warn)(scope, "no notificationBell on the page, so nothing can open the panel that holds this notification");
@@ -2627,8 +2627,8 @@ const fn_notification = {
         this._updateBellCounter();
     },
 
-    //## only loops and asks each card to close itself the same way its own dismiss button would;
-    //## the close animation and the pgs:alert:close event are the engine's job, not this one's
+    // only loops and asks each card to close itself the same way its own dismiss button would;
+    // the close animation and the pgs:alert:close event are the engine's job, not this one's
     deleteAll() {
         const containerNotification = this._getContainer();
         if (!containerNotification) return;
@@ -2752,7 +2752,7 @@ const pageNavUtil = {
 };
 
 //+ BUILD
-//## builds the instance of one pageNav root and returns its API, or null when its markup cannot be initialized
+// builds the instance of one pageNav root and returns its API, or null when its markup cannot be initialized
 function PGS_pageNav_build(pageNav) {
     const panelsRoot = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(pageNav).querySelector("pageNav-panels");
     // every pageNav-list is its own <nav>: the desktop sidebar and the one inside the
@@ -2922,8 +2922,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const API = new WeakMap();
-//## the searches that are open, or have a debounce or a request still pending: what a pointerdown
-//## outside them has to close and cancel (kept until that pointerdown, so it stays short)
+// the searches that are open, or have a debounce or a request still pending: what a pointerdown
+// outside them has to close and cancel (kept until that pointerdown, so it stays short)
 const ACTIVE_SEARCHES = new Set();
 
 const DEFAULT_OPTIONS = {
@@ -3004,8 +3004,8 @@ const Search = {
     },
 };
 
-//## initialOptions is what a refresh() hands over: the options are not markup, so rebuilding the
-//## instance does not read them again
+// initialOptions is what a refresh() hands over: the options are not markup, so rebuilding the
+// instance does not read them again
 function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
     if (API.has(search)) return API.get(search);
 
@@ -3115,7 +3115,7 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
             option.setAttribute("role", "option");
             option.setAttribute("aria-selected", "false");
             option.setAttribute("aria-disabled", String(item.disabled));
-            //## the icon is markup the author wrote; the label comes from the source, which can be remote
+            // the icon is markup the author wrote; the label comes from the source, which can be remote
             option.innerHTML = Search.suggestionIcon(search) + (0,_helper_text_js__WEBPACK_IMPORTED_MODULE_3__.PGS_escapeHtml)(item.label);
             fragment.append(option);
 
@@ -3280,7 +3280,7 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
             return;
         }
 
-        //## leaving the field: what is still pending must not open the list again behind the focus
+        // leaving the field: what is still pending must not open the list again behind the focus
         if (event.key === "Tab") {
             cancel();
             Search.closeSearch(search);
@@ -3319,7 +3319,7 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
         clear,
         cancel,
         select,
-        //## the options are the one thing a rebuild keeps: they were given by the code, not the markup
+        // the options are the one thing a rebuild keeps: they were given by the code, not the markup
         refresh: () => {
             const kept = options;
             destroy();
@@ -3341,8 +3341,8 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
     return api;
 }
 
-//## a pointerdown outside an open search closes it, and cancels what it was still waiting for: a
-//## debounce or a request that finishes after the click would open the list again behind it
+// a pointerdown outside an open search closes it, and cancels what it was still waiting for: a
+// debounce or a request that finishes after the click would open the list again behind it
 if (typeof document !== "undefined") {
     document.addEventListener("pointerdown", event => {
         ACTIVE_SEARCHES.forEach(search => {
@@ -3397,8 +3397,8 @@ __webpack_require__.r(__webpack_exports__);
 
 const API = new WeakMap();
 
-//## a slide is in view from this share of it showing; the observer reports every percent so the
-//## same pass also feeds the scale animation
+// a slide is in view from this share of it showing; the observer reports every percent so the
+// same pass also feeds the scale animation
 const VIEW_RATIO = 0.97;
 const THRESHOLDS = Array.from({ length: 101 }, (_, i) => i / 100); // 0%,1%,2%...100%
 const SCROLL_BEHAVIOR = "smooth";
@@ -3415,8 +3415,8 @@ class PGS_Slides {
         const EL = this.element;
 
         //## BUTTONS
-        //## a hand-written button keeps the bare name; a generated one gets the underscore, so
-        //## the check below has to look for either
+        // a hand-written button keeps the bare name; a generated one gets the underscore, so
+        // the check below has to look for either
         if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(EL).querySelector(['slides-prev', '_slides-prev'])) {
             EL.insertAdjacentHTML("afterbegin", `<button pgs="_slides-prev button['btnIconOnly' 'btnMini']" type="button" aria-label="Previous slide"> <i pgs="icon['icon-chevronDown'] rotate['rot90']"></i></button>`);
         }
@@ -3436,8 +3436,8 @@ class PGS_Slides {
         while (dotsContainer.children.length > this.container.children.length) {
             dotsContainer.lastElementChild.remove();
         }
-        //## the token goes on every child, not only the ones built here: a dots container written
-        //## by hand is filled and labeled the same way, and the stylesheet has one thing to look for
+        // the token goes on every child, not only the ones built here: a dots container written
+        // by hand is filled and labeled the same way, and the stylesheet has one thing to look for
         Array.from(dotsContainer.children).forEach((dot, index) => {
             ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dot).add("_slides-dots-dot");
             dot.setAttribute("aria-label", `Go to slide ${index + 1}`);
@@ -3445,10 +3445,10 @@ class PGS_Slides {
     }
 
     //+ SLIDE THE ARROWS MOVE FROM
-    //## slidesSingleScroll starts from the middle one in view, the one the snap is resting on: from the
-    //## first, with three slides showing, the next sibling is already centered and nothing scrolls
+    // slidesSingleScroll starts from the middle one in view, the one the snap is resting on: from the
+    // first, with three slides showing, the next sibling is already centered and nothing scrolls
     #currentSlide(towardsEnd) {
-        //## arrow function: a declared one would have its own this and throw here
+        // arrow function: a declared one would have its own this and throw here
         const nearestSlide = () => {
             const box = this.container.getBoundingClientRect();
             const middle = (box.left + box.right) / 2;
@@ -3463,10 +3463,10 @@ class PGS_Slides {
         const currents = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.container).state.querySelectorAll("view");
         if (!currents.length) return nearestSlide();
 
-        //## the middle of an even number of slides falls between two of them, so each arrow takes
-        //## the one on its own side: rounded down going forward, up going back. Rounding down for
-        //## both, as this did, left the two arrows starting from the same slide, and going back
-        //## then covered a slide more than going forward did
+        // the middle of an even number of slides falls between two of them, so each arrow takes
+        // the one on its own side: rounded down going forward, up going back. Rounding down for
+        // both, as this did, left the two arrows starting from the same slide, and going back
+        // then covered a slide more than going forward did
         if ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.element).option.contains('slidesSingleScroll')) {
             const middle = (currents.length - 1) / 2;
             return currents[towardsEnd ? Math.floor(middle) : Math.ceil(middle)];
@@ -3476,8 +3476,8 @@ class PGS_Slides {
     }
 
     //+ GO TO A SLIDE
-    //## the two ends run the scroll out instead of centering, so the margin they carry is scrolled
-    //## through and the card lines up with the page content
+    // the two ends run the scroll out instead of centering, so the margin they carry is scrolled
+    // through and the card lines up with the page content
     #goToSlide(slide) {
         if (!slide) return;
 
@@ -3489,11 +3489,11 @@ class PGS_Slides {
         //## LAST SLIDE
         else if (slide === all[all.length - 1]) this.container.scrollTo({ left: this.container.scrollWidth, behavior });
         //## SLIDE
-        //## the centering is measured and applied to the track alone. scrollIntoView would do the
-        //## same arithmetic, but by definition it walks up every scrollable ancestor and leaves
-        //## each one to the engine's reading of block: "nearest" — which is why Safari answers an
-        //## arrow by scrolling the page vertically as well. A horizontal carousel needs nothing
-        //## above the track to move, so nothing above the track is asked to
+        // the centering is measured and applied to the track alone. scrollIntoView would do the
+        // same arithmetic, but by definition it walks up every scrollable ancestor and leaves
+        // each one to the engine's reading of block: "nearest" — which is why Safari answers an
+        // arrow by scrolling the page vertically as well. A horizontal carousel needs nothing
+        // above the track to move, so nothing above the track is asked to
         else {
             const trackBox = this.container.getBoundingClientRect();
             const slideBox = slide.getBoundingClientRect();
@@ -3510,9 +3510,9 @@ class PGS_Slides {
     }
 
     //+ PREV
-    //## no slide left to move to, but the scroll has not run out: the edge slide is showing with
-    //## its margin still to come, so the arrow finishes the scroll instead of doing nothing.
-    //## slidesLoop replaces that fallback with the last slide instead of staying put
+    // no slide left to move to, but the scroll has not run out: the edge slide is showing with
+    // its margin still to come, so the arrow finishes the scroll instead of doing nothing.
+    // slidesLoop replaces that fallback with the last slide instead of staying put
     #prevSlide() {
         const all = this.container.children;
         const previous = this.#currentSlide(false)?.previousElementSibling;
@@ -3534,7 +3534,7 @@ class PGS_Slides {
     //+ CALLBACK
     #callback(allLi, container, prevButton, nextButton, dots) {
         allLi.forEach(LI => {
-            //## visiblePercent only feeds the scale animation; a slide is in view from VIEW_RATIO
+            // visiblePercent only feeds the scale animation; a slide is in view from VIEW_RATIO
             const visiblePercent = 0.9 + LI.intersectionRatio * 0.1;
             const isView = LI.intersectionRatio >= VIEW_RATIO;
 
@@ -3559,10 +3559,10 @@ class PGS_Slides {
     }
 
     //+ ARROWS STATE
-    //## an arrow goes off only at the end of the scroll, not as soon as the edge slide is in view:
-    //## that slide carries a margin, so it can be entirely on screen with a stretch still to run,
-    //## and the arrow is what runs it. slidesLoop wraps around instead, so neither arrow ever
-    //## goes off
+    // an arrow goes off only at the end of the scroll, not as soon as the edge slide is in view:
+    // that slide carries a margin, so it can be entirely on screen with a stretch still to run,
+    // and the arrow is what runs it. slidesLoop wraps around instead, so neither arrow ever
+    // goes off
     #updateArrows(prevButton, nextButton) {
         const loop = this.#isLoop();
         const atStart = !loop && this.container.scrollLeft <= 1;
@@ -3575,7 +3575,7 @@ class PGS_Slides {
     }
 
     //# EXECUTE
-    //## builds the instance of this element and returns its API, or null when the markup cannot be initialized
+    // builds the instance of this element and returns its API, or null when the markup cannot be initialized
     execute() {
         const slides = this.element;
         if (!this.container) {
@@ -3596,8 +3596,8 @@ class PGS_Slides {
         prevButton.addEventListener("click", () => this.#prevSlide(), { passive: true, signal });
         nextButton.addEventListener("click", () => this.#nextSlide(), { passive: true, signal });
 
-        //## the observer answers what is visible, not where the scroll is: the last stretch can
-        //## settle with no threshold left to cross, so the arrows are refreshed on scroll too
+        // the observer answers what is visible, not where the scroll is: the last stretch can
+        // settle with no threshold left to cross, so the arrows are refreshed on scroll too
         const updateArrowsOnScroll = (0,_helper_throttle_js__WEBPACK_IMPORTED_MODULE_3__.PGS_rafThrottle)(() => this.#updateArrows(prevButton, nextButton));
         this.container.addEventListener("scroll", updateArrowsOnScroll, { passive: true, signal });
         this.#updateArrows(prevButton, nextButton);
@@ -3610,12 +3610,12 @@ class PGS_Slides {
         Array.from(this.container.children).forEach(allLi => observer.observe(allLi));
 
         //## HEIGHT
-        //## the track's height published on the root as --_slides-height, so the CSS can place
-        //## something against the slides themselves rather than against the whole component: the
-        //## arrows sit at half of it, and stay centered on the slides whatever else the root holds.
-        //## Measured rather than computed because the height comes from the tallest slide, which
-        //## only the layout knows — through a rAF, like the header does, so a write never lands
-        //## inside the callback that observed it
+        // the track's height published on the root as --_slides-height, so the CSS can place
+        // something against the slides themselves rather than against the whole component: the
+        // arrows sit at half of it, and stay centered on the slides whatever else the root holds.
+        // Measured rather than computed because the height comes from the tallest slide, which
+        // only the layout knows — through a rAF, like the header does, so a write never lands
+        // inside the callback that observed it
         const publishHeight = (0,_helper_throttle_js__WEBPACK_IMPORTED_MODULE_3__.PGS_rafThrottle)(() => {
             this.element.style.setProperty("--_slides-height", `${this.container.offsetHeight}px`);
         });
@@ -3648,7 +3648,7 @@ class PGS_Slides {
             getCurrentIndexes: () => Array.from(this.container.children).map((el, i) => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(el).state.contains("view") ? i : -1).filter(i => i !== -1),
             getCurrentElements: () => Array.from(this.container.children).filter(el => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(el).state.contains("view")),
             getTotal: () => this.container.children.length,
-            //## same reading as the arrows: the end of the scroll, not the edge slide being in view
+            // same reading as the arrows: the end of the scroll, not the edge slide being in view
             isAtStart: () => this.container.scrollLeft <= 1,
             isAtEnd: () => this.container.scrollLeft >= this.container.scrollWidth - this.container.clientWidth - 1,
             destroy,
@@ -3710,7 +3710,7 @@ __webpack_require__.r(__webpack_exports__);
 const API = new WeakMap();
 
 //+ BUILD
-//## builds the instance of one wizard and returns its API, or null when its markup cannot be initialized
+// builds the instance of one wizard and returns its API, or null when its markup cannot be initialized
 function PGS_stepTabs_build(tabsWizard) {
     //# SELECTOR
     const tabsContainer = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(tabsWizard).querySelector("stepTabs-container");
@@ -3748,15 +3748,15 @@ function PGS_stepTabs_build(tabsWizard) {
             dot.type = "button";
             (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dot).add("_stepTabs-dots-dot");
             (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dot).add("button['btnIconOnly' 'hoverNot']");
-            //## stepTabsIcon takes three shapes, told apart by how the value opens. Markup, from a
-            //## "<", is instantiated as written: that is what puts every icon set in reach,
-            //## including the ones a class list cannot describe because they want their name as
-            //## text content or an attribute of their own. An "icon-" prefix is a built-in
-            //## glyph. Anything else is classes for whatever set the page loaded
+            // stepTabsIcon takes three shapes, told apart by how the value opens. Markup, from a
+            // "<", is instantiated as written: that is what puts every icon set in reach,
+            // including the ones a class list cannot describe because they want their name as
+            // text content or an attribute of their own. An "icon-" prefix is a built-in
+            // glyph. Anything else is classes for whatever set the page loaded
             if (authoredIcon.startsWith("<")) {
-                //## a template rather than innerHTML on the dot: template content stays inert
-                //## while it parses, so nothing in the author's markup runs or loads until the
-                //## clone is in the document
+                // a template rather than innerHTML on the dot: template content stays inert
+                // while it parses, so nothing in the author's markup runs or loads until the
+                // clone is in the document
                 const authoredMarkup = document.createElement("template");
                 authoredMarkup.innerHTML = authoredIcon;
                 dot.replaceChildren(authoredMarkup.content.cloneNode(true));
@@ -3767,9 +3767,9 @@ function PGS_stepTabs_build(tabsWizard) {
                     (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dotIcon).add(`icon['${authoredIcon || "icon-circle"}']`);
                 } else {
                     (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dotIcon).add("icon");
-                    //## a full list goes through untouched, whatever set it belongs to. A lone
-                    //## Font Awesome name is completed with its style class, because that set
-                    //## needs one and markup written before other sets were supported relies on it
+                    // a full list goes through untouched, whatever set it belongs to. A lone
+                    // Font Awesome name is completed with its style class, because that set
+                    // needs one and markup written before other sets were supported relies on it
                     dotIcon.className = /^fa-\S+$/.test(authoredIcon)
                         ? `fa-solid ${authoredIcon}`
                         : authoredIcon;
@@ -3822,18 +3822,18 @@ function PGS_stepTabs_build(tabsWizard) {
     }
 
     //+ restart
-    //## the locks go back first, so the controls goTo redraws already see them
+    // the locks go back first, so the controls goTo redraws already see them
     function restartTab() {
         defaultTabLocked.forEach(tab => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(tab).state.add("locked"));
         goTo(0);
     }
 
     //# tab-locked
-    //## a lock taken off or put on by hand, outside toggleLock, still has to reach the next button
+    // a lock taken off or put on by hand, outside toggleLock, still has to reach the next button
     const observer = new MutationObserver(() => updateControls());
     allTab.forEach(tabEl => observer.observe(tabEl, { attributes: true, attributeFilter: ["pgs-state"] }));
 
-    //# click on next/previous
+    // click on next/previous
     prev?.addEventListener("click", () => goTo(current - 1), { signal });
     next?.addEventListener("click", () => {
         updateControls();
@@ -3882,7 +3882,7 @@ function PGS_stepTabs_build(tabsWizard) {
     API.set(tabsWizard, api);
 
     //# INIT
-    //## after the API is stored, so a pgs:stepTabs:change listener can already reach the instance
+    // after the API is stored, so a pgs:stepTabs:change listener can already reach the instance
     goTo(0, false);
 
     return api;
@@ -3930,13 +3930,13 @@ __webpack_require__.r(__webpack_exports__);
 const API = new WeakMap();
 
 //+ BUILD
-//## completes every step of one list and returns its API
+// completes every step of one list and returns its API
 function PGS_steps_build(steps) {
     (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_directChildren)(steps, "steps-step").forEach((li, index) => {
 
         //# CIRCLE
-        //## a hand-written circle keeps the bare name; a generated one gets the underscore,
-        //## so the check below has to look for either
+        // a hand-written circle keeps the bare name; a generated one gets the underscore,
+        // so the check below has to look for either
         if (!(0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_directChild)(li, ["steps-step-circle", "_steps-step-circle"])) {
             const circle = document.createElement("span");
             (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(circle).add("_steps-step-circle")
@@ -3945,7 +3945,7 @@ function PGS_steps_build(steps) {
         }
 
         //# line
-        //## same dual form as the circle above
+        // same dual form as the circle above
         if (!(0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_directChild)(li, ["steps-step-line", "_steps-step-line"])) {
             const line = document.createElement("span");
             (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(line).add("_steps-step-line")
@@ -3953,7 +3953,7 @@ function PGS_steps_build(steps) {
         }
     });
 
-    //## nothing here holds a listener or an observer, so destroy only forgets the instance
+    // nothing here holds a listener or an observer, so destroy only forgets the instance
     const destroy = () => {
         if (API.get(steps) !== api) return;
         API.delete(steps);
@@ -4026,7 +4026,7 @@ const MESSAGE_DEFAULTS = {
     showMore: "Show more"
 };
 
-//## the keys of the message option passed to init(), and the pgs-data key each one is written under
+// the keys of the message option passed to init(), and the pgs-data key each one is written under
 const MESSAGE_DATA_KEYS = {
     showLess: "summaryShowLess",
     showMore: "summaryShowMore"
@@ -4100,7 +4100,7 @@ function initializeSummary(summary, initialMessages) {
         return (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(summary).state.contains("open");
     }
 
-    //## --summary-lines is the author's setting, read here and never written
+    // --summary-lines is the author's setting, read here and never written
     function getCollapsedHeight() {
         const lines = parseFloat(window.getComputedStyle(content).getPropertyValue("--summary-lines"));
         return getLineHeight(content) * (Number.isFinite(lines) && lines > 0 ? lines : 3);
@@ -4140,11 +4140,11 @@ function initializeSummary(summary, initialMessages) {
 
     button.addEventListener("click", toggle, { signal });
 
-    //## a window resize is not the only way content's real size changes: a summary
-    //## initialized while its own tab/panel is hidden measures a scrollHeight of 0, so it
-    //## has to redo that measurement once the element actually gets a layout box. A
-    //## ResizeObserver catches both, throttled to a single pending frame so measure()'s own
-    //## max-height write doesn't feed back into itself
+    // a window resize is not the only way content's real size changes: a summary
+    // initialized while its own tab/panel is hidden measures a scrollHeight of 0, so it
+    // has to redo that measurement once the element actually gets a layout box. A
+    // ResizeObserver catches both, throttled to a single pending frame so measure()'s own
+    // max-height write doesn't feed back into itself
     let rafId = 0;
     let firstFrameId = 0;
     const resizeObserver = new ResizeObserver(() => {
@@ -4255,26 +4255,26 @@ function initializeTabs(tabs) {
     const controller = new AbortController();
     const { signal } = controller;
 
-    //## ids generated as tabs-list-tab-N-M and tabs-panels-content-N-M: N counts the tabs sets, M the tab
+    // ids generated as tabs-list-tab-N-M and tabs-panels-content-N-M: N counts the tabs sets, M the tab
     const buttonIdBase = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_uniqueId)("tabs-list-tab");
     const panelIdBase = (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_uniqueId)("tabs-panels-content");
     list.setAttribute("role", "tablist");
 
     //## HISTORY
-    //## the parameter is named by the option, so two history-backed sets on one page do not
-    //## write over each other. A tab is addressed by its own id when the author gave it one,
-    //## and by its 1-based position otherwise, which is what keeps a shared link readable
-    //## without asking for ids that the markup does not need
-    //## tabsHistory lives only in pgs-data and .data has no contains(), so presence (with or
-    //## without its own payload) is checked directly against the raw attribute value
+    // the parameter is named by the option, so two history-backed sets on one page do not
+    // write over each other. A tab is addressed by its own id when the author gave it one,
+    // and by its 1-based position otherwise, which is what keeps a shared link readable
+    // without asking for ids that the markup does not need
+    // tabsHistory lives only in pgs-data and .data has no contains(), so presence (with or
+    // without its own payload) is checked directly against the raw attribute value
     const rawData = ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(tabs).data.value || "").split(/\s+/).filter(Boolean);
     const hasHistory = rawData.some(token => token === "tabsHistory" || token.startsWith("tabsHistory["));
     const historyKey = hasHistory
         ? ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(tabs).data.getValueBrackets("tabsHistory") || "tab")
         : null;
 
-    //## read before the loop below fills in the generated ids, so what reaches the URL is the
-    //## author's own name for the tab or nothing at all — never tabs-list-tab-1-2
+    // read before the loop below fills in the generated ids, so what reaches the URL is the
+    // author's own name for the tab or nothing at all — never tabs-list-tab-1-2
     const authoredIds = buttons.map(button => (button.id && !GENERATED_IDS.has(button) ? button.id : ""));
 
     function indexFromHistory() {
@@ -4331,7 +4331,7 @@ function initializeTabs(tabs) {
         (0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_dispatch)(tabs, "pgs:tabs:change", { current, tab: buttons[current], panel: panelItems[current] });
     }
 
-    //## the tab that is already selected changes nothing: no second history entry, no second event
+    // the tab that is already selected changes nothing: no second history entry, no second event
     function select(index, options = {}) {
         if (index === current) {
             if (options.focus) buttons[current].focus();
@@ -4368,8 +4368,8 @@ function initializeTabs(tabs) {
         }, { signal });
     });
 
-    //## the URL wins over the state written in the markup: a reload lands on the tab the reader
-    //## left, and the first pass only reads it — it never pushes an entry of its own
+    // the URL wins over the state written in the markup: a reload lands on the tab the reader
+    // left, and the first pass only reads it — it never pushes an entry of its own
     const restored = indexFromHistory();
     show(restored === -1 ? current : restored, { history: false });
 
@@ -4444,7 +4444,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-//## the toastLoad elements already read
+// the toastLoad elements already read
 const LOADED = new WeakSet();
 
 //# PGS_toast
@@ -4457,7 +4457,7 @@ const fn_toast = {
     },
     _options: ["toastLeft", "toastRight", "toastCenter", "toastBottom"],
 
-    //## a hand-written container keeps the bare name; a generated one gets the underscore, so this needs both
+    // a hand-written container keeps the bare name; a generated one gets the underscore, so this needs both
     _getContainer() {
         return (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document).querySelector(["toast", "_toast"]);
     },
@@ -4476,11 +4476,11 @@ const fn_toast = {
         return containerToast;
     },
 
-    //## position flags land on the container, the way Modal copies the ones on its wrapper to _dialog:
-    //## _toast is the pgs-generated-only token that carries them, rebuilt at every toast so one toast's
-    //## position never leaks into the next. They come from the position of the toast: the field of its
-    //## pgs-data of a toastLoad or the position option of a pgs.toast call. A container written
-    //## by hand keeps its own as the baseline
+    // position flags land on the container, the way Modal copies the ones on its wrapper to _dialog:
+    // _toast is the pgs-generated-only token that carries them, rebuilt at every toast so one toast's
+    // position never leaks into the next. They come from the position of the toast: the field of its
+    // pgs-data of a toastLoad or the position option of a pgs.toast call. A container written
+    // by hand keeps its own as the baseline
     _applyOptions(container, position = [], scope) {
         const wanted = [Array.isArray(position) ? position : String(position).split(/\s+/)].flat().filter(Boolean);
         const unknown = wanted.filter(key => !this._options.includes(key));
@@ -4502,11 +4502,11 @@ const fn_toast = {
             component: "_alert",
             dismissible: true,
             timeout,
-            //## the dismiss button draws a cross, so closeTitle is its accessible name and nothing else
+            // the dismiss button draws a cross, so closeTitle is its accessible name and nothing else
             closeTitle: config.closeTitle ?? "Close toast"
         });
 
-        //## only one toast is shown at a time: a new one simply replaces whatever was there
+        // only one toast is shown at a time: a new one simply replaces whatever was there
         const container = this._getOrCreateContainer();
         this._applyOptions(container, position, scope);
         container.replaceChildren(toast);
@@ -4665,7 +4665,7 @@ class PGS_formValidate {
     };
     #temporaryFieldErrors = new Map();
     #insideValidatedCallback = false;
-    //## one controller for every listener the instance adds to the form, so destroy() removes them all
+    // one controller for every listener the instance adds to the form, so destroy() removes them all
     #controller = new AbortController();
 
     constructor(form, options = {}) {
@@ -4686,15 +4686,15 @@ class PGS_formValidate {
         this.#initializeMessages(options.message);
         this.container.setAttribute("novalidate", "");
 
-        //## a click on a field clears its error. One listener on the form serves every field, the
-        //## ones added after this point too, so validate() has nothing to attach and can run any
-        //## number of times without stacking listeners
+        // a click on a field clears its error. One listener on the form serves every field, the
+        // ones added after this point too, so validate() has nothing to attach and can run any
+        // number of times without stacking listeners
         this.container.addEventListener("click", event => this.#clearErrorOnClick(event), { signal: this.#controller.signal });
     }
 
     //# DESTROY
-    //## removes the listeners the instance added to the form: the click that clears an error and
-    //## every validator(). The state, the novalidate attribute and the messages stay as they are
+    // removes the listeners the instance added to the form: the click that clears an error and
+    // every validator(). The state, the novalidate attribute and the messages stay as they are
     destroy() {
         this.#controller.abort();
     }
@@ -4899,7 +4899,7 @@ class PGS_formValidate {
             return !(f.files && f.files.length > 0);
         });
 
-        //## the result: every field to be marked as failing
+        // the result: every field to be marked as failing
         const invalidFields = [
             textInputs,
             textareas,
@@ -4919,7 +4919,7 @@ class PGS_formValidate {
     #addFieldError(field, i = 0, total = 1) {
         ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(field).state.add("errorField");
 
-        //## the first invalid field is the one that scrolls into view and speaks for all of them
+        // the first invalid field is the one that scrolls into view and speaks for all of them
         if (i !== 0) return;
         field.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
 
@@ -4981,12 +4981,12 @@ class PGS_formValidate {
     validate() {
         const invalid = this.#inputValue(this.container);
 
-        //## clean up the errors that no longer apply
+        // clean up the errors that no longer apply
         (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.container).state.querySelectorAll("errorField").forEach(element => {
             if (!invalid.includes(element)) this.#removeFieldError(element);
         });
 
-        //## add the errors where needed
+        // add the errors where needed
         invalid.forEach((el, i) => this.#addFieldError(el, i, invalid.length))
 
         //## status form
@@ -5254,15 +5254,15 @@ function getCompactBreakpoint(header) {
 const OVERFLOW_TOLERANCE = 2;
 
 //# RESIZE
-//## a header only reaches here once it holds a header-element (see getReadyHeaders)
+// a header only reaches here once it holds a header-element (see getReadyHeaders)
 function initResize(header) {
     const headerElements = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).querySelectorAll("header-element");
 
     headerElements.forEach(selectHeader => {
 
         //## COMPACT LAYOUT
-        //## how much room the full layout needs, learned the first time it does not fit. It cannot be
-        //## measured while compact, because header-element-onlyFull is hidden and reports zero width.
+        // how much room the full layout needs, learned the first time it does not fit. It cannot be
+        // measured while compact, because header-element-onlyFull is hidden and reports zero width.
         let requiredWidth = 0;
 
         function compact(headerElement) {
@@ -5274,27 +5274,27 @@ function initResize(header) {
                 (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(headerElement).state.toggle("compact", value);
             };
 
-            //### while the full layout is on screen its scrollWidth is what it needs, and this is the only
-            //### moment it can be learned: once compact, header-element-onlyFull is hidden and reports zero
+            // while the full layout is on screen its scrollWidth is what it needs, and this is the only
+            // moment it can be learned: once compact, header-element-onlyFull is hidden and reports zero
             if (!isCompact && overflows) requiredWidth = headerElement.scrollWidth;
 
-            //### a breakpoint declared on the header wins over any measurement
+            // a breakpoint declared on the header wins over any measurement
             if (window.innerWidth <= getCompactBreakpoint(header)) return setCompact(true);
 
-            //### compact: stay only while the room that was missing is still missing. With nothing learned
-            //### the page loaded compact and the full layout fitted at that width, so let it back in
+            // compact: stay only while the room that was missing is still missing. With nothing learned
+            // the page loaded compact and the full layout fitted at that width, so let it back in
             if (isCompact) return setCompact(requiredWidth ? headerElement.clientWidth < requiredWidth : false);
             setCompact(overflows);
         }
 
         //## Resize
-        //## throttled to avoid ResizeObserver loop warnings
+        // throttled to avoid ResizeObserver loop warnings
         const scheduleCompact = (0,_helper_throttle_js__WEBPACK_IMPORTED_MODULE_3__.PGS_rafThrottle)(() => compact(selectHeader));
 
         const observer = new ResizeObserver(scheduleCompact);
         observer.observe(selectHeader);
 
-        //## MutationObserver, not ResizeObserver: won't loop back from compact()'s own show/hide toggles
+        // MutationObserver, not ResizeObserver: won't loop back from compact()'s own show/hide toggles
         const childObserver = new MutationObserver(scheduleCompact);
         childObserver.observe(selectHeader, { childList: true, subtree: true });
 
@@ -5320,9 +5320,9 @@ function initHeight(header) {
 
     //+ HEIGHT
     function headerHeight() {
-        //## --_header-height is what pushes the page down, so only one header can own it. Ownership
-        //## is checked here rather than at init, so a header declaring main later still
-        //## takes over from the fallback
+        // --_header-height is what pushes the page down, so only one header can own it. Ownership
+        // is checked here rather than at init, so a header declaring main later still
+        // takes over from the fallback
         if (getPrimaryHeader() !== header) return;
 
         const wordPressBar = parseInt(window.getComputedStyle(document.documentElement).marginTop, 10) || 0;
@@ -5351,8 +5351,8 @@ function initHeight(header) {
 
 
 //# SCROLL
-//## hides the header while the reader scrolls down and brings it back on the way up, on screens
-//## up to 900px tall, where a pinned header costs too much of the page
+// hides the header while the reader scrolls down and brings it back on the way up, on screens
+// up to 900px tall, where a pinned header costs too much of the page
 function initScroll(header) {
     if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).option.contains("headerScroll")) return;
 
@@ -5397,8 +5397,8 @@ function PGS_header_init(root = document) {
     ;(0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_roots)(root, "header").filter(header => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).querySelector("header-element")).forEach(initHeader);
 }
 
-//## headers can arrive later, and there may be more than one, so the watch stays on instead of
-//## stopping at the first: a pass is cheap and every header is initialized only once
+// headers can arrive later, and there may be more than one, so the watch stays on instead of
+// stopping at the first: a pass is cheap and every header is initialized only once
 ;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(PGS_header_init);
 (0,_helper_throttle_js__WEBPACK_IMPORTED_MODULE_3__.PGS_watchDocument)(() => PGS_header_init());
 
@@ -5444,18 +5444,18 @@ function getReadyNavSmart() {
     return Array.from((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document).querySelectorAll("navSmart")).filter(bar => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(bar).querySelector("navSmart-element"));
 }
 
-//## only one bar can own the variables. The bar that is pinned to the screen does: a navSmart written
-//## as an example inside a page flows with it, takes no room at the bottom, and so never owns them.
-//## One that is on screen wins over one a media query has hidden; with none on screen the first
-//## pinned one still owns them, and publishes 0. Ownership is checked at every measure, so a bar
-//## added later takes over from a missing one
+// only one bar can own the variables. The bar that is pinned to the screen does: a navSmart written
+// as an example inside a page flows with it, takes no room at the bottom, and so never owns them.
+// One that is on screen wins over one a media query has hidden; with none on screen the first
+// pinned one still owns them, and publishes 0. Ownership is checked at every measure, so a bar
+// added later takes over from a missing one
 function getPrimaryNavSmart() {
     const pinned = getReadyNavSmart().filter(bar => window.getComputedStyle(bar).position === "fixed");
     return pinned.find(bar => bar.getClientRects().length) || pinned[0] || null;
 }
 
-//## a site added to the Home Screen of an iPhone reports navigator.standalone, but not the
-//## display-mode media query that every other browser answers
+// a site added to the Home Screen of an iPhone reports navigator.standalone, but not the
+// display-mode media query that every other browser answers
 function isInstalledApp() {
     return navigator.standalone === true || window.matchMedia("(display-mode: standalone)").matches;
 }
@@ -5469,9 +5469,9 @@ function initNavSmart(bar) {
     function measure() {
         if (getPrimaryNavSmart() !== bar) return;
 
-        //## from the top of the bar to the bottom of the screen: whatever the bar sits on counts, whether
-        //## it is its own offset from the edge or the safe area of a phone
-        //## a bar a media query has hidden (display: none) has no box and takes no room
+        // from the top of the bar to the bottom of the screen: whatever the bar sits on counts, whether
+        // it is its own offset from the edge or the safe area of a phone
+        // a bar a media query has hidden (display: none) has no box and takes no room
         const height = bar.getClientRects().length
             ? Math.max(0, Math.round(window.innerHeight - bar.getBoundingClientRect().top))
             : 0;
@@ -5497,8 +5497,8 @@ function PGS_navSmart_init(root = document) {
     ;(0,_helper_dom_js__WEBPACK_IMPORTED_MODULE_2__.PGS_roots)(root, "navSmart").filter(bar => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(bar).querySelector("navSmart-element")).forEach(initNavSmart);
 }
 
-//## a bar can arrive later, and there may be several, so the watch stays on: a pass is cheap and
-//## every bar is initialized only once
+// a bar can arrive later, and there may be several, so the watch stays on: a pass is cheap and
+// every bar is initialized only once
 ;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(PGS_navSmart_init);
 (0,_helper_throttle_js__WEBPACK_IMPORTED_MODULE_3__.PGS_watchDocument)(() => PGS_navSmart_init());
 
@@ -5603,7 +5603,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 //# MODULES
-//## _imports.js imports every module, each one starts itself on import, and publishes them on pgs
+// _imports.js imports every module, each one starts itself on import, and publishes them on pgs
 
 
 })();

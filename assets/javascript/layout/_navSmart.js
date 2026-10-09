@@ -18,18 +18,18 @@ function getReadyNavSmart() {
     return Array.from(pgs(document).querySelectorAll("navSmart")).filter(bar => pgs(bar).querySelector("navSmart-element"));
 }
 
-//## only one bar can own the variables. The bar that is pinned to the screen does: a navSmart written
-//## as an example inside a page flows with it, takes no room at the bottom, and so never owns them.
-//## One that is on screen wins over one a media query has hidden; with none on screen the first
-//## pinned one still owns them, and publishes 0. Ownership is checked at every measure, so a bar
-//## added later takes over from a missing one
+// only one bar can own the variables. The bar that is pinned to the screen does: a navSmart written
+// as an example inside a page flows with it, takes no room at the bottom, and so never owns them.
+// One that is on screen wins over one a media query has hidden; with none on screen the first
+// pinned one still owns them, and publishes 0. Ownership is checked at every measure, so a bar
+// added later takes over from a missing one
 function getPrimaryNavSmart() {
     const pinned = getReadyNavSmart().filter(bar => window.getComputedStyle(bar).position === "fixed");
     return pinned.find(bar => bar.getClientRects().length) || pinned[0] || null;
 }
 
-//## a site added to the Home Screen of an iPhone reports navigator.standalone, but not the
-//## display-mode media query that every other browser answers
+// a site added to the Home Screen of an iPhone reports navigator.standalone, but not the
+// display-mode media query that every other browser answers
 function isInstalledApp() {
     return navigator.standalone === true || window.matchMedia("(display-mode: standalone)").matches;
 }
@@ -43,9 +43,9 @@ function initNavSmart(bar) {
     function measure() {
         if (getPrimaryNavSmart() !== bar) return;
 
-        //## from the top of the bar to the bottom of the screen: whatever the bar sits on counts, whether
-        //## it is its own offset from the edge or the safe area of a phone
-        //## a bar a media query has hidden (display: none) has no box and takes no room
+        // from the top of the bar to the bottom of the screen: whatever the bar sits on counts, whether
+        // it is its own offset from the edge or the safe area of a phone
+        // a bar a media query has hidden (display: none) has no box and takes no room
         const height = bar.getClientRects().length
             ? Math.max(0, Math.round(window.innerHeight - bar.getBoundingClientRect().top))
             : 0;
@@ -71,8 +71,8 @@ function PGS_navSmart_init(root = document) {
     PGS_roots(root, "navSmart").filter(bar => pgs(bar).querySelector("navSmart-element")).forEach(initNavSmart);
 }
 
-//## a bar can arrive later, and there may be several, so the watch stays on: a pass is cheap and
-//## every bar is initialized only once
+// a bar can arrive later, and there may be several, so the watch stays on: a pass is cheap and
+// every bar is initialized only once
 PGS_onDocumentReady(PGS_navSmart_init);
 PGS_watchDocument(() => PGS_navSmart_init());
 

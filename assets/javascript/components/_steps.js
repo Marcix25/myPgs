@@ -5,13 +5,13 @@ import { PGS_roots, PGS_directChildren, PGS_directChild } from "../helper/_dom.j
 const API = new WeakMap();
 
 //+ BUILD
-//## completes every step of one list and returns its API
+// completes every step of one list and returns its API
 function PGS_steps_build(steps) {
     PGS_directChildren(steps, "steps-step").forEach((li, index) => {
 
         //# CIRCLE
-        //## a hand-written circle keeps the bare name; a generated one gets the underscore,
-        //## so the check below has to look for either
+        // a hand-written circle keeps the bare name; a generated one gets the underscore,
+        // so the check below has to look for either
         if (!PGS_directChild(li, ["steps-step-circle", "_steps-step-circle"])) {
             const circle = document.createElement("span");
             pgs(circle).add("_steps-step-circle")
@@ -20,7 +20,7 @@ function PGS_steps_build(steps) {
         }
 
         //# line
-        //## same dual form as the circle above
+        // same dual form as the circle above
         if (!PGS_directChild(li, ["steps-step-line", "_steps-step-line"])) {
             const line = document.createElement("span");
             pgs(line).add("_steps-step-line")
@@ -28,7 +28,7 @@ function PGS_steps_build(steps) {
         }
     });
 
-    //## nothing here holds a listener or an observer, so destroy only forgets the instance
+    // nothing here holds a listener or an observer, so destroy only forgets the instance
     const destroy = () => {
         if (API.get(steps) !== api) return;
         API.delete(steps);

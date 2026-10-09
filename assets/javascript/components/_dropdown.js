@@ -80,9 +80,9 @@ function updatePosition(dropdown) {
 
     left = clamp(left, VIEWPORT_GAP, maxLeft);
 
-    //## exposes the resolved side, as a pgs-state token on the content, so the arrow (or a
-    //## component built on dropdown) can point at the trigger purely in CSS, without recomputing
-    //## the layout itself
+    // exposes the resolved side, as a pgs-state token on the content, so the arrow (or a
+    // component built on dropdown) can point at the trigger purely in CSS, without recomputing
+    // the layout itself
     const sideState = SIDE_STATES[side];
     if (!pgs(content).state.contains(sideState)) {
         pgs(content).state.remove(...Object.values(SIDE_STATES));
@@ -92,8 +92,8 @@ function updatePosition(dropdown) {
     content.style.setProperty("--_dropdown-left", `${Math.round(left)}px`);
     content.style.setProperty("--_dropdown-top", `${Math.round(top)}px`);
 
-    //## where the trigger's center falls inside the panel, after the viewport clamp above may
-    //## have shifted it: an arrow placed at 50% would stop pointing at the trigger
+    // where the trigger's center falls inside the panel, after the viewport clamp above may
+    // have shifted it: an arrow placed at 50% would stop pointing at the trigger
     content.style.setProperty("--_dropdown-arrowLeft", `${Math.round(triggerRect.left + triggerRect.width / 2 - left)}px`);
     content.style.setProperty("--_dropdown-arrowTop", `${Math.round(triggerRect.top + triggerRect.height / 2 - top)}px`);
 }
@@ -142,8 +142,8 @@ function isInsideAnyDropdown(target) {
     return Array.from(OPEN_DROPDOWNS).some(dropdown => dropdown.contains(target));
 }
 
-//## the listeners that serve every dropdown on the page: registered once, when the module loads,
-//## so a later init() or refresh() cannot stack another copy of them
+// the listeners that serve every dropdown on the page: registered once, when the module loads,
+// so a later init() or refresh() cannot stack another copy of them
 if (typeof document !== "undefined") {
     document.addEventListener("click", (event) => {
         if (isInsideAnyDropdown(event.target)) return;

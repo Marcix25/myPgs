@@ -7,11 +7,11 @@
         :where([pgs~="pageNav-list-item"]) {}
     }
 
-    //## hidden until marked active: a positive mark rather than [hidden]'s absence, since with no
-    //## [hidden] left to write by hand every panel would otherwise start "not hidden" and flash at
-    //## once before the first init pass gives one of them the mark. Shown is a plain block — give
-    //## the panel's own content its layout on an inner wrapper, not on this element, so nothing
-    //## here fights a combined utility over `display`
+    // hidden until marked active: a positive mark rather than [hidden]'s absence, since with no
+    // [hidden] left to write by hand every panel would otherwise start "not hidden" and flash at
+    // once before the first init pass gives one of them the mark. Shown is a plain block — give
+    // the panel's own content its layout on an inner wrapper, not on this element, so nothing
+    // here fights a combined utility over `display`
     [pgs~="pageNav-panels"] {
         [pgs~="pageNav-panels-content"] {
             display: none;

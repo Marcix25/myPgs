@@ -1,7 +1,7 @@
 @use "../mixin/mixin" as *;
 
 //= pageShell
-//+ takes a sidebar out of its own column so it fills the whole row it stacks on
+// takes a sidebar out of its own column so it fills the whole row it stacks on
 @mixin pageShell-aside-flow() {
     position: relative;
     top: auto;
@@ -11,7 +11,7 @@
     width: 100%;
 }
 
-//+ same for the content, so it takes a full row of its own
+// same for the content, so it takes a full row of its own
 @mixin pageShell-content-flow() {
     grid-column: 1 / -1;
     grid-row: auto;
@@ -102,7 +102,7 @@
     //## aside right
     :where([pgs~="pageShell-content"])+:where([pgs~="pageShell-aside"]) { grid-area: asideRight; }
 
-    //##- RESPONSIVE ==//
+    //## RESPONSIVE
     /*
         A band can never target the shell itself: the shell is the query container
         and nothing can query its own container. So each band re-places the children.
@@ -134,7 +134,7 @@
         //-( laptop
         @container (max-width: #{$laptop}) {
 
-            //## the right sidebar drops under the content, the left one spans both rows
+            // the right sidebar drops under the content, the left one spans both rows
             :where([pgs~="pageShell-aside"]):has(+ :where([pgs~="pageShell-content"])) { grid-row: 1 / 3; }
 
             :where([pgs~="pageShell-content"]) {
@@ -152,7 +152,7 @@
         //-( big-tablet
         @container (max-width: #{$big-tablet}) {
 
-            //## same specificity as the band above, so the row span is released
+            // same specificity as the band above, so the row span is released
             :where([pgs~="pageShell-aside"]),
             :where([pgs~="pageShell-aside"]):has(+ :where([pgs~="pageShell-content"])),
             :where([pgs~="pageShell-content"])+:where([pgs~="pageShell-aside"]) {
@@ -175,7 +175,7 @@
         }
     }
 
-    //++ OPTION
+    //## OPTION
     //+ shellFullPage
     &[pgs*="'shellFullPage'"] {
         --pageShell-width: 100%;

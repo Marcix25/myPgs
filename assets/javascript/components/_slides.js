@@ -6,8 +6,8 @@ import { PGS_warn, PGS_invalid } from "../helper/_warn.js";
 
 const API = new WeakMap();
 
-//## a slide is in view from this share of it showing; the observer reports every percent so the
-//## same pass also feeds the scale animation
+// a slide is in view from this share of it showing; the observer reports every percent so the
+// same pass also feeds the scale animation
 const VIEW_RATIO = 0.97;
 const THRESHOLDS = Array.from({ length: 101 }, (_, i) => i / 100); // 0%,1%,2%...100%
 const SCROLL_BEHAVIOR = "smooth";
@@ -24,8 +24,8 @@ class PGS_Slides {
         const EL = this.element;
 
         //## BUTTONS
-        //## a hand-written button keeps the bare name; a generated one gets the underscore, so
-        //## the check below has to look for either
+        // a hand-written button keeps the bare name; a generated one gets the underscore, so
+        // the check below has to look for either
         if (!pgs(EL).querySelector(['slides-prev', '_slides-prev'])) {
             EL.insertAdjacentHTML("afterbegin", `<button pgs="_slides-prev button['btnIconOnly' 'btnMini']" type="button" aria-label="Previous slide"> <i pgs="icon['icon-chevronDown'] rotate['rot90']"></i></button>`);
         }
@@ -45,8 +45,8 @@ class PGS_Slides {
         while (dotsContainer.children.length > this.container.children.length) {
             dotsContainer.lastElementChild.remove();
         }
-        //## the token goes on every child, not only the ones built here: a dots container written
-        //## by hand is filled and labeled the same way, and the stylesheet has one thing to look for
+        // the token goes on every child, not only the ones built here: a dots container written
+        // by hand is filled and labeled the same way, and the stylesheet has one thing to look for
         Array.from(dotsContainer.children).forEach((dot, index) => {
             pgs(dot).add("_slides-dots-dot");
             dot.setAttribute("aria-label", `Go to slide ${index + 1}`);
@@ -54,10 +54,10 @@ class PGS_Slides {
     }
 
     //+ SLIDE THE ARROWS MOVE FROM
-    //## slidesSingleScroll starts from the middle one in view, the one the snap is resting on: from the
-    //## first, with three slides showing, the next sibling is already centered and nothing scrolls
+    // slidesSingleScroll starts from the middle one in view, the one the snap is resting on: from the
+    // first, with three slides showing, the next sibling is already centered and nothing scrolls
     #currentSlide(towardsEnd) {
-        //## arrow function: a declared one would have its own this and throw here
+        // arrow function: a declared one would have its own this and throw here
         const nearestSlide = () => {
             const box = this.container.getBoundingClientRect();
             const middle = (box.left + box.right) / 2;
@@ -72,10 +72,10 @@ class PGS_Slides {
         const currents = pgs(this.container).state.querySelectorAll("view");
         if (!currents.length) return nearestSlide();
 
-        //## the middle of an even number of slides falls between two of them, so each arrow takes
-        //## the one on its own side: rounded down going forward, up going back. Rounding down for
-        //## both, as this did, left the two arrows starting from the same slide, and going back
-        //## then covered a slide more than going forward did
+        // the middle of an even number of slides falls between two of them, so each arrow takes
+        // the one on its own side: rounded down going forward, up going back. Rounding down for
+        // both, as this did, left the two arrows starting from the same slide, and going back
+        // then covered a slide more than going forward did
         if (pgs(this.element).option.contains('slidesSingleScroll')) {
             const middle = (currents.length - 1) / 2;
             return currents[towardsEnd ? Math.floor(middle) : Math.ceil(middle)];
@@ -85,8 +85,8 @@ class PGS_Slides {
     }
 
     //+ GO TO A SLIDE
-    //## the two ends run the scroll out instead of centering, so the margin they carry is scrolled
-    //## through and the card lines up with the page content
+    // the two ends run the scroll out instead of centering, so the margin they carry is scrolled
+    // through and the card lines up with the page content
     #goToSlide(slide) {
         if (!slide) return;
 
@@ -98,11 +98,11 @@ class PGS_Slides {
         //## LAST SLIDE
         else if (slide === all[all.length - 1]) this.container.scrollTo({ left: this.container.scrollWidth, behavior });
         //## SLIDE
-        //## the centering is measured and applied to the track alone. scrollIntoView would do the
-        //## same arithmetic, but by definition it walks up every scrollable ancestor and leaves
-        //## each one to the engine's reading of block: "nearest" — which is why Safari answers an
-        //## arrow by scrolling the page vertically as well. A horizontal carousel needs nothing
-        //## above the track to move, so nothing above the track is asked to
+        // the centering is measured and applied to the track alone. scrollIntoView would do the
+        // same arithmetic, but by definition it walks up every scrollable ancestor and leaves
+        // each one to the engine's reading of block: "nearest" — which is why Safari answers an
+        // arrow by scrolling the page vertically as well. A horizontal carousel needs nothing
+        // above the track to move, so nothing above the track is asked to
         else {
             const trackBox = this.container.getBoundingClientRect();
             const slideBox = slide.getBoundingClientRect();
@@ -119,9 +119,9 @@ class PGS_Slides {
     }
 
     //+ PREV
-    //## no slide left to move to, but the scroll has not run out: the edge slide is showing with
-    //## its margin still to come, so the arrow finishes the scroll instead of doing nothing.
-    //## slidesLoop replaces that fallback with the last slide instead of staying put
+    // no slide left to move to, but the scroll has not run out: the edge slide is showing with
+    // its margin still to come, so the arrow finishes the scroll instead of doing nothing.
+    // slidesLoop replaces that fallback with the last slide instead of staying put
     #prevSlide() {
         const all = this.container.children;
         const previous = this.#currentSlide(false)?.previousElementSibling;
@@ -143,7 +143,7 @@ class PGS_Slides {
     //+ CALLBACK
     #callback(allLi, container, prevButton, nextButton, dots) {
         allLi.forEach(LI => {
-            //## visiblePercent only feeds the scale animation; a slide is in view from VIEW_RATIO
+            // visiblePercent only feeds the scale animation; a slide is in view from VIEW_RATIO
             const visiblePercent = 0.9 + LI.intersectionRatio * 0.1;
             const isView = LI.intersectionRatio >= VIEW_RATIO;
 
@@ -168,10 +168,10 @@ class PGS_Slides {
     }
 
     //+ ARROWS STATE
-    //## an arrow goes off only at the end of the scroll, not as soon as the edge slide is in view:
-    //## that slide carries a margin, so it can be entirely on screen with a stretch still to run,
-    //## and the arrow is what runs it. slidesLoop wraps around instead, so neither arrow ever
-    //## goes off
+    // an arrow goes off only at the end of the scroll, not as soon as the edge slide is in view:
+    // that slide carries a margin, so it can be entirely on screen with a stretch still to run,
+    // and the arrow is what runs it. slidesLoop wraps around instead, so neither arrow ever
+    // goes off
     #updateArrows(prevButton, nextButton) {
         const loop = this.#isLoop();
         const atStart = !loop && this.container.scrollLeft <= 1;
@@ -184,7 +184,7 @@ class PGS_Slides {
     }
 
     //# EXECUTE
-    //## builds the instance of this element and returns its API, or null when the markup cannot be initialized
+    // builds the instance of this element and returns its API, or null when the markup cannot be initialized
     execute() {
         const slides = this.element;
         if (!this.container) {
@@ -205,8 +205,8 @@ class PGS_Slides {
         prevButton.addEventListener("click", () => this.#prevSlide(), { passive: true, signal });
         nextButton.addEventListener("click", () => this.#nextSlide(), { passive: true, signal });
 
-        //## the observer answers what is visible, not where the scroll is: the last stretch can
-        //## settle with no threshold left to cross, so the arrows are refreshed on scroll too
+        // the observer answers what is visible, not where the scroll is: the last stretch can
+        // settle with no threshold left to cross, so the arrows are refreshed on scroll too
         const updateArrowsOnScroll = PGS_rafThrottle(() => this.#updateArrows(prevButton, nextButton));
         this.container.addEventListener("scroll", updateArrowsOnScroll, { passive: true, signal });
         this.#updateArrows(prevButton, nextButton);
@@ -219,12 +219,12 @@ class PGS_Slides {
         Array.from(this.container.children).forEach(allLi => observer.observe(allLi));
 
         //## HEIGHT
-        //## the track's height published on the root as --_slides-height, so the CSS can place
-        //## something against the slides themselves rather than against the whole component: the
-        //## arrows sit at half of it, and stay centered on the slides whatever else the root holds.
-        //## Measured rather than computed because the height comes from the tallest slide, which
-        //## only the layout knows — through a rAF, like the header does, so a write never lands
-        //## inside the callback that observed it
+        // the track's height published on the root as --_slides-height, so the CSS can place
+        // something against the slides themselves rather than against the whole component: the
+        // arrows sit at half of it, and stay centered on the slides whatever else the root holds.
+        // Measured rather than computed because the height comes from the tallest slide, which
+        // only the layout knows — through a rAF, like the header does, so a write never lands
+        // inside the callback that observed it
         const publishHeight = PGS_rafThrottle(() => {
             this.element.style.setProperty("--_slides-height", `${this.container.offsetHeight}px`);
         });
@@ -257,7 +257,7 @@ class PGS_Slides {
             getCurrentIndexes: () => Array.from(this.container.children).map((el, i) => pgs(el).state.contains("view") ? i : -1).filter(i => i !== -1),
             getCurrentElements: () => Array.from(this.container.children).filter(el => pgs(el).state.contains("view")),
             getTotal: () => this.container.children.length,
-            //## same reading as the arrows: the end of the scroll, not the edge slide being in view
+            // same reading as the arrows: the end of the scroll, not the edge slide being in view
             isAtStart: () => this.container.scrollLeft <= 1,
             isAtEnd: () => this.container.scrollLeft >= this.container.scrollWidth - this.container.clientWidth - 1,
             destroy,

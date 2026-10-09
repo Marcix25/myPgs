@@ -92,8 +92,8 @@ const svgColors = {
     },
 
     applyColorsLottie(isDarkMode = svgColors._getCurrentDarkmode()) {
-        //## svgChangeColor gates both passes: Lottie recolors from the same --svg-color-N pairs,
-        //## so there is no separate lottieChangeColor to opt into any more
+        // svgChangeColor gates both passes: Lottie recolors from the same --svg-color-N pairs,
+        // so there is no separate lottieChangeColor to opt into any more
         if (!pgs(document).querySelector("svgChangeColor")) return;
 
         const colors = svgColors.searchColor();
@@ -110,9 +110,9 @@ const svgColors = {
 };
 
 //# ASPECT RATIO
-//## an <object> that holds an svg keeps the ratio its object-fit asks for: "cover" slices the
-//## drawing, anything else fits it whole. The ratio is applied on every load of the object, so
-//## swapping its data keeps working, and again whenever the object is resized
+// an <object> that holds an svg keeps the ratio its object-fit asks for: "cover" slices the
+// drawing, anything else fits it whole. The ratio is applied on every load of the object, so
+// swapping its data keeps working, and again whenever the object is resized
 const ASPECT_OBSERVERS = new WeakMap();
 const ASPECT_WATCHED = new WeakSet();
 
@@ -157,7 +157,7 @@ function PGS_svg_init(root = document) {
     svgColors.applyColorsSVG();
     svgColors.applyColorsLottie();
 
-    //## read by SCSS (body:not(.object-loaded)) to hold back <object>s until the first pass is done
+    // read by SCSS (body:not(.object-loaded)) to hold back <object>s until the first pass is done
     document.body?.classList.add("object-loaded");
 }
 

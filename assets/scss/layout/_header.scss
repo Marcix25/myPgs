@@ -38,10 +38,10 @@
         //## ALL
         >* { display: contents; }
 
-        //## the groups above are display:contents, so these grandchildren are the real flex items.
-        //## The switch to compact is decided by comparing their width against the space available,
-        //## which only works if they report what they need: left free to shrink they quietly follow
-        //## the container, the comparison never trips, and the content overflows instead
+        // the groups above are display:contents, so these grandchildren are the real flex items.
+        // The switch to compact is decided by comparing their width against the space available,
+        // which only works if they report what they need: left free to shrink they quietly follow
+        // the container, the comparison never trips, and the content overflows instead
         >*>* { flex-shrink: 0; }
 
         :where([pgs~="header-element-onlyCompact"]) {
@@ -108,7 +108,7 @@
         }
     }
 
-    //- compact
+    //## compact
     &[pgs-state~="compact"] {
         --header-gap: var(--gap-texts);
 
@@ -119,7 +119,7 @@
             :where([pgs~="header-element-onlyCompact"]) { display: contents; }
         }
 
-        //## bottom: follows the compact state, so it honors the chosen breakpoint
+        // bottom: follows the compact state, so it honors the chosen breakpoint
         &[pgs*="'headerCompactBottom'"] { --header-compactBottom-active: 1; }
     }
 }

@@ -1,6 +1,6 @@
 @use "../mixin/mixin" as *;
 
-//+ ICON
+//# ICON
 // A glyph, drawn from the inline SVG in mixin/_mx-icons.scss. The token says "this element is an
 // icon", the option says which one, and the set is closed: what mixin/_mx-icons.scss holds is what
 // the library can draw.
@@ -28,11 +28,11 @@
 :is([pgs~="icon"], [pgs*="icon\5B"]) {
     @include iconBase();
 
-    //## the key is the bare glyph name, so both prefixes are written out here: the drawing goes on
-    //## --icon-glyph-*, away from the icon's own configuration, and the option keeps the icon-
-    //## form that is written in the markup. The mask has to land on ::before, where iconBase()
-    //## drew the box — masking the wrapper element itself paints nothing, since that element has
-    //## no background of its own.
+    // the key is the bare glyph name, so both prefixes are written out here: the drawing goes on
+    // --icon-glyph-*, away from the icon's own configuration, and the option keeps the icon-
+    // form that is written in the markup. The mask has to land on ::before, where iconBase()
+    // drew the box — masking the wrapper element itself paints nothing, since that element has
+    // no background of its own.
     @each $name, $url in $icons-builtin {
         &[pgs*="'icon-#{$name}'"] {
             --icon: var(--icon-glyph-#{$name});
@@ -41,7 +41,7 @@
         }
     }
 
-    //+ DUO ICON
+    //## DUO ICON
     // Two-layer icons use a mask per pseudo-element. Keeping both layers in the same grid cell
     // lets the component using them animate each one without needing markup solely for decoration.
     //

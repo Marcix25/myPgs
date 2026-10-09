@@ -24,8 +24,8 @@
 //## BODY
 :where([pgs*="body\5B"]) {
     //## HOVER
-    //## declared here so editors suggest it: without it pgs.hover marks nothing on its own, and
-    //## only a pgs="hover" written by hand gets the treatment. See base/hover
+    // declared here so editors suggest it: without it pgs.hover marks nothing on its own, and
+    // only a pgs="hover" written by hand gets the treatment. See base/hover
     &:where([pgs*="'bodyHoverAuto'"]) {}
 
     //## BASE

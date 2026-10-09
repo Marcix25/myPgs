@@ -2,13 +2,13 @@
 
 "use strict";
 
-//# Standalone generator for reference/html/guides/*.html -> docs/guides/*.md.
-//# Deliberately separate from scripts/generate-component-docs.js: a guide is prose, not a
-//# component demo, so it needs neither that script's @pgs/@pgs-options/@pgs-data/@api validation nor its
-//# "wrap the whole example in one fenced code block" rendering. A guide's body is converted to
-//# real Markdown prose instead, via the small, fixed tag vocabulary documented below.
-//# generate-component-docs.js has one matching line of its own that skips this same guides/
-//# folder when it walks reference/html/, so the two scripts never validate the same file twice.
+// Standalone generator for reference/html/guides/*.html -> docs/guides/*.md.
+// Deliberately separate from scripts/generate-component-docs.js: a guide is prose, not a
+// component demo, so it needs neither that script's @pgs/@pgs-options/@pgs-data/@api validation nor its
+// "wrap the whole example in one fenced code block" rendering. A guide's body is converted to
+// real Markdown prose instead, via the small, fixed tag vocabulary documented below.
+// generate-component-docs.js has one matching line of its own that skips this same guides/
+// folder when it walks reference/html/, so the two scripts never validate the same file twice.
 
 const fs = require("fs");
 const path = require("path");
@@ -29,10 +29,10 @@ function normalizeEol(value) {
     return value.replace(/\r\n?/g, "\n");
 }
 
-//## welcome.html lives here too (so every hand-authored demo/reference page sits under
-//## reference/), but it's the demo's landing panel: a richer layout (colored cards, component options
-//## boxes) than the small prose vocabulary below can convert, and it isn't meant to produce a
-//## docs/guides/welcome.md anyway. build-site-static.js reads it directly instead.
+// welcome.html lives here too (so every hand-authored demo/reference page sits under
+// reference/), but it's the demo's landing panel: a richer layout (colored cards, component options
+// boxes) than the small prose vocabulary below can convert, and it isn't meant to produce a
+// docs/guides/welcome.md anyway. build-site-static.js reads it directly instead.
 const EXCLUDED_FILES = new Set(["welcome.html"]);
 
 function listGuideFiles() {
@@ -220,7 +220,7 @@ function main() {
         console.log(`[UPDATED] ${relativeToProject(outputPath)}`);
     });
 
-    //## stale generated guide left behind by a renamed/removed .html source
+    // stale generated guide left behind by a renamed/removed .html source
     if (fs.existsSync(DOCS_ROOT)) {
         fs.readdirSync(DOCS_ROOT)
             .filter(name => name.toLowerCase().endsWith(".md"))
