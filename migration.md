@@ -804,7 +804,10 @@ Same name, different behavior:
   two paddings (it gave both sides the icon padding). `m2e` keeps two columns on mobile also with `column-2` and `column-3` flex layouts (it gave one), and `grid['column-1' 'm2e']` stays at one column (it gave two). Check a page that relied on the old rendering.
 - **Looks that change.** `--color-white-transparent` and `--color-black-transparent` are really 50%
   now (they computed to 33%), which makes the header background and `bgWhiteTransparent`,
-  `bgBlackTransparent` fuller. A dropdown panel is as wide as its content up to
+  `bgBlackTransparent` fuller. Every hover background is `--color-secondary-soft`, the color of the `hover` token: the CSS fallbacks of
+  `button`, `box` and `card`, the table row, the search suggestion, the slides dot and the checkbox
+  used `--color-primary-soft`, so a page without `bodyHoverAuto` hovers in the same color as one with it.
+  A dropdown panel is as wide as its content up to
   `--dropdown-max-inline-size` instead of always 400px.
 - **Negative margins and z-index stop leaking.** `mgNegative` (and the per-side `Negative` flags)
   negated every margin utility of every descendant; each root now resets its own sign. A `zIndex`

@@ -304,7 +304,7 @@
             font-weight: var(--font-weight-bold);
         }
 
-        &:hover { background-color: var(--color-primary-soft); }
+        &:hover { background-color: var(--color-secondary-soft); }
         &:checked:hover { background-color: var(--color-primary-dark); }
     }
 }

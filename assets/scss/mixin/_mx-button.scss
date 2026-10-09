@@ -91,8 +91,8 @@
         &:hover {
             &:not(:where(:is([pgs~="hoverNot"], [pgs*="'hoverNot'"]))) {
                 &:where(:not(:disabled, [disabled])) {
-                    --button-background-hover: var(--color-primary-soft);
-                    --button-border-color-hover: var(--color-primary-soft);
+                    --button-background-hover: var(--color-secondary-soft);
+                    --button-border-color-hover: var(--color-secondary-soft);
                     --button-shadow-hover: var(--button-shadow);
                     --button-color-hover: var(--color-black);
                     @include _buttonColor("-hover");

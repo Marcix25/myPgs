@@ -23,7 +23,7 @@
 @mixin boxHover() {
     @media (hover: hover) and (pointer: fine) {
         &:hover {
-            &:not(:where(:is([pgs~="hoverNot"], [pgs*="'hoverNot'"]))) { --box-background: var(--color-primary-soft); }
+            &:not(:where(:is([pgs~="hoverNot"], [pgs*="'hoverNot'"]))) { --box-background: var(--color-secondary-soft); }
         }
     }
 }

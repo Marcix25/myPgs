@@ -86,15 +86,24 @@ When changing a token, update every selector, query, reference, declaration, dem
 ### SCSS comment hierarchy
 
 Every SCSS comment uses one of these markers, chosen by what it introduces, never mixed with plain
-prose:
+prose. The first group is a heading hierarchy, the second marks what the next block of code is, the
+third is text:
 
 | marker (followed by a space) | use |
 | --- | --- |
-| `//#` | page identifier, once per file, when the file has several sections and it helps to know what's inside from the first line — like an HTML `<title>`; not essential, but preferred when a file has more than one `//=` section. Example: `//# BORDER - BORDER RADIUS - OUTLINE` |
-| `//=` | a title. Example: `//= SLIDES` |
-| `//==` | a subtitle, one level under a title. Example: `//== CONTAINER SLIDES` |
-| `//===` | a sub-subtitle, one level under a subtitle. Example: `//=== SLIDE` |
-| `//` (nothing after the slashes) | a description or explanation, at any depth. Never reuse `//#`/`//=`/`//==`/`//===` for this — those four are reserved for the heading hierarchy above, nothing else. |
+| `//#` | page identifier, once per file, when the file has several components or sections and it helps to know what's inside from the first line — like an HTML `<title>`. Example: `//# BORDER - BORDER RADIUS - OUTLINE` |
+| `//=` | a title, like an `<h1>`; each extra `=` is one level down. Example: `//= SLIDES` |
+| `//==` | a subtitle, like an `<h2>`. Example: `//== CONTAINER SLIDES` |
+| `//===` | a sub-subtitle, like an `<h3>`. Example: `//=== SLIDE` |
+| `//+` | the block that follows is an option, `&[pgs*="'slidesArrowsCenter'"]`, or a `@media (min-width: …)` |
+| `//+(` | the block that follows is a `@container (min-width: …)` |
+| `//-` | the block that follows is a `@media (max-width: …)` |
+| `//-(` | the block that follows is a `@container (max-width: …)` |
+| `////` | an important paragraph, such as `//// BREAKING CHANGE !!` |
+| `//` (nothing after the slashes) | a plain paragraph, a description or explanation at any depth. Never reuse the markers above for prose. |
+
+`//=` and `//#` are meant to swap meaning later, to sit closer to Markdown (`#` as the title): when
+that happens, every file changes together.
 
 - Add reusable styles to the correct `base`, `layout`, `components`, or `mixin` group.
 - Import new source files from `assets/scss/index.scss` or forward mixins from `assets/scss/mixin/mixin.scss` as appropriate.

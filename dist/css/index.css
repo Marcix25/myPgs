@@ -3044,7 +3044,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 @media (hover: hover) and (pointer: fine) {
   :is([pgs~=navSmart], [pgs*="navSmart["]) :where([pgs~=navSmart-element]):where(a):not(:where([pgs*="body["][pgs*="'bodyHoverAuto'"] [pgs~=box])):hover:not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))) {
-    --box-background: var(--color-primary-soft);
+    --box-background: var(--color-secondary-soft);
   }
 }
 :is([pgs~=navSmart], [pgs*="navSmart["]) :where([pgs~=navSmart-element]) {
@@ -3253,7 +3253,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 @media (hover: hover) and (pointer: fine) {
   :is([pgs~=card], [pgs*="card["]):where(a):not(:where([pgs*="body["][pgs*="'bodyHoverAuto'"] :is([pgs~=card], [pgs*="card["]))):hover:not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))) {
-    --card-background: var(--color-primary-soft);
+    --card-background: var(--color-secondary-soft);
   }
 }
 :is([pgs~=card], [pgs*="card["]) :where([pgs~=card-img]),
@@ -3358,7 +3358,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 @media (hover: hover) and (pointer: fine) {
   :is([pgs~=box], [pgs*="box["]):where(a):not(:where([pgs*="body["][pgs*="'bodyHoverAuto'"] [pgs~=box])):hover:not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))) {
-    --box-background: var(--color-primary-soft);
+    --box-background: var(--color-secondary-soft);
   }
 }
 :is([pgs~=box], [pgs*="box["])[pgs*="'boxMini'"] {
@@ -3571,7 +3571,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 [pgs~=select] option:hover {
-  background-color: var(--color-primary-soft);
+  background-color: var(--color-secondary-soft);
 }
 
 [pgs~=select] option:checked:hover {
@@ -4200,7 +4200,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 [pgs~=form] select option:hover {
-  background-color: var(--color-primary-soft);
+  background-color: var(--color-secondary-soft);
 }
 
 [pgs~=form] select option:checked:hover {
@@ -4492,8 +4492,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 @media (hover: hover) and (pointer: fine) {
   :is([pgs~=button], [pgs*="button["]):where(:not([pgs*="body["][pgs*="'bodyHoverAuto'"] :is([pgs~=button], [pgs*="button["]))):hover:not(:where(:is([pgs~=hoverNot], [pgs*="'hoverNot'"]))):where(:not(:disabled, [disabled])) {
-    --button-background-hover: var(--color-primary-soft);
-    --button-border-color-hover: var(--color-primary-soft);
+    --button-background-hover: var(--color-secondary-soft);
+    --button-border-color-hover: var(--color-secondary-soft);
     --button-shadow-hover: var(--button-shadow);
     --button-color-hover: var(--color-black);
     color: var(--button-color-hover);
@@ -6466,7 +6466,7 @@ html:has(dialog[open]) {
   :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-dots]) :where([pgs~=_slides-dots-dot]):hover,
   :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-dots]) :where([pgs~=slides-dots-dot]):hover,
   :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-dots]) :where([pgs~=_slides-dots-dot]):hover {
-    background-color: var(--color-primary-soft);
+    background-color: var(--color-secondary-soft);
   }
 }
 :is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesNotDots'"] :where([pgs~=slides-dots]),
@@ -6604,7 +6604,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   --table-row-background-even: var(--color-box-transparent);
   --table-row-background-odd: var(--color-box);
   --table-row-color: var(--color-black);
-  --table-row-background-hover: var(--color-primary-soft);
+  --table-row-background-hover: var(--color-secondary-soft);
   --table-row-color-hover: var(--color-blackFixed);
   width: 100%;
   max-width: 100%;
@@ -7111,7 +7111,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   --search-suggestions-item-padding: 1rem;
   --search-suggestions-item-background-selected: var(--color-primary);
   --search-suggestions-item-color-selected: var(--color-whiteFixed);
-  --search-suggestions-item-background-hover: var(--color-primary-soft);
+  --search-suggestions-item-background-hover: var(--color-secondary-soft);
   --search-suggestions-item-color-hover: var(--color-black);
   position: relative;
   display: flex;

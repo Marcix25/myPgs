@@ -181,7 +181,7 @@
             //== same specificity as the active rule above it, so the sticky hover would win by
             //== source order and the dot would never look active on a touch device
             @media (hover: hover) and (pointer: fine) {
-                &:hover { background-color: var(--color-primary-soft); }
+                &:hover { background-color: var(--color-secondary-soft); }
             }
         }
     }
