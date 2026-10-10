@@ -71,7 +71,7 @@
     }
 
     //## BUTTON WITH ICON
-    &:where(:has(:is([pgs~="icon"], [pgs*="icon\5B"], i))) {
+    &:where(:has([pgs~="icon"], [pgs*="icon\5B"], i)) {
         padding-left: var(--button-paddingInline-short);
         padding-right: var(--button-paddingInline);
     }
@@ -121,7 +121,7 @@
 //# TYPE
 //## REVERSE BUTTON
 @mixin buttonReverseIcon() {
-    &:where(:has(:is([pgs~="icon"], [pgs*="icon\5B"], i))) {
+    &:where(:has([pgs~="icon"], [pgs*="icon\5B"], i)) {
         padding-left: var(--button-paddingInline);
         padding-right: var(--button-paddingInline-short);
     }
@@ -187,6 +187,7 @@
     --button-shadow-current: unset;
     --button-shadow-twoState: unset;
     --button-shadow-hover: unset;
+    padding-inline: var(--button-paddingBlock);
 }
 
 //## BUTTON PADDING EQUAL

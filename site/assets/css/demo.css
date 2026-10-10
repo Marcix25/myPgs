@@ -266,13 +266,7 @@ body {
     }
 
     a {
-        &[aria-current="page"] {
-            --button-borderWidth: 0 0 0 4px;
-            --button-borderColor: var(--color-primary-strong);
-            --button-borderRadius: 0px;
-            transform: translateX(-2px);
-
-        }
+        --button-borderWidth: 0 0 0 4px;
 
         i {
             width: 22px;

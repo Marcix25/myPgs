@@ -75,48 +75,17 @@
     }
 
     //## ARROW
-    // a hand-written arrow keeps the bare name; a generated one gets the underscore (see #createButtonsAndDots in _slides.js), so every check here needs both
     :where([pgs~="slides-prev"]),
     :where([pgs~="slides-next"]) {}
 
-
-    // relative, not static: the hover of a button paints a ::before sized 100% of the first positioned
-    // ancestor, which has to be the button itself and not the whole slides
-    [pgs~="_slides-prev"],
-    [pgs~="_slides-next"] {
+    :where([pgs~="_slides-prev"]),
+    :where([pgs~="_slides-next"]) {
         position: relative;
         z-index: 4;
         order: -1;
+
         &:where([pgs~="_slides-prev"]) { margin-left: auto; }
-    }
-
-
-    //+ slidesArrowsCenter
-    // the generated arrows go back to lying over the slides, one on each side, at the middle of
-    // the height of the track (--_slides-height, measured by the module); the root is a column again
-    &[pgs*="'slidesArrowsCenter'"] {
-        display: flex;
-        flex-direction: column;
-
-        [pgs~="_slides-prev"],
-        [pgs~="_slides-next"] {
-            position: absolute;
-            grid-row: auto;
-            grid-column: auto;
-            top: calc(var(--_slides-height, 100%) / 2);
-            translate: 0 -50%;
-        }
-
-        [pgs~="_slides-prev"] { left: .4rem; }
-        [pgs~="_slides-next"] { right: .4rem; }
-
-        //-( tablet
-        @container (max-width: #{$tablet}) {
-            [pgs~="_slides-prev"],
-            [pgs~="_slides-next"] { --button-size: .8rem; }
-            [pgs~="_slides-prev"] { left: calc(var(--page-padding) * -1 + .4rem); }
-            [pgs~="_slides-next"] { right: calc(var(--page-padding) * -1 + .4rem); }
-        }
+        &:where([pgs~="_slides-next"]) { margin-right: 10px; }
     }
 
     //## DOTS
@@ -169,11 +138,35 @@
         }
     }
 
+    //+ slidesArrowsCenter
+    // the generated arrows go back to lying over the slides, one on each side, at the middle of
+    // the height of the track (--_slides-height, measured by the module); the root is a column again
+    &[pgs*="'slidesArrowsCenter'"] {
+        display: flex;
+        flex-direction: column;
+
+        [pgs~="_slides-prev"],
+        [pgs~="_slides-next"] {
+            position: absolute;
+            grid-row: auto;
+            grid-column: auto;
+            top: calc(var(--_slides-height, 100%) / 2);
+            translate: 0 -50%;
+            margin: unset;
+        }
+
+        [pgs~="_slides-prev"] { left: .4rem; }
+        [pgs~="_slides-next"] { right: .4rem; }
+    }
+
     //+ slidesNotDots
     // the dots are taken off the slides, the generated row and one written by hand alike
     &[pgs*="'slidesNotDots'"] {
+
         :where([pgs~="slides-dots"]),
-        :where([pgs~="_slides-dots"]) { display: none; }
+        :where([pgs~="_slides-dots"]) {
+            display: none;
+        }
     }
 
     //+ option for suggestions

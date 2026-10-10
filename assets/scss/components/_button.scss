@@ -5,42 +5,42 @@
     @include buttonBase();
 
     //## state
-    &:not([pgs*="'btnNotHover'"]) { @include buttonHover(); }
-    &[pgs*="'btnCurrent'"] { @include buttonCurrent(); }
-    &[pgs*="'btnTwoState'"] { @include buttonTwoState(); }
+    &:where(:not([pgs*="'btnNotHover'"])) { @include buttonHover(); }
+    &:where([pgs*="'btnCurrent'"]) { @include buttonCurrent(); }
+    &:where([pgs*="'btnTwoState'"]) { @include buttonTwoState(); }
     //## type
-    &[pgs*="'btnReverse'"] { @include buttonReverseIcon(); }
-    &[pgs*="'btnIconOnly'"] { @include buttonIconOnly(); }
-    &[pgs*="'btnMini'"] { @include buttonMini(); }
-    &[pgs*="'btnVertical'"] { @include buttonVertical(); }
-    &[pgs*="'btnTransparent'"] { @include buttonTransparent(); }
-    &[pgs*="'btnText'"] { @include buttonText(); }
-    &[pgs*="'btnPaddingEqual'"] { @include buttonPaddingEqual(); }
+    &:where([pgs*="'btnReverse'"]) { @include buttonReverseIcon(); }
+    &:where([pgs*="'btnIconOnly'"]) { @include buttonIconOnly(); }
+    &:where([pgs*="'btnMini'"]) { @include buttonMini(); }
+    &:where([pgs*="'btnVertical'"]) { @include buttonVertical(); }
+    &:where([pgs*="'btnTransparent'"]) { @include buttonTransparent(); }
+    &:where([pgs*="'btnText'"]) { @include buttonText(); }
+    &:where([pgs*="'btnPaddingEqual'"]) { @include buttonPaddingEqual(); }
     //## header & navSmart
-    &[pgs*="'btnForHeader'"] { @include buttonForHeader(); }
-    &[pgs*="'btnForNavSmart'"] { @include buttonForNavSmart(); }
+    &:where([pgs*="'btnForHeader'"]) { @include buttonForHeader(); }
+    &:where([pgs*="'btnForNavSmart'"]) { @include buttonForNavSmart(); }
 
-    &[pgs*="'btnStrong'"] {
+    &:where([pgs*="'btnStrong'"]) {
         --button-background: var(--color-primary-strong);
         --button-color: var(--color-white);
     }
 
-    &[pgs*="'btnPrimary'"] {
+    &:where([pgs*="'btnPrimary'"]) {
         --button-background: var(--color-primary);
         --button-color: var(--color-primary-text);
     }
 
-    &[pgs*="'btnSecondary'"] {
+    &:where([pgs*="'btnSecondary'"]) {
         --button-background: var(--color-secondary);
         --button-color: var(--color-secondary-text);
     }
 
-    &[pgs*="'btnTertiary'"] {
+    &:where([pgs*="'btnTertiary'"]) {
         --button-background: var(--color-tertiary);
         --button-color: var(--color-tertiary-text);
     }
 
-    &[pgs*="'btnQuaternary'"] {
+    &:where([pgs*="'btnQuaternary'"]) {
         --button-background: var(--color-quaternary);
         --button-color: var(--color-quaternary-text);
     }
