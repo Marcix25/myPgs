@@ -268,7 +268,7 @@ body {
     a {
         &[aria-current="page"] {
             --button-border-width: 0 0 0 4px;
-            --button-border-color: var(--button-baseColor);
+            --button-border-color: var(--color-primary-strong);
             --button-borderRadius: 0px;
             transform: translateX(-2px);
 

@@ -164,14 +164,18 @@ per-element recolor, `--hover-color`, `--hover-border`, `--hover-shadow-color`, 
 `button['btnNotHover']`): delete them from the markup and from
 your stylesheets. Two names come back with a new meaning, so do not just keep your old rules: they are now
 global tokens on `:root`, set once to recolor every hover. What remains is a plain CSS hover on each
-component, read from `--hover-background`, `--hover-border-color`, `--hover-color` and `--hover-transition`
-in `base/_variables.scss` (the secondary soft color, the secondary color, black, and a 400 ms transition
-that is `none` under `prefers-reduced-motion`): `button` (`--button-*-hover`), a link `card`
+component, read from `--hover-background`, `--hover-border-color` and `--hover-color` in
+`base/_variables.scss` (the secondary soft color, the normal border color and black): `button` (`--button-*-hover`), a link `card`
 (`--card-background`), a link `box` (`--box-background`), the table row, the search suggestion, the slides
 dot, the box of a checkbox and a radio (`--checkbox-box-background-hover`), `checkboxBackground`, the file
 button of a file input and the outline of an input. A component can still override its own token. The current and the two-state
 looks work the same way: `--current-background`, `--current-border-color`, `--current-color` and
-`--twoState-background`, `--twoState-border-color`, `--twoState-color`.
+`--twoState-background`, `--twoState-border-color`, `--twoState-color`. So does the resting look of a clickable
+surface: `--clickable-background`, `--clickable-border-color` and `--clickable-color` (box color, border color,
+black), plus `--clickable-transition` (400 ms on the four properties, `none` under `prefers-reduced-motion`),
+read by `button`, a link `card`, a link `box`, the file button, `checkboxBackground` and the label of a
+checkbox or radio. A link card and a link box are now box-colored at rest with black text, where they were white
+with the link color.
 
 Form submit: `[pgs~=form]` no longer styles `button[type="submit"]`. It used to style any bare submit
 button inside a form as a strong button (the button base, content, strong and hover mixins), styling it by
@@ -782,7 +786,7 @@ makes it one way. The renames come first, then what behaves differently under a 
 | `--heightOfHeader`, `--heightOfHeaderScroll`, `--heightOfNavSmart`, `--heightOfNavSmartScroll` | `--_header-height`, `--_header-heightScroll`, `--_navSmart-height`, `--_navSmart-heightScroll`. The JS writes them, so they take the `_`: read them, never set them (a theme that declared `--heightOfHeader: 75px` as a first-paint fallback now declares `--_header-height: 75px`) |
 | `--button-font-size`, `--badge-icon-size`, `--badge-text-size`, `--search-paddingBlock` | `--button-fontSize`, `--badge-iconSize`, `--badge-textSize`, `--search-padding-block` |
 | `--search-suggestions-item-hover-background` and `-color`, `--search-suggestions-item-selected-background` and `-color`, `--table-row-hover-background` and `-color` | the state goes last, like on button and breadcrumb: `--search-suggestions-item-background-hover`, `-color-hover`, `-background-selected`, `-color-selected`; `--table-row-background-hover`, `--table-row-color-hover` |
-| `--button-primaryColor` | `--button-baseColor`. It is the accent `btnStrong` and the palette flags (`btnPrimary`…) read |
+| `--button-primaryColor` | gone: it only held `--color-primary-strong`, which `btnStrong` now reads directly. Use `--color-primary-strong`, or set `--button-background` on the button |
 | `--button-*-hover`, `--button-*-current`, `--button-*-twoState` (background, color, border color, shadow) | declared on every button at rest, from the global tokens, so a theme can set any of them on one element or a container. The hover rule only applies them |
 | `--checkboxBackground-background-checked` | gone: a checked `checkboxBackground` reads `--twoState-background`, `--twoState-border-color` and `--twoState-color`. It also has a border now (`--border-complete`) and takes `--hover-background`, `--hover-border-color` and `--hover-color` on hover |
 | `btnNotHover` (new) | a button that must not answer the pointer: `button['btnNotHover']`. It replaces the `hoverNot` the buttons used to take; cards and boxes have no opt-out any more |

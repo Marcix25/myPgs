@@ -88,13 +88,14 @@
     border-radius: calc(var(--border-radius-input) + var(--gap-texts));
 
     &::file-selector-button {
-        --button-background: var(--color-box);
-        --button-color: var(--color-black);
+        --button-background: var(--clickable-background);
+        --button-color: var(--clickable-color);
         width: 40%;
         margin-bottom: var(--gap-texts);
         margin-right: var(--gap-texts);
         border: none;
         outline: var(--border-complete);
+        outline-color: var(--clickable-border-color);
         border-radius: var(--border-radius-input);
         padding: 1.5rem 3rem;
         font-family: var(--font);
@@ -103,7 +104,7 @@
         color: var(--button-color);
         background: var(--button-background);
         cursor: pointer;
-        transition: var(--hover-transition);
+        transition: var(--clickable-transition);
     }
 
     &::file-selector-button:hover {
@@ -188,7 +189,7 @@
     label {
         -webkit-user-select: none;
         user-select: none;
-        color: var(--color-black);
+        color: var(--clickable-color);
         position: relative;
         text-align: left;
         line-height: var(--checkbox-size);
@@ -207,9 +208,7 @@
         //### Hover
         // the box of a control that is not checked yet, whether the pointer is on the box or on the text
         @media (hover: hover) and (pointer: fine) {
-            &:hover:not(:has(input:disabled)) input:not(:checked)::before {
-                background: var(--checkbox-box-background-hover);
-            }
+            &:hover:not(:has(input:disabled)) input:not(:checked)::before { background: var(--checkbox-box-background-hover); }
         }
     }
 
@@ -233,7 +232,7 @@
             outline: solid var(--color-boxDark) 0.1rem;
             background: var(--checkbox-box-background);
             color: var(--color-primary-soft);
-            transition: var(--hover-transition);
+            transition: var(--clickable-transition);
         }
 
         //### ICON CHECK

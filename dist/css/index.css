@@ -63,26 +63,26 @@
   }
 }
 :where([pgs~=htmlBase]):root {
+  --clickable-background: var(--color-box);
+  --clickable-border-color: var(--border-color);
+  --clickable-color: var(--color-black);
+  --clickable-transition: background-color 400ms ease-out, border-color 400ms ease-out, outline-color 400ms ease-out, color 400ms ease-out;
   --hover-background: var(--color-secondary-soft);
   --hover-border-color: var(--border-color);
-  --hover-color: var(--color-black);
-  --hover-transition: background-color 400ms ease-out, border-color 400ms ease-out, outline-color 400ms ease-out, color 400ms ease-out;
+  --hover-color: var(--color-secondary-strong);
+  --current-background: var(--color-primary-soft);
+  --current-border-color: var(--border-color);
+  --current-color: var(--color-primary-strong);
+  --twoState-background: var(--color-tertiary-soft);
+  --twoState-border-color: var(--border-color);
+  --twoState-color: var(--color-tertiary-strong);
 }
 
 @media (prefers-reduced-motion: reduce) {
   :where([pgs~=htmlBase]):root {
-    --hover-transition: none;
+    --clickable-transition: none;
   }
 }
-:where([pgs~=htmlBase]):root {
-  --current-background: var(--color-primary-soft);
-  --current-border-color: var(--border-color);
-  --current-color: var(--color-primary-strong);
-  --twoState-background: var(--color-primary-strong);
-  --twoState-border-color: var(--border-color);
-  --twoState-color: var(--color-white);
-}
-
 :where([pgs~=htmlBase]):root {
   color-scheme: light;
 }
@@ -3058,10 +3058,12 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=navSmart], [pgs*="navSmart["]) :where([pgs~=navSmart-element]):where(a) {
-  --box-background: var(--color-white);
+  --box-background: var(--clickable-background);
   display: block;
   outline: var(--border-complete);
-  transition: var(--hover-transition);
+  outline-color: var(--clickable-border-color);
+  color: var(--clickable-color);
+  transition: var(--clickable-transition);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -3269,9 +3271,11 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 :is([pgs~=card], [pgs*="card["]):where(a) {
   display: block;
-  transition: var(--hover-transition);
+  transition: var(--clickable-transition);
   border: var(--border-complete);
-  --card-background: var(--color-white);
+  border-color: var(--clickable-border-color);
+  color: var(--clickable-color);
+  --card-background: var(--clickable-background);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -3374,10 +3378,12 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=box], [pgs*="box["]):where(a) {
-  --box-background: var(--color-white);
+  --box-background: var(--clickable-background);
   display: block;
   outline: var(--border-complete);
-  transition: var(--hover-transition);
+  outline-color: var(--clickable-border-color);
+  color: var(--clickable-color);
+  transition: var(--clickable-transition);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -3620,7 +3626,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 [pgs~=checkbox] label {
   -webkit-user-select: none;
   user-select: none;
-  color: var(--color-black);
+  color: var(--clickable-color);
   position: relative;
   text-align: left;
   line-height: var(--checkbox-size);
@@ -3702,7 +3708,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   outline: solid var(--color-boxDark) 0.1rem;
   background: var(--checkbox-box-background);
   color: var(--color-primary-soft);
-  transition: var(--hover-transition);
+  transition: var(--clickable-transition);
 }
 
 [pgs~=radio] input::after,
@@ -3892,7 +3898,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 [pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label {
   -webkit-user-select: none;
   user-select: none;
-  color: var(--color-black);
+  color: var(--clickable-color);
   position: relative;
   text-align: left;
   line-height: var(--checkbox-size);
@@ -3974,7 +3980,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   outline: solid var(--color-boxDark) 0.1rem;
   background: var(--checkbox-box-background);
   color: var(--color-primary-soft);
-  transition: var(--hover-transition);
+  transition: var(--clickable-transition);
 }
 
 [pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input::after,
@@ -4414,13 +4420,14 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 [pgs~=form] input[type=file]::file-selector-button {
-  --button-background: var(--color-box);
-  --button-color: var(--color-black);
+  --button-background: var(--clickable-background);
+  --button-color: var(--clickable-color);
   width: 40%;
   margin-bottom: var(--gap-texts);
   margin-right: var(--gap-texts);
   border: none;
   outline: var(--border-complete);
+  outline-color: var(--clickable-border-color);
   border-radius: var(--border-radius-input);
   padding: 1.5rem 3rem;
   font-family: var(--font);
@@ -4429,7 +4436,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   color: var(--button-color);
   background: var(--button-background);
   cursor: pointer;
-  transition: var(--hover-transition);
+  transition: var(--clickable-transition);
 }
 
 [pgs~=form] input[type=file]::file-selector-button:hover {
@@ -4471,20 +4478,19 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 :is([pgs~=button], [pgs*="button["]) {
   --button-size: var(--SIZE-texts);
-  --button-baseColor: var(--color-primary-strong);
-  --button-color: var(--color-black);
+  --button-color: var(--clickable-color);
   --button-color-hover: var(--hover-color);
   --button-color-current: var(--current-color);
   --button-color-twoState: var(--twoState-color);
-  --button-background: var(--color-box);
+  --button-background: var(--clickable-background);
   --button-background-hover: var(--hover-background);
   --button-background-current: var(--current-background);
   --button-background-twoState: var(--twoState-background);
   --button-shadow: unset;
   --button-shadow-hover: var(--button-shadow);
   --button-shadow-current: 0 .2rem .8rem color-mix(in srgb, var(--color-blackFixed) 10%, transparent);
-  --button-shadow-twoState: unset;
-  --button-border-color: var(--border-color);
+  --button-shadow-twoState: var(--button-shadow);
+  --button-border-color: var(--clickable-border-color);
   --button-border-color-hover: var(--hover-border-color);
   --button-border-color-current: var(--current-border-color);
   --button-border-color-twoState: var(--twoState-border-color);
@@ -4515,7 +4521,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   border: 0 var(--button-border-style) var(--button-border-color);
   border-width: var(--button-border-width);
   border-radius: var(--button-borderRadius);
-  transition: var(--hover-transition);
+  transition: var(--clickable-transition);
   display: flex;
   gap: var(--button-gap);
   align-items: center;
@@ -4595,9 +4601,9 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --button-background-current: transparent;
   --button-background-twoState: transparent;
   --button-background-hover: transparent;
-  --button-color-current: var(--color-black);
-  --button-color-twoState: var(--color-black);
-  --button-color-hover: var(--color-black);
+  --button-color-current: var(--clickable-color);
+  --button-color-twoState: var(--clickable-color);
+  --button-color-hover: var(--clickable-color);
   --button-shadow: unset;
   --button-shadow-current: unset;
   --button-shadow-twoState: unset;
@@ -4680,7 +4686,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=button], [pgs*="button["])[pgs*="'btnStrong'"] {
-  --button-background: var(--button-baseColor);
+  --button-background: var(--color-primary-strong);
   --button-color: var(--color-white);
 }
 
@@ -5171,10 +5177,10 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 [pgs~=checkboxBackground] {
-  --checkboxBackground-color: var(--color-text);
+  --checkboxBackground-color: var(--clickable-color);
   --checkboxBackground-padding: var(--padding-texts);
   --checkboxBackground-borderRadius: var(--border-radius-input);
-  --checkboxBackground-background: var(--color-box-transparent);
+  --checkboxBackground-background: var(--clickable-background);
   --checkbox-size: 2.0rem;
   --checkbox-check-color: var(--color-primary);
   --checkbox-box-background: var(--color-white);
@@ -5189,7 +5195,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 [pgs~=checkboxBackground] label {
   -webkit-user-select: none;
   user-select: none;
-  color: var(--color-black);
+  color: var(--clickable-color);
   position: relative;
   text-align: left;
   line-height: var(--checkbox-size);
@@ -5257,7 +5263,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   outline: solid var(--color-boxDark) 0.1rem;
   background: var(--checkbox-box-background);
   color: var(--color-primary-soft);
-  transition: var(--hover-transition);
+  transition: var(--clickable-transition);
 }
 
 [pgs~=checkboxBackground] input::after {
@@ -5343,8 +5349,9 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   border-radius: var(--checkboxBackground-borderRadius);
   background-color: var(--checkboxBackground-background);
   border: var(--border-complete);
+  border-color: var(--clickable-border-color);
   margin-bottom: 0;
-  transition: var(--hover-transition);
+  transition: var(--clickable-transition);
 }
 
 [pgs~=checkboxBackground] input {
@@ -6500,7 +6507,7 @@ html:has(dialog[open]) {
   border: none;
   cursor: pointer;
   background-color: var(--color-primary-soft);
-  transition: var(--hover-transition);
+  transition: var(--clickable-transition);
   margin-block: auto;
 }
 
@@ -6686,7 +6693,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 [pgs~=table]:is(table) tr,
 [pgs~=table] table tr {
   color: var(--table-row-color);
-  transition: var(--hover-transition);
+  transition: var(--clickable-transition);
 }
 
 [pgs~=table]:is(table) tr:nth-child(even),
@@ -7237,7 +7244,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   display: flex;
   flex-direction: row;
   gap: var(--search-suggestions-item-padding);
-  transition: var(--hover-transition);
+  transition: var(--clickable-transition);
 }
 
 :is([pgs~=search], [pgs*="search["]) :where([pgs~=search-suggestions]) :where([pgs~=_search-suggestions-item]):hover {

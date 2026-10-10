@@ -22,9 +22,11 @@
     //## LINK
     &:where(a) {
         display: block;
-        transition: var(--hover-transition);
+        transition: var(--clickable-transition);
         border: var(--border-complete);
-        --card-background: var(--color-white);
+        border-color: var(--clickable-border-color);
+        color: var(--clickable-color);
+        --card-background: var(--clickable-background);
 
         //### HOVER
         @media (hover: hover) and (pointer: fine) {

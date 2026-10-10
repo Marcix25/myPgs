@@ -37,15 +37,10 @@
 
         tr {
             color: var(--table-row-color);
-            transition: var(--hover-transition);
+            transition: var(--clickable-transition);
 
-            &:nth-child(even) {
-                background-color: var(--table-row-background-even);
-            }
-
-            &:nth-child(odd) {
-                background-color: var(--table-row-background-odd);
-            }
+            &:nth-child(even) { background-color: var(--table-row-background-even); }
+            &:nth-child(odd) { background-color: var(--table-row-background-odd); }
 
             &:hover {
                 background-color: var(--table-row-background-hover);
@@ -53,8 +48,6 @@
             }
         }
 
-        td {
-            color: var(--color-text);
-        }
+        td { color: var(--color-text); }
     }
 }

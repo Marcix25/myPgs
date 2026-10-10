@@ -11,14 +11,13 @@
 //## BUTTON BASE
 @mixin buttonBase() {
     --button-size: var(--SIZE-texts);
-    --button-baseColor: var(--color-primary-strong);
     /// color
-    --button-color: var(--color-black);
+    --button-color: var(--clickable-color);
     --button-color-hover: var(--hover-color);
     --button-color-current: var(--current-color);
     --button-color-twoState: var(--twoState-color);
     /// background
-    --button-background: var(--color-box);
+    --button-background: var(--clickable-background);
     --button-background-hover: var(--hover-background);
     --button-background-current: var(--current-background);
     --button-background-twoState: var(--twoState-background);
@@ -26,12 +25,13 @@
     --button-shadow: unset;
     --button-shadow-hover: var(--button-shadow);
     --button-shadow-current: 0 .2rem .8rem color-mix(in srgb, var(--color-blackFixed) 10%, transparent);
-    --button-shadow-twoState: unset;
+    --button-shadow-twoState: var(--button-shadow);
     /// border
-    --button-border-color: var(--border-color);
+    --button-border-color: var(--clickable-border-color);
     --button-border-color-hover: var(--hover-border-color);
     --button-border-color-current: var(--current-border-color);
     --button-border-color-twoState: var(--twoState-border-color);
+    //
     --button-border-width: var(--border-width);
     --button-border-style: var(--border-style);
     --button-borderRadius: var(--border-radius);
@@ -58,7 +58,7 @@
     border: 0 var(--button-border-style) var(--button-border-color);
     border-width: var(--button-border-width);
     border-radius: var(--button-borderRadius);
-    transition: var(--hover-transition);
+    transition: var(--clickable-transition);
     display: flex;
     gap: var(--button-gap);
     align-items: center;
@@ -181,9 +181,9 @@
     --button-background-current: transparent;
     --button-background-twoState: transparent;
     --button-background-hover: transparent;
-    --button-color-current: var(--color-black);
-    --button-color-twoState: var(--color-black);
-    --button-color-hover: var(--color-black);
+    --button-color-current: var(--clickable-color);
+    --button-color-twoState: var(--clickable-color);
+    --button-color-hover: var(--clickable-color);
     --button-shadow: unset;
     --button-shadow-current: unset;
     --button-shadow-twoState: unset;

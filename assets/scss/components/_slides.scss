@@ -155,7 +155,7 @@
             border: none;
             cursor: pointer;
             background-color: var(--color-primary-soft);
-            transition: var(--hover-transition);
+            transition: var(--clickable-transition);
             margin-block: auto;
 
             &[pgs-state~="active"] { background-color: var(--color-primary); }

@@ -3,10 +3,10 @@
 
 //# checkboxBackground 
 @mixin checkboxBackground() {
-    --checkboxBackground-color: var(--color-text);
+    --checkboxBackground-color: var(--clickable-color);
     --checkboxBackground-padding: var(--padding-texts);
     --checkboxBackground-borderRadius: var(--border-radius-input);
-    --checkboxBackground-background: var(--color-box-transparent);
+    --checkboxBackground-background: var(--clickable-background);
     @include checkbox();
     // the box keeps its own color: the surface around it is the one that answers the pointer
     --checkbox-box-background-hover: var(--checkbox-box-background);
@@ -17,8 +17,9 @@
     border-radius: var(--checkboxBackground-borderRadius);
     background-color: var(--checkboxBackground-background);
     border: var(--border-complete);
+    border-color: var(--clickable-border-color);
     margin-bottom: 0;
-    transition: var(--hover-transition);
+    transition: var(--clickable-transition);
 
     input { margin-right: var(--checkboxBackground-padding); }
 

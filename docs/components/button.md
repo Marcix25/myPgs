@@ -50,7 +50,6 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `--button-background-current`
 - `--button-background-hover`
 - `--button-background-twoState`
-- `--button-baseColor`
 - `--button-border-color`
 - `--button-border-color-current`
 - `--button-border-color-hover`

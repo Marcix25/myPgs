@@ -3,8 +3,8 @@
 //# BUTTON
 :is([pgs~="button"], [pgs*="button\5B"]) {
     @include buttonBase();
-
     @include buttonHover();
+
     &[pgs*="'btnIconOnly'"] { @include buttonIconOnly(); }
     &[pgs*="'btnMini'"] { @include buttonMini(); }
     &[pgs*="'btnVertical'"] { @include buttonVertical(); }
@@ -17,7 +17,7 @@
     &[pgs*="'btnForNavSmart'"] { @include buttonForNavSmart(); }
 
     &[pgs*="'btnStrong'"] {
-        --button-background: var(--button-baseColor);
+        --button-background: var(--color-primary-strong);
         --button-color: var(--color-white);
     }
 

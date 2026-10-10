@@ -9,10 +9,12 @@
     border-radius: var(--box-borderRadius);
 
     &:where(a) {
-        --box-background: var(--color-white);
+        --box-background: var(--clickable-background);
         display: block;
         outline: var(--border-complete);
-        transition: var(--hover-transition);
+        outline-color: var(--clickable-border-color);
+        color: var(--clickable-color);
+        transition: var(--clickable-transition);
 
         @include boxHover();
     }
