@@ -16,8 +16,8 @@
     --heading-family-h2: "MyPix", var(--font);
     /* --heading-color-h1: var(--color-primary-strong);
     --heading-color-h2: var(--color-primary-strong); */
-    --heading-letter-spacing-h1: 2.5px;
-    --heading-letter-spacing-h2: 1.2px;
+    --heading-letterSpacing-h1: 2.5px;
+    --heading-letterSpacing-h2: 1.2px;
 }
 
 body {
@@ -235,7 +235,7 @@ body {
     z-index: 1;
 
     [pgs~=pageShell] {
-        --pageShell-padding-inline: 0;
+        --pageShell-paddingInline: 0;
         --pageShell-offsetTop: 0;
         --pageShell-asideScroll-top: 0;
         border: solid 0.1px;
@@ -267,8 +267,8 @@ body {
 
     a {
         &[aria-current="page"] {
-            --button-border-width: 0 0 0 4px;
-            --button-border-color: var(--color-primary-strong);
+            --button-borderWidth: 0 0 0 4px;
+            --button-borderColor: var(--color-primary-strong);
             --button-borderRadius: 0px;
             transform: translateX(-2px);
 

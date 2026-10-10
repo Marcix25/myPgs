@@ -23,7 +23,7 @@
         font-weight: var(--font-weight-text);
     }
 
-    &:hover { outline: solid var(--hover-border-color); }
+    &:hover { outline: solid var(--hover-borderColor); }
 }
 
 //## LABEL 
@@ -95,7 +95,7 @@
         margin-right: var(--gap-texts);
         border: none;
         outline: var(--border-complete);
-        outline-color: var(--clickable-border-color);
+        outline-color: var(--clickable-borderColor);
         border-radius: var(--border-radius-input);
         padding: 1.5rem 3rem;
         font-family: var(--font);
@@ -180,7 +180,7 @@
     --checkbox-check-color: var(--color-primary);
     --checkbox-box-background: var(--color-white);
     --checkbox-box-background-hover: var(--hover-background);
-    --checkbox-padding-inline: var(--gap-texts);
+    --checkbox-paddingInline: var(--gap-texts);
     --checkbox-icon: #{$icon-check};
     position: relative;
     display: flex;
@@ -197,7 +197,7 @@
         width: fit-content;
         cursor: pointer;
         display: flex;
-        padding-inline: var(--checkbox-padding-inline);
+        padding-inline: var(--checkbox-paddingInline);
 
         //### Disabled
         &:has(input:disabled) { opacity: 0.5; }

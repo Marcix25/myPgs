@@ -57,7 +57,7 @@ Width and height utilities, each driven by its own custom property: --width-size
 - `height100lvh`: inside height's own bracket, uses the large viewport height, the screen with the toolbars retracted, for something meant to run under them.
 - `height50svh`: inside height's own bracket, uses half the small viewport height.
 - `heightUnderHeader`: inside height's own bracket, uses what is left of the screen below the header, for a hero that fills the first view.
-- `heightUnderMain`: inside height's own bracket, the same idea for an element that is the first child of main instead, subtracting --main-padding-top rather than just the header height, since main already carries the extra room --page-top adds.
+- `heightUnderMain`: inside height's own bracket, the same idea for an element that is the first child of main instead, subtracting --main-paddingTop rather than just the header height, since main already carries the extra room --page-top adds.
 - `heightAuto`: inside height's own bracket, drops the height constraint on one element without dropping the utility.
 - `heightMaxFull`: inside heightMax's own bracket, the same whole parent height as heightFull.
 - `heightMax100svh`: inside heightMax's own bracket, the same small viewport height as height100svh.
@@ -81,7 +81,7 @@ Width and height utilities, each driven by its own custom property: --width-size
 ### PGS
 
 - `flex`: provides the flex layout; direction and spacing are flags in its bracket.
-- `main`: sets --main-padding-top, which underMain subtracts from the viewport height.
+- `main`: sets --main-paddingTop, which underMain subtracts from the viewport height.
 - `box`: makes the measured elements visible.
 - `overflow`: scrolls the content a heightMax element cannot show.
 - `marginInline`: provides the spacing utility used here.
@@ -157,7 +157,7 @@ Each scale is a different reading of what the screen is: svh with the browser to
 
 ### First element inside main
 
-underMain excludes main's own top padding (--main-padding-top) instead of just the header height, for an element that is the first child of main and still wants to fill the rest of the screen. A plain div carrying the main token here, so the page keeps its own single real &lt;main&gt;.
+underMain excludes main's own top padding (--main-paddingTop) instead of just the header height, for an element that is the first child of main and still wants to fill the rest of the screen. A plain div carrying the main token here, so the page keeps its own single real &lt;main&gt;.
 
 ```html
 <div pgs="main">

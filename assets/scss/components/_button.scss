@@ -3,16 +3,20 @@
 //# BUTTON
 :is([pgs~="button"], [pgs*="button\5B"]) {
     @include buttonBase();
-    @include buttonHover();
 
+    //## state
+    &:not([pgs*="'btnNotHover'"]) { @include buttonHover(); }
+    &[pgs*="'btnCurrent'"] { @include buttonCurrent(); }
+    &[pgs*="'btnTwoState'"] { @include buttonTwoState(); }
+    //## type
+    &[pgs*="'btnReverse'"] { @include buttonReverseIcon(); }
     &[pgs*="'btnIconOnly'"] { @include buttonIconOnly(); }
     &[pgs*="'btnMini'"] { @include buttonMini(); }
     &[pgs*="'btnVertical'"] { @include buttonVertical(); }
     &[pgs*="'btnTransparent'"] { @include buttonTransparent(); }
     &[pgs*="'btnText'"] { @include buttonText(); }
     &[pgs*="'btnPaddingEqual'"] { @include buttonPaddingEqual(); }
-    &[pgs*="'btnCurrent'"] { @include buttonCurrent(); }
-    &[pgs*="'btnTwoState'"] { @include buttonTwoState(); }
+    //## header & navSmart
     &[pgs*="'btnForHeader'"] { @include buttonForHeader(); }
     &[pgs*="'btnForNavSmart'"] { @include buttonForNavSmart(); }
 

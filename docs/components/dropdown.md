@@ -65,7 +65,7 @@ Popup component that connects a control to content positioned relative to its tr
 - `--dropdown-color`
 - `--dropdown-display`
 - `--dropdown-inline-size`
-- `--dropdown-max-inline-size`
+- `--dropdown-maxInlineSize`
 - `--dropdown-padding`
 
 ## Output

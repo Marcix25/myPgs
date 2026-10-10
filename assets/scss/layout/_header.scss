@@ -1,8 +1,8 @@
 @use "../mixin/mixin" as *;
 
 :is([pgs~="header"], [pgs*="header\5B"]) {
-    --header-padding-inline: 30px;
-    --header-padding-block: 10px;
+    --header-paddingInline: 30px;
+    --header-paddingBlock: 10px;
     --header-gap: var(--gap-elements);
     --header-size: 4.4rem;
     --header-background: var(--color-white-transparent);
@@ -27,8 +27,8 @@
         justify-content: space-between;
         gap: var(--header-gap);
         width: 100%;
-        padding-block: var(--header-padding-block);
-        padding-inline: var(--header-padding-inline);
+        padding-block: var(--header-paddingBlock);
+        padding-inline: var(--header-paddingInline);
         pointer-events: auto;
 
         :where([pgs~="header-element-onlyCompact"]),
@@ -113,7 +113,7 @@
         --header-gap: var(--gap-texts);
 
         :where([pgs~="header-element"]) {
-            padding-inline: var(--header-padding-block);
+            padding-inline: var(--header-paddingBlock);
 
             :where([pgs~="header-element-onlyFull"]) { display: none; }
             :where([pgs~="header-element-onlyCompact"]) { display: contents; }

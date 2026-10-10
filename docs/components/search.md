@@ -90,7 +90,7 @@ Search markup, configuration, behavior, and usage example. Two custom events bub
 - `--search-borderRadius`
 - `--search-color`
 - `--search-height`
-- `--search-padding-block`
+- `--search-paddingBlock`
 - `--search-suggestions-item-background-hover`
 - `--search-suggestions-item-background-selected`
 - `--search-suggestions-item-color-hover`

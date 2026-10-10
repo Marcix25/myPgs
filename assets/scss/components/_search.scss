@@ -2,7 +2,7 @@
 
 :is([pgs~="search"], [pgs*="search\5B"]) {
     --search-height: var(--font-size-text);
-    --search-padding-block: var(--border-radius-input);
+    --search-paddingBlock: var(--border-radius-input);
     --search-borderRadius: calc(var(--border-radius-input) + (var(--search-height) /2));
     --search-background: var(--color-box);
     --search-color: var(--color-black);
@@ -40,7 +40,7 @@
         height: var(--search-height);
         min-width: auto;
         box-sizing: content-box;
-        padding-block: var(--search-padding-block);
+        padding-block: var(--search-paddingBlock);
         color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
         font-family: var(--font);
         font-size: var(--font-size-text);

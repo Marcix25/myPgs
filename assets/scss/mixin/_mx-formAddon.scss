@@ -17,7 +17,7 @@
     border-radius: var(--checkboxBackground-borderRadius);
     background-color: var(--checkboxBackground-background);
     border: var(--border-complete);
-    border-color: var(--clickable-border-color);
+    border-color: var(--clickable-borderColor);
     margin-bottom: 0;
     transition: var(--clickable-transition);
 
@@ -28,7 +28,7 @@
     @media (hover: hover) and (pointer: fine) {
         &:hover:not(:has(input:checked, input:disabled)) {
             background-color: var(--hover-background);
-            border-color: var(--hover-border-color);
+            border-color: var(--hover-borderColor);
             color: var(--hover-color);
         }
     }
@@ -36,7 +36,7 @@
     //## checked
     &:has(input:checked) {
         background-color: var(--twoState-background);
-        border-color: var(--twoState-border-color);
+        border-color: var(--twoState-borderColor);
         color: var(--twoState-color);
     }
 }

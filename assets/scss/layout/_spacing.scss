@@ -31,16 +31,16 @@
 //## BLOCK
 :is([pgs~="marginBlock"], [pgs*="marginBlock\5B"]) {
     // reset on every element, so a negative parent does not flip its descendants
-    --margin-block-sign: 1;
-    margin-block: calc(var(--margin-texts) * var(--margin-block-sign, 1));
+    --marginBlock-sign: 1;
+    margin-block: calc(var(--margin-texts) * var(--marginBlock-sign, 1));
 
-    &[pgs*="'mgBl'"] { margin-block: calc(var(--margin-texts) * var(--margin-block-sign, 1)); }
-    &[pgs*="'mgBlNegative'"] { --margin-block-sign: -1; }
-    &[pgs*="'mgBlTexts'"] { margin-block: calc(var(--margin-texts) * var(--margin-block-sign, 1)); }
-    &[pgs*="'mgBlElements'"] { margin-block: calc(var(--margin-elements) * var(--margin-block-sign, 1)); }
-    &[pgs*="'mgBlGroups'"] { margin-block: calc(var(--margin-groups) * var(--margin-block-sign, 1)); }
-    &[pgs*="'mgBlSections'"] { margin-block: calc(var(--margin-sections) * var(--margin-block-sign, 1)); }
-    &[pgs*="'mgBlPage'"] { margin-block: calc(var(--page-padding) * var(--margin-block-sign, 1)); }
+    &[pgs*="'mgBl'"] { margin-block: calc(var(--margin-texts) * var(--marginBlock-sign, 1)); }
+    &[pgs*="'mgBlNegative'"] { --marginBlock-sign: -1; }
+    &[pgs*="'mgBlTexts'"] { margin-block: calc(var(--margin-texts) * var(--marginBlock-sign, 1)); }
+    &[pgs*="'mgBlElements'"] { margin-block: calc(var(--margin-elements) * var(--marginBlock-sign, 1)); }
+    &[pgs*="'mgBlGroups'"] { margin-block: calc(var(--margin-groups) * var(--marginBlock-sign, 1)); }
+    &[pgs*="'mgBlSections'"] { margin-block: calc(var(--margin-sections) * var(--marginBlock-sign, 1)); }
+    &[pgs*="'mgBlPage'"] { margin-block: calc(var(--page-padding) * var(--marginBlock-sign, 1)); }
     &[pgs*="'mgBlUnset'"] { margin-block: unset; }
     &[pgs*="'mgBlAuto'"] { margin-block: auto; }
 }
@@ -48,16 +48,16 @@
 //## INLINE
 :is([pgs~="marginInline"], [pgs*="marginInline\5B"]) {
     // reset on every element, so a negative parent does not flip its descendants
-    --margin-inline-sign: 1;
-    margin-inline: calc(var(--margin-texts) * var(--margin-inline-sign, 1));
+    --marginInline-sign: 1;
+    margin-inline: calc(var(--margin-texts) * var(--marginInline-sign, 1));
 
-    &[pgs*="'mgIn'"] { margin-inline: calc(var(--margin-texts) * var(--margin-inline-sign, 1)); }
-    &[pgs*="'mgInNegative'"] { --margin-inline-sign: -1; }
-    &[pgs*="'mgInTexts'"] { margin-inline: calc(var(--margin-texts) * var(--margin-inline-sign, 1)); }
-    &[pgs*="'mgInElements'"] { margin-inline: calc(var(--margin-elements) * var(--margin-inline-sign, 1)); }
-    &[pgs*="'mgInGroups'"] { margin-inline: calc(var(--margin-groups) * var(--margin-inline-sign, 1)); }
-    &[pgs*="'mgInSections'"] { margin-inline: calc(var(--margin-sections) * var(--margin-inline-sign, 1)); }
-    &[pgs*="'mgInPage'"] { margin-inline: calc(var(--page-padding) * var(--margin-inline-sign, 1)); }
+    &[pgs*="'mgIn'"] { margin-inline: calc(var(--margin-texts) * var(--marginInline-sign, 1)); }
+    &[pgs*="'mgInNegative'"] { --marginInline-sign: -1; }
+    &[pgs*="'mgInTexts'"] { margin-inline: calc(var(--margin-texts) * var(--marginInline-sign, 1)); }
+    &[pgs*="'mgInElements'"] { margin-inline: calc(var(--margin-elements) * var(--marginInline-sign, 1)); }
+    &[pgs*="'mgInGroups'"] { margin-inline: calc(var(--margin-groups) * var(--marginInline-sign, 1)); }
+    &[pgs*="'mgInSections'"] { margin-inline: calc(var(--margin-sections) * var(--marginInline-sign, 1)); }
+    &[pgs*="'mgInPage'"] { margin-inline: calc(var(--page-padding) * var(--marginInline-sign, 1)); }
     &[pgs*="'mgInUnset'"] { margin-inline: unset; }
     &[pgs*="'mgInAuto'"] { margin-inline: auto; }
 }
@@ -65,16 +65,16 @@
 //## TOP
 :is([pgs~="marginTop"], [pgs*="marginTop\5B"]) {
     // reset on every element, so a negative parent does not flip its descendants
-    --margin-top-sign: 1;
-    margin-top: calc(var(--margin-texts) * var(--margin-top-sign, 1));
+    --marginTop-sign: 1;
+    margin-top: calc(var(--margin-texts) * var(--marginTop-sign, 1));
 
-    &[pgs*="'mgTp'"] { margin-top: calc(var(--margin-texts) * var(--margin-top-sign, 1)); }
-    &[pgs*="'mgTpNegative'"] { --margin-top-sign: -1; }
-    &[pgs*="'mgTpTexts'"] { margin-top: calc(var(--margin-texts) * var(--margin-top-sign, 1)); }
-    &[pgs*="'mgTpElements'"] { margin-top: calc(var(--margin-elements) * var(--margin-top-sign, 1)); }
-    &[pgs*="'mgTpGroups'"] { margin-top: calc(var(--margin-groups) * var(--margin-top-sign, 1)); }
-    &[pgs*="'mgTpSections'"] { margin-top: calc(var(--margin-sections) * var(--margin-top-sign, 1)); }
-    &[pgs*="'mgTpPage'"] { margin-top: calc(var(--page-padding) * var(--margin-top-sign, 1)); }
+    &[pgs*="'mgTp'"] { margin-top: calc(var(--margin-texts) * var(--marginTop-sign, 1)); }
+    &[pgs*="'mgTpNegative'"] { --marginTop-sign: -1; }
+    &[pgs*="'mgTpTexts'"] { margin-top: calc(var(--margin-texts) * var(--marginTop-sign, 1)); }
+    &[pgs*="'mgTpElements'"] { margin-top: calc(var(--margin-elements) * var(--marginTop-sign, 1)); }
+    &[pgs*="'mgTpGroups'"] { margin-top: calc(var(--margin-groups) * var(--marginTop-sign, 1)); }
+    &[pgs*="'mgTpSections'"] { margin-top: calc(var(--margin-sections) * var(--marginTop-sign, 1)); }
+    &[pgs*="'mgTpPage'"] { margin-top: calc(var(--page-padding) * var(--marginTop-sign, 1)); }
     &[pgs*="'mgTpUnset'"] { margin-top: unset; }
     &[pgs*="'mgTpAuto'"] { margin-top: auto; }
 }
@@ -82,16 +82,16 @@
 //## RIGHT
 :is([pgs~="marginRight"], [pgs*="marginRight\5B"]) {
     // reset on every element, so a negative parent does not flip its descendants
-    --margin-right-sign: 1;
-    margin-right: calc(var(--margin-texts) * var(--margin-right-sign, 1));
+    --marginRight-sign: 1;
+    margin-right: calc(var(--margin-texts) * var(--marginRight-sign, 1));
 
-    &[pgs*="'mgRt'"] { margin-right: calc(var(--margin-texts) * var(--margin-right-sign, 1)); }
-    &[pgs*="'mgRtNegative'"] { --margin-right-sign: -1; }
-    &[pgs*="'mgRtTexts'"] { margin-right: calc(var(--margin-texts) * var(--margin-right-sign, 1)); }
-    &[pgs*="'mgRtElements'"] { margin-right: calc(var(--margin-elements) * var(--margin-right-sign, 1)); }
-    &[pgs*="'mgRtGroups'"] { margin-right: calc(var(--margin-groups) * var(--margin-right-sign, 1)); }
-    &[pgs*="'mgRtSections'"] { margin-right: calc(var(--margin-sections) * var(--margin-right-sign, 1)); }
-    &[pgs*="'mgRtPage'"] { margin-right: calc(var(--page-padding) * var(--margin-right-sign, 1)); }
+    &[pgs*="'mgRt'"] { margin-right: calc(var(--margin-texts) * var(--marginRight-sign, 1)); }
+    &[pgs*="'mgRtNegative'"] { --marginRight-sign: -1; }
+    &[pgs*="'mgRtTexts'"] { margin-right: calc(var(--margin-texts) * var(--marginRight-sign, 1)); }
+    &[pgs*="'mgRtElements'"] { margin-right: calc(var(--margin-elements) * var(--marginRight-sign, 1)); }
+    &[pgs*="'mgRtGroups'"] { margin-right: calc(var(--margin-groups) * var(--marginRight-sign, 1)); }
+    &[pgs*="'mgRtSections'"] { margin-right: calc(var(--margin-sections) * var(--marginRight-sign, 1)); }
+    &[pgs*="'mgRtPage'"] { margin-right: calc(var(--page-padding) * var(--marginRight-sign, 1)); }
     &[pgs*="'mgRtUnset'"] { margin-right: unset; }
     &[pgs*="'mgRtAuto'"] { margin-right: auto; }
 }
@@ -99,16 +99,16 @@
 //## BOTTOM
 :is([pgs~="marginBottom"], [pgs*="marginBottom\5B"]) {
     // reset on every element, so a negative parent does not flip its descendants
-    --margin-bottom-sign: 1;
-    margin-bottom: calc(var(--margin-texts) * var(--margin-bottom-sign, 1));
+    --marginBottom-sign: 1;
+    margin-bottom: calc(var(--margin-texts) * var(--marginBottom-sign, 1));
 
-    &[pgs*="'mgBt'"] { margin-bottom: calc(var(--margin-texts) * var(--margin-bottom-sign, 1)); }
-    &[pgs*="'mgBtNegative'"] { --margin-bottom-sign: -1; }
-    &[pgs*="'mgBtTexts'"] { margin-bottom: calc(var(--margin-texts) * var(--margin-bottom-sign, 1)); }
-    &[pgs*="'mgBtElements'"] { margin-bottom: calc(var(--margin-elements) * var(--margin-bottom-sign, 1)); }
-    &[pgs*="'mgBtGroups'"] { margin-bottom: calc(var(--margin-groups) * var(--margin-bottom-sign, 1)); }
-    &[pgs*="'mgBtSections'"] { margin-bottom: calc(var(--margin-sections) * var(--margin-bottom-sign, 1)); }
-    &[pgs*="'mgBtPage'"] { margin-bottom: calc(var(--page-padding) * var(--margin-bottom-sign, 1)); }
+    &[pgs*="'mgBt'"] { margin-bottom: calc(var(--margin-texts) * var(--marginBottom-sign, 1)); }
+    &[pgs*="'mgBtNegative'"] { --marginBottom-sign: -1; }
+    &[pgs*="'mgBtTexts'"] { margin-bottom: calc(var(--margin-texts) * var(--marginBottom-sign, 1)); }
+    &[pgs*="'mgBtElements'"] { margin-bottom: calc(var(--margin-elements) * var(--marginBottom-sign, 1)); }
+    &[pgs*="'mgBtGroups'"] { margin-bottom: calc(var(--margin-groups) * var(--marginBottom-sign, 1)); }
+    &[pgs*="'mgBtSections'"] { margin-bottom: calc(var(--margin-sections) * var(--marginBottom-sign, 1)); }
+    &[pgs*="'mgBtPage'"] { margin-bottom: calc(var(--page-padding) * var(--marginBottom-sign, 1)); }
     &[pgs*="'mgBtUnset'"] { margin-bottom: unset; }
     &[pgs*="'mgBtAuto'"] { margin-bottom: auto; }
 }
@@ -116,16 +116,16 @@
 //## LEFT
 :is([pgs~="marginLeft"], [pgs*="marginLeft\5B"]) {
     // reset on every element, so a negative parent does not flip its descendants
-    --margin-left-sign: 1;
-    margin-left: calc(var(--margin-texts) * var(--margin-left-sign, 1));
+    --marginLeft-sign: 1;
+    margin-left: calc(var(--margin-texts) * var(--marginLeft-sign, 1));
 
-    &[pgs*="'mgLt'"] { margin-left: calc(var(--margin-texts) * var(--margin-left-sign, 1)); }
-    &[pgs*="'mgLtNegative'"] { --margin-left-sign: -1; }
-    &[pgs*="'mgLtTexts'"] { margin-left: calc(var(--margin-texts) * var(--margin-left-sign, 1)); }
-    &[pgs*="'mgLtElements'"] { margin-left: calc(var(--margin-elements) * var(--margin-left-sign, 1)); }
-    &[pgs*="'mgLtGroups'"] { margin-left: calc(var(--margin-groups) * var(--margin-left-sign, 1)); }
-    &[pgs*="'mgLtSections'"] { margin-left: calc(var(--margin-sections) * var(--margin-left-sign, 1)); }
-    &[pgs*="'mgLtPage'"] { margin-left: calc(var(--page-padding) * var(--margin-left-sign, 1)); }
+    &[pgs*="'mgLt'"] { margin-left: calc(var(--margin-texts) * var(--marginLeft-sign, 1)); }
+    &[pgs*="'mgLtNegative'"] { --marginLeft-sign: -1; }
+    &[pgs*="'mgLtTexts'"] { margin-left: calc(var(--margin-texts) * var(--marginLeft-sign, 1)); }
+    &[pgs*="'mgLtElements'"] { margin-left: calc(var(--margin-elements) * var(--marginLeft-sign, 1)); }
+    &[pgs*="'mgLtGroups'"] { margin-left: calc(var(--margin-groups) * var(--marginLeft-sign, 1)); }
+    &[pgs*="'mgLtSections'"] { margin-left: calc(var(--margin-sections) * var(--marginLeft-sign, 1)); }
+    &[pgs*="'mgLtPage'"] { margin-left: calc(var(--page-padding) * var(--marginLeft-sign, 1)); }
     &[pgs*="'mgLtUnset'"] { margin-left: unset; }
     &[pgs*="'mgLtAuto'"] { margin-left: auto; }
 }

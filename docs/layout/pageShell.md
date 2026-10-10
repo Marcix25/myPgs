@@ -36,8 +36,8 @@ Responsive page layout that combines main content with zero, one or two sidebars
 - `--pageShell-content-width`
 - `--pageShell-gap`
 - `--pageShell-offsetTop`
-- `--pageShell-padding-bottom`
-- `--pageShell-padding-inline`
+- `--pageShell-paddingBottom`
+- `--pageShell-paddingInline`
 - `--pageShell-width`
 
 ## Output

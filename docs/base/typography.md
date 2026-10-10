@@ -2,7 +2,7 @@
 
 # Typography
 
-The six heading levels, and one look for body copy — size (or font-size for text), family, color, line-height and letter-spacing together — available as utilities, so any element can look like a title or read like running text without changing what tag it actually is. Each one reads its look from its own set of custom properties (--heading-size-h1, --heading-color-h1, --heading-family-h1, --heading-line-height-h1, --heading-letter-spacing-h1 and so on through h6; --text-color, --text-family, --text-size, --text-line-height, --text-overflowWrap for text), declared once for the whole page in a :root block; override one there instead of passing a different value at every place that level is used.
+The six heading levels, and one look for body copy — size (or font-size for text), family, color, line-height and letter-spacing together — available as utilities, so any element can look like a title or read like running text without changing what tag it actually is. Each one reads its look from its own set of custom properties (--heading-size-h1, --heading-color-h1, --heading-family-h1, --heading-lineHeight-h1, --heading-letterSpacing-h1 and so on through h6; --text-color, --text-family, --text-size, --text-lineHeight, --text-overflowWrap for text), declared once for the whole page in a :root block; override one there instead of passing a different value at every place that level is used.
 
 ## PGS
 

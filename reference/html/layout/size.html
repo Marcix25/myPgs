@@ -54,7 +54,7 @@
  * - height100lvh: inside height's own bracket, uses the large viewport height, the screen with the toolbars retracted, for something meant to run under them.
  * - height50svh: inside height's own bracket, uses half the small viewport height.
  * - heightUnderHeader: inside height's own bracket, uses what is left of the screen below the header, for a hero that fills the first view.
- * - heightUnderMain: inside height's own bracket, the same idea for an element that is the first child of main instead, subtracting --main-padding-top rather than just the header height, since main already carries the extra room --page-top adds.
+ * - heightUnderMain: inside height's own bracket, the same idea for an element that is the first child of main instead, subtracting --main-paddingTop rather than just the header height, since main already carries the extra room --page-top adds.
  * - heightAuto: inside height's own bracket, drops the height constraint on one element without dropping the utility.
  * - heightMaxFull: inside heightMax's own bracket, the same whole parent height as heightFull.
  * - heightMax100svh: inside heightMax's own bracket, the same small viewport height as height100svh.
@@ -75,7 +75,7 @@
  *
  * @related
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
- * - main: sets --main-padding-top, which underMain subtracts from the viewport height.
+ * - main: sets --main-paddingTop, which underMain subtracts from the viewport height.
  * - column: arranges the groups vertically.
  * - row: places the column and viewport examples side by side.
  * - box: makes the measured elements visible.
@@ -130,7 +130,7 @@
         <div pgs="box heightMin['heightMinUnderHeader'] flex['column' 'flexCenter']">What is left below the header.</div>
     </section>
 
-    <demo demo-h3="First element inside main" demo-description="underMain excludes main's own top padding (--main-padding-top) instead of just the header height, for an element that is the first child of main and still wants to fill the rest of the screen. A plain div carrying the main token here, so the page keeps its own single real &lt;main&gt;."></demo>
+    <demo demo-h3="First element inside main" demo-description="underMain excludes main's own top padding (--main-paddingTop) instead of just the header height, for an element that is the first child of main and still wants to fill the rest of the screen. A plain div carrying the main token here, so the page keeps its own single real &lt;main&gt;."></demo>
     <section demo="component">
         <div pgs="main">
             <div pgs="box heightMin['heightMinUnderMain'] flex['column' 'flexCenter']">First element inside main.</div>

@@ -88,8 +88,8 @@ Responsive header that measures available space, switches between its full and c
 - `--header-compact-breakpoint`
 - `--header-compactBottom-active`
 - `--header-gap`
-- `--header-padding-block`
-- `--header-padding-inline`
+- `--header-paddingBlock`
+- `--header-paddingInline`
 - `--header-size`
 
 ## Output

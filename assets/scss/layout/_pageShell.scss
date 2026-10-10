@@ -19,10 +19,10 @@
 
 //# PAGE SHELL
 :is([pgs~="pageShell"], [pgs*="pageShell\5B"]) {
-    --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-padding-inline) * 2));
-    --pageShell-padding-inline: var(--page-padding);
+    --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-paddingInline) * 2));
+    --pageShell-paddingInline: var(--page-padding);
     --pageShell-offsetTop: var(--page-top);
-    --pageShell-padding-bottom: var(--gap-elements);
+    --pageShell-paddingBottom: var(--gap-elements);
     --pageShell-gap: var(--gap-elements);
     // content
     --pageShell-content-width: var(--page-width);
@@ -42,14 +42,14 @@
     justify-content: center;
     width: 100%;
     position: relative;
-    padding-inline: var(--pageShell-padding-inline);
-    padding-bottom: var(--pageShell-padding-bottom);
+    padding-inline: var(--pageShell-paddingInline);
+    padding-bottom: var(--pageShell-paddingBottom);
     padding-top: var(--pageShell-offsetTop);
     container-type: inline-size;
     max-width: var(--pageShell-width);
 
-    &:where(:has(> :where([pgs~="pageShell-aside"]))) { --pageShell-width: calc(var(--pageShell-content-width) + var(--pageShell-aside-width) + var(--pageShell-gap) + (var(--pageShell-padding-inline) * 2)); }
-    &:where(:has(> :where([pgs~="pageShell-aside"]) ~ :where([pgs~="pageShell-aside"]))) { --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-aside-width) * 2) + (var(--pageShell-gap) * 2) + (var(--pageShell-padding-inline) * 2)); }
+    &:where(:has(> :where([pgs~="pageShell-aside"]))) { --pageShell-width: calc(var(--pageShell-content-width) + var(--pageShell-aside-width) + var(--pageShell-gap) + (var(--pageShell-paddingInline) * 2)); }
+    &:where(:has(> :where([pgs~="pageShell-aside"]) ~ :where([pgs~="pageShell-aside"]))) { --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-aside-width) * 2) + (var(--pageShell-gap) * 2) + (var(--pageShell-paddingInline) * 2)); }
 
     /*
         columns: one track per area, so a sidebar that is not there leaves no track

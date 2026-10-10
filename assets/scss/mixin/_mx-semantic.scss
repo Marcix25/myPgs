@@ -2,15 +2,15 @@
 
 //# MAIN 
 @mixin main() {
-    --main-padding-top: var(--page-top);
-    --main-padding-bottom: var(--page-top);
+    --main-paddingTop: var(--page-top);
+    --main-paddingBottom: var(--page-top);
     --main-gap: var(--gap-sections);
     min-height: 100svh;
     @include column(var(--main-gap));
     align-items: flex-start;
     isolation: isolate;
-    padding-top: var(--main-padding-top);
-    padding-bottom: var(--main-padding-bottom);
+    padding-top: var(--main-paddingTop);
+    padding-bottom: var(--main-paddingBottom);
     width: 100%;
 }
 

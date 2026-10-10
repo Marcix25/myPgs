@@ -13,9 +13,9 @@
 :is([pgs~="section"], [pgs*="section\5B"]) {
     --section-parentGap: var(--main-gap, var(--gap-sections));
     --section-marginBase: calc(var(--section-parentGap) / 2 * -1);
-    --section-margin-block: 0 0;
+    --section-marginBlock: 0 0;
 
-    &[pgs*="section\5B"] { margin-block: var(--section-margin-block); }
+    &[pgs*="section\5B"] { margin-block: var(--section-marginBlock); }
 
     &:not([pgs*="section\5B"]),
     &[pgs*="section[]"] {
@@ -35,9 +35,9 @@
     &[pgs*="'sctEdgeFlushRight'"] { @include sectionEdgeFlushRight; }
 
     //+ Remove gap
-    &[pgs*="'sctRemoveGap'"] { --section-margin-block: var(--section-marginBase) var(--section-marginBase); }
-    &[pgs*="'sctRemoveGapTop'"] { --section-margin-block: var(--section-marginBase) 0; }
-    &[pgs*="'sctRemoveGapBottom'"] { --section-margin-block: 0 var(--section-marginBase); }
+    &[pgs*="'sctRemoveGap'"] { --section-marginBlock: var(--section-marginBase) var(--section-marginBase); }
+    &[pgs*="'sctRemoveGapTop'"] { --section-marginBlock: var(--section-marginBase) 0; }
+    &[pgs*="'sctRemoveGapBottom'"] { --section-marginBlock: 0 var(--section-marginBase); }
 }
 
 //## CONTAINER

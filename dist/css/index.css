@@ -64,17 +64,17 @@
 }
 :where([pgs~=htmlBase]):root {
   --clickable-background: var(--color-box);
-  --clickable-border-color: var(--border-color);
+  --clickable-borderColor: var(--border-color);
   --clickable-color: var(--color-black);
   --clickable-transition: background-color 400ms ease-out, border-color 400ms ease-out, outline-color 400ms ease-out, color 400ms ease-out;
   --hover-background: var(--color-secondary-soft);
-  --hover-border-color: var(--border-color);
+  --hover-borderColor: var(--border-color);
   --hover-color: var(--color-secondary-strong);
   --current-background: var(--color-primary-soft);
-  --current-border-color: var(--border-color);
+  --current-borderColor: var(--border-color);
   --current-color: var(--color-primary-strong);
   --twoState-background: var(--color-tertiary-soft);
-  --twoState-border-color: var(--border-color);
+  --twoState-borderColor: var(--border-color);
   --twoState-color: var(--color-tertiary-strong);
 }
 
@@ -272,7 +272,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   color: var(--text-color);
   font-family: var(--text-family);
   font-size: var(--text-size);
-  line-height: var(--text-line-height);
+  line-height: var(--text-lineHeight);
   overflow-wrap: var(--text-overflowWrap);
 }
 
@@ -297,9 +297,9 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   font-family: var(--heading-family-h1, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h1, 7.2rem) / 8);
   font-size: var(--heading-size-h1, 7.2rem);
-  line-height: var(--heading-line-height-h1, var(--heading-line-height));
+  line-height: var(--heading-lineHeight-h1, var(--heading-lineHeight));
   color: var(--heading-color-h1, var(--color-black));
-  letter-spacing: var(--heading-letter-spacing-h1, var(--heading-letter-spacing));
+  letter-spacing: var(--heading-letterSpacing-h1, var(--heading-letterSpacing));
   min-width: 0;
   font-weight: 900;
   overflow-wrap: anywhere;
@@ -325,9 +325,9 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   font-family: var(--heading-family-h2, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h2, 4.45rem) / 8);
   font-size: var(--heading-size-h2, 4.45rem);
-  line-height: var(--heading-line-height-h2, var(--heading-line-height));
+  line-height: var(--heading-lineHeight-h2, var(--heading-lineHeight));
   color: var(--heading-color-h2, var(--color-black));
-  letter-spacing: var(--heading-letter-spacing-h2, var(--heading-letter-spacing));
+  letter-spacing: var(--heading-letterSpacing-h2, var(--heading-letterSpacing));
   min-width: 0;
   font-weight: 900;
   overflow-wrap: anywhere;
@@ -353,9 +353,9 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   font-family: var(--heading-family-h3, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h3, 2.75rem) / 8);
   font-size: var(--heading-size-h3, 2.75rem);
-  line-height: var(--heading-line-height-h3, var(--heading-line-height));
+  line-height: var(--heading-lineHeight-h3, var(--heading-lineHeight));
   color: var(--heading-color-h3, var(--color-black));
-  letter-spacing: var(--heading-letter-spacing-h3, var(--heading-letter-spacing));
+  letter-spacing: var(--heading-letterSpacing-h3, var(--heading-letterSpacing));
   min-width: 0;
   font-weight: 900;
   overflow-wrap: anywhere;
@@ -381,9 +381,9 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   font-family: var(--heading-family-h4, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h4, 1.7rem) / 8);
   font-size: var(--heading-size-h4, 1.7rem);
-  line-height: var(--heading-line-height-h4, var(--heading-line-height));
+  line-height: var(--heading-lineHeight-h4, var(--heading-lineHeight));
   color: var(--heading-color-h4, var(--color-black));
-  letter-spacing: var(--heading-letter-spacing-h4, var(--heading-letter-spacing));
+  letter-spacing: var(--heading-letterSpacing-h4, var(--heading-letterSpacing));
   min-width: 0;
   font-weight: 900;
   overflow-wrap: anywhere;
@@ -409,9 +409,9 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   font-family: var(--heading-family-h5, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h5, 1.7rem) / 8);
   font-size: var(--heading-size-h5, 1.7rem);
-  line-height: var(--heading-line-height-h5, var(--heading-line-height));
+  line-height: var(--heading-lineHeight-h5, var(--heading-lineHeight));
   color: var(--heading-color-h5, var(--color-black));
-  letter-spacing: var(--heading-letter-spacing-h5, var(--heading-letter-spacing));
+  letter-spacing: var(--heading-letterSpacing-h5, var(--heading-letterSpacing));
   min-width: 0;
   font-weight: 700;
   overflow-wrap: anywhere;
@@ -437,9 +437,9 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   font-family: var(--heading-family-h6, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h6, 1.7rem) / 8);
   font-size: var(--heading-size-h6, 1.7rem);
-  line-height: var(--heading-line-height-h6, var(--heading-line-height));
+  line-height: var(--heading-lineHeight-h6, var(--heading-lineHeight));
   color: var(--heading-color-h6, var(--color-black));
-  letter-spacing: var(--heading-letter-spacing-h6, var(--heading-letter-spacing));
+  letter-spacing: var(--heading-letterSpacing-h6, var(--heading-letterSpacing));
   min-width: 0;
   font-weight: 500;
   overflow-wrap: anywhere;
@@ -480,8 +480,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 |--------------------------------------------------------------------------
 */
 [pgs~=main] {
-  --main-padding-top: var(--page-top);
-  --main-padding-bottom: var(--page-top);
+  --main-paddingTop: var(--page-top);
+  --main-paddingBottom: var(--page-top);
   --main-gap: var(--gap-sections);
   min-height: 100svh;
   display: flex;
@@ -490,19 +490,19 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   flex-direction: column;
   align-items: flex-start;
   isolation: isolate;
-  padding-top: var(--main-padding-top);
-  padding-bottom: var(--main-padding-bottom);
+  padding-top: var(--main-paddingTop);
+  padding-bottom: var(--main-paddingBottom);
   width: 100%;
 }
 
 :is([pgs~=section], [pgs*="section["]) {
   --section-parentGap: var(--main-gap, var(--gap-sections));
   --section-marginBase: calc(var(--section-parentGap) / 2 * -1);
-  --section-margin-block: 0 0;
+  --section-marginBlock: 0 0;
 }
 
 :is([pgs~=section], [pgs*="section["])[pgs*="section["] {
-  margin-block: var(--section-margin-block);
+  margin-block: var(--section-marginBlock);
 }
 
 :is([pgs~=section], [pgs*="section["]):not([pgs*="section["]), :is([pgs~=section], [pgs*="section["])[pgs*="section[]"] {
@@ -621,15 +621,15 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=section], [pgs*="section["])[pgs*="'sctRemoveGap'"] {
-  --section-margin-block: var(--section-marginBase) var(--section-marginBase);
+  --section-marginBlock: var(--section-marginBase) var(--section-marginBase);
 }
 
 :is([pgs~=section], [pgs*="section["])[pgs*="'sctRemoveGapTop'"] {
-  --section-margin-block: var(--section-marginBase) 0;
+  --section-marginBlock: var(--section-marginBase) 0;
 }
 
 :is([pgs~=section], [pgs*="section["])[pgs*="'sctRemoveGapBottom'"] {
-  --section-margin-block: 0 var(--section-marginBase);
+  --section-marginBlock: 0 var(--section-marginBase);
 }
 
 :is([pgs~=container], [pgs*="container["]) {
@@ -1943,36 +1943,36 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=marginBlock], [pgs*="marginBlock["]) {
-  --margin-block-sign: 1;
-  margin-block: calc(var(--margin-texts) * var(--margin-block-sign, 1));
+  --marginBlock-sign: 1;
+  margin-block: calc(var(--margin-texts) * var(--marginBlock-sign, 1));
 }
 
 :is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'mgBl'"] {
-  margin-block: calc(var(--margin-texts) * var(--margin-block-sign, 1));
+  margin-block: calc(var(--margin-texts) * var(--marginBlock-sign, 1));
 }
 
 :is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'mgBlNegative'"] {
-  --margin-block-sign: -1;
+  --marginBlock-sign: -1;
 }
 
 :is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'mgBlTexts'"] {
-  margin-block: calc(var(--margin-texts) * var(--margin-block-sign, 1));
+  margin-block: calc(var(--margin-texts) * var(--marginBlock-sign, 1));
 }
 
 :is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'mgBlElements'"] {
-  margin-block: calc(var(--margin-elements) * var(--margin-block-sign, 1));
+  margin-block: calc(var(--margin-elements) * var(--marginBlock-sign, 1));
 }
 
 :is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'mgBlGroups'"] {
-  margin-block: calc(var(--margin-groups) * var(--margin-block-sign, 1));
+  margin-block: calc(var(--margin-groups) * var(--marginBlock-sign, 1));
 }
 
 :is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'mgBlSections'"] {
-  margin-block: calc(var(--margin-sections) * var(--margin-block-sign, 1));
+  margin-block: calc(var(--margin-sections) * var(--marginBlock-sign, 1));
 }
 
 :is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'mgBlPage'"] {
-  margin-block: calc(var(--page-padding) * var(--margin-block-sign, 1));
+  margin-block: calc(var(--page-padding) * var(--marginBlock-sign, 1));
 }
 
 :is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'mgBlUnset'"] {
@@ -1984,36 +1984,36 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=marginInline], [pgs*="marginInline["]) {
-  --margin-inline-sign: 1;
-  margin-inline: calc(var(--margin-texts) * var(--margin-inline-sign, 1));
+  --marginInline-sign: 1;
+  margin-inline: calc(var(--margin-texts) * var(--marginInline-sign, 1));
 }
 
 :is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'mgIn'"] {
-  margin-inline: calc(var(--margin-texts) * var(--margin-inline-sign, 1));
+  margin-inline: calc(var(--margin-texts) * var(--marginInline-sign, 1));
 }
 
 :is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'mgInNegative'"] {
-  --margin-inline-sign: -1;
+  --marginInline-sign: -1;
 }
 
 :is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'mgInTexts'"] {
-  margin-inline: calc(var(--margin-texts) * var(--margin-inline-sign, 1));
+  margin-inline: calc(var(--margin-texts) * var(--marginInline-sign, 1));
 }
 
 :is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'mgInElements'"] {
-  margin-inline: calc(var(--margin-elements) * var(--margin-inline-sign, 1));
+  margin-inline: calc(var(--margin-elements) * var(--marginInline-sign, 1));
 }
 
 :is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'mgInGroups'"] {
-  margin-inline: calc(var(--margin-groups) * var(--margin-inline-sign, 1));
+  margin-inline: calc(var(--margin-groups) * var(--marginInline-sign, 1));
 }
 
 :is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'mgInSections'"] {
-  margin-inline: calc(var(--margin-sections) * var(--margin-inline-sign, 1));
+  margin-inline: calc(var(--margin-sections) * var(--marginInline-sign, 1));
 }
 
 :is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'mgInPage'"] {
-  margin-inline: calc(var(--page-padding) * var(--margin-inline-sign, 1));
+  margin-inline: calc(var(--page-padding) * var(--marginInline-sign, 1));
 }
 
 :is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'mgInUnset'"] {
@@ -2025,36 +2025,36 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=marginTop], [pgs*="marginTop["]) {
-  --margin-top-sign: 1;
-  margin-top: calc(var(--margin-texts) * var(--margin-top-sign, 1));
+  --marginTop-sign: 1;
+  margin-top: calc(var(--margin-texts) * var(--marginTop-sign, 1));
 }
 
 :is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'mgTp'"] {
-  margin-top: calc(var(--margin-texts) * var(--margin-top-sign, 1));
+  margin-top: calc(var(--margin-texts) * var(--marginTop-sign, 1));
 }
 
 :is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'mgTpNegative'"] {
-  --margin-top-sign: -1;
+  --marginTop-sign: -1;
 }
 
 :is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'mgTpTexts'"] {
-  margin-top: calc(var(--margin-texts) * var(--margin-top-sign, 1));
+  margin-top: calc(var(--margin-texts) * var(--marginTop-sign, 1));
 }
 
 :is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'mgTpElements'"] {
-  margin-top: calc(var(--margin-elements) * var(--margin-top-sign, 1));
+  margin-top: calc(var(--margin-elements) * var(--marginTop-sign, 1));
 }
 
 :is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'mgTpGroups'"] {
-  margin-top: calc(var(--margin-groups) * var(--margin-top-sign, 1));
+  margin-top: calc(var(--margin-groups) * var(--marginTop-sign, 1));
 }
 
 :is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'mgTpSections'"] {
-  margin-top: calc(var(--margin-sections) * var(--margin-top-sign, 1));
+  margin-top: calc(var(--margin-sections) * var(--marginTop-sign, 1));
 }
 
 :is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'mgTpPage'"] {
-  margin-top: calc(var(--page-padding) * var(--margin-top-sign, 1));
+  margin-top: calc(var(--page-padding) * var(--marginTop-sign, 1));
 }
 
 :is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'mgTpUnset'"] {
@@ -2066,36 +2066,36 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=marginRight], [pgs*="marginRight["]) {
-  --margin-right-sign: 1;
-  margin-right: calc(var(--margin-texts) * var(--margin-right-sign, 1));
+  --marginRight-sign: 1;
+  margin-right: calc(var(--margin-texts) * var(--marginRight-sign, 1));
 }
 
 :is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'mgRt'"] {
-  margin-right: calc(var(--margin-texts) * var(--margin-right-sign, 1));
+  margin-right: calc(var(--margin-texts) * var(--marginRight-sign, 1));
 }
 
 :is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'mgRtNegative'"] {
-  --margin-right-sign: -1;
+  --marginRight-sign: -1;
 }
 
 :is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'mgRtTexts'"] {
-  margin-right: calc(var(--margin-texts) * var(--margin-right-sign, 1));
+  margin-right: calc(var(--margin-texts) * var(--marginRight-sign, 1));
 }
 
 :is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'mgRtElements'"] {
-  margin-right: calc(var(--margin-elements) * var(--margin-right-sign, 1));
+  margin-right: calc(var(--margin-elements) * var(--marginRight-sign, 1));
 }
 
 :is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'mgRtGroups'"] {
-  margin-right: calc(var(--margin-groups) * var(--margin-right-sign, 1));
+  margin-right: calc(var(--margin-groups) * var(--marginRight-sign, 1));
 }
 
 :is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'mgRtSections'"] {
-  margin-right: calc(var(--margin-sections) * var(--margin-right-sign, 1));
+  margin-right: calc(var(--margin-sections) * var(--marginRight-sign, 1));
 }
 
 :is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'mgRtPage'"] {
-  margin-right: calc(var(--page-padding) * var(--margin-right-sign, 1));
+  margin-right: calc(var(--page-padding) * var(--marginRight-sign, 1));
 }
 
 :is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'mgRtUnset'"] {
@@ -2107,36 +2107,36 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=marginBottom], [pgs*="marginBottom["]) {
-  --margin-bottom-sign: 1;
-  margin-bottom: calc(var(--margin-texts) * var(--margin-bottom-sign, 1));
+  --marginBottom-sign: 1;
+  margin-bottom: calc(var(--margin-texts) * var(--marginBottom-sign, 1));
 }
 
 :is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'mgBt'"] {
-  margin-bottom: calc(var(--margin-texts) * var(--margin-bottom-sign, 1));
+  margin-bottom: calc(var(--margin-texts) * var(--marginBottom-sign, 1));
 }
 
 :is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'mgBtNegative'"] {
-  --margin-bottom-sign: -1;
+  --marginBottom-sign: -1;
 }
 
 :is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'mgBtTexts'"] {
-  margin-bottom: calc(var(--margin-texts) * var(--margin-bottom-sign, 1));
+  margin-bottom: calc(var(--margin-texts) * var(--marginBottom-sign, 1));
 }
 
 :is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'mgBtElements'"] {
-  margin-bottom: calc(var(--margin-elements) * var(--margin-bottom-sign, 1));
+  margin-bottom: calc(var(--margin-elements) * var(--marginBottom-sign, 1));
 }
 
 :is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'mgBtGroups'"] {
-  margin-bottom: calc(var(--margin-groups) * var(--margin-bottom-sign, 1));
+  margin-bottom: calc(var(--margin-groups) * var(--marginBottom-sign, 1));
 }
 
 :is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'mgBtSections'"] {
-  margin-bottom: calc(var(--margin-sections) * var(--margin-bottom-sign, 1));
+  margin-bottom: calc(var(--margin-sections) * var(--marginBottom-sign, 1));
 }
 
 :is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'mgBtPage'"] {
-  margin-bottom: calc(var(--page-padding) * var(--margin-bottom-sign, 1));
+  margin-bottom: calc(var(--page-padding) * var(--marginBottom-sign, 1));
 }
 
 :is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'mgBtUnset'"] {
@@ -2148,36 +2148,36 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=marginLeft], [pgs*="marginLeft["]) {
-  --margin-left-sign: 1;
-  margin-left: calc(var(--margin-texts) * var(--margin-left-sign, 1));
+  --marginLeft-sign: 1;
+  margin-left: calc(var(--margin-texts) * var(--marginLeft-sign, 1));
 }
 
 :is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'mgLt'"] {
-  margin-left: calc(var(--margin-texts) * var(--margin-left-sign, 1));
+  margin-left: calc(var(--margin-texts) * var(--marginLeft-sign, 1));
 }
 
 :is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'mgLtNegative'"] {
-  --margin-left-sign: -1;
+  --marginLeft-sign: -1;
 }
 
 :is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'mgLtTexts'"] {
-  margin-left: calc(var(--margin-texts) * var(--margin-left-sign, 1));
+  margin-left: calc(var(--margin-texts) * var(--marginLeft-sign, 1));
 }
 
 :is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'mgLtElements'"] {
-  margin-left: calc(var(--margin-elements) * var(--margin-left-sign, 1));
+  margin-left: calc(var(--margin-elements) * var(--marginLeft-sign, 1));
 }
 
 :is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'mgLtGroups'"] {
-  margin-left: calc(var(--margin-groups) * var(--margin-left-sign, 1));
+  margin-left: calc(var(--margin-groups) * var(--marginLeft-sign, 1));
 }
 
 :is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'mgLtSections'"] {
-  margin-left: calc(var(--margin-sections) * var(--margin-left-sign, 1));
+  margin-left: calc(var(--margin-sections) * var(--marginLeft-sign, 1));
 }
 
 :is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'mgLtPage'"] {
-  margin-left: calc(var(--page-padding) * var(--margin-left-sign, 1));
+  margin-left: calc(var(--page-padding) * var(--marginLeft-sign, 1));
 }
 
 :is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'mgLtUnset'"] {
@@ -2601,7 +2601,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=height], [pgs*="height["])[pgs*="'heightUnderMain'"] {
-  --height-size: calc(100dvh - var(--main-padding-top));
+  --height-size: calc(100dvh - var(--main-paddingTop));
 }
 
 :is([pgs~=height], [pgs*="height["])[pgs*="'heightAuto'"] {
@@ -2638,7 +2638,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=heightMax], [pgs*="heightMax["])[pgs*="'heightMaxUnderMain'"] {
-  --heightMax-size: calc(100dvh - var(--main-padding-top));
+  --heightMax-size: calc(100dvh - var(--main-paddingTop));
 }
 
 :is([pgs~=heightMax], [pgs*="heightMax["])[pgs*="'heightMaxAuto'"] {
@@ -2675,7 +2675,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=heightMin], [pgs*="heightMin["])[pgs*="'heightMinUnderMain'"] {
-  --heightMin-size: calc(100dvh - var(--main-padding-top));
+  --heightMin-size: calc(100dvh - var(--main-paddingTop));
 }
 
 :is([pgs~=heightMin], [pgs*="heightMin["])[pgs*="'heightMinAuto'"] {
@@ -2683,10 +2683,10 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=pageShell], [pgs*="pageShell["]) {
-  --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-padding-inline) * 2));
-  --pageShell-padding-inline: var(--page-padding);
+  --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-paddingInline) * 2));
+  --pageShell-paddingInline: var(--page-padding);
   --pageShell-offsetTop: var(--page-top);
-  --pageShell-padding-bottom: var(--gap-elements);
+  --pageShell-paddingBottom: var(--gap-elements);
   --pageShell-gap: var(--gap-elements);
   --pageShell-content-width: var(--page-width);
   --pageShell-aside-width: 20rem;
@@ -2702,19 +2702,19 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   justify-content: center;
   width: 100%;
   position: relative;
-  padding-inline: var(--pageShell-padding-inline);
-  padding-bottom: var(--pageShell-padding-bottom);
+  padding-inline: var(--pageShell-paddingInline);
+  padding-bottom: var(--pageShell-paddingBottom);
   padding-top: var(--pageShell-offsetTop);
   container-type: inline-size;
   max-width: var(--pageShell-width);
 }
 
 :is([pgs~=pageShell], [pgs*="pageShell["]):where(:has(> :where([pgs~=pageShell-aside]))) {
-  --pageShell-width: calc(var(--pageShell-content-width) + var(--pageShell-aside-width) + var(--pageShell-gap) + (var(--pageShell-padding-inline) * 2));
+  --pageShell-width: calc(var(--pageShell-content-width) + var(--pageShell-aside-width) + var(--pageShell-gap) + (var(--pageShell-paddingInline) * 2));
 }
 
 :is([pgs~=pageShell], [pgs*="pageShell["]):where(:has(> :where([pgs~=pageShell-aside]) ~ :where([pgs~=pageShell-aside]))) {
-  --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-aside-width) * 2) + (var(--pageShell-gap) * 2) + (var(--pageShell-padding-inline) * 2));
+  --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-aside-width) * 2) + (var(--pageShell-gap) * 2) + (var(--pageShell-paddingInline) * 2));
 }
 
 :is([pgs~=pageShell], [pgs*="pageShell["]) {
@@ -2900,8 +2900,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   }
 }
 :is([pgs~=header], [pgs*="header["]) {
-  --header-padding-inline: 30px;
-  --header-padding-block: 10px;
+  --header-paddingInline: 30px;
+  --header-paddingBlock: 10px;
   --header-gap: var(--gap-elements);
   --header-size: 4.4rem;
   --header-background: var(--color-white-transparent);
@@ -2926,8 +2926,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   justify-content: space-between;
   gap: var(--header-gap);
   width: 100%;
-  padding-block: var(--header-padding-block);
-  padding-inline: var(--header-padding-inline);
+  padding-block: var(--header-paddingBlock);
+  padding-inline: var(--header-paddingInline);
   pointer-events: auto;
 }
 
@@ -3002,7 +3002,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=header], [pgs*="header["])[pgs-state~=compact] :where([pgs~=header-element]) {
-  padding-inline: var(--header-padding-block);
+  padding-inline: var(--header-paddingBlock);
 }
 
 :is([pgs~=header], [pgs*="header["])[pgs-state~=compact] :where([pgs~=header-element]) :where([pgs~=header-element-onlyFull]) {
@@ -3061,7 +3061,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --box-background: var(--clickable-background);
   display: block;
   outline: var(--border-complete);
-  outline-color: var(--clickable-border-color);
+  outline-color: var(--clickable-borderColor);
   color: var(--clickable-color);
   transition: var(--clickable-transition);
 }
@@ -3273,7 +3273,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   display: block;
   transition: var(--clickable-transition);
   border: var(--border-complete);
-  border-color: var(--clickable-border-color);
+  border-color: var(--clickable-borderColor);
   color: var(--clickable-color);
   --card-background: var(--clickable-background);
 }
@@ -3381,7 +3381,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --box-background: var(--clickable-background);
   display: block;
   outline: var(--border-complete);
-  outline-color: var(--clickable-border-color);
+  outline-color: var(--clickable-borderColor);
   color: var(--clickable-color);
   transition: var(--clickable-transition);
 }
@@ -3553,7 +3553,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 [pgs~=input]:hover {
-  outline: solid var(--hover-border-color);
+  outline: solid var(--hover-borderColor);
 }
 
 [pgs~=select] {
@@ -3578,7 +3578,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 [pgs~=select]:hover {
-  outline: solid var(--hover-border-color);
+  outline: solid var(--hover-borderColor);
 }
 
 [pgs~=select] {
@@ -3614,7 +3614,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --checkbox-check-color: var(--color-primary);
   --checkbox-box-background: var(--color-white);
   --checkbox-box-background-hover: var(--hover-background);
-  --checkbox-padding-inline: var(--gap-texts);
+  --checkbox-paddingInline: var(--gap-texts);
   --checkbox-icon: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 448 512%27%3E%3Cpath d=%27M424 112 a34 34 0 0 1 0 48 L200 384 a34 34 0 0 1 -48 0 L24 256 a34 34 0 0 1 48 -48 L176 312 L376 112 a34 34 0 0 1 48 0 z%27%3E%3C/path%3E%3C/svg%3E");
   position: relative;
   display: flex;
@@ -3634,7 +3634,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   width: fit-content;
   cursor: pointer;
   display: flex;
-  padding-inline: var(--checkbox-padding-inline);
+  padding-inline: var(--checkbox-paddingInline);
 }
 
 [pgs~=radio]:where(label):has(input:disabled),
@@ -3852,7 +3852,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 [pgs~=form] input:not([pgs~=inputUnset], [type=checkbox], [type=file], [type=radio], [type=range]):hover {
-  outline: solid var(--hover-border-color);
+  outline: solid var(--hover-borderColor);
 }
 
 [pgs~=form] input[type=password] {
@@ -3886,7 +3886,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --checkbox-check-color: var(--color-primary);
   --checkbox-box-background: var(--color-white);
   --checkbox-box-background-hover: var(--hover-background);
-  --checkbox-padding-inline: var(--gap-texts);
+  --checkbox-paddingInline: var(--gap-texts);
   --checkbox-icon: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 448 512%27%3E%3Cpath d=%27M424 112 a34 34 0 0 1 0 48 L200 384 a34 34 0 0 1 -48 0 L24 256 a34 34 0 0 1 48 -48 L176 312 L376 112 a34 34 0 0 1 48 0 z%27%3E%3C/path%3E%3C/svg%3E");
   position: relative;
   display: flex;
@@ -3906,7 +3906,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   width: fit-content;
   cursor: pointer;
   display: flex;
-  padding-inline: var(--checkbox-padding-inline);
+  padding-inline: var(--checkbox-paddingInline);
 }
 
 [pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label):has(input:disabled),
@@ -4093,7 +4093,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 [pgs~=form] textarea:hover {
-  outline: solid var(--hover-border-color);
+  outline: solid var(--hover-borderColor);
 }
 
 [pgs~=form] textarea {
@@ -4185,7 +4185,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 [pgs~=form] input[type=color]:hover {
-  outline: solid var(--hover-border-color);
+  outline: solid var(--hover-borderColor);
 }
 
 [pgs~=form] input[type=color] {
@@ -4227,7 +4227,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 [pgs~=form] select:hover {
-  outline: solid var(--hover-border-color);
+  outline: solid var(--hover-borderColor);
 }
 
 [pgs~=form] select {
@@ -4427,7 +4427,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   margin-right: var(--gap-texts);
   border: none;
   outline: var(--border-complete);
-  outline-color: var(--clickable-border-color);
+  outline-color: var(--clickable-borderColor);
   border-radius: var(--border-radius-input);
   padding: 1.5rem 3rem;
   font-family: var(--font);
@@ -4477,7 +4477,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=button], [pgs*="button["]) {
-  --button-size: var(--SIZE-texts);
   --button-color: var(--clickable-color);
   --button-color-hover: var(--hover-color);
   --button-color-current: var(--current-color);
@@ -4490,24 +4489,23 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --button-shadow-hover: var(--button-shadow);
   --button-shadow-current: 0 .2rem .8rem color-mix(in srgb, var(--color-blackFixed) 10%, transparent);
   --button-shadow-twoState: var(--button-shadow);
-  --button-border-color: var(--clickable-border-color);
-  --button-border-color-hover: var(--hover-border-color);
-  --button-border-color-current: var(--current-border-color);
-  --button-border-color-twoState: var(--twoState-border-color);
-  --button-border-width: var(--border-width);
-  --button-border-style: var(--border-style);
+  --button-borderColor: var(--clickable-borderColor);
+  --button-borderColor-hover: var(--hover-borderColor);
+  --button-borderColor-current: var(--current-borderColor);
+  --button-borderColor-twoState: var(--twoState-borderColor);
+  --button-borderWidth: var(--border-width);
+  --button-borderStyle: var(--border-style);
   --button-borderRadius: var(--border-radius);
+  --button-size: var(--SIZE-texts);
   --button-gap: calc(var(--button-size) / 3);
   --button-fontSize: var(--font-size-text);
-  --button-padding-block: var(--button-size);
-  --button-padding-left: calc(var(--button-size) * 2);
-  --button-padding-right: calc(var(--button-size) * 2);
-  --button-padding-left-icon: calc(var(--button-size) * 1.5);
-  --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
+  --button-paddingBlock: var(--button-size);
+  --button-paddingInline: calc(var(--button-size) * 2);
+  --button-paddingInline-short: calc(var(--button-size) * 1.5);
   --button-height: max-content;
   color: var(--button-color);
   background: var(--button-background);
-  border-color: var(--button-border-color);
+  border-color: var(--button-borderColor);
   box-shadow: var(--button-shadow);
   cursor: pointer;
   -moz-user-select: none;
@@ -4518,15 +4516,15 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   line-height: 1;
   text-decoration: none;
   user-select: none;
-  border: 0 var(--button-border-style) var(--button-border-color);
-  border-width: var(--button-border-width);
+  border: 0 var(--button-borderStyle) var(--button-borderColor);
+  border-width: var(--button-borderWidth);
   border-radius: var(--button-borderRadius);
   transition: var(--clickable-transition);
   display: flex;
   gap: var(--button-gap);
   align-items: center;
   justify-content: center;
-  padding: var(--button-padding);
+  padding: var(--button-paddingBlock) var(--button-paddingInline);
   height: var(--button-height);
   width: fit-content;
 }
@@ -4536,25 +4534,53 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   cursor: not-allowed;
 }
 
-:is([pgs~=button], [pgs*="button["]):where(:has(i)), :is([pgs~=button], [pgs*="button["]):where(:has(:is([pgs~=icon], [pgs*="icon["]))) {
-  --button-padding-left: var(--button-padding-left-icon);
-}
-
-:is([pgs~=button], [pgs*="button["]):where([pgs*="'btnReverse'"]:has(i)), :is([pgs~=button], [pgs*="button["]):where([pgs*="'btnReverse'"]:has(:is([pgs~=icon], [pgs*="icon["]))) {
-  --button-padding-right: var(--button-padding-left-icon);
-  --button-padding-left: calc(var(--button-size) * 2);
+:is([pgs~=button], [pgs*="button["]):where(:has(:is([pgs~=icon], [pgs*="icon["], i))) {
+  padding-left: var(--button-paddingInline-short);
+  padding-right: var(--button-paddingInline);
 }
 
 @media (hover: hover) and (pointer: fine) {
-  :is([pgs~=button], [pgs*="button["]):hover:where(:not(:disabled, [disabled], [pgs*="'btnNotHover'"])) {
+  :is([pgs~=button], [pgs*="button["]):not([pgs*="'btnNotHover'"]):hover:where(:not(:disabled, [disabled])) {
     color: var(--button-color-hover);
     background: var(--button-background-hover);
-    border-color: var(--button-border-color-hover);
+    border-color: var(--button-borderColor-hover);
     box-shadow: var(--button-shadow-hover);
   }
 }
+:is([pgs~=button], [pgs*="button["])[pgs*="'btnCurrent'"]:where([aria-current=page]), :is([pgs~=button], [pgs*="button["])[pgs*="'btnCurrent'"]:where([aria-selected=true]) {
+  color: var(--button-color-current);
+  background: var(--button-background-current);
+  border-color: var(--button-borderColor-current);
+  box-shadow: var(--button-shadow-current);
+}
+
+:is([pgs~=button], [pgs*="button["])[pgs*="'btnTwoState'"] {
+  position: relative;
+  isolation: isolate;
+  cursor: pointer;
+}
+
+:is([pgs~=button], [pgs*="button["])[pgs*="'btnTwoState'"] input:is([type=checkbox], [type=radio]) {
+  opacity: 0;
+  z-index: -1;
+  position: absolute;
+  appearance: none;
+}
+
+:is([pgs~=button], [pgs*="button["])[pgs*="'btnTwoState'"]:has(input:checked) {
+  color: var(--button-color-twoState);
+  background: var(--button-background-twoState);
+  border-color: var(--button-borderColor-twoState);
+  box-shadow: var(--button-shadow-twoState);
+}
+
+:is([pgs~=button], [pgs*="button["])[pgs*="'btnReverse'"]:where(:has(:is([pgs~=icon], [pgs*="icon["], i))) {
+  padding-left: var(--button-paddingInline);
+  padding-right: var(--button-paddingInline-short);
+}
+
 :is([pgs~=button], [pgs*="button["])[pgs*="'btnIconOnly'"] {
-  --button-padding: var(--button-padding-block);
+  padding: var(--button-paddingBlock);
   flex: 0 0;
   aspect-ratio: 1;
   justify-content: center;
@@ -4577,7 +4603,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=button], [pgs*="button["])[pgs*="'btnVertical'"] {
-  --button-padding: var(--button-padding-right);
+  padding: var(--button-paddingInline);
   --button-height: 100%;
   --icon-size: 1.2em;
   justify-content: center;
@@ -4587,15 +4613,15 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=button], [pgs*="button["])[pgs*="'btnTransparent'"] {
-  --button-border-color: transparent;
+  --button-borderColor: transparent;
   --button-background: transparent;
 }
 
 :is([pgs~=button], [pgs*="button["])[pgs*="'btnText'"] {
-  --button-border-color: transparent;
-  --button-border-width: 0px 0px 3px 0px;
-  --button-border-color-hover: var(--color-secondary);
-  --button-border-color-current: var(--color-primary);
+  --button-borderColor: transparent;
+  --button-borderWidth: 0px 0px 3px 0px;
+  --button-borderColor-hover: var(--color-secondary);
+  --button-borderColor-current: var(--color-primary);
   --button-borderRadius: 0px;
   --button-background: transparent;
   --button-background-current: transparent;
@@ -4611,59 +4637,31 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=button], [pgs*="button["])[pgs*="'btnPaddingEqual'"] {
-  --button-padding: var(--button-padding-block);
-}
-
-:is([pgs~=button], [pgs*="button["])[pgs*="'btnCurrent'"]:where([aria-current=page]), :is([pgs~=button], [pgs*="button["])[pgs*="'btnCurrent'"]:where([aria-selected=true]) {
-  color: var(--button-color-current);
-  background: var(--button-background-current);
-  border-color: var(--button-border-color-current);
-  box-shadow: var(--button-shadow-current);
-}
-
-:is([pgs~=button], [pgs*="button["])[pgs*="'btnTwoState'"] {
-  position: relative;
-  isolation: isolate;
-  cursor: pointer;
-}
-
-:is([pgs~=button], [pgs*="button["])[pgs*="'btnTwoState'"] input:is([type=checkbox], [type=radio]) {
-  opacity: 0;
-  z-index: -1;
-  position: absolute;
-  appearance: none;
-}
-
-:is([pgs~=button], [pgs*="button["])[pgs*="'btnTwoState'"]:has(input:checked) {
-  color: var(--button-color-twoState);
-  background: var(--button-background-twoState);
-  border-color: var(--button-border-color-twoState);
-  box-shadow: var(--button-shadow-twoState);
+  padding: var(--button-paddingBlock);
 }
 
 :is([pgs~=button], [pgs*="button["])[pgs*="'btnForHeader'"] {
-  --buttonHeader-border-width: 0px;
-  --button-border-width: var(--buttonHeader-border-width);
+  --button-borderWidth: 0px;
   min-height: var(--header-size);
   overflow-wrap: break-word;
 }
 
 :is([pgs~=button], [pgs*="button["])[pgs*="'btnForNavSmart'"] {
-  --button-padding: var(--button-padding-right);
+  padding: var(--button-paddingInline);
   --button-height: 100%;
   --icon-size: 1.2em;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   text-align: center;
-  --button-border-color: transparent;
+  --button-borderColor: transparent;
   --button-background: transparent;
 }
 
 :is([pgs~=button], [pgs*="button["])[pgs*="'btnForNavSmart'"]:where([aria-current=page]), :is([pgs~=button], [pgs*="button["])[pgs*="'btnForNavSmart'"]:where([aria-selected=true]) {
   color: var(--button-color-current);
   background: var(--button-background-current);
-  border-color: var(--button-border-color-current);
+  border-color: var(--button-borderColor-current);
   box-shadow: var(--button-shadow-current);
 }
 
@@ -4671,6 +4669,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --button-size: .35rem;
   --button-height: auto;
   --button-fontSize: 1.1rem;
+  --button-borderWidth: 0px;
   --button-borderRadius: 999px;
   --button-gap: .2rem;
   --icon-size: var(--navSmart-iconSize, 2.2rem);
@@ -5185,7 +5184,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --checkbox-check-color: var(--color-primary);
   --checkbox-box-background: var(--color-white);
   --checkbox-box-background-hover: var(--hover-background);
-  --checkbox-padding-inline: var(--gap-texts);
+  --checkbox-paddingInline: var(--gap-texts);
   --checkbox-icon: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 448 512%27%3E%3Cpath d=%27M424 112 a34 34 0 0 1 0 48 L200 384 a34 34 0 0 1 -48 0 L24 256 a34 34 0 0 1 48 -48 L176 312 L376 112 a34 34 0 0 1 48 0 z%27%3E%3C/path%3E%3C/svg%3E");
   position: relative;
   display: flex;
@@ -5203,7 +5202,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   width: fit-content;
   cursor: pointer;
   display: flex;
-  padding-inline: var(--checkbox-padding-inline);
+  padding-inline: var(--checkbox-paddingInline);
 }
 
 [pgs~=checkboxBackground]:where(label):has(input:disabled),
@@ -5349,7 +5348,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   border-radius: var(--checkboxBackground-borderRadius);
   background-color: var(--checkboxBackground-background);
   border: var(--border-complete);
-  border-color: var(--clickable-border-color);
+  border-color: var(--clickable-borderColor);
   margin-bottom: 0;
   transition: var(--clickable-transition);
 }
@@ -5361,13 +5360,13 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 @media (hover: hover) and (pointer: fine) {
   [pgs~=checkboxBackground]:hover:not(:has(input:checked, input:disabled)) {
     background-color: var(--hover-background);
-    border-color: var(--hover-border-color);
+    border-color: var(--hover-borderColor);
     color: var(--hover-color);
   }
 }
 [pgs~=checkboxBackground]:has(input:checked) {
   background-color: var(--twoState-background);
-  border-color: var(--twoState-border-color);
+  border-color: var(--twoState-borderColor);
   color: var(--twoState-color);
 }
 
@@ -5691,7 +5690,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=menu], [pgs*="menu["])[pgs*="'menuIconOnlyCurrent'"] a:not([aria-current]:not([aria-current=false])) {
-  --button-padding-left: var(--button-padding-right);
+  padding-left: var(--button-paddingInline);
 }
 
 :is([pgs~=menu], [pgs*="menu["])[pgs*="'menuIconOnlyCurrent'"] a:not([aria-current]:not([aria-current=false])) > i,
@@ -5708,7 +5707,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=menu], [pgs*="menu["])[pgs*="'menuShort'"] > ul > li a {
-  margin-right: calc(var(--button-padding-block) * -1);
+  margin-right: calc(var(--button-paddingBlock) * -1);
 }
 
 :is([pgs~=menu], [pgs*="menu["])[pgs*="'menuShort'"] > ul > li a[aria-current=page] {
@@ -5900,7 +5899,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --dropdown-borderRadius: var(--dropdown-padding);
   --dropdown-padding: 1rem;
   --dropdown-inline-size: max-content;
-  --dropdown-max-inline-size: min(400px, calc(100vw - 16px));
+  --dropdown-maxInlineSize: min(400px, calc(100vw - 16px));
   --dropdown-display: block;
   --dropdown-arrow-size: 7px;
   --_dropdown-left: 0px;
@@ -5922,7 +5921,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   inset: var(--_dropdown-top) auto auto var(--_dropdown-left);
   z-index: var(--zIndex-dropdown);
   inline-size: var(--dropdown-inline-size);
-  max-inline-size: var(--dropdown-max-inline-size);
+  max-inline-size: var(--dropdown-maxInlineSize);
   overflow: auto;
   padding: var(--dropdown-padding);
   border: var(--dropdown-border);
@@ -7156,7 +7155,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 :is([pgs~=search], [pgs*="search["]) {
   --search-height: var(--font-size-text);
-  --search-padding-block: var(--border-radius-input);
+  --search-paddingBlock: var(--border-radius-input);
   --search-borderRadius: calc(var(--border-radius-input) + (var(--search-height) /2));
   --search-background: var(--color-box);
   --search-color: var(--color-black);
@@ -7195,7 +7194,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   height: var(--search-height);
   min-width: auto;
   box-sizing: content-box;
-  padding-block: var(--search-padding-block);
+  padding-block: var(--search-paddingBlock);
   color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
   font-family: var(--font);
   font-size: var(--font-size-text);
@@ -8019,47 +8018,47 @@ dialog :is([pgs~=search], [pgs*="search["]) :where([pgs~=_modal-close]) {
 :root {
   --heading-color: var(--color-black);
   --heading-family: var(--font-heading);
-  --heading-line-height: 1.1;
-  --heading-letter-spacing: normal;
+  --heading-lineHeight: 1.1;
+  --heading-letterSpacing: normal;
   --heading-size-h1: 7.2rem;
   --heading-color-h1: var(--heading-color);
   --heading-family-h1: var(--font-heading);
-  --heading-line-height-h1: var(--heading-line-height);
-  --heading-letter-spacing-h1: var(--heading-letter-spacing);
+  --heading-lineHeight-h1: var(--heading-lineHeight);
+  --heading-letterSpacing-h1: var(--heading-letterSpacing);
   --heading-size-h2: 4.45rem;
   --heading-color-h2: var(--heading-color);
   --heading-family-h2: var(--font-heading);
-  --heading-line-height-h2: var(--heading-line-height);
-  --heading-letter-spacing-h2: var(--heading-letter-spacing);
+  --heading-lineHeight-h2: var(--heading-lineHeight);
+  --heading-letterSpacing-h2: var(--heading-letterSpacing);
   --heading-size-h3: 2.75rem;
   --heading-color-h3: var(--heading-color);
   --heading-family-h3: var(--font-heading);
-  --heading-line-height-h3: var(--heading-line-height);
-  --heading-letter-spacing-h3: var(--heading-letter-spacing);
+  --heading-lineHeight-h3: var(--heading-lineHeight);
+  --heading-letterSpacing-h3: var(--heading-letterSpacing);
   --heading-size-h4: 1.7rem;
   --heading-color-h4: var(--heading-color);
   --heading-family-h4: var(--font-heading);
-  --heading-line-height-h4: var(--heading-line-height);
-  --heading-letter-spacing-h4: var(--heading-letter-spacing);
+  --heading-lineHeight-h4: var(--heading-lineHeight);
+  --heading-letterSpacing-h4: var(--heading-letterSpacing);
   --heading-size-h5: calc(1.7rem - 0.1rem);
   --heading-color-h5: var(--heading-color);
   --heading-family-h5: var(--font-heading);
-  --heading-line-height-h5: var(--heading-line-height);
-  --heading-letter-spacing-h5: var(--heading-letter-spacing);
+  --heading-lineHeight-h5: var(--heading-lineHeight);
+  --heading-letterSpacing-h5: var(--heading-letterSpacing);
   --heading-size-h6: calc(1.7rem - 0.1rem);
   --heading-color-h6: var(--heading-color);
   --heading-family-h6: var(--font-heading);
-  --heading-line-height-h6: var(--heading-line-height);
-  --heading-letter-spacing-h6: var(--heading-letter-spacing);
+  --heading-lineHeight-h6: var(--heading-lineHeight);
+  --heading-letterSpacing-h6: var(--heading-letterSpacing);
 }
 
 [pgs~=h1] {
   font-family: var(--heading-family-h1, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h1, 7.2rem) / 8);
   font-size: var(--heading-size-h1, 7.2rem);
-  line-height: var(--heading-line-height-h1, var(--heading-line-height));
+  line-height: var(--heading-lineHeight-h1, var(--heading-lineHeight));
   color: var(--heading-color-h1, var(--color-black));
-  letter-spacing: var(--heading-letter-spacing-h1, var(--heading-letter-spacing));
+  letter-spacing: var(--heading-letterSpacing-h1, var(--heading-letterSpacing));
   min-width: 0;
   font-weight: 900;
   overflow-wrap: anywhere;
@@ -8085,9 +8084,9 @@ dialog :is([pgs~=search], [pgs*="search["]) :where([pgs~=_modal-close]) {
   font-family: var(--heading-family-h2, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h2, 4.45rem) / 8);
   font-size: var(--heading-size-h2, 4.45rem);
-  line-height: var(--heading-line-height-h2, var(--heading-line-height));
+  line-height: var(--heading-lineHeight-h2, var(--heading-lineHeight));
   color: var(--heading-color-h2, var(--color-black));
-  letter-spacing: var(--heading-letter-spacing-h2, var(--heading-letter-spacing));
+  letter-spacing: var(--heading-letterSpacing-h2, var(--heading-letterSpacing));
   min-width: 0;
   font-weight: 900;
   overflow-wrap: anywhere;
@@ -8113,9 +8112,9 @@ dialog :is([pgs~=search], [pgs*="search["]) :where([pgs~=_modal-close]) {
   font-family: var(--heading-family-h3, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h3, 2.75rem) / 8);
   font-size: var(--heading-size-h3, 2.75rem);
-  line-height: var(--heading-line-height-h3, var(--heading-line-height));
+  line-height: var(--heading-lineHeight-h3, var(--heading-lineHeight));
   color: var(--heading-color-h3, var(--color-black));
-  letter-spacing: var(--heading-letter-spacing-h3, var(--heading-letter-spacing));
+  letter-spacing: var(--heading-letterSpacing-h3, var(--heading-letterSpacing));
   min-width: 0;
   font-weight: 900;
   overflow-wrap: anywhere;
@@ -8141,9 +8140,9 @@ dialog :is([pgs~=search], [pgs*="search["]) :where([pgs~=_modal-close]) {
   font-family: var(--heading-family-h4, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h4, 1.7rem) / 8);
   font-size: var(--heading-size-h4, 1.7rem);
-  line-height: var(--heading-line-height-h4, var(--heading-line-height));
+  line-height: var(--heading-lineHeight-h4, var(--heading-lineHeight));
   color: var(--heading-color-h4, var(--color-black));
-  letter-spacing: var(--heading-letter-spacing-h4, var(--heading-letter-spacing));
+  letter-spacing: var(--heading-letterSpacing-h4, var(--heading-letterSpacing));
   min-width: 0;
   font-weight: 900;
   overflow-wrap: anywhere;
@@ -8169,9 +8168,9 @@ dialog :is([pgs~=search], [pgs*="search["]) :where([pgs~=_modal-close]) {
   font-family: var(--heading-family-h5, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h5, 1.7rem) / 8);
   font-size: var(--heading-size-h5, 1.7rem);
-  line-height: var(--heading-line-height-h5, var(--heading-line-height));
+  line-height: var(--heading-lineHeight-h5, var(--heading-lineHeight));
   color: var(--heading-color-h5, var(--color-black));
-  letter-spacing: var(--heading-letter-spacing-h5, var(--heading-letter-spacing));
+  letter-spacing: var(--heading-letterSpacing-h5, var(--heading-letterSpacing));
   min-width: 0;
   font-weight: 700;
   overflow-wrap: anywhere;
@@ -8197,9 +8196,9 @@ dialog :is([pgs~=search], [pgs*="search["]) :where([pgs~=_modal-close]) {
   font-family: var(--heading-family-h6, var(--font-heading));
   margin-bottom: calc(var(--heading-size-h6, 1.7rem) / 8);
   font-size: var(--heading-size-h6, 1.7rem);
-  line-height: var(--heading-line-height-h6, var(--heading-line-height));
+  line-height: var(--heading-lineHeight-h6, var(--heading-lineHeight));
   color: var(--heading-color-h6, var(--color-black));
-  letter-spacing: var(--heading-letter-spacing-h6, var(--heading-letter-spacing));
+  letter-spacing: var(--heading-letterSpacing-h6, var(--heading-letterSpacing));
   min-width: 0;
   font-weight: 500;
   overflow-wrap: anywhere;
@@ -8225,7 +8224,7 @@ dialog :is([pgs~=search], [pgs*="search["]) :where([pgs~=_modal-close]) {
   --text-color: var(--color-text);
   --text-family: var(--font);
   --text-size: var(--font-size-text);
-  --text-line-height: 1.5;
+  --text-lineHeight: 1.5;
   --text-overflowWrap: anywhere;
 }
 
@@ -8233,7 +8232,7 @@ dialog :is([pgs~=search], [pgs*="search["]) :where([pgs~=_modal-close]) {
   color: var(--text-color);
   font-family: var(--text-family);
   font-size: var(--text-size);
-  line-height: var(--text-line-height);
+  line-height: var(--text-lineHeight);
   overflow-wrap: var(--text-overflowWrap);
 }
 

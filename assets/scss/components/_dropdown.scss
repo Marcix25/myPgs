@@ -6,7 +6,7 @@
     --dropdown-borderRadius: var(--dropdown-padding);
     --dropdown-padding: 1rem;
     --dropdown-inline-size: max-content;
-    --dropdown-max-inline-size: min(400px, calc(100vw - 16px));
+    --dropdown-maxInlineSize: min(400px, calc(100vw - 16px));
     --dropdown-display: block;
     --dropdown-arrow-size: 7px;
     --_dropdown-left: 0px;
@@ -24,7 +24,7 @@
         inset: var(--_dropdown-top) auto auto var(--_dropdown-left);
         z-index: var(--zIndex-dropdown);
         inline-size: var(--dropdown-inline-size);
-        max-inline-size: var(--dropdown-max-inline-size);
+        max-inline-size: var(--dropdown-maxInlineSize);
         overflow: auto;
         padding: var(--dropdown-padding);
         border: var(--dropdown-border);

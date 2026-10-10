@@ -164,14 +164,14 @@ per-element recolor, `--hover-color`, `--hover-border`, `--hover-shadow-color`, 
 `button['btnNotHover']`): delete them from the markup and from
 your stylesheets. Two names come back with a new meaning, so do not just keep your old rules: they are now
 global tokens on `:root`, set once to recolor every hover. What remains is a plain CSS hover on each
-component, read from `--hover-background`, `--hover-border-color` and `--hover-color` in
+component, read from `--hover-background`, `--hover-borderColor` and `--hover-color` in
 `base/_variables.scss` (the secondary soft color, the normal border color and black): `button` (`--button-*-hover`), a link `card`
 (`--card-background`), a link `box` (`--box-background`), the table row, the search suggestion, the slides
 dot, the box of a checkbox and a radio (`--checkbox-box-background-hover`), `checkboxBackground`, the file
 button of a file input and the outline of an input. A component can still override its own token. The current and the two-state
-looks work the same way: `--current-background`, `--current-border-color`, `--current-color` and
-`--twoState-background`, `--twoState-border-color`, `--twoState-color`. So does the resting look of a clickable
-surface: `--clickable-background`, `--clickable-border-color` and `--clickable-color` (box color, border color,
+looks work the same way: `--current-background`, `--current-borderColor`, `--current-color` and
+`--twoState-background`, `--twoState-borderColor`, `--twoState-color`. So does the resting look of a clickable
+surface: `--clickable-background`, `--clickable-borderColor` and `--clickable-color` (box color, border color,
 black), plus `--clickable-transition` (400 ms on the four properties, `none` under `prefers-reduced-motion`),
 read by `button`, a link `card`, a link `box`, the file button, `checkboxBackground` and the label of a
 checkbox or radio. A link card and a link box are now box-colored at rest with black text, where they were white
@@ -446,11 +446,11 @@ exist while `pageShellAsideScroll` is on, and the old names read as if every sid
 | `--border-complete-hover` | gone; nothing replaces it |
 | `--button-background-active` | `--button-background-twoState` |
 | `--button-color-active` | `--button-color-twoState` |
-| `--button-border-color-active` | `--button-border-color-twoState` |
+| `--button-border-color-active` | `--button-borderColor-twoState` |
 
 The three button custom properties were renamed to say what they actually do: "active" was only ever
 read under `:has(input:checked)`, so a two-state control wearing the name of a generic state. The three
-defaults come from the global `--twoState-background`, `--twoState-border-color` and
+defaults come from the global `--twoState-background`, `--twoState-borderColor` and
 `--twoState-color` in `base/_variables.scss`. The reading
 also moved — it used to sit inside the `twoState` mixin, so only that control picked it up; it is now
 in `buttonBase()`, so any element marked `pgs="button"` that wraps a checked input takes the checked
@@ -777,6 +777,7 @@ makes it one way. The renames come first, then what behaves differently under a 
 | `sctSpecificity-child` (and the mixin `sectionSpecifity-child`) | `section-specificity` (and `sectionSpecificity-child`) |
 | `data-dropdown-side="bottom"` on `dropdown-content` | `pgs-state="sideBottom"` (`sideTop`, `sideRight`, `sideLeft`) |
 | `data-header-scroll="true"` on a header | `pgs-state="hiddenByScroll"`. `data-navsmart-scroll` is gone: nothing ever wrote it |
+| every component custom property whose property is two words in CSS | camelCase for that property, the state still last: `--button-border-color[-hover\|-current\|-twoState]` → `--button-borderColor[…]`, `--button-border-width\|-style` → `--button-borderWidth\|borderStyle`, `--button-padding-block` → `--button-paddingBlock`, `--checkbox-padding-inline`, `--header-padding-block\|-inline`, `--main-padding-top\|-bottom`, `--pageShell-padding-inline\|-bottom`, `--search-padding-block`, `--section-margin-block`, `--dropdown-max-inline-size`, `--heading-letter-spacing[-h1…-h6]`, `--heading-line-height[-h1…-h6]`, `--text-line-height`, `--margin-{top,right,bottom,left,block,inline}-sign` → `--marginTop-sign` and so on, and the global state families `--{hover,current,twoState,clickable}-border-color` → `--…-borderColor`. The global `--border-*`, `--outline-*`, `--font-*`, `--box-shadow` and `--text-shadow` keep the hyphen |
 | `--logo-finter` | `--logo-filter` |
 | `--header-letter-spacing`, `--header-letter-spacing-h1` … `-h6` | `--heading-letter-spacing`, `--heading-letter-spacing-h1` … `-h6`. They sat in the header's namespace and the `heading()` mixin never read them |
 | mixins `rage()`, `inputcolor()`; `label($borderadius)` and `--label-borderadius` | `range()`, `inputColor()`; `label($borderRadius)` and `--label-borderRadius` |
@@ -784,11 +785,13 @@ makes it one way. The renames come first, then what behaves differently under a 
 | `pgs.slides.api(el).previous()` | `prev()` |
 | `pgs.search.api(el).refresh()`, which re-ran the current query and returned a Promise | `search()` does that; `refresh()` rebuilds the instance, like everywhere else |
 | `--heightOfHeader`, `--heightOfHeaderScroll`, `--heightOfNavSmart`, `--heightOfNavSmartScroll` | `--_header-height`, `--_header-heightScroll`, `--_navSmart-height`, `--_navSmart-heightScroll`. The JS writes them, so they take the `_`: read them, never set them (a theme that declared `--heightOfHeader: 75px` as a first-paint fallback now declares `--_header-height: 75px`) |
-| `--button-font-size`, `--badge-icon-size`, `--badge-text-size`, `--search-paddingBlock` | `--button-fontSize`, `--badge-iconSize`, `--badge-textSize`, `--search-padding-block` |
+| `--button-font-size`, `--badge-icon-size`, `--badge-text-size` | `--button-fontSize`, `--badge-iconSize`, `--badge-textSize` |
 | `--search-suggestions-item-hover-background` and `-color`, `--search-suggestions-item-selected-background` and `-color`, `--table-row-hover-background` and `-color` | the state goes last, like on button and breadcrumb: `--search-suggestions-item-background-hover`, `-color-hover`, `-background-selected`, `-color-selected`; `--table-row-background-hover`, `--table-row-color-hover` |
 | `--button-primaryColor` | gone: it only held `--color-primary-strong`, which `btnStrong` now reads directly. Use `--color-primary-strong`, or set `--button-background` on the button |
 | `--button-*-hover`, `--button-*-current`, `--button-*-twoState` (background, color, border color, shadow) | declared on every button at rest, from the global tokens, so a theme can set any of them on one element or a container. The hover rule only applies them |
-| `--checkboxBackground-background-checked` | gone: a checked `checkboxBackground` reads `--twoState-background`, `--twoState-border-color` and `--twoState-color`. It also has a border now (`--border-complete`) and takes `--hover-background`, `--hover-border-color` and `--hover-color` on hover |
+| `--checkboxBackground-background-checked` | gone: a checked `checkboxBackground` reads `--twoState-background`, `--twoState-borderColor` and `--twoState-color`. It also has a border now (`--border-complete`) and takes `--hover-background`, `--hover-borderColor` and `--hover-color` on hover |
+| `--button-padding`, `--button-padding-left`, `--button-padding-right`, `--button-padding-left-icon`, `--buttonHeader-border-width` | gone. A button reads `--button-paddingBlock` and `--button-paddingInline`, and a button with an icon takes the shorter `--button-paddingInline-short` on the side of the icon (the left one, the right one with `btnReverse`). To give one button its own padding write `padding: …` on it, or set the two properties; `--button-padding: …` does nothing now, and `var(--button-padding)` is invalid. A header or navSmart button sets `--button-borderWidth: 0px` itself |
+| hover on a current or two-state button | the hover rule is heavier than the `btnCurrent` and `btnTwoState` ones, so a current button takes the hover look while the pointer is on it (it used to keep the current one); the `btnText` bottom edge turns secondary under the pointer too |
 | `btnNotHover` (new) | a button that must not answer the pointer: `button['btnNotHover']`. It replaces the `hoverNot` the buttons used to take; cards and boxes have no opt-out any more |
 | `btnText` | text only, black in every state, with a 3 px bottom edge that is secondary on hover and primary when current, no radius, no shadow; it used to take the accent color on hover, current and checked, with no bottom edge |
 | `btnTransparent` | on hover it fills like any other button; it used to color only the label |
@@ -818,7 +821,7 @@ Same name, different behavior:
   `button`, `box` and `card`, the table row, the search suggestion, the slides dot and the checkbox
   used `--color-primary-soft`.
   A dropdown panel is as wide as its content up to
-  `--dropdown-max-inline-size` instead of always 400px.
+  `--dropdown-maxInlineSize` instead of always 400px.
 - **Negative margins and z-index stop leaking.** `mgNegative` (and the per-side `Negative` flags)
   negated every margin utility of every descendant; each root now resets its own sign. A `zIndex`
   flag no longer reaches a descendant that carries a `zIndex` root of its own.
@@ -1048,6 +1051,9 @@ grep -rnE '\.(select|previous)\(|\bgetCurrent\(\)|\.refresh\(\)' .
 
 # 40. the two helpers that moved under pgs.helper
 grep -rnE '\bpgs\.(init|formValidate)\b|\b(pgsApi|mypgs\.pgs)\.(init|formValidate)\b' .
+
+# 41. component custom properties whose property is two words (rename by the "Consolidation pass" table)
+grep -rnE -- '--(button|buttonHeader)-(border-(color|width|style)|padding(-(block|left|right|left-icon))?\b)|--(clickable|hover|current|twoState)-border-color|--(header|main|pageShell|search|checkbox|section|dropdown)-(padding|margin|max)-(block|inline|top|bottom|size)|--(heading|header)-(letter-spacing|line-height)|--text-line-height|--margin-(top|right|bottom|left|block|inline)-sign' .
 ```
 
 Hit 5 needs reading rather than replacing: an `icon` that wraps another element wanted the surface
@@ -1085,7 +1091,7 @@ sees an image written within three lines of the card, so an image printed by a h
 (`PGS_fn_img()` and the like) has to be found by reading the card templates, and wrapped in
 `card-imgForChild`.
 
-Hit 40 is a plain substitution too: `pgs.init(` becomes `pgs.helper.init(` and `pgs.formValidate` becomes
+Hit 41 is a plain substitution by the "Consolidation pass" table: each old name becomes the camelCase one, and the same grep also finds the names in a theme's own `var(...)`. Hit 40 is a plain substitution too: `pgs.init(` becomes `pgs.helper.init(` and `pgs.formValidate` becomes
 `pgs.helper.formValidate`. Hits 36 and 37 are plain substitutions by the "Consolidation pass" table, with one caution for 37:
 `select[...]` is only the user-select utility when its flag is `selNone` or `selText`; the `select` of
 a form field is unchanged. Hit 38 is a substitution too, except a stylesheet that read

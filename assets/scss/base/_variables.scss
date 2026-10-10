@@ -74,23 +74,23 @@
     &:root {
         //## clickable
         --clickable-background: var(--color-box);
-        --clickable-border-color: var(--border-color);
+        --clickable-borderColor: var(--border-color);
         --clickable-color: var(--color-black);
         --clickable-transition: background-color 400ms ease-out, border-color 400ms ease-out, outline-color 400ms ease-out, color 400ms ease-out;
         //## hover
         // button, card, box, table row, search, checkbox and radio box, checkboxBackground, file input
         --hover-background: var(--color-secondary-soft);
-        --hover-border-color: var(--border-color);
+        --hover-borderColor: var(--border-color);
         --hover-color: var(--color-secondary-strong);
         //## current
         // button
         --current-background: var(--color-primary-soft);
-        --current-border-color: var(--border-color);
+        --current-borderColor: var(--border-color);
         --current-color: var(--color-primary-strong);
         //## twoState
         // button
         --twoState-background: var(--color-tertiary-soft);
-        --twoState-border-color: var(--border-color);
+        --twoState-borderColor: var(--border-color);
         --twoState-color: var(--color-tertiary-strong);
 
         @media (prefers-reduced-motion: reduce) { --clickable-transition: none; }

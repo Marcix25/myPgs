@@ -4,13 +4,12 @@
 @mixin _buttonColor($for: "") {
     color: var(--button-color#{$for});
     background: var(--button-background#{$for});
-    border-color: var(--button-border-color#{$for});
+    border-color: var(--button-borderColor#{$for});
     box-shadow: var(--button-shadow#{$for});
 }
 
 //## BUTTON BASE
 @mixin buttonBase() {
-    --button-size: var(--SIZE-texts);
     /// color
     --button-color: var(--clickable-color);
     --button-color-hover: var(--hover-color);
@@ -27,22 +26,21 @@
     --button-shadow-current: 0 .2rem .8rem color-mix(in srgb, var(--color-blackFixed) 10%, transparent);
     --button-shadow-twoState: var(--button-shadow);
     /// border
-    --button-border-color: var(--clickable-border-color);
-    --button-border-color-hover: var(--hover-border-color);
-    --button-border-color-current: var(--current-border-color);
-    --button-border-color-twoState: var(--twoState-border-color);
+    --button-borderColor: var(--clickable-borderColor);
+    --button-borderColor-hover: var(--hover-borderColor);
+    --button-borderColor-current: var(--current-borderColor);
+    --button-borderColor-twoState: var(--twoState-borderColor);
     //
-    --button-border-width: var(--border-width);
-    --button-border-style: var(--border-style);
+    --button-borderWidth: var(--border-width);
+    --button-borderStyle: var(--border-style);
     --button-borderRadius: var(--border-radius);
     /// size
+    --button-size: var(--SIZE-texts);
     --button-gap: calc(var(--button-size) / 3);
     --button-fontSize: var(--font-size-text);
-    --button-padding-block: var(--button-size);
-    --button-padding-left: calc(var(--button-size) * 2);
-    --button-padding-right: calc(var(--button-size) * 2);
-    --button-padding-left-icon: calc(var(--button-size) * 1.5);
-    --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
+    --button-paddingBlock: var(--button-size);
+    --button-paddingInline: calc(var(--button-size) * 2);
+    --button-paddingInline-short: calc(var(--button-size) * 1.5);
     --button-height: max-content;
     /// color
     @include _buttonColor();
@@ -55,15 +53,15 @@
     line-height: 1;
     text-decoration: none;
     user-select: none;
-    border: 0 var(--button-border-style) var(--button-border-color);
-    border-width: var(--button-border-width);
+    border: 0 var(--button-borderStyle) var(--button-borderColor);
+    border-width: var(--button-borderWidth);
     border-radius: var(--button-borderRadius);
     transition: var(--clickable-transition);
     display: flex;
     gap: var(--button-gap);
     align-items: center;
     justify-content: center;
-    padding: var(--button-padding);
+    padding: var(--button-paddingBlock) var(--button-paddingInline);
     height: var(--button-height);
     width: fit-content;
 
@@ -73,16 +71,9 @@
     }
 
     //## BUTTON WITH ICON
-    &:where(:has(i)),
-    &:where(:has(:is([pgs~="icon"], [pgs*="icon\5B"]))) {
-        --button-padding-left: var(--button-padding-left-icon);
-    }
-
-    //### BUTTON WITH ICON - REVERSE
-    &:where([pgs*="'btnReverse'"]:has(i)),
-    &:where([pgs*="'btnReverse'"]:has(:is([pgs~="icon"], [pgs*="icon\5B"]))) {
-        --button-padding-right: var(--button-padding-left-icon);
-        --button-padding-left: calc(var(--button-size) * 2);
+    &:where(:has(:is([pgs~="icon"], [pgs*="icon\5B"], i))) {
+        padding-left: var(--button-paddingInline-short);
+        padding-right: var(--button-paddingInline);
     }
 }
 
@@ -94,7 +85,7 @@
 @mixin buttonHover() {
     @media (hover: hover) and (pointer: fine) {
         &:hover {
-            &:where(:not(:disabled, [disabled], [pgs*="'btnNotHover'"])) { @include _buttonColor("-hover"); }
+            &:where(:not(:disabled, [disabled])) { @include _buttonColor("-hover"); }
         }
     }
 }
@@ -128,9 +119,17 @@
 }
 
 //# TYPE
+//## REVERSE BUTTON
+@mixin buttonReverseIcon() {
+    &:where(:has(:is([pgs~="icon"], [pgs*="icon\5B"], i))) {
+        padding-left: var(--button-paddingInline);
+        padding-right: var(--button-paddingInline-short);
+    }
+}
+
 //## BUTTON ICON ONLY
 @mixin buttonIconOnly() {
-    --button-padding: var(--button-padding-block);
+    padding: var(--button-paddingBlock);
     flex: 0 0;
     aspect-ratio: 1;
     justify-content: center;
@@ -155,7 +154,7 @@
 
 //## BUTTON VERTICAL
 @mixin buttonVertical() {
-    --button-padding: var(--button-padding-right);
+    padding: var(--button-paddingInline);
     --button-height: 100%;
     --icon-size: 1.2em;
     justify-content: center;
@@ -166,16 +165,16 @@
 
 //## BUTTON TRANSPARENT
 @mixin buttonTransparent() {
-    --button-border-color: transparent;
+    --button-borderColor: transparent;
     --button-background: transparent;
 }
 
 //## BUTTON TEXT
 @mixin buttonText() {
-    --button-border-color: transparent;
-    --button-border-width: 0px 0px 3px 0px;
-    --button-border-color-hover: var(--color-secondary);
-    --button-border-color-current: var(--color-primary);
+    --button-borderColor: transparent;
+    --button-borderWidth: 0px 0px 3px 0px;
+    --button-borderColor-hover: var(--color-secondary);
+    --button-borderColor-current: var(--color-primary);
     --button-borderRadius: 0px;
     --button-background: transparent;
     --button-background-current: transparent;
@@ -191,13 +190,12 @@
 }
 
 //## BUTTON PADDING EQUAL
-@mixin buttonPaddingEqual() { --button-padding: var(--button-padding-block); }
+@mixin buttonPaddingEqual() { padding: var(--button-paddingBlock); }
 
 //# HEADER & NAVSMART
 //## HEADER
 @mixin buttonForHeader() {
-    --buttonHeader-border-width: 0px;
-    --button-border-width: var(--buttonHeader-border-width);
+    --button-borderWidth: 0px;
     min-height: var(--header-size);
     overflow-wrap: break-word;
 }
@@ -214,6 +212,7 @@
     --button-size: .35rem;
     --button-height: auto;
     --button-fontSize: 1.1rem;
+    --button-borderWidth: 0px;
     --button-borderRadius: 999px;
     --button-gap: .2rem;
     --icon-size: var(--navSmart-iconSize, 2.2rem);

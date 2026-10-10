@@ -16,7 +16,7 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `btnIconOnly`: identifies a compact button composed primarily of an icon.
 - `btnMini`: applies the smallest size variant.
 - `btnVertical`: stacks the content vertically, the icon above the label, with the same padding on every side.
-- `btnTwoState`: for a label marked as a button that wraps its own checkbox or radio: hides the input, which still carries the semantics and the keyboard, and draws the checked state with --button-background-twoState, --button-color-twoState, --button-border-color-twoState and --button-shadow-twoState. Without it the input stays visible and nothing changes when it is checked.
+- `btnTwoState`: for a label marked as a button that wraps its own checkbox or radio: hides the input, which still carries the semantics and the keyboard, and draws the checked state with --button-background-twoState, --button-color-twoState, --button-borderColor-twoState and --button-shadow-twoState. Without it the input stays visible and nothing changes when it is checked.
 - `btnCurrent`: gives the button the current look — the color, background, border and shadow of --button-*-current — while it carries aria-current="page" or aria-selected="true". Without it those attributes change nothing, so a button that is never marked current does not pay for the rule.
 - `btnForNavSmart`: sizes the button as an item of the floating navSmart bar: icon above the label, no background, pill-shaped, and the current look for the page you are on (aria-current) or the panel that is open (aria-expanded). Next to btnIconOnly it drops the label's minimum width and becomes a square as wide as the bar is tall.
 - `btnTransparent`: drops the background and the border at rest, so only the label shows; on hover it fills like any other button. Unlike btnText it leaves the other states alone, so the same button still fills in when it carries btnStrong or aria-current.
@@ -50,13 +50,13 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `--button-background-current`
 - `--button-background-hover`
 - `--button-background-twoState`
-- `--button-border-color`
-- `--button-border-color-current`
-- `--button-border-color-hover`
-- `--button-border-color-twoState`
-- `--button-border-style`
-- `--button-border-width`
+- `--button-borderColor`
+- `--button-borderColor-current`
+- `--button-borderColor-hover`
+- `--button-borderColor-twoState`
 - `--button-borderRadius`
+- `--button-borderStyle`
+- `--button-borderWidth`
 - `--button-color`
 - `--button-color-current`
 - `--button-color-hover`
@@ -64,11 +64,9 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `--button-fontSize`
 - `--button-gap`
 - `--button-height`
-- `--button-padding`
-- `--button-padding-block`
-- `--button-padding-left`
-- `--button-padding-left-icon`
-- `--button-padding-right`
+- `--button-paddingBlock`
+- `--button-paddingInline`
+- `--button-paddingInline-short`
 - `--button-shadow`
 - `--button-shadow-current`
 - `--button-shadow-hover`
@@ -244,7 +242,7 @@ Strong button using the quaternary color palette.
 
 ### Checked
 
-A label marked as a button wrapping its own checkbox or radio: the input carries the semantics and the keyboard behavior, the button draws the state. Retune the checked look with --button-background-twoState, --button-color-twoState and --button-border-color-twoState (or, for every button at once, --twoState-background, --twoState-color and --twoState-border-color).
+A label marked as a button wrapping its own checkbox or radio: the input carries the semantics and the keyboard behavior, the button draws the state. Retune the checked look with --button-background-twoState, --button-color-twoState and --button-borderColor-twoState (or, for every button at once, --twoState-background, --twoState-color and --twoState-borderColor).
 
 ```html
 <label pgs="button['btnTwoState']">
