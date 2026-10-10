@@ -81,6 +81,7 @@ const referenceFiles = [
     "helper/pgs.html",
     "helper/init.html",
     "helper/formValidate.html",
+    "helper/helper.html",
 ];
 
 const ENTRY_ICONS = {
@@ -130,6 +131,7 @@ const ENTRY_ICONS = {
     "helper/pgs.html": "fa-code",
     "helper/init.html": "fa-rotate",
     "helper/formValidate.html": "fa-pen-to-square",
+    "helper/helper.html": "fa-toolbox",
 };
 const DEFAULT_ENTRY_ICON = "fa-square";
 

@@ -174,14 +174,14 @@
 
 //## BUTTON TRANSPARENT
 @mixin buttonTransparent() {
-    --button-border-width: 0;
+    --button-border-color: transparent;
     --button-background: transparent;
 }
 
 //## BUTTON TEXT
 @mixin buttonText() {
     $color: var(--button-primaryColor);
-    --button-border-width: 0;
+    --button-border-color: transparent;
     --button-borderRadius: 0px;
     --button-background: transparent;
     --button-background-current: transparent;

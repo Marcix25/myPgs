@@ -97,6 +97,7 @@ reference source before creating new markup.
 - [pgs](docs/helper/pgs.md)
 - [init](docs/helper/init.md)
 - [formValidate](docs/helper/formValidate.md)
+- [helper](docs/helper/helper.md)
 
 ### Base
 

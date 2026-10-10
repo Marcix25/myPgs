@@ -4536,12 +4536,12 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=button], [pgs*="button["])[pgs*="'btnTransparent'"] {
-  --button-border-width: 0;
+  --button-border-color: transparent;
   --button-background: transparent;
 }
 
 :is([pgs~=button], [pgs*="button["])[pgs*="'btnText'"] {
-  --button-border-width: 0;
+  --button-border-color: transparent;
   --button-borderRadius: 0px;
   --button-background: transparent;
   --button-background-current: transparent;
@@ -4604,7 +4604,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   align-items: center;
   flex-direction: column;
   text-align: center;
-  --button-border-width: 0;
+  --button-border-color: transparent;
   --button-background: transparent;
 }
 
@@ -6352,31 +6352,16 @@ html:has(dialog[open]) {
     min-width: var(--slides-width-mobile);
   }
 }
-:is([pgs~=slides], [pgs*="slides["]):has([pgs~=_slides-prev], [pgs~=_slides-next]) {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  gap: var(--gap-texts);
-  align-items: center;
-}
-
-:is([pgs~=slides], [pgs*="slides["]):has([pgs~=_slides-prev], [pgs~=_slides-next]) :where([pgs~=slides-container]) {
-  grid-column: 1/-1;
-  grid-row: 2;
-}
-
 :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prev],
 :is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next] {
   position: relative;
   z-index: 4;
-  grid-row: 1;
+  order: -1;
 }
 
-:is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prev] {
-  grid-column: 2;
-}
-
-:is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next] {
-  grid-column: 3;
+:is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-prev]:where([pgs~=_slides-prev]),
+:is([pgs~=slides], [pgs*="slides["]) [pgs~=_slides-next]:where([pgs~=_slides-prev]) {
+  margin-left: auto;
 }
 
 :is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesArrowsCenter'"] {
