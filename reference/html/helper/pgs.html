@@ -36,7 +36,7 @@
  * - icon-moon: one of the icon-* glyphs, which all keep their prefix so option.add can still derive "icon" from the name alone; belongs to the icon component.
  * - box: borrowed to show the same derivation working for boxMini, a flag renamed to keep its own prefix once button/card/box all needed a 'mini' of their own; belongs to the box component.
  * - boxMini: the box flag itself, derived by option.add the same way as icon-moon.
- * - hoverNot: has no single owning component, so it is the example for option.add's bare-token fallback; belongs to the hover opt-out.
+ * - itemCenter: a bare layout flag with no owning component to derive, so it is the example for option.add's bare-token fallback; belongs to the flex layout.
  * - headerCompactFrom: borrowed purely to illustrate data.getValueBrackets/setValueBrackets; belongs to the header component.
  *
  * @return The instance returned by pgs(root), and the read/write methods it exposes for pgs, pgs-data and pgs-state.
@@ -64,7 +64,7 @@ instance.option.closest("btnMini");
 instance.add("icon");
 instance.option.add("icon-moon"); // icon-moon kept its prefix, so this still derives "icon" and merges
 instance.option.add("boxMini"); // boxMini kept its prefix too (a handful of flags do, to stay unique across components), so this derives "box" the same way
-instance.option.add("hoverNot"); // no "hover" token present to merge into: lands bare, pgs="button['btnMini'] hoverNot"
+instance.option.add("itemCenter"); // "item" is no component to merge into: lands bare, pgs="button['btnMini'] itemCenter"
 instance.data.getValueBrackets("headerCompactFrom"); // pgs-data only, never the pgs bracket
 instance.data.setValueBrackets("headerCompactFrom", "600");
 // tabsHistory has no owner to derive and never belongs in the pgs bracket, so its bare form goes

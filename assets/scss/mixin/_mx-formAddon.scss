@@ -7,20 +7,37 @@
     --checkboxBackground-padding: var(--padding-texts);
     --checkboxBackground-borderRadius: var(--border-radius-input);
     --checkboxBackground-background: var(--color-box-transparent);
-    --checkboxBackground-background-checked: var(--color-primary-soft);
     @include checkbox();
+    // the box keeps its own color: the surface around it is the one that answers the pointer
+    --checkbox-box-background-hover: var(--checkbox-box-background);
     position: relative;
     isolation: isolate;
     color: var(--checkboxBackground-color);
     padding: var(--checkboxBackground-padding);
     border-radius: var(--checkboxBackground-borderRadius);
     background-color: var(--checkboxBackground-background);
+    border: var(--border-complete);
     margin-bottom: 0;
+    transition: var(--hover-transition);
 
     input { margin-right: var(--checkboxBackground-padding); }
 
+
+    //## hover
+    @media (hover: hover) and (pointer: fine) {
+        &:hover:not(:has(input:checked, input:disabled)) {
+            background-color: var(--hover-background);
+            border-color: var(--hover-border-color);
+            color: var(--hover-color);
+        }
+    }
+
     //## checked
-    &:has(input:checked) { background-color: var(--checkboxBackground-background-checked); }
+    &:has(input:checked) {
+        background-color: var(--twoState-background);
+        border-color: var(--twoState-border-color);
+        color: var(--twoState-color);
+    }
 }
 
 //# TOGGLE 

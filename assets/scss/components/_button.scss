@@ -4,7 +4,7 @@
 :is([pgs~="button"], [pgs*="button\5B"]) {
     @include buttonBase();
 
-    &:where(:not([pgs*="body\5B"][pgs*="'bodyHoverAuto'"] :is([pgs~="button"], [pgs*="button\5B"]))) { @include buttonHover(); }
+    @include buttonHover();
     &[pgs*="'btnIconOnly'"] { @include buttonIconOnly(); }
     &[pgs*="'btnMini'"] { @include buttonMini(); }
     &[pgs*="'btnVertical'"] { @include buttonVertical(); }
@@ -17,7 +17,7 @@
     &[pgs*="'btnForNavSmart'"] { @include buttonForNavSmart(); }
 
     &[pgs*="'btnStrong'"] {
-        --button-background: var(--button-primaryColor);
+        --button-background: var(--button-baseColor);
         --button-color: var(--color-white);
     }
 

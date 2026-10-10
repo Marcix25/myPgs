@@ -6,11 +6,11 @@ Reusable surfaces for presenting structured card content or grouping simpler con
 
 ## PGS
 
-- `card`: identifies the main card container. Written on an `<a>` it becomes a clickable surface, and `pgs.hover` marks it with `hover` on a page that carries `bodyHoverAuto`, so it takes the shared hover and focus treatment; see Html and Body.
+- `card`: identifies the main card container. Written on an `<a>` it becomes a clickable surface.
 - `card-img`: identifies the main card image, written on the `<img>` or `<object>` itself; a bare image with no token inside a card is not styled.
 - `card-imgForChild`: a wrapper for card media the card does not write itself, such as an image printed by a helper or a block of elements: the card-img treatment lands on its direct child, and in cardHorizontal/cardHorizontalFixed the wrapper is the one taking the 40/60 split.
 - `card-content`: groups the text and actions of a card.
-- `box`: identifies a lightweight content container or clickable surface. Written on an `<a>` it is marked with `hover` the same way a clickable card is.
+- `box`: identifies a lightweight content container or clickable surface. Written on an `<a>` it is a clickable surface, like a card.
 
 ## PGS Options (component brackets)
 
@@ -26,12 +26,6 @@ Reusable surfaces for presenting structured card content or grouping simpler con
 
 - `button`: presents the card action as a standard button.
 - `marginTop`: provides the spacing utility used here, separating the card action from the preceding text.
-
-### Other
-
-- `hover`: the treatment a clickable card or box receives, added by pgs.hover on a page that carries bodyHoverAuto, rather than written by hand; see Hover.
-- `bodyHoverAuto`: inside body's own bracket, gates whether pgs.hover marks a clickable card or box automatically; see Html and Body.
-- `hoverNot`: available on a clickable card or box that must stay inert; see Hover.
 
 ## CSS Variables
 

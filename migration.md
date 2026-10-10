@@ -18,12 +18,10 @@ meaning moved under them, so nothing errors and the page just looks wrong.
 | a plain `<a>` in body content | `color: var(--color-black)`, underline on hover | `color: var(--color-link)`, background highlight on hover |
 | `pgs-state="info"` (alert/badge/notification/toast) | read `--color-link`/`--color-linkBackground` directly | reads `--color-info`/`--color-info-soft`, which only default to the link colors |
 | `pgs="header"` with no options | hid itself on scroll-down automatically | does nothing on scroll unless `pgs-option="headerScroll"` is also written |
-| `pgs="button"`, a link `pgs="card"`, a link `pgs="box"` | the hover treatment was baked into each component's CSS | the treatment lives under `pgs="hover"`, which the JS adds to these at load when `<body>` has `bodyHoverAuto`; without it they keep a plain CSS hover |
 | a bare `<button type="submit">` inside `pgs="form"` | the form styled it as a strong button on its own | draws nothing: mark it `pgs="button"` yourself |
 | several `pgs="accordion"` next to each other | opening one closed every other accordion on the page | each one answers for itself: wrap them in `pgs="accordionContainer"` to get the old behavior |
 | `pgs-option="buttonText"` and `pgs-option="buttonTransparent"` | `buttonTransparent` stripped every state, `buttonText` only the resting one | the two traded places: `buttonText` strips every state, `buttonTransparent` only the resting one |
 | `pgs="toggleDarkmode"` inside `pgs="footer"` | the footer wrote "Dark mode"/"Light mode" next to the glyph on its own | the label is opt-in, and available everywhere: add `tglLabeled` to its bracket, `toggleDarkmode['tglLabeled']` |
-| `pgs.hover`'s marking (a button, and a card or box written as a link) | ran on every page as soon as the bundle loaded, and `pgs.hover.init(root)` always ran on request | needs `bodyHoverAuto` in the `body[...]` bracket of `<body>` to run at all, by any path — the automatic pass, a direct `pgs.hover.init(root)` call, or `pgs.helper.init(root)`, which reaches every module's `init(root)` regardless of what the caller meant to touch |
 | `pgs="dropdown"` (and the floating first-level submenus of a horizontal menu) | the content floated with no arrow | the content draws an arrow pointing back at the trigger: add `drpNotArrow` to the bracket to keep the old look |
 | `pgs.<module>.init(root)` on an accordion, menu, steps, stepTabs, summary, notification or toast | looked only at what is inside `root`, so `pgs.helper.init(el)` on a freshly inserted `pgs="accordion"` did nothing | the root element itself is initialized too, like it already was for tabs, modal, dropdown, search, slides and pageNav |
 | `refresh()` on a component instance | six different things: re-run the parent's init (a no-op for the element), re-measure, re-run a search | one meaning everywhere: `destroy()` then initialize that element again, and return the new instance. Search's old `refresh()` is `search()` now |
@@ -56,10 +54,7 @@ the one hybrid case: it belongs in `pgs-data` whether written bare or with its o
 the component it belongs to — that attribute is flat, with no bracket to give a bare key context.
 
 Every boolean flag with no payload stays in `pgs`, whether it is CSS-facing or read by JavaScript
-only, written as `component['flagName']` next to the flags that also carry a CSS rule. `hoverNot`
-is the one flag with no single owner: it opts out on whichever component carries it (button, card,
-box), so write it in that component's bracket, `box['hoverNot']`, as `reference/html/base/hover.html`
-shows. The bare token `hoverNot` matches too, and it is what `option.add("hoverNot")` writes.
+only, written as `component['flagName']` next to the flags that also carry a CSS rule.
 
 ### Every flag carries its component's prefix
 
@@ -70,8 +65,8 @@ now carries a prefix of its own component, even where no collision exists today.
 name is written in full (`cardMini`, `badgeDot`, `iconLarge`, `menuVertical`, `slidesSingleScroll`,
 `headerScroll`), which is why many flags simply keep the name they had under `pgs-option`; a long one
 is abbreviated (`btn`, `acc`, `drp`, `shell`, `tgl`, `mg`, `pd`, `bd`, `otl`). flex/grid's layout
-flags (`column`, `row`, `gapTexts`, `itemCenter`, ...) are the one family still bare, and `hoverNot`
-has no single owner, so it is written in the bracket of whichever component it opts out. The `icon-*` glyphs and every `pgs-data` key keep their
+flags (`column`, `row`, `gapTexts`, `itemCenter`, ...) are the one family still bare.
+The `icon-*` glyphs and every `pgs-data` key keep their
 prefix too. The table gives the current name; search for every occurrence of the left column and
 rename it where it changed.
 
@@ -111,8 +106,7 @@ from `key`'s own name — the lowercase run before the first uppercase letter or
 into that component's existing bracket. Most flags lost that derivable prefix in the table above,
 so this now only actually resolves an owner for the few that kept the component's own full name
 (`icon-moon` → `icon`, `cardMini` → `card`); an abbreviated prefix does not count (`mgTp` derives
-`mg`, not `margin`; `btnMini` derives `btn`, not `button`), and every other flag falls through to becoming its own bare `pgs` token, same as
-`hoverNot` (which never had an owner to derive). To add a shortened flag into its bracket from
+`mg`, not `margin`; `btnMini` derives `btn`, not `button`), and every other flag falls through to becoming its own bare `pgs` token. To add a shortened flag into its bracket from
 JavaScript, call the base `pgs(el).add("component['flag']")` directly, naming the component — this
 is the normal way to add a bracket flag now, not a fallback. `option.remove`/`option.toggle` strip
 a flag correctly either way, bare or nested, since removal only needs to find the flag, not derive
@@ -162,16 +156,22 @@ Header scroll-hide: this used to run unconditionally on every `pgs="header"`. A 
 `pgs-option` at all — which is what `PGS_theme`'s own header currently has — silently stops hiding on
 scroll after this merge unless `headerScroll` is added to it.
 
-Hover: the shared treatment is no longer written three times. It lives under `[pgs~=hover]`, and
-`pgs.hover` — a new base module, loaded by the bundle — marks `button`, a link `card` and a link `box`
-with `hover` when the page loads and keeps them in sync afterwards (markup the library injects later,
-a token added at runtime, `hoverNot` toggled on or off), as long as the page's `<body>` carries
-`bodyHoverAuto`. There is nothing to rename. Where `bodyHoverAuto` is missing — a project that loads
-`dist/css` **without** `dist/javascript`, or a body that never wrote it — those three keep only a
-plain CSS hover of their own (the `buttonHover()` and `boxHover()` mixins, and the link rule of
-`card`), and lose the shared treatment with the keyboard focus ring that is part of it, so write
-`hover` in the markup there. A custom element that wants the treatment in CSS includes
-`hoverBase()`, `hoverStyle1()` and `focus()`, the three it was an alias for.
+Hover: there is no shared hover treatment. `pgs="hover"`, `hover-text`, `hoverNot`, `bodyHoverAuto`, the
+`pgs.hover` module, the mixins `hoverBase()`, `hoverStyleNormal()`, `hoverStyle1()` and `hover()` (the file
+`mixin/_mx-hover.scss` is gone) and the old `--hover-*` custom properties (`--hover-background` as a
+per-element recolor, `--hover-color`, `--hover-border`, `--hover-shadow-color`, `--hover-timing`,
+`--hover-behavior`, `--hover-st1-*`) are gone, and so is the opt-out (a button that must stay still takes
+`button['btnNotHover']`): delete them from the markup and from
+your stylesheets. Two names come back with a new meaning, so do not just keep your old rules: they are now
+global tokens on `:root`, set once to recolor every hover. What remains is a plain CSS hover on each
+component, read from `--hover-background`, `--hover-border-color`, `--hover-color` and `--hover-transition`
+in `base/_variables.scss` (the secondary soft color, the secondary color, black, and a 400 ms transition
+that is `none` under `prefers-reduced-motion`): `button` (`--button-*-hover`), a link `card`
+(`--card-background`), a link `box` (`--box-background`), the table row, the search suggestion, the slides
+dot, the box of a checkbox and a radio (`--checkbox-box-background-hover`), `checkboxBackground`, the file
+button of a file input and the outline of an input. A component can still override its own token. The current and the two-state
+looks work the same way: `--current-background`, `--current-border-color`, `--current-color` and
+`--twoState-background`, `--twoState-border-color`, `--twoState-color`.
 
 Form submit: `[pgs~=form]` no longer styles `button[type="submit"]`. It used to style any bare submit
 button inside a form as a strong button (the button base, content, strong and hover mixins), styling it by
@@ -183,7 +183,6 @@ it out to get the same button as before:
 <button pgs="button" pgs-option="buttonStrong" type="submit">Send</button>
 ```
 
-The hover needs nothing written on it: `pgs.hover` adds the hover token to anything marked `pgs="button"` when the body carries `bodyHoverAuto`, and the button keeps its own CSS hover when it does not.
 This one is worth a pass over every form in the project, since the markup keeps working and only the
 look changes.
 
@@ -238,7 +237,7 @@ Nothing keeps working under the old name.
 | outline | `pgs="outline"` + `olPrimary`/... and `outlineThin`/... | `outline['otlPrimary' 'otlThick']` |
 | border radius | `borderRadius` / `borderRadiusInput` / `borderRadiusExternal` | `borderRadius` / `borderRadius['radInput']` / `borderRadius['radExternal']` |
 | section | `section` / `sectionFull` / `sectionMax` / `sectionNoPadding` / `sectionSpecificity` (and the dev-only `sectionEdge*`) | `section` / `section['sctFull']` / `section['sctMax']` / `section['sctNoPadding']` / `section['sctSpecificity']` / `section['sctEdgeLeft']`...; its child `sectionSpecificity-child` → `section-specificity` |
-| body | `bodyBase` / `bodyImg` / `bodyText` / `bodyHeading` / `bodyHoverAuto` on `<body>` | `body['bodyBase' 'bodyImg' 'bodyText' 'bodyHeading' 'bodyHoverAuto']` |
+| body | `bodyBase` / `bodyImg` / `bodyText` / `bodyHeading` on `<body>` | `body['bodyBase' 'bodyImg' 'bodyText' 'bodyHeading']` |
 | background color | `bgPrimary` / `bgBoxDark` / ... | `background['bgPrimary']` / `background['bgBoxDark']` |
 | text color | `colorPrimary` / ... (the dev-only `txtPrimary` / ...) | `textColor['txtPrimary']` — not `text[...]`, which is the typography utility |
 | position | `positionRelative` / `positionAbsolute` / `positionSticky` | `position['posRelative']` / `position['posAbsolute']` / `position['posSticky']` |
@@ -441,13 +440,14 @@ exist while `pageShellAsideScroll` is on, and the old names read as if every sid
 | `pgs-option="buttonClose"` | `pgs-option="buttonIcon buttonMini"` |
 | `--border` | `--border-width`, alongside the new `--border-style` |
 | `--border-complete-hover` | gone; nothing replaces it |
-| `--hover-primaryColor` | gone: it only held `--color-secondary-soft`; `--hover-background` and `--hover-border` now hold that color directly, so set those two to change a hover |
-| `--button-background-active` | `--button-background-checked` |
-| `--button-color-active` | `--button-color-checked` |
-| `--button-border-color-active` | `--button-border-color-checked` |
+| `--button-background-active` | `--button-background-twoState` |
+| `--button-color-active` | `--button-color-twoState` |
+| `--button-border-color-active` | `--button-border-color-twoState` |
 
 The three button custom properties were renamed to say what they actually do: "active" was only ever
-read under `:has(input:checked)`, so a checked state wearing the name of a generic one. The reading
+read under `:has(input:checked)`, so a two-state control wearing the name of a generic state. The three
+defaults come from the global `--twoState-background`, `--twoState-border-color` and
+`--twoState-color` in `base/_variables.scss`. The reading
 also moved — it used to sit inside the `twoState` mixin, so only that control picked it up; it is now
 in `buttonBase()`, so any element marked `pgs="button"` that wraps a checked input takes the checked
 colors. That is what let `twoState` be dropped altogether — see just below. Retheming stays the same
@@ -545,17 +545,15 @@ key. The `success`/`errorForm`/`errorField` `pgs-state` values are unrelated and
 components respectively, even where another component's example or generated markup uses them.
 `buttonNohover` did move — see just below.
 
-### The hover opt-out — `buttonNohover` becomes `hoverNot`
+### The hover opt-out — `buttonNohover` becomes `btnNotHover`
 
 | was | now |
 | --- | --- |
-| `pgs-option="buttonNohover"` | `pgs-option="hoverNot"` |
+| `pgs-option="buttonNohover"` | `button['btnNotHover']` |
 
-The mixin `buttonNohover()` is gone with it, and no mixin replaces it: the hover mixins skip a surface that carries `hoverNot` on their own. `buttonHover()` stays, as the CSS fallback for a page without `bodyHoverAuto` (see the hover note in section 1). There is one
-opt-out now instead of one per component, because there is one hover treatment: `hoverNot` works on
-a button, on a clickable card and on a clickable box alike — the last two had no opt-out at all
-before. `pgs.hover` skips a surface that carries it, and the SCSS guard covers a `hover` written by
-hand. Menu's generated toggle and Step tabs' generated dots write the new name themselves.
+The mixin `buttonNohover()` is gone with it. Only a button has an opt-out: a clickable card and a clickable
+box always answer the pointer, because the shared hover system that carried `hoverNot` was removed (see the
+hover note in section 1).
 
 ### `twoState` is gone — mark the label `pgs="button"`
 
@@ -566,7 +564,7 @@ hand. Menu's generated toggle and Step tabs' generated dots write the new name t
 The control was a button that showed whether its own checkbox or radio was checked, so it is now the
 button itself: `[pgs~=button]` hides a nested `input[type=checkbox]`/`input[type=radio]`, keeps the
 input's semantics and keyboard behavior, and paints the checked colors through
-`--button-*-checked`. Every button option comes along with it — `buttonStrong`, `buttonMini`,
+`--button-*-twoState`. Every button option comes along with it — `buttonStrong`, `buttonMini`,
 `buttonIcon`, the color palettes — which the old token could not take. The `twoState()` mixin and
 the `[pgs~=twoState]` selector no longer exist; `chip`, `chips`, `toggle` and `checkboxBackground`
 are unchanged. Inside `pgs="form"` a label marked as a button is left alone by the generic checkbox
@@ -784,6 +782,12 @@ makes it one way. The renames come first, then what behaves differently under a 
 | `--heightOfHeader`, `--heightOfHeaderScroll`, `--heightOfNavSmart`, `--heightOfNavSmartScroll` | `--_header-height`, `--_header-heightScroll`, `--_navSmart-height`, `--_navSmart-heightScroll`. The JS writes them, so they take the `_`: read them, never set them (a theme that declared `--heightOfHeader: 75px` as a first-paint fallback now declares `--_header-height: 75px`) |
 | `--button-font-size`, `--badge-icon-size`, `--badge-text-size`, `--search-paddingBlock` | `--button-fontSize`, `--badge-iconSize`, `--badge-textSize`, `--search-padding-block` |
 | `--search-suggestions-item-hover-background` and `-color`, `--search-suggestions-item-selected-background` and `-color`, `--table-row-hover-background` and `-color` | the state goes last, like on button and breadcrumb: `--search-suggestions-item-background-hover`, `-color-hover`, `-background-selected`, `-color-selected`; `--table-row-background-hover`, `--table-row-color-hover` |
+| `--button-primaryColor` | `--button-baseColor`. It is the accent `btnStrong` and the palette flags (`btnPrimary`…) read |
+| `--button-*-hover`, `--button-*-current`, `--button-*-twoState` (background, color, border color, shadow) | declared on every button at rest, from the global tokens, so a theme can set any of them on one element or a container. The hover rule only applies them |
+| `--checkboxBackground-background-checked` | gone: a checked `checkboxBackground` reads `--twoState-background`, `--twoState-border-color` and `--twoState-color`. It also has a border now (`--border-complete`) and takes `--hover-background`, `--hover-border-color` and `--hover-color` on hover |
+| `btnNotHover` (new) | a button that must not answer the pointer: `button['btnNotHover']`. It replaces the `hoverNot` the buttons used to take; cards and boxes have no opt-out any more |
+| `btnText` | text only, black in every state, with a 3 px bottom edge that is secondary on hover and primary when current, no radius, no shadow; it used to take the accent color on hover, current and checked, with no bottom edge |
+| `btnTransparent` | on hover it fills like any other button; it used to color only the label |
 | `pgs.registerImport(...)`, `pgs.import(...)` | gone; nothing used them. Modules stay reachable as `pgs.modal`, `pgs.toast`, `pgs.tabs`… |
 | `pgs.init(root)`, `new pgs.formValidate(form, options)` | `pgs.helper.init(root)`, `new pgs.helper.formValidate(form, options)`. Every helper is under `pgs.helper` now, and the others (`warn`, `invalid`, `dispatch`, `roots`, `directChild`, `directChildren`, `uniqueId`, `rafThrottle`, `watchDocument`, `onDocumentReady`, `escapeHtml`, `formatText`) are public there too. The error messages say `pgs.helper.init()` and `pgs.helper.formValidate()` |
 
@@ -806,9 +810,9 @@ Same name, different behavior:
   two paddings (it gave both sides the icon padding). `m2e` keeps two columns on mobile also with `column-2` and `column-3` flex layouts (it gave one), and `grid['column-1' 'm2e']` stays at one column (it gave two). Check a page that relied on the old rendering.
 - **Looks that change.** `--color-white-transparent` and `--color-black-transparent` are really 50%
   now (they computed to 33%), which makes the header background and `bgWhiteTransparent`,
-  `bgBlackTransparent` fuller. Every hover background is `--color-secondary-soft`, the color of the `hover` token: the CSS fallbacks of
+  `bgBlackTransparent` fuller. Every hover background is `--color-secondary-soft`: the plain hovers of
   `button`, `box` and `card`, the table row, the search suggestion, the slides dot and the checkbox
-  used `--color-primary-soft`, so a page without `bodyHoverAuto` hovers in the same color as one with it.
+  used `--color-primary-soft`.
   A dropdown panel is as wide as its content up to
   `--dropdown-max-inline-size` instead of always 400px.
 - **Negative margins and z-index stop leaking.** `mgNegative` (and the per-side `Negative` flags)
@@ -893,15 +897,10 @@ Same name, different behavior:
 - **`pgs.header.init(root)`** is registered, several headers on one page are supported, and
   `headerMain` says which one drives `--heightOfHeader`.
 - **Focus is separate from hover.** The focus ring is identical everywhere and no longer sits inside
-  a hover media query, so a keyboard user on a touch device gets one. It is drawn by `pgs="hover"`
-  along with the rest of the treatment, so it reaches a button, a clickable card or box through the
-  token `pgs.hover` marks them with.
-- **`pgs="hover"` is a token you can write.** The whole treatment — surface recolor, `hover-text`,
-  focus ring — comes from one place, so any element can take it, not just the components that used
-  to bake it in. `pgs.hover` writes it for you on buttons and clickable cards/boxes, and
-  `pgs-option="hoverNot"` takes it back off.
+  a hover media query, so a keyboard user on a touch device gets one; `bodyBase` draws it for every
+  `:focus-visible` element.
 - **A button can be a two-state control.** `<label pgs="button">` around a checkbox or radio hides
-  the input, keeps its semantics, and paints the checked state from `--button-*-checked` — with
+  the input, keeps its semantics, and paints the checked state from `--button-*-twoState` — with
   every button option available on it. This is what replaced `twoState`.
 - **`alertContainer`, `notificationBell`** are new public tokens.
 - **A theme switch can carry its label anywhere.** `toggleDarkmode['tglLabeled']` writes the
@@ -947,9 +946,9 @@ grep -rnE 'pgs="[^"]*\b(gapTexts|gapElements|gapSections|gapNone|nowrap|wrap)\b'
 grep -rnE 'pgs\.scrollHorizontal(WithMouse)?\(|slides\[[^]]*.slidesScrollMouse.' .
 
 # 12. the hover opt-out, renamed
-grep -rn 'buttonNohover' .
+grep -rn 'buttonNohover\|hoverNot' .
 
-# 13. button custom properties renamed from -active to -checked
+# 13. button custom properties renamed from -active to -twoState
 grep -rn -- '--button-\(background\|color\|border-color\)-active' .
 
 # 14. the two-state control, now a button
@@ -990,8 +989,8 @@ grep -rnE '\b(modal:open|modal:close|tabs:change|stepTabs:change)\b' .
 # 25. stylesheets hooked into the slides classes, now states
 grep -rnE '\.(view|notView|slide-dot)\b' .
 
-# 26. a body with no bodyHoverAuto, which silently lost the automatic hover marking
-grep -rnE '<body\b[^>]*\bpgs="' . | grep -vE 'bodyHoverAuto'
+# 26. the removed hover system (delete each hit)
+grep -rnE "hoverNot|bodyHoverAuto|hover-text|buttonNohover|pgs\.hover|pgs=\"[^\"]*\bhover\b|--hover-(shadow|timing|behavior|st1)" .
 
 # 27. cardHorizontal's breakpoint, no longer a custom property
 grep -rn 'card-horizontal-breakpoint' .
@@ -1063,11 +1062,11 @@ showed a written label needs `toggleDarkmode['tglLabeled']` to keep it, while on
 icon-only — in a header, or anywhere outside the footer — needs nothing. Hits 23 and 24 are plain substitutions:
 `bglink-soft` → `bgLinkSoft`, `required-here` → `form-requiredHere`, and each of the four events
 gains its `pgs:` prefix, and the slides classes each become the `pgs-state` or generated token named
-after them. Hit 26 needs reading, not replacing: a `<body>` that never wrote `bodyHoverAuto` simply
-never got the automatic marking, so this only flags pages that carry some other `pgs` value on
-`<body>` already — a bare `<body>` with none at all was never in scope for the grep and needs
-`bodyHoverAuto` added regardless if it uses `pgs="button"`, a link `card` or `box` anywhere and relied on
-the hover treatment showing up on its own. Hit 27 needs reading: a project that never touched
+after them. Hit 26 is a deletion: `hoverNot`, `bodyHoverAuto`, `hover-text` and `pgs="hover"` come out of the markup (a `hoverNot` on a button becomes `btnNotHover` in the button's bracket; on a card or a box it has no replacement). A rule
+that set `--hover-background` or `--hover-color` on an element to recolor its hover needs the component's own
+tokens instead (`--button-background-hover` and `--button-color-hover` on a button, `--card-background` on a
+link card, `--box-background` on a link box); the same names on `:root` are the new global ones, so leave
+those alone. Hit 27 needs reading: a project that never touched
 `--card-horizontal-breakpoint` needs nothing, one that did override it needs the same `min-width`
 written into its own `@container` rule instead. Hit 32 needs reading: the patterns also catch PHP
 variable names and CSS properties that happen to share the spelling (`$imgCover`, `marginTop` in a

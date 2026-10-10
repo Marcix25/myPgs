@@ -11,23 +11,27 @@
 //## BUTTON BASE
 @mixin buttonBase() {
     --button-size: var(--SIZE-texts);
-    --button-primaryColor: var(--color-primary-strong);
+    --button-baseColor: var(--color-primary-strong);
     /// color
     --button-color: var(--color-black);
-    --button-color-current: var(--color-primary-strong);
-    --button-color-checked: var(--color-white);
+    --button-color-hover: var(--hover-color);
+    --button-color-current: var(--current-color);
+    --button-color-twoState: var(--twoState-color);
     /// background
     --button-background: var(--color-box);
-    --button-background-current: var(--color-primary-soft);
-    --button-background-checked: var(--button-primaryColor);
+    --button-background-hover: var(--hover-background);
+    --button-background-current: var(--current-background);
+    --button-background-twoState: var(--twoState-background);
     /// shadow
     --button-shadow: unset;
+    --button-shadow-hover: var(--button-shadow);
     --button-shadow-current: 0 .2rem .8rem color-mix(in srgb, var(--color-blackFixed) 10%, transparent);
-    --button-shadow-checked: unset;
+    --button-shadow-twoState: unset;
     /// border
     --button-border-color: var(--border-color);
-    --button-border-color-current: var(--button-primaryColor);
-    --button-border-color-checked: var(--button-primaryColor);
+    --button-border-color-hover: var(--hover-border-color);
+    --button-border-color-current: var(--current-border-color);
+    --button-border-color-twoState: var(--twoState-border-color);
     --button-border-width: var(--border-width);
     --button-border-style: var(--border-style);
     --button-borderRadius: var(--border-radius);
@@ -54,6 +58,7 @@
     border: 0 var(--button-border-style) var(--button-border-color);
     border-width: var(--button-border-width);
     border-radius: var(--button-borderRadius);
+    transition: var(--hover-transition);
     display: flex;
     gap: var(--button-gap);
     align-items: center;
@@ -89,15 +94,7 @@
 @mixin buttonHover() {
     @media (hover: hover) and (pointer: fine) {
         &:hover {
-            &:not(:where(:is([pgs~="hoverNot"], [pgs*="'hoverNot'"]))) {
-                &:where(:not(:disabled, [disabled])) {
-                    --button-background-hover: var(--color-secondary-soft);
-                    --button-border-color-hover: var(--color-secondary-soft);
-                    --button-shadow-hover: var(--button-shadow);
-                    --button-color-hover: var(--color-black);
-                    @include _buttonColor("-hover");
-                }
-            }
+            &:where(:not(:disabled, [disabled], [pgs*="'btnNotHover'"])) { @include _buttonColor("-hover"); }
         }
     }
 }
@@ -127,12 +124,7 @@
     }
 
     //## BUTTON CHECKED
-    &:has(input:checked) {
-        --button-background: var(--button-background-checked);
-        --button-color: var(--button-color-checked);
-        --button-border-color: var(--button-border-color-checked);
-        --button-shadow: var(--button-shadow-checked);
-    }
+    &:has(input:checked) { @include _buttonColor("-twoState"); }
 }
 
 //# TYPE
@@ -180,22 +172,22 @@
 
 //## BUTTON TEXT
 @mixin buttonText() {
-    $color: var(--button-primaryColor);
     --button-border-color: transparent;
+    --button-border-width: 0px 0px 3px 0px;
+    --button-border-color-hover: var(--color-secondary);
+    --button-border-color-current: var(--color-primary);
     --button-borderRadius: 0px;
     --button-background: transparent;
     --button-background-current: transparent;
-    --button-background-checked: transparent;
+    --button-background-twoState: transparent;
     --button-background-hover: transparent;
-    --button-color-current: #{$color};
-    --button-color-checked: #{$color};
-    --button-color-hover: #{$color};
+    --button-color-current: var(--color-black);
+    --button-color-twoState: var(--color-black);
+    --button-color-hover: var(--color-black);
     --button-shadow: unset;
     --button-shadow-current: unset;
-    --button-shadow-checked: unset;
+    --button-shadow-twoState: unset;
     --button-shadow-hover: unset;
-    --hover-background: transparent;
-    --hover-color: #{$color};
 }
 
 //## BUTTON PADDING EQUAL

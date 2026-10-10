@@ -9,8 +9,8 @@
         --table-row-background-odd: var(--color-box);
         --table-row-color: var(--color-black);
 
-        --table-row-background-hover: var(--color-secondary-soft);
-        --table-row-color-hover: var(--color-blackFixed);
+        --table-row-background-hover: var(--hover-background);
+        --table-row-color-hover: var(--hover-color);
         
         width: 100%;
         max-width: 100%; // never wider than its container
@@ -37,6 +37,7 @@
 
         tr {
             color: var(--table-row-color);
+            transition: var(--hover-transition);
 
             &:nth-child(even) {
                 background-color: var(--table-row-background-even);

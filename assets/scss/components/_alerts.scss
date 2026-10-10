@@ -131,8 +131,6 @@
 
         :is(a, button, input) {
             --button-size: .7rem;
-            --hover-background: var(--color-white);
-            --hover-color: var(--color-black);
             flex: 1;
             justify-content: center;
             font-size: small;

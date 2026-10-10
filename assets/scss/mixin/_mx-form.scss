@@ -23,7 +23,7 @@
         font-weight: var(--font-weight-text);
     }
 
-    &:hover { outline: solid var(--color-primary); }
+    &:hover { outline: solid var(--hover-border-color); }
 }
 
 //## LABEL 
@@ -103,12 +103,12 @@
         color: var(--button-color);
         background: var(--button-background);
         cursor: pointer;
-        transition: all 200ms;
+        transition: var(--hover-transition);
     }
 
     &::file-selector-button:hover {
-        background-color: var(--color-primary);
-        color: var(--color-white);
+        background-color: var(--hover-background);
+        color: var(--hover-color);
     }
 }
 
@@ -178,6 +178,7 @@
     --checkbox-size: 2.0rem;
     --checkbox-check-color: var(--color-primary);
     --checkbox-box-background: var(--color-white);
+    --checkbox-box-background-hover: var(--hover-background);
     --checkbox-padding-inline: var(--gap-texts);
     --checkbox-icon: #{$icon-check};
     position: relative;
@@ -202,6 +203,14 @@
 
         //### Required
         &:has(input[type=checkbox]:required) { @include required(); }
+
+        //### Hover
+        // the box of a control that is not checked yet, whether the pointer is on the box or on the text
+        @media (hover: hover) and (pointer: fine) {
+            &:hover:not(:has(input:disabled)) input:not(:checked)::before {
+                background: var(--checkbox-box-background-hover);
+            }
+        }
     }
 
     //## ICON & BOX
@@ -224,6 +233,7 @@
             outline: solid var(--color-boxDark) 0.1rem;
             background: var(--checkbox-box-background);
             color: var(--color-primary-soft);
+            transition: var(--hover-transition);
         }
 
         //### ICON CHECK
@@ -304,7 +314,7 @@
             font-weight: var(--font-weight-bold);
         }
 
-        &:hover { background-color: var(--color-secondary-soft); }
+        &:hover { background-color: var(--hover-background); }
         &:checked:hover { background-color: var(--color-primary-dark); }
     }
 }

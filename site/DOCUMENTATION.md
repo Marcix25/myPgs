@@ -272,8 +272,7 @@ Then rebuild with `npm run sitebuild`, and only if the example needs real intera
   `tgl`, `mg`, `pd`, `bd`, `otl`, ...) — `AGENTS-DEVELOPMENT.md` §3 has the complete prefix table.
   Margin, padding and border have one root per side, each with its own side code in the flag
   (`marginTop['mgTpElements']`, `borderTop['bdTpThin']`). The documented exceptions are flex/grid's
-  layout flags (`column`, `gapElements`, `itemCenter`, ...), the `icon-*` glyphs and `hoverNot`, which
-  never had a single owner. A `pgs-data` key keeps its prefix always (`formFieldError`,
+  layout flags (`column`, `gapElements`, `itemCenter`, ...), and the `icon-*` glyphs. A `pgs-data` key keeps its prefix always (`formFieldError`,
   `headerCompactFrom`): that attribute is flat, with no bracket to give a bare key context. See
   `migration.md` for the history of both conventions.
 - **A plain reusable utility with no component family** (`block`, `minWidth0`, `truncate`,

@@ -36,7 +36,7 @@ The `pgs(root)` function is how every component finds and edits its own markup: 
 ### PGS
 
 - `button`: borrowed purely to illustrate adding an abbreviated flag through the base add(); belongs to the button component.
-- `hoverNot`: has no single owning component, so it is the example for option.add's bare-token fallback; belongs to the hover opt-out.
+- `itemCenter`: a bare layout flag with no owning component to derive, so it is the example for option.add's bare-token fallback; belongs to the flex layout.
 
 ### PGS Options (component brackets)
 
@@ -77,7 +77,7 @@ instance.option.closest("btnMini");
 instance.add("icon");
 instance.option.add("icon-moon"); // icon-moon kept its prefix, so this still derives "icon" and merges
 instance.option.add("boxMini"); // boxMini kept its prefix too (a handful of flags do, to stay unique across components), so this derives "box" the same way
-instance.option.add("hoverNot"); // no "hover" token present to merge into: lands bare, pgs="button['btnMini'] hoverNot"
+instance.option.add("itemCenter"); // "item" is no component to merge into: lands bare, pgs="button['btnMini'] itemCenter"
 instance.data.getValueBrackets("headerCompactFrom"); // pgs-data only, never the pgs bracket
 instance.data.setValueBrackets("headerCompactFrom", "600");
 // tabsHistory has no owner to derive and never belongs in the pgs bracket, so its bare form goes

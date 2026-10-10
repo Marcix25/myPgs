@@ -81,7 +81,7 @@ the retired `pgs-option` attribute is no longer supported.
 
 ```html
 <html lang="en" pgs="htmlBase">
-  <body pgs="body['bodyBase' 'bodyImg' 'bodyText' 'bodyHeading' 'bodyHoverAuto']">
+  <body pgs="body['bodyBase' 'bodyImg' 'bodyText' 'bodyHeading']">
     <main pgs="main"></main>
   </body>
 </html>
@@ -108,7 +108,6 @@ reference source before creating new markup.
 - [darkmode](docs/base/darkmode.md)
 - [svg](docs/base/svg.md)
 - [border](docs/base/border.md)
-- [hover](docs/base/hover.md)
 
 ### Components
 

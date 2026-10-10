@@ -31,12 +31,12 @@ test('component mutations preserve brackets and merge without duplicating compon
     const api = pgs(el);
     assert.equal(api.contains('button'), true);
     assert.equal(api.contains('mini'), false);
-    api.add('hover', 'button', "button['reverse']");
-    assert.equal(api.value, "button['mini' 'strong' 'reverse'] flex['column'] hover");
+    api.add('itemCenter', 'button', "button['reverse']");
+    assert.equal(api.value, "button['mini' 'strong' 'reverse'] flex['column'] itemCenter");
     assert.equal(api.toggle('button', false), false);
-    assert.equal(api.value, "flex['column'] hover");
+    assert.equal(api.value, "flex['column'] itemCenter");
     api.remove('flex');
-    assert.equal(api.value, 'hover');
+    assert.equal(api.value, 'itemCenter');
 });
 
 test('bracket flags stay in the matching bracket and do not collide with longer names', () => {
@@ -127,7 +127,7 @@ test("option.add derives the owning component from the flag's own name and merge
     assert.equal(el.getAttribute('pgs-data'), null);
 });
 
-test("option.add cannot derive an owner from a shortened flag name; it lands bare like hoverNot", () => {
+test("option.add cannot derive an owner from a shortened flag name; it lands bare like itemCenter", () => {
     // this is the real cost of abbreviating: button['btnMini'] and margin['mgAuto'] must be written
     // explicitly through the base pgs(el).add() — option.add('mini') / option.add('auto') alone
     // have no component name left in them to find
@@ -140,18 +140,18 @@ test("option.add cannot derive an owner from a shortened flag name; it lands bar
     assert.equal(margin.getAttribute('pgs'), 'margin auto');
 });
 
-test('option.add falls back to a bare pgs token when no owner is present, like hoverNot on a plain button', () => {
+test('option.add falls back to a bare pgs token when no owner is present, like itemCenter on a plain button', () => {
     const el = element({ pgs: 'button' });
-    pgs(el).option.add('hoverNot');
-    assert.equal(el.getAttribute('pgs'), 'button hoverNot');
-    assert.equal(pgs(el).option.contains('hoverNot'), true);
-    pgs(el).option.remove('hoverNot');
+    pgs(el).option.add('itemCenter');
+    assert.equal(el.getAttribute('pgs'), 'button itemCenter');
+    assert.equal(pgs(el).option.contains('itemCenter'), true);
+    pgs(el).option.remove('itemCenter');
     assert.equal(el.getAttribute('pgs'), 'button');
 });
 
 test('option.remove strips a flag whether it is bare or nested in a bracket', () => {
-    const el = element({ pgs: "header['headerScroll' 'headerMain'] hoverNot" });
-    pgs(el).option.remove('headerScroll', 'hoverNot');
+    const el = element({ pgs: "header['headerScroll' 'headerMain'] itemCenter" });
+    pgs(el).option.remove('headerScroll', 'itemCenter');
     assert.equal(el.getAttribute('pgs'), "header['headerMain']");
 });
 

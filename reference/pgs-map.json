@@ -194,7 +194,6 @@
         "pgs-options": [
             "bodyBase",
             "bodyHeading",
-            "bodyHoverAuto",
             "bodyImg",
             "bodyText"
         ],
@@ -350,6 +349,7 @@
             "btnForNavSmart",
             "btnIconOnly",
             "btnMini",
+            "btnNotHover",
             "btnPaddingEqual",
             "btnPrimary",
             "btnQuaternary",
@@ -766,22 +766,6 @@
             "hideMediaUpTablet",
             "hideMediaUpWatch"
         ],
-        "pgs-data": []
-    },
-    "hover": {
-        "pgs": [
-            "hover-text"
-        ],
-        "pgs-generated": [],
-        "pgs-options": [
-            "hoverNot"
-        ],
-        "pgs-data": []
-    },
-    "hoverNot": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
         "pgs-data": []
     },
     "htmlBase": {

@@ -15,7 +15,6 @@ Base HTML document that enables MyPGS: the root rules and the shared custom prop
 - `bodyImg`: inside body's own bracket, enables shared rules for images contained in the page.
 - `bodyText`: inside body's own bracket, enables text typography and spacing.
 - `bodyHeading`: inside body's own bracket, enables the typographic heading hierarchy.
-- `bodyHoverAuto`: inside body's own bracket, activates pgs.hover, the module that marks a button, and a card or box written as a link, with the hover token at load and keeps them in sync afterwards. Without it nothing is marked on its own; a pgs="hover" written by hand is unaffected either way, and pgs.hover.init(root) still runs on request.
 
 ## PGS States
 
@@ -44,7 +43,7 @@ Complete HTML skeleton required to initialize the MyPGS library.
     <script src="../dist/javascript/index.js"></script>
 </head>
 
-<body pgs="body['bodyBase' 'bodyImg' 'bodyText' 'bodyHeading' 'bodyHoverAuto']">
+<body pgs="body['bodyBase' 'bodyImg' 'bodyText' 'bodyHeading']">
 
 </body>
 

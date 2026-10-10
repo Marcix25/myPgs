@@ -153,8 +153,7 @@ function optionsFromCompiledCss() {
             // without changing which flag gets captured
             for (const option of selector.matchAll(/\[pgs\*="(?:[A-Za-z_][\w-]*\[)?'([^'"]+)'/g)) {
                 const owners = ownersBefore(selector.slice(0, option.index));
-                if (option[1] === "hoverNot") pairs.push(["hover", option[1], "pgs-options"]);
-                else if (owners.length) for (const owner of owners) pairs.push([owner, option[1], "pgs-options"]);
+                if (owners.length) for (const owner of owners) pairs.push([owner, option[1], "pgs-options"]);
                 else for (const owner of ["flex", "grid"]) pairs.push([owner, option[1], "pgs-options"]);
             }
         }
@@ -193,8 +192,7 @@ function optionsFromScss(files) {
             const dataOwner = ownerOf(selector);
             if (dataOwner) for (const key of dataKeys) pairs.push([dataOwner, key, "pgs-data"]);
             for (const flag of flags) {
-                // hoverNot has no single owner: it opts out on whatever carries it
-                const flagOwner = flag[1] === "hoverNot" ? "hover" : ownerOf(selector.slice(0, flag.index));
+                const flagOwner = ownerOf(selector.slice(0, flag.index));
                 if (flagOwner) pairs.push([flagOwner, flag[1], "pgs-options"]);
             }
         }

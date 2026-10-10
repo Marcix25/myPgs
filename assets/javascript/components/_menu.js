@@ -9,7 +9,7 @@ function createToggle(link) {
     button.type = "button";
     button.innerHTML = `<i pgs="icon['icon-chevronDown']"></i>`;
 
-    pgs(button).add("_menu-submenuButton", "hover", "button['btnMini' 'btnIconOnly']");
+    pgs(button).add("_menu-submenuButton", "button['btnMini' 'btnIconOnly']");
     link.insertAdjacentElement("afterend", button);
 
     return button;

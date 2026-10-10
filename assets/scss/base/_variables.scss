@@ -60,6 +60,7 @@
         --backdrop: #0000007a;
         --blur: blur(20px);
         --focus-visible: 3px solid var(--color-focus);
+        // Header & navSmart: height & heightScroll
         --_header-height: 6.8rem; ///dummy preload value
         --_header-heightScroll: 6.8rem; ///dummy preload value
         --_navSmart-height: 8.9rem; ///dummy preload value
@@ -67,6 +68,30 @@
 
         //- mobile 
         @media (max-width: $mobile) { --gap-sections: calc(7.3rem + 8svh); }
+    }
+
+    //# STATE
+    &:root {
+        //## hover
+        // button, card, box, table row, search, checkbox and radio box, checkboxBackground, file input
+        --hover-background: var(--color-secondary-soft);
+        --hover-border-color: var(--border-color);
+        --hover-color: var(--color-black);
+        --hover-transition: background-color 400ms ease-out, border-color 400ms ease-out, outline-color 400ms ease-out, color 400ms ease-out;
+
+        @media (prefers-reduced-motion: reduce) { --hover-transition: none; }
+
+        //## current
+        // button, breadcrumb
+        --current-background: var(--color-primary-soft);
+        --current-border-color: var(--border-color);
+        --current-color: var(--color-primary-strong);
+
+        //## twoState
+        // button
+        --twoState-background: var(--color-primary-strong);
+        --twoState-border-color: var(--border-color);
+        --twoState-color: var(--color-white);
     }
 
     //# COLOR 

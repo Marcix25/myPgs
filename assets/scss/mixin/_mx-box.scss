@@ -12,19 +12,16 @@
         --box-background: var(--color-white);
         display: block;
         outline: var(--border-complete);
+        transition: var(--hover-transition);
 
-        &:not(:where([pgs*="body\5B"][pgs*="'bodyHoverAuto'"] [pgs~="box"])) { @include boxHover(); }
+        @include boxHover();
     }
 }
 
 //## HOVER
-// the fallback for a page with no bodyHoverAuto: pgs.hover never marks a link box with the hover
-// token there, so nothing under :is([pgs~="hover"], [pgs*="hover\5B"]) ever applies
 @mixin boxHover() {
     @media (hover: hover) and (pointer: fine) {
-        &:hover {
-            &:not(:where(:is([pgs~="hoverNot"], [pgs*="'hoverNot'"]))) { --box-background: var(--color-secondary-soft); }
-        }
+        &:hover { --box-background: var(--hover-background); }
     }
 }
 

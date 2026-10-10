@@ -6,7 +6,7 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 
 ## PGS
 
-- `button`: identifies the standard button, which can also be used on anchor elements, and on a `<label>` wrapping its own checkbox or radio to make a two-state control. On a page that carries `bodyHoverAuto`, `pgs.hover` marks it with `hover` at load, so the hover and focus treatment is not written here; see Html and Body.
+- `button`: identifies the standard button, which can also be used on anchor elements, and on a `<label>` wrapping its own checkbox or radio to make a two-state control.
 
 ## PGS Options (component brackets)
 
@@ -16,11 +16,12 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `btnIconOnly`: identifies a compact button composed primarily of an icon.
 - `btnMini`: applies the smallest size variant.
 - `btnVertical`: stacks the content vertically, the icon above the label, with the same padding on every side.
-- `btnTwoState`: for a label marked as a button that wraps its own checkbox or radio: hides the input, which still carries the semantics and the keyboard, and draws the checked state with --button-background-checked, --button-color-checked, --button-border-color-checked and --button-shadow-checked. Without it the input stays visible and nothing changes when it is checked.
+- `btnTwoState`: for a label marked as a button that wraps its own checkbox or radio: hides the input, which still carries the semantics and the keyboard, and draws the checked state with --button-background-twoState, --button-color-twoState, --button-border-color-twoState and --button-shadow-twoState. Without it the input stays visible and nothing changes when it is checked.
 - `btnCurrent`: gives the button the current look — the color, background, border and shadow of --button-*-current — while it carries aria-current="page" or aria-selected="true". Without it those attributes change nothing, so a button that is never marked current does not pay for the rule.
 - `btnForNavSmart`: sizes the button as an item of the floating navSmart bar: icon above the label, no background, pill-shaped, and the current look for the page you are on (aria-current) or the panel that is open (aria-expanded). Next to btnIconOnly it drops the label's minimum width and becomes a square as wide as the bar is tall.
-- `btnTransparent`: drops the background and the border at rest, so only the label shows, and colors the label on hover. Unlike btnText it leaves the other states alone, so the same button still fills in when it carries btnStrong or aria-current.
-- `btnText`: removes the default background and outline while preserving the button layout and hover behavior.
+- `btnTransparent`: drops the background and the border at rest, so only the label shows; on hover it fills like any other button. Unlike btnText it leaves the other states alone, so the same button still fills in when it carries btnStrong or aria-current.
+- `btnText`: text only, with a 3 px bottom edge that is transparent at rest, secondary on hover and primary when the button is current. The label stays black and the background transparent in every state, with no radius and no shadow, so it never fills in on hover, aria-current or checked.
+- `btnNotHover`: the button does not answer the pointer, so it keeps its look on hover; a button that is a container for something else, such as a search form or a step dot, takes it.
 - `btnPrimary`: applies the primary color palette.
 - `btnSecondary`: replaces the primary button accent with the secondary color palette.
 - `btnTertiary`: replaces the primary button accent with the tertiary color palette.
@@ -43,29 +44,24 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `icon-arrowRight`: the glyph that points forward.
 - `icon-star`: the neutral stand-in glyph, used where the example needs an icon but not a particular one.
 
-### Other
-
-- `hover`: the treatment every button receives, added by pgs.hover on a page that carries bodyHoverAuto, rather than written by hand; see Hover.
-- `bodyHoverAuto`: inside body's own bracket, gates whether pgs.hover marks a button automatically; see Html and Body.
-- `hoverNot`: opts a button out of that treatment, so it keeps its look and stops answering the pointer; see Hover.
-
 ## CSS Variables
 
 - `--button-background`
-- `--button-background-checked`
 - `--button-background-current`
 - `--button-background-hover`
+- `--button-background-twoState`
+- `--button-baseColor`
 - `--button-border-color`
-- `--button-border-color-checked`
 - `--button-border-color-current`
 - `--button-border-color-hover`
+- `--button-border-color-twoState`
 - `--button-border-style`
 - `--button-border-width`
 - `--button-borderRadius`
 - `--button-color`
-- `--button-color-checked`
 - `--button-color-current`
 - `--button-color-hover`
+- `--button-color-twoState`
 - `--button-fontSize`
 - `--button-gap`
 - `--button-height`
@@ -74,11 +70,10 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `--button-padding-left`
 - `--button-padding-left-icon`
 - `--button-padding-right`
-- `--button-primaryColor`
 - `--button-shadow`
-- `--button-shadow-checked`
 - `--button-shadow-current`
 - `--button-shadow-hover`
+- `--button-shadow-twoState`
 - `--button-size`
 
 ## Output
@@ -161,7 +156,7 @@ Stacks the icon above the label using btnVertical, with the same padding on ever
 
 ### Transparent
 
-Only the label shows at rest, and it takes the accent color on hover; strong and aria-current still fill in.
+Only the label shows at rest and it fills like any other button on hover; strong and aria-current still fill in.
 
 ```html
 <button pgs="button['btnTransparent']" type="button">
@@ -180,11 +175,21 @@ btnCurrent turns on the look of the button the page is on: aria-current=&quot;pa
 
 ### Text only
 
-Removes the default background and outline while keeping the button layout using text.
+Only the text, black in every state, with a bottom edge that is secondary on hover and primary when the button is current.
 
 ```html
 <button pgs="button['btnText']" type="button">
     Text only
+</button>
+```
+
+### Without hover
+
+btnNotHover keeps the button still while the pointer is over it.
+
+```html
+<button pgs="button['btnNotHover']" type="button">
+    No hover
 </button>
 ```
 
@@ -240,7 +245,7 @@ Strong button using the quaternary color palette.
 
 ### Checked
 
-A label marked as a button wrapping its own checkbox or radio: the input carries the semantics and the keyboard behavior, the button draws the state. Retune the checked look with --button-background-checked, --button-color-checked and --button-border-color-checked.
+A label marked as a button wrapping its own checkbox or radio: the input carries the semantics and the keyboard behavior, the button draws the state. Retune the checked look with --button-background-twoState, --button-color-twoState and --button-border-color-twoState (or, for every button at once, --twoState-background, --twoState-color and --twoState-border-color).
 
 ```html
 <label pgs="button['btnTwoState']">

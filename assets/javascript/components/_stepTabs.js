@@ -40,7 +40,7 @@ function PGS_stepTabs_build(tabsWizard) {
             const dot = document.createElement("button");
             dot.type = "button";
             pgs(dot).add("_stepTabs-dots-dot");
-            pgs(dot).add("button['btnIconOnly' 'hoverNot']");
+            pgs(dot).add("button['btnIconOnly' 'btnNotHover']");
             // stepTabsIcon takes three shapes, told apart by how the value opens. Markup, from a
             // "<", is instantiated as written: that is what puts every icon set in reach,
             // including the ones a class list cannot describe because they want their name as

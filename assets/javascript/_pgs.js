@@ -297,7 +297,7 @@ export function pgs(root) {
     /// flag's owning component from its own name (the lowercase run before the first uppercase
     /// letter or "-", the naming convention every component-owned flag already follows) and
     /// merge into that component's existing bracket; a flag with no matching owner on the
-    /// element becomes its own bare pgs token instead, the same way "hover" already is one.
+    /// element becomes its own bare pgs token instead.
     function createOption() {
         if (!canAttr) return undefined;
 

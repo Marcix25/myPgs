@@ -378,10 +378,6 @@ declare global {
   }
 
   //== the rest
-  interface PgsHoverModule {
-    init(root?: Document | Element): Document | Element;
-  }
-
   interface PgsSvgModule {
     init(root?: Document | Element): void;
     eventChangeColor: string;
@@ -423,7 +419,6 @@ declare global {
     helper?: PgsHelper;
     darkmode?: PgsInitOnlyModule;
     svg?: PgsSvgModule;
-    hover?: PgsHoverModule;
     accordion?: PgsModule<PgsAccordionInstance>;
     alert?: PgsAlertModule;
     dropdown?: PgsModule<PgsDropdownInstance>;

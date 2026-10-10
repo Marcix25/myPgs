@@ -22,16 +22,13 @@
     //## LINK
     &:where(a) {
         display: block;
+        transition: var(--hover-transition);
         border: var(--border-complete);
         --card-background: var(--color-white);
 
         //### HOVER
-        &:not(:where([pgs*="body\5B"][pgs*="'bodyHoverAuto'"] :is([pgs~="card"], [pgs*="card\5B"]))) {
-            @media (hover: hover) and (pointer: fine) {
-                &:hover {
-                    &:not(:where(:is([pgs~="hoverNot"], [pgs*="'hoverNot'"]))) { --card-background: var(--color-secondary-soft); }
-                }
-            }
+        @media (hover: hover) and (pointer: fine) {
+            &:hover { --card-background: var(--hover-background); }
         }
     }
 

@@ -13,8 +13,8 @@
     --search-suggestions-item-padding: 1rem;
     --search-suggestions-item-background-selected: var(--color-primary);
     --search-suggestions-item-color-selected: var(--color-whiteFixed);
-    --search-suggestions-item-background-hover: var(--color-secondary-soft);
-    --search-suggestions-item-color-hover: var(--color-black);
+    --search-suggestions-item-background-hover: var(--hover-background);
+    --search-suggestions-item-color-hover: var(--hover-color);
     position: relative;
     display: flex;
     flex-direction: row;
@@ -90,6 +90,7 @@
             display: flex;
             flex-direction: row;
             gap: var(--search-suggestions-item-padding);
+            transition: var(--hover-transition);
 
             &:hover {
                 background: var(--search-suggestions-item-background-hover);

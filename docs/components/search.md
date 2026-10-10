@@ -82,7 +82,6 @@ Search markup, configuration, behavior, and usage example. Two custom events bub
 ### Other
 
 - `section`: uses the related section component or utility in this example.
-- `hoverNot`: disables hover behavior on the search container.
 
 ## CSS Variables
 
