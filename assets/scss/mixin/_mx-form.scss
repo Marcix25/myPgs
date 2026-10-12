@@ -44,8 +44,7 @@
     border-radius: var(--label-borderRadius);
     background-color: var(--label-background);
 
-    i,
-    :is([pgs~="icon"], [pgs*="icon\5B"]) {
+    :where(i, [pgs~="icon"], [pgs*="icon\5B"]) {
         font-size: var(--font-size-text);
         margin-right: .7rem;
     }
@@ -204,15 +203,19 @@
 
     //## ICON & BOX
     &:where(input[type=checkbox]),
-    input[type=checkbox] {
+    :where(input[type=checkbox]) {
         appearance: none;
         position: relative;
         width: var(--checkbox-size);
         min-width: var(--checkbox-size);
         height: var(--checkbox-size);
-        margin-right: var(--gap-texts);
+        // the space between the box and the text is a character of its own: it comes off the gap
+        margin-right: calc(var(--gap-texts) - 0.25em);
         cursor: pointer;
         @include center();
+        // inline, so the text and the links of the label flow next to the box with their spaces
+        display: inline-flex;
+        vertical-align: top;
         @include icon(var(--checkbox-icon), "::after");
         --icon-size: calc(2rem + var(--checkbox-size));
         --icon-color: var(--checkbox-color);
@@ -260,7 +263,7 @@
     // per label, so a group takes the hover on the one control the pointer is on and not on all of them
     @media (hover: hover) and (pointer: fine) {
         &:where(label):hover:not(:has(input:disabled)),
-        label:hover:not(:has(input:disabled)) {
+        :where(label):hover:not(:has(input:disabled)) {
             --checkbox-background: var(--checkbox-background-hover);
             --checkbox-borderColor: var(--checkbox-borderColor-hover);
             --checkbox-color: var(--checkbox-color-hover);
@@ -292,15 +295,19 @@
 
     //## BOX ROUND
     &:where(input[type=radio]),
-    input[type=radio] {
+    :where(input[type=radio]) {
         appearance: none;
         position: relative;
         width: var(--radio-size);
         min-width: var(--radio-size);
         height: var(--radio-size);
-        margin-right: var(--gap-texts);
+        // the space between the box and the text is a character of its own: it comes off the gap
+        margin-right: calc(var(--gap-texts) - 0.25em);
         cursor: pointer;
         @include center();
+        // inline, so the text and the links of the label flow next to the box with their spaces
+        display: inline-flex;
+        vertical-align: top;
 
         &::before {
             content: "";
@@ -345,7 +352,7 @@
     // per label, as in checkbox()
     @media (hover: hover) and (pointer: fine) {
         &:where(label):hover:not(:has(input:disabled)),
-        label:hover:not(:has(input:disabled)) {
+        :where(label):hover:not(:has(input:disabled)) {
             --radio-background: var(--radio-background-hover);
             --radio-borderColor: var(--radio-borderColor-hover);
             --radio-color: var(--radio-color-hover);
@@ -358,7 +365,7 @@
 @mixin labelCheckboxAndRadio() {
 
     &:where(label),
-    label {
+    :where(label) {
         -webkit-user-select: none;
         user-select: none;
         color: inherit;
@@ -368,10 +375,10 @@
         margin-bottom: var(--gap-texts);
         width: fit-content;
         cursor: pointer;
-        display: flex;
+        display: block;
         padding-inline: var(--checkbox-paddingInline, var(--radio-paddingInline));
 
-        a {
+        :where(a) {
             text-decoration: underline;
             color: var(--color-link);
         }
@@ -455,26 +462,26 @@
             color: var(--color-error);
         }
 
-        label:has(+[pgs-state~=errorField], [pgs-state~=errorField]) {
+        :where(label):has(+[pgs-state~=errorField], [pgs-state~=errorField]) {
             &:has(input[type=checkbox]) {
                 padding-block: 8px;
                 border-radius: 10px;
                 outline: var(--formValidate-outline);
             }
 
-            :is(input[type=radio], input[type=checkbox]) {
+            :where(input[type=radio], input[type=checkbox]) {
                 &::before { outline: var(--formValidate-outline); }
             }
         }
 
-        fieldset[pgs-state~=errorField] {
+        :where(fieldset)[pgs-state~=errorField] {
             border-radius: 10px;
 
-            :is(input[type=radio], input[type=checkbox]) {
+            :where(input[type=radio], input[type=checkbox]) {
                 &::before { outline: var(--formValidate-outline); }
             }
 
-            legend {
+            :where(legend) {
                 --label-background: var(--color-error-soft);
                 --label-color: var(--color-error);
             }

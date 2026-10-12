@@ -26,7 +26,8 @@
     margin-bottom: 0;
     transition: var(--clickable-transition);
 
-    input { margin-right: var(--checkboxBackground-padding); }
+    // the space between the box and the text is a character of its own: it comes off the gap
+    :where(input) { margin-right: calc(var(--checkboxBackground-padding) - 0.25em); }
 
     //## hover
     @media (hover: hover) and (pointer: fine) {
@@ -68,10 +69,10 @@
     @include row(nowrap);
     margin-bottom: var(--gap-texts);
 
-    label { cursor: pointer; }
+    :where(label) { cursor: pointer; }
 
     // rail & thumb
-    input {
+    :where(input) {
         position: relative;
         appearance: none;
         margin-left: auto;
@@ -142,7 +143,7 @@
     // per label, as in checkbox() and radio()
     @media (hover: hover) and (pointer: fine) {
         &:where(label):hover:not(:has(input:disabled)),
-        label:hover:not(:has(input:disabled)) {
+        :where(label):hover:not(:has(input:disabled)) {
             --toggle-rail-background: var(--toggle-rail-background-hover);
             --toggle-rail-borderColor: var(--toggle-rail-borderColor-hover);
             --toggle-thumb-background: var(--toggle-thumb-background-hover);
@@ -161,23 +162,21 @@
     display: flex !important;
     cursor: pointer;
 
-    input {
+    :where(input) {
         opacity: 0;
         z-index: -1;
         position: absolute;
         appearance: none;
     }
 
-    i,
-    :is([pgs~="icon"], [pgs*="icon\5B"]) {
+    :where(i, [pgs~="icon"], [pgs*="icon\5B"]) {
         opacity: 0.4;
         min-width: 1.4rem;
     }
 
     &:hover {
 
-        i,
-        :is([pgs~="icon"], [pgs*="icon\5B"]) {
+        :where(i, [pgs~="icon"], [pgs*="icon\5B"]) {
             opacity: 1;
         }
     }
@@ -185,8 +184,7 @@
     //## checked
     &:has(input:checked) {
 
-        i,
-        :is([pgs~="icon"], [pgs*="icon\5B"]) {
+        :where(i, [pgs~="icon"], [pgs*="icon\5B"]) {
             opacity: 1;
         }
 
