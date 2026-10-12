@@ -23,7 +23,7 @@
         display: inline-flex;
         align-items: center;
 
-        a {
+        :where(a) {
             color: var(--breadcrumb-color);
             text-decoration: none;
 

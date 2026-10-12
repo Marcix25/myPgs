@@ -22,7 +22,7 @@
     white-space: nowrap;
     overflow-wrap: normal;
 
-    i, :is([pgs~="icon"], [pgs*="icon\5B"]) {
+    :where(i, [pgs~="icon"], [pgs*="icon\5B"]) {
         color: var(--badge-color);
         font-size: var(--badge-iconSize);
         --icon-size: var(--badge-iconSize);
@@ -34,43 +34,43 @@
     @include _badge();
 
     // badgePrimary, not the shortened primary: button also has a 'primary' option
-    &[pgs*="'badgePrimary'"] {
+    &:where([pgs*="\'badgePrimary\'"]) {
         --badge-background: var(--color-primary-soft);
         --badge-color: var(--color-primary-strong);
     }
 
     // badgeStrong, not the shortened strong: button also has a 'strong' option
-    &[pgs*="'badgeStrong'"] {
+    &:where([pgs*="\'badgeStrong\'"]) {
         --badge-background: var(--color-primary);
         --badge-color: var(--color-whiteFixed);
     }
 
-    &[pgs*="'badgeSuccess'"] {
+    &:where([pgs*="\'badgeSuccess\'"]) {
         --badge-background: var(--color-success-soft);
         --badge-color: var(--color-success);
     }
 
-    &[pgs*="'badgeWarning'"] {
+    &:where([pgs*="\'badgeWarning\'"]) {
         --badge-background: var(--color-warning-soft);
         --badge-color: var(--color-warning);
     }
 
-    &[pgs*="'badgeError'"] {
+    &:where([pgs*="\'badgeError\'"]) {
         --badge-background: var(--color-error-soft);
         --badge-color: var(--color-error);
     }
 
-    &[pgs*="'badgeInfo'"] {
+    &:where([pgs*="\'badgeInfo\'"]) {
         --badge-background: var(--color-info-soft);
         --badge-color: var(--color-info);
     }
 
-    &[pgs*="'badgeNeutral'"] {
+    &:where([pgs*="\'badgeNeutral\'"]) {
         --badge-background: var(--color-box-transparent);
         --badge-color: var(--color-text);
     }
 
-    &[pgs*="'badgeDot'"] {
+    &:where([pgs*="\'badgeDot\'"]) {
         &::before {
             content: "";
             display: block;

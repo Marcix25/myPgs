@@ -3325,56 +3325,56 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   padding-top: calc(var(--card-padding) / 2);
 }
 
-:is([pgs~=card], [pgs*="card["])[pgs*="'cardMini'"] {
+:is([pgs~=card], [pgs*="card["]):where([pgs*="'cardMini'"]) {
   --card-padding: var(--padding-texts);
 }
 
-:is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] {
+:is([pgs~=card], [pgs*="card["]):where([pgs*="'cardHorizontal'"]) {
   container-type: inline-size;
 }
 
 @container (min-width: 430px) {
-  :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] {
+  :is([pgs~=card], [pgs*="card["]):where([pgs*="'cardHorizontal'"]) {
     flex-flow: row wrap;
   }
-  :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] :where([pgs~=card-content]) {
+  :is([pgs~=card], [pgs*="card["]):where([pgs*="'cardHorizontal'"]) :where([pgs~=card-content]) {
     border-radius: var(--card-horizontal-borderRadius-item);
     flex-basis: 0;
     flex-grow: var(--card-horizontal-content-grow);
   }
-  :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] :where([pgs~=card-img]),
-  :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] :where([pgs~=card-imgForChild]) {
+  :is([pgs~=card], [pgs*="card["]):where([pgs*="'cardHorizontal'"]) :where([pgs~=card-img]),
+  :is([pgs~=card], [pgs*="card["]):where([pgs*="'cardHorizontal'"]) :where([pgs~=card-imgForChild]) {
     border-radius: var(--card-horizontal-borderRadius-item);
     flex-basis: 0;
     flex-grow: var(--card-horizontal-img-grow);
     min-height: var(--card-horizontal-img-minHeight);
   }
-  :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] :where([pgs~=card-img]):where([pgs~=card-imgForChild]) > *,
-  :is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontal'"] :where([pgs~=card-imgForChild]):where([pgs~=card-imgForChild]) > * {
+  :is([pgs~=card], [pgs*="card["]):where([pgs*="'cardHorizontal'"]) :where([pgs~=card-img]):where([pgs~=card-imgForChild]) > *,
+  :is([pgs~=card], [pgs*="card["]):where([pgs*="'cardHorizontal'"]) :where([pgs~=card-imgForChild]):where([pgs~=card-imgForChild]) > * {
     height: 100%;
     border-radius: var(--card-horizontal-borderRadius-item);
   }
 }
-:is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontalFixed'"] {
+:is([pgs~=card], [pgs*="card["]):where([pgs*="'cardHorizontalFixed'"]) {
   flex-flow: row wrap;
 }
 
-:is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontalFixed'"] :where([pgs~=card-content]) {
+:is([pgs~=card], [pgs*="card["]):where([pgs*="'cardHorizontalFixed'"]) :where([pgs~=card-content]) {
   border-radius: var(--card-horizontal-borderRadius-item);
   flex-basis: 0;
   flex-grow: var(--card-horizontal-content-grow);
 }
 
-:is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontalFixed'"] :where([pgs~=card-img]),
-:is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontalFixed'"] :where([pgs~=card-imgForChild]) {
+:is([pgs~=card], [pgs*="card["]):where([pgs*="'cardHorizontalFixed'"]) :where([pgs~=card-img]),
+:is([pgs~=card], [pgs*="card["]):where([pgs*="'cardHorizontalFixed'"]) :where([pgs~=card-imgForChild]) {
   border-radius: var(--card-horizontal-borderRadius-item);
   flex-basis: 0;
   flex-grow: var(--card-horizontal-img-grow);
   min-height: var(--card-horizontal-img-minHeight);
 }
 
-:is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontalFixed'"] :where([pgs~=card-img]):where([pgs~=card-imgForChild]) > *,
-:is([pgs~=card], [pgs*="card["])[pgs*="'cardHorizontalFixed'"] :where([pgs~=card-imgForChild]):where([pgs~=card-imgForChild]) > * {
+:is([pgs~=card], [pgs*="card["]):where([pgs*="'cardHorizontalFixed'"]) :where([pgs~=card-img]):where([pgs~=card-imgForChild]) > *,
+:is([pgs~=card], [pgs*="card["]):where([pgs*="'cardHorizontalFixed'"]) :where([pgs~=card-imgForChild]):where([pgs~=card-imgForChild]) > * {
   height: 100%;
   border-radius: var(--card-horizontal-borderRadius-item);
 }
@@ -3407,12 +3407,12 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
     color: var(--hover-color);
   }
 }
-:is([pgs~=box], [pgs*="box["])[pgs*="'boxMini'"] {
+:is([pgs~=box], [pgs*="box["]):where([pgs*="'boxMini'"]) {
   --box-padding: var(--padding-texts);
   --box-borderRadius: var(--border-radius-input);
 }
 
-:is([pgs~=box], [pgs*="box["])[pgs*="'boxNavSmart'"] {
+:is([pgs~=box], [pgs*="box["]):where([pgs*="'boxNavSmart'"]) {
   --box-padding: .4rem;
   --box-borderRadius: 999px;
   --box-background: var(--color-box-transparent);
@@ -4058,11 +4058,11 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   position: relative;
 }
 
-[pgs~=form] label {
+[pgs~=form] :where(label) {
   display: block;
 }
 
-[pgs~=form] label:not(:has([pgs~=label], [pgs~=labelUnset], + input[type=checkbox], + input[type=radio])):has(+ input, + select, + textarea) {
+[pgs~=form] :where(label):not(:has([pgs~=label], [pgs~=labelUnset], + input[type=checkbox], + input[type=radio])):has(+ input, + select, + textarea) {
   --label-borderRadius: 1rem 1rem 0 0;
   --label-left: var(--border-radius-input);
   --label-padding: 0.7rem 1.2rem;
@@ -4080,17 +4080,17 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   background-color: var(--label-background);
 }
 
-[pgs~=form] label:not(:has([pgs~=label], [pgs~=labelUnset], + input[type=checkbox], + input[type=radio])):has(+ input, + select, + textarea) i,
-[pgs~=form] label:not(:has([pgs~=label], [pgs~=labelUnset], + input[type=checkbox], + input[type=radio])):has(+ input, + select, + textarea) :is([pgs~=icon], [pgs*="icon["]) {
+[pgs~=form] :where(label):not(:has([pgs~=label], [pgs~=labelUnset], + input[type=checkbox], + input[type=radio])):has(+ input, + select, + textarea) i,
+[pgs~=form] :where(label):not(:has([pgs~=label], [pgs~=labelUnset], + input[type=checkbox], + input[type=radio])):has(+ input, + select, + textarea) :is([pgs~=icon], [pgs*="icon["]) {
   font-size: var(--font-size-text);
   margin-right: 0.7rem;
 }
 
-[pgs~=form] label:has(+ [hidden], [pgs~=hidden]), [pgs~=form] label:has([hidden], [pgs~=hidden]) {
+[pgs~=form] :where(label):has(+ [hidden], [pgs~=hidden]), [pgs~=form] :where(label):has([hidden], [pgs~=hidden]) {
   display: none !important;
 }
 
-[pgs~=form] input:not([pgs~=inputUnset], [type=checkbox], [type=file], [type=radio], [type=range]) {
+[pgs~=form] :where(input):not([pgs~=inputUnset], [type=checkbox], [type=file], [type=radio], [type=range]) {
   --input-padding: var(--padding-texts);
   appearance: none;
   border: var(--border-complete);
@@ -4105,31 +4105,31 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   font-family: var(--font);
 }
 
-[pgs~=form] input:not([pgs~=inputUnset], [type=checkbox], [type=file], [type=radio], [type=range])::placeholder {
+[pgs~=form] :where(input):not([pgs~=inputUnset], [type=checkbox], [type=file], [type=radio], [type=range])::placeholder {
   color: var(--color-black);
   opacity: 20%;
   font-weight: var(--font-weight-text);
 }
 
-[pgs~=form] input:not([pgs~=inputUnset], [type=checkbox], [type=file], [type=radio], [type=range]):hover {
+[pgs~=form] :where(input):not([pgs~=inputUnset], [type=checkbox], [type=file], [type=radio], [type=range]):hover {
   outline: solid var(--hover-borderColor);
 }
 
-[pgs~=form] input[type=password] {
+[pgs~=form] :where(input)[type=password] {
   font-family: initial;
   font-size: 1.74rem;
 }
 
-[pgs~=form] input[type=file] {
+[pgs~=form] :where(input)[type=file] {
   min-height: 5.3rem;
 }
 
-[pgs~=form] input[type=search], [pgs~=form] input[type=number], [pgs~=form] input[type=datetime-local], [pgs~=form] input[type=date], [pgs~=form] input[type=month], [pgs~=form] input[type=week], [pgs~=form] input[type=time] {
+[pgs~=form] :where(input)[type=search], [pgs~=form] :where(input)[type=number], [pgs~=form] :where(input)[type=datetime-local], [pgs~=form] :where(input)[type=date], [pgs~=form] :where(input)[type=month], [pgs~=form] :where(input)[type=week], [pgs~=form] :where(input)[type=time] {
   width: clamp(50px, 100%, 300px);
   display: flex;
 }
 
-[pgs~=form] input[type=search]::-webkit-calendar-picker-indicator, [pgs~=form] input[type=number]::-webkit-calendar-picker-indicator, [pgs~=form] input[type=datetime-local]::-webkit-calendar-picker-indicator, [pgs~=form] input[type=date]::-webkit-calendar-picker-indicator, [pgs~=form] input[type=month]::-webkit-calendar-picker-indicator, [pgs~=form] input[type=week]::-webkit-calendar-picker-indicator, [pgs~=form] input[type=time]::-webkit-calendar-picker-indicator {
+[pgs~=form] :where(input)[type=search]::-webkit-calendar-picker-indicator, [pgs~=form] :where(input)[type=number]::-webkit-calendar-picker-indicator, [pgs~=form] :where(input)[type=datetime-local]::-webkit-calendar-picker-indicator, [pgs~=form] :where(input)[type=date]::-webkit-calendar-picker-indicator, [pgs~=form] :where(input)[type=month]::-webkit-calendar-picker-indicator, [pgs~=form] :where(input)[type=week]::-webkit-calendar-picker-indicator, [pgs~=form] :where(input)[type=time]::-webkit-calendar-picker-indicator {
   order: -1;
   font-size: 1.5em;
   background-color: var(--border-color);
@@ -4140,7 +4140,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   cursor: pointer;
 }
 
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) {
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) {
   --checkbox-size: 2.0rem;
   --checkbox-paddingInline: var(--gap-texts);
   --checkbox-isChecked: 0;
@@ -4159,8 +4159,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   display: flex;
 }
 
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=checkbox]),
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=checkbox] {
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=checkbox]),
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=checkbox] {
   appearance: none;
   position: relative;
   width: var(--checkbox-size);
@@ -4176,8 +4176,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --icon: var(--checkbox-icon);
 }
 
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=checkbox])::after,
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=checkbox]::after {
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=checkbox])::after,
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=checkbox]::after {
   line-height: 1;
   font-size: var(--icon-size);
   display: inline-block;
@@ -4188,20 +4188,20 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   content: "";
 }
 
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=checkbox])::after,
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=checkbox]::after {
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=checkbox])::after,
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=checkbox]::after {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=checkbox]),
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=checkbox] {
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=checkbox]),
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=checkbox] {
   --icon-size: calc(2rem + var(--checkbox-size));
   --icon-color: var(--checkbox-color);
 }
 
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=checkbox])::before,
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=checkbox]::before {
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=checkbox])::before,
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=checkbox]::before {
   content: "";
   position: absolute;
   width: var(--checkbox-size);
@@ -4213,8 +4213,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   border-radius: 0.5rem;
 }
 
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=checkbox])::after,
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=checkbox]::after {
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=checkbox])::after,
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=checkbox]::after {
   position: absolute;
   line-height: var(--checkbox-size);
   text-align: center;
@@ -4225,34 +4225,34 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   left: -0.8rem;
 }
 
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=checkbox]):checked,
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=checkbox]:checked {
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=checkbox]):checked,
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=checkbox]:checked {
   --checkbox-background: var(--checkbox-background-checked);
   --checkbox-borderColor: var(--checkbox-borderColor-checked);
   --checkbox-color: var(--checkbox-color-checked);
   --checkbox-isChecked: 1;
 }
 
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=checkbox]):focus-visible,
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=checkbox]:focus-visible {
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=checkbox]):focus-visible,
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=checkbox]:focus-visible {
   outline: none;
 }
 
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=checkbox]):focus-visible::before,
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=checkbox]:focus-visible::before {
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=checkbox]):focus-visible::before,
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=checkbox]:focus-visible::before {
   outline: var(--focus-visible);
 }
 
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label):hover:not(:has(input:disabled)),
-  [pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label:hover:not(:has(input:disabled)) {
+  [pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label):hover:not(:has(input:disabled)),
+  [pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label:hover:not(:has(input:disabled)) {
     --checkbox-background: var(--checkbox-background-hover);
     --checkbox-borderColor: var(--checkbox-borderColor-hover);
     --checkbox-color: var(--checkbox-color-hover);
   }
 }
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label),
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label {
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label),
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label {
   -webkit-user-select: none;
   user-select: none;
   color: inherit;
@@ -4266,25 +4266,25 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   padding-inline: var(--checkbox-paddingInline, var(--radio-paddingInline));
 }
 
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label) a,
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label a {
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label) a,
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label a {
   text-decoration: underline;
   color: var(--color-link);
 }
 
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label):has(input:disabled),
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label:has(input:disabled) {
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label):has(input:disabled),
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label:has(input:disabled) {
   opacity: 0.5;
 }
 
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label):has(input[type=checkbox]:required),
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label:has(input[type=checkbox]:required) {
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label):has(input[type=checkbox]:required),
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label:has(input[type=checkbox]:required) {
   position: relative;
 }
 
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label):has(input[type=checkbox]:required) :where([pgs~=form-requiredHere])::after, [pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label):has(input[type=checkbox]:required):not(:has(:where([pgs~=form-requiredHere])))::after,
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label:has(input[type=checkbox]:required) :where([pgs~=form-requiredHere])::after,
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label:has(input[type=checkbox]:required):not(:has(:where([pgs~=form-requiredHere])))::after {
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label):has(input[type=checkbox]:required) :where([pgs~=form-requiredHere])::after, [pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label):has(input[type=checkbox]:required):not(:has(:where([pgs~=form-requiredHere])))::after,
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label:has(input[type=checkbox]:required) :where([pgs~=form-requiredHere])::after,
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label:has(input[type=checkbox]:required):not(:has(:where([pgs~=form-requiredHere])))::after {
   content: "*";
   color: var(--color-error);
   transform: translate(20px, 0px);
@@ -4295,12 +4295,12 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   right: 0px;
 }
 
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label):has(input[type=checkbox]:required) :where([pgs~=form-requiredHere])::after,
-[pgs~=form] label:has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label:has(input[type=checkbox]:required) :where([pgs~=form-requiredHere])::after {
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label):has(input[type=checkbox]:required) :where([pgs~=form-requiredHere])::after,
+[pgs~=form] :where(label):has(input[type=checkbox]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label:has(input[type=checkbox]:required) :where([pgs~=form-requiredHere])::after {
   position: relative;
 }
 
-[pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) {
+[pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) {
   --radio-size: 2.0rem;
   --radio-paddingInline: var(--gap-texts);
   --radio-isChecked: 0;
@@ -4319,8 +4319,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   display: flex;
 }
 
-[pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=radio]),
-[pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=radio] {
+[pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=radio]),
+[pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=radio] {
   appearance: none;
   position: relative;
   width: var(--radio-size);
@@ -4335,8 +4335,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   justify-content: center;
 }
 
-[pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=radio])::before,
-[pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=radio]::before {
+[pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=radio])::before,
+[pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=radio]::before {
   content: "";
   position: absolute;
   width: var(--radio-size);
@@ -4348,8 +4348,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   border-radius: 50%;
 }
 
-[pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=radio])::after,
-[pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=radio]::after {
+[pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=radio])::after,
+[pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=radio]::after {
   content: "";
   position: absolute;
   width: var(--radio-dot-size);
@@ -4360,34 +4360,34 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   transition: var(--clickable-transition);
 }
 
-[pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=radio]):checked,
-[pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=radio]:checked {
+[pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=radio]):checked,
+[pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=radio]:checked {
   --radio-background: var(--radio-background-checked);
   --radio-borderColor: var(--radio-borderColor-checked);
   --radio-color: var(--radio-color-checked);
   --radio-isChecked: 1;
 }
 
-[pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=radio]):focus-visible,
-[pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=radio]:focus-visible {
+[pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=radio]):focus-visible,
+[pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=radio]:focus-visible {
   outline: none;
 }
 
-[pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=radio]):focus-visible::before,
-[pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=radio]:focus-visible::before {
+[pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(input[type=radio]):focus-visible::before,
+[pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) input[type=radio]:focus-visible::before {
   outline: var(--focus-visible);
 }
 
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label):hover:not(:has(input:disabled)),
-  [pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label:hover:not(:has(input:disabled)) {
+  [pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label):hover:not(:has(input:disabled)),
+  [pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label:hover:not(:has(input:disabled)) {
     --radio-background: var(--radio-background-hover);
     --radio-borderColor: var(--radio-borderColor-hover);
     --radio-color: var(--radio-color-hover);
   }
 }
-[pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label),
-[pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label {
+[pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label),
+[pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label {
   -webkit-user-select: none;
   user-select: none;
   color: inherit;
@@ -4401,25 +4401,25 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   padding-inline: var(--checkbox-paddingInline, var(--radio-paddingInline));
 }
 
-[pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label) a,
-[pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label a {
+[pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label) a,
+[pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label a {
   text-decoration: underline;
   color: var(--color-link);
 }
 
-[pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label):has(input:disabled),
-[pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label:has(input:disabled) {
+[pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label):has(input:disabled),
+[pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label:has(input:disabled) {
   opacity: 0.5;
 }
 
-[pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label):has(input[type=checkbox]:required),
-[pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label:has(input[type=checkbox]:required) {
+[pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label):has(input[type=checkbox]:required),
+[pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label:has(input[type=checkbox]:required) {
   position: relative;
 }
 
-[pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label):has(input[type=checkbox]:required) :where([pgs~=form-requiredHere])::after, [pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label):has(input[type=checkbox]:required):not(:has(:where([pgs~=form-requiredHere])))::after,
-[pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label:has(input[type=checkbox]:required) :where([pgs~=form-requiredHere])::after,
-[pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label:has(input[type=checkbox]:required):not(:has(:where([pgs~=form-requiredHere])))::after {
+[pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label):has(input[type=checkbox]:required) :where([pgs~=form-requiredHere])::after, [pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label):has(input[type=checkbox]:required):not(:has(:where([pgs~=form-requiredHere])))::after,
+[pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label:has(input[type=checkbox]:required) :where([pgs~=form-requiredHere])::after,
+[pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label:has(input[type=checkbox]:required):not(:has(:where([pgs~=form-requiredHere])))::after {
   content: "*";
   color: var(--color-error);
   transform: translate(20px, 0px);
@@ -4430,12 +4430,12 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   right: 0px;
 }
 
-[pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label):has(input[type=checkbox]:required) :where([pgs~=form-requiredHere])::after,
-[pgs~=form] label:has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label:has(input[type=checkbox]:required) :where([pgs~=form-requiredHere])::after {
+[pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label):where(label):has(input[type=checkbox]:required) :where([pgs~=form-requiredHere])::after,
+[pgs~=form] :where(label):has(input[type=radio]):not(:is([pgs~=button], [pgs*="button["]), [pgs~=toggle], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label) label:has(input[type=checkbox]:required) :where([pgs~=form-requiredHere])::after {
   position: relative;
 }
 
-[pgs~=form] textarea {
+[pgs~=form] :where(textarea) {
   resize: vertical;
   --input-padding: var(--padding-texts);
   appearance: none;
@@ -4451,24 +4451,24 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   font-family: var(--font);
 }
 
-[pgs~=form] textarea::placeholder {
+[pgs~=form] :where(textarea)::placeholder {
   color: var(--color-black);
   opacity: 20%;
   font-weight: var(--font-weight-text);
 }
 
-[pgs~=form] textarea:hover {
+[pgs~=form] :where(textarea):hover {
   outline: solid var(--hover-borderColor);
 }
 
-[pgs~=form] textarea {
+[pgs~=form] :where(textarea) {
   height: 120px;
   min-height: 100px;
   border-bottom-right-radius: 40px;
   appearance: none;
 }
 
-[pgs~=form] input[type=range] {
+[pgs~=form] :where(input)[type=range] {
   --range-size: calc(var(--border-radius-input));
   --range-thumbWidth: calc(var(--range-size) * 2);
   --range-background: var(--clickable-background);
@@ -4489,7 +4489,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   position: relative;
 }
 
-[pgs~=form] input[type=range]::-webkit-slider-thumb {
+[pgs~=form] :where(input)[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: var(--range-thumbWidth);
@@ -4501,12 +4501,12 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   transition: transform 0.2s;
 }
 
-[pgs~=form] input[type=range]::-webkit-slider-thumb:hover {
+[pgs~=form] :where(input)[type=range]::-webkit-slider-thumb:hover {
   scale: 1.2;
   background: var(--hover-background);
 }
 
-[pgs~=form] input[type=range]::-moz-range-thumb {
+[pgs~=form] :where(input)[type=range]::-moz-range-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: var(--range-thumbWidth);
@@ -4518,23 +4518,23 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   transition: transform 0.2s;
 }
 
-[pgs~=form] input[type=range]::-moz-range-thumb:hover {
+[pgs~=form] :where(input)[type=range]::-moz-range-thumb:hover {
   scale: 1.2;
   background: var(--hover-background);
 }
 
-[pgs~=form] input[type=range]:focus-visible::-webkit-slider-thumb, [pgs~=form] input[type=range]:focus-visible::-moz-range-thumb {
+[pgs~=form] :where(input)[type=range]:focus-visible::-webkit-slider-thumb, [pgs~=form] :where(input)[type=range]:focus-visible::-moz-range-thumb {
   outline: var(--focus-visible) !important;
   background-color: var(--color-focus) !important;
   scale: 1.2;
 }
 
-[pgs~=form] input[type=range]:disabled {
+[pgs~=form] :where(input)[type=range]:disabled {
   opacity: 0.5;
   cursor: not-allowed !important;
 }
 
-[pgs~=form] input[type=color] {
+[pgs~=form] :where(input)[type=color] {
   --input-padding: var(--padding-texts);
   appearance: none;
   border: var(--border-complete);
@@ -4549,17 +4549,17 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   font-family: var(--font);
 }
 
-[pgs~=form] input[type=color]::placeholder {
+[pgs~=form] :where(input)[type=color]::placeholder {
   color: var(--color-black);
   opacity: 20%;
   font-weight: var(--font-weight-text);
 }
 
-[pgs~=form] input[type=color]:hover {
+[pgs~=form] :where(input)[type=color]:hover {
   outline: solid var(--hover-borderColor);
 }
 
-[pgs~=form] input[type=color] {
+[pgs~=form] :where(input)[type=color] {
   --input-padding: 0;
   block-size: 50px;
   inline-size: 200px;
@@ -4567,17 +4567,17 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   display: flex;
 }
 
-[pgs~=form] input[type=color]::-webkit-color-swatch-wrapper {
+[pgs~=form] :where(input)[type=color]::-webkit-color-swatch-wrapper {
   padding: 5px;
 }
 
-[pgs~=form] input[type=color]::-webkit-color-swatch {
+[pgs~=form] :where(input)[type=color]::-webkit-color-swatch {
   border: var(--border-complete);
   border-radius: calc(var(--border-radius-input) - 5px);
   cursor: pointer;
 }
 
-[pgs~=form] select {
+[pgs~=form] :where(select) {
   --input-padding: var(--padding-texts);
   appearance: none;
   border: var(--border-complete);
@@ -4592,48 +4592,48 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   font-family: var(--font);
 }
 
-[pgs~=form] select::placeholder {
+[pgs~=form] :where(select)::placeholder {
   color: var(--color-black);
   opacity: 20%;
   font-weight: var(--font-weight-text);
 }
 
-[pgs~=form] select:hover {
+[pgs~=form] :where(select):hover {
   outline: solid var(--hover-borderColor);
 }
 
-[pgs~=form] select {
+[pgs~=form] :where(select) {
   overflow: auto;
   appearance: none;
   cursor: pointer;
 }
 
-[pgs~=form] select option {
+[pgs~=form] :where(select) option {
   padding: var(--gap-texts);
   border-radius: calc(var(--border-radius-input) - var(--input-padding));
   background-color: transparent;
   cursor: pointer;
 }
 
-[pgs~=form] select option:checked {
+[pgs~=form] :where(select) option:checked {
   background-color: var(--color-primary);
   color: var(--color-whiteFixed);
   font-weight: var(--font-weight-bold);
 }
 
-[pgs~=form] select option:hover {
+[pgs~=form] :where(select) option:hover {
   background-color: var(--hover-background);
 }
 
-[pgs~=form] select option:checked:hover {
+[pgs~=form] :where(select) option:checked:hover {
   background-color: var(--color-primary-dark);
 }
 
-[pgs~=form] fieldset {
+[pgs~=form] :where(fieldset) {
   border: unset;
 }
 
-[pgs~=form] fieldset legend {
+[pgs~=form] :where(fieldset) :where(legend) {
   --label-borderRadius: 1rem;
   --label-left: 0;
   --label-padding: 0.7rem 1.2rem;
@@ -4651,23 +4651,23 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   background-color: var(--label-background);
 }
 
-[pgs~=form] fieldset legend i,
-[pgs~=form] fieldset legend :is([pgs~=icon], [pgs*="icon["]) {
+[pgs~=form] :where(fieldset) :where(legend) i,
+[pgs~=form] :where(fieldset) :where(legend) :is([pgs~=icon], [pgs*="icon["]) {
   font-size: var(--font-size-text);
   margin-right: 0.7rem;
 }
 
-[pgs~=form] fieldset legend {
+[pgs~=form] :where(fieldset) :where(legend) {
   --label-color: var(--color-black);
   --label-background: var(--color-box);
   margin-bottom: var(--gap-texts);
 }
 
-[pgs~=form] fieldset[required] legend {
+[pgs~=form] :where(fieldset)[required] :where(legend) {
   position: relative;
 }
 
-[pgs~=form] fieldset[required] legend :where([pgs~=form-requiredHere])::after, [pgs~=form] fieldset[required] legend:not(:has(:where([pgs~=form-requiredHere])))::after {
+[pgs~=form] :where(fieldset)[required] :where(legend) :where([pgs~=form-requiredHere])::after, [pgs~=form] :where(fieldset)[required] :where(legend):not(:has(:where([pgs~=form-requiredHere])))::after {
   content: "*";
   color: var(--color-error);
   transform: translate(20px, 0px);
@@ -4678,33 +4678,33 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   right: 0px;
 }
 
-[pgs~=form] fieldset[required] legend :where([pgs~=form-requiredHere])::after {
+[pgs~=form] :where(fieldset)[required] :where(legend) :where([pgs~=form-requiredHere])::after {
   position: relative;
 }
 
-[pgs~=form] label:has(+ input[required]:not([type=checkbox], [type=radio]),
+[pgs~=form] :where(label):has(+ input[required]:not([type=checkbox], [type=radio]),
 + select[required],
 + textarea[required],
 > input[required]:not([type=checkbox], [type=radio]),
 > select[required],
 > textarea[required]):not(:has([pgs~=label])),
-[pgs~=form] fieldset:has(input[type=checkbox][required], input[type=radio][required]) legend:not(:has([pgs~=label])) {
+[pgs~=form] :where(fieldset):has(input[type=checkbox][required], input[type=radio][required]) :where(legend):not(:has([pgs~=label])) {
   position: relative;
 }
 
-[pgs~=form] label:has(+ input[required]:not([type=checkbox], [type=radio]),
+[pgs~=form] :where(label):has(+ input[required]:not([type=checkbox], [type=radio]),
 + select[required],
 + textarea[required],
 > input[required]:not([type=checkbox], [type=radio]),
 > select[required],
-> textarea[required]):not(:has([pgs~=label])) :where([pgs~=form-requiredHere])::after, [pgs~=form] label:has(+ input[required]:not([type=checkbox], [type=radio]),
+> textarea[required]):not(:has([pgs~=label])) :where([pgs~=form-requiredHere])::after, [pgs~=form] :where(label):has(+ input[required]:not([type=checkbox], [type=radio]),
 + select[required],
 + textarea[required],
 > input[required]:not([type=checkbox], [type=radio]),
 > select[required],
 > textarea[required]):not(:has([pgs~=label])):not(:has(:where([pgs~=form-requiredHere])))::after,
-[pgs~=form] fieldset:has(input[type=checkbox][required], input[type=radio][required]) legend:not(:has([pgs~=label])) :where([pgs~=form-requiredHere])::after,
-[pgs~=form] fieldset:has(input[type=checkbox][required], input[type=radio][required]) legend:not(:has([pgs~=label])):not(:has(:where([pgs~=form-requiredHere])))::after {
+[pgs~=form] :where(fieldset):has(input[type=checkbox][required], input[type=radio][required]) :where(legend):not(:has([pgs~=label])) :where([pgs~=form-requiredHere])::after,
+[pgs~=form] :where(fieldset):has(input[type=checkbox][required], input[type=radio][required]) :where(legend):not(:has([pgs~=label])):not(:has(:where([pgs~=form-requiredHere])))::after {
   content: "*";
   color: var(--color-error);
   transform: translate(20px, 0px);
@@ -4715,39 +4715,39 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   right: 0px;
 }
 
-[pgs~=form] label:has(+ input[required]:not([type=checkbox], [type=radio]),
+[pgs~=form] :where(label):has(+ input[required]:not([type=checkbox], [type=radio]),
 + select[required],
 + textarea[required],
 > input[required]:not([type=checkbox], [type=radio]),
 > select[required],
 > textarea[required]):not(:has([pgs~=label])) :where([pgs~=form-requiredHere])::after,
-[pgs~=form] fieldset:has(input[type=checkbox][required], input[type=radio][required]) legend:not(:has([pgs~=label])) :where([pgs~=form-requiredHere])::after {
+[pgs~=form] :where(fieldset):has(input[type=checkbox][required], input[type=radio][required]) :where(legend):not(:has([pgs~=label])) :where([pgs~=form-requiredHere])::after {
   position: relative;
 }
 
-[pgs~=form] label:has(+ input[required]:not([type=checkbox], [type=radio]),
+[pgs~=form] :where(label):has(+ input[required]:not([type=checkbox], [type=radio]),
 + select[required],
 + textarea[required],
 > input[required]:not([type=checkbox], [type=radio]),
 > select[required],
 > textarea[required]) [pgs~=label],
-[pgs~=form] fieldset:has(input[type=checkbox][required], input[type=radio][required]) legend [pgs~=label] {
+[pgs~=form] :where(fieldset):has(input[type=checkbox][required], input[type=radio][required]) :where(legend) [pgs~=label] {
   position: relative;
 }
 
-[pgs~=form] label:has(+ input[required]:not([type=checkbox], [type=radio]),
+[pgs~=form] :where(label):has(+ input[required]:not([type=checkbox], [type=radio]),
 + select[required],
 + textarea[required],
 > input[required]:not([type=checkbox], [type=radio]),
 > select[required],
-> textarea[required]) [pgs~=label] :where([pgs~=form-requiredHere])::after, [pgs~=form] label:has(+ input[required]:not([type=checkbox], [type=radio]),
+> textarea[required]) [pgs~=label] :where([pgs~=form-requiredHere])::after, [pgs~=form] :where(label):has(+ input[required]:not([type=checkbox], [type=radio]),
 + select[required],
 + textarea[required],
 > input[required]:not([type=checkbox], [type=radio]),
 > select[required],
 > textarea[required]) [pgs~=label]:not(:has(:where([pgs~=form-requiredHere])))::after,
-[pgs~=form] fieldset:has(input[type=checkbox][required], input[type=radio][required]) legend [pgs~=label] :where([pgs~=form-requiredHere])::after,
-[pgs~=form] fieldset:has(input[type=checkbox][required], input[type=radio][required]) legend [pgs~=label]:not(:has(:where([pgs~=form-requiredHere])))::after {
+[pgs~=form] :where(fieldset):has(input[type=checkbox][required], input[type=radio][required]) :where(legend) [pgs~=label] :where([pgs~=form-requiredHere])::after,
+[pgs~=form] :where(fieldset):has(input[type=checkbox][required], input[type=radio][required]) :where(legend) [pgs~=label]:not(:has(:where([pgs~=form-requiredHere])))::after {
   content: "*";
   color: var(--color-error);
   transform: translate(20px, 0px);
@@ -4758,40 +4758,40 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   right: 0px;
 }
 
-[pgs~=form] label:has(+ input[required]:not([type=checkbox], [type=radio]),
+[pgs~=form] :where(label):has(+ input[required]:not([type=checkbox], [type=radio]),
 + select[required],
 + textarea[required],
 > input[required]:not([type=checkbox], [type=radio]),
 > select[required],
 > textarea[required]) [pgs~=label] :where([pgs~=form-requiredHere])::after,
-[pgs~=form] fieldset:has(input[type=checkbox][required], input[type=radio][required]) legend [pgs~=label] :where([pgs~=form-requiredHere])::after {
+[pgs~=form] :where(fieldset):has(input[type=checkbox][required], input[type=radio][required]) :where(legend) [pgs~=label] :where([pgs~=form-requiredHere])::after {
   position: relative;
 }
 
-[pgs~=form] input[disabled],
-[pgs~=form] input[disabled]:is([type=checkbox], [type=radio]) + label,
-[pgs~=form] label:has(+ input[disabled]:not([type=checkbox], [type=radio]), > input[disabled]:not([type=checkbox], [type=radio])),
-[pgs~=form] label:has(+ :is(textarea[disabled], select[disabled]), > :is(textarea[disabled], select[disabled])) {
+[pgs~=form] :where(input)[disabled],
+[pgs~=form] :where(input)[disabled]:is([type=checkbox], [type=radio]) + :where(label),
+[pgs~=form] :where(label):has(+ input[disabled]:not([type=checkbox], [type=radio]), > input[disabled]:not([type=checkbox], [type=radio])),
+[pgs~=form] :where(label):has(+ :is(textarea[disabled], select[disabled]), > :is(textarea[disabled], select[disabled])) {
   opacity: 0.5;
   cursor: not-allowed !important;
 }
 
-[pgs~=form] input[type=password]::-ms-reveal,
-[pgs~=form] input[type=password]::-ms-clear,
-[pgs~=form] input[type=password]::-webkit-textfield-decoration-container,
-[pgs~=form] input[type=password]::-webkit-credentials-auto-fill-button,
-[pgs~=form] input[type=password]::-webkit-password-toggle {
+[pgs~=form] :where(input)[type=password]::-ms-reveal,
+[pgs~=form] :where(input)[type=password]::-ms-clear,
+[pgs~=form] :where(input)[type=password]::-webkit-textfield-decoration-container,
+[pgs~=form] :where(input)[type=password]::-webkit-credentials-auto-fill-button,
+[pgs~=form] :where(input)[type=password]::-webkit-password-toggle {
   display: none;
 }
 
-[pgs~=form] input[type=file] {
+[pgs~=form] :where(input)[type=file] {
   width: 100%;
   background-color: var(--color-white);
   padding: var(--gap-texts);
   border-radius: var(--border-radius-input);
 }
 
-[pgs~=form] input[type=file]::file-selector-button {
+[pgs~=form] :where(input)[type=file]::file-selector-button {
   width: 40%;
   border: none;
   cursor: pointer;
@@ -4809,7 +4809,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   transition: var(--clickable-transition);
 }
 
-[pgs~=form] input[type=file]::file-selector-button:hover {
+[pgs~=form] :where(input)[type=file]::file-selector-button:hover {
   background-color: var(--hover-background);
   color: var(--hover-color);
 }
@@ -5136,358 +5136,358 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   content: "";
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-arrowLeft'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-arrowLeft'"]) {
   --icon: var(--icon-glyph-arrowLeft);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-arrowLeft'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-arrowLeft'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-arrowRight'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-arrowRight'"]) {
   --icon: var(--icon-glyph-arrowRight);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-arrowRight'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-arrowRight'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-bell'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-bell'"]) {
   --icon: var(--icon-glyph-bell);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-bell'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-bell'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-check'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-check'"]) {
   --icon: var(--icon-glyph-check);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-check'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-check'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-chevronDown'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-chevronDown'"]) {
   --icon: var(--icon-glyph-chevronDown);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-chevronDown'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-chevronDown'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-circle'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-circle'"]) {
   --icon: var(--icon-glyph-circle);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-circle'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-circle'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-circleCheck'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-circleCheck'"]) {
   --icon: var(--icon-glyph-circleCheck);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-circleCheck'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-circleCheck'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-circleInfo'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-circleInfo'"]) {
   --icon: var(--icon-glyph-circleInfo);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-circleInfo'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-circleInfo'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-circleXmark'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-circleXmark'"]) {
   --icon: var(--icon-glyph-circleXmark);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-circleXmark'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-circleXmark'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-close'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-close'"]) {
   --icon: var(--icon-glyph-close);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-close'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-close'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-cookie'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-cookie'"]) {
   --icon: var(--icon-glyph-cookie);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-cookie'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-cookie'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-magnifyingGlass'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-magnifyingGlass'"]) {
   --icon: var(--icon-glyph-magnifyingGlass);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-magnifyingGlass'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-magnifyingGlass'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-moon'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-moon'"]) {
   --icon: var(--icon-glyph-moon);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-moon'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-moon'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-sliders'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-sliders'"]) {
   --icon: var(--icon-glyph-sliders);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-sliders'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-sliders'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-star'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-star'"]) {
   --icon: var(--icon-glyph-star);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-star'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-star'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-sun'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-sun'"]) {
   --icon: var(--icon-glyph-sun);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-sun'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-sun'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-triangleExclamation'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-triangleExclamation'"]) {
   --icon: var(--icon-glyph-triangleExclamation);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-triangleExclamation'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-triangleExclamation'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-calendar'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-calendar'"]) {
   --icon: var(--icon-glyph-calendar);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-calendar'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-calendar'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-chatBubble'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-chatBubble'"]) {
   --icon: var(--icon-glyph-chatBubble);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-chatBubble'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-chatBubble'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-clock'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-clock'"]) {
   --icon: var(--icon-glyph-clock);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-clock'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-clock'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-download'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-download'"]) {
   --icon: var(--icon-glyph-download);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-download'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-download'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-envelope'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-envelope'"]) {
   --icon: var(--icon-glyph-envelope);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-envelope'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-envelope'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-eye'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-eye'"]) {
   --icon: var(--icon-glyph-eye);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-eye'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-eye'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-gear'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-gear'"]) {
   --icon: var(--icon-glyph-gear);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-gear'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-gear'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-heart'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-heart'"]) {
   --icon: var(--icon-glyph-heart);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-heart'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-heart'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-home'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-home'"]) {
   --icon: var(--icon-glyph-home);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-home'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-home'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-lock'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-lock'"]) {
   --icon: var(--icon-glyph-lock);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-lock'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-lock'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-mapPin'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-mapPin'"]) {
   --icon: var(--icon-glyph-mapPin);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-mapPin'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-mapPin'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-minus'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-minus'"]) {
   --icon: var(--icon-glyph-minus);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-minus'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-minus'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-pause'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-pause'"]) {
   --icon: var(--icon-glyph-pause);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-pause'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-pause'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-pencil'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-pencil'"]) {
   --icon: var(--icon-glyph-pencil);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-pencil'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-pencil'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-play'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-play'"]) {
   --icon: var(--icon-glyph-play);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-play'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-play'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-plus'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-plus'"]) {
   --icon: var(--icon-glyph-plus);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-plus'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-plus'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-trash'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-trash'"]) {
   --icon: var(--icon-glyph-trash);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-trash'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-trash'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-upload'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-upload'"]) {
   --icon: var(--icon-glyph-upload);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-upload'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-upload'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-user'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-user'"]) {
   --icon: var(--icon-glyph-user);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-user'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-user'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-hamburger'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-hamburger'"]) {
   --icon: var(--icon-glyph-hamburger);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-hamburger'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-hamburger'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-hamburgerTwo'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-hamburgerTwo'"]) {
   --icon: var(--icon-glyph-hamburgerTwo);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-hamburgerTwo'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-hamburgerTwo'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-ellipsis'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-ellipsis'"]) {
   --icon: var(--icon-glyph-ellipsis);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-ellipsis'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-ellipsis'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-hamburgerTwo'"][pgs*="'iconDuo'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-hamburgerTwo'"][pgs*="'iconDuo'"]) {
   --iconBefore: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath d=%27M56,183.5c0-18.8,15.2-34,34-34h332c18.8,0,34,15.2,34,34s-15.2,34-34,34H90c-18.8,0-34-15.2-34-34h0Z%27/%3E%3C/svg%3E");
   --iconAfter: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath d=%27M56,326.5c0-18.8,15.2-34,34-34h332c18.8,0,34,15.2,34,34h0c0,18.8-15.2,34-34,34H90c-18.8,0-34-15.2-34-34h0Z%27/%3E%3C/svg%3E");
   --iconBefore-color: var(--icon-color, currentColor);
@@ -5498,7 +5498,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   block-size: var(--icon-size);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-hamburgerTwo'"][pgs*="'iconDuo'"]::before, :is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-hamburgerTwo'"][pgs*="'iconDuo'"]::after {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-hamburgerTwo'"][pgs*="'iconDuo'"])::before, :is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-hamburgerTwo'"][pgs*="'iconDuo'"])::after {
+  content: "";
   display: inline-block;
   width: var(--icon-size);
   height: var(--icon-size);
@@ -5507,19 +5508,19 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   grid-area: 1/1;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-hamburgerTwo'"][pgs*="'iconDuo'"]::before {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-hamburgerTwo'"][pgs*="'iconDuo'"])::before {
   -webkit-mask: var(--iconBefore) center/contain no-repeat;
   mask: var(--iconBefore) center/contain no-repeat;
   background-color: var(--iconBefore-color);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'icon-hamburgerTwo'"][pgs*="'iconDuo'"]::after {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-hamburgerTwo'"][pgs*="'iconDuo'"])::after {
   -webkit-mask: var(--iconAfter) center/contain no-repeat;
   mask: var(--iconAfter) center/contain no-repeat;
   background-color: var(--iconAfter-color);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'iconBoxed'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'iconBoxed'"]) {
   --boxed-size: calc(var(--icon-size) / 1.5);
   --boxed-padding: .5rem;
   --boxed-background: var(--color-box-transparent);
@@ -5533,19 +5534,19 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   width: calc(var(--boxed-size, var(--font-size-text)) * 3);
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'iconBoxed'"] i,
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'iconBoxed'"] :is([pgs~=icon], [pgs*="icon["]) {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'iconBoxed'"]) i,
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'iconBoxed'"]) :is([pgs~=icon], [pgs*="icon["]) {
   display: inline-grid;
   place-items: center;
   block-size: var(--boxed-size);
   aspect-ratio: 1;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'iconMedium'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'iconMedium'"]) {
   --icon-size: 1.25em;
 }
 
-:is([pgs~=icon], [pgs*="icon["])[pgs*="'iconLarge'"] {
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'iconLarge'"]) {
   --icon-size: 1.5em;
 }
 
@@ -6072,7 +6073,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --menu-gap-row: 1.0rem;
 }
 
-:is([pgs~=menu], [pgs*="menu["]) ul {
+:is([pgs~=menu], [pgs*="menu["]) :where(ul) {
   display: flex;
   font-weight: var(--font-weight-bold);
   align-items: center;
@@ -6081,25 +6082,25 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   flex-wrap: nowrap;
 }
 
-:is([pgs~=menu], [pgs*="menu["]) ul > li > a {
+:is([pgs~=menu], [pgs*="menu["]) :where(ul) > :where(li) > :where(a) {
   flex-grow: 1;
   min-width: fit-content;
 }
 
-:is([pgs~=menu], [pgs*="menu["]) ul > li > a > span {
+:is([pgs~=menu], [pgs*="menu["]) :where(ul) > :where(li) > :where(a) > :where(span) {
   line-height: 1;
   flex-grow: 1;
 }
 
-:is([pgs~=menu], [pgs*="menu["]) ul > li li {
+:is([pgs~=menu], [pgs*="menu["]) :where(ul) > :where(li) :where(li) {
   width: -webkit-fill-available;
 }
 
-:is([pgs~=menu], [pgs*="menu["]) ul > li[pgs-state~=open] > ul {
+:is([pgs~=menu], [pgs*="menu["]) :where(ul) > :where(li)[pgs-state~=open] > :where(ul) {
   display: flex;
 }
 
-:is([pgs~=menu], [pgs*="menu["]) ul ul {
+:is([pgs~=menu], [pgs*="menu["]) :where(ul) :where(ul) {
   display: flex;
   gap: var(--gap-texts);
   --gap: var(--gap-texts);
@@ -6116,42 +6117,42 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   margin-block: auto;
 }
 
-:is([pgs~=menu], [pgs*="menu["]) :where([pgs~=_menu-submenuButton]) i {
+:is([pgs~=menu], [pgs*="menu["]) :where([pgs~=_menu-submenuButton]) :where(i) {
   transition: all 300ms;
 }
 
-:is([pgs~=menu], [pgs*="menu["]) :where([pgs~=_menu-submenuButton])[aria-expanded=true] i {
+:is([pgs~=menu], [pgs*="menu["]) :where([pgs~=_menu-submenuButton])[aria-expanded=true] :where(i) {
   rotate: 180deg;
 }
 
-:is([pgs~=menu], [pgs*="menu["])[pgs*="'menuHorizontal'"] > ul {
+:is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuHorizontal'"]) > :where(ul) {
   flex-direction: row;
 }
 
-:is([pgs~=menu], [pgs*="menu["])[pgs*="'menuHorizontal'"] > ul > li > a {
+:is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuHorizontal'"]) > :where(ul) > :where(li) > :where(a) {
   width: max-content;
 }
 
-:is([pgs~=menu], [pgs*="menu["])[pgs*="'menuHorizontal'"] > ul > li:has(ul) {
+:is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuHorizontal'"]) > :where(ul) > :where(li):has(ul) {
   display: flex;
   gap: 0.2rem;
   flex-wrap: nowrap;
 }
 
-:is([pgs~=menu], [pgs*="menu["]) ul :is(ul), :is([pgs~=menu], [pgs*="menu["])[pgs*="'menuVertical'"] :is(ul), :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :is(ul) {
+:is([pgs~=menu], [pgs*="menu["]) :where(ul) :where(ul), :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuVertical'"]) :where(ul), :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :where(ul) {
   flex-direction: column;
 }
 
-:is([pgs~=menu], [pgs*="menu["]) ul :is(ul) li, :is([pgs~=menu], [pgs*="menu["])[pgs*="'menuVertical'"] :is(ul) li, :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :is(ul) li {
+:is([pgs~=menu], [pgs*="menu["]) :where(ul) :where(ul) :where(li), :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuVertical'"]) :where(ul) :where(li), :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :where(ul) :where(li) {
   width: 100%;
 }
 
-:is([pgs~=menu], [pgs*="menu["]) ul :is(ul) li > a, :is([pgs~=menu], [pgs*="menu["])[pgs*="'menuVertical'"] :is(ul) li > a, :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :is(ul) li > a {
+:is([pgs~=menu], [pgs*="menu["]) :where(ul) :where(ul) :where(li) > :where(a), :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuVertical'"]) :where(ul) :where(li) > :where(a), :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :where(ul) :where(li) > :where(a) {
   width: 100%;
   justify-content: start;
 }
 
-:is([pgs~=menu], [pgs*="menu["]) ul :is(ul) > li:has(ul), :is([pgs~=menu], [pgs*="menu["])[pgs*="'menuVertical'"] :is(ul) > li:has(ul), :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :is(ul) > li:has(ul) {
+:is([pgs~=menu], [pgs*="menu["]) :where(ul) :where(ul) > :where(li):has(ul), :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuVertical'"]) :where(ul) > :where(li):has(ul), :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :where(ul) > :where(li):has(ul) {
   display: flex;
   gap: var(--gap-texts);
   --gap: var(--gap-texts);
@@ -6161,48 +6162,47 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   position: relative;
 }
 
-:is([pgs~=menu], [pgs*="menu["]) ul :is(ul) > li:has(ul) > a, :is([pgs~=menu], [pgs*="menu["])[pgs*="'menuVertical'"] :is(ul) > li:has(ul) > a, :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :is(ul) > li:has(ul) > a {
+:is([pgs~=menu], [pgs*="menu["]) :where(ul) :where(ul) > :where(li):has(ul) > :where(a), :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuVertical'"]) :where(ul) > :where(li):has(ul) > :where(a), :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :where(ul) > :where(li):has(ul) > :where(a) {
   flex: 1;
 }
 
-:is([pgs~=menu], [pgs*="menu["]) ul :is(ul) > li:has(ul) > ul, :is([pgs~=menu], [pgs*="menu["])[pgs*="'menuVertical'"] :is(ul) > li:has(ul) > ul, :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :is(ul) > li:has(ul) > ul {
+:is([pgs~=menu], [pgs*="menu["]) :where(ul) :where(ul) > :where(li):has(ul) > :where(ul), :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuVertical'"]) :where(ul) > :where(li):has(ul) > :where(ul), :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :where(ul) > :where(li):has(ul) > :where(ul) {
   flex-basis: 100%;
   padding-left: 0.5rem;
   margin-left: 1.5rem;
   border-left: var(--border-complete);
 }
 
-:is([pgs~=menu], [pgs*="menu["]) ul :is(ul) > li:has(ul):not([pgs-state~=open]) ul, :is([pgs~=menu], [pgs*="menu["])[pgs*="'menuVertical'"] :is(ul) > li:has(ul):not([pgs-state~=open]) ul, :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :is(ul) > li:has(ul):not([pgs-state~=open]) ul {
+:is([pgs~=menu], [pgs*="menu["]) :where(ul) :where(ul) > :where(li):has(ul):not([pgs-state~=open]) :where(ul), :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuVertical'"]) :where(ul) > :where(li):has(ul):not([pgs-state~=open]) :where(ul), :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :where(ul) > :where(li):has(ul):not([pgs-state~=open]) :where(ul) {
   display: none;
 }
 
-:is([pgs~=menu], [pgs*="menu["])[pgs*="'menuIconOnlyCurrent'"] a:not([aria-current]:not([aria-current=false])) {
+:is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuIconOnlyCurrent'"]) :where(a):not([aria-current]:not([aria-current=false])) {
   padding-left: var(--button-paddingInline);
 }
 
-:is([pgs~=menu], [pgs*="menu["])[pgs*="'menuIconOnlyCurrent'"] a:not([aria-current]:not([aria-current=false])) > i,
-:is([pgs~=menu], [pgs*="menu["])[pgs*="'menuIconOnlyCurrent'"] a:not([aria-current]:not([aria-current=false])) > :is([pgs~=icon], [pgs*="icon["]) {
+:is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuIconOnlyCurrent'"]) :where(a):not([aria-current]:not([aria-current=false])) > :where(i, [pgs~=icon], [pgs*="icon["]) {
   display: none;
 }
 
-:is([pgs~=menu], [pgs*="menu["])[pgs*="'menuShort'"] > ul > li:first-child a {
+:is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuShort'"]) > :where(ul) > :where(li):first-child :where(a) {
   margin-left: 0px;
 }
 
-:is([pgs~=menu], [pgs*="menu["])[pgs*="'menuShort'"] > ul > li:last-child a {
+:is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuShort'"]) > :where(ul) > :where(li):last-child :where(a) {
   margin-right: 0px;
 }
 
-:is([pgs~=menu], [pgs*="menu["])[pgs*="'menuShort'"] > ul > li a {
+:is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuShort'"]) > :where(ul) > :where(li) :where(a) {
   margin-right: calc(var(--button-paddingBlock) * -1);
 }
 
-:is([pgs~=menu], [pgs*="menu["])[pgs*="'menuShort'"] > ul > li a[aria-current=page] {
+:is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuShort'"]) > :where(ul) > :where(li) :where(a)[aria-current=page] {
   z-index: 1;
   position: relative;
 }
 
-:is([pgs~=menu], [pgs*="menu["])[pgs*="'menuShort'"] > ul > li a:hover {
+:is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuShort'"]) > :where(ul) > :where(li) :where(a):hover {
   z-index: 2;
   position: relative;
 }
@@ -6302,7 +6302,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   overflow: hidden;
 }
 
-:is([pgs~=accordion], [pgs*="accordion["]) :is([pgs~=accordion], [pgs*="accordion["]) {
+:is([pgs~=accordion], [pgs*="accordion["]) :where([pgs~=accordion], [pgs*="accordion["]) {
   padding-inline: 10px;
 }
 
@@ -6352,12 +6352,12 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   align-items: center;
 }
 
-[pgs~=breadcrumb] :where([pgs~=breadcrumb-item]) a {
+[pgs~=breadcrumb] :where([pgs~=breadcrumb-item]) :where(a) {
   color: var(--breadcrumb-color);
   text-decoration: none;
 }
 
-[pgs~=breadcrumb] :where([pgs~=breadcrumb-item]) a:hover {
+[pgs~=breadcrumb] :where([pgs~=breadcrumb-item]) :where(a):hover {
   color: var(--breadcrumb-color-hover);
   text-decoration: underline;
 }
@@ -6495,7 +6495,7 @@ html:has(dialog[open]) {
   scrollbar-gutter: stable;
 }
 
-:is([pgs~=modal], [pgs*="modal["]) :where([pgs~=modal-close])[aria-expanded=true] i {
+:is([pgs~=modal], [pgs*="modal["]) :where([pgs~=modal-close])[aria-expanded=true] :where(i) {
   --icon: var(--icon-glyph-close);
 }
 
@@ -6533,7 +6533,7 @@ html:has(dialog[open]) {
   outline: none;
 }
 
-:where(dialog[pgs~=modal-dialog])[open] {
+:where(dialog[pgs~=modal-dialog]):where([open]) {
   display: flex;
   align-items: safe flex-start;
   justify-content: safe center;
@@ -6605,22 +6605,22 @@ html:has(dialog[open]) {
   z-index: 1;
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogTopLevel'"] {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogTopLevel'"]) {
   overflow-y: auto;
   height: auto;
   z-index: auto;
   align-items: safe flex-start;
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogDisableBackdropClose'"] {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogDisableBackdropClose'"]) {
   cursor: auto;
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogDragClose'"] {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogDragClose'"]) {
   transition: opacity 600ms ease, background-color var(--modal-animation-timing) var(--modal-animation-easing);
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogDragClose'"] [pgs~=modal-dialog-content]::before {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogDragClose'"]) :where([pgs~=modal-dialog-content])::before {
   content: "";
   position: absolute;
   height: 4px;
@@ -6633,107 +6633,107 @@ html:has(dialog[open]) {
   border-radius: 4px;
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogDragClose'"]::backdrop {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogDragClose'"])::backdrop {
   transition: opacity var(--modal-animation-timing) var(--modal-animation-easing);
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogDragClose'"] :where([pgs~=modal-dialog-content]) {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogDragClose'"]) :where([pgs~=modal-dialog-content]) {
   transition: transform var(--modal-animation-timing) var(--modal-animation-easing);
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogDragClose'"][pgs-state~=dragging] {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogDragClose'"])[pgs-state~=dragging] {
   background-color: color-mix(in srgb, var(--modal-backdrop) calc((1 - var(--_modal-drag-progress, 0)) * 100%), transparent);
   transition: none;
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogDragClose'"][pgs-state~=dragging]::backdrop {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogDragClose'"])[pgs-state~=dragging]::backdrop {
   opacity: calc(1 - var(--_modal-drag-progress, 0));
   transition: none;
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogDragClose'"][pgs-state~=dragging] :where([pgs~=modal-dialog-content]) {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogDragClose'"])[pgs-state~=dragging] :where([pgs~=modal-dialog-content]) {
   transform: translateY(var(--_modal-drag-y, 0px));
   transition: none;
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogDragClose'"][pgs-state~=dragClose] {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogDragClose'"])[pgs-state~=dragClose] {
   background-color: transparent;
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogDragClose'"][pgs-state~=dragClose]::backdrop {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogDragClose'"])[pgs-state~=dragClose]::backdrop {
   opacity: 0;
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogDragClose'"][pgs-state~=dragClose] :where([pgs~=modal-dialog-content]) {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogDragClose'"])[pgs-state~=dragClose] :where([pgs~=modal-dialog-content]) {
   transform: translateY(100dvh);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  :where(dialog[pgs~=modal-dialog])[pgs*="'dialogDragClose'"], :where(dialog[pgs~=modal-dialog])[pgs*="'dialogDragClose'"]::backdrop,
-  :where(dialog[pgs~=modal-dialog])[pgs*="'dialogDragClose'"] :where([pgs~=modal-dialog-content]) {
+  :where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogDragClose'"]), :where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogDragClose'"])::backdrop,
+  :where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogDragClose'"]) :where([pgs~=modal-dialog-content]) {
     transition: none;
   }
 }
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogSmall'"] :where([pgs~=modal-dialog-content]) {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogSmall'"]) :where([pgs~=modal-dialog-content]) {
   --section-width: min(calc(var(--page-width)/3), 100%);
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogMedium'"] :where([pgs~=modal-dialog-content]) {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogMedium'"]) :where([pgs~=modal-dialog-content]) {
   --section-width: min(calc(var(--page-width)/2), 100%);
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogFull'"] :where([pgs~=modal-dialog-content]) {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogFull'"]) :where([pgs~=modal-dialog-content]) {
   --section-width: 100%;
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogCenter'"] {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogCenter'"]) {
   justify-content: safe center;
   align-items: safe center;
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogLeft'"] {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogLeft'"]) {
   justify-content: safe flex-start;
   padding-inline: var(--modal-offset);
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogRight'"] {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogRight'"]) {
   justify-content: safe flex-end;
   padding-inline: var(--modal-offset);
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogTop'"] {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogTop'"]) {
   align-items: safe flex-start;
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogBottom'"] {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogBottom'"]) {
   align-items: safe flex-end;
 }
 
-:where(dialog[pgs~=modal-dialog]):is([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"]):is([pgs-state~=animationIn], [pgs-state~=animationOut]) {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"]):is([pgs-state~=animationIn], [pgs-state~=animationOut]) {
   animation: modalAnimationBackdrop var(--modal-animation-timing) var(--modal-animation-easing) both;
 }
 
-:where(dialog[pgs~=modal-dialog]):is([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"]):is([pgs-state~=animationIn], [pgs-state~=animationOut])::backdrop {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"]):is([pgs-state~=animationIn], [pgs-state~=animationOut])::backdrop {
   animation: modalAnimationFade var(--modal-animation-timing) var(--modal-animation-easing) both;
 }
 
-:where(dialog[pgs~=modal-dialog]):is([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"]):is([pgs-state~=animationIn], [pgs-state~=animationOut]) :where([pgs~=modal-dialog-content]) {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"]):is([pgs-state~=animationIn], [pgs-state~=animationOut]) :where([pgs~=modal-dialog-content]) {
   animation-duration: var(--modal-animation-timing);
   animation-timing-function: var(--modal-animation-easing);
   animation-fill-mode: both;
 }
 
-:where(dialog[pgs~=modal-dialog]):is([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"])[pgs-state~=animationIn] {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"])[pgs-state~=animationIn] {
   overflow: clip;
 }
 
-:where(dialog[pgs~=modal-dialog]):is([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"])[pgs-state~=animationOut], :where(dialog[pgs~=modal-dialog]):is([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"])[pgs-state~=animationOut]::backdrop,
-:where(dialog[pgs~=modal-dialog]):is([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"])[pgs-state~=animationOut] :where([pgs~=modal-dialog-content]) {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"])[pgs-state~=animationOut], :where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"])[pgs-state~=animationOut]::backdrop,
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"])[pgs-state~=animationOut] :where([pgs~=modal-dialog-content]) {
   animation-direction: reverse;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  :where(dialog[pgs~=modal-dialog]):is([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"]):is([pgs-state~=animationIn], [pgs-state~=animationOut]), :where(dialog[pgs~=modal-dialog]):is([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"]):is([pgs-state~=animationIn], [pgs-state~=animationOut])::backdrop {
+  :where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"]):is([pgs-state~=animationIn], [pgs-state~=animationOut]), :where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"]):is([pgs-state~=animationIn], [pgs-state~=animationOut])::backdrop {
     animation: none;
   }
 }
@@ -6747,29 +6747,29 @@ html:has(dialog[open]) {
     opacity: 0;
   }
 }
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogAnimationZoom'"]:is([pgs-state~=animationIn], [pgs-state~=animationOut]) :where([pgs~=modal-dialog-content]) {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogAnimationZoom'"]):is([pgs-state~=animationIn], [pgs-state~=animationOut]) :where([pgs~=modal-dialog-content]) {
   transform-origin: 0 0;
   animation-name: modalAnimationZoom;
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogAnimationLeft'"]:is([pgs-state~=animationIn], [pgs-state~=animationOut]) :where([pgs~=modal-dialog-content]) {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogAnimationLeft'"]):is([pgs-state~=animationIn], [pgs-state~=animationOut]) :where([pgs~=modal-dialog-content]) {
   animation-name: modalAnimationLeft;
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogAnimationRight'"]:is([pgs-state~=animationIn], [pgs-state~=animationOut]) :where([pgs~=modal-dialog-content]) {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogAnimationRight'"]):is([pgs-state~=animationIn], [pgs-state~=animationOut]) :where([pgs~=modal-dialog-content]) {
   animation-name: modalAnimationRight;
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogAnimationTop'"]:is([pgs-state~=animationIn], [pgs-state~=animationOut]) :where([pgs~=modal-dialog-content]) {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogAnimationTop'"]):is([pgs-state~=animationIn], [pgs-state~=animationOut]) :where([pgs~=modal-dialog-content]) {
   animation-name: modalAnimationTop;
 }
 
-:where(dialog[pgs~=modal-dialog])[pgs*="'dialogAnimationBottom'"]:is([pgs-state~=animationIn], [pgs-state~=animationOut]) :where([pgs~=modal-dialog-content]) {
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogAnimationBottom'"]):is([pgs-state~=animationIn], [pgs-state~=animationOut]) :where([pgs~=modal-dialog-content]) {
   animation-name: modalAnimationBottom;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  :where(dialog[pgs~=modal-dialog]):is([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"]):is([pgs-state~=animationIn], [pgs-state~=animationOut]) :where([pgs~=modal-dialog-content]) {
+  :where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"]):is([pgs-state~=animationIn], [pgs-state~=animationOut]) :where([pgs~=modal-dialog-content]) {
     animation-name: none;
   }
 }
@@ -6806,20 +6806,20 @@ html:has(dialog[open]) {
     transform: translateY(100dvh);
   }
 }
-[pgs~=pageNav] [pgs~=pageNav-panels] [pgs~=pageNav-panels-content] {
+[pgs~=pageNav] :where([pgs~=pageNav-panels]) :where([pgs~=pageNav-panels-content]) {
   display: none;
 }
 
-[pgs~=pageNav] [pgs~=pageNav-panels] [pgs~=pageNav-panels-content][pgs-state~=active] {
+[pgs~=pageNav] :where([pgs~=pageNav-panels]) :where([pgs~=pageNav-panels-content])[pgs-state~=active] {
   display: block;
 }
 
-[pgs~=pageNav] [pgs~=pageNav-panels]:not(:has([pgs~=pageNav-panels-content][pgs-state~=active])) {
+[pgs~=pageNav] :where([pgs~=pageNav-panels]):not(:has([pgs~=pageNav-panels-content][pgs-state~=active])) {
   position: relative;
   overflow: hidden;
 }
 
-[pgs~=pageNav] [pgs~=pageNav-panels]:not(:has([pgs~=pageNav-panels-content][pgs-state~=active]))::after {
+[pgs~=pageNav] :where([pgs~=pageNav-panels]):not(:has([pgs~=pageNav-panels-content][pgs-state~=active]))::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -6970,13 +6970,13 @@ html:has(dialog[open]) {
   background-color: var(--current-background);
 }
 
-:is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesArrowsCenter'"] {
+:is([pgs~=slides], [pgs*="slides["]):where([pgs*="'slidesArrowsCenter'"]) {
   display: flex;
   flex-direction: column;
 }
 
-:is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesArrowsCenter'"] [pgs~=_slides-prev],
-:is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesArrowsCenter'"] [pgs~=_slides-next] {
+:is([pgs~=slides], [pgs*="slides["]):where([pgs*="'slidesArrowsCenter'"]) :where([pgs~=_slides-prev]),
+:is([pgs~=slides], [pgs*="slides["]):where([pgs*="'slidesArrowsCenter'"]) :where([pgs~=_slides-next]) {
   position: absolute;
   grid-row: auto;
   grid-column: auto;
@@ -6985,48 +6985,48 @@ html:has(dialog[open]) {
   margin: unset;
 }
 
-:is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesArrowsCenter'"] [pgs~=_slides-prev] {
+:is([pgs~=slides], [pgs*="slides["]):where([pgs*="'slidesArrowsCenter'"]) :where([pgs~=_slides-prev]) {
   left: 0.4rem;
 }
 
-:is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesArrowsCenter'"] [pgs~=_slides-next] {
+:is([pgs~=slides], [pgs*="slides["]):where([pgs*="'slidesArrowsCenter'"]) :where([pgs~=_slides-next]) {
   right: 0.4rem;
 }
 
-:is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesNotDots'"] :where([pgs~=slides-dots]),
-:is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesNotDots'"] :where([pgs~=_slides-dots]) {
+:is([pgs~=slides], [pgs*="slides["]):where([pgs*="'slidesNotDots'"]) :where([pgs~=slides-dots]),
+:is([pgs~=slides], [pgs*="slides["]):where([pgs*="'slidesNotDots'"]) :where([pgs~=_slides-dots]) {
   display: none;
 }
 
-:is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesFullWidth'"] {
+:is([pgs~=slides], [pgs*="slides["]):where([pgs*="'slidesFullWidth'"]) {
   --slides-width: 100%;
   --slides-width-mobile: 100%;
   --slides-width-tablet: 100%;
 }
 
-:is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesAnimationScale'"] :where([pgs~=slides-container]) :where([pgs~=slides-container-slide]) > * {
+:is([pgs~=slides], [pgs*="slides["]):where([pgs*="'slidesAnimationScale'"]) :where([pgs~=slides-container]) :where([pgs~=slides-container-slide]) > * {
   scale: calc(var(--_slides-visiblePercent, 1) * var(--_slides-visiblePercent, 1) * var(--_slides-visiblePercent, 1));
   transform-origin: center;
 }
 
-:is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesAnimationScale'"] :where([pgs~=slides-container]) :where([pgs~=slides-container-slide]):has(~ [pgs-state~=view]) > * {
+:is([pgs~=slides], [pgs*="slides["]):where([pgs*="'slidesAnimationScale'"]) :where([pgs~=slides-container]) :where([pgs~=slides-container-slide]):has(~ [pgs-state~=view]) > * {
   transform-origin: right;
 }
 
-:is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesAnimationScale'"] :where([pgs~=slides-container]) :where([pgs-state~=view]) ~ :where([pgs~=slides-container-slide]) > * {
+:is([pgs~=slides], [pgs*="slides["]):where([pgs*="'slidesAnimationScale'"]) :where([pgs~=slides-container]) :where([pgs-state~=view]) ~ :where([pgs~=slides-container-slide]) > * {
   transform-origin: left;
 }
 
 @container (min-width: 800px) {
-  :is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesShadowDesktop'"] :where([pgs~=slides-container]) {
+  :is([pgs~=slides], [pgs*="slides["]):where([pgs*="'slidesShadowDesktop'"]) :where([pgs~=slides-container]) {
     transition: --slides-maskStart 200ms, --slides-maskEnd 200ms;
     -webkit-mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart, 0px), black calc(100% - var(--slides-maskEnd)), transparent 100%);
     mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart, 0px), black calc(100% - var(--slides-maskEnd)), transparent 100%);
   }
-  :is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesShadowDesktop'"]:not(:has(:where([pgs~=slides-container]) li:first-child[pgs-state~=view])) :where([pgs~=slides-container]) {
+  :is([pgs~=slides], [pgs*="slides["]):where([pgs*="'slidesShadowDesktop'"]):not(:has(:where([pgs~=slides-container]) :where(li):first-child[pgs-state~=view])) :where([pgs~=slides-container]) {
     --slides-maskStart: var(--slides-sizeMaskImage);
   }
-  :is([pgs~=slides], [pgs*="slides["])[pgs*="'slidesShadowDesktop'"]:not(:has(:where([pgs~=slides-container]) li:last-child[pgs-state~=view])) :where([pgs~=slides-container]) {
+  :is([pgs~=slides], [pgs*="slides["]):where([pgs*="'slidesShadowDesktop'"]):not(:has(:where([pgs~=slides-container]) :where(li):last-child[pgs-state~=view])) :where([pgs~=slides-container]) {
     --slides-maskEnd: var(--slides-sizeMaskImage);
   }
 }
@@ -7069,9 +7069,8 @@ ol[pgs~=steps] :where([pgs~=steps-step]) :where([pgs~=_steps-step-circle]) {
   text-align: center;
 }
 
-ol[pgs~=steps] :where([pgs~=steps-step]) :where([pgs~=steps-step-circle]) i, ol[pgs~=steps] :where([pgs~=steps-step]) :where([pgs~=steps-step-circle]) :is([pgs~=icon], [pgs*="icon["]),
-ol[pgs~=steps] :where([pgs~=steps-step]) :where([pgs~=_steps-step-circle]) i,
-ol[pgs~=steps] :where([pgs~=steps-step]) :where([pgs~=_steps-step-circle]) :is([pgs~=icon], [pgs*="icon["]) {
+ol[pgs~=steps] :where([pgs~=steps-step]) :where([pgs~=steps-step-circle]) :where(i, [pgs~=icon], [pgs*="icon["]),
+ol[pgs~=steps] :where([pgs~=steps-step]) :where([pgs~=_steps-step-circle]) :where(i, [pgs~=icon], [pgs*="icon["]) {
   color: var(--color-black);
 }
 
@@ -7110,9 +7109,8 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-cir
   color: var(--color-whiteFixed);
 }
 
-ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=steps-step-circle]) i, ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=steps-step-circle]) :is([pgs~=icon], [pgs*="icon["]),
-ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-circle]) i,
-ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-circle]) :is([pgs~=icon], [pgs*="icon["]) {
+ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=steps-step-circle]) :where(i, [pgs~=icon], [pgs*="icon["]),
+ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-circle]) :where(i, [pgs~=icon], [pgs*="icon["]) {
   color: var(--color-whiteFixed);
 }
 
@@ -7122,7 +7120,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 }
 
 [pgs~=table]:is(table),
-[pgs~=table] table {
+[pgs~=table] :where(table) {
   --table-title-background: var(--border-color);
   --table-title-color: var(--color-black);
   --table-row-background-even: var(--color-box-transparent);
@@ -7140,47 +7138,45 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   overflow: hidden;
 }
 
-[pgs~=table]:is(table) th,
-[pgs~=table]:is(table) td,
-[pgs~=table] table th,
-[pgs~=table] table td {
+[pgs~=table]:is(table) :where(th, td),
+[pgs~=table] :where(table) :where(th, td) {
   padding: 12px;
   border: var(--border-complete);
   text-align: left;
   min-width: 100px;
 }
 
-[pgs~=table]:is(table) th,
-[pgs~=table] table th {
+[pgs~=table]:is(table) :where(th),
+[pgs~=table] :where(table) :where(th) {
   background-color: var(--table-title-background);
   color: var(--table-title-color);
   font-weight: bold;
 }
 
-[pgs~=table]:is(table) tr,
-[pgs~=table] table tr {
+[pgs~=table]:is(table) :where(tr),
+[pgs~=table] :where(table) :where(tr) {
   color: var(--table-row-color);
   transition: var(--clickable-transition);
 }
 
-[pgs~=table]:is(table) tr:nth-child(even),
-[pgs~=table] table tr:nth-child(even) {
+[pgs~=table]:is(table) :where(tr):nth-child(even),
+[pgs~=table] :where(table) :where(tr):nth-child(even) {
   background-color: var(--table-row-background-even);
 }
 
-[pgs~=table]:is(table) tr:nth-child(odd),
-[pgs~=table] table tr:nth-child(odd) {
+[pgs~=table]:is(table) :where(tr):nth-child(odd),
+[pgs~=table] :where(table) :where(tr):nth-child(odd) {
   background-color: var(--table-row-background-odd);
 }
 
-[pgs~=table]:is(table) tr:hover,
-[pgs~=table] table tr:hover {
+[pgs~=table]:is(table) :where(tr):hover,
+[pgs~=table] :where(table) :where(tr):hover {
   background-color: var(--table-row-background-hover);
   color: var(--table-row-color-hover);
 }
 
-[pgs~=table]:is(table) td,
-[pgs~=table] table td {
+[pgs~=table]:is(table) :where(td),
+[pgs~=table] :where(table) :where(td) {
   color: var(--color-text);
 }
 
@@ -7239,7 +7235,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   scale: 1.2;
 }
 
-[pgs~=stepTabs] :where([pgs~=stepTabs-dots]) :where([pgs~=_stepTabs-dots-dot])[pgs-state~=active] i, [pgs~=stepTabs] :where([pgs~=stepTabs-dots]) :where([pgs~=_stepTabs-dots-dot])[pgs-state~=active] :is([pgs~=icon], [pgs*="icon["]) {
+[pgs~=stepTabs] :where([pgs~=stepTabs-dots]) :where([pgs~=_stepTabs-dots-dot])[pgs-state~=active] :where(i, [pgs~=icon], [pgs*="icon["]) {
   color: var(--color-whiteFixed);
 }
 
@@ -7320,49 +7316,49 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   overflow-wrap: normal;
 }
 
-:is([pgs~=badge], [pgs*="badge["]) i, :is([pgs~=badge], [pgs*="badge["]) :is([pgs~=icon], [pgs*="icon["]) {
+:is([pgs~=badge], [pgs*="badge["]) :where(i, [pgs~=icon], [pgs*="icon["]) {
   color: var(--badge-color);
   font-size: var(--badge-iconSize);
   --icon-size: var(--badge-iconSize);
   scale: 1.3;
 }
 
-:is([pgs~=badge], [pgs*="badge["])[pgs*="'badgePrimary'"] {
+:is([pgs~=badge], [pgs*="badge["]):where([pgs*="'badgePrimary'"]) {
   --badge-background: var(--color-primary-soft);
   --badge-color: var(--color-primary-strong);
 }
 
-:is([pgs~=badge], [pgs*="badge["])[pgs*="'badgeStrong'"] {
+:is([pgs~=badge], [pgs*="badge["]):where([pgs*="'badgeStrong'"]) {
   --badge-background: var(--color-primary);
   --badge-color: var(--color-whiteFixed);
 }
 
-:is([pgs~=badge], [pgs*="badge["])[pgs*="'badgeSuccess'"] {
+:is([pgs~=badge], [pgs*="badge["]):where([pgs*="'badgeSuccess'"]) {
   --badge-background: var(--color-success-soft);
   --badge-color: var(--color-success);
 }
 
-:is([pgs~=badge], [pgs*="badge["])[pgs*="'badgeWarning'"] {
+:is([pgs~=badge], [pgs*="badge["]):where([pgs*="'badgeWarning'"]) {
   --badge-background: var(--color-warning-soft);
   --badge-color: var(--color-warning);
 }
 
-:is([pgs~=badge], [pgs*="badge["])[pgs*="'badgeError'"] {
+:is([pgs~=badge], [pgs*="badge["]):where([pgs*="'badgeError'"]) {
   --badge-background: var(--color-error-soft);
   --badge-color: var(--color-error);
 }
 
-:is([pgs~=badge], [pgs*="badge["])[pgs*="'badgeInfo'"] {
+:is([pgs~=badge], [pgs*="badge["]):where([pgs*="'badgeInfo'"]) {
   --badge-background: var(--color-info-soft);
   --badge-color: var(--color-info);
 }
 
-:is([pgs~=badge], [pgs*="badge["])[pgs*="'badgeNeutral'"] {
+:is([pgs~=badge], [pgs*="badge["]):where([pgs*="'badgeNeutral'"]) {
   --badge-background: var(--color-box-transparent);
   --badge-color: var(--color-text);
 }
 
-:is([pgs~=badge], [pgs*="badge["])[pgs*="'badgeDot'"]::before {
+:is([pgs~=badge], [pgs*="badge["]):where([pgs*="'badgeDot'"])::before {
   content: "";
   display: block;
   inline-size: 0.65em;
@@ -7412,8 +7408,8 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   --icon-size: var(--alert-iconSize);
 }
 
-:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=alert-icon]) img,
-:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=_alert-icon]) img {
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=alert-icon]) :where(img),
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=_alert-icon]) :where(img) {
   width: var(--alert-iconSize);
   aspect-ratio: 1;
 }
@@ -7438,12 +7434,12 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   line-height: 1.2;
 }
 
-:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=alert-content]) p,
-:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=_alert-content]) p {
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=alert-content]) :where(p),
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=_alert-content]) :where(p) {
   margin: 0;
 }
 
-:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) p {
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where(p) {
   color: var(--alert-color);
 }
 
@@ -7492,7 +7488,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   background: color-mix(in srgb, var(--alert-background) 50%, var(--color-white) 50%);
 }
 
-:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=_alert-buttons]) :is(a, button, input) {
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=_alert-buttons]) :where(a, button, input) {
   --button-size: .7rem;
   flex: 1;
   justify-content: center;
@@ -7500,25 +7496,25 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   min-width: max-content;
 }
 
-:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["])[pgs*="'alertInfo'"] {
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]):where([pgs*="'alertInfo'"]) {
   --alert-accent: var(--color-info);
   --alert-background: var(--color-info-soft);
   --_alert-timer: color-mix(in srgb, var(--alert-background) 70%, var(--color-white) 30%);
 }
 
-:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["])[pgs*="'alertSuccess'"] {
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]):where([pgs*="'alertSuccess'"]) {
   --alert-accent: var(--color-success);
   --alert-background: var(--color-success-soft);
   --_alert-timer: color-mix(in srgb, var(--alert-background) 70%, var(--color-white) 30%);
 }
 
-:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["])[pgs*="'alertWarning'"] {
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]):where([pgs*="'alertWarning'"]) {
   --alert-accent: var(--color-warning);
   --alert-background: var(--color-warning-soft);
   --_alert-timer: color-mix(in srgb, var(--alert-background) 70%, var(--color-white) 30%);
 }
 
-:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["])[pgs*="'alertError'"] {
+:is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]):where([pgs*="'alertError'"]) {
   --alert-accent: var(--color-error);
   --alert-background: var(--color-error-soft);
   --_alert-timer: color-mix(in srgb, var(--alert-background) 70%, var(--color-white) 30%);
@@ -7600,24 +7596,24 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   display: none;
 }
 
-:is([pgs~=toast], [pgs*="toast["], [pgs~=_toast], [pgs*="_toast["]) [pgs*="_alert["] {
+:is([pgs~=toast], [pgs*="toast["], [pgs~=_toast], [pgs*="_toast["]) :where([pgs*="_alert["]) {
   max-width: 430px;
   pointer-events: initial;
 }
 
-:is([pgs~=toast], [pgs*="toast["], [pgs~=_toast], [pgs*="_toast["])[pgs*="'toastCenter'"] {
+:is([pgs~=toast], [pgs*="toast["], [pgs~=_toast], [pgs*="_toast["]):where([pgs*="'toastCenter'"]) {
   justify-content: center;
 }
 
-:is([pgs~=toast], [pgs*="toast["], [pgs~=_toast], [pgs*="_toast["])[pgs*="'toastBottom'"] {
+:is([pgs~=toast], [pgs*="toast["], [pgs~=_toast], [pgs*="_toast["]):where([pgs*="'toastBottom'"]) {
   justify-content: flex-end;
 }
 
-:is([pgs~=toast], [pgs*="toast["], [pgs~=_toast], [pgs*="_toast["])[pgs*="'toastLeft'"] {
+:is([pgs~=toast], [pgs*="toast["], [pgs~=_toast], [pgs*="_toast["]):where([pgs*="'toastLeft'"]) {
   align-items: flex-start;
 }
 
-:is([pgs~=toast], [pgs*="toast["], [pgs~=_toast], [pgs*="_toast["])[pgs*="'toastRight'"] {
+:is([pgs~=toast], [pgs*="toast["], [pgs~=_toast], [pgs*="_toast["]):where([pgs*="'toastRight'"]) {
   align-items: flex-end;
 }
 
@@ -7655,7 +7651,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   border-bottom-left-radius: 0;
 }
 
-:is([pgs~=search], [pgs*="search["]) > input {
+:is([pgs~=search], [pgs*="search["]) > :where(input) {
   border: 0;
   background-color: transparent;
   width: 100%;
@@ -7670,16 +7666,16 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   cursor: text !important;
 }
 
-:is([pgs~=search], [pgs*="search["]) > input::placeholder {
+:is([pgs~=search], [pgs*="search["]) > :where(input)::placeholder {
   color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
   opacity: 0.6;
 }
 
-:is([pgs~=search], [pgs*="search["]) > input:focus-visible {
+:is([pgs~=search], [pgs*="search["]) > :where(input):focus-visible {
   outline: unset;
 }
 
-:is([pgs~=search], [pgs*="search["]) > input::-webkit-search-cancel-button, :is([pgs~=search], [pgs*="search["]) > input::-webkit-search-decoration {
+:is([pgs~=search], [pgs*="search["]) > :where(input)::-webkit-search-cancel-button, :is([pgs~=search], [pgs*="search["]) > :where(input)::-webkit-search-decoration {
   -webkit-appearance: none;
   appearance: none;
 }
@@ -7740,18 +7736,18 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   display: flex;
 }
 
-dialog :is([pgs~=search], [pgs*="search["]) {
+:where(dialog) :is([pgs~=search], [pgs*="search["]) {
   height: max-content;
   margin-inline: auto;
 }
 
-dialog :is([pgs~=search], [pgs*="search["]) :where([pgs~=modal-close]),
-dialog :is([pgs~=search], [pgs*="search["]) :where([pgs~=_modal-close]) {
+:where(dialog) :is([pgs~=search], [pgs*="search["]) :where([pgs~=modal-close]),
+:where(dialog) :is([pgs~=search], [pgs*="search["]) :where([pgs~=_modal-close]) {
   padding: var(--button-size);
 }
 
 @media (min-width: 430px) {
-  :is([pgs~=search], [pgs*="search["])[pgs*="'searchMinWidth'"] {
+  :is([pgs~=search], [pgs*="search["]):where([pgs*="'searchMinWidth'"]) {
     min-width: 21.4rem;
   }
 }
@@ -7768,7 +7764,7 @@ dialog :is([pgs~=search], [pgs*="search["]) :where([pgs~=_modal-close]) {
   filter: var(--logo-filter);
 }
 
-:is([pgs~=logo], [pgs*="logo["])[pgs*="'logoDarkmodeFixed'"] :where([pgs~=logo-image]) {
+:is([pgs~=logo], [pgs*="logo["]):where([pgs*="'logoDarkmodeFixed'"]) :where([pgs~=logo-image]) {
   filter: var(--logo-filter);
 }
 
@@ -7785,8 +7781,7 @@ dialog :is([pgs~=search], [pgs*="search["]) :where([pgs~=_modal-close]) {
   width: initial;
 }
 
-:is([pgs~=logo], [pgs*="logo["]) > *:not(:where([pgs~=logo-text])) lottie-player,
-:is([pgs~=logo], [pgs*="logo["]) > *:not(:where([pgs~=logo-text])) object {
+:is([pgs~=logo], [pgs*="logo["]) > *:not(:where([pgs~=logo-text])) :where(lottie-player, object) {
   max-width: var(--logo-height);
 }
 

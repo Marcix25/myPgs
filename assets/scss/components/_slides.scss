@@ -139,12 +139,12 @@
     //+ slidesArrowsCenter
     // the generated arrows go back to lying over the slides, one on each side, at the middle of
     // the height of the track (--_slides-height, measured by the module); the root is a column again
-    &[pgs*="'slidesArrowsCenter'"] {
+    &:where([pgs*="\'slidesArrowsCenter\'"]) {
         display: flex;
         flex-direction: column;
 
-        [pgs~="_slides-prev"],
-        [pgs~="_slides-next"] {
+        :where([pgs~="_slides-prev"]),
+        :where([pgs~="_slides-next"]) {
             position: absolute;
             grid-row: auto;
             grid-column: auto;
@@ -153,13 +153,13 @@
             margin: unset;
         }
 
-        [pgs~="_slides-prev"] { left: .4rem; }
-        [pgs~="_slides-next"] { right: .4rem; }
+        :where([pgs~="_slides-prev"]) { left: .4rem; }
+        :where([pgs~="_slides-next"]) { right: .4rem; }
     }
 
     //+ slidesNotDots
     // the dots are taken off the slides, the generated row and one written by hand alike
-    &[pgs*="'slidesNotDots'"] {
+    &:where([pgs*="\'slidesNotDots\'"]) {
 
         :where([pgs~="slides-dots"]),
         :where([pgs~="_slides-dots"]) {
@@ -168,18 +168,18 @@
     }
 
     //+ option for suggestions
-    &[pgs*="'slidesSingleScroll'"],
-    &[pgs*="'slidesLoop'"] {}
+    &:where([pgs*="\'slidesSingleScroll\'"]),
+    &:where([pgs*="\'slidesLoop\'"]) {}
 
     //+ slidesFullWidth
-    &[pgs*="'slidesFullWidth'"] {
+    &:where([pgs*="\'slidesFullWidth\'"]) {
         --slides-width: 100%;
         --slides-width-mobile: 100%;
         --slides-width-tablet: 100%;
     }
 
     //+ slidesAnimationScale
-    &[pgs*="'slidesAnimationScale'"] {
+    &:where([pgs*="\'slidesAnimationScale\'"]) {
         :where([pgs~="slides-container"]) {
             :where([pgs~="slides-container-slide"]) {
                 >* {
@@ -199,7 +199,7 @@
     }
 
     //+ slidesShadowDesktop
-    &[pgs*="'slidesShadowDesktop'"] {
+    &:where([pgs*="\'slidesShadowDesktop\'"]) {
 
         //+( tablet
         @container (min-width: #{$tablet}) {
@@ -210,10 +210,10 @@
             }
 
             // fade on the left until the first slide is reached
-            &:not(:has(:where([pgs~="slides-container"]) li:first-child[pgs-state~="view"])) :where([pgs~="slides-container"]) { --slides-maskStart: var(--slides-sizeMaskImage); }
+            &:not(:has(:where([pgs~="slides-container"]) :where(li):first-child[pgs-state~="view"])) :where([pgs~="slides-container"]) { --slides-maskStart: var(--slides-sizeMaskImage); }
 
             // fade on the right until the last slide is reached
-            &:not(:has(:where([pgs~="slides-container"]) li:last-child[pgs-state~="view"])) :where([pgs~="slides-container"]) { --slides-maskEnd: var(--slides-sizeMaskImage); }
+            &:not(:has(:where([pgs~="slides-container"]) :where(li):last-child[pgs-state~="view"])) :where([pgs~="slides-container"]) { --slides-maskEnd: var(--slides-sizeMaskImage); }
         }
     }
 }

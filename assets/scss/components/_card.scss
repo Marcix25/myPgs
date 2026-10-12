@@ -72,7 +72,7 @@
 
     //+ card Mini
     // not 'mini': button and box already have that option
-    &[pgs*="'cardMini'"] { --card-padding: var(--padding-texts); }
+    &:where([pgs*="\'cardMini\'"]) { --card-padding: var(--padding-texts); }
 
     //## Horizontal
     // row layout shared by cardHorizontal and cardHorizontalFixed
@@ -100,7 +100,7 @@
     }
 
     //+ card Horizontal
-    &[pgs*="'cardHorizontal'"] {
+    &:where([pgs*="\'cardHorizontal\'"]) {
         container-type: inline-size;
 
         //+( mobile
@@ -108,7 +108,7 @@
     }
 
     //+ card Horizontal - fixed
-    &[pgs*="'cardHorizontalFixed'"] { @include _cardHorizontal(); }
+    &:where([pgs*="\'cardHorizontalFixed\'"]) { @include _cardHorizontal(); }
 }
 
 //# BOX
@@ -117,7 +117,7 @@
 
     //+ mini
     // not 'mini': button and card already have that option
-    &[pgs*="'boxMini'"] {
+    &:where([pgs*="\'boxMini\'"]) {
         --box-padding: var(--padding-texts);
         --box-borderRadius: var(--border-radius-input);
     }
@@ -125,7 +125,7 @@
     //+ navSmart
     // a frosted pill, the surface of a navSmart-element: it frosts what is behind it, so it only
     // reads on top of other content. Any pill-shaped floating surface can use it
-    &[pgs*="'boxNavSmart'"] {
+    &:where([pgs*="\'boxNavSmart\'"]) {
         @include boxNavSmart()
     }
 }

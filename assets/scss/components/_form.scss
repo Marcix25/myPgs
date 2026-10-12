@@ -23,7 +23,7 @@
 [pgs~="form"] {
 
     //### LABEL
-    label {
+    :where(label) {
         display: block;
 
         &:not(:has([pgs~="label"], [pgs~="labelUnset"], +input[type=checkbox], +input[type=radio])) {
@@ -37,7 +37,7 @@
     }
 
     //### INPUT
-    input {
+    :where(input) {
         &:not([pgs~="inputUnset"], [type=checkbox], [type=file], [type=radio], [type=range]) { @include input(); }
 
         &[type="password"] {
@@ -73,68 +73,68 @@
     //#### CHECKBOX
     $not-checkbox: ':is([pgs~="button"], [pgs*="button\5B"]), [pgs~="toggle"], [pgs~="chip"], [pgs~="checkboxBackground"], [pgs~="chips"] label';
 
-    label:has(input[type=checkbox]):not(#{$not-checkbox}) {
+    :where(label):has(input[type=checkbox]):not(#{$not-checkbox}) {
         @include checkbox();
         @include labelCheckboxAndRadio();
     }
 
-    label:has(input[type=radio]):not(#{$not-checkbox}) {
+    :where(label):has(input[type=radio]):not(#{$not-checkbox}) {
         @include radio();
         @include labelCheckboxAndRadio();
     }
 
     //### TEXTAREA
-    textarea {
+    :where(textarea) {
         @include formTextarea()
     }
 
     //### RANGE
-    input[type=range] { @include range(); }
+    :where(input)[type=range] { @include range(); }
 
     //### COLOR
-    input[type=color] { @include inputColor(); }
+    :where(input)[type=color] { @include inputColor(); }
 
     //### SELECT
-    select { @include select(); }
+    :where(select) { @include select(); }
 
     //###FIELDSET
-    fieldset {
+    :where(fieldset) {
         border: unset;
 
-        legend { @include legend(); }
-        &[required] legend { @include required(); }
+        :where(legend) { @include legend(); }
+        &[required] :where(legend) { @include required(); }
     }
 
     //### REQUIRED
-    label:has(+ input[required]:not([type="checkbox"], [type="radio"]),
+    :where(label):has(+ input[required]:not([type="checkbox"], [type="radio"]),
         + select[required],
         + textarea[required],
         > input[required]:not([type="checkbox"], [type="radio"]),
         > select[required],
         > textarea[required]),
-    fieldset:has(input[type="checkbox"][required], input[type="radio"][required]) legend {
+    :where(fieldset):has(input[type="checkbox"][required], input[type="radio"][required]) :where(legend) {
         &:not(:has([pgs~="label"])) { @include required(); }
         [pgs~="label"] { @include required(); }
     }
 
     //### DISABLED
-    input[disabled],
-    input[disabled]:is([type="checkbox"], [type="radio"])+label,
-    label:has(+ input[disabled]:not([type="checkbox"], [type="radio"]), > input[disabled]:not([type="checkbox"], [type="radio"])),
-    label:has(+ :is(textarea[disabled], select[disabled]), > :is(textarea[disabled], select[disabled])) {
+    :where(input)[disabled],
+    :where(input)[disabled]:is([type="checkbox"], [type="radio"])+:where(label),
+    :where(label):has(+ input[disabled]:not([type="checkbox"], [type="radio"]), > input[disabled]:not([type="checkbox"], [type="radio"])),
+    :where(label):has(+ :is(textarea[disabled], select[disabled]), > :is(textarea[disabled], select[disabled])) {
         @include disabled();
     }
 
     //### EYE
-    input[type="password"]::-ms-reveal,
-    input[type="password"]::-ms-clear,
-    input[type="password"]::-webkit-textfield-decoration-container,
-    input[type="password"]::-webkit-credentials-auto-fill-button,
-    input[type="password"]::-webkit-password-toggle {
+    :where(input)[type="password"]::-ms-reveal,
+    :where(input)[type="password"]::-ms-clear,
+    :where(input)[type="password"]::-webkit-textfield-decoration-container,
+    :where(input)[type="password"]::-webkit-credentials-auto-fill-button,
+    :where(input)[type="password"]::-webkit-password-toggle {
         display: none;
     }
 
-    input[type="file"] { @include file(); }
+    :where(input)[type="file"] { @include file(); }
 }
 
 [pgs~="formValidate"] { @include formValidate(); }

@@ -18,7 +18,8 @@
 // is the container, this one is the drawing.
 //
 // The glyph lands on ::before, which is also where an icon font paints, so an element carrying
-// both this and a font class draws once and this wins: two attributes beat a font's single class.
+// both this and a font class draws once, and the one loaded last wins: the option is in :where(), so
+// it weighs the same as a font's single class (a project that needs this one to win raises it).
 :root {
     @each $name, $url in $icons-builtin {
         --icon-glyph-#{$name}: #{$url};
@@ -34,7 +35,7 @@
     // drew the box — masking the wrapper element itself paints nothing, since that element has
     // no background of its own.
     @each $name, $url in $icons-builtin {
-        &[pgs*="'icon-#{$name}'"] {
+        &:where([pgs*="'icon-#{$name}'"]) {
             --icon: var(--icon-glyph-#{$name});
 
             &::before { @include svgBase64(var(--icon)); }
@@ -47,18 +48,18 @@
     //
     // duo is its own option, required alongside the glyph name: a name present in both
     // $icons-builtin and $icons-duo (icon-hamburgerTwo, for a static and an animatable version of
-    // the same glyph) draws flat until duo is added, at which point this rule's extra
-    // attribute selector gives it more specificity than the single-mask rule above and wins.
+    // the same glyph) draws flat until duo is added, at which point this rule, written after the
+    // single-mask one above, wins.
     @each $name, $layers in $icons-duo {
-        &[pgs*="'icon-#{$name}'"][pgs*="'iconDuo'"] { @include duo(nth($layers, 1), nth($layers, 2)); }
+        &:where([pgs*="'icon-#{$name}'"][pgs*="'iconDuo'"]) { @include duo(nth($layers, 1), nth($layers, 2)); }
     }
 
     //+ ICON BOX
-    &[pgs*="'iconBoxed'"] { @include boxed(); }
+    &:where([pgs*="\'iconBoxed\'"]) { @include boxed(); }
 
     //+ ICON MEDIUM
-    &[pgs*="'iconMedium'"] { --icon-size: 1.25em; }
+    &:where([pgs*="\'iconMedium\'"]) { --icon-size: 1.25em; }
 
     //+ ICON LARGE
-    &[pgs*="'iconLarge'"] { --icon-size: 1.5em; }
+    &:where([pgs*="\'iconLarge\'"]) { --icon-size: 1.5em; }
 }

@@ -52,7 +52,7 @@
                 background: var(--color-primary);
                 scale: 1.2;
 
-                i, :is([pgs~="icon"], [pgs*="icon\5B"]) { color: var(--color-whiteFixed); }
+                :where(i, [pgs~="icon"], [pgs*="icon\5B"]) { color: var(--color-whiteFixed); }
             }
         }
     }

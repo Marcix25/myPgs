@@ -7,7 +7,7 @@
     --menu-gap-column: .5rem;
     --menu-gap-row: 1.0rem;
 
-    ul {
+    :where(ul) {
         display: flex;
         font-weight: var(--font-weight-bold);
         align-items: center;
@@ -16,23 +16,23 @@
         flex-wrap: nowrap;
 
         //## Content
-        >li {
-            >a {
+        >:where(li) {
+            >:where(a) {
                 flex-grow: 1;
                 min-width: fit-content;
 
-                >span {
+                >:where(span) {
                     line-height: 1;
                     flex-grow: 1;
                 }
             }
 
-            li { width: -webkit-fill-available; }
-            &[pgs-state~=open]>ul { display: flex; }
+            :where(li) { width: -webkit-fill-available; }
+            &[pgs-state~=open]>:where(ul) { display: flex; }
         }
 
         //## submenu
-        ul {
+        :where(ul) {
             @include column();
             --dropdown-borderRadius: calc(var(--border-radius-input) + var(--dropdown-padding));
             --dropdown-background: var(--color-box);
@@ -47,26 +47,26 @@
         translate: -5px;
         margin-block: auto;
 
-        i { transition: all 300ms; }
+        :where(i) { transition: all 300ms; }
 
         &[aria-expanded="true"] {
-            i { rotate: 180deg; }
+            :where(i) { rotate: 180deg; }
         }
     }
 
     //+ OPTION
     //## horizontal
     // menuHorizontal, not the shortened horizontal: card also has a 'horizontal' option
-    &[pgs*="'menuHorizontal'"] {
-        >ul {
+    &:where([pgs*="\'menuHorizontal\'"]) {
+        >:where(ul) {
             flex-direction: row;
 
-            >li {
-                >a { width: max-content; }
+            >:where(li) {
+                >:where(a) { width: max-content; }
             }
 
             //### Sub menu
-            >li:has(ul) {
+            >:where(li):has(ul) {
                 display: flex;
                 gap: 0.2rem;
                 flex-wrap: nowrap;
@@ -75,16 +75,16 @@
     }
 
     //## vertical
-    ul,
-    &[pgs*="'menuVertical'"],
+    :where(ul),
+    &:where([pgs*="\'menuVertical\'"]),
     &:not([pgs*="'menuHorizontal'"]) {
-        :is(ul) {
+        :where(ul) {
             flex-direction: column;
 
-            li {
+            :where(li) {
                 width: 100%;
 
-                >a {
+                >:where(a) {
                     width: 100%;
                     justify-content: start;
                 }
@@ -95,49 +95,48 @@
             //### list ---------------|
             // the link and the toggle share the first row, the submenu takes the whole next one:
             // it needs flex-wrap, or flex-basis has no line to break onto
-            >li:has(ul) {
+            >:where(li):has(ul) {
                 @include row;
                 align-items: center;
                 position: relative;
 
-                >a { flex: 1; }
+                >:where(a) { flex: 1; }
 
-                >ul {
+                >:where(ul) {
                     flex-basis: 100%;
                     padding-left: .5rem;
                     margin-left: 1.5rem;
                     border-left: var(--border-complete);
                 }
 
-                &:not([pgs-state~=open]) ul { display: none; }
+                &:not([pgs-state~=open]) :where(ul) { display: none; }
             }
         }
     }
 
     //+ icon only current
-    &[pgs*="'menuIconOnlyCurrent'"] {
-        a:not([aria-current]:not([aria-current="false"])) {
+    &:where([pgs*="\'menuIconOnlyCurrent\'"]) {
+        :where(a):not([aria-current]:not([aria-current="false"])) {
             padding-left: var(--button-paddingInline);
 
-            >i,
-            >:is([pgs~="icon"], [pgs*="icon\5B"]) {
+            >:where(i, [pgs~="icon"], [pgs*="icon\5B"]) {
                 display: none;
             }
         }
     }
 
     //+ SHORT
-    &[pgs*="'menuShort'"] {
-        >ul>li {
+    &:where([pgs*="\'menuShort\'"]) {
+        >:where(ul)>:where(li) {
             &:first-child {
-                a { margin-left: 0px; }
+                :where(a) { margin-left: 0px; }
             }
 
             &:last-child {
-                a { margin-right: 0px; }
+                :where(a) { margin-right: 0px; }
             }
 
-            a {
+            :where(a) {
                 margin-right: calc(var(--button-paddingBlock) * -1);
 
                 &[aria-current=page] {

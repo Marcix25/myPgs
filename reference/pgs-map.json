@@ -5,7 +5,6 @@
         "pgs-options": [
             "alertError",
             "alertInfo",
-            "alertNeutral",
             "alertSuccess",
             "alertWarning"
         ],
@@ -53,16 +52,15 @@
         ],
         "pgs-generated": [],
         "pgs-options": [
-            "accAutoOpen"
+            "accAutoOpen",
+            "accMultiOpen"
         ],
         "pgs-data": []
     },
     "accordionContainer": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [
-            "accMultiOpen"
-        ],
+        "pgs-options": [],
         "pgs-data": []
     },
     "alert": {
@@ -79,10 +77,7 @@
             "_alert-icon"
         ],
         "pgs-options": [
-            "alertError",
-            "alertInfo",
-            "alertSuccess",
-            "alertWarning"
+            "alertNeutral"
         ],
         "pgs-data": []
     },
@@ -1107,13 +1102,7 @@
         "pgs-generated": [
             "_notificationBell-counter"
         ],
-        "pgs-options": [
-            "dialogBottom",
-            "dialogCenter",
-            "dialogLeft",
-            "dialogRight",
-            "dialogTop"
-        ],
+        "pgs-options": [],
         "pgs-data": []
     },
     "notificationLoad": {
@@ -1569,12 +1558,7 @@
     "toast": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [
-            "toastBottom",
-            "toastCenter",
-            "toastLeft",
-            "toastRight"
-        ],
+        "pgs-options": [],
         "pgs-data": [
             "toast"
         ]

@@ -21,16 +21,16 @@
 
     &:not(:has([pgs*="_alert\5B"])) { display: none; }
 
-    [pgs*="_alert\5B"] {
+    :where([pgs*="_alert\5B"]) {
         max-width: $mobile;
         pointer-events: initial;
     }
 
 
-    &[pgs*="'toastCenter'"] { justify-content: center; }
-    &[pgs*="'toastBottom'"] { justify-content: flex-end; }
-    &[pgs*="'toastLeft'"] { align-items: flex-start; }
-    &[pgs*="'toastRight'"] { align-items: flex-end; }
+    &:where([pgs*="\'toastCenter\'"]) { justify-content: center; }
+    &:where([pgs*="\'toastBottom\'"]) { justify-content: flex-end; }
+    &:where([pgs*="\'toastLeft\'"]) { align-items: flex-start; }
+    &:where([pgs*="\'toastRight\'"]) { align-items: flex-end; }
 }
 
 :is([pgs~="toastLoad"], [pgs*="toastLoad\5B"]) {
