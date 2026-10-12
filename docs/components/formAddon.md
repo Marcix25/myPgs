@@ -16,9 +16,10 @@ Additional form controls for selectable cards, switches, and compact chip groups
 ### PGS
 
 - `flex`: provides the flex layout; direction and spacing are flags in its bracket.
-- `form`: applies the base form styles to the complete add-on example.
+- `form`: identifies the form that holds the add-on examples; it styles none of the controls.
 - `icon`: draws the glyphs this example shows; see Icon for the whole set.
 - `legend`: applies the group heading styling to a chips group's legend; see Form.
+- `fieldset`: takes the browser's border off the fieldset that holds the radio group; see Form.
 - `button`: draws the chip, which composes the button look instead of redrawing it, and hides the checkbox or radio it wraps; see Button.
 
 ### PGS Options (component brackets)
@@ -54,7 +55,7 @@ A single checkbox presented as a selectable container, with the checked state hi
 Radio inputs sharing the same name and presented as selectable containers, so only one can be checked.
 
 ```html
-<fieldset pgs="flex['row']">
+<fieldset pgs="fieldset flex['row']">
     <label pgs="checkboxBackground">
         <input type="radio" name="plan" value="basic" checked>
         Basic

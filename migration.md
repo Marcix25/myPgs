@@ -18,6 +18,7 @@ meaning moved under them, so nothing errors and the page just looks wrong.
 | a plain `<a>` in body content | `color: var(--color-black)`, underline on hover | `color: var(--color-link)`, background highlight on hover |
 | `pgs-state="info"` (alert/badge/notification/toast) | read `--color-link`/`--color-linkBackground` directly | reads `--color-info`/`--color-info-soft`, which only default to the link colors |
 | `pgs="header"` with no options | hid itself on scroll-down automatically | does nothing on scroll unless `pgs-option="headerScroll"` is also written |
+| `pgs="form"` and the controls inside it | styled by itself every `label`, `input`, `select`, `textarea`, checkbox, radio, range, file, color, `fieldset` and `legend` it held, and styled a disabled control and a hidden one | styles none of them: each control takes its own token (`label`, `input`, `select`, `textarea`, `range`, `file`, `inputColor`, `checkbox`, `radio`, `legend`, `fieldset`). The form only draws the asterisk on the label or legend of a required control. See check 42 |
 | a bare `<button type="submit">` inside `pgs="form"` | the form styled it as a strong button on its own | draws nothing: mark it `pgs="button"` yourself |
 | several `pgs="accordion"` next to each other | opening one closed every other accordion on the page | each one answers for itself: wrap them in `pgs="accordionContainer"` to get the old behavior |
 | `pgs-option="buttonText"` and `pgs-option="buttonTransparent"` | `buttonTransparent` stripped every state, `buttonText` only the resting one | the two traded places: `buttonText` strips every state, `buttonTransparent` only the resting one |
@@ -1062,6 +1063,9 @@ grep -rnE '\bpgs\.(init|formValidate)\b|\b(pgsApi|mypgs\.pgs)\.(init|formValidat
 
 # 41. component custom properties whose property is two words (rename by the "Consolidation pass" table)
 grep -rnE -- '--(button|buttonHeader)-(border-(color|width|style)|padding(-(block|left|right|left-icon))?\b)|--(clickable|hover|current|twoState)-border-color|--(header|main|pageShell|search|checkbox|section|dropdown)-(padding|margin|max)-(block|inline|top|bottom|size)|--(heading|header)-(letter-spacing|line-height)|--text-line-height|--margin-(top|right|bottom|left|block|inline)-sign|--toggle-(color|background)-(thumb|rail)' .
+
+# 42. forms that relied on pgs="form" to style their controls (read, then write the tokens)
+grep -rnE 'pgs=.[^"'"'"']*\bform\b' .
 ```
 
 Hit 5 needs reading rather than replacing: an `icon` that wraps another element wanted the surface
@@ -1098,6 +1102,8 @@ only the markup can tell you how to split. Hit 29 is a starting point, not a com
 sees an image written within three lines of the card, so an image printed by a helper
 (`PGS_fn_img()` and the like) has to be found by reading the card templates, and wrapped in
 `card-imgForChild`.
+
+Hit 42 needs reading, form by form: `pgs="form"` no longer styles the controls it holds, so each one needs its own token. By the old rule: a `label` that sits right in front of a field (any `input` but a checkbox or a radio, a `select`, a `textarea`; or the `span` inside the label that wraps it) gets `pgs="label"`, and the `label` that wraps a span label and its field gets `pgs="block"`, which is the `display: block` the form used to give every label; a text-like `input` (not a checkbox, radio, range, file, hidden, submit or button) gets `pgs="input"`, a password, search, number or date field carrying its type rules with it; a `<textarea>` gets `pgs="textarea"`; a `select` gets `pgs="select"`; `input[type=range]`, `input[type=file]` and `input[type=color]` get `range`, `file` and `inputColor`; a label that holds a checkbox gets `pgs="checkbox"` and one that holds a radio `pgs="radio"` (a group of them takes the token on the `fieldset` or `div` around it instead); a `legend` gets `pgs="legend"`; a `fieldset` that should lose the browser's border gets `pgs="fieldset"`. A label that is a button, a toggle, a chip or a `checkboxBackground` already had its own token and needs nothing. `inputUnset` and `labelUnset` are gone, because nothing is styled any more: delete them. A disabled field and a label of a disabled field dim through their own token now, and so does a label of a hidden control. A field a script or a plugin prints (a Contact Form 7 tag, a WooCommerce field, an ACF form) has to get its tokens from the template or the filter that prints it.
 
 Hit 41 is a plain substitution by the "Consolidation pass" table: each old name becomes the camelCase one, and the same grep also finds the names in a theme's own `var(...)`. Hit 40 is a plain substitution too: `pgs.init(` becomes `pgs.helper.init(` and `pgs.formValidate` becomes
 `pgs.helper.formValidate`. Hits 36 and 37 are plain substitutions by the "Consolidation pass" table, with one caution for 37:

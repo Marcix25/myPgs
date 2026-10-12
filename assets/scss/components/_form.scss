@@ -1,15 +1,77 @@
 @use "../mixin/mixin" as *;
 
 //= FORM
-[pgs~="textarea"] { @include textarea(); }
-[pgs~="label"] { @include label(); }
+// Nothing here is styled by the form it sits in: every control takes its look from its own token
+// (label, input, select, textarea, range, file, inputColor, checkbox, radio, legend, fieldset).
+// The only thing the form token still does is the required mark, below
+
+//# TEXTAREA
+// on a <textarea> it is the form control; on any other element it is the block of running text
+[pgs~="textarea"]:not(textarea) { @include textarea(); }
+textarea[pgs~="textarea"] { @include formTextarea(); }
+
+//# LABEL
+[pgs~="label"] {
+    @include label();
+
+    //## disabled
+    // the label of a disabled control, the one it wraps or the one after it
+    &:has(+ :is(input, select, textarea)[disabled], > :is(input, select, textarea)[disabled]) { @include disabled(); }
+    :where(input)[disabled]:is([type="checkbox"], [type="radio"]) + & { @include disabled(); }
+
+    //## hidden
+    // a label of a hidden control is hidden with it
+    &:has(+ [hidden], [pgs~="hidden"]),
+    &:has([hidden], [pgs~="hidden"]) { display: none !important; }
+}
+
 [pgs~="legend"] { @include legend(); }
 [pgs~="required"] { @include required(); }
-[pgs~="input"] { @include input(); }
+
+//# FIELDSET
+[pgs~="fieldset"] { border: unset; }
+
+//# INPUT
+[pgs~="input"] {
+    @include input();
+
+    //## types
+    &:where([type="password"]) {
+        font-family: initial;
+        font-size: calc(1.74rem);
+
+        // the browser's own reveal and clear buttons
+        &::-ms-reveal,
+        &::-ms-clear,
+        &::-webkit-textfield-decoration-container,
+        &::-webkit-credentials-auto-fill-button,
+        &::-webkit-password-toggle { display: none; }
+    }
+
+    &:where([type="search"], [type="number"], [type="datetime-local"], [type="date"], [type="month"], [type="week"], [type="time"]) {
+        width: clamp(50px, 100%, 300px);
+        display: flex;
+
+        &::-webkit-calendar-picker-indicator {
+            order: -1;
+            font-size: 1.5em;
+            background-color: var(--border-color);
+            border-radius: var(--input-padding);
+            padding: 10px;
+            margin: -10px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+    }
+}
+
 [pgs~="select"] { @include select(); }
 [pgs~="range"] { @include range(); }
 [pgs~="file"] { @include file(); }
 [pgs~="inputColor"] { @include inputColor(); }
+
+//# RADIO, CHECKBOX
+// on the label that holds the control, or on the group (a fieldset, a div) that holds several labels
 [pgs~="radio"] {
     @include radio();
     @include labelCheckboxAndRadio();
@@ -20,92 +82,9 @@
     @include labelCheckboxAndRadio();
 }
 
+//# REQUIRED
+// the one thing the form does by itself: a label or a legend of a required control gets the asterisk
 [pgs~="form"] {
-
-    //### LABEL
-    :where(label) {
-        display: block;
-
-        &:not(:has([pgs~="label"], [pgs~="labelUnset"], +input[type=checkbox], +input[type=radio])) {
-            &:has(+input, +select, +textarea) { @include label(); }
-        }
-
-        &:has(+[hidden], [pgs~="hidden"]),
-        &:has([hidden], [pgs~="hidden"]) {
-            display: none !important;
-        }
-    }
-
-    //### INPUT
-    :where(input) {
-        &:not([pgs~="inputUnset"], [type=checkbox], [type=file], [type=radio], [type=range]) { @include input(); }
-
-        &[type="password"] {
-            font-family: initial;
-            font-size: calc(1.74rem);
-        }
-
-        &[type="file"] { min-height: 5.3rem; }
-
-        &[type=search],
-        &[type=number],
-        &[type=datetime-local],
-        &[type=date],
-        &[type=month],
-        &[type=week],
-        &[type=time] {
-            width: clamp(50px, 100%, 300px);
-            display: flex;
-
-            &::-webkit-calendar-picker-indicator {
-                order: -1;
-                font-size: 1.5em;
-                background-color: var(--border-color);
-                border-radius: var(--input-padding);
-                padding: 10px;
-                margin: -10px;
-                margin-right: 10px;
-                cursor: pointer;
-            }
-        }
-    }
-
-    //#### CHECKBOX
-    $not-checkbox: ':is([pgs~="button"], [pgs*="button\5B"]), [pgs~="toggle"], [pgs~="chip"], [pgs~="checkboxBackground"], [pgs~="chips"] label';
-
-    :where(label):has(input[type=checkbox]):not(#{$not-checkbox}) {
-        @include checkbox();
-        @include labelCheckboxAndRadio();
-    }
-
-    :where(label):has(input[type=radio]):not(#{$not-checkbox}) {
-        @include radio();
-        @include labelCheckboxAndRadio();
-    }
-
-    //### TEXTAREA
-    :where(textarea) {
-        @include formTextarea()
-    }
-
-    //### RANGE
-    :where(input)[type=range] { @include range(); }
-
-    //### COLOR
-    :where(input)[type=color] { @include inputColor(); }
-
-    //### SELECT
-    :where(select) { @include select(); }
-
-    //###FIELDSET
-    :where(fieldset) {
-        border: unset;
-
-        :where(legend) { @include legend(); }
-        &[required] :where(legend) { @include required(); }
-    }
-
-    //### REQUIRED
     :where(label):has(+ input[required]:not([type="checkbox"], [type="radio"]),
         + select[required],
         + textarea[required],
@@ -117,24 +96,7 @@
         :where([pgs~="label"]) { @include required(); }
     }
 
-    //### DISABLED
-    :where(input)[disabled],
-    :where(input)[disabled]:is([type="checkbox"], [type="radio"])+:where(label),
-    :where(label):has(+ input[disabled]:not([type="checkbox"], [type="radio"]), > input[disabled]:not([type="checkbox"], [type="radio"])),
-    :where(label):has(+ :is(textarea[disabled], select[disabled]), > :is(textarea[disabled], select[disabled])) {
-        @include disabled();
-    }
-
-    //### EYE
-    :where(input)[type="password"]::-ms-reveal,
-    :where(input)[type="password"]::-ms-clear,
-    :where(input)[type="password"]::-webkit-textfield-decoration-container,
-    :where(input)[type="password"]::-webkit-credentials-auto-fill-button,
-    :where(input)[type="password"]::-webkit-password-toggle {
-        display: none;
-    }
-
-    :where(input)[type="file"] { @include file(); }
+    :where(fieldset)[required] :where(legend) { @include required(); }
 }
 
 [pgs~="formValidate"] { @include formValidate(); }

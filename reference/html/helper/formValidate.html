@@ -23,6 +23,7 @@
  * - instance.destroy(): removes the listeners the instance added to the form, the click one and every validator(); the pgs-state, the novalidate attribute and the messages stay as they are.
  *
  * @related
+ * - block: displays the label that wraps the field as a block, now that the form no longer does it.
  * - form: uses the related form component or utility in this example.
  * - label: uses the related label component or utility in this example.
  * - input: uses the related input component or utility in this example.
@@ -40,7 +41,7 @@
 -->
 
 <form pgs="form" pgs-data="formFieldErrorTitle[Check the form] formFieldError[Complete this field] formSuccessTitle[Sent] formSuccess[Sent successfully]" action="#" method="post">
-    <label>
+    <label pgs="block">
         <span pgs="label">Username</span>
         <input pgs="input" pgs-data="formMessage[Choose a username]" type="text" name="username" required>
     </label>

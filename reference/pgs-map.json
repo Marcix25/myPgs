@@ -431,6 +431,12 @@
             "dropdownPosition"
         ]
     },
+    "fieldset": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
     "file": {
         "pgs": [],
         "pgs-generated": [],
@@ -859,19 +865,7 @@
         "pgs-options": [],
         "pgs-data": []
     },
-    "inputUnset": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
     "label": {
-        "pgs": [],
-        "pgs-generated": [],
-        "pgs-options": [],
-        "pgs-data": []
-    },
-    "labelUnset": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [],

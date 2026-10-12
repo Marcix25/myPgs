@@ -2,97 +2,89 @@
 <main pgs="main" style="--main-paddingTop: calc(var(--_header-height) + var(--page-padding));">
     <section pgs="section['sctMax'] flex['column' 'gapElements']">
 
-        <h1>:where() in the component mixins</h1>
-        <p>The tags inside the form, button, icon and form addon mixins (<code>input</code>, <code>label</code>,
-            <code>a</code>, <code>i</code>, <code>legend</code>, <code>fieldset</code>) are written in
-            <code>:where()</code> now. Every block below should look and behave as before: hover, check and tab
-            through the controls.</p>
+        <h1>The form styles nothing by itself</h1>
+        <p>Every control carries its own token now. The form token only draws the asterisk on the label or legend of
+            a required control. Two forms side by side: the first one is bare (a browser default look, only the
+            asterisks), the second one has the tokens.</p>
 
-        <h2>Checkbox, radio and their labels</h2>
-        <form pgs="form flex['column' 'gapTexts']">
-            <label>
-                <input type="checkbox" name="terms" value="yes">
-                I accept the <a href="#">terms</a> (the link is underlined)
-            </label>
-            <label>
-                <input type="checkbox" name="news" value="yes" checked>
-                Newsletter, checked
-            </label>
-            <label>
-                <input type="checkbox" name="off" value="yes" disabled>
-                Disabled, half transparent
-            </label>
-            <fieldset pgs="flex['column' 'gapTexts']">
-                <legend pgs="legend">Radio group: hover one, the others stay still</legend>
-                <label><input type="radio" name="size" value="s"> Small</label>
-                <label><input type="radio" name="size" value="m" checked> Medium</label>
-                <label><input type="radio" name="size" value="l"> Large</label>
-            </fieldset>
-            <label pgs="label"><i pgs="icon['icon-star']"></i>A label with an icon</label>
-            <input pgs="input" type="text" placeholder="An input next to it">
-        </form>
-
-        <h2>checkboxBackground, toggle, chip</h2>
-        <form pgs="form flex['column' 'gapTexts']">
-            <label pgs="checkboxBackground">
-                <input type="checkbox" name="n" value="enabled">
-                checkboxBackground
-            </label>
-            <fieldset pgs="flex['row']">
-                <label pgs="checkboxBackground"><input type="radio" name="plan" value="basic" checked> Basic</label>
-                <label pgs="checkboxBackground"><input type="radio" name="plan" value="pro"> Pro</label>
-            </fieldset>
-            <label pgs="toggle">
-                <span>toggle</span>
-                <input type="checkbox" name="dark" value="enabled">
-            </label>
-            <label pgs="toggle">
-                <span>toggle, checked</span>
-                <input type="checkbox" name="dark2" value="enabled" checked>
-            </label>
-            <fieldset pgs="chips">
-                <legend pgs="legend">chips (checkbox)</legend>
-                <label pgs="button['btnMini' 'btnTwoState']"><input type="checkbox" name="c" value="red" checked> Red</label>
-                <label pgs="button['btnMini' 'btnTwoState']"><input type="checkbox" name="c" value="blue"> Blue</label>
-            </fieldset>
-            <fieldset pgs="chips">
-                <legend pgs="legend">chips (radio)</legend>
-                <label pgs="button['btnMini' 'btnTwoState']"><input type="radio" name="r" value="a" checked> A</label>
-                <label pgs="button['btnMini' 'btnTwoState']"><input type="radio" name="r" value="b"> B</label>
+        <h2>1. Bare form (no tokens)</h2>
+        <form pgs="form" novalidate>
+            <label for="b1">Name (required)</label>
+            <input id="b1" type="text" placeholder="Plain browser input" required>
+            <label for="b2">Country</label>
+            <select id="b2"><option>Italy</option><option>France</option></select>
+            <label><input type="checkbox"> A plain checkbox</label>
+            <fieldset required>
+                <legend>A required fieldset legend</legend>
+                <label><input type="radio" name="bare"> One</label>
+                <label><input type="radio" name="bare"> Two</label>
             </fieldset>
         </form>
 
-        <h2>Buttons</h2>
-        <form pgs="form flex['row' 'gapTexts' 'wrap' 'itemCenter']">
-            <label pgs="button['btnTwoState']">
-                <input type="checkbox" name="fav" value="yes">
-                <i pgs="icon['icon-star']"></i>
-                btnTwoState (the input is hidden)
+        <h2>2. Same form with tokens</h2>
+        <form pgs="form flex['column' 'gapTexts']" novalidate>
+            <label pgs="block">
+                <span pgs="label">Name (required)</span>
+                <input pgs="input" type="text" placeholder="John Smith" required>
             </label>
-            <button pgs="button['btnIconOnly']" type="button" title="btnIconOnly"><i pgs="icon['icon-star']"></i></button>
-            <button pgs="button['btnIconOnly']" type="button" title="btnIconOnly"><span pgs="icon['icon-star']"></span></button>
-        </form>
-
-        <h2>Boxed icon</h2>
-        <div pgs="flex['row' 'gapTexts' 'itemCenter']">
-            <i pgs="icon['icon-star' 'iconBoxed']"></i>
-            <span pgs="icon['icon-star' 'iconBoxed']"></span>
-        </div>
-
-        <h2>Validation errors</h2>
-        <p>The states are written by hand here, as the validator would: the checkbox gets an outline, the radio
-            group a rounded border, and its legend turns red.</p>
-        <form pgs="form formValidate flex['column' 'gapTexts']" pgs-state="errorForm" novalidate>
-            <label>
-                <input type="checkbox" name="e1" value="yes" pgs-state="errorField" required>
-                A checkbox that fails
+            <label pgs="label" for="t2">Email, label in front of the field (required)</label>
+            <input pgs="input" id="t2" type="email" placeholder="name@example.com" required>
+            <label pgs="block">
+                <span pgs="label">Password</span>
+                <input pgs="input" type="password" value="secret">
             </label>
-            <fieldset pgs-state="errorField" pgs="flex['column' 'gapTexts']">
-                <legend pgs="legend">A radio group that fails</legend>
-                <label><input type="radio" name="e2" value="a" required> One</label>
-                <label><input type="radio" name="e2" value="b" required> Two</label>
+            <label pgs="block">
+                <span pgs="label">Age (number, narrow)</span>
+                <input pgs="input" type="number" placeholder="Age">
+            </label>
+            <label pgs="block">
+                <span pgs="label">Date</span>
+                <input pgs="input" type="date">
+            </label>
+            <label pgs="block">
+                <span pgs="label">Disabled: the label and the field dim</span>
+                <input pgs="input" type="text" placeholder="Disabled" disabled>
+            </label>
+            <label pgs="block">
+                <span pgs="label">Country (required)</span>
+                <select pgs="select" required><option value="">Choose a country</option><option>Italy</option><option>France</option></select>
+            </label>
+            <label pgs="block">
+                <span pgs="label">Message</span>
+                <textarea pgs="textarea" rows="4" placeholder="Write your message"></textarea>
+            </label>
+            <label pgs="block">
+                <span pgs="label">Range</span>
+                <input pgs="range" type="range" value="40">
+            </label>
+            <label pgs="block">
+                <span pgs="label">File</span>
+                <input pgs="file" type="file">
+            </label>
+            <label pgs="block">
+                <span pgs="label">Color</span>
+                <input pgs="inputColor" type="color" value="#3aa561">
+            </label>
+
+            <fieldset pgs="fieldset radio flex['column']" required>
+                <legend pgs="legend">A required radio group</legend>
+                <label><input type="radio" name="size" value="s" required> Small</label>
+                <label><input type="radio" name="size" value="m"> Medium</label>
             </fieldset>
-            <input pgs="input" type="text" pgs-state="errorField" placeholder="A text field that fails">
+
+            <fieldset pgs="fieldset checkbox flex['column']">
+                <legend pgs="legend">A checkbox group</legend>
+                <label><input type="checkbox" name="topic" value="a"> News</label>
+                <label><input type="checkbox" name="topic" value="b" disabled> Offers, disabled</label>
+            </fieldset>
+
+            <label pgs="checkbox">
+                <input type="checkbox" required>
+                I accept the <a href="#">terms</a>
+            </label>
+
+            <label pgs="label">A label whose control is hidden</label>
+            <input type="text" hidden>
         </form>
     </section>
 </main>

@@ -30,6 +30,7 @@ pgs.helper.formValidate is the JavaScript side of Form: validates required field
 
 ### PGS
 
+- `block`: displays the label that wraps the field as a block, now that the form no longer does it.
 - `form`: uses the related form component or utility in this example.
 - `label`: uses the related label component or utility in this example.
 - `input`: uses the related input component or utility in this example.
@@ -63,7 +64,7 @@ A minimal form wired to pgs.helper.formValidate with one custom rule, focused on
 
 ```html
 <form pgs="form" pgs-data="formFieldErrorTitle[Check the form] formFieldError[Complete this field] formSuccessTitle[Sent] formSuccess[Sent successfully]" action="#" method="post">
-    <label>
+    <label pgs="block">
         <span pgs="label">Username</span>
         <input pgs="input" pgs-data="formMessage[Choose a username]" type="text" name="username" required>
     </label>

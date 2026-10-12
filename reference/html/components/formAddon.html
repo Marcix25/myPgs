@@ -11,13 +11,14 @@
  *
  * @related
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
- * - form: applies the base form styles to the complete add-on example.
+ * - form: identifies the form that holds the add-on examples; it styles none of the controls.
  * - column: vertically arranges each example with its heading and control.
  * - row: horizontally arranges standalone chip controls.
  * - gapElements: applies element spacing between the form add-on examples.
  * - icon: draws the glyphs this example shows; see Icon for the whole set.
  * - icon-star: the neutral stand-in glyph, used where the example needs an icon but not a particular one.
  * - legend: applies the group heading styling to a chips group's legend; see Form.
+ * - fieldset: takes the browser's border off the fieldset that holds the radio group; see Form.
  * - button: draws the chip, which composes the button look instead of redrawing it, and hides the checkbox or radio it wraps; see Button.
  * - btnMini: sizes that button down to the chip's compact size.
  * - btnTwoState: hides the checkbox or radio the label wraps and draws its checked state; belongs to the button component.
@@ -41,7 +42,7 @@
 
     <demo demo-h3="Radio group with background" demo-description="Radio inputs sharing the same name and presented as selectable containers, so only one can be checked."></demo>
     <section pgs="flex['column']" demo="component">
-        <fieldset pgs="flex['row']">
+        <fieldset pgs="fieldset flex['row']">
             <label pgs="checkboxBackground">
                 <input type="radio" name="plan" value="basic" checked>
                 Basic
