@@ -436,6 +436,12 @@
             "dropdownPosition"
         ]
     },
+    "file": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
     "flex": {
         "pgs": [],
         "pgs-generated": [],
@@ -847,6 +853,12 @@
         "pgs-data": []
     },
     "input": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "inputColor": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [],
@@ -1300,6 +1312,12 @@
         "pgs-data": []
     },
     "radio": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "range": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [],

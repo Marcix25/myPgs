@@ -167,12 +167,14 @@ global tokens on `:root`, set once to recolor every hover. What remains is a pla
 component, read from `--hover-background`, `--hover-borderColor` and `--hover-color` in
 `base/_variables.scss` (the secondary soft color, the normal border color and black): `button` (`--button-*-hover`), a link `card`
 (`--card-background`), a link `box` (`--box-background`), the table row, the search suggestion, the slides
-dot, the box of a checkbox and a radio (`--checkbox-box-background-hover`), `checkboxBackground`, the file
+dot, the box of a checkbox and a radio (`--checkbox-background-hover`, `--radio-background-hover`), `checkboxBackground`, the file
 button of a file input and the outline of an input. A component can still override its own token. The current and the two-state
 looks work the same way: `--current-background`, `--current-borderColor`, `--current-color` and
 `--twoState-background`, `--twoState-borderColor`, `--twoState-color`. So does the resting look of a clickable
 surface: `--clickable-background`, `--clickable-borderColor` and `--clickable-color` (box color, border color,
-black), plus `--clickable-transition` (400 ms on the four properties, `none` under `prefers-reduced-motion`),
+black), `--clickable-onlyText-color` for a clickable surface with no background of its own (`btnText`, a
+`btnTransparent` at rest, the label of a checkbox or radio), so a dark `--clickable-background` never leaves it
+with white text on a white page, plus `--clickable-transition` (400 ms on the four properties, `none` under `prefers-reduced-motion`),
 read by `button`, a link `card`, a link `box`, the file button, `checkboxBackground` and the label of a
 checkbox or radio. A link card and a link box are now box-colored at rest with black text, where they were white
 with the link color.
@@ -778,6 +780,9 @@ makes it one way. The renames come first, then what behaves differently under a 
 | `data-dropdown-side="bottom"` on `dropdown-content` | `pgs-state="sideBottom"` (`sideTop`, `sideRight`, `sideLeft`) |
 | `data-header-scroll="true"` on a header | `pgs-state="hiddenByScroll"`. `data-navsmart-scroll` is gone: nothing ever wrote it |
 | every component custom property whose property is two words in CSS | camelCase for that property, the state still last: `--button-border-color[-hover\|-current\|-twoState]` → `--button-borderColor[…]`, `--button-border-width\|-style` → `--button-borderWidth\|borderStyle`, `--button-padding-block` → `--button-paddingBlock`, `--checkbox-padding-inline`, `--header-padding-block\|-inline`, `--main-padding-top\|-bottom`, `--pageShell-padding-inline\|-bottom`, `--search-padding-block`, `--section-margin-block`, `--dropdown-max-inline-size`, `--heading-letter-spacing[-h1…-h6]`, `--heading-line-height[-h1…-h6]`, `--text-line-height`, `--margin-{top,right,bottom,left,block,inline}-sign` → `--marginTop-sign` and so on, and the global state families `--{hover,current,twoState,clickable}-border-color` → `--…-borderColor`. The global `--border-*`, `--outline-*`, `--font-*`, `--box-shadow` and `--text-shadow` keep the hyphen |
+| the look of `range` (`pgs="range"`, or an input of type range inside a form) | the track reads `--range-background` (`--clickable-background`), the part the thumb has passed `--range-background-progress` (`--twoState-background`) and the thumb `--range-background-thumb` (`--twoState-color`), in every browser. A new module, `pgs.range`, keeps `--_range-progress` (0 to 1) up to date on each slider; it runs on load and, for a slider added later or written by a script, through `pgs.helper.init(root)` or `pgs.range.api(input).update()` |
+| the look of `checkbox` and `radio` (the `checkbox` and `radio` tokens, and a label that holds a checkbox or a radio inside a form) | two mixins, `checkbox()` and `radio()`, each for its own input type, and a shared `labelCheckboxAndRadio()` for the label. The properties are `--checkbox-{background,borderColor,color}[-hover\|-checked]` and `--radio-{background,borderColor,color}[-hover\|-checked]` and `--radio-dot-size` (the dot of a checked radio is drawn by `::after` in `--radio-color`), all read from the global clickable, hover and twoState tokens; `--checkbox-box-background`, `--checkbox-box-background-hover` and `--checkbox-check-color` are gone. The hover is per label, so pointing at one control of a group does not touch the others |
+| `--toggle-color-thumb`, `--toggle-color-rail`, `--toggle-color-rail-checked`, `--toggle-border` (now `--toggle-borderStyleWidth`, the style and the width, with the color in each part's `borderColor`) | `--toggle-rail-{background,borderColor}[-hover\|-checked]` and `--toggle-thumb-{background,borderColor}[-hover\|-checked]`, as `checkbox` and `radio` have theirs: the part of the toggle first, then the property, then the state, all read from the global clickable, hover and twoState tokens (the thumb takes `--clickable-color`, `--hover-color` and `--twoState-color`, where it was white with a black border). The hover is per label |
 | `--logo-finter` | `--logo-filter` |
 | `--header-letter-spacing`, `--header-letter-spacing-h1` … `-h6` | `--heading-letter-spacing`, `--heading-letter-spacing-h1` … `-h6`. They sat in the header's namespace and the `heading()` mixin never read them |
 | mixins `rage()`, `inputcolor()`; `label($borderadius)` and `--label-borderadius` | `range()`, `inputColor()`; `label($borderRadius)` and `--label-borderRadius` |
@@ -1053,7 +1058,7 @@ grep -rnE '\.(select|previous)\(|\bgetCurrent\(\)|\.refresh\(\)' .
 grep -rnE '\bpgs\.(init|formValidate)\b|\b(pgsApi|mypgs\.pgs)\.(init|formValidate)\b' .
 
 # 41. component custom properties whose property is two words (rename by the "Consolidation pass" table)
-grep -rnE -- '--(button|buttonHeader)-(border-(color|width|style)|padding(-(block|left|right|left-icon))?\b)|--(clickable|hover|current|twoState)-border-color|--(header|main|pageShell|search|checkbox|section|dropdown)-(padding|margin|max)-(block|inline|top|bottom|size)|--(heading|header)-(letter-spacing|line-height)|--text-line-height|--margin-(top|right|bottom|left|block|inline)-sign' .
+grep -rnE -- '--(button|buttonHeader)-(border-(color|width|style)|padding(-(block|left|right|left-icon))?\b)|--(clickable|hover|current|twoState)-border-color|--(header|main|pageShell|search|checkbox|section|dropdown)-(padding|margin|max)-(block|inline|top|bottom|size)|--(heading|header)-(letter-spacing|line-height)|--text-line-height|--margin-(top|right|bottom|left|block|inline)-sign|--toggle-(color|background)-(thumb|rail)' .
 ```
 
 Hit 5 needs reading rather than replacing: an `icon` that wraps another element wanted the surface

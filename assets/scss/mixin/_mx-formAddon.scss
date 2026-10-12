@@ -8,8 +8,13 @@
     --checkboxBackground-borderRadius: var(--border-radius-input);
     --checkboxBackground-background: var(--clickable-background);
     @include checkbox();
-    // the box keeps its own color: the surface around it is the one that answers the pointer
-    --checkbox-box-background-hover: var(--checkbox-box-background);
+    @include radio();
+    @include labelCheckboxAndRadio();
+    // the boxes keep their own colors: the surface around them is the one that answers the pointer
+    --checkbox-borderColor: var(--clickable-color);
+    --radio-borderColor: var(--clickable-color);
+    --checkbox-borderColor-hover: var(--hover-color);
+    --radio-borderColor-hover: var(--hover-color);
     position: relative;
     isolation: isolate;
     color: var(--checkboxBackground-color);
@@ -22,7 +27,6 @@
     transition: var(--clickable-transition);
 
     input { margin-right: var(--checkboxBackground-padding); }
-
 
     //## hover
     @media (hover: hover) and (pointer: fine) {
@@ -44,9 +48,21 @@
 //# TOGGLE 
 @mixin toggle() {
     --toggle-size: 2.0rem;
-    --toggle-color-thumb: var(--color-white);
-    --toggle-color-rail: #cbcbcb;
-    --toggle-color-rail-checked: var(--color-primary);
+    --toggle-borderStyleWidth: var(--border-style) var(--border-width);
+    // the rail
+    --toggle-rail-background: var(--clickable-background);
+    --toggle-rail-background-hover: var(--hover-background);
+    --toggle-rail-background-checked: var(--twoState-background);
+    --toggle-rail-borderColor: var(--clickable-borderColor);
+    --toggle-rail-borderColor-hover: var(--hover-borderColor);
+    --toggle-rail-borderColor-checked: var(--twoState-borderColor);
+    // the thumb
+    --toggle-thumb-background: var(--clickable-color);
+    --toggle-thumb-background-hover: var(--hover-color);
+    --toggle-thumb-background-checked: var(--twoState-color);
+    --toggle-thumb-borderColor: var(--clickable-borderColor);
+    --toggle-thumb-borderColor-hover: var(--hover-borderColor);
+    --toggle-thumb-borderColor-checked: var(--twoState-borderColor);
     $space: 2px;
     isolation: isolate;
     @include row(nowrap);
@@ -77,20 +93,24 @@
 
         //### rail
         &::before {
-            background: var(--toggle-color-rail);
+            background: var(--toggle-rail-background);
             width: calc(var(--toggle-size) * 2);
             min-width: calc(var(--toggle-size) * 2);
             height: var(--toggle-size);
             flex-shrink: 2;
+            border: var(--toggle-borderStyleWidth);
+            border-color: var(--toggle-rail-borderColor);
         }
 
         //### thumb
         &::after {
             content: "";
             opacity: 1;
-            background-color: var(--toggle-color-thumb);
+            background-color: var(--toggle-thumb-background);
             height: calc(var(--toggle-size) - ($space * 2));
             width: calc(var(--toggle-size) + $space);
+            border: var(--toggle-borderStyleWidth);
+            border-color: var(--toggle-thumb-borderColor);
             top: $space;
             left: $space;
             z-index: 1;
@@ -98,15 +118,15 @@
         }
 
         //## HOVER
-        &:hover::after {
-            scale: 1.4;
-            background-color: color-mix(in srgb, var(--toggle-color-thumb) 50%, transparent 50%);
-            outline: 1.5px solid var(--color-primary);
-        }
+        &:hover::after { scale: 1.4; }
 
         //## CHECKED
+        // set on the input itself, so a checked toggle keeps its look under the pointer
         &:checked {
-            &::before { background: var(--toggle-color-rail-checked); }
+            --toggle-rail-background: var(--toggle-rail-background-checked);
+            --toggle-rail-borderColor: var(--toggle-rail-borderColor-checked);
+            --toggle-thumb-background: var(--toggle-thumb-background-checked);
+            --toggle-thumb-borderColor: var(--toggle-thumb-borderColor-checked);
 
             &::after {
                 left: unset;
@@ -116,6 +136,18 @@
 
         //## FOCUS
         &:focus-visible::after { outline: var(--focus-visible) !important; }
+    }
+
+    //## HOVER COLORS
+    // per label, as in checkbox() and radio()
+    @media (hover: hover) and (pointer: fine) {
+        &:where(label):hover:not(:has(input:disabled)),
+        label:hover:not(:has(input:disabled)) {
+            --toggle-rail-background: var(--toggle-rail-background-hover);
+            --toggle-rail-borderColor: var(--toggle-rail-borderColor-hover);
+            --toggle-thumb-background: var(--toggle-thumb-background-hover);
+            --toggle-thumb-borderColor: var(--toggle-thumb-borderColor-hover);
+        }
     }
 }
 

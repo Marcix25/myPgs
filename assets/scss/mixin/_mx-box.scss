@@ -16,6 +16,9 @@
         color: var(--clickable-color);
         transition: var(--clickable-transition);
 
+        // the headings and the paragraphs carry a color of their own: they take the box's
+        :where(h1, h2, h3, h4, h5, h6, p) { color: inherit; }
+
         @include boxHover();
     }
 }
@@ -23,7 +26,10 @@
 //## HOVER
 @mixin boxHover() {
     @media (hover: hover) and (pointer: fine) {
-        &:hover { --box-background: var(--hover-background); }
+        &:hover {
+            --box-background: var(--hover-background);
+            color: var(--hover-color);
+        }
     }
 }
 

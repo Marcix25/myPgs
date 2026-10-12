@@ -10,9 +10,12 @@ Form structure with labels, text fields, a textarea, a checkbox, and a radio gro
 - `label`: identifies labels associated with controls.
 - `input`: applies shared styling to text inputs.
 - `textarea`: applies shared styling to the text area.
-- `radio`: styles a group of native radio inputs while preserving their shared name and selection behavior.
-- `checkbox`: styles a group of native checkbox inputs, sharing the presentation of the radio group.
+- `radio`: styles a group of native radio inputs while preserving their shared name and selection behavior. The box has --radio-background and --radio-borderColor, the dot of a checked radio is --radio-color, each with a -hover and a -checked one; the hover is per label.
+- `checkbox`: styles a group of native checkbox inputs, sharing the presentation of the radio group. The box has --checkbox-background and --checkbox-borderColor and the check mark is --checkbox-color, each with a -hover and a -checked one.
 - `select`: applies shared styling to a native select.
+- `range`: styles a native range slider, a rounded track and a thumb that grows on hover, anywhere on the page; inside a form an input of type range gets it without the token. The track is --range-background (the clickable background), the part the thumb has already passed is filled with --range-background-progress (the two-state background) and the thumb is --range-background-thumb (the two-state color), with the clickable border and the hover background; --_range-progress, which pgs.range keeps up to date on the slider, tells where the thumb is; a disabled slider is dimmed.
+- `file`: styles a native file input, the field and its button, anywhere on the page; inside a form an input of type file gets it without the token.
+- `inputColor`: styles a native color input, anywhere on the page; inside a form an input of type color gets it without the token.
 - `legend`: applies the group heading styling to the legend of a fieldset.
 - `required`: marks a label as required without relying on the control's own required attribute.
 - `form-requiredHere`: written inside a required label or legend, it puts the asterisk where the element sits instead of at the end of the label. Without it the asterisk is drawn on the label itself, which is what a label with plain text wants; a label ending in a link or a long sentence usually wants to say where the mark goes.
@@ -37,6 +40,8 @@ Form structure with labels, text fields, a textarea, a checkbox, and a radio gro
 
 ## JavaScript API
 
+- `pgs.range.init(root)`: reads every input of type range inside the Document or Element, or the element itself, and keeps its --_range-progress up to date while it moves; runs on page load and again via pgs.helper.init(root) for content added later.
+- `pgs.range.api(input)`: the instance of one slider, with element, update() to read the value again after a script wrote it (a script raises no event), destroy() and refresh().
 - `new pgs.helper.formValidate(form, options)`: the JavaScript side of this component, which validates the form and drives the pgs-state and the pgs-data messages above. Its constructor and instance methods are documented in Form validate, not repeated here.
 
 ## Related elements
@@ -48,7 +53,8 @@ Form structure with labels, text fields, a textarea, a checkbox, and a radio gro
 
 ### PGS Options (component brackets)
 
-- `column`: spaces text elements in the radio group.
+- `column`: spaces text elements in the radio group, and stacks the standalone controls.
+- `gapElements`: spaces the standalone range, file and color controls.
 - `btnStrong`: presents form submission as the primary action.
 
 ### Other
@@ -189,4 +195,21 @@ formValidate.validator(event => {
     </button>
 
 </form>
+
+<section pgs="flex['column' 'gapElements']">
+    <label>
+        <span pgs="label">Range</span>
+        <input pgs="range" type="range" name="volume" min="0" max="100" value="40">
+    </label>
+
+    <label>
+        <span pgs="label">File</span>
+        <input pgs="file" type="file" name="attachment">
+    </label>
+
+    <label>
+        <span pgs="label">Color</span>
+        <input pgs="inputColor" type="color" name="accent" value="#3aa561">
+    </label>
+</section>
 ```

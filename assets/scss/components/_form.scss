@@ -7,16 +7,140 @@
 [pgs~="required"] { @include required(); }
 [pgs~="input"] { @include input(); }
 [pgs~="select"] { @include select(); }
-
-[pgs~="radio"],
-[pgs~="checkbox"] {
-    @include checkbox();
+[pgs~="range"] { @include range(); }
+[pgs~="file"] { @include file(); }
+[pgs~="inputColor"] { @include inputColor(); }
+[pgs~="radio"] {
+    @include radio();
+    @include labelCheckboxAndRadio();
 }
 
-[pgs~="form"] { @include form(); }
+[pgs~="checkbox"] {
+    @include checkbox();
+    @include labelCheckboxAndRadio();
+}
+
+[pgs~="form"] {
+
+    //### LABEL
+    label {
+        display: block;
+
+        &:not(:has([pgs~="label"], [pgs~="labelUnset"], +input[type=checkbox], +input[type=radio])) {
+            &:has(+input, +select, +textarea) { @include label(); }
+        }
+
+        &:has(+[hidden], [pgs~="hidden"]),
+        &:has([hidden], [pgs~="hidden"]) {
+            display: none !important;
+        }
+    }
+
+    //### INPUT
+    input {
+        &:not([pgs~="inputUnset"], [type=checkbox], [type=file], [type=radio], [type=range]) { @include input(); }
+
+        &[type="password"] {
+            font-family: initial;
+            font-size: calc(1.74rem);
+        }
+
+        &[type="file"] { min-height: 5.3rem; }
+
+        &[type=search],
+        &[type=number],
+        &[type=datetime-local],
+        &[type=date],
+        &[type=month],
+        &[type=week],
+        &[type=time] {
+            width: clamp(50px, 100%, 300px);
+            display: flex;
+
+            &::-webkit-calendar-picker-indicator {
+                order: -1;
+                font-size: 1.5em;
+                background-color: var(--border-color);
+                border-radius: var(--input-padding);
+                padding: 10px;
+                margin: -10px;
+                margin-right: 10px;
+                cursor: pointer;
+            }
+        }
+    }
+
+    //#### CHECKBOX
+    $not-checkbox: ':is([pgs~="button"], [pgs*="button\5B"]), [pgs~="toggle"], [pgs~="chip"], [pgs~="checkboxBackground"], [pgs~="chips"] label';
+
+    label:has(input[type=checkbox]):not(#{$not-checkbox}) {
+        @include checkbox();
+        @include labelCheckboxAndRadio();
+    }
+
+    label:has(input[type=radio]):not(#{$not-checkbox}) {
+        @include radio();
+        @include labelCheckboxAndRadio();
+    }
+
+    //### TEXTAREA
+    textarea {
+        @include formTextarea()
+    }
+
+    //### RANGE
+    input[type=range] { @include range(); }
+
+    //### COLOR
+    input[type=color] { @include inputColor(); }
+
+    //### SELECT
+    select { @include select(); }
+
+    //###FIELDSET
+    fieldset {
+        border: unset;
+
+        legend { @include legend(); }
+        &[required] legend { @include required(); }
+    }
+
+    //### REQUIRED
+    label:has(+ input[required]:not([type="checkbox"], [type="radio"]),
+        + select[required],
+        + textarea[required],
+        > input[required]:not([type="checkbox"], [type="radio"]),
+        > select[required],
+        > textarea[required]),
+    fieldset:has(input[type="checkbox"][required], input[type="radio"][required]) legend {
+        &:not(:has([pgs~="label"])) { @include required(); }
+        [pgs~="label"] { @include required(); }
+    }
+
+    //### DISABLED
+    input[disabled],
+    input[disabled]:is([type="checkbox"], [type="radio"])+label,
+    label:has(+ input[disabled]:not([type="checkbox"], [type="radio"]), > input[disabled]:not([type="checkbox"], [type="radio"])),
+    label:has(+ :is(textarea[disabled], select[disabled]), > :is(textarea[disabled], select[disabled])) {
+        @include disabled();
+    }
+
+    //### EYE
+    input[type="password"]::-ms-reveal,
+    input[type="password"]::-ms-clear,
+    input[type="password"]::-webkit-textfield-decoration-container,
+    input[type="password"]::-webkit-credentials-auto-fill-button,
+    input[type="password"]::-webkit-password-toggle {
+        display: none;
+    }
+
+    input[type="file"] { @include file(); }
+}
+
 [pgs~="formValidate"] { @include formValidate(); }
 
 [pgs~="formValidate"] {
+
     //option for suggestions: set on the field that fails, or on a descendant of the
     //fieldset that does, to override its default error title and text
     [pgs-data~="formMessageTitle[]"],

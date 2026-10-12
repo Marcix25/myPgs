@@ -331,6 +331,12 @@ declare global {
     total: number;
   }
 
+  //== range
+  interface PgsRangeInstance extends PgsInstance<PgsRangeInstance> {
+    /** Reads the value again, for a slider whose value a script wrote (no event is raised for that). */
+    update(): void;
+  }
+
   //== steps
   interface PgsStepsInstance extends PgsInstance<PgsStepsInstance> {
     steps(): Element[];
@@ -432,6 +438,7 @@ declare global {
     search?: PgsSearchModule;
     slides?: PgsModule<PgsSlidesInstance>;
     stepTabs?: PgsModule<PgsStepTabsInstance>;
+    range?: PgsModule<PgsRangeInstance>;
     steps?: PgsModule<PgsStepsInstance>;
     summary?: PgsSummaryModule;
     tabs?: PgsModule<PgsTabsInstance>;

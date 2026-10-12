@@ -1,10 +1,10 @@
 @use "mx-icons" as *;
 @use "mx-responsive" as *;
 
-//#FORM
-//## INPUT 
-@mixin input($padding: 15px) {
-    --input-padding: #{$padding};
+//= FORM
+//# INPUT
+@mixin input() {
+    --input-padding: var(--padding-texts);
     appearance: none;
     border: var(--border-complete);
     background-color: var(--color-white);
@@ -26,7 +26,7 @@
     &:hover { outline: solid var(--hover-borderColor); }
 }
 
-//## LABEL 
+//# LABEL
 @mixin label($borderRadius: 1.0rem 1.0rem 0 0, $left: var(--border-radius-input)) {
     --label-borderRadius: #{$borderRadius};
     --label-left: #{$left};
@@ -51,7 +51,7 @@
     }
 }
 
-//## REQUIRED 
+//# REQUIRED
 @mixin required() {
     position: relative;
 
@@ -74,36 +74,34 @@
     }
 }
 
-//## DISABLED
+//# DISABLED
 @mixin disabled() {
     opacity: 0.5;
     cursor: not-allowed !important;
 }
 
-//## FILE
+//# FILE
 @mixin file() {
     width: 100%;
     background-color: var(--color-white);
     padding: var(--gap-texts);
-    border-radius: calc(var(--border-radius-input) + var(--gap-texts));
+    border-radius: var(--border-radius-input);
 
     &::file-selector-button {
-        --button-background: var(--clickable-background);
-        --button-color: var(--clickable-color);
         width: 40%;
-        margin-bottom: var(--gap-texts);
-        margin-right: var(--gap-texts);
         border: none;
-        outline: var(--border-complete);
-        outline-color: var(--clickable-borderColor);
-        border-radius: var(--border-radius-input);
-        padding: 1.5rem 3rem;
+        cursor: pointer;
+        margin-bottom: var(--margin-texts);
+        margin-right: var(--margin-texts);
+        border-radius: var(--border-radius);
+        padding: var(--padding-texts);
         font-family: var(--font);
         font-size: var(--font-size-text);
         font-weight: var(--font-weight-bold);
-        color: var(--button-color);
-        background: var(--button-background);
-        cursor: pointer;
+        outline: var(--border-complete);
+        outline-color: var(--clickable-borderColor);
+        color: var(--clickable-color);
+        background: var(--clickable-background);
         transition: var(--clickable-transition);
     }
 
@@ -113,107 +111,100 @@
     }
 }
 
-//## RANGE 
+//# RANGE
 @mixin range() {
+    --range-size: calc(var(--border-radius-input));
+    --range-thumbWidth: calc(var(--range-size) * 2);
+    --range-background: var(--clickable-background);
+    --range-background-progress: var(--twoState-background);
+    --range-background-thumb: var(--twoState-color);
+    // where the thumb is, from 0 to 1: written on the slider by pgs.range (components/_range.js) as the value moves, 0 until it has run. The painted part stops at the middle of the thumb, which travels the track less its own width
+    --_range-progress: 0;
+    --_range-fill: calc(var(--_range-progress) * (100% - var(--range-thumbWidth)) + var(--range-thumbWidth) / 2);
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    --range-size: calc(var(--border-radius-input));
     width: 100%;
     height: var(--range-size);
-    background: linear-gradient(90deg, var(--color-box-transparent), var(--color-primary));
+    background: linear-gradient(to right, var(--range-background-progress) var(--_range-fill), var(--range-background) var(--_range-fill));
+    border: var(--border-width) var(--border-style) var(--clickable-borderColor);
     outline: none;
-    transition: background 0.3s;
-    border-radius: var(--border-radius-input);
+    border-radius: var(--range-size);
     z-index: 1;
     position: relative;
 
-    //### thumb (WebKit)
+    //## thumb (WebKit) (Firefox)
     &::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
-        width: calc(var(--range-size) * 1.5);
+        width: var(--range-thumbWidth);
         height: calc(var(--range-size) * 1.2);
-        border-radius: var(--border-radius-input);
-        background: var(--color-white);
-        outline: inset 1px var(--color-primary);
+        border-radius: var(--range-size);
+        background: var(--range-background-thumb);
+        border: var(--border-width) var(--border-style) var(--clickable-borderColor);
         cursor: pointer;
         transition: transform 0.2s;
 
         &:hover {
             scale: 1.2;
-            background: var(--color-box-transparent);
+            background: var(--hover-background);
         }
     }
 
-    //### thumb (Firefox)
     &::-moz-range-thumb {
-        -moz-appearance: none;
+        -webkit-appearance: none;
         appearance: none;
-        width: calc(var(--range-size) * 1.5);
+        width: var(--range-thumbWidth);
         height: calc(var(--range-size) * 1.2);
-        border-radius: var(--border-radius-input);
-        background: var(--color-white);
-        outline: inset 1px var(--color-primary);
+        border-radius: var(--range-size);
+        background: var(--range-background-thumb);
+        border: var(--border-width) var(--border-style) var(--clickable-borderColor);
         cursor: pointer;
         transition: transform 0.2s;
 
         &:hover {
-            transform: scale(1.2);
-            background: var(--color-box-transparent);
+            scale: 1.2;
+            background: var(--hover-background);
         }
     }
 
-    //### focus
-    &:focus-visible::-webkit-slider-thumb {
+    //## focus
+    &:focus-visible::-webkit-slider-thumb,
+    &:focus-visible::-moz-range-thumb {
         outline: var(--focus-visible) !important;
         background-color: var(--color-focus) !important;
         scale: 1.2;
     }
 
-    //### disabled
+    //## disabled
     &:disabled { @include disabled(); }
 }
 
+//# CHECKBOX
 @mixin checkbox() {
     --checkbox-size: 2.0rem;
-    --checkbox-check-color: var(--color-primary);
-    --checkbox-box-background: var(--color-white);
-    --checkbox-box-background-hover: var(--hover-background);
     --checkbox-paddingInline: var(--gap-texts);
+    --checkbox-isChecked: 0;
     --checkbox-icon: #{$icon-check};
+    --checkbox-borderStyleWidth: var(--border-style) var(--border-width);
+    //
+    --checkbox-background: var(--clickable-background);
+    --checkbox-background-hover: var(--hover-background);
+    --checkbox-background-checked: var(--twoState-background);
+    //
+    --checkbox-color: var(--clickable-color);
+    --checkbox-color-hover: var(--hover-color);
+    --checkbox-color-checked: var(--twoState-color);
+    //
+    --checkbox-borderColor: var(--clickable-borderColor);
+    --checkbox-borderColor-hover: var(--hover-borderColor);
+    --checkbox-borderColor-checked: var(--twoState-borderColor);
     position: relative;
     display: flex;
 
-    &:where(label),
-    label {
-        -webkit-user-select: none;
-        user-select: none;
-        color: var(--clickable-color);
-        position: relative;
-        text-align: left;
-        line-height: var(--checkbox-size);
-        margin-bottom: var(--gap-texts);
-        width: fit-content;
-        cursor: pointer;
-        display: flex;
-        padding-inline: var(--checkbox-paddingInline);
-
-        //### Disabled
-        &:has(input:disabled) { opacity: 0.5; }
-
-        //### Required
-        &:has(input[type=checkbox]:required) { @include required(); }
-
-        //### Hover
-        // the box of a control that is not checked yet, whether the pointer is on the box or on the text
-        @media (hover: hover) and (pointer: fine) {
-            &:hover:not(:has(input:disabled)) input:not(:checked)::before { background: var(--checkbox-box-background-hover); }
-        }
-    }
-
     //## ICON & BOX
-    input {
+    &:where(input[type=checkbox]),
+    input[type=checkbox] {
         appearance: none;
         position: relative;
         width: var(--checkbox-size);
@@ -222,6 +213,9 @@
         margin-right: var(--gap-texts);
         cursor: pointer;
         @include center();
+        @include icon(var(--checkbox-icon), "::after");
+        --icon-size: calc(2rem + var(--checkbox-size));
+        --icon-color: var(--checkbox-color);
 
         //### BOX SQUARE
         &::before {
@@ -229,10 +223,11 @@
             position: absolute;
             width: var(--checkbox-size);
             height: var(--checkbox-size);
-            outline: solid var(--color-boxDark) 0.1rem;
-            background: var(--checkbox-box-background);
-            color: var(--color-primary-soft);
+            border: var(--checkbox-borderStyleWidth);
+            border-color: var(--checkbox-borderColor);
+            background: var(--checkbox-background);
             transition: var(--clickable-transition);
+            border-radius: 0.5rem;
         }
 
         //### ICON CHECK
@@ -240,61 +235,157 @@
             position: absolute;
             line-height: var(--checkbox-size);
             text-align: center;
-            opacity: 0;
-            color: var(--checkbox-check-color);
+            opacity: var(--checkbox-isChecked);
+            color: var(--checkbox-color);
             transform: translateX(0.25rem);
+            top: -1.7rem;
+            left: -0.8rem;
         }
 
         //### Checked
-        &:checked::after { opacity: 1; }
+        &:checked {
+            --checkbox-background: var(--checkbox-background-checked);
+            --checkbox-borderColor: var(--checkbox-borderColor-checked);
+            --checkbox-color: var(--checkbox-color-checked);
+            --checkbox-isChecked: 1;
+        }
 
         //### Focus
-        &:focus-visible::before { outline: var(--focus-visible) !important; }
-
-        //### Checkbox
-        &[type=checkbox] {
-            // icon() draws on ::after and blanks ::before, which here is not a leftover — it is
-            // the box below — so it is reclaimed right after; the size and color come after the
-            // include too, since they override the mixin's own --icon-size/--icon-color and a
-            // declaration only wins over an earlier one on the same selector
-            @include icon(var(--checkbox-icon), "::after");
-            --icon-size: calc(2rem + var(--checkbox-size));
-            --icon-color: var(--checkbox-check-color);
-
-            &::after {
-                top: -1.7rem;
-                left: -0.8rem;
-            }
-
-            &::before {
-                content: "";
-                border-radius: 0.3rem;
-            }
-        }
-
-        //### Radio
-        &[type=radio] {
-            &::before { border-radius: 50%; }
-            &::after { display: none; }
-
-            &:checked::before {
-                background-color: var(--checkbox-check-color);
-                border-radius: 50%;
-                width: calc(var(--checkbox-size) - (3px * 2));
-                height: calc(var(--checkbox-size) - (3px * 2));
-                outline: solid 1px var(--color-black);
-                border: solid 3px var(--color-white);
-            }
-        }
+        // the ring is drawn on the box: the outline bodyBase gives every :focus-visible would be a second one
+        &:focus-visible { outline: none; }
+        &:focus-visible::before { outline: var(--focus-visible); }
     }
 
-    a {
-        text-decoration: underline;
-        color: var(--color-link);
+    //## HOVER
+    // per label, so a group takes the hover on the one control the pointer is on and not on all of them
+    @media (hover: hover) and (pointer: fine) {
+        &:where(label):hover:not(:has(input:disabled)),
+        label:hover:not(:has(input:disabled)) {
+            --checkbox-background: var(--checkbox-background-hover);
+            --checkbox-borderColor: var(--checkbox-borderColor-hover);
+            --checkbox-color: var(--checkbox-color-hover);
+        }
     }
 }
 
-//## SELECT 
+//# RADIO
+@mixin radio() {
+    --radio-size: 2.0rem;
+    --radio-paddingInline: var(--gap-texts);
+    --radio-isChecked: 0;
+    --radio-dot-size: calc(var(--radio-size) / 1.5);
+    --radio-borderStyleWidth: var(--border-style) var(--border-width);
+    //
+    --radio-background: var(--clickable-background);
+    --radio-background-hover: var(--hover-background);
+    --radio-background-checked: var(--twoState-background);
+    //
+    --radio-color: var(--clickable-color);
+    --radio-color-hover: var(--hover-color);
+    --radio-color-checked: var(--twoState-color);
+    //
+    --radio-borderColor: var(--clickable-borderColor);
+    --radio-borderColor-hover: var(--hover-borderColor);
+    --radio-borderColor-checked: var(--twoState-borderColor);
+    position: relative;
+    display: flex;
+
+    //## BOX ROUND
+    &:where(input[type=radio]),
+    input[type=radio] {
+        appearance: none;
+        position: relative;
+        width: var(--radio-size);
+        min-width: var(--radio-size);
+        height: var(--radio-size);
+        margin-right: var(--gap-texts);
+        cursor: pointer;
+        @include center();
+
+        &::before {
+            content: "";
+            position: absolute;
+            width: var(--radio-size);
+            height: var(--radio-size);
+            border: var(--radio-borderStyleWidth);
+            border-color: var(--radio-borderColor);
+            background: var(--radio-background);
+            transition: var(--clickable-transition);
+            border-radius: 50%;
+        }
+
+        //### DOT
+        // the dot of a checked radio, in the middle of the box
+        &::after {
+            content: "";
+            position: absolute;
+            width: var(--radio-dot-size);
+            height: var(--radio-dot-size);
+            border-radius: 50%;
+            background: var(--radio-color);
+            opacity: var(--radio-isChecked);
+            transition: var(--clickable-transition);
+        }
+
+        //### Checked
+        &:checked {
+            --radio-background: var(--radio-background-checked);
+            --radio-borderColor: var(--radio-borderColor-checked);
+            --radio-color: var(--radio-color-checked);
+            --radio-isChecked: 1;
+        }
+
+        //### Focus
+        // the ring is drawn on the box: the outline bodyBase gives every :focus-visible would be a second one
+        &:focus-visible { outline: none; }
+        &:focus-visible::before { outline: var(--focus-visible); }
+    }
+
+    //## HOVER
+    // per label, as in checkbox()
+    @media (hover: hover) and (pointer: fine) {
+        &:where(label):hover:not(:has(input:disabled)),
+        label:hover:not(:has(input:disabled)) {
+            --radio-background: var(--radio-background-hover);
+            --radio-borderColor: var(--radio-borderColor-hover);
+            --radio-color: var(--radio-color-hover);
+        }
+    }
+}
+
+//# LABEL - checkbox radio
+// the label of a checkbox or a radio, for the one that holds the control and for the ones inside a group
+@mixin labelCheckboxAndRadio() {
+
+    &:where(label),
+    label {
+        -webkit-user-select: none;
+        user-select: none;
+        color: inherit;
+        position: relative;
+        text-align: left;
+        line-height: var(--checkbox-size, var(--radio-size));
+        margin-bottom: var(--gap-texts);
+        width: fit-content;
+        cursor: pointer;
+        display: flex;
+        padding-inline: var(--checkbox-paddingInline, var(--radio-paddingInline));
+
+        a {
+            text-decoration: underline;
+            color: var(--color-link);
+        }
+
+        //## Disabled
+        &:has(input:disabled) { opacity: 0.5; }
+
+        //## Required
+        &:has(input[type=checkbox]:required) { @include required(); }
+
+    }
+}
+
+//# SELECT
 @mixin select() {
     @include input();
     overflow: auto;
@@ -330,7 +421,8 @@
 @mixin inputColor() {
     $size: 50px;
     $padding: 5px;
-    @include input(0);
+    @include input();
+    --input-padding: 0;
     block-size: $size;
     inline-size: calc($size * 4);
     margin-right: auto;
@@ -352,125 +444,14 @@
     margin-bottom: var(--gap-texts);
 }
 
-//# FORM 
-@mixin form() {
-
-    //### LABEL
-    label {
-        display: block;
-
-        &:not(:has([pgs~="label"], [pgs~="labelUnset"], +input[type=checkbox], +input[type=radio])) {
-            &:has(+input, +select, +textarea) { @include label(); }
-        }
-
-        &:has(+[hidden], [pgs~="hidden"]),
-        &:has([hidden], [pgs~="hidden"]) {
-            display: none !important;
-        }
-    }
-
-    //### INPUT
-    input {
-        &:not([pgs~="inputUnset"], [type=checkbox], [type=file], [type=radio], [type=range]) { @include input(); }
-
-        &[type="password"] {
-            font-family: initial;
-            font-size: calc(1.74rem);
-        }
-
-        &[type="file"] { min-height: 5.3rem; }
-
-        &[type=search],
-        &[type=number],
-        &[type=datetime-local],
-        &[type=date],
-        &[type=month],
-        &[type=week],
-        &[type=time] {
-            width: clamp(50px, 100%, 300px);
-            display: flex;
-
-            &::-webkit-calendar-picker-indicator {
-                order: -1;
-                font-size: 1.5em;
-                background-color: var(--border-color);
-                border-radius: var(--input-padding);
-                padding: 10px;
-                margin: -10px;
-                margin-right: 10px;
-                cursor: pointer;
-            }
-        }
-    }
-
-    //#### CHECKBOX
-    $not-checkbox: ':is([pgs~="button"], [pgs*="button\5B"]), [pgs~="toggle"], [pgs~="chip"], [pgs~="checkboxBackground"], [pgs~="chips"] label';
-
-    label:has(input[type=checkbox]):not(#{$not-checkbox}),
-    label:has(input[type=radio]):not(#{$not-checkbox}) { @include checkbox(); }
-
-    //### TEXTAREA
-    textarea {
-        @include formTextarea()
-    }
-
-    //### RANGE
-    input[type=range] { @include range(); }
-
-    //### COLOR
-    input[type=color] { @include inputColor(); }
-
-    //### SELECT
-    select { @include select(); }
-
-    //###FIELDSET 
-    fieldset {
-        border: unset;
-
-        legend { @include legend(); }
-        &[required] legend { @include required(); }
-    }
-
-    //### REQUIRED
-    label:has(+ input[required]:not([type="checkbox"], [type="radio"]),
-        + select[required],
-        + textarea[required],
-        > input[required]:not([type="checkbox"], [type="radio"]),
-        > select[required],
-        > textarea[required]),
-    fieldset:has(input[type="checkbox"][required], input[type="radio"][required]) legend {
-        &:not(:has([pgs~="label"])) { @include required(); }
-        [pgs~="label"] { @include required(); }
-    }
-
-    //### DISABLED
-    input[disabled],
-    input[disabled]:is([type="checkbox"], [type="radio"])+label,
-    label:has(+ input[disabled]:not([type="checkbox"], [type="radio"]), > input[disabled]:not([type="checkbox"], [type="radio"])),
-    label:has(+ :is(textarea[disabled], select[disabled]), > :is(textarea[disabled], select[disabled])) {
-        @include disabled();
-    }
-
-    //### EYE 
-    input[type="password"]::-ms-reveal,
-    input[type="password"]::-ms-clear,
-    input[type="password"]::-webkit-textfield-decoration-container,
-    input[type="password"]::-webkit-credentials-auto-fill-button,
-    input[type="password"]::-webkit-password-toggle {
-        display: none;
-    }
-
-    input[type="file"] { @include file(); }
-}
-
-//## formValidate
+//# formValidate
 @mixin formValidate() {
     --formValidate-outline: solid 3px var(--color-error);
 
-    //### ERROR
+    //## ERROR
     &[pgs-state~=errorForm] {
         [pgs-state~=errorField]:not([type=checkbox], [type=radio]) {
-            outline: var(--formValidate-outline);
+            border: var(--formValidate-outline);
             color: var(--color-error);
         }
 

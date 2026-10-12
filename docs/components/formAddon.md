@@ -6,8 +6,8 @@ Additional form controls for selectable cards, switches, and compact chip groups
 
 ## PGS
 
-- `checkboxBackground`: presents a checkbox as a selectable container with a border. It takes the hover colors while the pointer is over it, and the two-state colors (--twoState-*) once it is checked; the box inside keeps its own color on hover.
-- `toggle`: presents a checkbox as a switch with a rail and movable thumb.
+- `checkboxBackground`: presents a checkbox, or a radio, as a selectable container with a border. It takes the hover colors while the pointer is over it, and the two-state colors (--twoState-*) once it is checked; the box inside keeps its own color on hover.
+- `toggle`: presents a checkbox as a switch with a rail and a movable thumb. Rail and thumb each have their own --toggle-rail-* and --toggle-thumb-* background and borderColor, with a -hover and a -checked one, read from the clickable, hover and two-state tokens; the hover is per label and a checked toggle keeps its look under the pointer.
 - `chip`: presents an individual checkbox or radio option as a compact selectable button. It shapes the control and leaves the button look to `button`, so write both on the label; inside a `chips` group the token comes from the group and only `button` is written.
 - `chips`: groups chip controls into a compact segmented selector.
 

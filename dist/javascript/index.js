@@ -21,15 +21,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_notification_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_notification.js */ "./assets/javascript/components/_notification.js");
 /* harmony import */ var _components_toast_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_toast.js */ "./assets/javascript/components/_toast.js");
 /* harmony import */ var _components_search_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/_search.js */ "./assets/javascript/components/_search.js");
-/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
-/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
-/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
-/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
-/* harmony import */ var _components_tabs_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/_tabs.js */ "./assets/javascript/components/_tabs.js");
-/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./layout/_header.js */ "./assets/javascript/layout/_header.js");
-/* harmony import */ var _layout_navSmart_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./layout/_navSmart.js */ "./assets/javascript/layout/_navSmart.js");
-/* harmony import */ var _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./helper/_formValidate.js */ "./assets/javascript/helper/_formValidate.js");
-/* harmony import */ var _helper_init_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./helper/_init.js */ "./assets/javascript/helper/_init.js");
+/* harmony import */ var _components_range_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/_range.js */ "./assets/javascript/components/_range.js");
+/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
+/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
+/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
+/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
+/* harmony import */ var _components_tabs_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/_tabs.js */ "./assets/javascript/components/_tabs.js");
+/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./layout/_header.js */ "./assets/javascript/layout/_header.js");
+/* harmony import */ var _layout_navSmart_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./layout/_navSmart.js */ "./assets/javascript/layout/_navSmart.js");
+/* harmony import */ var _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./helper/_formValidate.js */ "./assets/javascript/helper/_formValidate.js");
+/* harmony import */ var _helper_init_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./helper/_init.js */ "./assets/javascript/helper/_init.js");
+
 
 
 
@@ -62,20 +64,21 @@ _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
     menu: _components_menu_js__WEBPACK_IMPORTED_MODULE_6__.PGS_menu,
     modal: _components_modal_js__WEBPACK_IMPORTED_MODULE_7__.PGS_modal,
     pageNav: _components_pageNav_js__WEBPACK_IMPORTED_MODULE_8__.PGS_pageNav,
-    header: _layout_header_js__WEBPACK_IMPORTED_MODULE_17__.PGS_header,
-    navSmart: _layout_navSmart_js__WEBPACK_IMPORTED_MODULE_18__.PGS_navSmart,
+    header: _layout_header_js__WEBPACK_IMPORTED_MODULE_18__.PGS_header,
+    navSmart: _layout_navSmart_js__WEBPACK_IMPORTED_MODULE_19__.PGS_navSmart,
     notification: _components_notification_js__WEBPACK_IMPORTED_MODULE_9__.PGS_notification,
     toast: _components_toast_js__WEBPACK_IMPORTED_MODULE_10__.PGS_toast,
     search: _components_search_js__WEBPACK_IMPORTED_MODULE_11__.PGS_search,
-    slides: _components_slides_js__WEBPACK_IMPORTED_MODULE_12__.PGS_slides,
-    stepTabs: _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_13__.PGS_stepTabs,
-    steps: _components_steps_js__WEBPACK_IMPORTED_MODULE_14__.PGS_steps,
-    summary: _components_summary_js__WEBPACK_IMPORTED_MODULE_15__.PGS_summary,
-    tabs: _components_tabs_js__WEBPACK_IMPORTED_MODULE_16__.PGS_tabs,
+    range: _components_range_js__WEBPACK_IMPORTED_MODULE_12__.PGS_range,
+    slides: _components_slides_js__WEBPACK_IMPORTED_MODULE_13__.PGS_slides,
+    stepTabs: _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_14__.PGS_stepTabs,
+    steps: _components_steps_js__WEBPACK_IMPORTED_MODULE_15__.PGS_steps,
+    summary: _components_summary_js__WEBPACK_IMPORTED_MODULE_16__.PGS_summary,
+    tabs: _components_tabs_js__WEBPACK_IMPORTED_MODULE_17__.PGS_tabs,
 });
 
 // the two helpers that need the module system: they walk or build on what is registered above
-Object.assign(_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper, { init: _helper_init_js__WEBPACK_IMPORTED_MODULE_20__.PGS_init, formValidate: _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_19__.PGS_formValidate });
+Object.assign(_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper, { init: _helper_init_js__WEBPACK_IMPORTED_MODULE_21__.PGS_init, formValidate: _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_20__.PGS_formValidate });
 
 
 /***/ },
@@ -2737,6 +2740,100 @@ function PGS_pageNav_api(selector) {
 const PGS_pageNav = {
     init: PGS_pageNav_init,
     api: PGS_pageNav_api,
+};
+
+
+/***/ },
+
+/***/ "./assets/javascript/components/_range.js"
+/*!************************************************!*\
+  !*** ./assets/javascript/components/_range.js ***!
+  \************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_range: () => (/* binding */ PGS_range)
+/* harmony export */ });
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+
+
+const API = new WeakMap();
+
+const SELECTOR = 'input[type="range"]';
+
+//# BUILD
+// keeps --_range-progress, the place of the value between min and max from 0 to 1, up to date on one
+// slider: the track of the range() mixin paints the part the thumb has passed from it, in every browser
+function PGS_range_build(input) {
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    const update = () => {
+        const min = parseFloat(input.min) || 0;
+        const max = input.max === "" ? 100 : parseFloat(input.max);
+        const span = max - min;
+        const ratio = span > 0 ? (parseFloat(input.value) - min) / span : 0;
+
+        input.style.setProperty("--_range-progress", String(Math.min(1, Math.max(0, ratio || 0))));
+    };
+
+    input.addEventListener("input", update, { signal });
+    input.addEventListener("change", update, { signal });
+    // a reset puts the value back after the event, so the slider is read once it has settled
+    input.form?.addEventListener("reset", () => setTimeout(update), { signal });
+    update();
+
+    const destroy = () => {
+        if (API.get(input) !== api) return;
+        controller.abort();
+        input.style.removeProperty("--_range-progress");
+        API.delete(input);
+    };
+
+    const api = {
+        element: input,
+        // for a value written by a script (input.value = ...), which raises no event
+        update,
+        destroy,
+        refresh: () => {
+            const live = API.get(input);
+            if (live && live !== api) return live;
+            destroy();
+            return PGS_range_build(input);
+        },
+    };
+    API.set(input, api);
+
+    return api;
+}
+
+//# INIT
+function PGS_range_init(root = document) {
+    if (!(root instanceof Document || root instanceof Element)) {
+        throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("range.init", "root must be a Document or an Element");
+    }
+
+    const inputs = Array.from(root.querySelectorAll(SELECTOR));
+    if (root instanceof Element && root.matches(SELECTOR)) inputs.unshift(root);
+
+    inputs.forEach(input => {
+        if (API.has(input)) return;
+
+        PGS_range_build(input);
+    });
+}
+
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_range_init);
+
+//# API
+function PGS_range_api(selector) {
+    return API.get(selector);
+}
+
+const PGS_range = {
+    init: PGS_range_init,
+    api: PGS_range_api
 };
 
 

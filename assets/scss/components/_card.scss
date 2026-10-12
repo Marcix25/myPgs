@@ -28,9 +28,15 @@
         color: var(--clickable-color);
         --card-background: var(--clickable-background);
 
+        // the headings and the paragraphs carry a color of their own: they take the card's, so a dark --clickable-background does not leave black text on it
+        :where(h1, h2, h3, h4, h5, h6, p) { color: inherit; }
+
         //### HOVER
         @media (hover: hover) and (pointer: fine) {
-            &:hover { --card-background: var(--hover-background); }
+            &:hover {
+                --card-background: var(--hover-background);
+                color: var(--hover-color);
+            }
         }
     }
 
