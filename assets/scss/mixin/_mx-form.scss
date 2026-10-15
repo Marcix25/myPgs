@@ -3,14 +3,16 @@
 
 //= FORM
 //# INPUT & LABEL
-//## INPUT
+//## inputBase
 @mixin inputBase($opacityPlaceholder) {
     appearance: none;
     width: 100%;
     letter-spacing: 0.03em;
     font-family: var(--font);
     font-size: var(--font-size-text);
-    font-weight: var(--font-weight-texts);
+    line-height: calc(var(--font-size-text) * 1.2);
+    vertical-align: top;
+    color: var(--color-black);
 
     &::placeholder {
         color: var(--color-black);
@@ -22,39 +24,62 @@
     &[disabled] { @include disabled(); }
 }
 
+//## INPUT
 @mixin input() {
-    --input-padding: var(--padding-texts);
-    --input-border: var(--border-complete);
-    --input-borderRadius: var(--border-radius-texts);
-    --input-background: var(--color-white);
-    --input-color: var(--color-text);
-    border: var(--input-border);
-    background-color: var(--input-background);
-    border-radius: var(--input-borderRadius);
-    color: var(--input-color);
-    padding: var(--input-padding);
-    @include inputBase(20%);
+    &:where(:not([pgs="field"] #{&})) {
+        --input-padding: var(--padding-texts);
+        --input-border: var(--border-complete);
+        --input-borderRadius: var(--border-radius-texts);
+        --input-background: var(--color-white);
+        @include inputBase(20%);
+        border: var(--input-border);
+        background-color: var(--input-background);
+        border-radius: var(--input-borderRadius);
+        padding: var(--input-padding);
+    }
+
+    &:is([pgs="field"] #{&}) {
+        border: unset;
+        background-color: transparent;
+    }
 }
 
 //## LABEL
 @mixin label() {
-    --label-borderRadius: var(--border-radius-texts);
-    --label-left: var(--border-radius-texts);
-    --label-paddingInline: var(--padding-texts);
-    --label-paddingBlock: calc(var(--padding-texts)/2);
-    --label-color: var(--color-black);
-    --label-background: var(--color-box);
-    position: relative;
-    font-weight: var(--font-weight-bold);
-    display: inline-block;
-    width: fit-content;
-    cursor: pointer;
-    left: var(--label-left);
-    color: var(--label-color);
-    background-color: var(--label-background);
-    padding-block: var(--label-paddingBlock);
-    padding-inline: var(--label-paddingInline);
-    border-radius: var(--label-borderRadius);
+    &:where(:not([pgs="field"] #{&})) {
+        --label-borderRadius: var(--border-radius-texts);
+        --label-left: var(--label-borderRadius);
+        --label-paddingInline: var(--padding-texts);
+        --label-paddingBlock: calc(var(--padding-texts)/2);
+        --label-color: var(--color-black);
+        --label-background: var(--color-box);
+        cursor: pointer;
+        display: inline-block;
+        width: fit-content;
+        font-weight: var(--font-weight-bold);
+        color: var(--label-color);
+        background-color: var(--label-background);
+        padding-block: var(--label-paddingBlock);
+        padding-inline: var(--label-paddingInline);
+        border-radius: var(--label-borderRadius);
+        position: relative;
+        isolation: isolate;
+        margin-bottom: calc(var(--form-gap, 0px) * -1);
+        z-index: -1;
+
+        &::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(0deg, var(--label-background) calc(var(--label-borderRadius) * 2), transparent);
+            height: calc((var(--label-borderRadius, 0px) * 2) + var(--form-gap, 0px));
+            z-index: -1;
+            transform: translateY(50%);
+            border-bottom: solid 5% var(--label-background);
+        }
+    }
 }
 
 //# REQUIRED & DISABLED

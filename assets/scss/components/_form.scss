@@ -41,6 +41,8 @@ textarea[pgs~="textarea"] {
     --label-background: var(--color-box);
     border-radius: var(--border-radius-elements);
     margin-bottom: var(--gap-texts);
+
+    &::before { content: unset; }
 }
 
 //# REQUIRED
@@ -61,56 +63,27 @@ textarea[pgs~="textarea"] {
     //## types
     &:where([type="password"]) {
         font-family: initial;
-        font-size: calc(1.74rem);
-
-        // the browser's own reveal and clear buttons
-        &::-ms-reveal,
-        &::-ms-clear,
-        &::-webkit-textfield-decoration-container,
-        &::-webkit-credentials-auto-fill-button,
-        &::-webkit-password-toggle {
-            display: none;
-        }
+        // // the browser's own reveal and clear buttons
+        // &::-ms-reveal,
+        // &::-ms-clear,
+        // &::-webkit-textfield-decoration-container,
+        // &::-webkit-credentials-auto-fill-button,
+        // &::-webkit-password-toggle {
+        //     display: none;
+        // }
     }
 
     &:where([type="search"], [type="number"], [type="datetime-local"], [type="date"], [type="month"], [type="week"], [type="time"]) {
-        width: clamp(50px, 100%, 300px);
+        // width: clamp(50px, 100%, 300px);
         display: flex;
 
         &::-webkit-calendar-picker-indicator {
             order: -1;
-            font-size: 1.5em;
-            background-color: var(--border-color);
-            border-radius: var(--input-padding);
-            padding: 10px;
-            margin: -10px;
-            margin-right: 10px;
+            font-size: 1.3em;
             cursor: pointer;
+            margin: 0px;
+            margin-right: 10px;
         }
-    }
-}
-
-//# SELECT
-[pgs~="select"] {
-    @include input();
-    overflow: auto;
-    appearance: none;
-    cursor: pointer;
-
-    option {
-        padding: var(--gap-texts);
-        border-radius: calc(var(--border-radius-texts) - var(--input-padding));
-        background-color: transparent;
-        cursor: pointer;
-
-        &:checked {
-            background-color: var(--color-primary);
-            color: var(--color-whiteFixed);
-            font-weight: var(--font-weight-bold);
-        }
-
-        &:hover { background-color: var(--hover-background); }
-        &:checked:hover { background-color: var(--color-primary-dark); }
     }
 }
 
@@ -135,6 +108,13 @@ textarea[pgs~="textarea"] {
     border-radius: var(--range-size);
     z-index: 1;
     position: relative;
+
+    &:is([pgs="field"] #{&}) {
+        padding: 0;
+        margin: 0;
+        margin-inline: var(--field-padding);
+        width: calc(100% - var(--field-padding)*2);
+    }
 
     //## thumb (WebKit) (Firefox)
     &::-webkit-slider-thumb {
@@ -228,14 +208,23 @@ textarea[pgs~="textarea"] {
 
 //# COLOR
 [pgs~="inputColor"] {
-    $size: 50px;
     $padding: 5px;
     @include input();
     --input-padding: 0;
-    block-size: $size;
-    inline-size: calc($size * 4);
+    --inputColor-size: 5.0rem;
     margin-right: auto;
     display: flex;
+    width: var(--inputColor-size);
+    height: var(--inputColor-size);
+    aspect-ratio: 1;
+
+    &:is([pgs="field"] #{&}) {
+        padding: 0;
+        margin: 0;
+        margin-inline: var(--field-padding);
+        padding: 0;
+        width: var(--inputColor-size);
+    }
 
     &::-webkit-color-swatch-wrapper { padding: $padding; }
 
@@ -312,139 +301,50 @@ textarea[pgs~="textarea"] {
     [pgs-data~="formMessage[]"] {}
 }
 
-//# FIELD
-:is([pgs~="field"], [pgs*="field\5B"]) {
-    --field-label-color: var(--color-black);
-    --field-label-opacity: 65%;
-    --field-gap: 0.5rem;
-    --field-background: var(--color-white);
-    --field-input-color: var(--color-black);
-    --field-border: var(--border-complete);
-    --field-padding: var(--padding-texts);
-    --field-borderRadius: var(--border-radius-texts);
-    --field-left: var(--field-padding);
-    --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
-    position: relative;
+//# SELECT
+// the select itself: the look of an input. In a field the field is the box, and the rules below add the chevron
+:is([pgs~="select"], [pgs*="select\5B"]) {
+    @include input();
+    overflow: auto;
+    appearance: none;
+    cursor: pointer;
 
-    :where([pgs~="field-label"], label, legend) {
-        cursor: text;
-        display: inline-block;
-        position: absolute;
-        top: var(--field-label-top);
-        left: var(--field-left);
-        line-height: 1;
-        text-wrap: nowrap;
-        // a label longer than the field is cut with an ellipsis, not carried onto a second line
-        max-width: calc(100% - var(--field-left) * 2);
-        overflow: hidden;
-        text-overflow: ellipsis;
-        // the line is as tall as the font size and overflow cuts what is outside it: the room is given back
-        // as padding, so the tails of g, j, p, q and y stay, and taken off with the margin, so the text stays where it was
-        padding-block: .2em;
-        margin-block: -.2em;
-        color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
-        transition: top 200ms ease, font-size 200ms ease;
-    }
-
-    :where(input),
-    :where(textarea),
-    :where(select) {
-        border: var(--field-border);
-        background-color: var(--field-background);
-        border-radius: var(--field-borderRadius);
-        color: var(--field-input-color);
-        padding: var(--field-padding);
-        padding-left: var(--field-left);
-        padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
-        // a known line height, so the label can be put in the middle of the first line
-        line-height: calc(var(--font-size-text) * 1.2);
-        vertical-align: top;
-        @include inputBase(0%);
-    }
-
-    //## focus or text
-    &:has(:where(input, textarea):is(:focus, :not(:placeholder-shown))) {
-        :where([pgs~="field-label"], label, legend) {
-            top: var(--padding-texts);
-            font-size: calc(var(--font-size-text) * .75);
-        }
-    }
-
-    //## required
-    &:has(:where(input:required, textarea:required, select:required)) {
-        :where([pgs~="field-label"], label, legend) { @include required(); }
-    }
-}
-
-//# SELECTS
-// written next to field, on the field that holds a select: pgs="field selects". It adds what a select
-// needs and an input does not: no placeholder, a chevron, and a list when it takes several options
-[pgs~="selects"] {
-
-    //## focus or choice
-    // a select has no placeholder: its first option takes that part, with value="" (it needs no text of its own)
-    &:has(select:focus),
-    &:has(select option:checked:not([value=""])),
-    &:has(select[multiple]) {
-        :where([pgs~="field-label"], label, legend) {
-            top: var(--padding-texts);
-            font-size: calc(var(--font-size-text) * .75);
-        }
-    }
-
-    //## dropdown
-    // the label gives its clicks to the select, and while the first option (the empty one) is the one
-    // chosen and the select is not open the text of that option is hidden: the label stands in for it
-    :where(select) {
+    option {
+        padding: var(--gap-texts);
+        border-radius: calc(var(--border-radius-texts) - var(--input-padding) + .2rem);
+        background-color: transparent;
         cursor: pointer;
-        // the room of the chevron
-        padding-right: calc(var(--field-padding) * 2 + 1.2rem);
+        margin-bottom: calc(var(--gap-texts)/2);
+        font-weight: var(--font-weight-text);
+
+        &:checked,
+        &:checked:hover {
+            background: var(--current-background);
+            color: var(--current-color);
+        }
+
+        &:hover {
+            background-color: var(--hover-background);
+            color: var(--hover-color);
+        }
+
+        &:disabled { opacity: .4; }
     }
 
-    :where([pgs~="field-label"], label, legend) { pointer-events: none; }
-
-    // the chevron, drawn on the field itself so it can lie over the select
-    &::after {
+    //## dropdown icon
+    &::after:not(select[multiple]) {
         content: "";
         position: absolute;
-        right: var(--field-padding);
+        right: var(--gap-texts);
         top: 50%;
         translate: 0 -50%;
         width: 1.2rem;
         height: 1.2rem;
-        background-color: var(--field-input-color);
+        background-color: currentColor;
         pointer-events: none;
         @include svgBase64(var(--icon-glyph-chevronDown));
     }
 
-    // a disabled option is lighter, the one that is chosen as well: it is the placeholder of the select,
-    // which is shown while the select is open (a select that is closed leaves it to the label)
-    :where(option):disabled,
-    &:has(select option:checked:disabled) :where(select) { color: color-mix(in srgb, var(--field-input-color) 40%, transparent); }
-    &:has(select option:checked[value=""]):not(:has(select:focus)) :where(select) { color: transparent; }
-
     //## multiple
-    // a list of options, always open: the label stays small at the top, there is no chevron, and the
-    // options that are chosen take the current color, the ones that are disabled a lighter one
-    &:has(select[multiple]) {
-        &::after { content: none; }
-
-        :where(select) {
-            padding-right: var(--field-padding);
-            overflow: auto;
-        }
-
-        :where(option) {
-            padding: calc(var(--field-padding) / 2) var(--field-padding);
-            border-radius: calc(var(--field-borderRadius) - var(--field-padding) / 2);
-            margin-bottom: calc(var(--gap-texts)/2);
-
-            &:checked {
-                background: var(--current-background);
-                color: var(--current-color);
-            }
-
-            &:disabled { opacity: .4; }
-        }
-    }
+    &[multiple] { overflow: auto; }
 }

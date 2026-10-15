@@ -7,6 +7,96 @@
 | Base
 |--------------------------------------------------------------------------
 */
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  padding-bottom: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > * {
+  padding-inline: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  border: unset;
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+  padding-bottom: var(--field-padding);
+  margin-bottom: calc(var(--field-padding) * -1);
+  border-radius: var(--field-borderRadius);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):focus {
+  outline: unset;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  text-wrap: nowrap;
+  width: calc(100% - var(--field-padding));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: padding 200ms ease, font-size 200ms ease;
+  font-size: calc(var(--font-size-text) * 0.9);
+  padding-top: var(--field-padding);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  pointer-events: none;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
+  padding-top: var(--field-label-top);
+  font-size: var(--font-size-text);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
+}
+
 :where([pgs~=htmlBase]):root {
   --SIZE: 3.0rem;
   --SIZE-texts: calc(var(--SIZE) / 2);
@@ -153,6 +243,96 @@
   --zIndex-navSmart: 100;
   --zIndex-toast: 98;
   --zIndex-modal: 90;
+}
+
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  padding-bottom: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > * {
+  padding-inline: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  border: unset;
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+  padding-bottom: var(--field-padding);
+  margin-bottom: calc(var(--field-padding) * -1);
+  border-radius: var(--field-borderRadius);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):focus {
+  outline: unset;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  text-wrap: nowrap;
+  width: calc(100% - var(--field-padding));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: padding 200ms ease, font-size 200ms ease;
+  font-size: calc(var(--font-size-text) * 0.9);
+  padding-top: var(--field-padding);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  pointer-events: none;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
+  padding-top: var(--field-label-top);
+  font-size: var(--font-size-text);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
 }
 
 :where([pgs~=htmlBase]) {
@@ -480,6 +660,96 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 | Layout
 |--------------------------------------------------------------------------
 */
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  padding-bottom: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > * {
+  padding-inline: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  border: unset;
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+  padding-bottom: var(--field-padding);
+  margin-bottom: calc(var(--field-padding) * -1);
+  border-radius: var(--field-borderRadius);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):focus {
+  outline: unset;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  text-wrap: nowrap;
+  width: calc(100% - var(--field-padding));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: padding 200ms ease, font-size 200ms ease;
+  font-size: calc(var(--font-size-text) * 0.9);
+  padding-top: var(--field-padding);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  pointer-events: none;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
+  padding-top: var(--field-label-top);
+  font-size: var(--font-size-text);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
+}
+
 [pgs~=main] {
   --main-paddingTop: var(--page-top);
   --main-paddingBottom: var(--page-top);
@@ -639,6 +909,96 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 :is([pgs~=container], [pgs*="container["])[pgs*="'cntNone'"] {
   container-type: normal;
+}
+
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  padding-bottom: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > * {
+  padding-inline: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  border: unset;
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+  padding-bottom: var(--field-padding);
+  margin-bottom: calc(var(--field-padding) * -1);
+  border-radius: var(--field-borderRadius);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):focus {
+  outline: unset;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  text-wrap: nowrap;
+  width: calc(100% - var(--field-padding));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: padding 200ms ease, font-size 200ms ease;
+  font-size: calc(var(--font-size-text) * 0.9);
+  padding-top: var(--field-padding);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  pointer-events: none;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
+  padding-top: var(--field-label-top);
+  font-size: var(--font-size-text);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
 }
 
 :is([pgs~=flex], [pgs*="flex["]) {
@@ -1138,6 +1498,96 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   flex-basis: calc((100% + var(--gap)) * var(--_flexChild-span) / var(--_flex-cols, 1) - var(--gap));
 }
 
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  padding-bottom: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > * {
+  padding-inline: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  border: unset;
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+  padding-bottom: var(--field-padding);
+  margin-bottom: calc(var(--field-padding) * -1);
+  border-radius: var(--field-borderRadius);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):focus {
+  outline: unset;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  text-wrap: nowrap;
+  width: calc(100% - var(--field-padding));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: padding 200ms ease, font-size 200ms ease;
+  font-size: calc(var(--font-size-text) * 0.9);
+  padding-top: var(--field-padding);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  pointer-events: none;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
+  padding-top: var(--field-label-top);
+  font-size: var(--font-size-text);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
+}
+
 :is([pgs~=grid], [pgs*="grid["]) {
   display: grid;
   --gap: var(--gap-texts);
@@ -1622,6 +2072,96 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 :is([pgs~=flexChild], [pgs*="flexChild["], [pgs~=gridChild], [pgs*="gridChild["])[pgs*="'selfBaseline'"] {
   align-self: baseline;
+}
+
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  padding-bottom: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > * {
+  padding-inline: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  border: unset;
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+  padding-bottom: var(--field-padding);
+  margin-bottom: calc(var(--field-padding) * -1);
+  border-radius: var(--field-borderRadius);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):focus {
+  outline: unset;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  text-wrap: nowrap;
+  width: calc(100% - var(--field-padding));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: padding 200ms ease, font-size 200ms ease;
+  font-size: calc(var(--font-size-text) * 0.9);
+  padding-top: var(--field-padding);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  pointer-events: none;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
+  padding-top: var(--field-label-top);
+  font-size: var(--font-size-text);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
 }
 
 :is([pgs~=hide], [pgs*="hide["]):not([pgs*="hide["]), :is([pgs~=hide], [pgs*="hide["])[pgs*="hide[]"] {
@@ -2683,6 +3223,96 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --heightMin-size: auto;
 }
 
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  padding-bottom: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > * {
+  padding-inline: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  border: unset;
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+  padding-bottom: var(--field-padding);
+  margin-bottom: calc(var(--field-padding) * -1);
+  border-radius: var(--field-borderRadius);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):focus {
+  outline: unset;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  text-wrap: nowrap;
+  width: calc(100% - var(--field-padding));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: padding 200ms ease, font-size 200ms ease;
+  font-size: calc(var(--font-size-text) * 0.9);
+  padding-top: var(--field-padding);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  pointer-events: none;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
+  padding-top: var(--field-label-top);
+  font-size: var(--font-size-text);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
+}
+
 :is([pgs~=pageShell], [pgs*="pageShell["]) {
   --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-paddingInline) * 2));
   --pageShell-paddingInline: var(--page-padding);
@@ -2900,6 +3530,96 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
     mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-asideShadow-sizeMaskImage), black calc(100% - var(--pageShell-asideShadow-sizeMaskImage)), transparent 100%);
   }
 }
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  padding-bottom: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > * {
+  padding-inline: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  border: unset;
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+  padding-bottom: var(--field-padding);
+  margin-bottom: calc(var(--field-padding) * -1);
+  border-radius: var(--field-borderRadius);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):focus {
+  outline: unset;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  text-wrap: nowrap;
+  width: calc(100% - var(--field-padding));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: padding 200ms ease, font-size 200ms ease;
+  font-size: calc(var(--font-size-text) * 0.9);
+  padding-top: var(--field-padding);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  pointer-events: none;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
+  padding-top: var(--field-label-top);
+  font-size: var(--font-size-text);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
+}
+
 :is([pgs~=header], [pgs*="header["]) {
   --header-paddingInline: 30px;
   --header-paddingBlock: 10px;
@@ -3018,6 +3738,96 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --header-compactBottom-active: 1;
 }
 
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  padding-bottom: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > * {
+  padding-inline: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  border: unset;
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+  padding-bottom: var(--field-padding);
+  margin-bottom: calc(var(--field-padding) * -1);
+  border-radius: var(--field-borderRadius);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):focus {
+  outline: unset;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  text-wrap: nowrap;
+  width: calc(100% - var(--field-padding));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: padding 200ms ease, font-size 200ms ease;
+  font-size: calc(var(--font-size-text) * 0.9);
+  padding-top: var(--field-padding);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  pointer-events: none;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
+  padding-top: var(--field-label-top);
+  font-size: var(--font-size-text);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
+}
+
 :is([pgs~=navSmart], [pgs*="navSmart["]) {
   --navSmart-gap: .8rem;
   --navSmart-edgePWA: 2.0rem;
@@ -3101,6 +3911,96 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 :is([pgs~=navSmart], [pgs*="navSmart["]) :where([pgs~=navSmart-element]) li,
 :is([pgs~=navSmart], [pgs*="navSmart["]) :where([pgs~=navSmart-element]) :where([pgs~=modal], [pgs*="modal["]) {
   display: flex;
+}
+
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  padding-bottom: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > * {
+  padding-inline: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  border: unset;
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+  padding-bottom: var(--field-padding);
+  margin-bottom: calc(var(--field-padding) * -1);
+  border-radius: var(--field-borderRadius);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):focus {
+  outline: unset;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  text-wrap: nowrap;
+  width: calc(100% - var(--field-padding));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: padding 200ms ease, font-size 200ms ease;
+  font-size: calc(var(--font-size-text) * 0.9);
+  padding-top: var(--field-padding);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  pointer-events: none;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
+  padding-top: var(--field-label-top);
+  font-size: var(--font-size-text);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
 }
 
 [pgs~=footer] {
@@ -3257,6 +4157,96 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 | Components
 |--------------------------------------------------------------------------
 */
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  padding-bottom: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > * {
+  padding-inline: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  border: unset;
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+  padding-bottom: var(--field-padding);
+  margin-bottom: calc(var(--field-padding) * -1);
+  border-radius: var(--field-borderRadius);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):focus {
+  outline: unset;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  text-wrap: nowrap;
+  width: calc(100% - var(--field-padding));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: padding 200ms ease, font-size 200ms ease;
+  font-size: calc(var(--font-size-text) * 0.9);
+  padding-top: var(--field-padding);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  pointer-events: none;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
+  padding-top: var(--field-label-top);
+  font-size: var(--font-size-text);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
+}
+
 :is([pgs~=card], [pgs*="card["]) {
   --card-padding: var(--padding-elements);
   --card-borderRadius: calc(var(--border-radius-texts) + var(--card-padding));
@@ -3424,39 +4414,140 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   backdrop-filter: var(--blur) saturate(1.8);
 }
 
-textarea[pgs~=textarea] {
-  resize: vertical;
-  --input-padding: var(--padding-texts);
-  --input-border: var(--border-complete);
-  --input-borderRadius: var(--border-radius-texts);
-  --input-background: var(--color-white);
-  --input-color: var(--color-text);
-  border: var(--input-border);
-  background-color: var(--input-background);
-  border-radius: var(--input-borderRadius);
-  color: var(--input-color);
-  padding: var(--input-padding);
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  padding-bottom: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > * {
+  padding-inline: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
   appearance: none;
   width: 100%;
   letter-spacing: 0.03em;
   font-family: var(--font);
   font-size: var(--font-size-text);
-  font-weight: var(--font-weight-texts);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
 }
 
-textarea[pgs~=textarea]::placeholder {
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  border: unset;
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+  padding-bottom: var(--field-padding);
+  margin-bottom: calc(var(--field-padding) * -1);
+  border-radius: var(--field-borderRadius);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):focus {
+  outline: unset;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  text-wrap: nowrap;
+  width: calc(100% - var(--field-padding));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: padding 200ms ease, font-size 200ms ease;
+  font-size: calc(var(--font-size-text) * 0.9);
+  padding-top: var(--field-padding);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  pointer-events: none;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
+  padding-top: var(--field-label-top);
+  font-size: var(--font-size-text);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
+}
+
+textarea[pgs~=textarea] {
+  resize: vertical;
+}
+
+textarea[pgs~=textarea]:where(:not([pgs=field] textarea[pgs~=textarea])) {
+  --input-padding: var(--padding-texts);
+  --input-border: var(--border-complete);
+  --input-borderRadius: var(--border-radius-texts);
+  --input-background: var(--color-white);
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+textarea[pgs~=textarea]:where(:not([pgs=field] textarea[pgs~=textarea]))::placeholder {
   color: var(--color-black);
   opacity: 20%;
   font-weight: var(--font-weight-text);
 }
 
-textarea[pgs~=textarea]:hover {
+textarea[pgs~=textarea]:where(:not([pgs=field] textarea[pgs~=textarea])):hover {
   border-color: var(--hover-borderColor);
 }
 
-textarea[pgs~=textarea][disabled] {
+textarea[pgs~=textarea]:where(:not([pgs=field] textarea[pgs~=textarea]))[disabled] {
   opacity: 0.5;
   cursor: not-allowed !important;
+}
+
+textarea[pgs~=textarea]:where(:not([pgs=field] textarea[pgs~=textarea])) {
+  border: var(--input-border);
+  background-color: var(--input-background);
+  border-radius: var(--input-borderRadius);
+  padding: var(--input-padding);
+}
+
+textarea[pgs~=textarea]:is([pgs=field] textarea[pgs~=textarea]) {
+  border: unset;
+  background-color: transparent;
 }
 
 textarea[pgs~=textarea] {
@@ -3466,24 +4557,39 @@ textarea[pgs~=textarea] {
   appearance: none;
 }
 
-[pgs~=label] {
+[pgs~=label]:where(:not([pgs=field] [pgs~=label])) {
   --label-borderRadius: var(--border-radius-texts);
-  --label-left: var(--border-radius-texts);
+  --label-left: var(--label-borderRadius);
   --label-paddingInline: var(--padding-texts);
   --label-paddingBlock: calc(var(--padding-texts)/2);
   --label-color: var(--color-black);
   --label-background: var(--color-box);
-  position: relative;
-  font-weight: var(--font-weight-bold);
+  cursor: pointer;
   display: inline-block;
   width: fit-content;
-  cursor: pointer;
-  left: var(--label-left);
+  font-weight: var(--font-weight-bold);
   color: var(--label-color);
   background-color: var(--label-background);
   padding-block: var(--label-paddingBlock);
   padding-inline: var(--label-paddingInline);
   border-radius: var(--label-borderRadius);
+  position: relative;
+  isolation: isolate;
+  margin-bottom: calc(var(--form-gap, 0px) * -1);
+  z-index: -1;
+}
+
+[pgs~=label]:where(:not([pgs=field] [pgs~=label]))::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(0deg, var(--label-background) calc(var(--label-borderRadius) * 2), transparent);
+  height: calc(var(--label-borderRadius, 0px) * 2 + var(--form-gap, 0px));
+  z-index: -1;
+  transform: translateY(50%);
+  border-bottom: solid 5% var(--label-background);
 }
 
 [pgs~=label]:has(+ :is(input, select, textarea)[disabled], > :is(input, select, textarea)[disabled]), :where(input)[disabled]:is([type=checkbox], [type=radio]) + [pgs~=label] {
@@ -3495,29 +4601,51 @@ textarea[pgs~=textarea] {
   display: none !important;
 }
 
-[pgs~=legend] {
+[pgs~=legend]:where(:not([pgs=field] [pgs~=legend])) {
   --label-borderRadius: var(--border-radius-texts);
-  --label-left: var(--border-radius-texts);
+  --label-left: var(--label-borderRadius);
   --label-paddingInline: var(--padding-texts);
   --label-paddingBlock: calc(var(--padding-texts)/2);
   --label-color: var(--color-black);
   --label-background: var(--color-box);
-  position: relative;
-  font-weight: var(--font-weight-bold);
+  cursor: pointer;
   display: inline-block;
   width: fit-content;
-  cursor: pointer;
-  left: var(--label-left);
+  font-weight: var(--font-weight-bold);
   color: var(--label-color);
   background-color: var(--label-background);
   padding-block: var(--label-paddingBlock);
   padding-inline: var(--label-paddingInline);
   border-radius: var(--label-borderRadius);
+  position: relative;
+  isolation: isolate;
+  margin-bottom: calc(var(--form-gap, 0px) * -1);
+  z-index: -1;
+}
+
+[pgs~=legend]:where(:not([pgs=field] [pgs~=legend]))::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(0deg, var(--label-background) calc(var(--label-borderRadius) * 2), transparent);
+  height: calc(var(--label-borderRadius, 0px) * 2 + var(--form-gap, 0px));
+  z-index: -1;
+  transform: translateY(50%);
+  border-bottom: solid 5% var(--label-background);
+}
+
+[pgs~=legend] {
   --label-left: 0;
   --label-color: var(--color-black);
   --label-background: var(--color-box);
   border-radius: var(--border-radius-elements);
   margin-bottom: var(--gap-texts);
+}
+
+[pgs~=legend]::before {
+  content: unset;
 }
 
 [pgs~=required] :where([pgs~=form-requiredHere])::after, [pgs~=required]:not(:has(:where([pgs~=form-requiredHere])))::after {
@@ -3534,124 +4662,62 @@ textarea[pgs~=textarea] {
   gap: var(--form-gap, var(--gap-texts));
 }
 
-[pgs~=input] {
+[pgs~=input]:where(:not([pgs=field] [pgs~=input])) {
   --input-padding: var(--padding-texts);
   --input-border: var(--border-complete);
   --input-borderRadius: var(--border-radius-texts);
   --input-background: var(--color-white);
-  --input-color: var(--color-text);
-  border: var(--input-border);
-  background-color: var(--input-background);
-  border-radius: var(--input-borderRadius);
-  color: var(--input-color);
-  padding: var(--input-padding);
   appearance: none;
   width: 100%;
   letter-spacing: 0.03em;
   font-family: var(--font);
   font-size: var(--font-size-text);
-  font-weight: var(--font-weight-texts);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
 }
 
-[pgs~=input]::placeholder {
+[pgs~=input]:where(:not([pgs=field] [pgs~=input]))::placeholder {
   color: var(--color-black);
   opacity: 20%;
   font-weight: var(--font-weight-text);
 }
 
-[pgs~=input]:hover {
+[pgs~=input]:where(:not([pgs=field] [pgs~=input])):hover {
   border-color: var(--hover-borderColor);
 }
 
-[pgs~=input][disabled] {
+[pgs~=input]:where(:not([pgs=field] [pgs~=input]))[disabled] {
   opacity: 0.5;
   cursor: not-allowed !important;
 }
 
-[pgs~=input]:where([type=password]) {
-  font-family: initial;
-  font-size: 1.74rem;
+[pgs~=input]:where(:not([pgs=field] [pgs~=input])) {
+  border: var(--input-border);
+  background-color: var(--input-background);
+  border-radius: var(--input-borderRadius);
+  padding: var(--input-padding);
 }
 
-[pgs~=input]:where([type=password])::-ms-reveal, [pgs~=input]:where([type=password])::-ms-clear, [pgs~=input]:where([type=password])::-webkit-textfield-decoration-container, [pgs~=input]:where([type=password])::-webkit-credentials-auto-fill-button, [pgs~=input]:where([type=password])::-webkit-password-toggle {
-  display: none;
+[pgs~=input]:is([pgs=field] [pgs~=input]) {
+  border: unset;
+  background-color: transparent;
+}
+
+[pgs~=input]:where([type=password]) {
+  font-family: initial;
 }
 
 [pgs~=input]:where([type=search], [type=number], [type=datetime-local], [type=date], [type=month], [type=week], [type=time]) {
-  width: clamp(50px, 100%, 300px);
   display: flex;
 }
 
 [pgs~=input]:where([type=search], [type=number], [type=datetime-local], [type=date], [type=month], [type=week], [type=time])::-webkit-calendar-picker-indicator {
   order: -1;
-  font-size: 1.5em;
-  background-color: var(--border-color);
-  border-radius: var(--input-padding);
-  padding: 10px;
-  margin: -10px;
+  font-size: 1.3em;
+  cursor: pointer;
+  margin: 0px;
   margin-right: 10px;
-  cursor: pointer;
-}
-
-[pgs~=select] {
-  --input-padding: var(--padding-texts);
-  --input-border: var(--border-complete);
-  --input-borderRadius: var(--border-radius-texts);
-  --input-background: var(--color-white);
-  --input-color: var(--color-text);
-  border: var(--input-border);
-  background-color: var(--input-background);
-  border-radius: var(--input-borderRadius);
-  color: var(--input-color);
-  padding: var(--input-padding);
-  appearance: none;
-  width: 100%;
-  letter-spacing: 0.03em;
-  font-family: var(--font);
-  font-size: var(--font-size-text);
-  font-weight: var(--font-weight-texts);
-}
-
-[pgs~=select]::placeholder {
-  color: var(--color-black);
-  opacity: 20%;
-  font-weight: var(--font-weight-text);
-}
-
-[pgs~=select]:hover {
-  border-color: var(--hover-borderColor);
-}
-
-[pgs~=select][disabled] {
-  opacity: 0.5;
-  cursor: not-allowed !important;
-}
-
-[pgs~=select] {
-  overflow: auto;
-  appearance: none;
-  cursor: pointer;
-}
-
-[pgs~=select] option {
-  padding: var(--gap-texts);
-  border-radius: calc(var(--border-radius-texts) - var(--input-padding));
-  background-color: transparent;
-  cursor: pointer;
-}
-
-[pgs~=select] option:checked {
-  background-color: var(--color-primary);
-  color: var(--color-whiteFixed);
-  font-weight: var(--font-weight-bold);
-}
-
-[pgs~=select] option:hover {
-  background-color: var(--hover-background);
-}
-
-[pgs~=select] option:checked:hover {
-  background-color: var(--color-primary-dark);
 }
 
 [pgs~=range] {
@@ -3673,6 +4739,13 @@ textarea[pgs~=textarea] {
   border-radius: var(--range-size);
   z-index: 1;
   position: relative;
+}
+
+[pgs~=range]:is([pgs=field] [pgs~=range]) {
+  padding: 0;
+  margin: 0;
+  margin-inline: var(--field-padding);
+  width: calc(100% - var(--field-padding) * 2);
 }
 
 [pgs~=range]::-webkit-slider-thumb {
@@ -3763,46 +4836,64 @@ textarea[pgs~=textarea] {
     width: auto;
   }
 }
-[pgs~=inputColor] {
+[pgs~=inputColor]:where(:not([pgs=field] [pgs~=inputColor])) {
   --input-padding: var(--padding-texts);
   --input-border: var(--border-complete);
   --input-borderRadius: var(--border-radius-texts);
   --input-background: var(--color-white);
-  --input-color: var(--color-text);
-  border: var(--input-border);
-  background-color: var(--input-background);
-  border-radius: var(--input-borderRadius);
-  color: var(--input-color);
-  padding: var(--input-padding);
   appearance: none;
   width: 100%;
   letter-spacing: 0.03em;
   font-family: var(--font);
   font-size: var(--font-size-text);
-  font-weight: var(--font-weight-texts);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
 }
 
-[pgs~=inputColor]::placeholder {
+[pgs~=inputColor]:where(:not([pgs=field] [pgs~=inputColor]))::placeholder {
   color: var(--color-black);
   opacity: 20%;
   font-weight: var(--font-weight-text);
 }
 
-[pgs~=inputColor]:hover {
+[pgs~=inputColor]:where(:not([pgs=field] [pgs~=inputColor])):hover {
   border-color: var(--hover-borderColor);
 }
 
-[pgs~=inputColor][disabled] {
+[pgs~=inputColor]:where(:not([pgs=field] [pgs~=inputColor]))[disabled] {
   opacity: 0.5;
   cursor: not-allowed !important;
 }
 
+[pgs~=inputColor]:where(:not([pgs=field] [pgs~=inputColor])) {
+  border: var(--input-border);
+  background-color: var(--input-background);
+  border-radius: var(--input-borderRadius);
+  padding: var(--input-padding);
+}
+
+[pgs~=inputColor]:is([pgs=field] [pgs~=inputColor]) {
+  border: unset;
+  background-color: transparent;
+}
+
 [pgs~=inputColor] {
   --input-padding: 0;
-  block-size: 50px;
-  inline-size: 200px;
+  --inputColor-size: 5.0rem;
   margin-right: auto;
   display: flex;
+  width: var(--inputColor-size);
+  height: var(--inputColor-size);
+  aspect-ratio: 1;
+}
+
+[pgs~=inputColor]:is([pgs=field] [pgs~=inputColor]) {
+  padding: 0;
+  margin: 0;
+  margin-inline: var(--field-padding);
+  padding: 0;
+  width: var(--inputColor-size);
 }
 
 [pgs~=inputColor]::-webkit-color-swatch-wrapper {
@@ -4123,148 +5214,183 @@ textarea[pgs~=textarea] {
   --label-color: var(--color-error);
 }
 
-:is([pgs~=field], [pgs*="field["]) {
-  --field-label-color: var(--color-black);
-  --field-label-opacity: 65%;
-  --field-gap: 0.5rem;
-  --field-background: var(--color-white);
-  --field-input-color: var(--color-black);
-  --field-border: var(--border-complete);
-  --field-padding: var(--padding-texts);
-  --field-borderRadius: var(--border-radius-texts);
-  --field-left: var(--field-padding);
-  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
-  position: relative;
-}
-
-:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label], label, legend) {
-  cursor: text;
-  display: inline-block;
-  position: absolute;
-  top: var(--field-label-top);
-  left: var(--field-left);
-  line-height: 1;
-  text-wrap: nowrap;
-  max-width: calc(100% - var(--field-left) * 2);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding-block: 0.2em;
-  margin-block: -0.2em;
-  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
-  transition: top 200ms ease, font-size 200ms ease;
-}
-
-:is([pgs~=field], [pgs*="field["]) :where(input),
-:is([pgs~=field], [pgs*="field["]) :where(textarea),
-:is([pgs~=field], [pgs*="field["]) :where(select) {
-  border: var(--field-border);
-  background-color: var(--field-background);
-  border-radius: var(--field-borderRadius);
-  color: var(--field-input-color);
-  padding: var(--field-padding);
-  padding-left: var(--field-left);
-  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
-  line-height: calc(var(--font-size-text) * 1.2);
-  vertical-align: top;
+:is([pgs~=select], [pgs*="select["]):where(:not([pgs=field] :is([pgs~=select], [pgs*="select["]))) {
+  --input-padding: var(--padding-texts);
+  --input-border: var(--border-complete);
+  --input-borderRadius: var(--border-radius-texts);
+  --input-background: var(--color-white);
   appearance: none;
   width: 100%;
   letter-spacing: 0.03em;
   font-family: var(--font);
   font-size: var(--font-size-text);
-  font-weight: var(--font-weight-texts);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
 }
 
-:is([pgs~=field], [pgs*="field["]) :where(input)::placeholder,
-:is([pgs~=field], [pgs*="field["]) :where(textarea)::placeholder,
-:is([pgs~=field], [pgs*="field["]) :where(select)::placeholder {
+:is([pgs~=select], [pgs*="select["]):where(:not([pgs=field] :is([pgs~=select], [pgs*="select["])))::placeholder {
   color: var(--color-black);
-  opacity: 0%;
+  opacity: 20%;
   font-weight: var(--font-weight-text);
 }
 
-:is([pgs~=field], [pgs*="field["]) :where(input):hover,
-:is([pgs~=field], [pgs*="field["]) :where(textarea):hover,
-:is([pgs~=field], [pgs*="field["]) :where(select):hover {
+:is([pgs~=select], [pgs*="select["]):where(:not([pgs=field] :is([pgs~=select], [pgs*="select["]))):hover {
   border-color: var(--hover-borderColor);
 }
 
-:is([pgs~=field], [pgs*="field["]) :where(input)[disabled],
-:is([pgs~=field], [pgs*="field["]) :where(textarea)[disabled],
-:is([pgs~=field], [pgs*="field["]) :where(select)[disabled] {
+:is([pgs~=select], [pgs*="select["]):where(:not([pgs=field] :is([pgs~=select], [pgs*="select["])))[disabled] {
   opacity: 0.5;
   cursor: not-allowed !important;
 }
 
-:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):is(:focus, :not(:placeholder-shown))) :where([pgs~=field-label], label, legend) {
-  top: var(--padding-texts);
-  font-size: calc(var(--font-size-text) * 0.75);
+:is([pgs~=select], [pgs*="select["]):where(:not([pgs=field] :is([pgs~=select], [pgs*="select["]))) {
+  border: var(--input-border);
+  background-color: var(--input-background);
+  border-radius: var(--input-borderRadius);
+  padding: var(--input-padding);
 }
 
-:is([pgs~=field], [pgs*="field["]):has(:where(input:required, textarea:required, select:required)) :where([pgs~=field-label], label, legend) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(input:required, textarea:required, select:required)) :where([pgs~=field-label], label, legend):not(:has(:where([pgs~=form-requiredHere])))::after {
-  content: " *";
-  color: var(--color-error);
-  line-height: 1;
-  font-weight: var(--font-weight-bold);
+:is([pgs~=select], [pgs*="select["]):is([pgs=field] :is([pgs~=select], [pgs*="select["])) {
+  border: unset;
+  background-color: transparent;
 }
 
-[pgs~=selects]:has(select:focus) :where([pgs~=field-label], label, legend), [pgs~=selects]:has(select option:checked:not([value=""])) :where([pgs~=field-label], label, legend), [pgs~=selects]:has(select[multiple]) :where([pgs~=field-label], label, legend) {
-  top: var(--padding-texts);
-  font-size: calc(var(--font-size-text) * 0.75);
-}
-
-[pgs~=selects] :where(select) {
+:is([pgs~=select], [pgs*="select["]) {
+  overflow: auto;
+  appearance: none;
   cursor: pointer;
-  padding-right: calc(var(--field-padding) * 2 + 1.2rem);
 }
 
-[pgs~=selects] :where([pgs~=field-label], label, legend) {
-  pointer-events: none;
+:is([pgs~=select], [pgs*="select["]) option {
+  padding: var(--gap-texts);
+  border-radius: calc(var(--border-radius-texts) - var(--input-padding) + 0.2rem);
+  background-color: transparent;
+  cursor: pointer;
+  margin-bottom: calc(var(--gap-texts) / 2);
+  font-weight: var(--font-weight-text);
 }
 
-[pgs~=selects]::after {
+:is([pgs~=select], [pgs*="select["]) option:checked, :is([pgs~=select], [pgs*="select["]) option:checked:hover {
+  background: var(--current-background);
+  color: var(--current-color);
+}
+
+:is([pgs~=select], [pgs*="select["]) option:hover {
+  background-color: var(--hover-background);
+  color: var(--hover-color);
+}
+
+:is([pgs~=select], [pgs*="select["]) option:disabled {
+  opacity: 0.4;
+}
+
+:is([pgs~=select], [pgs*="select["])::after:not(select[multiple]) {
   content: "";
   position: absolute;
-  right: var(--field-padding);
+  right: var(--gap-texts);
   top: 50%;
   translate: 0 -50%;
   width: 1.2rem;
   height: 1.2rem;
-  background-color: var(--field-input-color);
+  background-color: currentColor;
   pointer-events: none;
   -webkit-mask: var(--icon-glyph-chevronDown) center/contain no-repeat;
   mask: var(--icon-glyph-chevronDown) center/contain no-repeat;
 }
 
-[pgs~=selects] :where(option):disabled, [pgs~=selects]:has(select option:checked:disabled) :where(select) {
-  color: color-mix(in srgb, var(--field-input-color) 40%, transparent);
-}
-
-[pgs~=selects]:has(select option:checked[value=""]):not(:has(select:focus)) :where(select) {
-  color: transparent;
-}
-
-[pgs~=selects]:has(select[multiple])::after {
-  content: none;
-}
-
-[pgs~=selects]:has(select[multiple]) :where(select) {
-  padding-right: var(--field-padding);
+:is([pgs~=select], [pgs*="select["])[multiple] {
   overflow: auto;
 }
 
-[pgs~=selects]:has(select[multiple]) :where(option) {
-  padding: calc(var(--field-padding) / 2) var(--field-padding);
-  border-radius: calc(var(--field-borderRadius) - var(--field-padding) / 2);
-  margin-bottom: calc(var(--gap-texts) / 2);
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  padding-bottom: var(--field-padding);
 }
 
-[pgs~=selects]:has(select[multiple]) :where(option):checked {
-  background: var(--current-background);
-  color: var(--current-color);
+:is([pgs~=field], [pgs*="field["]) > * {
+  padding-inline: var(--field-padding);
 }
 
-[pgs~=selects]:has(select[multiple]) :where(option):disabled {
-  opacity: 0.4;
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  border: unset;
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+  padding-bottom: var(--field-padding);
+  margin-bottom: calc(var(--field-padding) * -1);
+  border-radius: var(--field-borderRadius);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):focus {
+  outline: unset;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  text-wrap: nowrap;
+  width: calc(100% - var(--field-padding));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: padding 200ms ease, font-size 200ms ease;
+  font-size: calc(var(--font-size-text) * 0.9);
+  padding-top: var(--field-padding);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  pointer-events: none;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
+  padding-top: var(--field-label-top);
+  font-size: var(--font-size-text);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
 }
 
 :is([pgs~=button], [pgs*="button["]) {
@@ -4501,6 +5627,96 @@ textarea[pgs~=textarea] {
 :is([pgs~=button], [pgs*="button["]):where([pgs*="'btnQuaternary'"]) {
   --button-background: var(--color-quaternary);
   --button-color: var(--color-quaternary-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  padding-bottom: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > * {
+  padding-inline: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  border: unset;
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+  padding-bottom: var(--field-padding);
+  margin-bottom: calc(var(--field-padding) * -1);
+  border-radius: var(--field-borderRadius);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):focus {
+  outline: unset;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  text-wrap: nowrap;
+  width: calc(100% - var(--field-padding));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: padding 200ms ease, font-size 200ms ease;
+  font-size: calc(var(--font-size-text) * 0.9);
+  padding-top: var(--field-padding);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  pointer-events: none;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
+  padding-top: var(--field-label-top);
+  font-size: var(--font-size-text);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
 }
 
 :root {
@@ -4969,6 +6185,96 @@ textarea[pgs~=textarea] {
   --icon-size: 1.5em;
 }
 
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  padding-bottom: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > * {
+  padding-inline: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  border: unset;
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+  padding-bottom: var(--field-padding);
+  margin-bottom: calc(var(--field-padding) * -1);
+  border-radius: var(--field-borderRadius);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):focus {
+  outline: unset;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  text-wrap: nowrap;
+  width: calc(100% - var(--field-padding));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: padding 200ms ease, font-size 200ms ease;
+  font-size: calc(var(--font-size-text) * 0.9);
+  padding-top: var(--field-padding);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  pointer-events: none;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
+  padding-top: var(--field-label-top);
+  font-size: var(--font-size-text);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
+}
+
 [pgs~=checkboxBackground] {
   --checkboxBackground-color: var(--clickable-color);
   --checkboxBackground-padding: var(--padding-texts);
@@ -5383,6 +6689,8 @@ textarea[pgs~=textarea] {
 
 [pgs~=chips] label:has(input:checked):not(:has(:is([pgs~=icon], [pgs*="icon["])))::after, [pgs~=chips] label:has(input:checked):not(:has(i))::after {
   display: grid;
+  order: -1;
+  margin-right: 0.75rem;
   place-items: center;
   width: 1.5rem;
   height: 1.5rem;
@@ -5442,6 +6750,8 @@ textarea[pgs~=textarea] {
 
 [pgs~=chip]:has(input:checked):not(:has(:is([pgs~=icon], [pgs*="icon["])))::after, [pgs~=chip]:has(input:checked):not(:has(i))::after {
   display: grid;
+  order: -1;
+  margin-right: 0.75rem;
   place-items: center;
   width: 1.5rem;
   height: 1.5rem;
@@ -5468,6 +6778,96 @@ textarea[pgs~=textarea] {
 
 [pgs~=chip]:has(input[type=radio]:checked):not(:has(:is([pgs~=icon], [pgs*="icon["])))::after, [pgs~=chip]:has(input[type=radio]:checked):not(:has(i))::after {
   content: "";
+}
+
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  padding-bottom: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > * {
+  padding-inline: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  border: unset;
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+  padding-bottom: var(--field-padding);
+  margin-bottom: calc(var(--field-padding) * -1);
+  border-radius: var(--field-borderRadius);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):focus {
+  outline: unset;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  text-wrap: nowrap;
+  width: calc(100% - var(--field-padding));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: padding 200ms ease, font-size 200ms ease;
+  font-size: calc(var(--font-size-text) * 0.9);
+  padding-top: var(--field-padding);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  pointer-events: none;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
+  padding-top: var(--field-label-top);
+  font-size: var(--font-size-text);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
 }
 
 :is([pgs~=menu], [pgs*="menu["]) {
@@ -5607,6 +7007,96 @@ textarea[pgs~=textarea] {
 :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuShort'"]) > :where(ul) > :where(li) :where(a):hover {
   z-index: 2;
   position: relative;
+}
+
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  padding-bottom: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > * {
+  padding-inline: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  border: unset;
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+  padding-bottom: var(--field-padding);
+  margin-bottom: calc(var(--field-padding) * -1);
+  border-radius: var(--field-borderRadius);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):focus {
+  outline: unset;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  text-wrap: nowrap;
+  width: calc(100% - var(--field-padding));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: padding 200ms ease, font-size 200ms ease;
+  font-size: calc(var(--font-size-text) * 0.9);
+  padding-top: var(--field-padding);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  pointer-events: none;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
+  padding-top: var(--field-label-top);
+  font-size: var(--font-size-text);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
 }
 
 :is([pgs~=accordionContainer], [pgs*="accordionContainer["]) {
@@ -5889,6 +7379,96 @@ textarea[pgs~=textarea] {
 :is([pgs~=dropdown], [pgs*="dropdown["]):not([pgs*="'drpNotArrow'"]) > :where([pgs~=dropdown-content])[pgs-state~=sideLeft]::after {
   margin-left: calc(var(--border-width) * -1);
   border-left-color: var(--dropdown-background);
+}
+
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  padding-bottom: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > * {
+  padding-inline: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  border: unset;
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+  padding-bottom: var(--field-padding);
+  margin-bottom: calc(var(--field-padding) * -1);
+  border-radius: var(--field-borderRadius);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):focus {
+  outline: unset;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  text-wrap: nowrap;
+  width: calc(100% - var(--field-padding));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: padding 200ms ease, font-size 200ms ease;
+  font-size: calc(var(--font-size-text) * 0.9);
+  padding-top: var(--field-padding);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  pointer-events: none;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
+  padding-top: var(--field-label-top);
+  font-size: var(--font-size-text);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
 }
 
 html:has(dialog[open]) {
@@ -6235,6 +7815,96 @@ html:has(dialog[open]) {
     transform: translateX(100%);
   }
 }
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  padding-bottom: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > * {
+  padding-inline: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  border: unset;
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+  padding-bottom: var(--field-padding);
+  margin-bottom: calc(var(--field-padding) * -1);
+  border-radius: var(--field-borderRadius);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):focus {
+  outline: unset;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  text-wrap: nowrap;
+  width: calc(100% - var(--field-padding));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: padding 200ms ease, font-size 200ms ease;
+  font-size: calc(var(--font-size-text) * 0.9);
+  padding-top: var(--field-padding);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  pointer-events: none;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
+  padding-top: var(--field-label-top);
+  font-size: var(--font-size-text);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
+}
+
 @property --slides-maskStart {
   syntax: "<length>";
   inherits: false;
@@ -6432,6 +8102,96 @@ html:has(dialog[open]) {
     --slides-maskEnd: var(--slides-sizeMaskImage);
   }
 }
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  padding-bottom: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > * {
+  padding-inline: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  border: unset;
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+  padding-bottom: var(--field-padding);
+  margin-bottom: calc(var(--field-padding) * -1);
+  border-radius: var(--field-borderRadius);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):focus {
+  outline: unset;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  text-wrap: nowrap;
+  width: calc(100% - var(--field-padding));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: padding 200ms ease, font-size 200ms ease;
+  font-size: calc(var(--font-size-text) * 0.9);
+  padding-top: var(--field-padding);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  pointer-events: none;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
+  padding-top: var(--field-label-top);
+  font-size: var(--font-size-text);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
+}
+
 ol[pgs~=steps] {
   color: var(--color-black);
 }
@@ -6586,6 +8346,96 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   display: none;
 }
 
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  padding-bottom: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > * {
+  padding-inline: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  border: unset;
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+  padding-bottom: var(--field-padding);
+  margin-bottom: calc(var(--field-padding) * -1);
+  border-radius: var(--field-borderRadius);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):focus {
+  outline: unset;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  text-wrap: nowrap;
+  width: calc(100% - var(--field-padding));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: padding 200ms ease, font-size 200ms ease;
+  font-size: calc(var(--font-size-text) * 0.9);
+  padding-top: var(--field-padding);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  pointer-events: none;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
+  padding-top: var(--field-label-top);
+  font-size: var(--font-size-text);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
+}
+
 [pgs~=stepTabs] :where([pgs~=stepTabs-container]) :where([pgs~=stepTabs-container-tab]) {
   display: none;
 }
@@ -6639,6 +8489,96 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 [pgs~=stepTabs] :where([pgs~=stepTabs-dots]) :where([pgs~=_stepTabs-dots-dot])[pgs-state~=active] :where(i, [pgs~=icon], [pgs*="icon["]) {
   color: var(--color-whiteFixed);
+}
+
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  padding-bottom: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > * {
+  padding-inline: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  border: unset;
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+  padding-bottom: var(--field-padding);
+  margin-bottom: calc(var(--field-padding) * -1);
+  border-radius: var(--field-borderRadius);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):focus {
+  outline: unset;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  text-wrap: nowrap;
+  width: calc(100% - var(--field-padding));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: padding 200ms ease, font-size 200ms ease;
+  font-size: calc(var(--font-size-text) * 0.9);
+  padding-top: var(--field-padding);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  pointer-events: none;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
+  padding-top: var(--field-label-top);
+  font-size: var(--font-size-text);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
 }
 
 [pgs~=summary] {
@@ -6768,6 +8708,96 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   flex: 0 0 auto;
   border-radius: 50%;
   background: currentColor;
+}
+
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  padding-bottom: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > * {
+  padding-inline: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  border: unset;
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+  padding-bottom: var(--field-padding);
+  margin-bottom: calc(var(--field-padding) * -1);
+  border-radius: var(--field-borderRadius);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):focus {
+  outline: unset;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  text-wrap: nowrap;
+  width: calc(100% - var(--field-padding));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: padding 200ms ease, font-size 200ms ease;
+  font-size: calc(var(--font-size-text) * 0.9);
+  padding-top: var(--field-padding);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  pointer-events: none;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
+  padding-top: var(--field-label-top);
+  font-size: var(--font-size-text);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
 }
 
 :is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) {
@@ -6979,6 +9009,96 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   background-color: var(--color-black-transparent);
 }
 
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  padding-bottom: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > * {
+  padding-inline: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  border: unset;
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+  padding-bottom: var(--field-padding);
+  margin-bottom: calc(var(--field-padding) * -1);
+  border-radius: var(--field-borderRadius);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):focus {
+  outline: unset;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  text-wrap: nowrap;
+  width: calc(100% - var(--field-padding));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: padding 200ms ease, font-size 200ms ease;
+  font-size: calc(var(--font-size-text) * 0.9);
+  padding-top: var(--field-padding);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  pointer-events: none;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
+  padding-top: var(--field-label-top);
+  font-size: var(--font-size-text);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
+}
+
 :is([pgs~=toast], [pgs*="toast["], [pgs~=_toast], [pgs*="_toast["]) {
   display: flex;
   flex-direction: column;
@@ -7017,6 +9137,96 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 :is([pgs~=toast], [pgs*="toast["], [pgs~=_toast], [pgs*="_toast["]):where([pgs*="'toastRight'"]) {
   align-items: flex-end;
+}
+
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  padding-bottom: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > * {
+  padding-inline: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  border: unset;
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+  padding-bottom: var(--field-padding);
+  margin-bottom: calc(var(--field-padding) * -1);
+  border-radius: var(--field-borderRadius);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):focus {
+  outline: unset;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  text-wrap: nowrap;
+  width: calc(100% - var(--field-padding));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: padding 200ms ease, font-size 200ms ease;
+  font-size: calc(var(--font-size-text) * 0.9);
+  padding-top: var(--field-padding);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  pointer-events: none;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
+  padding-top: var(--field-label-top);
+  font-size: var(--font-size-text);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
 }
 
 :is([pgs~=search], [pgs*="search["]) {
@@ -7153,6 +9363,96 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     min-width: 21.4rem;
   }
 }
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  padding-bottom: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > * {
+  padding-inline: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  border: unset;
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+  padding-bottom: var(--field-padding);
+  margin-bottom: calc(var(--field-padding) * -1);
+  border-radius: var(--field-borderRadius);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):focus {
+  outline: unset;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  text-wrap: nowrap;
+  width: calc(100% - var(--field-padding));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: padding 200ms ease, font-size 200ms ease;
+  font-size: calc(var(--font-size-text) * 0.9);
+  padding-top: var(--field-padding);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  pointer-events: none;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
+  padding-top: var(--field-label-top);
+  font-size: var(--font-size-text);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
+}
+
 :is([pgs~=logo], [pgs*="logo["]) {
   display: flex;
   min-width: max-content;
@@ -7884,6 +10184,96 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   --outline-color: var(--color-gray);
 }
 
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  padding-bottom: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > * {
+  padding-inline: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  border: unset;
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+  padding-bottom: var(--field-padding);
+  margin-bottom: calc(var(--field-padding) * -1);
+  border-radius: var(--field-borderRadius);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):focus {
+  outline: unset;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  text-wrap: nowrap;
+  width: calc(100% - var(--field-padding));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: padding 200ms ease, font-size 200ms ease;
+  font-size: calc(var(--font-size-text) * 0.9);
+  padding-top: var(--field-padding);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  pointer-events: none;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
+  padding-top: var(--field-label-top);
+  font-size: var(--font-size-text);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
+}
+
 :root {
   --heading-color: var(--color-black);
   --heading-family: var(--font-heading);
@@ -8114,6 +10504,96 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 [pgs~=text] a:where(:hover) {
   background-color: var(--color-link-soft);
   border-radius: 5px;
+}
+
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  padding-bottom: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > * {
+  padding-inline: var(--field-padding);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio])))[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))) {
+  border: unset;
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+  padding-bottom: var(--field-padding);
+  margin-bottom: calc(var(--field-padding) * -1);
+  border-radius: var(--field-borderRadius);
+}
+
+:is([pgs~=field], [pgs*="field["]) > *:where(:not([pgs~=field-label], :has(input[type=checkbox], input[type=radio]))):focus {
+  outline: unset;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  text-wrap: nowrap;
+  width: calc(100% - var(--field-padding));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: padding 200ms ease, font-size 200ms ease;
+  font-size: calc(var(--font-size-text) * 0.9);
+  padding-top: var(--field-padding);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  pointer-events: none;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
+  padding-top: var(--field-label-top);
+  font-size: var(--font-size-text);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
 }
 
 [pgs~=darkmode] {

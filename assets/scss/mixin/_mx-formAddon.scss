@@ -142,6 +142,7 @@
     //## HOVER COLORS
     // per label, as in checkbox() and radio()
     @media (hover: hover) and (pointer: fine) {
+
         &:where(label):hover:not(:has(input:disabled)),
         :where(label):hover:not(:has(input:disabled)) {
             --toggle-rail-background: var(--toggle-rail-background-hover);
@@ -175,19 +176,19 @@
     }
 
     &:hover {
-
         :where(i, [pgs~="icon"], [pgs*="icon\5B"]) { opacity: 1; }
     }
 
     //## checked
     &:has(input:checked) {
-
         :where(i, [pgs~="icon"], [pgs*="icon\5B"]) { opacity: 1; }
 
         &:not(:has(:is([pgs~="icon"], [pgs*="icon\5B"]))),
         &:not(:has(i)) {
             &::after {
                 display: grid;
+                order: -1;
+                margin-right: calc(1.5rem/2);
                 place-items: center;
                 width: 1.5rem;
                 height: 1.5rem;
@@ -231,4 +232,69 @@
     @include row();
 
     label { @include chip(); }
+}
+
+//# FIELD
+:is([pgs~="field"], [pgs*="field\5B"]) {
+    --field-label-color: var(--color-black);
+    --field-label-opacity: 65%;
+    --field-gap: 0.5rem;
+    --field-background: var(--color-white);
+    --field-border: var(--border-complete);
+    --field-padding: var(--padding-texts);
+    --field-borderRadius: var(--border-radius-texts);
+    --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+    position: relative;
+    border: var(--field-border);
+    background-color: var(--field-background);
+    border-radius: var(--field-borderRadius);
+    padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+    padding-bottom: var(--field-padding);
+
+    >* { padding-inline: var(--field-padding); }
+
+    //## INPUT
+    >*:where(:not([pgs~="field-label"], :has(input[type="checkbox"], input[type="radio"]))) {
+        @include inputBase(0%);
+        border: unset;
+        padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+        margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
+        padding-bottom: var(--field-padding);
+        margin-bottom: calc(var(--field-padding) * -1);
+        border-radius: var(--field-borderRadius);
+
+        &:focus { outline: unset; }
+    }
+
+    //## LABEL
+    :where([pgs~="field-label"]) {
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        line-height: 1;
+        text-wrap: nowrap;
+        width: calc(100% - var(--field-padding));
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+        transition: padding 200ms ease, font-size 200ms ease;
+        font-size: calc(var(--font-size-text) * .9);
+        padding-top: var(--field-padding);
+        background-color: var(--field-background);
+        border-radius: var(--field-borderRadius);
+        pointer-events: none;
+    }
+
+    //## NOT focus or text
+    &:has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) {
+        :where([pgs~="field-label"]) {
+            padding-top: var(--field-label-top);
+            font-size: var(--font-size-text);
+        }
+    }
+
+    //## required
+    &:has(:where(:required)) {
+        :where([pgs~="field-label"]) { @include required(); }
+    }
 }
