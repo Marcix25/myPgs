@@ -9,7 +9,7 @@
     background:
         linear-gradient(160deg, color-mix(in srgb, var(--color-primary-soft) 75%, transparent), color-mix(in srgb, var(--color-background) 90%, transparent) 70%),
         url("../img/hero-leaves.webp") center / cover no-repeat;
-    border-radius: var(--border-radius-external);
+    border-radius: var(--border-radius-groups);
     padding-block: var(--gap-elements);
 }
 
@@ -20,7 +20,7 @@
 .home-hero-eyebrow {
     display: inline-flex;
     padding: 0.4rem 1rem;
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-elements);
     color: var(--color-primary-text);
     background: var(--color-primary);
     font-weight: var(--font-weight-bold);

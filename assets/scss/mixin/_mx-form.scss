@@ -2,38 +2,48 @@
 @use "mx-responsive" as *;
 
 //= FORM
-//# INPUT
-@mixin input() {
-    --input-padding: var(--padding-texts);
+//# INPUT & LABEL
+//## INPUT
+@mixin inputBase($opacityPlaceholder) {
     appearance: none;
-    border: var(--border-complete);
-    background-color: var(--color-white);
-    border-radius: var(--border-radius-input);
-    color: var(--color-text);
-    padding: var(--input-padding);
-    font-size: var(--font-size-text);
     width: 100%;
-    margin-bottom: var(--gap-texts);
     letter-spacing: 0.03em;
     font-family: var(--font);
+    font-size: var(--font-size-text);
+    font-weight: var(--font-weight-texts);
 
     &::placeholder {
         color: var(--color-black);
-        opacity: 20%;
+        opacity: #{$opacityPlaceholder};
         font-weight: var(--font-weight-text);
     }
 
-    &:hover { outline: solid var(--hover-borderColor); }
+    &:hover { border-color: var(--hover-borderColor); }
     &[disabled] { @include disabled(); }
 }
 
-//# LABEL
-@mixin label($borderRadius: 1.0rem 1.0rem 0 0, $left: var(--border-radius-input)) {
-    --label-borderRadius: #{$borderRadius};
-    --label-left: #{$left};
-    --label-padding: 0.7rem 1.2rem;
+@mixin input() {
+    --input-padding: var(--padding-texts);
+    --input-border: var(--border-complete);
+    --input-borderRadius: var(--border-radius-texts);
+    --input-background: var(--color-white);
+    --input-color: var(--color-text);
+    border: var(--input-border);
+    background-color: var(--input-background);
+    border-radius: var(--input-borderRadius);
+    color: var(--input-color);
+    padding: var(--input-padding);
+    @include inputBase(20%);
+}
+
+//## LABEL
+@mixin label() {
+    --label-borderRadius: var(--border-radius-texts);
+    --label-left: var(--border-radius-texts);
+    --label-paddingInline: var(--padding-texts);
+    --label-paddingBlock: calc(var(--padding-texts)/2);
     --label-color: var(--color-black);
-    --label-background: var(--border-color);
+    --label-background: var(--color-box);
     position: relative;
     font-weight: var(--font-weight-bold);
     display: inline-block;
@@ -41,148 +51,35 @@
     cursor: pointer;
     left: var(--label-left);
     color: var(--label-color);
-    padding: var(--label-padding);
-    border-radius: var(--label-borderRadius);
     background-color: var(--label-background);
-
-    :where(i, [pgs~="icon"], [pgs*="icon\5B"]) {
-        font-size: var(--font-size-text);
-        margin-right: .7rem;
-    }
+    padding-block: var(--label-paddingBlock);
+    padding-inline: var(--label-paddingInline);
+    border-radius: var(--label-borderRadius);
 }
 
-//# REQUIRED
+//# REQUIRED & DISABLED
+//## REQUIRED
 @mixin required() {
-    position: relative;
 
     :where([pgs~="form-requiredHere"]),
     &:not(:has(:where([pgs~="form-requiredHere"]))) {
         &::after {
-            content: "*";
+            content: " *";
             color: var(--color-error);
-            transform: translate(20px, 0px);
-            position: absolute;
-            font-size: 40px;
-            bottom: -8px;
+            line-height: 1;
             font-weight: var(--font-weight-bold);
-            right: 0px;
         }
-    }
-
-    :where([pgs~="form-requiredHere"]) {
-        &::after { position: relative; }
     }
 }
 
-//# DISABLED
+//## DISABLED
 @mixin disabled() {
     opacity: 0.5;
     cursor: not-allowed !important;
 }
 
-//# FILE
-@mixin file() {
-    width: 100%;
-    background-color: var(--color-white);
-    padding: var(--gap-texts);
-    border-radius: var(--border-radius-input);
-    min-height: 5.3rem;
-    &[disabled] { @include disabled(); }
-
-    &::file-selector-button {
-        width: 40%;
-        border: none;
-        cursor: pointer;
-        margin-bottom: var(--margin-texts);
-        margin-right: var(--margin-texts);
-        border-radius: var(--border-radius);
-        padding: var(--padding-texts);
-        font-family: var(--font);
-        font-size: var(--font-size-text);
-        font-weight: var(--font-weight-bold);
-        outline: var(--border-complete);
-        outline-color: var(--clickable-borderColor);
-        color: var(--clickable-color);
-        background: var(--clickable-background);
-        transition: var(--clickable-transition);
-    }
-
-    &::file-selector-button:hover {
-        background-color: var(--hover-background);
-        color: var(--hover-color);
-    }
-}
-
-//# RANGE
-@mixin range() {
-    --range-size: calc(var(--border-radius-input));
-    --range-thumbWidth: calc(var(--range-size) * 2);
-    --range-background: var(--clickable-background);
-    --range-background-progress: var(--twoState-background);
-    --range-background-thumb: var(--twoState-color);
-    // where the thumb is, from 0 to 1: written on the slider by pgs.range (components/_range.js) as the value moves, 0 until it has run. The painted part stops at the middle of the thumb, which travels the track less its own width
-    --_range-progress: 0;
-    --_range-fill: calc(var(--_range-progress) * (100% - var(--range-thumbWidth)) + var(--range-thumbWidth) / 2);
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: var(--range-size);
-    background: linear-gradient(to right, var(--range-background-progress) var(--_range-fill), var(--range-background) var(--_range-fill));
-    border: var(--border-width) var(--border-style) var(--clickable-borderColor);
-    outline: none;
-    border-radius: var(--range-size);
-    z-index: 1;
-    position: relative;
-
-    //## thumb (WebKit) (Firefox)
-    &::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: var(--range-thumbWidth);
-        height: calc(var(--range-size) * 1.2);
-        border-radius: var(--range-size);
-        background: var(--range-background-thumb);
-        border: var(--border-width) var(--border-style) var(--clickable-borderColor);
-        cursor: pointer;
-        transition: transform 0.2s;
-
-        &:hover {
-            scale: 1.2;
-            background: var(--hover-background);
-        }
-    }
-
-    &::-moz-range-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: var(--range-thumbWidth);
-        height: calc(var(--range-size) * 1.2);
-        border-radius: var(--range-size);
-        background: var(--range-background-thumb);
-        border: var(--border-width) var(--border-style) var(--clickable-borderColor);
-        cursor: pointer;
-        transition: transform 0.2s;
-
-        &:hover {
-            scale: 1.2;
-            background: var(--hover-background);
-        }
-    }
-
-    //## focus
-    &:focus-visible::-webkit-slider-thumb,
-    &:focus-visible::-moz-range-thumb {
-        outline: var(--focus-visible) !important;
-        background-color: var(--color-focus) !important;
-        scale: 1.2;
-    }
-
-    //## disabled
-    &:disabled { @include disabled(); }
-}
-
-//# CHECKBOX
+//# CHECKBOX & RADIO
+//## CHECKBOX
 @mixin checkbox() {
     --checkbox-size: 2.0rem;
     --checkbox-paddingInline: var(--gap-texts);
@@ -265,6 +162,7 @@
     //## HOVER
     // per label, so a group takes the hover on the one control the pointer is on and not on all of them
     @media (hover: hover) and (pointer: fine) {
+
         &:where(label):hover:not(:has(input:disabled)),
         :where(label):hover:not(:has(input:disabled)) {
             --checkbox-background: var(--checkbox-background-hover);
@@ -274,7 +172,7 @@
     }
 }
 
-//# RADIO
+//## RADIO
 @mixin radio() {
     --radio-size: 2.0rem;
     --radio-paddingInline: var(--gap-texts);
@@ -354,6 +252,7 @@
     //## HOVER
     // per label, as in checkbox()
     @media (hover: hover) and (pointer: fine) {
+
         &:where(label):hover:not(:has(input:disabled)),
         :where(label):hover:not(:has(input:disabled)) {
             --radio-background: var(--radio-background-hover);
@@ -363,7 +262,7 @@
     }
 }
 
-//# LABEL - checkbox radio
+//### LABEL - checkbox radio
 // the label of a checkbox or a radio, for the one that holds the control and for the ones inside a group
 @mixin labelCheckboxAndRadio() {
 
@@ -375,7 +274,6 @@
         position: relative;
         text-align: left;
         line-height: var(--checkbox-size, var(--radio-size));
-        margin-bottom: var(--gap-texts);
         width: fit-content;
         cursor: pointer;
         display: block;
@@ -391,103 +289,5 @@
 
         //## Required
         &:has(input[type=checkbox]:required) { @include required(); }
-
-    }
-}
-
-//# SELECT
-@mixin select() {
-    @include input();
-    overflow: auto;
-    appearance: none;
-    cursor: pointer;
-
-    option {
-        padding: var(--gap-texts);
-        border-radius: calc(var(--border-radius-input) - var(--input-padding));
-        background-color: transparent;
-        cursor: pointer;
-
-        &:checked {
-            background-color: var(--color-primary);
-            color: var(--color-whiteFixed);
-            font-weight: var(--font-weight-bold);
-        }
-
-        &:hover { background-color: var(--hover-background); }
-        &:checked:hover { background-color: var(--color-primary-dark); }
-    }
-}
-
-@mixin formTextarea() {
-    resize: vertical;
-    @include input();
-    height: 120px;
-    min-height: 100px;
-    border-bottom-right-radius: 40px;
-    appearance: none;
-}
-
-@mixin inputColor() {
-    $size: 50px;
-    $padding: 5px;
-    @include input();
-    --input-padding: 0;
-    block-size: $size;
-    inline-size: calc($size * 4);
-    margin-right: auto;
-    display: flex;
-
-    &::-webkit-color-swatch-wrapper { padding: $padding; }
-
-    &::-webkit-color-swatch {
-        border: var(--border-complete);
-        border-radius: calc(var(--border-radius-input) - $padding);
-        cursor: pointer;
-    }
-}
-
-@mixin legend() {
-    @include label(1.0rem, 0);
-    --label-color: var(--color-black);
-    --label-background: var(--color-box);
-    margin-bottom: var(--gap-texts);
-}
-
-//# formValidate
-@mixin formValidate() {
-    --formValidate-outline: solid 3px var(--color-error);
-
-    //## ERROR
-    &[pgs-state~=errorForm] {
-        [pgs-state~=errorField]:not([type=checkbox], [type=radio]) {
-            border: var(--formValidate-outline);
-            color: var(--color-error);
-        }
-
-        :where(label):has(+[pgs-state~=errorField], [pgs-state~=errorField]) {
-            &:has(input[type=checkbox]) {
-                padding-block: 8px;
-                border-radius: 10px;
-                outline: var(--formValidate-outline);
-            }
-
-            :where(input[type=radio], input[type=checkbox]) {
-                &::before { outline: var(--formValidate-outline); }
-            }
-        }
-
-        :where(fieldset)[pgs-state~=errorField] {
-            border-radius: 10px;
-
-            :where(input[type=radio], input[type=checkbox]) {
-                &::before { outline: var(--formValidate-outline); }
-            }
-
-            :where(legend) {
-                --label-background: var(--color-error-soft);
-                --label-color: var(--color-error);
-            }
-        }
     }
 }

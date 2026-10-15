@@ -2,8 +2,8 @@
 
 :is([pgs~="search"], [pgs*="search\5B"]) {
     --search-height: var(--font-size-text);
-    --search-paddingBlock: var(--border-radius-input);
-    --search-borderRadius: calc(var(--border-radius-input) + (var(--search-height) /2));
+    --search-paddingBlock: var(--border-radius-texts);
+    --search-borderRadius: calc(var(--border-radius-texts) + (var(--search-height) /2));
     --search-background: var(--color-box);
     --search-color: var(--color-black);
     --search-border: var(--border-complete);

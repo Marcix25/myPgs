@@ -4,7 +4,7 @@
 //# CARD
 :is([pgs~="card"], [pgs*="card\5B"]) {
     --card-padding: var(--padding-elements);
-    --card-borderRadius: calc(var(--border-radius-input) + var(--card-padding));
+    --card-borderRadius: calc(var(--border-radius-texts) + var(--card-padding));
     --card-borderRadius-item: var(--card-borderRadius) var(--card-borderRadius) 0 0;
     --card-background: var(--color-box-transparent);
     --card-img-padding: 0;
@@ -119,7 +119,7 @@
     // not 'mini': button and card already have that option
     &:where([pgs*="\'boxMini\'"]) {
         --box-padding: var(--padding-texts);
-        --box-borderRadius: var(--border-radius-input);
+        --box-borderRadius: var(--border-radius-texts);
     }
 
     //+ navSmart

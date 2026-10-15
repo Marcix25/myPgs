@@ -20,6 +20,12 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=ROOT, **kwargs)
 
+    def log_message(self, format, *args):
+        # no access log: it goes to the terminal that started the server, and when that terminal stops
+        # reading (a paused or hidden panel) the write blocks, and with it the lock every other request
+        # waits for, so the server stays up but answers nothing
+        pass
+
     def end_headers(self):
         self.send_header("Cache-Control", "no-store, no-cache, must-revalidate")
         self.send_header("Pragma", "no-cache")
@@ -35,6 +41,10 @@ class ReusableTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
 
     allow_reuse_address = True
     daemon_threads = True
+
+    def handle_error(self, request, client_address):
+        # a dropped connection (a phone that went to sleep) prints a traceback to the terminal: same blocking write
+        pass
 
 
 if __name__ == "__main__":

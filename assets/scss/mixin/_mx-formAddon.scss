@@ -5,7 +5,7 @@
 @mixin checkboxBackground() {
     --checkboxBackground-color: var(--clickable-color);
     --checkboxBackground-padding: var(--padding-texts);
-    --checkboxBackground-borderRadius: var(--border-radius-input);
+    --checkboxBackground-borderRadius: var(--border-radius-texts);
     --checkboxBackground-background: var(--clickable-background);
     @include checkbox();
     @include radio();
@@ -88,7 +88,7 @@
             margin-left: auto;
             transition: all 250ms;
             display: block;
-            border-radius: var(--border-radius-input);
+            border-radius: var(--border-radius-texts);
             order: 1;
         }
 
@@ -176,17 +176,13 @@
 
     &:hover {
 
-        :where(i, [pgs~="icon"], [pgs*="icon\5B"]) {
-            opacity: 1;
-        }
+        :where(i, [pgs~="icon"], [pgs*="icon\5B"]) { opacity: 1; }
     }
 
     //## checked
     &:has(input:checked) {
 
-        :where(i, [pgs~="icon"], [pgs*="icon\5B"]) {
-            opacity: 1;
-        }
+        :where(i, [pgs~="icon"], [pgs*="icon\5B"]) { opacity: 1; }
 
         &:not(:has(:is([pgs~="icon"], [pgs*="icon\5B"]))),
         &:not(:has(i)) {

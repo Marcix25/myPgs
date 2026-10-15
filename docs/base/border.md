@@ -87,8 +87,9 @@ Border, outline and radius utilities, split out from the general-purpose set sin
 - `otlWarning`: inside outline's own bracket, recolors it with the warning color.
 - `otlSuccess`: inside outline's own bracket, recolors it with the success color.
 - `otlGray`: inside outline's own bracket, recolors it gray.
-- `radInput`: inside borderRadius's own bracket, uses the smaller radius used by form controls instead of the standard one.
-- `radExternal`: inside borderRadius's own bracket, uses the wider radius used by outer containers instead of the standard one.
+- `radElements`: inside borderRadius's own bracket, uses the standard radius of an element (--border-radius-elements), the one borderRadius gives on its own.
+- `radTexts`: inside borderRadius's own bracket, uses the smaller radius used by form controls instead of the standard one.
+- `radGroups`: inside borderRadius's own bracket, uses the wider radius used by outer containers instead of the standard one.
 - `radUnset`: inside borderRadius's own bracket, squares the corners off an element that has a radius of its own.
 
 ## Related elements
@@ -115,9 +116,9 @@ Border, outline and radius utilities, split out from the general-purpose set sin
 
 - `--border-color`
 - `--border-complete`
-- `--border-radius`
-- `--border-radius-external`
-- `--border-radius-input`
+- `--border-radius-elements`
+- `--border-radius-groups`
+- `--border-radius-texts`
 - `--border-style`
 - `--border-width`
 
@@ -167,7 +168,7 @@ The same line drawn outside the box, so it takes no space and never moves what s
 Three radius tokens: the standard one, the smaller one used by form controls and the wider one for outer containers.
 
 ```html
-<span pgs="padding['pdSections'] border borderRadius['radExternal']">borderRadius['radExternal']</span>
+<span pgs="padding['pdSections'] border borderRadius['radGroups']">borderRadius['radGroups']</span>
 <span pgs="padding['pdSections'] border borderRadius">borderRadius</span>
-<span pgs="padding['pdSections'] border borderRadius['radInput']">borderRadius['radInput']</span>
+<span pgs="padding['pdSections'] border borderRadius['radTexts']">borderRadius['radTexts']</span>
 ```

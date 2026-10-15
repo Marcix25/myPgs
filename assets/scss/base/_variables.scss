@@ -28,6 +28,10 @@
         --gap-elements: #{$SIZE};
         --gap-groups: #{$SIZE-groups};
         --gap-sections: #{$SIZE-sections};
+        // Border radius
+        --border-radius-texts: #{$SIZE-texts};
+        --border-radius-elements: #{$SIZE};
+        --border-radius-groups: #{$SIZE-groups};
         // Font
         --font: 'Urbanist', sans-serif;
         --font-heading: var(--font);
@@ -36,15 +40,12 @@
         --font-weight-text: 500;
         --font-size-text: 1.6rem;
         // Border
-        --border-radius: #{$SIZE};
-        --border-radius-external: calc(var(--border-radius) + #{$SIZE});
-        --border-radius-input: #{$SIZE-texts};
-        --border-width: 1px;
+        --border-width: 0.1rem;
         --border-style: solid;
         --border-color: color-mix(in srgb, var(--color-black) 8%, transparent);
         --border-complete: var(--border-width) var(--border-color) var(--border-style);
         // Outline
-        --outline-width: 1px;
+        --outline-width: 0.1rem;
         --outline-style: solid;
         --outline-color: color-mix(in srgb, var(--color-black) 8%, transparent);
         // Page
@@ -147,7 +148,7 @@
         --color-boxDark: light-dark(#222121, #f5f5f8);
         --color-box-transparent: light-dark(color-mix(in srgb, #eeeeee 50%, transparent 50%), color-mix(in srgb, #222121 50%, transparent 50%));
         --color-boxDark-transparent: light-dark(color-mix(in srgb, #222121 50%, transparent 50%), color-mix(in srgb, #eeeeee 50%, transparent 50%));
-        --color-background: light-dark(#ffffff, #080808);
+        --color-background: light-dark(#fcfcfc, #080808);
         --color-whiteFixed: #FFFFFF;
         --color-blackFixed: #000000;
         --color-link: #009EFF;

@@ -19,7 +19,7 @@ $accordionGap: 1.0rem;
 //# ACCORDION
 :is([pgs~="accordion"], [pgs*="accordion\5B"]) {
     --accordion-icon: var(--icon-glyph-chevronDown);
-    --accordion-borderRadius: var(--border-radius);
+    --accordion-borderRadius: var(--border-radius-elements);
     --accordion-padding: calc(var(--accordion-borderRadius)/1.5);
     --accordion-timing: 300ms;
     --accordion-background: transparent;

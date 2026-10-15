@@ -280,8 +280,9 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "radExternal",
-            "radInput",
+            "radElements",
+            "radGroups",
+            "radTexts",
             "radUnset"
         ],
         "pgs-data": []
@@ -430,6 +431,14 @@
         "pgs-data": [
             "dropdownPosition"
         ]
+    },
+    "field": {
+        "pgs": [
+            "field-label"
+        ],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
     },
     "fieldset": {
         "pgs": [],
@@ -1367,6 +1376,12 @@
         "pgs-options": [],
         "pgs-data": []
     },
+    "selects": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
     "skipLink": {
         "pgs": [],
         "pgs-generated": [],
@@ -1486,6 +1501,12 @@
         "pgs-data": []
     },
     "textarea": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "textBlock": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [],

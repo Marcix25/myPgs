@@ -107,10 +107,11 @@
 
 //# BORDER RADIUS
 :is([pgs~="borderRadius"], [pgs*="borderRadius\5B"]) {
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-elements);
 
-    &[pgs*="'radInput'"] { border-radius: var(--border-radius-input); }
-    &[pgs*="'radExternal'"] { border-radius: var(--border-radius-external); }
+    &[pgs*="'radTexts'"] { border-radius: var(--border-radius-texts); }
+    &[pgs*="'radElements'"] { border-radius: var(--border-radius-elements); }
+    &[pgs*="'radGroups'"] { border-radius: var(--border-radius-groups); }
     &[pgs*="'radUnset'"] { border-radius: 0; }
 }
 

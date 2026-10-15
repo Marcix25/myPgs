@@ -13,6 +13,7 @@ Standalone utilities for shadow, cursor, image fitting, list styling and forced 
 - `appearanceNone`: strips every inherited style and the native appearance, to build a control from scratch.
 - `img`: fits or crops an image depending on the option in its bracket; written bare it does nothing.
 - `list`: styles a plain ul or ol with the shared marker and spacing.
+- `textBlock`: a column of running text: its items start at the left, its lists take the list markers, a rule spans the whole width and the first three headings have 25px above them.
 - `lightmode`: forces the light color scheme on a subtree, whatever the page theme is.
 - `darkmode`: forces the dark color scheme on a subtree, whatever the page theme is.
 
@@ -87,6 +88,23 @@ Shared marker and spacing for a plain list, without any component behavior.
     <li>Second item</li>
     <li>Third item</li>
 </ul>
+```
+
+### Text block
+
+A column of running text: items start at the left, lists take the shared markers, a rule spans the whole width and the headings have room above.
+
+```html
+<div pgs="textBlock box">
+    <h2>A heading</h2>
+    <p>A paragraph of running text.</p>
+    <ul>
+        <li>A list item</li>
+        <li>Another item</li>
+    </ul>
+    <hr>
+    <p>Text after the rule.</p>
+</div>
 ```
 
 ### Forced color scheme

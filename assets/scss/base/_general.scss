@@ -24,6 +24,18 @@
 
 //# LIST, TEXT SHADOW & BOX SHADOW
 [pgs~="list"] { @include list(); }
+
+//# TEXT BLOCK
+// a column of running text: its items start at the left, its lists take the shared markers, a rule
+// spans the whole width and the headings have room above
+[pgs~="textBlock"] {
+    align-items: flex-start;
+    @include column();
+    @include list;
+
+    :where(hr) { align-self: stretch; }
+    :where(h1, h2, h3) { margin-top: 25px; }
+}
 :is([pgs~="textShadow"], [pgs*="textShadow\5B"]) {
     text-shadow: var(--text-shadow);
 
@@ -62,7 +74,7 @@
     left: var(--gap-texts);
     z-index: var(--zIndex-skipLink);
     padding: var(--padding-texts);
-    border-radius: var(--border-radius-input);
+    border-radius: var(--border-radius-texts);
     background-color: var(--color-background);
     color: var(--color-link);
     outline: var(--focus-visible);

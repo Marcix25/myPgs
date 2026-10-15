@@ -2,89 +2,188 @@
 <main pgs="main" style="--main-paddingTop: calc(var(--_header-height) + var(--page-padding));">
     <section pgs="section['sctMax'] flex['column' 'gapElements']">
 
-        <h1>The form styles nothing by itself</h1>
-        <p>Every control carries its own token now. The form token only draws the asterisk on the label or legend of
-            a required control. Two forms side by side: the first one is bare (a browser default look, only the
-            asterisks), the second one has the tokens.</p>
+        <h1>Every form control, all required</h1>
+        <p>One of each, with <code>required</code> on all of them. A range and a color input have always a value, so
+            the browser ignores <code>required</code> there: they are in the form to see their label.</p>
 
-        <h2>1. Bare form (no tokens)</h2>
         <form pgs="form" novalidate>
-            <label for="b1">Name (required)</label>
-            <input id="b1" type="text" placeholder="Plain browser input" required>
-            <label for="b2">Country</label>
-            <select id="b2"><option>Italy</option><option>France</option></select>
-            <label><input type="checkbox"> A plain checkbox</label>
-            <fieldset required>
-                <legend>A required fieldset legend</legend>
-                <label><input type="radio" name="bare"> One</label>
-                <label><input type="radio" name="bare"> Two</label>
+
+            <!-- = TEXT-LIKE INPUTS: field -->
+            <div pgs="field">
+                <label pgs="field-label" for="r-text">Text</label>
+                <input id="r-text" type="text" name="text" placeholder=" " required>
+            </div>
+            <div pgs="field">
+                <label pgs="field-label" for="r-email">Email</label>
+                <input id="r-email" type="email" name="email" placeholder=" " required>
+            </div>
+            <div pgs="field">
+                <label pgs="field-label" for="r-password">Password</label>
+                <input id="r-password" type="password" name="password" placeholder=" " autocomplete="new-password" required>
+            </div>
+            <div pgs="field">
+                <label pgs="field-label" for="r-tel">Telephone</label>
+                <input id="r-tel" type="tel" name="tel" placeholder=" " required>
+            </div>
+            <div pgs="field">
+                <label pgs="field-label" for="r-url">Url</label>
+                <input id="r-url" type="url" name="url" placeholder=" " required>
+            </div>
+            <div pgs="field">
+                <label pgs="field-label" for="r-search">Search</label>
+                <input id="r-search" type="search" name="search" placeholder=" " required>
+            </div>
+            <div pgs="field">
+                <label pgs="field-label" for="r-number">Number</label>
+                <input id="r-number" type="number" name="number" placeholder=" " required>
+            </div>
+            <div pgs="field">
+                <label pgs="field-label" for="r-date">Date</label>
+                <input id="r-date" type="date" name="date" placeholder=" " required>
+            </div>
+            <div pgs="field">
+                <label pgs="field-label" for="r-time">Time</label>
+                <input id="r-time" type="time" name="time" placeholder=" " required>
+            </div>
+            <div pgs="field">
+                <label pgs="field-label" for="r-datetime">Date and time</label>
+                <input id="r-datetime" type="datetime-local" name="datetime" placeholder=" " required>
+            </div>
+            <div pgs="field">
+                <label pgs="field-label" for="r-month">Month</label>
+                <input id="r-month" type="month" name="month" placeholder=" " required>
+            </div>
+            <div pgs="field">
+                <label pgs="field-label" for="r-week">Week</label>
+                <input id="r-week" type="week" name="week" placeholder=" " required>
+            </div>
+            <div pgs="field">
+                <label pgs="field-label" for="r-textarea">Textarea</label>
+                <textarea id="r-textarea" name="message" rows="4" placeholder=" " required></textarea>
+            </div>
+
+            <!-- = SELECT, FILE, RANGE, COLOR: label -->
+            <label>
+                <span pgs="label">Select</span>
+                <select pgs="select" name="country" required>
+                    <option value="">Choose a country</option>
+                    <option value="it">Italy</option>
+                    <option value="fr">France</option>
+                </select>
+            </label>
+            <label>
+                <span pgs="label">File</span>
+                <input pgs="file" type="file" name="attachment" required>
+            </label>
+            <label>
+                <span pgs="label">Range</span>
+                <input pgs="range" type="range" name="volume" min="0" max="100" value="40" required>
+            </label>
+            <label>
+                <span pgs="label">Color</span>
+                <input pgs="inputColor" type="color" name="accent" value="#3aa561" required>
+            </label>
+
+            <!-- = CHECKBOX, RADIO -->
+            <label pgs="checkbox">
+                <input type="checkbox" name="privacy" required>
+                <span>A checkbox: I accept the privacy policy</span>
+            </label>
+            <fieldset pgs="fieldset radio" required>
+                <legend pgs="legend">A radio group</legend>
+                <label><input type="radio" name="contact" value="email" required> <span>Email</span></label>
+                <label><input type="radio" name="contact" value="phone"> <span>Phone</span></label>
+                <label><input type="radio" name="contact" value="message"> <span>Direct message</span></label>
             </fieldset>
+            <fieldset pgs="fieldset checkbox" required>
+                <legend pgs="legend">A checkbox group</legend>
+                <label><input type="checkbox" name="topics" value="news" required> <span>News</span></label>
+                <label><input type="checkbox" name="topics" value="offers" required> <span>Offers</span></label>
+            </fieldset>
+
+            <!-- = ADD-ONS -->
+            <label pgs="checkboxBackground">
+                <input type="checkbox" name="notifications" required>
+                <span>checkboxBackground: enable notifications</span>
+            </label>
+            <fieldset pgs="fieldset" required>
+                <legend pgs="legend">checkboxBackground, a radio group</legend>
+                <label pgs="checkboxBackground"><input type="radio" name="plan" value="basic" required> Basic</label>
+                <label pgs="checkboxBackground"><input type="radio" name="plan" value="pro"> Pro</label>
+            </fieldset>
+            <label pgs="toggle">
+                <span>A toggle</span>
+                <input type="checkbox" name="toggle" required>
+            </label>
+            <fieldset pgs="chips" required>
+                <legend pgs="legend">Chips, radio</legend>
+                <label pgs="button['btnMini' 'btnTwoState']"><input type="radio" name="chip" value="a" required> A</label>
+                <label pgs="button['btnMini' 'btnTwoState']"><input type="radio" name="chip" value="b"> B</label>
+            </fieldset>
+
+            <button pgs="button['btnStrong']" type="submit">Submit</button>
         </form>
 
-        <h2>2. Same form with tokens</h2>
-        <form pgs="form flex['column' 'gapTexts']" novalidate>
-            <label pgs="block">
-                <span pgs="label">Name (required)</span>
-                <input pgs="input" type="text" placeholder="John Smith" required>
-            </label>
-            <label pgs="label" for="t2">Email, label in front of the field (required)</label>
-            <input pgs="input" id="t2" type="email" placeholder="name@example.com" required>
-            <label pgs="block">
-                <span pgs="label">Password</span>
-                <input pgs="input" type="password" value="secret">
-            </label>
-            <label pgs="block">
-                <span pgs="label">Age (number, narrow)</span>
-                <input pgs="input" type="number" placeholder="Age">
-            </label>
-            <label pgs="block">
-                <span pgs="label">Date</span>
-                <input pgs="input" type="date">
-            </label>
-            <label pgs="block">
-                <span pgs="label">Disabled: the label and the field dim</span>
-                <input pgs="input" type="text" placeholder="Disabled" disabled>
-            </label>
-            <label pgs="block">
-                <span pgs="label">Country (required)</span>
-                <select pgs="select" required><option value="">Choose a country</option><option>Italy</option><option>France</option></select>
-            </label>
-            <label pgs="block">
-                <span pgs="label">Message</span>
-                <textarea pgs="textarea" rows="4" placeholder="Write your message"></textarea>
-            </label>
-            <label pgs="block">
-                <span pgs="label">Range</span>
-                <input pgs="range" type="range" value="40">
-            </label>
-            <label pgs="block">
-                <span pgs="label">File</span>
-                <input pgs="file" type="file">
-            </label>
-            <label pgs="block">
-                <span pgs="label">Color</span>
-                <input pgs="inputColor" type="color" value="#3aa561">
-            </label>
+        <h2>A select in a field</h2>
+        <p>The first option is <code>&lt;option value="" selected disabled hidden&gt;</code> and stands in for the placeholder: while it is the one chosen and
+            the select is closed, the label lies over the select; with focus, or with another option chosen, it is small
+            at the top.</p>
+        <form pgs="form" novalidate>
+            <div pgs="field selects">
+                <label pgs="field-label" for="s1">Country</label>
+                <select id="s1" name="country">
+                    <option value="" selected disabled>select</option>
+                    <option value="it">Italy</option>
+                    <option value="fr">France</option>
+                </select>
+            </div>
+            <div pgs="field selects">
+                <label pgs="field-label" for="s2">Country, required</label>
+                <select id="s2" name="country2" required>
+                    <option value="" selected disabled>select</option>
+                    <option value="it">Italy</option>
+                    <option value="fr">France</option>
+                </select>
+            </div>
+            <div pgs="field selects">
+                <label pgs="field-label" for="s3">Country, one chosen</label>
+                <select id="s3" name="country3">
+                    <option value="" disabled>select</option>
+                    <option value="it" selected>Italy</option>
+                    <option value="fr">France</option>
+                </select>
+            </div>
+            <div pgs="field selects">
+                <label pgs="field-label" for="s4">Country, no empty option</label>
+                <select id="s4" name="country4">
+                    <option value="it">Italy</option>
+                    <option value="fr">France</option>
+                </select>
+            </div>
+        </form>
 
-            <fieldset pgs="fieldset radio flex['column']" required>
-                <legend pgs="legend">A required radio group</legend>
-                <label><input type="radio" name="size" value="s" required> Small</label>
-                <label><input type="radio" name="size" value="m"> Medium</label>
-            </fieldset>
-
-            <fieldset pgs="fieldset checkbox flex['column']">
-                <legend pgs="legend">A checkbox group</legend>
-                <label><input type="checkbox" name="topic" value="a"> News</label>
-                <label><input type="checkbox" name="topic" value="b" disabled> Offers, disabled</label>
-            </fieldset>
-
-            <label pgs="checkbox">
-                <input type="checkbox" required>
-                I accept the <a href="#">terms</a>
-            </label>
-
-            <label pgs="label">A label whose control is hidden</label>
-            <input type="text" hidden>
+        <h2>A select with several options</h2>
+        <p>With <code>multiple</code> the options are a list, always open: the label stays small at the top. Chosen
+            options take the primary color, a disabled one a lighter one.</p>
+        <form pgs="form" novalidate>
+            <div pgs="field selects">
+                <label pgs="field-label" for="m1">Languages</label>
+                <select id="m1" name="languages" multiple size="4">
+                    <option value="it">Italian</option>
+                    <option value="en">English</option>
+                    <option value="fr">French</option>
+                    <option value="de" disabled>German, not available</option>
+                </select>
+            </div>
+            <div pgs="field selects">
+                <label pgs="field-label" for="m2">Languages, required, two chosen</label>
+                <select id="m2" name="languages2" multiple size="4" required>
+                    <option value="it" selected>Italian</option>
+                    <option value="en" selected>English</option>
+                    <option value="fr">French</option>
+                    <option value="de" disabled>German, not available</option>
+                </select>
+            </div>
         </form>
     </section>
 </main>

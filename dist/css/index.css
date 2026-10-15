@@ -24,20 +24,20 @@
   --gap-elements: var(--SIZE);
   --gap-groups: var(--SIZE-groups);
   --gap-sections: var(--SIZE-sections);
+  --border-radius-texts: var(--SIZE-texts);
+  --border-radius-elements: var(--SIZE);
+  --border-radius-groups: var(--SIZE-groups);
   --font: 'Urbanist', sans-serif;
   --font-heading: var(--font);
   --font-weight-title: 800;
   --font-weight-bold: 600;
   --font-weight-text: 500;
   --font-size-text: 1.6rem;
-  --border-radius: var(--SIZE);
-  --border-radius-external: calc(var(--border-radius) + var(--SIZE));
-  --border-radius-input: var(--SIZE-texts);
-  --border-width: 1px;
+  --border-width: 0.1rem;
   --border-style: solid;
   --border-color: color-mix(in srgb, var(--color-black) 8%, transparent);
   --border-complete: var(--border-width) var(--border-color) var(--border-style);
-  --outline-width: 1px;
+  --outline-width: 0.1rem;
   --outline-style: solid;
   --outline-color: color-mix(in srgb, var(--color-black) 8%, transparent);
   --page-padding: min(3vw, var(--SIZE));
@@ -126,7 +126,7 @@
   --color-boxDark: light-dark(#222121, #f5f5f8);
   --color-box-transparent: light-dark(color-mix(in srgb, #eeeeee 50%, transparent 50%), color-mix(in srgb, #222121 50%, transparent 50%));
   --color-boxDark-transparent: light-dark(color-mix(in srgb, #222121 50%, transparent 50%), color-mix(in srgb, #eeeeee 50%, transparent 50%));
-  --color-background: light-dark(#ffffff, #080808);
+  --color-background: light-dark(#fcfcfc, #080808);
   --color-whiteFixed: #FFFFFF;
   --color-blackFixed: #000000;
   --color-link: #009EFF;
@@ -2994,7 +2994,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   gap: var(--gap-texts);
   width: max-content;
   background-color: var(--color-box-transparent);
-  border-radius: calc(var(--border-radius) + var(--padding-texts));
+  border-radius: calc(var(--border-radius-elements) + var(--padding-texts));
   padding: var(--padding-texts);
 }
 
@@ -3051,7 +3051,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   align-items: stretch;
   pointer-events: auto;
   --box-padding: var(--padding-elements);
-  --box-borderRadius: calc(var(--border-radius-input) + var(--box-padding));
+  --box-borderRadius: calc(var(--border-radius-texts) + var(--box-padding));
   --box-background: var(--color-box-transparent);
   padding: var(--box-padding);
   background: var(--box-background);
@@ -3259,7 +3259,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 */
 :is([pgs~=card], [pgs*="card["]) {
   --card-padding: var(--padding-elements);
-  --card-borderRadius: calc(var(--border-radius-input) + var(--card-padding));
+  --card-borderRadius: calc(var(--border-radius-texts) + var(--card-padding));
   --card-borderRadius-item: var(--card-borderRadius) var(--card-borderRadius) 0 0;
   --card-background: var(--color-box-transparent);
   --card-img-padding: 0;
@@ -3381,7 +3381,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 :is([pgs~=box], [pgs*="box["]) {
   --box-padding: var(--padding-elements);
-  --box-borderRadius: calc(var(--border-radius-input) + var(--box-padding));
+  --box-borderRadius: calc(var(--border-radius-texts) + var(--box-padding));
   --box-background: var(--color-box-transparent);
   padding: var(--box-padding);
   background: var(--box-background);
@@ -3409,7 +3409,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 :is([pgs~=box], [pgs*="box["]):where([pgs*="'boxMini'"]) {
   --box-padding: var(--padding-texts);
-  --box-borderRadius: var(--border-radius-input);
+  --box-borderRadius: var(--border-radius-texts);
 }
 
 :is([pgs~=box], [pgs*="box["]):where([pgs*="'boxNavSmart'"]) {
@@ -3424,70 +3424,24 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   backdrop-filter: var(--blur) saturate(1.8);
 }
 
-[pgs~=textarea]:not(textarea) {
-  align-items: flex-start;
-  display: flex;
-  gap: var(--gap-texts);
-  --gap: var(--gap-texts);
-  flex-direction: column;
-}
-
-[pgs~=textarea]:not(textarea) :is(ul), [pgs~=textarea]:not(textarea):is(ul) {
-  list-style: disc;
-  margin-left: 25px;
-}
-
-[pgs~=textarea]:not(textarea) :is(ul) > li, [pgs~=textarea]:not(textarea):is(ul) > li {
-  list-style-type: disc;
-}
-
-[pgs~=textarea]:not(textarea) :is(ul) > li > ul > li, [pgs~=textarea]:not(textarea):is(ul) > li > ul > li {
-  list-style: circle;
-  margin-top: var(--gap-texts);
-}
-
-[pgs~=textarea]:not(textarea) :is(ul) > li > ul > li ul > li, [pgs~=textarea]:not(textarea):is(ul) > li > ul > li ul > li {
-  list-style: "-";
-}
-
-[pgs~=textarea]:not(textarea) :is(ol), [pgs~=textarea]:not(textarea):is(ol) {
-  list-style: decimal;
-}
-
-[pgs~=textarea]:not(textarea) :is(ol) li, [pgs~=textarea]:not(textarea):is(ol) li {
-  list-style-type: decimal;
-}
-
-[pgs~=textarea]:not(textarea) li {
-  display: list-item;
-  margin-top: calc(var(--gap-texts) / 2);
-  color: var(--color-text);
-}
-
-[pgs~=textarea]:not(textarea) hr {
-  align-self: stretch;
-}
-
-[pgs~=textarea]:not(textarea) h1,
-[pgs~=textarea]:not(textarea) h3,
-[pgs~=textarea]:not(textarea) h2 {
-  margin-top: 25px;
-}
-
 textarea[pgs~=textarea] {
   resize: vertical;
   --input-padding: var(--padding-texts);
-  appearance: none;
-  border: var(--border-complete);
-  background-color: var(--color-white);
-  border-radius: var(--border-radius-input);
-  color: var(--color-text);
+  --input-border: var(--border-complete);
+  --input-borderRadius: var(--border-radius-texts);
+  --input-background: var(--color-white);
+  --input-color: var(--color-text);
+  border: var(--input-border);
+  background-color: var(--input-background);
+  border-radius: var(--input-borderRadius);
+  color: var(--input-color);
   padding: var(--input-padding);
-  font-size: var(--font-size-text);
+  appearance: none;
   width: 100%;
-  margin-bottom: var(--gap-texts);
   letter-spacing: 0.03em;
   font-family: var(--font);
+  font-size: var(--font-size-text);
+  font-weight: var(--font-weight-texts);
 }
 
 textarea[pgs~=textarea]::placeholder {
@@ -3497,7 +3451,7 @@ textarea[pgs~=textarea]::placeholder {
 }
 
 textarea[pgs~=textarea]:hover {
-  outline: solid var(--hover-borderColor);
+  border-color: var(--hover-borderColor);
 }
 
 textarea[pgs~=textarea][disabled] {
@@ -3513,11 +3467,12 @@ textarea[pgs~=textarea] {
 }
 
 [pgs~=label] {
-  --label-borderRadius: 1rem 1rem 0 0;
-  --label-left: var(--border-radius-input);
-  --label-padding: 0.7rem 1.2rem;
+  --label-borderRadius: var(--border-radius-texts);
+  --label-left: var(--border-radius-texts);
+  --label-paddingInline: var(--padding-texts);
+  --label-paddingBlock: calc(var(--padding-texts)/2);
   --label-color: var(--color-black);
-  --label-background: var(--border-color);
+  --label-background: var(--color-box);
   position: relative;
   font-weight: var(--font-weight-bold);
   display: inline-block;
@@ -3525,22 +3480,13 @@ textarea[pgs~=textarea] {
   cursor: pointer;
   left: var(--label-left);
   color: var(--label-color);
-  padding: var(--label-padding);
-  border-radius: var(--label-borderRadius);
   background-color: var(--label-background);
+  padding-block: var(--label-paddingBlock);
+  padding-inline: var(--label-paddingInline);
+  border-radius: var(--label-borderRadius);
 }
 
-[pgs~=label] :where(i, [pgs~=icon], [pgs*="icon["]) {
-  font-size: var(--font-size-text);
-  margin-right: 0.7rem;
-}
-
-[pgs~=label]:has(+ :is(input, select, textarea)[disabled], > :is(input, select, textarea)[disabled]) {
-  opacity: 0.5;
-  cursor: not-allowed !important;
-}
-
-:where(input)[disabled]:is([type=checkbox], [type=radio]) + [pgs~=label] {
+[pgs~=label]:has(+ :is(input, select, textarea)[disabled], > :is(input, select, textarea)[disabled]), :where(input)[disabled]:is([type=checkbox], [type=radio]) + [pgs~=label] {
   opacity: 0.5;
   cursor: not-allowed !important;
 }
@@ -3550,11 +3496,12 @@ textarea[pgs~=textarea] {
 }
 
 [pgs~=legend] {
-  --label-borderRadius: 1rem;
-  --label-left: 0;
-  --label-padding: 0.7rem 1.2rem;
+  --label-borderRadius: var(--border-radius-texts);
+  --label-left: var(--border-radius-texts);
+  --label-paddingInline: var(--padding-texts);
+  --label-paddingBlock: calc(var(--padding-texts)/2);
   --label-color: var(--color-black);
-  --label-background: var(--border-color);
+  --label-background: var(--color-box);
   position: relative;
   font-weight: var(--font-weight-bold);
   display: inline-block;
@@ -3562,58 +3509,48 @@ textarea[pgs~=textarea] {
   cursor: pointer;
   left: var(--label-left);
   color: var(--label-color);
-  padding: var(--label-padding);
-  border-radius: var(--label-borderRadius);
   background-color: var(--label-background);
-}
-
-[pgs~=legend] :where(i, [pgs~=icon], [pgs*="icon["]) {
-  font-size: var(--font-size-text);
-  margin-right: 0.7rem;
-}
-
-[pgs~=legend] {
+  padding-block: var(--label-paddingBlock);
+  padding-inline: var(--label-paddingInline);
+  border-radius: var(--label-borderRadius);
+  --label-left: 0;
   --label-color: var(--color-black);
   --label-background: var(--color-box);
+  border-radius: var(--border-radius-elements);
   margin-bottom: var(--gap-texts);
 }
 
-[pgs~=required] {
-  position: relative;
-}
-
 [pgs~=required] :where([pgs~=form-requiredHere])::after, [pgs~=required]:not(:has(:where([pgs~=form-requiredHere])))::after {
-  content: "*";
+  content: " *";
   color: var(--color-error);
-  transform: translate(20px, 0px);
-  position: absolute;
-  font-size: 40px;
-  bottom: -8px;
+  line-height: 1;
   font-weight: var(--font-weight-bold);
-  right: 0px;
-}
-
-[pgs~=required] :where([pgs~=form-requiredHere])::after {
-  position: relative;
 }
 
 [pgs~=fieldset] {
   border: unset;
+  display: flex;
+  flex-direction: column;
+  gap: var(--form-gap, var(--gap-texts));
 }
 
 [pgs~=input] {
   --input-padding: var(--padding-texts);
-  appearance: none;
-  border: var(--border-complete);
-  background-color: var(--color-white);
-  border-radius: var(--border-radius-input);
-  color: var(--color-text);
+  --input-border: var(--border-complete);
+  --input-borderRadius: var(--border-radius-texts);
+  --input-background: var(--color-white);
+  --input-color: var(--color-text);
+  border: var(--input-border);
+  background-color: var(--input-background);
+  border-radius: var(--input-borderRadius);
+  color: var(--input-color);
   padding: var(--input-padding);
-  font-size: var(--font-size-text);
+  appearance: none;
   width: 100%;
-  margin-bottom: var(--gap-texts);
   letter-spacing: 0.03em;
   font-family: var(--font);
+  font-size: var(--font-size-text);
+  font-weight: var(--font-weight-texts);
 }
 
 [pgs~=input]::placeholder {
@@ -3623,7 +3560,7 @@ textarea[pgs~=textarea] {
 }
 
 [pgs~=input]:hover {
-  outline: solid var(--hover-borderColor);
+  border-color: var(--hover-borderColor);
 }
 
 [pgs~=input][disabled] {
@@ -3658,17 +3595,21 @@ textarea[pgs~=textarea] {
 
 [pgs~=select] {
   --input-padding: var(--padding-texts);
-  appearance: none;
-  border: var(--border-complete);
-  background-color: var(--color-white);
-  border-radius: var(--border-radius-input);
-  color: var(--color-text);
+  --input-border: var(--border-complete);
+  --input-borderRadius: var(--border-radius-texts);
+  --input-background: var(--color-white);
+  --input-color: var(--color-text);
+  border: var(--input-border);
+  background-color: var(--input-background);
+  border-radius: var(--input-borderRadius);
+  color: var(--input-color);
   padding: var(--input-padding);
-  font-size: var(--font-size-text);
+  appearance: none;
   width: 100%;
-  margin-bottom: var(--gap-texts);
   letter-spacing: 0.03em;
   font-family: var(--font);
+  font-size: var(--font-size-text);
+  font-weight: var(--font-weight-texts);
 }
 
 [pgs~=select]::placeholder {
@@ -3678,7 +3619,7 @@ textarea[pgs~=textarea] {
 }
 
 [pgs~=select]:hover {
-  outline: solid var(--hover-borderColor);
+  border-color: var(--hover-borderColor);
 }
 
 [pgs~=select][disabled] {
@@ -3694,7 +3635,7 @@ textarea[pgs~=textarea] {
 
 [pgs~=select] option {
   padding: var(--gap-texts);
-  border-radius: calc(var(--border-radius-input) - var(--input-padding));
+  border-radius: calc(var(--border-radius-texts) - var(--input-padding));
   background-color: transparent;
   cursor: pointer;
 }
@@ -3714,7 +3655,7 @@ textarea[pgs~=textarea] {
 }
 
 [pgs~=range] {
-  --range-size: calc(var(--border-radius-input));
+  --range-size: calc(var(--border-radius-texts));
   --range-thumbWidth: calc(var(--range-size) * 2);
   --range-background: var(--clickable-background);
   --range-background-progress: var(--twoState-background);
@@ -3782,9 +3723,11 @@ textarea[pgs~=textarea] {
 [pgs~=file] {
   width: 100%;
   background-color: var(--color-white);
-  padding: var(--gap-texts);
-  border-radius: var(--border-radius-input);
+  padding-block: var(--gap-texts);
+  border-radius: var(--border-radius-texts);
   min-height: 5.3rem;
+  display: flex;
+  flex-direction: column;
 }
 
 [pgs~=file][disabled] {
@@ -3793,12 +3736,12 @@ textarea[pgs~=textarea] {
 }
 
 [pgs~=file]::file-selector-button {
-  width: 40%;
+  width: min(200px, 100%);
   border: none;
   cursor: pointer;
   margin-bottom: var(--margin-texts);
   margin-right: var(--margin-texts);
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-elements);
   padding: var(--padding-texts);
   font-family: var(--font);
   font-size: var(--font-size-text);
@@ -3815,19 +3758,28 @@ textarea[pgs~=textarea] {
   color: var(--hover-color);
 }
 
+@media (max-width: 430px) {
+  [pgs~=file]::file-selector-button {
+    width: auto;
+  }
+}
 [pgs~=inputColor] {
   --input-padding: var(--padding-texts);
-  appearance: none;
-  border: var(--border-complete);
-  background-color: var(--color-white);
-  border-radius: var(--border-radius-input);
-  color: var(--color-text);
+  --input-border: var(--border-complete);
+  --input-borderRadius: var(--border-radius-texts);
+  --input-background: var(--color-white);
+  --input-color: var(--color-text);
+  border: var(--input-border);
+  background-color: var(--input-background);
+  border-radius: var(--input-borderRadius);
+  color: var(--input-color);
   padding: var(--input-padding);
-  font-size: var(--font-size-text);
+  appearance: none;
   width: 100%;
-  margin-bottom: var(--gap-texts);
   letter-spacing: 0.03em;
   font-family: var(--font);
+  font-size: var(--font-size-text);
+  font-weight: var(--font-weight-texts);
 }
 
 [pgs~=inputColor]::placeholder {
@@ -3837,7 +3789,7 @@ textarea[pgs~=textarea] {
 }
 
 [pgs~=inputColor]:hover {
-  outline: solid var(--hover-borderColor);
+  border-color: var(--hover-borderColor);
 }
 
 [pgs~=inputColor][disabled] {
@@ -3859,7 +3811,7 @@ textarea[pgs~=textarea] {
 
 [pgs~=inputColor]::-webkit-color-swatch {
   border: var(--border-complete);
-  border-radius: calc(var(--border-radius-input) - 5px);
+  border-radius: calc(var(--border-radius-texts) - 5px);
   cursor: pointer;
 }
 
@@ -3959,7 +3911,6 @@ textarea[pgs~=textarea] {
   position: relative;
   text-align: left;
   line-height: var(--checkbox-size, var(--radio-size));
-  margin-bottom: var(--gap-texts);
   width: fit-content;
   cursor: pointer;
   display: block;
@@ -3977,27 +3928,13 @@ textarea[pgs~=textarea] {
   opacity: 0.5;
 }
 
-[pgs~=radio]:where(label):has(input[type=checkbox]:required),
-[pgs~=radio] :where(label):has(input[type=checkbox]:required) {
-  position: relative;
-}
-
 [pgs~=radio]:where(label):has(input[type=checkbox]:required) :where([pgs~=form-requiredHere])::after, [pgs~=radio]:where(label):has(input[type=checkbox]:required):not(:has(:where([pgs~=form-requiredHere])))::after,
 [pgs~=radio] :where(label):has(input[type=checkbox]:required) :where([pgs~=form-requiredHere])::after,
 [pgs~=radio] :where(label):has(input[type=checkbox]:required):not(:has(:where([pgs~=form-requiredHere])))::after {
-  content: "*";
+  content: " *";
   color: var(--color-error);
-  transform: translate(20px, 0px);
-  position: absolute;
-  font-size: 40px;
-  bottom: -8px;
+  line-height: 1;
   font-weight: var(--font-weight-bold);
-  right: 0px;
-}
-
-[pgs~=radio]:where(label):has(input[type=checkbox]:required) :where([pgs~=form-requiredHere])::after,
-[pgs~=radio] :where(label):has(input[type=checkbox]:required) :where([pgs~=form-requiredHere])::after {
-  position: relative;
 }
 
 [pgs~=checkbox] {
@@ -4121,7 +4058,6 @@ textarea[pgs~=textarea] {
   position: relative;
   text-align: left;
   line-height: var(--checkbox-size, var(--radio-size));
-  margin-bottom: var(--gap-texts);
   width: fit-content;
   cursor: pointer;
   display: block;
@@ -4139,132 +4075,20 @@ textarea[pgs~=textarea] {
   opacity: 0.5;
 }
 
-[pgs~=checkbox]:where(label):has(input[type=checkbox]:required),
-[pgs~=checkbox] :where(label):has(input[type=checkbox]:required) {
-  position: relative;
-}
-
 [pgs~=checkbox]:where(label):has(input[type=checkbox]:required) :where([pgs~=form-requiredHere])::after, [pgs~=checkbox]:where(label):has(input[type=checkbox]:required):not(:has(:where([pgs~=form-requiredHere])))::after,
 [pgs~=checkbox] :where(label):has(input[type=checkbox]:required) :where([pgs~=form-requiredHere])::after,
 [pgs~=checkbox] :where(label):has(input[type=checkbox]:required):not(:has(:where([pgs~=form-requiredHere])))::after {
-  content: "*";
+  content: " *";
   color: var(--color-error);
-  transform: translate(20px, 0px);
-  position: absolute;
-  font-size: 40px;
-  bottom: -8px;
+  line-height: 1;
   font-weight: var(--font-weight-bold);
-  right: 0px;
 }
 
-[pgs~=checkbox]:where(label):has(input[type=checkbox]:required) :where([pgs~=form-requiredHere])::after,
-[pgs~=checkbox] :where(label):has(input[type=checkbox]:required) :where([pgs~=form-requiredHere])::after {
-  position: relative;
-}
-
-[pgs~=form] :where(label):has(+ input[required]:not([type=checkbox], [type=radio]),
-+ select[required],
-+ textarea[required],
-> input[required]:not([type=checkbox], [type=radio]),
-> select[required],
-> textarea[required]):not(:has([pgs~=label])),
-[pgs~=form] :where(fieldset):has(input[type=checkbox][required], input[type=radio][required]) :where(legend):not(:has([pgs~=label])) {
-  position: relative;
-}
-
-[pgs~=form] :where(label):has(+ input[required]:not([type=checkbox], [type=radio]),
-+ select[required],
-+ textarea[required],
-> input[required]:not([type=checkbox], [type=radio]),
-> select[required],
-> textarea[required]):not(:has([pgs~=label])) :where([pgs~=form-requiredHere])::after, [pgs~=form] :where(label):has(+ input[required]:not([type=checkbox], [type=radio]),
-+ select[required],
-+ textarea[required],
-> input[required]:not([type=checkbox], [type=radio]),
-> select[required],
-> textarea[required]):not(:has([pgs~=label])):not(:has(:where([pgs~=form-requiredHere])))::after,
-[pgs~=form] :where(fieldset):has(input[type=checkbox][required], input[type=radio][required]) :where(legend):not(:has([pgs~=label])) :where([pgs~=form-requiredHere])::after,
-[pgs~=form] :where(fieldset):has(input[type=checkbox][required], input[type=radio][required]) :where(legend):not(:has([pgs~=label])):not(:has(:where([pgs~=form-requiredHere])))::after {
-  content: "*";
-  color: var(--color-error);
-  transform: translate(20px, 0px);
-  position: absolute;
-  font-size: 40px;
-  bottom: -8px;
-  font-weight: var(--font-weight-bold);
-  right: 0px;
-}
-
-[pgs~=form] :where(label):has(+ input[required]:not([type=checkbox], [type=radio]),
-+ select[required],
-+ textarea[required],
-> input[required]:not([type=checkbox], [type=radio]),
-> select[required],
-> textarea[required]):not(:has([pgs~=label])) :where([pgs~=form-requiredHere])::after,
-[pgs~=form] :where(fieldset):has(input[type=checkbox][required], input[type=radio][required]) :where(legend):not(:has([pgs~=label])) :where([pgs~=form-requiredHere])::after {
-  position: relative;
-}
-
-[pgs~=form] :where(label):has(+ input[required]:not([type=checkbox], [type=radio]),
-+ select[required],
-+ textarea[required],
-> input[required]:not([type=checkbox], [type=radio]),
-> select[required],
-> textarea[required]) :where([pgs~=label]),
-[pgs~=form] :where(fieldset):has(input[type=checkbox][required], input[type=radio][required]) :where(legend) :where([pgs~=label]) {
-  position: relative;
-}
-
-[pgs~=form] :where(label):has(+ input[required]:not([type=checkbox], [type=radio]),
-+ select[required],
-+ textarea[required],
-> input[required]:not([type=checkbox], [type=radio]),
-> select[required],
-> textarea[required]) :where([pgs~=label]) :where([pgs~=form-requiredHere])::after, [pgs~=form] :where(label):has(+ input[required]:not([type=checkbox], [type=radio]),
-+ select[required],
-+ textarea[required],
-> input[required]:not([type=checkbox], [type=radio]),
-> select[required],
-> textarea[required]) :where([pgs~=label]):not(:has(:where([pgs~=form-requiredHere])))::after,
-[pgs~=form] :where(fieldset):has(input[type=checkbox][required], input[type=radio][required]) :where(legend) :where([pgs~=label]) :where([pgs~=form-requiredHere])::after,
-[pgs~=form] :where(fieldset):has(input[type=checkbox][required], input[type=radio][required]) :where(legend) :where([pgs~=label]):not(:has(:where([pgs~=form-requiredHere])))::after {
-  content: "*";
-  color: var(--color-error);
-  transform: translate(20px, 0px);
-  position: absolute;
-  font-size: 40px;
-  bottom: -8px;
-  font-weight: var(--font-weight-bold);
-  right: 0px;
-}
-
-[pgs~=form] :where(label):has(+ input[required]:not([type=checkbox], [type=radio]),
-+ select[required],
-+ textarea[required],
-> input[required]:not([type=checkbox], [type=radio]),
-> select[required],
-> textarea[required]) :where([pgs~=label]) :where([pgs~=form-requiredHere])::after,
-[pgs~=form] :where(fieldset):has(input[type=checkbox][required], input[type=radio][required]) :where(legend) :where([pgs~=label]) :where([pgs~=form-requiredHere])::after {
-  position: relative;
-}
-
-[pgs~=form] :where(fieldset)[required] :where(legend) {
-  position: relative;
-}
-
-[pgs~=form] :where(fieldset)[required] :where(legend) :where([pgs~=form-requiredHere])::after, [pgs~=form] :where(fieldset)[required] :where(legend):not(:has(:where([pgs~=form-requiredHere])))::after {
-  content: "*";
-  color: var(--color-error);
-  transform: translate(20px, 0px);
-  position: absolute;
-  font-size: 40px;
-  bottom: -8px;
-  font-weight: var(--font-weight-bold);
-  right: 0px;
-}
-
-[pgs~=form] :where(fieldset)[required] :where(legend) :where([pgs~=form-requiredHere])::after {
-  position: relative;
+[pgs~=form] {
+  --form-gap: var(--gap-texts);
+  display: flex;
+  flex-direction: column;
+  gap: var(--form-gap);
 }
 
 [pgs~=formValidate] {
@@ -4299,6 +4123,150 @@ textarea[pgs~=textarea] {
   --label-color: var(--color-error);
 }
 
+:is([pgs~=field], [pgs*="field["]) {
+  --field-label-color: var(--color-black);
+  --field-label-opacity: 65%;
+  --field-gap: 0.5rem;
+  --field-background: var(--color-white);
+  --field-input-color: var(--color-black);
+  --field-border: var(--border-complete);
+  --field-padding: var(--padding-texts);
+  --field-borderRadius: var(--border-radius-texts);
+  --field-left: var(--field-padding);
+  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  position: relative;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label], label, legend) {
+  cursor: text;
+  display: inline-block;
+  position: absolute;
+  top: var(--field-label-top);
+  left: var(--field-left);
+  line-height: 1;
+  text-wrap: nowrap;
+  max-width: calc(100% - var(--field-left) * 2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-block: 0.2em;
+  margin-block: -0.2em;
+  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  transition: top 200ms ease, font-size 200ms ease;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where(input),
+:is([pgs~=field], [pgs*="field["]) :where(textarea),
+:is([pgs~=field], [pgs*="field["]) :where(select) {
+  border: var(--field-border);
+  background-color: var(--field-background);
+  border-radius: var(--field-borderRadius);
+  color: var(--field-input-color);
+  padding: var(--field-padding);
+  padding-left: var(--field-left);
+  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  font-weight: var(--font-weight-texts);
+}
+
+:is([pgs~=field], [pgs*="field["]) :where(input)::placeholder,
+:is([pgs~=field], [pgs*="field["]) :where(textarea)::placeholder,
+:is([pgs~=field], [pgs*="field["]) :where(select)::placeholder {
+  color: var(--color-black);
+  opacity: 0%;
+  font-weight: var(--font-weight-text);
+}
+
+:is([pgs~=field], [pgs*="field["]) :where(input):hover,
+:is([pgs~=field], [pgs*="field["]) :where(textarea):hover,
+:is([pgs~=field], [pgs*="field["]) :where(select):hover {
+  border-color: var(--hover-borderColor);
+}
+
+:is([pgs~=field], [pgs*="field["]) :where(input)[disabled],
+:is([pgs~=field], [pgs*="field["]) :where(textarea)[disabled],
+:is([pgs~=field], [pgs*="field["]) :where(select)[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):is(:focus, :not(:placeholder-shown))) :where([pgs~=field-label], label, legend) {
+  top: var(--padding-texts);
+  font-size: calc(var(--font-size-text) * 0.75);
+}
+
+:is([pgs~=field], [pgs*="field["]):has(:where(input:required, textarea:required, select:required)) :where([pgs~=field-label], label, legend) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(input:required, textarea:required, select:required)) :where([pgs~=field-label], label, legend):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
+}
+
+[pgs~=selects]:has(select:focus) :where([pgs~=field-label], label, legend), [pgs~=selects]:has(select option:checked:not([value=""])) :where([pgs~=field-label], label, legend), [pgs~=selects]:has(select[multiple]) :where([pgs~=field-label], label, legend) {
+  top: var(--padding-texts);
+  font-size: calc(var(--font-size-text) * 0.75);
+}
+
+[pgs~=selects] :where(select) {
+  cursor: pointer;
+  padding-right: calc(var(--field-padding) * 2 + 1.2rem);
+}
+
+[pgs~=selects] :where([pgs~=field-label], label, legend) {
+  pointer-events: none;
+}
+
+[pgs~=selects]::after {
+  content: "";
+  position: absolute;
+  right: var(--field-padding);
+  top: 50%;
+  translate: 0 -50%;
+  width: 1.2rem;
+  height: 1.2rem;
+  background-color: var(--field-input-color);
+  pointer-events: none;
+  -webkit-mask: var(--icon-glyph-chevronDown) center/contain no-repeat;
+  mask: var(--icon-glyph-chevronDown) center/contain no-repeat;
+}
+
+[pgs~=selects] :where(option):disabled, [pgs~=selects]:has(select option:checked:disabled) :where(select) {
+  color: color-mix(in srgb, var(--field-input-color) 40%, transparent);
+}
+
+[pgs~=selects]:has(select option:checked[value=""]):not(:has(select:focus)) :where(select) {
+  color: transparent;
+}
+
+[pgs~=selects]:has(select[multiple])::after {
+  content: none;
+}
+
+[pgs~=selects]:has(select[multiple]) :where(select) {
+  padding-right: var(--field-padding);
+  overflow: auto;
+}
+
+[pgs~=selects]:has(select[multiple]) :where(option) {
+  padding: calc(var(--field-padding) / 2) var(--field-padding);
+  border-radius: calc(var(--field-borderRadius) - var(--field-padding) / 2);
+  margin-bottom: calc(var(--gap-texts) / 2);
+}
+
+[pgs~=selects]:has(select[multiple]) :where(option):checked {
+  background: var(--current-background);
+  color: var(--current-color);
+}
+
+[pgs~=selects]:has(select[multiple]) :where(option):disabled {
+  opacity: 0.4;
+}
+
 :is([pgs~=button], [pgs*="button["]) {
   --button-color: var(--clickable-color);
   --button-color-hover: var(--hover-color);
@@ -4318,7 +4286,7 @@ textarea[pgs~=textarea] {
   --button-borderColor-twoState: var(--twoState-borderColor);
   --button-borderWidth: var(--border-width);
   --button-borderStyle: var(--border-style);
-  --button-borderRadius: var(--border-radius);
+  --button-borderRadius: var(--border-radius-elements);
   --button-size: var(--SIZE-texts);
   --button-gap: calc(var(--button-size) / 3);
   --button-fontSize: var(--font-size-text);
@@ -5004,7 +4972,7 @@ textarea[pgs~=textarea] {
 [pgs~=checkboxBackground] {
   --checkboxBackground-color: var(--clickable-color);
   --checkboxBackground-padding: var(--padding-texts);
-  --checkboxBackground-borderRadius: var(--border-radius-input);
+  --checkboxBackground-borderRadius: var(--border-radius-texts);
   --checkboxBackground-background: var(--clickable-background);
   --checkbox-size: 2.0rem;
   --checkbox-paddingInline: var(--gap-texts);
@@ -5214,7 +5182,6 @@ textarea[pgs~=textarea] {
   position: relative;
   text-align: left;
   line-height: var(--checkbox-size, var(--radio-size));
-  margin-bottom: var(--gap-texts);
   width: fit-content;
   cursor: pointer;
   display: block;
@@ -5232,27 +5199,13 @@ textarea[pgs~=textarea] {
   opacity: 0.5;
 }
 
-[pgs~=checkboxBackground]:where(label):has(input[type=checkbox]:required),
-[pgs~=checkboxBackground] :where(label):has(input[type=checkbox]:required) {
-  position: relative;
-}
-
 [pgs~=checkboxBackground]:where(label):has(input[type=checkbox]:required) :where([pgs~=form-requiredHere])::after, [pgs~=checkboxBackground]:where(label):has(input[type=checkbox]:required):not(:has(:where([pgs~=form-requiredHere])))::after,
 [pgs~=checkboxBackground] :where(label):has(input[type=checkbox]:required) :where([pgs~=form-requiredHere])::after,
 [pgs~=checkboxBackground] :where(label):has(input[type=checkbox]:required):not(:has(:where([pgs~=form-requiredHere])))::after {
-  content: "*";
+  content: " *";
   color: var(--color-error);
-  transform: translate(20px, 0px);
-  position: absolute;
-  font-size: 40px;
-  bottom: -8px;
+  line-height: 1;
   font-weight: var(--font-weight-bold);
-  right: 0px;
-}
-
-[pgs~=checkboxBackground]:where(label):has(input[type=checkbox]:required) :where([pgs~=form-requiredHere])::after,
-[pgs~=checkboxBackground] :where(label):has(input[type=checkbox]:required) :where([pgs~=form-requiredHere])::after {
-  position: relative;
 }
 
 [pgs~=checkboxBackground] {
@@ -5333,7 +5286,7 @@ textarea[pgs~=textarea] {
   margin-left: auto;
   transition: all 250ms;
   display: block;
-  border-radius: var(--border-radius-input);
+  border-radius: var(--border-radius-texts);
   order: 1;
 }
 
@@ -5554,7 +5507,7 @@ textarea[pgs~=textarea] {
   gap: var(--gap-texts);
   --gap: var(--gap-texts);
   flex-direction: column;
-  --dropdown-borderRadius: calc(var(--border-radius-input) + var(--dropdown-padding));
+  --dropdown-borderRadius: calc(var(--border-radius-texts) + var(--dropdown-padding));
   --dropdown-background: var(--color-box);
   --dropdown-display: flex;
 }
@@ -5665,7 +5618,7 @@ textarea[pgs~=textarea] {
 
 :is([pgs~=accordion], [pgs*="accordion["]) {
   --accordion-icon: var(--icon-glyph-chevronDown);
-  --accordion-borderRadius: var(--border-radius);
+  --accordion-borderRadius: var(--border-radius-elements);
   --accordion-padding: calc(var(--accordion-borderRadius)/1.5);
   --accordion-timing: 300ms;
   --accordion-background: transparent;
@@ -5954,7 +5907,7 @@ html:has(dialog[open]) {
   --modal-color: var(--color-black);
   --modal-content-padding: var(--padding-elements);
   --modal-offset: var(--gap-texts);
-  --modal-borderRadius: calc(var(--border-radius-input) + var(--modal-content-padding));
+  --modal-borderRadius: calc(var(--border-radius-texts) + var(--modal-content-padding));
   --modal-animation-timing: 333ms;
   --modal-animation-easing: cubic-bezier(0.4, 0, 0.22, 1);
   border: none;
@@ -6513,7 +6466,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]) :where([pgs~=_steps-step-circle]) {
   align-items: center;
   justify-content: center;
   margin-right: 20px;
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-elements);
   font-weight: var(--font-weight-bold);
   text-align: center;
 }
@@ -6582,7 +6535,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   table-layout: auto;
   border-collapse: collapse;
   color: var(--color-text);
-  border-radius: var(--border-radius-input);
+  border-radius: var(--border-radius-texts);
   border: var(--border-complete);
   overflow: hidden;
 }
@@ -6754,7 +6707,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   max-width: 100%;
   min-height: calc(var(--badge-size) * 2.2);
   padding: var(--badge-size);
-  border-radius: var(--border-radius-input);
+  border-radius: var(--border-radius-texts);
   background: var(--badge-background);
   color: var(--badge-color);
   font-size: var(--badge-textSize);
@@ -6836,7 +6789,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   width: 100%;
   padding: var(--alert-padding);
   border: var(--border-complete);
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-elements);
   background: var(--alert-background);
   color: var(--alert-color);
   overflow: hidden;
@@ -7020,7 +6973,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   margin: 0;
   padding: var(--padding-texts);
   color: var(--color-white);
-  border-radius: var(--border-radius-input);
+  border-radius: var(--border-radius-texts);
   font-size: small;
   text-align: center;
   background-color: var(--color-black-transparent);
@@ -7068,8 +7021,8 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 :is([pgs~=search], [pgs*="search["]) {
   --search-height: var(--font-size-text);
-  --search-paddingBlock: var(--border-radius-input);
-  --search-borderRadius: calc(var(--border-radius-input) + (var(--search-height) /2));
+  --search-paddingBlock: var(--border-radius-texts);
+  --search-borderRadius: calc(var(--border-radius-texts) + (var(--search-height) /2));
   --search-background: var(--color-box);
   --search-color: var(--color-black);
   --search-border: var(--border-complete);
@@ -7836,15 +7789,19 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 }
 
 :is([pgs~=borderRadius], [pgs*="borderRadius["]) {
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-elements);
 }
 
-:is([pgs~=borderRadius], [pgs*="borderRadius["])[pgs*="'radInput'"] {
-  border-radius: var(--border-radius-input);
+:is([pgs~=borderRadius], [pgs*="borderRadius["])[pgs*="'radTexts'"] {
+  border-radius: var(--border-radius-texts);
 }
 
-:is([pgs~=borderRadius], [pgs*="borderRadius["])[pgs*="'radExternal'"] {
-  border-radius: var(--border-radius-external);
+:is([pgs~=borderRadius], [pgs*="borderRadius["])[pgs*="'radElements'"] {
+  border-radius: var(--border-radius-elements);
+}
+
+:is([pgs~=borderRadius], [pgs*="borderRadius["])[pgs*="'radGroups'"] {
+  border-radius: var(--border-radius-groups);
 }
 
 :is([pgs~=borderRadius], [pgs*="borderRadius["])[pgs*="'radUnset'"] {
@@ -8222,6 +8179,54 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   color: var(--color-text);
 }
 
+[pgs~=textBlock] {
+  align-items: flex-start;
+  display: flex;
+  gap: var(--gap-texts);
+  --gap: var(--gap-texts);
+  flex-direction: column;
+}
+
+[pgs~=textBlock] :is(ul), [pgs~=textBlock]:is(ul) {
+  list-style: disc;
+  margin-left: 25px;
+}
+
+[pgs~=textBlock] :is(ul) > li, [pgs~=textBlock]:is(ul) > li {
+  list-style-type: disc;
+}
+
+[pgs~=textBlock] :is(ul) > li > ul > li, [pgs~=textBlock]:is(ul) > li > ul > li {
+  list-style: circle;
+  margin-top: var(--gap-texts);
+}
+
+[pgs~=textBlock] :is(ul) > li > ul > li ul > li, [pgs~=textBlock]:is(ul) > li > ul > li ul > li {
+  list-style: "-";
+}
+
+[pgs~=textBlock] :is(ol), [pgs~=textBlock]:is(ol) {
+  list-style: decimal;
+}
+
+[pgs~=textBlock] :is(ol) li, [pgs~=textBlock]:is(ol) li {
+  list-style-type: decimal;
+}
+
+[pgs~=textBlock] li {
+  display: list-item;
+  margin-top: calc(var(--gap-texts) / 2);
+  color: var(--color-text);
+}
+
+[pgs~=textBlock] :where(hr) {
+  align-self: stretch;
+}
+
+[pgs~=textBlock] :where(h1, h2, h3) {
+  margin-top: 25px;
+}
+
 :is([pgs~=textShadow], [pgs*="textShadow["]) {
   text-shadow: var(--text-shadow);
 }
@@ -8263,7 +8268,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   left: var(--gap-texts);
   z-index: var(--zIndex-skipLink);
   padding: var(--padding-texts);
-  border-radius: var(--border-radius-input);
+  border-radius: var(--border-radius-texts);
   background-color: var(--color-background);
   color: var(--color-link);
   outline: var(--focus-visible);

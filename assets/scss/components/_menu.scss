@@ -34,7 +34,7 @@
         //## submenu
         :where(ul) {
             @include column();
-            --dropdown-borderRadius: calc(var(--border-radius-input) + var(--dropdown-padding));
+            --dropdown-borderRadius: calc(var(--border-radius-texts) + var(--dropdown-padding));
             --dropdown-background: var(--color-box);
             --dropdown-display: flex;
         }
@@ -119,9 +119,7 @@
         :where(a):not([aria-current]:not([aria-current="false"])) {
             padding-left: var(--button-paddingInline);
 
-            >:where(i, [pgs~="icon"], [pgs*="icon\5B"]) {
-                display: none;
-            }
+            >:where(i, [pgs~="icon"], [pgs*="icon\5B"]) { display: none; }
         }
     }
 

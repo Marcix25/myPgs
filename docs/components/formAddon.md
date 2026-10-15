@@ -16,7 +16,7 @@ Additional form controls for selectable cards, switches, and compact chip groups
 ### PGS
 
 - `flex`: provides the flex layout; direction and spacing are flags in its bracket.
-- `form`: identifies the form that holds the add-on examples; it styles none of the controls.
+- `form`: identifies the form that holds the add-on examples, laid out in a column; it styles none of the controls.
 - `icon`: draws the glyphs this example shows; see Icon for the whole set.
 - `legend`: applies the group heading styling to a chips group's legend; see Form.
 - `fieldset`: takes the browser's border off the fieldset that holds the radio group; see Form.

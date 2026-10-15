@@ -1,20 +1,6 @@
 @use "mx-responsive" as *;
 
-//= TEXTAREA, LIST, FOCUS
-//# TEXTAREA
-@mixin textarea() {
-    align-items: flex-start;
-    @include column();
-    @include list;
-
-    hr { align-self: stretch; }
-
-    h1,
-    h3,
-    h2 {
-        margin-top: 25px;
-    }
-}
+//= LIST, FOCUS
 
 //# LIST
 @mixin list() {

@@ -1,16 +1,19 @@
 <!--
 /**
  * @title Form
- * @description Form structure with labels, text fields, a textarea, a checkbox, and a radio group compatible with HTML constraints and custom PGS_formValidate rules. Every control takes its look from its own token: the form only marks the labels and legends of the required ones.
+ * @description Form structure with fields, labels, a textarea, a checkbox, and a radio group compatible with HTML constraints and custom PGS_formValidate rules. The form lays its children out in a column. A text-like input and its label are a field; every other control takes its own token.
  *
  * @pgs
- * - form: identifies the form container. It styles no control: each label, input, select, textarea, checkbox, radio, legend and fieldset takes its token. What it does is draw the asterisk on the label or legend of a required control.
- * - label: styles the label of a field, on the label itself or on a span inside the label that wraps the control. It also dims when its control is disabled, and is hidden together with a hidden control.
- * - input: applies shared styling to text inputs. Written on a password, search, number or date input it also carries the rules of that type.
- * - textarea: written on a <textarea> it applies shared styling to the text area; on any other element it is the block of running text.
+ * - form: identifies the form container: a column, spaced by --form-gap (the text gap by default). It styles no control of its own: each field, label, select, textarea, checkbox, radio, legend and fieldset takes its token. It also draws the asterisk on the label or legend of a required control.
+ * - field: wraps a text-like input (text, email, tel, url, password, number, search, date and the like), or a textarea, and its label. The label floats: it lies in the middle of the input while the input is empty and out of focus, and it shrinks to the top of the input with focus or once the input holds text. The input or textarea needs a placeholder attribute, a single space is enough: it is what tells an empty one from one that holds text. A date, time, datetime-local, month or week input always shows text of its own, so its label always stays small at the top.
+ * - field-label: the label of a field, written inside it. It is a <label> with a for that names the input or textarea, or a span inside a <label> that is the field itself. It takes no room of its own: it floats over the input.
+ * - selects: written next to field, on the field that holds a select: pgs="field selects". A select has no placeholder: its first option takes that part, <option value="" selected disabled hidden></option> (the value must be empty, so the browser still counts a required select as empty; selected, disabled and hidden keep it out of the list). While that option is the one chosen and the select is closed the label lies over the select; with focus, or with another option chosen, it is small at the top. A chevron is drawn on the right, and a disabled option, or the empty one shown while the select is open, is lighter. A select with the multiple attribute is a list that is always open: its label stays small at the top, there is no chevron, the options that are chosen take the current color and a disabled one a lighter one (Safari draws the list itself and ignores the colors of the options).
+ * - label: the label of a control that is not in a field (a range, a file or a color input, or a select or a textarea that stays out of one): a pill sitting above the control, on the label itself or on a span inside the label that wraps the control. It also dims when its control is disabled, and is hidden together with a hidden control.
+ * - input: applies shared styling to an input that is not in a field. Written on a password, search, number or date input it also carries the rules of that type (select, textarea and the color input share the look). The look reads --input-padding, --input-border, --input-borderRadius, --input-background and --input-color.
+ * - textarea: applies shared styling to a <textarea> that is not in a field.
  * - radio: styles a group of native radio inputs while preserving their shared name and selection behavior. The box has --radio-background and --radio-borderColor, the dot of a checked radio is --radio-color, each with a -hover and a -checked one; the hover is per label.
  * - checkbox: styles a group of native checkbox inputs, sharing the presentation of the radio group. The box has --checkbox-background and --checkbox-borderColor and the check mark is --checkbox-color, each with a -hover and a -checked one.
- * - select: applies shared styling to a native select.
+ * - select: applies shared styling to a native select that is not in a field.
  * - range: styles a native range slider, a rounded track and a thumb that grows on hover, anywhere on the page. The track is --range-background (the clickable background), the part the thumb has already passed is filled with --range-background-progress (the two-state background) and the thumb is --range-background-thumb (the two-state color), with the clickable border and the hover background; --_range-progress, which pgs.range keeps up to date on the slider, tells where the thumb is; a disabled slider is dimmed.
  * - file: styles a native file input, the field and its button, anywhere on the page.
  * - inputColor: styles a native color input, anywhere on the page.
@@ -44,7 +47,6 @@
  * - alertContainer: is found or created automatically by the alert API when form validation uses inline alerts.
  * - button: provides the base styling for the primary submit action.
  * - column: spaces text elements in the radio group, and stacks the standalone controls.
- * - block: displays the label that wraps a span label and its control as a block, now that the form no longer does it.
  * - gapElements: spaces the standalone range, file and color controls.
  * - btnStrong: presents form submission as the primary action.
  *
@@ -54,50 +56,49 @@
 
 <form pgs="form" pgs-data="formFieldErrorTitle[Check the form] formFieldError[Complete this field] formFieldsError[Complete all required fields] formSuccessTitle[Submitted] formSuccess[Submitted successfully]" action="#" method="post">
 
-    <label pgs="block">
-        <span pgs="label">Name</span>
-        <input pgs="input" pgs-data="formMessageTitle[Name required] formMessage[Enter your name]" type="text" name="name" placeholder="John Smith" required>
-    </label>
+    <div pgs="field">
+        <label pgs="field-label" for="formName">Name</label>
+        <input id="formName" pgs-data="formMessageTitle[Name required] formMessage[Enter your name]" type="text" name="name" placeholder=" " required>
+    </div>
 
-    <label pgs="block">
-        <span pgs="label">Email</span>
-        <input pgs="input" pgs-data="formMessage[Enter a valid email address]" type="email" name="email" placeholder="name@example.com" required>
-    </label>
+    <div pgs="field">
+        <label pgs="field-label" for="formEmail">Email</label>
+        <input id="formEmail" pgs-data="formMessage[Enter a valid email address]" type="email" name="email" placeholder=" " required>
+    </div>
 
+    <div pgs="field">
+        <label pgs="field-label" for="formPassword">Password</label>
+        <input id="formPassword" pgs-data="formMessage[Enter a password]" type="password" name="password" autocomplete="new-password" placeholder=" " required>
+    </div>
 
-    <label pgs="block">
-        <span pgs="label">Password</span>
-        <input pgs="input" pgs-data="formMessage[Enter a password]" type="password" name="password" autocomplete="new-password" required>
-    </label>
+    <div pgs="field">
+        <label pgs="field-label" for="formConfirmPassword">Confirm password</label>
+        <input id="formConfirmPassword" pgs-data="formMessage[Confirm your password]" type="password" name="confirmPassword" autocomplete="new-password" placeholder=" " required>
+    </div>
 
-    <label pgs="block">
-        <span pgs="label">Confirm password</span>
-        <input pgs="input" pgs-data="formMessage[Confirm your password]" type="password" name="confirmPassword" autocomplete="new-password" required>
-    </label>
-    
-    <label pgs="block">
-        <span pgs="label">Age</span>
-        <input pgs="input" type="number" name="age" placeholder="Enter your age">
-    </label>
-    
-    <label pgs="block">
-        <span pgs="label">Disabled </span>
-        <input disabled pgs="input" type="text" name="Disabled" placeholder="Disabled">
-    </label>
+    <div pgs="field">
+        <label pgs="field-label" for="formAge">Age</label>
+        <input id="formAge" type="number" name="age" placeholder=" ">
+    </div>
 
-    <label pgs="block">
-        <span pgs="label">Message</span>
-        <textarea pgs="textarea" name="message" rows="5" placeholder="Write your message" required></textarea>
-    </label>
+    <div pgs="field">
+        <label pgs="field-label" for="formDisabled">Disabled</label>
+        <input id="formDisabled" disabled type="text" name="Disabled" placeholder=" ">
+    </div>
 
-    <label pgs="block">
-        <span pgs="label required">Country</span>
-        <select pgs="select" name="country">
-            <option value="">Choose a country</option>
+    <div pgs="field">
+        <label pgs="field-label" for="formMessage">Message</label>
+        <textarea id="formMessage" name="message" rows="5" placeholder=" " required></textarea>
+    </div>
+
+    <div pgs="field selects">
+        <label pgs="field-label" for="formCountry">Country</label>
+        <select id="formCountry" name="country" required>
+            <option value="" selected disabled hidden></option>
             <option value="it">Italy</option>
             <option value="fr">France</option>
         </select>
-    </label>
+    </div>
 
     <br>
     <fieldset pgs="fieldset radio flex['column']" pgs-data="formMessage[Choose a contact method]">
@@ -148,17 +149,17 @@
 </form>
 
 <section pgs="flex['column' 'gapElements']">
-    <label pgs="block">
+    <label>
         <span pgs="label">Range</span>
         <input pgs="range" type="range" name="volume" min="0" max="100" value="40">
     </label>
 
-    <label pgs="block">
+    <label>
         <span pgs="label">File</span>
         <input pgs="file" type="file" name="attachment">
     </label>
 
-    <label pgs="block">
+    <label>
         <span pgs="label">Color</span>
         <input pgs="inputColor" type="color" name="accent" value="#3aa561">
     </label>
