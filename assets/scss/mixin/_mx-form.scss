@@ -1,8 +1,134 @@
 @use "mx-icons" as *;
 @use "mx-responsive" as *;
 
-//= FORM
-//# INPUT & LABEL
+//= FORM 
+//# REQUIRED & DISABLED
+//## REQUIRED
+@mixin required() {
+
+    :where([pgs~="form-requiredHere"]),
+    &:not(:has(:where([pgs~="form-requiredHere"]))) {
+        &::after {
+            content: " *";
+            color: var(--color-error);
+            line-height: 1;
+            font-weight: var(--font-weight-bold);
+        }
+    }
+}
+
+//## DISABLED
+@mixin disabled() {
+    opacity: 0.5;
+    cursor: not-allowed !important;
+}
+
+//# LABEL
+//### LABEL - input
+// the label of a text-like input, a range, a file, a color input, a select or a textarea: a tab on top of the control
+@mixin labelInput() {
+    --label-borderRadius: var(--border-radius-texts);
+    --label-left: var(--label-borderRadius);
+    --label-paddingInline: var(--padding-texts);
+    --label-paddingBlock: calc(var(--padding-texts)/2);
+    --label-color: var(--color-black);
+    --label-background: var(--color-white);
+    --label-border: var(--border-color) var(--border-style);
+    --label-borderWidth: var(--border-width);
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: top;
+    color: var(--label-color);
+    background-color: var(--label-background);
+    padding-block: var(--label-paddingBlock);
+    padding-inline: var(--label-paddingInline);
+    border-radius: var(--label-borderRadius);
+    border: var(--label-border) var(--label-borderWidth);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+    width: fit-content;
+    max-width: calc(100% - (var(--label-left)*2));
+    margin-top: calc(var(--form-gap, 0px) * 0.5);
+    margin-bottom: calc(var(--form-gap, 0px) * -0.5);
+
+    //## disabled
+    &:where(:has(+ [disabled], > [disabled])) { @include disabled(); }
+
+    //## hidden
+    &:has([hidden], + [hidden], [pgs~="hidden"], + [pgs~="hidden"], [type="hidden"], + [type="hidden"]) { display: none !important; }
+
+    //+ labelTab
+    // the top corners only, and no bottom border: the label opens into the control it sits on
+    &:where([pgs*="'labelTab'"]) {
+        margin-bottom: calc(var(--form-gap, 0px) * -1);
+        transform: translateX(var(--label-left)) translateY(calc(var(--label-borderWidth) + 1px));
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        border-bottom: var(--label-background) var(--border-style) var(--label-borderWidth);
+    }
+}
+
+//### LABEL - checkbox radio
+// the label of a checkbox or a radio, for the one that holds the control and for the ones inside a group
+@mixin labelCheckboxAndRadio() {
+
+    &:where(label),
+    :where(label) {
+        -webkit-user-select: none;
+        user-select: none;
+        color: inherit;
+        color: red;
+        position: relative;
+        text-align: left;
+        line-height: var(--checkbox-size, var(--radio-size));
+        width: fit-content;
+        cursor: pointer;
+
+        :where(a) {
+            text-decoration: underline;
+            color: var(--color-link);
+        }
+
+        //## Disabled
+        // the label that holds a disabled control, or the one after a disabled checkbox or radio
+        &:has(input:disabled),
+        :where(input:is([type="checkbox"], [type="radio"]):disabled)+& {
+            @include disabled();
+        }
+
+        //## Required
+        // a checkbox that stands alone: in a fieldset the asterisk is the one of its legend
+        &:has(input[type=checkbox]:required):not(:where(fieldset)),
+        &:has(input[type=radio]:required):not(:where(fieldset) *) {
+            @include required();
+        }
+    }
+}
+
+//## LABEL
+@mixin label() {
+
+    //## label input, select, textarea
+    // before the control or around it
+    // &:where(:not(:is([pgs~="field"], [pgs*="field\5B"]) #{&})) {
+    &:where(:has(+ :is(select, textarea, input:not([type="checkbox"], [type="radio"])))),
+    &:where(:has(> :is(select, textarea, input:not([type="checkbox"], [type="radio"])))) {
+        @include labelInput();
+    }
+
+    // }
+    //## label checkbox radio
+    // after the control or around it
+    &:where(input:is([type="checkbox"], [type="radio"])+&),
+    &:where(:has(> input:is([type="checkbox"], [type="radio"]))) {
+        @include labelCheckboxAndRadio();
+    }
+}
+
+//# INPUT
 //## inputBase
 @mixin inputBase($opacityPlaceholder) {
     appearance: none;
@@ -26,90 +152,43 @@
 
 //## INPUT
 @mixin input() {
-    &:where(:not([pgs="field"] #{&})) {
-        --input-padding: var(--padding-texts);
-        --input-border: var(--border-complete);
-        --input-borderRadius: var(--border-radius-texts);
-        --input-background: var(--color-white);
-        @include inputBase(20%);
-        border: var(--input-border);
-        background-color: var(--input-background);
-        border-radius: var(--input-borderRadius);
-        padding: var(--input-padding);
-    }
+    --input-padding: var(--padding-texts);
+    --input-border: var(--border-complete);
+    --input-borderRadius: var(--border-radius-texts);
+    --input-background: var(--color-white);
+    @include inputBase(20%);
+    border: var(--input-border);
+    background-color: var(--input-background);
+    border-radius: var(--input-borderRadius);
+    padding: var(--input-padding);
 
-    &:is([pgs="field"] #{&}) {
-        border: unset;
-        background-color: transparent;
-    }
+    &:where([type="password"]) { font-family: initial; }
 }
 
-//## LABEL
-@mixin label() {
-    &:where(:not([pgs="field"] #{&})) {
-        --label-borderRadius: var(--border-radius-texts);
-        --label-left: var(--label-borderRadius);
-        --label-paddingInline: var(--padding-texts);
-        --label-paddingBlock: calc(var(--padding-texts)/2);
-        --label-color: var(--color-black);
-        --label-background: var(--color-box);
-        cursor: pointer;
-        display: inline-block;
-        width: fit-content;
-        font-weight: var(--font-weight-bold);
-        color: var(--label-color);
-        background-color: var(--label-background);
-        padding-block: var(--label-paddingBlock);
-        padding-inline: var(--label-paddingInline);
-        border-radius: var(--label-borderRadius);
-        position: relative;
-        isolation: isolate;
-        margin-bottom: calc(var(--form-gap, 0px) * -1);
-        z-index: -1;
+//## INPUT PICKER
+// the inputs that carry a picker or a button of their own (search, number, date, time, datetime-local, month, week): a row with the icon first
+@mixin inputPicker() {
+    &:where([type="search"], [type="number"], [type="datetime-local"], [type="date"], [type="month"], [type="week"], [type="time"]) {
+        // width: clamp(50px, 100%, 300px);
+        display: flex;
 
-        &::before {
-            content: "";
-            position: absolute;
-            width: 100%;
-            bottom: 0;
-            left: 0;
-            background: linear-gradient(0deg, var(--label-background) calc(var(--label-borderRadius) * 2), transparent);
-            height: calc((var(--label-borderRadius, 0px) * 2) + var(--form-gap, 0px));
-            z-index: -1;
-            transform: translateY(50%);
-            border-bottom: solid 5% var(--label-background);
+        &::-webkit-calendar-picker-indicator {
+            order: -1;
+            font-size: 1.3em;
+            cursor: pointer;
+            margin: 0px;
+            margin-right: 10px;
         }
     }
-}
-
-//# REQUIRED & DISABLED
-//## REQUIRED
-@mixin required() {
-
-    :where([pgs~="form-requiredHere"]),
-    &:not(:has(:where([pgs~="form-requiredHere"]))) {
-        &::after {
-            content: " *";
-            color: var(--color-error);
-            line-height: 1;
-            font-weight: var(--font-weight-bold);
-        }
-    }
-}
-
-//## DISABLED
-@mixin disabled() {
-    opacity: 0.5;
-    cursor: not-allowed !important;
 }
 
 //# CHECKBOX & RADIO
 //## CHECKBOX
 @mixin checkbox() {
     --checkbox-size: 2.0rem;
-    --checkbox-paddingInline: var(--gap-texts);
     --checkbox-isChecked: 0;
     --checkbox-icon: #{$icon-check};
+    --checkbox-gap: calc(var(--gap-texts) /2);
     --checkbox-borderStyleWidth: var(--border-style) var(--border-width);
     //
     --checkbox-background: var(--clickable-background);
@@ -125,6 +204,7 @@
     --checkbox-borderColor-checked: var(--twoState-borderColor);
     position: relative;
     display: flex;
+    gap: var(--checkbox-gap);
 
     //## ICON & BOX
     &:where(input[type=checkbox]),
@@ -134,11 +214,8 @@
         width: var(--checkbox-size);
         min-width: var(--checkbox-size);
         height: var(--checkbox-size);
-        // the space between the box and the text is a character of its own: it comes off the gap
-        margin-right: calc(var(--gap-texts) - 0.25em);
         cursor: pointer;
         @include center();
-        // inline, so the text and the links of the label flow next to the box with their spaces
         display: inline-flex;
         vertical-align: top;
         @include icon(var(--checkbox-icon), "::after");
@@ -200,9 +277,9 @@
 //## RADIO
 @mixin radio() {
     --radio-size: 2.0rem;
-    --radio-paddingInline: var(--gap-texts);
     --radio-isChecked: 0;
     --radio-dot-size: calc(var(--radio-size) / 1.5);
+    --radio-gap: calc(var(--gap-texts) /2);
     --radio-borderStyleWidth: var(--border-style) var(--border-width);
     //
     --radio-background: var(--clickable-background);
@@ -218,6 +295,7 @@
     --radio-borderColor-checked: var(--twoState-borderColor);
     position: relative;
     display: flex;
+    gap: var(--radio-gap);
 
     //## BOX ROUND
     &:where(input[type=radio]),
@@ -227,11 +305,8 @@
         width: var(--radio-size);
         min-width: var(--radio-size);
         height: var(--radio-size);
-        // the space between the box and the text is a character of its own: it comes off the gap
-        margin-right: calc(var(--gap-texts) - 0.25em);
         cursor: pointer;
         @include center();
-        // inline, so the text and the links of the label flow next to the box with their spaces
         display: inline-flex;
         vertical-align: top;
 
@@ -287,32 +362,96 @@
     }
 }
 
-//### LABEL - checkbox radio
-// the label of a checkbox or a radio, for the one that holds the control and for the ones inside a group
-@mixin labelCheckboxAndRadio() {
+//# TEXTAREA
+@mixin textarea() {
+    resize: vertical;
+    @include input();
+    height: 120px;
+    min-height: 100px;
+    border-bottom-right-radius: 40px;
+    appearance: none;
+}
 
-    &:where(label),
-    :where(label) {
-        -webkit-user-select: none;
-        user-select: none;
-        color: inherit;
-        position: relative;
-        text-align: left;
-        line-height: var(--checkbox-size, var(--radio-size));
-        width: fit-content;
-        cursor: pointer;
-        display: block;
-        padding-inline: var(--checkbox-paddingInline, var(--radio-paddingInline));
+//# LEGEND
+// the same box as the tab of a label (same custom properties, same border), rounded on every corner and
+// not joined to anything. --label-color and --label-background are the ones formValidate changes when
+// the group fails
+@mixin legend() {
+    --label-borderRadius: var(--border-radius-texts);
+    --label-paddingInline: var(--padding-texts);
+    --label-paddingBlock: calc(var(--padding-texts)/2);
+    --label-color: var(--color-black);
+    --label-background: var(--color-white);
+    --label-border: var(--border-color) var(--border-style);
+    --label-borderWidth: var(--border-width);
+    display: inline-block;
+    width: fit-content;
+    max-width: 100%;
+    color: var(--label-color);
+    background-color: var(--label-background);
+    padding-block: var(--label-paddingBlock);
+    padding-inline: var(--label-paddingInline);
+    border: var(--label-border) var(--label-borderWidth);
+    border-radius: var(--label-borderRadius);
+    margin-bottom: var(--gap-texts);
+}
 
-        :where(a) {
-            text-decoration: underline;
-            color: var(--color-link);
+//# FIELDSET
+@mixin fieldset() {
+    border: unset;
+    display: flex;
+    flex-direction: column;
+    gap: var(--form-gap, var(--gap-texts));
+}
+
+//# FORM VALIDATE
+@mixin formValidate() {
+    --formValidate-outline: solid 3px var(--color-error);
+
+    //## ERROR
+    &[pgs-state~=errorForm] {
+        [pgs-state~=errorField]:not([type=checkbox], [type=radio]) {
+            border: var(--formValidate-outline);
+            color: var(--color-error);
         }
 
-        //## Disabled
-        &:has(input:disabled) { opacity: 0.5; }
+        :where(label):has(+[pgs-state~=errorField], [pgs-state~=errorField]) {
+            &:has(input[type=checkbox]) {
+                padding-block: 8px;
+                border-radius: 10px;
+                outline: var(--formValidate-outline);
+            }
 
-        //## Required
-        &:has(input[type=checkbox]:required) { @include required(); }
+            :where(input[type=radio], input[type=checkbox]) {
+                &::before { outline: var(--formValidate-outline); }
+            }
+        }
+
+        :where(fieldset)[pgs-state~=errorField] {
+            border-radius: 10px;
+
+            :where(input[type=radio], input[type=checkbox]) {
+                &::before { outline: var(--formValidate-outline); }
+            }
+
+            :where(legend) {
+                --label-background: var(--color-error-soft);
+                --label-color: var(--color-error);
+            }
+        }
     }
+
+    //option for suggestions: set on the field that fails, or on a descendant of the
+    //fieldset that does, to override its default error title and text
+    [pgs-data~="formMessageTitle[]"],
+    [pgs-data~="formMessage[]"] {}
+}
+
+//# FORM
+// a column, spaced by --form-gap: the form styles none of its controls
+@mixin form() {
+    --form-gap: var(--gap-texts);
+    display: flex;
+    flex-direction: column;
+    gap: var(--form-gap);
 }

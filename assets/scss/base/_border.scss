@@ -23,7 +23,7 @@
 }
 
 //## COLOR
-// its own root, independent of border/borderX's own bracket: pgs="borderTop['bdTpThin']
+// its own root, independent of border/borderX's own bracket: pgs "borderTop['bdTpThin']
 // borderColor['bdPrimary']" recolors the top side without needing a base border['...'] bracket
 // of its own, since --border-color is shared by every border*/borderX width rule regardless of
 // which root's bracket set it

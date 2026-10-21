@@ -1,0 +1,191 @@
+@use "../mixin/mixin" as *;
+
+//= FORM CONTROLS
+// The secondary tokens of a form, each one with its own: range, file, inputColor and select.
+// The form, the field, the label, the legend, the input, the textarea, the checkbox, the radio and the fieldset are in form.
+//# RANGE
+[pgs~="range"] {
+    --range-size: calc(var(--border-radius-texts));
+    --range-thumbWidth: calc(var(--range-size) * 2);
+    --range-background: var(--clickable-background);
+    --range-background-progress: var(--twoState-background);
+    --range-background-thumb: var(--twoState-color);
+    // where the thumb is, from 0 to 1: written on the slider by pgs.range (components/_range.js) as the value moves, 0 until it has run. The painted part stops at the middle of the thumb, which travels the track less its own width
+    --_range-progress: 0;
+    --_range-fill: calc(var(--_range-progress) * (100% - var(--range-thumbWidth)) + var(--range-thumbWidth) / 2);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: var(--range-size);
+    background: linear-gradient(to right, var(--range-background-progress) var(--_range-fill), var(--range-background) var(--_range-fill));
+    border: var(--border-width) var(--border-style) var(--clickable-borderColor);
+    outline: none;
+    border-radius: var(--range-size);
+    z-index: 1;
+    position: relative;
+
+    //## thumb (WebKit) (Firefox)
+    &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: var(--range-thumbWidth);
+        height: calc(var(--range-size) * 1.2);
+        border-radius: var(--range-size);
+        background: var(--range-background-thumb);
+        border: var(--border-width) var(--border-style) var(--clickable-borderColor);
+        cursor: pointer;
+        transition: transform 0.2s;
+
+        &:hover {
+            scale: 1.2;
+            background: var(--hover-background);
+        }
+    }
+
+    &::-moz-range-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: var(--range-thumbWidth);
+        height: calc(var(--range-size) * 1.2);
+        border-radius: var(--range-size);
+        background: var(--range-background-thumb);
+        border: var(--border-width) var(--border-style) var(--clickable-borderColor);
+        cursor: pointer;
+        transition: transform 0.2s;
+
+        &:hover {
+            scale: 1.2;
+            background: var(--hover-background);
+        }
+    }
+
+    //## focus
+    &:focus-visible::-webkit-slider-thumb,
+    &:focus-visible::-moz-range-thumb {
+        outline: var(--focus-visible) !important;
+        background-color: var(--color-focus) !important;
+        scale: 1.2;
+    }
+
+    //## disabled
+    &:disabled { @include disabled(); }
+}
+
+//# FILE
+// the box is an input; its button is a button
+[pgs~="file"] {
+    @include input();
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    &::file-selector-button {
+        margin-right: var(--gap-texts);
+        padding: var(--SIZE-texts) calc(var(--SIZE-texts) * 2);
+        font-family: var(--font);
+        font-size: var(--font-size-text);
+        font-weight: var(--font-weight-bold);
+        line-height: 1;
+        color: var(--clickable-color);
+        background: var(--clickable-background);
+        border: var(--border-width) var(--border-style) var(--clickable-borderColor);
+        border-radius: var(--border-radius-elements);
+        cursor: pointer;
+        transition: var(--clickable-transition);
+    }
+
+    &:hover::file-selector-button {
+        color: var(--hover-color);
+        background: var(--hover-background);
+        border-color: var(--hover-borderColor);
+    }
+
+    &[disabled]::file-selector-button { cursor: not-allowed; }
+}
+
+//# COLOR
+[pgs~="inputColor"] {
+    --inputColor-width: 10rem;
+    --inputColor-height: 5rem;
+    margin-right: auto;
+    display: flex;
+    width: var(--inputColor-width);
+    height: var(--inputColor-height);
+    aspect-ratio: 1;
+    border: var(--border-complete);
+    border-radius: var(--border-radius-texts);
+    cursor: pointer;
+
+    &::-webkit-color-swatch-wrapper { padding: 0; }
+    &::-webkit-color-swatch { border: none; }
+}
+
+//# SELECT
+// the select itself: the look of an input. In a field the field is the box, and the rules below add the chevron
+:is([pgs~="select"], [pgs*="select\5B"]) {
+    --select-padding: calc(var(--field-padding, var(--input-padding)) / 2);
+    @include input();
+    overflow: auto;
+    appearance: none;
+    cursor: pointer;
+
+    //## dropdown icon
+    // a ::after is not drawn on a select with a single choice, so the chevron is two gradients on the
+    // select itself, in the color of its text. A list (multiple) has none
+    &:not([multiple]) {
+        --select-chevronInset: var(--select-padding);
+        --select-chevronSize: .5rem;
+        padding-right: calc(var(--select-chevronInset) * 2 + var(--select-chevronSize) * 2);
+        background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
+        background-position: calc(100% - var(--select-chevronInset) - var(--select-chevronSize)) 50%, calc(100% - var(--select-chevronInset)) 50%;
+        background-size: var(--select-chevronSize) var(--select-chevronSize);
+        background-repeat: no-repeat;
+    }
+
+    //## multiple
+    &[multiple] {
+        overflow: auto;
+
+        optgroup {
+            color: var(--color-text);
+            display: flex;
+            flex-direction: column;
+            gap: calc(var(--gap-texts)/2);
+        }
+
+        // the list of options. input() writes --input-* only on an input that is not in a field, so in a field
+        // they are not there: the field tokens stand in, or the list would have no background, no border and no radius
+        &::picker(select) {
+            appearance: base-select;
+            border: var(--input-border, var(--field-border));
+            padding: var(--select-padding);
+            background: var(--input-background, var(--field-background));
+            border-radius: var(--input-borderRadius, var(--field-borderRadius));
+        }
+
+        option {
+            padding: var(--select-padding);
+            border-radius: calc(var(--border-radius-texts) - var(--select-padding));
+            background-color: transparent;
+            font-weight: var(--font-weight-text);
+            color: var(--color-black);
+            cursor: pointer;
+
+            &::checkmark { content: none; }
+
+            &:checked,
+            &:checked:hover {
+                background: var(--current-background);
+                color: var(--current-color);
+            }
+
+            &:hover {
+                background-color: var(--hover-background);
+                color: var(--hover-color);
+            }
+
+            &:disabled { opacity: .4; }
+        }
+    }
+}

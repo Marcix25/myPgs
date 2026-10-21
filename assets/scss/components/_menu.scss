@@ -57,7 +57,7 @@
     //+ OPTION
     //## horizontal
     // menuHorizontal, not the shortened horizontal: card also has a 'horizontal' option
-    &:where([pgs*="\'menuHorizontal\'"]) {
+    &:where([pgs*="'menuHorizontal'"]) {
         >:where(ul) {
             flex-direction: row;
 
@@ -76,7 +76,7 @@
 
     //## vertical
     :where(ul),
-    &:where([pgs*="\'menuVertical\'"]),
+    &:where([pgs*="'menuVertical'"]),
     &:not([pgs*="'menuHorizontal'"]) {
         :where(ul) {
             flex-direction: column;
@@ -115,7 +115,7 @@
     }
 
     //+ icon only current
-    &:where([pgs*="\'menuIconOnlyCurrent\'"]) {
+    &:where([pgs*="'menuIconOnlyCurrent'"]) {
         :where(a):not([aria-current]:not([aria-current="false"])) {
             padding-left: var(--button-paddingInline);
 
@@ -124,7 +124,7 @@
     }
 
     //+ SHORT
-    &:where([pgs*="\'menuShort\'"]) {
+    &:where([pgs*="'menuShort'"]) {
         >:where(ul)>:where(li) {
             &:first-child {
                 :where(a) { margin-left: 0px; }

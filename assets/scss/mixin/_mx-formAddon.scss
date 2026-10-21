@@ -12,8 +12,8 @@
     @include labelCheckboxAndRadio();
     // the boxes keep their own colors: the surface around them is the one that answers the pointer
     --checkbox-borderColor: var(--clickable-color);
-    --radio-borderColor: var(--clickable-color);
     --checkbox-borderColor-hover: var(--hover-color);
+    --radio-borderColor: var(--clickable-color);
     --radio-borderColor-hover: var(--hover-color);
     position: relative;
     isolation: isolate;
@@ -25,9 +25,6 @@
     border-color: var(--clickable-borderColor);
     margin-bottom: 0;
     transition: var(--clickable-transition);
-
-    // the space between the box and the text is a character of its own: it comes off the gap
-    :where(input) { margin-right: calc(var(--checkboxBackground-padding) - 0.25em); }
 
     //## hover
     @media (hover: hover) and (pointer: fine) {
@@ -67,9 +64,11 @@
     $space: 2px;
     isolation: isolate;
     @include row(nowrap);
-    margin-bottom: var(--gap-texts);
 
-    :where(label) { cursor: pointer; }
+    &:where(label),
+    :where(label) {
+        cursor: pointer;
+    }
 
     // rail & thumb
     :where(input) {
@@ -170,21 +169,19 @@
         appearance: none;
     }
 
-    :where(i, [pgs~="icon"], [pgs*="icon\5B"]) {
-        opacity: 0.4;
-        min-width: 1.4rem;
-    }
+    //## icon
+    :where([pgs~="icon"], [pgs*="icon\5B"], i) { opacity: 0.4; }
 
+    //## hover
     &:hover {
-        :where(i, [pgs~="icon"], [pgs*="icon\5B"]) { opacity: 1; }
+        :where([pgs~="icon"], [pgs*="icon\5B"], i) { opacity: 1; }
     }
 
     //## checked
     &:has(input:checked) {
-        :where(i, [pgs~="icon"], [pgs*="icon\5B"]) { opacity: 1; }
+        :where([pgs~="icon"], [pgs*="icon\5B"], i) { opacity: 1; }
 
-        &:not(:has(:is([pgs~="icon"], [pgs*="icon\5B"]))),
-        &:not(:has(i)) {
+        &:not(:has([pgs~="icon"], [pgs*="icon\5B"], i)) {
             &::after {
                 display: grid;
                 order: -1;
@@ -196,8 +193,7 @@
                 font-size: 1.5rem;
                 line-height: 1;
                 font-weight: bold;
-                color: var(--color-blackFixed);
-                background-color: var(--color-whiteFixed);
+                color: inherit;
                 cursor: pointer;
             }
         }
@@ -205,9 +201,7 @@
 
     //### checkbox
     &:has(input[type=checkbox]:checked) {
-
-        &:not(:has(:is([pgs~="icon"], [pgs*="icon\5B"]))),
-        &:not(:has(i)) {
+        &:not(:has([pgs~="icon"], [pgs*="icon\5B"], i)) {
             padding-right: var(--button-size);
 
             &::after { content: "×"; }
@@ -216,9 +210,7 @@
 
     //### radio
     &:has(input[type=radio]:checked) {
-
-        &:not(:has(:is([pgs~="icon"], [pgs*="icon\5B"]))),
-        &:not(:has(i)) {
+        &:not(:has([pgs~="icon"], [pgs*="icon\5B"], i)) {
             padding-left: var(--button-size);
 
             &::after { content: ""; }
@@ -235,7 +227,7 @@
 }
 
 //# FIELD
-:is([pgs~="field"], [pgs*="field\5B"]) {
+@mixin field() {
     --field-label-color: var(--color-black);
     --field-label-opacity: 65%;
     --field-gap: 0.5rem;
@@ -250,18 +242,18 @@
     border-radius: var(--field-borderRadius);
     padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
     padding-bottom: var(--field-padding);
-
-    >* { padding-inline: var(--field-padding); }
+    padding-inline: var(--field-padding);
 
     //## INPUT
-    >*:where(:not([pgs~="field-label"], :has(input[type="checkbox"], input[type="radio"]))) {
+    :where([pgs~="field-input"]) {
         @include inputBase(0%);
         border: unset;
         padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
         margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
         padding-bottom: var(--field-padding);
         margin-bottom: calc(var(--field-padding) * -1);
-        border-radius: var(--field-borderRadius);
+        background-color: var(--field-background);
+        padding-inline: 0;
 
         &:focus { outline: unset; }
     }
@@ -271,17 +263,18 @@
         display: inline-block;
         position: absolute;
         top: 0;
-        line-height: 1;
         text-wrap: nowrap;
-        width: calc(100% - var(--field-padding));
+        width: calc(100% - var(--field-padding) * 2);
         overflow: hidden;
         text-overflow: ellipsis;
         color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
         transition: padding 200ms ease, font-size 200ms ease;
         font-size: calc(var(--font-size-text) * .9);
         padding-top: var(--field-padding);
+        // the line is one em tall and the label cuts what overflows: without a bottom the descenders (g, p, y) are cut
+        padding-bottom: .25em;
+        line-height: 1;
         background-color: var(--field-background);
-        border-radius: var(--field-borderRadius);
         pointer-events: none;
     }
 

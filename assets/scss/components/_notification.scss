@@ -9,11 +9,11 @@
     position: relative;
 
     //option for suggestions: where the panel opens when this bell is clicked
-    &:where([pgs*="\'dialogLeft\'"]),
-    &:where([pgs*="\'dialogRight\'"]),
-    &:where([pgs*="\'dialogTop\'"]),
-    &:where([pgs*="\'dialogBottom\'"]),
-    &:where([pgs*="\'dialogCenter\'"]) {}
+    &:where([pgs*="'dialogLeft'"]),
+    &:where([pgs*="'dialogRight'"]),
+    &:where([pgs*="'dialogTop'"]),
+    &:where([pgs*="'dialogBottom'"]),
+    &:where([pgs*="'dialogCenter'"]) {}
 
     // a hand-written counter keeps the bare name; a generated one gets the underscore (see
     // _notification.js), so this needs both

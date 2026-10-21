@@ -13,7 +13,7 @@ $accordionGap: 1.0rem;
     // read by the JavaScript only, declared here so editors suggest it: accordionContainer groups the
     // accordions inside it, so that opening one closes the others, and accMultiOpen on that same
     // container lifts the rule and lets them stay open together
-    &:where([pgs*="\'accMultiOpen\'"]) {}
+    &:where([pgs*="'accMultiOpen'"]) {}
 }
 
 //# ACCORDION
@@ -89,7 +89,7 @@ $accordionGap: 1.0rem;
     //+ OPTION
     //read by the JavaScript only, declared here so editors suggest it: opens the panel on load and
     //keeps it open when another one in the group is opened
-    &:where([pgs*="\'accAutoOpen\'"]) {}
+    &:where([pgs*="'accAutoOpen'"]) {}
 
     //## STATE OPEN - NOT OPEN
     // only its own button and content, never those of an accordion nested inside the open panel,

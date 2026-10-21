@@ -120,6 +120,7 @@ reference source before creating new markup.
 - [dropdown](docs/components/dropdown.md)
 - [form](docs/components/form.md)
 - [formAddon](docs/components/formAddon.md)
+- [formControls](docs/components/formControls.md)
 - [icon](docs/components/icon.md)
 - [logo](docs/components/logo.md)
 - [menu](docs/components/menu.md)

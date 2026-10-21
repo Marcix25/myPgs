@@ -129,7 +129,7 @@
     }
 
     //+ searchMinWidth
-    &:where([pgs*="\'searchMinWidth\'"]) {
+    &:where([pgs*="'searchMinWidth'"]) {
 
         //+ mobile
         @media (min-width: $mobile) { min-width: 21.4rem; }

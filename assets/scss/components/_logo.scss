@@ -13,7 +13,7 @@
     &:is([pgs-state~="darkmode"] [pgs*="'logoDarkmode'"]) :where([pgs~="logo-image"]) { filter: var(--logo-filter); }
 
     //## FIXED DARKMODE
-    &:where([pgs*="\'logoDarkmodeFixed\'"]) :where([pgs~="logo-image"]) { filter: var(--logo-filter); }
+    &:where([pgs*="'logoDarkmodeFixed'"]) :where([pgs~="logo-image"]) { filter: var(--logo-filter); }
 
     //- tablet 
     @media (max-width: $tablet) { min-width: var(--logo-height); }

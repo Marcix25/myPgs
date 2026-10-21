@@ -37,23 +37,23 @@ html:has(dialog[open]) {
     // the flag-copy loop in _modal.js reads any of these off the wrapper or the dialog alike,
     // so they are declared here too, for editors to suggest them on the wrapper as well
     //+ OPTION
-    &:where([pgs*="\'dialogHistory\'"]),
-    &:where([pgs*="\'dialogTopLevel\'"]),
-    &:where([pgs*="\'dialogDisableBackdropClose\'"]),
-    &:where([pgs*="\'dialogDragClose\'"]),
-    &:where([pgs*="\'dialogSmall\'"]),
-    &:where([pgs*="\'dialogMedium\'"]),
-    &:where([pgs*="\'dialogFull\'"]),
-    &:where([pgs*="\'dialogCenter\'"]),
-    &:where([pgs*="\'dialogLeft\'"]),
-    &:where([pgs*="\'dialogRight\'"]),
-    &:where([pgs*="\'dialogTop\'"]),
-    &:where([pgs*="\'dialogBottom\'"]),
-    &:where([pgs*="\'dialogAnimationZoom\'"]),
-    &:where([pgs*="\'dialogAnimationLeft\'"]),
-    &:where([pgs*="\'dialogAnimationRight\'"]),
-    &:where([pgs*="\'dialogAnimationTop\'"]),
-    &:where([pgs*="\'dialogAnimationBottom\'"]) {}
+    &:where([pgs*="'dialogHistory'"]),
+    &:where([pgs*="'dialogTopLevel'"]),
+    &:where([pgs*="'dialogDisableBackdropClose'"]),
+    &:where([pgs*="'dialogDragClose'"]),
+    &:where([pgs*="'dialogSmall'"]),
+    &:where([pgs*="'dialogMedium'"]),
+    &:where([pgs*="'dialogFull'"]),
+    &:where([pgs*="'dialogCenter'"]),
+    &:where([pgs*="'dialogLeft'"]),
+    &:where([pgs*="'dialogRight'"]),
+    &:where([pgs*="'dialogTop'"]),
+    &:where([pgs*="'dialogBottom'"]),
+    &:where([pgs*="'dialogAnimationZoom'"]),
+    &:where([pgs*="'dialogAnimationLeft'"]),
+    &:where([pgs*="'dialogAnimationRight'"]),
+    &:where([pgs*="'dialogAnimationTop'"]),
+    &:where([pgs*="'dialogAnimationBottom'"]) {}
 }
 
 //# DIALOG
@@ -153,7 +153,7 @@ html:has(dialog[open]) {
 
     //#OPTION
     //+ TOP LEVEL
-    &:where([pgs*="\'dialogTopLevel\'"]) {
+    &:where([pgs*="'dialogTopLevel'"]) {
         overflow-y: auto;
         height: auto;
         z-index: auto;
@@ -161,7 +161,7 @@ html:has(dialog[open]) {
     }
 
     //+ DISABLED BACKDROP CLOSE
-    &:where([pgs*="\'dialogDisableBackdropClose\'"]) { cursor: auto; }
+    &:where([pgs*="'dialogDisableBackdropClose'"]) { cursor: auto; }
 
     //+ DRAG CLOSE
     // _modal.js tracks the finger: --_modal-drag-y is how far the panel has been pulled down,
@@ -169,7 +169,7 @@ html:has(dialog[open]) {
     // panel follows with no transition; let go and the transitions below either spring it back
     // (the state is removed) or carry it off the bottom of the screen (dragClose), which
     // _modal.js waits for before it really closes the dialog
-    &:where([pgs*="\'dialogDragClose\'"]) {
+    &:where([pgs*="'dialogDragClose'"]) {
         transition: opacity 600ms ease, background-color var(--modal-animation-timing) var(--modal-animation-easing);
 
         :where([pgs~="modal-dialog-content"])::before {
@@ -228,44 +228,44 @@ html:has(dialog[open]) {
 
     //+ SIZE
     //### SMALL
-    &:where([pgs*="\'dialogSmall\'"]) {
+    &:where([pgs*="'dialogSmall'"]) {
         :where([pgs~="modal-dialog-content"]) { --section-width: min(calc(var(--page-width)/3), 100%); }
     }
 
     //### MEDIUM
-    &:where([pgs*="\'dialogMedium\'"]) {
+    &:where([pgs*="'dialogMedium'"]) {
         :where([pgs~="modal-dialog-content"]) { --section-width: min(calc(var(--page-width)/2), 100%); }
     }
 
     //### Full
-    &:where([pgs*="\'dialogFull\'"]) {
+    &:where([pgs*="'dialogFull'"]) {
         :where([pgs~="modal-dialog-content"]) { --section-width: 100%; }
     }
 
     //+ POSITION
     //### CENTER
-    &:where([pgs*="\'dialogCenter\'"]) {
+    &:where([pgs*="'dialogCenter'"]) {
         justify-content: safe center;
         align-items: safe center;
     }
 
     //### LEFT
-    &:where([pgs*="\'dialogLeft\'"]) {
+    &:where([pgs*="'dialogLeft'"]) {
         justify-content: safe flex-start;
         padding-inline: var(--modal-offset);
     }
 
     //### RIGHT
-    &:where([pgs*="\'dialogRight\'"]) {
+    &:where([pgs*="'dialogRight'"]) {
         justify-content: safe flex-end;
         padding-inline: var(--modal-offset);
     }
 
     //### TOP
-    &:where([pgs*="\'dialogTop\'"]) { align-items: safe flex-start; }
+    &:where([pgs*="'dialogTop'"]) { align-items: safe flex-start; }
 
     //### BOTTOM
-    &:where([pgs*="\'dialogBottom\'"]) { align-items: safe flex-end; }
+    &:where([pgs*="'dialogBottom'"]) { align-items: safe flex-end; }
 
     //+ ANIMATION
     // _modal.js sets animationIn on open and animationOut on close, and waits for these
@@ -331,7 +331,7 @@ html:has(dialog[open]) {
     //### ZOOM
     // _modal.js measures the button and the panel and writes the offset and scale that lay the
     // panel over the button as --_modal-zoom-* on the panel
-    &:where([pgs*="\'dialogAnimationZoom\'"]):is([pgs-state~="animationIn"], [pgs-state~="animationOut"]) :where([pgs~="modal-dialog-content"]) {
+    &:where([pgs*="'dialogAnimationZoom'"]):is([pgs-state~="animationIn"], [pgs-state~="animationOut"]) :where([pgs~="modal-dialog-content"]) {
         transform-origin: 0 0;
         animation-name: modalAnimationZoom;
     }
@@ -339,10 +339,10 @@ html:has(dialog[open]) {
     //### SLIDE
     // the panel slides in from the edge of the screen: a whole viewport of travel is always
     // enough to start it off screen, wherever the position options put it
-    &:where([pgs*="\'dialogAnimationLeft\'"]):is([pgs-state~="animationIn"], [pgs-state~="animationOut"]) :where([pgs~="modal-dialog-content"]) { animation-name: modalAnimationLeft; }
-    &:where([pgs*="\'dialogAnimationRight\'"]):is([pgs-state~="animationIn"], [pgs-state~="animationOut"]) :where([pgs~="modal-dialog-content"]) { animation-name: modalAnimationRight; }
-    &:where([pgs*="\'dialogAnimationTop\'"]):is([pgs-state~="animationIn"], [pgs-state~="animationOut"]) :where([pgs~="modal-dialog-content"]) { animation-name: modalAnimationTop; }
-    &:where([pgs*="\'dialogAnimationBottom\'"]):is([pgs-state~="animationIn"], [pgs-state~="animationOut"]) :where([pgs~="modal-dialog-content"]) { animation-name: modalAnimationBottom; }
+    &:where([pgs*="'dialogAnimationLeft'"]):is([pgs-state~="animationIn"], [pgs-state~="animationOut"]) :where([pgs~="modal-dialog-content"]) { animation-name: modalAnimationLeft; }
+    &:where([pgs*="'dialogAnimationRight'"]):is([pgs-state~="animationIn"], [pgs-state~="animationOut"]) :where([pgs~="modal-dialog-content"]) { animation-name: modalAnimationRight; }
+    &:where([pgs*="'dialogAnimationTop'"]):is([pgs-state~="animationIn"], [pgs-state~="animationOut"]) :where([pgs~="modal-dialog-content"]) { animation-name: modalAnimationTop; }
+    &:where([pgs*="'dialogAnimationBottom'"]):is([pgs-state~="animationIn"], [pgs-state~="animationOut"]) :where([pgs~="modal-dialog-content"]) { animation-name: modalAnimationBottom; }
 
     //### reduced motion
     // after the options, so it wins over the animation-name each of them sets

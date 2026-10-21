@@ -34,43 +34,43 @@
     @include _badge();
 
     // badgePrimary, not the shortened primary: button also has a 'primary' option
-    &:where([pgs*="\'badgePrimary\'"]) {
+    &:where([pgs*="'badgePrimary'"]) {
         --badge-background: var(--color-primary-soft);
         --badge-color: var(--color-primary-strong);
     }
 
     // badgeStrong, not the shortened strong: button also has a 'strong' option
-    &:where([pgs*="\'badgeStrong\'"]) {
+    &:where([pgs*="'badgeStrong'"]) {
         --badge-background: var(--color-primary);
         --badge-color: var(--color-whiteFixed);
     }
 
-    &:where([pgs*="\'badgeSuccess\'"]) {
+    &:where([pgs*="'badgeSuccess'"]) {
         --badge-background: var(--color-success-soft);
         --badge-color: var(--color-success);
     }
 
-    &:where([pgs*="\'badgeWarning\'"]) {
+    &:where([pgs*="'badgeWarning'"]) {
         --badge-background: var(--color-warning-soft);
         --badge-color: var(--color-warning);
     }
 
-    &:where([pgs*="\'badgeError\'"]) {
+    &:where([pgs*="'badgeError'"]) {
         --badge-background: var(--color-error-soft);
         --badge-color: var(--color-error);
     }
 
-    &:where([pgs*="\'badgeInfo\'"]) {
+    &:where([pgs*="'badgeInfo'"]) {
         --badge-background: var(--color-info-soft);
         --badge-color: var(--color-info);
     }
 
-    &:where([pgs*="\'badgeNeutral\'"]) {
+    &:where([pgs*="'badgeNeutral'"]) {
         --badge-background: var(--color-box-transparent);
         --badge-color: var(--color-text);
     }
 
-    &:where([pgs*="\'badgeDot\'"]) {
+    &:where([pgs*="'badgeDot'"]) {
         &::before {
             content: "";
             display: block;

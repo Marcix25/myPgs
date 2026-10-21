@@ -55,11 +55,11 @@
     }
 
     //+ ICON BOX
-    &:where([pgs*="\'iconBoxed\'"]) { @include boxed(); }
+    &:where([pgs*="'iconBoxed'"]) { @include boxed(); }
 
     //+ ICON MEDIUM
-    &:where([pgs*="\'iconMedium\'"]) { --icon-size: 1.25em; }
+    &:where([pgs*="'iconMedium'"]) { --icon-size: 1.25em; }
 
     //+ ICON LARGE
-    &:where([pgs*="\'iconLarge\'"]) { --icon-size: 1.5em; }
+    &:where([pgs*="'iconLarge'"]) { --icon-size: 1.5em; }
 }
