@@ -9,10 +9,18 @@
 }
 
 :where([pgs~="label"], [pgs*="label\5B"]) { @include label(); }
-
 [pgs~="legend"] { @include legend(); }
-[pgs~="radio"] { @include radio(); }
-[pgs~="checkbox"] { @include checkbox(); }
+
+[pgs~="radio"] {
+    @include radio();
+    @include labelCheckboxAndRadio();
+}
+
+[pgs~="checkbox"] {
+    @include checkbox();
+    @include labelCheckboxAndRadio();
+}
+
 [pgs~="fieldset"] { @include fieldset(); }
 [pgs~="form"] { @include form(); }
 [pgs~="formValidate"] { @include formValidate(); }

@@ -13,6 +13,8 @@
             color: var(--color-error);
             line-height: 1;
             font-weight: var(--font-weight-bold);
+            display: inline-block;
+            padding-left: 3px;
         }
     }
 }
@@ -51,14 +53,15 @@
     text-wrap: nowrap;
     width: fit-content;
     max-width: calc(100% - (var(--label-left)*2));
-    margin-top: calc(var(--form-gap, 0px) * 0.5);
-    margin-bottom: calc(var(--form-gap, 0px) * -0.5);
 
     //## disabled
     &:where(:has(+ [disabled], > [disabled])) { @include disabled(); }
 
     //## hidden
     &:has([hidden], + [hidden], [pgs~="hidden"], + [pgs~="hidden"], [type="hidden"], + [type="hidden"]) { display: none !important; }
+
+    //## required
+    &:where(:has(~ :required, ~ * :required)) { @include required(); }
 
     //+ labelTab
     // the top corners only, and no bottom border: the label opens into the control it sits on
@@ -80,7 +83,7 @@
         -webkit-user-select: none;
         user-select: none;
         color: inherit;
-        color: red;
+        color: #b6c1ff;
         position: relative;
         text-align: left;
         line-height: var(--checkbox-size, var(--radio-size));
@@ -95,38 +98,25 @@
         //## Disabled
         // the label that holds a disabled control, or the one after a disabled checkbox or radio
         &:has(input:disabled),
-        :where(input:is([type="checkbox"], [type="radio"]):disabled)+& {
+        :where(input:disabled)+& {
             @include disabled();
         }
 
         //## Required
         // a checkbox that stands alone: in a fieldset the asterisk is the one of its legend
-        &:has(input[type=checkbox]:required):not(:where(fieldset)),
+        &:has(input[type=checkbox]:required):not(:where(fieldset) *),
         &:has(input[type=radio]:required):not(:where(fieldset) *) {
             @include required();
         }
     }
+
+    //## Disabled, the label after the control
+    // on a group (a div, a fieldset): a plain label that follows a disabled checkbox or radio
+    :where(input:disabled) + :where(label) { @include disabled(); }
 }
 
 //## LABEL
-@mixin label() {
-
-    //## label input, select, textarea
-    // before the control or around it
-    // &:where(:not(:is([pgs~="field"], [pgs*="field\5B"]) #{&})) {
-    &:where(:has(+ :is(select, textarea, input:not([type="checkbox"], [type="radio"])))),
-    &:where(:has(> :is(select, textarea, input:not([type="checkbox"], [type="radio"])))) {
-        @include labelInput();
-    }
-
-    // }
-    //## label checkbox radio
-    // after the control or around it
-    &:where(input:is([type="checkbox"], [type="radio"])+&),
-    &:where(:has(> input:is([type="checkbox"], [type="radio"]))) {
-        @include labelCheckboxAndRadio();
-    }
-}
+@mixin label() { @include labelInput(); }
 
 //# INPUT
 //## inputBase

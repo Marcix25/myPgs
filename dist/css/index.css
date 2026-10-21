@@ -3527,7 +3527,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   margin-right: 10px;
 }
 
-:where([pgs~=label], [pgs*="label["]):where(:has(+ :is(select, textarea, input:not([type=checkbox], [type=radio])))), :where([pgs~=label], [pgs*="label["]):where(:has(> :is(select, textarea, input:not([type=checkbox], [type=radio])))) {
+:where([pgs~=label], [pgs*="label["]) {
   --label-borderRadius: var(--border-radius-texts);
   --label-left: var(--label-borderRadius);
   --label-paddingInline: var(--padding-texts);
@@ -3552,70 +3552,32 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   text-wrap: nowrap;
   width: fit-content;
   max-width: calc(100% - var(--label-left) * 2);
-  margin-top: calc(var(--form-gap, 0px) * 0.5);
-  margin-bottom: calc(var(--form-gap, 0px) * -0.5);
 }
 
-:where([pgs~=label], [pgs*="label["]):where(:has(+ :is(select, textarea, input:not([type=checkbox], [type=radio])))):where(:has(+ [disabled], > [disabled])), :where([pgs~=label], [pgs*="label["]):where(:has(> :is(select, textarea, input:not([type=checkbox], [type=radio])))):where(:has(+ [disabled], > [disabled])) {
+:where([pgs~=label], [pgs*="label["]):where(:has(+ [disabled], > [disabled])) {
   opacity: 0.5;
   cursor: not-allowed !important;
 }
 
-:where([pgs~=label], [pgs*="label["]):where(:has(+ :is(select, textarea, input:not([type=checkbox], [type=radio])))):has([hidden], + [hidden], [pgs~=hidden], + [pgs~=hidden], [type=hidden], + [type=hidden]), :where([pgs~=label], [pgs*="label["]):where(:has(> :is(select, textarea, input:not([type=checkbox], [type=radio])))):has([hidden], + [hidden], [pgs~=hidden], + [pgs~=hidden], [type=hidden], + [type=hidden]) {
+:where([pgs~=label], [pgs*="label["]):has([hidden], + [hidden], [pgs~=hidden], + [pgs~=hidden], [type=hidden], + [type=hidden]) {
   display: none !important;
 }
 
-:where([pgs~=label], [pgs*="label["]):where(:has(+ :is(select, textarea, input:not([type=checkbox], [type=radio])))):where([pgs*="'labelTab'"]), :where([pgs~=label], [pgs*="label["]):where(:has(> :is(select, textarea, input:not([type=checkbox], [type=radio])))):where([pgs*="'labelTab'"]) {
+:where([pgs~=label], [pgs*="label["]):where(:has(~ :required, ~ * :required)) :where([pgs~=form-requiredHere])::after, :where([pgs~=label], [pgs*="label["]):where(:has(~ :required, ~ * :required)):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
+  display: inline-block;
+  padding-left: 3px;
+}
+
+:where([pgs~=label], [pgs*="label["]):where([pgs*="'labelTab'"]) {
   margin-bottom: calc(var(--form-gap, 0px) * -1);
   transform: translateX(var(--label-left)) translateY(calc(var(--label-borderWidth) + 1px));
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   border-bottom: var(--label-background) var(--border-style) var(--label-borderWidth);
-}
-
-:where([pgs~=label], [pgs*="label["]):where(input:is([type=checkbox], [type=radio]) + :where([pgs~=label], [pgs*="label["])):where(label),
-:where([pgs~=label], [pgs*="label["]):where(input:is([type=checkbox], [type=radio]) + :where([pgs~=label], [pgs*="label["])) :where(label), :where([pgs~=label], [pgs*="label["]):where(:has(> input:is([type=checkbox], [type=radio]))):where(label),
-:where([pgs~=label], [pgs*="label["]):where(:has(> input:is([type=checkbox], [type=radio]))) :where(label) {
-  -webkit-user-select: none;
-  user-select: none;
-  color: inherit;
-  color: red;
-  position: relative;
-  text-align: left;
-  line-height: var(--checkbox-size, var(--radio-size));
-  width: fit-content;
-  cursor: pointer;
-}
-
-:where([pgs~=label], [pgs*="label["]):where(input:is([type=checkbox], [type=radio]) + :where([pgs~=label], [pgs*="label["])):where(label) :where(a),
-:where([pgs~=label], [pgs*="label["]):where(input:is([type=checkbox], [type=radio]) + :where([pgs~=label], [pgs*="label["])) :where(label) :where(a), :where([pgs~=label], [pgs*="label["]):where(:has(> input:is([type=checkbox], [type=radio]))):where(label) :where(a),
-:where([pgs~=label], [pgs*="label["]):where(:has(> input:is([type=checkbox], [type=radio]))) :where(label) :where(a) {
-  text-decoration: underline;
-  color: var(--color-link);
-}
-
-:where([pgs~=label], [pgs*="label["]):where(input:is([type=checkbox], [type=radio]) + :where([pgs~=label], [pgs*="label["])):where(label):has(input:disabled), :where(input:is([type=checkbox], [type=radio]):disabled) + :where([pgs~=label], [pgs*="label["]):where(input:is([type=checkbox], [type=radio]) + :where([pgs~=label], [pgs*="label["])):where(label),
-:where([pgs~=label], [pgs*="label["]):where(input:is([type=checkbox], [type=radio]) + :where([pgs~=label], [pgs*="label["])) :where(label):has(input:disabled),
-:where(input:is([type=checkbox], [type=radio]):disabled) + :where([pgs~=label], [pgs*="label["]):where(input:is([type=checkbox], [type=radio]) + :where([pgs~=label], [pgs*="label["])) :where(label), :where([pgs~=label], [pgs*="label["]):where(:has(> input:is([type=checkbox], [type=radio]))):where(label):has(input:disabled), :where(input:is([type=checkbox], [type=radio]):disabled) + :where([pgs~=label], [pgs*="label["]):where(:has(> input:is([type=checkbox], [type=radio]))):where(label),
-:where([pgs~=label], [pgs*="label["]):where(:has(> input:is([type=checkbox], [type=radio]))) :where(label):has(input:disabled),
-:where(input:is([type=checkbox], [type=radio]):disabled) + :where([pgs~=label], [pgs*="label["]):where(:has(> input:is([type=checkbox], [type=radio]))) :where(label) {
-  opacity: 0.5;
-  cursor: not-allowed !important;
-}
-
-:where([pgs~=label], [pgs*="label["]):where(input:is([type=checkbox], [type=radio]) + :where([pgs~=label], [pgs*="label["])):where(label):has(input[type=checkbox]:required):not(:where(fieldset)) :where([pgs~=form-requiredHere])::after, :where([pgs~=label], [pgs*="label["]):where(input:is([type=checkbox], [type=radio]) + :where([pgs~=label], [pgs*="label["])):where(label):has(input[type=checkbox]:required):not(:where(fieldset)):not(:has(:where([pgs~=form-requiredHere])))::after, :where([pgs~=label], [pgs*="label["]):where(input:is([type=checkbox], [type=radio]) + :where([pgs~=label], [pgs*="label["])):where(label):has(input[type=radio]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after, :where([pgs~=label], [pgs*="label["]):where(input:is([type=checkbox], [type=radio]) + :where([pgs~=label], [pgs*="label["])):where(label):has(input[type=radio]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after,
-:where([pgs~=label], [pgs*="label["]):where(input:is([type=checkbox], [type=radio]) + :where([pgs~=label], [pgs*="label["])) :where(label):has(input[type=checkbox]:required):not(:where(fieldset)) :where([pgs~=form-requiredHere])::after,
-:where([pgs~=label], [pgs*="label["]):where(input:is([type=checkbox], [type=radio]) + :where([pgs~=label], [pgs*="label["])) :where(label):has(input[type=checkbox]:required):not(:where(fieldset)):not(:has(:where([pgs~=form-requiredHere])))::after,
-:where([pgs~=label], [pgs*="label["]):where(input:is([type=checkbox], [type=radio]) + :where([pgs~=label], [pgs*="label["])) :where(label):has(input[type=radio]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after,
-:where([pgs~=label], [pgs*="label["]):where(input:is([type=checkbox], [type=radio]) + :where([pgs~=label], [pgs*="label["])) :where(label):has(input[type=radio]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after, :where([pgs~=label], [pgs*="label["]):where(:has(> input:is([type=checkbox], [type=radio]))):where(label):has(input[type=checkbox]:required):not(:where(fieldset)) :where([pgs~=form-requiredHere])::after, :where([pgs~=label], [pgs*="label["]):where(:has(> input:is([type=checkbox], [type=radio]))):where(label):has(input[type=checkbox]:required):not(:where(fieldset)):not(:has(:where([pgs~=form-requiredHere])))::after, :where([pgs~=label], [pgs*="label["]):where(:has(> input:is([type=checkbox], [type=radio]))):where(label):has(input[type=radio]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after, :where([pgs~=label], [pgs*="label["]):where(:has(> input:is([type=checkbox], [type=radio]))):where(label):has(input[type=radio]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after,
-:where([pgs~=label], [pgs*="label["]):where(:has(> input:is([type=checkbox], [type=radio]))) :where(label):has(input[type=checkbox]:required):not(:where(fieldset)) :where([pgs~=form-requiredHere])::after,
-:where([pgs~=label], [pgs*="label["]):where(:has(> input:is([type=checkbox], [type=radio]))) :where(label):has(input[type=checkbox]:required):not(:where(fieldset)):not(:has(:where([pgs~=form-requiredHere])))::after,
-:where([pgs~=label], [pgs*="label["]):where(:has(> input:is([type=checkbox], [type=radio]))) :where(label):has(input[type=radio]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after,
-:where([pgs~=label], [pgs*="label["]):where(:has(> input:is([type=checkbox], [type=radio]))) :where(label):has(input[type=radio]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after {
-  content: " *";
-  color: var(--color-error);
-  line-height: 1;
-  font-weight: var(--font-weight-bold);
 }
 
 [pgs~=legend] {
@@ -3726,6 +3688,50 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
     --radio-color: var(--radio-color-hover);
   }
 }
+[pgs~=radio]:where(label),
+[pgs~=radio] :where(label) {
+  -webkit-user-select: none;
+  user-select: none;
+  color: inherit;
+  color: #b6c1ff;
+  position: relative;
+  text-align: left;
+  line-height: var(--checkbox-size, var(--radio-size));
+  width: fit-content;
+  cursor: pointer;
+}
+
+[pgs~=radio]:where(label) :where(a),
+[pgs~=radio] :where(label) :where(a) {
+  text-decoration: underline;
+  color: var(--color-link);
+}
+
+[pgs~=radio]:where(label):has(input:disabled), :where(input:disabled) + [pgs~=radio]:where(label),
+[pgs~=radio] :where(label):has(input:disabled),
+:where(input:disabled) + [pgs~=radio] :where(label) {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+[pgs~=radio]:where(label):has(input[type=checkbox]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after, [pgs~=radio]:where(label):has(input[type=checkbox]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after, [pgs~=radio]:where(label):has(input[type=radio]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after, [pgs~=radio]:where(label):has(input[type=radio]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after,
+[pgs~=radio] :where(label):has(input[type=checkbox]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after,
+[pgs~=radio] :where(label):has(input[type=checkbox]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after,
+[pgs~=radio] :where(label):has(input[type=radio]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after,
+[pgs~=radio] :where(label):has(input[type=radio]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
+  display: inline-block;
+  padding-left: 3px;
+}
+
+[pgs~=radio] :where(input:disabled) + :where(label) {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
 [pgs~=checkbox] {
   --checkbox-size: 2.0rem;
   --checkbox-isChecked: 0;
@@ -3839,6 +3845,50 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
     --checkbox-color: var(--checkbox-color-hover);
   }
 }
+[pgs~=checkbox]:where(label),
+[pgs~=checkbox] :where(label) {
+  -webkit-user-select: none;
+  user-select: none;
+  color: inherit;
+  color: #b6c1ff;
+  position: relative;
+  text-align: left;
+  line-height: var(--checkbox-size, var(--radio-size));
+  width: fit-content;
+  cursor: pointer;
+}
+
+[pgs~=checkbox]:where(label) :where(a),
+[pgs~=checkbox] :where(label) :where(a) {
+  text-decoration: underline;
+  color: var(--color-link);
+}
+
+[pgs~=checkbox]:where(label):has(input:disabled), :where(input:disabled) + [pgs~=checkbox]:where(label),
+[pgs~=checkbox] :where(label):has(input:disabled),
+:where(input:disabled) + [pgs~=checkbox] :where(label) {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+[pgs~=checkbox]:where(label):has(input[type=checkbox]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after, [pgs~=checkbox]:where(label):has(input[type=checkbox]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after, [pgs~=checkbox]:where(label):has(input[type=radio]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after, [pgs~=checkbox]:where(label):has(input[type=radio]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after,
+[pgs~=checkbox] :where(label):has(input[type=checkbox]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after,
+[pgs~=checkbox] :where(label):has(input[type=checkbox]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after,
+[pgs~=checkbox] :where(label):has(input[type=radio]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after,
+[pgs~=checkbox] :where(label):has(input[type=radio]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
+  display: inline-block;
+  padding-left: 3px;
+}
+
+[pgs~=checkbox] :where(input:disabled) + :where(label) {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
 [pgs~=fieldset] {
   border: unset;
   display: flex;
@@ -5060,7 +5110,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   -webkit-user-select: none;
   user-select: none;
   color: inherit;
-  color: red;
+  color: #b6c1ff;
   position: relative;
   text-align: left;
   line-height: var(--checkbox-size, var(--radio-size));
@@ -5074,22 +5124,29 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   color: var(--color-link);
 }
 
-[pgs~=checkboxBackground]:where(label):has(input:disabled), :where(input:is([type=checkbox], [type=radio]):disabled) + [pgs~=checkboxBackground]:where(label),
+[pgs~=checkboxBackground]:where(label):has(input:disabled), :where(input:disabled) + [pgs~=checkboxBackground]:where(label),
 [pgs~=checkboxBackground] :where(label):has(input:disabled),
-:where(input:is([type=checkbox], [type=radio]):disabled) + [pgs~=checkboxBackground] :where(label) {
+:where(input:disabled) + [pgs~=checkboxBackground] :where(label) {
   opacity: 0.5;
   cursor: not-allowed !important;
 }
 
-[pgs~=checkboxBackground]:where(label):has(input[type=checkbox]:required):not(:where(fieldset)) :where([pgs~=form-requiredHere])::after, [pgs~=checkboxBackground]:where(label):has(input[type=checkbox]:required):not(:where(fieldset)):not(:has(:where([pgs~=form-requiredHere])))::after, [pgs~=checkboxBackground]:where(label):has(input[type=radio]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after, [pgs~=checkboxBackground]:where(label):has(input[type=radio]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after,
-[pgs~=checkboxBackground] :where(label):has(input[type=checkbox]:required):not(:where(fieldset)) :where([pgs~=form-requiredHere])::after,
-[pgs~=checkboxBackground] :where(label):has(input[type=checkbox]:required):not(:where(fieldset)):not(:has(:where([pgs~=form-requiredHere])))::after,
+[pgs~=checkboxBackground]:where(label):has(input[type=checkbox]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after, [pgs~=checkboxBackground]:where(label):has(input[type=checkbox]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after, [pgs~=checkboxBackground]:where(label):has(input[type=radio]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after, [pgs~=checkboxBackground]:where(label):has(input[type=radio]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after,
+[pgs~=checkboxBackground] :where(label):has(input[type=checkbox]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after,
+[pgs~=checkboxBackground] :where(label):has(input[type=checkbox]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after,
 [pgs~=checkboxBackground] :where(label):has(input[type=radio]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after,
 [pgs~=checkboxBackground] :where(label):has(input[type=radio]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after {
   content: " *";
   color: var(--color-error);
   line-height: 1;
   font-weight: var(--font-weight-bold);
+  display: inline-block;
+  padding-left: 3px;
+}
+
+[pgs~=checkboxBackground] :where(input:disabled) + :where(label) {
+  opacity: 0.5;
+  cursor: not-allowed !important;
 }
 
 [pgs~=checkboxBackground] {
@@ -5148,6 +5205,72 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 [pgs~=toggle]:where(label),
 [pgs~=toggle] :where(label) {
   cursor: pointer;
+}
+
+[pgs~=toggle]:where(label):where(label),
+[pgs~=toggle]:where(label) :where(label),
+[pgs~=toggle] :where(label):where(label),
+[pgs~=toggle] :where(label) :where(label) {
+  -webkit-user-select: none;
+  user-select: none;
+  color: inherit;
+  color: #b6c1ff;
+  position: relative;
+  text-align: left;
+  line-height: var(--checkbox-size, var(--radio-size));
+  width: fit-content;
+  cursor: pointer;
+}
+
+[pgs~=toggle]:where(label):where(label) :where(a),
+[pgs~=toggle]:where(label) :where(label) :where(a),
+[pgs~=toggle] :where(label):where(label) :where(a),
+[pgs~=toggle] :where(label) :where(label) :where(a) {
+  text-decoration: underline;
+  color: var(--color-link);
+}
+
+[pgs~=toggle]:where(label):where(label):has(input:disabled), :where(input:disabled) + [pgs~=toggle]:where(label):where(label),
+[pgs~=toggle]:where(label) :where(label):has(input:disabled),
+:where(input:disabled) + [pgs~=toggle]:where(label) :where(label),
+[pgs~=toggle] :where(label):where(label):has(input:disabled),
+:where(input:disabled) + [pgs~=toggle] :where(label):where(label),
+[pgs~=toggle] :where(label) :where(label):has(input:disabled),
+:where(input:disabled) + [pgs~=toggle] :where(label) :where(label) {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+[pgs~=toggle]:where(label):where(label):has(input[type=checkbox]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after, [pgs~=toggle]:where(label):where(label):has(input[type=checkbox]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after, [pgs~=toggle]:where(label):where(label):has(input[type=radio]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after, [pgs~=toggle]:where(label):where(label):has(input[type=radio]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after,
+[pgs~=toggle]:where(label) :where(label):has(input[type=checkbox]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after,
+[pgs~=toggle]:where(label) :where(label):has(input[type=checkbox]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after,
+[pgs~=toggle]:where(label) :where(label):has(input[type=radio]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after,
+[pgs~=toggle]:where(label) :where(label):has(input[type=radio]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after,
+[pgs~=toggle] :where(label):where(label):has(input[type=checkbox]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after,
+[pgs~=toggle] :where(label):where(label):has(input[type=checkbox]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after,
+[pgs~=toggle] :where(label):where(label):has(input[type=radio]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after,
+[pgs~=toggle] :where(label):where(label):has(input[type=radio]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after,
+[pgs~=toggle] :where(label) :where(label):has(input[type=checkbox]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after,
+[pgs~=toggle] :where(label) :where(label):has(input[type=checkbox]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after,
+[pgs~=toggle] :where(label) :where(label):has(input[type=radio]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after,
+[pgs~=toggle] :where(label) :where(label):has(input[type=radio]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
+  display: inline-block;
+  padding-left: 3px;
+}
+
+[pgs~=toggle]:where(label) :where(input:disabled) + :where(label),
+[pgs~=toggle] :where(label) :where(input:disabled) + :where(label) {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+[pgs~=toggle]:where(label),
+[pgs~=toggle] :where(label) {
+  width: 100%;
 }
 
 [pgs~=toggle] :where(input) {
@@ -5351,91 +5474,49 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=field], [pgs*="field["]) {
-  --field-label-color: var(--color-black);
-  --field-label-opacity: 65%;
-  --field-gap: 0.5rem;
-  --field-background: var(--color-white);
-  --field-border: var(--border-complete);
+  --field-gap: 0.9rem;
   --field-padding: var(--padding-texts);
   --field-borderRadius: var(--border-radius-texts);
-  --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  --field-paddingTop: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+  --field-label-paddingTop: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
   position: relative;
-  border: var(--field-border);
-  background-color: var(--field-background);
   border-radius: var(--field-borderRadius);
-  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
-  padding-bottom: var(--field-padding);
-  padding-inline: var(--field-padding);
 }
 
-:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-input]) {
-  appearance: none;
-  width: 100%;
-  letter-spacing: 0.03em;
-  font-family: var(--font);
-  font-size: var(--font-size-text);
-  line-height: calc(var(--font-size-text) * 1.2);
-  vertical-align: top;
-  color: var(--color-black);
-}
-
-:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-input])::placeholder {
-  color: var(--color-black);
-  opacity: 0%;
-  font-weight: var(--font-weight-text);
-}
-
-:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-input]):hover {
-  border-color: var(--hover-borderColor);
-}
-
-:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-input])[disabled] {
-  opacity: 0.5;
-  cursor: not-allowed !important;
-}
-
-:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-input]) {
-  border: unset;
-  padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
-  margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
-  padding-bottom: var(--field-padding);
-  margin-bottom: calc(var(--field-padding) * -1);
-  background-color: var(--field-background);
-  padding-inline: 0;
-}
-
-:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-input]):focus {
-  outline: unset;
-}
-
-:is([pgs~=field], [pgs*="field["]) :where([pgs~=field-label]) {
-  display: inline-block;
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=label], [pgs*="label["], [pgs~=legend]) {
+  --label-color: var(--color-text);
+  --label-border: unset;
+  --label-paddingBlock: var(--field-padding) .25em;
+  --label-paddingInline: var(--field-padding);
+  --label-background: transparent;
+  opacity: 0.7;
   position: absolute;
   top: 0;
-  text-wrap: nowrap;
-  width: calc(100% - var(--field-padding) * 2);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+  left: 0;
   transition: padding 200ms ease, font-size 200ms ease;
-  font-size: calc(var(--font-size-text) * 0.9);
-  padding-top: var(--field-padding);
-  padding-bottom: 0.25em;
   line-height: 1;
-  background-color: var(--field-background);
   pointer-events: none;
 }
 
-:is([pgs~=field], [pgs*="field["]):has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) :where([pgs~=field-label]) {
-  padding-top: var(--field-label-top);
-  font-size: var(--font-size-text);
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=label], [pgs*="label["], [pgs~=legend]):where(:has(+ [pgs~=input]:not(:focus, :not(:placeholder-shown)))) {
+  padding-top: var(--field-label-paddingTop);
 }
 
-:is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]) :where([pgs~=form-requiredHere])::after, :is([pgs~=field], [pgs*="field["]):has(:where(:required)) :where([pgs~=field-label]):not(:has(:where([pgs~=form-requiredHere])))::after {
-  content: " *";
-  color: var(--color-error);
-  line-height: 1;
-  font-weight: var(--font-weight-bold);
+:is([pgs~=field], [pgs*="field["]) :is([pgs~=checkbox], [pgs~=radio]):has(input:required)::after,
+:is([pgs~=field], [pgs*="field["]) :is([pgs~=checkbox], [pgs~=radio]) :where(label):has(input:required)::after {
+  content: none;
+}
+
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=input], [pgs~=select]) {
+  --input-padding: var(--field-padding);
+  padding-top: var(--field-paddingTop);
+}
+
+:is([pgs~=field], [pgs*="field["]):where([pgs*="'noInput'"]) {
+  padding: var(--field-padding);
+  padding-top: var(--field-paddingTop);
+  border: var(--border-complete);
+  background-color: var(--color-white);
 }
 
 :is([pgs~=menu], [pgs*="menu["]) {

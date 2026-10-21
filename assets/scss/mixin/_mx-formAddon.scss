@@ -64,10 +64,12 @@
     $space: 2px;
     isolation: isolate;
     @include row(nowrap);
-
+    
     &:where(label),
     :where(label) {
         cursor: pointer;
+        @include labelCheckboxAndRadio();
+        width: 100%;
     }
 
     // rail & thumb
@@ -228,66 +230,55 @@
 
 //# FIELD
 @mixin field() {
-    --field-label-color: var(--color-black);
-    --field-label-opacity: 65%;
-    --field-gap: 0.5rem;
-    --field-background: var(--color-white);
-    --field-border: var(--border-complete);
+    --field-gap: 0.9rem;
     --field-padding: var(--padding-texts);
     --field-borderRadius: var(--border-radius-texts);
-    --field-label-top: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+    --field-paddingTop: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+    --field-label-paddingTop: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
     position: relative;
-    border: var(--field-border);
-    background-color: var(--field-background);
     border-radius: var(--field-borderRadius);
-    padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
-    padding-bottom: var(--field-padding);
-    padding-inline: var(--field-padding);
-
-    //## INPUT
-    :where([pgs~="field-input"]) {
-        @include inputBase(0%);
-        border: unset;
-        padding-top: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
-        margin-top: calc((var(--field-padding) + var(--font-size-text) + var(--field-gap)) * -1);
-        padding-bottom: var(--field-padding);
-        margin-bottom: calc(var(--field-padding) * -1);
-        background-color: var(--field-background);
-        padding-inline: 0;
-
-        &:focus { outline: unset; }
-    }
 
     //## LABEL
-    :where([pgs~="field-label"]) {
-        display: inline-block;
+    :where([pgs~="label"], [pgs*="label\5B"], [pgs~="legend"]) {
+        --label-color: var(--color-text);
+        --label-border: unset;
+        --label-paddingBlock: var(--field-padding) .25em;
+        --label-paddingInline: var(--field-padding);
+        --label-background: transparent;
+        opacity: .7;
         position: absolute;
         top: 0;
-        text-wrap: nowrap;
-        width: calc(100% - var(--field-padding) * 2);
-        overflow: hidden;
-        text-overflow: ellipsis;
-        color: color-mix(in srgb, var(--field-label-color) 100%, transparent var(--field-label-opacity));
+        left: 0;
         transition: padding 200ms ease, font-size 200ms ease;
-        font-size: calc(var(--font-size-text) * .9);
-        padding-top: var(--field-padding);
-        // the line is one em tall and the label cuts what overflows: without a bottom the descenders (g, p, y) are cut
-        padding-bottom: .25em;
         line-height: 1;
-        background-color: var(--field-background);
         pointer-events: none;
+
+        //## NOT focus
+        &:where(:has(+ [pgs~="input"]:not(:focus, :not(:placeholder-shown)))) { padding-top: var(--field-label-paddingTop); }
     }
 
-    //## NOT focus or text
-    &:has(:where(input, textarea):not(:focus, :not(:placeholder-shown))) {
-        :where([pgs~="field-label"]) {
-            padding-top: var(--field-label-top);
-            font-size: var(--font-size-text);
+    //## checkbox radio
+    // a checkbox or a radio in a field has no asterisk of its own: the label of the field has it
+    :is([pgs~="checkbox"], [pgs~="radio"]) {
+
+        //### required
+        &:has(input:required),
+        :where(label):has(input:required) {
+            &::after { content: none; }
         }
     }
 
-    //## required
-    &:has(:where(:required)) {
-        :where([pgs~="field-label"]) { @include required(); }
+    //## INPUT SELECT
+    :where([pgs~="input"], [pgs~="select"]) {
+        --input-padding: var(--field-padding);
+        padding-top: var(--field-paddingTop);
+    }
+
+    //+ no input
+    &:where([pgs*="'noInput'"]) {
+        padding: var(--field-padding);
+        padding-top: var(--field-paddingTop);
+        border: var(--border-complete);
+        background-color: var(--color-white);
     }
 }

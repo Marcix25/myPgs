@@ -433,13 +433,10 @@
         ]
     },
     "field": {
-        "pgs": [
-            "field-input",
-            "field-label"
-        ],
+        "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "labelTab"
+            "noInput"
         ],
         "pgs-data": []
     },
@@ -877,7 +874,9 @@
     "label": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "labelTab"
+        ],
         "pgs-data": []
     },
     "legend": {
