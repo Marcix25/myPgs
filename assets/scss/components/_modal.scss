@@ -229,17 +229,17 @@ html:has(dialog[open]) {
     //+ SIZE
     //### SMALL
     &:where([pgs*="'dialogSmall'"]) {
-        :where([pgs~="modal-dialog-content"]) { --section-width: min(calc(var(--page-width)/3), 100%); }
+        :where([pgs~="modal-dialog-content"]) { max-width: min(calc(var(--page-width)/3), 100%); }
     }
 
     //### MEDIUM
     &:where([pgs*="'dialogMedium'"]) {
-        :where([pgs~="modal-dialog-content"]) { --section-width: min(calc(var(--page-width)/2), 100%); }
+        :where([pgs~="modal-dialog-content"]) { max-width: min(calc(var(--page-width)/2), 100%); }
     }
 
     //### Full
     &:where([pgs*="'dialogFull'"]) {
-        :where([pgs~="modal-dialog-content"]) { --section-width: 100%; }
+        :where([pgs~="modal-dialog-content"]) { max-width: 100%; }
     }
 
     //+ POSITION

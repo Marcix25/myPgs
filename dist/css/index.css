@@ -506,10 +506,9 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=section], [pgs*="section["]):not(:is([pgs*="'sctNoPadding'"], [pgs*="'sctMax'"], [pgs*="'sctFull'"], [pgs*="'sctSpecificity'"], [pgs*="'sctEdge'"])) {
-  --section-width: calc(var(--page-width) + (var(--page-padding) * 2));
   container-type: inline-size;
   margin-inline: auto;
-  max-width: var(--section-width);
+  max-width: calc(var(--page-width) + var(--page-padding) * 2);
   padding-inline: var(--page-padding);
   position: relative;
   width: 100%;
@@ -520,7 +519,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=section], [pgs*="section["])[pgs*="'sctMax'"] {
-  --section-width: calc(var(--page-width) + (var(--page-padding) * 2));
   position: relative;
   width: 100%;
   padding-inline: var(--page-padding);
@@ -530,7 +528,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 :is([pgs~=section], [pgs*="section["])[pgs*="'sctMax'"] > * {
   container-type: inline-size;
   width: 100%;
-  max-width: calc(var(--section-width) - var(--page-padding) * 2);
+  max-width: var(--page-width);
   margin-inline: auto;
 }
 
@@ -546,9 +544,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=section], [pgs*="section["])[pgs*="'sctNoPadding'"] {
-  --section-width: var(--page-width);
   margin-inline: auto;
-  max-width: var(--section-width);
+  max-width: var(--page-width);
   width: 100%;
   position: relative;
   display: flex;
@@ -595,14 +592,13 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=section], [pgs*="section["])[pgs*="'sctSpecificity'"] {
-  --section-width: calc(var(--page-width) + (var(--page-padding) * 2));
   width: 100%;
 }
 
 :is([pgs~=section], [pgs*="section["])[pgs*="'sctSpecificity'"] :where([pgs~=section-specificity]) {
   container-type: inline-size;
   margin-inline: auto;
-  max-width: var(--section-width);
+  max-width: calc(var(--page-width) + var(--page-padding) * 2);
   padding-inline: var(--page-padding);
   position: relative;
   width: 100%;
@@ -5768,9 +5764,8 @@ html:has(dialog[open]) {
 }
 
 :where(dialog[pgs~=modal-dialog]) :where([pgs~=modal-dialog-content]) {
-  --section-width: var(--page-width);
   margin-inline: auto;
-  max-width: var(--section-width);
+  max-width: var(--page-width);
   width: 100%;
   position: relative;
   display: flex;
@@ -5903,15 +5898,15 @@ html:has(dialog[open]) {
   }
 }
 :where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogSmall'"]) :where([pgs~=modal-dialog-content]) {
-  --section-width: min(calc(var(--page-width)/3), 100%);
+  max-width: min(var(--page-width) / 3, 100%);
 }
 
 :where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogMedium'"]) :where([pgs~=modal-dialog-content]) {
-  --section-width: min(calc(var(--page-width)/2), 100%);
+  max-width: min(var(--page-width) / 2, 100%);
 }
 
 :where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogFull'"]) :where([pgs~=modal-dialog-content]) {
-  --section-width: 100%;
+  max-width: 100%;
 }
 
 :where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogCenter'"]) {
