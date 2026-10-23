@@ -94,6 +94,7 @@
         min-width: 0;
         display: grid;
         grid-template-columns: 1fr;
+        container-type: inline-size;
 
         >* { width: 100%; }
         &:has(+ :where([pgs~="pageShell-content"])) { grid-area: asideLeft; }

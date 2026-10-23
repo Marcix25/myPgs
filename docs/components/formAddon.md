@@ -2,19 +2,31 @@
 
 # Form Add-ons
 
-Additional form controls for selectable cards, switches, and compact chip groups.
+The field box that wraps a label and its control, and additional form controls for selectable cards, switches, and compact chip groups.
 
 ## PGS
 
+- `field`: a modifier for a text-like input, a textarea, a select or a group, with its label: it adds no look of its own to the controls, it reshapes the tokens inside it. It draws the box (border, background and radius) and the controls lose theirs. The label, written first, floats over the control without taking room; the input and the select (and a textarea or a file that also carry the token input) have no border, no background and the padding of --field-padding, and leave room above for the label. The label is in the middle of the field while the input is empty and out of focus, and small at the top of it with focus or once the input holds text: it needs the input right after it and a placeholder attribute, a single space is enough, it is what tells an empty input from one that holds text. A date, time, datetime-local, month or week input always shows text of its own, so its label always stays at the top, and so does the label of a select. A field around a control that is not a text input (a checkbox, a group of radios or checkboxes with its legend as label, a range, a color input, a toggle) takes the option noInput. The look reads --field-background, --field-border, --field-padding, --field-borderRadius and --field-gap (the space between the label and the text).
 - `checkboxBackground`: presents a checkbox, or a radio, as a selectable container with a border. It goes with checkbox or radio on the same label, which draw the box and the text. It takes the hover colors while the pointer is over it, and the two-state colors (--twoState-*) once it is checked; the box inside keeps its own color on hover. The look reads --checkboxBackground-background, --checkboxBackground-color and --checkboxBackground-borderColor, each with a -hover and a -checked one, and --checkboxBackground-padding and --checkboxBackground-borderRadius.
 - `toggle`: presents a checkbox as a switch with a rail and a movable thumb. The rail has --toggle-rail-background and --toggle-rail-borderColor and the thumb --toggle-thumb-background, which is also the color of its border, each with a -hover and a -checked one, read from the clickable, hover and two-state tokens; the hover colors apply while the pointer is over the switch, a checked toggle keeps its look under the pointer and a disabled one is dimmed.
 - `chip`: presents an individual checkbox or radio option as a compact selectable button. It shapes the control and leaves the button look to `button`, so write both on the label; inside a `chips` group the token comes from the group and only `button` is written.
 - `chips`: groups chip controls into a compact segmented selector.
 
+## PGS Options (component brackets)
+
+- `noInput`: inside field's own bracket, `field['noInput']`, for a field whose control is not a text input (a checkbox, a radio group, a range, a color input, a toggle, chips): no input carries the room for the label, so the field keeps it as its own padding, all around and with more room above.
+
 ## Related elements
 
 ### PGS
 
+- `label`: the label of the field, which floats over the control; see Form.
+- `input`: the text-like control of the field; see Form.
+- `textarea`: the textarea of the field, which also takes the token input; see Form.
+- `select`: the select of the field; see Form Controls.
+- `file`: the file input of the field; see Form Controls.
+- `range`: the range of a field with noInput; see Form Controls.
+- `inputColor`: the color input of a field with noInput; see Form Controls.
 - `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `form`: identifies the form that holds the add-on examples, laid out in a column; it styles none of the controls.
 - `icon`: draws the glyphs this example shows; see Icon for the whole set.
@@ -35,8 +47,112 @@ Additional form controls for selectable cards, switches, and compact chip groups
 
 ## Output
 
-HTML examples of the checkboxBackground, toggle, chip, and chips form controls using native checkbox and radio inputs.
-## Examples
+HTML examples of the field, checkboxBackground, toggle, chip, and chips form controls using native checkbox and radio inputs.
+## Field
+
+### Field
+
+The label floats over the input: it needs the input right after it and a placeholder attribute, a single space is enough.
+
+```html
+<div pgs="field">
+    <label pgs="label" for="fieldName">Name</label>
+    <input pgs="input" id="fieldName" type="text" name="fieldName" placeholder=" " required>
+</div>
+<div pgs="field">
+    <label pgs="label" for="fieldEmail">Email</label>
+    <input pgs="input" id="fieldEmail" type="email" name="fieldEmail" placeholder=" " required>
+</div>
+```
+
+### Field, textarea
+
+A textarea in a field also takes the token input, so that the label floats over it.
+
+```html
+<div pgs="field">
+    <label pgs="label" for="fieldMessage">Message</label>
+    <textarea pgs="textarea input" id="fieldMessage" name="fieldMessage" rows="4" placeholder=" " required></textarea>
+</div>
+```
+
+### Field, date
+
+A date, time, datetime-local, month or week input always shows text of its own, so its label always stays at the top.
+
+```html
+<div pgs="field">
+    <label pgs="label" for="fieldDate">Date</label>
+    <input pgs="input" id="fieldDate" type="date" name="fieldDate" placeholder=" " required>
+</div>
+```
+
+### Field, select
+
+The select keeps its own token; its first option takes the part of the placeholder.
+
+```html
+<div pgs="field">
+    <label pgs="label" for="fieldCountry">Country</label>
+    <select pgs="select" id="fieldCountry" name="fieldCountry" required>
+        <option value="" selected disabled>Choose a country</option>
+        <option value="it">Italy</option>
+        <option value="fr">France</option>
+    </select>
+</div>
+```
+
+### Field, file
+
+A file input also takes the token input.
+
+```html
+<div pgs="field">
+    <label pgs="label" for="fieldFile">File</label>
+    <input pgs="file input" id="fieldFile" type="file" name="fieldFile" required>
+</div>
+```
+
+### Field, range and color
+
+A field around a control that is not a text input takes the option noInput.
+
+```html
+<div pgs="field['noInput']">
+    <label pgs="label" for="fieldRange">Range</label>
+    <input pgs="range" id="fieldRange" type="range" name="fieldRange" min="0" max="100" value="40">
+</div>
+<div pgs="field['noInput']">
+    <label pgs="label" for="fieldColor">Color</label>
+    <input pgs="inputColor" id="fieldColor" type="color" name="fieldColor" value="#3aa561">
+</div>
+```
+
+### Field, radio group
+
+A fieldset with noInput: the legend is the label of the field.
+
+```html
+<fieldset pgs="fieldset field['noInput'] radio">
+    <legend pgs="legend">A radio group</legend>
+    <label pgs="radio"><input type="radio" name="fieldRadio" value="email" required> <span>Email</span></label>
+    <label pgs="radio"><input type="radio" name="fieldRadio" value="phone" required> <span>Phone</span></label>
+</fieldset>
+```
+
+### Field, checkbox group
+
+The same for a group of checkboxes.
+
+```html
+<fieldset pgs="fieldset field['noInput'] checkbox">
+    <legend pgs="legend">A checkbox group</legend>
+    <label pgs="checkbox"><input type="checkbox" name="fieldCheckbox" value="news" required> <span>News</span></label>
+    <label pgs="checkbox"><input type="checkbox" name="fieldCheckbox" value="offers" required> <span>Offers</span></label>
+</fieldset>
+```
+
+## Add-ons
 
 ### Checkbox with background
 

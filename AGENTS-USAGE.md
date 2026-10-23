@@ -86,7 +86,7 @@ Import only the mixins when the project does not need the library stylesheet sou
 ## 5. SCSS Usage
 
 - Icon size comes from `--icon-size`, which the components set per context and you can override. Color follows the text color, or `--icon-color` when you set it.
-- Reuse existing properties such as `--color-primary`, `--color-box`, `--color-text`, `--padding`, `--page-padding`, `--gap-texts`, `--gap-elements`, `--gap-sections`, `--border-radius-elements`, `--border-radius-texts`, `--border-width`, `--border-color`, `--border-complete`, `--outline-width`, `--outline-color`, `--box-shadow`, and `--focus-visible`.
+- Reuse existing properties such as `--color-primary`, `--color-box`, `--color-text`, `--padding`, `--page-padding`, `--gap-texts`, `--gap-elements`, `--gap-sections`, `--borderRadius-elements`, `--borderRadius-texts`, `--border-width`, `--border-color`, `--border-complete`, `--outline-width`, `--outline-color`, `--box-shadow`, and `--focus-visible`.
 - Use existing layout and component mixins instead of rewriting them.
 - Compose custom buttons with `buttonBase` plus the variant mixins you need (`buttonIconOnly`, `buttonMini`, `buttonVertical`, `buttonTransparent`, `buttonText`, ...; see `assets/scss/mixin/_mx-button.scss` for the list). Variant mixins do not include the base styles. `button`, `box` and `card` (a link) carry a plain CSS hover of their own; there is no shared hover token to write.
 - Configure dropdown placement with `pgs-data="dropdownPosition[side align]"`, for example `dropdownPosition[top left]`, `dropdownPosition[bottom right]`, or `dropdownPosition[left center]`.
@@ -99,7 +99,7 @@ Recommended:
 #products .products-card {
     --card-background: var(--color-box);
     --button-background: var(--color-primary);
-    border-radius: var(--border-radius-elements);
+    border-radius: var(--borderRadius-elements);
 }
 ```
 

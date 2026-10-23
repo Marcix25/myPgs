@@ -914,7 +914,11 @@
         "pgs-data": []
     },
     "main": {
-        "pgs": [],
+        "pgs": [
+            "main-removeGap",
+            "main-removeGapBottom",
+            "main-removeGapTop"
+        ],
         "pgs-generated": [],
         "pgs-options": [],
         "pgs-data": []
@@ -1365,9 +1369,6 @@
             "sctFull",
             "sctMax",
             "sctNoPadding",
-            "sctRemoveGap",
-            "sctRemoveGapBottom",
-            "sctRemoveGapTop",
             "sctSpecificity"
         ],
         "pgs-data": []

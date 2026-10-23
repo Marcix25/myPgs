@@ -478,7 +478,7 @@ Border and outline are now separate: `br*` colors become `bd*` flags in `borderC
 | `--font-titoli` | `--font-heading` |
 
 The spacing rhythm now comes off a single root value, `--SIZE`. `--padding`, `--padding-texts`,
-`--page-padding`, `--border-radius-elements`, `--border-radius-texts`, `--gap-texts` and `--gap-elements` are
+`--page-padding`, `--borderRadius-elements`, `--borderRadius-texts`, `--gap-texts` and `--gap-elements` are
 all derived from it, so retheming the whole scale is one number instead of seven. The three renames
 are a consequence: `-2` said "divided by two" rather than what it is, and `--padding-page` was the
 only page token not on the `--page-*` prefix that `--page-width`, `--page-top` and `--page-edge`
@@ -802,7 +802,7 @@ makes it one way. The renames come first, then what behaves differently under a 
 | `--button-*-hover`, `--button-*-current`, `--button-*-twoState` (background, color, border color, shadow) | declared on every button at rest, from the global tokens, so a theme can set any of them on one element or a container. The hover rule only applies them |
 | `--checkboxBackground-background-checked` | the background of a checked `checkboxBackground` | one set of variables like a button's: `--checkboxBackground-background`, `--checkboxBackground-color` and `--checkboxBackground-borderColor`, each with a `-hover` and a `-checked` one, read from the clickable, hover and two-state tokens. It also has a border now (`--border-complete`), and `--checkboxBackground-padding` and `--checkboxBackground-borderRadius` stay |
 | `--button-padding`, `--button-padding-left`, `--button-padding-right`, `--button-padding-left-icon`, `--buttonHeader-border-width` | gone. A button reads `--button-paddingBlock` and `--button-paddingInline`, and a button with an icon takes the shorter `--button-paddingInline-short` on the side of the icon (the left one, the right one with `btnReverse`). To give one button its own padding write `padding: …` on it, or set the two properties; `--button-padding: …` does nothing now, and `var(--button-padding)` is invalid. A header or navSmart button sets `--button-borderWidth: 0px` itself |
-| `--border-radius`, `--border-radius-input`, `--border-radius-external` | the standard radius, the smaller one of form controls and texts, the wider one of outer containers (`calc(var(--border-radius) + SIZE)`) | `--border-radius-elements`, `--border-radius-texts`, `--border-radius-groups` (its own size, no longer worked out from the first). The `borderRadius` options follow: `radInput` → `radTexts`, `radExternal` → `radGroups`, and `radElements` is new (the standard radius, what `borderRadius` gives on its own). Search the stylesheets and the `var(...)` of a theme |
+| `--border-radius`, `--border-radius-input`, `--border-radius-external` | the standard radius, the smaller one of form controls and texts, the wider one of outer containers (`calc(var(--border-radius) + SIZE)`) | `--borderRadius-elements`, `--borderRadius-texts`, `--borderRadius-groups` (its own size, no longer worked out from the first). The `borderRadius` options follow: `radInput` → `radTexts`, `radExternal` → `radGroups`, and `radElements` is new (the standard radius, what `borderRadius` gives on its own). Search the stylesheets and the `var(...)` of a theme |
 | `--border-width`, `--outline-width` | `1px` | `0.1rem`, so they follow the root font size |
 | hover on a current or two-state button | the hover rule is heavier than the `btnCurrent` and `btnTwoState` ones, so a current button takes the hover look while the pointer is on it (it used to keep the current one); the `btnText` bottom edge turns secondary under the pointer too |
 | the label of a checkbox or a radio (`label`, a `label` inside a form, the labels inside a `checkbox` or `radio` group, `checkboxBackground`) | a flex row of the box and the text, with the space between them a character of its own (`margin-right` of the box, `--checkbox-paddingInline` and `--radio-paddingInline` on the label) | a flex row spaced by `gap`: `--checkbox-gap` and `--radio-gap`, half the text gap by default. Write the text of the label in a `<span>`: the text and an `<a>` or a `<strong>` written bare inside a flex row are separate items, and the spaces around them are lost ("the**terms**(…)") |
@@ -910,8 +910,8 @@ Same name, different behavior:
   new `gridChild` inside a `grid['column-N']`, where it replaces a hand-written
   `grid-column: span N`. `--flexChild-col-*` / `--gridChild-col-*` retune the spans. `grid['gridDense']` lets later items fill the holes a wide span leaves.
 - **More utilities.** `textAlign['taCenter']` and the rest of the `ta*` set, `rotate` (180deg bare,
-  `rot0`/`rot90`/`rot270` in the bracket), `container['cntNone']`, and `section['sctRemoveGap']`/
-  `sctRemoveGapTop`/`sctRemoveGapBottom` to drop a section's outer margin.
+  `rot0`/`rot90`/`rot270` in the bracket), `container['cntNone']`, and `main-removeGap`/
+  `main-removeGapTop`/`main-removeGapBottom` to pull a child of main into the gap main leaves around it.
 - **`modal['dialogAnimationZoom']`.** The dialog panel grows out of the `modal-button` that opened it and
   shrinks back into it on close, PhotoSwipe-style, with the backdrop fading alongside.
   `--modal-animation-timing` (333ms) and `--modal-animation-easing` tune it; reduced motion skips it.

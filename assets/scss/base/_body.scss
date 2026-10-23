@@ -28,15 +28,8 @@
         background-color: var(--color-background);
         position: relative;
 
-        section {
-            container-type: inline-size;
-            width: 100%;
-        }
-
-        aside {
-            container-type: inline-size;
-            width: 100%;
-        }
+        section { width: 100%; }
+        aside { width: 100%; }
 
         ul {
             list-style: none;

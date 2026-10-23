@@ -87,7 +87,7 @@ Border, outline and radius utilities, split out from the general-purpose set sin
 - `otlWarning`: inside outline's own bracket, recolors it with the warning color.
 - `otlSuccess`: inside outline's own bracket, recolors it with the success color.
 - `otlGray`: inside outline's own bracket, recolors it gray.
-- `radElements`: inside borderRadius's own bracket, uses the standard radius of an element (--border-radius-elements), the one borderRadius gives on its own.
+- `radElements`: inside borderRadius's own bracket, uses the standard radius of an element (--borderRadius-elements), the one borderRadius gives on its own.
 - `radTexts`: inside borderRadius's own bracket, uses the smaller radius used by form controls instead of the standard one.
 - `radGroups`: inside borderRadius's own bracket, uses the wider radius used by outer containers instead of the standard one.
 - `radUnset`: inside borderRadius's own bracket, squares the corners off an element that has a radius of its own.
@@ -116,9 +116,6 @@ Border, outline and radius utilities, split out from the general-purpose set sin
 
 - `--border-color`
 - `--border-complete`
-- `--border-radius-elements`
-- `--border-radius-groups`
-- `--border-radius-texts`
 - `--border-style`
 - `--border-width`
 
