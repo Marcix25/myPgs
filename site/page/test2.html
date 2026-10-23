@@ -1,61 +1,38 @@
 <!-- = MAIN -->
-<main pgs="main" style="--main-paddingTop: calc(var(--_header-height) + var(--page-padding));     gap: 0;">
-    <section pgs="section flex['column' 'gapElements']" id="fixedTest">
-        <h2>Fixed inside main</h2>
-        <p>A dropdown: its content is <code>position: fixed</code>. It must open right under its button, wherever the page is scrolled.</p>
-        <span pgs="dropdown">
-            <button id="ddBtn" pgs="dropdown-button button['btnReverse']" type="button">
-                Open the dropdown
-                <i pgs="icon['icon-chevronDown']" aria-hidden="true"></i>
-            </button>
-
-            <div pgs="dropdown-content">
-                The content of the dropdown
-            </div>
-        </span>
-    </section>
+<main pgs="main" style="--main-paddingTop: calc(var(--_header-height) + var(--page-padding));">
     <section pgs="section">
         <h1>sctEdge</h1>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio sunt earum nesciunt modi quas molestias eos tempore unde est ipsam omnis, porro facilis quasi quidem obcaecati amet optio? Ullam, quisquam?</p>
     </section>
-    <section pgs="section['sctEdgeLeft']">
-        <div pgs="section-edge">
-            <h2>sctEdgeLeft</h2>
+    <section pgs="section['sctEdge']">
+        <div pgs="section-edgeLeft">
+            <h2>sctEdge, section-edgeLeft</h2>
             <p>Measured with --page-edge: flush against the left edge of the screen on narrow screens.</p>
             <p>Text beside an image: the text starts where the centered page column starts and the image runs on past the column.</p>
         </div>
         <img src="../assets/img/hero-leaves.webp" alt="Placeholder image">
     </section>
-    <section pgs="section['sctEdgeRight']">
+    <section pgs="section['sctEdge']">
         <img src="../assets/img/hero-leaves.webp" alt="Placeholder image">
-        <div pgs="section-edge">
-            <h2>sctEdgeRight</h2>
+        <div pgs="section-edgeRight">
+            <h2>sctEdge, section-edgeRight</h2>
             <p>The mirror, flush against the right edge of the screen.</p>
             <p>The text ends where the page column ends and the image runs on past it to the left.</p>
         </div>
     </section>
-    <section pgs="section['sctEdgeLeft']">
-        <div pgs="section-edge">
-            <h2>sctEdgeLeft</h2>
-            <p>Two text blocks and an image in the same row.</p>
+    <section pgs="section['sctEdge']">
+        <div pgs="section-edgeLeft">
+            <h2>sctEdge, section-edgeRight</h2>
+            <p>The mirror, flush against the right edge of the screen.</p>
+            <p>The text ends where the page column ends and the image runs on past it to the left.</p>
         </div>
-        <div pgs="section-edge">
-            <h2>sctEdgeLeft</h2>
-            <p>Each text block is held to half the page.</p>
-        </div>
-        <img src="../assets/img/hero-leaves.webp" alt="Placeholder image">
-    </section>
-    <section pgs="section['sctEdgeRight']">
-        <img src="../assets/img/hero-leaves.webp" alt="Placeholder image">
-        <div pgs="section-edge">
-            <h2>sctEdgeRight</h2>
-            <p>Two text blocks and an image in the same row.</p>
-        </div>
-        <div pgs="section-edge">
-            <h2>sctEdgeRight</h2>
-            <p>The block next to the edge ends where the page column ends.</p>
+        <div pgs="section-edgeRight">
+            <h2>sctEdge, section-edgeRight</h2>
+            <p>The mirror, flush against the right edge of the screen.</p>
+            <p>The text ends where the page column ends and the image runs on past it to the left.</p>
         </div>
     </section>
+    
     <section pgs="section['sctFull']" id="slidesTest">
         <div pgs="slides" id="slidesFull">
             <ul pgs="slides-container">

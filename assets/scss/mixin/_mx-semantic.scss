@@ -67,30 +67,33 @@
     }
 }
 
-// plug and play, as sectionSpecificity-child: the section is the row, $text is the token of the text
-// block, held to half the page and to the page padding, and every other child (an image, a video) takes
-// what the text leaves, never narrower than half of the page. $side is the edge the row bleeds off: the
-// row is lined up with the outer edge of a centered section on that side, through --page-edge, and
-// runs on past it on the other. Left and right differ only by that padding. The two divisions of the page
-// width are --section-edge-textDivisor (the widest the text block gets) and --section-edge-mediaDivisor
-// (the narrowest the other children get), 2 by default and never below 2
-@mixin sectionEdge($text, $side: left) {
+// plug and play, as sectionSpecificity-child: the section is the row and a full-width element bleeds off the
+// edge of the screen. The text goes in a section-edgeLeft, which sits at the left of the row and starts where
+// the text of a centered section starts, or in a section-edgeRight, the mirror; both are held to half the page
+// and to the page padding. Every other child (an image, a video) takes what the text leaves, never narrower
+// than half of the page. The two divisions of the page width are --section-edge-textDivisor (the widest the
+// text block gets) and --section-edge-mediaDivisor (the narrowest the other children get), 2 by default
+// and never below 2. The text block is the first child of the row on the left and the last one on the right,
+// which is where --page-edge, the distance to the outer edge of a centered section box, is taken
+@mixin sectionEdge() {
     --section-edge-textDivisor: 2;
     --section-edge-mediaDivisor: 2;
     --section-edge-gap: var(--page-padding);
     position: relative;
     width: 100%;
     container-type: inline-size;
-    padding-#{$side}: var(--page-edge);
     @include row(wrap, var(--section-edge-gap));
 
-    #{$text} {
+    :where([pgs~="section-edgeLeft"], [pgs~="section-edgeRight"]) {
         @include column(var(--gap-texts));
         max-width: calc(var(--page-width) / max(2, var(--section-edge-textDivisor, 2)));
         padding-inline: var(--page-padding);
+
+        &:where([pgs~="section-edgeLeft"]:first-child) { margin-left: var(--page-edge); }
+        &:where([pgs~="section-edgeRight"]:last-child) { margin-right: var(--page-edge); }
     }
 
-    >:where(:not(#{$text})) {
+    >:where(:not([pgs~="section-edgeLeft"], [pgs~="section-edgeRight"])) {
         flex: 1 1 0%;
         min-width: min(100%, calc(var(--page-width) / max(2, var(--section-edge-mediaDivisor, 2))));
     }

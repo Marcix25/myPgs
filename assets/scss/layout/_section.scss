@@ -4,7 +4,7 @@
 [pgs~="main"] { @include main; }
 
 //# SECTION
-// one root, every variant folded into a flag with the sct prefix (sctMax, sctEdgeLeft, ...)
+// one root, every variant folded into a flag with the sct prefix (sctMax, sctEdge, ...)
 // instead of a separate root token per variant — the same fold applied to margin/padding/border
 // this cycle. The variants are mutually exclusive alternatives to the same base layout, so they
 // share one bracket the same way margin's scale options do; sctRemoveGap/sctRemoveGapTop/
@@ -21,7 +21,7 @@
     // variant draws its own width and padding in its place
     &:not(:is(
         [pgs*="'sctNoPadding'"], [pgs*="'sctMax'"], [pgs*="'sctFull'"], [pgs*="'sctSpecificity'"],
-        [pgs*="'sctEdgeLeft'"], [pgs*="'sctEdgeRight'"]
+        [pgs*="'sctEdge'"]
     )) { @include section; }
 
     //+ Type of section
@@ -31,8 +31,7 @@
     &[pgs*="'sctSpecificity'"] { @include sectionSpecificity-child(':where([pgs~="section-specificity"])'); }
 
     //+ Edge
-    &[pgs*="'sctEdgeLeft'"] { @include sectionEdge('[pgs~="section-edge"]', left); }
-    &[pgs*="'sctEdgeRight'"] { @include sectionEdge('[pgs~="section-edge"]', right); }
+    &[pgs*="'sctEdge'"] { @include sectionEdge; }
 
     //+ Remove gap
     &[pgs*="'sctRemoveGap'"] { --section-marginBlock: var(--section-marginBase) var(--section-marginBase); }

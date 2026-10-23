@@ -1355,13 +1355,13 @@
     },
     "section": {
         "pgs": [
-            "section-edge",
+            "section-edgeLeft",
+            "section-edgeRight",
             "section-specificity"
         ],
         "pgs-generated": [],
         "pgs-options": [
-            "sctEdgeLeft",
-            "sctEdgeRight",
+            "sctEdge",
             "sctFull",
             "sctMax",
             "sctNoPadding",
