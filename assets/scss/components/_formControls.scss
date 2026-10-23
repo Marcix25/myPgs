@@ -132,8 +132,10 @@
 
     //## dropdown icon
     // a ::after is not drawn on a select with a single choice, so the chevron is two gradients on the
-    // select itself, in the color of its text. A list (multiple) has none
-    &:not([multiple]) {
+    // select itself, in the color of its text. A list (multiple) has none, unless it is shown on one row
+    // (size="1"): it opens as a drop-down then
+    &:not([multiple]),
+    &[size="1"] {
         --select-chevronInset: var(--select-padding);
         --select-chevronSize: .5rem;
         padding-right: calc(var(--select-chevronInset) * 2 + var(--select-chevronSize) * 2);

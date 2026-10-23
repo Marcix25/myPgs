@@ -500,13 +500,11 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --section-parentGap: var(--main-gap, var(--gap-sections));
   --section-marginBase: calc(var(--section-parentGap) / 2 * -1);
   --section-marginBlock: 0 0;
-}
-
-:is([pgs~=section], [pgs*="section["])[pgs*="section["] {
   margin-block: var(--section-marginBlock);
 }
 
-:is([pgs~=section], [pgs*="section["]):not([pgs*="section["]), :is([pgs~=section], [pgs*="section["])[pgs*="section[]"] {
+:is([pgs~=section], [pgs*="section["]):not(:is([pgs*="'sctNoPadding'"], [pgs*="'sctMax'"], [pgs*="'sctFull'"], [pgs*="'sctSpecificity'"],
+[pgs*="'sctEdgeLeft'"], [pgs*="'sctEdgeRight'"], [pgs*="'sctEdgeFlushLeft'"], [pgs*="'sctEdgeFlushRight'"])) {
   --section-width: calc(var(--page-width) + (var(--page-padding) * 2));
   margin-inline: auto;
   max-width: var(--section-width);
@@ -641,7 +639,11 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   container-type: normal;
 }
 
-:is([pgs~=flex], [pgs*="flex["]) {
+:is([pgs~=flex], [pgs*="flex["])[pgs*="'flexNotDefault'"] {
+  display: flex;
+}
+
+:is([pgs~=flex], [pgs*="flex["]):not([pgs*="'flexNotDefault'"]) {
   display: flex;
   gap: var(--gap-texts);
   --gap: var(--gap-texts);
@@ -689,6 +691,19 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'wrap'"] {
   flex-wrap: wrap;
+}
+
+:is([pgs~=flex], [pgs*="flex["])[pgs*="'wrapReverse'"] {
+  flex-wrap: wrap-reverse;
+}
+
+:is([pgs~=flex], [pgs*="flex["])[pgs*="'wrapBalance'"] {
+  flex-wrap: balance;
+}
+
+:is([pgs~=flex], [pgs*="flex["])[pgs*="'wrapBalance'"][pgs*="'wrapReverse'"] {
+  flex-wrap: wrap-reverse;
+  flex-wrap: balance wrap-reverse;
 }
 
 :is([pgs~=flexChild], [pgs*="flexChild["])[pgs*="'flexInitial'"] {
@@ -1138,7 +1153,11 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   flex-basis: calc((100% + var(--gap)) * var(--_flexChild-span) / var(--_flex-cols, 1) - var(--gap));
 }
 
-:is([pgs~=grid], [pgs*="grid["]) {
+:is([pgs~=grid], [pgs*="grid["])[pgs*="'gridNotDefault'"] {
+  display: grid;
+}
+
+:is([pgs~=grid], [pgs*="grid["]):not([pgs*="'gridNotDefault'"]) {
   display: grid;
   --gap: var(--gap-texts);
   gap: var(--gap);
@@ -3461,13 +3480,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   background-color: var(--input-background);
   border-radius: var(--input-borderRadius);
   padding: var(--input-padding);
-}
-
-[pgs~=textarea]:where([type=password]) {
-  font-family: initial;
-}
-
-[pgs~=textarea] {
   height: 120px;
   min-height: 100px;
   border-bottom-right-radius: 40px;
@@ -3574,7 +3586,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 :where([pgs~=label], [pgs*="label["]):where([pgs*="'labelTab'"]) {
   margin-bottom: calc(var(--form-gap, 0px) * -1);
-  transform: translateX(var(--label-left)) translateY(calc(var(--label-borderWidth) + 1px));
+  transform: translateX(var(--label-left)) translateY(calc(var(--label-borderWidth) + 1.5px));
+  padding-bottom: 0;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   border-bottom: var(--label-background) var(--border-style) var(--label-borderWidth);
@@ -3586,7 +3599,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --label-paddingBlock: calc(var(--padding-texts)/2);
   --label-color: var(--color-black);
   --label-background: var(--color-white);
-  --label-border: var(--border-color) var(--border-style);
+  --label-borderColor: var(--border-color) var(--border-style);
   --label-borderWidth: var(--border-width);
   display: inline-block;
   width: fit-content;
@@ -3595,9 +3608,17 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   background-color: var(--label-background);
   padding-block: var(--label-paddingBlock);
   padding-inline: var(--label-paddingInline);
-  border: var(--label-border) var(--label-borderWidth);
+  border: var(--label-borderColor) var(--label-borderWidth) var(--border-style);
   border-radius: var(--label-borderRadius);
-  margin-bottom: var(--gap-texts);
+}
+
+[pgs~=legend]:where(:has(~ :required, ~ * :required)) :where([pgs~=form-requiredHere])::after, [pgs~=legend]:where(:has(~ :required, ~ * :required)):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
+  display: inline-block;
+  padding-left: 3px;
 }
 
 [pgs~=radio] {
@@ -3635,17 +3656,10 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   justify-content: center;
   display: inline-flex;
   vertical-align: top;
-}
-
-[pgs~=radio]:where(input[type=radio])::before,
-[pgs~=radio] :where(input[type=radio])::before {
-  content: "";
-  position: absolute;
-  width: var(--radio-size);
-  height: var(--radio-size);
+  background: var(--radio-background);
+  color: var(--radio-color);
   border: var(--radio-borderStyleWidth);
   border-color: var(--radio-borderColor);
-  background: var(--radio-background);
   transition: var(--clickable-transition);
   border-radius: 50%;
 }
@@ -3656,18 +3670,35 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   position: absolute;
   width: var(--radio-dot-size);
   height: var(--radio-dot-size);
-  border-radius: 50%;
-  background: var(--radio-color);
+  color: inherit;
+  background-color: currentColor;
   opacity: var(--radio-isChecked);
   transition: var(--clickable-transition);
+  border-radius: 50%;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  [pgs~=radio]:where(input[type=radio]):hover,
+  [pgs~=radio]:where(input[type=radio]) :hover,
+  [pgs~=radio] :where(input[type=radio]):hover,
+  [pgs~=radio] :where(input[type=radio]) :hover {
+    background: var(--radio-background-hover);
+    border-color: var(--radio-borderColor-hover);
+    color: var(--radio-color-hover);
+  }
+}
 [pgs~=radio]:where(input[type=radio]):checked,
 [pgs~=radio] :where(input[type=radio]):checked {
-  --radio-background: var(--radio-background-checked);
-  --radio-borderColor: var(--radio-borderColor-checked);
-  --radio-color: var(--radio-color-checked);
+  background: var(--radio-background-checked);
+  border-color: var(--radio-borderColor-checked);
+  color: var(--radio-color-checked);
   --radio-isChecked: 1;
+}
+
+[pgs~=radio]:where(input[type=radio]):disabled,
+[pgs~=radio] :where(input[type=radio]):disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 [pgs~=radio]:where(input[type=radio]):focus-visible,
@@ -3680,20 +3711,15 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   outline: var(--focus-visible);
 }
 
-@media (hover: hover) and (pointer: fine) {
-  [pgs~=radio]:where(label):hover:not(:has(input:disabled)),
-  [pgs~=radio] :where(label):hover:not(:has(input:disabled)) {
-    --radio-background: var(--radio-background-hover);
-    --radio-borderColor: var(--radio-borderColor-hover);
-    --radio-color: var(--radio-color-hover);
-  }
+[pgs~=radio] {
+  --labelCheckboxAndRadio: var(--color-black);
 }
+
 [pgs~=radio]:where(label),
 [pgs~=radio] :where(label) {
   -webkit-user-select: none;
   user-select: none;
-  color: inherit;
-  color: #b6c1ff;
+  color: var(--labelCheckboxAndRadio);
   position: relative;
   text-align: left;
   line-height: var(--checkbox-size, var(--radio-size));
@@ -3735,7 +3761,9 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 [pgs~=checkbox] {
   --checkbox-size: 2.0rem;
   --checkbox-isChecked: 0;
-  --checkbox-icon: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 448 512%27%3E%3Cpath d=%27M424 112 a34 34 0 0 1 0 48 L200 384 a34 34 0 0 1 -48 0 L24 256 a34 34 0 0 1 48 -48 L176 312 L376 112 a34 34 0 0 1 48 0 z%27%3E%3C/path%3E%3C/svg%3E");
+  --checkbox-icon: var(--icon-glyph-check);
+  --checkbox-iconSize: calc(var(--checkbox-size) * 1.6);
+  --checkbox-borderRadius: calc(var(--checkbox-size) / 4);
   --checkbox-gap: calc(var(--gap-texts) /2);
   --checkbox-borderStyleWidth: var(--border-style) var(--border-width);
   --checkbox-background: var(--clickable-background);
@@ -3757,7 +3785,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   appearance: none;
   position: relative;
   width: var(--checkbox-size);
-  min-width: var(--checkbox-size);
   height: var(--checkbox-size);
   cursor: pointer;
   display: flex;
@@ -3767,44 +3794,13 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   justify-content: center;
   display: inline-flex;
   vertical-align: top;
-  --icon: var(--checkbox-icon);
-}
-
-[pgs~=checkbox]:where(input[type=checkbox])::after,
-[pgs~=checkbox] :where(input[type=checkbox])::after {
-  line-height: 1;
-  font-size: var(--icon-size);
-  display: inline-block;
-  width: var(--icon-size, 1em);
-  height: var(--icon-size, 1em);
-  background-color: var(--icon-color, currentColor);
-  vertical-align: -0.125em;
-  content: "";
-}
-
-[pgs~=checkbox]:where(input[type=checkbox])::after,
-[pgs~=checkbox] :where(input[type=checkbox])::after {
-  -webkit-mask: var(--icon) center/contain no-repeat;
-  mask: var(--icon) center/contain no-repeat;
-}
-
-[pgs~=checkbox]:where(input[type=checkbox]),
-[pgs~=checkbox] :where(input[type=checkbox]) {
-  --icon-size: calc(2rem + var(--checkbox-size));
-  --icon-color: var(--checkbox-color);
-}
-
-[pgs~=checkbox]:where(input[type=checkbox])::before,
-[pgs~=checkbox] :where(input[type=checkbox])::before {
-  content: "";
-  position: absolute;
-  width: var(--checkbox-size);
-  height: var(--checkbox-size);
+  background: var(--checkbox-background);
+  color: var(--checkbox-color);
   border: var(--checkbox-borderStyleWidth);
   border-color: var(--checkbox-borderColor);
-  background: var(--checkbox-background);
+  border-radius: var(--checkbox-borderRadius);
   transition: var(--clickable-transition);
-  border-radius: 0.5rem;
+  --icon-size: var(--checkbox-iconSize);
 }
 
 [pgs~=checkbox]:where(input[type=checkbox])::after,
@@ -3813,18 +3809,47 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   line-height: var(--checkbox-size);
   text-align: center;
   opacity: var(--checkbox-isChecked);
-  color: var(--checkbox-color);
-  transform: translateX(0.25rem);
-  top: -1.7rem;
-  left: -0.8rem;
+  inset: auto;
+  top: 50%;
+  left: 50%;
+  translate: -40.6% calc(-76.9% + var(--checkbox-size) * 0.318);
+  transition: var(--clickable-transition);
+  --icon: var(--checkbox-icon);
+  line-height: 1;
+  font-size: var(--icon-size);
+  display: inline-block;
+  width: var(--icon-size, 1em);
+  height: var(--icon-size, 1em);
+  background-color: var(--icon-color, currentColor);
+  vertical-align: -0.125em;
+  content: "";
+  -webkit-mask: var(--icon) center/contain no-repeat;
+  mask: var(--icon) center/contain no-repeat;
+  color: inherit;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  [pgs~=checkbox]:where(input[type=checkbox]):hover,
+  [pgs~=checkbox]:where(input[type=checkbox]) :hover,
+  [pgs~=checkbox] :where(input[type=checkbox]):hover,
+  [pgs~=checkbox] :where(input[type=checkbox]) :hover {
+    background: var(--checkbox-background-hover);
+    border-color: var(--checkbox-borderColor-hover);
+    color: var(--checkbox-color-hover);
+  }
+}
 [pgs~=checkbox]:where(input[type=checkbox]):checked,
 [pgs~=checkbox] :where(input[type=checkbox]):checked {
-  --checkbox-background: var(--checkbox-background-checked);
-  --checkbox-borderColor: var(--checkbox-borderColor-checked);
-  --checkbox-color: var(--checkbox-color-checked);
+  background: var(--checkbox-background-checked);
+  border-color: var(--checkbox-borderColor-checked);
+  color: var(--checkbox-color-checked);
   --checkbox-isChecked: 1;
+}
+
+[pgs~=checkbox]:where(input[type=checkbox]):disabled,
+[pgs~=checkbox] :where(input[type=checkbox]):disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 [pgs~=checkbox]:where(input[type=checkbox]):focus-visible,
@@ -3837,20 +3862,15 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   outline: var(--focus-visible);
 }
 
-@media (hover: hover) and (pointer: fine) {
-  [pgs~=checkbox]:where(label):hover:not(:has(input:disabled)),
-  [pgs~=checkbox] :where(label):hover:not(:has(input:disabled)) {
-    --checkbox-background: var(--checkbox-background-hover);
-    --checkbox-borderColor: var(--checkbox-borderColor-hover);
-    --checkbox-color: var(--checkbox-color-hover);
-  }
+[pgs~=checkbox] {
+  --labelCheckboxAndRadio: var(--color-black);
 }
+
 [pgs~=checkbox]:where(label),
 [pgs~=checkbox] :where(label) {
   -webkit-user-select: none;
   user-select: none;
-  color: inherit;
-  color: #b6c1ff;
+  color: var(--labelCheckboxAndRadio);
   position: relative;
   text-align: left;
   line-height: var(--checkbox-size, var(--radio-size));
@@ -3894,6 +3914,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   display: flex;
   flex-direction: column;
   gap: var(--form-gap, var(--gap-texts));
+  padding-top: var(--form-gap, var(--gap-texts));
 }
 
 [pgs~=form] {
@@ -3904,35 +3925,29 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 [pgs~=formValidate] {
-  --formValidate-outline: solid 3px var(--color-error);
+  --formValidate-outline: var(--border-width) var(--border-style);
+  --formValidate-outlineColor: var(--color-error);
 }
 
-[pgs~=formValidate][pgs-state~=errorForm] [pgs-state~=errorField]:not([type=checkbox], [type=radio]) {
-  border: var(--formValidate-outline);
+[pgs~=formValidate][pgs-state~=errorForm] :where([pgs-state~=errorField]:not([type=checkbox], [type=radio])) {
+  outline: var(--formValidate-outline);
+  outline-color: var(--formValidate-outlineColor);
+  background-color: var(--color-error-soft);
   color: var(--color-error);
 }
 
-[pgs~=formValidate][pgs-state~=errorForm] :where(label):has(+ [pgs-state~=errorField], [pgs-state~=errorField]):has(input[type=checkbox]) {
-  padding-block: 8px;
-  border-radius: 10px;
-  outline: var(--formValidate-outline);
-}
-
-[pgs~=formValidate][pgs-state~=errorForm] :where(label):has(+ [pgs-state~=errorField], [pgs-state~=errorField]) :where(input[type=radio], input[type=checkbox])::before {
-  outline: var(--formValidate-outline);
-}
-
-[pgs~=formValidate][pgs-state~=errorForm] :where(fieldset)[pgs-state~=errorField] {
-  border-radius: 10px;
-}
-
-[pgs~=formValidate][pgs-state~=errorForm] :where(fieldset)[pgs-state~=errorField] :where(input[type=radio], input[type=checkbox])::before {
-  outline: var(--formValidate-outline);
-}
-
-[pgs~=formValidate][pgs-state~=errorForm] :where(fieldset)[pgs-state~=errorField] :where(legend) {
-  --label-background: var(--color-error-soft);
+[pgs~=formValidate][pgs-state~=errorForm] :where(fieldset[pgs-state~=errorFieldset]) :where(legend) {
   --label-color: var(--color-error);
+  --label-background: var(--color-error-soft);
+  --label-borderColor: var(--color-error);
+}
+
+[pgs~=formValidate][pgs-state~=errorForm] :where([pgs-state~=errorLabel]) {
+  --label-color: var(--color-error);
+  --label-background: var(--color-error-soft);
+  --checkbox-background: var(--color-error-soft);
+  --radio-background: var(--color-error-soft);
+  --labelCheckboxAndRadio: var(--color-error);
 }
 
 [pgs~=range] {
@@ -4036,13 +4051,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   background-color: var(--input-background);
   border-radius: var(--input-borderRadius);
   padding: var(--input-padding);
-}
-
-[pgs~=file]:where([type=password]) {
-  font-family: initial;
-}
-
-[pgs~=file] {
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -4130,19 +4138,12 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   background-color: var(--input-background);
   border-radius: var(--input-borderRadius);
   padding: var(--input-padding);
-}
-
-:is([pgs~=select], [pgs*="select["]):where([type=password]) {
-  font-family: initial;
-}
-
-:is([pgs~=select], [pgs*="select["]) {
   overflow: auto;
   appearance: none;
   cursor: pointer;
 }
 
-:is([pgs~=select], [pgs*="select["]):not([multiple]) {
+:is([pgs~=select], [pgs*="select["]):not([multiple]), :is([pgs~=select], [pgs*="select["])[size="1"] {
   --select-chevronInset: var(--select-padding);
   --select-chevronSize: .5rem;
   padding-right: calc(var(--select-chevronInset) * 2 + var(--select-chevronSize) * 2);
@@ -4901,282 +4902,49 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 [pgs~=checkboxBackground] {
-  --checkboxBackground-color: var(--clickable-color);
-  --checkboxBackground-padding: var(--padding-texts);
-  --checkboxBackground-borderRadius: var(--border-radius-texts);
+  --checkboxBackground-padding: calc(var(--padding-texts) / 2);
+  --checkboxBackground-paddingRight: var(--padding-texts);
+  --checkboxBackground-borderRadius: var(--border-radius-elements);
   --checkboxBackground-background: var(--clickable-background);
-  --checkbox-size: 2.0rem;
-  --checkbox-isChecked: 0;
-  --checkbox-icon: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 448 512%27%3E%3Cpath d=%27M424 112 a34 34 0 0 1 0 48 L200 384 a34 34 0 0 1 -48 0 L24 256 a34 34 0 0 1 48 -48 L176 312 L376 112 a34 34 0 0 1 48 0 z%27%3E%3C/path%3E%3C/svg%3E");
-  --checkbox-gap: calc(var(--gap-texts) /2);
-  --checkbox-borderStyleWidth: var(--border-style) var(--border-width);
-  --checkbox-background: var(--clickable-background);
-  --checkbox-background-hover: var(--hover-background);
-  --checkbox-background-checked: var(--twoState-background);
-  --checkbox-color: var(--clickable-color);
-  --checkbox-color-hover: var(--hover-color);
-  --checkbox-color-checked: var(--twoState-color);
-  --checkbox-borderColor: var(--clickable-borderColor);
-  --checkbox-borderColor-hover: var(--hover-borderColor);
-  --checkbox-borderColor-checked: var(--twoState-borderColor);
-  position: relative;
-  display: flex;
-  gap: var(--checkbox-gap);
-}
-
-[pgs~=checkboxBackground]:where(input[type=checkbox]),
-[pgs~=checkboxBackground] :where(input[type=checkbox]) {
-  appearance: none;
-  position: relative;
-  width: var(--checkbox-size);
-  min-width: var(--checkbox-size);
-  height: var(--checkbox-size);
-  cursor: pointer;
-  display: flex;
-  gap: var(--gap-texts);
-  --gap: var(--gap-texts);
-  align-items: center;
-  justify-content: center;
-  display: inline-flex;
-  vertical-align: top;
-  --icon: var(--checkbox-icon);
-}
-
-[pgs~=checkboxBackground]:where(input[type=checkbox])::after,
-[pgs~=checkboxBackground] :where(input[type=checkbox])::after {
-  line-height: 1;
-  font-size: var(--icon-size);
-  display: inline-block;
-  width: var(--icon-size, 1em);
-  height: var(--icon-size, 1em);
-  background-color: var(--icon-color, currentColor);
-  vertical-align: -0.125em;
-  content: "";
-}
-
-[pgs~=checkboxBackground]:where(input[type=checkbox])::after,
-[pgs~=checkboxBackground] :where(input[type=checkbox])::after {
-  -webkit-mask: var(--icon) center/contain no-repeat;
-  mask: var(--icon) center/contain no-repeat;
-}
-
-[pgs~=checkboxBackground]:where(input[type=checkbox]),
-[pgs~=checkboxBackground] :where(input[type=checkbox]) {
-  --icon-size: calc(2rem + var(--checkbox-size));
-  --icon-color: var(--checkbox-color);
-}
-
-[pgs~=checkboxBackground]:where(input[type=checkbox])::before,
-[pgs~=checkboxBackground] :where(input[type=checkbox])::before {
-  content: "";
-  position: absolute;
-  width: var(--checkbox-size);
-  height: var(--checkbox-size);
-  border: var(--checkbox-borderStyleWidth);
-  border-color: var(--checkbox-borderColor);
-  background: var(--checkbox-background);
-  transition: var(--clickable-transition);
-  border-radius: 0.5rem;
-}
-
-[pgs~=checkboxBackground]:where(input[type=checkbox])::after,
-[pgs~=checkboxBackground] :where(input[type=checkbox])::after {
-  position: absolute;
-  line-height: var(--checkbox-size);
-  text-align: center;
-  opacity: var(--checkbox-isChecked);
-  color: var(--checkbox-color);
-  transform: translateX(0.25rem);
-  top: -1.7rem;
-  left: -0.8rem;
-}
-
-[pgs~=checkboxBackground]:where(input[type=checkbox]):checked,
-[pgs~=checkboxBackground] :where(input[type=checkbox]):checked {
-  --checkbox-background: var(--checkbox-background-checked);
-  --checkbox-borderColor: var(--checkbox-borderColor-checked);
-  --checkbox-color: var(--checkbox-color-checked);
-  --checkbox-isChecked: 1;
-}
-
-[pgs~=checkboxBackground]:where(input[type=checkbox]):focus-visible,
-[pgs~=checkboxBackground] :where(input[type=checkbox]):focus-visible {
-  outline: none;
-}
-
-[pgs~=checkboxBackground]:where(input[type=checkbox]):focus-visible::before,
-[pgs~=checkboxBackground] :where(input[type=checkbox]):focus-visible::before {
-  outline: var(--focus-visible);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  [pgs~=checkboxBackground]:where(label):hover:not(:has(input:disabled)),
-  [pgs~=checkboxBackground] :where(label):hover:not(:has(input:disabled)) {
-    --checkbox-background: var(--checkbox-background-hover);
-    --checkbox-borderColor: var(--checkbox-borderColor-hover);
-    --checkbox-color: var(--checkbox-color-hover);
-  }
-}
-[pgs~=checkboxBackground] {
-  --radio-size: 2.0rem;
-  --radio-isChecked: 0;
-  --radio-dot-size: calc(var(--radio-size) / 1.5);
-  --radio-gap: calc(var(--gap-texts) /2);
-  --radio-borderStyleWidth: var(--border-style) var(--border-width);
-  --radio-background: var(--clickable-background);
-  --radio-background-hover: var(--hover-background);
-  --radio-background-checked: var(--twoState-background);
-  --radio-color: var(--clickable-color);
-  --radio-color-hover: var(--hover-color);
-  --radio-color-checked: var(--twoState-color);
-  --radio-borderColor: var(--clickable-borderColor);
-  --radio-borderColor-hover: var(--hover-borderColor);
-  --radio-borderColor-checked: var(--twoState-borderColor);
-  position: relative;
-  display: flex;
-  gap: var(--radio-gap);
-}
-
-[pgs~=checkboxBackground]:where(input[type=radio]),
-[pgs~=checkboxBackground] :where(input[type=radio]) {
-  appearance: none;
-  position: relative;
-  width: var(--radio-size);
-  min-width: var(--radio-size);
-  height: var(--radio-size);
-  cursor: pointer;
-  display: flex;
-  gap: var(--gap-texts);
-  --gap: var(--gap-texts);
-  align-items: center;
-  justify-content: center;
-  display: inline-flex;
-  vertical-align: top;
-}
-
-[pgs~=checkboxBackground]:where(input[type=radio])::before,
-[pgs~=checkboxBackground] :where(input[type=radio])::before {
-  content: "";
-  position: absolute;
-  width: var(--radio-size);
-  height: var(--radio-size);
-  border: var(--radio-borderStyleWidth);
-  border-color: var(--radio-borderColor);
-  background: var(--radio-background);
-  transition: var(--clickable-transition);
-  border-radius: 50%;
-}
-
-[pgs~=checkboxBackground]:where(input[type=radio])::after,
-[pgs~=checkboxBackground] :where(input[type=radio])::after {
-  content: "";
-  position: absolute;
-  width: var(--radio-dot-size);
-  height: var(--radio-dot-size);
-  border-radius: 50%;
-  background: var(--radio-color);
-  opacity: var(--radio-isChecked);
-  transition: var(--clickable-transition);
-}
-
-[pgs~=checkboxBackground]:where(input[type=radio]):checked,
-[pgs~=checkboxBackground] :where(input[type=radio]):checked {
-  --radio-background: var(--radio-background-checked);
-  --radio-borderColor: var(--radio-borderColor-checked);
-  --radio-color: var(--radio-color-checked);
-  --radio-isChecked: 1;
-}
-
-[pgs~=checkboxBackground]:where(input[type=radio]):focus-visible,
-[pgs~=checkboxBackground] :where(input[type=radio]):focus-visible {
-  outline: none;
-}
-
-[pgs~=checkboxBackground]:where(input[type=radio]):focus-visible::before,
-[pgs~=checkboxBackground] :where(input[type=radio]):focus-visible::before {
-  outline: var(--focus-visible);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  [pgs~=checkboxBackground]:where(label):hover:not(:has(input:disabled)),
-  [pgs~=checkboxBackground] :where(label):hover:not(:has(input:disabled)) {
-    --radio-background: var(--radio-background-hover);
-    --radio-borderColor: var(--radio-borderColor-hover);
-    --radio-color: var(--radio-color-hover);
-  }
-}
-[pgs~=checkboxBackground]:where(label),
-[pgs~=checkboxBackground] :where(label) {
-  -webkit-user-select: none;
-  user-select: none;
-  color: inherit;
-  color: #b6c1ff;
-  position: relative;
-  text-align: left;
-  line-height: var(--checkbox-size, var(--radio-size));
-  width: fit-content;
-  cursor: pointer;
-}
-
-[pgs~=checkboxBackground]:where(label) :where(a),
-[pgs~=checkboxBackground] :where(label) :where(a) {
-  text-decoration: underline;
-  color: var(--color-link);
-}
-
-[pgs~=checkboxBackground]:where(label):has(input:disabled), :where(input:disabled) + [pgs~=checkboxBackground]:where(label),
-[pgs~=checkboxBackground] :where(label):has(input:disabled),
-:where(input:disabled) + [pgs~=checkboxBackground] :where(label) {
-  opacity: 0.5;
-  cursor: not-allowed !important;
-}
-
-[pgs~=checkboxBackground]:where(label):has(input[type=checkbox]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after, [pgs~=checkboxBackground]:where(label):has(input[type=checkbox]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after, [pgs~=checkboxBackground]:where(label):has(input[type=radio]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after, [pgs~=checkboxBackground]:where(label):has(input[type=radio]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after,
-[pgs~=checkboxBackground] :where(label):has(input[type=checkbox]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after,
-[pgs~=checkboxBackground] :where(label):has(input[type=checkbox]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after,
-[pgs~=checkboxBackground] :where(label):has(input[type=radio]:required):not(:where(fieldset) *) :where([pgs~=form-requiredHere])::after,
-[pgs~=checkboxBackground] :where(label):has(input[type=radio]:required):not(:where(fieldset) *):not(:has(:where([pgs~=form-requiredHere])))::after {
-  content: " *";
-  color: var(--color-error);
-  line-height: 1;
-  font-weight: var(--font-weight-bold);
-  display: inline-block;
-  padding-left: 3px;
-}
-
-[pgs~=checkboxBackground] :where(input:disabled) + :where(label) {
-  opacity: 0.5;
-  cursor: not-allowed !important;
-}
-
-[pgs~=checkboxBackground] {
-  --checkbox-borderColor: var(--clickable-color);
-  --checkbox-borderColor-hover: var(--hover-color);
-  --radio-borderColor: var(--clickable-color);
-  --radio-borderColor-hover: var(--hover-color);
+  --checkboxBackground-background-hover: var(--hover-background);
+  --checkboxBackground-background-checked: var(--twoState-background);
+  --checkboxBackground-color: var(--clickable-color);
+  --checkboxBackground-color-hover: var(--hover-color);
+  --checkboxBackground-color-checked: var(--twoState-color);
+  --checkboxBackground-borderColor: var(--clickable-borderColor);
+  --checkboxBackground-borderColor-hover: var(--hover-borderColor);
+  --checkboxBackground-borderColor-checked: var(--twoState-color);
   position: relative;
   isolation: isolate;
   color: var(--checkboxBackground-color);
   padding: var(--checkboxBackground-padding);
+  padding-right: var(--checkboxBackground-paddingRight);
   border-radius: var(--checkboxBackground-borderRadius);
   background-color: var(--checkboxBackground-background);
   border: var(--border-complete);
-  border-color: var(--clickable-borderColor);
+  border-color: var(--checkboxBackground-borderColor);
   margin-bottom: 0;
   transition: var(--clickable-transition);
 }
 
 @media (hover: hover) and (pointer: fine) {
   [pgs~=checkboxBackground]:hover:not(:has(input:checked, input:disabled)) {
-    background-color: var(--hover-background);
-    border-color: var(--hover-borderColor);
-    color: var(--hover-color);
+    background-color: var(--checkboxBackground-background-hover);
+    border-color: var(--checkboxBackground-borderColor-hover);
+    color: var(--checkboxBackground-color-hover);
   }
 }
 [pgs~=checkboxBackground]:has(input:checked) {
-  background-color: var(--twoState-background);
-  border-color: var(--twoState-borderColor);
-  color: var(--twoState-color);
+  background-color: var(--checkboxBackground-background-checked);
+  border-color: var(--checkboxBackground-borderColor-checked);
+  color: var(--checkboxBackground-color-checked);
+}
+
+[pgs~=checkboxBackground][pgs-state~=errorLabel] {
+  background-color: var(--color-error-soft);
+  border-color: var(--color-error);
+  color: var(--color-error);
+  --checkbox-borderColor: var(--color-error);
 }
 
 [pgs~=toggle] {
@@ -5191,9 +4959,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --toggle-thumb-background: var(--clickable-color);
   --toggle-thumb-background-hover: var(--hover-color);
   --toggle-thumb-background-checked: var(--twoState-color);
-  --toggle-thumb-borderColor: var(--clickable-borderColor);
-  --toggle-thumb-borderColor-hover: var(--hover-borderColor);
-  --toggle-thumb-borderColor-checked: var(--twoState-borderColor);
   isolation: isolate;
   display: flex;
   gap: var(--gap-texts);
@@ -5205,6 +4970,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 [pgs~=toggle]:where(label),
 [pgs~=toggle] :where(label) {
   cursor: pointer;
+  --labelCheckboxAndRadio: var(--color-black);
 }
 
 [pgs~=toggle]:where(label):where(label),
@@ -5213,8 +4979,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 [pgs~=toggle] :where(label) :where(label) {
   -webkit-user-select: none;
   user-select: none;
-  color: inherit;
-  color: #b6c1ff;
+  color: var(--labelCheckboxAndRadio);
   position: relative;
   text-align: left;
   line-height: var(--checkbox-size, var(--radio-size));
@@ -5279,6 +5044,11 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   margin-left: auto;
   cursor: pointer;
   min-width: calc(var(--toggle-size) * 2);
+  order: 1;
+  background: var(--toggle-rail-background);
+  color: var(--toggle-thumb-background);
+  border-color: var(--toggle-rail-borderColor);
+  border-radius: var(--border-radius-texts);
 }
 
 [pgs~=toggle] :where(input)::after, [pgs~=toggle] :where(input)::before {
@@ -5294,23 +5064,23 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 [pgs~=toggle] :where(input)::before {
-  background: var(--toggle-rail-background);
+  background: inherit;
   width: calc(var(--toggle-size) * 2);
   min-width: calc(var(--toggle-size) * 2);
   height: var(--toggle-size);
   flex-shrink: 2;
   border: var(--toggle-borderStyleWidth);
-  border-color: var(--toggle-rail-borderColor);
+  border-color: inherit;
 }
 
 [pgs~=toggle] :where(input)::after {
   content: "";
   opacity: 1;
-  background-color: var(--toggle-thumb-background);
+  background-color: currentColor;
   height: calc(var(--toggle-size) - 4px);
   width: calc(var(--toggle-size) + 2px);
   border: var(--toggle-borderStyleWidth);
-  border-color: var(--toggle-thumb-borderColor);
+  border-color: currentColor;
   top: 2px;
   left: 2px;
   z-index: 1;
@@ -5321,11 +5091,18 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   scale: 1.4;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  [pgs~=toggle] :where(input):hover,
+  [pgs~=toggle] :where(input) :hover {
+    background: var(--toggle-rail-background-hover);
+    border-color: var(--toggle-rail-borderColor-hover);
+    color: var(--toggle-thumb-background-hover);
+  }
+}
 [pgs~=toggle] :where(input):checked {
-  --toggle-rail-background: var(--toggle-rail-background-checked);
-  --toggle-rail-borderColor: var(--toggle-rail-borderColor-checked);
-  --toggle-thumb-background: var(--toggle-thumb-background-checked);
-  --toggle-thumb-borderColor: var(--toggle-thumb-borderColor-checked);
+  background: var(--toggle-rail-background-checked);
+  border-color: var(--toggle-rail-borderColor-checked);
+  color: var(--toggle-thumb-background-checked);
 }
 
 [pgs~=toggle] :where(input):checked::after {
@@ -5333,19 +5110,15 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   right: 2px;
 }
 
+[pgs~=toggle] :where(input):disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 [pgs~=toggle] :where(input):focus-visible::after {
   outline: var(--focus-visible) !important;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  [pgs~=toggle]:where(label):hover:not(:has(input:disabled)),
-  [pgs~=toggle] :where(label):hover:not(:has(input:disabled)) {
-    --toggle-rail-background: var(--toggle-rail-background-hover);
-    --toggle-rail-borderColor: var(--toggle-rail-borderColor-hover);
-    --toggle-thumb-background: var(--toggle-thumb-background-hover);
-    --toggle-thumb-borderColor: var(--toggle-thumb-borderColor-hover);
-  }
-}
 [pgs~=chips] {
   border: unset;
   display: flex;
@@ -5383,35 +5156,45 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   opacity: 1;
 }
 
-[pgs~=chips] label:has(input:checked):not(:has([pgs~=icon], [pgs*="icon["], i))::after {
-  display: grid;
-  order: -1;
-  margin-right: 0.75rem;
-  place-items: center;
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 50%;
-  font-size: 1.5rem;
-  line-height: 1;
-  font-weight: bold;
-  color: inherit;
-  cursor: pointer;
-}
-
-[pgs~=chips] label:has(input[type=checkbox]:checked):not(:has([pgs~=icon], [pgs*="icon["], i)) {
+[pgs~=chips] label:has(input:checked):has(input[type=checkbox]:checked):not(:has([pgs~=icon], [pgs*="icon["], i)) {
   padding-right: var(--button-size);
 }
 
-[pgs~=chips] label:has(input[type=checkbox]:checked):not(:has([pgs~=icon], [pgs*="icon["], i))::after {
-  content: "×";
+[pgs~=chips] label:has(input:checked):has(input[type=checkbox]:checked):not(:has([pgs~=icon], [pgs*="icon["], i))::after {
+  color: inherit;
+  cursor: pointer;
+  --icon: var(--icon-glyph-circleXmark);
+  line-height: 1;
+  font-size: var(--icon-size);
+  display: inline-block;
+  width: var(--icon-size, 1em);
+  height: var(--icon-size, 1em);
+  background-color: var(--icon-color, currentColor);
+  vertical-align: -0.125em;
+  content: "";
+  -webkit-mask: var(--icon) center/contain no-repeat;
+  mask: var(--icon) center/contain no-repeat;
 }
 
-[pgs~=chips] label:has(input[type=radio]:checked):not(:has([pgs~=icon], [pgs*="icon["], i)) {
+[pgs~=chips] label:has(input:checked):has(input[type=radio]:checked):not(:has([pgs~=icon], [pgs*="icon["], i)) {
   padding-left: var(--button-size);
 }
 
-[pgs~=chips] label:has(input[type=radio]:checked):not(:has([pgs~=icon], [pgs*="icon["], i))::after {
+[pgs~=chips] label:has(input:checked):has(input[type=radio]:checked):not(:has([pgs~=icon], [pgs*="icon["], i))::after {
+  order: -1;
+  color: inherit;
+  cursor: pointer;
+  --icon: var(--icon-glyph-circle);
+  line-height: 1;
+  font-size: var(--icon-size);
+  display: inline-block;
+  width: var(--icon-size, 1em);
+  height: var(--icon-size, 1em);
+  background-color: var(--icon-color, currentColor);
+  vertical-align: -0.125em;
   content: "";
+  -webkit-mask: var(--icon) center/contain no-repeat;
+  mask: var(--icon) center/contain no-repeat;
 }
 
 [pgs~=chip] {
@@ -5442,35 +5225,45 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   opacity: 1;
 }
 
-[pgs~=chip]:has(input:checked):not(:has([pgs~=icon], [pgs*="icon["], i))::after {
-  display: grid;
-  order: -1;
-  margin-right: 0.75rem;
-  place-items: center;
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 50%;
-  font-size: 1.5rem;
-  line-height: 1;
-  font-weight: bold;
-  color: inherit;
-  cursor: pointer;
-}
-
-[pgs~=chip]:has(input[type=checkbox]:checked):not(:has([pgs~=icon], [pgs*="icon["], i)) {
+[pgs~=chip]:has(input:checked):has(input[type=checkbox]:checked):not(:has([pgs~=icon], [pgs*="icon["], i)) {
   padding-right: var(--button-size);
 }
 
-[pgs~=chip]:has(input[type=checkbox]:checked):not(:has([pgs~=icon], [pgs*="icon["], i))::after {
-  content: "×";
+[pgs~=chip]:has(input:checked):has(input[type=checkbox]:checked):not(:has([pgs~=icon], [pgs*="icon["], i))::after {
+  color: inherit;
+  cursor: pointer;
+  --icon: var(--icon-glyph-circleXmark);
+  line-height: 1;
+  font-size: var(--icon-size);
+  display: inline-block;
+  width: var(--icon-size, 1em);
+  height: var(--icon-size, 1em);
+  background-color: var(--icon-color, currentColor);
+  vertical-align: -0.125em;
+  content: "";
+  -webkit-mask: var(--icon) center/contain no-repeat;
+  mask: var(--icon) center/contain no-repeat;
 }
 
-[pgs~=chip]:has(input[type=radio]:checked):not(:has([pgs~=icon], [pgs*="icon["], i)) {
+[pgs~=chip]:has(input:checked):has(input[type=radio]:checked):not(:has([pgs~=icon], [pgs*="icon["], i)) {
   padding-left: var(--button-size);
 }
 
-[pgs~=chip]:has(input[type=radio]:checked):not(:has([pgs~=icon], [pgs*="icon["], i))::after {
+[pgs~=chip]:has(input:checked):has(input[type=radio]:checked):not(:has([pgs~=icon], [pgs*="icon["], i))::after {
+  order: -1;
+  color: inherit;
+  cursor: pointer;
+  --icon: var(--icon-glyph-circle);
+  line-height: 1;
+  font-size: var(--icon-size);
+  display: inline-block;
+  width: var(--icon-size, 1em);
+  height: var(--icon-size, 1em);
+  background-color: var(--icon-color, currentColor);
+  vertical-align: -0.125em;
   content: "";
+  -webkit-mask: var(--icon) center/contain no-repeat;
+  mask: var(--icon) center/contain no-repeat;
 }
 
 :is([pgs~=field], [pgs*="field["]) {
@@ -5479,17 +5272,18 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --field-borderRadius: var(--border-radius-texts);
   --field-paddingTop: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
   --field-label-paddingTop: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+  --field-background: var(--color-white);
+  background-color: var(--field-background);
   position: relative;
   border-radius: var(--field-borderRadius);
 }
 
 :is([pgs~=field], [pgs*="field["]) :where([pgs~=label], [pgs*="label["], [pgs~=legend]) {
-  --label-color: var(--color-text);
+  --label-color: var(--color-gray);
   --label-border: unset;
   --label-paddingBlock: var(--field-padding) .25em;
   --label-paddingInline: var(--field-padding);
   --label-background: transparent;
-  opacity: 0.7;
   position: absolute;
   top: 0;
   left: 0;
@@ -5512,11 +5306,25 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   padding-top: var(--field-paddingTop);
 }
 
+:is([pgs~=field], [pgs*="field["])[pgs-state~=errorFieldset] {
+  background: var(--color-error-soft);
+  border-color: var(--color-error);
+}
+
+:is([pgs~=field], [pgs*="field["])[pgs-state~=errorFieldset] :where(legend) {
+  --label-color: var(--color-error);
+  --label-borderColor: unset ;
+}
+
+:is([pgs~=field], [pgs*="field["]):has([pgs-state~=errorLabel]) {
+  background: var(--color-error-soft);
+  border-color: var(--color-error);
+}
+
 :is([pgs~=field], [pgs*="field["]):where([pgs*="'noInput'"]) {
   padding: var(--field-padding);
   padding-top: var(--field-paddingTop);
   border: var(--border-complete);
-  background-color: var(--color-white);
 }
 
 :is([pgs~=menu], [pgs*="menu["]) {
@@ -5727,9 +5535,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   background-color: var(--icon-color, currentColor);
   vertical-align: -0.125em;
   content: "";
-}
-
-:is([pgs~=accordion], [pgs*="accordion["]) :where([pgs~=accordion-button])::after {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }

@@ -4596,7 +4596,8 @@ class PGS_formValidate {
         const field = event.target.closest("input, textarea, select");
         if (!field) return;
 
-        const errorTarget = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(field).state.closest("errorField");
+        // the field that failed, or the fieldset that did when the control is one of its group
+        const errorTarget = field.closest("[pgs-state~='errorField'], [pgs-state~='errorFieldset']");
         if (errorTarget) this.#removeFieldError(errorTarget);
     }
 
@@ -4667,6 +4668,31 @@ class PGS_formValidate {
             return this.temporaryFieldError;
         }
     };
+
+    // the labels of a field that failed: the label that names the control with a for, the one that wraps it,
+    // and a label written right before the control or before the label that wraps it (the label of a field,
+    // which is a span or a legend that is not a <label>). A fieldset has none: it is marked errorFieldset and
+    // nothing inside it is
+    #labelsOf(field) {
+        const labels = new Set();
+        const isLabel = element => element?.matches?.("label, legend, [pgs~='label'], [pgs*='label[']");
+
+        if (field.matches("fieldset")) return [];
+
+        if (field.id) {
+            const named = this.container.querySelector(`label[for="${CSS.escape(field.id)}"]`);
+            if (named) labels.add(named);
+        }
+
+        const wrapping = field.closest("label");
+        if (wrapping && this.container.contains(wrapping)) labels.add(wrapping);
+
+        for (const neighbour of [field.previousElementSibling, wrapping?.previousElementSibling]) {
+            if (isLabel(neighbour)) labels.add(neighbour);
+        }
+
+        return [...labels];
+    }
 
     // - Helpers
     #help = {
@@ -4776,11 +4802,11 @@ class PGS_formValidate {
         const checkboxGroupErrors = [];
         for (const [name, group] of requiredCheckboxGroups.entries()) {
             // a real group (>= 2) needs at least one box ticked
-            // a lone box behaves as a single required field
+            // a lone box behaves as a single required field, and a group that sits in a fieldset
+            // reports the fieldset, even when only one of its boxes is required
             const anyChecked = group.some((c) => c.checked);
             if (!anyChecked) {
-                const fieldset = group.length > 1 ? group[0].closest("fieldset") : null;
-                checkboxGroupErrors.push(fieldset || group[0]);
+                checkboxGroupErrors.push(group[0].closest("fieldset") || group[0]);
             }
         }
 
@@ -4810,7 +4836,10 @@ class PGS_formValidate {
 
     //## ADD
     #addFieldError(field, i = 0, total = 1) {
-        ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(field).state.add("errorField");
+        // a fieldset that fails (a group of radios or checkboxes) is marked errorFieldset, and only it:
+        // the controls it groups are not
+        ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(field).state.add(field.matches("fieldset") ? "errorFieldset" : "errorField");
+        this.#labelsOf(field).forEach(label => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(label).state.add("errorLabel"));
 
         // the first invalid field is the one that scrolls into view and speaks for all of them
         if (i !== 0) return;
@@ -4846,7 +4875,8 @@ class PGS_formValidate {
     //## REMOVE
     #removeFieldError(field) {
         this.#temporaryFieldErrors.delete(field);
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(field).state.remove("errorField");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(field).state.remove("errorField").remove("errorFieldset");
+        this.#labelsOf(field).forEach(label => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(label).state.remove("errorLabel"));
     }
 
     // + SUCCESS
@@ -4875,9 +4905,11 @@ class PGS_formValidate {
         const invalid = this.#inputValue(this.container);
 
         // clean up the errors that no longer apply
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.container).state.querySelectorAll("errorField").forEach(element => {
-            if (!invalid.includes(element)) this.#removeFieldError(element);
-        });
+        for (const state of ["errorField", "errorFieldset"]) {
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.container).state.querySelectorAll(state).forEach(element => {
+                if (!invalid.includes(element)) this.#removeFieldError(element);
+            });
+        }
 
         // add the errors where needed
         invalid.forEach((el, i) => this.#addFieldError(el, i, invalid.length))

@@ -1,7 +1,7 @@
 <!--
 /**
  * @title Form validate
- * @description pgs.helper.formValidate is the JavaScript side of Form: validates required fields, applies errorForm/errorField/success pgs-state, shows an alert or a toast, and lets you register custom rules and errors that only your backend knows about. See Form for the full markup and pgs-data reference; this page focuses on the constructor and its instance methods.
+ * @description pgs.helper.formValidate is the JavaScript side of Form: validates required fields, applies errorForm/errorField/errorFieldset/errorLabel/success pgs-state, shows an alert or a toast, and lets you register custom rules and errors that only your backend knows about. See Form for the full markup and pgs-data reference; this page focuses on the constructor and its instance methods.
  *
  * @pgs-generated
  * - formValidate: added to the form element by the constructor, which is why the example writes a bare form tag; it enables the validation-state styles.
@@ -9,6 +9,8 @@
  * @pgs-state
  * - errorForm: applied to the form when validate() finds at least one invalid field.
  * - errorField: applied to each invalid field.
+ * - errorFieldset: applied to an invalid fieldset (a group of radios or checkboxes) in place of errorField; neither the controls it groups, nor their labels, nor its legend are marked.
+ * - errorLabel: applied to the labels of each invalid field (the one named by for, the one that wraps the field, a label right before it) and removed with errorField. A fieldset has none.
  * - success: applied to the form once validate() passes, replacing errorForm.
  *
  * @api

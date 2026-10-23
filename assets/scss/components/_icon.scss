@@ -27,7 +27,7 @@
 }
 
 :is([pgs~="icon"], [pgs*="icon\5B"]) {
-    @include iconBase();
+    &::before{ @include iconBase(); }
 
     // the key is the bare glyph name, so both prefixes are written out here: the drawing goes on
     // --icon-glyph-*, away from the icon's own configuration, and the option keeps the icon-

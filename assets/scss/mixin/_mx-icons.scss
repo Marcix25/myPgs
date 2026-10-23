@@ -7,30 +7,31 @@
 }
 
 //## iconBase
-// --icon-size/--icon-color are read with a fallback, never declared here: a wrapper further up
-// (alert, notification, toast, a button, ...) sets --icon-size on itself and expects the icon
-// inside to inherit it. Declaring either one here, even at the same 1em/currentColor a bare icon
-// would resolve to anyway, would win over that inheritance regardless of specificity — a value
-// on the element itself always beats an inherited one.
-@mixin iconBase($on: "::before") {
-    &#{$on} {
-        line-height: 1;
-        font-size: var(--icon-size);
-        display: inline-block;
-        width: var(--icon-size, 1em);
-        height: var(--icon-size, 1em);
-        background-color: var(--icon-color, currentColor);
-        vertical-align: -0.125em;
-        content: "";
-    }
+@mixin iconBase() {
+    line-height: 1;
+    font-size: var(--icon-size);
+    display: inline-block;
+    width: var(--icon-size, 1em);
+    height: var(--icon-size, 1em);
+    background-color: var(--icon-color, currentColor);
+    vertical-align: -0.125em;
+    content: "";
 }
 
 //## Icon for use in scss
+// $on is the pseudo-element that draws the glyph; "" draws it on the element itself
 @mixin icon($icon, $on: "::before") {
     --icon: #{$icon};
-    @include iconBase($on);
 
-    &#{$on} { @include svgBase64(var(--icon)); }
+    @if ($on == "") {
+        @include iconBase();
+        @include svgBase64(var(--icon));
+    } @else {
+        &#{$on} {
+            @include iconBase();
+            @include svgBase64(var(--icon));
+        }
+    }
 }
 
 //## ICON DUO

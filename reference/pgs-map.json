@@ -474,6 +474,7 @@
             "contentEvenly",
             "contentStart",
             "flexCenter",
+            "flexNotDefault",
             "flexPlaceCenter",
             "gapElements",
             "gapGroups",
@@ -496,7 +497,9 @@
             "nowrap",
             "row",
             "rowReverse",
-            "wrap"
+            "wrap",
+            "wrapBalance",
+            "wrapReverse"
         ],
         "pgs-data": []
     },
@@ -607,6 +610,7 @@
             "gapSections",
             "gapTexts",
             "gridDense",
+            "gridNotDefault",
             "itemBaseline",
             "itemCenter",
             "itemEnd",

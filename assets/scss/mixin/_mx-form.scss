@@ -28,7 +28,7 @@
 //# LABEL
 //### LABEL - input
 // the label of a text-like input, a range, a file, a color input, a select or a textarea: a tab on top of the control
-@mixin labelInput() {
+@mixin label() {
     --label-borderRadius: var(--border-radius-texts);
     --label-left: var(--label-borderRadius);
     --label-paddingInline: var(--padding-texts);
@@ -67,7 +67,8 @@
     // the top corners only, and no bottom border: the label opens into the control it sits on
     &:where([pgs*="'labelTab'"]) {
         margin-bottom: calc(var(--form-gap, 0px) * -1);
-        transform: translateX(var(--label-left)) translateY(calc(var(--label-borderWidth) + 1px));
+        transform: translateX(var(--label-left)) translateY(calc(var(--label-borderWidth) + 1.5px));
+        padding-bottom: 0;
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
         border-bottom: var(--label-background) var(--border-style) var(--label-borderWidth);
@@ -77,13 +78,13 @@
 //### LABEL - checkbox radio
 // the label of a checkbox or a radio, for the one that holds the control and for the ones inside a group
 @mixin labelCheckboxAndRadio() {
+    --labelCheckboxAndRadio: var(--color-black);
 
     &:where(label),
     :where(label) {
         -webkit-user-select: none;
         user-select: none;
-        color: inherit;
-        color: #b6c1ff;
+        color: var(--labelCheckboxAndRadio);
         position: relative;
         text-align: left;
         line-height: var(--checkbox-size, var(--radio-size));
@@ -112,14 +113,11 @@
 
     //## Disabled, the label after the control
     // on a group (a div, a fieldset): a plain label that follows a disabled checkbox or radio
-    :where(input:disabled) + :where(label) { @include disabled(); }
+    :where(input:disabled)+ :where(label) { @include disabled(); }
 }
 
-//## LABEL
-@mixin label() { @include labelInput(); }
-
-//# INPUT
-//## inputBase
+//# INPUT & TEXTAREA
+//## input base
 @mixin inputBase($opacityPlaceholder) {
     appearance: none;
     width: 100%;
@@ -140,24 +138,11 @@
     &[disabled] { @include disabled(); }
 }
 
-//## INPUT
-@mixin input() {
-    --input-padding: var(--padding-texts);
-    --input-border: var(--border-complete);
-    --input-borderRadius: var(--border-radius-texts);
-    --input-background: var(--color-white);
-    @include inputBase(20%);
-    border: var(--input-border);
-    background-color: var(--input-background);
-    border-radius: var(--input-borderRadius);
-    padding: var(--input-padding);
-
-    &:where([type="password"]) { font-family: initial; }
-}
-
-//## INPUT PICKER
+//## input picker
 // the inputs that carry a picker or a button of their own (search, number, date, time, datetime-local, month, week): a row with the icon first
 @mixin inputPicker() {
+    &:where([type="password"]) { font-family: initial; }
+
     &:where([type="search"], [type="number"], [type="datetime-local"], [type="date"], [type="month"], [type="week"], [type="time"]) {
         // width: clamp(50px, 100%, 300px);
         display: flex;
@@ -172,12 +157,37 @@
     }
 }
 
+//## INPUT
+@mixin input() {
+    --input-padding: var(--padding-texts);
+    --input-border: var(--border-complete);
+    --input-borderRadius: var(--border-radius-texts);
+    --input-background: var(--color-white);
+    @include inputBase(20%);
+    border: var(--input-border);
+    background-color: var(--input-background);
+    border-radius: var(--input-borderRadius);
+    padding: var(--input-padding);
+}
+
+//## TEXTAREA
+@mixin textarea() {
+    resize: vertical;
+    @include input();
+    height: 120px;
+    min-height: 100px;
+    border-bottom-right-radius: 40px;
+    appearance: none;
+}
+
 //# CHECKBOX & RADIO
 //## CHECKBOX
 @mixin checkbox() {
     --checkbox-size: 2.0rem;
     --checkbox-isChecked: 0;
-    --checkbox-icon: #{$icon-check};
+    --checkbox-icon: var(--icon-glyph-check);
+    --checkbox-iconSize: calc(var(--checkbox-size) * 1.6);
+    --checkbox-borderRadius: calc(var(--checkbox-size) / 4);
     --checkbox-gap: calc(var(--gap-texts) /2);
     --checkbox-borderStyleWidth: var(--border-style) var(--border-width);
     //
@@ -199,31 +209,22 @@
     //## ICON & BOX
     &:where(input[type=checkbox]),
     :where(input[type=checkbox]) {
+        //### BOX SQUARE
         appearance: none;
         position: relative;
         width: var(--checkbox-size);
-        min-width: var(--checkbox-size);
         height: var(--checkbox-size);
         cursor: pointer;
         @include center();
         display: inline-flex;
         vertical-align: top;
-        @include icon(var(--checkbox-icon), "::after");
-        --icon-size: calc(2rem + var(--checkbox-size));
-        --icon-color: var(--checkbox-color);
-
-        //### BOX SQUARE
-        &::before {
-            content: "";
-            position: absolute;
-            width: var(--checkbox-size);
-            height: var(--checkbox-size);
-            border: var(--checkbox-borderStyleWidth);
-            border-color: var(--checkbox-borderColor);
-            background: var(--checkbox-background);
-            transition: var(--clickable-transition);
-            border-radius: 0.5rem;
-        }
+        background: var(--checkbox-background);
+        color: var(--checkbox-color);
+        border: var(--checkbox-borderStyleWidth);
+        border-color: var(--checkbox-borderColor);
+        border-radius: var(--checkbox-borderRadius);
+        transition: var(--clickable-transition);
+        --icon-size: var(--checkbox-iconSize);
 
         //### ICON CHECK
         &::after {
@@ -231,36 +232,48 @@
             line-height: var(--checkbox-size);
             text-align: center;
             opacity: var(--checkbox-isChecked);
-            color: var(--checkbox-color);
-            transform: translateX(0.25rem);
-            top: -1.7rem;
-            left: -0.8rem;
+            inset: auto;
+            top: 50%;
+            left: 50%;
+            // the lowest point of the V is the one that stays still: it sits at the same place in the box at any size
+            // of the icon, a little under the middle of the box (the glyph is 448 x 512 in a square, and the lowest
+            // point of the V is at 40.6% and 76.9% of it). A percentage of translate is a share of the icon, so with
+            // the middle of the icon as the anchor a bigger icon would carry the V away
+            translate: -40.6% calc(-76.9% + var(--checkbox-size) * 0.318);
+            transition: var(--clickable-transition);
+            @include icon(var(--checkbox-icon), "");
+            color: inherit;
+        }
+
+        //### HOVER
+        @media (hover: hover) and (pointer: fine) {
+
+            &:hover,
+            :hover {
+                background: var(--checkbox-background-hover);
+                border-color: var(--checkbox-borderColor-hover);
+                color: var(--checkbox-color-hover);
+            }
         }
 
         //### Checked
         &:checked {
-            --checkbox-background: var(--checkbox-background-checked);
-            --checkbox-borderColor: var(--checkbox-borderColor-checked);
-            --checkbox-color: var(--checkbox-color-checked);
+            background: var(--checkbox-background-checked);
+            border-color: var(--checkbox-borderColor-checked);
+            color: var(--checkbox-color-checked);
             --checkbox-isChecked: 1;
+        }
+
+        //### Disabled
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
         //### Focus
         // the ring is drawn on the box: the outline bodyBase gives every :focus-visible would be a second one
         &:focus-visible { outline: none; }
         &:focus-visible::before { outline: var(--focus-visible); }
-    }
-
-    //## HOVER
-    // per label, so a group takes the hover on the one control the pointer is on and not on all of them
-    @media (hover: hover) and (pointer: fine) {
-
-        &:where(label):hover:not(:has(input:disabled)),
-        :where(label):hover:not(:has(input:disabled)) {
-            --checkbox-background: var(--checkbox-background-hover);
-            --checkbox-borderColor: var(--checkbox-borderColor-hover);
-            --checkbox-color: var(--checkbox-color-hover);
-        }
     }
 }
 
@@ -299,18 +312,12 @@
         @include center();
         display: inline-flex;
         vertical-align: top;
-
-        &::before {
-            content: "";
-            position: absolute;
-            width: var(--radio-size);
-            height: var(--radio-size);
-            border: var(--radio-borderStyleWidth);
-            border-color: var(--radio-borderColor);
-            background: var(--radio-background);
-            transition: var(--clickable-transition);
-            border-radius: 50%;
-        }
+        background: var(--radio-background);
+        color: var(--radio-color);
+        border: var(--radio-borderStyleWidth);
+        border-color: var(--radio-borderColor);
+        transition: var(--clickable-transition);
+        border-radius: 50%;
 
         //### DOT
         // the dot of a checked radio, in the middle of the box
@@ -319,18 +326,36 @@
             position: absolute;
             width: var(--radio-dot-size);
             height: var(--radio-dot-size);
-            border-radius: 50%;
-            background: var(--radio-color);
+            color: inherit;
+            background-color: currentColor;
             opacity: var(--radio-isChecked);
             transition: var(--clickable-transition);
+            border-radius: 50%;
+        }
+
+        //### HOVER
+        @media (hover: hover) and (pointer: fine) {
+
+            &:hover,
+            :hover {
+                background: var(--radio-background-hover);
+                border-color: var(--radio-borderColor-hover);
+                color: var(--radio-color-hover);
+            }
         }
 
         //### Checked
         &:checked {
-            --radio-background: var(--radio-background-checked);
-            --radio-borderColor: var(--radio-borderColor-checked);
-            --radio-color: var(--radio-color-checked);
+            background: var(--radio-background-checked);
+            border-color: var(--radio-borderColor-checked);
+            color: var(--radio-color-checked);
             --radio-isChecked: 1;
+        }
+
+        //### Disabled
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
         //### Focus
@@ -338,31 +363,19 @@
         &:focus-visible { outline: none; }
         &:focus-visible::before { outline: var(--focus-visible); }
     }
-
-    //## HOVER
-    // per label, as in checkbox()
-    @media (hover: hover) and (pointer: fine) {
-
-        &:where(label):hover:not(:has(input:disabled)),
-        :where(label):hover:not(:has(input:disabled)) {
-            --radio-background: var(--radio-background-hover);
-            --radio-borderColor: var(--radio-borderColor-hover);
-            --radio-color: var(--radio-color-hover);
-        }
-    }
 }
 
-//# TEXTAREA
-@mixin textarea() {
-    resize: vertical;
-    @include input();
-    height: 120px;
-    min-height: 100px;
-    border-bottom-right-radius: 40px;
-    appearance: none;
+//# FIELDSET & LEGEND
+//## FIELDSET
+@mixin fieldset() {
+    border: unset;
+    display: flex;
+    flex-direction: column;
+    gap: var(--form-gap, var(--gap-texts));
+    padding-top: var(--form-gap, var(--gap-texts));
 }
 
-//# LEGEND
+//## LEGEND
 // the same box as the tab of a label (same custom properties, same border), rounded on every corner and
 // not joined to anything. --label-color and --label-background are the ones formValidate changes when
 // the group fails
@@ -372,7 +385,7 @@
     --label-paddingBlock: calc(var(--padding-texts)/2);
     --label-color: var(--color-black);
     --label-background: var(--color-white);
-    --label-border: var(--border-color) var(--border-style);
+    --label-borderColor: var(--border-color) var(--border-style);
     --label-borderWidth: var(--border-width);
     display: inline-block;
     width: fit-content;
@@ -381,53 +394,57 @@
     background-color: var(--label-background);
     padding-block: var(--label-paddingBlock);
     padding-inline: var(--label-paddingInline);
-    border: var(--label-border) var(--label-borderWidth);
+    border: var(--label-borderColor) var(--label-borderWidth) var(--border-style);
     border-radius: var(--label-borderRadius);
-    margin-bottom: var(--gap-texts);
+
+    //## required
+    // a required control after the legend, or inside one of the elements that follow it (the group it names)
+    &:where(:has(~ :required, ~ * :required)) { @include required(); }
 }
 
-//# FIELDSET
-@mixin fieldset() {
-    border: unset;
+//# FORM & FORM VALIDATE
+//## FORM
+// a column, spaced by --form-gap: the form styles none of its controls
+@mixin form() {
+    --form-gap: var(--gap-texts);
     display: flex;
     flex-direction: column;
-    gap: var(--form-gap, var(--gap-texts));
+    gap: var(--form-gap);
 }
 
-//# FORM VALIDATE
+//## FORM VALIDATE
 @mixin formValidate() {
-    --formValidate-outline: solid 3px var(--color-error);
+    --formValidate-outline: var(--border-width) var(--border-style);
+    --formValidate-outlineColor: var(--color-error);
 
-    //## ERROR
     &[pgs-state~=errorForm] {
-        [pgs-state~=errorField]:not([type=checkbox], [type=radio]) {
-            border: var(--formValidate-outline);
+
+        //## input & checkbox& radio & fieldset
+        //### input
+        :where([pgs-state~=errorField]:not([type=checkbox], [type=radio])) {
+            outline: var(--formValidate-outline);
+            outline-color: var(--formValidate-outlineColor);
+            background-color: var(--color-error-soft);
             color: var(--color-error);
         }
 
-        :where(label):has(+[pgs-state~=errorField], [pgs-state~=errorField]) {
-            &:has(input[type=checkbox]) {
-                padding-block: 8px;
-                border-radius: 10px;
-                outline: var(--formValidate-outline);
-            }
-
-            :where(input[type=radio], input[type=checkbox]) {
-                &::before { outline: var(--formValidate-outline); }
+        //### fieldset
+        :where(fieldset[pgs-state~=errorFieldset]) {
+            :where(legend) {
+                --label-color: var(--color-error);
+                --label-background: var(--color-error-soft);
+                --label-borderColor: var(--color-error);
             }
         }
 
-        :where(fieldset)[pgs-state~=errorField] {
-            border-radius: 10px;
-
-            :where(input[type=radio], input[type=checkbox]) {
-                &::before { outline: var(--formValidate-outline); }
-            }
-
-            :where(legend) {
-                --label-background: var(--color-error-soft);
-                --label-color: var(--color-error);
-            }
+        //## label
+        //### label - input
+        :where([pgs-state~=errorLabel]) {
+            --label-color: var(--color-error);
+            --label-background: var(--color-error-soft);
+            --checkbox-background: var(--color-error-soft);
+            --radio-background: var(--color-error-soft);
+            --labelCheckboxAndRadio: var(--color-error);
         }
     }
 
@@ -435,13 +452,4 @@
     //fieldset that does, to override its default error title and text
     [pgs-data~="formMessageTitle[]"],
     [pgs-data~="formMessage[]"] {}
-}
-
-//# FORM
-// a column, spaced by --form-gap: the form styles none of its controls
-@mixin form() {
-    --form-gap: var(--gap-texts);
-    display: flex;
-    flex-direction: column;
-    gap: var(--form-gap);
 }
