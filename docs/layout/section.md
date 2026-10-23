@@ -2,13 +2,14 @@
 
 # Section
 
-Section variants that control width, padding, and specific content treatment while preserving shared vertical spacing. The content column is `--page-width` wide, centered, with `--page-padding` on either side; an element that spans the full width instead can line itself up with that column through `--page-edge`, the distance from its own edge to where the text starts, or through `--page-edgeFlush`, the distance to where the section box starts instead, one page padding further out, and allowed to fall to zero. The flush one therefore reaches zero as soon as the section box stops fitting, column and padding together, and the element runs edge to edge from there down (Slides uses it for its first and last slide).
+Section variants that control width, padding, and specific content treatment while preserving shared vertical spacing. The content column is `--page-width` wide, centered, with `--page-padding` on either side; an element that spans the full width instead can line itself up with that column through `--page-edge`, the distance from its own edge to where the section box starts, one page padding further out than where the text starts, and allowed to fall to zero. The flush one therefore reaches zero as soon as the section box stops fitting, column and padding together, and the element runs edge to edge from there down (Slides uses it for its first and last slide).
 
 ## PGS
 
 - `main`: identifies the main page area that stacks the sections, spacing them apart and filling the viewport height.
 - `section`: identifies the standard section with centered content, on every side by default, or with the option in its bracket picking one of the variants below instead.
 - `section-specificity`: identifies the content, inside a section using sctSpecificity, that is held to the centered page column while the section itself and its other children keep the full width; nested inside another one it drops the page padding.
+- `section-edge`: identifies the text block of a section using sctEdgeLeft or sctEdgeRight: it is a column held to half the page width and to the page padding on both sides, so its text starts (or ends) where the text of a centered section does. Several can sit in the same row.
 - `container`: turns any element into an inline-size query container, so the utilities that measure their surroundings have something to measure; see Breakpoints, Flex and Grid.
 
 ## PGS Options (component brackets)
@@ -17,10 +18,8 @@ Section variants that control width, padding, and specific content treatment whi
 - `sctSpecificity`: inside section's own bracket, identifies a section that applies a specific structure to its child.
 - `sctMax`: inside section's own bracket, identifies a section with an extended maximum width.
 - `sctNoPadding`: inside section's own bracket, identifies a section without standard padding.
-- `sctEdgeLeft`: inside section's own bracket, identifies a full-width section whose content starts where the text of a centered section starts on the left and runs on past it to the right, keeping only the page padding there. The left offset is --page-edge, which never falls below --page-padding, so the content keeps its breathing room once the column no longer fits.
-- `sctEdgeRight`: inside section's own bracket, the mirror of sctEdgeLeft: the content ends where the page column ends on the right and runs on past it to the left.
-- `sctEdgeFlushLeft`: inside section's own bracket, lines the content up with the outer edge of a centered section on the left, one page padding further out than sctEdgeLeft, through --page-edgeFlush, which is allowed to fall to zero: once the section box no longer fits, the content runs flush to the left edge of the screen. The right side carries no padding at all, so the row bleeds off that edge instead of stopping short of it, which is what a carousel or a full-width image wants.
-- `sctEdgeFlushRight`: inside section's own bracket, the mirror of sctEdgeFlushLeft, lined up on the right and bleeding off the left edge.
+- `sctEdgeLeft`: inside section's own bracket, lines the content up with the outer edge of a centered section on the left, through --page-edge, which is allowed to fall to zero: once the section box no longer fits, the content runs flush to the left edge of the screen. The right side carries no padding at all, so the row bleeds off that edge instead of stopping short of it, which is what a carousel or a full-width image wants. The section is the row: the text goes in a section-edge, and every other child (an image, a video) takes what the text leaves, never narrower than half of the page. The text block is at most the page width divided by --section-edge-textDivisor and the other children at least the page width divided by --section-edge-mediaDivisor; both are 2 by default and a value below 2 is taken as 2.
+- `sctEdgeRight`: inside section's own bracket, the mirror of sctEdgeLeft: the row is lined up with the outer edge of a centered section on the right, through --page-edge, and bleeds off the left edge, and the text block sits at the right end of the row, ending where the page column ends.
 - `sctRemoveGap`: inside section's own bracket, pulls the section into the shared gap above and below it, negating half of --gap-sections on each side. It combines with any variant above, and written alone it keeps the standard section (width, padding and centering).
 - `sctRemoveGapTop`: inside section's own bracket, the same pull on the top edge only.
 - `sctRemoveGapBottom`: inside section's own bracket, the same pull on the bottom edge only.
@@ -39,17 +38,20 @@ Section variants that control width, padding, and specific content treatment whi
 ### PGS Options (component brackets)
 
 - `column`: vertically organizes sections and inner content.
-- `row`: places the text and the image of an edge section side by side.
 - `gapElements`: applies element spacing inside each section.
 - `imgCover`: inside img's own bracket, crops the image to fill its box.
 - `hideContainerDownTablet`: inside hide's own bracket, hides its element while the surrounding container is at most 800px wide.
 
 ### Other
 
+- `row`: places the text and the image of an edge section side by side.
 - `gapSections`: applies section spacing to the outer collection.
 
 ## CSS Variables
 
+- `--section-edge-gap`
+- `--section-edge-mediaDivisor`
+- `--section-edge-textDivisor`
 - `--section-marginBase`
 - `--section-marginBlock`
 - `--section-parentGap`
@@ -128,46 +130,25 @@ container['cntNone'] cancels container on the same element, so the utilities ins
 
 ### Edge section
 
-A full-width row aligned with the page column on one side only, so the image runs past the column on the other. The aligned side keeps at least the page padding, so it still breathes on a narrow screen.
+A full-width row that bleeds off one edge of the screen and lines the text up with the page column on the other side: sctEdgeLeft on the left, sctEdgeRight on the right. The text goes in a section-edge and the image, or any other child, takes what the text leaves. Below the page width the text is flush against the edge of the screen.
 
 ```html
 <section pgs="section['sctEdgeLeft']">
-    <div pgs="flex['row' 'gapElements']">
+    <div pgs="section-edge">
+        <strong>Flush left</strong>
         <p>Text that starts exactly where the centered page column starts, while the image beside it runs on past the column to the right.</p>
-        <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Placeholder image">
     </div>
+    <img src="../assets/img/placeholder.jpg" alt="Placeholder image">
 </section>
 ```
 
 
 ```html
 <section pgs="section['sctEdgeRight']">
-    <div pgs="flex['row' 'gapElements']">
-        <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Placeholder image">
+    <img src="../assets/img/placeholder.jpg" alt="Placeholder image">
+    <div pgs="section-edge">
+        <strong>Flush right</strong>
         <p>The mirror: the text ends where the page column ends, and the image runs on past it to the left.</p>
-    </div>
-</section>
-```
-
-### Flush edge section
-
-Measured with --page-edgeFlush instead: the offset lands on the outer edge of a centered section rather than on its text, and is allowed to fall to zero, so as soon as the section box no longer fits the content touches the edge of the screen. The opposite side carries no padding either, so the row bleeds right off it. Slides uses this for its first and last slide.
-
-```html
-<section pgs="section['sctEdgeFlushLeft']">
-    <div pgs="flex['row' 'gapElements']">
-        <p>Below the page width this text is flush against the left edge of the screen, with no padding left to hold it off.</p>
-        <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Placeholder image">
-    </div>
-</section>
-```
-
-
-```html
-<section pgs="section['sctEdgeFlushRight']">
-    <div pgs="flex['row' 'gapElements']">
-        <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Placeholder image">
-        <p>The mirror, flush against the right edge of the screen.</p>
     </div>
 </section>
 ```

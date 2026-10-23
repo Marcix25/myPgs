@@ -489,9 +489,10 @@ Two behaviors moved with the names, so a project that only renames still gets a 
 - `--page-padding` is a plain measure, where `--padding-page` was `min(5vw, var(--padding-elements))`. The
   page gutter no longer shrinks on a narrow screen. Put the clamp back on the new name if a project
   wants it: `--page-padding: min(5vw, var(--padding-elements))`.
-- `--page-edgeFlush` is now one `--page-padding` shorter than `--page-edge`, so it lands on the outer
-  edge of a section box rather than on its text, and reaches zero as soon as that box stops fitting
-  rather than when the bare column does.
+- `--page-edge` is now the distance from the edge of a full-width element to the outer edge of a
+  centered section box, one `--page-padding` further out than its text, and it reaches zero as soon as
+  that box stops fitting rather than when the bare column does. The variable that stopped at the text
+  and `--page-edgeFlush` are gone, the second one is `--page-edge` now.
 
 ### Flex/grid gap and wrap, bare `pgs` support removed
 

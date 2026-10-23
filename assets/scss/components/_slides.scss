@@ -63,8 +63,8 @@
             max-width: 100%;
             height: auto;
 
-            &:first-child { margin-left: var(--page-edgeFlush); }
-            &:last-child { margin-right: var(--page-edgeFlush); }
+            &:first-child { margin-left: var(--page-edge); }
+            &:last-child { margin-right: var(--page-edge); }
 
             //- tablet
             @media (max-width: #{$tablet}) { min-width: var(--slides-width-tablet); }

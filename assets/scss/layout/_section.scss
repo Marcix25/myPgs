@@ -21,7 +21,7 @@
     // variant draws its own width and padding in its place
     &:not(:is(
         [pgs*="'sctNoPadding'"], [pgs*="'sctMax'"], [pgs*="'sctFull'"], [pgs*="'sctSpecificity'"],
-        [pgs*="'sctEdgeLeft'"], [pgs*="'sctEdgeRight'"], [pgs*="'sctEdgeFlushLeft'"], [pgs*="'sctEdgeFlushRight'"]
+        [pgs*="'sctEdgeLeft'"], [pgs*="'sctEdgeRight'"]
     )) { @include section; }
 
     //+ Type of section
@@ -31,10 +31,8 @@
     &[pgs*="'sctSpecificity'"] { @include sectionSpecificity-child(':where([pgs~="section-specificity"])'); }
 
     //+ Edge
-    &[pgs*="'sctEdgeLeft'"] { @include sectionEdgeLeft; }
-    &[pgs*="'sctEdgeRight'"] { @include sectionEdgeRight; }
-    &[pgs*="'sctEdgeFlushLeft'"] { @include sectionEdgeFlushLeft; }
-    &[pgs*="'sctEdgeFlushRight'"] { @include sectionEdgeFlushRight; }
+    &[pgs*="'sctEdgeLeft'"] { @include sectionEdge('[pgs~="section-edge"]', left); }
+    &[pgs*="'sctEdgeRight'"] { @include sectionEdge('[pgs~="section-edge"]', right); }
 
     //+ Remove gap
     &[pgs*="'sctRemoveGap'"] { --section-marginBlock: var(--section-marginBase) var(--section-marginBase); }

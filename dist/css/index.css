@@ -44,8 +44,7 @@
   --page-top: calc(var(--_header-height) + 7lvh);
   --page-topScroll: calc(var(--_header-heightScroll) + var(--_header-height));
   --page-width: 1280px;
-  --page-edge: max(var(--page-padding), calc((100cqw - var(--page-width)) / 2));
-  --page-edgeFlush: max(0px, calc((100cqw - var(--page-width)) / 2 - var(--page-padding)));
+  --page-edge: max(0px, calc((100% - var(--page-width)) / 2 - var(--page-padding)));
   --box-shadow: 0px 0px 38px 0px #0000000d;
   --text-shadow: 0px 0px 4px #00000040, 0px 0px 4px #0000002d;
   --backdrop: #0000007a;
@@ -504,7 +503,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=section], [pgs*="section["]):not(:is([pgs*="'sctNoPadding'"], [pgs*="'sctMax'"], [pgs*="'sctFull'"], [pgs*="'sctSpecificity'"],
-[pgs*="'sctEdgeLeft'"], [pgs*="'sctEdgeRight'"], [pgs*="'sctEdgeFlushLeft'"], [pgs*="'sctEdgeFlushRight'"])) {
+[pgs*="'sctEdgeLeft'"], [pgs*="'sctEdgeRight'"])) {
   --section-width: calc(var(--page-width) + (var(--page-padding) * 2));
   margin-inline: auto;
   max-width: var(--section-width);
@@ -574,49 +573,61 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=section], [pgs*="section["])[pgs*="'sctEdgeLeft'"] {
+  --section-edge-textDivisor: 2;
+  --section-edge-mediaDivisor: 2;
+  --section-edge-gap: var(--page-padding);
   position: relative;
   width: 100%;
   container-type: inline-size;
+  padding-left: var(--page-edge);
+  display: flex;
+  gap: var(--section-edge-gap);
+  --gap: var(--section-edge-gap);
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
-:is([pgs~=section], [pgs*="section["])[pgs*="'sctEdgeLeft'"] > * {
-  width: 100%;
-  padding-left: var(--page-edge);
-  padding-right: var(--page-padding);
+:is([pgs~=section], [pgs*="section["])[pgs*="'sctEdgeLeft'"] [pgs~=section-edge] {
+  display: flex;
+  gap: var(--gap-texts);
+  --gap: var(--gap-texts);
+  flex-direction: column;
+  max-width: calc(var(--page-width) / max(2, var(--section-edge-textDivisor, 2)));
+  padding-inline: var(--page-padding);
+}
+
+:is([pgs~=section], [pgs*="section["])[pgs*="'sctEdgeLeft'"] > :where(:not([pgs~=section-edge])) {
+  flex: 1 1 0%;
+  min-width: min(100%, var(--page-width) / max(2, var(--section-edge-mediaDivisor, 2)));
 }
 
 :is([pgs~=section], [pgs*="section["])[pgs*="'sctEdgeRight'"] {
+  --section-edge-textDivisor: 2;
+  --section-edge-mediaDivisor: 2;
+  --section-edge-gap: var(--page-padding);
   position: relative;
   width: 100%;
   container-type: inline-size;
-}
-
-:is([pgs~=section], [pgs*="section["])[pgs*="'sctEdgeRight'"] > * {
-  width: 100%;
   padding-right: var(--page-edge);
-  padding-left: var(--page-padding);
+  display: flex;
+  gap: var(--section-edge-gap);
+  --gap: var(--section-edge-gap);
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
-:is([pgs~=section], [pgs*="section["])[pgs*="'sctEdgeFlushLeft'"] {
-  position: relative;
-  width: 100%;
-  container-type: inline-size;
+:is([pgs~=section], [pgs*="section["])[pgs*="'sctEdgeRight'"] [pgs~=section-edge] {
+  display: flex;
+  gap: var(--gap-texts);
+  --gap: var(--gap-texts);
+  flex-direction: column;
+  max-width: calc(var(--page-width) / max(2, var(--section-edge-textDivisor, 2)));
+  padding-inline: var(--page-padding);
 }
 
-:is([pgs~=section], [pgs*="section["])[pgs*="'sctEdgeFlushLeft'"] > * {
-  width: 100%;
-  padding-left: var(--page-edgeFlush);
-}
-
-:is([pgs~=section], [pgs*="section["])[pgs*="'sctEdgeFlushRight'"] {
-  position: relative;
-  width: 100%;
-  container-type: inline-size;
-}
-
-:is([pgs~=section], [pgs*="section["])[pgs*="'sctEdgeFlushRight'"] > * {
-  width: 100%;
-  padding-right: var(--page-edgeFlush);
+:is([pgs~=section], [pgs*="section["])[pgs*="'sctEdgeRight'"] > :where(:not([pgs~=section-edge])) {
+  flex: 1 1 0%;
+  min-width: min(100%, var(--page-width) / max(2, var(--section-edge-mediaDivisor, 2)));
 }
 
 :is([pgs~=section], [pgs*="section["])[pgs*="'sctRemoveGap'"] {
@@ -6149,11 +6160,11 @@ html:has(dialog[open]) {
 }
 
 :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-container]) :where([pgs~=slides-container-slide]):first-child {
-  margin-left: var(--page-edgeFlush);
+  margin-left: var(--page-edge);
 }
 
 :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-container]) :where([pgs~=slides-container-slide]):last-child {
-  margin-right: var(--page-edgeFlush);
+  margin-right: var(--page-edge);
 }
 
 @media (max-width: 800px) {

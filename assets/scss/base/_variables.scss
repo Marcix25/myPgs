@@ -53,8 +53,7 @@
         --page-top: calc(var(--_header-height) + 7lvh);
         --page-topScroll: calc(var(--_header-heightScroll) + var(--_header-height));
         --page-width: 1280px;
-        --page-edge: max(var(--page-padding), calc((100cqw - var(--page-width)) / 2));
-        --page-edgeFlush: max(0px, calc((100cqw - var(--page-width)) / 2 - var(--page-padding)));
+        --page-edge: max(0px, calc((100% - var(--page-width)) / 2 - var(--page-padding)));
         //
         --box-shadow: 0px 0px 38px 0px #0000000d;
         --text-shadow: 0px 0px 4px #00000040, 0px 0px 4px #0000002d;
