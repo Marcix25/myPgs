@@ -4,16 +4,12 @@
 //# FLEX
 //## FLEX OPTIONS
 :is([pgs~="flex"], [pgs*="flex\5B"]) {
-    @include row();
-
+    &[pgs*="'flexNotDefault'"]{ display: flex; }
+    &:not([pgs*="'flexNotDefault'"]){ @include row(); }
+    
+    //
     &[pgs*="'inlineFlex'"] { display: inline-flex; }
-
-    // flexPlaceCenter, not a bare center, which would read like textAlign's taCenter. Named
-    // after place-content/place-items (the CSS shorthand this mirrors); flexCenter below is
-    // the same align-items/justify-content pair without this one's default gap
-    &[pgs*="'flexPlaceCenter'"] {
-        @include center();
-    }
+    &[pgs*="'flexPlaceCenter'"] { @include center(); }
 
     &[pgs*="'flexCenter'"] {
         align-items: center;
@@ -30,9 +26,15 @@
     &[pgs*="'rowReverse'"] { flex-direction: row-reverse; }
 
     //### WRAP
-    // A column keeps the old column layout's nowrap default; an explicit flag wins.
-    &[pgs*="'nowrap'"] {flex-wrap: nowrap;}
+    &[pgs*="'nowrap'"] { flex-wrap: nowrap; }
     &[pgs*="'wrap'"] { flex-wrap: wrap; }
+    &[pgs*="'wrapReverse'"] { flex-wrap: wrap-reverse; }
+    &[pgs*="'wrapBalance'"] { flex-wrap: balance; }
+
+    &[pgs*="'wrapBalance'"][pgs*="'wrapReverse'"] {
+        flex-wrap: wrap-reverse;
+        flex-wrap: balance wrap-reverse;
+    }
 }
 
 //## FLEX CHILD

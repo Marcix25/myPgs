@@ -18,8 +18,11 @@ Flex layouts: direction, wrapping, centering, a responsive column-N row that dro
 - `row`: configures a flex layout to arrange items horizontally.
 - `columnReverse`: configures a flex layout to stack items vertically in reverse order.
 - `rowReverse`: configures a flex layout to arrange items horizontally in reverse order.
+- `flexNotDefault`: inside flex's own bracket, keeps only display: flex: the gap, the direction and the wrap are not set, so the element keeps its own, and the other options of flex (centering, wrap, column and the rest) still apply.
 - `wrap`: allows flex items to wrap.
 - `nowrap`: prevents flex items from wrapping.
+- `wrapReverse`: allows flex items to wrap, with the rows stacked in the opposite direction: the first row is at the bottom of a row layout and the first column at the end of a column layout.
+- `wrapBalance`: allows flex items to wrap and balances them: the lines hold about the same number of items, instead of the first ones being full and the last one short. A browser that does not know the value yet wraps as with wrap. Written together with wrapReverse it balances the reversed lines.
 - `column-`: inside flex's own bracket, lays the children out on a responsive row of N equal columns, column-1 through column-8, dropping to fewer columns at each breakpoint.
 - `column-1`: inside flex's own bracket, stacks the children in a single column.
 - `column-4`: inside flex's own bracket, four columns per row; values from 1 through 8 are supported.
@@ -156,6 +159,29 @@ Flex items wrapping onto multiple rows versus staying on a single non-wrapping r
 <div pgs="flex['row' 'gapTexts' 'nowrap']">
     <span pgs="box">Non-wrapping item</span>
     <span pgs="box">Non-wrapping item</span>
+</div>
+<div pgs="flex['row' 'gapTexts' 'wrapReverse']" style="height: 12rem;">
+    <span pgs="box">Reverse wrapping item</span>
+    <span pgs="box">Reverse wrapping item</span>
+    <span pgs="box">Reverse wrapping item</span>
+</div>
+<div pgs="flex['row' 'gapTexts' 'wrapBalance']">
+    <span pgs="box">Balanced item</span>
+    <span pgs="box">Balanced item</span>
+    <span pgs="box">Balanced item</span>
+    <span pgs="box">Balanced item</span>
+    <span pgs="box">Balanced item</span>
+</div>
+```
+
+### Without the defaults
+
+flexNotDefault keeps only display: flex: the gap and the wrap are the element's own, and the options of flex, such as flexCenter, still apply.
+
+```html
+<div pgs="flex['flexNotDefault' 'flexCenter']" style="gap: 3rem; flex-wrap: nowrap;">
+    <span pgs="box">flexNotDefault</span>
+    <span pgs="box">flexNotDefault</span>
 </div>
 ```
 

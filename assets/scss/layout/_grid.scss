@@ -4,10 +4,16 @@
 //# GRID
 //## GRID OPTIONS
 :is([pgs~="grid"], [pgs*="grid\5B"]) {
-    display: grid;
-    --gap: var(--gap-texts);
-    gap: var(--gap);
-    width: 100%;
+    // gridNotDefault keeps only the display: the gap and the width are the element's own, and the options
+    // of grid (column-N, gridDense...) still apply
+    &[pgs*="'gridNotDefault'"] { display: grid; }
+
+    &:not([pgs*="'gridNotDefault'"]) {
+        display: grid;
+        --gap: var(--gap-texts);
+        gap: var(--gap);
+        width: 100%;
+    }
 
     // fills the holes a wide item leaves at the end of a row with the items that come after it,
     // instead of always placing them in source order

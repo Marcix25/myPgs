@@ -21,7 +21,7 @@ Section variants that control width, padding, and specific content treatment whi
 - `sctEdgeRight`: inside section's own bracket, the mirror of sctEdgeLeft: the content ends where the page column ends on the right and runs on past it to the left.
 - `sctEdgeFlushLeft`: inside section's own bracket, lines the content up with the outer edge of a centered section on the left, one page padding further out than sctEdgeLeft, through --page-edgeFlush, which is allowed to fall to zero: once the section box no longer fits, the content runs flush to the left edge of the screen. The right side carries no padding at all, so the row bleeds off that edge instead of stopping short of it, which is what a carousel or a full-width image wants.
 - `sctEdgeFlushRight`: inside section's own bracket, the mirror of sctEdgeFlushLeft, lined up on the right and bleeding off the left edge.
-- `sctRemoveGap`: inside section's own bracket, pulls the section into the shared gap above and below it, negating half of --gap-sections on each side; combines with any variant above.
+- `sctRemoveGap`: inside section's own bracket, pulls the section into the shared gap above and below it, negating half of --gap-sections on each side. It combines with any variant above, and written alone it keeps the standard section (width, padding and centering).
 - `sctRemoveGapTop`: inside section's own bracket, the same pull on the top edge only.
 - `sctRemoveGapBottom`: inside section's own bracket, the same pull on the bottom edge only.
 - `cntNone`: inside container's own bracket, cancels it on the same element, so it stops acting as a query container and the nearest marked ancestor is measured instead.

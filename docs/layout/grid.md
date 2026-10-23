@@ -15,6 +15,7 @@ Grid layouts: a responsive column-N grid that drops to fewer columns at each bre
 - `column-1`: inside grid's own bracket, a single column.
 - `column-4`: inside grid's own bracket, four columns; values from 1 through 8 are supported.
 - `m2e`: inside grid's own bracket, keeps two columns at the mobile breakpoint instead of one (or the one there is, when a single column was declared), returning to one on watch-sized containers.
+- `gridNotDefault`: inside grid's own bracket, keeps only display: grid: the gap and the full width are not set, so the element keeps its own, and the other options of grid still apply.
 - `gridDense`: inside grid's own bracket, lets later items fill the holes a wider one leaves at the end of a row (grid-auto-flow: dense), so the visual order can differ from the source order.
 - `colS`: inside gridChild's own bracket, makes the item span 1 column (--gridChild-col-s) of a grid['column-N'], capped by the columns the current breakpoint leaves, so a span never makes the grid add columns of its own; outside a column-N grid it does nothing.
 - `colM`: inside gridChild's own bracket, spans 2 columns (--gridChild-col-m).
@@ -88,6 +89,19 @@ Four-column grid layout using column-4 with m2e to collapse to two columns per r
         <strong>Enim ad minim</strong>
         <p>Ut labore et dolore magna aliqua ut enim.</p>
     </article>
+</div>
+```
+
+### Without the defaults
+
+gridNotDefault keeps only display: grid: the gap and the width are the element's own, and column-4 still lays out the columns.
+
+```html
+<div pgs="grid['gridNotDefault' 'column-4']" style="gap: 3rem; width: 70%;">
+    <span pgs="box">gridNotDefault</span>
+    <span pgs="box">gridNotDefault</span>
+    <span pgs="box">gridNotDefault</span>
+    <span pgs="box">gridNotDefault</span>
 </div>
 ```
 

@@ -14,13 +14,15 @@
     --section-parentGap: var(--main-gap, var(--gap-sections));
     --section-marginBase: calc(var(--section-parentGap) / 2 * -1);
     --section-marginBlock: 0 0;
+    margin-block: var(--section-marginBlock);
 
-    &[pgs*="section\5B"] { margin-block: var(--section-marginBlock); }
-
-    &:not([pgs*="section\5B"]),
-    &[pgs*="section[]"] {
-        @include section;
-    }
+    // the standard section is the base of every section, written bare, with an empty bracket or with
+    // modifiers only (sctRemoveGap...): it is dropped only when a variant is written, because each
+    // variant draws its own width and padding in its place
+    &:not(:is(
+        [pgs*="'sctNoPadding'"], [pgs*="'sctMax'"], [pgs*="'sctFull'"], [pgs*="'sctSpecificity'"],
+        [pgs*="'sctEdgeLeft'"], [pgs*="'sctEdgeRight'"], [pgs*="'sctEdgeFlushLeft'"], [pgs*="'sctEdgeFlushRight'"]
+    )) { @include section; }
 
     //+ Type of section
     &[pgs*="'sctNoPadding'"] { @include sectionNoPadding; }
