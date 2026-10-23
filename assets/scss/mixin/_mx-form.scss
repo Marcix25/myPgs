@@ -27,7 +27,7 @@
 
 //# LABEL
 //### LABEL - input
-// the label of a text-like input, a range, a file, a color input, a select or a textarea: a tab on top of the control
+// the label of a text-like input, a range, a file, a color input, a select or a textarea: a box above the control; with labelTab a tab
 @mixin label() {
     --label-borderRadius: var(--borderRadius-texts);
     --label-left: var(--label-borderRadius);
@@ -271,9 +271,8 @@
         }
 
         //### Focus
-        // the ring is drawn on the box: the outline bodyBase gives every :focus-visible would be a second one
-        &:focus-visible { outline: none; }
-        &:focus-visible::before { outline: var(--focus-visible); }
+        // the input is the box: the ring is drawn on it, in place of the outline bodyBase gives every :focus-visible
+        &:focus-visible { outline: var(--focus-visible); }
     }
 }
 
@@ -359,9 +358,8 @@
         }
 
         //### Focus
-        // the ring is drawn on the box: the outline bodyBase gives every :focus-visible would be a second one
-        &:focus-visible { outline: none; }
-        &:focus-visible::before { outline: var(--focus-visible); }
+        // the input is the box: the ring is drawn on it, in place of the outline bodyBase gives every :focus-visible
+        &:focus-visible { outline: var(--focus-visible); }
     }
 }
 
@@ -385,7 +383,7 @@
     --label-paddingBlock: calc(var(--padding-texts)/2);
     --label-color: var(--color-black);
     --label-background: var(--color-white);
-    --label-borderColor: var(--border-color) var(--border-style);
+    --label-borderColor: var(--border-color);
     --label-borderWidth: var(--border-width);
     display: inline-block;
     width: fit-content;
@@ -419,7 +417,7 @@
 
     &[pgs-state~=errorForm] {
 
-        //## input & checkbox& radio & fieldset
+        //## input & fieldset
         //### input
         :where([pgs-state~=errorField]:not([type=checkbox], [type=radio])) {
             outline: var(--formValidate-outline);

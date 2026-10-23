@@ -1,14 +1,14 @@
 //= SPACING: margin, padding
 // a shared base root for margin and padding (all four sides), plus a separate root per
 // direction (marginBlock, paddingTop, ...) — each direction's own root reads its own
-// --{property}-{direction}-sign custom property (base uses the shared --margin-sign), flipped
+// --{root}-sign custom property (--marginTop-sign, ...; base uses the shared --margin-sign), flipped
 // to -1 by that direction's own Negative flag (mgBlNegative, mgTpNegative, ...) and read with a
 // plain `, 1)` fallback, so mgTpNegative negates only margin-top even when combined with a
 // base-level mgTexts/mgElements/etc in the same bracket. Padding has no negative variant at all,
 // since negative padding isn't a real thing. The scale is the same one gap uses: texts (smallest,
 // also the default), elements (base size), groups (double), sections (viewport-based, biggest).
 //# MARGIN
-// direction split back out into its own root per side (marginBlock, marginTop, ...) with a short
+// each direction has its own root (marginBlock, marginTop, ...) with a short
 // direction-prefixed scale flag inside each (mgBlTexts, mgTpPage, ...) instead of folded into
 // margin's own bracket. Base margin keeps the short "mg" prefix (mgTexts, ...); direction roots
 // add a direction letter (mgBl, mgIn, mgTp, mgRt, mgBt, mgLt).
@@ -131,7 +131,7 @@
 }
 
 //# PADDING
-// direction split back out into its own root per side (paddingBlock, paddingTop, ...) instead of
+// each direction has its own root (paddingBlock, paddingTop, ...) instead of being
 // folded into padding's own bracket, with a short direction-prefixed scale flag inside each
 // (pdBlTexts, pdTpPage, ...). Base padding also uses the short "pd" prefix (pdTexts, ...), matching
 // the direction roots below. Same scale as margin and gap: texts (smallest, also the default),

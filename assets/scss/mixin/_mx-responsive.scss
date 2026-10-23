@@ -1,7 +1,7 @@
 @use "sass:math";
 @use "settings" as *;
 
-//# FLEX 
+//# FLEX
 //## column
 @mixin column($gap: var(--gap-texts)) {
     display: flex;
@@ -76,7 +76,7 @@
         }
     }
 
-    //-( big-mobile: 1 or 2 columns
+    //-( big-mobile: the declared columns scaled to 0.15, at least 1 (m2e: two)
     @container (max-width: #{$big-mobile}) {
         >* {
             --_flex-cols: #{_cols(0.15, $columns)};
@@ -92,7 +92,7 @@
         }
     }
 
-    //-( mobile small / watch: always 1 column
+    //-( mobile small / watch: the same as big-mobile (m2e: two)
     @container (max-width: #{$watch}) {
         >* {
             --_flex-cols: #{_cols(0.15, $columns)};
@@ -101,7 +101,7 @@
     }
 }
 
-//# GRID 
+//# GRID
 //## column
 // --_grid-cols follows grid-template-columns at every breakpoint, so a gridChild col* can cap
 // its span at the columns actually there

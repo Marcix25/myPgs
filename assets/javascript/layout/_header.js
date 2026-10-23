@@ -95,7 +95,7 @@ function initHeight(header) {
     //## HEIGHT
     function headerHeight() {
         // --_header-height is what pushes the page down, so only one header can own it. Ownership
-        // is checked here rather than at init, so a header declaring main later still
+        // is checked here rather than at init, so a header declaring headerMain later still
         // takes over from the fallback
         if (getPrimaryHeader() !== header) return;
 

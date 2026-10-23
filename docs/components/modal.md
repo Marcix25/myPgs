@@ -26,10 +26,10 @@ A native dialog driven by the library. The dialog is moved out of its wrapper on
 - `dialogDisableBackdropClose`: keeps a click on the backdrop from closing the dialog, so it only closes through its own controls or its API.
 - `dialogDragClose`: on a touch screen, dragging the panel down follows the finger and fades the backdrop, the way PhotoSwipe pulls a photo away; let go past 15% of the screen height, or with a quick flick, and it carries on down and the dialog closes, otherwise it springs back. A drag only starts where nothing would scroll instead: outside form fields, and with the panel and the dialog scrolled to their top.
 - `dialogFull`: expands the dialog content to the full width of the viewport, instead of capping it at the page width.
-- `dialogLeft`: aligns the dialog content to the left edge of the viewport, instead of the horizontal centre.
+- `dialogLeft`: aligns the dialog content to the left edge of the viewport, instead of the horizontal center.
 - `dialogMedium`: shrinks the dialog content to half the page width instead of filling the viewport.
 - `dialogSmall`: shrinks the dialog content to a third of the page width instead of filling the viewport.
-- `dialogRight`: aligns the dialog content to the right edge of the viewport, instead of the horizontal centre.
+- `dialogRight`: aligns the dialog content to the right edge of the viewport, instead of the horizontal center.
 - `dialogTop`: aligns the dialog content to the top of the viewport. This is already the default height, so it only changes anything when it replaces dialogBottom or dialogCenter, as a script that swaps position options does.
 - `dialogTopLevel`: leaves the dialog inside its wrapper and opens it with showModal(), on the browser's top layer above everything else, instead of moving it into a container and opening it with show().
 - `dialogAnimationZoom`: grows the panel out of the modal-button that opened it and shrinks it back into the button on close, with the backdrop fading alongside; the animation lives in the stylesheet, tuned by --modal-animation-timing and --modal-animation-easing and turned off under prefers-reduced-motion, while the module only measures the button and the panel; it is skipped when there is no visible button to zoom from.

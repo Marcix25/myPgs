@@ -119,8 +119,8 @@ function initializeAccordion(accordion) {
 
         // the moment the reader works this panel, accAutoOpen stops being the authored
         // "this one stays open": from here on it is an ordinary panel of the group, so a
-        // sibling opening can close it. Guarded, because remove() would otherwise write an
-        // empty pgs-option on every accordion that never had one
+        // sibling opening can close it. Guarded, because option.remove rewrites the pgs
+        // attribute (without the flag) even on an accordion that never had it
         if (pgs(accordion).option.contains("accAutoOpen")) pgs(accordion).option.remove("accAutoOpen");
         if (!isMultiOpen) closeOtherAccordion();
 

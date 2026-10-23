@@ -18,7 +18,7 @@ pgs.helper.formValidate is the JavaScript side of Form: validates required field
 
 ## JavaScript API
 
-- `new pgs.helper.formValidate(form, options)`: creates a utility associated directly with the form, adds novalidate, and completes missing form message options (formFieldErrorTitle, formFieldError, formFieldsError, formSuccessTitle, formSuccess) from options.message and then from library defaults; existing pgs-data values are preserved. Throws a TypeError when form is not an element, options is not an object, or options.message holds an unknown key or a value that is not a string. It adds one click listener to the form, which clears the error of the field that was clicked, however many times validate() runs.
+- `new pgs.helper.formValidate(form, options)`: creates a utility associated directly with the form, adds novalidate, and completes missing form message options (formFieldErrorTitle, formFieldError, formFieldsError, formSuccessTitle, formSuccess) from options.message and then from library defaults; existing pgs-data values are preserved. Throws a TypeError when form is not an element, options is not an object, or options.message holds an unknown key or a value that is not a string. It adds one click listener to the form, which clears the error of the field that was clicked, however many times validate() runs. The other options are typeNotice ("alert", the default, or "toast": where the errors and the success are shown), showSuccessOnValidate (true by default: set it to false to show no success notice) and alertContainer (the element the alerts are put in).
 - `instance.validator(callback, eventName)`: intercepts the specified event, clears previous temporary field errors, validates the form, shows the success message, and invokes callback only when valid; eventName defaults to submit. Throws a TypeError when callback is not a function or eventName is not a non-empty string.
 - `instance.validate()`: validates required fields, updates state attributes, and returns true or false.
 - `instance.success(description, title)`: validates the form and shows a success alert or toast when there are no errors.
@@ -32,7 +32,7 @@ pgs.helper.formValidate is the JavaScript side of Form: validates required field
 
 ### PGS
 
-- `field`: wraps the username input and its floating label; see Form.
+- `field`: wraps the username input and its floating label; see Form Add-ons.
 - `label`: the floating label of the field; see Form.
 - `input`: the username input, reshaped by the field; see Form.
 - `form`: uses the related form component or utility in this example.

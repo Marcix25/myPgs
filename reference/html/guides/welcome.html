@@ -44,7 +44,7 @@
 
     <div pgs="flex['column' 'gapTexts']">
         <h2 class="demoContent-heading demoContent-heading-h2">CSS and SCSS</h2>
-        <p>Prefer the library's custom properties, such as <code>--color-primary</code>, <code>--padding</code>, <code>--gap-elements</code> and <code>--borderRadius-elements</code>, to hardcoded values:</p>
+        <p>Prefer the library's custom properties, such as <code>--color-primary</code>, <code>--padding-elements</code>, <code>--gap-elements</code> and <code>--borderRadius-elements</code>, to hardcoded values:</p>
         <div pgs="box['boxMini'] background['bgPrimarySoft'] textColor['txtPrimaryStrong']">
             <code>
                 #danger-action { <br>
@@ -58,7 +58,7 @@
 
     <div pgs="flex['column' 'gapTexts']">
         <h2 class="demoContent-heading demoContent-heading-h2">JavaScript helpers</h2>
-        <p>Helpers collect reusable behavior that is not a component of its own. They are registered on <code>PGS</code> by the library entrypoint, and their sources live in <code>assets/javascript/helper/</code>:</p>
+        <p>Helpers collect reusable behavior that is not a component of its own. They are registered on <code>pgs.helper</code> by the library entrypoint, and their sources live in <code>assets/javascript/helper/</code>:</p>
         <ul pgs="list">
             <li><code>pgs(root)</code>: finds and edits PGS tokens, states and options.</li>
             <li><code>pgs.helper.init(root)</code>: initializes components added through JavaScript, JSX or an asynchronous request.</li>

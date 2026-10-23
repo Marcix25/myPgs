@@ -22,7 +22,7 @@
 [pgs~="pointer"] { cursor: pointer; }
 [pgs~="hidden"] { display: none !important; }
 
-//# LIST, TEXT SHADOW & BOX SHADOW
+//# LIST
 [pgs~="list"] { @include list(); }
 
 //# TEXT BLOCK
@@ -36,6 +36,8 @@
     :where(hr) { align-self: stretch; }
     :where(h1, h2, h3) { margin-top: 25px; }
 }
+
+//# TEXT SHADOW & BOX SHADOW
 :is([pgs~="textShadow"], [pgs*="textShadow\5B"]) {
     text-shadow: var(--text-shadow);
 

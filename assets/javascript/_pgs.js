@@ -105,12 +105,10 @@ export function pgs(root) {
         throw new TypeError("pgs(root): root must support querySelector/querySelectorAll");
     }
 
-    //
     function attrOnlyForElements(methodName) {
         throw new TypeError(`pgs(${root.nodeName || "root"}).${methodName}(): available on an Element only, not on a Document`);
     };
 
-    //
     function concatSelector(value, attribute = ATTR) {
         if (Array.isArray(value)) value = value.join(",");
         return String(value)
@@ -293,11 +291,11 @@ export function pgs(root) {
     }
 
     //# OPTION
-    /// flags only, and only inside the pgs attribute — never pgs-data. add/toggle derive a
-    /// flag's owning component from its own name (the lowercase run before the first uppercase
-    /// letter or "-", the naming convention every component-owned flag already follows) and
-    /// merge into that component's existing bracket; a flag with no matching owner on the
-    /// element becomes its own bare pgs token instead.
+    // flags only, and only inside the pgs attribute — never pgs-data. add/toggle derive a
+    // flag's owning component from its own name (the lowercase run before the first uppercase
+    // letter or "-", the naming convention every component-owned flag already follows) and
+    // merge into that component's existing bracket; a flag with no matching owner on the
+    // element becomes its own bare pgs token instead.
     function createOption() {
         if (!canAttr) return undefined;
 
@@ -409,7 +407,8 @@ export function pgs(root) {
         return api;
     }
 
-    // DATA — key[payload] values only, always in this attribute; never touches the pgs bracket.
+    //# DATA
+    // key[payload] values only, always in this attribute; never touches the pgs bracket.
     function createData(attribute) {
         if (!canAttr) return undefined;
 

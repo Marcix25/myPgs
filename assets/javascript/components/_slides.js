@@ -69,9 +69,8 @@ class PGS_Slides {
         if (!currents.length) return nearestSlide();
 
         // the middle of an even number of slides falls between two of them, so each arrow takes
-        // the one on its own side: rounded down going forward, up going back. Rounding down for
-        // both, as this did, left the two arrows starting from the same slide, and going back
-        // then covered a slide more than going forward did
+        // the one on its own side: rounded down going forward, up going back, so the two
+        // arrows do not start from the same slide
         if (pgs(this.element).option.contains('slidesSingleScroll')) {
             const middle = (currents.length - 1) / 2;
             return currents[towardsEnd ? Math.floor(middle) : Math.ceil(middle)];
@@ -196,7 +195,7 @@ class PGS_Slides {
         const nextButton = pgs(slides).querySelector(['slides-next', '_slides-next']);
         const dots = Array.from(pgs(slides).querySelector(['slides-dots', '_slides-dots']).children);
 
-        //##Listener: DOT, PREV, NEXT
+        //## Listener: DOT, PREV, NEXT
         dots.forEach((dot, index) => dot.addEventListener("click", () => this.#goToNumberSlide(index), { signal }));
         prevButton.addEventListener("click", () => this.#prevSlide(), { passive: true, signal });
         nextButton.addEventListener("click", () => this.#nextSlide(), { passive: true, signal });

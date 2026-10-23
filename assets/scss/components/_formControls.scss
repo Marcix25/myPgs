@@ -2,7 +2,7 @@
 
 //= FORM CONTROLS
 // The secondary tokens of a form, each one with its own: range, file, inputColor and select.
-// The form, the field, the label, the legend, the input, the textarea, the checkbox, the radio and the fieldset are in form.
+// The form, the label, the legend, the input, the textarea, the checkbox, the radio and the fieldset are in form.
 //# RANGE
 [pgs~="range"] {
     --range-size: calc(var(--borderRadius-texts));
@@ -156,14 +156,13 @@
             gap: calc(var(--gap-texts)/2);
         }
 
-        // the list of options. input() writes --input-* only on an input that is not in a field, so in a field
-        // they are not there: the field tokens stand in, or the list would have no background, no border and no radius
+        // the list of options, with the look of an input
         &::picker(select) {
             appearance: base-select;
-            border: var(--input-border, var(--field-border));
+            border: var(--input-border);
             padding: var(--select-padding);
-            background: var(--input-background, var(--field-background));
-            border-radius: var(--input-borderRadius, var(--field-borderRadius));
+            background: var(--input-background);
+            border-radius: var(--input-borderRadius);
         }
 
         option {

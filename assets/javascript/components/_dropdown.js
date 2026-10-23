@@ -1,6 +1,6 @@
 import { pgs } from "../_pgs.js";
 
-// + dropdown
+//# DROPDOWN
 const API = new WeakMap();
 const OPEN_DROPDOWNS = new Set();
 const VIEWPORT_GAP = 8;
@@ -243,10 +243,10 @@ function PGS_dropdown_init(root = document) {
     pgs.helper.roots(root, "dropdown").forEach(dropdown => initializeDropdown(dropdown));
 }
 
-// # INIT
+//# INIT
 pgs.helper.onDocumentReady(PGS_dropdown_init);
 
-// # API
+//# API
 function PGS_dropdown_api(selector) {
     return API.get(selector);
 }

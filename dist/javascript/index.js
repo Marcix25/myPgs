@@ -205,12 +205,10 @@ function pgs(root) {
         throw new TypeError("pgs(root): root must support querySelector/querySelectorAll");
     }
 
-    //
     function attrOnlyForElements(methodName) {
         throw new TypeError(`pgs(${root.nodeName || "root"}).${methodName}(): available on an Element only, not on a Document`);
     };
 
-    //
     function concatSelector(value, attribute = ATTR) {
         if (Array.isArray(value)) value = value.join(",");
         return String(value)
@@ -393,11 +391,11 @@ function pgs(root) {
     }
 
     //# OPTION
-    /// flags only, and only inside the pgs attribute — never pgs-data. add/toggle derive a
-    /// flag's owning component from its own name (the lowercase run before the first uppercase
-    /// letter or "-", the naming convention every component-owned flag already follows) and
-    /// merge into that component's existing bracket; a flag with no matching owner on the
-    /// element becomes its own bare pgs token instead.
+    // flags only, and only inside the pgs attribute — never pgs-data. add/toggle derive a
+    // flag's owning component from its own name (the lowercase run before the first uppercase
+    // letter or "-", the naming convention every component-owned flag already follows) and
+    // merge into that component's existing bracket; a flag with no matching owner on the
+    // element becomes its own bare pgs token instead.
     function createOption() {
         if (!canAttr) return undefined;
 
@@ -509,7 +507,8 @@ function pgs(root) {
         return api;
     }
 
-    // DATA — key[payload] values only, always in this attribute; never touches the pgs bracket.
+    //# DATA
+    // key[payload] values only, always in this attribute; never touches the pgs bracket.
     function createData(attribute) {
         if (!canAttr) return undefined;
 
@@ -756,7 +755,7 @@ const svgColors = {
         return (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document.documentElement).state.contains("darkmode");
     },
 
-    // the "old & new" pairs an author declares as --svg-color-1 … --svg-color-19
+    // the "old & new" pairs an author declares as --svg-color-0 … --svg-color-19
     searchColor() {
         const ROOT = getComputedStyle(document.documentElement);
         const colors = [];
@@ -1034,8 +1033,8 @@ function initializeAccordion(accordion) {
 
         // the moment the reader works this panel, accAutoOpen stops being the authored
         // "this one stays open": from here on it is an ordinary panel of the group, so a
-        // sibling opening can close it. Guarded, because remove() would otherwise write an
-        // empty pgs-option on every accordion that never had one
+        // sibling opening can close it. Guarded, because option.remove rewrites the pgs
+        // attribute (without the flag) even on an accordion that never had it
         if ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).option.contains("accAutoOpen")) (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).option.remove("accAutoOpen");
         if (!isMultiOpen) closeOtherAccordion();
 
@@ -1153,7 +1152,7 @@ const fn_alert = {
         // the type names are the values of the JSON "type" field and the name of each method; flag
         // is what the card carries in its bracket for that severity (see _alerts.scss)
         type: {
-            // the plain one: no severity colour, no glyph and no title of its own, so it stays on the box surface
+            // the plain one: no severity color, no glyph and no title of its own, so it stays on the box surface
             neutral: {
                 flag: "alertNeutral",
                 title: "",
@@ -1261,9 +1260,8 @@ const fn_alert = {
     },
 
     // the same data, already in the shape create() takes: the fields every host shares, with
-    // their old aliases (message, title-close, duration). raw rides along for a host that
-    // reads fields of its own (Toast's link). An entry with neither title nor description is
-    // skipped: there would be nothing to show
+    // their old aliases (message, title-close, duration). An entry with neither title nor
+    // description is skipped: there would be nothing to show
     fromData(root, name) {
         return this._getData(root, name).flatMap(raw => {
             const title = String(raw.title || "").trim();
@@ -1444,7 +1442,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
 
 
-// + dropdown
+//# DROPDOWN
 const API = new WeakMap();
 const OPEN_DROPDOWNS = new Set();
 const VIEWPORT_GAP = 8;
@@ -1687,10 +1685,10 @@ function PGS_dropdown_init(root = document) {
     _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "dropdown").forEach(dropdown => initializeDropdown(dropdown));
 }
 
-// # INIT
+//# INIT
 _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_dropdown_init);
 
-// # API
+//# API
 function PGS_dropdown_api(selector) {
     return API.get(selector);
 }
@@ -2764,7 +2762,7 @@ const SELECTOR = 'input[type="range"]';
 
 //# BUILD
 // keeps --_range-progress, the place of the value between min and max from 0 to 1, up to date on one
-// slider: the track of the range() mixin paints the part the thumb has passed from it, in every browser
+// slider: the pgs="range" track (see _formControls.scss) paints the part the thumb has passed from it, in every browser
 function PGS_range_build(input) {
     const controller = new AbortController();
     const { signal } = controller;
@@ -3387,9 +3385,8 @@ class PGS_Slides {
         if (!currents.length) return nearestSlide();
 
         // the middle of an even number of slides falls between two of them, so each arrow takes
-        // the one on its own side: rounded down going forward, up going back. Rounding down for
-        // both, as this did, left the two arrows starting from the same slide, and going back
-        // then covered a slide more than going forward did
+        // the one on its own side: rounded down going forward, up going back, so the two
+        // arrows do not start from the same slide
         if ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.element).option.contains('slidesSingleScroll')) {
             const middle = (currents.length - 1) / 2;
             return currents[towardsEnd ? Math.floor(middle) : Math.ceil(middle)];
@@ -3514,7 +3511,7 @@ class PGS_Slides {
         const nextButton = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(slides).querySelector(['slides-next', '_slides-next']);
         const dots = Array.from((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(slides).querySelector(['slides-dots', '_slides-dots']).children);
 
-        //##Listener: DOT, PREV, NEXT
+        //## Listener: DOT, PREV, NEXT
         dots.forEach((dot, index) => dot.addEventListener("click", () => this.#goToNumberSlide(index), { signal }));
         prevButton.addEventListener("click", () => this.#prevSlide(), { passive: true, signal });
         nextButton.addEventListener("click", () => this.#nextSlide(), { passive: true, signal });
@@ -3857,7 +3854,7 @@ function PGS_steps_build(steps) {
             li.insertAdjacentElement("afterbegin", circle);
         }
 
-        //# line
+        //# LINE
         // same dual form as the circle above
         if (!_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(li, ["steps-step-line", "_steps-step-line"])) {
             const line = document.createElement("span");
@@ -4373,9 +4370,9 @@ const fn_toast = {
 
     // position flags land on the container, the way Modal copies the ones on its wrapper to _dialog:
     // _toast is the pgs-generated-only token that carries them, rebuilt at every toast so one toast's
-    // position never leaks into the next. They come from the position of the toast: the field of its
-    // pgs-data of a toastLoad or the position option of a pgs.toast call. A container written
-    // by hand keeps its own as the baseline
+    // position never leaks into the next. They come from the position field of a toastLoad's pgs-data,
+    // or the position option of a pgs.toast call. A container written by hand keeps its own
+    // as the baseline
     _applyOptions(container, position = [], scope) {
         const wanted = [Array.isArray(position) ? position : String(position).split(/\s+/)].flat().filter(Boolean);
         const unknown = wanted.filter(key => !this._options.includes(key));
@@ -4479,7 +4476,7 @@ __webpack_require__.r(__webpack_exports__);
 // same string or array that pgs().querySelectorAll does
 function PGS_roots(root, token) {
     if (!(root instanceof Document || root instanceof Element)) {
-        throw (0,_warn_js__WEBPACK_IMPORTED_MODULE_1__.PGS_invalid)("init", "root must be a Document or an Element");
+        throw (0,_warn_js__WEBPACK_IMPORTED_MODULE_1__.PGS_invalid)("helper.init", "root must be a Document or an Element");
     }
 
     const tokens = [].concat(token);
@@ -4539,7 +4536,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // formMessage/formMessageTitle live only in pgs-data, and .data has no querySelector — find
-// the nearest descendant carrying either key's payload directly
+// the first descendant in document order carrying either key's payload directly
 function findDataDescendant(root, keys) {
     for (const element of root.querySelectorAll("[pgs-data]")) {
         if (keys.some(key => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).data.getValueBrackets(key) !== undefined)) return element;
@@ -4694,7 +4691,7 @@ class PGS_formValidate {
         return [...labels];
     }
 
-    // - Helpers
+    // helpers
     #help = {
         // supports the native required attribute, data-required and aria-required
         isRequired(field) {
@@ -4710,9 +4707,7 @@ class PGS_formValidate {
     };
 
 
-    // + --------------------------
-    // + inputs and other elements.
-    // + --------------------------
+    // inputs and other elements
     #inputValue(container) {
 
         //## add rule
@@ -4879,7 +4874,7 @@ class PGS_formValidate {
         this.#labelsOf(field).forEach(label => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(label).state.remove("errorLabel"));
     }
 
-    // + SUCCESS
+    // success
     success(description = this.#getMessage("formSuccess"), title = this.#getMessage("formSuccessTitle")) {
         if (this.#insideValidatedCallback || this.validate() === true) {
 
@@ -4900,7 +4895,7 @@ class PGS_formValidate {
     }
 
 
-    // + VALIDATE
+    // validate
     validate() {
         const invalid = this.#inputValue(this.container);
 
@@ -5241,7 +5236,7 @@ function initHeight(header) {
     //## HEIGHT
     function headerHeight() {
         // --_header-height is what pushes the page down, so only one header can own it. Ownership
-        // is checked here rather than at init, so a header declaring main later still
+        // is checked here rather than at init, so a header declaring headerMain later still
         // takes over from the fallback
         if (getPrimaryHeader() !== header) return;
 

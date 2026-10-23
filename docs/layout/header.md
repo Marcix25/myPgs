@@ -27,7 +27,7 @@ Responsive header that measures available space, switches between its full and c
 
 ## PGS Data
 
-- `headerCompactFrom`: forces the compact layout from a custom viewport width down, written as headerCompactFrom[600], and takes precedence over the named widths below.
+- `headerCompactFrom`: forces the compact layout from a custom viewport width down, written as headerCompactFrom[600], and takes precedence over the named widths above.
 
 ## PGS States
 

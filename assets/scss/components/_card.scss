@@ -43,7 +43,7 @@
     //## IMG
     :where([pgs~="card-img"]),
     :where([pgs~="card-imgForChild"]) {
-        // wrapper for external media: the rules above land on its direct child
+        // wrapper for external media: the rules below land on its direct child
         display: block;
         min-width: 0;
 
@@ -70,7 +70,7 @@
     }
 
     //+ card Mini
-    // not 'mini': button and box already have that option
+    // options are prefixed with the component name (cardMini) so they never clash
     &:where([pgs*="'cardMini'"]) { --card-padding: var(--padding-texts); }
 
     //## Horizontal
@@ -115,7 +115,7 @@
     @include box();
 
     //+ mini
-    // not 'mini': button and card already have that option
+    // options are prefixed with the component name (boxMini) so they never clash
     &:where([pgs*="'boxMini'"]) {
         --box-padding: var(--padding-texts);
         --box-borderRadius: var(--borderRadius-texts);

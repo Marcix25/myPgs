@@ -9,7 +9,7 @@ The secondary controls of a form: a range slider, a file input, a color input an
 - `select`: applies the look of an input to a native select. In a field it keeps its token and the field reshapes it (no border, no background, room above for the label), and its first option takes the part of the placeholder, <option value="" selected disabled>Choose a country</option> (the value must be empty, so the browser still counts a required select as empty; disabled keeps it from being chosen again). A select with the multiple attribute is a list that is always open: the options are spaced, the ones that are chosen take the current color, the hovered one the hover color and a disabled one a lighter one (Safari draws the list itself and ignores the colors of the options).
 - `range`: styles a native range slider, a rounded track and a thumb that grows on hover, anywhere on the page. The track is --range-background (the clickable background), the part the thumb has already passed is filled with --range-background-progress (the two-state background) and the thumb is --range-background-thumb (the two-state color), with the clickable border and the hover background; --_range-progress, which pgs.range keeps up to date on the slider, tells where the thumb is; a disabled slider is dimmed.
 - `file`: styles a native file input, anywhere on the page: the box has the look of an input (--input-padding, --input-border, --input-borderRadius, --input-background) and its button the look of a button, in the clickable colors with the hover ones under the pointer.
-- `inputColor`: styles a native color input, anywhere on the page: a square of --inputColor-size (5rem) holding the swatch, with the border and the radius of an input.
+- `inputColor`: styles a native color input, anywhere on the page: a box of --inputColor-width (10rem) by --inputColor-height (5rem) holding the swatch, with the border and the radius of an input.
 
 ## JavaScript API
 
@@ -22,7 +22,7 @@ The secondary controls of a form: a range slider, a file input, a color input an
 
 - `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `form`: identifies the form that holds the examples, laid out in a column; it styles none of the controls; see Form.
-- `label`: the tab sitting on top of each control, written on a span inside the label that wraps it; see Form.
+- `label`: the box sitting on top of each control (label['labelTab'] makes it a tab), written on a span inside the label that wraps it; see Form.
 
 ### PGS Options (component brackets)
 
@@ -58,7 +58,7 @@ A native file input, with its button.
 
 ### Color
 
-A native color input, a square that holds the swatch.
+A native color input, a box that holds the swatch.
 
 ```html
 <label>

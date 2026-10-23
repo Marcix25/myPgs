@@ -247,7 +247,7 @@ Nothing keeps working under the old name.
 | border | `pgs="border"` + `borderThin`/`borderThick`/`borderThicker`, the per-side `borderTop`/`borderLeft`/..., and a color `brPrimary`/... | width and side fold into one flag inside the root of that side (`border['bdThick']`, `borderTop['bdTpThin']`, `borderLeft['bdLtThick']`), and the color has its own root, `borderColor['bdPrimary']` replacing `brPrimary`, written next to the side: `borderTop['bdTpThin'] borderColor['bdPrimary']`. `border` with `borderColor['bdPrimary']` alone draws the default width in that color |
 | outline | `pgs="outline"` + `olPrimary`/... and `outlineThin`/... | `outline['otlPrimary' 'otlThick']` |
 | border radius | `borderRadius` / `borderRadiusInput` / `borderRadiusExternal` | `borderRadius` / `borderRadius['radTexts']` / `borderRadius['radGroups']` |
-| section | `section` / `sectionFull` / `sectionMax` / `sectionNoPadding` / `sectionSpecificity` (and the dev-only `sectionEdge*`) | `section` / `section['sctFull']` / `section['sctMax']` / `section['sctNoPadding']` / `section['sctSpecificity']` / `section['sctEdgeLeft']`...; its child `sectionSpecificity-child` → `section-specificity` |
+| section | `section` / `sectionFull` / `sectionMax` / `sectionNoPadding` / `sectionSpecificity` (and the dev-only `sectionEdge*`) | `section` / `section['sctFull']` / `section['sctMax']` / `section['sctNoPadding']` / `section['sctSpecificity']` / `section['sctEdge']`; its child `sectionSpecificity-child` → `section-specificity`, and the text blocks of `sctEdge` are `section-edgeLeft` and `section-edgeRight` (one option for the edge section, the offset to the outer edge is `--page-edge`) |
 | body | `bodyBase` / `bodyImg` / `bodyText` / `bodyHeading` on `<body>` | `body['bodyBase' 'bodyImg' 'bodyText' 'bodyHeading']` |
 | background color | `bgPrimary` / `bgBoxDark` / ... | `background['bgPrimary']` / `background['bgBoxDark']` |
 | text color | `colorPrimary` / ... (the dev-only `txtPrimary` / ...) | `textColor['txtPrimary']` — not `text[...]`, which is the typography utility |
@@ -477,18 +477,18 @@ Border and outline are now separate: `br*` colors become `bd*` flags in `borderC
 | `--padding-page` | `--page-padding` |
 | `--font-titoli` | `--font-heading` |
 
-The spacing rhythm now comes off a single root value, `--SIZE`. `--padding`, `--padding-texts`,
+The spacing rhythm now comes off a single root value, `--SIZE`. `--padding-texts`,
 `--page-padding`, `--borderRadius-elements`, `--borderRadius-texts`, `--gap-texts` and `--gap-elements` are
-all derived from it, so retheming the whole scale is one number instead of seven. The three renames
+all derived from it, so retheming the whole scale is one number instead of six. The three renames
 are a consequence: `-2` said "divided by two" rather than what it is, and `--padding-page` was the
 only page token not on the `--page-*` prefix that `--page-width`, `--page-top` and `--page-edge`
 already shared.
 
 Two behaviors moved with the names, so a project that only renames still gets a different result:
 
-- `--page-padding` is a plain measure, where `--padding-page` was `min(5vw, var(--padding-elements))`. The
-  page gutter no longer shrinks on a narrow screen. Put the clamp back on the new name if a project
-  wants it: `--page-padding: min(5vw, var(--padding-elements))`.
+- `--page-padding` is `min(3vw, var(--SIZE))`, where `--padding-page` was `min(5vw, var(--padding-elements))`. The
+  page gutter still shrinks on a narrow screen, a little sooner. Set it on the new name if a project
+  wants the old curve: `--page-padding: min(5vw, var(--padding-elements))`.
 - `--page-edge` is now the distance from the edge of a full-width element to the outer edge of a
   centered section box, one `--page-padding` further out than its text, and it reaches zero as soon as
   that box stops fitting rather than when the bare column does. The variable that stopped at the text
@@ -541,16 +541,16 @@ they now do, matching every other option in the library.
 | `pgs-option="topLevel"` (Modal) | `pgs-option="modalTopLevel"` |
 | `pgs-option="compactBottom"` (Header) | `pgs-option="headerCompactBottom"` |
 | `--header-compactBottom-active` | unchanged (the custom property already carried the `header-` prefix) |
-| `pgs-option="message[]"` (Form) | `pgs-option="formMessage[]"` |
-| `pgs-option="messageTitle[]"` (Form) | `pgs-option="formMessageTitle[]"` |
-| `pgs-option="fieldErrorTitle[]"` (Form) | `pgs-option="formFieldErrorTitle[]"` |
-| `pgs-option="fieldError[]"` (Form) | `pgs-option="formFieldError[]"` |
-| `pgs-option="fieldsError[]"` (Form) | `pgs-option="formFieldsError[]"` |
-| `pgs-option="successTitle[]"` (Form) | `pgs-option="formSuccessTitle[]"` |
-| `pgs-option="success[]"` (Form) | `pgs-option="formSuccess[]"` |
+| `pgs-option="message[]"` (Form) | `pgs-data="formMessage[]"` |
+| `pgs-option="messageTitle[]"` (Form) | `pgs-data="formMessageTitle[]"` |
+| `pgs-option="fieldErrorTitle[]"` (Form) | `pgs-data="formFieldErrorTitle[]"` |
+| `pgs-option="fieldError[]"` (Form) | `pgs-data="formFieldError[]"` |
+| `pgs-option="fieldsError[]"` (Form) | `pgs-data="formFieldsError[]"` |
+| `pgs-option="successTitle[]"` (Form) | `pgs-data="formSuccessTitle[]"` |
+| `pgs-option="success[]"` (Form) | `pgs-data="formSuccess[]"` |
 
 The `formValidate` JS API's `options.message` bag uses these same keys (e.g. `formFieldErrorTitle`
-instead of `fieldErrorTitle`), since they are written straight through as the `pgs-option` bracket
+instead of `fieldErrorTitle`), since they are written straight through as the `pgs-data` bracket
 key. The `success`/`errorForm`/`errorField` `pgs-state` values are unrelated and unchanged.
 
 `buttonReverse` and the `icon-*` glyph names were left alone: those belong to the button and icon
@@ -800,15 +800,15 @@ makes it one way. The renames come first, then what behaves differently under a 
 | `--search-suggestions-item-hover-background` and `-color`, `--search-suggestions-item-selected-background` and `-color`, `--table-row-hover-background` and `-color` | the state goes last, like on button and breadcrumb: `--search-suggestions-item-background-hover`, `-color-hover`, `-background-selected`, `-color-selected`; `--table-row-background-hover`, `--table-row-color-hover` |
 | `--button-primaryColor` | gone: it only held `--color-primary-strong`, which `btnStrong` now reads directly. Use `--color-primary-strong`, or set `--button-background` on the button |
 | `--button-*-hover`, `--button-*-current`, `--button-*-twoState` (background, color, border color, shadow) | declared on every button at rest, from the global tokens, so a theme can set any of them on one element or a container. The hover rule only applies them |
-| `--checkboxBackground-background-checked` | the background of a checked `checkboxBackground` | one set of variables like a button's: `--checkboxBackground-background`, `--checkboxBackground-color` and `--checkboxBackground-borderColor`, each with a `-hover` and a `-checked` one, read from the clickable, hover and two-state tokens. It also has a border now (`--border-complete`), and `--checkboxBackground-padding` and `--checkboxBackground-borderRadius` stay |
+| `--checkboxBackground-background-checked`: the background of a checked `checkboxBackground` | one set of variables like a button's: `--checkboxBackground-background`, `--checkboxBackground-color` and `--checkboxBackground-borderColor`, each with a `-hover` and a `-checked` one, read from the clickable, hover and two-state tokens. It also has a border now (`--border-complete`), and `--checkboxBackground-padding` and `--checkboxBackground-borderRadius` stay |
 | `--button-padding`, `--button-padding-left`, `--button-padding-right`, `--button-padding-left-icon`, `--buttonHeader-border-width` | gone. A button reads `--button-paddingBlock` and `--button-paddingInline`, and a button with an icon takes the shorter `--button-paddingInline-short` on the side of the icon (the left one, the right one with `btnReverse`). To give one button its own padding write `padding: …` on it, or set the two properties; `--button-padding: …` does nothing now, and `var(--button-padding)` is invalid. A header or navSmart button sets `--button-borderWidth: 0px` itself |
-| `--border-radius`, `--border-radius-input`, `--border-radius-external` | the standard radius, the smaller one of form controls and texts, the wider one of outer containers (`calc(var(--border-radius) + SIZE)`) | `--borderRadius-elements`, `--borderRadius-texts`, `--borderRadius-groups` (its own size, no longer worked out from the first). The `borderRadius` options follow: `radInput` → `radTexts`, `radExternal` → `radGroups`, and `radElements` is new (the standard radius, what `borderRadius` gives on its own). Search the stylesheets and the `var(...)` of a theme |
-| `--border-width`, `--outline-width` | `1px` | `0.1rem`, so they follow the root font size |
+| `--border-radius`, `--border-radius-input`, `--border-radius-external`: the standard radius, the smaller one of form controls and texts, the wider one of outer containers (`calc(var(--border-radius) + SIZE)`) | `--borderRadius-elements`, `--borderRadius-texts`, `--borderRadius-groups` (its own size, no longer worked out from the first). The `borderRadius` options follow: `radInput` → `radTexts`, `radExternal` → `radGroups`, and `radElements` is new (the standard radius, what `borderRadius` gives on its own). Search the stylesheets and the `var(...)` of a theme |
+| `--border-width`, `--outline-width`: `1px` | `0.1rem`, so they follow the root font size |
 | hover on a current or two-state button | the hover rule is heavier than the `btnCurrent` and `btnTwoState` ones, so a current button takes the hover look while the pointer is on it (it used to keep the current one); the `btnText` bottom edge turns secondary under the pointer too |
-| the label of a checkbox or a radio (`label`, a `label` inside a form, the labels inside a `checkbox` or `radio` group, `checkboxBackground`) | a flex row of the box and the text, with the space between them a character of its own (`margin-right` of the box, `--checkbox-paddingInline` and `--radio-paddingInline` on the label) | a flex row spaced by `gap`: `--checkbox-gap` and `--radio-gap`, half the text gap by default. Write the text of the label in a `<span>`: the text and an `<a>` or a `<strong>` written bare inside a flex row are separate items, and the spaces around them are lost ("the**terms**(…)") |
-| `label` outside a field | styled whatever it sat next to | a rounded box on the top edge of the control, only when it sits right before a text-like input, a range, a file, a color input, a select or a textarea, or wraps one. A label after a checkbox or a radio is the text of that control. A label whose `for` names a control further away is left plain: wrap it, or put it right before the control. `label['labelTab']` makes it a tab: rounded on the top corners only and open at the bottom, so it opens into the control |
-| `inputColor` | the look of an input with the swatch inset by 5 px | the swatch fills the square, which has the border and the radius of an input |
-| the check mark of a checked `chip` without an icon | black on white, fixed | the color of the chip, with no background of its own |
+| the label of a checkbox or a radio (`label`, a `label` inside a form, the labels inside a `checkbox` or `radio` group, `checkboxBackground`): a flex row of the box and the text, with the space between them a character of its own (`margin-right` of the box, `--checkbox-paddingInline` and `--radio-paddingInline` on the label) | a flex row spaced by `gap`: `--checkbox-gap` and `--radio-gap`, half the text gap by default. Write the text of the label in a `<span>`: the text and an `<a>` or a `<strong>` written bare inside a flex row are separate items, and the spaces around them are lost ("the**terms**(…)") |
+| `label` outside a field: styled whatever it sat next to | a rounded box on the top edge of the control, only when it sits right before a text-like input, a range, a file, a color input, a select or a textarea, or wraps one. A label after a checkbox or a radio is the text of that control. A label whose `for` names a control further away is left plain: wrap it, or put it right before the control. `label['labelTab']` makes it a tab: rounded on the top corners only and open at the bottom, so it opens into the control |
+| `inputColor`: the look of an input with the swatch inset by 5 px | the swatch fills the box (`--inputColor-width` by `--inputColor-height`), which has the border and the radius of an input |
+| the check mark of a checked `chip` without an icon: black on white, fixed | the color of the chip, with no background of its own |
 | the option flags of the components (`cardMini`, `badgePrimary`, `alertInfo`, `menuHorizontal`, `dialogCenter`, `slidesLoop`, `iconMedium`…) | written in `:where()` like the button ones: one class or attribute on the same element overrides them. The `icon-*` glyph flags and `iconDuo` too, so a glyph weighs the same as the class of an icon font and the one loaded last wins |
 | the HTML tags and the child tokens inside a component (`ul`, `li`, `a`, `i`, `p`, `img`, `th`, `td`, `label`, `input`, `fieldset`…) | written in `:where()` now, one point of specificity lighter each, so a project rule with one class or attribute overrides them. A `label` that is also a `button` is `display: flex` like the other buttons (the form's `label { display: block }` used to win); a menu link that also carries a utility such as `h3` takes the utility's `min-width: 0` instead of the menu's `fit-content`, which changes no size (the link is `width: max-content` there) |
 | `btnNotHover` (new) | a button that must not answer the pointer: `button['btnNotHover']`. It replaces the `hoverNot` the buttons used to take; cards and boxes have no opt-out any more |
@@ -921,7 +921,7 @@ Same name, different behavior:
   While any of them runs, the dialog carries `pgs-state="animationIn"` / `animationOut`.
 - **`column-1`** stacks a flex or grid layout in a single column.
 - **`pgs.header.init(root)`** is registered, several headers on one page are supported, and
-  `headerMain` says which one drives `--heightOfHeader`.
+  `headerMain` says which one drives `--_header-height`.
 - **Focus is separate from hover.** The focus ring is identical everywhere and no longer sits inside
   a hover media query, so a keyboard user on a touch device gets one; `bodyBase` draws it for every
   `:focus-visible` element.
@@ -993,7 +993,7 @@ grep -rn 'type="submit"' . | grep -v 'pgs='
 grep -rn 'pgs="[^"]*\baccordion\b' .
 
 # 17. built-in glyphs read by hand, now on the --icon-glyph-* namespace
-grep -rnE 'var\(--icon-(?!glyph|color|size)' .
+grep -rnP 'var\(--icon-(?!glyph|color|size)' .
 
 # 18. the header hamburger group, now an onlyCompact group, with the modal nested rather than merged
 grep -rn 'header-element-hamburger' .
@@ -1050,7 +1050,7 @@ grep -rnE '\bflex-flex[A-Za-z0-9]+|lottieChangeColor' .
 # 33. flags that took their component prefix (read, then rename by the prefix table)
 grep -rnE "accordion(Container)?\[[^]]*'(autoOpen|multiOpen)'|badge\[[^]]*'(dot|error|info|neutral|success|warning)'|card\[[^]]*'horizontalFixed'|dropdown\[[^]]*'hover'" .
 grep -rnE "icon\[[^]]*'(boxed|duo|large|medium)'|logo\[[^]]*'darkmode|menu\[[^]]*'(iconOnlyCurrent|short|vertical)'|slides\[[^]]*'(animationScale|shadowDesktop|singleScroll)'" .
-grep -rnE "header\[[^]]*'(compact[A-Za-z]+|main|scroll)'|pageShell\[[^]]*'(asideScroll|asideShadow|fullPage)'|toggleDarkmode\[[^]]*'labelled'" .
+grep -rnE "header\[[^]]*'(compact[A-Za-z]+|main|scroll)'|pageShell\[[^]]*'(asideScroll|asideShadow|fullPage)'|toggleDarkmode\[[^]]*'(labelled|extended)'" .
 grep -rnE "container\[[^]]*'none'|img\[[^]]*'(cover|contain)'|borderRadius\[[^]]*'(input|external)'|hide\[[^]]*'(media|container)(Up|Down)" .
 
 # 34. the cookie consent that left the library

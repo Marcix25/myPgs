@@ -3,7 +3,7 @@ import { PGS_toast } from "../components/_toast.js";
 import { PGS_alert } from "../components/_alerts.js";
 
 // formMessage/formMessageTitle live only in pgs-data, and .data has no querySelector — find
-// the nearest descendant carrying either key's payload directly
+// the first descendant in document order carrying either key's payload directly
 function findDataDescendant(root, keys) {
     for (const element of root.querySelectorAll("[pgs-data]")) {
         if (keys.some(key => pgs(element).data.getValueBrackets(key) !== undefined)) return element;
@@ -158,7 +158,7 @@ export class PGS_formValidate {
         return [...labels];
     }
 
-    // - Helpers
+    // helpers
     #help = {
         // supports the native required attribute, data-required and aria-required
         isRequired(field) {
@@ -174,9 +174,7 @@ export class PGS_formValidate {
     };
 
 
-    // + --------------------------
-    // + inputs and other elements.
-    // + --------------------------
+    // inputs and other elements
     #inputValue(container) {
 
         //## add rule
@@ -343,7 +341,7 @@ export class PGS_formValidate {
         this.#labelsOf(field).forEach(label => pgs(label).state.remove("errorLabel"));
     }
 
-    // + SUCCESS
+    // success
     success(description = this.#getMessage("formSuccess"), title = this.#getMessage("formSuccessTitle")) {
         if (this.#insideValidatedCallback || this.validate() === true) {
 
@@ -364,7 +362,7 @@ export class PGS_formValidate {
     }
 
 
-    // + VALIDATE
+    // validate
     validate() {
         const invalid = this.#inputValue(this.container);
 

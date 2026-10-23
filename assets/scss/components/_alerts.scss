@@ -39,7 +39,7 @@
     position: relative;
     margin-block: calc(var(--gap-texts) / 2);
 
-    // every real child sits above the toast's own countdown bar (see _toast.scss), which has no
+    // every real child sits above the card's own countdown bar (the ::before below), which has no
     // z-index of its own so it stays behind these without needing to know about it
     :where([pgs~="alert-icon"]),
     :where([pgs~="_alert-icon"]) {

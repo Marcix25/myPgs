@@ -3,7 +3,7 @@
 // each sets a genuinely different CSS property that can combine with the others on the same
 // element (a floor and a ceiling together). Every scale option folds its own variant into the
 // flag name (widthPage, heightMax50svh, ...) instead of a bare [pgs*="'scale'"] anchored to
-// that variant's own bracket — the same reasoning and the same fix as layout/_spacing.scss: a
+// that variant's own bracket — the same reasoning as layout/_spacing.scss: a
 // flag name unique across the whole system needs no anchoring at all. Every option is spelled
 // out in full rather than built by concatenation, so the literal name the docs validator looks
 // for is actually present in this file — see scripts/generate-component-docs.js's

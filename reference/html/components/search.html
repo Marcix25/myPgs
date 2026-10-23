@@ -29,20 +29,20 @@
  * @api
  * - pgs.search.init(root): initializes matching elements within the specified root.
  * - pgs.search.api(element): returns the instance associated with the specified initialized element.
- * - instance.configure(options): provides the documented operation through the component public API.
- * - instance.setSource(source): provides the documented operation through the component public API.
+ * - instance.configure(options): merges the options into the ones the instance already has and returns the instance.
+ * - instance.setSource(source): sets the source of the results, a shortcut for configure({ source }).
  * - instance.search(query): runs the search for the query, the current value of the input when omitted, and resolves with the items it rendered; it is what re-runs the current query.
- * - instance.open(): opens the component.
- * - instance.close(): closes the component.
- * - instance.clear(): provides the documented operation through the component public API.
+ * - instance.open(): opens the list of suggestions.
+ * - instance.close(): closes the list of suggestions.
+ * - instance.clear(): empties the list of suggestions, resets the active one and closes the list.
  * - instance.cancel(): cancels the pending debounce and the request in flight.
- * - instance.select(index, submit): provides the documented operation through the component public API.
+ * - instance.select(index, submit): picks the suggestion at index (the active one when omitted), writes its value in the input, closes the list, dispatches pgs:search:select and calls onSelect; submit (submitOnSelect by default) also submits the form. Returns the item, or null when there is none or it is disabled.
  * - instance.refresh(): destroys the instance and builds it again from the markup, keeping the options given to configure(), and returns the new instance; it no longer re-runs the query, search() does.
  * - instance.destroy(): cancels what is pending, empties the list, removes every listener and releases the instance; pgs.search.init(root) builds it again.
- * - instance.items(): provides the documented operation through the component public API.
- * - instance.isOpen(): returns true when the component is open.
- * - instance.isLoading(): returns true while the component is loading.
- * - instance.setActiveIndex(index): provides the documented operation through the component public API.
+ * - instance.items(): returns a copy of the suggestions shown.
+ * - instance.isOpen(): returns true while the list of suggestions is open.
+ * - instance.isLoading(): returns true while a request is in flight.
+ * - instance.setActiveIndex(index): marks the suggestion at index as the selected one and points aria-activedescendant at it; -1 clears it.
  *
  * @related
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.

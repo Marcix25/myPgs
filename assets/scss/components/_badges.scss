@@ -33,13 +33,13 @@
 :is([pgs~="badge"], [pgs*="badge\5B"]) {
     @include _badge();
 
-    // badgePrimary, not the shortened primary: button also has a 'primary' option
+    // options are prefixed with the component name (badgePrimary) so they never clash
     &:where([pgs*="'badgePrimary'"]) {
         --badge-background: var(--color-primary-soft);
         --badge-color: var(--color-primary-strong);
     }
 
-    // badgeStrong, not the shortened strong: button also has a 'strong' option
+    // options are prefixed with the component name (badgeStrong) so they never clash
     &:where([pgs*="'badgeStrong'"]) {
         --badge-background: var(--color-primary);
         --badge-color: var(--color-whiteFixed);

@@ -106,8 +106,8 @@
     //## RESPONSIVE
     /*
         A band can never target the shell itself: the shell is the query container
-        and nothing can query its own container. So each band re-places the children.
-        type of shell
+        and nothing can query its own container. So each band re-places the children,
+        one block per type of shell.
     */
     //### aside | content
     &:has(> :where([pgs~="pageShell-aside"]) + :where([pgs~="pageShell-content"])) {
@@ -188,7 +188,7 @@
     &[pgs*="'shellAsideScroll'"] {
         padding-top: 0;
 
-        // vertical: the sidebar stacks, so it stops being its own scroller
+        // vertical: the shell's top padding is zeroed above, so the first child takes it instead
         //-( big-tablet
         @container (max-width: #{$big-tablet}) {
             >*:first-child { padding-top: var(--pageShell-offsetTop); }

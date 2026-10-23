@@ -1,9 +1,9 @@
 @use "../mixin/mixin" as *;
 
-//# MIXIN
+//# VARIABLES
 :where([pgs~="htmlBase"]) {
 
-    //# SETTINGS 
+    //# SETTINGS
     &:root {
         --SIZE: 3.0rem;
         --SIZE-texts: calc(var(--SIZE) / 2);

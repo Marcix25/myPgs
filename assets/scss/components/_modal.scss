@@ -21,7 +21,7 @@ html:has(dialog[open]) {
 
     //## CLOSE
     // a hand-written close button keeps the bare name; a generated one gets the underscore
-    // (see _modal.js), so this needs both
+    // (see _modal.js). This rule matches only the bare name; the _modal-close rules are below
     :where([pgs~="modal-close"]) {
 
         //### IS OPEN
@@ -151,7 +151,7 @@ html:has(dialog[open]) {
         z-index: 1;
     }
 
-    //#OPTION
+    //# OPTION
     //+ TOP LEVEL
     &:where([pgs*="'dialogTopLevel'"]) {
         overflow-y: auto;

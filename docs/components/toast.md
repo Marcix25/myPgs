@@ -15,7 +15,7 @@ Toast markup, configuration, behavior, and usage example. An ephemeral, auto-dis
 
 ## PGS Options (component brackets)
 
-- `toastLeft`: a value of the position field: shows the toast against the left edge instead of the centre. Written in the pgs-data of toastLoad, or in the position option of pgs.toast; the JavaScript copies it to the container, for that toast only.
+- `toastLeft`: a value of the position field: shows the toast against the left edge instead of the center. Written in the pgs-data of toastLoad, or in the position option of pgs.toast; the JavaScript copies it to the container, for that toast only.
 - `toastRight`: a value of the position field: the same, against the right edge.
 - `toastCenter`: a value of the position field: the same, in the middle of the screen.
 - `toastBottom`: a value of the position field: the same, against the bottom edge instead of the top.
@@ -140,7 +140,7 @@ A toast on demand is a call to pgs.toast.success() (or error, info, warning, neu
 
 ### Left
 
-The position option, &quot;toastLeft&quot; in the array, shows that toast against the left edge instead of the centre. The JavaScript copies it to the container for that toast only, so the next one starts again from its own options.
+The position option, &quot;toastLeft&quot; in the array, shows that toast against the left edge instead of the center. The JavaScript copies it to the container for that toast only, so the next one starts again from its own options.
 
 ```html
 <button type="button" pgs="button" data-toast-trigger>Toast on the left</button>

@@ -17,7 +17,7 @@ function PGS_steps_build(steps) {
             li.insertAdjacentElement("afterbegin", circle);
         }
 
-        //# line
+        //# LINE
         // same dual form as the circle above
         if (!pgs.helper.directChild(li, ["steps-step-line", "_steps-step-line"])) {
             const line = document.createElement("span");

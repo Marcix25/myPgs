@@ -70,7 +70,7 @@ ol[pgs~="steps"] {
 
         //## LAST
         &:last-child {
-            :where([pgs~="steps-step"]) {
+            :where([pgs~="steps-step-content"]) {
                 padding-bottom: 0;
                 margin-bottom: 0;
             }

@@ -2,8 +2,7 @@
 
 //= MENU
 :is([pgs~="menu"], [pgs*="menu\5B"]) {
-    // Menu colors inherit the button theme by default.  A consumer can set the
-    // --menu-* variables on this element to theme menus independently.
+    // Only the gap tokens are menu's own (--menu-gap-*); the colors come from the button tokens.
     --menu-gap-column: .5rem;
     --menu-gap-row: 1.0rem;
 
@@ -56,7 +55,7 @@
 
     //+ OPTION
     //## horizontal
-    // menuHorizontal, not the shortened horizontal: card also has a 'horizontal' option
+    // options are prefixed with the component name (menuHorizontal) so they never clash with other components
     &:where([pgs*="'menuHorizontal'"]) {
         >:where(ul) {
             flex-direction: row;

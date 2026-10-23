@@ -81,7 +81,7 @@
 //## HOVER
 // the values (--button-*-hover) are set at the usual weight, so a flag such as btnText can still
 // replace them; the properties that draw them are set heavier, so the hover also wins over the
-// current and checked looks, which would otherwise paint over it
+// current look, which would otherwise paint over it (the checked look of btnTwoState still wins over it)
 @mixin buttonHover() {
     @media (hover: hover) and (pointer: fine) {
         &:hover {
@@ -205,8 +205,8 @@
 //## NAV SMART
 // an item of the floating navSmart bar: the icon above its label inside a pill, with no background
 // of its own. It reads the bar's own properties (--navSmart-iconSize, --navSmart-itemMinWidth) with a
-// fallback, so the button still draws outside a bar. The page you are on (aria-current), or the
-// panel that is open (aria-expanded), takes the current look as a smaller pill inside the bigger one
+// fallback, so the button still draws outside a bar. The page you are on (aria-current) or the
+// selected item (aria-selected) takes the current look as a smaller pill inside the bigger one
 @mixin buttonForNavSmart() {
     @include buttonVertical();
     @include buttonTransparent();

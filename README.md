@@ -44,9 +44,9 @@ import { defineConfig } from 'vite'
 import react from "@vitejs/plugin-react";
 import pgsVite from "mypgs/vite-plugin-pgs";
 
-export default {
+export default defineConfig({
   plugins: [pgsVite(), react()],
-};
+});
 ```
 
 ### SCSS

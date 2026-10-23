@@ -2,7 +2,7 @@
 @use "mx-form" as *;
 @use "mx-responsive" as *;
 
-//# checkboxBackground 
+//# checkboxBackground
 @mixin checkboxBackground() {
     --checkboxBackground-padding: calc(var(--padding-texts) / 2);
     --checkboxBackground-paddingRight: var(--padding-texts);
@@ -48,7 +48,7 @@
     }
 
     //## label
-    //### label - input
+    //### errorLabel
     &[pgs-state~=errorLabel] {
         background-color: var(--color-error-soft);
         border-color: var(--color-error);
@@ -57,7 +57,7 @@
     }
 }
 
-//# TOGGLE 
+//# TOGGLE
 @mixin toggle() {
     --toggle-size: 2.0rem;
     --toggle-borderStyleWidth: var(--border-style) var(--border-width);

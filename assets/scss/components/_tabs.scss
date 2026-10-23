@@ -1,6 +1,6 @@
 //= TABS
-// A horizontal tab list that wraps onto further rows. The active tab shares the panel background
-// and covers its top border, making the selected control visually connect to its content.
+// The tabs structure: a list of tabs and the panels with their content. Only the hidden panel
+// is styled here (display: none); the look of the tabs comes from the elements that carry them.
 [pgs~="tabs"] {
     :where([pgs~="tabs-list"]) {
         :where([pgs~="tabs-list-tab"]) {}

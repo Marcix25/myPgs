@@ -48,7 +48,7 @@ each line prefixed with `*`, tags in this order:
  * - modal: identifies the modal element used by Modal.
  *
  * @pgs-generated
- * - dialog: added to the dialog element on initialization, which is why the example writes a bare dialog tag.
+ * - modal-dialog: added to the dialog element on initialization, which is why the example writes a bare dialog tag.
  *
  * @pgs-options
  * - dialogSmall: shrinks the dialog content to a compact width instead of filling the viewport.
@@ -78,7 +78,7 @@ each line prefixed with `*`, tags in this order:
 - **`@pgs`** is the component's own root token(s) — what you write to say "this element is a
   Modal/Slides/etc.". Required for every file *except* under `helper/` (see below).
 - **`@pgs-generated`** is markup the library builds at runtime that you don't author by hand
-  (`dialog` above, or anything the JS inserts as a new element, which additionally gets an `_`
+  (`modal-dialog` above, or anything the JS inserts as a new element, which additionally gets an `_`
   prefix — see Naming conventions below).
 - **`@pgs-options`** documents the flags inside component brackets, whether they carry a CSS rule or are read only by JavaScript; **`@pgs-data`** documents `key[payload]` values passed to JavaScript; **`@pgs-state`** documents runtime states.
   An option or state that belongs to a *different* component (reused in this file's example) goes
@@ -174,7 +174,7 @@ Details and cross-references, past what the table already says:
   `stripComponentWrapperAttributes` in `scripts/generate-component-docs.js` treats a `component`'s own
   attributes as incidental *only* once it has a nested `component` inside it — that nesting is the
   only signal that matters: a real variant worth documenting (`pgs="modal"`) needs no nested
-  `component`, while a transparent grouping wrapper (`form.html`'s outer `<form>`, or a plain
+  `component`, while a transparent grouping wrapper (`formAddon.html`'s outer `<form>`, or a plain
   `pgs="flex['column']"` div once one existed there) always does.
 - `demo="wrapper"` — see `base/border.html`'s rows of spans, each its own `<div demo="wrapper">`
   inside one `<section demo="component">`: several, side by side, all disappearing from the code
@@ -215,9 +215,9 @@ markup and never shown mixed in with the "Example HTML":
 - **`<script type="text/x-example-js">`** — illustrative JavaScript, shown as its own "JavaScript
   Usage" code block. **This one never actually runs on the demo page** — it's inserted via
   `innerHTML`, and a browser does not execute a `<script>` inserted that way. It exists purely to be
-  read and copied (see `pgs.html`, `svg.html`).
+  read and copied (see `darkmode.html`, `alerts.html`).
 - **`<script type="module">`** — looks like it should be live, and reads like real wiring code
-  (see `form.html`, `search.html`), but it's subject to the exact same `innerHTML` limitation as
+  (see `formValidate.html`, `search.html`), but it's subject to the exact same `innerHTML` limitation as
   above: **it doesn't execute either.** It's still just documentation.
 
 ### Making an example actually interactive
@@ -333,8 +333,8 @@ anyway.
   to their own location in `site/parts/`.
 - **`site/page/`** — one page's own content, no shell around any of it, all of it hand-kept and
   never written by the build:
-  - `home.html` and `test.html` — just a `<main>` and nothing else. `home.html` is the home page;
-    `test.html` is a fixture for trying components out.
+  - `home.html`, `test.html` and `test2.html` — just a `<main>` and nothing else. `home.html` is the home page;
+    `test.html` and `test2.html` are fixtures for trying components out.
   - `demo.html` — the pageShell that hosts the reference nav and panels, with the nav and the main
     empty: the build fills them in, in memory, with what it renders from `reference/html`. Edit it for
     the reference demo's own layout — the part specific to browsing components. It has to exist.
@@ -344,7 +344,7 @@ anyway.
 - **`site/build/`** — the complete, directly-openable pages, all generated:
   - one output per file in `page/`, named the same, plus `demo.html`: `site/index.html` with
     that page's own content spliced into the placeholder, plus `assets/js/demo.js`. `demo.html` goes
-    through the same shell as `home.html` and `test.html`; only its own content is merged, in
+    through the same shell as `home.html`, `test.html` and `test2.html`; only its own content is merged, in
     memory, with the rendered panels. `demo.js` only runs `pgs.helper.init()` and the demo's own interactive wiring
     (nav clicks, copy buttons, the `configureXDemo` functions) — nothing in it fetches or parses a
     reference file, since each page already has everything written out. Every page opens

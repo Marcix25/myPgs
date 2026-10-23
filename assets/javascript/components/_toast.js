@@ -35,9 +35,9 @@ const fn_toast = {
 
     // position flags land on the container, the way Modal copies the ones on its wrapper to _dialog:
     // _toast is the pgs-generated-only token that carries them, rebuilt at every toast so one toast's
-    // position never leaks into the next. They come from the position of the toast: the field of its
-    // pgs-data of a toastLoad or the position option of a pgs.toast call. A container written
-    // by hand keeps its own as the baseline
+    // position never leaks into the next. They come from the position field of a toastLoad's pgs-data,
+    // or the position option of a pgs.toast call. A container written by hand keeps its own
+    // as the baseline
     _applyOptions(container, position = [], scope) {
         const wanted = [Array.isArray(position) ? position : String(position).split(/\s+/)].flat().filter(Boolean);
         const unknown = wanted.filter(key => !this._options.includes(key));

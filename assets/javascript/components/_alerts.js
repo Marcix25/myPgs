@@ -24,7 +24,7 @@ const fn_alert = {
         // the type names are the values of the JSON "type" field and the name of each method; flag
         // is what the card carries in its bracket for that severity (see _alerts.scss)
         type: {
-            // the plain one: no severity colour, no glyph and no title of its own, so it stays on the box surface
+            // the plain one: no severity color, no glyph and no title of its own, so it stays on the box surface
             neutral: {
                 flag: "alertNeutral",
                 title: "",
@@ -132,9 +132,8 @@ const fn_alert = {
     },
 
     // the same data, already in the shape create() takes: the fields every host shares, with
-    // their old aliases (message, title-close, duration). raw rides along for a host that
-    // reads fields of its own (Toast's link). An entry with neither title nor description is
-    // skipped: there would be nothing to show
+    // their old aliases (message, title-close, duration). An entry with neither title nor
+    // description is skipped: there would be nothing to show
     fromData(root, name) {
         return this._getData(root, name).flatMap(raw => {
             const title = String(raw.title || "").trim();

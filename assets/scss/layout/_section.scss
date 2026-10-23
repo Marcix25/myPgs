@@ -14,10 +14,10 @@
 
 //# SECTION
 // one root, every variant folded into a flag with the sct prefix (sctMax, sctEdge, ...)
-// instead of a separate root token per variant — the same fold applied to margin/padding/border
-// this cycle. The variants are mutually exclusive alternatives to the same base layout, so they
+// instead of a separate root token per variant — the same fold as margin/padding/border.
+// The variants are mutually exclusive alternatives to the same base layout, so they
 // share one bracket the same way margin's scale options do. sctSpecificity keeps its own child token,
-// section-specificity.
+// section-specificity, and sctEdge its child tokens section-edgeLeft and section-edgeRight.
 :is([pgs~="section"], [pgs*="section\5B"]) {
 
     &:not(:is([pgs*="'sctNoPadding'"], [pgs*="'sctMax'"], [pgs*="'sctFull'"], [pgs*="'sctSpecificity'"], [pgs*="'sctEdge'"])) { @include section; }

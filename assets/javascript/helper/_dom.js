@@ -7,7 +7,7 @@ import { PGS_invalid } from "./_warn.js";
 // same string or array that pgs().querySelectorAll does
 export function PGS_roots(root, token) {
     if (!(root instanceof Document || root instanceof Element)) {
-        throw PGS_invalid("init", "root must be a Document or an Element");
+        throw PGS_invalid("helper.init", "root must be a Document or an Element");
     }
 
     const tokens = [].concat(token);

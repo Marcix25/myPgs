@@ -2,9 +2,9 @@
 //# BORDER
 
 //## WIDTH
-// the bracket-presence guard used everywhere else (marginBlock, paddingTop, ...) is safe again
-// now that color lives in its own borderColor component below: border's own bracket only ever
-// holds width flags, never a color flag that would otherwise need this default to still apply
+// the bracket-presence guard is safe here because color lives in its own borderColor component
+// below: border's own bracket only ever holds width flags, never a color flag that would
+// otherwise need this default to still apply
 :is([pgs~="border"], [pgs*="border\5B"]) {
 
     &:not([pgs*="border\5B"]) { border: var(--border-width) solid var(--border-color); }

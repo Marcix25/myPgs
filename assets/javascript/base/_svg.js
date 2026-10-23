@@ -24,7 +24,7 @@ const svgColors = {
         return pgs(document.documentElement).state.contains("darkmode");
     },
 
-    // the "old & new" pairs an author declares as --svg-color-1 … --svg-color-19
+    // the "old & new" pairs an author declares as --svg-color-0 … --svg-color-19
     searchColor() {
         const ROOT = getComputedStyle(document.documentElement);
         const colors = [];

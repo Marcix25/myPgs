@@ -1,6 +1,6 @@
 @use "../mixin/mixin" as *;
 
-//= LOGO 
+//= LOGO
 :is([pgs~="logo"], [pgs*="logo\5B"]) {
     display: flex;
     min-width: max-content;
@@ -15,7 +15,7 @@
     //## FIXED DARKMODE
     &:where([pgs*="'logoDarkmodeFixed'"]) :where([pgs~="logo-image"]) { filter: var(--logo-filter); }
 
-    //- tablet 
+    //- tablet
     @media (max-width: $tablet) { min-width: var(--logo-height); }
 
     //# LOGO

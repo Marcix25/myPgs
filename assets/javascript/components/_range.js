@@ -6,7 +6,7 @@ const SELECTOR = 'input[type="range"]';
 
 //# BUILD
 // keeps --_range-progress, the place of the value between min and max from 0 to 1, up to date on one
-// slider: the track of the range() mixin paints the part the thumb has passed from it, in every browser
+// slider: the pgs="range" track (see _formControls.scss) paints the part the thumb has passed from it, in every browser
 function PGS_range_build(input) {
     const controller = new AbortController();
     const { signal } = controller;

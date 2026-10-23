@@ -14,7 +14,7 @@
     initial-value: 0px;
 }
 
-//# SLIDES 
+//# SLIDES
 :is([pgs~="slides"], [pgs*="slides\5B"]) {
     display: flex;
     flex-direction: row;
@@ -140,14 +140,11 @@
     // the generated arrows go back to lying over the slides, one on each side, at the middle of
     // the height of the track (--_slides-height, measured by the module); the root is a column again
     &:where([pgs*="'slidesArrowsCenter'"]) {
-        display: flex;
         flex-direction: column;
 
         :where([pgs~="_slides-prev"]),
         :where([pgs~="_slides-next"]) {
             position: absolute;
-            grid-row: auto;
-            grid-column: auto;
             top: calc(var(--_slides-height, 100%) / 2);
             translate: 0 -50%;
             margin: unset;

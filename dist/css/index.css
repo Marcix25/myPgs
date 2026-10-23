@@ -1801,6 +1801,13 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   overflow-y: hidden;
 }
 
+[pgs~=truncate] {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 [pgs*="textAlign["][pgs*="'taLeft'"] {
   text-align: left;
 }
@@ -1819,13 +1826,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 [pgs*="textAlign["][pgs*="'taStart'"] {
   text-align: start;
-}
-
-[pgs~=truncate] {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 [pgs*="aspect["][pgs*="'aspSquare'"] {
@@ -2776,8 +2776,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 :is([pgs~=pageShell], [pgs*="pageShell["]) {
   /*
       A band can never target the shell itself: the shell is the query container
-      and nothing can query its own container. So each band re-places the children.
-      type of shell
+      and nothing can query its own container. So each band re-places the children,
+      one block per type of shell.
   */
 }
 
@@ -3581,7 +3581,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --label-paddingBlock: calc(var(--padding-texts)/2);
   --label-color: var(--color-black);
   --label-background: var(--color-white);
-  --label-borderColor: var(--border-color) var(--border-style);
+  --label-borderColor: var(--border-color);
   --label-borderWidth: var(--border-width);
   display: inline-block;
   width: fit-content;
@@ -3685,11 +3685,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 [pgs~=radio]:where(input[type=radio]):focus-visible,
 [pgs~=radio] :where(input[type=radio]):focus-visible {
-  outline: none;
-}
-
-[pgs~=radio]:where(input[type=radio]):focus-visible::before,
-[pgs~=radio] :where(input[type=radio]):focus-visible::before {
   outline: var(--focus-visible);
 }
 
@@ -3836,11 +3831,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 [pgs~=checkbox]:where(input[type=checkbox]):focus-visible,
 [pgs~=checkbox] :where(input[type=checkbox]):focus-visible {
-  outline: none;
-}
-
-[pgs~=checkbox]:where(input[type=checkbox]):focus-visible::before,
-[pgs~=checkbox] :where(input[type=checkbox]):focus-visible::before {
   outline: var(--focus-visible);
 }
 
@@ -4148,10 +4138,10 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 :is([pgs~=select], [pgs*="select["])[multiple]::picker(select) {
   appearance: base-select;
-  border: var(--input-border, var(--field-border));
+  border: var(--input-border);
   padding: var(--select-padding);
-  background: var(--input-background, var(--field-background));
-  border-radius: var(--input-borderRadius, var(--field-borderRadius));
+  background: var(--input-background);
+  border-radius: var(--input-borderRadius);
 }
 
 :is([pgs~=select], [pgs*="select["])[multiple] option {
@@ -6209,15 +6199,12 @@ html:has(dialog[open]) {
 }
 
 :is([pgs~=slides], [pgs*="slides["]):where([pgs*="'slidesArrowsCenter'"]) {
-  display: flex;
   flex-direction: column;
 }
 
 :is([pgs~=slides], [pgs*="slides["]):where([pgs*="'slidesArrowsCenter'"]) :where([pgs~=_slides-prev]),
 :is([pgs~=slides], [pgs*="slides["]):where([pgs*="'slidesArrowsCenter'"]) :where([pgs~=_slides-next]) {
   position: absolute;
-  grid-row: auto;
-  grid-column: auto;
   top: calc(var(--_slides-height, 100%) / 2);
   translate: 0 -50%;
   margin: unset;
@@ -6336,7 +6323,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]) :where([pgs~=_steps-step-line])::before
   translate: -50%;
 }
 
-ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=steps-step]) {
+ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=steps-step-content]) {
   padding-bottom: 0;
   margin-bottom: 0;
 }
