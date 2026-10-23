@@ -6,7 +6,7 @@
 @mixin checkboxBackground() {
     --checkboxBackground-padding: calc(var(--padding-texts) / 2);
     --checkboxBackground-paddingRight: var(--padding-texts);
-    --checkboxBackground-borderRadius: var(--border-radius-elements);
+    --checkboxBackground-borderRadius: var(--borderRadius-elements);
     //
     --checkboxBackground-background: var(--clickable-background);
     --checkboxBackground-background-hover: var(--hover-background);
@@ -96,7 +96,7 @@
         background: var(--toggle-rail-background);
         color: var(--toggle-thumb-background);
         border-color: var(--toggle-rail-borderColor);
-        border-radius: var(--border-radius-texts);
+        border-radius: var(--borderRadius-texts);
 
         &::after,
         &::before {
@@ -107,7 +107,7 @@
             margin-left: auto;
             transition: all 250ms;
             display: block;
-            border-radius: var(--border-radius-texts);
+            border-radius: var(--borderRadius-texts);
             order: 1;
         }
 
@@ -251,7 +251,7 @@
 @mixin field() {
     --field-gap: 0.9rem;
     --field-padding: var(--padding-texts);
-    --field-borderRadius: var(--border-radius-texts);
+    --field-borderRadius: var(--borderRadius-texts);
     --field-paddingTop: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
     --field-label-paddingTop: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
     --field-background: var(--color-white);

@@ -103,7 +103,7 @@
             gap: var(--gap-texts);
             width: max-content;
             background-color: var(--color-box-transparent);
-            border-radius: calc(var(--border-radius-elements) + var(--padding-texts));
+            border-radius: calc(var(--borderRadius-elements) + var(--padding-texts));
             padding: var(--padding-texts);
         }
     }

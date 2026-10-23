@@ -63,7 +63,7 @@ html:has(dialog[open]) {
     --modal-color: var(--color-black);
     --modal-content-padding: var(--padding-elements);
     --modal-offset: var(--gap-texts);
-    --modal-borderRadius: calc(var(--border-radius-texts) + var(--modal-content-padding));
+    --modal-borderRadius: calc(var(--borderRadius-texts) + var(--modal-content-padding));
     // dialogAnimation*: duration and curve of every opening and closing animation (PhotoSwipe's own defaults)
     --modal-animation-timing: 333ms;
     --modal-animation-easing: cubic-bezier(0.4, 0, 0.22, 1);

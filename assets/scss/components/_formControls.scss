@@ -5,7 +5,7 @@
 // The form, the field, the label, the legend, the input, the textarea, the checkbox, the radio and the fieldset are in form.
 //# RANGE
 [pgs~="range"] {
-    --range-size: calc(var(--border-radius-texts));
+    --range-size: calc(var(--borderRadius-texts));
     --range-thumbWidth: calc(var(--range-size) * 2);
     --range-background: var(--clickable-background);
     --range-background-progress: var(--twoState-background);
@@ -90,7 +90,7 @@
         color: var(--clickable-color);
         background: var(--clickable-background);
         border: var(--border-width) var(--border-style) var(--clickable-borderColor);
-        border-radius: var(--border-radius-elements);
+        border-radius: var(--borderRadius-elements);
         cursor: pointer;
         transition: var(--clickable-transition);
     }
@@ -114,7 +114,7 @@
     height: var(--inputColor-height);
     aspect-ratio: 1;
     border: var(--border-complete);
-    border-radius: var(--border-radius-texts);
+    border-radius: var(--borderRadius-texts);
     cursor: pointer;
 
     &::-webkit-color-swatch-wrapper { padding: 0; }
@@ -168,7 +168,7 @@
 
         option {
             padding: var(--select-padding);
-            border-radius: calc(var(--border-radius-texts) - var(--select-padding));
+            border-radius: calc(var(--borderRadius-texts) - var(--select-padding));
             background-color: transparent;
             font-weight: var(--font-weight-text);
             color: var(--color-black);

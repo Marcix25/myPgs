@@ -24,9 +24,9 @@
   --gap-elements: var(--SIZE);
   --gap-groups: var(--SIZE-groups);
   --gap-sections: var(--SIZE-sections);
-  --border-radius-texts: var(--SIZE-texts);
-  --border-radius-elements: var(--SIZE);
-  --border-radius-groups: var(--SIZE-groups);
+  --borderRadius-texts: var(--SIZE-texts);
+  --borderRadius-elements: var(--SIZE);
+  --borderRadius-groups: var(--SIZE-groups);
   --font: 'Urbanist', sans-serif;
   --font-heading: var(--font);
   --font-weight-title: 800;
@@ -3002,7 +3002,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   gap: var(--gap-texts);
   width: max-content;
   background-color: var(--color-box-transparent);
-  border-radius: calc(var(--border-radius-elements) + var(--padding-texts));
+  border-radius: calc(var(--borderRadius-elements) + var(--padding-texts));
   padding: var(--padding-texts);
 }
 
@@ -3059,7 +3059,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   align-items: stretch;
   pointer-events: auto;
   --box-padding: var(--padding-elements);
-  --box-borderRadius: calc(var(--border-radius-texts) + var(--box-padding));
+  --box-borderRadius: calc(var(--borderRadius-texts) + var(--box-padding));
   --box-background: var(--color-box-transparent);
   padding: var(--box-padding);
   background: var(--box-background);
@@ -3267,7 +3267,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 */
 :is([pgs~=card], [pgs*="card["]) {
   --card-padding: var(--padding-elements);
-  --card-borderRadius: calc(var(--border-radius-texts) + var(--card-padding));
+  --card-borderRadius: calc(var(--borderRadius-texts) + var(--card-padding));
   --card-borderRadius-item: var(--card-borderRadius) var(--card-borderRadius) 0 0;
   --card-background: var(--color-box-transparent);
   --card-img-padding: 0;
@@ -3390,7 +3390,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 :is([pgs~=box], [pgs*="box["]) {
   --box-padding: var(--padding-elements);
-  --box-borderRadius: calc(var(--border-radius-texts) + var(--box-padding));
+  --box-borderRadius: calc(var(--borderRadius-texts) + var(--box-padding));
   --box-background: var(--color-box-transparent);
   padding: var(--box-padding);
   background: var(--box-background);
@@ -3418,7 +3418,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 :is([pgs~=box], [pgs*="box["]):where([pgs*="'boxMini'"]) {
   --box-padding: var(--padding-texts);
-  --box-borderRadius: var(--border-radius-texts);
+  --box-borderRadius: var(--borderRadius-texts);
 }
 
 :is([pgs~=box], [pgs*="box["]):where([pgs*="'boxNavSmart'"]) {
@@ -3437,7 +3437,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   resize: vertical;
   --input-padding: var(--padding-texts);
   --input-border: var(--border-complete);
-  --input-borderRadius: var(--border-radius-texts);
+  --input-borderRadius: var(--borderRadius-texts);
   --input-background: var(--color-white);
   appearance: none;
   width: 100%;
@@ -3478,7 +3478,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 [pgs~=input] {
   --input-padding: var(--padding-texts);
   --input-border: var(--border-complete);
-  --input-borderRadius: var(--border-radius-texts);
+  --input-borderRadius: var(--borderRadius-texts);
   --input-background: var(--color-white);
   appearance: none;
   width: 100%;
@@ -3529,7 +3529,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :where([pgs~=label], [pgs*="label["]) {
-  --label-borderRadius: var(--border-radius-texts);
+  --label-borderRadius: var(--borderRadius-texts);
   --label-left: var(--label-borderRadius);
   --label-paddingInline: var(--padding-texts);
   --label-paddingBlock: calc(var(--padding-texts)/2);
@@ -3583,7 +3583,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 [pgs~=legend] {
-  --label-borderRadius: var(--border-radius-texts);
+  --label-borderRadius: var(--borderRadius-texts);
   --label-paddingInline: var(--padding-texts);
   --label-paddingBlock: calc(var(--padding-texts)/2);
   --label-color: var(--color-black);
@@ -3940,7 +3940,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 [pgs~=range] {
-  --range-size: calc(var(--border-radius-texts));
+  --range-size: calc(var(--borderRadius-texts));
   --range-thumbWidth: calc(var(--range-size) * 2);
   --range-background: var(--clickable-background);
   --range-background-progress: var(--twoState-background);
@@ -4008,7 +4008,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 [pgs~=file] {
   --input-padding: var(--padding-texts);
   --input-border: var(--border-complete);
-  --input-borderRadius: var(--border-radius-texts);
+  --input-borderRadius: var(--borderRadius-texts);
   --input-background: var(--color-white);
   appearance: none;
   width: 100%;
@@ -4055,7 +4055,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   color: var(--clickable-color);
   background: var(--clickable-background);
   border: var(--border-width) var(--border-style) var(--clickable-borderColor);
-  border-radius: var(--border-radius-elements);
+  border-radius: var(--borderRadius-elements);
   cursor: pointer;
   transition: var(--clickable-transition);
 }
@@ -4079,7 +4079,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   height: var(--inputColor-height);
   aspect-ratio: 1;
   border: var(--border-complete);
-  border-radius: var(--border-radius-texts);
+  border-radius: var(--borderRadius-texts);
   cursor: pointer;
 }
 
@@ -4095,7 +4095,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --select-padding: calc(var(--field-padding, var(--input-padding)) / 2);
   --input-padding: var(--padding-texts);
   --input-border: var(--border-complete);
-  --input-borderRadius: var(--border-radius-texts);
+  --input-borderRadius: var(--borderRadius-texts);
   --input-background: var(--color-white);
   appearance: none;
   width: 100%;
@@ -4163,7 +4163,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 :is([pgs~=select], [pgs*="select["])[multiple] option {
   padding: var(--select-padding);
-  border-radius: calc(var(--border-radius-texts) - var(--select-padding));
+  border-radius: calc(var(--borderRadius-texts) - var(--select-padding));
   background-color: transparent;
   font-weight: var(--font-weight-text);
   color: var(--color-black);
@@ -4207,7 +4207,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   --button-borderColor-twoState: var(--twoState-borderColor);
   --button-borderWidth: var(--border-width);
   --button-borderStyle: var(--border-style);
-  --button-borderRadius: var(--border-radius-elements);
+  --button-borderRadius: var(--borderRadius-elements);
   --button-size: var(--SIZE-texts);
   --button-gap: calc(var(--button-size) / 3);
   --button-fontSize: var(--font-size-text);
@@ -4893,7 +4893,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 [pgs~=checkboxBackground] {
   --checkboxBackground-padding: calc(var(--padding-texts) / 2);
   --checkboxBackground-paddingRight: var(--padding-texts);
-  --checkboxBackground-borderRadius: var(--border-radius-elements);
+  --checkboxBackground-borderRadius: var(--borderRadius-elements);
   --checkboxBackground-background: var(--clickable-background);
   --checkboxBackground-background-hover: var(--hover-background);
   --checkboxBackground-background-checked: var(--twoState-background);
@@ -5037,7 +5037,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   background: var(--toggle-rail-background);
   color: var(--toggle-thumb-background);
   border-color: var(--toggle-rail-borderColor);
-  border-radius: var(--border-radius-texts);
+  border-radius: var(--borderRadius-texts);
 }
 
 [pgs~=toggle] :where(input)::after, [pgs~=toggle] :where(input)::before {
@@ -5048,7 +5048,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   margin-left: auto;
   transition: all 250ms;
   display: block;
-  border-radius: var(--border-radius-texts);
+  border-radius: var(--borderRadius-texts);
   order: 1;
 }
 
@@ -5258,7 +5258,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 :is([pgs~=field], [pgs*="field["]) {
   --field-gap: 0.9rem;
   --field-padding: var(--padding-texts);
-  --field-borderRadius: var(--border-radius-texts);
+  --field-borderRadius: var(--borderRadius-texts);
   --field-paddingTop: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
   --field-label-paddingTop: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
   --field-background: var(--color-white);
@@ -5353,7 +5353,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   gap: var(--gap-texts);
   --gap: var(--gap-texts);
   flex-direction: column;
-  --dropdown-borderRadius: calc(var(--border-radius-texts) + var(--dropdown-padding));
+  --dropdown-borderRadius: calc(var(--borderRadius-texts) + var(--dropdown-padding));
   --dropdown-background: var(--color-box);
   --dropdown-display: flex;
 }
@@ -5464,7 +5464,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 :is([pgs~=accordion], [pgs*="accordion["]) {
   --accordion-icon: var(--icon-glyph-chevronDown);
-  --accordion-borderRadius: var(--border-radius-elements);
+  --accordion-borderRadius: var(--borderRadius-elements);
   --accordion-padding: calc(var(--accordion-borderRadius)/1.5);
   --accordion-timing: 300ms;
   --accordion-background: transparent;
@@ -5750,7 +5750,7 @@ html:has(dialog[open]) {
   --modal-color: var(--color-black);
   --modal-content-padding: var(--padding-elements);
   --modal-offset: var(--gap-texts);
-  --modal-borderRadius: calc(var(--border-radius-texts) + var(--modal-content-padding));
+  --modal-borderRadius: calc(var(--borderRadius-texts) + var(--modal-content-padding));
   --modal-animation-timing: 333ms;
   --modal-animation-easing: cubic-bezier(0.4, 0, 0.22, 1);
   border: none;
@@ -6309,7 +6309,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]) :where([pgs~=_steps-step-circle]) {
   align-items: center;
   justify-content: center;
   margin-right: 20px;
-  border-radius: var(--border-radius-elements);
+  border-radius: var(--borderRadius-elements);
   font-weight: var(--font-weight-bold);
   text-align: center;
 }
@@ -6378,7 +6378,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   table-layout: auto;
   border-collapse: collapse;
   color: var(--color-text);
-  border-radius: var(--border-radius-texts);
+  border-radius: var(--borderRadius-texts);
   border: var(--border-complete);
   overflow: hidden;
 }
@@ -6550,7 +6550,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   max-width: 100%;
   min-height: calc(var(--badge-size) * 2.2);
   padding: var(--badge-size);
-  border-radius: var(--border-radius-texts);
+  border-radius: var(--borderRadius-texts);
   background: var(--badge-background);
   color: var(--badge-color);
   font-size: var(--badge-textSize);
@@ -6632,7 +6632,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   width: 100%;
   padding: var(--alert-padding);
   border: var(--border-complete);
-  border-radius: var(--border-radius-elements);
+  border-radius: var(--borderRadius-elements);
   background: var(--alert-background);
   color: var(--alert-color);
   overflow: hidden;
@@ -6816,7 +6816,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   margin: 0;
   padding: var(--padding-texts);
   color: var(--color-white);
-  border-radius: var(--border-radius-texts);
+  border-radius: var(--borderRadius-texts);
   font-size: small;
   text-align: center;
   background-color: var(--color-black-transparent);
@@ -6864,8 +6864,8 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 :is([pgs~=search], [pgs*="search["]) {
   --search-height: var(--font-size-text);
-  --search-paddingBlock: var(--border-radius-texts);
-  --search-borderRadius: calc(var(--border-radius-texts) + (var(--search-height) /2));
+  --search-paddingBlock: var(--borderRadius-texts);
+  --search-borderRadius: calc(var(--borderRadius-texts) + (var(--search-height) /2));
   --search-background: var(--color-box);
   --search-color: var(--color-black);
   --search-border: var(--border-complete);
@@ -7632,19 +7632,19 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 }
 
 :is([pgs~=borderRadius], [pgs*="borderRadius["]) {
-  border-radius: var(--border-radius-elements);
+  border-radius: var(--borderRadius-elements);
 }
 
 :is([pgs~=borderRadius], [pgs*="borderRadius["])[pgs*="'radTexts'"] {
-  border-radius: var(--border-radius-texts);
+  border-radius: var(--borderRadius-texts);
 }
 
 :is([pgs~=borderRadius], [pgs*="borderRadius["])[pgs*="'radElements'"] {
-  border-radius: var(--border-radius-elements);
+  border-radius: var(--borderRadius-elements);
 }
 
 :is([pgs~=borderRadius], [pgs*="borderRadius["])[pgs*="'radGroups'"] {
-  border-radius: var(--border-radius-groups);
+  border-radius: var(--borderRadius-groups);
 }
 
 :is([pgs~=borderRadius], [pgs*="borderRadius["])[pgs*="'radUnset'"] {
@@ -8111,7 +8111,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   left: var(--gap-texts);
   z-index: var(--zIndex-skipLink);
   padding: var(--padding-texts);
-  border-radius: var(--border-radius-texts);
+  border-radius: var(--borderRadius-texts);
   background-color: var(--color-background);
   color: var(--color-link);
   outline: var(--focus-visible);

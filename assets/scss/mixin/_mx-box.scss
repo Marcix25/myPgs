@@ -2,7 +2,7 @@
 //# BOX
 @mixin box() {
     --box-padding: var(--padding-elements);
-    --box-borderRadius: calc(var(--border-radius-texts) + var(--box-padding));
+    --box-borderRadius: calc(var(--borderRadius-texts) + var(--box-padding));
     --box-background: var(--color-box-transparent);
     padding: var(--box-padding);
     background: var(--box-background);

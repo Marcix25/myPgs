@@ -29,9 +29,9 @@
         --gap-groups: #{$SIZE-groups};
         --gap-sections: #{$SIZE-sections};
         // Border radius
-        --border-radius-texts: #{$SIZE-texts};
-        --border-radius-elements: #{$SIZE};
-        --border-radius-groups: #{$SIZE-groups};
+        --borderRadius-texts: #{$SIZE-texts};
+        --borderRadius-elements: #{$SIZE};
+        --borderRadius-groups: #{$SIZE-groups};
         // Font
         --font: 'Urbanist', sans-serif;
         --font-heading: var(--font);

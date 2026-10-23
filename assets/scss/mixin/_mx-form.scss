@@ -29,7 +29,7 @@
 //### LABEL - input
 // the label of a text-like input, a range, a file, a color input, a select or a textarea: a tab on top of the control
 @mixin label() {
-    --label-borderRadius: var(--border-radius-texts);
+    --label-borderRadius: var(--borderRadius-texts);
     --label-left: var(--label-borderRadius);
     --label-paddingInline: var(--padding-texts);
     --label-paddingBlock: calc(var(--padding-texts)/2);
@@ -161,7 +161,7 @@
 @mixin input() {
     --input-padding: var(--padding-texts);
     --input-border: var(--border-complete);
-    --input-borderRadius: var(--border-radius-texts);
+    --input-borderRadius: var(--borderRadius-texts);
     --input-background: var(--color-white);
     @include inputBase(20%);
     border: var(--input-border);
@@ -380,7 +380,7 @@
 // not joined to anything. --label-color and --label-background are the ones formValidate changes when
 // the group fails
 @mixin legend() {
-    --label-borderRadius: var(--border-radius-texts);
+    --label-borderRadius: var(--borderRadius-texts);
     --label-paddingInline: var(--padding-texts);
     --label-paddingBlock: calc(var(--padding-texts)/2);
     --label-color: var(--color-black);

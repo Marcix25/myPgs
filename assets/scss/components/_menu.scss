@@ -34,7 +34,7 @@
         //## submenu
         :where(ul) {
             @include column();
-            --dropdown-borderRadius: calc(var(--border-radius-texts) + var(--dropdown-padding));
+            --dropdown-borderRadius: calc(var(--borderRadius-texts) + var(--dropdown-padding));
             --dropdown-background: var(--color-box);
             --dropdown-display: flex;
         }
