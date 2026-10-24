@@ -18,7 +18,8 @@ Form structure with labels, inputs, a textarea, a checkbox, and a radio group co
 
 ## PGS Options (component brackets)
 
-- `labelTab`: inside label's own bracket, `label['labelTab']`: a tab instead of a pill, rounded on the top corners only and with no border at the bottom, so that it opens into the control it sits on.
+- `labelTab`: inside label's own bracket, `label['labelTab']`: a tab instead of a pill, rounded on the top corners only and with no border at the bottom, and the gap of the form left between it and the control.
+- `labelTabNoGap`: inside label's own bracket, `label['labelTabNoGap']`: the same tab as labelTab with the gap of the form taken away, so that it touches the control and opens into it. It does not need labelTab next to it.
 
 ## PGS Data
 

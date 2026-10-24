@@ -65,13 +65,14 @@
 
     //+ labelTab
     // the top corners only, and no bottom border: the label opens into the control it sits on
-    &:where([pgs*="'labelTab'"]) {
-        margin-bottom: calc(var(--form-gap, 0px) * -1);
+    &:where([pgs*="'labelTab'"], [pgs*="'labelTabNoGap'"]) {
         transform: translateX(var(--label-left)) translateY(calc(var(--label-borderWidth) + 1.5px));
         padding-bottom: 0;
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
         border-bottom: var(--label-background) var(--border-style) var(--label-borderWidth);
+
+        &:where([pgs*="'labelTabNoGap'"]) { margin-bottom: calc(var(--form-gap, 0px) * -1); }
     }
 }
 
@@ -265,10 +266,7 @@
         }
 
         //### Disabled
-        &:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
+        &:disabled { @include disabled(); }
 
         //### Focus
         // the input is the box: the ring is drawn on it, in place of the outline bodyBase gives every :focus-visible
@@ -352,10 +350,7 @@
         }
 
         //### Disabled
-        &:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
+        &:disabled { @include disabled(); }
 
         //### Focus
         // the input is the box: the ring is drawn on it, in place of the outline bodyBase gives every :focus-visible

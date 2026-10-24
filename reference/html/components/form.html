@@ -15,7 +15,8 @@
  * - form-requiredHere: written inside a required label or legend, it puts the asterisk where the element sits instead of at the end of the label. Without it the asterisk is drawn on the label itself, which is what a label with plain text wants; a label ending in a link or a long sentence usually wants to say where the mark goes.
  *
  * @pgs-options
- * - labelTab: inside label's own bracket, `label['labelTab']`: a tab instead of a pill, rounded on the top corners only and with no border at the bottom, so that it opens into the control it sits on.
+ * - labelTab: inside label's own bracket, `label['labelTab']`: a tab instead of a pill, rounded on the top corners only and with no border at the bottom, and the gap of the form left between it and the control.
+ * - labelTabNoGap: inside label's own bracket, `label['labelTabNoGap']`: the same tab as labelTab with the gap of the form taken away, so that it touches the control and opens into it. It does not need labelTab next to it.
  *
  * @pgs-data
  * - formMessage: defines a field-specific message with the syntax formMessage[Message text].

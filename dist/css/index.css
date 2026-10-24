@@ -3555,13 +3555,16 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   padding-left: 3px;
 }
 
-:where([pgs~=label], [pgs*="label["]):where([pgs*="'labelTab'"]) {
-  margin-bottom: calc(var(--form-gap, 0px) * -1);
+:where([pgs~=label], [pgs*="label["]):where([pgs*="'labelTab'"], [pgs*="'labelTabNoGap'"]) {
   transform: translateX(var(--label-left)) translateY(calc(var(--label-borderWidth) + 1.5px));
   padding-bottom: 0;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   border-bottom: var(--label-background) var(--border-style) var(--label-borderWidth);
+}
+
+:where([pgs~=label], [pgs*="label["]):where([pgs*="'labelTab'"], [pgs*="'labelTabNoGap'"]):where([pgs*="'labelTabNoGap'"]) {
+  margin-bottom: calc(var(--form-gap, 0px) * -1);
 }
 
 [pgs~=legend] {
@@ -3669,7 +3672,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 [pgs~=radio]:where(input[type=radio]):disabled,
 [pgs~=radio] :where(input[type=radio]):disabled {
   opacity: 0.5;
-  cursor: not-allowed;
+  cursor: not-allowed !important;
 }
 
 [pgs~=radio]:where(input[type=radio]):focus-visible,
@@ -3815,7 +3818,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 [pgs~=checkbox]:where(input[type=checkbox]):disabled,
 [pgs~=checkbox] :where(input[type=checkbox]):disabled {
   opacity: 0.5;
-  cursor: not-allowed;
+  cursor: not-allowed !important;
 }
 
 [pgs~=checkbox]:where(input[type=checkbox]):focus-visible,
@@ -4160,7 +4163,8 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=select], [pgs*="select["])[multiple] option:disabled {
-  opacity: 0.4;
+  opacity: 0.5;
+  cursor: not-allowed !important;
 }
 
 :is([pgs~=button], [pgs*="button["]) {
@@ -4217,7 +4221,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 }
 
 :is([pgs~=button], [pgs*="button["]):disabled {
-  opacity: 0.2;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 

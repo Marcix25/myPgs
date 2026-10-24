@@ -935,7 +935,8 @@ Same name, different behavior:
   over the top edge of its control; its look is `--label-borderRadius`, `--label-paddingInline`,
   `--label-paddingBlock`, `--label-color`, `--label-background`, `--label-border` and
   `--label-borderWidth`. `labelTab` rounds the top corners only and drops the bottom border, so the
-  label opens into the control as a tab. Nothing to migrate, it is opt-in. The gradient that used to
+  label is a tab above the control, with the gap of the form between them; `labelTabNoGap` is the same tab
+  with the gap taken away, so it touches the control and opens into it. Nothing to migrate, both are opt-in. The gradient that used to
   join the label to the control (a `::before` and `--label-before`) is gone.
 - **A theme switch can carry its label anywhere.** `toggleDarkmode['tglLabeled']` writes the
   theme the click leads to next to the glyph. The rule used to be baked into the footer, where it

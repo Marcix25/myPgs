@@ -184,7 +184,7 @@
                 color: var(--hover-color);
             }
 
-            &:disabled { opacity: .4; }
+            &:disabled { @include disabled(); }
         }
     }
 }
