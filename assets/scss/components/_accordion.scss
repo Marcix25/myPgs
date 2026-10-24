@@ -6,9 +6,7 @@ $accordionGap: 1.0rem;
 //# ACCORDION CONTAINER
 :is([pgs~="accordionContainer"], [pgs*="accordionContainer\5B"]) {
     --accordionContainer-gap: #{$accordionGap};
-    display: flex;
-    flex-direction: column;
-    gap: var(--accordionContainer-gap);
+    @include column(var(--accordionContainer-gap));
 
     // read by the JavaScript only, declared here so editors suggest it: accordionContainer groups the
     // accordions inside it, so that opening one closes the others, and accMultiOpen on that same

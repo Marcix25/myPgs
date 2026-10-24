@@ -3872,16 +3872,18 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 [pgs~=fieldset] {
   border: unset;
   display: flex;
-  flex-direction: column;
   gap: var(--form-gap, var(--gap-texts));
+  --gap: var(--form-gap, var(--gap-texts));
+  flex-direction: column;
   padding-top: var(--form-gap, var(--gap-texts));
 }
 
 [pgs~=form] {
   --form-gap: var(--gap-texts);
   display: flex;
-  flex-direction: column;
   gap: var(--form-gap);
+  --gap: var(--form-gap);
+  flex-direction: column;
 }
 
 [pgs~=formValidate] {
@@ -4120,8 +4122,9 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 :is([pgs~=select], [pgs*="select["])[multiple] optgroup {
   color: var(--color-text);
   display: flex;
-  flex-direction: column;
   gap: calc(var(--gap-texts) / 2);
+  --gap: calc(var(--gap-texts) / 2);
+  flex-direction: column;
 }
 
 :is([pgs~=select], [pgs*="select["])[multiple]::picker(select) {
@@ -5429,8 +5432,9 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 :is([pgs~=accordionContainer], [pgs*="accordionContainer["]) {
   --accordionContainer-gap: 1rem;
   display: flex;
-  flex-direction: column;
   gap: var(--accordionContainer-gap);
+  --gap: var(--accordionContainer-gap);
+  flex-direction: column;
 }
 
 :is([pgs~=accordion], [pgs*="accordion["]) {

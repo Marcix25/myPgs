@@ -70,7 +70,6 @@
 
     #{$left},
     #{$right} {
-        @include column(var(--gap-elements));
         max-width: calc(var(--page-width) / max(2, var(--section-edge-textDivisor)));
         padding-inline: var(--page-padding);
     }

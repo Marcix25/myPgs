@@ -151,9 +151,7 @@
 
         optgroup {
             color: var(--color-text);
-            display: flex;
-            flex-direction: column;
-            gap: calc(var(--gap-texts)/2);
+            @include column(calc(var(--gap-texts)/2));
         }
 
         // the list of options, with the look of an input

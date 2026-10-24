@@ -367,9 +367,7 @@
 //## FIELDSET
 @mixin fieldset() {
     border: unset;
-    display: flex;
-    flex-direction: column;
-    gap: var(--form-gap, var(--gap-texts));
+    @include column(var(--form-gap, var(--gap-texts)));
     padding-top: var(--form-gap, var(--gap-texts));
 }
 
@@ -405,9 +403,7 @@
 // a column, spaced by --form-gap: the form styles none of its controls
 @mixin form() {
     --form-gap: var(--gap-texts);
-    display: flex;
-    flex-direction: column;
-    gap: var(--form-gap);
+    @include column(var(--form-gap));
 }
 
 //## FORM VALIDATE
