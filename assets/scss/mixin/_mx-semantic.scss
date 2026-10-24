@@ -22,19 +22,13 @@
     padding-inline: var(--page-padding);
     position: relative;
     width: 100%;
-    @include column(var(--gap-elements));
 }
 
 @mixin sectionSpecificity($child) {
     width: 100%;
 
     #{$child} {
-        container-type: inline-size;
-        margin-inline: auto;
-        max-width: calc(var(--page-width) + (var(--page-padding) * 2));
-        padding-inline: var(--page-padding);
-        position: relative;
-        width: 100%;
+        @include section();
 
         #{$child} { padding-inline: 0; }
     }
@@ -76,8 +70,8 @@
 
     #{$left},
     #{$right} {
-        @include column(var(--gap-texts));
-        max-width: calc(var(--page-width) / max(2, var(--section-edge-textDivisor, 2)));
+        @include column(var(--gap-elements));
+        max-width: calc(var(--page-width) / max(2, var(--section-edge-textDivisor)));
         padding-inline: var(--page-padding);
     }
 
@@ -86,7 +80,7 @@
 
     >:where(:not(#{$left}, #{$right})) {
         flex: 1 1 0%;
-        min-width: min(100%, calc(var(--page-width) / max(2, var(--section-edge-mediaDivisor, 2))));
+        min-width: min(100%, calc(var(--page-width) / max(2, var(--section-edge-mediaDivisor))));
     }
 }
 
@@ -95,5 +89,4 @@
     max-width: var(--page-width);
     width: 100%;
     position: relative;
-    @include column();
 }

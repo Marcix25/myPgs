@@ -7,7 +7,7 @@ Section variants that control width, padding, and specific content treatment whi
 ## PGS
 
 - `main`: identifies the main page area that stacks the sections, spacing them apart and filling the viewport height.
-- `section`: identifies the standard section with centered content, on every side by default, or with the option in its bracket picking one of the variants below instead.
+- `section`: identifies the standard section with centered content, on every side by default, or with the option in its bracket picking one of the variants below instead. It sets no layout of its own: write flex or grid next to it to space its children.
 - `section-specificity`: identifies the content, inside a section using sctSpecificity, that is held to the centered page column while the section itself and its other children keep the full width; nested inside another one it drops the page padding.
 - `main-removeGap`: identifies a child of main, a section or not, that is pulled into the gap main leaves around it: half of the gap above and below, so a section with a background meets the one next to it. It reads --main-gap, and --gap-sections when the child is not inside a main.
 - `main-removeGapTop`: the same pull on the top edge only.

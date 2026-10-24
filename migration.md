@@ -12,6 +12,7 @@ meaning moved under them, so nothing errors and the page just looks wrong.
 | name | was | is now |
 | --- | --- | --- |
 | `pgs-option` (retired) | `pgs="component" pgs-option="key1 key2"` | Every boolean flag, CSS-facing or JavaScript-only: `pgs="component['key1' 'key2']"`. Only a genuine `key[payload]` value: `pgs-data="..."`. The old attribute is no longer read or styled. |
+| `pgs="section"` and `section['sctNoPadding']` | a flex column spaced by `--gap-elements`, so several children had a gap between them | only the width, the padding and the container: no `display`, no gap. Add `flex['column' 'gapElements']` next to it on every section with more than one child (`grep -rnE 'pgs="section( \|\[)' .` finds them) |
 | `pgs="icon"` | the round surface holding an icon | the glyph itself, drawn from inline SVG |
 | `--icon-size` | the width driver of that surface | the size of a glyph, read as a font-size |
 | `pgs-option="menuVertical"` (and any submenu below a horizontal menu's first level) | floated as a dropdown, same as every other submenu | expands in place as an accordion |

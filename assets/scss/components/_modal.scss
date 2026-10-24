@@ -98,6 +98,7 @@ html:has(dialog[open]) {
     //### CONTENT
     :where([pgs~="modal-dialog-content"]) {
         @include sectionNoPadding();
+        @include column();
         margin-inline: unset;
         padding: 0;
         cursor: auto;

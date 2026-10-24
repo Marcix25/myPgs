@@ -512,10 +512,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   padding-inline: var(--page-padding);
   position: relative;
   width: 100%;
-  display: flex;
-  gap: var(--gap-elements);
-  --gap: var(--gap-elements);
-  flex-direction: column;
 }
 
 :is([pgs~=section], [pgs*="section["])[pgs*="'sctMax'"] {
@@ -548,10 +544,6 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
   max-width: var(--page-width);
   width: 100%;
   position: relative;
-  display: flex;
-  gap: var(--gap-texts);
-  --gap: var(--gap-texts);
-  flex-direction: column;
 }
 
 :is([pgs~=section], [pgs*="section["])[pgs*="'sctEdge'"] {
@@ -571,10 +563,10 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 :is([pgs~=section], [pgs*="section["])[pgs*="'sctEdge'"] :where([pgs~=section-edgeLeft]),
 :is([pgs~=section], [pgs*="section["])[pgs*="'sctEdge'"] :where([pgs~=section-edgeRight]) {
   display: flex;
-  gap: var(--gap-texts);
-  --gap: var(--gap-texts);
+  gap: var(--gap-elements);
+  --gap: var(--gap-elements);
   flex-direction: column;
-  max-width: calc(var(--page-width) / max(2, var(--section-edge-textDivisor, 2)));
+  max-width: calc(var(--page-width) / max(2, var(--section-edge-textDivisor)));
   padding-inline: var(--page-padding);
 }
 
@@ -588,7 +580,7 @@ body :where([pgs*="body["]):where([pgs*="'bodyImg'"]) img, :where([pgs*="body["]
 
 :is([pgs~=section], [pgs*="section["])[pgs*="'sctEdge'"] > :where(:not(:where([pgs~=section-edgeLeft]), :where([pgs~=section-edgeRight]))) {
   flex: 1 1 0%;
-  min-width: min(100%, var(--page-width) / max(2, var(--section-edge-mediaDivisor, 2)));
+  min-width: min(100%, var(--page-width) / max(2, var(--section-edge-mediaDivisor)));
 }
 
 :is([pgs~=section], [pgs*="section["])[pgs*="'sctSpecificity'"] {
