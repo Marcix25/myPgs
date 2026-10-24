@@ -92,6 +92,7 @@ declare global {
   interface PgsAlertButton {
     id?: string;
     title?: string;
+    /** Relative, http(s):, mailto: or tel:; any other scheme is ignored with a warning. */
     link?: string | null;
     close?: boolean;
     optionButton?: string | string[] | null;
@@ -104,9 +105,13 @@ declare global {
     dismissible?: boolean;
     timeout?: number;
     buttons?: PgsAlertButton[];
+    /** Trusted markup for the icon slot, written into the card as given and not sanitized. Leave it out for the glyph of the type. */
+    icon?: string;
+    /** The id the pgs:alert:* events report; generated when omitted. */
+    id?: string;
     /** Where pgs.alert.* puts the card: a Document or Element root, and the container inside it. */
     root?: Document | Element;
-    container?: string;
+    container?: string | Element;
     [option: string]: unknown;
   }
 
@@ -172,11 +177,21 @@ declare global {
   }
 
   //== formValidate
+  /** The messages a form shows; each one can also be set in the form's pgs-data. */
+  interface PgsFormValidateMessages {
+    formFieldErrorTitle?: string;
+    formFieldError?: string;
+    formFieldsError?: string;
+    formSuccessTitle?: string;
+    formSuccess?: string;
+  }
+
   interface PgsFormValidateOptions {
     typeNotice?: "alert" | "toast";
     showSuccessOnValidate?: boolean;
-    alertContainer?: string;
-    message?: Partial<Record<string, string>>;
+    /** A selector, or an element, for the alert; it can sit outside the form. */
+    alertContainer?: string | Element;
+    message?: PgsFormValidateMessages;
   }
 
   interface PgsTemporaryFieldError {
@@ -189,7 +204,7 @@ declare global {
     container: Element;
     typeNotice: "alert" | "toast";
     showSuccessOnValidate: boolean;
-    alertContainer?: string;
+    alertContainer?: string | Element;
     temporaryFieldError: PgsTemporaryFieldError;
     validate(): boolean;
     success(description?: string, title?: string): void;
@@ -199,6 +214,7 @@ declare global {
     destroy(): void;
   }
 
+  /** A form has one validator: building a second on the same form destroys the first. */
   interface PgsFormValidateConstructor {
     new (form: Element, options?: PgsFormValidateOptions): PgsFormValidateInstance;
   }
@@ -267,6 +283,12 @@ declare global {
     index: number;
     value: string;
     input: HTMLInputElement;
+  }
+
+  interface PgsSearchErrorDetail extends PgsEventDetail {
+    /** What the source threw or rejected with. */
+    error: unknown;
+    query: string;
   }
 
   interface PgsSearchOptions {
@@ -383,7 +405,17 @@ declare global {
     panel: Element;
   }
 
+  //== header and navSmart
+  /** The instance of a header or a navSmart bar: only the lifecycle, the measuring is automatic. */
+  interface PgsHeaderInstance extends PgsInstance<PgsHeaderInstance> {}
+
+  interface PgsNavSmartInstance extends PgsInstance<PgsNavSmartInstance> {}
+
   //== the rest
+  interface PgsSvgChangeColorDetail extends PgsEventDetail {
+    isDarkMode: boolean;
+  }
+
   interface PgsSvgModule {
     init(root?: Document | Element): void;
     eventChangeColor: string;
@@ -431,8 +463,8 @@ declare global {
     menu?: PgsModule<PgsMenuInstance>;
     modal?: PgsModule<PgsModalInstance>;
     pageNav?: PgsModule<PgsPageNavInstance>;
-    header?: PgsInitOnlyModule;
-    navSmart?: PgsInitOnlyModule;
+    header?: PgsModule<PgsHeaderInstance>;
+    navSmart?: PgsModule<PgsNavSmartInstance>;
     notification?: PgsNotificationModule;
     toast?: PgsToastModule;
     search?: PgsSearchModule;
@@ -444,6 +476,26 @@ declare global {
     tabs?: PgsModule<PgsTabsInstance>;
     [moduleName: string]: any;
   }
+
+  //== events
+  /** Every pgs:* event by name, so addEventListener("pgs:tabs:change", ...) types its event and detail. */
+  interface PgsEventMap {
+    "pgs:alert:close": CustomEvent<PgsAlertCloseDetail>;
+    "pgs:alert:buttonClick": CustomEvent<PgsAlertButtonClickDetail>;
+    "pgs:modal:open": CustomEvent<PgsModalEventDetail>;
+    "pgs:modal:close": CustomEvent<PgsModalEventDetail>;
+    "pgs:pageNav:change": CustomEvent<PgsPageNavChangeDetail>;
+    "pgs:search:select": CustomEvent<PgsSearchSelectDetail>;
+    "pgs:search:error": CustomEvent<PgsSearchErrorDetail>;
+    "pgs:stepTabs:change": CustomEvent<PgsStepTabsChangeDetail>;
+    "pgs:svg:changeColor": CustomEvent<PgsSvgChangeColorDetail>;
+    "pgs:tabs:change": CustomEvent<PgsTabsChangeDetail>;
+  }
+
+  // the events bubble, so a listener on any element, the document or the window gets them typed
+  interface ElementEventMap extends PgsEventMap {}
+  interface DocumentEventMap extends PgsEventMap {}
+  interface WindowEventMap extends PgsEventMap {}
 
   namespace React {
     interface HTMLAttributes<T> {

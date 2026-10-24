@@ -28,9 +28,11 @@ function getCompactBreakpoint(header) {
 const OVERFLOW_TOLERANCE = 2;
 
 //# RESIZE
-// a header only reaches here once it holds a header-element (see getReadyHeaders)
+// a header only reaches here once it holds a header-element (see getReadyHeaders). Every observer and
+// throttle it starts is released by the function it returns
 function initResize(header) {
     const headerElements = pgs(header).querySelectorAll("header-element");
+    const releases = [];
 
     headerElements.forEach(selectHeader => {
 
@@ -72,14 +74,24 @@ function initResize(header) {
         const childObserver = new MutationObserver(scheduleCompact);
         childObserver.observe(selectHeader, { childList: true, subtree: true });
 
+        releases.push(() => {
+            observer.disconnect();
+            childObserver.disconnect();
+            scheduleCompact.cancel();
+        });
+
         //## initial check
         compact(selectHeader);
     });
+
+    return () => releases.forEach(release => release());
 }
 
 
 //# HEADER HEIGHT
-function initHeight(header) {
+// returns the throttled measure, so the module can ask for another one when a sibling header goes
+// away, and the function that releases the observer and the throttle
+function initHeight(header, signal) {
     //## GET HEADER HEIGHT ELEMENT
     function getHeaderHeightElement(header) {
         const isCompactBottom = window.getComputedStyle(header).getPropertyValue("--header-compactBottom-active").trim() === "1";
@@ -113,11 +125,21 @@ function initHeight(header) {
     headerHeightObserver.observe(header);
     pgs(header).querySelectorAll("header-element").forEach(element => headerHeightObserver.observe(element));
 
-    document.fonts?.ready?.then(scheduleHeaderHeight);
+    document.fonts?.ready?.then(() => {
+        if (!signal.aborted) scheduleHeaderHeight();
+    });
 
     scheduleHeaderHeight();
-    window.addEventListener("resize", scheduleHeaderHeight);
-    window.addEventListener("scroll", scheduleHeaderHeight, { passive: true });
+    window.addEventListener("resize", scheduleHeaderHeight, { signal });
+    window.addEventListener("scroll", scheduleHeaderHeight, { passive: true, signal });
+
+    return {
+        schedule: scheduleHeaderHeight,
+        release() {
+            headerHeightObserver.disconnect();
+            scheduleHeaderHeight.cancel();
+        }
+    };
 }
 
 
@@ -127,7 +149,7 @@ function initHeight(header) {
 //# SCROLL
 // hides the header while the reader scrolls down and brings it back on the way up, on screens
 // up to 900px tall, where a pinned header costs too much of the page
-function initScroll(header) {
+function initScroll(header, signal) {
     if (!pgs(header).option.contains("headerScroll")) return;
 
     let lastScrollY = window.scrollY;
@@ -146,20 +168,95 @@ function initScroll(header) {
         }
 
         lastScrollY = currentScrollY;
-    }, { passive: true });
+    }, { passive: true, signal });
 }
 
 
+//# PRELOAD
+// --_header-height and --_header-heightScroll have a "dummy preload" default in the stylesheet, so a
+// page that is still loading already leaves room for a header. A page that has no header would keep
+// that room for good, under the footer, the toast and the modal: with no header in the document
+// the properties are published as 0 instead, and a header that arrives later measures them again
+function publishPreload() {
+    if (typeof document === "undefined" || getReadyHeaders().length) return;
+
+    document.documentElement.style.setProperty("--_header-height", "0px");
+    document.documentElement.style.setProperty("--_header-heightScroll", "0px");
+}
+
+
+//# INSTANCES
+const API = new WeakMap();
+// the headers with a live instance, each with its throttled height measure and what releases it:
+// walked to drop the ones that left the page, and to hand the height over to a header that is
+// still there
+const INSTANCES = new Map();
+// the headers whose destroy() was asked for while they are still in the page: the watch that finds
+// new headers must not build them again behind the author's back. init() and refresh() lift it
+const STOPPED = new WeakSet();
+
+// a header that left the page takes its instance with it. Not marked as stopped: the same node can
+// come back, and the watch then builds it again
+function pruneHeaders() {
+    Array.from(INSTANCES.keys()).forEach(header => {
+        if (!header.isConnected) teardown(header, false);
+    });
+}
+
+function teardown(header, stop) {
+    const entry = INSTANCES.get(header);
+    if (!entry) return;
+
+    entry.release();
+    if (stop) STOPPED.add(header);
+    INSTANCES.delete(header);
+    API.delete(header);
+
+    // what the header published is no longer anybody's: another header takes it over, and with
+    // none left the preload goes to 0
+    INSTANCES.forEach(item => item.schedule());
+    publishPreload();
+}
+
 //# INIT
-const INITIALIZED_HEADERS = new WeakSet();
-
+// builds the instance of one header and returns its API, or undefined when it is not ready (no
+// header-element) or already has one
 function initHeader(header) {
-    if (INITIALIZED_HEADERS.has(header)) return;
-    INITIALIZED_HEADERS.add(header);
+    if (API.has(header)) return;
+    if (!pgs(header).querySelector("header-element")) return;
 
-    initResize(header);
-    initHeight(header);
-    initScroll(header);
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    const releaseResize = initResize(header);
+    const height = initHeight(header, signal);
+    initScroll(header, signal);
+
+    const api = {
+        element: header,
+        destroy() {
+            // a stale instance (already replaced by a refresh) must not tear down the live one
+            if (API.get(header) === api) teardown(header, true);
+        },
+        refresh() {
+            const live = API.get(header);
+            if (live && live !== api) return live;
+            teardown(header, false);
+            STOPPED.delete(header);
+            return initHeader(header);
+        },
+    };
+
+    API.set(header, api);
+    INSTANCES.set(header, {
+        schedule: height.schedule,
+        release() {
+            controller.abort();
+            releaseResize();
+            height.release();
+        }
+    });
+    return api;
 }
 
 // a header is only ready once it holds a header-element, which is where every measurement happens
@@ -168,15 +265,30 @@ function getReadyHeaders() {
 }
 
 function PGS_header_init(root = document) {
-    pgs.helper.roots(root, "header").filter(header => pgs(header).querySelector("header-element")).forEach(initHeader);
+    pgs.helper.roots(root, "header").forEach(header => {
+        STOPPED.delete(header);
+        initHeader(header);
+    });
+    publishPreload();
 }
 
 // headers can arrive later, and there may be more than one, so the watch stays on instead of
-// stopping at the first: a pass is cheap and every header is initialized only once
+// stopping at the first: a pass is cheap and every header is initialized only once. The same pass
+// lets go of the headers that left the page
 pgs.helper.onDocumentReady(PGS_header_init);
-pgs.helper.watchDocument(() => PGS_header_init());
+pgs.helper.watchDocument(() => {
+    pruneHeaders();
+    pgs.helper.roots(document, "header").filter(header => !STOPPED.has(header)).forEach(initHeader);
+    publishPreload();
+});
+
+//# API
+function PGS_header_api(selector) {
+    return API.get(selector);
+}
 
 //# EXPORT
 export const PGS_header = {
-    init: PGS_header_init
+    init: PGS_header_init,
+    api: PGS_header_api
 };

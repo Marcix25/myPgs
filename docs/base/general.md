@@ -42,10 +42,6 @@ Standalone utilities for shadow, cursor, image fitting, list styling and forced 
 - `bgWhiteFixed`: inside background's own bracket, the fixed light background used here.
 - `gapTexts`: spaces the examples inside a group.
 
-### Other
-
-- `gapSections`: separates the groups.
-
 ## Output
 
 One example per utility, grouped by shadow, interaction, images, lists and color scheme.

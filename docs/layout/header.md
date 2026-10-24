@@ -37,6 +37,7 @@ Responsive header that measures available space, switches between its full and c
 ## JavaScript API
 
 - `pgs.header.init(root)`: initializes the headers inside the specified root, or the root itself when it is one; runs automatically on page load and again via pgs.helper.init(root) for a header added later. A page may hold several headers, and each one manages its own compact layout, while the properties that push the page content down belong to the one marked main, or to the first one when none is marked.
+- `pgs.header.api(element)`: the instance of one header, with element, destroy() and refresh(). destroy() disconnects its observers and listeners; the height custom properties (--_header-height, --_header-heightScroll) are 0px while the page has none.
 
 ## Related elements
 

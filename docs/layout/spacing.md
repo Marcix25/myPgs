@@ -156,10 +156,6 @@ Margin and padding utilities based on the same spacing scale gap uses: texts (sm
 - `wrap`: lets the scale examples flow onto a second row.
 - `gapTexts`: separates the examples inside a group.
 
-### Other
-
-- `gapSections`: separates the groups.
-
 ## Output
 
 Margin and padding usage examples using all available directions and spacing scales.

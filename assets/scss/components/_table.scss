@@ -7,7 +7,7 @@
     
         --table-row-background-even: var(--color-box-transparent);
         --table-row-background-odd: var(--color-box);
-        --table-row-color: var(--color-black);
+        --table-row-color: var(--color-text);
 
         --table-row-background-hover: var(--hover-background);
         --table-row-color-hover: var(--hover-color);
@@ -41,12 +41,15 @@
             &:nth-child(even) { background-color: var(--table-row-background-even); }
             &:nth-child(odd) { background-color: var(--table-row-background-odd); }
 
-            &:hover {
-                background-color: var(--table-row-background-hover);
-                color: var(--table-row-color-hover);
+            @media (hover: hover) and (pointer: fine) {
+                &:hover {
+                    background-color: var(--table-row-background-hover);
+                    color: var(--table-row-color-hover);
+                }
             }
         }
 
-        :where(td) { color: var(--color-text); }
+        // the cell takes the color of its row, so --table-row-color and --table-row-color-hover reach it
+        :where(td) { color: inherit; }
     }
 }

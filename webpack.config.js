@@ -36,7 +36,9 @@ const successMessagePluginJs = {
     apply: (compiler) => {
         compiler.hooks.done.tap('SuccessMessagePlugin', (stats) => {
             if (!stats.hasErrors()) {
-                console.clear();
+                // the screen is only cleared for a watch in a terminal: not when the output is piped, and
+                // not under precommit, where it would wipe the steps printed before the build
+                if (process.stdout.isTTY && !process.env.PGS_PRECOMMIT) console.clear();
                 console.log("-");
                 console.log('\x1b[32m%s\x1b[0m', '✅ Success js! ' + new Date().toLocaleTimeString());            }
         });

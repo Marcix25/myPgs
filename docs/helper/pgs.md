@@ -33,21 +33,16 @@ The `pgs(root)` function is how every component finds and edits its own markup: 
 
 ## Related elements
 
-### PGS
-
-- `button`: borrowed purely to illustrate adding an abbreviated flag through the base add(); belongs to the button component.
-- `itemCenter`: a bare layout flag with no owning component to derive, so it is the example for option.add's bare-token fallback; belongs to the flex layout.
-
-### PGS Options (component brackets)
-
-- `btnMini`: a button flag whose btn prefix is an abbreviation, so option.add cannot derive button from it; belongs to the button component.
-
 ### Other
 
+- `button`: borrowed purely to illustrate adding an abbreviated flag through the base add(); belongs to the button component.
+- `btnMini`: a button flag whose btn prefix is an abbreviation, so option.add cannot derive button from it; belongs to the button component.
 - `icon`: borrowed purely to illustrate option.add's owner derivation still working for a flag that kept its prefix; belongs to the icon component.
 - `icon-moon`: one of the icon-* glyphs, which all keep their prefix so option.add can still derive "icon" from the name alone; belongs to the icon component.
 - `box`: borrowed to show the same derivation working for boxMini, a flag renamed to keep its own prefix once button/card/box all needed a 'mini' of their own; belongs to the box component.
 - `boxMini`: the box flag itself, derived by option.add the same way as icon-moon.
+- `flex`: borrowed to show a flag whose prefix names no component, so it is added through the base add() with the component named; belongs to the flex layout.
+- `itemCenter`: a layout flag of flex whose prefix names no component: option.add would leave it as a bare token that matches no rule, so it is written inside flex's bracket through the base add().
 - `headerCompactFrom`: borrowed purely to illustrate data.getValueBrackets/setValueBrackets; belongs to the header component.
 
 ## Output
@@ -77,7 +72,7 @@ instance.option.closest("btnMini");
 instance.add("icon");
 instance.option.add("icon-moon"); // icon-moon kept its prefix, so this still derives "icon" and merges
 instance.option.add("boxMini"); // boxMini kept its prefix too (a handful of flags do, to stay unique across components), so this derives "box" the same way
-instance.option.add("itemCenter"); // "item" is no component to merge into: lands bare, pgs="button['btnMini'] itemCenter"
+instance.add("flex['itemCenter']"); // "item" is no component, so option.add("itemCenter") would leave a bare token that matches no rule: name the component
 instance.data.getValueBrackets("headerCompactFrom"); // pgs-data only, never the pgs bracket
 instance.data.setValueBrackets("headerCompactFrom", "600");
 // tabsHistory has no owner to derive and never belongs in the pgs bracket, so its bare form goes

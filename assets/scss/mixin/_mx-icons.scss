@@ -42,16 +42,15 @@
     --iconAfter-color: var(--icon-color, currentColor);
     display: inline-grid;
     place-items: center;
-    inline-size: var(--icon-size);
-    block-size: var(--icon-size);
+    inline-size: var(--icon-size, 1em);
+    block-size: var(--icon-size, 1em);
 
     &::before,
     &::after {
         content: "";
         display: inline-block;
-        width: var(--icon-size);
-        height: var(--icon-size);
-        background-color: var(--icon-color, currentColor);
+        width: var(--icon-size, 1em);
+        height: var(--icon-size, 1em);
         vertical-align: -0.125em;
         grid-area: 1 / 1;
     }
@@ -69,7 +68,7 @@
 
 //## ICON BOX
 @mixin boxed() {
-    --boxed-size: calc(var(--icon-size) / 1.5);
+    --boxed-size: calc(var(--icon-size, 1em) / 1.5);
     --boxed-padding: .5rem;
     --boxed-background: var(--color-box-transparent);
     border-radius: 50%;

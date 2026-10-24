@@ -34,11 +34,19 @@ function PGS_stepTabs_build(tabsWizard) {
     const tabDots = [];
     if (dots) {
         dots.innerHTML = "";
+        // the row is a group of controls: with an aria-label on the container (the reference
+        // writes one) and no role of its own, it is announced as that group instead of as an
+        // unnamed generic element
+        if (dots.hasAttribute("aria-label") && !dots.hasAttribute("role")) dots.setAttribute("role", "group");
 
         allTab.forEach((tab, index) => {
             const authoredIcon = (pgs(tab).data.getValueBrackets("stepTabsIcon") || "").trim();
             const dot = document.createElement("button");
             dot.type = "button";
+            // an icon-only button has no name of its own: the step's title when the step has one
+            // (its aria-label, else its first heading), "Step N" otherwise
+            const title = (tab.getAttribute("aria-label") || tab.querySelector("h1, h2, h3, h4, h5, h6")?.textContent || "").trim();
+            dot.setAttribute("aria-label", title ? `Step ${index + 1}: ${title}` : `Step ${index + 1}`);
             pgs(dot).add("_stepTabs-dots-dot");
             pgs(dot).add("button['btnIconOnly' 'btnNotHover']");
             // stepTabsIcon takes three shapes, told apart by how the value opens. Markup, from a
@@ -116,8 +124,10 @@ function PGS_stepTabs_build(tabsWizard) {
 
     //## restart
     // the locks go back first, so the controls goTo redraws already see them
+    // a lock taken off by the markup's own state or added with toggleLock on another step goes
+    // back to exactly what the markup declared when the wizard was built
     function restartTab() {
-        defaultTabLocked.forEach(tab => pgs(tab).state.add("locked"));
+        allTab.forEach(tab => pgs(tab).state.toggle("locked", defaultTabLocked.includes(tab)));
         goTo(0);
     }
 
@@ -153,8 +163,9 @@ function PGS_stepTabs_build(tabsWizard) {
             }
             goTo(index, scroll);
         },
-        next: () => goTo(current + 1),
-        prev: () => goTo(current - 1),
+        // at either end there is nowhere to go: the index does not change, so nothing is dispatched
+        next: () => { if (current < total - 1) goTo(current + 1); },
+        prev: () => { if (current > 0) goTo(current - 1); },
         toggleLock: (step, lock = true) => {
             if (!Number.isInteger(step) || step < 0 || step >= total) {
                 throw pgs.helper.invalid("stepTabs.toggleLock", `step must be an integer from 0 to ${total - 1}, got ${step}`);
@@ -167,7 +178,7 @@ function PGS_stepTabs_build(tabsWizard) {
             const live = API.get(tabsWizard);
             if (live && live !== api) return live;
             destroy();
-            return PGS_stepTabs_build(tabsWizard);
+            return PGS_stepTabs_build(tabsWizard) ?? undefined;
         },
         getCurrent: () => current,
         getState: () => ({ current, total }),

@@ -149,15 +149,16 @@ class PGS_Slides {
 
             //## VIEW
             pgs(LI.target).state.toggle("view", isView);
+        });
 
-            //## ACTIVE DOT
-            const viewElements = Array.from(container.children).filter(el => pgs(el).state.contains("view"));
-            dots.forEach((btn, i) => {
-                const isActive = viewElements.some(el => Array.from(container.children).indexOf(el) === i);
-                pgs(btn).state.toggle("active", isActive);
-                btn.setAttribute('aria-current', isActive ? 'true' : 'false');
-            });
-        })
+        //## ACTIVE DOT
+        // read once, after every entry of this batch has set its own view state
+        const slides = Array.from(container.children);
+        dots.forEach((btn, i) => {
+            const isActive = slides[i] ? pgs(slides[i]).state.contains("view") : false;
+            pgs(btn).state.toggle("active", isActive);
+            btn.setAttribute('aria-current', isActive ? 'true' : 'false');
+        });
 
         this.#updateArrows(prevButton, nextButton);
     }
@@ -260,7 +261,7 @@ class PGS_Slides {
                 const live = API.get(this.element);
                 if (live && live !== api) return live;
                 destroy();
-                return new PGS_Slides({ element: this.element }).execute();
+                return new PGS_Slides({ element: this.element }).execute() ?? undefined;
             },
         };
         API.set(this.element, api);

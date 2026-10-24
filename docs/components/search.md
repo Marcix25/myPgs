@@ -110,11 +110,11 @@ Complete HTML markup and usage example for Search.
 Search field with live suggestions embedded directly in the page.
 
 ```html
-<form pgs="search" pgs-data="searchPlaceholder[Type a component name] searchNoResults[No component matches]" autocomplete="off" action="" method="get">
+<form pgs="search" role="search" pgs-data="searchPlaceholder[Type a component name] searchNoResults[No component matches]" autocomplete="off" action="" method="get">
     <button pgs="button['btnIconOnly' 'btnTransparent']" type="submit" title="Search">
         <i pgs="icon['icon-magnifyingGlass']"></i>
     </button>
-    <input type="search" name="s" placeholder="Search" value="">
+    <input type="search" name="s" placeholder="Search" aria-label="Search" value="">
     <ul pgs="search-suggestions"></ul>
 </form>
 ```
@@ -133,15 +133,15 @@ Search opened from an icon button inside a small modal, intended for the mobile 
     <dialog pgs="blur">
         <div pgs="flex['row'] modal-dialog-content background['bgTransparent']">
 
-            <form pgs="search" autocomplete="off" action="/" method="get">
+            <form pgs="search" role="search" autocomplete="off" action="/" method="get">
                 <button pgs="button['btnIconOnly' 'btnTransparent']" type="submit" title="Search">
                     <i pgs="icon['icon-magnifyingGlass']"></i>
                 </button>
 
-                <input type="search" name="s" placeholder="Search" value="">
+                <input type="search" name="s" placeholder="Search" aria-label="Search" value="">
                 <ul pgs="search-suggestions"></ul>
 
-                <button type="button" pgs="modal-close button['btnIconOnly']">
+                <button type="button" pgs="modal-close button['btnIconOnly']" aria-label="Close search">
                     <i pgs="icon['icon-close']"></i>
                 </button>
             </form>

@@ -16,10 +16,7 @@
 
 //# SLIDES
 :is([pgs~="slides"], [pgs*="slides\5B"]) {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: var(--gap-texts);
+    @include row(wrap);
     position: relative;
     container-type: inline-size;
     align-items: center;
@@ -36,7 +33,6 @@
         width: 100%;
         overflow-x: scroll;
         overflow-y: hidden;
-        scroll-behavior: smooth;
         scroll-snap-type: x mandatory;
         scrollbar-width: none;
         position: relative;
@@ -44,6 +40,9 @@
         user-select: none;
         padding: .3rem;
         @include row(nowrap);
+
+        // smooth scrolling only when the visitor has not asked for less motion
+        @media (prefers-reduced-motion: no-preference) { scroll-behavior: smooth; }
 
         &::-webkit-scrollbar {
             height: 0;
@@ -95,44 +94,46 @@
         margin-bottom: calc(var(--gap-elements)* 2);
     }
 
+    // the row of dots: the generated one and one written by hand share the layout
+    :where([pgs~="slides-dots"]),
     :where([pgs~="_slides-dots"]) {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
-        width: 80%;
         gap: 0.5rem;
+    }
+
+    // only the generated row is taken out of the flow and laid under the slides
+    :where([pgs~="_slides-dots"]) {
+        width: 80%;
         margin-top: 1px;
         max-width: max-content;
         z-index: 3;
-        transition: all 300ms;
         position: absolute;
         bottom: 0;
         transform: translateY(calc(100% + var(--gap-texts)));
 
-        :where([pgs~="_slides-dots-dot"]) {
-            width: 1.5rem;
-            aspect-ratio: 1;
-            border-radius: 999px;
-            border: none;
-            cursor: pointer;
-            background-color: var(--clickable-background);
-            transition: var(--clickable-transition);
-            margin-block: auto;
-
-            &[pgs-state~="active"] { background-color: var(--current-background); }
-
-            // unguarded, a tap on iOS/mobile Safari simulates a persistent :hover after release —
-            // same specificity as the active rule above it, so the sticky hover would win by
-            // source order and the dot would never look active on a touch device
-            @media (hover: hover) and (pointer: fine) {
-                &:hover { background-color: var(--hover-background); }
-            }
-        }
+        @media (prefers-reduced-motion: no-preference) { transition: all 300ms; }
     }
 
-    :where([pgs~="slides-dots"]) {
-        :where([pgs~="slides-dots-dot"]) {
-            &[pgs-state~="active"] { background-color: var(--current-background); }
+    // the module tags every child of the row, a hand-written one included, with _slides-dots-dot
+    :where([pgs~="_slides-dots-dot"]) {
+        width: 1.5rem;
+        aspect-ratio: 1;
+        border-radius: 999px;
+        border: none;
+        cursor: pointer;
+        background-color: var(--clickable-background);
+        transition: var(--clickable-transition);
+        margin-block: auto;
+
+        &[pgs-state~="active"] { background-color: var(--current-background); }
+
+        // unguarded, a tap on iOS/mobile Safari simulates a persistent :hover after release —
+        // same specificity as the active rule above it, so the sticky hover would win by
+        // source order and the dot would never look active on a touch device
+        @media (hover: hover) and (pointer: fine) {
+            &:hover { background-color: var(--hover-background); }
         }
     }
 
@@ -171,8 +172,6 @@
     //+ slidesFullWidth
     &:where([pgs*="'slidesFullWidth'"]) {
         --slides-width: 100%;
-        --slides-width-mobile: 100%;
-        --slides-width-tablet: 100%;
     }
 
     //+ slidesAnimationScale
@@ -206,11 +205,13 @@
                 mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart, 0px), black calc(100% - var(--slides-maskEnd)), transparent 100%);
             }
 
+            // the variable is set on the container itself, the element that reads it (@property
+            // has inherits: false); the root only decides, through :has(), whether the edge slide is in view
             // fade on the left until the first slide is reached
-            &:where(:not(:has([pgs~="slides-container"] li:first-child[pgs-state~="view"])) [pgs~="slides-container"]) { --slides-maskStart: var(--slides-sizeMaskImage); }
+            &:where(:not(:has([pgs~="slides-container-slide"]:first-child[pgs-state~="view"]))) :where([pgs~="slides-container"]) { --slides-maskStart: var(--slides-sizeMaskImage); }
 
             // fade on the right until the last slide is reached
-            &:where(:not(:has([pgs~="slides-container"] li:last-child[pgs-state~="view"])) [pgs~="slides-container"]) { --slides-maskEnd: var(--slides-sizeMaskImage); }
+            &:where(:not(:has([pgs~="slides-container-slide"]:last-child[pgs-state~="view"]))) :where([pgs~="slides-container"]) { --slides-maskEnd: var(--slides-sizeMaskImage); }
         }
     }
 }

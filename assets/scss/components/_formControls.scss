@@ -5,7 +5,7 @@
 // The form, the label, the legend, the input, the textarea, the checkbox, the radio and the fieldset are in form.
 //# RANGE
 [pgs~="range"] {
-    --range-size: calc(var(--borderRadius-texts));
+    --range-size: var(--borderRadius-texts);
     --range-thumbWidth: calc(var(--range-size) * 2);
     --range-background: var(--clickable-background);
     --range-background-progress: var(--twoState-background);
@@ -35,11 +35,14 @@
         background: var(--range-background-thumb);
         border: var(--border-width) var(--border-style) var(--clickable-borderColor);
         cursor: pointer;
-        transition: transform 0.2s;
 
-        &:hover {
-            scale: 1.2;
-            background: var(--hover-background);
+        @media (prefers-reduced-motion: no-preference) { transition: scale 0.2s; }
+
+        @media (hover: hover) and (pointer: fine) {
+            &:hover {
+                scale: 1.2;
+                background: var(--hover-background);
+            }
         }
     }
 
@@ -52,11 +55,14 @@
         background: var(--range-background-thumb);
         border: var(--border-width) var(--border-style) var(--clickable-borderColor);
         cursor: pointer;
-        transition: transform 0.2s;
 
-        &:hover {
-            scale: 1.2;
-            background: var(--hover-background);
+        @media (prefers-reduced-motion: no-preference) { transition: scale 0.2s; }
+
+        @media (hover: hover) and (pointer: fine) {
+            &:hover {
+                scale: 1.2;
+                background: var(--hover-background);
+            }
         }
     }
 
@@ -95,10 +101,12 @@
         transition: var(--clickable-transition);
     }
 
-    &:hover::file-selector-button {
-        color: var(--hover-color);
-        background: var(--hover-background);
-        border-color: var(--hover-borderColor);
+    @media (hover: hover) and (pointer: fine) {
+        &:hover::file-selector-button {
+            color: var(--hover-color);
+            background: var(--hover-background);
+            border-color: var(--hover-borderColor);
+        }
     }
 
     &[disabled]::file-selector-button { cursor: not-allowed; }
@@ -112,7 +120,6 @@
     display: flex;
     width: var(--inputColor-width);
     height: var(--inputColor-height);
-    aspect-ratio: 1;
     border: var(--border-complete);
     border-radius: var(--borderRadius-texts);
     cursor: pointer;
@@ -147,20 +154,9 @@
 
     //## multiple
     &[multiple] {
-        overflow: auto;
-
         optgroup {
-            color: var(--color-text);
+            color: var(--color-black);
             @include column(calc(var(--gap-texts)/2));
-        }
-
-        // the list of options, with the look of an input
-        &::picker(select) {
-            appearance: base-select;
-            border: var(--input-border);
-            padding: var(--select-padding);
-            background: var(--input-background);
-            border-radius: var(--input-borderRadius);
         }
 
         option {
@@ -179,9 +175,11 @@
                 color: var(--current-color);
             }
 
-            &:hover {
-                background-color: var(--hover-background);
-                color: var(--hover-color);
+            @media (hover: hover) and (pointer: fine) {
+                &:hover {
+                    background-color: var(--hover-background);
+                    color: var(--hover-color);
+                }
             }
 
             &:disabled { @include disabled(); }

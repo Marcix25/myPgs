@@ -30,18 +30,18 @@
 <demo demo-h3="Page Nav" demo-description="Two independent lists of links, kept in sync, switching the same set of full panels by hash. Only one pageNav can exist on a page — usually pgs=&quot;pageNav&quot; on the body itself — so this is markup to copy and adapt, not a live preview to click through."></demo>
 <section demo="component previewNone">
     <div pgs="pageNav">
-        <div pgs="pageNav-list" aria-label="Sections">
+        <nav pgs="pageNav-list" aria-label="Sections">
             <a href="#pageNav-html" pgs="pageNav-list-item">HTML</a>
             <a href="#pageNav-react" pgs="pageNav-list-item">React</a>
             <a href="#pageNav-vue" pgs="pageNav-list-item">Vue</a>
-        </div>
+        </nav>
 
         <!-- a second, independent list of links to the same panels, kept in sync automatically -->
-        <div pgs="pageNav-list" aria-label="Sections (copy)">
+        <nav pgs="pageNav-list" aria-label="Sections (copy)">
             <a href="#pageNav-html" pgs="pageNav-list-item">HTML</a>
             <a href="#pageNav-react" pgs="pageNav-list-item">React</a>
             <a href="#pageNav-vue" pgs="pageNav-list-item">Vue</a>
-        </div>
+        </nav>
 
         <div pgs="pageNav-panels">
             <section id="pageNav-html" pgs="pageNav-panels-content">

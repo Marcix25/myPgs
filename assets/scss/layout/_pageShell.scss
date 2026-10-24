@@ -89,7 +89,7 @@
     //## aside
     :where([pgs~="pageShell-aside"]) {
         isolation: isolate;
-        transition: top 0.3s ease;
+        @media (prefers-reduced-motion: no-preference) { transition: top 0.3s ease; }
         width: var(--pageShell-aside-width);
         min-width: 0;
         display: grid;

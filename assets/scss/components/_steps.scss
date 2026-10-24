@@ -2,6 +2,8 @@
 
 ol[pgs~="steps"] {
     color: var(--color-black);
+    // the connector line sits at z-index -1: its own stacking context keeps it from sliding behind the background of an ancestor
+    isolation: isolate;
 
     //## step
     :where([pgs~="steps-step"]) {

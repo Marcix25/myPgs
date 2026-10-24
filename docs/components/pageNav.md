@@ -37,18 +37,18 @@ Two independent lists of links, kept in sync, switching the same set of full pan
 
 ```html
 <div pgs="pageNav">
-    <div pgs="pageNav-list" aria-label="Sections">
+    <nav pgs="pageNav-list" aria-label="Sections">
         <a href="#pageNav-html" pgs="pageNav-list-item">HTML</a>
         <a href="#pageNav-react" pgs="pageNav-list-item">React</a>
         <a href="#pageNav-vue" pgs="pageNav-list-item">Vue</a>
-    </div>
+    </nav>
 
     <!-- a second, independent list of links to the same panels, kept in sync automatically -->
-    <div pgs="pageNav-list" aria-label="Sections (copy)">
+    <nav pgs="pageNav-list" aria-label="Sections (copy)">
         <a href="#pageNav-html" pgs="pageNav-list-item">HTML</a>
         <a href="#pageNav-react" pgs="pageNav-list-item">React</a>
         <a href="#pageNav-vue" pgs="pageNav-list-item">Vue</a>
-    </div>
+    </nav>
 
     <div pgs="pageNav-panels">
         <section id="pageNav-html" pgs="pageNav-panels-content">

@@ -135,7 +135,10 @@
         font-weight: var(--font-weight-text);
     }
 
-    &:hover { border-color: var(--hover-borderColor); }
+    @media (hover: hover) and (pointer: fine) {
+        &:hover:where(:not(:disabled, [disabled])) { border-color: var(--hover-borderColor); }
+    }
+
     &[disabled] { @include disabled(); }
 }
 
@@ -164,7 +167,7 @@
     --input-border: var(--border-complete);
     --input-borderRadius: var(--borderRadius-texts);
     --input-background: var(--color-white);
-    @include inputBase(20%);
+    @include inputBase(60%);
     border: var(--input-border);
     background-color: var(--input-background);
     border-radius: var(--input-borderRadius);
@@ -214,6 +217,8 @@
         appearance: none;
         position: relative;
         width: var(--checkbox-size);
+        min-width: var(--checkbox-size);
+        flex-shrink: 0;
         height: var(--checkbox-size);
         cursor: pointer;
         @include center();
@@ -247,10 +252,11 @@
         }
 
         //### HOVER
+        // the box itself or the label that holds it; not a disabled one. :where() keeps the weight of the
+        // checked look below, which comes later and wins
         @media (hover: hover) and (pointer: fine) {
 
-            &:hover,
-            :hover {
+            &:is(:hover, :where(label):hover *):where(:not(:disabled)) {
                 background: var(--checkbox-background-hover);
                 border-color: var(--checkbox-borderColor-hover);
                 color: var(--checkbox-color-hover);
@@ -266,7 +272,13 @@
         }
 
         //### Disabled
-        &:disabled { @include disabled(); }
+        // a label that holds a disabled box dims all of it (labelCheckboxAndRadio): the box dims on its own
+        // only when no label holds it
+        &:disabled {
+            cursor: not-allowed !important;
+
+            &:not(:where(label) *) { opacity: 0.5; }
+        }
 
         //### Focus
         // the input is the box: the ring is drawn on it, in place of the outline bodyBase gives every :focus-visible
@@ -331,10 +343,11 @@
         }
 
         //### HOVER
+        // the box itself or the label that holds it; not a disabled one. :where() keeps the weight of the
+        // checked look below, which comes later and wins
         @media (hover: hover) and (pointer: fine) {
 
-            &:hover,
-            :hover {
+            &:is(:hover, :where(label):hover *):where(:not(:disabled)) {
                 background: var(--radio-background-hover);
                 border-color: var(--radio-borderColor-hover);
                 color: var(--radio-color-hover);
@@ -350,7 +363,13 @@
         }
 
         //### Disabled
-        &:disabled { @include disabled(); }
+        // a label that holds a disabled box dims all of it (labelCheckboxAndRadio): the box dims on its own
+        // only when no label holds it
+        &:disabled {
+            cursor: not-allowed !important;
+
+            &:not(:where(label) *) { opacity: 0.5; }
+        }
 
         //### Focus
         // the input is the box: the ring is drawn on it, in place of the outline bodyBase gives every :focus-visible
@@ -368,15 +387,15 @@
 
 //## LEGEND
 // the same box as the tab of a label (same custom properties, same border), rounded on every corner and
-// not joined to anything. --label-color and --label-background are the ones formValidate changes when
-// the group fails
+// not joined to anything. --label-color, --label-background and --label-border (color and style, the
+// width is --label-borderWidth) are the ones formValidate changes when the group fails
 @mixin legend() {
     --label-borderRadius: var(--borderRadius-texts);
     --label-paddingInline: var(--padding-texts);
     --label-paddingBlock: calc(var(--padding-texts)/2);
     --label-color: var(--color-black);
     --label-background: var(--color-white);
-    --label-borderColor: var(--border-color);
+    --label-border: var(--border-color) var(--border-style);
     --label-borderWidth: var(--border-width);
     display: inline-block;
     width: fit-content;
@@ -385,7 +404,7 @@
     background-color: var(--label-background);
     padding-block: var(--label-paddingBlock);
     padding-inline: var(--label-paddingInline);
-    border: var(--label-borderColor) var(--label-borderWidth) var(--border-style);
+    border: var(--label-border) var(--label-borderWidth);
     border-radius: var(--label-borderRadius);
 
     //## required
@@ -422,7 +441,7 @@
             :where(legend) {
                 --label-color: var(--color-error);
                 --label-background: var(--color-error-soft);
-                --label-borderColor: var(--color-error);
+                --label-border: var(--color-error) var(--border-style);
             }
         }
 
@@ -431,6 +450,7 @@
         :where([pgs-state~=errorLabel]) {
             --label-color: var(--color-error);
             --label-background: var(--color-error-soft);
+            --label-border: var(--color-error) var(--border-style);
             --checkbox-background: var(--color-error-soft);
             --radio-background: var(--color-error-soft);
             --labelCheckboxAndRadio: var(--color-error);

@@ -66,7 +66,8 @@ Width and height utilities, each driven by its own custom property: --width-size
 - `heightMax50svh`: inside heightMax's own bracket, the same half viewport height as height50svh.
 - `heightMaxUnderHeader`: inside heightMax's own bracket, the same header-relative height as heightUnderHeader.
 - `heightMaxUnderMain`: inside heightMax's own bracket, the same main-relative height as heightUnderMain.
-- `heightMaxAuto`: inside heightMax's own bracket, drops the ceiling on one element without dropping the utility.
+- `heightMaxNone`: inside heightMax's own bracket, drops the ceiling on one element without dropping the utility (max-height: none).
+- `heightMaxAuto`: inside heightMax's own bracket, the same as heightMaxNone, kept as an alias.
 - `heightMinFull`: inside heightMin's own bracket, the same whole parent height as heightFull.
 - `heightMin100svh`: inside heightMin's own bracket, the same small viewport height as height100svh.
 - `heightMin100dvh`: inside heightMin's own bracket, the same dynamic viewport height as height100dvh.
@@ -95,10 +96,6 @@ Width and height utilities, each driven by its own custom property: --width-size
 - `gapTexts`: separates the examples inside a group.
 - `gapElements`: separates the side by side examples.
 - `flexCenter`: centers the label inside each measured block.
-
-### Other
-
-- `gapSections`: separates the groups.
 
 ## Output
 

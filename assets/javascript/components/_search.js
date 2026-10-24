@@ -379,6 +379,9 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
     }
 
     function destroy() {
+        // a stale instance (already replaced by a refresh) must not tear down the live one
+        if (API.get(search) !== api) return;
+
         cancel();
         clear();
         eventController.abort();
@@ -400,6 +403,9 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
         select,
         // the options are the one thing a rebuild keeps: they were given by the code, not the markup
         refresh: () => {
+            const live = API.get(search);
+            if (live && live !== api) return live;
+
             const kept = options;
             destroy();
             return initializeSearch(search, kept);

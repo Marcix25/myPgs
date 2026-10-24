@@ -27,9 +27,11 @@
             color: var(--breadcrumb-color);
             text-decoration: none;
 
-            &:hover {
-                color: var(--breadcrumb-color-hover);
-                text-decoration: underline;
+            @media (hover: hover) and (pointer: fine) {
+                &:hover {
+                    color: var(--breadcrumb-color-hover);
+                    text-decoration: underline;
+                }
             }
         }
 
@@ -44,6 +46,9 @@
             margin-inline: var(--breadcrumb-separator-gap);
             display: inline-flex;
             align-items: center;
+
+            // the separator is decoration: an empty alternative text keeps it out of the screen reader's reading
+            @supports (content: "" / "") { content: var(--breadcrumb-separator-type) / ""; }
         }
 
         &:last-child {

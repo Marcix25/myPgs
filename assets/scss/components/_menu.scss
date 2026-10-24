@@ -26,7 +26,12 @@
                 }
             }
 
-            :where(li) { width: -webkit-fill-available; }
+            // fill-available has a prefix per engine, stretch is the standard one and comes last
+            :where(li) {
+                width: -webkit-fill-available;
+                width: -moz-available;
+                width: stretch;
+            }
             &[pgs-state~=open]>:where(ul) { display: flex; }
         }
 
@@ -46,7 +51,7 @@
         translate: -5px;
         margin-block: auto;
 
-        :where(i) { transition: all 300ms; }
+        @media (prefers-reduced-motion: no-preference) { :where(i) { transition: all 300ms; } }
 
         &[aria-expanded="true"] {
             :where(i) { rotate: 180deg; }
@@ -74,6 +79,8 @@
     }
 
     //## vertical
+    // menuVertical is the documented flag; the vertical layout is also the default, through
+    // &:not(menuHorizontal), so the flag itself changes nothing today and is kept to say it out loud
     :where(ul),
     &:where([pgs*="'menuVertical'"]),
     &:not([pgs*="'menuHorizontal'"]) {
@@ -125,10 +132,6 @@
     //+ SHORT
     &:where([pgs*="'menuShort'"]) {
         >:where(ul)>:where(li) {
-            &:first-child {
-                :where(a) { margin-left: 0px; }
-            }
-
             &:last-child {
                 :where(a) { margin-right: 0px; }
             }
@@ -141,9 +144,11 @@
                     position: relative;
                 }
 
-                &:hover {
-                    z-index: 2;
-                    position: relative;
+                @media (hover: hover) and (pointer: fine) {
+                    &:hover {
+                        z-index: 2;
+                        position: relative;
+                    }
                 }
             }
         }

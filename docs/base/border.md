@@ -108,10 +108,6 @@ Border, outline and radius utilities, split out from the general-purpose set sin
 - `wrap`: lets the border and outline examples flow onto a second row.
 - `gapTexts`: spaces the examples inside a group.
 
-### Other
-
-- `gapSections`: separates the groups.
-
 ## CSS Variables
 
 - `--border-color`

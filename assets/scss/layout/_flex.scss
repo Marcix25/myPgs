@@ -29,11 +29,17 @@
     &[pgs*="'nowrap'"] { flex-wrap: nowrap; }
     &[pgs*="'wrap'"] { flex-wrap: wrap; }
     &[pgs*="'wrapReverse'"] { flex-wrap: wrap-reverse; }
-    &[pgs*="'wrapBalance'"] { flex-wrap: balance; }
+    // balance is experimental: a browser that does not know it wraps as usual
+    &[pgs*="'wrapBalance'"] {
+        flex-wrap: wrap;
+
+        @supports (flex-wrap: balance) { flex-wrap: balance; }
+    }
 
     &[pgs*="'wrapBalance'"][pgs*="'wrapReverse'"] {
         flex-wrap: wrap-reverse;
-        flex-wrap: balance wrap-reverse;
+
+        @supports (flex-wrap: balance wrap-reverse) { flex-wrap: balance wrap-reverse; }
     }
 }
 

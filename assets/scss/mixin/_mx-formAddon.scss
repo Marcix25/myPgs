@@ -18,7 +18,7 @@
     //
     --checkboxBackground-borderColor: var(--clickable-borderColor);
     --checkboxBackground-borderColor-hover: var(--hover-borderColor);
-    --checkboxBackground-borderColor-checked: var(--twoState-color);
+    --checkboxBackground-borderColor-checked: var(--twoState-borderColor);
     position: relative;
     isolation: isolate;
     color: var(--checkboxBackground-color);
@@ -75,11 +75,13 @@
     $space: 2px;
     isolation: isolate;
     @include row(nowrap);
+    @include labelCheckboxAndRadio();
 
+    // the text of the switch lines up with the rail, as checkbox() and radio() line it up with their box
     &:where(label),
     :where(label) {
         cursor: pointer;
-        @include labelCheckboxAndRadio();
+        line-height: var(--toggle-size);
         width: 100%;
     }
 
@@ -101,30 +103,28 @@
         &::after,
         &::before {
             content: "";
-            position: relative;
-            transform: unset;
-            top: unset;
-            margin-left: auto;
-            transition: all 250ms;
             display: block;
             border-radius: var(--borderRadius-texts);
-            order: 1;
+
+            @media (prefers-reduced-motion: no-preference) { transition: all 250ms; }
         }
 
         //### rail
         &::before {
+            position: relative;
+            margin-left: auto;
             background: inherit;
             width: calc(var(--toggle-size) * 2);
             min-width: calc(var(--toggle-size) * 2);
             height: var(--toggle-size);
-            flex-shrink: 2;
             border: var(--toggle-borderStyleWidth);
             border-color: inherit;
         }
 
         //### thumb
+        // it slides: `left` is the one position that both states give as a length, so the move between them
+        // is animated. Checked, its right edge sits $space from the right edge of the rail
         &::after {
-            content: "";
             opacity: 1;
             background-color: currentColor;
             height: calc(var(--toggle-size) - ($space * 2));
@@ -137,18 +137,19 @@
             position: absolute;
         }
 
-        //## HOVER
-        &:hover::after { scale: 1.4; }
-
         //## HOVER COLORS
-        // on the switch itself, as in checkbox() and radio(); the checked ones below come after and win
+        // on the switch itself or on the label that holds it, not a disabled one, as in checkbox() and radio();
+        // the checked ones below come after and win. The thumb grows only where motion is welcome
         @media (hover: hover) and (pointer: fine) {
 
-            &:hover,
-            :hover {
+            &:is(:hover, :where(label):hover *):where(:not(:disabled)) {
                 background: var(--toggle-rail-background-hover);
                 border-color: var(--toggle-rail-borderColor-hover);
                 color: var(--toggle-thumb-background-hover);
+
+                @media (prefers-reduced-motion: no-preference) {
+                    &::after { scale: 1.4; }
+                }
             }
         }
 
@@ -159,16 +160,16 @@
             border-color: var(--toggle-rail-borderColor-checked);
             color: var(--toggle-thumb-background-checked);
 
-            &::after {
-                left: unset;
-                right: $space;
-            }
+            &::after { left: calc(100% - (var(--toggle-size) + $space + var(--border-width) * 2) - $space); }
         }
 
         //## DISABLED
+        // a label that holds the switch dims all of it (labelCheckboxAndRadio): the switch dims on its own
+        // only when no label holds it
         &:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+            cursor: not-allowed !important;
+
+            &:not(:where(label) *) { opacity: 0.5; }
         }
 
         //## FOCUS
@@ -201,13 +202,16 @@
         :where([pgs~="icon"], [pgs*="icon\5B"], i) { opacity: 1; }
     }
 
+    //## focus
+    // the input is invisible: the ring is drawn on the chip that holds it
+    &:has(input:focus-visible) {
+        outline: var(--focus-visible);
+        outline-offset: 3px;
+    }
+
     //## checked
     &:has(input:checked) {
         :where([pgs~="icon"], [pgs*="icon\5B"], i) { opacity: 1; }
-    }
-
-    //## checked & radio
-    &:has(input:checked) {
 
         //### checkbox
         &:has(input[type=checkbox]:checked) {
@@ -261,7 +265,8 @@
 
     //## LABEL
     :where([pgs~="label"], [pgs*="label\5B"], [pgs~="legend"]) {
-        --label-color: var(--color-gray);
+        // the gray of the palette is 2.5:1 on white: light takes a darker one (5.1:1), dark keeps it (8.4:1)
+        --label-color: light-dark(#6e6e6e, var(--color-gray));
         --label-border: unset;
         --label-paddingBlock: var(--field-padding) .25em;
         --label-paddingInline: var(--field-padding);
@@ -269,7 +274,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        transition: padding 200ms ease, font-size 200ms ease;
+        @media (prefers-reduced-motion: no-preference) { transition: padding 200ms ease, font-size 200ms ease; }
         line-height: 1;
         pointer-events: none;
 
@@ -302,7 +307,7 @@
 
         :where(legend) {
             --label-color: var(--color-error);
-            --label-borderColor: unset
+            --label-border: unset;
         }
     }
 
@@ -310,6 +315,9 @@
     &:has([pgs-state~=errorLabel]) {
         background: var(--color-error-soft);
         border-color: var(--color-error);
+
+        // the label of a field floats with no border of its own, in error too (formValidate gives it one)
+        :where([pgs-state~=errorLabel]) { --label-border: unset; }
     }
 
     //+ no input

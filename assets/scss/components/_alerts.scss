@@ -10,7 +10,8 @@
 // severity is a flag in this same bracket (alert['alertInfo'], _alert['alertInfo']), so both the bare
 // token and the bracketed form have to match
 :is([pgs~="alert"], [pgs*="alert\5B"], [pgs~="_alert"], [pgs*="_alert\5B"]) {
-    --alert-accent: unset;
+    // initial, not unset: a custom property inherits, so unset would take the accent of an alert this one sits in
+    --alert-accent: initial;
     --alert-background: var(--color-box);
     --alert-color: var(--color-text);
     --alert-content-title-color: var(--alert-accent);
@@ -19,9 +20,9 @@
     --alert-iconSize: 3.5rem;
     // the countdown bar is a dormant feature of the card itself, not something Toast draws on
     // top of it: it only switches on wherever the JS is given a timeout (see _alerts.js), which
-    // sets --_alert-timeout itself — unset here, so with no timeout the animation never starts
-    // and the bar stays at its own 0% width
-    --_alert-timeout: unset;
+    // sets --_alert-timeout itself — reset here (initial, so a timed alert around this one does
+    // not hand it its own), so with no timeout the animation never starts and the bar stays at its own 0% width
+    --_alert-timeout: initial;
     --_alert-timer: color-mix(in srgb, var(--alert-background) 95%, var(--color-black) 5%);
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto;
@@ -89,10 +90,10 @@
         top: 0;
         left: 0;
         background-color: var(--_alert-timer);
-        animation: alert-timeline var(--_alert-timeout) linear;
+        animation: alertTimeline var(--_alert-timeout) linear;
     }
 
-    @keyframes alert-timeline {
+    @keyframes alertTimeline {
         0% {
             width: 100%;
             opacity: 0;

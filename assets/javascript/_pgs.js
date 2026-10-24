@@ -96,17 +96,17 @@ function createBracketAttribute(element, attribute) {
 */
 export function pgs(root) {
     const ATTR = "pgs";
-    if (!root) throw new TypeError("pgs(root): root is required");
+    if (!root) throw PGS_invalid("pgs", "root is required");
 
     const canAttr = typeof root.getAttribute === "function" && typeof root.setAttribute === "function";
     const canQuery = typeof root.querySelector === "function" && typeof root.querySelectorAll === "function";
 
     if (!canQuery) {
-        throw new TypeError("pgs(root): root must support querySelector/querySelectorAll");
+        throw PGS_invalid("pgs", "root must support querySelector/querySelectorAll");
     }
 
     function attrOnlyForElements(methodName) {
-        throw new TypeError(`pgs(${root.nodeName || "root"}).${methodName}(): available on an Element only, not on a Document`);
+        throw PGS_invalid("pgs", `${methodName}() is available on an Element only, not on ${root.nodeName || "a Document"}`);
     };
 
     function concatSelector(value, attribute = ATTR) {
@@ -211,8 +211,11 @@ export function pgs(root) {
         const read = (sep = " ") =>
             (root.getAttribute(attribute) || "").split(sep).filter(Boolean);
 
-        const write = (vals, sep = " ") =>
-            root.setAttribute(attribute, vals.join(sep));
+        // an empty list removes the attribute, so a state taken off leaves no pgs-state=""
+        const write = (vals, sep = " ") => {
+            if (vals.length) root.setAttribute(attribute, vals.join(sep));
+            else root.removeAttribute(attribute);
+        };
 
         // callable form: state("active") is the same as state.add("active")
         function api(...values) {
@@ -317,11 +320,15 @@ export function pgs(root) {
         api.add = function (...values) {
             const current = store.read();
             getValues(values).forEach(key => {
+                // already there, bare or inside a bracket: adding it again changes nothing. This
+                // also covers a flag that is its own owner (column, wrap, card), which a merge
+                // would turn into column['column']
+                if (current.some(item => BracketToken.key(item) === key || BracketToken.flags(item).includes(key))) return;
+
                 const owner = ownerOf(key);
                 const index = owner ? current.findIndex(item => BracketToken.key(item) === owner) : -1;
-                if (index === -1) {
-                    if (!current.some(item => BracketToken.key(item) === key)) current.push(key);
-                } else {
+                if (index === -1) current.push(key);
+                else {
                     current[index] = BracketToken.component(owner, [...BracketToken.flags(current[index]), key]);
                 }
             });
@@ -488,7 +495,7 @@ pgs.registerModules = function (modules = {}) {
 
         const hasOwn = Object.prototype.hasOwnProperty.call(pgs, key);
         if (hasOwn && pgs[key] !== module) {
-            throw new Error(`pgs.registerModules(): "${key}" is already defined on pgs`);
+            throw PGS_invalid("registerModules", `"${key}" is already defined on pgs`);
         }
 
         pgs[key] = module;

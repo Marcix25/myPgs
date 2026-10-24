@@ -92,23 +92,41 @@ function initializeModal(MODAL) {
     //## BUTTON OPEN
     // the label is a fallback, not a correction: a control the author has already named keeps
     // that name, which is the one the page is written around
-    BUTTON_OPEN?.setAttribute("role", "button");
-    if (BUTTON_OPEN && !BUTTON_OPEN.hasAttribute("aria-label")) BUTTON_OPEN.setAttribute("aria-label", "Open modal");
+    // and a label is only needed by a control with no name at all: visible text, a title, an
+    // aria-labelledby or an image with an alt already name it, and an aria-label written over
+    // visible text would make the spoken name differ from the one on screen (WCAG 2.5.3)
+    if (BUTTON_OPEN) {
+        // a native button already is one; anything else (a link, a div) is told what it does
+        if (!BUTTON_OPEN.matches("button, input[type='button'], input[type='submit'], [role]")) BUTTON_OPEN.setAttribute("role", "button");
+
+        const hasName = BUTTON_OPEN.hasAttribute("aria-label")
+            || BUTTON_OPEN.hasAttribute("aria-labelledby")
+            || BUTTON_OPEN.hasAttribute("title")
+            || (BUTTON_OPEN.textContent || "").trim() !== ""
+            || BUTTON_OPEN.querySelector("img[alt]:not([alt=''])") !== null;
+        if (!hasName) BUTTON_OPEN.setAttribute("aria-label", "Open modal");
+    }
 
 
     //## POSITION
     if (dialogTopLevel && !MODAL.contains(DIALOG)) MODAL.append(DIALOG);
     else if (!dialogTopLevel) {
-        if (modalContainerID) document.querySelector("#" + modalContainerID)?.append(DIALOG);
-        else if (modalContainerPGS) pgs(document).querySelector(modalContainerPGS)?.append(DIALOG);
-        else document.body.append(DIALOG);
+        if (modalContainerID) {
+            const container = document.getElementById(modalContainerID);
+            if (container) container.append(DIALOG);
+            else pgs.helper.warn("modal.init", `no element has the id "${modalContainerID}" named by modalContainerID, so the dialog stays where it is`, MODAL);
+        } else if (modalContainerPGS) {
+            const container = pgs(document).querySelector(modalContainerPGS);
+            if (container) container.append(DIALOG);
+            else pgs.helper.warn("modal.init", `no element carries the pgs token "${modalContainerPGS}" named by modalContainerPGS, so the dialog stays where it is`, MODAL);
+        } else document.body.append(DIALOG);
     }
 
 
     //## FN STATUS
     function statusModal(status = true) {
+        // aria-expanded belongs to the control that opens the panel; it is not a <dialog> attribute
         BUTTON_OPEN?.setAttribute("aria-expanded", status);
-        DIALOG.setAttribute("aria-expanded", status);
     }
 
     //## FN EVENT
@@ -402,13 +420,34 @@ function initializeModal(MODAL) {
         }, { signal });
     }
 
-    function destroy() {
+    // closeDialog is true for the public destroy(): the dialog is closed when it is open, and one
+    // that was moved out of its wrapper is removed together with a wrapper that is gone from the
+    // page, so it does not stay orphaned in the body. refresh() tears down without either, because
+    // it rebuilds on the same wrapper and dialog
+    function teardown(closeDialog) {
+        // a stale instance (already replaced by a refresh) must not tear down the live one
+        if (API.get(MODAL) !== api) return;
+
+        const wasOpen = closeDialog && DIALOG.open;
         eventController.abort();
         stopAnimation();
         dragClose.stop();
         historyObserver?.disconnect();
         if (historyTimeout !== null) window.clearTimeout(historyTimeout);
         API.delete(MODAL);
+
+        // the listeners are gone, so the close the dialog fires natively is announced here
+        if (wasOpen) {
+            closing = false;
+            statusModal(false);
+            DIALOG.close();
+            dispatchModal(EVENT_CLOSE);
+        }
+
+        if (closeDialog && !MODAL.isConnected && !MODAL.contains(DIALOG)) {
+            DIALOG.remove();
+            DIALOGS.delete(MODAL);
+        }
     }
 
     const api = {
@@ -420,10 +459,12 @@ function initializeModal(MODAL) {
         close: forceClose,
         toggle: openModal,
         refresh: () => {
-            destroy();
+            const live = API.get(MODAL);
+            if (live && live !== api) return live;
+            teardown(false);
             return initializeModal(MODAL);
         },
-        destroy,
+        destroy: () => teardown(true),
         isOpen: () => DIALOG.open,
     };
 

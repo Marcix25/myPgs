@@ -101,8 +101,7 @@
     // adds), so subtracting only --_header-height would leave that padding counted twice
     &[pgs*="'heightUnderMain'"] { --height-size: calc(100dvh - var(--main-paddingTop)); }
 
-    // drops the constraint on one element without dropping the utility: auto is valid on
-    // height, and lands on the initial value either way
+    // drops the constraint on one element without dropping the utility: auto is the initial value of height
     &[pgs*="'heightAuto'"] { --height-size: auto; }
 }
 
@@ -117,7 +116,10 @@
     &[pgs*="'heightMax50svh'"] { --heightMax-size: 50svh; }
     &[pgs*="'heightMaxUnderHeader'"] { --heightMax-size: calc(100dvh - var(--_header-height)); }
     &[pgs*="'heightMaxUnderMain'"] { --heightMax-size: calc(100dvh - var(--main-paddingTop)); }
-    &[pgs*="'heightMaxAuto'"] { --heightMax-size: auto; }
+    // drops the constraint on one element without dropping the utility. max-height has no auto: none is
+    // its initial value, and heightMaxAuto is kept as an alias of heightMaxNone
+    &[pgs*="'heightMaxNone'"] { --heightMax-size: none; }
+    &[pgs*="'heightMaxAuto'"] { --heightMax-size: none; }
 }
 
 :is([pgs~="heightMin"], [pgs*="heightMin\5B"]) {

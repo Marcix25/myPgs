@@ -7,7 +7,7 @@ Section variants that control width, padding, and specific content treatment whi
 ## PGS
 
 - `main`: identifies the main page area that stacks the sections, spacing them apart and filling the viewport height.
-- `section`: identifies the standard section with centered content, on every side by default, or with the option in its bracket picking one of the variants below instead. It sets no layout of its own: write flex or grid next to it to space its children.
+- `section`: identifies the standard section with centered content, on every side by default, or with the option in its bracket picking one of the variants below instead. It sets no layout of its own: write flex or grid next to it to space its children. It is also an inline-size query container, on any element that carries the token (a div as much as a section), which container['cntNone'] cancels; a bare section or aside with no pgs is not one.
 - `section-specificity`: identifies the content, inside a section using sctSpecificity, that is held to the centered page column while the section itself and its other children keep the full width; nested inside another one it drops the page padding.
 - `main-removeGap`: identifies a child of main, a section or not, that is pulled into the gap main leaves around it: half of the gap above and below, so a section with a background meets the one next to it. It reads --main-gap, and --gap-sections when the child is not inside a main.
 - `main-removeGapTop`: the same pull on the top edge only.
@@ -30,7 +30,6 @@ Section variants that control width, padding, and specific content treatment whi
 ### PGS
 
 - `flex`: provides the flex layout; direction and spacing are flags in its bracket.
-- `card-img`: reuses card image treatment in the demonstration sections.
 - `img`: scales images to the section width.
 - `hide`: hides its element while carrying a breakpoint option in its bracket; see Breakpoints for the whole family.
 - `box`: makes the container example visible as a surface.
@@ -45,7 +44,6 @@ Section variants that control width, padding, and specific content treatment whi
 ### Other
 
 - `row`: places the text and the image of an edge section side by side.
-- `gapSections`: applies section spacing to the outer collection.
 
 ## CSS Variables
 
@@ -95,7 +93,7 @@ Section applying a specific structure to its child element using sctSpecificity.
 ```html
 <section pgs="section['sctSpecificity'] flex['column' 'gapElements']">
     <div pgs="flex['column']">
-        <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Placeholder image">
+        <img pgs="img['imgCover']" src="../assets/img/placeholder.jpg" alt="Placeholder image">
     </div>
     <div pgs="section-specificity flex['column']">
         <strong>Adipiscing elit sed</strong>
@@ -138,7 +136,7 @@ A full-width row that bleeds off the right edge of the screen: with sctEdge the 
         <strong>Lorem ipsum dolor</strong>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </div>
-    <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Placeholder image">
+    <img pgs="img['imgCover']" src="../assets/img/placeholder.jpg" alt="Placeholder image">
 </section>
 ```
 
@@ -156,7 +154,7 @@ Several section-edgeLeft blocks side by side: only the first one takes the offse
         <strong>Sit amet consectetur</strong>
         <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
     </div>
-    <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Placeholder image">
+    <img pgs="img['imgCover']" src="../assets/img/placeholder.jpg" alt="Placeholder image">
 </section>
 ```
 
@@ -166,7 +164,7 @@ The mirror, with section-edgeRight: the text is the last child and ends where th
 
 ```html
 <section pgs="section['sctEdge']">
-    <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Placeholder image">
+    <img pgs="img['imgCover']" src="../assets/img/placeholder.jpg" alt="Placeholder image">
     <div pgs="section-edgeRight">
         <strong>Lorem ipsum dolor</strong>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -180,7 +178,7 @@ Several section-edgeRight blocks side by side: only the last one takes the offse
 
 ```html
 <section pgs="section['sctEdge']">
-    <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Placeholder image">
+    <img pgs="img['imgCover']" src="../assets/img/placeholder.jpg" alt="Placeholder image">
     <div pgs="section-edgeRight">
         <strong>Lorem ipsum dolor</strong>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -225,7 +223,7 @@ Section without the standard padding using sctNoPadding, useful for edge-to-edge
 ```html
 <section pgs="section['sctNoPadding'] flex['column' 'gapElements']">
     <div pgs="flex['column']">
-        <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Placeholder image">
+        <img pgs="img['imgCover']" src="../assets/img/placeholder.jpg" alt="Placeholder image">
     </div>
 </section>
 ```

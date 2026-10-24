@@ -10,7 +10,12 @@ function PGS_steps_build(steps) {
         //# CIRCLE
         // a hand-written circle keeps the bare name; a generated one gets the underscore,
         // so the check below has to look for either
-        if (!pgs.helper.directChild(li, ["steps-step-circle", "_steps-step-circle"])) {
+        // a generated circle is numbered again on every build, so a step added or removed and a
+        // refresh() renumber the list; a hand-written one keeps its own content
+        const authoredCircle = pgs.helper.directChild(li, "steps-step-circle");
+        const generatedCircle = pgs.helper.directChild(li, "_steps-step-circle");
+        if (generatedCircle && !authoredCircle) generatedCircle.textContent = index + 1;
+        else if (!authoredCircle) {
             const circle = document.createElement("span");
             pgs(circle).add("_steps-step-circle")
             circle.textContent = index + 1;

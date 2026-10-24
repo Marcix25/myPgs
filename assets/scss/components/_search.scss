@@ -33,6 +33,12 @@
         border-bottom-left-radius: 0;
     }
 
+    // the input draws no outline of its own (it would be cut by the rounded corners), the form carries the ring
+    &:has(> input:focus-visible) {
+        outline: var(--focus-visible);
+        outline-offset: 3px;
+    }
+
     >:where(input) {
         border: 0;
         background-color: transparent;
@@ -41,15 +47,15 @@
         min-width: auto;
         box-sizing: content-box;
         padding-block: var(--search-paddingBlock);
-        color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
+        color: var(--search-color);
         font-family: var(--font);
         font-size: var(--font-size-text);
         font-weight: var(--font-weight-bold);
         cursor: text !important;
 
         &::placeholder {
-            color: contrast-color(color-mix(in srgb, var(--button-background) 77%, black));
-            opacity: .6;
+            color: color-mix(in srgb, var(--search-color) 60%, transparent);
+            opacity: 1;
         }
 
         &:focus-visible { outline: unset; }
@@ -92,9 +98,11 @@
             gap: var(--search-suggestions-item-padding);
             transition: var(--clickable-transition);
 
-            &:hover {
-                background: var(--search-suggestions-item-background-hover);
-                color: var(--search-suggestions-item-color-hover);
+            @media (hover: hover) and (pointer: fine) {
+                &:hover {
+                    background: var(--search-suggestions-item-background-hover);
+                    color: var(--search-suggestions-item-color-hover);
+                }
             }
 
             &[aria-selected="true"] {

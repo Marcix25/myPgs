@@ -25,6 +25,7 @@
     :is(ol),
     &:is(ol) {
         list-style: decimal;
+        margin-left: 25px;
 
         li { list-style-type: decimal; }
     }
@@ -32,7 +33,7 @@
     li {
         display: list-item;
         margin-top: calc(var(--gap-texts)/2);
-        color: var(--color-text);
+        color: var(--text-color);
     }
 }
 

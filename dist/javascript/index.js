@@ -196,17 +196,17 @@ function createBracketAttribute(element, attribute) {
 */
 function pgs(root) {
     const ATTR = "pgs";
-    if (!root) throw new TypeError("pgs(root): root is required");
+    if (!root) throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_4__.PGS_invalid)("pgs", "root is required");
 
     const canAttr = typeof root.getAttribute === "function" && typeof root.setAttribute === "function";
     const canQuery = typeof root.querySelector === "function" && typeof root.querySelectorAll === "function";
 
     if (!canQuery) {
-        throw new TypeError("pgs(root): root must support querySelector/querySelectorAll");
+        throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_4__.PGS_invalid)("pgs", "root must support querySelector/querySelectorAll");
     }
 
     function attrOnlyForElements(methodName) {
-        throw new TypeError(`pgs(${root.nodeName || "root"}).${methodName}(): available on an Element only, not on a Document`);
+        throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_4__.PGS_invalid)("pgs", `${methodName}() is available on an Element only, not on ${root.nodeName || "a Document"}`);
     };
 
     function concatSelector(value, attribute = ATTR) {
@@ -311,8 +311,11 @@ function pgs(root) {
         const read = (sep = " ") =>
             (root.getAttribute(attribute) || "").split(sep).filter(Boolean);
 
-        const write = (vals, sep = " ") =>
-            root.setAttribute(attribute, vals.join(sep));
+        // an empty list removes the attribute, so a state taken off leaves no pgs-state=""
+        const write = (vals, sep = " ") => {
+            if (vals.length) root.setAttribute(attribute, vals.join(sep));
+            else root.removeAttribute(attribute);
+        };
 
         // callable form: state("active") is the same as state.add("active")
         function api(...values) {
@@ -417,11 +420,15 @@ function pgs(root) {
         api.add = function (...values) {
             const current = store.read();
             getValues(values).forEach(key => {
+                // already there, bare or inside a bracket: adding it again changes nothing. This
+                // also covers a flag that is its own owner (column, wrap, card), which a merge
+                // would turn into column['column']
+                if (current.some(item => BracketToken.key(item) === key || BracketToken.flags(item).includes(key))) return;
+
                 const owner = ownerOf(key);
                 const index = owner ? current.findIndex(item => BracketToken.key(item) === owner) : -1;
-                if (index === -1) {
-                    if (!current.some(item => BracketToken.key(item) === key)) current.push(key);
-                } else {
+                if (index === -1) current.push(key);
+                else {
                     current[index] = BracketToken.component(owner, [...BracketToken.flags(current[index]), key]);
                 }
             });
@@ -588,7 +595,7 @@ pgs.registerModules = function (modules = {}) {
 
         const hasOwn = Object.prototype.hasOwnProperty.call(pgs, key);
         if (hasOwn && pgs[key] !== module) {
-            throw new Error(`pgs.registerModules(): "${key}" is already defined on pgs`);
+            throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_4__.PGS_invalid)("registerModules", `"${key}" is already defined on pgs`);
         }
 
         pgs[key] = module;
@@ -678,7 +685,9 @@ function setDarkmodeStatus(toggle = false, button = []) {
     // END SET
 
     changeIcon(button, isDarkMode);
-    document.dispatchEvent(new CustomEvent(_svg_js__WEBPACK_IMPORTED_MODULE_1__.PGS_svg.eventChangeColor, { detail: { isDarkMode } }));
+    // on the root element, like every pgs:* event: it bubbles up to the document, and detail.element is
+    // the element it was dispatched on
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.dispatch(document.documentElement, _svg_js__WEBPACK_IMPORTED_MODULE_1__.PGS_svg.eventChangeColor, { isDarkMode });
 }
 
 
@@ -934,20 +943,26 @@ function accordionTiming(accordion) {
 // pulls everything below it up, so the panel the reader just clicked would slide away under the
 // pointer and leave them far down the page. Follows it for as long as the transition runs.
 // behavior "instant", so a page with scroll-behavior: smooth does not turn each correction into
-// an animation of its own. Stops as soon as the signal of the accordion that asked is aborted
-function keepInPlace(element, duration, signal) {
+// an animation of its own. Returns the function that stops the loop: the accordion keeps the
+// latest one, so a second click cancels the first loop instead of running beside it, and
+// destroy() stops it too
+function keepInPlace(element, duration) {
     const startTop = element.getBoundingClientRect().top;
     const end = performance.now() + duration + 50;
+    let frame = 0;
 
     function step(now) {
-        if (signal.aborted) return;
-
         const delta = element.getBoundingClientRect().top - startTop;
         if (Math.abs(delta) >= 1) window.scrollBy({ top: delta, behavior: "instant" });
-        if (now < end) requestAnimationFrame(step);
+        frame = now < end ? requestAnimationFrame(step) : 0;
     }
 
-    requestAnimationFrame(step);
+    frame = requestAnimationFrame(step);
+
+    return () => {
+        if (frame) cancelAnimationFrame(frame);
+        frame = 0;
+    };
 }
 
 //## Accessibility (writes the open/closed state)
@@ -977,6 +992,7 @@ function initializeAccordion(accordion) {
     const controller = new AbortController();
     const { signal } = controller;
     let scrollTimer = 0;
+    let stopKeepingInPlace = () => {};
 
     // initial state: accAutoOpen is the authored form, because pgs-state belongs to
     // the runtime; a pgs-state="open" already written by hand is honored all the same
@@ -1026,7 +1042,8 @@ function initializeAccordion(accordion) {
         const timing = accordionTiming(accordion);
 
         // measured before anything changes: this button's position is the one to hold
-        keepInPlace(BUTTON, timing, signal);
+        stopKeepingInPlace();
+        stopKeepingInPlace = keepInPlace(BUTTON, timing);
 
         (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).state.toggle("open", nowOpen);
         accordionAccessibility(nowOpen, BUTTON, CONTENT);
@@ -1072,12 +1089,16 @@ function initializeAccordion(accordion) {
     }, { signal });
 
     function destroy() {
+        // a stale instance (already replaced by a refresh) must not tear down the live one
+        if (API.get(accordion) !== api) return;
+
         controller.abort();
         window.clearTimeout(scrollTimer);
+        stopKeepingInPlace();
         API.delete(accordion);
     }
 
-    API.set(accordion, {
+    const api = {
         element: accordion,
         button: BUTTON,
         content: CONTENT,
@@ -1086,12 +1107,15 @@ function initializeAccordion(accordion) {
         toggle: accordionFunction,
         destroy,
         refresh: () => {
+            const live = API.get(accordion);
+            if (live && live !== api) return live;
             destroy();
             initializeAccordion(accordion);
             return API.get(accordion);
         },
         isOpen: () => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).state.contains("open"),
-    });
+    };
+    API.set(accordion, api);
 }
 
 function PGS_accordion_init(root = document) {
@@ -1218,6 +1242,23 @@ const fn_alert = {
         return `${titleHtml}${descriptionHtml}`;
     },
 
+    // a button's link goes straight into href, so only a relative address, http(s):, mailto: and
+    // tel: are accepted; any other scheme (javascript:, data:, ...) is reported and the button is
+    // built as a plain button with no link. The characters a browser ignores inside a URL are
+    // dropped before the scheme is read, so "java\tscript:" cannot slip through as a relative one
+    _safeLink(link, scope) {
+        if (link === null || link === undefined || link === "") return null;
+
+        const text = String(link);
+        const scheme = text.replace(/[\u0000-\u0020]/g, "").match(/^([a-z][a-z0-9+.-]*):/i)?.[1];
+        if (scheme && !["http", "https", "mailto", "tel"].includes(scheme.toLowerCase())) {
+            _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn(scope, `a button link can be relative, http(s):, mailto: or tel:, not ${scheme}:, so the link was ignored`, text);
+            return null;
+        }
+
+        return text;
+    },
+
     _getType(type) {
         const name = String(type || "info").trim();
         return name in this._defaults.type ? name : "info";
@@ -1318,6 +1359,10 @@ const fn_alert = {
         // announce once idle
         alert.setAttribute("role", type === "error" || type === "warning" ? "alert" : "status");
 
+        // config.icon is trusted markup, written into the card as given and not sanitized: it comes
+        // from the code that builds the alert (or from a notificationLoad / toastLoad the page's
+        // own author wrote), never from text a visitor typed. title and description, which can be,
+        // go through formatText and are escaped
         const iconHtml = config.icon ? `<div pgs="_alert-icon" aria-hidden="true">${config.icon}</div>` : "";
         const dismissHtml = config.dismissible ? `<button type="button" pgs="button['btnIconOnly'] _alert-dismiss"><i pgs="icon['icon-close']"></i></button>` : "";
 
@@ -1337,20 +1382,38 @@ const fn_alert = {
         const controller = new AbortController();
         const { signal } = controller;
         let timeoutTimer = 0;
+        let finishTimer = 0;
         let closed = false;
 
+        // the card leaves: the event goes out while it is still in the document, so it reaches
+        // every listener above it, and only then is it removed
+        const finish = () => {
+            clearTimeout(finishTimer);
+            finishTimer = 0;
+            _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.dispatch(alert, "pgs:alert:close", { id, type, title: config.title, description: config.description });
+            alert.remove();
+            controller.abort();
+        };
+
         // closing twice (a dismiss while the timeout is still counting, or the timeout after a
-        // button) changes nothing: the event is dispatched once
-        const close = () => {
-            if (closed) return;
+        // button) changes nothing: the event is dispatched once. { immediate: true } skips the
+        // fade and finishes now, for a host that is about to take the card out of the page itself
+        // (a toast replacing another one), even when the fade is already running
+        const close = ({ immediate = false } = {}) => {
+            if (closed) {
+                if (immediate && finishTimer) finish();
+                return;
+            }
             closed = true;
             clearTimeout(timeoutTimer);
+
+            if (immediate) {
+                finish();
+                return;
+            }
+
             alert.style.opacity = "0";
-            setTimeout(() => {
-                _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.dispatch(alert, "pgs:alert:close", { id, type, title: config.title, description: config.description });
-                alert.remove();
-                controller.abort();
-            }, 300);
+            finishTimer = setTimeout(finish, 300);
         };
 
         alert.pgsAlertClose = close;
@@ -1367,9 +1430,10 @@ const fn_alert = {
         }
 
         (config.buttons || []).forEach((button, index) => {
-            const { id: buttonId = `${id}-button-${index + 1}`, title, link, close: closeAfterClick, optionButton } =
+            const { id: buttonId = `${id}-button-${index + 1}`, title, link: rawLink, close: closeAfterClick, optionButton } =
                 { ...this._defaults.button, ...button };
 
+            const link = this._safeLink(rawLink, `alert.${type}`);
             const buttonElement = document.createElement(link ? "a" : "button");
             buttonElement.textContent = title;
             if (link) buttonElement.href = link;
@@ -1398,10 +1462,18 @@ const fn_alert = {
         // what switches it on, wherever a timeout is actually used — not just inside Toast
         if (config.timeout > 0) {
             alert.style.setProperty("--_alert-timeout", config.timeout + "ms");
-            timeoutTimer = setTimeout(close, config.timeout);
+            timeoutTimer = setTimeout(() => close(), config.timeout);
         }
 
         return alert;
+    },
+
+    // puts the card in a host container in place of what it holds. A card that was there is closed
+    // first and at once, while it is still attached: its close event reaches the listeners above it,
+    // and its timer stops, instead of firing later on a node that is already out of the document
+    replace(container, card) {
+        Array.from(container.children).forEach(old => old.pgsAlertClose?.({ immediate: true }));
+        container.replaceChildren(card);
     },
 
     show(type, options = {}) {
@@ -1411,7 +1483,7 @@ const fn_alert = {
         const target = root !== undefined || container !== undefined ? this._getContainer(root, container, scope) : null;
         const alert = this.create(type, contentOptions);
 
-        target?.replaceChildren(alert);
+        if (target) this.replace(target, alert);
         return alert;
     }
 };
@@ -1528,18 +1600,44 @@ function updatePosition(dropdown) {
         (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(content).state.add(sideState);
     }
 
-    content.style.setProperty("--_dropdown-left", `${Math.round(left)}px`);
-    content.style.setProperty("--_dropdown-top", `${Math.round(top)}px`);
+    // the viewport position the panel has to end up at
+    const viewportLeft = Math.round(left);
+    const viewportTop = Math.round(top);
+    content.style.setProperty("--_dropdown-left", `${viewportLeft}px`);
+    content.style.setProperty("--_dropdown-top", `${viewportTop}px`);
+
+    // the panel is position: fixed, but an ancestor that is a containing block for fixed
+    // descendants (container-type in WebKit, transform, filter, contain: paint) makes those
+    // coordinates relative to that ancestor instead of the viewport. One measured pass corrects
+    // it for any containing block: wherever the panel landed, move it by the difference
+    const placed = content.getBoundingClientRect();
+    const deltaLeft = placed.left - viewportLeft;
+    const deltaTop = placed.top - viewportTop;
+
+    if (Math.abs(deltaLeft) > 0.5 || Math.abs(deltaTop) > 0.5) {
+        content.style.setProperty("--_dropdown-left", `${Math.round(viewportLeft - deltaLeft)}px`);
+        content.style.setProperty("--_dropdown-top", `${Math.round(viewportTop - deltaTop)}px`);
+    }
 
     // where the trigger's center falls inside the panel, after the viewport clamp above may
     // have shifted it: an arrow placed at 50% would stop pointing at the trigger
-    content.style.setProperty("--_dropdown-arrowLeft", `${Math.round(triggerRect.left + triggerRect.width / 2 - left)}px`);
-    content.style.setProperty("--_dropdown-arrowTop", `${Math.round(triggerRect.top + triggerRect.height / 2 - top)}px`);
+    content.style.setProperty("--_dropdown-arrowLeft", `${Math.round(triggerRect.left + triggerRect.width / 2 - viewportLeft)}px`);
+    content.style.setProperty("--_dropdown-arrowTop", `${Math.round(triggerRect.top + triggerRect.height / 2 - viewportTop)}px`);
 }
 
-function updateOpenDropdowns() {
-    OPEN_DROPDOWNS.forEach(updatePosition);
+// a dropdown removed from the page while open never gets a close: drop it here instead of
+// repositioning it on every scroll
+function pruneOpenDropdowns() {
+    OPEN_DROPDOWNS.forEach(dropdown => {
+        if (!dropdown.isConnected) OPEN_DROPDOWNS.delete(dropdown);
+    });
 }
+
+// one frame at most, however many scroll/resize events arrive
+const updateOpenDropdowns = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.rafThrottle(() => {
+    pruneOpenDropdowns();
+    OPEN_DROPDOWNS.forEach(updatePosition);
+});
 
 function closeDropdown(dropdown) {
     const data = API.get(dropdown);
@@ -1585,6 +1683,7 @@ function isInsideAnyDropdown(target) {
 // so a later init() or refresh() cannot stack another copy of them
 if (typeof document !== "undefined") {
     document.addEventListener("click", (event) => {
+        pruneOpenDropdowns();
         if (isInsideAnyDropdown(event.target)) return;
         OPEN_DROPDOWNS.forEach(closeDropdown);
     });
@@ -1625,6 +1724,9 @@ function initializeDropdown(DROPDOWN) {
     CONTENT.setAttribute("aria-labelledby", TRIGGER.id);
 
     function destroy() {
+        // a stale instance (already replaced by a refresh) must not tear down the live one
+        if (API.get(DROPDOWN) !== data) return;
+
         controller.abort();
         window.clearTimeout(hoverCloseTimeout);
         OPEN_DROPDOWNS.delete(DROPDOWN);
@@ -1642,6 +1744,8 @@ function initializeDropdown(DROPDOWN) {
         reposition: () => updatePosition(DROPDOWN),
         destroy,
         refresh: () => {
+            if (API.get(DROPDOWN) !== data) return API.get(DROPDOWN);
+
             destroy();
             initializeDropdown(DROPDOWN);
             return API.get(DROPDOWN);
@@ -1653,7 +1757,6 @@ function initializeDropdown(DROPDOWN) {
     TRIGGER.addEventListener("click", (event) => {
         if (isDropdownContent(event.target)) return;
         event.preventDefault();
-        event.stopPropagation();
         toggleDropdown(DROPDOWN);
     }, { signal });
 
@@ -1674,7 +1777,6 @@ function initializeDropdown(DROPDOWN) {
         }, { signal });
     }
 
-    CONTENT.addEventListener("click", event => event.stopPropagation(), { signal });
     API.set(DROPDOWN, data);
 
     if (data.isOpen()) OPEN_DROPDOWNS.add(DROPDOWN);
@@ -1799,21 +1901,27 @@ function initializeMenu(MENU) {
     });
 
     function destroy() {
+        // a stale instance (already replaced by a refresh) must not tear down the live one
+        if (API.get(MENU) !== api) return;
+
         controller.abort();
         floating.forEach(li => _dropdown_js__WEBPACK_IMPORTED_MODULE_1__.PGS_dropdown.api(li)?.destroy());
         API.delete(MENU);
     }
 
-    API.set(MENU, {
+    const api = {
         element: MENU,
         type: isHorizontal ? "horizontal" : "vertical",
         destroy,
         refresh: () => {
+            const live = API.get(MENU);
+            if (live && live !== api) return live;
             destroy();
             initializeMenu(MENU);
             return API.get(MENU);
         },
-    });
+    };
+    API.set(MENU, api);
     _dropdown_js__WEBPACK_IMPORTED_MODULE_1__.PGS_dropdown.init(MENU);
 }
 
@@ -1941,23 +2049,41 @@ function initializeModal(MODAL) {
     //## BUTTON OPEN
     // the label is a fallback, not a correction: a control the author has already named keeps
     // that name, which is the one the page is written around
-    BUTTON_OPEN?.setAttribute("role", "button");
-    if (BUTTON_OPEN && !BUTTON_OPEN.hasAttribute("aria-label")) BUTTON_OPEN.setAttribute("aria-label", "Open modal");
+    // and a label is only needed by a control with no name at all: visible text, a title, an
+    // aria-labelledby or an image with an alt already name it, and an aria-label written over
+    // visible text would make the spoken name differ from the one on screen (WCAG 2.5.3)
+    if (BUTTON_OPEN) {
+        // a native button already is one; anything else (a link, a div) is told what it does
+        if (!BUTTON_OPEN.matches("button, input[type='button'], input[type='submit'], [role]")) BUTTON_OPEN.setAttribute("role", "button");
+
+        const hasName = BUTTON_OPEN.hasAttribute("aria-label")
+            || BUTTON_OPEN.hasAttribute("aria-labelledby")
+            || BUTTON_OPEN.hasAttribute("title")
+            || (BUTTON_OPEN.textContent || "").trim() !== ""
+            || BUTTON_OPEN.querySelector("img[alt]:not([alt=''])") !== null;
+        if (!hasName) BUTTON_OPEN.setAttribute("aria-label", "Open modal");
+    }
 
 
     //## POSITION
     if (dialogTopLevel && !MODAL.contains(DIALOG)) MODAL.append(DIALOG);
     else if (!dialogTopLevel) {
-        if (modalContainerID) document.querySelector("#" + modalContainerID)?.append(DIALOG);
-        else if (modalContainerPGS) (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document).querySelector(modalContainerPGS)?.append(DIALOG);
-        else document.body.append(DIALOG);
+        if (modalContainerID) {
+            const container = document.getElementById(modalContainerID);
+            if (container) container.append(DIALOG);
+            else _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("modal.init", `no element has the id "${modalContainerID}" named by modalContainerID, so the dialog stays where it is`, MODAL);
+        } else if (modalContainerPGS) {
+            const container = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document).querySelector(modalContainerPGS);
+            if (container) container.append(DIALOG);
+            else _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("modal.init", `no element carries the pgs token "${modalContainerPGS}" named by modalContainerPGS, so the dialog stays where it is`, MODAL);
+        } else document.body.append(DIALOG);
     }
 
 
     //## FN STATUS
     function statusModal(status = true) {
+        // aria-expanded belongs to the control that opens the panel; it is not a <dialog> attribute
         BUTTON_OPEN?.setAttribute("aria-expanded", status);
-        DIALOG.setAttribute("aria-expanded", status);
     }
 
     //## FN EVENT
@@ -2251,13 +2377,34 @@ function initializeModal(MODAL) {
         }, { signal });
     }
 
-    function destroy() {
+    // closeDialog is true for the public destroy(): the dialog is closed when it is open, and one
+    // that was moved out of its wrapper is removed together with a wrapper that is gone from the
+    // page, so it does not stay orphaned in the body. refresh() tears down without either, because
+    // it rebuilds on the same wrapper and dialog
+    function teardown(closeDialog) {
+        // a stale instance (already replaced by a refresh) must not tear down the live one
+        if (API.get(MODAL) !== api) return;
+
+        const wasOpen = closeDialog && DIALOG.open;
         eventController.abort();
         stopAnimation();
         dragClose.stop();
         historyObserver?.disconnect();
         if (historyTimeout !== null) window.clearTimeout(historyTimeout);
         API.delete(MODAL);
+
+        // the listeners are gone, so the close the dialog fires natively is announced here
+        if (wasOpen) {
+            closing = false;
+            statusModal(false);
+            DIALOG.close();
+            dispatchModal(EVENT_CLOSE);
+        }
+
+        if (closeDialog && !MODAL.isConnected && !MODAL.contains(DIALOG)) {
+            DIALOG.remove();
+            DIALOGS.delete(MODAL);
+        }
     }
 
     const api = {
@@ -2269,10 +2416,12 @@ function initializeModal(MODAL) {
         close: forceClose,
         toggle: openModal,
         refresh: () => {
-            destroy();
+            const live = API.get(MODAL);
+            if (live && live !== api) return live;
+            teardown(false);
             return initializeModal(MODAL);
         },
-        destroy,
+        destroy: () => teardown(true),
         isOpen: () => DIALOG.open,
     };
 
@@ -2455,6 +2604,15 @@ const fn_notification = {
 
     _add(type, options) {
         const scope = `notification.${type}`;
+
+        // a notification fired from a script in the head, before the body is parsed, has no panel
+        // to go in yet: it is added once the document is ready
+        if (!document.body) {
+            if (document.readyState === "loading") _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(() => this._add(type, options));
+            else _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn(scope, "the document has no <body>, so the notification was not added");
+            return;
+        }
+
         const config = _alerts_js__WEBPACK_IMPORTED_MODULE_1__.fn_alert._toOptions(options, scope);
         const notification = _alerts_js__WEBPACK_IMPORTED_MODULE_1__.fn_alert.create(type, {
             ...config,
@@ -2699,7 +2857,7 @@ function PGS_pageNav_build(pageNav) {
             const live = API.get(pageNav);
             if (live && live !== api) return live;
             destroy();
-            return PGS_pageNav_build(pageNav);
+            return PGS_pageNav_build(pageNav) ?? undefined;
         },
     };
     API.set(pageNav, api);
@@ -3229,6 +3387,9 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
     }
 
     function destroy() {
+        // a stale instance (already replaced by a refresh) must not tear down the live one
+        if (API.get(search) !== api) return;
+
         cancel();
         clear();
         eventController.abort();
@@ -3250,6 +3411,9 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
         select,
         // the options are the one thing a rebuild keeps: they were given by the code, not the markup
         refresh: () => {
+            const live = API.get(search);
+            if (live && live !== api) return live;
+
             const kept = options;
             destroy();
             return initializeSearch(search, kept);
@@ -3465,15 +3629,16 @@ class PGS_Slides {
 
             //## VIEW
             (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(LI.target).state.toggle("view", isView);
+        });
 
-            //## ACTIVE DOT
-            const viewElements = Array.from(container.children).filter(el => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(el).state.contains("view"));
-            dots.forEach((btn, i) => {
-                const isActive = viewElements.some(el => Array.from(container.children).indexOf(el) === i);
-                (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(btn).state.toggle("active", isActive);
-                btn.setAttribute('aria-current', isActive ? 'true' : 'false');
-            });
-        })
+        //## ACTIVE DOT
+        // read once, after every entry of this batch has set its own view state
+        const slides = Array.from(container.children);
+        dots.forEach((btn, i) => {
+            const isActive = slides[i] ? (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(slides[i]).state.contains("view") : false;
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(btn).state.toggle("active", isActive);
+            btn.setAttribute('aria-current', isActive ? 'true' : 'false');
+        });
 
         this.#updateArrows(prevButton, nextButton);
     }
@@ -3576,7 +3741,7 @@ class PGS_Slides {
                 const live = API.get(this.element);
                 if (live && live !== api) return live;
                 destroy();
-                return new PGS_Slides({ element: this.element }).execute();
+                return new PGS_Slides({ element: this.element }).execute() ?? undefined;
             },
         };
         API.set(this.element, api);
@@ -3655,11 +3820,19 @@ function PGS_stepTabs_build(tabsWizard) {
     const tabDots = [];
     if (dots) {
         dots.innerHTML = "";
+        // the row is a group of controls: with an aria-label on the container (the reference
+        // writes one) and no role of its own, it is announced as that group instead of as an
+        // unnamed generic element
+        if (dots.hasAttribute("aria-label") && !dots.hasAttribute("role")) dots.setAttribute("role", "group");
 
         allTab.forEach((tab, index) => {
             const authoredIcon = ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(tab).data.getValueBrackets("stepTabsIcon") || "").trim();
             const dot = document.createElement("button");
             dot.type = "button";
+            // an icon-only button has no name of its own: the step's title when the step has one
+            // (its aria-label, else its first heading), "Step N" otherwise
+            const title = (tab.getAttribute("aria-label") || tab.querySelector("h1, h2, h3, h4, h5, h6")?.textContent || "").trim();
+            dot.setAttribute("aria-label", title ? `Step ${index + 1}: ${title}` : `Step ${index + 1}`);
             (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dot).add("_stepTabs-dots-dot");
             (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dot).add("button['btnIconOnly' 'btnNotHover']");
             // stepTabsIcon takes three shapes, told apart by how the value opens. Markup, from a
@@ -3737,8 +3910,10 @@ function PGS_stepTabs_build(tabsWizard) {
 
     //## restart
     // the locks go back first, so the controls goTo redraws already see them
+    // a lock taken off by the markup's own state or added with toggleLock on another step goes
+    // back to exactly what the markup declared when the wizard was built
     function restartTab() {
-        defaultTabLocked.forEach(tab => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(tab).state.add("locked"));
+        allTab.forEach(tab => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(tab).state.toggle("locked", defaultTabLocked.includes(tab)));
         goTo(0);
     }
 
@@ -3774,8 +3949,9 @@ function PGS_stepTabs_build(tabsWizard) {
             }
             goTo(index, scroll);
         },
-        next: () => goTo(current + 1),
-        prev: () => goTo(current - 1),
+        // at either end there is nowhere to go: the index does not change, so nothing is dispatched
+        next: () => { if (current < total - 1) goTo(current + 1); },
+        prev: () => { if (current > 0) goTo(current - 1); },
         toggleLock: (step, lock = true) => {
             if (!Number.isInteger(step) || step < 0 || step >= total) {
                 throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("stepTabs.toggleLock", `step must be an integer from 0 to ${total - 1}, got ${step}`);
@@ -3788,7 +3964,7 @@ function PGS_stepTabs_build(tabsWizard) {
             const live = API.get(tabsWizard);
             if (live && live !== api) return live;
             destroy();
-            return PGS_stepTabs_build(tabsWizard);
+            return PGS_stepTabs_build(tabsWizard) ?? undefined;
         },
         getCurrent: () => current,
         getState: () => ({ current, total }),
@@ -3847,7 +4023,12 @@ function PGS_steps_build(steps) {
         //# CIRCLE
         // a hand-written circle keeps the bare name; a generated one gets the underscore,
         // so the check below has to look for either
-        if (!_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(li, ["steps-step-circle", "_steps-step-circle"])) {
+        // a generated circle is numbered again on every build, so a step added or removed and a
+        // refresh() renumber the list; a hand-written one keeps its own content
+        const authoredCircle = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(li, "steps-step-circle");
+        const generatedCircle = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(li, "_steps-step-circle");
+        if (generatedCircle && !authoredCircle) generatedCircle.textContent = index + 1;
+        else if (!authoredCircle) {
             const circle = document.createElement("span");
             (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(circle).add("_steps-step-circle")
             circle.textContent = index + 1;
@@ -4064,6 +4245,9 @@ function initializeSummary(summary, initialMessages) {
     firstFrameId = requestAnimationFrame(measure);
 
     function destroy() {
+        // a stale instance (already replaced by a refresh) must not tear down the live one
+        if (API.get(summary) !== api) return;
+
         controller.abort();
         resizeObserver.disconnect();
         cancelAnimationFrame(rafId);
@@ -4071,7 +4255,7 @@ function initializeSummary(summary, initialMessages) {
         API.delete(summary);
     }
 
-    API.set(summary, {
+    const api = {
         element: summary,
         content,
         button,
@@ -4080,12 +4264,15 @@ function initializeSummary(summary, initialMessages) {
         toggle,
         destroy,
         refresh: () => {
+            const live = API.get(summary);
+            if (live && live !== api) return live;
             destroy();
             initializeSummary(summary, getInitialMessages());
             return API.get(summary);
         },
         isOpen,
-    });
+    };
+    API.set(summary, api);
 }
 
 function PGS_summary_init(root = document, options = {}) {
@@ -4266,24 +4453,15 @@ function initializeTabs(tabs) {
         }, { signal });
     });
 
-    // the URL wins over the state written in the markup: a reload lands on the tab the reader
-    // left, and the first pass only reads it — it never pushes an entry of its own
-    const restored = indexFromHistory();
-    show(restored === -1 ? current : restored, { history: false });
-
-    if (historyKey) {
-        window.addEventListener("popstate", () => {
-            const index = indexFromHistory();
-            select(index === -1 ? 0 : index, { history: false });
-        }, { signal });
-    }
-
     function destroy() {
+        // a stale instance (already replaced by a refresh) must not tear down the live one
+        if (API.get(tabs) !== api) return;
+
         controller.abort();
         API.delete(tabs);
     }
 
-    API.set(tabs, {
+    const api = {
         element: tabs,
         list,
         panels,
@@ -4296,11 +4474,27 @@ function initializeTabs(tabs) {
         getCurrent: () => current,
         destroy,
         refresh: () => {
+            const live = API.get(tabs);
+            if (live && live !== api) return live;
             destroy();
             initializeTabs(tabs);
             return API.get(tabs);
         },
-    });
+    };
+    // stored before the first show(), so a pgs:tabs:change listener can already reach the instance
+    API.set(tabs, api);
+
+    // the URL wins over the state written in the markup: a reload lands on the tab the reader
+    // left, and the first pass only reads it — it never pushes an entry of its own
+    const restored = indexFromHistory();
+    show(restored === -1 ? current : restored, { history: false });
+
+    if (historyKey) {
+        window.addEventListener("popstate", () => {
+            const index = indexFromHistory();
+            select(index === -1 ? 0 : index, { history: false });
+        }, { signal });
+    }
 }
 
 function PGS_tabs_init(root = document) {
@@ -4387,6 +4581,15 @@ const fn_toast = {
 
     _add(type, options) {
         const scope = `toast.${type}`;
+
+        // a toast fired from a script in the head, before the body is parsed, has nowhere to go yet:
+        // it is shown once the document is ready
+        if (!document.body) {
+            if (document.readyState === "loading") _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(() => this._add(type, options));
+            else _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn(scope, "the document has no <body>, so the toast was not shown");
+            return;
+        }
+
         const { timeout = this._defaults.timeout, position, ...config } = _alerts_js__WEBPACK_IMPORTED_MODULE_1__.fn_alert._toOptions(options, scope);
 
         const toast = _alerts_js__WEBPACK_IMPORTED_MODULE_1__.fn_alert.create(type, {
@@ -4401,7 +4604,7 @@ const fn_toast = {
         // only one toast is shown at a time: a new one simply replaces whatever was there
         const container = this._getOrCreateContainer();
         this._applyOptions(container, position, scope);
-        container.replaceChildren(toast);
+        _alerts_js__WEBPACK_IMPORTED_MODULE_1__.fn_alert.replace(container, toast);
     },
 
     _dispatch(element) {
@@ -4545,6 +4748,10 @@ function findDataDescendant(root, keys) {
 }
 
 
+// the instance of every form: building a second one on the same form replaces the first
+// (see the constructor)
+const INSTANCES = new WeakMap();
+
 class PGS_formValidate {
     #messageDefaults = {
         formFieldErrorTitle: "Error!",
@@ -4574,6 +4781,15 @@ class PGS_formValidate {
 
         (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.container).add("formValidate");
         this.#initializeMessages(options.message);
+
+        // a form has one validator: a second one built on it would stack its own click listener and
+        // its own validator() callbacks on top of the first, so every submit would validate and
+        // call back twice. The last one built wins and the previous one is destroyed, the same way
+        // a new init() after a destroy() starts over; an instance still held elsewhere stops
+        // reacting, it does not keep running beside the new one
+        INSTANCES.get(form)?.destroy();
+        INSTANCES.set(form, this);
+
         this.container.setAttribute("novalidate", "");
 
         // a click on a field clears its error. One listener on the form serves every field, the
@@ -4587,6 +4803,26 @@ class PGS_formValidate {
     // every validator(). The state, the novalidate attribute and the messages stay as they are
     destroy() {
         this.#controller.abort();
+        if (INSTANCES.get(this.container) === this) INSTANCES.delete(this.container);
+    }
+
+    // where the alert goes: the alertContainer option, which can sit anywhere in the document. The
+    // alert engine only accepts a container inside the root it is given, so one outside the form
+    // (an element, or a selector that only matches outside it) is placed by giving it the document
+    // as the root; with none, the alert is placed inside the form
+    #alertPlacement() {
+        const container = this.alertContainer;
+
+        if (container instanceof Element && !this.container.contains(container)) {
+            return { root: container.ownerDocument, container };
+        }
+
+        if (typeof container === "string" && !this.container.querySelector(container)) {
+            const outside = this.container.ownerDocument.querySelector(container);
+            if (outside) return { root: outside.ownerDocument, container: outside };
+        }
+
+        return { root: this.container, container };
     }
 
     #clearErrorOnClick(event) {
@@ -4856,8 +5092,7 @@ class PGS_formValidate {
             _components_alerts_js__WEBPACK_IMPORTED_MODULE_2__.PGS_alert.error({
                 title: title,
                 description: description,
-                root: this.container,
-                container: this.alertContainer
+                ...this.#alertPlacement()
             });
         } else {
             _components_toast_js__WEBPACK_IMPORTED_MODULE_1__.PGS_toast.error({
@@ -4882,8 +5117,7 @@ class PGS_formValidate {
                 _components_alerts_js__WEBPACK_IMPORTED_MODULE_2__.PGS_alert.success({
                     title,
                     description,
-                    root: this.container,
-                    container: this.alertContainer
+                    ...this.#alertPlacement()
                 });
             } else {
                 _components_toast_js__WEBPACK_IMPORTED_MODULE_1__.PGS_toast.success({
@@ -5169,9 +5403,11 @@ function getCompactBreakpoint(header) {
 const OVERFLOW_TOLERANCE = 2;
 
 //# RESIZE
-// a header only reaches here once it holds a header-element (see getReadyHeaders)
+// a header only reaches here once it holds a header-element (see getReadyHeaders). Every observer and
+// throttle it starts is released by the function it returns
 function initResize(header) {
     const headerElements = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).querySelectorAll("header-element");
+    const releases = [];
 
     headerElements.forEach(selectHeader => {
 
@@ -5213,14 +5449,24 @@ function initResize(header) {
         const childObserver = new MutationObserver(scheduleCompact);
         childObserver.observe(selectHeader, { childList: true, subtree: true });
 
+        releases.push(() => {
+            observer.disconnect();
+            childObserver.disconnect();
+            scheduleCompact.cancel();
+        });
+
         //## initial check
         compact(selectHeader);
     });
+
+    return () => releases.forEach(release => release());
 }
 
 
 //# HEADER HEIGHT
-function initHeight(header) {
+// returns the throttled measure, so the module can ask for another one when a sibling header goes
+// away, and the function that releases the observer and the throttle
+function initHeight(header, signal) {
     //## GET HEADER HEIGHT ELEMENT
     function getHeaderHeightElement(header) {
         const isCompactBottom = window.getComputedStyle(header).getPropertyValue("--header-compactBottom-active").trim() === "1";
@@ -5254,11 +5500,21 @@ function initHeight(header) {
     headerHeightObserver.observe(header);
     (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).querySelectorAll("header-element").forEach(element => headerHeightObserver.observe(element));
 
-    document.fonts?.ready?.then(scheduleHeaderHeight);
+    document.fonts?.ready?.then(() => {
+        if (!signal.aborted) scheduleHeaderHeight();
+    });
 
     scheduleHeaderHeight();
-    window.addEventListener("resize", scheduleHeaderHeight);
-    window.addEventListener("scroll", scheduleHeaderHeight, { passive: true });
+    window.addEventListener("resize", scheduleHeaderHeight, { signal });
+    window.addEventListener("scroll", scheduleHeaderHeight, { passive: true, signal });
+
+    return {
+        schedule: scheduleHeaderHeight,
+        release() {
+            headerHeightObserver.disconnect();
+            scheduleHeaderHeight.cancel();
+        }
+    };
 }
 
 
@@ -5268,7 +5524,7 @@ function initHeight(header) {
 //# SCROLL
 // hides the header while the reader scrolls down and brings it back on the way up, on screens
 // up to 900px tall, where a pinned header costs too much of the page
-function initScroll(header) {
+function initScroll(header, signal) {
     if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).option.contains("headerScroll")) return;
 
     let lastScrollY = window.scrollY;
@@ -5287,20 +5543,95 @@ function initScroll(header) {
         }
 
         lastScrollY = currentScrollY;
-    }, { passive: true });
+    }, { passive: true, signal });
 }
 
 
+//# PRELOAD
+// --_header-height and --_header-heightScroll have a "dummy preload" default in the stylesheet, so a
+// page that is still loading already leaves room for a header. A page that has no header would keep
+// that room for good, under the footer, the toast and the modal: with no header in the document
+// the properties are published as 0 instead, and a header that arrives later measures them again
+function publishPreload() {
+    if (typeof document === "undefined" || getReadyHeaders().length) return;
+
+    document.documentElement.style.setProperty("--_header-height", "0px");
+    document.documentElement.style.setProperty("--_header-heightScroll", "0px");
+}
+
+
+//# INSTANCES
+const API = new WeakMap();
+// the headers with a live instance, each with its throttled height measure and what releases it:
+// walked to drop the ones that left the page, and to hand the height over to a header that is
+// still there
+const INSTANCES = new Map();
+// the headers whose destroy() was asked for while they are still in the page: the watch that finds
+// new headers must not build them again behind the author's back. init() and refresh() lift it
+const STOPPED = new WeakSet();
+
+// a header that left the page takes its instance with it. Not marked as stopped: the same node can
+// come back, and the watch then builds it again
+function pruneHeaders() {
+    Array.from(INSTANCES.keys()).forEach(header => {
+        if (!header.isConnected) teardown(header, false);
+    });
+}
+
+function teardown(header, stop) {
+    const entry = INSTANCES.get(header);
+    if (!entry) return;
+
+    entry.release();
+    if (stop) STOPPED.add(header);
+    INSTANCES.delete(header);
+    API.delete(header);
+
+    // what the header published is no longer anybody's: another header takes it over, and with
+    // none left the preload goes to 0
+    INSTANCES.forEach(item => item.schedule());
+    publishPreload();
+}
+
 //# INIT
-const INITIALIZED_HEADERS = new WeakSet();
-
+// builds the instance of one header and returns its API, or undefined when it is not ready (no
+// header-element) or already has one
 function initHeader(header) {
-    if (INITIALIZED_HEADERS.has(header)) return;
-    INITIALIZED_HEADERS.add(header);
+    if (API.has(header)) return;
+    if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).querySelector("header-element")) return;
 
-    initResize(header);
-    initHeight(header);
-    initScroll(header);
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    const releaseResize = initResize(header);
+    const height = initHeight(header, signal);
+    initScroll(header, signal);
+
+    const api = {
+        element: header,
+        destroy() {
+            // a stale instance (already replaced by a refresh) must not tear down the live one
+            if (API.get(header) === api) teardown(header, true);
+        },
+        refresh() {
+            const live = API.get(header);
+            if (live && live !== api) return live;
+            teardown(header, false);
+            STOPPED.delete(header);
+            return initHeader(header);
+        },
+    };
+
+    API.set(header, api);
+    INSTANCES.set(header, {
+        schedule: height.schedule,
+        release() {
+            controller.abort();
+            releaseResize();
+            height.release();
+        }
+    });
+    return api;
 }
 
 // a header is only ready once it holds a header-element, which is where every measurement happens
@@ -5309,17 +5640,32 @@ function getReadyHeaders() {
 }
 
 function PGS_header_init(root = document) {
-    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "header").filter(header => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).querySelector("header-element")).forEach(initHeader);
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "header").forEach(header => {
+        STOPPED.delete(header);
+        initHeader(header);
+    });
+    publishPreload();
 }
 
 // headers can arrive later, and there may be more than one, so the watch stays on instead of
-// stopping at the first: a pass is cheap and every header is initialized only once
+// stopping at the first: a pass is cheap and every header is initialized only once. The same pass
+// lets go of the headers that left the page
 _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_header_init);
-_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.watchDocument(() => PGS_header_init());
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.watchDocument(() => {
+    pruneHeaders();
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(document, "header").filter(header => !STOPPED.has(header)).forEach(initHeader);
+    publishPreload();
+});
+
+//# API
+function PGS_header_api(selector) {
+    return API.get(selector);
+}
 
 //# EXPORT
 const PGS_header = {
-    init: PGS_header_init
+    init: PGS_header_init,
+    api: PGS_header_api
 };
 
 
@@ -5346,7 +5692,13 @@ __webpack_require__.r(__webpack_exports__);
 // are 0 while a media query hides the bar. Padding the end of a page by either one keeps its last
 // lines from sitting under it.
 
-const INITIALIZED_NAVSMART = new WeakSet();
+const API = new WeakMap();
+// the bars with a live instance, each with its throttled measure and what releases it: walked to
+// drop the ones that left the page, and to hand the variables to a bar that is still there
+const INSTANCES = new Map();
+// the bars whose destroy() was asked for while they are still in the page: the watch that finds new
+// bars must not build them again behind the author's back. init() and refresh() lift it
+const STOPPED = new WeakSet();
 
 // a bar is only ready once it holds a navSmart-element, which is where the pills are
 function getReadyNavSmart() {
@@ -5369,9 +5721,50 @@ function isInstalledApp() {
     return navigator.standalone === true || window.matchMedia("(display-mode: standalone)").matches;
 }
 
+//# PRELOAD
+// --_navSmart-height and --_navSmart-heightScroll have a "dummy preload" default in the stylesheet,
+// so a page that is still loading already leaves room for the bar. A page with no pinned bar would
+// keep that room for good, under the footer, the toast and the modal: with no pinned navSmart in the
+// document the properties are published as 0 instead, and a bar that arrives later measures them
+function publishPreload() {
+    if (typeof document === "undefined" || getPrimaryNavSmart()) return;
+
+    document.documentElement.style.setProperty("--_navSmart-height", "0px");
+    document.documentElement.style.setProperty("--_navSmart-heightScroll", "0px");
+}
+
+// a bar that left the page takes its instance with it. Not marked as stopped: the same node can come
+// back, and the watch then builds it again
+function pruneNavSmart() {
+    Array.from(INSTANCES.keys()).forEach(bar => {
+        if (!bar.isConnected) teardown(bar, false);
+    });
+}
+
+function teardown(bar, stop) {
+    const entry = INSTANCES.get(bar);
+    if (!entry) return;
+
+    entry.release();
+    if (stop) STOPPED.add(bar);
+    INSTANCES.delete(bar);
+    API.delete(bar);
+
+    // what the bar published is no longer anybody's: another bar takes it over, and with none
+    // pinned the preload goes to 0
+    INSTANCES.forEach(item => item.schedule());
+    publishPreload();
+}
+
+//# INIT
+// builds the instance of one bar and returns its API, or undefined when it is not ready (no
+// navSmart-element) or already has one
 function initNavSmart(bar) {
-    if (INITIALIZED_NAVSMART.has(bar)) return;
-    INITIALIZED_NAVSMART.add(bar);
+    if (API.has(bar)) return;
+    if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(bar).querySelector("navSmart-element")) return;
+
+    const controller = new AbortController();
+    const { signal } = controller;
 
     (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(bar).state.toggle("installedApp", isInstalledApp());
 
@@ -5395,25 +5788,69 @@ function initNavSmart(bar) {
     observer.observe(bar);
     (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(bar).querySelectorAll("navSmart-element").forEach(element => observer.observe(element));
 
-    new MutationObserver(schedule).observe(bar, { attributes: true, attributeFilter: ["class", "style"] });
+    const attributeObserver = new MutationObserver(schedule);
+    attributeObserver.observe(bar, { attributes: true, attributeFilter: ["class", "style"] });
 
-    document.fonts?.ready?.then(schedule);
-    window.addEventListener("resize", schedule);
+    document.fonts?.ready?.then(() => {
+        if (!signal.aborted) schedule();
+    });
+    window.addEventListener("resize", schedule, { signal });
     schedule();
+
+    const api = {
+        element: bar,
+        destroy() {
+            // a stale instance (already replaced by a refresh) must not tear down the live one
+            if (API.get(bar) === api) teardown(bar, true);
+        },
+        refresh() {
+            const live = API.get(bar);
+            if (live && live !== api) return live;
+            teardown(bar, false);
+            STOPPED.delete(bar);
+            return initNavSmart(bar);
+        },
+    };
+
+    API.set(bar, api);
+    INSTANCES.set(bar, {
+        schedule,
+        release() {
+            controller.abort();
+            observer.disconnect();
+            attributeObserver.disconnect();
+            schedule.cancel();
+        }
+    });
+    return api;
 }
 
 function PGS_navSmart_init(root = document) {
-    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "navSmart").filter(bar => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(bar).querySelector("navSmart-element")).forEach(initNavSmart);
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "navSmart").forEach(bar => {
+        STOPPED.delete(bar);
+        initNavSmart(bar);
+    });
+    publishPreload();
 }
 
 // a bar can arrive later, and there may be several, so the watch stays on: a pass is cheap and
-// every bar is initialized only once
+// every bar is initialized only once. The same pass lets go of the bars that left the page
 _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_navSmart_init);
-_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.watchDocument(() => PGS_navSmart_init());
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.watchDocument(() => {
+    pruneNavSmart();
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(document, "navSmart").filter(bar => !STOPPED.has(bar)).forEach(initNavSmart);
+    publishPreload();
+});
+
+//# API
+function PGS_navSmart_api(selector) {
+    return API.get(selector);
+}
 
 //# EXPORT
 const PGS_navSmart = {
-    init: PGS_navSmart_init
+    init: PGS_navSmart_init,
+    api: PGS_navSmart_api
 };
 
 

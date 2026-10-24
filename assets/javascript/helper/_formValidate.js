@@ -12,6 +12,10 @@ function findDataDescendant(root, keys) {
 }
 
 
+// the instance of every form: building a second one on the same form replaces the first
+// (see the constructor)
+const INSTANCES = new WeakMap();
+
 export class PGS_formValidate {
     #messageDefaults = {
         formFieldErrorTitle: "Error!",
@@ -41,6 +45,15 @@ export class PGS_formValidate {
 
         pgs(this.container).add("formValidate");
         this.#initializeMessages(options.message);
+
+        // a form has one validator: a second one built on it would stack its own click listener and
+        // its own validator() callbacks on top of the first, so every submit would validate and
+        // call back twice. The last one built wins and the previous one is destroyed, the same way
+        // a new init() after a destroy() starts over; an instance still held elsewhere stops
+        // reacting, it does not keep running beside the new one
+        INSTANCES.get(form)?.destroy();
+        INSTANCES.set(form, this);
+
         this.container.setAttribute("novalidate", "");
 
         // a click on a field clears its error. One listener on the form serves every field, the
@@ -54,6 +67,26 @@ export class PGS_formValidate {
     // every validator(). The state, the novalidate attribute and the messages stay as they are
     destroy() {
         this.#controller.abort();
+        if (INSTANCES.get(this.container) === this) INSTANCES.delete(this.container);
+    }
+
+    // where the alert goes: the alertContainer option, which can sit anywhere in the document. The
+    // alert engine only accepts a container inside the root it is given, so one outside the form
+    // (an element, or a selector that only matches outside it) is placed by giving it the document
+    // as the root; with none, the alert is placed inside the form
+    #alertPlacement() {
+        const container = this.alertContainer;
+
+        if (container instanceof Element && !this.container.contains(container)) {
+            return { root: container.ownerDocument, container };
+        }
+
+        if (typeof container === "string" && !this.container.querySelector(container)) {
+            const outside = this.container.ownerDocument.querySelector(container);
+            if (outside) return { root: outside.ownerDocument, container: outside };
+        }
+
+        return { root: this.container, container };
     }
 
     #clearErrorOnClick(event) {
@@ -323,8 +356,7 @@ export class PGS_formValidate {
             PGS_alert.error({
                 title: title,
                 description: description,
-                root: this.container,
-                container: this.alertContainer
+                ...this.#alertPlacement()
             });
         } else {
             PGS_toast.error({
@@ -349,8 +381,7 @@ export class PGS_formValidate {
                 PGS_alert.success({
                     title,
                     description,
-                    root: this.container,
-                    container: this.alertContainer
+                    ...this.#alertPlacement()
                 });
             } else {
                 PGS_toast.success({

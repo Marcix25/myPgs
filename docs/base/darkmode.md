@@ -54,7 +54,7 @@ A theme switch, with the event and the storage key it drives.
 /* Re-run it after adding a switch to the page. */
 pgs.darkmode.init(document);
 
-/* Dispatched on the document at every switch, and at the initial pass on load. */
+/* Dispatched on the html element (it bubbles to the document) at every switch, and at the initial pass on load; event.detail is { element, isDarkMode }. */
 document.addEventListener("pgs:svg:changeColor", event => console.log(event.detail.isDarkMode));
 
 /* The persisted choice, should you need to read it yourself. */

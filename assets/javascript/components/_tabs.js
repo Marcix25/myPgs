@@ -139,24 +139,15 @@ function initializeTabs(tabs) {
         }, { signal });
     });
 
-    // the URL wins over the state written in the markup: a reload lands on the tab the reader
-    // left, and the first pass only reads it — it never pushes an entry of its own
-    const restored = indexFromHistory();
-    show(restored === -1 ? current : restored, { history: false });
-
-    if (historyKey) {
-        window.addEventListener("popstate", () => {
-            const index = indexFromHistory();
-            select(index === -1 ? 0 : index, { history: false });
-        }, { signal });
-    }
-
     function destroy() {
+        // a stale instance (already replaced by a refresh) must not tear down the live one
+        if (API.get(tabs) !== api) return;
+
         controller.abort();
         API.delete(tabs);
     }
 
-    API.set(tabs, {
+    const api = {
         element: tabs,
         list,
         panels,
@@ -169,11 +160,27 @@ function initializeTabs(tabs) {
         getCurrent: () => current,
         destroy,
         refresh: () => {
+            const live = API.get(tabs);
+            if (live && live !== api) return live;
             destroy();
             initializeTabs(tabs);
             return API.get(tabs);
         },
-    });
+    };
+    // stored before the first show(), so a pgs:tabs:change listener can already reach the instance
+    API.set(tabs, api);
+
+    // the URL wins over the state written in the markup: a reload lands on the tab the reader
+    // left, and the first pass only reads it — it never pushes an entry of its own
+    const restored = indexFromHistory();
+    show(restored === -1 ? current : restored, { history: false });
+
+    if (historyKey) {
+        window.addEventListener("popstate", () => {
+            const index = indexFromHistory();
+            select(index === -1 ? 0 : index, { history: false });
+        }, { signal });
+    }
 }
 
 function PGS_tabs_init(root = document) {

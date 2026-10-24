@@ -13,7 +13,8 @@
         // --_summary-content-height is written by the module; before it runs, the lines alone decide
         max-height: var(--_summary-content-height, calc(var(--summary-lines) * 1lh));
         overflow: hidden;
-        transition: max-height 300ms ease;
+
+        @media (prefers-reduced-motion: no-preference) { transition: max-height 300ms ease; }
     }
 
     &[pgs-state~="overflow"]:not([pgs-state~="open"]) {

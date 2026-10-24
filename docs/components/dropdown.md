@@ -51,20 +51,18 @@ Popup component that connects a control to content positioned relative to its tr
 - `btnReverse`: reverses text and icon on the example buttons and belongs to the button component.
 - `icon-chevronDown`: the glyph that says this button opens something.
 
-### Other
-
-- `flex`: provides the flex layout; direction and spacing are flags in its bracket.
-- `row`: arranges the placement examples on the same flexible row.
-
 ## CSS Variables
 
 - `--dropdown-arrow-size`
 - `--dropdown-background`
 - `--dropdown-border`
+- `--dropdown-borderColor`
 - `--dropdown-borderRadius`
+- `--dropdown-borderWidth`
 - `--dropdown-color`
 - `--dropdown-display`
 - `--dropdown-inline-size`
+- `--dropdown-maxBlockSize`
 - `--dropdown-maxInlineSize`
 - `--dropdown-padding`
 

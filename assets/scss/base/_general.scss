@@ -53,7 +53,7 @@
 //# ACCESSIBILITY
 [pgs~="visuallyHidden"],
 [pgs~="visuallyHiddenFocusable"]:not(:focus):not(:focus-within),
-[pgs~="skipLink"]:not(:focus):not(:focus-visible) {
+[pgs~="skipLink"]:not(:focus-visible) {
     position: absolute !important;
     width: 1px !important;
     height: 1px !important;

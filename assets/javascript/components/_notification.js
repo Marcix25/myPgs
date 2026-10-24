@@ -140,6 +140,15 @@ const fn_notification = {
 
     _add(type, options) {
         const scope = `notification.${type}`;
+
+        // a notification fired from a script in the head, before the body is parsed, has no panel
+        // to go in yet: it is added once the document is ready
+        if (!document.body) {
+            if (document.readyState === "loading") pgs.helper.onDocumentReady(() => this._add(type, options));
+            else pgs.helper.warn(scope, "the document has no <body>, so the notification was not added");
+            return;
+        }
+
         const config = fn_alert._toOptions(options, scope);
         const notification = fn_alert.create(type, {
             ...config,

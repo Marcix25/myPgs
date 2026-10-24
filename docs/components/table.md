@@ -27,11 +27,12 @@ Complete HTML table wrapped in the dedicated PGS container.
 ```html
 <div pgs="table">
     <table>
+        <caption>Items and their status</caption>
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Status</th>
-                <th>Date</th>
+                <th scope="col">Name</th>
+                <th scope="col">Status</th>
+                <th scope="col">Date</th>
             </tr>
         </thead>
 

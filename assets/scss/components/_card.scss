@@ -46,8 +46,10 @@
         // wrapper for external media: the rules below land on its direct child
         display: block;
         min-width: 0;
+    }
 
-        &:where([pgs~="card-imgForChild"])>* {
+    :where([pgs~="card-imgForChild"]) {
+        >* {
             display: block;
             padding: var(--card-img-padding);
             width: 100%;
@@ -74,10 +76,8 @@
     &:where([pgs*="'cardMini'"]) { --card-padding: var(--padding-texts); }
 
     //## Horizontal
-    // row layout shared by cardHorizontal and cardHorizontalFixed
+    // the children of the row layout shared by cardHorizontal and cardHorizontalFixed
     @mixin _cardHorizontal() {
-        flex-flow: row wrap;
-
         :where([pgs~="card-content"]) {
             border-radius: var(--card-horizontal-borderRadius-item);
             flex-basis: 0;
@@ -90,24 +90,35 @@
             flex-basis: 0;
             flex-grow: var(--card-horizontal-img-grow);
             min-height: var(--card-horizontal-img-minHeight);
+        }
 
-            &:where([pgs~="card-imgForChild"])>* {
-                height: 100%;
-                border-radius: var(--card-horizontal-borderRadius-item);
-            }
+        :where([pgs~="card-imgForChild"])>* {
+            height: 100%;
+            border-radius: var(--card-horizontal-borderRadius-item);
         }
     }
 
     //+ card Horizontal
     &:where([pgs*="'cardHorizontal'"]) {
         container-type: inline-size;
+        // a rule on the card itself cannot sit inside its own @container (it would query an
+        // ancestor), so the card is always a row that wraps: below the breakpoint every child takes
+        // a whole line, which looks like the column, and above it the children share the line
+        flex-flow: row wrap;
+
+        :where([pgs~="card-content"]),
+        :where([pgs~="card-img"]),
+        :where([pgs~="card-imgForChild"]) { flex-basis: 100%; }
 
         //+( mobile
         @container (min-width: #{$mobile}) { @include _cardHorizontal(); }
     }
 
     //+ card Horizontal - fixed
-    &:where([pgs*="'cardHorizontalFixed'"]) { @include _cardHorizontal(); }
+    &:where([pgs*="'cardHorizontalFixed'"]) {
+        flex-flow: row wrap;
+        @include _cardHorizontal();
+    }
 }
 
 //# BOX

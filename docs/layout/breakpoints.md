@@ -50,10 +50,6 @@ Responsive visibility built on the shared breakpoint scale: watch 315px, mobile 
 - `wrap`: allows the examples to wrap onto several rows.
 - `gapTexts`: separates the examples inside a group.
 
-### Other
-
-- `gapSections`: separates the groups.
-
 ## Output
 
 One example per query type, resizing with the viewport and with a local container.

@@ -31,11 +31,6 @@ Collection of compact indicators for displaying categories, priorities, and visu
 - `icon-close`: the cross that dismisses.
 - `icon-triangleExclamation`: the warning mark.
 
-### Other
-
-- `flex`: provides the flex layout; direction and spacing are flags in its bracket.
-- `row`: arranges badges horizontally and allows them to wrap.
-
 ## Output
 
 HTML examples of the available badge variants.

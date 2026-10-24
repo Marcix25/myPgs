@@ -57,7 +57,9 @@ function setDarkmodeStatus(toggle = false, button = []) {
     // END SET
 
     changeIcon(button, isDarkMode);
-    document.dispatchEvent(new CustomEvent(PGS_svg.eventChangeColor, { detail: { isDarkMode } }));
+    // on the root element, like every pgs:* event: it bubbles up to the document, and detail.element is
+    // the element it was dispatched on
+    pgs.helper.dispatch(document.documentElement, PGS_svg.eventChangeColor, { isDarkMode });
 }
 
 

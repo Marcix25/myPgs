@@ -84,21 +84,27 @@ function initializeMenu(MENU) {
     });
 
     function destroy() {
+        // a stale instance (already replaced by a refresh) must not tear down the live one
+        if (API.get(MENU) !== api) return;
+
         controller.abort();
         floating.forEach(li => PGS_dropdown.api(li)?.destroy());
         API.delete(MENU);
     }
 
-    API.set(MENU, {
+    const api = {
         element: MENU,
         type: isHorizontal ? "horizontal" : "vertical",
         destroy,
         refresh: () => {
+            const live = API.get(MENU);
+            if (live && live !== api) return live;
             destroy();
             initializeMenu(MENU);
             return API.get(MENU);
         },
-    });
+    };
+    API.set(MENU, api);
     PGS_dropdown.init(MENU);
 }
 

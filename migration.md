@@ -12,7 +12,9 @@ meaning moved under them, so nothing errors and the page just looks wrong.
 | name | was | is now |
 | --- | --- | --- |
 | `pgs-option` (retired) | `pgs="component" pgs-option="key1 key2"` | Every boolean flag, CSS-facing or JavaScript-only: `pgs="component['key1' 'key2']"`. Only a genuine `key[payload]` value: `pgs-data="..."`. The old attribute is no longer read or styled. |
-| `pgs="section"` and `section['sctNoPadding']` | a flex column spaced by `--gap-elements`, so several children had a gap between them | only the width, the padding and the container: no `display`, no gap. Add `flex['column' 'gapElements']` next to it on every section with more than one child (`grep -rnE 'pgs="section( \|\[)' .` finds them) |
+| `pgs="section"` and `section['sctNoPadding']` | a flex column spaced by `--gap-elements`, so several children had a gap between them | only the width, the padding and the container: no `display`, no gap. Add `flex['column' 'gapElements']` next to it on every section with more than one child (`grep -rnE 'pgs="([^"]* )?section[ ["]' .` finds them) |
+| a bare `<section>` or `<aside>` under `body['bodyBase']` (no `pgs`) | an inline-size query container (`container-type: inline-size`) and `width: 100%` | only `width: 100%`: it is no longer a query container, so a `@container` rule or a container-measuring utility (`hide['hideContainerUpLaptop']`, `column-N` spans, `cardHorizontal`, ...) inside it now measures the nearest ancestor that is one. Write `pgs="section"` on it, or `pgs="container"` where it only has to measure |
+| `pgs="section"` on an element other than `<section>` (a `<div pgs="section">`) | the width and the padding only | the same, and it is a query container as well: `section` keeps `container-type: inline-size` and it now lands on any element that carries the token, not just on the `<section>` tag. `container['cntNone']` cancels it on one element |
 | `pgs="icon"` | the round surface holding an icon | the glyph itself, drawn from inline SVG |
 | `--icon-size` | the width driver of that surface | the size of a glyph, read as a font-size |
 | `pgs-option="menuVertical"` (and any submenu below a horizontal menu's first level) | floated as a dropdown, same as every other submenu | expands in place as an accordion |
@@ -22,7 +24,7 @@ meaning moved under them, so nothing errors and the page just looks wrong.
 | `pgs="form"` and the controls inside it | styled by itself every `label`, `input`, `select`, `textarea`, checkbox, radio, range, file, color, `fieldset` and `legend` it held, and styled a disabled control and a hidden one | lays its children out in a column spaced by `--form-gap` (`--gap-texts` by default) and styles none of the controls: each one takes its own token (`select`, `textarea`, `range`, `file`, `inputColor`, `checkbox`, `radio`, `legend`, `fieldset`, `label`), and a text-like input and its label are a `field`. The form also draws the asterisk on the label or legend of a required control. See check 42 |
 | `pgs="textarea"` on an element that is not a `<textarea>` (a block of running text) and the mixin `textarea()` | a column that kept its items at the start, with the list styles, a stretched `hr` and 25px above the `h1`, `h2` and `h3` | renamed `textBlock` (`pgs="textBlock"`, in `base/_general.scss`), with the same look; `textarea` is only the form field now. The old `textarea()` mixin is gone and so is the pgs `textarea` on anything but a `<textarea>`; the name now belongs to the mixin of the form field (see the next row) |
 | the mixins `file()`, `range()`, `select()`, `formTextarea()`, `inputColor()`, `legend()` and `formValidate()` | public mixins, each included by the rule of its token | `file()`, `range()`, `select()`, `formTextarea()` and `inputColor()` are gone: their rules are written straight in the token's own rule (`file`, `range`, `select`, `inputColor`), so a stylesheet that included one of them writes the token on the element instead (or copies the rules). `legend()` and `formValidate()` stay, and `textarea()` (the form field, which replaces `formTextarea()`) and `fieldset()` are new, so the rule of `textarea`, `legend`, `fieldset` and `formValidate` is one `@include` of the mixin of the same name. `input()`, `label()`, `checkbox()`, `radio()`, `required()` and `disabled()` stay. The legend's `--label-left` is `0` now (a comma in its declaration used to swallow the next line) |
-| a text-like `<input>` (text, email, tel, url, password, number, search, date...) or a `<textarea>`, and its `<label>` | a `pgs="label"` pill above a bordered `pgs="input"` | the same two tokens, `pgs="label"` and `pgs="input"`, inside a `pgs="field"` wrapper: the field is a modifier, it adds the box and makes the label float, in the middle of the input while it is empty and out of focus, small at the top of it with focus or text. The input needs a `placeholder` (a single space is enough) and the label, right before it, a `for` that names it. A `textarea` and a `file` take `input` next to their own token, a `select` keeps `select`, and a field around a control that is not a text input (a checkbox, a radio group, a range, a color input, a toggle) is `field['noInput']`. Outside a field `label` stays above the control, as a rounded box (`label['labelTab']` makes it a tab). See check 42 |
+| a text-like `<input>` (text, email, tel, url, password, number, search, date...) or a `<textarea>`, and its `<label>` | a `pgs="label"` pill above a bordered `pgs="input"` | the same two tokens, `pgs="label"` and `pgs="input"`, inside a `pgs="field"` wrapper: the field is a modifier, it adds the background and the radius around them and makes the label float, in the middle of the input while it is empty and out of focus, small at the top of it with focus or text. The input needs a `placeholder` (a single space is enough) and the label, right before it, a `for` that names it. A `textarea` and a `file` take `input` next to their own token, a `select` keeps `select`, and a field around a control that is not a text input (a checkbox, a radio group, a range, a color input, a toggle) is `field['noInput']`. Outside a field `label` stays above the control, as a rounded box (`label['labelTab']` makes it a tab). See check 42 |
 | a bare `<button type="submit">` inside `pgs="form"` | the form styled it as a strong button on its own | draws nothing: mark it `pgs="button"` yourself |
 | several `pgs="accordion"` next to each other | opening one closed every other accordion on the page | each one answers for itself: wrap them in `pgs="accordionContainer"` to get the old behavior |
 | `pgs-option="buttonText"` and `pgs-option="buttonTransparent"` | `buttonTransparent` stripped every state, `buttonText` only the resting one | the two traded places: `buttonText` strips every state, `buttonTransparent` only the resting one |
@@ -452,6 +454,7 @@ exist while `pageShellAsideScroll` is on, and the old names read as if every sid
 | `pgs-option="buttonClose"` | `pgs-option="buttonIcon buttonMini"` |
 | `--border` | `--border-width`, alongside the new `--border-style` |
 | `--border-complete-hover` | gone; nothing replaces it |
+| `--button-border` (the value of an `outline`, `var(--border-complete)` by default, `unset` to remove it) | `--button-borderColor`, `--button-borderWidth` and `--button-borderStyle`: the button has a real border now, not an outline. `--button-border: unset` becomes `--button-borderWidth: 0px` |
 | `--button-background-active` | `--button-background-twoState` |
 | `--button-color-active` | `--button-color-twoState` |
 | `--button-border-color-active` | `--button-borderColor-twoState` |
@@ -510,6 +513,21 @@ These six were always meant to be `pgs-option`, matching every other flex/grid m
 (`itemCenter`, `justifyBetween`, ...), but a `[pgs~=...]` fallback kept the bare form working. That
 fallback is gone: write them as `pgs-option`, combined with `pgs="flexColumn"`/`flexRow`/`flex`/`grid`
 or any other element that already carries a `pgs-option`.
+
+### Behavior fixes worth a look
+
+Nothing here renames an option; each entry is a visible or scriptable change. Read the ones that touch what you override.
+
+- **Colors.** `--color-link` is `#0065a3` in light mode (it was `#009EFF`, 2.8:1 on the page), unchanged in dark mode, and `--color-focus`, `--color-info` and `--focus-visible` follow it. `--color-primary-text` is now dark (`#00210e`): it is the text of a `background['bgPrimary']` surface, so on a dark background use `textColor['txtPrimary']` instead. The floating label of a field is darker, the placeholder is 60% (it was 20%), and a plain `<a>` without `pgs` is underlined in running text.
+- **Label tokens.** `--label-borderColor` is gone: a label and a legend both read `--label-border` (color and style) and `--label-borderWidth`. Set `--label-border` where you set `--label-borderColor`.
+- **Section sizes on a phone.** At 430px and below `--SIZE-sections` shrinks, and `--gap-sections`, `--padding-sections` and `--margin-sections` follow it; `--gap-sections` no longer has an override of its own.
+- **Smaller changes of look.** The checked border of `checkboxBackground` is `--twoState-borderColor`; `boxNavSmart` reads its own `--boxNavSmart-shadow` instead of redefining `--box-shadow`; the thumb of a toggle slides; `ol` in a list has the indent of `ul`; `--table-row-color` and `--table-row-color-hover` reach the cells (default `--color-text`); `cardHorizontal` is a row-wrap card by itself and every child takes a full line below the breakpoint; a hand-written `slides-dots` row gets the layout and the dot style; the input of `search`, the button of `accordion`, the legal buttons of the footer, `btnTwoState` and `chip` show a focus ring; `hover` styles apply only with `(hover: hover) and (pointer: fine)`; motion is switched off under `prefers-reduced-motion`.
+- **Renamed keyframes.** `loading` is `pageNavLoading` and `alert-timeline` is `alertTimeline`: only an override that names them needs a change.
+- **New tokens and options.** `heightMax['heightMaxNone']` (`heightMaxAuto` stays as an alias), `--heading-weight` and `--heading-weight-h1..h6`, `--heading-family` now chains into `--heading-family-h1..h6`, `--dropdown-borderWidth`, `--dropdown-borderColor` and `--dropdown-maxBlockSize` (the arrow follows the dropdown's own border).
+- **Header and navSmart.** `pgs.header.api(el)` and `pgs.navSmart.api(el)` return `{ element, destroy, refresh }`. `--_header-height`, `--_header-heightScroll`, `--_navSmart-height` and `--_navSmart-heightScroll` are `0px` when the page has no header or no pinned navSmart; the `6.8rem` and `8.9rem` values only stand in until the first pass.
+- **Events.** `pgs:svg:changeColor` is dispatched on `documentElement` and its `detail` is `{ element, isDarkMode }`; `pgs:alert:close` of a toast that another one replaced is dispatched at once; `pgs:tabs:change` is dispatched after `pgs.tabs.api(el)` exists; `next()` and `prev()` of stepTabs dispatch nothing at the ends; `destroy()` of an open modal dispatches `pgs:modal:close`.
+- **Accessibility.** The `<dialog>` of a modal has no `aria-expanded` (the opener keeps it); a `modal-button` gets "Open modal" only when it has no name of its own and no `role="button"` when it is a `<button>`; the dots of stepTabs have `aria-label="Step N"`; a dropdown no longer stops the propagation of the clicks inside it.
+- **JavaScript.** `formValidate` accepts an `alertContainer` outside the form, and a second `new pgs.helper.formValidate(form)` destroys the first one; the `link` of an alert button accepts only relative, `http(s):`, `mailto:` and `tel:` URLs; `option.add("column")` on a token that is already there changes nothing; `pgs.state` removes the attribute when its list is empty; the errors of `pgs()` and of `registerModules` read `pgs.pgs(): …` and `pgs.registerModules(): …`.
 
 ### Reference layout
 
@@ -616,6 +634,22 @@ the pattern.
 while its own text twin was already `txtLinkSoft`. `required-here` is the marker that says where the
 asterisk of a required label goes, and it belongs to the form, so it takes the component's name like
 every other child token.
+
+### `required` and `breadcrumb-item-separator` are gone — CSS draws both
+
+| was | now |
+| --- | --- |
+| `pgs="required"` on a label, a legend or any element | nothing: `form` draws the asterisk (`::after`) on the `label` or `legend` that comes before a control matching `:required`, and on the label of a required checkbox or radio. The text stays where it is; `form-requiredHere` still says where inside the label the asterisk goes |
+| `<span pgs="breadcrumb-item-separator">/</span>` between the items | nothing: each item draws the separator with `::after`; write the character in `--breadcrumb-separator-type` (`"/"` by default; `--breadcrumb-separator-color` and `--breadcrumb-separator-gap` too). Delete the `<span>` |
+
+A `required` token left on a label does nothing, and the asterisk it used to draw there now comes
+from the control itself, so a label that sits in a `pgs="form"` next to a `required` control needs no
+change. What disappears silently is the asterisk of an element that is **not** a label of a required
+control: a button that stands for a missing image, a note ("fields marked with * are required"), a
+group whose requirement is checked by a script. Draw those yourself in the theme, with the library's
+own look so the two stay alike: `.myMarker { @include required(); }` from `mixin/_mx-form.scss`, or
+the same `::after` (`content: " *"`, `color: var(--color-error)`) written by hand. A script that
+toggled the token (`pgs(el).add("required")`) toggles a class of the theme instead.
 
 ### Events — one prefix for all of them
 
@@ -791,7 +825,8 @@ makes it one way. The renames come first, then what behaves differently under a 
 | the look of `checkbox` and `radio` (the `checkbox` and `radio` tokens, and a label that holds a checkbox or a radio inside a form) | two mixins, `checkbox()` and `radio()`, each for its own input type, and a shared `labelCheckboxAndRadio()` for the label. The properties are `--checkbox-{background,borderColor,color}[-hover\|-checked]` and `--radio-{background,borderColor,color}[-hover\|-checked]` and `--radio-dot-size` (the dot of a checked radio is drawn by `::after` in `--radio-color`), all read from the global clickable, hover and twoState tokens; `--checkbox-box-background`, `--checkbox-box-background-hover` and `--checkbox-check-color` are gone. The hover is per label, so pointing at one control of a group does not touch the others |
 | `--toggle-color-thumb`, `--toggle-color-rail`, `--toggle-color-rail-checked`, `--toggle-border` (now `--toggle-borderStyleWidth`, the style and the width, with the color in each part's `borderColor`) | `--toggle-rail-{background,borderColor}[-hover\|-checked]` and `--toggle-thumb-background[-hover\|-checked]` (the thumb has no border color of its own: its border is the color of its background), as `checkbox` and `radio` have theirs: the part of the toggle first, then the property, then the state, all read from the global clickable, hover and twoState tokens (the thumb takes `--clickable-color`, `--hover-color` and `--twoState-color`, where it was white with a black border). The hover is per label |
 | `--logo-finter` | `--logo-filter` |
-| `--header-letter-spacing`, `--header-letter-spacing-h1` … `-h6` | `--heading-letter-spacing`, `--heading-letter-spacing-h1` … `-h6`. They sat in the header's namespace and the `heading()` mixin never read them |
+| `--header-letter-spacing`, `--header-letter-spacing-h1` … `-h6` | `--heading-letterSpacing`, `--heading-letterSpacing-h1` … `-h6` (the name went through the camelCase rule above: `--heading-letter-spacing` was only the first stop). They sat in the header's namespace and the `heading()` mixin never read them |
+| `--heading-size` (the `heading()` mixin wrote it on every heading, so an override only worked on the selector of the heading itself) | `--heading-size-h1` … `-h6`, one per level, declared once on `:root` in `base/_typography.scss` and read by `h1()`…`h6()`: write the level you mean (`h3 { --heading-size-h3: 2.2rem }`), or set the levels that exist inside a container. The bare `--heading-size` is not read any more |
 | mixins `rage()`, `inputcolor()`; `label($borderadius)` and `--label-borderadius` | `range()`, `inputColor()`; `label($borderRadius)` and `--label-borderRadius` |
 | `pgs.tabs.api(el).select(index)` | `goTo(index)` |
 | `pgs.slides.api(el).previous()` | `prev()` |
@@ -951,22 +986,22 @@ Same name, different behavior:
 grep -rnE 'pgs="[^"]*\bcolor[A-Z]' .
 
 # 2. generated markup now prefixed
-grep -rnE '\b(notifications-element|_?notifications(-empty|-close|Dialog)?|toast-element|search-suggestions-item|stepTabs-dots-dot|menu-buttonIcon)\b' .
+grep -rnP '(?<![-\w])(notifications-(element|empty|close)[-\w]*|_notifications\w*|notificationsDialog|toast-element[-\w]*|search-suggestions-item|stepTabs-dots-dot|menu-buttonIcon)(?![-\w])' .
 
 # 3. options and states that were renamed
 grep -rnE '\b(menuHeader|buttonClose|mobileBottom|mobileActive|slideScale|notScrollAnimation|pageShell-aside-scroll|header-element-onlyDesktop|header-element-onlyMobile)\b' .
 
 # 4. custom properties that were renamed or removed
-grep -rnE '\-\-(fa-|menu-|icon-background|icon-padding|border-complete-hover|slide-shadow|pageShell-aside-sticky-top|header-mobile-bottom-active|color-.*-background|color-linkBackground)' .
+grep -rnE -- '--(menu-(background|border|color)|icon-background|icon-padding|border-complete-hover|slides-shadow-(color|width)|pageShell-aside-sticky-top|header-mobile-bottom-active|color-(success|warning|error)-background|color-linkBackground|section-width|(heading-size|button-border|border)([^A-Za-z-]|$)|checkbox-(box-background|check-color))' .
 
-# 5. the silent one: icon as a surface
-grep -rn 'pgs="[^"]*\bicon\b' . | grep -v 'pgs-option'
+# 5. the silent one: icon as a surface (a bare icon token, with no bracket)
+grep -rnE 'pgs="([^"]* )?icon[ "]' .
 
 # 6. options renamed to carry their component's name
 grep -rnE 'pgs-option="(singleScroll|shadowDesktop|notScrollWithMouse|slideAnimationScale|tabIcon|shellAsideScroll|shellFullPage|horizontal|vertical|position|containerID|containerPGS|disableBackdropClose|history|left|right|topLevel|compactBottom)([" \[])' .
 
 # 7. Step tabs' bare token, and the old hamburger duo option
-grep -rnE 'pgs="[^"]*\btab\b|pgs-option="[^"]*\biconDuo-hamburger\b' .
+grep -rnE 'pgs="([^"]* )?tab[ "]|pgs-option="[^"]*\biconDuo-hamburger\b' .
 
 # 8. menus that may rely on the old unconditional-dropdown submenu behavior
 grep -rnE 'pgs="menu"|pgs-option="[^"]*\bmenuVertical\b' . -A2 -B2
@@ -975,7 +1010,7 @@ grep -rnE 'pgs="menu"|pgs-option="[^"]*\bmenuVertical\b' . -A2 -B2
 grep -rnE 'pgs="header"\s*>' .
 
 # 10. gap/wrap written as a bare pgs value instead of pgs-option
-grep -rnE 'pgs="[^"]*\b(gapTexts|gapElements|gapSections|gapNone|nowrap|wrap)\b' .
+grep -rnE 'pgs="([^"]* )?(gapTexts|gapElements|gapSections|gapNone|nowrap|wrap)[ "]' .
 
 # 11. calls to the removed scrollHorizontal helpers, and the removed Slides option
 grep -rnE 'pgs\.scrollHorizontal(WithMouse)?\(|slides\[[^]]*.slidesScrollMouse.' .
@@ -987,7 +1022,7 @@ grep -rn 'buttonNohover\|hoverNot' .
 grep -rn -- '--button-\(background\|color\|border-color\)-active' .
 
 # 14. the two-state control, now a button
-grep -rn 'twoState' .
+grep -rnP 'pgs="([^"]* )?twoState[ "\[]|@include twoState|pgs~=twoState' .
 
 # 15. submit buttons that relied on the form styling them (read, don't replace)
 grep -rn 'type="submit"' . | grep -v 'pgs='
@@ -1019,7 +1054,7 @@ grep -rn 'bglink-soft' .
 grep -rn 'required-here' .
 
 # 24. listeners on the four renamed events
-grep -rnE '\b(modal:open|modal:close|tabs:change|stepTabs:change)\b' .
+grep -rnP '(?<!pgs:)\b(modal:open|modal:close|tabs:change|stepTabs:change)\b' .
 
 # 25. stylesheets hooked into the slides classes, now states
 grep -rnE '\.(view|notView|slide-dot)\b' .
@@ -1043,13 +1078,13 @@ grep -rnE 'tooltip(-button|-content)?\b|--tooltip-arrow-size' .
 grep -rnE -- '--(dropdown-left|dropdown-top|dropdown-arrowLeft|dropdown-arrowTop|slides-visiblePercent|slides-height|notification-timeout|toast-timeout|summary-content-max-height)\b' .
 
 # 32. utility families folded into one bracket each (read, then rename by the table)
-grep -rnE '\b(margin|padding)(Top|Bottom|Left|Right|Block|Inline|Auto|Texts|Elements|Sections)\b' .
-grep -rnE '\b(border(Top|Bottom|Left|Right|Block|Inline|Thin|Thick|Thicker|RadiusInput|RadiusExternal)|outline(Thin|Thick|Thicker))\b' .
+grep -rnP 'pgs="[^"]*(?<![\w'"'"'-])((margin(Top|Bottom|Left|Right|Block|Inline)?(Auto|Texts|Elements|Groups|Sections|Page|Negative|Unset))|(padding(Top|Bottom|Left|Right|Block|Inline)?(Texts|Elements|Groups|Sections|Page|Unset)))(?=[ "])' .
+grep -rnP 'pgs="[^"]*(?<![\w'"'"'-])((border(Top|Bottom|Left|Right|Block|Inline)?(Thin|Thick|Thicker)|borderRadius(Input|External))|outline(Thin|Thick|Thicker))(?=[ "])' .
 grep -rnE 'pgs="([^"]* )?(br|ol|bg|txt|color)[A-Z]' .
 grep -rnE '\b(section(Full|Max|NoPadding|Specificity|Edge[A-Za-z]*)|sectionSpecificity-child)\b' .
-grep -rnE '\bbody(Base|Img|Text|Heading|HoverAuto)\b' . | grep -v "body\['"
-grep -rnE '\b(position(Relative|Absolute|Sticky)|overflow(Auto|XAuto|Hidden)|aspect(Square|Video)|select(None|Text)|pointerEvents(None|Auto)|img(Cover|Contain))\b' .
-grep -rnE '\bflex-flex[A-Za-z0-9]+|lottieChangeColor' .
+grep -rnE 'pgs="([^"]* )?body(Base|Img|Text|Heading|HoverAuto)[ "]' .
+grep -rnE 'pgs="([^"]* )?(position(Relative|Absolute|Sticky)|overflow(Auto|XAuto|Hidden)|aspect(Square|Video)|select(None|Text)|pointerEvents(None|Auto)|img(Cover|Contain))[ "]' .
+grep -rnP '(?<![-\w])flex-flex[A-Za-z0-9]+|lottieChangeColor' .
 # 33. flags that took their component prefix (read, then rename by the prefix table)
 grep -rnE "accordion(Container)?\[[^]]*'(autoOpen|multiOpen)'|badge\[[^]]*'(dot|error|info|neutral|success|warning)'|card\[[^]]*'horizontalFixed'|dropdown\[[^]]*'hover'" .
 grep -rnE "icon\[[^]]*'(boxed|duo|large|medium)'|logo\[[^]]*'darkmode|menu\[[^]]*'(iconOnlyCurrent|short|vertical)'|slides\[[^]]*'(animationScale|shadowDesktop|singleScroll)'" .
@@ -1072,7 +1107,7 @@ grep -rnE '\bsctSpecificity-child\b|sectionSpecifity-child|select\[[^]]*.(selNon
 
 # 38. data attributes that became pgs-state, and the custom properties and mixins that were misspelled
 grep -rnE 'data-(dropdown-side|header-scroll|navsmart-scroll|alert-id)' .
-grep -rnE -- '--(logo-finter|header-letter-spacing|label-borderadius|heightOf(Header|NavSmart)(Scroll)?|button-font-size|badge-(icon|text)-size|search-paddingBlock|search-suggestions-item-(hover|selected)-(background|color)|table-row-hover-(background|color))\b|@include (rage|inputcolor)\b' .
+grep -rnE -- '--(logo-finter|header-letter-spacing|label-borderadius|heightOf(Header|NavSmart)(Scroll)?|button-font-size|badge-(icon|text)-size|search-suggestions-item-(hover|selected)-(background|color)|table-row-hover-(background|color))\b|@include (rage|inputcolor)\b' .
 
 # 39. calls that changed name or meaning (read, don't replace)
 grep -rnE '\.(select|previous)\(|\bgetCurrent\(\)|\.refresh\(\)' .
@@ -1088,11 +1123,20 @@ grep -rnE 'pgs=.[^"'"'"']*\bform\b' .
 
 # 43. the border radius custom properties and options, renamed (rename by the table row)
 grep -rnE -- '--border-radius(-input|-external)?\b[^-]|borderRadius\[[^]]*.rad(Input|External)\b' .
+
+# 44. every section, to add the flex column it no longer brings (read, don't replace)
+grep -rnE 'pgs="([^"]* )?section[ ["]' .
+
+# 45. a bare section or aside, no longer a query container (read, don't replace)
+grep -rnE '<(section|aside)\b' . | grep -v 'pgs='
+
+# 46. the tokens CSS draws now: the asterisk and the breadcrumb separator (delete each hit)
+grep -rnE 'pgs="([^"]* )?(required|breadcrumb-item-separator)[ "]' .
 ```
 
-Hit 5 needs reading rather than replacing: an `icon` that wraps another element wanted the surface
+Hit 5 needs reading rather than replacing: it lists every `icon` written bare, with no bracket. One that wraps another element wanted the surface
 and needs `icon['iconBoxed']`; one that was empty next to a label wanted the glyph and needs an
-`icon-*` option. Hits 8 and 9 need reading too, not replacing: they flag menus and headers whose
+`icon-*` flag (`icon['icon-star']`); an empty one whose glyph a stylesheet sets through `--icon` is fine as it is. Hits 8 and 9 need reading too, not replacing: they flag menus and headers whose
 *behavior* changed under an unchanged name (see section 1), so add `headerScroll` or accept the new
 accordion submenus, whichever the page actually wants. Hit 15 is the same kind: a submit button that
 sits inside a `pgs="form"` and carries no `pgs` used to be styled by the form and now is not, so it
@@ -1137,3 +1181,17 @@ and `.previous()` on a slides instance is `.prev()`, but the pattern also matche
 search instance (unchanged) and every `.refresh()` — check that a caller of `refresh()` expects the
 new instance back and not a re-run of the parent, and that a `getCurrent()` on a pageNav wanted an
 index and not the panel (`getCurrentPanel()`).
+
+Hits 44 and 45 are reading, not replacing. For 44, a section with more than one child needs
+`flex['column' 'gapElements']` next to it (see section 1), and one whose only child is a single block
+needs nothing; the pattern also finds `section[...]` with its flags. Hit 45 lists the `<section>` and
+`<aside>` that carry no `pgs` at all: they used to be query containers under `bodyBase` and no
+longer are, so give one `pgs="section"` (or `pgs="container"`) only when something inside it measures it
+(a `@container` rule, `hide['hideContainerUpLaptop']`, a `column-N` span). Hit 46 is a deletion, with the
+caveat of "`required` and `breadcrumb-item-separator` are gone": the asterisk of anything that is not the
+label of a required control is the theme's to draw now. Hit 4 also finds the properties that vanished
+without a rename (`--section-width`, `--checkbox-box-background`, `--checkbox-check-color`) and the
+two whose name only moved to a family: `--heading-size` is `--heading-size-h1` … `-h6`,
+`--button-border` is `--button-borderColor`/`-borderWidth`/`-borderStyle`, and a bare `--border` is
+`--border-width` plus `--border-style` (`border: var(--border) var(--color-box)` becomes
+`border: var(--border-width) var(--border-style) var(--color-box)`, since the old value held the style too).

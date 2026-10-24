@@ -74,7 +74,6 @@ html:has(dialog[open]) {
     padding-inline: var(--page-padding);
     padding-bottom: calc(var(--_navSmart-heightScroll) + var(--modal-offset));
     padding-top: calc(var(--_header-heightScroll) + var(--modal-offset));
-    transition: opacity 600ms ease;
     margin: 0;
     opacity: 1;
     transition-behavior: allow-discrete;
@@ -87,6 +86,8 @@ html:has(dialog[open]) {
     cursor: pointer;
     background: var(--modal-backdrop);
 
+    @media (prefers-reduced-motion: no-preference) { transition: opacity 600ms ease; }
+
     &:focus { outline: none; }
 
     &:where([open]) {
@@ -98,16 +99,12 @@ html:has(dialog[open]) {
     //### CONTENT
     :where([pgs~="modal-dialog-content"]) {
         @include sectionNoPadding();
-        @include column();
+        @include column(0);
         margin-inline: unset;
-        padding: 0;
         cursor: auto;
-        container-type: inline-size;
         background: var(--modal-background);
         color: var(--modal-color);
         border-radius: var(--modal-borderRadius);
-        position: relative;
-        gap: 0;
         padding: var(--modal-content-padding);
 
         //#### HEADER

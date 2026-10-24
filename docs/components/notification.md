@@ -62,7 +62,6 @@ Notification markup, configuration, behavior, and usage example. A persistent, m
 - `alertError`: the error severity option owned by Alerts, carried by a card of type error.
 - `alertWarning`: the warning severity option owned by Alerts, carried by a card of type warning.
 - `alertInfo`: the info severity option owned by Alerts, carried by a card of type info.
-- `gapSections`: separates the examples.
 - `btnTransparent`: the appearance the component gives the buttons passed in the payload; see Button.
 - `modal`: the one modal pgs.notification builds around the panel; it provides the open/close/toggle behavior shared with every other dialog on the page.
 - `modal-dialog-content`: identifies the JS-generated styled content area inside the dialog, wrapping notifications.

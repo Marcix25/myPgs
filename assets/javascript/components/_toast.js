@@ -52,6 +52,15 @@ const fn_toast = {
 
     _add(type, options) {
         const scope = `toast.${type}`;
+
+        // a toast fired from a script in the head, before the body is parsed, has nowhere to go yet:
+        // it is shown once the document is ready
+        if (!document.body) {
+            if (document.readyState === "loading") pgs.helper.onDocumentReady(() => this._add(type, options));
+            else pgs.helper.warn(scope, "the document has no <body>, so the toast was not shown");
+            return;
+        }
+
         const { timeout = this._defaults.timeout, position, ...config } = fn_alert._toOptions(options, scope);
 
         const toast = fn_alert.create(type, {
@@ -66,7 +75,7 @@ const fn_toast = {
         // only one toast is shown at a time: a new one simply replaces whatever was there
         const container = this._getOrCreateContainer();
         this._applyOptions(container, position, scope);
-        container.replaceChildren(toast);
+        fn_alert.replace(container, toast);
     },
 
     _dispatch(element) {

@@ -11,11 +11,11 @@
 
         <!-- Desktop -->
         <div pgs="flex['column' 'gapTexts'] hide['hideContainerDownBigTablet']">
-            <form class="reference-demo-nav-search" pgs="search marginBottom['mgBlElements']" pgs-data="searchPlaceholder[Type a page name] searchNoResults[No page found] searchIconSuggestion[<i pgs=&quot;icon['icon-arrowRight']&quot;></i>]" autocomplete="off" action="" method="get">
+            <form class="reference-demo-nav-search" role="search" pgs="search marginBottom['mgBtElements']" pgs-data="searchPlaceholder[Type a page name] searchNoResults[No page found] searchIconSuggestion[<i pgs=&quot;icon['icon-arrowRight']&quot;></i>]" autocomplete="off" action="" method="get">
                 <button pgs="button['btnIconOnly' 'btnTransparent']" type="submit" title="Search pages">
                     <i pgs="icon['icon-magnifyingGlass']"></i>
                 </button>
-                <input type="search" name="s" placeholder="Search pages" value="">
+                <input type="search" name="s" placeholder="Search pages" aria-label="Search pages" value="">
                 <ul pgs="search-suggestions"></ul>
             </form>
         </div>
@@ -32,11 +32,11 @@
                         <button pgs="button['btnIconOnly' 'btnMini'] modal-close" type="button" tabindex="0" aria-label="Close"><i pgs="icon['icon-chevronDown'] rotate['rot90']"></i></button>
                     </div>
                     <div pgs="modal-dialog-content-scroll">
-                        <form class="reference-demo-nav-search" pgs="search marginBlock['mgBlElements'] marginTop['mgTpTexts'] position['posSticky'] zIndex['ziOne']" pgs-data="searchPlaceholder[Type a page name] searchNoResults[No page found] searchIconSuggestion[<i pgs=&quot;icon['icon-arrowRight']&quot;></i>]" autocomplete="off" action="" method="get">
+                        <form class="reference-demo-nav-search" role="search" pgs="search marginBlock['mgBlElements'] marginTop['mgTpTexts'] position['posSticky'] zIndex['ziOne']" pgs-data="searchPlaceholder[Type a page name] searchNoResults[No page found] searchIconSuggestion[<i pgs=&quot;icon['icon-arrowRight']&quot;></i>]" autocomplete="off" action="" method="get">
                             <button pgs="button['btnIconOnly' 'btnTransparent']" type="submit" title="Search pages">
                                 <i pgs="icon['icon-magnifyingGlass']"></i>
                             </button>
-                            <input type="search" name="s" placeholder="Search pages" value="">
+                            <input type="search" name="s" placeholder="Search pages" aria-label="Search pages" value="">
                             <ul pgs="search-suggestions"></ul>
                         </form>
                         <div pgs="flex['column' 'gapElements']" class="reference-demo-nav"></div>

@@ -70,10 +70,6 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 - `txtPrimary`: inside textColor's own bracket, recolors one example.
 - `txtError`: inside textColor's own bracket, recolors another the same way.
 
-### Other
-
-- `gapSections`: separates the groups.
-
 ## CSS Variables
 
 - `--icon-color`

@@ -141,6 +141,9 @@ function initializeSummary(summary, initialMessages) {
     firstFrameId = requestAnimationFrame(measure);
 
     function destroy() {
+        // a stale instance (already replaced by a refresh) must not tear down the live one
+        if (API.get(summary) !== api) return;
+
         controller.abort();
         resizeObserver.disconnect();
         cancelAnimationFrame(rafId);
@@ -148,7 +151,7 @@ function initializeSummary(summary, initialMessages) {
         API.delete(summary);
     }
 
-    API.set(summary, {
+    const api = {
         element: summary,
         content,
         button,
@@ -157,12 +160,15 @@ function initializeSummary(summary, initialMessages) {
         toggle,
         destroy,
         refresh: () => {
+            const live = API.get(summary);
+            if (live && live !== api) return live;
             destroy();
             initializeSummary(summary, getInitialMessages());
             return API.get(summary);
         },
         isOpen,
-    });
+    };
+    API.set(summary, api);
 }
 
 function PGS_summary_init(root = document, options = {}) {

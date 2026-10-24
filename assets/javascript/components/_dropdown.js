@@ -86,18 +86,44 @@ function updatePosition(dropdown) {
         pgs(content).state.add(sideState);
     }
 
-    content.style.setProperty("--_dropdown-left", `${Math.round(left)}px`);
-    content.style.setProperty("--_dropdown-top", `${Math.round(top)}px`);
+    // the viewport position the panel has to end up at
+    const viewportLeft = Math.round(left);
+    const viewportTop = Math.round(top);
+    content.style.setProperty("--_dropdown-left", `${viewportLeft}px`);
+    content.style.setProperty("--_dropdown-top", `${viewportTop}px`);
+
+    // the panel is position: fixed, but an ancestor that is a containing block for fixed
+    // descendants (container-type in WebKit, transform, filter, contain: paint) makes those
+    // coordinates relative to that ancestor instead of the viewport. One measured pass corrects
+    // it for any containing block: wherever the panel landed, move it by the difference
+    const placed = content.getBoundingClientRect();
+    const deltaLeft = placed.left - viewportLeft;
+    const deltaTop = placed.top - viewportTop;
+
+    if (Math.abs(deltaLeft) > 0.5 || Math.abs(deltaTop) > 0.5) {
+        content.style.setProperty("--_dropdown-left", `${Math.round(viewportLeft - deltaLeft)}px`);
+        content.style.setProperty("--_dropdown-top", `${Math.round(viewportTop - deltaTop)}px`);
+    }
 
     // where the trigger's center falls inside the panel, after the viewport clamp above may
     // have shifted it: an arrow placed at 50% would stop pointing at the trigger
-    content.style.setProperty("--_dropdown-arrowLeft", `${Math.round(triggerRect.left + triggerRect.width / 2 - left)}px`);
-    content.style.setProperty("--_dropdown-arrowTop", `${Math.round(triggerRect.top + triggerRect.height / 2 - top)}px`);
+    content.style.setProperty("--_dropdown-arrowLeft", `${Math.round(triggerRect.left + triggerRect.width / 2 - viewportLeft)}px`);
+    content.style.setProperty("--_dropdown-arrowTop", `${Math.round(triggerRect.top + triggerRect.height / 2 - viewportTop)}px`);
 }
 
-function updateOpenDropdowns() {
-    OPEN_DROPDOWNS.forEach(updatePosition);
+// a dropdown removed from the page while open never gets a close: drop it here instead of
+// repositioning it on every scroll
+function pruneOpenDropdowns() {
+    OPEN_DROPDOWNS.forEach(dropdown => {
+        if (!dropdown.isConnected) OPEN_DROPDOWNS.delete(dropdown);
+    });
 }
+
+// one frame at most, however many scroll/resize events arrive
+const updateOpenDropdowns = pgs.helper.rafThrottle(() => {
+    pruneOpenDropdowns();
+    OPEN_DROPDOWNS.forEach(updatePosition);
+});
 
 function closeDropdown(dropdown) {
     const data = API.get(dropdown);
@@ -143,6 +169,7 @@ function isInsideAnyDropdown(target) {
 // so a later init() or refresh() cannot stack another copy of them
 if (typeof document !== "undefined") {
     document.addEventListener("click", (event) => {
+        pruneOpenDropdowns();
         if (isInsideAnyDropdown(event.target)) return;
         OPEN_DROPDOWNS.forEach(closeDropdown);
     });
@@ -183,6 +210,9 @@ function initializeDropdown(DROPDOWN) {
     CONTENT.setAttribute("aria-labelledby", TRIGGER.id);
 
     function destroy() {
+        // a stale instance (already replaced by a refresh) must not tear down the live one
+        if (API.get(DROPDOWN) !== data) return;
+
         controller.abort();
         window.clearTimeout(hoverCloseTimeout);
         OPEN_DROPDOWNS.delete(DROPDOWN);
@@ -200,6 +230,8 @@ function initializeDropdown(DROPDOWN) {
         reposition: () => updatePosition(DROPDOWN),
         destroy,
         refresh: () => {
+            if (API.get(DROPDOWN) !== data) return API.get(DROPDOWN);
+
             destroy();
             initializeDropdown(DROPDOWN);
             return API.get(DROPDOWN);
@@ -211,7 +243,6 @@ function initializeDropdown(DROPDOWN) {
     TRIGGER.addEventListener("click", (event) => {
         if (isDropdownContent(event.target)) return;
         event.preventDefault();
-        event.stopPropagation();
         toggleDropdown(DROPDOWN);
     }, { signal });
 
@@ -232,7 +263,6 @@ function initializeDropdown(DROPDOWN) {
         }, { signal });
     }
 
-    CONTENT.addEventListener("click", event => event.stopPropagation(), { signal });
     API.set(DROPDOWN, data);
 
     if (data.isOpen()) OPEN_DROPDOWNS.add(DROPDOWN);

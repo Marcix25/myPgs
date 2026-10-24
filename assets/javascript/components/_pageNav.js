@@ -140,7 +140,7 @@ function PGS_pageNav_build(pageNav) {
             const live = API.get(pageNav);
             if (live && live !== api) return live;
             destroy();
-            return PGS_pageNav_build(pageNav);
+            return PGS_pageNav_build(pageNav) ?? undefined;
         },
     };
     API.set(pageNav, api);

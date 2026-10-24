@@ -28,6 +28,7 @@
     @media (hover: hover) and (pointer: fine) {
         &:hover {
             --box-background: var(--hover-background);
+            outline-color: var(--hover-borderColor);
             color: var(--hover-color);
         }
     }
@@ -39,9 +40,10 @@
     --box-borderRadius: 999px;
     --box-background: var(--color-box-transparent);
     --box-border: 1px solid color-mix(in srgb, var(--color-black) 8%, transparent);
-    --box-shadow: 0 .8rem 3rem color-mix(in srgb, var(--color-blackFixed) 14%, transparent);
+    // its own property, not the global --box-shadow, which would be inherited by every descendant
+    --boxNavSmart-shadow: 0 .8rem 3rem color-mix(in srgb, var(--color-blackFixed) 14%, transparent);
     border: var(--box-border);
-    box-shadow: var(--box-shadow);
+    box-shadow: var(--boxNavSmart-shadow);
     -webkit-backdrop-filter: var(--blur) saturate(1.8);
     backdrop-filter: var(--blur) saturate(1.8);
 }

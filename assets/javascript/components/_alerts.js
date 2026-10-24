@@ -90,6 +90,23 @@ const fn_alert = {
         return `${titleHtml}${descriptionHtml}`;
     },
 
+    // a button's link goes straight into href, so only a relative address, http(s):, mailto: and
+    // tel: are accepted; any other scheme (javascript:, data:, ...) is reported and the button is
+    // built as a plain button with no link. The characters a browser ignores inside a URL are
+    // dropped before the scheme is read, so "java\tscript:" cannot slip through as a relative one
+    _safeLink(link, scope) {
+        if (link === null || link === undefined || link === "") return null;
+
+        const text = String(link);
+        const scheme = text.replace(/[\u0000-\u0020]/g, "").match(/^([a-z][a-z0-9+.-]*):/i)?.[1];
+        if (scheme && !["http", "https", "mailto", "tel"].includes(scheme.toLowerCase())) {
+            pgs.helper.warn(scope, `a button link can be relative, http(s):, mailto: or tel:, not ${scheme}:, so the link was ignored`, text);
+            return null;
+        }
+
+        return text;
+    },
+
     _getType(type) {
         const name = String(type || "info").trim();
         return name in this._defaults.type ? name : "info";
@@ -190,6 +207,10 @@ const fn_alert = {
         // announce once idle
         alert.setAttribute("role", type === "error" || type === "warning" ? "alert" : "status");
 
+        // config.icon is trusted markup, written into the card as given and not sanitized: it comes
+        // from the code that builds the alert (or from a notificationLoad / toastLoad the page's
+        // own author wrote), never from text a visitor typed. title and description, which can be,
+        // go through formatText and are escaped
         const iconHtml = config.icon ? `<div pgs="_alert-icon" aria-hidden="true">${config.icon}</div>` : "";
         const dismissHtml = config.dismissible ? `<button type="button" pgs="button['btnIconOnly'] _alert-dismiss"><i pgs="icon['icon-close']"></i></button>` : "";
 
@@ -209,20 +230,38 @@ const fn_alert = {
         const controller = new AbortController();
         const { signal } = controller;
         let timeoutTimer = 0;
+        let finishTimer = 0;
         let closed = false;
 
+        // the card leaves: the event goes out while it is still in the document, so it reaches
+        // every listener above it, and only then is it removed
+        const finish = () => {
+            clearTimeout(finishTimer);
+            finishTimer = 0;
+            pgs.helper.dispatch(alert, "pgs:alert:close", { id, type, title: config.title, description: config.description });
+            alert.remove();
+            controller.abort();
+        };
+
         // closing twice (a dismiss while the timeout is still counting, or the timeout after a
-        // button) changes nothing: the event is dispatched once
-        const close = () => {
-            if (closed) return;
+        // button) changes nothing: the event is dispatched once. { immediate: true } skips the
+        // fade and finishes now, for a host that is about to take the card out of the page itself
+        // (a toast replacing another one), even when the fade is already running
+        const close = ({ immediate = false } = {}) => {
+            if (closed) {
+                if (immediate && finishTimer) finish();
+                return;
+            }
             closed = true;
             clearTimeout(timeoutTimer);
+
+            if (immediate) {
+                finish();
+                return;
+            }
+
             alert.style.opacity = "0";
-            setTimeout(() => {
-                pgs.helper.dispatch(alert, "pgs:alert:close", { id, type, title: config.title, description: config.description });
-                alert.remove();
-                controller.abort();
-            }, 300);
+            finishTimer = setTimeout(finish, 300);
         };
 
         alert.pgsAlertClose = close;
@@ -239,9 +278,10 @@ const fn_alert = {
         }
 
         (config.buttons || []).forEach((button, index) => {
-            const { id: buttonId = `${id}-button-${index + 1}`, title, link, close: closeAfterClick, optionButton } =
+            const { id: buttonId = `${id}-button-${index + 1}`, title, link: rawLink, close: closeAfterClick, optionButton } =
                 { ...this._defaults.button, ...button };
 
+            const link = this._safeLink(rawLink, `alert.${type}`);
             const buttonElement = document.createElement(link ? "a" : "button");
             buttonElement.textContent = title;
             if (link) buttonElement.href = link;
@@ -270,10 +310,18 @@ const fn_alert = {
         // what switches it on, wherever a timeout is actually used — not just inside Toast
         if (config.timeout > 0) {
             alert.style.setProperty("--_alert-timeout", config.timeout + "ms");
-            timeoutTimer = setTimeout(close, config.timeout);
+            timeoutTimer = setTimeout(() => close(), config.timeout);
         }
 
         return alert;
+    },
+
+    // puts the card in a host container in place of what it holds. A card that was there is closed
+    // first and at once, while it is still attached: its close event reaches the listeners above it,
+    // and its timer stops, instead of firing later on a node that is already out of the document
+    replace(container, card) {
+        Array.from(container.children).forEach(old => old.pgsAlertClose?.({ immediate: true }));
+        container.replaceChildren(card);
     },
 
     show(type, options = {}) {
@@ -283,7 +331,7 @@ const fn_alert = {
         const target = root !== undefined || container !== undefined ? this._getContainer(root, container, scope) : null;
         const alert = this.create(type, contentOptions);
 
-        target?.replaceChildren(alert);
+        if (target) this.replace(target, alert);
         return alert;
     }
 };

@@ -71,7 +71,7 @@ Complete HTML markup and usage example for Step Tabs.
 
 ```html
 <div pgs="stepTabs flex['column' 'gapElements']">
-    <div pgs="stepTabs-dots" aria-label="Progress"></div>
+    <div pgs="stepTabs-dots" role="group" aria-label="Progress"></div>
 
     <div pgs="stepTabs-container">
         <section pgs="stepTabs-container-tab flex['column']" pgs-data="stepTabsIcon[<i pgs=&quot;icon['icon-circle']&quot;></i>]" tabindex="-1">

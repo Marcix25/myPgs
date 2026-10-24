@@ -53,7 +53,7 @@
     line-height: 1;
     text-decoration: none;
     user-select: none;
-    border: 0 var(--button-borderStyle) var(--button-borderColor);
+    border-style: var(--button-borderStyle);
     border-width: var(--button-borderWidth);
     border-radius: var(--button-borderRadius);
     transition: var(--clickable-transition);
@@ -116,6 +116,13 @@
 
     //## BUTTON CHECKED
     &:has(input:checked) { @include _buttonColor("-twoState"); }
+
+    //## FOCUS
+    // the input is invisible: the ring is drawn on the button that holds it
+    &:has(input:focus-visible) {
+        outline: var(--focus-visible);
+        outline-offset: 3px;
+    }
 }
 
 //# TYPE
@@ -138,8 +145,8 @@
     :where(i, [pgs~="icon"], [pgs*="icon\5B"]) {
         display: inline-grid;
         place-items: center;
-        inline-size: calc(var(--icon-size) + 2px);
-        block-size: var(--icon-size);
+        inline-size: calc(var(--icon-size, 1em) + 2px);
+        block-size: var(--icon-size, 1em);
         line-height: 1;
         aspect-ratio: 1;
     }

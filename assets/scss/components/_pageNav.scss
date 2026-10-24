@@ -31,10 +31,12 @@
                     var(--color-box-transparent) 50%,
                     transparent 75%);
             transform: translateX(-100%);
-            animation: loading 1.4s ease-in-out infinite;
+
+            // an endless shimmer: only for a visitor who has not asked for less motion
+            @media (prefers-reduced-motion: no-preference) { animation: pageNavLoading 1.4s ease-in-out infinite; }
         }
 
-        @keyframes loading {
+        @keyframes pageNavLoading {
             to { transform: translateX(100%); }
         }
 

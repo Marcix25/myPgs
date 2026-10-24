@@ -20,20 +20,26 @@ function accordionTiming(accordion) {
 // pulls everything below it up, so the panel the reader just clicked would slide away under the
 // pointer and leave them far down the page. Follows it for as long as the transition runs.
 // behavior "instant", so a page with scroll-behavior: smooth does not turn each correction into
-// an animation of its own. Stops as soon as the signal of the accordion that asked is aborted
-function keepInPlace(element, duration, signal) {
+// an animation of its own. Returns the function that stops the loop: the accordion keeps the
+// latest one, so a second click cancels the first loop instead of running beside it, and
+// destroy() stops it too
+function keepInPlace(element, duration) {
     const startTop = element.getBoundingClientRect().top;
     const end = performance.now() + duration + 50;
+    let frame = 0;
 
     function step(now) {
-        if (signal.aborted) return;
-
         const delta = element.getBoundingClientRect().top - startTop;
         if (Math.abs(delta) >= 1) window.scrollBy({ top: delta, behavior: "instant" });
-        if (now < end) requestAnimationFrame(step);
+        frame = now < end ? requestAnimationFrame(step) : 0;
     }
 
-    requestAnimationFrame(step);
+    frame = requestAnimationFrame(step);
+
+    return () => {
+        if (frame) cancelAnimationFrame(frame);
+        frame = 0;
+    };
 }
 
 //## Accessibility (writes the open/closed state)
@@ -63,6 +69,7 @@ function initializeAccordion(accordion) {
     const controller = new AbortController();
     const { signal } = controller;
     let scrollTimer = 0;
+    let stopKeepingInPlace = () => {};
 
     // initial state: accAutoOpen is the authored form, because pgs-state belongs to
     // the runtime; a pgs-state="open" already written by hand is honored all the same
@@ -112,7 +119,8 @@ function initializeAccordion(accordion) {
         const timing = accordionTiming(accordion);
 
         // measured before anything changes: this button's position is the one to hold
-        keepInPlace(BUTTON, timing, signal);
+        stopKeepingInPlace();
+        stopKeepingInPlace = keepInPlace(BUTTON, timing);
 
         pgs(accordion).state.toggle("open", nowOpen);
         accordionAccessibility(nowOpen, BUTTON, CONTENT);
@@ -158,12 +166,16 @@ function initializeAccordion(accordion) {
     }, { signal });
 
     function destroy() {
+        // a stale instance (already replaced by a refresh) must not tear down the live one
+        if (API.get(accordion) !== api) return;
+
         controller.abort();
         window.clearTimeout(scrollTimer);
+        stopKeepingInPlace();
         API.delete(accordion);
     }
 
-    API.set(accordion, {
+    const api = {
         element: accordion,
         button: BUTTON,
         content: CONTENT,
@@ -172,12 +184,15 @@ function initializeAccordion(accordion) {
         toggle: accordionFunction,
         destroy,
         refresh: () => {
+            const live = API.get(accordion);
+            if (live && live !== api) return live;
             destroy();
             initializeAccordion(accordion);
             return API.get(accordion);
         },
         isOpen: () => pgs(accordion).state.contains("open"),
-    });
+    };
+    API.set(accordion, api);
 }
 
 function PGS_accordion_init(root = document) {

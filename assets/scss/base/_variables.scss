@@ -67,7 +67,8 @@
         --_navSmart-heightScroll: 8.9rem; ///dummy preload value
 
         //- mobile 
-        @media (max-width: $mobile) { --gap-sections: calc(7.3rem + 8svh); }
+        // the three sections scales (padding, margin, gap) are all read from --SIZE-sections, so they shrink together
+        @media (max-width: $mobile) { --SIZE-sections: calc(7.3rem + 8svh); }
     }
 
     //# STATE
@@ -110,7 +111,7 @@
         --color-tertiary: #00f2ff;
         --color-quaternary: #ddff00;
         //### Primary Texts
-        --color-primary-text: #87ffb3;
+        --color-primary-text: #00210e;
         --color-secondary-text: #492f00;
         --color-tertiary-text: #004a4e;
         --color-quaternary-text: #323900;
@@ -150,7 +151,8 @@
         --color-background: light-dark(#fcfcfc, #080808);
         --color-whiteFixed: #FFFFFF;
         --color-blackFixed: #000000;
-        --color-link: #009EFF;
+        // light: 6.0:1 on --color-background, 4.6:1 on its own --color-link-soft (hover of a link); dark keeps the brighter blue (7.0:1)
+        --color-link: light-dark(#0065a3, #009EFF);
         --color-link-soft: color-mix(in srgb, var(--color-link) 20%, var(--color-white) 80%);
         --color-gray: #a4a4a4;
         --color-icon-primary: var(--color-primary);

@@ -728,6 +728,7 @@
             "heightMax50svh",
             "heightMaxAuto",
             "heightMaxFull",
+            "heightMaxNone",
             "heightMaxUnderHeader",
             "heightMaxUnderMain"
         ],
@@ -1391,7 +1392,6 @@
             "slides-container",
             "slides-container-slide",
             "slides-dots",
-            "slides-dots-dot",
             "slides-next",
             "slides-prev"
         ],

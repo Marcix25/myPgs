@@ -25,7 +25,8 @@ let brokenAt = -1;
 for (let i = 0; i < steps.length; i++) {
     const [, command] = steps[i];
     try {
-        execSync(command, { stdio: "inherit" });
+        // PGS_PRECOMMIT keeps webpack from clearing the terminal, which would wipe the earlier steps
+        execSync(command, { stdio: "inherit", env: { ...process.env, PGS_PRECOMMIT: "1" } });
     } catch {
         brokenAt = i;
         break;

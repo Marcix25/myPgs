@@ -23,6 +23,7 @@ $accordionGap: 1.0rem;
     --accordion-background: transparent;
     --accordion-background-open: var(--color-box-transparent);
 
+    display: flex;
     flex-direction: column;
     gap: 0;
     min-width: 100%;
@@ -50,7 +51,6 @@ $accordionGap: 1.0rem;
         cursor: pointer;
         @include row(nowrap);
         box-shadow: none;
-        outline: none;
         font: inherit;
         color: inherit;
         line-height: inherit;
@@ -65,7 +65,14 @@ $accordionGap: 1.0rem;
 
         &::after {
             margin-left: auto;
-            transition: rotate var(--accordion-timing) ease;
+
+            @media (prefers-reduced-motion: no-preference) { transition: rotate var(--accordion-timing) ease; }
+        }
+
+        // all: unset above took the browser's ring away, this gives it back
+        &:focus-visible {
+            outline: var(--focus-visible);
+            outline-offset: 3px;
         }
     }
 
@@ -77,8 +84,11 @@ $accordionGap: 1.0rem;
         height: 0;
         width: 100%;
         font-weight: normal;
-        transition: height var(--accordion-timing) ease, opacity var(--accordion-timing) ease, visibility var(--accordion-timing);
         overflow: hidden;
+
+        @media (prefers-reduced-motion: no-preference) {
+            transition: height var(--accordion-timing) ease, opacity var(--accordion-timing) ease, visibility var(--accordion-timing);
+        }
     }
 
     //## Accordion insert
@@ -104,6 +114,4 @@ $accordionGap: 1.0rem;
             height: auto;
         }
     }
-
-    &:not([pgs-state~=open]) { display: flex; }
 }
