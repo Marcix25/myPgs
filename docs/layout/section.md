@@ -52,6 +52,10 @@ Section variants that control width, padding, and specific content treatment whi
 - `--section-edge-gap`
 - `--section-edge-mediaDivisor`
 - `--section-edge-textDivisor`
+- `--section-marginInline`
+- `--section-maxWidth`
+- `--section-paddingBlock`
+- `--section-paddingInline`
 
 ## Output
 

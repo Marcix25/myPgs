@@ -20,14 +20,14 @@
 // section-specificity, and sctEdge its child tokens section-edgeLeft and section-edgeRight.
 :is([pgs~="section"], [pgs*="section\5B"]) {
 
-    &:not(:is([pgs*="'sctNoPadding'"], [pgs*="'sctMax'"], [pgs*="'sctFull'"], [pgs*="'sctSpecificity'"], [pgs*="'sctEdge'"])) { @include section; }
+    @include section;
 
     //+ Type of section
-    &[pgs*="'sctMax'"] { @include sectionMax; }
-    &[pgs*="'sctFull'"] { @include sectionFull; }
-    &[pgs*="'sctNoPadding'"] { @include sectionNoPadding; }
-    &[pgs*="'sctEdge'"] { @include sectionEdge(':where([pgs~="section-edgeLeft"])', ':where([pgs~="section-edgeRight"])'); }
-    &[pgs*="'sctSpecificity'"] { @include sectionSpecificity(':where([pgs~="section-specificity"])'); }
+    &[pgs*="'sctMax'"] { @include sectionMax(false); }
+    &[pgs*="'sctFull'"] { @include sectionFull(false); }
+    &[pgs*="'sctNoPadding'"] { @include sectionNoPadding(false); }
+    &[pgs*="'sctEdge'"] { @include sectionEdge(':where([pgs~="section-edgeLeft"])', ':where([pgs~="section-edgeRight"])', false); }
+    &[pgs*="'sctSpecificity'"] { @include sectionSpecificity(':where([pgs~="section-specificity"])', false); }
 }
 
 //## CONTAINER

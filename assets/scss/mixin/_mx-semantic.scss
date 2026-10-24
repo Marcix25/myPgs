@@ -15,30 +15,40 @@
 }
 
 //# SECTION
-@mixin section {
-    container-type: inline-size;
-    margin-inline: auto;
-    max-width: calc(var(--page-width) + (var(--page-padding) * 2));
-    padding-inline: var(--page-padding);
-    position: relative;
+@mixin section() {
+    --section-maxWidth: calc(var(--page-width) + (var(--page-padding) * 2));
+    --section-marginInline: auto;
+    --section-paddingInline: var(--page-padding);
+    --section-paddingBlock: 0rem;
+    // For all
     width: 100%;
+    position: relative;
+    container-type: inline-size;
+    // 
+    margin-inline: var(--section-marginInline);
+    max-width: var(--section-maxWidth);
+    padding-inline: var(--section-paddingInline);
+    padding-block: var(--section-paddingBlock);
 }
 
-@mixin sectionSpecificity($child) {
-    width: 100%;
+// every variant starts from section() and only changes its variables; $section: false when the
+// element already got section() from its own rule (pgs), so it is not written twice
+@mixin sectionSpecificity($child, $section: true) {
+    @if $section { @include section(); }
+    --section-maxWidth: none;
+    --section-paddingInline: 0rem;
 
     #{$child} {
         @include section();
 
-        #{$child} { padding-inline: 0; }
+        #{$child} { --section-paddingInline: 0rem; }
     }
 }
 
-@mixin sectionMax() {
-    position: relative;
-    width: 100%;
-    padding-inline: var(--page-padding);
-    padding-block: calc(var(--main-gap, var(--gap-sections)) / 2);
+@mixin sectionMax($section: true) {
+    @if $section { @include section(); }
+    --section-maxWidth: none;
+    --section-paddingBlock: calc(var(--main-gap, var(--gap-sections)) / 2);
 
     >* {
         container-type: inline-size;
@@ -48,10 +58,10 @@
     }
 }
 
-@mixin sectionFull() {
-    padding: var(--page-padding);
-    position: relative;
-    width: 100%;
+@mixin sectionFull($section: true) {
+    @if $section { @include section(); }
+    --section-maxWidth: none;
+    --section-paddingBlock: var(--page-padding);
 
     >* {
         container-type: inline-size;
@@ -59,13 +69,13 @@
     }
 }
 
-@mixin sectionEdge($left, $right) {
+@mixin sectionEdge($left, $right, $section: true) {
+    @if $section { @include section(); }
+    --section-maxWidth: none;
+    --section-paddingInline: 0rem;
     --section-edge-textDivisor: 2;
     --section-edge-mediaDivisor: 2;
     --section-edge-gap: var(--page-padding);
-    position: relative;
-    width: 100%;
-    container-type: inline-size;
     @include row(wrap, var(--section-edge-gap));
 
     #{$left},
@@ -83,9 +93,8 @@
     }
 }
 
-@mixin sectionNoPadding() {
-    margin-inline: auto;
-    max-width: var(--page-width);
-    width: 100%;
-    position: relative;
+@mixin sectionNoPadding($section: true) {
+    @if $section { @include section(); }
+    --section-maxWidth: var(--page-width);
+    --section-paddingInline: 0rem;
 }
