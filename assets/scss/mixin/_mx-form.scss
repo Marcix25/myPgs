@@ -79,13 +79,13 @@
 //### LABEL - checkbox radio
 // the label of a checkbox or a radio, for the one that holds the control and for the ones inside a group
 @mixin labelCheckboxAndRadio() {
-    --labelCheckboxAndRadio: var(--color-black);
+    --checkboxRadio-labelColor: var(--color-black);
 
     &:where(label),
     :where(label) {
         -webkit-user-select: none;
         user-select: none;
-        color: var(--labelCheckboxAndRadio);
+        color: var(--checkboxRadio-labelColor);
         position: relative;
         text-align: left;
         line-height: var(--checkbox-size, var(--radio-size));
@@ -164,7 +164,7 @@
 //## INPUT
 @mixin input() {
     --input-padding: var(--padding-texts);
-    --input-border: var(--border-complete);
+    --input-border: var(--border-width) var(--border-color) var(--border-style);
     --input-borderRadius: var(--borderRadius-texts);
     --input-background: var(--color-white);
     @include inputBase(60%);
@@ -453,7 +453,7 @@
             --label-border: var(--color-error) var(--border-style);
             --checkbox-background: var(--color-error-soft);
             --radio-background: var(--color-error-soft);
-            --labelCheckboxAndRadio: var(--color-error);
+            --checkboxRadio-labelColor: var(--color-error);
         }
     }
 

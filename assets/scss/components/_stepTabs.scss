@@ -33,7 +33,7 @@
         &::before {
             content: "";
             width: 100%;
-            border-bottom: var(--border-complete);
+            border-bottom: var(--border-width) var(--border-color) var(--border-style);
             position: absolute;
             top: 50%;
             z-index: -1;

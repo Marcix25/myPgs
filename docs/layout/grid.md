@@ -12,16 +12,15 @@ Grid layouts: a responsive column-N grid that drops to fewer columns at each bre
 ## PGS Options (component brackets)
 
 - `column-`: inside grid's own bracket, lays the children out in N equal columns, column-1 through column-8, dropping to fewer columns at each breakpoint.
-- `column-1`: inside grid's own bracket, a single column.
 - `column-4`: inside grid's own bracket, four columns; values from 1 through 8 are supported.
 - `m2e`: inside grid's own bracket, keeps two columns at the mobile breakpoint instead of one (or the one there is, when a single column was declared), returning to one on watch-sized containers.
 - `gridNotDefault`: inside grid's own bracket, keeps only display: grid: the gap and the full width are not set, so the element keeps its own, and the other options of grid still apply.
 - `gridDense`: inside grid's own bracket, lets later items fill the holes a wider one leaves at the end of a row (grid-auto-flow: dense), so the visual order can differ from the source order.
-- `colS`: inside gridChild's own bracket, makes the item span 1 column (--gridChild-col-s) of a grid['column-N'], capped by the columns the current breakpoint leaves, so a span never makes the grid add columns of its own; outside a column-N grid it does nothing.
-- `colM`: inside gridChild's own bracket, spans 2 columns (--gridChild-col-m).
-- `colL`: inside gridChild's own bracket, spans 3 columns (--gridChild-col-l): three of a column-4, and the full row where the breakpoint leaves only two.
-- `colXl`: inside gridChild's own bracket, spans 4 columns (--gridChild-col-xl).
-- `colXxl`: inside gridChild's own bracket, spans 5 columns (--gridChild-col-xxl).
+- `colSpanS`: inside gridChild's own bracket, makes the item span 1 column (--gridChild-colSpan-s) of a grid['column-N'], capped by the columns the current breakpoint leaves, so a span never makes the grid add columns of its own; outside a column-N grid it does nothing.
+- `colSpanM`: inside gridChild's own bracket, spans 2 columns (--gridChild-colSpan-m).
+- `colSpanL`: inside gridChild's own bracket, spans 3 columns (--gridChild-colSpan-l): three of a column-4, and the full row where the breakpoint leaves only two.
+- `colSpanXl`: inside gridChild's own bracket, spans 4 columns (--gridChild-colSpan-xl).
+- `colSpanXxl`: inside gridChild's own bracket, spans 5 columns (--gridChild-colSpan-xxl).
 - `gapTexts`: the text gap between the items; also sets --gap, the gap a column-N row computes its widths with.
 - `gapElements`: the element gap between the items, and --gap with it.
 - `gapGroups`: the double gap between the items, and --gap with it.
@@ -134,31 +133,31 @@ The three smaller gap scales between grid items, from the text gap to the group 
 
 ### Column spans
 
-gridChild's colS to colXxl span 1 to 5 columns, capped by the columns each breakpoint leaves.
+gridChild's colSpanS to colSpanXxl span 1 to 5 columns, capped by the columns each breakpoint leaves.
 
 ```html
 <div pgs="grid['column-4']">
-    <span pgs="box gridChild['colL']">colL — spans 3 of 4</span>
+    <span pgs="box gridChild['colSpanL']">colSpanL — spans 3 of 4</span>
     <span pgs="box">1</span>
-    <span pgs="box gridChild['colM']">colM — spans 2</span>
-    <span pgs="box gridChild['colM']">colM — spans 2</span>
+    <span pgs="box gridChild['colSpanM']">colSpanM — spans 2</span>
+    <span pgs="box gridChild['colSpanM']">colSpanM — spans 2</span>
 </div>
 ```
 
 ### Dense
 
-The same three items twice: without gridDense the last one waits for its own row and leaves a hole after colL; with gridDense it moves up into that hole.
+The same three items twice: without gridDense the last one waits for its own row and leaves a hole after colSpanL; with gridDense it moves up into that hole.
 
 ```html
 <div pgs="grid['column-4']">
-    <span pgs="box gridChild['colL']">colL — spans 3</span>
-    <span pgs="box gridChild['colM']">colM — spans 2</span>
+    <span pgs="box gridChild['colSpanL']">colSpanL — spans 3</span>
+    <span pgs="box gridChild['colSpanM']">colSpanM — spans 2</span>
     <span pgs="box">1 — stays in source order</span>
 </div>
 
 <div pgs="grid['column-4' 'gridDense']">
-    <span pgs="box gridChild['colL']">colL — spans 3</span>
-    <span pgs="box gridChild['colM']">colM — spans 2</span>
+    <span pgs="box gridChild['colSpanL']">colSpanL — spans 3</span>
+    <span pgs="box gridChild['colSpanM']">colSpanM — spans 2</span>
     <span pgs="box">1 — moved up by gridDense</span>
 </div>
 ```

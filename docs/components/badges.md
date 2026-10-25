@@ -10,8 +10,9 @@ Collection of compact indicators for displaying categories, priorities, and visu
 
 ## PGS Options (component brackets)
 
-- `badgePrimary`: applies the primary color variant.
-- `badgeStrong`: applies the high-contrast variant.
+- `badgePrimary`: applies the solid primary color, with the text of a primary surface; the same look as btnPrimary.
+- `badgeStrong`: applies the stronger primary color with white text; the same look as btnStrong.
+- `badgeSoft`: applies the light primary background with the strong primary text.
 - `badgeSuccess`: represents a successful result.
 - `badgeDot`: adds a dot indicator to the badge.
 - `badgeWarning`: represents a warning.
@@ -48,7 +49,7 @@ Default badge variant with no color emphasis.
 
 ### Primary
 
-Badge using the primary color variant.
+Badge using the solid primary color, like btnPrimary.
 
 ```html
 <span pgs="badge['badgePrimary']">
@@ -58,11 +59,21 @@ Badge using the primary color variant.
 
 ### Strong
 
-High-contrast badge variant.
+Badge using the stronger primary color, like btnStrong.
 
 ```html
 <span pgs="badge['badgeStrong']">
     Strong
+</span>
+```
+
+### Soft
+
+Light primary background with the strong primary text.
+
+```html
+<span pgs="badge['badgeSoft']">
+    Soft
 </span>
 ```
 

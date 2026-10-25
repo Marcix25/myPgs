@@ -111,7 +111,7 @@ html:has(dialog[open]) {
         :where([pgs~="modal-dialog-content-header"]) {
             @include row(nowrap);
             z-index: 1;
-            border-bottom: var(--border-complete);
+            border-bottom: var(--border-width) var(--border-color) var(--border-style);
             padding-bottom: calc(var(--modal-content-padding) / 2);
             margin-bottom: calc(var(--modal-content-padding) / 2);
 

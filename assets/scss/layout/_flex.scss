@@ -4,9 +4,11 @@
 //# FLEX
 //## FLEX OPTIONS
 :is([pgs~="flex"], [pgs*="flex\5B"]) {
-    &[pgs*="'flexNotDefault'"]{ display: flex; }
-    &:not([pgs*="'flexNotDefault'"]){ @include row(); }
-    
+    display: flex;
+
+    &[pgs*="'column'"] { @include column(); }
+    &[pgs*="'row'"] { @include row(); }
+
     //
     &[pgs*="'inlineFlex'"] { display: inline-flex; }
     &[pgs*="'flexPlaceCenter'"] { @include center(); }
@@ -16,12 +18,6 @@
         justify-content: center;
     }
 
-    &[pgs*="'column'"] {
-        flex-direction: column;
-        flex-wrap: nowrap;
-    }
-
-    &[pgs*="'row'"] { flex-direction: row; }
     &[pgs*="'columnReverse'"] { flex-direction: column-reverse; }
     &[pgs*="'rowReverse'"] { flex-direction: row-reverse; }
 
@@ -29,6 +25,7 @@
     &[pgs*="'nowrap'"] { flex-wrap: nowrap; }
     &[pgs*="'wrap'"] { flex-wrap: wrap; }
     &[pgs*="'wrapReverse'"] { flex-wrap: wrap-reverse; }
+
     // balance is experimental: a browser that does not know it wraps as usual
     &[pgs*="'wrapBalance'"] {
         flex-wrap: wrap;
@@ -43,6 +40,47 @@
     }
 }
 
+//## COLUMN
+:is([pgs~="flex"], [pgs*="flex\5B"]) {
+    $maxColumns: 8;
+
+    &[pgs*="'column-"] {
+        width: 100%;
+        flex-wrap: wrap;
+        flex-direction: row;
+    }
+
+    &[pgs*="'column-"] { @include columnFlex($maxColumns); }
+
+    @for $i from 1 through $maxColumns {
+        &[pgs*="'column-#{$i}'"] { @include columnFlex($i); }
+    }
+
+    // colSpan* spans that many columns of a column-N row (colSpanS 1 … colSpanXxl 5), capped by the
+    // columns the current breakpoint leaves (--_flex-cols, published by columnFlex): colSpanL in a
+    // column-4 row takes three of the four and drops to a full row once the breakpoint leaves only two.
+    // Growing by its own span keeps the proportion when the row has columns left over; outside a
+    // column-N row they do nothing. gridChild has the same set for grid['column-N']
+    &[pgs*="'column-"] {
+        > :is([pgs~="flexChild"], [pgs*="flexChild\5B"]) {
+            &[pgs*="'colSpan"] {
+                --_flexChild-span: min(var(--_flexChild-col), var(--_flex-cols, 1));
+                flex-grow: var(--_flexChild-span);
+                flex-shrink: 0;
+                flex-basis: calc((100% + var(--gap)) * var(--_flexChild-span) / var(--_flex-cols, 1) - var(--gap));
+            }
+
+            &[pgs*="'colSpanS'"] { --_flexChild-col: var(--flexChild-colSpan-s, 1); }
+            &[pgs*="'colSpanM'"] { --_flexChild-col: var(--flexChild-colSpan-m, 2); }
+            &[pgs*="'colSpanL'"] { --_flexChild-col: var(--flexChild-colSpan-l, 3); }
+            &[pgs*="'colSpanXl'"] { --_flexChild-col: var(--flexChild-colSpan-xl, 4); }
+            &[pgs*="'colSpanXxl'"] { --_flexChild-col: var(--flexChild-colSpan-xxl, 5); }
+        }
+    }
+}
+
+// flexChild comes after the column rules on purpose: both are as specific as each other, and a flag written on
+// one item (flexFull, flexNone, flex1, flexS…flexXxl, flexValue) has to win over the basis column-N gives it
 //## FLEX CHILD
 // a separate component from flex itself, not nested under it: flexChild marks how one item
 // behaves inside the flex container it sits in, and stands on its own instead of requiring a
@@ -67,51 +105,6 @@
     &[pgs*="'flexXl'"] { --_flexChild-size: var(--flexChild-size-xl, 4); }
     &[pgs*="'flexXxl'"] { --_flexChild-size: var(--flexChild-size-xxl, 5); }
     &:is([pgs*="'flexS'"], [pgs*="'flexM'"], [pgs*="'flexL'"], [pgs*="'flexXl'"], [pgs*="'flexXxl'"]) { flex: var(--_flexChild-size) 1 0%; }
-
-    // column spans: how many columns the item takes inside a flex['column-N'], capped by the
-    // columns the current breakpoint leaves; outside it they do nothing, see COLUMN below.
-    // gridChild has the same set for grid['column-N']
-    &[pgs*="'colS'"] {--_flexChild-col: var(--flexChild-col-s, 1); }
-    &[pgs*="'colM'"] { --_flexChild-col: var(--flexChild-col-m, 2); }
-    &[pgs*="'colL'"] { --_flexChild-col: var(--flexChild-col-l, 3); }
-    &[pgs*="'colXl'"] { --_flexChild-col: var(--flexChild-col-xl, 4); }
-    &[pgs*="'colXxl'"] { --_flexChild-col: var(--flexChild-col-xxl, 5); }
     &[pgs*="'flexOrderFirst'"] { order: -1; }
     &[pgs*="'flexOrderLast'"] { order: 999; }
-}
-
-//## COLUMN
-:is([pgs~="flex"], [pgs*="flex\5B"]) {
-    $maxColumns: 8;
-
-    &[pgs*="'column-"] {
-        width: 100%;
-        flex-wrap: wrap;
-        flex-direction: row;
-        @include columnFlex($maxColumns);
-    }
-
-    &[pgs*="'column-1'"] {
-        flex-direction: column;
-        flex-wrap: nowrap;
-    }
-
-    @for $i from 2 through $maxColumns {
-        &[pgs*="'column-#{$i}'"] { @include columnFlex($i); }
-    }
-
-    // col* spans that many columns, capped by the columns the current breakpoint leaves
-    // (--_flex-cols, published by columnFlex): colL in a column-4 row takes three of the four and
-    // drops to a full row once the breakpoint leaves only two. Growing by its own span keeps the
-    // proportion when the row has columns left over
-    &[pgs*="'column-"]:not([pgs*="'column-1'"]) {
-        > :is([pgs~="flexChild"], [pgs*="flexChild\5B"]) {
-            &:is([pgs*="'colS'"], [pgs*="'colM'"], [pgs*="'colL'"], [pgs*="'colXl'"], [pgs*="'colXxl'"]) {
-                --_flexChild-span: min(var(--_flexChild-col), var(--_flex-cols, 1));
-                flex-grow: var(--_flexChild-span);
-                flex-shrink: 0;
-                flex-basis: calc((100% + var(--gap)) * var(--_flexChild-span) / var(--_flex-cols, 1) - var(--gap));
-            }
-        }
-    }
 }

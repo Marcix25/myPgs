@@ -37,7 +37,7 @@ $accordionGap: 1.0rem;
     &::after {
         content: "";
         width: 100%;
-        border-bottom: var(--border-complete);
+        border-bottom: var(--border-width) var(--border-color) var(--border-style);
         position: absolute;
         top: calc((var(--accordionContainer-gap, #{$accordionGap}) / 2) * -1);
         left: 0;

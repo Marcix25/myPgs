@@ -36,10 +36,10 @@
 
 //## ICON DUO
 @mixin duo($iconBefore, $iconAfter) {
-    --iconBefore: #{$iconBefore};
-    --iconAfter: #{$iconAfter};
-    --iconBefore-color: var(--icon-color, currentColor);
-    --iconAfter-color: var(--icon-color, currentColor);
+    --icon-before: #{$iconBefore};
+    --icon-after: #{$iconAfter};
+    --icon-before-color: var(--icon-color, currentColor);
+    --icon-after-color: var(--icon-color, currentColor);
     display: inline-grid;
     place-items: center;
     inline-size: var(--icon-size, 1em);
@@ -56,13 +56,13 @@
     }
 
     &::before {
-        @include svgBase64(var(--iconBefore));
-        background-color: var(--iconBefore-color);
+        @include svgBase64(var(--icon-before));
+        background-color: var(--icon-before-color);
     }
 
     &::after {
-        @include svgBase64(var(--iconAfter));
-        background-color: var(--iconAfter-color);
+        @include svgBase64(var(--icon-after));
+        background-color: var(--icon-after-color);
     }
 }
 

@@ -522,6 +522,12 @@ Nothing here renames an option; each entry is a visible or scriptable change. Re
 - **Label tokens.** `--label-borderColor` is gone: a label and a legend both read `--label-border` (color and style) and `--label-borderWidth`. Set `--label-border` where you set `--label-borderColor`.
 - **Section sizes on a phone.** At 430px and below `--SIZE-sections` shrinks, and `--gap-sections`, `--padding-sections` and `--margin-sections` follow it; `--gap-sections` no longer has an override of its own.
 - **Smaller changes of look.** The checked border of `checkboxBackground` is `--twoState-borderColor`; `boxNavSmart` reads its own `--boxNavSmart-shadow` instead of redefining `--box-shadow`; the thumb of a toggle slides; `ol` in a list has the indent of `ul`; `--table-row-color` and `--table-row-color-hover` reach the cells (default `--color-text`); `cardHorizontal` is a row-wrap card by itself and every child takes a full line below the breakpoint; a hand-written `slides-dots` row gets the layout and the dot style; the input of `search`, the button of `accordion`, the legal buttons of the footer, `btnTwoState` and `chip` show a focus ring; `hover` styles apply only with `(hover: hover) and (pointer: fine)`; motion is switched off under `prefers-reduced-motion`.
+- **Borders follow the options.** `input`, `file`, `inputColor`, `table`, `card`, `alert`, `search`, `checkboxBackground`, `field['noInput']` and the other components that drew `var(--border-complete)` now read `--border-width`, `--border-color` and `--border-style` where they are used, so `border`, `borderColor` and `outline` options and an override of those three tokens on a container reach them. `--border-complete` still exists at `:root` for your own rules, but it is a fixed value there: write the three tokens when it has to follow an option.
+- **Renamed custom properties.** `--labelCheckboxAndRadio` is `--checkboxRadio-labelColor`; `--iconBefore`, `--iconAfter`, `--iconBefore-color` and `--iconAfter-color` are `--icon-before`, `--icon-after`, `--icon-before-color` and `--icon-after-color`. Nothing in the four themes uses them.
+- **Package entry.** `dist/javascript/index.js` is a UMD bundle: `require("mypgs")` returns `{ pgs }`, and `pgs` is still a global when the file is loaded with a script tag. `import { pgs } from "mypgs"` keeps resolving to the ESM source.
+- **`column-N`.** A `flexChild` flag written on an item (`flexFull`, `flexNone`, `flex1`, `flexS…flexXxl`, `flexValue`) now wins over the size `flex['column-N']` gives it. At 615px and below `flex['column-7']` and `['column-8']` use one column like `grid` (they used two). The columns of `grid['column-N']` are `minmax(0, 1fr)`, so wide content no longer stretches them. `flex['column-1']` is `column-N` with N = 1, like the others: every item takes a row, and in a container with a fixed height the rows share that height.
+- **`flex` on its own.** `pgs="flex"` is `display: flex` and nothing else: the wrap and the `--gap-texts` gap that it used to add come with `flex['row']` (and the gap with `flex['column']`), so write `flex['row']` where there was a bare `flex` (`grep -rnE 'pgs="([^"]* )?flex[ "]' .`). `flexNotDefault` is gone, a plain `flex` is what it did.
+- **Badge colors.** `badgePrimary` and `badgeStrong` look like `btnPrimary` and `btnStrong`: `badgePrimary` is the solid `--color-primary` with `--color-primary-text` (it was the light background), `badgeStrong` is `--color-primary-strong` with white (it was `--color-primary` with a fixed white). The old light look of `badgePrimary` is `badgeSoft`: replace `badgePrimary` with `badgeSoft` where you want it to stay as it was.
 - **Renamed keyframes.** `loading` is `pageNavLoading` and `alert-timeline` is `alertTimeline`: only an override that names them needs a change.
 - **New tokens and options.** `heightMax['heightMaxNone']` (`heightMaxAuto` stays as an alias), `--heading-weight` and `--heading-weight-h1..h6`, `--heading-family` now chains into `--heading-family-h1..h6`, `--dropdown-borderWidth`, `--dropdown-borderColor` and `--dropdown-maxBlockSize` (the arrow follows the dropdown's own border).
 - **Header and navSmart.** `pgs.header.api(el)` and `pgs.navSmart.api(el)` return `{ element, destroy, refresh }`. `--_header-height`, `--_header-heightScroll`, `--_navSmart-height` and `--_navSmart-heightScroll` are `0px` when the page has no header or no pinned navSmart; the `6.8rem` and `8.9rem` values only stand in until the first pass.
@@ -619,7 +625,7 @@ stylesheet that read a glyph by hand, e.g. `--icon: var(--icon-close)` becomes
 `iconDuo-hamburger` was NOT left alone as an earlier note here claimed — it no longer exists.
 `iconDuo` is now a general-purpose option: it draws the two-layer version of any glyph that has one
 (currently only `icon-hamburgerTwo`) when written alongside that glyph's name, instead of being its
-own baked-in glyph name. Three new custom properties, `--icon`, `--iconBefore` and `--iconAfter`, let a
+own baked-in glyph name. Three new custom properties, `--icon`, `--icon-before` and `--icon-after`, let a
 later, more specific rule swap the drawn glyph in pure CSS — see the header's expanded hamburger for
 the pattern.
 
@@ -869,7 +875,7 @@ Same name, different behavior:
   was never interpolated), the pageNav skeleton shimmer shown while no panel is active, and the
   `selfStart`…`selfBaseline` flags, which only matched an element that was itself a flex or grid
   root: they belong to the bracket of `flexChild` or `gridChild` now (`flexChild['selfEnd']`), the
-  way `flexValue` and `colM` do, and work on any item of the container. `btnReverse` with an icon now swaps its
+  way `flexValue` and `colSpanM` do, and work on any item of the container. `btnReverse` with an icon now swaps its
   two paddings (it gave both sides the icon padding). `m2e` keeps two columns on mobile also with `column-2` and `column-3` flex layouts (it gave one), and `grid['column-1' 'm2e']` stays at one column (it gave two). Check a page that relied on the old rendering.
 - **Looks that change.** `--color-white-transparent` and `--color-black-transparent` are really 50%
   now (they computed to 33%), which makes the header background and `bgWhiteTransparent`,
@@ -941,11 +947,11 @@ Same name, different behavior:
 - **Proportional flex children.** `flexChild['flexS'/'flexM'/'flexL'/'flexXl'/'flexXxl']` grow in
   proportion 1:2:3:4:5 on a zero basis, so a `flexS` next to a `flexL` splits the row 1:3; each
   weight is a custom property (`--flexChild-size-s` … `--flexChild-size-xxl`).
-- **Column spans.** `colS`/`colM`/`colL`/`colXl`/`colXxl` take 1 to 5 columns of a `column-N` row
-  (`colL` = three columns of a `column-4`), capped by the columns each breakpoint leaves, so a
+- **Column spans.** `colSpanS`/`colSpanM`/`colSpanL`/`colSpanXl`/`colSpanXxl` take 1 to 5 columns of a `column-N` row
+  (`colSpanL` = three columns of a `column-4`), capped by the columns each breakpoint leaves, so a
   span never overflows into extra columns: on `flexChild` inside a `flex['column-N']`, and on the
   new `gridChild` inside a `grid['column-N']`, where it replaces a hand-written
-  `grid-column: span N`. `--flexChild-col-*` / `--gridChild-col-*` retune the spans. `grid['gridDense']` lets later items fill the holes a wide span leaves.
+  `grid-column: span N`. `--flexChild-colSpan-*` / `--gridChild-colSpan-*` retune the spans. `grid['gridDense']` lets later items fill the holes a wide span leaves.
 - **More utilities.** `textAlign['taCenter']` and the rest of the `ta*` set, `rotate` (180deg bare,
   `rot0`/`rot90`/`rot270` in the bracket), `container['cntNone']`, and `main-removeGap`/
   `main-removeGapTop`/`main-removeGapBottom` to pull a child of main into the gap main leaves around it.

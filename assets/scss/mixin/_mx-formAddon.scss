@@ -26,7 +26,7 @@
     padding-right: var(--checkboxBackground-paddingRight);
     border-radius: var(--checkboxBackground-borderRadius);
     background-color: var(--checkboxBackground-background);
-    border: var(--border-complete);
+    border: var(--border-width) var(--border-color) var(--border-style);
     border-color: var(--checkboxBackground-borderColor);
     margin-bottom: 0;
     transition: var(--clickable-transition);
@@ -324,6 +324,6 @@
     &:where([pgs*="'noInput'"]) {
         padding: var(--field-padding);
         padding-top: var(--field-paddingTop);
-        border: var(--border-complete);
+        border: var(--border-width) var(--border-color) var(--border-style);
     }
 }

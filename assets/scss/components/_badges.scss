@@ -33,16 +33,21 @@
 :is([pgs~="badge"], [pgs*="badge\5B"]) {
     @include _badge();
 
-    // options are prefixed with the component name (badgePrimary) so they never clash
+    // the same three looks as the button of the same name: Primary is the solid primary color,
+    // Strong the stronger one, Soft the light background with the strong text
     &:where([pgs*="'badgePrimary'"]) {
-        --badge-background: var(--color-primary-soft);
-        --badge-color: var(--color-primary-strong);
+        --badge-background: var(--color-primary);
+        --badge-color: var(--color-primary-text);
     }
 
-    // options are prefixed with the component name (badgeStrong) so they never clash
     &:where([pgs*="'badgeStrong'"]) {
-        --badge-background: var(--color-primary);
-        --badge-color: var(--color-whiteFixed);
+        --badge-background: var(--color-primary-strong);
+        --badge-color: var(--color-white);
+    }
+
+    &:where([pgs*="'badgeSoft'"]) {
+        --badge-background: var(--color-primary-soft);
+        --badge-color: var(--color-primary-strong);
     }
 
     &:where([pgs*="'badgeSuccess'"]) {

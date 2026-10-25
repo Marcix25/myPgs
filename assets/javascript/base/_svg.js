@@ -154,8 +154,8 @@ function PGS_svg_init(root = document) {
     svgColors.applyColorsSVG();
     svgColors.applyColorsLottie();
 
-    // read by SCSS (body:not(.object-loaded)) to hold back <object>s until the first pass is done
-    document.body?.classList.add("object-loaded");
+    // read by SCSS (body without the state objectLoaded) to hold back <object>s until the first pass is done
+    if (document.body) pgs(document.body).state.add("objectLoaded");
 }
 
 svgColors.init();

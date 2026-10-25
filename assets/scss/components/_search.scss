@@ -6,7 +6,7 @@
     --search-borderRadius: calc(var(--borderRadius-texts) + (var(--search-height) /2));
     --search-background: var(--color-box);
     --search-color: var(--color-black);
-    --search-border: var(--border-complete);
+    --search-border: var(--border-width) var(--border-color) var(--border-style);
     --search-suggestions-offset: 0rem;
     --search-suggestions-padding: .5rem;
     --search-suggestions-maxHeight: 70vh;

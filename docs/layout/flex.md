@@ -6,7 +6,7 @@ Flex layouts: direction, wrapping, centering, a responsive column-N row that dro
 
 ## PGS
 
-- `flex`: creates a horizontal, wrapping flex layout by default.
+- `flex`: makes the element a flex container and nothing else: the direction, the wrap and the gap come from its options (row, column, wrap, the gap options…), so write flex['row'] for a horizontal wrapping row spaced by the text gap.
 - `flexChild`: sizes or orders one item inside a flex container, the option in its bracket picking how; a separate component from flex itself, so it stands on its own without needing a flex/flex[...] ancestor. A grid item uses gridChild instead.
 
 ## PGS Options (component brackets)
@@ -14,17 +14,15 @@ Flex layouts: direction, wrapping, centering, a responsive column-N row that dro
 - `inlineFlex`: uses inline-flex for the flex container.
 - `flexPlaceCenter`: centers items on both axes of a flex container, with gapTexts as its default gap.
 - `flexCenter`: centers items on both axes of a flex container, with no gap of its own.
-- `column`: configures a flex layout to stack items vertically.
-- `row`: configures a flex layout to arrange items horizontally.
+- `column`: configures a flex layout to stack items vertically, spaced by the text gap.
+- `row`: configures a flex layout to arrange items horizontally and wrapping, spaced by the text gap.
 - `columnReverse`: configures a flex layout to stack items vertically in reverse order.
 - `rowReverse`: configures a flex layout to arrange items horizontally in reverse order.
-- `flexNotDefault`: inside flex's own bracket, keeps only display: flex: the gap, the direction and the wrap are not set, so the element keeps its own, and the other options of flex (centering, wrap, column and the rest) still apply.
 - `wrap`: allows flex items to wrap.
 - `nowrap`: prevents flex items from wrapping.
 - `wrapReverse`: allows flex items to wrap, with the rows stacked in the opposite direction: the first row is at the bottom of a row layout and the first column at the end of a column layout.
 - `wrapBalance`: allows flex items to wrap and balances them: the lines hold about the same number of items, instead of the first ones being full and the last one short. A browser that does not know the value yet wraps as with wrap. Written together with wrapReverse it balances the reversed lines.
-- `column-`: inside flex's own bracket, lays the children out on a responsive row of N equal columns, column-1 through column-8, dropping to fewer columns at each breakpoint.
-- `column-1`: inside flex's own bracket, stacks the children in a single column.
+- `column-`: inside flex's own bracket, lays the children out on a responsive row of N equal columns, column-1 through column-8 (column-1 puts every child on a row of its own), dropping to fewer columns at each breakpoint and to one column (two with m2e) at 615px and below, the same as grid. A flexChild flag written on an item (flexFull, flexNone, flex1, flexS…flexXxl, flexValue) wins over the size column-N gives it.
 - `column-4`: inside flex's own bracket, four columns per row; values from 1 through 8 are supported.
 - `m2e`: inside flex's own bracket, keeps two items per row at the mobile breakpoint instead of one (or the one there is, when a single column was declared), returning to one on watch-sized containers.
 - `flexInitial`: inside flexChild's own bracket, uses the flex initial sizing behavior on a flex child.
@@ -37,11 +35,11 @@ Flex layouts: direction, wrapping, centering, a responsive column-N row that dro
 - `flexL`: inside flexChild's own bracket, grows the item by a weight of 3 (--flexChild-size-l).
 - `flexXl`: inside flexChild's own bracket, grows the item by a weight of 4 (--flexChild-size-xl).
 - `flexXxl`: inside flexChild's own bracket, grows the item by a weight of 5 (--flexChild-size-xxl).
-- `colS`: inside flexChild's own bracket, makes the item take 1 column (--flexChild-col-s) of a flex['column-N'] row, capped by the columns the current breakpoint leaves; outside a column-N row it does nothing. A grid item uses gridChild's own col* instead.
-- `colM`: inside flexChild's own bracket, takes 2 columns (--flexChild-col-m) of a column-N row.
-- `colL`: inside flexChild's own bracket, takes 3 columns (--flexChild-col-l): three of a column-4, and a full row where the breakpoint leaves only two.
-- `colXl`: inside flexChild's own bracket, takes 4 columns (--flexChild-col-xl) of a column-N row.
-- `colXxl`: inside flexChild's own bracket, takes 5 columns (--flexChild-col-xxl) of a column-N row.
+- `colSpanS`: inside flexChild's own bracket, makes the item take 1 column (--flexChild-colSpan-s) of a flex['column-N'] row, capped by the columns the current breakpoint leaves; outside a column-N row it does nothing. A grid item uses gridChild's own col* instead.
+- `colSpanM`: inside flexChild's own bracket, takes 2 columns (--flexChild-colSpan-m) of a column-N row.
+- `colSpanL`: inside flexChild's own bracket, takes 3 columns (--flexChild-colSpan-l): three of a column-4, and a full row where the breakpoint leaves only two.
+- `colSpanXl`: inside flexChild's own bracket, takes 4 columns (--flexChild-colSpan-xl) of a column-N row.
+- `colSpanXxl`: inside flexChild's own bracket, takes 5 columns (--flexChild-colSpan-xxl) of a column-N row.
 - `flexOrderFirst`: inside flexChild's own bracket, places a flex child before its siblings.
 - `flexOrderLast`: inside flexChild's own bracket, places a flex child after its siblings.
 - `gapTexts`: the text gap between the items; also sets --gap, the gap a column-N row computes its widths with.
@@ -174,17 +172,6 @@ Flex items wrapping onto multiple rows versus staying on a single non-wrapping r
 </div>
 ```
 
-### Without the defaults
-
-flexNotDefault keeps only display: flex: the gap and the wrap are the element's own, and the options of flex, such as flexCenter, still apply.
-
-```html
-<div pgs="flex['flexNotDefault' 'flexCenter']" style="gap: 3rem; flex-wrap: nowrap;">
-    <span pgs="box">flexNotDefault</span>
-    <span pgs="box">flexNotDefault</span>
-</div>
-```
-
 ### Direction
 
 Reversing the visual order of flex items on the row axis and on the column axis.
@@ -251,13 +238,13 @@ flexS to flexXxl grow in proportion 1:2:3:4:5 on a zero basis, so each row split
 
 ### Column spans
 
-colS to colXxl take 1 to 5 columns of a column-N row, capped by the columns each breakpoint leaves.
+colSpanS to colSpanXxl take 1 to 5 columns of a column-N row, capped by the columns each breakpoint leaves.
 
 ```html
 <div pgs="flex['column-4']">
-    <span pgs="box flexChild['colS']">colS — 1 of 4</span>
-    <span pgs="box flexChild['colL']">colL — 3 of 4</span>
-    <span pgs="box flexChild['colM']">colM — 2 of 4</span>
-    <span pgs="box flexChild['colM']">colM — 2 of 4</span>
+    <span pgs="box flexChild['colSpanS']">colSpanS — 1 of 4</span>
+    <span pgs="box flexChild['colSpanL']">colSpanL — 3 of 4</span>
+    <span pgs="box flexChild['colSpanM']">colSpanM — 2 of 4</span>
+    <span pgs="box flexChild['colSpanM']">colSpanM — 2 of 4</span>
 </div>
 ```

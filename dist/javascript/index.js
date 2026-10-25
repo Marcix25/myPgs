@@ -1,4 +1,14 @@
-/******/ (() => { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["mypgs"] = factory();
+	else
+		root["mypgs"] = factory();
+})(globalThis, () => {
+return /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
@@ -894,8 +904,8 @@ function PGS_svg_init(root = document) {
     svgColors.applyColorsSVG();
     svgColors.applyColorsLottie();
 
-    // read by SCSS (body:not(.object-loaded)) to hold back <object>s until the first pass is done
-    document.body?.classList.add("object-loaded");
+    // read by SCSS (body without the state objectLoaded) to hold back <object>s until the first pass is done
+    if (document.body) (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document.body).state.add("objectLoaded");
 }
 
 svgColors.init();
@@ -5954,6 +5964,8 @@ __webpack_require__.r(__webpack_exports__);
 
 })();
 
+/******/ 	return __webpack_exports__;
 /******/ })()
 ;
+});
 //# sourceMappingURL=index.js.map

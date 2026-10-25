@@ -18,12 +18,12 @@
         border-collapse: collapse;
         color: var(--color-text);
         border-radius: var(--borderRadius-texts);
-        border: var(--border-complete);
+        border: var(--border-width) var(--border-color) var(--border-style);
         overflow: hidden;
 
         :where(th, td) {
             padding: 12px;
-            border: var(--border-complete);
+            border: var(--border-width) var(--border-color) var(--border-style);
             text-align: left;
             min-width: 100px;
         }

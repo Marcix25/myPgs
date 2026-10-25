@@ -23,7 +23,7 @@
     &:where(a) {
         display: block;
         transition: var(--clickable-transition);
-        border: var(--border-complete);
+        border: var(--border-width) var(--border-color) var(--border-style);
         border-color: var(--clickable-borderColor);
         color: var(--clickable-color);
         --card-background: var(--clickable-background);

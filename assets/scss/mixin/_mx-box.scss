@@ -11,7 +11,7 @@
     &:where(a) {
         --box-background: var(--clickable-background);
         display: block;
-        outline: var(--border-complete);
+        outline: var(--border-width) var(--border-color) var(--border-style);
         outline-color: var(--clickable-borderColor);
         color: var(--clickable-color);
         transition: var(--clickable-transition);

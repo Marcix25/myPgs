@@ -67,6 +67,8 @@ const js = {
     output: {
         path: path.resolve(__dirname, "dist/javascript"),
         filename: "[name].js",
+        library: { name: "mypgs", type: "umd" },
+        globalObject: "globalThis",
     },
     plugins: [successMessagePluginJs],
 };
@@ -80,6 +82,8 @@ const jsMin = {
     output: {
         path: path.resolve(__dirname, "dist/javascript"),
         filename: "[name].min.js",
+        library: { name: "mypgs", type: "umd" },
+        globalObject: "globalThis",
     },
     plugins: [successMessagePluginJs],
 };

@@ -11,6 +11,7 @@ Recolors external SVG and Lottie files when the theme changes, swapping each dec
 ## PGS States
 
 - `darkmode`: read on the document to decide which side of every color pair to apply.
+- `objectLoaded`: written on the body once the first pass has run: until then an external SVG and a Lottie player are held back (transparent), so they do not show with their own colors before they are recolored.
 
 ## JavaScript API
 

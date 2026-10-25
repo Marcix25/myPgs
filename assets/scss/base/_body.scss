@@ -88,8 +88,8 @@
 
         svg { fill: currentColor; }
 
-        // held back until the svg module has run its first pass: it adds .object-loaded on the body, which is this element
-        &:not(.object-loaded) :is(object[type="image/svg+xml"], lottie-player) { opacity: 0; }
+        // held back until the svg module has run its first pass: it adds the state objectLoaded to the body, which is this element
+        &:not([pgs-state~="objectLoaded"]) :is(object[type="image/svg+xml"], lottie-player) { opacity: 0; }
 
         picture {
             display: block;

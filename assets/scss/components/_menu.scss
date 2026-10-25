@@ -112,7 +112,7 @@
                     flex-basis: 100%;
                     padding-left: .5rem;
                     margin-left: 1.5rem;
-                    border-left: var(--border-complete);
+                    border-left: var(--border-width) var(--border-color) var(--border-style);
                 }
 
                 &:not([pgs-state~=open]) :where(ul) { display: none; }

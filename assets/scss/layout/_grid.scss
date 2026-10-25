@@ -4,12 +4,9 @@
 //# GRID
 //## GRID OPTIONS
 :is([pgs~="grid"], [pgs*="grid\5B"]) {
-    // gridNotDefault keeps only the display: the gap and the width are the element's own, and the options
-    // of grid (column-N, gridDense...) still apply
-    &[pgs*="'gridNotDefault'"] { display: grid; }
+    display: grid; 
 
     &:not([pgs*="'gridNotDefault'"]) {
-        display: grid;
         --gap: var(--gap-texts);
         gap: var(--gap);
         width: 100%;
@@ -25,25 +22,14 @@
 
     &[pgs*="'column-"] { @include columnGrid($maxColumns); }
 
-    &[pgs*="'column-1'"] {
-        grid-template-columns: auto;
-        --_grid-cols: 1;
-
-        // m2e keeps two columns on mobile, and there is only the one: it stays one
-        &[pgs*="'m2e'"] {
-            grid-template-columns: auto;
-            --_grid-cols: 1;
-        }
-    }
-
-    @for $i from 2 through $maxColumns {
+    @for $i from 1 through $maxColumns {
         &[pgs*="'column-#{$i}'"] { @include columnGrid($i); }
     }
 
     // gridChild's col* spans that many grid columns, capped by the columns the current
     // breakpoint leaves (--_grid-cols, published by columnGrid): a span wider than the grid
     // would otherwise make the grid add implicit columns of its own
-    &[pgs*="'column-"]> :is([pgs~="gridChild"], [pgs*="gridChild\5B"]):is([pgs*="'colS'"], [pgs*="'colM'"], [pgs*="'colL'"], [pgs*="'colXl'"], [pgs*="'colXxl'"]) {
+    &[pgs*="'column-"]> :is([pgs~="gridChild"], [pgs*="gridChild\5B"])[pgs*="'colSpan"] {
         //
         grid-column: span min(var(--_gridChild-col), var(--_grid-cols, 1));
     }
@@ -57,12 +43,12 @@
 
     // column spans: how many columns the item takes inside a grid['column-N'], capped by the
     // columns the current breakpoint leaves; outside it they do nothing, see the column rules of grid above
-    &[pgs*="'colS'"] {
-        --_gridChild-col: var(--gridChild-col-s, 1);
+    &[pgs*="'colSpanS'"] {
+        --_gridChild-col: var(--gridChild-colSpan-s, 1);
     }
 
-    &[pgs*="'colM'"] { --_gridChild-col: var(--gridChild-col-m, 2); }
-    &[pgs*="'colL'"] { --_gridChild-col: var(--gridChild-col-l, 3); }
-    &[pgs*="'colXl'"] { --_gridChild-col: var(--gridChild-col-xl, 4); }
-    &[pgs*="'colXxl'"] { --_gridChild-col: var(--gridChild-col-xxl, 5); }
+    &[pgs*="'colSpanM'"] { --_gridChild-col: var(--gridChild-colSpan-m, 2); }
+    &[pgs*="'colSpanL'"] { --_gridChild-col: var(--gridChild-colSpan-l, 3); }
+    &[pgs*="'colSpanXl'"] { --_gridChild-col: var(--gridChild-colSpan-xl, 4); }
+    &[pgs*="'colSpanXxl'"] { --_gridChild-col: var(--gridChild-colSpan-xxl, 5); }
 }

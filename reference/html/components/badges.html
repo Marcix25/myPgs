@@ -7,8 +7,9 @@
  * - badge: identifies the base badge variant.
  *
  * @pgs-options
- * - badgePrimary: applies the primary color variant.
- * - badgeStrong: applies the high-contrast variant.
+ * - badgePrimary: applies the solid primary color, with the text of a primary surface; the same look as btnPrimary.
+ * - badgeStrong: applies the stronger primary color with white text; the same look as btnStrong.
+ * - badgeSoft: applies the light primary background with the strong primary text.
  * - badgeSuccess: represents a successful result.
  * - badgeDot: adds a dot indicator to the badge.
  * - badgeWarning: represents a warning.
@@ -34,17 +35,24 @@
     </span>
 </section>
 
-<demo demo-h3="Primary" demo-description="Badge using the primary color variant."></demo>
+<demo demo-h3="Primary" demo-description="Badge using the solid primary color, like btnPrimary."></demo>
 <section demo="component">
     <span pgs="badge['badgePrimary']">
         Primary
     </span>
 </section>
 
-<demo demo-h3="Strong" demo-description="High-contrast badge variant."></demo>
+<demo demo-h3="Strong" demo-description="Badge using the stronger primary color, like btnStrong."></demo>
 <section demo="component">
     <span pgs="badge['badgeStrong']">
         Strong
+    </span>
+</section>
+
+<demo demo-h3="Soft" demo-description="Light primary background with the strong primary text."></demo>
+<section demo="component">
+    <span pgs="badge['badgeSoft']">
+        Soft
     </span>
 </section>
 

@@ -2,7 +2,7 @@
 
 # Tabs
 
-A tabbed interface with a wrapping list of controls and one visible panel at a time. Click a tab or use Arrow keys, Home, or End while a tab is focused to select its panel. Every selection dispatches pgs:tabs:change on the tabs root, with detail { element, current, tab, panel } — element being the tabs root and current the zero-based index. The event bubbles, so one listener on a parent can follow several tab sets and tell them apart by detail.element. Selecting the tab that is already selected changes nothing: no event and no history entry. Initialization dispatches the event once, for the tab it starts on.
+A tabbed interface with a wrapping list of controls and one visible panel at a time. Click a tab or use Arrow keys, Home, or End while a tab is focused to select its panel. Every selection dispatches pgs:tabs:change on the tabs root, with detail { element, current, tab, panel } — element being the tabs root and current the zero-based index. The event bubbles, so one listener on a parent can follow several tab sets and tell them apart by detail.element. Selecting the tab that is already selected changes nothing: no event and no history entry. Initialization dispatches the event once, for the tab it starts on. The panels hide with the native hidden attribute, so without JavaScript every panel stays visible; pageNav and stepTabs hide theirs with a pgs-state instead, because they have to start hidden.
 
 ## PGS
 

@@ -18,6 +18,7 @@ Base HTML document that enables MyPGS: the root rules and the shared custom prop
 
 ## PGS States
 
+- `objectLoaded`: written on the body once the first pass has run: until then an external SVG and a Lottie player are held back (transparent), so they do not show with their own colors before they are recolored.
 - `darkmode`: is applied dynamically to html and body to activate the dark theme.
 
 ## Output
