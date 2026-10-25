@@ -239,15 +239,19 @@ function initializeDropdown(DROPDOWN) {
         isOpen: () => pgs(DROPDOWN).state.contains("open")
     };
 
+    const HOVER = pgs(DROPDOWN).option.contains("drpHover");
+
     //## click behavior
+    // with drpHover the pointer opens and closes it: a click of the pointer does nothing, or it would close what
+    // the hover just opened. The keyboard still toggles it: Enter and Space send a click with no detail
     TRIGGER.addEventListener("click", (event) => {
-        if (isDropdownContent(event.target)) return;
+        if ((HOVER && event.detail > 0) || isDropdownContent(event.target)) return;
         event.preventDefault();
         toggleDropdown(DROPDOWN);
     }, { signal });
 
     //## Hover behavior
-    if (pgs(DROPDOWN).option.contains("drpHover")) {
+    if (HOVER) {
         const clearHoverCloseTimeout = () => {
             window.clearTimeout(hoverCloseTimeout);
         };

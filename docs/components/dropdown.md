@@ -13,7 +13,7 @@ Popup component that connects a control to content positioned relative to its tr
 ## PGS Options (component brackets)
 
 - `drpNotArrow`: removes the small arrow every dropdown draws on its content by default. The arrow points back at the trigger on whichever side the content was placed, and follows it even when the viewport pushes the content off-center.
-- `drpHover`: opens the dropdown when the pointer enters its trigger and closes it after the pointer leaves; click and keyboard activation remain available.
+- `drpHover`: opens the dropdown when the pointer enters its trigger and closes it after the pointer leaves; a click of the pointer does nothing, so it does not close what the hover just opened, and keyboard activation (Enter, Space) still toggles it.
 
 ## PGS Data
 
