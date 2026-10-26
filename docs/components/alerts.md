@@ -17,7 +17,7 @@ Feedback messages for information, success, warnings and errors. It is one compo
 - `_alert-icon`: the icon, with this token instead when the card is built through the JS API.
 - `_alert-content`: the same, for the content wrapper.
 - `_alert-content-title`: the same, for the heading.
-- `_alert-dismiss`: the close button, built only when the dismissible option is set. It draws a cross, and closeTitle is its accessible name. A hand-written alert has no JavaScript to answer a click, so it never has one.
+- `_alert-dismiss`: the close button, built only when the dismissible option is set. It draws dismissIcon, a cross by default, and closeTitle is its accessible name. A hand-written alert has no JavaScript to answer a click, so it never has one.
 - `_alert-buttons`: the row of action buttons, built only when the buttons option carries something; marked hidden otherwise.
 
 ## PGS Options (component brackets)
@@ -73,7 +73,8 @@ pgs.alert.info({
     icon: null,                 // HTML string; omitted or null uses the icon of the type; "" shows none
     id: undefined,              // reported by every event; generated (alert-1, alert-2...) when omitted
     dismissible: false,         // true adds the close button
-    closeTitle: "Close",        // accessible name of the close button, which only draws a cross
+    dismissIcon: null,          // HTML string for the close button, from any icon set; omitted or null draws a cross (icon-close)
+    closeTitle: "Close",        // accessible name of the close button
     timeout: undefined,         // milliseconds before it closes itself, with the countdown bar; omitted or 0 never closes
     buttons: [                  // omitted or empty leaves no button row
         {

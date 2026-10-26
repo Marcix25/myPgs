@@ -45,16 +45,18 @@
     }
 
     //## submenuButton
-    :where([pgs~="_menu-submenuButton"]) {
+    // the generated toggle and the one written by hand look and sit the same
+    :where([pgs~="menu-submenuButton"]), :where([pgs~="_menu-submenuButton"]) {
         --button-size: 0.2rem;
         margin-right: -5px;
         translate: -5px;
         margin-block: auto;
 
-        @media (prefers-reduced-motion: no-preference) { :where(i) { transition: all 300ms; } }
+        // the icon is whatever the toggle holds: an <i>, an svg, or any element marked as an icon
+        @media (prefers-reduced-motion: no-preference) { :where(i, svg, [pgs~="icon"], [pgs*="icon\5B"]) { transition: all 300ms; } }
 
         &[aria-expanded="true"] {
-            :where(i) { rotate: 180deg; }
+            :where(i, svg, [pgs~="icon"], [pgs*="icon\5B"]) { rotate: 180deg; }
         }
     }
 

@@ -154,7 +154,7 @@ const fn_notification = {
             ...config,
             component: "_alert",
             dismissible: true,
-            // the dismiss button draws a cross, so closeTitle is its accessible name and nothing else
+            // the dismiss button draws dismissIcon (a cross by default), so closeTitle is its accessible name
             closeTitle: config.closeTitle ?? "Close notification"
         });
 

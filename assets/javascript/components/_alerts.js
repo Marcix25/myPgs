@@ -11,6 +11,8 @@ const fn_alert = {
     _defaults: {
         description: "",
         closeTitle: "Close",
+        // markup of the dismiss button, trusted like icon: what it draws is the author's, from any icon set
+        dismissIcon: "<i pgs=\"icon['icon-close']\"></i>",
         dismissible: false,
         timeout: undefined,
         buttons: [],
@@ -166,6 +168,7 @@ const fn_alert = {
                     title,
                     description,
                     icon: raw.icon || undefined,
+                    dismissIcon: raw.dismissIcon || undefined,
                     id: raw.id || undefined,
                     closeTitle: String(raw.closeTitle || raw["title-close"] || "").trim() || undefined,
                     buttons: Array.isArray(raw.buttons) ? raw.buttons : undefined,
@@ -188,6 +191,7 @@ const fn_alert = {
         const config = {
             description: this._defaults.description,
             closeTitle: this._defaults.closeTitle,
+            dismissIcon: this._defaults.dismissIcon,
             dismissible: this._defaults.dismissible,
             timeout: this._defaults.timeout,
             buttons: this._defaults.buttons,
@@ -207,12 +211,12 @@ const fn_alert = {
         // announce once idle
         alert.setAttribute("role", type === "error" || type === "warning" ? "alert" : "status");
 
-        // config.icon is trusted markup, written into the card as given and not sanitized: it comes
+        // config.icon and config.dismissIcon are trusted markup, written into the card as given and not sanitized: they come
         // from the code that builds the alert (or from a notificationLoad / toastLoad the page's
         // own author wrote), never from text a visitor typed. title and description, which can be,
         // go through formatText and are escaped
         const iconHtml = config.icon ? `<div pgs="_alert-icon" aria-hidden="true">${config.icon}</div>` : "";
-        const dismissHtml = config.dismissible ? `<button type="button" pgs="button['btnIconOnly'] _alert-dismiss"><i pgs="icon['icon-close']"></i></button>` : "";
+        const dismissHtml = config.dismissible ? `<button type="button" pgs="button['btnIconOnly'] _alert-dismiss">${config.dismissIcon}</button>` : "";
 
         // generated from scratch, so every child token here gets the underscore; the same
         // markup written by hand in the page instead keeps the bare names (see alerts.html)

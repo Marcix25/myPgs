@@ -158,7 +158,8 @@
         "description": "",           // plain text under the title
         "type": "info",              // neutral | error | success | warning | info
         "icon": null,                // HTML string; null uses the icon of the type
-        "closeTitle": "Close notification", // accessible name of the dismiss button, which always draws a cross
+        "dismissIcon": null,         // HTML string for the dismiss button, from any icon set; null draws a cross (icon-close)
+        "closeTitle": "Close notification", // accessible name of the dismiss button
         "buttons": [                 // omitted or empty leaves only the dismiss button
             {
                 "id": null,          // reported as buttonId by pgs:alert:buttonClick
@@ -177,6 +178,7 @@
         title: "",
         description: "",
         icon: null,
+        dismissIcon: null,      // HTML string for the dismiss button; omitted or null draws a cross
         closeTitle: "Close notification",
         buttons: [
             { id: undefined, title: "", link: undefined, close: true, optionButton: undefined }

@@ -98,7 +98,8 @@
         "type": "info",                 // neutral | error | success | warning | info, and anything else falls back to info
         "icon": null,                   // HTML string; null uses the icon of the type
         "timeout": 4000,                // milliseconds before it dismisses itself; a value that is not a number is ignored
-        "closeTitle": "Close toast",    // accessible name of the dismiss button, which always draws a cross
+        "dismissIcon": null,            // HTML string for the dismiss button, from any icon set; null draws a cross (icon-close)
+        "closeTitle": "Close toast",    // accessible name of the dismiss button
         "position": [],                 // toastLeft | toastRight | toastCenter | toastBottom, alone or together, e.g. ["toastLeft", "toastBottom"]; for this toast only
         "buttons": [                    // omitted or empty leaves only the dismiss button; same shape as Notification
             {  
@@ -127,6 +128,7 @@
                 optionButton: undefined 
             }
         ],
+        dismissIcon: null,      // HTML string for the dismiss button; omitted or null draws a cross
         closeTitle: "Close toast",
         position: []            // toastLeft | toastRight | toastCenter | toastBottom, alone or together, e.g. ["toastLeft", "toastBottom"]; for this toast only
     });

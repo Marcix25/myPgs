@@ -1014,7 +1014,9 @@
         "pgs-data": []
     },
     "menu": {
-        "pgs": [],
+        "pgs": [
+            "menu-submenuButton"
+        ],
         "pgs-generated": [
             "_menu-accordion",
             "_menu-submenuButton"

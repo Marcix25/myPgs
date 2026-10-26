@@ -3,7 +3,8 @@ import { PGS_dropdown } from "./_dropdown.js";
 
 const API = new WeakMap();
 
-// the toggle looks and sits the same whichever behavior it drives, so it is built once here
+// the toggle looks and sits the same whichever behavior it drives, so it is built once here. It is the
+// fallback: an item that holds its own menu-submenuButton never gets one
 function createToggle(link) {
     const button = document.createElement("button");
     button.type = "button";
@@ -70,8 +71,10 @@ function initializeMenu(MENU) {
             return;
         }
 
-        // a refresh finds the toggle the first pass generated and reuses it
-        const button = pgs.helper.directChild(li, "_menu-submenuButton") || createToggle(link);
+        // a toggle written by hand keeps the bare name and is used as it is, with the icon of the author's
+        // choice; a refresh finds the one the first pass generated and reuses it. Only when there is
+        // neither is one built
+        const button = pgs.helper.directChild(li, ["menu-submenuButton", "_menu-submenuButton"]) || createToggle(link);
 
         // only the first level of a horizontal menu floats its submenu: deeper levels would
         // stack dropdown over dropdown, and a vertical menu has the room to expand in place

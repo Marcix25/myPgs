@@ -5215,7 +5215,7 @@
   --dropdown-display: flex;
 }
 
-:is([pgs~=menu], [pgs*="menu["]) :where([pgs~=_menu-submenuButton]) {
+:is([pgs~=menu], [pgs*="menu["]) :where([pgs~=menu-submenuButton]), :is([pgs~=menu], [pgs*="menu["]) :where([pgs~=_menu-submenuButton]) {
   --button-size: 0.2rem;
   margin-right: -5px;
   translate: -5px;
@@ -5223,11 +5223,11 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  :is([pgs~=menu], [pgs*="menu["]) :where([pgs~=_menu-submenuButton]) :where(i) {
+  :is([pgs~=menu], [pgs*="menu["]) :where([pgs~=menu-submenuButton]) :where(i, svg, [pgs~=icon], [pgs*="icon["]), :is([pgs~=menu], [pgs*="menu["]) :where([pgs~=_menu-submenuButton]) :where(i, svg, [pgs~=icon], [pgs*="icon["]) {
     transition: all 300ms;
   }
 }
-:is([pgs~=menu], [pgs*="menu["]) :where([pgs~=_menu-submenuButton])[aria-expanded=true] :where(i) {
+:is([pgs~=menu], [pgs*="menu["]) :where([pgs~=menu-submenuButton])[aria-expanded=true] :where(i, svg, [pgs~=icon], [pgs*="icon["]), :is([pgs~=menu], [pgs*="menu["]) :where([pgs~=_menu-submenuButton])[aria-expanded=true] :where(i, svg, [pgs~=icon], [pgs*="icon["]) {
   rotate: 180deg;
 }
 

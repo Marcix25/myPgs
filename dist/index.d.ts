@@ -107,6 +107,8 @@ declare global {
     buttons?: PgsAlertButton[];
     /** Trusted markup for the icon slot, written into the card as given and not sanitized. Leave it out for the glyph of the type. */
     icon?: string;
+    /** Trusted markup for the dismiss button, written into it as given and not sanitized; any icon set. Leave it out for a cross (icon-close). Only read when the card is dismissible. */
+    dismissIcon?: string;
     /** The id the pgs:alert:* events report; generated when omitted. */
     id?: string;
     /** Where pgs.alert.* puts the card: a Document or Element root, and the container inside it. */

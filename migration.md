@@ -943,6 +943,11 @@ Same name, different behavior:
   `toggleDarkmode-dark` hold one icon each: the one of the current theme is shown and the other hidden by
   the stylesheet, which reads the html element before the first paint, so a reload never shows two. The
   library no longer picks the glyph, so the icon can be a glyph of the pack, an svg, an image or text.
+- **The toggle of a submenu, and the close button of an alert, with the icon you choose.** An item of a
+  `menu` that holds its own `menu-submenuButton` (`pgs="menu-submenuButton button['btnMini' 'btnIconOnly']"`,
+  the icon inside) never gets the generated chevron: the module wires the one you wrote. `dismissIcon` is a
+  field next to `icon` (in `pgs.alert.*`, `pgs.toast.*`, `pgs.notification.*` and in the JSON of
+  `notificationLoad` / `toastLoad`): the markup of the close button, from any set, a cross when omitted.
 - **`stepTabsIcon` takes markup.** `stepTabsIcon[<span pgs='icon' class='material-symbols-outlined'>check</span>]`
   works, as does a glyph name or a class list. Inner attributes use single quotes.
 - **Border and outline sizing.** `border['bdThin'/'bdThick'/'bdThicker']`, per side too
