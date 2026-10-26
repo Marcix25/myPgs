@@ -4,13 +4,17 @@
 
 //# MAIN
 [pgs~="main"] { @include main; }
+
+//## MAIN CHILD
 // main leaves a gap between its children. A child pulled into it takes half of the gap above and below,
-// so that a section with a background meets the one next to it: main-removeGap on both edges,
-// main-removeGapTop or main-removeGapBottom on one. Any child of main can take it, a section or not
-//## MAIN CHILDREN
-:where([pgs~="main-removeGap"]) { margin-block: calc(var(--main-gap, var(--gap-sections)) / -2); }
-:where([pgs~="main-removeGapTop"]) { margin-top: calc(var(--main-gap, var(--gap-sections)) / -2); }
-:where([pgs~="main-removeGapBottom"]) { margin-bottom: calc(var(--main-gap, var(--gap-sections)) / -2); }
+// so that a section with a background meets the one next to it: mainRemoveGap on both edges,
+// mainRemoveGapTop or mainRemoveGapBottom on one. Any child of main can take it, a section or not.
+// They read --main-gap, and --gap-sections when the child is not inside a main
+:is([pgs~="main-child"], [pgs*="main-child\5B"]) {
+    &:where([pgs*="'mainRemoveGap'"]) { margin-block: calc(var(--main-gap, var(--gap-sections)) / -2); }
+    &:where([pgs*="'mainRemoveGapTop'"]) { margin-top: calc(var(--main-gap, var(--gap-sections)) / -2); }
+    &:where([pgs*="'mainRemoveGapBottom'"]) { margin-bottom: calc(var(--main-gap, var(--gap-sections)) / -2); }
+}
 
 //# SECTION
 // one root, every variant folded into a flag with the sct prefix (sctMax, sctEdge, ...)
@@ -28,6 +32,7 @@
     &[pgs*="'sctNoPadding'"] { @include sectionNoPadding(false); }
     &[pgs*="'sctEdge'"] { @include sectionEdge(':where([pgs~="section-edgeLeft"])', ':where([pgs~="section-edgeRight"])', false); }
     &[pgs*="'sctSpecificity'"] { @include sectionSpecificity(':where([pgs~="section-specificity"])', false); }
+
 }
 
 //## CONTAINER

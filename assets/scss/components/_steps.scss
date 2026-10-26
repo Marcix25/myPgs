@@ -10,10 +10,10 @@ ol[pgs~="steps"] {
         display: flex;
         align-items: start;
         position: relative;
-        --steps-circle-size: 50px;
+        --steps-circle-size: var(--heading-size-h3);
         --steps-circle-color: var(--color-primary-soft);
         --steps-line-size: 2px;
-        --steps-line-color: var(--color-gray);
+        --steps-line-color: var(--border-color);
 
         //## CONTENT
         :where([pgs~="steps-step-content"]) {
@@ -80,7 +80,7 @@ ol[pgs~="steps"] {
             :where([pgs~="steps-step-circle"]),
             :where([pgs~="_steps-step-circle"]) {
                 background-color: var(--color-primary);
-                color: var(--color-whiteFixed);
+                color: var(--color-primary-text);
 
                 :where(i, [pgs~="icon"], [pgs*="icon\5B"]) { color: var(--color-whiteFixed); }
             }

@@ -28,6 +28,8 @@ meaning moved under them, so nothing errors and the page just looks wrong.
 | a bare `<button type="submit">` inside `pgs="form"` | the form styled it as a strong button on its own | draws nothing: mark it `pgs="button"` yourself |
 | several `pgs="accordion"` next to each other | opening one closed every other accordion on the page | each one answers for itself: wrap them in `pgs="accordionContainer"` to get the old behavior |
 | `pgs-option="buttonText"` and `pgs-option="buttonTransparent"` | `buttonTransparent` stripped every state, `buttonText` only the resting one | the two traded places: `buttonText` strips every state, `buttonTransparent` only the resting one |
+| `stepTabsIcon[fa-user]` (a lone Font Awesome name) | the dot added `fa-solid` to it, since that set needs a style class | the class list is written through untouched, as for any other set: write `stepTabsIcon[fa-solid fa-user]`, or use a built-in glyph (`stepTabsIcon[icon-user]`) or markup |
+| the icon of a `toggleDarkmode` control | the library also toggled the `fa-moon` and `fa-sun` classes on it, for pages that style them | it only toggles `icon-moon` and `icon-sun`. A page that styled the control by those Font Awesome classes (or loaded Font Awesome to draw them) styles `icon['icon-moon']` / `icon['icon-sun']` instead |
 | `pgs="toggleDarkmode"` inside `pgs="footer"` | the footer wrote "Dark mode"/"Light mode" next to the glyph on its own | the label is opt-in, and available everywhere: add `tglLabeled` to its bracket, `toggleDarkmode['tglLabeled']` |
 | `pgs="dropdown"` (and the floating first-level submenus of a horizontal menu) | the content floated with no arrow | the content draws an arrow pointing back at the trigger: add `drpNotArrow` to the bracket to keep the old look |
 | `pgs.<module>.init(root)` on an accordion, menu, steps, stepTabs, summary, notification or toast | looked only at what is inside `root`, so `pgs.helper.init(el)` on a freshly inserted `pgs="accordion"` did nothing | the root element itself is initialized too, like it already was for tabs, modal, dropdown, search, slides and pageNav |
@@ -929,8 +931,12 @@ Same name, different behavior:
 - **`card-imgForChild`.** A wrapper for card media the card does not write itself — an `<img>`
   printed by a helper, a block of elements: the `card-img` treatment lands on its
   direct child, and in `cardHorizontal`/`horizontalFixed` the wrapper itself takes the 40/60 split.
-- **Icons with no font.** `pgs="icon"` plus a glyph option covers dozens of shapes and needs nothing
-  loaded. Written bare it only marks an element as an icon, which is how a set that does not use
+- **Icons with no font.** `pgs="icon"` plus a glyph option draws the glyphs the library's own
+  components need (chevron, check, close, search, moon, sun, the alert marks, the hamburger) and
+  needs nothing loaded. The rest of the set moved to the separate `myicon` package: load its
+  `style.min.css` after mypgs to keep writing `icon['icon-star']`, `icon-arrowRight`, `icon-bell`, ...
+  with the same markup. `icon-arrowLeft` was in the library and is now only in the pack. Written bare
+  it only marks an element as an icon, which is how a set that does not use
   `<i>` — Material Symbols, Lucide, Iconify — gets the same box and placement.
 - **`stepTabsIcon` takes markup.** `stepTabsIcon[<span pgs='icon' class='material-symbols-outlined'>check</span>]`
   works, as does a glyph name or a class list. Inner attributes use single quotes.
@@ -953,8 +959,8 @@ Same name, different behavior:
   new `gridChild` inside a `grid['column-N']`, where it replaces a hand-written
   `grid-column: span N`. `--flexChild-colSpan-*` / `--gridChild-colSpan-*` retune the spans. `grid['gridDense']` lets later items fill the holes a wide span leaves.
 - **More utilities.** `textAlign['taCenter']` and the rest of the `ta*` set, `rotate` (180deg bare,
-  `rot0`/`rot90`/`rot270` in the bracket), `container['cntNone']`, and `main-removeGap`/
-  `main-removeGapTop`/`main-removeGapBottom` to pull a child of main into the gap main leaves around it.
+  `rot0`/`rot90`/`rot270` in the bracket), `container['cntNone']`, and `main-child['mainRemoveGap']`/
+  `mainRemoveGapTop`/`mainRemoveGapBottom` to pull a child of main into the gap main leaves around it.
 - **`modal['dialogAnimationZoom']`.** The dialog panel grows out of the `modal-button` that opened it and
   shrinks back into it on close, PhotoSwipe-style, with the backdrop fading alongside.
   `--modal-animation-timing` (333ms) and `--modal-animation-easing` tune it; reduced motion skips it.

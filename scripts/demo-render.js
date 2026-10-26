@@ -84,56 +84,57 @@ const referenceFiles = [
     "helper/helper.html",
 ];
 
+// the glyph of each entry in the nav, by name in the myIcon pack: written in the nav as icon['icon-<name>']
 const ENTRY_ICONS = {
-    "welcome": "fa-house",
-    "base/general.html": "fa-sliders",
-    "base/border.html": "fa-border-none",
-    "base/typography.html": "fa-heading",
-    "base/color.html": "fa-palette",
-    "base/darkmode.html": "fa-moon",
-    "base/svg.html": "fa-bezier-curve",
-    "components/notification.html": "fa-bell",
-    "components/card.html": "fa-id-card",
-    "components/slides.html": "fa-images",
-    "components/button.html": "fa-hand-pointer",
-    "components/icon.html": "fa-icons",
-    "components/formAddon.html": "fa-puzzle-piece",
-    "components/form.html": "fa-pen-to-square",
-    "components/formControls.html": "fa-sliders",
-    "components/search.html": "fa-magnifying-glass",
-    "components/summary.html": "fa-list",
-    "components/menu.html": "fa-bars",
-    "components/modal.html": "fa-window-restore",
-    "components/pageNav.html": "fa-map-signs",
-    "components/stepTabs.html": "fa-shoe-prints",
-    "components/tabs.html": "fa-window-maximize",
-    "components/accordion.html": "fa-layer-group",
-    "components/alerts.html": "fa-triangle-exclamation",
-    "components/badges.html": "fa-tag",
-    "components/breadcrumb.html": "fa-route",
-    "components/dropdown.html": "fa-caret-down",
-    "components/logo.html": "fa-star",
-    "components/steps.html": "fa-shoe-prints",
-    "components/table.html": "fa-table",
-    "components/toast.html": "fa-bread-slice",
-    "base/body.html": "fa-file-code",
-    "layout/flex.html": "fa-bars-staggered",
-    "layout/grid.html": "fa-table-cells-large",
-    "layout/breakpoints.html": "fa-ellipsis-vertical",
-    "layout/spacing.html": "fa-ruler",
-    "layout/size.html": "fa-ruler-combined",
-    "layout/utilities.html": "fa-wrench",
-    "layout/section.html": "fa-table-cells",
-    "layout/pageShell.html": "fa-table-columns",
-    "layout/header.html": "fa-arrow-up",
-    "layout/navSmart.html": "fa-grip-lines",
-    "layout/footer.html": "fa-arrow-down",
-    "helper/pgs.html": "fa-code",
-    "helper/init.html": "fa-rotate",
-    "helper/formValidate.html": "fa-pen-to-square",
-    "helper/helper.html": "fa-toolbox",
+    "welcome": "home",
+    "base/general.html": "sliders",
+    "base/border.html": "layout",
+    "base/typography.html": "typography",
+    "base/color.html": "palette",
+    "base/darkmode.html": "moon",
+    "base/svg.html": "vector",
+    "components/notification.html": "bell",
+    "components/card.html": "idCard",
+    "components/slides.html": "images",
+    "components/button.html": "mouse",
+    "components/icon.html": "icons",
+    "components/formAddon.html": "puzzle",
+    "components/form.html": "formEdit",
+    "components/formControls.html": "checkbox",
+    "components/search.html": "magnifyingGlass",
+    "components/summary.html": "summary",
+    "components/menu.html": "hamburger",
+    "components/modal.html": "modal",
+    "components/pageNav.html": "signpost",
+    "components/stepTabs.html": "tabSteps",
+    "components/tabs.html": "windowTabs",
+    "components/accordion.html": "layers",
+    "components/alerts.html": "triangleExclamation",
+    "components/badges.html": "tag",
+    "components/breadcrumb.html": "breadcrumb",
+    "components/dropdown.html": "caretDown",
+    "components/logo.html": "star",
+    "components/steps.html": "steps",
+    "components/table.html": "table",
+    "components/toast.html": "toast",
+    "base/body.html": "codeHtml",
+    "layout/flex.html": "alignLeft",
+    "layout/grid.html": "grid",
+    "layout/breakpoints.html": "ellipsisVertical",
+    "layout/spacing.html": "ruler",
+    "layout/size.html": "rulerAngle",
+    "layout/utilities.html": "gear",
+    "layout/section.html": "gridLayout",
+    "layout/pageShell.html": "sidebar",
+    "layout/header.html": "header",
+    "layout/navSmart.html": "windowTab",
+    "layout/footer.html": "footer",
+    "helper/pgs.html": "code",
+    "helper/init.html": "refresh",
+    "helper/formValidate.html": "clipboardCheck",
+    "helper/helper.html": "briefcase"
 };
-const DEFAULT_ENTRY_ICON = "fa-square";
+const DEFAULT_ENTRY_ICON = "circle";
 
 // PATH HELPERS (pure, path-only — no need to open the file to know these)
 function getReferenceTitle(path) {
@@ -525,7 +526,7 @@ function renderExampleSourceHtml(markup, title = "Example HTML", kind = "html") 
     const langClass = kind === "html" ? "markup" : kind;
     return `<div class="exampleSource" data-kind="${escapeHtml(kind)}">` +
         `<strong class="exampleSource-title">${escapeHtml(title)}</strong>` +
-        `<button type="button" class="exampleSource-copy" aria-label="Copy the HTML code"><i class="fa-solid fa-copy" aria-hidden="true"></i></button>` +
+        `<button type="button" class="exampleSource-copy" aria-label="Copy the HTML code"><i pgs="icon['icon-copy']" aria-hidden="true"></i></button>` +
         `<pre><code class="language-${langClass}">${escapeHtml(markup)}</code></pre>` +
         `</div>`;
 }
@@ -593,7 +594,7 @@ function renderNavMenuHtml(items, category) {
     const rows = items.map(({ path }) => {
         const icon = ENTRY_ICONS[path] || DEFAULT_ENTRY_ICON;
         return `<li><a href="#${escapeHtml(getSlug(path))}" pgs="pageNav-list-item button['btnText' 'btnPaddingEqual' 'btnCurrent']">` +
-            `<i class="fa-solid ${icon}" aria-hidden="true"></i><span>${escapeHtml(getEntryLabel(path))}</span></a></li>`;
+            `<i pgs="icon['icon-${icon}']" aria-hidden="true"></i><span>${escapeHtml(getEntryLabel(path))}</span></a></li>`;
     }).join("");
     return `<nav pgs="pageNav-list menu['menuVertical']" aria-label="Menu ${escapeHtml(category || "")}"><ul pgs="borderLeft">${rows}</ul></nav>`;
 }

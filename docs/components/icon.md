@@ -2,7 +2,7 @@
 
 # Icon
 
-The glyphs the library draws itself, as inline SVG rather than a font. The token marks the element as an icon and the option chooses which one, so the set is closed: what the stylesheet holds is what can be drawn. Everything MyPGS builds and needs to show goes through here — the slide arrows, the close buttons, the marks on alerts, toasts and notifications — which is why the library needs no icon font of its own. The same token is yours to write, so an icon you place by hand costs no dependency either. Written on its own, with no option, it draws nothing and only marks the element as an icon: that is how any icon set you bring gets the same box and placement the library gives an <i>, so a span, an svg or a custom element is sized and positioned like one. It is not iconBoxed: that one is the circular surface a glyph can sit inside, this one is the drawing.
+The glyphs the library draws itself, as inline SVG rather than a font. The token marks the element as an icon and the option chooses which one. Only the glyphs a component of the library draws on its own are carried inside the stylesheet (the arrows of the accordion, menu and slides, the close buttons, the marks on alerts, toasts and notifications, the search and dark-mode glyphs, the hamburger): they come in with the library, by structure, so a page that never loaded a font or anything else still gets its controls instead of an empty box. The rest of the set lives in the separate myIcon pack, whose stylesheet is loaded next to this one and writes the same option, so `icon['icon-star']` is written the same whichever of the two holds it; the pack holds the carried glyphs too. The same token is yours to write, so an icon you place by hand costs no dependency either. Written on its own, with no option, it draws nothing and only marks the element as an icon: that is how any icon set you bring gets the same box and placement the library gives an <i>, so a span, an svg or a custom element is sized and positioned like one. It is not iconBoxed: that one is the circular surface a glyph can sit inside, this one is the drawing.
 
 ## PGS
 
@@ -10,49 +10,22 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 
 ## PGS Options (component brackets)
 
-- `icon-arrowLeft`: arrow pointing left, for stepping back through a sequence.
 - `iconBoxed`: turns the element into the circular surface a glyph sits inside. It is the container and says nothing about what it holds, so a built-in glyph and an icon from any other set sit in it alike.
-- `iconDuo`: draws a two-layer version of a glyph instead of the flat one, when that glyph has one (icon-hamburgerTwo does); write it alongside the glyph name, as pgs="icon['icon-hamburgerTwo' 'iconDuo']". Each layer paints on its own pseudo-element, so a component can animate or color them independently.
 - `iconMedium`: sets --icon-size to 1.25em, a preset for a glyph that needs to stand out a little more than the size it inherits from the surrounding text.
 - `iconLarge`: sets --icon-size to 1.5em, the next preset up from iconMedium, for a glyph that has to stand out clearly from the text around it.
-- `icon-arrowRight`: arrow pointing right, for stepping forward.
 - `icon-chevronDown`: chevron pointing down, for anything that expands in place.
 - `icon-check`: tick, for a confirmed or checked state.
 - `icon-close`: cross, for dismissing a surface.
 - `icon-magnifyingGlass`: magnifying glass, for a search affordance.
 - `icon-moon`: crescent moon, the dark half of a theme switch.
 - `icon-sun`: sun, the light half of a theme switch.
-- `icon-cookie`: cookie, for anything about cookies or stored preferences.
-- `icon-sliders`: three sliders, for preferences.
 - `icon-circle`: plain disc, for a step that is only a position in a sequence.
 - `icon-circleXmark`: cross inside a disc, the error mark.
 - `icon-circleCheck`: tick inside a disc, the success mark.
 - `icon-circleInfo`: letter i inside a disc, the information mark.
 - `icon-triangleExclamation`: exclamation mark inside a triangle, the warning mark.
-- `icon-bell`: bell, for anything that announces something arriving.
-- `icon-star`: star, the neutral stand-in glyph for an example that needs one without it meaning anything.
 - `icon-hamburger`: three horizontal bars, the classic static hamburger menu glyph.
-- `icon-hamburgerTwo`: two horizontal bars, a lighter static hamburger menu glyph; add iconDuo for the two-layer version, each bar on its own pseudo-element so a component can animate them into a close mark.
-- `icon-calendar`: calendar, for a date.
-- `icon-chatBubble`: chat bubble, for a message or a comment.
-- `icon-clock`: clock, for a time or a duration.
-- `icon-download`: arrow into a tray, for downloading a file.
-- `icon-envelope`: envelope, for an email or a message.
-- `icon-eye`: eye, for showing or previewing something hidden.
-- `icon-gear`: gear, for settings or configuration.
-- `icon-heart`: heart, for favoriting or liking something.
-- `icon-home`: house, for a homepage or a starting point.
-- `icon-lock`: padlock, for something protected or restricted.
-- `icon-mapPin`: map pin, for a location or an address.
-- `icon-minus`: minus sign, for collapsing or decreasing a value.
-- `icon-pause`: two bars, for pausing playback.
-- `icon-pencil`: pencil, for editing.
-- `icon-play`: triangle, for starting playback.
-- `icon-plus`: plus sign, for adding or increasing a value.
-- `icon-trash`: bin, for deleting something.
-- `icon-upload`: arrow out of a tray, for uploading a file.
-- `icon-user`: person, for an account or a profile.
-- `icon-ellipsis`: three vertical dots, for a secondary "more actions" menu.
+- `icon-hamburgerTwo`: two horizontal bars, a lighter static hamburger menu glyph.
 
 ## Related elements
 
@@ -91,49 +64,22 @@ One example per glyph, the sizing and color behavior, and the surface a glyph si
 
 ### The set
 
-Every glyph the library can draw. The token marks the element, the option names the glyph.
+The glyphs the library carries because its own components draw them. The token marks the element, the option names the glyph. The rest of the set is in the myIcon pack, written the same way.
 
 ```html
-<i pgs="icon['icon-arrowLeft']"></i>
-<i pgs="icon['icon-arrowRight']"></i>
 <i pgs="icon['icon-chevronDown']"></i>
 <i pgs="icon['icon-check']"></i>
 <i pgs="icon['icon-close']"></i>
 <i pgs="icon['icon-magnifyingGlass']"></i>
 <i pgs="icon['icon-moon']"></i>
 <i pgs="icon['icon-sun']"></i>
-<i pgs="icon['icon-cookie']"></i>
-<i pgs="icon['icon-sliders']"></i>
 <i pgs="icon['icon-circle']"></i>
 <i pgs="icon['icon-circleXmark']"></i>
 <i pgs="icon['icon-circleCheck']"></i>
 <i pgs="icon['icon-circleInfo']"></i>
 <i pgs="icon['icon-triangleExclamation']"></i>
-<i pgs="icon['icon-bell']"></i>
-<i pgs="icon['icon-star']"></i>
 <i pgs="icon['icon-hamburger']"></i>
 <i pgs="icon['icon-hamburgerTwo']"></i>
-<i pgs="icon['icon-calendar']"></i>
-<i pgs="icon['icon-chatBubble']"></i>
-<i pgs="icon['icon-clock']"></i>
-<i pgs="icon['icon-download']"></i>
-<i pgs="icon['icon-envelope']"></i>
-<i pgs="icon['icon-eye']"></i>
-<i pgs="icon['icon-gear']"></i>
-<i pgs="icon['icon-heart']"></i>
-<i pgs="icon['icon-home']"></i>
-<i pgs="icon['icon-lock']"></i>
-<i pgs="icon['icon-mapPin']"></i>
-<i pgs="icon['icon-minus']"></i>
-<i pgs="icon['icon-pause']"></i>
-<i pgs="icon['icon-pencil']"></i>
-<i pgs="icon['icon-play']"></i>
-<i pgs="icon['icon-plus']"></i>
-<i pgs="icon['icon-trash']"></i>
-<i pgs="icon['icon-upload']"></i>
-<i pgs="icon['icon-user']"></i>
-<i pgs="icon['icon-ellipsis']"></i>
-<i pgs="icon['icon-hamburgerTwo' 'iconDuo']"></i>
 ```
 
 ### Size and color

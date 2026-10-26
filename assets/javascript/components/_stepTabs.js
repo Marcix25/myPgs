@@ -68,12 +68,8 @@ function PGS_stepTabs_build(tabsWizard) {
                     pgs(dotIcon).add(`icon['${authoredIcon || "icon-circle"}']`);
                 } else {
                     pgs(dotIcon).add("icon");
-                    // a full list goes through untouched, whatever set it belongs to. A lone
-                    // Font Awesome name is completed with its style class, because that set
-                    // needs one and markup written before other sets were supported relies on it
-                    dotIcon.className = /^fa-\S+$/.test(authoredIcon)
-                        ? `fa-solid ${authoredIcon}`
-                        : authoredIcon;
+                    // the list goes through untouched, whatever set it belongs to
+                    dotIcon.className = authoredIcon;
                 }
 
                 dot.replaceChildren(dotIcon);

@@ -9,7 +9,7 @@ const INITIALIZED_BUTTONS = new WeakSet();
 // the glyph is not the author's choice here: the library owns it, because it has to say which way
 // the switch is pointing. It draws it from the built-in set so the control is never blank, and
 // looks for a marked element as well as an <i>, so an icon set that renders anything else still
-// gets found. The fa- classes stay on for the pages that style them
+// gets found
 function changeIcon(selector, isDarkMode) {
     selector.forEach(button => {
         const ICON = pgs(button).querySelector("icon") || button.querySelector("i");
@@ -18,8 +18,6 @@ function changeIcon(selector, isDarkMode) {
         pgs(ICON).add("icon");
         pgs(ICON).option.toggle("icon-moon", !isDarkMode);
         pgs(ICON).option.toggle("icon-sun", isDarkMode);
-        ICON.classList.toggle("fa-moon", !isDarkMode);
-        ICON.classList.toggle("fa-sun", isDarkMode);
     });
 }
 

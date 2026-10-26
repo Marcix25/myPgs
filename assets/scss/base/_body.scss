@@ -36,13 +36,13 @@
 
         ul {
             list-style: none;
-            color: var(--color-black);
+            color: var(--color-text);
         }
 
         hr {
             margin: var(--gap-texts);
             border-style: solid;
-            border-color: var(--color-primary-soft);
+            border-color: var(--color-box);
             align-self: stretch;
             width: auto;
         }
@@ -54,10 +54,7 @@
             color: var(--color-secondary-text);
         }
 
-        :focus-visible {
-            outline: var(--focus-visible);
-            outline-offset: 3px;
-        }
+        :focus-visible { @include focus(); }
     }
 
     //## IMG

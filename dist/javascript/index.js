@@ -647,7 +647,7 @@ const INITIALIZED_BUTTONS = new WeakSet();
 // the glyph is not the author's choice here: the library owns it, because it has to say which way
 // the switch is pointing. It draws it from the built-in set so the control is never blank, and
 // looks for a marked element as well as an <i>, so an icon set that renders anything else still
-// gets found. The fa- classes stay on for the pages that style them
+// gets found
 function changeIcon(selector, isDarkMode) {
     selector.forEach(button => {
         const ICON = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(button).querySelector("icon") || button.querySelector("i");
@@ -656,8 +656,6 @@ function changeIcon(selector, isDarkMode) {
         (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(ICON).add("icon");
         (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(ICON).option.toggle("icon-moon", !isDarkMode);
         (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(ICON).option.toggle("icon-sun", isDarkMode);
-        ICON.classList.toggle("fa-moon", !isDarkMode);
-        ICON.classList.toggle("fa-sun", isDarkMode);
     });
 }
 
@@ -3868,12 +3866,8 @@ function PGS_stepTabs_build(tabsWizard) {
                     (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dotIcon).add(`icon['${authoredIcon || "icon-circle"}']`);
                 } else {
                     (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dotIcon).add("icon");
-                    // a full list goes through untouched, whatever set it belongs to. A lone
-                    // Font Awesome name is completed with its style class, because that set
-                    // needs one and markup written before other sets were supported relies on it
-                    dotIcon.className = /^fa-\S+$/.test(authoredIcon)
-                        ? `fa-solid ${authoredIcon}`
-                        : authoredIcon;
+                    // the list goes through untouched, whatever set it belongs to
+                    dotIcon.className = authoredIcon;
                 }
 
                 dot.replaceChildren(dotIcon);

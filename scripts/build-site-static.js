@@ -33,6 +33,8 @@
 // this script produces site/build/<name>.html from it, sharing the same site/index.html as
 // every other page. demo.html is the one name this script treats differently, as above, and it has to exist.
 //
+// It also copies the myIcon pack stylesheet (../myIcon/dist/icons.min.css) into site/assets/css/, since the site is served from this repository and cannot reach the sibling folder.
+//
 // Run with: npm run sitebuild
 
 "use strict";
@@ -51,6 +53,10 @@ const DEMO_PAGE = "demo.html";
 // where each page's own content is read from, <name> standing for the page's name
 const PAGE_INCLUDE_PATTERN = /<!--\s*include:\s*page\s+(\S+?)\s*-->/;
 const COMPILED_CSS = path.join(PROJECT_ROOT, "dist", "css", "index.css");
+const ICON_PACK_CSS = process.env.MYICON_DIR
+    ? path.join(path.resolve(process.env.MYICON_DIR), "..", "dist", "icons.min.css")
+    : path.resolve(PROJECT_ROOT, "../myIcon/dist/icons.min.css");
+const ICON_PACK_COPY = path.join(SITE_ROOT, "assets", "css", "myicon.min.css");
 const WELCOME_FILE = path.join(REFERENCE_ROOT, "guides", "welcome.html");
 
 // every <!-- include: name.html --> comment in the shell is replaced by that file from site/parts/,
@@ -186,8 +192,23 @@ function getPageFile(template, name) {
     return path.join(PROJECT_ROOT, template.replace("<name>", name));
 }
 
+// the demos use glyphs the library does not carry, so the site loads the myIcon stylesheet. It is
+// copied next to the site's other assets instead of linked from the sibling checkout: the site is
+// served from this repository's root (and published from it), where ../myIcon is out of reach. When
+// the checkout is not there the copy already in site/assets/css/ is kept.
+function syncIconPack() {
+    if (!fs.existsSync(ICON_PACK_CSS)) {
+        console.warn(`[build-site-static] ${ICON_PACK_CSS} not found, keeping ${path.relative(PROJECT_ROOT, ICON_PACK_COPY)} as it is.`);
+        return;
+    }
+    fs.mkdirSync(path.dirname(ICON_PACK_COPY), { recursive: true });
+    fs.copyFileSync(ICON_PACK_CSS, ICON_PACK_COPY);
+    console.log(`[build-site-static] ${path.relative(PROJECT_ROOT, ICON_PACK_COPY)} copied from the myIcon pack.`);
+}
+
 function main() {
     fs.mkdirSync(BUILD_DIR, { recursive: true });
+    syncIconPack();
 
     const siteHtml = resolveIncludes(fs.readFileSync(SITE_STRUCTURE_HTML, "utf8"));
     const pageTemplate = getPageTemplate(siteHtml);

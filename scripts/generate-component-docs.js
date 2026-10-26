@@ -6,6 +6,12 @@ const fs = require("fs");
 const path = require("path");
 const { findMatchingBracket, tokenizeOptions, extractAttributes } = require("./pgs-attributes.js");
 
+// options the stylesheet supports and the reference deliberately does not document yet: the check below
+// demands a @pgs-options line for every supported option, and these are the ones left out on purpose.
+// iconDuo: the two-layer glyph logic stays in the icon component and in the myIcon pack, but no glyph of
+// the pack is shown with it until the duo set is ready
+const WITHHELD_OPTIONS = new Set(["iconDuo"]);
+
 const PROJECT_ROOT = path.resolve(__dirname, "..");
 const REFERENCE_ROOT = path.join(PROJECT_ROOT, "reference", "html");
 const DOCS_ROOT = path.join(PROJECT_ROOT, "docs");
@@ -498,7 +504,7 @@ function validateTemplate(template, parsed, sources, allSourceContent) {
         if (option.key === "stepTabsIcon") {
             const payload = (option.payload || "").trim();
             if (payload.startsWith("icon-") && /\s/.test(payload)) {
-                errors.push(createError(file, `The name of a glyph in stepTabsIcon must be a single word: "${option.payload}".`, "Use the full markup, the name of a glyph, or a list of classes: stepTabsIcon[<i class='fa-solid fa-check'></i>], stepTabsIcon[icon-check], stepTabsIcon[fa-regular fa-star].", "@pgs-options", option.key));
+                errors.push(createError(file, `The name of a glyph in stepTabsIcon must be a single word: "${option.payload}".`, "Use the full markup, the name of a glyph, or a list of classes: stepTabsIcon[<span pgs='icon' class='material-symbols-outlined'>check</span>], stepTabsIcon[icon-check], stepTabsIcon[bi bi-star].", "@pgs-options", option.key));
             }
             if (payload.startsWith("<") && !/<[a-zA-Z][^>]*>/.test(payload)) {
                 errors.push(createError(file, `The stepTabsIcon markup is not a valid tag: "${option.payload}".`, "Write a complete element, with its inner attributes in single quotes.", "@pgs-options", option.key));
@@ -519,6 +525,7 @@ function validateTemplate(template, parsed, sources, allSourceContent) {
     // of its own. Demanding @pgs-options would put a foreign key in this component's table, which
     // reads as an offer to configure something this component does not own
     associatedFacts.options.forEach(option => {
+        if (WITHHELD_OPTIONS.has(option)) return;
         if (!documentedOptions.has(option) && !documentedRelated.has(option)) {
             errors.push(createError(file, `Supported option that is not documented: "${option}".`, "Add it to the @pgs-options section, or to @related if it belongs to another component.", "@pgs-options", option));
         }

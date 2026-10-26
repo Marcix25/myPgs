@@ -1,27 +1,54 @@
 //= SYNC ICONS
-// reads the plain .svg files in assets/icons/ and writes their content into
-// assets/scss/mixin/_mx-icons.scss as the url("data:image/svg+xml,...") data URIs the icon
-// component consumes. Run it after adding or editing a file in assets/icons/:
-// node scripts/sync-icons.js
+// reads the glyphs the library draws by itself from the myIcon pack (../myIcon/svg/) and writes their
+// content into assets/scss/mixin/_mx-icons.scss as the url("data:image/svg+xml,...") data URIs the
+// icon component consumes. mypgs holds no .svg of its own: myIcon is the only place the originals
+// live. Run it after editing one of them in myIcon, or after changing CORE_ICONS:
+// npm run icons:sync
 //
-// Naming convention read from assets/icons/:
+// Which glyphs mypgs carries is the CORE_ICONS list below, nothing else is read from myIcon. Add a
+// name there only when a component of the library draws that glyph on its own (a button, an alert,
+// the dark-mode toggle...), since each one costs bytes in every project's stylesheet. Every other
+// glyph is in the myIcon stylesheet, which is loaded next to mypgs and writes the same icon option.
+//
+// The pack folder is ../myIcon/svg by default, or the MYICON_DIR environment variable.
+//
+// Naming convention read from the pack (the same one myIcon's scripts/build-icons.js reads):
 // - "icon-name.svg" is a single-layer glyph -> $icon-name, added to $icons-builtin under the bare
 //   key "name", which _icon.scss turns into the icon bracket flag icon-name and the --icon-glyph-name
 //   custom property.
-// - "iconDuo-name-before.svg" + "iconDuo-name-after.svg" (same base name, -before/-after
-//   suffix) are the two layers of a duo glyph -> $iconDuo-name-before/-after, paired as
-//   iconDuo-name in $icons-duo. -before draws on ::before, -after on ::after.
+// - "icon-name-before.svg" + "icon-name-after.svg" (same base name, -before/-after suffix) are the
+//   two layers of a duo glyph -> $icon-name-before/-after, paired as name in $icons-duo. -before
+//   draws on ::before, -after on ::after. A name in CORE_ICONS_DUO takes both from the pack.
 //
-// Existing entries are updated in place (their surrounding comments are left untouched); new
-// ones are appended before the $icons-builtin / $icons-duo maps. Nothing is ever removed here,
-// even if its .svg file disappears from assets/icons/, since another part of the library may
-// still reference the option.
+// The generated part of _mx-icons.scss, from the first $icon- variable to the end of the file, is
+// rewritten whole on every run: a glyph that leaves CORE_ICONS leaves the stylesheet too, and
+// leaves it as a breaking change for whoever writes that option without the pack loaded.
 const fs = require("fs");
 const path = require("path");
 
 const ROOT = path.resolve(__dirname, "..");
-const ICONS_DIR = path.join(ROOT, "assets/icons");
+const ICONS_DIR = process.env.MYICON_DIR ? path.resolve(process.env.MYICON_DIR) : path.resolve(ROOT, "../myIcon/svg");
 const ICONS_SCSS = path.join(ROOT, "assets/scss/mixin/_mx-icons.scss");
+
+// the glyphs a component of the library draws by itself
+const CORE_ICONS = [
+    "chevronDown", // accordion, menu, slides
+    "check", // checkbox and radio
+    "close", // modal, alerts, toast
+    "magnifyingGlass", // search
+    "circle", // stepTabs, form addon
+    "circleXmark", // alerts, form addon
+    "circleCheck", // alerts
+    "circleInfo", // alerts
+    "triangleExclamation", // alerts
+    "moon", // darkmode
+    "sun", // darkmode
+    "hamburger", // header, navSmart
+    "hamburgerTwo", // header, navSmart
+];
+
+// the core glyphs that also have a two-layer version in the pack
+const CORE_ICONS_DUO = ["hamburgerTwo"];
 
 function encodeSvg(raw) {
     return raw
@@ -36,115 +63,56 @@ function encodeSvg(raw) {
         .trim();
 }
 
-// the SCSS variable keeps the file's own name ($icon-star), while the map key is the bare glyph
-// name: _icon.scss writes the two prefixes where they are used, icon- for the public option and
-// --icon-glyph- for the custom property that carries the drawing
-function mapKey(name) {
-    return name.startsWith("icon-") ? name.slice("icon-".length) : name;
+function readSvg(name) {
+    const file = path.join(ICONS_DIR, `icon-${name}.svg`);
+    if (!fs.existsSync(file)) throw new Error(`${file} not found (listed in CORE_ICONS of scripts/sync-icons.js)`);
+    return fs.readFileSync(file, "utf8");
 }
 
-function readIcons() {
-    const files = fs.readdirSync(ICONS_DIR).filter(f => f.endsWith(".svg"));
-    const before = new Map();
-    const after = new Map();
-    const singles = new Map();
-
-    files.forEach(file => {
-        const base = file.slice(0, -4);
-        const raw = fs.readFileSync(path.join(ICONS_DIR, file), "utf8");
-        if (base.endsWith("-before")) before.set(base.slice(0, -"-before".length), raw);
-        else if (base.endsWith("-after")) after.set(base.slice(0, -"-after".length), raw);
-        else singles.set(base, raw);
-    });
-
-    const duos = new Map();
-    before.forEach((raw, name) => {
-        if (!after.has(name)) {
-            console.warn(`[sync-icons] "${name}-before.svg" has no matching "${name}-after.svg", skipped`);
-            return;
-        }
-        duos.set(name, { before: raw, after: after.get(name) });
-    });
-    after.forEach((_, name) => {
-        if (!before.has(name)) console.warn(`[sync-icons] "${name}-after.svg" has no matching "${name}-before.svg", skipped`);
-    });
-
-    return { singles, duos };
-}
-
-function upsertVariable(scss, varName, url) {
-    const declaration = `$${varName}: url("data:image/svg+xml,${url}");`;
-    const pattern = new RegExp(`\\$${varName}:\\s*url\\("data:image/svg\\+xml,[^"]*"\\);`);
-    if (pattern.test(scss)) return { scss: scss.replace(pattern, declaration), added: false };
-    return { scss, added: true, declaration };
-}
-
-function insertBeforeMarker(scss, marker, lines) {
-    if (!lines.length) return scss;
-    const index = scss.indexOf(marker);
-    if (index === -1) throw new Error(`marker not found: ${marker}`);
-    return scss.slice(0, index) + lines.join("\n") + "\n\n" + scss.slice(index);
-}
-
-function addToMap(scss, mapName, entryLines) {
-    if (!entryLines.length) return scss;
-    const pattern = new RegExp(`(\\$${mapName}:\\s*\\(\\n)([\\s\\S]*?)(\\n\\);)`);
-    const match = scss.match(pattern);
-    if (!match) throw new Error(`map not found: $${mapName}`);
-    const body = match[2].replace(/\s+$/, "");
-    const newBody = `${body}\n${entryLines.map(l => `    ${l}`).join("\n")}`;
-    return scss.replace(pattern, `$1${newBody}$3`);
+function declaration(varName, raw) {
+    return `$${varName}: url("data:image/svg+xml,${encodeSvg(raw)}");`;
 }
 
 function main() {
-    const { singles, duos } = readIcons();
-    let scss = fs.readFileSync(ICONS_SCSS, "utf8");
+    if (!fs.existsSync(ICONS_DIR)) throw new Error(`the icon pack was not found at ${ICONS_DIR}; clone myIcon next to mypgs or set MYICON_DIR`);
 
-    const newDeclarations = [];
-    const newBuiltinEntries = [];
-    const newDuoEntries = [];
-    const updated = [];
-
-    singles.forEach((raw, name) => {
-        const url = encodeSvg(raw);
-        const result = upsertVariable(scss, name, url);
-        scss = result.scss;
-        if (result.added) {
-            newDeclarations.push(result.declaration);
-            newBuiltinEntries.push(`${mapKey(name)}: $${name},`);
-        } else {
-            updated.push(name);
-        }
+    const declarations = [];
+    CORE_ICONS.forEach(name => declarations.push(declaration(`icon-${name}`, readSvg(name))));
+    CORE_ICONS_DUO.forEach(name => {
+        declarations.push(declaration(`icon-${name}-before`, readSvg(`${name}-before`)));
+        declarations.push(declaration(`icon-${name}-after`, readSvg(`${name}-after`)));
     });
 
-    duos.forEach(({ before, after }, name) => {
-        const beforeVar = `${name}-before`;
-        const afterVar = `${name}-after`;
-        const beforeResult = upsertVariable(scss, beforeVar, encodeSvg(before));
-        scss = beforeResult.scss;
-        const afterResult = upsertVariable(scss, afterVar, encodeSvg(after));
-        scss = afterResult.scss;
+    const generated = [
+        ...declarations,
+        "//the drawable set. The key is the bare glyph name: the two prefixes are written where they are",
+        "//used, icon- for the public option (pgs \"icon['icon-star']\") and --icon-glyph- for the custom",
+        "//property that carries the drawing, so the glyphs never mix with the icon's own configuration.",
+        "//This is only the set the library draws by itself; the rest of the glyphs are in the myIcon pack, which",
+        "//writes the same option. Removing or renaming a key is a breaking change, since the keys are public",
+        "//through that option.",
+        "$icons-builtin: (",
+        ...CORE_ICONS.map(name => `    ${name}: $icon-${name},`),
+        ");",
+        "//Two-layer glyphs. Unlike the single-path set above, their paths are drawn on ::before and ::after",
+        "//so a component can color or animate each layer independently.",
+        "$icons-duo: (",
+        ...CORE_ICONS_DUO.map(name => `    ${name}: ($icon-${name}-before, $icon-${name}-after),`),
+        ");",
+        "",
+    ].join("\n");
 
-        if (beforeResult.added || afterResult.added) {
-            if (beforeResult.added) newDeclarations.push(beforeResult.declaration);
-            if (afterResult.added) newDeclarations.push(afterResult.declaration);
-            newDuoEntries.push(`${mapKey(name)}: ($${beforeVar}, $${afterVar}),`);
-        } else {
-            updated.push(name);
-        }
-    });
+    const scss = fs.readFileSync(ICONS_SCSS, "utf8");
+    const start = scss.search(/^\$icon-/m);
+    if (start === -1) throw new Error("no $icon- variable found in _mx-icons.scss, the generated part has no anchor");
+    const next = scss.slice(0, start) + generated;
 
-    scss = insertBeforeMarker(scss, "//the drawable set", newDeclarations);
-    scss = addToMap(scss, "icons-builtin", newBuiltinEntries);
-    scss = addToMap(scss, "icons-duo", newDuoEntries);
+    const changed = next !== scss;
+    if (changed) fs.writeFileSync(ICONS_SCSS, next, "utf8");
 
-    fs.writeFileSync(ICONS_SCSS, scss, "utf8");
-
-    const added = [...newBuiltinEntries.map(l => l.split(":")[0].trim()), ...newDuoEntries.map(l => l.split(":")[0].trim())];
-    console.log(`[sync-icons] ${updated.length} updated, ${added.length} added.`);
-    if (updated.length) console.log("  updated:", updated.join(", "));
-    if (added.length) console.log("  added:  ", added.join(", "));
-    if (added.length) console.log("\nNew glyphs still need a line in reference/html/components/icon.html's @pgs-options and a demo, then `npm run docs:generate`.");
+    console.log(`[sync-icons] ${CORE_ICONS.length} glyphs (${CORE_ICONS_DUO.length} duo) read from ${path.relative(ROOT, ICONS_DIR)}, _mx-icons.scss ${changed ? "rewritten" : "already up to date"}.`);
 }
 
-main();
+if (require.main === module) main();
+
+module.exports = { CORE_ICONS, CORE_ICONS_DUO };

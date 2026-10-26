@@ -2,7 +2,7 @@
 
 # Darkmode
 
-Global light and dark theme switch. The choice is persisted in localStorage under screenIsDarkMode and re-applied to the html element as soon as the bundle is parsed, before the page paints, so a reload never flashes the wrong theme. Every control marked toggleDarkmode flips the theme and stays in sync with the others, and its inner icon is swapped between the built-in icon-moon and icon-sun glyphs automatically, so the control is never blank even with no icon set loaded; the fa-moon and fa-sun classes are still set alongside, for pages that style them. Each switch dispatches pgs:svg:changeColor on the document with detail { isDarkMode }, which is what recolors the SVG and Lottie files; see SVG colors.
+Global light and dark theme switch. The choice is persisted in localStorage under screenIsDarkMode and re-applied to the html element as soon as the bundle is parsed, before the page paints, so a reload never flashes the wrong theme. Every control marked toggleDarkmode flips the theme and stays in sync with the others, and its inner icon is swapped between the built-in icon-moon and icon-sun glyphs automatically, so the control is never blank even with no icon set loaded. Each switch dispatches pgs:svg:changeColor on the document with detail { isDarkMode }, which is what recolors the SVG and Lottie files; see SVG colors.
 
 ## PGS
 

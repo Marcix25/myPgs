@@ -2,8 +2,9 @@
 
 //# ICON
 // A glyph, drawn from the inline SVG in mixin/_mx-icons.scss. The token says "this element is an
-// icon", the option says which one, and the set is closed: what mixin/_mx-icons.scss holds is what
-// the library can draw.
+// icon", the option says which one. What mixin/_mx-icons.scss holds is only what the library's own
+// components draw (the CORE_ICONS of scripts/sync-icons.js, read from the myIcon pack); the rest of
+// the set is the myIcon stylesheet, loaded next to this one, which writes the same option.
 //
 // It exists so the library owes nothing to an icon font. Everything MyPGS builds and needs to
 // show — the slide arrows, the close buttons, the alert marks — draws through here, which means a

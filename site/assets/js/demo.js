@@ -64,10 +64,10 @@ function setupCopyButtons() {
         if (!copied) console.error("Copying to the clipboard failed.");
 
         // the button says how it went either way: a silent failure looks like a dead button
-        if (icon) icon.className = copied ? "fa-solid fa-check" : "fa-solid fa-xmark";
+        if (icon) icon.setAttribute("pgs", copied ? "icon['icon-check']" : "icon['icon-close']");
         button.setAttribute("aria-label", copied ? "Copied" : "Copy failed");
         setTimeout(() => {
-            if (icon) icon.className = "fa-solid fa-copy";
+            if (icon) icon.setAttribute("pgs", "icon['icon-copy']");
             button.setAttribute("aria-label", "Copy the HTML code");
         }, 1500);
     });

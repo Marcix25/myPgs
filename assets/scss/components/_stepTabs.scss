@@ -14,7 +14,7 @@
 
     :where([pgs~="stepTabs-next"]) {
         --button-background: var(--color-primary);
-        --button-color: var(--color-whiteFixed);
+        --button-color: var(--color-primary-text);
     }
 
     //read by the JavaScript only, declared here so editors suggest it: styling comes from the button component
@@ -46,10 +46,12 @@
             &[pgs-state~=completed] {
                 cursor: pointer;
                 background: var(--color-primary-soft);
+                color: var(--color-primary-strong);
             }
 
             &[pgs-state~=active] {
-                background: var(--color-primary);
+                background: var(--current-background);
+                color: var(--current-color);
                 scale: 1.2;
 
                 :where(i, [pgs~="icon"], [pgs*="icon\5B"]) { color: var(--color-whiteFixed); }

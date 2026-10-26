@@ -8,10 +8,8 @@ Section variants that control width, padding, and specific content treatment whi
 
 - `main`: identifies the main page area that stacks the sections, spacing them apart and filling the viewport height.
 - `section`: identifies the standard section with centered content, on every side by default, or with the option in its bracket picking one of the variants below instead. It sets no layout of its own: write flex or grid next to it to space its children. It is also an inline-size query container, on any element that carries the token (a div as much as a section), which container['cntNone'] cancels; a bare section or aside with no pgs is not one.
+- `main-child`: identifies a child of main, a section or not, that takes one of the options in its bracket to be pulled into the gap main leaves around it. It sets nothing on its own.
 - `section-specificity`: identifies the content, inside a section using sctSpecificity, that is held to the centered page column while the section itself and its other children keep the full width; nested inside another one it drops the page padding.
-- `main-removeGap`: identifies a child of main, a section or not, that is pulled into the gap main leaves around it: half of the gap above and below, so a section with a background meets the one next to it. It reads --main-gap, and --gap-sections when the child is not inside a main.
-- `main-removeGapTop`: the same pull on the top edge only.
-- `main-removeGapBottom`: the same pull on the bottom edge only.
 - `section-edgeLeft`: identifies the text block of a section using sctEdge, at the left of the row: a column held to half the page width and to the page padding on both sides, which starts where the text of a centered section starts. It is the first child of the row, and the rest of the row (an image, a video) takes what it leaves.
 - `section-edgeRight`: identifies the text block of a section using sctEdge, at the right of the row, the mirror of section-edgeLeft: it is the last child of the row, after the image, and it ends where the text of a centered section ends.
 - `container`: turns any element into an inline-size query container, so the utilities that measure their surroundings have something to measure; see Breakpoints, Flex and Grid.
@@ -23,6 +21,9 @@ Section variants that control width, padding, and specific content treatment whi
 - `sctMax`: inside section's own bracket, identifies a section with an extended maximum width.
 - `sctNoPadding`: inside section's own bracket, identifies a section without standard padding.
 - `sctEdge`: inside section's own bracket, makes the section a full-width row that bleeds off the edge of the screen and lines the text up with the page column on the other side: the text goes in a section-edgeLeft or a section-edgeRight and every other child (an image, a video) takes what the text leaves, never narrower than half of the page. The text block is at most the page width divided by --section-edge-textDivisor and the other children at least the page width divided by --section-edge-mediaDivisor; both are 2 by default and a value below 2 is taken as 2. --section-edge-gap, one page padding by default, is the space between them, which makes the media of a left and of a right section meet at the middle of the screen. Below the page width the text is flush against the edge of the screen.
+- `mainRemoveGap`: inside main-child's own bracket, pulls the child into the gap main leaves around it: half of the gap above and below, so a section with a background meets the one next to it. It reads --main-gap, and --gap-sections when the child is not inside a main.
+- `mainRemoveGapTop`: inside main-child's own bracket, the same pull on the top edge only.
+- `mainRemoveGapBottom`: inside main-child's own bracket, the same pull on the bottom edge only.
 - `cntNone`: inside container's own bracket, cancels it on the same element, so it stops acting as a query container and the nearest marked ancestor is measured instead.
 
 ## Related elements
@@ -192,14 +193,14 @@ Several section-edgeRight blocks side by side: only the last one takes the offse
 
 ### Remove gap
 
-main-removeGap pulls a child of main into the gap main leaves around it, half of the gap above and below, so that the second section meets the first one. main-removeGapTop and main-removeGapBottom do the same on one edge only.
+mainRemoveGap pulls a child of main into the gap main leaves around it, half of the gap above and below, so that the second section meets the first one. mainRemoveGapTop and mainRemoveGapBottom do the same on one edge only.
 
 ```html
 <section pgs="section" style="background-color: var(--color-primary-soft)">
     <p>A section with a background.</p>
 </section>
-<section pgs="section main-removeGap" style="background-color: var(--color-primary-soft)">
-    <p>main-removeGap: this one is pulled into the gap and meets the one above and the one below.</p>
+<section pgs="section main-child['mainRemoveGap']" style="background-color: var(--color-primary-soft)">
+    <p>mainRemoveGap: this one is pulled into the gap and meets the one above and the one below.</p>
 </section>
 ```
 
