@@ -5,6 +5,16 @@
     --darkmode-label-toDark: "Dark mode";
     --darkmode-label-toLight: "Light mode";
 
+    //# OWN ICON PER THEME
+    // a switch that holds a toggleDarkmode-light and/or a toggleDarkmode-dark shows the one of the current
+    // theme and hides the other: the icons are the author's, from any set, and the library does not touch
+    // them. It reads the root state, which the head script writes before the first paint, so a reload
+    // never shows the wrong one, or two: while the page is light the dark one is hidden, and the other
+    // way round. Nothing is ever shown again, the element just stops being hidden, so the display the
+    // author gave it (an inline-grid icon, a flex span) is left alone
+    :root:not([pgs-state~="darkmode"]) & [pgs~="toggleDarkmode-dark"],
+    :root[pgs-state~="darkmode"] & [pgs~="toggleDarkmode-light"] { display: none; }
+
     //# EXTENDED
     // the label says where the click leads, so it reads the theme itself rather than the glyph
     // on the button. Looking at the root state instead of the icon's classes means it keeps

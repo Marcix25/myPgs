@@ -30,7 +30,7 @@ meaning moved under them, so nothing errors and the page just looks wrong.
 | `pgs-option="buttonText"` and `pgs-option="buttonTransparent"` | `buttonTransparent` stripped every state, `buttonText` only the resting one | the two traded places: `buttonText` strips every state, `buttonTransparent` only the resting one |
 | `stepTabsIcon[fa-user]` (a lone Font Awesome name) | the dot added `fa-solid` to it, since that set needs a style class | the class list is written through untouched, as for any other set: write `stepTabsIcon[fa-solid fa-user]`, or use a built-in glyph (`stepTabsIcon[icon-user]`) or markup |
 | `pgs="card"` with no `card-content`, `card-img` or `card-imgForChild` as a direct child (text written straight in it, a link with a label) | no padding: the text touched the edge | takes `--card-padding` like the content would (`cardMini` shrinks it). A card of just an image, or whose content is nested deeper, is unchanged |
-| the icon of a `toggleDarkmode` control | the library also toggled the `fa-moon` and `fa-sun` classes on it, for pages that style them | it only toggles `icon-moon` and `icon-sun`. A page that styled the control by those Font Awesome classes (or loaded Font Awesome to draw them) styles `icon['icon-moon']` / `icon['icon-sun']` instead |
+| the icon of a `toggleDarkmode` control | the library drew it: it put `icon-moon` or `icon-sun` on the `<i>` you wrote (and `fa-moon` / `fa-sun` alongside) | the library draws nothing: write the two icons in the control, `<i pgs="toggleDarkmode-light icon['icon-moon']"></i>` and `<i pgs="toggleDarkmode-dark icon['icon-sun']"></i>`, from any set. The stylesheet shows the one of the current theme and hides the other. A control with a bare `<i pgs="icon"></i>` now draws nothing |
 | `pgs="toggleDarkmode"` inside `pgs="footer"` | the footer wrote "Dark mode"/"Light mode" next to the glyph on its own | the label is opt-in, and available everywhere: add `tglLabeled` to its bracket, `toggleDarkmode['tglLabeled']` |
 | `pgs="dropdown"` (and the floating first-level submenus of a horizontal menu) | the content floated with no arrow | the content draws an arrow pointing back at the trigger: add `drpNotArrow` to the bracket to keep the old look |
 | `pgs.<module>.init(root)` on an accordion, menu, steps, stepTabs, summary, notification or toast | looked only at what is inside `root`, so `pgs.helper.init(el)` on a freshly inserted `pgs="accordion"` did nothing | the root element itself is initialized too, like it already was for tabs, modal, dropdown, search, slides and pageNav |
@@ -939,6 +939,10 @@ Same name, different behavior:
   with the same markup. `icon-arrowLeft` was in the library and is now only in the pack. Written bare
   it only marks an element as an icon, which is how a set that does not use
   `<i>` — Material Symbols, Lucide, Iconify — gets the same box and placement.
+- **A theme switch with the icons of any set.** Inside a `toggleDarkmode`, a `toggleDarkmode-light` and a
+  `toggleDarkmode-dark` hold one icon each: the one of the current theme is shown and the other hidden by
+  the stylesheet, which reads the html element before the first paint, so a reload never shows two. The
+  library no longer picks the glyph, so the icon can be a glyph of the pack, an svg, an image or text.
 - **`stepTabsIcon` takes markup.** `stepTabsIcon[<span pgs='icon' class='material-symbols-outlined'>check</span>]`
   works, as does a glyph name or a class list. Inner attributes use single quotes.
 - **Border and outline sizing.** `border['bdThin'/'bdThick'/'bdThicker']`, per side too

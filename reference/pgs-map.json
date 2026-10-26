@@ -1567,7 +1567,10 @@
         "pgs-data": []
     },
     "toggleDarkmode": {
-        "pgs": [],
+        "pgs": [
+            "toggleDarkmode-dark",
+            "toggleDarkmode-light"
+        ],
         "pgs-generated": [],
         "pgs-options": [
             "tglLabeled"

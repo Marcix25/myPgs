@@ -643,22 +643,6 @@ __webpack_require__.r(__webpack_exports__);
 
 const INITIALIZED_BUTTONS = new WeakSet();
 
-//# CHANGE ICON
-// the glyph is not the author's choice here: the library owns it, because it has to say which way
-// the switch is pointing. It draws it from the built-in set so the control is never blank, and
-// looks for a marked element as well as an <i>, so an icon set that renders anything else still
-// gets found
-function changeIcon(selector, isDarkMode) {
-    selector.forEach(button => {
-        const ICON = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(button).querySelector("icon") || button.querySelector("i");
-        if (!ICON) return;
-
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(ICON).add("icon");
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(ICON).option.toggle("icon-moon", !isDarkMode);
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(ICON).option.toggle("icon-sun", isDarkMode);
-    });
-}
-
 //# STORED CHOICE
 // localStorage throws when the browser blocks site data, and answers null in some private windows:
 // either way the choice lives in memory for the rest of the page, so the switch still works
@@ -679,7 +663,7 @@ function writeStoredChoice(isDarkMode) {
 }
 
 //# SET STATUS
-function setDarkmodeStatus(toggle = false, button = []) {
+function setDarkmodeStatus(toggle = false) {
     let isDarkMode = readStoredChoice();
 
     if (toggle) {
@@ -692,7 +676,6 @@ function setDarkmodeStatus(toggle = false, button = []) {
     if (document.body) (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document.body).state.toggle("darkmode", isDarkMode);
     // END SET
 
-    changeIcon(button, isDarkMode);
     // on the root element, like every pgs:* event: it bubbles up to the document, and detail.element is
     // the element it was dispatched on
     _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.dispatch(document.documentElement, _svg_js__WEBPACK_IMPORTED_MODULE_1__.PGS_svg.eventChangeColor, { isDarkMode });
@@ -705,26 +688,22 @@ function setDarkmodeStatus(toggle = false, button = []) {
 // reload never paints the wrong one first
 if (typeof document !== "undefined") setDarkmodeStatus();
 
-// binds the switches in root that are not bound yet and draws their glyph. Switches already
-// bound are left untouched, so pgs.helper.init(el) on a page that is already running changes nothing
-// else: it does not re-apply the theme or fire the color event again
+// binds the switches in root that are not bound yet. Switches already bound are left untouched, so
+// pgs.helper.init(el) on a page that is already running changes nothing else: it does not re-apply the
+// theme or fire the color event again. The icon of a switch is not drawn here: the author writes a
+// toggleDarkmode-light and a toggleDarkmode-dark in it, and the stylesheet shows the one of the theme
 function PGS_darkmode_init(root = document) {
-    const isDarkMode = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document.documentElement).state.contains("darkmode");
     const buttons = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "toggleDarkmode").filter(button => !INITIALIZED_BUTTONS.has(button));
-
-    changeIcon(buttons, isDarkMode);
 
     buttons.forEach(button => {
         INITIALIZED_BUTTONS.add(button);
-        button.addEventListener("click", () => {
-            setDarkmodeStatus(true, (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document).querySelectorAll("toggleDarkmode"));
-        });
+        button.addEventListener("click", () => setDarkmodeStatus(true));
     });
 }
 
 // the first pass once the page is ready: the body exists now, so it takes the theme too
 _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(() => {
-    setDarkmodeStatus(false, (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document).querySelectorAll("toggleDarkmode"));
+    setDarkmodeStatus(false);
     PGS_darkmode_init();
 });
 

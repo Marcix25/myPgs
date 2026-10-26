@@ -475,6 +475,10 @@
   --darkmode-label-toLight: "Light mode";
 }
 
+:root:not([pgs-state~=darkmode]) :is([pgs~=toggleDarkmode], [pgs*="toggleDarkmode["]) [pgs~=toggleDarkmode-dark], :root[pgs-state~=darkmode] :is([pgs~=toggleDarkmode], [pgs*="toggleDarkmode["]) [pgs~=toggleDarkmode-light] {
+  display: none;
+}
+
 :is([pgs~=toggleDarkmode], [pgs*="toggleDarkmode["])[pgs*="'tglLabeled'"]::after {
   content: var(--darkmode-label-toDark);
 }

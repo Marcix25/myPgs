@@ -54,6 +54,8 @@
  * - notificationBell: a plain button that opens and closes the notification panel from the header; the panel itself is built by pgs.notification, not written here.
  * - notificationBell-counter: generated automatically inside notificationBell; not written by hand in this example.
  * - toggleDarkmode: connects the control to the global theme handler.
+ * - toggleDarkmode-light: inside the control, the icon of the light theme, shown while the page is light; see Darkmode.
+ * - toggleDarkmode-dark: inside the control, the icon of the dark theme, shown while the page is dark; see Darkmode.
  * - modal: provides opening and closing behavior for the compact navigation.
  * - modal-button: opens the compact panel.
  * - modal-close: closes the compact panel and shares the hamburger control.
@@ -61,6 +63,8 @@
  * - modal-dialog-content: identifies the inner compact navigation panel; also identifies the JS-generated content area wrapping notifications inside the notification dialog.
  * - icon: draws the glyphs this example shows; see Icon for the whole set.
  * - icon-bell: the glyph on the control that opens the panel.
+ * - icon-moon: the glyph of the light theme on the theme control; belongs to the icon component.
+ * - icon-sun: the glyph of the dark theme on the theme control; belongs to the icon component.
  * - icon-hamburgerTwo: draws the hamburger glyph, swapped for icon-close via CSS while the compact navigation is open.
  * - icon-close: drawn in place of icon-hamburgerTwo via CSS while the compact navigation is open; not written in this markup.
  *
@@ -93,7 +97,8 @@
                         <i pgs="icon['icon-bell']"></i>
                     </button>
                     <button pgs="button['btnIconOnly' 'btnForHeader'] toggleDarkmode" type="button" aria-label="Change theme">
-                        <i pgs="icon"></i>
+                        <i pgs="toggleDarkmode-light icon['icon-moon']" aria-hidden="true"></i>
+                        <i pgs="toggleDarkmode-dark icon['icon-sun']" aria-hidden="true"></i>
                     </button>
                 </div>
             </div>
@@ -104,7 +109,8 @@
                         <i pgs="icon['icon-bell']"></i>
                     </button>
                     <button pgs="button['btnIconOnly' 'btnForHeader'] toggleDarkmode" type="button" aria-label="Change theme">
-                        <i pgs="icon"></i>
+                        <i pgs="toggleDarkmode-light icon['icon-moon']" aria-hidden="true"></i>
+                        <i pgs="toggleDarkmode-dark icon['icon-sun']" aria-hidden="true"></i>
                     </button>
                     <div pgs="modal['dialogRight']" pgs-data="modalContainerPGS[header]">
 

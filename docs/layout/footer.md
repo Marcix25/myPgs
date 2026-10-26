@@ -21,6 +21,8 @@ Complete footer with theme control, brand area, navigation, informational conten
 - `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `button`: presents the theme control as a button.
 - `toggleDarkmode`: connects the control to the global light or dark theme handler.
+- `toggleDarkmode-light`: inside the control, the icon of the light theme, shown while the page is light; see Darkmode.
+- `toggleDarkmode-dark`: inside the control, the icon of the dark theme, shown while the page is dark; see Darkmode.
 - `section`: applies the shared section structure to the upper and legal areas.
 - `logo`: inserts the brand into the footer.
 - `logo-text`: uses the text variant of the logo.
@@ -32,6 +34,7 @@ Complete footer with theme control, brand area, navigation, informational conten
 - `row`: distributes the upper columns responsively.
 - `column-3`: configures the footer flex layout with three columns.
 - `icon-moon`: the glyph of the theme control; belongs to the icon component.
+- `icon-sun`: the glyph of the dark theme on the theme control; belongs to the icon component.
 
 ## CSS Variables
 
@@ -58,7 +61,8 @@ Brand and navigation columns in the upper section, legal links in the lower one.
                     <span pgs="logo-text">MyPGS</span>
                 </a>
                 <button pgs="button toggleDarkmode['tglLabeled']" type="button" aria-label="Change theme">
-                    <i pgs="icon['icon-moon']"></i>
+                    <i pgs="toggleDarkmode-light icon['icon-moon']" aria-hidden="true"></i>
+                    <i pgs="toggleDarkmode-dark icon['icon-sun']" aria-hidden="true"></i>
                 </button>
             </div>
 
