@@ -131,8 +131,6 @@
   --color-link: light-dark(#0065a3, #009EFF);
   --color-link-soft: color-mix(in srgb, var(--color-link) 20%, var(--color-white) 80%);
   --color-gray: #a4a4a4;
-  --color-icon-primary: var(--color-primary);
-  --color-icon-secondary: var(--color-primary-soft);
   --color-focus: var(--color-link);
   --color-info: var(--color-link);
   --color-error: #ff6161;
@@ -7303,14 +7301,6 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 [pgs*="textColor["][pgs*="'txtSuccessSoft'"] {
   color: var(--color-success-soft);
-}
-
-[pgs~=iconColorPrimary] {
-  color: var(--color-icon-primary);
-}
-
-[pgs~=iconColorSecondary] {
-  color: var(--color-icon-secondary);
 }
 
 :is([pgs~=border], [pgs*="border["]):not([pgs*="border["]) {

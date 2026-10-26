@@ -265,8 +265,12 @@ Nothing keeps working under the old name.
 | image fit | `imgCover` / `imgContain` | `img['imgCover']` / `img['imgContain']` |
 | flex item | `flex-flex1` / `flex-flexFull` / `flex-flexInitial` / `flex-flexNone` / `flex-flexOrderFirst` / `flex-flexOrderLast` | `flexChild['flex1']` / `flexChild['flexFull']` / ...: its own component, so it works inside any flex or grid container, not only under `flex` |
 
-Unchanged: `block`, `minWidth0`, `truncate`, `cursorNotAllowed`, `container`, and
-`iconColorPrimary`/`iconColorSecondary`, which stay bare.
+Unchanged: `block`, `minWidth0`, `truncate`, `cursorNotAllowed` and `container`.
+
+`iconColorPrimary` / `iconColorSecondary` and their `--color-icon-primary` / `--color-icon-secondary` are
+no longer in the library: nothing in it used them. A project that writes them defines both itself, in its
+own stylesheet (`:root { --color-icon-primary: var(--color-primary); }` and
+`[pgs~="iconColorPrimary"] { color: var(--color-icon-primary); }`).
 
 `svgChangeColor` now recolors Lottie animations too, from the same `--svg-color-N` pairs. The
 `lottieChangeColor` token that briefly existed on this branch is gone; write `svgChangeColor`.

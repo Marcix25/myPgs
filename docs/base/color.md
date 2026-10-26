@@ -8,8 +8,6 @@ Interactive palette of the current MyPGS background and text color utilities.
 
 - `background`: applies a background color, one of the palette below picked in its bracket.
 - `textColor`: applies a text color, one of the palette below picked in its bracket.
-- `iconColorPrimary`: applies --color-icon-primary to text.
-- `iconColorSecondary`: applies --color-icon-secondary to text.
 
 ## PGS Options (component brackets)
 
@@ -171,8 +169,6 @@ Interactive palette of the current MyPGS background and text color utilities.
 - `--color-error-soft`
 - `--color-focus`
 - `--color-gray`
-- `--color-icon-primary`
-- `--color-icon-secondary`
 - `--color-info`
 - `--color-info-soft`
 - `--color-link`

@@ -155,8 +155,6 @@
         --color-link: light-dark(#0065a3, #009EFF);
         --color-link-soft: color-mix(in srgb, var(--color-link) 20%, var(--color-white) 80%);
         --color-gray: #a4a4a4;
-        --color-icon-primary: var(--color-primary);
-        --color-icon-secondary: var(--color-primary-soft);
         --color-focus: var(--color-link);
         //## status 
         --color-info: var(--color-link);
