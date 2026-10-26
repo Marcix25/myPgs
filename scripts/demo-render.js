@@ -526,7 +526,7 @@ function renderExampleSourceHtml(markup, title = "Example HTML", kind = "html") 
     const langClass = kind === "html" ? "markup" : kind;
     return `<div class="exampleSource" data-kind="${escapeHtml(kind)}">` +
         `<strong class="exampleSource-title">${escapeHtml(title)}</strong>` +
-        `<button type="button" class="exampleSource-copy" aria-label="Copy the HTML code"><i pgs="icon['icon-copy']" aria-hidden="true"></i></button>` +
+        `<button type="button" class="exampleSource-copy" pgs="button['btnIconOnly']" aria-label="Copy the HTML code"><i pgs="icon['icon-copy']" aria-hidden="true"></i></button>` +
         `<pre><code class="language-${langClass}">${escapeHtml(markup)}</code></pre>` +
         `</div>`;
 }

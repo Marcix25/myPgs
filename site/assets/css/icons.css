@@ -58,15 +58,16 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     gap: var(--gap-texts);
-    align-items: start;
+    align-items: center;
 }
 
 .icons-copy pre {
     margin: 0;
     padding: var(--padding-texts);
     max-block-size: 10rem;
-    border-radius: var(--borderRadius-texts);
-    background: var(--color-box-transparent);
+    border-radius: var(--borderRadius-elements);
+    /* the card around it is already the box color: the code sits on the page color to stand out */
+    background: var(--color-background);
     /* the code still scrolls sideways (wheel, touch, keyboard), the bar is just not drawn */
     scrollbar-width: none;
 }
@@ -176,6 +177,6 @@
 /* the cards of flex['column-N'] cannot shrink (flex-shrink 0) and a flex item is never narrower than its
    content by default, so a long line of code (the <link> of the import) kept the card, and the page, wider than
    a phone. With no minimum the card takes the width of its column and the code scrolls inside its panel */
-.icons-cards > * {
+.icons-cards>* {
     min-width: 0;
 }

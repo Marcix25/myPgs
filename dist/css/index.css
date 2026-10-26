@@ -92,14 +92,14 @@
 }
 
 :where([pgs~=htmlBase]):root {
-  --color-primary: #3aa561;
-  --color-secondary: #ffa600;
-  --color-tertiary: #00f2ff;
-  --color-quaternary: #ddff00;
-  --color-primary-text: #00210e;
-  --color-secondary-text: #492f00;
-  --color-tertiary-text: #004a4e;
-  --color-quaternary-text: #323900;
+  --color-primary: #80ed99;
+  --color-secondary: #57cc99;
+  --color-tertiary: #329597;
+  --color-quaternary: #22577a;
+  --color-primary-text: contrast-color(var(--color-primary));
+  --color-secondary-text: contrast-color(var(--color-secondary));
+  --color-tertiary-text: contrast-color(var(--color-tertiary));
+  --color-quaternary-text: contrast-color(var(--color-quaternary));
   --color-primary-soft: light-dark(color-mix(in srgb, var(--color-primary), var(--color-white) 78%), color-mix(in srgb, var(--color-primary), var(--color-white) 60%));
   --color-secondary-soft: light-dark(color-mix(in srgb, var(--color-secondary), var(--color-white) 78%), color-mix(in srgb, var(--color-secondary), var(--color-white) 60%));
   --color-quaternary-soft: light-dark(color-mix(in srgb, var(--color-quaternary), var(--color-white) 78%), color-mix(in srgb, var(--color-quaternary), var(--color-white) 60%));
@@ -3121,7 +3121,7 @@
   --navSmart-gap: .8rem;
   --navSmart-edgePWA: 2.0rem;
   --navSmart-edge: calc(var(--page-padding) / 2);
-  --navSmart-itemMinWidth: min(7.2rem, 16vw);
+  --navSmart-itemMinWidth: min(7.2rem, 13vw);
   --navSmart-iconSize: 2.2rem;
   --navSmart-itemHeight: 4.9rem;
   position: fixed;
@@ -3374,6 +3374,10 @@
   flex-basis: 100%;
 }
 
+:is([pgs~=card], [pgs*="card["]):where(:not(:has(> :is([pgs~=card-content], [pgs~=card-img], [pgs~=card-imgForChild])))) {
+  padding: var(--card-padding);
+}
+
 :is([pgs~=card], [pgs*="card["]):where(a) {
   display: block;
   transition: var(--clickable-transition);
@@ -3399,6 +3403,7 @@
   min-width: 0;
 }
 
+:is([pgs~=card], [pgs*="card["]) :where([pgs~=card-img]),
 :is([pgs~=card], [pgs*="card["]) :where([pgs~=card-imgForChild]) > * {
   display: block;
   padding: var(--card-img-padding);
@@ -4298,9 +4303,9 @@
   --button-background-current: var(--current-background);
   --button-background-twoState: var(--twoState-background);
   --button-shadow: unset;
-  --button-shadow-hover: var(--button-shadow);
-  --button-shadow-current: 0 .2rem .8rem color-mix(in srgb, var(--color-blackFixed) 10%, transparent);
-  --button-shadow-twoState: var(--button-shadow);
+  --button-shadow-hover: unset;
+  --button-shadow-current: unset;
+  --button-shadow-twoState: unset;
   --button-borderColor: var(--clickable-borderColor);
   --button-borderColor-hover: var(--hover-borderColor);
   --button-borderColor-current: var(--current-borderColor);

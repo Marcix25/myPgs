@@ -19,6 +19,13 @@
     padding: 0;
     flex-basis: 100%;
 
+    //## NO CONTENT
+    // a card with no card-content of its own (the text written straight in it, a link with a label) gets the
+    // padding the content would have given it. Only the direct children count, so a card inside a card does not
+    // take it away from the outer one, and a card of just an image keeps it at the edge: card-img and
+    // card-imgForChild are drawn flush with the card
+    &:where(:not(:has(> :is([pgs~="card-content"], [pgs~="card-img"], [pgs~="card-imgForChild"])))) { padding: var(--card-padding); }
+
     //## LINK
     &:where(a) {
         display: block;
@@ -48,18 +55,17 @@
         min-width: 0;
     }
 
-    :where([pgs~="card-imgForChild"]) {
-        >* {
-            display: block;
-            padding: var(--card-img-padding);
-            width: 100%;
-            max-width: 100%;
-            min-width: 0;
-            height: auto;
-            margin: 0;
-            object-fit: cover;
-            border-radius: var(--card-borderRadius-item);
-        }
+    :where([pgs~="card-img"]),
+    :where([pgs~="card-imgForChild"])>* {
+        display: block;
+        padding: var(--card-img-padding);
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        height: auto;
+        margin: 0;
+        object-fit: cover;
+        border-radius: var(--card-borderRadius-item);
     }
 
     //## card-content
@@ -108,7 +114,9 @@
 
         :where([pgs~="card-content"]),
         :where([pgs~="card-img"]),
-        :where([pgs~="card-imgForChild"]) { flex-basis: 100%; }
+        :where([pgs~="card-imgForChild"]) {
+            flex-basis: 100%;
+        }
 
         //+( mobile
         @container (min-width: #{$mobile}) { @include _cardHorizontal(); }

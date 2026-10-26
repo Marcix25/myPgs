@@ -89,25 +89,11 @@ body {
         font-size: 1.15rem;
     }
 
+    /* the look is the button's (pgs="button['btnIconOnly']"): only where it sits is written here */
     .exampleSource-copy {
         position: absolute;
         top: 20px;
         right: 20px;
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-        border: none;
-        background: #c2bfbf56;
-        color: var(--color-black);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: background-color 150ms;
-
-        &:hover {
-            background: #8f8e8e56;
-        }
     }
 
     /* Prism tokenizes the markup, the colors here just theme it to match the pill's own

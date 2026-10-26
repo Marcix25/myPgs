@@ -1204,8 +1204,8 @@
                 </div>
                 <div class="icons-snippet" pgs="background['bgBlackFixed'] textColor['txtWhiteFixed']">
                     <pre><code id="icons-import-html">&lt;link rel="stylesheet" href="node_modules/myicon/dist/icons.min.css"&gt;</code></pre>
-                    <button pgs="button['btnMini' 'btnPaddingEqual']" type="button" data-copy="icons-import-html" title="Copy the code">
-                        <span class="icons-copy-label">Copy</span>
+                    <button pgs="button['btnMini' 'btnIconOnly']" type="button" data-copy="icons-import-html" title="Copy the code" aria-label="Copy the code">
+                        <i class="icons-copy-label" pgs="icon['icon-copy']" aria-hidden="true"></i>
                         <i class="icons-copy-icon" data-for="success" pgs="icon['icon-check']" aria-hidden="true"></i>
                         <i class="icons-copy-icon" data-for="error" pgs="icon['icon-close']" aria-hidden="true"></i>
                     </button>
@@ -1221,8 +1221,8 @@
                 </div>
                 <div class="icons-snippet" pgs="background['bgBlackFixed'] textColor['txtWhiteFixed']">
                     <pre><code id="icons-import-js">import "myicon/style.min.css";</code></pre>
-                    <button pgs="button['btnMini' 'btnPaddingEqual']" type="button" data-copy="icons-import-js" title="Copy the code">
-                        <span class="icons-copy-label">Copy</span>
+                    <button pgs="button['btnMini' 'btnIconOnly']" type="button" data-copy="icons-import-js" title="Copy the code" aria-label="Copy the code">
+                        <i class="icons-copy-label" pgs="icon['icon-copy']" aria-hidden="true"></i>
                         <i class="icons-copy-icon" data-for="success" pgs="icon['icon-check']" aria-hidden="true"></i>
                         <i class="icons-copy-icon" data-for="error" pgs="icon['icon-close']" aria-hidden="true"></i>
                     </button>
@@ -1238,8 +1238,8 @@
                 </div>
                 <div class="icons-snippet" pgs="background['bgBlackFixed'] textColor['txtWhiteFixed']">
                     <pre><code id="icons-import-css">@import "myicon/style.min.css";</code></pre>
-                    <button pgs="button['btnMini' 'btnPaddingEqual']" type="button" data-copy="icons-import-css" title="Copy the code">
-                        <span class="icons-copy-label">Copy</span>
+                    <button pgs="button['btnMini' 'btnIconOnly']" type="button" data-copy="icons-import-css" title="Copy the code" aria-label="Copy the code">
+                        <i class="icons-copy-label" pgs="icon['icon-copy']" aria-hidden="true"></i>
                         <i class="icons-copy-icon" data-for="success" pgs="icon['icon-check']" aria-hidden="true"></i>
                         <i class="icons-copy-icon" data-for="error" pgs="icon['icon-close']" aria-hidden="true"></i>
                     </button>
@@ -1275,6 +1275,16 @@
                     <strong>Size</strong>
                     <small>The font size of the element, or iconMedium and iconLarge. --icon-size sets any other.</small>
                 </div>
+                <div class="icons-snippet" pgs="background['bgBlackFixed'] textColor['txtWhiteFixed'] marginTop['mgTpAuto']">
+                    <pre><code id="icons-use-size">&lt;i pgs="icon['icon-heart']"&gt;&lt;/i&gt;
+&lt;i pgs="icon['iconMedium' 'icon-heart']"&gt;&lt;/i&gt;
+&lt;i pgs="icon['iconLarge' 'icon-heart']"&gt;&lt;/i&gt;</code></pre>
+                    <button pgs="button['btnMini' 'btnIconOnly']" type="button" data-copy="icons-use-size" title="Copy the code" aria-label="Copy the code">
+                        <i class="icons-copy-label" pgs="icon['icon-copy']" aria-hidden="true"></i>
+                        <i class="icons-copy-icon" data-for="success" pgs="icon['icon-check']" aria-hidden="true"></i>
+                        <i class="icons-copy-icon" data-for="error" pgs="icon['icon-close']" aria-hidden="true"></i>
+                    </button>
+                </div>
             </div>
             <div pgs="box background['bgWhite'] flex['column' 'gapElements']">
                 <div class="icons-preview" pgs="">
@@ -1299,6 +1309,17 @@
                     <strong>Color</strong>
                     <small>The text color, or --icon-color. Use a text color utility to recolor one.</small>
                 </div>
+                <div class="icons-snippet" pgs="background['bgBlackFixed'] textColor['txtWhiteFixed'] marginTop['mgTpAuto']">
+                    <pre><code id="icons-use-color">&lt;i pgs="icon['iconLarge' 'icon-bell'] textColor['txtPrimary']"&gt;&lt;/i&gt;
+&lt;i pgs="icon['iconLarge' 'icon-bell'] textColor['txtSecondary']"&gt;&lt;/i&gt;
+&lt;i pgs="icon['iconLarge' 'icon-bell'] textColor['txtTertiary']"&gt;&lt;/i&gt;
+&lt;i pgs="icon['iconLarge' 'icon-bell'] textColor['txtQuaternary']"&gt;&lt;/i&gt;</code></pre>
+                    <button pgs="button['btnMini' 'btnIconOnly']" type="button" data-copy="icons-use-color" title="Copy the code" aria-label="Copy the code">
+                        <i class="icons-copy-label" pgs="icon['icon-copy']" aria-hidden="true"></i>
+                        <i class="icons-copy-icon" data-for="success" pgs="icon['icon-check']" aria-hidden="true"></i>
+                        <i class="icons-copy-icon" data-for="error" pgs="icon['icon-close']" aria-hidden="true"></i>
+                    </button>
+                </div>
             </div>
             <div pgs="box background['bgWhite'] flex['column' 'gapElements']">
                 <div class="icons-preview" pgs="">
@@ -1319,18 +1340,17 @@
                     <strong>Surface</strong>
                     <small>iconBoxed is the circular surface a glyph sits inside. It belongs to mypgs.</small>
                 </div>
+                <div class="icons-snippet" pgs="background['bgBlackFixed'] textColor['txtWhiteFixed'] marginTop['mgTpAuto']">
+                    <pre><code id="icons-use-surface">&lt;i pgs="icon['iconBoxed' 'icon-user']"&gt;&lt;/i&gt;
+&lt;i pgs="icon['iconBoxed' 'icon-gear']"&gt;&lt;/i&gt;
+&lt;i pgs="icon['iconBoxed' 'icon-home']"&gt;&lt;/i&gt;</code></pre>
+                    <button pgs="button['btnMini' 'btnIconOnly']" type="button" data-copy="icons-use-surface" title="Copy the code" aria-label="Copy the code">
+                        <i class="icons-copy-label" pgs="icon['icon-copy']" aria-hidden="true"></i>
+                        <i class="icons-copy-icon" data-for="success" pgs="icon['icon-check']" aria-hidden="true"></i>
+                        <i class="icons-copy-icon" data-for="error" pgs="icon['icon-close']" aria-hidden="true"></i>
+                    </button>
+                </div>
             </div>
-        </div>
-
-        <div class="icons-snippet" pgs="background['bgBlackFixed'] textColor['txtWhiteFixed']">
-            <pre><code id="icons-use-code">&lt;i pgs="icon['icon-star']"&gt;&lt;/i&gt;
-&lt;i pgs="icon['iconLarge' 'icon-heart']"&gt;&lt;/i&gt;
-&lt;i pgs="icon['iconBoxed' 'icon-check']"&gt;&lt;/i&gt;</code></pre>
-            <button pgs="button['btnMini' 'btnPaddingEqual']" type="button" data-copy="icons-use-code" title="Copy the code">
-                <span class="icons-copy-label">Copy</span>
-                <i class="icons-copy-icon" data-for="success" pgs="icon['icon-check']" aria-hidden="true"></i>
-                <i class="icons-copy-icon" data-for="error" pgs="icon['icon-close']" aria-hidden="true"></i>
-            </button>
         </div>
     </section>
 
@@ -1377,25 +1397,25 @@
                     <div pgs="flex['column' 'gapElements']">
                         <p id="icons-modal-origin"></p>
 
-                        <div pgs="flex['column' 'gapTexts']">
+                        <div pgs="card flex['column' 'gapTexts']">
                             <strong>HTML tag</strong>
                             <div class="icons-copy">
                                 <pre pgs="overflow['ovAutoX']"><code id="icons-copy-html"></code></pre>
-                                <button pgs="button['btnMini' 'btnPaddingEqual']" type="button" data-copy="icons-copy-html">
-                                    <span class="icons-copy-label">Copy</span>
+                                <button pgs="button['btnMini' 'btnIconOnly']" type="button" data-copy="icons-copy-html" title="Copy the code" aria-label="Copy the code">
+                                    <i class="icons-copy-label" pgs="icon['icon-copy']" aria-hidden="true"></i>
                                     <i class="icons-copy-icon" data-for="success" pgs="icon['icon-check']" aria-hidden="true"></i>
                                     <i class="icons-copy-icon" data-for="error" pgs="icon['icon-close']" aria-hidden="true"></i>
                                 </button>
                             </div>
                         </div>
 
-                        <div pgs="flex['column' 'gapTexts']">
+                        <div pgs="card flex['column' 'gapTexts']">
                             <strong>CSS</strong>
                             <small>Variable</small>
                             <div class="icons-copy">
                                 <pre pgs="overflow['ovAutoX']"><code id="icons-copy-css"></code></pre>
-                                <button pgs="button['btnMini' 'btnPaddingEqual']" type="button" data-copy="icons-copy-css">
-                                    <span class="icons-copy-label">Copy</span>
+                                <button pgs="button['btnMini' 'btnIconOnly']" type="button" data-copy="icons-copy-css" title="Copy the code" aria-label="Copy the code">
+                                    <i class="icons-copy-label" pgs="icon['icon-copy']" aria-hidden="true"></i>
                                     <i class="icons-copy-icon" data-for="success" pgs="icon['icon-check']" aria-hidden="true"></i>
                                     <i class="icons-copy-icon" data-for="error" pgs="icon['icon-close']" aria-hidden="true"></i>
                                 </button>
@@ -1403,20 +1423,20 @@
                             <small>SCSS mixin</small>
                             <div class="icons-copy">
                                 <pre pgs="overflow['ovAutoX']"><code id="icons-copy-scss"></code></pre>
-                                <button pgs="button['btnMini' 'btnPaddingEqual']" type="button" data-copy="icons-copy-scss">
-                                    <span class="icons-copy-label">Copy</span>
+                                <button pgs="button['btnMini' 'btnIconOnly']" type="button" data-copy="icons-copy-scss" title="Copy the code" aria-label="Copy the code">
+                                    <i class="icons-copy-label" pgs="icon['icon-copy']" aria-hidden="true"></i>
                                     <i class="icons-copy-icon" data-for="success" pgs="icon['icon-check']" aria-hidden="true"></i>
                                     <i class="icons-copy-icon" data-for="error" pgs="icon['icon-close']" aria-hidden="true"></i>
                                 </button>
                             </div>
                         </div>
 
-                        <div pgs="flex['column' 'gapTexts']">
+                        <div pgs="card flex['column' 'gapTexts']">
                             <strong>SVG code</strong>
                             <div class="icons-copy">
                                 <pre pgs="overflow['ovAutoX']"><code id="icons-copy-svg"></code></pre>
-                                <button pgs="button['btnMini' 'btnPaddingEqual']" type="button" data-copy="icons-copy-svg">
-                                    <span class="icons-copy-label">Copy</span>
+                                <button pgs="button['btnMini' 'btnIconOnly']" type="button" data-copy="icons-copy-svg" title="Copy the code" aria-label="Copy the code">
+                                    <i class="icons-copy-label" pgs="icon['icon-copy']" aria-hidden="true"></i>
                                     <i class="icons-copy-icon" data-for="success" pgs="icon['icon-check']" aria-hidden="true"></i>
                                     <i class="icons-copy-icon" data-for="error" pgs="icon['icon-close']" aria-hidden="true"></i>
                                 </button>

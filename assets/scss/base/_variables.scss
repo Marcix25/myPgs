@@ -106,15 +106,15 @@
         &[pgs-state~=darkmode] { color-scheme: dark; }
 
         //## Primary colors
-        --color-primary: #3aa561;
-        --color-secondary: #ffa600;
-        --color-tertiary: #00f2ff;
-        --color-quaternary: #ddff00;
+        --color-primary: #80ed99;
+        --color-secondary: #57cc99;
+        --color-tertiary: #329597;
+        --color-quaternary: #22577a;
         //### Primary Texts
-        --color-primary-text: #00210e;
-        --color-secondary-text: #492f00;
-        --color-tertiary-text: #004a4e;
-        --color-quaternary-text: #323900;
+        --color-primary-text: contrast-color(var(--color-primary));
+        --color-secondary-text: contrast-color(var(--color-secondary));
+        --color-tertiary-text: contrast-color(var(--color-tertiary));
+        --color-quaternary-text: contrast-color(var(--color-quaternary));
         //## Variant color
         $percentage-light: 78%;
         $percentage-dark: 60%;
