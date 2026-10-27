@@ -2,7 +2,7 @@
 
 # Icon
 
-The glyphs the library draws itself, as inline SVG rather than a font. The token marks the element as an icon and the option chooses which one. Only the glyphs a component of the library draws on its own are carried inside the stylesheet (the arrows of the accordion, menu and slides, the close buttons, the marks on alerts, toasts and notifications, the search and dark-mode glyphs, the hamburger): they come in with the library, by structure, so a page that never loaded a font or anything else still gets its controls instead of an empty box. The rest of the set lives in the separate myIcon pack, whose stylesheet is loaded next to this one and writes the same option, so `icon['icon-star']` is written the same whichever of the two holds it; the pack holds the carried glyphs too. The same token is yours to write, so an icon you place by hand costs no dependency either. Written on its own, with no option, it draws nothing and only marks the element as an icon: that is how any icon set you bring gets the same box and placement the library gives an <i>, so a span, an svg or a custom element is sized and positioned like one. It is not iconBoxed: that one is the circular surface a glyph can sit inside, this one is the drawing.
+The glyphs the library draws itself, as inline SVG rather than a font. The token marks the element as an icon and the option chooses which one. Only the glyphs a component of the library draws on its own are carried inside the stylesheet (the arrows of the accordion, menu and slides, the close buttons, the marks on alerts, toasts and notifications, the search and dark-mode glyphs, the hamburger): they come in with the library, by structure, so a page that never loaded a font or anything else still gets its controls instead of an empty box. The rest of the set lives in the separate myIcons pack, whose stylesheet is loaded next to this one and writes the same option, so `icon['icon-star']` is written the same whichever of the two holds it; the pack holds the carried glyphs too. The same token is yours to write, so an icon you place by hand costs no dependency either. Written on its own, with no option, it draws nothing and only marks the element as an icon: that is how any icon set you bring gets the same box and placement the library gives an <i>, so a span, an svg or a custom element is sized and positioned like one. It is not iconBoxed: that one is the circular surface a glyph can sit inside, this one is the drawing.
 
 ## PGS
 
@@ -64,7 +64,7 @@ One example per glyph, the sizing and color behavior, and the surface a glyph si
 
 ### The set
 
-The glyphs the library carries because its own components draw them. The token marks the element, the option names the glyph. The rest of the set is in the myIcon pack, written the same way.
+The glyphs the library carries because its own components draw them. The token marks the element, the option names the glyph. The rest of the set is in the myIcons pack, written the same way.
 
 ```html
 <i pgs="icon['icon-chevronDown']"></i>

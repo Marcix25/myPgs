@@ -8,7 +8,7 @@ const { findMatchingBracket, tokenizeOptions, extractAttributes } = require("./p
 
 // options the stylesheet supports and the reference deliberately does not document yet: the check below
 // demands a @pgs-options line for every supported option, and these are the ones left out on purpose.
-// iconDuo: the two-layer glyph logic stays in the icon component and in the myIcon pack, but no glyph of
+// iconDuo: the two-layer glyph logic stays in the icon component and in the myIcons pack, but no glyph of
 // the pack is shown with it until the duo set is ready
 const WITHHELD_OPTIONS = new Set(["iconDuo"]);
 

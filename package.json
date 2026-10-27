@@ -1,6 +1,6 @@
 {
     "name": "mypgs",
-    "version": "4.7.1",
+    "version": "5.0.0",
     "description": "MyPGS frontend theme and UI behaviors, with bundled JavaScript and CSS assets.",
     "main": "./dist/javascript/index.js",
     "module": "./assets/javascript/index.js",
@@ -20,14 +20,17 @@
         }
     },
     "style": "./dist/css/index.css",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Marcix25/myPgs.git"
+    },
     "files": [
         "assets/",
         "dist/",
-        "docs/",
         "plugins/",
-        "reference/",
+        "reference/html/",
+        "reference/pgs-map.json",
         "AGENTS.md",
-        "AGENTS-DEVELOPMENT.md",
         "AGENTS-USAGE.md",
         "README.md",
         "migration.md"

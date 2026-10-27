@@ -84,7 +84,7 @@ const referenceFiles = [
     "helper/helper.html",
 ];
 
-// the glyph of each entry in the nav, by name in the myIcon pack: written in the nav as icon['icon-<name>']
+// the glyph of each entry in the nav, by name in the myIcons pack: written in the nav as icon['icon-<name>']
 const ENTRY_ICONS = {
     "welcome": "home",
     "base/general.html": "sliders",

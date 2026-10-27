@@ -1,7 +1,7 @@
 # Migrating from `master` to this version
 
 `master` is the published 4.7.1 (2026-08-19). This guide is the net difference between that version and
-this one, written for whoever updates a project that consumes `mypgs` (a theme, a plugin, a site): for each
+this one (5.0.0), written for whoever updates a project that consumes `mypgs` (a theme, a plugin, a site): for each
 change it says what the project contains today (the "master" column, exactly what `master` shipped) and what
 to write instead (the "now" column). Names from the work in between never appear: a name in a "master"
 column is one that `master` really had, and a name in a "now" column is one this version really has.
@@ -59,7 +59,7 @@ Reading the tables: a flag is written inside the bracket of the component that o
    the menu: each needs `button['btnTransparent']`. See [Buttons and forms](#part-5-buttons-and-forms) and
    [Overlays and feedback](#part-6-overlays-and-feedback).
 7. **Icons.** The library no longer draws or themes Font Awesome. `pgs="icon"` is the glyph itself, 13 glyphs
-   are built in, and every other one comes from the separate `myicon` pack loaded after `mypgs`; a missing
+   are built in, and every other one comes from the separate `@marcix/myicons` pack loaded after `mypgs`; a missing
    glyph draws nothing and warns about nothing. The theme switch holds one icon per theme. See
    [Core](#part-1-core-attribute-grammar-javascript-packaging) and [Foundation](#part-2-foundation-tokens-palette-base-icons).
 8. **The defaults look different.** New palette, darker link color in light mode, links underlined in
@@ -128,7 +128,7 @@ Per-component flag/token/state renames are NOT here: they belong to [Foundation]
 | `new pgs.formValidate(form)` twice on the same form | stacked a second click listener and a second set of `validator()` callbacks | the last one built wins and the previous instance is destroyed; `validate()` no longer attaches listeners, one click listener on the form clears errors |
 | error / warning text | Italian or mixed ("pgs(root): root richiesto", `Rule must be a function`), several plain `Error` | English, one voice `pgs.<module>.<method>(): <what>`; invalid argument to a public method is always a `TypeError` (`pgs.helper.invalid`), invalid markup or a skippable request is a `console.warn` (`pgs.helper.warn`). Code matching message text breaks |
 | `plugins/vite-plugin-pgs` | `code.replace(/\bpgsHtml(\s*)=/g, "pgs$1=")` over every .jsx/.tsx, so `props.pgsHtml = x`, `{ pgsHtml = "" }` defaults and `a == pgsHtml` were rewritten too | rewrites only where `pgsHtml` is written as a JSX attribute (after a tag name, a closing quote or `}`); skips member access, `==`/`=>`, declarations and destructuring defaults; ignores `?query` in the module id |
-| npm package contents | no `files` field: published `demo/`, `scripts/`, `.vscode/`, `pgs-html-suggestions.vsix`, `webpack.config.js` (193 files, 5.4 MB) | `files` whitelist: `assets/`, `dist/`, `docs/`, `plugins/`, `reference/`, `AGENTS*.md`, `README.md`, `migration.md` (195 files, 0.6 MB). Not published any more: `site/`, `scripts/`, `tools/`, `webpack.config.js`, `pgs-html-suggestions.vsix`, `index.html`, `task.md` |
+| npm package contents | no `files` field: published `demo/`, `scripts/`, `.vscode/`, `pgs-html-suggestions.vsix`, `webpack.config.js` (193 files, 5.4 MB) | `files` whitelist: `assets/` (SCSS and JavaScript sources), `dist/`, `plugins/`, `reference/html/` and `reference/pgs-map.json`, `AGENTS.md`, `AGENTS-USAGE.md`, `README.md`, `migration.md` (148 files, 0.56 MB). Not published any more: `docs/` (the generated pages of `reference/html`, still linked from the README and readable in the repository), `AGENTS-DEVELOPMENT.md`, `site/`, `scripts/`, `tools/`, `webpack.config.js`, `pgs-html-suggestions.vsix` |
 
 ### B. Renames and removals (net)
 
@@ -205,7 +205,7 @@ Module registry (`pgs.<name>`), net:
 
 | master | now | note |
 | --- | --- | --- |
-| `package.json` without `files` | `files` whitelist (A, last row) | anything a project read from `node_modules/mypgs/{demo,scripts,webpack.config.js,.vscode,pgs-html-suggestions.vsix}` is gone from the tarball |
+| `package.json` without `files` | `files` whitelist (A, last row) | anything a project read from `node_modules/mypgs/{demo,scripts,webpack.config.js,.vscode,pgs-html-suggestions.vsix,docs}` is gone from the tarball |
 | `demo/demo.html`, `demo.css`, `demo.js` | gone from the package | the demo site is built from the repository and is not published; the reference pages are in `reference/html/` |
 | `reference/react/**` (24 `.jsx` examples) | gone | use `reference/html/**` and write `pgsHtml="..."` in JSX (plugin unchanged in purpose) |
 | `reference/html/layout/body.html` | `reference/html/base/body.html` (title "Html and Body") | |
@@ -218,7 +218,7 @@ Module registry (`pgs.<name>`), net:
 | `docs/helper/README.md` | `docs/helper/helper.md` | and new `docs/helper/pgs.md`, `init.md`, `formValidate.md`; `docs/helper/scrollHorizontal.md` gone |
 | `docs/layout/body.md`, `docs/layout/responsive.md` | `docs/base/body.md`, `docs/layout/breakpoints.md` (+ `flex`, `grid`, `size`) | |
 | `pgs-html-suggestions.vsix` in the package root (5.1 MB) | not in the package | the VS Code extension now reads `reference/pgs-map.json`; see F |
-| `AGENTS.md`, `AGENTS-USAGE.md` | rewritten for brackets / `pgs-data` / `pgs.helper` / `myicon`; `AGENTS.md` gets one word changed (`pgs-option` -> `pgs-data`) | consumer rules now say: flags in brackets, `pgs-data` for payloads, one JS entry point per page (second bundle must read `globalThis.pgs` / use `externals`), icons outside the core 13 need `myicon` |
+| `AGENTS.md`, `AGENTS-USAGE.md` | rewritten for brackets / `pgs-data` / `pgs.helper` / `@marcix/myicons`; `AGENTS.md` gets one word changed (`pgs-option` -> `pgs-data`) | consumer rules now say: flags in brackets, `pgs-data` for payloads, one JS entry point per page (second bundle must read `globalThis.pgs` / use `externals`), icons outside the core 13 need `@marcix/myicons` |
 
 #### B6. Icon pack split and Font Awesome (packaging only; the `icon` component is [Foundation](#part-2-foundation-tokens-palette-base-icons))
 
@@ -227,20 +227,20 @@ Module registry (`pgs.<name>`), net:
 | mypgs examples, generated markup and `demo.html` (`https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css`) assumed Font Awesome was loaded: `<i class="fa-solid fa-chevron-down">`, `fa-duotone fa-solid fa-bell`, `fa-search`, `fa-xmark`, ... | no Font Awesome anywhere (0 hits for `fa-*` / "font awesome" in N assets, reference, docs, README, site) | a project that kept FA only because mypgs examples used it can drop it; a project that uses FA for its OWN icons keeps loading it itself and writes `<i class="fa-solid fa-x">` as before |
 | markup the library BUILT with FA classes (M/assets/javascript): modal close `fa-close`, slides arrows `fa-arrow-left/right`, alert/toast/notification marks `fa-circle-xmark/-check/-info`, `fa-triangle-exclamation`, stepTabs dot `fa-circle` (+ `tabIcon[fa-..]` payload), dark-mode toggle swapping `fa-moon`/`fa-sun` classes, cookieConsent `fa-cookie-bite`/`fa-sliders` | built as `<i pgs="icon['icon-close']">`, `icon-chevronDown` (rotated), `icon-circleXmark`, `icon-circleCheck`, `icon-circleInfo`, `icon-triangleExclamation`, `icon-circle`; the theme switch draws no icon itself and holds one per theme | project CSS targeting `i.fa-*` inside library components no longer matches -> see [Overlays and feedback](#part-6-overlays-and-feedback), [Content components](#part-7-content-components), [Foundation](#part-2-foundation-tokens-palette-base-icons) |
 | `[pgs~=footer] [pgs~=toggleDarkmode]:has(i.fa-moon)::after` rules in the library CSS | gone | -> see [Foundation](#part-2-foundation-tokens-palette-base-icons) |
-| every glyph came from FA | mypgs carries only 13 glyphs inside its stylesheet: `chevronDown`, `check`, `close`, `magnifyingGlass`, `circle`, `circleXmark`, `circleCheck`, `circleInfo`, `triangleExclamation`, `moon`, `sun`, `hamburger`, `hamburgerTwo` (`--icon-glyph-*` in `dist/css/index.css`). Written `pgs="icon['icon-NAME']"` | every other glyph needs the separate `myicon` pack; without it the element draws NOTHING and nothing warns |
+| every glyph came from FA | mypgs carries only 13 glyphs inside its stylesheet: `chevronDown`, `check`, `close`, `magnifyingGlass`, `circle`, `circleXmark`, `circleCheck`, `circleInfo`, `triangleExclamation`, `moon`, `sun`, `hamburger`, `hamburgerTwo` (`--icon-glyph-*` in `dist/css/index.css`). Written `pgs="icon['icon-NAME']"` | every other glyph needs the separate `@marcix/myicons` pack; without it the element draws NOTHING and nothing warns |
 
-What a consumer loads for the other glyphs: the separate `myicon` icon pack (repository `Marcix25/myIcon`; 284 glyphs, each an `svg/icon-<name>.svg`). It is not a dependency or a peer dependency of mypgs, so install it yourself, from its repository (for example `npm install github:Marcix25/myIcon`) or from your own registry: `npm install myicon` from the public registry is an unrelated package. Load its `dist/icons.min.css` (or `dist/icons.css`) **after** the mypgs stylesheet; it also contains the 13 core glyphs, so loading it alone never leaves a glyph out, and the order does not change the drawing:
+What a consumer loads for the other glyphs: the separate `@marcix/myicons` icon pack (repository `Marcix25/myIcons`; 284 glyphs, each an `svg/icon-<name>.svg`). It is not a dependency or a peer dependency of mypgs, so install it yourself: `npm install @marcix/myicons`. Load its `dist/icons.min.css` (or `dist/icons.css`) **after** the mypgs stylesheet; it also contains the 13 core glyphs, so loading it alone never leaves a glyph out, and the order does not change the drawing:
 
 ```html
 <link rel="stylesheet" href="node_modules/mypgs/dist/css/index.min.css">
-<link rel="stylesheet" href="node_modules/myicon/dist/icons.min.css">
+<link rel="stylesheet" href="node_modules/@marcix/myicons/dist/icons.min.css">
 <i pgs="icon['icon-star']"></i>
 <i pgs="icon['iconLarge' 'icon-heart']"></i>
 ```
 
-SCSS route: `@use "myicon/scss"` emits the same CSS; `@use "myicon/scss/glyphs" as pack; @use "myicon/scss/icons" as icons; @include icons.icons((cookie: pack.$icon-cookie))` builds a stylesheet of only the glyphs wanted. Custom glyph: an SVG named `icon-<camelCase>.svg` in `myIcon/svg`, `npm run build` there.
+SCSS route: `@use "@marcix/myicons/scss"` emits the same CSS; `@use "@marcix/myicons/scss/glyphs" as pack; @use "@marcix/myicons/scss/icons" as icons; @include icons.icons((cookie: pack.$icon-cookie))` builds a stylesheet of only the glyphs wanted. Custom glyph: an SVG named `icon-<camelCase>.svg` in `myIcons/svg`, `npm run build` there.
 
-Font Awesome name -> myicon glyph, for the names the master examples used (all verified to exist in `myIcon/svg`; core = already inside mypgs): `chevron-down` -> `icon-chevronDown` (core), `search` -> `icon-magnifyingGlass` (core), `xmark`/`close` -> `icon-close` (core), `check` -> `icon-check` (core), `moon` -> `icon-moon` (core), `sun` -> `icon-sun` (core), `circle-info`/`info-circle` -> `icon-circleInfo` (core), `triangle-exclamation` -> `icon-triangleExclamation` (core), `arrow-left` -> `icon-arrowLeft`, `arrow-right` -> `icon-arrowRight`, `star` -> `icon-star`, `heart` -> `icon-heart`, `bell` -> `icon-bell`, `gear` -> `icon-gear`, `house` -> `icon-home`, `share` -> `icon-share`, `paper-plane` -> `icon-send`, `floppy-disk` -> `icon-save`, `circle-question` -> `icon-circleQuestion`, `arrow-up-right-from-square` -> `icon-externalLink`, `cookie-bite` -> `icon-cookie`, `layer-group` -> `icon-layers`, `store` -> `icon-store`. No myicon glyph with that meaning: `dragon`, `dove`, `crow`, `fire`, `bread-slice-butter`, `window-maximize`, `list-check`.
+Font Awesome name -> @marcix/myicons glyph, for the names the master examples used (all verified to exist in `myIcons/svg`; core = already inside mypgs): `chevron-down` -> `icon-chevronDown` (core), `search` -> `icon-magnifyingGlass` (core), `xmark`/`close` -> `icon-close` (core), `check` -> `icon-check` (core), `moon` -> `icon-moon` (core), `sun` -> `icon-sun` (core), `circle-info`/`info-circle` -> `icon-circleInfo` (core), `triangle-exclamation` -> `icon-triangleExclamation` (core), `arrow-left` -> `icon-arrowLeft`, `arrow-right` -> `icon-arrowRight`, `star` -> `icon-star`, `heart` -> `icon-heart`, `bell` -> `icon-bell`, `gear` -> `icon-gear`, `house` -> `icon-home`, `share` -> `icon-share`, `paper-plane` -> `icon-send`, `floppy-disk` -> `icon-save`, `circle-question` -> `icon-circleQuestion`, `arrow-up-right-from-square` -> `icon-externalLink`, `cookie-bite` -> `icon-cookie`, `layer-group` -> `icon-layers`, `store` -> `icon-store`. No @marcix/myicons glyph with that meaning: `dragon`, `dove`, `crow`, `fire`, `bread-slice-butter`, `window-maximize`, `list-check`.
 
 ### C. Custom properties written by JavaScript (generic contract; owners repeat their own)
 
@@ -346,7 +346,7 @@ grep -rnE "['\"]modal:(open|close)['\"]|['\"]stepTabs:change['\"]|pgs:notificati
 # G5 removed data-* markers. Hit: stop reading/selecting them (use pgs-state / the instance API)
 grep -rnE 'dataset\.(stepTabsInitialized|initialize|notificationId|gaId|cookieComponent)|data-(header-scroll|step-tabs-initialized|initialize|notification-id|ga-id|cookie-[a-z]+)' .
 
-# G6 Font Awesome. Hit: remove the font if only mypgs needed it; for icons the project still draws replace with pgs="icon['icon-NAME']" (table B6) and load myicon for non-core glyphs
+# G6 Font Awesome. Hit: remove the font if only mypgs needed it; for icons the project still draws replace with pgs="icon['icon-NAME']" (table B6) and load @marcix/myicons for non-core glyphs
 grep -rniE '\bfa-(solid|regular|brands|duotone|light|thin)\b|\bfa-[a-z0-9]+(-[a-z0-9]+)*\b|font-?awesome' .
 
 # G7 old formValidate message keys (options.message and pgs-option keys). Hit: formFieldErrorTitle, formFieldError, formFieldsError, formSuccessTitle, formSuccess (on the form, in pgs-data)
@@ -459,7 +459,7 @@ Values below are the compiled defaults (`dist/css/index.css` of each side, `:roo
 |---|---|---|
 | `<span pgs="icon"><i class="fa-solid fa-star"></i></span>` (round surface) | `<i pgs="icon['iconBoxed' 'icon-star']" aria-hidden="true"></i>` | the glyph and the surface are the same element now: `iconBoxed` goes next to a glyph option on that element, it is not a wrapper for an icon of another set |
 | `<i class="fa-solid fa-xxx">` written by the library | `<i pgs="icon['icon-xxx']">` | the library draws its own glyphs as inline SVG masks: no Font Awesome needed for its controls |
-| Font Awesome names | glyph keys, camelCase, `icon['icon-<key>']` | 13 glyphs are inside mypgs, the other 270 or so come from the separate `myicon` pack, loaded after mypgs: the name table, the install note and the missing-glyph warning are in [Core](#part-1-core-attribute-grammar-javascript-packaging) (Icon pack split and Font Awesome) |
+| Font Awesome names | glyph keys, camelCase, `icon['icon-<key>']` | 13 glyphs are inside mypgs, the other 270 or so come from the separate `@marcix/myicons` pack, loaded after mypgs: the name table, the install note and the missing-glyph warning are in [Core](#part-1-core-attribute-grammar-javascript-packaging) (Icon pack split and Font Awesome) |
 | (none) | `iconMedium` (`--icon-size: 1.25em`), `iconLarge` (`1.5em`), `iconBoxed`, `iconDuo` | flags in the `icon[...]` bracket |
 
 #### Dark mode and SVG
@@ -542,7 +542,7 @@ Mixins and variables of this area:
 | `icon()` (round surface, no arguments) | `icon($icon, $on: "::before")`: draws glyph `$icon` (a `url(...)` or `var(--icon-glyph-x)`) on the pseudo-element, or on the element itself with `$on: ""`. `icon()` with no argument is a Sass error. The round surface is `boxed()` |
 | `iconSvgBase64($url, $size: 2.0rem, $color: var(--color-primary-strong))` | `svgBase64($url)` (mask only) + `iconBase()` (box: `--icon-size`/1em, `--icon-color`/currentColor), or `icon($url)`. The fixed 2rem size and the primary-strong colour are gone |
 | (none) | `duo($iconBefore, $iconAfter)`, `boxed()`, `focusRing()` (`outline: var(--focus-visible)`), `focus()` (adds `:focus-visible` itself, skips disabled) |
-| (none) | `$icons-builtin` (13 glyphs, keys = bare names), `$icons-duo`, `$icon-chevronDown` ... `$icon-hamburgerTwo-after` (data URIs, generated from the myicon pack) |
+| (none) | `$icons-builtin` (13 glyphs, keys = bare names), `$icons-duo`, `$icon-chevronDown` ... `$icon-hamburgerTwo-after` (data URIs, generated from the @marcix/myicons pack) |
 | `$watch`, `$mobile`, `$big-mobile`, `$tablet`, `$big-tablet`, `$laptop`, `fibonacci()`, `$h1`-`$h5`, `$base-fibonacci-size` | unchanged |
 
 Mixins seen, owner elsewhere: `flexColumn`/`flexRow` -> `column`/`row`; `columnFlex($columns: 4)` -> `columnFlex($columns)` (argument required); `sectionSpecifity-child($child)` -> `sectionSpecificity($child, $section: true)`; `sectionMax`, `sectionFull`, `sectionNoPadding` take `$section: true`; new `sectionEdge`; `main()` same name, variables renamed (`--main-padding-top` -> `--main-paddingTop`, `--section-width` -> `--section-maxWidth`); `box()` moved; `card()` gone; button: `buttonContent`, `buttonIcon`, `buttonNohover`, `buttonStrong`, `buttonBig`, `buttonClose`, `button_header` gone, `buttonCurrent($tag)` -> `buttonCurrent()`, new `buttonTwoState`, `buttonReverseIcon`, `buttonIconOnly`, `buttonVertical`, `buttonText`, `buttonPaddingEqual`, `buttonForHeader`, `buttonForNavSmart`; form: `file`, `rage`, `select`, `formTextarea`, `inputcolor` gone, `input($padding)` -> `input()`, `label($borderadius, $left)` -> `label()`, new `inputBase`, `inputPicker`, `labelCheckboxAndRadio`, `radio`, `fieldset`; formAddon: `twoState` gone, new `field`.
@@ -572,7 +572,7 @@ Mixins seen, owner elsewhere: `flexColumn`/`flexRow` -> `column`/`row`; `columnF
 - `--heading-*` / `--text-*` property sets, set once per page in `:root` of `base/_typography.scss`; `pgs="h6"`, `pgs="text"` (the paragraph look on any element), `pgs="list"`, `pgs="textBlock"`.
 - `outline` token with `--outline-width/-style/-color` and `border`, `borderColor` roots -> see [Utilities](#part-3-utilities).
 - `img['imgFill']`, `blur['blrUnset']`, `textShadow['txsUnset']`, `boxShadow['bxsUnset']`.
-- `icon['icon-<key>']` (13 core glyphs), `iconBoxed`, `iconMedium`, `iconLarge`, `iconDuo` (hamburgerTwo only), `--icon-size`, `--icon-color`; the whole set via the separate `myicon` stylesheet.
+- `icon['icon-<key>']` (13 core glyphs), `iconBoxed`, `iconMedium`, `iconLarge`, `iconDuo` (hamburgerTwo only), `--icon-size`, `--icon-color`; the whole set via the separate `@marcix/myicons` stylesheet.
 - `toggleDarkmode-light`, `toggleDarkmode-dark`, `toggleDarkmode['tglLabeled']`.
 - Sass: `icon($icon, $on)`, `svgBase64()`, `iconBase()`, `duo()`, `boxed()`, `focusRing()`, `focus()`, `text()`, `h6()`.
 - `htmlBase` sets `--font-rem-base: 62.5%`; override it to change the rem root.
@@ -1441,7 +1441,7 @@ Components: modal, dropdown (+ tooltip), menu, alerts, notification, toast, lega
 #### Notification
 | master | now | note |
 | --- | --- | --- |
-| `pgs="modal-button button notificationBell" pgs-option="buttonIcon"` inside a `<div pgs="modal">` | `<button pgs="button['btnIconOnly'] notificationBell">` anywhere, no wrapper, no `modal-button` | any number of bells share one panel; `icon-bell` is in the myIcon pack, not in the built-in glyphs |
+| `pgs="modal-button button notificationBell" pgs-option="buttonIcon"` inside a `<div pgs="modal">` | `<button pgs="button['btnIconOnly'] notificationBell">` anywhere, no wrapper, no `modal-button` | any number of bells share one panel; `icon-bell` is in the myIcons pack, not in the built-in glyphs |
 | `pgs-option="right"` (panel on the right) | default; a bell chooses with `notificationBell['dialogLeft']`, `['dialogRight']`, `['dialogTop']`, `['dialogBottom']`, `['dialogCenter']` | the size is never the bell's choice |
 | `notificationBell-counter` | unchanged (hand-written, bare); generated one is `_notificationBell-counter` | |
 | `notificationLoad` + `pgs-option='notification[{...}]'` | `notificationLoad` + `pgs-data='notification[{...}]'` | JSON: `message` is `description` and `title-close` is `closeTitle` (the old keys still work); new `dismissIcon`, `type: "neutral"`, `id`; `buttons[].optionButton` is now a flag of `button[...]` (e.g. `btnMini`, not `buttonMini`) |
@@ -1759,7 +1759,7 @@ Bracket form: every `pgs-option="x"` of these components is now a flag inside th
 
 | master | now | note |
 | --- | --- | --- |
-| `pgs-option="tabIcon[fa-user]"` on a `stepTabs-container-tab` | `pgs-data="stepTabsIcon[fa-solid fa-user]"` | `fa-solid` is no longer added: write the whole class list. Other shapes: a built-in / myIcon glyph `stepTabsIcon[icon-circleCheck]`, or markup `stepTabsIcon[<i class='fa-solid fa-user'></i>]` (single quotes inside, mark your own element with `pgs='icon'` for the dot's icon box). Omitted: `icon-circle` |
+| `pgs-option="tabIcon[fa-user]"` on a `stepTabs-container-tab` | `pgs-data="stepTabsIcon[fa-solid fa-user]"` | `fa-solid` is no longer added: write the whole class list. Other shapes: a built-in / myIcons glyph `stepTabsIcon[icon-circleCheck]`, or markup `stepTabsIcon[<i class='fa-solid fa-user'></i>]` (single quotes inside, mark your own element with `pgs='icon'` for the dot's icon box). Omitted: `icon-circle` |
 | `pgs-option="step[N]"` written by the module on every dot | gone | |
 | generated `stepTabs-dots-dot` | `_stepTabs-dots-dot` | CSS written against `[pgs~=stepTabs-dots-dot]` must follow |
 | `pgs-state="is-active"` | `pgs-state="active"` | on the current tab and its dot |

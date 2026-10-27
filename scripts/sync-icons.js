@@ -1,18 +1,18 @@
 //= SYNC ICONS
-// reads the glyphs the library draws by itself from the myIcon pack (../myIcon/svg/) and writes their
+// reads the glyphs the library draws by itself from the myIcons pack (../myIcons/svg/) and writes their
 // content into assets/scss/mixin/_mx-icons.scss as the url("data:image/svg+xml,...") data URIs the
-// icon component consumes. mypgs holds no .svg of its own: myIcon is the only place the originals
-// live. Run it after editing one of them in myIcon, or after changing CORE_ICONS:
+// icon component consumes. mypgs holds no .svg of its own: myIcons is the only place the originals
+// live. Run it after editing one of them in myIcons, or after changing CORE_ICONS:
 // npm run icons:sync
 //
-// Which glyphs mypgs carries is the CORE_ICONS list below, nothing else is read from myIcon. Add a
+// Which glyphs mypgs carries is the CORE_ICONS list below, nothing else is read from myIcons. Add a
 // name there only when a component of the library draws that glyph on its own (a button, an alert,
 // the dark-mode toggle...), since each one costs bytes in every project's stylesheet. Every other
-// glyph is in the myIcon stylesheet, which is loaded next to mypgs and writes the same icon option.
+// glyph is in the myIcons stylesheet, which is loaded next to mypgs and writes the same icon option.
 //
-// The pack folder is ../myIcon/svg by default, or the MYICON_DIR environment variable.
+// The pack folder is ../myIcons/svg by default, or the MYICONS_DIR environment variable.
 //
-// Naming convention read from the pack (the same one myIcon's scripts/build-icons.js reads):
+// Naming convention read from the pack (the same one myIcons's scripts/build-icons.js reads):
 // - "icon-name.svg" is a single-layer glyph -> $icon-name, added to $icons-builtin under the bare
 //   key "name", which _icon.scss turns into the icon bracket flag icon-name and the --icon-glyph-name
 //   custom property.
@@ -27,7 +27,7 @@ const fs = require("fs");
 const path = require("path");
 
 const ROOT = path.resolve(__dirname, "..");
-const ICONS_DIR = process.env.MYICON_DIR ? path.resolve(process.env.MYICON_DIR) : path.resolve(ROOT, "../myIcon/svg");
+const ICONS_DIR = process.env.MYICONS_DIR ? path.resolve(process.env.MYICONS_DIR) : path.resolve(ROOT, "../myIcons/svg");
 const ICONS_SCSS = path.join(ROOT, "assets/scss/mixin/_mx-icons.scss");
 
 // the glyphs a component of the library draws by itself
@@ -74,7 +74,7 @@ function declaration(varName, raw) {
 }
 
 function main() {
-    if (!fs.existsSync(ICONS_DIR)) throw new Error(`the icon pack was not found at ${ICONS_DIR}; clone myIcon next to mypgs or set MYICON_DIR`);
+    if (!fs.existsSync(ICONS_DIR)) throw new Error(`the icon pack was not found at ${ICONS_DIR}; clone myIcons next to mypgs or set MYICONS_DIR`);
 
     const declarations = [];
     CORE_ICONS.forEach(name => declarations.push(declaration(`icon-${name}`, readSvg(name))));
@@ -88,7 +88,7 @@ function main() {
         "//the drawable set. The key is the bare glyph name: the two prefixes are written where they are",
         "//used, icon- for the public option (pgs \"icon['icon-star']\") and --icon-glyph- for the custom",
         "//property that carries the drawing, so the glyphs never mix with the icon's own configuration.",
-        "//This is only the set the library draws by itself; the rest of the glyphs are in the myIcon pack, which",
+        "//This is only the set the library draws by itself; the rest of the glyphs are in the myIcons pack, which",
         "//writes the same option. Removing or renaming a key is a breaking change, since the keys are public",
         "//through that option.",
         "$icons-builtin: (",

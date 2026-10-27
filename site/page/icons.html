@@ -1181,7 +1181,7 @@
                 <small><strong>Inside mypgs.</strong> Only the 13 glyphs a component of the library draws by itself are in the mypgs stylesheet: the chevrons, the close buttons, the marks on alerts, the search, dark-mode and hamburger glyphs. They come in with the library, by structure, with nothing to load. They are marked <span pgs="badge['badgeSoft']">core</span> in the set above.</small>
             </div>
             <div pgs="box">
-                <small><strong>The myIcon pack.</strong> The full set of 282 glyphs is the separate <code>myicon</code> package, and it holds the core ones too. Load its stylesheet after mypgs and write the same option: a glyph reads the same whichever of the two holds it. Without the pack, a glyph that is not core draws nothing.</small>
+                <small><strong>The myIcons pack.</strong> The full set of 282 glyphs is the separate <code>@marcix/myicons</code> package, and it holds the core ones too. Load its stylesheet after mypgs and write the same option: a glyph reads the same whichever of the two holds it. Without the pack, a glyph that is not core draws nothing.</small>
             </div>
         </div>
     </section>
@@ -1190,7 +1190,7 @@
     <section pgs="section['sctMax'] flex['column' 'gapElements'] background['bgPrimarySoft'] mainChild['mainRemoveGap']">
         <div pgs="flex['column' 'gapTexts']">
             <h2 pgs="textColor['txtPrimaryStrong']">Import the pack</h2>
-            <p>The pack is one stylesheet, <code>myicon/dist/icons.min.css</code>. Load it <strong>after</strong> mypgs: the glyphs that are in both draw the same either way, but the pack is written to sit on top of the library's own icon component. Without it only the core glyphs draw.</p>
+            <p>The pack is one stylesheet, <code>@marcix/myicons/dist/icons.min.css</code>. Load it <strong>after</strong> mypgs: the glyphs that are in both draw the same either way, but the pack is written to sit on top of the library's own icon component. Without it only the core glyphs draw.</p>
         </div>
 
         <div class="icons-cards" pgs="flex['column-3' 'gapElements']">
@@ -1203,7 +1203,7 @@
                     <small>A plain page, no build step: one link in the head, after mypgs.</small>
                 </div>
                 <div class="icons-snippet" pgs="background['bgBlackFixed'] textColor['txtWhiteFixed']">
-                    <pre><code id="icons-import-html">&lt;link rel="stylesheet" href="node_modules/myicon/dist/icons.min.css"&gt;</code></pre>
+                    <pre><code id="icons-import-html">&lt;link rel="stylesheet" href="node_modules/@marcix/myicons/dist/icons.min.css"&gt;</code></pre>
                     <button pgs="button['btnMini' 'btnIconOnly']" type="button" data-copy="icons-import-html" title="Copy the code" aria-label="Copy the code">
                         <i class="icons-copy-label" pgs="icon['icon-copy']" aria-hidden="true"></i>
                         <i class="icons-copy-icon" data-for="success" pgs="icon['icon-check']" aria-hidden="true"></i>
@@ -1220,7 +1220,7 @@
                     <small>With a bundler (Vite, webpack): import it from your entry file, after mypgs.</small>
                 </div>
                 <div class="icons-snippet" pgs="background['bgBlackFixed'] textColor['txtWhiteFixed']">
-                    <pre><code id="icons-import-js">import "myicon/style.min.css";</code></pre>
+                    <pre><code id="icons-import-js">import "@marcix/myicons/style.min.css";</code></pre>
                     <button pgs="button['btnMini' 'btnIconOnly']" type="button" data-copy="icons-import-js" title="Copy the code" aria-label="Copy the code">
                         <i class="icons-copy-label" pgs="icon['icon-copy']" aria-hidden="true"></i>
                         <i class="icons-copy-icon" data-for="success" pgs="icon['icon-check']" aria-hidden="true"></i>
@@ -1237,7 +1237,7 @@
                     <small>From a stylesheet your build already compiles, after mypgs.</small>
                 </div>
                 <div class="icons-snippet" pgs="background['bgBlackFixed'] textColor['txtWhiteFixed']">
-                    <pre><code id="icons-import-css">@import "myicon/style.min.css";</code></pre>
+                    <pre><code id="icons-import-css">@import "@marcix/myicons/style.min.css";</code></pre>
                     <button pgs="button['btnMini' 'btnIconOnly']" type="button" data-copy="icons-import-css" title="Copy the code" aria-label="Copy the code">
                         <i class="icons-copy-label" pgs="icon['icon-copy']" aria-hidden="true"></i>
                         <i class="icons-copy-icon" data-for="success" pgs="icon['icon-check']" aria-hidden="true"></i>
@@ -1362,14 +1362,14 @@
                 <span pgs="steps-step-circle">1</span>
                 <div pgs="steps-step-content">
                     <h3>Add the file</h3>
-                    <p>Put <code>icon-name.svg</code> in <code>myIcon/svg/</code>, camelCase, one <code>viewBox</code> and no fixed colors: the shape is a mask and takes the text color.</p>
+                    <p>Put <code>icon-name.svg</code> in <code>myIcons/svg/</code>, camelCase, one <code>viewBox</code> and no fixed colors: the shape is a mask and takes the text color.</p>
                 </div>
             </li>
             <li pgs="steps-step">
                 <span pgs="steps-step-circle">2</span>
                 <div pgs="steps-step-content">
                     <h3>Build the pack</h3>
-                    <p>Run <code>npm run build</code> in <code>myIcon</code> to rewrite <code>dist/icons.css</code>.</p>
+                    <p>Run <code>npm run build</code> in <code>myIcons</code> to rewrite <code>dist/icons.css</code>.</p>
                 </div>
             </li>
             <li pgs="steps-step">
@@ -1529,8 +1529,8 @@
                 field("icons-modal-title").textContent = "icon-" + name;
                 // fixed markup, no part of it comes from the page: a badge for where the glyph lives, then a line
                 field("icons-modal-origin").innerHTML = isCore
-                    ? "<span pgs=\"badge['badgeSoft']\">core</span> Inside mypgs, and in the myIcon pack."
-                    : "<span pgs=\"badge['badgeNeutral']\">pack</span> Only in the myIcon pack: load its stylesheet after mypgs.";
+                    ? "<span pgs=\"badge['badgeSoft']\">core</span> Inside mypgs, and in the myIcons pack."
+                    : "<span pgs=\"badge['badgeNeutral']\">pack</span> Only in the myIcons pack: load its stylesheet after mypgs.";
                 field("icons-copy-html").textContent = "<i pgs=\"icon['icon-" + name + "']\"></i>";
                 field("icons-copy-css").textContent = "var(--icon-glyph-" + name + ")";
                 field("icons-copy-scss").textContent = "@include icon(var(--icon-glyph-" + name + "), \"\");";

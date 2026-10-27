@@ -1,26 +1,26 @@
 //= SYNC ICONS PAGE
-// writes the grid of every glyph of the myIcon pack into site/page/icons.html, and the counts the page
+// writes the grid of every glyph of the myIcons pack into site/page/icons.html, and the counts the page
 // quotes (All, Core, Pack only, the totals in the text). The page is hand-authored, so only what is
 // between the two icons:grid comments is written here; everything around it stays as it is. Run it after
-// adding or removing a file in myIcon's svg/ (npm run icons:sync does it together with the core glyphs):
+// adding or removing a file in myIcons's svg/ (npm run icons:sync does it together with the core glyphs):
 // npm run icons:page
 //
 // A glyph is every "icon-name.svg" of the pack; the -before/-after layers of a duo glyph are not glyphs of
 // their own. The glyphs of CORE_ICONS in scripts/sync-icons.js, the ones mypgs carries by itself, are
-// marked core. The pack folder is ../myIcon/svg by default, or the MYICON_DIR environment variable.
+// marked core. The pack folder is ../myIcons/svg by default, or the MYICONS_DIR environment variable.
 const fs = require("fs");
 const path = require("path");
 const { CORE_ICONS } = require("./sync-icons.js");
 
 const ROOT = path.resolve(__dirname, "..");
-const ICONS_DIR = process.env.MYICON_DIR ? path.resolve(process.env.MYICON_DIR) : path.resolve(ROOT, "../myIcon/svg");
+const ICONS_DIR = process.env.MYICONS_DIR ? path.resolve(process.env.MYICONS_DIR) : path.resolve(ROOT, "../myIcons/svg");
 const PAGE = path.join(ROOT, "site/page/icons.html");
 
 const START = "<!-- icons:grid:start";
 const END = "<!-- icons:grid:end -->";
 
 function readNames() {
-    if (!fs.existsSync(ICONS_DIR)) throw new Error(`the icon pack was not found at ${ICONS_DIR}; clone myIcon next to mypgs or set MYICON_DIR`);
+    if (!fs.existsSync(ICONS_DIR)) throw new Error(`the icon pack was not found at ${ICONS_DIR}; clone myIcons next to mypgs or set MYICONS_DIR`);
     return fs.readdirSync(ICONS_DIR)
         .filter(file => /^icon-.+\.svg$/.test(file) && !/-(before|after)\.svg$/.test(file))
         .map(file => file.slice("icon-".length, -".svg".length))
