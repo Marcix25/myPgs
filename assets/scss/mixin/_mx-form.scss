@@ -179,6 +179,7 @@
 //## TEXTAREA
 @mixin textarea() {
     resize: vertical;
+    overflow-x: hidden; // the text wraps, so a horizontal scrollbar never has anything to scroll (Safari draws one)
     @include input();
     height: 120px;
     min-height: 100px;

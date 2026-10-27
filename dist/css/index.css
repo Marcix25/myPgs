@@ -657,6 +657,7 @@
 
 [pgs~=textarea] {
   resize: vertical;
+  overflow-x: hidden;
   --input-padding: var(--padding-texts);
   --input-border: var(--border-width) var(--border-color) var(--border-style);
   --input-borderRadius: var(--borderRadius-texts);
@@ -1528,6 +1529,8 @@
 :is([pgs~=button], [pgs*="button["]):where([pgs*="'btnIconOnly'"]) {
   padding: var(--button-paddingBlock);
   flex: 0 0;
+  height: auto;
+  min-height: 0;
   aspect-ratio: 1;
   justify-content: center;
   align-items: center;

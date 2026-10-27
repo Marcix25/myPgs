@@ -19,7 +19,7 @@ Form structure with labels, inputs, a textarea, a checkbox, and a radio group co
 ## PGS Options (component brackets)
 
 - `labelTab`: inside label's own bracket, `label['labelTab']`: a tab instead of a pill, rounded on the top corners only and with no border at the bottom, and the gap of the form left between it and the control.
-- `labelTabNoGap`: inside label's own bracket, `label['labelTabNoGap']`: the same tab as labelTab with the gap of the form taken away, so that it touches the control and opens into it. It does not need labelTab next to it.
+- `labelTabNoGap`: inside label's own bracket, `label['labelTabNoGap']`: the same tab as labelTab with the gap of the form taken away, so that it touches the control and opens into it. It does not need labelTab next to it. It is made for a label and a control that are siblings in the column of a `pgs="form"`, joined by `for` and `id`: it cancels the gap of that column. Inside a `<label>` wrapper there is no gap to cancel and the control would be pulled over the tab.
 
 ## PGS Data
 
@@ -140,10 +140,8 @@ formValidate.validator(event => {
         <textarea pgs="textarea" name="message" rows="5" placeholder=" " required></textarea>
     </label>
 
-    <label>
-        <span pgs="label['labelTabNoGap']">Notes</span>
-        <textarea pgs="textarea" name="notes" rows="3" placeholder=" "></textarea>
-    </label>
+    <label pgs="label['labelTabNoGap']" for="formNotes">Notes</label>
+    <textarea pgs="textarea" id="formNotes" name="notes" rows="3" placeholder=" "></textarea>
 
     <label>
         <span pgs="label['labelTab']">Country</span>

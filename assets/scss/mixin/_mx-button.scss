@@ -137,6 +137,11 @@
 @mixin buttonIconOnly() {
     padding: var(--button-paddingBlock);
     flex: 0 0;
+    // aspect-ratio only reads an auto side: with the button's own max-content height Safari ignores it and
+    // the square comes out taller than wide. min-height: 0 keeps the content from stretching it: an icon box
+    // taller than the glyph (Safari measured one at 23px for a 16px icon) would otherwise win over the ratio
+    height: auto;
+    min-height: 0;
     aspect-ratio: 1;
     justify-content: center;
     align-items: center;

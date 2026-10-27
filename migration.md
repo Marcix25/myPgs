@@ -1160,7 +1160,7 @@ Where a flag lives: always inside the bracket of `button`, never of another toke
 | `pgs="required"` | gone | the asterisk is drawn by CSS on the label/legend of a required control (see A). Elements that are not labels of a required control (a note, a missing-image button) need your own rule: `.x::after { content: " *"; color: var(--color-error); }` or `@include required()` |
 | `pgs="required-here"` | `pgs="form-requiredHere"` | inside the required label/legend: the asterisk is drawn on this element instead of at the end |
 | `labelUnset`, `inputUnset` (tokens read by `form()`) | gone | nothing styles a bare label or input any more: delete them |
-| `label` (shape default) | `label` (pill) / `label['labelTab']` / `label['labelTabNoGap']` | `labelTab*` are flags in the label's own bracket |
+| `label` (shape default) | `label` (pill) / `label['labelTab']` / `label['labelTabNoGap']` | `labelTab*` are flags in the label's own bracket. `labelTabNoGap` is made for a label and a control that are siblings in the column of a `pgs="form"` (joined by `for` and `id`): it cancels that gap, so it does not belong inside a `<label>` wrapper |
 | `<label pgs="label" for="x">` + sibling `<input pgs="input" id="x">` | same works, or `<label><span pgs="label['labelTab']">Name</span><input pgs="input"></label>` | the label styles itself only through its token; a label before the control is still found by the asterisk rule (`~ :required`) and by `errorLabel` |
 | `<fieldset pgs="radio flexColumn">` | `<fieldset pgs="fieldset radio">` | `flexColumn` was [Layout](#part-4-layout)'s (`flex['column']`); the fieldset is a column itself |
 | `<fieldset pgs="checkbox ...">` | `<fieldset pgs="fieldset checkbox">` | |
