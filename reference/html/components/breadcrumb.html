@@ -1,0 +1,30 @@
+<!--
+/**
+ * @title Breadcrumb
+ * @description Hierarchical navigation that shows the current page path with links, separators, and a semantic indication of the active item.
+ *
+ * @pgs
+ * - breadcrumb: identifies the main navigation path list.
+ * - breadcrumb-item: identifies each level in the path. The separator between items is drawn by the component itself, through ::after, so it never needs its own markup.
+ *
+ * @return Semantic breadcrumb HTML structure wrapped in a nav element.
+ */
+-->
+
+<nav aria-label="Breadcrumb">
+    <ul pgs="breadcrumb">
+        <li pgs="breadcrumb-item">
+            <a href="/">Home</a>
+        </li>
+
+        <li pgs="breadcrumb-item">
+            <a href="/blog">Blog</a>
+        </li>
+
+        <li pgs="breadcrumb-item">
+            <span aria-current="page">
+                Sample article
+            </span>
+        </li>
+    </ul>
+</nav>

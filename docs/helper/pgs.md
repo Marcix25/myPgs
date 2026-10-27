@@ -1,265 +1,87 @@
-# JavaScript helper
+<!-- Automatically generated from reference/html/helper/pgs.html. Edit reference/html/helper/pgs.html and run npm run docs:generate again. -->
 
-`pgs(root)` permette di cercare e modificare token PGS senza scrivere selettori manuali:
+# PGS
 
-```js
-const modal = pgs(document).querySelector("modal");
+The `pgs(root)` function is how every component finds and edits its own markup: it wraps a Document or Element and returns read/write helpers for the pgs, pgs-data and pgs-state attributes, so nothing in the library — or in your own code — needs to hand-write an attribute selector. querySelector/querySelectorAll work on a Document too; every other method needs an Element and throws otherwise.
 
-pgs(modal).contains("modal");
-pgs(modal).add("custom-token");
-pgs(modal).remove("custom-token");
-pgs(modal).toggle("custom-token", true);
-```
+## JavaScript API
 
-## API dell'helper `pgs`
+- `instance.querySelector(token)`: returns the first descendant carrying the given pgs token; also accepts an array or a comma-separated list of tokens.
+- `instance.querySelectorAll(token)`: returns every matching descendant.
+- `instance.closest(token)`: returns the nearest ancestor carrying the given pgs token, the element itself included, or null; also accepts an array or a comma-separated list of tokens.
+- `instance.add(...tokens)`: adds one or more pgs tokens without duplicating existing ones and returns the instance.
+- `instance.remove(...tokens)`: removes the given pgs tokens and returns the instance.
+- `instance.toggle(token, force)`: flips the token, or forces it on/off when force is passed, and returns the resulting boolean state.
+- `instance.contains(token)`: checks whether the component token is present, including its bracket form; contains("button") also matches button['btnMini'].
+- `instance.state.add(...states)`: adds one or more pgs-state values.
+- `instance.state.remove(...states)`: removes the given pgs-state values.
+- `instance.state.toggle(state, force)`: flips or forces a pgs-state value and returns the result.
+- `instance.state.contains(state)`: checks whether a pgs-state value is present.
+- `instance.state.querySelector(state)`: returns the first descendant carrying the given pgs-state value; also accepts an array or a comma-separated list.
+- `instance.state.querySelectorAll(state)`: returns every matching descendant.
+- `instance.state.closest(state)`: returns the nearest ancestor carrying the given pgs-state value, the element itself included, or null.
+- `instance.option.add(...flags)`: adds a CSS or JavaScript-only boolean flag. add() derives the owner from the flag's own prefix, the lowercase run before the first uppercase letter or a -, and merges into that component's bracket only when the prefix is the component's full name (the icon-* glyphs, and card*, box*, badge*, menu*, logo*, slides*, header* flags such as cardMini, badgeDot, menuVertical); otherwise the flag becomes its own bare pgs token. Every flag with an abbreviated prefix falls in that second group — btn*, mrg*, pad*, brd*, sct*, acc*, drp*, shell*, tgl*, ... — since btn or acc is not the component's own name, so add() cannot derive button or accordion from it. To add a shortened flag into its bracket, call the base pgs(el).add("component['flag']") directly, naming the component. Never touches pgs-data.
+- `instance.option.remove(...keys)`: removes a flag by key, bare or nested in a bracket, preserving the rest. Never touches pgs-data.
+- `instance.option.toggle(key, force)`: flips or forces a flag and returns the resulting boolean state. Never touches pgs-data.
+- `instance.option.contains(key)`: checks whether a flag is present, bare or nested in a bracket. Never checks pgs-data.
+- `instance.option.querySelector(key)`: returns the first descendant carrying that flag; also accepts an array or a comma-separated list of keys.
+- `instance.option.querySelectorAll(key)`: returns every matching descendant, as an Array rather than a NodeList, since the keys are matched here and not by the selector engine.
+- `instance.option.closest(key)`: returns the nearest ancestor carrying that flag, the element itself included, or null.
+- `instance.data.getValueBrackets(key)`: returns the payload inside a key[payload] pgs-data entry, or undefined. Never checks the pgs bracket.
+- `instance.data.setValueBrackets(key, value)`: sets or replaces a single parameterized pgs-data entry. Never touches the pgs bracket.
+- `pgs.registerModules(modules)`: exposes an object of named modules directly as properties of pgs, refusing to silently overwrite one already registered.
 
-Ricerca disponibile su `Document` ed `Element`:
+## Related elements
 
-- `pgs(root).querySelector(token)`: restituisce il primo discendente che contiene il token `pgs` richiesto.
-- `pgs(root).querySelectorAll(token)`: restituisce tutti i discendenti corrispondenti; accetta anche un array o token separati da virgola.
+### Other
 
-Manipulation available when `root` è un `Element`:
+- `button`: borrowed purely to illustrate adding an abbreviated flag through the base add(); belongs to the button component.
+- `btnMini`: a button flag whose btn prefix is an abbreviation, so option.add cannot derive button from it; belongs to the button component.
+- `icon`: borrowed purely to illustrate option.add's owner derivation still working for a flag that kept its prefix; belongs to the icon component.
+- `icon-moon`: one of the icon-* glyphs, which all keep their prefix so option.add can still derive "icon" from the name alone; belongs to the icon component.
+- `box`: borrowed to show the same derivation working for boxMini, a flag renamed to keep its own prefix once button/card/box all needed a 'mini' of their own; belongs to the box component.
+- `boxMini`: the box flag itself, derived by option.add the same way as icon-moon.
+- `flex`: borrowed to show a flag whose prefix names no component, so it is added through the base add() with the component named; belongs to the flex layout.
+- `itemCenter`: a layout flag of flex whose prefix names no component: option.add would leave it as a bare token that matches no rule, so it is written inside flex's bracket through the base add().
+- `headerCompactFrom`: borrowed purely to illustrate data.getValueBrackets/setValueBrackets; belongs to the header component.
 
-- `pgs(element).add(...tokens)`: aggiunge token evitando duplicati e restituisce l'helper.
-- `pgs(element).remove(...tokens)`: rimuove i token indicati e restituisce l'helper.
-- `pgs(element).toggle(token, force)`: inverte o forza la presenza del token e restituisce lo stato risultante.
-- `pgs(element).contains(token)`: verifica la presenza esatta del token.
-- `pgs(element).value`: legge o sostituisce il valore completo dell'attributo `pgs`.
+## Output
 
-Stati runtime:
+The instance returned by pgs(root), and the read/write methods it exposes for pgs, pgs-data and pgs-state.
 
-```js
-pgs(modal).state.add("open");
-pgs(modal).state.toggle("open", false);
-pgs(modal).state.contains("open");
-```
-
-- `state.add(...states)` oppure `state(...states)`: aggiunge uno o più stati.
-- `state.remove(...states)`: rimuove gli stati indicati.
-- `state.toggle(state, force)`: inverte o forza uno stato e restituisce il risultato.
-- `state.contains(state)`: verifica se lo stato è presente.
-- `state.value`: legge o sostituisce l'intero attributo `pgs-state`.
-
-Opzioni:
-
-```js
-pgs(modal).option.contains("history");
-pgs(modal).option.getValueBrackets("containerID");
-```
-
-- `option.add(...options)`: aggiunge opzioni semplici o parametrizzate.
-- `option.remove(...keys)`: rimuove le opzioni usando la relativa chiave.
-- `option.toggle(option, force)`: inverte o forza un'opzione.
-- `option.contains(key)`: verifica la presenza di una chiave anche quando possiede un payload.
-- `option.getValueBrackets(key)`: restituisce il contenuto tra parentesi quadre oppure `undefined`.
-- `option.setValueBrackets(key, value)`: imposta o sostituisce una singola opzione parametrizzata.
-- `option.value`: legge o sostituisce l'intero attributo `pgs-option`.
-
-Example markup with options:
-
-```html
-<div pgs="modal" pgs-option="containerID[modal-container]"></div>
-<div pgs="slides" pgs-option="singleScroll shadowDesktop"></div>
-```
-
-## Automatically initialized JavaScript
-
-Importando `mypgs`, l'entrypoint inizializza:
-
-- helper globale `pgs`
-- dark mode
-- gestione object SVG
-- accordion
-- dropdown
-- menu
-- modali
-- slides
-- steps
-- step tabs
-- notifiche
-- search con suggerimenti opzionali
-- header
-- cookie consent
-
-I componenti inizializzati usano `WeakMap` interne per esporre API di istanza.
-
-## API dei moduli
-
-I moduli principali sono registrati in `assets/javascript/_imports.js` in due modi.
-
-`pgs.init(root)` inizializza i moduli registrati nell'ordine in cui compaiono in `registerModules(...)`: se un modulo usa l'API di un altro durante il proprio `init` (es. `cookieConsent` che chiama `pgs.modal.api(...)`), quello richiesto va elencato prima.
-
-### Registro diretto
-
-Serve per usare i moduli direttamente da `pgs`:
+## JavaScript Usage
 
 ```js
-pgs.registerModules({
-  init: PGS_init,
-  darkmode: PGS_darkmode,
-  svg: PGS_svg,
-  accordion: PGS_accordion,
-  dropdown: PGS_dropdown,
-  menu: PGS_menu,
-  modal: PGS_modal,
-  cookieConsent: PGS_cookieConsent,
-  notification: PGS_notification,
-  toast: PGS_toast,
-  search: PGS_search,
-  slides: PGS_slides,
-  stepTabs: PGS_stepTabs,
-  steps: PGS_steps,
-  summary: PGS_summary,
-  formValidate: PGS_formValidate,
-  scrollHorizontal: PGS_scrollHorizontal,
-});
+const instance = pgs(element); // any Element, or a Document for querySelector(All) only
+
+instance.contains("modal");
+instance.closest("accordionContainer");
+instance.add("custom-token");
+instance.remove("custom-token");
+instance.toggle("custom-token", true);
+
+instance.state.add("open");
+instance.state.toggle("open", false);
+instance.state.contains("open");
+instance.state.closest("errorField");
+instance.state.querySelectorAll("errorField");
+
+instance.add("button['btnMini']"); // btn is an abbreviation, not the component's name: name the component
+instance.option.contains("btnMini");
+instance.option.closest("btnMini");
+instance.add("icon");
+instance.option.add("icon-moon"); // icon-moon kept its prefix, so this still derives "icon" and merges
+instance.option.add("boxMini"); // boxMini kept its prefix too (a handful of flags do, to stay unique across components), so this derives "box" the same way
+instance.add("flex['itemCenter']"); // "item" is no component, so option.add("itemCenter") would leave a bare token that matches no rule: name the component
+instance.data.getValueBrackets("headerCompactFrom"); // pgs-data only, never the pgs bracket
+instance.data.setValueBrackets("headerCompactFrom", "600");
+// tabsHistory has no owner to derive and never belongs in the pgs bracket, so its bare form goes
+// through data.value directly — .data has no contains/add/remove/toggle of its own
+instance.data.value = "tabsHistory";
+const savedData = instance.data.value;
+instance.data.value = savedData;
+
+// available on a Document too
+pgs(document).querySelector("box");
+pgs(document).querySelectorAll("box");
 ```
-
-Uso consigliato:
-
-```js
-pgs.toast.success({ title: "Salvato" });
-pgs.modal.api(modalEl)?.open();
-pgs.dropdown.api(dropdownEl)?.close();
-pgs.slides.api(slidesEl)?.next();
-```
-
-Shortcuts available after `import "mypgs"`:
-
-- `pgs.init`
-- `pgs.cookieConsent`
-- `pgs.darkmode`
-- `pgs.svg`
-- `pgs.accordion`
-- `pgs.dropdown`
-- `pgs.menu`
-- `pgs.modal`
-- `pgs.notification`
-- `pgs.toast`
-- `pgs.search`
-- `pgs.slides`
-- `pgs.stepTabs`
-- `pgs.steps`
-- `pgs.summary`
-- `pgs.formValidate`
-- `pgs.scrollHorizontal`
-
-## Component API reference
-
-Le firme, i parametri e la funzione di ogni metodo sono generati dai commenti nei riferimenti HTML:
-
-- [Accordion](../components/accordion.md#api-javascript)
-- [Dropdown](../components/dropdown.md#api-javascript)
-- [Form validation](../components/form.md#api-javascript)
-- [Menu](../components/menu.md#api-javascript)
-- [Modal](../components/modal.md#api-javascript)
-- [Notification](../components/notification.md#api-javascript)
-- [Toast](../components/toast.md#api-javascript)
-- [Search](../components/search.md#api-javascript)
-- [Slides](../components/slides.md#api-javascript)
-- [Step Tabs](../components/stepTabs.md#api-javascript)
-- [Steps](../components/steps.md#api-javascript)
-- [Summary](../components/summary.md#api-javascript)
-- [Tooltip tramite Dropdown](../components/tooltip.md#api-javascript)
-
-I componenti non elencati non espongono attualmente un'API JavaScript specifica.
-
-## Utility JavaScript pubbliche
-
-- `pgs.init(root)`: rileva automaticamente i moduli registrati che espongono `init(root)` e inizializza il markup aggiunto dinamicamente.
-- `pgs.cookieConsent.init(root)`: inizializza il pattern cookie consent presente nel `Document` o `Element` indicato senza duplicare i listener.
-- `pgs.darkmode.init(root)`: inizializza i controlli `toggleDarkmode` presenti nel `Document` o `Element` indicato senza duplicare i listener già applicati.
-- `pgs.scrollHorizontal(element, speed)`: converte lo scroll verticale della rotella in scorrimento orizzontale quando il contenitore può ancora muoversi nella direzione richiesta e restituisce una funzione che rimuove il listener.
-- `pgs.svg.init()`: aggiorna insieme i colori degli SVG e dei player Lottie presenti nella pagina.
-- `pgs.svg.applyColorsSVG(isDarkMode)`: aggiorna i colori degli SVG caricati tramite `object` e marcati con `svgChangeColor`.
-- `pgs.svg.applyColorsLottie(isDarkMode)`: aggiorna i colori degli SVG interni ai player Lottie marcati con `lottieChangeColor`.
-- `pgs.svg.eventChangeColor`: contiene il nome dell'evento `pgs:svg:changeColor` ascoltato dal modulo SVG.
-
-## Component module structure
-
-I componenti con istanze seguono questo schema:
-
-```js
-export const PGS_modal = {
-  init: PGS_modal_init,
-  api: PGS_modal_api
-};
-```
-
-Le funzioni `PGS_modal_init` e `PGS_modal_api` restano interne al modulo: l'unico export del file è `PGS_modal`. Lo stesso criterio vale per gli altri componenti.
-
-- `init`: inizializza o reinizializza il markup nel `Document` o `Element` ricevuto; senza argomenti usa `document`.
-- `api`: recupera l'API di una singola istanza gia' inizializzata.
-
-Esempio:
-
-```js
-pgs.modal.init();
-pgs.modal.api(modalEl)?.open();
-```
-
-`PGS_notification` e `PGS_toast` sono un caso diverso: funzionano più come service/helper che come istanze, non hanno `api(element)`, e vanno usati tramite `pgs.notification.*`/`pgs.toast.*` (vedi sotto). La forma pre-split `pgs.notification.alert.*`/`pgs.notification.toast.*` resta ancora disponibile ma solo per retrocompatibilità: nel codice nuovo usa direttamente `pgs.notification.*` per il pannello persistente e `pgs.toast.*` per il messaggio effimero.
-
-### Notification e Toast
-
-`pgs.notification` è un pannello persistente di messaggi, apribile/chiudibile con `notificationBell`, con dismissione solo manuale. `pgs.toast` è un messaggio effimero mostrato uno alla volta, con auto-dismissione dopo `timeout`. Sono due moduli indipendenti: vedi [Notification](../components/notification.md) e [Toast](../components/toast.md) per il markup dichiarativo completo.
-
-Il pannello di `pgs.notification` vive dentro una `<dialog>` gestita da `pgs.modal`. Basta autorare il wrapper con la campanella, senza dialog dentro:
-
-```html
-<div pgs="modal">
-    <button pgs="modal-button button notificationBell" pgs-option="buttonIcon" aria-label="Apri notifiche">
-        <i class="fa-duotone fa-solid fa-bell"></i>
-        <span pgs="notificationBell-counter"></span>
-    </button>
-</div>
-```
-
-Alla prima notifica, `pgs.notification` genera da solo `<dialog pgs-option="right"><div pgs="modal-dialog-content"><div pgs="notifications"></div></div></dialog>` dentro quel wrapper e richiama `pgs.modal.init()` per attivarlo — apertura/chiusura/il chiudersi quando apri un altro dialog sulla pagina sono gestiti interamente da `pgs.modal`, non da `pgs.notification`. `pgs.toast` non usa nessun dialog/modal: resta un div fisso indipendente come prima.
-
-```js
-pgs.notification.success({
-    title: "Salvato",
-    description: "Le modifiche sono state salvate.",
-    buttons: [
-        { title: "Vai al profilo", link: "/profilo" },
-        { id: "yes", title: "Si" },
-        { id: "no", title: "No" },
-        { id: "close", title: "Chiudi", close: true }
-    ]
-});
-
-pgs.toast.success({ title: "Salvato" });
-```
-
-Ogni voce di `buttons` (solo su `pgs.notification`, `pgs.toast` non lo supporta) accetta:
-
-- `id` (opzionale): usato nell'evento `buttonClick`; se assente viene generato automaticamente.
-- `title` (obbligatorio): testo del bottone.
-- `link` (opzionale): se presente il bottone è un `<a href>` che naviga normalmente; se assente è un `<button>` senza navigazione.
-- `close` (opzionale, default `true`): se non impostato a `false`, il click chiude anche la notifica. Il bottone di chiusura predefinito (`closeTitle`) resta sempre presente indipendentemente da `buttons`.
-- `optionButton` (opzionale): stringa applicata come `pgs-option` sul bottone generato, per riusare stili/comportamenti esistenti (es. `"optionButton": "buttonIcon"`).
-
-Eventi disponibili (bubbling, delegabili anche su `document`):
-
-```js
-document.addEventListener("pgs:notification:buttonClick", (event) => {
-    const { id, buttonId, link } = event.detail;
-    if (buttonId === "yes" || buttonId === "no") {
-        // invia la risposta al server...
-    }
-    // event.preventDefault() blocca la navigazione del link (se presente)
-    // finché non hai finito il tuo codice asincrono.
-});
-
-document.addEventListener("pgs:notification:close", (event) => { /* event.detail.id */ });
-document.addEventListener("pgs:notification:deleteAll", (event) => { /* event.detail.ids */ });
-```
-
-Passa un `id` tuo in `options.id` per correlare la notifica con la tua logica, altrimenti ne viene generato uno automaticamente. `pgs.notification.deleteAll()` rimuove tutte le notifiche del pannello e dispara `pgs:notification:deleteAll`.
-
-## Registro ed estensione
-
-- `pgs.registerModules(modules)`: espone un oggetto di moduli direttamente come proprietà di `pgs` e impedisce sovrascritture incompatibili.
-- `pgs.registerImport(...modules)`: registra moduli nel registro nominato usato dalle integrazioni avanzate.
-- `pgs.import(...names)`: recupera dal registro i moduli richiesti e genera un errore per i nomi non registrati.

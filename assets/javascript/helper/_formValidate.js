@@ -2,21 +2,39 @@ import { pgs } from "../_pgs.js";
 import { PGS_toast } from "../components/_toast.js";
 import { PGS_alert } from "../components/_alerts.js";
 
+// formMessage/formMessageTitle live only in pgs-data, and .data has no querySelector — find
+// the first descendant in document order carrying either key's payload directly
+function findDataDescendant(root, keys) {
+    for (const element of root.querySelectorAll("[pgs-data]")) {
+        if (keys.some(key => pgs(element).data.getValueBrackets(key) !== undefined)) return element;
+    }
+    return null;
+}
+
+
+// the instance of every form: building a second one on the same form replaces the first
+// (see the constructor)
+const INSTANCES = new WeakMap();
 
 export class PGS_formValidate {
     #messageDefaults = {
-        fieldErrorTitle: "Error!",
-        fieldError: "Please complete this field.",
-        fieldsError: "Please complete all required fields.",
-        successTitle: "Submitted",
-        success: "Submitted successfully."
+        formFieldErrorTitle: "Error!",
+        formFieldError: "Please complete this field.",
+        formFieldsError: "Please complete all required fields.",
+        formSuccessTitle: "Submitted",
+        formSuccess: "Submitted successfully."
     };
     #temporaryFieldErrors = new Map();
     #insideValidatedCallback = false;
+    // one controller for every listener the instance adds to the form, so destroy() removes them all
+    #controller = new AbortController();
 
     constructor(form, options = {}) {
+        if (!(form instanceof Element)) {
+            throw pgs.helper.invalid("helper.formValidate", "form must be an element");
+        }
         if (!options || typeof options !== "object" || Array.isArray(options)) {
-            throw new TypeError("options must be an object");
+            throw pgs.helper.invalid("helper.formValidate", "options must be an object");
         }
 
         this.container = form;
@@ -27,21 +45,71 @@ export class PGS_formValidate {
 
         pgs(this.container).add("formValidate");
         this.#initializeMessages(options.message);
-        this.container?.setAttribute("novalidate", "");
+
+        // a form has one validator: a second one built on it would stack its own click listener and
+        // its own validator() callbacks on top of the first, so every submit would validate and
+        // call back twice. The last one built wins and the previous one is destroyed, the same way
+        // a new init() after a destroy() starts over; an instance still held elsewhere stops
+        // reacting, it does not keep running beside the new one
+        INSTANCES.get(form)?.destroy();
+        INSTANCES.set(form, this);
+
+        this.container.setAttribute("novalidate", "");
+
+        // a click on a field clears its error. One listener on the form serves every field, the
+        // ones added after this point too, so validate() has nothing to attach and can run any
+        // number of times without stacking listeners
+        this.container.addEventListener("click", event => this.#clearErrorOnClick(event), { signal: this.#controller.signal });
+    }
+
+    //# DESTROY
+    // removes the listeners the instance added to the form: the click that clears an error and
+    // every validator(). The state, the novalidate attribute and the messages stay as they are
+    destroy() {
+        this.#controller.abort();
+        if (INSTANCES.get(this.container) === this) INSTANCES.delete(this.container);
+    }
+
+    // where the alert goes: the alertContainer option, which can sit anywhere in the document. The
+    // alert engine only accepts a container inside the root it is given, so one outside the form
+    // (an element, or a selector that only matches outside it) is placed by giving it the document
+    // as the root; with none, the alert is placed inside the form
+    #alertPlacement() {
+        const container = this.alertContainer;
+
+        if (container instanceof Element && !this.container.contains(container)) {
+            return { root: container.ownerDocument, container };
+        }
+
+        if (typeof container === "string" && !this.container.querySelector(container)) {
+            const outside = this.container.ownerDocument.querySelector(container);
+            if (outside) return { root: outside.ownerDocument, container: outside };
+        }
+
+        return { root: this.container, container };
+    }
+
+    #clearErrorOnClick(event) {
+        const field = event.target.closest("input, textarea, select");
+        if (!field) return;
+
+        // the field that failed, or the fieldset that did when the control is one of its group
+        const errorTarget = field.closest("[pgs-state~='errorField'], [pgs-state~='errorFieldset']");
+        if (errorTarget) this.#removeFieldError(errorTarget);
     }
 
     #validateMessages(value) {
         if (value === undefined) return;
         if (!value || typeof value !== "object" || Array.isArray(value)) {
-            throw new TypeError("message must be an object");
+            throw pgs.helper.invalid("helper.formValidate", "message must be an object");
         }
 
         Object.entries(value).forEach(([key, message]) => {
             if (!(key in this.#messageDefaults)) {
-                throw new TypeError(`Unknown form message option: ${key}`);
+                throw pgs.helper.invalid("helper.formValidate", `unknown form message option "${key}"`);
             }
             if (message !== undefined && typeof message !== "string") {
-                throw new TypeError(`Form message option ${key} must be a string`);
+                throw pgs.helper.invalid("helper.formValidate", `form message option "${key}" must be a string`);
             }
         });
     }
@@ -49,7 +117,7 @@ export class PGS_formValidate {
     #initializeMessages(value = {}) {
         this.#validateMessages(value);
 
-        const formOptions = pgs(this.container).option;
+        const formData = pgs(this.container).data;
         const initialMessages = {
             ...this.#messageDefaults,
             ...Object.fromEntries(
@@ -58,23 +126,23 @@ export class PGS_formValidate {
         };
 
         Object.entries(initialMessages).forEach(([key, message]) => {
-            if (!formOptions.contains(key)) formOptions.setValueBrackets(key, message);
+            if (formData.getValueBrackets(key) === undefined) formData.setValueBrackets(key, message);
         });
     }
 
     #getMessage(key) {
-        return pgs(this.container).option.getValueBrackets(key);
+        return pgs(this.container).data.getValueBrackets(key);
     }
 
     temporaryFieldError = {
         set: (field, options = {}) => {
             if (!field || typeof field.matches !== "function" || !this.container.contains(field)) {
-                throw new TypeError("field must be an element contained in the form");
+                throw pgs.helper.invalid("helper.formValidate.temporaryFieldError.set", "field must be an element contained in the form");
             }
 
             if (typeof options === "string") options = { message: options };
             if (!options || typeof options !== "object" || Array.isArray(options)) {
-                throw new TypeError("temporaryFieldError options must be an object or a string");
+                throw pgs.helper.invalid("helper.formValidate.temporaryFieldError.set", "options must be an object or a string");
             }
 
             this.#temporaryFieldErrors.set(field, {
@@ -98,75 +166,96 @@ export class PGS_formValidate {
         }
     };
 
-    // - Helpers
+    // the labels of a field that failed: the label that names the control with a for, the one that wraps it,
+    // and a label written right before the control or before the label that wraps it (the label of a field,
+    // which is a span or a legend that is not a <label>). A fieldset has none: it is marked errorFieldset and
+    // nothing inside it is
+    #labelsOf(field) {
+        const labels = new Set();
+        const isLabel = element => element?.matches?.("label, legend, [pgs~='label'], [pgs*='label[']");
+
+        if (field.matches("fieldset")) return [];
+
+        if (field.id) {
+            const named = this.container.querySelector(`label[for="${CSS.escape(field.id)}"]`);
+            if (named) labels.add(named);
+        }
+
+        const wrapping = field.closest("label");
+        if (wrapping && this.container.contains(wrapping)) labels.add(wrapping);
+
+        for (const neighbour of [field.previousElementSibling, wrapping?.previousElementSibling]) {
+            if (isLabel(neighbour)) labels.add(neighbour);
+        }
+
+        return [...labels];
+    }
+
+    // helpers
     #help = {
-        // supporta sia required nativo
+        // supports the native required attribute, data-required and aria-required
         isRequired(field) {
             if (!field) return false;
 
-            const required = field.required === true || field?.dataset?.required === "true" || field?.getAttribute('aria-required') == "true";
-            return required && !field.hidden; // solo attributo/proprietà "hidden"
+            const required = field.required === true || field.dataset.required === "true" || field.getAttribute('aria-required') === "true";
+            return required && !field.hidden; // only the "hidden" attribute/property counts
         },
-        // input (non speciali), textarea
+        // input (not special ones), textarea and select: empty when the value is "" or only spaces
         isEmptyTextLike(field) { return !String(field?.value ?? "").trim(); },
-        // select: vuoto se value == "" o null
-        isEmptySelect(field) { return !String(field?.value ?? "").trim(); },
-        // recupera name in modo sicuro
+        // reads the name safely
         getGroupName(field) { return field?.name || field?.getAttribute?.("name") || ""; }
     };
 
 
-    // + --------------------------
-    // + input + altri elementi.   
-    // + --------------------------
+    // inputs and other elements
     #inputValue(container) {
 
-        //++ add rule
+        //## add rule
         const ruleInvalidFields = [];
         for (const rule of this._rules) {
             const res = rule(container);
 
-            // la rule può tornare:
+            // a rule can return:
             // • null/undefined => ok
-            // • un elemento => invalido
-            // • un array di elementi => invalidi
+            // • an element => invalid
+            // • an array of elements => invalid
             if (!res) continue;
 
             if (Array.isArray(res)) ruleInvalidFields.push(...res);
             else ruleInvalidFields.push(res);
         }
 
-        //== INPUT 
-        // "testuali" (esclude hidden/disabled/checkbox/radio/file come nel tuo snippet)
+        //## INPUT 
+        // text-like inputs (hidden, disabled, checkbox, radio and file ones are left out)
         const textInputs = Array.from(container.querySelectorAll("input")).filter((input) => {
             if (input.disabled) return false;
             if (input.type === "hidden") return false;
             if (input.type === "checkbox" || input.type === "radio" || input.type === "file") return false;
 
-            // valida solo se required
+            // only validated when the field is required
             if (!this.#help.isRequired(input)) return false;
 
             return this.#help.isEmptyTextLike(input);
         });
 
-        //== TEXTAREA 
-        // required vuote
+        //## TEXTAREA 
+        // required and empty
         const textareas = Array.from(container.querySelectorAll("textarea")).filter((ta) => {
             if (ta.disabled) return false;
             if (!this.#help.isRequired(ta)) return false;
             return this.#help.isEmptyTextLike(ta);
         });
 
-        //== SELECT 
-        // required vuoti
+        //## SELECT 
+        // required and empty
         const selects = Array.from(container.querySelectorAll("select")).filter((sel) => {
             if (sel.disabled) return false;
             if (!this.#help.isRequired(sel)) return false;
-            return this.#help.isEmptySelect(sel);
+            return this.#help.isEmptyTextLike(sel);
         });
 
-        //== RADIO 
-        // required: se in un gruppo required non ce n'è uno checked => errore sul "primo" radio del gruppo
+        //## RADIO 
+        // required: a radio group with nothing checked reports the error on the first radio of the group
         const radios = Array.from(container.querySelectorAll('input[type="radio"]')).filter((r) => !r.disabled);
         const requiredRadioGroups = new Map(); // name -> [elements]
         for (const r of radios) {
@@ -185,9 +274,9 @@ export class PGS_formValidate {
             }
         }
 
-        //== CHECKBOX 
-        // required: può essere singola checkbox required (checked obbligatorio)
-        // oppure gruppo di checkbox (stesso name) con almeno una selezionata
+        //## CHECKBOX 
+        // required: it can be a single required checkbox (it has to be checked)
+        // or a checkbox group (same name) with at least one box ticked
         const checkboxes = Array.from(container.querySelectorAll('input[type="checkbox"]')).filter((c) => !c.disabled);
         const requiredCheckboxSingles = [];
         const requiredCheckboxGroups = new Map(); // name -> [elements]
@@ -196,35 +285,35 @@ export class PGS_formValidate {
 
             const name = this.#help.getGroupName(c);
             if (!name) {
-                // checkbox senza name: trattala come singola required
+                // a checkbox with no name is treated as a single required field
                 if (!c.checked) requiredCheckboxSingles.push(c);
                 continue;
             }
 
-            // se vuoi trattare come gruppo, raggruppa per name
+            // grouped by name, so a group answers as one field
             if (!requiredCheckboxGroups.has(name)) requiredCheckboxGroups.set(name, []);
             requiredCheckboxGroups.get(name).push(c);
         }
         const checkboxGroupErrors = [];
         for (const [name, group] of requiredCheckboxGroups.entries()) {
-            // se è un gruppo (>=2) richiedi almeno una spuntata
-            // se è 1 sola, si comporta come singola
+            // a real group (>= 2) needs at least one box ticked
+            // a lone box behaves as a single required field, and a group that sits in a fieldset
+            // reports the fieldset, even when only one of its boxes is required
             const anyChecked = group.some((c) => c.checked);
             if (!anyChecked) {
-                const fieldset = group.length > 1 ? group[0].closest("fieldset") : null;
-                checkboxGroupErrors.push(fieldset || group[0]);
+                checkboxGroupErrors.push(group[0].closest("fieldset") || group[0]);
             }
         }
 
-        //== FILE 
-        // required: se vuoi includerlo
+        //## FILE 
+        // required: no file chosen
         const fileInputs = Array.from(container.querySelectorAll('input[type="file"]')).filter((f) => {
             if (f.disabled) return false;
             if (!this.#help.isRequired(f)) return false;
             return !(f.files && f.files.length > 0);
         });
 
-        //== risultato finale: tutti i campi da marcare come errore
+        // the result: every field to be marked as failing
         const invalidFields = [
             textInputs,
             textareas,
@@ -240,31 +329,34 @@ export class PGS_formValidate {
         return [...new Set(invalidFields.flat())];
     }
 
-    //+ ADD
+    //## ADD
     #addFieldError(field, i = 0, total = 1) {
-        pgs(field).state.add("errorField");
+        // a fieldset that fails (a group of radios or checkboxes) is marked errorFieldset, and only it:
+        // the controls it groups are not
+        pgs(field).state.add(field.matches("fieldset") ? "errorFieldset" : "errorField");
+        this.#labelsOf(field).forEach(label => pgs(label).state.add("errorLabel"));
 
-        if (i === 0) field.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+        // the first invalid field is the one that scrolls into view and speaks for all of them
         if (i !== 0) return;
+        field.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
 
         const messageSource = field.matches("fieldset")
-            ? field.querySelector('[pgs-option*="message["], [pgs-option*="messageTitle["]')
+            ? findDataDescendant(field, ["formMessage", "formMessageTitle"])
             : field;
         const source = messageSource || field;
         const temporaryError = this.#temporaryFieldErrors.get(field);
-        const fieldTitle = pgs(source).option.getValueBrackets("messageTitle");
-        const fieldMessage = pgs(source).option.getValueBrackets("message");
-        const title = temporaryError?.title || fieldTitle || this.#getMessage("fieldErrorTitle");
+        const fieldTitle = pgs(source).data.getValueBrackets("formMessageTitle");
+        const fieldMessage = pgs(source).data.getValueBrackets("formMessage");
+        const title = temporaryError?.title || fieldTitle || this.#getMessage("formFieldErrorTitle");
         const description = total > 1
-            ? this.#getMessage("fieldsError")
-            : temporaryError?.message || fieldMessage || this.#getMessage("fieldError");
+            ? this.#getMessage("formFieldsError")
+            : temporaryError?.message || fieldMessage || this.#getMessage("formFieldError");
 
-        if (this.typeNotice == "alert") {
+        if (this.typeNotice === "alert") {
             PGS_alert.error({
                 title: title,
                 description: description,
-                root: this.container,
-                container: this.alertContainer
+                ...this.#alertPlacement()
             });
         } else {
             PGS_toast.error({
@@ -274,22 +366,22 @@ export class PGS_formValidate {
         }
     }
 
-    //+ REMOVE
+    //## REMOVE
     #removeFieldError(field) {
         this.#temporaryFieldErrors.delete(field);
-        pgs(field).state.remove("errorField");
+        pgs(field).state.remove("errorField").remove("errorFieldset");
+        this.#labelsOf(field).forEach(label => pgs(label).state.remove("errorLabel"));
     }
 
-    // + SUCCESS
-    success(description = this.#getMessage("success"), title = this.#getMessage("successTitle")) {
+    // success
+    success(description = this.#getMessage("formSuccess"), title = this.#getMessage("formSuccessTitle")) {
         if (this.#insideValidatedCallback || this.validate() === true) {
 
-            if (this.typeNotice == "alert") {
+            if (this.typeNotice === "alert") {
                 PGS_alert.success({
                     title,
                     description,
-                    root: this.container,
-                    container: this.alertContainer
+                    ...this.#alertPlacement()
                 });
             } else {
                 PGS_toast.success({
@@ -301,26 +393,21 @@ export class PGS_formValidate {
     }
 
 
-    // + VALIDATE
+    // validate
     validate() {
         const invalid = this.#inputValue(this.container);
-        const allFields = this.container.querySelectorAll("input, textarea, select")
 
-        //== pulizia/aggiornamento errori
-        this.container.querySelectorAll('[pgs-state~="errorField"]').forEach(element => {
-            if (!invalid.includes(element)) this.#removeFieldError(element);
-        });
+        // clean up the errors that no longer apply
+        for (const state of ["errorField", "errorFieldset"]) {
+            pgs(this.container).state.querySelectorAll(state).forEach(element => {
+                if (!invalid.includes(element)) this.#removeFieldError(element);
+            });
+        }
 
-        //== aggiungo errori dove serve
+        // add the errors where needed
         invalid.forEach((el, i) => this.#addFieldError(el, i, invalid.length))
 
-        //== rimuove l'errore al click
-        allFields.forEach(element => element.addEventListener("click", () => {
-            const errorTarget = element.closest('fieldset[pgs-state~="errorField"]') || element;
-            this.#removeFieldError(errorTarget);
-        }));
-
-        //== status form
+        //## status form
         if (invalid.length) {
             pgs(this.container).state.remove("success").add("errorForm");
             return false;
@@ -330,10 +417,10 @@ export class PGS_formValidate {
         }
     }
 
-    //= EVENT VALIDATOR
+    //# EVENT VALIDATOR
     validator(callback, eventName = "submit") {
-        if (typeof callback !== "function") throw new TypeError("callback must be a function");
-        if (typeof eventName !== "string" || !eventName.trim()) throw new TypeError("eventName must be a non-empty string");
+        if (typeof callback !== "function") throw pgs.helper.invalid("helper.formValidate.validator", "callback must be a function");
+        if (typeof eventName !== "string" || !eventName.trim()) throw pgs.helper.invalid("helper.formValidate.validator", "eventName must be a non-empty string");
 
         this.container.addEventListener(eventName, event => {
             event.preventDefault();
@@ -348,14 +435,14 @@ export class PGS_formValidate {
             } finally {
                 this.#insideValidatedCallback = false;
             }
-        });
+        }, { signal: this.#controller.signal });
 
         return this;
     }
 
-    //= ADD RULE
+    //# ADD RULE
     addNewRule(rule) {
-        if (typeof rule !== "function") throw new Error("Rule must be a function");
+        if (typeof rule !== "function") throw pgs.helper.invalid("helper.formValidate.addNewRule", "rule must be a function");
         this._rules.push(rule);
         return this;
     }

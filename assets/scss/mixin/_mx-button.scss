@@ -1,212 +1,238 @@
-//+ VAR
-@use "mx-hover" as *;
+@use "mx-elements" as *;
 
 //= BUTTON
-//+ BUTTON COLOR
+//# BUTTON
+//## BUTTON COLOR
 @mixin _buttonColor($for: "") {
     color: var(--button-color#{$for});
     background: var(--button-background#{$for});
-    --fa-primary-color: var(--button-color#{$for});
-    --fa-secondary-color: var(--button-color#{$for});
+    border-color: var(--button-borderColor#{$for});
+    box-shadow: var(--button-shadow#{$for});
 }
 
-//== BUTTON BASE
+//## BUTTON BASE
 @mixin buttonBase() {
-    --button-primaryColor: var(--color-primary);
     /// color
-    --button-color: var(--color-black);
-    --button-color-strong: var(--color-whiteFixed);
-    --button-color-current: var(--color-whiteFixed);
-    --button-color-active: var(--color-whiteFixed);
+    --button-color: var(--clickable-color);
+    --button-color-hover: var(--hover-color);
+    --button-color-current: var(--current-color);
+    --button-color-twoState: var(--twoState-color);
     /// background
-    --button-background: var(--color-box);
-    --button-background-strong: var(--button-primaryColor);
-    --button-background-current: var(--button-primaryColor);
-    --button-background-active: var(--button-primaryColor);
-    /// size
-    --button-size: 1.5rem;
-    --button-icon-size: 2rem;
-    --button-padding-block: var(--button-size);
-    --button-padding-left: calc(var(--button-size) * 2);
-    --button-padding-right: calc(var(--button-size) * 2);
-    --button-padding: var(--button-padding-block) var(--button-padding-right) var(--button-padding-block) var(--button-padding-left);
-    --button-height: max-content;
+    --button-background: var(--clickable-background);
+    --button-background-hover: var(--hover-background);
+    --button-background-current: var(--current-background);
+    --button-background-twoState: var(--twoState-background);
+    /// shadow
+    --button-shadow: unset;
+    --button-shadow-hover: unset;
+    --button-shadow-current: unset;
+    --button-shadow-twoState: unset;
     /// border
-    --button-border: var(--border-complete);
-    --button-borderRadius: var(--border-radius-input);
+    --button-borderColor: var(--clickable-borderColor);
+    --button-borderColor-hover: var(--hover-borderColor);
+    --button-borderColor-current: var(--current-borderColor);
+    --button-borderColor-twoState: var(--twoState-borderColor);
+    //
+    --button-borderWidth: var(--border-width);
+    --button-borderStyle: var(--border-style);
+    --button-borderRadius: var(--borderRadius-elements);
+    /// size
+    --button-size: var(--SIZE-texts);
+    --button-gap: calc(var(--button-size) / 3);
+    --button-fontSize: var(--font-size-text);
+    --button-paddingBlock: var(--button-size);
+    --button-paddingInline: calc(var(--button-size) * 2);
+    --button-paddingInline-short: calc(var(--button-size) * 1.5);
+    --button-height: max-content;
+    /// color
     @include _buttonColor();
-    --fa-secondary-opacity: 0.5;
-    --fa-size: var(--button-icon-size);
-    font-family: var(--font);
-    font-size: 1.6rem;
-    font-weight: 600;
-    text-decoration: none;
+    cursor: pointer;
     -moz-user-select: none;
     -webkit-user-select: none;
+    font-family: var(--font);
+    font-size: var(--button-fontSize);
+    font-weight: var(--font-weight-bold);
+    line-height: 1;
+    text-decoration: none;
     user-select: none;
-    border: none;
-    outline: var(--button-border);
+    border-style: var(--button-borderStyle);
+    border-width: var(--button-borderWidth);
     border-radius: var(--button-borderRadius);
+    transition: var(--clickable-transition);
     display: flex;
-    gap: calc(var(--button-size) / 2);
+    gap: var(--button-gap);
     align-items: center;
-    padding: var(--button-padding);
+    justify-content: center;
+    padding: var(--button-paddingBlock) var(--button-paddingInline);
     height: var(--button-height);
-    //x da controllare
-    // width: max-content;
     width: fit-content;
 
     &:disabled {
-        opacity: 0.2;
+        opacity: 0.5;
         cursor: not-allowed;
     }
-}
 
-//== BUTTON CONTENT - ICON
-//=== BUTTON CONTENT
-@mixin buttonContent() {
-    $button-right: calc(var(--button-size) * 2);
-    $button-left: calc(var(--button-size) * 1.5);
-
-    &:where(:has(i)) {
-        --button-padding-right: #{$button-right};
-        --button-padding-left: #{$button-left};
-    }
-
-    &:where([pgs-option~="buttonReverse"]:has(i)) {
-        --button-padding-right: #{$button-left};
-        --button-padding-left: #{$button-right};
+    //## BUTTON WITH ICON
+    &:where(:has([pgs~="icon"], [pgs*="icon\5B"], i)) {
+        padding-left: var(--button-paddingInline-short);
+        padding-right: var(--button-paddingInline);
     }
 }
 
-//=== BUTTON ICON
-@mixin buttonIcon() {
-    --button-padding: var(--button-padding-block);
-    --button-borderRadius: 50%;
+//# STATE
+//## HOVER
+// the values (--button-*-hover) are set at the usual weight, so a flag such as btnText can still
+// replace them; the properties that draw them are set heavier, so the hover also wins over the
+// current look, which would otherwise paint over it (the checked look of btnTwoState still wins over it)
+@mixin buttonHover() {
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            &:where(:not(:disabled, [disabled])) { @include _buttonColor("-hover"); }
+        }
+    }
+}
+
+//## BUTTON CURRENT
+@mixin buttonCurrent() {
+
+    &:where([aria-current=page]),
+    &:where([aria-selected=true]) {
+        @include _buttonColor("-current");
+    }
+}
+
+//## BUTTON TWO-STATE
+// a label marked as a button that wraps its own checkbox or radio: the input is hidden but still
+// carries the semantics and the keyboard, and the button draws its checked state
+@mixin buttonTwoState() {
+    position: relative;
+    isolation: isolate;
+    cursor: pointer;
+
+    :where(input:is([type=checkbox], [type=radio])) {
+        opacity: 0;
+        z-index: -1;
+        position: absolute;
+        appearance: none;
+    }
+
+    //## BUTTON CHECKED
+    &:has(input:checked) { @include _buttonColor("-twoState"); }
+
+    //## FOCUS
+    // the input is invisible: the ring is drawn on the button that holds it
+    &:has(input:focus-visible) { @include focusRing(); }
+}
+
+//# TYPE
+//## REVERSE BUTTON
+@mixin buttonReverseIcon() {
+    &:where(:has([pgs~="icon"], [pgs*="icon\5B"], i)) {
+        padding-left: var(--button-paddingInline);
+        padding-right: var(--button-paddingInline-short);
+    }
+}
+
+//## BUTTON ICON ONLY
+@mixin buttonIconOnly() {
+    padding: var(--button-paddingBlock);
     flex: 0 0;
     aspect-ratio: 1;
     justify-content: center;
     align-items: center;
 
-    i {
+    :where(i, [pgs~="icon"], [pgs*="icon\5B"]) {
         display: inline-grid;
         place-items: center;
-        inline-size: calc(var(--button-icon-size) + 2px);
-        block-size: var(--button-icon-size);
+        inline-size: calc(var(--icon-size, 1em) + 2px);
+        block-size: var(--icon-size, 1em);
         line-height: 1;
         aspect-ratio: 1;
     }
 }
 
-//== BUTTON HOVER - NOHOVER
-//=== BUTTON HOVER
-@mixin buttonHover() {
-    @include hover();
-}
-
-//=== BUTTON NOT HOVER
-@mixin buttonNohover() {
-    transition: all 200ms;
-    cursor: inherit;
-}
-
-//== CURRENT
-@mixin buttonCurrent($tag: '[aria-current=page]') {
-    &:where(#{$tag}:not(:hover, :focus-visible)) {
-        @include _buttonColor("-current");
-    }
-}
-
-//== BUTTON STRONG
-@mixin buttonStrong() {
-    @include _buttonColor("-strong");
-}
-
-//== BUTTON MINI
+//## BUTTON MINI
 @mixin buttonMini() {
-    --button-size: 0.5rem;
+    --button-size: 0.9rem;
     display: inline-flex;
-    aspect-ratio: 1;
 }
 
-//== BUTTON BIG
-@mixin buttonBig() {
-    --button-padding-right: var(--padding);
-    --button-padding-left: var(--padding);
+//## BUTTON VERTICAL
+@mixin buttonVertical() {
+    padding: var(--button-paddingInline);
     --button-height: 100%;
-    --button-icon-size: 2em;
+    --icon-size: 1.2em;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    aspect-ratio: 1;
     text-align: center;
 }
 
-//== BUTTON CLOSE
-@mixin buttonClose($isRed: false) {
-    --button-background: var(--color-primary-soft);
-    --button-size: 1rem;
-    --button-icon-size: 1.3rem;
-    aspect-ratio: 1;
-    height: max-content;
-
-    @if($isRed ==true) {
-        --button-background: var(--color-error-soft);
-        --button-color: var(--color-error);
-    }
-}
-
-//== BUTTON HEADER
-@mixin button_header() {
-    --button-size: 1.2rem;
-    --button-border: unset;
-    overflow-wrap: break-word;
-    height: calc(var(--button-size) * 4);
-}
-
-//== BUTTON TRANSPARENT
+//## BUTTON TRANSPARENT
 @mixin buttonTransparent() {
-    $color: var(--color-primary);
-    --button-border: unset;
+    --button-borderColor: transparent;
     --button-background: transparent;
-    --button-background-strong: transparent;
-    --button-background-current: transparent;
-    --button-background-active: transparent;
-    --button-color-strong: #{$color};
-    --button-color-current: #{$color};
-    --button-color-active: #{$color};
-
-    @media (hover: hover) and (pointer: fine) {
-
-        &:focus-visible,
-        &:hover {
-            --hover-background: transparent;
-            --hover-color: #{$color};
-        }
-    }
+    --button-color: var(--clickable-onlyText-color);
 }
 
-//= ICON
-@mixin icon() {
-    --icon-size: var(--fa-size);
-    --icon-padding: .5rem;
-    --icon-background: var(--color-white-transparent);
-    border-radius: 50%;
-    display: flex;
-    aspect-ratio: 1;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--icon-background);
-    padding: var(--icon-padding);
-    width: calc(var(--icon-size, 1.6rem) * 3);
-    justify-content: center;
+//## BUTTON TEXT
+@mixin buttonText() {
+    --button-borderColor: transparent;
+    --button-borderWidth: 0px 0px 3px 0px;
+    --button-borderColor-hover: var(--color-secondary);
+    --button-borderColor-current: var(--color-primary);
+    --button-borderRadius: 0px;
+    --button-background: transparent;
+    --button-background-current: transparent;
+    --button-background-twoState: transparent;
+    --button-background-hover: transparent;
+    --button-color: var(--clickable-onlyText-color);
+    --button-color-current: var(--clickable-onlyText-color);
+    --button-color-twoState: var(--clickable-onlyText-color);
+    --button-color-hover: var(--clickable-onlyText-color);
+    --button-shadow: unset;
+    --button-shadow-current: unset;
+    --button-shadow-twoState: unset;
+    --button-shadow-hover: unset;
+    padding-inline: var(--button-paddingBlock);
+}
 
-    i {
-        display: inline-grid;
-        place-items: center;
-        block-size: var(--icon-size);
-        line-height: 1;
-        aspect-ratio: 1;
+//## BUTTON PADDING EQUAL
+@mixin buttonPaddingEqual() { padding: var(--button-paddingBlock); }
+
+//# HEADER & NAVSMART
+//## HEADER
+@mixin buttonForHeader() {
+    min-height: var(--header-size);
+    overflow-wrap: break-word;
+}
+
+//## NAV SMART
+// an item of the floating navSmart bar: the icon above its label inside a pill, with no background
+// of its own. It reads the bar's own properties (--navSmart-iconSize, --navSmart-itemMinWidth) with a
+// fallback, so the button still draws outside a bar. The page you are on (aria-current) or the
+// selected item (aria-selected) takes the current look as a smaller pill inside the bigger one
+@mixin buttonForNavSmart() {
+    @include buttonVertical();
+    @include buttonTransparent();
+    @include buttonCurrent();
+    --button-size: .35rem;
+    --button-height: auto;
+    --button-fontSize: 1.1rem;
+    --button-borderWidth: 0px;
+    --button-borderRadius: 999px;
+    --button-gap: .2rem;
+    --icon-size: var(--navSmart-iconSize, 2.2rem);
+    min-width: var(--navSmart-itemMinWidth, auto);
+    min-height: var(--navSmart-itemHeight, auto);
+    white-space: nowrap;
+
+    // with btnIconOnly there is no label to set the width: the item is as wide as every item is tall
+    // (--navSmart-itemHeight, which every item shares as its minimum height), so it is a square,
+    // and the floor an item with a label keeps does not apply
+    &[pgs*="'btnIconOnly'"] {
+        flex: 0 0 auto;
+        min-width: 0;
+        width: var(--navSmart-itemHeight, auto);
     }
-
 }

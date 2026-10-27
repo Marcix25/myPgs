@@ -1,0 +1,14 @@
+//= TABS
+// The tabs structure: a list of tabs and the panels with their content. Only the hidden panel
+// is styled here (display: none); the look of the tabs comes from the elements that carry them.
+[pgs~="tabs"] {
+    :where([pgs~="tabs-list"]) {
+        :where([pgs~="tabs-list-tab"]) {}
+    }
+
+    :where([pgs~="tabs-panels"]) {
+        :where([pgs~="tabs-panels-content"]) {
+            &[hidden] { display: none; }
+        }
+    }
+}

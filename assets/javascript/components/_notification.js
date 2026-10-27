@@ -1,230 +1,200 @@
-import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
+import { pgs } from "../_pgs.js";
+import { fn_alert } from "./_alerts.js";
+import { PGS_modal } from "./_modal.js";
 
-//= PGS_notification
+// the controller of each bell's click listener, and the notificationLoad elements already read
+const BELLS = new WeakMap();
+const LOADED = new WeakSet();
+
+//# PGS_notification
+// the group manager: one modal that holds the scrollable panel, every notificationBell that opens
+// it, and the counter and empty state. It only reads its data and hands it to the shared alert
+// engine (see _alerts.js): every message inside the panel is that alert card, built dismissible,
+// with its buttons, never timed by default.
 const fn_notification = {
-    _uid: 0,
     _defaults: {
-        id: null,
-        buttons: [],
-        description: "",
-        closeTitle: "Close",
         emptyMessage: "No notifications",
-        type: {
-            error: {
-                title: "Error",
-                icon: '<i class="fa-solid fa-circle-xmark"></i>'
-            },
-            success: {
-                title: "Success",
-                icon: '<i class="fa-solid fa-circle-check"></i>'
-            },
-            info: {
-                title: "Information",
-                icon: '<i class="fa-solid fa-circle-info"></i>'
-            },
-            warning: {
-                title: "Warning",
-                icon: '<i class="fa-solid fa-triangle-exclamation"></i>'
-            }
-        }
+        panelCloseTitle: "Close"
     },
-
-    _escapeHtml(value) {
-        return String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
-    },
-
-    _formatText(value) {
-        return this._escapeHtml(value).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\r?\n/g, "<br>");
-    },
-
-    _getType(notification) {
-        const type = String(notification.type || "info").trim();
-        return typeof PGS_notification[type] === "function" ? type : "info";
-    },
-
-    _getData(root) {
-        const rawNotification = pgs(root).option.getValueBrackets("notification") || "{}";
-
-        try {
-            const notifications = JSON.parse(`[${rawNotification}]`);
-
-            if (notifications.some(notification => !notification || typeof notification !== "object" || Array.isArray(notification))) {
-                throw new TypeError("Each notification must be a JSON object");
-            }
-
-            return notifications;
-        } catch (error) {
-            console.warn("PGS notification: Invalid JSON configuration", error);
-            return [];
-        }
-    },
-
-    _getContent(title, description) {
-        const safeDescription = this._formatText(description);
-        const safeTitle = this._formatText(title);
-
-        if (!safeTitle) return `<span>${safeDescription}</span>`;
-        if (!safeDescription) return `<strong>${safeTitle}</strong>`;
-
-        return `
-            <strong>${safeTitle}</strong>
-            <span>${safeDescription}</span>
-        `;
-    },
+    // a bell can say where the panel opens: a side (dialogLeft, dialogRight), a height (dialogTop,
+    // dialogBottom), or dialogCenter for the middle. Each axis it leaves out keeps the default,
+    // and the size is never a bell's business
+    _positions: ["dialogLeft", "dialogRight", "dialogTop", "dialogBottom", "dialogCenter"],
+    _animations: ["dialogAnimationLeft", "dialogAnimationRight"],
+    _modal: null,
+    _panelController: null,
+    _missingBellReported: false,
 
     _getContainer() {
-        return pgs(document).querySelector("notifications");
+        return pgs(document).querySelector("_notification");
     },
 
-    _getOrCreateContainer() {
-        let containerNotification = this._getContainer();
-
-        if (!containerNotification) {
-            containerNotification = document.createElement("div");
-            pgs(containerNotification).add("notifications");
-            containerNotification.setAttribute("aria-live", "polite");
-            containerNotification.setAttribute("aria-relevant", "additions");
-            document.body.appendChild(containerNotification);
-        }
-
-        return containerNotification;
+    // the count only ever changes through a card's own close animation (dismiss click, a button
+    // that closes, or deleteAll below), so this one listener covers every case.
+    // Deferred a tick: the event fires before the card is actually removed from the DOM
+    _bindContainer(container, signal) {
+        container.addEventListener("pgs:alert:close", () => {
+            setTimeout(() => fn_notification._updateBellCounter(), 0);
+        }, { signal });
     },
 
-    show(type, options = {}) {
-        if (typeof options === "string") options = { title: options };
+    // the one modal every bell opens, built the first time anything needs it: the first
+    // notification, or the first click on a bell. It is not authored anywhere on the page
+    _ensureModal() {
+        if (this._modal?.isConnected) return this._modal;
 
-        if (!options || typeof options !== "object" || Array.isArray(options)) {
-            throw new TypeError("PGS notification: options must be an object or a string");
-        }
+        // a panel that left the page takes its listeners with it
+        this._panelController?.abort();
+        this._panelController = new AbortController();
+        const { signal } = this._panelController;
 
-        const { type: typeDefaults, ...defaults } = this._defaults;
-        const definedOptions = Object.fromEntries(
-            Object.entries(options).filter(([, value]) => value !== undefined)
-        );
-        const config = {
-            ...defaults,
-            ...typeDefaults[type],
-            ...definedOptions,
-            type
-        };
+        const modal = document.createElement("div");
+        pgs(modal).add("modal['dialogRight' 'dialogTop' 'dialogSmall' 'dialogAnimationRight']");
 
-        return this.initNotification(config);
-    },
+        const dialog = document.createElement("dialog");
+        pgs(dialog).add("modal-dialog", "_notification-dialog");
 
-    initNotification({
-        type,
-        id,
-        title,
-        icon,
-        description,
-        buttons,
-        closeTitle
-    }) {
-        const containerNotification = this._getOrCreateContainer();
-        const text = this._getContent(title, description);
-        const notificationId = id ?? `notification-${++this._uid}`;
+        const content = document.createElement("div");
+        pgs(content).add("modal-dialog-content", "_notification");
+        content.setAttribute("aria-live", "polite");
+        content.setAttribute("aria-relevant", "additions");
+        this._bindContainer(content, signal);
 
-        //== Create Notification
-        const notification = document.createElement("div");
-        notification.dataset.notificationId = notificationId;
-        pgs(notification).state.add(type);
-        pgs(notification).add("notifications-element");
-        notification.setAttribute("role", type == "error" ? "alert" : "status");
-        notification.innerHTML = `
-            <div pgs="notifications-element-content">
-                <div pgs="notifications-element-icon">${icon}</div>
-                <p>${text}</p>
-            </div>
-            <div pgs="notifications-element-buttons">
-                <button type="button" pgs="button notifications-element-buttons-delete">${closeTitle}</button>
-            </div>
-        `;
+        // the panel closes from its own button, the one pgs.modal picks up inside the dialog. Written
+        // first, it sits above the first notification
+        const closeButton = document.createElement("button");
+        closeButton.type = "button";
+        closeButton.textContent = this._defaults.panelCloseTitle;
+        pgs(closeButton).add("button['btnMini']", "_modal-close", "_notification-close");
+        content.appendChild(closeButton);
 
-        const notificationButtons = pgs(notification).querySelector("notifications-element-buttons");
-        const btnDelete = pgs(notification).querySelector("notifications-element-buttons-delete");
-        btnDelete.ariaLabel = closeTitle === "Close" ? "Close notification" : closeTitle;
+        dialog.appendChild(content);
+        modal.appendChild(dialog);
+        document.body.appendChild(modal);
+        PGS_modal.init(modal);
 
-        //+ Animation delete
-        function deleteNotification() {
-            notification.style.translate = "120%";
-            setTimeout(() => {
-                notification.dispatchEvent(new CustomEvent("pgs:notification:close", {
-                    bubbles: true,
-                    detail: { id: notificationId, type, title, description }
-                }));
-                notification.remove();
-                fn_notification._updateBellCounter();
-            }, 300);
-        }
+        // the bells say whether the panel is open, whichever way it got opened or closed
+        modal.addEventListener("pgs:modal:open", () => this._setBellsExpanded(true), { signal });
+        modal.addEventListener("pgs:modal:close", () => this._setBellsExpanded(false), { signal });
 
-        (buttons || []).forEach((button, index) => {
-            const buttonId = button.id ?? `${notificationId}-button-${index + 1}`;
-            const buttonElement = button.link ? document.createElement("a") : document.createElement("button");
-            if (button.link) buttonElement.href = button.link;
-            else buttonElement.type = "button";
-            buttonElement.textContent = button.title;
-            pgs(buttonElement).add("button");
-            if (button.optionButton) pgs(buttonElement).option.add(button.optionButton);
-
-            buttonElement.addEventListener("click", (e) => {
-                const proceed = buttonElement.dispatchEvent(new CustomEvent("pgs:notification:buttonClick", {
-                    bubbles: true,
-                    cancelable: true,
-                    detail: { id: notificationId, buttonId, type, title, description, link: button.link }
-                }));
-
-                if (button.link && !proceed) e.preventDefault();
-                if (button.close !== false) deleteNotification();
-            });
-
-            notificationButtons.insertBefore(buttonElement, btnDelete);
-        });
-
-        containerNotification.appendChild(notification);
+        this._modal = modal;
         this._updateBellCounter();
+        return modal;
+    },
 
-        //== event
-        btnDelete.addEventListener("click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            e.stopImmediatePropagation()
-            deleteNotification();
+    _getBells(root = document) {
+        return pgs.helper.roots(root, "notificationBell");
+    },
+
+    _setBellsExpanded(expanded) {
+        this._getBells().forEach(bell => bell.setAttribute("aria-expanded", String(expanded)));
+    },
+
+    // puts the position this bell asks for on the one modal. Only ever called while the panel is
+    // closed: moving an open panel would make it jump. The slide comes in from the side it ends up on
+    _applyPosition(bell) {
+        const wanted = this._positions.filter(key => pgs(bell).option.contains(key));
+        const side = wanted.find(key => key === "dialogLeft" || key === "dialogRight") ?? "dialogRight";
+        const height = wanted.find(key => key === "dialogTop" || key === "dialogBottom") ?? "dialogTop";
+        const flags = wanted.includes("dialogCenter")
+            ? ["dialogCenter"]
+            : [side, height, side === "dialogLeft" ? "dialogAnimationLeft" : "dialogAnimationRight"];
+
+        // pgs.modal moves the dialog out of its wrapper, so it is asked for rather than searched for
+        const dialog = PGS_modal.api(this._modal).dialog;
+        [[this._modal, "modal"], [dialog, "_dialog"]].forEach(([element, token]) => {
+            pgs(element).option.remove(...this._positions, ...this._animations);
+            pgs(element).add(`${token}[${flags.map(flag => `'${flag}'`).join(" ")}]`);
         });
     },
 
+    // a bell is a plain button: it only asks the one modal to toggle
+    _bindBells(root = document) {
+        this._getBells(root).forEach(bell => {
+            if (BELLS.has(bell)) return;
+
+            const controller = new AbortController();
+            BELLS.set(bell, controller);
+            this._missingBellReported = false;
+
+            // a hand-written counter keeps the bare name; a generated one gets the underscore,
+            // so this is the one place that has to check for either
+            if (!pgs(bell).querySelector(["notificationBell-counter", "_notificationBell-counter"])) {
+                const counter = document.createElement("span");
+                pgs(counter).add("_notificationBell-counter");
+                bell.appendChild(counter);
+            }
+
+            bell.setAttribute("aria-haspopup", "dialog");
+            bell.setAttribute("aria-expanded", String(Boolean(this._modal?.isConnected && PGS_modal.api(this._modal)?.isOpen())));
+            bell.addEventListener("click", () => {
+                const modal = this._ensureModal();
+                const api = PGS_modal.api(modal);
+
+                // open already: this click closes it, and nothing moves
+                if (!api.isOpen()) this._applyPosition(bell);
+                api.toggle();
+            }, { signal: controller.signal });
+        });
+    },
+
+    _add(type, options) {
+        const scope = `notification.${type}`;
+
+        // a notification fired from a script in the head, before the body is parsed, has no panel
+        // to go in yet: it is added once the document is ready
+        if (!document.body) {
+            if (document.readyState === "loading") pgs.helper.onDocumentReady(() => this._add(type, options));
+            else pgs.helper.warn(scope, "the document has no <body>, so the notification was not added");
+            return;
+        }
+
+        const config = fn_alert._toOptions(options, scope);
+        const notification = fn_alert.create(type, {
+            ...config,
+            component: "_alert",
+            dismissible: true,
+            // the dismiss button draws dismissIcon (a cross by default), so closeTitle is its accessible name
+            closeTitle: config.closeTitle ?? "Close notification"
+        });
+
+        // the notification is kept either way, so a bell added later still shows it; but with no
+        // bell there is nothing to open the panel from, and that is worth saying out loud
+        if (!this._getBells().length && !this._missingBellReported) {
+            this._missingBellReported = true;
+            pgs.helper.warn(scope, "no notificationBell on the page, so nothing can open the panel that holds this notification");
+        }
+
+        this._ensureModal();
+        this._getContainer().appendChild(notification);
+        this._updateBellCounter();
+    },
+
+    // only loops and asks each card to close itself the same way its own dismiss button would;
+    // the close animation and the pgs:alert:close event are the engine's job, not this one's
     deleteAll() {
         const containerNotification = this._getContainer();
+        if (!containerNotification) return;
 
-        if (containerNotification) {
-            const ids = Array.from(pgs(containerNotification).querySelectorAll("notifications-element"))
-                .map(element => element.dataset.notificationId);
-
-            containerNotification.innerHTML = "";
-            containerNotification.dispatchEvent(new CustomEvent("pgs:notification:deleteAll", {
-                bubbles: true,
-                detail: { ids }
-            }));
-        }
-
-        this._updateBellCounter();
+        pgs(containerNotification).querySelectorAll("_alert").forEach(element => element.pgsAlertClose());
     },
 
     _updateBellCounter() {
         const container = this._getContainer();
-        const count = container ? pgs(container).querySelectorAll("notifications-element").length : 0;
+        const count = container ? pgs(container).querySelectorAll("_alert").length : 0;
 
-        pgs(document).querySelectorAll("notificationBell-counter").forEach(counter => {
+        pgs(document).querySelectorAll(["notificationBell-counter", "_notificationBell-counter"]).forEach(counter => {
             counter.textContent = count > 0 ? count : "";
         });
 
         if (!container) return;
 
-        let emptyMessage = pgs(container).querySelector("notifications-empty");
+        let emptyMessage = pgs(container).querySelector("_notification-empty");
 
         if (count === 0) {
             if (!emptyMessage) {
                 emptyMessage = document.createElement("p");
-                pgs(emptyMessage).add("notifications-empty");
+                pgs(emptyMessage).add("_notification-empty");
                 container.appendChild(emptyMessage);
             }
             emptyMessage.textContent = this._defaults.emptyMessage;
@@ -233,72 +203,21 @@ const fn_notification = {
         }
     },
 
-    _dispatch(element) {
-        this._getData(element).forEach(notification => {
-            const title = String(notification.title || "").trim();
-            const description = String(notification.message || "").trim();
-            const closeTitle = String(notification["title-close"] || this._defaults.closeTitle).trim();
-
-            if (!title && !description) return;
-
-            const icon = notification.icon || undefined;
-            const id = notification.id || this._defaults.id;
-            const buttons = Array.isArray(notification.buttons) ? notification.buttons : this._defaults.buttons;
-            const type = this._getType(notification);
-
-            PGS_notification[type]({
-                title,
-                description,
-                icon,
-                buttons,
-                closeTitle,
-                id
-            });
-        });
-    },
-
     load(root = document) {
-        pgs(root).querySelectorAll("notificationLoad").forEach(element => {
-            if (!element || element.dataset.initialize === "true") return;
+        pgs.helper.roots(root, "notificationLoad").forEach(element => {
+            if (LOADED.has(element)) return;
 
-            element.dataset.initialize = "true";
-            this._dispatch(element);
+            LOADED.add(element);
+            fn_alert.fromData(element, "notification").forEach(({ type, options }) => this._add(type, options));
             element.remove();
         });
-    },
-
-    //+ generates <dialog pgs-option="right"><div pgs="modal-dialog-content"><div pgs="notifications"></div></div></dialog>
-    //+ inside the modal wrapping notificationBell, then asks pgs.modal to (re)initialize it.
-    _ensureDialog(root = document) {
-        let created = false;
-
-        pgs(root).querySelectorAll("notificationBell").forEach(bell => {
-            const modalWrapper = bell.closest("[pgs~='modal']");
-            if (!modalWrapper || modalWrapper.querySelector("dialog")) return;
-
-            const dialog = document.createElement("dialog");
-            pgs(dialog).option.add("right");
-
-            const content = document.createElement("div");
-            pgs(content).add("modal-dialog-content");
-
-            const list = document.createElement("div");
-            pgs(list).add("notifications");
-
-            content.appendChild(list);
-            dialog.appendChild(content);
-            modalWrapper.appendChild(dialog);
-            created = true;
-        });
-
-        if (created) globalThis.pgs?.modal?.init(document);
     }
 };
 
 //# TRIGGER
-//+ opening/closing the panel is handled entirely by the modal wrapping notificationBell + the dialog; see reference markup.
+// opening/closing the panel is the one modal's job; every notificationBell just asks it to toggle
 function PGS_notificationLoad_init(root = document) {
-    fn_notification._ensureDialog(root);
+    fn_notification._bindBells(root);
     fn_notification.load(root);
     fn_notification._updateBellCounter();
 }
@@ -306,13 +225,14 @@ function PGS_notificationLoad_init(root = document) {
 export const PGS_notification = {
     init: PGS_notificationLoad_init,
     trigger: PGS_notificationLoad_init,
-    error: (options = {}) => fn_notification.show("error", options),
-    success: (options = {}) => fn_notification.show("success", options),
-    info: (options = {}) => fn_notification.show("info", options),
-    warning: (options = {}) => fn_notification.show("warning", options),
+    error: (options = {}) => fn_notification._add("error", options),
+    success: (options = {}) => fn_notification._add("success", options),
+    info: (options = {}) => fn_notification._add("info", options),
+    warning: (options = {}) => fn_notification._add("warning", options),
+    neutral: (options = {}) => fn_notification._add("neutral", options),
     deleteAll: () => fn_notification.deleteAll()
 };
 
 
-//= EXECUTE
-PGS_onDocumentReady(PGS_notificationLoad_init);
+//# EXECUTE
+pgs.helper.onDocumentReady(PGS_notificationLoad_init);

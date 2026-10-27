@@ -1,4 +1,15 @@
-/******/ (() => { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["mypgs"] = factory();
+	else
+		root["mypgs"] = factory();
+})(globalThis, () => {
+return /******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./assets/javascript/_imports.js"
@@ -7,7 +18,6 @@
   \***************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_pgs.js */ "./assets/javascript/_pgs.js");
 /* harmony import */ var _base_darkmode_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./base/_darkmode.js */ "./assets/javascript/base/_darkmode.js");
@@ -16,19 +26,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_alerts_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/_alerts.js */ "./assets/javascript/components/_alerts.js");
 /* harmony import */ var _components_dropdown_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/_dropdown.js */ "./assets/javascript/components/_dropdown.js");
 /* harmony import */ var _components_menu_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/_menu.js */ "./assets/javascript/components/_menu.js");
-/* harmony import */ var _components_modals_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_modals.js */ "./assets/javascript/components/_modals.js");
-/* harmony import */ var _components_notification_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_notification.js */ "./assets/javascript/components/_notification.js");
-/* harmony import */ var _components_legacyNotification_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_legacyNotification.js */ "./assets/javascript/components/_legacyNotification.js");
+/* harmony import */ var _components_modal_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_modal.js */ "./assets/javascript/components/_modal.js");
+/* harmony import */ var _components_pageNav_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_pageNav.js */ "./assets/javascript/components/_pageNav.js");
+/* harmony import */ var _components_notification_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_notification.js */ "./assets/javascript/components/_notification.js");
 /* harmony import */ var _components_toast_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_toast.js */ "./assets/javascript/components/_toast.js");
 /* harmony import */ var _components_search_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/_search.js */ "./assets/javascript/components/_search.js");
-/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
-/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
-/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
-/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
-/* harmony import */ var _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./helper/_formValidate.js */ "./assets/javascript/helper/_formValidate.js");
-/* harmony import */ var _helper_init_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./helper/_init.js */ "./assets/javascript/helper/_init.js");
-/* harmony import */ var _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./helper/_scrollY.js */ "./assets/javascript/helper/_scrollY.js");
-/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
+/* harmony import */ var _components_range_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/_range.js */ "./assets/javascript/components/_range.js");
+/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
+/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
+/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
+/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
+/* harmony import */ var _components_tabs_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/_tabs.js */ "./assets/javascript/components/_tabs.js");
+/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./layout/_header.js */ "./assets/javascript/layout/_header.js");
+/* harmony import */ var _layout_navSmart_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./layout/_navSmart.js */ "./assets/javascript/layout/_navSmart.js");
+/* harmony import */ var _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./helper/_formValidate.js */ "./assets/javascript/helper/_formValidate.js");
+/* harmony import */ var _helper_init_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./helper/_init.js */ "./assets/javascript/helper/_init.js");
+
+
 
 
 
@@ -52,26 +66,29 @@ __webpack_require__.r(__webpack_exports__);
 
 
 _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
-    init: _helper_init_js__WEBPACK_IMPORTED_MODULE_17__.PGS_init,
     darkmode: _base_darkmode_js__WEBPACK_IMPORTED_MODULE_1__.PGS_darkmode,
     svg: _base_svg_js__WEBPACK_IMPORTED_MODULE_2__.PGS_svg,
     accordion: _components_accordion_js__WEBPACK_IMPORTED_MODULE_3__.PGS_accordion,
     alert: _components_alerts_js__WEBPACK_IMPORTED_MODULE_4__.PGS_alert,
     dropdown: _components_dropdown_js__WEBPACK_IMPORTED_MODULE_5__.PGS_dropdown,
     menu: _components_menu_js__WEBPACK_IMPORTED_MODULE_6__.PGS_menu,
-    modal: _components_modals_js__WEBPACK_IMPORTED_MODULE_7__.PGS_modal,
-    cookieConsent: _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_19__.PGS_cookieConsent,
-    notification: _components_notification_js__WEBPACK_IMPORTED_MODULE_8__.PGS_notification,
+    modal: _components_modal_js__WEBPACK_IMPORTED_MODULE_7__.PGS_modal,
+    pageNav: _components_pageNav_js__WEBPACK_IMPORTED_MODULE_8__.PGS_pageNav,
+    header: _layout_header_js__WEBPACK_IMPORTED_MODULE_18__.PGS_header,
+    navSmart: _layout_navSmart_js__WEBPACK_IMPORTED_MODULE_19__.PGS_navSmart,
+    notification: _components_notification_js__WEBPACK_IMPORTED_MODULE_9__.PGS_notification,
     toast: _components_toast_js__WEBPACK_IMPORTED_MODULE_10__.PGS_toast,
-    legacyNotification: _components_legacyNotification_js__WEBPACK_IMPORTED_MODULE_9__.PGS_notificationLegacy,
     search: _components_search_js__WEBPACK_IMPORTED_MODULE_11__.PGS_search,
-    slides: _components_slides_js__WEBPACK_IMPORTED_MODULE_12__.PGS_slides,
-    stepTabs: _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_13__.PGS_stepTabs,
-    steps: _components_steps_js__WEBPACK_IMPORTED_MODULE_14__.PGS_steps,
-    summary: _components_summary_js__WEBPACK_IMPORTED_MODULE_15__.PGS_summary,
-    formValidate: _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_16__.PGS_formValidate,
-    scrollHorizontal: _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_18__.PGS_scrollHorizontal,
+    range: _components_range_js__WEBPACK_IMPORTED_MODULE_12__.PGS_range,
+    slides: _components_slides_js__WEBPACK_IMPORTED_MODULE_13__.PGS_slides,
+    stepTabs: _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_14__.PGS_stepTabs,
+    steps: _components_steps_js__WEBPACK_IMPORTED_MODULE_15__.PGS_steps,
+    summary: _components_summary_js__WEBPACK_IMPORTED_MODULE_16__.PGS_summary,
+    tabs: _components_tabs_js__WEBPACK_IMPORTED_MODULE_17__.PGS_tabs,
 });
+
+// the two helpers that need the module system: they walk or build on what is registered above
+Object.assign(_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper, { init: _helper_init_js__WEBPACK_IMPORTED_MODULE_21__.PGS_init, formValidate: _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_20__.PGS_formValidate });
 
 
 /***/ },
@@ -82,63 +99,106 @@ _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
   \***********************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   pgs: () => (/* binding */ pgs)
 /* harmony export */ });
-//+ index of the "]" matching the "[" at openIndex, counting nested brackets and ignoring any "[" / "]" inside a JSON string (respects \" escapes)
-function findMatchingBracket(source, openIndex) {
-    let depth = 0;
-    let inString = false;
-    let escaped = false;
+/* harmony import */ var _helper_dom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helper/_dom.js */ "./assets/javascript/helper/_dom.js");
+/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+/* harmony import */ var _helper_text_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helper/_text.js */ "./assets/javascript/helper/_text.js");
+/* harmony import */ var _helper_throttle_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./helper/_throttle.js */ "./assets/javascript/helper/_throttle.js");
+/* harmony import */ var _helper_warn_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./helper/_warn.js */ "./assets/javascript/helper/_warn.js");
 
-    for (let i = openIndex; i < source.length; i++) {
-        const char = source[i];
 
-        if (escaped) {
-            escaped = false;
-            continue;
+
+
+
+
+// shared helpers for the "key", "key['flag' ...]" and "key[payload]" bracket syntax — used by
+// the pgs attribute itself and by every pgs-data accessor below, so a fix here fixes all of them
+const BracketToken = {
+    // the part before an opening "[", or the whole token when there is none
+    key(value) {
+        return String(value).trim().match(/^[^\s[\]]+/)?.[0] || "";
+    },
+
+    // every quoted 'flag' inside a token's own ['flag' ...] bracket
+    flags(token) {
+        const open = token.indexOf("[");
+        return open === -1 ? [] : [...token.slice(open + 1).matchAll(/'([^']+)'/g)].map(match => match[1]);
+    },
+
+    // rebuilds "key['flag' ...]", or the bare key when there is nothing to carry
+    component(key, flags) {
+        return flags.length ? `${key}[${[...new Set(flags)].map(flag => `'${flag}'`).join(" ")}]` : key;
+    },
+
+    // index of the "]" matching the "[" at openIndex, counting nested brackets and ignoring any "[" / "]" inside a JSON string (respects \" escapes)
+    findClose(source, openIndex) {
+        let depth = 0;
+        let inString = false;
+        let escaped = false;
+
+        for (let i = openIndex; i < source.length; i++) {
+            const char = source[i];
+
+            if (escaped) {
+                escaped = false;
+                continue;
+            }
+
+            if (inString) {
+                if (char === "\\") escaped = true;
+                else if (char === "\"") inString = false;
+                continue;
+            }
+
+            if (char === "\"") inString = true;
+            else if (char === "[") depth++;
+            else if (char === "]") {
+                depth--;
+                if (depth === 0) return i;
+            }
         }
 
-        if (inString) {
-            if (char === "\\") escaped = true;
-            else if (char === "\"") inString = false;
-            continue;
+        return -1;
+    },
+
+    // splits a pgs or pgs-data value into tokens, keeping "key[...]" whole even when the payload contains its own [...] (e.g. a JSON array)
+    split(source) {
+        const tokens = [];
+        let i = 0;
+
+        while (i < source.length) {
+            while (i < source.length && /\s/.test(source[i])) i++;
+            if (i >= source.length) break;
+
+            const start = i;
+            while (i < source.length && !/\s/.test(source[i]) && source[i] !== "[") i++;
+
+            if (i < source.length && source[i] === "[") {
+                const close = this.findClose(source, i);
+                i = close === -1 ? source.length : close + 1;
+            }
+
+            if (i > start) tokens.push(source.slice(start, i));
         }
 
-        if (char === "\"") inString = true;
-        else if (char === "[") depth++;
-        else if (char === "]") {
-            depth--;
-            if (depth === 0) return i;
-        }
-    }
+        return tokens;
+    },
+};
 
-    return -1;
-}
-
-//+ splits a pgs-option value into tokens, keeping "key[...]" whole even when the payload contains its own [...] (e.g. a JSON array)
-function tokenizeOptionValue(source) {
-    const tokens = [];
-    let i = 0;
-
-    while (i < source.length) {
-        while (i < source.length && /\s/.test(source[i])) i++;
-        if (i >= source.length) break;
-
-        const start = i;
-        while (i < source.length && !/\s/.test(source[i]) && source[i] !== "[") i++;
-
-        if (i < source.length && source[i] === "[") {
-            const close = findMatchingBracket(source, i);
-            i = close === -1 ? source.length : close + 1;
-        }
-
-        if (i > start) tokens.push(source.slice(start, i));
-    }
-
-    return tokens;
+// read/rebuild helper for one element's attribute, in bracket-token form: shared by the pgs
+// attribute and by every pgs-data accessor, since each of them only ever reads/writes its own
+// element this way — traversal code that needs an arbitrary element reads it directly instead
+function createBracketAttribute(element, attribute) {
+    return {
+        read: () => BracketToken.split(element.getAttribute(attribute) || ""),
+        write(values) {
+            if (values.length) element.setAttribute(attribute, values.join(" "));
+            else element.removeAttribute(attribute);
+        },
+    };
 }
 
 /**
@@ -146,75 +206,79 @@ function tokenizeOptionValue(source) {
 */
 function pgs(root) {
     const ATTR = "pgs";
-    if (!root) throw new TypeError("pgs(root): root richiesto");
+    if (!root) throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_4__.PGS_invalid)("pgs", "root is required");
 
     const canAttr = typeof root.getAttribute === "function" && typeof root.setAttribute === "function";
     const canQuery = typeof root.querySelector === "function" && typeof root.querySelectorAll === "function";
 
     if (!canQuery) {
-        throw new TypeError("pgs(root): root deve supportare querySelector/querySelectorAll");
+        throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_4__.PGS_invalid)("pgs", "root must support querySelector/querySelectorAll");
     }
 
-    //+
     function attrOnlyForElements(methodName) {
-        throw new TypeError(`pgs(${root.nodeName || "root"}).${methodName}(): disponibile solo su Element (non su Document)`);
+        throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_4__.PGS_invalid)("pgs", `${methodName}() is available on an Element only, not on ${root.nodeName || "a Document"}`);
     };
 
-    //+
-    function concactSelector(value) {
+    function concatSelector(value, attribute = ATTR) {
         if (Array.isArray(value)) value = value.join(",");
         return String(value)
             .split(",")
             .map(v => v.trim())
             .filter(Boolean)
-            .map(v => `[${ATTR}~="${v}"]`)
+            .map(v => {
+                const escaped = v.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+                return attribute === ATTR
+                    ? `:is([pgs~="${escaped}"], [pgs*="${escaped}\\5B"])`
+                    : `[${attribute}~="${escaped}"]`;
+            })
             .join(",");
     }
 
-    //+
-    function getValues(el, separator = " ") {
-        return (el.getAttribute(ATTR) || "")
-            .split(separator)
-            .filter(Boolean);
-    }
+    //# PGS
+    function createPgs() {
+        const store = createBracketAttribute(root, ATTR);
 
-    //+
-    function setValues(el, values, separator = " ") {
-        el.setAttribute(ATTR, values.join(separator));
-    }
-
-    //= BASE PGS 
-    function createBasePgs() {
         function api() {
             return api;
         }
 
         api.querySelector = function (value) {
-            return root.querySelector(concactSelector(value));
+            return root.querySelector(concatSelector(value));
         };
 
         api.querySelectorAll = function (value) {
-            return root.querySelectorAll(concactSelector(value));
+            return root.querySelectorAll(concatSelector(value));
+        };
+
+        api.closest = function (value) {
+            if (!canAttr) return attrOnlyForElements("closest");
+            return root.closest(concatSelector(value));
         };
 
         api.add = function (...values) {
             if (!canAttr) return attrOnlyForElements("add");
-            const current = getValues(root);
-            for (const v of values) if (!current.includes(v)) current.push(v);
-            setValues(root, current);
+            const current = store.read();
+            for (const token of values.flatMap(value => BracketToken.split(String(value)))) {
+                const key = BracketToken.key(token);
+                const index = current.findIndex(item => BracketToken.key(item) === key);
+                if (index === -1) current.push(token);
+                else current[index] = BracketToken.component(key, [...BracketToken.flags(current[index]), ...BracketToken.flags(token)]);
+            }
+            store.write(current);
             return api;
         };
 
         api.remove = function (...values) {
             if (!canAttr) return attrOnlyForElements("remove");
-            setValues(root, getValues(root).filter(v => !values.includes(v)));
+            const keys = values.flatMap(value => BracketToken.split(String(value))).map(BracketToken.key);
+            store.write(store.read().filter(v => !keys.includes(BracketToken.key(v))));
             return api;
         };
 
         api.toggle = function (value, force) {
             if (!canAttr) return attrOnlyForElements("toggle");
 
-            const exists = getValues(root).includes(value);
+            const exists = api.contains(value);
 
             if (force !== undefined) {
                 if (force && !exists) api.add(value);
@@ -233,7 +297,7 @@ function pgs(root) {
 
         api.contains = function (value) {
             if (!canAttr) return attrOnlyForElements("contains");
-            return getValues(root).includes(value);
+            return store.read().some(token => BracketToken.key(token) === BracketToken.key(value));
         };
 
         Object.defineProperty(api, "value", {
@@ -250,17 +314,20 @@ function pgs(root) {
         return api;
     }
 
-    //= STATE
+    //# STATE
     function createState(attribute) {
         if (!canAttr) return undefined;
 
         const read = (sep = " ") =>
             (root.getAttribute(attribute) || "").split(sep).filter(Boolean);
 
-        const write = (vals, sep = " ") =>
-            root.setAttribute(attribute, vals.join(sep));
+        // an empty list removes the attribute, so a state taken off leaves no pgs-state=""
+        const write = (vals, sep = " ") => {
+            if (vals.length) root.setAttribute(attribute, vals.join(sep));
+            else root.removeAttribute(attribute);
+        };
 
-        // funzione chiamabile: state("active") == add("active")
+        // callable form: state("active") is the same as state.add("active")
         function api(...values) {
             api.add(...values);
             return api;
@@ -316,6 +383,18 @@ function pgs(root) {
             return read().includes(v);
         };
 
+        api.querySelector = function (value) {
+            return root.querySelector(concatSelector(value, attribute));
+        };
+
+        api.querySelectorAll = function (value) {
+            return root.querySelectorAll(concatSelector(value, attribute));
+        };
+
+        api.closest = function (value) {
+            return root.closest(concatSelector(value, attribute));
+        };
+
         Object.defineProperty(api, "value", {
             get() { return root.getAttribute(attribute); },
             set(v) { root.setAttribute(attribute, v); }
@@ -324,41 +403,62 @@ function pgs(root) {
         return api;
     }
 
-    //= OPTION
-    function createOption(attribute) {
+    //# OPTION
+    // flags only, and only inside the pgs attribute — never pgs-data. add/toggle derive a
+    // flag's owning component from its own name (the lowercase run before the first uppercase
+    // letter or "-", the naming convention every component-owned flag already follows) and
+    // merge into that component's existing bracket; a flag with no matching owner on the
+    // element becomes its own bare pgs token instead.
+    function createOption() {
         if (!canAttr) return undefined;
 
-        const read = () => tokenizeOptionValue(root.getAttribute(attribute) || "");
-        const write = values => root.setAttribute(attribute, values.join(" "));
-        const getKey = value => String(value).trim().match(/^[^\s[\]]+/)?.[0] || "";
+        const store = createBracketAttribute(root, ATTR);
         const getValues = values => values
             .flat()
-            .flatMap(value => tokenizeOptionValue(String(value)))
-            .filter(Boolean);
+            .flatMap(value => BracketToken.split(String(value)))
+            .filter(Boolean)
+            .map(BracketToken.key);
+
+        function ownerOf(key) {
+            return key.match(/^[a-z]+/)?.[0] || "";
+        }
 
         function api() {
             return api;
         }
 
         api.add = function (...values) {
-            const current = read();
+            const current = store.read();
+            getValues(values).forEach(key => {
+                // already there, bare or inside a bracket: adding it again changes nothing. This
+                // also covers a flag that is its own owner (column, wrap, card), which a merge
+                // would turn into column['column']
+                if (current.some(item => BracketToken.key(item) === key || BracketToken.flags(item).includes(key))) return;
 
-            getValues(values).forEach(value => {
-                if (!current.includes(value)) current.push(value);
+                const owner = ownerOf(key);
+                const index = owner ? current.findIndex(item => BracketToken.key(item) === owner) : -1;
+                if (index === -1) current.push(key);
+                else {
+                    current[index] = BracketToken.component(owner, [...BracketToken.flags(current[index]), key]);
+                }
             });
-
-            write(current);
+            store.write(current);
             return api;
         };
 
         api.remove = function (...values) {
-            const keys = getValues(values).map(getKey).filter(Boolean);
-            write(read().filter(value => !keys.includes(getKey(value))));
+            const keys = getValues(values);
+            if (!keys.length) return api;
+
+            store.write(store.read()
+                .filter(token => !keys.includes(BracketToken.key(token)))
+                .map(token => BracketToken.component(BracketToken.key(token),
+                    BracketToken.flags(token).filter(flag => !keys.includes(flag)))));
             return api;
         };
 
         api.toggle = function (value, force) {
-            const key = getKey(value);
+            const key = BracketToken.key(value);
             if (!key) return false;
 
             const exists = api.contains(key);
@@ -380,72 +480,122 @@ function pgs(root) {
 
         api.contains = function (key) {
             const safeKey = String(key).trim();
-            return read().some(token => getKey(token) === safeKey);
+            return store.read().some(token => BracketToken.key(token) === safeKey || BracketToken.flags(token).includes(safeKey));
         };
+
+        const getKeys = value => (Array.isArray(value) ? value.join(",") : String(value))
+            .split(",")
+            .map(v => BracketToken.key(v))
+            .filter(Boolean);
+
+        const hasKeys = (element, keys) => BracketToken.split(element.getAttribute(ATTR) || "")
+            .some(token => keys.includes(BracketToken.key(token)) || BracketToken.flags(token).some(flag => keys.includes(flag)));
+
+        api.querySelector = function (value) {
+            const keys = getKeys(value);
+            if (!keys.length) return null;
+
+            for (const element of root.querySelectorAll(`[${ATTR}]`)) {
+                if (hasKeys(element, keys)) return element;
+            }
+
+            return null;
+        };
+
+        // an Array, where every other querySelectorAll returns a NodeList: the match is computed
+        // here instead of by the engine, so there is no live list to hand back
+        api.querySelectorAll = function (value) {
+            const keys = getKeys(value);
+            if (!keys.length) return [];
+            return Array.from(root.querySelectorAll(`[${ATTR}]`)).filter(element => hasKeys(element, keys));
+        };
+
+        api.closest = function (value) {
+            const keys = getKeys(value);
+            if (!keys.length) return null;
+
+            for (let element = root; element; element = element.parentElement) {
+                if (hasKeys(element, keys)) return element;
+            }
+
+            return null;
+        };
+
+        return api;
+    }
+
+    //# DATA
+    // key[payload] values only, always in this attribute; never touches the pgs bracket.
+    function createData(attribute) {
+        if (!canAttr) return undefined;
+
+        const store = createBracketAttribute(root, attribute);
+
+        function api() {
+            return api;
+        }
 
         api.getValueBrackets = function (key) {
             const safeKey = String(key).trim();
-            const token = read().find(item => getKey(item) === safeKey);
+            const token = store.read().find(item => BracketToken.key(item) === safeKey);
             if (!token) return undefined;
 
             const openIndex = token.indexOf("[");
-            const closeIndex = openIndex === -1 ? -1 : findMatchingBracket(token, openIndex);
+            const closeIndex = openIndex === -1 ? -1 : BracketToken.findClose(token, openIndex);
             if (closeIndex === -1) return undefined;
 
             return token.slice(openIndex + 1, closeIndex);
         };
 
         api.setValueBrackets = function (key, value = "") {
-            const optionKey = getKey(key);
-            if (!optionKey) return api;
+            const dataKey = BracketToken.key(key);
+            if (!dataKey) return api;
 
-            const option = `${optionKey}[${String(value).trim()}]`;
-            const options = read().filter(item => getKey(item) !== optionKey);
+            const entry = `${dataKey}[${String(value).trim()}]`;
+            const entries = store.read().filter(item => BracketToken.key(item) !== dataKey);
 
-            options.push(option);
-            write(options);
+            entries.push(entry);
+            store.write(entries);
             return api;
         };
 
+        // a plain passthrough on this attribute, like state's and the base pgs's own value: a
+        // bracket flag is never read or written back through here, only this attribute ever is.
         Object.defineProperty(api, "value", {
             get() { return root.getAttribute(attribute); },
-            set(v) { root.setAttribute(attribute, v); }
+            set(value) {
+                if (value == null) root.removeAttribute(attribute);
+                else root.setAttribute(attribute, value);
+            }
         });
 
         return api;
     }
 
-    //# RETURN 
-    const api = createBasePgs();
+    //# RETURN
+    const api = createPgs();
     api.state = createState("pgs-state");
-    api.option = createOption("pgs-option");
+    api.option = createOption();
+    api.data = createData("pgs-data");
     return api;
 }
 
-const PGS_IMPORTS = {};
-
-function registerImportModule(name, module) {
-    const key = String(name || "").trim().replace(/^pgs[_-\s]*/i, "").toLowerCase();
-
-    if (!key) throw new TypeError("pgs.registerImport(...modules): ogni modulo deve avere name o PGS_name");
-
-    PGS_IMPORTS[key] = {
-        name,
-        module
-    };
-}
-
-pgs.registerImport = function (...modules) {
-    modules.flat().forEach(item => {
-        if (item && typeof item === "object" && !item.PGS_name && !item.name) {
-            Object.entries(item).forEach(([name, module]) => registerImportModule(name, module));
-            return;
-        }
-
-        registerImportModule(item?.PGS_name || item?.name, item);
-    });
-
-    return pgs;
+// every helper a module or a theme can call, as pgs.helper.<name>. It is filled here, before any
+// module runs, so it is there even for the code that executes while the modules are being imported;
+// init and formValidate join it in _imports.js, since they depend on the registered modules
+pgs.helper = {
+    roots: _helper_dom_js__WEBPACK_IMPORTED_MODULE_0__.PGS_roots,
+    directChild: _helper_dom_js__WEBPACK_IMPORTED_MODULE_0__.PGS_directChild,
+    directChildren: _helper_dom_js__WEBPACK_IMPORTED_MODULE_0__.PGS_directChildren,
+    uniqueId: _helper_dom_js__WEBPACK_IMPORTED_MODULE_0__.PGS_uniqueId,
+    dispatch: _helper_dom_js__WEBPACK_IMPORTED_MODULE_0__.PGS_dispatch,
+    rafThrottle: _helper_throttle_js__WEBPACK_IMPORTED_MODULE_3__.PGS_rafThrottle,
+    watchDocument: _helper_throttle_js__WEBPACK_IMPORTED_MODULE_3__.PGS_watchDocument,
+    onDocumentReady: _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady,
+    escapeHtml: _helper_text_js__WEBPACK_IMPORTED_MODULE_2__.PGS_escapeHtml,
+    formatText: _helper_text_js__WEBPACK_IMPORTED_MODULE_2__.PGS_formatText,
+    warn: _helper_warn_js__WEBPACK_IMPORTED_MODULE_4__.PGS_warn,
+    invalid: _helper_warn_js__WEBPACK_IMPORTED_MODULE_4__.PGS_invalid,
 };
 
 pgs.registerModules = function (modules = {}) {
@@ -455,7 +605,7 @@ pgs.registerModules = function (modules = {}) {
 
         const hasOwn = Object.prototype.hasOwnProperty.call(pgs, key);
         if (hasOwn && pgs[key] !== module) {
-            throw new Error(`pgs.registerModules(): "${key}" e' gia' definito su pgs`);
+            throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_4__.PGS_invalid)("registerModules", `"${key}" is already defined on pgs`);
         }
 
         pgs[key] = module;
@@ -464,19 +614,12 @@ pgs.registerModules = function (modules = {}) {
     return pgs;
 };
 
-pgs.import = function (...names) {
-    return names.flat().reduce((imports, name) => {
-        const key = String(name || "").trim().replace(/^pgs[_-\s]*/i, "").toLowerCase();
-        const item = PGS_IMPORTS[key];
-
-        if (!item) throw new Error(`pgs.import(): modulo "${name}" non registrato`);
-
-        imports[item.name] = item.module;
-        return imports;
-    }, {});
-};
-
 globalThis.pgs ??= pgs;
+
+// published under the package name too, distinct from the pgs() helper above, so a separate
+// webpack build can mark "mypgs" as external and resolve it to this at runtime instead of
+// bundling (and re-running) a whole second copy of the library
+globalThis.mypgs ??= { pgs };
 
 
 /***/ },
@@ -487,133 +630,86 @@ globalThis.pgs ??= pgs;
   \*********************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_darkmode: () => (/* binding */ PGS_darkmode)
 /* harmony export */ });
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _svg_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_svg.js */ "./assets/javascript/base/_svg.js");
 
 
-//# DARKMODE
 
-const EVENT_SVG_CHANGE_COLOR = "pgs:svg:changeColor";
+//= DARKMODE
+
 const INITIALIZED_BUTTONS = new WeakSet();
 
-//+ CHANGE ICON
-function changeIcon(selector, isDarkMode) {
-    selector.forEach(button => {
-        const ICON = button.querySelector("i");
-        if (!ICON) return;
+//# STORED CHOICE
+// localStorage throws when the browser blocks site data, and answers null in some private windows:
+// either way the choice lives in memory for the rest of the page, so the switch still works
+const STORAGE_KEY = "screenIsDarkMode";
+let memoryChoice = false;
 
-        ICON.classList.toggle("fa-moon", !isDarkMode);
-        ICON.classList.toggle("fa-sun", isDarkMode);
-    });
+function readStoredChoice() {
+    try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored !== null) return stored === "true";
+    } catch (_) { }
+    return memoryChoice;
 }
 
-//+ SET STATUS
-function setDarkmodeStatus(toggle = false, button = []) {
-    let isDarkMode = localStorage.getItem("screenIsDarkMode") === "true";
+function writeStoredChoice(isDarkMode) {
+    memoryChoice = isDarkMode;
+    try { localStorage.setItem(STORAGE_KEY, isDarkMode); } catch (_) { }
+}
+
+//# SET STATUS
+function setDarkmodeStatus(toggle = false) {
+    let isDarkMode = readStoredChoice();
 
     if (toggle) {
         isDarkMode = !isDarkMode;
-        localStorage.setItem("screenIsDarkMode", isDarkMode);
+        writeStoredChoice(isDarkMode);
     }
 
     // SET
-    pgs(document.documentElement).state.toggle("darkmode", isDarkMode);
-    if (document.body) pgs(document.body).state.toggle("darkmode", isDarkMode);
+    ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document.documentElement).state.toggle("darkmode", isDarkMode);
+    if (document.body) (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document.body).state.toggle("darkmode", isDarkMode);
     // END SET
 
-    changeIcon(button, isDarkMode);
-    document.dispatchEvent(new CustomEvent(EVENT_SVG_CHANGE_COLOR, { detail: { isDarkMode } }));
+    // on the root element, like every pgs:* event: it bubbles up to the document, and detail.element is
+    // the element it was dispatched on
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.dispatch(document.documentElement, _svg_js__WEBPACK_IMPORTED_MODULE_1__.PGS_svg.eventChangeColor, { isDarkMode });
 }
 
 
 
-//= INIT
-// Applica subito il tema alla radice quando il bundle viene caricato nel head.
-setDarkmodeStatus();
+//# INIT
+// applies the stored theme to the root as soon as the bundle is parsed in the head, so a
+// reload never paints the wrong one first
+if (typeof document !== "undefined") setDarkmodeStatus();
 
-function initDarkmode(root = document) {
-    const toggleDarkmode = [
-        ...(root instanceof Element && pgs(root).contains("toggleDarkmode") ? [root] : []),
-        ...pgs(root).querySelectorAll("toggleDarkmode")
-    ];
-    setDarkmodeStatus(false, pgs(document).querySelectorAll("toggleDarkmode"));
+// binds the switches in root that are not bound yet. Switches already bound are left untouched, so
+// pgs.helper.init(el) on a page that is already running changes nothing else: it does not re-apply the
+// theme or fire the color event again. The icon of a switch is not drawn here: the author writes a
+// toggleDarkmode-light and a toggleDarkmode-dark in it, and the stylesheet shows the one of the theme
+function PGS_darkmode_init(root = document) {
+    const buttons = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "toggleDarkmode").filter(button => !INITIALIZED_BUTTONS.has(button));
 
-    //== BUTTON DARKMODE
-    toggleDarkmode.forEach(button => {
-        if (INITIALIZED_BUTTONS.has(button)) return;
+    buttons.forEach(button => {
         INITIALIZED_BUTTONS.add(button);
-        button.addEventListener("click", () => {
-            setDarkmodeStatus(true, pgs(document).querySelectorAll("toggleDarkmode"));
-        });
+        button.addEventListener("click", () => setDarkmodeStatus(true));
     });
 }
 
-;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(initDarkmode);
+// the first pass once the page is ready: the body exists now, so it takes the theme too
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(() => {
+    setDarkmodeStatus(false);
+    PGS_darkmode_init();
+});
 
 const PGS_darkmode = {
-    init: initDarkmode
+    init: PGS_darkmode_init
 };
-
-
-/***/ },
-
-/***/ "./assets/javascript/base/_object.js"
-/*!*******************************************!*\
-  !*** ./assets/javascript/base/_object.js ***!
-  \*******************************************/
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
-
-
-(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(() => {
-    const objects = document.querySelectorAll('object[type="image/svg+xml"]');
-
-    objects.forEach(obj => {
-        function applyAspectRatio(svgDoc) {
-            if (!svgDoc) return;
-            const svg = svgDoc.querySelector("svg");
-            if (!svg) return;
-
-            const computedStyle = window.getComputedStyle(obj);
-            svg.setAttribute("preserveAspectRatio", computedStyle.objectFit === 'cover' ? "xMidYMid slice" : "xMidYMid meet");
-        }
-
-        function init() {
-            const svgDoc = obj.contentDocument;
-            if (!svgDoc) return;
-
-            const svg = svgDoc.querySelector('svg');
-            if (!svg) return;
-
-            applyAspectRatio(svgDoc);
-            if (obj.__objectResizeObserver) return;
-
-            let rafId = 0;
-            const resizeObserver = new ResizeObserver(() => {
-                if (rafId) return;
-                rafId = requestAnimationFrame(() => {
-                    rafId = 0;
-                    applyAspectRatio(svgDoc);
-                });
-            });
-
-            resizeObserver.observe(obj);
-            obj.__objectResizeObserver = resizeObserver;
-        }
-
-        if (obj.contentDocument && obj.contentDocument.querySelector('svg')) init();
-        else obj.addEventListener('load', init, { once: true });
-    });
-
-    document.body.classList.add("object-loaded");
-});
 
 
 /***/ },
@@ -624,15 +720,23 @@ __webpack_require__.r(__webpack_exports__);
   \****************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_svg: () => (/* binding */ PGS_svg)
 /* harmony export */ });
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
 
 
-//# SVG & LOTTIE COLORS
+//= SVG & LOTTIE COLORS
+
+const SVG_OBJECT = 'object[type="image/svg+xml"]';
+
+// the <object> elements that hold an svg: the root itself when it is one, then everything under it
+function svgObjects(root = document) {
+    const objects = Array.from(root.querySelectorAll(SVG_OBJECT));
+    if (root instanceof Element && root.matches(SVG_OBJECT)) objects.unshift(root);
+    return objects;
+}
 
 const svgColors = {
     eventChangeColor: "pgs:svg:changeColor",
@@ -640,19 +744,20 @@ const svgColors = {
     watchedLotties: new WeakSet(),
 
     _normalizeColor: (color = "") => {
-        return color.replace(/\s/g, "").toLocaleLowerCase();
+        return color.replace(/\s/g, "").toLowerCase();
     },
 
     _getCurrentDarkmode: () => {
-        return pgs(document.documentElement).state.contains("darkmode");
+        return (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document.documentElement).state.contains("darkmode");
     },
 
-    searchColor(type = "svg") {
+    // the "old & new" pairs an author declares as --svg-color-0 … --svg-color-19
+    searchColor() {
         const ROOT = getComputedStyle(document.documentElement);
         const colors = [];
 
         for (let I = 0; I < 20; I++) {
-            const color = ROOT.getPropertyValue("--" + type + "-color-" + I).toLocaleLowerCase().split("&").map(value => value.trim());
+            const color = ROOT.getPropertyValue("--svg-color-" + I).toLowerCase().split("&").map(value => value.trim());
             if (color[0] && color[1]) colors.push([color[0], color[1]]);
         }
 
@@ -685,49 +790,99 @@ const svgColors = {
     },
 
     init() {
+        if (typeof document === "undefined") return;
+
         document.addEventListener(svgColors.eventChangeColor, event => {
             svgColors.applyColorsSVG(event.detail?.isDarkMode ?? svgColors._getCurrentDarkmode());
             svgColors.applyColorsLottie(event.detail?.isDarkMode ?? svgColors._getCurrentDarkmode());
         });
 
-        (0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(PGS_svg_init);
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_svg_init);
     },
 
     applyColorsSVG(isDarkMode = svgColors._getCurrentDarkmode()) {
-        const colorsSvg = svgColors.searchColor("svg");
+        if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document).querySelector("svgChangeColor")) return;
 
-        if (!pgs(document).querySelector("svgChangeColor")) return;
+        const colors = svgColors.searchColor();
 
-        document.querySelectorAll('object[type="image/svg+xml"]').forEach(obj => {
+        svgObjects().forEach(obj => {
             if (!svgColors.watchedObjects.has(obj)) {
-                obj.addEventListener("load", () => svgColors._changeColor(obj.contentDocument, svgColors._getCurrentDarkmode(), svgColors.searchColor("svg")));
+                obj.addEventListener("load", () => svgColors._changeColor(obj.contentDocument, svgColors._getCurrentDarkmode(), svgColors.searchColor()));
                 svgColors.watchedObjects.add(obj);
             }
 
-            if (obj.contentDocument) svgColors._changeColor(obj.contentDocument, isDarkMode, colorsSvg);
+            if (obj.contentDocument) svgColors._changeColor(obj.contentDocument, isDarkMode, colors);
         });
-
     },
 
     applyColorsLottie(isDarkMode = svgColors._getCurrentDarkmode()) {
-        const colorsLottie = svgColors.searchColor("svg");
+        // svgChangeColor gates both passes: Lottie recolors from the same --svg-color-N pairs,
+        // so there is no separate lottieChangeColor to opt into any more
+        if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document).querySelector("svgChangeColor")) return;
 
-        if (!pgs(document).querySelector("lottieChangeColor")) return;
+        const colors = svgColors.searchColor();
 
         document.querySelectorAll("lottie-player").forEach(lottiePlayer => {
             if (!svgColors.watchedLotties.has(lottiePlayer)) {
-                lottiePlayer.addEventListener("load", () => svgColors._changeColor(svgColors._getLottieSvg(lottiePlayer), svgColors._getCurrentDarkmode(), svgColors.searchColor("svg")));
+                lottiePlayer.addEventListener("load", () => svgColors._changeColor(svgColors._getLottieSvg(lottiePlayer), svgColors._getCurrentDarkmode(), svgColors.searchColor()));
                 svgColors.watchedLotties.add(lottiePlayer);
             }
 
-            if (lottiePlayer.shadowRoot) svgColors._changeColor(svgColors._getLottieSvg(lottiePlayer), isDarkMode, colorsLottie);
+            if (lottiePlayer.shadowRoot) svgColors._changeColor(svgColors._getLottieSvg(lottiePlayer), isDarkMode, colors);
         });
     },
 };
 
-function PGS_svg_init() {
+//# ASPECT RATIO
+// an <object> that holds an svg keeps the ratio its object-fit asks for: "cover" slices the
+// drawing, anything else fits it whole. The ratio is applied on every load of the object, so
+// swapping its data keeps working, and again whenever the object is resized
+const ASPECT_OBSERVERS = new WeakMap();
+const ASPECT_WATCHED = new WeakSet();
+
+function applyAspectRatio(obj) {
+    const svg = obj.contentDocument?.querySelector("svg");
+    if (!svg) return;
+
+    svg.setAttribute("preserveAspectRatio", getComputedStyle(obj).objectFit === "cover" ? "xMidYMid slice" : "xMidYMid meet");
+}
+
+function syncAspectRatio(obj) {
+    ASPECT_OBSERVERS.get(obj)?.disconnect();
+    ASPECT_OBSERVERS.delete(obj);
+
+    if (!obj.contentDocument?.querySelector("svg")) return;
+
+    applyAspectRatio(obj);
+
+    const observer = new ResizeObserver(_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.rafThrottle(() => applyAspectRatio(obj)));
+    observer.observe(obj);
+    ASPECT_OBSERVERS.set(obj, observer);
+}
+
+function initAspectRatio(root) {
+    svgObjects(root).forEach(obj => {
+        if (!ASPECT_WATCHED.has(obj)) {
+            ASPECT_WATCHED.add(obj);
+            obj.addEventListener("load", () => syncAspectRatio(obj));
+        }
+
+        syncAspectRatio(obj);
+    });
+}
+
+//# INIT
+function PGS_svg_init(root = document) {
+    if (!(root instanceof Document || root instanceof Element)) {
+        throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("svg.init", "root must be a Document or an Element");
+    }
+
+    initAspectRatio(root);
     svgColors.applyColorsSVG();
     svgColors.applyColorsLottie();
+
+    // read by SCSS (body without the state objectLoaded) to hold back <object>s until the first pass is done
+    if (document.body) (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document.body).state.add("objectLoaded");
 }
 
 svgColors.init();
@@ -748,129 +903,214 @@ const PGS_svg = {
   \****************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_accordion: () => (/* binding */ PGS_accordion)
 /* harmony export */ });
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
 
 
-//= ACCORDION
+//# ACCORDION
 const API = new WeakMap();
-let accordionId = 0;
 
-function nextAccordionId() {
-    accordionId += 1;
-    return accordionId;
+// the buttons whose aria-label the module composed itself: an aria-label on a button that is not in
+// here is the author's own and is never overwritten. It has to be remembered outside the DOM, or a
+// refresh would take the label the module wrote for the author's
+const COMPOSED_LABELS = new WeakSet();
+
+// how long the open/close transition runs, read from the same --accordion-timing the CSS uses
+function accordionTiming(accordion) {
+    const raw = window.getComputedStyle(accordion).getPropertyValue("--accordion-timing").trim();
+    const value = parseFloat(raw);
+    if (!Number.isFinite(value)) return 300;
+    return raw.endsWith("ms") ? value : value * 1000;
 }
 
-function directPgsChild(element, token) {
-    return Array.from(element.children).find(child => pgs(child).contains(token));
+// keeps an element where it is on screen while the layout above it moves: closing a tall sibling
+// pulls everything below it up, so the panel the reader just clicked would slide away under the
+// pointer and leave them far down the page. Follows it for as long as the transition runs.
+// behavior "instant", so a page with scroll-behavior: smooth does not turn each correction into
+// an animation of its own. Returns the function that stops the loop: the accordion keeps the
+// latest one, so a second click cancels the first loop instead of running beside it, and
+// destroy() stops it too
+function keepInPlace(element, duration) {
+    const startTop = element.getBoundingClientRect().top;
+    const end = performance.now() + duration + 50;
+    let frame = 0;
+
+    function step(now) {
+        const delta = element.getBoundingClientRect().top - startTop;
+        if (Math.abs(delta) >= 1) window.scrollBy({ top: delta, behavior: "instant" });
+        frame = now < end ? requestAnimationFrame(step) : 0;
+    }
+
+    frame = requestAnimationFrame(step);
+
+    return () => {
+        if (frame) cancelAnimationFrame(frame);
+        frame = 0;
+    };
+}
+
+//## Accessibility (writes the open/closed state)
+// the composed label says what the click does, and is only written when the author has
+// not named the control themselves: a hand-written aria-label is the page's own wording
+// and survives every toggle
+function accordionAccessibility(isOpen, button, content) {
+    if (!button.hasAttribute("aria-label") || COMPOSED_LABELS.has(button)) {
+        const text = (button.textContent || "").trim().replace(/\s+/g, " ");
+        button.setAttribute("aria-label", `${isOpen ? "Close" : "Open"} ${text || "section"}`);
+        COMPOSED_LABELS.add(button);
+    }
+    button.setAttribute("aria-expanded", String(isOpen));
+    content.hidden = !isOpen;
+}
+
+function initializeAccordion(accordion) {
+    if (API.has(accordion)) return;
+
+    const BUTTON = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(accordion, "accordion-button");
+    const CONTENT = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(accordion, "accordion-content");
+    if (!BUTTON || !CONTENT) {
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("accordion.init", "an accordion needs a direct accordion-button and a direct accordion-content child, skipped", accordion);
+        return;
+    }
+
+    const controller = new AbortController();
+    const { signal } = controller;
+    let scrollTimer = 0;
+    let stopKeepingInPlace = () => {};
+
+    // initial state: accAutoOpen is the authored form, because pgs-state belongs to
+    // the runtime; a pgs-state="open" already written by hand is honored all the same
+    const isOpenInit = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).option.contains("accAutoOpen") || (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).state.contains("open");
+
+    // an accordion closes the others only inside a group, and the group is the nearest
+    // accordionContainer above it: on its own an accordion answers for itself alone, so a
+    // single panel dropped anywhere on the page no longer collapses somebody else's
+    const CONTAINER = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).closest("accordionContainer");
+    const isMultiOpen = !CONTAINER || (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(CONTAINER).option.contains("accMultiOpen");
+
+    // accessibility, written once, with ids of its own for aria-controls / aria-labelledby
+    BUTTON.setAttribute("role", "button");
+    BUTTON.setAttribute("tabindex", "0");
+    if (!BUTTON.id) BUTTON.id = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.uniqueId("acc-btn");
+    if (!CONTENT.id) CONTENT.id = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.uniqueId("acc-panel");
+
+    BUTTON.setAttribute("aria-controls", CONTENT.id);
+    CONTENT.setAttribute("role", "region");
+    CONTENT.setAttribute("aria-labelledby", BUTTON.id);
+
+    //## Close the others of the group
+    // only the accordions of this same group: an accordionContainer nested in another one
+    // keeps its own panels to itself, which is why the nearest container is compared rather
+    // than trusting the descendant search. accAutoOpen is left alone on purpose — it
+    // is the authored "this one stays open", so a sibling opening does not take it down,
+    // and only until the reader works that panel themselves, which drops the token
+    function closeOtherAccordion() {
+        for (const otherLi of (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(CONTAINER).querySelectorAll("accordion")) {
+            if (otherLi === accordion) continue;
+            if ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(otherLi).closest("accordionContainer") !== CONTAINER) continue;
+            if ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(otherLi).option.contains("accAutoOpen")) continue;
+
+            const otherBtn = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(otherLi, "accordion-button");
+            const otherContent = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(otherLi, "accordion-content");
+            if (!otherBtn || !otherContent) continue;
+
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(otherLi).state.remove("open");
+            accordionAccessibility(false, otherBtn, otherContent);
+        }
+    }
+
+    //## FN ACCORDION
+    function accordionFunction() {
+        const isOpen = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).state.contains("open");
+        const nowOpen = !isOpen;
+        const timing = accordionTiming(accordion);
+
+        // measured before anything changes: this button's position is the one to hold
+        stopKeepingInPlace();
+        stopKeepingInPlace = keepInPlace(BUTTON, timing);
+
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).state.toggle("open", nowOpen);
+        accordionAccessibility(nowOpen, BUTTON, CONTENT);
+
+        // the moment the reader works this panel, accAutoOpen stops being the authored
+        // "this one stays open": from here on it is an ordinary panel of the group, so a
+        // sibling opening can close it. Guarded, because option.remove rewrites the pgs
+        // attribute (without the flag) even on an accordion that never had it
+        if ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).option.contains("accAutoOpen")) (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).option.remove("accAutoOpen");
+        if (!isMultiOpen) closeOtherAccordion();
+
+        // once the layout has settled, only scroll if the button ended up out of view (an
+        // open() called from code, say): the reader's own click is already held in place
+        window.clearTimeout(scrollTimer);
+        if (nowOpen) scrollTimer = window.setTimeout(() => {
+            const rect = BUTTON.getBoundingClientRect();
+            if (rect.top < 0 || rect.bottom > window.innerHeight) BUTTON.scrollIntoView({ block: "nearest", inline: "nearest" });
+        }, timing + 60);
+    }
+
+    function open() {
+        if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).state.contains("open")) accordionFunction();
+    }
+
+    function close() {
+        if ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).state.contains("open")) accordionFunction();
+    }
+
+    // writes that initial state, rather than only reading it: with accAutoOpen the
+    // pgs-state is not there yet, and it is what the CSS reads to turn the arrow
+    ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).state.toggle("open", isOpenInit);
+    accordionAccessibility(isOpenInit, BUTTON, CONTENT);
+
+    //## Events
+    BUTTON.addEventListener("click", accordionFunction, { signal });
+
+    //## Keyboard: Enter / Space
+    BUTTON.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            accordionFunction();
+        }
+    }, { signal });
+
+    function destroy() {
+        // a stale instance (already replaced by a refresh) must not tear down the live one
+        if (API.get(accordion) !== api) return;
+
+        controller.abort();
+        window.clearTimeout(scrollTimer);
+        stopKeepingInPlace();
+        API.delete(accordion);
+    }
+
+    const api = {
+        element: accordion,
+        button: BUTTON,
+        content: CONTENT,
+        open,
+        close,
+        toggle: accordionFunction,
+        destroy,
+        refresh: () => {
+            const live = API.get(accordion);
+            if (live && live !== api) return live;
+            destroy();
+            initializeAccordion(accordion);
+            return API.get(accordion);
+        },
+        isOpen: () => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).state.contains("open"),
+    };
+    API.set(accordion, api);
 }
 
 function PGS_accordion_init(root = document) {
-    pgs(root).querySelectorAll("accordion").forEach((accordion) => {
-        if (API.has(accordion)) return;
-
-        const BUTTON = directPgsChild(accordion, "accordion-button");
-        const CONTENT = directPgsChild(accordion, "accordion-content");
-        if (!BUTTON || !CONTENT) return;
-
-        //== ID univoci per aria-controls / aria-labelledby
-        const ID = nextAccordionId();
-        const btnId = `acc-btn-${ID}`;
-        const panelId = `acc-panel-${ID}`;
-
-        //== Stato iniziale
-        const isOpenInit = pgs(accordion).state.contains("open");
-
-        //== Accessibilità (setup una volta)
-        BUTTON.setAttribute("role", "button");
-        BUTTON.setAttribute("tabindex", "0");
-        if (!BUTTON.id) BUTTON.setAttribute("id", btnId);
-
-        if (!CONTENT.id) CONTENT.setAttribute("id", panelId);
-        BUTTON.setAttribute("aria-controls", CONTENT.id);
-        CONTENT.setAttribute("role", "region");
-        CONTENT.setAttribute("aria-labelledby", BUTTON.id);
-
-        //+ Accessibility (applica stato aperto/chiuso)
-        function accordionAccessibility(isOpen, button, content) {
-            const text = (button?.textContent || "").trim().replace(/\s+/g, " ");
-            button.setAttribute("aria-label", `${isOpen ? "Chiudi" : "Apri"} ${text || "sezione"}`);
-            button.setAttribute("aria-expanded", String(isOpen));
-            content.hidden = !isOpen;
-        }
-
-        //+ Chiudi tutti gli altri
-        function closeOltherAccordion() {
-            for (const otherLi of pgs(document).querySelectorAll("accordion")) {
-                if (otherLi === accordion) continue;
-
-                const otherBtn = pgs(otherLi).querySelector("accordion-button");
-                const otherContent = pgs(otherLi).querySelector("accordion-content");
-                if (!otherBtn || !otherContent) continue;
-
-                pgs(otherLi).state().remove("open");
-                accordionAccessibility(false, otherBtn, otherContent);
-            }
-        }
-
-        //+ FN ACCORDION
-        function accordionFunction() {
-            const isOpen = pgs(accordion).state.contains("open");
-            const nowOpen = !isOpen;
-
-            pgs(accordion).state.toggle("open", nowOpen);
-            accordionAccessibility(nowOpen, BUTTON, CONTENT);
-
-            closeOltherAccordion();
-
-            //== scroll to view
-            if (nowOpen) setTimeout(() => accordion.scrollIntoView({ block: "nearest", inline: "nearest" }), 100);
-        }
-
-        function open() {
-            if (!pgs(accordion).state.contains("open")) accordionFunction();
-        }
-
-        function close() {
-            if (pgs(accordion).state.contains("open")) accordionFunction();
-        }
-
-        // applica stato iniziale
-        accordionAccessibility(isOpenInit, BUTTON, CONTENT);
-
-        //- Eventi
-        BUTTON.addEventListener("click", accordionFunction);
-
-        //- Tastiera: Enter / Space
-        BUTTON.addEventListener("keydown", (e) => {
-            if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                accordionFunction();
-            }
-        });
-
-        API.set(accordion, {
-            element: accordion,
-            button: BUTTON,
-            content: CONTENT,
-            open,
-            close,
-            toggle: accordionFunction,
-            refresh: () => {
-                PGS_accordion_init(accordion.parentNode || document);
-                return API.get(accordion);
-            },
-            isOpen: () => pgs(accordion).state.contains("open"),
-        });
-    });
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "accordion").forEach(accordion => initializeAccordion(accordion));
 }
 
 //# INIT
-;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(PGS_accordion_init);
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_accordion_init);
 
 //# API
 function PGS_accordion_api(selector) {
@@ -891,55 +1131,80 @@ const PGS_accordion = {
   \*************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PGS_alert: () => (/* binding */ PGS_alert)
+/* harmony export */   PGS_alert: () => (/* binding */ PGS_alert),
+/* harmony export */   fn_alert: () => (/* binding */ fn_alert)
 /* harmony export */ });
-//= PGS_alert
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+
+
+//# PGS_alert
+// the shared engine behind Alerts, Notification and Toast: builds the card (icon, title,
+// description), and optionally a dismiss button, a row of action buttons, and an auto-dismiss
+// timeout — all off by default, since a bare alert is a static message. Notification turns on
+// dismissible + buttons and appends every card into its own managed panel; Toast turns on
+// dismissible + buttons + timeout and replaces its own single floating card. Either way, the
+// card itself, its close animation and its pgs:alert:* events live here, once.
 const fn_alert = {
     _defaults: {
         description: "",
+        closeTitle: "Close",
+        // markup of the dismiss button, trusted like icon: what it draws is the author's, from any icon set
+        dismissIcon: "<i pgs=\"icon['icon-close']\"></i>",
+        dismissible: false,
+        timeout: undefined,
+        buttons: [],
+        button: {
+            id: undefined,
+            title: "",
+            link: null,
+            close: true,
+            optionButton: null
+        },
+        // the type names are the values of the JSON "type" field and the name of each method; flag
+        // is what the card carries in its bracket for that severity (see _alerts.scss)
         type: {
+            // the plain one: no severity color, no glyph and no title of its own, so it stays on the box surface
+            neutral: {
+                flag: "alertNeutral",
+                title: "",
+                icon: ""
+            },
             error: {
-                title: "Errore",
-                icon: '<i class="fa-solid fa-circle-xmark"></i>'
+                flag: "alertError",
+                title: "Error",
+                icon: "<i pgs=\"icon['icon-circleXmark']\"></i>"
             },
             success: {
-                title: "Aggiornato",
-                icon: '<i class="fa-solid fa-circle-check"></i>'
+                flag: "alertSuccess",
+                title: "Success",
+                icon: "<i pgs=\"icon['icon-circleCheck']\"></i>"
             },
             info: {
-                title: "Aggiornamento",
-                icon: '<i class="fa-solid fa-circle-info"></i>'
+                flag: "alertInfo",
+                title: "Information",
+                icon: "<i pgs=\"icon['icon-circleInfo']\"></i>"
             },
             warning: {
-                title: "Attenzione",
-                icon: '<i class="fa-solid fa-triangle-exclamation"></i>'
+                flag: "alertWarning",
+                title: "Warning",
+                icon: "<i pgs=\"icon['icon-triangleExclamation']\"></i>"
             }
         }
     },
 
-    _escapeHtml(value) {
-        return String(value ?? "")
-            .replaceAll("&", "&amp;")
-            .replaceAll("<", "&lt;")
-            .replaceAll(">", "&gt;")
-            .replaceAll('"', "&quot;")
-            .replaceAll("'", "&#039;");
-    },
-
-    _getContainer(root = document, configuredContainer) {
+    _getContainer(root = document, configuredContainer, scope = "alert.show") {
         if (!(root instanceof Document) && !(root instanceof Element)) {
-            throw new TypeError("PGS alert: root deve essere un Document o un Element");
+            throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid(scope, "root must be a Document or an Element");
         }
 
         let container = configuredContainer;
         if (typeof container === "string") container = root.querySelector(container);
-        if (!container) container = pgs(root).querySelector("alertContainer");
+        if (!container) container = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).querySelector("alertContainer");
 
         if (container && (!(container instanceof Element) || container === root || !root.contains(container))) {
-            throw new TypeError("PGS alert: container deve essere un elemento contenuto in root");
+            throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid(scope, "container must be an element contained in root");
         }
 
         if (!container) {
@@ -951,59 +1216,277 @@ const fn_alert = {
             else parent.prepend(container);
         }
 
-        pgs(container).add("alertContainer");
+        ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(container).add("alertContainer");
         return container;
     },
 
+    // built to match the shared alert card's own content shape (see _alerts.scss): a title in
+    // alert-content-title, a description in its own paragraph, either one optional
+    _getContent(title, description) {
+        const safeDescription = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.formatText(description);
+        const safeTitle = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.formatText(title);
+        const titleHtml = safeTitle ? `<strong pgs="_alert-content-title">${safeTitle}</strong>` : "";
+        const descriptionHtml = safeDescription ? `<p>${safeDescription}</p>` : "";
+
+        return `${titleHtml}${descriptionHtml}`;
+    },
+
+    // a button's link goes straight into href, so only a relative address, http(s):, mailto: and
+    // tel: are accepted; any other scheme (javascript:, data:, ...) is reported and the button is
+    // built as a plain button with no link. The characters a browser ignores inside a URL are
+    // dropped before the scheme is read, so "java\tscript:" cannot slip through as a relative one
+    _safeLink(link, scope) {
+        if (link === null || link === undefined || link === "") return null;
+
+        const text = String(link);
+        const scheme = text.replace(/[\u0000-\u0020]/g, "").match(/^([a-z][a-z0-9+.-]*):/i)?.[1];
+        if (scheme && !["http", "https", "mailto", "tel"].includes(scheme.toLowerCase())) {
+            _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn(scope, `a button link can be relative, http(s):, mailto: or tel:, not ${scheme}:, so the link was ignored`, text);
+            return null;
+        }
+
+        return text;
+    },
+
+    _getType(type) {
+        const name = String(type || "info").trim();
+        return name in this._defaults.type ? name : "info";
+    },
+
+    // what a host component (Notification, Toast) hands over: a title string, or an options
+    // object. null is not a value here, it is "leave it to the type" (icon: null keeps the icon
+    // of the type), so it is dropped together with undefined
+    _toOptions(options, scope = "alert.show") {
+        if (typeof options === "string") options = { title: options };
+
+        if (!options || typeof options !== "object" || Array.isArray(options)) {
+            throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid(scope, "options must be an object or a string");
+        }
+
+        return Object.fromEntries(
+            Object.entries(options).filter(([, value]) => value !== undefined && value !== null)
+        );
+    },
+
+    // reads the pgs-data of one host element — notificationLoad carries pgs-data="notification[...]",
+    // so name is "notification" — as a list of comma-separated JSON objects
+    _getData(root, name) {
+        const rawData = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).data.getValueBrackets(name) || "{}";
+        let items;
+
+        try {
+            items = JSON.parse(`[${rawData}]`);
+        } catch (error) {
+            _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn(`${name}.init`, "invalid JSON in pgs-data", error);
+            return [];
+        }
+
+        if (items.some(item => !item || typeof item !== "object" || Array.isArray(item))) {
+            _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn(`${name}.init`, "every entry of pgs-data must be a JSON object", root);
+            return [];
+        }
+
+        return items;
+    },
+
+    // the same data, already in the shape create() takes: the fields every host shares, with
+    // their old aliases (message, title-close, duration). An entry with neither title nor
+    // description is skipped: there would be nothing to show
+    fromData(root, name) {
+        return this._getData(root, name).flatMap(raw => {
+            const title = String(raw.title || "").trim();
+            const description = String(raw.description ?? raw.message ?? "").trim();
+            if (!title && !description) return [];
+
+            const duration = Number.parseInt(raw.timeout ?? raw.duration, 10);
+
+            return [{
+                type: this._getType(raw.type),
+                raw,
+                options: {
+                    title,
+                    description,
+                    icon: raw.icon || undefined,
+                    dismissIcon: raw.dismissIcon || undefined,
+                    id: raw.id || undefined,
+                    closeTitle: String(raw.closeTitle || raw["title-close"] || "").trim() || undefined,
+                    buttons: Array.isArray(raw.buttons) ? raw.buttons : undefined,
+                    timeout: Number.isNaN(duration) ? undefined : duration,
+                    // read by the hosts that place their alert (Toast); the others never look at it
+                    position: raw.position || undefined
+                }
+            }];
+        });
+    },
+
+    // builds the card and wires its own behavior (dismiss, buttons, timeout); does not attach it
+    // anywhere. The returned element carries a .pgsAlertClose() so a host container (e.g.
+    // notification's deleteAll) can trigger the same close animation and event from the outside
     create(type, options = {}) {
         const typeDefaults = this._defaults.type[type] || this._defaults.type.info;
         const definedOptions = Object.fromEntries(
-            Object.entries(options).filter(([, value]) => value !== undefined)
+            Object.entries(options).filter(([, value]) => value !== undefined && value !== null)
         );
         const config = {
             description: this._defaults.description,
+            closeTitle: this._defaults.closeTitle,
+            dismissIcon: this._defaults.dismissIcon,
+            dismissible: this._defaults.dismissible,
+            timeout: this._defaults.timeout,
+            buttons: this._defaults.buttons,
+            // a hand-written alert keeps the bare name even when the JS API builds it (see
+            // alerts.html); notification/toast are never hand-authored this way, so they pass
+            // "_alert" instead — every child token below always gets the underscore regardless
+            component: "alert",
             ...typeDefaults,
             ...definedOptions
         };
-        const alert = document.createElement("div");
-        const title = this._escapeHtml(config.title);
-        const description = this._escapeHtml(config.description);
 
-        pgs(alert).add("alert");
-        pgs(alert).state.add(type);
+        const id = config.id ?? _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.uniqueId("alert");
+        const alert = document.createElement("div");
+        // the severity is a flag in the component's own bracket, like any other option, not a pgs-state
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(alert).add(config.component, `${config.component}['${typeDefaults.flag}']`);
+        // error and warning are both urgent enough to interrupt a screen reader; the others only
+        // announce once idle
         alert.setAttribute("role", type === "error" || type === "warning" ? "alert" : "status");
+
+        // config.icon and config.dismissIcon are trusted markup, written into the card as given and not sanitized: they come
+        // from the code that builds the alert (or from a notificationLoad / toastLoad the page's
+        // own author wrote), never from text a visitor typed. title and description, which can be,
+        // go through formatText and are escaped
+        const iconHtml = config.icon ? `<div pgs="_alert-icon" aria-hidden="true">${config.icon}</div>` : "";
+        const dismissHtml = config.dismissible ? `<button type="button" pgs="button['btnIconOnly'] _alert-dismiss">${config.dismissIcon}</button>` : "";
+
+        // generated from scratch, so every child token here gets the underscore; the same
+        // markup written by hand in the page instead keeps the bare names (see alerts.html)
         alert.innerHTML = `
-            <div pgs="alert-icon" aria-hidden="true">${config.icon}</div>
-            <div pgs="alert-content">
-                <strong pgs="alert-content-title">${title}</strong>
-                ${description ? `<p>${description}</p>` : ""}
-            </div>
+            ${iconHtml}
+            <div pgs="_alert-content">${this._getContent(config.title, config.description)}</div>
+            ${dismissHtml}
+            <div pgs="_alert-buttons"></div>
         `;
+
+        const buttonsRow = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(alert).querySelector("_alert-buttons");
+        const btnDismiss = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(alert).querySelector("_alert-dismiss");
+
+        // every listener of this card goes with it once it is gone
+        const controller = new AbortController();
+        const { signal } = controller;
+        let timeoutTimer = 0;
+        let finishTimer = 0;
+        let closed = false;
+
+        // the card leaves: the event goes out while it is still in the document, so it reaches
+        // every listener above it, and only then is it removed
+        const finish = () => {
+            clearTimeout(finishTimer);
+            finishTimer = 0;
+            _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.dispatch(alert, "pgs:alert:close", { id, type, title: config.title, description: config.description });
+            alert.remove();
+            controller.abort();
+        };
+
+        // closing twice (a dismiss while the timeout is still counting, or the timeout after a
+        // button) changes nothing: the event is dispatched once. { immediate: true } skips the
+        // fade and finishes now, for a host that is about to take the card out of the page itself
+        // (a toast replacing another one), even when the fade is already running
+        const close = ({ immediate = false } = {}) => {
+            if (closed) {
+                if (immediate && finishTimer) finish();
+                return;
+            }
+            closed = true;
+            clearTimeout(timeoutTimer);
+
+            if (immediate) {
+                finish();
+                return;
+            }
+
+            alert.style.opacity = "0";
+            finishTimer = setTimeout(finish, 300);
+        };
+
+        alert.pgsAlertClose = close;
+
+        if (btnDismiss) {
+            // the dismiss button draws a cross, so closeTitle is its accessible name and nothing else
+            btnDismiss.ariaLabel = config.closeTitle;
+            btnDismiss.addEventListener("click", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                close();
+            }, { signal });
+        }
+
+        (config.buttons || []).forEach((button, index) => {
+            const { id: buttonId = `${id}-button-${index + 1}`, title, link: rawLink, close: closeAfterClick, optionButton } =
+                { ...this._defaults.button, ...button };
+
+            const link = this._safeLink(rawLink, `alert.${type}`);
+            const buttonElement = document.createElement(link ? "a" : "button");
+            buttonElement.textContent = title;
+            if (link) buttonElement.href = link;
+            else buttonElement.type = "button";
+
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(buttonElement).add("button['btnTransparent']");
+            if (optionButton) (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(buttonElement).add(`button['${optionButton}']`);
+
+            buttonElement.addEventListener("click", (e) => {
+                const event = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.dispatch(buttonElement, "pgs:alert:buttonClick", {
+                    id, buttonId, type, title: config.title, description: config.description, link
+                }, { cancelable: true });
+
+                if (link && event.defaultPrevented) e.preventDefault();
+                if (closeAfterClick !== false) close();
+            }, { signal });
+
+            buttonsRow.appendChild(buttonElement);
+        });
+
+        // the row carries a padding and a tinted strip of its own, so an empty one is not
+        // invisible: it has to be taken out of the layout. The default is [], never a falsy value
+        if (!config.buttons?.length) (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(buttonsRow).add("hidden");
+
+        // the countdown bar is dormant by default (see _alerts.scss); setting its own duration is
+        // what switches it on, wherever a timeout is actually used — not just inside Toast
+        if (config.timeout > 0) {
+            alert.style.setProperty("--_alert-timeout", config.timeout + "ms");
+            timeoutTimer = setTimeout(() => close(), config.timeout);
+        }
 
         return alert;
     },
 
-    show(type, options = {}) {
-        if (!options || typeof options !== "object" || Array.isArray(options)) {
-            throw new TypeError("PGS alert: options deve essere un oggetto");
-        }
+    // puts the card in a host container in place of what it holds. A card that was there is closed
+    // first and at once, while it is still attached: its close event reaches the listeners above it,
+    // and its timer stops, instead of firing later on a node that is already out of the document
+    replace(container, card) {
+        Array.from(container.children).forEach(old => old.pgsAlertClose?.({ immediate: true }));
+        container.replaceChildren(card);
+    },
 
-        const { root, container, ...contentOptions } = options;
+    show(type, options = {}) {
+        const scope = `alert.${type}`;
+        const { root, container, ...contentOptions } = this._toOptions(options, scope);
+        // the placement is checked before the card is built, so a wrong root leaves nothing behind
+        const target = root !== undefined || container !== undefined ? this._getContainer(root, container, scope) : null;
         const alert = this.create(type, contentOptions);
 
-        if (root !== undefined || container !== undefined) {
-            this._getContainer(root, container).replaceChildren(alert);
-        }
-
+        if (target) this.replace(target, alert);
         return alert;
     }
 };
+
+
 
 const PGS_alert = {
     error: (options = {}) => fn_alert.show("error", options),
     success: (options = {}) => fn_alert.show("success", options),
     info: (options = {}) => fn_alert.show("info", options),
-    warning: (options = {}) => fn_alert.show("warning", options)
+    warning: (options = {}) => fn_alert.show("warning", options),
+    neutral: (options = {}) => fn_alert.show("neutral", options)
 };
 
 
@@ -1015,49 +1498,36 @@ const PGS_alert = {
   \***************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_dropdown: () => (/* binding */ PGS_dropdown)
 /* harmony export */ });
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
 
 
-// + dropdown
+//# DROPDOWN
 const API = new WeakMap();
 const OPEN_DROPDOWNS = new Set();
 const VIEWPORT_GAP = 8;
-let dropdownId = 0;
-
-function nextDropdownId() {
-    dropdownId += 1;
-    return dropdownId;
-}
+const SIDE_STATES = { top: "sideTop", right: "sideRight", bottom: "sideBottom", left: "sideLeft" };
 
 function isDropdownContent(element) {
-    return element instanceof Element && pgs(element).contains("dropdown-content");
+    return element instanceof Element && (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).contains("dropdown-content");
 }
 
 function getDropdownTrigger(dropdown, content) {
     const children = Array.from(dropdown.children).filter(child => child !== content);
-    const dropdownButton = children.find(child => pgs(child).contains("dropdown-button"));
+    const dropdownButton = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(dropdown, "dropdown-button");
 
     return dropdownButton || children.find(child => !isDropdownContent(child)) || dropdown;
 }
 
 function getDropdownContent(dropdown) {
-    return Array.from(dropdown.children).find(isDropdownContent) || pgs(dropdown).querySelector("dropdown-content");
+    return _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(dropdown, "dropdown-content") || (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dropdown).querySelector("dropdown-content");
 }
 
-function getDropdowns(root) {
-    const dropdowns = root instanceof Element && pgs(root).contains("dropdown") ? [root] : [];
-    dropdowns.push(...pgs(root).querySelectorAll("dropdown"));
-    return dropdowns;
-}
-
-function getposition(dropdown) {
-    const option = pgs(dropdown).option;
-    const optionValue = option.getValueBrackets("position");
+function getPosition(dropdown) {
+    const optionValue = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dropdown).data.getValueBrackets("dropdownPosition");
     const raw = (optionValue || "bottom center").trim().toLowerCase();
     const parts = raw.split(/\s+/).filter(Boolean);
     const side = parts.find(part => ["top", "right", "bottom", "left"].includes(part)) || "bottom";
@@ -1070,12 +1540,12 @@ function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
 }
 
-function updateposition(dropdown) {
+function updatePosition(dropdown) {
     const data = API.get(dropdown);
     if (!data || !data.isOpen()) return;
 
     const { trigger, content } = data;
-    const { side, align } = getposition(dropdown);
+    const { side, align } = getPosition(dropdown);
     const triggerRect = trigger.getBoundingClientRect();
     const contentRect = content.getBoundingClientRect();
     const viewportWidth = document.documentElement.clientWidth;
@@ -1112,13 +1582,53 @@ function updateposition(dropdown) {
 
     left = clamp(left, VIEWPORT_GAP, maxLeft);
 
-    content.style.setProperty("--dropdown-left", `${Math.round(left)}px`);
-    content.style.setProperty("--dropdown-top", `${Math.round(top)}px`);
+    // exposes the resolved side, as a pgs-state token on the content, so the arrow (or a
+    // component built on dropdown) can point at the trigger purely in CSS, without recomputing
+    // the layout itself
+    const sideState = SIDE_STATES[side];
+    if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(content).state.contains(sideState)) {
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(content).state.remove(...Object.values(SIDE_STATES));
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(content).state.add(sideState);
+    }
+
+    // the viewport position the panel has to end up at
+    const viewportLeft = Math.round(left);
+    const viewportTop = Math.round(top);
+    content.style.setProperty("--_dropdown-left", `${viewportLeft}px`);
+    content.style.setProperty("--_dropdown-top", `${viewportTop}px`);
+
+    // the panel is position: fixed, but an ancestor that is a containing block for fixed
+    // descendants (container-type in WebKit, transform, filter, contain: paint) makes those
+    // coordinates relative to that ancestor instead of the viewport. One measured pass corrects
+    // it for any containing block: wherever the panel landed, move it by the difference
+    const placed = content.getBoundingClientRect();
+    const deltaLeft = placed.left - viewportLeft;
+    const deltaTop = placed.top - viewportTop;
+
+    if (Math.abs(deltaLeft) > 0.5 || Math.abs(deltaTop) > 0.5) {
+        content.style.setProperty("--_dropdown-left", `${Math.round(viewportLeft - deltaLeft)}px`);
+        content.style.setProperty("--_dropdown-top", `${Math.round(viewportTop - deltaTop)}px`);
+    }
+
+    // where the trigger's center falls inside the panel, after the viewport clamp above may
+    // have shifted it: an arrow placed at 50% would stop pointing at the trigger
+    content.style.setProperty("--_dropdown-arrowLeft", `${Math.round(triggerRect.left + triggerRect.width / 2 - viewportLeft)}px`);
+    content.style.setProperty("--_dropdown-arrowTop", `${Math.round(triggerRect.top + triggerRect.height / 2 - viewportTop)}px`);
 }
 
-function updateOpenDropdowns() {
-    OPEN_DROPDOWNS.forEach(updateposition);
+// a dropdown removed from the page while open never gets a close: drop it here instead of
+// repositioning it on every scroll
+function pruneOpenDropdowns() {
+    OPEN_DROPDOWNS.forEach(dropdown => {
+        if (!dropdown.isConnected) OPEN_DROPDOWNS.delete(dropdown);
+    });
 }
+
+// one frame at most, however many scroll/resize events arrive
+const updateOpenDropdowns = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.rafThrottle(() => {
+    pruneOpenDropdowns();
+    OPEN_DROPDOWNS.forEach(updatePosition);
+});
 
 function closeDropdown(dropdown) {
     const data = API.get(dropdown);
@@ -1128,7 +1638,7 @@ function closeDropdown(dropdown) {
         .filter(item => item !== dropdown && dropdown.contains(item))
         .forEach(closeDropdown);
 
-    pgs(dropdown).state.remove("open");
+    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dropdown).state.remove("open");
     data.trigger.setAttribute("aria-expanded", "false");
     OPEN_DROPDOWNS.delete(dropdown);
 }
@@ -1142,10 +1652,10 @@ function openDropdown(dropdown) {
         if (item !== dropdown && !isAncestor) closeDropdown(item);
     });
 
-    pgs(dropdown).state.add("open");
+    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dropdown).state.add("open");
     data.trigger.setAttribute("aria-expanded", "true");
     OPEN_DROPDOWNS.add(dropdown);
-    updateposition(dropdown);
+    updatePosition(dropdown);
 }
 
 function toggleDropdown(dropdown) {
@@ -1160,95 +1670,122 @@ function isInsideAnyDropdown(target) {
     return Array.from(OPEN_DROPDOWNS).some(dropdown => dropdown.contains(target));
 }
 
-function PGS_dropdown_init(root = document) {
-    getDropdowns(root).forEach((DROPDOWN) => {
-        if (API.has(DROPDOWN)) return;
-
-        const CONTENT = getDropdownContent(DROPDOWN);
-        if (!CONTENT) return;
-
-        const TRIGGER = getDropdownTrigger(DROPDOWN, CONTENT);
-        const id = nextDropdownId();
-
-        if (!TRIGGER.id) TRIGGER.id = `dropdown-btn-${id}`;
-        if (!CONTENT.id) CONTENT.id = `dropdown-panel-${id}`;
-
-        if (TRIGGER.matches("button") && !TRIGGER.hasAttribute("type")) {
-            TRIGGER.setAttribute("type", "button");
-        }
-
-        TRIGGER.setAttribute("aria-haspopup", "true");
-        TRIGGER.setAttribute("aria-controls", CONTENT.id);
-        TRIGGER.setAttribute("aria-expanded", String(pgs(DROPDOWN).state.contains("open")));
-        CONTENT.setAttribute("aria-labelledby", TRIGGER.id);
-
-        const data = {
-            element: DROPDOWN,
-            trigger: TRIGGER,
-            content: CONTENT,
-            open: () => openDropdown(DROPDOWN),
-            close: () => closeDropdown(DROPDOWN),
-            toggle: () => toggleDropdown(DROPDOWN),
-            refresh: () => {
-                PGS_dropdown_init(DROPDOWN.parentNode || document);
-                updateposition(DROPDOWN);
-                return API.get(DROPDOWN);
-            },
-            isOpen: () => pgs(DROPDOWN).state.contains("open")
-        };
-
-        //== click behavior
-        TRIGGER.addEventListener("click", (event) => {
-            if (isDropdownContent(event.target)) return;
-            event.preventDefault();
-            event.stopPropagation();
-            toggleDropdown(DROPDOWN);
-        });
-
-        //== Hover behavior
-        if (pgs(DROPDOWN).option.contains("dropdownHover")) {
-            let hoverCloseTimeout;
-            const clearHoverCloseTimeout = () => {
-                window.clearTimeout(hoverCloseTimeout);
-            };
-
-            TRIGGER.addEventListener("mouseenter", () => {
-                clearHoverCloseTimeout();
-                if (!API.get(DROPDOWN)?.isOpen()) openDropdown(DROPDOWN);
-            });
-
-            CONTENT.addEventListener("mouseenter", clearHoverCloseTimeout);
-            DROPDOWN.addEventListener("mouseleave", () => {
-                hoverCloseTimeout = window.setTimeout(() => closeDropdown(DROPDOWN), 120);
-            });
-        }
-
-        CONTENT.addEventListener("click", event => event.stopPropagation());
-        API.set(DROPDOWN, data);
-
-        if (data.isOpen()) OPEN_DROPDOWNS.add(DROPDOWN);
-        updateposition(DROPDOWN);
-    });
-    
+// the listeners that serve every dropdown on the page: registered once, when the module loads,
+// so a later init() or refresh() cannot stack another copy of them
+if (typeof document !== "undefined") {
     document.addEventListener("click", (event) => {
+        pruneOpenDropdowns();
         if (isInsideAnyDropdown(event.target)) return;
         OPEN_DROPDOWNS.forEach(closeDropdown);
     });
-    
+
     document.addEventListener("keydown", (event) => {
         if (event.key !== "Escape") return;
         OPEN_DROPDOWNS.forEach(closeDropdown);
     });
-    
+
     window.addEventListener("resize", updateOpenDropdowns);
     window.addEventListener("scroll", updateOpenDropdowns, true);
 }
 
+function initializeDropdown(DROPDOWN) {
+    if (API.has(DROPDOWN)) return;
 
-// # INIT
-;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(PGS_dropdown_init);
+    const CONTENT = getDropdownContent(DROPDOWN);
+    if (!CONTENT) {
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("dropdown.init", "a dropdown needs a dropdown-content child, skipped", DROPDOWN);
+        return;
+    }
 
-// # API
+    const TRIGGER = getDropdownTrigger(DROPDOWN, CONTENT);
+    const controller = new AbortController();
+    const { signal } = controller;
+    let hoverCloseTimeout = 0;
+
+    if (!TRIGGER.id) TRIGGER.id = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.uniqueId("dropdown-btn");
+    if (!CONTENT.id) CONTENT.id = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.uniqueId("dropdown-panel");
+
+    if (TRIGGER.matches("button") && !TRIGGER.hasAttribute("type")) {
+        TRIGGER.setAttribute("type", "button");
+    }
+
+    TRIGGER.setAttribute("aria-haspopup", "true");
+    TRIGGER.setAttribute("aria-controls", CONTENT.id);
+    TRIGGER.setAttribute("aria-expanded", String((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DROPDOWN).state.contains("open")));
+    CONTENT.setAttribute("aria-labelledby", TRIGGER.id);
+
+    function destroy() {
+        // a stale instance (already replaced by a refresh) must not tear down the live one
+        if (API.get(DROPDOWN) !== data) return;
+
+        controller.abort();
+        window.clearTimeout(hoverCloseTimeout);
+        OPEN_DROPDOWNS.delete(DROPDOWN);
+        API.delete(DROPDOWN);
+    }
+
+    const data = {
+        element: DROPDOWN,
+        trigger: TRIGGER,
+        content: CONTENT,
+        open: () => openDropdown(DROPDOWN),
+        close: () => closeDropdown(DROPDOWN),
+        toggle: () => toggleDropdown(DROPDOWN),
+        // recompute where the panel sits, for when its content changed size without reopening
+        reposition: () => updatePosition(DROPDOWN),
+        destroy,
+        refresh: () => {
+            if (API.get(DROPDOWN) !== data) return API.get(DROPDOWN);
+
+            destroy();
+            initializeDropdown(DROPDOWN);
+            return API.get(DROPDOWN);
+        },
+        isOpen: () => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DROPDOWN).state.contains("open")
+    };
+
+    const HOVER = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DROPDOWN).option.contains("drpHover");
+
+    //## click behavior
+    // with drpHover the pointer opens and closes it: a click of the pointer does nothing, or it would close what
+    // the hover just opened. The keyboard still toggles it: Enter and Space send a click with no detail
+    TRIGGER.addEventListener("click", (event) => {
+        if ((HOVER && event.detail > 0) || isDropdownContent(event.target)) return;
+        event.preventDefault();
+        toggleDropdown(DROPDOWN);
+    }, { signal });
+
+    //## Hover behavior
+    if (HOVER) {
+        const clearHoverCloseTimeout = () => {
+            window.clearTimeout(hoverCloseTimeout);
+        };
+
+        TRIGGER.addEventListener("mouseenter", () => {
+            clearHoverCloseTimeout();
+            if (!API.get(DROPDOWN)?.isOpen()) openDropdown(DROPDOWN);
+        }, { signal });
+
+        CONTENT.addEventListener("mouseenter", clearHoverCloseTimeout, { signal });
+        DROPDOWN.addEventListener("mouseleave", () => {
+            hoverCloseTimeout = window.setTimeout(() => closeDropdown(DROPDOWN), 120);
+        }, { signal });
+    }
+
+    API.set(DROPDOWN, data);
+
+    if (data.isOpen()) OPEN_DROPDOWNS.add(DROPDOWN);
+    updatePosition(DROPDOWN);
+}
+
+function PGS_dropdown_init(root = document) {
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "dropdown").forEach(dropdown => initializeDropdown(dropdown));
+}
+
+//# INIT
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_dropdown_init);
+
+//# API
 function PGS_dropdown_api(selector) {
     return API.get(selector);
 }
@@ -1261,198 +1798,136 @@ const PGS_dropdown = {
 
 /***/ },
 
-/***/ "./assets/javascript/components/_legacyNotification.js"
-/*!*************************************************************!*\
-  !*** ./assets/javascript/components/_legacyNotification.js ***!
-  \*************************************************************/
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PGS_notificationLegacy: () => (/* binding */ PGS_notificationLegacy)
-/* harmony export */ });
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
-/* harmony import */ var _notification_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_notification.js */ "./assets/javascript/components/_notification.js");
-/* harmony import */ var _toast_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_toast.js */ "./assets/javascript/components/_toast.js");
-
-
-
-
-//= PGS_notificationLegacy
-//+ the only place that still understands the pre-split markup: <div pgs="hidden notificationTrigger" pgs-option='notification[{"element":"toast",...}]'>
-//+ generated for example by PGS_md_notification() (PGS_theme/modules/md-notification.php), routes each entry to PGS_notification or PGS_toast by its "element" field.
-const fn_legacy = {
-    _defaults: {
-        link: null,
-        linkTitle: "Open",
-        closeTitle: "Close"
-    },
-
-    _getApi(notification) {
-        return String(notification.element || "").trim() === "toast" ? _toast_js__WEBPACK_IMPORTED_MODULE_2__.PGS_toast : _notification_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification;
-    },
-
-    _getType(notification, api) {
-        const type = String(notification.type || "info").trim();
-        return typeof api[type] === "function" ? type : "info";
-    },
-
-    _getDuration(notification) {
-        const rawDuration = notification.duration;
-        const duration = Number.parseInt(rawDuration, 10);
-        return Number.isNaN(duration) ? undefined : duration;
-    },
-
-    _getData(root) {
-        const rawNotification = pgs(root).option.getValueBrackets("notification") || "{}";
-
-        try {
-            const notifications = JSON.parse(`[${rawNotification}]`);
-
-            if (notifications.some(notification => !notification || typeof notification !== "object" || Array.isArray(notification))) {
-                throw new TypeError("Each notification must be a JSON object");
-            }
-
-            return notifications;
-        } catch (error) {
-            console.warn("PGS notification (legacy notificationTrigger): Invalid JSON configuration", error);
-            return [];
-        }
-    },
-
-    trigger(root = document) {
-        pgs(root).querySelectorAll("notificationTrigger").forEach(element => {
-            if (!element || element.dataset.initialize === "true") return;
-
-            element.dataset.initialize = "true";
-
-            this._getData(element).forEach(notification => {
-                const title = String(notification.title || "").trim();
-                const description = String(notification.message || "").trim();
-                const linkTitle = String(notification["title-link"] || this._defaults.linkTitle).trim();
-                const closeTitle = String(notification["title-close"] || this._defaults.closeTitle).trim();
-
-                if (!title && !description) return;
-
-                const link = notification.link || this._defaults.link;
-                const icon = notification.icon || undefined;
-                const duration = this._getDuration(notification);
-                const api = this._getApi(notification);
-                const type = this._getType(notification, api);
-                const isToast = api === _toast_js__WEBPACK_IMPORTED_MODULE_2__.PGS_toast;
-
-                api[type]({
-                    title,
-                    description,
-                    icon,
-                    closeTitle,
-                    //+ PGS_toast still understands link/linkTitle/timeout directly; PGS_notification only understands buttons.
-                    ...(isToast
-                        ? { timeout: duration, link, linkTitle }
-                        : { buttons: link ? [{ title: linkTitle, link }] : [] })
-                });
-            });
-
-            element.remove();
-        });
-    }
-};
-
-//# TRIGGER
-function PGS_notificationLegacy_init(root = document) {
-    fn_legacy.trigger(root);
-}
-
-const PGS_notificationLegacy = {
-    init: PGS_notificationLegacy_init,
-    trigger: PGS_notificationLegacy_init
-};
-
-//+ pre-split API shape: pgs.notification.alert.*/pgs.notification.toast.* — grafted onto the live PGS_notification
-//+ object from the outside, so _notification.js itself never has to know this shape existed.
-_notification_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.alert = {
-    error: _notification_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.error,
-    success: _notification_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.success,
-    info: _notification_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.info,
-    warning: _notification_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.warning,
-    deleteAll: _notification_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.deleteAll
-};
-
-_notification_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification.toast = {
-    error: _toast_js__WEBPACK_IMPORTED_MODULE_2__.PGS_toast.error,
-    success: _toast_js__WEBPACK_IMPORTED_MODULE_2__.PGS_toast.success,
-    info: _toast_js__WEBPACK_IMPORTED_MODULE_2__.PGS_toast.info,
-    warning: _toast_js__WEBPACK_IMPORTED_MODULE_2__.PGS_toast.warning,
-    deleteAll: _toast_js__WEBPACK_IMPORTED_MODULE_2__.PGS_toast.deleteAll
-};
-
-
-//= EXECUTE
-(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(PGS_notificationLegacy_init);
-
-
-/***/ },
-
 /***/ "./assets/javascript/components/_menu.js"
 /*!***********************************************!*\
   !*** ./assets/javascript/components/_menu.js ***!
   \***********************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_menu: () => (/* binding */ PGS_menu)
 /* harmony export */ });
-/* harmony import */ var _dropdown__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_dropdown */ "./assets/javascript/components/_dropdown.js");
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _dropdown_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_dropdown.js */ "./assets/javascript/components/_dropdown.js");
 
 
 
 const API = new WeakMap();
 
-//= DROP DOWN MENU
-function PGS_menu_init(root = document) {
+// the toggle looks and sits the same whichever behavior it drives, so it is built once here. It is the
+// fallback: an item that holds its own menu-submenuButton never gets one
+function createToggle(link) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.innerHTML = `<i pgs="icon['icon-chevronDown']"></i>`;
 
-    pgs(root).querySelectorAll('menu').forEach(MENU => {
-        if (API.has(MENU)) return;
+    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(button).add("_menu-submenuButton", "button['btnMini' 'btnIconOnly']");
+    link.insertAdjacentElement("afterend", button);
 
-        MENU.querySelectorAll('li').forEach(li => {
-            const ul = li.querySelector("ul");
-
-            if (ul) {
-
-                const button = document.createElement("button");
-                button.type = "button";
-                button.innerHTML = "<span>&#9207;</span>";
-                pgs(button).add("menu-buttonIcon");
-                li.querySelector("a").insertAdjacentElement("afterend", button);
-
-                pgs(li).add("dropdown")
-                pgs(li).option.setValueBrackets("position", "bottom right")
-                pgs(button).add("dropdown-button")
-                pgs(button).add("button")
-                pgs(button).option.add("buttonNohover")
-                pgs(ul).add("dropdown-content")
-
-            }
-        });
-
-        API.set(MENU, {
-            element: MENU,
-            type: "horizontal",
-            refresh: () => {
-                PGS_menu_init(MENU.parentNode || document);
-                return API.get(MENU);
-            },
-        });
-        _dropdown__WEBPACK_IMPORTED_MODULE_0__.PGS_dropdown.init(MENU);
-    });
-
+    return button;
 }
 
-;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(PGS_menu_init);
+// opens the submenu in place instead of floating it: used everywhere a dropdown would either
+// overflow the viewport or hide the branch the reader is already inside
+function setupAccordion(li, button, ul, signal) {
+    ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(li).add("_menu-accordion");
+
+    if (!ul.id) ul.id = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.uniqueId("menu-submenu");
+    button.setAttribute("aria-controls", ul.id);
+
+    // a submenu nested inside a first-level dropdown changes the size of the floating panel,
+    // whose position was computed for the size it had when it opened
+    const dropdown = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(li).closest("dropdown");
+
+    const setOpen = (open) => {
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(li).state.toggle("open", open);
+        button.setAttribute("aria-expanded", String(open));
+        if (dropdown) _dropdown_js__WEBPACK_IMPORTED_MODULE_1__.PGS_dropdown.api(dropdown)?.reposition();
+    };
+
+    setOpen((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(li).state.contains("open"));
+    button.addEventListener("click", () => setOpen(!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(li).state.contains("open")), { signal });
+}
+
+function setupDropdown(li, button, ul) {
+    ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(li).add("dropdown");
+    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(li).data.setValueBrackets("dropdownPosition", "bottom center");
+    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(button).add("dropdown-button");
+    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(ul).add("dropdown-content");
+}
+
+//# DROP DOWN MENU
+function initializeMenu(MENU) {
+    if (API.has(MENU)) return;
+
+    const topLevel = MENU.querySelector("ul");
+    if (!topLevel) {
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("menu.init", "a menu needs a ul list, skipped", MENU);
+        return;
+    }
+
+    const controller = new AbortController();
+    const { signal } = controller;
+    const isHorizontal = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(MENU).option.contains("menuHorizontal");
+    const floating = [];
+
+    MENU.querySelectorAll("li").forEach(li => {
+        const ul = li.querySelector("ul");
+        if (!ul) return;
+
+        // the toggle goes after the item's own link, never after one of a nested submenu
+        const link = li.querySelector(":scope > a");
+        if (!link) {
+            _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("menu.init", "a menu item with a submenu needs a direct link of its own, skipped", li);
+            return;
+        }
+
+        // a toggle written by hand keeps the bare name and is used as it is, with the icon of the author's
+        // choice; a refresh finds the one the first pass generated and reuses it. Only when there is
+        // neither is one built
+        const button = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(li, ["menu-submenuButton", "_menu-submenuButton"]) || createToggle(link);
+
+        // only the first level of a horizontal menu floats its submenu: deeper levels would
+        // stack dropdown over dropdown, and a vertical menu has the room to expand in place
+        const isFirstLevel = li.parentElement === topLevel;
+
+        if (isHorizontal && isFirstLevel) {
+            setupDropdown(li, button, ul);
+            floating.push(li);
+        } else setupAccordion(li, button, ul, signal);
+    });
+
+    function destroy() {
+        // a stale instance (already replaced by a refresh) must not tear down the live one
+        if (API.get(MENU) !== api) return;
+
+        controller.abort();
+        floating.forEach(li => _dropdown_js__WEBPACK_IMPORTED_MODULE_1__.PGS_dropdown.api(li)?.destroy());
+        API.delete(MENU);
+    }
+
+    const api = {
+        element: MENU,
+        type: isHorizontal ? "horizontal" : "vertical",
+        destroy,
+        refresh: () => {
+            const live = API.get(MENU);
+            if (live && live !== api) return live;
+            destroy();
+            initializeMenu(MENU);
+            return API.get(MENU);
+        },
+    };
+    API.set(MENU, api);
+    _dropdown_js__WEBPACK_IMPORTED_MODULE_1__.PGS_dropdown.init(MENU);
+}
+
+function PGS_menu_init(root = document) {
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "menu").forEach(menu => initializeMenu(menu));
+}
+
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_menu_init);
 
 function PGS_menu_api(selector) {
     return API.get(selector);
@@ -1467,110 +1942,350 @@ const PGS_menu = {
 
 /***/ },
 
-/***/ "./assets/javascript/components/_modals.js"
-/*!*************************************************!*\
-  !*** ./assets/javascript/components/_modals.js ***!
-  \*************************************************/
+/***/ "./assets/javascript/components/_modal.js"
+/*!************************************************!*\
+  !*** ./assets/javascript/components/_modal.js ***!
+  \************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_modal: () => (/* binding */ PGS_modal)
 /* harmony export */ });
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
 
 
-//# MODAL
+//= MODAL
+const EVENT_OPEN = "pgs:modal:open";
+const EVENT_CLOSE = "pgs:modal:close";
 const API = new WeakMap();
+// the dialog of every wrapper, because the dialog leaves its wrapper on init: a destroy() and a new init
+// of the same wrapper, or a refresh(), still find it
+const DIALOGS = new WeakMap();
+const ANIMATIONS = ["dialogAnimationZoom", "dialogAnimationLeft", "dialogAnimationRight", "dialogAnimationTop", "dialogAnimationBottom"];
 
-function getModals(root) {
-    const modals = root instanceof Element && pgs(root).contains("modal") ? [root] : [];
-    modals.push(...pgs(root).querySelectorAll("modal"));
-    return modals;
-}
+function initializeModal(MODAL) {
+    if (API.has(MODAL)) return API.get(MODAL);
 
-function initializeModal(MODAL, existingDialog = null) {
-    if (API.has(MODAL)) return;
-
-    const BUTTON_OPEN = pgs(MODAL).querySelector("modal-button");
-    const DIALOG = existingDialog || MODAL.querySelector("dialog");
-    if (!DIALOG) return;
+    const BUTTON_OPEN = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(MODAL).querySelector("modal-button");
+    const DIALOG = MODAL.querySelector("dialog") || DIALOGS.get(MODAL);
+    if (!DIALOG) {
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("modal.init", "a modal needs a <dialog> inside its wrapper", MODAL);
+        return;
+    }
+    DIALOGS.set(MODAL, DIALOG);
     const eventController = new AbortController();
     const { signal } = eventController;
     let historyObserver = null;
     let historyTimeout = null;
 
-    //== SELECTOR
-    const DOMButtonClose = '<button pgs="button modal-close" pgs-option="buttonClose" type="button" tabindex="0" aria-label="Chiudi"><i class="fa-solid fa-close"></i></button>';
-    const modalContentHeader = pgs(DIALOG).querySelector("modal-dialog-content-header");
+    //## SELECTOR
+    // a hand-written close button keeps the bare name; a generated one gets the underscore
+    const DOMButtonClose = "<button pgs=\"button['btnIconOnly' 'btnMini'] _modal-close\" type=\"button\" aria-label=\"Close\"><i pgs=\"icon['icon-close']\"></i></button>";
+    const modalContentHeader = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).querySelector("modal-dialog-content-header");
+
+    //## FOCUS
+    // with no autofocus element inside, showModal() falls back to focusing the first
+    // focusable descendant (per the HTML dialog spec), which makes whatever happens to sit
+    // first — often a plain nav link — look pre-selected. Move focus to the header instead
+    // (its text is what a screen reader should announce on open), or the dialog itself when
+    // there's no header; tabindex="-1" keeps it out of the normal tab order.
+    const focusTarget = modalContentHeader || DIALOG;
+    if (!focusTarget.hasAttribute("tabindex")) focusTarget.setAttribute("tabindex", "-1");
 
 
-    //== OPTION ATTRIBUTES MODAL
-    const disableBackdropClose = pgs(MODAL).option.contains("disableBackdropClose");
-    const data_history = pgs(MODAL).option.contains("history");
-    const data_container = pgs(MODAL).option.getValueBrackets("containerID");
-    const data_containerPGS = pgs(MODAL).option.getValueBrackets("containerPGS");
+    //## MERGE OPTIONS
+    // Modal configuration may be authored on either wrapper or dialog. Copy only modal
+    // options: other component brackets (for example flex on the wrapper) stay local.
+    // modal-dialog itself always stays bare, like every other generated child token — its own
+    // options land on _dialog instead, a second, pgs-generated-only token on the same <dialog>
+    // element that exists purely to carry them (see AGENTS-DEVELOPMENT.md).
+    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).add("modal-dialog", "_dialog");
+    for (const key of [
+        "dialogHistory", "dialogTopLevel", "dialogDisableBackdropClose", "dialogDragClose", "dialogSmall", "dialogMedium",
+        ...ANIMATIONS, "dialogFull", "dialogCenter", "dialogLeft", "dialogRight", "dialogTop", "dialogBottom"
+    ]) {
+        const source = [MODAL, DIALOG].find(element => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).option.contains(key));
+        if (!source) continue;
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(MODAL).add(`modal['${key}']`);
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).option.remove(key);
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).add(`_dialog['${key}']`);
+    }
 
-    //== OPTION ATTRIBUTES DIALOG
-    const topLevel = pgs(DIALOG).option.contains("topLevel");
+    // these two carry a value, so they still live in pgs-data — option never checks pgs-data,
+    // so presence is a getValueBrackets read instead of an option.contains() call
+    for (const key of ["modalContainerID", "modalContainerPGS"]) {
+        const source = [MODAL, DIALOG].find(element => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).data.getValueBrackets(key) !== undefined);
+        if (!source) continue;
+        const value = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(source).data.getValueBrackets(key);
+        for (const target of [MODAL, DIALOG]) (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(target).data.setValueBrackets(key, value);
+    }
+
+    //## OPTION ATTRIBUTES MODAL
+    const dialogDisableBackdropClose = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(MODAL).option.contains("dialogDisableBackdropClose");
+    const dialogHistory = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(MODAL).option.contains("dialogHistory");
+    const modalContainerID = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(MODAL).data.getValueBrackets("modalContainerID");
+    const modalContainerPGS = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(MODAL).data.getValueBrackets("modalContainerPGS");
+
+    //## OPTION ATTRIBUTES DIALOG
+    const dialogTopLevel = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).option.contains("dialogTopLevel");
+    const dialogAnimationZoom = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).option.contains("dialogAnimationZoom");
+    const dialogAnimation = ANIMATIONS.some(key => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).option.contains(key));
+    const dialogDragClose = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).option.contains("dialogDragClose");
+    const CONTENT = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).querySelector("modal-dialog-content");
+    let closing = false;
 
 
-    //== BUTTON CLOSE
-    if (!pgs(DIALOG).querySelector("modal-close") && !pgs(MODAL).querySelector("modal-close")) {
+    //## BUTTON CLOSE
+    if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).querySelector(["modal-close", "_modal-close"]) && !(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(MODAL).querySelector(["modal-close", "_modal-close"])) {
         if (modalContentHeader) modalContentHeader.insertAdjacentHTML("beforeend", DOMButtonClose);
         else DIALOG.insertAdjacentHTML("beforeend", DOMButtonClose);
     }
-    const BUTTON_CLOSE = pgs(DIALOG).querySelector("modal-close") || pgs(MODAL).querySelector("modal-close");
+    const BUTTON_CLOSE = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).querySelector(["modal-close", "_modal-close"]) || (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(MODAL).querySelector(["modal-close", "_modal-close"]);
 
 
-    //== SET
-    pgs(DIALOG).add("dialog modal-dialog");
+    //## BUTTON OPEN
+    // the label is a fallback, not a correction: a control the author has already named keeps
+    // that name, which is the one the page is written around
+    // and a label is only needed by a control with no name at all: visible text, a title, an
+    // aria-labelledby or an image with an alt already name it, and an aria-label written over
+    // visible text would make the spoken name differ from the one on screen (WCAG 2.5.3)
+    if (BUTTON_OPEN) {
+        // a native button already is one; anything else (a link, a div) is told what it does
+        if (!BUTTON_OPEN.matches("button, input[type='button'], input[type='submit'], [role]")) BUTTON_OPEN.setAttribute("role", "button");
 
-    //== BUTTON OPEN
-    BUTTON_OPEN?.setAttribute("role", "button");
-    BUTTON_OPEN?.setAttribute("aria-label", "apri modale");
-
-
-    //== POSITION
-    if (topLevel && !MODAL.contains(DIALOG)) MODAL.append(DIALOG);
-    else if (!topLevel) {
-        if (data_container) document.querySelector("#" + data_container)?.append(DIALOG);
-        else if (data_containerPGS) pgs(document).querySelector(data_containerPGS)?.append(DIALOG);
-        else document.body.append(DIALOG);
+        const hasName = BUTTON_OPEN.hasAttribute("aria-label")
+            || BUTTON_OPEN.hasAttribute("aria-labelledby")
+            || BUTTON_OPEN.hasAttribute("title")
+            || (BUTTON_OPEN.textContent || "").trim() !== ""
+            || BUTTON_OPEN.querySelector("img[alt]:not([alt=''])") !== null;
+        if (!hasName) BUTTON_OPEN.setAttribute("aria-label", "Open modal");
     }
 
 
-    //+ FN STATUS
+    //## POSITION
+    if (dialogTopLevel && !MODAL.contains(DIALOG)) MODAL.append(DIALOG);
+    else if (!dialogTopLevel) {
+        if (modalContainerID) {
+            const container = document.getElementById(modalContainerID);
+            if (container) container.append(DIALOG);
+            else _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("modal.init", `no element has the id "${modalContainerID}" named by modalContainerID, so the dialog stays where it is`, MODAL);
+        } else if (modalContainerPGS) {
+            const container = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document).querySelector(modalContainerPGS);
+            if (container) container.append(DIALOG);
+            else _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("modal.init", `no element carries the pgs token "${modalContainerPGS}" named by modalContainerPGS, so the dialog stays where it is`, MODAL);
+        } else document.body.append(DIALOG);
+    }
+
+
+    //## FN STATUS
     function statusModal(status = true) {
+        // aria-expanded belongs to the control that opens the panel; it is not a <dialog> attribute
         BUTTON_OPEN?.setAttribute("aria-expanded", status);
-        DIALOG?.setAttribute("aria-expanded", status);
     }
 
-    //+ FN OPEN
+    //## FN EVENT
+    // pgs:modal:open and pgs:modal:close reach every listener once, wherever it sits. The event goes
+    // out on the dialog and bubbles up from there: with dialogTopLevel the dialog is still inside its
+    // wrapper, so that already passes through the wrapper. A dialog moved elsewhere is not under the
+    // wrapper, so the wrapper gets an event of its own, and that one would reach the ancestors the two
+    // share a second time: it is stopped at the wrapper's ancestor just below the first one that
+    // holds the dialog, so the shared ancestors and everything above only hear the dialog's
+    function dispatchModal(name) {
+        const detail = { modal: MODAL, dialog: DIALOG };
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.dispatch(DIALOG, name, detail);
+        if (MODAL.contains(DIALOG)) return;
+
+        let last = MODAL;
+        while (last.parentNode && !last.parentNode.contains(DIALOG)) last = last.parentNode;
+        const stop = event => event.stopPropagation();
+        last.addEventListener(name, stop);
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.dispatch(MODAL, name, detail);
+        last.removeEventListener(name, stop);
+    }
+
+    //## FN ANIMATION
+    // dialogAnimation*: the panel comes in on open and goes back on close — dialogAnimationZoom
+    // grows it out of the button that opened it, the way PhotoSwipe zooms a thumbnail, and
+    // dialogAnimationLeft/Right/Top/Bottom slide it in from that edge of the screen. The
+    // animationIn/animationOut state starts the animation — keyframes, timing, backdrop fade
+    // and reduced motion all live in _modal.scss. The JavaScript only measures, for the zoom:
+    // the panel is already laid out in its final place, so the offset and the scale that lay it
+    // over the button go to the stylesheet as --_modal-zoom-*.
+    // Returns a promise that settles when every animation the stylesheet started has finished,
+    // or null when there is nothing to wait for: no panel, a zoom with no visible button to grow
+    // from, or no animation at all (prefers-reduced-motion, or a theme that turns it off).
+    function stopAnimation() {
+        ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).state.remove("animationIn");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).state.remove("animationOut");
+    }
+
+    function animate(state) {
+        stopAnimation();
+        if (!dialogAnimation || !CONTENT) return null;
+
+        if (dialogAnimationZoom) {
+            if (!BUTTON_OPEN) return null;
+            // measuring right after stopAnimation() also flushes the removed state, so an
+            // animationOut that follows an animationIn restarts the same keyframes instead of
+            // carrying on the running ones
+            const from = BUTTON_OPEN.getBoundingClientRect();
+            const to = CONTENT.getBoundingClientRect();
+            if (!from.width || !from.height || !to.width || !to.height) return null;
+
+            CONTENT.style.setProperty("--_modal-zoom-x", `${from.left - to.left}px`);
+            CONTENT.style.setProperty("--_modal-zoom-y", `${from.top - to.top}px`);
+            CONTENT.style.setProperty("--_modal-zoom-scaleX", from.width / to.width);
+            CONTENT.style.setProperty("--_modal-zoom-scaleY", from.height / to.height);
+        } else {
+            // the same restart, with no measurement to flush it
+            void CONTENT.offsetWidth;
+        }
+        ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).state.add(state);
+
+        const animations = DIALOG.getAnimations({ subtree: true }).filter(animation => animation.animationName?.startsWith("modalAnimation"));
+        if (!animations.length) {
+            stopAnimation();
+            return null;
+        }
+        return Promise.all(animations.map(animation => animation.finished));
+    }
+
+    //## FN DRAG CLOSE
+    // dialogDragClose: on a touch screen, dragging the panel down follows the finger and fades
+    // the backdrop, the way PhotoSwipe lets a photo be pulled away. Let go far or fast enough and
+    // the panel carries on down and the dialog closes; otherwise it springs back. The JavaScript
+    // only tracks the finger — the distance goes to --_modal-drag-y and the fade to
+    // --_modal-drag-progress on the dialog — and the dragging/dragClose states hand following,
+    // springing back and leaving to _modal.scss.
+    const dragClose = {
+        START: 10, // px of vertical travel before a touch counts as a drag
+        CLOSE: 0.15, // share of the viewport height that closes on release
+        VELOCITY: 0.5, // px/ms that closes on release, whatever the distance
+        touch: null,
+
+        stop() {
+            this.touch = null;
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).state.remove("dragging");
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).state.remove("dragClose");
+            DIALOG.style.removeProperty("--_modal-drag-y");
+            DIALOG.style.removeProperty("--_modal-drag-progress");
+        },
+
+        // a drag only starts where nothing would scroll instead: not in a form field, and every
+        // box between the finger and the dialog (the dialog included) already at its top
+        canStart(target) {
+            if (target.closest("input, textarea, select, [contenteditable]")) return false;
+            for (let element = target; element; element = element.parentElement) {
+                if (element.scrollTop > 0) return false;
+                if (element === DIALOG) break;
+            }
+            return true;
+        },
+
+        start(e) {
+            this.touch = null;
+            if (closing || e.touches.length !== 1 || !this.canStart(e.target)) return;
+            const touch = e.touches[0];
+            this.touch = { x: touch.clientX, y: touch.clientY, distance: 0, active: false, samples: [] };
+        },
+
+        move(e) {
+            const drag = this.touch;
+            if (!drag) return;
+            // a second finger means a pinch, which is the browser's
+            if (e.touches.length !== 1) return this.end(e, false);
+            const touch = e.touches[0];
+
+            if (!drag.active) {
+                const dx = touch.clientX - drag.x;
+                const dy = touch.clientY - drag.y;
+                if (Math.abs(dx) < this.START && Math.abs(dy) < this.START) return;
+                // sideways or upwards stays the page's: a horizontal scroller, the panel's own scroll
+                if (dy <= 0 || Math.abs(dx) > dy) {
+                    this.touch = null;
+                    return;
+                }
+                // counted from here, so the panel does not jump by the threshold
+                drag.active = true;
+                drag.y = touch.clientY;
+                stopAnimation();
+                (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).state.add("dragging");
+            }
+
+            e.preventDefault();
+            drag.distance = Math.max(0, touch.clientY - drag.y);
+            drag.samples = [...drag.samples.filter(([time]) => e.timeStamp - time < 100), [e.timeStamp, drag.distance]];
+            DIALOG.style.setProperty("--_modal-drag-y", `${drag.distance}px`);
+            DIALOG.style.setProperty("--_modal-drag-progress", Math.min(drag.distance / (window.innerHeight / 2), 1));
+        },
+
+        end(e, release = true) {
+            const drag = this.touch;
+            if (!drag?.active) {
+                this.touch = null;
+                return;
+            }
+            // speed over the last 100ms of movement; a finger that stopped before lifting has none
+            const [firstTime, firstDistance] = drag.samples[0] || [e.timeStamp, drag.distance];
+            const [lastTime, lastDistance] = drag.samples.at(-1) || [e.timeStamp, drag.distance];
+            const velocity = e.timeStamp - lastTime > 100 ? 0 : (lastDistance - firstDistance) / Math.max(lastTime - firstTime, 1);
+            const shouldClose = release && (drag.distance > window.innerHeight * this.CLOSE || (velocity > this.VELOCITY && drag.distance > this.START));
+            // back where it was: removing the state lets the stylesheet's transition take it there
+            if (!shouldClose) return this.stop();
+
+            this.touch = null;
+            closing = true;
+            statusModal(false);
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).state.remove("dragging");
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).state.add("dragClose");
+            // the panel leaves from where the finger let it go, through the transitions this state
+            // starts; none (reduced motion, or a theme that turns them off) closes at once
+            const transitions = DIALOG.getAnimations({ subtree: true }).filter(animation => animation instanceof CSSTransition && [DIALOG, CONTENT].includes(animation.effect?.target));
+            if (!transitions.length) return finishClose();
+            Promise.all(transitions.map(animation => animation.finished)).then(finishClose, () => { });
+        },
+    };
+
+    //## FN OPEN
     function openModal(e) {
         e?.stopImmediatePropagation();
         if (DIALOG.open) {
             closeModal(e);
             return;
         }
+        closing = false;
 
-        if (!DIALOG.open) document.querySelectorAll("dialog[open]").forEach((dlg) => dlg.close());
+        document.querySelectorAll("dialog[open]").forEach((dlg) => dlg.close());
         statusModal(true);
-        topLevel ? DIALOG.showModal() : DIALOG.show();
-        // modalCustomEvents('modal:open', { event: e });
-        MODAL.dispatchEvent(new CustomEvent('modal:open'));
-        DIALOG.dispatchEvent(new CustomEvent('modal:open'));
+        dialogTopLevel ? DIALOG.showModal() : DIALOG.show();
+        // respect an explicit autofocus target inside the dialog when the author set one
+        // preventScroll: the dialog is focused before the opening animation moves the panel off
+        // screen, and Safari would scroll the dialog to follow it there
+        if (!DIALOG.querySelector("[autofocus]")) focusTarget.focus({ preventScroll: true });
+        animate("animationIn")?.then(stopAnimation, () => { });
+        dispatchModal(EVENT_OPEN);
     }
 
-    //+ FN CLOSE
+    //## FN CLOSE
     function closeModal(e) {
         e?.stopImmediatePropagation()
+        // a second request while the closing animation is still running changes nothing
+        if (closing) return;
         statusModal(false);
+        const animationOut = DIALOG.open ? animate("animationOut") : null;
+        if (!animationOut) return finishClose();
+        closing = true;
+        // a rejected promise means the animation was cancelled — by a native close removing
+        // the state — and whoever cancelled it already owns the dialog's state
+        animationOut.then(finishClose, () => { });
+    }
+
+    function finishClose() {
+        closing = false;
         DIALOG.close();
-        // modalCustomEvents('modal:close', { event: e });
-        MODAL.dispatchEvent(new CustomEvent('modal:close'));
-        DIALOG.dispatchEvent(new CustomEvent('modal:close'));
+        stopAnimation();
+        dragClose.stop();
     }
 
     function forceOpen(e) {
@@ -1581,29 +2296,59 @@ function initializeModal(MODAL, existingDialog = null) {
         if (DIALOG.open) closeModal(e);
     }
 
-    //+ fn OPEN ON HISTORY
+    //## fn OPEN ON HISTORY
     function openModalOnHistory() {
         const params = new URLSearchParams(window.location.search);
         if (params.get('modal') !== BUTTON_OPEN?.id) return;
-        document.getElementById(BUTTON_OPEN.id)?.scrollIntoView({ behavior: 'smooth' });
+        BUTTON_OPEN.scrollIntoView({ behavior: 'smooth' });
         openModal();
     }
 
 
-    //= OPEN
+    //# OPEN
     BUTTON_OPEN?.addEventListener("click", (e) => openModal(e), { signal });
-    BUTTON_OPEN?.addEventListener("keypress", (e) => !DIALOG.open && (e.key === "Enter" || e.key === " ") && openModal(e), { signal });
+    // preventDefault suppresses the native click a real <button>/<a> already fires for Enter/Space
+    // on its own — without it, that native click ran right after this one and, finding the dialog
+    // already open, toggled it straight back closed
+    BUTTON_OPEN?.addEventListener("keydown", (e) => {
+        if (DIALOG.open || (e.key !== "Enter" && e.key !== " ")) return;
+        e.preventDefault();
+        openModal(e);
+    }, { signal });
 
-    //= CLOSE
-    DIALOG.addEventListener("close", () => statusModal(false), { signal });
-    DIALOG.addEventListener("click", e => { if (e.target == DIALOG && !disableBackdropClose) closeModal(e) }, { signal });
+    //# CLOSE
+    // every way the dialog closes ends in this native event — the close button, the backdrop, Escape, a
+    // drag, the browser's back button, or a plain dialog.close() — so pgs:modal:close goes out from here
+    DIALOG.addEventListener("close", () => {
+        statusModal(false);
+        closing = false;
+        stopAnimation();
+        dragClose.stop();
+        dispatchModal(EVENT_CLOSE);
+    }, { signal });
+    // Escape on a showModal() dialog closes it natively, with no time left for the closing
+    // animation: take the cancel over and close through closeModal instead
+    if (dialogAnimation) DIALOG.addEventListener("cancel", e => {
+        e.preventDefault();
+        closeModal(e);
+    }, { signal });
+    DIALOG.addEventListener("click", e => { if (e.target == DIALOG && !dialogDisableBackdropClose) closeModal(e) }, { signal });
     BUTTON_CLOSE?.addEventListener("click", e => closeModal(e), { signal });
 
-    //= UPDATE HISTORY
-    if (data_history && BUTTON_OPEN?.id) {
+    //# DRAG CLOSE
+    // touchmove is not passive: once a drag has started it has to stop the page from scrolling
+    if (dialogDragClose && CONTENT) {
+        DIALOG.addEventListener("touchstart", e => dragClose.start(e), { signal, passive: true });
+        DIALOG.addEventListener("touchmove", e => dragClose.move(e), { signal, passive: false });
+        DIALOG.addEventListener("touchend", e => dragClose.end(e), { signal });
+        DIALOG.addEventListener("touchcancel", e => dragClose.end(e, false), { signal });
+    }
+
+    //# UPDATE HISTORY
+    if (dialogHistory && BUTTON_OPEN?.id) {
         historyTimeout = window.setTimeout(openModalOnHistory, 1);
 
-        //== Aggiorna URL quando cambia l'attributo "open" del dialog
+        // keeps the URL in step with the dialog's own "open" attribute
         historyObserver = new MutationObserver(() => {
             let isOpen = DIALOG.hasAttribute("open");
             try {
@@ -1611,30 +2356,56 @@ function initializeModal(MODAL, existingDialog = null) {
                 const params = new URLSearchParams(url.search);
                 isOpen ? params.set('modal', BUTTON_OPEN.id) : params.delete('modal');
                 url.search = params.toString() ? `?${params.toString()}` : "";
+                // the address already says so when the change came from the history itself (back,
+                // forward, or a page loaded with ?modal=): a second entry would wipe the forward stack
+                if (url.href === window.location.href) return;
                 window.history.pushState({ modal: BUTTON_OPEN.id, open: isOpen }, "", url);
             } catch (_) { }
         });
         historyObserver.observe(DIALOG, { attributes: true, attributeFilter: ["open"] });
 
-        //== Gestisce back/forward del browser per aprire/chiudere il dialog coerentemente
+        // back and forward in the browser open and close the dialog to match
         window.addEventListener("popstate", () => {
             try {
                 const params = new URLSearchParams(window.location.search);
                 const shouldOpen = params.get('modal') === BUTTON_OPEN.id;
-                if (shouldOpen && !DIALOG.open) DIALOG.showModal();
+                if (shouldOpen && !DIALOG.open) openModal();
                 if (!shouldOpen && DIALOG.open) closeModal()
             } catch (_) { }
         }, { signal });
     }
 
-    function destroy() {
+    // closeDialog is true for the public destroy(): the dialog is closed when it is open, and one
+    // that was moved out of its wrapper is removed together with a wrapper that is gone from the
+    // page, so it does not stay orphaned in the body. refresh() tears down without either, because
+    // it rebuilds on the same wrapper and dialog
+    function teardown(closeDialog) {
+        // a stale instance (already replaced by a refresh) must not tear down the live one
+        if (API.get(MODAL) !== api) return;
+
+        const wasOpen = closeDialog && DIALOG.open;
         eventController.abort();
+        stopAnimation();
+        dragClose.stop();
         historyObserver?.disconnect();
         if (historyTimeout !== null) window.clearTimeout(historyTimeout);
         API.delete(MODAL);
+
+        // the listeners are gone, so the close the dialog fires natively is announced here
+        if (wasOpen) {
+            closing = false;
+            statusModal(false);
+            DIALOG.close();
+            dispatchModal(EVENT_CLOSE);
+        }
+
+        if (closeDialog && !MODAL.isConnected && !MODAL.contains(DIALOG)) {
+            DIALOG.remove();
+            DIALOGS.delete(MODAL);
+        }
     }
 
-    API.set(MODAL, {
+    const api = {
         element: MODAL,
         button: BUTTON_OPEN,
         dialog: DIALOG,
@@ -1643,21 +2414,25 @@ function initializeModal(MODAL, existingDialog = null) {
         close: forceClose,
         toggle: openModal,
         refresh: () => {
-            const nextDialog = MODAL.querySelector("dialog") || DIALOG;
-            destroy();
-            initializeModal(MODAL, nextDialog);
-            return API.get(MODAL);
+            const live = API.get(MODAL);
+            if (live && live !== api) return live;
+            teardown(false);
+            return initializeModal(MODAL);
         },
+        destroy: () => teardown(true),
         isOpen: () => DIALOG.open,
-    });
+    };
+
+    API.set(MODAL, api);
+    return api;
 }
 
 function PGS_modal_init(root = document) {
-    getModals(root).forEach(MODAL => initializeModal(MODAL));
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "modal").forEach(MODAL => initializeModal(MODAL));
 }
 
 //# INIT PGS_modal
-;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(PGS_modal_init);
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_modal_init);
 
 //# API
 function PGS_modal_api(element) {
@@ -1678,239 +2453,210 @@ const PGS_modal = {
   \*******************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_notification: () => (/* binding */ PGS_notification)
 /* harmony export */ });
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _alerts_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_alerts.js */ "./assets/javascript/components/_alerts.js");
+/* harmony import */ var _modal_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_modal.js */ "./assets/javascript/components/_modal.js");
 
 
-//= PGS_notification
+
+
+// the controller of each bell's click listener, and the notificationLoad elements already read
+const BELLS = new WeakMap();
+const LOADED = new WeakSet();
+
+//# PGS_notification
+// the group manager: one modal that holds the scrollable panel, every notificationBell that opens
+// it, and the counter and empty state. It only reads its data and hands it to the shared alert
+// engine (see _alerts.js): every message inside the panel is that alert card, built dismissible,
+// with its buttons, never timed by default.
 const fn_notification = {
-    _uid: 0,
     _defaults: {
-        id: null,
-        buttons: [],
-        description: "",
-        closeTitle: "Close",
         emptyMessage: "No notifications",
-        type: {
-            error: {
-                title: "Error",
-                icon: '<i class="fa-solid fa-circle-xmark"></i>'
-            },
-            success: {
-                title: "Success",
-                icon: '<i class="fa-solid fa-circle-check"></i>'
-            },
-            info: {
-                title: "Information",
-                icon: '<i class="fa-solid fa-circle-info"></i>'
-            },
-            warning: {
-                title: "Warning",
-                icon: '<i class="fa-solid fa-triangle-exclamation"></i>'
-            }
-        }
+        panelCloseTitle: "Close"
     },
-
-    _escapeHtml(value) {
-        return String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
-    },
-
-    _formatText(value) {
-        return this._escapeHtml(value).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\r?\n/g, "<br>");
-    },
-
-    _getType(notification) {
-        const type = String(notification.type || "info").trim();
-        return typeof PGS_notification[type] === "function" ? type : "info";
-    },
-
-    _getData(root) {
-        const rawNotification = pgs(root).option.getValueBrackets("notification") || "{}";
-
-        try {
-            const notifications = JSON.parse(`[${rawNotification}]`);
-
-            if (notifications.some(notification => !notification || typeof notification !== "object" || Array.isArray(notification))) {
-                throw new TypeError("Each notification must be a JSON object");
-            }
-
-            return notifications;
-        } catch (error) {
-            console.warn("PGS notification: Invalid JSON configuration", error);
-            return [];
-        }
-    },
-
-    _getContent(title, description) {
-        const safeDescription = this._formatText(description);
-        const safeTitle = this._formatText(title);
-
-        if (!safeTitle) return `<span>${safeDescription}</span>`;
-        if (!safeDescription) return `<strong>${safeTitle}</strong>`;
-
-        return `
-            <strong>${safeTitle}</strong>
-            <span>${safeDescription}</span>
-        `;
-    },
+    // a bell can say where the panel opens: a side (dialogLeft, dialogRight), a height (dialogTop,
+    // dialogBottom), or dialogCenter for the middle. Each axis it leaves out keeps the default,
+    // and the size is never a bell's business
+    _positions: ["dialogLeft", "dialogRight", "dialogTop", "dialogBottom", "dialogCenter"],
+    _animations: ["dialogAnimationLeft", "dialogAnimationRight"],
+    _modal: null,
+    _panelController: null,
+    _missingBellReported: false,
 
     _getContainer() {
-        return pgs(document).querySelector("notifications");
+        return (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document).querySelector("_notification");
     },
 
-    _getOrCreateContainer() {
-        let containerNotification = this._getContainer();
-
-        if (!containerNotification) {
-            containerNotification = document.createElement("div");
-            pgs(containerNotification).add("notifications");
-            containerNotification.setAttribute("aria-live", "polite");
-            containerNotification.setAttribute("aria-relevant", "additions");
-            document.body.appendChild(containerNotification);
-        }
-
-        return containerNotification;
+    // the count only ever changes through a card's own close animation (dismiss click, a button
+    // that closes, or deleteAll below), so this one listener covers every case.
+    // Deferred a tick: the event fires before the card is actually removed from the DOM
+    _bindContainer(container, signal) {
+        container.addEventListener("pgs:alert:close", () => {
+            setTimeout(() => fn_notification._updateBellCounter(), 0);
+        }, { signal });
     },
 
-    show(type, options = {}) {
-        if (typeof options === "string") options = { title: options };
+    // the one modal every bell opens, built the first time anything needs it: the first
+    // notification, or the first click on a bell. It is not authored anywhere on the page
+    _ensureModal() {
+        if (this._modal?.isConnected) return this._modal;
 
-        if (!options || typeof options !== "object" || Array.isArray(options)) {
-            throw new TypeError("PGS notification: options must be an object or a string");
-        }
+        // a panel that left the page takes its listeners with it
+        this._panelController?.abort();
+        this._panelController = new AbortController();
+        const { signal } = this._panelController;
 
-        const { type: typeDefaults, ...defaults } = this._defaults;
-        const definedOptions = Object.fromEntries(
-            Object.entries(options).filter(([, value]) => value !== undefined)
-        );
-        const config = {
-            ...defaults,
-            ...typeDefaults[type],
-            ...definedOptions,
-            type
-        };
+        const modal = document.createElement("div");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(modal).add("modal['dialogRight' 'dialogTop' 'dialogSmall' 'dialogAnimationRight']");
 
-        return this.initNotification(config);
-    },
+        const dialog = document.createElement("dialog");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dialog).add("modal-dialog", "_notification-dialog");
 
-    initNotification({
-        type,
-        id,
-        title,
-        icon,
-        description,
-        buttons,
-        closeTitle
-    }) {
-        const containerNotification = this._getOrCreateContainer();
-        const text = this._getContent(title, description);
-        const notificationId = id ?? `notification-${++this._uid}`;
+        const content = document.createElement("div");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(content).add("modal-dialog-content", "_notification");
+        content.setAttribute("aria-live", "polite");
+        content.setAttribute("aria-relevant", "additions");
+        this._bindContainer(content, signal);
 
-        //== Create Notification
-        const notification = document.createElement("div");
-        notification.dataset.notificationId = notificationId;
-        pgs(notification).state.add(type);
-        pgs(notification).add("notifications-element");
-        notification.setAttribute("role", type == "error" ? "alert" : "status");
-        notification.innerHTML = `
-            <div pgs="notifications-element-content">
-                <div pgs="notifications-element-icon">${icon}</div>
-                <p>${text}</p>
-            </div>
-            <div pgs="notifications-element-buttons">
-                <button type="button" pgs="button notifications-element-buttons-delete">${closeTitle}</button>
-            </div>
-        `;
+        // the panel closes from its own button, the one pgs.modal picks up inside the dialog. Written
+        // first, it sits above the first notification
+        const closeButton = document.createElement("button");
+        closeButton.type = "button";
+        closeButton.textContent = this._defaults.panelCloseTitle;
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(closeButton).add("button['btnMini']", "_modal-close", "_notification-close");
+        content.appendChild(closeButton);
 
-        const notificationButtons = pgs(notification).querySelector("notifications-element-buttons");
-        const btnDelete = pgs(notification).querySelector("notifications-element-buttons-delete");
-        btnDelete.ariaLabel = closeTitle === "Close" ? "Close notification" : closeTitle;
+        dialog.appendChild(content);
+        modal.appendChild(dialog);
+        document.body.appendChild(modal);
+        _modal_js__WEBPACK_IMPORTED_MODULE_2__.PGS_modal.init(modal);
 
-        //+ Animation delete
-        function deleteNotification() {
-            notification.style.translate = "120%";
-            setTimeout(() => {
-                notification.dispatchEvent(new CustomEvent("pgs:notification:close", {
-                    bubbles: true,
-                    detail: { id: notificationId, type, title, description }
-                }));
-                notification.remove();
-                fn_notification._updateBellCounter();
-            }, 300);
-        }
+        // the bells say whether the panel is open, whichever way it got opened or closed
+        modal.addEventListener("pgs:modal:open", () => this._setBellsExpanded(true), { signal });
+        modal.addEventListener("pgs:modal:close", () => this._setBellsExpanded(false), { signal });
 
-        (buttons || []).forEach((button, index) => {
-            const buttonId = button.id ?? `${notificationId}-button-${index + 1}`;
-            const buttonElement = button.link ? document.createElement("a") : document.createElement("button");
-            if (button.link) buttonElement.href = button.link;
-            else buttonElement.type = "button";
-            buttonElement.textContent = button.title;
-            pgs(buttonElement).add("button");
-            if (button.optionButton) pgs(buttonElement).option.add(button.optionButton);
-
-            buttonElement.addEventListener("click", (e) => {
-                const proceed = buttonElement.dispatchEvent(new CustomEvent("pgs:notification:buttonClick", {
-                    bubbles: true,
-                    cancelable: true,
-                    detail: { id: notificationId, buttonId, type, title, description, link: button.link }
-                }));
-
-                if (button.link && !proceed) e.preventDefault();
-                if (button.close !== false) deleteNotification();
-            });
-
-            notificationButtons.insertBefore(buttonElement, btnDelete);
-        });
-
-        containerNotification.appendChild(notification);
+        this._modal = modal;
         this._updateBellCounter();
+        return modal;
+    },
 
-        //== event
-        btnDelete.addEventListener("click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            e.stopImmediatePropagation()
-            deleteNotification();
+    _getBells(root = document) {
+        return _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "notificationBell");
+    },
+
+    _setBellsExpanded(expanded) {
+        this._getBells().forEach(bell => bell.setAttribute("aria-expanded", String(expanded)));
+    },
+
+    // puts the position this bell asks for on the one modal. Only ever called while the panel is
+    // closed: moving an open panel would make it jump. The slide comes in from the side it ends up on
+    _applyPosition(bell) {
+        const wanted = this._positions.filter(key => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(bell).option.contains(key));
+        const side = wanted.find(key => key === "dialogLeft" || key === "dialogRight") ?? "dialogRight";
+        const height = wanted.find(key => key === "dialogTop" || key === "dialogBottom") ?? "dialogTop";
+        const flags = wanted.includes("dialogCenter")
+            ? ["dialogCenter"]
+            : [side, height, side === "dialogLeft" ? "dialogAnimationLeft" : "dialogAnimationRight"];
+
+        // pgs.modal moves the dialog out of its wrapper, so it is asked for rather than searched for
+        const dialog = _modal_js__WEBPACK_IMPORTED_MODULE_2__.PGS_modal.api(this._modal).dialog;
+        [[this._modal, "modal"], [dialog, "_dialog"]].forEach(([element, token]) => {
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).option.remove(...this._positions, ...this._animations);
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).add(`${token}[${flags.map(flag => `'${flag}'`).join(" ")}]`);
         });
     },
 
+    // a bell is a plain button: it only asks the one modal to toggle
+    _bindBells(root = document) {
+        this._getBells(root).forEach(bell => {
+            if (BELLS.has(bell)) return;
+
+            const controller = new AbortController();
+            BELLS.set(bell, controller);
+            this._missingBellReported = false;
+
+            // a hand-written counter keeps the bare name; a generated one gets the underscore,
+            // so this is the one place that has to check for either
+            if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(bell).querySelector(["notificationBell-counter", "_notificationBell-counter"])) {
+                const counter = document.createElement("span");
+                (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(counter).add("_notificationBell-counter");
+                bell.appendChild(counter);
+            }
+
+            bell.setAttribute("aria-haspopup", "dialog");
+            bell.setAttribute("aria-expanded", String(Boolean(this._modal?.isConnected && _modal_js__WEBPACK_IMPORTED_MODULE_2__.PGS_modal.api(this._modal)?.isOpen())));
+            bell.addEventListener("click", () => {
+                const modal = this._ensureModal();
+                const api = _modal_js__WEBPACK_IMPORTED_MODULE_2__.PGS_modal.api(modal);
+
+                // open already: this click closes it, and nothing moves
+                if (!api.isOpen()) this._applyPosition(bell);
+                api.toggle();
+            }, { signal: controller.signal });
+        });
+    },
+
+    _add(type, options) {
+        const scope = `notification.${type}`;
+
+        // a notification fired from a script in the head, before the body is parsed, has no panel
+        // to go in yet: it is added once the document is ready
+        if (!document.body) {
+            if (document.readyState === "loading") _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(() => this._add(type, options));
+            else _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn(scope, "the document has no <body>, so the notification was not added");
+            return;
+        }
+
+        const config = _alerts_js__WEBPACK_IMPORTED_MODULE_1__.fn_alert._toOptions(options, scope);
+        const notification = _alerts_js__WEBPACK_IMPORTED_MODULE_1__.fn_alert.create(type, {
+            ...config,
+            component: "_alert",
+            dismissible: true,
+            // the dismiss button draws dismissIcon (a cross by default), so closeTitle is its accessible name
+            closeTitle: config.closeTitle ?? "Close notification"
+        });
+
+        // the notification is kept either way, so a bell added later still shows it; but with no
+        // bell there is nothing to open the panel from, and that is worth saying out loud
+        if (!this._getBells().length && !this._missingBellReported) {
+            this._missingBellReported = true;
+            _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn(scope, "no notificationBell on the page, so nothing can open the panel that holds this notification");
+        }
+
+        this._ensureModal();
+        this._getContainer().appendChild(notification);
+        this._updateBellCounter();
+    },
+
+    // only loops and asks each card to close itself the same way its own dismiss button would;
+    // the close animation and the pgs:alert:close event are the engine's job, not this one's
     deleteAll() {
         const containerNotification = this._getContainer();
+        if (!containerNotification) return;
 
-        if (containerNotification) {
-            const ids = Array.from(pgs(containerNotification).querySelectorAll("notifications-element"))
-                .map(element => element.dataset.notificationId);
-
-            containerNotification.innerHTML = "";
-            containerNotification.dispatchEvent(new CustomEvent("pgs:notification:deleteAll", {
-                bubbles: true,
-                detail: { ids }
-            }));
-        }
-
-        this._updateBellCounter();
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(containerNotification).querySelectorAll("_alert").forEach(element => element.pgsAlertClose());
     },
 
     _updateBellCounter() {
         const container = this._getContainer();
-        const count = container ? pgs(container).querySelectorAll("notifications-element").length : 0;
+        const count = container ? (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(container).querySelectorAll("_alert").length : 0;
 
-        pgs(document).querySelectorAll("notificationBell-counter").forEach(counter => {
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document).querySelectorAll(["notificationBell-counter", "_notificationBell-counter"]).forEach(counter => {
             counter.textContent = count > 0 ? count : "";
         });
 
         if (!container) return;
 
-        let emptyMessage = pgs(container).querySelector("notifications-empty");
+        let emptyMessage = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(container).querySelector("_notification-empty");
 
         if (count === 0) {
             if (!emptyMessage) {
                 emptyMessage = document.createElement("p");
-                pgs(emptyMessage).add("notifications-empty");
+                (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(emptyMessage).add("_notification-empty");
                 container.appendChild(emptyMessage);
             }
             emptyMessage.textContent = this._defaults.emptyMessage;
@@ -1919,72 +2665,21 @@ const fn_notification = {
         }
     },
 
-    _dispatch(element) {
-        this._getData(element).forEach(notification => {
-            const title = String(notification.title || "").trim();
-            const description = String(notification.message || "").trim();
-            const closeTitle = String(notification["title-close"] || this._defaults.closeTitle).trim();
-
-            if (!title && !description) return;
-
-            const icon = notification.icon || undefined;
-            const id = notification.id || this._defaults.id;
-            const buttons = Array.isArray(notification.buttons) ? notification.buttons : this._defaults.buttons;
-            const type = this._getType(notification);
-
-            PGS_notification[type]({
-                title,
-                description,
-                icon,
-                buttons,
-                closeTitle,
-                id
-            });
-        });
-    },
-
     load(root = document) {
-        pgs(root).querySelectorAll("notificationLoad").forEach(element => {
-            if (!element || element.dataset.initialize === "true") return;
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "notificationLoad").forEach(element => {
+            if (LOADED.has(element)) return;
 
-            element.dataset.initialize = "true";
-            this._dispatch(element);
+            LOADED.add(element);
+            _alerts_js__WEBPACK_IMPORTED_MODULE_1__.fn_alert.fromData(element, "notification").forEach(({ type, options }) => this._add(type, options));
             element.remove();
         });
-    },
-
-    //+ generates <dialog pgs-option="right"><div pgs="modal-dialog-content"><div pgs="notifications"></div></div></dialog>
-    //+ inside the modal wrapping notificationBell, then asks pgs.modal to (re)initialize it.
-    _ensureDialog(root = document) {
-        let created = false;
-
-        pgs(root).querySelectorAll("notificationBell").forEach(bell => {
-            const modalWrapper = bell.closest("[pgs~='modal']");
-            if (!modalWrapper || modalWrapper.querySelector("dialog")) return;
-
-            const dialog = document.createElement("dialog");
-            pgs(dialog).option.add("right");
-
-            const content = document.createElement("div");
-            pgs(content).add("modal-dialog-content");
-
-            const list = document.createElement("div");
-            pgs(list).add("notifications");
-
-            content.appendChild(list);
-            dialog.appendChild(content);
-            modalWrapper.appendChild(dialog);
-            created = true;
-        });
-
-        if (created) globalThis.pgs?.modal?.init(document);
     }
 };
 
 //# TRIGGER
-//+ opening/closing the panel is handled entirely by the modal wrapping notificationBell + the dialog; see reference markup.
+// opening/closing the panel is the one modal's job; every notificationBell just asks it to toggle
 function PGS_notificationLoad_init(root = document) {
-    fn_notification._ensureDialog(root);
+    fn_notification._bindBells(root);
     fn_notification.load(root);
     fn_notification._updateBellCounter();
 }
@@ -1992,16 +2687,308 @@ function PGS_notificationLoad_init(root = document) {
 const PGS_notification = {
     init: PGS_notificationLoad_init,
     trigger: PGS_notificationLoad_init,
-    error: (options = {}) => fn_notification.show("error", options),
-    success: (options = {}) => fn_notification.show("success", options),
-    info: (options = {}) => fn_notification.show("info", options),
-    warning: (options = {}) => fn_notification.show("warning", options),
+    error: (options = {}) => fn_notification._add("error", options),
+    success: (options = {}) => fn_notification._add("success", options),
+    info: (options = {}) => fn_notification._add("info", options),
+    warning: (options = {}) => fn_notification._add("warning", options),
+    neutral: (options = {}) => fn_notification._add("neutral", options),
     deleteAll: () => fn_notification.deleteAll()
 };
 
 
-//= EXECUTE
-(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(PGS_notificationLoad_init);
+//# EXECUTE
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_notificationLoad_init);
+
+
+/***/ },
+
+/***/ "./assets/javascript/components/_pageNav.js"
+/*!**************************************************!*\
+  !*** ./assets/javascript/components/_pageNav.js ***!
+  \**************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_pageNav: () => (/* binding */ PGS_pageNav)
+/* harmony export */ });
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+
+
+const API = new WeakMap();
+
+// the browser retries "scroll to #fragment" for a while after load if the target wasn't ready
+// yet on the first pass (still true once a panel becomes visible and images further down
+// shift the layout) — by the time it retries, the reader may already have scrolled elsewhere
+// themselves, and the retry yanks them back. Captured once here, as early as this module
+// runs, so the panel it names can still be selected below after the URL is stripped of it.
+// Every root takes it once, on its own first init (loadHashTaken): a refresh() reads the URL as
+// it is by then, so it can never force the hash the page was opened with back onto the reader
+const loadHash = typeof window === "undefined" ? "" : window.location.hash;
+const loadHashTaken = new WeakSet();
+
+const pageNavUtil = {
+    stripHash() {
+        history.replaceState(history.state, "", window.location.pathname + window.location.search);
+    },
+
+    // replaceState never triggers a scroll on its own (only real navigation does), so removing
+    // the fragment now leaves the browser nothing to retry-scroll to. Putting it straight back
+    // is not as inert as it looks: while the page is still loading, a fragment that is in the URL
+    // again is a fragment the browser has yet to scroll to, and it does so when the load ends,
+    // yanking back a reader who had already started scrolling. So it goes back only once the page
+    // has loaded, and only if nothing else has changed the URL or the panel in the meantime — a
+    // reload or a bookmark still lands on the same panel, only the automatic scroll is skipped
+    restoreHash(id, isCurrent, signal) {
+        const put = () => {
+            if (window.location.hash || !isCurrent()) return;
+            history.replaceState(history.state, "", window.location.pathname + window.location.search + "#" + id);
+        };
+
+        if (document.readyState === "complete") put();
+        else window.addEventListener("load", put, { once: true, signal });
+    },
+};
+
+//# BUILD
+// builds the instance of one pageNav root and returns its API, or null when its markup cannot be initialized
+function PGS_pageNav_build(pageNav) {
+    const panelsRoot = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(pageNav).querySelector("pageNav-panels");
+    // every pageNav-list is its own <nav>: the desktop sidebar and the one inside the
+    // mobile dialog both hold the same links, kept in sync together, so items are read
+    // across every list at once instead of assuming there is only one
+    const items = Array.from((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(pageNav).querySelectorAll("pageNav-list-item"));
+    const panelItems = panelsRoot ? Array.from((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(panelsRoot).querySelectorAll("pageNav-panels-content")) : [];
+
+    if (!panelItems.length) {
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("pageNav.init", "the pageNav has no pageNav-panels-content inside a pageNav-panels, so it was not initialized", pageNav);
+        return null;
+    }
+    if (!items.length) {
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("pageNav.init", "the pageNav has no pageNav-list-item, so it was not initialized", pageNav);
+        return null;
+    }
+
+    const eventController = new AbortController();
+    const { signal } = eventController;
+
+    const nav = {
+        panelsRoot,
+        items,
+        panelItems,
+        // active is the mark of the one panel to show, matching the same convention tabs uses:
+        // a panel already marked active in the markup is where a hashless load lands
+        current: panelItems.find(panel => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(panel).state.contains("active")) || panelItems[0],
+        // the hash the panels on screen were selected for. A navigation reaches select() once,
+        // by whichever way arrives first: instance.select() applies the panel right away and
+        // records the hash it just set, so the hashchange that hash raises finds it applied
+        appliedHash: window.location.hash,
+
+        // a panel is addressed by its own id, matched against an item's href fragment: the
+        // same mechanism the browser already uses to jump to it, so no extra bookkeeping is
+        // needed to keep several lists and one panel set in agreement
+        panelIdFor(item) {
+            const href = item.getAttribute("href") || "";
+            return href.startsWith("#") ? href.slice(1) : null;
+        },
+
+        itemsFor(panelId) {
+            return this.items.filter(item => this.panelIdFor(item) === panelId);
+        },
+
+        select(panelId, { resetScroll = true } = {}) {
+            const panel = this.panelItems.find(item => item.id === panelId);
+            this.current = panel;
+            this.appliedHash = window.location.hash;
+
+            this.panelItems.forEach(item => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(item).state.toggle("active", item === panel));
+            this.items.forEach(item => {
+                if (this.panelIdFor(item) === panel.id) item.setAttribute("aria-current", "page");
+                else item.removeAttribute("aria-current");
+            });
+
+            // closes whichever nav the reader just used when it lives inside a dialog (the
+            // mobile "Browse docs" panel), the same way any other navigation should tidy up
+            // after itself
+            this.itemsFor(panel.id).forEach(item => item.closest("dialog[open]")?.close());
+
+            if (resetScroll) window.scrollTo({ top: 0, behavior: "instant" });
+
+            _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.dispatch(pageNav, "pgs:pageNav:change", { panel, items: this.itemsFor(panel.id) });
+        },
+
+        idFromHash(hash) {
+            const id = hash.slice(1);
+            return id && this.panelItems.some(panel => panel.id === id) ? id : null;
+        },
+
+        fromHash() {
+            return this.idFromHash(window.location.hash);
+        },
+    };
+
+    window.addEventListener("hashchange", () => {
+        const id = nav.fromHash();
+        if (id && window.location.hash !== nav.appliedHash) nav.select(id);
+    }, { signal });
+
+    const destroy = () => {
+        if (API.get(pageNav) !== api) return;
+        eventController.abort();
+        API.delete(pageNav);
+    };
+
+    const api = {
+        element: pageNav,
+        panels: nav.panelsRoot,
+        select: (panelId) => {
+            if (!panelId || !nav.panelItems.some(panel => panel.id === panelId)) {
+                throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("pageNav.select", `no pageNav-panels-content has the id "${panelId}"`);
+            }
+            window.location.hash = panelId;
+            nav.select(panelId);
+        },
+        getCurrent: () => nav.panelItems.indexOf(nav.current),
+        getCurrentPanel: () => nav.current,
+        destroy,
+        refresh: () => {
+            const live = API.get(pageNav);
+            if (live && live !== api) return live;
+            destroy();
+            return PGS_pageNav_build(pageNav) ?? undefined;
+        },
+    };
+    API.set(pageNav, api);
+
+    // the URL wins over whatever the markup already shows: a reload lands on the panel the
+    // reader left, and the first pass never resets the scroll position it starts at. On the
+    // first init of this root it reads the hash captured once at the top of this module, not
+    // the live window.location.hash, which another pageNav root's own init pass may have
+    // already stripped or restored by the time this one runs. Any later init of the same root
+    // (a refresh) reads the live one, and leaves the URL as it is
+    const firstInit = !loadHashTaken.has(pageNav);
+    loadHashTaken.add(pageNav);
+    const initialPanelId = nav.idFromHash(firstInit ? loadHash : window.location.hash);
+
+    if (initialPanelId && firstInit) pageNavUtil.stripHash();
+    nav.select(initialPanelId || nav.current.id, { resetScroll: false });
+    if (initialPanelId && firstInit) pageNavUtil.restoreHash(initialPanelId, () => nav.current.id === initialPanelId, signal);
+
+    return api;
+}
+
+function PGS_pageNav_init(root = document) {
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "pageNav").forEach((pageNav) => {
+        if (API.has(pageNav)) return;
+
+        PGS_pageNav_build(pageNav);
+    });
+}
+
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_pageNav_init);
+
+function PGS_pageNav_api(selector) {
+    return API.get(selector);
+}
+
+const PGS_pageNav = {
+    init: PGS_pageNav_init,
+    api: PGS_pageNav_api,
+};
+
+
+/***/ },
+
+/***/ "./assets/javascript/components/_range.js"
+/*!************************************************!*\
+  !*** ./assets/javascript/components/_range.js ***!
+  \************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_range: () => (/* binding */ PGS_range)
+/* harmony export */ });
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+
+
+const API = new WeakMap();
+
+const SELECTOR = 'input[type="range"]';
+
+//# BUILD
+// keeps --_range-progress, the place of the value between min and max from 0 to 1, up to date on one
+// slider: the pgs="range" track (see _formControls.scss) paints the part the thumb has passed from it, in every browser
+function PGS_range_build(input) {
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    const update = () => {
+        const min = parseFloat(input.min) || 0;
+        const max = input.max === "" ? 100 : parseFloat(input.max);
+        const span = max - min;
+        const ratio = span > 0 ? (parseFloat(input.value) - min) / span : 0;
+
+        input.style.setProperty("--_range-progress", String(Math.min(1, Math.max(0, ratio || 0))));
+    };
+
+    input.addEventListener("input", update, { signal });
+    input.addEventListener("change", update, { signal });
+    // a reset puts the value back after the event, so the slider is read once it has settled
+    input.form?.addEventListener("reset", () => setTimeout(update), { signal });
+    update();
+
+    const destroy = () => {
+        if (API.get(input) !== api) return;
+        controller.abort();
+        input.style.removeProperty("--_range-progress");
+        API.delete(input);
+    };
+
+    const api = {
+        element: input,
+        // for a value written by a script (input.value = ...), which raises no event
+        update,
+        destroy,
+        refresh: () => {
+            const live = API.get(input);
+            if (live && live !== api) return live;
+            destroy();
+            return PGS_range_build(input);
+        },
+    };
+    API.set(input, api);
+
+    return api;
+}
+
+//# INIT
+function PGS_range_init(root = document) {
+    if (!(root instanceof Document || root instanceof Element)) {
+        throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("range.init", "root must be a Document or an Element");
+    }
+
+    const inputs = Array.from(root.querySelectorAll(SELECTOR));
+    if (root instanceof Element && root.matches(SELECTOR)) inputs.unshift(root);
+
+    inputs.forEach(input => {
+        if (API.has(input)) return;
+
+        PGS_range_build(input);
+    });
+}
+
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_range_init);
+
+//# API
+function PGS_range_api(selector) {
+    return API.get(selector);
+}
+
+const PGS_range = {
+    init: PGS_range_init,
+    api: PGS_range_api
+};
 
 
 /***/ },
@@ -2012,17 +2999,17 @@ const PGS_notification = {
   \*************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_search: () => (/* binding */ PGS_search)
 /* harmony export */ });
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
 
 
 const API = new WeakMap();
-const OPEN_SEARCHES = new Set();
-let searchId = 0;
+// the searches that are open, or have a debounce or a request still pending: what a pointerdown
+// outside them has to close and cancel (kept until that pointerdown, so it stays short)
+const ACTIVE_SEARCHES = new Set();
 
 const DEFAULT_OPTIONS = {
     minLength: 2,
@@ -2034,377 +3021,440 @@ const DEFAULT_OPTIONS = {
     onSelect: null,
 };
 
-function nextSearchId() {
-    searchId += 1;
-    return searchId;
-}
+const Search = {
+    normalizeItem(item) {
+        if (typeof item === "string" || typeof item === "number") {
+            const value = String(item).trim();
+            return value ? { label: value, value, disabled: false, data: item } : null;
+        }
 
-function getSearches(root) {
-    const searches = root instanceof Element && pgs(root).contains("search") ? [root] : [];
-    searches.push(...pgs(root).querySelectorAll("search"));
-    return searches;
-}
+        if (!item || typeof item !== "object") return null;
 
-function directPgsChild(element, token) {
-    return Array.from(element.children).find(child => pgs(child).contains(token));
-}
+        const label = String(item.label ?? item.value ?? "").trim();
+        if (!label) return null;
 
-function normalizeItem(item) {
-    if (typeof item === "string" || typeof item === "number") {
-        const value = String(item).trim();
-        return value ? { label: value, value, disabled: false, data: item } : null;
+        return {
+            label,
+            value: String(item.value ?? label),
+            disabled: Boolean(item.disabled),
+            data: Object.prototype.hasOwnProperty.call(item, "data") ? item.data : item,
+        };
+    },
+
+    normalizeOptions(current, options = {}) {
+        const next = { ...current, ...options };
+        next.minLength = Math.max(0, Number.parseInt(next.minLength, 10) || 0);
+        next.debounce = Math.max(0, Number.parseInt(next.debounce, 10) || 0);
+        next.limit = Math.max(1, Number.parseInt(next.limit, 10) || DEFAULT_OPTIONS.limit);
+        next.submitOnSelect = Boolean(next.submitOnSelect);
+        next.searchOnFocus = Boolean(next.searchOnFocus);
+        next.source = typeof next.source === "function" || Array.isArray(next.source) ? next.source : null;
+        next.onSelect = typeof next.onSelect === "function" ? next.onSelect : null;
+        return next;
+    },
+
+    closeSearch(search) {
+        const data = API.get(search);
+        if (!data) return;
+
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(search).state.remove("open");
+        data.input.setAttribute("aria-expanded", "false");
+        data.input.removeAttribute("aria-activedescendant");
+        data.list.setAttribute("aria-hidden", "true");
+        data.setActiveIndex(-1);
+        ACTIVE_SEARCHES.delete(search);
+    },
+
+    openSearch(search, force = false) {
+        const data = API.get(search);
+        if (!data || (!force && data.items().length === 0)) return;
+
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(search).state.add("open");
+        data.input.setAttribute("aria-expanded", "true");
+        data.list.setAttribute("aria-hidden", "false");
+        ACTIVE_SEARCHES.add(search);
+    },
+
+    placeholderText(search, options) {
+        const template = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(search).data.getValueBrackets("searchPlaceholder") || "Type at least {minLength} characters";
+        return template.replace("{minLength}", options.minLength);
+    },
+
+    suggestionIcon(search) {
+        return (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(search).data.getValueBrackets("searchIconSuggestion") || "<i pgs=\"icon['icon-magnifyingGlass']\"></i>";
+    },
+
+    noResultsText(search) {
+        return (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(search).data.getValueBrackets("searchNoResults") || "No results found";
+    },
+};
+
+// initialOptions is what a refresh() hands over: the options are not markup, so rebuilding the
+// instance does not read them again
+function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
+    if (API.has(search)) return API.get(search);
+
+    const input = search.querySelector('input[type="search"]');
+    const list = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(search, "search-suggestions");
+    if (!input || !list) {
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("search.init", "a search needs an input[type=\"search\"] and a search-suggestions list as its direct child", search);
+        return;
     }
 
-    if (!item || typeof item !== "object") return null;
+    const eventController = new AbortController();
+    const { signal } = eventController;
 
-    const label = String(item.label ?? item.value ?? "").trim();
-    if (!label) return null;
+    if (!input.id) input.id = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.uniqueId("search-input");
+    if (!list.id) list.id = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.uniqueId("search-suggestions");
 
-    return {
-        label,
-        value: String(item.value ?? label),
-        disabled: Boolean(item.disabled),
-        data: Object.prototype.hasOwnProperty.call(item, "data") ? item.data : item,
-    };
-}
-
-function normalizeOptions(current, options = {}) {
-    const next = { ...current, ...options };
-    next.minLength = Math.max(0, Number.parseInt(next.minLength, 10) || 0);
-    next.debounce = Math.max(0, Number.parseInt(next.debounce, 10) || 0);
-    next.limit = Math.max(1, Number.parseInt(next.limit, 10) || DEFAULT_OPTIONS.limit);
-    next.submitOnSelect = Boolean(next.submitOnSelect);
-    next.searchOnFocus = Boolean(next.searchOnFocus);
-    next.source = typeof next.source === "function" || Array.isArray(next.source) ? next.source : null;
-    next.onSelect = typeof next.onSelect === "function" ? next.onSelect : null;
-    return next;
-}
-
-function closeSearch(search) {
-    const data = API.get(search);
-    if (!data) return;
-
-    pgs(search).state.remove("open");
-    data.input.setAttribute("aria-expanded", "false");
-    data.input.removeAttribute("aria-activedescendant");
-    data.list.setAttribute("aria-hidden", "true");
-    data.setActiveIndex(-1);
-    OPEN_SEARCHES.delete(search);
-}
-
-function openSearch(search) {
-    const data = API.get(search);
-    if (!data || data.items().length === 0) return;
-
-    pgs(search).state.add("open");
-    data.input.setAttribute("aria-expanded", "true");
-    data.list.setAttribute("aria-hidden", "false");
-    OPEN_SEARCHES.add(search);
-}
-
-function PGS_search_init(root = document) {
-    getSearches(root).forEach(search => {
-        if (API.has(search)) return;
-
-        const input = search.querySelector('input[type="search"]');
-        const list = directPgsChild(search, "search-suggestions");
-        if (!input || !list) return;
-
-        const id = nextSearchId();
-        if (!input.id) input.id = `search-input-${id}`;
-        if (!list.id) list.id = `search-suggestions-${id}`;
-
-        input.setAttribute("role", "combobox");
-        input.setAttribute("aria-autocomplete", "list");
-        input.setAttribute("aria-haspopup", "listbox");
-        input.setAttribute("aria-controls", list.id);
-        input.setAttribute("aria-expanded", "false");
-        input.setAttribute("autocomplete", "off");
-        list.setAttribute("role", "listbox");
-        list.setAttribute("aria-labelledby", input.id);
-        list.setAttribute("aria-hidden", "true");
+    input.setAttribute("role", "combobox");
+    input.setAttribute("aria-autocomplete", "list");
+    input.setAttribute("aria-haspopup", "listbox");
+    input.setAttribute("aria-controls", list.id);
+    input.setAttribute("aria-expanded", "false");
+    input.setAttribute("autocomplete", "off");
+    list.setAttribute("role", "listbox");
+    list.setAttribute("aria-labelledby", input.id);
+    list.setAttribute("aria-hidden", "true");
 
 
-        let options = { ...DEFAULT_OPTIONS };
-        let items = [];
-        let activeIndex = -1;
-        let timer = null;
-        let controller = null;
-        let requestNumber = 0;
+    let options = { ...initialOptions };
+    let items = [];
+    let activeIndex = -1;
+    let timer = null;
+    let controller = null;
+    let requestNumber = 0;
 
-        function setLoading(loading) {
-            pgs(search).state.toggle("loading", loading);
-            input.setAttribute("aria-busy", String(loading));
+    function setLoading(loading) {
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(search).state.toggle("loading", loading);
+        input.setAttribute("aria-busy", String(loading));
+    }
+
+    function setActiveIndex(index) {
+        activeIndex = index;
+        const elements = Array.from((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(list).querySelectorAll("_search-suggestions-item"));
+
+        elements.forEach((element, itemIndex) => {
+            const selected = itemIndex === activeIndex;
+            element.setAttribute("aria-selected", String(selected));
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).state.toggle("selected", selected);
+        });
+
+        const active = elements[activeIndex];
+        if (active) {
+            input.setAttribute("aria-activedescendant", active.id);
+            active.scrollIntoView({ block: "nearest" });
+        } else {
+            input.removeAttribute("aria-activedescendant");
         }
+    }
 
-        function setActiveIndex(index) {
-            activeIndex = index;
-            const elements = Array.from(list.querySelectorAll('[pgs~="search-suggestions-item"]'));
+    function moveActive(step) {
+        if (!items.length) return;
 
-            elements.forEach((element, itemIndex) => {
-                const selected = itemIndex === activeIndex;
-                element.setAttribute("aria-selected", String(selected));
-                pgs(element).state.toggle("selected", selected);
-            });
-
-            const active = elements[activeIndex];
-            if (active) {
-                input.setAttribute("aria-activedescendant", active.id);
-                active.scrollIntoView({ block: "nearest" });
-            } else {
-                input.removeAttribute("aria-activedescendant");
+        let next = activeIndex;
+        for (let checked = 0; checked < items.length; checked += 1) {
+            next = (next + step + items.length) % items.length;
+            if (!items[next].disabled) {
+                setActiveIndex(next);
+                return;
             }
         }
+    }
 
-        function moveActive(step) {
-            if (!items.length) return;
+    function clear() {
+        items = [];
+        activeIndex = -1;
+        list.replaceChildren();
+        Search.closeSearch(search);
+    }
 
-            let next = activeIndex;
-            for (let checked = 0; checked < items.length; checked += 1) {
-                next = (next + step + items.length) % items.length;
-                if (!items[next].disabled) {
-                    setActiveIndex(next);
-                    return;
-                }
-            }
-        }
+    function cancel() {
+        if (timer !== null) window.clearTimeout(timer);
+        timer = null;
+        if (controller) controller.abort();
+        controller = null;
+        requestNumber += 1;
+        setLoading(false);
+    }
 
-        function clear() {
-            items = [];
-            activeIndex = -1;
-            list.replaceChildren();
-            closeSearch(search);
-        }
+    function render(nextItems) {
+        items = Array.from(nextItems || [])
+            .map(Search.normalizeItem)
+            .filter(Boolean)
+            .slice(0, options.limit);
 
-        function cancel() {
-            if (timer !== null) window.clearTimeout(timer);
-            timer = null;
-            if (controller) controller.abort();
-            controller = null;
-            requestNumber += 1;
-            setLoading(false);
-        }
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(search).state.remove("error");
 
-        function render(nextItems) {
-            items = Array.from(nextItems || [])
-                .map(normalizeItem)
-                .filter(Boolean)
-                .slice(0, options.limit);
-
-            const fragment = document.createDocumentFragment();
-            items.forEach((item, index) => {
-                const option = document.createElement("li");
-                pgs(option).add("search-suggestions-item");
-                pgs(option).add("flexRow");
-                option.id = `${list.id}-option-${index}`;
-                option.dataset.index = String(index);
-                option.setAttribute("role", "option");
-                option.setAttribute("aria-selected", "false");
-                option.setAttribute("aria-disabled", String(item.disabled));
-                option.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i>' +  item.label;
-                fragment.append(option);
-
-            });
-
-            activeIndex = -1;
-            list.replaceChildren(fragment);
-            pgs(search).state.remove("error");
-
-            if (items.length) openSearch(search);
-            else closeSearch(search);
-
+        if (!items.length) {
+            showNoResults();
             return items;
         }
 
-        async function resolveSource(query, signal) {
-            if (Array.isArray(options.source)) {
-                const normalizedQuery = query.toLocaleLowerCase();
-                return options.source.filter(item => {
-                    const normalized = normalizeItem(item);
-                    return normalized && normalized.label.toLocaleLowerCase().includes(normalizedQuery);
-                });
-            }
+        const fragment = document.createDocumentFragment();
+        items.forEach((item, index) => {
+            const option = document.createElement("li");
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(option).add("_search-suggestions-item");
+            option.id = `${list.id}-option-${index}`;
+            option.dataset.index = String(index);
+            option.setAttribute("role", "option");
+            option.setAttribute("aria-selected", "false");
+            option.setAttribute("aria-disabled", String(item.disabled));
+            // the icon is markup the author wrote; the label comes from the source, which can be remote
+            option.innerHTML = Search.suggestionIcon(search) + _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.escapeHtml(item.label);
+            fragment.append(option);
 
-            if (typeof options.source !== "function") return [];
-            return await options.source({
-                query,
-                signal,
-                limit: options.limit,
-                element: search,
-                input,
+        });
+
+        activeIndex = -1;
+        list.replaceChildren(fragment);
+        Search.openSearch(search);
+
+        return items;
+    }
+
+    async function resolveSource(query, signal) {
+        if (Array.isArray(options.source)) {
+            const normalizedQuery = query.toLocaleLowerCase();
+            return options.source.filter(item => {
+                const normalized = Search.normalizeItem(item);
+                return normalized && normalized.label.toLocaleLowerCase().includes(normalizedQuery);
             });
         }
 
-        async function runSearch(query = input.value) {
-            cancel();
-            clear();
-
-            const normalizedQuery = String(query ?? "").trim();
-            if (normalizedQuery.length < options.minLength || !options.source) return [];
-
-            const currentRequest = requestNumber;
-            controller = new AbortController();
-            const currentController = controller;
-            setLoading(true);
-
-            try {
-                const result = await resolveSource(normalizedQuery, currentController.signal);
-                if (currentRequest !== requestNumber || currentController.signal.aborted) return [];
-                return render(result);
-            } catch (error) {
-                if (error?.name === "AbortError") return [];
-                if (currentRequest !== requestNumber) return [];
-
-                clear();
-                pgs(search).state.add("error");
-                search.dispatchEvent(new CustomEvent("pgs:search:error", {
-                    bubbles: true,
-                    detail: { error, query: normalizedQuery },
-                }));
-                return [];
-            } finally {
-                if (controller === currentController) controller = null;
-                if (currentRequest === requestNumber) setLoading(false);
-            }
-        }
-
-        function schedule() {
-            cancel();
-            clear();
-            pgs(search).state.remove("error");
-
-            if (input.value.trim().length < options.minLength || !options.source) return;
-            timer = window.setTimeout(() => {
-                timer = null;
-                runSearch(input.value);
-            }, options.debounce);
-        }
-
-        function select(index = activeIndex, submit = options.submitOnSelect) {
-            const item = items[index];
-            if (!item || item.disabled) return null;
-
-            input.value = item.value;
-            cancel();
-            clear();
-
-            const detail = { item, index, value: item.value, input, element: search };
-            search.dispatchEvent(new CustomEvent("pgs:search:select", { bubbles: true, detail }));
-            options.onSelect?.(detail);
-
-            input.focus();
-            if (submit && typeof search.requestSubmit === "function") search.requestSubmit();
-            return item;
-        }
-
-        function configure(nextOptions = {}) {
-            options = normalizeOptions(options, nextOptions);
-            return api;
-        }
-
-        function onInput() {
-            schedule();
-        }
-
-        function onFocus() {
-            if (items.length) openSearch(search);
-            else if (options.searchOnFocus) schedule();
-        }
-
-        function onKeydown(event) {
-            if (event.key === "ArrowDown") {
-                if (!pgs(search).state.contains("open")) schedule();
-                if (items.length) {
-                    event.preventDefault();
-                    moveActive(1);
-                }
-                return;
-            }
-
-            if (event.key === "ArrowUp" && items.length) {
-                event.preventDefault();
-                moveActive(-1);
-                return;
-            }
-
-            if (event.key === "Enter" && activeIndex >= 0) {
-                event.preventDefault();
-                select(activeIndex);
-                return;
-            }
-
-            if (event.key === "Escape") {
-                event.preventDefault();
-                cancel();
-                closeSearch(search);
-                return;
-            }
-
-            if (event.key === "Tab") closeSearch(search);
-        }
-
-        function onListPointerDown(event) {
-            const option = event.target.closest('[pgs~="search-suggestions-item"]');
-            if (!option || !list.contains(option)) return;
-            event.preventDefault();
-            select(Number.parseInt(option.dataset.index, 10));
-        }
-
-        function onSubmit() {
-            cancel();
-            closeSearch(search);
-        }
-
-        function destroy() {
-            cancel();
-            clear();
-            input.removeEventListener("input", onInput);
-            input.removeEventListener("focus", onFocus);
-            input.removeEventListener("keydown", onKeydown);
-            list.removeEventListener("pointerdown", onListPointerDown);
-            search.removeEventListener("submit", onSubmit);
-            API.delete(search);
-        }
-
-        const api = {
+        if (typeof options.source !== "function") return [];
+        return await options.source({
+            query,
+            signal,
+            limit: options.limit,
             element: search,
             input,
-            list,
-            configure,
-            setSource: source => configure({ source }),
-            search: runSearch,
-            open: () => openSearch(search),
-            close: () => closeSearch(search),
-            clear,
-            cancel,
-            select,
-            refresh: () => runSearch(input.value),
-            destroy,
-            items: () => [...items],
-            isOpen: () => pgs(search).state.contains("open"),
-            isLoading: () => pgs(search).state.contains("loading"),
-            setActiveIndex,
-        };
+        });
+    }
 
-        input.addEventListener("input", onInput);
-        input.addEventListener("focus", onFocus);
-        input.addEventListener("keydown", onKeydown);
-        list.addEventListener("pointerdown", onListPointerDown);
-        search.addEventListener("submit", onSubmit);
-        API.set(search, api);
+    async function runSearch(query = input.value) {
+        cancel();
+        clear();
+
+        const normalizedQuery = String(query ?? "").trim();
+        if (normalizedQuery.length < options.minLength || !options.source) return [];
+
+        const currentRequest = requestNumber;
+        controller = new AbortController();
+        const currentController = controller;
+        setLoading(true);
+        ACTIVE_SEARCHES.add(search);
+
+        try {
+            const result = await resolveSource(normalizedQuery, currentController.signal);
+            if (currentRequest !== requestNumber || currentController.signal.aborted) return [];
+            return render(result);
+        } catch (error) {
+            if (error?.name === "AbortError") return [];
+            if (currentRequest !== requestNumber) return [];
+
+            clear();
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(search).state.add("error");
+            _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.dispatch(search, "pgs:search:error", { error, query: normalizedQuery });
+            return [];
+        } finally {
+            if (controller === currentController) controller = null;
+            if (currentRequest === requestNumber) setLoading(false);
+        }
+    }
+
+    function showMessage(option) {
+        items = [];
+        activeIndex = -1;
+
+        option.setAttribute("aria-disabled", "true");
+        list.replaceChildren(option);
+
+        Search.openSearch(search, true);
+    }
+
+    function showPlaceholder() {
+        const option = document.createElement("li");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(option).add("_search-suggestions-placeholder");
+        option.textContent = Search.placeholderText(search, options);
+        showMessage(option);
+    }
+
+    function showNoResults() {
+        const option = document.createElement("li");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(option).add("_search-suggestions-empty");
+        option.textContent = Search.noResultsText(search);
+        showMessage(option);
+    }
+
+    function schedule() {
+        cancel();
+        clear();
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(search).state.remove("error");
+
+        if (!options.source) return;
+
+        if (input.value.trim().length < options.minLength) {
+            showPlaceholder();
+            return;
+        }
+
+        timer = window.setTimeout(() => {
+            timer = null;
+            runSearch(input.value);
+        }, options.debounce);
+        ACTIVE_SEARCHES.add(search);
+    }
+
+    function select(index = activeIndex, submit = options.submitOnSelect) {
+        const item = items[index];
+        if (!item || item.disabled) return null;
+
+        input.value = item.value;
+        cancel();
+        clear();
+
+        const { detail } = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.dispatch(search, "pgs:search:select", { item, index, value: item.value, input });
+        options.onSelect?.(detail);
+
+        input.focus();
+        if (submit && typeof search.requestSubmit === "function") search.requestSubmit();
+        return item;
+    }
+
+    function configure(nextOptions = {}) {
+        options = Search.normalizeOptions(options, nextOptions);
+        return api;
+    }
+
+    function onInput() {
+        schedule();
+    }
+
+    function onFocus() {
+        if (items.length) Search.openSearch(search);
+        else if (options.searchOnFocus) schedule();
+    }
+
+    function onKeydown(event) {
+        if (event.key === "ArrowDown") {
+            if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(search).state.contains("open")) schedule();
+            if (items.length) {
+                event.preventDefault();
+                moveActive(1);
+            }
+            return;
+        }
+
+        if (event.key === "ArrowUp" && items.length) {
+            event.preventDefault();
+            moveActive(-1);
+            return;
+        }
+
+        if (event.key === "Enter" && activeIndex >= 0) {
+            event.preventDefault();
+            select(activeIndex);
+            return;
+        }
+
+        if (event.key === "Escape") {
+            event.preventDefault();
+            cancel();
+            Search.closeSearch(search);
+            return;
+        }
+
+        // leaving the field: what is still pending must not open the list again behind the focus
+        if (event.key === "Tab") {
+            cancel();
+            Search.closeSearch(search);
+        }
+    }
+
+    function onListPointerDown(event) {
+        const option = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(event.target).closest("_search-suggestions-item");
+        if (!option || !list.contains(option)) return;
+        event.preventDefault();
+        select(Number.parseInt(option.dataset.index, 10));
+    }
+
+    function onSubmit() {
+        cancel();
+        Search.closeSearch(search);
+    }
+
+    function destroy() {
+        // a stale instance (already replaced by a refresh) must not tear down the live one
+        if (API.get(search) !== api) return;
+
+        cancel();
+        clear();
+        eventController.abort();
+        ACTIVE_SEARCHES.delete(search);
+        API.delete(search);
+    }
+
+    const api = {
+        element: search,
+        input,
+        list,
+        configure,
+        setSource: source => configure({ source }),
+        search: runSearch,
+        open: () => Search.openSearch(search),
+        close: () => Search.closeSearch(search),
+        clear,
+        cancel,
+        select,
+        // the options are the one thing a rebuild keeps: they were given by the code, not the markup
+        refresh: () => {
+            const live = API.get(search);
+            if (live && live !== api) return live;
+
+            const kept = options;
+            destroy();
+            return initializeSearch(search, kept);
+        },
+        destroy,
+        items: () => [...items],
+        isOpen: () => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(search).state.contains("open"),
+        isLoading: () => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(search).state.contains("loading"),
+        setActiveIndex,
+    };
+
+    input.addEventListener("input", onInput, { signal });
+    input.addEventListener("focus", onFocus, { signal });
+    input.addEventListener("keydown", onKeydown, { signal });
+    list.addEventListener("pointerdown", onListPointerDown, { signal });
+    search.addEventListener("submit", onSubmit, { signal });
+    API.set(search, api);
+    return api;
+}
+
+// a pointerdown outside an open search closes it, and cancels what it was still waiting for: a
+// debounce or a request that finishes after the click would open the list again behind it
+if (typeof document !== "undefined") {
+    document.addEventListener("pointerdown", event => {
+        ACTIVE_SEARCHES.forEach(search => {
+            if (search.contains(event.target)) return;
+
+            const instance = API.get(search);
+            instance?.cancel();
+            instance?.close();
+            ACTIVE_SEARCHES.delete(search);
+        });
     });
 }
 
-document.addEventListener("pointerdown", event => {
-    OPEN_SEARCHES.forEach(search => {
-        if (!search.contains(event.target)) closeSearch(search);
-    });
-});
+function PGS_search_init(root = document) {
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "search").forEach(search => initializeSearch(search));
+}
 
-(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(PGS_search_init);
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_search_init);
 
-function PGS_search_api(selector) {
-    return API.get(selector);
+function PGS_search_api(element) {
+    return API.get(element);
 }
 
 const PGS_search = {
@@ -2421,233 +3471,300 @@ const PGS_search = {
   \*************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_slides: () => (/* binding */ PGS_slides)
 /* harmony export */ });
-/* harmony import */ var _helper_scrollY_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_scrollY.js */ "./assets/javascript/helper/_scrollY.js");
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
 
 
 const API = new WeakMap();
 
-function getSlides(root) {
-    const slides = root instanceof Element && pgs(root).contains("slides") ? [root] : [];
-    slides.push(...pgs(root).querySelectorAll("slides"));
-    return slides;
-}
+// a slide is in view from this share of it showing; the observer reports every percent so the
+// same pass also feeds the scale animation
+const VIEW_RATIO = 0.97;
+const THRESHOLDS = Array.from({ length: 101 }, (_, i) => i / 100); // 0%,1%,2%...100%
+const SCROLL_BEHAVIOR = "smooth";
 
 class PGS_Slides {
-    //- CONSTRUCTOR
-    constructor({ element, viewRatio = 0.97, optionIntersectionObserver = {}, scrollOptions = {} } = {}) {
+    //## CONSTRUCTOR
+    constructor({ element } = {}) {
         this.element = element;
-        this.viewRatio = viewRatio;
-
-        this.optionIntersectionObserver = {
-            threshold: Array.from({ length: 101 }, (_, i) => i / 100), // 0%,1%,2%...100%
-            rootMargin: "0px",
-            ...optionIntersectionObserver,
-        };
-
-        this.scrollOptions = {
-            behavior: "smooth",
-            inline: "center",
-            block: "nearest",
-            container: "nearest",
-            ...scrollOptions,
-        };
-
-        this.container = this.element ? pgs(this.element).querySelector("slides-container") : null;
+        this.container = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.element).querySelector("slides-container");
     }
     
-    //+ CREATE BUTTON 
+    //## CREATE BUTTON
     #createButtonsAndDots() {
         const EL = this.element;
 
-        //== PULSANTI
-        if (!pgs(EL).querySelector('slides-prec')) {
-            EL.insertAdjacentHTML("afterbegin", `<button pgs="slides-prec button" pgs-option="buttonIcon" type="button" class="precButton" aria-label="slide precedente"> <span> <i class="fa-solid fa-arrow-left"></i></span></button>`);
+        //## BUTTONS
+        // a hand-written button keeps the bare name; a generated one gets the underscore, so
+        // the check below has to look for either
+        if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(EL).querySelector(['slides-prev', '_slides-prev'])) {
+            EL.insertAdjacentHTML("afterbegin", `<button pgs="_slides-prev button['btnIconOnly' 'btnMini']" type="button" aria-label="Previous slide"> <i pgs="icon['icon-chevronDown'] rotate['rot90']"></i></button>`);
         }
-        if (!pgs(EL).querySelector('slides-next')) {
-            EL.insertAdjacentHTML("beforeend", `<button pgs="slides-next button" pgs-option="buttonIcon" type="button" class="nextButton" aria-label="prossima slide"> <span> <i class="fa-solid fa-arrow-right"></i></span></button>`);
-        }
-
-        //== DOTS
-        if (!pgs(EL).querySelector('slides-dots')) {
-            EL.insertAdjacentHTML("beforeend", `<div pgs="slides-dots" class="slides-dots"></div>`);
+        if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(EL).querySelector(['slides-next', '_slides-next'])) {
+            EL.insertAdjacentHTML("beforeend", `<button pgs="_slides-next button['btnIconOnly' 'btnMini']" type="button" aria-label="Next slide"> <i pgs="icon['icon-chevronDown'] rotate['rot270']"></i></button>`);
         }
 
-        const dotsContainer = pgs(EL).querySelector('slides-dots');
+        //## DOTS
+        // slidesNotDots: no row is built at all, nothing is hidden. One written by hand is the author's and is
+        // wired as usual: writing both is a contradiction that stays visible instead of being resolved in silence
+        if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(EL).querySelector(['slides-dots', '_slides-dots']) && !(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(EL).option.contains("slidesNotDots")) {
+            EL.insertAdjacentHTML("beforeend", `<div pgs="_slides-dots"></div>`);
+        }
+
+        const dotsContainer = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(EL).querySelector(['slides-dots', '_slides-dots']);
+        if (!dotsContainer) return;
+
         while (dotsContainer.children.length < this.container.children.length) {
-            dotsContainer.insertAdjacentHTML("beforeend", `<button type="button" class="slide-dot"></button>`);
+            dotsContainer.insertAdjacentHTML("beforeend", `<button pgs="_slides-dots-dot" type="button"></button>`);
         }
         while (dotsContainer.children.length > this.container.children.length) {
             dotsContainer.lastElementChild.remove();
         }
+        // the token goes on every child, not only the ones built here: a dots container written
+        // by hand is filled and labeled the same way, and the stylesheet has one thing to look for
         Array.from(dotsContainer.children).forEach((dot, index) => {
-            dot.setAttribute("aria-label", `vai alla slide ${index + 1}`);
+            ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dot).add("_slides-dots-dot");
+            dot.setAttribute("aria-label", `Go to slide ${index + 1}`);
         });
     }
 
-    //+ PREV 
-    #previousSlide() {
-        const currents = this.container.querySelectorAll('.view');
-        let current;
-        
+    //## SLIDE THE ARROWS MOVE FROM
+    // slidesSingleScroll starts from the middle one in view, the one the snap is resting on: from the
+    // first, with three slides showing, the next sibling is already centered and nothing scrolls
+    #currentSlide(towardsEnd) {
+        // arrow function: a declared one would have its own this and throw here
+        const nearestSlide = () => {
+            const box = this.container.getBoundingClientRect();
+            const middle = (box.left + box.right) / 2;
 
-        if (pgs(this.element).option.contains('singleScroll')) current = currents[currents.length - 1];
-        else current = currents[0];
+            return Array.from(this.container.children).reduce((nearest, slide) => {
+                const slideBox = slide.getBoundingClientRect();
+                const distance = Math.abs((slideBox.left + slideBox.right) / 2 - middle);
+                return !nearest || distance < nearest.distance ? { slide, distance } : nearest;
+            }, null)?.slide;
+        };
 
-        const prev = current?.previousElementSibling;
+        const currents = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.container).state.querySelectorAll("view");
+        if (!currents.length) return nearestSlide();
 
-        prev?.scrollIntoView(this.scrollOptions);
-        prev?.focus({ preventScroll: true });
+        // the middle of an even number of slides falls between two of them, so each arrow takes
+        // the one on its own side: rounded down going forward, up going back, so the two
+        // arrows do not start from the same slide
+        if ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.element).option.contains('slidesSingleScroll')) {
+            const middle = (currents.length - 1) / 2;
+            return currents[towardsEnd ? Math.floor(middle) : Math.ceil(middle)];
+        }
+
+        return towardsEnd ? currents[currents.length - 1] : currents[0];
     }
 
-    //+ NEXT 
+    //## GO TO A SLIDE
+    // the two ends run the scroll out instead of centering, so the margin they carry is scrolled
+    // through and the card lines up with the page content
+    #goToSlide(slide) {
+        if (!slide) return;
+
+        const all = this.container.children;
+        const behavior = SCROLL_BEHAVIOR;
+
+        //## FIRST SLIDE
+        if (slide === all[0]) this.container.scrollTo({ left: 0, behavior });
+        //## LAST SLIDE
+        else if (slide === all[all.length - 1]) this.container.scrollTo({ left: this.container.scrollWidth, behavior });
+        //## SLIDE
+        // the centering is measured and applied to the track alone. scrollIntoView would do the
+        // same arithmetic, but by definition it walks up every scrollable ancestor and leaves
+        // each one to the engine's reading of block: "nearest" — which is why Safari answers an
+        // arrow by scrolling the page vertically as well. A horizontal carousel needs nothing
+        // above the track to move, so nothing above the track is asked to
+        else {
+            const trackBox = this.container.getBoundingClientRect();
+            const slideBox = slide.getBoundingClientRect();
+            const distanceFromCenter = (slideBox.left + slideBox.width / 2) - (trackBox.left + trackBox.width / 2);
+            this.container.scrollTo({ left: this.container.scrollLeft + distanceFromCenter, behavior });
+        }
+
+        slide.focus({ preventScroll: true });
+    }
+
+    //## LOOP
+    #isLoop() {
+        return (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.element).option.contains('slidesLoop');
+    }
+
+    //## PREV
+    // no slide left to move to, but the scroll has not run out: the edge slide is showing with
+    // its margin still to come, so the arrow finishes the scroll instead of doing nothing.
+    // slidesLoop replaces that fallback with the last slide instead of staying put
+    #prevSlide() {
+        const all = this.container.children;
+        const previous = this.#currentSlide(false)?.previousElementSibling;
+        this.#goToSlide(previous ?? (this.#isLoop() ? all[all.length - 1] : all[0]));
+    }
+
+    //## NEXT
     #nextSlide() {
-        const currents = this.container.querySelectorAll('.view');
-        let current;
-
-        
-        
-        if (pgs(this.element).option.contains('singleScroll')) current = currents[0];
-        else current = currents[currents.length - 1];
-        
-        const next = current?.nextElementSibling;
-        next?.scrollIntoView(this.scrollOptions);
-        next?.focus({ preventScroll: true });
+        const all = this.container.children;
+        const next = this.#currentSlide(true)?.nextElementSibling;
+        this.#goToSlide(next ?? (this.#isLoop() ? all[0] : all[all.length - 1]));
     }
 
-    //+ GO TO NUMBER SLIDE 
+    //## GO TO NUMBER SLIDE
     #goToNumberSlide(index) {
-        this.container.children[index]?.scrollIntoView(this.scrollOptions);
+        this.#goToSlide(this.container.children[index]);
     }
 
-    //+ CALLBACK
-    #callback(allLi, container, precButton, nextButton, dots) {
+    //## CALLBACK
+    #callback(allLi, container, prevButton, nextButton, dots) {
         allLi.forEach(LI => {
+            // visiblePercent only feeds the scale animation; a slide is in view from VIEW_RATIO
             const visiblePercent = 0.9 + LI.intersectionRatio * 0.1;
-            const isView = visiblePercent >= 0.98;
+            const isView = LI.intersectionRatio >= VIEW_RATIO;
 
-            //== SCROLL ANIMATION
-            if (!pgs(LI.target).option.contains('notScrollAnimation') && LI.target.firstElementChild) {
-                LI.target.firstElementChild.style.setProperty('--visible-percent', `${visiblePercent}`);
+            //## SCROLL ANIMATION
+            if (LI.target.firstElementChild) {
+                LI.target.firstElementChild.style.setProperty('--_slides-visiblePercent', `${visiblePercent}`);
             };
 
-            //== VIEW & NOT-VIEW 
-            LI.target.classList.toggle("view", isView);
-            LI.target.classList.toggle("notView", !isView);
+            //## VIEW
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(LI.target).state.toggle("view", isView);
+        });
 
-            //== VIEW PREC e NEXT
-            const all = LI.target.parentNode.children;
-            const atStart = all[0].classList.contains("view");
-            const atEnd = all[all.length - 1].classList.contains("view");
-            nextButton.disabled = atEnd;
-            precButton.disabled = atStart;
-            nextButton.setAttribute('aria-disabled', String(atEnd));
-            precButton.setAttribute('aria-disabled', String(atStart));
+        //## ACTIVE DOT
+        // read once, after every entry of this batch has set its own view state
+        const slides = Array.from(container.children);
+        dots.forEach((btn, i) => {
+            const isActive = slides[i] ? (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(slides[i]).state.contains("view") : false;
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(btn).state.toggle("active", isActive);
+            btn.setAttribute('aria-current', isActive ? 'true' : 'false');
+        });
 
-            //== ACTIVE DOT
-            const viewElements = Array.from(container.children).filter(el => el.classList.contains('view'));
-            dots.forEach((btn, i) => {
-                const isActive = viewElements.some(el => Array.from(container.children).indexOf(el) === i);
-                btn.classList.toggle('active', isActive);
-                btn.setAttribute('aria-current', isActive ? 'true' : 'false');
-            });
-        })
+        this.#updateArrows(prevButton, nextButton);
     }
 
-    //= EXECUTE
+    //## ARROWS STATE
+    // an arrow goes off only at the end of the scroll, not as soon as the edge slide is in view:
+    // that slide carries a margin, so it can be entirely on screen with a stretch still to run,
+    // and the arrow is what runs it. slidesLoop wraps around instead, so neither arrow ever
+    // goes off
+    #updateArrows(prevButton, nextButton) {
+        const loop = this.#isLoop();
+        const atStart = !loop && this.container.scrollLeft <= 1;
+        const atEnd = !loop && this.container.scrollLeft >= this.container.scrollWidth - this.container.clientWidth - 1;
+
+        nextButton.disabled = atEnd;
+        prevButton.disabled = atStart;
+        nextButton.setAttribute('aria-disabled', String(atEnd));
+        prevButton.setAttribute('aria-disabled', String(atStart));
+    }
+
+    //# EXECUTE
+    // builds the instance of this element and returns its API, or null when the markup cannot be initialized
     execute() {
         const slides = this.element;
-        if (!this.container) return;
+        if (!this.container) {
+            _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("slides.init", "the slides has no slides-container, so it was not initialized", slides);
+            return null;
+        }
         const eventController = new AbortController();
         const { signal } = eventController;
 
-        //== elements
+        //## elements
         this.#createButtonsAndDots();
-        const precButton = pgs(slides).querySelector('slides-prec');
-        const nextButton = pgs(slides).querySelector('slides-next');
-        const dots = Array.from(pgs(slides).querySelector('slides-dots').children);
+        const prevButton = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(slides).querySelector(['slides-prev', '_slides-prev']);
+        const nextButton = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(slides).querySelector(['slides-next', '_slides-next']);
+        // none with slidesNotDots (the module builds no row): the arrows and the observer need no dots
+        const dotsContainer = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(slides).querySelector(['slides-dots', '_slides-dots']);
+        const dots = dotsContainer ? Array.from(dotsContainer.children) : [];
 
-        //== option
-        const notScrollWithMouse = pgs(slides).option.contains('notScrollWithMouse');
-
-        //== scroll
-        const removeHorizontalScroll = notScrollWithMouse
-            ? null
-            : (0,_helper_scrollY_js__WEBPACK_IMPORTED_MODULE_0__.PGS_scrollHorizontal)(this.container, 5);
-
-        //==Listener: DOT, PREC, NEXT
+        //## Listener: DOT, PREV, NEXT
         dots.forEach((dot, index) => dot.addEventListener("click", () => this.#goToNumberSlide(index), { signal }));
-        precButton.addEventListener("click", () => this.#previousSlide(), { passive: true, signal });
+        prevButton.addEventListener("click", () => this.#prevSlide(), { passive: true, signal });
         nextButton.addEventListener("click", () => this.#nextSlide(), { passive: true, signal });
 
-        //== observer
+        // the observer answers what is visible, not where the scroll is: the last stretch can
+        // settle with no threshold left to cross, so the arrows are refreshed on scroll too
+        const updateArrowsOnScroll = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.rafThrottle(() => this.#updateArrows(prevButton, nextButton));
+        this.container.addEventListener("scroll", updateArrowsOnScroll, { passive: true, signal });
+        this.#updateArrows(prevButton, nextButton);
+
+        //## observer
         const observer = new IntersectionObserver(
-            (allLi) => this.#callback(allLi, this.container, precButton, nextButton, dots),
-            { root: this.container, ...this.optionIntersectionObserver }
+            (allLi) => this.#callback(allLi, this.container, prevButton, nextButton, dots),
+            { root: this.container, threshold: THRESHOLDS, rootMargin: "0px" }
         );
         Array.from(this.container.children).forEach(allLi => observer.observe(allLi));
 
+        //## HEIGHT
+        // the track's height published on the root as --_slides-height, so the CSS can place
+        // something against the slides themselves rather than against the whole component: the
+        // arrows sit at half of it, and stay centered on the slides whatever else the root holds.
+        // Measured rather than computed because the height comes from the tallest slide, which
+        // only the layout knows — through a rAF, like the header does, so a write never lands
+        // inside the callback that observed it
+        const publishHeight = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.rafThrottle(() => {
+            this.element.style.setProperty("--_slides-height", `${this.container.offsetHeight}px`);
+        });
+        const heightObserver = new ResizeObserver(publishHeight);
+        heightObserver.observe(this.container);
 
-        let api;
         const destroy = () => {
             if (API.get(this.element) !== api) return;
             eventController.abort();
             observer.disconnect();
-            removeHorizontalScroll?.();
+            heightObserver.disconnect();
+            updateArrowsOnScroll.cancel();
+            publishHeight.cancel();
             API.delete(this.element);
         };
 
-        //- API
-        api = {
+        //## API
+        const api = {
             element: this.element,
             container: this.container,
-            previous: () => this.#previousSlide(),
+            prev: () => this.#prevSlide(),
             next: () => this.#nextSlide(),
-            goTo: (index) => this.#goToNumberSlide(index),
-            getCurrentIndexes: () => Array.from(this.container.children).map((el, i) => el.classList.contains("view") ? i : -1).filter(i => i !== -1),
-            getCurrentElements: () => Array.from(this.container.children).filter(el => el.classList.contains("view")),
-            getTotal: () => this.container.children.length,
-            isAtStart: () => this.container.children[0]?.classList.contains("view") || false,
-            isAtEnd: () => {
-                const children = this.container.children;
-                const last = children[children.length - 1];
-                return last?.classList.contains("view") || false;
+            goTo: (index) => {
+                const total = this.container.children.length;
+                if (!Number.isInteger(index) || index < 0 || index >= total) {
+                    throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("slides.goTo", `index must be an integer from 0 to ${total - 1}, got ${index}`);
+                }
+                this.#goToNumberSlide(index);
             },
+            getCurrentIndexes: () => Array.from(this.container.children).map((el, i) => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(el).state.contains("view") ? i : -1).filter(i => i !== -1),
+            getCurrentElements: () => Array.from(this.container.children).filter(el => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(el).state.contains("view")),
+            getTotal: () => this.container.children.length,
+            // same reading as the arrows: the end of the scroll, not the edge slide being in view
+            isAtStart: () => this.container.scrollLeft <= 1,
+            isAtEnd: () => this.container.scrollLeft >= this.container.scrollWidth - this.container.clientWidth - 1,
+            destroy,
             refresh: () => {
-                if (API.get(this.element) !== api) return API.get(this.element);
+                const live = API.get(this.element);
+                if (live && live !== api) return live;
                 destroy();
-                const instance = new PGS_Slides({
-                    element: this.element,
-                    viewRatio: this.viewRatio,
-                    optionIntersectionObserver: this.optionIntersectionObserver,
-                    scrollOptions: this.scrollOptions,
-                });
-                instance.execute();
-                return API.get(this.element);
+                return new PGS_Slides({ element: this.element }).execute() ?? undefined;
             },
         };
         API.set(this.element, api);
+        return api;
     }
 }
 
-//# INIT 
+//# INIT
 function PGS_slides_init(root = document) {
-    getSlides(root).forEach(element => {
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "slides").forEach(element => {
         if (API.has(element)) return;
 
-        const instance = new PGS_Slides({ element });
-        instance.execute();
+        new PGS_Slides({ element }).execute();
     });
 }
 
-;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady)(PGS_slides_init);
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_slides_init);
 
-//# API 
+//# API
 function PGS_slides_api(element) {
     return API.get(element);
 }
@@ -2666,150 +3783,210 @@ const PGS_slides = {
   \***************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_stepTabs: () => (/* binding */ PGS_stepTabs)
 /* harmony export */ });
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
 
 
 const API = new WeakMap();
 
-function PGS_stepTabs_init(root = document) {
-    pgs(root).querySelectorAll("stepTabs").forEach(tabsWizard => {
-        if (tabsWizard.dataset.stepTabsInitialized === "true") return;
-        tabsWizard.dataset.stepTabsInitialized = "true";
+//# BUILD
+// builds the instance of one wizard and returns its API, or null when its markup cannot be initialized
+function PGS_stepTabs_build(tabsWizard) {
+    //# SELECTOR
+    const tabsContainer = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(tabsWizard).querySelector("stepTabs-container");
+    if (!tabsContainer) {
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("stepTabs.init", "the wizard has no stepTabs-container, so it was not initialized", tabsWizard);
+        return null;
+    }
 
-        //= SELECTOR
-        const prev = pgs(tabsWizard).querySelector("stepTabs-prev")
-        const next = pgs(tabsWizard).querySelector("stepTabs-next")
-        const restart = pgs(tabsWizard).querySelector("stepTabs-restart")
-        const dots = pgs(tabsWizard).querySelector("stepTabs-dots")
-        const tabsContainer = pgs(tabsWizard).querySelector("stepTabs-container");
-        const allTab = pgs(tabsContainer).querySelectorAll("stepTabs-container-tab");
+    const allTab = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChildren(tabsContainer, "stepTabs-container-tab");
+    if (allTab.length === 0) {
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("stepTabs.init", "stepTabs-container has no stepTabs-container-tab, so the wizard was not initialized", tabsWizard);
+        return null;
+    }
 
-        //= SETTING
-        const total = allTab.length;
-        const defaultTabLocked = Array.from(allTab).filter(tab => pgs(tab).state.contains("is-locked"))        
-        let current = 0;
-        if (prev) prev.disabled = true;
-        let isRendering = false;
+    const prev = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(tabsWizard).querySelector("stepTabs-prev");
+    const next = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(tabsWizard).querySelector("stepTabs-next");
+    const restart = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(tabsWizard).querySelector("stepTabs-restart");
+    const dots = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(tabsWizard).querySelector("stepTabs-dots");
 
-        if (!tabsContainer || total === 0) return;
+    //# SETTING
+    const total = allTab.length;
+    const defaultTabLocked = allTab.filter(tab => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(tab).state.contains("locked"));
+    let current = 0;
+    const eventController = new AbortController();
+    const { signal } = eventController;
 
-        //- CREAZIONE DOTS
-        const tabDots = [];
-        if (dots) {
-            dots.innerHTML = "";
+    //## CREATE DOTS
+    const tabDots = [];
+    if (dots) {
+        dots.innerHTML = "";
+        // the row is a group of controls: with an aria-label on the container (the reference
+        // writes one) and no role of its own, it is announced as that group instead of as an
+        // unnamed generic element
+        if (dots.hasAttribute("aria-label") && !dots.hasAttribute("role")) dots.setAttribute("role", "group");
 
-            allTab.forEach((tab, index) => {
-                const iconClass = pgs(tab).option.getValueBrackets("tabIcon") || "fa-circle";
-                const dot = document.createElement("button");
-                dot.type = "button";
-                pgs(dot).add("stepTabs-dots-dot");
-                pgs(dot).option.setValueBrackets("step", index);
-                dot.innerHTML = `<i class="fa-solid ${iconClass}"></i>`;
+        allTab.forEach((tab, index) => {
+            const authoredIcon = ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(tab).data.getValueBrackets("stepTabsIcon") || "").trim();
+            const dot = document.createElement("button");
+            dot.type = "button";
+            // an icon-only button has no name of its own: the step's title when the step has one
+            // (its aria-label, else its first heading), "Step N" otherwise
+            const title = (tab.getAttribute("aria-label") || tab.querySelector("h1, h2, h3, h4, h5, h6")?.textContent || "").trim();
+            dot.setAttribute("aria-label", title ? `Step ${index + 1}: ${title}` : `Step ${index + 1}`);
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dot).add("_stepTabs-dots-dot");
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dot).add("button['btnIconOnly' 'btnNotHover']");
+            // stepTabsIcon takes three shapes, told apart by how the value opens. Markup, from a
+            // "<", is instantiated as written: that is what puts every icon set in reach,
+            // including the ones a class list cannot describe because they want their name as
+            // text content or an attribute of their own. An "icon-" prefix is a built-in
+            // glyph. Anything else is classes for whatever set the page loaded
+            if (authoredIcon.startsWith("<")) {
+                // a template rather than innerHTML on the dot: template content stays inert
+                // while it parses, so nothing in the author's markup runs or loads until the
+                // clone is in the document
+                const authoredMarkup = document.createElement("template");
+                authoredMarkup.innerHTML = authoredIcon;
+                dot.replaceChildren(authoredMarkup.content.cloneNode(true));
+            } else {
+                const dotIcon = document.createElement("i");
 
-                dot.addEventListener("click", () => {
-                    if (pgs(dot).state.contains("is-completed")) {
-                        goTo(index, true);
-                    }
-                });
+                if (!authoredIcon || authoredIcon.startsWith("icon-")) {
+                    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dotIcon).add(`icon['${authoredIcon || "icon-circle"}']`);
+                } else {
+                    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dotIcon).add("icon");
+                    // the list goes through untouched, whatever set it belongs to
+                    dotIcon.className = authoredIcon;
+                }
 
-                dots.appendChild(dot);
-                tabDots.push(dot);
-            });
-        }
-
-        //+ DOTS
-        function updateDots() {
-            tabDots.forEach((dot, i) => {
-                setState(dot, "is-active", i === current);
-                setState(dot, "is-completed", i < current);
-            });
-        }
-
-        //+ STATE
-        function setState(element, state, active) {
-            if (!element) return;
-            const hasState = pgs(element).state.contains(state);
-            if (active === hasState) return;
-            pgs(element).state.toggle(state, active);
-        }
-
-        //+ CONTROLS
-        function updateControls() {
-            const tab = allTab[current];
-            if (prev) prev.disabled = current === 0;
-            if (next) next.disabled = current === total - 1 || pgs(tab).state.contains("is-locked");
-        }
-
-        //+ Step
-        function goTo(index, scroll = true) {
-            current = Math.min(Math.max(index, 0), total - 1);
-            const tab = allTab[current]
-
-            isRendering = true;
-            allTab.forEach((tab, i) => setState(tab, "is-active", i === current));
-            updateControls();
-            updateDots();
-            isRendering = false;
-
-            if (scroll && !tabsWizard.closest("dialog")) {
-                tab?.focus();
-                tabsWizard?.scrollIntoView({ behavior: "smooth", block: "start" });
+                dot.replaceChildren(dotIcon);
             }
 
-            tabsWizard.dispatchEvent(new CustomEvent('stepTabs:change', { detail: { current, total } }));
+            dot.addEventListener("click", () => {
+                if ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dot).state.contains("completed")) {
+                    goTo(index, true);
+                }
+            }, { signal });
+
+            dots.appendChild(dot);
+            tabDots.push(dot);
+        });
+    }
+
+    //## DOTS
+    function updateDots() {
+        tabDots.forEach((dot, i) => {
+            ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dot).state.toggle("active", i === current);
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dot).state.toggle("completed", i < current);
+        });
+    }
+
+    //## CONTROLS
+    function updateControls() {
+        const tab = allTab[current];
+        if (prev) prev.disabled = current === 0;
+        if (next) next.disabled = current === total - 1 || (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(tab).state.contains("locked");
+    }
+
+    //## Step
+    function goTo(index, scroll = true) {
+        current = Math.min(Math.max(index, 0), total - 1);
+        const tab = allTab[current];
+
+        allTab.forEach((item, i) => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(item).state.toggle("active", i === current));
+        updateControls();
+        updateDots();
+
+        if (scroll && !tabsWizard.closest("dialog")) {
+            tab.focus();
+            tabsWizard.scrollIntoView({ behavior: "smooth", block: "start" });
         }
 
-        //+ restart
-        function restartTab() {
-            goTo(0);
-            defaultTabLocked.forEach(tab => pgs(tab).state.add("is-locked"));
-        }
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.dispatch(tabsWizard, "pgs:stepTabs:change", { current, total });
+    }
 
-        //= INIT
-        goTo(0, false);
+    //## restart
+    // the locks go back first, so the controls goTo redraws already see them
+    // a lock taken off by the markup's own state or added with toggleLock on another step goes
+    // back to exactly what the markup declared when the wizard was built
+    function restartTab() {
+        allTab.forEach(tab => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(tab).state.toggle("locked", defaultTabLocked.includes(tab)));
+        goTo(0);
+    }
 
-        //= tab-locked
-        const observer = new MutationObserver(() => {
-            if (isRendering) return;
+    //# tab-locked
+    // a lock taken off or put on by hand, outside toggleLock, still has to reach the next button
+    const observer = new MutationObserver(() => updateControls());
+    allTab.forEach(tabEl => observer.observe(tabEl, { attributes: true, attributeFilter: ["pgs-state"] }));
+
+    // click on next/previous
+    prev?.addEventListener("click", () => goTo(current - 1), { signal });
+    next?.addEventListener("click", () => {
+        updateControls();
+        if (next.disabled) return;
+        goTo(current + 1);
+    }, { signal });
+    restart?.addEventListener("click", () => restartTab(), { capture: true, signal });
+
+    const destroy = () => {
+        if (API.get(tabsWizard) !== api) return;
+        eventController.abort();
+        observer.disconnect();
+        API.delete(tabsWizard);
+    };
+
+    //## API
+    const api = {
+        element: tabsWizard,
+        container: tabsContainer,
+        restart: restartTab,
+        goTo: (index, scroll = true) => {
+            if (!Number.isInteger(index) || index < 0 || index >= total) {
+                throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("stepTabs.goTo", `index must be an integer from 0 to ${total - 1}, got ${index}`);
+            }
+            goTo(index, scroll);
+        },
+        // at either end there is nowhere to go: the index does not change, so nothing is dispatched
+        next: () => { if (current < total - 1) goTo(current + 1); },
+        prev: () => { if (current > 0) goTo(current - 1); },
+        toggleLock: (step, lock = true) => {
+            if (!Number.isInteger(step) || step < 0 || step >= total) {
+                throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("stepTabs.toggleLock", `step must be an integer from 0 to ${total - 1}, got ${step}`);
+            }
+            ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(allTab[step]).state.toggle("locked", lock);
             updateControls();
-        });
-        allTab?.forEach(tabEl => observer.observe(tabEl, { attributes: true, attributeFilter: ["pgs-state"], }));
+        },
+        destroy,
+        refresh: () => {
+            const live = API.get(tabsWizard);
+            if (live && live !== api) return live;
+            destroy();
+            return PGS_stepTabs_build(tabsWizard) ?? undefined;
+        },
+        getCurrent: () => current,
+        getState: () => ({ current, total }),
+    };
+    API.set(tabsWizard, api);
 
-        //= Click su Avanti/Indietro
-        prev?.addEventListener("click", e => goTo(current - 1));
-        next?.addEventListener("click", e => {
-            updateControls();
-            if (next.disabled) return;
-            goTo(current + 1);
-        });
-        restart?.addEventListener("click", e => restartTab(), { capture: true });
+    //# INIT
+    // after the API is stored, so a pgs:stepTabs:change listener can already reach the instance
+    goTo(0, false);
 
-        //-(API) 
-        // tabsWizard.addEventListener("stepTabs:reset", () => restartTab());
-        API.set(tabsWizard, {
-            element: tabsWizard,
-            container: tabsContainer,
-            restart: restartTab,
-            goTo,
-            next: () => goTo(current + 1),
-            prev: () => goTo(current - 1),
-            toggleLock: (step, lock = true) => typeof step === "number" && allTab[step] && (pgs(allTab[step]).state.toggle("is-locked", lock), goTo(current)),
-            refresh: () => {
-                PGS_stepTabs_init(tabsWizard.parentNode || document);
-                return API.get(tabsWizard);
-            },
-            getCurrent: () => current,
-            getState: () => ({ current, total }),
-        });
+    return api;
+}
+
+function PGS_stepTabs_init(root = document) {
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "stepTabs").forEach(tabsWizard => {
+        if (API.has(tabsWizard)) return;
+
+        PGS_stepTabs_build(tabsWizard);
     });
 }
 
-;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(PGS_stepTabs_init);
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_stepTabs_init);
 
 function PGS_stepTabs_api(selector) {
     return API.get(selector);
@@ -2820,30 +3997,6 @@ const PGS_stepTabs = {
     api: PGS_stepTabs_api
 };
 
-/* 
-    / EXAMPLE
-    // vai allo step 2
-    w.dispatchEvent(new CustomEvent("stepTabs:go", { detail: { step: 2 } }));
-    
-    // next
-    w.dispatchEvent(new CustomEvent("stepTabs:next"));
-    
-    // prev
-    w.dispatchEvent(new CustomEvent("stepTabs:prev"));
-    
-    // reset a 0 senza relock
-    w.dispatchEvent(new CustomEvent("stepTabs:reset"));
-    
-    // lock step 3
-    w.dispatchEvent(new CustomEvent("stepTabs:toggle-lock", { detail: { step: 3, lock: true } }));
-    
-    // unlock step 3
-    w.dispatchEvent(new CustomEvent("stepTabs:toggle-lock", { detail: { step: 3, lock: false } }));
-    
-    // leggi stato
-    w.dispatchEvent(new CustomEvent("stepTabs:get", { detail: { reply: (state) => console.log(state) } }));
-*/
-
 
 /***/ },
 
@@ -2853,57 +4006,77 @@ const PGS_stepTabs = {
   \************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_steps: () => (/* binding */ PGS_steps)
 /* harmony export */ });
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
 
 
 const API = new WeakMap();
 
+//# BUILD
+// completes every step of one list and returns its API
+function PGS_steps_build(steps) {
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChildren(steps, "steps-step").forEach((li, index) => {
+
+        //# CIRCLE
+        // a hand-written circle keeps the bare name; a generated one gets the underscore,
+        // so the check below has to look for either
+        // a generated circle is numbered again on every build, so a step added or removed and a
+        // refresh() renumber the list; a hand-written one keeps its own content
+        const authoredCircle = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(li, "steps-step-circle");
+        const generatedCircle = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(li, "_steps-step-circle");
+        if (generatedCircle && !authoredCircle) generatedCircle.textContent = index + 1;
+        else if (!authoredCircle) {
+            const circle = document.createElement("span");
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(circle).add("_steps-step-circle")
+            circle.textContent = index + 1;
+            li.insertAdjacentElement("afterbegin", circle);
+        }
+
+        //# LINE
+        // same dual form as the circle above
+        if (!_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(li, ["steps-step-line", "_steps-step-line"])) {
+            const line = document.createElement("span");
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(line).add("_steps-step-line")
+            li.insertAdjacentElement("afterbegin", line);
+        }
+    });
+
+    // nothing here holds a listener or an observer, so destroy only forgets the instance
+    const destroy = () => {
+        if (API.get(steps) !== api) return;
+        API.delete(steps);
+    };
+
+    const api = {
+        element: steps,
+        steps: () => _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChildren(steps, "steps-step"),
+        getStep: (index) => _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChildren(steps, "steps-step")[index],
+        getTotal: () => _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChildren(steps, "steps-step").length,
+        destroy,
+        refresh: () => {
+            const live = API.get(steps);
+            if (live && live !== api) return live;
+            destroy();
+            return PGS_steps_build(steps);
+        },
+    };
+    API.set(steps, api);
+
+    return api;
+}
+
 function PGS_steps_init(root = document) {
-    pgs(root).querySelectorAll("steps").forEach(steps => {
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "steps").forEach(steps => {
         if (API.has(steps)) return;
 
-        pgs(steps).querySelectorAll("steps-step").forEach((li, index) => {
-            
-            //= CIRCLE
-            let circleLi;
-            if (!pgs(li).querySelector("steps-step-circle")) {
-                circleLi = document.createElement("span");
-                pgs(circleLi).add("steps-step-circle")
-                circleLi.textContent = index + 1;
-                li.insertAdjacentElement("afterbegin", circleLi);
-            } else{
-                circleLi = pgs(li).querySelector("steps-step-circle");
-            }
-            
-            //= line
-            if (!pgs(li).querySelector("steps-step-line")) {
-                const line = document.createElement("span");
-                pgs(line).add("steps-step-line")
-                li.insertAdjacentElement("afterbegin", line);
-            }
-        });
-
-        API.set(steps, {
-            element: steps,
-            steps: () => Array.from(pgs(steps).querySelectorAll("steps-step")),
-            getStep: (index) => pgs(steps).querySelectorAll("steps-step")[index],
-            getTotal: () => pgs(steps).querySelectorAll("steps-step").length,
-            refresh: () => {
-                API.delete(steps);
-                PGS_steps_init(steps.parentNode || document);
-                return API.get(steps);
-            },
-        });
+        PGS_steps_build(steps);
     });
 }
 
-//# INIT PGS_ol
-;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(PGS_steps_init);
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_steps_init);
 
 //# API
 function PGS_steps_api(selector) {
@@ -2924,26 +4097,25 @@ const PGS_steps = {
   \**************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_summary: () => (/* binding */ PGS_summary)
 /* harmony export */ });
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
 
 
-//= SUMMARY
+//# SUMMARY
 const API = new WeakMap();
-let summaryId = 0;
 const MESSAGE_DEFAULTS = {
     showLess: "Show less",
     showMore: "Show more"
 };
 
-function nextSummaryId() {
-    summaryId += 1;
-    return summaryId;
-}
+// the keys of the message option passed to init(), and the pgs-data key each one is written under
+const MESSAGE_DATA_KEYS = {
+    showLess: "summaryShowLess",
+    showMore: "summaryShowMore"
+};
 
 function getLineHeight(element) {
     const style = window.getComputedStyle(element);
@@ -2954,22 +4126,18 @@ function getLineHeight(element) {
     return Number.isFinite(fontSize) ? fontSize * 1.2 : 0;
 }
 
-function directPgsChild(element, token) {
-    return Array.from(element.children).find(child => pgs(child).contains(token));
-}
-
 function validateMessages(value) {
     if (value === undefined) return;
     if (!value || typeof value !== "object" || Array.isArray(value)) {
-        throw new TypeError("message must be an object");
+        throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("summary.init", "message must be an object");
     }
 
     Object.entries(value).forEach(([key, message]) => {
         if (!(key in MESSAGE_DEFAULTS)) {
-            throw new TypeError(`Unknown summary message option: ${key}`);
+            throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("summary.init", `unknown message option: ${key}`);
         }
         if (message !== undefined && typeof message !== "string") {
-            throw new TypeError(`Summary message option ${key} must be a string`);
+            throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("summary.init", `message option ${key} must be a string`);
         }
     });
 }
@@ -2986,95 +4154,139 @@ function getInitialMessages(value = {}) {
 }
 
 function initializeMessages(summary, messages) {
-    const summaryOptions = pgs(summary).option;
+    const summaryData = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(summary).data;
     Object.entries(messages).forEach(([key, message]) => {
-        if (!summaryOptions.contains(key)) summaryOptions.setValueBrackets(key, message);
+        const dataKey = MESSAGE_DATA_KEYS[key];
+        if (summaryData.getValueBrackets(dataKey) === undefined) summaryData.setValueBrackets(dataKey, message);
     });
+}
+
+function initializeSummary(summary, initialMessages) {
+    if (API.has(summary)) return;
+
+    const content = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(summary, "summary-content");
+    const button = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(summary, "summary-button");
+    if (!content || !button) {
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("summary.init", "a summary needs a direct summary-content and a direct summary-button child, skipped", summary);
+        return;
+    }
+
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    initializeMessages(summary, initialMessages);
+
+    if (!content.id) content.id = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.uniqueId("summary-content");
+
+    button.type ||= "button";
+    button.setAttribute("aria-controls", content.id);
+
+    function isOpen() {
+        return (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(summary).state.contains("open");
+    }
+
+    // --summary-lines is the author's setting, read here and never written
+    function getCollapsedHeight() {
+        const lines = parseFloat(window.getComputedStyle(content).getPropertyValue("--summary-lines"));
+        return getLineHeight(content) * (Number.isFinite(lines) && lines > 0 ? lines : 3);
+    }
+
+    function isOverflowing() {
+        return content.scrollHeight > Math.ceil(getCollapsedHeight()) + 1;
+    }
+
+    function setExpanded(expanded) {
+        const overflow = isOverflowing();
+
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(summary).state.toggle("overflow", overflow);
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(summary).state.toggle("open", expanded && overflow);
+
+        button.hidden = !overflow;
+        button.setAttribute("aria-hidden", String(!overflow));
+        button.setAttribute("aria-expanded", String(expanded && overflow));
+        button.textContent = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(summary).data.getValueBrackets(
+            expanded && overflow ? "summaryShowLess" : "summaryShowMore"
+        );
+
+        const nextHeight = expanded && overflow ? content.scrollHeight : getCollapsedHeight();
+        content.style.setProperty("--_summary-content-height", `${nextHeight}px`);
+    }
+
+    // measures the content again, keeping it open or closed as it was
+    function measure() {
+        const wasOpen = isOpen();
+        content.style.setProperty("--_summary-content-height", "none");
+        setExpanded(wasOpen);
+    }
+
+    function toggle() {
+        setExpanded(!isOpen());
+    }
+
+    button.addEventListener("click", toggle, { signal });
+
+    // a window resize is not the only way content's real size changes: a summary
+    // initialized while its own tab/panel is hidden measures a scrollHeight of 0, so it
+    // has to redo that measurement once the element actually gets a layout box. A
+    // ResizeObserver catches both, throttled to a single pending frame so measure()'s own
+    // max-height write doesn't feed back into itself
+    let rafId = 0;
+    let firstFrameId = 0;
+    const resizeObserver = new ResizeObserver(() => {
+        if (rafId) return;
+        rafId = requestAnimationFrame(() => {
+            rafId = 0;
+            measure();
+        });
+    });
+    resizeObserver.observe(content);
+
+    measure();
+    firstFrameId = requestAnimationFrame(measure);
+
+    function destroy() {
+        // a stale instance (already replaced by a refresh) must not tear down the live one
+        if (API.get(summary) !== api) return;
+
+        controller.abort();
+        resizeObserver.disconnect();
+        cancelAnimationFrame(rafId);
+        cancelAnimationFrame(firstFrameId);
+        API.delete(summary);
+    }
+
+    const api = {
+        element: summary,
+        content,
+        button,
+        open: () => setExpanded(true),
+        close: () => setExpanded(false),
+        toggle,
+        destroy,
+        refresh: () => {
+            const live = API.get(summary);
+            if (live && live !== api) return live;
+            destroy();
+            initializeSummary(summary, getInitialMessages());
+            return API.get(summary);
+        },
+        isOpen,
+    };
+    API.set(summary, api);
 }
 
 function PGS_summary_init(root = document, options = {}) {
     if (!options || typeof options !== "object" || Array.isArray(options)) {
-        throw new TypeError("options must be an object");
+        throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("summary.init", "options must be an object");
     }
 
     const initialMessages = getInitialMessages(options.message);
 
-    pgs(root).querySelectorAll("summary").forEach((summary) => {
-        if (API.has(summary)) return;
-
-        const content = directPgsChild(summary, "summary-content");
-        const button = directPgsChild(summary, "summary-button");
-        if (!content || !button) return;
-
-        initializeMessages(summary, initialMessages);
-
-        const id = nextSummaryId();
-        const contentId = content.id || `summary-content-${id}`;
-        content.id = contentId;
-
-        button.type ||= "button";
-        button.setAttribute("aria-controls", content.id);
-
-        function isOpen() {
-            return pgs(summary).state.contains("open");
-        }
-
-        function getCollapsedHeight() {
-            return getLineHeight(content) * 3;
-        }
-
-        function isOverflowing() {
-            return content.scrollHeight > Math.ceil(getCollapsedHeight()) + 1;
-        }
-
-        function setExpanded(expanded) {
-            const overflow = isOverflowing();
-
-            pgs(summary).state.toggle("overflow", overflow);
-            pgs(summary).state.toggle("open", expanded && overflow);
-
-            button.hidden = !overflow;
-            button.setAttribute("aria-hidden", String(!overflow));
-            button.setAttribute("aria-expanded", String(expanded && overflow));
-            button.textContent = pgs(summary).option.getValueBrackets(
-                expanded && overflow ? "showLess" : "showMore"
-            );
-
-            const nextHeight = expanded && overflow ? content.scrollHeight : getCollapsedHeight();
-            content.style.setProperty("--summary-content-max-height", `${nextHeight}px`);
-        }
-
-        function refresh() {
-            const wasOpen = isOpen();
-            content.style.setProperty("--summary-content-max-height", "none");
-            setExpanded(wasOpen);
-        }
-
-        function toggle() {
-            setExpanded(!isOpen());
-        }
-
-        button.addEventListener("click", toggle);
-        window.addEventListener("resize", refresh, { passive: true });
-
-        refresh();
-        requestAnimationFrame(refresh);
-
-        API.set(summary, {
-            element: summary,
-            content,
-            button,
-            open: () => setExpanded(true),
-            close: () => setExpanded(false),
-            toggle,
-            refresh,
-            isOpen,
-        });
-    });
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "summary").forEach(summary => initializeSummary(summary, initialMessages));
 }
 
 //# INIT
-;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(PGS_summary_init);
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_summary_init);
 
 //# API
 function PGS_summary_api(selector) {
@@ -3089,107 +4301,251 @@ const PGS_summary = {
 
 /***/ },
 
+/***/ "./assets/javascript/components/_tabs.js"
+/*!***********************************************!*\
+  !*** ./assets/javascript/components/_tabs.js ***!
+  \***********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_tabs: () => (/* binding */ PGS_tabs)
+/* harmony export */ });
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+
+
+const API = new WeakMap();
+
+// the tab buttons whose id the module generated: an id the author wrote is what reaches the URL, and
+// a refresh has to keep telling the two apart
+const GENERATED_IDS = new WeakSet();
+
+function initializeTabs(tabs) {
+    if (API.has(tabs)) return;
+
+    const list = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(tabs, "tabs-list");
+    const panels = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(tabs, "tabs-panels");
+    if (!list || !panels) {
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("tabs.init", "tabs needs a direct tabs-list and a direct tabs-panels child, skipped", tabs);
+        return;
+    }
+
+    const buttons = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChildren(list, "tabs-list-tab");
+    const panelItems = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChildren(panels, "tabs-panels-content");
+    if (!buttons.length || buttons.length !== panelItems.length) {
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("tabs.init", `tabs needs as many tabs-panels-content as tabs-list-tab, and at least one (found ${buttons.length} tabs and ${panelItems.length} panels), skipped`, tabs);
+        return;
+    }
+
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    // ids generated as tabs-list-tab-N-M and tabs-panels-content-N-M: N counts the tabs sets, M the tab
+    const buttonIdBase = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.uniqueId("tabs-list-tab");
+    const panelIdBase = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.uniqueId("tabs-panels-content");
+    list.setAttribute("role", "tablist");
+
+    //## HISTORY
+    // the parameter is named by the option, so two history-backed sets on one page do not
+    // write over each other. A tab is addressed by its own id when the author gave it one,
+    // and by its 1-based position otherwise, which is what keeps a shared link readable
+    // without asking for ids that the markup does not need
+    // tabsHistory lives only in pgs-data and .data has no contains(), so presence (with or
+    // without its own payload) is checked directly against the raw attribute value
+    const rawData = ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(tabs).data.value || "").split(/\s+/).filter(Boolean);
+    const hasHistory = rawData.some(token => token === "tabsHistory" || token.startsWith("tabsHistory["));
+    const historyKey = hasHistory
+        ? ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(tabs).data.getValueBrackets("tabsHistory") || "tab")
+        : null;
+
+    // read before the loop below fills in the generated ids, so what reaches the URL is the
+    // author's own name for the tab or nothing at all — never tabs-list-tab-1-2
+    const authoredIds = buttons.map(button => (button.id && !GENERATED_IDS.has(button) ? button.id : ""));
+
+    function indexFromHistory() {
+        if (!historyKey) return -1;
+        const value = new URLSearchParams(window.location.search).get(historyKey);
+        if (!value) return -1;
+
+        const byId = authoredIds.indexOf(value);
+        if (byId !== -1) return byId;
+
+        const position = Number(value);
+        return Number.isInteger(position) && position >= 1 && position <= buttons.length ? position - 1 : -1;
+    }
+
+    function writeHistory() {
+        if (!historyKey) return;
+        const value = authoredIds[current] || String(current + 1);
+        try {
+            const url = new URL(window.location.href);
+            url.searchParams.set(historyKey, value);
+            window.history.pushState({ [historyKey]: value }, "", url);
+        } catch (_) { }
+    }
+
+    let current = Math.max(
+        panelItems.findIndex(panel => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(panel).state.contains("active")),
+        buttons.findIndex(button => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(button).state.contains("active")),
+        0,
+    );
+
+    function setState(element, active) {
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).state.toggle("active", active);
+    }
+
+    // writes the selection to the DOM and announces it
+    function show(index, { focus = false, history = true } = {}) {
+        current = index;
+        if (history) writeHistory();
+
+        buttons.forEach((button, buttonIndex) => {
+            const active = buttonIndex === current;
+            setState(button, active);
+            button.setAttribute("aria-selected", String(active));
+            button.tabIndex = active ? 0 : -1;
+        });
+
+        panelItems.forEach((panel, panelIndex) => {
+            const active = panelIndex === current;
+            setState(panel, active);
+            panel.hidden = !active;
+        });
+
+        if (focus) buttons[current].focus();
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.dispatch(tabs, "pgs:tabs:change", { current, tab: buttons[current], panel: panelItems[current] });
+    }
+
+    // the tab that is already selected changes nothing: no second history entry, no second event
+    function select(index, options = {}) {
+        if (index === current) {
+            if (options.focus) buttons[current].focus();
+            return;
+        }
+        show(index, options);
+    }
+
+    buttons.forEach((button, index) => {
+        const buttonId = button.id || `${buttonIdBase}-${index + 1}`;
+        const panelId = panelItems[index].id || `${panelIdBase}-${index + 1}`;
+
+        if (!button.id) GENERATED_IDS.add(button);
+        button.id = buttonId;
+        button.type = "button";
+        button.setAttribute("role", "tab");
+        button.setAttribute("aria-controls", panelId);
+
+        panelItems[index].id = panelId;
+        panelItems[index].setAttribute("role", "tabpanel");
+        panelItems[index].setAttribute("aria-labelledby", buttonId);
+
+        button.addEventListener("click", () => select(index), { signal });
+        button.addEventListener("keydown", (event) => {
+            let next = null;
+            if (event.key === "ArrowRight" || event.key === "ArrowDown") next = (current + 1) % buttons.length;
+            if (event.key === "ArrowLeft" || event.key === "ArrowUp") next = (current - 1 + buttons.length) % buttons.length;
+            if (event.key === "Home") next = 0;
+            if (event.key === "End") next = buttons.length - 1;
+            if (next === null) return;
+
+            event.preventDefault();
+            select(next, { focus: true });
+        }, { signal });
+    });
+
+    function destroy() {
+        // a stale instance (already replaced by a refresh) must not tear down the live one
+        if (API.get(tabs) !== api) return;
+
+        controller.abort();
+        API.delete(tabs);
+    }
+
+    const api = {
+        element: tabs,
+        list,
+        panels,
+        goTo: (index) => {
+            if (!Number.isInteger(index) || index < 0 || index >= buttons.length) {
+                throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("tabs.goTo", `index must be an integer from 0 to ${buttons.length - 1}`);
+            }
+            select(index);
+        },
+        getCurrent: () => current,
+        destroy,
+        refresh: () => {
+            const live = API.get(tabs);
+            if (live && live !== api) return live;
+            destroy();
+            initializeTabs(tabs);
+            return API.get(tabs);
+        },
+    };
+    // stored before the first show(), so a pgs:tabs:change listener can already reach the instance
+    API.set(tabs, api);
+
+    // the URL wins over the state written in the markup: a reload lands on the tab the reader
+    // left, and the first pass only reads it — it never pushes an entry of its own
+    const restored = indexFromHistory();
+    show(restored === -1 ? current : restored, { history: false });
+
+    if (historyKey) {
+        window.addEventListener("popstate", () => {
+            const index = indexFromHistory();
+            select(index === -1 ? 0 : index, { history: false });
+        }, { signal });
+    }
+}
+
+function PGS_tabs_init(root = document) {
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "tabs").forEach(tabs => initializeTabs(tabs));
+}
+
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_tabs_init);
+
+function PGS_tabs_api(selector) {
+    return API.get(selector);
+}
+
+const PGS_tabs = {
+    init: PGS_tabs_init,
+    api: PGS_tabs_api,
+};
+
+
+/***/ },
+
 /***/ "./assets/javascript/components/_toast.js"
 /*!************************************************!*\
   !*** ./assets/javascript/components/_toast.js ***!
   \************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_toast: () => (/* binding */ PGS_toast)
 /* harmony export */ });
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _alerts_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_alerts.js */ "./assets/javascript/components/_alerts.js");
 
 
-//= PGS_toast
+
+// the toastLoad elements already read
+const LOADED = new WeakSet();
+
+//# PGS_toast
+// the single floating stack: one message at a time, fixed on screen. It only owns the container
+// and reads its data (pgs-data="toast[...]"), then hands everything to the shared alert engine
+// (see _alerts.js) — dismiss, timeout, countdown bar and events are the alert's own.
 const fn_toast = {
     _defaults: {
-        element: "toast",
-        link: null,
-        timeout: 4000,
-        description: "",
-        linkTitle: "Open",
-        closeTitle: "Close",
-        type: {
-            error: {
-                title: "Error",
-                icon: '<i class="fa-solid fa-circle-xmark"></i>'
-            },
-            success: {
-                title: "Success",
-                icon: '<i class="fa-solid fa-circle-check"></i>'
-            },
-            info: {
-                title: "Information",
-                icon: '<i class="fa-solid fa-circle-info"></i>'
-            },
-            warning: {
-                title: "Warning",
-                icon: '<i class="fa-solid fa-triangle-exclamation"></i>'
-            }
-        }
+        timeout: 4000
     },
+    _options: ["toastLeft", "toastRight", "toastCenter", "toastBottom"],
 
-    _escapeHtml(value) {
-        return String(value ?? "")
-            .replaceAll("&", "&amp;")
-            .replaceAll("<", "&lt;")
-            .replaceAll(">", "&gt;")
-            .replaceAll('"', "&quot;")
-            .replaceAll("'", "&#039;");
-    },
-
-    _formatText(value) {
-        return this._escapeHtml(value)
-            .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-            .replace(/\r?\n/g, "<br>");
-    },
-
-    _getDuration(toast) {
-        const rawDuration = toast.duration;
-        const duration = Number.parseInt(rawDuration, 10);
-        return Number.isNaN(duration) ? undefined : duration;
-    },
-
-    _getType(toast) {
-        const type = String(toast.type || "info").trim();
-        return typeof PGS_toast[type] === "function" ? type : "info";
-    },
-
-    _getData(root) {
-        const rawToast = pgs(root).option.getValueBrackets("toast") || "{}";
-
-        try {
-            const toasts = JSON.parse(`[${rawToast}]`);
-
-            if (toasts.some(toast => !toast || typeof toast !== "object" || Array.isArray(toast))) {
-                throw new TypeError("Each toast must be a JSON object");
-            }
-
-            return toasts;
-        } catch (error) {
-            console.warn("PGS toast: Invalid JSON configuration", error);
-            return [];
-        }
-    },
-
-    _getContent(title, description) {
-        const safeDescription = this._formatText(description);
-        const safeTitle = this._formatText(title);
-
-        if (!safeTitle) return `<span>${safeDescription}</span>`;
-        if (!safeDescription) return `<strong>${safeTitle}</strong>`;
-
-        return `
-            <strong>${safeTitle}</strong>
-            <span>${safeDescription}</span>
-        `;
-    },
-
+    // a hand-written container keeps the bare name; a generated one gets the underscore, so this needs both
     _getContainer() {
-        return pgs(document).querySelector("toast");
+        return (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document).querySelector(["toast", "_toast"]);
     },
 
     _getOrCreateContainer() {
@@ -3197,7 +4553,7 @@ const fn_toast = {
 
         if (!containerToast) {
             containerToast = document.createElement("div");
-            pgs(containerToast).add("toast");
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(containerToast).add("_toast");
             containerToast.setAttribute("aria-live", "polite");
             containerToast.setAttribute("aria-relevant", "additions");
             document.body.appendChild(containerToast);
@@ -3206,160 +4562,161 @@ const fn_toast = {
         return containerToast;
     },
 
-    show(type, options = {}) {
-        if (typeof options === "string") options = { title: options };
+    // position flags land on the container, the way Modal copies the ones on its wrapper to _dialog:
+    // _toast is the pgs-generated-only token that carries them, rebuilt at every toast so one toast's
+    // position never leaks into the next. They come from the position field of a toastLoad's pgs-data,
+    // or the position option of a pgs.toast call. A container written by hand keeps its own
+    // as the baseline
+    _applyOptions(container, position = [], scope) {
+        const wanted = [Array.isArray(position) ? position : String(position).split(/\s+/)].flat().filter(Boolean);
+        const unknown = wanted.filter(key => !this._options.includes(key));
 
-        if (!options || typeof options !== "object" || Array.isArray(options)) {
-            throw new TypeError("PGS toast: options must be an object or a string");
-        }
+        if (unknown.length) _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn(scope, `unknown position ${unknown.join(", ")}; use ${this._options.join(", ")}`);
 
-        const { type: typeDefaults, ...defaults } = this._defaults;
-        const definedOptions = Object.fromEntries(
-            Object.entries(options).filter(([, value]) => value !== undefined)
-        );
-        const config = {
-            ...defaults,
-            ...typeDefaults[type],
-            ...definedOptions,
-            type,
-            timeout: definedOptions.timeout ?? defaults.timeout
-        };
+        const keys = this._options.filter(key => wanted.includes(key));
 
-        return this.initToast(config);
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(container).remove("_toast");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(container).add("_toast", ...keys.map(key => `_toast['${key}']`));
     },
 
-    initToast({
-        type,
-        title,
-        icon,
-        description,
-        timeout,
-        link,
-        linkTitle,
-        closeTitle
-    }) {
-        const containerToast = this._getOrCreateContainer();
-        const text = this._getContent(title, description);
+    _add(type, options) {
+        const scope = `toast.${type}`;
 
-        //== Create Toast
-        containerToast.innerHTML = "";
-        const toast = document.createElement("div");
-        if (timeout > 0) toast.style.setProperty("--notification-timeout", timeout + "ms");
-        pgs(toast).state.add(type);
-        pgs(toast).add("toast-element");
-        toast.setAttribute("role", type == "error" ? "alert" : "status");
-        toast.innerHTML = `
-            <div pgs="toast-element-content">
-                <div pgs="toast-element-icon">${icon}</div>
-                <p>${text}</p>
-            </div>
-            <div pgs="toast-element-buttons">
-                <button type="button" pgs="button toast-element-buttons-delete">${closeTitle}</button>
-            </div>
-        `;
-
-        const toastButtons = pgs(toast).querySelector("toast-element-buttons");
-        const btnDelete = pgs(toast).querySelector("toast-element-buttons-delete");
-        btnDelete.ariaLabel = closeTitle === "Close" ? "Close notification" : closeTitle;
-
-        if (link) {
-            const toastLink = document.createElement("a");
-            toastLink.href = link;
-            toastLink.textContent = linkTitle;
-            pgs(toastLink).add("button");
-            toastButtons.insertAdjacentElement("afterbegin", toastLink);
+        // a toast fired from a script in the head, before the body is parsed, has nowhere to go yet:
+        // it is shown once the document is ready
+        if (!document.body) {
+            if (document.readyState === "loading") _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(() => this._add(type, options));
+            else _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn(scope, "the document has no <body>, so the toast was not shown");
+            return;
         }
 
-        containerToast.appendChild(toast);
+        const { timeout = this._defaults.timeout, position, ...config } = _alerts_js__WEBPACK_IMPORTED_MODULE_1__.fn_alert._toOptions(options, scope);
 
-        //+ Animation delete
-        function deleteToast() {
-            toast.style.opacity = "0";
-            setTimeout(() => toast.remove(), 300);
-        }
-
-        //== Timeout delete
-        if (timeout > 0) setTimeout(() => { deleteToast() }, timeout);
-
-        //== event
-        btnDelete.addEventListener("click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            e.stopImmediatePropagation()
-            deleteToast(e);
+        const toast = _alerts_js__WEBPACK_IMPORTED_MODULE_1__.fn_alert.create(type, {
+            ...config,
+            component: "_alert",
+            dismissible: true,
+            timeout,
+            // the dismiss button draws dismissIcon (a cross by default), so closeTitle is its accessible name
+            closeTitle: config.closeTitle ?? "Close toast"
         });
-    },
 
-    deleteAll() {
-        const containerToast = this._getContainer();
-        if (containerToast) containerToast.innerHTML = "";
+        // only one toast is shown at a time: a new one simply replaces whatever was there
+        const container = this._getOrCreateContainer();
+        this._applyOptions(container, position, scope);
+        _alerts_js__WEBPACK_IMPORTED_MODULE_1__.fn_alert.replace(container, toast);
     },
 
     _dispatch(element) {
-        this._getData(element).forEach(toast => {
-            const title = String(toast.title || "").trim();
-            const description = String(toast.message || "").trim();
-            const linkTitle = String(toast["title-link"] || this._defaults.linkTitle).trim();
-            const closeTitle = String(toast["title-close"] || this._defaults.closeTitle).trim();
-
-            if (!title && !description) return;
-
-            const link = toast.link || this._defaults.link;
-            const icon = toast.icon || undefined;
-            const duration = this._getDuration(toast);
-            const type = this._getType(toast);
-
-            PGS_toast[type]({
-                title,
-                description,
-                timeout: duration,
-                icon,
-                link,
-                linkTitle,
-                closeTitle
-            });
-        });
+        _alerts_js__WEBPACK_IMPORTED_MODULE_1__.fn_alert.fromData(element, "toast").forEach(({ type, options }) => this._add(type, options));
     },
 
-    trigger(root = document) {
-        pgs(root).querySelectorAll("toastLoad").forEach(element => {
-            if (!element || element.dataset.initialize === "true") return;
+    //## DELETE
+    deleteAll() {
+        const containerToast = this._getContainer();
+        if (!containerToast) return;
 
-            element.dataset.initialize = "true";
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(containerToast).querySelectorAll("_alert").forEach(element => element.pgsAlertClose());
+    },
+
+
+    //## TRIGGER
+    trigger(root = document) {
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "toastLoad").forEach(element => {
+            if (LOADED.has(element)) return;
+
+            LOADED.add(element);
             this._dispatch(element);
             element.remove();
-        });
-    },
-
-    execute(root = document) {
-        pgs(root).querySelectorAll("toastExe").forEach(element => {
-            if (!element || element.dataset.initialize === "true") return;
-
-            element.dataset.initialize = "true";
-            element.addEventListener("click", () => this._dispatch(element));
         });
     }
 };
 
-//# TRIGGER
 function PGS_toastLoad_init(root = document) {
     fn_toast.trigger(root);
-    fn_toast.execute(root);
 }
 
 const PGS_toast = {
     init: PGS_toastLoad_init,
     trigger: PGS_toastLoad_init,
-    error: (options = {}) => fn_toast.show("error", options),
-    success: (options = {}) => fn_toast.show("success", options),
-    info: (options = {}) => fn_toast.show("info", options),
-    warning: (options = {}) => fn_toast.show("warning", options),
+    error: (options = {}) => fn_toast._add("error", options),
+    success: (options = {}) => fn_toast._add("success", options),
+    info: (options = {}) => fn_toast._add("info", options),
+    warning: (options = {}) => fn_toast._add("warning", options),
+    neutral: (options = {}) => fn_toast._add("neutral", options),
     deleteAll: () => fn_toast.deleteAll()
 };
 
 
-//= EXECUTE
-(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(PGS_toastLoad_init);
+//# EXECUTE
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_toastLoad_init);
+
+
+/***/ },
+
+/***/ "./assets/javascript/helper/_dom.js"
+/*!******************************************!*\
+  !*** ./assets/javascript/helper/_dom.js ***!
+  \******************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_directChild: () => (/* binding */ PGS_directChild),
+/* harmony export */   PGS_directChildren: () => (/* binding */ PGS_directChildren),
+/* harmony export */   PGS_dispatch: () => (/* binding */ PGS_dispatch),
+/* harmony export */   PGS_roots: () => (/* binding */ PGS_roots),
+/* harmony export */   PGS_uniqueId: () => (/* binding */ PGS_uniqueId)
+/* harmony export */ });
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _warn_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_warn.js */ "./assets/javascript/helper/_warn.js");
+
+
+
+// the elements a module's init(root) has to look at: the root itself when it carries the token,
+// then everything under it. Every module resolves its roots through here, so pgs.helper.init(el) on a
+// node that was just inserted behaves the same whichever component the node is. `token` takes the
+// same string or array that pgs().querySelectorAll does
+function PGS_roots(root, token) {
+    if (!(root instanceof Document || root instanceof Element)) {
+        throw (0,_warn_js__WEBPACK_IMPORTED_MODULE_1__.PGS_invalid)("helper.init", "root must be a Document or an Element");
+    }
+
+    const tokens = [].concat(token);
+    const roots = Array.from((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).querySelectorAll(tokens));
+
+    if (root instanceof Element && tokens.some(item => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).contains(item))) roots.unshift(root);
+    return roots;
+}
+
+// the children of `parent` (not the descendants) that carry the token, or any of them
+function PGS_directChildren(parent, token) {
+    const tokens = [].concat(token);
+    return Array.from(parent.children).filter(child => tokens.some(item => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(child).contains(item)));
+}
+
+// the first of them, or null
+function PGS_directChild(parent, token) {
+    return PGS_directChildren(parent, token)[0] || null;
+}
+
+// "prefix-1", "prefix-2", ... one counter per prefix, for the ids a module generates
+const ID_COUNTERS = new Map();
+
+function PGS_uniqueId(prefix) {
+    const next = (ID_COUNTERS.get(prefix) || 0) + 1;
+    ID_COUNTERS.set(prefix, next);
+    return `${prefix}-${next}`;
+}
+
+// every pgs:* event goes through here: it bubbles, and its detail always carries the element it
+// was dispatched on, next to whatever the module adds. Pass { cancelable: true } only for an
+// event whose default action the author can stop (pgs:alert:buttonClick)
+function PGS_dispatch(target, name, detail = {}, { cancelable = false } = {}) {
+    const event = new CustomEvent(name, { bubbles: true, cancelable, detail: { element: target, ...detail } });
+    target.dispatchEvent(event);
+    return event;
+}
 
 
 /***/ },
@@ -3370,7 +4727,6 @@ const PGS_toast = {
   \***************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_formValidate: () => (/* binding */ PGS_formValidate)
@@ -3382,21 +4738,39 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// formMessage/formMessageTitle live only in pgs-data, and .data has no querySelector — find
+// the first descendant in document order carrying either key's payload directly
+function findDataDescendant(root, keys) {
+    for (const element of root.querySelectorAll("[pgs-data]")) {
+        if (keys.some(key => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).data.getValueBrackets(key) !== undefined)) return element;
+    }
+    return null;
+}
+
+
+// the instance of every form: building a second one on the same form replaces the first
+// (see the constructor)
+const INSTANCES = new WeakMap();
 
 class PGS_formValidate {
     #messageDefaults = {
-        fieldErrorTitle: "Error!",
-        fieldError: "Please complete this field.",
-        fieldsError: "Please complete all required fields.",
-        successTitle: "Submitted",
-        success: "Submitted successfully."
+        formFieldErrorTitle: "Error!",
+        formFieldError: "Please complete this field.",
+        formFieldsError: "Please complete all required fields.",
+        formSuccessTitle: "Submitted",
+        formSuccess: "Submitted successfully."
     };
     #temporaryFieldErrors = new Map();
     #insideValidatedCallback = false;
+    // one controller for every listener the instance adds to the form, so destroy() removes them all
+    #controller = new AbortController();
 
     constructor(form, options = {}) {
+        if (!(form instanceof Element)) {
+            throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("helper.formValidate", "form must be an element");
+        }
         if (!options || typeof options !== "object" || Array.isArray(options)) {
-            throw new TypeError("options must be an object");
+            throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("helper.formValidate", "options must be an object");
         }
 
         this.container = form;
@@ -3407,21 +4781,71 @@ class PGS_formValidate {
 
         (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.container).add("formValidate");
         this.#initializeMessages(options.message);
-        this.container?.setAttribute("novalidate", "");
+
+        // a form has one validator: a second one built on it would stack its own click listener and
+        // its own validator() callbacks on top of the first, so every submit would validate and
+        // call back twice. The last one built wins and the previous one is destroyed, the same way
+        // a new init() after a destroy() starts over; an instance still held elsewhere stops
+        // reacting, it does not keep running beside the new one
+        INSTANCES.get(form)?.destroy();
+        INSTANCES.set(form, this);
+
+        this.container.setAttribute("novalidate", "");
+
+        // a click on a field clears its error. One listener on the form serves every field, the
+        // ones added after this point too, so validate() has nothing to attach and can run any
+        // number of times without stacking listeners
+        this.container.addEventListener("click", event => this.#clearErrorOnClick(event), { signal: this.#controller.signal });
+    }
+
+    //# DESTROY
+    // removes the listeners the instance added to the form: the click that clears an error and
+    // every validator(). The state, the novalidate attribute and the messages stay as they are
+    destroy() {
+        this.#controller.abort();
+        if (INSTANCES.get(this.container) === this) INSTANCES.delete(this.container);
+    }
+
+    // where the alert goes: the alertContainer option, which can sit anywhere in the document. The
+    // alert engine only accepts a container inside the root it is given, so one outside the form
+    // (an element, or a selector that only matches outside it) is placed by giving it the document
+    // as the root; with none, the alert is placed inside the form
+    #alertPlacement() {
+        const container = this.alertContainer;
+
+        if (container instanceof Element && !this.container.contains(container)) {
+            return { root: container.ownerDocument, container };
+        }
+
+        if (typeof container === "string" && !this.container.querySelector(container)) {
+            const outside = this.container.ownerDocument.querySelector(container);
+            if (outside) return { root: outside.ownerDocument, container: outside };
+        }
+
+        return { root: this.container, container };
+    }
+
+    #clearErrorOnClick(event) {
+        const field = event.target.closest("input, textarea, select");
+        if (!field) return;
+
+        // the field that failed, or the fieldset that did when the control is one of its group
+        const errorTarget = field.closest("[pgs-state~='errorField'], [pgs-state~='errorFieldset']");
+        if (errorTarget) this.#removeFieldError(errorTarget);
     }
 
     #validateMessages(value) {
         if (value === undefined) return;
         if (!value || typeof value !== "object" || Array.isArray(value)) {
-            throw new TypeError("message must be an object");
+            throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("helper.formValidate", "message must be an object");
         }
 
         Object.entries(value).forEach(([key, message]) => {
             if (!(key in this.#messageDefaults)) {
-                throw new TypeError(`Unknown form message option: ${key}`);
+                throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("helper.formValidate", `unknown form message option "${key}"`);
             }
             if (message !== undefined && typeof message !== "string") {
-                throw new TypeError(`Form message option ${key} must be a string`);
+                throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("helper.formValidate", `form message option "${key}" must be a string`);
             }
         });
     }
@@ -3429,7 +4853,7 @@ class PGS_formValidate {
     #initializeMessages(value = {}) {
         this.#validateMessages(value);
 
-        const formOptions = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.container).option;
+        const formData = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.container).data;
         const initialMessages = {
             ...this.#messageDefaults,
             ...Object.fromEntries(
@@ -3438,23 +4862,23 @@ class PGS_formValidate {
         };
 
         Object.entries(initialMessages).forEach(([key, message]) => {
-            if (!formOptions.contains(key)) formOptions.setValueBrackets(key, message);
+            if (formData.getValueBrackets(key) === undefined) formData.setValueBrackets(key, message);
         });
     }
 
     #getMessage(key) {
-        return (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.container).option.getValueBrackets(key);
+        return (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.container).data.getValueBrackets(key);
     }
 
     temporaryFieldError = {
         set: (field, options = {}) => {
             if (!field || typeof field.matches !== "function" || !this.container.contains(field)) {
-                throw new TypeError("field must be an element contained in the form");
+                throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("helper.formValidate.temporaryFieldError.set", "field must be an element contained in the form");
             }
 
             if (typeof options === "string") options = { message: options };
             if (!options || typeof options !== "object" || Array.isArray(options)) {
-                throw new TypeError("temporaryFieldError options must be an object or a string");
+                throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("helper.formValidate.temporaryFieldError.set", "options must be an object or a string");
             }
 
             this.#temporaryFieldErrors.set(field, {
@@ -3478,75 +4902,96 @@ class PGS_formValidate {
         }
     };
 
-    // - Helpers
+    // the labels of a field that failed: the label that names the control with a for, the one that wraps it,
+    // and a label written right before the control or before the label that wraps it (the label of a field,
+    // which is a span or a legend that is not a <label>). A fieldset has none: it is marked errorFieldset and
+    // nothing inside it is
+    #labelsOf(field) {
+        const labels = new Set();
+        const isLabel = element => element?.matches?.("label, legend, [pgs~='label'], [pgs*='label[']");
+
+        if (field.matches("fieldset")) return [];
+
+        if (field.id) {
+            const named = this.container.querySelector(`label[for="${CSS.escape(field.id)}"]`);
+            if (named) labels.add(named);
+        }
+
+        const wrapping = field.closest("label");
+        if (wrapping && this.container.contains(wrapping)) labels.add(wrapping);
+
+        for (const neighbour of [field.previousElementSibling, wrapping?.previousElementSibling]) {
+            if (isLabel(neighbour)) labels.add(neighbour);
+        }
+
+        return [...labels];
+    }
+
+    // helpers
     #help = {
-        // supporta sia required nativo
+        // supports the native required attribute, data-required and aria-required
         isRequired(field) {
             if (!field) return false;
 
-            const required = field.required === true || field?.dataset?.required === "true" || field?.getAttribute('aria-required') == "true";
-            return required && !field.hidden; // solo attributo/proprietà "hidden"
+            const required = field.required === true || field.dataset.required === "true" || field.getAttribute('aria-required') === "true";
+            return required && !field.hidden; // only the "hidden" attribute/property counts
         },
-        // input (non speciali), textarea
+        // input (not special ones), textarea and select: empty when the value is "" or only spaces
         isEmptyTextLike(field) { return !String(field?.value ?? "").trim(); },
-        // select: vuoto se value == "" o null
-        isEmptySelect(field) { return !String(field?.value ?? "").trim(); },
-        // recupera name in modo sicuro
+        // reads the name safely
         getGroupName(field) { return field?.name || field?.getAttribute?.("name") || ""; }
     };
 
 
-    // + --------------------------
-    // + input + altri elementi.   
-    // + --------------------------
+    // inputs and other elements
     #inputValue(container) {
 
-        //++ add rule
+        //## add rule
         const ruleInvalidFields = [];
         for (const rule of this._rules) {
             const res = rule(container);
 
-            // la rule può tornare:
+            // a rule can return:
             // • null/undefined => ok
-            // • un elemento => invalido
-            // • un array di elementi => invalidi
+            // • an element => invalid
+            // • an array of elements => invalid
             if (!res) continue;
 
             if (Array.isArray(res)) ruleInvalidFields.push(...res);
             else ruleInvalidFields.push(res);
         }
 
-        //== INPUT 
-        // "testuali" (esclude hidden/disabled/checkbox/radio/file come nel tuo snippet)
+        //## INPUT 
+        // text-like inputs (hidden, disabled, checkbox, radio and file ones are left out)
         const textInputs = Array.from(container.querySelectorAll("input")).filter((input) => {
             if (input.disabled) return false;
             if (input.type === "hidden") return false;
             if (input.type === "checkbox" || input.type === "radio" || input.type === "file") return false;
 
-            // valida solo se required
+            // only validated when the field is required
             if (!this.#help.isRequired(input)) return false;
 
             return this.#help.isEmptyTextLike(input);
         });
 
-        //== TEXTAREA 
-        // required vuote
+        //## TEXTAREA 
+        // required and empty
         const textareas = Array.from(container.querySelectorAll("textarea")).filter((ta) => {
             if (ta.disabled) return false;
             if (!this.#help.isRequired(ta)) return false;
             return this.#help.isEmptyTextLike(ta);
         });
 
-        //== SELECT 
-        // required vuoti
+        //## SELECT 
+        // required and empty
         const selects = Array.from(container.querySelectorAll("select")).filter((sel) => {
             if (sel.disabled) return false;
             if (!this.#help.isRequired(sel)) return false;
-            return this.#help.isEmptySelect(sel);
+            return this.#help.isEmptyTextLike(sel);
         });
 
-        //== RADIO 
-        // required: se in un gruppo required non ce n'è uno checked => errore sul "primo" radio del gruppo
+        //## RADIO 
+        // required: a radio group with nothing checked reports the error on the first radio of the group
         const radios = Array.from(container.querySelectorAll('input[type="radio"]')).filter((r) => !r.disabled);
         const requiredRadioGroups = new Map(); // name -> [elements]
         for (const r of radios) {
@@ -3565,9 +5010,9 @@ class PGS_formValidate {
             }
         }
 
-        //== CHECKBOX 
-        // required: può essere singola checkbox required (checked obbligatorio)
-        // oppure gruppo di checkbox (stesso name) con almeno una selezionata
+        //## CHECKBOX 
+        // required: it can be a single required checkbox (it has to be checked)
+        // or a checkbox group (same name) with at least one box ticked
         const checkboxes = Array.from(container.querySelectorAll('input[type="checkbox"]')).filter((c) => !c.disabled);
         const requiredCheckboxSingles = [];
         const requiredCheckboxGroups = new Map(); // name -> [elements]
@@ -3576,35 +5021,35 @@ class PGS_formValidate {
 
             const name = this.#help.getGroupName(c);
             if (!name) {
-                // checkbox senza name: trattala come singola required
+                // a checkbox with no name is treated as a single required field
                 if (!c.checked) requiredCheckboxSingles.push(c);
                 continue;
             }
 
-            // se vuoi trattare come gruppo, raggruppa per name
+            // grouped by name, so a group answers as one field
             if (!requiredCheckboxGroups.has(name)) requiredCheckboxGroups.set(name, []);
             requiredCheckboxGroups.get(name).push(c);
         }
         const checkboxGroupErrors = [];
         for (const [name, group] of requiredCheckboxGroups.entries()) {
-            // se è un gruppo (>=2) richiedi almeno una spuntata
-            // se è 1 sola, si comporta come singola
+            // a real group (>= 2) needs at least one box ticked
+            // a lone box behaves as a single required field, and a group that sits in a fieldset
+            // reports the fieldset, even when only one of its boxes is required
             const anyChecked = group.some((c) => c.checked);
             if (!anyChecked) {
-                const fieldset = group.length > 1 ? group[0].closest("fieldset") : null;
-                checkboxGroupErrors.push(fieldset || group[0]);
+                checkboxGroupErrors.push(group[0].closest("fieldset") || group[0]);
             }
         }
 
-        //== FILE 
-        // required: se vuoi includerlo
+        //## FILE 
+        // required: no file chosen
         const fileInputs = Array.from(container.querySelectorAll('input[type="file"]')).filter((f) => {
             if (f.disabled) return false;
             if (!this.#help.isRequired(f)) return false;
             return !(f.files && f.files.length > 0);
         });
 
-        //== risultato finale: tutti i campi da marcare come errore
+        // the result: every field to be marked as failing
         const invalidFields = [
             textInputs,
             textareas,
@@ -3620,31 +5065,34 @@ class PGS_formValidate {
         return [...new Set(invalidFields.flat())];
     }
 
-    //+ ADD
+    //## ADD
     #addFieldError(field, i = 0, total = 1) {
-        ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(field).state.add("errorField");
+        // a fieldset that fails (a group of radios or checkboxes) is marked errorFieldset, and only it:
+        // the controls it groups are not
+        ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(field).state.add(field.matches("fieldset") ? "errorFieldset" : "errorField");
+        this.#labelsOf(field).forEach(label => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(label).state.add("errorLabel"));
 
-        if (i === 0) field.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+        // the first invalid field is the one that scrolls into view and speaks for all of them
         if (i !== 0) return;
+        field.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
 
         const messageSource = field.matches("fieldset")
-            ? field.querySelector('[pgs-option*="message["], [pgs-option*="messageTitle["]')
+            ? findDataDescendant(field, ["formMessage", "formMessageTitle"])
             : field;
         const source = messageSource || field;
         const temporaryError = this.#temporaryFieldErrors.get(field);
-        const fieldTitle = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(source).option.getValueBrackets("messageTitle");
-        const fieldMessage = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(source).option.getValueBrackets("message");
-        const title = temporaryError?.title || fieldTitle || this.#getMessage("fieldErrorTitle");
+        const fieldTitle = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(source).data.getValueBrackets("formMessageTitle");
+        const fieldMessage = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(source).data.getValueBrackets("formMessage");
+        const title = temporaryError?.title || fieldTitle || this.#getMessage("formFieldErrorTitle");
         const description = total > 1
-            ? this.#getMessage("fieldsError")
-            : temporaryError?.message || fieldMessage || this.#getMessage("fieldError");
+            ? this.#getMessage("formFieldsError")
+            : temporaryError?.message || fieldMessage || this.#getMessage("formFieldError");
 
-        if (this.typeNotice == "alert") {
+        if (this.typeNotice === "alert") {
             _components_alerts_js__WEBPACK_IMPORTED_MODULE_2__.PGS_alert.error({
                 title: title,
                 description: description,
-                root: this.container,
-                container: this.alertContainer
+                ...this.#alertPlacement()
             });
         } else {
             _components_toast_js__WEBPACK_IMPORTED_MODULE_1__.PGS_toast.error({
@@ -3654,22 +5102,22 @@ class PGS_formValidate {
         }
     }
 
-    //+ REMOVE
+    //## REMOVE
     #removeFieldError(field) {
         this.#temporaryFieldErrors.delete(field);
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(field).state.remove("errorField");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(field).state.remove("errorField").remove("errorFieldset");
+        this.#labelsOf(field).forEach(label => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(label).state.remove("errorLabel"));
     }
 
-    // + SUCCESS
-    success(description = this.#getMessage("success"), title = this.#getMessage("successTitle")) {
+    // success
+    success(description = this.#getMessage("formSuccess"), title = this.#getMessage("formSuccessTitle")) {
         if (this.#insideValidatedCallback || this.validate() === true) {
 
-            if (this.typeNotice == "alert") {
+            if (this.typeNotice === "alert") {
                 _components_alerts_js__WEBPACK_IMPORTED_MODULE_2__.PGS_alert.success({
                     title,
                     description,
-                    root: this.container,
-                    container: this.alertContainer
+                    ...this.#alertPlacement()
                 });
             } else {
                 _components_toast_js__WEBPACK_IMPORTED_MODULE_1__.PGS_toast.success({
@@ -3681,26 +5129,21 @@ class PGS_formValidate {
     }
 
 
-    // + VALIDATE
+    // validate
     validate() {
         const invalid = this.#inputValue(this.container);
-        const allFields = this.container.querySelectorAll("input, textarea, select")
 
-        //== pulizia/aggiornamento errori
-        this.container.querySelectorAll('[pgs-state~="errorField"]').forEach(element => {
-            if (!invalid.includes(element)) this.#removeFieldError(element);
-        });
+        // clean up the errors that no longer apply
+        for (const state of ["errorField", "errorFieldset"]) {
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.container).state.querySelectorAll(state).forEach(element => {
+                if (!invalid.includes(element)) this.#removeFieldError(element);
+            });
+        }
 
-        //== aggiungo errori dove serve
+        // add the errors where needed
         invalid.forEach((el, i) => this.#addFieldError(el, i, invalid.length))
 
-        //== rimuove l'errore al click
-        allFields.forEach(element => element.addEventListener("click", () => {
-            const errorTarget = element.closest('fieldset[pgs-state~="errorField"]') || element;
-            this.#removeFieldError(errorTarget);
-        }));
-
-        //== status form
+        //## status form
         if (invalid.length) {
             (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.container).state.remove("success").add("errorForm");
             return false;
@@ -3710,10 +5153,10 @@ class PGS_formValidate {
         }
     }
 
-    //= EVENT VALIDATOR
+    //# EVENT VALIDATOR
     validator(callback, eventName = "submit") {
-        if (typeof callback !== "function") throw new TypeError("callback must be a function");
-        if (typeof eventName !== "string" || !eventName.trim()) throw new TypeError("eventName must be a non-empty string");
+        if (typeof callback !== "function") throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("helper.formValidate.validator", "callback must be a function");
+        if (typeof eventName !== "string" || !eventName.trim()) throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("helper.formValidate.validator", "eventName must be a non-empty string");
 
         this.container.addEventListener(eventName, event => {
             event.preventDefault();
@@ -3728,14 +5171,14 @@ class PGS_formValidate {
             } finally {
                 this.#insideValidatedCallback = false;
             }
-        });
+        }, { signal: this.#controller.signal });
 
         return this;
     }
 
-    //= ADD RULE
+    //# ADD RULE
     addNewRule(rule) {
-        if (typeof rule !== "function") throw new Error("Rule must be a function");
+        if (typeof rule !== "function") throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("helper.formValidate.addNewRule", "rule must be a function");
         this._rules.push(rule);
         return this;
     }
@@ -3750,7 +5193,6 @@ class PGS_formValidate {
   \*******************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_init: () => (/* binding */ PGS_init)
@@ -3760,12 +5202,15 @@ __webpack_require__.r(__webpack_exports__);
 
 function PGS_init(root = document) {
     if (!(root instanceof Document || root instanceof Element)) {
-        throw new TypeError("pgs.init(): root deve essere un Document o un Element");
+        throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("helper.init", "root must be a Document or an Element");
     }
 
     const initialized = new Set();
 
-    Object.values(_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs).forEach(module => {
+    // pgs.helper holds helper functions, and its own init is this function: it is not a module to walk
+    Object.entries(_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs).forEach(([name, module]) => {
+        if (name === "helper") return;
+
         const init = module?.init;
         if (typeof init !== "function" || initialized.has(init)) return;
 
@@ -3785,12 +5230,15 @@ function PGS_init(root = document) {
   \******************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_onDocumentReady: () => (/* binding */ PGS_onDocumentReady)
 /* harmony export */ });
+// runs the callback once the DOM is parsed. Without a document (server-side rendering, a test
+// runner) there is nothing to wait for or to run against, so it does nothing
 function PGS_onDocumentReady(callback) {
+    if (typeof document === "undefined") return;
+
     if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", () => callback(), { once: true });
         return;
@@ -3802,93 +5250,113 @@ function PGS_onDocumentReady(callback) {
 
 /***/ },
 
-/***/ "./assets/javascript/helper/_scrollY.js"
-/*!**********************************************!*\
-  !*** ./assets/javascript/helper/_scrollY.js ***!
-  \**********************************************/
+/***/ "./assets/javascript/helper/_text.js"
+/*!*******************************************!*\
+  !*** ./assets/javascript/helper/_text.js ***!
+  \*******************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PGS_scrollHorizontal: () => (/* binding */ PGS_scrollHorizontal)
+/* harmony export */   PGS_escapeHtml: () => (/* binding */ PGS_escapeHtml),
+/* harmony export */   PGS_formatText: () => (/* binding */ PGS_formatText)
 /* harmony export */ });
-function PGS_scrollHorizontal(element, speed) {
-    // Se hai più contenitori, selezionali tutti:
-    // Semplice "singleton" per stimare se la sorgente è trackpad
-    const TrackpadDetector = (() => {
-        let lastTs = 0;
-        let smallAndFast = 0;
-        let samples = 0;
-        let isTrackpad = false;
+// escapes text that gets interpolated into innerHTML, shared by the components that build their own
+// markup from supplied strings: the alert card (the titles and descriptions of alerts, and of
+// the notifications and toasts built on it) and the search suggestions (their labels)
+function PGS_escapeHtml(value) {
+    return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
 
-        function update(e) {
-            const now = performance.now();
-            const dt = now - lastTs;
+// the shared bit of markdown the alert card accepts in its title and description: **bold** and line
+// breaks, applied after escaping so the source text can contain < > & unescaped
+function PGS_formatText(value) {
+    return PGS_escapeHtml(value)
+        .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+        .replace(/\r?\n/g, "<br>");
+}
 
-            // Porta delta in px (0: px, 1: linee, 2: pagine)
-            let dy = Math.abs(e.deltaY);
-            if (e.deltaMode === 1) dy *= 16;
-            else if (e.deltaMode === 2) dy *= e.currentTarget?.clientHeight || 800;
 
-            // Heuristica: eventi piccoli e ravvicinati → prob. trackpad
-            const small = dy < 30;          // soglia prudente
-            const fast = dt < 35;          // alta frequenza
-            if (small && fast) smallAndFast++;
+/***/ },
 
-            samples++;
-            if (samples >= 6) {             // aggiorna il giudizio ogni N eventi
-                isTrackpad = smallAndFast >= 3;
-                smallAndFast = 0;
-                samples = 0;
-            }
+/***/ "./assets/javascript/helper/_throttle.js"
+/*!***********************************************!*\
+  !*** ./assets/javascript/helper/_throttle.js ***!
+  \***********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-            lastTs = now;
-            return isTrackpad;
-        }
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_rafThrottle: () => (/* binding */ PGS_rafThrottle),
+/* harmony export */   PGS_watchDocument: () => (/* binding */ PGS_watchDocument)
+/* harmony export */ });
+// runs the callback at most once per frame, however many times the returned function is called.
+// The arguments of the last call in the frame are the ones it receives. `.cancel()` drops a call
+// that has not run yet, for the destroy() of a module
+function PGS_rafThrottle(callback) {
+    let frame = 0;
+    let lastArgs = [];
 
-        return {
-            update,
-            get value() { return isTrackpad; }
-        };
-    })();
+    function throttled(...args) {
+        lastArgs = args;
+        if (frame) return;
 
-    //= Scorrimento orizzontale con rotella (evita il trackpad)
-    
-    const onWheel = (e) => {
-        //== lascia lo scroll naturale del trackpad
-        if (TrackpadDetector.update(e)) return;
+        frame = requestAnimationFrame(() => {
+            frame = 0;
+            callback(...lastArgs);
+        });
+    }
 
-        //== Evita interferenze con zoom o scroll orizzontale nativo
-        if (e.ctrlKey) return;
-        if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
-
-        //== Converti delta in px per lo shift orizzontale
-        let delta = e.deltaY;
-        if (e.deltaMode === 1) delta *= 16;
-        else if (e.deltaMode === 2) delta *= element.clientHeight;
-
-        //== Verifica se il contenitore può ancora scrollare orizzontalmente
-        const atStart = element.scrollLeft <= 0;
-        const atEnd = element.scrollLeft + element.clientWidth >= element.scrollWidth - 1;
-        const scrollingRight = delta > 0;
-        const scrollingLeft = delta < 0;
-        const canScrollHoriz =
-            (scrollingRight && !atEnd) ||
-            (scrollingLeft && !atStart);
-
-        // Se non può più scrollare in quella direzione, lascia che la pagina gestisca lo scroll verticale
-        if (!canScrollHoriz) return;
-
-        //== Previeni il default solo quando facciamo noi lo scroll orizzontale
-        e.preventDefault();
-
-        //== rotella giù => destra
-        element.scrollLeft += delta * speed;
+    throttled.cancel = () => {
+        if (frame) cancelAnimationFrame(frame);
+        frame = 0;
     };
 
-    element.addEventListener('wheel', onWheel, { passive: false });
-    return () => element.removeEventListener('wheel', onWheel);
+    return throttled;
+}
+
+// watches the whole document for nodes that arrive later and calls back once per frame, for the
+// modules that have to find their own markup after the page is ready (header, navSmart). Returns
+// the observer so a caller can disconnect it, or null when there is no document to watch
+function PGS_watchDocument(callback, options = { childList: true, subtree: true }) {
+    if (typeof document === "undefined" || typeof MutationObserver === "undefined") return null;
+
+    const observer = new MutationObserver(PGS_rafThrottle(() => callback()));
+    observer.observe(document.documentElement, options);
+    return observer;
+}
+
+
+/***/ },
+
+/***/ "./assets/javascript/helper/_warn.js"
+/*!*******************************************!*\
+  !*** ./assets/javascript/helper/_warn.js ***!
+  \*******************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_invalid: () => (/* binding */ PGS_invalid),
+/* harmony export */   PGS_warn: () => (/* binding */ PGS_warn)
+/* harmony export */ });
+// one voice for every message the library prints or throws: "pgs.<module>.<method>(): <what>".
+// The scope is the call the author made ("tabs.init", "modal.open", "header.init"), so a line in
+// the console says which module spoke without anybody having to search for the text
+
+// invalid markup or a request that can be skipped: the page keeps working, the author is told
+function PGS_warn(scope, message, ...details) {
+    console.warn(`pgs.${scope}(): ${message}`, ...details);
+}
+
+// invalid input to a public method: `throw PGS_invalid("summary.init", "message must be an object")`
+function PGS_invalid(scope, message) {
+    return new TypeError(`pgs.${scope}(): ${message}`);
 }
 
 
@@ -3898,502 +5366,491 @@ function PGS_scrollHorizontal(element, speed) {
 /*!*********************************************!*\
   !*** ./assets/javascript/layout/_header.js ***!
   \*********************************************/
-() {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-
-
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_header: () => (/* binding */ PGS_header)
+/* harmony export */ });
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
 
 
 //= HEADER
-function initHeader_Resize(header) {
+//# COMPACT BREAKPOINT
+// Width at or below which the header switches to its compact layout even when the content
+// still fits, so a wide header can be compact on purpose.
+// headerCompactFrom[600] wins with its own pixel value, otherwise the named options
+// (headerCompactTablet, headerCompactLaptop, ...) set --header-compact-breakpoint in the
+// SCSS, so the breakpoint values stay defined in one place.
+function getCompactBreakpoint(header) {
+    const custom = parseFloat((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).data.getValueBrackets("headerCompactFrom"));
+    if (Number.isFinite(custom)) return custom;
 
-    if (!header) return;
+    const declared = parseFloat(window.getComputedStyle(header).getPropertyValue("--header-compact-breakpoint"));
+    return Number.isFinite(declared) ? declared : 600;
+}
 
-    const headerElements = pgs(header).querySelectorAll("header-element");
+//# OVERFLOW TOLERANCE
+// scrollWidth and clientWidth are whole pixels while the layout underneath is fractional, so a
+// header whose content almost exactly fills the row can report a pixel of overflow that is not
+// there. Two pixels absorb that without letting real overflow through.
+//
+// It does not absorb anything larger, and that is on purpose. scrollWidth also counts whatever is
+// positioned absolutely inside the header: a badge hung past the edge of a button adds its overhang
+// to every measurement, the comparison is then true at any width, and the header stays compact for
+// good. Raising this number would hide that instead of fixing it, so if the header ever gets stuck
+// compact, look for what sticks out past the right edge of header-element rather than tuning here.
+const OVERFLOW_TOLERANCE = 2;
 
-    if (!headerElements.length) console.log('For the header to work correctly, insert "header-element" under "header"');
-    if (!headerElements.length) return;
-
-    const selectHeader = document
+//# RESIZE
+// a header only reaches here once it holds a header-element (see getReadyHeaders). Every observer and
+// throttle it starts is released by the function it returns
+function initResize(header) {
+    const headerElements = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).querySelectorAll("header-element");
+    const releases = [];
 
     headerElements.forEach(selectHeader => {
 
-        //== ACTIVE MOBILE 
-        let menuAttivate = false;
-        let childsWidthSAVE;
+        //## COMPACT LAYOUT
+        // how much room the full layout needs, learned the first time it does not fit. It cannot be
+        // measured while compact, because header-element-onlyFull is hidden and reports zero width.
+        let requiredWidth = 0;
 
-        function mobileActive(headerElement) {
+        function compact(headerElement) {
+            const isCompact = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(headerElement).state.contains("compact");
+            const overflows = headerElement.scrollWidth > headerElement.clientWidth + OVERFLOW_TOLERANCE;
 
-            //=== header
-            let style = window.getComputedStyle(headerElement);
-            let padding = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
-            let gap = parseFloat(style.gap);
-            let headerElementWidth = parseInt(headerElement.offsetWidth - padding);
-            let childsWidth;
+            const setCompact = (value) => {
+                (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).state.toggle("compact", value);
+                (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(headerElement).state.toggle("compact", value);
+            };
 
-            if (menuAttivate) {
-                childsWidth = childsWidthSAVE;
-            } else {
-                let childs = [];
+            // while the full layout is on screen its scrollWidth is what it needs, and this is the only
+            // moment it can be learned: once compact, header-element-onlyFull is hidden and reports zero
+            if (!isCompact && overflows) requiredWidth = headerElement.scrollWidth;
 
-                // Esclude l'area mobile dedicata e l'hamburger, poi misura i figli sempre visibili su desktop.
-                Array.from(headerElement.children)
-                    .filter(el => !pgs(el).contains("header-element-onlyMobile"))
-                    .forEach(child => {
-                        if (pgs(child).contains("header-element-hamburger")) return;
-                        childs.push(...child.children);
-                    });
+            // a breakpoint declared on the header wins over any measurement
+            if (window.innerWidth <= getCompactBreakpoint(header)) return setCompact(true);
 
-                gap = Math.round(gap * (childs.length - 1));
-                let childsReduce = childs.reduce((totalWidth, child) => totalWidth + child.offsetWidth, 0) - 2;
-
-                childsWidth = childsReduce + gap;
-            }
-
-            //===set data
-            if (window.innerWidth < 600) {
-                pgs(header).state.add("mobileActive");
-                pgs(selectHeader).state.add("mobileActive");
-            } else if (headerElementWidth < childsWidth) {
-                pgs(header).state.add("mobileActive");
-                pgs(headerElement).state.add("mobileActive");
-                menuAttivate = true;
-                childsWidthSAVE = childsWidth;
-            } else {
-                pgs(header).state.remove("mobileActive");
-                pgs(headerElement).state.remove("mobileActive");
-            }
+            // compact: stay only while the room that was missing is still missing. With nothing learned
+            // the page loaded compact and the full layout fitted at that width, so let it back in
+            if (isCompact) return setCompact(requiredWidth ? headerElement.clientWidth < requiredWidth : false);
+            setCompact(overflows);
         }
 
-        //== observer (throttled to avoid ResizeObserver loop warnings)
-        let resizeRafId = 0;
-        const scheduleMobileActive = () => {
-            if (resizeRafId) return;
-            resizeRafId = requestAnimationFrame(() => {
-                resizeRafId = 0;
-                mobileActive(selectHeader);
-            });
-        };
+        //## Resize
+        // throttled to avoid ResizeObserver loop warnings
+        const scheduleCompact = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.rafThrottle(() => compact(selectHeader));
 
-        let observer = new ResizeObserver(scheduleMobileActive);
+        const observer = new ResizeObserver(scheduleCompact);
         observer.observe(selectHeader);
-        scheduleMobileActive();
+
+        // MutationObserver, not ResizeObserver: won't loop back from compact()'s own show/hide toggles
+        const childObserver = new MutationObserver(scheduleCompact);
+        childObserver.observe(selectHeader, { childList: true, subtree: true });
+
+        releases.push(() => {
+            observer.disconnect();
+            childObserver.disconnect();
+            scheduleCompact.cancel();
+        });
+
+        //## initial check
+        compact(selectHeader);
     });
 
-    // Ripristina la posizione dell'header quando si esce dalla modalità mobile
-    window.addEventListener("resize", () => {
-        if (window.innerWidth > 768) header.style.transform = "translateY(0)";
-    });
+    return () => releases.forEach(release => release());
 }
 
 
-//= HEADER HEIGHT
-function initHeader_Height(header) {
-    if (!header) return;
-
-    let headerHeightRafId = 0;
-
-    //+ GET HEADER HEIGHT ELEMENT
+//# HEADER HEIGHT
+// returns the throttled measure, so the module can ask for another one when a sibling header goes
+// away, and the function that releases the observer and the throttle
+function initHeight(header, signal) {
+    //## GET HEADER HEIGHT ELEMENT
     function getHeaderHeightElement(header) {
-        const isMobileBottom = window.getComputedStyle(header).getPropertyValue("--header-mobile-bottom-active").trim() === "1";
-        return isMobileBottom ? pgs(header).querySelector("header-element") || header : header;
+        const isCompactBottom = window.getComputedStyle(header).getPropertyValue("--header-compactBottom-active").trim() === "1";
+        return isCompactBottom ? (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).querySelector("header-element") || header : header;
     }
 
+    // FOR --_header-height and --_header-heightScroll
+    function getPrimaryHeader() {
+        const headers = getReadyHeaders();
+        return headers.find(header => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).option.contains("headerMain")) || headers[0] || null;
+    }
+
+    //## HEIGHT
     function headerHeight() {
+        // --_header-height is what pushes the page down, so only one header can own it. Ownership
+        // is checked here rather than at init, so a header declaring headerMain later still
+        // takes over from the fallback
+        if (getPrimaryHeader() !== header) return;
+
         const wordPressBar = parseInt(window.getComputedStyle(document.documentElement).marginTop, 10) || 0;
         const height = getHeaderHeightElement(header).offsetHeight + wordPressBar;
-        const scrollHeight = header.getAttribute("data-header-scroll") === "true" ? 0 : height;
+        const scrollHeight = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).state.contains("hiddenByScroll") ? 0 : height;
 
-        document.documentElement.style.setProperty("--heightOfHeader", `${height}px`);
-        document.documentElement.style.setProperty("--heightOfHeaderScroll", `${scrollHeight}px`);
+        document.documentElement.style.setProperty("--_header-height", `${height}px`);
+        document.documentElement.style.setProperty("--_header-heightScroll", `${scrollHeight}px`);
     }
 
-    function scheduleHeaderHeight() {
-        if (headerHeightRafId) return;
-        headerHeightRafId = requestAnimationFrame(() => {
-            headerHeightRafId = 0;
-            headerHeight();
-        });
-    }
+    const scheduleHeaderHeight = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.rafThrottle(headerHeight);
 
     const headerHeightObserver = new ResizeObserver(scheduleHeaderHeight);
     headerHeightObserver.observe(header);
-    pgs(header).querySelectorAll("header-element").forEach(element => headerHeightObserver.observe(element));
+    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).querySelectorAll("header-element").forEach(element => headerHeightObserver.observe(element));
 
-    document.fonts?.ready?.then(scheduleHeaderHeight);
+    document.fonts?.ready?.then(() => {
+        if (!signal.aborted) scheduleHeaderHeight();
+    });
 
     scheduleHeaderHeight();
-    window.addEventListener("resize", scheduleHeaderHeight);
-    window.addEventListener("scroll", scheduleHeaderHeight, { passive: true });
+    window.addEventListener("resize", scheduleHeaderHeight, { signal });
+    window.addEventListener("scroll", scheduleHeaderHeight, { passive: true, signal });
+
+    return {
+        schedule: scheduleHeaderHeight,
+        release() {
+            headerHeightObserver.disconnect();
+            scheduleHeaderHeight.cancel();
+        }
+    };
 }
 
 
 
 
 
-//= SCROLL
-// Nasconde l'header quando si scorre verso il basso e lo mostra quando si scorre verso l'alto su dispositivi con altezza fino a 900px.
-function initHeader_Scroll(header) {
+//# SCROLL
+// hides the header while the reader scrolls down and brings it back on the way up, on screens
+// up to 900px tall, where a pinned header costs too much of the page
+function initScroll(header, signal) {
+    if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).option.contains("headerScroll")) return;
+
     let lastScrollY = window.scrollY;
-    const headerElements = pgs(header).querySelectorAll("header-element");
+    const headerElements = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).querySelectorAll("header-element");
+
+    function setHidden(hidden) {
+        headerElements.forEach(element => element.style.transform = hidden ? "translateY(-100%)" : "translateY(0)");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).state.toggle("hiddenByScroll", hidden);
+    }
 
     window.addEventListener("scroll", () => {
-        if (!header) return;
-        let currentScrollY = window.scrollY;
+        const currentScrollY = window.scrollY;
 
         if (window.innerHeight <= 900) {
-            if (currentScrollY >= 80) {
-                if (currentScrollY > lastScrollY) {
-                    headerElements.forEach(element => element.style.transform = "translateY(-100%)");
-                    header.setAttribute("data-header-scroll", true)
-                } else {
-                    headerElements.forEach(element => element.style.transform = "translateY(0px)");
-                    header.setAttribute("data-header-scroll", false)
-                }
-            } else {
-                headerElements.forEach(element => element.style.transform = "translateY(0)");
-                header.setAttribute("data-header-scroll", false)
-            }
+            setHidden(currentScrollY >= 80 && currentScrollY > lastScrollY);
         }
+
         lastScrollY = currentScrollY;
+    }, { passive: true, signal });
+}
+
+
+//# PRELOAD
+// --_header-height and --_header-heightScroll have a "dummy preload" default in the stylesheet, so a
+// page that is still loading already leaves room for a header. A page that has no header would keep
+// that room for good, under the footer, the toast and the modal: with no header in the document
+// the properties are published as 0 instead, and a header that arrives later measures them again
+function publishPreload() {
+    if (typeof document === "undefined" || getReadyHeaders().length) return;
+
+    document.documentElement.style.setProperty("--_header-height", "0px");
+    document.documentElement.style.setProperty("--_header-heightScroll", "0px");
+}
+
+
+//# INSTANCES
+const API = new WeakMap();
+// the headers with a live instance, each with its throttled height measure and what releases it:
+// walked to drop the ones that left the page, and to hand the height over to a header that is
+// still there
+const INSTANCES = new Map();
+// the headers whose destroy() was asked for while they are still in the page: the watch that finds
+// new headers must not build them again behind the author's back. init() and refresh() lift it
+const STOPPED = new WeakSet();
+
+// a header that left the page takes its instance with it. Not marked as stopped: the same node can
+// come back, and the watch then builds it again
+function pruneHeaders() {
+    Array.from(INSTANCES.keys()).forEach(header => {
+        if (!header.isConnected) teardown(header, false);
     });
 }
 
+function teardown(header, stop) {
+    const entry = INSTANCES.get(header);
+    if (!entry) return;
+
+    entry.release();
+    if (stop) STOPPED.add(header);
+    INSTANCES.delete(header);
+    API.delete(header);
+
+    // what the header published is no longer anybody's: another header takes it over, and with
+    // none left the preload goes to 0
+    INSTANCES.forEach(item => item.schedule());
+    publishPreload();
+}
 
 //# INIT
+// builds the instance of one header and returns its API, or undefined when it is not ready (no
+// header-element) or already has one
 function initHeader(header) {
-    initHeader_Resize(header);
-    initHeader_Height(header);
-    initHeader_Scroll(header);
+    if (API.has(header)) return;
+    if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).querySelector("header-element")) return;
+
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    const releaseResize = initResize(header);
+    const height = initHeight(header, signal);
+    initScroll(header, signal);
+
+    const api = {
+        element: header,
+        destroy() {
+            // a stale instance (already replaced by a refresh) must not tear down the live one
+            if (API.get(header) === api) teardown(header, true);
+        },
+        refresh() {
+            const live = API.get(header);
+            if (live && live !== api) return live;
+            teardown(header, false);
+            STOPPED.delete(header);
+            return initHeader(header);
+        },
+    };
+
+    API.set(header, api);
+    INSTANCES.set(header, {
+        schedule: height.schedule,
+        release() {
+            controller.abort();
+            releaseResize();
+            height.release();
+        }
+    });
+    return api;
 }
 
-function getReadyHeader() {
-    const header = pgs(document).querySelector("header");
-    return header && pgs(header).querySelector("header-element") ? header : null;
+// a header is only ready once it holds a header-element, which is where every measurement happens
+function getReadyHeaders() {
+    return Array.from((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document).querySelectorAll("header")).filter(header => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).querySelector("header-element"));
 }
 
-const readyHeader = getReadyHeader();
-
-if (readyHeader) {
-    initHeader(readyHeader);
-} else {
-    const headerObserver = new MutationObserver(() => {
-        const header = getReadyHeader();
-        if (!header) return;
-
-        headerObserver.disconnect();
+function PGS_header_init(root = document) {
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "header").forEach(header => {
+        STOPPED.delete(header);
         initHeader(header);
     });
-
-    headerObserver.observe(document.documentElement, {
-        childList: true,
-        subtree: true
-    });
+    publishPreload();
 }
+
+// headers can arrive later, and there may be more than one, so the watch stays on instead of
+// stopping at the first: a pass is cheap and every header is initialized only once. The same pass
+// lets go of the headers that left the page
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_header_init);
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.watchDocument(() => {
+    pruneHeaders();
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(document, "header").filter(header => !STOPPED.has(header)).forEach(initHeader);
+    publishPreload();
+});
+
+//# API
+function PGS_header_api(selector) {
+    return API.get(selector);
+}
+
+//# EXPORT
+const PGS_header = {
+    init: PGS_header_init,
+    api: PGS_header_api
+};
 
 
 /***/ },
 
-/***/ "./assets/javascript/patterns/_cookieConsent.js"
-/*!******************************************************!*\
-  !*** ./assets/javascript/patterns/_cookieConsent.js ***!
-  \******************************************************/
+/***/ "./assets/javascript/layout/_navSmart.js"
+/*!***********************************************!*\
+  !*** ./assets/javascript/layout/_navSmart.js ***!
+  \***********************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PGS_cookieConsent: () => (/* binding */ PGS_cookieConsent)
+/* harmony export */   PGS_navSmart: () => (/* binding */ PGS_navSmart)
 /* harmony export */ });
-/* harmony import */ var _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/_onDocumentReady.js */ "./assets/javascript/helper/_onDocumentReady.js");
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
 
 
-const STORAGE_KEY = 'pgs_cookie_preferences_v1';
-const INITIALIZED_COOKIE_CONSENTS = new WeakSet();
+//= NAV SMART
+// publishes the room the bar takes at the bottom of the screen, the way the header publishes its own:
+// --_navSmart-height is the whole distance from the bottom edge of the screen to the top of the bar
+// (the pills plus the gap the bar keeps from the edge, and the safe area on a phone), and
+// --_navSmart-heightScroll is kept equal to it, the same name the header gives its own pair. Both
+// are 0 while a media query hides the bar. Padding the end of a page by either one keeps its last
+// lines from sitting under it.
 
-const DEFAULTS = {
-    titleIntro: "Cookies and privacy",
-    titleHeading: "Your privacy comes first",
-    description: "We use essential cookies to provide the service and, with your consent, analytics cookies from **Google Analytics** to measure traffic anonymously and improve our content.\nYou can change your choice at any time.",
-    privacyPolicyUrl: "/privacy-policy/",
-    cookiePolicyUrl: "/cookie-policy/",
-    panelAriaLabel: "Cookie preferences",
-    essentialTitle: "Essential cookies",
-    essentialDescription: "Always active to ensure the website works correctly.",
-    essentialBadge: "Active",
-    analyticsTitle: "Analytics",
-    analyticsDescription: "Browsing data collected in aggregate form for anonymous statistics.",
-    analyticsAriaLabel: "Enable Google Analytics",
-    titleReject: "Selected only",
-    titleAccept: "Accept all",
-    gaId: ""
-};
+const API = new WeakMap();
+// the bars with a live instance, each with its throttled measure and what releases it: walked to
+// drop the ones that left the page, and to hand the variables to a bar that is still there
+const INSTANCES = new Map();
+// the bars whose destroy() was asked for while they are still in the page: the watch that finds new
+// bars must not build them again behind the author's back. init() and refresh() lift it
+const STOPPED = new WeakSet();
 
-//+
-function escapeHtml(value) {
-    return String(value ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+// a bar is only ready once it holds a navSmart-element, which is where the pills are
+function getReadyNavSmart() {
+    return Array.from((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document).querySelectorAll("navSmart")).filter(bar => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(bar).querySelector("navSmart-element"));
 }
 
-//+
-function formatText(value) {
-    return escapeHtml(value)
-        .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-        .replace(/\r?\n/g, "<br>");
+// only one bar can own the variables. The bar that is pinned to the screen does: a navSmart written
+// as an example inside a page flows with it, takes no room at the bottom, and so never owns them.
+// One that is on screen wins over one a media query has hidden; with none on screen the first
+// pinned one still owns them, and publishes 0. Ownership is checked at every measure, so a bar
+// added later takes over from a missing one
+function getPrimaryNavSmart() {
+    const pinned = getReadyNavSmart().filter(bar => window.getComputedStyle(bar).position === "fixed");
+    return pinned.find(bar => bar.getClientRects().length) || pinned[0] || null;
 }
 
-//+
-function safeJsonParse(value) {
-    try {
-        return value ? JSON.parse(value) : null;
-    } catch (error) {
-        console.warn('PGS cookie consent: impossibile leggere le preferenze', error);
-        return null;
+// a site added to the Home Screen of an iPhone reports navigator.standalone, but not the
+// display-mode media query that every other browser answers
+function isInstalledApp() {
+    return navigator.standalone === true || window.matchMedia("(display-mode: standalone)").matches;
+}
+
+//# PRELOAD
+// --_navSmart-height and --_navSmart-heightScroll have a "dummy preload" default in the stylesheet,
+// so a page that is still loading already leaves room for the bar. A page with no pinned bar would
+// keep that room for good, under the footer, the toast and the modal: with no pinned navSmart in the
+// document the properties are published as 0 instead, and a bar that arrives later measures them
+function publishPreload() {
+    if (typeof document === "undefined" || getPrimaryNavSmart()) return;
+
+    document.documentElement.style.setProperty("--_navSmart-height", "0px");
+    document.documentElement.style.setProperty("--_navSmart-heightScroll", "0px");
+}
+
+// a bar that left the page takes its instance with it. Not marked as stopped: the same node can come
+// back, and the watch then builds it again
+function pruneNavSmart() {
+    Array.from(INSTANCES.keys()).forEach(bar => {
+        if (!bar.isConnected) teardown(bar, false);
+    });
+}
+
+function teardown(bar, stop) {
+    const entry = INSTANCES.get(bar);
+    if (!entry) return;
+
+    entry.release();
+    if (stop) STOPPED.add(bar);
+    INSTANCES.delete(bar);
+    API.delete(bar);
+
+    // what the bar published is no longer anybody's: another bar takes it over, and with none
+    // pinned the preload goes to 0
+    INSTANCES.forEach(item => item.schedule());
+    publishPreload();
+}
+
+//# INIT
+// builds the instance of one bar and returns its API, or undefined when it is not ready (no
+// navSmart-element) or already has one
+function initNavSmart(bar) {
+    if (API.has(bar)) return;
+    if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(bar).querySelector("navSmart-element")) return;
+
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(bar).state.toggle("installedApp", isInstalledApp());
+
+    function measure() {
+        if (getPrimaryNavSmart() !== bar) return;
+
+        // from the top of the bar to the bottom of the screen: whatever the bar sits on counts, whether
+        // it is its own offset from the edge or the safe area of a phone
+        // a bar a media query has hidden (display: none) has no box and takes no room
+        const height = bar.getClientRects().length
+            ? Math.max(0, Math.round(window.innerHeight - bar.getBoundingClientRect().top))
+            : 0;
+
+        document.documentElement.style.setProperty("--_navSmart-height", `${height}px`);
+        document.documentElement.style.setProperty("--_navSmart-heightScroll", `${height}px`);
     }
-}
 
-//+
-function readPreferences() {
-    try {
-        return safeJsonParse(localStorage.getItem(STORAGE_KEY));
-    } catch (error) {
-        return null;
-    }
-}
+    const schedule = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.rafThrottle(measure);
 
-//+
-function savePreferences(prefs) {
-    try {
-        localStorage.setItem(
-            STORAGE_KEY,
-            JSON.stringify({ ...prefs, updatedAt: new Date().toISOString() })
-        );
-    } catch (error) {
-        console.warn('PGS cookie consent: impossibile salvare le preferenze', error);
-    }
-}
+    const observer = new ResizeObserver(schedule);
+    observer.observe(bar);
+    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(bar).querySelectorAll("navSmart-element").forEach(element => observer.observe(element));
 
-//+
-function bootstrapGtag() {
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = window.gtag || function gtag() {
-        window.dataLayer.push(arguments);
+    const attributeObserver = new MutationObserver(schedule);
+    attributeObserver.observe(bar, { attributes: true, attributeFilter: ["class", "style"] });
+
+    document.fonts?.ready?.then(() => {
+        if (!signal.aborted) schedule();
+    });
+    window.addEventListener("resize", schedule, { signal });
+    schedule();
+
+    const api = {
+        element: bar,
+        destroy() {
+            // a stale instance (already replaced by a refresh) must not tear down the live one
+            if (API.get(bar) === api) teardown(bar, true);
+        },
+        refresh() {
+            const live = API.get(bar);
+            if (live && live !== api) return live;
+            teardown(bar, false);
+            STOPPED.delete(bar);
+            return initNavSmart(bar);
+        },
     };
-}
 
-//+
-function loadGoogleAnalytics(measurementId) {
-    if (!measurementId || window.__PGS_gaLoaded) return;
-    window.__PGS_gaLoaded = true;
-
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
-    document.head.appendChild(script);
-
-    window.gtag('js', new Date());
-    window.gtag('config', measurementId, {
-        anonymize_ip: true,
-        allow_google_signals: false,
-    });
-}
-
-//+
-function applyAnalyticsConsent({ allowAnalytics, measurementId }) {
-    bootstrapGtag();
-    if (allowAnalytics) {
-        window.gtag('consent', 'update', { analytics_storage: 'granted' });
-        loadGoogleAnalytics(measurementId);
-    } else {
-        window.gtag('consent', 'update', { analytics_storage: 'denied' });
-    }
-}
-
-//+
-function setPgsFlag(element, token, enabled) {
-    if (!(element instanceof HTMLElement) || !token) return;
-    const current = (element.getAttribute('pgs') || '').split(/\s+/).filter(Boolean);
-    const next = enabled ? [...new Set([...current, token])] : current.filter((item) => item !== token);
-    if (next.length > 0) {
-        element.setAttribute('pgs', next.join(' '));
-    } else {
-        element.removeAttribute('pgs');
-    }
-}
-
-//+ reads the JSON config off the marker element and builds the whole modal + dialog + content from it,
-//+ so the consuming site never has to hand-author the banner markup — see @pgs-option "cookieConsent".
-function buildCookieConsent(marker) {
-    const config = { ...DEFAULTS, ...(safeJsonParse(pgs(marker).option.getValueBrackets('cookieConsent') || '{}') || {}) };
-
-    const root = document.createElement('div');
-    pgs(root).add('modal', 'cookieConsent');
-
-    root.innerHTML = `
-        <dialog pgs-option="topLevel">
-            <div pgs="modal-dialog-content">
-                <div pgs="flexColumn">
-                    <p><i class="fa-duotone fa-solid fa-cookie-bite"></i> ${formatText(config.titleIntro)} <br></p>
-                    <h2>${formatText(config.titleHeading)}</h2>
-
-                    <p>${formatText(config.description)}</p>
-
-                    <p>
-                        <a href="${escapeHtml(config.privacyPolicyUrl)}" target="_blank" rel="noopener">Privacy Policy</a> -
-                        <a href="${escapeHtml(config.cookiePolicyUrl)}" target="_blank" rel="noopener">Cookie Policy</a>
-                    </p>
-                </div>
-
-                <div pgs="cookieConsent-panel flexColumn" role="group" aria-label="${escapeHtml(config.panelAriaLabel)}">
-                    <div pgs="flexRow nowrap cookieConsent-panel-featureEssential">
-                        <div>
-                            <p>
-                                <strong>${formatText(config.essentialTitle)}</strong>
-                                <br>
-                                <small>${formatText(config.essentialDescription)}</small>
-                            </p>
-                        </div>
-
-                        <span pgs="cookieConsent-panel-badge badge" pgs-option="badgeSuccess">${formatText(config.essentialBadge)}</span>
-                    </div>
-
-                    <div pgs="flexRow cookieConsent-panel-featureAnalytics">
-                        <label pgs="toggle">
-                            <p>
-                                <strong>${formatText(config.analyticsTitle)}</strong>
-                                <br>
-                                <small>${formatText(config.analyticsDescription)}</small>
-                            </p>
-
-                            <input type="checkbox" pgs="cookieConsent-panel-toggleAnalytics" aria-label="${escapeHtml(config.analyticsAriaLabel)}">
-                        </label>
-                    </div>
-                    <div pgs="flexRow">
-                        <button type="button" pgs="button cookieConsent-actionReject">
-                            <i class="fa-solid fa-duotone fa-sliders"></i> ${formatText(config.titleReject)}
-                        </button>
-    
-                        <button type="button" pgs="button cookieConsent-actionAccept" pgs-option="buttonStrong">
-                            <i class="fa-solid fa-check"></i> ${formatText(config.titleAccept)}
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </dialog>
-    `;
-
-    root.id = marker.id || 'cookieConsent';
-    root.dataset.gaId = config.gaId;
-    document.body.appendChild(root);
-    marker.remove();
-
-    return root;
-}
-
-//+
-function assignCookieRuntimeAttributes({ root, analyticsToggle, acceptAllButton, rejectButton, openButtons }) {
-    root.dataset.cookieComponent = 'consent';
-    analyticsToggle?.setAttribute('data-cookie-toggle', 'analytics');
-    acceptAllButton?.setAttribute('data-cookie-action', 'accept');
-    rejectButton?.setAttribute('data-cookie-action', 'reject');
-
-    root.querySelector('[pgs~="cookieConsent-panel-featureEssential"]')?.setAttribute('data-cookie-feature', 'essential');
-    root.querySelector('[pgs~="cookieConsent-panel-featureAnalytics"]')?.setAttribute('data-cookie-feature', 'analytics');
-
-    openButtons.forEach((button) => {
-        button.setAttribute('data-cookie-action', 'open');
-    });
-}
-
-//= CookieConsent
-//+ open/close, backdrop, focus trap, ESC-to-close, and focus restore are all handled by the native <dialog>
-//+ through pgs.modal; this pattern only owns the JSON-driven markup generation and the consent business logic.
-function initCookieConsent(selectRoot = document) {
-    const marker = selectRoot instanceof Element && pgs(selectRoot).contains('cookieConsent')
-        ? selectRoot
-        : pgs(selectRoot).querySelector('cookieConsent');
-    if (!marker || INITIALIZED_COOKIE_CONSENTS.has(marker)) return;
-    INITIALIZED_COOKIE_CONSENTS.add(marker);
-
-    const root = buildCookieConsent(marker);
-
-    //+ initializes the modal here too (idempotent) so this doesn't depend on pgs.registerModules() order.
-    globalThis.pgs?.modal?.init(root);
-    const modal = globalThis.pgs?.modal?.api(root);
-    if (!modal) return;
-
-    const analyticsToggle = root.querySelector('[pgs~="cookieConsent-panel-toggleAnalytics"]');
-    const acceptAllButton = root.querySelector('[pgs~="cookieConsent-actionAccept"]');
-    const rejectButton = root.querySelector('[pgs~="cookieConsent-actionReject"]');
-    const openButtons = document.querySelectorAll('[pgs~="cookieConsent-actionOpen"]');
-    const measurementId = (root.dataset.gaId || '').trim();
-    const prefersGa = measurementId.length > 0;
-
-    assignCookieRuntimeAttributes({ root, analyticsToggle, acceptAllButton, rejectButton, openButtons });
-
-    if (analyticsToggle) {
-        analyticsToggle.disabled = !prefersGa;
-        if (!prefersGa) {
-            analyticsToggle.checked = false;
-            setPgsFlag(root, 'cookieConsent-gaUnavailable', true);
-        } else {
-            setPgsFlag(root, 'cookieConsent-gaUnavailable', false);
-        }
-    }
-
-    bootstrapGtag();
-    window.gtag('consent', 'default', { analytics_storage: 'denied' });
-
-    function persistAndApply(allowAnalytics) {
-        savePreferences({ analytics: allowAnalytics });
-        setPgsFlag(root, 'cookieConsent-accepted', !!allowAnalytics);
-        setPgsFlag(root, 'cookieConsent-declined', !allowAnalytics);
-        applyAnalyticsConsent({ allowAnalytics: !!allowAnalytics, measurementId });
-    }
-
-    acceptAllButton?.addEventListener('click', () => {
-        if (analyticsToggle && prefersGa) analyticsToggle.checked = true;
-        persistAndApply(!!prefersGa);
-        modal.close();
-    });
-
-    rejectButton?.addEventListener('click', () => {
-        const allowAnalytics = analyticsToggle ? analyticsToggle.checked && prefersGa : false;
-        if (!allowAnalytics && analyticsToggle) analyticsToggle.checked = false;
-        persistAndApply(allowAnalytics);
-        modal.close();
-    });
-
-    analyticsToggle?.addEventListener('change', (event) => {
-        if (!prefersGa && event.target instanceof HTMLInputElement) {
-            event.target.checked = false;
+    API.set(bar, api);
+    INSTANCES.set(bar, {
+        schedule,
+        release() {
+            controller.abort();
+            observer.disconnect();
+            attributeObserver.disconnect();
+            schedule.cancel();
         }
     });
-
-    openButtons.forEach((button) => {
-        button.addEventListener('click', (event) => {
-            event.preventDefault();
-            modal.open();
-        });
-    });
-
-    const savedPrefs = readPreferences();
-    if (savedPrefs && typeof savedPrefs.analytics === 'boolean') {
-        if (analyticsToggle) analyticsToggle.checked = !!savedPrefs.analytics && prefersGa;
-        persistAndApply(savedPrefs.analytics && prefersGa);
-    } else {
-        modal.open();
-    }
+    return api;
 }
 
-;(0,_helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_0__.PGS_onDocumentReady)(initCookieConsent);
+function PGS_navSmart_init(root = document) {
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "navSmart").forEach(bar => {
+        STOPPED.delete(bar);
+        initNavSmart(bar);
+    });
+    publishPreload();
+}
 
-const PGS_cookieConsent = {
-    init: initCookieConsent
+// a bar can arrive later, and there may be several, so the watch stays on: a pass is cheap and
+// every bar is initialized only once. The same pass lets go of the bars that left the page
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.onDocumentReady(PGS_navSmart_init);
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.watchDocument(() => {
+    pruneNavSmart();
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(document, "navSmart").filter(bar => !STOPPED.has(bar)).forEach(initNavSmart);
+    publishPreload();
+});
+
+//# API
+function PGS_navSmart_api(selector) {
+    return API.get(selector);
+}
+
+//# EXPORT
+const PGS_navSmart = {
+    init: PGS_navSmart_init,
+    api: PGS_navSmart_api
 };
 
 
@@ -4432,18 +5889,6 @@ const PGS_cookieConsent = {
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			const getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter/value functions for harmony exports
@@ -4489,9 +5934,8 @@ const PGS_cookieConsent = {
 /******/ 	
 /************************************************************************/
 let __webpack_exports__ = {};
-// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
 (() => {
-"use strict";
 /*!************************************!*\
   !*** ./assets/javascript/index.js ***!
   \************************************/
@@ -4500,61 +5944,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   pgs: () => (/* reexport safe */ _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)
 /* harmony export */ });
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_pgs.js */ "./assets/javascript/_pgs.js");
-/* harmony import */ var _base_darkmode_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./base/_darkmode.js */ "./assets/javascript/base/_darkmode.js");
-/* harmony import */ var _base_svg_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./base/_svg.js */ "./assets/javascript/base/_svg.js");
-/* harmony import */ var _base_object_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./base/_object.js */ "./assets/javascript/base/_object.js");
-/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./layout/_header.js */ "./assets/javascript/layout/_header.js");
-/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_layout_header_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _components_accordion_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/_accordion.js */ "./assets/javascript/components/_accordion.js");
-/* harmony import */ var _components_alerts_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/_alerts.js */ "./assets/javascript/components/_alerts.js");
-/* harmony import */ var _components_dropdown_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_dropdown.js */ "./assets/javascript/components/_dropdown.js");
-/* harmony import */ var _components_menu_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_menu.js */ "./assets/javascript/components/_menu.js");
-/* harmony import */ var _components_modals_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_modals.js */ "./assets/javascript/components/_modals.js");
-/* harmony import */ var _components_search_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_search.js */ "./assets/javascript/components/_search.js");
-/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
-/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
-/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
-/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
-/* harmony import */ var _components_toast_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/_toast.js */ "./assets/javascript/components/_toast.js");
-/* harmony import */ var _components_notification_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/_notification.js */ "./assets/javascript/components/_notification.js");
-/* harmony import */ var _components_legacyNotification_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/_legacyNotification.js */ "./assets/javascript/components/_legacyNotification.js");
-/* harmony import */ var _imports_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./_imports.js */ "./assets/javascript/_imports.js");
-/* harmony import */ var _patterns_cookieConsent_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./patterns/_cookieConsent.js */ "./assets/javascript/patterns/_cookieConsent.js");
-//= PGS
+/* harmony import */ var _imports_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_imports.js */ "./assets/javascript/_imports.js");
+//# PGS
 
 
-
-//= BASE
-
-
-
-
-//= HEADER
-
-
-//= COMPONENTS
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//+ IMPORT REGISTRY
-
-
-//= PATTERNS
+//# MODULES
+// _imports.js imports every module, each one starts itself on import, and publishes them on pgs
 
 
 })();
 
+/******/ 	return __webpack_exports__;
 /******/ })()
 ;
+});
 //# sourceMappingURL=index.js.map

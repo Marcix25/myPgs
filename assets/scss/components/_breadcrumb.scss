@@ -1,0 +1,58 @@
+//= BREADCRUMB
+// the path itself is a plain list: what the component owns is the spacing between the levels,
+// the separator and the color of the step the reader is on
+[pgs~="breadcrumb"] {
+    --breadcrumb-size: 1.4rem;
+    --breadcrumb-color: var(--color-primary-strong);
+    --breadcrumb-color-hover: var(--hover-color);
+    --breadcrumb-color-current: var(--current-color);
+    --breadcrumb-separator-type: "/";
+    --breadcrumb-separator-color: var(--color-primary-soft);
+    --breadcrumb-separator-gap: 0.8rem;
+    font-size: var(--breadcrumb-size);
+    line-height: 1;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0;
+
+    :where([pgs~="breadcrumb-item"]) {
+        display: inline-flex;
+        align-items: center;
+
+        :where(a) {
+            color: var(--breadcrumb-color);
+            text-decoration: none;
+
+            @media (hover: hover) and (pointer: fine) {
+                &:hover {
+                    color: var(--breadcrumb-color-hover);
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        [aria-current="page"] {
+            color: var(--breadcrumb-color-current);
+            font-weight: var(--font-weight-bold);
+        }
+
+        &::after {
+            content: var(--breadcrumb-separator-type);
+            color: var(--breadcrumb-separator-color);
+            margin-inline: var(--breadcrumb-separator-gap);
+            display: inline-flex;
+            align-items: center;
+
+            // the separator is decoration: an empty alternative text keeps it out of the screen reader's reading
+            @supports (content: "" / "") { content: var(--breadcrumb-separator-type) / ""; }
+        }
+
+        &:last-child {
+            &::after { display: none; }
+        }
+    }
+}

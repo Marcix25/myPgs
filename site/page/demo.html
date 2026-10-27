@@ -1,0 +1,49 @@
+<!-- The demo page's own content — the pageShell that hosts the reference nav and panels, no
+     surrounding page around it, like every file in site/page/. Unlike the others it is not shown as
+     written: its nav and main start empty, and scripts/build-site-static.js fills them in with the
+     nav and panels rendered from reference/html before wrapping the result in site/index.html
+     to make site/build/demo.html. Opening this file directly shows nothing. Edit it for the
+     demo's own layout — the nav, the aside, the main; edit site/index.html for the page around
+     it (head, asset paths), and header.html / footer.html for the header and
+     the footer. -->
+<div pgs="pageShell['shellFullPage' 'shellAsideScroll']">
+    <aside pgs="pageShell-aside container['cntNone']" id="reference-demo-aside" class="reference-demo-menuAside-search">
+
+        <!-- Desktop -->
+        <div pgs="flex['column' 'gapTexts'] hide['hideContainerDownBigTablet']">
+            <form class="reference-demo-nav-search" role="search" pgs="search marginBottom['mgBtElements']" pgs-data="searchPlaceholder[Type a page name] searchNoResults[No page found] searchIconSuggestion[<i pgs=&quot;icon['icon-arrowRight']&quot;></i>]" autocomplete="off" action="" method="get">
+                <button pgs="button['btnIconOnly' 'btnTransparent']" type="submit" title="Search pages">
+                    <i pgs="icon['icon-magnifyingGlass']"></i>
+                </button>
+                <input type="search" name="s" placeholder="Search pages" aria-label="Search pages" value="">
+                <ul pgs="search-suggestions"></ul>
+            </form>
+        </div>
+        <div pgs="flex['column' 'gapElements'] hide['hideContainerDownBigTablet'] paddingBottom" class="reference-demo-nav"></div>
+
+        <!-- mobile -->
+        <div pgs="flex['column' 'gapElements'] hide['hideContainerUpBigTablet'] modal['dialogLeft' 'dialogSmall' 'dialogAnimationLeft']">
+            <button type="button" pgs="button modal-button background['bgBlack'] border borderColor['bdBlack'] textColor['txtWhite']"> <i pgs="icon['icon-chevronDown'] rotate['rot270']"></i> Browse docs</button>
+
+            <dialog class="reference-demo-menuAside-search">
+                <div pgs="modal-dialog-content">
+                    <div pgs="modal-dialog-content-header">
+                        <h3><i pgs="icon['icon-book']"></i> Browse docs!</h3>
+                        <button pgs="button['btnIconOnly' 'btnMini'] modal-close" type="button" tabindex="0" aria-label="Close"><i pgs="icon['icon-chevronDown'] rotate['rot90']"></i></button>
+                    </div>
+                    <div pgs="modal-dialog-content-scroll">
+                        <form class="reference-demo-nav-search" role="search" pgs="search marginBlock['mgBlElements'] marginTop['mgTpTexts'] position['posSticky'] zIndex['ziOne']" pgs-data="searchPlaceholder[Type a page name] searchNoResults[No page found] searchIconSuggestion[<i pgs=&quot;icon['icon-arrowRight']&quot;></i>]" autocomplete="off" action="" method="get">
+                            <button pgs="button['btnIconOnly' 'btnTransparent']" type="submit" title="Search pages">
+                                <i pgs="icon['icon-magnifyingGlass']"></i>
+                            </button>
+                            <input type="search" name="s" placeholder="Search pages" aria-label="Search pages" value="">
+                            <ul pgs="search-suggestions"></ul>
+                        </form>
+                        <div pgs="flex['column' 'gapElements']" class="reference-demo-nav"></div>
+                    </div>
+                </div>
+            </dialog>
+        </div>
+    </aside>
+    <main pgs="pageNav-panels pageShell-content marginBottom['mgBtSections']" id="reference-demo-main"></main>
+</div>

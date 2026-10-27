@@ -1,8 +1,149 @@
 @use "../mixin/mixin" as *;
 
-[pgs~=card] {
-    @include card();
+//= CARD, BOX
+//# CARD
+:is([pgs~="card"], [pgs*="card\5B"]) {
+    --card-padding: var(--padding-elements);
+    --card-borderRadius: calc(var(--borderRadius-texts) + var(--card-padding));
+    --card-borderRadius-item: var(--card-borderRadius) var(--card-borderRadius) 0 0;
+    --card-background: var(--color-box-transparent);
+    --card-img-padding: 0;
+    --card-horizontal-img-grow: 2;
+    --card-horizontal-img-minHeight: 300px;
+    --card-horizontal-content-grow: 3;
+    --card-horizontal-borderRadius-item: var(--card-borderRadius) 0 0 var(--card-borderRadius);
+    display: flex;
+    flex-direction: column;
+    background: var(--card-background);
+    border-radius: var(--card-borderRadius);
+    padding: 0;
+    flex-basis: 100%;
+
+    //## NO CONTENT
+    // a card with no card-content of its own (the text written straight in it, a link with a label) gets the
+    // padding the content would have given it. Only the direct children count, so a card inside a card does not
+    // take it away from the outer one, and a card of just an image keeps it at the edge: card-img and
+    // card-imgForChild are drawn flush with the card
+    &:where(:not(:has(> :is([pgs~="card-content"], [pgs~="card-img"], [pgs~="card-imgForChild"])))) { padding: var(--card-padding); }
+
+    //## LINK
+    &:where(a) {
+        display: block;
+        transition: var(--clickable-transition);
+        border: var(--border-width) var(--border-color) var(--border-style);
+        border-color: var(--clickable-borderColor);
+        color: var(--clickable-color);
+        --card-background: var(--clickable-background);
+
+        // the headings and the paragraphs carry a color of their own: they take the card's, so a dark --clickable-background does not leave black text on it
+        :where(h1, h2, h3, h4, h5, h6, p) { color: inherit; }
+
+        //### HOVER
+        @media (hover: hover) and (pointer: fine) {
+            &:hover {
+                --card-background: var(--hover-background);
+                color: var(--hover-color);
+            }
+        }
+    }
+
+    //## IMG
+    :where([pgs~="card-img"]),
+    :where([pgs~="card-imgForChild"]) {
+        // wrapper for external media: the rules below land on its direct child
+        display: block;
+        min-width: 0;
+    }
+
+    :where([pgs~="card-img"]),
+    :where([pgs~="card-imgForChild"])>* {
+        display: block;
+        padding: var(--card-img-padding);
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        height: auto;
+        margin: 0;
+        object-fit: cover;
+        border-radius: var(--card-borderRadius-item);
+    }
+
+    //## card-content
+    :where([pgs~="card-content"]) {
+        min-width: 0;
+        padding: var(--card-padding);
+
+        &:has(+:where([pgs~="card-content"])) { padding-bottom: calc(var(--card-padding)/ 2); }
+        +:where([pgs~="card-content"]) { padding-top: calc(var(--card-padding)/ 2); }
+    }
+
+    //+ card Mini
+    // options are prefixed with the component name (cardMini) so they never clash
+    &:where([pgs*="'cardMini'"]) { --card-padding: var(--padding-texts); }
+
+    //## Horizontal
+    // the children of the row layout shared by cardHorizontal and cardHorizontalFixed
+    @mixin _cardHorizontal() {
+        :where([pgs~="card-content"]) {
+            border-radius: var(--card-horizontal-borderRadius-item);
+            flex-basis: 0;
+            flex-grow: var(--card-horizontal-content-grow);
+        }
+
+        :where([pgs~="card-img"]),
+        :where([pgs~="card-imgForChild"]) {
+            border-radius: var(--card-horizontal-borderRadius-item);
+            flex-basis: 0;
+            flex-grow: var(--card-horizontal-img-grow);
+            min-height: var(--card-horizontal-img-minHeight);
+        }
+
+        :where([pgs~="card-imgForChild"])>* {
+            height: 100%;
+            border-radius: var(--card-horizontal-borderRadius-item);
+        }
+    }
+
+    //+ card Horizontal
+    &:where([pgs*="'cardHorizontal'"]) {
+        container-type: inline-size;
+        // a rule on the card itself cannot sit inside its own @container (it would query an
+        // ancestor), so the card is always a row that wraps: below the breakpoint every child takes
+        // a whole line, which looks like the column, and above it the children share the line
+        flex-flow: row wrap;
+
+        :where([pgs~="card-content"]),
+        :where([pgs~="card-img"]),
+        :where([pgs~="card-imgForChild"]) {
+            flex-basis: 100%;
+        }
+
+        //+( mobile
+        @container (min-width: #{$mobile}) { @include _cardHorizontal(); }
+    }
+
+    //+ card Horizontal - fixed
+    &:where([pgs*="'cardHorizontalFixed'"]) {
+        flex-flow: row wrap;
+        @include _cardHorizontal();
+    }
 }
-[pgs~=box] {
+
+//# BOX
+:is([pgs~="box"], [pgs*="box\5B"]) {
     @include box();
+
+    //+ mini
+    // options are prefixed with the component name (boxMini) so they never clash
+    &:where([pgs*="'boxMini'"]) {
+        --box-padding: var(--padding-texts);
+        --box-borderRadius: var(--borderRadius-texts);
+    }
+
+    //+ navSmart
+    // a frosted pill, the surface of a navSmart-element: it frosts what is behind it, so it only
+    // reads on top of other content. Any pill-shaped floating surface can use it
+    &:where([pgs*="'boxNavSmart'"]) {
+        @include boxNavSmart()
+    }
 }

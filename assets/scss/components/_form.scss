@@ -1,39 +1,25 @@
 @use "../mixin/mixin" as *;
 
-//# FORM
-[pgs~=textarea] {
-    @include textarea();
-}
+//= FORM
+[pgs~="textarea"] { @include textarea(); }
 
-[pgs~=label] {
-    @include label();
-}
-
-[pgs~=legend] {
-    @include legend();
-}
-
-[pgs~=required] {
-    @include required();
-}
-
-[pgs~=input] {
+[pgs~="input"] {
     @include input();
+    @include inputPicker();
 }
 
-[pgs~=select] {
-    @include select();
+:where([pgs~="label"], [pgs*="label\5B"]) { @include label(); }
+[pgs~="legend"] { @include legend(); }
+[pgs~="radio"] {
+    @include radio();
+    @include labelCheckboxAndRadio();
 }
 
-[pgs~=radio],
-[pgs~=checkbox] {
+[pgs~="checkbox"] {
     @include checkbox();
+    @include labelCheckboxAndRadio();
 }
 
-[pgs~=form] {
-    @include form();
-}
-
-[pgs~=formValidate] {
-    @include formValidate();
-}
+[pgs~="fieldset"] { @include fieldset(); }
+[pgs~="form"] { @include form(); }
+[pgs~="formValidate"] { @include formValidate(); }

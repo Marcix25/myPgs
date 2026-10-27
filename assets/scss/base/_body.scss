@@ -1,142 +1,126 @@
 @use "../mixin/mixin" as *;
 
-//== BASE
-:where([pgs~="bodyBase"]) {
-    background-color: var(--color-background);
-    position: relative;
+//## HTML
+:where([pgs~="htmlBase"]) {
+    --font-rem-base: 62.5%;
+    font-size: var(--font-rem-base);
+    -webkit-text-size-adjust: 100%; // no font inflation when a phone turns to landscape
+    text-size-adjust: 100%;
+    interpolate-size: allow-keywords;
 
-    section {
-        container-type: inline-size;
-        width: 100%;
-    }
+    @media (prefers-reduced-motion: no-preference) { scroll-behavior: smooth; }
 
-    aside {
-        container-type: inline-size;
-        width: 100%;
-    }
-
-    ul {
-        list-style: none;
-        color: var(--color-black);
-    }
-
-    hr {
-        margin: var(--gap-texts);
-        border-style: solid;
-        border-color: var(--color-primary-soft);
-    }
-
-    ::selection {
-        background: var(--color-secondary);
-        color: var(--color-whiteFixed);
-    }
-
-    :focus-visible {
-        outline: var(--focus-visible);
-        outline-offset: 3px;
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        scroll-margin-top: var(--page-topScroll);
     }
 }
 
-//== IMG
-:where([pgs~="bodyImg"]) {
-    i {
-        line-height: 1.2;
-        font-size: var(--fa-size);
-    }
-
-    img,
-    object,
-    lottie-player {
-        width: 100%;
-        height: auto;
-        overflow: hidden;
-        -webkit-user-drag: none;
-        user-drag: none;
-        pointer-events: none;
-        color-scheme: light;
-        transition: opacity 200ms;
-
-        @at-root body #{&} {
-            width: 100%;
-            height: auto;
-        }
-    }
-
-    svg {
-        fill: currentColor;
-    }
-
-    body:not(.object-loaded) :is(object[type="image/svg+xml"], lottie-player) {
-        opacity: 0;
-    }
-
-    picture {
-        display: block;
-        height: 100%;
-    }
+@media (prefers-reduced-motion: no-preference) {
+    @view-transition { navigation: auto; }
 }
 
-//== TEXT
-:where([pgs~="bodyText"]) {
-    letter-spacing: 0.4px;
-    color: var(--color-black);
-    font-family: var(--font);
-    font-weight: 500;
-    font-size: 1.6rem;
-    font-optical-sizing: auto;
-    font-style: normal;
+//## BODY
+:where([pgs*="body\5B"]) {
+    //## BASE
+    &:where([pgs*="'bodyBase'"]) {
+        background-color: var(--color-background);
+        position: relative;
 
-    span {
-        overflow-wrap: anywhere;
+        ul {
+            list-style: none;
+            color: var(--color-text);
+        }
+
+        hr {
+            margin: var(--gap-texts);
+            border-style: solid;
+            border-color: var(--color-box);
+            align-self: stretch;
+            width: auto;
+        }
+
+        fieldset { border: unset; }
+        :focus-visible { @include focusRing(); }
+
+        // the hidden attribute wins over any display a component gives (a flex, a grid, a card or a
+        // button would stay visible otherwise). The accordion panel keeps its own display on purpose:
+        // it is hidden while it animates closed, and display: none would end the animation at once
+        [hidden]:not([hidden="until-found"], [pgs~="accordion-content"]) { display: none !important; }
     }
 
-    p {
-        color: var(--color-text);
-        line-height: 1.5;
-        overflow-wrap: anywhere;
-
-        a {
-            color: var(--color-link);
-        }
-    }
-
-    a {
-        text-decoration: none;
-        overflow-wrap: anywhere;
-        color: var(--color-black);
-
-        &:where(:hover) {
-            color: color-mix(in srgb, var(--color-link) 100%, var(--color-white) 50%);
-            text-decoration: underline;
-        }
+    //## IMG
+    &:where([pgs*="'bodyImg'"]) {
 
         img,
         object,
         lottie-player {
-            vertical-align: bottom;
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+            -webkit-user-drag: none;
+            user-drag: none;
+            pointer-events: none;
+            color-scheme: light;
+            object-fit: contain;
+        }
+
+        // the fade-in of the svg module (see objectLoaded below): an <img> never changes its opacity
+        object,
+        lottie-player { transition: opacity 200ms; }
+
+        a {
+
+            img,
+            object,
+            lottie-player {
+                vertical-align: bottom;
+            }
+        }
+
+        svg { fill: currentColor; }
+
+        // held back until the svg module has run its first pass: it adds the state objectLoaded to the body, which is this element
+        &:not([pgs-state~="objectLoaded"]) :is(object[type="image/svg+xml"], lottie-player) { opacity: 0; }
+
+        picture {
+            display: block;
+            height: 100%;
         }
     }
-}
 
-//== heading
-:where([pgs~="bodyHeading"]) {
-    h1 {
-        @include h1();
+    //## TEXT
+    &:where([pgs*="'bodyText'"]) {
+        color: var(--color-black);
+        font-family: var(--text-family);
+        font-weight: var(--font-weight-text);
+        font-size: var(--text-size);
+
+        span { overflow-wrap: var(--text-overflowWrap); }
+        p { @include text(); }
+
+        a {
+            text-decoration: none;
+            overflow-wrap: var(--text-overflowWrap);
+            color: var(--color-link);
+        }
+
+        // a plain link (no pgs of its own, so not a button, a card or a menu item) is not told by its color alone
+        a:where(:not([pgs])) {
+            text-decoration: underline;
+            text-underline-offset: 0.15em;
+        }
     }
 
-    h2 {
-        @include h2();
-    }
-
-    h3 {
-        @include h3();
-    }
-
-    h4 {
-        @include h4();
-    }
-
-    h5 {
-        @include h5();
+    //## HEADING
+    &:where([pgs*="'bodyHeading'"]) {
+        h1 { @include h1(); }
+        h2 { @include h2(); }
+        h3 { @include h3(); }
+        h4 { @include h4(); }
+        h5 { @include h5(); }
+        h6 { @include h6(); }
     }
 }

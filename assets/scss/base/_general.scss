@@ -1,44 +1,59 @@
 @use "../mixin/mixin" as *;
 
-//# GENERAL
-[pgs~=darkmode] {
-    color-scheme: dark;
-}
+//= GENERAL
+[pgs~="darkmode"] { color-scheme: dark; }
+[pgs~="lightmode"] { color-scheme: light; }
 
-[pgs~=lightmode] {
-    color-scheme: light;
-}
-
-[pgs~=blur] {
+:is([pgs~="blur"], [pgs*="blur\5B"]) {
     -webkit-backdrop-filter: var(--blur);
     backdrop-filter: var(--blur);
+
+    &[pgs*="'blrUnset'"] {
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
 }
 
-[pgs~=appearanceNone] {
+[pgs~="appearanceNone"] {
     all: unset;
     appearance: none;
 }
 
-[pgs~=pointer] {
-    cursor: pointer;
+[pgs~="pointer"] { cursor: pointer; }
+[pgs~="hidden"] { display: none !important; }
+
+//# LIST
+[pgs~="list"] { @include list(); }
+
+//# TEXT BLOCK
+// a column of running text: its items start at the left, its lists take the shared markers, a rule
+// spans the whole width and the headings have room above
+[pgs~="textBlock"] {
+    align-items: flex-start;
+    @include column();
+    @include list;
+
+    :where(hr) { align-self: stretch; }
+    :where(h1, h2, h3) { margin-top: 25px; }
 }
 
-[pgs~=hidden] {
-    display: none !important;
-}
-
-[pgs~=textShadow] {
+//# TEXT SHADOW & BOX SHADOW
+:is([pgs~="textShadow"], [pgs*="textShadow\5B"]) {
     text-shadow: var(--text-shadow);
+
+    &[pgs*="'txsUnset'"] { text-shadow: none; }
 }
 
-[pgs~=boxShadow] {
+:is([pgs~="boxShadow"], [pgs*="boxShadow\5B"]) {
     box-shadow: var(--box-shadow);
+
+    &[pgs*="'bxsUnset'"] { box-shadow: none; }
 }
 
-//= ACCESSIBILITY
-[pgs~=visuallyHidden],
-[pgs~=visuallyHiddenFocusable]:not(:focus):not(:focus-within),
-[pgs~=skipLink]:not(:focus):not(:focus-visible) {
+//# ACCESSIBILITY
+[pgs~="visuallyHidden"],
+[pgs~="visuallyHiddenFocusable"]:not(:focus):not(:focus-within),
+[pgs~="skipLink"]:not(:focus-visible) {
     position: absolute !important;
     width: 1px !important;
     height: 1px !important;
@@ -50,28 +65,25 @@
     border: 0 !important;
 }
 
-[pgs~=focusRing]:focus-visible {
-    outline: var(--focus-visible);
-    outline-offset: 3px;
-}
+[pgs~="focusRing"]:focus-visible { @include focusRing(); }
 
-[pgs~=skipLink]:focus-visible {
+[pgs~="skipLink"]:focus-visible {
     position: fixed;
     top: var(--gap-texts);
     left: var(--gap-texts);
-    z-index: 9999;
-    padding: var(--padding-2);
-    border-radius: var(--border-radius-input);
+    z-index: var(--zIndex-skipLink);
+    padding: var(--padding-texts);
+    border-radius: var(--borderRadius-texts);
     background-color: var(--color-background);
     color: var(--color-link);
-    outline: var(--focus-visible);
-    outline-offset: 3px;
+    @include focusRing();
 }
 
 @media (prefers-reduced-motion: reduce) {
-    [pgs~=motionReduce],
-    [pgs~=motionReduce]::before,
-    [pgs~=motionReduce]::after {
+
+    [pgs~="motionReduce"],
+    [pgs~="motionReduce"]::before,
+    [pgs~="motionReduce"]::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         scroll-behavior: auto !important;
@@ -79,35 +91,9 @@
     }
 }
 
-//= IMG
-[pgs~=imgCover] {
-    object-fit: cover;
-}
-
-[pgs~=imgContain] {
-    object-fit: contain;
-}
-
-//= BORDER RADIUS
-[pgs~=borderRadius] {
-    border-radius: var(--border-radius);
-}
-
-[pgs~=borderRadiusInput] {
-    border-radius: var(--border-radius-input);
-}
-
-[pgs~=borderRadiusExternal] {
-    border-radius: var(--border-radius-external);
-}
-
-//= HOVER
-[pgs~=hover] {
-    @include hover();
-
-    &:not(:disabled):hover {
-        [pgs~=hover-text] {
-            color: var(--hover-color);
-        }
-    }
+//# IMG
+[pgs*="img\5B"] {
+    &[pgs*="'imgCover'"] { object-fit: cover; }
+    &[pgs*="'imgContain'"] { object-fit: contain; }
+    &[pgs*="'imgFill'"] { object-fit: fill; }
 }

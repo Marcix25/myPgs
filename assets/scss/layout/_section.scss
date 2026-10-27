@@ -1,0 +1,43 @@
+@use "../mixin/mixin" as *;
+
+//= MAIN, SECTION, CONTAINER
+
+//# MAIN
+[pgs~="main"] { @include main; }
+
+//## MAIN CHILD
+// main leaves a gap between its children. A child pulled into it takes half of the gap above and below,
+// so that a section with a background meets the one next to it: mainRemoveGap on both edges,
+// mainRemoveGapTop or mainRemoveGapBottom on one. Any child of main can take it, a section or not.
+// They read --main-gap, and --gap-sections when the child is not inside a main
+:is([pgs~="mainChild"], [pgs*="mainChild\5B"]) {
+    &:where([pgs*="'mainRemoveGap'"]) { margin-block: calc(var(--main-gap, var(--gap-sections)) / -2); }
+    &:where([pgs*="'mainRemoveGapTop'"]) { margin-top: calc(var(--main-gap, var(--gap-sections)) / -2); }
+    &:where([pgs*="'mainRemoveGapBottom'"]) { margin-bottom: calc(var(--main-gap, var(--gap-sections)) / -2); }
+}
+
+//# SECTION
+// one root, every variant folded into a flag with the sct prefix (sctMax, sctEdge, ...)
+// instead of a separate root token per variant — the same fold as margin/padding/border.
+// The variants are mutually exclusive alternatives to the same base layout, so they
+// share one bracket the same way margin's scale options do. sctSpecificity keeps its own child token,
+// section-specificity, and sctEdge its child tokens section-edgeLeft and section-edgeRight.
+:is([pgs~="section"], [pgs*="section\5B"]) {
+
+    @include section;
+
+    //+ Type of section
+    &[pgs*="'sctMax'"] { @include sectionMax(false); }
+    &[pgs*="'sctFull'"] { @include sectionFull(false); }
+    &[pgs*="'sctNoPadding'"] { @include sectionNoPadding(false); }
+    &[pgs*="'sctEdge'"] { @include sectionEdge(':where([pgs~="section-edgeLeft"])', ':where([pgs~="section-edgeRight"])', false); }
+    &[pgs*="'sctSpecificity'"] { @include sectionSpecificity(':where([pgs~="section-specificity"])', false); }
+
+}
+
+//## CONTAINER
+:is([pgs~="container"], [pgs*="container\5B"]) {
+    container-type: inline-size;
+
+    &[pgs*="'cntNone'"] { container-type: normal; }
+}

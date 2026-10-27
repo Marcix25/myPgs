@@ -1,92 +1,202 @@
 <!--
 /**
  * @title Menu
- * @description Menu markup with horizontal, vertical and recursively nested navigation examples.
+ * @description Menu markup with horizontal, vertical and recursively nested navigation examples. Every item that has a submenu gets a toggle button right after its own link, so the item needs a direct link of its own: one without is skipped, with a warning in the console. The first level of a horizontal menu floats its submenu as a dropdown, and every other submenu opens in place. A menu without a ul list is skipped as well.
  *
  * @pgs
  * - menu: identifies the menu element used by Menu.
- * - menu-buttonIcon: identifies the menu-buttonIcon element used by Menu.
+ * - menu-submenuButton: write it yourself, bare like this, as the toggle of an item with a submenu, right after its link, to draw the icon of your own choice (any set: a glyph, an svg, an image); the module uses it as it is, wires it like the generated one and never builds a second. Write the button around it yourself, as pgs="menu-submenuButton button['btnMini' 'btnIconOnly']".
  *
- * @pgs-option
- * - horizontal: identifies the horizontal element used by Menu.
- * - vertical: identifies the vertical element used by Menu.
- * - menuHeader: identifies the menuHeader element used by Menu.
+ * @pgs-generated
+ * - _menu-submenuButton: the toggle inserted after the link of every item that has a submenu and no menu-submenuButton of its own, drawing icon-chevronDown; it looks and sits the same whichever behavior it drives, and whichever of the two it is.
+ * - _menu-accordion: marks an item whose submenu opens in place rather than floating, which is every item of a vertical menu and every level below the first of a horizontal one.
+ *
+ * @pgs-options
+ * - menuHorizontal: identifies the horizontal element used by Menu.
+ * - menuVertical: identifies the vertical element used by Menu.
  * - menuIconOnlyCurrent: displays link icons only when the link has an active aria-current value.
  * - menuShort: compacts adjacent menu links by overlapping their horizontal spacing.
- * - position: identifies the position element used by Menu.
- * - buttonNohover: disables hover behavior on menu buttons generated at runtime.
  *
  * @pgs-state
- * - open: identifies the open element used by Menu.
+ * - open: written on an item whose submenu is open: the module toggles it from the item's own toggle button, and for a floating submenu the dropdown writes it.
  *
  * @api
- * - pgs.menu.init(root): initializes matching elements within the specified root.
+ * - pgs.menu.init(root): initializes menus within the specified Document or Element, including the element itself when it is a menu, and the dropdowns of its floating submenus.
  * - pgs.menu.api(element): returns the instance associated with the specified initialized element.
- * - instance.refresh(): refreshes the component and returns its updated instance.
+ * - instance.refresh(): destroys the instance and initializes this menu again from its current markup, picking up the items added since, then returns the new instance. The toggles already generated are reused, never added twice.
+ * - instance.destroy(): releases the listeners of this menu and destroys the dropdown instances it created. The generated toggles and tokens stay in the markup.
  *
  * @related
+ * - btnCurrent: gives the link the current look while it carries aria-current="page"; belongs to the button component.
+ * - flex: provides the flex layout; direction and spacing are flags in its bracket.
+ * - button: styles a menu link, now that the menu no longer does it itself.
+ * - btnMini: the compact size of the toggle button; see Button.
+ * - btnIconOnly: shapes the toggle as an icon-only button; see Button.
+ * - btnTransparent: the appearance a navigation link takes, whatever the menu's direction; see Button for the whole set of variants.
+ * - row: lays the top-level list out as a row, so a long menu can be measured against the space it has.
+ * - wrap: lets that row break onto a second line instead of overflowing.
  * - dropdown: uses the related dropdown component or utility in this example.
  * - dropdown-button: uses the related dropdown-button component or utility in this example.
  * - dropdown-content: uses the related dropdown-content component or utility in this example.
+ * - dropdownPosition: set by Menu at runtime on the li it turns into a dropdown, to place the first-level floating submenu.
+ * - icon: draws the glyphs this example shows; see Icon for the whole set.
+ * - icon-circle: a plain disc, standing in for a section icon.
+ * - icon-plus: the icon of the toggle written by hand in the example.
+ * - icon-circleInfo: the information mark.
+ * - icon-sliders: the sliders glyph, standing in for a section icon.
  *
  * @return Horizontal and vertical menu examples, including recursively nested submenus.
  */
 -->
 
-<nav pgs="menu" pgs-option="horizontal" aria-label="Menu orizzontale">
-    <ul>
-        <li>
-            <a href="/" aria-current="page">
-                <i class="fa-solid fa-house" aria-hidden="true"></i>
-                <span>Home</span>
-            </a>
-        </li>
-        <li>
-            <a href="/servizi">
-                <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
-                <span>Servizi</span>
-            </a>
-            <ul>
-                <li><a href="/servizi/uno">Servizio uno</a></li>
-                <li><a href="/servizi/due">Servizio due</a></li>
-            </ul>
-        </li>
-    </ul>
-</nav>
+<demo demo-h2="Examples"></demo>
+<demo demo-h3="Horizontal menu" demo-description="Top-level navigation arranged horizontally: the submenus of the first level float as dropdowns, and a submenu nested inside one of them opens in place."></demo>
+<section demo="component">
+    <nav pgs="menu['menuHorizontal']" aria-label="Horizontal menu">
+        <ul pgs="flex['row' 'wrap']">
+            <li>
+                <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
+                    <i pgs="icon['icon-circle']" aria-hidden="true"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a pgs="button['btnTransparent']" href="/services">
+                    <i pgs="icon['icon-sliders']" aria-hidden="true"></i>
+                    <span>Services</span>
+                </a>
+                <ul>
+                    <li><a pgs="button['btnTransparent']" href="/services/one">First service</a></li>
+                    <li><a pgs="button['btnTransparent']" href="/services/two">Second service</a></li>
+                </ul>
+            </li>
+            <li>
+                <a pgs="button['btnTransparent']" href="/about">
+                    <i pgs="icon['icon-circleInfo']" aria-hidden="true"></i>
+                    <span>about</span>
+                </a>
+                <ul>
+                    <li><a pgs="button['btnTransparent']" href="/services/one">First service</a></li>
+                    <li>
+                        <a pgs="button['btnTransparent']" href="/services/two">Second service</a>
+                        <ul>
+                            <li><a pgs="button['btnTransparent']" href="/services/one">First service</a></li>
+                            <li><a pgs="button['btnTransparent']" href="/services/two">Second service</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</section>
 
-<nav pgs="menu" pgs-option="vertical menuIconOnlyCurrent" aria-label="Menu verticale">
-    <ul>
-        <li>
-            <a href="/" aria-current="page">
-                <i class="fa-solid fa-house" aria-hidden="true"></i>
-                <span>Home</span>
-            </a>
-        </li>
-        <li>
-            <a href="/servizi">
-                <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
-                <span>Servizi</span>
-            </a>
-            <ul>
-                <li><a href="/servizi/uno">Servizio uno</a></li>
-                <li><a href="/servizi/due">Servizio due</a></li>
-            </ul>
-        </li>
-        <li>
-            <a href="/about">
-                <i class="fa-solid fa-info-circle" aria-hidden="true"></i>
-                <span>about</span>
-            </a>
-            <ul>
-                <li><a href="/servizi/uno">Servizio uno</a></li>
-                <li>
-                    <a href="/servizi/due">Servizio due</a>
-                    <ul>
-                        <li><a href="/servizi/uno">Servizio uno</a></li>
-                        <li><a href="/servizi/due">Servizio due</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-    </ul>
-</nav>
+<demo demo-h3="Vertical menu" demo-description="Vertical navigation with recursively nested submenus, all of them opening in place."></demo>
+<section demo="component">
+    <nav pgs="menu['menuVertical']" aria-label="Vertical menu">
+        <ul>
+            <li>
+                <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
+                    <i pgs="icon['icon-circle']" aria-hidden="true"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a pgs="button['btnTransparent']" href="/services">
+                    <i pgs="icon['icon-sliders']" aria-hidden="true"></i>
+                    <span>Services</span>
+                </a>
+                <ul>
+                    <li><a pgs="button['btnTransparent']" href="/services/one">First service</a></li>
+                    <li><a pgs="button['btnTransparent']" href="/services/two">Second service</a></li>
+                </ul>
+            </li>
+            <li>
+                <a pgs="button['btnTransparent']" href="/about">
+                    <i pgs="icon['icon-circleInfo']" aria-hidden="true"></i>
+                    <span>about</span>
+                </a>
+                <ul>
+                    <li><a pgs="button['btnTransparent']" href="/services/one">First service</a></li>
+                    <li>
+                        <a pgs="button['btnTransparent']" href="/services/two">Second service</a>
+                        <ul>
+                            <li><a pgs="button['btnTransparent']" href="/services/one">First service</a></li>
+                            <li><a pgs="button['btnTransparent']" href="/services/two">Second service</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</section>
+
+
+<demo demo-h3="Horizontal menu - menu Icon Only Current" demo-description="Top-level navigation arranged horizontally, showing the icon of the active link only."></demo>
+<section demo="component">
+    <nav pgs="menu['menuHorizontal' 'menuIconOnlyCurrent']" aria-label="Horizontal menu">
+        <ul pgs="flex['row' 'wrap']">
+            <li>
+                <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
+                    <i pgs="icon['icon-circle']" aria-hidden="true"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a pgs="button['btnTransparent']" href="/services">
+                    <i pgs="icon['icon-sliders']" aria-hidden="true"></i>
+                    <span>Services</span>
+                </a>
+            </li>
+            <li>
+                <a pgs="button['btnTransparent']" href="/about">
+                    <i pgs="icon['icon-circleInfo']" aria-hidden="true"></i>
+                    <span>about</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</section>
+
+<demo demo-h3="Horizontal menu - short" demo-description="Top-level navigation with short, overlapping the horizontal spacing between adjacent links."></demo>
+<section demo="component">
+    <nav pgs="menu['menuHorizontal' 'menuShort']" aria-label="Horizontal menu">
+        <ul pgs="flex['row' 'wrap']">
+            <li>
+                <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
+                    <i pgs="icon['icon-circle']" aria-hidden="true"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a pgs="button['btnTransparent']" href="/services">
+                    <i pgs="icon['icon-sliders']" aria-hidden="true"></i>
+                    <span>Services</span>
+                </a>
+            </li>
+            <li>
+                <a pgs="button['btnTransparent']" href="/about">
+                    <i pgs="icon['icon-circleInfo']" aria-hidden="true"></i>
+                    <span>about</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</section>
+
+<demo demo-h3="Toggle with an icon of your own" demo-description="menu-submenuButton is the toggle written by hand: the item that holds it never gets the generated one, and what it draws is yours. Write the whole button, with the button's own look, and put the icon inside it; the module wires its click, its aria-expanded and its aria-controls like the generated one's, and turns the icon over while the submenu is open."></demo>
+<section demo="component">
+    <nav pgs="menu['menuVertical']" aria-label="Menu with a toggle of its own">
+        <ul>
+            <li>
+                <a pgs="button['btnTransparent']" href="/services">Services</a>
+                <button pgs="menu-submenuButton button['btnMini' 'btnIconOnly']" type="button" aria-label="Show the submenu">
+                    <i pgs="icon['icon-plus']" aria-hidden="true"></i>
+                </button>
+                <ul>
+                    <li><a pgs="button['btnTransparent']" href="/services/one">First service</a></li>
+                    <li><a pgs="button['btnTransparent']" href="/services/two">Second service</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</section>

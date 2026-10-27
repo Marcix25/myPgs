@@ -12,7 +12,7 @@ This file is the entry point for AI/Codex agents working with `mypgs`. The detai
 
 - Check whether `mypgs` already provides a suitable token, component, layout, mixin, variable, helper, or API before creating a custom solution.
 - Treat `reference/html/` as the canonical source for markup and option syntax.
-- Keep `pgs`, `pgs-state`, and `pgs-option` consistent between HTML, SCSS, and JavaScript.
+- Keep `pgs`, `pgs-state`, and `pgs-data` consistent between HTML, SCSS, and JavaScript.
 - Keep markup semantic and accessible.
 - Do not invent public APIs. Verify them in the source, declarations, or current documentation.
 

@@ -1,194 +1,206 @@
 @use "../mixin/mixin" as *;
 
-[pgs~="slides"] {
-    display: flex;
-    flex-direction: column;
+//= SLIDES
+// registered so the fade width can be animated: a plain custom property would jump
+@property --slides-maskStart {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 0px;
+}
+
+@property --slides-maskEnd {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 0px;
+}
+
+//# SLIDES
+:is([pgs~="slides"], [pgs*="slides\5B"]) {
+    @include row(wrap);
     position: relative;
     container-type: inline-size;
     align-items: center;
     isolation: isolate;
     height: max-content;
-    --slide-width: calc(var(--page-width) /2.3);
-    --slide-width-tablet: 100%;
-    --slide-shadow-color: var(--color-background);
-    --slide-shadow-width: 100px;
+    justify-content: center;
+    --slides-sizeMaskImage: 40px;
+    --slides-width: calc(var(--page-width) /2.3);
+    --slides-width-tablet: 100%;
+    --slides-width-mobile: 100%;
 
-    //option for suggestions
-    &[pgs-option~=singleScroll],
-    &[pgs-option~=shadowDesktop],
-    &[pgs-option~=notScrollAnimation] {}
-
-    //+( tablet 
-    @container (min-width: #{$tablet}) {
-        &[pgs-option~=shadowDesktop] {
-
-            //== shadow
-            &::after,
-            &::before {
-                content: "";
-                height: 100%;
-                width: var(--slide-shadow-width);
-                z-index: 3;
-                position: absolute;
-                transition: opacity 200ms;
-                pointer-events: none;
-                opacity: 1;
-            }
-
-            &::before {
-                left: 0;
-                background: linear-gradient(90deg, var(--slide-shadow-color), transparent);
-            }
-
-            &::after {
-                right: 0;
-                background: linear-gradient(90deg, transparent, var(--slide-shadow-color));
-            }
-
-            &:has([pgs~="slides-container"] li:first-child.view) {
-                &::before {
-                    opacity: 0;
-                }
-            }
-
-            &:has([pgs~="slides-container"] li:last-child.view) {
-                &::after {
-                    opacity: 0;
-                }
-            }
-        }
-    }
-
-    //= CONTAINER SLIDES (ul)
-    [pgs~="slides-container"] {
-        display: flex;
+    //## CONTAINER SLIDES
+    :where([pgs~="slides-container"]) {
         width: 100%;
         overflow-x: scroll;
         overflow-y: hidden;
-        scroll-behavior: smooth;
         scroll-snap-type: x mandatory;
         scrollbar-width: none;
         position: relative;
         -webkit-user-select: none;
         user-select: none;
-        padding: 3px;
-        gap: var(--gap-texts);
+        padding: .3rem;
+        @include row(nowrap);
+
+        // smooth scrolling only when the visitor has not asked for less motion
+        @media (prefers-reduced-motion: no-preference) { scroll-behavior: smooth; }
 
         &::-webkit-scrollbar {
             height: 0;
             display: none;
         }
 
-        //== slide
-        [pgs~="slides-container-slide"] {
-            scroll-snap-align: center;
+        //### SLIDE
+        // the first and the last slide line up with the page content through --page-edge
+        // below, and that only holds because the alignment here is center: their centered
+        // snap position falls outside the scroll range, so the browser stops at the edge and
+        // the margin is what shows. Switch this to start and both margins stop mattering
+        :where([pgs~="slides-container-slide"]) {
+            scroll-snap-align: center !important;
             scroll-snap-stop: always;
             position: relative;
-            margin-inline: auto;
-            min-width: var(--slide-width);
+            min-width: var(--slides-width);
             max-width: 100%;
             height: auto;
 
-            //-( tablet
-            @container (max-width: #{$tablet}) {
-                min-width: var(--slide-width-tablet);
-            }
+            &:first-child { margin-left: var(--page-edge); }
+            &:last-child { margin-right: var(--page-edge); }
+
+            //- tablet
+            @media (max-width: #{$tablet}) { min-width: var(--slides-width-tablet); }
+
+            //- mobile
+            @media (max-width: #{$mobile}) { min-width: var(--slides-width-mobile); }
         }
     }
 
-    //= ARROW
-    [pgs~="slides-prec"],
-    [pgs~="slides-next"] {
-        position: absolute;
+    //## ARROW
+    :where([pgs~="slides-prev"]),
+    :where([pgs~="slides-next"]) {}
+
+    :where([pgs~="_slides-prev"]),
+    :where([pgs~="_slides-next"]) {
+        position: relative;
         z-index: 4;
-        top: 50%;
-        translate: 0 -50%;
+        order: -1;
 
-        &:is([pgs~="slides-prec"]) {
-            left: 0;
-        }
-
-        &:is([pgs~="slides-next"]) {
-            right: 0;
-        }
-
-        //-( tablet
-        @container (max-width: $tablet) {
-            &:is([pgs~="slides-prec"]) {
-                left: calc(var(--padding-page) * -1 + 4px);
-            }
-
-            &:is([pgs~="slides-next"]) {
-                right: calc(var(--padding-page) * -1 + 4px);
-            }
-        }
-
-        //- mobile
-        @media (max-width: $mobile) {
-            display: none;
-        }
+        &:where([pgs~="_slides-prev"]) { margin-left: auto; }
+        &:where([pgs~="_slides-next"]) { margin-right: 10px; }
     }
 
-    //= DOTS
-    [pgs~="slides-dots"] {
+    //## DOTS
+    // a hand-written dots row keeps the bare name; a generated one gets the underscore.
+    // The room kept under the generated row: with slidesNotDots no row is generated, so none is kept
+    &:has([pgs~="_slides-dots"]) {
+        margin-bottom: calc(var(--gap-elements)* 2);
+    }
+
+    // the row of dots: the generated one and one written by hand share the layout
+    :where([pgs~="slides-dots"]),
+    :where([pgs~="_slides-dots"]) {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
-        width: 80%;
         gap: 0.5rem;
+    }
+
+    // only the generated row is taken out of the flow and laid under the slides
+    :where([pgs~="_slides-dots"]) {
+        width: 80%;
         margin-top: 1px;
         max-width: max-content;
-        background-color: var(--color-box);
-        padding: 0.6rem;
         z-index: 3;
-        border-radius: var(--border-radius);
-        transition: all 100ms;
-        translate: 0px calc(50%);
         position: absolute;
         bottom: 0;
-        border: var(--border-complete);
+        transform: translateY(calc(100% + var(--gap-texts)));
 
-        &:hover {
-            padding: 1.2rem;
-            z-index: 1;
+        @media (prefers-reduced-motion: no-preference) { transition: all 300ms; }
+    }
 
-            >* {
-                padding: 1.2rem;
-                width: 1.2rem;
-                height: 1.2rem;
-            }
+    // the module tags every child of the row, a hand-written one included, with _slides-dots-dot
+    :where([pgs~="_slides-dots-dot"]) {
+        width: 1.5rem;
+        aspect-ratio: 1;
+        border-radius: 999px;
+        border: none;
+        cursor: pointer;
+        background-color: var(--clickable-background);
+        transition: var(--clickable-transition);
+        margin-block: auto;
+
+        &[pgs-state~="active"] { background-color: var(--current-background); }
+
+        // unguarded, a tap on iOS/mobile Safari simulates a persistent :hover after release —
+        // same specificity as the active rule above it, so the sticky hover would win by
+        // source order and the dot would never look active on a touch device
+        @media (hover: hover) and (pointer: fine) {
+            &:hover { background-color: var(--hover-background); }
+        }
+    }
+
+    //+ slidesArrowsCenter
+    // the generated arrows go back to lying over the slides, one on each side, at the middle of
+    // the height of the track (--_slides-height, measured by the module); the root is a column again
+    &:where([pgs*="'slidesArrowsCenter'"]) {
+        flex-direction: column;
+
+        :where([pgs~="_slides-prev"]),
+        :where([pgs~="_slides-next"]) {
+            position: absolute;
+            top: calc(var(--_slides-height, 100%) / 2);
+            translate: 0 -50%;
+            margin: unset;
         }
 
-        >* {
-            padding: 0.6rem;
-            width: 0.6rem;
-            height: 0.6rem;
-            border-radius: 50%;
-            border: none;
-            cursor: pointer;
-            background-color: var(--color-primary-soft);
-            transition: all 100ms;
-            margin-block: auto;
+        :where([pgs~="_slides-prev"]) { left: .4rem; }
+        :where([pgs~="_slides-next"]) { right: .4rem; }
+    }
 
-            &.active {
-                background-color: var(--color-primary);
-                // scale: 1.2;
-                // margin: 0.3rem;
+    //+ option for suggestions
+    &:where([pgs*="'slidesNotDots'"]),
+    &:where([pgs*="'slidesSingleScroll'"]),
+    &:where([pgs*="'slidesLoop'"]) {}
+
+    //+ slidesFullWidth
+    &:where([pgs*="'slidesFullWidth'"]) { --slides-width: 100%; }
+
+    //+ slidesAnimationScale
+    &:where([pgs*="'slidesAnimationScale'"]) {
+        :where([pgs~="slides-container"]) {
+            :where([pgs~="slides-container-slide"]) {
+                >* {
+                    scale: calc(var(--_slides-visiblePercent, 1) * var(--_slides-visiblePercent, 1) * var(--_slides-visiblePercent, 1));
+                    transform-origin: center;
+                }
             }
 
-            &:hover {
-                background-color: var(--color-secondary);
+            :where([pgs~="slides-container-slide"]):has(~ [pgs-state~="view"]) {
+                >* { transform-origin: right; }
+            }
+
+            :where([pgs-state~="view"])~ :where([pgs~="slides-container-slide"]) {
+                >* { transform-origin: left; }
             }
         }
     }
 
-    &[pgs-option=slideScale] {
-        [pgs~="slides-container"] {
-            [pgs~="slides-container-slide"] {
-                >* {
-                    scale: var(--visible-percent);
-                }
+    //+ slidesShadowDesktop
+    &:where([pgs*="'slidesShadowDesktop'"]) {
+
+        //+( tablet
+        @container (min-width: #{$tablet}) {
+            :where([pgs~="slides-container"]) {
+                transition: --slides-maskStart 200ms, --slides-maskEnd 200ms;
+                -webkit-mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart, 0px), black calc(100% - var(--slides-maskEnd)), transparent 100%);
+                mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart, 0px), black calc(100% - var(--slides-maskEnd)), transparent 100%);
             }
+
+            // the variable is set on the container itself, the element that reads it (@property
+            // has inherits: false); the root only decides, through :has(), whether the edge slide is in view
+            // fade on the left until the first slide is reached
+            &:where(:not(:has([pgs~="slides-container-slide"]:first-child[pgs-state~="view"]))) :where([pgs~="slides-container"]) { --slides-maskStart: var(--slides-sizeMaskImage); }
+
+            // fade on the right until the last slide is reached
+            &:where(:not(:has([pgs~="slides-container-slide"]:last-child[pgs-state~="view"]))) :where([pgs~="slides-container"]) { --slides-maskEnd: var(--slides-sizeMaskImage); }
         }
     }
 }

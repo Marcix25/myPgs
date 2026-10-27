@@ -4,21 +4,32 @@
 
 const fs = require("fs");
 const path = require("path");
+const { findMatchingBracket, tokenizeOptions, extractAttributes } = require("./pgs-attributes.js");
+
+// options the stylesheet supports and the reference deliberately does not document yet: the check below
+// demands a @pgs-options line for every supported option, and these are the ones left out on purpose.
+// iconDuo: the two-layer glyph logic stays in the icon component and in the myIcons pack, but no glyph of
+// the pack is shown with it until the duo set is ready
+const WITHHELD_OPTIONS = new Set(["iconDuo"]);
 
 const PROJECT_ROOT = path.resolve(__dirname, "..");
 const REFERENCE_ROOT = path.join(PROJECT_ROOT, "reference", "html");
 const DOCS_ROOT = path.join(PROJECT_ROOT, "docs");
-const MANAGED_DOC_DIRECTORIES = ["components", "layout", "patterns"]
+const MANAGED_DOC_DIRECTORIES = ["base", "components", "layout", "patterns", "helper"]
     .map(directory => path.join(DOCS_ROOT, directory));
 const SOURCE_ROOTS = [
     path.join(PROJECT_ROOT, "assets", "javascript"),
     path.join(PROJECT_ROOT, "assets", "scss"),
 ];
 
-const TAG_ORDER = ["title", "description", "pgs", "pgs-option", "pgs-state", "api", "related", "return"];
-const LIST_TAGS = new Set(["pgs", "pgs-option", "pgs-state", "api", "related"]);
+const TAG_ORDER = ["title", "description", "pgs", "pgs-generated", "pgs-options", "pgs-data", "pgs-state", "api", "related", "return"];
+const LIST_TAGS = new Set(["pgs", "pgs-generated", "pgs-options", "pgs-data", "pgs-state", "api", "related"]);
 const REQUIRED_TAGS = ["title", "description", "pgs"];
-const GENERATED_MARKER = /^<!-- (?:Automatically generated from ((?:reference|templates)\/html\/.+\.html)\. Edit \1 and run npm run docs:generate again\.|File generato automaticamente da ((?:reference|templates)\/html\/.+\.html)\. Modificare \2 e rieseguire npm run docs:generate\.) -->$/;
+// a helper (reference/html/helper/*.html) documents a JavaScript utility, not markup a component
+// owns: it may touch no pgs token of its own at all, so @api carries the weight @pgs carries
+// everywhere else, and @pgs is optional there instead of required
+const HELPER_REQUIRED_TAGS = ["title", "description", "api"];
+const GENERATED_MARKER = /^<!-- Automatically generated from ((?:reference|templates)\/html\/.+\.html)\. Edit \1 and run npm run docs:generate again\. -->$/;
 
 function toPosix(value) {
     return value.split(path.sep).join("/");
@@ -66,16 +77,16 @@ function parseDocumentationBlock(file, source) {
     const content = hasBom ? source.slice(1) : source;
     const blockPattern = /\/\*\*[\s\S]*?\*\//g;
     const taggedBlocks = [...content.matchAll(blockPattern)]
-        .filter(match => /@(title|description|pgs(?:-option|-state)?|api|related|return)\b/.test(match[0]));
+        .filter(match => /@(title|description|pgs(?:-options|-data|-state)?|api|related|return)\b/.test(match[0]));
     const initialHtmlComment = content.match(/^<!--[\t\r\n ]*(\/\*\*[\s\S]*?\*\/)[\t\r\n ]*-->/);
 
     if (taggedBlocks.length === 0) {
-        errors.push(createError(relativeFile, "Commento strutturato iniziale mancante.", "Aggiungi un blocco <!-- /** ... */ --> come primo contenuto del file."));
+        errors.push(createError(relativeFile, "Missing the initial structured comment.", "Add a <!-- /** ... */ --> block as the first content of the file."));
         return { errors };
     }
 
     if (taggedBlocks.length > 1) {
-        errors.push(createError(relativeFile, `Trovati ${taggedBlocks.length} commenti strutturati.`, "Mantieni un solo blocco di documentazione iniziale."));
+        errors.push(createError(relativeFile, `Found ${taggedBlocks.length} structured comments.`, "Keep a single initial documentation block."));
     }
 
     const first = taggedBlocks[0];
@@ -83,14 +94,14 @@ function parseDocumentationBlock(file, source) {
     if (!hasValidHtmlWrapper) {
         errors.push(createError(
             relativeFile,
-            "Il commento strutturato non è un commento HTML iniziale valido.",
-            "Posizionalo all'inizio e racchiudi il blocco /** ... */ tra <!-- e -->, così il browser non lo mostra nella pagina.",
+            "The structured comment is not a valid initial HTML comment.",
+            "Place it at the start and wrap the /** ... */ block between <!-- and -->, so the browser does not show it on the page.",
         ));
     }
 
     const lines = normalizeEol(first[0]).split("\n");
     if (lines[0].trim() !== "/**" || lines.at(-1).trim() !== "*/") {
-        errors.push(createError(relativeFile, "Delimitatori del commento strutturato non validi.", "Usa /** su una riga e */ su una riga separata."));
+        errors.push(createError(relativeFile, "Invalid delimiters for the structured comment.", "Put /** on one line and */ on a separate line."));
         return { errors };
     }
 
@@ -98,7 +109,7 @@ function parseDocumentationBlock(file, source) {
     for (let index = 1; index < lines.length - 1; index += 1) {
         const match = lines[index].match(/^\s*\*(?: ?(.*))?$/);
         if (!match) {
-            errors.push(createError(relativeFile, `Riga ${index + 1} del commento non valida.`, "Prefissa ogni riga interna con *.", "commento"));
+            errors.push(createError(relativeFile, `Line ${index + 1} of the comment is invalid.`, "Prefix every inner line with *.", "comment"));
             continue;
         }
         bodyLines.push(match[1] || "");
@@ -108,7 +119,9 @@ function parseDocumentationBlock(file, source) {
         title: "",
         description: "",
         pgs: [],
-        "pgs-option": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": [],
         "pgs-state": [],
         api: [],
         related: [],
@@ -129,15 +142,15 @@ function parseDocumentationBlock(file, source) {
             const order = TAG_ORDER.indexOf(tag);
 
             if (order === -1) {
-                errors.push(createError(relativeFile, `Tag sconosciuto @${tag}.`, "Usa solamente i tag previsti dal formato.", `@${tag}`));
+                errors.push(createError(relativeFile, `Unknown tag @${tag}.`, "Use only the tags the format provides.", `@${tag}`));
                 activeTag = null;
                 return;
             }
             if (seenTags.has(tag)) {
-                errors.push(createError(relativeFile, `Sezione @${tag} duplicata.`, "Mantieni una sola sezione per tag.", `@${tag}`));
+                errors.push(createError(relativeFile, `Duplicate section @${tag}.`, "Keep a single section per tag.", `@${tag}`));
             }
             if (order < previousOrder) {
-                errors.push(createError(relativeFile, `La sezione @${tag} non rispetta l'ordine canonico.`, `Usa l'ordine: ${TAG_ORDER.map(item => `@${item}`).join(", ")}.`, `@${tag}`));
+                errors.push(createError(relativeFile, `Section @${tag} breaks the canonical order.`, `Use the order: ${TAG_ORDER.map(item => `@${item}`).join(", ")}.`, `@${tag}`));
             }
 
             seenTags.add(tag);
@@ -145,9 +158,9 @@ function parseDocumentationBlock(file, source) {
             activeTag = tag;
 
             if (LIST_TAGS.has(tag)) {
-                if (value) errors.push(createError(relativeFile, `La sezione @${tag} deve iniziare su una riga senza contenuto.`, "Sposta le voci nelle righe successive con il formato - valore: descrizione.", `@${tag}`));
+                if (value) errors.push(createError(relativeFile, `Section @${tag} must start on a line with no content.`, "Move the entries to the following lines in the format - value: description.", `@${tag}`));
             } else {
-                if (!value) errors.push(createError(relativeFile, `Il tag @${tag} è vuoto.`, "Aggiungi il testo sulla stessa riga del tag.", `@${tag}`));
+                if (!value) errors.push(createError(relativeFile, `The tag @${tag} is empty.`, "Add the text on the same line as the tag.", `@${tag}`));
                 data[tag] = value;
                 activeTag = null;
             }
@@ -155,43 +168,45 @@ function parseDocumentationBlock(file, source) {
         }
 
         if (!activeTag || !LIST_TAGS.has(activeTag)) {
-            errors.push(createError(relativeFile, `Contenuto non associato a un tag alla riga ${lineIndex + 2}.`, "Inserisci il contenuto in una sezione riconosciuta."));
+            errors.push(createError(relativeFile, `Content not attached to a tag at line ${lineIndex + 2}.`, "Put the content in a recognized section."));
             return;
         }
 
         const itemMatch = line.match(/^-\s+([^:]+):\s+(.+)$/);
         if (!itemMatch) {
-            errors.push(createError(relativeFile, `Voce non valida nella sezione @${activeTag}: "${line}".`, "Usa il formato - valore: descrizione.", `@${activeTag}`));
+            errors.push(createError(relativeFile, `Invalid entry in section @${activeTag}: "${line}".`, "Use the format - value: description.", `@${activeTag}`));
             return;
         }
 
         const key = itemMatch[1].trim();
         const description = itemMatch[2].trim();
         if (!key || !description) {
-            errors.push(createError(relativeFile, `Voce incompleta nella sezione @${activeTag}.`, "Specifica sia il valore sia la descrizione.", `@${activeTag}`, key));
+            errors.push(createError(relativeFile, `Incomplete entry in section @${activeTag}.`, "Give both the value and the description.", `@${activeTag}`, key));
             return;
         }
         if (data[activeTag].some(item => item.key === key)) {
-            errors.push(createError(relativeFile, `Valore duplicato "${key}" nella sezione @${activeTag}.`, "Rimuovi la voce duplicata.", `@${activeTag}`, key));
+            errors.push(createError(relativeFile, `Duplicate value "${key}" in section @${activeTag}.`, "Remove the duplicate entry.", `@${activeTag}`, key));
             return;
         }
-        if (activeTag === "pgs-option" && /[\s[\]]/.test(key)) {
-            errors.push(createError(relativeFile, `La voce @pgs-option "${key}" non è una chiave valida.`, "Documenta la chiave senza payload, per esempio position invece di position[top left].", "@pgs-option", key));
+        if (["pgs-options", "pgs-data"].includes(activeTag) && /[\s[\]]/.test(key)) {
+            errors.push(createError(relativeFile, `The @pgs-options entry "${key}" is not a valid key.`, "Document the key without its payload, for example position instead of position[top left].", "@pgs-options", key));
             return;
         }
         data[activeTag].push({ key, description });
     });
 
-    REQUIRED_TAGS.forEach(tag => {
+    const isHelper = toPosix(path.relative(REFERENCE_ROOT, file)).startsWith("helper/");
+    const requiredTags = isHelper ? HELPER_REQUIRED_TAGS : REQUIRED_TAGS;
+    requiredTags.forEach(tag => {
         const value = data[tag];
         if (!seenTags.has(tag) || (Array.isArray(value) ? value.length === 0 : !value)) {
-            errors.push(createError(relativeFile, `Sezione obbligatoria @${tag} mancante o vuota.`, `Aggiungi una sezione @${tag} valida.`, `@${tag}`));
+            errors.push(createError(relativeFile, `Required section @${tag} is missing or empty.`, `Add a valid @${tag} section.`, `@${tag}`));
         }
     });
 
     LIST_TAGS.forEach(tag => {
         if (seenTags.has(tag) && data[tag].length === 0) {
-            errors.push(createError(relativeFile, `Sezione @${tag} dichiarata ma vuota.`, `Aggiungi almeno una voce oppure rimuovi la sezione @${tag}.`, `@${tag}`));
+            errors.push(createError(relativeFile, `Section @${tag} is declared but empty.`, `Add at least one entry or remove the @${tag} section.`, `@${tag}`));
         }
     });
 
@@ -199,66 +214,13 @@ function parseDocumentationBlock(file, source) {
     const markupStart = hasValidHtmlWrapper ? documentationContainer.length : first.index + documentationContainer.length;
     const markup = normalizeEol(content.slice(markupStart)).trim();
     if (!markup) {
-        errors.push(createError(relativeFile, "Contenuto HTML mancante sotto il commento.", "Mantieni l'esempio HTML ufficiale dopo il blocco di documentazione."));
+        errors.push(createError(relativeFile, "Missing HTML content below the comment.", "Keep the official HTML example after the documentation block."));
     }
 
     return { errors, data, markup, block: documentationContainer, hasBom };
 }
 
-//+ index of the "]" matching the "[" at openIndex, counting nested brackets and ignoring any "[" / "]" inside a JSON string (respects \" escapes)
-function findMatchingBracket(source, openIndex) {
-    let depth = 0;
-    let inString = false;
-    let escaped = false;
-
-    for (let i = openIndex; i < source.length; i++) {
-        const char = source[i];
-
-        if (escaped) {
-            escaped = false;
-            continue;
-        }
-
-        if (inString) {
-            if (char === "\\") escaped = true;
-            else if (char === "\"") inString = false;
-            continue;
-        }
-
-        if (char === "\"") inString = true;
-        else if (char === "[") depth++;
-        else if (char === "]") {
-            depth--;
-            if (depth === 0) return i;
-        }
-    }
-
-    return -1;
-}
-
-//+ mirrors assets/javascript/_pgs.js tokenizeOptionValue: keeps "key[...]" whole even when the payload has its own [...]
-function tokenizeOptions(value) {
-    const tokens = [];
-    let i = 0;
-
-    while (i < value.length) {
-        while (i < value.length && /\s/.test(value[i])) i++;
-        if (i >= value.length) break;
-
-        const start = i;
-        while (i < value.length && !/\s/.test(value[i]) && value[i] !== "[") i++;
-
-        if (i < value.length && value[i] === "[") {
-            const close = findMatchingBracket(value, i);
-            i = close === -1 ? value.length : close + 1;
-        }
-
-        if (i > start) tokens.push(value.slice(start, i));
-    }
-
-    return tokens;
-}
-
+// index of the "]" matching the "[" at openIndex, counting nested brackets and ignoring any "[" / "]" inside a JSON string (respects \" escapes)
 function splitOption(value) {
     const openIndex = value.indexOf("[");
     if (openIndex === -1) return /^[^\s[\]]+$/.test(value) ? { key: value, payload: undefined } : { key: "", payload: undefined };
@@ -270,22 +232,34 @@ function splitOption(value) {
     return { key, payload: value.slice(openIndex + 1, closeIndex) };
 }
 
-function extractAttributes(markup) {
-    const activeMarkup = markup.replace(/<!--[\s\S]*?-->/g, "");
-    const result = { pgs: [], options: [], states: [] };
-    const pattern = /\b(pgs(?:-option|-state)?)\s*=\s*(["'])([\s\S]*?)\2/g;
+// a demo="component" element is grouping-only (and never rendered in the docs Example section, see
+// extractDemoItems) ONLY when it actually contains a nested demo="component" — in that case its
+// own pgs/pgs-options/pgs-state attributes are incidental layout and shouldn't force a doc
+// requirement. Without a nested component the element itself is the rendered example and its
+// attributes are the real subject (see formAddon.html's outer <form demo="component"> against its
+// inner, once-nested <section demo="component"> examples).
+function stripComponentWrapperAttributes(markup) {
+    const openTagPattern = /<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*\bdemo\s*=\s*["'][^"']*\bcomponent\b[^"']*["'][^>]*>/g;
+    let result = "";
+    let lastIndex = 0;
+    let match;
 
-    for (const match of activeMarkup.matchAll(pattern)) {
-        const attribute = match[1];
-        const value = match[3];
-        if (attribute === "pgs-option") result.options.push(...tokenizeOptions(value));
-        else if (attribute === "pgs-state") result.states.push(...value.trim().split(/\s+/).filter(Boolean));
-        else result.pgs.push(...value.trim().split(/\s+/).filter(Boolean));
+    while ((match = openTagPattern.exec(markup))) {
+        const tagName = match[1];
+        const openTag = match[0];
+        const openTagEnd = match.index + openTag.length;
+        const end = findMatchingCloseTag(markup, tagName, openTagEnd);
+        const innerContent = end === -1 ? "" : markup.slice(openTagEnd, end);
+        const hasNestedComponent = /\bdemo\s*=\s*["'][^"']*\bcomponent\b[^"']*["']/.test(innerContent);
+
+        result += markup.slice(lastIndex, match.index);
+        result += hasNestedComponent ? openTag.replace(/\s+pgs(?:-options|-data|-state)?\s*=\s*("[^"]*"|'[^']*')/g, "") : openTag;
+
+        lastIndex = openTagEnd;
+        openTagPattern.lastIndex = openTagEnd;
     }
 
-    Object.keys(result).forEach(key => {
-        result[key] = [...new Set(result[key])];
-    });
+    result += markup.slice(lastIndex);
     return result;
 }
 
@@ -332,31 +306,76 @@ function loadSources() {
         }));
 }
 
+// every custom property a component exposes carries its own name as an exact, unhyphenated-free
+// prefix (slides.html -> --slides-*, pageShell.html -> --pageShell-*, casing included) — unlike
+// pgs-options matching this needs no fuzzy/singular fallback, the prefix alone is already specific
+function extractCssVariables(template, allSourceContent) {
+    const basename = path.basename(template, ".html");
+    const pattern = new RegExp(`--${escapeRegExp(basename)}-[A-Za-z0-9-]+`, "g");
+    // a name ending in "-" is the head of an interpolated one (--icon-glyph-#{$name}), not a
+    // property anybody can write: the source text carries it, the documentation should not
+    return [...new Set(allSourceContent.match(pattern) || [])]
+        .filter(name => !name.endsWith("-"))
+        .sort((a, b) => a.localeCompare(b, "en"));
+}
+
 function associateSources(template, documentation, sources) {
     const basename = normalizeName(path.basename(template, ".html"));
     const singularBasename = singularName(basename);
     const primaryTokens = documentation.pgs.map(item => item.key);
 
-    const nameMatches = sources.filter(source => {
-        const singularSource = singularName(source.name);
-        return source.name === basename
-            || singularSource === singularBasename
-            || source.name.startsWith(basename)
-            || basename.startsWith(source.name);
-    });
+    // an exact (or singular) name match is the reference's own source, so prefix matches are
+    // only a fallback: without this, form.scss counts as a source of formAddon.html merely
+    // because "formaddon" starts with "form", and every option added to one is demanded of both
+    const exactMatches = sources.filter(source =>
+        source.name === basename || singularName(source.name) === singularBasename);
+
+    if (exactMatches.length > 0) return exactMatches;
+
+    const nameMatches = sources.filter(source =>
+        source.name.startsWith(basename) || basename.startsWith(source.name));
 
     if (nameMatches.length > 0) return nameMatches;
     return sources.filter(source => primaryTokens.some(token => containsPgsReference(source.content, token)));
 }
 
+// a token the JavaScript writes onto an element it builds: pgs().add(), markup assembled as a
+// string, or a direct setAttribute. Reading a token (querySelector) is deliberately not counted,
+// because that is how the library finds markup the author wrote.
+function extractEmittedPgs(source) {
+    if (!source.file.endsWith(".js")) return [];
+
+    const emitted = new Set();
+    const patterns = [
+        /pgs\([^)]*\)\s*\.\s*add\(([^)]*)\)/g,
+        /setAttribute\(\s*["']pgs["']\s*,\s*(["'][^"']+["'])/g,
+    ];
+
+    patterns.forEach(pattern => {
+        for (const match of source.content.matchAll(pattern)) {
+            for (const token of match[1].matchAll(/["']([A-Za-z_][\w-]*(?:\s+[A-Za-z_][\w-]*)*)["']/g)) {
+                token[1].split(/\s+/).forEach(value => emitted.add(value));
+            }
+        }
+    });
+
+    const markup = source.content.replace(/\\"/g, '"');
+    extractAttributes(markup).pgs.forEach(token => {
+        if (/^[A-Za-z_][\w-]*$/.test(token)) emitted.add(token);
+    });
+
+    return [...emitted];
+}
+
 function extractSourceFacts(sources) {
-    const facts = { options: new Set(), states: new Set() };
+    const facts = { options: new Set(), states: new Set(), emitted: new Set() };
 
     sources.forEach(source => {
         const content = source.content;
         const optionPatterns = [
             /\.option\.(?:contains|getValueBrackets|setValueBrackets)\(\s*["']([^"']+)["']\s*(?=[,)])/g,
-            /pgs-option\s*[~*^$|]?=\s*["']([^"'\[\]\s]+)(?:\[[^\]]*\])?["']/g,
+            /pgs-data\s*[~*^$|]?=\s*["']([^"'\[\]\s]+)(?:\[[^\]]*\])?["']/g,
+            /\[pgs\*="'([A-Za-z_][\w-]*)'"\]/g,
         ];
         const statePatterns = [
             /\.state\.(?:add|remove|toggle|contains)\(\s*["']([^"']+)["']\s*(?=[,)])/g,
@@ -369,6 +388,7 @@ function extractSourceFacts(sources) {
         statePatterns.forEach(pattern => {
             for (const match of content.matchAll(pattern)) facts.states.add(match[1]);
         });
+        extractEmittedPgs(source).forEach(token => facts.emitted.add(token));
     });
 
     facts.options.delete("");
@@ -389,7 +409,7 @@ function validatePosition(file, option, errors) {
     };
 
     if (parts.length !== 2 || !allowed[side]?.has(align)) {
-        errors.push(createError(file, `Payload non valido per pgs-option position: "${option.payload}".`, "Usa una coppia lato/allineamento compatibile, per esempio position[bottom center].", "@pgs-option", "position"));
+        errors.push(createError(file, `Invalid payload for pgs-data dropdownPosition: "${option.payload}".`, "Use a compatible side/alignment pair, for example dropdownPosition[bottom center].", "@pgs-options", "dropdownPosition"));
     }
 }
 
@@ -399,92 +419,147 @@ function validateTemplate(template, parsed, sources, allSourceContent) {
 
     const file = relativeToProject(template);
     const documentation = parsed.data;
-    const attributes = extractAttributes(parsed.markup);
+    const attributes = extractAttributes(stripComponentWrapperAttributes(parsed.markup));
+    // the wrapper's own pgs is stripped from the rendered example, but the author still wrote it,
+    // so the "is this authored?" question has to be asked of the template as written
+    const authoredPgs = new Set(extractAttributes(parsed.markup).pgs);
     const documentedPgs = new Set(documentation.pgs.map(item => item.key));
+    const documentedGenerated = new Set(documentation["pgs-generated"].map(item => item.key));
     const documentedRelated = new Set(documentation.related.map(item => item.key));
-    const documentedOptions = new Set(documentation["pgs-option"].map(item => item.key));
+    const documentedOptions = new Set([...documentation["pgs-options"], ...documentation["pgs-data"]].map(item => item.key));
     const documentedStates = new Set(documentation["pgs-state"].map(item => item.key));
+    for (const [attribute, values, tag] of [["pgs", attributes.options, "pgs-options"], ["pgs-data", attributes.data, "pgs-data"]]) {
+        const ownKeys = new Set(documentation[tag].map(item => item.key));
+        for (const value of values) {
+            const key = splitOption(value).key;
+            if (!ownKeys.has(key) && !documentedRelated.has(key)) {
+                errors.push(createError(file, `Option "${key}" is not documented for ${attribute}.`, `Document it in @${tag} or @related.`, tag, key));
+            }
+        }
+    }
     const associatedSources = associateSources(template, documentation, sources);
     const associatedFacts = extractSourceFacts(associatedSources);
 
     attributes.pgs.forEach(token => {
-        if (!documentedPgs.has(token) && !documentedRelated.has(token)) {
-            errors.push(createError(file, `Valore pgs non documentato: "${token}".`, "Aggiungilo a @pgs oppure a @related.", "@pgs", token));
+        if (!documentedPgs.has(token) && !documentedGenerated.has(token) && !documentedRelated.has(token)) {
+            errors.push(createError(file, `Undocumented pgs value: "${token}".`, "Add it to @pgs or to @related.", "@pgs", token));
         }
+    });
+
+    // the underscore is the visible half of the convention: it may only mark markup the library
+    // builds, and it has to agree with the declaration
+    [...documentedPgs, ...documentedRelated].forEach(token => {
+        if (!token.startsWith("_")) return;
+
+        errors.push(createError(file, `The value "${token}" starts with "_" but is not in @pgs-generated.`, "The underscore only marks markup the library builds: move it to @pgs-generated or drop the prefix.", documentedPgs.has(token) ? "@pgs" : "@related", token));
+    });
+
+    // the declaration has to keep matching the JavaScript, otherwise the tag rots into a comment
+    documentedGenerated.forEach(token => {
+        if (!associatedFacts.emitted.has(token)) {
+            errors.push(createError(file, `The @pgs-generated value "${token}" is not generated by the JavaScript.`, "Move it to @pgs if it is now written by hand, or fix the name.", "@pgs-generated", token));
+        }
+    });
+
+    // a token the JavaScript builds and no example writes by hand is not authorable markup:
+    // either it belongs in @pgs-generated, or the example should show how to write it
+    associatedFacts.emitted.forEach(token => {
+        if (!documentedPgs.has(token) || authoredPgs.has(token)) return;
+
+        errors.push(createError(file, `The @pgs value "${token}" is generated by the JavaScript and does not appear in the example.`, "Move it to @pgs-generated, or write it in the example if it can be composed by hand.", "@pgs", token));
     });
 
     documentedPgs.forEach(token => {
+        if (documentedGenerated.has(token)) {
+            errors.push(createError(file, `The value "${token}" appears in both @pgs and @pgs-generated.`, "Document it in one section only.", "@pgs", token));
+        }
+
         if (documentedRelated.has(token)) {
-            errors.push(createError(file, `Il valore "${token}" compare sia in @pgs sia in @related.`, "Documentalo in una sola sezione.", "@pgs", token));
+            errors.push(createError(file, `The value "${token}" appears in both @pgs and @related.`, "Document it in one section only.", "@pgs", token));
         }
     });
 
-    [...documentedPgs, ...documentedRelated].forEach(token => {
-        if (!attributes.pgs.includes(token) && !containsExactToken(allSourceContent, token)) {
-            errors.push(createError(file, `Valore documentato non trovato nel template, JavaScript o SCSS: "${token}".`, "Correggi il nome oppure rimuovi la voce non implementata.", documentedPgs.has(token) ? "@pgs" : "@related", token));
+    [...documentedPgs, ...documentedGenerated, ...documentedRelated].forEach(token => {
+        const usedAsOption = [...attributes.options, ...attributes.data].some(value => splitOption(value).key === token);
+        if (!attributes.pgs.includes(token) && !usedAsOption && !containsExactToken(allSourceContent, token)) {
+            errors.push(createError(file, `Documented value not found in the template, JavaScript or SCSS: "${token}".`, "Fix the name or remove the entry that is not implemented.", documentedPgs.has(token) ? "@pgs" : "@related", token));
         }
     });
 
-    attributes.options.forEach(rawOption => {
+    [...attributes.options, ...attributes.data].forEach(rawOption => {
         const option = splitOption(rawOption);
         if (!option.key) {
-            errors.push(createError(file, `Valore pgs-option non valido: "${rawOption}".`, "Correggi la sintassi dell'attributo pgs-option.", "@pgs-option", rawOption));
+            errors.push(createError(file, `Invalid pgs-options value: "${rawOption}".`, "Fix the syntax of the pgs-options attribute.", "@pgs-options", rawOption));
             return;
         }
-        if (!documentedOptions.has(option.key)) {
-            errors.push(createError(file, `Valore pgs-option non documentato: "${option.key}".`, "Aggiungi la chiave alla sezione @pgs-option.", "@pgs-option", option.key));
+        if (!documentedOptions.has(option.key) && !documentedRelated.has(option.key)) {
+            errors.push(createError(file, `Undocumented pgs-options value: "${option.key}".`, "Add the key to the @pgs-options section or to @related.", "@pgs-options", option.key));
         }
-        if (["containerID", "containerPGS", "tabIcon"].includes(option.key) && (!option.payload || !option.payload.trim())) {
-            errors.push(createError(file, `Payload mancante per pgs-option "${option.key}".`, `Usa ${option.key}[valore] con un valore non vuoto.`, "@pgs-option", option.key));
+        if (["modalContainerID", "modalContainerPGS", "stepTabsIcon"].includes(option.key) && (!option.payload || !option.payload.trim())) {
+            errors.push(createError(file, `Missing payload for pgs-data "${option.key}".`, `Use ${option.key}[value] with a non-empty value.`, "@pgs-options", option.key));
         }
-        if (option.key === "tabIcon" && /\s/.test(option.payload || "")) {
-            errors.push(createError(file, `Il payload tabIcon deve contenere una sola classe: "${option.payload}".`, "Usa una singola classe icona, per esempio tabIcon[fa-user].", "@pgs-option", option.key));
+        // stepTabsIcon takes three shapes: full markup (opening with "<"), the name of an internal glyph, or a
+        // list of classes. Only the second must stay a single word, because it is a key:
+        // there can be several classes and the markup contains spaces by construction
+        if (option.key === "stepTabsIcon") {
+            const payload = (option.payload || "").trim();
+            if (payload.startsWith("icon-") && /\s/.test(payload)) {
+                errors.push(createError(file, `The name of a glyph in stepTabsIcon must be a single word: "${option.payload}".`, "Use the full markup, the name of a glyph, or a list of classes: stepTabsIcon[<span pgs='icon' class='material-symbols-outlined'>check</span>], stepTabsIcon[icon-check], stepTabsIcon[bi bi-star].", "@pgs-options", option.key));
+            }
+            if (payload.startsWith("<") && !/<[a-zA-Z][^>]*>/.test(payload)) {
+                errors.push(createError(file, `The stepTabsIcon markup is not a valid tag: "${option.payload}".`, "Write a complete element, with its inner attributes in single quotes.", "@pgs-options", option.key));
+            }
         }
-        if (option.key === "position") validatePosition(file, option, errors);
+        if (option.key === "dropdownPosition") validatePosition(file, option, errors);
     });
 
-    documentation["pgs-option"].forEach(item => {
-        const inTemplate = attributes.options.some(value => splitOption(value).key === item.key);
+    [...documentation["pgs-options"], ...documentation["pgs-data"]].forEach(item => {
+        const inTemplate = [...attributes.options, ...attributes.data].some(value => splitOption(value).key === item.key);
         if (!inTemplate && !associatedFacts.options.has(item.key) && !containsExactToken(allSourceContent, item.key)) {
-            errors.push(createError(file, `Il valore @pgs-option "${item.key}" non è stato trovato nei sorgenti collegati.`, "Correggi il nome o rimuovi l'opzione non implementata.", "@pgs-option", item.key));
+            errors.push(createError(file, `The @pgs-options value "${item.key}" was not found in the linked sources.`, "Fix the name or remove the option that is not implemented.", "@pgs-options", item.key));
         }
     });
 
+    // @related counts here as it does for the options written in the example: a component whose
+    // markup carries an option owned by another component documents it as a reference, not as one
+    // of its own. Demanding @pgs-options would put a foreign key in this component's table, which
+    // reads as an offer to configure something this component does not own
     associatedFacts.options.forEach(option => {
-        if (!documentedOptions.has(option)) {
-            errors.push(createError(file, `Opzione supportata ma non documentata: "${option}".`, "Aggiungila alla sezione @pgs-option.", "@pgs-option", option));
+        if (WITHHELD_OPTIONS.has(option)) return;
+        if (!documentedOptions.has(option) && !documentedRelated.has(option)) {
+            errors.push(createError(file, `Supported option that is not documented: "${option}".`, "Add it to the @pgs-options section, or to @related if it belongs to another component.", "@pgs-options", option));
         }
     });
 
     attributes.states.forEach(state => {
         if (!documentedStates.has(state)) {
-            errors.push(createError(file, `Valore pgs-state non documentato: "${state}".`, "Aggiungilo alla sezione @pgs-state.", "@pgs-state", state));
+            errors.push(createError(file, `Undocumented pgs-state value: "${state}".`, "Add it to the @pgs-state section.", "@pgs-state", state));
         }
     });
 
     documentation["pgs-state"].forEach(item => {
         if (!attributes.states.includes(item.key) && !associatedFacts.states.has(item.key) && !containsExactToken(allSourceContent, item.key)) {
-            errors.push(createError(file, `Il valore @pgs-state "${item.key}" non è stato trovato nel template, JavaScript o SCSS collegato.`, "Correggi il nome o rimuovi lo stato non implementato.", "@pgs-state", item.key));
+            errors.push(createError(file, `The @pgs-state value "${item.key}" was not found in the linked template, JavaScript or SCSS.`, "Fix the name or remove the state that is not implemented.", "@pgs-state", item.key));
         }
     });
 
     associatedFacts.states.forEach(state => {
         if (!documentedStates.has(state)) {
-            errors.push(createError(file, `Stato supportato ma non documentato: "${state}".`, "Aggiungilo alla sezione @pgs-state.", "@pgs-state", state));
+            errors.push(createError(file, `Supported state that is not documented: "${state}".`, "Add it to the @pgs-state section.", "@pgs-state", state));
         }
     });
 
     documentation.api.forEach(item => {
         const signature = item.key.match(/^(?:new\s+)?((?:pgs|instance)(?:\.[A-Za-z_$][\w$]*)+)\([^)]*\)$/);
         if (!signature) {
-            errors.push(createError(file, `Firma API non valida: "${item.key}".`, "Usa una firma chiamabile, per esempio pgs.modal.api(element) oppure instance.open().", "@api", item.key));
+            errors.push(createError(file, `Invalid API signature: "${item.key}".`, "Use a callable signature, for example pgs.modal.api(element) or instance.open().", "@api", item.key));
             return;
         }
 
         const identifiers = signature[1].split(".");
         const implementationName = identifiers.at(-1);
         if (!containsExactToken(allSourceContent, implementationName)) {
-            errors.push(createError(file, `API documentata non trovata nei sorgenti: "${item.key}".`, "Correggi la firma oppure rimuovi il metodo non esposto.", "@api", item.key));
+            errors.push(createError(file, `Documented API not found in the sources: "${item.key}".`, "Fix the signature or remove the method that is not exposed.", "@api", item.key));
         }
     });
 
@@ -495,7 +570,7 @@ function renderList(items) {
     return items.map(item => `- \`${item.key}\`: ${item.description}`).join("\n");
 }
 
-//+ dedents a block by the smallest leading whitespace found among its non-empty lines
+// dedents a block by the smallest leading whitespace found among its non-empty lines
 function dedent(text) {
     const lines = text.replace(/^\n/, "").replace(/\s+$/, "").split("\n");
     const indents = lines.filter(line => line.trim().length > 0).map(line => line.match(/^\s*/)[0].length);
@@ -503,7 +578,7 @@ function dedent(text) {
     return lines.map(line => line.slice(minIndent)).join("\n");
 }
 
-//+ pulls a <script type="..."> reference block out of the markup so it can render as its own titled section
+// pulls a <script type="..."> reference block out of the markup so it can render as its own titled section
 function extractScriptBlock(markup, typeValue) {
     const safeType = escapeRegExp(typeValue);
     const pattern = new RegExp(`<script\\b[^>]*\\btype\\s*=\\s*["']${safeType}["'][^>]*>([\\s\\S]*?)<\\/script>`, "i");
@@ -517,16 +592,212 @@ function extractScriptBlock(markup, typeValue) {
     return { content: dedent(match[1]), markup: cleanedMarkup };
 }
 
-function renderMarkdown(template, documentation, markup) {
+function stripDemoAttributesFromMarkup(html) {
+    return html.replace(/\s+demo(?:-title|-description)?\s*=\s*("[^"]*"|'[^']*')/g, "");
+}
+
+// an element that only groups the example for the demo is not part of the example: demo="wrapper"
+// keeps it in the live preview but prints what is inside it instead of itself. It can repeat at
+// several levels side by side within one example (see Border's rows of spans), not just a single
+// nested chain, so this scans the whole string for a match rather than assuming the next one is
+// always at the very start.
+function unwrapScaffold(markup) {
+    let current = markup.trim();
+    const openTagPattern = /<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*>/g;
+
+    while (true) {
+        openTagPattern.lastIndex = 0;
+        let match;
+        let target = null;
+
+        while ((match = openTagPattern.exec(current))) {
+            if (/\bdemo\s*=\s*["'][^"']*\bwrapper\b[^"']*["']/.test(match[0])) {
+                target = match;
+                break;
+            }
+        }
+
+        if (!target) return current;
+
+        const openEnd = target.index + target[0].length;
+        const end = findMatchingCloseTag(current, target[1], openEnd);
+        if (end === -1) return current;
+
+        const closing = current.lastIndexOf("<", end - 1);
+        const inner = dedent(current.slice(openEnd, closing));
+
+        current = current.slice(0, target.index) + inner + current.slice(end);
+    }
+}
+
+// finds the index right after the closing tag matching an opening tag of tagName starting at fromIndex,
+// counting nested occurrences of that same tag name (ignores every other tag, including void elements like <img>)
+function findMatchingCloseTag(markup, tagName, fromIndex) {
+    const tagPattern = new RegExp(`<(\\/?)${tagName}\\b[^>]*>`, "gi");
+    tagPattern.lastIndex = fromIndex;
+    let depth = 1;
+    let match;
+
+    while ((match = tagPattern.exec(markup))) {
+        if (match[1]) {
+            depth--;
+            if (depth === 0) return match.index + match[0].length;
+        } else if (!match[0].endsWith("/>")) {
+            depth++;
+        }
+        tagPattern.lastIndex = match.index + match[0].length;
+    }
+
+    return -1;
+}
+
+// removes every demo="disabled" element (whole subtree) from the rendered "## Example" output — test-only
+// markup that shouldn't appear in the generated docs, even though it stays in the file and still counts
+// for @pgs/@pgs-options/@related validation (which runs on the untouched markup, not this output)
+function stripDisabledElements(markup) {
+    const openTagPattern = /<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*\bdemo\s*=\s*["']disabled["'][^>]*>/g;
+    let result = "";
+    let lastIndex = 0;
+    let match;
+
+    while ((match = openTagPattern.exec(markup))) {
+        const tagName = match[1];
+        const openTagEnd = match.index + match[0].length;
+        const end = findMatchingCloseTag(markup, tagName, openTagEnd);
+        const removeEnd = end === -1 ? openTagEnd : end;
+
+        result += markup.slice(lastIndex, match.index);
+        lastIndex = removeEnd;
+        openTagPattern.lastIndex = removeEnd;
+    }
+
+    result += markup.slice(lastIndex);
+    return result.replace(/\n{3,}/g, "\n\n").trim();
+}
+
+// true when a demo="component" element actually has a nested demo="component" descendant, meaning
+// it's transparent grouping markup rather than the rendered example itself (shared with
+// stripComponentWrapperAttributes's own check, same rule). The boundary check (rather than an
+// exact-value match) is what lets "component" combine with codeNone/previewNone in the same demo
+// attribute, e.g. demo="component previewNone".
+function hasNestedComponent(markup, start, end) {
+    return /\bdemo\s*=\s*["'][^"']*\bcomponent\b[^"']*["']/.test(markup.slice(start, end));
+}
+
+// walks the example markup in document order, matching every <demo demo-h2=.../demo-h3=...> marker
+// and every demo="component" element as it's encountered. A <demo demo-h2> marker becomes its own
+// heading block immediately; a <demo demo-h3> marker is held as "pending" until the next titleable
+// leaf consumes it. A demo="component" that contains a nested demo="component" is transparent — the
+// walk doesn't stop at it, it just keeps scanning through its content for the nested demo-h3 +
+// demo="component" pairs (see formAddon.html's outer <form demo="component"> around several inner
+// ones), exactly the same way stripComponentWrapperAttributes decides whether the wrapper's own
+// attributes are incidental. demo="wrapper" never appears in this top-level match at all — it's a
+// purely nested instruction, unwrapped afterwards by unwrapScaffold, never its own block boundary.
+// Matching "component" by boundary inside the quoted value (not requiring it to be the *whole*
+// value) is what lets it combine with codeNone/previewNone, e.g. demo="component codeNone".
+function extractDemoBlocks(markup) {
+    const pattern = /<(demo)\b[^>]*>|<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*\bdemo\s*=\s*["'][^"']*\bcomponent\b[^"']*["'][^>]*>/g;
+    const blocks = [];
+    let pendingH3 = null;
+    let match;
+
+    while ((match = pattern.exec(markup))) {
+        if (match[1] === "demo") {
+            const openTagEnd = match.index + match[0].length;
+            const end = findMatchingCloseTag(markup, "demo", openTagEnd);
+            const h2Match = match[0].match(/\bdemo-h2\s*=\s*(["'])((?:(?!\1).)*)\1/);
+            const h3Match = match[0].match(/\bdemo-h3\s*=\s*(["'])((?:(?!\1).)*)\1/);
+            const descriptionMatch = match[0].match(/\bdemo-description\s*=\s*(["'])((?:(?!\1).)*)\1/);
+            const description = descriptionMatch ? descriptionMatch[2] : "";
+
+            if (h2Match) blocks.push({ type: "heading", title: h2Match[2], description });
+            else if (h3Match) pendingH3 = { title: h3Match[2], description };
+
+            pattern.lastIndex = end === -1 ? openTagEnd : end;
+            continue;
+        }
+
+        const tagName = match[2];
+        const openTagEnd = match.index + match[0].length;
+        const end = findMatchingCloseTag(markup, tagName, openTagEnd);
+        if (end === -1) {
+            pattern.lastIndex = openTagEnd;
+            continue;
+        }
+
+        if (hasNestedComponent(markup, openTagEnd, end)) {
+            // transparent wrapper: leave the pending marker alone and keep scanning its content
+            pattern.lastIndex = openTagEnd;
+            continue;
+        }
+
+        // a demo="component" only declares where one example starts: it is the grouping element,
+        // never part of the example itself, so its own tag never reaches the copied code — exactly
+        // like demo="wrapper". Only what sits inside it prints.
+        const closing = markup.lastIndexOf("<", end - 1);
+        const dedented = dedent(markup.slice(openTagEnd, closing));
+
+        blocks.push({
+            type: "item",
+            title: pendingH3 ? pendingH3.title : "",
+            description: pendingH3 ? pendingH3.description : "",
+            // demo="codeNone" says there's nothing worth copying for this one (see demo.js): the
+            // heading and description still print, only the fenced code is left out
+            hideCode: /\bdemo\s*=\s*["'][^"']*\bcodeNone\b[^"']*["']/.test(match[0]),
+            markup: stripDemoAttributesFromMarkup(unwrapScaffold(dedented)).trim(),
+        });
+        pendingH3 = null;
+
+        pattern.lastIndex = end;
+    }
+
+    return blocks;
+}
+
+function fenceFor(text) {
+    const runs = [...text.matchAll(/`+/g)].map(run => run[0].length);
+    return "`".repeat(Math.max(3, (runs.length ? Math.max(...runs) : 0) + 1));
+}
+
+// related elements can be borrowed from any of the three attribute kinds (pgs/pgs-options/pgs-state);
+// split them into labeled subgroups by how they're actually used in this template's markup, so a
+// reader can tell which attribute to put each one in without re-checking the source
+function renderRelatedSection(items, markup) {
+    const attributes = extractAttributes(markup);
+    const isOption = key => attributes.options.includes(key);
+    const isData = key => attributes.data.some(value => splitOption(value).key === key);
+    const isState = key => attributes.states.includes(key);
+    const isPgs = key => attributes.pgs.includes(key);
+
+    const groups = [
+        ["PGS", items.filter(item => isPgs(item.key))],
+        ["PGS Options (component brackets)", items.filter(item => !isPgs(item.key) && isOption(item.key))],
+        ["PGS Data", items.filter(item => isData(item.key))],
+        ["PGS States", items.filter(item => !isPgs(item.key) && !isOption(item.key) && isState(item.key))],
+    ];
+    const grouped = new Set(groups.flatMap(([, groupItems]) => groupItems));
+    const ungrouped = items.filter(item => !grouped.has(item));
+
+    const lines = ["", "## Related elements"];
+    groups.forEach(([label, groupItems]) => {
+        if (!groupItems.length) return;
+        lines.push("", `### ${label}`, "", renderList(groupItems));
+    });
+    if (ungrouped.length) lines.push("", "### Other", "", renderList(ungrouped));
+    return lines;
+}
+
+function renderMarkdown(template, documentation, markup, allSourceContent) {
     const relativeTemplate = relativeToProject(template);
     const marker = `<!-- Automatically generated from ${relativeTemplate}. Edit ${relativeTemplate} and run npm run docs:generate again. -->`;
     const sections = [marker, "", `# ${documentation.title}`, "", documentation.description];
     const sectionMap = [
         ["PGS", documentation.pgs],
-        ["PGS Options", documentation["pgs-option"]],
+        ["PGS generated by JavaScript", documentation["pgs-generated"]],
+        ["PGS Options (component brackets)", documentation["pgs-options"]],
+        ["PGS Data", documentation["pgs-data"]],
         ["PGS States", documentation["pgs-state"]],
         ["JavaScript API", documentation.api],
-        ["Related elements", documentation.related],
     ];
 
     sectionMap.forEach(([title, items]) => {
@@ -534,34 +805,73 @@ function renderMarkdown(template, documentation, markup) {
         sections.push("", `## ${title}`, "", renderList(items));
     });
 
+    if (documentation.related.length) sections.push(...renderRelatedSection(documentation.related, markup));
+
+    const cssVariables = extractCssVariables(template, allSourceContent);
+    if (cssVariables.length) sections.push("", "## CSS Variables", "", cssVariables.map(name => `- \`${name}\``).join("\n"));
+
     if (documentation.return) sections.push("", "## Output", "", documentation.return);
 
     const { content: jsonSchema, markup: markupAfterJson } = extractScriptBlock(markup, "application/json");
     const { content: jsUsage, markup: cleanedMarkup } = extractScriptBlock(markupAfterJson, "text/x-example-js");
 
-    if (jsonSchema) sections.push("", "## JSON Schema", "", "```json", jsonSchema, "```", "");
+    // the payload is the value of a pgs-data attribute, so print it as one
+    if (jsonSchema) sections.push("", "## PGS Data fields", "", "```html", `pgs-data='${jsonSchema}'`, "```", "");
     if (jsUsage) sections.push("", "## JavaScript Usage", "", "```js", jsUsage, "```", "");
 
-    const runs = [...cleanedMarkup.matchAll(/`+/g)].map(match => match[0].length);
-    const fence = "`".repeat(Math.max(3, (runs.length ? Math.max(...runs) : 0) + 1));
-    sections.push("", "## Example", "", `${fence}html`, cleanedMarkup, fence, "");
+    const exampleMarkup = stripDisabledElements(cleanedMarkup);
+    const demoBlocks = extractDemoBlocks(exampleMarkup);
+
+    // a file whose examples open with <demo demo-h2="..."> already supplies its own top-level
+    // heading, from the first block in the forEach below — pushing this one too duplicated it
+    // (Example directly above Examples) on every file following that convention. A file with no
+    // demo-h2 has nothing of its own, so it still gets this fallback, exactly as before
+    const suppliesOwnHeading = demoBlocks.length > 0 && demoBlocks[0].type === "heading";
+    if (!suppliesOwnHeading && (demoBlocks.length > 0 || exampleMarkup)) sections.push("", "## Example", "");
+
+    if (demoBlocks.length > 0) {
+        demoBlocks.forEach((block, index) => {
+            if (index > 0) sections.push("");
+
+            if (block.type === "heading") {
+                sections.push(`## ${block.title}`);
+                if (block.description) sections.push("", block.description);
+                return;
+            }
+
+            if (block.title) sections.push(`### ${block.title}`);
+            if (block.description) sections.push("", block.description);
+            if (block.hideCode) return;
+            sections.push("");
+            const itemFence = fenceFor(block.markup);
+            sections.push(`${itemFence}html`, block.markup, itemFence);
+        });
+        sections.push("");
+    } else if (exampleMarkup) {
+        const fence = fenceFor(exampleMarkup);
+        sections.push(`${fence}html`, exampleMarkup, fence, "");
+    }
+
     return sections.join("\n");
 }
 
 function printErrors(errors) {
     errors.forEach(error => {
-        console.error(`[ERRORE] ${error.file}`);
+        console.error(`[ERROR] ${error.file}`);
         console.error(error.message);
-        if (error.section) console.error(`Sezione: ${error.section}`);
-        if (error.value) console.error(`Valore: ${error.value}`);
-        console.error(`Suggerimento: ${error.suggestion}`);
+        if (error.section) console.error(`Section: ${error.section}`);
+        if (error.value) console.error(`Value: ${error.value}`);
+        console.error(`Hint: ${error.suggestion}`);
         console.error("");
     });
-    console.error(`Generazione annullata: ${errors.length} errori bloccanti.`);
+    console.error(`Generation aborted: ${errors.length} blocking errors.`);
 }
 
 function main() {
-    const references = walkFiles(REFERENCE_ROOT, file => path.extname(file).toLowerCase() === ".html");
+    // reference/html/guides/ is prose, handled entirely by the separate scripts/generate-guide-docs.js
+    // (its own doc-comment rules, its own Markdown-prose rendering) — skipped here, not validated
+    const references = walkFiles(REFERENCE_ROOT, file =>
+        path.extname(file).toLowerCase() === ".html" && !toPosix(path.relative(REFERENCE_ROOT, file)).startsWith("guides/"));
     const errors = [];
     const outputPaths = new Map();
 
@@ -572,7 +882,7 @@ function main() {
     });
     outputPaths.forEach((files, output) => {
         if (files.length < 2) return;
-        errors.push(createError(relativeToProject(files[0]), `Collisione del percorso di output "docs/${output}" tra: ${files.map(relativeToProject).join(", ")}.`, "Rinomina uno dei template per ottenere percorsi Markdown distinti."));
+        errors.push(createError(relativeToProject(files[0]), `Output path collision "docs/${output}" between: ${files.map(relativeToProject).join(", ")}.`, "Rename one of the templates to get distinct Markdown paths."));
     });
 
     const sources = loadSources();
@@ -595,27 +905,27 @@ function main() {
 
     parsedReferences.forEach(({ template, parsed }) => {
         const output = getOutputPath(template);
-        const content = renderMarkdown(template, parsed.data, parsed.markup);
+        const content = renderMarkdown(template, parsed.data, parsed.markup, allSourceContent);
         expected.add(path.resolve(output));
         fs.mkdirSync(path.dirname(output), { recursive: true });
 
         if (!fs.existsSync(output)) {
             fs.writeFileSync(output, content, "utf8");
             counts.created += 1;
-            console.log(`[CREATO] ${relativeToProject(output)}`);
+            console.log(`[CREATED] ${relativeToProject(output)}`);
             return;
         }
 
         const existing = normalizeEol(fs.readFileSync(output, "utf8"));
         if (existing === content) {
             counts.unchanged += 1;
-            console.log(`[INVARIATO] ${relativeToProject(output)}`);
+            console.log(`[UNCHANGED] ${relativeToProject(output)}`);
             return;
         }
 
         fs.writeFileSync(output, content, "utf8");
         counts.updated += 1;
-        console.log(`[AGGIORNATO] ${relativeToProject(output)}`);
+        console.log(`[UPDATED] ${relativeToProject(output)}`);
     });
 
     MANAGED_DOC_DIRECTORIES
@@ -626,16 +936,16 @@ function main() {
         if (!GENERATED_MARKER.test(firstLine)) return;
         fs.unlinkSync(file);
         counts.removed += 1;
-        console.log(`[RIMOSSO] ${relativeToProject(file)}`);
+        console.log(`[REMOVED] ${relativeToProject(file)}`);
         });
 
     console.log("");
-    console.log(`Riepilogo: ${references.length} riferimenti HTML validati; ${counts.created} creati; ${counts.updated} aggiornati; ${counts.unchanged} invariati; ${counts.removed} obsoleti rimossi.`);
+    console.log(`Summary: ${references.length} HTML references validated; ${counts.created} created; ${counts.updated} updated; ${counts.unchanged} unchanged; ${counts.removed} stale removed.`);
 }
 
 try {
     main();
 } catch (error) {
-    console.error(`[ERRORE] ${error.message}`);
+    console.error(`[ERROR] ${error.message}`);
     process.exitCode = 1;
 }

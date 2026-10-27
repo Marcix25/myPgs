@@ -2,28 +2,33 @@
 
 ol[pgs~="steps"] {
     color: var(--color-black);
+    // the connector line sits at z-index -1: its own stacking context keeps it from sliding behind the background of an ancestor
+    isolation: isolate;
 
-    //== step
-    [pgs~=steps-step] {
+    //## step
+    :where([pgs~="steps-step"]) {
         display: flex;
         align-items: start;
         position: relative;
-        --steps-circle-size: 50px;
+        --steps-circle-size: var(--heading-size-h3);
         --steps-circle-color: var(--color-primary-soft);
         --steps-line-size: 2px;
-        --steps-line-color: var(--color-gray);
+        --steps-line-color: var(--border-color);
 
-        //== CONTENT
-        [pgs~=steps-step-content] {
-            @include flexColumn();
+        //## CONTENT
+        :where([pgs~="steps-step-content"]) {
+            @include column();
             margin-bottom: calc(var(--gap-elements) / 2 - 8px);
             padding-bottom: calc(var(--gap-elements) / 2);
             min-height: 8.5rem;
             width: 100%;
         }
 
-        //== NUMBER
-        [pgs~=steps-step-circle] {
+        //## NUMBER
+        // a hand-written circle keeps the bare name; a generated one gets the underscore (see
+        // _steps.js), so every check here needs both
+        :where([pgs~="steps-step-circle"]),
+        :where([pgs~="_steps-step-circle"]) {
             min-width: var(--steps-circle-size);
             aspect-ratio: 1;
             background: var(--steps-circle-color);
@@ -31,21 +36,17 @@ ol[pgs~="steps"] {
             align-items: center;
             justify-content: center;
             margin-right: 20px;
-            // margin-top: 4px;
-            border-radius: var(--border-radius);
-            font-weight: 600;
+            border-radius: var(--borderRadius-elements);
+            font-weight: var(--font-weight-bold);
             text-align: center;
 
-            i {
-                color: var(--color-black);
-                --fa-primary-color: var(--color-black);
-                --fa-secondary-color: var(--color-black);
-                --fa-secondary-opacity: 0.5;
-            }
+            :where(i, [pgs~="icon"], [pgs*="icon\5B"]) { color: var(--color-black); }
         }
 
-        //== LINE
-        [pgs~=steps-step-line] {
+        //## LINE
+        // same dual form as the circle above
+        :where([pgs~="steps-step-line"]),
+        :where([pgs~="_steps-step-line"]) {
             $space: 15px;
             display: block;
             position: absolute;
@@ -55,7 +56,7 @@ ol[pgs~="steps"] {
             width: var(--steps-circle-size);
             z-index: -1;
 
-            //=== line
+            //### line
             &::before {
                 content: "";
                 width: var(--steps-line-size);
@@ -67,48 +68,27 @@ ol[pgs~="steps"] {
                 left: 50%;
                 translate: -50%;
             }
-
-            //=== arrow
-            &::after {
-                content: "";
-                $line: solid var(--steps-line-size) var(--steps-line-color);
-                border-right: $line;
-                border-bottom: $line;
-                height: 15px;
-                aspect-ratio: 1;
-                position: absolute;
-                bottom: -10px;
-                left: 50%;
-                transform: rotate(45deg) translatex(-74%);
-            }
         }
 
-        //== LAST
+        //## LAST
         &:last-child {
-            [pgs~=steps-step] {
+            :where([pgs~="steps-step-content"]) {
                 padding-bottom: 0;
                 margin-bottom: 0;
             }
 
-            [pgs~=steps-step-circle] {
+            :where([pgs~="steps-step-circle"]),
+            :where([pgs~="_steps-step-circle"]) {
                 background-color: var(--color-primary);
-                color: var(--color-whiteFixed);
+                color: var(--color-primary-text);
 
-                i {
-                    color: var(--color-whiteFixed);
-                    --fa-primary-color: var(--color-whiteFixed);
-                    --fa-secondary-color: var(--color-whiteFixed);
-                    --fa-secondary-opacity: 0.5;
-                }
+                :where(i, [pgs~="icon"], [pgs*="icon\5B"]) { color: var(--color-whiteFixed); }
             }
 
-            [pgs~=steps-step-line] {
+            :where([pgs~="steps-step-line"]),
+            :where([pgs~="_steps-step-line"]) {
                 opacity: 0;
             }
         }
     }
-}
-
-[pgs~="list"] {
-    @include list();
 }

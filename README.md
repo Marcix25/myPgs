@@ -2,13 +2,13 @@
 
 `mypgs` is a shared frontend library for building consistent interfaces through `pgs` attributes, SCSS sources, UI components, and reusable JavaScript behaviors.
 
-The library provides a design-system foundation: layouts, spacing, colors, buttons, forms, alerts, menus, modals, dropdowns, suggestion search, slides, notifications, and recurring patterns are defined once and reused across projects.
+The library provides a design-system foundation: layouts, spacing, colors, buttons, forms, alerts, menus, modals, dropdowns, suggestion search, slides, and notifications are defined once and reused across projects.
 
 ## What it includes
 
-- `assets/scss/`: SCSS sources divided into base, layouts, components, patterns, and mixins.
-- `assets/javascript/`: the `pgs` helper, JavaScript components, helpers, and patterns.
-- `reference/`: canonical HTML and React references for components, layouts, and patterns.
+- `assets/scss/`: SCSS sources divided into base, layouts, components, and mixins.
+- `assets/javascript/`: the `pgs` helper, JavaScript components, and helpers.
+- `reference/`: canonical HTML references for components, layouts, and guides.
 - `dist/css/`: compiled CSS.
 - `dist/javascript/`: compiled JavaScript bundle.
 - `dist/index.d.ts`: TypeScript declarations exported by the package.
@@ -44,9 +44,9 @@ import { defineConfig } from 'vite'
 import react from "@vitejs/plugin-react";
 import pgsVite from "mypgs/vite-plugin-pgs";
 
-export default {
+export default defineConfig({
   plugins: [pgsVite(), react()],
-};
+});
 ```
 
 ### SCSS
@@ -67,9 +67,21 @@ To import only the mixins:
 
 ### Markup
 
+`pgs` identifies components and holds their CSS flags, quoted inside each component's bracket.
+`pgs-data` holds JavaScript configuration, only as `key[payload]` values.
+`pgs-state` holds runtime state. See [migration.md](migration.md) when updating older markup;
+the retired `pgs-option` attribute is no longer supported.
+
+```html
+<div pgs="flex['column' 'wrap' 'flexCenter']">
+  <button pgs="button['btnStrong']">Save</button>
+</div>
+<header pgs="header['headerCompactTablet' 'headerScroll']" pgs-data="headerCompactFrom[600]"></header>
+```
+
 ```html
 <html lang="en" pgs="htmlBase">
-  <body pgs="bodyBase bodyImg bodyText bodyHeading">
+  <body pgs="body['bodyBase' 'bodyImg' 'bodyText' 'bodyHeading']">
     <main pgs="main"></main>
   </body>
 </html>
@@ -77,8 +89,63 @@ To import only the mixins:
 
 ## Documentation
 
-- [CSS/SCSS usage](docs/utilizzo-css-scss.md)
-- [JavaScript helpers](docs/helper/README.md)
-- [Components and markup](docs/componenti-e-markup.md)
-- [npm exports and development](docs/export-e-sviluppo.md)
-- [Conventions](docs/convenzioni.md)
+Canonical component and layout examples are available in `reference/`. Use those files as the
+reference source before creating new markup.
+
+### Helper API reference
+
+- [pgs](docs/helper/pgs.md)
+- [init](docs/helper/init.md)
+- [formValidate](docs/helper/formValidate.md)
+- [helper](docs/helper/helper.md)
+
+### Base
+
+- [body](docs/base/body.md)
+- [general](docs/base/general.md)
+- [typography](docs/base/typography.md)
+- [color](docs/base/color.md)
+- [darkmode](docs/base/darkmode.md)
+- [svg](docs/base/svg.md)
+- [border](docs/base/border.md)
+
+### Components
+
+- [accordion](docs/components/accordion.md)
+- [alerts](docs/components/alerts.md)
+- [badges](docs/components/badges.md)
+- [breadcrumb](docs/components/breadcrumb.md)
+- [button](docs/components/button.md)
+- [card](docs/components/card.md)
+- [dropdown](docs/components/dropdown.md)
+- [form](docs/components/form.md)
+- [formAddon](docs/components/formAddon.md)
+- [formControls](docs/components/formControls.md)
+- [icon](docs/components/icon.md)
+- [logo](docs/components/logo.md)
+- [menu](docs/components/menu.md)
+- [modal](docs/components/modal.md)
+- [notification](docs/components/notification.md)
+- [pageNav](docs/components/pageNav.md)
+- [search](docs/components/search.md)
+- [slides](docs/components/slides.md)
+- [steps](docs/components/steps.md)
+- [stepTabs](docs/components/stepTabs.md)
+- [summary](docs/components/summary.md)
+- [table](docs/components/table.md)
+- [tabs](docs/components/tabs.md)
+- [toast](docs/components/toast.md)
+
+### Layout
+
+- [section](docs/layout/section.md)
+- [header](docs/layout/header.md)
+- [navSmart](docs/layout/navSmart.md)
+- [footer](docs/layout/footer.md)
+- [pageShell](docs/layout/pageShell.md)
+- [flex](docs/layout/flex.md)
+- [grid](docs/layout/grid.md)
+- [breakpoints](docs/layout/breakpoints.md)
+- [spacing](docs/layout/spacing.md)
+- [size](docs/layout/size.md)
+- [utilities](docs/layout/utilities.md)

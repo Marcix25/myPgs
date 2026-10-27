@@ -1,0 +1,117 @@
+<!-- Automatically generated from reference/html/base/general.html. Edit reference/html/base/general.html and run npm run docs:generate again. -->
+
+# General
+
+Standalone utilities for shadow, cursor, image fitting, list styling and forced color scheme. Border, outline and radius utilities moved to their own reference, Border; the hover treatment moved to Hover.
+
+## PGS
+
+- `boxShadow`: applies the shared box shadow token.
+- `textShadow`: applies the shared text shadow token.
+- `blur`: blurs what is behind the element, the frosted-glass effect the header and the search panel use; a bracket takes blrUnset to take it off.
+- `pointer`: shows the pointer cursor on an element that is clickable but is not a control.
+- `appearanceNone`: strips every inherited style and the native appearance, to build a control from scratch.
+- `img`: fits or crops an image depending on the option in its bracket; written bare it does nothing.
+- `list`: styles a plain ul or ol with the shared marker and spacing.
+- `textBlock`: a column of running text: its items start at the left, its lists take the list markers, a rule spans the whole width and the first three headings have 25px above them.
+- `lightmode`: forces the light color scheme on a subtree, whatever the page theme is.
+- `darkmode`: forces the dark color scheme on a subtree, whatever the page theme is.
+
+## PGS Options (component brackets)
+
+- `imgContain`: inside img's own bracket, fits the whole image inside its box without cropping it.
+- `imgFill`: inside img's own bracket, stretches the image to fill its box, which is what an image does with no fit at all; to take a cover or contain off an image that has one.
+- `bxsUnset`: inside boxShadow's own bracket, takes the shadow off an element that has one of its own.
+- `txsUnset`: inside textShadow's own bracket, takes the text shadow off an element that has one of its own.
+- `blrUnset`: inside blur's own bracket, takes the backdrop blur off an element that has one of its own.
+- `imgCover`: inside img's own bracket, crops the image to fill its box, the counterpart of contain.
+
+## Related elements
+
+### PGS
+
+- `flex`: provides the flex layout; direction and spacing are flags in its bracket.
+- `box`: makes each example visible as a surface.
+- `background`: holds the same light background whatever the page theme is, so the two forced schemes read against one ground.
+- `borderRadius`: rounds the image fitting examples; see Border for the whole family.
+
+### PGS Options (component brackets)
+
+- `column`: stacks the utility groups vertically.
+- `row`: arranges the examples in a row.
+- `bgWhiteFixed`: inside background's own bracket, the fixed light background used here.
+- `gapTexts`: spaces the examples inside a group.
+
+## Output
+
+One example per utility, grouped by shadow, interaction, images, lists and color scheme.
+## Examples
+
+### Shadow
+
+The shared shadow tokens, one for a surface and one for text.
+
+```html
+<span pgs="box boxShadow">boxShadow</span>
+<strong pgs="textShadow">textShadow</strong>
+```
+
+### Interaction
+
+Pointer cursor on a non-control surface, and a full reset to build a control from scratch.
+
+```html
+<span pgs="box pointer">pointer</span>
+<button pgs="appearanceNone pointer" type="button">appearanceNone</button>
+```
+
+### Image fitting
+
+img['imgContain'] keeps the whole image inside the box, img['imgCover'] crops it to fill the box.
+
+```html
+<img pgs="img['imgContain'] borderRadius" src="../assets/img/placeholder.jpg" alt="Contained image" style="width: 220px; height: 140px;">
+<img pgs="img['imgCover'] borderRadius" src="../assets/img/placeholder.jpg" alt="Cropped image" style="width: 220px; height: 140px;">
+```
+
+### List
+
+Shared marker and spacing for a plain list, without any component behavior.
+
+```html
+<ul pgs="list">
+    <li>Plain list item</li>
+    <li>Second item</li>
+    <li>Third item</li>
+</ul>
+```
+
+### Text block
+
+A column of running text: items start at the left, lists take the shared markers, a rule spans the whole width and the headings have room above.
+
+```html
+<div pgs="textBlock box">
+    <h2>A heading</h2>
+    <p>A paragraph of running text.</p>
+    <ul>
+        <li>A list item</li>
+        <li>Another item</li>
+    </ul>
+    <hr>
+    <p>Text after the rule.</p>
+</div>
+```
+
+### Forced color scheme
+
+Pins a subtree to one color scheme, ignoring the current page theme.
+
+```html
+<div pgs="box lightmode">
+    <p>lightmode</p>
+</div>
+<div pgs="box darkmode">
+    <p>darkmode</p>
+</div>
+```

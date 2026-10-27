@@ -1,0 +1,137 @@
+//= SIZE
+// each variant (width, widthMax, widthMin, height, heightMax, heightMin) is its own root, since
+// each sets a genuinely different CSS property that can combine with the others on the same
+// element (a floor and a ceiling together). Every scale option folds its own variant into the
+// flag name (widthPage, heightMax50svh, ...) instead of a bare [pgs*="'scale'"] anchored to
+// that variant's own bracket — the same reasoning as layout/_spacing.scss: a
+// flag name unique across the whole system needs no anchoring at all. Every option is spelled
+// out in full rather than built by concatenation, so the literal name the docs validator looks
+// for is actually present in this file — see scripts/generate-component-docs.js's
+// containsExactToken. Each variant's own custom property (--width-size, --widthMax-size, ...)
+// stays settable inline, e.g. style="--widthMax-size: 500px".
+
+
+
+//# WIDTH
+// min() is the point of the width side: every value is capped at the container, so a fixed width
+// never overflows on a narrow screen and no media query is needed to take it back. The scales
+// come off the page, so an element lines up with the page content; text is a 65 character
+// measure, independent of the page width.
+:is([pgs~="width"], [pgs*="width\5B"]) {
+    --width-size: 100%;
+    width: min(100%, var(--width-size));
+
+    &[pgs*="'widthFull'"] { --width-size: 100%; }
+    &[pgs*="'widthPage'"] { --width-size: var(--page-width); }
+    &[pgs*="'widthPageHalf'"] { --width-size: calc(var(--page-width) / 2); }
+    &[pgs*="'widthPageThird'"] { --width-size: calc(var(--page-width) / 3); }
+    &[pgs*="'widthPageQuarter'"] { --width-size: calc(var(--page-width) / 4); }
+    &[pgs*="'widthPageFifth'"] { --width-size: calc(var(--page-width) / 5); }
+    &[pgs*="'widthPageSixth'"] { --width-size: calc(var(--page-width) / 6); }
+    &[pgs*="'widthPageSeventh'"] { --width-size: calc(var(--page-width) / 7); }
+    &[pgs*="'widthPageEighth'"] { --width-size: calc(var(--page-width) / 8); }
+    &[pgs*="'widthText'"] { --width-size: 65ch; }
+    &[pgs*="'widthFillAvailable'"] { width: -webkit-fill-available; }
+
+    // drops the constraint on one element without dropping the utility. It sets the property itself:
+    // the value goes through min(), where auto is not valid, so a custom property would not do
+    &[pgs*="'widthAuto'"] { width: auto; }
+}
+
+:is([pgs~="widthMax"], [pgs*="widthMax\5B"]) {
+    --widthMax-size: 100%;
+    max-width: min(100%, var(--widthMax-size));
+
+    &[pgs*="'widthMaxFull'"] { --widthMax-size: 100%; }
+    &[pgs*="'widthMaxPage'"] { --widthMax-size: var(--page-width); }
+    &[pgs*="'widthMaxPageHalf'"] { --widthMax-size: calc(var(--page-width) / 2); }
+    &[pgs*="'widthMaxPageThird'"] { --widthMax-size: calc(var(--page-width) / 3); }
+    &[pgs*="'widthMaxPageQuarter'"] { --widthMax-size: calc(var(--page-width) / 4); }
+    &[pgs*="'widthMaxPageFifth'"] { --widthMax-size: calc(var(--page-width) / 5); }
+    &[pgs*="'widthMaxPageSixth'"] { --widthMax-size: calc(var(--page-width) / 6); }
+    &[pgs*="'widthMaxPageSeventh'"] { --widthMax-size: calc(var(--page-width) / 7); }
+    &[pgs*="'widthMaxPageEighth'"] { --widthMax-size: calc(var(--page-width) / 8); }
+    &[pgs*="'widthMaxText'"] { --widthMax-size: 65ch; }
+    &[pgs*="'widthMaxFillAvailable'"] { max-width: -webkit-fill-available; }
+    &[pgs*="'widthMaxNone'"] { max-width: none; }
+}
+
+:is([pgs~="widthMin"], [pgs*="widthMin\5B"]) {
+    --widthMin-size: 100%;
+    min-width: min(100%, var(--widthMin-size));
+
+    &[pgs*="'widthMinFull'"] { --widthMin-size: 100%; }
+    &[pgs*="'widthMinPage'"] { --widthMin-size: var(--page-width); }
+    &[pgs*="'widthMinPageHalf'"] { --widthMin-size: calc(var(--page-width) / 2); }
+    &[pgs*="'widthMinPageThird'"] { --widthMin-size: calc(var(--page-width) / 3); }
+    &[pgs*="'widthMinPageQuarter'"] { --widthMin-size: calc(var(--page-width) / 4); }
+    &[pgs*="'widthMinPageFifth'"] { --widthMin-size: calc(var(--page-width) / 5); }
+    &[pgs*="'widthMinPageSixth'"] { --widthMin-size: calc(var(--page-width) / 6); }
+    &[pgs*="'widthMinPageSeventh'"] { --widthMin-size: calc(var(--page-width) / 7); }
+    &[pgs*="'widthMinPageEighth'"] { --widthMin-size: calc(var(--page-width) / 8); }
+    &[pgs*="'widthMinText'"] { --widthMin-size: 65ch; }
+    &[pgs*="'widthMinFillAvailable'"] { min-width: -webkit-fill-available; }
+    &[pgs*="'widthMinAuto'"] { min-width: auto; }
+}
+
+//# HEIGHT
+// no min() here, on purpose: too wide breaks the page with a horizontal scrollbar, too tall just
+// scrolls, which is what a page does anyway. And a percentage height only resolves against a
+// parent that has a definite height, so wrapping it in min() would make the value indefinite in
+// exactly the layouts where it is used. The scales come off the viewport, the only measure a
+// block can be tall against without a parent that already has a height: svh is the viewport with
+// the browser toolbars expanded, so the element never grows past the screen as they retract; dvh
+// follows the visible area as the toolbars come and go, at the cost of resizing during the
+// scroll; lvh is the viewport with the toolbars retracted, for something meant to run under them.
+:is([pgs~="height"], [pgs*="height\5B"]) {
+    --height-size: 100%;
+    height: var(--height-size);
+
+    &[pgs*="'heightFull'"] { --height-size: 100%; }
+    &[pgs*="'height100svh'"] { --height-size: 100svh; }
+    &[pgs*="'height100dvh'"] { --height-size: 100dvh; }
+    &[pgs*="'height100lvh'"] { --height-size: 100lvh; }
+    &[pgs*="'height50svh'"] { --height-size: 50svh; }
+
+    // what is left of the screen below the header, for a hero that fills the first view
+    &[pgs*="'heightUnderHeader'"] { --height-size: calc(100dvh - var(--_header-height)); }
+
+    // the same idea for an element that is the first child of main instead: main already
+    // carries --main-paddingTop (the header height plus the extra breathing room --page-top
+    // adds), so subtracting only --_header-height would leave that padding counted twice
+    &[pgs*="'heightUnderMain'"] { --height-size: calc(100dvh - var(--main-paddingTop)); }
+
+    // drops the constraint on one element without dropping the utility: auto is the initial value of height
+    &[pgs*="'heightAuto'"] { --height-size: auto; }
+}
+
+:is([pgs~="heightMax"], [pgs*="heightMax\5B"]) {
+    --heightMax-size: 100%;
+    max-height: var(--heightMax-size);
+
+    &[pgs*="'heightMaxFull'"] { --heightMax-size: 100%; }
+    &[pgs*="'heightMax100svh'"] { --heightMax-size: 100svh; }
+    &[pgs*="'heightMax100dvh'"] { --heightMax-size: 100dvh; }
+    &[pgs*="'heightMax100lvh'"] { --heightMax-size: 100lvh; }
+    &[pgs*="'heightMax50svh'"] { --heightMax-size: 50svh; }
+    &[pgs*="'heightMaxUnderHeader'"] { --heightMax-size: calc(100dvh - var(--_header-height)); }
+    &[pgs*="'heightMaxUnderMain'"] { --heightMax-size: calc(100dvh - var(--main-paddingTop)); }
+    // drops the constraint on one element without dropping the utility. max-height has no auto: none is
+    // its initial value, and heightMaxAuto is kept as an alias of heightMaxNone
+    &[pgs*="'heightMaxNone'"] { --heightMax-size: none; }
+    &[pgs*="'heightMaxAuto'"] { --heightMax-size: none; }
+}
+
+:is([pgs~="heightMin"], [pgs*="heightMin\5B"]) {
+    --heightMin-size: 100%;
+    min-height: var(--heightMin-size);
+
+    &[pgs*="'heightMinFull'"] { --heightMin-size: 100%; }
+    &[pgs*="'heightMin100svh'"] { --heightMin-size: 100svh; }
+    &[pgs*="'heightMin100dvh'"] { --heightMin-size: 100dvh; }
+    &[pgs*="'heightMin100lvh'"] { --heightMin-size: 100lvh; }
+    &[pgs*="'heightMin50svh'"] { --heightMin-size: 50svh; }
+    &[pgs*="'heightMinUnderHeader'"] { --heightMin-size: calc(100dvh - var(--_header-height)); }
+    &[pgs*="'heightMinUnderMain'"] { --heightMin-size: calc(100dvh - var(--main-paddingTop)); }
+    &[pgs*="'heightMinAuto'"] { --heightMin-size: auto; }
+}

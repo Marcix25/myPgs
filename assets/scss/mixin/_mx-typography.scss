@@ -1,0 +1,68 @@
+@use "settings" as *;
+
+//= HEADING, TEXT
+//# HEADING
+// $size is only the var() fallback, not the source of truth: the :root block in
+// base/_typography.scss is the one place that actually sets --heading-size-h1..h6/
+// --heading-family-h1..h6/--heading-weight-h1..h6/--heading-lineHeight-h1..h6/--heading-color-h1..h6/
+// --heading-letterSpacing-h1..h6 for the whole page, so overriding e.g. h3's family means
+// overriding --heading-family-h3 there once, not touching this mixin or its h3() caller.
+// The fallback only matters if that :root block is ever missing. $tag (e.g. "-h3") selects
+// those -hN properties; $weight is the fallback of --heading-weight-hN.
+@mixin heading($size, $tag: "", $weight: 900) {
+    font-family: var(--heading-family#{$tag}, var(--font-heading));
+    margin-bottom: calc(var(--heading-size#{$tag}, #{$size}) / 8);
+    font-size: var(--heading-size#{$tag}, #{$size});
+    line-height: var(--heading-lineHeight#{$tag}, var(--heading-lineHeight));
+    color: var(--heading-color#{$tag}, var(--color-black));
+    letter-spacing: var(--heading-letterSpacing#{$tag}, var(--heading-letterSpacing));
+    min-width: 0;
+    font-weight: var(--heading-weight#{$tag}, #{$weight});
+    overflow-wrap: anywhere;
+    text-wrap: balance;
+
+    @media (max-width: $tablet) {
+        font-size: clamp(var(--font-size-text), var(--heading-size#{$tag}, #{$size}) / 3 + 8vw, var(--heading-size#{$tag}, #{$size}));
+    }
+
+    @media (max-width: $mobile) {
+        font-size: clamp(var(--font-size-text), var(--heading-size#{$tag}, #{$size}) / 3 + 5vw, var(--heading-size#{$tag}, #{$size}));
+    }
+
+    @media (max-width: $watch) {
+        font-size: clamp(var(--font-size-text), var(--heading-size#{$tag}, #{$size}) / 3 + 2.5vw, var(--heading-size#{$tag}, #{$size}));
+    }
+}
+
+@mixin h1() { @include heading($h1, "-h1"); }
+@mixin h2() { @include heading($h2, "-h2"); }
+@mixin h3() { @include heading($h3, "-h3"); }
+@mixin h4() { @include heading($h4, "-h4"); }
+@mixin h5() { @include heading($h5, "-h5", 700); }
+@mixin h6() { @include heading($h6, "-h6", 500); }
+
+//# TEXT
+@mixin text() {
+    color: var(--text-color);
+    font-family: var(--text-family);
+    font-size: var(--text-size);
+    line-height: var(--text-lineHeight);
+    overflow-wrap: var(--text-overflowWrap);
+
+    a {
+        text-decoration: none;
+        overflow-wrap: var(--text-overflowWrap);
+        color: var(--color-link);
+
+        // a plain link (no pgs of its own, so not a button, a card or a menu item) is not told by its color alone
+        &:where(:not([pgs])) {
+            text-decoration: underline;
+            text-underline-offset: 0.15em;
+        }
+
+        &:where(:hover) {
+            background-color: var(--color-link-soft);
+            border-radius: 5px;
+        }
+    }
+}

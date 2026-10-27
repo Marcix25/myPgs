@@ -1,4 +1,7 @@
-//= SVG Change Color 
+// Intentionally not imported by index.scss: the maintainer keeps this file for the documentation
+// generator. The --svg-color-N defaults below only apply when an author imports it.
+
+//# SVG Change Color
 html:has([pgs~="svgChangeColor"]) {
     &:root {
         --svg-color-1: white & black;

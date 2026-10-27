@@ -1,333 +1,183 @@
-@use "mx-base" as *;
-@use "mx-button" as *;
+@use "mx-icons" as *;
 @use "mx-responsive" as *;
+@use "mx-elements" as *;
 
-//=FORM
-//== INPUT 
-@mixin input($padding: 15px) {
-    --input-padding: #{$padding};
-    appearance: none;
-    border: var(--border-complete);
-    background-color: var(--color-white);
-    border-radius: var(--border-radius-input);
-    color: var(--color-text);
-    padding: var(--input-padding);
-    font-size: 1.6rem;
-    width: 100%;
-    margin-bottom: var(--gap-texts);
-    letter-spacing: 0.03em;
-    font-family: var(--font);
-
-    &::placeholder {
-        color: var(--color-black);
-        opacity: 20%;
-        font-weight: 500;
-    }
-
-    &:hover {
-        outline: solid var(--color-primary);
-    }
-}
-
-//== LABEL 
-@mixin label($borderadius: 1.0rem 1.0rem 0 0, $left: var(--border-radius-input)) {
-    --label-borderadius: #{$borderadius};
-    --label-left: #{$left};
-    --label-padding: 0.7rem 1.2rem;
-    --label-color: var(--color-black);
-    --label-background: var(--border-color);
-    position: relative;
-    font-weight: 600;
-    display: inline-block;
-    width: fit-content;
-    cursor: pointer;
-    left: var(--label-left);
-    color: var(--label-color);
-    padding: var(--label-padding);
-    border-radius: var(--label-borderadius);
-    background-color: var(--label-background);
-
-    i {
-        font-size: 1.6rem;
-        margin-right: .7rem;
-    }
-}
-
-//== REQUIRED 
+//= FORM 
+//# REQUIRED & DISABLED
+//## REQUIRED
 @mixin required() {
-    position: relative;
 
-    [pgs~=required-here],
-    &:not(:has([pgs~=required-here])) {
+    :where([pgs~="form-requiredHere"]),
+    &:not(:has(:where([pgs~="form-requiredHere"]))) {
         &::after {
-            content: "*";
+            content: " *";
             color: var(--color-error);
-            transform: translate(20px, 0px);
-            position: absolute;
-            font-size: 40px;
-            bottom: -8px;
-            font-weight: 600;
-            right: 0px;
-        }
-    }
-
-    [pgs~=required-here] {
-        &::after {
-            position: relative;
+            line-height: 1;
+            font-weight: var(--font-weight-bold);
+            display: inline-block;
+            padding-left: 3px;
         }
     }
 }
 
-//== DISABLED
+//## DISABLED
 @mixin disabled() {
     opacity: 0.5;
     cursor: not-allowed !important;
 }
 
-//== DISABLED
-@mixin file() {
-    width: 100%;
-    background-color: var(--color-white);
-    padding: var(--gap-texts);
-    border-radius: calc(var(--border-radius-input) + var(--gap-texts));
-
-    &::file-selector-button {
-        --button-background: var(--color-box);
-        --button-color: var(--color-black);
-        width: 40%;
-        margin-bottom: var(--gap-texts);
-        margin-right: var(--gap-texts);
-        border: none;
-        outline: var(--border-complete);
-        border-radius: var(--border-radius-input);
-        padding: 1.5rem 3rem;
-        font-family: var(--font);
-        font-size: 1.6rem;
-        font-weight: 600;
-        color: var(--button-color);
-        background: var(--button-background);
-        cursor: pointer;
-        transition: all 200ms;
-    }
-
-    &::file-selector-button:hover {
-        background-color: var(--color-primary);
-        color: var(--color-white);
-    }
-}
-
-//== RANGE 
-@mixin rage() {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    --range-size: calc(var(--border-radius-input));
-    width: 100%;
-    height: var(--range-size);
-    background: linear-gradient(90deg, var(--color-box-transparent), var(--color-primary));
-    outline: none;
-    transition: background 0.3s;
-    border-radius: var(--border-radius-input);
+//# LABEL
+//### LABEL - input
+// the label of a text-like input, a range, a file, a color input, a select or a textarea: a box above the control; with labelTab a tab
+@mixin label() {
+    --label-borderRadius: var(--borderRadius-texts);
+    --label-left: var(--label-borderRadius);
+    --label-paddingInline: var(--padding-texts);
+    --label-paddingBlock: calc(var(--padding-texts)/2);
+    --label-color: var(--color-black);
+    --label-background: var(--color-white);
+    --label-border: var(--border-color) var(--border-style);
+    --label-borderWidth: var(--border-width);
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: top;
+    color: var(--label-color);
+    background-color: var(--label-background);
+    padding-block: var(--label-paddingBlock);
+    padding-inline: var(--label-paddingInline);
+    border-radius: var(--label-borderRadius);
+    border: var(--label-border) var(--label-borderWidth);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+    width: fit-content;
+    max-width: calc(100% - (var(--label-left)*2));
     z-index: 1;
-    position: relative;
 
-    //=== thumb
-    &::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: calc(var(--range-size) * 1.5);
-        height: calc(var(--range-size) * 1.2);
-        border-radius: var(--border-radius-input);
-        background: var(--color-white);
-        outline: inset 1px var(--color-primary);
-        cursor: pointer;
-        transition: transform 0.2s;
+    //## disabled
+    &:where(:has(+ [disabled], > [disabled])) { @include disabled(); }
 
-        &:hover {
-            scale: 1.2;
-            background: var(--color-box-transparent);
-        }
-    }
+    //## hidden
+    &:has([hidden], + [hidden], [pgs~="hidden"], + [pgs~="hidden"], [type="hidden"], + [type="hidden"]) { display: none !important; }
 
-    //=== rail
-    &::-moz-range-thumb {
-        -moz-appearance: none;
-        appearance: none;
-        width: calc(var(--range-size) * 1.5);
-        height: calc(var(--range-size) * 1.2);
-        border-radius: var(--border-radius-input);
-        background: var(--color-white);
-        outline: inset 1px var(--color-primary);
-        cursor: pointer;
-        transition: transform 0.2s;
+    //## required
+    &:where(:has(~ :required, ~ * :required)) { @include required(); }
 
-        &:hover {
-            transform: scale(1.2);
-            background: var(--color-box-transparent);
-        }
-    }
+    //+ labelTab
+    // the top corners only, and no bottom border: the label opens into the control it sits on
+    &:where([pgs*="'labelTab'"], [pgs*="'labelTabNoGap'"]) {
+        transform: translateX(var(--label-left)) translateY(calc(var(--label-borderWidth) + 0.2px));
+        padding-bottom: 0;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        border-bottom: unset;
 
-    //=== focus
-    &:focus-visible::-webkit-slider-thumb {
-        outline: 3px solid var(--color-link) !important;
-        background-color: var(--color-link) !important;
-        scale: 1.2;
-    }
-
-    //=== disabled
-    &:disabled {
-        @include disabled();
+        &:where([pgs*="'labelTabNoGap'"]) { margin-bottom: calc(var(--form-gap, 0px) * -1); }
     }
 }
 
-@mixin checkbox() {
-    --checkbox-size: 2.0rem;
-    --checkbox-check-color: var(--color-primary);
-    --checkbox-box-background: var(--color-white);
-    --checkbox-padding-inline: var(--gap-texts);
-    --checkbox-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath fill='inerit' d='M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.2 0z'/%3E%3C/svg%3E");
-    position: relative;
-    display: flex;
+//### LABEL - checkbox radio
+// the label of a checkbox or a radio, for the one that holds the control and for the ones inside a group
+@mixin labelCheckboxAndRadio() {
+    --checkboxRadio-labelColor: var(--color-black);
 
     &:where(label),
-    label {
+    :where(label) {
+        -webkit-user-select: none;
         user-select: none;
-        color: var(--color-black);
+        color: var(--checkboxRadio-labelColor);
         position: relative;
-        width: auto;
-        display: block;
         text-align: left;
-        line-height: var(--checkbox-size);
-        margin-bottom: var(--gap-texts);
+        line-height: var(--checkbox-size, var(--radio-size));
         width: fit-content;
         cursor: pointer;
-        display: flex;
-        padding-inline: var(--checkbox-padding-inline);
 
-        // transform: translateX(0.3rem);
-        //=== Disabled
-        &:has(input:disabled) {
-            opacity: 0.5;
+        :where(a) {
+            text-decoration: underline;
+            color: var(--color-link);
         }
 
-        //=== Focus
-        &:has(input[type=checkbox]:required) {
+        //## Disabled
+        // the label that holds a disabled control, or the one after a disabled checkbox or radio
+        &:has(input:disabled),
+        :where(input:disabled)+& {
+            @include disabled();
+        }
+
+        //## Required
+        // a checkbox that stands alone: in a fieldset the asterisk is the one of its legend
+        &:has(input[type=checkbox]:required):not(:where(fieldset) *),
+        &:has(input[type=radio]:required):not(:where(fieldset) *) {
             @include required();
         }
     }
 
-    //== ICON & BOX
-    input {
-        appearance: none;
-        position: relative;
-        width: var(--checkbox-size);
-        min-width: var(--checkbox-size);
-        height: var(--checkbox-size);
-        margin-right: var(--gap-texts);
-        cursor: pointer;
-        @include center();
-
-        //=== BOX SQUARE
-        &::before {
-            content: "";
-            position: absolute;
-            width: var(--checkbox-size);
-            height: var(--checkbox-size);
-            outline: solid var(--color-boxDark) 0.1rem;
-            background: var(--checkbox-box-background);
-            color: var(--color-primary-soft);
-        }
-
-        //=== ICON CHECK
-        &::after {
-            position: absolute;
-            line-height: var(--checkbox-size);
-            text-align: center;
-            opacity: 0;
-            color: var(--checkbox-check-color);
-            transform: translateX(0.25rem);
-        }
-
-        //=== Checked
-        &:checked::after {
-            opacity: 1;
-        }
-
-        //=== Focus
-        &:focus-visible::before {
-            outline: 3px solid var(--color-link) !important;
-        }
-
-        //=== Checkbox
-        &[type=checkbox] {
-            &::after {
-                top: -1.7rem;
-                left: -0.8rem;
-                @include iconSvgBase64(var(--checkbox-icon), calc(2rem + var(--checkbox-size)), var(--checkbox-check-color));
-            }
-
-            &::before {
-                border-radius: 0.3rem;
-            }
-        }
-
-        //=== Radio
-        &[type=radio] {
-            &::before {
-                border-radius: 50%;
-            }
-
-            &::after {
-                display: none;
-            }
-
-            &:checked::before {
-                background-color: var(--checkbox-check-color);
-                border-radius: 50%;
-                width: calc(var(--checkbox-size) - (3px * 2));
-                height: calc(var(--checkbox-size) - (3px * 2));
-                outline: solid 1px var(--color-black);
-                border: solid 3px var(--color-white);
-            }
-        }
-    }
-
-    a {
-        text-decoration: underline;
-        color: var(--color-link);
-    }
+    //## Disabled, the label after the control
+    // on a group (a div, a fieldset): a plain label that follows a disabled checkbox or radio
+    :where(input:disabled)+ :where(label) { @include disabled(); }
 }
 
-//== SELECT 
-@mixin select() {
-    @include input();
-    overflow: auto;
+//# INPUT & TEXTAREA
+//## input base
+@mixin inputBase($opacityPlaceholder) {
     appearance: none;
-    cursor: pointer;
+    width: 100%;
+    letter-spacing: 0.03em;
+    font-family: var(--font);
+    font-size: var(--font-size-text);
+    line-height: calc(var(--font-size-text) * 1.2);
+    vertical-align: top;
+    color: var(--color-black);
 
-    option {
-        padding: var(--gap-texts);
-        border-radius: calc(var(--border-radius-input) - var(--input-padding));
-        background-color: transparent;
-        cursor: pointer;
+    &::placeholder {
+        color: var(--color-black);
+        opacity: #{$opacityPlaceholder};
+        font-weight: var(--font-weight-text);
+    }
 
-        &:checked {
-            background-color: var(--color-primary);
-            color: var(--color-whiteFixed);
-            font-weight: 600;
-        }
+    @media (hover: hover) and (pointer: fine) {
+        &:hover:where(:not(:disabled, [disabled])) { border-color: var(--hover-borderColor); }
+    }
 
-        &:hover {
-            background-color: var(--color-primary-soft);
-        }
+    &[disabled] { @include disabled(); }
+}
 
-        &:checked:hover {
-            background-color: var(--color-primary-dark);
+//## input picker
+// the inputs that carry a picker or a button of their own (search, number, date, time, datetime-local, month, week): a row with the icon first
+@mixin inputPicker() {
+    &:where([type="password"]) { font-family: initial; }
+
+    &:where([type="search"], [type="number"], [type="datetime-local"], [type="date"], [type="month"], [type="week"], [type="time"]) {
+        // width: clamp(50px, 100%, 300px);
+        display: flex;
+
+        &::-webkit-calendar-picker-indicator {
+            order: -1;
+            font-size: 1.3em;
+            cursor: pointer;
+            margin: 0px;
+            margin-right: 10px;
         }
     }
 }
 
-@mixin formTextarea() {
+//## INPUT
+@mixin input() {
+    --input-padding: var(--padding-texts);
+    --input-border: var(--border-width) var(--border-color) var(--border-style);
+    --input-borderRadius: var(--borderRadius-texts);
+    --input-background: var(--color-white);
+    @include inputBase(60%);
+    border: var(--input-border);
+    background-color: var(--input-background);
+    border-radius: var(--input-borderRadius);
+    padding: var(--input-padding);
+}
+
+//## TEXTAREA
+@mixin textarea() {
     resize: vertical;
     @include input();
     height: 120px;
@@ -336,205 +186,281 @@
     appearance: none;
 }
 
-@mixin inputcolor() {
-    $size: 50px;
-    $padding: 5px;
-    @include input(0);
-    block-size: $size;
-    inline-size: calc($size * 4);
-    margin-right: auto;
+//# CHECKBOX & RADIO
+//## CHECKBOX
+@mixin checkbox() {
+    --checkbox-size: 2.0rem;
+    --checkbox-isChecked: 0;
+    --checkbox-icon: var(--icon-glyph-check);
+    --checkbox-iconSize: calc(var(--checkbox-size) * 1.6);
+    --checkbox-borderRadius: calc(var(--checkbox-size) / 4);
+    --checkbox-gap: calc(var(--gap-texts) /2);
+    --checkbox-borderStyleWidth: var(--border-style) var(--border-width);
+    //
+    --checkbox-background: var(--clickable-background);
+    --checkbox-background-hover: var(--hover-background);
+    --checkbox-background-checked: var(--twoState-background);
+    //
+    --checkbox-color: var(--clickable-color);
+    --checkbox-color-hover: var(--hover-color);
+    --checkbox-color-checked: var(--twoState-color);
+    //
+    --checkbox-borderColor: var(--clickable-borderColor);
+    --checkbox-borderColor-hover: var(--hover-borderColor);
+    --checkbox-borderColor-checked: var(--twoState-borderColor);
+    position: relative;
     display: flex;
+    gap: var(--checkbox-gap);
 
-    &::-webkit-color-swatch-wrapper {
-        padding: $padding;
-    }
-
-    &::-webkit-color-swatch {
-        border: var(--border-complete);
-        border-radius: calc(var(--border-radius-input) - $padding);
+    //## ICON & BOX
+    &:where(input[type=checkbox]),
+    :where(input[type=checkbox]) {
+        //### BOX SQUARE
+        appearance: none;
+        position: relative;
+        width: var(--checkbox-size);
+        min-width: var(--checkbox-size);
+        flex-shrink: 0;
+        height: var(--checkbox-size);
         cursor: pointer;
+        @include center();
+        display: inline-flex;
+        vertical-align: top;
+        background: var(--checkbox-background);
+        color: var(--checkbox-color);
+        border: var(--checkbox-borderStyleWidth);
+        border-color: var(--checkbox-borderColor);
+        border-radius: var(--checkbox-borderRadius);
+        transition: var(--clickable-transition);
+        --icon-size: var(--checkbox-iconSize);
+
+        //### ICON CHECK
+        &::after {
+            position: absolute;
+            line-height: var(--checkbox-size);
+            text-align: center;
+            opacity: var(--checkbox-isChecked);
+            inset: auto;
+            top: 50%;
+            left: 50%;
+            // the lowest point of the V is the one that stays still: it sits at the same place in the box at any size
+            // of the icon, a little under the middle of the box (the glyph is 448 x 512 in a square, and the lowest
+            // point of the V is at 40.6% and 76.9% of it). A percentage of translate is a share of the icon, so with
+            // the middle of the icon as the anchor a bigger icon would carry the V away
+            translate: -40.6% calc(-76.9% + var(--checkbox-size) * 0.318);
+            transition: var(--clickable-transition);
+            @include icon(var(--checkbox-icon), "");
+            color: inherit;
+        }
+
+        //### HOVER
+        // the box itself or the label that holds it; not a disabled one. :where() keeps the weight of the
+        // checked look below, which comes later and wins
+        @media (hover: hover) and (pointer: fine) {
+
+            &:is(:hover, :where(label):hover *):where(:not(:disabled)) {
+                background: var(--checkbox-background-hover);
+                border-color: var(--checkbox-borderColor-hover);
+                color: var(--checkbox-color-hover);
+            }
+        }
+
+        //### Checked
+        &:checked {
+            background: var(--checkbox-background-checked);
+            border-color: var(--checkbox-borderColor-checked);
+            color: var(--checkbox-color-checked);
+            --checkbox-isChecked: 1;
+        }
+
+        //### Disabled
+        // a label that holds a disabled box dims all of it (labelCheckboxAndRadio): the box dims on its own
+        // only when no label holds it
+        &:disabled {
+            cursor: not-allowed !important;
+
+            &:not(:where(label) *) { opacity: 0.5; }
+        }
+
+        //### Focus
+        // the input is the box: the ring is drawn on it, in place of the outline bodyBase gives every :focus-visible
+        &:focus-visible { @include focusRing(); }
     }
 }
 
+//## RADIO
+@mixin radio() {
+    --radio-size: 2.0rem;
+    --radio-isChecked: 0;
+    --radio-dot-size: calc(var(--radio-size) / 1.5);
+    --radio-gap: calc(var(--gap-texts) /2);
+    --radio-borderStyleWidth: var(--border-style) var(--border-width);
+    //
+    --radio-background: var(--clickable-background);
+    --radio-background-hover: var(--hover-background);
+    --radio-background-checked: var(--twoState-background);
+    //
+    --radio-color: var(--clickable-color);
+    --radio-color-hover: var(--hover-color);
+    --radio-color-checked: var(--twoState-color);
+    //
+    --radio-borderColor: var(--clickable-borderColor);
+    --radio-borderColor-hover: var(--hover-borderColor);
+    --radio-borderColor-checked: var(--twoState-borderColor);
+    position: relative;
+    display: flex;
+    gap: var(--radio-gap);
+
+    //## BOX ROUND
+    &:where(input[type=radio]),
+    :where(input[type=radio]) {
+        appearance: none;
+        position: relative;
+        width: var(--radio-size);
+        min-width: var(--radio-size);
+        height: var(--radio-size);
+        cursor: pointer;
+        @include center();
+        display: inline-flex;
+        vertical-align: top;
+        background: var(--radio-background);
+        color: var(--radio-color);
+        border: var(--radio-borderStyleWidth);
+        border-color: var(--radio-borderColor);
+        transition: var(--clickable-transition);
+        border-radius: 50%;
+
+        //### DOT
+        // the dot of a checked radio, in the middle of the box
+        &::after {
+            content: "";
+            position: absolute;
+            width: var(--radio-dot-size);
+            height: var(--radio-dot-size);
+            color: inherit;
+            background-color: currentColor;
+            opacity: var(--radio-isChecked);
+            transition: var(--clickable-transition);
+            border-radius: 50%;
+        }
+
+        //### HOVER
+        // the box itself or the label that holds it; not a disabled one. :where() keeps the weight of the
+        // checked look below, which comes later and wins
+        @media (hover: hover) and (pointer: fine) {
+
+            &:is(:hover, :where(label):hover *):where(:not(:disabled)) {
+                background: var(--radio-background-hover);
+                border-color: var(--radio-borderColor-hover);
+                color: var(--radio-color-hover);
+            }
+        }
+
+        //### Checked
+        &:checked {
+            background: var(--radio-background-checked);
+            border-color: var(--radio-borderColor-checked);
+            color: var(--radio-color-checked);
+            --radio-isChecked: 1;
+        }
+
+        //### Disabled
+        // a label that holds a disabled box dims all of it (labelCheckboxAndRadio): the box dims on its own
+        // only when no label holds it
+        &:disabled {
+            cursor: not-allowed !important;
+
+            &:not(:where(label) *) { opacity: 0.5; }
+        }
+
+        //### Focus
+        // the input is the box: the ring is drawn on it, in place of the outline bodyBase gives every :focus-visible
+        &:focus-visible { @include focusRing(); }
+    }
+}
+
+//# FIELDSET & LEGEND
+//## FIELDSET
+@mixin fieldset() {
+    border: unset;
+    @include column(var(--form-gap, var(--gap-texts)));
+    padding-top: var(--form-gap, var(--gap-texts));
+}
+
+//## LEGEND
+// the same box as the tab of a label (same custom properties, same border), rounded on every corner and
+// not joined to anything. --label-color, --label-background and --label-border (color and style, the
+// width is --label-borderWidth) are the ones formValidate changes when the group fails
 @mixin legend() {
-    @include label(1.0rem, 0);
+    --label-borderRadius: var(--borderRadius-texts);
+    --label-paddingInline: var(--padding-texts);
+    --label-paddingBlock: calc(var(--padding-texts)/2);
     --label-color: var(--color-black);
-    --label-background: var(--color-box);
-    margin-bottom: var(--gap-texts);
+    --label-background: var(--color-white);
+    --label-border: var(--border-color) var(--border-style);
+    --label-borderWidth: var(--border-width);
+    display: inline-block;
+    width: fit-content;
+    max-width: 100%;
+    color: var(--label-color);
+    background-color: var(--label-background);
+    padding-block: var(--label-paddingBlock);
+    padding-inline: var(--label-paddingInline);
+    border: var(--label-border) var(--label-borderWidth);
+    border-radius: var(--label-borderRadius);
+
+    //## required
+    // a required control after the legend, or inside one of the elements that follow it (the group it names)
+    &:where(:has(~ :required, ~ * :required)) { @include required(); }
 }
 
-//= FORM 
+//# FORM & FORM VALIDATE
+//## FORM
+// a column, spaced by --form-gap: the form styles none of its controls
 @mixin form() {
-
-    //=== LABEL
-    label {
-        &:not(:has([pgs~="labelUnset"], +input[type=checkbox], +input[type=radio])) {
-            &:has(+input, +select, +textarea) {
-                @include label();
-            }
-        }
-
-        &:has(+[hidden]) {
-            display: none !important;
-        }
-    }
-
-    //=== INPUT
-    input {
-        &:not([pgs~=inputUnset], [type=checkbox], [type=file], [type=radio], [type=range]) {
-            @include input();
-        }
-
-        &[type="password"] {
-            font-family: initial;
-            font-size: calc(1.74rem);
-        }
-
-        &[type="file"] {
-            min-height: 5.3rem;
-        }
-
-        &[type=search],
-        &[type=number],
-        &[type=datetime-local],
-        &[type=date],
-        &[type=month],
-        &[type=week],
-        &[type=time] {
-            width: clamp(50px, 100%, 300px);
-            display: flex;
-
-            &::-webkit-calendar-picker-indicator {
-                order: -1;
-                margin: 0;
-                margin-right: var(--gap-texts);
-                font-size: 1.5em;
-                background-color: var(--border-color);
-                border-radius: var(--input-padding);
-                padding: 10px;
-                margin: -10px;
-                margin-right: 10px;
-                cursor: pointer;
-            }
-        }
-    }
-
-    //==== LEGEND
-    legend {
-        @include legend();
-    }
-
-    //==== CHECKBOX
-    $not-checkbox: '[pgs~=toggle], [pgs~=twoState], [pgs~=chip], [pgs~=checkboxBackground], [pgs~=chips] label';
-
-    label:has(input[type=checkbox]):not(#{$not-checkbox}),
-    label:has(input[type=radio]):not(#{$not-checkbox}) {
-        @include checkbox();
-    }
-
-    //=== TEXTAREA
-    textarea {
-        @include formTextarea()
-    }
-
-    //=== RAGE
-    input[type=range] {
-        @include rage();
-    }
-
-    //=== COLOR
-    input[type=color] {
-        @include inputcolor();
-    }
-
-    //=== RAGE
-    select {
-        @include select();
-    }
-
-    //===BUTTON 
-    button[type="submit"] {
-        @include buttonBase();
-        @include buttonContent();
-        @include buttonStrong();
-        @include buttonHover();
-    }
-
-    //===FIELDSET 
-    fieldset {
-        border: unset;
-
-        &[required] legend {
-            @include required();
-        }
-    }
-
-    //=== REQUIRED
-    label:has(+ input[required]:not([type="checkbox"], [type="radio"]), +select[required], +textarea[required]),
-    fieldset:has(input[type="checkbox"][required], input[type="radio"][required]) legend {
-        @include required();
-    }
-
-    //=== DISABLED
-    input[disabled],
-    input[disabled]:is([type="checkbox"], [type="radio"])+label,
-    label:has(+ input[disabled]:not([type="checkbox"], [type="radio"])),
-    label:has(+ :is(textarea[disabled], select[disabled])) {
-        @include disabled();
-    }
-
-    //=== EYE 
-    input[type="password"]::-ms-reveal,
-    input[type="password"]::-ms-clear,
-    input[type="password"]::-webkit-textfield-decoration-container,
-    input[type="password"]::-webkit-credentials-auto-fill-button,
-    input[type="password"]::-webkit-password-toggle {
-        display: none;
-    }
-
-    input[type="file"] {
-        @include file();
-    }
+    --form-gap: var(--gap-texts);
+    @include column(var(--form-gap));
 }
 
-//== formValidate
+//## FORM VALIDATE
 @mixin formValidate() {
-    --formValidate-outline: solid 3px var(--color-error);
+    --formValidate-outline: var(--border-width) var(--border-style);
+    --formValidate-outlineColor: var(--color-error);
 
-    //=== ERROR
     &[pgs-state~=errorForm] {
-        [pgs-state~="errorField"]:not([type=checkbox], [type=radio]) {
+
+        //## input & fieldset
+        //### input
+        :where([pgs-state~=errorField]:not([type=checkbox], [type=radio])) {
             outline: var(--formValidate-outline);
+            outline-color: var(--formValidate-outlineColor);
+            background-color: var(--color-error-soft);
             color: var(--color-error);
         }
 
-        label:has(+[pgs-state~=errorField], [pgs-state~=errorField]) {
-            &:has(input[type=checkbox]) {
-                padding-block: 8px;
-                border-radius: 10px;
-                outline: var(--formValidate-outline);
-            }
-
-            :is(input[type=radio], input[type=checkbox]) {
-                &::before {
-                    outline: var(--formValidate-outline);
-                }
+        //### fieldset
+        :where(fieldset[pgs-state~=errorFieldset]) {
+            :where(legend) {
+                --label-color: var(--color-error);
+                --label-background: var(--color-error-soft);
+                --label-border: var(--color-error) var(--border-style);
             }
         }
 
-        fieldset[pgs-state~=errorField] {
-            border-radius: 10px;
-
-            :is(input[type=radio], input[type=checkbox]) {
-                &::before {
-                    outline: var(--formValidate-outline);
-                }
-            }
-
-            legend {
-                --label-background: var(--color-error-soft);
-                --label-color: var(--color-error);
-            }
+        //## label
+        //### label - input
+        :where([pgs-state~=errorLabel]) {
+            --label-color: var(--color-error);
+            --label-background: var(--color-error-soft);
+            --label-border: var(--color-error) var(--border-style);
+            --checkbox-background: var(--color-error-soft);
+            --radio-background: var(--color-error-soft);
+            --checkboxRadio-labelColor: var(--color-error);
         }
     }
+
+    //option for suggestions: set on the field that fails, or on a descendant of the
+    //fieldset that does, to override its default error title and text
+    [pgs-data~="formMessageTitle[]"],
+    [pgs-data~="formMessage[]"] {}
 }
