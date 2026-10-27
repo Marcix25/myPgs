@@ -10,7 +10,7 @@
 // so that a section with a background meets the one next to it: mainRemoveGap on both edges,
 // mainRemoveGapTop or mainRemoveGapBottom on one. Any child of main can take it, a section or not.
 // They read --main-gap, and --gap-sections when the child is not inside a main
-:is([pgs~="main-child"], [pgs*="main-child\5B"]) {
+:is([pgs~="mainChild"], [pgs*="mainChild\5B"]) {
     &:where([pgs*="'mainRemoveGap'"]) { margin-block: calc(var(--main-gap, var(--gap-sections)) / -2); }
     &:where([pgs*="'mainRemoveGapTop'"]) { margin-top: calc(var(--main-gap, var(--gap-sections)) / -2); }
     &:where([pgs*="'mainRemoveGapBottom'"]) { margin-bottom: calc(var(--main-gap, var(--gap-sections)) / -2); }

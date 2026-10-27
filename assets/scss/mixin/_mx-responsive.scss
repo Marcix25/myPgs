@@ -38,12 +38,15 @@
 @function _basisOf($cols, $gap) { @return calc((100% - ($gap * ($cols - 1))) / $cols); }
 
 //## Column
-// the real gap and the one the bases are computed with are the same --gap, so they can never
+// the real gap and the one the bases are computed with come from the same --gap, so they can never
 // drift apart: the default matches the plain flex's own gap (--gap-texts), and the gap* options
-// set --gap rather than gap alone
+// set --gap rather than gap alone. The bases are worked out in the items, so they read --_flex-gap,
+// which the row publishes from its own --gap: an item that is itself a flex row or column sets its
+// own --gap, and reading that one would size the columns for a gap the row does not have
 @mixin columnFlex($columns) {
     --gap: var(--gap-texts);
-    $gap: var(--gap);
+    --_flex-gap: var(--gap);
+    $gap: var(--_flex-gap);
     gap: var(--gap);
 
     >* {

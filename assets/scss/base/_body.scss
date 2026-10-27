@@ -4,10 +4,8 @@
 :where([pgs~="htmlBase"]) {
     --font-rem-base: 62.5%;
     font-size: var(--font-rem-base);
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    scroll-margin-top: var(--page-topScroll);
+    -webkit-text-size-adjust: 100%; // no font inflation when a phone turns to landscape
+    text-size-adjust: 100%;
     interpolate-size: allow-keywords;
 
     @media (prefers-reduced-motion: no-preference) { scroll-behavior: smooth; }
@@ -31,9 +29,6 @@
         background-color: var(--color-background);
         position: relative;
 
-        section { width: 100%; }
-        aside { width: 100%; }
-
         ul {
             list-style: none;
             color: var(--color-text);
@@ -48,13 +43,12 @@
         }
 
         fieldset { border: unset; }
+        :focus-visible { @include focusRing(); }
 
-        ::selection {
-            background: var(--color-secondary);
-            color: var(--color-secondary-text);
-        }
-
-        :focus-visible { @include focus(); }
+        // the hidden attribute wins over any display a component gives (a flex, a grid, a card or a
+        // button would stay visible otherwise). The accordion panel keeps its own display on purpose:
+        // it is hidden while it animates closed, and display: none would end the animation at once
+        [hidden]:not([hidden="until-found"], [pgs~="accordion-content"]) { display: none !important; }
     }
 
     //## IMG
@@ -70,9 +64,12 @@
             user-drag: none;
             pointer-events: none;
             color-scheme: light;
-            transition: opacity 200ms;
             object-fit: contain;
         }
+
+        // the fade-in of the svg module (see objectLoaded below): an <img> never changes its opacity
+        object,
+        lottie-player { transition: opacity 200ms; }
 
         a {
 
@@ -100,8 +97,6 @@
         font-family: var(--text-family);
         font-weight: var(--font-weight-text);
         font-size: var(--text-size);
-        font-optical-sizing: auto;
-        font-style: normal;
 
         span { overflow-wrap: var(--text-overflowWrap); }
         p { @include text(); }

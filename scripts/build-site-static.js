@@ -13,9 +13,10 @@
 //   <!-- include: page site/page/<name>.html --> is the one include that is not a file of parts/: its path,
 //   relative to the repo root, says where the pages live, and <name> stands for each page's name.
 //
-// Nothing in site/page/ is generated: it holds only hand-authored content, one page's own content
-// per file with no shell around it (home.html, test.html, demo.html, and any future page, following
-// the same one-file-per-page convention). demo.html is the one that is not used as written: it is the
+// This script writes nothing in site/page/: it holds one page's own content per file with no shell around
+// it (home.html, icons.html, demo.html, and any future page, following the same one-file-per-page
+// convention), hand-authored except for the grid of glyphs in icons.html, which `npm run icons:sync`
+// (scripts/sync-icons-page.js) rewrites. demo.html is the one that is not used as written: it is the
 // pageShell that hosts the reference nav and panels, with the nav and the main empty until this
 // script fills them in from reference/html. Everything this script writes lives in site/build/:
 // - site/build/*.html — one output per page: site/index.html with that page's own content

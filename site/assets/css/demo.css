@@ -13,10 +13,15 @@
 
 .demoContent-heading {
     --heading-family-h1: "MyPix", var(--font);
-    --heading-family-h2: "MyPix", var(--font);
     /* --heading-color-h1: var(--color-primary-strong);
     --heading-color-h2: var(--color-primary-strong); */
     --heading-letterSpacing-h1: 2.5px;
+}
+
+/* MyPix is the font of the h1 only. The one other place it stays is the highlighted word of a heading of the
+   home, a span written as an h2 (class demoContent-heading with pgs="h2"): it is not a heading of the page */
+.demoContent-heading[pgs~="h2"] {
+    --heading-family-h2: "MyPix", var(--font);
     --heading-letterSpacing-h2: 1.2px;
 }
 

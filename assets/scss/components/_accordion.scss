@@ -22,7 +22,6 @@ $accordionGap: 1.0rem;
     --accordion-timing: 300ms;
     --accordion-background: transparent;
     --accordion-background-open: var(--color-box-transparent);
-
     display: flex;
     flex-direction: column;
     gap: 0;
@@ -70,10 +69,7 @@ $accordionGap: 1.0rem;
         }
 
         // all: unset above took the browser's ring away, this gives it back
-        &:focus-visible {
-            outline: var(--focus-visible);
-            outline-offset: 3px;
-        }
+        &:focus-visible { @include focusRing(); }
     }
 
     //## CONTENT
@@ -86,9 +82,7 @@ $accordionGap: 1.0rem;
         font-weight: normal;
         overflow: hidden;
 
-        @media (prefers-reduced-motion: no-preference) {
-            transition: height var(--accordion-timing) ease, opacity var(--accordion-timing) ease, visibility var(--accordion-timing);
-        }
+        @media (prefers-reduced-motion: no-preference) { transition: height var(--accordion-timing) ease, opacity var(--accordion-timing) ease, visibility var(--accordion-timing); }
     }
 
     //## Accordion insert

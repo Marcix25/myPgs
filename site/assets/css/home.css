@@ -17,22 +17,6 @@
     /* justify-content: space-between; */
 }
 
-.home-hero-eyebrow {
-    display: inline-flex;
-    padding: 0.4rem 1rem;
-    border-radius: var(--borderRadius-elements);
-    color: var(--color-primary-text);
-    background: var(--color-primary);
-    font-weight: var(--font-weight-bold);
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    width: fit-content;
-    position: absolute;
-    top: var(--padding-elements);
-    left: var(--padding-elements);
-}
-
 .home-hero-lead {
     font-size: 1.8rem;
     color: var(--color-text);

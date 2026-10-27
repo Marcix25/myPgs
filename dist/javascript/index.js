@@ -3508,11 +3508,15 @@ class PGS_Slides {
         }
 
         //## DOTS
-        if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(EL).querySelector(['slides-dots', '_slides-dots'])) {
+        // slidesNotDots: no row is built at all, nothing is hidden. One written by hand is the author's and is
+        // wired as usual: writing both is a contradiction that stays visible instead of being resolved in silence
+        if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(EL).querySelector(['slides-dots', '_slides-dots']) && !(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(EL).option.contains("slidesNotDots")) {
             EL.insertAdjacentHTML("beforeend", `<div pgs="_slides-dots"></div>`);
         }
 
         const dotsContainer = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(EL).querySelector(['slides-dots', '_slides-dots']);
+        if (!dotsContainer) return;
+
         while (dotsContainer.children.length < this.container.children.length) {
             dotsContainer.insertAdjacentHTML("beforeend", `<button pgs="_slides-dots-dot" type="button"></button>`);
         }
@@ -3672,7 +3676,9 @@ class PGS_Slides {
         this.#createButtonsAndDots();
         const prevButton = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(slides).querySelector(['slides-prev', '_slides-prev']);
         const nextButton = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(slides).querySelector(['slides-next', '_slides-next']);
-        const dots = Array.from((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(slides).querySelector(['slides-dots', '_slides-dots']).children);
+        // none with slidesNotDots (the module builds no row): the arrows and the observer need no dots
+        const dotsContainer = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(slides).querySelector(['slides-dots', '_slides-dots']);
+        const dots = dotsContainer ? Array.from(dotsContainer.children) : [];
 
         //## Listener: DOT, PREV, NEXT
         dots.forEach((dot, index) => dot.addEventListener("click", () => this.#goToNumberSlide(index), { signal }));

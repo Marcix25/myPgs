@@ -274,7 +274,7 @@ Then rebuild with `npm run sitebuild`, and only if the example needs real intera
   (`marginTop['mgTpElements']`, `borderTop['bdTpThin']`). The documented exceptions are flex/grid's
   layout flags (`column`, `gapElements`, `itemCenter`, ...), and the `icon-*` glyphs. A `pgs-data` key keeps its prefix always (`formFieldError`,
   `headerCompactFrom`): that attribute is flat, with no bracket to give a bare key context. See
-  `migration.md` for the history of both conventions.
+  `migration.md` for the move from the old attribute grammar.
 - **A plain reusable utility with no component family** (`block`, `minWidth0`, `truncate`,
   `cursorNotAllowed`) has no prefix and no bracket: it is written directly as a `pgs` value.
 
@@ -331,10 +331,11 @@ anyway.
 
   The asset links of the fragments (`<script>`/`<link>` hrefs) are written relative to `site/build/` too, not relative
   to their own location in `site/parts/`.
-- **`site/page/`** — one page's own content, no shell around any of it, all of it hand-kept and
-  never written by the build:
-  - `home.html`, `test.html` and `test2.html` — just a `<main>` and nothing else. `home.html` is the home page;
-    `test.html` and `test2.html` are fixtures for trying components out.
+- **`site/page/`** — one page's own content, no shell around any of it, hand-kept and never written by
+  the build:
+  - `home.html` and `icons.html` — just a `<main>` and nothing else. `home.html` is the home page and
+    `icons.html` the page of the icon pack: the one exception to hand-kept, because the grid of glyphs and the
+    counts between its markers are rewritten by `npm run icons:sync` (or `icons:page`), not by the build.
   - `demo.html` — the pageShell that hosts the reference nav and panels, with the nav and the main
     empty: the build fills them in, in memory, with what it renders from `reference/html`. Edit it for
     the reference demo's own layout — the part specific to browsing components. It has to exist.
@@ -344,7 +345,7 @@ anyway.
 - **`site/build/`** — the complete, directly-openable pages, all generated:
   - one output per file in `page/`, named the same, plus `demo.html`: `site/index.html` with
     that page's own content spliced into the placeholder, plus `assets/js/demo.js`. `demo.html` goes
-    through the same shell as `home.html`, `test.html` and `test2.html`; only its own content is merged, in
+    through the same shell as `home.html` and `icons.html`; only its own content is merged, in
     memory, with the rendered panels. `demo.js` only runs `pgs.helper.init()` and the demo's own interactive wiring
     (nav clicks, copy buttons, the `configureXDemo` functions) — nothing in it fetches or parses a
     reference file, since each page already has everything written out. Every page opens

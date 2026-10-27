@@ -6,9 +6,9 @@
 // - reference/html/**/*.html — the panels and the nav come from here;
 // - site/index.html (the shell), site/parts/*.html (the fragments it includes) and
 //   scripts/demo-render.js — the renderer the build calls;
-// - site/page/*.html — every page's own hand-authored content (home.html, test.html, and any future
-//   page dropped in there the same way). The build writes nothing there, so watching it can never
-//   have a build retrigger the next one;
+// - site/page/*.html — every page's own content (home.html, icons.html, and any future page dropped in
+//   there the same way). The build writes nothing there, so watching it can never have a build retrigger
+//   the next one (only `npm run icons:sync` rewrites the glyph grid of icons.html, and it is not part of the build);
 // - dist/css/index.css — read to list each component's CSS variables, so a webpack rebuild has to
 //   reach the demo too.
 // demo.js and demo.css are only linked by the generated page, never read into it: editing one

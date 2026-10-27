@@ -26,7 +26,7 @@ A horizontal, scroll-snapped track of slides with its own arrows and position do
 - `slidesAnimationScale`: scales each slide by how much of it is in view, through the --_slides-visiblePercent custom property the module writes on it; a slide sits at 1 before the first pass of the observer.
 - `slidesSingleScroll`: an arrow advances by a single slide, counted from the one the snap is resting on, instead of jumping past every slide currently in view.
 - `slidesArrowsCenter`: puts the arrows the module builds over the slides again, one on each side at the middle of their height, instead of in a row above them at the end. An arrow written by hand (slides-prev, slides-next) is not moved either way: only the generated ones are.
-- `slidesNotDots`: takes the dots off the slides, a row written by hand (slides-dots) included, along with the room kept under the generated one. The module still builds the row, it is only hidden.
+- `slidesNotDots`: the slides have no dots; the module does not build the row, and no room is kept under them. A row written by hand (slides-dots) is the author's and stays as written, so do not write one with this option.
 - `slidesFullWidth`: each slide fills the full width of the track instead of the default fixed measure, at every breakpoint.
 - `slidesLoop`: the prev/next arrows wrap around at the ends instead of stopping, so prev from the first slide goes to the last one and next from the last goes to the first; neither arrow is ever disabled.
 
@@ -246,7 +246,7 @@ The arrows the module builds sit in a row above the slides, at the end. slidesAr
 
 ### Without dots
 
-The dots are taken off the slides, along with the room kept under them, using pgs=&quot;slides['slidesNotDots']&quot;.
+The slides have no dots: the module builds no row and keeps no room under them; write it with pgs=&quot;slides['slidesNotDots']&quot;.
 
 ```html
 <div pgs="slides['slidesNotDots']">

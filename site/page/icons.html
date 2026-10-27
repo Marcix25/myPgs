@@ -4,7 +4,7 @@
     <!-- = INTRO AND THE SET -->
     <section pgs="section['sctMax'] flex['column' 'gapElements']">
         <div pgs="flex['column' 'gapTexts']">
-            <h1>Icons</h1>
+            <h1 class="demoContent-heading">Icons</h1>
             <p>Every glyph is inline SVG painted as a mask, so it takes the text color and the font size of the element around it and needs no icon font. The token says "this is an icon", the option says which one: <code>pgs="icon['icon-name']"</code>.</p>
         </div>
 
@@ -1187,7 +1187,7 @@
     </section>
 
     <!-- = IMPORT -->
-    <section pgs="section['sctMax'] flex['column' 'gapElements'] background['bgPrimarySoft'] main-child['mainRemoveGap']">
+    <section pgs="section['sctMax'] flex['column' 'gapElements'] background['bgPrimarySoft'] mainChild['mainRemoveGap']">
         <div pgs="flex['column' 'gapTexts']">
             <h2 pgs="textColor['txtPrimaryStrong']">Import the pack</h2>
             <p>The pack is one stylesheet, <code>myicon/dist/icons.min.css</code>. Load it <strong>after</strong> mypgs: the glyphs that are in both draw the same either way, but the pack is written to sit on top of the library's own icon component. Without it only the core glyphs draw.</p>
@@ -1249,7 +1249,7 @@
     </section>
 
     <!-- = USE -->
-    <section pgs="section['sctMax'] flex['column' 'gapElements'] main-child['mainRemoveGap']">
+    <section pgs="section['sctMax'] flex['column' 'gapElements'] mainChild['mainRemoveGap']">
         <div pgs="flex['column' 'gapTexts']">
             <h2>Use</h2>
             <p>Write the token on an <code>&lt;i&gt;</code> (or any element), pick the glyph in its bracket, and add the options you need next to it.</p>
@@ -1355,7 +1355,7 @@
     </section>
 
     <!-- = ADD -->
-    <section pgs="section['sctMax'] flex['column' 'gapElements'] background['bgBox'] main-child['mainRemoveGap']">
+    <section pgs="section['sctMax'] flex['column' 'gapElements'] background['bgBox'] mainChild['mainRemoveGap']">
         <h2 pgs="textColor['txtBoxDark']">Add a glyph</h2>
         <ol pgs="steps">
             <li pgs="steps-step">

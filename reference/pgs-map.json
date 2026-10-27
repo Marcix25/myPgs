@@ -878,9 +878,13 @@
         "pgs-data": []
     },
     "main": {
-        "pgs": [
-            "main-child"
-        ],
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "mainChild": {
+        "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
             "mainRemoveGap",

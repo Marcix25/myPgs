@@ -1,6 +1,7 @@
 @use "mx-icons" as *;
 @use "mx-form" as *;
 @use "mx-responsive" as *;
+@use "mx-elements" as *;
 
 //# checkboxBackground
 @mixin checkboxBackground() {
@@ -141,7 +142,6 @@
         // on the switch itself or on the label that holds it, not a disabled one, as in checkbox() and radio();
         // the checked ones below come after and win. The thumb grows only where motion is welcome
         @media (hover: hover) and (pointer: fine) {
-
             &:is(:hover, :where(label):hover *):where(:not(:disabled)) {
                 background: var(--toggle-rail-background-hover);
                 border-color: var(--toggle-rail-borderColor-hover);
@@ -198,16 +198,11 @@
     :where([pgs~="icon"], [pgs*="icon\5B"], i) { opacity: 0.4; }
 
     //## hover
-    &:hover {
-        :where([pgs~="icon"], [pgs*="icon\5B"], i) { opacity: 1; }
-    }
+    &:hover :where([pgs~="icon"], [pgs*="icon\5B"], i) { opacity: 1; }
 
     //## focus
     // the input is invisible: the ring is drawn on the chip that holds it
-    &:has(input:focus-visible) {
-        outline: var(--focus-visible);
-        outline-offset: 3px;
-    }
+    &:has(input:focus-visible) { @include focusRing(); }
 
     //## checked
     &:has(input:checked) {

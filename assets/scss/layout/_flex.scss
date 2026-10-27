@@ -67,7 +67,7 @@
                 --_flexChild-span: min(var(--_flexChild-col), var(--_flex-cols, 1));
                 flex-grow: var(--_flexChild-span);
                 flex-shrink: 0;
-                flex-basis: calc((100% + var(--gap)) * var(--_flexChild-span) / var(--_flex-cols, 1) - var(--gap));
+                flex-basis: calc((100% + var(--_flex-gap)) * var(--_flexChild-span) / var(--_flex-cols, 1) - var(--_flex-gap));
             }
 
             &[pgs*="'colSpanS'"] { --_flexChild-col: var(--flexChild-colSpan-s, 1); }

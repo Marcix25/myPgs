@@ -65,10 +65,7 @@
     border: 0 !important;
 }
 
-[pgs~="focusRing"]:focus-visible {
-    outline: var(--focus-visible);
-    outline-offset: 3px;
-}
+[pgs~="focusRing"]:focus-visible { @include focusRing(); }
 
 [pgs~="skipLink"]:focus-visible {
     position: fixed;
@@ -79,8 +76,7 @@
     border-radius: var(--borderRadius-texts);
     background-color: var(--color-background);
     color: var(--color-link);
-    outline: var(--focus-visible);
-    outline-offset: 3px;
+    @include focusRing();
 }
 
 @media (prefers-reduced-motion: reduce) {

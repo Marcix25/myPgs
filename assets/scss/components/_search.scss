@@ -33,10 +33,7 @@
     }
 
     // the input draws no outline of its own (it would be cut by the rounded corners), the form carries the ring
-    &:has(> input:focus-visible) {
-        outline: var(--focus-visible);
-        outline-offset: 3px;
-    }
+    &:has(> input:focus-visible) { @include focusRing(); }
 
     >:where(input) {
         border: 0;

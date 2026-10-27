@@ -89,8 +89,8 @@
 
     //## DOTS
     // a hand-written dots row keeps the bare name; a generated one gets the underscore.
-    // The room kept under the generated row is not reserved when slidesNotDots takes the row away
-    &:has([pgs~="_slides-dots"]):not([pgs*="'slidesNotDots'"]) {
+    // The room kept under the generated row: with slidesNotDots no row is generated, so none is kept
+    &:has([pgs~="_slides-dots"]) {
         margin-bottom: calc(var(--gap-elements)* 2);
     }
 
@@ -155,24 +155,13 @@
         :where([pgs~="_slides-next"]) { right: .4rem; }
     }
 
-    //+ slidesNotDots
-    // the dots are taken off the slides, the generated row and one written by hand alike
-    &:where([pgs*="'slidesNotDots'"]) {
-
-        :where([pgs~="slides-dots"]),
-        :where([pgs~="_slides-dots"]) {
-            display: none;
-        }
-    }
-
     //+ option for suggestions
+    &:where([pgs*="'slidesNotDots'"]),
     &:where([pgs*="'slidesSingleScroll'"]),
     &:where([pgs*="'slidesLoop'"]) {}
 
     //+ slidesFullWidth
-    &:where([pgs*="'slidesFullWidth'"]) {
-        --slides-width: 100%;
-    }
+    &:where([pgs*="'slidesFullWidth'"]) { --slides-width: 100%; }
 
     //+ slidesAnimationScale
     &:where([pgs*="'slidesAnimationScale'"]) {

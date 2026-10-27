@@ -1,3 +1,5 @@
+@use "mx-elements" as *;
+
 //= BUTTON
 //# BUTTON
 //## BUTTON COLOR
@@ -119,10 +121,7 @@
 
     //## FOCUS
     // the input is invisible: the ring is drawn on the button that holds it
-    &:has(input:focus-visible) {
-        outline: var(--focus-visible);
-        outline-offset: 3px;
-    }
+    &:has(input:focus-visible) { @include focusRing(); }
 }
 
 //# TYPE
@@ -204,7 +203,6 @@
 //# HEADER & NAVSMART
 //## HEADER
 @mixin buttonForHeader() {
-    --button-borderWidth: 0px;
     min-height: var(--header-size);
     overflow-wrap: break-word;
 }

@@ -38,9 +38,14 @@
 }
 
 //# FOCUS
+// the ring itself, for a rule that already says when it shows: a wrapper whose input holds the focus
+// (&:has(input:focus-visible)) is never :focus-visible itself, so it cannot take focus() below
+@mixin focusRing() {
+    outline: var(--focus-visible);
+}
+
+// the ring on the element that takes the focus: it adds :focus-visible itself, so use it only where the
+// rule does not already say it (inside a :focus-visible block, focusRing() is the one)
 @mixin focus() {
-    &:where(:not(:disabled, [disabled])):focus-visible {
-        outline: var(--focus-visible);
-        outline-offset: 3px;
-    }
+    &:where(:not(:disabled, [disabled])):focus-visible { @include focusRing(); }
 }

@@ -167,6 +167,13 @@ Inside the library a module reaches every helper as `pgs.helper.<name>` (`pgs.he
 - Messages share one voice, `pgs.<module>.<method>(): message`: `PGS_warn(scope, message)` for invalid markup or a request that can be skipped, `throw PGS_invalid(scope, message)` (a `TypeError`) for an invalid argument to a public method.
 - The helpers: `_dom.js` (`PGS_roots`, `PGS_directChild`, `PGS_directChildren`, `PGS_uniqueId`, `PGS_dispatch`), `_throttle.js` (`PGS_rafThrottle`, `PGS_watchDocument`), `_warn.js` (`PGS_warn`, `PGS_invalid`), `_text.js` and `_onDocumentReady.js`.
 
+### What `registerModules` and `globalThis.mypgs` are for
+
+They are two separate mechanisms, both at the end of `assets/javascript/_pgs.js`; keep both when touching the entry point.
+
+- `pgs.registerModules({ name: module })` is the list of modules on the `pgs` object, which is what makes `pgs.menu.init()`, `pgs.toast.success()` or `pgs.darkmode.init()` exist. A name already taken by another module throws (`"name" is already defined on pgs`) instead of overwriting it, which is why a module never assigns `pgs.name` by hand. `pgs.helper.init(root)` walks every registered module that has an `init` and calls it once, so a module that is not registered is never initialized by it. A new module is therefore registered in `_imports.js` and declared in `dist/index.d.ts`; `scripts/pgs.test.cjs` fails when the two lists differ.
+- `globalThis.pgs` is the library for a page that loads the bundle with a script tag, and `globalThis.mypgs ??= { pgs }` is the same library under the package name (`??=`: a copy that is already published is kept, never replaced by a second one). The webpack configs of the themes (`PGS_theme-*`) declare `externals: { mypgs: "mypgs" }`, so `import ... from "mypgs"` in their own bundles resolves to that global object at runtime instead of bundling and running a second copy of the library. `PGS_theme`'s own `index.js` is the only bundle that includes mypgs, loaded blocking in the `<head>`; every other bundle of the page reuses it. The demo site does the same through an import map (`site/assets/js/mypgs-module.js`), and the bundle is built as UMD with `library: { name: "mypgs" }` so a script tag publishes the same name. Removing `globalThis.mypgs` breaks every theme that has that `externals` entry; renaming it means changing it in all of them.
+
 ## 6. Adding or Changing a Component
 
 For a reusable component:
@@ -210,8 +217,9 @@ fragment per component. The site's own CSS/JS/images live under `site/assets/css
 `site/parts/`; `npm run sitebuild`
 (`scripts/build-site-static.js`) combines
 them with the rendered reference files into generated output across two places:
-`site/page/*.html` — one page's own content each, no shell around it, all of it hand-kept (`home.html`,
-`test.html`, `test2.html`; nothing generated is written there) — and `site/build/*.html`: one output per file in
+`site/page/*.html` — one page's own content each, no shell around it, hand-kept (`home.html`,
+`icons.html`; the build writes nothing there, and the only generated part is the glyph grid of `icons.html`,
+which `npm run icons:sync` rewrites) — and `site/build/*.html`: one output per file in
 `page/`, named the same, plus `demo.html`, with `site/index.html` and `assets/js/demo.js`
 wrapped around it. The demo page's own content (page/demo.html merged with the nav+panels that
 `scripts/demo-render.js` renders from `reference/html`) is built in memory and goes straight into

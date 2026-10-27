@@ -7,7 +7,9 @@
 // this element anywhere in the document independently of the wrapper. The flag selectors below
 // don't check _dialog specifically — see AGENTS-DEVELOPMENT.md for why a bracket flag never
 // needs to be scoped to the token that carries it.
-html:has(dialog[open]) {
+// the page stops scrolling while a pgs modal is open: it reads the html token and the pgs dialog,
+// never the bare html and dialog tags
+:where([pgs~="htmlBase"]):has([pgs~="modal-dialog"][open]) {
     cursor: pointer;
     overflow: clip;
     scrollbar-gutter: stable ;
