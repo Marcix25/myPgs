@@ -100,18 +100,7 @@
 
         span { overflow-wrap: var(--text-overflowWrap); }
         p { @include text(); }
-
-        a {
-            text-decoration: none;
-            overflow-wrap: var(--text-overflowWrap);
-            color: var(--color-link);
-        }
-
-        // a plain link (no pgs of its own, so not a button, a card or a menu item) is not told by its color alone
-        a:where(:not([pgs])) {
-            text-decoration: underline;
-            text-underline-offset: 0.15em;
-        }
+        a { text-decoration: none; }
     }
 
     //## HEADING

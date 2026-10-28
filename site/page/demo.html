@@ -10,7 +10,7 @@
     <aside pgs="pageShell-aside container['cntNone']" id="reference-demo-aside" class="reference-demo-menuAside-search">
 
         <!-- Desktop -->
-        <div pgs="flex['column' 'gapTexts'] hide['hideContainerDownBigTablet']">
+        <div pgs="flex['column' 'gapTexts'] hide['hideContainerDownNotebook']">
             <form class="reference-demo-nav-search" role="search" pgs="search marginBottom['mgBtElements']" pgs-data="searchPlaceholder[Type a page name] searchNoResults[No page found] searchIconSuggestion[<i pgs=&quot;icon['icon-arrowRight']&quot;></i>]" autocomplete="off" action="" method="get">
                 <button pgs="button['btnIconOnly' 'btnTransparent']" type="submit" title="Search pages">
                     <i pgs="icon['icon-magnifyingGlass']"></i>
@@ -19,10 +19,10 @@
                 <ul pgs="search-suggestions"></ul>
             </form>
         </div>
-        <div pgs="flex['column' 'gapElements'] hide['hideContainerDownBigTablet'] paddingBottom" class="reference-demo-nav"></div>
+        <div pgs="flex['column' 'gapElements'] hide['hideContainerDownNotebook'] paddingBottom" class="reference-demo-nav"></div>
 
         <!-- mobile -->
-        <div pgs="flex['column' 'gapElements'] hide['hideContainerUpBigTablet'] modal['dialogLeft' 'dialogSmall' 'dialogAnimationLeft']">
+        <div pgs="flex['column' 'gapElements'] hide['hideContainerUpNotebook'] modal['dialogLeft' 'dialogSmall' 'dialogAnimationLeft']">
             <button type="button" pgs="button modal-button background['bgBlack'] border borderColor['bdBlack'] textColor['txtWhite']"> <i pgs="icon['icon-chevronDown'] rotate['rot270']"></i> Browse docs</button>
 
             <dialog class="reference-demo-menuAside-search">

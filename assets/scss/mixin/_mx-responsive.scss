@@ -63,8 +63,8 @@
         }
     }
 
-    //-( big-tablet: ratio = 0.5
-    @container (max-width: #{$big-tablet}) {
+    //-( notebook: ratio = 0.5
+    @container (max-width: #{$notebook}) {
         >* {
             --_flex-cols: #{_cols(0.5, $columns)};
             flex-basis:#{_basis(0.5, $gap, $columns)};
@@ -79,8 +79,8 @@
         }
     }
 
-    //-( big-mobile: one column, like grid (m2e: two)
-    @container (max-width: #{$big-mobile}) {
+    //-( phablet: one column, like grid (m2e: two)
+    @container (max-width: #{$phablet}) {
         >* {
             --_flex-cols: 1;
             flex-basis:#{_basisOf(1, $gap)};
@@ -95,7 +95,7 @@
         }
     }
 
-    //-( mobile small / watch: the same as big-mobile
+    //-( mobile small / watch: the same as phablet
     @container (max-width: #{$watch}) {
         >* {
             --_flex-cols: 1;
@@ -118,8 +118,8 @@
         --_grid-cols: #{math.ceil($columns * 0.75)};
     }
 
-    //-( big-tablet
-    @container (max-width: #{$big-tablet}) {
+    //-( notebook
+    @container (max-width: #{$notebook}) {
         grid-template-columns: repeat(math.ceil($columns * 0.5), minmax(0, 1fr)); // 50% of the declared columns
         --_grid-cols: #{math.ceil($columns * 0.5)};
     }
@@ -130,15 +130,15 @@
         --_grid-cols: #{math.ceil($columns * 0.33)};
     }
 
-    //-( big mobile
-    @container (max-width: #{$big-mobile}) {
+    //-( phablet
+    @container (max-width: #{$phablet}) {
         grid-template-columns: minmax(0, 1fr); // 1 column
         --_grid-cols: 1;
     }
 
-    //-( big mobile m2e
+    //-( phablet m2e
     &[pgs*="'m2e'"] {
-        @container (max-width: #{$big-mobile}) {
+        @container (max-width: #{$phablet}) {
             grid-template-columns: repeat(#{math.min(2, $columns)}, minmax(0, 1fr)); // 2 columns on mobile, or the one declared
             --_grid-cols: #{math.min(2, $columns)};
         }

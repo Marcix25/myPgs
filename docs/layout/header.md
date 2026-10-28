@@ -17,9 +17,9 @@ Responsive header that measures available space, switches between its full and c
 - `headerCompactBottom`: moves header-element to the bottom of the viewport while the header is compact, so it follows the chosen breakpoint.
 - `headerCompactWatch`: forces the compact layout from the watch width down, even when the content still fits.
 - `headerCompactMobile`: forces the compact layout from the mobile width down, even when the content still fits.
-- `headerCompactBigMobile`: forces the compact layout from the big-mobile width down, even when the content still fits.
+- `headerCompactPhablet`: forces the compact layout from the phablet width down, even when the content still fits.
 - `headerCompactTablet`: forces the compact layout from the tablet width down, even when the content still fits.
-- `headerCompactBigTablet`: forces the compact layout from the big-tablet width down, even when the content still fits.
+- `headerCompactNotebook`: forces the compact layout from the notebook width down, even when the content still fits.
 - `headerCompactLaptop`: forces the compact layout from the laptop width down, even when the content still fits.
 - `headerBottom`: pins the header to the bottom of the viewport instead of the top, at the text margin from the edge. Each header-element becomes a frosted rounded box as wide as its content, with the text gap between its items.
 - `headerScroll`: hides the header while scrolling down and shows it again while scrolling up.
@@ -62,7 +62,7 @@ Responsive header that measures available space, switches between its full and c
 ### PGS Options (component brackets)
 
 - `btnTransparent`: the appearance of the navigation links, in the full-layout row and once they stack in the compact panel alike.
-- `btnForHeader`: sizes a link like the other header controls; belongs to the button component.
+- `btnForHeader`: for a link or button of the header: no border style, and a long label breaks instead of overflowing; belongs to the button component.
 - `btnPaddingEqual`: sets the same padding on every side of a navigation link instead of the wider left/right default; belongs to the button component.
 - `row`: sets the horizontal direction inside the flex bracket.
 - `nowrap`: uses the related nowrap component or utility in this example.
@@ -95,7 +95,6 @@ Responsive header that measures available space, switches between its full and c
 - `--header-gap`
 - `--header-paddingBlock`
 - `--header-paddingInline`
-- `--header-size`
 
 ## Output
 

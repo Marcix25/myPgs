@@ -281,13 +281,6 @@
 
 :where([pgs*="body["]):where([pgs*="'bodyText'"]) a {
   text-decoration: none;
-  overflow-wrap: var(--text-overflowWrap);
-  color: var(--color-link);
-}
-
-:where([pgs*="body["]):where([pgs*="'bodyText'"]) a:where(:not([pgs])) {
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
 }
 
 :where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h1 {
@@ -313,7 +306,7 @@
     font-size: clamp(var(--font-size-text), var(--heading-size-h1, 7.2rem) / 3 + 5vw, var(--heading-size-h1, 7.2rem));
   }
 }
-@media (max-width: 315px) {
+@media (max-width: 320px) {
   :where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h1 {
     font-size: clamp(var(--font-size-text), var(--heading-size-h1, 7.2rem) / 3 + 2.5vw, var(--heading-size-h1, 7.2rem));
   }
@@ -341,7 +334,7 @@
     font-size: clamp(var(--font-size-text), var(--heading-size-h2, 4.45rem) / 3 + 5vw, var(--heading-size-h2, 4.45rem));
   }
 }
-@media (max-width: 315px) {
+@media (max-width: 320px) {
   :where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h2 {
     font-size: clamp(var(--font-size-text), var(--heading-size-h2, 4.45rem) / 3 + 2.5vw, var(--heading-size-h2, 4.45rem));
   }
@@ -369,7 +362,7 @@
     font-size: clamp(var(--font-size-text), var(--heading-size-h3, 2.75rem) / 3 + 5vw, var(--heading-size-h3, 2.75rem));
   }
 }
-@media (max-width: 315px) {
+@media (max-width: 320px) {
   :where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h3 {
     font-size: clamp(var(--font-size-text), var(--heading-size-h3, 2.75rem) / 3 + 2.5vw, var(--heading-size-h3, 2.75rem));
   }
@@ -397,7 +390,7 @@
     font-size: clamp(var(--font-size-text), var(--heading-size-h4, 1.7rem) / 3 + 5vw, var(--heading-size-h4, 1.7rem));
   }
 }
-@media (max-width: 315px) {
+@media (max-width: 320px) {
   :where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h4 {
     font-size: clamp(var(--font-size-text), var(--heading-size-h4, 1.7rem) / 3 + 2.5vw, var(--heading-size-h4, 1.7rem));
   }
@@ -425,7 +418,7 @@
     font-size: clamp(var(--font-size-text), var(--heading-size-h5, 1.7rem) / 3 + 5vw, var(--heading-size-h5, 1.7rem));
   }
 }
-@media (max-width: 315px) {
+@media (max-width: 320px) {
   :where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h5 {
     font-size: clamp(var(--font-size-text), var(--heading-size-h5, 1.7rem) / 3 + 2.5vw, var(--heading-size-h5, 1.7rem));
   }
@@ -453,7 +446,7 @@
     font-size: clamp(var(--font-size-text), var(--heading-size-h6, 1.7rem) / 3 + 5vw, var(--heading-size-h6, 1.7rem));
   }
 }
-@media (max-width: 315px) {
+@media (max-width: 320px) {
   :where([pgs*="body["]):where([pgs*="'bodyHeading'"]) h6 {
     font-size: clamp(var(--font-size-text), var(--heading-size-h6, 1.7rem) / 3 + 2.5vw, var(--heading-size-h6, 1.7rem));
   }
@@ -1591,8 +1584,8 @@
 }
 
 :is([pgs~=button], [pgs*="button["]):where([pgs*="'btnForHeader'"]) {
-  min-height: var(--header-size);
   overflow-wrap: break-word;
+  --button-borderStyle: unset;
 }
 
 :is([pgs~=button], [pgs*="button["]):where([pgs*="'btnForNavSmart'"]) {
@@ -3566,7 +3559,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   background: var(--badge-background);
   color: var(--badge-color);
   font-size: var(--badge-textSize);
-  font-weight: var(--font-weight-title);
+  font-weight: 700;
   line-height: 1;
   text-decoration: none;
   white-space: nowrap;
@@ -4023,7 +4016,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   min-width: max-content;
   background-color: transparent;
   color: var(--color-black);
-  --logo-height: var(--header-size, 6.0rem);
+  --logo-height: calc(var(--SIZE) + var(--font-size-text));
   --logo-filter: invert(1) hue-rotate(180deg) brightness(1.5);
 }
 
@@ -4311,7 +4304,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     flex-basis: calc((100% - var(--_flex-gap) * 2) / 3);
   }
 }
-@container (max-width: 615px) {
+@container (max-width: 600px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-"] > * {
     --_flex-cols: 1;
     flex-basis: calc((100% - var(--_flex-gap) * 0) / 1);
@@ -4321,7 +4314,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     flex-basis: calc((100% - var(--_flex-gap) * 1) / 2);
   }
 }
-@container (max-width: 315px) {
+@container (max-width: 320px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-"] > * {
     --_flex-cols: 1;
     flex-basis: calc((100% - var(--_flex-gap) * 0) / 1);
@@ -4357,7 +4350,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     flex-basis: calc((100% - var(--_flex-gap) * 0) / 1);
   }
 }
-@container (max-width: 615px) {
+@container (max-width: 600px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-1'"] > * {
     --_flex-cols: 1;
     flex-basis: calc((100% - var(--_flex-gap) * 0) / 1);
@@ -4367,7 +4360,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     flex-basis: calc((100% - var(--_flex-gap) * 0) / 1);
   }
 }
-@container (max-width: 315px) {
+@container (max-width: 320px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-1'"] > * {
     --_flex-cols: 1;
     flex-basis: calc((100% - var(--_flex-gap) * 0) / 1);
@@ -4403,7 +4396,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     flex-basis: calc((100% - var(--_flex-gap) * 0) / 1);
   }
 }
-@container (max-width: 615px) {
+@container (max-width: 600px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-2'"] > * {
     --_flex-cols: 1;
     flex-basis: calc((100% - var(--_flex-gap) * 0) / 1);
@@ -4413,7 +4406,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     flex-basis: calc((100% - var(--_flex-gap) * 1) / 2);
   }
 }
-@container (max-width: 315px) {
+@container (max-width: 320px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-2'"] > * {
     --_flex-cols: 1;
     flex-basis: calc((100% - var(--_flex-gap) * 0) / 1);
@@ -4449,7 +4442,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     flex-basis: calc((100% - var(--_flex-gap) * 0) / 1);
   }
 }
-@container (max-width: 615px) {
+@container (max-width: 600px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-3'"] > * {
     --_flex-cols: 1;
     flex-basis: calc((100% - var(--_flex-gap) * 0) / 1);
@@ -4459,7 +4452,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     flex-basis: calc((100% - var(--_flex-gap) * 1) / 2);
   }
 }
-@container (max-width: 315px) {
+@container (max-width: 320px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-3'"] > * {
     --_flex-cols: 1;
     flex-basis: calc((100% - var(--_flex-gap) * 0) / 1);
@@ -4495,7 +4488,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     flex-basis: calc((100% - var(--_flex-gap) * 1) / 2);
   }
 }
-@container (max-width: 615px) {
+@container (max-width: 600px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-4'"] > * {
     --_flex-cols: 1;
     flex-basis: calc((100% - var(--_flex-gap) * 0) / 1);
@@ -4505,7 +4498,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     flex-basis: calc((100% - var(--_flex-gap) * 1) / 2);
   }
 }
-@container (max-width: 315px) {
+@container (max-width: 320px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-4'"] > * {
     --_flex-cols: 1;
     flex-basis: calc((100% - var(--_flex-gap) * 0) / 1);
@@ -4541,7 +4534,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     flex-basis: calc((100% - var(--_flex-gap) * 1) / 2);
   }
 }
-@container (max-width: 615px) {
+@container (max-width: 600px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-5'"] > * {
     --_flex-cols: 1;
     flex-basis: calc((100% - var(--_flex-gap) * 0) / 1);
@@ -4551,7 +4544,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     flex-basis: calc((100% - var(--_flex-gap) * 1) / 2);
   }
 }
-@container (max-width: 315px) {
+@container (max-width: 320px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-5'"] > * {
     --_flex-cols: 1;
     flex-basis: calc((100% - var(--_flex-gap) * 0) / 1);
@@ -4587,7 +4580,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     flex-basis: calc((100% - var(--_flex-gap) * 1) / 2);
   }
 }
-@container (max-width: 615px) {
+@container (max-width: 600px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-6'"] > * {
     --_flex-cols: 1;
     flex-basis: calc((100% - var(--_flex-gap) * 0) / 1);
@@ -4597,7 +4590,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     flex-basis: calc((100% - var(--_flex-gap) * 1) / 2);
   }
 }
-@container (max-width: 315px) {
+@container (max-width: 320px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-6'"] > * {
     --_flex-cols: 1;
     flex-basis: calc((100% - var(--_flex-gap) * 0) / 1);
@@ -4633,7 +4626,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     flex-basis: calc((100% - var(--_flex-gap) * 2) / 3);
   }
 }
-@container (max-width: 615px) {
+@container (max-width: 600px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-7'"] > * {
     --_flex-cols: 1;
     flex-basis: calc((100% - var(--_flex-gap) * 0) / 1);
@@ -4643,7 +4636,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     flex-basis: calc((100% - var(--_flex-gap) * 1) / 2);
   }
 }
-@container (max-width: 315px) {
+@container (max-width: 320px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-7'"] > * {
     --_flex-cols: 1;
     flex-basis: calc((100% - var(--_flex-gap) * 0) / 1);
@@ -4679,7 +4672,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     flex-basis: calc((100% - var(--_flex-gap) * 2) / 3);
   }
 }
-@container (max-width: 615px) {
+@container (max-width: 600px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-8'"] > * {
     --_flex-cols: 1;
     flex-basis: calc((100% - var(--_flex-gap) * 0) / 1);
@@ -4689,7 +4682,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     flex-basis: calc((100% - var(--_flex-gap) * 1) / 2);
   }
 }
-@container (max-width: 315px) {
+@container (max-width: 320px) {
   :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-8'"] > * {
     --_flex-cols: 1;
     flex-basis: calc((100% - var(--_flex-gap) * 0) / 1);
@@ -4811,19 +4804,19 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     --_grid-cols: 3;
   }
 }
-@container (max-width: 615px) {
+@container (max-width: 600px) {
   :is([pgs~=grid], [pgs*="grid["])[pgs*="'column-"] {
     grid-template-columns: minmax(0, 1fr);
     --_grid-cols: 1;
   }
 }
-@container (max-width: 615px) {
+@container (max-width: 600px) {
   :is([pgs~=grid], [pgs*="grid["])[pgs*="'column-"][pgs*="'m2e'"] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     --_grid-cols: 2;
   }
 }
-@container (max-width: 315px) {
+@container (max-width: 320px) {
   :is([pgs~=grid], [pgs*="grid["])[pgs*="'column-"] {
     grid-template-columns: minmax(0, 1fr);
     --_grid-cols: 1;
@@ -4852,19 +4845,19 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     --_grid-cols: 1;
   }
 }
-@container (max-width: 615px) {
+@container (max-width: 600px) {
   :is([pgs~=grid], [pgs*="grid["])[pgs*="'column-1'"] {
     grid-template-columns: minmax(0, 1fr);
     --_grid-cols: 1;
   }
 }
-@container (max-width: 615px) {
+@container (max-width: 600px) {
   :is([pgs~=grid], [pgs*="grid["])[pgs*="'column-1'"][pgs*="'m2e'"] {
     grid-template-columns: repeat(1, minmax(0, 1fr));
     --_grid-cols: 1;
   }
 }
-@container (max-width: 315px) {
+@container (max-width: 320px) {
   :is([pgs~=grid], [pgs*="grid["])[pgs*="'column-1'"] {
     grid-template-columns: minmax(0, 1fr);
     --_grid-cols: 1;
@@ -4893,19 +4886,19 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     --_grid-cols: 1;
   }
 }
-@container (max-width: 615px) {
+@container (max-width: 600px) {
   :is([pgs~=grid], [pgs*="grid["])[pgs*="'column-2'"] {
     grid-template-columns: minmax(0, 1fr);
     --_grid-cols: 1;
   }
 }
-@container (max-width: 615px) {
+@container (max-width: 600px) {
   :is([pgs~=grid], [pgs*="grid["])[pgs*="'column-2'"][pgs*="'m2e'"] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     --_grid-cols: 2;
   }
 }
-@container (max-width: 315px) {
+@container (max-width: 320px) {
   :is([pgs~=grid], [pgs*="grid["])[pgs*="'column-2'"] {
     grid-template-columns: minmax(0, 1fr);
     --_grid-cols: 1;
@@ -4934,19 +4927,19 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     --_grid-cols: 1;
   }
 }
-@container (max-width: 615px) {
+@container (max-width: 600px) {
   :is([pgs~=grid], [pgs*="grid["])[pgs*="'column-3'"] {
     grid-template-columns: minmax(0, 1fr);
     --_grid-cols: 1;
   }
 }
-@container (max-width: 615px) {
+@container (max-width: 600px) {
   :is([pgs~=grid], [pgs*="grid["])[pgs*="'column-3'"][pgs*="'m2e'"] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     --_grid-cols: 2;
   }
 }
-@container (max-width: 315px) {
+@container (max-width: 320px) {
   :is([pgs~=grid], [pgs*="grid["])[pgs*="'column-3'"] {
     grid-template-columns: minmax(0, 1fr);
     --_grid-cols: 1;
@@ -4975,19 +4968,19 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     --_grid-cols: 2;
   }
 }
-@container (max-width: 615px) {
+@container (max-width: 600px) {
   :is([pgs~=grid], [pgs*="grid["])[pgs*="'column-4'"] {
     grid-template-columns: minmax(0, 1fr);
     --_grid-cols: 1;
   }
 }
-@container (max-width: 615px) {
+@container (max-width: 600px) {
   :is([pgs~=grid], [pgs*="grid["])[pgs*="'column-4'"][pgs*="'m2e'"] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     --_grid-cols: 2;
   }
 }
-@container (max-width: 315px) {
+@container (max-width: 320px) {
   :is([pgs~=grid], [pgs*="grid["])[pgs*="'column-4'"] {
     grid-template-columns: minmax(0, 1fr);
     --_grid-cols: 1;
@@ -5016,19 +5009,19 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     --_grid-cols: 2;
   }
 }
-@container (max-width: 615px) {
+@container (max-width: 600px) {
   :is([pgs~=grid], [pgs*="grid["])[pgs*="'column-5'"] {
     grid-template-columns: minmax(0, 1fr);
     --_grid-cols: 1;
   }
 }
-@container (max-width: 615px) {
+@container (max-width: 600px) {
   :is([pgs~=grid], [pgs*="grid["])[pgs*="'column-5'"][pgs*="'m2e'"] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     --_grid-cols: 2;
   }
 }
-@container (max-width: 315px) {
+@container (max-width: 320px) {
   :is([pgs~=grid], [pgs*="grid["])[pgs*="'column-5'"] {
     grid-template-columns: minmax(0, 1fr);
     --_grid-cols: 1;
@@ -5057,19 +5050,19 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     --_grid-cols: 2;
   }
 }
-@container (max-width: 615px) {
+@container (max-width: 600px) {
   :is([pgs~=grid], [pgs*="grid["])[pgs*="'column-6'"] {
     grid-template-columns: minmax(0, 1fr);
     --_grid-cols: 1;
   }
 }
-@container (max-width: 615px) {
+@container (max-width: 600px) {
   :is([pgs~=grid], [pgs*="grid["])[pgs*="'column-6'"][pgs*="'m2e'"] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     --_grid-cols: 2;
   }
 }
-@container (max-width: 315px) {
+@container (max-width: 320px) {
   :is([pgs~=grid], [pgs*="grid["])[pgs*="'column-6'"] {
     grid-template-columns: minmax(0, 1fr);
     --_grid-cols: 1;
@@ -5098,19 +5091,19 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     --_grid-cols: 3;
   }
 }
-@container (max-width: 615px) {
+@container (max-width: 600px) {
   :is([pgs~=grid], [pgs*="grid["])[pgs*="'column-7'"] {
     grid-template-columns: minmax(0, 1fr);
     --_grid-cols: 1;
   }
 }
-@container (max-width: 615px) {
+@container (max-width: 600px) {
   :is([pgs~=grid], [pgs*="grid["])[pgs*="'column-7'"][pgs*="'m2e'"] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     --_grid-cols: 2;
   }
 }
-@container (max-width: 315px) {
+@container (max-width: 320px) {
   :is([pgs~=grid], [pgs*="grid["])[pgs*="'column-7'"] {
     grid-template-columns: minmax(0, 1fr);
     --_grid-cols: 1;
@@ -5139,19 +5132,19 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     --_grid-cols: 3;
   }
 }
-@container (max-width: 615px) {
+@container (max-width: 600px) {
   :is([pgs~=grid], [pgs*="grid["])[pgs*="'column-8'"] {
     grid-template-columns: minmax(0, 1fr);
     --_grid-cols: 1;
   }
 }
-@container (max-width: 615px) {
+@container (max-width: 600px) {
   :is([pgs~=grid], [pgs*="grid["])[pgs*="'column-8'"][pgs*="'m2e'"] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     --_grid-cols: 2;
   }
 }
-@container (max-width: 315px) {
+@container (max-width: 320px) {
   :is([pgs~=grid], [pgs*="grid["])[pgs*="'column-8'"] {
     grid-template-columns: minmax(0, 1fr);
     --_grid-cols: 1;
@@ -5298,7 +5291,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   display: none !important;
 }
 
-@media (max-width: 315px) {
+@media (max-width: 320px) {
   :is([pgs~=hide], [pgs*="hide["])[pgs*="'hideMediaDownWatch'"] {
     display: none !important;
   }
@@ -5308,8 +5301,8 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     display: none !important;
   }
 }
-@media (max-width: 615px) {
-  :is([pgs~=hide], [pgs*="hide["])[pgs*="'hideMediaDownBigMobile'"] {
+@media (max-width: 600px) {
+  :is([pgs~=hide], [pgs*="hide["])[pgs*="'hideMediaDownPhablet'"] {
     display: none !important;
   }
 }
@@ -5319,7 +5312,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   }
 }
 @media (max-width: 900px) {
-  :is([pgs~=hide], [pgs*="hide["])[pgs*="'hideMediaDownBigTablet'"] {
+  :is([pgs~=hide], [pgs*="hide["])[pgs*="'hideMediaDownNotebook'"] {
     display: none !important;
   }
 }
@@ -5328,7 +5321,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     display: none !important;
   }
 }
-@media (min-width: 315px) {
+@media (min-width: 320px) {
   :is([pgs~=hide], [pgs*="hide["])[pgs*="'hideMediaUpWatch'"] {
     display: none !important;
   }
@@ -5338,8 +5331,8 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     display: none !important;
   }
 }
-@media (min-width: 615px) {
-  :is([pgs~=hide], [pgs*="hide["])[pgs*="'hideMediaUpBigMobile'"] {
+@media (min-width: 600px) {
+  :is([pgs~=hide], [pgs*="hide["])[pgs*="'hideMediaUpPhablet'"] {
     display: none !important;
   }
 }
@@ -5349,7 +5342,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   }
 }
 @media (min-width: 900px) {
-  :is([pgs~=hide], [pgs*="hide["])[pgs*="'hideMediaUpBigTablet'"] {
+  :is([pgs~=hide], [pgs*="hide["])[pgs*="'hideMediaUpNotebook'"] {
     display: none !important;
   }
 }
@@ -5358,7 +5351,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     display: none !important;
   }
 }
-@container (max-width: 315px) {
+@container (max-width: 320px) {
   :is([pgs~=hide], [pgs*="hide["])[pgs*="'hideContainerDownWatch'"] {
     display: none !important;
   }
@@ -5368,8 +5361,8 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     display: none !important;
   }
 }
-@container (max-width: 615px) {
-  :is([pgs~=hide], [pgs*="hide["])[pgs*="'hideContainerDownBigMobile'"] {
+@container (max-width: 600px) {
+  :is([pgs~=hide], [pgs*="hide["])[pgs*="'hideContainerDownPhablet'"] {
     display: none !important;
   }
 }
@@ -5379,7 +5372,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   }
 }
 @container (max-width: 900px) {
-  :is([pgs~=hide], [pgs*="hide["])[pgs*="'hideContainerDownBigTablet'"] {
+  :is([pgs~=hide], [pgs*="hide["])[pgs*="'hideContainerDownNotebook'"] {
     display: none !important;
   }
 }
@@ -5388,7 +5381,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     display: none !important;
   }
 }
-@container (min-width: 315px) {
+@container (min-width: 320px) {
   :is([pgs~=hide], [pgs*="hide["])[pgs*="'hideContainerUpWatch'"] {
     display: none !important;
   }
@@ -5398,8 +5391,8 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     display: none !important;
   }
 }
-@container (min-width: 615px) {
-  :is([pgs~=hide], [pgs*="hide["])[pgs*="'hideContainerUpBigMobile'"] {
+@container (min-width: 600px) {
+  :is([pgs~=hide], [pgs*="hide["])[pgs*="'hideContainerUpPhablet'"] {
     display: none !important;
   }
 }
@@ -5409,7 +5402,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   }
 }
 @container (min-width: 900px) {
-  :is([pgs~=hide], [pgs*="hide["])[pgs*="'hideContainerUpBigTablet'"] {
+  :is([pgs~=hide], [pgs*="hide["])[pgs*="'hideContainerUpNotebook'"] {
     display: none !important;
   }
 }
@@ -6423,18 +6416,11 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   min-width: 0;
   width: 100%;
   max-width: var(--pageShell-content-width);
+  container-type: inline-size;
 }
 
 :is([pgs~=pageShell], [pgs*="pageShell["]) :where([pgs~=pageShell-aside]) {
   isolation: isolate;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  :is([pgs~=pageShell], [pgs*="pageShell["]) :where([pgs~=pageShell-aside]) {
-    transition: top 0.3s ease;
-  }
-}
-:is([pgs~=pageShell], [pgs*="pageShell["]) :where([pgs~=pageShell-aside]) {
   width: var(--pageShell-aside-width);
   min-width: 0;
   display: grid;
@@ -6442,6 +6428,11 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   container-type: inline-size;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  :is([pgs~=pageShell], [pgs*="pageShell["]) :where([pgs~=pageShell-aside]) {
+    transition: top 0.3s ease;
+  }
+}
 :is([pgs~=pageShell], [pgs*="pageShell["]) :where([pgs~=pageShell-aside]) > * {
   width: 100%;
 }
@@ -6525,7 +6516,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     grid-row: auto;
   }
 }
-@container (max-width: 615px) {
+@container (max-width: 600px) {
   :is([pgs~=pageShell], [pgs*="pageShell["]) :where([pgs~=pageShell-content]) {
     grid-column: 1/-1;
     grid-row: auto;
@@ -6586,7 +6577,6 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   --header-paddingInline: 30px;
   --header-paddingBlock: 10px;
   --header-gap: var(--gap-elements);
-  --header-size: 4.4rem;
   --header-background: var(--color-white-transparent);
   --header-color: var(--color-black);
   --header-compactBottom-active: 0;
@@ -6650,22 +6640,22 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 }
 
 :is([pgs~=header], [pgs*="header["])[pgs*="'headerCompactWatch'"] {
-  --header-compact-breakpoint: 315px;
+  --header-compact-breakpoint: 320px;
 }
 
 :is([pgs~=header], [pgs*="header["])[pgs*="'headerCompactMobile'"] {
   --header-compact-breakpoint: 430px;
 }
 
-:is([pgs~=header], [pgs*="header["])[pgs*="'headerCompactBigMobile'"] {
-  --header-compact-breakpoint: 615px;
+:is([pgs~=header], [pgs*="header["])[pgs*="'headerCompactPhablet'"] {
+  --header-compact-breakpoint: 600px;
 }
 
 :is([pgs~=header], [pgs*="header["])[pgs*="'headerCompactTablet'"] {
   --header-compact-breakpoint: 800px;
 }
 
-:is([pgs~=header], [pgs*="header["])[pgs*="'headerCompactBigTablet'"] {
+:is([pgs~=header], [pgs*="header["])[pgs*="'headerCompactNotebook'"] {
   --header-compact-breakpoint: 900px;
 }
 
@@ -7685,7 +7675,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     font-size: clamp(var(--font-size-text), var(--heading-size-h1, 7.2rem) / 3 + 5vw, var(--heading-size-h1, 7.2rem));
   }
 }
-@media (max-width: 315px) {
+@media (max-width: 320px) {
   [pgs~=h1] {
     font-size: clamp(var(--font-size-text), var(--heading-size-h1, 7.2rem) / 3 + 2.5vw, var(--heading-size-h1, 7.2rem));
   }
@@ -7713,7 +7703,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     font-size: clamp(var(--font-size-text), var(--heading-size-h2, 4.45rem) / 3 + 5vw, var(--heading-size-h2, 4.45rem));
   }
 }
-@media (max-width: 315px) {
+@media (max-width: 320px) {
   [pgs~=h2] {
     font-size: clamp(var(--font-size-text), var(--heading-size-h2, 4.45rem) / 3 + 2.5vw, var(--heading-size-h2, 4.45rem));
   }
@@ -7741,7 +7731,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     font-size: clamp(var(--font-size-text), var(--heading-size-h3, 2.75rem) / 3 + 5vw, var(--heading-size-h3, 2.75rem));
   }
 }
-@media (max-width: 315px) {
+@media (max-width: 320px) {
   [pgs~=h3] {
     font-size: clamp(var(--font-size-text), var(--heading-size-h3, 2.75rem) / 3 + 2.5vw, var(--heading-size-h3, 2.75rem));
   }
@@ -7769,7 +7759,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     font-size: clamp(var(--font-size-text), var(--heading-size-h4, 1.7rem) / 3 + 5vw, var(--heading-size-h4, 1.7rem));
   }
 }
-@media (max-width: 315px) {
+@media (max-width: 320px) {
   [pgs~=h4] {
     font-size: clamp(var(--font-size-text), var(--heading-size-h4, 1.7rem) / 3 + 2.5vw, var(--heading-size-h4, 1.7rem));
   }
@@ -7797,7 +7787,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     font-size: clamp(var(--font-size-text), var(--heading-size-h5, 1.7rem) / 3 + 5vw, var(--heading-size-h5, 1.7rem));
   }
 }
-@media (max-width: 315px) {
+@media (max-width: 320px) {
   [pgs~=h5] {
     font-size: clamp(var(--font-size-text), var(--heading-size-h5, 1.7rem) / 3 + 2.5vw, var(--heading-size-h5, 1.7rem));
   }
@@ -7825,7 +7815,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     font-size: clamp(var(--font-size-text), var(--heading-size-h6, 1.7rem) / 3 + 5vw, var(--heading-size-h6, 1.7rem));
   }
 }
-@media (max-width: 315px) {
+@media (max-width: 320px) {
   [pgs~=h6] {
     font-size: clamp(var(--font-size-text), var(--heading-size-h6, 1.7rem) / 3 + 2.5vw, var(--heading-size-h6, 1.7rem));
   }

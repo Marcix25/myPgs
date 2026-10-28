@@ -84,18 +84,19 @@
         min-width: 0;
         width: 100%;
         max-width: var(--pageShell-content-width);
+        container-type: inline-size;
     }
 
     //## aside
     :where([pgs~="pageShell-aside"]) {
         isolation: isolate;
-        @media (prefers-reduced-motion: no-preference) { transition: top 0.3s ease; }
         width: var(--pageShell-aside-width);
         min-width: 0;
         display: grid;
         grid-template-columns: 1fr;
         container-type: inline-size;
 
+        @media (prefers-reduced-motion: no-preference) { transition: top 0.3s ease; }
         >* { width: 100%; }
         &:has(+ :where([pgs~="pageShell-content"])) { grid-area: asideLeft; }
     }
@@ -112,8 +113,8 @@
     //### aside | content
     &:has(> :where([pgs~="pageShell-aside"]) + :where([pgs~="pageShell-content"])) {
 
-        //-( big-tablet
-        @container (max-width: #{$big-tablet}) {
+        //-( notebook
+        @container (max-width: #{$notebook}) {
             :where([pgs~="pageShell-aside"]):has(+ :where([pgs~="pageShell-content"])) { @include pageShell-aside-flow; }
             :where([pgs~="pageShell-content"]) { @include pageShell-content-flow; }
         }
@@ -122,8 +123,8 @@
     //### content | aside
     &:has(> :where([pgs~="pageShell-content"]) + :where([pgs~="pageShell-aside"])) {
 
-        //-( big-tablet
-        @container (max-width: #{$big-tablet}) {
+        //-( notebook
+        @container (max-width: #{$notebook}) {
             :where([pgs~="pageShell-content"]) { @include pageShell-content-flow; }
             :where([pgs~="pageShell-content"])+:where([pgs~="pageShell-aside"]) { @include pageShell-aside-flow; }
         }
@@ -150,8 +151,8 @@
             }
         }
 
-        //-( big-tablet
-        @container (max-width: #{$big-tablet}) {
+        //-( notebook
+        @container (max-width: #{$notebook}) {
 
             // same specificity as the band above, so the row span is released
             :where([pgs~="pageShell-aside"]),
@@ -165,8 +166,8 @@
     }
 
     //### vertical
-    //-( big-mobile
-    @container (max-width: #{$big-mobile}) {
+    //-( phablet
+    @container (max-width: #{$phablet}) {
         :where([pgs~="pageShell-content"]) { @include pageShell-content-flow; }
 
         :where([pgs~="pageShell-aside"]),
@@ -189,13 +190,13 @@
         padding-top: 0;
 
         // vertical: the shell's top padding is zeroed above, so the first child takes it instead
-        //-( big-tablet
-        @container (max-width: #{$big-tablet}) {
+        //-( notebook
+        @container (max-width: #{$notebook}) {
             >*:first-child { padding-top: var(--pageShell-offsetTop); }
         }
 
-        //+( big-tablet
-        @container (min-width: #{$big-tablet}) {
+        //+( notebook
+        @container (min-width: #{$notebook}) {
             :where([pgs~="pageShell-aside"]) {
                 position: sticky;
                 overflow-y: auto;
@@ -220,8 +221,8 @@
     //+ shellAsideShadow
     &[pgs*="'shellAsideShadow'"] {
 
-        //+( big-tablet
-        @container (min-width: #{$big-tablet}) {
+        //+( notebook
+        @container (min-width: #{$notebook}) {
             :where([pgs~="pageShell-aside"]) {
                 -webkit-mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-asideShadow-sizeMaskImage), black calc(100% - var(--pageShell-asideShadow-sizeMaskImage)), transparent 100%);
                 mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-asideShadow-sizeMaskImage), black calc(100% - var(--pageShell-asideShadow-sizeMaskImage)), transparent 100%);

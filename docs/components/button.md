@@ -10,7 +10,7 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 
 ## PGS Options (component brackets)
 
-- `btnForHeader`: sizes the button for use in a header.
+- `btnForHeader`: for a button in a header: no border style, and a long label breaks instead of overflowing.
 - `btnReverse`: reverses the visual order of the text and icon on the button.
 - `btnStrong`: applies the variant with stronger visual emphasis.
 - `btnIconOnly`: identifies a compact button composed primarily of an icon.

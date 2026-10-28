@@ -204,8 +204,8 @@
 //# HEADER & NAVSMART
 //## HEADER
 @mixin buttonForHeader() {
-    min-height: var(--header-size);
     overflow-wrap: break-word;
+    --button-borderStyle: unset;
 }
 
 //## NAV SMART

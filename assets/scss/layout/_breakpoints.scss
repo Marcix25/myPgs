@@ -11,33 +11,33 @@
 $hide-media-down: (
     "hideMediaDownWatch": $watch,
     "hideMediaDownMobile": $mobile,
-    "hideMediaDownBigMobile": $big-mobile,
+    "hideMediaDownPhablet": $phablet,
     "hideMediaDownTablet": $tablet,
-    "hideMediaDownBigTablet": $big-tablet,
+    "hideMediaDownNotebook": $notebook,
     "hideMediaDownLaptop": $laptop,
 );
 $hide-media-up: (
     "hideMediaUpWatch": $watch,
     "hideMediaUpMobile": $mobile,
-    "hideMediaUpBigMobile": $big-mobile,
+    "hideMediaUpPhablet": $phablet,
     "hideMediaUpTablet": $tablet,
-    "hideMediaUpBigTablet": $big-tablet,
+    "hideMediaUpNotebook": $notebook,
     "hideMediaUpLaptop": $laptop,
 );
 $hide-container-down: (
     "hideContainerDownWatch": $watch,
     "hideContainerDownMobile": $mobile,
-    "hideContainerDownBigMobile": $big-mobile,
+    "hideContainerDownPhablet": $phablet,
     "hideContainerDownTablet": $tablet,
-    "hideContainerDownBigTablet": $big-tablet,
+    "hideContainerDownNotebook": $notebook,
     "hideContainerDownLaptop": $laptop,
 );
 $hide-container-up: (
     "hideContainerUpWatch": $watch,
     "hideContainerUpMobile": $mobile,
-    "hideContainerUpBigMobile": $big-mobile,
+    "hideContainerUpPhablet": $phablet,
     "hideContainerUpTablet": $tablet,
-    "hideContainerUpBigTablet": $big-tablet,
+    "hideContainerUpNotebook": $notebook,
     "hideContainerUpLaptop": $laptop,
 );
 

@@ -6,7 +6,7 @@
     min-width: max-content;
     background-color: transparent;
     color: var(--color-black);
-    --logo-height: var(--header-size, 6.0rem);
+    --logo-height: calc(var(--SIZE) + var(--font-size-text));
     --logo-filter: invert(1) hue-rotate(180deg) brightness(1.5);
 
     //## DARKMODE

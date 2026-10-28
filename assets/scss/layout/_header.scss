@@ -4,7 +4,6 @@
     --header-paddingInline: 30px;
     --header-paddingBlock: 10px;
     --header-gap: var(--gap-elements);
-    --header-size: 4.4rem;
     --header-background: var(--color-white-transparent);
     --header-color: var(--color-black);
     --header-compactBottom-active: 0;
@@ -70,16 +69,16 @@
         --header-compact-breakpoint: #{$mobile};
     }
 
-    &[pgs*="'headerCompactBigMobile'"] {
-        --header-compact-breakpoint: #{$big-mobile};
+    &[pgs*="'headerCompactPhablet'"] {
+        --header-compact-breakpoint: #{$phablet};
     }
 
     &[pgs*="'headerCompactTablet'"] {
         --header-compact-breakpoint: #{$tablet};
     }
 
-    &[pgs*="'headerCompactBigTablet'"] {
-        --header-compact-breakpoint: #{$big-tablet};
+    &[pgs*="'headerCompactNotebook'"] {
+        --header-compact-breakpoint: #{$notebook};
     }
 
     &[pgs*="'headerCompactLaptop'"] {

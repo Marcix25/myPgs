@@ -3,7 +3,7 @@
      scripts/build-site-static.js splices it in. Paths are relative to site/build/, where every
      generated page ends up. -->
 <!-- = HEADER -->
-<header pgs="header['headerCompactBigTablet']">
+<header pgs="header['headerCompactNotebook']">
     <div pgs="header-element blur">
         <div pgs="header-element-alwaysOn">
             <a aria-label="Logo" pgs="logo['logoDarkmode']" href="home.html">
@@ -11,7 +11,7 @@
             </a>
         </div>
 
-        <div pgs="header-element-onlyFull hide['hideMediaDownBigMobile']">
+        <div pgs="header-element-onlyFull hide['hideMediaDownPhablet']">
             <!--
             <form pgs="search" pgs-data="searchPlaceholder[Type a component name] searchNoResults[No component matches]" autocomplete="off" action="" method="get">
                 <button pgs="button['btnIconOnly' 'btnTransparent']" type="submit" title="Search">
@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        <div pgs="header-element-onlyCompact hide['hideMediaDownBigMobile']">
+        <div pgs="header-element-onlyCompact hide['hideMediaDownPhablet']">
             <div pgs="flex['row' 'nowrap']">
                 <button pgs="button['btnIconOnly' 'btnForHeader'] toggleDarkmode" type="button" aria-label="Change theme">
                     <i pgs="toggleDarkmode-light icon['icon-moon']" aria-hidden="true"></i>
@@ -68,7 +68,7 @@
 
 <!-- == NAV SMART (the bar that floats at the bottom of the screen; the link of the page you are on gets
      aria-current from site/assets/js/demo.js) -->
-<header pgs="navSmart hide['hideMediaUpBigMobile']">
+<header pgs="navSmart hide['hideMediaUpPhablet']">
     <div pgs="navSmart-element">
         <nav aria-label="Pages">
             <ul>
