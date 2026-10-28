@@ -1529,7 +1529,6 @@
 :is([pgs~=button], [pgs*="button["]):where([pgs*="'btnIconOnly'"]) {
   padding: var(--button-paddingBlock);
   flex: 0 0;
-  height: auto;
   min-height: 0;
   aspect-ratio: 1;
   justify-content: center;
@@ -1539,7 +1538,7 @@
 :is([pgs~=button], [pgs*="button["]):where([pgs*="'btnIconOnly'"]) :where(i, [pgs~=icon], [pgs*="icon["]) {
   display: inline-grid;
   place-items: center;
-  inline-size: calc(var(--icon-size, 1em) + 2px);
+  inline-size: var(--icon-size, 1em);
   block-size: var(--icon-size, 1em);
   line-height: 1;
   aspect-ratio: 1;
