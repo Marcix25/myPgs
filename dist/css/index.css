@@ -1617,14 +1617,12 @@
   --button-borderRadius: 999px;
   --button-gap: .2rem;
   --icon-size: var(--navSmart-iconSize, 2.2rem);
-  min-width: var(--navSmart-itemMinWidth, auto);
   min-height: var(--navSmart-itemHeight, auto);
   white-space: nowrap;
 }
 
 :is([pgs~=button], [pgs*="button["]):where([pgs*="'btnForNavSmart'"])[pgs*="'btnIconOnly'"] {
-  flex: 0 0 auto;
-  min-width: 0;
+  min-width: 100%;
   width: var(--navSmart-itemHeight, auto);
 }
 
@@ -6796,6 +6794,11 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   box-shadow: var(--boxNavSmart-shadow);
   -webkit-backdrop-filter: var(--blur) saturate(1.8);
   backdrop-filter: var(--blur) saturate(1.8);
+  min-width: 0;
+}
+
+:is([pgs~=navSmart], [pgs*="navSmart["]) :where([pgs~=navSmart-element]) > :where(*) {
+  min-width: 0;
 }
 
 :is([pgs~=navSmart], [pgs*="navSmart["]) :where([pgs~=navSmart-element]) ul:not(dialog *) {
@@ -6809,6 +6812,16 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 :is([pgs~=navSmart], [pgs*="navSmart["]) :where([pgs~=navSmart-element]) ul:not(dialog *) li {
   display: flex;
+}
+
+:is([pgs~=navSmart], [pgs*="navSmart["]) :where([pgs~=navSmart-element]) :where(li, [pgs~=modal], [pgs*="modal["]):not(dialog *):has(> [pgs*="'btnForNavSmart'"]:not([pgs*="'btnIconOnly'"])),
+:is([pgs~=navSmart], [pgs*="navSmart["]) :where([pgs~=navSmart-element]) > [pgs*="'btnForNavSmart'"]:not([pgs*="'btnIconOnly'"]) {
+  width: var(--navSmart-itemMinWidth);
+  min-width: min-content;
+}
+
+:is([pgs~=navSmart], [pgs*="navSmart["]) :where([pgs~=navSmart-element]) :where(li, [pgs~=modal], [pgs*="modal["]) > [pgs*="'btnForNavSmart'"]:not([pgs*="'btnIconOnly'"]) {
+  flex: 1 1 auto;
 }
 
 [pgs~=footer] {

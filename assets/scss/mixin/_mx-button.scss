@@ -210,9 +210,10 @@
 
 //## NAV SMART
 // an item of the floating navSmart bar: the icon above its label inside a pill, with no background
-// of its own. It reads the bar's own properties (--navSmart-iconSize, --navSmart-itemMinWidth) with a
-// fallback, so the button still draws outside a bar. The page you are on (aria-current) or the
-// selected item (aria-selected) takes the current look as a smaller pill inside the bigger one
+// of its own. It reads the bar's own property --navSmart-iconSize with a fallback, so the button still
+// draws outside a bar; the width of the item (--navSmart-itemMinWidth, and how it shrinks) is the
+// bar's. The page you are on (aria-current) or the selected item (aria-selected) takes the current
+// look as a smaller pill inside the bigger one
 @mixin buttonForNavSmart() {
     @include buttonVertical();
     @include buttonTransparent();
@@ -224,16 +225,12 @@
     --button-borderRadius: 999px;
     --button-gap: .2rem;
     --icon-size: var(--navSmart-iconSize, 2.2rem);
-    min-width: var(--navSmart-itemMinWidth, auto);
     min-height: var(--navSmart-itemHeight, auto);
     white-space: nowrap;
 
-    // with btnIconOnly there is no label to set the width: the item is as wide as every item is tall
-    // (--navSmart-itemHeight, which every item shares as its minimum height), so it is a square,
-    // and the floor an item with a label keeps does not apply
+
     &[pgs*="'btnIconOnly'"] {
-        flex: 0 0 auto;
-        min-width: 0;
+        min-width: 100%;
         width: var(--navSmart-itemHeight, auto);
     }
 }
