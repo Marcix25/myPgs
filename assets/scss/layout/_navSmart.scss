@@ -12,7 +12,7 @@
     // --navSmart-edgePWA when it runs installed as an app (see below)
     --navSmart-edgePWA: 2.0rem;
     --navSmart-edge: calc(var(--page-padding) / 2);
-    --navSmart-itemMinWidth: min(7.2rem, 13vw);
+    --navSmart-itemMinWidth: 7.2rem;
     --navSmart-iconSize: 2.2rem;
     --navSmart-itemHeight: 4.9rem;
     position: fixed;
@@ -49,15 +49,12 @@
         ul:not(dialog *) {
             display: flex;
             align-items: stretch;
-            gap: .2rem;
+            gap: .1rem;
             margin: 0;
             padding: 0;
             list-style: none;
-        }
 
-        // what holds an item (a list entry, a modal wrapper) is a flex box too, so the button inside
-        // stretches to the height of the pill instead of keeping its own, shorter one
-        li,
-        :where([pgs~="modal"], [pgs*="modal\5B"]) { display: flex; }
+            li { display: flex; }
+        }
     }
 }

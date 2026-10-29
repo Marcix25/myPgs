@@ -189,9 +189,8 @@ declare global {
   }
 
   interface PgsFormValidateOptions {
-    typeNotice?: "alert" | "toast";
     showSuccessOnValidate?: boolean;
-    /** A selector, or an element, for the alert; it can sit outside the form. */
+    /** A selector, or an element, where the alerts go; it can sit outside the form. Without it and without a pgs="alertContainer" in the form, a toast is shown instead. */
     alertContainer?: string | Element;
     message?: PgsFormValidateMessages;
   }
@@ -204,7 +203,6 @@ declare global {
 
   interface PgsFormValidateInstance {
     container: Element;
-    typeNotice: "alert" | "toast";
     showSuccessOnValidate: boolean;
     alertContainer?: string | Element;
     temporaryFieldError: PgsTemporaryFieldError;

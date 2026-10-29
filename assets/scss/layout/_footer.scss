@@ -99,12 +99,6 @@
             }
         }
 
-        i,
-        :is([pgs~="icon"], [pgs*="icon\5B"]) {
-            font-size: 0.8rem;
-            color: var(--color-text);
-        }
-
         p {
             font-size: 1.3rem;
             color: var(--footer-color);
@@ -119,11 +113,6 @@
             &:hover { text-decoration: underline; }
         }
 
-        button {
-            font-size: 1.3rem;
-            color: var(--footer-color);
-            padding: 1rem 1.2rem;
-            font-weight: initial;
-        }
+        button { --button-size: 1.3rem; }
     }
 }

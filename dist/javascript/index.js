@@ -4775,7 +4775,6 @@ class PGS_formValidate {
 
         this.container = form;
         this._rules = [];
-        this.typeNotice = options.typeNotice === "toast" ? "toast" : "alert";
         this.showSuccessOnValidate = options.showSuccessOnValidate !== false;
         this.alertContainer = options.alertContainer;
 
@@ -4804,6 +4803,13 @@ class PGS_formValidate {
     destroy() {
         this.#controller.abort();
         if (INSTANCES.get(this.container) === this) INSTANCES.delete(this.container);
+    }
+
+    // what shows the errors and the success: an alert when the form has somewhere for it (the
+    // alertContainer option, or a pgs="alertContainer" inside the form) and a toast when it has not.
+    // Read each time a notice is shown, so a container added later counts
+    #hasAlertContainer() {
+        return Boolean(this.alertContainer || (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.container).querySelector("alertContainer"));
     }
 
     // where the alert goes: the alertContainer option, which can sit anywhere in the document. The
@@ -5088,7 +5094,7 @@ class PGS_formValidate {
             ? this.#getMessage("formFieldsError")
             : temporaryError?.message || fieldMessage || this.#getMessage("formFieldError");
 
-        if (this.typeNotice === "alert") {
+        if (this.#hasAlertContainer()) {
             _components_alerts_js__WEBPACK_IMPORTED_MODULE_2__.PGS_alert.error({
                 title: title,
                 description: description,
@@ -5113,7 +5119,7 @@ class PGS_formValidate {
     success(description = this.#getMessage("formSuccess"), title = this.#getMessage("formSuccessTitle")) {
         if (this.#insideValidatedCallback || this.validate() === true) {
 
-            if (this.typeNotice === "alert") {
+            if (this.#hasAlertContainer()) {
                 _components_alerts_js__WEBPACK_IMPORTED_MODULE_2__.PGS_alert.success({
                     title,
                     description,

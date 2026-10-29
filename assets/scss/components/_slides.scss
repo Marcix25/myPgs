@@ -27,6 +27,9 @@
     --slides-width: calc(var(--page-width) /2.3);
     --slides-width-tablet: 100%;
     --slides-width-mobile: 100%;
+    // the generated arrows are 36px at the usual root size, and the track keeps that much room above it (plus the text gap)
+    --slides-arrowSize: 3.6rem;
+    --slides-arrowsSpace: calc(var(--slides-arrowSize) + var(--gap-texts));
 
     //## CONTAINER SLIDES
     :where([pgs~="slides-container"]) {
@@ -38,7 +41,7 @@
         position: relative;
         -webkit-user-select: none;
         user-select: none;
-        padding: .3rem;
+        padding-inline: var(--page-padding);
         @include row(nowrap);
 
         // smooth scrolling only when the visitor has not asked for less motion
@@ -62,8 +65,8 @@
             max-width: 100%;
             height: auto;
 
-            &:first-child { margin-left: var(--page-edge); }
-            &:last-child { margin-right: var(--page-edge); }
+            &:first-child { margin-left: max(0px, calc((100% - var(--page-width)) / 2)); }
+            &:last-child { margin-right: max(0px, calc((100% - var(--page-width)) / 2)); }
 
             //- tablet
             @media (max-width: #{$tablet}) { min-width: var(--slides-width-tablet); }
@@ -77,6 +80,7 @@
     :where([pgs~="slides-prev"]),
     :where([pgs~="slides-next"]) {}
 
+    // the arrows a hand-written pair leaves in the flow: one line above the track, at the right
     :where([pgs~="_slides-prev"]),
     :where([pgs~="_slides-next"]) {
         position: relative;
@@ -87,10 +91,31 @@
         &:where([pgs~="_slides-next"]) { margin-right: 10px; }
     }
 
+    // the generated arrows are built by the module after the page has loaded, so a line of their own
+    // in the flow would push everything down at that moment. They are laid at the top right out of the
+    // flow instead, and the track keeps the room they need from the first paint. Not for a hand-written
+    // arrow (the author's, it stays in the flow) nor for slidesArrowsCenter (it lays them over the slides)
+    &:not(:has([pgs~="slides-prev"], [pgs~="slides-next"])):not([pgs*="'slidesArrowsCenter'"]) {
+        :where([pgs~="slides-container"]) { margin-top: var(--slides-arrowsSpace); }
+
+        :where([pgs~="_slides-prev"]),
+        :where([pgs~="_slides-next"]) {
+            position: absolute;
+            top: 0;
+            margin: unset;
+            inline-size: var(--slides-arrowSize);
+            block-size: var(--slides-arrowSize);
+        }
+
+        :where([pgs~="_slides-next"]) { right: 10px; }
+        :where([pgs~="_slides-prev"]) { right: calc(10px + var(--slides-arrowSize) + var(--gap-texts)); }
+    }
+
     //## DOTS
     // a hand-written dots row keeps the bare name; a generated one gets the underscore.
-    // The room kept under the generated row: with slidesNotDots no row is generated, so none is kept
-    &:has([pgs~="_slides-dots"]) {
+    // The room kept under the generated row, from the first paint and not once the module has built it,
+    // so the page does not move: with slidesNotDots no row is generated, nor with one written by hand
+    &:not([pgs*="'slidesNotDots'"], :has([pgs~="slides-dots"])) {
         margin-bottom: calc(var(--gap-elements)* 2);
     }
 
@@ -121,13 +146,14 @@
         width: 1.5rem;
         aspect-ratio: 1;
         border-radius: 999px;
-        border: none;
+        border: var(--border-complete);
+        border-color: var(--clickable-borderColor);
         cursor: pointer;
         background-color: var(--clickable-background);
         transition: var(--clickable-transition);
         margin-block: auto;
 
-        &[pgs-state~="active"] { background-color: var(--current-background); }
+        &[pgs-state~="active"] { background-color: var(--current-color); }
 
         // unguarded, a tap on iOS/mobile Safari simulates a persistent :hover after release —
         // same specificity as the active rule above it, so the sticky hover would win by
@@ -197,7 +223,9 @@
             // the variable is set on the container itself, the element that reads it (@property
             // has inherits: false); the root only decides, through :has(), whether the edge slide is in view
             // fade on the left until the first slide is reached
-            &:where(:not(:has([pgs~="slides-container-slide"]:first-child[pgs-state~="view"]))) :where([pgs~="slides-container"]) { --slides-maskStart: var(--slides-sizeMaskImage); }
+            &:where(:not(:has([pgs~="slides-container-slide"]:first-child[pgs-state~="view"]))) :where([pgs~="slides-container"]) {
+                --slides-maskStart: var(--slides-sizeMaskImage);
+            }
 
             // fade on the right until the last slide is reached
             &:where(:not(:has([pgs~="slides-container-slide"]:last-child[pgs-state~="view"]))) :where([pgs~="slides-container"]) { --slides-maskEnd: var(--slides-sizeMaskImage); }

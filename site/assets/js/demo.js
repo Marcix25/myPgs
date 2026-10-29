@@ -279,9 +279,7 @@ function configureFormValidateHelperDemo() {
     const username = form?.querySelector('input[name="username"]');
     if (!form || !username) return;
 
-    const formValidate = new pgsApi.helper.formValidate(form, {
-        typeNotice: "alert"
-    });
+    const formValidate = new pgsApi.helper.formValidate(form);
 
     formValidate.addNewRule(() => {
         if (username.value.toLowerCase() !== "admin") return null;

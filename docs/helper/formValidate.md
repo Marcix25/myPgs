@@ -18,7 +18,7 @@ pgs.helper.formValidate is the JavaScript side of Form: validates required field
 
 ## JavaScript API
 
-- `new pgs.helper.formValidate(form, options)`: creates a utility associated directly with the form, adds novalidate, and completes missing form message options (formFieldErrorTitle, formFieldError, formFieldsError, formSuccessTitle, formSuccess) from options.message and then from library defaults; existing pgs-data values are preserved. Throws a TypeError when form is not an element, options is not an object, or options.message holds an unknown key or a value that is not a string. It adds one click listener to the form, which clears the error of the field that was clicked, however many times validate() runs. The other options are typeNotice ("alert", the default, or "toast": where the errors and the success are shown), showSuccessOnValidate (true by default: set it to false to show no success notice) and alertContainer (the element or selector the alerts are put in, it may be outside the form).
+- `new pgs.helper.formValidate(form, options)`: creates a utility associated directly with the form, adds novalidate, and completes missing form message options (formFieldErrorTitle, formFieldError, formFieldsError, formSuccessTitle, formSuccess) from options.message and then from library defaults; existing pgs-data values are preserved. Throws a TypeError when form is not an element, options is not an object, or options.message holds an unknown key or a value that is not a string. It adds one click listener to the form, which clears the error of the field that was clicked, however many times validate() runs. The errors and the success are shown as an alert in the pgs="alertContainer" the form holds (or in the alertContainer option), and as a toast when the form has neither. The other options are showSuccessOnValidate (true by default: set it to false to show no success notice) and alertContainer (the element or selector the alerts are put in, it may be outside the form).
 - `instance.validator(callback, eventName)`: intercepts the specified event, clears previous temporary field errors, validates the form, shows the success message, and invokes callback only when valid; eventName defaults to submit. Throws a TypeError when callback is not a function or eventName is not a non-empty string.
 - `instance.validate()`: validates required fields, updates state attributes, and returns true or false.
 - `instance.success(description, title)`: validates the form and shows a success alert or toast when there are no errors.
@@ -37,6 +37,7 @@ pgs.helper.formValidate is the JavaScript side of Form: validates required field
 - `input`: the username input, reshaped by the field; see Form.
 - `form`: uses the related form component or utility in this example.
 - `button`: uses the related button component or utility in this example.
+- `alertContainer`: where the alert of the errors and of the success is shown; without it the same validation shows a toast. See Alerts.
 
 ### PGS Options (component brackets)
 
@@ -72,6 +73,8 @@ A minimal form wired to pgs.helper.formValidate with one custom rule, focused on
         <input pgs="input" id="formUsername" pgs-data="formMessage[Choose a username]" type="text" name="username" placeholder=" " required>
     </div>
 
+    <div pgs="alertContainer"></div>
+
     <button pgs="button['btnStrong']" type="submit">Submit</button>
 </form>
 
@@ -81,9 +84,7 @@ A minimal form wired to pgs.helper.formValidate with one custom rule, focused on
     const form = pgs(document).querySelector("form");
     const username = form.querySelector('input[name="username"]');
 
-    const formValidate = new pgs.helper.formValidate(form, {
-        typeNotice: "alert"
-    });
+    const formValidate = new pgs.helper.formValidate(form);
 
     // A custom rule: reject a username your own logic decides is unavailable.
     formValidate.addNewRule(() => {

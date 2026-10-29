@@ -53,21 +53,22 @@
     text-overflow: ellipsis;
     text-wrap: nowrap;
     width: fit-content;
-    max-width: calc(100% - (var(--label-left)*2));
+    max-width: 100%;
     z-index: 1;
-
+    
     //## disabled
     &:where(:has(+ [disabled], > [disabled])) { @include disabled(); }
-
+    
     //## hidden
     &:has([hidden], + [hidden], [pgs~="hidden"], + [pgs~="hidden"], [type="hidden"], + [type="hidden"]) { display: none !important; }
-
+    
     //## required
     &:where(:has(~ :required, ~ * :required)) { @include required(); }
-
+    
     //+ labelTab
     // the top corners only, and no bottom border: the label opens into the control it sits on
     &:where([pgs*="'labelTab'"], [pgs*="'labelTabNoGap'"]) {
+        max-width: calc(100% - (var(--label-left)*2));
         transform: translateX(var(--label-left)) translateY(calc(var(--label-borderWidth) + 0.2px));
         padding-bottom: 0;
         border-bottom-left-radius: 0;

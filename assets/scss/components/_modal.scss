@@ -17,7 +17,8 @@
 
 //# MODAL
 :is([pgs~="modal"], [pgs*="modal\5B"]) {
-
+    display: flex;
+    
     //## MODAL BUTTON
     :where([pgs~="modal-button"]) {}
 
@@ -89,7 +90,6 @@
     background: var(--modal-backdrop);
 
     @media (prefers-reduced-motion: no-preference) { transition: opacity 600ms ease; }
-
     &:focus { outline: none; }
 
     &:where([open]) {

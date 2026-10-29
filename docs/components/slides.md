@@ -25,7 +25,7 @@ A horizontal, scroll-snapped track of slides with its own arrows and position do
 - `slidesShadowDesktop`: fades the slides out at the edges from the tablet width up, only on the side that still has slides to reach.
 - `slidesAnimationScale`: scales each slide by how much of it is in view, through the --_slides-visiblePercent custom property the module writes on it; a slide sits at 1 before the first pass of the observer.
 - `slidesSingleScroll`: an arrow advances by a single slide, counted from the one the snap is resting on, instead of jumping past every slide currently in view.
-- `slidesArrowsCenter`: puts the arrows the module builds over the slides again, one on each side at the middle of their height, instead of in a row above them at the end. An arrow written by hand (slides-prev, slides-next) is not moved either way: only the generated ones are.
+- `slidesArrowsCenter`: puts the arrows the module builds over the slides again, one on each side at the middle of their height, instead of at the top right above them, where they are laid out of the flow with their room kept above the track from the first paint (--slides-arrowSize, plus the text gap), so the page does not move when the module builds them. An arrow written by hand (slides-prev, slides-next) is not moved either way: only the generated ones are.
 - `slidesNotDots`: the slides have no dots; the module does not build the row, and no room is kept under them. A row written by hand (slides-dots) is the author's and stays as written, so do not write one with this option.
 - `slidesFullWidth`: each slide fills the full width of the track instead of the default fixed measure, at every breakpoint.
 - `slidesLoop`: the prev/next arrows wrap around at the ends instead of stopping, so prev from the first slide goes to the last one and next from the last goes to the first; neither arrow is ever disabled.
@@ -72,6 +72,8 @@ A horizontal, scroll-snapped track of slides with its own arrows and position do
 
 ## CSS Variables
 
+- `--slides-arrowSize`
+- `--slides-arrowsSpace`
 - `--slides-maskEnd`
 - `--slides-maskStart`
 - `--slides-sizeMaskImage`
@@ -206,7 +208,7 @@ Scales each slide by its scroll visibility using pgs=&quot;slides['slidesAnimati
 
 ### Arrows over the slides
 
-The arrows the module builds sit in a row above the slides, at the end. slidesArrowsCenter, written as pgs=&quot;slides['slidesArrowsCenter']&quot;, puts them over the slides instead, one on each side at the middle of their height. Arrows written by hand are not moved.
+The arrows the module builds sit at the top right above the slides, out of the flow, and the room they need is kept above the track from the first paint. slidesArrowsCenter, written as pgs=&quot;slides['slidesArrowsCenter']&quot;, puts them over the slides instead, one on each side at the middle of their height. Arrows written by hand are not moved.
 
 ```html
 <div pgs="slides['slidesArrowsCenter']">

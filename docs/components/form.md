@@ -48,6 +48,7 @@ Form structure with labels, inputs, a textarea, a checkbox, and a radio group co
 ### PGS
 
 - `select`: the select of the example, which keeps its own token; see Form Controls.
+- `alertContainer`: written inside the form, it is where the errors and the success of the validation are shown, as an alert; a form without one gets a toast.
 - `button`: provides the base styling for the primary submit action.
 
 ### PGS Options (component brackets)
@@ -57,7 +58,6 @@ Form structure with labels, inputs, a textarea, a checkbox, and a radio group co
 ### Other
 
 - `formValidate`: belongs to Form validate, which lists it as generated: the PGS_formValidate constructor adds it to the form, and it enables the validation-state styles.
-- `alertContainer`: is found or created automatically by the alert API when form validation uses inline alerts.
 
 ## CSS Variables
 
@@ -78,9 +78,7 @@ const password = form.querySelector('input[name="password"]');
 const confirmPassword = form.querySelector('input[name="confirmPassword"]');
 if (!password || !confirmPassword) return;
 
-const formValidate = new pgs.helper.formValidate(form, {
-    typeNotice: "alert"
-});
+const formValidate = new pgs.helper.formValidate(form);
 
 //== new rules
 formValidate.addNewRule(() => {
@@ -174,6 +172,8 @@ formValidate.validator(event => {
         <input type="checkbox" name="terms" required>
         <span>I accept the <a href="#">terms of service</a><span pgs="form-requiredHere"></span></span>
     </label>
+
+    <div pgs="alertContainer"></div>
 
     <button pgs="button['btnStrong']" type="submit">
         Submit
