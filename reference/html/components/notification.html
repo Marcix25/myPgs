@@ -1,101 +1,173 @@
 <!--
 /**
  * @title Notification
- * @description Notification markup, configuration, behavior, and usage example. A persistent, manually-dismissed panel of messages. Author only the modal wrapping notificationBell (no dialog inside it); the first time it is needed, pgs.notification generates the dialog and re-initializes that modal automatically. It lives inside a modal dialog (see Modal) opened and closed by notificationBell — opening any other dialog on the page (e.g. the mobile menu) closes it automatically, and vice versa. Split from Toast, which is ephemeral and auto-dismissing. Full JSON field list is under @pgs-option "notification"; full JS options list is under each @api method below. Note two JSON keys that are renamed in the JS options: message becomes description, and title-close becomes closeTitle. Three custom events are dispatched: pgs:notification:buttonClick on a buttons[] element when clicked (detail: id, buttonId, type, title, description, link; cancelable — call event.preventDefault() to stop a link's navigation and finish async work first), pgs:notification:close on the notification element right before it is removed (detail: id, type, title, description), and pgs:notification:deleteAll on the panel when deleteAll() runs (detail: ids).
+ * @description Notification markup, configuration, behavior, and usage example. A persistent, manually-dismissed panel of messages. Author only notificationBell, a plain button: there can be as many as the page needs, and every one of them opens and closes the same single panel. pgs.notification builds that panel, a modal (see Modal), the first time a notification arrives or a bell is clicked, so nothing else is written on the page. Opening any other dialog on the page (e.g. the mobile menu) closes it automatically, and vice versa. With no notificationBell on the page the notifications are still kept, but nothing can open the panel, so a warning is written to the console. Split from Toast, which is ephemeral and auto-dismissing. Both are the shared alert card underneath (see Alerts): this component only manages the group around it. Full JSON field list is under @pgs-data "notification"; full JS options list is under each @api method below. The JSON form and the JS options now use the same names; the previous message and title-close keys are still accepted as aliases. Two custom events are dispatched, owned by the shared alert engine (see Alerts), both bubbling: pgs:alert:buttonClick on a buttons[] element when clicked (detail: element, id, buttonId, type, title, description, link; cancelable — call event.preventDefault() to stop a link's navigation and finish async work first), and pgs:alert:close on a notification element right before it is removed, whether by its own dismiss button or by deleteAll() below (detail: element, id, type, title, description).
  *
  * @pgs
- * - notifications: identifies the scrollable list of notifications inside the dialog.
- * - notificationLoad: creates one or more notifications from comma-separated JSON objects on page load; see @pgs-option "notification" for every accepted field.
- * - notificationBell: opens/closes the notification dialog each time it is clicked; also the modal-button for the surrounding modal.
- * - notificationBell-counter: displays the current count of notifications-element elements inside notificationBell.
- * - notifications-element: identifies a single notification inside the panel.
- * - notifications-element-content: contains the icon, title, and description.
- * - notifications-element-icon: contains the icon displayed to the left of the text.
- * - notifications-element-buttons: contains the extra action buttons and the dismiss action below the content.
- * - notifications-empty: shown inside the panel whenever it holds no notifications; its text comes from the internal emptyMessage default.
+ * - notificationLoad: creates one or more notifications from comma-separated JSON objects on page load; see @pgs-data "notification" for every accepted field.
+ * - notificationBell: a plain button that opens and closes the notification panel each time it is clicked. Flags in its bracket (dialogLeft, dialogRight, dialogTop, dialogBottom, dialogCenter) say where the panel opens when this bell is the one clicked; an axis it leaves out keeps the default, and the size is never the bell's choice. The JavaScript gives it aria-haspopup and keeps aria-expanded in step with the panel, for every bell on the page.
+ * - notificationBell-counter: write one yourself, bare like this, inside notificationBell to place it yourself; the module leaves it alone and never generates a second one.
  *
- * @pgs-option
- * - notification: JSON object (or several, comma-separated) read by notificationLoad on page load — see the full field reference, with every optional field and its default, in the commented example below.
- * - buttonIcon: presents notificationBell as an icon button.
- * - right: slides the notification dialog in from the right; see Modal for other positions.
+ * @pgs-generated
+ * - _notificationBell-counter: appended inside notificationBell when no notificationBell-counter was written by hand. Either form displays the current count of _alert elements inside the panel.
+ * - _notification-dialog: identifies the dialog generated to hold the notification panel, inside the one modal built for all the bells.
+ * - _notification: the scrollable list of notifications, created inside that dialog together with it.
+ * - _notification-close: the button generated at the top of that list, above the first notification, which closes the panel; its label is the internal panelCloseTitle default. It also carries _modal-close, Modal's own generated form of the close control it hands off to.
+ * - _notification-empty: shown inside the panel whenever it holds no notifications; its text comes from the internal emptyMessage default.
  *
- * @pgs-state
- * - success: identifies the success element used by Notification.
- * - error: identifies the error element used by Notification.
- * - warning: identifies the warning element used by Notification.
- * - info: identifies the info element used by Notification.
+ * @pgs-data
+ * - notification: JSON object (or several, comma-separated) read by notificationLoad on page load — every field, with its accepted values and its default, is annotated in the reference below.
  *
  * @api
- * - pgs.notification.init(root): scans root for notificationLoad and initializes them (including the bell counter); runs automatically on page load and again via pgs.init(root) for content added later. Opening/closing the dialog itself is handled by pgs.modal (see Modal).
+ * - pgs.notification.init(root): scans root for notificationLoad and initializes them (including the bell counter); runs automatically on page load and again via pgs.helper.init(root) for content added later. Opening/closing the dialog itself is handled by pgs.modal (see Modal).
  * - pgs.notification.trigger(root): alias of pgs.notification.init(root).
  * - pgs.notification.error(optionsOrTitle): a title string, or an options object — see the full field reference in the commented example below.
  * - pgs.notification.success(optionsOrTitle): a title string, or an options object — see the full field reference in the commented example below.
  * - pgs.notification.info(optionsOrTitle): a title string, or an options object — see the full field reference in the commented example below.
  * - pgs.notification.warning(optionsOrTitle): a title string, or an options object — see the full field reference in the commented example below.
- * - pgs.notification.deleteAll(): removes every notification from the panel and dispatches pgs:notification:deleteAll (detail: ids) on the panel element.
+ * - pgs.notification.neutral(optionsOrTitle): the plain notification, same arguments as the others; it has no title or glyph of its own, so pass at least a description.
+ * - pgs.notification.deleteAll(): closes every notification in the panel by calling each one's own close, the same as clicking its dismiss button — so each still dispatches its own pgs:alert:close.
  *
  * @related
- * - hidden: uses the related hidden component or utility in this example.
+ * - alerts: owns the card itself and the engine that builds it (icon, content, dismiss button, action buttons, events — see its own @pgs-generated for every _alert* token); this component only manages the panel, the bell and the stacking list around it.
+ * - alertNeutral: the plain severity option owned by Alerts, carried by a card of type neutral; no colour, no glyph and no title of its own, so the card stays on the box surface.
+ * - alertSuccess: the success severity option owned by Alerts, carried by a card of type success.
+ * - alertError: the error severity option owned by Alerts, carried by a card of type error.
+ * - alertWarning: the warning severity option owned by Alerts, carried by a card of type warning.
+ * - alertInfo: the info severity option owned by Alerts, carried by a card of type info.
+ * - flex: provides the flex layout; direction and spacing are flags in its bracket.
+ * - hidden: keeps every notificationLoad out of the layout, since it only carries a payload.
+ * - column: stacks the examples vertically.
+ * - row: lays the bells of the position examples side by side.
+ * - gapTexts: spaces the content inside each example.
  * - button: uses the related button component or utility in this example.
- * - modal: wraps notificationBell; pgs.notification generates the dialog inside it and provides open/close/toggle behavior shared with every other dialog on the page.
- * - modal-button: identifies notificationBell as the control that opens the dialog.
+ * - btnTransparent: the appearance the component gives the buttons passed in the payload; see Button.
+ * - modal: the one modal pgs.notification builds around the panel; it provides the open/close/toggle behavior shared with every other dialog on the page.
  * - modal-dialog-content: identifies the JS-generated styled content area inside the dialog, wrapping notifications.
+ * - btnIconOnly: presents notificationBell, and the generated dismiss button, as icon buttons.
+ * - btnMini: keeps the generated panel-close button small; see Button.
+ * - dialogRight: where the panel opens by default, against the right edge; also a flag a notificationBell can carry to open it there. See Modal.
+ * - dialogLeft: a flag a notificationBell can carry to open the panel against the left edge; see Modal.
+ * - dialogTop: the default height of the panel, and a flag a notificationBell can carry; see Modal.
+ * - dialogBottom: a flag a notificationBell can carry to open the panel against the bottom edge; see Modal.
+ * - dialogCenter: a flag a notificationBell can carry to open the panel in the middle of the screen; see Modal.
+ * - icon: draws the glyph that marks the notification type; see Icon for the whole set.
+ * - icon-circleXmark: the glyph of the error type.
+ * - icon-circleCheck: the glyph of the success type.
+ * - icon-circleInfo: the glyph of the info type.
+ * - icon-triangleExclamation: the glyph of the warning type.
+ * - icon-bell: the glyph on the control that opens the panel.
+ * - icon-close: the cross the dismiss button draws.
  *
  * @return Complete HTML markup and usage example for Notification.
  */
 -->
 
-<button pgs="modal-button button notificationBell" pgs-option="buttonIcon" aria-label="Apri notifiche">
-    <i class="fa-duotone fa-solid fa-bell"></i>
-    <span pgs="notificationBell-counter"></span>
-</button>
+<demo demo-h2="Examples"></demo>
+<demo demo-h3="Bell" demo-description="The control that opens and closes the panel, and the only markup this component needs on the page. It is a plain button: pgs.notification builds the counter inside it, and the panel itself the first time it is needed."></demo>
+<section pgs="flex['column' 'gapTexts']" demo="component">
+    <button type="button" pgs="button['btnIconOnly'] notificationBell" aria-label="Open notifications">
+        <i pgs="icon['icon-bell']"></i>
+    </button>
+</section>
+
+<demo demo-h3="Several bells" demo-description="Put as many as the page needs, in the header, in a menu, in a footer: they all open the same panel and show the same count."></demo>
+<section pgs="flex['column' 'gapTexts']" demo="component">
+    <button type="button" pgs="button notificationBell">Notifications</button>
+</section>
+
+<demo demo-h2="Position"></demo>
+<demo demo-h3="Left and right" demo-description="Each bell can say where the panel opens, with the flags a Modal takes: the one you click decides. The panel is placed while it is closed, so clicking a bell with the panel already open only closes it, and nothing moves."></demo>
+<section pgs="flex['row' 'gapTexts']" demo="component">
+    <button type="button" pgs="button notificationBell['dialogLeft']">Opens on the left</button>
+    <button type="button" pgs="button notificationBell['dialogRight']">Opens on the right</button>
+</section>
+
+<demo demo-h3="Height" demo-description="dialogTop and dialogBottom set the height, alone or next to a side: an axis the bell leaves out keeps the default, which is right and top."></demo>
+<section pgs="flex['row' 'gapTexts']" demo="component">
+    <button type="button" pgs="button notificationBell['dialogLeft' 'dialogBottom']">Bottom left</button>
+    <button type="button" pgs="button notificationBell['dialogBottom']">Bottom right</button>
+</section>
+
+<demo demo-h3="Center" demo-description="dialogCenter opens the panel in the middle of the screen."></demo>
+<section pgs="flex['row' 'gapTexts']" demo="component">
+    <button type="button" pgs="button notificationBell['dialogCenter']">In the center</button>
+</section>
+
+<demo demo-h3="Neutral" demo-description="A message with nothing to signal: no severity colour, no glyph, and the title left out so only the text shows."></demo>
+<section pgs="flex['column' 'gapTexts']" demo="component previewNone">
+    <div pgs="hidden notificationLoad" pgs-data='notification[{
+        "title": "Hi!",
+        "description": "The report you asked for is ready.",
+        "type": "neutral",
+        "icon": "<img src=\"../assets/img/logo.svg\" alt=\"\">"
+    }]'></div>
+</section>
+
+<demo demo-h3="Success" demo-description="A completed operation. The element is hidden and consumed on load: the notification it describes is moved into the panel."></demo>
+<section pgs="flex['column' 'gapTexts']" demo="component previewNone">
+    <div pgs="hidden notificationLoad" pgs-data='notification[{
+            "title": "Profile approved",
+            "description": "Your profile has been reviewed and approved.",
+            "type": "success",
+            "icon": null
+        }]'></div>
+</section>
+
+<demo demo-h3="Error" demo-description="A failure the user has to know about, with a button to try the operation again."></demo>
+<section pgs="flex['column' 'gapTexts']" demo="component previewNone">
+    <div pgs="hidden notificationLoad" pgs-data='notification[{
+            "title": "Something went wrong",
+            "description": "Please try again later.",
+            "type": "error",
+            "icon": null,
+            "buttons": [{ "title": "Retry", "link": "#" }]
+        }]'></div>
+</section>
+
+<demo demo-h3="Warning" demo-description="Something is missing but nothing is broken, so the button leads to where it can be completed."></demo>
+<section pgs="flex['column' 'gapTexts']" demo="component previewNone">
+    <div pgs="hidden notificationLoad" pgs-data='notification[{
+            "title": "Your profile is incomplete",
+            "description": "Complete your profile to unlock all features.",
+            "type": "warning",
+            "icon": null,
+            "buttons": [{ "title": "Complete profile", "link": "#" }]
+        }]'></div>
+</section>
 
 
-<div pgs="hidden notificationLoad" pgs-option='notification[{
-    "title": "Profile approved",
-    "message": "Your profile has been reviewed and approved.",
-    "type": "success",
-    "icon": null,
-    "buttons": [{ "title": "Open", "link": "/page/" }]
-}]'></div>
-
-<div pgs="hidden notificationLoad" pgs-option='notification[{
-    "title": "Something went wrong",
-    "message": "Please try again later.",
-    "type": "error",
-    "icon": null,
-    "buttons": [{ "title": "Retry", "link": "#" }]
-}]'></div>
-
-<div pgs="hidden notificationLoad" pgs-option='notification[{
-    "title": "Your profile is incomplete",
-    "message": "Complete your profile to unlock all features.",
-    "type": "warning",
-    "icon": null,
-    "buttons": [{ "title": "Complete profile", "link": "#" }]
-}]'></div>
-
-<div pgs="hidden notificationLoad" pgs-option='notification[{
-    "title": "Are you enjoying the portal?",
-    "message": "Your feedback helps us improve.",
-    "type": "info",
-    "icon": null,
-    "buttons": [
-        { "id": "yes", "title": "Yes" },
-        { "id": "no", "title": "No" }
-    ]
-}]'></div>
+<demo demo-h3="Info with several buttons" demo-description="Buttons carrying an id instead of a link dispatch pgs:alert:buttonClick with that id, which is how a question is answered without leaving the page."></demo>
+<section pgs="flex['column' 'gapTexts']" demo="component previewNone">
+    <div pgs="hidden notificationLoad" pgs-data='notification[{
+            "title": "Are you enjoying the portal?",
+            "description": "Your feedback helps us improve.",
+            "type": "info",
+            "icon": null,
+            "buttons": [
+                { "id": "yes", "title": "Yes" },
+                { "id": "no", "title": "No" }
+            ]
+        }]'></div>
+</section>
 
 <script type="application/json">
     notification[{
-        "id": null,
-        "title": "",
-        "message": "",
-        "type": "info",
-        "icon": null,
-        "title-close": "Chiudi",
-        "buttons": [
-            { "id": null, "title": "", "link": null, "close": true, "optionButton": null }
+        "id": null,                  // string; generated when omitted, and reported by every event
+        "title": "",                 // omitted falls back to the title of the type
+        "description": "",           // plain text under the title
+        "type": "info",              // neutral | error | success | warning | info
+        "icon": null,                // HTML string; null uses the icon of the type
+        "dismissIcon": null,         // HTML string for the dismiss button, from any icon set; null draws a cross (icon-close)
+        "closeTitle": "Close notification", // accessible name of the dismiss button
+        "buttons": [                 // omitted or empty leaves only the dismiss button
+            {
+                "id": null,          // reported as buttonId by pgs:alert:buttonClick
+                "title": "",         // label of the button
+                "link": null,        // navigates there; omit it to only dispatch the event
+                "close": true,       // dismisses the notification after the click
+                "optionButton": null // option added to the button's own bracket, e.g. btnMini; see Button
+            }
         ]
     }]
 </script>
@@ -106,7 +178,8 @@
         title: "",
         description: "",
         icon: null,
-        closeTitle: "Chiudi",
+        dismissIcon: null,      // HTML string for the dismiss button; omitted or null draws a cross
+        closeTitle: "Close notification",
         buttons: [
             { id: undefined, title: "", link: undefined, close: true, optionButton: undefined }
         ]

@@ -1,103 +1,138 @@
 <!--
 /**
  * @title Header
- * @description Responsive header that measures available space, switches between desktop and mobile content, and integrates menus, dark mode, and modal navigation.
+ * @description Responsive header that measures available space, switches between its full and compact content, and integrates menus, dark mode, and modal navigation.
  *
  * @pgs
  * - header: identifies the main header observed by the JavaScript module.
- * - header-element: identifies the inner group measured to determine the switch to mobile mode.
- * - header-element-alwaysOn: identifies the initial area that is always visible.
- * - header-element-onlyDesktop: identifies content shown only while the desktop menu is active.
- * - header-element-onlyMobile: identifies content shown only in mobile mode.
- * - header-element-alwaysOnLast: identifies the final area that is always visible.
- * - header-element-hamburger: identifies the mobile navigation group.
- * - header-element-hamburger-button: identifies the header-specific hamburger control.
+ * - header-element: identifies the inner group measured to determine the switch to the compact layout.
+ * - header-element-alwaysOn: identifies an area that stays visible in both layouts. Write it as many times as the header needs areas: the groups carry no styling of their own, so where each one lands is decided by document order alone.
+ * - header-element-onlyFull: identifies content shown only in the full layout.
+ * - header-element-onlyCompact: identifies content shown only in the compact layout.
  *
- * @pgs-option
- * - mobileBottom: moves header-element to the bottom of the viewport at the mobile breakpoint.
- * - horizontal: arranges the related desktop menu horizontally.
- * - vertical: arranges the related mobile menu vertically.
- * - menuHeader: adapts both menus to the header context.
- * - menuShort: compacts adjacent desktop menu links by overlapping their horizontal spacing.
- * - containerPGS: uses containerPGS[header] on the modal wrapper to move the dialog into the header.
- * - right: presents the mobile navigation dialog content from the right side.
- * - buttonIcon: presents theme and hamburger controls as icon buttons.
+ * @pgs-options
+ * - headerCompactBottom: moves header-element to the bottom of the viewport while the header is compact, so it follows the chosen breakpoint.
+ * - headerCompactWatch: forces the compact layout from the watch width down, even when the content still fits.
+ * - headerCompactMobile: forces the compact layout from the mobile width down, even when the content still fits.
+ * - headerCompactPhablet: forces the compact layout from the phablet width down, even when the content still fits.
+ * - headerCompactTablet: forces the compact layout from the tablet width down, even when the content still fits.
+ * - headerCompactNotebook: forces the compact layout from the notebook width down, even when the content still fits.
+ * - headerCompactLaptop: forces the compact layout from the laptop width down, even when the content still fits.
+ * - headerBottom: pins the header to the bottom of the viewport instead of the top, at the text margin from the edge. Each header-element becomes a frosted rounded box as wide as its content, with the text gap between its items.
+ * - headerScroll: hides the header while scrolling down and shows it again while scrolling up.
+ * - headerMain: marks the header that owns --_header-height and --_header-heightScroll, the properties that push the page content down. Only needed on a page with more than one header; without it the first one keeps them.
+ *
+ * @pgs-data
+ * - headerCompactFrom: forces the compact layout from a custom viewport width down, written as headerCompactFrom[600], and takes precedence over the named widths above.
  *
  * @pgs-state
- * - mobileActive: is applied to header and header-element when their width or the viewport requires mobile navigation.
+ * - compact: is applied to header and header-element when their width or the viewport requires the compact layout.
+ * - hiddenByScroll: is applied to the header while headerScroll has it hidden by scrolling down, and removed when it shows again.
+ *
+ * @api
+ * - pgs.header.init(root): initializes the headers inside the specified root, or the root itself when it is one; runs automatically on page load and again via pgs.helper.init(root) for a header added later. A page may hold several headers, and each one manages its own compact layout, while the properties that push the page content down belong to the one marked main, or to the first one when none is marked.
+ * - pgs.header.api(element): the instance of one header, with element, destroy() and refresh(). destroy() disconnects its observers and listeners; the height custom properties (--_header-height, --_header-heightScroll) are 0px while the page has none.
  *
  * @related
- * - button: provides the base styling for header controls.
+ * - flex: provides the flex layout; direction and spacing are flags in its bracket.
+ * - btnTransparent: the appearance of the navigation links, in the full-layout row and once they stack in the compact panel alike.
+ * - btnForHeader: for a link or button of the header: no border style, and a long label breaks instead of overflowing; belongs to the button component.
+ * - btnPaddingEqual: sets the same padding on every side of a navigation link instead of the wider left/right default; belongs to the button component.
+ * - button: provides the base styling for the header controls and for the navigation links, which the menu no longer styles on its own.
  * - logo: inserts the brand into the initial area.
  * - logo-text: uses the text variant of the logo.
- * - menu: provides desktop and mobile navigation.
- * - flexRow: uses the related flexRow component or utility in this example.
+ * - menu: provides both the full and the compact navigation.
+ * - row: sets the horizontal direction inside the flex bracket.
  * - nowrap: uses the related nowrap component or utility in this example.
- * - notificationBell: opens and closes the notification panel from the header.
- * - notificationBell-counter: displays the current notification count on the bell.
+ * - blur: applies a backdrop blur behind header-element for a frosted-glass effect.
+ * - menuHorizontal: arranges the full-layout menu horizontally.
+ * - menuVertical: arranges the compact-layout menu vertically.
+ * - menuShort: compacts adjacent full-layout menu links by overlapping their horizontal spacing.
+ * - modalContainerPGS: uses modalContainerPGS[header] on the modal wrapper to move the dialog into the header.
+ * - dialogRight: presents the compact navigation dialog content from the right side.
+ * - btnIconOnly: presents theme and hamburger controls as icon buttons.
+ * - notificationBell: a plain button that opens and closes the notification panel from the header; the panel itself is built by pgs.notification, not written here.
+ * - notificationBell-counter: generated automatically inside notificationBell; not written by hand in this example.
  * - toggleDarkmode: connects the control to the global theme handler.
- * - modal: provides opening and closing behavior for mobile navigation.
- * - modal-button: opens the mobile panel.
- * - modal-close: closes the mobile panel and shares the hamburger control.
- * - modal-dialog: identifies the mobile navigation dialog.
- * - modal-dialog-content: identifies the inner mobile navigation panel; also identifies the JS-generated content area wrapping notifications inside the notification dialog.
- * - notifications: identifies the scrollable list of notifications inside the dialog generated by pgs.notification.
+ * - toggleDarkmode-light: inside the control, the icon of the light theme, shown while the page is light; see Darkmode.
+ * - toggleDarkmode-dark: inside the control, the icon of the dark theme, shown while the page is dark; see Darkmode.
+ * - modal: provides opening and closing behavior for the compact navigation.
+ * - modal-button: opens the compact panel.
+ * - modal-close: closes the compact panel and shares the hamburger control.
+ * - modal-dialog: identifies the compact navigation dialog.
+ * - modal-dialog-content: identifies the inner compact navigation panel; also identifies the JS-generated content area wrapping notifications inside the notification dialog.
+ * - icon: draws the glyphs this example shows; see Icon for the whole set.
+ * - icon-bell: the glyph on the control that opens the panel.
+ * - icon-moon: the glyph of the light theme on the theme control; belongs to the icon component.
+ * - icon-sun: the glyph of the dark theme on the theme control; belongs to the icon component.
+ * - icon-hamburgerTwo: draws the hamburger glyph, swapped for icon-close via CSS while the compact navigation is open.
+ * - icon-close: drawn in place of icon-hamburgerTwo via CSS while the compact navigation is open; not written in this markup.
  *
- * @return Complete header HTML with desktop navigation and a side mobile panel.
+ * @return Complete header HTML with full navigation and a side compact panel.
  */
 -->
 
-<header pgs="header">
-	<div pgs="header-element">
-		<div pgs="header-element-alwaysOn">
-			<a aria-label="Logo" pgs="logo" href="/">
-				<span pgs="logo-text">MyPGS</span>
-			</a>
-		</div>
+<demo demo-h2="Examples"></demo>
+<demo demo-h3="Header" demo-description="Full navigation on the left, always-visible controls on the right, and the same links behind the hamburger once the header turns compact."></demo>
+<section demo="component">
+    <header pgs="header">
+        <div pgs="header-element blur">
+            <div pgs="header-element-alwaysOn">
+                <a aria-label="Logo" pgs="logo" href="/">
+                    <span pgs="logo-text">MyPGS</span>
+                </a>
+            </div>
 
-		<div pgs="header-element-onlyDesktop">
-			<nav pgs="menu" pgs-option="horizontal menuHeader menuShort" aria-label="Main menu">
-				<ul>
-					<li><a href="/">Home</a></li>
-					<li><a href="#components">Components</a></li>
-					<li><a href="#layout">Layout</a></li>
-				</ul>
-			</nav>
-		</div>
+            <div pgs="header-element-onlyFull">
+                <nav pgs="menu['menuHorizontal' 'menuShort']" aria-label="Main menu">
+                    <ul>
+                        <li><a pgs="button['btnTransparent' 'btnForHeader' 'btnPaddingEqual']" href="/">Home</a></li>
+                        <li><a pgs="button['btnTransparent' 'btnForHeader' 'btnPaddingEqual']" href="/services">Services</a></li>
+                        <li><a pgs="button['btnTransparent' 'btnForHeader' 'btnPaddingEqual']" href="/about">About</a></li>
+                        <li><a pgs="button['btnTransparent' 'btnForHeader' 'btnPaddingEqual']" href="/contact">Contact</a></li>
+                    </ul>
+                </nav>
+                <div pgs="flex['row' 'nowrap']">
+                    <button type="button" pgs="button['btnIconOnly' 'btnForHeader'] notificationBell" aria-label="Open notifications">
+                        <i pgs="icon['icon-bell']"></i>
+                    </button>
+                    <button pgs="button['btnIconOnly' 'btnForHeader'] toggleDarkmode" type="button" aria-label="Change theme">
+                        <i pgs="toggleDarkmode-light icon['icon-moon']" aria-hidden="true"></i>
+                        <i pgs="toggleDarkmode-dark icon['icon-sun']" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
 
-		<div pgs="header-element-onlyMobile">
-		</div>
+            <div pgs="header-element-onlyCompact">
+                <div pgs="flex['row' 'nowrap']">
+                    <button type="button" pgs="button['btnIconOnly' 'btnForHeader'] notificationBell" aria-label="Open notifications">
+                        <i pgs="icon['icon-bell']"></i>
+                    </button>
+                    <button pgs="button['btnIconOnly' 'btnForHeader'] toggleDarkmode" type="button" aria-label="Change theme">
+                        <i pgs="toggleDarkmode-light icon['icon-moon']" aria-hidden="true"></i>
+                        <i pgs="toggleDarkmode-dark icon['icon-sun']" aria-hidden="true"></i>
+                    </button>
+                    <div pgs="modal['dialogRight']" pgs-data="modalContainerPGS[header]">
 
-		<div pgs="header-element-alwaysOnLast">
-			<div pgs="flexRow nowrap">
-				<button pgs="button toggleDarkmode" pgs-option="buttonIcon" type="button" aria-label="Change theme">
-					<i class="fa-solid fa-moon"></i>
-				</button>
-				<div pgs="modal" pgs-option="containerPGS[header] ">
-					<button pgs="modal-button modal-close button notificationBell" pgs-option="buttonIcon" aria-label="Apri notifiche">
-						<i class="fa-duotone fa-solid fa-bell"></i>
-						<span pgs="notificationBell-counter"></span>
-					</button>
-				</div>
-			</div>
-		</div>
+                        <button pgs="button['btnIconOnly' 'btnForHeader'] modal-button modal-close" type="button" aria-label="Open menu">
+                            <i pgs="icon['icon-hamburgerTwo']" aria-hidden="true"></i>
+                        </button>
 
-		<div pgs="header-element-hamburger modal" pgs-option="containerPGS[header]">
-
-			<button pgs="button modal-button modal-close header-element-hamburger-button" pgs-option="buttonIcon" type="button"></button>
-
-
-			<dialog pgs="modal-dialog" pgs-option="right">
-				<div pgs="modal-dialog-content">
-					<nav pgs="menu" pgs-option="vertical menuHeader" aria-label="Mobile menu">
-						<ul>
-							<li><a href="/">Home</a></li>
-							<li><a href="#components">Components</a></li>
-							<li><a href="#layout">Layout</a></li>
-						</ul>
-					</nav>
-				</div>
-			</dialog>
-		</div>
-	</div>
-</header>
+                        <dialog>
+                            <div pgs="modal-dialog-content">
+                                <nav pgs="menu['menuVertical']" aria-label="Compact menu">
+                                    <ul>
+                                        <li><a pgs="button['btnTransparent' 'btnPaddingEqual']" href="/">Home</a></li>
+                                        <li><a pgs="button['btnTransparent' 'btnPaddingEqual']" href="/services">Services</a></li>
+                                        <li><a pgs="button['btnTransparent' 'btnPaddingEqual']" href="/about">About</a></li>
+                                        <li><a pgs="button['btnTransparent' 'btnPaddingEqual']" href="/contact">Contact</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </dialog>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+</section>

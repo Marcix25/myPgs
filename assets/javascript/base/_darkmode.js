@@ -1,28 +1,36 @@
-import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
+import { pgs } from "../_pgs.js";
+import { PGS_svg } from "./_svg.js";
 
-//# DARKMODE
+//= DARKMODE
 
-const EVENT_SVG_CHANGE_COLOR = "pgs:svg:changeColor";
 const INITIALIZED_BUTTONS = new WeakSet();
 
-//+ CHANGE ICON
-function changeIcon(selector, isDarkMode) {
-    selector.forEach(button => {
-        const ICON = button.querySelector("i");
-        if (!ICON) return;
+//# STORED CHOICE
+// localStorage throws when the browser blocks site data, and answers null in some private windows:
+// either way the choice lives in memory for the rest of the page, so the switch still works
+const STORAGE_KEY = "screenIsDarkMode";
+let memoryChoice = false;
 
-        ICON.classList.toggle("fa-moon", !isDarkMode);
-        ICON.classList.toggle("fa-sun", isDarkMode);
-    });
+function readStoredChoice() {
+    try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored !== null) return stored === "true";
+    } catch (_) { }
+    return memoryChoice;
 }
 
-//+ SET STATUS
-function setDarkmodeStatus(toggle = false, button = []) {
-    let isDarkMode = localStorage.getItem("screenIsDarkMode") === "true";
+function writeStoredChoice(isDarkMode) {
+    memoryChoice = isDarkMode;
+    try { localStorage.setItem(STORAGE_KEY, isDarkMode); } catch (_) { }
+}
+
+//# SET STATUS
+function setDarkmodeStatus(toggle = false) {
+    let isDarkMode = readStoredChoice();
 
     if (toggle) {
         isDarkMode = !isDarkMode;
-        localStorage.setItem("screenIsDarkMode", isDarkMode);
+        writeStoredChoice(isDarkMode);
     }
 
     // SET
@@ -30,35 +38,37 @@ function setDarkmodeStatus(toggle = false, button = []) {
     if (document.body) pgs(document.body).state.toggle("darkmode", isDarkMode);
     // END SET
 
-    changeIcon(button, isDarkMode);
-    document.dispatchEvent(new CustomEvent(EVENT_SVG_CHANGE_COLOR, { detail: { isDarkMode } }));
+    // on the root element, like every pgs:* event: it bubbles up to the document, and detail.element is
+    // the element it was dispatched on
+    pgs.helper.dispatch(document.documentElement, PGS_svg.eventChangeColor, { isDarkMode });
 }
 
 
 
-//= INIT
-// Applica subito il tema alla radice quando il bundle viene caricato nel head.
-setDarkmodeStatus();
+//# INIT
+// applies the stored theme to the root as soon as the bundle is parsed in the head, so a
+// reload never paints the wrong one first
+if (typeof document !== "undefined") setDarkmodeStatus();
 
-function initDarkmode(root = document) {
-    const toggleDarkmode = [
-        ...(root instanceof Element && pgs(root).contains("toggleDarkmode") ? [root] : []),
-        ...pgs(root).querySelectorAll("toggleDarkmode")
-    ];
-    setDarkmodeStatus(false, pgs(document).querySelectorAll("toggleDarkmode"));
+// binds the switches in root that are not bound yet. Switches already bound are left untouched, so
+// pgs.helper.init(el) on a page that is already running changes nothing else: it does not re-apply the
+// theme or fire the color event again. The icon of a switch is not drawn here: the author writes a
+// toggleDarkmode-light and a toggleDarkmode-dark in it, and the stylesheet shows the one of the theme
+function PGS_darkmode_init(root = document) {
+    const buttons = pgs.helper.roots(root, "toggleDarkmode").filter(button => !INITIALIZED_BUTTONS.has(button));
 
-    //== BUTTON DARKMODE
-    toggleDarkmode.forEach(button => {
-        if (INITIALIZED_BUTTONS.has(button)) return;
+    buttons.forEach(button => {
         INITIALIZED_BUTTONS.add(button);
-        button.addEventListener("click", () => {
-            setDarkmodeStatus(true, pgs(document).querySelectorAll("toggleDarkmode"));
-        });
+        button.addEventListener("click", () => setDarkmodeStatus(true));
     });
 }
 
-PGS_onDocumentReady(initDarkmode);
+// the first pass once the page is ready: the body exists now, so it takes the theme too
+pgs.helper.onDocumentReady(() => {
+    setDarkmodeStatus(false);
+    PGS_darkmode_init();
+});
 
 export const PGS_darkmode = {
-    init: initDarkmode
+    init: PGS_darkmode_init
 };

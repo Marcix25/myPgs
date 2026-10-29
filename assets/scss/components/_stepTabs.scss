@@ -1,24 +1,28 @@
 @use "../mixin/mixin" as *;
 
-[pgs~=stepTabs] {
-    [pgs~=stepTabs-container] {
-        [pgs~=stepTabs-container-tab] {
+[pgs~="stepTabs"] {
+    :where([pgs~="stepTabs-container"]) {
+        :where([pgs~="stepTabs-container-tab"]) {
+            //option for suggestions
+            &[pgs-data~="stepTabsIcon[]"] {}
+
             display: none;
 
-            &[pgs-state~=is-active] {
-                display: flex;
-            }
+            &[pgs-state~=active] { display: flex; }
         }
     }
 
-    [pgs~=stepTabs-next] {
+    :where([pgs~="stepTabs-next"]) {
         --button-background: var(--color-primary);
-        --button-color: var(--color-whiteFixed);
+        --button-color: var(--color-primary-text);
     }
 
-    [pgs~=stepTabs-dots] {
-        display: flex;
-        gap: var(--gap-texts);
+    //read by the JavaScript only, declared here so editors suggest it: styling comes from the button component
+    :where([pgs~="stepTabs-prev"]),
+    :where([pgs~="stepTabs-restart"]) {}
+
+    :where([pgs~="stepTabs-dots"]) {
+        @include row(nowrap);
         justify-content: space-between;
         align-items: center;
         position: relative;
@@ -29,32 +33,28 @@
         &::before {
             content: "";
             width: 100%;
-            border-bottom: var(--border-complete);
+            border-bottom: var(--border-width) var(--border-color) var(--border-style);
             position: absolute;
             top: 50%;
             z-index: -1;
         }
 
-        [pgs~=stepTabs-dots-dot] {
-            @include buttonBase();
-            @include buttonIcon();
+        :where([pgs~="_stepTabs-dots-dot"]) {
             border-radius: 50%;
-            --fa-size: 1.8rem;
+            --icon-size: 1.8rem;
 
-            &[pgs-state~=is-completed] {
+            &[pgs-state~=completed] {
                 cursor: pointer;
                 background: var(--color-primary-soft);
+                color: var(--color-primary-strong);
             }
 
-            &[pgs-state~=is-active] {
-                background: var(--color-primary);
+            &[pgs-state~=active] {
+                background: var(--current-background);
+                color: var(--current-color);
                 scale: 1.2;
 
-                i {
-                    --fa-primary-color: var(--color-whiteFixed);
-                    --fa-secondary-color: var(--color-whiteFixed);
-                    color: var(--color-whiteFixed);
-                }
+                :where(i, [pgs~="icon"], [pgs*="icon\5B"]) { color: var(--color-whiteFixed); }
             }
         }
     }

@@ -1,0 +1,66 @@
+@use "../mixin/mixin" as *;
+
+//# ICON
+// A glyph, drawn from the inline SVG in mixin/_mx-icons.scss. The token says "this element is an
+// icon", the option says which one. What mixin/_mx-icons.scss holds is only what the library's own
+// components draw (the CORE_ICONS of scripts/sync-icons.js, read from the myIcons pack); the rest of
+// the set is the myIcons stylesheet, loaded next to this one, which writes the same option.
+//
+// It exists so the library owes nothing to an icon font. Everything MyPGS builds and needs to
+// show — the slide arrows, the close buttons, the alert marks — draws through here, which means a
+// page that never loaded a font still gets its controls instead of an empty box.
+//
+// The token is also the integration point for any icon set you bring. Written on its own it draws
+// nothing and only says "this is an icon", which is what every component looks for when it hands an
+// icon its box: mark a span, an svg or a custom element with it and it is sized and placed exactly
+// as an <i> would be. That is the whole reason the components match :is([pgs~="icon"], [pgs*="icon\5B"]) alongside i.
+//
+// Not to be confused with boxed, which is the circular surface a glyph can sit inside. That one
+// is the container, this one is the drawing.
+//
+// The glyph lands on ::before, which is also where an icon font paints, so an element carrying
+// both this and a font class draws once, and the one loaded last wins: the option is in :where(), so
+// it weighs the same as a font's single class (a project that needs this one to win raises it).
+:root {
+    @each $name, $url in $icons-builtin {
+        --icon-glyph-#{$name}: #{$url};
+    }
+}
+
+:is([pgs~="icon"], [pgs*="icon\5B"]) {
+    &::before{ @include iconBase(); }
+
+    // the key is the bare glyph name, so both prefixes are written out here: the drawing goes on
+    // --icon-glyph-*, away from the icon's own configuration, and the option keeps the icon-
+    // form that is written in the markup. The mask has to land on ::before, where iconBase()
+    // drew the box — masking the wrapper element itself paints nothing, since that element has
+    // no background of its own.
+    @each $name, $url in $icons-builtin {
+        &:where([pgs*="'icon-#{$name}'"]) {
+            --icon: var(--icon-glyph-#{$name});
+
+            &::before { @include svgBase64(var(--icon)); }
+        }
+    }
+
+    //## DUO ICON
+    // Two-layer icons use a mask per pseudo-element. Keeping both layers in the same grid cell
+    // lets the component using them animate each one without needing markup solely for decoration.
+    //
+    // duo is its own option, required alongside the glyph name: a name present in both
+    // $icons-builtin and $icons-duo (icon-hamburgerTwo, for a static and an animatable version of
+    // the same glyph) draws flat until duo is added, at which point this rule, written after the
+    // single-mask one above, wins.
+    @each $name, $layers in $icons-duo {
+        &:where([pgs*="'icon-#{$name}'"][pgs*="'iconDuo'"]) { @include duo(nth($layers, 1), nth($layers, 2)); }
+    }
+
+    //+ ICON BOX
+    &:where([pgs*="'iconBoxed'"]) { @include boxed(); }
+
+    //+ ICON MEDIUM
+    &:where([pgs*="'iconMedium'"]) { --icon-size: 1.25em; }
+
+    //+ ICON LARGE
+    &:where([pgs*="'iconLarge'"]) { --icon-size: 1.5em; }
+}

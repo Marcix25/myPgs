@@ -1,0 +1,182 @@
+/* //= ICONS PAGE — layout only used by icons.html (site/page/icons.html): the grid of glyphs, the
+   filter row and the markup of the examples. The glyph, the buttons, the boxes and the flex layouts
+   are the library's own; this file only adds what a one-off page needs on top, in plain CSS classes
+   for the same reason home.css does. */
+
+/* = TOOLBAR */
+.icons-search {
+    flex: 1 1 14rem;
+    max-width: 24rem;
+}
+
+.icons-toolbar [data-scope][aria-pressed="true"] {
+    background: var(--current-background);
+    border-color: var(--current-borderColor);
+    color: var(--current-color);
+}
+
+/* = ICON ITEM (the grid itself is the library's: grid['column-8']) */
+/* a square button: the height comes from the width, and the padding is the one a name needs to fit */
+.icons-item {
+    position: relative;
+    /* the button is as wide as its content (fit-content): the cell is what sizes it here */
+    width: 100%;
+    aspect-ratio: 1;
+    --button-height: auto;
+    /* the same on every side: a button with an icon would otherwise take a shorter left padding */
+    padding: 0.4rem;
+}
+
+/* the display of the button would win over the hidden attribute the filter sets */
+.icons-item[hidden] {
+    display: none;
+}
+
+.icons-item-badge {
+    position: absolute;
+    inset-block-start: -0.35rem;
+    inset-inline-end: -0.35rem;
+    /* --badge-size: 0.25rem;
+    --badge-textSize: 0.7rem; */
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.icons-item-name {
+    font-size: 0.7em;
+    max-inline-size: 100%;
+    overflow-wrap: anywhere;
+    text-align: center;
+}
+
+.icons-empty {
+    text-align: center;
+}
+
+/* = MODAL */
+.icons-copy {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--gap-texts);
+    align-items: center;
+}
+
+.icons-copy pre {
+    margin: 0;
+    padding: var(--padding-texts);
+    max-block-size: 10rem;
+    border-radius: var(--borderRadius-elements);
+    /* the card around it is already the box color: the code sits on the page color to stand out */
+    background: var(--color-background);
+    /* the code still scrolls sideways (wheel, touch, keyboard), the bar is just not drawn */
+    scrollbar-width: none;
+}
+
+.icons-copy pre::-webkit-scrollbar {
+    display: none;
+}
+
+/* said to a screen reader only: the button itself shows how the copy went */
+.icons-copy-status {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+/* the feedback sits in the button: the label turns transparent instead of leaving, so the button keeps
+   its width, and the glyph is drawn over it */
+[data-copy] {
+    position: relative;
+}
+
+.icons-copy-icon {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    opacity: 0;
+    pointer-events: none;
+}
+
+[data-copy][pgs-state~="success"] {
+    background: var(--color-success-soft);
+    color: var(--color-success);
+}
+
+[data-copy][pgs-state~="error"] {
+    background: var(--color-error-soft);
+    color: var(--color-error);
+}
+
+[data-copy][pgs-state~="success"] .icons-copy-icon[data-for="success"],
+[data-copy][pgs-state~="error"] .icons-copy-icon[data-for="error"] {
+    opacity: 1;
+}
+
+[data-copy][pgs-state~="success"] .icons-copy-label,
+[data-copy][pgs-state~="error"] .icons-copy-label {
+    color: transparent;
+}
+
+/* = IMPORT SNIPPETS */
+/* a dark panel with the copy button over its corner; the button and its feedback are the ones of the modal */
+.icons-snippet {
+    position: relative;
+    border-radius: var(--borderRadius-elements);
+    padding: var(--padding-texts);
+}
+
+.icons-snippet pre {
+    margin: 0;
+    padding: 0;
+    background: none;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.icons-snippet pre::-webkit-scrollbar {
+    display: none;
+}
+
+.icons-snippet code {
+    background: none;
+    color: inherit;
+    line-height: 1.7;
+    white-space: pre;
+}
+
+/* the first line must not run under the button */
+.icons-snippet pre {
+    padding-inline-end: 4.5rem;
+}
+
+.icons-snippet [data-copy] {
+    position: absolute;
+    inset-block-start: -2rem;
+    inset-inline-end: -0.5rem;
+}
+
+/* = USE */
+/* the tinted surface the examples sit on, a row of glyphs each with its caption */
+.icons-preview {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--gap-elements);
+}
+
+.icons-preview small {
+    color: var(--color-text);
+}
+
+/* = CARDS */
+/* the cards of flex['column-N'] cannot shrink (flex-shrink 0) and a flex item is never narrower than its
+   content by default, so a long line of code (the <link> of the import) kept the card, and the page, wider than
+   a phone. With no minimum the card takes the width of its column and the code scrolls inside its panel */
+.icons-cards>* {
+    min-width: 0;
+}

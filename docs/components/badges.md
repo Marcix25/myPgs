@@ -8,10 +8,11 @@ Collection of compact indicators for displaying categories, priorities, and visu
 
 - `badge`: identifies the base badge variant.
 
-## PGS Options
+## PGS Options (component brackets)
 
-- `badgePrimary`: applies the primary color variant.
-- `badgeStrong`: applies the high-contrast variant.
+- `badgePrimary`: applies the solid primary color, with the text of a primary surface; the same look as btnPrimary.
+- `badgeStrong`: applies the stronger primary color with white text; the same look as btnStrong.
+- `badgeSoft`: applies the light primary background with the strong primary text.
 - `badgeSuccess`: represents a successful result.
 - `badgeDot`: adds a dot indicator to the badge.
 - `badgeWarning`: represents a warning.
@@ -21,50 +22,110 @@ Collection of compact indicators for displaying categories, priorities, and visu
 
 ## Related elements
 
-- `flexRow`: arranges badges horizontally and allows them to wrap.
+### PGS
+
+- `icon`: draws the glyphs this example shows; see Icon for the whole set.
+
+### PGS Options (component brackets)
+
+- `icon-circleInfo`: the information mark.
+- `icon-close`: the cross that dismisses.
+- `icon-triangleExclamation`: the warning mark.
 
 ## Output
 
 HTML examples of the available badge variants.
+## Examples
 
-## Example
+### Base
+
+Default badge variant with no color emphasis.
 
 ```html
-<div pgs="flexRow">
-    <span pgs="badge">
-        Base
-    </span>
+<span pgs="badge">
+    Base
+</span>
+```
 
-    <span pgs="badge" pgs-option="badgePrimary">
-        Primary
-    </span>
+### Primary
 
-    <span pgs="badge" pgs-option="badgeStrong">
-        Strong
-    </span>
+Badge using the solid primary color, like btnPrimary.
 
-    <span pgs="badge" pgs-option="badgeSuccess badgeDot">
-        Active
-    </span>
+```html
+<span pgs="badge['badgePrimary']">
+    Primary
+</span>
+```
 
-    <span pgs="badge" pgs-option="badgeWarning">
-        <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
-        Warning
-    </span>
+### Strong
 
-    <span pgs="badge" pgs-option="badgeError">
-        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-        Error
-    </span>
+Badge using the stronger primary color, like btnStrong.
 
-    <span pgs="badge" pgs-option="badgeInfo">
-        <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
-        Info
-    </span>
+```html
+<span pgs="badge['badgeStrong']">
+    Strong
+</span>
+```
 
-    <span pgs="badge" pgs-option="badgeNeutral">
-        Neutral
-    </span>
+### Soft
 
-</div>
+Light primary background with the strong primary text.
+
+```html
+<span pgs="badge['badgeSoft']">
+    Soft
+</span>
+```
+
+### Active
+
+Success badge combined with a dot indicator.
+
+```html
+<span pgs="badge['badgeSuccess' 'badgeDot']">
+    Active
+</span>
+```
+
+### Warning
+
+Badge representing a warning, paired with an icon.
+
+```html
+<span pgs="badge['badgeWarning']">
+    <i pgs="icon['icon-triangleExclamation']" aria-hidden="true"></i>
+    Warning
+</span>
+```
+
+### Error
+
+Badge representing an error, paired with an icon.
+
+```html
+<span pgs="badge['badgeError']">
+    <i pgs="icon['icon-close']" aria-hidden="true"></i>
+    Error
+</span>
+```
+
+### Info
+
+Badge representing informational content, paired with an icon.
+
+```html
+<span pgs="badge['badgeInfo']">
+    <i pgs="icon['icon-circleInfo']" aria-hidden="true"></i>
+    Info
+</span>
+```
+
+### Neutral
+
+Neutral badge variant with muted colors.
+
+```html
+<span pgs="badge['badgeNeutral']">
+    Neutral
+</span>
 ```

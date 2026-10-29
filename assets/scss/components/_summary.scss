@@ -3,21 +3,22 @@
 [pgs~="summary"] {
     --summary-fade-size: 4rem;
     --summary-fade-background: var(--color-background);
-    --summary-content-max-height: 5.7rem;
+    // how many lines stay visible while the content is closed
+    --summary-lines: 3;
     position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-texts);
+    @include column();
     isolation: isolate;
 
-    [pgs~="summary-content"] {
-        max-height: var(--summary-content-max-height, none);
+    :where([pgs~="summary-content"]) {
+        // --_summary-content-height is written by the module; before it runs, the lines alone decide
+        max-height: var(--_summary-content-height, calc(var(--summary-lines) * 1lh));
         overflow: hidden;
-        transition: max-height 300ms ease;
+
+        @media (prefers-reduced-motion: no-preference) { transition: max-height 300ms ease; }
     }
 
     &[pgs-state~="overflow"]:not([pgs-state~="open"]) {
-        [pgs~="summary-content"] {
+        :where([pgs~="summary-content"]) {
             position: relative;
 
             &::after {
@@ -31,13 +32,11 @@
         }
     }
 
-    &:has([pgs~="summary-button"][hidden]) {
-        [pgs~="summary-content"]{
-            max-height: unset;
-        }
+    &:has(:where([pgs~="summary-button"])[hidden]) {
+        :where([pgs~="summary-content"]) { max-height: unset; }
     }
 
-    [pgs~="summary-button"] {
+    :where([pgs~="summary-button"]) {
         padding: 5px;
         cursor: pointer;
         background-color: transparent;
@@ -46,11 +45,9 @@
         z-index: 1;
         color: var(--color-primary-strong);
         font-family: var(--font);
-        font-weight: 600;
-        font-size: 1.6rem;
+        font-weight: var(--font-weight-bold);
+        font-size: var(--font-size-text);
 
-        &[hidden] {
-            display: none !important;
-        }
+        &[hidden] { display: none !important; }
     }
 }

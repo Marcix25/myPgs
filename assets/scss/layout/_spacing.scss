@@ -1,98 +1,227 @@
-//# SPACING
+//= SPACING: margin, padding
+// a shared base root for margin and padding (all four sides), plus a separate root per
+// direction (marginBlock, paddingTop, ...) — each direction's own root reads its own
+// --{root}-sign custom property (--marginTop-sign, ...; base uses the shared --margin-sign), flipped
+// to -1 by that direction's own Negative flag (mgBlNegative, mgTpNegative, ...) and read with a
+// plain `, 1)` fallback, so mgTpNegative negates only margin-top even when combined with a
+// base-level mgTexts/mgElements/etc in the same bracket. Padding has no negative variant at all,
+// since negative padding isn't a real thing. The scale is the same one gap uses: texts (smallest,
+// also the default), elements (base size), groups (double), sections (viewport-based, biggest).
+//# MARGIN
+// each direction has its own root (marginBlock, marginTop, ...) with a short
+// direction-prefixed scale flag inside each (mgBlTexts, mgTpPage, ...) instead of folded into
+// margin's own bracket. Base margin keeps the short "mg" prefix (mgTexts, ...); direction roots
+// add a direction letter (mgBl, mgIn, mgTp, mgRt, mgBt, mgLt).
+:is([pgs~="margin"], [pgs*="margin\5B"]) {
+    // reset on every element, so a negative parent does not flip its descendants
+    --margin-sign: 1;
+    margin: calc(var(--margin-texts) * var(--margin-sign, 1));
 
-
-//= MARGIN
-[pgs~=marginLeft],
-[pgs~=marginRight],
-[pgs~=marginBottom],
-[pgs~=marginTop],
-[pgs~=marginInline],
-[pgs~=marginBlock] {
-    --margin-size: var(--gap-texts);
-
-    &[pgs-option~=marginTexts] {
-        --margin-size: var(--gap-texts);
-    }
-
-    &[pgs-option~=marginElements] {
-        --margin-size: var(--gap-elements);
-    }
-
-    &[pgs-option~=marginSections] {
-        --margin-size: var(--gap-sections);
-    }
-
-    &[pgs-option~=marginAuto] {
-        --margin-size: auto;
-    }
+    &[pgs*="'mg'"] { margin: calc(var(--margin-texts) * var(--margin-sign, 1)); }
+    &[pgs*="'mgNegative'"] { --margin-sign: -1; }
+    &[pgs*="'mgTexts'"] { margin: calc(var(--margin-texts) * var(--margin-sign, 1)); }
+    &[pgs*="'mgElements'"] { margin: calc(var(--margin-elements) * var(--margin-sign, 1)); }
+    &[pgs*="'mgGroups'"] { margin: calc(var(--margin-groups) * var(--margin-sign, 1)); }
+    &[pgs*="'mgSections'"] { margin: calc(var(--margin-sections) * var(--margin-sign, 1)); }
+    &[pgs*="'mgPage'"] { margin: calc(var(--page-padding) * var(--margin-sign, 1)); }
+    &[pgs*="'mgUnset'"] { margin: unset; }
+    &[pgs*="'mgAuto'"] { margin: auto; }
 }
 
-[pgs~=marginLeft] {
-    margin-left: var(--margin-size);
+//## BLOCK
+:is([pgs~="marginBlock"], [pgs*="marginBlock\5B"]) {
+    // reset on every element, so a negative parent does not flip its descendants
+    --marginBlock-sign: 1;
+    margin-block: calc(var(--margin-texts) * var(--marginBlock-sign, 1));
+
+    &[pgs*="'mgBl'"] { margin-block: calc(var(--margin-texts) * var(--marginBlock-sign, 1)); }
+    &[pgs*="'mgBlNegative'"] { --marginBlock-sign: -1; }
+    &[pgs*="'mgBlTexts'"] { margin-block: calc(var(--margin-texts) * var(--marginBlock-sign, 1)); }
+    &[pgs*="'mgBlElements'"] { margin-block: calc(var(--margin-elements) * var(--marginBlock-sign, 1)); }
+    &[pgs*="'mgBlGroups'"] { margin-block: calc(var(--margin-groups) * var(--marginBlock-sign, 1)); }
+    &[pgs*="'mgBlSections'"] { margin-block: calc(var(--margin-sections) * var(--marginBlock-sign, 1)); }
+    &[pgs*="'mgBlPage'"] { margin-block: calc(var(--page-padding) * var(--marginBlock-sign, 1)); }
+    &[pgs*="'mgBlUnset'"] { margin-block: unset; }
+    &[pgs*="'mgBlAuto'"] { margin-block: auto; }
 }
 
-[pgs~=marginRight] {
-    margin-right: var(--margin-size);
+//## INLINE
+:is([pgs~="marginInline"], [pgs*="marginInline\5B"]) {
+    // reset on every element, so a negative parent does not flip its descendants
+    --marginInline-sign: 1;
+    margin-inline: calc(var(--margin-texts) * var(--marginInline-sign, 1));
+
+    &[pgs*="'mgIn'"] { margin-inline: calc(var(--margin-texts) * var(--marginInline-sign, 1)); }
+    &[pgs*="'mgInNegative'"] { --marginInline-sign: -1; }
+    &[pgs*="'mgInTexts'"] { margin-inline: calc(var(--margin-texts) * var(--marginInline-sign, 1)); }
+    &[pgs*="'mgInElements'"] { margin-inline: calc(var(--margin-elements) * var(--marginInline-sign, 1)); }
+    &[pgs*="'mgInGroups'"] { margin-inline: calc(var(--margin-groups) * var(--marginInline-sign, 1)); }
+    &[pgs*="'mgInSections'"] { margin-inline: calc(var(--margin-sections) * var(--marginInline-sign, 1)); }
+    &[pgs*="'mgInPage'"] { margin-inline: calc(var(--page-padding) * var(--marginInline-sign, 1)); }
+    &[pgs*="'mgInUnset'"] { margin-inline: unset; }
+    &[pgs*="'mgInAuto'"] { margin-inline: auto; }
 }
 
-[pgs~=marginBottom] {
-    margin-bottom: var(--margin-size);
+//## TOP
+:is([pgs~="marginTop"], [pgs*="marginTop\5B"]) {
+    // reset on every element, so a negative parent does not flip its descendants
+    --marginTop-sign: 1;
+    margin-top: calc(var(--margin-texts) * var(--marginTop-sign, 1));
+
+    &[pgs*="'mgTp'"] { margin-top: calc(var(--margin-texts) * var(--marginTop-sign, 1)); }
+    &[pgs*="'mgTpNegative'"] { --marginTop-sign: -1; }
+    &[pgs*="'mgTpTexts'"] { margin-top: calc(var(--margin-texts) * var(--marginTop-sign, 1)); }
+    &[pgs*="'mgTpElements'"] { margin-top: calc(var(--margin-elements) * var(--marginTop-sign, 1)); }
+    &[pgs*="'mgTpGroups'"] { margin-top: calc(var(--margin-groups) * var(--marginTop-sign, 1)); }
+    &[pgs*="'mgTpSections'"] { margin-top: calc(var(--margin-sections) * var(--marginTop-sign, 1)); }
+    &[pgs*="'mgTpPage'"] { margin-top: calc(var(--page-padding) * var(--marginTop-sign, 1)); }
+    &[pgs*="'mgTpUnset'"] { margin-top: unset; }
+    &[pgs*="'mgTpAuto'"] { margin-top: auto; }
 }
 
-[pgs~=marginTop] {
-    margin-top: var(--margin-size);
+//## RIGHT
+:is([pgs~="marginRight"], [pgs*="marginRight\5B"]) {
+    // reset on every element, so a negative parent does not flip its descendants
+    --marginRight-sign: 1;
+    margin-right: calc(var(--margin-texts) * var(--marginRight-sign, 1));
+
+    &[pgs*="'mgRt'"] { margin-right: calc(var(--margin-texts) * var(--marginRight-sign, 1)); }
+    &[pgs*="'mgRtNegative'"] { --marginRight-sign: -1; }
+    &[pgs*="'mgRtTexts'"] { margin-right: calc(var(--margin-texts) * var(--marginRight-sign, 1)); }
+    &[pgs*="'mgRtElements'"] { margin-right: calc(var(--margin-elements) * var(--marginRight-sign, 1)); }
+    &[pgs*="'mgRtGroups'"] { margin-right: calc(var(--margin-groups) * var(--marginRight-sign, 1)); }
+    &[pgs*="'mgRtSections'"] { margin-right: calc(var(--margin-sections) * var(--marginRight-sign, 1)); }
+    &[pgs*="'mgRtPage'"] { margin-right: calc(var(--page-padding) * var(--marginRight-sign, 1)); }
+    &[pgs*="'mgRtUnset'"] { margin-right: unset; }
+    &[pgs*="'mgRtAuto'"] { margin-right: auto; }
 }
 
-[pgs~=marginInline] {
-    margin-inline: var(--margin-size);
+//## BOTTOM
+:is([pgs~="marginBottom"], [pgs*="marginBottom\5B"]) {
+    // reset on every element, so a negative parent does not flip its descendants
+    --marginBottom-sign: 1;
+    margin-bottom: calc(var(--margin-texts) * var(--marginBottom-sign, 1));
+
+    &[pgs*="'mgBt'"] { margin-bottom: calc(var(--margin-texts) * var(--marginBottom-sign, 1)); }
+    &[pgs*="'mgBtNegative'"] { --marginBottom-sign: -1; }
+    &[pgs*="'mgBtTexts'"] { margin-bottom: calc(var(--margin-texts) * var(--marginBottom-sign, 1)); }
+    &[pgs*="'mgBtElements'"] { margin-bottom: calc(var(--margin-elements) * var(--marginBottom-sign, 1)); }
+    &[pgs*="'mgBtGroups'"] { margin-bottom: calc(var(--margin-groups) * var(--marginBottom-sign, 1)); }
+    &[pgs*="'mgBtSections'"] { margin-bottom: calc(var(--margin-sections) * var(--marginBottom-sign, 1)); }
+    &[pgs*="'mgBtPage'"] { margin-bottom: calc(var(--page-padding) * var(--marginBottom-sign, 1)); }
+    &[pgs*="'mgBtUnset'"] { margin-bottom: unset; }
+    &[pgs*="'mgBtAuto'"] { margin-bottom: auto; }
 }
 
-[pgs~=marginBlock] {
-    margin-block: var(--margin-size);
+//## LEFT
+:is([pgs~="marginLeft"], [pgs*="marginLeft\5B"]) {
+    // reset on every element, so a negative parent does not flip its descendants
+    --marginLeft-sign: 1;
+    margin-left: calc(var(--margin-texts) * var(--marginLeft-sign, 1));
+
+    &[pgs*="'mgLt'"] { margin-left: calc(var(--margin-texts) * var(--marginLeft-sign, 1)); }
+    &[pgs*="'mgLtNegative'"] { --marginLeft-sign: -1; }
+    &[pgs*="'mgLtTexts'"] { margin-left: calc(var(--margin-texts) * var(--marginLeft-sign, 1)); }
+    &[pgs*="'mgLtElements'"] { margin-left: calc(var(--margin-elements) * var(--marginLeft-sign, 1)); }
+    &[pgs*="'mgLtGroups'"] { margin-left: calc(var(--margin-groups) * var(--marginLeft-sign, 1)); }
+    &[pgs*="'mgLtSections'"] { margin-left: calc(var(--margin-sections) * var(--marginLeft-sign, 1)); }
+    &[pgs*="'mgLtPage'"] { margin-left: calc(var(--page-padding) * var(--marginLeft-sign, 1)); }
+    &[pgs*="'mgLtUnset'"] { margin-left: unset; }
+    &[pgs*="'mgLtAuto'"] { margin-left: auto; }
 }
 
-//= PADDING
-[pgs~=paddingLeft],
-[pgs~=paddingRight],
-[pgs~=paddingBottom],
-[pgs~=paddingTop],
-[pgs~=paddingInline],
-[pgs~=paddingBlock] {
-    --padding-size: var(--gap-texts);
+//# PADDING
+// each direction has its own root (paddingBlock, paddingTop, ...) instead of being
+// folded into padding's own bracket, with a short direction-prefixed scale flag inside each
+// (pdBlTexts, pdTpPage, ...). Base padding also uses the short "pd" prefix (pdTexts, ...), matching
+// the direction roots below. Same scale as margin and gap: texts (smallest, also the default),
+// elements (base size), groups (double), sections (viewport-based, biggest).
+:is([pgs~="padding"], [pgs*="padding\5B"]) {
+    padding: var(--padding-texts);
 
-    &[pgs-option~=paddingTexts] {
-        --padding-size: var(--gap-texts);
-    }
-
-    &[pgs-option~=paddingElements] {
-        --padding-size: var(--gap-elements);
-    }
-
-    &[pgs-option~=paddingSections] {
-        --padding-size: var(--gap-sections);
-    }
+    &[pgs*="'pd'"] { padding: var(--padding-texts); }
+    &[pgs*="'pdTexts'"] { padding: var(--padding-texts); }
+    &[pgs*="'pdElements'"] { padding: var(--padding-elements); }
+    &[pgs*="'pdGroups'"] { padding: var(--padding-groups); }
+    &[pgs*="'pdSections'"] { padding: var(--padding-sections); }
+    &[pgs*="'pdPage'"] { padding: var(--page-padding); }
+    &[pgs*="'pdUnset'"] { padding: unset; }
 }
 
-[pgs~=paddingLeft] {
-    padding-left: var(--padding-size);
+//## BLOCK
+:is([pgs~="paddingBlock"], [pgs*="paddingBlock\5B"]) {
+    padding-block: var(--padding-texts);
+
+    &[pgs*="'pdBl'"] { padding-block: var(--padding-texts); }
+    &[pgs*="'pdBlTexts'"] { padding-block: var(--padding-texts); }
+    &[pgs*="'pdBlElements'"] { padding-block: var(--padding-elements); }
+    &[pgs*="'pdBlGroups'"] { padding-block: var(--padding-groups); }
+    &[pgs*="'pdBlSections'"] { padding-block: var(--padding-sections); }
+    &[pgs*="'pdBlPage'"] { padding-block: var(--page-padding); }
+    &[pgs*="'pdBlUnset'"] { padding-block: unset; }
 }
 
-[pgs~=paddingRight] {
-    padding-right: var(--padding-size);
+//## INLINE
+:is([pgs~="paddingInline"], [pgs*="paddingInline\5B"]) {
+    padding-inline: var(--padding-texts);
+
+    &[pgs*="'pdIn'"] { padding-inline: var(--padding-texts); }
+    &[pgs*="'pdInTexts'"] { padding-inline: var(--padding-texts); }
+    &[pgs*="'pdInElements'"] { padding-inline: var(--padding-elements); }
+    &[pgs*="'pdInGroups'"] { padding-inline: var(--padding-groups); }
+    &[pgs*="'pdInSections'"] { padding-inline: var(--padding-sections); }
+    &[pgs*="'pdInPage'"] { padding-inline: var(--page-padding); }
+    &[pgs*="'pdInUnset'"] { padding-inline: unset; }
 }
 
-[pgs~=paddingBottom] {
-    padding-bottom: var(--padding-size);
+//## TOP
+:is([pgs~="paddingTop"], [pgs*="paddingTop\5B"]) {
+    padding-top: var(--padding-texts);
+
+    &[pgs*="'pdTp'"] { padding-top: var(--padding-texts); }
+    &[pgs*="'pdTpTexts'"] { padding-top: var(--padding-texts); }
+    &[pgs*="'pdTpElements'"] { padding-top: var(--padding-elements); }
+    &[pgs*="'pdTpGroups'"] { padding-top: var(--padding-groups); }
+    &[pgs*="'pdTpSections'"] { padding-top: var(--padding-sections); }
+    &[pgs*="'pdTpPage'"] { padding-top: var(--page-padding); }
+    &[pgs*="'pdTpUnset'"] { padding-top: unset; }
 }
 
-[pgs~=paddingTop] {
-    padding-top: var(--padding-size);
+//## RIGHT
+:is([pgs~="paddingRight"], [pgs*="paddingRight\5B"]) {
+    padding-right: var(--padding-texts);
+
+    &[pgs*="'pdRt'"] { padding-right: var(--padding-texts); }
+    &[pgs*="'pdRtTexts'"] { padding-right: var(--padding-texts); }
+    &[pgs*="'pdRtElements'"] { padding-right: var(--padding-elements); }
+    &[pgs*="'pdRtGroups'"] { padding-right: var(--padding-groups); }
+    &[pgs*="'pdRtSections'"] { padding-right: var(--padding-sections); }
+    &[pgs*="'pdRtPage'"] { padding-right: var(--page-padding); }
+    &[pgs*="'pdRtUnset'"] { padding-right: unset; }
 }
 
-[pgs~=paddingInline] {
-    padding-inline: var(--padding-size);
+//## BOTTOM
+:is([pgs~="paddingBottom"], [pgs*="paddingBottom\5B"]) {
+    padding-bottom: var(--padding-texts);
+
+    &[pgs*="'pdBt'"] { padding-bottom: var(--padding-texts); }
+    &[pgs*="'pdBtTexts'"] { padding-bottom: var(--padding-texts); }
+    &[pgs*="'pdBtElements'"] { padding-bottom: var(--padding-elements); }
+    &[pgs*="'pdBtGroups'"] { padding-bottom: var(--padding-groups); }
+    &[pgs*="'pdBtSections'"] { padding-bottom: var(--padding-sections); }
+    &[pgs*="'pdBtPage'"] { padding-bottom: var(--page-padding); }
+    &[pgs*="'pdBtUnset'"] { padding-bottom: unset; }
 }
 
-[pgs~=paddingBlock] {
-    padding-block: var(--padding-size);
+//## LEFT
+:is([pgs~="paddingLeft"], [pgs*="paddingLeft\5B"]) {
+    padding-left: var(--padding-texts);
+
+    &[pgs*="'pdLt'"] { padding-left: var(--padding-texts); }
+    &[pgs*="'pdLtTexts'"] { padding-left: var(--padding-texts); }
+    &[pgs*="'pdLtElements'"] { padding-left: var(--padding-elements); }
+    &[pgs*="'pdLtGroups'"] { padding-left: var(--padding-groups); }
+    &[pgs*="'pdLtSections'"] { padding-left: var(--padding-sections); }
+    &[pgs*="'pdLtPage'"] { padding-left: var(--page-padding); }
+    &[pgs*="'pdLtUnset'"] { padding-left: unset; }
 }

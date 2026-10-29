@@ -1,71 +1,47 @@
 @use "../mixin/mixin" as *;
 
-//= BUTTON
-[pgs~=button] {
+//# BUTTON
+:is([pgs~="button"], [pgs*="button\5B"]) {
     @include buttonBase();
 
-    &:where(:not([pgs-option~=buttonIcon], [pgs-option~=buttonMini], [pgs-option~=buttonClose])) {
-        @include buttonContent();
+    //## state
+    &:where(:not([pgs*="'btnNotHover'"])) { @include buttonHover(); }
+    &:where([pgs*="'btnCurrent'"]) { @include buttonCurrent(); }
+    &:where([pgs*="'btnTwoState'"]) { @include buttonTwoState(); }
+    //## type
+    &:where([pgs*="'btnReverse'"]) { @include buttonReverseIcon(); }
+    &:where([pgs*="'btnIconOnly'"]) { @include buttonIconOnly(); }
+    &:where([pgs*="'btnMini'"]) { @include buttonMini(); }
+    &:where([pgs*="'btnVertical'"]) { @include buttonVertical(); }
+    &:where([pgs*="'btnTransparent'"]) { @include buttonTransparent(); }
+    &:where([pgs*="'btnText'"]) { @include buttonText(); }
+    &:where([pgs*="'btnPaddingEqual'"]) { @include buttonPaddingEqual(); }
+    //## header & navSmart
+    &:where([pgs*="'btnForHeader'"]) { @include buttonForHeader(); }
+    &:where([pgs*="'btnForNavSmart'"]) { @include buttonForNavSmart(); }
+
+    &:where([pgs*="'btnStrong'"]) {
+        --button-background: var(--color-primary-strong);
+        --button-color: var(--color-white);
     }
 
-    &:where(:is([pgs-option~=buttonIcon], [pgs-option~=buttonMini], [pgs-option~=buttonClose])) {
-        @include buttonIcon();
+    &:where([pgs*="'btnPrimary'"]) {
+        --button-background: var(--color-primary);
+        --button-color: var(--color-primary-text);
     }
 
-    &:not([pgs-option~=buttonNohover]) {
-        @include buttonHover();
+    &:where([pgs*="'btnSecondary'"]) {
+        --button-background: var(--color-secondary);
+        --button-color: var(--color-secondary-text);
     }
 
-    &[pgs-option~=buttonNohover] {
-        @include buttonNohover();
+    &:where([pgs*="'btnTertiary'"]) {
+        --button-background: var(--color-tertiary);
+        --button-color: var(--color-tertiary-text);
     }
 
-    &[pgs-option~=buttonStrong] {
-        @include buttonStrong();
+    &:where([pgs*="'btnQuaternary'"]) {
+        --button-background: var(--color-quaternary);
+        --button-color: var(--color-quaternary-text);
     }
-
-    &[pgs-option~=buttonMini] {
-        @include buttonMini();
-    }
-
-    &[pgs-option~=buttonBig] {
-        @include buttonBig();
-    }
-
-    &[pgs-option~=buttonClose] {
-        @include buttonClose();
-    }
-
-    &[pgs-option~=buttonTransparent] {
-        @include buttonTransparent();
-    }
-
-    &[pgs-option~=buttonSecondary] {
-        --button-primaryColor: var(--color-secondary);
-
-        &:hover {
-            --hover-primaryColor: var(--color-secondary-strong);
-        }
-    }
-
-    &[pgs-option~=buttonTertiary] {
-        --button-primaryColor: var(--color-tertiary);
-
-        &:hover {
-            --hover-primaryColor: var(--color-tertiary-strong);
-        }
-    }
-
-    &[pgs-option~=buttonQuaternary] {
-        --button-primaryColor: var(--color-quaternary);
-
-        &:hover {
-            --hover-primaryColor: var(--color-quaternary-strong);
-        }
-    }
-}
-
-//= ICON
-[pgs~=icon] {
-    @include icon();
 }

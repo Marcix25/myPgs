@@ -1,0 +1,49 @@
+//= BOX
+//# BOX
+@mixin box() {
+    --box-padding: var(--padding-elements);
+    --box-borderRadius: calc(var(--borderRadius-texts) + var(--box-padding));
+    --box-background: var(--color-box-transparent);
+    padding: var(--box-padding);
+    background: var(--box-background);
+    border-radius: var(--box-borderRadius);
+
+    &:where(a) {
+        --box-background: var(--clickable-background);
+        display: block;
+        outline: var(--border-width) var(--border-color) var(--border-style);
+        outline-color: var(--clickable-borderColor);
+        color: var(--clickable-color);
+        transition: var(--clickable-transition);
+
+        // the headings and the paragraphs carry a color of their own: they take the box's
+        :where(h1, h2, h3, h4, h5, h6, p) { color: inherit; }
+
+        @include boxHover();
+    }
+}
+
+//## HOVER
+@mixin boxHover() {
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            --box-background: var(--hover-background);
+            outline-color: var(--hover-borderColor);
+            color: var(--hover-color);
+        }
+    }
+}
+
+//## Nav Smart
+@mixin boxNavSmart() {
+    --box-padding: .4rem;
+    --box-borderRadius: 999px;
+    --box-background: var(--color-box-transparent);
+    --box-border: 1px solid color-mix(in srgb, var(--color-black) 8%, transparent);
+    // its own property, not the global --box-shadow, which would be inherited by every descendant
+    --boxNavSmart-shadow: 0 .8rem 3rem color-mix(in srgb, var(--color-blackFixed) 14%, transparent);
+    border: var(--box-border);
+    box-shadow: var(--boxNavSmart-shadow);
+    -webkit-backdrop-filter: var(--blur) saturate(1.8);
+    backdrop-filter: var(--blur) saturate(1.8);
+}

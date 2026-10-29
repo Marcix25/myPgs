@@ -1,12 +1,12 @@
 //# PGS THEME
-/// per eseguirlo premi Ctrl+Shift+B
+/// run it with Ctrl+Shift+B
 
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 
 
-//- ENTRY
+//# ENTRY
 const entryJs = {
     index: "./assets/javascript/index.js",
 };
@@ -18,9 +18,9 @@ const entryScss = {
 
 
 
-//= SETTINGS
+//# SETTINGS
 
-//== CONFIG
+//## CONFIG
 const config = {
     stats: {
         all: false,
@@ -31,18 +31,20 @@ const config = {
     },
 };
 
-//== MESSAGE SUCCESS
+//## MESSAGE SUCCESS
 const successMessagePluginJs = {
     apply: (compiler) => {
         compiler.hooks.done.tap('SuccessMessagePlugin', (stats) => {
             if (!stats.hasErrors()) {
-                console.clear();
+                // the screen is only cleared for a watch in a terminal: not when the output is piped, and
+                // not under precommit, where it would wipe the steps printed before the build
+                if (process.stdout.isTTY && !process.env.PGS_PRECOMMIT) console.clear();
                 console.log("-");
                 console.log('\x1b[32m%s\x1b[0m', '✅ Success js! ' + new Date().toLocaleTimeString());            }
         });
     }
 };
-//== MESSAGE SUCCESS
+//## MESSAGE SUCCESS
 const successMessagePluginScss = {
     apply: (compiler) => {
         compiler.hooks.done.tap('SuccessMessagePlugin', (stats) => {
@@ -55,7 +57,7 @@ const successMessagePluginScss = {
     }
 };
 
-//== JS
+//## JS
 const js = {
     ...config,
     name: 'theme:js',
@@ -65,12 +67,8 @@ const js = {
     output: {
         path: path.resolve(__dirname, "dist/javascript"),
         filename: "[name].js",
-    },
-    module: {
-        rules: [{
-            test: /\.css$/i,
-            use: ['style-loader', 'css-loader'],
-        }],
+        library: { name: "mypgs", type: "umd" },
+        globalObject: "globalThis",
     },
     plugins: [successMessagePluginJs],
 };
@@ -84,12 +82,13 @@ const jsMin = {
     output: {
         path: path.resolve(__dirname, "dist/javascript"),
         filename: "[name].min.js",
+        library: { name: "mypgs", type: "umd" },
+        globalObject: "globalThis",
     },
-    module: js.module,
-    plugins: [successMessagePluginScss],
+    plugins: [successMessagePluginJs],
 };
 
-//== SCSS
+//## SCSS
 const scss = {
     ...config,
     name: 'theme:scss',
@@ -108,7 +107,7 @@ const scss = {
     plugins: [
         new MiniCssExtractPlugin({ filename: "[name].css" }),
         new RemoveEmptyScriptsPlugin(),
-        successMessagePluginJs
+        successMessagePluginScss
     ],
 };
 
@@ -127,5 +126,5 @@ const scssMin = {
     ],
 };
 
-//= EXPORT
+//# EXPORT
 module.exports = [js, jsMin, scss, scssMin];

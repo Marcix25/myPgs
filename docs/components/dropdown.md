@@ -10,138 +10,233 @@ Popup component that connects a control to content positioned relative to its tr
 - `dropdown-button`: identifies the control that opens or closes the content.
 - `dropdown-content`: identifies the panel positioned relative to the control.
 
-## PGS Options
+## PGS Options (component brackets)
 
-- `dropdownHover`: opens the dropdown when the pointer enters its trigger and closes it after the pointer leaves; click and keyboard activation remain available.
-- `position`: configures the root as position[side alignment]; side accepts top, right, bottom, or left, while compatible alignment values are top, right, bottom, left, or center. The default is bottom center.
-- `buttonReverse`: reverses text and icon on the example buttons and belongs to the button component.
+- `drpNotArrow`: removes the small arrow every dropdown draws on its content by default. The arrow points back at the trigger on whichever side the content was placed, and follows it even when the viewport pushes the content off-center.
+- `drpHover`: opens the dropdown when the pointer enters its trigger and closes it after the pointer leaves; a click of the pointer does nothing, so it does not close what the hover just opened, and keyboard activation (Enter, Space) still toggles it.
+
+## PGS Data
+
+- `dropdownPosition`: configures the root as dropdownPosition[side alignment]; side accepts top, right, bottom, or left, while compatible alignment values are top, right, bottom, left, or center. The default is bottom center.
 
 ## PGS States
 
 - `open`: indicates that the dropdown is open and its content is visible.
+- `sideTop`: written by the module on the dropdown-content when it places the content above its trigger; the arrow reads it to point back at the trigger. Never write it yourself.
+- `sideRight`: written on the dropdown-content in the same way, when the content is placed to the right of its trigger.
+- `sideBottom`: written on the dropdown-content in the same way, when the content is placed below its trigger, which is also where every dropdown falls back to.
+- `sideLeft`: written on the dropdown-content in the same way, when the content is placed to the left of its trigger.
 
 ## JavaScript API
 
-- `pgs.dropdown.init(root)`: initializes unregistered dropdowns within the specified Document or Element.
+- `pgs.dropdown.init(root)`: initializes unregistered dropdowns within the specified Document or Element, including the element itself when it is a dropdown. A dropdown without a dropdown-content is skipped, with a warning in the console.
 - `pgs.dropdown.api(element)`: returns the instance associated with an initialized dropdown root.
 - `instance.open()`: opens the dropdown and closes any other open dropdowns.
 - `instance.close()`: closes the current dropdown.
 - `instance.toggle()`: toggles between the open and closed states.
-- `instance.refresh()`: reinitializes the context and recalculates content positioning.
+- `instance.reposition()`: recalculates where the content sits, for when its size changed without reopening.
+- `instance.refresh()`: destroys the instance and initializes this dropdown again from its current markup and state, which also recalculates the content position, then returns the new instance.
+- `instance.destroy()`: releases the listeners of this dropdown and forgets its instance. The markup and the open state stay as they are, and pgs.dropdown.init() can enhance it again.
 - `instance.isOpen()`: returns true when the dropdown is open.
 
 ## Related elements
 
-- `flexRow`: arranges the placement examples on the same flexible row.
+### PGS
+
 - `button`: applies standard styling to dropdown controls.
+- `icon`: draws the glyphs this example shows; see Icon for the whole set.
+
+### PGS Options (component brackets)
+
+- `btnReverse`: reverses text and icon on the example buttons and belongs to the button component.
+- `icon-chevronDown`: the glyph that says this button opens something.
+
+## CSS Variables
+
+- `--dropdown-arrow-size`
+- `--dropdown-background`
+- `--dropdown-border`
+- `--dropdown-borderColor`
+- `--dropdown-borderRadius`
+- `--dropdown-borderWidth`
+- `--dropdown-color`
+- `--dropdown-display`
+- `--dropdown-inline-size`
+- `--dropdown-maxBlockSize`
+- `--dropdown-maxInlineSize`
+- `--dropdown-padding`
 
 ## Output
 
 Series of HTML dropdowns demonstrating the supported placement directions.
+## Examples
 
-## Example
+### Bottom center
+
+Default dropdown placement, opened below and centered on its trigger.
 
 ```html
-<div pgs="flexRow">
+<span pgs="dropdown">
+    <button pgs="dropdown-button button['btnReverse']" type="button">
+        Bottom center
+        <i pgs="icon['icon-chevronDown']" aria-hidden="true"></i>
+    </button>
 
-    <span pgs="dropdown">
-        <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
-            Bottom center
-            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-        </button>
+    <div pgs="dropdown-content">
+        bottom center content
+    </div>
+</span>
+```
 
-        <div pgs="dropdown-content">
-            bottom center content
-        </div>
-    </span>
+### Hover
 
-    <span pgs="dropdown" pgs-option="dropdownHover">
-        <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
-            Hover
-            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-        </button>
+Opens when the pointer enters the trigger and closes after it leaves.
 
-        <div pgs="dropdown-content">
-            hover content
-        </div>
-    </span>
+```html
+<span pgs="dropdown['drpHover']">
+    <button pgs="dropdown-button button['btnReverse']" type="button">
+        Hover
+        <i pgs="icon['icon-chevronDown']" aria-hidden="true"></i>
+    </button>
 
-    <span pgs="dropdown" pgs-option="position[top left]">
-        <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
-            Top left
-            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-        </button>
+    <div pgs="dropdown-content">
+        hover content
+    </div>
+</span>
+```
 
-        <div pgs="dropdown-content">
-            top left content
-        </div>
-    </span>
+### Without arrow
 
-    <span pgs="dropdown" pgs-option="position[top center]">
-        <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
-            Top center
-            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-        </button>
+drpNotArrow removes the arrow that points the content back at its trigger.
 
-        <div pgs="dropdown-content">
-            top center content
-        </div>
-    </span>
+```html
+<span pgs="dropdown['drpNotArrow']">
+    <button pgs="dropdown-button button['btnReverse']" type="button">
+        Without arrow
+        <i pgs="icon['icon-chevronDown']" aria-hidden="true"></i>
+    </button>
 
-    <span pgs="dropdown" pgs-option="position[top right]">
-        <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
-            Top right
-            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-        </button>
+    <div pgs="dropdown-content">
+        content without arrow
+    </div>
+</span>
+```
 
-        <div pgs="dropdown-content">
-            top right content
-        </div>
-    </span>
+### Top left
 
-    <span pgs="dropdown" pgs-option="position[bottom left]">
-        <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
-            Bottom left
-            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-        </button>
+Dropdown content positioned above the trigger, aligned to the left.
 
-        <div pgs="dropdown-content">
-            bottom left content
-        </div>
-    </span>
+```html
+<span pgs="dropdown" pgs-data="dropdownPosition[top left]">
+    <button pgs="dropdown-button button['btnReverse']" type="button">
+        Top left
+        <i pgs="icon['icon-chevronDown']" aria-hidden="true"></i>
+    </button>
 
-    <span pgs="dropdown" pgs-option="position[bottom right]">
-        <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
-            Bottom right
-            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-        </button>
+    <div pgs="dropdown-content">
+        top left content
+    </div>
+</span>
+```
 
-        <div pgs="dropdown-content">
-            bottom right content
-        </div>
-    </span>
+### Top center
 
-    <span pgs="dropdown" pgs-option="position[left center]">
-        <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
-            Left center
-            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-        </button>
+Dropdown content positioned above the trigger, centered.
 
-        <div pgs="dropdown-content">
-            left center content
-        </div>
-    </span>
+```html
+<span pgs="dropdown" pgs-data="dropdownPosition[top center]">
+    <button pgs="dropdown-button button['btnReverse']" type="button">
+        Top center
+        <i pgs="icon['icon-chevronDown']" aria-hidden="true"></i>
+    </button>
 
-    <span pgs="dropdown" pgs-option="position[right center]">
-        <button pgs="dropdown-button button" pgs-option="buttonReverse" type="button">
-            Right center
-            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-        </button>
+    <div pgs="dropdown-content">
+        top center content
+    </div>
+</span>
+```
 
-        <div pgs="dropdown-content">
-            right center content
-        </div>
-    </span>
+### Top right
 
-</div>
+Dropdown content positioned above the trigger, aligned to the right.
+
+```html
+<span pgs="dropdown" pgs-data="dropdownPosition[top right]">
+    <button pgs="dropdown-button button['btnReverse']" type="button">
+        Top right
+        <i pgs="icon['icon-chevronDown']" aria-hidden="true"></i>
+    </button>
+
+    <div pgs="dropdown-content">
+        top right content
+    </div>
+</span>
+```
+
+### Bottom left
+
+Dropdown content positioned below the trigger, aligned to the left.
+
+```html
+<span pgs="dropdown" pgs-data="dropdownPosition[bottom left]">
+    <button pgs="dropdown-button button['btnReverse']" type="button">
+        Bottom left
+        <i pgs="icon['icon-chevronDown']" aria-hidden="true"></i>
+    </button>
+
+    <div pgs="dropdown-content">
+        bottom left content
+    </div>
+</span>
+```
+
+### Bottom right
+
+Dropdown content positioned below the trigger, aligned to the right.
+
+```html
+<span pgs="dropdown" pgs-data="dropdownPosition[bottom right]">
+    <button pgs="dropdown-button button['btnReverse']" type="button">
+        Bottom right
+        <i pgs="icon['icon-chevronDown']" aria-hidden="true"></i>
+    </button>
+
+    <div pgs="dropdown-content">
+        bottom right content
+    </div>
+</span>
+```
+
+### Left center
+
+Dropdown content positioned to the left of the trigger, vertically centered.
+
+```html
+<span pgs="dropdown" pgs-data="dropdownPosition[left center]">
+    <button pgs="dropdown-button button['btnReverse']" type="button">
+        Left center
+        <i pgs="icon['icon-chevronDown']" aria-hidden="true"></i>
+    </button>
+
+    <div pgs="dropdown-content">
+        left center content
+    </div>
+</span>
+```
+
+### Right center
+
+Dropdown content positioned to the right of the trigger, vertically centered.
+
+```html
+<span pgs="dropdown" pgs-data="dropdownPosition[right center]">
+    <button pgs="dropdown-button button['btnReverse']" type="button">
+        Right center
+        <i pgs="icon['icon-chevronDown']" aria-hidden="true"></i>
+    </button>
+
+    <div pgs="dropdown-content">
+        right center content
+    </div>
+</span>
 ```

@@ -1,141 +1,202 @@
-import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
+import { pgs } from "../_pgs.js";
 
 const API = new WeakMap();
 
-function PGS_stepTabs_init(root = document) {
-    pgs(root).querySelectorAll("stepTabs").forEach(tabsWizard => {
-        if (tabsWizard.dataset.stepTabsInitialized === "true") return;
-        tabsWizard.dataset.stepTabsInitialized = "true";
+//# BUILD
+// builds the instance of one wizard and returns its API, or null when its markup cannot be initialized
+function PGS_stepTabs_build(tabsWizard) {
+    //# SELECTOR
+    const tabsContainer = pgs(tabsWizard).querySelector("stepTabs-container");
+    if (!tabsContainer) {
+        pgs.helper.warn("stepTabs.init", "the wizard has no stepTabs-container, so it was not initialized", tabsWizard);
+        return null;
+    }
 
-        //= SELECTOR
-        const prev = pgs(tabsWizard).querySelector("stepTabs-prev")
-        const next = pgs(tabsWizard).querySelector("stepTabs-next")
-        const restart = pgs(tabsWizard).querySelector("stepTabs-restart")
-        const dots = pgs(tabsWizard).querySelector("stepTabs-dots")
-        const tabsContainer = pgs(tabsWizard).querySelector("stepTabs-container");
-        const allTab = pgs(tabsContainer).querySelectorAll("stepTabs-container-tab");
+    const allTab = pgs.helper.directChildren(tabsContainer, "stepTabs-container-tab");
+    if (allTab.length === 0) {
+        pgs.helper.warn("stepTabs.init", "stepTabs-container has no stepTabs-container-tab, so the wizard was not initialized", tabsWizard);
+        return null;
+    }
 
-        //= SETTING
-        const total = allTab.length;
-        const defaultTabLocked = Array.from(allTab).filter(tab => pgs(tab).state.contains("is-locked"))        
-        let current = 0;
-        if (prev) prev.disabled = true;
-        let isRendering = false;
+    const prev = pgs(tabsWizard).querySelector("stepTabs-prev");
+    const next = pgs(tabsWizard).querySelector("stepTabs-next");
+    const restart = pgs(tabsWizard).querySelector("stepTabs-restart");
+    const dots = pgs(tabsWizard).querySelector("stepTabs-dots");
 
-        if (!tabsContainer || total === 0) return;
+    //# SETTING
+    const total = allTab.length;
+    const defaultTabLocked = allTab.filter(tab => pgs(tab).state.contains("locked"));
+    let current = 0;
+    const eventController = new AbortController();
+    const { signal } = eventController;
 
-        //- CREAZIONE DOTS
-        const tabDots = [];
-        if (dots) {
-            dots.innerHTML = "";
+    //## CREATE DOTS
+    const tabDots = [];
+    if (dots) {
+        dots.innerHTML = "";
+        // the row is a group of controls: with an aria-label on the container (the reference
+        // writes one) and no role of its own, it is announced as that group instead of as an
+        // unnamed generic element
+        if (dots.hasAttribute("aria-label") && !dots.hasAttribute("role")) dots.setAttribute("role", "group");
 
-            allTab.forEach((tab, index) => {
-                const iconClass = pgs(tab).option.getValueBrackets("tabIcon") || "fa-circle";
-                const dot = document.createElement("button");
-                dot.type = "button";
-                pgs(dot).add("stepTabs-dots-dot");
-                pgs(dot).option.setValueBrackets("step", index);
-                dot.innerHTML = `<i class="fa-solid ${iconClass}"></i>`;
+        allTab.forEach((tab, index) => {
+            const authoredIcon = (pgs(tab).data.getValueBrackets("stepTabsIcon") || "").trim();
+            const dot = document.createElement("button");
+            dot.type = "button";
+            // an icon-only button has no name of its own: the step's title when the step has one
+            // (its aria-label, else its first heading), "Step N" otherwise
+            const title = (tab.getAttribute("aria-label") || tab.querySelector("h1, h2, h3, h4, h5, h6")?.textContent || "").trim();
+            dot.setAttribute("aria-label", title ? `Step ${index + 1}: ${title}` : `Step ${index + 1}`);
+            pgs(dot).add("_stepTabs-dots-dot");
+            pgs(dot).add("button['btnIconOnly' 'btnNotHover']");
+            // stepTabsIcon takes three shapes, told apart by how the value opens. Markup, from a
+            // "<", is instantiated as written: that is what puts every icon set in reach,
+            // including the ones a class list cannot describe because they want their name as
+            // text content or an attribute of their own. An "icon-" prefix is a built-in
+            // glyph. Anything else is classes for whatever set the page loaded
+            if (authoredIcon.startsWith("<")) {
+                // a template rather than innerHTML on the dot: template content stays inert
+                // while it parses, so nothing in the author's markup runs or loads until the
+                // clone is in the document
+                const authoredMarkup = document.createElement("template");
+                authoredMarkup.innerHTML = authoredIcon;
+                dot.replaceChildren(authoredMarkup.content.cloneNode(true));
+            } else {
+                const dotIcon = document.createElement("i");
 
-                dot.addEventListener("click", () => {
-                    if (pgs(dot).state.contains("is-completed")) {
-                        goTo(index, true);
-                    }
-                });
+                if (!authoredIcon || authoredIcon.startsWith("icon-")) {
+                    pgs(dotIcon).add(`icon['${authoredIcon || "icon-circle"}']`);
+                } else {
+                    pgs(dotIcon).add("icon");
+                    // the list goes through untouched, whatever set it belongs to
+                    dotIcon.className = authoredIcon;
+                }
 
-                dots.appendChild(dot);
-                tabDots.push(dot);
-            });
-        }
-
-        //+ DOTS
-        function updateDots() {
-            tabDots.forEach((dot, i) => {
-                setState(dot, "is-active", i === current);
-                setState(dot, "is-completed", i < current);
-            });
-        }
-
-        //+ STATE
-        function setState(element, state, active) {
-            if (!element) return;
-            const hasState = pgs(element).state.contains(state);
-            if (active === hasState) return;
-            pgs(element).state.toggle(state, active);
-        }
-
-        //+ CONTROLS
-        function updateControls() {
-            const tab = allTab[current];
-            if (prev) prev.disabled = current === 0;
-            if (next) next.disabled = current === total - 1 || pgs(tab).state.contains("is-locked");
-        }
-
-        //+ Step
-        function goTo(index, scroll = true) {
-            current = Math.min(Math.max(index, 0), total - 1);
-            const tab = allTab[current]
-
-            isRendering = true;
-            allTab.forEach((tab, i) => setState(tab, "is-active", i === current));
-            updateControls();
-            updateDots();
-            isRendering = false;
-
-            if (scroll && !tabsWizard.closest("dialog")) {
-                tab?.focus();
-                tabsWizard?.scrollIntoView({ behavior: "smooth", block: "start" });
+                dot.replaceChildren(dotIcon);
             }
 
-            tabsWizard.dispatchEvent(new CustomEvent('stepTabs:change', { detail: { current, total } }));
+            dot.addEventListener("click", () => {
+                if (pgs(dot).state.contains("completed")) {
+                    goTo(index, true);
+                }
+            }, { signal });
+
+            dots.appendChild(dot);
+            tabDots.push(dot);
+        });
+    }
+
+    //## DOTS
+    function updateDots() {
+        tabDots.forEach((dot, i) => {
+            pgs(dot).state.toggle("active", i === current);
+            pgs(dot).state.toggle("completed", i < current);
+        });
+    }
+
+    //## CONTROLS
+    function updateControls() {
+        const tab = allTab[current];
+        if (prev) prev.disabled = current === 0;
+        if (next) next.disabled = current === total - 1 || pgs(tab).state.contains("locked");
+    }
+
+    //## Step
+    function goTo(index, scroll = true) {
+        current = Math.min(Math.max(index, 0), total - 1);
+        const tab = allTab[current];
+
+        allTab.forEach((item, i) => pgs(item).state.toggle("active", i === current));
+        updateControls();
+        updateDots();
+
+        if (scroll && !tabsWizard.closest("dialog")) {
+            tab.focus();
+            tabsWizard.scrollIntoView({ behavior: "smooth", block: "start" });
         }
 
-        //+ restart
-        function restartTab() {
-            goTo(0);
-            defaultTabLocked.forEach(tab => pgs(tab).state.add("is-locked"));
-        }
+        pgs.helper.dispatch(tabsWizard, "pgs:stepTabs:change", { current, total });
+    }
 
-        //= INIT
-        goTo(0, false);
+    //## restart
+    // the locks go back first, so the controls goTo redraws already see them
+    // a lock taken off by the markup's own state or added with toggleLock on another step goes
+    // back to exactly what the markup declared when the wizard was built
+    function restartTab() {
+        allTab.forEach(tab => pgs(tab).state.toggle("locked", defaultTabLocked.includes(tab)));
+        goTo(0);
+    }
 
-        //= tab-locked
-        const observer = new MutationObserver(() => {
-            if (isRendering) return;
+    //# tab-locked
+    // a lock taken off or put on by hand, outside toggleLock, still has to reach the next button
+    const observer = new MutationObserver(() => updateControls());
+    allTab.forEach(tabEl => observer.observe(tabEl, { attributes: true, attributeFilter: ["pgs-state"] }));
+
+    // click on next/previous
+    prev?.addEventListener("click", () => goTo(current - 1), { signal });
+    next?.addEventListener("click", () => {
+        updateControls();
+        if (next.disabled) return;
+        goTo(current + 1);
+    }, { signal });
+    restart?.addEventListener("click", () => restartTab(), { capture: true, signal });
+
+    const destroy = () => {
+        if (API.get(tabsWizard) !== api) return;
+        eventController.abort();
+        observer.disconnect();
+        API.delete(tabsWizard);
+    };
+
+    //## API
+    const api = {
+        element: tabsWizard,
+        container: tabsContainer,
+        restart: restartTab,
+        goTo: (index, scroll = true) => {
+            if (!Number.isInteger(index) || index < 0 || index >= total) {
+                throw pgs.helper.invalid("stepTabs.goTo", `index must be an integer from 0 to ${total - 1}, got ${index}`);
+            }
+            goTo(index, scroll);
+        },
+        // at either end there is nowhere to go: the index does not change, so nothing is dispatched
+        next: () => { if (current < total - 1) goTo(current + 1); },
+        prev: () => { if (current > 0) goTo(current - 1); },
+        toggleLock: (step, lock = true) => {
+            if (!Number.isInteger(step) || step < 0 || step >= total) {
+                throw pgs.helper.invalid("stepTabs.toggleLock", `step must be an integer from 0 to ${total - 1}, got ${step}`);
+            }
+            pgs(allTab[step]).state.toggle("locked", lock);
             updateControls();
-        });
-        allTab?.forEach(tabEl => observer.observe(tabEl, { attributes: true, attributeFilter: ["pgs-state"], }));
+        },
+        destroy,
+        refresh: () => {
+            const live = API.get(tabsWizard);
+            if (live && live !== api) return live;
+            destroy();
+            return PGS_stepTabs_build(tabsWizard) ?? undefined;
+        },
+        getCurrent: () => current,
+        getState: () => ({ current, total }),
+    };
+    API.set(tabsWizard, api);
 
-        //= Click su Avanti/Indietro
-        prev?.addEventListener("click", e => goTo(current - 1));
-        next?.addEventListener("click", e => {
-            updateControls();
-            if (next.disabled) return;
-            goTo(current + 1);
-        });
-        restart?.addEventListener("click", e => restartTab(), { capture: true });
+    //# INIT
+    // after the API is stored, so a pgs:stepTabs:change listener can already reach the instance
+    goTo(0, false);
 
-        //-(API) 
-        // tabsWizard.addEventListener("stepTabs:reset", () => restartTab());
-        API.set(tabsWizard, {
-            element: tabsWizard,
-            container: tabsContainer,
-            restart: restartTab,
-            goTo,
-            next: () => goTo(current + 1),
-            prev: () => goTo(current - 1),
-            toggleLock: (step, lock = true) => typeof step === "number" && allTab[step] && (pgs(allTab[step]).state.toggle("is-locked", lock), goTo(current)),
-            refresh: () => {
-                PGS_stepTabs_init(tabsWizard.parentNode || document);
-                return API.get(tabsWizard);
-            },
-            getCurrent: () => current,
-            getState: () => ({ current, total }),
-        });
+    return api;
+}
+
+function PGS_stepTabs_init(root = document) {
+    pgs.helper.roots(root, "stepTabs").forEach(tabsWizard => {
+        if (API.has(tabsWizard)) return;
+
+        PGS_stepTabs_build(tabsWizard);
     });
 }
 
-PGS_onDocumentReady(PGS_stepTabs_init);
+pgs.helper.onDocumentReady(PGS_stepTabs_init);
 
 function PGS_stepTabs_api(selector) {
     return API.get(selector);
@@ -145,27 +206,3 @@ export const PGS_stepTabs = {
     init: PGS_stepTabs_init,
     api: PGS_stepTabs_api
 };
-
-/* 
-    / EXAMPLE
-    // vai allo step 2
-    w.dispatchEvent(new CustomEvent("stepTabs:go", { detail: { step: 2 } }));
-    
-    // next
-    w.dispatchEvent(new CustomEvent("stepTabs:next"));
-    
-    // prev
-    w.dispatchEvent(new CustomEvent("stepTabs:prev"));
-    
-    // reset a 0 senza relock
-    w.dispatchEvent(new CustomEvent("stepTabs:reset"));
-    
-    // lock step 3
-    w.dispatchEvent(new CustomEvent("stepTabs:toggle-lock", { detail: { step: 3, lock: true } }));
-    
-    // unlock step 3
-    w.dispatchEvent(new CustomEvent("stepTabs:toggle-lock", { detail: { step: 3, lock: false } }));
-    
-    // leggi stato
-    w.dispatchEvent(new CustomEvent("stepTabs:get", { detail: { reply: (state) => console.log(state) } }));
-*/

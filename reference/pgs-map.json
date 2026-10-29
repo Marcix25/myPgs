@@ -1,0 +1,1673 @@
+{
+    "_alert": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "alertError",
+            "alertInfo",
+            "alertNeutral",
+            "alertSuccess",
+            "alertWarning"
+        ],
+        "pgs-data": []
+    },
+    "_notification": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "_notification-close": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "_notification-dialog": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "_notification-empty": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "_toast": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "toastBottom",
+            "toastCenter",
+            "toastLeft",
+            "toastRight"
+        ],
+        "pgs-data": []
+    },
+    "accordion": {
+        "pgs": [
+            "accordion-button",
+            "accordion-content"
+        ],
+        "pgs-generated": [],
+        "pgs-options": [
+            "accAutoOpen"
+        ],
+        "pgs-data": []
+    },
+    "accordionContainer": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "accMultiOpen"
+        ],
+        "pgs-data": []
+    },
+    "alert": {
+        "pgs": [
+            "alert-content",
+            "alert-content-title",
+            "alert-icon"
+        ],
+        "pgs-generated": [
+            "_alert-buttons",
+            "_alert-content",
+            "_alert-content-title",
+            "_alert-dismiss",
+            "_alert-icon"
+        ],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "alertContainer": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "appearanceNone": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "aspect": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "aspAuto",
+            "aspSquare",
+            "aspVideo"
+        ],
+        "pgs-data": []
+    },
+    "background": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "bgBackground",
+            "bgBlack",
+            "bgBlackFixed",
+            "bgBlackTransparent",
+            "bgBox",
+            "bgBoxDark",
+            "bgBoxDarkTransparent",
+            "bgBoxTransparent",
+            "bgError",
+            "bgErrorSoft",
+            "bgGray",
+            "bgInfo",
+            "bgInfoSoft",
+            "bgLink",
+            "bgLinkSoft",
+            "bgPrimary",
+            "bgPrimaryDark",
+            "bgPrimaryLight",
+            "bgPrimarySoft",
+            "bgPrimaryStrong",
+            "bgQuaternary",
+            "bgQuaternaryDark",
+            "bgQuaternaryLight",
+            "bgQuaternarySoft",
+            "bgQuaternaryStrong",
+            "bgSecondary",
+            "bgSecondaryDark",
+            "bgSecondaryLight",
+            "bgSecondarySoft",
+            "bgSecondaryStrong",
+            "bgSuccess",
+            "bgSuccessSoft",
+            "bgTertiary",
+            "bgTertiaryDark",
+            "bgTertiaryLight",
+            "bgTertiarySoft",
+            "bgTertiaryStrong",
+            "bgText",
+            "bgTransparent",
+            "bgWarning",
+            "bgWarningSoft",
+            "bgWhite",
+            "bgWhiteFixed",
+            "bgWhiteTransparent"
+        ],
+        "pgs-data": []
+    },
+    "badge": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "badgeDot",
+            "badgeError",
+            "badgeInfo",
+            "badgeNeutral",
+            "badgePrimary",
+            "badgeSoft",
+            "badgeStrong",
+            "badgeSuccess",
+            "badgeWarning"
+        ],
+        "pgs-data": []
+    },
+    "block": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "blur": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "blrUnset"
+        ],
+        "pgs-data": []
+    },
+    "body": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "bodyBase",
+            "bodyHeading",
+            "bodyImg",
+            "bodyText"
+        ],
+        "pgs-data": []
+    },
+    "border": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "bd",
+            "bdThick",
+            "bdThicker",
+            "bdThin",
+            "bdUnset"
+        ],
+        "pgs-data": []
+    },
+    "borderBlock": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "bdBl",
+            "bdBlThick",
+            "bdBlThicker",
+            "bdBlThin",
+            "bdBlUnset"
+        ],
+        "pgs-data": []
+    },
+    "borderBottom": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "bdBt",
+            "bdBtThick",
+            "bdBtThicker",
+            "bdBtThin",
+            "bdBtUnset"
+        ],
+        "pgs-data": []
+    },
+    "borderColor": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "bdBlack",
+            "bdBox",
+            "bdBoxDark",
+            "bdError",
+            "bdGray",
+            "bdInfo",
+            "bdLink",
+            "bdPrimary",
+            "bdQuaternary",
+            "bdSecondary",
+            "bdSuccess",
+            "bdTertiary",
+            "bdTransparent",
+            "bdWarning",
+            "bdWhite"
+        ],
+        "pgs-data": []
+    },
+    "borderInline": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "bdIn",
+            "bdInThick",
+            "bdInThicker",
+            "bdInThin",
+            "bdInUnset"
+        ],
+        "pgs-data": []
+    },
+    "borderLeft": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "bdLt",
+            "bdLtThick",
+            "bdLtThicker",
+            "bdLtThin",
+            "bdLtUnset"
+        ],
+        "pgs-data": []
+    },
+    "borderRadius": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "radElements",
+            "radGroups",
+            "radTexts",
+            "radUnset"
+        ],
+        "pgs-data": []
+    },
+    "borderRight": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "bdRt",
+            "bdRtThick",
+            "bdRtThicker",
+            "bdRtThin",
+            "bdRtUnset"
+        ],
+        "pgs-data": []
+    },
+    "borderTop": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "bdTp",
+            "bdTpThick",
+            "bdTpThicker",
+            "bdTpThin",
+            "bdTpUnset"
+        ],
+        "pgs-data": []
+    },
+    "box": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "boxMini",
+            "boxNavSmart"
+        ],
+        "pgs-data": []
+    },
+    "boxShadow": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "bxsUnset"
+        ],
+        "pgs-data": []
+    },
+    "breadcrumb": {
+        "pgs": [
+            "breadcrumb-item"
+        ],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "button": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "btnCurrent",
+            "btnForHeader",
+            "btnForNavSmart",
+            "btnIconOnly",
+            "btnMini",
+            "btnNotHover",
+            "btnPaddingEqual",
+            "btnPrimary",
+            "btnQuaternary",
+            "btnReverse",
+            "btnSecondary",
+            "btnStrong",
+            "btnTertiary",
+            "btnText",
+            "btnTransparent",
+            "btnTwoState",
+            "btnVertical"
+        ],
+        "pgs-data": []
+    },
+    "card": {
+        "pgs": [
+            "card-content",
+            "card-img",
+            "card-imgForChild"
+        ],
+        "pgs-generated": [],
+        "pgs-options": [
+            "cardHorizontal",
+            "cardHorizontalFixed",
+            "cardMini"
+        ],
+        "pgs-data": []
+    },
+    "checkbox": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "checkboxBackground": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "chip": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "chips": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "container": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "cntNone"
+        ],
+        "pgs-data": []
+    },
+    "cursorNotAllowed": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "darkmode": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "dropdown": {
+        "pgs": [
+            "dropdown-button",
+            "dropdown-content"
+        ],
+        "pgs-generated": [],
+        "pgs-options": [
+            "drpHover",
+            "drpNotArrow"
+        ],
+        "pgs-data": [
+            "dropdownPosition"
+        ]
+    },
+    "field": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "noInput"
+        ],
+        "pgs-data": []
+    },
+    "fieldset": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "file": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "flex": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "column",
+            "column-",
+            "column-1",
+            "column-2",
+            "column-3",
+            "column-4",
+            "column-5",
+            "column-6",
+            "column-7",
+            "column-8",
+            "columnReverse",
+            "contentAround",
+            "contentBetween",
+            "contentCenter",
+            "contentEnd",
+            "contentEvenly",
+            "contentStart",
+            "flexCenter",
+            "flexPlaceCenter",
+            "gapElements",
+            "gapGroups",
+            "gapNone",
+            "gapSections",
+            "gapTexts",
+            "inlineFlex",
+            "itemBaseline",
+            "itemCenter",
+            "itemEnd",
+            "itemStart",
+            "itemStretch",
+            "justifyAround",
+            "justifyBetween",
+            "justifyCenter",
+            "justifyEnd",
+            "justifyEvenly",
+            "justifyStart",
+            "m2e",
+            "nowrap",
+            "row",
+            "rowReverse",
+            "wrap",
+            "wrapBalance",
+            "wrapReverse"
+        ],
+        "pgs-data": []
+    },
+    "flexChild": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "colSpanL",
+            "colSpanM",
+            "colSpanS",
+            "colSpanXl",
+            "colSpanXxl",
+            "flex1",
+            "flexFull",
+            "flexInitial",
+            "flexL",
+            "flexM",
+            "flexNone",
+            "flexOrderFirst",
+            "flexOrderLast",
+            "flexS",
+            "flexValue",
+            "flexXl",
+            "flexXxl",
+            "selfBaseline",
+            "selfCenter",
+            "selfEnd",
+            "selfStart",
+            "selfStretch"
+        ],
+        "pgs-data": []
+    },
+    "focusRing": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "footer": {
+        "pgs": [
+            "footer-brand",
+            "footer-content",
+            "footer-legal",
+            "footer-legal-content",
+            "footer-top",
+            "footer-top-content"
+        ],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "form": {
+        "pgs": [
+            "form-requiredHere"
+        ],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": [
+            "formFieldError",
+            "formFieldErrorTitle",
+            "formFieldsError",
+            "formMessage",
+            "formMessageTitle",
+            "formSuccess",
+            "formSuccessTitle"
+        ]
+    },
+    "formValidate": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "gap": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "gapElements",
+            "gapGroups",
+            "gapNone",
+            "gapSections",
+            "gapTexts"
+        ],
+        "pgs-data": []
+    },
+    "grid": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "column-",
+            "column-1",
+            "column-2",
+            "column-3",
+            "column-4",
+            "column-5",
+            "column-6",
+            "column-7",
+            "column-8",
+            "contentAround",
+            "contentBetween",
+            "contentCenter",
+            "contentEnd",
+            "contentEvenly",
+            "contentStart",
+            "gapElements",
+            "gapGroups",
+            "gapNone",
+            "gapSections",
+            "gapTexts",
+            "gridDense",
+            "gridNotDefault",
+            "itemBaseline",
+            "itemCenter",
+            "itemEnd",
+            "itemStart",
+            "itemStretch",
+            "justifyAround",
+            "justifyBetween",
+            "justifyCenter",
+            "justifyEnd",
+            "justifyEvenly",
+            "justifyStart",
+            "m2e"
+        ],
+        "pgs-data": []
+    },
+    "gridChild": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "colSpanL",
+            "colSpanM",
+            "colSpanS",
+            "colSpanXl",
+            "colSpanXxl",
+            "selfBaseline",
+            "selfCenter",
+            "selfEnd",
+            "selfStart",
+            "selfStretch"
+        ],
+        "pgs-data": []
+    },
+    "h1": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "h2": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "h3": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "h4": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "h5": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "h6": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "header": {
+        "pgs": [
+            "header-element",
+            "header-element-alwaysOn",
+            "header-element-onlyCompact",
+            "header-element-onlyFull"
+        ],
+        "pgs-generated": [],
+        "pgs-options": [
+            "headerBottom",
+            "headerCompactBottom",
+            "headerCompactLaptop",
+            "headerCompactMobile",
+            "headerCompactNotebook",
+            "headerCompactPhablet",
+            "headerCompactTablet",
+            "headerCompactWatch",
+            "headerMain",
+            "headerScroll"
+        ],
+        "pgs-data": [
+            "headerCompactFrom"
+        ]
+    },
+    "height": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "height100dvh",
+            "height100lvh",
+            "height100svh",
+            "height50svh",
+            "heightAuto",
+            "heightFull",
+            "heightUnderHeader",
+            "heightUnderMain"
+        ],
+        "pgs-data": []
+    },
+    "heightMax": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "heightMax100dvh",
+            "heightMax100lvh",
+            "heightMax100svh",
+            "heightMax50svh",
+            "heightMaxAuto",
+            "heightMaxFull",
+            "heightMaxNone",
+            "heightMaxUnderHeader",
+            "heightMaxUnderMain"
+        ],
+        "pgs-data": []
+    },
+    "heightMin": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "heightMin100dvh",
+            "heightMin100lvh",
+            "heightMin100svh",
+            "heightMin50svh",
+            "heightMinAuto",
+            "heightMinFull",
+            "heightMinUnderHeader",
+            "heightMinUnderMain"
+        ],
+        "pgs-data": []
+    },
+    "hidden": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "hide": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "hideContainerDownLaptop",
+            "hideContainerDownMobile",
+            "hideContainerDownNotebook",
+            "hideContainerDownPhablet",
+            "hideContainerDownTablet",
+            "hideContainerDownWatch",
+            "hideContainerUpLaptop",
+            "hideContainerUpMobile",
+            "hideContainerUpNotebook",
+            "hideContainerUpPhablet",
+            "hideContainerUpTablet",
+            "hideContainerUpWatch",
+            "hideMediaDownLaptop",
+            "hideMediaDownMobile",
+            "hideMediaDownNotebook",
+            "hideMediaDownPhablet",
+            "hideMediaDownTablet",
+            "hideMediaDownWatch",
+            "hideMediaUpLaptop",
+            "hideMediaUpMobile",
+            "hideMediaUpNotebook",
+            "hideMediaUpPhablet",
+            "hideMediaUpTablet",
+            "hideMediaUpWatch"
+        ],
+        "pgs-data": []
+    },
+    "htmlBase": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "icon": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "icon-check",
+            "icon-chevronDown",
+            "icon-circle",
+            "icon-circleCheck",
+            "icon-circleInfo",
+            "icon-circleXmark",
+            "icon-close",
+            "icon-hamburger",
+            "icon-hamburgerTwo",
+            "icon-magnifyingGlass",
+            "icon-moon",
+            "icon-sun",
+            "icon-triangleExclamation",
+            "iconBoxed",
+            "iconDuo",
+            "iconLarge",
+            "iconMedium"
+        ],
+        "pgs-data": []
+    },
+    "img": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "imgContain",
+            "imgCover",
+            "imgFill"
+        ],
+        "pgs-data": []
+    },
+    "input": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "inputColor": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "label": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "labelTab",
+            "labelTabNoGap"
+        ],
+        "pgs-data": []
+    },
+    "legend": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "lightmode": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "list": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "logo": {
+        "pgs": [
+            "logo-image",
+            "logo-text"
+        ],
+        "pgs-generated": [],
+        "pgs-options": [
+            "logoDarkmode",
+            "logoDarkmodeFixed"
+        ],
+        "pgs-data": []
+    },
+    "main": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "mainChild": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "mainRemoveGap",
+            "mainRemoveGapBottom",
+            "mainRemoveGapTop"
+        ],
+        "pgs-data": []
+    },
+    "margin": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "mg",
+            "mgAuto",
+            "mgElements",
+            "mgGroups",
+            "mgNegative",
+            "mgPage",
+            "mgSections",
+            "mgTexts",
+            "mgUnset"
+        ],
+        "pgs-data": []
+    },
+    "marginBlock": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "mgBl",
+            "mgBlAuto",
+            "mgBlElements",
+            "mgBlGroups",
+            "mgBlNegative",
+            "mgBlPage",
+            "mgBlSections",
+            "mgBlTexts",
+            "mgBlUnset"
+        ],
+        "pgs-data": []
+    },
+    "marginBottom": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "mgBt",
+            "mgBtAuto",
+            "mgBtElements",
+            "mgBtGroups",
+            "mgBtNegative",
+            "mgBtPage",
+            "mgBtSections",
+            "mgBtTexts",
+            "mgBtUnset"
+        ],
+        "pgs-data": []
+    },
+    "marginInline": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "mgIn",
+            "mgInAuto",
+            "mgInElements",
+            "mgInGroups",
+            "mgInNegative",
+            "mgInPage",
+            "mgInSections",
+            "mgInTexts",
+            "mgInUnset"
+        ],
+        "pgs-data": []
+    },
+    "marginLeft": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "mgLt",
+            "mgLtAuto",
+            "mgLtElements",
+            "mgLtGroups",
+            "mgLtNegative",
+            "mgLtPage",
+            "mgLtSections",
+            "mgLtTexts",
+            "mgLtUnset"
+        ],
+        "pgs-data": []
+    },
+    "marginRight": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "mgRt",
+            "mgRtAuto",
+            "mgRtElements",
+            "mgRtGroups",
+            "mgRtNegative",
+            "mgRtPage",
+            "mgRtSections",
+            "mgRtTexts",
+            "mgRtUnset"
+        ],
+        "pgs-data": []
+    },
+    "marginTop": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "mgTp",
+            "mgTpAuto",
+            "mgTpElements",
+            "mgTpGroups",
+            "mgTpNegative",
+            "mgTpPage",
+            "mgTpSections",
+            "mgTpTexts",
+            "mgTpUnset"
+        ],
+        "pgs-data": []
+    },
+    "menu": {
+        "pgs": [
+            "menu-submenuButton"
+        ],
+        "pgs-generated": [
+            "_menu-accordion",
+            "_menu-submenuButton"
+        ],
+        "pgs-options": [
+            "menuHorizontal",
+            "menuIconOnlyCurrent",
+            "menuShort",
+            "menuVertical"
+        ],
+        "pgs-data": []
+    },
+    "minWidth0": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "modal": {
+        "pgs": [
+            "modal-button",
+            "modal-close",
+            "modal-dialog-content",
+            "modal-dialog-content-header",
+            "modal-dialog-content-scroll"
+        ],
+        "pgs-generated": [
+            "_modal-close",
+            "modal-dialog"
+        ],
+        "pgs-options": [
+            "btnForNavSmart",
+            "btnIconOnly",
+            "dialogAnimationBottom",
+            "dialogAnimationLeft",
+            "dialogAnimationRight",
+            "dialogAnimationTop",
+            "dialogAnimationZoom",
+            "dialogBottom",
+            "dialogCenter",
+            "dialogDisableBackdropClose",
+            "dialogDragClose",
+            "dialogFull",
+            "dialogHistory",
+            "dialogLeft",
+            "dialogMedium",
+            "dialogRight",
+            "dialogSmall",
+            "dialogTop",
+            "dialogTopLevel"
+        ],
+        "pgs-data": [
+            "modalContainerID",
+            "modalContainerPGS"
+        ]
+    },
+    "motionReduce": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "navSmart": {
+        "pgs": [
+            "navSmart-element"
+        ],
+        "pgs-generated": [],
+        "pgs-options": [
+            "btnForNavSmart",
+            "btnIconOnly"
+        ],
+        "pgs-data": []
+    },
+    "notificationBell": {
+        "pgs": [
+            "notificationBell-counter"
+        ],
+        "pgs-generated": [
+            "_notificationBell-counter"
+        ],
+        "pgs-options": [
+            "dialogBottom",
+            "dialogCenter",
+            "dialogLeft",
+            "dialogRight",
+            "dialogTop"
+        ],
+        "pgs-data": []
+    },
+    "notificationLoad": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": [
+            "notification"
+        ]
+    },
+    "outline": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "otlBlack",
+            "otlBox",
+            "otlBoxDark",
+            "otlError",
+            "otlGray",
+            "otlInfo",
+            "otlLink",
+            "otlPrimary",
+            "otlQuaternary",
+            "otlSecondary",
+            "otlSuccess",
+            "otlTertiary",
+            "otlThick",
+            "otlThicker",
+            "otlThin",
+            "otlUnset",
+            "otlWarning",
+            "otlWhite"
+        ],
+        "pgs-data": []
+    },
+    "overflow": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "ovAuto",
+            "ovAutoX",
+            "ovAutoY",
+            "ovHidden",
+            "ovHiddenX",
+            "ovHiddenY",
+            "ovVisible"
+        ],
+        "pgs-data": []
+    },
+    "padding": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "pd",
+            "pdElements",
+            "pdGroups",
+            "pdPage",
+            "pdSections",
+            "pdTexts",
+            "pdUnset"
+        ],
+        "pgs-data": []
+    },
+    "paddingBlock": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "pdBl",
+            "pdBlElements",
+            "pdBlGroups",
+            "pdBlPage",
+            "pdBlSections",
+            "pdBlTexts",
+            "pdBlUnset"
+        ],
+        "pgs-data": []
+    },
+    "paddingBottom": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "pdBt",
+            "pdBtElements",
+            "pdBtGroups",
+            "pdBtPage",
+            "pdBtSections",
+            "pdBtTexts",
+            "pdBtUnset"
+        ],
+        "pgs-data": []
+    },
+    "paddingInline": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "pdIn",
+            "pdInElements",
+            "pdInGroups",
+            "pdInPage",
+            "pdInSections",
+            "pdInTexts",
+            "pdInUnset"
+        ],
+        "pgs-data": []
+    },
+    "paddingLeft": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "pdLt",
+            "pdLtElements",
+            "pdLtGroups",
+            "pdLtPage",
+            "pdLtSections",
+            "pdLtTexts",
+            "pdLtUnset"
+        ],
+        "pgs-data": []
+    },
+    "paddingRight": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "pdRt",
+            "pdRtElements",
+            "pdRtGroups",
+            "pdRtPage",
+            "pdRtSections",
+            "pdRtTexts",
+            "pdRtUnset"
+        ],
+        "pgs-data": []
+    },
+    "paddingTop": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "pdTp",
+            "pdTpElements",
+            "pdTpGroups",
+            "pdTpPage",
+            "pdTpSections",
+            "pdTpTexts",
+            "pdTpUnset"
+        ],
+        "pgs-data": []
+    },
+    "pageNav": {
+        "pgs": [
+            "pageNav-list",
+            "pageNav-list-item",
+            "pageNav-panels",
+            "pageNav-panels-content"
+        ],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "pageShell": {
+        "pgs": [
+            "pageShell-aside",
+            "pageShell-content"
+        ],
+        "pgs-generated": [],
+        "pgs-options": [
+            "shellAsideScroll",
+            "shellAsideShadow",
+            "shellFullPage"
+        ],
+        "pgs-data": []
+    },
+    "pointer": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "pointerEvents": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "peAuto",
+            "peNone"
+        ],
+        "pgs-data": []
+    },
+    "position": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "posAbsolute",
+            "posRelative",
+            "posStatic",
+            "posSticky"
+        ],
+        "pgs-data": []
+    },
+    "radio": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "range": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "rotate": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "rot0",
+            "rot180",
+            "rot270",
+            "rot90"
+        ],
+        "pgs-data": []
+    },
+    "search": {
+        "pgs": [
+            "search-suggestions"
+        ],
+        "pgs-generated": [
+            "_search-suggestions-empty",
+            "_search-suggestions-item",
+            "_search-suggestions-placeholder"
+        ],
+        "pgs-options": [
+            "searchMinWidth"
+        ],
+        "pgs-data": [
+            "searchIconSuggestion",
+            "searchNoResults",
+            "searchPlaceholder"
+        ]
+    },
+    "section": {
+        "pgs": [
+            "section-edgeLeft",
+            "section-edgeRight",
+            "section-specificity"
+        ],
+        "pgs-generated": [],
+        "pgs-options": [
+            "sctEdge",
+            "sctFull",
+            "sctMax",
+            "sctNoPadding",
+            "sctSpecificity"
+        ],
+        "pgs-data": []
+    },
+    "select": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "skipLink": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "slides": {
+        "pgs": [
+            "slides-container",
+            "slides-container-slide",
+            "slides-dots",
+            "slides-next",
+            "slides-prev"
+        ],
+        "pgs-generated": [
+            "_slides-dots",
+            "_slides-dots-dot",
+            "_slides-next",
+            "_slides-prev"
+        ],
+        "pgs-options": [
+            "slidesAnimationScale",
+            "slidesArrowsCenter",
+            "slidesFullWidth",
+            "slidesLoop",
+            "slidesNotDots",
+            "slidesShadowDesktop",
+            "slidesSingleScroll"
+        ],
+        "pgs-data": []
+    },
+    "steps": {
+        "pgs": [
+            "steps-step",
+            "steps-step-circle",
+            "steps-step-content",
+            "steps-step-line"
+        ],
+        "pgs-generated": [
+            "_steps-step-circle",
+            "_steps-step-line"
+        ],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "stepTabs": {
+        "pgs": [
+            "stepTabs-container",
+            "stepTabs-container-tab",
+            "stepTabs-dots",
+            "stepTabs-next",
+            "stepTabs-prev",
+            "stepTabs-restart"
+        ],
+        "pgs-generated": [
+            "_stepTabs-dots-dot"
+        ],
+        "pgs-options": [],
+        "pgs-data": [
+            "stepTabsIcon"
+        ]
+    },
+    "summary": {
+        "pgs": [
+            "summary-button",
+            "summary-content"
+        ],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": [
+            "summaryShowLess",
+            "summaryShowMore"
+        ]
+    },
+    "svgChangeColor": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "table": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "tabs": {
+        "pgs": [
+            "tabs-list",
+            "tabs-list-tab",
+            "tabs-panels",
+            "tabs-panels-content"
+        ],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": [
+            "tabsHistory"
+        ]
+    },
+    "text": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "textAlign": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "taCenter",
+            "taJustify",
+            "taLeft",
+            "taRight",
+            "taStart"
+        ],
+        "pgs-data": []
+    },
+    "textarea": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "textBlock": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "textColor": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "txtBlack",
+            "txtBlackFixed",
+            "txtBox",
+            "txtBoxDark",
+            "txtError",
+            "txtErrorSoft",
+            "txtGray",
+            "txtInfo",
+            "txtInfoSoft",
+            "txtInherit",
+            "txtLink",
+            "txtLinkSoft",
+            "txtPrimary",
+            "txtPrimaryDark",
+            "txtPrimaryLight",
+            "txtPrimarySoft",
+            "txtPrimaryStrong",
+            "txtPrimaryText",
+            "txtQuaternary",
+            "txtQuaternaryDark",
+            "txtQuaternaryLight",
+            "txtQuaternarySoft",
+            "txtQuaternaryStrong",
+            "txtQuaternaryText",
+            "txtSecondary",
+            "txtSecondaryDark",
+            "txtSecondaryLight",
+            "txtSecondarySoft",
+            "txtSecondaryStrong",
+            "txtSecondaryText",
+            "txtSuccess",
+            "txtSuccessSoft",
+            "txtTertiary",
+            "txtTertiaryDark",
+            "txtTertiaryLight",
+            "txtTertiarySoft",
+            "txtTertiaryStrong",
+            "txtTertiaryText",
+            "txtText",
+            "txtWarning",
+            "txtWarningSoft",
+            "txtWhite",
+            "txtWhiteFixed"
+        ],
+        "pgs-data": []
+    },
+    "textShadow": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "txsUnset"
+        ],
+        "pgs-data": []
+    },
+    "toast": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": [
+            "toast"
+        ]
+    },
+    "toastLoad": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": [
+            "toast"
+        ]
+    },
+    "toggle": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "toggleDarkmode": {
+        "pgs": [
+            "toggleDarkmode-dark",
+            "toggleDarkmode-light"
+        ],
+        "pgs-generated": [],
+        "pgs-options": [
+            "tglLabeled"
+        ],
+        "pgs-data": []
+    },
+    "truncate": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "userSelect": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "selNone",
+            "selText"
+        ],
+        "pgs-data": []
+    },
+    "visuallyHidden": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "visuallyHiddenFocusable": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "width": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "widthAuto",
+            "widthFillAvailable",
+            "widthFull",
+            "widthPage",
+            "widthPageEighth",
+            "widthPageFifth",
+            "widthPageHalf",
+            "widthPageQuarter",
+            "widthPageSeventh",
+            "widthPageSixth",
+            "widthPageThird",
+            "widthText"
+        ],
+        "pgs-data": []
+    },
+    "widthMax": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "widthMaxFillAvailable",
+            "widthMaxFull",
+            "widthMaxNone",
+            "widthMaxPage",
+            "widthMaxPageEighth",
+            "widthMaxPageFifth",
+            "widthMaxPageHalf",
+            "widthMaxPageQuarter",
+            "widthMaxPageSeventh",
+            "widthMaxPageSixth",
+            "widthMaxPageThird",
+            "widthMaxText"
+        ],
+        "pgs-data": []
+    },
+    "widthMin": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "widthMinAuto",
+            "widthMinFillAvailable",
+            "widthMinFull",
+            "widthMinPage",
+            "widthMinPageEighth",
+            "widthMinPageFifth",
+            "widthMinPageHalf",
+            "widthMinPageQuarter",
+            "widthMinPageSeventh",
+            "widthMinPageSixth",
+            "widthMinPageThird",
+            "widthMinText"
+        ],
+        "pgs-data": []
+    },
+    "zIndex": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "ziAuto",
+            "ziOne",
+            "ziTen"
+        ],
+        "pgs-data": []
+    }
+}

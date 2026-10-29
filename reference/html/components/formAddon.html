@@ -1,128 +1,225 @@
 <!--
 /**
  * @title Form Add-ons
- * @description Additional form controls for selectable cards, two-state buttons, switches, and compact chip groups.
+ * @description The field box that wraps a label and its control, and additional form controls for selectable cards, switches, and compact chip groups.
  *
  * @pgs
- * - checkboxBackground: presents a checkbox as a selectable container with a highlighted checked state.
- * - twoState: presents checkbox or radio labels as buttons whose appearance changes when selected.
- * - toggle: presents a checkbox as a switch with a rail and movable thumb.
- * - chip: presents an individual checkbox or radio option as a compact selectable button.
- * - chips: groups twoState controls into a compact segmented selector.
+ * - field: a modifier for a text-like input, a textarea, a select or a group, with its label: it adds no look of its own to the controls, it reshapes the tokens inside it. It draws a background and a radius around the label and the control, and no border of its own (only noInput adds one): the border, background and radius an input or a select shows are still their own. The label, written first, floats over the control without taking room, with no box of its own; the input and the select (and a textarea or a file that also carry the token input) take the padding of --field-padding and leave room above for the label. The label is in the middle of the field while the input is empty and out of focus, and small at the top of it with focus or once the input holds text: it needs the input right after it and a placeholder attribute, a single space is enough, it is what tells an empty input from one that holds text. A date, time, datetime-local, month or week input always shows text of its own, so its label always stays at the top, and so does the label of a select. A field around a control that is not a text input (a checkbox, a group of radios or checkboxes with its legend as label, a range, a color input, a toggle) takes the option noInput. The look reads --field-background, --field-padding, --field-borderRadius and --field-gap (the space between the label and the text).
+ * - checkboxBackground: presents a checkbox, or a radio, as a selectable container with a border. It goes with checkbox or radio on the same label, which draw the box and the text. It takes the hover colors while the pointer is over it, and the two-state colors (--twoState-*) once it is checked; the box inside keeps its own color on hover. The look reads --checkboxBackground-background, --checkboxBackground-color and --checkboxBackground-borderColor, each with a -hover and a -checked one, and --checkboxBackground-padding and --checkboxBackground-borderRadius.
+ * - toggle: presents a checkbox as a switch with a rail and a movable thumb. The rail has --toggle-rail-background and --toggle-rail-borderColor and the thumb --toggle-thumb-background, which is also the color of its border, each with a -hover and a -checked one, read from the clickable, hover and two-state tokens; the hover colors apply while the pointer is over the switch, a checked toggle keeps its look under the pointer and a disabled one is dimmed.
+ * - chip: presents an individual checkbox or radio option as a compact selectable button. It shapes the control and leaves the button look to `button`, so write both on the label; inside a `chips` group the token comes from the group and only `button` is written.
+ * - chips: groups chip controls into a compact segmented selector.
+ *
+ * @pgs-options
+ * - noInput: inside field's own bracket, `field['noInput']`, for a field whose control is not a text input (a checkbox, a radio group, a range, a color input, a toggle, chips): no input carries the room for the label, so the field keeps it as its own padding, all around and with more room above, and draws the border (--border-complete) itself.
  *
  * @related
- * - form: applies the base form styles to the complete add-on example.
- * - flexColumn: vertically arranges each example with its heading and control.
- * - flexRow: horizontally arranges standalone chip controls.
+ * - label: the label of the field, which floats over the control; see Form.
+ * - input: the text-like control of the field; see Form.
+ * - textarea: the textarea of the field, which also takes the token input; see Form.
+ * - select: the select of the field; see Form Controls.
+ * - file: the file input of the field; see Form Controls.
+ * - range: the range of a field with noInput; see Form Controls.
+ * - inputColor: the color input of a field with noInput; see Form Controls.
+ * - flex: provides the flex layout; direction and spacing are flags in its bracket.
+ * - form: identifies the form that holds the add-on examples, laid out in a column; it styles none of the controls.
+ * - column: vertically arranges each example with its heading and control.
+ * - row: horizontally arranges standalone chip controls.
  * - gapElements: applies element spacing between the form add-on examples.
+ * - icon: draws the glyphs this example shows; see Icon for the whole set.
+ * - icon-star: the neutral stand-in glyph, used where the example needs an icon but not a particular one.
+ * - legend: applies the group heading styling to a chips group's legend; see Form.
+ * - fieldset: takes the browser's border off the fieldset that holds the radio group; see Form.
+ * - checkbox: draws the box and the text of the label of a checkbox, together with checkboxBackground; see Form.
+ * - radio: draws the box and the text of the label of a radio, together with checkboxBackground; see Form.
+ * - button: draws the chip, which composes the button look instead of redrawing it, and hides the checkbox or radio it wraps; see Button.
+ * - btnMini: sizes that button down to the chip's compact size.
+ * - btnTwoState: hides the checkbox or radio the label wraps and draws its checked state; belongs to the button component.
  *
- * @return HTML examples of the checkboxBackground, twoState, toggle, and chips form controls using native checkbox and radio inputs.
+ * @return HTML examples of the field, checkboxBackground, toggle, chip, and chips form controls using native checkbox and radio inputs.
  */
 -->
 
-<form pgs="form flexColumn gapElements">
-    <section pgs="flexColumn">
-        <strong>Checkbox with background</strong>
+<form pgs="form flex['column' 'gapElements']" demo="component">
+    <demo demo-h2="Field"></demo>
+    <demo demo-h3="Field" demo-description="The label floats over the input: it needs the input right after it and a placeholder attribute, a single space is enough."></demo>
+    <section pgs="flex['column']" demo="component">
+        <div pgs="field">
+            <label pgs="label" for="fieldName">Name</label>
+            <input pgs="input" id="fieldName" type="text" name="fieldName" placeholder=" " required>
+        </div>
+        <div pgs="field">
+            <label pgs="label" for="fieldEmail">Email</label>
+            <input pgs="input" id="fieldEmail" type="email" name="fieldEmail" placeholder=" " required>
+        </div>
+    </section>
 
-        <label pgs="checkboxBackground">
+    <demo demo-h3="Field, textarea" demo-description="A textarea in a field also takes the token input, so that the label floats over it."></demo>
+    <section pgs="flex['column']" demo="component">
+        <div pgs="field">
+            <label pgs="label" for="fieldMessage">Message</label>
+            <textarea pgs="textarea input" id="fieldMessage" name="fieldMessage" rows="4" placeholder=" " required></textarea>
+        </div>
+    </section>
+
+    <demo demo-h3="Field, date" demo-description="A date, time, datetime-local, month or week input always shows text of its own, so its label always stays at the top."></demo>
+    <section pgs="flex['column']" demo="component">
+        <div pgs="field">
+            <label pgs="label" for="fieldDate">Date</label>
+            <input pgs="input" id="fieldDate" type="date" name="fieldDate" placeholder=" " required>
+        </div>
+    </section>
+
+    <demo demo-h3="Field, select" demo-description="The select keeps its own token; its first option takes the part of the placeholder."></demo>
+    <section pgs="flex['column']" demo="component">
+        <div pgs="field">
+            <label pgs="label" for="fieldCountry">Country</label>
+            <select pgs="select" id="fieldCountry" name="fieldCountry" required>
+                <option value="" selected disabled>Choose a country</option>
+                <option value="it">Italy</option>
+                <option value="fr">France</option>
+            </select>
+        </div>
+    </section>
+
+    <demo demo-h3="Field, file" demo-description="A file input also takes the token input."></demo>
+    <section pgs="flex['column']" demo="component">
+        <div pgs="field">
+            <label pgs="label" for="fieldFile">File</label>
+            <input pgs="file input" id="fieldFile" type="file" name="fieldFile" required>
+        </div>
+    </section>
+
+    <demo demo-h3="Field, range and color" demo-description="A field around a control that is not a text input takes the option noInput."></demo>
+    <section pgs="flex['column']" demo="component">
+        <div pgs="field['noInput']">
+            <label pgs="label" for="fieldRange">Range</label>
+            <input pgs="range" id="fieldRange" type="range" name="fieldRange" min="0" max="100" value="40">
+        </div>
+        <div pgs="field['noInput']">
+            <label pgs="label" for="fieldColor">Color</label>
+            <input pgs="inputColor" id="fieldColor" type="color" name="fieldColor" value="#3aa561">
+        </div>
+    </section>
+
+    <demo demo-h3="Field, radio group" demo-description="A fieldset with noInput: the legend is the label of the field."></demo>
+    <section pgs="flex['column']" demo="component">
+        <fieldset pgs="fieldset field['noInput'] radio">
+            <legend pgs="legend">A radio group</legend>
+            <label pgs="radio"><input type="radio" name="fieldRadio" value="email" required> <span>Email</span></label>
+            <label pgs="radio"><input type="radio" name="fieldRadio" value="phone" required> <span>Phone</span></label>
+        </fieldset>
+    </section>
+
+    <demo demo-h3="Field, checkbox group" demo-description="The same for a group of checkboxes."></demo>
+    <section pgs="flex['column']" demo="component">
+        <fieldset pgs="fieldset field['noInput'] checkbox">
+            <legend pgs="legend">A checkbox group</legend>
+            <label pgs="checkbox"><input type="checkbox" name="fieldCheckbox" value="news" required> <span>News</span></label>
+            <label pgs="checkbox"><input type="checkbox" name="fieldCheckbox" value="offers" required> <span>Offers</span></label>
+        </fieldset>
+    </section>
+
+    <demo demo-h2="Add-ons"></demo>
+    <demo demo-h3="Checkbox with background" demo-description="A single checkbox presented as a selectable container, with the checked state highlighted."></demo>
+    <section pgs="flex['column']" demo="component">
+        <label pgs="checkboxBackground checkbox">
             <input type="checkbox" name="notifications" value="enabled">
             <span>
                 <strong>Enable notifications</strong><br>
                 Receive important account updates.
             </span>
         </label>
+    </section>
 
-        <fieldset pgs="flexRow">
-            <label pgs="checkboxBackground">
+    <demo demo-h3="Radio group with background" demo-description="Radio inputs sharing the same name and presented as selectable containers, so only one can be checked."></demo>
+    <section pgs="flex['column']" demo="component">
+        <fieldset pgs="fieldset flex['row']">
+            <label pgs="checkboxBackground radio">
                 <input type="radio" name="plan" value="basic" checked>
                 Basic
             </label>
 
-            <label pgs="checkboxBackground">
+            <label pgs="checkboxBackground radio">
                 <input type="radio" name="plan" value="pro">
                 Pro
             </label>
 
-            <label pgs="checkboxBackground">
+            <label pgs="checkboxBackground radio">
                 <input type="radio" name="plan" value="enterprise">
                 Enterprise
             </label>
         </fieldset>
     </section>
 
-    <section pgs="flexColumn">
-        <strong>Two-state controls</strong>
-
-        <label pgs="twoState">
-            <input type="checkbox" name="favorite" value="yes">
-            <i class="fa-solid fa-star" aria-hidden="true"></i>
-            Add to favorites
-        </label>
-    </section>
-
-    <section pgs="flexColumn">
-        <strong>Toggle</strong>
-
+    <demo demo-h3="Toggle" demo-description="Checkbox presented as a switch with a rail and movable thumb."></demo>
+    <section pgs="flex['column']" demo="component">
         <label pgs="toggle">
             <span>Enable Wi-Fi</span>
             <input type="checkbox" name="darkMode" value="enabled">
         </label>
     </section>
 
-    <section pgs="flexColumn">
-        <strong>Chips checkbox</strong>
-        <div pgs="flexRow" role="group" aria-label="Chip actions">
-            <label pgs="chip">
+    <demo demo-h3="Chips checkbox" demo-description="Individual checkbox options presented as compact selectable chip buttons."></demo>
+    <section pgs="flex['column']" demo="component">
+        <div pgs="flex['row']" role="group" aria-label="Chip actions">
+            <label pgs="button['btnMini' 'btnTwoState'] chip">
                 <input type="checkbox" name="like" value="basic">
-                <i class="fa-solid fa-heart"></i>
+                <i pgs="icon['icon-star']"></i>
                 Like
             </label>
-            <label pgs="chip">
+            <label pgs="button['btnMini' 'btnTwoState'] chip">
                 <input type="checkbox" name="share" value="basic">
-                <i class="fa-solid fa-share"></i>
+                <i pgs="icon['icon-star']"></i>
                 Share
             </label>
         </div>
     </section>
 
-    <section pgs="flexColumn gapElements">
-        <fieldset pgs="chips">
-            <legend>Chip checkbox</legend>
-            <label>
-                <input type="checkbox" name="plan" value="red" checked>
-                Red
-            </label>
+    <section pgs="flex['column' 'gapElements']">
+        <demo demo-h3="Chips group (checkbox)" demo-description="Multiple checkbox chips grouped into a compact segmented selector."></demo>
+        <section demo="component">
+            <fieldset pgs="chips">
+                <legend pgs="legend">Chip checkbox</legend>
+                <label pgs="button['btnMini' 'btnTwoState']">
+                    <input type="checkbox" name="plan" value="red" checked>
+                    Red
+                </label>
 
-            <label>
-                <input type="checkbox" name="plan" value="blue">
-                Blue
-            </label>
+                <label pgs="button['btnMini' 'btnTwoState']">
+                    <input type="checkbox" name="plan" value="blue">
+                    Blue
+                </label>
 
-            <label>
-                <input type="checkbox" name="plan" value="green">
-                Green
-            </label>
-        </fieldset>
+                <label pgs="button['btnMini' 'btnTwoState']">
+                    <input type="checkbox" name="plan" value="green">
+                    Green
+                </label>
+            </fieldset>
+        </section>
 
-        <fieldset pgs="chips">
-            <legend>Chips radio</legend>
-            <label>
-                <input type="radio" name="characters" value="Crow" checked>
-                <i class="fa-solid fa-crow"></i>
-                Crow
-            </label>
+        <demo demo-h3="Chips group (radio)" demo-description="Multiple radio chips grouped into a compact segmented selector, each paired with an icon."></demo>
+        <section demo="component">
+            <fieldset pgs="chips">
+                <legend pgs="legend">Chips radio</legend>
+                <label pgs="button['btnMini' 'btnTwoState']">
+                    <input type="radio" name="characters" value="Crow" checked>
+                    <i pgs="icon['icon-star']"></i>
+                    Crow
+                </label>
 
-            <label>
-                <input type="radio" name="characters" value="Dove">
-                <i class="fa-solid fa-dove"></i>
-                Dove
-            </label>
+                <label pgs="button['btnMini' 'btnTwoState']">
+                    <input type="radio" name="characters" value="Dove">
+                    <i pgs="icon['icon-star']"></i>
+                    Dove
+                </label>
 
-            <label>
-                <input type="radio" name="characters" value="dragon">
-                <i class="fa-solid fa-dragon"></i>
-                dragon
-            </label>
-        </fieldset>
+                <label pgs="button['btnMini' 'btnTwoState']">
+                    <input type="radio" name="characters" value="Dragon">
+                    <i pgs="icon['icon-star']"></i>
+                    Dragon
+                </label>
+            </fieldset>
+        </section>
     </section>
 </form>

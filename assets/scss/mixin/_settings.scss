@@ -1,12 +1,12 @@
 @use "sass:list";
 
-//+ devices
-$watch: 315px;
-$mobile: 430px;
-$big-mobile: 615px;
-$tablet: 800px;
-$big-tablet: 900px;
-$laptop: 1100px;
+//# devices (max-width limits: each value is the widest screen of its class)
+$watch: 320px;    // smallest phones (iPhone SE 1st gen, 320)
+$mobile: 430px;   // phones in portrait, up to the largest iPhone
+$phablet: 600px;  // large phones and small foldables (Material 3 "compact" ends at 600)
+$tablet: 800px;   // tablets in portrait (768)
+$notebook: 900px; // larger tablets in portrait (820-834)
+$laptop: 1100px;  // tablets in landscape and small laptops
 
 
 @function fibonacci($n) {
@@ -30,3 +30,4 @@ $h2: fibonacci(10) * $base-fibonacci-size; // 4.45rem
 $h3: fibonacci(9) * $base-fibonacci-size;  // 2.75rem
 $h4: fibonacci(8) * $base-fibonacci-size;  // 1.7rem
 $h5: fibonacci(8) * $base-fibonacci-size;  // 1.7rem
+$h6: fibonacci(8) * $base-fibonacci-size;  // 1.7rem

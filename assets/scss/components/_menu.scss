@@ -1,109 +1,78 @@
 @use "../mixin/mixin" as *;
 
-//# MENU
-[pgs~=menu] {
-    // Menu colours inherit the button theme by default.  A consumer can set the
-    // --menu-* variables on this element to theme menus independently.
-    --menu-color: var(--color-black);
-    --menu-color-current: var(--color-whiteFixed);
-    --menu-color-strong: var(--color-whiteFixed);
-    --menu-background: transparent;
-    --menu-background-current: var(--color-primary);
-    --menu-background-strong: var(--color-primary);
-    --menu-border: var(--border-complete);
-    --menu-gap-column: 2px;
+//= MENU
+:is([pgs~="menu"], [pgs*="menu\5B"]) {
+    // Only the gap tokens are menu's own (--menu-gap-*); the colors come from the button tokens.
+    --menu-gap-column: .5rem;
     --menu-gap-row: 1.0rem;
 
-    ul {
+    :where(ul) {
         display: flex;
-        font-weight: 600;
+        font-weight: var(--font-weight-bold);
         align-items: center;
         column-gap: var(--menu-gap-column);
         row-gap: var(--menu-gap-row);
         flex-wrap: nowrap;
 
-        //== Content
-        >li {
-            >a {
+        //## Content
+        >:where(li) {
+            >:where(a) {
                 flex-grow: 1;
                 min-width: fit-content;
-                @include buttonBase();
-                @include buttonHover();
-                @include buttonContent();
-                @include buttonCurrent();
-                --button-color: var(--menu-color);
-                --button-color-strong: var(--menu-color-strong);
-                --button-color-current: var(--menu-color-current);
-                --button-background: var(--menu-background);
-                --button-background-strong: var(--menu-background-strong);
-                --button-background-current: var(--menu-background-current);
-                --button-border: var(--menu-border);
 
-                >span {
+                >:where(span) {
                     line-height: 1;
                     flex-grow: 1;
                 }
             }
 
-            li {
+            // fill-available has a prefix per engine, stretch is the standard one and comes last
+            :where(li) {
                 width: -webkit-fill-available;
+                width: -moz-available;
+                width: stretch;
             }
-
-            &[pgs-state~=open]>ul {
-                display: flex;
-            }
+            &[pgs-state~=open]>:where(ul) { display: flex; }
         }
 
-        //== submenu
-        ul {
-            display: none;
-            flex-direction: column;
-            gap: var(--gap-texts);
-            --dropdown-borderRadius: calc(var(--border-radius-input) + var(--dropdown-padding));
+        //## submenu
+        :where(ul) {
+            @include column();
+            --dropdown-borderRadius: calc(var(--borderRadius-texts) + var(--dropdown-padding));
             --dropdown-background: var(--color-box);
             --dropdown-display: flex;
         }
     }
 
-    //== buttonIcon
-    [pgs~=menu-buttonIcon] {
-        --button-size: 0.9rem;
-        margin-right: -15px;
+    //## submenuButton
+    // the generated toggle and the one written by hand look and sit the same
+    :where([pgs~="menu-submenuButton"]), :where([pgs~="_menu-submenuButton"]) {
+        --button-size: 0.2rem;
+        margin-right: -5px;
+        translate: -5px;
         margin-block: auto;
-        width: 40px;
-        aspect-ratio: 1;
-        padding: 0;
-        justify-content: center;
-        cursor: pointer;
-        translate: -15px;
+
+        // the icon is whatever the toggle holds: an <i>, an svg, or any element marked as an icon
+        @media (prefers-reduced-motion: no-preference) { :where(i, svg, [pgs~="icon"], [pgs*="icon\5B"]) { transition: all 300ms; } }
 
         &[aria-expanded="true"] {
-            --button-background: var(--menu-background-current);
-
-            span {
-                rotate: 180deg;
-            }
-        }
-
-        span {
-            transition: all 300ms;
+            :where(i, svg, [pgs~="icon"], [pgs*="icon\5B"]) { rotate: 180deg; }
         }
     }
 
-    //- OPTION
-    //== horizontal
-    &[pgs-option~=horizontal] {
-        >ul {
+    //+ OPTION
+    //## horizontal
+    // options are prefixed with the component name (menuHorizontal) so they never clash with other components
+    &:where([pgs*="'menuHorizontal'"]) {
+        >:where(ul) {
             flex-direction: row;
 
-            >li {
-                >a {
-                    width: max-content;
-                }
+            >:where(li) {
+                >:where(a) { width: max-content; }
             }
 
-            //=== Sub menu
-            >li:has(ul) {
+            //### Sub menu
+            >:where(li):has(ul) {
                 display: flex;
                 gap: 0.2rem;
                 flex-wrap: nowrap;
@@ -111,85 +80,77 @@
         }
     }
 
-    //== verical
-    ul,
-    &[pgs-option~=vertical],
-    &:not([pgs-option~=horizontal]) {
-        :is(ul) {
+    //## vertical
+    // menuVertical is the documented flag; the vertical layout is also the default, through
+    // &:not(menuHorizontal), so the flag itself changes nothing today and is kept to say it out loud
+    :where(ul),
+    &:where([pgs*="'menuVertical'"]),
+    &:not([pgs*="'menuHorizontal'"]) {
+        :where(ul) {
             flex-direction: column;
 
-            li {
+            :where(li) {
                 width: 100%;
 
-                >a {
+                >:where(a) {
                     width: 100%;
+                    justify-content: start;
                 }
             }
 
-            //=== Sub menu
-            >li:has(ul) {
-                @include flexRow;
-                flex-wrap: nowrap;
+            //### Sub menu
+            //### link ------ |button|
+            //### list ---------------|
+            // the link and the toggle share the first row, the submenu takes the whole next one:
+            // it needs flex-wrap, or flex-basis has no line to break onto
+            >:where(li):has(ul) {
+                @include row;
                 align-items: center;
                 position: relative;
 
-                >ul {
+                >:where(a) { flex: 1; }
+
+                >:where(ul) {
                     flex-basis: 100%;
+                    padding-left: .5rem;
+                    margin-left: 1.5rem;
+                    border-left: var(--border-width) var(--border-color) var(--border-style);
                 }
 
-                &:not([pgs-state~=open]) ul {
-                    display: none;
-                }
+                &:not([pgs-state~=open]) :where(ul) { display: none; }
             }
         }
     }
 
-    //== menuHeader
-    &[pgs-option~=menuHeader] {
-        >ul>li>a {
-            @include button_header();
+    //+ icon only current
+    &:where([pgs*="'menuIconOnlyCurrent'"]) {
+        :where(a):not([aria-current]:not([aria-current="false"])) {
+            padding-left: var(--button-paddingInline);
+
+            >:where(i, [pgs~="icon"], [pgs*="icon\5B"]) { display: none; }
         }
     }
 
-    //== icon only current
-    &[pgs-option~=menuIconOnlyCurrent] {
-        a:not([aria-current]:not([aria-current="false"])) {
-            --button-padding-left: var(--button-padding-right);
-
-            >i {
-                display: none;
-            }
-        }
-    }
-
-    //== SHORT
-    &[pgs-option~=menuShort] {
-        >ul>li {
-            &:first-child {
-                a {
-                    margin-left: 0px;
-                }
-            }
-
+    //+ SHORT
+    &:where([pgs*="'menuShort'"]) {
+        >:where(ul)>:where(li) {
             &:last-child {
-                a {
-                    margin-right: 0px;
-                }
+                :where(a) { margin-right: 0px; }
             }
 
-            a {
-                margin-right: calc(var(--button-padding-block) * -1);
-                --button-background-current: var(--color-primary-soft);
-                --button-color-current: var(--color-primary-strong);
+            :where(a) {
+                margin-right: calc(var(--button-paddingBlock) * -1);
 
                 &[aria-current=page] {
                     z-index: 1;
                     position: relative;
                 }
 
-                &:hover {
-                    z-index: 2;
-                    position: relative;
+                @media (hover: hover) and (pointer: fine) {
+                    &:hover {
+                        z-index: 2;
+                        position: relative;
+                    }
                 }
             }
         }

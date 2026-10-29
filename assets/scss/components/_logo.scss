@@ -1,51 +1,45 @@
 @use "../mixin/mixin" as *;
 
-//# LOGO 
-[pgs~="logo"] {
+//= LOGO
+:is([pgs~="logo"], [pgs*="logo\5B"]) {
     display: flex;
     min-width: max-content;
-    --logo-height: var(--header-size, 6.0rem);
-    --logo-finter: invert(1) hue-rotate(180deg) brightness(1.5);
+    background-color: transparent;
+    color: var(--color-black);
+    --logo-height: calc(var(--SIZE) + var(--font-size-text));
+    --logo-filter: invert(1) hue-rotate(180deg) brightness(1.5);
 
-    //== DARKMODE
-    &:is([pgs-state~="darkmode"] [pgs-option~="logoDarkmode"]) [pgs~="logo-image"] {
-        filter: var(--logo-finter);
-    }
+    //## DARKMODE
+    &:is([pgs-state~="darkmode"] [pgs*="'logoDarkmode'"]) :where([pgs~="logo-image"]) { filter: var(--logo-filter); }
 
-    //== FIXED DARKMODE
-    &[pgs-option~="logoDarkmodeFixed"] [pgs~="logo-image"] {
-        filter: var(--logo-finter);
-    }
+    //## FIXED DARKMODE
+    &:where([pgs*="'logoDarkmodeFixed'"]) :where([pgs~="logo-image"]) { filter: var(--logo-filter); }
 
-    //- tablet 
-    @media (max-width: $tablet) {
-        min-width: var(--logo-height);
-    }
+    //- tablet
+    @media (max-width: $tablet) { min-width: var(--logo-height); }
 
-    //= LOGO
-    >*:not([pgs~="logo-text"]) {
+    //# LOGO
+    >*:not(:where([pgs~="logo-text"])) {
         height: var(--logo-height);
         object-fit: contain;
         object-position: left;
         align-items: center;
         width: initial;
 
-        lottie-player,
-        object {
-            max-width: var(--logo-height);
-        }
+        :where(lottie-player, object) { max-width: var(--logo-height); }
     }
 
-    //= SENZA LOGO
-    &:has([pgs~="logo-text"]) {
-        display: flex;
+    //# TEXT ONLY
+    &:has(:where([pgs~="logo-text"])) {
         align-items: center;
+        // the text already follows the theme through --color-black, so a filter a project puts on the
+        // logo to invert an image must not reach it
         filter: unset !important;
 
-        [pgs~="logo-text"] {
-            font-family: var(--font-titoli);
+        :where([pgs~="logo-text"]) {
+            font-family: var(--font-heading);
             font-size: 20px;
-            font-weight: 600;
+            font-weight: var(--font-weight-bold);
             text-wrap: nowrap;
         }
     }

@@ -1,92 +1,22 @@
-import { PGS_onDocumentReady } from "../helper/_onDocumentReady.js";
+import { pgs } from "../_pgs.js";
+import { fn_alert } from "./_alerts.js";
 
-//= PGS_toast
+// the toastLoad elements already read
+const LOADED = new WeakSet();
+
+//# PGS_toast
+// the single floating stack: one message at a time, fixed on screen. It only owns the container
+// and reads its data (pgs-data="toast[...]"), then hands everything to the shared alert engine
+// (see _alerts.js) — dismiss, timeout, countdown bar and events are the alert's own.
 const fn_toast = {
     _defaults: {
-        element: "toast",
-        link: null,
-        timeout: 4000,
-        description: "",
-        linkTitle: "Open",
-        closeTitle: "Close",
-        type: {
-            error: {
-                title: "Error",
-                icon: '<i class="fa-solid fa-circle-xmark"></i>'
-            },
-            success: {
-                title: "Success",
-                icon: '<i class="fa-solid fa-circle-check"></i>'
-            },
-            info: {
-                title: "Information",
-                icon: '<i class="fa-solid fa-circle-info"></i>'
-            },
-            warning: {
-                title: "Warning",
-                icon: '<i class="fa-solid fa-triangle-exclamation"></i>'
-            }
-        }
+        timeout: 4000
     },
+    _options: ["toastLeft", "toastRight", "toastCenter", "toastBottom"],
 
-    _escapeHtml(value) {
-        return String(value ?? "")
-            .replaceAll("&", "&amp;")
-            .replaceAll("<", "&lt;")
-            .replaceAll(">", "&gt;")
-            .replaceAll('"', "&quot;")
-            .replaceAll("'", "&#039;");
-    },
-
-    _formatText(value) {
-        return this._escapeHtml(value)
-            .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-            .replace(/\r?\n/g, "<br>");
-    },
-
-    _getDuration(toast) {
-        const rawDuration = toast.duration;
-        const duration = Number.parseInt(rawDuration, 10);
-        return Number.isNaN(duration) ? undefined : duration;
-    },
-
-    _getType(toast) {
-        const type = String(toast.type || "info").trim();
-        return typeof PGS_toast[type] === "function" ? type : "info";
-    },
-
-    _getData(root) {
-        const rawToast = pgs(root).option.getValueBrackets("toast") || "{}";
-
-        try {
-            const toasts = JSON.parse(`[${rawToast}]`);
-
-            if (toasts.some(toast => !toast || typeof toast !== "object" || Array.isArray(toast))) {
-                throw new TypeError("Each toast must be a JSON object");
-            }
-
-            return toasts;
-        } catch (error) {
-            console.warn("PGS toast: Invalid JSON configuration", error);
-            return [];
-        }
-    },
-
-    _getContent(title, description) {
-        const safeDescription = this._formatText(description);
-        const safeTitle = this._formatText(title);
-
-        if (!safeTitle) return `<span>${safeDescription}</span>`;
-        if (!safeDescription) return `<strong>${safeTitle}</strong>`;
-
-        return `
-            <strong>${safeTitle}</strong>
-            <span>${safeDescription}</span>
-        `;
-    },
-
+    // a hand-written container keeps the bare name; a generated one gets the underscore, so this needs both
     _getContainer() {
-        return pgs(document).querySelector("toast");
+        return pgs(document).querySelector(["toast", "_toast"]);
     },
 
     _getOrCreateContainer() {
@@ -94,7 +24,7 @@ const fn_toast = {
 
         if (!containerToast) {
             containerToast = document.createElement("div");
-            pgs(containerToast).add("toast");
+            pgs(containerToast).add("_toast");
             containerToast.setAttribute("aria-live", "polite");
             containerToast.setAttribute("aria-relevant", "additions");
             document.body.appendChild(containerToast);
@@ -103,157 +33,91 @@ const fn_toast = {
         return containerToast;
     },
 
-    show(type, options = {}) {
-        if (typeof options === "string") options = { title: options };
+    // position flags land on the container, the way Modal copies the ones on its wrapper to _dialog:
+    // _toast is the pgs-generated-only token that carries them, rebuilt at every toast so one toast's
+    // position never leaks into the next. They come from the position field of a toastLoad's pgs-data,
+    // or the position option of a pgs.toast call. A container written by hand keeps its own
+    // as the baseline
+    _applyOptions(container, position = [], scope) {
+        const wanted = [Array.isArray(position) ? position : String(position).split(/\s+/)].flat().filter(Boolean);
+        const unknown = wanted.filter(key => !this._options.includes(key));
 
-        if (!options || typeof options !== "object" || Array.isArray(options)) {
-            throw new TypeError("PGS toast: options must be an object or a string");
-        }
+        if (unknown.length) pgs.helper.warn(scope, `unknown position ${unknown.join(", ")}; use ${this._options.join(", ")}`);
 
-        const { type: typeDefaults, ...defaults } = this._defaults;
-        const definedOptions = Object.fromEntries(
-            Object.entries(options).filter(([, value]) => value !== undefined)
-        );
-        const config = {
-            ...defaults,
-            ...typeDefaults[type],
-            ...definedOptions,
-            type,
-            timeout: definedOptions.timeout ?? defaults.timeout
-        };
+        const keys = this._options.filter(key => wanted.includes(key));
 
-        return this.initToast(config);
+        pgs(container).remove("_toast");
+        pgs(container).add("_toast", ...keys.map(key => `_toast['${key}']`));
     },
 
-    initToast({
-        type,
-        title,
-        icon,
-        description,
-        timeout,
-        link,
-        linkTitle,
-        closeTitle
-    }) {
-        const containerToast = this._getOrCreateContainer();
-        const text = this._getContent(title, description);
+    _add(type, options) {
+        const scope = `toast.${type}`;
 
-        //== Create Toast
-        containerToast.innerHTML = "";
-        const toast = document.createElement("div");
-        if (timeout > 0) toast.style.setProperty("--notification-timeout", timeout + "ms");
-        pgs(toast).state.add(type);
-        pgs(toast).add("toast-element");
-        toast.setAttribute("role", type == "error" ? "alert" : "status");
-        toast.innerHTML = `
-            <div pgs="toast-element-content">
-                <div pgs="toast-element-icon">${icon}</div>
-                <p>${text}</p>
-            </div>
-            <div pgs="toast-element-buttons">
-                <button type="button" pgs="button toast-element-buttons-delete">${closeTitle}</button>
-            </div>
-        `;
-
-        const toastButtons = pgs(toast).querySelector("toast-element-buttons");
-        const btnDelete = pgs(toast).querySelector("toast-element-buttons-delete");
-        btnDelete.ariaLabel = closeTitle === "Close" ? "Close notification" : closeTitle;
-
-        if (link) {
-            const toastLink = document.createElement("a");
-            toastLink.href = link;
-            toastLink.textContent = linkTitle;
-            pgs(toastLink).add("button");
-            toastButtons.insertAdjacentElement("afterbegin", toastLink);
+        // a toast fired from a script in the head, before the body is parsed, has nowhere to go yet:
+        // it is shown once the document is ready
+        if (!document.body) {
+            if (document.readyState === "loading") pgs.helper.onDocumentReady(() => this._add(type, options));
+            else pgs.helper.warn(scope, "the document has no <body>, so the toast was not shown");
+            return;
         }
 
-        containerToast.appendChild(toast);
+        const { timeout = this._defaults.timeout, position, ...config } = fn_alert._toOptions(options, scope);
 
-        //+ Animation delete
-        function deleteToast() {
-            toast.style.opacity = "0";
-            setTimeout(() => toast.remove(), 300);
-        }
-
-        //== Timeout delete
-        if (timeout > 0) setTimeout(() => { deleteToast() }, timeout);
-
-        //== event
-        btnDelete.addEventListener("click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            e.stopImmediatePropagation()
-            deleteToast(e);
+        const toast = fn_alert.create(type, {
+            ...config,
+            component: "_alert",
+            dismissible: true,
+            timeout,
+            // the dismiss button draws dismissIcon (a cross by default), so closeTitle is its accessible name
+            closeTitle: config.closeTitle ?? "Close toast"
         });
-    },
 
-    deleteAll() {
-        const containerToast = this._getContainer();
-        if (containerToast) containerToast.innerHTML = "";
+        // only one toast is shown at a time: a new one simply replaces whatever was there
+        const container = this._getOrCreateContainer();
+        this._applyOptions(container, position, scope);
+        fn_alert.replace(container, toast);
     },
 
     _dispatch(element) {
-        this._getData(element).forEach(toast => {
-            const title = String(toast.title || "").trim();
-            const description = String(toast.message || "").trim();
-            const linkTitle = String(toast["title-link"] || this._defaults.linkTitle).trim();
-            const closeTitle = String(toast["title-close"] || this._defaults.closeTitle).trim();
-
-            if (!title && !description) return;
-
-            const link = toast.link || this._defaults.link;
-            const icon = toast.icon || undefined;
-            const duration = this._getDuration(toast);
-            const type = this._getType(toast);
-
-            PGS_toast[type]({
-                title,
-                description,
-                timeout: duration,
-                icon,
-                link,
-                linkTitle,
-                closeTitle
-            });
-        });
+        fn_alert.fromData(element, "toast").forEach(({ type, options }) => this._add(type, options));
     },
 
-    trigger(root = document) {
-        pgs(root).querySelectorAll("toastLoad").forEach(element => {
-            if (!element || element.dataset.initialize === "true") return;
+    //## DELETE
+    deleteAll() {
+        const containerToast = this._getContainer();
+        if (!containerToast) return;
 
-            element.dataset.initialize = "true";
+        pgs(containerToast).querySelectorAll("_alert").forEach(element => element.pgsAlertClose());
+    },
+
+
+    //## TRIGGER
+    trigger(root = document) {
+        pgs.helper.roots(root, "toastLoad").forEach(element => {
+            if (LOADED.has(element)) return;
+
+            LOADED.add(element);
             this._dispatch(element);
             element.remove();
-        });
-    },
-
-    execute(root = document) {
-        pgs(root).querySelectorAll("toastExe").forEach(element => {
-            if (!element || element.dataset.initialize === "true") return;
-
-            element.dataset.initialize = "true";
-            element.addEventListener("click", () => this._dispatch(element));
         });
     }
 };
 
-//# TRIGGER
 function PGS_toastLoad_init(root = document) {
     fn_toast.trigger(root);
-    fn_toast.execute(root);
 }
 
 export const PGS_toast = {
     init: PGS_toastLoad_init,
     trigger: PGS_toastLoad_init,
-    error: (options = {}) => fn_toast.show("error", options),
-    success: (options = {}) => fn_toast.show("success", options),
-    info: (options = {}) => fn_toast.show("info", options),
-    warning: (options = {}) => fn_toast.show("warning", options),
+    error: (options = {}) => fn_toast._add("error", options),
+    success: (options = {}) => fn_toast._add("success", options),
+    info: (options = {}) => fn_toast._add("info", options),
+    warning: (options = {}) => fn_toast._add("warning", options),
+    neutral: (options = {}) => fn_toast._add("neutral", options),
     deleteAll: () => fn_toast.deleteAll()
 };
 
 
-//= EXECUTE
-PGS_onDocumentReady(PGS_toastLoad_init);
+//# EXECUTE
+pgs.helper.onDocumentReady(PGS_toastLoad_init);

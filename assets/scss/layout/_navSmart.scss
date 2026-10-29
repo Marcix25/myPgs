@@ -1,0 +1,82 @@
+@use "../mixin/mixin" as *;
+
+//= NAV SMART
+// a floating bar of pills pinned to the bottom of the screen, the way a phone's tab bar looks:
+// every navSmart-element is one frosted pill, and the elements sit side by side, so a group of
+// links and a lone button (a profile, a search) read as separate shapes. The pill is a box with boxNavSmart;
+// the items inside it are plain buttons of the button component, with btnForNavSmart
+//# NAVSMART
+:is([pgs~="navSmart"], [pgs*="navSmart\5B"]) {
+    --navSmart-gap: .8rem;
+    // the distance from the edges of the screen: the page's own padding on a site, and
+    // --navSmart-edgePWA when it runs installed as an app (see below)
+    --navSmart-edgePWA: 2.0rem;
+    --navSmart-edge: calc(var(--page-padding) / 2);
+    --navSmart-itemMinWidth: 7.2rem;
+    --navSmart-iconSize: 2.2rem;
+    --navSmart-itemHeight: 4.9rem;
+    position: fixed;
+    inset-inline: 0;
+    bottom: calc(var(--navSmart-edge) + env(safe-area-inset-bottom, 0px));
+    z-index: var(--zIndex-navSmart);
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: var(--navSmart-gap);
+    padding-inline: var(--navSmart-edge);
+    pointer-events: none;
+
+    //## INSTALLED APP
+    // an installed app has no browser bar, and a phone draws its home indicator over the bottom
+    // of the page. env(safe-area-inset-bottom) does not report it unless the page asks for
+    // viewport-fit=cover, so the bar keeps a fixed distance there instead. Safari on iOS does not
+    // answer the display-mode media query for a site added to the Home Screen, so _navSmart.js
+    // marks the bar with the installedApp state too
+    @media (display-mode: standalone) { --navSmart-edge: var(--navSmart-edgePWA); }
+    &[pgs-state~="installedApp"] { --navSmart-edge: var(--navSmart-edgePWA); }
+
+    //## ELEMENT
+    // one pill, drawn by box with boxNavSmart. Its padding is the gap between the highlighted item
+    // and the edge, so the highlight reads as a smaller pill sliding inside it
+    :where([pgs~="navSmart-element"]) {
+        display: flex;
+        align-items: stretch;
+        pointer-events: auto;
+        @include box();
+        @include boxNavSmart();
+        // the pill gives way before the screen does (flex items stop at their content otherwise), and so
+        // does what it holds: the items below are what say how far they can shrink
+        min-width: 0;
+
+        > :where(*) { min-width: 0; }
+
+        // the dialog of a modal written inside the pill has its own lists and buttons, which are not items
+        ul:not(dialog *) {
+            display: flex;
+            align-items: stretch;
+            gap: .1rem;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+
+            li { display: flex; }
+        }
+
+        // the items, whatever holds them (a list entry, a modal wrapper, or the button itself): as wide as
+        // --navSmart-itemMinWidth, or as their label when that is wider, and when the bar does not fit the
+        // screen they shrink toward the width of their label instead of overflowing it. It is a width, not
+        // a flex-basis, because the pill is sized from what its items say they are; the floor is the label
+        // (min-content), which the width alone would let overflow, and the pill and what holds the items
+        // have min-width: 0 so that this is the only floor. An icon-only item is a square and keeps its
+        // size. The button fills what holds it
+        :where(li, [pgs~="modal"], [pgs*="modal\5B"]):not(dialog *):has(> [pgs*="'btnForNavSmart'"]:not([pgs*="'btnIconOnly'"])),
+        > [pgs*="'btnForNavSmart'"]:not([pgs*="'btnIconOnly'"]) {
+            width: var(--navSmart-itemMinWidth);
+            min-width: min-content;
+        }
+
+        :where(li, [pgs~="modal"], [pgs*="modal\5B"]) > [pgs*="'btnForNavSmart'"]:not([pgs*="'btnIconOnly'"]) {
+            flex: 1 1 auto;
+        }
+    }
+}

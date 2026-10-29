@@ -1,31 +1,55 @@
-# Inizializzazione di contenuti dinamici
+<!-- Automatically generated from reference/html/helper/init.html. Edit reference/html/helper/init.html and run npm run docs:generate again. -->
 
-`pgs.init(root)` inizializza i componenti MyPGS aggiunti dopo il caricamento iniziale della pagina, per esempio tramite JavaScript, JSX, AJAX o un renderer client-side.
+# Init
 
-L'helper rileva automaticamente tutti i moduli registrati su `pgs` che espongono un metodo `init(root)`, inclusi dark mode, Cookie Consent, notifiche e gestione dei colori SVG/Lottie. Non contiene una lista di componenti o eccezioni specifiche.
+Every component initializes itself on page load. pgs.helper.init(root) re-runs that same initialization for whatever a Document or Element received later — markup inserted from an AJAX response, rendered by React or Vue, or built by hand with a template string — since none of that existed yet for the automatic pass to find.
 
-## JavaScript
+## JavaScript API
 
-```js
-container.insertAdjacentHTML("beforeend", markup);
-pgs.init(container);
+- `pgs.helper.init(root)`: finds every registered module that exposes init(root) and runs it again against the given Document or Element; already-initialized markup inside it is left untouched.
+
+## Related elements
+
+### PGS
+
+- `flex`: provides the flex layout; direction and spacing are flags in its bracket.
+- `button`: styles the trigger that inserts the new markup.
+- `dropdown`: uses the related dropdown component or utility in this example.
+- `dropdown-button`: uses the related dropdown-button component or utility in this example.
+- `dropdown-content`: uses the related dropdown-content component or utility in this example.
+
+### PGS Options (component brackets)
+
+- `column`: stacks the trigger and the target vertically in this example.
+- `gapElements`: spaces them apart.
+
+## Output
+
+A dropdown built and inserted after the page has already loaded, working only because pgs.helper.init(root) is called on it.
+
+## Example
+
+```html
+<div pgs="flex['column' 'gapElements']">
+    <button pgs="button" id="pgsInit-add" type="button">Add dropdown</button>
+    <div id="pgsInit-target"></div>
+</div>
+
+<script type="module">
+    import { pgs } from "mypgs";
+
+    document.getElementById("pgsInit-add").addEventListener("click", () => {
+        const target = document.getElementById("pgsInit-target");
+
+        target.innerHTML = `
+            <span pgs="dropdown">
+                <button pgs="dropdown-button button" type="button">Added dynamically</button>
+                <div pgs="dropdown-content">This dropdown did not exist when the page loaded.</div>
+            </span>
+        `;
+
+        // Without this call pgs.dropdown never saw the new markup, and it would stay inert.
+        pgs.helper.init(target);
+    });
+</script>
 ```
-
-## React
-
-```jsx
-import { useEffect, useRef } from "react";
-import "mypgs";
-
-export function MyComponent() {
-    const root = useRef(null);
-
-    useEffect(() => {
-        pgs.init(root.current);
-    }, []);
-
-    return <div ref={root}>{/* markup MyPGS */}</div>;
-}
-```
-
-Passa il contenitore del markup appena creato invece di `document`, così la ricerca rimane limitata al sottoalbero interessato.

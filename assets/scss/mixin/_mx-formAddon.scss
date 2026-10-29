@@ -1,218 +1,324 @@
-@use "mx-button" as *;
+@use "mx-icons" as *;
 @use "mx-form" as *;
 @use "mx-responsive" as *;
+@use "mx-elements" as *;
 
-//= checkboxBackground 
+//# checkboxBackground
 @mixin checkboxBackground() {
-    --checkboxBackground-color: var(--color-text);
-    --checkboxBackground-padding: var(--padding-2);
-    --checkboxBackground-borderRadius: var(--border-radius-input);
-    --checkboxBackground-background: var(--color-box-transparent);
-    --checkboxBackground-background-checked: var(--color-primary-soft);
-    @include checkbox();
+    --checkboxBackground-padding: calc(var(--padding-texts) / 2);
+    --checkboxBackground-paddingRight: var(--padding-texts);
+    --checkboxBackground-borderRadius: var(--borderRadius-elements);
+    //
+    --checkboxBackground-background: var(--clickable-background);
+    --checkboxBackground-background-hover: var(--hover-background);
+    --checkboxBackground-background-checked: var(--twoState-background);
+    //
+    --checkboxBackground-color: var(--clickable-color);
+    --checkboxBackground-color-hover: var(--hover-color);
+    --checkboxBackground-color-checked: var(--twoState-color);
+    //
+    --checkboxBackground-borderColor: var(--clickable-borderColor);
+    --checkboxBackground-borderColor-hover: var(--hover-borderColor);
+    --checkboxBackground-borderColor-checked: var(--twoState-borderColor);
     position: relative;
     isolation: isolate;
     color: var(--checkboxBackground-color);
     padding: var(--checkboxBackground-padding);
+    padding-right: var(--checkboxBackground-paddingRight);
     border-radius: var(--checkboxBackground-borderRadius);
     background-color: var(--checkboxBackground-background);
+    border: var(--border-width) var(--border-color) var(--border-style);
+    border-color: var(--checkboxBackground-borderColor);
     margin-bottom: 0;
+    transition: var(--clickable-transition);
 
-    input {
-        margin-right: var(--checkboxBackground-padding);
+    //## hover
+    @media (hover: hover) and (pointer: fine) {
+        &:hover:not(:has(input:checked, input:disabled)) {
+            background-color: var(--checkboxBackground-background-hover);
+            border-color: var(--checkboxBackground-borderColor-hover);
+            color: var(--checkboxBackground-color-hover);
+        }
     }
 
-    //== checked
+    //## checked
     &:has(input:checked) {
         background-color: var(--checkboxBackground-background-checked);
+        border-color: var(--checkboxBackground-borderColor-checked);
+        color: var(--checkboxBackground-color-checked);
+    }
+
+    //## label
+    //### errorLabel
+    &[pgs-state~=errorLabel] {
+        background-color: var(--color-error-soft);
+        border-color: var(--color-error);
+        color: var(--color-error);
+        --checkbox-borderColor: var(--color-error);
     }
 }
 
-//= TOGGLE 
+//# TOGGLE
 @mixin toggle() {
-    --toggle-size: var(--border-radius-input);
-    --toggle-color-thumb: var(--color-white);
-    --toggle-color-rail: #cbcbcb;
-    --toggle-color-rail-checked: var(--color-primary);
+    --toggle-size: 2.0rem;
+    --toggle-borderStyleWidth: var(--border-style) var(--border-width);
+    // the rail
+    --toggle-rail-background: var(--clickable-background);
+    --toggle-rail-background-hover: var(--hover-background);
+    --toggle-rail-background-checked: var(--twoState-background);
+    --toggle-rail-borderColor: var(--clickable-borderColor);
+    --toggle-rail-borderColor-hover: var(--hover-borderColor);
+    --toggle-rail-borderColor-checked: var(--twoState-borderColor);
+    // the thumb
+    --toggle-thumb-background: var(--clickable-color);
+    --toggle-thumb-background-hover: var(--hover-color);
+    --toggle-thumb-background-checked: var(--twoState-color);
     $space: 2px;
     isolation: isolate;
-    display: flex;
-    gap: var(--gap-texts);
-    margin-bottom: var(--gap-texts);
+    @include row(nowrap);
+    @include labelCheckboxAndRadio();
 
-    label {
+    // the text of the switch lines up with the rail, as checkbox() and radio() line it up with their box
+    &:where(label),
+    :where(label) {
         cursor: pointer;
+        line-height: var(--toggle-size);
+        width: 100%;
     }
 
-    //== rail & thumb
-    input {
+    // rail & thumb
+    :where(input) {
         position: relative;
         appearance: none;
         margin-left: auto;
         cursor: pointer;
         min-width: calc(var(--toggle-size) * 2);
+        order: 1;
+        // the states are written on the input and the rail and the thumb take them: the rail is the
+        // background and the border color, the thumb is the color
+        background: var(--toggle-rail-background);
+        color: var(--toggle-thumb-background);
+        border-color: var(--toggle-rail-borderColor);
+        border-radius: var(--borderRadius-texts);
 
         &::after,
         &::before {
             content: "";
-            position: relative;
-            transform: unset;
-            top: unset;
-            margin-left: auto;
-            transition: all 250ms;
             display: block;
-            border-radius: var(--border-radius-input);
-            order: 1;
+            border-radius: var(--borderRadius-texts);
+
+            @media (prefers-reduced-motion: no-preference) { transition: all 250ms; }
         }
 
-        //=== rail
+        //### rail
         &::before {
-            background: var(--toggle-color-rail);
+            position: relative;
+            margin-left: auto;
+            background: inherit;
             width: calc(var(--toggle-size) * 2);
             min-width: calc(var(--toggle-size) * 2);
             height: var(--toggle-size);
-            flex-shrink: 2;
+            border: var(--toggle-borderStyleWidth);
+            border-color: inherit;
         }
 
-        //=== thumb
+        //### thumb
+        // it slides: `left` is the one position that both states give as a length, so the move between them
+        // is animated. Checked, its right edge sits $space from the right edge of the rail
         &::after {
-            content: "";
             opacity: 1;
-            background-color: var(--toggle-color-thumb);
+            background-color: currentColor;
             height: calc(var(--toggle-size) - ($space * 2));
             width: calc(var(--toggle-size) + $space);
+            border: var(--toggle-borderStyleWidth);
+            border-color: currentColor;
             top: $space;
             left: $space;
             z-index: 1;
             position: absolute;
         }
 
-        //== HOVER
-        &:hover::after {
-            scale: 1.4;
-            background-color: color-mix(in srgb, var(--toggle-color-thumb) 25%, transparent 75%);
-            outline: 1.5px solid var(--color-primary);
+        //## HOVER COLORS
+        // on the switch itself or on the label that holds it, not a disabled one, as in checkbox() and radio();
+        // the checked ones below come after and win. The thumb grows only where motion is welcome
+        @media (hover: hover) and (pointer: fine) {
+            &:is(:hover, :where(label):hover *):where(:not(:disabled)) {
+                background: var(--toggle-rail-background-hover);
+                border-color: var(--toggle-rail-borderColor-hover);
+                color: var(--toggle-thumb-background-hover);
+
+                @media (prefers-reduced-motion: no-preference) {
+                    &::after { scale: 1.4; }
+                }
+            }
         }
 
-        //== CHECKED
+        //## CHECKED
+        // set on the input itself, so a checked toggle keeps its look under the pointer
         &:checked {
-            &::before {
-                background: var(--color-primary);
-            }
+            background: var(--toggle-rail-background-checked);
+            border-color: var(--toggle-rail-borderColor-checked);
+            color: var(--toggle-thumb-background-checked);
 
-            &::after {
-                left: unset;
-                right: $space;
-            }
+            &::after { left: calc(100% - (var(--toggle-size) + $space + var(--border-width) * 2) - $space); }
         }
 
-        //== FOCUS
-        &:focus-visible::after {
-            outline: 3px solid var(--color-link) !important;
+        //## DISABLED
+        // a label that holds the switch dims all of it (labelCheckboxAndRadio): the switch dims on its own
+        // only when no label holds it
+        &:disabled {
+            cursor: not-allowed !important;
+
+            &:not(:where(label) *) { opacity: 0.5; }
         }
+
+        //## FOCUS
+        &:focus-visible::after { outline: var(--focus-visible) !important; }
     }
 }
 
-//= TWOSTATE
-@mixin twoState($ifHover: true) {
-    //== label
+//# CHIP
+@mixin chip() {
+    //## label
+    --button-size: 1rem;
     position: relative;
     isolation: isolate;
-    @include buttonBase();
-    @include buttonContent();
-
-    @if($ifHover) {
-        @include buttonHover();
-    }
-
     flex-wrap: wrap;
     display: flex !important;
     cursor: pointer;
 
-    i {
-        opacity: 0.4;
-        min-width: 1.4rem;
-    }
-
-    &:hover {
-        i {
-            opacity: 1;
-        }
-    }
-
-    //== checked
-    &:has(input:checked) {
-        --button-background: var(--button-background-active);
-        --button-color: var(--button-color-active);
-
-        i {
-            --fa-secondary-opacity: 0.6;
-            opacity: 1;
-        }
-    }
-
-    input {
+    :where(input) {
         opacity: 0;
         z-index: -1;
         position: absolute;
         appearance: none;
     }
-}
 
-@mixin chip() {
-    @include twoState(false);
-    --button-size: 1rem;
+    //## icon
+    :where([pgs~="icon"], [pgs*="icon\5B"], i) { opacity: 0.4; }
 
+    //## hover
+    &:hover :where([pgs~="icon"], [pgs*="icon\5B"], i) { opacity: 1; }
+
+    //## focus
+    // the input is invisible: the ring is drawn on the chip that holds it
+    &:has(input:focus-visible) { @include focusRing(); }
+
+    //## checked
     &:has(input:checked) {
-        &:not(:has(i)) {
+        :where([pgs~="icon"], [pgs*="icon\5B"], i) { opacity: 1; }
 
-            &::after,
-            &::before {
-                display: grid;
-                place-items: center;
-                width: 1.5rem;
-                height: 1.5rem;
-                border-radius: 50%;
-                font-size: 1.5rem;
-                line-height: 1;
-                font-weight: bold;
-                color: var(--color-blackFixed);
-                background-color: var(--color-whiteFixed);
-                padding: 0.2rem;
-                cursor: pointer;
+        //### checkbox
+        &:has(input[type=checkbox]:checked) {
+            &:not(:has([pgs~="icon"], [pgs*="icon\5B"], i)) {
+                padding-right: var(--button-size);
+
+                &::after {
+                    // order: -1;
+                    color: inherit;
+                    cursor: pointer;
+                    @include icon(var(--icon-glyph-circleXmark), "");
+                }
             }
         }
-    }
 
-    //== checkbox
-    &:has(input[type=checkbox]:checked) {
-        &:not(:has(i)) {
-            padding-right: var(--button-size);
+        //### radio
+        &:has(input[type=radio]:checked) {
+            &:not(:has([pgs~="icon"], [pgs*="icon\5B"], i)) {
+                padding-left: var(--button-size);
 
-            &::after {
-                content: "×";
-            }
-        }
-    }
-
-    //== radio
-    &:has(input[type=radio]:checked) {
-        &:not(:has(i)) {
-            padding-left: var(--button-size);
-
-            &::before {
-                content: "";
+                &::after {
+                    order: -1;
+                    color: inherit;
+                    cursor: pointer;
+                    @include icon(var(--icon-glyph-circle), "");
+                }
             }
         }
     }
 }
 
-//= CHIPS
+//# CHIPS
 @mixin chips() {
     border: unset;
-    @include flexRow();
+    @include row();
 
-    label {
-        @include chip();
+    label { @include chip(); }
+}
+
+//# FIELD
+@mixin field() {
+    --field-gap: 0.9rem;
+    --field-padding: var(--padding-texts);
+    --field-borderRadius: var(--borderRadius-texts);
+    --field-paddingTop: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
+    --field-label-paddingTop: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
+    --field-background: var(--color-white);
+    background-color: var(--field-background);
+    position: relative;
+    border-radius: var(--field-borderRadius);
+
+    //## LABEL
+    :where([pgs~="label"], [pgs*="label\5B"], [pgs~="legend"]) {
+        // the gray of the palette is 2.5:1 on white: light takes a darker one (5.1:1), dark keeps it (8.4:1)
+        --label-color: light-dark(#6e6e6e, var(--color-gray));
+        --label-border: unset;
+        --label-paddingBlock: var(--field-padding) .25em;
+        --label-paddingInline: var(--field-padding);
+        --label-background: transparent;
+        position: absolute;
+        top: 0;
+        left: 0;
+        @media (prefers-reduced-motion: no-preference) { transition: padding 200ms ease, font-size 200ms ease; }
+        line-height: 1;
+        pointer-events: none;
+
+        //## NOT focus
+        &:where(:has(+ [pgs~="input"]:not(:focus, :not(:placeholder-shown)))) { padding-top: var(--field-label-paddingTop); }
+    }
+
+    //## checkbox radio
+    // a checkbox or a radio in a field has no asterisk of its own: the label of the field has it
+    :is([pgs~="checkbox"], [pgs~="radio"]) {
+
+        //### required
+        &:has(input:required),
+        :where(label):has(input:required) {
+            &::after { content: none; }
+        }
+    }
+
+    //## INPUT SELECT
+    :where([pgs~="input"], [pgs~="select"]) {
+        --input-padding: var(--field-padding);
+        padding-top: var(--field-paddingTop);
+    }
+
+    //## ERROR
+    //### error - fieldset
+    &[pgs-state~=errorFieldset] {
+        background: var(--color-error-soft);
+        border-color: var(--color-error);
+
+        :where(legend) {
+            --label-color: var(--color-error);
+            --label-border: unset;
+        }
+    }
+
+    //### error - label
+    &:has([pgs-state~=errorLabel]) {
+        background: var(--color-error-soft);
+        border-color: var(--color-error);
+
+        // the label of a field floats with no border of its own, in error too (formValidate gives it one)
+        :where([pgs-state~=errorLabel]) { --label-border: unset; }
+    }
+
+    //+ no input
+    &:where([pgs*="'noInput'"]) {
+        padding: var(--field-padding);
+        padding-top: var(--field-paddingTop);
+        border: var(--border-width) var(--border-color) var(--border-style);
     }
 }
