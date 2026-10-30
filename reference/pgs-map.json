@@ -1379,6 +1379,7 @@
         "pgs-options": [
             "slidesAnimationScale",
             "slidesArrowsCenter",
+            "slidesEdge",
             "slidesFullWidth",
             "slidesLoop",
             "slidesNotDots",
