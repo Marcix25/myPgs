@@ -27,6 +27,7 @@ A horizontal, scroll-snapped track of slides with its own arrows and position do
 - `slidesSingleScroll`: an arrow advances by a single slide, counted from the one the snap is resting on, instead of jumping past every slide currently in view.
 - `slidesArrowsCenter`: puts the arrows the module builds over the slides again, one on each side at the middle of their height, instead of at the top right above them, where they are laid out of the flow with their room kept above the track from the first paint (--slides-arrowSize, plus the text gap), so the page does not move when the module builds them. An arrow written by hand (slides-prev, slides-next) is not moved either way: only the generated ones are.
 - `slidesNotDots`: the slides have no dots; the module does not build the row, and no room is kept under them. A row written by hand (slides-dots) is the author's and stays as written, so do not write one with this option.
+- `slidesEdge`: for slides as wide as the screen (a section with no padding of its own): the track keeps --page-padding on its inline sides, and the first and the last slide are held on the content column by their margin above --page-width, so the slides run to the edge of the screen while the first one starts under the title. Inside a section, which already holds the column, it is not needed and would add the padding twice.
 - `slidesFullWidth`: each slide fills the full width of the track instead of the default fixed measure, at every breakpoint.
 - `slidesLoop`: the prev/next arrows wrap around at the ends instead of stopping, so prev from the first slide goes to the last one and next from the last goes to the first; neither arrow is ever disabled.
 
@@ -252,6 +253,36 @@ The slides have no dots: the module builds no row and keeps no room under them; 
 
 ```html
 <div pgs="slides['slidesNotDots']">
+    <ul pgs="slides-container">
+        <li pgs="slides-container-slide">
+            <article pgs="card">
+                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 1">
+                <div pgs="card-content">
+                    <h3>Lorem ipsum dolor</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            </article>
+        </li>
+
+        <li pgs="slides-container-slide">
+            <article pgs="card">
+                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 2">
+                <div pgs="card-content">
+                    <h3>Sit amet consectetur</h3>
+                    <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                </div>
+            </article>
+        </li>
+    </ul>
+</div>
+```
+
+### Edge to edge
+
+For slides as wide as the screen: the first slide starts under the title and the track still runs to the edge, using pgs=&quot;slides['slidesEdge']&quot;. Inside a section it is not needed.
+
+```html
+<div pgs="slides['slidesEdge']">
     <ul pgs="slides-container">
         <li pgs="slides-container-slide">
             <article pgs="card">
