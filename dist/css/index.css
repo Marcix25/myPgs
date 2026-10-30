@@ -3118,7 +3118,6 @@
   position: relative;
   -webkit-user-select: none;
   user-select: none;
-  padding-inline: var(--page-padding);
   display: flex;
   gap: var(--gap-texts);
   --gap: var(--gap-texts);

@@ -41,7 +41,6 @@
         position: relative;
         -webkit-user-select: none;
         user-select: none;
-        padding-inline: var(--page-padding);
         @include row(nowrap);
 
         // smooth scrolling only when the visitor has not asked for less motion
