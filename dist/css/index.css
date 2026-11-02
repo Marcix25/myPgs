@@ -1609,7 +1609,7 @@
   --button-borderRadius: 999px;
   --button-gap: .2rem;
   --icon-size: var(--navSmart-iconSize, 2.2rem);
-  padding-inline: calc(var(--button-paddingInline) * 2);
+  padding-inline: calc(var(--button-size) * 4);
   justify-content: center;
   flex-direction: column;
   align-items: center;
@@ -1620,8 +1620,9 @@
 }
 
 :is([pgs~=button], [pgs*="button["]):where([pgs*="'btnForNavSmart'"])[pgs*="'btnIconOnly'"] {
+  padding-inline: var(--button-paddingBlock);
   min-width: 100%;
-  width: calc(var(--navSmart-itemHeight, auto));
+  width: var(--navSmart-itemHeight, auto);
 }
 
 :is([pgs~=button], [pgs*="button["]):where([pgs*="'btnStrong'"]) {
