@@ -215,7 +215,6 @@
 // bar's. The page you are on (aria-current) or the selected item (aria-selected) takes the current
 // look as a smaller pill inside the bigger one
 @mixin buttonForNavSmart() {
-    @include buttonVertical();
     @include buttonTransparent();
     @include buttonCurrent();
     --button-size: .35rem;
@@ -224,11 +223,20 @@
     --button-borderRadius: 999px;
     --button-gap: .2rem;
     --icon-size: var(--navSmart-iconSize, 2.2rem);
+    // written as padding, not through --button-paddingInline: a button with an icon takes the short
+    // variable on its left (buttonBase), which would leave the item lopsided
+    padding-inline: calc(var(--button-size) * 4);
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     min-height: var(--navSmart-itemHeight, auto);
     white-space: nowrap;
     font-weight: var(--font-weight-text);
 
+    // an item with the icon alone keeps the padding of an icon-only button, the square the icon fills
     &[pgs*="'btnIconOnly'"] {
+        padding-inline: var(--button-paddingBlock);
         min-width: 100%;
         width: var(--navSmart-itemHeight, auto);
     }

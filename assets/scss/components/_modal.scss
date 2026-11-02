@@ -40,6 +40,7 @@
     // the flag-copy loop in _modal.js reads any of these off the wrapper or the dialog alike,
     // so they are declared here too, for editors to suggest them on the wrapper as well
     //+ OPTION
+    &:where([pgs*="'modalSheet'"]),
     &:where([pgs*="'dialogHistory'"]),
     &:where([pgs*="'dialogTopLevel'"]),
     &:where([pgs*="'dialogDisableBackdropClose'"]),
@@ -90,7 +91,8 @@
     background: var(--modal-backdrop);
 
     @media (prefers-reduced-motion: no-preference) { transition: opacity 600ms ease; }
-    &:focus { outline: none; }
+    // the initial-focus landing the module makes by itself (tabindex="-1"); one the author made focusable keeps its ring
+    &[tabindex="-1"]:focus { outline: none; }
 
     &:where([open]) {
         display: flex;
@@ -119,7 +121,7 @@
 
             // same as the dialog's own &:focus above: this is the initial-focus landing
             // point (see _modal.js), never reached via Tab
-            &:focus { outline: none; }
+            &[tabindex="-1"]:focus { outline: none; }
 
             :where([pgs~="modal-close"]),
             :where([pgs~="_modal-close"]) {
@@ -176,11 +178,12 @@
             content: "";
             position: absolute;
             height: 4px;
-            width: max(50%);
+            width: 30px;
             max-width: 100px;
             left: 50%;
             transform: translateX(-50%);
             background: var(--color-gray);
+            opacity: .5;
             top: 11px;
             border-radius: 4px;
         }
@@ -266,6 +269,26 @@
 
     //### BOTTOM
     &:where([pgs*="'dialogBottom'"]) { align-items: safe flex-end; }
+
+    //+ SHEET
+    // a bottom sheet: _modal.js adds the options that put it at the bottom, as wide as the screen,
+    // entering from the bottom and pulled down to close (the grip is the one dialogDragClose draws). What is
+    // left here is the shape: edge to edge, round at the top only, flush with the bottom of the screen, and
+    // clear of the home indicator of a phone. A sheet covers the floating navSmart bar and the header, the
+    // way a sheet of the system covers the tab bar, so it stacks one above them; a dialog on the top layer
+    // (dialogTopLevel) is over everything already
+    &:where([pgs*="'modalSheet'"]) {
+        z-index: calc(max(var(--zIndex-navSmart), var(--zIndex-header)) + 1);
+        padding-inline: 0;
+        padding-bottom: 0;
+
+        :where([pgs~="modal-dialog-content"]) {
+            width: 100%;
+            border-radius: var(--modal-borderRadius) var(--modal-borderRadius) 0 0;
+            padding-top: calc(var(--modal-content-padding) + 1.2rem);
+            padding-bottom: calc(var(--modal-content-padding) + env(safe-area-inset-bottom, 0px));
+        }
+    }
 
     //+ ANIMATION
     // _modal.js sets animationIn on open and animationOut on close, and waits for these

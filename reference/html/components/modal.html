@@ -1,7 +1,7 @@
 <!--
 /**
  * @title Modal
- * @description A native dialog driven by the library. The dialog is moved out of its wrapper on initialization — to the body by default, or into the container named by modalContainerID or modalContainerPGS — so a modal written inside a header or a card is never clipped by it; dialogTopLevel keeps it in place and opens it with showModal(), on the browser's top layer. Options are authored on the wrapper — modal-dialog stays bare, like every other generated child token, and the module copies each option it finds onto _dialog, a second generated token on the dialog element itself that exists to carry them. A close button is generated when neither element holds one, and focus moves to the content header on open, or to the dialog itself when there is no header, instead of the first focusable descendant the dialog spec would otherwise pick. Position and size options are placed by CSS alone, so a script that owns a modal can swap them while the dialog is closed — Notification does, to open its one panel where the clicked bell asks. Opening and closing raise pgs:modal:open and pgs:modal:close, both bubbling, with detail.modal and detail.dialog always naming the wrapper and the dialog, and detail.element the element the event was raised on. pgs:modal:close is raised once the dialog has actually closed, whatever closed it — the close button, the backdrop, Escape, a drag, the browser's back button or a plain dialog.close() — and pgs:modal:open when the module opens it. A listener hears each of them once wherever it sits: the event goes out on the dialog and bubbles up from there, which already passes through the wrapper when dialogTopLevel keeps the dialog inside it; a dialog moved elsewhere is not under the wrapper, so the wrapper gets an event of its own, held back from the ancestors the two share, and a listener on the wrapper, one on the dialog, and one on the body or document each hear it once. A wrapper with no dialog inside it is left alone, with a warning in the console.
+ * @description A native dialog driven by the library. The dialog is moved out of its wrapper on initialization — to the body by default, or into the container named by modalContainerID or modalContainerPGS — so a modal written inside a header or a card is never clipped by it; dialogTopLevel keeps it in place and opens it with showModal(), on the browser's top layer. Options are authored on the wrapper — modal-dialog stays bare, like every other generated child token, and the module copies each option it finds onto _dialog, a second generated token on the dialog element itself that exists to carry them. A close button is generated when neither element holds one, and focus moves to the content header on open, or to the dialog itself when there is no header, instead of the first focusable descendant the dialog spec would otherwise pick. Position and size options are placed by CSS alone, so a script that owns a modal can swap them while the dialog is closed — Notification does, to open its one panel where the clicked bell asks. Opening and closing raise pgs:modal:open and pgs:modal:close, both bubbling, with detail.modal and detail.dialog always naming the wrapper and the dialog, and detail.element the element the event was raised on. pgs:modal:close is raised once the dialog has actually closed, whatever closed it — the close button, the backdrop, Escape, a drag, the browser's back button or a plain dialog.close() — and pgs:modal:open when the module opens it. A listener hears each of them once wherever it sits: the event goes out on the dialog and bubbles up from there, which already passes through the wrapper when dialogTopLevel keeps the dialog inside it; a dialog moved elsewhere is not under the wrapper, so the wrapper gets an event of its own, held back from the ancestors the two share, and a listener on the wrapper, one on the dialog, and one on the body or document each hear it once. Escape closes the modal whether or not dialogTopLevel is set (a dialog opened without showModal() gets no Escape from the browser, so the module reads the key itself, unless something already used it). Opening one modal closes the other modals of the library, and only those: a dialog that is not one of them stays as it is. A modal written inside another one's dialog opens over it and leaves it open: closing the inner one leaves the outer one, closing the outer one closes the inner one with it, and Escape closes the one opened last. A modal-button that is a link does not follow its href. A press that starts inside the panel and ends on the backdrop (selecting text) does not close the dialog, only a press that also started on the backdrop does. The click of the modal-button, of the close button and of the backdrop is not stopped: other listeners, on the button or on document, still hear it. Before it opens, a modal-button that sits inside a focusable ancestor (a li with tabindex=-1 in a slide), which Safari focuses on a click instead of the button, takes the focus itself, so the native close puts it back on the button and not on that ancestor. A close whose animation is cancelled halfway (the dialog hidden by a breakpoint) is finished instead of leaving the modal stuck open. With dialogHistory the open adds a history entry and the close takes its address back instead of adding another, so Back after a close leaves the page. The tabindex the module adds to the focus target is removed by destroy(); a tabindex the author wrote stays and keeps its focus ring. A wrapper with no dialog inside it is left alone, with a warning in the console.
  *
  * @pgs
  * - modal: identifies the wrapper the module initializes, and the element the instance is stored against; write every option here.
@@ -28,6 +28,7 @@
  * - dialogRight: aligns the dialog content to the right edge of the viewport, instead of the horizontal center.
  * - dialogTop: aligns the dialog content to the top of the viewport. This is already the default height, so it only changes anything when it replaces dialogBottom or dialogCenter, as a script that swaps position options does.
  * - dialogTopLevel: leaves the dialog inside its wrapper and opens it with showModal(), on the browser's top layer above everything else, instead of moving it into a container and opening it with show().
+ * - modalSheet: makes the modal a bottom sheet, the way a phone shows one: the panel sits at the bottom of the screen, as wide as it, with only its top corners round and a grip above it, comes in from the bottom and is pulled down to close. It sets dialogBottom, dialogFull, dialogAnimationBottom (kept off when another dialogAnimation* is written) and dialogDragClose itself, so none of them is written next to it; it covers the floating navSmart bar and the header, the way a sheet of the system covers the tab bar, and its content is padded clear of a phone's home indicator.
  * - dialogAnimationZoom: grows the panel out of the modal-button that opened it and shrinks it back into the button on close, with the backdrop fading alongside; the animation lives in the stylesheet, tuned by --modal-animation-timing and --modal-animation-easing and turned off under prefers-reduced-motion, while the module only measures the button and the panel; it is skipped when there is no visible button to zoom from.
  * - dialogAnimationLeft: slides the panel in from the left edge of the screen and back out to it on close, with the backdrop fading alongside; timing, curve and reduced motion as dialogAnimationZoom. Use one dialogAnimation* option at a time.
  * - dialogAnimationRight: slides the panel in from the right edge of the screen and back out to it on close, like dialogAnimationLeft.
@@ -386,6 +387,28 @@
 
                 <div pgs="modal-dialog-content-scroll">
                     <p>Modal content with <code>pgs="modal['dialogDragClose']"</code>.</p>
+                </div>
+            </div>
+        </dialog>
+    </div>
+</section>
+
+<demo demo-h2="Modal sheet"></demo>
+<demo demo-h3="Bottom sheet" demo-description="A bottom sheet in one option, using pgs=&quot;modal['modalSheet']&quot;: at the bottom of the screen, as wide as it, round at the top, from the bottom and pulled down to close."></demo>
+<section demo="component">
+    <div pgs="modal['modalSheet']">
+        <button pgs="modal-button button" type="button">
+            Open sheet
+        </button>
+
+        <dialog>
+            <div pgs="modal-dialog-content">
+                <div pgs="modal-dialog-content-header">
+                    <h3>Sheet</h3>
+                </div>
+
+                <div pgs="modal-dialog-content-scroll">
+                    <p>Modal content with <code>pgs="modal['modalSheet']"</code>.</p>
                 </div>
             </div>
         </dialog>

@@ -49,6 +49,7 @@ A floating navigation bar pinned to the bottom of the screen, made of frosted pi
 ## CSS Variables
 
 - `--navSmart-edge`
+- `--navSmart-edgeHomeIndicator`
 - `--navSmart-edgePWA`
 - `--navSmart-gap`
 - `--navSmart-iconSize`

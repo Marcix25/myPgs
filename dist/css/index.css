@@ -1590,13 +1590,6 @@
 }
 
 :is([pgs~=button], [pgs*="button["]):where([pgs*="'btnForNavSmart'"]) {
-  padding: var(--button-paddingInline);
-  --button-height: 100%;
-  --icon-size: 1.2em;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
   --button-borderColor: transparent;
   --button-background: transparent;
   --button-color: var(--clickable-onlyText-color);
@@ -1616,12 +1609,18 @@
   --button-borderRadius: 999px;
   --button-gap: .2rem;
   --icon-size: var(--navSmart-iconSize, 2.2rem);
+  padding-inline: calc(var(--button-size) * 4);
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   min-height: var(--navSmart-itemHeight, auto);
   white-space: nowrap;
   font-weight: var(--font-weight-text);
 }
 
 :is([pgs~=button], [pgs*="button["]):where([pgs*="'btnForNavSmart'"])[pgs*="'btnIconOnly'"] {
+  padding-inline: var(--button-paddingBlock);
   min-width: 100%;
   width: var(--navSmart-itemHeight, auto);
 }
@@ -2767,7 +2766,7 @@
     transition: opacity 600ms ease;
   }
 }
-:where(dialog[pgs~=modal-dialog]):focus {
+:where(dialog[pgs~=modal-dialog])[tabindex="-1"]:focus {
   outline: none;
 }
 
@@ -2815,7 +2814,7 @@
   margin-bottom: calc(var(--modal-content-padding) / 2);
 }
 
-:where(dialog[pgs~=modal-dialog]) :where([pgs~=modal-dialog-content]) :where([pgs~=modal-dialog-content-header]):focus {
+:where(dialog[pgs~=modal-dialog]) :where([pgs~=modal-dialog-content]) :where([pgs~=modal-dialog-content-header])[tabindex="-1"]:focus {
   outline: none;
 }
 
@@ -2866,11 +2865,12 @@
   content: "";
   position: absolute;
   height: 4px;
-  width: 50%;
+  width: 30px;
   max-width: 100px;
   left: 50%;
   transform: translateX(-50%);
   background: var(--color-gray);
+  opacity: 0.5;
   top: 11px;
   border-radius: 4px;
 }
@@ -2949,6 +2949,19 @@
 
 :where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogBottom'"]) {
   align-items: safe flex-end;
+}
+
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'modalSheet'"]) {
+  z-index: calc(max(var(--zIndex-navSmart), var(--zIndex-header)) + 1);
+  padding-inline: 0;
+  padding-bottom: 0;
+}
+
+:where(dialog[pgs~=modal-dialog]):where([pgs*="'modalSheet'"]) :where([pgs~=modal-dialog-content]) {
+  width: 100%;
+  border-radius: var(--modal-borderRadius) var(--modal-borderRadius) 0 0;
+  padding-top: calc(var(--modal-content-padding) + 1.2rem);
+  padding-bottom: calc(var(--modal-content-padding) + env(safe-area-inset-bottom, 0px));
 }
 
 :where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"]):is([pgs-state~=animationIn], [pgs-state~=animationOut]) {
