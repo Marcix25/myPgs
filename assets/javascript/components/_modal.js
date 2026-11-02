@@ -54,12 +54,21 @@ function initializeModal(MODAL) {
     // options land on _dialog instead, a second, pgs-generated-only token on the same <dialog>
     // element that exists purely to carry them (see AGENTS-DEVELOPMENT.md).
     pgs(DIALOG).add("modal-dialog", "_dialog");
-    // modalSheet is a bottom sheet: at the bottom, as wide as the screen, entering from the bottom and pulled
-    // down to close. It writes those options itself, so each one is merged below like an authored one; an
-    // animation the author chose is kept instead of dialogAnimationBottom
+    // modalSheet is a bottom sheet: at the bottom, entering from the bottom and pulled down to close, the width
+    // of dialogSmall (centered; the whole screen where the screen is narrower), modal (showModal(): a backdrop,
+    // the top layer, no clipping by a scroller around the button). It writes those options itself, so each one
+    // is merged below like an authored one. What the author already chose is kept: a size (dialogSmall,
+    // dialogMedium or dialogFull) instead of dialogSmall, an animation instead of dialogAnimationBottom, and a
+    // container (modalContainerID, modalContainerPGS) instead of dialogTopLevel, since a dialog in the top
+    // layer stays where it is
     if ([MODAL, DIALOG].some(element => pgs(element).option.contains("modalSheet"))) {
-        for (const key of ["dialogBottom", "dialogFull", "dialogDragClose"]) pgs(MODAL).add(`modal['${key}']`);
-        if (![MODAL, DIALOG].some(element => ANIMATIONS.some(key => pgs(element).option.contains(key)))) pgs(MODAL).add("modal['dialogAnimationBottom']");
+        const authored = keys => [MODAL, DIALOG].some(element => keys.some(key => pgs(element).option.contains(key)));
+        const container = [MODAL, DIALOG].some(element => ["modalContainerID", "modalContainerPGS"].some(key => pgs(element).data.getValueBrackets(key) !== undefined));
+        const sheet = ["dialogBottom", "dialogDragClose"];
+        if (!authored(["dialogSmall", "dialogMedium", "dialogFull"])) sheet.push("dialogSmall");
+        if (!authored(ANIMATIONS)) sheet.push("dialogAnimationBottom");
+        if (!container) sheet.push("dialogTopLevel");
+        for (const key of sheet) pgs(MODAL).add(`modal['${key}']`);
     }
     for (const key of [
         "modalSheet", "dialogHistory", "dialogTopLevel", "dialogDisableBackdropClose", "dialogDragClose", "dialogSmall", "dialogMedium",

@@ -322,7 +322,7 @@ TypeScript (`dist/index.d.ts`: 176 -> 513 lines)
 
 ### F. New (opt-in)
 
-- `modal['modalSheet']`: a bottom sheet in one option (bottom, full width, round at the top, enters from the bottom, pulled down to close, covers the navSmart bar and the header, clear of a phone's home indicator). It sets `dialogBottom`, `dialogFull`, `dialogDragClose` and `dialogAnimationBottom` itself (an animation written next to it is kept).
+- `modal['modalSheet']`: a bottom sheet in one option (bottom, the width of `dialogSmall` and centered, round at the top, enters from the bottom, pulled down to close, covers the navSmart bar and the header, clear of a phone's home indicator). It sets `dialogBottom`, `dialogDragClose`, `dialogSmall`, `dialogAnimationBottom` and `dialogTopLevel` itself, and keeps what is written next to it: `dialogMedium` / `dialogFull` instead of `dialogSmall` (`dialogFull` for a sheet as wide as the screen), another `dialogAnimation*`, `modalContainerID` / `modalContainerPGS` instead of `dialogTopLevel`. `dialogLeft`, `dialogRight`, `dialogTop` and `dialogCenter` are not supported next to it.
 - `pgs-data` attribute + `pgs(el).data` accessor: the only home of `key[payload]` values.
 - `pgs.helper.*` (14 functions): the same utilities the modules use, for themes and projects (`roots`, `directChild(ren)`, `uniqueId`, `dispatch`, `rafThrottle`, `watchDocument`, `onDocumentReady`, `escapeHtml`, `formatText`, `warn`, `invalid`, plus `init`, `formValidate`).
 - `pgs(el).closest(token)`, `.state.querySelector/closest`, `.option.querySelector/closest`: no hand-written attribute selector needed in project code.
