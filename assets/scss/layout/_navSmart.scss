@@ -8,16 +8,15 @@
 //# NAVSMART
 :is([pgs~="navSmart"], [pgs*="navSmart\5B"]) {
     --navSmart-gap: .8rem;
-    // the distance from the edges of the screen: the page's own padding on a site, and
-    // --navSmart-edgePWA when it runs installed as an app (see below)
     --navSmart-edgePWA: 2.0rem;
     --navSmart-edge: calc(var(--page-padding) / 2);
     --navSmart-itemMinWidth: 7.2rem;
-    --navSmart-iconSize: 2.2rem;
-    --navSmart-itemHeight: 4.9rem;
+    --navSmart-iconSize: 2.8rem;
+    --navSmart-itemHeight: 5.5rem;
+    --navSmart-edgeHomeIndicator: 2.1rem;
     position: fixed;
     inset-inline: 0;
-    bottom: calc(var(--navSmart-edge) + env(safe-area-inset-bottom, 0px));
+    bottom: max(var(--navSmart-edge), min(env(safe-area-inset-bottom, 0px), var(--navSmart-edgeHomeIndicator)));
     z-index: var(--zIndex-navSmart);
     display: flex;
     justify-content: center;
@@ -70,13 +69,11 @@
         // have min-width: 0 so that this is the only floor. An icon-only item is a square and keeps its
         // size. The button fills what holds it
         :where(li, [pgs~="modal"], [pgs*="modal\5B"]):not(dialog *):has(> [pgs*="'btnForNavSmart'"]:not([pgs*="'btnIconOnly'"])),
-        > [pgs*="'btnForNavSmart'"]:not([pgs*="'btnIconOnly'"]) {
+        >[pgs*="'btnForNavSmart'"]:not([pgs*="'btnIconOnly'"]) {
             width: var(--navSmart-itemMinWidth);
             min-width: min-content;
         }
 
-        :where(li, [pgs~="modal"], [pgs*="modal\5B"]) > [pgs*="'btnForNavSmart'"]:not([pgs*="'btnIconOnly'"]) {
-            flex: 1 1 auto;
-        }
+        :where(li, [pgs~="modal"], [pgs*="modal\5B"])>[pgs*="'btnForNavSmart'"]:not([pgs*="'btnIconOnly'"]) { flex: 1 1 auto; }
     }
 }

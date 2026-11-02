@@ -221,13 +221,12 @@
     --button-size: .35rem;
     --button-height: auto;
     --button-fontSize: 1.1rem;
-    --button-borderWidth: 0px;
     --button-borderRadius: 999px;
     --button-gap: .2rem;
     --icon-size: var(--navSmart-iconSize, 2.2rem);
     min-height: var(--navSmart-itemHeight, auto);
     white-space: nowrap;
-
+    font-weight: var(--font-weight-text);
 
     &[pgs*="'btnIconOnly'"] {
         min-width: 100%;

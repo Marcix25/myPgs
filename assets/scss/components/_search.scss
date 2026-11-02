@@ -33,7 +33,17 @@
     }
 
     // the input draws no outline of its own (it would be cut by the rounded corners), the form carries the ring
-    &:has(> input:focus-visible) { @include focusRing(); }
+    &:has(> input:focus-visible) {
+        @include focusRing();
+
+        // the list lies out of the form, so the ring of the form stops at its bottom edge: the list takes
+        // the same ring and the two read as one. The list paints over the bottom of the form's ring, and
+        // the clip-path trims the top of its own, which would otherwise draw a line across the seam
+        :where([pgs~="search-suggestions"]) {
+            @include focusRing();
+            clip-path: inset(0 -10px -10px);
+        }
+    }
 
     >:where(input) {
         border: 0;
