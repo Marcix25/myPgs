@@ -1613,12 +1613,12 @@
   --button-size: .35rem;
   --button-height: auto;
   --button-fontSize: 1.1rem;
-  --button-borderWidth: 0px;
   --button-borderRadius: 999px;
   --button-gap: .2rem;
   --icon-size: var(--navSmart-iconSize, 2.2rem);
   min-height: var(--navSmart-itemHeight, auto);
   white-space: nowrap;
+  font-weight: var(--font-weight-text);
 }
 
 :is([pgs~=button], [pgs*="button["]):where([pgs*="'btnForNavSmart'"])[pgs*="'btnIconOnly'"] {
@@ -3154,6 +3154,10 @@
     min-width: var(--slides-width-mobile);
   }
 }
+:is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-arrows]) {
+  display: contents;
+}
+
 :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-prev]),
 :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-next]) {
   position: relative;
@@ -3175,21 +3179,20 @@
   margin-top: var(--slides-arrowsSpace);
 }
 
-:is([pgs~=slides], [pgs*="slides["]):not(:has([pgs~=slides-prev], [pgs~=slides-next])):not([pgs*="'slidesArrowsCenter'"]) :where([pgs~=_slides-prev]),
-:is([pgs~=slides], [pgs*="slides["]):not(:has([pgs~=slides-prev], [pgs~=slides-next])):not([pgs*="'slidesArrowsCenter'"]) :where([pgs~=_slides-next]) {
+:is([pgs~=slides], [pgs*="slides["]):not(:has([pgs~=slides-prev], [pgs~=slides-next])):not([pgs*="'slidesArrowsCenter'"]) :where([pgs~=_slides-arrows]) {
   position: absolute;
   top: 0;
+  right: 10px;
+  z-index: 4;
+  display: flex;
+  gap: var(--gap-texts);
+}
+
+:is([pgs~=slides], [pgs*="slides["]):not(:has([pgs~=slides-prev], [pgs~=slides-next])):not([pgs*="'slidesArrowsCenter'"]) :where([pgs~=_slides-prev]),
+:is([pgs~=slides], [pgs*="slides["]):not(:has([pgs~=slides-prev], [pgs~=slides-next])):not([pgs*="'slidesArrowsCenter'"]) :where([pgs~=_slides-next]) {
   margin: unset;
   inline-size: var(--slides-arrowSize);
   block-size: var(--slides-arrowSize);
-}
-
-:is([pgs~=slides], [pgs*="slides["]):not(:has([pgs~=slides-prev], [pgs~=slides-next])):not([pgs*="'slidesArrowsCenter'"]) :where([pgs~=_slides-next]) {
-  right: 10px;
-}
-
-:is([pgs~=slides], [pgs*="slides["]):not(:has([pgs~=slides-prev], [pgs~=slides-next])):not([pgs*="'slidesArrowsCenter'"]) :where([pgs~=_slides-prev]) {
-  right: calc(10px + var(--slides-arrowSize) + var(--gap-texts));
 }
 
 :is([pgs~=slides], [pgs*="slides["]):not([pgs*="'slidesNotDots'"], :has([pgs~=slides-dots])) {
@@ -3219,7 +3222,7 @@
     transition: all 300ms;
   }
 }
-:is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-dots-dot]) {
+:is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-dots]) :where([pgs~=_slides-dots-dot]) {
   width: 1.5rem;
   aspect-ratio: 1;
   border-radius: 999px;
@@ -3231,15 +3234,19 @@
   margin-block: auto;
 }
 
-:is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-dots-dot])[pgs-state~=active] {
+:is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-dots]) :where([pgs~=_slides-dots-dot])[pgs-state~=active] {
   background-color: var(--current-color);
 }
 
 @media (hover: hover) and (pointer: fine) {
-  :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-dots-dot]):hover {
+  :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-dots]) :where([pgs~=_slides-dots-dot]):hover {
     background-color: var(--hover-background);
   }
 }
+:is([pgs~=slides], [pgs*="slides["]):where([pgs*="'slidesEdge'"]):not([pgs*="'slidesArrowsCenter'"]) :where([pgs~=_slides-arrows]) {
+  margin-right: max(0px, (100% - var(--page-width)) / 2);
+}
+
 :is([pgs~=slides], [pgs*="slides["]):where([pgs*="'slidesEdge'"]) :where([pgs~=slides-container]) {
   padding-inline: var(--page-padding);
 }
@@ -3256,20 +3263,29 @@
   flex-direction: column;
 }
 
+:is([pgs~=slides], [pgs*="slides["]):where([pgs*="'slidesArrowsCenter'"]) :where([pgs~=_slides-arrows]) {
+  position: absolute;
+  top: 0;
+  inset-inline: 0.4rem;
+  height: var(--_slides-height, 100%);
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
 :is([pgs~=slides], [pgs*="slides["]):where([pgs*="'slidesArrowsCenter'"]) :where([pgs~=_slides-prev]),
 :is([pgs~=slides], [pgs*="slides["]):where([pgs*="'slidesArrowsCenter'"]) :where([pgs~=_slides-next]) {
-  position: absolute;
-  top: calc(var(--_slides-height, 100%) / 2);
-  translate: 0 -50%;
   margin: unset;
+  pointer-events: auto;
 }
 
 :is([pgs~=slides], [pgs*="slides["]):where([pgs*="'slidesArrowsCenter'"]) :where([pgs~=_slides-prev]) {
-  left: 0.4rem;
+  margin-right: auto;
 }
 
 :is([pgs~=slides], [pgs*="slides["]):where([pgs*="'slidesArrowsCenter'"]) :where([pgs~=_slides-next]) {
-  right: 0.4rem;
+  margin-left: auto;
 }
 
 :is([pgs~=slides], [pgs*="slides["]):where([pgs*="'slidesFullWidth'"]) {
@@ -3937,6 +3953,11 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 :is([pgs~=search], [pgs*="search["]):has(> input:focus-visible) {
   outline: var(--focus-visible);
+}
+
+:is([pgs~=search], [pgs*="search["]):has(> input:focus-visible) :where([pgs~=search-suggestions]) {
+  outline: var(--focus-visible);
+  clip-path: inset(0 -10px -10px);
 }
 
 :is([pgs~=search], [pgs*="search["]) > :where(input) {
@@ -6732,11 +6753,12 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   --navSmart-edgePWA: 2.0rem;
   --navSmart-edge: calc(var(--page-padding) / 2);
   --navSmart-itemMinWidth: 7.2rem;
-  --navSmart-iconSize: 2.2rem;
-  --navSmart-itemHeight: 4.9rem;
+  --navSmart-iconSize: 2.8rem;
+  --navSmart-itemHeight: 5.5rem;
+  --navSmart-edgeHomeIndicator: 2.1rem;
   position: fixed;
   inset-inline: 0;
-  bottom: calc(var(--navSmart-edge) + env(safe-area-inset-bottom, 0px));
+  bottom: max(var(--navSmart-edge), min(env(safe-area-inset-bottom, 0px), var(--navSmart-edgeHomeIndicator)));
   z-index: var(--zIndex-navSmart);
   display: flex;
   justify-content: center;

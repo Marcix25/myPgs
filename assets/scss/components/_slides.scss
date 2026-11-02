@@ -75,6 +75,10 @@
     :where([pgs~="slides-prev"]),
     :where([pgs~="slides-next"]) {}
 
+    // the wrapper of the generated arrows has no box of its own unless one of the rules below gives it one:
+    // its buttons are then laid out as the flex items of the slides, like a hand-written pair would be
+    :where([pgs~="_slides-arrows"]) { display: contents; }
+
     // the arrows a hand-written pair leaves in the flow: one line above the track, at the right
     :where([pgs~="_slides-prev"]),
     :where([pgs~="_slides-next"]) {
@@ -87,23 +91,28 @@
     }
 
     // the generated arrows are built by the module after the page has loaded, so a line of their own
-    // in the flow would push everything down at that moment. They are laid at the top right out of the
-    // flow instead, and the track keeps the room they need from the first paint. Not for a hand-written
-    // arrow (the author's, it stays in the flow) nor for slidesArrowsCenter (it lays them over the slides)
+    // in the flow would push everything down at that moment. Their wrapper is laid at the top right out
+    // of the flow instead, and the track keeps the room they need from the first paint. Not for a
+    // hand-written arrow (the author's, it stays in the flow) nor for slidesArrowsCenter (it lays them
+    // over the slides)
     &:not(:has([pgs~="slides-prev"], [pgs~="slides-next"])):not([pgs*="'slidesArrowsCenter'"]) {
         :where([pgs~="slides-container"]) { margin-top: var(--slides-arrowsSpace); }
 
-        :where([pgs~="_slides-prev"]),
-        :where([pgs~="_slides-next"]) {
+        :where([pgs~="_slides-arrows"]) {
             position: absolute;
             top: 0;
+            right: 10px;
+            z-index: 4;
+            display: flex;
+            gap: var(--gap-texts);
+        }
+
+        :where([pgs~="_slides-prev"]),
+        :where([pgs~="_slides-next"]) {
             margin: unset;
             inline-size: var(--slides-arrowSize);
             block-size: var(--slides-arrowSize);
         }
-
-        :where([pgs~="_slides-next"]) { right: 10px; }
-        :where([pgs~="_slides-prev"]) { right: calc(10px + var(--slides-arrowSize) + var(--gap-texts)); }
     }
 
     //## DOTS
@@ -123,7 +132,7 @@
         gap: 0.5rem;
     }
 
-    // only the generated row is taken out of the flow and laid under the slides
+    // the module tags every child of the row, a hand-written one included, with _slides-dots-dot
     :where([pgs~="_slides-dots"]) {
         width: 80%;
         margin-top: 1px;
@@ -134,27 +143,26 @@
         transform: translateY(calc(100% + var(--gap-texts)));
 
         @media (prefers-reduced-motion: no-preference) { transition: all 300ms; }
-    }
 
-    // the module tags every child of the row, a hand-written one included, with _slides-dots-dot
-    :where([pgs~="_slides-dots-dot"]) {
-        width: 1.5rem;
-        aspect-ratio: 1;
-        border-radius: 999px;
-        border: var(--border-complete);
-        border-color: var(--clickable-borderColor);
-        cursor: pointer;
-        background-color: var(--clickable-background);
-        transition: var(--clickable-transition);
-        margin-block: auto;
+        :where([pgs~="_slides-dots-dot"]) {
+            width: 1.5rem;
+            aspect-ratio: 1;
+            border-radius: 999px;
+            border: var(--border-complete);
+            border-color: var(--clickable-borderColor);
+            cursor: pointer;
+            background-color: var(--clickable-background);
+            transition: var(--clickable-transition);
+            margin-block: auto;
 
-        &[pgs-state~="active"] { background-color: var(--current-color); }
+            &[pgs-state~="active"] { background-color: var(--current-color); }
 
-        // unguarded, a tap on iOS/mobile Safari simulates a persistent :hover after release —
-        // same specificity as the active rule above it, so the sticky hover would win by
-        // source order and the dot would never look active on a touch device
-        @media (hover: hover) and (pointer: fine) {
-            &:hover { background-color: var(--hover-background); }
+            // unguarded, a tap on iOS/mobile Safari simulates a persistent :hover after release —
+            // same specificity as the active rule above it, so the sticky hover would win by
+            // source order and the dot would never look active on a touch device
+            @media (hover: hover) and (pointer: fine) {
+                &:hover { background-color: var(--hover-background); }
+            }
         }
     }
 
@@ -165,6 +173,8 @@
     // margin of the first and the last keeps them on the column above it. A % margin counts the width inside
     // the padding, which is why it is (100% - page-width) / 2 and not --page-edge, that counts the padding too
     &:where([pgs*="'slidesEdge'"]) {
+        &:not([pgs*="'slidesArrowsCenter'"]) :where([pgs~="_slides-arrows"]) { margin-right: max(0px, calc((100% - var(--page-width)) / 2)); }
+
         :where([pgs~="slides-container"]) {
             padding-inline: var(--page-padding);
 
@@ -177,20 +187,31 @@
 
     //+ slidesArrowsCenter
     // the generated arrows go back to lying over the slides, one on each side, at the middle of
-    // the height of the track (--_slides-height, measured by the module); the root is a column again
+    // the height of the track (--_slides-height, measured by the module); the root is a column again.
+    // Their wrapper covers the track and lets the clicks through, so only the buttons take them; each
+    // one pushes itself to its side, which also holds when only one of the two is generated
     &:where([pgs*="'slidesArrowsCenter'"]) {
         flex-direction: column;
 
-        :where([pgs~="_slides-prev"]),
-        :where([pgs~="_slides-next"]) {
+        :where([pgs~="_slides-arrows"]) {
             position: absolute;
-            top: calc(var(--_slides-height, 100%) / 2);
-            translate: 0 -50%;
-            margin: unset;
+            top: 0;
+            inset-inline: .4rem;
+            height: var(--_slides-height, 100%);
+            z-index: 4;
+            display: flex;
+            align-items: center;
+            pointer-events: none;
         }
 
-        :where([pgs~="_slides-prev"]) { left: .4rem; }
-        :where([pgs~="_slides-next"]) { right: .4rem; }
+        :where([pgs~="_slides-prev"]),
+        :where([pgs~="_slides-next"]) {
+            margin: unset;
+            pointer-events: auto;
+        }
+
+        :where([pgs~="_slides-prev"]) { margin-right: auto; }
+        :where([pgs~="_slides-next"]) { margin-left: auto; }
     }
 
     //+ option for suggestions

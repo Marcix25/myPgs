@@ -21,12 +21,24 @@ class PGS_Slides {
 
         //## BUTTONS
         // a hand-written button keeps the bare name; a generated one gets the underscore, so
-        // the check below has to look for either
-        if (!pgs(EL).querySelector(['slides-prev', '_slides-prev'])) {
-            EL.insertAdjacentHTML("afterbegin", `<button pgs="_slides-prev button['btnIconOnly' 'btnMini']" type="button" aria-label="Previous slide"> <i pgs="icon['icon-chevronDown'] rotate['rot90']"></i></button>`);
-        }
-        if (!pgs(EL).querySelector(['slides-next', '_slides-next'])) {
-            EL.insertAdjacentHTML("beforeend", `<button pgs="_slides-next button['btnIconOnly' 'btnMini']" type="button" aria-label="Next slide"> <i pgs="icon['icon-chevronDown'] rotate['rot270']"></i></button>`);
+        // the check below has to look for either. The ones that are generated go in one wrapper, so the
+        // stylesheet places a pair and not two loose buttons: it is made the first time one is needed, and
+        // found again after a destroy() and a new init()
+        const needsPrev = !pgs(EL).querySelector(['slides-prev', '_slides-prev']);
+        const needsNext = !pgs(EL).querySelector(['slides-next', '_slides-next']);
+
+        if (needsPrev || needsNext) {
+            let arrows = pgs(EL).querySelector('_slides-arrows');
+            if (!arrows) {
+                EL.insertAdjacentHTML("afterbegin", `<div pgs="_slides-arrows"></div>`);
+                arrows = pgs(EL).querySelector('_slides-arrows');
+            }
+            if (needsPrev) {
+                arrows.insertAdjacentHTML("afterbegin", `<button pgs="_slides-prev button['btnIconOnly' 'btnMini']" type="button" aria-label="Previous slide"> <i pgs="icon['icon-chevronDown'] rotate['rot90']"></i></button>`);
+            }
+            if (needsNext) {
+                arrows.insertAdjacentHTML("beforeend", `<button pgs="_slides-next button['btnIconOnly' 'btnMini']" type="button" aria-label="Next slide"> <i pgs="icon['icon-chevronDown'] rotate['rot270']"></i></button>`);
+            }
         }
 
         //## DOTS
