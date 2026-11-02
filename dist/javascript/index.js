@@ -2009,8 +2009,15 @@ function initializeModal(MODAL) {
     // options land on _dialog instead, a second, pgs-generated-only token on the same <dialog>
     // element that exists purely to carry them (see AGENTS-DEVELOPMENT.md).
     (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).add("modal-dialog", "_dialog");
+    // modalSheet is a bottom sheet: at the bottom, as wide as the screen, entering from the bottom and pulled
+    // down to close. It writes those options itself, so each one is merged below like an authored one; an
+    // animation the author chose is kept instead of dialogAnimationBottom
+    if ([MODAL, DIALOG].some(element => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).option.contains("modalSheet"))) {
+        for (const key of ["dialogBottom", "dialogFull", "dialogDragClose"]) (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(MODAL).add(`modal['${key}']`);
+        if (![MODAL, DIALOG].some(element => ANIMATIONS.some(key => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).option.contains(key)))) (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(MODAL).add("modal['dialogAnimationBottom']");
+    }
     for (const key of [
-        "dialogHistory", "dialogTopLevel", "dialogDisableBackdropClose", "dialogDragClose", "dialogSmall", "dialogMedium",
+        "modalSheet", "dialogHistory", "dialogTopLevel", "dialogDisableBackdropClose", "dialogDragClose", "dialogSmall", "dialogMedium",
         ...ANIMATIONS, "dialogFull", "dialogCenter", "dialogLeft", "dialogRight", "dialogTop", "dialogBottom"
     ]) {
         const source = [MODAL, DIALOG].find(element => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).option.contains(key));

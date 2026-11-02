@@ -1058,7 +1058,8 @@
             "dialogRight",
             "dialogSmall",
             "dialogTop",
-            "dialogTopLevel"
+            "dialogTopLevel",
+            "modalSheet"
         ],
         "pgs-data": [
             "modalContainerID",
