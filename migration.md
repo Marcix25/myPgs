@@ -308,6 +308,11 @@ Markers
 formValidate (helper) — see [Buttons and forms](#part-5-buttons-and-forms) for markup
 - Constructor `new pgs.helper.formValidate(form, { showSuccessOnValidate, alertContainer, message: {...} })`: `form` must be an Element (`TypeError`), `alertContainer` may now sit outside the form. Messages are read from the form's `pgs-data` (B2); `options.message` and library defaults only fill missing ones. Instance: `validate()`, `success(description, title)`, `validator(cb, eventName="submit")`, `addNewRule(fn)`, `temporaryFieldError.{set,remove,clear}`, `destroy()`. States set: `errorForm`, `errorField`, new `errorFieldset` (a failing radio/checkbox group, controls inside are not marked), new `errorLabel`.
 
+Modal and slides behavior
+- Modal: Escape now closes a modal that is not `dialogTopLevel`; opening a modal closes only the other modals of the library (`dialog[pgs~="modal-dialog"]`), not every `dialog[open]`, and not the one it is written inside of (a nested modal opens over its parent; closing the parent closes it; Escape closes the last opened); a `modal-button` that is an `<a href>` no longer follows the link; the click of the `modal-button`, of the close button and of the backdrop is no longer stopped (`stopImmediatePropagation` removed), so delegated or later listeners now hear it; a press that starts inside the panel and ends on the backdrop does not close it; `dialogHistory` replaces the entry on close instead of adding one, so Back after a close no longer reopens the modal.
+- Modal focus: the `modal-button` takes the focus before the dialog opens when a focusable ancestor holds it (Safari), so the focus returns to the button on close. The initial-focus landing loses its outline only with `tabindex="-1"` (the one the module adds); a `tabindex` written by hand keeps its focus ring.
+- Slides: `slide.focus()` after an arrow, a dot or `goTo` only when the focus was already inside the track.
+
 TypeScript (`dist/index.d.ts`: 176 -> 513 lines)
 - `export function pgs(...)` overloads -> `export const pgs: PgsFunction`.
 - Removed: `PgsBag`, `PgsFunction.registerImport`, `.import`, `.init`, `.cookieConsent`, `.scrollHorizontal`, `.formValidate` (module), `PgsOptionApi.getValueBrackets/setValueBrackets/value`, `PgsSearchInstance.refresh(): Promise`, `PgsSummaryInstance.refresh(): void`.

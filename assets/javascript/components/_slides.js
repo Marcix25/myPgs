@@ -121,7 +121,9 @@ class PGS_Slides {
             this.container.scrollTo({ left: this.container.scrollLeft + distanceFromCenter, behavior });
         }
 
-        slide.focus({ preventScroll: true });
+        // the focus follows the slide only when it was already in the track: an arrow or a dot that was
+        // used keeps it, so pressing it again with the keyboard goes on from where it is
+        if (this.container.contains(document.activeElement)) slide.focus({ preventScroll: true });
     }
 
     //## LOOP

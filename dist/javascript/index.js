@@ -1962,6 +1962,10 @@ const API = new WeakMap();
 // the dialog of every wrapper, because the dialog leaves its wrapper on init: a destroy() and a new init
 // of the same wrapper, or a refresh(), still find it
 const DIALOGS = new WeakMap();
+// the wrapper each dialog belongs to, to tell which modals are written inside another one's dialog
+const OWNERS = new WeakMap();
+// the dialogs that are open, the last one opened on top: Escape closes that one only
+const STACK = [];
 const ANIMATIONS = ["dialogAnimationZoom", "dialogAnimationLeft", "dialogAnimationRight", "dialogAnimationTop", "dialogAnimationBottom"];
 
 function initializeModal(MODAL) {
@@ -1974,6 +1978,7 @@ function initializeModal(MODAL) {
         return;
     }
     DIALOGS.set(MODAL, DIALOG);
+    OWNERS.set(DIALOG, MODAL);
     const eventController = new AbortController();
     const { signal } = eventController;
     let historyObserver = null;
@@ -1990,8 +1995,11 @@ function initializeModal(MODAL) {
     // first — often a plain nav link — look pre-selected. Move focus to the header instead
     // (its text is what a screen reader should announce on open), or the dialog itself when
     // there's no header; tabindex="-1" keeps it out of the normal tab order.
+    // a tabindex the author wrote stays as it is (and keeps its focus ring); the one added here is taken
+    // back by teardown
     const focusTarget = modalContentHeader || DIALOG;
-    if (!focusTarget.hasAttribute("tabindex")) focusTarget.setAttribute("tabindex", "-1");
+    const addedTabindex = !focusTarget.hasAttribute("tabindex");
+    if (addedTabindex) focusTarget.setAttribute("tabindex", "-1");
 
 
     //## MERGE OPTIONS
@@ -2185,7 +2193,8 @@ function initializeModal(MODAL) {
 
         start(e) {
             this.touch = null;
-            if (closing || e.touches.length !== 1 || !this.canStart(e.target)) return;
+            // a touch inside a modal written within this one is that modal's
+            if (closing || e.touches.length !== 1 || e.target.closest("dialog") !== DIALOG || !this.canStart(e.target)) return;
             const touch = e.touches[0];
             this.touch = { x: touch.clientX, y: touch.clientY, distance: 0, active: false, samples: [] };
         },
@@ -2243,22 +2252,31 @@ function initializeModal(MODAL) {
             // starts; none (reduced motion, or a theme that turns them off) closes at once
             const transitions = DIALOG.getAnimations({ subtree: true }).filter(animation => animation instanceof CSSTransition && [DIALOG, CONTENT].includes(animation.effect?.target));
             if (!transitions.length) return finishClose();
-            Promise.all(transitions.map(animation => animation.finished)).then(finishClose, () => { });
+            Promise.all(transitions.map(animation => animation.finished)).then(finishClose, abandonClose);
         },
     };
 
     //## FN OPEN
     function openModal(e) {
-        e?.stopImmediatePropagation();
         if (DIALOG.open) {
             closeModal(e);
             return;
         }
         closing = false;
 
-        document.querySelectorAll("dialog[open]").forEach((dlg) => dlg.close());
+        // only the other modals of the library give way: a dialog that is not one of them (a cookie notice, a
+        // panel of the page) is not this modal's to close, and neither is the one this modal is written
+        // inside of, which stays open under it
+        document.querySelectorAll("dialog[pgs~='modal-dialog'][open]").forEach((dlg) => { if (dlg !== DIALOG && !dlg.contains(MODAL)) dlg.close(); });
+        // the native close puts the focus back where it was when the dialog opened. A browser that gives a
+        // click to the closest focusable ancestor of the button (Safari, and Firefox on macOS: a <li tabindex="-1">
+        // in a slide) would put it back on that ancestor, with its focus ring; focused first, the button is what
+        // comes back
+        const active = document.activeElement;
+        if (BUTTON_OPEN && active !== BUTTON_OPEN && active?.contains(BUTTON_OPEN)) BUTTON_OPEN.focus({ preventScroll: true });
         statusModal(true);
         dialogTopLevel ? DIALOG.showModal() : DIALOG.show();
+        STACK.splice(0, STACK.length, ...STACK.filter(dialog => dialog !== DIALOG), DIALOG);
         // respect an explicit autofocus target inside the dialog when the author set one
         // preventScroll: the dialog is focused before the opening animation moves the panel off
         // screen, and Safari would scroll the dialog to follow it there
@@ -2269,16 +2287,16 @@ function initializeModal(MODAL) {
 
     //## FN CLOSE
     function closeModal(e) {
-        e?.stopImmediatePropagation()
         // a second request while the closing animation is still running changes nothing
         if (closing) return;
         statusModal(false);
         const animationOut = DIALOG.open ? animate("animationOut") : null;
         if (!animationOut) return finishClose();
         closing = true;
-        // a rejected promise means the animation was cancelled — by a native close removing
-        // the state — and whoever cancelled it already owns the dialog's state
-        animationOut.then(finishClose, () => { });
+        // a rejected promise means the animation was cancelled. A native close that removed the state
+        // already owns the dialog's state; anything else (the dialog hidden halfway, say) leaves it open
+        // and the request unanswered, so the close the visitor asked for is finished here
+        animationOut.then(finishClose, abandonClose);
     }
 
     function finishClose() {
@@ -2286,6 +2304,11 @@ function initializeModal(MODAL) {
         DIALOG.close();
         stopAnimation();
         dragClose.stop();
+    }
+
+    // the animation of a close was cancelled by something other than the dialog's own close
+    function abandonClose() {
+        if (closing && DIALOG.open) finishClose();
     }
 
     function forceOpen(e) {
@@ -2306,7 +2329,11 @@ function initializeModal(MODAL) {
 
 
     //# OPEN
-    BUTTON_OPEN?.addEventListener("click", (e) => openModal(e), { signal });
+    // a link that opens a modal does not also go where its href points
+    BUTTON_OPEN?.addEventListener("click", (e) => {
+        if (BUTTON_OPEN.matches("a[href]")) e.preventDefault();
+        openModal(e);
+    }, { signal });
     // preventDefault suppresses the native click a real <button>/<a> already fires for Enter/Space
     // on its own — without it, that native click ran right after this one and, finding the dialog
     // already open, toggled it straight back closed
@@ -2319,11 +2346,19 @@ function initializeModal(MODAL) {
     //# CLOSE
     // every way the dialog closes ends in this native event — the close button, the backdrop, Escape, a
     // drag, the browser's back button, or a plain dialog.close() — so pgs:modal:close goes out from here
+    // a modal written inside this dialog goes with it: its button is no longer on screen
+    function closeNested() {
+        const at = STACK.indexOf(DIALOG);
+        if (at !== -1) STACK.splice(at, 1);
+        document.querySelectorAll("dialog[pgs~='modal-dialog'][open]").forEach(dlg => { if (dlg !== DIALOG && DIALOG.contains(OWNERS.get(dlg))) dlg.close(); });
+    }
+
     DIALOG.addEventListener("close", () => {
         statusModal(false);
         closing = false;
         stopAnimation();
         dragClose.stop();
+        closeNested();
         dispatchModal(EVENT_CLOSE);
     }, { signal });
     // Escape on a showModal() dialog closes it natively, with no time left for the closing
@@ -2332,7 +2367,23 @@ function initializeModal(MODAL) {
         e.preventDefault();
         closeModal(e);
     }, { signal });
-    DIALOG.addEventListener("click", e => { if (e.target == DIALOG && !dialogDisableBackdropClose) closeModal(e) }, { signal });
+    // a click lands on the closest ancestor of where the press and the release happened: a press inside the
+    // panel (selecting text) released on the backdrop would be a click on the dialog. Only a press that
+    // also started on the backdrop closes it; a click with no press before it (a script, the keyboard) does
+    let pressTarget = null;
+    DIALOG.addEventListener("pointerdown", e => { pressTarget = e.target; }, { signal, capture: true });
+    // a dialog opened with show() does not get Escape from the browser (only showModal() does): the key is
+    // read here, wherever the focus is, unless something already used it
+    if (!dialogTopLevel) document.addEventListener("keydown", e => {
+        if (e.key !== "Escape" || e.defaultPrevented || !DIALOG.open || STACK.at(-1) !== DIALOG) return;
+        e.preventDefault();
+        closeModal(e);
+    }, { signal });
+    DIALOG.addEventListener("click", e => {
+        const pressedOnBackdrop = pressTarget === null || pressTarget === DIALOG;
+        pressTarget = null;
+        if (e.target == DIALOG && pressedOnBackdrop && !dialogDisableBackdropClose) closeModal(e);
+    }, { signal });
     BUTTON_CLOSE?.addEventListener("click", e => closeModal(e), { signal });
 
     //# DRAG CLOSE
@@ -2354,12 +2405,18 @@ function initializeModal(MODAL) {
             try {
                 const url = new URL(window.location.href);
                 const params = new URLSearchParams(url.search);
+                // the address says which modal is open: one that closes while it names another (this one
+                // closing because that one is opening) leaves it alone
+                if (!isOpen && params.get('modal') !== BUTTON_OPEN.id) return;
                 isOpen ? params.set('modal', BUTTON_OPEN.id) : params.delete('modal');
                 url.search = params.toString() ? `?${params.toString()}` : "";
                 // the address already says so when the change came from the history itself (back,
                 // forward, or a page loaded with ?modal=): a second entry would wipe the forward stack
                 if (url.href === window.location.href) return;
-                window.history.pushState({ modal: BUTTON_OPEN.id, open: isOpen }, "", url);
+                // opening adds an entry, so Back closes the modal; closing takes the address of that entry
+                // back instead of adding another, so Back after a close leaves the page instead of opening
+                // the modal again
+                window.history[isOpen ? "pushState" : "replaceState"]({ modal: BUTTON_OPEN.id, open: isOpen }, "", url);
             } catch (_) { }
         });
         historyObserver.observe(DIALOG, { attributes: true, attributeFilter: ["open"] });
@@ -2390,12 +2447,14 @@ function initializeModal(MODAL) {
         historyObserver?.disconnect();
         if (historyTimeout !== null) window.clearTimeout(historyTimeout);
         API.delete(MODAL);
+        if (addedTabindex) focusTarget.removeAttribute("tabindex");
 
         // the listeners are gone, so the close the dialog fires natively is announced here
         if (wasOpen) {
             closing = false;
             statusModal(false);
             DIALOG.close();
+            closeNested();
             dispatchModal(EVENT_CLOSE);
         }
 
@@ -3599,7 +3658,9 @@ class PGS_Slides {
             this.container.scrollTo({ left: this.container.scrollLeft + distanceFromCenter, behavior });
         }
 
-        slide.focus({ preventScroll: true });
+        // the focus follows the slide only when it was already in the track: an arrow or a dot that was
+        // used keeps it, so pressing it again with the keyboard goes on from where it is
+        if (this.container.contains(document.activeElement)) slide.focus({ preventScroll: true });
     }
 
     //## LOOP

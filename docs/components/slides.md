@@ -2,7 +2,7 @@
 
 # Slides
 
-A horizontal, scroll-snapped track of slides with its own arrows and position dots. It is the browser doing the scrolling: the module only watches which slides are in view, through an IntersectionObserver, and moves the track by whole slides when an arrow is used. The arrows step from the slide the snap is resting on, so a track showing three at a time advances by the one in the middle, and the two ends scroll all the way out rather than centering, which is what lines the first and last card up with the page content. Arrows, dots and their states are generated at the end of the component unless the markup already carries them, so writing any of the three yourself is how you place it elsewhere.
+A horizontal, scroll-snapped track of slides with its own arrows and position dots. It is the browser doing the scrolling: the module only watches which slides are in view, through an IntersectionObserver, and moves the track by whole slides when an arrow is used. The arrows step from the slide the snap is resting on, so a track showing three at a time advances by the one in the middle, and the two ends scroll all the way out rather than centering, which is what lines the first and last card up with the page content. Arrows, dots and their states are generated at the end of the component unless the markup already carries them, so writing any of the three yourself is how you place it elsewhere. Using an arrow or a dot does not move the focus: a slide is focused (it needs a tabindex) only when the focus was already inside the track, so pressing an arrow again with the keyboard goes on from the arrow.
 
 ## PGS
 
