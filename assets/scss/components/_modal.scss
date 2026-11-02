@@ -271,12 +271,14 @@
     &:where([pgs*="'dialogBottom'"]) { align-items: safe flex-end; }
 
     //+ SHEET
-    // a bottom sheet: _modal.js adds the options that put it at the bottom, as wide as the screen,
-    // entering from the bottom and pulled down to close (the grip is the one dialogDragClose draws). What is
-    // left here is the shape: edge to edge, round at the top only, flush with the bottom of the screen, and
-    // clear of the home indicator of a phone. A sheet covers the floating navSmart bar and the header, the
-    // way a sheet of the system covers the tab bar, so it stacks one above them; a dialog on the top layer
-    // (dialogTopLevel) is over everything already
+    // a bottom sheet: _modal.js adds the options that put it at the bottom, modal (the top layer), entering
+    // from the bottom and pulled down to close (the grip is the one dialogDragClose draws), and the width of
+    // dialogSmall unless the author chose dialogMedium or dialogFull: the panel keeps that max-width and the
+    // dialog centers it, and it is as wide as the screen where the screen is narrower. What is left here is the shape: round at the top only, flush with the bottom of the
+    // screen, clear of the home indicator of a phone. A sheet covers the floating navSmart bar and the header,
+    // the way a sheet of the system covers the tab bar: on the top layer it is over everything already, and
+    // the z-index is for a sheet moved into a container (modalContainerID, modalContainerPGS), which is not
+    // on it
     &:where([pgs*="'modalSheet'"]) {
         z-index: calc(max(var(--zIndex-navSmart), var(--zIndex-header)) + 1);
         padding-inline: 0;

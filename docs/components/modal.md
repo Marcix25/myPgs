@@ -32,7 +32,7 @@ A native dialog driven by the library. The dialog is moved out of its wrapper on
 - `dialogRight`: aligns the dialog content to the right edge of the viewport, instead of the horizontal center.
 - `dialogTop`: aligns the dialog content to the top of the viewport. This is already the default height, so it only changes anything when it replaces dialogBottom or dialogCenter, as a script that swaps position options does.
 - `dialogTopLevel`: leaves the dialog inside its wrapper and opens it with showModal(), on the browser's top layer above everything else, instead of moving it into a container and opening it with show().
-- `modalSheet`: makes the modal a bottom sheet, the way a phone shows one: the panel sits at the bottom of the screen, as wide as it, with only its top corners round and a grip above it, comes in from the bottom and is pulled down to close. It sets dialogBottom, dialogFull, dialogAnimationBottom (kept off when another dialogAnimation* is written) and dialogDragClose itself, so none of them is written next to it; it covers the floating navSmart bar and the header, the way a sheet of the system covers the tab bar, and its content is padded clear of a phone's home indicator.
+- `modalSheet`: makes the modal a bottom sheet, the way a phone shows one: the panel sits at the bottom of the screen with only its top corners round and a grip above it, comes in from the bottom and is pulled down to close, and it covers the floating navSmart bar and the header, the way a sheet of the system covers the tab bar. It has the width of dialogSmall, centered (a third of the page, and the whole screen where the screen is narrower); dialogMedium makes it wider and dialogFull makes it as wide as the screen. It is modal (it sets dialogTopLevel: showModal(), a backdrop and the top layer, so a scroller around the button, a slide for one, never clips it), and it sets dialogBottom, dialogDragClose, dialogSmall and dialogAnimationBottom itself, so none of them is written next to it. What the author writes next to it is kept: dialogMedium or dialogFull instead of dialogSmall, another dialogAnimation* instead of dialogAnimationBottom, and modalContainerID or modalContainerPGS instead of dialogTopLevel (the dialog is then moved into that container, as for any modal, and sits above navSmart and the header by z-index). dialogDisableBackdropClose and dialogHistory work as on any modal. Not supported next to it: dialogLeft, dialogRight, dialogTop and dialogCenter, which move the panel away from the bottom edge. Its bottom corners stay square and its content is padded clear of a phone's home indicator.
 - `dialogAnimationZoom`: grows the panel out of the modal-button that opened it and shrinks it back into the button on close, with the backdrop fading alongside; the animation lives in the stylesheet, tuned by --modal-animation-timing and --modal-animation-easing and turned off under prefers-reduced-motion, while the module only measures the button and the panel; it is skipped when there is no visible button to zoom from.
 - `dialogAnimationLeft`: slides the panel in from the left edge of the screen and back out to it on close, with the backdrop fading alongside; timing, curve and reduced motion as dialogAnimationZoom. Use one dialogAnimation* option at a time.
 - `dialogAnimationRight`: slides the panel in from the right edge of the screen and back out to it on close, like dialogAnimationLeft.
@@ -472,7 +472,7 @@ On a touch screen, pull the panel down to close it, using pgs=&quot;modal['dialo
 
 ### Bottom sheet
 
-A bottom sheet in one option, using pgs=&quot;modal['modalSheet']&quot;: at the bottom of the screen, as wide as it, round at the top, from the bottom and pulled down to close.
+A bottom sheet in one option, using pgs=&quot;modal['modalSheet']&quot;: at the bottom of the screen, the width of dialogSmall and centered, round at the top, from the bottom and pulled down to close.
 
 ```html
 <div pgs="modal['modalSheet']">
@@ -488,6 +488,30 @@ A bottom sheet in one option, using pgs=&quot;modal['modalSheet']&quot;: at the 
 
             <div pgs="modal-dialog-content-scroll">
                 <p>Modal content with <code>pgs="modal['modalSheet']"</code>.</p>
+            </div>
+        </div>
+    </dialog>
+</div>
+```
+
+### Bottom sheet, full width
+
+The size chosen by the author is kept, using pgs=&quot;modal['modalSheet' 'dialogFull']&quot;: the sheet is as wide as the screen. With dialogMedium it keeps that max-width, centered at the bottom; on a narrow screen every size fills it.
+
+```html
+<div pgs="modal['modalSheet' 'dialogFull']">
+    <button pgs="modal-button button" type="button">
+        Open full-width sheet
+    </button>
+
+    <dialog>
+        <div pgs="modal-dialog-content">
+            <div pgs="modal-dialog-content-header">
+                <h3>Full-width sheet</h3>
+            </div>
+
+            <div pgs="modal-dialog-content-scroll">
+                <p>Modal content with <code>pgs="modal['modalSheet' 'dialogFull']"</code>.</p>
             </div>
         </div>
     </dialog>
