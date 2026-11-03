@@ -211,10 +211,7 @@
 
             // the content never starts above the header height, which is where the sidebar sticks: a
             // smaller --pageShell-offsetTop would otherwise leave the sidebar lower than the content
-            :where([pgs~="pageShell-content"]) {
-                padding-top: max(var(--pageShell-offsetTop), var(--pageShell-asideScroll-top));
-                min-height: 100dvh;
-            }
+            :where([pgs~="pageShell-content"]) { padding-top: max(var(--pageShell-offsetTop), var(--pageShell-asideScroll-top)); }
         }
     }
 

@@ -260,6 +260,8 @@ declare global {
     label?: string;
     value?: string | number;
     disabled?: boolean;
+    /** Markup of the item's own icon, inserted as HTML in place of searchIconSuggestion: never put remote text in it. */
+    icon?: string;
     data?: unknown;
   };
 
@@ -267,6 +269,8 @@ declare global {
     label: string;
     value: string;
     disabled: boolean;
+    /** The item's own icon markup, an empty string when it has none. */
+    icon: string;
     data: unknown;
   }
 

@@ -3100,7 +3100,7 @@ const Search = {
     normalizeItem(item) {
         if (typeof item === "string" || typeof item === "number") {
             const value = String(item).trim();
-            return value ? { label: value, value, disabled: false, data: item } : null;
+            return value ? { label: value, value, disabled: false, icon: "", data: item } : null;
         }
 
         if (!item || typeof item !== "object") return null;
@@ -3112,6 +3112,8 @@ const Search = {
             label,
             value: String(item.value ?? label),
             disabled: Boolean(item.disabled),
+            // markup of the item's own icon, written by the author's source: it replaces searchIconSuggestion for this item
+            icon: typeof item.icon === "string" ? item.icon.trim() : "",
             data: Object.prototype.hasOwnProperty.call(item, "data") ? item.data : item,
         };
     },
@@ -3275,8 +3277,9 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
             option.setAttribute("role", "option");
             option.setAttribute("aria-selected", "false");
             option.setAttribute("aria-disabled", String(item.disabled));
-            // the icon is markup the author wrote; the label comes from the source, which can be remote
-            option.innerHTML = Search.suggestionIcon(search) + _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.escapeHtml(item.label);
+            // the icon is markup the author wrote (the item's own, or the one of the search); the label comes
+            // from the source, which can be remote
+            option.innerHTML = (item.icon || Search.suggestionIcon(search)) + _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.escapeHtml(item.label);
             fragment.append(option);
 
         });

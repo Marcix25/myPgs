@@ -7,6 +7,8 @@
     --search-background: var(--color-box);
     --search-color: var(--color-black);
     --search-border: var(--border-width) var(--border-color) var(--border-style);
+    --search-borderWidth: 0rem;
+    --search-borderColor: var(--border-color);
     --search-suggestions-offset: 0rem;
     --search-suggestions-padding: .5rem;
     --search-suggestions-maxHeight: 70vh;
@@ -23,6 +25,7 @@
     width: 100%;
     overflow: visible;
     border-radius: var(--search-borderRadius);
+    border: var(--search-borderWidth) var(--border-style) var(--search-borderColor);
     padding: 0;
     background-color: var(--search-background);
     color: var(--search-color);
@@ -77,10 +80,13 @@
         }
     }
 
+    // the outline of the form (--search-borderWidth) goes on round the list: an absolute box is placed
+    // inside the border of the form, so the list is pulled out by the same width on both sides and lies
+    // over the bottom border, where its border-top (--search-border) is the line between the two
     :where([pgs~="search-suggestions"]) {
         display: none;
         position: absolute;
-        inset: calc(100% + var(--search-suggestions-offset)) 0 auto;
+        inset: calc(100% + var(--search-suggestions-offset)) calc(var(--search-borderWidth) * -1) auto;
         z-index: var(--zIndex-search);
         flex-direction: column;
         max-height: var(--search-suggestions-maxHeight);
@@ -89,6 +95,7 @@
         border-radius: var(--search-borderRadius);
         margin: 0;
         list-style: none;
+        border: var(--search-borderWidth) var(--border-style) var(--search-borderColor);
         border-top: var(--search-border);
         border-top-right-radius: 0;
         border-top-left-radius: 0;

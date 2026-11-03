@@ -2,7 +2,7 @@
 
 # Search
 
-Search markup, configuration, behavior, and usage example. Two custom events bubble from the search root: pgs:search:select when a suggestion is chosen (detail: element, item, index, value, input) and pgs:search:error when the source rejects (detail: element, error, query), which also adds the error state. An aborted request is not an error and dispatches nothing. The label of a suggestion is escaped, so a source can return any text. Leaving the field with Tab, or pressing outside the search, closes the list and cancels the pending debounce and the request in flight, so the list cannot open again afterwards. A search with no input[type=search] or no search-suggestions list as a direct child is left alone, with a warning in the console.
+Search markup, configuration, behavior, and usage example. Two custom events bubble from the search root: pgs:search:select when a suggestion is chosen (detail: element, item, index, value, input) and pgs:search:error when the source rejects (detail: element, error, query), which also adds the error state. An aborted request is not an error and dispatches nothing. The label of a suggestion is escaped, so a source can return any text. An object item can carry its own icon, as icon: markup, shown before its label in place of searchIconSuggestion; that markup is inserted as HTML, so it must be written by the author, never taken from remote text. Leaving the field with Tab, or pressing outside the search, closes the list and cancels the pending debounce and the request in flight, so the list cannot open again afterwards. A search with no input[type=search] or no search-suggestions list as a direct child is left alone, with a warning in the console.
 
 ## PGS
 
@@ -23,7 +23,7 @@ Search markup, configuration, behavior, and usage example. Two custom events bub
 
 - `searchPlaceholder`: overrides the placeholder message shown below minLength, as searchPlaceholder[your text]. Write {minLength} in it to insert the configured minLength; defaults to "Type at least {minLength} characters".
 - `searchNoResults`: overrides the message shown when a search returns no items, as searchNoResults[your text]. Defaults to "No results found".
-- `searchIconSuggestion`: overrides the markup shown before each suggestion's label, as searchIconSuggestion[your markup]. Defaults to a magnifying glass icon.
+- `searchIconSuggestion`: overrides the markup shown before each suggestion's label, as searchIconSuggestion[your markup]. Defaults to a magnifying glass icon. An item with its own icon (icon: markup in the source) shows that one instead.
 
 ## PGS States
 
@@ -73,6 +73,7 @@ Search markup, configuration, behavior, and usage example. Two custom events bub
 - `btnIconOnly`: presents search and close actions as icon buttons.
 - `btnTransparent`: keeps the submit button flat inside the field, so only the icon shows.
 - `icon-magnifyingGlass`: the glyph used there.
+- `icon-check`: the glyph of the one item with its own icon in the example script.
 - `icon-close`: the cross that dismisses.
 
 ### PGS Data
@@ -87,7 +88,9 @@ Search markup, configuration, behavior, and usage example. Two custom events bub
 
 - `--search-background`
 - `--search-border`
+- `--search-borderColor`
 - `--search-borderRadius`
+- `--search-borderWidth`
 - `--search-color`
 - `--search-height`
 - `--search-paddingBlock`
